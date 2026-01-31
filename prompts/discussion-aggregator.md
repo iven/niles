@@ -1,11 +1,11 @@
 # 任务：讨论聚合源抓取
 
-你需要从讨论聚合类网站（如 Hacker News）抓取内容并生成 RSS。
+你需要从讨论聚合类网站（如 Hacker News、Reddit 等）抓取内容并生成 RSS。
 
 ## 输入参数（环境变量）
 
-- `SOURCE_NAME`: 源名称（如 hacker-news）
-- `SOURCE_URL`: 源 URL
+- `SOURCE_NAME`: 源名称
+- `SOURCE_URL`: 源 URL 或 API 地址
 - `TOP_ITEMS`: 抓取前 N 条热门帖子
 - `INTERESTS_TOPICS`: 感兴趣的主题（逗号分隔）
 - `INTERESTS_EXCLUDE`: 排除的主题（逗号分隔）
@@ -14,44 +14,26 @@
 
 ### 1. 获取帖子列表
 
-**使用 Hacker News API：**
+根据 SOURCE_URL 判断网站类型，使用适当的方法获取前 TOP_ITEMS 条热门帖子。
 
-SOURCE_URL 是 Hacker News API 基础地址（`https://hacker-news.firebaseio.com/v0`）。
-
-步骤：
-1. 访问 `{SOURCE_URL}/topstories.json` 获取热门帖子 ID 列表
-2. 取前 TOP_ITEMS 个 ID
-3. 对每个 ID，访问 `{SOURCE_URL}/item/{id}.json` 获取帖子详情
-
-从 API 提取信息：
-- `title`: 标题
-- `url`: 原文链接
-- `id`: 帖子 ID（用于构建 HN 讨论链接：`https://news.ycombinator.com/item?id={id}`）
-- `score`: 分数
-- `by`: 作者
-- `time`: 发布时间（Unix 时间戳）
-- `descendants`: 评论数量
-- `kids`: 评论 ID 列表
+需要提取的信息：
+- 标题
+- 原文链接
+- 讨论页面链接
+- 分数/热度
+- 作者
+- 发布时间
+- 评论数量
 
 ### 2. 基于标题 AI 筛选
 
-**筛选规则（宽松策略）：**
-
-对每个帖子按以下顺序判断：
-1. **优先排除**：如果标题与 INTERESTS_EXCLUDE 中的任何主题相关 → 排除
-2. **保留其他**：其他所有帖子都保留
-3. **优先级排序**：匹配 INTERESTS_TOPICS 的帖子排在前面
-
-**输出要求：**
-- 输出筛选理由（用于调试）
-- 对每个帖子标注是否匹配感兴趣主题
+遵循 `prompts/common/filtering.md` 中定义的筛选规则。
 
 ### 3. 抓取原文和评论
 
 对每个筛选通过的帖子：
-- 访问原文链接（`url` 字段），提取主要内容
-- 使用 `kids` 字段中的评论 ID，递归访问 `{SOURCE_URL}/item/{comment_id}.json` 获取评论
-  - 每个评论可能有 `kids` 子评论
+- 访问原文链接，提取主要内容
+- 访问讨论页面，获取评论内容
   - 优先抓取顶层评论和高分评论
 
 ### 4. 生成摘要
@@ -62,57 +44,41 @@ SOURCE_URL 是 Hacker News API 基础地址（`https://hacker-news.firebaseio.co
 
 ### 5. 生成 RSS
 
+遵循 `prompts/common/incremental-update.md` 中定义的增量更新策略。
+
+遵循 `prompts/common/rss-format.md` 中定义的基础格式。
+
 输出到 `output/SOURCE_NAME.xml`。
 
-RSS 格式：
+**条目内容（`<item>`）：**
+
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Hacker News - 精选</title>
-    <link>https://news.ycombinator.com</link>
-    <description>基于个人兴趣筛选的 Hacker News 内容</description>
-    <lastBuildDate>2026-01-31T08:30:00Z</lastBuildDate>
+<item>
+  <title>文章标题</title>
+  <link>原文链接</link>
+  <pubDate>2026-01-31T07:15:00Z</pubDate>
+  <guid>讨论页面链接</guid>
 
-    <item>
-      <title>文章标题</title>
-      <link>原文链接</link>
-      <pubDate>2026-01-31T07:15:00Z</pubDate>
-      <guid>HN 讨论链接</guid>
+  <description><![CDATA[
+    <h3>原文摘要</h3>
+    <p>...</p>
 
-      <description><![CDATA[
-        <h3>原文摘要</h3>
-        <p>...</p>
+    <h3>讨论摘要</h3>
+    <p>...</p>
 
-        <h3>讨论摘要</h3>
-        <p>...</p>
+    <p><a href="讨论链接">查看讨论 (评论数)</a></p>
+  ]]></description>
 
-        <p><a href="HN讨论链接">查看 HN 讨论 (156 条评论)</a></p>
-      ]]></description>
+  <content:encoded><![CDATA[
+    <h2>原文摘要</h2>
+    <p>...</p>
 
-      <content:encoded><![CDATA[
-        <h2>原文摘要</h2>
-        <p>...</p>
+    <h2>讨论摘要</h2>
+    <p>...</p>
 
-        <h2>Hacker News 讨论摘要</h2>
-        <p>...</p>
-
-        <hr/>
-        <p><strong>原文链接：</strong><a href="原文链接">原文链接</a></p>
-        <p><strong>HN 讨论：</strong><a href="HN讨论链接">HN讨论链接</a> (156 条评论, 342 分)</p>
-      ]]></content:encoded>
-    </item>
-  </channel>
-</rss>
+    <hr/>
+    <p><strong>原文链接：</strong><a href="原文链接">原文链接</a></p>
+    <p><strong>讨论链接：</strong><a href="讨论链接">讨论链接</a> (评论数, 分数)</p>
+  ]]></content:encoded>
+</item>
 ```
-
-**要求：**
-- 使用标准 RSS 2.0 格式
-- 每个条目包含：
-  - 标题
-  - 原文链接
-  - description：原文摘要 + 讨论摘要 + HN 讨论链接（HTML 格式，用 CDATA 包裹）
-  - content:encoded：完整格式化内容（包含摘要、链接、元数据等）
-  - 发布时间
-- 按发布时间倒序排列
-- lastBuildDate 使用当前时间（ISO 8601 格式）
