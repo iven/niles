@@ -57,6 +57,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: ${{ steps.read-prompt.outputs.prompt }}
           show_full_output: 'true'
+          claude_args: |
+            --allowedTools WebFetch,Bash,Read,Write,Grep,Glob
 
       - name: Commit and Push
         working-directory: output
