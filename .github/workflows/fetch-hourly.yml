@@ -1,8 +1,8 @@
 name: Fetch Hourly Sources
 
 on:
-  schedule:
-    - cron: '0 * * * *'  # 每小时
+  # schedule:
+  #   - cron: '0 * * * *'  # 每小时
   workflow_dispatch:
 
 jobs:
@@ -56,6 +56,7 @@ jobs:
           use_bedrock: 'true'
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: ${{ steps.read-prompt.outputs.prompt }}
+          show_full_output: 'true'
 
       - name: Commit and Push
         working-directory: output
