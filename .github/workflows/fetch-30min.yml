@@ -1,0 +1,59 @@
+name: Fetch 30min Sources
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # 每 30 分钟
+  workflow_dispatch:          # 支持手动触发
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - name: hacker-news
+            strategy: discussion-aggregator
+            url: https://news.ycombinator.com
+            top_items: 30
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: output
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Run Claude
+        uses: anthropics/claude-code-action@v1
+        env:
+          ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.BEDROCK_HAIKU_MODEL_ID }}
+          ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ secrets.BEDROCK_SONNET_MODEL_ID }}
+          ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ secrets.BEDROCK_OPUS_MODEL_ID }}
+          SOURCE_NAME: ${{ matrix.name }}
+          SOURCE_URL: ${{ matrix.url }}
+          TOP_ITEMS: ${{ matrix.top_items }}
+          INTERESTS_TOPICS: ${{ vars.INTERESTS_TOPICS }}
+          INTERESTS_EXCLUDE: ${{ vars.INTERESTS_EXCLUDE }}
+        with:
+          use_bedrock: 'true'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt-file: prompts/${{ matrix.strategy }}.md
+
+      - name: Commit and Push
+        working-directory: output
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add ${{ matrix.name }}.xml
+          git commit -m "Update ${{ matrix.name }} RSS" || exit 0
+          git push
