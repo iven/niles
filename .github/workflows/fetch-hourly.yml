@@ -33,6 +33,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
+      - name: Read prompt file
+        id: read-prompt
+        run: |
+          PROMPT=$(cat prompts/${{ matrix.strategy }}.md)
+          echo "prompt<<EOF" >> $GITHUB_OUTPUT
+          echo "$PROMPT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Run Claude
         uses: anthropics/claude-code-action@v1
         env:
@@ -41,12 +49,13 @@ jobs:
           ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ secrets.BEDROCK_OPUS_MODEL_ID }}
           SOURCE_NAME: ${{ matrix.name }}
           SOURCE_URL: ${{ matrix.url }}
+          TOP_ITEMS: ${{ matrix.top_items }}
           INTERESTS_TOPICS: ${{ vars.INTERESTS_TOPICS }}
           INTERESTS_EXCLUDE: ${{ vars.INTERESTS_EXCLUDE }}
         with:
           use_bedrock: 'true'
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          prompt-file: prompts/${{ matrix.strategy }}.md
+          prompt: ${{ steps.read-prompt.outputs.prompt }}
 
       - name: Commit and Push
         working-directory: output
