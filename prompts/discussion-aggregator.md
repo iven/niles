@@ -14,15 +14,24 @@
 
 ### 1. 获取帖子列表
 
-访问 SOURCE_URL，获取前 TOP_ITEMS 条热门帖子。
+**使用 Hacker News API：**
 
-提取信息：
-- 标题
-- 原文链接
-- 评论区链接
-- 分数
-- 作者
-- 发布时间
+SOURCE_URL 是 Hacker News API 基础地址（`https://hacker-news.firebaseio.com/v0`）。
+
+步骤：
+1. 访问 `{SOURCE_URL}/topstories.json` 获取热门帖子 ID 列表
+2. 取前 TOP_ITEMS 个 ID
+3. 对每个 ID，访问 `{SOURCE_URL}/item/{id}.json` 获取帖子详情
+
+从 API 提取信息：
+- `title`: 标题
+- `url`: 原文链接
+- `id`: 帖子 ID（用于构建 HN 讨论链接：`https://news.ycombinator.com/item?id={id}`）
+- `score`: 分数
+- `by`: 作者
+- `time`: 发布时间（Unix 时间戳）
+- `descendants`: 评论数量
+- `kids`: 评论 ID 列表
 
 ### 2. 基于标题 AI 筛选
 
@@ -36,8 +45,10 @@
 ### 3. 抓取原文和评论
 
 对每个筛选通过的帖子：
-- 访问原文链接，提取主要内容
-- 访问评论区链接，获取所有评论
+- 访问原文链接（`url` 字段），提取主要内容
+- 使用 `kids` 字段中的评论 ID，递归访问 `{SOURCE_URL}/item/{comment_id}.json` 获取评论
+  - 每个评论可能有 `kids` 子评论
+  - 优先抓取顶层评论和高分评论
 
 ### 4. 生成摘要
 
