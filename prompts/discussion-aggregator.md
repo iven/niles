@@ -35,12 +35,16 @@ SOURCE_URL 是 Hacker News API 基础地址（`https://hacker-news.firebaseio.co
 
 ### 2. 基于标题 AI 筛选
 
-对每个帖子：
-- 根据 INTERESTS_TOPICS 判断是否相关
-- 根据 INTERESTS_EXCLUDE 排除不关心的内容
-- 输出筛选理由（用于调试）
+**筛选规则（宽松策略）：**
 
-只保留筛选通过的帖子。
+对每个帖子按以下顺序判断：
+1. **优先排除**：如果标题与 INTERESTS_EXCLUDE 中的任何主题相关 → 排除
+2. **保留其他**：其他所有帖子都保留
+3. **优先级排序**：匹配 INTERESTS_TOPICS 的帖子排在前面
+
+**输出要求：**
+- 输出筛选理由（用于调试）
+- 对每个帖子标注是否匹配感兴趣主题
 
 ### 3. 抓取原文和评论
 
