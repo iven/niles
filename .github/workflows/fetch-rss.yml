@@ -9,6 +9,8 @@ run-name: "Fetch RSS: ${{ github.event.client_payload.source_name }}"
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v4
@@ -75,6 +77,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: ${{ steps.read-prompt.outputs.prompt }}
           show_full_output: "true"
+          max_turns: 50
           claude_args: |
             --allowedTools WebFetch,Bash,Read,Write,Edit,Grep,Glob
             --json-schema '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
