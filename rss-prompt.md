@@ -59,7 +59,11 @@ jq '[.items[] | {guid: .guid, title: .title}]' "$NEW_ITEMS_JSON"
 
 ### 3. 输出 JSON
 
-每分析完一批后，立即将该批次的结果追加到 `FILTER_RESULTS_JSON` 文件中。格式如下：
+**首次写入时**，创建包含 `source_name`、`source_url` 和空 `results` 的完整 JSON 结构。
+
+**每分析完一批后**，将该批次的结果追加到 `results` 对象中，使 `results` 对象扁平地包含每个条目的结果。
+
+最终文件格式如下：
 
 ```json
 {

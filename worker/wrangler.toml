@@ -1,0 +1,24 @@
+name = "niles-rss-trigger"
+main = "index.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# 规则：将 JSON 文件作为模块导入
+[[rules]]
+type = "Text"
+globs = ["**/*.json"]
+
+# 定时触发配置
+[triggers]
+crons = [
+  "*/30 * * * *",  # 每 30 分钟
+  "0 * * * *",     # 每小时整点
+  "0 0 * * *"      # 每天 0 点
+]
+
+# 环境变量
+[vars]
+GITHUB_REPO = "iven/niles"
+
+# 敏感信息需要用 secret 设置：
+# wrangler secret put GITHUB_TOKEN

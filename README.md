@@ -32,7 +32,7 @@ niles/
 ├── scripts/
 │   ├── extract-new-items.py   # 提取新条目
 │   └── generate-rss.py        # 生成 RSS
-├── config.json                # RSS 源和兴趣配置
+├── worker/config.json                # RSS 源和兴趣配置
 ├── rss-prompt.md              # Claude AI 提示词
 └── README.md
 ```
@@ -78,7 +78,7 @@ git checkout main
 
 #### 5. 配置 RSS 源和兴趣主题
 
-编辑 `config.json`：
+编辑 `worker/config.json`：
 
 ```json
 {
@@ -145,7 +145,7 @@ https://<username>.github.io/<repo-name>/hacker-news.xml
 
 ### 添加新的 RSS 源
 
-编辑 `config.json`，在 `sources` 列表中添加：
+编辑 `worker/config.json`，在 `sources` 列表中添加：
 
 ```json
 {
@@ -158,7 +158,7 @@ https://<username>.github.io/<repo-name>/hacker-news.xml
 
 ### 修改兴趣配置
 
-编辑 `config.json` 中的 `global` 部分，调整 4 个兴趣级别的主题列表。
+编辑 `worker/config.json` 中的 `global` 部分，调整 4 个兴趣级别的主题列表。
 
 ### 外部触发方案
 
@@ -170,7 +170,7 @@ https://<username>.github.io/<repo-name>/hacker-news.xml
 4. **n8n** - 开源，自托管
 
 外部服务需要：
-1. 读取 `config.json` 配置文件
+1. 读取 `worker/config.json` 配置文件
 2. 为每个源调用 GitHub API 触发 workflow
 3. 传递完整的配置参数
 
@@ -205,7 +205,7 @@ https://<username>.github.io/<repo-name>/hacker-news.xml
 
 ### 筛选结果不理想
 
-1. 调整 `config.json` 中的兴趣主题描述
+1. 调整 `worker/config.json` 中的兴趣主题描述
 2. 使用更具体或更宽泛的主题词
 3. 调整不同兴趣级别的主题分类
 

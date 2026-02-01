@@ -11,7 +11,7 @@ def main():
     source_name = sys.argv[1] if len(sys.argv) > 1 else "cnbeta"
 
     # 读取配置文件
-    config_file = Path("config.json")
+    config_file = Path("worker/config.json")
     if not config_file.exists():
         print(f"错误: 找不到配置文件 {config_file}")
         sys.exit(1)
