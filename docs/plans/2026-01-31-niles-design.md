@@ -38,8 +38,8 @@ niles/
 │       ├── fetch-daily.yml      # 每天执行
 │       └── fetch-weekly.yml     # 每周执行
 ├── prompts/
-│   ├── discussion-aggregator.md # 讨论聚合策略提示词
-│   └── rss-filter.md            # RSS 筛选策略提示词
+│   ├── discussion.md # 讨论聚合策略提示词
+│   └── rss.md            # RSS 筛选策略提示词
 ├── docs/
 │   └── plans/
 │       └── 2026-01-31-niles-design.md
@@ -75,7 +75,7 @@ niles/
 
 ## 4. 抓取策略
 
-### 策略 A：discussion-aggregator（讨论聚合）
+### 策略 A：discussion（讨论聚合）
 
 **适用场景：** 有原文链接 + 讨论区的网站
 
@@ -118,7 +118,7 @@ niles/
 </item>
 ```
 
-### 策略 B：rss-filter（RSS 筛选）
+### 策略 B：rss（RSS 筛选）
 
 **适用场景：** 标准 RSS feed
 
@@ -162,7 +162,7 @@ jobs:
       matrix:
         include:
           - name: hacker-news
-            strategy: discussion-aggregator
+            strategy: discussion
             url: https://news.ycombinator.com
             top_items: 30
 
@@ -217,7 +217,7 @@ jobs:
 
 ## 6. 提示词设计
 
-### discussion-aggregator.md
+### discussion.md
 
 ```markdown
 # 任务：讨论聚合源抓取
@@ -282,7 +282,7 @@ RSS 格式：
 - 按发布时间倒序排列
 ```
 
-### rss-filter.md
+### rss.md
 
 ```markdown
 # 任务：RSS 源筛选
@@ -326,7 +326,7 @@ RSS 格式：
 
 ## 7. RSS 输出格式
 
-### discussion-aggregator 策略输出
+### discussion 策略输出
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -369,7 +369,7 @@ RSS 格式：
 </rss>
 ```
 
-### rss-filter 策略输出
+### rss 策略输出
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -391,8 +391,8 @@ RSS 格式：
 ```
 
 **关键特性：**
-- discussion-aggregator：包含丰富的双重摘要（原文+讨论）
-- rss-filter：保持原始 RSS 结构，仅筛选条目
+- discussion：包含丰富的双重摘要（原文+讨论）
+- rss：保持原始 RSS 结构，仅筛选条目
 - 都包含 `lastBuildDate` 表示更新时间
 - 使用 CDATA 包裹 HTML 内容避免解析问题
 
@@ -462,12 +462,12 @@ https://<username>.github.io/<repo-name>/cnbeta.xml
 ### 添加新的 RSS 源
 
 1. 确定抓取频率（30min/hourly/daily/weekly）
-2. 确定抓取策略（discussion-aggregator/rss-filter）
+2. 确定抓取策略（discussion/rss）
 3. 编辑对应的 workflow 文件，在 matrix.include 中添加：
 
 ```yaml
 - name: sspai
-  strategy: rss-filter
+  strategy: rss
   url: https://sspai.com/feed
 ```
 
