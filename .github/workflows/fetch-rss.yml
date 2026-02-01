@@ -1,0 +1,95 @@
+name: Fetch RSS
+
+on:
+  repository_dispatch:
+    types: [fetch-rss]
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: output
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Extract new items
+        id: extract
+        run: |
+          TEMP_DIR="/tmp/niles-rss/${{ github.event.client_payload.source_name }}"
+          mkdir -p "$TEMP_DIR"
+          python3 scripts/extract-new-items.py \
+            "${{ github.event.client_payload.source_url }}" \
+            "output/${{ github.event.client_payload.source_name }}.xml" \
+            --output "$TEMP_DIR/new-items.json"
+          NEW_COUNT=$(jq '.new_items' "$TEMP_DIR/new-items.json")
+          echo "count=$NEW_COUNT" >> $GITHUB_OUTPUT
+          echo "temp_dir=$TEMP_DIR" >> $GITHUB_OUTPUT
+
+      - name: Read prompt file
+        if: steps.extract.outputs.count != '0'
+        id: read-prompt
+        run: |
+          TEMP_DIR="${{ steps.extract.outputs.temp_dir }}"
+          rm -f "$TEMP_DIR/filter-results.json"
+          PROMPT=$(cat rss-prompt.md)
+          echo "prompt<<EOF" >> $GITHUB_OUTPUT
+          echo "$PROMPT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Run Claude
+        if: steps.extract.outputs.count != '0'
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        env:
+          ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.BEDROCK_HAIKU_MODEL_ID }}
+          ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ secrets.BEDROCK_SONNET_MODEL_ID }}
+          ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ secrets.BEDROCK_OPUS_MODEL_ID }}
+          SOURCE_NAME: ${{ github.event.client_payload.source_name }}
+          SOURCE_URL: ${{ github.event.client_payload.source_url }}
+          NEW_ITEMS_JSON: ${{ steps.extract.outputs.temp_dir }}/new-items.json
+          FILTER_RESULTS_JSON: ${{ steps.extract.outputs.temp_dir }}/filter-results.json
+          GLOBAL_HIGH_INTEREST: ${{ github.event.client_payload.global_high_interest }}
+          GLOBAL_INTEREST: ${{ github.event.client_payload.global_interest }}
+          GLOBAL_UNINTERESTED: ${{ github.event.client_payload.global_uninterested }}
+          GLOBAL_EXCLUDE: ${{ github.event.client_payload.global_exclude }}
+          SOURCE_HIGH_INTEREST: ${{ github.event.client_payload.source_high_interest }}
+          SOURCE_INTEREST: ${{ github.event.client_payload.source_interest }}
+          SOURCE_UNINTERESTED: ${{ github.event.client_payload.source_uninterested }}
+          SOURCE_EXCLUDE: ${{ github.event.client_payload.source_exclude }}
+        with:
+          use_bedrock: "true"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: ${{ steps.read-prompt.outputs.prompt }}
+          show_full_output: "true"
+          claude_args: |
+            --allowedTools WebFetch,Bash,Read,Write,Edit,Grep,Glob
+            --json-schema '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
+
+      - name: Generate RSS
+        if: steps.extract.outputs.count != '0'
+        run: |
+          TEMP_DIR="${{ steps.extract.outputs.temp_dir }}"
+          echo '${{ steps.claude.outputs.structured_output }}' > "$TEMP_DIR/filter-results.json"
+          python3 scripts/generate-rss.py "$TEMP_DIR/new-items.json" "$TEMP_DIR/filter-results.json" output/${{ github.event.client_payload.source_name }}.xml
+
+      - name: Commit and Push
+        if: steps.extract.outputs.count != '0'
+        working-directory: output
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add ${{ github.event.client_payload.source_name }}.xml
+          git commit -m "Update ${{ github.event.client_payload.source_name }} RSS" || exit 0
+          git push

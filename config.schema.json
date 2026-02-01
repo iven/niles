@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Niles RSS Configuration",
+  "description": "RSS 源和兴趣配置",
+  "type": "object",
+  "required": ["global", "sources"],
+  "properties": {
+    "global": {
+      "type": "object",
+      "description": "全局兴趣配置",
+      "properties": {
+        "high_interest": {
+          "type": "string",
+          "description": "强烈感兴趣的主题（逗号分隔）"
+        },
+        "interest": {
+          "type": "string",
+          "description": "一般感兴趣的主题（逗号分隔）"
+        },
+        "uninterested": {
+          "type": "string",
+          "description": "不感兴趣的主题（逗号分隔）"
+        },
+        "exclude": {
+          "type": "string",
+          "description": "强烈排除的主题（逗号分隔）"
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "description": "RSS 源列表",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "url"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "源名称"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "RSS feed URL"
+          },
+          "high_interest": {
+            "type": "string",
+            "description": "源特定的强烈感兴趣主题（逗号分隔）"
+          },
+          "interest": {
+            "type": "string",
+            "description": "源特定的一般感兴趣主题（逗号分隔）"
+          },
+          "uninterested": {
+            "type": "string",
+            "description": "源特定的不感兴趣主题（逗号分隔）"
+          },
+          "exclude": {
+            "type": "string",
+            "description": "源特定的强烈排除主题（逗号分隔）"
+          }
+        }
+      }
+    }
+  }
+}
