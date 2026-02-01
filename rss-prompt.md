@@ -4,6 +4,8 @@
 
 ## 输入参数（环境变量）
 
+首先一次性获取以下所有环境变量：
+
 - `SOURCE_NAME`: 源名称
 - `SOURCE_URL`: RSS feed URL
 - `NEW_ITEMS_JSON`: 新条目 JSON 文件路径（已去重）
@@ -90,7 +92,9 @@ jq '[.items[] | {guid: .guid, title: .title}]' "$NEW_ITEMS_JSON"
 
 - `results` 是一个对象，key 是条目的 guid，value 包含筛选结果
 - 包含**所有**条目的筛选结果
-- `title` 是条目的标题
+- `title` 是条目的完整原标题，注意：
+  - 保持标题与原文完全一致，不要修改任何字符（例如标题中的中文引号必须替换为「」，不要保留原样也不要改成英文引号 ""）
+  - 正确转义 JSON 特殊字符：英文双引号 `"` → `\"`，反斜杠 `\` → `\\`，换行符 → `\n`
 - `type` 字段标识条目类型：
   - `"high_interest"`：强烈感兴趣
   - `"interest"`：一般感兴趣

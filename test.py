@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-import sys
 import json
-import subprocess
 import os
+import subprocess
+import sys
 from pathlib import Path
+
+
 def main():
     # 源名称（可通过参数指定，默认 cnbeta）
     source_name = sys.argv[1] if len(sys.argv) > 1 else "cnbeta"
@@ -63,12 +65,17 @@ def main():
     print("=== 第一步：提取新条目 ===")
 
     # 提取新条目
-    result = subprocess.run([
-        "python3", "scripts/extract-new-items.py",
-        source_url,
-        f"output/{source_name}.xml",
-        "--output", str(new_items_json)
-    ], env=env)
+    result = subprocess.run(
+        [
+            "python3",
+            "scripts/extract-new-items.py",
+            source_url,
+            f"output/{source_name}.xml",
+            "--output",
+            str(new_items_json),
+        ],
+        env=env,
+    )
 
     if result.returncode != 0:
         print("提取新条目失败")
@@ -101,12 +108,17 @@ def main():
     # 调用 Claude
     json_schema = '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
 
-    result = subprocess.run([
-        "claude",
-        prompt,
-        "--allowedTools", "WebFetch,Bash,Read,Write,Edit,Grep,Glob",
-        "--json-schema", json_schema
-    ], env=env)
+    result = subprocess.run(
+        [
+            "claude",
+            prompt,
+            "--allowedTools",
+            "WebFetch,Bash,Read,Write,Edit,Grep,Glob",
+            "--json-schema",
+            json_schema,
+        ],
+        env=env,
+    )
 
     if result.returncode != 0:
         print("Claude 分析失败")
@@ -118,12 +130,16 @@ def main():
     print("=== 第三步：生成 RSS ===")
 
     # 生成 RSS
-    result = subprocess.run([
-        "python3", "scripts/generate-rss.py",
-        str(new_items_json),
-        str(filter_results_json),
-        f"output/{source_name}.xml"
-    ], env=env)
+    result = subprocess.run(
+        [
+            "python3",
+            "scripts/generate-rss.py",
+            str(new_items_json),
+            str(filter_results_json),
+            f"output/{source_name}.xml",
+        ],
+        env=env,
+    )
 
     if result.returncode != 0:
         print("生成 RSS 失败")
@@ -131,6 +147,7 @@ def main():
 
     print()
     print("测试完成！")
+
 
 if __name__ == "__main__":
     try:
