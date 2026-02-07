@@ -52,10 +52,10 @@ jobs:
         run: |
           TEMP_DIR="${{ steps.extract.outputs.temp_dir }}"
           rm -f "$TEMP_DIR/filter-results.json"
-          PROMPT=$(cat rss-prompt.md)
-          echo "prompt<<EOF" >> $GITHUB_OUTPUT
-          echo "$PROMPT" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          delimiter="ghadelimiter_${RANDOM}_${RANDOM}"
+          echo "prompt<<${delimiter}" >> $GITHUB_OUTPUT
+          cat rss-prompt.md >> $GITHUB_OUTPUT
+          echo "${delimiter}" >> $GITHUB_OUTPUT
 
       - name: Run Claude
         if: steps.extract.outputs.count != '0'
