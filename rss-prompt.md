@@ -59,49 +59,41 @@ jq '[.items[] | {guid: .guid, title: .title}]' "$NEW_ITEMS_JSON"
 
 ### 3. 输出 JSON
 
-**首次写入时**，创建包含 `source_name`、`source_url` 和空 `results` 的完整 JSON 结构。
+#### 3.1 首次写入：创建 JSON 结构
 
-**每分析完一批后**，将该批次的结果追加到 `results` 对象中，使 `results` 对象扁平地包含每个条目的结果。
+在开始分析之前，首先创建包含 `source_name`、`source_url` 和空 `results` 的初始 JSON 结构：
 
-最终文件格式如下：
-
-```json
+```bash
+cat > "$FILTER_RESULTS_JSON" <<'EOF'
 {
-  "source_name": "SOURCE_NAME 环境变量的值",
-  "source_url": "SOURCE_URL 环境变量的值",
-  "results": {
-    "guid-1": {
-      "title": "条目标题",
-      "type": "high_interest",
-      "reason": "人工智能技术进展，属于强烈感兴趣主题"
-    },
-    "guid-2": {
-      "title": "条目标题",
-      "type": "interest",
-      "reason": "开源项目，属于一般感兴趣主题"
-    },
-    "guid-3": {
-      "title": "条目标题",
-      "type": "excluded",
-      "reason": "加密货币，属于强烈排除主题"
-    },
-    "guid-4": {
-      "title": "条目标题",
-      "type": "other",
-      "reason": "其他主题"
-    }
-  }
+  "source_name": "SOURCE_NAME 的值",
+  "source_url": "SOURCE_URL 的值",
+  "results": {}
 }
+EOF
 ```
 
-- `results` 是一个对象，key 是条目的 guid，value 包含筛选结果
-- 包含**所有**条目的筛选结果
-- `title` 是条目的完整原标题，注意：
-  - 保持标题与原文完全一致，不要修改任何字符（例如标题中的中文引号必须替换为「」，不要保留原样也不要改成英文引号 ""）
-  - 正确转义 JSON 特殊字符：英文双引号 `"` → `\"`，反斜杠 `\` → `\\`，换行符 → `\n`
-- `type` 字段标识条目类型：
-  - `"high_interest"`：强烈感兴趣
-  - `"interest"`：一般感兴趣
-  - `"other"`：其他主题（包括不感兴趣但与感兴趣主题相关性高的）
-  - `"excluded"`：排除（强烈排除或不感兴趣且相关性低的）
-- `reason` 格式："内容主题，属于XX主题"，可以列出多个匹配的主题
+#### 3.2 批次处理：追加结果
+
+每分析完一批后，使用 jq 将该批次的结果追加到 `results` 对象中。例如：
+
+```bash
+jq '.results += {
+  "guid-1": {
+    "title": "条目标题",
+    "type": "high_interest",
+    "reason": "匹配原因"
+  },
+  "guid-2": {
+    "title": "另一条目标题",
+    "type": "interest",
+    "reason": "匹配原因"
+  }
+}' "$FILTER_RESULTS_JSON" > "$FILTER_RESULTS_JSON.tmp" && mv "$FILTER_RESULTS_JSON.tmp" "$FILTER_RESULTS_JSON"
+```
+
+**字段说明**：
+- `results` 的 key 是条目的 guid，value 包含筛选结果
+- `title`：条目的完整原标题（保持与原文完全一致，正确转义 JSON 特殊字符）
+- `type`：`high_interest` | `interest` | `other` | `excluded`
+- `reason`：格式为"内容主题，属于 XX 主题"
