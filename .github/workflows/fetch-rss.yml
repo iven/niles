@@ -20,6 +20,9 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v4
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
         with:
@@ -38,10 +41,11 @@ jobs:
         run: |
           TEMP_DIR="/tmp/niles-rss/${{ github.event.client_payload.source_name }}"
           mkdir -p "$TEMP_DIR"
-          python3 scripts/extract-new-items.py \
+          uv run scripts/extract-new-items.py \
             "${{ github.event.client_payload.source_url }}" \
             "output/${{ github.event.client_payload.source_name }}.xml" \
-            --output "$TEMP_DIR/new-items.json"
+            --output "$TEMP_DIR/new-items.json" \
+            ${{ github.event.client_payload.fetch_content == 'true' && '--fetch-content' || '' }}
           NEW_COUNT=$(jq '.new_items' "$TEMP_DIR/new-items.json")
           echo "count=$NEW_COUNT" >> $GITHUB_OUTPUT
           echo "temp_dir=$TEMP_DIR" >> $GITHUB_OUTPUT
@@ -77,6 +81,9 @@ jobs:
           SOURCE_INTEREST: ${{ github.event.client_payload.source_interest }}
           SOURCE_UNINTERESTED: ${{ github.event.client_payload.source_uninterested }}
           SOURCE_EXCLUDE: ${{ github.event.client_payload.source_exclude }}
+          PREFERRED_LANGUAGE: ${{ github.event.client_payload.preferred_language }}
+          FETCH_CONTENT: ${{ github.event.client_payload.fetch_content }}
+          TRANSLATE: ${{ github.event.client_payload.translate }}
         with:
           use_bedrock: "true"
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -84,7 +91,7 @@ jobs:
           show_full_output: "true"
           claude_args: |
             --allowedTools WebFetch,Bash,Read,Write,Edit,Grep,Glob
-            --json-schema '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
+            --json-schema '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"description":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
             --max-turns 50
 
       - name: Generate RSS
@@ -92,7 +99,7 @@ jobs:
         run: |
           TEMP_DIR="${{ steps.extract.outputs.temp_dir }}"
           echo '${{ steps.claude.outputs.structured_output }}' > "$TEMP_DIR/filter-results.json"
-          python3 scripts/generate-rss.py "$TEMP_DIR/new-items.json" "$TEMP_DIR/filter-results.json" output/${{ github.event.client_payload.source_name }}.xml
+          uv run scripts/generate-rss.py "$TEMP_DIR/new-items.json" "$TEMP_DIR/filter-results.json" output/${{ github.event.client_payload.source_name }}.xml
 
       - name: Commit and Push
         if: steps.extract.outputs.count != '0'
