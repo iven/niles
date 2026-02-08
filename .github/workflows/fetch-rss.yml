@@ -13,7 +13,6 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     permissions:
       contents: write
     steps:
@@ -64,6 +63,7 @@ jobs:
       - name: Run Claude
         if: steps.extract.outputs.count != '0'
         id: claude
+        timeout-minutes: ${{ github.event.client_payload.timeout }}
         uses: anthropics/claude-code-action@v1
         env:
           ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.BEDROCK_HAIKU_MODEL_ID }}
@@ -92,7 +92,6 @@ jobs:
           claude_args: |
             --allowedTools WebFetch,Bash,Read,Write,Edit,Grep,Glob
             --json-schema '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"description":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
-            --timeout ${{ github.event.client_payload.timeout }}
 
       - name: Generate RSS
         if: steps.extract.outputs.count != '0'
