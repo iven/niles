@@ -5,7 +5,7 @@ import configText from './config.json';
 const config = JSON.parse(configText);
 
 export default {
-  async scheduled(event, env, ctx) {
+  async scheduled(event, env) {
     const GITHUB_TOKEN = env.GITHUB_TOKEN;
     const GITHUB_REPO = env.GITHUB_REPO || 'iven/niles';
     const currentCron = event.cron; // 当前触发的 cron 表达式
@@ -28,7 +28,8 @@ export default {
           source_high_interest: source.high_interest || '',
           source_interest: source.interest || '',
           source_uninterested: source.uninterested || '',
-          source_exclude: source.exclude || ''
+          source_exclude: source.exclude || '',
+          timeout: source.timeout
         }
       };
 
