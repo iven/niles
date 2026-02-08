@@ -3,6 +3,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 
@@ -67,33 +68,52 @@ def main():
     print(f"正在测试源: {source_name}")
     print(f"URL: {source_url}")
     print()
-    print("=== 第一步：提取新条目 ===")
 
-    # 提取新条目
-    extract_cmd = [
-        "uv",
-        "run",
-        "scripts/extract-new-items.py",
-        source_url,
-        f"output/{source_name}.xml",
-        "--output",
-        str(new_items_json),
-    ]
-    if source_config.get("fetch_content", False):
-        extract_cmd.append("--fetch-content")
+    # 检查是否已有提取的条目文件
+    if new_items_json.exists():
+        print(f"发现已存在的条目文件: {new_items_json}")
+        skip = input("是否跳过第一步？(y/N): ").strip().lower()
+        if skip == "y":
+            with open(new_items_json) as f:
+                data = json.load(f)
+                new_count = data["new_items"]
+            print(f"跳过提取，使用现有条目数: {new_count}")
+        else:
+            new_count = None
+    else:
+        new_count = None
 
-    result = subprocess.run(extract_cmd, env=env)
+    if new_count is None:
+        print("=== 第一步：提取新条目 ===")
+        start_time = time.time()
 
-    if result.returncode != 0:
-        print("提取新条目失败")
-        sys.exit(1)
+        # 提取新条目
+        extract_cmd = [
+            "uv",
+            "run",
+            "scripts/extract-new-items.py",
+            source_url,
+            f"output/{source_name}.xml",
+            "--output",
+            str(new_items_json),
+        ]
+        if source_config.get("fetch_content", False):
+            extract_cmd.append("--fetch-content")
 
-    # 检查新条目数
-    with open(new_items_json) as f:
-        data = json.load(f)
-        new_count = data["new_items"]
+        result = subprocess.run(extract_cmd, env=env)
 
-    print(f"新条目数: {new_count}")
+        if result.returncode != 0:
+            print("提取新条目失败")
+            sys.exit(1)
+
+        # 检查新条目数
+        with open(new_items_json) as f:
+            data = json.load(f)
+            new_count = data["new_items"]
+
+        elapsed = time.time() - start_time
+        print(f"新条目数: {new_count}")
+        print(f"耗时: {elapsed:.2f} 秒")
 
     if new_count == 0:
         print("没有新条目，跳过 Claude 分析")
@@ -107,6 +127,7 @@ def main():
     print()
     input("按 Enter 键继续...")
     print("=== 第二步：使用 Claude 进行筛选 ===")
+    start_time = time.time()
 
     # 读取 prompt
     with open("rss-prompt.md") as f:
@@ -131,10 +152,14 @@ def main():
         print("Claude 分析失败")
         sys.exit(1)
 
+    elapsed = time.time() - start_time
+    print(f"耗时: {elapsed:.2f} 秒")
+
     # 等待按键
     print()
     input("按 Enter 键继续...")
     print("=== 第三步：生成 RSS ===")
+    start_time = time.time()
 
     # 生成 RSS
     result = subprocess.run(
@@ -153,6 +178,8 @@ def main():
         print("生成 RSS 失败")
         sys.exit(1)
 
+    elapsed = time.time() - start_time
+    print(f"耗时: {elapsed:.2f} 秒")
     print()
     print("测试完成！")
 

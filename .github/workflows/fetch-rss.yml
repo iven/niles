@@ -92,7 +92,7 @@ jobs:
           claude_args: |
             --allowedTools WebFetch,Bash,Read,Write,Edit,Grep,Glob
             --json-schema '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"description":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
-            --max-turns 50
+            --timeout ${{ github.event.client_payload.timeout }}
 
       - name: Generate RSS
         if: steps.extract.outputs.count != '0'
