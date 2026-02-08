@@ -49,6 +49,11 @@ def main():
     env["SOURCE_UNINTERESTED"] = source_config.get("uninterested", "")
     env["SOURCE_EXCLUDE"] = source_config.get("exclude", "")
 
+    # 新增配置
+    env["PREFERRED_LANGUAGE"] = config["global"].get("preferred_language", "zh")
+    env["FETCH_CONTENT"] = str(source_config.get("fetch_content", False)).lower()
+    env["TRANSLATE"] = str(source_config.get("translate", False)).lower()
+
     # 创建临时目录
     temp_dir = Path(f"/tmp/niles-rss/{source_name}")
     temp_dir.mkdir(parents=True, exist_ok=True)
@@ -65,17 +70,19 @@ def main():
     print("=== 第一步：提取新条目 ===")
 
     # 提取新条目
-    result = subprocess.run(
-        [
-            "python3",
-            "scripts/extract-new-items.py",
-            source_url,
-            f"output/{source_name}.xml",
-            "--output",
-            str(new_items_json),
-        ],
-        env=env,
-    )
+    extract_cmd = [
+        "uv",
+        "run",
+        "scripts/extract-new-items.py",
+        source_url,
+        f"output/{source_name}.xml",
+        "--output",
+        str(new_items_json),
+    ]
+    if source_config.get("fetch_content", False):
+        extract_cmd.append("--fetch-content")
+
+    result = subprocess.run(extract_cmd, env=env)
 
     if result.returncode != 0:
         print("提取新条目失败")
@@ -106,7 +113,7 @@ def main():
         prompt = f.read()
 
     # 调用 Claude
-    json_schema = '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
+    json_schema = '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"description":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
 
     result = subprocess.run(
         [
@@ -132,7 +139,8 @@ def main():
     # 生成 RSS
     result = subprocess.run(
         [
-            "python3",
+            "uv",
+            "run",
             "scripts/generate-rss.py",
             str(new_items_json),
             str(filter_results_json),

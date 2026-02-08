@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = []
+# ///
 """
 RSS 生成脚本
 
@@ -126,8 +129,17 @@ def main():
         result = results_data["results"].get(
             guid, {"type": "excluded", "title": "", "reason": "未找到筛选结果"}
         )
+        # 优先使用翻译后的 title 和 description
+        title = result.get("title", item["title"])
+        description = result.get("description", item.get("description", ""))
         merged_items.append(
-            {**item, "type": result["type"], "reason": result["reason"]}
+            {
+                **item,
+                "title": title,
+                "description": description,
+                "type": result["type"],
+                "reason": result["reason"],
+            }
         )
 
     data = {

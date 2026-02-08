@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = ["httpx", "beautifulsoup4"]
+# ///
 """
 从 RSS feed 中提取新条目（去重）
 
@@ -10,10 +13,12 @@ import argparse
 import json
 import re
 import sys
-import urllib.request
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
 from pathlib import Path
+
+import httpx
+from bs4 import BeautifulSoup
 
 
 def parse_existing_rss(rss_path):
@@ -37,11 +42,46 @@ def parse_existing_rss(rss_path):
 
 def fetch_rss(url):
     """获取 RSS feed"""
-    req = urllib.request.Request(
-        url, headers={"User-Agent": "Mozilla/5.0 (compatible; RSS Reader/1.0)"}
-    )
-    with urllib.request.urlopen(req) as response:
-        return response.read()
+    with httpx.Client(timeout=10) as client:
+        response = client.get(
+            url, headers={"User-Agent": "Mozilla/5.0 (compatible; RSS Reader/1.0)"}
+        )
+        response.raise_for_status()
+        return response.content
+
+
+def fetch_page_content(url, max_length=10000):
+    """抓取网页内容（meta + 正文）"""
+    try:
+        with httpx.Client(timeout=10, follow_redirects=True) as client:
+            response = client.get(
+                url,
+                headers={
+                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+                },
+            )
+            response.raise_for_status()
+
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        # 提取 meta description
+        meta = soup.find("meta", attrs={"name": "description"}) or soup.find(
+            "meta", attrs={"property": "og:description"}
+        )
+        meta_desc = meta.get("content", "") if meta else ""
+
+        # 提取正文
+        for tag in soup(["script", "style", "nav", "header", "footer", "aside"]):
+            tag.decompose()
+
+        main = soup.find("article") or soup.find("main") or soup.find("body")
+        text = main.get_text(separator=" ", strip=True) if main else ""
+        text = " ".join(text.split())  # 清理空白
+
+        return {"meta": meta_desc, "content": text[:max_length]}
+    except Exception as e:
+        print(f"抓取 {url} 失败: {e}", file=sys.stderr)
+        return {"meta": "", "content": ""}
 
 
 def parse_rss_items(rss_content):
@@ -93,6 +133,11 @@ def main():
     parser.add_argument(
         "--output", type=str, help="输出 JSON 文件路径（不指定则输出到 stdout）"
     )
+    parser.add_argument(
+        "--fetch-content",
+        action="store_true",
+        help="是否抓取网页内容（meta + 正文）",
+    )
 
     args = parser.parse_args()
 
@@ -119,6 +164,14 @@ def main():
                 continue
         # 移除内部字段
         new_item = {k: v for k, v in item.items() if not k.startswith("_")}
+
+        # 如果需要抓取内容
+        if args.fetch_content and new_item.get("link"):
+            print(f"抓取内容: {new_item['title']}", file=sys.stderr)
+            page_content = fetch_page_content(new_item["link"])
+            new_item["meta"] = page_content["meta"]
+            new_item["content"] = page_content["content"]
+
         new_items.append(new_item)
 
     # 输出结果
