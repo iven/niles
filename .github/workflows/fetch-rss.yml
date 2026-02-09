@@ -79,7 +79,7 @@ jobs:
       - name: Run Claude
         if: steps.extract.outputs.count != '0'
         id: claude
-        timeout-minutes: ${{ github.event.client_payload.timeout }}
+        timeout-minutes: ${{ fromJson(github.event.client_payload.timeout) }}
         uses: anthropics/claude-code-action@v1
         env:
           ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.BEDROCK_HAIKU_MODEL_ID }}
@@ -101,7 +101,7 @@ jobs:
         run: |
           TEMP_DIR="${{ steps.extract.outputs.temp_dir }}"
           echo '${{ steps.claude.outputs.structured_output }}' > "$TEMP_DIR/filter-results.json"
-          uv run scripts/generate-rss.py "$TEMP_DIR/new-items.json" "$TEMP_DIR/filter-results.json" output/${{ github.event.client_payload.source_name }}.xml
+          uv run scripts/generate-rss.py "$TEMP_DIR/new-items.json" "$TEMP_DIR/filter-results.json" output/${{ steps.parse-config.outputs.source_name }}.xml
 
       - name: Commit and Push
         if: steps.extract.outputs.count != '0'
