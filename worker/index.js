@@ -10,12 +10,17 @@ export default {
     const GITHUB_REPO = env.GITHUB_REPO || 'iven/niles';
     const currentCron = event.cron; // 当前触发的 cron 表达式
 
+    console.log(`[${new Date().toISOString()}] 触发 cron: ${currentCron}`);
+
     // 只为匹配当前 cron 的源触发 workflow
     for (const source of config.sources) {
       // 检查源的 cron 是否匹配当前触发的 cron
       if (source.cron !== currentCron) {
         continue;
       }
+
+      console.log(`触发源: ${source.name}`);
+
       const payload = {
         event_type: 'fetch-rss',
         client_payload: {
@@ -33,7 +38,7 @@ export default {
         }
       };
 
-      await fetch(`https://api.github.com/repos/${GITHUB_REPO}/dispatches`, {
+      const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/dispatches`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${GITHUB_TOKEN}`,
@@ -43,6 +48,10 @@ export default {
         },
         body: JSON.stringify(payload)
       });
+
+      if (!response.ok) {
+        console.error(`失败: ${source.name} (${response.status})`);
+      }
     }
   }
 };
