@@ -2,25 +2,27 @@
 
 从预处理的新条目中筛选符合兴趣的内容。
 
-## 输入参数（环境变量）
+## 输入参数
 
-首先**一次性**获取以下所有环境变量：
+首先**一次性**获取以下环境变量：
 
-- `SOURCE_NAME`: 源名称
-- `SOURCE_URL`: RSS feed URL
-- `NEW_ITEMS_JSON`: 新条目 JSON 文件路径（已去重）
+- `NEW_ITEMS_JSON`: 新条目 JSON 文件路径
 - `FILTER_RESULTS_JSON`: 筛选结果输出文件路径
-- `GLOBAL_HIGH_INTEREST`: 全局强烈感兴趣的主题（逗号分隔）
-- `GLOBAL_INTEREST`: 全局一般感兴趣的主题（逗号分隔）
-- `GLOBAL_UNINTERESTED`: 全局不感兴趣的主题（逗号分隔）
-- `GLOBAL_EXCLUDE`: 全局强烈排除的主题（逗号分隔）
-- `SOURCE_HIGH_INTEREST`: 源特定强烈感兴趣的主题（逗号分隔，可选）
-- `SOURCE_INTEREST`: 源特定一般感兴趣的主题（逗号分隔，可选）
-- `SOURCE_UNINTERESTED`: 源特定不感兴趣的主题（逗号分隔，可选）
-- `SOURCE_EXCLUDE`: 源特定强烈排除的主题（逗号分隔，可选）
-- `PREFERRED_LANGUAGE`: 首选语言（如 "zh", "en"）
-- `FETCH_CONTENT`: 是否已抓取网页内容（"true"/"false"）
-- `TRANSLATE`: 是否需要翻译/总结（"true"/"false"）
+
+上方的 JSON 配置包含以下字段：
+- `source_name`: 源名称
+- `source_url`: 源 URL
+- `global.high_interest`: 全局强烈感兴趣的主题（逗号分隔）
+- `global.interest`: 全局一般感兴趣的主题（逗号分隔）
+- `global.uninterested`: 全局不感兴趣的主题（逗号分隔）
+- `global.exclude`: 全局强烈排除的主题（逗号分隔）
+- `source.high_interest`: 源特定强烈感兴趣的主题（逗号分隔）
+- `source.interest`: 源特定一般感兴趣的主题（逗号分隔）
+- `source.uninterested`: 源特定不感兴趣的主题（逗号分隔）
+- `source.exclude`: 源特定强烈排除的主题（逗号分隔）
+- `global.preferred_language`: 首选语言（如 "zh", "en"）
+- `fetch_content`: 是否已抓取网页内容
+- `translate`: 是否需要翻译/总结
 
 **主题合并规则**：
 每个级别的主题 = 全局配置 + 源特定配置（都存在时合并）
@@ -31,9 +33,9 @@
 
 ## 执行步骤
 
-根据 `FETCH_CONTENT` 环境变量选择执行流程：
+根据配置 JSON 中的 `fetch_content` 字段选择执行流程：
 
-### 当 FETCH_CONTENT="true" 时：两阶段筛选
+### 当 fetch_content=true 时：两阶段筛选
 
 #### 第一步：快速筛选（基于标题和 Meta）
 
@@ -55,9 +57,9 @@ jq '[.items[] | {guid: .guid, title: .title, meta: .meta}]' "$NEW_ITEMS_JSON"
 
 3. 综合分析后：
    - 判断最终分类：high_interest / interest / other / excluded
-   - 如果 `TRANSLATE` 为 "true"，生成目标语言的标题和描述（见后文翻译格式说明）
+   - 如果配置 JSON 中 `translate` 为 true，生成目标语言的标题和描述（见后文翻译格式说明）
 
-### 当 FETCH_CONTENT="false" 时：仅基于标题筛选
+### 当 fetch_content=false 时：仅基于标题筛选
 
 #### 第一步：提取标题
 
@@ -80,8 +82,8 @@ jq '[.items[] | {guid: .guid, title: .title}]' "$NEW_ITEMS_JSON"
 ```bash
 cat > "$FILTER_RESULTS_JSON" <<'EOF'
 {
-  "source_name": "SOURCE_NAME 的值",
-  "source_url": "SOURCE_URL 的值",
+  "source_name": "配置 JSON 中的 source_name",
+  "source_url": "配置 JSON 中的 source_url",
   "results": {}
 }
 EOF
@@ -110,15 +112,15 @@ jq '.results += {
 - `results` 的 key 是条目的 guid，value 包含筛选结果
 - 包含**所有**条目的筛选结果
 - `title` 字段：
-  - 如果 `TRANSLATE` 为 "false"：使用条目的完整原标题，保持与原文完全一致
-  - 如果 `TRANSLATE` 为 "true"：用 `PREFERRED_LANGUAGE` 概括文章核心内容和观点
+  - 如果配置 JSON 中 `translate` 为 false：使用条目的完整原标题，保持与原文完全一致
+  - 如果配置 JSON 中 `translate` 为 true：用配置中的 `global.preferred_language` 概括文章核心内容和观点
     - 要自然，像新闻标题
     - **不要使用生硬的说法**：
       - ✗ "作者分享构建最小化 Coding Agent 的经验"
       - ✓ "从零构建 Coding Agent：最小化设计理念的实践"
   - 正确转义 JSON 特殊字符：英文双引号 `"` → `\"`，反斜杠 `\` → `\\`，换行符 → `\n`
 - `description` 字段（可选）：
-  - 如果 `TRANSLATE` 为 "true"，添加此字段，用 `PREFERRED_LANGUAGE` 总结内容
+  - 如果配置 JSON 中 `translate` 为 true，添加此字段，用配置中的 `global.preferred_language` 总结内容
     - 包含内容：
       1. 文章主要内容和核心观点（400 字以下）
       2. 社区讨论的主要观点和争议点（如果获取了评论）
