@@ -24,17 +24,26 @@ export default {
       const payload = {
         event_type: 'fetch-rss',
         client_payload: {
-          source_name: source.name,
-          source_url: source.url,
-          global_high_interest: config.global.high_interest || '',
-          global_interest: config.global.interest || '',
-          global_uninterested: config.global.uninterested || '',
-          global_exclude: config.global.exclude || '',
-          source_high_interest: source.high_interest || '',
-          source_interest: source.interest || '',
-          source_uninterested: source.uninterested || '',
-          source_exclude: source.exclude || '',
-          timeout: source.timeout
+          timeout: source.timeout ?? config.global.timeout,
+          config: JSON.stringify({
+            source_name: source.name,
+            source_url: source.url,
+            global: {
+              high_interest: config.global.high_interest,
+              interest: config.global.interest,
+              uninterested: config.global.uninterested,
+              exclude: config.global.exclude,
+              preferred_language: config.global.preferred_language
+            },
+            source: {
+              high_interest: source.high_interest || '',
+              interest: source.interest || '',
+              uninterested: source.uninterested || '',
+              exclude: source.exclude || ''
+            },
+            fetch_content: source.fetch_content ?? false,
+            translate: source.translate ?? false
+          })
         }
       };
 

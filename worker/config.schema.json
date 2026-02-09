@@ -8,6 +8,7 @@
     "global": {
       "type": "object",
       "description": "全局兴趣配置",
+      "required": ["high_interest", "interest", "uninterested", "exclude", "preferred_language", "timeout"],
       "properties": {
         "high_interest": {
           "type": "string",
@@ -29,6 +30,11 @@
           "type": "string",
           "description": "首选语言代码，如 zh, en",
           "default": "zh"
+        },
+        "timeout": {
+          "type": "integer",
+          "description": "全局默认的 Claude 执行超时时间（分钟）",
+          "minimum": 1
         }
       }
     },
@@ -82,7 +88,7 @@
           },
           "timeout": {
             "type": "integer",
-            "description": "Claude 执行超时时间（分钟）",
+            "description": "Claude 执行超时时间（分钟），覆盖 global.timeout",
             "minimum": 1
           }
         }

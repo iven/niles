@@ -4,10 +4,10 @@ on:
   repository_dispatch:
     types: [fetch-rss]
 
-run-name: "Fetch RSS: ${{ github.event.client_payload.source_name }}"
+run-name: "Fetch RSS: ${{ fromJson(github.event.client_payload.config).source_name }}"
 
 concurrency:
-  group: fetch-rss-${{ github.event.client_payload.source_name }}
+  group: fetch-rss-${{ fromJson(github.event.client_payload.config).source_name }}
   cancel-in-progress: true
 
 jobs:
@@ -35,16 +35,24 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
 
+      - name: Parse config
+        id: parse-config
+        run: |
+          CONFIG='${{ github.event.client_payload.config }}'
+          echo "source_name=$(echo "$CONFIG" | jq -r '.source_name')" >> $GITHUB_OUTPUT
+          echo "source_url=$(echo "$CONFIG" | jq -r '.source_url')" >> $GITHUB_OUTPUT
+          echo "fetch_content=$(echo "$CONFIG" | jq -r '.fetch_content')" >> $GITHUB_OUTPUT
+
       - name: Extract new items
         id: extract
         run: |
-          TEMP_DIR="/tmp/niles-rss/${{ github.event.client_payload.source_name }}"
+          TEMP_DIR="/tmp/niles-rss/${{ steps.parse-config.outputs.source_name }}"
           mkdir -p "$TEMP_DIR"
           uv run scripts/extract-new-items.py \
-            "${{ github.event.client_payload.source_url }}" \
-            "output/${{ github.event.client_payload.source_name }}.xml" \
+            "${{ steps.parse-config.outputs.source_url }}" \
+            "output/${{ steps.parse-config.outputs.source_name }}.xml" \
             --output "$TEMP_DIR/new-items.json" \
-            ${{ github.event.client_payload.fetch_content == 'true' && '--fetch-content' || '' }}
+            ${{ steps.parse-config.outputs.fetch_content == 'true' && '--fetch-content' || '' }}
           NEW_COUNT=$(jq '.new_items' "$TEMP_DIR/new-items.json")
           echo "count=$NEW_COUNT" >> $GITHUB_OUTPUT
           echo "temp_dir=$TEMP_DIR" >> $GITHUB_OUTPUT
@@ -55,10 +63,18 @@ jobs:
         run: |
           TEMP_DIR="${{ steps.extract.outputs.temp_dir }}"
           rm -f "$TEMP_DIR/filter-results.json"
+          CONFIG='${{ github.event.client_payload.config }}'
           delimiter="ghadelimiter_${RANDOM}_${RANDOM}"
-          echo "prompt<<${delimiter}" >> $GITHUB_OUTPUT
-          cat rss-prompt.md >> $GITHUB_OUTPUT
-          echo "${delimiter}" >> $GITHUB_OUTPUT
+          {
+            echo "prompt<<${delimiter}"
+            echo "# 配置信息"
+            echo '```json'
+            echo "$CONFIG" | jq .
+            echo '```'
+            echo ""
+            cat rss-prompt.md
+            echo "${delimiter}"
+          } >> $GITHUB_OUTPUT
 
       - name: Run Claude
         if: steps.extract.outputs.count != '0'
@@ -69,21 +85,8 @@ jobs:
           ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.BEDROCK_HAIKU_MODEL_ID }}
           ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ secrets.BEDROCK_SONNET_MODEL_ID }}
           ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ secrets.BEDROCK_OPUS_MODEL_ID }}
-          SOURCE_NAME: ${{ github.event.client_payload.source_name }}
-          SOURCE_URL: ${{ github.event.client_payload.source_url }}
           NEW_ITEMS_JSON: ${{ steps.extract.outputs.temp_dir }}/new-items.json
           FILTER_RESULTS_JSON: ${{ steps.extract.outputs.temp_dir }}/filter-results.json
-          GLOBAL_HIGH_INTEREST: ${{ github.event.client_payload.global_high_interest }}
-          GLOBAL_INTEREST: ${{ github.event.client_payload.global_interest }}
-          GLOBAL_UNINTERESTED: ${{ github.event.client_payload.global_uninterested }}
-          GLOBAL_EXCLUDE: ${{ github.event.client_payload.global_exclude }}
-          SOURCE_HIGH_INTEREST: ${{ github.event.client_payload.source_high_interest }}
-          SOURCE_INTEREST: ${{ github.event.client_payload.source_interest }}
-          SOURCE_UNINTERESTED: ${{ github.event.client_payload.source_uninterested }}
-          SOURCE_EXCLUDE: ${{ github.event.client_payload.source_exclude }}
-          PREFERRED_LANGUAGE: ${{ github.event.client_payload.preferred_language }}
-          FETCH_CONTENT: ${{ github.event.client_payload.fetch_content }}
-          TRANSLATE: ${{ github.event.client_payload.translate }}
         with:
           use_bedrock: "true"
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -106,6 +109,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add ${{ github.event.client_payload.source_name }}.xml
-          git commit -m "Update ${{ github.event.client_payload.source_name }} RSS" || exit 0
+          git add "${{ steps.parse-config.outputs.source_name }}.xml"
+          git commit -m "Update ${{ steps.parse-config.outputs.source_name }} RSS" || exit 0
           git push
