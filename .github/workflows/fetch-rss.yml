@@ -102,7 +102,7 @@ jobs:
           STRUCTURED_OUTPUT: ${{ steps.claude.outputs.structured_output }}
         run: |
           TEMP_DIR="${{ steps.extract.outputs.temp_dir }}"
-          echo "$STRUCTURED_OUTPUT" > "$TEMP_DIR/filter-results.json"
+          printf '%s\n' "$STRUCTURED_OUTPUT" > "$TEMP_DIR/filter-results.json"
           uv run scripts/generate-rss.py "$TEMP_DIR/new-items.json" "$TEMP_DIR/filter-results.json" output/${{ steps.parse-config.outputs.source_name }}.xml
 
       - name: Commit and Push
