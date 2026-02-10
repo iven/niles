@@ -49,11 +49,17 @@ jq '[.items[] | {guid: .guid, title: .title, meta: .meta}]' "$NEW_ITEMS_JSON"
 
 #### 第二步：深度分析（仅针对 maybe）
 
-对于标记为 `maybe` 的条目，使用 Subagent 批量处理：
+对于标记为 `maybe` 的条目，**为每个条目启动一个 Subagent 进行深度分析**，最多同时启动 10 个 Subagent：
 
-1. 使用 jq 读取条目的 `content` 字段（网页正文摘要）
+1. 使用 jq 读取该条目的 `content` 字段：
+   ```bash
+   jq --arg guid "{条目的guid}" '.items[] | select(.guid == $guid) | .content' "$NEW_ITEMS_JSON"
+   ```
 
-2. 如果条目来自社交新闻平台且有 API 可以获取社区评论（比如 Hacker News），必须通过 API 获取条目前 20 条顶层评论内容（禁止以效率为由跳过）
+2. 如果条目来自社交新闻平台且有 API 可以获取社区评论，必须通过 API 获取该条目的评论内容用于分析（禁止以效率为由跳过）
+   - 根据条目的 URL 判断来源平台，选择合适的 API
+   - 例如 Hacker News 可使用 `https://hn.algolia.com/api/v1/items/{id}`（`.children` 字段包含完整评论树）
+   - **至少分析 10 条评论**，根据评论内容的相关性和信息量，决定是否需要解析更深层的嵌套评论
 
 3. 综合分析后：
    - 判断最终分类：high_interest / interest / other / excluded
@@ -89,9 +95,9 @@ cat > "$FILTER_RESULTS_JSON" <<'EOF'
 EOF
 ```
 
-### 2. 批次处理：追加结果
+### 2. 追加结果
 
-每分析完一批后，使用 jq 将该批次的结果追加到 `results` 对象中。例如：
+每分析完一批后，使用 jq 将结果追加到 `results` 对象中。例如：
 
 ```bash
 jq '.results += {
