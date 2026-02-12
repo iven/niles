@@ -40,7 +40,7 @@ def process_item(item):
 
         main = soup.find("article") or soup.find("main") or soup.find("body")
         text = main.get_text(separator=" ", strip=True) if main else ""
-        text = " ".join(text.split())[:10000]  # 限制长度
+        text = " ".join(text.split())[:15000]  # 限制长度
 
         item['extra']['content'] = text
 

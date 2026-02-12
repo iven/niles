@@ -155,7 +155,25 @@ bash tests/test-personalize-hn.sh -i
 
 使用 `gh api` 触发 repository_dispatch 事件。参考 `worker/index.js` 中的配置合并逻辑构建 payload。
 
-**注意**：`client_payload` 必须是 JSON 对象，不能是字符串。
+**重要**：
+- `client_payload` 必须是 JSON 对象，不能是字符串。
+- 必须先创建临时 JSON 文件，然后使用 `--input` 参数传递给 `gh api`，避免转义问题。
+
+```bash
+# 创建 payload 文件（参考 worker/index.js 的格式）
+cat > /tmp/claude/payload.json <<'EOF'
+{
+  "event_type": "fetch-rss",
+  "client_payload": {
+    "timeout": 20,
+    "config": "{...}"
+  }
+}
+EOF
+
+# 触发 workflow
+gh api repos/iven/niles/dispatches --method POST --input /tmp/claude/payload.json
+```
 
 ### 添加新插件
 
@@ -182,6 +200,12 @@ bash tests/test-personalize-hn.sh -i
 5. 更新所有使用该配置的 agents/skills。
 
 ## 代码规范
+
+### 编码风格
+
+修改文件时必须先阅读现有内容，严格遵照原有的代码/行文风格。
+
+**关键原则**：更详细 ≠ 更有帮助。如果现有内容是简洁的，新增内容也必须简洁。
 
 ### Commit Message
 
