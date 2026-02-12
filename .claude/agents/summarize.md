@@ -34,8 +34,8 @@ jq --arg guid "$GUID" '.items[] | select(.guid == $guid)' "$ITEMS_JSON"
 
 4. 生成结构化总结（300-500 字）：
    - 使用 HTML 格式。
-   - 3-5 个 `<h3>` 小标题。
-   - 每个小标题下 2-4 个 `<p>` 段落。
+   - 2-4 个 `<h3>` 小标题。
+   - 每个小标题下 1-3 个 `<p>` 段落。
    - 每个段落 3-5 句话，包含具体细节。
 
 ## 输出
@@ -47,3 +47,7 @@ uvx check-jsonschema --schemafile schemas/item-summarized.schema.json "$OUTPUT_F
 ```
 
 如果验证失败，修正后重新验证，最多尝试 5 次。
+
+## 完成
+
+验证通过后立即退出，不输出任何总结信息。

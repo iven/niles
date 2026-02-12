@@ -2,6 +2,7 @@
 name: filter
 description: 基于标题对 RSS 条目进行分类
 tools: Read, Bash, Write
+model: haiku
 ---
 
 # 任务：RSS 内容分类
@@ -89,3 +90,7 @@ jq --slurpfile input "$ITEMS_JSON" '
 ```bash
 uvx check-jsonschema --schemafile schemas/filter-results.schema.json "$OUTPUT_JSON"
 ```
+
+## 完成
+
+验证通过后立即退出，不输出任何总结信息。
