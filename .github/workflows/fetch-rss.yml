@@ -41,40 +41,24 @@ jobs:
           CONFIG='${{ github.event.client_payload.config }}'
           echo "source_name=$(echo "$CONFIG" | jq -r '.source_name')" >> $GITHUB_OUTPUT
           echo "source_url=$(echo "$CONFIG" | jq -r '.source_url')" >> $GITHUB_OUTPUT
-          echo "fetch_content=$(echo "$CONFIG" | jq -r '.fetch_content')" >> $GITHUB_OUTPUT
+          echo "plugins=$(echo "$CONFIG" | jq -r '.plugins | join(",")')" >> $GITHUB_OUTPUT
+          echo "summarize=$(echo "$CONFIG" | jq -r '.summarize')" >> $GITHUB_OUTPUT
 
       - name: Extract new items
         id: extract
         run: |
-          TEMP_DIR="/tmp/niles-rss/${{ steps.parse-config.outputs.source_name }}"
-          mkdir -p "$TEMP_DIR"
-          uv run scripts/extract-new-items.py \
+          OUTPUT_DIR="/tmp/niles-rss/${{ steps.parse-config.outputs.source_name }}"
+          mkdir -p "$OUTPUT_DIR"
+          PLUGINS="${{ steps.parse-config.outputs.plugins }}"
+          uv run scripts/fetch-rss-items.py \
             "${{ steps.parse-config.outputs.source_url }}" \
             "output/${{ steps.parse-config.outputs.source_name }}.xml" \
-            --output "$TEMP_DIR/new-items.json" \
-            ${{ steps.parse-config.outputs.fetch_content == 'true' && '--fetch-content' || '' }}
-          NEW_COUNT=$(jq '.new_items' "$TEMP_DIR/new-items.json")
+            --source-name "${{ steps.parse-config.outputs.source_name }}" \
+            --output "$OUTPUT_DIR/items-raw.json" \
+            $([ -n "$PLUGINS" ] && [ "$PLUGINS" != "null" ] && echo "--plugins $PLUGINS" || echo "")
+          NEW_COUNT=$(jq '.new_items' "$OUTPUT_DIR/items-raw.json")
           echo "count=$NEW_COUNT" >> $GITHUB_OUTPUT
-          echo "temp_dir=$TEMP_DIR" >> $GITHUB_OUTPUT
-
-      - name: Read prompt file
-        if: steps.extract.outputs.count != '0'
-        id: read-prompt
-        run: |
-          TEMP_DIR="${{ steps.extract.outputs.temp_dir }}"
-          rm -f "$TEMP_DIR/filter-results.json"
-          CONFIG='${{ github.event.client_payload.config }}'
-          delimiter="ghadelimiter_${RANDOM}_${RANDOM}"
-          {
-            echo "prompt<<${delimiter}"
-            echo "# 配置信息"
-            echo '```json'
-            echo "$CONFIG" | jq .
-            echo '```'
-            echo ""
-            cat rss-prompt.md
-            echo "${delimiter}"
-          } >> $GITHUB_OUTPUT
+          echo "output_dir=$OUTPUT_DIR" >> $GITHUB_OUTPUT
 
       - name: Run Claude
         if: steps.extract.outputs.count != '0'
@@ -85,25 +69,22 @@ jobs:
           ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.BEDROCK_HAIKU_MODEL_ID }}
           ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ secrets.BEDROCK_SONNET_MODEL_ID }}
           ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ secrets.BEDROCK_OPUS_MODEL_ID }}
-          NEW_ITEMS_JSON: ${{ steps.extract.outputs.temp_dir }}/new-items.json
-          FILTER_RESULTS_JSON: ${{ steps.extract.outputs.temp_dir }}/filter-results.json
+          ITEMS_JSON: ${{ steps.extract.outputs.output_dir }}/items.json
+          OUTPUT_DIR: ${{ steps.extract.outputs.output_dir }}
+          CONFIG: ${{ github.event.client_payload.config }}
         with:
           use_bedrock: "true"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          prompt: ${{ steps.read-prompt.outputs.prompt }}
+          prompt: /personalize-rss
           show_full_output: "true"
           claude_args: |
-            --allowedTools WebFetch,Bash,Read,Write,Edit,Grep,Glob
-            --json-schema '{"type":"object","properties":{"source_name":{"type":"string"},"source_url":{"type":"string"},"results":{"type":"object","additionalProperties":{"type":"object","properties":{"title":{"type":"string"},"description":{"type":"string"},"type":{"type":"string","enum":["high_interest","interest","other","excluded"]},"reason":{"type":"string"}},"required":["title","type","reason"]}}},"required":["source_name","source_url","results"]}'
+            --allowedTools Task,WebFetch,Bash,Read,Write,Edit,Grep,Glob
 
       - name: Generate RSS
         if: steps.extract.outputs.count != '0'
-        env:
-          STRUCTURED_OUTPUT: ${{ steps.claude.outputs.structured_output }}
         run: |
-          TEMP_DIR="${{ steps.extract.outputs.temp_dir }}"
-          printf '%s\n' "$STRUCTURED_OUTPUT" > "$TEMP_DIR/filter-results.json"
-          uv run scripts/generate-rss.py "$TEMP_DIR/new-items.json" "$TEMP_DIR/filter-results.json" output/${{ steps.parse-config.outputs.source_name }}.xml
+          OUTPUT_DIR="${{ steps.extract.outputs.output_dir }}"
+          uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ steps.parse-config.outputs.source_name }}.xml
 
       - name: Commit and Push
         if: steps.extract.outputs.count != '0'

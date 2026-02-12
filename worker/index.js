@@ -28,21 +28,13 @@ export default {
           config: JSON.stringify({
             source_name: source.name,
             source_url: source.url,
-            global: {
-              high_interest: config.global.high_interest,
-              interest: config.global.interest,
-              uninterested: config.global.uninterested,
-              exclude: config.global.exclude,
-              preferred_language: config.global.preferred_language
-            },
-            source: {
-              high_interest: source.high_interest || '',
-              interest: source.interest || '',
-              uninterested: source.uninterested || '',
-              exclude: source.exclude || ''
-            },
-            fetch_content: source.fetch_content ?? false,
-            translate: source.translate ?? false
+            high_interest: source.high_interest ?? config.global.high_interest,
+            interest: source.interest ?? config.global.interest,
+            uninterested: source.uninterested ?? config.global.uninterested,
+            exclude: source.exclude ?? config.global.exclude,
+            preferred_language: config.global.preferred_language,
+            plugins: source.plugins ?? [],
+            summarize: source.summarize ?? false
           })
         }
       };
