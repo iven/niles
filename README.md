@@ -80,10 +80,11 @@ git checkout main
   "sources": [
     {
       "name": "cnbeta",
+      "title": "cnBeta.com - 中文业界资讯站",
       "url": "https://www.cnbeta.com.tw/backend.php",
       "cron": "*/30 * * * *",
       "exclude": "健康贴士,娱乐明星日常",
-      "plugins": [],
+      "plugins": ["cnbeta_fetch_content"],
       "summarize": false
     },
     {
@@ -92,7 +93,7 @@ git checkout main
       "cron": "0 0 * * *",
       "uninterested": "安全,隐私",
       "exclude": "政府政策,社会新闻,代码高尔夫",
-      "plugins": ["fetch_meta", "fetch_content", "hacker_news_comments"],
+      "plugins": ["fetch_meta", "fetch_content", "hn_fetch_comments"],
       "summarize": true,
       "timeout": 20
     }
@@ -162,7 +163,8 @@ https://<username>.github.io/<repo-name>/hacker-news.xml
 - `plugins`：启用的插件列表（可选）。
   - `fetch_meta`：获取网页 meta description。
   - `fetch_content`：获取完整网页内容。
-  - `hacker_news_comments`：获取 Hacker News 评论。
+  - `cnbeta_fetch_content`：获取 cnBeta 文章正文（替换 description）。
+  - `hn_fetch_comments`：获取 Hacker News 评论。
 - `summarize`：是否启用深度分析模式（默认 false）。
 - `timeout`：源特定的超时时间（覆盖全局配置）。
 
