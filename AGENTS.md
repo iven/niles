@@ -199,6 +199,16 @@ gh api repos/iven/niles/dispatches --method POST --input /tmp/claude/payload.jso
 4. 验证配置文件：`uvx check-jsonschema --schemafile worker/config.schema.json worker/config.json`。
 5. 更新所有使用该配置的 agents/skills。
 
+### 部署 Worker
+
+修改配置后需要重新部署 Worker：
+
+```bash
+cd worker
+pnpm install  # 首次部署或更新依赖时需要
+pnpm wrangler deploy
+```
+
 ## 代码规范
 
 ### 编码风格
