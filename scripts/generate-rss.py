@@ -48,7 +48,7 @@ def generate_rss_item(item):
     pub_date = item["pubDate"]
     guid = escape_xml(item.get("guid", item["link"]))
     description = item.get("description", "")
-    description = f"{description}<p><small>{item['reason']}</small></p>"
+    description = f"{description}<p><small>[{item.get('type', 'unknown')}] {item['reason']}</small></p>"
 
     return f"""    <item>
       <title>{title}</title>

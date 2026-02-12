@@ -1,48 +1,34 @@
 # Niles
 
-智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣自动筛选和聚合新闻内容。
+智能 RSS 新闻聚合器,使用 Claude AI 根据个人兴趣自动筛选和聚合新闻内容。
 
 ## 功能特性
 
-- 🤖 **AI 智能筛选**：使用 Claude AI 根据 4 级兴趣层次自动过滤内容
-- ⭐ **兴趣分级显示**：强烈感兴趣（⭐⭐）、一般感兴趣（⭐）、其他内容
-- 🔧 **灵活配置**：通过 YAML 配置文件管理所有 RSS 源和兴趣主题
-- 📡 **外部触发**：支持通过 API 触发，可集成第三方定时服务
-- 📰 **多源支持**：支持任意 RSS feed
-- 📡 **免费托管**：使用 GitHub Pages 托管 RSS 输出
+- 🤖 **AI 智能筛选**:使用 Claude AI 根据 4 级兴趣层次自动过滤内容
+- ⭐ **兴趣分级显示**:强烈感兴趣（⭐⭐）、一般感兴趣（⭐）、其他内容
+- 🌐 **深度分析模式**:可选的内容翻译和结构化总结
+- 🔌 **插件系统**:支持获取网页元信息、完整内容、Hacker News 评论等
+- 🔧 **灵活配置**:通过 JSON 配置文件管理所有 RSS 源和兴趣主题
+- 📡 **自动调度**:使用 Cloudflare Workers cron 自动触发
+- 📰 **多源支持**:支持任意 RSS feed
+- 📡 **免费托管**:使用 GitHub Pages 托管 RSS 输出
 
-## 兴趣级别
+## 分类规则
 
-系统支持 4 个兴趣级别，AI 会根据内容自动分类：
+AI 根据配置中的兴趣主题,将条目分类为 4 种类型:
 
-1. **强烈感兴趣** - 必须保留，RSS 标题显示 ⭐⭐
-2. **一般感兴趣** - 必须保留，RSS 标题显示 ⭐
-3. **不感兴趣** - 建议排除，但如果内容与感兴趣主题相关性高则保留
-4. **强烈排除** - 必须排除
-
-## 架构设计
-
-### 目录结构
-
-```
-niles/
-├── .github/
-│   └── workflows/
-│       └── fetch-rss.yml      # 主 workflow（外部触发）
-├── scripts/
-│   ├── extract-new-items.py   # 提取新条目
-│   └── generate-rss.py        # 生成 RSS
-├── worker/config.json                # RSS 源和兴趣配置
-├── rss-prompt.md              # Claude AI 提示词
-└── README.md
-```
+1. **强烈感兴趣** (`high_interest`) - 出现在 RSS 中,标题显示 ⭐⭐
+2. **一般感兴趣** (`interest`) - 出现在 RSS 中,标题显示 ⭐
+3. **其他** (`other`) - 标题模糊或不太感兴趣但也不排除,出现在 RSS 中但无星标
+4. **明确不感兴趣** (`excluded`) - 不出现在 RSS 中
 
 ## 快速开始
 
 ### 前置要求
 
 - GitHub 账户
-- AWS 账户（用于 Bedrock）
+- AWS 账户(用于 Bedrock)
+- Cloudflare 账户(用于 Workers cron)
 - 已配置的 AWS Bedrock Claude 模型访问权限
 
 ### 部署步骤
@@ -62,157 +48,137 @@ git checkout main
 
 #### 3. 配置 GitHub Secrets
 
-进入仓库 Settings → Secrets and variables → Actions → Secrets，添加：
+进入仓库 Settings → Secrets and variables → Actions → Secrets,添加:
 
-- `AWS_ACCESS_KEY_ID`: AWS 访问密钥 ID
-- `AWS_SECRET_ACCESS_KEY`: AWS 秘密访问密钥
-- `BEDROCK_HAIKU_MODEL_ID`: Bedrock Haiku 模型 ID
-- `BEDROCK_SONNET_MODEL_ID`: Bedrock Sonnet 模型 ID
-- `BEDROCK_OPUS_MODEL_ID`: Bedrock Opus 模型 ID
+- `AWS_ACCESS_KEY_ID`:AWS 访问密钥 ID
+- `AWS_SECRET_ACCESS_KEY`:AWS 秘密访问密钥
+- `BEDROCK_HAIKU_MODEL_ID`:Bedrock Haiku 模型 ID
+- `BEDROCK_SONNET_MODEL_ID`:Bedrock Sonnet 模型 ID
+- `BEDROCK_OPUS_MODEL_ID`:Bedrock Opus 模型 ID
 
 #### 4. 启用 GitHub Pages
 
-进入仓库 Settings → Pages：
+进入仓库 Settings → Pages:
 - Source: Deploy from a branch
 - Branch: gh-pages / root
 
 #### 5. 配置 RSS 源和兴趣主题
 
-编辑 `worker/config.json`：
+编辑 `worker/config.json`:
 
 ```json
 {
+  "$schema": "./config.schema.json",
   "global": {
-    "high_interest": "人工智能技术进展,编程语言重大更新",
-    "interest": "开源项目,开发工具和效率,科学前沿",
-    "uninterested": "",
-    "exclude": "加密货币,NFT,汽车,航空技术,游戏主机,行业人物"
+    "high_interest": "重大国内国际新闻,编程工具,编程效率",
+    "interest": "重大市场动态,人工智能软件技术,编程语言,开源项目,科学前沿",
+    "uninterested": "行业人物,历史,基础设施,加密货币,芯片技术,iPhone,自动驾驶",
+    "exclude": "NFT,汽车,航空,游戏主机,开发板,人物传记",
+    "preferred_language": "zh",
+    "timeout": 5
   },
   "sources": [
     {
       "name": "cnbeta",
       "url": "https://www.cnbeta.com.tw/backend.php",
-      "exclude": "健康贴士,娱乐明星日常,历史"
-    },
-    {
-      "name": "sspai",
-      "url": "https://sspai.com/feed"
+      "cron": "*/30 * * * *",
+      "exclude": "健康贴士,娱乐明星日常",
+      "plugins": [],
+      "summarize": false
     },
     {
       "name": "hacker-news",
-      "url": "https://hnrss.org/best"
+      "url": "https://hnrss.org/best",
+      "cron": "0 0 * * *",
+      "uninterested": "安全,隐私",
+      "exclude": "政府政策,社会新闻,代码高尔夫",
+      "plugins": ["fetch_meta", "fetch_content", "hacker_news_comments"],
+      "summarize": true,
+      "timeout": 20
     }
   ]
 }
 ```
 
-#### 6. 设置外部触发
+#### 6. 部署 Cloudflare Worker
 
-使用外部服务（如 Cloudflare Workers、cron-job.org、Pipedream 等）读取配置文件并触发 GitHub Actions：
-
+1. 安装 Wrangler CLI:
 ```bash
-curl -X POST \
-  -H "Authorization: Bearer <GITHUB_TOKEN>" \
-  -H "Accept: application/vnd.github+json" \
-  https://api.github.com/repos/<owner>/<repo>/dispatches \
-  -d '{
-    "event_type": "fetch-rss",
-    "client_payload": {
-      "source_name": "cnbeta",
-      "source_url": "https://www.cnbeta.com.tw/backend.php",
-      "global_high_interest": "人工智能技术进展,编程语言重大更新",
-      "global_interest": "开源项目,开发工具和效率",
-      "global_uninterested": "",
-      "global_exclude": "加密货币,NFT,汽车",
-      "source_high_interest": "",
-      "source_interest": "",
-      "source_uninterested": "",
-      "source_exclude": "健康贴士,娱乐明星日常"
-    }
-  }'
+npm install -g wrangler
 ```
+
+2. 登录 Cloudflare:
+```bash
+wrangler login
+```
+
+3. 配置 secrets:
+```bash
+cd worker
+wrangler secret put GITHUB_TOKEN
+wrangler secret put GITHUB_REPO  # 例如: iven/niles
+```
+
+4. 部署 worker:
+```bash
+wrangler deploy
+```
+
+5. 设置 cron triggers(在 Cloudflare Dashboard 的 Workers → Triggers → Cron Triggers):
+   - 添加配置文件中定义的所有 cron 表达式
+   - 例如: `*/30 * * * *` (每 30 分钟) 和 `0 0 * * *` (每天 0 点)
 
 ### 访问 RSS
 
-部署成功后，RSS 地址为：
+部署成功后,RSS 地址为:
 ```
 https://<username>.github.io/<repo-name>/cnbeta.xml
-https://<username>.github.io/<repo-name>/sspai.xml
 https://<username>.github.io/<repo-name>/hacker-news.xml
 ```
 
 ## 配置说明
 
-### 添加新的 RSS 源
+### 全局配置
 
-编辑 `worker/config.json`，在 `sources` 列表中添加：
+- `high_interest`:强烈感兴趣的主题(逗号分隔)
+- `interest`:一般感兴趣的主题(逗号分隔)
+- `uninterested`:不感兴趣的主题(逗号分隔)
+- `exclude`:强烈排除的主题(逗号分隔)
+- `preferred_language`:首选语言代码(如 zh, en)
+- `timeout`:全局默认超时时间(分钟)
 
-```json
-{
-  "name": "your-source-name",
-  "url": "https://example.com/feed",
-  "high_interest": "特定主题",
-  "exclude": "特定排除"
-}
-```
+### RSS 源配置
 
-### 修改兴趣配置
+每个源可以覆盖全局配置:
 
-编辑 `worker/config.json` 中的 `global` 部分，调整 4 个兴趣级别的主题列表。
+- `name`:源名称(必需)
+- `url`:RSS feed URL(必需)
+- `cron`:Cron 表达式(必需)
+- `high_interest`:源特定的强烈感兴趣主题
+- `interest`:源特定的一般感兴趣主题
+- `uninterested`:源特定的不感兴趣主题
+- `exclude`:源特定的强烈排除主题
+- `plugins`:启用的插件列表(可选)
+  - `fetch_meta`:获取网页 meta description
+  - `fetch_content`:获取完整网页内容
+  - `hacker_news_comments`:获取 Hacker News 评论
+- `summarize`:是否启用深度分析模式(默认 false)
+- `timeout`:源特定的超时时间(覆盖全局配置)
 
-### 外部触发方案
-
-推荐的外部触发服务：
-
-1. **Cloudflare Workers** - 完全免费，支持 cron triggers
-2. **cron-job.org** - 免费，可视化配置
-3. **Pipedream** - 免费额度充足，内置 GitHub 集成
-4. **n8n** - 开源，自托管
-
-外部服务需要：
-1. 读取 `worker/config.json` 配置文件
-2. 为每个源调用 GitHub API 触发 workflow
-3. 传递完整的配置参数
-
-## 技术栈
-
-- **Claude AI**：内容理解和语义筛选
-- **GitHub Actions**：自动化执行
-- **GitHub Pages**：RSS 托管
-- **AWS Bedrock**：Claude API 访问
 
 ## 成本估算
 
-- **GitHub Actions**：免费账户每月 2,000 分钟
-- **GitHub Pages**：完全免费
-- **AWS Bedrock**：按 token 计费，每个源每次约 0.01-0.05 美元
-- **外部触发服务**：Cloudflare Workers 免费版每天 10 万次请求
+- **GitHub Actions**:免费账户每月 2,000 分钟
+- **GitHub Pages**:完全免费
+- **AWS Bedrock**:按 token 计费
+  - 简单模式:每个源每次约 $0.01-0.05
+  - 深度分析模式:每个源每次约 $0.10-0.50(取决于条目数量)
+- **Cloudflare Workers**:免费版每天 10 万次请求
 
-## 故障排查
+## 开发
 
-### Workflow 执行失败
-
-1. 检查 Actions 日志
-2. 确认所有 Secrets 已正确配置
-3. 验证 AWS 凭证是否有效
-4. 检查外部触发的 payload 格式是否正确
-
-### RSS 未更新
-
-1. 检查 gh-pages 分支是否有新 commit
-2. 确认 GitHub Pages 是否启用
-3. 清除浏览器缓存
-
-### 筛选结果不理想
-
-1. 调整 `worker/config.json` 中的兴趣主题描述
-2. 使用更具体或更宽泛的主题词
-3. 调整不同兴趣级别的主题分类
+查看 [AGENTS.md](AGENTS.md) 了解项目架构、设计原则和开发指南。
 
 ## 许可证
 
 MIT
-
-## 致谢
-
-本项目使用 [Claude Code](https://claude.ai/code) 和 [superpowers](https://github.com/superpowersai/superpowers) 插件开发。

@@ -4,11 +4,13 @@
   "description": "RSS 源和兴趣配置",
   "type": "object",
   "required": ["global", "sources"],
+  "additionalProperties": false,
   "properties": {
     "global": {
       "type": "object",
       "description": "全局兴趣配置",
       "required": ["high_interest", "interest", "uninterested", "exclude", "preferred_language", "timeout"],
+      "additionalProperties": false,
       "properties": {
         "high_interest": {
           "type": "string",
@@ -45,6 +47,7 @@
       "items": {
         "type": "object",
         "required": ["name", "url", "cron"],
+        "additionalProperties": false,
         "properties": {
           "name": {
             "type": "string",
@@ -76,14 +79,18 @@
             "type": "string",
             "description": "源特定的强烈排除主题（逗号分隔）"
           },
-          "fetch_content": {
-            "type": "boolean",
-            "description": "是否抓取网页内容（meta + 正文）",
-            "default": false
+          "plugins": {
+            "type": "array",
+            "description": "启用的插件列表",
+            "items": {
+              "type": "string",
+              "enum": ["fetch_meta", "fetch_content", "hacker_news_comments"]
+            },
+            "default": []
           },
-          "translate": {
+          "summarize": {
             "type": "boolean",
-            "description": "是否翻译/总结为 preferred_language",
+            "description": "是否深度分析并翻译/总结为 preferred_language",
             "default": false
           },
           "timeout": {

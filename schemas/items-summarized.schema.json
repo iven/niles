@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Items Summarized",
+  "description": "翻译和总结后的 RSS 条目",
+  "type": "object",
+  "required": ["source_name", "source_url", "total_items", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "source_name": {
+      "type": "string",
+      "description": "RSS 源名称"
+    },
+    "source_url": {
+      "type": "string",
+      "description": "RSS 源 URL"
+    },
+    "total_items": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "总条目数"
+    },
+    "items": {
+      "type": "array",
+      "description": "条目列表",
+      "items": {
+        "type": "object",
+        "required": ["guid", "title", "link", "pubDate", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "guid": {
+            "type": "string",
+            "description": "条目唯一标识"
+          },
+          "title": {
+            "type": "string",
+            "description": "翻译后的标题"
+          },
+          "link": {
+            "type": "string",
+            "description": "条目链接"
+          },
+          "pubDate": {
+            "type": "string",
+            "description": "发布时间"
+          },
+          "description": {
+            "type": "string",
+            "description": "HTML 格式的总结"
+          }
+        }
+      }
+    }
+  }
+}

@@ -14,13 +14,11 @@ import json
 import re
 import sys
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 import httpx
-from bs4 import BeautifulSoup
-
-
 def parse_existing_rss(rss_path):
     """解析现有 RSS，提取 lastBuildDate"""
     if not rss_path.exists():
@@ -50,38 +48,52 @@ def fetch_rss(url):
         return response.content
 
 
-def fetch_page_content(url, max_length=10000):
-    """抓取网页内容（meta + 正文）"""
-    try:
-        with httpx.Client(timeout=10, follow_redirects=True) as client:
-            response = client.get(
-                url,
-                headers={
-                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
-                },
-            )
-            response.raise_for_status()
+def apply_plugins(items, plugin_names, max_workers=10):
+    """应用插件
 
-        soup = BeautifulSoup(response.text, "html.parser")
+    Args:
+        items: 条目列表
+        plugin_names: 插件名称列表
+        max_workers: 最大并发数
 
-        # 提取 meta description
-        meta = soup.find("meta", attrs={"name": "description"}) or soup.find(
-            "meta", attrs={"property": "og:description"}
-        )
-        meta_desc = meta.get("content", "") if meta else ""
+    Returns:
+        增强后的条目列表
+    """
+    if not plugin_names:
+        return items
 
-        # 提取正文
-        for tag in soup(["script", "style", "nav", "header", "footer", "aside"]):
-            tag.decompose()
+    # 动态导入 plugins 模块
+    plugins_dir = Path(__file__).parent / 'plugins'
+    sys.path.insert(0, str(plugins_dir.parent))
 
-        main = soup.find("article") or soup.find("main") or soup.find("body")
-        text = main.get_text(separator=" ", strip=True) if main else ""
-        text = " ".join(text.split())  # 清理空白
+    from plugins import load_plugin
 
-        return {"meta": meta_desc, "content": text[:max_length]}
-    except Exception as e:
-        print(f"抓取 {url} 失败: {e}", file=sys.stderr)
-        return {"meta": "", "content": ""}
+    for plugin_name in plugin_names:
+        try:
+            plugin = load_plugin(plugin_name)
+            if hasattr(plugin, 'process_item'):
+                print(f"应用插件: {plugin_name}", file=sys.stderr)
+                # 并行处理所有 items
+                with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                    # 提交所有任务
+                    future_to_idx = {
+                        executor.submit(plugin.process_item, item): idx
+                        for idx, item in enumerate(items)
+                    }
+                    # 收集结果(保持原始顺序)
+                    results = [None] * len(items)
+                    for future in as_completed(future_to_idx):
+                        idx = future_to_idx[future]
+                        try:
+                            results[idx] = future.result()
+                        except Exception as e:
+                            print(f"处理 item {idx} 失败: {e}", file=sys.stderr)
+                            results[idx] = items[idx]  # 失败时保留原始 item
+                    items = results
+        except Exception as e:
+            print(f"插件 {plugin_name} 执行失败: {e}", file=sys.stderr)
+
+    return items
 
 
 def parse_rss_items(rss_content):
@@ -129,14 +141,13 @@ def main():
     parser = argparse.ArgumentParser(description="从 RSS feed 中提取新条目")
     parser.add_argument("url", type=str, help="RSS feed URL")
     parser.add_argument("existing_rss", type=str, help="已有 RSS 文件路径")
+    parser.add_argument("--source-name", type=str, required=True, help="源名称")
     parser.add_argument("--top", type=int, default=50, help="最多提取前 N 条")
     parser.add_argument(
         "--output", type=str, help="输出 JSON 文件路径（不指定则输出到 stdout）"
     )
     parser.add_argument(
-        "--fetch-content",
-        action="store_true",
-        help="是否抓取网页内容（meta + 正文）",
+        "--plugins", type=str, help="逗号分隔的插件列表"
     )
 
     args = parser.parse_args()
@@ -164,18 +175,16 @@ def main():
                 continue
         # 移除内部字段
         new_item = {k: v for k, v in item.items() if not k.startswith("_")}
-
-        # 如果需要抓取内容
-        if args.fetch_content and new_item.get("link"):
-            print(f"抓取内容: {new_item['title']}", file=sys.stderr)
-            page_content = fetch_page_content(new_item["link"])
-            new_item["meta"] = page_content["meta"]
-            new_item["content"] = page_content["content"]
-
         new_items.append(new_item)
+
+    # 应用插件
+    plugins = args.plugins.split(',') if args.plugins else []
+    new_items = apply_plugins(new_items, plugins)
 
     # 输出结果
     result = {
+        "source_name": args.source_name,
+        "source_url": args.url,
         "total_items": len(all_items),
         "existing_items": len(all_items) - len(new_items),
         "new_items": len(new_items),
