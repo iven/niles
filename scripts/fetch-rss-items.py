@@ -19,6 +19,8 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 import httpx
+
+
 def parse_existing_rss(rss_path):
     """解析现有 RSS，提取 lastBuildDate"""
     if not rss_path.exists():
@@ -63,7 +65,7 @@ def apply_plugins(items, plugin_names, max_workers=10):
         return items
 
     # 动态导入 plugins 模块
-    plugins_dir = Path(__file__).parent / 'plugins'
+    plugins_dir = Path(__file__).parent / "plugins"
     sys.path.insert(0, str(plugins_dir.parent))
 
     from plugins import load_plugin
@@ -71,7 +73,7 @@ def apply_plugins(items, plugin_names, max_workers=10):
     for plugin_name in plugin_names:
         try:
             plugin = load_plugin(plugin_name)
-            if hasattr(plugin, 'process_item'):
+            if hasattr(plugin, "process_item"):
                 print(f"应用插件: {plugin_name}", file=sys.stderr)
                 # 并行处理所有 items
                 with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -148,13 +150,11 @@ def main():
     parser.add_argument("url", type=str, help="RSS feed URL")
     parser.add_argument("existing_rss", type=str, help="已有 RSS 文件路径")
     parser.add_argument("--source-name", type=str, required=True, help="源名称")
-    parser.add_argument("--top", type=int, default=50, help="最多提取前 N 条")
+    parser.add_argument("--top", type=int, default=20, help="最多提取前 N 条")
     parser.add_argument(
         "--output", type=str, help="输出 JSON 文件路径（不指定则输出到 stdout）"
     )
-    parser.add_argument(
-        "--plugins", type=str, help="逗号分隔的插件列表"
-    )
+    parser.add_argument("--plugins", type=str, help="逗号分隔的插件列表")
 
     args = parser.parse_args()
 
@@ -184,7 +184,7 @@ def main():
         new_items.append(new_item)
 
     # 应用插件
-    plugins = args.plugins.split(',') if args.plugins else []
+    plugins = args.plugins.split(",") if args.plugins else []
     new_items = apply_plugins(new_items, plugins)
 
     # 输出结果
