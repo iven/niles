@@ -53,9 +53,10 @@ cp "$ITEMS_JSON" "$OUTPUT_DIR/items-final.json"
 #### 步骤 3：合并结果
 1. 使用 jq 合并所有 items/*.json：
 ```bash
-jq -s '{
+jq -s --slurpfile original "$ITEMS_JSON" '{
   source_name: $config.source_name,
   source_url: $config.source_url,
+  source_title: $original[0].source_title,
   total_items: length,
   items: .
 }' --argjson config "$CONFIG" "$TEMP_DIR"/items/*.json > "$OUTPUT_DIR/items-final.json"

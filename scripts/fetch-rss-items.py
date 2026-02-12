@@ -97,8 +97,14 @@ def apply_plugins(items, plugin_names, max_workers=10):
 
 
 def parse_rss_items(rss_content):
-    """解析 RSS 内容，提取条目"""
+    """解析 RSS 内容，提取条目和频道标题"""
     root = ET.fromstring(rss_content)
+
+    # 提取频道标题
+    channel_title = None
+    channel = root.find(".//channel/title")
+    if channel is not None and channel.text:
+        channel_title = channel.text.strip()
 
     # 查找所有 item
     items = []
@@ -134,7 +140,7 @@ def parse_rss_items(rss_content):
             }
         )
 
-    return items
+    return channel_title, items
 
 
 def main():
@@ -160,8 +166,8 @@ def main():
     # 获取 RSS feed
     rss_content = fetch_rss(args.url)
 
-    # 解析条目
-    all_items = parse_rss_items(rss_content)
+    # 解析条目和频道标题
+    channel_title, all_items = parse_rss_items(rss_content)
 
     # 只保留前 N 条
     all_items = all_items[: args.top]
@@ -185,6 +191,7 @@ def main():
     result = {
         "source_name": args.source_name,
         "source_url": args.url,
+        "source_title": channel_title,
         "total_items": len(all_items),
         "existing_items": len(all_items) - len(new_items),
         "new_items": len(new_items),

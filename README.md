@@ -152,6 +152,7 @@ https://<username>.github.io/<repo-name>/hacker-news.xml
 每个源可以覆盖全局配置：
 
 - `name`：源名称（必需）。
+- `title`：RSS 标题（可选，默认使用原 RSS 标题）。
 - `url`：RSS feed URL（必需）。
 - `cron`：Cron 表达式（必需）。
 - `high_interest`：源特定的强烈感兴趣主题。
