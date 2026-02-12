@@ -2,13 +2,13 @@
 
 ## 项目简介
 
-Niles 是一个智能 RSS 新闻聚合器,使用 Claude AI 根据个人兴趣自动筛选和聚合新闻内容。
+Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣自动筛选和聚合新闻内容。
 
-**核心功能**:
-- 基于 4 级兴趣层次(强烈感兴趣、一般感兴趣、不感兴趣、强烈排除)自动过滤内容
-- 可选的深度分析模式:翻译标题并生成结构化总结
-- 插件系统:获取网页元信息、完整内容、Hacker News 评论等额外数据
-- 使用 Cloudflare Workers cron 自动调度,GitHub Actions 执行,GitHub Pages 托管输出
+**核心功能**：
+- 基于 4 级兴趣层次（强烈感兴趣、一般感兴趣、不感兴趣、强烈排除）自动过滤内容。
+- 可选的深度分析模式：翻译标题并生成结构化总结。
+- 插件系统：获取网页元信息、完整内容、Hacker News 评论等额外数据。
+- 使用 Cloudflare Workers cron 自动调度，GitHub Actions 执行，GitHub Pages 托管输出。
 
 ## 架构概览
 
@@ -55,85 +55,85 @@ Niles 是一个智能 RSS 新闻聚合器,使用 Claude AI 根据个人兴趣自
 2. 基于标题和摘要进行分类
 3. 生成 RSS
 
-**深度分析模式** (`summarize: true`):
-1. 提取新条目(可选使用插件获取额外信息)
-2. 初步分类(stage1)
-3. 对非排除条目进行深度分析:
-   - 翻译标题为目标语言
-   - 生成结构化 HTML 总结(300-500 字)
-4. 基于翻译后标题重新分类(stage3)
-5. 生成 RSS
+**深度分析模式** (`summarize: true`)：
+1. 提取新条目（可选使用插件获取额外信息）。
+2. 初步分类（stage1）。
+3. 对非排除条目进行深度分析：
+   - 翻译标题为目标语言。
+   - 生成结构化 HTML 总结（300-500 字）。
+4. 基于翻译后标题重新分类（stage3）。
+5. 生成 RSS。
 
 ### 核心组件
 
-**Agents**: 单一职责的 AI 任务单元
-- `filter`: 基于标题/摘要对条目分类
-- `summarize`: 深度理解内容并生成翻译和总结
+**Agents**：单一职责的 AI 任务单元
+- `filter`：基于标题/摘要对条目分类。
+- `summarize`：深度理解内容并生成翻译和总结。
 
-**Skills**: 编排多个 agents 的工作流
-- `personalize-rss`: 根据配置选择执行路径,并行处理条目
+**Skills**：编排多个 agents 的工作流
+- `personalize-rss`：根据配置选择执行路径，并行处理条目。
 
-**插件系统**: 可扩展的内容增强
-- 在提取条目时运行,为后续分析提供额外信息
-- 所有额外数据存储在 `item['extra']` 字段中
+**插件系统**：可扩展的内容增强
+- 在提取条目时运行，为后续分析提供额外信息。
+- 所有额外数据存储在 `item['extra']` 字段中。
 
-**数据验证**: JSON Schema 严格验证中间数据格式
+**数据验证**：JSON Schema 严格验证中间数据格式。
 
-**调度器**: Cloudflare Worker 读取配置文件,按 cron 触发 GitHub Actions
+**调度器**：Cloudflare Worker 读取配置文件，按 cron 触发 GitHub Actions。
 
 ## 设计原则
 
 ### Context 节约
 
-避免将大文件加载到 AI context:
-- 使用 bash/jq 提取必要数据
-- Filter agent 输出分类后,用 jq 从源文件合并 description
-- 只传递 AI 需要的字段(标题、摘要、meta)
+避免将大文件加载到 AI context：
+- 使用 bash/jq 提取必要数据。
+- Filter agent 输出分类后，用 jq 从源文件合并 description。
+- 只传递 AI 需要的字段（标题、摘要、meta）。
 
 ### 数据流
 
-- 所有中间数据使用 JSON 格式
-- JSON Schema 验证格式,失败时自动重试(最多 5 次)
-- 使用 jq 在文件层面合并数据
+- 所有中间数据使用 JSON 格式。
+- JSON Schema 验证格式，失败时自动重试（最多 5 次）。
+- 使用 jq 在文件层面合并数据。
 
 ### 配置管理
 
-- 单一配置源: `worker/config.json`
-- Source 配置覆盖 global 配置
-- Cloudflare Worker 负责合并配置并触发 workflow
+- 单一配置源：`worker/config.json`。
+- Source 配置覆盖 global 配置。
+- Cloudflare Worker 负责合并配置并触发 workflow。
 
 ## 关键设计决策
 
 ### 为什么两阶段过滤
 
-标题常常模糊。深度分析模式先翻译和总结内容,再基于清晰的标题重新分类,显著提高准确率。
+标题常常模糊。深度分析模式先翻译和总结内容，再基于清晰的标题重新分类，显著提高准确率。
 
 ### 为什么 Description 不加载到 Context
 
-分类主要依据标题和摘要,description 可能很长(网页正文、评论等)。设计策略:
-1. Filter agent 只输出分类结果(不含 description)
-2. 使用 jq 从输入文件合并 description 到输出
-3. Description 不占用 AI context,大幅节省 tokens
+分类主要依据标题和摘要，description 可能很长（网页正文、评论等）。设计策略：
+1. Filter agent 只输出分类结果（不含 description）。
+2. 使用 jq 从输入文件合并 description 到输出。
+3. Description 不占用 AI context，大幅节省 tokens。
 
 ### 为什么用 Cloudflare Worker
 
-使用 Worker 而非 GitHub Actions schedule 触发器:
-- 可为每个源设置不同的 cron 表达式
-- Worker 读取配置文件,根据 cron 动态触发对应的源
-- 一个 Worker 管理所有源的调度
+使用 Worker 而非 GitHub Actions schedule 触发器：
+- 可为每个源设置不同的 cron 表达式。
+- Worker 读取配置文件，根据 cron 动态触发对应的源。
+- 一个 Worker 管理所有源的调度。
 
 ### 为什么用插件系统
 
-插件在提取条目时运行,为分类和总结提供额外信息:
-- `fetch_meta`: 获取网页 meta description 辅助分类
-- `fetch_content`: 获取完整内容用于深度分析
-- `hacker_news_comments`: 获取讨论内容理解社区关注点
+插件在提取条目时运行，为分类和总结提供额外信息：
+- `fetch_meta`：获取网页 meta description 辅助分类。
+- `fetch_content`：获取完整内容用于深度分析。
+- `hacker_news_comments`：获取讨论内容理解社区关注点。
 
 ## 开发工作流
 
 ### 本地测试
 
-所有测试脚本默认使用 print 模式,可通过 `-i` 或 `--interactive` 切换到交互模式。测试脚本从 `worker/config.json` 读取配置,使用 `tests/fixtures/` 中的测试数据。
+所有测试脚本默认使用 print 模式，可通过 `-i` 或 `--interactive` 切换到交互模式。测试脚本从 `worker/config.json` 读取配置，使用 `tests/fixtures/` 中的测试数据。
 
 ```bash
 # 测试 filter agent
@@ -155,28 +155,45 @@ bash tests/test-personalize-hn.sh -i
 
 使用 `gh api` 触发 repository_dispatch 事件。参考 `worker/index.js` 中的配置合并逻辑构建 payload。
 
-**注意**: `client_payload` 必须是 JSON 对象,不能是字符串。
+**注意**：`client_payload` 必须是 JSON 对象，不能是字符串。
 
 ### 添加新插件
 
-1. 在 `scripts/plugins/` 创建插件文件
-2. 实现 `process_item(item: dict) -> dict` 函数
-3. 将额外数据存储在 `item['extra']` 字段中
-4. 更新 `worker/config.schema.json` 的 plugins enum
-5. 添加测试数据到相应 fixture
+1. 在 `scripts/plugins/` 创建插件文件。
+2. 实现 `process_item(item: dict) -> dict` 函数。
+3. 将额外数据存储在 `item['extra']` 字段中。
+4. 更新 `worker/config.schema.json` 的 plugins enum。
+5. 添加测试数据到相应 fixture。
 
 ### 添加新 Agent
 
-1. 在 `.claude/agents/` 创建 markdown 文件
-2. 定义 frontmatter (name, description, tools)
-3. 编写任务说明和输入输出格式
-4. 创建对应的测试脚本
-5. 在 skill 中调用新 agent
+1. 在 `.claude/agents/` 创建 markdown 文件。
+2. 定义 frontmatter (name, description, tools)。
+3. 编写任务说明和输入输出格式。
+4. 创建对应的测试脚本。
+5. 在 skill 中调用新 agent。
 
 ### 修改配置结构
 
-1. 更新 `worker/config.schema.json`
-2. 更新 `worker/config.json`
-3. 更新 `worker/index.js` 的配置合并逻辑
-4. 验证配置文件: `uvx check-jsonschema --schemafile worker/config.schema.json worker/config.json`
-5. 更新所有使用该配置的 agents/skills
+1. 更新 `worker/config.schema.json`。
+2. 更新 `worker/config.json`。
+3. 更新 `worker/index.js` 的配置合并逻辑。
+4. 验证配置文件：`uvx check-jsonschema --schemafile worker/config.schema.json worker/config.json`。
+5. 更新所有使用该配置的 agents/skills。
+
+## 代码规范
+
+### Commit Message
+
+所有 commit message 使用英文编写：
+
+- 首字母大写，使用祈使句。
+- 简洁描述改动内容。
+- 常用动词：`Add`、`Update`、`Fix`、`Remove`、`Refactor`、`Improve` 等。
+
+示例：
+```
+Add documentation and refine filtering workflow
+Fix shell syntax error in Generate RSS step
+Improve RSS workflow and prompt
+```
