@@ -102,26 +102,26 @@ git checkout main
 
 #### 6. 部署 Cloudflare Worker
 
-1. 安装 Wrangler CLI:
+1. 进入 worker 目录并安装依赖:
 ```bash
-npm install -g wrangler
+cd worker
+pnpm install
 ```
 
 2. 登录 Cloudflare:
 ```bash
-wrangler login
+pnpm wrangler login
 ```
 
 3. 配置 secrets:
 ```bash
-cd worker
-wrangler secret put GITHUB_TOKEN
-wrangler secret put GITHUB_REPO  # 例如: iven/niles
+pnpm wrangler secret put GITHUB_TOKEN
+pnpm wrangler secret put GITHUB_REPO  # 例如: iven/niles
 ```
 
 4. 部署 worker:
 ```bash
-wrangler deploy
+pnpm wrangler deploy
 ```
 
 5. 设置 cron triggers（在 Cloudflare Dashboard 的 Workers → Triggers → Cron Triggers）：
