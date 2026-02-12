@@ -43,6 +43,7 @@ jobs:
           echo "source_url=$(echo "$CONFIG" | jq -r '.source_url')" >> $GITHUB_OUTPUT
           echo "plugins=$(echo "$CONFIG" | jq -r '.plugins | join(",")')" >> $GITHUB_OUTPUT
           echo "summarize=$(echo "$CONFIG" | jq -r '.summarize')" >> $GITHUB_OUTPUT
+          echo "title=$(echo "$CONFIG" | jq -r '.title // ""')" >> $GITHUB_OUTPUT
 
       - name: Extract new items
         id: extract
@@ -84,7 +85,12 @@ jobs:
         if: steps.extract.outputs.count != '0'
         run: |
           OUTPUT_DIR="${{ steps.extract.outputs.output_dir }}"
-          uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ steps.parse-config.outputs.source_name }}.xml
+          TITLE="${{ steps.parse-config.outputs.title }}"
+          if [ -n "$TITLE" ]; then
+            uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ steps.parse-config.outputs.source_name }}.xml --title "$TITLE"
+          else
+            uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ steps.parse-config.outputs.source_name }}.xml
+          fi
 
       - name: Commit and Push
         if: steps.extract.outputs.count != '0'

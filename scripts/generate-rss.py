@@ -63,6 +63,9 @@ def generate_rss(data, existing_rss_path):
     """生成完整 RSS"""
     source_name = data["source_name"]
     source_url = data["source_url"]
+    source_title = data.get("source_title")
+    # 优先级：用户自定义 title > 原 RSS 标题 > 默认值
+    rss_title = data.get("title") or source_title or f"{source_name} - 精选"
     items = data["items"]
 
     # 只取非 excluded 的条目
@@ -91,7 +94,7 @@ def generate_rss(data, existing_rss_path):
     rss = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>{escape_xml(source_name)} - 精选</title>
+    <title>{escape_xml(rss_title)}</title>
     <link>{escape_xml(source_url)}</link>
     <description>基于个人兴趣筛选的 {escape_xml(source_name)} 内容</description>
     <lastBuildDate>{now}</lastBuildDate>
@@ -108,6 +111,7 @@ def main():
     parser.add_argument("items", type=str, help="完整条目 JSON 文件路径")
     parser.add_argument("results", type=str, help="筛选结果 JSON 文件路径")
     parser.add_argument("output", type=str, help="输出 XML 文件路径")
+    parser.add_argument("--title", type=str, help="RSS 标题（可选）")
 
     args = parser.parse_args()
 
@@ -148,6 +152,12 @@ def main():
         "source_url": results_data["source_url"],
         "items": merged_items,
     }
+
+    # 如果命令行提供了 title，使用命令行的；否则使用 items_data 中的 source_title
+    if args.title:
+        data["title"] = args.title
+    elif "source_title" in items_data:
+        data["title"] = items_data["source_title"]
 
     # 生成 RSS
     rss, new_count = generate_rss(data, output_path)
