@@ -124,10 +124,11 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 
 ### 为什么用插件系统
 
-插件在提取条目时运行，为分类和总结提供额外信息：
+插件在提取条目时运行，为分类、总结或最终输出提供额外信息：
 - `fetch_meta`：获取网页 meta description 辅助分类。
 - `fetch_content`：获取完整内容用于深度分析。
-- `hacker_news_comments`：获取讨论内容理解社区关注点。
+- `cnbeta_fetch_content`：获取 cnBeta 文章正文（HTML 格式），直接替换 description 字段用于最终 RSS 输出。
+- `hn_fetch_comments`：获取 Hacker News 讨论内容理解社区关注点。
 
 ## 开发工作流
 

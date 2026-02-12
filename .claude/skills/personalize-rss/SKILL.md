@@ -21,7 +21,7 @@ printf "ITEMS_JSON=%s\nOUTPUT_DIR=%s\nCONFIG=%s\n" "$ITEMS_JSON" "$OUTPUT_DIR" "
 ### 如果 summarize=false（简单筛选）
 
 #### 步骤 1：分类
-调用 filter agent：
+使用 Task 工具调用 filter agent：
 - 输入文件：`$ITEMS_JSON`。
 - 输出文件：`$OUTPUT_DIR/filter-results.json`。
 - 配置：从 `CONFIG` 获取 source_name, source_url, high_interest, interest, uninterested, exclude。
@@ -35,7 +35,7 @@ cp "$ITEMS_JSON" "$OUTPUT_DIR/items-final.json"
 ### 如果 summarize=true（深度分析）
 
 #### 步骤 1：初步分类
-调用 filter agent：
+使用 Task 工具调用 filter agent：
 - 输入文件：`$ITEMS_JSON`。
 - 输出文件：`$OUTPUT_DIR/filter-results-stage1.json`。
 - 配置：从 `CONFIG` 获取相关字段。
@@ -46,7 +46,7 @@ cp "$ITEMS_JSON" "$OUTPUT_DIR/items-final.json"
 3. 对每个 guid：
    - 计算 guid 的 MD5 hash。
    - 生成输出路径：`$OUTPUT_DIR/items/{hash}.json`。
-4. 并行调用多个 summarize agent，每个处理一个条目：
+4. 并行使用 Task 工具调用多个 summarize agent，每个处理一个条目：
    - 传递参数：ITEMS_JSON, GUID, OUTPUT_FILE, PREFERRED_LANGUAGE（从 CONFIG 获取）。
 5. 等待所有 agent 完成。
 
@@ -67,7 +67,7 @@ uvx check-jsonschema --schemafile schemas/items-summarized.schema.json "$OUTPUT_
 ```
 
 #### 步骤 4：基于翻译后标题重新分类
-调用 filter agent：
+使用 Task 工具调用 filter agent：
 - 输入文件：`$OUTPUT_DIR/items-final.json`。
 - 输出文件：`$OUTPUT_DIR/filter-results.json`。
 - 配置：从 `CONFIG` 获取相关字段。
