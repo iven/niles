@@ -9,8 +9,8 @@ on:
         description: '最少抓取条目数（用于测试）'
         required: false
         default: '0'
-      skip-push:
-        description: '跳过推送到 gh-pages'
+      dry-run:
+        description: 'Dry run (不推送到 gh-pages)'
         type: boolean
         required: false
         default: false
@@ -117,7 +117,7 @@ jobs:
           uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ matrix.source.name }}.xml --title "$TITLE"
 
       - name: Commit and Push
-        if: steps.extract.outputs.count != '0' && github.event.inputs.skip-push != 'true'
+        if: steps.extract.outputs.count != '0' && github.event.inputs.dry-run != 'true'
         working-directory: output
         run: |
           git config user.name "GitHub Actions"
