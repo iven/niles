@@ -46,12 +46,9 @@ cp "$ITEMS_JSON" "$OUTPUT_DIR/items-final.json"
 jq -r '.results | to_entries[] | select(.value.type == "exclude" | not) | .key' "$OUTPUT_DIR/filter-results-stage1.json"
 ```
 2. 创建目录 `$OUTPUT_DIR/items/`。
-3. 对每个 guid：
-   - 计算 guid 的 MD5 hash。
-   - 生成输出路径：`$OUTPUT_DIR/items/{hash}.json`。
-4. 并行使用 Task 工具调用多个 summarize agent，每个处理一个条目：
-   - 传递参数：ITEMS_JSON, GUID, OUTPUT_FILE, PREFERRED_LANGUAGE（从 GLOBAL_CONFIG 获取）。
-5. 等待所有 agent 完成。
+3. 并行使用 Task 工具调用多个 summarize agent，每个处理一个条目：
+   - 传递参数：ITEMS_JSON, GUID, OUTPUT_DIR（让 agent 自己生成输出文件路径）, PREFERRED_LANGUAGE（从 GLOBAL_CONFIG 获取）。
+4. 等待所有 agent 完成。
 
 #### 步骤 3：合并结果
 1. 使用 jq 合并所有 items/*.json，并从原始数据补充 link 和 pubDate：
