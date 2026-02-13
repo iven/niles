@@ -11,12 +11,12 @@ description: 个性化 RSS 源
 
 从环境变量读取输入参数：
 ```bash
-printf "ITEMS_JSON=%s\nOUTPUT_DIR=%s\nCONFIG=%s\n" "$ITEMS_JSON" "$OUTPUT_DIR" "$CONFIG"
+printf "ITEMS_JSON=%s\nOUTPUT_DIR=%s\nGLOBAL_CONFIG=%s\nSOURCE_CONFIG=%s\n" "$ITEMS_JSON" "$OUTPUT_DIR" "$GLOBAL_CONFIG" "$SOURCE_CONFIG"
 ```
 
 ## 执行流程
 
-根据 `CONFIG` 中的 `summarize` 字段选择执行流程：
+根据 `SOURCE_CONFIG` 中的 `summarize` 字段选择执行流程。
 
 ### 如果 summarize=false（简单筛选）
 
@@ -24,7 +24,7 @@ printf "ITEMS_JSON=%s\nOUTPUT_DIR=%s\nCONFIG=%s\n" "$ITEMS_JSON" "$OUTPUT_DIR" "
 使用 Task 工具调用 filter agent：
 - 输入文件：`$ITEMS_JSON`。
 - 输出文件：`$OUTPUT_DIR/filter-results.json`。
-- 配置：从 `CONFIG` 获取 source_name, source_url, high_interest, interest, uninterested, exclude。
+- 传递：GLOBAL_CONFIG, SOURCE_CONFIG。
 
 #### 步骤 2：输出最终文件
 将 `$ITEMS_JSON` 复制为 `$OUTPUT_DIR/items-final.json`：
@@ -38,27 +38,29 @@ cp "$ITEMS_JSON" "$OUTPUT_DIR/items-final.json"
 使用 Task 工具调用 filter agent：
 - 输入文件：`$ITEMS_JSON`。
 - 输出文件：`$OUTPUT_DIR/filter-results-stage1.json`。
-- 配置：从 `CONFIG` 获取相关字段。
+- 传递：GLOBAL_CONFIG, SOURCE_CONFIG。
 
 #### 步骤 2：深度分析和翻译
-1. 提取非 excluded 的条目 guid：
+1. 提取非 exclude 的条目 guid：
 ```bash
-jq -r '.results | to_entries[] | select(.value.type == "excluded" | not) | .key' "$OUTPUT_DIR/filter-results-stage1.json"
+jq -r '.results | to_entries[] | select(.value.type == "exclude" | not) | .key' "$OUTPUT_DIR/filter-results-stage1.json"
 ```
 2. 创建目录 `$OUTPUT_DIR/items/`。
 3. 对每个 guid：
    - 计算 guid 的 MD5 hash。
    - 生成输出路径：`$OUTPUT_DIR/items/{hash}.json`。
 4. 并行使用 Task 工具调用多个 summarize agent，每个处理一个条目：
-   - 传递参数：ITEMS_JSON, GUID, OUTPUT_FILE, PREFERRED_LANGUAGE（从 CONFIG 获取）。
+   - 传递参数：ITEMS_JSON, GUID, OUTPUT_FILE, PREFERRED_LANGUAGE（从 GLOBAL_CONFIG 获取）。
 5. 等待所有 agent 完成。
 
 #### 步骤 3：合并结果
 1. 使用 jq 合并所有 items/*.json，并从原始数据补充 link 和 pubDate：
 ```bash
-jq -s --slurpfile original "$ITEMS_JSON" '{
-  source_name: $config.source_name,
-  source_url: $config.source_url,
+SOURCE_NAME=$(echo "$SOURCE_CONFIG" | jq -r '.name')
+SOURCE_URL=$(echo "$SOURCE_CONFIG" | jq -r '.url')
+jq -s --slurpfile original "$ITEMS_JSON" --arg source_name "$SOURCE_NAME" --arg source_url "$SOURCE_URL" '{
+  source_name: $source_name,
+  source_url: $source_url,
   source_title: $original[0].source_title,
   total_items: length,
   items: map(
@@ -66,7 +68,7 @@ jq -s --slurpfile original "$ITEMS_JSON" '{
     ($original[0].items[] | select(.guid == $summarized.guid)) as $orig |
     $summarized + {link: $orig.link, pubDate: $orig.pubDate}
   )
-}' --argjson config "$CONFIG" "$OUTPUT_DIR"/items/*.json > "$OUTPUT_DIR/items-final.json"
+}' "$OUTPUT_DIR"/items/*.json > "$OUTPUT_DIR/items-final.json"
 ```
 2. 验证输出：
 ```bash
@@ -77,4 +79,4 @@ uvx check-jsonschema --schemafile schemas/items-summarized.schema.json "$OUTPUT_
 使用 Task 工具调用 filter agent：
 - 输入文件：`$OUTPUT_DIR/items-final.json`。
 - 输出文件：`$OUTPUT_DIR/filter-results.json`。
-- 配置：从 `CONFIG` 获取相关字段。
+- 传递：GLOBAL_CONFIG, SOURCE_CONFIG。

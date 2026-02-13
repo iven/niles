@@ -29,7 +29,7 @@ setup_test_env() {
 # 提取 filter 配置
 extract_filter_config() {
   local source_name="$1"
-  local config_file="$PROJECT_DIR/worker/config.json"
+  local config_file="$PROJECT_DIR/config.json"
 
   local config=$(jq ".sources[] | select(.name == \"$source_name\")" "$config_file")
   local global=$(jq '.global' "$config_file")
@@ -45,7 +45,7 @@ extract_filter_config() {
 # 提取并合并 personalize 配置
 extract_personalize_config() {
   local source_name="$1"
-  local config_file="$PROJECT_DIR/worker/config.json"
+  local config_file="$PROJECT_DIR/config.json"
 
   local config_source=$(jq ".sources[] | select(.name == \"$source_name\")" "$config_file")
   local global_config=$(jq '.global' "$config_file")
@@ -63,6 +63,6 @@ extract_personalize_config() {
 
 # 提取 preferred_language
 extract_preferred_language() {
-  local config_file="$PROJECT_DIR/worker/config.json"
+  local config_file="$PROJECT_DIR/config.json"
   PREFERRED_LANGUAGE=$(jq -r '.global.preferred_language' "$config_file")
 }
