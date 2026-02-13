@@ -42,7 +42,7 @@ jq '{
    - 根据以上配置，分析理解用户真实的兴趣偏好需求
 
 2. **进行分级**：根据条目的 title、meta 内容，判断用户对该条目的预计兴趣程度。
-   - 将条目的 `type` 字段设置为以下之一：
+   - 将条目的 `type` 字段设置为以下之一（注意与上面的四类兴趣主题取值不同）：
      - `high_interest`：用户会强烈感兴趣
      - `interest`：用户会一般感兴趣
      - `other`：标题含义模糊或兴趣不明确
@@ -76,7 +76,7 @@ jq '{
 }
 ```
 
-- `type` 字段格式：`high_interest`、`interest`、`exclude`、`other`
+- `type` 字段取值必须是以下四种之一：`high_interest`、`interest`、`other`、`exclude`
 - `reason` 字段格式：说明内容主题及为何归为此类，例如「Python 开发工具，属于编程工具主题」。
 
 2. 使用 jq 从输入文件合并 description 字段到输出文件:
