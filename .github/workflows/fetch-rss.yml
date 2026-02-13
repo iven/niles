@@ -4,6 +4,16 @@ on:
   schedule:
     - cron: '*/30 * * * *'
   workflow_dispatch:
+    inputs:
+      min-items:
+        description: '最少抓取条目数（用于测试）'
+        required: false
+        default: '0'
+      skip-push:
+        description: '跳过推送到 gh-pages'
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   prepare:
@@ -65,11 +75,13 @@ jobs:
           OUTPUT_DIR="/tmp/niles-rss/${{ matrix.source.name }}"
           mkdir -p "$OUTPUT_DIR"
           PLUGINS="${{ steps.parse-config.outputs.plugins }}"
+          MIN_ITEMS="${{ github.event.inputs.min-items || '0' }}"
           uv run scripts/fetch-rss-items.py \
             "${{ matrix.source.url }}" \
             "output/${{ matrix.source.name }}.xml" \
             --source-name "${{ matrix.source.name }}" \
             --output "$OUTPUT_DIR/items-raw.json" \
+            --min-items "$MIN_ITEMS" \
             $([ -n "$PLUGINS" ] && [ "$PLUGINS" != "null" ] && echo "--plugins $PLUGINS" || echo "")
           NEW_COUNT=$(jq '.new_items' "$OUTPUT_DIR/items-raw.json")
           echo "count=$NEW_COUNT" >> $GITHUB_OUTPUT
@@ -105,7 +117,7 @@ jobs:
           uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ matrix.source.name }}.xml --title "$TITLE"
 
       - name: Commit and Push
-        if: steps.extract.outputs.count != '0'
+        if: steps.extract.outputs.count != '0' && github.event.inputs.skip-push != 'true'
         working-directory: output
         run: |
           git config user.name "GitHub Actions"

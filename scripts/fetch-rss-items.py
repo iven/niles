@@ -150,7 +150,8 @@ def main():
     parser.add_argument("url", type=str, help="RSS feed URL")
     parser.add_argument("existing_rss", type=str, help="已有 RSS 文件路径")
     parser.add_argument("--source-name", type=str, required=True, help="源名称")
-    parser.add_argument("--top", type=int, default=20, help="最多提取前 N 条")
+    parser.add_argument("--max-items", type=int, default=20, help="最多提取前 N 条")
+    parser.add_argument("--min-items", type=int, default=0, help="最少提取 N 条（即使非新条目）")
     parser.add_argument(
         "--output", type=str, help="输出 JSON 文件路径（不指定则输出到 stdout）"
     )
@@ -170,7 +171,7 @@ def main():
     channel_title, all_items = parse_rss_items(rss_content)
 
     # 只保留前 N 条
-    all_items = all_items[: args.top]
+    all_items = all_items[: args.max_items]
 
     # 过滤条目：只保留 pubDate > lastBuildDate 的条目
     new_items = []
@@ -182,6 +183,16 @@ def main():
         # 移除内部字段
         new_item = {k: v for k, v in item.items() if not k.startswith("_")}
         new_items.append(new_item)
+
+    # 如果新条目数量少于最小要求，从所有条目中补齐
+    if len(new_items) < args.min_items:
+        for item in all_items:
+            if len(new_items) >= args.min_items:
+                break
+            # 检查是否已经在 new_items 中
+            new_item = {k: v for k, v in item.items() if not k.startswith("_")}
+            if new_item not in new_items:
+                new_items.append(new_item)
 
     # 应用插件
     plugins = args.plugins.split(",") if args.plugins else []
