@@ -196,6 +196,14 @@ gh workflow run fetch-rss.yml --ref your-branch-name -f dry-run=true
 
 **关键原则**：更详细 ≠ 更有帮助。如果现有内容是简洁的，新增内容也必须简洁。
 
+### Git 操作
+
+**禁止自动提交和推送代码**，除非用户明确说明（如「commit this」「push」）。
+
+- 修改代码后，等待用户指示再提交。
+- 不要主动运行 `git commit` 或 `git push`。
+- 用户可能需要先审查修改或进行其他操作。
+
 ### Commit Message
 
 所有 commit message 使用英文编写：
