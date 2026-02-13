@@ -148,27 +148,22 @@ bash tests/test-personalize-hn.sh -i
 
 ### 手动触发 workflow
 
-使用 `gh api` 触发 repository_dispatch 事件。参考 `worker/index.js` 中的配置合并逻辑构建 payload。
-
-**重要**：
-- `client_payload` 必须是 JSON 对象，不能是字符串。
-- 必须先创建临时 JSON 文件，然后使用 `--input` 参数传递给 `gh api`，避免转义问题。
+使用 `gh workflow run` 触发 workflow。
 
 ```bash
-# 创建 payload 文件（参考 worker/index.js 的格式）
-cat > /tmp/claude/payload.json <<'EOF'
-{
-  "event_type": "fetch-rss",
-  "client_payload": {
-    "timeout": 20,
-    "config": "{...}"
-  }
-}
-EOF
+# 正常执行（会推送到 gh-pages）
+gh workflow run fetch-rss.yml
 
-# 触发 workflow
-gh api repos/iven/niles/dispatches --method POST --input /tmp/claude/payload.json
+# Dry run 模式（不推送到 gh-pages，固定抓取 3 条用于测试）
+gh workflow run fetch-rss.yml -f dry-run=true
+
+# 在非默认分支测试（需要指定 --ref）
+gh workflow run fetch-rss.yml --ref your-branch-name -f dry-run=true
 ```
+
+**参数说明**：
+- `-f dry-run=true`：启用 dry run 模式，不推送到 gh-pages，固定抓取 3 条
+- `--ref`：指定运行 workflow 的分支（默认使用当前分支或仓库默认分支）
 
 ### 添加新插件
 
