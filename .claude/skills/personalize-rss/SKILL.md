@@ -16,7 +16,7 @@ printf "ITEMS_JSON=%s\nOUTPUT_DIR=%s\nGLOBAL_CONFIG=%s\nSOURCE_CONFIG=%s\n" "$IT
 
 ## 执行流程
 
-根据 `SOURCE_CONFIG` 中的 `summarize` 字段选择执行流程。
+根据已读取到的 SOURCE_CONFIG 中的 `summarize` 值决定执行哪个流程。
 
 ### 如果 summarize=false（简单筛选）
 
