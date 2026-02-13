@@ -62,12 +62,8 @@ jobs:
         id: parse-config
         run: |
           SOURCE='${{ toJson(matrix.source) }}'
-          GLOBAL='${{ needs.prepare.outputs.global }}'
-          GLOBAL_TIMEOUT=$(echo "$GLOBAL" | jq -r '.timeout')
-          SOURCE_TIMEOUT=$(echo "$SOURCE" | jq -r '.timeout // empty')
-          TIMEOUT=${SOURCE_TIMEOUT:-$GLOBAL_TIMEOUT}
           echo "plugins=$(echo "$SOURCE" | jq -r '(.plugins // []) | join(",")')" >> $GITHUB_OUTPUT
-          echo "timeout=$TIMEOUT" >> $GITHUB_OUTPUT
+          echo "timeout=$(echo "$SOURCE" | jq -r '.timeout // ${{ fromJson(needs.prepare.outputs.global).timeout }}')" >> $GITHUB_OUTPUT
 
       - name: Extract new items
         id: extract
@@ -93,7 +89,7 @@ jobs:
       - name: Run Claude
         if: steps.extract.outputs.count != '0'
         id: claude
-        timeout-minutes: ${{ steps.parse-config.outputs.timeout }}
+        timeout-minutes: ${{ fromJson(steps.parse-config.outputs.timeout) }}
         uses: anthropics/claude-code-action@v1
         env:
           ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.BEDROCK_HAIKU_MODEL_ID }}
