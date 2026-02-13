@@ -125,14 +125,14 @@ jobs:
           git commit -m "Update ${{ matrix.source.name }} RSS" || exit 0
 
           # Retry push with pull in case of conflicts
-          for i in {1..5}; do
+          for i in {1..3}; do
             if git push; then
               echo "Push succeeded"
               exit 0
             fi
-            echo "Push failed, pulling and retrying (attempt $i/5)"
+            echo "Push failed, pulling and retrying (attempt $i/3)"
             git pull --rebase
-            sleep $((i * 2))
+            sleep 2
           done
-          echo "Push failed after 5 attempts"
+          echo "Push failed after 3 attempts"
           exit 1
