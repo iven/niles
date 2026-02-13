@@ -12,7 +12,7 @@ setup_test_env "$PROJECT_DIR/tests/fixtures/hacker-news-items.json" "$PROJECT_DI
 
 extract_filter_config "hacker-news"
 
-OUTPUT_JSON="$OUTPUT_DIR/filter-results.json"
+OUTPUT_FILE="$OUTPUT_DIR/filter-results.json"
 
 cat <<PROMPT | claude --agent filter --allowedTools Read,Bash,Write $MODE
 配置信息:
@@ -23,6 +23,6 @@ cat <<PROMPT | claude --agent filter --allowedTools Read,Bash,Write $MODE
 - uninterested: $UNINTERESTED
 - exclude: $EXCLUDE
 
-输入文件: $ITEMS_JSON
-输出文件: $OUTPUT_JSON
+输入文件: $INPUT_FILE
+输出文件: $OUTPUT_FILE
 PROMPT

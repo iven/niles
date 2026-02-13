@@ -11,7 +11,7 @@ description: 个性化 RSS 源
 
 从环境变量读取输入参数：
 ```bash
-printf "ITEMS_JSON=%s\nOUTPUT_DIR=%s\nGLOBAL_CONFIG=%s\nSOURCE_CONFIG=%s\n" "$ITEMS_JSON" "$OUTPUT_DIR" "$GLOBAL_CONFIG" "$SOURCE_CONFIG"
+printf "INPUT_FILE=%s\nOUTPUT_DIR=%s\nGLOBAL_CONFIG=%s\nSOURCE_CONFIG=%s\n" "$INPUT_FILE" "$OUTPUT_DIR" "$GLOBAL_CONFIG" "$SOURCE_CONFIG"
 ```
 
 ## 执行流程
@@ -22,21 +22,21 @@ printf "ITEMS_JSON=%s\nOUTPUT_DIR=%s\nGLOBAL_CONFIG=%s\nSOURCE_CONFIG=%s\n" "$IT
 
 #### 步骤 1：分级
 使用 Task 工具调用 filter agent：
-- 输入文件：`$ITEMS_JSON`。
+- 输入文件：`$INPUT_FILE`。
 - 输出文件：`$OUTPUT_DIR/filter-results.json`。
 - 传递：GLOBAL_CONFIG, SOURCE_CONFIG。
 
 #### 步骤 2：输出最终文件
-将 `$ITEMS_JSON` 复制为 `$OUTPUT_DIR/items-final.json`：
+将 `$INPUT_FILE` 复制为 `$OUTPUT_DIR/items-final.json`：
 ```bash
-cp "$ITEMS_JSON" "$OUTPUT_DIR/items-final.json"
+cp "$INPUT_FILE" "$OUTPUT_DIR/items-final.json"
 ```
 
 ### 如果 summarize=true（深度分析）
 
 #### 步骤 1：初步分级
 使用 Task 工具调用 filter agent：
-- 输入文件：`$ITEMS_JSON`。
+- 输入文件：`$INPUT_FILE`。
 - 输出文件：`$OUTPUT_DIR/filter-results-stage1.json`。
 - 传递：GLOBAL_CONFIG, SOURCE_CONFIG。
 
@@ -47,7 +47,7 @@ jq -r '.results | to_entries[] | select(.value.type == "exclude" | not) | .key' 
 ```
 2. 创建目录 `$OUTPUT_DIR/items/`。
 3. 并行使用 Task 工具调用多个 summarize agent，每个处理一个条目：
-   - 传递参数：ITEMS_JSON, GUID, OUTPUT_DIR（让 agent 自己生成输出文件路径）, PREFERRED_LANGUAGE（从 GLOBAL_CONFIG 获取）。
+   - 传递参数：INPUT_FILE, GUID, OUTPUT_DIR（让 agent 自己生成输出文件路径）, PREFERRED_LANGUAGE（从 GLOBAL_CONFIG 获取）。
 4. 等待所有 agent 完成。
 
 #### 步骤 3：合并结果
@@ -55,7 +55,7 @@ jq -r '.results | to_entries[] | select(.value.type == "exclude" | not) | .key' 
 ```bash
 SOURCE_NAME=$(echo "$SOURCE_CONFIG" | jq -r '.name')
 SOURCE_URL=$(echo "$SOURCE_CONFIG" | jq -r '.url')
-jq -s --slurpfile original "$ITEMS_JSON" --arg source_name "$SOURCE_NAME" --arg source_url "$SOURCE_URL" '{
+jq -s --slurpfile original "$INPUT_FILE" --arg source_name "$SOURCE_NAME" --arg source_url "$SOURCE_URL" '{
   source_name: $source_name,
   source_url: $source_url,
   source_title: $original[0].source_title,

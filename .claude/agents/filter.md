@@ -15,7 +15,7 @@ model: haiku
 - INPUT_FILE：items 数据文件路径（禁止使用 Read 工具读取完整内容）。
 - GLOBAL_CONFIG：全局兴趣配置。
 - SOURCE_CONFIG：源配置，包含 name, url 和可选的兴趣字段。
-- OUTPUT_JSON：输出文件路径。
+- OUTPUT_FILE：输出文件路径。
 
 ## 数据读取示例
 
@@ -94,7 +94,7 @@ jq --slurpfile input "<INPUT_FILE>" '
       }
     ) | from_entries
   )
-' "<OUTPUT_JSON>" > "<OUTPUT_JSON>.tmp" && mv "<OUTPUT_JSON>.tmp" "<OUTPUT_JSON>"
+' "<OUTPUT_FILE>" > "<OUTPUT_FILE>.tmp" && mv "<OUTPUT_FILE>.tmp" "<OUTPUT_FILE>"
 ```
 
 ## 验证输出
@@ -102,7 +102,7 @@ jq --slurpfile input "<INPUT_FILE>" '
 完成后，验证输出文件是否符合 schema，验证失败时最多尝试 5 次修正。
 
 ```bash
-uvx check-jsonschema --schemafile schemas/filter-results.schema.json "<OUTPUT_JSON>"
+uvx check-jsonschema --schemafile schemas/filter-results.schema.json "<OUTPUT_FILE>"
 ```
 
 ## 完成

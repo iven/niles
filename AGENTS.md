@@ -135,6 +135,7 @@ bash tests/test-filter-hn.sh
 
 # 测试 summarize agent
 bash tests/test-summarize.sh
+INPUT_FILE=tests/fixtures/phoronix-items.json bash tests/test-summarize.sh
 
 # 测试完整流程
 bash tests/test-personalize-cnbeta.sh

@@ -20,7 +20,7 @@ parse_mode() {
 setup_test_env() {
   local items_json="$1"
   local output_dir="$2"
-  export ITEMS_JSON="$items_json"
+  export INPUT_FILE="$items_json"
   export OUTPUT_DIR="$output_dir"
   rm -rf "$OUTPUT_DIR"
   mkdir -p "$OUTPUT_DIR"
