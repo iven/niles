@@ -134,7 +134,7 @@ def main():
         result = results_data["results"].get(
             guid, {"type": "exclude", "title": "", "reason": "未找到筛选结果"}
         )
-        # 优先使用翻译后的 title 和 description
+        # 优先使用总结后的 title 和 description
         title = result.get("title", item["title"])
         description = result.get("description", item.get("description", ""))
         merged_items.append(
