@@ -42,23 +42,13 @@ extract_filter_config() {
   EXCLUDE=$(echo "$global $config" | jq -s '.[1].exclude // .[0].exclude' -r)
 }
 
-# 提取并合并 personalize 配置
+# 提取 personalize 配置
 extract_personalize_config() {
   local source_name="$1"
   local config_file="$PROJECT_DIR/config.json"
 
-  local config_source=$(jq ".sources[] | select(.name == \"$source_name\")" "$config_file")
-  local global_config=$(jq '.global' "$config_file")
-
-  export CONFIG=$(echo "$global_config $config_source" | jq -s '
-    .[0] as $global |
-    .[1] as $source |
-    $global + $source + {
-      source_name: $source.name,
-      source_url: $source.url
-    } |
-    del(.name, .url, .cron, .plugins, .timeout)
-  ')
+  export SOURCE_CONFIG=$(jq ".sources[] | select(.name == \"$source_name\")" "$config_file")
+  export GLOBAL_CONFIG=$(jq '.global' "$config_file")
 }
 
 # 提取 preferred_language
