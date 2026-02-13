@@ -72,7 +72,7 @@ jq -s --slurpfile original "$ITEMS_JSON" --arg source_name "$SOURCE_NAME" --arg 
 uvx check-jsonschema --schemafile schemas/items-summarized.schema.json "$OUTPUT_DIR/items-final.json"
 ```
 
-#### 步骤 4：基于翻译后标题重新分级
+#### 步骤 4：基于翻译后条目重新分级
 使用 Task 工具调用 filter agent：
 - 输入文件：`$OUTPUT_DIR/items-final.json`。
 - 输出文件：`$OUTPUT_DIR/filter-results.json`。
