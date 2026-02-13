@@ -142,6 +142,9 @@ bash tests/test-summarize.sh
 bash tests/test-personalize-cnbeta.sh
 bash tests/test-personalize-hn.sh
 
+# 测试插件
+bash tests/test-plugin.sh fetch_content https://www.phoronix.com/news/example
+
 # 任意脚本都支持交互模式
 bash tests/test-personalize-hn.sh -i
 ```
@@ -171,7 +174,7 @@ gh workflow run fetch-rss.yml --ref your-branch-name -f dry-run=true
 2. 实现 `process_item(item: dict) -> dict` 函数。
 3. 将额外数据存储在 `item['extra']` 字段中。
 4. 更新 `schemas/config.schema.json` 的 plugins enum。
-5. 添加测试数据到相应 fixture。
+5. 使用 `test-plugin.sh` 测试插件功能。
 
 ### 添加新 Agent
 
