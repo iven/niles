@@ -20,7 +20,7 @@ printf "ITEMS_JSON=%s\nOUTPUT_DIR=%s\nCONFIG=%s\n" "$ITEMS_JSON" "$OUTPUT_DIR" "
 
 ### 如果 summarize=false（简单筛选）
 
-#### 步骤 1：分类
+#### 步骤 1：分级
 使用 Task 工具调用 filter agent：
 - 输入文件：`$ITEMS_JSON`。
 - 输出文件：`$OUTPUT_DIR/filter-results.json`。
@@ -34,14 +34,17 @@ cp "$ITEMS_JSON" "$OUTPUT_DIR/items-final.json"
 
 ### 如果 summarize=true（深度分析）
 
-#### 步骤 1：初步分类
+#### 步骤 1：初步分级
 使用 Task 工具调用 filter agent：
 - 输入文件：`$ITEMS_JSON`。
 - 输出文件：`$OUTPUT_DIR/filter-results-stage1.json`。
 - 配置：从 `CONFIG` 获取相关字段。
 
 #### 步骤 2：深度分析和翻译
-1. 读取 `$OUTPUT_DIR/filter-results-stage1.json`，找出所有 type != "excluded" 的条目 guid。
+1. 提取非 excluded 的条目 guid：
+```bash
+jq -r '.results | to_entries[] | select(.value.type == "excluded" | not) | .key' "$OUTPUT_DIR/filter-results-stage1.json"
+```
 2. 创建目录 `$OUTPUT_DIR/items/`。
 3. 对每个 guid：
    - 计算 guid 的 MD5 hash。
@@ -51,22 +54,26 @@ cp "$ITEMS_JSON" "$OUTPUT_DIR/items-final.json"
 5. 等待所有 agent 完成。
 
 #### 步骤 3：合并结果
-1. 使用 jq 合并所有 items/*.json：
+1. 使用 jq 合并所有 items/*.json，并从原始数据补充 link 和 pubDate：
 ```bash
 jq -s --slurpfile original "$ITEMS_JSON" '{
   source_name: $config.source_name,
   source_url: $config.source_url,
   source_title: $original[0].source_title,
   total_items: length,
-  items: .
-}' --argjson config "$CONFIG" "$TEMP_DIR"/items/*.json > "$OUTPUT_DIR/items-final.json"
+  items: map(
+    . as $summarized |
+    ($original[0].items[] | select(.guid == $summarized.guid)) as $orig |
+    $summarized + {link: $orig.link, pubDate: $orig.pubDate}
+  )
+}' --argjson config "$CONFIG" "$OUTPUT_DIR"/items/*.json > "$OUTPUT_DIR/items-final.json"
 ```
 2. 验证输出：
 ```bash
 uvx check-jsonschema --schemafile schemas/items-summarized.schema.json "$OUTPUT_DIR/items-final.json"
 ```
 
-#### 步骤 4：基于翻译后标题重新分类
+#### 步骤 4：基于翻译后标题重新分级
 使用 Task 工具调用 filter agent：
 - 输入文件：`$OUTPUT_DIR/items-final.json`。
 - 输出文件：`$OUTPUT_DIR/filter-results.json`。
