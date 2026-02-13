@@ -68,7 +68,7 @@ def generate_rss(data, existing_rss_path):
     rss_title = data.get("title") or source_title or f"{source_name} - 精选"
     items = data["items"]
 
-    # 只取非 excluded 的条目
+    # 只取非 exclude 的条目
     matched_items = [item for item in items if item.get("type") in ["high_interest", "interest", "other"]]
 
     # 生成新条目 XML
@@ -132,7 +132,7 @@ def main():
     for item in items_data["items"]:
         guid = item["guid"]
         result = results_data["results"].get(
-            guid, {"type": "excluded", "title": "", "reason": "未找到筛选结果"}
+            guid, {"type": "exclude", "title": "", "reason": "未找到筛选结果"}
         )
         # 优先使用翻译后的 title 和 description
         title = result.get("title", item["title"])
@@ -153,8 +153,8 @@ def main():
         "items": merged_items,
     }
 
-    # 如果命令行提供了 title，使用命令行的；否则使用 items_data 中的 source_title
-    if args.title:
+    # 如果命令行提供了非空 title，使用命令行的；否则使用 items_data 中的 source_title
+    if args.title and args.title.strip():
         data["title"] = args.title
     elif "source_title" in items_data:
         data["title"] = items_data["source_title"]

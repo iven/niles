@@ -13,7 +13,8 @@ model: haiku
 
 调用方会提供：
 - items 数据文件路径（禁止使用 Read 工具读取完整内容）。
-- 兴趣配置（包含 source_name, source_url, high_interest, interest, uninterested, exclude 等字段）。
+- GLOBAL_CONFIG（全局兴趣配置）。
+- SOURCE_CONFIG（源配置，包含 name, url 和可选的兴趣字段）。
 - 输出文件路径。
 
 ## 数据读取示例
@@ -31,17 +32,23 @@ jq '{
 
 按以下步骤进行分级：
 
-1. **理解用户兴趣**：从配置中理解以下四类主题分别是什么，分析理解用户真正的兴趣偏好需求：
-   - `high_interest`（很感兴趣）
-   - `interest`（感兴趣）
-   - `uninterested`（不太感兴趣）
-   - `exclude`（明确排除）
+1. **理解用户兴趣**：
+   - 从 GLOBAL_CONFIG 和 SOURCE_CONFIG 中提取兴趣主题，分为以下四类：
+     - `high_interest`（很感兴趣）
+     - `interest`（感兴趣）
+     - `uninterested`（不太感兴趣）
+     - `exclude`（明确排除）
+   - GLOBAL 和 SOURCE 兴趣配置都保留并合并，SOURCE_CONFIG 的权重更高。
+   - 根据以上配置，分析理解用户真实的兴趣偏好需求
 
-2. **进行分级**：Agent 根据条目的 title、meta 内容，判断用户的感兴趣程度，对条目智能分级，将条目的 `type` 字段设置为以下之一：
-   - `high_interest`：强烈感兴趣
-   - `interest`：一般感兴趣
-   - `excluded`：明确排除
-   - `other`：其他情况（标题含义模糊或不明确属于以上类别）
+2. **进行分级**：根据条目的 title、meta 内容，判断用户对该条目的预计兴趣程度。
+   - 将条目的 `type` 字段设置为以下之一：
+     - `high_interest`：用户会强烈感兴趣
+     - `interest`：用户会一般感兴趣
+     - `other`：标题含义模糊或兴趣不明确
+     - `exclude`：用户不感兴趣，不应展示
+   - 注意：下面四个级别与上面的四类主题并不对应，这是对用户实际的兴趣程度判断。
+   - 例如：用户设置了「AI」为 `high_interest`，「汽车」为 `exclude`。如果某条目主要讲汽车，即使涉及到 AI，也应判断为 `exclude`。
 
 **重要**：
 - 禁止编写脚本、禁止匹配关键词，要理解标题和摘要实际在讲什么。
@@ -62,14 +69,14 @@ jq '{
     },
     "guid-2": {
       "title": "原始标题",
-      "type": "excluded",
+      "type": "exclude",
       "reason": "..."
     }
   }
 }
 ```
 
-- `type` 字段格式：`high_interest`、`interest`、`excluded`、`other`
+- `type` 字段格式：`high_interest`、`interest`、`exclude`、`other`
 - `reason` 字段格式：说明内容主题及为何归为此类，例如「Python 开发工具，属于编程工具主题」。
 
 2. 使用 jq 从输入文件合并 description 字段到输出文件:

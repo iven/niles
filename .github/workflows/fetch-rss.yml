@@ -1,20 +1,37 @@
 name: Fetch RSS
 
 on:
-  repository_dispatch:
-    types: [fetch-rss]
-
-run-name: "Fetch RSS: ${{ fromJson(github.event.client_payload.config).source_name }}"
+  schedule:
+    - cron: '*/30 * * * *'
 
 concurrency:
-  group: fetch-rss-${{ fromJson(github.event.client_payload.config).source_name }}
+  group: fetch-rss-${{ matrix.source.name }}
   cancel-in-progress: true
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      sources: ${{ steps.read-config.outputs.sources }}
+      global: ${{ steps.read-config.outputs.global }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read config
+        id: read-config
+        run: |
+          echo "sources=$(jq -c '.sources' config.json)" >> $GITHUB_OUTPUT
+          echo "global=$(jq -c '.global' config.json)" >> $GITHUB_OUTPUT
+
   fetch:
+    needs: prepare
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    strategy:
+      matrix:
+        source: ${{ fromJson(needs.prepare.outputs.sources) }}
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v4
@@ -38,23 +55,20 @@ jobs:
       - name: Parse config
         id: parse-config
         run: |
-          CONFIG='${{ github.event.client_payload.config }}'
-          echo "source_name=$(echo "$CONFIG" | jq -r '.source_name')" >> $GITHUB_OUTPUT
-          echo "source_url=$(echo "$CONFIG" | jq -r '.source_url')" >> $GITHUB_OUTPUT
-          echo "plugins=$(echo "$CONFIG" | jq -r '.plugins | join(",")')" >> $GITHUB_OUTPUT
-          echo "summarize=$(echo "$CONFIG" | jq -r '.summarize')" >> $GITHUB_OUTPUT
-          echo "title=$(echo "$CONFIG" | jq -r '.title // ""')" >> $GITHUB_OUTPUT
+          SOURCE='${{ toJson(matrix.source) }}'
+          echo "plugins=$(echo "$SOURCE" | jq -r '(.plugins // []) | join(",")')" >> $GITHUB_OUTPUT
+          echo "timeout=$(echo "$SOURCE" | jq -r '.timeout // ${{ fromJson(needs.prepare.outputs.global).timeout }}')" >> $GITHUB_OUTPUT
 
       - name: Extract new items
         id: extract
         run: |
-          OUTPUT_DIR="/tmp/niles-rss/${{ steps.parse-config.outputs.source_name }}"
+          OUTPUT_DIR="/tmp/niles-rss/${{ matrix.source.name }}"
           mkdir -p "$OUTPUT_DIR"
           PLUGINS="${{ steps.parse-config.outputs.plugins }}"
           uv run scripts/fetch-rss-items.py \
-            "${{ steps.parse-config.outputs.source_url }}" \
-            "output/${{ steps.parse-config.outputs.source_name }}.xml" \
-            --source-name "${{ steps.parse-config.outputs.source_name }}" \
+            "${{ matrix.source.url }}" \
+            "output/${{ matrix.source.name }}.xml" \
+            --source-name "${{ matrix.source.name }}" \
             --output "$OUTPUT_DIR/items-raw.json" \
             $([ -n "$PLUGINS" ] && [ "$PLUGINS" != "null" ] && echo "--plugins $PLUGINS" || echo "")
           NEW_COUNT=$(jq '.new_items' "$OUTPUT_DIR/items-raw.json")
@@ -64,7 +78,7 @@ jobs:
       - name: Run Claude
         if: steps.extract.outputs.count != '0'
         id: claude
-        timeout-minutes: ${{ fromJson(github.event.client_payload.timeout) }}
+        timeout-minutes: ${{ steps.parse-config.outputs.timeout }}
         uses: anthropics/claude-code-action@v1
         env:
           ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.BEDROCK_HAIKU_MODEL_ID }}
@@ -72,7 +86,8 @@ jobs:
           ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ secrets.BEDROCK_OPUS_MODEL_ID }}
           ITEMS_JSON: ${{ steps.extract.outputs.output_dir }}/items-raw.json
           OUTPUT_DIR: ${{ steps.extract.outputs.output_dir }}
-          CONFIG: ${{ github.event.client_payload.config }}
+          GLOBAL_CONFIG: ${{ needs.prepare.outputs.global }}
+          SOURCE_CONFIG: ${{ toJson(matrix.source) }}
         with:
           use_bedrock: "true"
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -85,12 +100,9 @@ jobs:
         if: steps.extract.outputs.count != '0'
         run: |
           OUTPUT_DIR="${{ steps.extract.outputs.output_dir }}"
-          TITLE="${{ steps.parse-config.outputs.title }}"
-          if [ -n "$TITLE" ]; then
-            uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ steps.parse-config.outputs.source_name }}.xml --title "$TITLE"
-          else
-            uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ steps.parse-config.outputs.source_name }}.xml
-          fi
+          SOURCE='${{ toJson(matrix.source) }}'
+          TITLE=$(echo "$SOURCE" | jq -r '.title // ""')
+          uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ matrix.source.name }}.xml --title "$TITLE"
 
       - name: Commit and Push
         if: steps.extract.outputs.count != '0'
@@ -98,6 +110,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add "${{ steps.parse-config.outputs.source_name }}.xml"
-          git commit -m "Update ${{ steps.parse-config.outputs.source_name }} RSS" || exit 0
+          git add "${{ matrix.source.name }}.xml"
+          git commit -m "Update ${{ matrix.source.name }} RSS" || exit 0
           git push

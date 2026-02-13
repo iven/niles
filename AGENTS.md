@@ -98,9 +98,9 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 
 ### 配置管理
 
-- 单一配置源：`worker/config.json`。
-- Source 配置覆盖 global 配置。
-- Cloudflare Worker 负责合并配置并触发 workflow。
+- 单一配置源：`config.json`。
+- Source 配置与 global 配置合并（兴趣关键词合并，source 优先级更高）。
+- GitHub Actions 每 30 分钟执行所有源。
 
 ## 关键设计决策
 
@@ -115,12 +115,6 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 2. 使用 jq 从输入文件合并 description 到输出。
 3. Description 不占用 AI context，大幅节省 tokens。
 
-### 为什么用 Cloudflare Worker
-
-使用 Worker 而非 GitHub Actions schedule 触发器：
-- 可为每个源设置不同的 cron 表达式。
-- Worker 读取配置文件，根据 cron 动态触发对应的源。
-- 一个 Worker 管理所有源的调度。
 
 ### 为什么用插件系统
 
@@ -134,7 +128,7 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 
 ### 本地测试
 
-所有测试脚本默认使用 print 模式，可通过 `-i` 或 `--interactive` 切换到交互模式。测试脚本从 `worker/config.json` 读取配置，使用 `tests/fixtures/` 中的测试数据。
+所有测试脚本默认使用 print 模式，可通过 `-i` 或 `--interactive` 切换到交互模式。测试脚本从 `config.json` 读取配置，使用 `tests/fixtures/` 中的测试数据。
 
 ```bash
 # 测试 filter agent
@@ -181,7 +175,7 @@ gh api repos/iven/niles/dispatches --method POST --input /tmp/claude/payload.jso
 1. 在 `scripts/plugins/` 创建插件文件。
 2. 实现 `process_item(item: dict) -> dict` 函数。
 3. 将额外数据存储在 `item['extra']` 字段中。
-4. 更新 `worker/config.schema.json` 的 plugins enum。
+4. 更新 `schemas/config.schema.json` 的 plugins enum。
 5. 添加测试数据到相应 fixture。
 
 ### 添加新 Agent
@@ -194,21 +188,10 @@ gh api repos/iven/niles/dispatches --method POST --input /tmp/claude/payload.jso
 
 ### 修改配置结构
 
-1. 更新 `worker/config.schema.json`。
-2. 更新 `worker/config.json`。
-3. 更新 `worker/index.js` 的配置合并逻辑。
-4. 验证配置文件：`uvx check-jsonschema --schemafile worker/config.schema.json worker/config.json`。
-5. 更新所有使用该配置的 agents/skills。
-
-### 部署 Worker
-
-修改配置后需要重新部署 Worker：
-
-```bash
-cd worker
-pnpm install  # 首次部署或更新依赖时需要
-pnpm wrangler deploy
-```
+1. 更新 `schemas/config.schema.json`。
+2. 更新 `config.json`。
+3. 验证配置文件：`uvx check-jsonschema --schemafile schemas/config.schema.json config.json`。
+4. 更新所有使用该配置的 agents/skills。
 
 ## 代码规范
 
