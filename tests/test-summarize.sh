@@ -8,13 +8,14 @@ parse_mode "$1"
 
 # 测试 summarize
 echo "=== 测试 summarize ($([ -z "$MODE" ] && echo "interactive" || echo "print") mode) ==="
-export INPUT_FILE="${INPUT_FILE:-$PROJECT_DIR/tests/fixtures/hacker-news-items.json}"
+INPUT_FILE="${INPUT_FILE:-$PROJECT_DIR/tests/fixtures/hacker-news-items.json}"
+setup_test_env "$INPUT_FILE" "$PROJECT_DIR/tests/output/summarize"
 
 extract_preferred_language
 
 # 测试第一个条目
 GUID=$(jq -r '.items[0].guid' "$INPUT_FILE")
-OUTPUT_FILE="$PROJECT_DIR/tests/output/summarize-test.json"
+OUTPUT_FILE="$OUTPUT_DIR/summarize-test.json"
 
 cat <<PROMPT | claude --agent summarize --allowedTools Read,Bash,Write $MODE
 参数:
