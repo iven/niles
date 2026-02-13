@@ -5,7 +5,7 @@ description: 个性化 RSS 源
 
 # 任务：RSS 源筛选编排
 
-编排 filter 和 summarize agents 来完成 RSS 内容筛选、翻译和总结。
+编排 filter 和 summarize agents 来完成 RSS 内容筛选和总结。
 
 ## 输入
 
@@ -40,7 +40,7 @@ cp "$ITEMS_JSON" "$OUTPUT_DIR/items-final.json"
 - 输出文件：`$OUTPUT_DIR/filter-results-stage1.json`。
 - 传递：GLOBAL_CONFIG, SOURCE_CONFIG。
 
-#### 步骤 2：深度分析和翻译
+#### 步骤 2：深度分析
 1. 提取非 exclude 的条目 guid：
 ```bash
 jq -r '.results | to_entries[] | select(.value.type == "exclude" | not) | .key' "$OUTPUT_DIR/filter-results-stage1.json"
@@ -72,7 +72,7 @@ jq -s --slurpfile original "$ITEMS_JSON" --arg source_name "$SOURCE_NAME" --arg 
 uvx check-jsonschema --schemafile schemas/items-summarized.schema.json "$OUTPUT_DIR/items-final.json"
 ```
 
-#### 步骤 4：基于翻译后条目重新分级
+#### 步骤 4：基于处理后条目重新分级
 使用 Task 工具调用 filter agent：
 - 输入文件：`$OUTPUT_DIR/items-final.json`。
 - 输出文件：`$OUTPUT_DIR/filter-results.json`。
