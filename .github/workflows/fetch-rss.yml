@@ -5,12 +5,8 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
     inputs:
-      min-items:
-        description: '最少抓取条目数（用于测试）'
-        required: false
-        default: '0'
       dry-run:
-        description: 'Dry run (不推送到 gh-pages)'
+        description: 'Dry run (不推送到 gh-pages，固定抓取 3 条)'
         type: boolean
         required: false
         default: false
@@ -66,8 +62,12 @@ jobs:
         id: parse-config
         run: |
           SOURCE='${{ toJson(matrix.source) }}'
+          GLOBAL='${{ needs.prepare.outputs.global }}'
+          GLOBAL_TIMEOUT=$(echo "$GLOBAL" | jq -r '.timeout')
+          SOURCE_TIMEOUT=$(echo "$SOURCE" | jq -r '.timeout // empty')
+          TIMEOUT=${SOURCE_TIMEOUT:-$GLOBAL_TIMEOUT}
           echo "plugins=$(echo "$SOURCE" | jq -r '(.plugins // []) | join(",")')" >> $GITHUB_OUTPUT
-          echo "timeout=$(echo "$SOURCE" | jq -r '.timeout // ${{ fromJson(needs.prepare.outputs.global).timeout }}')" >> $GITHUB_OUTPUT
+          echo "timeout=$TIMEOUT" >> $GITHUB_OUTPUT
 
       - name: Extract new items
         id: extract
@@ -75,7 +75,10 @@ jobs:
           OUTPUT_DIR="/tmp/niles-rss/${{ matrix.source.name }}"
           mkdir -p "$OUTPUT_DIR"
           PLUGINS="${{ steps.parse-config.outputs.plugins }}"
-          MIN_ITEMS="${{ github.event.inputs.min-items || '0' }}"
+          MIN_ITEMS="0"
+          if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
+            MIN_ITEMS="3"
+          fi
           uv run scripts/fetch-rss-items.py \
             "${{ matrix.source.url }}" \
             "output/${{ matrix.source.name }}.xml" \
