@@ -9,7 +9,7 @@
 - 🌐 **深度分析模式**：可选的内容翻译和结构化总结。
 - 🔌 **插件系统**：支持获取网页元信息、完整内容、Hacker News 评论等。
 - 🔧 **灵活配置**：通过 JSON 配置文件管理所有 RSS 源和兴趣主题。
-- 📡 **自动调度**：使用 GitHub Actions schedule 每 30 分钟自动执行。
+- 📡 **自动调度**：使用 GitHub Actions schedule 每 1 小时自动执行。
 - 📰 **多源支持**：支持任意 RSS feed。
 - 📡 **免费托管**：使用 GitHub Pages 托管 RSS 输出。
 
@@ -98,7 +98,7 @@ git checkout main
 }
 ```
 
-提交配置到 main 分支后，GitHub Actions 将每 30 分钟自动执行所有源。
+提交配置到 main 分支后，GitHub Actions 将每 1 小时自动执行所有源。
 
 ### 访问 RSS
 

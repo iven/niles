@@ -100,7 +100,7 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 
 - 单一配置源：`config.json`。
 - Source 配置与 global 配置合并（兴趣关键词合并，source 优先级更高）。
-- GitHub Actions 每 30 分钟执行所有源。
+- GitHub Actions 每 1 小时执行所有源。
 
 ## 关键设计决策
 
