@@ -36,6 +36,10 @@ def process_item(item):
 
         html_parts = []
         if summary:
+            # 移除 summary 中的 .topic 元素（包含图片）
+            topic = summary.find(class_="topic")
+            if topic:
+                topic.decompose()
             html_parts.append(str(summary))
         if content:
             html_parts.append(str(content))
