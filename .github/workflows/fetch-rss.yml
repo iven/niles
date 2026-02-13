@@ -72,14 +72,17 @@ jobs:
           mkdir -p "$OUTPUT_DIR"
           PLUGINS="${{ steps.parse-config.outputs.plugins }}"
           MIN_ITEMS="0"
+          MAX_ITEMS="20"
           if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
             MIN_ITEMS="3"
+            MAX_ITEMS="3"
           fi
           uv run scripts/fetch-rss-items.py \
             "${{ matrix.source.url }}" \
             "output/${{ matrix.source.name }}.xml" \
             --source-name "${{ matrix.source.name }}" \
             --output "$OUTPUT_DIR/items-raw.json" \
+            --max-items "$MAX_ITEMS" \
             --min-items "$MIN_ITEMS" \
             $([ -n "$PLUGINS" ] && [ "$PLUGINS" != "null" ] && echo "--plugins $PLUGINS" || echo "")
           NEW_COUNT=$(jq '.new_items' "$OUTPUT_DIR/items-raw.json")
