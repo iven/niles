@@ -97,6 +97,7 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 ### 配置管理
 
 - 单一配置源：`config.json`。
+- 配置文件中关键词列表使用紧凑格式，逗号分隔，中英文之间不加空格（如：`3A游戏,微软Copilot`）。
 - Source 配置与 global 配置合并（兴趣关键词合并，source 优先级更高）。
 - GitHub Actions 每 1 小时执行所有源。
 
