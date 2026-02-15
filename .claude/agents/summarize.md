@@ -33,6 +33,8 @@ OUTPUT_FILE="<OUTPUT_DIR>/items/${HASH}.json"
    - 标题。
    - 描述。
    - extra 中的所有额外数据（正文、评论等）。
+   - 如果 `extra.content` 包含 `[IMAGE_N]` 占位符，说明文中有图片，位置信息已标记。
+   - 如果有 `extra.images` 数组，包含图片的元数据（src、alt、尺寸等）。
 
 4. 输出要求：
    - 所有输出使用首选语言（preferred_language）。
@@ -47,6 +49,8 @@ OUTPUT_FILE="<OUTPUT_DIR>/items/${HASH}.json"
    - 使用 HTML 格式。
    - 风格要求：轻松、口语化，易于阅读。
    - 正文内容严格限制 300-500 字。
+   - 如果 `extra.images` 存在，根据原文中 `[IMAGE_N]` 的位置和描述，猜测其作用，在总结中适当位置插入对应的 `<img>` 标签。（禁止试图下载图片）
+   - 图片标签格式：`<img src="..." alt="..." />`（保留 width/height 属性如果有）。
    - 如果文章的主要内容涉及比较冷门的领域知识，可添加单独的「你知道吗？」章节进行深入浅出的知识科普（不超过 300 字，不计入正文字数）。
 
 ## 输出
