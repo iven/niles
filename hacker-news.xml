@@ -4,8 +4,34 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 15 Feb 2026 03:22:58 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Feb 2026 15:41:14 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ msvcup：让 Windows C/C++ 编译环境像包管理器一样简单</title>
+      <link>https://marler8997.github.io/blog/fixed-windows/</link>
+      <pubDate>Sun, 15 Feb 2026 11:25:26 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47022891</guid>
+      <description><![CDATA[<p>在 Windows 上进行原生开发一直是个令人头疼的问题。说「安装 Visual Studio」听起来简单，但实际上你是在让贡献者下载 50GB 的安装包，在迷宫般的复选框中寻找正确的「工作负载」，可能要花几个小时才能找到真正需要的编译器。更糟糕的是，选错了可能需要重装整个系统。</p>
+
+<img src="/SimplyInstallVs.png" alt="" />
+
+<p>作者开发了一个名为 msvcup 的开源命令行工具来解决这个问题。它的核心理念是：<strong>让 MSVC 工具链（Microsoft Visual C++ compiler）像现代依赖项一样工作</strong>——可版本化、可隔离、可声明。</p>
+
+<p>msvcup 的工作原理很巧妙：它直接解析微软官方发布的 JSON 清单文件（Visual Studio 安装器也用同样的文件），识别编译所需的核心组件（编译器、链接器、头文件和库），然后从微软 CDN 直接下载。所有文件都安装到 <code>C:\msvcup\</code> 下的版本化目录中，互不干扰。</p>
+
+<p>使用 msvcup 后，你可以写一个完全自包含的构建脚本。脚本会自动下载并安装指定版本的工具链和 SDK，无需预装 Visual Studio。更重要的是，msvcup 的安装命令是幂等的（idempotent），第二次运行只需几毫秒就能完成检查，所以可以直接放在构建脚本里。</p>
+
+<p>作者在 Tuple（一款结对编程应用）中集成了 msvcup，用于编译包括 WebRTC 在内的数百个 C/C++ 项目。这让团队移除了「预装 Visual Studio」的要求，并确保 CI 和所有开发者使用完全相同的工具链版本。文章还展示了如何用一个简短的批处理脚本从零开始构建 raylib 游戏库，无需任何 GUI 操作。</p>
+
+<h3>你知道吗？</h3>
+
+<p>Windows 开发环境的复杂性根源在于「All-in-One」的历史设计。Visual Studio 把编辑器、编译器和 SDK 耦合成一个庞大的整体，而在 Linux 上这些是分离的——你可以用任何编辑器，编译器通过包管理器安装，清晰明了。</p>
+
+<p>这种设计带来的问题不仅是安装体验差。由于 Visual Studio 会向系统注册表、<code>system32</code> 等位置写入大量文件，即使微软宣称支持多版本并存，实际上新版本安装后常常会破坏旧版本的项目（VS2019 破坏 VS2017，VS2022 破坏 VS2019，以此类推）。许多开发者不得不用虚拟机来隔离不同版本。</p>
+
+<p>msvcup 的方法借鉴了现代包管理器的思路：下载、隔离、版本化。每个版本的工具链放在独立目录，不污染系统环境，也不会相互冲突。这种「容器化」的思路让 Windows 编译环境终于有了可预测性和可重现性。</p><p><small>[high_interest] Classification based on title keywords related to development tools and programming</small></p>]]></description>
+    </item>
+    
 <item>
       <title>Threat Radar：实时网络威胁情报看板</title>
       <link>https://radar.offseq.com/</link>
