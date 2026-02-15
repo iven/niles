@@ -4,8 +4,34 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 15 Feb 2026 03:22:43 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Feb 2026 11:36:43 +0000</lastBuildDate>
 
+<item>
+      <title>⭐ Linux 7.0 新增 PCIe M.2 连接器电源时序驱动</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-Power-Sequencing</link>
+      <pubDate>Sun, 15 Feb 2026 06:07:23 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Linux-7.0-Power-Sequencing</guid>
+      <description><![CDATA[<p>Linux 7.0 内核合并了电源时序子系统的更新，其中最值得关注的是新增了一个名为 pwrseq-pcie-m2 的驱动程序，专门用于处理 PCIe M.2 连接器的电源时序管理。这个驱动主要是为了让基于设备树（Device Tree）的平台能够正确管理 M.2 接口。</p>
+
+<p>对于使用 AMD 或 Intel x86_64 系统的用户来说，PCIe M.2 接口通常由固件或 BIOS 通过 ACPI 来管理，因此这个更新对他们影响不大。但对于依赖设备树描述硬件的平台（如某些 ARM 设备），内核此前一直缺乏对 M.2 连接器的完整支持，现在终于得到了改善。</p>
+
+<img src="//www.phoronix.net/image.php?id=samsung-970-evo&image=samsung_970evo_4_med" alt="M.2 slot" />
+
+<p>Linux 7.0 合并了针对 Mechanical Key M 连接器的设备树绑定，目前的实现主要面向通过 PCIe 接口连接的固态硬盘。新驱动由 POWER_SEQUENCING_PCIE_M2 配置选项控制，可以管理 M.2 连接器上的多种接口，包括 PCIe、SATA 和 UART。这是电源时序子系统在这个开发周期中最重要的改进。</p>
+
+<h3>你知道吗？</h3>
+
+<p>设备树（Device Tree）是一种用于描述硬件配置的数据结构，常见于嵌入式系统和 ARM 架构平台。不同于 x86 系统依靠 BIOS/UEFI 和 ACPI 来告诉操作系统「有哪些硬件」，设备树平台需要在启动时通过一个专门的文件向内核说明硬件布局。电源时序（Power Sequencing）则是指按照特定顺序为硬件组件供电或断电的过程，这对于避免硬件损坏和确保正常启动非常重要。M.2 接口虽然在消费级市场主要用于连接固态硬盘，但实际上它支持多种协议（PCIe、SATA、USB 等），是一个相当灵活的物理接口规范。</p><p><small>[interest] Linux 内核更新，属于开源项目和 Linux 桌面技术范畴</small></p>]]></description>
+    </item>
+    
+<item>
+      <title>⭐ Linux 7.0 NFS 服务器新增动态线程池调整功能</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-NFSD</link>
+      <pubDate>Sun, 15 Feb 2026 06:20:53 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Linux-7.0-NFSD</guid>
+      <description><![CDATA[<p>Linux 7.0 内核为 NFS 服务器（NFSD）带来了动态线程池管理能力。系统现在可以根据实际负载自动调整线程数量：管理员可以通过 nfsdctl 的 Netlink 接口设置「min-threads」参数来指定最小线程数，之后线程池会根据服务器负载自动扩展或在空闲时缩减，让资源利用更加高效灵活。</p><p>FreeBSD 的 NFS 维护者 Rick Macklem 还为 Linux 7.0 贡献了 NFSv4 的 POSIX ACL 扩展支持。现在 NFSv4 客户端可以通过原生 NFSv4 操作直接获取和设置 POSIX 访问控制列表（ACL），不再需要依赖额外的协议。不过由于相关的 IETF 草案尚未正式批准，这个功能目前需要通过 NFSD_V4_POSIX_ACLS Kconfig 选项开启。</p><h3>你知道吗？</h3><p>NFS（网络文件系统）是一种分布式文件系统协议，让你可以像访问本地硬盘一样访问远程服务器上的文件。线程池是服务器用来并发处理多个客户端请求的工作线程集合。传统上线程数是固定的，但动态调整意味着服务器可以根据实际使用情况智能分配资源：忙的时候多开线程应对高峰，闲的时候少开线程节省资源。POSIX ACL 则是 Unix/Linux 系统中更细粒度的权限控制机制，比传统的读写执行权限更加灵活，可以为不同用户或用户组分别设置访问规则。</p><p><small>[interest] Linux 内核服务器功能更新，属于开源项目和 Linux 桌面技术范畴</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐⭐ F2FS 文件系统在 Linux 7.0 中带来多项关键性能优化</title>
       <link>https://www.phoronix.com/news/Linux-7.0-F2FS</link>
