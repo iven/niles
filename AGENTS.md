@@ -27,6 +27,7 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 │   └── fetch-rss.yml              # GitHub Actions workflow
 ├── scripts/
 │   ├── fetch-rss-items.py         # 提取新条目
+│   ├── guid_tracker.py            # GUID 历史记录跟踪
 │   ├── generate-rss.py            # 生成 RSS
 │   └── plugins/                   # 插件系统
 │       ├── fetch_meta.py          # 获取网页元信息
@@ -62,6 +63,27 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 4. 基于总结后标题重新分类。
 5. 生成 RSS。
 
+### 中间文件
+
+GitHub Actions 运行时在 `/tmp/niles-rss/{source-name}/` 目录生成以下中间文件：
+
+**简单模式** (`summarize: false`)：
+- `items-raw.json` - 提取的原始条目（包含 GUID、标题、描述等）
+- `items-final.json` - 最终条目（复制自 items-raw.json）
+- `filter-results.json` - 分类结果（每个 GUID 对应的分类）
+
+**深度分析模式** (`summarize: true`)：
+- `items-raw.json` - 提取的原始条目
+- `filter-results-stage1.json` - 第一次分类结果（基于原始标题/摘要）
+- `items/` - 每个条目的总结文件目录
+  - `{guid-hash}.json` - 单个条目的总结（包含翻译后的标题和结构化总结）
+- `items-final.json` - 合并所有总结后的条目
+- `filter-results.json` - 第二次分类结果（基于总结后的标题）
+
+**输出文件**（推送到 gh-pages）：
+- `{source-name}.xml` - 最终生成的 RSS 文件
+- `{source-name}-processed.json` - GUID 历史记录（用于去重）
+
 ### 核心组件
 
 **Agents**：单一职责的 AI 任务单元
@@ -78,6 +100,8 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 **数据验证**：JSON Schema 严格验证中间数据格式。
 
 **调度器**：Cloudflare Worker 读取配置文件，按 cron 触发 GitHub Actions。
+
+**GUID 跟踪**：使用 GUID 历史记录去重，解决动态排名 RSS 的遗漏问题。
 
 ## 设计原则
 
@@ -122,6 +146,18 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 - `fetch_content`：获取完整内容用于深度分析。
 - `cnbeta_fetch_content`：获取 cnBeta 文章正文（HTML 格式），直接替换 description 字段用于最终 RSS 输出。
 - `hn_fetch_comments`：获取 Hacker News 讨论内容理解社区关注点。
+
+### 为什么用 GUID 去重而不是 lastBuildDate
+
+**问题**：HN best RSS 是动态排名，条目可能在发布几小时后才进入 top-20。使用 lastBuildDate 时间比较会跳过这些"迟到"的条目。
+
+**解决方案**：
+1. 记录所有处理过的 GUID 及其处理时间。
+2. 只处理未见过的 GUID（无论发布时间）。
+3. 自动清理超过 4 天的历史记录。
+4. GUID 历史记录存储在 gh-pages 分支，随 RSS 文件一起更新。
+
+这样可以捕获所有条目，无论它们何时进入排行榜。
 
 ## 开发工作流
 

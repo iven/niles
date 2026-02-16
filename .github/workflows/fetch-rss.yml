@@ -11,6 +11,10 @@ on:
         required: false
         default: false
 
+concurrency:
+  group: fetch-rss
+  cancel-in-progress: true
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -30,11 +34,6 @@ jobs:
   fetch:
     needs: prepare
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    concurrency:
-      group: fetch-rss-${{ matrix.source.name }}
-      cancel-in-progress: true
     strategy:
       matrix:
         source: ${{ fromJson(needs.prepare.outputs.sources) }}
@@ -118,24 +117,42 @@ jobs:
           TITLE=$(echo "$SOURCE" | jq -r '.title // ""')
           uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ matrix.source.name }}.xml --title "$TITLE"
 
+      - name: Upload artifacts
+        if: steps.extract.outputs.count != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: rss-${{ matrix.source.name }}
+          path: |
+            output/${{ matrix.source.name }}.xml
+            output/${{ matrix.source.name }}-processed.json
+            ${{ steps.extract.outputs.output_dir }}/items-raw.json
+            ${{ steps.extract.outputs.output_dir }}/items-final.json
+            ${{ steps.extract.outputs.output_dir }}/filter-results*.json
+            ${{ steps.extract.outputs.output_dir }}/items/
+          retention-days: 7
+
+  commit:
+    needs: fetch
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    if: github.event.inputs.dry-run != 'true'
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: rss-*
+          merge-multiple: true
+
       - name: Commit and Push
-        if: steps.extract.outputs.count != '0' && github.event.inputs.dry-run != 'true'
-        working-directory: output
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add "${{ matrix.source.name }}.xml" "${{ matrix.source.name }}-processed.json"
-          git commit -m "Update ${{ matrix.source.name }} RSS" || exit 0
-
-          # Retry push with pull in case of conflicts
-          for i in {1..3}; do
-            if git push; then
-              echo "Push succeeded"
-              exit 0
-            fi
-            echo "Push failed, pulling and retrying (attempt $i/3)"
-            git pull --rebase
-            sleep 2
-          done
-          echo "Push failed after 3 attempts"
-          exit 1
+          git add *.xml *-processed.json
+          git commit -m "Update RSS feeds" || exit 0
+          git push
