@@ -117,7 +117,7 @@ jobs:
           TITLE=$(echo "$SOURCE" | jq -r '.title // ""')
           uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ matrix.source.name }}.xml --title "$TITLE"
 
-      - name: Upload artifacts
+      - name: Upload RSS for commit
         if: steps.extract.outputs.count != '0'
         uses: actions/upload-artifact@v4
         with:
@@ -125,6 +125,14 @@ jobs:
           path: |
             output/${{ matrix.source.name }}.xml
             output/${{ matrix.source.name }}-processed.json
+          retention-days: 1
+
+      - name: Upload debug artifacts
+        if: steps.extract.outputs.count != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-${{ matrix.source.name }}
+          path: |
             ${{ steps.extract.outputs.output_dir }}/items-raw.json
             ${{ steps.extract.outputs.output_dir }}/items-final.json
             ${{ steps.extract.outputs.output_dir }}/filter-results*.json
@@ -148,6 +156,7 @@ jobs:
         with:
           pattern: rss-*
           merge-multiple: true
+          path: .
 
       - name: Commit and Push
         run: |
