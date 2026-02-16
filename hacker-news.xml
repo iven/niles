@@ -4,8 +4,62 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 16 Feb 2026 17:03:11 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 16 Feb 2026 17:58:28 +0000</lastBuildDate>
 
+<item>
+      <title>可视化服务器 SSH 暴力破解攻击</title>
+      <link>https://knock-knock.net</link>
+      <pubDate>Sun, 15 Feb 2026 17:06:25 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47025338</guid>
+      <description><![CDATA[<p>开发者为孩子们解答「谁在试图登录你的电脑」这个问题时，创建了一个蜜罐（honeypot）项目 <strong>Knock-Knock.net</strong>。这个网站通过 3D 地球仪实时展示试图通过 SSH 暴力破解服务器的机器人活动。</p>
+
+<p>任何开放 22 端口的服务器都会被机器人持续攻击。这个蜜罐接受所有连接请求，记录攻击者尝试的用户名和密码，并在实时仪表盘上展示。有趣的发现包括：</p>
+
+<ul>
+<li>机器人普遍使用相同的密码，经典密码如「admin」「123456」「password」位居前列，甚至包括电影《Spaceballs》中的梗密码「12345」</li>
+<li>攻击主要来自特定国家和互联网服务提供商（ISP），其中荷兰的 DigitalOcean 占据榜首</li>
+<li>攻击呈波浪式出现，有时一分钟无事发生，随后某个 IP 突然发起 50 次攻击</li>
+</ul>
+
+<p>技术栈方面，项目使用 Python（FastAPI + paramiko）构建蜜罐，Redis 发布/订阅实现实时更新，SQLite 存储统计数据，globe.gl 实现可视化，WebSocket 将每次攻击推送到浏览器。整个系统运行在年费仅 6.75 美元的 VPS 上，域名成本反而更高。</p>
+
+<p>社区讨论中，用户指出许多攻击来自被入侵的服务器。DigitalOcean 之所以名列前茅，可能是因为其规模庞大，且对滥用 IP 的监管不够严格。开发者每晚运行脚本向 AbuseIPDB 报告攻击，但部分服务商并不在意。新部署的服务器几乎立即开始遭受攻击，攻击频率从最初每分钟不到 1 次增加到现在的 8 次以上。</p>
+
+<hr />
+
+<h3>你知道吗？</h3>
+
+<p><strong>SSH 暴力破解</strong>是网络安全中的常见威胁。攻击者使用自动化脚本不断尝试常见的用户名和密码组合，试图获得服务器访问权限。这种攻击被形象地称为「互联网的背景辐射」——就像宇宙微波背景辐射一样，无处不在且永不停歇。</p>
+
+<p>防御方法包括：禁用密码登录改用 SSH 密钥认证、更改默认 22 端口、使用防火墙限制访问来源，或部署 fail2ban 等工具自动封禁多次失败的 IP。而<strong>蜜罐</strong>则是一种诱饵系统，故意暴露脆弱点吸引攻击者，从而收集攻击模式和威胁情报，帮助研究人员了解攻击者的行为特征。</p><p><small>[other] 网络安全主题，不属于高度感兴趣的分类，涉及隐私和安全，属于源配置中的不感兴趣类别</small></p>]]></description>
+    </item>
+    
+<item>
+      <title>⭐ Anthropic 试图隐藏 Claude 的 AI 操作，开发者强烈反对</title>
+      <link>https://www.theregister.com/2026/02/16/anthropic_claude_ai_edits/</link>
+      <pubDate>Mon, 16 Feb 2026 11:06:28 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47033622</guid>
+      <description><![CDATA[<p>Anthropic 在 Claude Code 的最新版本中，将文件操作的详细信息默认折叠隐藏，引发开发者群体的强烈反弹。</p>
+
+<p>2.1.20 版本将原本显示的文件名和行数改为简单的「Read 3 files (ctrl+o to expand)」。虽然可以通过快捷键查看详情，但开发者认为这种设计极不实用。他们需要实时看到 Claude 访问了哪些文件，原因包括：</p>
+
+<ul>
+<li><strong>安全审计</strong>：立即发现 AI 是否访问了错误的文件</li>
+<li><strong>成本控制</strong>：及时中断走偏的操作，避免浪费 token</li>
+<li><strong>上下文理解</strong>：了解 AI 从哪些文件获取上下文，有助于引导对话方向</li>
+</ul>
+
+<p>Anthropic 的产品负责人 Boris Cherny 最初回应称这是「简化界面」的尝试，建议开发者试用几天。但社区反馈非常消极，有用户直言：「这不是简化，是白痴式地删除有价值的信息。」</p>
+
+<p>面对压力，Cherny 修改了详细模式（verbose mode）的行为，让它显示文件路径但不显示完整的思考过程。然而这又引发新问题——那些真正需要完整输出的用户反而失去了原有功能。</p>
+
+<p>在 Hacker News 的讨论中，多位开发者表示「Claude 目前还不能被信任，需要持续监督」，如果看不到操作细节，会话很快就会烧光 token 配额却得不到有效结果。讨论至今，Anthropic 尚未表示会恢复旧的默认行为。</p>
+
+<h3>你知道吗？</h3>
+
+<p>AI 编程工具的「可观测性」（observability）问题正成为行业焦点。与传统软件不同，大语言模型的推理过程具有随机性和不透明性。当 AI 自主操作文件系统时，开发者面临两难：给予足够自主权以提高效率，还是保持细粒度监控以防止错误？这种张力在「让 AI 长时间自主工作」和「需要人类持续干预纠错」两种使用模式之间尤为明显。Claude Code 的这次争议，实际上反映了 AI 辅助编程工具在成熟度、信任度和用户控制权之间尚未找到平衡点。</p><p><small>[interest] 人工智能软件技术，属于全局配置中的感兴趣类别，详细讨论 AI 工具的发展</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐⭐ Qwen3.5：迈向原生多模态智能体</title>
       <link>https://qwen.ai/blog?id=qwen3.5</link>
