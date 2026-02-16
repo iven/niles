@@ -4,8 +4,16 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 16 Feb 2026 15:01:19 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 16 Feb 2026 17:03:04 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ Linux 6.19.2 及多个 LTS 内核发布，修复系统无法启动问题</title>
+      <link>https://www.phoronix.com/news/Linux-6.19.2-Released</link>
+      <pubDate>Mon, 16 Feb 2026 11:29:08 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Linux-6.19.2-Released</guid>
+      <description><![CDATA[<p>Linux 6.19.1 今天早些时候刚刚发布，随即就被 Linux 6.19.2 取代了。原因是第一个点版本带来了严重问题——部分系统无法正常启动。由于这段有问题的代码也被合并到了长期支持（LTS）分支，因此多个 LTS 内核也紧急发布了新版本。</p><p>问题的根源在于 Linux 6.19.1 回迁了一个核心驱动变更，用于强制 driver_match_device() 函数使用 device_lock。然而这个改动意外破坏了许多用户的系统启动能力。Linux 6.19.2 的唯一代码变更就是回退这个有问题的补丁。</p><p>内核维护者 Greg Kroah-Hartman 在回退补丁中解释说，这个改动导致了部分系统的启动回退问题，因为相关驱动的所有「修复」还没有正确回迁。只有当这些修复全部完成后，这个补丁才能重新应用——而且考虑到潜在的爆炸性影响，可能需要等待几个候选版本（RC releases）之后再说。</p><p>修改几行代码就恢复了受影响用户的启动能力。除了 Linux 6.19.2，Linux 6.18.12、Linux 6.12.73 和 Linux 6.6.126 也都发布了，同样只是回退了这段导致启动问题的代码。</p><h3>你知道吗？</h3><p>Linux 内核的版本号遵循特定规则：6.19 是主版本，后面的数字是点版本（稳定更新）。LTS（Long Term Support）内核是长期支持版本，通常会维护 2-6 年，企业和稳定性需求高的用户会选择这些版本。普通的稳定版本只维护到下一个主版本发布。device_lock 是内核中的设备锁机制，用于保护设备状态避免并发访问冲突。driver_match_device() 是驱动程序与设备匹配的核心函数，这个函数出问题会直接影响硬件驱动的加载，导致系统无法正常启动。</p><p><small>[high_interest] 重要的 Linux 内核发行版更新，属于开源项目和科学前沿主题，涉及关键系统底层技术</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐⭐ Linux 7.0 将旧式 CardBus 代码隔离，避免在现代系统中无谓构建</title>
       <link>https://www.phoronix.com/news/Linux-7.0-PCI</link>
