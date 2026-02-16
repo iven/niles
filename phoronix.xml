@@ -4,8 +4,29 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 16 Feb 2026 13:35:19 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 16 Feb 2026 15:01:19 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ Linux 7.0 将旧式 CardBus 代码隔离，避免在现代系统中无谓构建</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-PCI</link>
+      <pubDate>Mon, 16 Feb 2026 09:16:01 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Linux-7.0-PCI</guid>
+      <description><![CDATA[<p>Linux 7.0 的 PCI 子系统迎来了一系列代码优化，其中最值得关注的是对已过时的 CardBus 技术的处理方式。开发者将 CardBus 设置代码独立到单独的文件（setup-cardbus.c）中，并且只在显式启用 CONFIG_CARDBUS 配置项时才构建这部分代码。</p>
+
+<img src="//www.phoronix.net/image.php?id=405&image=ecs_pf5e_dge_sml" alt="PCIe slots" />
+
+<p>CardBus 是一种早期的笔记本扩展接口标准，现在已经被 PCIe 和其他现代接口完全取代。虽然 Linux 7.0 仍然保留对它的支持，但通过这次重构，现代系统在编译内核时可以彻底跳过这部分冗余代码，减少内核体积和潜在的维护负担。</p>
+
+<p>除了 CardBus 的改进，本次更新还包含了几项电源管理优化：修复了从 D3hot 状态转换到 D3cold 时的冗余延迟问题，并确保设备在完全初始化之前不会进入运行时挂起状态，避免保存不完整的设备配置。此外，Linux 7.0 还为 PCIe M.2 连接器引入了电源排序支持，并修复了点对点 DMA（P2PDMA）中移除设备时可能导致的挂起问题。</p>
+
+<p>新增的 ASpeed 根复合体（root complex）设备树驱动也值得一提，这为特定硬件平台提供了更好的 PCI 支持。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>什么是 CardBus？</strong>CardBus 是 1995 年推出的 32 位 PC Card（PCMCIA）标准，主要用于笔记本电脑的扩展槽。它支持 33 MHz 总线频率和 132 MB/s 的带宽，在当时是连接网卡、调制解调器和存储设备的主流方式。但随着 USB 2.0 和 ExpressCard（基于 PCIe）的普及，CardBus 在 2000 年代中期逐渐退出历史舞台。现代笔记本已经完全看不到这种厚厚的卡槽了。</p>
+
+<p><strong>什么是 PCI 电源状态？</strong>PCI 设备有多种电源状态：D0（全功率运行）、D1 和 D2（中间状态，很少使用）、D3hot（设备关闭但仍供电，可快速唤醒）和 D3cold（完全断电）。从 D3hot 到 D3cold 的转换涉及硬件电源控制，合理管理这些状态转换可以在省电和响应速度之间取得平衡。Linux 7.0 的优化避免了设备已经处于 D3hot 状态时的重复延迟，提升了电源管理效率。</p><p><small>[high_interest] Linux 内核开发与系统级优化，属于开源项目和编程技术范畴</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐ Linux 6.19.1 发布，修复早期问题和设备兼容性</title>
       <link>https://www.phoronix.com/news/Linux-6.19.1-Released</link>
