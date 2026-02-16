@@ -124,7 +124,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add "${{ matrix.source.name }}.xml"
+          git add "${{ matrix.source.name }}.xml" "${{ matrix.source.name }}-processed.json"
           git commit -m "Update ${{ matrix.source.name }} RSS" || exit 0
 
           # Retry push with pull in case of conflicts

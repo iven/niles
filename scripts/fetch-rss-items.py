@@ -11,36 +11,20 @@
 
 import argparse
 import json
-import re
 import sys
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
 from email.utils import parsedate_to_datetime
 from pathlib import Path
+from typing import Any
 
 import httpx
 
-
-def parse_existing_rss(rss_path):
-    """解析现有 RSS，提取 lastBuildDate"""
-    if not rss_path.exists():
-        return None
-
-    content = rss_path.read_text(encoding="utf-8")
-
-    # 提取 lastBuildDate
-    match = re.search(r"<lastBuildDate>([^<]+)</lastBuildDate>", content)
-    if not match:
-        return None
-
-    # 解析时间
-    try:
-        return parsedate_to_datetime(match.group(1))
-    except:
-        return None
+from guid_tracker import GuidTracker
 
 
-def fetch_rss(url):
+def fetch_rss(url: str) -> bytes:
     """获取 RSS feed"""
     with httpx.Client(timeout=10) as client:
         response = client.get(
@@ -50,7 +34,9 @@ def fetch_rss(url):
         return response.content
 
 
-def apply_plugins(items, plugin_names, max_workers=10):
+def apply_plugins(
+    items: list[dict[str, Any]], plugin_names: list[str], max_workers: int = 10
+) -> list[dict[str, Any]]:
     """应用插件
 
     Args:
@@ -83,7 +69,7 @@ def apply_plugins(items, plugin_names, max_workers=10):
                         for idx, item in enumerate(items)
                     }
                     # 收集结果(保持原始顺序)
-                    results = [None] * len(items)
+                    results: list[dict[str, Any] | None] = [None] * len(items)
                     for future in as_completed(future_to_idx):
                         idx = future_to_idx[future]
                         try:
@@ -91,14 +77,14 @@ def apply_plugins(items, plugin_names, max_workers=10):
                         except Exception as e:
                             print(f"处理 item {idx} 失败: {e}", file=sys.stderr)
                             results[idx] = items[idx]  # 失败时保留原始 item
-                    items = results
+                    items = [item for item in results if item is not None]
         except Exception as e:
             print(f"插件 {plugin_name} 执行失败: {e}", file=sys.stderr)
 
     return items
 
 
-def parse_rss_items(rss_content):
+def parse_rss_items(rss_content: bytes) -> tuple[str | None, list[dict[str, Any]]]:
     """解析 RSS 内容，提取条目和频道标题"""
     root = ET.fromstring(rss_content)
 
@@ -109,7 +95,7 @@ def parse_rss_items(rss_content):
         channel_title = channel.text.strip()
 
     # 查找所有 item
-    items = []
+    items: list[dict[str, Any]] = []
     for item in root.findall(".//item"):
         title_elem = item.find("title")
         link_elem = item.find("link")
@@ -123,8 +109,8 @@ def parse_rss_items(rss_content):
         description = (description_elem.text or "").strip("\u200b ")
         guid = guid_elem.text if guid_elem is not None else link
 
-        # 解析时间用于过滤
-        parsed_date = None
+        # 解析时间用于清理
+        parsed_date: datetime | None = None
         if pub_date:
             try:
                 parsed_date = parsedate_to_datetime(pub_date)
@@ -145,7 +131,7 @@ def parse_rss_items(rss_content):
     return channel_title, items
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="从 RSS feed 中提取新条目")
     parser.add_argument("url", type=str, help="RSS feed URL")
     parser.add_argument("existing_rss", type=str, help="已有 RSS 文件路径")
@@ -161,8 +147,9 @@ def main():
 
     existing_rss_path = Path(args.existing_rss)
 
-    # 读取已有 RSS 的 lastBuildDate
-    last_build_date = parse_existing_rss(existing_rss_path)
+    # 初始化 GUID 跟踪器
+    history_path = existing_rss_path.parent / f"{args.source_name}-processed.json"
+    tracker = GuidTracker(history_path)
 
     # 获取 RSS feed
     rss_content = fetch_rss(args.url)
@@ -173,16 +160,13 @@ def main():
     # 只保留前 N 条
     all_items = all_items[: args.max_items]
 
-    # 过滤条目：只保留 pubDate > lastBuildDate 的条目
-    new_items = []
+    # 过滤条目：只保留未处理过的条目
+    new_items: list[dict[str, Any]] = []
     for item in all_items:
-        # 如果有 lastBuildDate，只保留比它更新的条目
-        if last_build_date and item["_parsed_date"]:
-            if item["_parsed_date"] <= last_build_date:
-                continue
-        # 移除内部字段
-        new_item = {k: v for k, v in item.items() if not k.startswith("_")}
-        new_items.append(new_item)
+        if not tracker.is_processed(item["guid"]):
+            # 移除内部字段
+            new_item = {k: v for k, v in item.items() if not k.startswith("_")}
+            new_items.append(new_item)
 
     # 如果新条目数量少于最小要求，从所有条目中补齐
     if len(new_items) < args.min_items:
@@ -197,6 +181,16 @@ def main():
     # 应用插件
     plugins = args.plugins.split(",") if args.plugins else []
     new_items = apply_plugins(new_items, plugins)
+
+    # 标记已处理的 GUID
+    new_guids = [item["guid"] for item in new_items]
+    tracker.mark_processed(new_guids)
+
+    # 清理旧的 GUID
+    tracker.cleanup()
+
+    # 保存更新后的 GUID 历史记录
+    tracker.save()
 
     # 输出结果
     result = {
