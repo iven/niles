@@ -4,8 +4,16 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 17 Feb 2026 11:54:52 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Feb 2026 13:41:06 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ 微软 .NET 在 Linux 上引入 IO_uring 支持，性能大幅提升</title>
+      <link>https://www.phoronix.com/news/Microsoft-dotNET-IO-uring</link>
+      <pubDate>Tue, 17 Feb 2026 08:14:56 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Microsoft-dotNET-IO-uring</guid>
+      <description><![CDATA[<p>微软 .NET 运行时在 Linux 平台上迎来重大性能突破。Illyriad Games 的开发者 Ben Adams 提交了一个拉取请求，为 .NET 的套接字层（System.Net.Sockets）引入 IO_uring 支持，用以替代现有的 epoll 实现。这个「生产级」的实现目前通过环境变量可选启用。</p><p>基准测试结果相当亮眼。在 Kestrel HTTP/1.1 长连接场景下，每请求的 CPU 开销降低 15-40%；HTTPS/TLS 工作负载的套接字层 CPU 占用减少 10-25%；对于拥有上万空闲连接的 WebSocket 或 SignalR 服务器，内存开销降低 30-50%，唤醒延迟改善 10-30%。微服务间的 HttpClient 调用延迟减少 10-20%，数据库驱动的查询延迟降低 5-15%。</p><p>UDP 场景的提升尤为显著：高速率 UDP 工作负载（如 DNS、游戏服务器、遥测收集器）的每秒数据包吞吐量提升 20-40%；负载均衡器和代理在突发连接场景下的每秒连接数提升 20-50%。</p><p>团队表示未来还有进一步优化空间，包括利用 IO_uring 的零拷贝接收等特性。这个补丁目前仍在审查中，对 .NET Linux 用户来说是个令人振奋的消息。</p><h3>你知道吗？</h3><p>IO_uring 是 Linux 内核在 2019 年引入的新一代异步 I/O 接口，由 Jens Axboe 设计。传统的 epoll 模型需要频繁在用户空间和内核空间切换，每次 I/O 操作都要经历系统调用的开销。IO_uring 通过共享内存环形缓冲区（ring buffer）机制，让应用程序和内核以批量、异步的方式交换 I/O 请求和结果，大幅减少系统调用次数和上下文切换。它就像在用户态和内核态之间架起了一条高速传送带，应用程序只需把要做的事情丢到「提交队列」，内核完成后把结果放到「完成队列」，双方各取所需，效率提升显著。这也是为什么在高并发、高吞吐场景下，IO_uring 能带来如此惊人的性能增益。</p><p><small>[high_interest] 新软件项目，涉及 Linux 技术和性能优化，属于高度感兴趣的技术主题</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐⭐ DNF 5.4 发布：新增调试选项和 AI 贡献政策</title>
       <link>https://www.phoronix.com/news/DNF-5.4-Released</link>
