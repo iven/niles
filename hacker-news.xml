@@ -4,8 +4,49 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 17 Feb 2026 16:09:06 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Feb 2026 17:17:13 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ 搭建自己的 XMPP 服务器实现去中心化通信</title>
+      <link>https://blog.dmcc.io/journal/xmpp-turn-stun-coturn-prosody/</link>
+      <pubDate>Mon, 16 Feb 2026 13:39:45 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47034801</guid>
+      <description><![CDATA[<p>作者在使用 Signal（信号）一年后意识到，虽然它是很好的即时通信工具，但依然依赖单一公司运营。为了真正掌控自己的数字生活，作者选择搭建自己的 <strong>XMPP（Extensible Messaging and Presence Protocol，可扩展消息和出席协议）</strong>服务器。</p>
+
+<p>XMPP 是一个去中心化的通信协议，诞生于 1999 年，其最大优势在于<strong>联邦式架构</strong>（federated）——你的服务器可以自动与其他 XMPP 服务器互通，用户永远不会被锁定在单一服务商。消息存储在自己的硬件上，协议本身也不会消失。</p>
+
+<h3>核心配置要点</h3>
+
+<p>作者使用 Docker 部署 <strong>Prosody</strong> 服务器，整个搭建过程涵盖：</p>
+
+<ul>
+<li><strong>DNS 配置</strong>：设置 SRV 记录让客户端和其他服务器能找到你的 XMPP 服务器（端口 5222 用于客户端连接，5269 用于服务器间联邦）</li>
+<li><strong>TLS 证书</strong>：使用 Let's Encrypt 配合 Cloudflare DNS 挑战自动获取和续期证书</li>
+<li><strong>模块选择</strong>：启用关键模块如 carbons（多设备消息同步）、smacks（流管理，处理不稳定网络连接）、cloud_notify（移动端推送通知）和 mam（服务器端消息归档）</li>
+<li><strong>端到端加密</strong>：客户端支持 OMEMO 加密（基于 Signal 的加密技术），即使服务器管理员也无法读取消息内容</li>
+<li><strong>文件传输</strong>：通过反向代理（Caddy）暴露 HTTP 文件上传功能，支持图片和文件分享</li>
+<li><strong>语音视频通话</strong>：部署 <strong>coturn</strong> 作为 TURN/STUN 服务器，解决 NAT 穿透问题，实现点对点音视频通话</li>
+</ul>
+
+<h3>客户端生态</h3>
+
+<p>现代 XMPP 客户端体验已大幅改善：iOS 上的 <strong>Monal</strong> 和 Android 上的 <strong>Conversations</strong> 都支持完整的现代特性（OMEMO 加密、文件分享、群聊、音视频通话），用户体验接近主流即时通信应用。</p>
+
+<h3>资源占用与维护</h3>
+
+<p>整个系统只需两个轻量的 Docker 容器（Prosody + coturn）和一个反向代理配置。Hacker News 评论区中有用户表示，ejabberd 或 Prosody 服务器运行近十年几乎不需要维护，资源占用极低，与 Matrix 服务器的 Synapse 形成鲜明对比（后者资源消耗大）。</p>
+
+<h3>为什么选择 XMPP 而非其他方案</h3>
+
+<p>讨论区热议 XMPP 与 Matrix 的取舍。XMPP 的复杂性在于扩展协议（XEPs）——核心协议简单，但需要挑选兼容的扩展，可能导致碎片化。Matrix 则将复杂性放在协议本身（基于 DAG 的事件图），这带来更好的一致性保证，但代价是巨大的资源消耗。</p>
+
+<p>作者最终保留 Signal 用于日常对话，XMPP 服务器作为「不依赖任何单一服务」的备用方案。这种混合策略既享受 Signal 的便利性，又保有联邦式通信的自主权。</p>
+
+<h3>你知道吗？</h3>
+
+<p><strong>XMPP 的前世今生</strong>：XMPP 曾经是互联网即时通信的主流选择，Google Talk 和早期的 Facebook Messenger 都基于 XMPP 协议，用户可以用 Pidgin 等多协议客户端同时管理多个账号。然而，这些大公司后来关闭了 XMPP 接口，转向封闭的私有协议，这也是著名的「拥抱-扩展-消灭」（Embrace, Extend, Extinguish）策略的典型案例。尽管如此，XMPP 并未消亡——WhatsApp 至今仍基于 XMPP 的分支开发，而 XMPP 在开源社区和注重隐私的用户群体中反而越来越活跃。</p><p><small>[high_interest] 技术文章介绍去中心化通信协议 XMPP，属于编程工具和开源项目主题，深入探讨技术细节</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐⭐ FreeFlow：免费开源的语音转文字工具</title>
       <link>https://github.com/zachlatta/freeflow</link>
