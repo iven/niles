@@ -55,6 +55,8 @@ OUTPUT_FILE="<OUTPUT_DIR>/items/${HASH}.json"
 
 ## 输出
 
+**重要**：中文内容中的引号必须使用直角引号「」，英文内容保持使用英文引号，以避免 JSON 格式错误。
+
 将结果写入 OUTPUT_FILE：
 
 ```json
