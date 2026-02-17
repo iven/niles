@@ -4,8 +4,16 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 17 Feb 2026 19:15:06 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 17 Feb 2026 19:54:32 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ Linux 7.0 大幅优化 close_range 系统调用性能</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-Faster-Close-Range</link>
+      <pubDate>Tue, 17 Feb 2026 14:20:01 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Linux-7.0-Faster-Close-Range</guid>
+      <description><![CDATA[<p>Linux 7.0 内核将大幅提升 close_range 系统调用的执行效率。这个系统调用用于关闭指定范围内的所有文件描述符（File Descriptors, FDs）。</p><p>Christian Brauner 在最新的 VFS 补丁中提交了这项优化。改进的核心在于算法复杂度的降低：原本的实现会线性扫描整个请求范围，复杂度为 O(范围大小)；新实现通过使用 find_next_bit() 函数直接在 open_fds 位图上查找，将复杂度降低到 O(活跃 FDs 数量)。</p><p>对于拥有稀疏文件描述符表的进程来说，这个改进意义重大。旧方法会检查大量未分配的槽位，造成不必要的性能开销。而新方法能够智能地跳过这些「空洞」，只处理实际打开的文件描述符。</p><p>这个补丁由中国电信的 Qiliang Yuan 编写，已于今日合并到 Linux Git 主线。这是 Linux 7.0 众多性能优化中的又一个亮点。</p><section><h3>你知道吗？</h3><p>文件描述符（FD）是 Unix/Linux 系统中用于访问文件和其他 I/O 资源的抽象句柄。每个进程维护一个 FD 表，表中的每个条目指向一个打开的文件、socket 或管道。当 FD 表变得「稀疏」时，意味着表中有很多空槽位（已关闭的 FD），这在频繁打开关闭文件的应用中很常见。</p><p>位图（bitmap）是一种紧凑的数据结构，用一个比特位表示一个状态。在这个场景中，open_fds 位图的每一位代表一个 FD 是否被使用。find_next_bit() 函数能够快速定位下一个被设置的位，这比逐个检查每个位置要高效得多——就像在一本厚书中用索引查找内容，而不是逐页翻阅。</p></section><p><small>[high_interest] Linux 内核性能优化，属于编程工具和编程效率主题</small></p>]]></description>
+    </item>
+    
 <item>
       <title>GhostBSD 将采用 XLibre 显示服务器，并考虑从 MATE 切换到 Gershwin 桌面</title>
       <link>https://www.phoronix.com/news/GhostBSD-Eyes-XLibre</link>
