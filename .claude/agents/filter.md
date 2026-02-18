@@ -56,7 +56,7 @@ jq '{
 
 ## 输出
 
-**重要**：中文内容中的引号必须使用直角引号「」，英文内容保持使用英文引号，以避免 JSON 格式错误。
+**重要**：标题中的引号必须转义（`\"`）或使用直角引号「」，避免 JSON 格式错误。
 
 1. 使用 Write 工具写入分级结果（不包含 description 字段）：
 ```json
@@ -70,9 +70,9 @@ jq '{
       "reason": "..."
     },
     "guid-2": {
-      "title": "原始标题",
+      "title": "美国法院裁定禁止 OpenAI 使用「Cameo」名称",
       "type": "exclude",
-      "reason": "..."
+      "reason": "法律争议相关，用户不感兴趣"
     }
   }
 }
@@ -104,7 +104,7 @@ jq --slurpfile input "<INPUT_FILE>" '
 完成后，验证输出文件是否符合 schema，验证失败时最多尝试 5 次修正。
 
 ```bash
-uvx check-jsonschema --schemafile schemas/filter-results.schema.json "<OUTPUT_FILE>"
+bun ajv validate -s schemas/filter-results.schema.json -d "<OUTPUT_FILE>"
 ```
 
 ## 完成
