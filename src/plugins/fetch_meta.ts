@@ -28,7 +28,7 @@ const plugin: Plugin = {
 
       clearTimeout(timeoutId);
 
-      if (!response.ok) throw new Error(\`HTTP \${response.status}\`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const html = await response.text();
       const { document } = parseHTML(html);
@@ -40,7 +40,7 @@ const plugin: Plugin = {
 
       item.extra.meta = metaDesc;
     } catch (error) {
-      console.error(\`抓取 meta \${url} 失败: \${error}\`);
+      console.error(`抓取 meta ${url} 失败: ${error}`);
       item.extra.meta = '';
     }
 
