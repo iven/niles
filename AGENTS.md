@@ -208,6 +208,17 @@ gh workflow run fetch-rss.yml --ref your-branch-name -f dry-run=true
 - `-f dry-run=true`：启用 dry run 模式，不推送到 gh-pages，固定抓取 3 条
 - `--ref`：指定运行 workflow 的分支（默认使用当前分支或仓库默认分支）
 
+**重要**：workflow 运行后必须检查日志中是否有 `Error:` 或错误信息。任何错误（即使最终被修正）都会导致 agent 重试，造成 token 浪费，不可容忍。使用以下命令检查：
+
+```bash
+gh run view <run-id> --log | grep -i "error:"
+```
+
+如果发现错误，必须：
+1. 分析错误原因（schema 验证失败、插件失败、网络问题等）
+2. 修复导致错误的根本原因
+3. 重新测试确认不再出现错误
+
 ### 添加新插件
 
 1. 在 `scripts/plugins/` 创建插件文件。
