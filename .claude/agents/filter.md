@@ -42,12 +42,12 @@ jq '{
    - 根据以上配置，分析理解用户真实的兴趣偏好需求
 
 2. **进行分级**：根据条目的 title、meta 内容，判断用户对该条目的预计兴趣程度。
-   - 将条目的 `type` 字段设置为以下之一（注意与上面的四类兴趣主题取值不同）：
+   - **`type` 字段的 4 个合法值（必须精确匹配）**：
      - `high_interest`：用户会强烈感兴趣
      - `interest`：用户会一般感兴趣
      - `other`：标题含义模糊或兴趣不明确
      - `exclude`：用户不感兴趣，不应展示
-   - 注意：下面四个级别与上面的四类主题并不对应，这是对用户实际的兴趣程度判断。
+   - 注意：type 字段与配置中的兴趣类别不对应，`uninterested` 不是合法的 type 值。这是对用户实际兴趣程度的判断。
    - 例如：用户设置了「AI」为 `high_interest`，「汽车」为 `exclude`。如果某条目主要讲汽车，即使涉及到 AI，也应判断为 `exclude`。
 
 **重要**：
@@ -78,7 +78,6 @@ jq '{
 }
 ```
 
-- `type` 字段取值必须是以下四种之一：`high_interest`、`interest`、`other`、`exclude`
 - `reason` 字段格式：说明内容主题及为何归为此类，例如「Python 开发工具，属于编程工具主题」。
 
 2. 使用 jq 从输入文件合并 description 字段到输出文件:
@@ -104,7 +103,7 @@ jq --slurpfile input "<INPUT_FILE>" '
 完成后，验证输出文件是否符合 schema，验证失败时最多尝试 5 次修正。
 
 ```bash
-bun ajv validate -s schemas/filter-results.schema.json -d "<OUTPUT_FILE>"
+bun ajv validate --spec=draft7 -s schemas/filter-results.schema.json -d "<OUTPUT_FILE>"
 ```
 
 ## 完成
