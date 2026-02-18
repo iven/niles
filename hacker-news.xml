@@ -4,8 +4,36 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 18 Feb 2026 19:58:10 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Feb 2026 21:53:44 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ Tailscale 对等中继功能正式发布</title>
+      <link>https://tailscale.com/blog/peer-relays-ga</link>
+      <pubDate>Wed, 18 Feb 2026 16:46:12 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47063005</guid>
+      <description><![CDATA[<p>Tailscale 刚刚宣布对等中继（Peer Relays）功能正式 GA 了。这玩意儿是干嘛的呢？简单说，当你的设备被防火墙或 NAT 挡住、没法直连时，它能让你自己部署高性能的中继节点来转发流量，而不是非得用官方的 DERP 中继服务器。</p>
+
+<img src="https://cdn.sanity.io/images/w77i7m8x/production/bf8d992ed81b5f9fd154996e8765cb0304a2a87b-1536x600.png?w=3840&q=75&fit=clip&auto=format" alt="Dark orange background made of shapes. &#x22;Winter Update Day 3&#x22; in upper-left corner. In foreground, a diagram: &#x22;Your network&#x22; box, with &#x22;Your Resource&#x22; node flowing to &#x22;Peer Relay&#x22; (orange box), then out to a checkmark box, through &#x22;Network Firewall,&#x22; and inside that &#x22;Customer Network,&#x22; containing &#x22;Resource.&#x22;" width="1536" height="600" />
+
+<p>这次正式版带来了几个重磅升级：吞吐量大幅提升，多客户端转发时尤其明显，这得益于更优的接口选择、锁竞争优化和多 UDP socket 分流。对于云环境那些防火墙规则超严的场景，现在支持静态端点了，可以把中继节点放在 AWS 负载均衡器后面，外部客户端也能正常连上。</p>
+
+<img src="https://cdn.sanity.io/images/w77i7m8x/production/54ca4bc979f85ed7d8a2fa2fb1d78b431083dafc-1055x630.svg?w=3840&q=75&fit=clip&auto=format" alt="A flowchart: A Your Network container, with &#x22;Your Resource&#x22; heading into &#x22;Peer relay.&#x22; From there, traffic hits a &#x22;Peer relay ip port exception at the edge of &#x22;Network Firewall,&#x22; and then hits three checkpoints, heading into Resources." width="1055" height="630" />
+
+<p>可观测性也跟上了节奏。现在 <code>tailscale ping</code> 能直接看到中继的使用情况和健康状态，Prometheus 和 Grafana 也能接入新增的指标数据（比如转发包数、字节数），排查问题和监控流量都方便多了。</p>
+
+<img src="https://cdn.sanity.io/images/w77i7m8x/production/25965fd10d29e2384de6d8b1db1bd39cee38dd3d-1055x630.svg?w=3840&q=75&fit=clip&auto=format" alt="Flowchart: A Private Subnet container, with &#x22;AWS Resource&#x22; inside. A two-way flow from AWS to a Peer Relay has a checkmark in the middle. Traffic is also coming to that Peer Relay, inside a Public Subnet box, from a Static Endpoint inside that Public Subnet, which is sending traffic back to a Network load balancer, and then to a Laptop outside the subnet. Another branch from AWS heads through the Public subnet, to &#x22;other Internet-bound traffic,&#x22; into a NAT gateway, and then to Internet." width="1055" height="630" />
+
+<p>部署起来也不复杂，CLI 一条命令就能开启，通过 ACL 控制权限，还能和现有中继基础设施无缝共存。所有套餐都能用，包括免费的个人版。对于那些需要在严苛网络环境下跑 Tailscale 的团队来说，这功能简直是雪中送炭。</p>
+
+<h3>你知道吗？</h3>
+
+<p>Tailscale 的工作原理其实挺有意思的。它基于 WireGuard（一个超轻量的 VPN 协议），尽可能让设备之间建立点对点直连，这样延迟最低、速度最快。但现实世界的网络环境往往不配合：公司防火墙、运营商 NAT、云服务商的网络限制，都可能把直连路径给堵死。</p>
+
+<p>这时候就需要「中继」出马了。Tailscale 官方运营着一套叫 DERP（Detoured Encrypted Routing Protocol）的全球中继服务器网络，当直连失败时，流量会自动绕道这些中继节点。不过有些用户不想依赖官方服务器，或者希望在自己的内网部署高性能中继节点——对等中继功能就是为了满足这个需求诞生的。</p>
+
+<p>对等中继的聪明之处在于：它不用处理复杂的对等发现（peer discovery）和连接建立，这些脏活累活交给 DERP 网络干，中继节点只负责转发数据包。这样既轻量又可靠，就算中继节点挂了，流量会自动降级到官方 DERP 服务器，不会断连。</p><p><small>[high_interest] 「Tailscale 是一个先进的网络编程工具，解决网络连接复杂性，属于编程工具和效率提升类技术」</small></p>]]></description>
+    </item>
+    
 <item>
       <title>Discord 竞争对手 TeamSpeak 因用户大量涌入而服务器过载</title>
       <link>https://kotaku.com/discord-alternative-teamspeak-age-verification-check-rivals-2000669693</link>
@@ -933,14 +961,6 @@
       <pubDate>Wed, 11 Feb 2026 18:23:39 +0000</pubDate>
       <guid>https://news.ycombinator.com/item?id=46978710</guid>
       <description><![CDATA[<h3>版本 2.1.20 的争议性改动</h3><p>Claude Code 在版本 2.1.20 中做出了一项引起广泛争议的改动，将原本显示的详细文件路径和搜索模式替换为简洁的摘要行。用户之前能看到具体的文件操作记录，现在只能看到「读取 3 个文件」和「搜索 1 个模式」这样的模糊信息。这个改变对月费 200 美元的工具用户来说特别令人失望，因为他们无法再看到系统对其代码库的具体操作。</p><h3>用户反馈与公司回应的矛盾</h3><p>多个 GitHub Issue 中，用户一致要求恢复原功能或至少提供切换选项。Anthropic 的回应是声称这个改动对大多数用户来说是一个有益的简化，能够减少界面噪音。然而这个改动刚推出就收到大量投诉，反驳了「大多数用户」的说法。Anthropic 并未选择恢复功能或添加配置开关，而是建议用户使用详细模式（verbose mode）。</p><p>详细模式转储了思维过程、钩子输出、完整的子代理脚本和文件内容，这与用户的需求完全相反。用户明确表示只想看到文件路径和搜索模式的内联显示，而不是大量调试输出的泛滥。开发者的这个建议显然没有理解用户的真实需求。</p><h3>详细模式的连锁问题</h3><p>之前当 Claude Code 生成多个子代理时，用户能看到紧凑的逐行输出流。现在却会同时获得多个代理的大量文本堆砌。为了弥补这个问题，Anthropic 开始逐步从详细模式中移除某些元素（如思维过程和钩子输出），希望使其成为可接受的方案。然而这个方法只是在解决一个问题的同时创造了两个新问题。</p><p>原本使用详细模式查看思维和钩子的用户现在必须按 Ctrl+O 来获取之前默认就能看到的内容。许多用户已经锁定使用版本 2.1.19，拒绝升级。而社区要求的修复方案——添加一个简单的布尔配置标志——实施起来所需工作量远远少于已经进行的所有详细模式修改。</p><h3>社区与公司目标的脱节</h3><p>这个事件反映了开发团队与实际用户需求之间的严重脱节。Anthropic 在超级碗广告中承诺尊重用户，但在 GitHub 上的表现却给人以相反的印象。用户感到自己的反馈被忽视，最终被迫选择固守旧版本或寻找替代方案。这种情况突出了产品设计中听取用户声音的重要性。</p><p><small>[high_interest] 编程工具（Claude Code）的更新和优化，直接属于编程工具和编程效率主题</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>⭐ Gemini 3 深度思考重大升级发布</title>
-      <link>https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-deep-think/</link>
-      <pubDate>Thu, 12 Feb 2026 16:55:50 +0000</pubDate>
-      <guid>https://news.ycombinator.com/item?id=46991240</guid>
-      <description><![CDATA[<h3>新版本能力概览</h3><p>Google 发布了 Gemini 3 Deep Think 的重大升级版本，这是一个专门为解决科学、研究和工程领域复杂问题而设计的推理模式。该模型在与科研人员密切合作的基础上进行开发，旨在处理缺乏明确指导或单一正确答案的复杂研究挑战。新版本 Gemini 3 Deep Think 现已面向 Google AI Ultra 订阅用户在 Gemini 应用中提供，同时首次通过 Gemini API 向部分研究人员、工程师和企业提供提前体验权限。</p><h3>突破性学术成绩</h3><p>该模型在多项国际顶级学术基准测试中取得了显著成果。在「人类最后的考试」（Humanity's Last Exam）基准测试中，无需工具辅助的情况下获得了 48.4% 的新纪录；在 ARC-AGI-2 测试中达到了前所未有的 84.6% 的准确率，已被 ARC Prize Foundation 验证；在 Codeforces 竞技编程平台上达到了 3455 的 Elo 评分；在 2025 年国际数学奥林匹克竞赛中获得了金牌级别的表现。此外，该模型还在国际物理奥林匹克竞赛和化学奥林匹克竞赛的书面部分获得了金牌级别的成绩。</p><h3>实际应用案例</h3><p>在实际应用中，多位研究人员和工程师已成功使用新版 Deep Think。罗格斯大学数学家 Lisa Carbone 利用该模型审阅高深的数学论文，Deep Think 成功识别出了一个细微的逻辑缺陷，这个缺陷此前已通过人工同行评审但未被发现。杜克大学 Wang 实验室使用 Deep Think 优化复杂晶体生长的制造方法，成功设计出了尺寸超过 100 微米的薄膜生长配方，达到了之前方法难以实现的精确目标。Google 平台与设备部门的研究与开发负责人利用 Deep Think 加速了物理组件的设计流程。</p><h3>工程应用与访问方式</h3><p>Deep Think 不仅在理论上取得突破，还展现出了强大的工程实用性。该模型能够帮助研究人员解释复杂数据、工程师通过代码建模物理系统，甚至可以将草图转换为可三维打印的对象。系统会分析绘图、建立复杂形状模型并生成三维打印文件。Google AI Ultra 订阅者从今日起可在 Gemini 应用中访问升级版 Deep Think，科学家、工程师和企业也可表达对 Gemini API 提前体验计划的兴趣。</p><p><small>[interest] AI 模型重大更新，在科学和工程领域的应用，属于人工智能软件技术范畴</small></p>]]></description>
     </item>
     
   </channel>

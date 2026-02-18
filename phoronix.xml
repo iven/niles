@@ -4,8 +4,16 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 18 Feb 2026 19:15:37 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Feb 2026 21:51:43 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ Linux 7.0 在英特尔 Panther Lake 上出现早期性能回退</title>
+      <link>https://www.phoronix.com/review/linux-7-panther-lake</link>
+      <pubDate>Wed, 18 Feb 2026 16:00:00 -0500</pubDate>
+      <guid>https://www.phoronix.com/review/linux-7-panther-lake</guid>
+      <description><![CDATA[<p><img src="//www.phoronix.net/image.php?id=linux-7-panther-lake&image=panther_lake_msi_med" alt="MSI Panther Lake laptop" /></p><p>随着 Linux 7.0 合并窗口即将关闭，Phoronix 的测试显示一个令人失望的结果：英特尔最新的 Core Ultra Series 3「Panther Lake」（酷睿超核系列 3）处理器在新内核上的性能反而出现了下滑。</p><p>测试使用的是搭载 Core Ultra X7 358H 处理器和 Arc B390 集成显卡的 MSI Prestige 14 笔记本。原本期待随着英特尔 Xe 驱动的持续成熟，特别是针对新的 Xe3 架构的优化，B390 显卡能在 Linux 7.0 上展现更好的表现。然而对比 Linux 6.19 稳定版，测试结果显示整体性能在倒退。</p><p><img src="//phoronix.com/benchmark/result/linux-70-intel-panther-lake-benchmarks/result.svgz" alt="Linux 7.0 Intel Panther Lake Benchmarks" width="100%" height="auto" /></p><p>测试环境严格控制了变量：相同的硬件配置（32GB LPDDR5-8533 内存）、相同的编译器工具链、相同的内核配置（7.0 的新增选项都使用默认值），唯一的差异就是内核版本。这些性能回退问题可能是 Panther Lake 特有的，也可能是 Linux 7.0 早期版本的普遍问题。更多其他系统的测试正在进行中，预计在合并窗口于周日结束后会有更详细的分析。</p><section><h3>你知道吗？</h3><p>内核合并窗口（merge window）是 Linux 开发周期中的关键阶段。在每个开发周期开始时，会有大约两周的时间允许开发者将新功能代码合并到主线内核中。窗口关闭后，就进入 RC（Release Candidate，候选版本）阶段，此时只接受 bug 修复，不再添加新功能。这种机制确保了内核开发的有序进行。性能回退（regression）是指新版本软件在某些方面的表现不如旧版本，这在复杂的内核开发中偶尔会发生，但开发团队通常会在 RC 阶段积极修复这类问题。</p></section><p><small>[high_interest] 匹配高优先级关键词「KDE、Firefox、Chrome、Linux」</small></p>]]></description>
+    </item>
+    
 <item>
       <title>英特尔停止开发的 OpenPGL 项目找到新东家</title>
       <link>https://www.phoronix.com/news/Intel-OpenPGL-New-Home</link>
@@ -495,14 +503,6 @@
       <pubDate>Thu, 12 Feb 2026 06:31:22 -0500</pubDate>
       <guid>https://www.phoronix.com/news/Intel-Resource-Control-Linux-7</guid>
       <description><![CDATA[<h3>资源控制（resctrl）功能增强</h3><p>英特尔向 Linux 7.0 上游提交了资源控制（Resource Control，resctrl）的改进代码，用于增强遥测监测功能。这是有益的遥测技术，新增代码能够监测系统中一组任务或进程 ID 的能耗和工作量。由英特尔的 Tony Luck 开发的此项功能经过了 17 轮补丁审查，最终被合并到 Linux 7.0 中。</p><h3>硬件依赖与监测原理</h3><p>遥测监测功能依赖于英特尔 CPU 中的硬件能力。用户可以通过 resctrl sysfs 接口根据进程 ID 列表设置监测，然后针对该任务组进行能耗监测。这为用户提供了基于流程的更详细的能耗报告能力。</p><h3>实际应用价值</h3><p>该功能对 Linux 7.0 具有实用价值，特别是对于在现代英特尔平台上需要更详细能耗报告的用户。通过这一改进，系统管理员和开发者能够更精确地追踪和优化特定任务或进程组的能源消耗，有助于提升系统能效管理和性能监测的精细度。</p><p><small>[other] 讲述 Linux 内核系统级能耗监测功能，属于基础设施和系统管理工具，不是编程效率工具</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>Linux 7.0 中 EXT4 改进并发直接 I/O 写入性能</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-EXT4</link>
-      <pubDate>Thu, 12 Feb 2026 15:54:22 -0500</pubDate>
-      <guid>https://www.phoronix.com/news/Linux-7.0-EXT4</guid>
-      <description><![CDATA[<h3>并发直接 I/O 写入性能提升</h3><p>Linux 7.0 内核的 EXT4 文件系统更新已正式合并。其中最值得关注的改进是提高了并发直接 I/O（Direct I/O）写入多个文件时的性能。这一性能改进通过推迟非写入分区的分割到 I/O 完成时实现，避免了不必要的操作开销。</p><h3>缓存和写入优化</h3><p>EXT4 在 Linux 7.0 还通过避免区间状态缓存中的不必要缓存失效，以及避免带有延迟分配（Delayed Allocation）的文件附加操作中不必要的强制有序写入等优化措施，进一步提升系统性能。此外还包含多项 bug 修复，确保文件系统的稳定性和可靠性。</p><h3>错误报告机制增强</h3><p>Linux 7.0 新增 err_report_sec sysfs 属性，用于控制错误报告计时器，调整文件系统不一致检测时的日志警告频率。默认情况下计时器每 24 小时记录一次警告信息，但管理员可通过该属性轻松自定义间隔时间，或设置为零来禁用计时器。</p><p><small>[other] 讲述文件系统内核级优化，属于基础设施层技术，非应用层编程工具</small></p>]]></description>
     </item>
     
   </channel>
