@@ -54,15 +54,21 @@ const plugin: Plugin = {
         let imgIndex = 0;
 
         imgTags.forEach((img, idx) => {
-          const imgSrc = (img.getAttribute('src') || '').toLowerCase();
+          const imgSrc = img.getAttribute('src') || '';
+          const imgSrcLower = imgSrc.toLowerCase();
 
-          if (idx === 0 && filterKeywords.some(keyword => imgSrc.includes(keyword))) {
+          if (idx === 0 && filterKeywords.some(keyword => imgSrcLower.includes(keyword))) {
+            img.remove();
+            return;
+          }
+
+          if (imgSrc.startsWith('data:')) {
             img.remove();
             return;
           }
 
           const imgData: ImageData = {
-            src: img.getAttribute('src') || '',
+            src: imgSrc,
             alt: img.getAttribute('alt') || '',
           };
 
