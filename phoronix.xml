@@ -4,8 +4,16 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 18 Feb 2026 16:27:51 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Feb 2026 17:21:20 +0000</lastBuildDate>
 
+<item>
+      <title>System76 即将推出重新设计的 Thelio 硬件</title>
+      <link>https://www.phoronix.com/news/System76-Thelio-Redesign</link>
+      <pubDate>Wed, 18 Feb 2026 11:42:21 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/System76-Thelio-Redesign</guid>
+      <description><![CDATA[<h2>概述</h2><p>Linux 硬件厂商 System76 开始预告其 Thelio 机箱的重新设计版本。这款机箱用于其现代台式机和工作站产品。System76 与其他 Linux PC 厂商的一大区别在于其定制工程设计、美国本土制造的机箱，现在他们准备推出下一代设计。</p><img src="//www.phoronix.net/image.php?id=2026&image=new_thelio_med" alt="New Thelio hardware coming soon" /><h2>设计背后的努力</h2><p>System76 首席执行官 Carl Richell 在 X 平台上表示，这是一次「从零开始」的重新设计。整个过程历时 10 个月的设计和工程开发，进行了超过 16,000 次耐久性测试，以及超过 250 小时的热管理测试和优化。考虑到 Thelio 硬件多年来在持续测试中表现出色，整体构建质量极高且可靠性强，这次重新设计能带来什么样的提升非常值得期待。</p><h2>即将发布的产品</h2><p>帖子以标签「#MiraMarch」结尾。System76 Thelio Mira 是其「多功能专业台式机」产品线，搭载 AMD Ryzen CPU，支持最高 128GB 内存和其他高端硬件。根据这个标签推测，我们可能会在下个月（3 月）听到更多关于下一代 System76 Thelio Mira 的消息。</p><p><small>[other] Linux 硬件设计新闻，不属于高度或一般感兴趣的主题范畴</small></p>]]></description>
+    </item>
+    
 <item>
       <title>Linux 7.0 为现代笔记本带来多项增强功能</title>
       <link>https://www.phoronix.com/news/Linux-7.0-x86-Drivers</link>
@@ -495,14 +503,6 @@
       <pubDate>Thu, 12 Feb 2026 20:40:00 -0500</pubDate>
       <guid>https://www.phoronix.com/news/Linux-7.0-MM</guid>
       <description><![CDATA[<h3>压缩数据回写与内存管理优化</h3><p>Linux 7.0 合并窗口中所有内存管理（MM）相关补丁已被 Linus Torvalds 采纳。此次更新引入了 Zram 的压缩数据回写支持，通过采用更优化的压缩数据处理方式替代次优的未压缩回写，显著降低 CPU 功耗并增强系统能效，特别是对笔记本电脑的电源管理具有重要意义。</p><h3>大页面清除和巨型 Folio 分配加速</h3><p>另一项重要优化是连续页面范围的大页面清除功能，能够大幅改进 2MB 及更大页面的需求分页性能。通过让硬件预取器更高效地工作，并利用 clear_pages() 进行批量操作，该优化在 AMD Zen 微架构上表现尤其出色。同时，巨型 Folio 分配加速通过消除不必要的工作大幅提升性能，120×1GB Folio 的分配时间从 3.605 秒降至 0.431 秒。</p><h3>交换操作统一与性能基准</h3><p>此外，Linux 7.0 还统一了交换入操作并移除了性能表现欠佳的旧交换代码。这些优化和代码清理在 Redis 基准测试中产生了 20% 的速度提升。同时，新版本为包括 Alpha、LoongArch、MIPS、Parisc 和 UM 在内的 64 位架构启用了 PT_RECLAIM（页表回收）功能，进一步扩展内存管理的优化范围。</p><p><small>[other] 讲述内核级内存管理优化，属于基础设施层技术，虽然涉及性能提升但非编程工具</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>Linux 7.0 对工作队列救援程序进行重大改进</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-Workqueue</link>
-      <pubDate>Thu, 12 Feb 2026 09:35:00 -0500</pubDate>
-      <guid>https://www.phoronix.com/news/Linux-7.0-Workqueue</guid>
-      <description><![CDATA[<h3>工作队列救援程序优化</h3><p>Linux 7.0 为内核的工作队列系统进行了重要改进，重点是优化工作队列救援程序（workqueue rescuer）的性能。救援程序用于防止系统在内存压力下工作队列发生死锁。此前，救援程序会一次性扫描所有匹配的工作项并在单个救援线程中处理它们，但这样设计容易导致一个长时间阻塞的工作项阻滞后续所有其他工作项，造成整个队列的高延迟。</p><h3>处理机制改进</h3><p>蚁集团的赖江山对救援程序进行了重新设计，改为逐个处理工作项而不是一次性处理所有项。新的处理流程在找到并处理第一个匹配的工作项后会中断循环，然后重新启动搜索以处理下一个项目。这种方式给普通工作线程提供了处理其他项目的机会，防止了阻塞的工作项在内存压力缓解后继续阻滞队列的其他项目。</p><h3>新增控制选项</h3><p>Linux 7.0 还添加了 CONFIG_BOOTPARAM_WQ_STALL_PANIC 配置选项和 workqueue.panic_on_stall_time 参数，用于基于时间的停滞恐慌处理。这些选项为系统提供了更细粒度的工作队列停滞处理控制，特别对于需要可靠性保证和及时处理停滞的高可用性系统非常有用。这些改进已合并到 Linux 7.0 中。</p><p><small>[other] 讲述内核工作队列系统优化，属于基础设施层技术，非应用层编程工具</small></p>]]></description>
     </item>
     
   </channel>

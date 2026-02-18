@@ -4,8 +4,16 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 18 Feb 2026 16:28:20 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Feb 2026 17:21:15 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ Asahi Linux 进展报告：Linux 6.19 版本更新</title>
+      <link>https://asahilinux.org/2026/02/progress-report-6-19/</link>
+      <pubDate>Wed, 18 Feb 2026 10:00:11 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47059275</guid>
+      <description><![CDATA[<p>Asahi Linux 项目迎来五周年，在 6.19 内核中实现了两项重大突破。</p><p><strong>USB-C 显示输出终于来了</strong>：项目组终于完成了社区呼声最高的功能——通过 USB-C 端口进行 DisplayPort Alt Mode 显示输出。这项功能涉及四个硬件模块（DCP、DPXBAR、ATCPHY、ACE）的协同工作，需要对每个模块进行逆向工程并编写 Linux 驱动。目前 fairydust 分支已可在 M1 MacBook Air 上通过 USB-C 转 HDMI 适配器输出显示，但仍存在一些问题：只能使用单个 USB-C 端口、热插拔不完善、部分显示器可能出现色彩或时序问题。这个分支目前主要面向开发者，暂不提供技术支持。</p><p><strong>M3 系列初步支持</strong>：三位新贡献者（Alyssa Milburn、Michael Reeves、Shiz）为 M3 系列机器编写了设备树，目前键盘、触控板、WiFi、NVMe 和 USB3 均已工作。不过距离正式发布还有很长的路要走：M3 的 GPU 架构与 M1/M2 有重大差异（引入硬件加速光线追踪、网格着色器等），目前只能使用软件渲染；DCP 显示控制器需要适配 macOS 14 的新固件接口；扬声器安全、能效调度等完整体验功能尚未实现。</p><p><strong>120Hz 高刷新率</strong>：开发者 Oliver Bestmann 成功让 14 英寸和 16 英寸 MacBook Pro 的内置显示器以 120Hz 刷新率运行。macOS 通过 ProMotion 特性（实际就是可变刷新率）控制高刷，但 DCP 固件要求填写三个时间戳字段才允许超过 60Hz。目前通过填入静态值实现了 120Hz，但这个临时方案阻碍了未来的可变刷新率支持。</p><p><strong>DCP 驱动重构</strong>：为支持 HDR、VRR、硬件亮度控制等高级特性，团队开始重构 DCP 驱动的硬件平面处理代码。重构后的驱动已支持 Y'CbCr 色彩空间直接扫描输出、压缩帧缓冲、多色彩空间自动归一化等功能，为视频直接输出和 HDR 实验奠定了基础。</p><section style="margin-top: 1.5em; padding: 1em; background: #f5f5f5; border-left: 3px solid #4a90e2;"><p><strong>你知道吗？</strong></p><p>DCP（Display Coprocessor，显示协处理器）是苹果自研的显示控制芯片，运行着一个 9MB 的固件 blob。它不仅负责驱动显示器，还能在硬件层面完成多图层合成、色彩空间转换、HDR 处理等复杂任务，大大减轻 GPU 的负担。这种设计让主 CPU 和 GPU 可以在显示内容时进入低功耗状态，这也是 Mac 笔记本续航表现优异的原因之一。</p><p>逆向工程这样一个复杂的封闭系统需要追踪 macOS 与固件的通信协议，理解数千个结构体和函数调用的含义，还要处理不同 macOS 版本之间的接口变化。Asahi 团队通过构建专门的追踪工具，从海量数据中找出规律，最终让 Linux 也能「说 DCP 的语言」。</p></section><p><small>[high_interest] 开源项目技术进展，详细介绍 Linux 在 Apple Silicon 上的硬件支持。涵盖开源技术和科技前沿，属于强烈感兴趣的技术主题。</small></p>]]></description>
+    </item>
+    
 <item>
       <title>想建造隧道？这些工程挑战你必须知道</title>
       <link>https://practical.engineering/blog/2026/2/17/so-you-want-to-build-a-tunnel</link>
@@ -933,24 +941,6 @@
       <pubDate>Thu, 12 Feb 2026 14:24:15 +0000</pubDate>
       <guid>https://news.ycombinator.com/item?id=46989217</guid>
       <description><![CDATA[<h3>RFC 合规性问题</h3><p>Viva.com 是欧洲最大的支付处理商之一，在发送验证电子邮件时缺少 Message-ID 标头。这个标头自 2008 年以来就是 RFC 5322 国际信息格式规范的一项建议，也是绝大多数电子邮件库和框架的默认配置。Message-ID 是电子邮件中最基本的标头之一，任何标准的电子邮件服务提供商都会自动生成它。缺少这个标头表明 Viva.com 的邮件管道存在严重配置错误或特殊的系统设计。</p><p>Google Workspace 的邮件服务器对缺少有效 Message-ID 标头的邮件采取了严格的拒收政策，状态码为 550 5.7.1。这意味着 Viva.com 的验证电子邮件甚至无法进入垃圾邮件文件夹，而是被直接拒收。这种严格的要求虽然超出了 RFC 5322 中的 SHOULD 建议范围，但反映了 Google 在邮件交付中对基本合规性的坚持。</p><h3>实际影响与绕过方案</h3><p>当用户尝试使用 Google Workspace 的企业电子邮件创建 Viva.com 账户时，验证电子邮件完全无法送达。经过检查 Google Workspace 的电子邮件日志搜索工具后发现，问题根本不在于垃圾邮件分类，而是在于邮件的完全被拒收。用户唯一的解决方案是切换到个人的 Gmail 地址来完成账户验证。有趣的是，Gmail 的接收基础设施对这类不规范的邮件表现得更为宽容，这可能与 Gmail 采用不同的电子邮件处理路由或信誉评分系统有关。</p><p>对于一个需要依赖 Viva.com 来处理业务支付的欧洲企业来说，被迫放弃首选的企业电子邮件地址才能注册是绝对不可接受的。这不仅影响了用户体验，还暴露了该支付处理商在基础设施质量和客户支持能力上的严重缺陷。</p><h3>客户支持与技术深度的问题</h3><p>用户向 Viva.com 的客户支持团队提交了详细的技术错误报告，包括 Google Workspace 电子邮件日志的截图和关于 Message-ID 标头问题的清晰解释。支持团队在几小时内回复，但回应非常敷衍："我们现在可以看到您的账户有一个经过验证的电子邮件地址，所以似乎没有问题。"这个回应完全没有承认技术问题的存在，没有将问题升级给工程团队处理，只是将用户绕过 Bug 的事实重新包装成"没有问题"的证据。</p><p>这反映了一个更广泛的问题：支付处理商的技术支持团队缺乏必要的技术深度来理解和解决工程问题。对于一家处理欧洲范围内支付的公司来说，连最基本的电子邮件 RFC 合规性都无法保证，这引发了人们对其整体技术栈可靠性的严重怀疑。如果连发送电子邮件这样的基本功能都存在这么严重的问题，那么支付处理的其他关键环节的质量又如何呢？</p><h3>更广泛的欧洲 Fintech 生态问题</h3><p>这个事件反映了一个更深层次的问题：在那些只有一个或很少选择的市场上，竞争压力不足以促使公司打磨开发者体验。Stripe 在全球范围内提高了 API 集成的标准和期待，但在 Stripe 尚未完全覆盖的欧洲市场，特别是对于本地支付系统的支持（如希腊的 IRIS 即时支付系统）方面，这样的问题会继续出现。欧洲许多面向企业的 API 和服务都存在类似的问题：文档不完整，以 PDF 形式打包，边界情况未处理，错误信息具有误导性。这不是因为欧洲工程师的能力较低，而是优先级问题。Stripe 提供的卓越体验让用户怀念，而在没有这样的替代方案完全覆盖欧洲市场的情况下，这类故事还会不断发生。</p><p><small>[other] 邮件系统的技术问题，RFC 合规性讨论，边界情况处理，不太感兴趣但也不排除</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>⭐⭐ 一个工具变更如何在一个下午内改进 15 个大语言模型的编码能力</title>
-      <link>http://blog.can.ac/2026/02/12/the-harness-problem/</link>
-      <pubDate>Thu, 12 Feb 2026 13:30:20 +0000</pubDate>
-      <guid>https://news.ycombinator.com/item?id=46988596</guid>
-      <description><![CDATA[<h3>核心发现：编辑工具的重要性</h3>
-<p>这篇文章深入探讨了一个常被忽视的问题——编码 AI 代理中「编辑工具」（harness）的设计对模型性能的影响程度。作者 Can Bölük 通过实验证明，仅改变编辑格式一个变量，就能将 15 个大语言模型的编码能力显著提升。这一发现挑战了业界普遍认为「模型本身是最重要变量」的观点，表明编辑工具的优化往往比模型升级本身更具有杠杆效应。</p>
-<p>作者维护的「oh-my-pi」项目是一个 Pi 编码代理的改进版本，通过优化工具接口、错误处理和状态管理等方面，实现了更高效的 AI 编码流程。他强调，模型只是一个参数，真正的变量是 harness，其中蕴含着难以想象的控制空间和优化潜力。</p>
-<h3>Hashline 编辑格式的创新方案</h3>
-<p>当前的编辑方案存在多种问题：OpenAI 的 patch 格式依赖于完美再现文本，导致 Grok 4 的失败率达到 50.7%；Claude Code 采用的 str_replace 需要模型完全匹配包括空格和缩进在内的所有字符；即使是资金充足的公司如 Google 也需要训练额外的神经网络来处理编辑合并。作者提出了 Hashline 方案：为文件的每一行添加 2-3 字符的内容哈希标识符，模型在编辑时直接引用这些标识符而无需再现原始内容。</p>
-<p>这种方法的优势在于提供了稳定的、可验证的行标识符，能够检测文件变化、防止覆盖错误，并大幅减少模型需要再现内容的认知负荷。实验中，Grok Code Fast 1 的成功率从 6.7% 飙升至 68.3%，MiniMax 的性能翻倍，Grok 4 Fast 的输出 token 数下降了 61%。</p>
-<h3>基准测试的严谨设计与结果</h3>
-<p>为评估 Hashline 的有效性，作者从 React 代码库中随机取样文件，通过注入模拟 bug（如操作符交换、布尔值翻转、越界错误等）来构建 540 个测试任务（180 个任务 × 3 次运行）。每个任务都包含清晰的英文描述，模型需要在隔离的工作区中通过读取、编辑、写入等工具完成修复。结果表明，Hashline 方案与传统 replace 方案相当或更优，而 patch 格式在几乎所有模型上表现最差。</p>
-<p>特别值得注意的是，性能最弱的模型获得了最大的收益——这说明 Hashline 不仅改进了总体性能，更重要的是消除了编辑格式作为性能瓶颈的影响，让模型的真实能力得以充分发挥。Gemini 的 8% 改进幅度已经超过了大多数常规模型升级所能提供的效果。</p>
-<h3>开源与商业模式的反思</h3>
-<p>作者强调了开源 harness 相对于商业厂商私有实现的优势。商业公司如 Anthropic 不会为竞争对手的模型优化工具，xAI 不会为 Gemini 优化，但开源社区会因为贡献者使用不同的模型而为所有模型进行优化。这创造了真正的外部性——一个统一的、经过充分测试的 harness 基础设施能够提升整个生态系统的编码能力。然而，包括 Anthropic 和 Google 在内的公司选择了限制访问或直接封禁的策略，这些行为信号表明它们在担心 harness 的开放性会削弱其商业优势，但实际上这种做法反而阻碍了技术进步的共同繁荣。</p><p><small>[high_interest] 编程工具优化，AI 代码生成能力提升，属于编程工具和编程效率主题</small></p>]]></description>
     </item>
     
   </channel>
