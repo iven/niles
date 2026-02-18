@@ -4,8 +4,16 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 18 Feb 2026 11:54:44 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Feb 2026 15:30:33 GMT</lastBuildDate>
 
+<item>
+      <title>Linux 7.0 为龙芯架构带来多项新特性</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-LoongArch</link>
+      <pubDate>Wed, 18 Feb 2026 08:16:00 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Linux-7.0-LoongArch</guid>
+      <description><![CDATA[<p>即将发布的 Linux 7.0 内核为龙芯架构（LoongArch）带来了重要改进。LoongArch 是中国自主研发的 CPU 架构，设计灵感来自 MIPS64 和 RISC-V，在国产 PC 制造领域展现出强劲潜力。</p><img src="//www.phoronix.net/image.php?id=loongson-3b6000-loongarch&image=loongson_3b6000_7_med" alt="LoongArch 3B6000 motherboard" /><p>本次更新的核心改进包括：</p><ul><li><strong>SMT 热插拔支持</strong>：允许在系统运行时动态启用或禁用同步多线程</li><li><strong>128 位原子操作</strong>：新增 128 位原子 CMPXCHNG（比较并交换）指令支持，提升多线程环境下的并发性能</li><li><strong>MEMFD_SECRET 系统调用</strong>：支持创建对内核不可见的内存区域，增强敏感数据的安全性</li><li><strong>KASAN 优化</strong>：修复了内核地址消毒器（KASAN）的启动错误和堆栈展开问题</li><li><strong>BPF 增强</strong>：使用 BPF 程序包分配器并添加 BPF arena 支持，提升 eBPF 程序的内存管理效率</li><li><strong>硬件支持扩展</strong>：设备树文件新增 NAND 控制器定义，以及其他错误修复和小幅改进</li></ul><p>这些改进体现了 LoongArch 生态系统的快速成熟。从近期的基准测试来看，最新的龙芯 3B6000 处理器在性能上已经能够与 AMD Zen 5、Intel Arrow Lake 等主流架构进行对比，同时在 Arch Linux 等发行版上运行良好，显示出中国自主 CPU 架构在技术实力和生态建设方面的显著进步。</p><p><small>[other] 涉及硬件基础设施和芯片技术细节，不属于用户的高优先级兴趣范围</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐ FreeBSD 推出 KDE 桌面一键安装选项</title>
       <link>https://www.phoronix.com/news/FreeBSD-Desktop-Option-Testing</link>
@@ -491,12 +499,5 @@
       <description><![CDATA[<h3>版本更新亮点</h3><p>Canonical 发布了 Ubuntu 24.04.4 LTS（Noble Numbat），这是 24.04 LTS 系列的最新点版本。此版本集成了过去数月的所有安全更新，并引入了硬件使能（Hardware Enablement，HWE）堆栈的重要更新，其中包含来自 Ubuntu 25.10 的关键软件包。这使得用户可以获得更好的硬件支持以及新版本内核的功能。</p><h3>核心组件升级</h3><p>Ubuntu 24.04.4 LTS 最显著的升级是集成了 Linux 6.17 内核，为硬件支持提供了显著改进。除此之外，该版本还更新了 Mesa 25.2.8 图形库、Snap 包管理工具、火狐浏览器（Firefox）147 以及其他精选组件。这些更新确保了系统的现代性和安全性，同时保持了 Ubuntu 24.04 LTS 的稳定基础。</p><h3>发布信息</h3><p>感兴趣的用户可以从 releases.ubuntu.com 下载 Ubuntu 24.04.4 LTS。此外，Canonical 预计将在 2026 年 4 月发布下一个长期支持版本 Ubuntu 26.04 LTS。</p><p><small>[interest] Ubuntu 新发行版发布，属于新发行版范畴，提供硬件支持和系统更新，值得关注</small></p>]]></description>
     </item>
     
-<item>
-      <title>Linux 7.0 内核内存管理升级：Sheaves 缓存层扩大应用范围</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-Slab-Sheaves</link>
-      <pubDate>Fri, 13 Feb 2026 08:04:51 -0500</pubDate>
-      <guid>https://www.phoronix.com/news/Linux-7.0-Slab-Sheaves</guid>
-      <description><![CDATA[<h3>Sheaves 缓存层升级为标准配置</h3><p>Linux 7.0 内核的板片内存分配器（slab memory allocator）功能迎来重大更新。其中最显著的变化是 Sheaves 功能的应用范围大幅扩展。Sheaves 是一种按 CPU 数组缓存层，最初在 Linux 6.19 版本中作为可选功能引入，旨在进一步提升 Linux 内核性能。如今在 Linux 7.0 中，Sheaves 功能已升级为核心组件，取代了内核中更多的缓存代码。</p><h3>性能优化与代码简化</h3><p>新的 Sheaves 实现带来多项改进。首先，它降低了锁定开销（locking overhead），使释放内存时的快速路径（fastpath）更容易被触发。其次，它消除了与 CPU 板片无锁快速路径（lockless fastpaths）相关的复杂代码，包括基于 try_cmpxchg128/64 的操作以及为实时内核（PREEMPT_RT）和无锁分配（kmalloc_nolock）带来的各种问题。这些改进使内核代码更清晰、更易维护。</p><h3>内存效率提升</h3><p>Linux 7.0 的板片代码还通过消除 slabobj_ext 元数据开销来提高效率，通过重新利用板片（slab）中的剩余空间或每对象填充（per-object padding）来实现这一点。这种优化设计既能保持性能优势，又能提升内存使用效率。虽然目前尚未公布具体的性能基准数据，但相关代码提交中表示对性能改进的期待。</p><p><small>[other] 讲述内核级内存分配器优化，属于基础设施层技术，非编程工具或应用层技术</small></p>]]></description>
-    </item>
   </channel>
 </rss>

@@ -4,8 +4,104 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 18 Feb 2026 11:05:57 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Feb 2026 15:31:49 GMT</lastBuildDate>
 
+<item>
+      <title>安娜的档案馆（Anna&apos;s Archive）为 LLM 提供数据访问指南</title>
+      <link>https://annas-archive.li/blog/llms-txt.html</link>
+      <pubDate>Wed, 18 Feb 2026 07:18:50 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47058219</guid>
+      <description><![CDATA[<p>安娜的档案馆（Anna's Archive）是一个专注于保存和开放人类知识的非营利项目，最近发布了一份专门写给大型语言模型（LLM）的使用指南。这份指南详细说明了如何通过 API、种子文件和批量下载等方式获取他们的数据，避免因爬取网站而触发验证码（CAPTCHA）系统。</p>
+
+<p>指南的核心内容包括：项目的所有 HTML 页面和代码都托管在 GitLab 仓库中；元数据和完整文件可以通过种子页面下载，特别是 <code>aa_derived_mirror_metadata</code>；提供种子 JSON API 供程序化访问；企业级捐赠者可以获得 SFTP 快速访问权限。指南还特别提到，LLM 很可能已经在训练中使用了他们的数据，因此希望这些公司能够捐款支持项目的可持续发展。</p>
+
+<p>在 Hacker News 的讨论中，有开发者指出一个现实问题：尽管 <code>llms.txt</code> 和 <code>AGENTS.md</code> 这类文件被提出作为标准，但实际上主要的 LLM 公司（如 OpenAI、Anthropic）并没有真正去请求这些文件。通过流量分析发现，访问这些文件的主要是来自云平台的随机爬虫，而不是带有官方 User-Agent 的 LLM 爬虫。</p>
+
+<p>讨论中还提到了一些有趣的话题：有人发现这份给 LLM 看的说明反而比给人类看的介绍更清晰；有用户开发了名为 Levin 的自动做种工具，利用闲置的磁盘空间和带宽为 Anna's Archive 做种；也有人关注到项目最近移除了 Spotify 元数据种子的链接，可能是因为受到了唱片公司的法律威胁。</p>
+
+<h3>你知道吗？</h3>
+<p><code>llms.txt</code> 和 <code>robots.txt</code> 类似，是一种新兴的网站元数据标准，专门用于向 LLM 和 AI 代理（Agent）提供结构化的网站信息。这个想法的出发点是：既然 AI 已经在大规模爬取网络内容，不如主动提供一份「机器友好」的说明书，告诉它们网站的核心信息、可用的 API、以及访问规则。这样既能减少服务器负担（避免暴力爬取），也能让 AI 获得更准确的信息。然而从实际效果来看，这个标准还没有得到主流 LLM 公司的真正采用，这也反映出当前 AI 数据采集领域缺乏统一规范的现状。</p><p><small>[other] 无法明确分类</small></p>]]></description>
+    </item>
+    
+<item>
+      <title>终端应该自动生成 256 色调色板</title>
+      <link>https://gist.github.com/jake-stewart/0a8ea46159a7da2c808e5be2177e1783</link>
+      <pubDate>Wed, 18 Feb 2026 06:19:37 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47057824</guid>
+      <description><![CDATA[<p>如果你经常使用终端，可能已经设置了自定义的 base16 主题（16 色配色方案）。这套方案很方便——在一个地方定义几种颜色,所有程序都能使用。但 16 色确实有限,复杂的程序往往捉襟见肘。</p>
+
+<p>主流解决方案是使用真彩色（truecolor），一下子获得 1600 万种颜色。但这带来新问题：每个真彩色程序都需要单独配置主题,切换配色要改多个文件,终端支持也不够广泛。</p>
+
+<p>256 色调色板恰好处于中间地带——比 base16 丰富,比真彩色开销小。但它有自己的硬伤：</p>
+
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/inconsistent.png" alt="inconsistent theme" />
+
+<p><strong>默认调色板与用户主题冲突</strong>。上图展示了默认 256 色与自定义 base16 主题的不协调。</p>
+
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/consistent.png" alt="consistent theme" />
+
+<p>如果使用自定义生成的 256 色调色板,效果就和谐多了。</p>
+
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/poor-readability-1.png" alt="poor readability example" />
+
+<p><strong>插值计算不正确</strong>。默认的 216 色立方体在黑色到各种颜色之间的过渡有问题,第一个非黑色的亮度是 37% 而不是预期的 20%,导致深色背景可读性很差。</p>
+
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/fixed-readability-1.png" alt="fixed readability example" />
+
+<p>正确插值后可读性得以保留。</p>
+
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/poor-readability-2.png" alt="poor readability example" />
+
+<p><strong>对比度不一致</strong>。默认调色板使用完全饱和的颜色,导致在黑色背景上亮度不统一。蓝色总是比绿色显得更暗,即使它们色阶相同。</p>
+
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/fixed-readability-2.png" alt="fixed readability example" />
+
+<p>如果降低蓝色饱和度,就能保持一致的感知亮度。</p>
+
+<p><strong>解决方案很直接</strong>：从用户的 base16 主题自动生成 256 色调色板。base16 的 8 种常规颜色正好映射到 216 色立方体的 8 个顶点,通过三线性插值（trilinear interpolation）构建色立方体,用简单插值生成 24 级灰度渐变。关键是使用 LAB 色彩空间而不是 RGB,以保证相同色阶的不同色相具有一致的感知亮度。</p>
+
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/without-lab.png" alt="without lab" />
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/with-lab.png" alt="with lab" />
+
+<p>上面两张图对比了 Solarized 主题使用 RGB 插值和 LAB 插值的效果差异。</p>
+
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/example.png" alt="example generated themes" />
+
+<p>多个主题的生成效果组合展示。</p>
+
+<img src="https://raw.githubusercontent.com/jake-stewart/color256/refs/heads/main/writeup/before_after.png" alt="example before and after" />
+
+<p>使用默认颜色生成 256 色调色板的前后对比。</p>
+
+<p>作者还提供了公共领域的 Python 实现代码,可以自由修改和使用。如果终端能自动完成这件事,程序开发者就会把 256 色调色板视为可行选项——既能获得丰富的色彩表现,又无需配置文件的复杂性,还能自动适配明暗主题切换,终端兼容性也更好。</p>
+
+<h3>你知道吗？</h3>
+
+<p><strong>为什么要用 LAB 色彩空间？</strong></p>
+
+<p>我们平时用的 RGB 色彩空间是面向硬件设计的——它描述的是红绿蓝三个发光二极管的强度。但人眼对不同颜色的亮度感知并不均匀：100% 饱和的蓝色看起来就是比同样 100% 的绿色暗得多。</p>
+
+<p>LAB 色彩空间（也叫 CIELAB）则是按照人眼感知设计的。L 代表亮度（Lightness）,A 和 B 代表色彩方向。在 LAB 空间里,相同 L 值的颜色在人眼看来亮度就是一致的,无论它是红是绿还是蓝。这就是为什么在终端调色板生成时使用 LAB 插值——能确保不同色相的「深色」看起来一样深,「浅色」看起来一样浅,视觉体验更加和谐统一。</p><p><small>[other] 无法明确分类</small></p>]]></description>
+    </item>
+    
+<item>
+      <title>谷歌公共证书颁发机构（Google Public CA）服务中断</title>
+      <link>https://status.pki.goog/incidents/5oJEbcU3ZfMfySTSXXd3</link>
+      <pubDate>Wed, 18 Feb 2026 01:05:33 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47055696</guid>
+      <description><![CDATA[<p>2026 年 2 月 17 日，谷歌信任服务（Google Trust Services）的公共证书颁发机构（CA，Certificate Authority）出现了严重故障，导致证书签发服务被迫暂停。这次事故影响了 ACME API（一种自动化证书管理协议）的 TLS 和 SXG 服务，持续了近 10 个小时。</p>
+
+<p>事故发生在太平洋时间 11:18，团队在确认问题后宣布将停止证书签发，并预计修复将在约 8 小时后完成。然而修复推迟了，最终在 21:04 完全恢复服务。许多依赖 Google 公共 CA 自动续期证书的服务可能受到影响。</p>
+
+<p>在 Hacker News 的讨论中，不少用户注意到 YouTube 首页和推荐视频功能同时出现异常——页面显示空白，但订阅和已知视频链接仍然可以正常播放。也有 Heroku 用户报告服务问题。有技术人员推测，谷歌内部系统间通信使用 mTLS（双向 TLS 认证），CA 故障可能导致了连锁反应，影响了多个看似无关的服务。</p>
+
+<h3>你知道吗？</h3>
+
+<p>证书颁发机构（CA）是互联网安全的基石。当你访问 HTTPS 网站时，浏览器需要验证网站的数字证书是否由可信 CA 签发，这就像检查身份证是否由公安局颁发。谷歌公共 CA 是一个免费的证书颁发服务，很多网站用它来自动获取和续期 HTTPS 证书。</p>
+
+<p>ACME 协议（Automated Certificate Management Environment）让这个过程完全自动化——服务器可以自己申请证书、验证域名所有权、续期证书，无需人工干预。Let's Encrypt 就是最著名的 ACME CA，而谷歌的服务是另一个重要选择。当 CA 宕机时，正在过期的证书无法续期，可能导致网站出现「不安全」警告，甚至无法访问。</p><p><small>[other] 匹配不感兴趣关键词「安全」</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐⭐ 15 年后，微软用 AI「continvoucly morged」了我的图表</title>
       <link>https://nvie.com/posts/15-years-later/</link>
@@ -857,28 +953,5 @@
       <description><![CDATA[<h3>2025 年就业数据大幅下调</h3><p>根据美国劳工统计局（BLS）发布的修正数据，美国 2025 年全年仅增加 181,000 个就业岗位，远低于此前预估的 584,000 个。这一数据修正幅度巨大，使 2025 年成为自 2003 年以来（除去经济衰退年份）最糟糕的就业年份，也是自 2020 年以来最差的增长表现。相比之下，2024 年美国创造了 146 万个就业机会，体现出劳动力市场增长的显著放缓。BLS 在收到额外的州级数据后进行了全面修正，2025 年内有四个月出现就业环比下降，即 1 月、6 月、8 月和 10 月。</p><h3>2026 年开局相对乐观</h3><p>尽管 2025 年表现不佳，但 2026 年的数据显示了一些积极信号。1 月新增 130,000 个就业岗位，远超经济学家预期的 55,000 个岗位，是预期的两倍多。其中，健康护理部门表现最强劲，单月净增 137,000 个岗位，成为就业增长的主要驱动力。建筑业和社会援助部门也有所增长，而联邦政府部门和金融活动则出现就业减少。失业率从 4.4% 下降至 4.3%，显示劳动力市场有所改善。</p><h3>数据修正反映的系统性问题</h3><p>这次大规模的就业数据修正反映出美国劳动力市场的复杂性。美国全年修正幅度共计 862,000 个岗位，是过去数年最大的修正之一。自 2020 年以来，美国就业数据的平均修正幅度大于疫情前的水平，经济学家将其归因于劳动力市场动态变化和调查回复率下降。联邦储备委员会主席杰罗姆·鲍威尔曾表示，去年的招聘数据可能存在高达 60,000 个岗位每月的高估。这些修正下行的数据表明劳动力市场正在逐步冷却，但冷却速度可能比预期更快。</p><h3>政治经济背景与市场反应</h3><p>就业数据的疲弱表现为特朗普政府和共和党人在 2026 年中期选举前制定经济叙事增添了复杂性。民调显示总统对经济的认可度下降，消费者信心疲软，尤其是对就业市场的担忧。制造业作为特朗普政府重点关注的产业，在 1 月出现几乎没有变化，虽然工厂就业环比增加 5,000 个岗位，但这是自 2024 年 1 月以来的首次增长。美联储主席鲍威尔表示劳动力市场继续逐步冷却，这一表态可能影响美联储的利率决策。受报告影响，美债收益率上升，期货市场表明交易者认为利率下调最早要到 7 月才会发生。</p><p><small>[other] 经济数据分析，市场动态相关但缺乏直接的重大性，属于其他情况</small></p>]]></description>
     </item>
     
-<item>
-      <title>⭐ NetNewsWire 迎来 23 周年</title>
-      <link>https://netnewswire.blog/2026/02/11/netnewswire-turns.html</link>
-      <pubDate>Wed, 11 Feb 2026 18:06:11 +0000</pubDate>
-      <guid>https://news.ycombinator.com/item?id=46978490</guid>
-      <description><![CDATA[<h3>应用发展历程与当前版本</h3><p>NetNewsWire 是一款经典 RSS 阅读器，其 1.0 版本在 23 年前的今天面世。近期项目团队发布了 7.0 版本，同时支持 Mac 和 iOS 平台。目前团队正在为 7.0.1 版本工作，旨在修复大版本发布后常见的回归问题和完善应用细节。经过 Brent 退休后，项目团队的工作效率显著提升，能够更快速地处理技术债务。</p><p>开发团队已明确未来版本的规划路线。NetNewsWire 7.1 将重点专注于同步功能的修复和改进。7.2 版本的重点方向尚未确定，可能涉及用户体验优化和界面打磨，或其他改进方向。而 7.3 版本因时间距离较远，更多取决于 7.1 和 7.2 的实际进展，以及苹果公司在今年 WWDC 大会上的新公告。</p><h3>设计理念与用户评价</h3><p>NetNewsWire 因其简洁高效的设计获得社区广泛赞誉。用户将其与 Alfred 等经典应用相提并论，称其代表了 OS X 黄金时代的工艺精神。应用速度快、体积小、没有冗余功能，完全符合现代精简软件的理想。许多用户表示在 Google Reader 关闭后，经历了 Feedly 等多个替代品，最终还是回到了 NetNewsWire，特别是对于苹果生态用户。</p><p>社区生态也在持续扩展。开发者为 Raycast 等启动器工具创建了 NetNewsWire 集成扩展，使用户能将 RSS 阅读功能集成到日常工作流中。这些扩展大多采用开源模式，进一步增强了应用的功能性和灵活性。</p><h3>待解决的技术挑战</h3><p>当前项目仍面临多项技术课题。应用存在大量未解决的 bug 需要修复，积累了不少技术债务，某些界面区域还需进一步打磨。团队计划保持当前的快速推进步伐，持续改进用户体验。</p><p>社区也提出了新的功能需求，如改进大规模订阅源管理、去重冗余新闻、智能分组等功能。这些需求反映了现代 RSS 阅读器在信息过载时代的挑战——如何帮助用户高效地处理大量重复内容。虽然团队尚未在这些方向投入开发，但这些建议为项目的长期发展规划提供了参考方向。</p><p><small>[interest] 开源 RSS 阅读器项目的发展历程，属于开源项目范畴</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>⭐ GPT-5 在法律推理能力上超越联邦法官</title>
-      <link>https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6155012</link>
-      <pubDate>Wed, 11 Feb 2026 23:37:11 +0000</pubDate>
-      <guid>https://news.ycombinator.com/item?id=46982792</guid>
-      <description><![CDATA[<h3>研究内容与发现</h3><p>这项研究对比了 GPT-5 和联邦法官在法律推理中的表现。研究人员设计了一个实验，让两者都对相同的法律案件进行判决。结果显示，GPT-5 在遵循法律规范方面表现更加一致，准确率明显高于人类法官。特别是在处理管辖权等技术性法律问题时，GPT-5 没有出现错误，而法官则存在判决不一致的情况。</p><h3>法律推理的复杂性</h3><p>法律判决并非简单的黑白二元选择。法官在处理法律标准时需要行使判断力，这可能导致在面对不同情景时做出不同的决定。研究论文本身指出，当适用法律学说是一项标准而非规则时，法官可能正在行使该标准赋予的裁量权。这意味着法官的不一致性有时反映的是合理的判断，而非错误。</p><p>相比之下，GPT-5 倾向于在不同情景下给出一致的答案。虽然这种一致性在技术性法律问题上是优势，但在需要灵活判断的案件中可能过于僵化。法官通常更受规则约束，但在自由裁量的情况下也会做出错误判决。</p><h3>现实应用的考量</h3><p>虽然 GPT-5 在法律应用上表现出色，但这项研究引发了关于 AI 作为司法机构替代品的深刻思考。评论者指出，AI 法官虽然保证了一致性和客观性，但同时也可能面临训练数据中潜在的社会偏见问题。此外，普通法制度的根本特性在于司法判例的多样性和对先例的尊重，这与 AI 系统的一致性目标存在本质上的张力。</p><p><small>[interest] AI 模型的法律推理能力研究，属于人工智能软件技术主题</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>温室地球轨迹的风险</title>
-      <link>https://www.cell.com/one-earth/fulltext/S2590-3322%2825%2900391-4</link>
-      <pubDate>Wed, 11 Feb 2026 19:25:18 +0000</pubDate>
-      <guid>https://news.ycombinator.com/item?id=46979562</guid>
-      <description><![CDATA[<h3>气候系统的失控风险</h3><p>这篇发表在《One Earth》期刊上的文章探讨了地球气候系统从当前稳定状态转向所谓「温室地球」状态的可能性。所谓温室地球是指一个完全不同的稳定气候状态，其可能性取决于多个正反馈循环的激活。一旦跨越临界点，这种转变在实际上可能是不可逆的，将对人类文明造成深远影响。</p><p>文章指出，许多决策者和公众尚未充分意识到这种实际上不可逆转的转变所带来的风险。目前的气候变化已经导致全球气温升高，进而引发更多水分蒸发，水蒸气作为比二氧化碳更强的温室气体，强化了这一正反馈循环。这种恶性循环很可能已经开始启动。</p><h3>正反馈循环与地球系统稳定性</h3><p>气候系统存在多个自强化的正反馈机制。随着温度上升，海冰减少会降低地球表面反射率；冻土融化会释放甲烷；海洋吸收碳能力下降等因素都会进一步加剧变暖。这些循环环环相扣，一旦某个临界点被突破，整个系统可能会快速转变到新的稳定状态。</p><p>与远古恐龙时代相比，现代气候变化的关键差异在于变化速度极快。远古时期虽然二氧化碳浓度高，但生态系统有足够时间适应。当今的气候变化发生在地质学上极短的时间内，现有生态系统无法迅速适应，很可能导致大规模物种灭绝事件。</p><h3>现实困境与政策挑战</h3><p>尽管科学证据充分，但政策制定的进展缓慢。许多政治家因其政治立场而选择性地忽视气候变化的威胁，甚至在某些地区出现了气候政策的倒退。短期的政治利益与长期的气候风险之间存在巨大的时间错位，许多决策者预期自己将在转变完成前离世，因此缺乏紧迫感。</p><p>此外，全球应对气候变化的努力存在不平衡。虽然部分西方国家在推进可再生能源，但全球仍有大量地区继续依赖化石燃料。解决这一问题需要从供应端控制石油和天然气生产，但这面临巨大的经济和政治阻力。</p><h3>希望与未来路径</h3><p>尽管形势严峻，仍然存在积极信号。太阳能和电池成本的大幅下降使其在许多地区成为最廉价的电力来源。可再生能源的采用速度超过了许多人的预期，即使在政策不利的地区，采用曲线仍在加速。这表明技术进步与经济激励可以驱动变革。</p><p>长期来看，核聚变能等新能源技术可能在供应端解决问题，同时为大规模碳封存创造可行条件。但这些技术的商业化仍需时间。在此之前，政策制定者需要认识到问题的紧迫性，个人和社会的行动虽然相对微小，但选民通过民主过程推动政治变革是实现系统性改变的必要基础。</p><p><small>[other] 气候变化科学研究，属于科学前沿但具体内容与个人兴趣边界模糊</small></p>]]></description>
-    </item>
   </channel>
 </rss>
