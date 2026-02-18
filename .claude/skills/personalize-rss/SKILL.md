@@ -69,7 +69,7 @@ jq -s --slurpfile original "<INPUT_FILE>" --arg source_name "$SOURCE_NAME" --arg
 ```
 2. 验证输出：
 ```bash
-bun ajv validate -s schemas/items-summarized.schema.json -d "<OUTPUT_DIR>/items-final.json"
+bun ajv validate --spec=draft7 -s schemas/items-summarized.schema.json -d "<OUTPUT_DIR>/items-final.json"
 ```
 
 #### 步骤 4：基于处理后条目重新分级
