@@ -4,8 +4,22 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 18 Feb 2026 15:30:33 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Feb 2026 16:27:51 GMT</lastBuildDate>
 
+<item>
+      <title>Linux 7.0 为现代笔记本带来多项增强功能</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-x86-Drivers</link>
+      <pubDate>Wed, 18 Feb 2026 11:21:17 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Linux-7.0-x86-Drivers</guid>
+      <description><![CDATA[<p>Linux 7.0 在合并窗口期迎来了 x86 平台驱动的重要更新，主要围绕笔记本硬件支持做了不少改进。这次更新覆盖了 AMD、华硕、惠普、联想等多家厂商的笔记本驱动。</p>
+
+<p>几个值得关注的变化：AMD 平台管理框架（Platform Management Framework, PMF）驱动现在可以向用户空间和其他驱动暴露锐龙 AI 神经处理单元（NPU）的运行指标了，包括时钟频率、繁忙程度、功耗、读写带宽等数据，方便 AMDXDNA 加速器驱动调用。华硕 WMI 驱动改进了背光控制，还支持多接口调节键盘和 RGB 灯光亮度。惠普 WMI 驱动给 Victus S 系列笔记本加了手动风扇控制功能。联想 WMI 驱动通过 HWMON 接口暴露了硬件监控数据。</p>
+
+<img src="//www.phoronix.net/image.php?id=intel-gen9-xe3-b390-graphics&image=intel_gen9_ptl_1_med" alt="Linux laptops" />
+
+<p>此外，NVIDIA Mellanox 驱动开始为下一代 HI173 和 HI174 硬件做准备，包括 800GB/s 以太网交换机和基于 VMOD0010 级别的新 DGX 系统。Uniwill 驱动现在支持为独立显卡设置自定义 TGP（Total Graphics Power，总显卡功耗），TUXEDO Computers 的笔记本也能用上。还有一个底层改进是 WMI 编组（marshalling）的实现更贴近 Windows 的 ACPI/WMI 处理方式了。</p><p><small>[other] Linux 内核驱动更新，主要关注硬件层面的底层改进，不属于用户的高优先级兴趣主题</small></p>]]></description>
+    </item>
+    
 <item>
       <title>Linux 7.0 为龙芯架构带来多项新特性</title>
       <link>https://www.phoronix.com/news/Linux-7.0-LoongArch</link>
@@ -489,14 +503,6 @@
       <pubDate>Thu, 12 Feb 2026 09:35:00 -0500</pubDate>
       <guid>https://www.phoronix.com/news/Linux-7.0-Workqueue</guid>
       <description><![CDATA[<h3>工作队列救援程序优化</h3><p>Linux 7.0 为内核的工作队列系统进行了重要改进，重点是优化工作队列救援程序（workqueue rescuer）的性能。救援程序用于防止系统在内存压力下工作队列发生死锁。此前，救援程序会一次性扫描所有匹配的工作项并在单个救援线程中处理它们，但这样设计容易导致一个长时间阻塞的工作项阻滞后续所有其他工作项，造成整个队列的高延迟。</p><h3>处理机制改进</h3><p>蚁集团的赖江山对救援程序进行了重新设计，改为逐个处理工作项而不是一次性处理所有项。新的处理流程在找到并处理第一个匹配的工作项后会中断循环，然后重新启动搜索以处理下一个项目。这种方式给普通工作线程提供了处理其他项目的机会，防止了阻塞的工作项在内存压力缓解后继续阻滞队列的其他项目。</p><h3>新增控制选项</h3><p>Linux 7.0 还添加了 CONFIG_BOOTPARAM_WQ_STALL_PANIC 配置选项和 workqueue.panic_on_stall_time 参数，用于基于时间的停滞恐慌处理。这些选项为系统提供了更细粒度的工作队列停滞处理控制，特别对于需要可靠性保证和及时处理停滞的高可用性系统非常有用。这些改进已合并到 Linux 7.0 中。</p><p><small>[other] 讲述内核工作队列系统优化，属于基础设施层技术，非应用层编程工具</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>⭐ Ubuntu 24.04.4 LTS 发布，搭载 Linux 6.17 硬件使能内核</title>
-      <link>https://www.phoronix.com/news/Ubuntu-24.04.4-LTS</link>
-      <pubDate>Thu, 12 Feb 2026 10:45:00 -0500</pubDate>
-      <guid>https://www.phoronix.com/news/Ubuntu-24.04.4-LTS</guid>
-      <description><![CDATA[<h3>版本更新亮点</h3><p>Canonical 发布了 Ubuntu 24.04.4 LTS（Noble Numbat），这是 24.04 LTS 系列的最新点版本。此版本集成了过去数月的所有安全更新，并引入了硬件使能（Hardware Enablement，HWE）堆栈的重要更新，其中包含来自 Ubuntu 25.10 的关键软件包。这使得用户可以获得更好的硬件支持以及新版本内核的功能。</p><h3>核心组件升级</h3><p>Ubuntu 24.04.4 LTS 最显著的升级是集成了 Linux 6.17 内核，为硬件支持提供了显著改进。除此之外，该版本还更新了 Mesa 25.2.8 图形库、Snap 包管理工具、火狐浏览器（Firefox）147 以及其他精选组件。这些更新确保了系统的现代性和安全性，同时保持了 Ubuntu 24.04 LTS 的稳定基础。</p><h3>发布信息</h3><p>感兴趣的用户可以从 releases.ubuntu.com 下载 Ubuntu 24.04.4 LTS。此外，Canonical 预计将在 2026 年 4 月发布下一个长期支持版本 Ubuntu 26.04 LTS。</p><p><small>[interest] Ubuntu 新发行版发布，属于新发行版范畴，提供硬件支持和系统更新，值得关注</small></p>]]></description>
     </item>
     
   </channel>
