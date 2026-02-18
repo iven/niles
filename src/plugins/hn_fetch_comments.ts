@@ -43,76 +43,46 @@ const plugin: Plugin = {
       const apiUrl = `https://hn.algolia.com/api/v1/items/${itemId}`;
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000);
-      const response = await fetch(apiUrl);
-      clearTimeout(timeoutId);
 
-      clearTimeout(timeoutId);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      clearTimeout(timeoutId);
+      try {
+        const response = await fetch(apiUrl, { signal: controller.signal });
 
-      clearTimeout(timeoutId);
-      const data = (await response.json()) as HNApiResponse;
-      clearTimeout(timeoutId);
-      const comments = extractComments(data.children || [], 0, 2);
-      clearTimeout(timeoutId);
-      item.extra.comments = comments;
-      clearTimeout(timeoutId);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const data = (await response.json()) as HNApiResponse;
+        const comments = extractComments(data.children || [], 0, 2);
+        item.extra.comments = comments;
+      } finally {
+        clearTimeout(timeoutId);
+      }
     } catch (error) {
-      clearTimeout(timeoutId);
       console.error(`抓取 HN 评论失败 ${itemId}: ${error}`);
-      clearTimeout(timeoutId);
       item.extra.comments = [];
-      clearTimeout(timeoutId);
     }
-      clearTimeout(timeoutId);
 
-      clearTimeout(timeoutId);
     return item;
-      clearTimeout(timeoutId);
   },
-      clearTimeout(timeoutId);
 };
-      clearTimeout(timeoutId);
 
-      clearTimeout(timeoutId);
 function extractComments(
-      clearTimeout(timeoutId);
   children: HNApiChild[],
-      clearTimeout(timeoutId);
   depth: number,
-      clearTimeout(timeoutId);
   maxDepth: number
-      clearTimeout(timeoutId);
 ): HNComment[] {
-      clearTimeout(timeoutId);
   const comments: HNComment[] = [];
-      clearTimeout(timeoutId);
   const limit = depth === 0 ? 10 : 2;
-      clearTimeout(timeoutId);
 
-      clearTimeout(timeoutId);
   for (let i = 0; i < Math.min(children.length, limit); i++) {
-      clearTimeout(timeoutId);
     const child = children[i];
-      clearTimeout(timeoutId);
     const text = child.text?.trim();
-      clearTimeout(timeoutId);
 
-      clearTimeout(timeoutId);
     if (text) {
-      clearTimeout(timeoutId);
       comments.push({
-      clearTimeout(timeoutId);
         author: child.author || '',
-      clearTimeout(timeoutId);
         text,
-      clearTimeout(timeoutId);
         points: child.points || 0,
-      clearTimeout(timeoutId);
         depth,
-      clearTimeout(timeoutId);
       });
-      clearTimeout(timeoutId);
     }
 
     if (depth < maxDepth && child.children) {
