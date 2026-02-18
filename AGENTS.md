@@ -25,14 +25,18 @@ Niles 是一个智能 RSS 新闻聚合器，使用 Claude AI 根据个人兴趣�
 │           └── SKILL.md           # 编排 skill
 ├── .github/workflows/
 │   └── fetch-rss.yml              # GitHub Actions workflow
-├── scripts/
-│   ├── fetch-rss-items.py         # 提取新条目
-│   ├── guid_tracker.py            # GUID 历史记录跟踪
-│   ├── generate-rss.py            # 生成 RSS
+├── src/
+│   ├── bin/
+│   │   ├── fetch-rss-items.ts     # 提取新条目
+│   │   └── generate-rss.ts        # 生成 RSS
+│   ├── lib/
+│   │   ├── guid-tracker.ts        # GUID 历史记录跟踪
+│   │   └── plugin.ts              # 插件加载器
 │   └── plugins/                   # 插件系统
-│       ├── fetch_meta.py          # 获取网页元信息
-│       ├── fetch_content.py       # 获取完整内容
-│       └── hacker_news_comments.py # 获取 HN 评论
+│       ├── fetch_meta.ts          # 获取网页元信息
+│       ├── fetch_content.ts       # 获取完整内容
+│       ├── cnbeta_fetch_content.ts # 获取 cnBeta 正文
+│       └── hn_fetch_comments.ts   # 获取 HN 评论
 ├── schemas/                        # JSON Schema 验证
 │   ├── filter-results.schema.json
 │   ├── items-summarized.schema.json
@@ -224,7 +228,7 @@ gh workflow run fetch-rss.yml --ref your-branch-name -f dry-run=true
 
 1. 更新 `schemas/config.schema.json`。
 2. 更新 `config.json`。
-3. 验证配置文件：`uvx check-jsonschema --schemafile schemas/config.schema.json config.json`。
+3. 验证配置文件：`bun ajv validate -s schemas/config.schema.json -d config.json`。
 4. 更新所有使用该配置的 agents/skills。
 
 ## 代码规范
