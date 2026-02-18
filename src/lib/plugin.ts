@@ -31,27 +31,23 @@ export async function applyPlugins(
   if (pluginNames.length === 0) return items;
 
   for (const pluginName of pluginNames) {
-    try {
-      const plugin = await loadPlugin(pluginName);
-      console.error(`应用插件: ${plugin.name}`);
+    const plugin = await loadPlugin(pluginName);
+    console.error(`应用插件: ${plugin.name}`);
 
-      const limit = pLimit(maxConcurrency);
+    const limit = pLimit(maxConcurrency);
 
-      items = await Promise.all(
-        items.map((item, index) =>
-          limit(async () => {
-            try {
-              return await plugin.processItem(item);
-            } catch (error) {
-              console.error(`处理 item ${index} 失败: ${error}`);
-              return item;
-            }
-          })
-        )
-      );
-    } catch (error) {
-      console.error(`插件 ${pluginName} 执行失败: ${error}`);
-    }
+    items = await Promise.all(
+      items.map((item, index) =>
+        limit(async () => {
+          try {
+            return await plugin.processItem(item);
+          } catch (error) {
+            console.error(`处理 item ${index} 失败: ${error}`);
+            return item;
+          }
+        })
+      )
+    );
   }
 
   return items;
