@@ -28,7 +28,7 @@ const plugin: Plugin = {
 
       clearTimeout(timeoutId);
 
-      if (!response.ok) throw new Error(\`HTTP \${response.status}\`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const html = await response.text();
       const { document } = parseHTML(html);
@@ -52,7 +52,7 @@ const plugin: Plugin = {
         item.description = htmlParts.join('');
       }
     } catch (error) {
-      console.error(\`抓取内容 \${url} 失败: \${error}\`);
+      console.error(`抓取内容 ${url} 失败: ${error}`);
     }
 
     return item;
