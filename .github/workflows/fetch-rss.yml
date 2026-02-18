@@ -41,8 +41,13 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v4
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
 
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
@@ -76,7 +81,7 @@ jobs:
             MIN_ITEMS="3"
             MAX_ITEMS="3"
           fi
-          uv run scripts/fetch-rss-items.py \
+          bun run src/bin/fetch-rss-items.ts \
             "${{ matrix.source.url }}" \
             "output/${{ matrix.source.name }}.xml" \
             --source-name "${{ matrix.source.name }}" \
@@ -115,7 +120,7 @@ jobs:
           OUTPUT_DIR="${{ steps.extract.outputs.output_dir }}"
           SOURCE='${{ toJson(matrix.source) }}'
           TITLE=$(echo "$SOURCE" | jq -r '.title // ""')
-          uv run scripts/generate-rss.py "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ matrix.source.name }}.xml --title "$TITLE"
+          bun run src/bin/generate-rss.ts "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ matrix.source.name }}.xml --title "$TITLE"
 
       - name: Upload RSS for commit
         if: steps.extract.outputs.count != '0'
