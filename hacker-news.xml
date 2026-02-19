@@ -4,8 +4,35 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 19 Feb 2026 09:04:49 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Feb 2026 11:06:39 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ Let&#x27;s Encrypt 推出 DNS-PERSIST-01：持久化 DNS 验证新模式</title>
+      <link>https://letsencrypt.org/2026/02/18/dns-persist-01.html</link>
+      <pubDate>Wed, 18 Feb 2026 18:04:13 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47064047</guid>
+      <description><![CDATA[<p>Let's Encrypt 宣布将支持全新的 ACME 挑战类型 DNS-PERSIST-01，彻底改变传统 DNS-01 验证的运维模式。这项新功能基于 IETF 草案规范，允许用户通过发布一条持久化的 DNS TXT 记录来授权特定的 CA 和 ACME 账户为域名签发证书，而不必在每次续期时都更新 DNS 记录。</p>
+
+<p><strong>传统 DNS-01 的痛点</strong></p>
+<p>现有的 DNS-01 验证方式要求用户在每次申请或续期证书时，都在 <code>_acme-challenge.&lt;域名&gt;</code> 位置发布包含一次性令牌的 TXT 记录。这意味着 DNS API 凭据必须分散部署在整个证书管理流程中，每次验证都需要等待 DNS 传播，对于大规模部署来说运维成本高昂。</p>
+
+<p><strong>持久化授权的工作原理</strong></p>
+<p>DNS-PERSIST-01 采用完全不同的思路：用户只需在 <code>_validation-persist.&lt;域名&gt;</code> 发布一条包含 CA 标识和 ACME 账户 URI 的 TXT 记录，这条记录就可以持续用于后续的所有证书签发和续期。例如：</p>
+<pre><code>_validation-persist.example.com. IN TXT "letsencrypt.org; accounturi=https://acme-v02.api.letsencrypt.org/acme/acct/1234567890"</code></pre>
+
+<p><strong>灵活的授权策略</strong></p>
+<p>新模式支持多种可选参数来控制授权范围。添加 <code>policy=wildcard</code> 可以授权通配符证书（如 <code>*.example.com</code>）和所有子域名；通过 <code>persistUntil</code> 参数可以设置授权过期时间戳，避免授权无限期有效。用户还可以同时发布多条记录来授权不同的 CA。</p>
+
+<p><strong>安全权衡</strong></p>
+<p>这种方案将授权直接绑定到 ACME 账户，意味着保护账户私钥成为核心安全关注点，而 DNS 写入权限可以在初始设置后得到更严格的控制。不过，由于授权记录持久存在，账户密钥的安全性变得更加重要。社区讨论中也有人担心公开暴露账户 ID 可能带来的隐私问题，建议为每个域名或负载均衡器创建独立的账户来降低关联风险。</p>
+
+<p><strong>推广时间表</strong></p>
+<p>该功能目前已在测试环境 Pebble 中可用，预计 2026 年第一季度末在 staging 环境上线，第二季度正式投入生产。客户端工具 lego-cli 也在开发对应的实现。</p>
+
+<h3>你知道吗？</h3>
+<p>ACME（自动证书管理环境，Automatic Certificate Management Environment）是一种标准化的证书自动化协议，由 IETF 在 RFC 8555 中定义。它定义了客户端（如服务器）如何与证书颁发机构（CA）通信，自动完成域名验证、证书签发和续期等操作。Let's Encrypt 是 ACME 协议最大的应用者，通过这个协议让全球数亿网站能够免费、自动地获得 HTTPS 证书。ACME 中的「挑战」（challenge）是指 CA 用来验证申请者是否真正控制某个域名的各种方法，包括 HTTP-01（通过网站根目录验证）、DNS-01（通过 DNS 记录验证）、TLS-ALPN-01（通过 TLS 握手验证）等。DNS-PERSIST-01 正是在 DNS-01 基础上发展出的新型挑战方式。</p><p><small>[high_interest] 先进的编程工具和基础设施技术创新，属于编程工具和开源项目主题，展示了 Web 安全领域的技术进步</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐ Anthropic 正式禁止订阅用户凭证用于第三方应用</title>
       <link>https://code.claude.com/docs/en/legal-and-compliance</link>
@@ -1049,20 +1076,6 @@
 <p>Hacker News 社区对此事反应强烈。许多评论者认为，完全捏造引用在新闻业中是不可原谅的错误，这本应导致媒体信誉的彻底崩塌。有人指出，Ars Technica 近年来经常批评 AI 技术的问题，却被抓到自己在使用 AI 时犯下同样的错误，颇具讽刺意味。</p>
 
 <p>这个事件揭示了一个更深层的问题：当人类越来越依赖 AI 工具处理信息时，验证环节正在被忽视。有评论提到，人类倾向于在 AI 多次表现正常后放松警惕，不再仔细核查其输出——而 AI 的幻觉往往足够「合理」，能通过初步的嗅觉测试。整个信息链条变成了多层外包思考的「传话游戏」，真相在层层传递中失真。</p><p><small>[other] 标题涉及 AI 但内容不明确，可能涉及个人争议而非技术讨论</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>⭐⭐ GPT-5.2 在理论物理领域推导出新结果</title>
-      <link>https://openai.com/index/new-result-theoretical-physics/</link>
-      <pubDate>Fri, 13 Feb 2026 19:20:12 +0000</pubDate>
-      <guid>https://news.ycombinator.com/item?id=47006594</guid>
-      <description><![CDATA[<p>OpenAI 宣布其 GPT-5.2 模型在理论物理研究中取得突破：在粒子散射振幅计算这一复杂问题上，GPT-5.2 独立推导出了一个新的公式，并在约 12 小时的推理过程中完成了形式化证明。</p>
-
-<p>研究团队来自普林斯顿高等研究院、范德堡大学、剑桥大学和哈佛大学等顶尖机构。人类研究者在处理这个问题时遇到了复杂性瓶颈，而 GPT-5.2 通过简化表示找到了解决方案。研究论文已发布在 arXiv 预印本平台上。</p>
-
-<p>这一消息在 Hacker News 引发热议。支持者认为这证明了 AI 在科学发现上的潜力，特别是考虑到近期 Twitter 上关于「AI 原则上无法发现新事物」的争论。但也有不少质疑声音：有人提醒 OpenAI 此前关于「ChatGPT 解决埃尔德什问题」的说法被证实不实，呼吁等待外部验证；也有人指出标题具有误导性——实际上是人类研究者定义了问题和参数，GPT 只是作为工具完成了推导，就像计算器帮助研究者计算一样，功劳应该归于使用工具的人类研究者。</p>
-
-<p>一些技术讨论聚焦于 GPT-5.2 Thinking Extended 模式如何维护 12 小时的连续推理状态，以及这种长时程思考能力对科学研究的意义。总体而言，社区对这一进展持谨慎乐观态度，期待更多独立验证和详细的实现细节公开。</p><p><small>[high_interest] 人工智能在科学前沿领域的创新应用，强烈匹配用户对 AI 技术和科学突破的兴趣</small></p>]]></description>
     </item>
     
   </channel>
