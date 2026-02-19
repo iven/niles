@@ -4,7 +4,7 @@
  */
 
 import { parseArgs } from 'util';
-import { XMLParser } from 'fast-xml-parser';
+import { parseFeed } from 'feedsmith';
 import { GuidTracker } from '../lib/guid-tracker';
 import { applyPlugins, type RssItem } from '../lib/plugin';
 
@@ -29,7 +29,7 @@ interface RssOutput {
   items: RssItem[];
 }
 
-async function fetchRss(url: string): Promise<string> {
+async function parseRssItems(url: string): Promise<{ channelTitle: string | null; items: RssItem[] }> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 10000);
 
@@ -45,57 +45,29 @@ async function fetchRss(url: string): Promise<string> {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    return await response.text();
+    const xml = await response.text();
+    const parsed = parseFeed(xml);
+    const feed = parsed.feed;
+
+    const cleanZeroWidth = (text: string): string => {
+      return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
+    };
+
+    const items: RssItem[] = (feed.items || []).map((item: any) => ({
+      title: cleanZeroWidth(item.title || ''),
+      link: item.link || '',
+      pubDate: item.pubDate || '',
+      description: cleanZeroWidth(item.description || ''),
+      guid: item.guid?.value || item.link || '',
+    }));
+
+    return {
+      channelTitle: feed.title || null,
+      items,
+    };
   } finally {
     clearTimeout(timeoutId);
   }
-}
-
-function parseRssItems(rssContent: string): { channelTitle: string | null; items: RssItem[] } {
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    attributeNamePrefix: '@_',
-    textNodeName: '#text',
-    cdataPropName: '#cdata',
-    trimValues: true,
-  });
-
-  const parsed = parser.parse(rssContent);
-  const channel = parsed.rss?.channel;
-
-  if (!channel) {
-    throw new Error('Invalid RSS format: no channel found');
-  }
-
-  const channelTitle = channel.title || null;
-
-  const rawItems = Array.isArray(channel.item) ? channel.item : channel.item ? [channel.item] : [];
-
-  const items: RssItem[] = rawItems.map((item: any) => {
-    const getText = (value: any): string => {
-      if (!value) return '';
-      if (typeof value === 'string') return value.trim().replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
-      if (value['#cdata']) return value['#cdata'].trim().replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
-      if (value['#text']) return value['#text'].trim().replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
-      return String(value).trim().replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
-    };
-
-    const title = getText(item.title);
-    const link = getText(item.link);
-    const pubDate = getText(item.pubDate);
-    const description = getText(item.description);
-    const guid = getText(item.guid) || link;
-
-    return {
-      title,
-      link,
-      pubDate,
-      description,
-      guid,
-    };
-  });
-
-  return { channelTitle, items };
 }
 
 async function main() {
@@ -125,8 +97,7 @@ async function main() {
   const historyPath = existingRss.replace(/\.xml$/, '-processed.json');
   const tracker = new GuidTracker(historyPath);
 
-  const rssContent = await fetchRss(url);
-  const { channelTitle, items: allItems } = parseRssItems(rssContent);
+  const { channelTitle, items: allItems } = await parseRssItems(url);
 
   const limitedItems = allItems.slice(0, maxItems);
 
