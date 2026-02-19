@@ -221,9 +221,9 @@ gh run view <run-id> --log | grep -i "error:"
 
 ### 添加新插件
 
-1. 在 `scripts/plugins/` 创建插件文件。
-2. 实现 `process_item(item: dict) -> dict` 函数。
-3. 将额外数据存储在 `item['extra']` 字段中。
+1. 在 `src/plugins/` 创建插件文件。
+2. 导出默认对象，包含 `name` 和 `processItem(item: RssItem): Promise<RssItem>` 方法。
+3. 将额外数据存储在 `item.extra` 字段中。
 4. 更新 `schemas/config.schema.json` 的 plugins enum。
 5. 使用 `test-plugin.sh` 测试插件功能。
 
