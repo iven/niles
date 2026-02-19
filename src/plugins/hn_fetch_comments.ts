@@ -74,6 +74,8 @@ function extractComments(
 
   for (let i = 0; i < Math.min(children.length, limit); i++) {
     const child = children[i];
+    if (!child) continue;
+
     const text = child.text?.trim();
 
     if (text) {

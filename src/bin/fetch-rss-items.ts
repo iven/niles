@@ -53,7 +53,7 @@ async function parseRssItems(url: string): Promise<{ channelTitle: string | null
       return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
     };
 
-    const items: RssItem[] = (feed.items || []).map((item: any) => ({
+    const items: RssItem[] = ((feed as any).items || []).map((item: any) => ({
       title: cleanZeroWidth(item.title || ''),
       link: item.link || '',
       pubDate: item.pubDate || '',
