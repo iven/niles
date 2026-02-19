@@ -41,20 +41,14 @@ const plugin: Plugin = {
 
     try {
       const apiUrl = `https://hn.algolia.com/api/v1/items/${itemId}`;
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-      try {
-        const response = await fetch(apiUrl, { signal: controller.signal });
+      const response = await fetch(apiUrl, { signal: AbortSignal.timeout(10000) });
 
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-        const data = (await response.json()) as HNApiResponse;
-        const comments = extractComments(data.children || [], 0, 2);
-        item.extra.comments = comments;
-      } finally {
-        clearTimeout(timeoutId);
-      }
+      const data = (await response.json()) as HNApiResponse;
+      const comments = extractComments(data.children || [], 0, 2);
+      item.extra.comments = comments;
     } catch (error) {
       console.error(`抓取 HN 评论失败 ${itemId}: ${error}`);
       item.extra.comments = [];

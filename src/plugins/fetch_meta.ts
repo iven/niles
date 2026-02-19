@@ -15,18 +15,13 @@ const plugin: Plugin = {
     item.extra ??= {};
 
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
-
       const response = await fetch(url, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
         },
         redirect: 'follow',
-        signal: controller.signal,
+        signal: AbortSignal.timeout(10000),
       });
-
-      clearTimeout(timeoutId);
 
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
