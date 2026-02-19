@@ -70,7 +70,7 @@ OUTPUT_FILE="<OUTPUT_DIR>/items/${HASH}.json"
 然后验证：
 
 ```bash
-bun ajv validate --spec=draft7 -s schemas/item-summarized.schema.json -d "$OUTPUT_FILE"
+bun ajv validate --spec=draft7 -s schemas/item-summarized.schema.json -d "$OUTPUT_FILE" -c ajv-formats
 ```
 
 如果验证失败，修正后重新验证，最多尝试 5 次。
