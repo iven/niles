@@ -4,8 +4,46 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 19 Feb 2026 11:06:41 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Feb 2026 11:56:42 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ Weston 15.0 发布：引入实验性 Vulkan 渲染器</title>
+      <link>https://www.phoronix.com/news/Weston-15.0-Released</link>
+      <pubDate>Thu, 19 Feb 2026 06:23:00 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Weston-15.0-Released</guid>
+      <description><![CDATA[<p>经过多次延期和五个候选版本，Wayland 的参考合成器 Weston 15.0 正式发布了。这是一次重量级更新，带来了不少令人兴奋的新特性。</p>
+
+<p>最引人注目的是新增的实验性 Vulkan 渲染器，作为现有 OpenGL 渲染器的替代选择。除此之外，15.0 版本还增强了对高动态范围（HDR，High Dynamic Range）显示的支持，实现了 FIFO 和 commit-timing 等新的 Wayland 协议，并引入了基于 Lua 的全新 shell。</p>
+
+<img src="//www.phoronix.net/image.php?id=2025&image=wayland_weston_vulkan" alt="Weston Vulkan renderer" />
+
+<p>这次发布原本计划在三个月前推出，但为了让更多功能落地，团队决定延期。原定于今年一月发布，但最终还是经过了五个候选版本的打磨才在今天正式推出。Vulkan 渲染器、Lua shell 以及其他增强功能的加入，让这次更新成为 Wayland 参考合成器历史上的一次重大升级。</p>
+
+<h3>你知道吗？</h3>
+
+<p><strong>什么是合成器（Compositor）？</strong></p>
+
+<p>在 Linux 图形系统中，合成器负责把各个窗口的画面「合成」到屏幕上。传统的 X Window 系统中，这个工作由窗口管理器配合 X server 完成。而 Wayland 协议将这些职责整合到合成器中，让它直接管理窗口的绘制和显示。</p>
+
+<p>Weston 是 Wayland 项目的官方参考实现，主要用于测试新协议和展示最佳实践。虽然日常使用中更常见的是 GNOME 的 Mutter 或 KDE 的 KWin 等合成器，但 Weston 的技术探索往往会影响整个生态的发展方向。</p><p><small>[high_interest] 「Weston 是 Wayland 的参考合成器实现，属于重要的桌面技术开发」</small></p>]]></description>
+    </item>
+    
+<item>
+      <title>⭐ Linux 7.0 大幅提升大页文件回收性能：加速 50-75%</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-Faster-Large-Folios</link>
+      <pubDate>Thu, 19 Feb 2026 06:15:51 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Linux-7.0-Faster-Large-Folios</guid>
+      <description><![CDATA[<p>Linux 7.0 内核合并了一组内存管理优化补丁，显著提升了文件支持大页（large folios）的回收性能。这项工作由阿里巴巴工程师王保林（Baolin Wang）完成，通过批量检查和批量解除映射的方式，解决了逐个处理页表项（PTE）效率低下的问题。</p>
+
+<p>在传统实现中，系统需要顺序检查每个 PTE 的访问标志位，这对于包含大量页表项的大页来说效率很低。新的批处理方案不仅在 Arm 架构的连续页表项（contiguous PTEs）范围内优化，还扩展到整个大页范围，即使超出单个连续区域。</p>
+
+<p>性能测试结果令人印象深刻：在 32 核 Arm64 服务器上，通过 memory.reclaim 接口回收 8GB 文件支持大页时，性能提升达到 75%；在 x86 机器上也有超过 50% 的提升。随着 Linux 内核越来越多地使用 folios 机制，这项优化的价值将持续体现。</p>
+
+<h3>你知道吗？</h3>
+
+<p>Folios 是 Linux 内核引入的一种新的内存管理抽象，用于替代传统的 page（页）结构。传统的 page 只能表示单个 4KB 内存页，而 folios 可以表示一组连续的物理页面，也就是「大页」。这种设计简化了大页的管理代码，避免了频繁的指针转换和类型检查，同时为未来的性能优化提供了更好的基础。可以把 folios 理解为内存管理的「批发模式」——与其零散处理单个小页，不如整批处理大页，效率自然更高。</p><p><small>[interest] 「Linux 内核性能优化，属于开源项目技术改进」</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐⭐ PipeWire 1.6 发布：新增 LDAC 解码器和 128 声道支持</title>
       <link>https://www.phoronix.com/news/PipeWire-1.6</link>
@@ -503,22 +541,6 @@
       <pubDate>Thu, 12 Feb 2026 12:30:00 -0500</pubDate>
       <guid>https://www.phoronix.com/news/Linux-7.0-SPARC-Alpha-m68k</guid>
       <description><![CDATA[<h3>CPU 架构维护现状</h3><p>虽然 Linux 7.0 核心的主要关注点集中在 Intel 和 AMD x86_64 处理器的增强，但历史悠久的 SPARC（可扩展处理器架构）、Alpha 和摩托罗拉 680x0 (m68k) CPU 架构也在获得新的补丁支持。这些老旧架构虽然补丁来得不频繁，但仍由上游 Linux 核心维护团队积极维护。</p><h3>Linux 7.0 中的架构更新</h3><p>在 Linux 7.0 周期中，多项针对这些架构的维护工作已经合并。Alpha 架构的更新解决了内存紧凑化过程中用户空间数据损坏的问题。SPARC 架构获得了多项补丁，包括头文件改进、fork/clone 错误修复、clone3 支持、ARCH_HAS_CC_CAN_LINK 功能以及一些 API 改进。m68k 架构的更新包括在 Sun-3 上将 vsprintf 替换为 vsnprintf，以及 NuBus 驱动程序的修复。</p><h3>开源社区的坚持</h3><p>这些补丁的持续更新体现了开源社区对历史架构的尊重和维护承诺。虽然这些平台不再广泛使用，但其在 Linux 内核中的继续支持展示了社区的包容性和对长期兼容性的重视。</p><p><small>[other] 讲述老旧 CPU 架构的维护，属于历史硬件和基础设施维护，与用户兴趣关系不大</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>⭐ Haiku OS 改进触控板支持，继续推进 Beta 6 版本开发</title>
-      <link>https://www.phoronix.com/news/Haiku-OS-January-2026</link>
-      <pubDate>Fri, 13 Feb 2026 05:25:10 -0500</pubDate>
-      <guid>https://www.phoronix.com/news/Haiku-OS-January-2026</guid>
-      <description><![CDATA[<h3>触控板功能显著增强</h3><p>Haiku 操作系统（一个受 BeOS 启发的开源项目）在 2026 年初取得多项进展。其中一个重要改进是完成了新触控板功能的开发工作。用户现在可以使用双指滚动、边缘识别、软件按钮区域和点击手指支持等功能。此外，系统还新增了对较新款 Elantech 触控板的支持，进一步扩展了硬件兼容性。</p><h3>系统级改进与标准合规</h3><p>在内核和驱动程序方面，Haiku 同步了 Realtek rtl8125 驱动程序与上游 OpenBSD（一个安全导向的操作系统）项目，以支持更多新型网络硬件。同时，项目实现了 POSIX 2024 规范所要求的更多功能，提升了与国际标准的兼容性。系统还修复了文件面板构造函数中的多项锁定问题，解决了各类应用程序中出现的打开/保存对话框显示异常问题。</p><h3>用户体验与工具完善</h3><p>磁盘映像管理工具 DriveSetup 现已支持通过图形界面菜单处理磁盘映像，用户无需再依赖命令行操作。此外，Telnet 和 netstat 工具现已支持 IPv6（互联网协议第 6 版）协议。虽然 1 月份已修复许多问题，但 Haiku 团队表示在发布备受期待的 r1 beta 6 版本前，仍需完成更多修复工作。</p><p><small>[interest] Haiku OS 是新的操作系统项目，属于新软件项目范畴，带来新特性和持续开发，值得关注</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>⭐ Libinput 1.31 发布：支持可配置超时和快速三指滑动</title>
-      <link>https://www.phoronix.com/news/Libinput-1.31</link>
-      <pubDate>Fri, 13 Feb 2026 05:45:00 -0500</pubDate>
-      <guid>https://www.phoronix.com/news/Libinput-1.31</guid>
-      <description><![CDATA[<h3>新特性概览</h3><p>红帽公司输入设备专家 Peter Hutterer 发布了 Libinput 1.31 版本。这个输入处理库广泛用于 Linux 桌面环境，支持 X.Org 和 Wayland 两种会话。本次更新引入了对快速三指滑动手势的支持，同时增强了触控板的功能配置。</p><h3>快速三指滑动功能</h3><p>在启用三指拖动的情况下，现在可以同时支持快速三指滑动。由于三指滑动和三指拖动的手指运动在物理上完全相同，之前需要禁用其中一个。Libinput 1.31 通过引入「快速滑动」机制解决了这个问题——当三指快速移动时会立即触发滑动手势，而较慢的移动则触发拖动操作。这个超时设置刻意设定得很短，以保持拖动作为主要功能。同样的改进也适用于四指滑动和拖动。</p><h3>触控板配置增强</h3><p>Libinput 1.31 为笔记本触控板的「输入时禁用」和「触控板指点时禁用」选项增加了可配置的超时设置。此外，本版本还提供了新的应用程序接口（API）和其他多项增强功能，进一步提升了输入设备处理的灵活性和用户体验。</p><p><small>[interest] Libinput 是 Linux 输入处理库软件项目，提供新版本和增强功能，属于新软件项目/开源项目范畴</small></p>]]></description>
     </item>
     
   </channel>
