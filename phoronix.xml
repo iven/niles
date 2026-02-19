@@ -4,8 +4,32 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 18 Feb 2026 22:53:24 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Feb 2026 03:16:27 +0000</lastBuildDate>
 
+<item>
+      <title>瑞昱 RTL8723BS 无线网卡驱动在 Linux 内核中清理了近十年，仍在进行中</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-Staging</link>
+      <pubDate>Wed, 18 Feb 2026 20:25:25 -0500</pubDate>
+      <guid>https://www.phoronix.com/news/Linux-7.0-Staging</guid>
+      <description><![CDATA[<p>瑞昱（Realtek）RTL8723BS 无线网卡驱动在 2017 年被添加到 Linux 4.12 内核的暂存区（staging area），至今已经快十年了，但清理工作仍在继续。在即将到来的 Linux 7.0 版本中，这个驱动又收到了大量的代码清理补丁。</p>
+
+<p>RTL8723BS 是一款支持 802.11 b/g/n 标准的 SDIO 无线局域网（WLAN）适配器，同时支持蓝牙 4.0。这款芯片曾出现在初代英特尔计算棒（Intel Compute Stick）以及各种采用英特尔凌动（Atom）和 ARM 处理器的设备中。</p>
+
+[IMAGE_0]
+
+<p>这个驱动最初基于瑞昱提供的下游厂商代码，多年来由多位内核开发者持续改进。在 Linux 7.0 的合并窗口期，暂存区共合并了 119 个补丁，其中 87 个都是针对 rtl8723bs 驱动的。内核维护者 Greg Kroah-Hartman 在拉取请求中评论道：「rtl8723bs 驱动的清理工作，太多的清理工作了……」</p>
+
+<p>这些补丁主要涉及代码重命名和重构工作。由于该驱动继承自瑞昱的下游代码，包含了大量的硬件抽象层（HAL）、操作系统依赖抽象等结构，与符合上游 Linux 内核规范的无线驱动相比，代码风格差异很大。开发者们正在努力将其改造成一个干净整洁、符合内核标准的驱动程序。</p>
+
+<p>虽然经过近十年的持续努力，这个驱动依然没有从暂存区毕业，看起来清理工作还将继续下去。</p>
+
+<h3>你知道吗？</h3>
+
+<p>Linux 内核的暂存区（staging）是一个特殊的区域，用于存放那些「还不够完美」的驱动程序。这些代码可能存在 API 不规范、架构混乱或者代码风格不符合内核标准等问题，但因为硬件已经在市场上流通，用户需要驱动支持，所以先允许它们进入内核主线。</p>
+
+<p>理想情况下，这些驱动应该经过清理后「毕业」，移到正式的内核代码区域。但现实中，有些驱动可能会在暂存区停留很多年，甚至最终因为硬件过时、缺少维护者而被移除。RTL8723BS 驱动就是一个典型例子——虽然硬件本身已经比较老旧，但因为仍有设备在使用，开发者们还在不断改进代码质量。</p><p><small>[other] 无线网卡驱动更新，与配置的兴趣主题关联不强</small></p>]]></description>
+    </item>
+    
 <item>
       <title>⭐⭐ Linux 7.0 在英特尔 Panther Lake 上出现早期性能回退</title>
       <link>https://www.phoronix.com/review/linux-7-panther-lake</link>
@@ -497,12 +521,5 @@
       <description><![CDATA[<h3>后量子密码学的重要进展</h3><p>Linux 7.0 内核版本引入了对 ML-DSA（模块格密码数字签名算法，Module-Lattice-Based Digital Signature Algorithm）的支持，这是一项重要的安全升级。ML-DSA 是一种已标准化的后量子（抗量子）签名算法，曾在标准化前被称为 Dilithium。这种密码学标准设计用于抵御量子计算机的威胁，同时在当今仍然具有快速的签名和验证性能。</p><h3>内核模块签名的优化</h3><p>ML-DSA 支持最初将用于内核模块签名。该版本同时移除了对已过时的 SHA-1 模块签名的支持，进一步加强了安全性。新的签名算法可以作为 RSA 和椭圆曲线密码（ECC）的替代品，用于身份验证和数据完整性验证。内核开发者表示，除了初始的模块签名使用，内核中的其他 RSA 和 ECDSA 签名用户也有望在未来升级到 ML-DSA。</p><h3>密码库的综合更新</h3><p>本次更新不仅包括 ML-DSA 签名验证支持，还包括了加密库中的 AES（高级加密标准）库更新。这些改进共同体现了 Linux 内核对现代密码学标准和量子计算风险的前瞻性应对。</p><p><small>[interest] 涉及密码学和安全技术的科学前沿，Linux 内核的新特性支持，属于科学前沿和开源项目范畴</small></p>]]></description>
     </item>
     
-<item>
-      <title>英特尔让 Linux 7.0 更容易监测任务组的能耗</title>
-      <link>https://www.phoronix.com/news/Intel-Resource-Control-Linux-7</link>
-      <pubDate>Thu, 12 Feb 2026 06:31:22 -0500</pubDate>
-      <guid>https://www.phoronix.com/news/Intel-Resource-Control-Linux-7</guid>
-      <description><![CDATA[<h3>资源控制（resctrl）功能增强</h3><p>英特尔向 Linux 7.0 上游提交了资源控制（Resource Control，resctrl）的改进代码，用于增强遥测监测功能。这是有益的遥测技术，新增代码能够监测系统中一组任务或进程 ID 的能耗和工作量。由英特尔的 Tony Luck 开发的此项功能经过了 17 轮补丁审查，最终被合并到 Linux 7.0 中。</p><h3>硬件依赖与监测原理</h3><p>遥测监测功能依赖于英特尔 CPU 中的硬件能力。用户可以通过 resctrl sysfs 接口根据进程 ID 列表设置监测，然后针对该任务组进行能耗监测。这为用户提供了基于流程的更详细的能耗报告能力。</p><h3>实际应用价值</h3><p>该功能对 Linux 7.0 具有实用价值，特别是对于在现代英特尔平台上需要更详细能耗报告的用户。通过这一改进，系统管理员和开发者能够更精确地追踪和优化特定任务或进程组的能源消耗，有助于提升系统能效管理和性能监测的精细度。</p><p><small>[other] 讲述 Linux 内核系统级能耗监测功能，属于基础设施和系统管理工具，不是编程效率工具</small></p>]]></description>
-    </item>
   </channel>
 </rss>
