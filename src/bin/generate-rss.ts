@@ -4,7 +4,7 @@
  */
 
 import { parseArgs } from 'util';
-import { parseFeed, generateRssFeed } from 'feedsmith';
+import { parseRssFeed, generateRssFeed } from 'feedsmith';
 import { existsSync, readFileSync } from 'fs';
 
 interface ParsedArgs {
@@ -53,8 +53,8 @@ function parseExistingRss(rssPath: string): any[] {
   try {
     if (!existsSync(rssPath)) return [];
     const content = readFileSync(rssPath, 'utf-8');
-    const parsed = parseFeed(content);
-    return (parsed.feed as any).items || [];
+    const feed = parseRssFeed(content);
+    return feed.items || [];
   } catch {
     return [];
   }
@@ -98,7 +98,7 @@ function generateRss(
     items: allItems,
   };
 
-  const rss = generateRssFeed(feed as any);
+  const rss = generateRssFeed(feed, { loose: true });
   return { rss, newCount: matchedItems.length };
 }
 
