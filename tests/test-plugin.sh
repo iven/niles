@@ -35,7 +35,7 @@ PLUGIN_NAME="$1"
 URL="$2"
 
 # 检查插件是否存在
-PLUGIN_FILE="$PROJECT_ROOT/scripts/plugins/${PLUGIN_NAME}.py"
+PLUGIN_FILE="$PROJECT_ROOT/src/plugins/${PLUGIN_NAME}.ts"
 if [ ! -f "$PLUGIN_FILE" ]; then
     echo "错误: 插件 '$PLUGIN_NAME' 不存在" >&2
     echo "插件文件路径: $PLUGIN_FILE" >&2
@@ -47,47 +47,34 @@ TEMP_DIR="/tmp/niles-plugin-test"
 mkdir -p "$TEMP_DIR"
 OUTPUT_FILE="$TEMP_DIR/${PLUGIN_NAME}-$(date +%s).json"
 
-# 创建测试 Python 脚本
-TEST_SCRIPT="$TEMP_DIR/test_${PLUGIN_NAME}.py"
-cat > "$TEST_SCRIPT" << 'PYTHON_EOF'
-#!/usr/bin/env python3
-import json
-import sys
-
-sys.path.insert(0, sys.argv[1])
-
-plugin_name = sys.argv[2]
-url = sys.argv[3]
-output_file = sys.argv[4]
-
-# 动态导入插件
-plugin = __import__(plugin_name)
-
-# 创建测试条目
-test_item = {
-    'title': 'Test Item',
-    'link': url,
-    'description': 'Test description'
-}
-
-# 执行插件
-result = plugin.process_item(test_item)
-
-# 写入结果
-with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(result, f, indent=2, ensure_ascii=False)
-PYTHON_EOF
-
 # 执行测试
 echo "正在测试插件 '$PLUGIN_NAME'..."
 echo "URL: $URL"
 echo ""
 
-uv run --with httpx --with beautifulsoup4 python "$TEST_SCRIPT" \
-    "$PROJECT_ROOT/scripts/plugins" \
-    "$PLUGIN_NAME" \
-    "$URL" \
-    "$OUTPUT_FILE"
+cd "$PROJECT_ROOT"
+
+# 创建临时测试脚本并执行
+bun --eval "
+import { loadPlugin } from './src/lib/plugin.ts';
+
+const pluginName = '$PLUGIN_NAME';
+const url = '$URL';
+const outputFile = '$OUTPUT_FILE';
+
+const testItem = {
+  title: 'Test Item',
+  link: url,
+  pubDate: new Date().toISOString(),
+  description: 'Test description',
+  guid: url,
+};
+
+const plugin = await loadPlugin(pluginName);
+const result = await plugin.processItem(testItem);
+
+await Bun.write(outputFile, JSON.stringify(result, null, 2));
+"
 
 echo ""
 echo "查看完整结果:"

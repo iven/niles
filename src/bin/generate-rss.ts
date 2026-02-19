@@ -4,6 +4,7 @@
  */
 
 import { parseArgs } from 'util';
+import { parseFeed, generateRssFeed } from 'feedsmith';
 import { existsSync, readFileSync } from 'fs';
 
 interface ParsedArgs {
@@ -48,62 +49,15 @@ interface MergedItem {
   reason: string;
 }
 
-function escapeXml(text: string | undefined): string {
-  if (!text) return '';
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
-
-function parseExistingRss(rssPath: string): string[] {
+function parseExistingRss(rssPath: string): any[] {
   try {
     if (!existsSync(rssPath)) return [];
-
     const content = readFileSync(rssPath, 'utf-8');
-    const matches = content.matchAll(/<item>([\s\S]*?)<\/item>/g);
-    return Array.from(matches, m => m[1]);
+    const parsed = parseFeed(content);
+    return parsed.feed.items || [];
   } catch {
     return [];
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-function generateRssItem(item: MergedItem): string {
-  let title = item.title;
-
-  if (item.type === 'high_interest') {
-    title = `⭐⭐ ${title}`;
-  } else if (item.type === 'interest') {
-    title = `⭐ ${title}`;
-  }
-
-  const escapedTitle = escapeXml(title);
-  const escapedLink = escapeXml(item.link);
-  const escapedGuid = escapeXml(item.guid || item.link);
-
-  const description = `${item.description}<p><small>[${item.type}] ${item.reason}</small></p>`;
-
-  return `    <item>
-      <title>${escapedTitle}</title>
-      <link>${escapedLink}</link>
-      <pubDate>${item.pubDate}</pubDate>
-      <guid>${escapedGuid}</guid>
-      <description><![CDATA[${description}]]></description>
-    </item>`;
 }
 
 function generateRss(
@@ -116,32 +70,35 @@ function generateRss(
     ['high_interest', 'interest', 'other'].includes(item.type)
   );
 
-  const newItemsXml = matchedItems.map(generateRssItem).join('\n');
+  const newItems = matchedItems.map(item => {
+    let title = item.title;
+    if (item.type === 'high_interest') {
+      title = `⭐⭐ ${title}`;
+    } else if (item.type === 'interest') {
+      title = `⭐ ${title}`;
+    }
+
+    return {
+      title,
+      link: item.link,
+      pubDate: item.pubDate,
+      guid: { value: item.guid || item.link, isPermaLink: false },
+      description: `${item.description}<p><small>[${item.type}] ${item.reason}</small></p>`,
+    };
+  });
 
   const existingItems = parseExistingRss(existingRssPath);
+  const allItems = [...newItems, ...existingItems].slice(0, 50);
 
-  let allItemsXml = newItemsXml;
-  if (existingItems.length > 0) {
-    allItemsXml += '\n' + existingItems.map(item => `    <item>${item}</item>`).join('\n');
-  }
+  const feed = {
+    title: rssTitle,
+    link: data.source_url,
+    description: `基于个人兴趣筛选的 ${data.source_name} 内容`,
+    lastBuildDate: new Date().toUTCString(),
+    items: allItems,
+  };
 
-  const allItemsList = allItemsXml.split('<item>').filter(item => item.trim());
-  const limitedItems = allItemsList.slice(0, 50).map(item => `<item>${item}`).join('\n');
-
-  const now = new Date().toUTCString();
-
-  const rss = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>${escapeXml(rssTitle)}</title>
-    <link>${escapeXml(data.source_url)}</link>
-    <description>基于个人兴趣筛选的 ${escapeXml(data.source_name)} 内容</description>
-    <lastBuildDate>${now}</lastBuildDate>
-
-${limitedItems}
-  </channel>
-</rss>`;
-
+  const rss = generateRssFeed(feed);
   return { rss, newCount: matchedItems.length };
 }
 
