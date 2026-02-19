@@ -103,7 +103,7 @@ jq --slurpfile input "<INPUT_FILE>" '
 完成后，验证输出文件是否符合 schema，验证失败时最多尝试 5 次修正。
 
 ```bash
-bun ajv validate --spec=draft7 -s schemas/filter-results.schema.json -d "<OUTPUT_FILE>"
+bun ajv validate --spec=draft7 -s schemas/filter-results.schema.json -d "<OUTPUT_FILE>" -c ajv-formats
 ```
 
 ## 完成
