@@ -1,0 +1,39 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: TypeScript type check
+        run: bun tsc --noEmit
+
+      - name: Validate config.json schema
+        run: bun ajv validate -s schemas/config.schema.json -d config.json
+
+      - name: Validate filter-results schema
+        run: bun ajv validate -s schemas/filter-results.schema.json -d tests/fixtures/cnbeta-filter-results.json || true
+
+      - name: Validate items-summarized schema
+        run: bun ajv validate -s schemas/items-summarized.schema.json -d tests/fixtures/phoronix-items-summarized.json || true
+
+      - name: Check for TODO/FIXME comments
+        run: |
+          if git diff origin/main...HEAD | grep -E '^\+.*\b(TODO|FIXME)\b' > /dev/null; then
+            echo "::warning::Found TODO/FIXME comments in the diff"
+          fi
