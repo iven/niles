@@ -25,15 +25,3 @@ jobs:
 
       - name: Validate config.json schema
         run: bun ajv validate -s schemas/config.schema.json -d config.json
-
-      - name: Validate filter-results schema
-        run: bun ajv validate -s schemas/filter-results.schema.json -d tests/fixtures/cnbeta-filter-results.json || true
-
-      - name: Validate items-summarized schema
-        run: bun ajv validate -s schemas/items-summarized.schema.json -d tests/fixtures/phoronix-items-summarized.json || true
-
-      - name: Check for TODO/FIXME comments
-        run: |
-          if git diff origin/main...HEAD | grep -E '^\+.*\b(TODO|FIXME)\b' > /dev/null; then
-            echo "::warning::Found TODO/FIXME comments in the diff"
-          fi
