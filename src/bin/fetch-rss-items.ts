@@ -30,15 +30,12 @@ interface RssOutput {
 }
 
 async function parseRssItems(url: string): Promise<{ channelTitle: string | null; items: RssItem[] }> {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000);
-
   try {
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; RSS Reader/1.0)',
       },
-      signal: controller.signal,
+      signal: AbortSignal.timeout(10000),
     });
 
     if (!response.ok) {
@@ -64,8 +61,8 @@ async function parseRssItems(url: string): Promise<{ channelTitle: string | null
       channelTitle: feed.title ?? null,
       items,
     };
-  } finally {
-    clearTimeout(timeoutId);
+  } catch (error) {
+    throw error;
   }
 }
 
@@ -94,7 +91,7 @@ async function main() {
   const minItems = parseInt(values['min-items'], 10);
 
   const historyPath = existingRss.replace(/\.xml$/, '-processed.json');
-  const tracker = new GuidTracker(historyPath);
+  const tracker = await GuidTracker.create(historyPath);
 
   const { channelTitle, items: allItems } = await parseRssItems(url);
 
@@ -116,7 +113,7 @@ async function main() {
 
   tracker.markProcessed(newItems.map(item => item.guid));
   tracker.cleanup();
-  tracker.persist();
+  await tracker.persist();
 
   const result: RssOutput = {
     source_name: sourceName,

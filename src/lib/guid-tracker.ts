@@ -2,9 +2,6 @@
  * GUID 历史记录跟踪器
  */
 
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
-import { dirname } from 'path';
-
 const HISTORY_RETENTION_DAYS = 4;
 
 interface GuidHistory {
@@ -16,24 +13,29 @@ export class GuidTracker {
   private historyPath: string;
   private processedGuids: Map<string, string>;
 
-  constructor(historyPath: string) {
+  private constructor(historyPath: string, processedGuids: Map<string, string>) {
     this.historyPath = historyPath;
-    this.processedGuids = this.load();
+    this.processedGuids = processedGuids;
   }
 
-  private load(): Map<string, string> {
-    try {
-      if (!existsSync(this.historyPath)) return new Map();
+  static async create(historyPath: string): Promise<GuidTracker> {
+    const processedGuids = await GuidTracker.load(historyPath);
+    return new GuidTracker(historyPath, processedGuids);
+  }
 
-      const content = readFileSync(this.historyPath, 'utf-8');
-      const data = JSON.parse(content) as GuidHistory;
+  private static async load(historyPath: string): Promise<Map<string, string>> {
+    try {
+      const file = Bun.file(historyPath);
+      if (!await file.exists()) return new Map();
+
+      const data = await file.json() as GuidHistory;
       return new Map(Object.entries(data.guids || {}));
     } catch {
       return new Map();
     }
   }
 
-  private save(): void {
+  private async save(): Promise<void> {
     const data: GuidHistory = {
       guids: Object.fromEntries(
         [...this.processedGuids.entries()].sort(([a], [b]) => a.localeCompare(b))
@@ -41,12 +43,7 @@ export class GuidTracker {
       updated_at: new Date().toISOString(),
     };
 
-    const dir = dirname(this.historyPath);
-    if (!existsSync(dir)) {
-      mkdirSync(dir, { recursive: true });
-    }
-
-    writeFileSync(this.historyPath, JSON.stringify(data, null, 2), 'utf-8');
+    await Bun.write(this.historyPath, JSON.stringify(data, null, 2));
   }
 
   isProcessed(guid: string): boolean {
@@ -83,7 +80,7 @@ export class GuidTracker {
     this.processedGuids = cleaned;
   }
 
-  persist(): void {
-    this.save();
+  async persist(): Promise<void> {
+    await this.save();
   }
 }

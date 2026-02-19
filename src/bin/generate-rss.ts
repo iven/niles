@@ -5,7 +5,6 @@
 
 import { parseArgs } from 'util';
 import { parseRssFeed, generateRssFeed } from 'feedsmith';
-import { existsSync, readFileSync } from 'fs';
 
 interface ParsedArgs {
   values: {
@@ -49,10 +48,11 @@ interface MergedItem {
   reason: string;
 }
 
-function parseExistingRss(rssPath: string): any[] {
+async function parseExistingRss(rssPath: string): Promise<any[]> {
   try {
-    if (!existsSync(rssPath)) return [];
-    const content = readFileSync(rssPath, 'utf-8');
+    const file = Bun.file(rssPath);
+    if (!await file.exists()) return [];
+    const content = await file.text();
     const feed = parseRssFeed(content);
     return feed.items || [];
   } catch {
@@ -60,10 +60,10 @@ function parseExistingRss(rssPath: string): any[] {
   }
 }
 
-function generateRss(
+async function generateRss(
   data: { source_name: string; source_url: string; title?: string; items: MergedItem[] },
   existingRssPath: string
-): { rss: string; newCount: number } {
+): Promise<{ rss: string; newCount: number }> {
   const rssTitle = data.title || data.source_name + ' - 精选';
 
   const matchedItems = data.items.filter(item =>
@@ -87,7 +87,7 @@ function generateRss(
     };
   });
 
-  const existingItems = parseExistingRss(existingRssPath);
+  const existingItems = await parseExistingRss(existingRssPath);
   const allItems = [...newItems, ...existingItems].slice(0, 50);
 
   const feed = {
@@ -144,7 +144,7 @@ async function main() {
     title: values.title?.trim() || itemsData.source_title,
   };
 
-  const { rss, newCount } = generateRss(data, outputPath);
+  const { rss, newCount } = await generateRss(data, outputPath);
 
   await Bun.write(outputPath, rss);
 
