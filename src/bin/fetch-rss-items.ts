@@ -4,7 +4,7 @@
  */
 
 import { parseArgs } from 'util';
-import { parseFeed } from 'feedsmith';
+import { parseRssFeed } from 'feedsmith';
 import { GuidTracker } from '../lib/guid-tracker';
 import { applyPlugins, type RssItem } from '../lib/plugin';
 
@@ -46,14 +46,13 @@ async function parseRssItems(url: string): Promise<{ channelTitle: string | null
     }
 
     const xml = await response.text();
-    const parsed = parseFeed(xml);
-    const feed = parsed.feed;
+    const feed = parseRssFeed(xml);
 
     const cleanZeroWidth = (text: string): string => {
       return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
     };
 
-    const items: RssItem[] = ((feed as any).items || []).map((item: any) => ({
+    const items: RssItem[] = (feed.items || []).map((item) => ({
       title: cleanZeroWidth(item.title || ''),
       link: item.link || '',
       pubDate: item.pubDate || '',
@@ -62,7 +61,7 @@ async function parseRssItems(url: string): Promise<{ channelTitle: string | null
     }));
 
     return {
-      channelTitle: feed.title || null,
+      channelTitle: feed.title ?? null,
       items,
     };
   } finally {

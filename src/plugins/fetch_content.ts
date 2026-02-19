@@ -3,6 +3,7 @@
  */
 
 import { parseHTML } from 'linkedom';
+import type { HTMLImageElement } from 'linkedom';
 import type { Plugin, RssItem } from '../lib/plugin';
 
 interface ImageData {
@@ -53,7 +54,7 @@ const plugin: Plugin = {
         const filterKeywords = ['category', 'categories', 'tag', 'topic', 'icon', 'avatar'];
         let imgIndex = 0;
 
-        imgTags.forEach((img: any, idx: number) => {
+        imgTags.forEach((img: HTMLImageElement, idx: number) => {
           const imgSrc = img.getAttribute('src') || '';
           const imgSrcLower = imgSrc.toLowerCase();
 
