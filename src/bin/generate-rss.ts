@@ -54,7 +54,7 @@ function parseExistingRss(rssPath: string): any[] {
     if (!existsSync(rssPath)) return [];
     const content = readFileSync(rssPath, 'utf-8');
     const parsed = parseFeed(content);
-    return parsed.feed.items || [];
+    return (parsed.feed as any).items || [];
   } catch {
     return [];
   }
@@ -94,11 +94,11 @@ function generateRss(
     title: rssTitle,
     link: data.source_url,
     description: `基于个人兴趣筛选的 ${data.source_name} 内容`,
-    lastBuildDate: new Date().toUTCString(),
+    lastBuildDate: new Date(),
     items: allItems,
   };
 
-  const rss = generateRssFeed(feed);
+  const rss = generateRssFeed(feed as any);
   return { rss, newCount: matchedItems.length };
 }
 

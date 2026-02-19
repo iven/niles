@@ -53,7 +53,7 @@ const plugin: Plugin = {
         const filterKeywords = ['category', 'categories', 'tag', 'topic', 'icon', 'avatar'];
         let imgIndex = 0;
 
-        imgTags.forEach((img, idx) => {
+        imgTags.forEach((img: any, idx: number) => {
           const imgSrc = img.getAttribute('src') || '';
           const imgSrcLower = imgSrc.toLowerCase();
 
