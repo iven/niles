@@ -4,8 +4,30 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 19 Feb 2026 06:16:19 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Feb 2026 07:18:36 +0000</lastBuildDate>
 
+<item>
+      <title>⭐⭐ Ladybird 浏览器放弃 Swift 语言采用计划</title>
+      <link>https://github.com/LadybirdBrowser/ladybird/issues/933</link>
+      <pubDate>Wed, 18 Feb 2026 23:08:38 +0000</pubDate>
+      <guid>https://news.ycombinator.com/item?id=47067678</guid>
+      <description><![CDATA[<p>独立浏览器项目 Ladybird 宣布关闭 Swift 6.0 适配计划。项目团队在 GitHub issue 中表示「我们不再推进 Swift 采用」，并移除了所有相关代码。</p>
+
+<p>这个决定并非因为 Swift 语言本身的性能问题，而是在集成过程中遭遇了太多工具链障碍。团队整理的问题清单包括 20 多项严重阻塞：Swift 编译器与现代 C++ 标准库的循环依赖冲突、无法返回 C++ 可选类型、在 Ubuntu 22.04 和 24.04 上的头文件兼容性问题，以及 CMake 构建系统的诸多限制。</p>
+
+<p>最核心的困境在于 <strong>C++ 互操作性</strong>。虽然 Swift 官方宣传具有良好的 C++ 互操作能力，但实际使用中发现，它无法正确处理 Ladybird 自定义的 C++ 类型（如 AK::Optional、AK::String），也不支持位域（bitfield）访问和某些模板特化场景。团队尝试了各种工作区（workaround），包括禁用 SIL 验证器、手动修改系统头文件等危险操作，但仍然频繁遇到编译器崩溃。</p>
+
+<p>提交记录显示，团队「很长一段时间都没有进展」后决定承认现实。社区讨论中有开发者指出，这次尝试选择了「困难模式」——在一个大型 C++ 项目中后期引入新语言，远比从头开始使用 Swift 更复杂。也有评论认为 Swift 过于依赖苹果公司，跨平台支持始终是小团队在维持，不适合作为通用系统编程语言。</p>
+
+<section style="margin-top: 1.5em; padding: 1em; background: #f8f9fa; border-left: 3px solid #0066cc;">
+<h3 style="margin-top: 0;">你知道吗？</h3>
+<p><strong>什么是 C++ 互操作性（C++ interoperability）？</strong></p>
+<p>互操作性指不同编程语言之间调用彼此代码的能力。对于新语言来说，良好的 C++ 互操作至关重要——因为几十年来积累的系统库、图形引擎、数据库驱动都是用 C++ 写的。</p>
+<p>理想情况下，你应该能在新语言中直接使用 C++ 类、调用 C++ 函数，就像使用原生语法一样。但现实很骨感：C++ 的模板元编程、多重继承、操作符重载等特性非常复杂，要让另一种语言完全理解这些语义极其困难。</p>
+<p>Rust 选择了务实路线：通过 FFI（外部函数接口）调用 C 接口，复杂 C++ 代码需要手写封装。Swift 承诺更无缝的集成，但 Ladybird 的遭遇表明，这个承诺在真实大型项目中还远未兑现。</p>
+</section><p><small>[high_interest] 编程工具主题，关于浏览器开发，属于编程工具和开源项目分类</small></p>]]></description>
+    </item>
+    
 <item>
       <title>老款苹果 iBook 竟然还能连接 Wi-Fi 并下载官方更新？</title>
       <link>https://old.reddit.com/r/MacOS/comments/1r8900z/macos_which_officially_supports_27_year_old/</link>
@@ -1033,19 +1055,6 @@
       <pubDate>Fri, 13 Feb 2026 12:18:05 +0000</pubDate>
       <guid>https://news.ycombinator.com/item?id=47001871</guid>
       <description><![CDATA[<h3>工具特性</h3><p>MonoSketch 是一款功能强大的开源 ASCII 绘图和图表制作应用，让用户能够轻松地将想法转化为视觉设计。该工具提供了多种基础构建块，包括矩形、线条和文本框，并支持多种格式样式。用户可以用它绘制电路图、系统架构图、网络通信时序图、UI 原型以及演示文稿等各类图表。项目采用 Apache License 2.0 开源协议，代码托管在 GitHub 上。</p><h3>应用场景与优势</h3><p>作者表示自己热衷于创建 ASCII 图表，认为这是演示和代码集成的多功能视觉工具。在寻找合适的解决方案未果后，决定启动这个项目。MonoSketch 可以替代 PowerPoint 或 Google Presentations 来制作演示文稿，特别适合需要在文档或代码中嵌入图表的场景。社区讨论中有用户将其与 macOS 应用 Monodraw 进行比较，MonoSketch 作为免费开源替代方案具有明显优势。也有开发者提到可以将其与 ASCII-Driven Development 结合使用，利用 AI 迭代和修改布局。</p><h3>社区反响</h3><p>这个项目在 Hacker News 上获得了 299 点赞和 56 条评论，用户普遍给予积极评价。有评论者称赞其设计出色，认为比 draw.io 和 Excalidraw 更好。也有用户建议可以将其开发成 Obsidian 插件，或与 svgbob 等工具集成以生成 SVG 输出。部分评论讨论了 ASCII 绘图工具的技术限制，指出由于基于字符的特性，难以支持任意多边形等复杂形状。项目支持通过 GitHub Sponsor 或 Ko-Fi 进行资金支持。</p><p><small>[high_interest] 开源 ASCII 绘图工具，提供了开发者进行图表设计和可视化的生产力工具，属于编程工具范畴，符合用户对编程工具和开源项目的强烈兴趣。</small></p>]]></description>
-    </item>
-    
-<item>
-      <title>⭐ Welcoming Discord users amidst the challenge of Age Verification</title>
-      <link>https://matrix.org/blog/2026/02/welcome-discord/</link>
-      <pubDate>Thu, 12 Feb 2026 20:57:33 +0000</pubDate>
-      <guid>https://news.ycombinator.com/item?id=46995046</guid>
-      <description><![CDATA[
-<p>Article URL: <a href="https://matrix.org/blog/2026/02/welcome-discord/">https://matrix.org/blog/2026/02/welcome-discord/</a></p>
-<p>Comments URL: <a href="https://news.ycombinator.com/item?id=46995046">https://news.ycombinator.com/item?id=46995046</a></p>
-<p>Points: 280</p>
-<p># Comments: 148</p>
-<p><small>[interest] Open source protocol (Matrix) for secure communications, matches interest in open source projects</small></p>]]></description>
     </item>
     
   </channel>
