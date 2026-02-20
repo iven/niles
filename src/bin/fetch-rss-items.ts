@@ -7,6 +7,7 @@ import { parseArgs } from 'util';
 import { parseRssFeed } from 'feedsmith';
 import { GuidTracker } from '../lib/guid-tracker';
 import { applyPlugins, type RssItem } from '../lib/plugin';
+import { init as rsshubInit, request as rsshubRequest } from 'rsshub';
 
 interface ParsedArgs {
   values: {
@@ -31,25 +32,34 @@ interface RssOutput {
 
 async function parseRssItems(url: string): Promise<{ channelTitle: string | null; items: RssItem[] }> {
   try {
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; RSS Reader/1.0)',
-      },
-      signal: AbortSignal.timeout(10000),
-    });
+    let feed;
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    if (url.startsWith('rsshub://')) {
+      await rsshubInit();
+      const route = url.replace('rsshub://', '');
+      feed = await rsshubRequest(route);
+    } else {
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; RSS Reader/1.0)',
+        },
+        signal: AbortSignal.timeout(10000),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const xml = await response.text();
+      feed = parseRssFeed(xml);
     }
-
-    const xml = await response.text();
-    const feed = parseRssFeed(xml);
 
     const cleanZeroWidth = (text: string): string => {
       return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
     };
 
-    const items: RssItem[] = (feed.items || []).map((item) => ({
+    const rawItems = feed.items || feed.item || [];
+    const items: RssItem[] = rawItems.map((item: any) => ({
       title: cleanZeroWidth(item.title || ''),
       link: item.link || '',
       pubDate: item.pubDate || '',
