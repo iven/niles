@@ -2,11 +2,11 @@
  * cnBeta 网页正文内容抓取插件
  */
 
-import { parseHTML } from 'linkedom';
-import type { Plugin, RssItem } from '../lib/plugin';
+import { parseHTML } from "linkedom";
+import type { Plugin, RssItem } from "../lib/plugin";
 
 const plugin: Plugin = {
-  name: 'cnbeta_fetch_content',
+  name: "cnbeta_fetch_content",
 
   async processItem(item: RssItem): Promise<RssItem> {
     const url = item.link;
@@ -17,10 +17,10 @@ const plugin: Plugin = {
     try {
       const response = await fetch(url, {
         headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+          "User-Agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
         },
-        redirect: 'follow',
+        redirect: "follow",
         signal: AbortSignal.timeout(10000),
       });
 
@@ -29,13 +29,13 @@ const plugin: Plugin = {
       const html = await response.text();
       const { document } = parseHTML(html);
 
-      const summary = document.querySelector('.article-summary');
-      const content = document.querySelector('.article-content');
+      const summary = document.querySelector(".article-summary");
+      const content = document.querySelector(".article-content");
 
       const htmlParts: string[] = [];
 
       if (summary) {
-        const topic = summary.querySelector('.topic');
+        const topic = summary.querySelector(".topic");
         if (topic) topic.remove();
         htmlParts.push(summary.innerHTML);
       }
@@ -45,7 +45,7 @@ const plugin: Plugin = {
       }
 
       if (htmlParts.length > 0) {
-        item.description = htmlParts.join('');
+        item.description = htmlParts.join("");
       }
     } catch (error) {
       console.error(`抓取内容 ${url} 失败: ${error}`);

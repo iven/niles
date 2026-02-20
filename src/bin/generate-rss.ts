@@ -4,9 +4,9 @@
  * RSS 生成脚本
  */
 
-import { parseArgs } from 'node:util';
-import { generateRssFeed, parseRssFeed } from 'feedsmith';
-import type { Rss } from 'feedsmith/types';
+import { parseArgs } from "node:util";
+import { generateRssFeed, parseRssFeed } from "feedsmith";
+import type { Rss } from "feedsmith/types";
 
 interface ParsedArgs {
   values: {
@@ -74,14 +74,14 @@ async function generateRss(
   const rssTitle = data.title || `${data.source_name} - 精选`;
 
   const matchedItems = data.items.filter((item) =>
-    ['high_interest', 'interest', 'other'].includes(item.type),
+    ["high_interest", "interest", "other"].includes(item.type),
   );
 
   const newItems = matchedItems.map((item) => {
     let title = item.title;
-    if (item.type === 'high_interest') {
+    if (item.type === "high_interest") {
       title = `⭐⭐ ${title}`;
-    } else if (item.type === 'interest') {
+    } else if (item.type === "interest") {
       title = `⭐ ${title}`;
     }
 
@@ -113,7 +113,7 @@ async function main() {
   const { values, positionals } = parseArgs({
     args: process.argv.slice(2),
     options: {
-      title: { type: 'string' },
+      title: { type: "string" },
     },
     allowPositionals: true,
   }) as ParsedArgs;
@@ -122,7 +122,7 @@ async function main() {
 
   if (!itemsPath || !resultsPath || !outputPath) {
     console.error(
-      '用法: generate-rss <items> <results> <output> [--title <title>]',
+      "用法: generate-rss <items> <results> <output> [--title <title>]",
     );
     process.exit(1);
   }
@@ -132,15 +132,15 @@ async function main() {
 
   const mergedItems: MergedItem[] = itemsData.items.map((item) => {
     const result = resultsData.results[item.guid] || {
-      type: 'exclude',
-      title: '',
-      reason: '未找到筛选结果',
+      type: "exclude",
+      title: "",
+      reason: "未找到筛选结果",
     };
 
     return {
       ...item,
       title: result.title || item.title,
-      description: result.description || item.description || '',
+      description: result.description || item.description || "",
       type: result.type,
       reason: result.reason,
     };
