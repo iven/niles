@@ -32,7 +32,7 @@ interface RssOutput {
 
 async function parseRssItems(url: string): Promise<{ channelTitle: string | null; items: RssItem[] }> {
   try {
-    let feed;
+    let feed: any;
 
     if (url.startsWith('rsshub://')) {
       await rsshubInit();
