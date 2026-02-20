@@ -4,7 +4,68 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 20 Feb 2026 17:56:07 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Feb 2026 19:07:38 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 英伟达与 OpenAI 放弃 1000 亿美元交易，转为 300 亿美元投资</title>
+      <link>https://www.ft.com/content/dea24046-0a73-40b2-8246-5ac7b7a54323</link>
+      <description>
+        <![CDATA[<p>英伟达（Nvidia）和 OpenAI 决定放弃去年谈判的 1000 亿美元复杂合作框架，转而采用更简单的方式：英伟达直接向 OpenAI 投资 300 亿美元股权。</p><p>这笔交易的转变反映了双方对合作模式的重新思考。原本的 1000 亿美元方案涉及复杂的框架协议，可能包括硬件采购承诺、技术合作等多重条款。但现在双方选择了更直接的股权投资方式，英伟达成为 OpenAI 的股东，这样可以更灵活地支持 OpenAI 的发展，同时也确保了英伟达在 AI 领域的战略地位。</p><p><strong>社区讨论热点</strong>：Hacker News 社区对此展开了热烈讨论（267 点赞，260 条评论）。主要关注点包括：</p><ul><li><strong>资金链担忧</strong>：有人质疑 OpenAI 如何支付与甲骨文（Oracle）签订的 3000 亿美元合同，如果连英伟达都只愿意投资 300 亿美元。</li><li><strong>估值泡沫</strong>：多位评论者认为 AI 行业存在严重泡沫，将 OpenAI 与 WeWork 相提并论，担心 IPO 后估值会大幅缩水。</li><li><strong>缺乏护城河</strong>：社区普遍认为 OpenAI 和 Anthropic 没有技术护城河，大语言模型（LLM）技术正在商品化，中国的开源模型已经追上主流模型水平。</li><li><strong>循环经济质疑</strong>：有评论讽刺这是「循环经济」——OpenAI 拿到 300 亿美元后转手买英伟达的芯片，这究竟算不算真正的投资？</li></ul><h3>你知道吗？</h3><p><strong>什么是「护城河」（Moat）</strong>？在商业领域，护城河指的是企业保持竞争优势的能力。就像中世纪城堡周围的护城河能够抵御敌人进攻一样，商业护城河能够帮助公司抵御竞争对手。常见的护城河包括：品牌优势（如可口可乐）、网络效应（如微信）、专利技术、规模经济等。</p><p>讨论中提到 OpenAI「没有护城河」，意思是其技术容易被复制，竞争对手可以快速追赶。这也是为什么山姆·阿尔特曼（Sam Altman）积极推动 AI 监管——监管可以成为人工构建的护城河，通过提高行业准入门槛来限制竞争对手。</p><p><small>[interest] 人工智能软件技术，涉及 AI 公司重要商业动态</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47086980</guid>
+      <pubDate>Fri, 20 Feb 2026 12:04:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 在泄露的 CIA 开发文档中发现的实用 Git 命令</title>
+      <link>https://spencer.wtf/2026/02/20/cleaning-up-merged-git-branches-a-one-liner-from-the-cias-leaked-dev-docs.html</link>
+      <description>
+        <![CDATA[<p>2017 年，维基解密（WikiLeaks）公开了代号「七号保险库」（Vault7）的 CIA 黑客工具和内部文档。在这些渗透工具和监控系统中，藏着一份极其平凡的东西：一页关于 Git 使用技巧的内部开发文档。</p>
+
+<p>文档中大部分内容都是标准操作——修改提交、暂存变更、使用二分查找等。但其中有一条命令自 2017 年起就一直留在作者的 <code>~/.zshrc</code> 配置文件中。</p>
+
+<h3>问题</h3>
+
+<p>随着时间推移，本地 Git 仓库会累积大量陈旧分支。每个已合并的功能分支、热修复分支和实验分支都静静地躺在那里。运行 <code>git branch</code> 时，分支列表看起来就像一座墓地。</p>
+
+<p>虽然可以用 <code>git branch --merged</code> 列出已合并的分支，但逐个删除非常繁琐。CIA 开发团队提供了更简洁的解决方案：</p>
+
+<pre><code>git branch --merged | grep -v "\*\|master" | xargs -n 1 git branch -d</code></pre>
+
+<p><strong>工作原理：</strong></p>
+<ul>
+<li><code>git branch --merged</code> — 列出所有已合并到当前分支的本地分支</li>
+<li><code>grep -v "\*\|master"</code> — 过滤掉当前分支（*）和 master，避免误删</li>
+<li><code>xargs -n 1 git branch -d</code> — 逐个安全删除剩余分支（小写 -d 不会删除未合并分支）</li>
+</ul>
+
+<h3>改进版本</h3>
+
+<p>由于现在大多数项目使用 main 而非 master，可以更新命令并排除其他常用分支：</p>
+
+<pre><code>git branch --merged origin/main | grep -vE "^\s*(\*|main|develop)" | xargs -n 1 git branch -d</code></pre>
+
+<p>作者将其设置为别名以便记忆：</p>
+
+<pre><code>alias ciaclean='git branch --merged origin/main | grep -vE "^\s*(\*|main|develop)" | xargs -n 1 git branch -d'</code></pre>
+
+<p>然后在仓库中直接运行 <code>ciaclean</code> 即可。从部署后在 main 分支执行这条命令，可以将分支列表从 40 多个瞬间缩减到几个。</p>
+
+<p>虽然是个小技巧，但每周能悄悄节省几分钟时间，让仓库保持整洁有序。</p>
+
+<h3>社区讨论</h3>
+
+<p>Hacker News 上的讨论显示，许多开发者都有类似需求。有人指出 oh-my-zsh 的 Git 插件已经内置了这个别名（<code>gbda</code>），甚至还有针对 squash 合并分支的版本（<code>gbds</code>）。也有开发者分享了自己改进的版本，使用 <code>fzf</code> 交互式选择要删除的分支，或者通过检查远程跟踪状态（<code>: gone]</code>）来清理本地分支。</p>
+
+<h3>你知道吗？</h3>
+
+<p><strong>为什么要定期清理已合并的分支？</strong></p>
+
+<p>在 Git 中，分支只是指向特定提交的指针，本身几乎不占空间。但保留大量陈旧分支会带来实际问题：一是运行 <code>git branch</code> 时输出混乱，难以找到活跃分支；二是可能误操作旧分支，尤其是分支名相似时；三是在使用自动补全或 GUI 工具时，大量分支会干扰选择。</p>
+
+<p>删除已合并分支是安全的，因为分支中的提交已经存在于主分支历史中。如果误删，可以通过 <code>git reflog</code> 找回。这就像整理书桌——虽然每张便签纸都不占地方，但堆积起来会让工作空间变得混乱不堪。</p><p><small>[high_interest] 编程工具，提供实用的 Git 命令和开发技巧</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47088181</guid>
+      <pubDate>Fri, 20 Feb 2026 14:03:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Ggml.ai 加入 Hugging Face，共同推进本地 AI 发展</title>
       <link>https://github.com/ggml-org/llama.cpp/discussions/19759</link>
@@ -1013,58 +1074,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47040430</guid>
       <pubDate>Mon, 16 Feb 2026 21:15:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 14 岁少年用折纸设计出能承受自重 1 万倍的结构</title>
-      <link>https://www.smithsonianmag.com/innovation/this-14-year-old-is-using-origami-to-design-emergency-shelters-that-are-sturdy-cost-efficient-and-easy-to-deploy-180988179/</link>
-      <description>
-        <![CDATA[<p>14 岁的吴迈尔斯（Miles Wu）在家中客厅做了一个惊人的发现：一张简单的纸，按照三浦折叠（Miura-ori）方式折叠后，竟然能承受自身重量 1 万倍的负载。</p>
-
-<img src="https://th-thumbnailer.cdn-si-edu.com/mT9Gl_P4kE6uW4aQlx9Oo8BhzS4=/1000x750/filters:no_upscale():focal(1000x667:1001x668)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/f6/6e/f66edaff-eb72-4b3e-8e69-77bf70f7aa4d/20251025_public-day_wu_miles_0135_lf.jpg" alt="20251025_PUBLIC-DAY_WU_MILES_0135_LF.jpg" />
-
-<p>这位纽约市亨特学院高中的九年级学生花了超过 250 小时，设计、折叠并测试了三浦折叠的各种变体，希望将其应用于自然灾害中的应急避难所建设。三浦折叠是日本天体物理学家三浦公亮发明的一种几何折纸技术，由一系列镶嵌的平行四边形组成，可以一次性完全展开或折叠。这种折叠方式因其在航空航天工程中的应用而闻名，曾被用于制造航天器和卫星的太阳能板。</p>
-
-<img src="https://th-thumbnailer.cdn-si-edu.com/zXXdek9viR0ZBJAte1H21M3qEGc=/fit-in/1072x0/filters:focal(1500x1850:1501x1851)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/5c/5a/5c5aa81e-a7da-4f53-b799-e4ae689b8745/mileswu-miuraori-single.jpg" alt="This 14-Year-Old Is Using Origami to Imagine Emergency Shelters That Are Sturdy, Cost-Efficient and Easy to Deploy" />
-
-<p>吴迈尔斯研究三浦折叠时，恰逢飓风海伦（Hurricane Helene）登陆佛罗里达州，南加州也发生了野火。他意识到现有的应急避难所要么坚固、要么易于部署、要么成本低廉，但很少三者兼具。他开始测试不同变体的强度重量比——即相对于自身重量能承受多少负载。</p>
-
-<img src="https://th-thumbnailer.cdn-si-edu.com/KRbx9HzfIBt4gMvjpiFdCRB5fOQ=/fit-in/1072x0/filters:focal(720x960:721x961)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/75/b8/75b86833-608b-42c9-8805-08aad7143c8e/mileswu-miuraoripatterns.jpg" alt="This 14-Year-Old Is Using Origami to Imagine Emergency Shelters That Are Sturdy, Cost-Efficient and Easy to Deploy" />
-
-<p>他用电脑程序设计了 54 种不同的三浦折叠变体，使用复印纸、轻卡纸和重卡纸三种材料，进行了 108 次实验。他将每个折叠后的样本（表面积为 64 平方英寸）放置在间隔 5 英寸的护栏之间，然后不断添加重物直到结构破裂。起初他以为最强的折纸只能承受约 50 磅，家里的教科书就够用了，但实际测试中，这些折纸承受住了 200 磅的重量。最后他不得不让父母购买 50 磅的健身砝码。最强的样本承受了超过自身重量 1 万倍的负载，相当于一辆纽约出租车承受 4000 头大象的重量。</p>
-
-<img src="https://th-thumbnailer.cdn-si-edu.com/yEahnLTEv7QgxFmyUUxm2iBG4y8=/fit-in/1072x0/filters:focal(1068x717:1069x718)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/05/4c/054c8545-6eb5-4526-8db4-301079d50684/wumilesprojectphoto.jpg" alt="This 14-Year-Old Is Using Origami to Imagine Emergency Shelters That Are Sturdy, Cost-Efficient and Easy to Deploy" />
-
-<p>这项创新为吴迈尔斯赢得了 2025 年赛默飞世尔科技青少年创新挑战赛（Thermo Fisher Scientific Junior Innovators Challenge）的最高奖项，奖金 2.5 万美元。评委们对这个将毕生对折纸的热情转化为严谨结构工程项目的少年印象深刻。普林斯顿大学工程师格劳西奥·保利诺（Glaucio H. Paulino）评价说，这是一次出色的参数化探索，展示了如何将几何形状作为结构特性来使用。</p>
-
-<img src="https://th-thumbnailer.cdn-si-edu.com/LXCVuBNr8nK4TADLzR4-1iPkEww=/fit-in/1072x0/filters:focal(1350x1466:1351x1467)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/25/0a/250a2947-329c-4ccc-88cc-4717df39e565/mileswu-origamicharityfundraiser-pigeons.jpg" alt="This 14-Year-Old Is Using Origami to Imagine Emergency Shelters That Are Sturdy, Cost-Efficient and Easy to Deploy" />
-
-<p>不过，保利诺指出，要将这项研究从家庭实验转化为实际可用的灾难应急避难所，还有很多工作要做。随着设计规模扩大，需要考虑更厚的折纸方案、接头设计、多向载荷响应和耐久性等因素。吴迈尔斯表示他才刚刚开始科学探索之旅，下一步计划制作实际的避难所原型，并测试该结构对多向力的承受能力。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>三浦折叠为什么这么强？</strong>三浦折叠的秘密在于它的几何结构。通过精心设计的平行四边形镶嵌排列，这种折叠方式将力均匀分散到整个结构中，每个折痕都在承担载荷的同时互相支撑。这就像建筑中的桁架结构或蜂窝状结构一样，通过几何排列获得远超材料本身的强度。这种结构不仅强度高，还能在完全展开和完全折叠状态之间轻松切换，这使它在需要紧凑存储和快速部署的场景（如太空探索、应急救援）中具有巨大潜力。</p><p><small>[interest] 科学创新主题，展示年轻人在工程领域的创造性思维，符合对科学前沿的兴趣</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47038546</guid>
-      <pubDate>Mon, 16 Feb 2026 18:41:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>蓝牙设备如何泄露你的隐私</title>
-      <link>https://blog.dmcc.io/journal/2026-bluetooth-privacy-bluehood/</link>
-      <description>
-        <![CDATA[<p>你知道吗，即使不主动连接，一台树莓派加上蓝牙适配器就能追踪到周围所有开启蓝牙的设备。作者开发了一个叫 Bluehood 的蓝牙扫描工具，证明了我们每天都在无意间泄露大量个人信息。</p>
-
-<p>从家里的办公室运行这个工具，作者发现自己可以轻松识别出：快递车何时到达、邻居的日常活动规律、哪些设备经常一起出现（比如某人的手机和智能手表）、以及特定人群的作息时间。更令人担忧的是，许多设备根本无法关闭蓝牙——助听器、起搏器等医疗设备需要通过低功耗蓝牙（BLE）让医生远程调整设置；物流车辆、警车等装有蓝牙系统进行车队管理，司机无权关闭。</p>
-
-<p>有趣的是，一些注重隐私的工具反而需要开启蓝牙才能使用。Briar 是为记者和活动人士设计的点对点通讯应用，在断网时可以通过蓝牙传递消息；BitChat 则完全基于蓝牙网状网络运行，不需要互联网。这些工具在抗审查和应急通讯场景下非常实用，但使用它们就意味着你必须持续广播自己的存在。</p>
-
-<p>元数据泄露的威力常被低估。即使不知道你的名字，只要连续几周监控一个住宅区的蓝牙信号，就能推断出：房子通常何时空着、是否有人每周四下午固定来访、孩子几点放学回家、哪些家庭使用同一个快递员。如果发生财物损失，理论上可以回溯日志，找到案发时间段内出现的所有设备——可能是遛狗人的智能手表，可能是路人的手机，也可能是装有定位系统的车辆。</p>
-
-<p>Bluehood 是一个用 Python 编写的开源工具，可以在任何带蓝牙适配器的设备上运行。它只是被动监听，不会主动连接任何设备，但能识别设备类型（手机、耳机、可穿戴设备、车辆等）、分析出现规律、生成活动热力图，甚至检测出哪些设备总是成对出现。作者强调这不是黑客工具，而是一个教育性演示，目的是让人们意识到自己在无意中广播了多少信息。</p>
-
-<h3>你知道吗？</h3>
-<p>蓝牙低功耗（BLE）协议为了平衡隐私和功能性，设计了一种叫「可解析私有地址」（Resolvable Private Address）的机制。设备会定期更换 MAC 地址，但配对的设备之间可以通过一个共享的「身份解析密钥」（IRK）识别对方——地址的前半部分是随机数，后半部分是这个随机数与密钥的哈希值。这样即使地址每 15 分钟换一次，你的 iPhone 仍然能找到你的 AirPods。不过这种机制也不是完美的：如果有人持续跟踪你，当一个地址消失的瞬间新地址出现，很容易推断出它们属于同一设备。而且，通过分析通信时序和数据包大小，仍然可以识别出特定的设备组合，比如 iPhone 和 Apple Watch 的配对模式。</p><p><small>[other] 涉及隐私和安全技术细节，属于不太感兴趣的领域。</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47035560</guid>
-      <pubDate>Mon, 16 Feb 2026 14:39:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
