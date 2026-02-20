@@ -1,13 +1,14 @@
 #!/usr/bin/env bun
+
 /**
  * 从 RSS feed 中提取新条目（去重）
  */
 
-import { parseArgs } from 'util';
+import { parseArgs } from 'node:util';
 import { parseRssFeed } from 'feedsmith';
+import { init as rsshubInit, request as rsshubRequest } from 'rsshub';
 import { GuidTracker } from '../lib/guid-tracker';
 import { applyPlugins, type RssItem } from '../lib/plugin';
-import { init as rsshubInit, request as rsshubRequest } from 'rsshub';
 
 interface ParsedArgs {
   values: {
@@ -30,50 +31,59 @@ interface RssOutput {
   items: RssItem[];
 }
 
-async function parseRssItems(url: string): Promise<{ channelTitle: string | null; items: RssItem[] }> {
-  try {
-    let feed: any;
+async function parseRssItems(
+  url: string,
+): Promise<{ channelTitle: string | null; items: RssItem[] }> {
+  let title: string | undefined;
+  let rawItems: Array<{
+    title?: string;
+    link?: string;
+    pubDate?: string;
+    description?: string;
+    guid?: { value?: string };
+  }>;
 
-    if (url.startsWith('rsshub://')) {
-      await rsshubInit();
-      const route = url.replace('rsshub://', '');
-      feed = await rsshubRequest(route);
-    } else {
-      const response = await fetch(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; RSS Reader/1.0)',
-        },
-        signal: AbortSignal.timeout(10000),
-      });
+  if (url.startsWith('rsshub://')) {
+    await rsshubInit();
+    const route = url.replace('rsshub://', '');
+    const rsshubData = await rsshubRequest(route);
+    title = (rsshubData as { title?: string }).title;
+    rawItems = ((rsshubData as { item?: Array<unknown> }).item ||
+      []) as typeof rawItems;
+  } else {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; RSS Reader/1.0)',
+      },
+      signal: AbortSignal.timeout(10000),
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const xml = await response.text();
-      feed = parseRssFeed(xml);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    const cleanZeroWidth = (text: string): string => {
-      return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
-    };
-
-    const rawItems = feed.items || feed.item || [];
-    const items: RssItem[] = rawItems.map((item: any) => ({
-      title: cleanZeroWidth(item.title || ''),
-      link: item.link || '',
-      pubDate: item.pubDate || '',
-      description: cleanZeroWidth(item.description || ''),
-      guid: item.guid?.value || item.link || '',
-    }));
-
-    return {
-      channelTitle: feed.title ?? null,
-      items,
-    };
-  } catch (error) {
-    throw error;
+    const xml = await response.text();
+    const feed = parseRssFeed(xml);
+    title = feed.title;
+    rawItems = (feed.items || []) as typeof rawItems;
   }
+
+  const cleanZeroWidth = (text: string): string => {
+    return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
+  };
+
+  const items: RssItem[] = rawItems.map((item) => ({
+    title: cleanZeroWidth(item.title || ''),
+    link: item.link || '',
+    pubDate: item.pubDate || '',
+    description: cleanZeroWidth(item.description || ''),
+    guid: item.guid?.value || item.link || '',
+  }));
+
+  return {
+    channelTitle: title ?? null,
+    items,
+  };
 }
 
 async function main() {
@@ -92,7 +102,9 @@ async function main() {
   const [url, existingRss] = positionals;
 
   if (!url || !existingRss || !values['source-name']) {
-    console.error('用法: fetch-rss-items <url> <existing-rss> --source-name <name> [options]');
+    console.error(
+      '用法: fetch-rss-items <url> <existing-rss> --source-name <name> [options]',
+    );
     process.exit(1);
   }
 
@@ -107,12 +119,12 @@ async function main() {
 
   const limitedItems = allItems.slice(0, maxItems);
 
-  let newItems = limitedItems.filter(item => !tracker.isProcessed(item.guid));
+  let newItems = limitedItems.filter((item) => !tracker.isProcessed(item.guid));
 
   if (newItems.length < minItems) {
     for (const item of limitedItems) {
       if (newItems.length >= minItems) break;
-      if (!newItems.some(ni => ni.guid === item.guid)) {
+      if (!newItems.some((ni) => ni.guid === item.guid)) {
         newItems.push(item);
       }
     }
@@ -121,7 +133,7 @@ async function main() {
   const pluginNames = values.plugins ? values.plugins.split(',') : [];
   newItems = await applyPlugins(newItems, pluginNames);
 
-  tracker.markProcessed(newItems.map(item => item.guid));
+  tracker.markProcessed(newItems.map((item) => item.guid));
   tracker.cleanup();
   await tracker.persist();
 
@@ -143,7 +155,7 @@ async function main() {
   }
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error(`错误: ${error}`);
   process.exit(1);
 });

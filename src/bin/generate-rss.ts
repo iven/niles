@@ -1,10 +1,12 @@
 #!/usr/bin/env bun
+
 /**
  * RSS 生成脚本
  */
 
-import { parseArgs } from 'util';
-import { parseRssFeed, generateRssFeed } from 'feedsmith';
+import { parseArgs } from 'node:util';
+import { generateRssFeed, parseRssFeed } from 'feedsmith';
+import type { Rss } from 'feedsmith/types';
 
 interface ParsedArgs {
   values: {
@@ -48,29 +50,34 @@ interface MergedItem {
   reason: string;
 }
 
-async function parseExistingRss(rssPath: string): Promise<any[]> {
+async function parseExistingRss(rssPath: string): Promise<Rss.Item<string>[]> {
   try {
     const file = Bun.file(rssPath);
-    if (!await file.exists()) return [];
+    if (!(await file.exists())) return [];
     const content = await file.text();
     const feed = parseRssFeed(content);
-    return feed.items || [];
+    return (feed.items as Rss.Item<string>[]) || [];
   } catch {
     return [];
   }
 }
 
 async function generateRss(
-  data: { source_name: string; source_url: string; title?: string; items: MergedItem[] },
-  existingRssPath: string
+  data: {
+    source_name: string;
+    source_url: string;
+    title?: string;
+    items: MergedItem[];
+  },
+  existingRssPath: string,
 ): Promise<{ rss: string; newCount: number }> {
-  const rssTitle = data.title || data.source_name + ' - 精选';
+  const rssTitle = data.title || `${data.source_name} - 精选`;
 
-  const matchedItems = data.items.filter(item =>
-    ['high_interest', 'interest', 'other'].includes(item.type)
+  const matchedItems = data.items.filter((item) =>
+    ['high_interest', 'interest', 'other'].includes(item.type),
   );
 
-  const newItems = matchedItems.map(item => {
+  const newItems = matchedItems.map((item) => {
     let title = item.title;
     if (item.type === 'high_interest') {
       title = `⭐⭐ ${title}`;
@@ -98,7 +105,7 @@ async function generateRss(
     items: allItems,
   };
 
-  const rss = generateRssFeed(feed, { loose: true });
+  const rss = generateRssFeed(feed as Rss.Feed<Date>, { loose: true });
   return { rss, newCount: matchedItems.length };
 }
 
@@ -114,14 +121,16 @@ async function main() {
   const [itemsPath, resultsPath, outputPath] = positionals;
 
   if (!itemsPath || !resultsPath || !outputPath) {
-    console.error('用法: generate-rss <items> <results> <output> [--title <title>]');
+    console.error(
+      '用法: generate-rss <items> <results> <output> [--title <title>]',
+    );
     process.exit(1);
   }
 
   const itemsData: ItemsData = await Bun.file(itemsPath).json();
   const resultsData: FilterResults = await Bun.file(resultsPath).json();
 
-  const mergedItems: MergedItem[] = itemsData.items.map(item => {
+  const mergedItems: MergedItem[] = itemsData.items.map((item) => {
     const result = resultsData.results[item.guid] || {
       type: 'exclude',
       title: '',
@@ -153,7 +162,7 @@ async function main() {
   console.log(`- 新增条目: ${newCount}`);
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error(`错误: ${error}`);
   process.exit(1);
 });
