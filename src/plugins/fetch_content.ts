@@ -2,8 +2,8 @@
  * 网页正文内容抓取插件
  */
 
-import { parseHTML } from 'linkedom';
 import type { HTMLImageElement } from 'linkedom';
+import { parseHTML } from 'linkedom';
 import type { Plugin, RssItem } from '../lib/plugin';
 
 interface ImageData {
@@ -26,7 +26,8 @@ const plugin: Plugin = {
     try {
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+          'User-Agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
         },
         redirect: 'follow',
         signal: AbortSignal.timeout(10000),
@@ -37,23 +38,38 @@ const plugin: Plugin = {
       const html = await response.text();
       const { document } = parseHTML(html);
 
-      for (const tag of document.querySelectorAll('script, style, nav, header, footer, aside')) {
+      for (const tag of document.querySelectorAll(
+        'script, style, nav, header, footer, aside',
+      )) {
         tag.remove();
       }
 
-      const main = document.querySelector('article') || document.querySelector('main') || document.querySelector('body');
+      const main =
+        document.querySelector('article') ||
+        document.querySelector('main') ||
+        document.querySelector('body');
 
       if (main) {
         const images: ImageData[] = [];
         const imgTags = main.querySelectorAll('img');
-        const filterKeywords = ['category', 'categories', 'tag', 'topic', 'icon', 'avatar'];
+        const filterKeywords = [
+          'category',
+          'categories',
+          'tag',
+          'topic',
+          'icon',
+          'avatar',
+        ];
         let imgIndex = 0;
 
         imgTags.forEach((img: HTMLImageElement, idx: number) => {
           const imgSrc = img.getAttribute('src') || '';
           const imgSrcLower = imgSrc.toLowerCase();
 
-          if (idx === 0 && filterKeywords.some(keyword => imgSrcLower.includes(keyword))) {
+          if (
+            idx === 0 &&
+            filterKeywords.some((keyword) => imgSrcLower.includes(keyword))
+          ) {
             img.remove();
             return;
           }

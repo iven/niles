@@ -26,7 +26,7 @@ export async function loadPlugin(pluginName: string): Promise<Plugin> {
 export async function applyPlugins(
   items: RssItem[],
   pluginNames: string[],
-  maxConcurrency = 10
+  maxConcurrency = 10,
 ): Promise<RssItem[]> {
   if (pluginNames.length === 0) return items;
 
@@ -45,8 +45,8 @@ export async function applyPlugins(
             console.error(`处理 item ${index} 失败: ${error}`);
             return item;
           }
-        })
-      )
+        }),
+      ),
     );
   }
 

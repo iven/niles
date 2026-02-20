@@ -13,7 +13,10 @@ export class GuidTracker {
   private historyPath: string;
   private processedGuids: Map<string, string>;
 
-  private constructor(historyPath: string, processedGuids: Map<string, string>) {
+  private constructor(
+    historyPath: string,
+    processedGuids: Map<string, string>,
+  ) {
     this.historyPath = historyPath;
     this.processedGuids = processedGuids;
   }
@@ -26,9 +29,9 @@ export class GuidTracker {
   private static async load(historyPath: string): Promise<Map<string, string>> {
     try {
       const file = Bun.file(historyPath);
-      if (!await file.exists()) return new Map();
+      if (!(await file.exists())) return new Map();
 
-      const data = await file.json() as GuidHistory;
+      const data = (await file.json()) as GuidHistory;
       return new Map(Object.entries(data.guids || {}));
     } catch {
       return new Map();
@@ -38,7 +41,9 @@ export class GuidTracker {
   private async save(): Promise<void> {
     const data: GuidHistory = {
       guids: Object.fromEntries(
-        [...this.processedGuids.entries()].sort(([a], [b]) => a.localeCompare(b))
+        [...this.processedGuids.entries()].sort(([a], [b]) =>
+          a.localeCompare(b),
+        ),
       ),
       updated_at: new Date().toISOString(),
     };
