@@ -4,7 +4,24 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 20 Feb 2026 10:46:12 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Feb 2026 11:48:19 GMT</lastBuildDate>
+    <item>
+      <title>我尝试完全使用欧洲基础设施构建初创公司</title>
+      <link>https://www.coinerella.com/made-in-eu-it-was-harder-than-i-thought/</link>
+      <description>
+        <![CDATA[<p>作者出于数据主权、GDPR 合规和降低对美国云服务商依赖的考虑，决定完全使用欧洲基础设施构建初创公司。经过多次试错，最终采用了 Hetzner（德国）提供核心计算资源、Scaleway（法国）补充邮件和容器服务、Bunny.net（斯洛文尼亚）负责 CDN 和安全防护、Nebius 处理 AI 推理、Hanko（德国）管理身份认证的技术栈。此外还自建了 Gitea、Plausible、Twenty CRM 等多个服务。</p>
+
+<p><strong>意外的困难</strong>：事务性邮件服务在价格和开发体验上与美国竞品存在差距；离开 GitHub 生态系统意味着失去熟悉的工作流和丰富的集成；某些域名后缀在欧洲注册商的价格是美国的 2-3 倍，原因不明。</p>
+
+<p><strong>无法避免的美国依赖</strong>：Google Ads 和 Apple Developer Program 是触达用户的必经之路；用户期待「使用 Google 登录」和「使用 Apple 登录」功能，去除会严重影响转化率；前沿 AI 模型如 Claude 仍需调用美国 API。</p>
+
+<p>作者认为这个实验是值得的——基础设施成本更低，数据驻留故事清晰，对技术栈的理解更深入。但代价是更长的开发时间、更多的维护负担，以及更薄弱的社区支持。「欧洲制造」仍然是需要主动选择的道路，而非可以被动遵循的默认选项。科技行业的默认选择会把你拉向大西洋西岸，逆流而上需要付出努力——但这是值得花费的努力。</p>
+
+<p><strong>社区讨论亮点</strong>：多位用户推荐了 Scaleway 和 Forgejo；有人指出 Codeberg 是更好的欧洲代码托管选择；营销邮件服务的欧洲替代品更加稀缺；有评论认为完全摆脱美国服务在现实中永远不可能实现，除非投入数千亿欧元和数十年时间。</p><p><small>[other] 技术基础设施选择的个人实践分享，不属于高兴趣或强烈排除的类别</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47085483</guid>
+      <pubDate>Fri, 20 Feb 2026 09:02:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AI 不是同事，而是外骨骼：增强而非替代人类能力</title>
       <link>https://www.kasava.dev/blog/ai-as-exoskeleton</link>
@@ -1041,33 +1058,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47025338</guid>
       <pubDate>Sun, 15 Feb 2026 17:06:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Anthropic 试图隐藏 Claude 的 AI 操作，开发者强烈反对</title>
-      <link>https://www.theregister.com/2026/02/16/anthropic_claude_ai_edits/</link>
-      <description>
-        <![CDATA[<p>Anthropic 在 Claude Code 的最新版本中，将文件操作的详细信息默认折叠隐藏，引发开发者群体的强烈反弹。</p>
-
-<p>2.1.20 版本将原本显示的文件名和行数改为简单的「Read 3 files (ctrl+o to expand)」。虽然可以通过快捷键查看详情，但开发者认为这种设计极不实用。他们需要实时看到 Claude 访问了哪些文件，原因包括：</p>
-
-<ul>
-<li><strong>安全审计</strong>：立即发现 AI 是否访问了错误的文件</li>
-<li><strong>成本控制</strong>：及时中断走偏的操作，避免浪费 token</li>
-<li><strong>上下文理解</strong>：了解 AI 从哪些文件获取上下文，有助于引导对话方向</li>
-</ul>
-
-<p>Anthropic 的产品负责人 Boris Cherny 最初回应称这是「简化界面」的尝试，建议开发者试用几天。但社区反馈非常消极，有用户直言：「这不是简化，是白痴式地删除有价值的信息。」</p>
-
-<p>面对压力，Cherny 修改了详细模式（verbose mode）的行为，让它显示文件路径但不显示完整的思考过程。然而这又引发新问题——那些真正需要完整输出的用户反而失去了原有功能。</p>
-
-<p>在 Hacker News 的讨论中，多位开发者表示「Claude 目前还不能被信任，需要持续监督」，如果看不到操作细节，会话很快就会烧光 token 配额却得不到有效结果。讨论至今，Anthropic 尚未表示会恢复旧的默认行为。</p>
-
-<h3>你知道吗？</h3>
-
-<p>AI 编程工具的「可观测性」（observability）问题正成为行业焦点。与传统软件不同，大语言模型的推理过程具有随机性和不透明性。当 AI 自主操作文件系统时，开发者面临两难：给予足够自主权以提高效率，还是保持细粒度监控以防止错误？这种张力在「让 AI 长时间自主工作」和「需要人类持续干预纠错」两种使用模式之间尤为明显。Claude Code 的这次争议，实际上反映了 AI 辅助编程工具在成熟度、信任度和用户控制权之间尚未找到平衡点。</p><p><small>[interest] 人工智能软件技术，属于全局配置中的感兴趣类别，详细讨论 AI 工具的发展</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47033622</guid>
-      <pubDate>Mon, 16 Feb 2026 11:06:28 GMT</pubDate>
     </item>
   </channel>
 </rss>
