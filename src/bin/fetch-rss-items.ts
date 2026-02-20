@@ -4,17 +4,17 @@
  * 从 RSS feed 中提取新条目（去重）
  */
 
-import { parseArgs } from 'node:util';
-import { parseRssFeed } from 'feedsmith';
-import { init as rsshubInit, request as rsshubRequest } from 'rsshub';
-import { GuidTracker } from '../lib/guid-tracker';
-import { applyPlugins, type RssItem } from '../lib/plugin';
+import { parseArgs } from "node:util";
+import { parseRssFeed } from "feedsmith";
+import { init as rsshubInit, request as rsshubRequest } from "rsshub";
+import { GuidTracker } from "../lib/guid-tracker";
+import { applyPlugins, type RssItem } from "../lib/plugin";
 
 interface ParsedArgs {
   values: {
-    'source-name': string;
-    'max-items': string;
-    'min-items': string;
+    "source-name": string;
+    "max-items": string;
+    "min-items": string;
     output?: string;
     plugins?: string;
   };
@@ -43,9 +43,9 @@ async function parseRssItems(
     guid?: { value?: string };
   }>;
 
-  if (url.startsWith('rsshub://')) {
+  if (url.startsWith("rsshub://")) {
     await rsshubInit();
-    const route = url.replace('rsshub://', '');
+    const route = url.replace("rsshub://", "");
     const rsshubData = await rsshubRequest(route);
     title = (rsshubData as { title?: string }).title;
     rawItems = ((rsshubData as { item?: Array<unknown> }).item ||
@@ -53,7 +53,7 @@ async function parseRssItems(
   } else {
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; RSS Reader/1.0)',
+        "User-Agent": "Mozilla/5.0 (compatible; RSS Reader/1.0)",
       },
       signal: AbortSignal.timeout(10000),
     });
@@ -69,15 +69,15 @@ async function parseRssItems(
   }
 
   const cleanZeroWidth = (text: string): string => {
-    return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, '');
+    return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, "");
   };
 
   const items: RssItem[] = rawItems.map((item) => ({
-    title: cleanZeroWidth(item.title || ''),
-    link: item.link || '',
-    pubDate: item.pubDate || '',
-    description: cleanZeroWidth(item.description || ''),
-    guid: item.guid?.value || item.link || '',
+    title: cleanZeroWidth(item.title || ""),
+    link: item.link || "",
+    pubDate: item.pubDate || "",
+    description: cleanZeroWidth(item.description || ""),
+    guid: item.guid?.value || item.link || "",
   }));
 
   return {
@@ -90,29 +90,29 @@ async function main() {
   const { values, positionals } = parseArgs({
     args: process.argv.slice(2),
     options: {
-      'source-name': { type: 'string' },
-      'max-items': { type: 'string', default: '20' },
-      'min-items': { type: 'string', default: '0' },
-      output: { type: 'string' },
-      plugins: { type: 'string' },
+      "source-name": { type: "string" },
+      "max-items": { type: "string", default: "20" },
+      "min-items": { type: "string", default: "0" },
+      output: { type: "string" },
+      plugins: { type: "string" },
     },
     allowPositionals: true,
   }) as ParsedArgs;
 
   const [url, existingRss] = positionals;
 
-  if (!url || !existingRss || !values['source-name']) {
+  if (!url || !existingRss || !values["source-name"]) {
     console.error(
-      '用法: fetch-rss-items <url> <existing-rss> --source-name <name> [options]',
+      "用法: fetch-rss-items <url> <existing-rss> --source-name <name> [options]",
     );
     process.exit(1);
   }
 
-  const sourceName = values['source-name'];
-  const maxItems = parseInt(values['max-items'], 10);
-  const minItems = parseInt(values['min-items'], 10);
+  const sourceName = values["source-name"];
+  const maxItems = parseInt(values["max-items"], 10);
+  const minItems = parseInt(values["min-items"], 10);
 
-  const historyPath = existingRss.replace(/\.xml$/, '-processed.json');
+  const historyPath = existingRss.replace(/\.xml$/, "-processed.json");
   const tracker = await GuidTracker.create(historyPath);
 
   const { channelTitle, items: allItems } = await parseRssItems(url);
@@ -130,7 +130,7 @@ async function main() {
     }
   }
 
-  const pluginNames = values.plugins ? values.plugins.split(',') : [];
+  const pluginNames = values.plugins ? values.plugins.split(",") : [];
   newItems = await applyPlugins(newItems, pluginNames);
 
   tracker.markProcessed(newItems.map((item) => item.guid));

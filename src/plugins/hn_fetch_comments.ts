@@ -2,7 +2,7 @@
  * Hacker News 评论抓取插件
  */
 
-import type { Plugin, RssItem } from '../lib/plugin';
+import type { Plugin, RssItem } from "../lib/plugin";
 
 interface HNComment {
   author: string;
@@ -23,12 +23,12 @@ interface HNApiResponse {
 }
 
 const plugin: Plugin = {
-  name: 'hn_fetch_comments',
+  name: "hn_fetch_comments",
 
   async processItem(item: RssItem): Promise<RssItem> {
-    const url = item.guid || '';
+    const url = item.guid || "";
 
-    if (!url.includes('news.ycombinator.com')) {
+    if (!url.includes("news.ycombinator.com")) {
       return item;
     }
 
@@ -76,7 +76,7 @@ function extractComments(
 
     if (text) {
       comments.push({
-        author: child.author || '',
+        author: child.author || "",
         text,
         points: child.points || 0,
         depth,
