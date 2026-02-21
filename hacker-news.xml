@@ -2,8 +2,26 @@
 <rss version="2.0">
   <channel>
     <title>Hacker News: Best</title>
-    <description>基于个人兴趣筛选的 undefined 内容</description>
-    <lastBuildDate>Sat, 21 Feb 2026 21:38:55 GMT</lastBuildDate>
+    <link>https://hnrss.org/best</link>
+    <description>基于个人兴趣筛选的 hacker-news 内容</description>
+    <lastBuildDate>Sat, 21 Feb 2026 22:41:29 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ AI uBlock 黑名单：过滤 AI 内容农场的浏览器插件列表</title>
+      <link>https://github.com/alvi-se/ai-ublock-blacklist</link>
+      <description>
+        <![CDATA[<p>这是一个用于 uBlock Origin 的黑名单项目，专门屏蔽那些完全由 AI 生成的垃圾内容网站。作者在浏览网页时手动收集这些站点，你可以一键订阅或手动导入到 uBlock Origin 中。</p>
+
+<p>作者的核心理念很简单：如果我想要 AI 回答问题，我会直接去问 AI。既然我在搜索引擎找答案，说明我想看真人写的内容。真人有经验、观点、创意，能分享更多信息，而 AI 没有。更危险的是，AI 内容农场大量生产文章却无人审核，可能会出现「短路电路板」「执行 rm -rf /」「混合漂白剂和氨水」这类致命建议（千万别这么做！）。</p>
+
+<p>如何识别内容农场？作者总结了一些特征：文章开头结尾充斥华丽但无意义的套话（「在当今快速发展的数字时代」），标题喜欢用「终极指南」「完全指南」之类的套路，缺少外部链接和信源引用，到处都是推广链接，博客短时间发布成千上万篇文章，图片视频很少，日期晚于 2022 年 11 月（ChatGPT 发布时间），内容空洞模糊，SEO 排名异常靠前。</p>
+
+<p>项目还提供了一些 Google Dorks（搜索技巧），可以批量找到 AI 生成的页面。比如搜索「Sure! Here's an article about」（当然！这是一篇关于……的文章），因为那些懒惰的内容农场主直接复制粘贴 AI 输出，连开头的客套话都没删掉。</p>
+
+<p>Hacker News 社区对这个项目反响不错。有人指出这比另一个「巨型 AI 黑名单」更务实，后者会屏蔽所有 AI 相关内容（包括 ChatGPT 官网这种合法工具），而这个项目只针对低质量内容农场。也有人担心这会形成军备竞赛，逼着 AI 内容进化得更难识别。还有人吐槽作者在「常见问题」里写的「我的网站被加入黑名单了！」「哭去吧。」——虽然能理解情绪，但公共黑名单这么维护确实有争议。</p><p><small>[high_interest] 编程工具和 AI 内容过滤技术，深入分析 AI 生成内容的社会影响</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47098582</guid>
+      <pubDate>Sat, 21 Feb 2026 08:10:49 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ OpenScan：开源 3D 扫描解决方案展示高质量扫描作品集</title>
       <link>https://openscan.eu/pages/scan-gallery</link>
@@ -1155,31 +1173,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47049088</guid>
       <pubDate>Tue, 17 Feb 2026 16:12:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 使用 go fix 命令自动现代化 Go 代码</title>
-      <link>https://go.dev/blog/gofix</link>
-      <description>
-        <![CDATA[<p>Go 1.26 带来了完全重写的 <code>go fix</code> 工具，它能够自动识别代码改进机会，帮助开发者使用更现代的语言特性。只需运行 <code>go fix ./...</code>，工具就会静默更新源文件，将老旧代码模式替换为新特性。</p>
-
-<p>这个工具包含数十个「现代化器」（modernizers），例如：</p>
-<ul>
-<li><strong>minmax</strong>：用 Go 1.21 的 <code>min</code>/<code>max</code> 函数替换 if 语句</li>
-<li><strong>rangeint</strong>：用 Go 1.22 的整数遍历语法简化循环</li>
-<li><strong>stringscut</strong>：用 <code>strings.Cut</code> 替换 <code>Index</code> 和切片组合</li>
-<li><strong>newexpr</strong>：利用 Go 1.26 的 <code>new(expr)</code> 特性替换辅助函数</li>
-</ul>
-
-<p>有意思的是，Go 团队开发这些工具的一个重要动机是应对 AI 编程助手的问题。他们发现 LLM 工具倾向于生成训练数据中常见的老旧代码风格，即使明确要求使用新特性也会拒绝或否认其存在。为了让未来的 AI 模型学习到最新的 Go 习惯用法，他们需要先用这些工具更新开源代码库。</p>
-
-<p>工具的设计非常实用：支持 <code>-diff</code> 预览修改、可选择性运行特定分析器、能处理多平台代码。它使用三路合并算法来协调多个修复，并自动删除未使用的导入。虽然偶尔会出现语义冲突需要手动处理，但大多数情况下都能顺利自动完成。</p>
-
-<p>这个工具基于 Go 的分析框架（analysis framework）构建，该框架将分析算法与执行驱动程序分离，使同一个分析器可以在 <code>go vet</code>、gopls、静态检查工具等不同环境中运行。</p>
-
-<p><strong>Hacker News 社区反响热烈</strong>，有 202 个点赞和 40 条评论。讨论焦点集中在 Go 工具链的卓越性、向后兼容性带来的信任感，以及 LLM 生成代码质量平庸的问题。有开发者提到这类工具应该成为新语言的标配，也有人拿 Java 和 Python 的类似工具做对比。</p><p><small>[high_interest] 编程工具和编程效率主题，直接对应全局兴趣配置中的『编程工具』和『编程效率』类别</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47049479</guid>
-      <pubDate>Tue, 17 Feb 2026 16:42:35 GMT</pubDate>
     </item>
   </channel>
 </rss>
