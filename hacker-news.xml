@@ -4,7 +4,62 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 20 Feb 2026 23:42:38 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Feb 2026 02:49:19 GMT</lastBuildDate>
+    <item>
+      <title>维基百科弃用 Archive.today，开始移除归档链接</title>
+      <link>https://arstechnica.com/tech-policy/2026/02/wikipedia-bans-archive-today-after-site-executed-ddos-and-altered-web-captures/</link>
+      <description>
+        <![CDATA[<p>维基百科社群决定全面弃用网页归档服务 Archive.today，原因是该服务不仅被用于发起分布式拒绝服务（DDoS）攻击，还被发现篡改了归档网页的内容。</p>
+
+<p>事件起因于 Archive.today 通过其验证码（CAPTCHA）页面植入恶意代码，对博主 Jani Patokallio 的 Gyrovague 博客发起 DDoS 攻击。此前 Patokallio 曾在 2023 年发表文章探讨 Archive.today 运营者的身份，提到「Denis Petrov」和「Masha Rabinovich」等疑似别名，并推测该服务可能由俄罗斯人运营。Archive.today 运营者使用「Nora」的化名向 Patokallio 发送威胁邮件，要求其删除博文，还威胁要制作 AI 色情内容并将其与 Patokallio 的名字关联。</p>
+
+<p>更严重的是，维基百科编辑在讨论中发现 Archive.today 篡改了多个网页快照的内容——在原本显示「Nora」名字的地方替换成了 Patokallio 的名字。这一发现彻底动摇了社群对该服务可靠性的信任。维基百科编辑表示：「支持 Archive.today 的理由一直是可验证性，但这建立在归档内容准确的前提上。如果这一前提不再成立，那么该网站作为可靠快照来源的理由也就不复存在了。」</p>
+
+<p>维基百科目前约有 40 万个页面包含 69.5 万个 Archive.today 链接（包括 archive.is、archive.ph 等多个域名）。社群已达成共识：立即弃用该服务，尽快将其加入垃圾链接黑名单，并移除所有相关链接。编辑们被建议用互联网档案馆（Internet Archive）、Ghostarchive 或 Megalodon 等替代服务来替换这些链接。</p>
+
+<p>Hacker News 社群对此事讨论热烈，有 295 个赞和 168 条评论。部分用户质疑替代方案的可行性，也有人指出互联网档案馆会应要求删除归档内容，因此可能无法完全替代。还有技术讨论聚焦于 Archive.today 如何绕过付费墙——推测可能通过伪装成 Googlebot 或使用住宅代理和浏览器指纹优化技术实现。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>什么是 DDoS 攻击？</strong>分布式拒绝服务（DDoS）攻击是一种通过大量计算机同时向目标服务器发送请求，使其因无法处理而瘫痪的攻击方式。想象一家餐厅突然涌入成千上万个假顾客，服务员忙于应付这些假订单，真正的客人就无法得到服务。Archive.today 通过在验证码页面植入代码，将访问者的浏览器变成了攻击工具——当用户访问 Archive.today 链接时，他们的浏览器会在不知情的情况下向目标博客发送大量请求，这种手法被称为「浏览器劫持式 DDoS」。</p><p><small>[other] 内容涉及安全和网络服务，不属于高度感兴趣的主题</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47092006</guid>
+      <pubDate>Fri, 20 Feb 2026 18:42:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 关闭 Dependabot：用更智能的方式管理依赖安全</title>
+      <link>https://words.filippo.io/dependabot/</link>
+      <description>
+        <![CDATA[<p>作者 Filippo Valsorda（前 Go 安全团队负责人）认为 Dependabot 是一台「噪音制造机」，它让你感觉在做事，但实际上阻碍了更有价值的工作。他建议关闭 Dependabot，改用两个定时 GitHub Actions：一个运行 govulncheck 扫描真实漏洞，另一个对最新依赖版本运行测试。</p>
+
+<p><strong>问题有多严重？</strong></p>
+
+<p>作者发布了 filippo.io/edwards25519 的安全补丁后，Dependabot 在数千个实际未受影响的仓库中打开了 PR。更离谱的是，Wycheproof 仓库根本没有导入受影响的包，却也收到了警报。原因很简单：Dependabot 只检查模块版本，不关心你是否真的使用了有漏洞的代码。</p>
+
+<img src="https://assets.buttondown.email/images/e10daca1-9504-4b3e-bbf5-71b3262b55a1.png?w=960&fit=max" alt="the Dependabot alert" />
+
+<p><strong>更好的解决方案</strong></p>
+
+<p>govulncheck 是 Go 官方的漏洞扫描工具，它会通过静态分析检查你的代码是否真正调用了有漏洞的符号。如果你依赖了某个模块但没有使用其中的漏洞函数，govulncheck 不会打扰你。作者提供了一个简单的 GitHub Action 配置，每天自动运行 govulncheck，只在发现真实风险时才通知你。</p>
+
+<p><strong>警报疲劳的代价</strong></p>
+
+<p>大量误报不仅浪费时间，还会降低安全性。当你习惯了「升级依赖」作为对警报的条件反射时，就失去了对真实漏洞进行风险评估的能力——生产环境可能需要更新、密钥可能需要轮换、用户可能需要通知。噪音越多，你就越难认真对待真正的安全问题。</p>
+
+<p><strong>依赖更新的另一种思路</strong></p>
+
+<p>作者还建议不要「依赖发布新版本时立即更新」，而是每天对最新依赖版本运行 CI 测试。这样既能快速发现兼容性问题，又不会真正引入可能有恶意代码的新版本。如果测试失败，你有充足时间修复或报告问题；如果需要安全更新，补丁差异也更小。</p>
+
+<img src="https://assets.buttondown.email/images/9bea93bf-77e5-44cf-9ae5-ada68918cf6a.jpeg?w=960&fit=max" alt="A tall embankment wall rises on the left, a river on the right, and a cobblestone road in the middle. Trees are partially submerged on the edge of the river. In the distance, Roman bridge ruins." />
+
+<hr />
+
+<p><strong>Hacker News 讨论热点</strong></p>
+
+<p>评论区普遍支持这一观点。有人立即开始寻找 Rust、Java、JavaScript 等生态的 govulncheck 等效工具（Rust 的 cargo-audit 还不够智能，Java 有 OWASP Dependency Check）。也有开发者担心自动更新的供应链风险，认为「时间是最好的防火墙」——延迟更新能让恶意代码更快暴露。Dependabot 在 2025 年已支持「最小包年龄」配置来缓解这个问题。</p><p><small>[interest] 讨论软件依赖管理和安全性，属于编程效率和开源项目主题</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47094192</guid>
+      <pubDate>Fri, 20 Feb 2026 21:25:41 GMT</pubDate>
+    </item>
     <item>
       <title>Facebook 已经彻底沦陷：AI 生成内容充斥信息流</title>
       <link>https://pilk.website/3/facebook-is-absolutely-cooked</link>
@@ -1043,42 +1098,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47040375</guid>
       <pubDate>Mon, 16 Feb 2026 21:10:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GrapheneOS：摆脱谷歌与苹果的隐私操作系统</title>
-      <link>https://blog.tomaszdunia.pl/grapheneos-eng/</link>
-      <description>
-        <![CDATA[<p>这是一篇关于 GrapheneOS（石墨烯操作系统）的深度体验文章。作者从苹果生态切换到安卓，最终选择了这款以隐私和安全为核心的开源系统。</p><p><strong>什么是 GrapheneOS？</strong></p><p>GrapheneOS 是基于 AOSP（Android 开源项目）开发的定制系统，完全剥离了谷歌服务集成，同时提供先进的内核加固和安全防护。它的独特之处在于可以在沙盒环境中运行谷歌 Play 服务，让用户既能使用常见应用，又不会授予过高的系统权限。目前该系统专注支持谷歌 Pixel 系列手机，利用其 Titan M 安全芯片实现全面数据保护。</p><p><strong>作者的选择与安装</strong></p><p>作者选择了性价比较高的 Pixel 9a（约 450 美元），这款设备提供长达 7 年的支持。安装过程包括解锁引导加载程序、刷入系统镜像、重新锁定引导加载程序等步骤。文章提供了详细的操作指南，强调了验证启动（Verified Boot）功能的重要性——它能检测系统分区的任何修改并阻止读取被篡改的数据。</p><p><strong>使用体验</strong></p><p>作者采用多用户配置方案，通过额外的用户配置文件隔离不同用途的应用。他主要使用开源应用，通过 Obtainium 工具管理更新，并用 Aurora Store 访问 Google Play。部分银行应用因依赖谷歌验证生态可能无法使用，但作者使用硬件 2FA 密钥解决了这个问题。整体而言，Pixel 9a 的续航和性能令人满意，唯一不足是相机质量不如之前的 iPhone 15 Pro 和三星 Galaxy Z Fold 6。</p><p><strong>社区讨论焦点</strong></p><p>Hacker News 上的讨论主要集中在几个方面：部分银行应用因谷歌 Play 完整性 API 而无法使用；有用户因使用 GrapheneOS 被 Uber 误判封号（虽然最终解决）；系统仅支持 Pixel 设备引发争议；以及与 /e/OS 等其他替代系统的对比。总体而言，用户对 GrapheneOS 的安全性和隐私保护给予高度评价，认为它在抵御 OS 层级攻击方面具有显著优势。</p><p><small>[interest] 开源操作系统项目，虽涉及隐私主题但技术创新性较强</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47045612</guid>
-      <pubDate>Tue, 17 Feb 2026 10:02:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Dolphin 模拟器成功模拟 Triforce 街机平台</title>
-      <link>https://dolphin-emu.org/blog/2026/02/16/rise-of-the-triforce/</link>
-      <description>
-        <![CDATA[<p>Dolphin 模拟器团队宣布成功模拟了 Triforce 街机平台，这是一个基于 GameCube（游戏立方）硬件的街机系统。Triforce 诞生于街机产业的衰退期，由世嘉（Sega）、任天堂（Nintendo）和南梦宫（Namco）三家公司合作开发，试图通过使用成本更低的家用机硬件来挽救街机市场。</p>
-
-<img src="https://dolphin-emu.org/m/user/blog/triforce/triforcetop_thumb.avif" alt="triforcetop_thumb.avif" />
-
-<p>Triforce 的核心实际上就是一台标准的 GameCube 主板，搭配两块专用扩展板：AM-Baseboard 负责输入输出，AM-Mediaboard 负责游戏存储。游戏数据通过 GD-ROM 光盘加载到 DIMM 内存中，或直接存储在 NAND 卡带中。系统支持两种 JVS I/O 标准（Type 1 和 Type 3），可连接各种街机控制器和外设。</p>
-
-<img src="https://dolphin-emu.org/m/user/blog/triforce/cube-in-tri-1.avif" alt="First Image" />
-
-<p>Triforce 的一大创新是引入了磁卡（magcard）和 IC 卡存档系统，玩家可以在街机上购买卡片保存进度和解锁内容，并在任何有该游戏的街机上继续游戏。这种设计旨在增强玩家粘性，让街机游戏不再是一次性体验。</p>
-
-<img src="https://dolphin-emu.org/m/user/blog/triforce/magcardfront_thumb.avif" alt="magcardfront_thumb.avif" />
-
-<p>Dolphin 团队通过购买真实的 Triforce 硬件进行研究，使用 Raspberry Pi 和 OpenJVS 软件模拟 JVS I/O 设备，成功让系统运行起来。他们深入分析了启动流程、Segaboot 系统菜单、以及各种游戏的独特硬件需求。现在玩家可以在 Dolphin 模拟器中体验「F-Zero AX」「马里奥赛车街机版」「Virtua Striker 4」等经典街机游戏。</p>
-
-<h3>你知道吗？</h3>
-
-<p>街机产业在 1990 年代经历了从专用高性能硬件到通用家用机硬件的转型。早期街机使用定制芯片，性能远超家用机——1994 年家用机的 3D 图形只有 15 FPS、256×192 分辨率、每秒 6500 个多边形，而同期街机已达到 60 FPS、496×384 分辨率、每秒 30 万个多边形，并支持纹理过滤。但随着 PlayStation 和 Nintendo 64 等第五代家用机的普及，3D 图形技术进入千家万户，街机的技术优势不复存在。为了降低成本，街机厂商开始直接使用家用机硬件改造街机系统，Triforce、Chihiro（基于 Xbox）、System 246（基于 PlayStation 2）都是这一时期的产物。</p>
-
-<p>🤖 由 <a href="https://claude.com/claude-code">Claude Code</a> 生成</p><p><small>[high_interest] 技术创新、游戏模拟器、计算机图形学历史，属于计算机科技和游戏开发领域的深度技术解析</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47040524</guid>
-      <pubDate>Mon, 16 Feb 2026 21:24:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
