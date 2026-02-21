@@ -4,7 +4,88 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 21 Feb 2026 07:06:02 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Feb 2026 13:53:54 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 通过构建可视化工具来学习代码库的独特方法</title>
+      <link>https://jimmyhmiller.com/learn-codebase-visualizer</link>
+      <description>
+        <![CDATA[<p>学习陌生代码库一直是开发者面临的挑战，尤其是面对数十万甚至百万行代码时。作者 Jimmy Miller 分享了一个独特的学习策略：不是试图完整理解整个代码库，而是通过构建可视化工具来逐步掌握其核心机制。</p>
+
+<img src="/images/turbopack-bug-report.png" alt="" />
+
+<p>文章以 Next.js 的 Turbopack（一个 Rust 编写的打包工具）为例，展示了完整的学习过程。作者从一个具体的 bug 入手：TypeScript 枚举（enum）的死代码未被正确删除。通过这个小问题，他展开了一系列探索：</p>
+
+<ul>
+<li><strong>从 bug 开始而非从 main 函数</strong>：大型项目往往有多个入口，从具体问题切入更有针对性。</li>
+<li><strong>理解构建系统</strong>：在调试过程中，作者发现了打包脚本的 bug——一个正则表达式导致 native 目录被过滤掉。</li>
+<li><strong>追踪代码流程</strong>：从 TypeScript 文件的解析（使用 SWC）到最终生成 chunk 文件，逐步理解数据转换过程。</li>
+<li><strong>构建可视化工具</strong>：当日志输出变得难以理解时，作者决定构建一个交互式的图形化界面，实时展示 Turbopack 的内部运行状态。</li>
+</ul>
+
+<img src="/images/turbopack-visualizer-steps.png" alt="" />
+
+<p>这个可视化工具能够显示模块之间的依赖关系、执行步骤的时序，以及异步任务的状态。通过它，作者能够清晰地看到代码在运行时的动态行为，而不仅仅是静态的文本。</p>
+
+<img src="/images/turbopack-visualizer-pure-kept.png" alt="" />
+
+<p>文章强调，学习代码库的目标不是记住每一行代码，而是理解其架构和关键机制，能够提出正确的问题。构建可视化工具是一种主动学习的方式，它迫使你深入理解系统的运行原理，同时产出的工具本身也能帮助团队更好地调试和优化代码。</p>
+
+<h3>你知道吗？</h3>
+<p>文章提到的「tree shaking」（树摇）是现代前端打包工具的核心优化技术。它的名字来源于一个形象的比喻：把代码想象成一棵树，通过「摇晃」这棵树，让没有被使用的「枯叶」（死代码）自然掉落。</p>
+
+<p>这个技术的实现原理基于 ECMAScript 模块（ESM）的静态结构特性。传统的 CommonJS 模块使用动态的 <code>require()</code>，在运行时才确定依赖关系，而 ESM 的 <code>import/export</code> 在编译时就能分析出哪些代码被使用、哪些没有。打包工具会构建一个依赖图，从入口文件开始标记所有「活着」的代码，最终只打包这些被标记的部分。</p>
+
+<p>但 tree shaking 也有局限性：它难以处理有副作用的代码（如修改全局对象）、动态导入，以及某些复杂的 TypeScript 特性（比如文中的 enum 问题）。这也是为什么即使是成熟的工具，在这些边缘场景下仍可能出现 bug。</p><p><small>[high_interest] 代码学习和可视化工具属于编程工具和编程效率主题，对开发者具有高度价值</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47085425</guid>
+      <pubDate>Fri, 20 Feb 2026 08:52:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 开源的 macOS Hacker News 原生客户端（使用 SwiftUI 构建）</title>
+      <link>https://github.com/IronsideXXVI/Hacker-News</link>
+      <description>
+        <![CDATA[<p>开发者开源了一个使用 SwiftUI 构建的 macOS 原生 Hacker News 客户端。这个项目采用 MIT 许可证，提供了现代化的阅读体验，让 HN 真正成为 macOS 上的「一等公民」。</p>
+
+<img src="https://camo.githubusercontent.com/2725bb9cc12e830905e83cc12e82fcc10ea22a7e11a2703689fceb1839d642c4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6d61634f532d31342e302532422d626c7565" alt="macOS" />
+<img src="https://camo.githubusercontent.com/26642aabab732bd6956048b3661ecc3692dde9a010f521dba173a6497ac8c95a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f53776966742d352d6f72616e6765" alt="Swift" />
+<img src="https://camo.githubusercontent.com/f8df3091bbe1149f398a5369b2c39e896766f9f6efba3477c63e9b4aa940ef14/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d677265656e" alt="License" />
+
+<h3>核心特性</h3>
+<ul>
+<li><strong>分栏布局</strong>：左侧边栏浏览故事列表，右侧查看文章和评论，采用 macOS 标准的 NavigationSplitView 模式</li>
+<li><strong>内置广告拦截</strong>：在 WebKit 层面预编译 WKContentRuleList，拦截 14 个主流广告网络（DoubleClick、Google Syndication、Criteo 等），无需额外扩展</li>
+<li><strong>账户登录</strong>：支持完整的 HN 账户功能（登录、注册、密码重置），会话存储在 macOS 钥匙串中，可以点赞、评论和发帖</li>
+<li><strong>本地书签</strong>：保存文章供离线访问，支持独立搜索和筛选</li>
+<li><strong>强大的搜索过滤</strong>：基于 Algolia HN API，可按内容类型、时间范围和热度排序</li>
+<li><strong>阅读进度指示器</strong>：通过 JavaScript 到原生的消息传递，顶部橙色进度条追踪阅读位置</li>
+<li><strong>自动更新</strong>：使用 Sparkle 框架，EdDSA 签名更新包托管在 GitHub Pages</li>
+</ul>
+
+<img src="/IronsideXXVI/Hacker-News/raw/main/.github/screenshots/stories-grid.png" alt="Stories Grid" />
+<img src="/IronsideXXVI/Hacker-News/raw/main/.github/screenshots/article-view.png" alt="Article View" />
+
+<h3>技术亮点</h3>
+<p>整个应用仅 2050 行 Swift 代码（16 个文件）。使用现代的 @Observable 宏（而非旧的 ObservableObject/Published 模式），通过 async/await 和 withThrowingTaskGroup 实现结构化并发。纯 SwiftUI 构建，WKWebView 通过 NSViewRepresentable 封装。</p>
+
+<p>数据来源于两个 API：官方 HN Firebase API（获取单个条目和用户信息）和 Algolia Search API（feed、过滤和搜索功能）。Algolia API 提供了 Firebase API 不支持的日期范围过滤、分页和全文搜索。</p>
+
+<img src="/IronsideXXVI/Hacker-News/raw/main/.github/screenshots/comments-view.png" alt="Comments View" />
+
+<h3>CI/CD 流程</h3>
+<p>开发者坦言，代码签名和公证是整个项目最难的部分。GitHub Actions workflow（467 行）处理完整的 macOS 分发流程：构建归档、使用 Developer ID 签名、向 Apple 公证（带 5 次重试机制处理票据传播延迟）、创建自定义 DMG（通过 AppleScript 定位图标）、签名和公证 DMG、生成 EdDSA Sparkle 签名、创建 GitHub Release，并部署更新的 appcast.xml 到 GitHub Pages。</p>
+
+<img src="/IronsideXXVI/Hacker-News/raw/main/.github/screenshots/discussion-view.png" alt="Discussion View" />
+
+<h3>社区反馈</h3>
+<p>这个项目在 HN 上获得了 227 分和 152 条评论。用户普遍称赞其原生体验和流畅性能，内存占用仅为 Safari 单标签页的 10%。主要功能请求包括：键盘导航（j/k 切换文章）、字体大小调节、关注/屏蔽用户功能、以及更强大的广告拦截列表（建议接入 uBlock Origin 的规则）。开发者在评论区积极响应，并在几小时内就推送了字体调节功能的更新。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>什么是代码签名和公证（Notarization）？</strong></p>
+<p>在 macOS 生态中，开发者如果想在 App Store 之外分发应用，必须经过两道安全关卡。代码签名（Code Signing）使用开发者证书为应用添加数字签名，证明代码未被篡改。公证（Notarization）则是将应用提交给 Apple 进行自动化安全扫描，通过后 Apple 会生成一张「票据」证明应用安全。这两个流程在 CI/CD 环境中配置复杂：需要管理证书、配置文件、密钥链访问权限，还要处理网络超时和异步票据生成的不确定性。这就是为什么开发者说「这是项目中最难的部分」——不是因为代码本身复杂，而是因为需要与 Apple 的基础设施进行精确的编排。</p><p><small>[interest] 开源项目，涉及 SwiftUI 和 macOS 开发，属于开源项目和编程技术范畴</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47088166</guid>
+      <pubDate>Fri, 20 Feb 2026 14:02:05 GMT</pubDate>
+    </item>
     <item>
       <title>维基百科弃用 Archive.today，开始移除归档链接</title>
       <link>https://arstechnica.com/tech-policy/2026/02/wikipedia-bans-archive-today-after-site-executed-ddos-and-altered-web-captures/</link>
@@ -1038,66 +1119,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47034087</guid>
       <pubDate>Mon, 16 Feb 2026 12:15:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 搭建自己的 XMPP 服务器实现去中心化通信</title>
-      <link>https://blog.dmcc.io/journal/xmpp-turn-stun-coturn-prosody/</link>
-      <description>
-        <![CDATA[<p>作者在使用 Signal（信号）一年后意识到，虽然它是很好的即时通信工具，但依然依赖单一公司运营。为了真正掌控自己的数字生活，作者选择搭建自己的 <strong>XMPP（Extensible Messaging and Presence Protocol，可扩展消息和出席协议）</strong>服务器。</p>
-
-<p>XMPP 是一个去中心化的通信协议，诞生于 1999 年，其最大优势在于<strong>联邦式架构</strong>（federated）——你的服务器可以自动与其他 XMPP 服务器互通，用户永远不会被锁定在单一服务商。消息存储在自己的硬件上，协议本身也不会消失。</p>
-
-<h3>核心配置要点</h3>
-
-<p>作者使用 Docker 部署 <strong>Prosody</strong> 服务器，整个搭建过程涵盖：</p>
-
-<ul>
-<li><strong>DNS 配置</strong>：设置 SRV 记录让客户端和其他服务器能找到你的 XMPP 服务器（端口 5222 用于客户端连接，5269 用于服务器间联邦）</li>
-<li><strong>TLS 证书</strong>：使用 Let's Encrypt 配合 Cloudflare DNS 挑战自动获取和续期证书</li>
-<li><strong>模块选择</strong>：启用关键模块如 carbons（多设备消息同步）、smacks（流管理，处理不稳定网络连接）、cloud_notify（移动端推送通知）和 mam（服务器端消息归档）</li>
-<li><strong>端到端加密</strong>：客户端支持 OMEMO 加密（基于 Signal 的加密技术），即使服务器管理员也无法读取消息内容</li>
-<li><strong>文件传输</strong>：通过反向代理（Caddy）暴露 HTTP 文件上传功能，支持图片和文件分享</li>
-<li><strong>语音视频通话</strong>：部署 <strong>coturn</strong> 作为 TURN/STUN 服务器，解决 NAT 穿透问题，实现点对点音视频通话</li>
-</ul>
-
-<h3>客户端生态</h3>
-
-<p>现代 XMPP 客户端体验已大幅改善：iOS 上的 <strong>Monal</strong> 和 Android 上的 <strong>Conversations</strong> 都支持完整的现代特性（OMEMO 加密、文件分享、群聊、音视频通话），用户体验接近主流即时通信应用。</p>
-
-<h3>资源占用与维护</h3>
-
-<p>整个系统只需两个轻量的 Docker 容器（Prosody + coturn）和一个反向代理配置。Hacker News 评论区中有用户表示，ejabberd 或 Prosody 服务器运行近十年几乎不需要维护，资源占用极低，与 Matrix 服务器的 Synapse 形成鲜明对比（后者资源消耗大）。</p>
-
-<h3>为什么选择 XMPP 而非其他方案</h3>
-
-<p>讨论区热议 XMPP 与 Matrix 的取舍。XMPP 的复杂性在于扩展协议（XEPs）——核心协议简单，但需要挑选兼容的扩展，可能导致碎片化。Matrix 则将复杂性放在协议本身（基于 DAG 的事件图），这带来更好的一致性保证，但代价是巨大的资源消耗。</p>
-
-<p>作者最终保留 Signal 用于日常对话，XMPP 服务器作为「不依赖任何单一服务」的备用方案。这种混合策略既享受 Signal 的便利性，又保有联邦式通信的自主权。</p>
-
-<h3>你知道吗？</h3>
-
-<p><strong>XMPP 的前世今生</strong>：XMPP 曾经是互联网即时通信的主流选择，Google Talk 和早期的 Facebook Messenger 都基于 XMPP 协议，用户可以用 Pidgin 等多协议客户端同时管理多个账号。然而，这些大公司后来关闭了 XMPP 接口，转向封闭的私有协议，这也是著名的「拥抱-扩展-消灭」（Embrace, Extend, Extinguish）策略的典型案例。尽管如此，XMPP 并未消亡——WhatsApp 至今仍基于 XMPP 的分支开发，而 XMPP 在开源社区和注重隐私的用户群体中反而越来越活跃。</p><p><small>[high_interest] 技术文章介绍去中心化通信协议 XMPP，属于编程工具和开源项目主题，深入探讨技术细节</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47034801</guid>
-      <pubDate>Mon, 16 Feb 2026 13:39:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ FreeFlow：免费开源的语音转文字工具</title>
-      <link>https://github.com/zachlatta/freeflow</link>
-      <description>
-        <![CDATA[<p>开发者 Zach Latta 在周末开发了一个名为 FreeFlow 的开源应用，作为 Wispr Flow、Superwhisper 和 Monologue 等付费语音转文字工具的免费替代品。这些商业应用通常每月收费约 10 美元，而 FreeFlow 使用免费的 Groq API，让用户只需按住 Fn 键即可将语音实时转换为文本并粘贴到当前输入框。</p>
-
-<img src="/zachlatta/freeflow/raw/main/Resources/demo.gif" alt="FreeFlow demo" width="600" />
-
-<p>FreeFlow 的亮点在于「深度上下文」功能——它能识别当前应用场景，比如在回复邮件时自动识别收件人姓名并确保拼写正确，或在终端中准确处理技术术语。与商业竞品不同，FreeFlow 不设中转服务器,所有数据仅通过 Groq 的转录和大语言模型（LLM）API 处理，提供更好的隐私保护。</p>
-
-<p>在 Hacker News 的讨论中，不少用户推荐了其他本地运行的替代方案。Handy 和 VoiceInk 等工具支持完全离线转录，使用 Nvidia Parakeet 模型可实现极快的响应速度。作者解释称 FreeFlow 最初也计划使用本地模型，但由于需要 LLM 进行后处理，本地方案的处理时间会从不到 1 秒延长至 5-10 秒，影响用户体验，同时也担心电池续航问题。</p>
-
-<h3>你知道吗？</h3>
-<p>语音识别（ASR，Automatic Speech Recognition）技术已经历了几代演进。早期系统依赖隐马尔可夫模型（HMM）和高斯混合模型（GMM），需要大量人工标注的语音数据。2010 年代深度学习革命后，循环神经网络（RNN）和长短期记忆网络（LSTM）显著提升了准确率。OpenAI 的 Whisper 模型则代表了最新一代技术——它是一个基于 Transformer 架构的端到端模型，在 68 万小时多语言数据上训练，无需复杂的预处理管道即可达到商业级准确度。而 Nvidia 的 Parakeet 等新模型进一步优化了推理速度，使得在普通笔记本电脑上实时转录成为现实。这些技术突破让语音转文字工具从专业软件走向日常工具，FreeFlow 这类开源项目正是这一趋势的体现。</p><p><small>[high_interest] 开源语音转文字工具，属于编程工具和人工智能软件技术范畴，显著提升编程效率</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47040375</guid>
-      <pubDate>Mon, 16 Feb 2026 21:10:44 GMT</pubDate>
     </item>
   </channel>
 </rss>
