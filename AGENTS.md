@@ -191,6 +191,8 @@ bash tests/test-personalize-hn.sh -i
 
 ### 手动触发 workflow
 
+**禁止自动触发 workflow**，除非用户明确说明（如「run workflow」「trigger workflow」）。
+
 使用 `gh workflow run` 触发 workflow。
 
 ```bash
