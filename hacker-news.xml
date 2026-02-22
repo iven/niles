@@ -4,7 +4,92 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 22 Feb 2026 18:56:01 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 20:44:58 GMT</lastBuildDate>
+    <item>
+      <title>Cloudflare 2026 年 2 月 20 日服务中断事故报告</title>
+      <link>https://blog.cloudflare.com/cloudflare-outage-february-20-2026/</link>
+      <description>
+        <![CDATA[<p>2026 年 2 月 20 日，Cloudflare 遭遇了一次重大服务中断事故。UTC 时间 17:48，部分使用自带 IP（BYOIP）服务的客户发现他们的 IP 路由通过边界网关协议（BGP）被意外撤销，导致服务在互联网上无法访问。事故持续了 6 小时 7 分钟，共有 1100 个 BYOIP 前缀受到影响，约占总数的 25%。</p>
+
+<p><strong>事故原因</strong></p>
+
+<p>这起事故源于 Cloudflare 在「Code Orange: Fail Small」改进计划中的一次代码变更。工程师试图自动化 BYOIP 前缀删除流程，但在实现过程中，一个定期运行的清理子任务的 API 查询存在 bug。客户端传递了空值的 <code>pending_delete</code> 参数，导致服务器将其解释为「返回所有 BYOIP 前缀」而非「仅返回待删除的前缀」。系统随后开始系统性地删除所有返回的前缀及其相关配置。</p>
+
+<p><strong>为什么恢复如此缓慢</strong></p>
+
+<p>受影响的前缀处于三种不同状态：部分客户只是前缀被撤销，可以通过控制面板自助恢复；部分客户的前缀被撤销且部分服务绑定被删除；还有部分客户的所有服务绑定都被删除，无法通过控制面板恢复。最后这类客户需要工程师手动恢复所有配置到全球边缘节点，耗时最长。</p>
+
+<img src="https://cf-assets.www.cloudflare.com/zkvhlag99gkb/9f2k63fiixI2YXDgsnbGq/4d156aa83c47ff6cecf3bd5c747126ef/unnamed__1_.png" alt="" />
+
+<p><strong>后续改进措施</strong></p>
+
+<p>Cloudflare 承诺将采取多项措施防止类似事故：改进 API 模式标准化，确保参数类型明确；将操作状态与配置状态分离，引入快照机制实现快速回滚；完善测试环境的模拟数据和测试覆盖率。这些改进都是「Code Orange: Fail Small」计划的一部分，该计划要求所有配置变更都必须经过受控的、逐步的、由健康指标监控的部署流程。</p>
+
+<p><strong>社区反应</strong></p>
+
+<p>Hacker News 社区对此事故展开了热烈讨论。一些用户质疑 Cloudflare 近几个月频繁出现故障，认为公司可能在测试方面存在系统性问题。有评论指出，即使 Cloudflare 在事故透明度方面做得比微软等公司好，但企业客户更关心的是 SLA 和实际正常运行时间。也有用户揶揄这次事故恰好是由旨在「小范围失败」的改进计划引发的，可谓「失败得很大」。</p>
+
+<h3>你知道吗？</h3>
+
+<p>边界网关协议（Border Gateway Protocol，BGP）是互联网的核心路由协议，它决定了数据包在互联网上的传输路径。可以把 BGP 想象成互联网的「GPS 系统」：当你访问一个网站时，BGP 告诉数据包应该通过哪些网络节点到达目的地。</p>
+
+<p>BYOIP（Bring Your Own IP）服务允许企业将自己拥有的 IP 地址段迁移到云服务提供商的网络中使用。这对需要保持 IP 地址不变的企业非常重要，比如已经建立了 IP 信誉的邮件服务器，或者需要维护现有防火墙规则的企业。</p>
+
+<p>当 BGP 路由被撤销时，就像地图上的某条路突然消失了——互联网上的其他节点不再知道如何到达这个 IP 地址，导致所有试图访问该地址的连接都会超时失败。这次事故中，1100 个 IP 前缀的路由被撤销，意味着使用这些地址的所有服务都从互联网上「消失」了。</p><p><small>[other] 基础设施相关话题，属于不太关注的类别。技术细节有趣，但不属于高优先级主题。</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47103649</guid>
+      <pubDate>Sat, 21 Feb 2026 19:05:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>刚出生的小鸡也能感知「布巴-奇奇效应」</title>
+      <link>https://www.science.org/doi/10.1126/science.adq7188</link>
+      <description>
+        <![CDATA[<p>《科学》杂志最新研究发现，刚出生的小鸡在没有任何语言或文化训练的情况下，也能表现出「布巴-奇奇效应」（Bouba-Kiki Effect）—— 将圆润的形状与「布巴」这样柔和的音节关联，而将尖锐的形状与「奇奇」这样急促的音节关联。这项跨越 3 亿年进化距离的发现，打破了之前认为这种效应只存在于人类的假设。</p><p>研究团队用出生仅一天的小鸡进行测试，发现它们也能像人类一样做出这种跨感官联想。这意味着视觉形状和听觉信号之间的对应关系，可能是一种更原始的神经机制，而非人类语言系统特有的产物。Hacker News 社区讨论热烈，有人从信号处理角度解释：尖锐的形状对应更高的视觉频率，「奇奇」等爆破音也对应更高的音频频率，所以这种关联可能源于频率特征的相似性。也有人质疑需要用非驯化动物重复实验，因为与人类共同进化数千年可能会带来意想不到的影响。</p><h3>你知道吗？</h3><p>布巴-奇奇效应最早由德国心理学家沃尔夫冈·科勒在 1929 年发现。他给受试者展示两个形状：一个圆润柔和，一个尖锐多角，然后让他们猜哪个叫「布巴」，哪个叫「奇奇」。结果 95% 以上的人都选择用「布巴」指代圆润形状，用「奇奇」指代尖锐形状。这种现象跨越了不同语言和文化，但科学家一直不确定它是人类语言进化的产物，还是更底层的感知机制。现在小鸡实验给出了答案：这可能是脊椎动物大脑处理多感官信息的共同方式，暗示语言的某些结构可能并非完全任意，而是受到这种先天认知倾向的塑造。</p><p><small>[other] 科学前沿研究，有一定兴趣，但不是核心关注的 AI 或编程技术。</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47105198</guid>
+      <pubDate>Sat, 21 Feb 2026 21:51:58 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 日本浮世绘版画搜索引擎：汇聚 22 万幅名作的视觉数据库</title>
+      <link>https://ukiyo-e.org/</link>
+      <description>
+        <![CDATA[<p>Ukiyo-e.org 是一个专注于日本浮世绘（Ukiyo-e）版画的搜索平台，收录了超过 22 万幅来自全球各大博物馆和大学的版画作品。网站最大的特色是「以图搜图」功能：你可以上传一张版画照片，系统会利用计算机视觉技术（基于 TinEye）在多个馆藏中找到相似的作品，并将它们聚类展示。</p>
+
+<img src="https://data.ukiyo-e.org/met/thumbs/DP141256.jpg" alt="Example Print" width="188" height="188" />
+<img src="/images/example-compare.jpg" alt="Example Print Search Results" width="405" height="200" />
+
+<p>网站按历史时期分类，涵盖了从 18 世纪早期的单色版画，到全彩印刷的黄金时代（葛饰北斋、歌川广重等大师），再到明治时期和现代的新版画（Shin Hanga）运动。每个时期都列出了代表性艺术家及其作品数量，比如歌川国贞（Utagawa Kunisada）就有 37,000 多幅作品，而北斋也有 5,400 多幅。</p>
+
+<p>这个项目的创始人是 John Resig——没错，就是那位发明 jQuery 的开发者。他在 Hacker News 的评论中透露，自己在学习日本版画时发现没有一个集中的搜索平台，于是动手构建了这个网站。目前他正在开发一个新的衍生项目，专注于展示在售的版画作品，技术难度更高因为需要实时更新拍卖和交易商数据。</p>
+
+<p>社区讨论中，有人推荐了日本冈山县仓敷市的浮世绘博物馆，也有设计师表示这个网站是他们的灵感宝库。还有人特别点赞川濑巴水（Kawase Hasui）的作品，称他处理树木和植被的方式极具电影感。</p>
+
+<h3>你知道吗？</h3>
+
+<p>「浮世绘」字面意思是「漂浮世界的图画」，指的是江户时代（1603-1868）日本民间流行的木版画艺术。这些画作描绘的多是市井生活、美人、歌舞伎演员和风景名胜，最初只是平民娱乐消费品，却在 19 世纪末传入欧洲后，深刻影响了印象派和后印象派画家（如梵高、莫奈），掀起了一股「日本主义」（Japonisme）艺术潮流。今天，那些当年几文钱的版画，已经成为价值连城的艺术珍品。</p><p><small>[interest] 技术驱动的开源项目，展示了计算机视觉和数据库技术的应用。jQuery 创始人的项目也增加了技术价值。</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47107781</guid>
+      <pubDate>Sun, 22 Feb 2026 03:18:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 回归 FreeBSD：第一部分</title>
+      <link>https://hypha.pub/back-to-freebsd-part-1</link>
+      <description>
+        <![CDATA[<p>作者分享了从 Linux 生态回归 FreeBSD 的经历，重点对比了 FreeBSD Jails 和 Docker 容器技术。</p>
+
+<h3>核心观点</h3>
+<p>文章认为 Linux 容器技术栈（namespaces、cgroups、seccomp）虽然功能强大，但发展出了过度工程化的抽象层。相比之下，FreeBSD Jails 提供了更简洁优雅的隔离方案，早在 Docker 出现前就已成熟。不过 Jails 缺乏像 Docker 那样完善的分发生态系统（公共镜像仓库、Dockerfile、Docker Compose 等），这是其生态不如 Docker 繁荣的主要原因。</p>
+
+<h3>社区讨论亮点</h3>
+<p>Hacker News 社区对此展开了热烈讨论。有开发者指出 Docker 成功的关键不是隔离技术本身，而是极低的上手门槛——你可以在 30 秒内运行一个容器而无需理解底层原理。也有人提到 FreeBSD 的「工程化思维」与 Linux 的「黑客文化」存在本质差异，这体现在各种架构选择上。</p>
+
+<p>一位创业者分享了最近将整个公司基础设施迁移到 FreeBSD 的经历，甚至发现了一个 Gnome XSLT 库中的内存问题（在 Linux 下被容忍，但 FreeBSD 正确地拒绝了）。他表示厌倦了 Linux 生态的各种争议（IBM 终结 CentOS、Xorg 政治风波等），只想要一个安静、稳定、设计正确的系统。</p>
+
+<p>不过也有评论质疑「FreeBSD 更连贯统一」的说法，认为 FreeBSD 同样依赖大量上游依赖，与 Debian 等 Linux 发行版本质上没有太大区别。总体来看，技术选择往往取决于生态投入和实际需求，而非纯粹的架构优劣。</p><p><small>[high_interest] 深入探讨编程工具和基础设施技术，对比容器技术、操作系统设计，属于编程技术核心范畴。</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47108989</guid>
+      <pubDate>Sun, 22 Feb 2026 07:16:27 GMT</pubDate>
+    </item>
     <item>
       <title>注意力媒体不等于社交网络：平台演变的反思</title>
       <link>https://susam.net/attention-media-vs-social-networks.html</link>
@@ -1142,85 +1227,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47049628</guid>
       <pubDate>Tue, 17 Feb 2026 16:53:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>宇宙级唯一标识符：如何设计能用到宇宙热寂的 ID 系统</title>
-      <link>https://jasonfantl.com/posts/Universal-Unique-IDs/</link>
-      <description>
-        <![CDATA[<p>想象一下人类文明扩展到整个星系，甚至更远的未来：每艘飞船、每个机器人、每个芯片都需要一个独一无二的身份标识（ID）。如何确保在宇宙尺度上不会分配重复的 ID？这篇文章深入探讨了从随机方案到确定性方案的各种设计思路。</p>
-
-<p><strong>随机方案：简单但需要足够大</strong></p>
-<p>最简单的方法是生成随机数。虽然理论上可能碰撞，但通过增加位数可以让碰撞概率「趋近于零」。文章计算了几种极限场景：</p>
-<ul>
-<li>如果把整个宇宙变成超级计算机（computronium），在宇宙热寂前执行 10^120 次操作，需要 798 位的 ID</li>
-<li>如果给宇宙中每个原子（约 10^80 个）分配 ID，需要 532 位</li>
-<li>如果把宇宙质量全部转化为 1 克重的纳米机器人，需要 372 位</li>
-<li>当前的 UUID（Universally Unique Identifiers）使用 122 位随机数，可以支持约 2^61 个 ID</li>
-</ul>
-
-<p><strong>确定性方案：完全避免碰撞</strong></p>
-<p>如果要求理论上保证唯一性呢？文章探讨了几种树状分配方案：</p>
-<ul>
-<li><strong>Dewey 方案</strong>：类似图书馆分类法，ID 采用 A.B.C 的层级格式。每个设备从父设备获取 ID，然后自己也能继续分配子 ID。最优情况下 ID 长度对数增长，最坏情况（链式分配）线性增长</li>
-<li><strong>Binary 方案</strong>：将整个 ID 空间可视化为二叉树，每个设备占据树上一个位置，并拥有其下方一列的分配权。这种方案在节点均匀分布时表现更好</li>
-<li><strong>Token 方案</strong>：使用传递式令牌系统，记录（令牌索引，跳数）对。在链式分配场景下也能保持对数增长</li>
-</ul>
-
-<p><strong>实际权衡</strong></p>
-<p>文章通过大量可视化展示了不同方案在各种分配模式下的表现。确定性方案的优势是自带溯源信息，可以追踪 ID 的分配历史；随机方案则更简单灵活，无需中心协调。在 Hacker News 讨论中，有人指出文章忽略了「局部性」：由于光速限制，不同星系的 ID 碰撞实际上不会造成问题，因此实际所需的随机位数可能远小于 800 位。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>生日悖论</strong>是理解 ID 碰撞概率的关键。它指出：在一个有 365 天的年份中，只需要 23 个人就有 50% 的概率出现两人同一天生日。这看似反直觉，因为我们往往会想「我和某人同生日的概率」（1/365），而非「任意两人同生日的概率」。应用到 ID 系统中，如果 ID 空间有 d 个可能值，那么生成 √d 个 ID 时碰撞概率就接近 50%。这就是为什么 UUID 使用 122 位随机数（约 5×10^36 个可能值），却只能安全生成 2^61（约 2×10^18）个 ID 的原因。</p><p><small>[other] 技术讨论偏理论，不属于高优先级兴趣范畴，但内容较有趣</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47064490</guid>
-      <pubDate>Wed, 18 Feb 2026 18:37:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Tailscale 对等中继功能正式发布</title>
-      <link>https://tailscale.com/blog/peer-relays-ga</link>
-      <description>
-        <![CDATA[<p>Tailscale 刚刚宣布对等中继（Peer Relays）功能正式 GA 了。这玩意儿是干嘛的呢？简单说，当你的设备被防火墙或 NAT 挡住、没法直连时，它能让你自己部署高性能的中继节点来转发流量，而不是非得用官方的 DERP 中继服务器。</p>
-
-<img src="https://cdn.sanity.io/images/w77i7m8x/production/bf8d992ed81b5f9fd154996e8765cb0304a2a87b-1536x600.png?w=3840&q=75&fit=clip&auto=format" alt="Dark orange background made of shapes. &#x22;Winter Update Day 3&#x22; in upper-left corner. In foreground, a diagram: &#x22;Your network&#x22; box, with &#x22;Your Resource&#x22; node flowing to &#x22;Peer Relay&#x22; (orange box), then out to a checkmark box, through &#x22;Network Firewall,&#x22; and inside that &#x22;Customer Network,&#x22; containing &#x22;Resource.&#x22;" width="1536" height="600" />
-
-<p>这次正式版带来了几个重磅升级：吞吐量大幅提升，多客户端转发时尤其明显，这得益于更优的接口选择、锁竞争优化和多 UDP socket 分流。对于云环境那些防火墙规则超严的场景，现在支持静态端点了，可以把中继节点放在 AWS 负载均衡器后面，外部客户端也能正常连上。</p>
-
-<img src="https://cdn.sanity.io/images/w77i7m8x/production/54ca4bc979f85ed7d8a2fa2fb1d78b431083dafc-1055x630.svg?w=3840&q=75&fit=clip&auto=format" alt="A flowchart: A Your Network container, with &#x22;Your Resource&#x22; heading into &#x22;Peer relay.&#x22; From there, traffic hits a &#x22;Peer relay ip port exception at the edge of &#x22;Network Firewall,&#x22; and then hits three checkpoints, heading into Resources." width="1055" height="630" />
-
-<p>可观测性也跟上了节奏。现在 <code>tailscale ping</code> 能直接看到中继的使用情况和健康状态，Prometheus 和 Grafana 也能接入新增的指标数据（比如转发包数、字节数），排查问题和监控流量都方便多了。</p>
-
-<img src="https://cdn.sanity.io/images/w77i7m8x/production/25965fd10d29e2384de6d8b1db1bd39cee38dd3d-1055x630.svg?w=3840&q=75&fit=clip&auto=format" alt="Flowchart: A Private Subnet container, with &#x22;AWS Resource&#x22; inside. A two-way flow from AWS to a Peer Relay has a checkmark in the middle. Traffic is also coming to that Peer Relay, inside a Public Subnet box, from a Static Endpoint inside that Public Subnet, which is sending traffic back to a Network load balancer, and then to a Laptop outside the subnet. Another branch from AWS heads through the Public subnet, to &#x22;other Internet-bound traffic,&#x22; into a NAT gateway, and then to Internet." width="1055" height="630" />
-
-<p>部署起来也不复杂，CLI 一条命令就能开启，通过 ACL 控制权限，还能和现有中继基础设施无缝共存。所有套餐都能用，包括免费的个人版。对于那些需要在严苛网络环境下跑 Tailscale 的团队来说，这功能简直是雪中送炭。</p>
-
-<h3>你知道吗？</h3>
-
-<p>Tailscale 的工作原理其实挺有意思的。它基于 WireGuard（一个超轻量的 VPN 协议），尽可能让设备之间建立点对点直连，这样延迟最低、速度最快。但现实世界的网络环境往往不配合：公司防火墙、运营商 NAT、云服务商的网络限制，都可能把直连路径给堵死。</p>
-
-<p>这时候就需要「中继」出马了。Tailscale 官方运营着一套叫 DERP（Detoured Encrypted Routing Protocol）的全球中继服务器网络，当直连失败时，流量会自动绕道这些中继节点。不过有些用户不想依赖官方服务器，或者希望在自己的内网部署高性能中继节点——对等中继功能就是为了满足这个需求诞生的。</p>
-
-<p>对等中继的聪明之处在于：它不用处理复杂的对等发现（peer discovery）和连接建立，这些脏活累活交给 DERP 网络干，中继节点只负责转发数据包。这样既轻量又可靠，就算中继节点挂了，流量会自动降级到官方 DERP 服务器，不会断连。</p><p><small>[high_interest] 「Tailscale 是一个先进的网络编程工具，解决网络连接复杂性，属于编程工具和效率提升类技术」</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47063005</guid>
-      <pubDate>Wed, 18 Feb 2026 16:46:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>Discord 竞争对手 TeamSpeak 因用户大量涌入而服务器过载</title>
-      <link>https://kotaku.com/discord-alternative-teamspeak-age-verification-check-rivals-2000669693</link>
-      <description>
-        <![CDATA[<p>Discord 即将在 3 月向全球推行年龄验证政策，要求用户提供护照或身份证明文件才能解锁全部功能。这一决定引发用户强烈不满，大量用户开始转向替代平台。</p><p><img src="https://kotaku.com/app/uploads/2026/02/teamspeak1.jpg" alt="The TeamSpeak logo and software." width="889" height="500" /></p><p>老牌语音聊天软件 TeamSpeak 成为最大受益者。该公司在 X（推特）上发布消息称，由于新用户激增，尤其是在美国地区,「当前托管容量已达上限」。TeamSpeak 将自己定位为「隐私优先的语音和聊天平台」，采用「去中心化和安全」的架构，这与 Discord 的做法形成鲜明对比。</p><p>用户对 Discord 的不信任并非空穴来风。几个月前，一次第三方软件的数据泄露事件暴露了 7 万用户的年龄验证文件，而这些正是 Discord 曾承诺不会储存的敏感信息。更糟糕的是，Discord 原本计划合作的年龄验证公司 Persona 被曝与硅谷争议人物彼得·蒂尔（Peter Thiel）及其监控公司 Palantir 有关联，这让用户的隐私担忧雪上加霜。</p><p>TeamSpeak 正积极扩充服务器容量以应对用户迁移潮，已新开放法兰克福和多伦多两个区域。该公司还在社交媒体上发布了 Discord 早前嘲讽 TeamSpeak 的旧推文截图，配文「这话现在看起来不太对了」，颇有扬眉吐气的意味。</p><p>虽然这场用户迁移潮的导火索是英国的「在线安全法案」（该法案强制社交平台和成人网站进行年龄验证），但 Discord 选择将这一政策推广到全球的决定，让世界各地的用户都开始重新审视他们对这个平台的信任。</p><h3>你知道吗？</h3><p>年龄验证背后的技术和隐私困境：当前主流的在线年龄验证方案主要有三种：一是上传政府签发的身份证件（如护照、驾照）进行人工或 AI 审核；二是通过面部扫描结合 AI 算法估算年龄；三是使用信用卡等金融信息间接证明成年。每种方案都面临隐私风险——身份证件可能被滥用或泄露，生物识别数据更是不可更改的永久信息，而金融数据则涉及用户的经济状况。更严重的问题是，这些验证通常由第三方公司处理，意味着你的敏感信息会流经多个组织。Palantir 这类公司的介入尤其令人警惕，因为它们本身就是以大数据监控和情报分析为主业的企业。这也解释了为什么即使是成年用户也对这种「保护儿童」的措施心存戒备——在数字时代，隐私一旦交出就很难再要回来。</p><p><small>[other] 「讨论科技平台迁移和隐私政策，虽然涉及技术话题，但不属于强烈或一般感兴趣的核心领域」</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47050376</guid>
-      <pubDate>Tue, 17 Feb 2026 17:40:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Asahi Linux 进展报告：Linux 6.19 版本更新</title>
-      <link>https://asahilinux.org/2026/02/progress-report-6-19/</link>
-      <description>
-        <![CDATA[<p>Asahi Linux 项目迎来五周年，在 6.19 内核中实现了两项重大突破。</p><p><strong>USB-C 显示输出终于来了</strong>：项目组终于完成了社区呼声最高的功能——通过 USB-C 端口进行 DisplayPort Alt Mode 显示输出。这项功能涉及四个硬件模块（DCP、DPXBAR、ATCPHY、ACE）的协同工作，需要对每个模块进行逆向工程并编写 Linux 驱动。目前 fairydust 分支已可在 M1 MacBook Air 上通过 USB-C 转 HDMI 适配器输出显示，但仍存在一些问题：只能使用单个 USB-C 端口、热插拔不完善、部分显示器可能出现色彩或时序问题。这个分支目前主要面向开发者，暂不提供技术支持。</p><p><strong>M3 系列初步支持</strong>：三位新贡献者（Alyssa Milburn、Michael Reeves、Shiz）为 M3 系列机器编写了设备树，目前键盘、触控板、WiFi、NVMe 和 USB3 均已工作。不过距离正式发布还有很长的路要走：M3 的 GPU 架构与 M1/M2 有重大差异（引入硬件加速光线追踪、网格着色器等），目前只能使用软件渲染；DCP 显示控制器需要适配 macOS 14 的新固件接口；扬声器安全、能效调度等完整体验功能尚未实现。</p><p><strong>120Hz 高刷新率</strong>：开发者 Oliver Bestmann 成功让 14 英寸和 16 英寸 MacBook Pro 的内置显示器以 120Hz 刷新率运行。macOS 通过 ProMotion 特性（实际就是可变刷新率）控制高刷，但 DCP 固件要求填写三个时间戳字段才允许超过 60Hz。目前通过填入静态值实现了 120Hz，但这个临时方案阻碍了未来的可变刷新率支持。</p><p><strong>DCP 驱动重构</strong>：为支持 HDR、VRR、硬件亮度控制等高级特性，团队开始重构 DCP 驱动的硬件平面处理代码。重构后的驱动已支持 Y'CbCr 色彩空间直接扫描输出、压缩帧缓冲、多色彩空间自动归一化等功能，为视频直接输出和 HDR 实验奠定了基础。</p><section style="margin-top: 1.5em; padding: 1em; background: #f5f5f5; border-left: 3px solid #4a90e2;"><p><strong>你知道吗？</strong></p><p>DCP（Display Coprocessor，显示协处理器）是苹果自研的显示控制芯片，运行着一个 9MB 的固件 blob。它不仅负责驱动显示器，还能在硬件层面完成多图层合成、色彩空间转换、HDR 处理等复杂任务，大大减轻 GPU 的负担。这种设计让主 CPU 和 GPU 可以在显示内容时进入低功耗状态，这也是 Mac 笔记本续航表现优异的原因之一。</p><p>逆向工程这样一个复杂的封闭系统需要追踪 macOS 与固件的通信协议，理解数千个结构体和函数调用的含义，还要处理不同 macOS 版本之间的接口变化。Asahi 团队通过构建专门的追踪工具，从海量数据中找出规律，最终让 Linux 也能「说 DCP 的语言」。</p></section><p><small>[high_interest] 开源项目技术进展，详细介绍 Linux 在 Apple Silicon 上的硬件支持。涵盖开源技术和科技前沿，属于强烈感兴趣的技术主题。</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47059275</guid>
-      <pubDate>Wed, 18 Feb 2026 10:00:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
