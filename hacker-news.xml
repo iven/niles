@@ -4,7 +4,16 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 22 Feb 2026 14:45:07 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 15:52:19 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Rust 中的「解析而非验证」与类型驱动设计</title>
+      <link>https://www.harudagondi.space/blog/parse-dont-validate-and-type-driven-design-in-rust/</link>
+      <description>
+        <![CDATA[<h2>核心思想</h2><p>这篇文章从 Rust 的角度深入解读了「解析而非验证」（Parse, Don't Validate）这一编程模式。传统的验证方式是在函数内部检查参数是否合法，但这种做法的问题在于：验证代码散布在各处，容易遗漏；验证信息无法通过类型系统传递，导致重复检查。更好的做法是将约束条件编码到类型系统中，在边界处一次性「解析」数据，之后就能安全使用。</p><p>作者用除零问题作为切入点：与其在每次除法前检查除数是否为零，不如创建一个 <code>NonZeroF32</code> 类型，通过构造函数确保其值永远不为零。这样函数签名 <code>fn divide(a: f32, b: NonZeroF32) -> f32</code> 就能清晰表达「除数必须非零」的约束，编译器会强制调用方提供正确类型，彻底消除运行时恐慌的可能。</p><h2>实战应用</h2><p>文章展示了 Rust 标准库中的实际案例。<code>String</code> 本质上就是对 <code>Vec&lt;u8&gt;</code> 的封装，通过 <code>String::from_utf8</code> 这个解析函数确保字节序列是合法的 UTF-8，之后所有字符串操作都不需要重复验证编码正确性。类似地，<code>serde_json</code> 库通过类型系统将 JSON 反序列化为结构化类型，避免了像 Python 那样反复检查字典键是否存在。</p><p>作者还讨论了配置目录列表的例子：如果函数返回 <code>Vec&lt;PathBuf&gt;</code> 并验证非空，调用方仍需通过 <code>match cfg_dirs.first()</code> 处理空列表情况（尽管已经知道不可能为空）。但如果返回 <code>NonEmptyVec&lt;PathBuf&gt;</code>，类型系统保证至少有一个元素，<code>first()</code> 方法可以直接返回引用而无需 <code>Option</code> 包装。</p><h2>两大设计原则</h2><p>文章提炼了类型驱动设计的核心原则：<strong>让非法状态无法表示</strong>。零值对于 <code>NonZeroF32</code> 是非法的，空列表对于 <code>NonEmptyVec</code> 是非法的，这些状态在类型层面就被排除了。相比之下，纯验证方式仍然允许非法状态存在，只是在运行时检测。</p><p>第二个原则是<strong>尽早证明不变量</strong>。文章引用了「霰弹枪解析」（Shotgun Parsing）反模式：验证代码分散在程序各处，容易产生安全漏洞。正确做法是在系统边界处完成解析，将不可信的外部数据转换为类型安全的内部表示，后续流程无需再担心数据合法性。</p><h2>社区讨论</h2><p>Hacker News 评论区展开了有趣的讨论。有人指出依赖类型（Dependent Types）能更进一步：在 Idris 等语言中，可以静态保证数组索引永远不越界，即使数组长度是运行时确定的。也有人质疑浮点数除零的例子不够恰当，因为 IEEE 754 标准定义了除零结果（<code>inf</code>），某些算法（如碰撞检测）正是利用这一特性来消除分支判断。</p><p>另一个争论点是类型爆炸问题。Clojure 社区倾向于「100 个函数操作 1 种数据结构，胜过 10 个函数操作 10 种数据结构」。过度使用 newtype 模式可能导致类型不兼容、接口臃肿。不过也有人指出，Rust 的 trait 系统和泛型能很好地平衡这种矛盾，核心逻辑用强类型保证正确性，边界层用灵活的类型适应变化。</p><h2>你知道吗？</h2><p><strong>Newtype 模式与零成本抽象</strong>：Rust 中的 newtype 模式（用单字段元组结构体包装现有类型）是一种零运行时开销的抽象。编译器会在优化阶段完全擦除这层包装，生成的机器码与直接使用原始类型完全相同。这意味着你可以放心使用 <code>NonZeroF32</code>、<code>NonEmptyVec</code> 等自定义类型来增强类型安全，而不用担心性能损失。这是 Rust「零成本抽象」哲学的典型体现：编译期的类型检查提供强大的安全保障,运行时却没有任何额外代价。相比之下，在动态类型语言中实现类似的安全性往往需要运行时验证，每次函数调用都会产生开销。</p><p><small>[high_interest] 深入探讨编程工具和编程效率的 Rust 语言技术文章，介绍类型系统和类型安全设计模式，属于高度感兴趣的编程技术主题</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47103931</guid>
+      <pubDate>Sat, 21 Feb 2026 19:40:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Taalas 如何将大语言模型「烧」进芯片？</title>
       <link>https://www.anuragk.com/blog/posts/Taalas.html</link>
@@ -1226,25 +1235,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47057824</guid>
       <pubDate>Wed, 18 Feb 2026 06:19:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>谷歌公共证书颁发机构（Google Public CA）服务中断</title>
-      <link>https://status.pki.goog/incidents/5oJEbcU3ZfMfySTSXXd3</link>
-      <description>
-        <![CDATA[<p>2026 年 2 月 17 日，谷歌信任服务（Google Trust Services）的公共证书颁发机构（CA，Certificate Authority）出现了严重故障，导致证书签发服务被迫暂停。这次事故影响了 ACME API（一种自动化证书管理协议）的 TLS 和 SXG 服务，持续了近 10 个小时。</p>
-
-<p>事故发生在太平洋时间 11:18，团队在确认问题后宣布将停止证书签发，并预计修复将在约 8 小时后完成。然而修复推迟了，最终在 21:04 完全恢复服务。许多依赖 Google 公共 CA 自动续期证书的服务可能受到影响。</p>
-
-<p>在 Hacker News 的讨论中，不少用户注意到 YouTube 首页和推荐视频功能同时出现异常——页面显示空白，但订阅和已知视频链接仍然可以正常播放。也有 Heroku 用户报告服务问题。有技术人员推测，谷歌内部系统间通信使用 mTLS（双向 TLS 认证），CA 故障可能导致了连锁反应，影响了多个看似无关的服务。</p>
-
-<h3>你知道吗？</h3>
-
-<p>证书颁发机构（CA）是互联网安全的基石。当你访问 HTTPS 网站时，浏览器需要验证网站的数字证书是否由可信 CA 签发，这就像检查身份证是否由公安局颁发。谷歌公共 CA 是一个免费的证书颁发服务，很多网站用它来自动获取和续期 HTTPS 证书。</p>
-
-<p>ACME 协议（Automated Certificate Management Environment）让这个过程完全自动化——服务器可以自己申请证书、验证域名所有权、续期证书，无需人工干预。Let's Encrypt 就是最著名的 ACME CA，而谷歌的服务是另一个重要选择。当 CA 宕机时，正在过期的证书无法续期，可能导致网站出现「不安全」警告，甚至无法访问。</p><p><small>[other] 匹配不感兴趣关键词「安全」</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47055696</guid>
-      <pubDate>Wed, 18 Feb 2026 01:05:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
