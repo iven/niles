@@ -4,7 +4,46 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 22 Feb 2026 13:54:18 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 14:45:07 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Taalas 如何将大语言模型「烧」进芯片？</title>
+      <link>https://www.anuragk.com/blog/posts/Taalas.html</link>
+      <description>
+        <![CDATA[<p>创业公司 Taalas 最近发布了一款专用集成电路（ASIC）芯片，能以每秒 17,000 tokens 的速度运行 Llama 3.1 8B 模型。听起来很疯狂对吧？这相当于一秒钟写满 30 张 A4 纸。更夸张的是，他们声称这款芯片的拥有成本比 GPU 低 10 倍，耗电量也少 10 倍，速度还快 10 倍。</p>
+
+<p>那么他们是怎么做到的呢？简单说，就是把模型的权重直接「刻」进了硅片里。</p>
+
+<h3>GPU 的效率瓶颈在哪？</h3>
+
+<p>传统 GPU 处理大语言模型时，需要不断在计算核心和显存之间来回搬运数据。比如 Llama 3.1 8B 有 32 层，每生成一个 token，GPU 都要从显存读取第 1 层权重、计算、存回结果，再读第 2 层权重、计算、存回……如此往复 32 次。这种不停的数据搬运就是所谓的「内存带宽瓶颈」或「冯·诺依曼瓶颈」，既慢又耗电。</p>
+
+<img src="../staticFiles/Taalas/GPUInference.png" alt="GPU Inference" />
+
+<h3>Taalas 的解决方案：打破内存墙</h3>
+
+<p>Taalas 直接把 32 层模型按顺序刻在了芯片上。模型权重不再存储在外部显存里，而是变成了物理晶体管。当用户输入到达时，数据直接流过这些晶体管层，从第 1 层一路流到第 32 层，中间不需要反复读写内存。数据就像水流一样，沿着硅片上的「管道」持续流动，直到输出最终的 token。</p>
+
+<img src="../staticFiles/Taalas/TaalasWay.png" alt="The Taalas Way" />
+
+<p>更厉害的是，他们声称发明了一种硬件方案，可以用单个晶体管存储 4 位数据并完成乘法运算。虽然具体细节保密，但这大幅提升了芯片密度。</p>
+
+<h3>那还需要内存吗？</h3>
+
+<p>Taalas 不使用外部显存（DRAM/HBM），但芯片上有少量的 SRAM，用来存储 KV 缓存（对话的临时记忆）和 LoRA 微调适配器。</p>
+
+<h3>为每个模型造一个芯片，成本不是很高吗？</h3>
+
+<p>确实，很多人质疑这一点。但 Taalas 的策略是设计一个通用的基础芯片，包含大量逻辑门和晶体管网格。要适配不同模型，只需要定制顶层的两层掩膜（mask）。虽然从 AI 迭代速度来看两个月还是很慢，但在定制芯片领域，这已经算是「疯狂快」了。</p>
+
+<h3>你知道吗？</h3>
+
+<p><strong>什么是 ASIC？</strong>专用集成电路（Application-Specific Integrated Circuit）是为特定应用定制的芯片，就像游戏卡带或 CD-ROM 一样，只能运行固定的内容，无法重新编程。相比通用处理器（如 CPU、GPU），ASIC 在特定任务上效率极高，但灵活性为零。Taalas 的芯片就像一本「印刷好的书」，只能读取 Llama 3.1 8B 这一个模型，无法更改。不过正因为这种「死板」，它才能达到极致的速度和能效。</p>
+
+<p><strong>为什么 4 位量化很重要？</strong>量化是指用更少的位数表示模型权重，比如从 32 位浮点数压缩到 4 位整数。4 位意味着每个权重只有 16 种可能的值（2^4=16）。这不仅大幅减少了存储空间，还让硬件设计变得更简单——只需要 16 个预计算的乘法器，而不是 256 个（8 位的情况）。这也是 Taalas 能够用单晶体管实现乘法的关键。</p><p><small>[high_interest] AI 硬件创新，深入分析大语言模型芯片技术，属于人工智能软件技术和编程工具主题</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47103661</guid>
+      <pubDate>Sat, 21 Feb 2026 19:07:20 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 中国长鑫存储以半价冲击 DDR4 市场，韩国厂商陷入两难</title>
       <link>https://www.koreaherald.com/article/10679206</link>
@@ -1206,15 +1245,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47055696</guid>
       <pubDate>Wed, 18 Feb 2026 01:05:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 15 年后，微软用 AI「continvoucly morged」了我的图表</title>
-      <link>https://nvie.com/posts/15-years-later/</link>
-      <description>
-        <![CDATA[<p>2010 年，开发者 Vincent Driessen 创作了一张经典的 Git 分支模型图表，并将源文件公开分享。这张图表设计精美，15 年来被广泛用于书籍、演讲、博客和教学材料中。</p><img src="/img/nvie-small@2x.jpg" alt="" width="48" /><p>然而最近，人们发现微软在其官方学习门户（Microsoft Learn）上发布了一张「似曾相识」的图表——显然是用 AI 图像生成器处理原图后的产物，既没有署名也没有链接到原作。</p><img src="/img/microsoft-continvoucly-morged.png" alt="Close-up of the 'continvoucly morged' text" height="300" /><p>AI 生成的版本不仅丑陋，而且充满错误：箭头方向错误、分支颜色混乱、布局凌乱，最搞笑的是出现了「continvoucly morged」这样的乱码文字（原本应该是「continuously merged」）。这个拼写错误迅速成为互联网梗，人们纷纷嘲讽微软的粗制滥造。</p><p>Vincent 表示，他从不介意别人使用他的图表，但微软的做法让人失望：把精心设计的作品扔进 AI 机器「洗掉指纹」，然后发布更差的版本，完全没有审核流程。他担心的是，这次只是因为图表足够知名且 AI 痕迹明显才被发现，未来会有更多不易识别的抄袭内容泛滥。</p><p>Hacker News 社区对此事反应强烈，有 441 点赞和 166 条评论。有人指出这是 AI 图像生成模型「记忆」训练数据的典型表现，也有人批评这是大公司的版权侵权双标——普通人下载论文会被起诉，AI 公司大规模复制却被视为合法。评论区充斥着对「morged」的调侃，有人说「让 morged 成为 2026 年度词汇」。</p><p><strong>你知道吗？</strong></p><p>AI 图像生成模型在处理文字时特别容易出错，因为它们并不真正理解语义，只是学习像素模式。当模型「记忆」了训练数据中的某张图表，再生成时就会出现扭曲的文字和布局——这被称为「AI slop」（AI 垃圾内容）。「continvoucly morged」正是这种现象的完美例证：模型试图复制「continuously merged」，但因为不理解字母的含义，生成了毫无意义的乱码。这也是为什么 AI 生成的图表常常看起来「差不多对」，但细节处处是错误。</p><p><small>[high_interest] 人工智能软件技术相关内容，展示 AI 图像生成的局限性和技术伦理问题</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47057829</guid>
-      <pubDate>Wed, 18 Feb 2026 06:20:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
