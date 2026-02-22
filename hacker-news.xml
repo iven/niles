@@ -4,7 +4,34 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 21 Feb 2026 23:40:43 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 03:17:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 为什么 Claude 桌面应用使用 Electron 而非原生开发？</title>
+      <link>https://www.dbreunig.com/2026/02/21/why-is-claude-an-electron-app.html</link>
+      <description>
+        <![CDATA[<p>有人提出一个尖锐的问题：既然 Anthropic 宣称能用 AI 代理群花 2 万美元实现 Rust 版 C 编译器（虽然只是「差不多」能用），为什么自家的 Claude 桌面应用还在使用 Electron 这种「臃肿缓慢」的跨平台框架？</p>
+
+<p><strong>Electron 的权衡</strong></p>
+
+<p>Electron 允许开发者用 HTML、CSS 和 JavaScript 编写一次代码，就能在 Windows、Mac 和 Linux 上运行。Slack、Discord、VS Code、Teams、Notion 等日常应用都基于 Electron 构建。但代价是：每个应用都捆绑一个完整的 Chromium 引擎，体积动辄数百 MB，响应迟缓，与操作系统集成不佳。</p>
+
+<p><strong>AI 代码生成的「最后一英里」困境</strong></p>
+
+<p>理论上，既然 AI 代码代理能跨语言、跨平台生成代码，开发者应该写一份规格文档和测试套件，让 AI 为每个平台生成原生应用。但现实是：AI 在完成前 90% 的开发任务时表现出色，却在「最后 10%」撞墙——修复边缘案例、处理现实世界的复杂场景时，需要大量人工干预。Anthropic 自己的 Rust 编译器项目就遇到这个问题：新增功能经常破坏现有功能，最终产物「基本不可用」。</p>
+
+<p>更糟的是，支持三个平台意味着 bug 和维护成本增加三倍。虽然 Electron 也有平台特定问题，但共同的框架大幅降低了复杂度。</p>
+
+<p><strong>社区反应</strong></p>
+
+<p>Hacker News 评论区充满讽刺：「能写 C 编译器但做不出一个终端界面（TUI）？太可悲了」「如果软件工程已被 AI 解决，为什么 Anthropic 还在招聘工程师？」也有人指出，问题不在 Electron 本身——VS Code 和 Obsidian 就是高性能的 Electron 应用，Claude 应用本身做得不好才是根本原因。还有用户吐槽 Claude 桌面版连登录都有问题，更别提承诺的「编程未来」。</p>
+
+<p><strong>结论</strong></p>
+
+<p>AI 代码生成工具确实令人惊艳，但在开发的「最后一英里」和持续维护方面，人力成本依然高昂。至少目前，Electron 的「一次开发，到处运行」仍然是务实的选择。</p><p><small>[interest] 探讨 AI 软件开发、跨平台技术和编程工具，属于人工智能软件技术主题</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47104973</guid>
+      <pubDate>Sat, 21 Feb 2026 21:28:13 GMT</pubDate>
+    </item>
     <item>
       <title>警惕 Bluesky 的中心化陷阱</title>
       <link>https://kevinak.se/blog/be-wary-of-bluesky</link>
@@ -1166,32 +1193,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47050067</guid>
       <pubDate>Tue, 17 Feb 2026 17:21:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 开源智能手表系统 AsteroidOS 2.0 发布：让旧手表重获新生</title>
-      <link>https://asteroidos.org/news/2-0-release/index.html</link>
-      <description>
-        <![CDATA[<p>在沉寂 8 年后，开源智能手表操作系统 AsteroidOS（小行星操作系统）终于发布了正式的 2.0 稳定版本。这个基于 Linux 的系统致力于让老旧智能手表硬件延续生命，而不是沦为电子垃圾。</p>
-
-<p>AsteroidOS 2.0 带来了一系列重量级功能更新：息屏显示（Always-on Display）、手腕翻转唤醒、掌心息屏、心率监测、计步器、音乐音量控制、指南针支持，以及蓝牙 HID 和音频支持。用户界面也经过全面改进，新增 7 种应用启动器样式、可高度自定义的快捷面板、床头时钟模式，以及性能显著提升的表盘库。</p>
-
-<img src="/public/img/news-img/2-0-aod.jpg" alt="Always on Display" width="140" />
-<img src="/public/img/news-img/2-0-quickpanel.jpg" alt="Quick Panel" width="140" />
-
-<p>该系统现已支持 30 款智能手表，包括 Fossil Gen 4-6 系列、华为 Watch 和 Watch 2、Moto 360 二代、TicWatch 全系列、OPPO Watch 等。其中三星 Gear 2 和华硕 ZenWatch 2 已实现主线 Linux 内核支持，无需使用 libhybris 兼容层。</p>
-
-<p>这个项目的核心理念令人敬佩：零遥测、无云端、完全本地控制。团队表示他们没有用户统计数据，唯一的反馈信号就是偶尔有人在社区聊天室说「嘿，我的 2014 年手表又能用了」——这就足够了。对他们来说，在手腕上运行 Linux 本身就是一个值得探索的乐园。</p>
-
-<img src="/public/img/news-img/2-0-nightstand.jpg" alt="Nightstand" width="140" />
-<img src="/public/img/news-img/2-0-diamonds.jpg" alt="Diamonds app" width="140" />
-
-<p>配套的同步客户端也得到改进，包括 Android 平台的 AsteroidOS Sync 和 Gadgetbridge、SailfishOS 和 Linux 桌面的 Amazfish，以及 Ubuntu Touch 的 Telescope。社区还创建了非官方表盘仓库，包含各种有趣的设计，甚至有人展示了在手表上运行 Doom 和 Super Tux Kart 游戏。</p>
-
-<h3>你知道吗？</h3>
-<p>智能手表的核心芯片（SoC，System on Chip）其实十年来变化不大。AsteroidOS 目前主要使用 libhybris 技术来适配这些设备——这是一个巧妙的兼容层，能让 Linux 系统调用 Android 专有的硬件驱动程序。不过团队正在推进主线内核（mainline kernel）支持，这意味着未来可以直接使用官方 Linux 内核，而无需依赖厂商的旧版驱动。三星 Gear 2 已经成为首款实现这一目标的设备，可以用主线内核启动并正常使用。这种技术路线不仅更加开放透明，也能让这些设备获得更长期的安全更新支持。</p><p><small>[interest] 「开源项目，但不直接与编程工具相关，属于科技创新领域」</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47051852</guid>
-      <pubDate>Tue, 17 Feb 2026 19:24:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
