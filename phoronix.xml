@@ -4,7 +4,35 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 22 Feb 2026 11:37:09 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 13:56:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐ AMD Zen 6 性能监控支持合并到 Linux 7.0</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-Perf-Tools</link>
+      <description>
+        <![CDATA[<p>在 Linux 7.0 合并窗口即将关闭之际，内核开发团队合并了针对 AMD 即将推出的 Zen 6 处理器的性能监控工具支持。这次更新为 Linux 的 perf 工具增加了 Zen 6 架构的事件和指标处理能力，让开发者能够在新平台上进行性能分析。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=amd_zen6_perf" alt="AMD Zen 6" />
+
+<p>新合并的代码支持 Zen 6（AMD Family 1Ah Model 50h-57h）的各类性能监控计数器，涵盖分支预测、L1/L2 缓存活动、TLB 活动等核心事件，以及 UMC 命令活动等非核心事件。这是常规的产品上市前准备工作，确保开发者和系统管理员在 Zen 6 平台上线后能够立即使用 perf 工具进行性能分析和优化。此外，这次更新还修复了 Zen 5 的 MAC 分配事件问题。</p>
+
+<p>除了 Zen 6 支持，Linux 7.0 的 perf 工具还引入了新的「perf sched stats」工具，用于基于调度统计计数器的记录、报告和对比工作流，以及数据类型分析的修复和改进。</p>
+
+<h3>你知道吗？</h3>
+
+<p>性能监控计数器（Performance Monitor Counters）是现代处理器内置的硬件计数器，可以在极低开销下追踪各种微架构事件，如缓存命中率、分支预测准确性、指令执行周期等。Linux 的 perf 工具通过读取这些计数器，帮助开发者定位性能瓶颈。不同 CPU 架构的计数器事件各不相同，因此每代新处理器发布前，内核都需要添加对应的事件定义。对于服务器和高性能计算场景，这些工具是优化应用性能的关键武器。</p><p><small>[interest] 性能工具和 Linux 内核技术，属于编程和开源项目主题</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-Perf-Tools</guid>
+      <pubDate>Sun, 22 Feb 2026 11:50:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Valve 开发者修复老旧 AMD 显卡在 Linux 上的问题</title>
+      <link>https://www.phoronix.com/news/Hawaii-Macs-AMDGPU-DC-Fix</link>
+      <description>
+        <![CDATA[<p>来自 Valve 的开源图形驱动开发者 Timur Kristóf 最近解决了一个困扰用户一年多的老问题：搭载 Radeon R9 M380 显卡的老款 iMac 在 Linux 系统下无法正常使用 AMDGPU 驱动。</p><p>问题的表现是，加载 AMDGPU 驱动后，系统启动时会报错，显示「UVD not responding」等内核错误信息。而如果使用旧版 Radeon 驱动则一切正常。这个 bug 最早在 2024 年 6 月被报告，但一直没有得到解决。</p><img src="//www.phoronix.net/image.php?id=2026&image=imac_171_sml" alt="Apple iMac 17,1" /><p>直到最近，Timur 拿到了一台这样的老 iMac 实机进行调试。他发现禁用内存时钟动态电源管理（Memory Clock DPM）后，GPU 就能正常工作。经过深入排查，他发现根本原因是 AMDGPU 驱动没有实现显示时钟的电压依赖管理，导致默认电压不足以驱动显示控制器。</p><p>Timur 已经在 Git 分支中提交了初步修复补丁，包括在有问题的 Sea Islands GPU 上禁用 MCLK DPM，并在 DPM 禁用时强制使用最高内存时钟。这些补丁将提交到邮件列表审查，有望不久后合并到主线。这意味着那些十年前的苹果 iMac（搭载 GCN 1.1 时代的显卡）终于能在 Linux 上愉快地使用 AMDGPU 驱动了。</p><section><h3>你知道吗？</h3><p>显卡驱动中的「动态电源管理（Dynamic Power Management，DPM）」是一种节能技术，它会根据负载动态调整 GPU 的时钟频率和电压。比如浏览网页时降低频率省电，玩游戏时提高频率保证性能。但这项技术需要硬件和驱动的精确配合——驱动必须知道在不同时钟频率下应该提供多少电压。如果电压设置不当，要么浪费电力（电压过高），要么导致硬件工作不稳定甚至崩溃（电压过低）。这次 iMac 的问题就是后者：驱动没有正确计算显示控制器需要的电压，导致默认电压不够用，所以系统启动就报错了。</p></section><p><small>[other] Linux 硬件和显卡驱动技术细节，不在用户主要关注范围</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Hawaii-Macs-AMDGPU-DC-Fix</guid>
+      <pubDate>Sun, 22 Feb 2026 11:33:39 GMT</pubDate>
+    </item>
     <item>
       <title>微软 Hyper-V 在 Linux 7.0 中迎来多项实用改进</title>
       <link>https://www.phoronix.com/news/Hyper-V-Linux-7.0-Improvements</link>
@@ -612,37 +640,6 @@
       </description>
       <guid>https://www.phoronix.com/news/Linux-7.0-Driver-Core</guid>
       <pubDate>Mon, 16 Feb 2026 17:39:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 6.19.2 及多个 LTS 内核发布，修复系统无法启动问题</title>
-      <link>https://www.phoronix.com/news/Linux-6.19.2-Released</link>
-      <description>
-        <![CDATA[<p>Linux 6.19.1 今天早些时候刚刚发布，随即就被 Linux 6.19.2 取代了。原因是第一个点版本带来了严重问题——部分系统无法正常启动。由于这段有问题的代码也被合并到了长期支持（LTS）分支，因此多个 LTS 内核也紧急发布了新版本。</p><p>问题的根源在于 Linux 6.19.1 回迁了一个核心驱动变更，用于强制 driver_match_device() 函数使用 device_lock。然而这个改动意外破坏了许多用户的系统启动能力。Linux 6.19.2 的唯一代码变更就是回退这个有问题的补丁。</p><p>内核维护者 Greg Kroah-Hartman 在回退补丁中解释说，这个改动导致了部分系统的启动回退问题，因为相关驱动的所有「修复」还没有正确回迁。只有当这些修复全部完成后，这个补丁才能重新应用——而且考虑到潜在的爆炸性影响，可能需要等待几个候选版本（RC releases）之后再说。</p><p>修改几行代码就恢复了受影响用户的启动能力。除了 Linux 6.19.2，Linux 6.18.12、Linux 6.12.73 和 Linux 6.6.126 也都发布了，同样只是回退了这段导致启动问题的代码。</p><h3>你知道吗？</h3><p>Linux 内核的版本号遵循特定规则：6.19 是主版本，后面的数字是点版本（稳定更新）。LTS（Long Term Support）内核是长期支持版本，通常会维护 2-6 年，企业和稳定性需求高的用户会选择这些版本。普通的稳定版本只维护到下一个主版本发布。device_lock 是内核中的设备锁机制，用于保护设备状态避免并发访问冲突。driver_match_device() 是驱动程序与设备匹配的核心函数，这个函数出问题会直接影响硬件驱动的加载，导致系统无法正常启动。</p><p><small>[high_interest] 重要的 Linux 内核发行版更新，属于开源项目和科学前沿主题，涉及关键系统底层技术</small></p>]]>
-      </description>
-      <guid>https://www.phoronix.com/news/Linux-6.19.2-Released</guid>
-      <pubDate>Mon, 16 Feb 2026 16:29:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 7.0 将旧式 CardBus 代码隔离，避免在现代系统中无谓构建</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-PCI</link>
-      <description>
-        <![CDATA[<p>Linux 7.0 的 PCI 子系统迎来了一系列代码优化，其中最值得关注的是对已过时的 CardBus 技术的处理方式。开发者将 CardBus 设置代码独立到单独的文件（setup-cardbus.c）中，并且只在显式启用 CONFIG_CARDBUS 配置项时才构建这部分代码。</p>
-
-<img src="//www.phoronix.net/image.php?id=405&image=ecs_pf5e_dge_sml" alt="PCIe slots" />
-
-<p>CardBus 是一种早期的笔记本扩展接口标准，现在已经被 PCIe 和其他现代接口完全取代。虽然 Linux 7.0 仍然保留对它的支持，但通过这次重构，现代系统在编译内核时可以彻底跳过这部分冗余代码，减少内核体积和潜在的维护负担。</p>
-
-<p>除了 CardBus 的改进，本次更新还包含了几项电源管理优化：修复了从 D3hot 状态转换到 D3cold 时的冗余延迟问题，并确保设备在完全初始化之前不会进入运行时挂起状态，避免保存不完整的设备配置。此外，Linux 7.0 还为 PCIe M.2 连接器引入了电源排序支持，并修复了点对点 DMA（P2PDMA）中移除设备时可能导致的挂起问题。</p>
-
-<p>新增的 ASpeed 根复合体（root complex）设备树驱动也值得一提，这为特定硬件平台提供了更好的 PCI 支持。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>什么是 CardBus？</strong>CardBus 是 1995 年推出的 32 位 PC Card（PCMCIA）标准，主要用于笔记本电脑的扩展槽。它支持 33 MHz 总线频率和 132 MB/s 的带宽，在当时是连接网卡、调制解调器和存储设备的主流方式。但随着 USB 2.0 和 ExpressCard（基于 PCIe）的普及，CardBus 在 2000 年代中期逐渐退出历史舞台。现代笔记本已经完全看不到这种厚厚的卡槽了。</p>
-
-<p><strong>什么是 PCI 电源状态？</strong>PCI 设备有多种电源状态：D0（全功率运行）、D1 和 D2（中间状态，很少使用）、D3hot（设备关闭但仍供电，可快速唤醒）和 D3cold（完全断电）。从 D3hot 到 D3cold 的转换涉及硬件电源控制，合理管理这些状态转换可以在省电和响应速度之间取得平衡。Linux 7.0 的优化避免了设备已经处于 D3hot 状态时的重复延迟，提升了电源管理效率。</p><p><small>[high_interest] Linux 内核开发与系统级优化，属于开源项目和编程技术范畴</small></p>]]>
-      </description>
-      <guid>https://www.phoronix.com/news/Linux-7.0-PCI</guid>
-      <pubDate>Mon, 16 Feb 2026 14:16:01 GMT</pubDate>
     </item>
   </channel>
 </rss>

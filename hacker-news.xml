@@ -4,7 +4,24 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 22 Feb 2026 11:37:16 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 13:54:18 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 中国长鑫存储以半价冲击 DDR4 市场，韩国厂商陷入两难</title>
+      <link>https://www.koreaherald.com/article/10679206</link>
+      <description>
+        <![CDATA[<p>中国存储芯片制造商长鑫存储（CXMT）正在以约为市场价格一半的价格销售 DDR4 芯片，成功吸引了戴尔、惠普、宏碁和华硕等主要 PC 制造商的关注。这一策略恰好抓住了市场的痛点：三星和 SK 海力士为了追逐利润更高的第六代高带宽内存（HBM），宣布将在今年底停止 DDR4 生产，导致传统 DDR4 芯片价格在一年内从 1.35 美元暴涨至 11.50 美元——涨幅近 10 倍。</p>
+
+<p>这种价格变化充分展现了市场机制的运作：当现有供应商过度聚焦于高端产品而忽略传统市场时，新进入者便能够填补空白。虽然长鑫存储的全球市场份额仍处于个位数，但在供应紧张的环境下，它正以「低于市场价但高于成本」的定价策略迅速扩大产能，既获得了收入又赢得了市场认可。</p>
+
+<p>Hacker News 社区的讨论揭示了更深层次的商业哲学冲突：西方企业倾向于关注短期季度利润，而中国企业（得益于国家支持）能够进行长期的战略性投资。评论者指出，韩国厂商虽然产能已售罄，但选择提价而非扩产，这种短视行为正在为竞争对手创造机会——就像当年电动汽车领域发生的故事一样。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>DDR4 vs DDR5：为什么延迟依然重要</strong></p>
+<p>虽然 DDR5 提供了更高的带宽（每通道约 50 GB/s），但其延迟表现最初不如 DDR4。在计算机内存中，「延迟」指的是从发出读取请求到获得数据的时间（通常为 80-120 纳秒）。对于需要频繁随机访问小数据块的应用（如数据库、实时系统），低延迟比高带宽更重要。这就像在城市交通中，有时候走小路（低延迟）比走高速公路（高带宽）更快到达目的地。这也解释了为什么 DDR4 市场需求依然旺盛——它不仅仅是「旧技术」，而是在某些场景下的最优选择。</p><p><small>[interest] 科技行业国际新闻，涉及半导体产业竞争和技术演进，属于『国内/国际必读新闻』分类</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47101171</guid>
+      <pubDate>Sat, 21 Feb 2026 14:32:16 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Show HN: Llama 3.1 70B on a single RTX 3090 via NVMe-to-GPU bypassing the CPU</title>
       <link>https://github.com/xaskasdf/ntransformer</link>
@@ -1198,24 +1215,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47057829</guid>
       <pubDate>Wed, 18 Feb 2026 06:20:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ BarraCUDA：面向 AMD GPU 的开源 CUDA 编译器</title>
-      <link>https://github.com/Zaneham/BarraCUDA</link>
-      <description>
-        <![CDATA[<p>一位新西兰开发者用 15,000 行 C99 代码写了一个开源 CUDA 编译器 BarraCUDA，可以将 CUDA 代码直接编译成 AMD RDNA 3（GFX11）GPU 的机器码。这个项目最大的特点是完全不依赖 LLVM，从词法分析、语法解析、中间表示（IR）到指令选择、寄存器分配、二进制编码，全部自己实现。</p>
-
-<p>项目支持大部分常用的 CUDA 特性：核函数（<code>__global__</code>）、共享内存（<code>__shared__</code>）、线程同步（<code>__syncthreads()</code>）、原子操作（atomicAdd/Sub/Min/Max 等）、warp 级操作（<code>__shfl_sync</code>、<code>__ballot_sync</code> 等）、向量类型（float2/3/4）、半精度浮点、协作组（cooperative groups）等。编译流程清晰：源码 → 预处理器 → 词法分析 → 语法分析 → 语义分析 → BIR（BarraCUDA IR）→ mem2reg 优化 → 指令选择 → 寄存器分配 → 二进制编码 → 生成 ELF 格式的 .hsaco 文件。</p>
-
-<p>作者在 README 中坦率地列出了当前的局限性：不支持 <code>unsigned</code> 作为独立类型、复合赋值运算符（<code>+=</code>、<code>-=</code> 等）、<code>const</code> 修饰符、<code>__constant__</code> 内存、二维共享内存数组声明等。但这些都不是架构性问题，只是「还没来得及做」。项目包含 14 个测试文件，覆盖 35+ 个核函数，生成的机器码已经通过 <code>llvm-objdump</code> 验证，解码成功率 100%。</p>
-
-<p>未来计划包括：短期内补全缺失的语法特性，中期加入指令调度、更好的寄存器分配、常量折叠等优化，长期支持更多架构（Tenstorrent、Intel Arc、RISC-V 向量扩展等）。社区反响热烈，讨论集中在项目的实用性（有人推荐 ZLUDA 作为更实用的替代方案）、商标风险（项目名包含「CUDA」可能面临法律问题）、以及对 AMD 软件生态的影响。</p>
-
-<h3>你知道吗？</h3>
-<p>编译器通常会使用 LLVM 这样的成熟工具链来处理代码生成和优化，因为它已经支持几十种不同的硬件架构。但 BarraCUDA 选择了一条更艰难的路：手写 1,788 行指令选择代码和 1,735 行二进制编码逻辑，直接操作 AMD GPU 的机器指令。这就像放着现成的自动变速箱不用，非要自己拆解发动机重新组装手动挡——费时费力，但能精确控制每一个细节。作者在 README 中吐槽「AMD 的 ISA 手册有 500 页，而且至少有两处自相矛盾」，展示了底层硬件编程的真实痛苦。这种「重新发明轮子」的精神，既是极客文化的体现，也为理解 GPU 编译器的工作原理提供了极佳的学习材料。</p><p><small>[high_interest] 开源编程工具，深入探讨编译器技术，属于编程工具和开源项目主题</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47052941</guid>
-      <pubDate>Tue, 17 Feb 2026 20:35:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
