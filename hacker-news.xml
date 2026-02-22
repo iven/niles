@@ -4,7 +4,16 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 22 Feb 2026 05:03:06 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 08:53:19 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Show HN: Llama 3.1 70B on a single RTX 3090 via NVMe-to-GPU bypassing the CPU</title>
+      <link>https://github.com/xaskasdf/ntransformer</link>
+      <description>
+        <![CDATA[<p>开发者 xaskasdf 在周末业余时间完成了一个有趣的实验：让 GPU 绕过 CPU 和内存，直接从 NVMe 固态硬盘读取数据来运行大型语言模型（LLM）。这个名为 NTransformer 的项目成功在单张 RTX 3090（24GB 显存）上运行了 Llama 3.1 70B 模型。</p><h3>核心技术：三层缓存架构</h3><p>NTransformer 采用了「三层自适应缓存」策略，根据硬件自动分配资源：</p><ul><li><strong>第一层（显存常驻）</strong>：将部分模型层永久存放在显存中，零延迟访问</li><li><strong>第二层（锁页内存）</strong>：通过 PCIe 总线从内存传输到 GPU，使用双缓冲技术与计算并行</li><li><strong>第三层（NVMe/mmap）</strong>：从固态硬盘流式加载，可选用 gpu-nvme-direct 库实现 GPU 直接访问 NVMe，完全绕过 CPU</li></ul><p>这种设计让项目在 48GB 内存的消费级硬件上实现了 83 倍于传统 mmap 方式的性能提升。运行 70B Q4_K_M 量化模型可达到 0.3 token/秒，虽然不适合实时对话，但对批处理任务已经足够实用。</p><h3>性能优化技巧</h3><p>项目还实现了两个巧妙的加速技术：</p><ul><li><strong>层跳过</strong>：通过余弦相似度校准，在推理时跳过 80 层中的 20 层冗余层，在阈值 0.98 下几乎不影响质量</li><li><strong>自推测解码</strong>：将显存常驻层作为草稿模型，无需额外加载模型即可加速生成</li></ul><h3>社区反响</h3><p>Hacker News 社区对这个项目反应热烈。有评论指出 0.2 token/秒的速度对交互式使用来说太慢，建议用量化的 8B 或 13B 模型获得更好的延迟-质量平衡。也有人认为这对批量处理任务（如自动化内容生成）很有价值，可以显著降低 API 调用成本。</p><p>技术讨论集中在性能瓶颈上：PCIe Gen3 x8 的带宽限制在 6.5 GB/s，如果升级到 Gen5 NVMe（12+ GB/s），理论上可将吞吐量翻倍。也有人建议将 M.2 插槽用 DRAM 代替 SSD，类似英特尔已停产的 Optane 技术，可能带来更好效果。</p><h3>技术要求</h3><p>运行该项目需要对系统进行底层修改，包括禁用 IOMMU、给 NVIDIA 驱动打补丁以支持 6.12+ 内核、将 NVMe 设备绑定到 VFIO 等。项目提供了自动化脚本处理这些配置，但作者明确警告：<strong>切勿在启动盘上使用</strong>，错误配置可能导致数据丢失或硬件故障。</p><p>项目采用 BSD-2-Clause 许可证开源，除 CUDA Toolkit 外无任何外部依赖，甚至自己实现了 GEMM 内核而不依赖 cuBLAS。</p><p><small>[high_interest] 项目涉及新 AI 模型实现（Llama 3.1）、编程工具（NVMe 直接加载到 GPU 的创新技术）、编程效率（通过高效内存管理提升模型推理性能）。属于用户高度感兴趣的技术创新领域。</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47104667</guid>
+      <pubDate>Sat, 21 Feb 2026 20:57:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 如何使用 Claude Code：计划与执行的分离</title>
       <link>https://boristane.com/blog/how-i-use-claude-code/</link>
@@ -1207,24 +1216,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47052941</guid>
       <pubDate>Tue, 17 Feb 2026 20:35:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 数千位 CEO 承认：AI 对就业和生产力毫无影响</title>
-      <link>https://fortune.com/2026/02/17/ai-productivity-paradox-ceo-study-robert-solow-information-technology-age/</link>
-      <description>
-        <![CDATA[<p>一项针对 6000 名企业高管的大规模调研揭示了一个尴尬的事实：尽管标普 500 公司中有 374 家在财报会议上提到 AI 并表示「完全积极」，但近 90% 的企业承认 AI 在过去三年对就业或生产力「毫无影响」。</p>
-
-<p>这让经济学家们想起了 1987 年诺贝尔奖得主罗伯特·索洛（Robert Solow）的著名观察：「你能在任何地方看到计算机时代，除了生产力统计数据里。」当时微处理器、集成电路等新技术并未带来预期的生产力提升，反而让生产力增长从 1973 年前的 2.9% 跌至 1.1%——计算机生成了过多信息，打印出成堆的报告，反而成为效率杀手。</p>
-
-<p>如今历史正在重演。调研显示，虽然三分之二的高管报告使用了 AI，但每周使用时间仅约 1.5 小时，25% 的受访者根本不在工作中使用 AI。有趣的是,这些高管依然乐观地预测 AI 将在未来三年内提升 1.4% 的生产力。阿波罗首席经济学家托尔斯滕·斯洛克（Torsten Slok）指出：「AI 无处不在，除了宏观经济数据里——你在就业数据、生产力数据或通胀数据中都看不到 AI 的影子。」</p>
-
-<p>不过也有乐观信号。1970-80 年代的 IT 投资最终在 1990 年代带来了生产力激增（1995-2005 年间增长 1.5%）。斯坦福大学数字经济实验室主任埃里克·布林约尔松（Erik Brynjolfsson）观察到美国去年生产力可能跃升了 2.7%，或许正处于从「AI 投资」到「收获回报」的转折点。关键在于企业是否愿意持续整合这项技术——毕竟，正如斯洛克所说：「从宏观角度看,价值创造不在于产品本身,而在于生成式 AI 如何在经济各部门中被使用和实施。」</p>
-
-<h3>你知道吗？</h3>
-<p><strong>索洛生产力悖论</strong>（Productivity Paradox）是信息技术史上的经典现象。1960 年代晶体管和微处理器革命后，经济学家们预期生产力会大幅提升，结果却事与愿违——新技术反而造成了「信息过载」：早期计算机生成大量详细报告，打印在无数纸张上，管理者需要花更多时间筛选信息，效率不升反降。这种悖论持续了近 20 年，直到 1990 年代人们学会了更好地整合技术（如互联网、数据库管理系统、ERP 系统），生产力才真正爆发。如今的 AI 似乎正在走同样的路径：工具虽强大，但如何有效使用、如何与现有工作流程整合，才是决定生产力提升的关键——这需要时间、试错和组织变革。</p><p><small>[interest] 关于人工智能技术在企业中应用的宏观分析，属于人工智能软件技术主题</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47055979</guid>
-      <pubDate>Wed, 18 Feb 2026 01:40:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
