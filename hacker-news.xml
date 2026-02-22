@@ -4,7 +4,48 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 22 Feb 2026 03:17:34 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 05:03:06 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 如何使用 Claude Code：计划与执行的分离</title>
+      <link>https://boristane.com/blog/how-i-use-claude-code/</link>
+      <description>
+        <![CDATA[<p>作者在使用 Claude Code 开发软件的 9 个月里，逐渐形成了一套与众不同的工作流程。核心原则只有一条：<strong>在审查并批准书面计划之前，绝不让 Claude 编写代码</strong>。这种计划与执行的分离，让开发过程更可控、更高效。</p>
+
+<h3>三阶段工作流</h3>
+
+<p><strong>研究阶段</strong>：作者首先要求 Claude「深入」理解相关代码库，并将研究结果写入 research.md 文件。他强调必须使用「深入地」「详细地」「复杂性」等词汇，否则 Claude 会只是表面浏览。这个持久化的研究文档是后续审查的关键——如果研究错了，计划就会错，实现也会错。</p>
+
+<p><strong>计划阶段</strong>：研究完成后，作者要求 Claude 生成详细的 plan.md 文档。这个阶段的独特之处在于「标注循环」：作者在编辑器中直接给计划文档添加内联注释，纠正假设、拒绝方案、添加约束或提供领域知识。然后让 Claude 根据注释更新计划，这个循环可能重复 1-6 次，直到计划完全符合预期。</p>
+
+<p><strong>实现阶段</strong>：当计划获批后，作者使用一个标准化的提示词：「实现全部内容。完成任务后在计划文档中标记为已完成。不要停下来，直到所有任务完成。不要添加不必要的注释，不要使用 any 或 unknown 类型。持续运行类型检查」。此时所有决策都已做出，实现变成纯粹的机械执行。</p>
+
+<h3>为什么这样做有效</h3>
+
+<p>这套流程最大的价值在于<strong>防止代价高昂的失败</strong>。AI 辅助编码最常见的问题不是语法错误或逻辑 bug，而是生成的代码虽然能运行，却破坏了周围的系统——比如忽略现有的缓存层、不符合 ORM 约定、或重复实现已存在的逻辑。研究阶段和标注循环能提前阻止这类问题。</p>
+
+<p>作者还特别提到，他在单个长会话中完成研究、计划和实现的全过程。与许多人担心的不同，他没有遇到上下文窗口填满 50% 后的性能下降问题。因为 plan.md 这个持久化文档在上下文压缩后仍能保持完整，Claude 可以随时参考它。</p>
+
+<h3>社区讨论亮点</h3>
+
+<p>Hacker News 的评论区呈现出两极分化的态度。一些开发者质疑这套流程的必要性，认为对有经验的程序员来说，所有这些计划、检查和提示的工作量远超直接写代码。但支持者分享了实际案例：用 30-45 分钟完成了原本需要一两天的审计日志功能，期间还能同时处理其他任务。</p>
+
+<p>有趣的是，多位开发者提到类似的工作流。有人使用 ticket_{number}_{slug}.md 的方式管理任务，有人提到 Kiro 的基于规格说明的开发流程与此几乎相同。还有人分享了 obra/superpowers 技能集，通过苏格拉底式对话生成计划，然后用子 Agent 完成各个任务。</p>
+
+<p>这场讨论也反映了 AI 辅助开发工具使用上的巨大差异。有人觉得是浪费时间，有人却已经把它变成了生产力倍增器。差异的关键可能在于：你是否真正投入时间学习如何正确使用这些工具。</p>
+
+<h3>你知道吗？</h3>
+
+<p><strong>为什么「深入地」这类词汇能影响 AI 的行为？</strong></p>
+
+<p>大型语言模型（LLM）本质上是预测下一个词的概率分布。当你要求它「深入理解」而不是简单「理解」时，你实际上是在调整它采样的概率空间。训练数据中，「深入分析」后面通常跟随更详细、更具体的内容，而简单的「查看」后面可能只有概括性描述。</p>
+
+<p>这就像给 LLM 提供了一个隐含的「输出风格模板」。虽然我们无法直接控制神经网络内部的推理过程，但可以通过精心选择的词汇，引导模型进入更符合我们预期的「潜在空间区域」。这也解释了为什么有时对 AI 说「你可以做到」就能让它完成刚才说做不到的事——你改变了它对任务可行性的概率判断。</p>
+
+<p>这是软件开发的奇妙新时代：我们不再只是编写确定性的逻辑，还需要学会如何「说服」概率模型产生我们想要的输出。</p><p><small>[high_interest] 关于 AI 辅助软件开发工具和方法论，属于编程效率和人工智能软件技术主题</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47106686</guid>
+      <pubDate>Sun, 22 Feb 2026 00:29:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 为什么 Claude 桌面应用使用 Electron 而非原生开发？</title>
       <link>https://www.dbreunig.com/2026/02/21/why-is-claude-an-electron-app.html</link>
@@ -1184,15 +1225,6 @@
       </description>
       <guid>https://news.ycombinator.com/item?id=47055979</guid>
       <pubDate>Wed, 18 Feb 2026 01:40:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Gentoo Linux 迁移到 Codeberg 平台</title>
-      <link>https://www.gentoo.org/news/2026/02/16/codeberg.html</link>
-      <description>
-        <![CDATA[<p><img src="/assets/img/news/2026/logo-codeberg.png" alt="Codeberg logo" /></p><p>Gentoo Linux 宣布在 Codeberg 上建立官方镜像仓库，作为 GitHub 的替代选择，用户现在可以通过 <a href="https://codeberg.org/gentoo/gentoo">https://codeberg.org/gentoo/gentoo</a> 提交贡献。这是 Gentoo 逐步脱离 GitHub 镜像计划的一部分。</p><p>Codeberg 是一个基于 Forgejo 的代码托管平台，由非营利组织运营，服务器位于德国柏林。与 GitHub 类似，这些镜像仓库的主要目的是方便社区贡献，Gentoo 仍然自行托管核心仓库基础设施。</p><p>值得注意的是，Gentoo 推荐使用 AGit 工作流提交 pull request，这种方式比传统 fork 模式更节省空间，不需要在个人账户维护完整的 fork。具体操作是：克隆上游仓库，添加 Codeberg 远程仓库，然后使用特殊的 push 命令直接创建 PR：<code>git push codeberg HEAD:refs/for/master -o topic="$title"</code>。</p><p><strong>社区反响</strong></p><p>Hacker News 社区对这一举动普遍持积极态度（221 点赞，62 条评论）。讨论焦点主要集中在：</p><ul><li><strong>去中心化趋势</strong>：有评论认为这是「大解耦」运动的一部分，将带来更少单一文化的互联网。不过也有人指出 Gentoo 一直自行托管核心基础设施，镜像迁移只是换了个便利入口。</li><li><strong>迁移动机</strong>：根据 Gentoo 2025 年终回顾，迁移的主要原因是 GitHub 持续尝试强制推行 Copilot 功能。</li><li><strong>代码审查体验</strong>：多位开发者抱怨 GitHub 的 PR 审查性能显著下降，大型 PR 加载缓慢，界面臃肿。有人怀疑新 UI 由不写代码的设计师主导。</li><li><strong>Codeberg 评价</strong>：用户对 Codeberg 的使用体验褒贬不一。支持者称赞其快速、易用；但也有人报告周末曾宕机数小时，git 命令行操作较慢，CI 功能尚未完全对标 GitHub Actions。</li><li><strong>工作流差异</strong>：技术讨论涉及 AGit、Gerrit 等不同工作流的优劣，有人期待联邦式 fork 和 PR 功能，让仓库位置不再重要。</li></ul><section><h3>你知道吗？</h3><p><strong>什么是 AGit 工作流？</strong></p><p>传统的 GitHub PR 流程需要 fork 整个仓库到自己账户，即使只改一行代码也要复制几百 MB 的仓库数据。AGit 是阿里巴巴团队设计的轻量级替代方案，灵感来自 Android 开源项目使用的 Gerrit 工作流。</p><p>核心思路是：直接向上游仓库 push，但使用特殊的引用路径（如 <code>refs/for/master</code>）和选项参数（如 <code>-o topic="fix-bug"</code>），服务端识别后自动创建 PR，无需 fork。这就像给邮局寄信时在信封上写「请转交给某某部门」，而不是先在自己家里复印整个办公楼的文件。</p><p>Forgejo（Codeberg 使用的平台）和 Gitea 都支持这一工作流，对于大型项目的小改动特别友好。</p></section><p><em>消息来源：<a href="https://www.gentoo.org/news/2026/02/16/codeberg.html">Gentoo 官方公告</a></em></p><p><small>[high_interest] 「开源项目，涉及 Linux 发行版的代码托管平台迁移，属于编程工具生态」</small></p>]]>
-      </description>
-      <guid>https://news.ycombinator.com/item?id=47050067</guid>
-      <pubDate>Tue, 17 Feb 2026 17:21:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
