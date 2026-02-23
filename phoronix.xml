@@ -4,7 +4,46 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 23 Feb 2026 11:54:33 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Feb 2026 15:07:45 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 英特尔 ANV 驱动修复多个 Vulkan 视频 H.265 编码问题</title>
+      <link>https://www.phoronix.com/news/Mesa-26.1-devel-ANV-H265-Encode</link>
+      <description>
+        <![CDATA[<p>英特尔开源 Linux 驱动「ANV」在 Vulkan 视频（Vulkan Video）方面迎来好消息。上周合并到 Mesa 26.1-devel 的更新修复了多个 H.265 视频编码问题，进一步提升了这款驱动的视频加速能力。</p>
+
+<img src="//www.phoronix.net/image.php?id=intel-corei7-1280p&image=intel_1280p_6_med" alt="Intel Evo laptop" />
+
+<p>这些改进主要来自 Igalia 工程师 Hyunjun Ko 的贡献。虽然英特尔官方更专注于 VA-API 和 oneVPL 的视频加速方案,但 Ko 一直在为 ANV 驱动的 Vulkan Video 支持添砖加瓦。</p>
+
+<p>本次更新的亮点包括:</p>
+<ul>
+<li>根据量化参数（QP）动态设置变换跳过数量,不再硬编码固定值</li>
+<li>使用应用程序提供的 QP 值,而非默认的 26</li>
+<li>正确处理 GPB 帧（通用 P 帧和 B 帧）</li>
+<li>正确设置 SAD QP Lambda 值</li>
+<li>移除不支持的编码器功能</li>
+</ul>
+
+<p>这些修复预计会包含在 Mesa 26.1-devel 中,也可能回移植到 Mesa 26.0 系列。除了驱动层面的工作,Ko 还在修复 GStreamer 多媒体框架的相关问题,最近就修复了在 ANV 驱动上正确播放 AV1 内容的 bug。</p>
+
+<div style="margin-top: 20px; padding: 15px; background-color: #f5f5f5; border-left: 4px solid #4CAF50;">
+<h3>你知道吗?</h3>
+<p><strong>Vulkan Video</strong> 是 Khronos 组织为 Vulkan 图形 API 开发的视频加速扩展,让应用可以直接调用 GPU 进行视频编解码,绕过传统的 API 如 VA-API。<strong>H.265</strong>(也叫 HEVC)是比 H.264 更高效的视频压缩标准,能在相同画质下节省约 50% 的带宽。</p>
+<p><strong>QP</strong>(量化参数)控制视频压缩的「狠」度 —— 数值越大压缩越狠、画质越差但文件越小。<strong>GPB 帧</strong>是一种特殊的帧类型,它既可以像 P 帧那样参考前面的帧,又可以像 B 帧那样参考前后的帧,提供更灵活的编码效率。<strong>SAD</strong>(Sum of Absolute Differences)是视频编码中常用的运动估计算法,Lambda 值则用于平衡画质和码率。</p>
+</div><p><small>[interest] 涉及 Linux 技术和开源驱动开发，属于一般感兴趣的技术主题</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-26.1-devel-ANV-H265-Encode</guid>
+      <pubDate>Mon, 23 Feb 2026 13:59:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AMD 开源显卡驱动代码量突破 600 万行</title>
+      <link>https://www.phoronix.com/news/AMD-Six-Million-Lines-Linux-7.0</link>
+      <description>
+        <![CDATA[<p>AMD 现代显卡驱动（AMDGPU/AMDKFD）在 Linux 7.0 内核中代码量已经突破 600 万行，成为内核中最大的单个驱动程序。不到四年前，这个驱动还只有 400 万行代码，如今已占据整个 Linux 内核代码库的 15%。</p><p>具体数据显示，在 Linux 6.19 稳定版中，AMD 驱动目录包含约 594 万行代码。而在刚刚关闭合并窗口的 Linux 7.0 中，这一数字已增长到 604 万行，分布在 2694 个文件中。这些代码涵盖了 AMDGPU 图形驱动和 AMDKFD 计算驱动（后者为 ROCm 用户空间提供支持），但不包括用于旧硬件的经典 Radeon 驱动。</p><img src="//www.phoronix.net/image.php?id=2026&image=linux_7_amd_size" alt="AMD GPU driver size" /><p>代码量激增的主要原因是大量自动生成的头文件。每个 GPU 目标都有专门的头文件，其中多达 440 万行是头文件内容，存在大量冗余。这些自动生成的头文件实际上充当了「活文档」的角色——因为近年来 AMD 减少了硬件编程文档的发布（除 GPU ISA 文档外），转而将开源 Linux 驱动作为参考实现。</p><p>作为对比，整个 Linux 7.0-rc1 内核包含约 2959 万行代码，AMD 驱动独占其中 15%，地位可见一斑。</p><section style="margin-top: 1.5em; padding: 1em; background: #f5f5f5; border-radius: 4px;"><h4 style="margin-top: 0;">你知道吗？</h4><p>现代 GPU 驱动为什么需要如此庞大的代码量？这与 GPU 架构的复杂性密切相关。GPU 包含数千个处理核心、复杂的内存层级、电源管理系统、显示输出控制器等多个子系统。驱动需要为每一代硬件提供寄存器定义、初始化序列、性能调优参数等配置。AMD 的做法是为每个 GPU 型号生成独立的头文件，虽然造成代码冗余，但提供了清晰的硬件抽象层，使驱动能够支持从入门级到数据中心级的全系列产品。这种「代码即文档」的策略，在硬件文档缺失的情况下，让开发者可以通过阅读驱动源码理解硬件行为，也是开源精神的一种体现。</p></section><p><small>[other] 技术细节不够明确，与主要兴趣关联度较低</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-Six-Million-Lines-Linux-7.0</guid>
+      <pubDate>Mon, 23 Feb 2026 14:33:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ RebeccaBlack OS 发布 2026-02-22 版本：展示最新 Wayland 技术的 Linux Live ISO</title>
       <link>https://www.phoronix.com/news/RBOS-2026-02-22</link>
@@ -622,24 +661,6 @@
       </description>
       <guid>https://www.phoronix.com/news/Linux-7.0-Faster-Close-Range</guid>
       <pubDate>Tue, 17 Feb 2026 19:20:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>GhostBSD 将采用 XLibre 显示服务器，并考虑从 MATE 切换到 Gershwin 桌面</title>
-      <link>https://www.phoronix.com/news/GhostBSD-Eyes-XLibre</link>
-      <description>
-        <![CDATA[<p>GhostBSD 是一个基于 FreeBSD 的桌面操作系统，其首席开发者 Eric Turgeon 最近公布了系统显示服务器和桌面环境的重要调整计划。</p><h3>为什么选择 XLibre</h3><p>GhostBSD 决定从 X.Org Server 切换到 XLibre。主要原因是最新的 X.Org Server 代码出现了倒退（code reverts），而 Wayland 对于 GhostBSD 的需求还不够成熟，特别是对默认的 MATE 桌面环境支持不足。Eric 表示虽然 Wayland 在 Linux 上运行良好，但 GhostBSD 不是 Linux，MATE、XFCE 和 Gershwin 等桌面环境都还没为 Wayland 做好准备。采用 XLibre 是一个技术性决策，能让系统保持稳定。</p><h3>桌面环境的十字路口</h3><p>Eric 正在考虑是否继续使用 MATE 桌面。由于 MATE 近年来不太活跃、改进较少，他开始关注 Gershwin 项目——一个能提供类似 macOS 体验的桌面环境。</p><img src="//www.phoronix.net/image.php?id=2025&image=gershwin" alt="Gershwin desktop" /><p>不过 Eric 也有顾虑：Gershwin 目前只支持 Objective-C 语言开发软件，这限制了生态发展（虽然未来可能增加 Swift 支持）。他原本计划像 Cinnamon 从 GNOME 分支那样，逐步用自研工具替换 MATE 组件，但 GhostBSD 项目规模太大，难以全面跟进。目前 GhostBSD 继续沿用原有路线，但将 Gershwin 作为潜在方向，一切都可能调整。</p><section><h3>你知道吗？</h3><p><strong>XLibre 是什么？</strong>它是 X.Org Server 的分支项目，旨在持续改进和维护这个经典的显示服务器。当 X.Org 主线开发停滞甚至出现倒退时，XLibre 成为需要稳定 X11 支持的系统的替代选择。</p><p><strong>为什么 BSD 系统对 Wayland 支持滞后？</strong>Wayland 最初主要为 Linux 设计，其许多组件与 Linux 内核特性紧密耦合。BSD 系统（FreeBSD、OpenBSD 等）的内核架构不同，需要额外的适配工作。而且桌面环境本身也需要重写大量代码才能支持 Wayland，这对小型社区项目来说是巨大挑战。</p><p><strong>GNUstep 和 Objective-C 的关系？</strong>GNUstep 是一个开源框架，实现了苹果 Cocoa API 的开源版本，使用 Objective-C 语言。Gershwin 桌面基于 GNUstep 构建，这解释了为什么它目前只支持 Objective-C——这既是技术选择，也继承了 NeXTSTEP/macOS 的开发传统。</p></section><p><small>[other] 关于 BSD 系统的桌面技术讨论，涉及显示服务器和桌面环境变更，但不属于高度感兴趣的主题</small></p>]]>
-      </description>
-      <guid>https://www.phoronix.com/news/GhostBSD-Eyes-XLibre</guid>
-      <pubDate>Tue, 17 Feb 2026 17:03:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 微软 .NET 在 Linux 上引入 IO_uring 支持，性能大幅提升</title>
-      <link>https://www.phoronix.com/news/Microsoft-dotNET-IO-uring</link>
-      <description>
-        <![CDATA[<p>微软 .NET 运行时在 Linux 平台上迎来重大性能突破。Illyriad Games 的开发者 Ben Adams 提交了一个拉取请求，为 .NET 的套接字层（System.Net.Sockets）引入 IO_uring 支持，用以替代现有的 epoll 实现。这个「生产级」的实现目前通过环境变量可选启用。</p><p>基准测试结果相当亮眼。在 Kestrel HTTP/1.1 长连接场景下，每请求的 CPU 开销降低 15-40%；HTTPS/TLS 工作负载的套接字层 CPU 占用减少 10-25%；对于拥有上万空闲连接的 WebSocket 或 SignalR 服务器，内存开销降低 30-50%，唤醒延迟改善 10-30%。微服务间的 HttpClient 调用延迟减少 10-20%，数据库驱动的查询延迟降低 5-15%。</p><p>UDP 场景的提升尤为显著：高速率 UDP 工作负载（如 DNS、游戏服务器、遥测收集器）的每秒数据包吞吐量提升 20-40%；负载均衡器和代理在突发连接场景下的每秒连接数提升 20-50%。</p><p>团队表示未来还有进一步优化空间，包括利用 IO_uring 的零拷贝接收等特性。这个补丁目前仍在审查中，对 .NET Linux 用户来说是个令人振奋的消息。</p><h3>你知道吗？</h3><p>IO_uring 是 Linux 内核在 2019 年引入的新一代异步 I/O 接口，由 Jens Axboe 设计。传统的 epoll 模型需要频繁在用户空间和内核空间切换，每次 I/O 操作都要经历系统调用的开销。IO_uring 通过共享内存环形缓冲区（ring buffer）机制，让应用程序和内核以批量、异步的方式交换 I/O 请求和结果，大幅减少系统调用次数和上下文切换。它就像在用户态和内核态之间架起了一条高速传送带，应用程序只需把要做的事情丢到「提交队列」，内核完成后把结果放到「完成队列」，双方各取所需，效率提升显著。这也是为什么在高并发、高吞吐场景下，IO_uring 能带来如此惊人的性能增益。</p><p><small>[high_interest] 新软件项目，涉及 Linux 技术和性能优化，属于高度感兴趣的技术主题</small></p>]]>
-      </description>
-      <guid>https://www.phoronix.com/news/Microsoft-dotNET-IO-uring</guid>
-      <pubDate>Tue, 17 Feb 2026 13:14:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
