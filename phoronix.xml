@@ -4,7 +4,16 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 23 Feb 2026 21:03:24 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Feb 2026 22:02:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linus Torvalds 移除内核配置选项以解决日志刷屏问题</title>
+      <link>https://www.phoronix.com/news/Torvalds-Unseeded-Random</link>
+      <description>
+        <![CDATA[<p>在发布 Linux 7.0-rc1 后，Linus Torvalds 亲自出手移除了内核中的 <code>WARN_ALL_UNSEEDED_RANDOM</code> 配置选项。这个选项最初是为了帮助开发者发现内核代码在随机数生成器（RNG）完全初始化之前就使用了未播种的随机数，但实际使用中却带来了意想不到的麻烦。</p><p>问题在于，某些 CPU 上完全播种的 CRNG（Cryptographic Random Number Generator，加密随机数生成器）存在一些技术限制，导致这个选项一旦启用就会产生海量的重复警告信息。Torvalds 收到的一份 bug 报告显示，三分之二的内核日志都被「random: get_random_u32 called with crng_init=0」这样的消息占据，真正有价值的早期启动日志反而因为缓冲区被挤占而丢失了。</p><p>更讽刺的是，这些警告信息并没有促使开发者去修复问题。Torvalds 指出，如果开发者连有速率限制的警告都不关心，那么更详细的「全量警告」就更不会有人理会了。与其让善意启用调试选项的用户被无用信息淹没，不如直接移除这个选项。对于真正需要追踪这类问题的开发者，应该使用内核的启动时追踪（boottime-trace）功能，它能提供调用图等更有价值的信息。</p><h3>你知道吗？</h3><p>随机数生成器的「播种」是指为 RNG 提供初始熵源的过程。在 Linux 启动早期，系统还没有收集到足够的随机事件（如键盘输入、磁盘 I/O 时间等）来产生高质量的随机数，此时的 RNG 处于「未播种」状态。使用未播种的随机数在某些安全敏感场景下可能存在风险，但对于大多数常规操作来说并无大碍。内核会在后台持续收集熵，直到达到「完全播种」状态。这个配置选项的初衷是帮助开发者发现过早使用随机数的代码路径，但实践证明它的副作用远大于益处。</p><p><small>[high_interest] Linux 内核开发深度技术文章，涉及系统级编程和内核配置，属于核心编程工具和开源项目主题</small></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Torvalds-Unseeded-Random</guid>
+      <pubDate>Mon, 23 Feb 2026 21:16:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 英特尔发布 OpenVINO 2026：增强 NPU 处理能力，扩展大语言模型支持</title>
       <link>https://www.phoronix.com/news/Intel-OpenVINO-2026.0-Released</link>
@@ -652,15 +661,6 @@
       </description>
       <guid>https://www.phoronix.com/news/Apple-M3-Asahi-Linux-2026</guid>
       <pubDate>Wed, 18 Feb 2026 11:34:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>英特尔为 Linux 7.0 内核引入 DSA 3.0 加速器支持</title>
-      <link>https://www.phoronix.com/news/Intel-DSA-3.0-More-In-Linux-7.0</link>
-      <description>
-        <![CDATA[<p>英特尔数据流加速器（Data Streaming Accelerator, DSA）是集成在至强（Xeon）处理器中的专用硬件引擎，能够将数据移动和转换任务从 CPU 卸载到专用硅片上，为支持该特性的软件提供高性能数据复制和分析加速。</p><img src="//www.phoronix.net/image.php?id=2025&image=intel_dsa" alt="Intel DSA diagram" /><p>去年英特尔开始为 Linux 内核提交 DSA 3.0 IP 支持补丁，这是下一代数据流加速器，预计将出现在 Diamond Rapids 处理器中。经过修订后，这些补丁终于在 Linux 7.0 内核中合并。</p><p>本次合并的代码主要包含两项改进。首先，新增了 DSA 3.0 能力寄存器的 sysfs 接口，让用户空间程序能够感知新的硬件特性。其次，添加了最大 SGL（scatter-gather list，散列收集列表）大小支持，因为某些操作码（如 Gather copy 和 Gather reduce）要求在用户空间应用使用前正确设置 SGL 大小。</p><img src="//www.phoronix.net/image.php?id=2026&image=dsa3_caps" alt="DSA 3.0 capabilities sysfs" /><p>值得注意的是，新的 DSA 3.0 能力 sysfs 接口打破了 Linux 内核的常规做法——通常每个 sysfs 文件只允许一个值，但新接口在一个文件中塞入了三个值。这些补丁作为 Linux 7.0 DMA 引擎拉取请求的一部分被合并。</p><p><small>[other] Linux 内核技术细节，不属于用户的高优先级兴趣主题</small></p>]]>
-      </description>
-      <guid>https://www.phoronix.com/news/Intel-DSA-3.0-More-In-Linux-7.0</guid>
-      <pubDate>Wed, 18 Feb 2026 11:21:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
