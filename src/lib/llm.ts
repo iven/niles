@@ -116,17 +116,17 @@ export async function handleStreamWithToolCall<T>(
     if (chunk.type === "TOOL_CALL_END") {
       // 第一次工具调用时输出 AI 的文本（strip 空白，用引用格式）
       if (!textOutputted && fullText.trim()) {
-        console.error("");
+        console.log("");
         const lines = fullText.trim().split("\n");
         for (const line of lines) {
-          console.error(`> ${line}`);
+          console.log(`> ${line}`);
         }
         textOutputted = true;
       }
 
       const result = chunk.result ? JSON.parse(chunk.result) : null;
       if (result?.success) {
-        console.error("");
+        console.log("");
         return getResult();
       }
 
