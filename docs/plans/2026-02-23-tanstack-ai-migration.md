@@ -21,10 +21,9 @@
 
 ```json
 {
-  "ai": {
+  "llm": {
     "provider": "anthropic",
     "baseURL": "https://api.anthropic.com",
-    "providerOptions": {},
     "models": {
       "grade": "claude-3-5-haiku-20241022",
       "summarize": "claude-3-5-sonnet-20241022"
@@ -36,9 +35,8 @@
 ```
 
 **字段说明**：
-- `provider`: AI provider 类型（anthropic、openai、gemini 等）
-- `baseURL`: 可选，自定义 API 端点
-- `providerOptions`: 可选，provider 特定配置
+- `provider`: AI provider 类型（anthropic、openai、gemini、openrouter、grok）
+- `baseURL`: 可选，自定义 API 端点（目前仅 OpenAI 支持）
 - `models`: 各任务使用的模型名称
 
 ### 环境变量
@@ -58,7 +56,7 @@ fetch-rss-items.ts → Claude Code CLI (agents/skills) → generate-rss.ts
 
 **改造后架构**：
 ```
-niles.ts (单一入口，整合所有流程)
+bin/cli.ts (薄壳入口) → src/index.ts (主流程)
   ├─ fetch (提取 RSS)
   ├─ plugin (应用插件)
   ├─ grade (AI 分级)
@@ -225,20 +223,41 @@ const summaries = await Promise.all(
 ### 目录结构
 
 ```
+bin/
+  cli.ts                  # 薄壳入口，只调用 src/index.ts
+
 src/
-  bin/
-    niles.ts              # 主入口
-  lib/
-    (待实现时设计)
-  plugins/                # 保持不变
+  index.ts                # 主流程逻辑
+  grade.ts                # 业务逻辑：分级
+  summarize.ts            # 业务逻辑：总结
+  tools.ts                # 业务逻辑：AI 工具
+  tools.test.ts           # 单元测试
+  plugin.ts               # 业务逻辑：插件系统
+  types.ts                # 业务类型定义
+  lib/                    # 可复用的库组件
+    llm.ts                # LLM 客户端初始化 (createLLMClient)
+    config.ts             # 配置加载器
+    config.test.ts        # 单元测试
+    guid-tracker.ts       # GUID 跟踪器
+  plugins/                # 插件实现（保持不变）
+    fetch_meta.ts
+    fetch_content.ts
+    cnbeta_fetch_content.ts
+    hn_fetch_comments.ts
+    zaihuapd_clean_description.ts
+
+tests/
+  integration.test.ts     # 集成测试
+
+tests.bak/                # 备份的旧 shell 测试脚本
 ```
 
 ## 实现步骤
 
 1. **配置系统**
-   - 更新 `config.schema.json`，添加 `ai` 字段
+   - 更新配置 schema，添加 `llm` 字段
    - 实现配置读取和验证
-   - 实现 AI client 初始化（根据 provider 创建 adapter）
+   - 实现 LLM client 初始化（根据 provider 创建 adapter）
 
 2. **工具系统**
    - 实现 `write_grade_results` 工具
@@ -257,7 +276,8 @@ src/
 
 5. **主流程编排**
    - 整合 fetch、plugin、grade、summarize、generate
-   - 实现 `niles.ts` 主入口
+   - 实现 `src/index.ts` 主逻辑
+   - 实现 `bin/cli.ts` 薄壳入口
    - 处理简单模式和深度分析模式
 
 6. **测试**
@@ -267,7 +287,7 @@ src/
 
 7. **GitHub Actions 更新**
    - 更新 workflow，移除 Claude Code Action
-   - 直接调用 `bun run src/bin/niles.ts`
+   - 直接调用 `bun run bin/cli.ts`（或通过 npm script: `bun run niles`）
    - 配置 API key 环境变量
 
 8. **文件重命名**
