@@ -135,6 +135,13 @@ export async function handleStreamWithToolCall<T>(
         console.error(`工具调用失败: ${result.error}，等待 AI 重试...`);
       }
     }
+
+    // 记录 token 使用信息
+    if ("usage" in chunk && chunk.usage) {
+      console.log(
+        `Token 使用: 输入 ${chunk.usage.promptTokens}, 输出 ${chunk.usage.completionTokens}, 总计 ${chunk.usage.totalTokens}`,
+      );
+    }
   }
 
   throw new Error("AI 未成功调用工具");

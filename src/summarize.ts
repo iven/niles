@@ -58,6 +58,7 @@ export async function summarizeItem(
     ],
     tools: [tool],
     temperature: 0.3, // 低温度确保摘要稳定，减少随机性
+    maxTokens: 4096, // 基于实际测量：单条目最大输出2782 tokens，留余量
   });
 
   // 处理流式响应

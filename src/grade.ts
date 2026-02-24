@@ -104,6 +104,7 @@ export async function gradeItems(
       },
     ],
     tools: [tool],
+    maxTokens: 8192, // 基于实际测量：3条目输出972 tokens，推算20条目约6500 tokens，留余量
   });
 
   // 处理流式响应
