@@ -11,7 +11,7 @@ import { summarizeItem } from "./summarize";
 import type { GradedRssItem, UngradedRssItem } from "./types";
 
 function logBreakdown(items: GradedRssItem[], label: string) {
-  console.error(`${label}：`);
+  console.log(`${label}：`);
 
   // 按 level 分组
   const grouped = items.reduce(
@@ -48,16 +48,16 @@ function logBreakdown(items: GradedRssItem[], label: string) {
     if (!levelItems || levelItems.length === 0) continue;
 
     const levelName = levelNames[level];
-    console.error(`  [${levelName}] ${levelItems.length} 个条目`);
+    console.log(`  [${levelName}] ${levelItems.length} 个条目`);
     for (const item of levelItems) {
-      console.error(`    《${item.title}》`);
-      console.error(`    └─ ${item.reason}`);
+      console.log(`    《${item.title}》`);
+      console.log(`    └─ ${item.reason}`);
     }
 
     groupIndex++;
     // 最后一个分级组后面不加空行
     if (groupIndex < totalGroups) {
-      console.error("");
+      console.log("");
     }
   }
 }
@@ -72,8 +72,8 @@ async function summarizeAndRegrade(
   // 提取非 rejected 的条目
   const itemsToSummarize = items.filter((item) => item.level !== "rejected");
 
-  console.error(`\n${"─".repeat(50)}`);
-  console.error(`→ 开始总结 ${itemsToSummarize.length} 个条目...`);
+  console.log(`\n${"─".repeat(50)}`);
+  console.log(`→ 开始总结 ${itemsToSummarize.length} 个条目...`);
 
   // 并行总结
   const summaryResults = await Promise.all(
@@ -86,9 +86,9 @@ async function summarizeAndRegrade(
     ),
   );
 
-  console.error(`\n✓ 总结完成：${summaryResults.length} 个条目`);
+  console.log(`\n✓ 总结完成：${summaryResults.length} 个条目`);
   for (const summary of summaryResults) {
-    console.error(`  《${summary.title}》`);
+    console.log(`  《${summary.title}》`);
   }
 
   // 从原始数据补充 link 和 pubDate
@@ -108,8 +108,8 @@ async function summarizeAndRegrade(
   });
 
   // 基于总结后的内容重新分级
-  console.error(`\n${"─".repeat(50)}`);
-  console.error("→ 开始二次分级...");
+  console.log(`\n${"─".repeat(50)}`);
+  console.log("→ 开始二次分级...");
   const regradedItems = await gradeItems({
     llmConfig,
     globalConfig,
@@ -160,11 +160,11 @@ export async function runWorkflow(params: WorkflowParams) {
     plugins: sourceConfig.plugins,
   });
 
-  console.error(`\n✓ 获取到 ${newItems.length} 个新条目`);
+  console.log(`\n✓ 获取到 ${newItems.length} 个新条目`);
 
   // 分级（简单模式或深度分析模式的第一次分级）
-  console.error(`\n${"─".repeat(50)}`);
-  console.error("→ 开始分级...");
+  console.log(`\n${"─".repeat(50)}`);
+  console.log("→ 开始分级...");
   let finalItems = await gradeItems({
     llmConfig,
     globalConfig,
@@ -186,8 +186,8 @@ export async function runWorkflow(params: WorkflowParams) {
   }
 
   // 生成 RSS（输出端）
-  console.error(`\n${"─".repeat(50)}`);
-  console.error("→ 生成 RSS 文件...");
+  console.log(`\n${"─".repeat(50)}`);
+  console.log("→ 生成 RSS 文件...");
   const { rss, newCount } = await writeRss(
     {
       source_name: sourceName,
@@ -206,7 +206,7 @@ export async function runWorkflow(params: WorkflowParams) {
     await tracker.persist();
   }
 
-  console.error(`\n✓ 处理完成：${newCount} 个新条目`);
-  console.error(`  源名称：${sourceName}`);
-  console.error(`  模式：${sourceConfig.summarize ? "深度分析" : "简单模式"}`);
+  console.log(`\n✓ 处理完成：${newCount} 个新条目`);
+  console.log(`  源名称：${sourceName}`);
+  console.log(`  模式：${sourceConfig.summarize ? "深度分析" : "简单模式"}`);
 }

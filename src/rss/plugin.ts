@@ -24,7 +24,7 @@ export async function applyPlugins(
 
   for (const pluginName of pluginNames) {
     const plugin = await loadPlugin(pluginName);
-    console.error(`应用插件: ${plugin.name}`);
+    console.log(`应用插件: ${plugin.name}`);
 
     const limit = pLimit(maxConcurrency);
 
