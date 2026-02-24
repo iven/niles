@@ -106,5 +106,11 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add *.xml *-processed.json
+
+          echo "Changes to be committed:"
+          git diff --cached --stat
+          echo ""
+          git diff --cached
+
           git commit -m "Update RSS feeds" || exit 0
           git push
