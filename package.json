@@ -1,27 +1,33 @@
 {
   "name": "niles",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "fetch-rss-items": "bun run src/bin/fetch-rss-items.ts",
-    "generate-rss": "bun run src/bin/generate-rss.ts"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.4.3",
-    "@types/bun": "latest",
-    "@types/node": "^25.2.3",
-    "ajv-formats": "^3.0.1"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
+  "bin": {
+    "niles": "./bin/cli.ts"
   },
   "dependencies": {
-    "ajv-cli": "^5.0.0",
+    "@tanstack/ai": "^0.5.1",
+    "@tanstack/ai-anthropic": "^0.5.0",
+    "@tanstack/ai-gemini": "^0.5.0",
+    "@tanstack/ai-grok": "^0.5.0",
+    "@tanstack/ai-openai": "^0.5.0",
+    "@tanstack/ai-openrouter": "^0.5.1",
     "feedsmith": "^2.9.0",
     "linkedom": "^0.18.12",
     "p-limit": "^7.3.0",
     "rsshub": "^1.0.0-master.ba0f1ad",
     "zod": "^4.3.6"
-  }
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.3",
+    "@types/bun": "latest",
+    "@types/node": "^25.2.3",
+    "knip": "^5.85.0"
+  },
+  "private": true,
+  "scripts": {
+    "niles": "bun run bin/cli.ts",
+    "check": "biome check --error-on-warnings",
+    "typecheck": "tsc --noEmit",
+    "knip": "knip"
+  },
+  "type": "module"
 }

@@ -20,7 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       sources: ${{ steps.read-config.outputs.sources }}
-      global: ${{ steps.read-config.outputs.global }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,7 +28,6 @@ jobs:
         id: read-config
         run: |
           echo "sources=$(jq -c '.sources' config.json)" >> $GITHUB_OUTPUT
-          echo "global=$(jq -c '.global' config.json)" >> $GITHUB_OUTPUT
 
   fetch:
     needs: prepare
@@ -55,76 +53,26 @@ jobs:
           ref: gh-pages
           path: output
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-west-2
-
-      - name: Parse config
-        id: parse-config
-        run: |
-          SOURCE='${{ toJson(matrix.source) }}'
-          echo "plugins=$(echo "$SOURCE" | jq -r '(.plugins // []) | join(",")')" >> $GITHUB_OUTPUT
-          echo "timeout=$(echo "$SOURCE" | jq -r '.timeout // ${{ fromJson(needs.prepare.outputs.global).timeout }}')" >> $GITHUB_OUTPUT
-
-      - name: Extract new items
-        id: extract
-        run: |
-          OUTPUT_DIR="/tmp/niles-rss/${{ matrix.source.name }}"
-          mkdir -p "$OUTPUT_DIR"
-          PLUGINS="${{ steps.parse-config.outputs.plugins }}"
-          MIN_ITEMS="0"
-          MAX_ITEMS="20"
-          if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
-            MIN_ITEMS="3"
-            MAX_ITEMS="3"
-          fi
-          bun run src/bin/fetch-rss-items.ts \
-            "${{ matrix.source.url }}" \
-            "output/${{ matrix.source.name }}.xml" \
-            --source-name "${{ matrix.source.name }}" \
-            --output "$OUTPUT_DIR/items-raw.json" \
-            --max-items "$MAX_ITEMS" \
-            --min-items "$MIN_ITEMS" \
-            $([ -n "$PLUGINS" ] && [ "$PLUGINS" != "null" ] && echo "--plugins $PLUGINS" || echo "")
-          NEW_COUNT=$(jq '.new_items' "$OUTPUT_DIR/items-raw.json")
-          echo "count=$NEW_COUNT" >> $GITHUB_OUTPUT
-          echo "output_dir=$OUTPUT_DIR" >> $GITHUB_OUTPUT
-
-      - name: Run Claude
-        if: steps.extract.outputs.count != '0'
-        id: claude
-        timeout-minutes: ${{ fromJson(steps.parse-config.outputs.timeout) }}
-        uses: anthropics/claude-code-action@v1
+      - name: Process RSS feed
         env:
-          ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ secrets.BEDROCK_HAIKU_MODEL_ID }}
-          ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ secrets.BEDROCK_SONNET_MODEL_ID }}
-          ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ secrets.BEDROCK_OPUS_MODEL_ID }}
-          INPUT_FILE: ${{ steps.extract.outputs.output_dir }}/items-raw.json
-          OUTPUT_DIR: ${{ steps.extract.outputs.output_dir }}
-          GLOBAL_CONFIG: ${{ needs.prepare.outputs.global }}
-          SOURCE_CONFIG: ${{ toJson(matrix.source) }}
-        with:
-          use_bedrock: "true"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          prompt: /personalize-rss
-          show_full_output: "true"
-          claude_args: |
-            --allowedTools Task,WebFetch,Bash,Read,Write,Edit,Grep,Glob
-            --setting-sources ""
-
-      - name: Generate RSS
-        if: steps.extract.outputs.count != '0'
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OLLAMA_API_KEY: ${{ secrets.OLLAMA_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
         run: |
-          OUTPUT_DIR="${{ steps.extract.outputs.output_dir }}"
-          SOURCE='${{ toJson(matrix.source) }}'
-          TITLE=$(echo "$SOURCE" | jq -r '.title // ""')
-          bun run src/bin/generate-rss.ts "$OUTPUT_DIR/items-final.json" "$OUTPUT_DIR/filter-results.json" output/${{ matrix.source.name }}.xml --title "$TITLE"
+          DRY_RUN_FLAG=""
+          if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
+            DRY_RUN_FLAG="--dry-run=true"
+          fi
+
+          bun run niles "${{ matrix.source.name }}" \
+            --config config.json \
+            --output-dir output \
+            $DRY_RUN_FLAG
 
       - name: Upload RSS for commit
-        if: steps.extract.outputs.count != '0'
         uses: actions/upload-artifact@v4
         with:
           name: rss-${{ matrix.source.name }}
@@ -134,15 +82,14 @@ jobs:
           retention-days: 1
 
       - name: Upload debug artifacts
-        if: steps.extract.outputs.count != '0'
         uses: actions/upload-artifact@v4
         with:
           name: debug-${{ matrix.source.name }}
           path: |
-            ${{ steps.extract.outputs.output_dir }}/items-raw.json
-            ${{ steps.extract.outputs.output_dir }}/items-final.json
-            ${{ steps.extract.outputs.output_dir }}/filter-results*.json
-            ${{ steps.extract.outputs.output_dir }}/items/
+            /tmp/niles-rss/${{ matrix.source.name }}/items-raw.json
+            /tmp/niles-rss/${{ matrix.source.name }}/items-final.json
+            /tmp/niles-rss/${{ matrix.source.name }}/grade-results*.json
+            /tmp/niles-rss/${{ matrix.source.name }}/items/
           retention-days: 7
 
   commit:

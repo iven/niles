@@ -2,12 +2,37 @@
  * GUID 历史记录跟踪器
  */
 
+import { z } from "zod";
+
 const HISTORY_RETENTION_DAYS = 4;
 
-interface GuidHistory {
-  guids: Record<string, string>;
-  updated_at: string;
+export function filterRecentGuids(
+  guids: Map<string, string>,
+  retentionDays: number,
+): Map<string, string> {
+  const cutoffDate = new Date();
+  cutoffDate.setDate(cutoffDate.getDate() - retentionDays);
+
+  const filtered = new Map<string, string>();
+  for (const [guid, processedTime] of guids) {
+    const processedDate = new Date(processedTime);
+    // Invalid Date 或解析失败时保留
+    if (Number.isNaN(processedDate.getTime())) {
+      filtered.set(guid, processedTime);
+    } else if (processedDate >= cutoffDate) {
+      filtered.set(guid, processedTime);
+    }
+  }
+
+  return filtered;
 }
+
+const guidHistorySchema = z.object({
+  guids: z.record(z.string(), z.string()),
+  updated_at: z.string(),
+});
+
+type GuidHistory = z.infer<typeof guidHistorySchema>;
 
 export class GuidTracker {
   private historyPath: string;
@@ -31,9 +56,17 @@ export class GuidTracker {
       const file = Bun.file(historyPath);
       if (!(await file.exists())) return new Map();
 
-      const data = (await file.json()) as GuidHistory;
-      return new Map(Object.entries(data.guids || {}));
-    } catch {
+      const json = await file.json();
+      const parseResult = guidHistorySchema.safeParse(json);
+
+      if (!parseResult.success) {
+        console.error(`GUID 历史文件格式错误，重新初始化: ${historyPath}`);
+        return new Map();
+      }
+
+      return new Map(Object.entries(parseResult.data.guids || {}));
+    } catch (error) {
+      console.error(`读取 GUID 历史失败: ${error}`);
       return new Map();
     }
   }
@@ -67,22 +100,10 @@ export class GuidTracker {
   }
 
   cleanup(): void {
-    const cutoffDate = new Date();
-    cutoffDate.setDate(cutoffDate.getDate() - HISTORY_RETENTION_DAYS);
-
-    const cleaned = new Map<string, string>();
-    for (const [guid, processedTime] of this.processedGuids) {
-      try {
-        const processedDate = new Date(processedTime);
-        if (processedDate >= cutoffDate) {
-          cleaned.set(guid, processedTime);
-        }
-      } catch {
-        cleaned.set(guid, processedTime);
-      }
-    }
-
-    this.processedGuids = cleaned;
+    this.processedGuids = filterRecentGuids(
+      this.processedGuids,
+      HISTORY_RETENTION_DAYS,
+    );
   }
 
   async persist(): Promise<void> {
