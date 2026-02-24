@@ -30,6 +30,7 @@ jobs:
           echo "sources=$(jq -c '.sources' config.json)" >> $GITHUB_OUTPUT
 
   fetch:
+    name: ${{ matrix.source.name }}
     needs: prepare
     runs-on: ubuntu-latest
     strategy:
@@ -80,17 +81,6 @@ jobs:
             output/${{ matrix.source.name }}.xml
             output/${{ matrix.source.name }}-processed.json
           retention-days: 1
-
-      - name: Upload debug artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: debug-${{ matrix.source.name }}
-          path: |
-            /tmp/niles-rss/${{ matrix.source.name }}/items-raw.json
-            /tmp/niles-rss/${{ matrix.source.name }}/items-final.json
-            /tmp/niles-rss/${{ matrix.source.name }}/grade-results*.json
-            /tmp/niles-rss/${{ matrix.source.name }}/items/
-          retention-days: 7
 
   commit:
     needs: fetch
