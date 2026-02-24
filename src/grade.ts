@@ -89,6 +89,10 @@ export async function gradeItems(
 ): Promise<GradedRssItem[]> {
   const { llmConfig, globalConfig, sourceConfig, items } = options;
 
+  if (items.length === 0) {
+    return [];
+  }
+
   const userMessage = buildGradeUserPrompt(sourceConfig, globalConfig, items);
   const adapter = createLlmClient(llmConfig, llmConfig.models.grade);
   const { tool, getResult } = createGradeTool(items);

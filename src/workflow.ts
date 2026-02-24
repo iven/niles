@@ -72,6 +72,11 @@ async function summarizeAndRegrade(
   // 提取非 rejected 的条目
   const itemsToSummarize = items.filter((item) => item.level !== "rejected");
 
+  if (itemsToSummarize.length === 0) {
+    console.log("\n✓ 所有条目已被排除，跳过总结和二次分级");
+    return [];
+  }
+
   console.log(`\n${"─".repeat(50)}`);
   console.log(`→ 开始总结 ${itemsToSummarize.length} 个条目...`);
 
@@ -161,6 +166,15 @@ export async function runWorkflow(params: WorkflowParams) {
   });
 
   console.log(`\n✓ 获取到 ${newItems.length} 个新条目`);
+
+  if (newItems.length === 0) {
+    console.log("\n✓ 无新条目，跳过处理");
+    if (!isDryRun) {
+      tracker.cleanup();
+      await tracker.persist();
+    }
+    return;
+  }
 
   // 分级（简单模式或深度分析模式的第一次分级）
   console.log(`\n${"─".repeat(50)}`);
