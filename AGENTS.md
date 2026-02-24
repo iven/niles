@@ -114,6 +114,26 @@ bun run niles <source-name>
 bun run niles <source-name> --config config.json --output-dir output
 ```
 
+### 手动测试脚本
+
+**重要提示：这些脚本会调用真实的 LLM API，每次执行都会产生费用。应尽量减少执行次数。**
+
+在 `scripts/` 目录下提供了手动测试工具：
+
+```bash
+# 测试分级功能（使用 3 个不同主题的测试条目）
+bun run scripts/test-grade.ts
+
+# 测试总结功能（使用包含引号、图片等格式的测试条目）
+bun run scripts/test-summarize.ts
+```
+
+**使用注意事项**：
+- 这些脚本直接调用 LLM API，会消耗 token 并产生费用
+- 只在需要验证 LLM 行为时手动执行，不应作为常规测试的一部分
+- 不要使用 grep、tail 等工具多次采集日志 - 如果第一次没找到内容，应直接重新完整执行脚本
+- 脚本输出已经格式化，可以直接阅读，无需额外处理
+
 ### 代码检查
 
 ```bash
