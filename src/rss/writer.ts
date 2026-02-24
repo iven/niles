@@ -42,7 +42,6 @@ export async function writeRss(
   const rssTitle = data.title || `${data.source_name} - 精选`;
 
   const newItems = formatGradedItems(data.items);
-  console.log(`  过滤后保留 ${newItems.length} 个条目`);
 
   // 读取现有 RSS
   let existingItems: Rss.Item<string>[] = [];
@@ -52,7 +51,6 @@ export async function writeRss(
       const content = await file.text();
       const feed = parseRssFeed(content);
       existingItems = (feed.items as Rss.Item<string>[]) || [];
-      console.log(`  合并现有 RSS 中的 ${existingItems.length} 个条目`);
     } catch (error) {
       throw new Error(
         `现有 RSS 文件损坏 ${existingRssPath}: ${error instanceof Error ? error.message : String(error)}`,
@@ -61,7 +59,6 @@ export async function writeRss(
   }
 
   const allItems = [...newItems, ...existingItems].slice(0, 50);
-  console.log(`  最终 RSS 包含 ${allItems.length} 个条目（最多保留 50 个）`);
 
   const feed = {
     title: rssTitle,
