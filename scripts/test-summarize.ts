@@ -4,7 +4,9 @@
  * 运行方式: bun run scripts/test-summarize.ts
  */
 
+import { LogLevels } from "consola";
 import { loadConfig } from "../src/lib/config";
+import { logger } from "../src/lib/logger";
 import { summarizeItems } from "../src/summarize";
 
 // 固定的测试数据 - 包含各种格式元素(引号、图片等)
@@ -31,6 +33,8 @@ const TEST_SAMPLES = [
 ];
 
 async function main() {
+  logger.level = LogLevels.debug;
+
   const config = await loadConfig("./config.json");
 
   await summarizeItems({

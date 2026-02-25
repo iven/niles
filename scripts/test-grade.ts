@@ -4,8 +4,10 @@
  * 运行方式: bun run scripts/test-grade.ts
  */
 
+import { LogLevels } from "consola";
 import { gradeItems } from "../src/grade";
 import { loadConfig } from "../src/lib/config";
+import { logger } from "../src/lib/logger";
 
 // 固定的测试数据 - 包含不同主题的条目
 const TEST_SAMPLES = [
@@ -47,6 +49,8 @@ const TEST_SAMPLES = [
 ];
 
 async function main() {
+  logger.level = LogLevels.debug;
+
   const config = await loadConfig("./config.json");
   const sourceConfig = config.sources.find((s) => s.name === "phoronix");
 

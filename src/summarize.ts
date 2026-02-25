@@ -133,6 +133,7 @@ export async function summarizeItems(
     logger.log(
       `     Token: 输入 ${itemTokenStats.promptTokens}, 输出 ${itemTokenStats.completionTokens}, 总计 ${itemTokenStats.totalTokens}`,
     );
+    logger.debug(`     描述: ${summary.description}`);
   }
 
   return { summaries, tokenStats };
