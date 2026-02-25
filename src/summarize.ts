@@ -4,7 +4,13 @@
 
 import { chat } from "@tanstack/ai";
 import type { LlmConfig } from "./lib/config";
-import { createLlmClient, handleStreamWithToolCall } from "./lib/llm";
+import {
+  createLlmClient,
+  handleStreamWithToolCall,
+  type StreamResult,
+  type TokenStats,
+} from "./lib/llm";
+import { logger } from "./lib/logger";
 import {
   buildSummarizeUserPrompt,
   SUMMARIZE_SYSTEM_PROMPT,
@@ -37,9 +43,9 @@ function createSummarizeTool() {
   };
 }
 
-export async function summarizeItem(
+async function summarizeItem(
   options: SummarizeOptions,
-): Promise<SummaryResult> {
+): Promise<StreamResult<SummaryResult>> {
   const { llmConfig, preferredLanguage, item } = options;
 
   const userMessage = buildSummarizeUserPrompt(preferredLanguage, item);
@@ -67,4 +73,67 @@ export async function summarizeItem(
   } catch (_error) {
     throw new Error("总结失败：AI 未成功调用工具");
   }
+}
+
+interface SummarizeItemsOptions {
+  llmConfig: LlmConfig;
+  preferredLanguage: string;
+  items: RssItem[];
+}
+
+interface SummarizeItemsResult {
+  summaries: SummaryResult[];
+  tokenStats: TokenStats;
+}
+
+export async function summarizeItems(
+  options: SummarizeItemsOptions,
+): Promise<SummarizeItemsResult> {
+  const { llmConfig, preferredLanguage, items } = options;
+
+  if (items.length === 0) {
+    return {
+      summaries: [],
+      tokenStats: { promptTokens: 0, completionTokens: 0, totalTokens: 0 },
+    };
+  }
+
+  logger.start(`开始总结 ${items.length} 个条目...`);
+
+  // 并行总结
+  const results = await Promise.all(
+    items.map((item) =>
+      summarizeItem({
+        llmConfig,
+        preferredLanguage,
+        item,
+      }),
+    ),
+  );
+
+  // 统计总 Token 使用量
+  const tokenStats = results.reduce(
+    (acc, { tokenStats }) => ({
+      promptTokens: acc.promptTokens + tokenStats.promptTokens,
+      completionTokens: acc.completionTokens + tokenStats.completionTokens,
+      totalTokens: acc.totalTokens + tokenStats.totalTokens,
+    }),
+    { promptTokens: 0, completionTokens: 0, totalTokens: 0 },
+  );
+
+  const summaries = results.map(({ result }) => result);
+
+  logger.success(`总结完成 (${summaries.length} 个条目)`);
+  for (let i = 0; i < results.length; i++) {
+    const { result: summary, tokenStats: itemTokenStats } = results[i] || {
+      result: { title: "" },
+      tokenStats: { promptTokens: 0, completionTokens: 0, totalTokens: 0 },
+    };
+    logger.log(`  ${i + 1}. ${summary.title}`);
+    logger.log(
+      `     Token: 输入 ${itemTokenStats.promptTokens}, 输出 ${itemTokenStats.completionTokens}, 总计 ${itemTokenStats.totalTokens}`,
+    );
+  }
+
+  return { summaries, tokenStats };
 }

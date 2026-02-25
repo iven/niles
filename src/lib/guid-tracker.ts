@@ -52,23 +52,17 @@ export class GuidTracker {
   }
 
   private static async load(historyPath: string): Promise<Map<string, string>> {
-    try {
-      const file = Bun.file(historyPath);
-      if (!(await file.exists())) return new Map();
+    const file = Bun.file(historyPath);
+    if (!(await file.exists())) return new Map();
 
-      const json = await file.json();
-      const parseResult = guidHistorySchema.safeParse(json);
+    const json = await file.json();
+    const parseResult = guidHistorySchema.safeParse(json);
 
-      if (!parseResult.success) {
-        console.error(`GUID 历史文件格式错误，重新初始化: ${historyPath}`);
-        return new Map();
-      }
-
-      return new Map(Object.entries(parseResult.data.guids || {}));
-    } catch (error) {
-      console.error(`读取 GUID 历史失败: ${error}`);
-      return new Map();
+    if (!parseResult.success) {
+      throw new Error(`GUID 历史文件格式错误: ${historyPath}`);
     }
+
+    return new Map(Object.entries(parseResult.data.guids || {}));
   }
 
   private async save(): Promise<void> {

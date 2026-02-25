@@ -7,6 +7,7 @@ import { z } from "zod";
 import { buildGradeUserPrompt, GRADE_SYSTEM_PROMPT } from "./grade.prompt";
 import type { GlobalConfig, LlmConfig, SourceConfig } from "./lib/config";
 import { createLlmClient, handleStreamWithToolCall } from "./lib/llm";
+import { logger } from "./lib/logger";
 import type { GradedRssItem, GradeResult, RssItem } from "./types";
 import { gradeResultSchema } from "./types";
 
@@ -84,6 +85,57 @@ function createGradeTool(items: RssItem[]) {
   };
 }
 
+function logBreakdown(items: GradedRssItem[]) {
+  // 按 level 分组
+  const grouped = items.reduce(
+    (acc, item) => {
+      if (!acc[item.level]) {
+        acc[item.level] = [];
+      }
+      acc[item.level]?.push(item);
+      return acc;
+    },
+    {} as Record<string, GradedRssItem[]>,
+  );
+
+  const levelNames: Record<string, string> = {
+    critical: "必看",
+    recommended: "推荐",
+    optional: "可选",
+    rejected: "排除",
+  };
+
+  const order: Array<keyof typeof levelNames> = [
+    "critical",
+    "recommended",
+    "optional",
+    "rejected",
+  ];
+
+  logger.success(`分级完成 (${items.length} 个条目)`);
+
+  let firstGroup = true;
+  for (const level of order) {
+    const levelItems = grouped[level];
+    if (!levelItems || levelItems.length === 0) continue;
+
+    // 非第一组前面加空行
+    if (!firstGroup) {
+      logger.log("");
+    }
+    firstGroup = false;
+
+    const levelName = levelNames[level];
+    logger.log(`  ${levelName}`);
+    for (let i = 0; i < levelItems.length; i++) {
+      const item = levelItems[i];
+      if (!item) continue;
+      logger.log(`    ${i + 1}. ${item.title}`);
+      logger.log(`       理由: ${item.reason}`);
+    }
+  }
+}
+
 export async function gradeItems(
   options: GradeOptions,
 ): Promise<GradedRssItem[]> {
@@ -92,6 +144,8 @@ export async function gradeItems(
   if (items.length === 0) {
     return [];
   }
+
+  logger.start(`开始分级 ${items.length} 个条目...`);
 
   const userMessage = buildGradeUserPrompt(sourceConfig, globalConfig, items);
   const adapter = createLlmClient(llmConfig, llmConfig.models.grade);
@@ -112,9 +166,21 @@ export async function gradeItems(
   });
 
   // 处理流式响应
+  let result: GradedRssItem[];
   try {
-    return await handleStreamWithToolCall({ stream, getResult });
+    const { result: gradedItems, tokenStats } = await handleStreamWithToolCall({
+      stream,
+      getResult,
+    });
+    result = gradedItems;
+    logger.log(
+      `  Token 使用: 输入 ${tokenStats.promptTokens}, 输出 ${tokenStats.completionTokens}, 总计 ${tokenStats.totalTokens}`,
+    );
   } catch (_error) {
     throw new Error("分级失败：AI 未成功调用工具");
   }
+
+  logBreakdown(result);
+
+  return result;
 }

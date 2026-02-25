@@ -4,6 +4,7 @@
  */
 
 import { parseHTML } from "linkedom";
+import { logger } from "../../../lib/logger";
 import type { UngradedRssItem } from "../../../types";
 import type { Plugin } from "../../plugin";
 
@@ -63,7 +64,7 @@ const plugin: Plugin = {
 
       item.description = result;
     } catch (error) {
-      console.error(`清理 description 失败: ${error}`);
+      logger.warn(`清理 description 失败: ${error}`);
     }
 
     return item;

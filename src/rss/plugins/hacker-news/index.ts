@@ -3,6 +3,7 @@
  */
 
 import { z } from "zod";
+import { logger } from "../../../lib/logger";
 import type { UngradedRssItem } from "../../../types";
 import type { Plugin } from "../../plugin";
 
@@ -68,14 +69,14 @@ const plugin: Plugin = {
       const parseResult = hnApiResponseSchema.safeParse(json);
 
       if (!parseResult.success) {
-        console.error(`HN API 响应格式错误: ${itemId}`);
+        logger.warn(`HN API 响应格式错误: ${itemId}`);
         return item;
       }
 
       const comments = extractComments(parseResult.data.children || [], 0, 2);
       item.extra.comments = comments;
     } catch (error) {
-      console.error(`抓取 HN 评论失败 ${itemId}: ${error}`);
+      logger.warn(`抓取 HN 评论失败 ${itemId}: ${error}`);
       item.extra.comments = [];
     }
 

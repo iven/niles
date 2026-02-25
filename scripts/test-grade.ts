@@ -47,7 +47,6 @@ const TEST_SAMPLES = [
 ];
 
 async function main() {
-  console.log("加载配置...");
   const config = await loadConfig("./config.json");
   const sourceConfig = config.sources.find((s) => s.name === "phoronix");
 
@@ -55,19 +54,11 @@ async function main() {
     throw new Error("找不到 phoronix 源配置");
   }
 
-  console.log("开始分级测试...");
-  const result = await gradeItems({
+  await gradeItems({
     llmConfig: config.llm,
     globalConfig: config.global,
     sourceConfig: sourceConfig,
     items: TEST_SAMPLES,
-  });
-
-  console.log("\n分级结果:");
-  result.forEach((item, index) => {
-    console.log(`\n[${index + 1}] ${item.title}`);
-    console.log(`级别: ${item.level}`);
-    console.log(`理由: ${item.reason}`);
   });
 }
 

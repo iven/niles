@@ -5,62 +5,11 @@
 import { gradeItems } from "./grade";
 import type { GlobalConfig, LlmConfig, SourceConfig } from "./lib/config";
 import { GuidTracker } from "./lib/guid-tracker";
+import { logger } from "./lib/logger";
 import { loadRss } from "./rss/loader";
 import { writeRss } from "./rss/writer";
-import { summarizeItem } from "./summarize";
+import { summarizeItems } from "./summarize";
 import type { GradedRssItem, UngradedRssItem } from "./types";
-
-function logBreakdown(items: GradedRssItem[], label: string) {
-  console.log(`${label}：`);
-
-  // 按 level 分组
-  const grouped = items.reduce(
-    (acc, item) => {
-      const level = item.level;
-      if (!acc[level]) acc[level] = [];
-      acc[level]?.push(item);
-      return acc;
-    },
-    {} as Record<string, GradedRssItem[]>,
-  );
-
-  // 按优先级排序显示
-  const levelNames = {
-    critical: "必看",
-    recommended: "推荐",
-    optional: "可选",
-    rejected: "排除",
-  };
-  const order: Array<keyof typeof levelNames> = [
-    "critical",
-    "recommended",
-    "optional",
-    "rejected",
-  ];
-
-  let groupIndex = 0;
-  const totalGroups = order.filter(
-    (level) => (grouped[level]?.length ?? 0) > 0,
-  ).length;
-
-  for (const level of order) {
-    const levelItems = grouped[level];
-    if (!levelItems || levelItems.length === 0) continue;
-
-    const levelName = levelNames[level];
-    console.log(`  [${levelName}] ${levelItems.length} 个条目`);
-    for (const item of levelItems) {
-      console.log(`    《${item.title}》`);
-      console.log(`    └─ ${item.reason}`);
-    }
-
-    groupIndex++;
-    // 最后一个分级组后面不加空行
-    if (groupIndex < totalGroups) {
-      console.log("");
-    }
-  }
-}
 
 async function summarizeAndRegrade(
   items: GradedRssItem[],
@@ -73,33 +22,21 @@ async function summarizeAndRegrade(
   const itemsToSummarize = items.filter((item) => item.level !== "rejected");
 
   if (itemsToSummarize.length === 0) {
-    console.log("\n✓ 所有条目已被排除，跳过总结和二次分级");
+    logger.success("所有条目已被排除，跳过总结和二次分级");
     return [];
   }
 
-  console.log(`\n${"─".repeat(50)}`);
-  console.log(`→ 开始总结 ${itemsToSummarize.length} 个条目...`);
-
-  // 并行总结
-  const summaryResults = await Promise.all(
-    itemsToSummarize.map((item) =>
-      summarizeItem({
-        llmConfig,
-        preferredLanguage: globalConfig.preferred_language,
-        item,
-      }),
-    ),
-  );
-
-  console.log(`\n✓ 总结完成：${summaryResults.length} 个条目`);
-  for (const summary of summaryResults) {
-    console.log(`  《${summary.title}》`);
-  }
+  logger.log("");
+  const { summaries } = await summarizeItems({
+    llmConfig,
+    preferredLanguage: globalConfig.preferred_language,
+    items: itemsToSummarize,
+  });
 
   // 从原始数据补充 link 和 pubDate
   const rawItemMap = new Map(originalItems.map((item) => [item.guid, item]));
 
-  const summarizedItems: UngradedRssItem[] = summaryResults.map((summary) => {
+  const summarizedItems: UngradedRssItem[] = summaries.map((summary) => {
     const rawItem = rawItemMap.get(summary.guid);
     return {
       title: summary.title,
@@ -113,16 +50,13 @@ async function summarizeAndRegrade(
   });
 
   // 基于总结后的内容重新分级
-  console.log(`\n${"─".repeat(50)}`);
-  console.log("→ 开始二次分级...");
+  logger.log("");
   const regradedItems = await gradeItems({
     llmConfig,
     globalConfig,
     sourceConfig,
     items: summarizedItems,
   });
-
-  logBreakdown(regradedItems, "✓ 二次分级完成");
 
   return regradedItems;
 }
@@ -157,6 +91,8 @@ export async function runWorkflow(params: WorkflowParams) {
   const historyPath = existingRss.replace(/\.xml$/, "-processed.json");
   const tracker = await GuidTracker.create(historyPath);
 
+  logger.start("获取新条目...");
+
   const { channelTitle, items: newItems } = await loadRss({
     url,
     tracker,
@@ -165,10 +101,19 @@ export async function runWorkflow(params: WorkflowParams) {
     plugins: sourceConfig.plugins,
   });
 
-  console.log(`\n✓ 获取到 ${newItems.length} 个新条目`);
+  logger.log("");
+  logger.success(`获取到 ${newItems.length} 个新条目`);
+  if (newItems.length > 0) {
+    for (let i = 0; i < newItems.length; i++) {
+      const item = newItems[i];
+      if (item) {
+        logger.log(`  ${i + 1}. ${item.title}`);
+      }
+    }
+  }
 
   if (newItems.length === 0) {
-    console.log("\n✓ 无新条目，跳过处理");
+    logger.info("无新条目，跳过处理");
     if (!isDryRun) {
       tracker.cleanup();
       await tracker.persist();
@@ -177,16 +122,13 @@ export async function runWorkflow(params: WorkflowParams) {
   }
 
   // 分级（简单模式或深度分析模式的第一次分级）
-  console.log(`\n${"─".repeat(50)}`);
-  console.log("→ 开始分级...");
+  logger.log("");
   let finalItems = await gradeItems({
     llmConfig,
     globalConfig,
     sourceConfig,
     items: newItems,
   });
-
-  logBreakdown(finalItems, "✓ 分级完成");
 
   // 深度分析模式：总结后重新分级
   if (sourceConfig.summarize) {
@@ -200,9 +142,7 @@ export async function runWorkflow(params: WorkflowParams) {
   }
 
   // 生成 RSS（输出端）
-  console.log(`\n${"─".repeat(50)}`);
-  console.log("→ 生成 RSS 文件...");
-  const { rss, newCount } = await writeRss(
+  const { rss } = await writeRss(
     {
       source_name: sourceName,
       source_url: url,
@@ -220,7 +160,9 @@ export async function runWorkflow(params: WorkflowParams) {
     await tracker.persist();
   }
 
-  console.log(`\n✓ 处理完成：${newCount} 个新条目`);
-  console.log(`  源名称：${sourceName}`);
-  console.log(`  模式：${sourceConfig.summarize ? "深度分析" : "简单模式"}`);
+  logger.log("");
+  logger.success("处理完成");
+  logger.log(`  源: ${sourceName}`);
+  logger.log(`  模式: ${sourceConfig.summarize ? "深度分析" : "简单"}`);
+  logger.log(`  输出: ${finalItems.length} 个条目`);
 }

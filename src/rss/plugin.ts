@@ -1,4 +1,5 @@
 import pLimit from "p-limit";
+import { logger } from "../lib/logger";
 import type { UngradedRssItem } from "../types";
 
 export interface Plugin {
@@ -31,7 +32,6 @@ export async function applyPlugins(
 
   for (const pluginName of pluginNames) {
     const plugin = await loadPlugin(pluginName);
-    console.log(`应用插件: ${plugin.name}`);
 
     const limit = pLimit(maxConcurrency);
 
@@ -41,12 +41,14 @@ export async function applyPlugins(
           try {
             return await plugin.processItem(item);
           } catch (error) {
-            console.error(`处理 item ${index} 失败: ${error}`);
+            logger.warn(`处理 item ${index} 失败: ${error}`);
             return item;
           }
         }),
       ),
     );
+
+    logger.success(`应用插件: ${pluginName}`);
   }
 
   return items;

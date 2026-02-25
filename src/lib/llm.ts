@@ -17,6 +17,7 @@ import { openRouterText } from "@tanstack/ai-openrouter";
 type OpenRouterModel = Parameters<typeof openRouterText>[0];
 
 import type { LlmConfig } from "./config";
+import { logger } from "./logger";
 
 type TextAdapter = ReturnType<
   | typeof anthropicText
@@ -93,20 +94,36 @@ interface StreamHandlerOptions<T> {
   getResult: () => T;
 }
 
+export interface TokenStats {
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+}
+
+export interface StreamResult<T> {
+  result: T;
+  tokenStats: TokenStats;
+}
+
 /**
- * 处理流式响应，输出 AI 文本并返回工具调用结果
+ * 处理流式响应，输出 AI 文本并返回工具调用结果和 Token 使用信息
  */
 export async function handleStreamWithToolCall<T>(
   options: StreamHandlerOptions<T>,
-): Promise<T> {
+): Promise<StreamResult<T>> {
   const { stream, getResult } = options;
 
   let fullText = "";
   let textOutputted = false;
+  let tokenStats: TokenStats = {
+    promptTokens: 0,
+    completionTokens: 0,
+    totalTokens: 0,
+  };
 
   for await (const chunk of stream) {
     if (chunk.type === "RUN_ERROR") {
-      console.error("API 错误:", JSON.stringify(chunk.error, null, 2));
+      logger.error("API 错误:", JSON.stringify(chunk.error, null, 2));
     }
 
     if (chunk.type === "TEXT_MESSAGE_CONTENT" && chunk.delta) {
@@ -116,31 +133,31 @@ export async function handleStreamWithToolCall<T>(
     if (chunk.type === "TOOL_CALL_END") {
       // 第一次工具调用时输出 AI 的文本（strip 空白，用引用格式）
       if (!textOutputted && fullText.trim()) {
-        console.log("");
         const lines = fullText.trim().split("\n");
         for (const line of lines) {
-          console.log(`> ${line}`);
+          logger.log(`> ${line}`);
         }
         textOutputted = true;
       }
 
       const result = chunk.result ? JSON.parse(chunk.result) : null;
       if (result?.success) {
-        console.log("");
-        return getResult();
+        return { result: getResult(), tokenStats };
       }
 
       // 工具调用失败，AI 会根据错误信息重试
       if (result?.error) {
-        console.error(`工具调用失败: ${result.error}，等待 AI 重试...`);
+        logger.warn(`工具调用失败: ${result.error}，等待 AI 重试...`);
       }
     }
 
-    // 记录 token 使用信息
+    // 收集 token 使用信息
     if ("usage" in chunk && chunk.usage) {
-      console.log(
-        `Token 使用: 输入 ${chunk.usage.promptTokens}, 输出 ${chunk.usage.completionTokens}, 总计 ${chunk.usage.totalTokens}`,
-      );
+      tokenStats = {
+        promptTokens: chunk.usage.promptTokens,
+        completionTokens: chunk.usage.completionTokens,
+        totalTokens: chunk.usage.totalTokens,
+      };
     }
   }
 

@@ -4,6 +4,7 @@
 
 import type { HTMLImageElement } from "linkedom";
 import { parseHTML } from "linkedom";
+import { logger } from "../../../lib/logger";
 import type { UngradedRssItem } from "../../../types";
 import type { Plugin } from "../../plugin";
 
@@ -113,7 +114,7 @@ const plugin: Plugin = {
         item.extra.images = [];
       }
     } catch (error) {
-      console.error(`抓取内容 ${url} 失败: ${error}`);
+      logger.warn(`抓取内容 ${url} 失败: ${error}`);
       item.extra.content = "";
       item.extra.images = [];
     }
