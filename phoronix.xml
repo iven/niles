@@ -4,7 +4,31 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 25 Feb 2026 11:09:29 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Feb 2026 11:54:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Systing 1.0正式发布：基于Rust和eBPF的AI智能追踪工具</title>
+      <link>https://www.phoronix.com/news/Systing-1.0</link>
+      <description>
+        <![CDATA[<p><small>[critical] Systing 1.0 是一个基于 Rust 和 eBPF 的 AI 智能追踪工具，属于新软件项目和编程工具发布主题，同时涉及 Rust 编程语言和 AI 技术，符合用户的高兴趣配置（新软件项目、编程工具发布/分享、AI 软件技术进展）。</small></p><p>还记得那个曾经在Meta工作、以Btrfs文件系统闻名的Josef Bacik吗？去年他宣布离开内核开发领域，但现在带着一个酷炫的新项目回来了！他刚刚发布了Systing 1.0，这是一个基于Rust语言和eBPF技术的Linux系统追踪工具，最厉害的是——它集成了AI智能分析！</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=systing" alt="Systing ASG" />
+
+<p>Systing的故事要从它的前身说起。最初它只是一个生成Perfetto追踪数据的工具，但现在的1.0版本已经进化出了"全新的AI身份"。Josef不再需要手动编写脚本来分析追踪数据，而是借助Claude Code这样的AI助手，让整个分析过程变得超级智能。</p>
+
+<p>技术上的一个大变化是，Systing 1.0现在使用DuckDB数据库来存储追踪数据，而不是原来的Perfetto格式。这样做的好处是查询数据变得更加方便快捷。想象一下，你可以实时地向AI提问关于系统运行状况的问题，而AI能够基于DuckDB中的追踪数据立即给出答案！</p>
+
+<p>这个工具可不是纸上谈兵哦。Josef已经用它成功优化了一个网络应用的性能，还调试了一个性能回归问题。他在发布公告中兴奋地表示："使用Claude Code来分析systing追踪数据，彻底改变了我的调试工作流程。Systing一直是我探索不同系统行为可视化和分析方法的'游乐场'工具，而这个最新版本最接近我心目中完美工具的样子。"</p>
+
+<p>如果你对Systing感兴趣，可以在GitHub上找到它的Rust源代码。去年在All Systems Go会议上，Josef还专门介绍过这个工具，相关演讲视频可以在YouTube上找到。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>eBPF（扩展伯克利包过滤器）</strong>是Linux内核中的一项黑科技，它允许用户空间程序在内核中安全地运行自定义代码，而无需修改内核源代码或加载内核模块。这就像是在不打扰内核"大管家"的情况下，安插了一个聪明的"小助手"来监控系统运行。</p>
+
+<p><strong>系统追踪</strong>则是开发者和系统管理员用来深入了解软件在系统中如何运行的工具。它可以记录函数调用、系统调用、内存分配等各种细节，帮助找出性能瓶颈或调试复杂问题。传统的追踪工具往往需要专业知识才能使用，而Systing通过AI集成，让这个过程变得更加友好和智能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Systing-1.0</guid>
+      <pubDate>Wed, 25 Feb 2026 11:11:00 GMT</pubDate>
+    </item>
     <item>
       <title>OpenZFS 2.4.1发布：全面支持Linux 6.19内核，修复多项问题</title>
       <link>https://www.phoronix.com/news/OpenZFS-2.4.1-Released</link>
@@ -689,23 +713,6 @@
       </description>
       <guid>https://www.phoronix.com/news/Weston-15.0-Released</guid>
       <pubDate>Thu, 19 Feb 2026 11:23:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.0 大幅提升大页文件回收性能：加速 50-75%</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-Faster-Large-Folios</link>
-      <description>
-        <![CDATA[<p>Linux 7.0 内核合并了一组内存管理优化补丁，显著提升了文件支持大页（large folios）的回收性能。这项工作由阿里巴巴工程师王保林（Baolin Wang）完成，通过批量检查和批量解除映射的方式，解决了逐个处理页表项（PTE）效率低下的问题。</p>
-
-<p>在传统实现中，系统需要顺序检查每个 PTE 的访问标志位，这对于包含大量页表项的大页来说效率很低。新的批处理方案不仅在 Arm 架构的连续页表项（contiguous PTEs）范围内优化，还扩展到整个大页范围，即使超出单个连续区域。</p>
-
-<p>性能测试结果令人印象深刻：在 32 核 Arm64 服务器上，通过 memory.reclaim 接口回收 8GB 文件支持大页时，性能提升达到 75%；在 x86 机器上也有超过 50% 的提升。随着 Linux 内核越来越多地使用 folios 机制，这项优化的价值将持续体现。</p>
-
-<h3>你知道吗？</h3>
-
-<p>Folios 是 Linux 内核引入的一种新的内存管理抽象，用于替代传统的 page（页）结构。传统的 page 只能表示单个 4KB 内存页，而 folios 可以表示一组连续的物理页面，也就是「大页」。这种设计简化了大页的管理代码，避免了频繁的指针转换和类型检查，同时为未来的性能优化提供了更好的基础。可以把 folios 理解为内存管理的「批发模式」——与其零散处理单个小页，不如整批处理大页，效率自然更高。</p><p><small>[interest] 「Linux 内核性能优化，属于开源项目技术改进」</small></p>]]>
-      </description>
-      <guid>https://www.phoronix.com/news/Linux-7.0-Faster-Large-Folios</guid>
-      <pubDate>Thu, 19 Feb 2026 11:15:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
