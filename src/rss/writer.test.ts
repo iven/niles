@@ -113,7 +113,7 @@ describe("formatGradedItems", () => {
     const result = formatGradedItems(items);
 
     expect(result[0]?.description).toBe(
-      "<p><small>[critical] Test reason</small></p>Original description",
+      '<p><small style="opacity: 0.7;">[critical] Test reason</small></p>Original description',
     );
   });
 

@@ -25,7 +25,7 @@ export function formatGradedItems(items: GradedRssItem[]): Rss.Item<string>[] {
       link: item.link,
       pubDate: item.pubDate,
       guid: { value: item.guid || item.link, isPermaLink: false },
-      description: `<p><small>[${item.level}] ${item.reason}</small></p>${item.description}`,
+      description: `<p><small style="opacity: 0.7;">[${item.level}] ${item.reason}</small></p>${item.description}`,
     };
   });
 }
