@@ -4,7 +4,30 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 25 Feb 2026 16:28:21 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Feb 2026 18:15:57 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Mesa 26.0.1发布：修复WebGPU内存越界访问安全漏洞</title>
+      <link>https://www.phoronix.com/news/Mesa-26.0.1-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍Mesa图形驱动的安全更新，属于Linux桌面技术和开源项目，符合用户兴趣配置中的'感兴趣'类别。</small></p><p>Mesa 26.0.1 已作为本季度 Mesa 26.0 系列的第一个点版本发布。除了常规的错误修复外，此版本包含一项重要的安全修复，解决了 WebGPU 上下文中可能出现的越界内存访问（OOB，Out-Of-Bounds）问题。</p>
+
+<h3>安全修复详情</h3>
+<p>该安全修复针对 WebGPU 中可能导致的越界内存访问漏洞。由于现代网页浏览器广泛支持 WebGPU，此漏洞具有较高的安全风险。Mesa 开发者 Eric Engestrom 在公告中强调：“此版本以及已发布的 25.3.6 版本包含了防止 WebGPU 越界内存访问的安全修复，应尽快部署给用户。”</p>
+
+<h3>其他主要修复</h3>
+<ul>
+<li><strong>Vulkan on Metal 修复</strong>：针对 Apple Metal API 上的 Vulkan 实现进行了多项修复。</li>
+<li><strong>Lavapipe 改进</strong>：为平面 DRM 格式启用了 DMA-BUF 导入支持。</li>
+<li><strong>RADV 驱动修复</strong>：修复了旧款 AMD GFX6 至 GFX8 GPU 在 FMASK 解压后可能出现的图像损坏问题，并解决了潜在的 GPU 挂起问题。</li>
+<li><strong>Intel ANV Vulkan 驱动修复</strong>：将禁用 Vulkan 修饰符的范围限制在受影响的特定 GTK 版本，而非所有 GTK 版本。此外，修复了《原神》游戏中的错误阴影和草地闪烁问题，以及其他 Intel Linux 游戏性能倒退。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>Mesa 是一个开源图形驱动项目，为 Linux 系统提供 OpenGL、Vulkan 和其他图形 API 的实现。WebGPU 是一种新兴的网页图形 API，旨在为网页应用提供高性能的 3D 图形和计算能力。越界内存访问漏洞可能被恶意网站利用，导致系统崩溃或执行任意代码，因此及时更新至关重要。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-26.0.1-Released</guid>
+      <pubDate>Wed, 25 Feb 2026 16:56:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 子调度器支持可能成为Linux 7.1最令人期待的功能之一</title>
       <link>https://www.phoronix.com/news/cgroup-sub-scheduler-sched-ext</link>
@@ -731,15 +754,6 @@
       </description>
       <guid>https://www.phoronix.com/news/AI-50-80x-IO-uring</guid>
       <pubDate>Thu, 19 Feb 2026 16:42:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ AMD 推出 hipThreads：让 C++ 代码更轻松移植到 GPU</title>
-      <link>https://www.phoronix.com/news/AMD-HIP-Threads</link>
-      <description>
-        <![CDATA[<p>AMD 为其 ROCm/HIP 生态推出了新工具 hipThreads，这是一个专为 AMD GPU 设计的 C++ 风格并发库。它最大的亮点是让熟悉 C++ 标准线程（std::thread）的开发者能够用几乎相同的语法（hip::thread）将代码移植到 GPU 上，大大降低了 GPU 编程的学习门槛。</p><p>不同于传统 GPU 编程需要深入理解内核配置、网格块语义等概念，hipThreads 让开发者可以直接使用熟悉的 C++ 并发工具——比如 hip::mutex、hip::lock_guard、hip::condition_variable——这些都与 CPU 端的 std::thread 模式高度相似。更重要的是，它支持渐进式移植，团队可以一步步将 std::thread 替换成 hip::thread，而不需要一次性重构整个代码库。</p><img src="//www.phoronix.net/image.php?id=2026&image=amd_hip_threads" alt="AMD hipThreads porting example" /><p>AMD 特别推荐以下场景使用 hipThreads：遇到 CPU 性能瓶颈的 C++ 团队、缺乏 GPU 编程经验或不想学习 ROCm/CUDA 复杂并行模型的开发者，以及希望快速集成 GPU 加速的工具厂商。该库已在 GitHub 上以 Apache 2.0 许可证开源，但目前仅支持 Linux 系统，且需要 ROCm 7.0 或更高版本。</p><h3>你知道吗？</h3><p>传统 GPU 编程为什么难？因为 GPU 的工作方式和 CPU 完全不同——CPU 像个多面手，能灵活处理各种任务；GPU 则是「人海战术」专家，拥有成千上万个简单计算核心，擅长同时处理大量相似计算。这就需要开发者学习一套全新的思维模型：把任务分解成数千个小块（线程块）、管理复杂的内存层级、处理线程间同步等。hipThreads 的创新在于，它把这套复杂机制包装成 C++ 程序员熟悉的「线程+锁」模式，就像给 GPU 装上了 CPU 风格的操作界面——虽然底层仍是 GPU 的工作方式，但开发者可以用熟悉的套路来写代码，等真正需要榨干性能时再深入学习 GPU 特性。</p><p><small>[high_interest] 创新的开源编程工具，降低 GPU 编程门槛，属于编程效率和开源项目主题</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-HIP-Threads</guid>
-      <pubDate>Thu, 19 Feb 2026 15:10:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
