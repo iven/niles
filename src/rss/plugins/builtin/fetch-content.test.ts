@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { shouldFilterImage } from "./fetch_content";
+import { shouldFilterImage } from "./fetch-content";
 
 describe("shouldFilterImage", () => {
   it("should filter data URI images", () => {

@@ -8,10 +8,17 @@ export interface Plugin {
 
 async function loadPlugin(pluginName: string): Promise<Plugin> {
   try {
+    // 尝试直接导入文件（如 builtin/fetch-content.ts）
     const module = await import(`./plugins/${pluginName}.ts`);
     return module.default as Plugin;
-  } catch (error) {
-    throw new Error(`无法加载插件 ${pluginName}: ${error}`);
+  } catch {
+    // 回退到目录导入（如 cnbeta/index.ts）
+    try {
+      const module = await import(`./plugins/${pluginName}/index.ts`);
+      return module.default as Plugin;
+    } catch (error) {
+      throw new Error(`无法加载插件 ${pluginName}: ${error}`);
+    }
   }
 }
 

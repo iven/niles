@@ -3,8 +3,8 @@
  */
 
 import { z } from "zod";
-import type { UngradedRssItem } from "../../types";
-import type { Plugin } from "../plugin";
+import type { UngradedRssItem } from "../../../types";
+import type { Plugin } from "../../plugin";
 
 interface HNComment {
   author: string;
@@ -38,7 +38,7 @@ const hnApiResponseSchema = z
   .passthrough();
 
 const plugin: Plugin = {
-  name: "hn_fetch_comments",
+  name: "hacker-news",
 
   async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
     const url = item.guid || "";

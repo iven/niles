@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import type { UngradedRssItem } from "../../types";
-import plugin from "./clean_text";
+import type { UngradedRssItem } from "../../../types";
+import plugin from "./clean-text";
 
 describe("clean_text plugin", () => {
   it("should clean zero-width characters from title and description", async () => {

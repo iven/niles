@@ -4,11 +4,11 @@
  */
 
 import { parseHTML } from "linkedom";
-import type { UngradedRssItem } from "../../types";
-import type { Plugin } from "../plugin";
+import type { UngradedRssItem } from "../../../types";
+import type { Plugin } from "../../plugin";
 
 const plugin: Plugin = {
-  name: "zaihuapd_clean_description",
+  name: "zaihuapd",
 
   async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
     if (!item.description) return item;

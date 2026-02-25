@@ -3,11 +3,11 @@
  */
 
 import { parseHTML } from "linkedom";
-import type { UngradedRssItem } from "../../types";
-import type { Plugin } from "../plugin";
+import type { UngradedRssItem } from "../../../types";
+import type { Plugin } from "../../plugin";
 
 const plugin: Plugin = {
-  name: "cnbeta_fetch_content",
+  name: "cnbeta",
 
   async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
     const url = item.link;

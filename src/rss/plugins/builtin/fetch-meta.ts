@@ -3,8 +3,8 @@
  */
 
 import { parseHTML } from "linkedom";
-import type { UngradedRssItem } from "../../types";
-import type { Plugin } from "../plugin";
+import type { UngradedRssItem } from "../../../types";
+import type { Plugin } from "../../plugin";
 
 const plugin: Plugin = {
   name: "fetch_meta",

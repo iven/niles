@@ -2,8 +2,8 @@
  * 内置插件：清理文本中的零宽字符和多余空白
  */
 
-import type { UngradedRssItem } from "../../types";
-import type { Plugin } from "../plugin";
+import type { UngradedRssItem } from "../../../types";
+import type { Plugin } from "../../plugin";
 
 function cleanZeroWidth(text: string): string {
   return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, "");

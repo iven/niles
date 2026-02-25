@@ -4,8 +4,8 @@
 
 import type { HTMLImageElement } from "linkedom";
 import { parseHTML } from "linkedom";
-import type { UngradedRssItem } from "../../types";
-import type { Plugin } from "../plugin";
+import type { UngradedRssItem } from "../../../types";
+import type { Plugin } from "../../plugin";
 
 interface ImageData {
   src: string;
