@@ -52,6 +52,9 @@ const plugin: Plugin = {
 
     const itemId = match[1];
 
+    // 将 link 改为 HN 讨论区 URL
+    item.link = url;
+
     try {
       const apiUrl = `https://hn.algolia.com/api/v1/items/${itemId}`;
 
