@@ -132,7 +132,7 @@ interface LoadRssResult {
   items: UngradedRssItem[];
 }
 
-const BUILTIN_PLUGINS = ["clean_text"];
+const DEFAULT_PLUGINS = ["builtin/clean-text"];
 
 export async function loadRss(options: LoadRssOptions): Promise<LoadRssResult> {
   const { url, tracker, maxItems, minItems, plugins = [] } = options;
@@ -143,8 +143,8 @@ export async function loadRss(options: LoadRssOptions): Promise<LoadRssResult> {
   // 选择条目
   const selectedItems = selectItems(allItems, tracker, maxItems, minItems);
 
-  // 应用插件（内置 + 用户）
-  const allPlugins = [...BUILTIN_PLUGINS, ...plugins];
+  // 应用插件（默认 + 用户）
+  const allPlugins = [...DEFAULT_PLUGINS, ...plugins];
   const processedItems = await applyPlugins(selectedItems, allPlugins);
 
   return {
