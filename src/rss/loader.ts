@@ -2,7 +2,8 @@
  * RSS 加载模块：提供处理好的 RSS 条目（输入端）
  */
 
-import { parseRssFeed } from "feedsmith";
+import { parseFeed } from "feedsmith";
+import type { Atom, DeepPartial } from "feedsmith/types";
 import { init as rsshubInit, request as rsshubRequest } from "rsshub";
 import { z } from "zod";
 import type { GuidTracker } from "../lib/guid-tracker";
@@ -70,9 +71,23 @@ async function fetchRss(
     }
 
     const xml = await response.text();
-    const feed = parseRssFeed(xml);
+    const { format, feed } = parseFeed(xml);
+
     title = feed.title;
-    rawItems = (feed.items || []) as typeof rawItems;
+
+    if (format === "atom") {
+      rawItems = (feed.entries || []).map(
+        (entry: DeepPartial<Atom.Entry<string>>) => ({
+          title: entry.title || "",
+          link: entry.links?.[0]?.href,
+          pubDate: entry.updated,
+          description: entry.content || entry.summary,
+          guid: { value: entry.id || "" },
+        }),
+      );
+    } else {
+      rawItems = (feed.items || []) as typeof rawItems;
+    }
   }
 
   const items: UngradedRssItem[] = rawItems.map((item) => ({
