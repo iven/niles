@@ -37,6 +37,7 @@ export const sourceConfigSchema = z.object({
   avoid: z.string().optional(),
   plugins: z.array(z.string()).optional(),
   summarize: z.boolean().optional(),
+  regrade: z.boolean().default(false),
   timeout: z.number().optional(),
 });
 export type SourceConfig = z.infer<typeof sourceConfigSchema>;

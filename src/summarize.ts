@@ -15,7 +15,7 @@ import {
   buildSummarizeUserPrompt,
   SUMMARIZE_SYSTEM_PROMPT,
 } from "./summarize.prompt";
-import type { RssItem, SummaryResult } from "./types";
+import type { GradedRssItem, RssItem, SummaryResult } from "./types";
 import { summaryResultSchema } from "./types";
 
 interface SummarizeOptions {
@@ -84,6 +84,36 @@ interface SummarizeItemsOptions {
 interface SummarizeItemsResult {
   summaries: SummaryResult[];
   tokenStats: TokenStats;
+}
+
+interface MergeSummaryResultsOptions {
+  summaries: SummaryResult[];
+  gradedItems: GradedRssItem[];
+}
+
+/**
+ * 合并总结结果到分级条目
+ */
+export function mergeSummaryResults(
+  options: MergeSummaryResultsOptions,
+): GradedRssItem[] {
+  const { summaries, gradedItems } = options;
+
+  const gradedItemMap = new Map(gradedItems.map((item) => [item.guid, item]));
+
+  return summaries.map((summary) => {
+    const gradedItem = gradedItemMap.get(summary.guid);
+
+    if (!gradedItem) {
+      throw new Error(`找不到 GUID 为 ${summary.guid} 的分级信息`);
+    }
+
+    return {
+      ...gradedItem,
+      title: summary.title,
+      description: summary.description,
+    };
+  });
 }
 
 export async function summarizeItems(
