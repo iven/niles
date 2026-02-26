@@ -4,7 +4,48 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 26 Feb 2026 05:01:48 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Feb 2026 07:17:36 GMT</lastBuildDate>
+    <item>
+      <title>Google API密钥原本不是秘密，但Gemini API改变了安全规则</title>
+      <link>https://news.ycombinator.com/item?id=47156925</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讨论Google API密钥安全规则变化，属于安全主题。根据针对hacker-news的配置，安全被列为不太感兴趣，且涉及行业公司内容，综合评估为可选阅读。</small></p><p>安全研究人员发现，Google长期告知开发者API密钥可以安全公开使用，但随着Gemini API的推出，这一安全假设已被打破，导致数千个公开部署的API密钥现在可以访问敏感的AI服务。</p>
+
+<img src="https://framerusercontent.com/images/oFLh01kYhwzmLTqmgBAgUlN94.png" alt="" width="800" height="500" />
+
+<p>Google Cloud平台使用统一的API密钥格式（以"AIza..."开头）同时服务于两种根本不同的目的：公开项目标识和敏感身份验证。多年来，Google明确指示开发者可以将API密钥安全地嵌入客户端代码中。<a href="https://firebase.google.com/support/guides/security-checklist#api-keys-not-secret">Firebase的安全检查清单</a>甚至明确声明"API密钥不是秘密"。</p>
+
+<img src="https://framerusercontent.com/images/RqMXTB1joHV9KC0Ev6k7bhvOik.png" alt="" width="625" height="358" />
+
+<p>这些密钥最初设计为项目标识符，主要用于计费目的，可以通过HTTP引用者白名单等可绕过的控制措施进行限制。然而，当Gemini API（生成式语言API）在Google Cloud项目中启用时，该项目中所有现有的API密钥（包括那些已公开部署在网站JavaScript代码中的密钥）都会静默获得访问敏感Gemini端点的权限，且没有任何警告或通知。</p>
+
+<img src="https://framerusercontent.com/images/wh5NC5mhFxNheNfOY5hH1OG8I.png" alt="" width="512" height="486" />
+
+<p>这导致了两个主要问题：<strong>特权回溯扩展</strong>和<strong>不安全的默认设置</strong>。开发者可能在三年前创建了一个用于Google Maps的API密钥并按照Google指示嵌入网站源代码，而团队中的另一名开发者上个月为内部原型启用了Gemini API，这使得原本公开的Maps密钥变成了Gemini凭证。</p>
+
+<img src="https://framerusercontent.com/images/Yol1Ipcab0PqV6e7nMFYXGkdnWQ.png" alt="" width="783" height="364" />
+
+<p>攻击者只需从公开网页源代码中复制AIza...密钥，即可通过简单的curl命令访问Gemini API。利用这些密钥，攻击者能够：访问项目所有者通过Gemini API存储的私有数据（包括上传的数据集、文档和缓存内容）；产生高额的AI使用费用；耗尽API配额导致合法服务中断。</p>
+
+<p>研究人员扫描了2025年11月的Common Crawl数据集，发现了<strong>2,863个活跃的Google API密钥</strong>存在此特权升级漏洞。受影响的不只是小型项目，还包括主要金融机构、安全公司和全球招聘公司，甚至Google自身的基础设施也未能幸免。</p>
+
+<img src="https://framerusercontent.com/images/Nf2qsg9A0BCN9PLKytFGkupS2c0.png" alt="" width="780" height="426" />
+
+<p>研究人员于2025年11月21日向Google漏洞披露计划报告了此问题。最初Google认为这是预期行为，但在研究人员提供了Google自身基础设施中的具体示例后，该问题被重新分类为"Bug"并提升了严重性等级。Google确认正在评估修复方案，并开始限制暴露的密钥访问Gemini API。</p>
+
+<img src="https://framerusercontent.com/images/gwiYpGErM4jP7RB5zy1RfYNAT4U.png" alt="" width="781" height="148" />
+
+<p>Google公开了其改进路线图：通过AI Studio创建的新密钥将默认仅限Gemini访问；默认阻止被发现泄露的API密钥访问Gemini API；计划在发现泄露密钥时主动通知用户。</p>
+
+<p>对于使用Google Cloud服务的开发者，研究人员建议立即采取以下步骤：检查每个GCP项目中是否启用了生成式语言API；如果已启用，审计所有API密钥的配置；验证这些密钥是否公开暴露；如果发现暴露的密钥，立即轮换。还可以使用<a href="https://trufflesecurity.com/">TruffleHog</a>等工具扫描代码和Web资产中的泄露密钥。</p>
+
+<img src="https://framerusercontent.com/images/xlkOD29iyoDWFO04pCKhMEx6Syo.png" alt="" width="779" height="235" />
+
+<p>这一漏洞凸显了将AI功能集成到现有平台时，传统凭证的攻击面会以意想不到的方式扩展。Google承认了问题并采取了有意义的措施，但关键在于是否会通知受影响的客户，以及Gemini最终是否会采用不同的身份验证架构。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47156925</guid>
+      <pubDate>Wed, 25 Feb 2026 19:54:14 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Windows 11记事本新增Markdown支持，画图应用引入AI涂色书功能</title>
       <link>https://news.ycombinator.com/item?id=47154399</link>
@@ -1529,41 +1570,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47098245</guid>
       <pubDate>Sat, 21 Feb 2026 07:06:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 通过构建可视化工具来学习代码库的独特方法</title>
-      <link>https://jimmyhmiller.com/learn-codebase-visualizer</link>
-      <description>
-        <![CDATA[<p>学习陌生代码库一直是开发者面临的挑战，尤其是面对数十万甚至百万行代码时。作者 Jimmy Miller 分享了一个独特的学习策略：不是试图完整理解整个代码库，而是通过构建可视化工具来逐步掌握其核心机制。</p>
-
-<img src="/images/turbopack-bug-report.png" alt="" />
-
-<p>文章以 Next.js 的 Turbopack（一个 Rust 编写的打包工具）为例，展示了完整的学习过程。作者从一个具体的 bug 入手：TypeScript 枚举（enum）的死代码未被正确删除。通过这个小问题，他展开了一系列探索：</p>
-
-<ul>
-<li><strong>从 bug 开始而非从 main 函数</strong>：大型项目往往有多个入口，从具体问题切入更有针对性。</li>
-<li><strong>理解构建系统</strong>：在调试过程中，作者发现了打包脚本的 bug——一个正则表达式导致 native 目录被过滤掉。</li>
-<li><strong>追踪代码流程</strong>：从 TypeScript 文件的解析（使用 SWC）到最终生成 chunk 文件，逐步理解数据转换过程。</li>
-<li><strong>构建可视化工具</strong>：当日志输出变得难以理解时，作者决定构建一个交互式的图形化界面，实时展示 Turbopack 的内部运行状态。</li>
-</ul>
-
-<img src="/images/turbopack-visualizer-steps.png" alt="" />
-
-<p>这个可视化工具能够显示模块之间的依赖关系、执行步骤的时序，以及异步任务的状态。通过它，作者能够清晰地看到代码在运行时的动态行为，而不仅仅是静态的文本。</p>
-
-<img src="/images/turbopack-visualizer-pure-kept.png" alt="" />
-
-<p>文章强调，学习代码库的目标不是记住每一行代码，而是理解其架构和关键机制，能够提出正确的问题。构建可视化工具是一种主动学习的方式，它迫使你深入理解系统的运行原理，同时产出的工具本身也能帮助团队更好地调试和优化代码。</p>
-
-<h3>你知道吗？</h3>
-<p>文章提到的「tree shaking」（树摇）是现代前端打包工具的核心优化技术。它的名字来源于一个形象的比喻：把代码想象成一棵树，通过「摇晃」这棵树，让没有被使用的「枯叶」（死代码）自然掉落。</p>
-
-<p>这个技术的实现原理基于 ECMAScript 模块（ESM）的静态结构特性。传统的 CommonJS 模块使用动态的 <code>require()</code>，在运行时才确定依赖关系，而 ESM 的 <code>import/export</code> 在编译时就能分析出哪些代码被使用、哪些没有。打包工具会构建一个依赖图，从入口文件开始标记所有「活着」的代码，最终只打包这些被标记的部分。</p>
-
-<p>但 tree shaking 也有局限性：它难以处理有副作用的代码（如修改全局对象）、动态导入，以及某些复杂的 TypeScript 特性（比如文中的 enum 问题）。这也是为什么即使是成熟的工具，在这些边缘场景下仍可能出现 bug。</p><p><small>[high_interest] 代码学习和可视化工具属于编程工具和编程效率主题，对开发者具有高度价值</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47085425</guid>
-      <pubDate>Fri, 20 Feb 2026 08:52:17 GMT</pubDate>
     </item>
   </channel>
 </rss>
