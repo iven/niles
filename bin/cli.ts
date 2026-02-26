@@ -5,7 +5,9 @@
  */
 
 import { parseArgs } from "node:util";
+import { LogLevels } from "consola";
 import { loadConfig } from "../src/lib/config";
+import { logger } from "../src/lib/logger";
 import { runWorkflow } from "../src/workflow";
 
 interface ParsedArgs {
@@ -43,12 +45,13 @@ async function main() {
   const outputDir = values["output-dir"] || "output";
   const isDryRun = values["dry-run"] ?? false;
 
-  // Dry run 模式：固定抓取 3 条
+  // Dry run 模式：固定抓取 3 条，启用 debug 日志
   let maxItems = parseInt(values["max-items"], 10);
   let minItems = parseInt(values["min-items"], 10);
   if (isDryRun) {
     maxItems = 3;
     minItems = 3;
+    logger.level = LogLevels.debug;
   }
 
   // 加载配置
