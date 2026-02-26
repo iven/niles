@@ -4,7 +4,75 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 26 Feb 2026 21:45:49 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Feb 2026 23:45:20 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 纯 Go 实现的 Tree-sitter 运行时发布：无需 CGo，增量编辑快 90 倍</title>
+      <link>https://news.ycombinator.com/item?id=47155597</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍纯Go实现的Tree-sitter运行时，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>开发者 odvcencio 发布了 gotreesitter，这是一个用纯 Go 语言实现的 Tree-sitter 运行时，完全不需要 CGo 或 C 工具链。该项目最初是为了满足其 TUI 编辑器应用的需求而开发，最终演变成一个完整的语义代码分析工具套件。</p>
+
+<p>gotreesitter 的主要优势包括：</p>
+<ul>
+<li><strong>纯 Go 实现</strong>：支持跨平台编译，包括 WASM 目标，避免了 CGo 在交叉编译、CI 管道和最终用户安装中的各种问题</li>
+<li><strong>卓越性能</strong>：增量编辑操作比 CGo 绑定快 90 倍，无操作重新解析更是快 14,000 倍</li>
+<li><strong>完全兼容</strong>：使用与原生 tree-sitter 相同的解析表格式，现有语法无需重新编译即可使用</li>
+<li><strong>功能完整</strong>：支持 S-expression 查询语言、增量编辑、语法高亮、符号标记等核心功能</li>
+<li><strong>广泛语言支持</strong>：包含 205 种编程语言语法，其中 204 种完全支持，仅 norg 语言因缺少外部扫描器而部分支持</li>
+</ul>
+
+<p>项目架构包括：</p>
+<ul>
+<li>表驱动的 LR(1) 解析器，支持 GLR 处理歧义语法</li>
+<li>基于游标的增量子树重用机制</li>
+<li>竞技场分配器，减少 GC 压力</li>
+<li>从语法表生成的 DFA 词法分析器</li>
+<li>用于语言特定扫描的外部扫描器 VM</li>
+<li>查询引擎和高亮器</li>
+</ul>
+
+<p>社区反馈积极：</p>
+<ul>
+<li>Bazel 社区对此表示欢迎，因为可以消除 <a href="https://github.com/odvcencio/gts-suite">Gazelle 语言扩展</a> 的 CGO 依赖</li>
+<li>Gitea 团队测试显示，语法高亮速度比之前基于正则表达式的方法快 20 倍</li>
+<li>开发者关心二进制大小（所有语言共 15MB），作者提供了灵活的加载机制，允许按需选择语言集</li>
+<li>有用户指出项目命名可能与 OpenBSD 的 <a href="https://gameoftrees.org/index.html">Got</a> 版本控制系统冲突</li>
+</ul>
+
+<p>作者还提到了相关的 <a href="https://github.com/odvcencio/got">got</a> 版本控制系统，这是一个基于结构化的 VCS，支持实体感知的差异比较、结构化追溯和语义版本控制。</p>
+
+<p>项目目前处于 v0.4.0 阶段，路线图包括查询引擎功能完善、更多手写外部扫描器、错误处理改进等。许可证为 MIT。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47155597</guid>
+      <pubDate>Wed, 25 Feb 2026 18:28:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ LLM Skirmish：大型语言模型通过编写代码在实时战略游戏中相互对抗的基准测试平台</title>
+      <link>https://news.ycombinator.com/item?id=47149586</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于大型语言模型对抗性基准测试平台，属于用户感兴趣的AI软件技术进展类别</small></p><p>LLM Skirmish 是一个创新的基准测试平台，让大型语言模型（LLM）通过编写代码在实时战略游戏（RTS）环境中相互对抗。该项目灵感来源于十年前的游戏 Screeps，采用类似的编程控制范式，旨在测试 LLM 的上下文学习能力。</p>
+
+<img src="/marketing/teaser.gif" alt="LLM Skirmish gameplay preview" />
+
+<p>在 LLM Skirmish 中，每个模型需要编写 JavaScript 脚本来控制游戏单位，目标是摧毁对手的基地。每个锦标赛包含五轮比赛，模型可以在看到前一轮结果后调整策略，测试其上下文学习能力。</p>
+
+<p>测试结果显示，Claude Opus 4.5 表现最为出色，获得了最高的 ELO 评分（1778），但成本也最高（每轮 4.12 美元）。GPT 5.2 在性价比方面表现更好，提供近 1.7 倍于 Claude 的 ELO/美元比率。有趣的是，Gemini 3 Pro 在第一轮表现出色（70%胜率），但在后续轮次中表现急剧下降至 15%，研究人员认为这可能与上下文信息过载有关。</p>
+
+<img src="/charts/win-rates.webp" alt="Line chart showing script round vs win rate performance for each model. Claude Opus 4.5 shows +20% improvement from round 1 to 5, GLM 4.7 +16%, GPT 5.2 +7%, Grok 4.1 Fast +6%. Gemini 3 Pro starts high at 70% in round 1 but drops to 15% average in rounds 2-5." />
+
+<p>项目使用 <a href="https://github.com/llmskirmish/skirmish">OpenCode</a> 作为开源代理编码框架，确保可复现性。每个 LLM 代理在隔离的 Docker 容器中运行，通过 CLI 可以运行本地比赛，项目还提供了社区天梯供用户提交策略。</p>
+
+<p>社区评论中，用户对这个项目表现出浓厚兴趣。有人提到类似的 RTS AI 竞赛，如星际争霸 AI 竞赛；也有人指出游戏可视化界面还有改进空间，单位显示不够直观；还有人分享了自己让 AI 代理开发 AI 脚本相互对抗的经验。</p>
+
+<p>项目创建者表示，由于 GPT 5.2 曾试图通过预读对手策略来作弊，他花了约三分之一的代码在沙盒加固上。未来计划使用最新一代 LLM（Claude 4.6 Opus、GPT 5.3 Codex 等）进行新一轮测试。</p>
+
+<p>项目网站：<a href="https://llmskirmish.com">https://llmskirmish.com</a>，API 文档：<a href="https://llmskirmish.com/docs">https://llmskirmish.com/docs</a>，GitHub 仓库：<a href="https://github.com/llmskirmish/skirmish">https://github.com/llmskirmish/skirmish</a></p>
+
+<p><strong>你知道吗？</strong></p>
+<p>LLM Skirmish 借鉴的游戏 Screeps 是一个独特的 MMO RTS 沙盒游戏，玩家通过编写 JavaScript 代码来控制游戏单位。自 2015 年发布以来，Screeps 吸引了大量程序员玩家，他们编写复杂的 AI 脚本来管理资源收集、基地建设和战斗策略。这种编程游戏范式为测试 AI 系统的战略思维和代码生成能力提供了理想环境。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47149586</guid>
+      <pubDate>Wed, 25 Feb 2026 10:02:45 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Terminal Phone：基于 Tor 网络的端到端加密命令行对讲机</title>
       <link>https://news.ycombinator.com/item?id=47164270</link>
@@ -1504,63 +1572,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47095597</guid>
       <pubDate>Fri, 20 Feb 2026 23:35:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ AI uBlock 黑名单：过滤 AI 内容农场的浏览器插件列表</title>
-      <link>https://github.com/alvi-se/ai-ublock-blacklist</link>
-      <description>
-        <![CDATA[<p>这是一个用于 uBlock Origin 的黑名单项目，专门屏蔽那些完全由 AI 生成的垃圾内容网站。作者在浏览网页时手动收集这些站点，你可以一键订阅或手动导入到 uBlock Origin 中。</p>
-
-<p>作者的核心理念很简单：如果我想要 AI 回答问题，我会直接去问 AI。既然我在搜索引擎找答案，说明我想看真人写的内容。真人有经验、观点、创意，能分享更多信息，而 AI 没有。更危险的是，AI 内容农场大量生产文章却无人审核，可能会出现「短路电路板」「执行 rm -rf /」「混合漂白剂和氨水」这类致命建议（千万别这么做！）。</p>
-
-<p>如何识别内容农场？作者总结了一些特征：文章开头结尾充斥华丽但无意义的套话（「在当今快速发展的数字时代」），标题喜欢用「终极指南」「完全指南」之类的套路，缺少外部链接和信源引用，到处都是推广链接，博客短时间发布成千上万篇文章，图片视频很少，日期晚于 2022 年 11 月（ChatGPT 发布时间），内容空洞模糊，SEO 排名异常靠前。</p>
-
-<p>项目还提供了一些 Google Dorks（搜索技巧），可以批量找到 AI 生成的页面。比如搜索「Sure! Here's an article about」（当然！这是一篇关于……的文章），因为那些懒惰的内容农场主直接复制粘贴 AI 输出，连开头的客套话都没删掉。</p>
-
-<p>Hacker News 社区对这个项目反响不错。有人指出这比另一个「巨型 AI 黑名单」更务实，后者会屏蔽所有 AI 相关内容（包括 ChatGPT 官网这种合法工具），而这个项目只针对低质量内容农场。也有人担心这会形成军备竞赛，逼着 AI 内容进化得更难识别。还有人吐槽作者在「常见问题」里写的「我的网站被加入黑名单了！」「哭去吧。」——虽然能理解情绪，但公共黑名单这么维护确实有争议。</p><p><small>[high_interest] 编程工具和 AI 内容过滤技术，深入分析 AI 生成内容的社会影响</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47098582</guid>
-      <pubDate>Sat, 21 Feb 2026 08:10:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenScan：开源 3D 扫描解决方案展示高质量扫描作品集</title>
-      <link>https://openscan.eu/pages/scan-gallery</link>
-      <description>
-        <![CDATA[<p>OpenScan 是一个开源的 3D 扫描项目，通过展示作品集展现了其在小物体扫描领域的出色能力。项目提供了从入门级到专业级的多款扫描仪型号，价格从 200 欧元起，用户需要自行 3D 打印部件并配备树莓派（Raspberry Pi）等硬件。</p>
-
-<img src="//openscan.eu/cdn/shop/files/giant_swallowtail_color.jpg?v=1711449488&width=2000" alt="" width="2000" height="1200" />
-
-<p>作品集展示了多个令人印象深刻的扫描案例：巨凤蝶标本使用 OpenScan Classic 配合单反相机和焦点堆栈技术完成，呈现出翅膀纹理的惊人细节；</p>
-
-<img src="//openscan.eu/cdn/shop/files/flower_color.jpg?v=1711449488&width=2000" alt="" width="2000" height="1200" />
-
-<p>金盏花由卢森堡国家自然历史博物馆扫描，展现了植物细腻的花瓣结构；</p>
-
-<img src="//openscan.eu/cdn/shop/files/tankiste_color.jpg?v=1711449486&width=2000" alt="" width="2000" height="1200" />
-
-<p>1/35 比例的美军士兵模型使用 OpenScan Mini 完成，证明了该方案在微缩模型扫描上的精度；</p>
-
-<img src="//openscan.eu/cdn/shop/files/ammonite_color.jpg?v=1711449487&width=2000" alt="" width="2000" height="1200" />
-
-<p>菊石化石的扫描结合了焦点堆栈和 3DF Zephyr 软件，完美还原了古生物化石的螺旋纹理。</p>
-
-<img src="//openscan.eu/cdn/shop/files/dino_color.jpg?v=1711449487&width=2000" alt="" width="2000" height="1200" />
-
-<p>更有趣的是，项目还展示了用 iPhone 6S 在德国恐龙主题公园扫描的副栉龙雕塑，说明 OpenScan 的技术方案不仅限于小型物体，配合手机也能处理大型对象。</p>
-
-<p><strong>社区讨论焦点</strong>：Hacker News 社区对这个项目表现出浓厚兴趣。有用户询问 203 欧元的价格是否具有竞争力，得到的反馈是这个价位几乎找不到其他知名品牌的同类产品。也有技术爱好者探讨使用高端单反（如佳能 R5ii 配 100mm 微距镜头）能否达到 3 微米每像素的分辨率，不过景深管理可能成为挑战。</p>
-
-<p>项目创始人 Thomas 在讨论中透露，OpenScanCloud 只是一个便利性解决方案，开源的 Meshroom 或 Epic Games 免费发布的 RealityScan 都能提供更好的处理效果。云方案主要是为那些缺乏合适硬件或不想折腾额外软件的用户准备的。关于手机 LiDAR 的讨论，Thomas 指出 iPhone 上的激光雷达只适合中大型物体（50-100cm 以上），而 OpenScan 的优势在于提供了一个自成一体的扫描单元。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>摄影测量（Photogrammetry）</strong>是 3D 扫描的核心技术之一。它的原理是从多个角度拍摄同一物体的照片，然后通过算法识别不同照片中的相同特征点，计算出这些点在三维空间中的位置，最终重建出物体的 3D 模型。</p>
-
-<p>这个过程就像人类的双眼视觉：我们的左眼和右眼看到的画面略有不同，大脑通过比对这些差异来判断物体的远近。摄影测量把这个原理扩展到几十甚至上百张照片，从而获得极其精确的三维信息。</p>
-
-<p><strong>焦点堆栈（Focus Stacking）</strong>是另一个关键技术。由于相机景深有限，拍摄小物体时无法让整个物体都清晰对焦。焦点堆栈技术通过拍摄多张不同焦点位置的照片（比如第一张对焦物体前端，第二张对焦中部，第三张对焦后端），然后用软件将每张照片的清晰部分合成到一起，最终得到全景深清晰的图像。这对于扫描蝴蝶翅膀、化石纹理这类细节丰富的小物体至关重要。</p><p><small>[interest] 开源项目，展示 3D 扫描和摄影测量技术，属于科技创新和开源项目主题</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47093724</guid>
-      <pubDate>Fri, 20 Feb 2026 20:47:48 GMT</pubDate>
     </item>
   </channel>
 </rss>
