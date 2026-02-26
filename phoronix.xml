@@ -4,7 +4,28 @@
     <title>Phoronix</title>
     <link>https://www.phoronix.com/rss.php</link>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 26 Feb 2026 11:52:54 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Feb 2026 13:43:18 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.1 计划支持套接字扩展属性，为 GNOME 和 systemd 新功能铺路</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-Looks-xattrs-Sockets</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linux内核新功能：支持套接字扩展属性以支持GNOME和systemd，属于软件技术进展，但非用户核心兴趣主题，可选阅读</small></p><p>Linux 7.0 的功能合并窗口刚刚结束，而下一个内核版本 Linux 7.1 预计将在 4 月发布稳定版。目前已有一些新功能正在筹备中，有望合并到 Linux 7.1 内核中，前提是没有出现重大问题或受到 Linus Torvalds 的反对。其中一个很可能被提交的功能是支持在套接字上使用扩展属性（xattrs）。</p>
+
+<p>开发者 Christian Brauner 一直在致力于为套接字添加扩展属性支持。他解释说，目前基于路径的 AF_UNIX 套接字可以从底层文件系统（如 tmpfs）继承 xattr 支持，但 sockfs 中的套接字——包括通过 socket() 创建的所有套接字以及抽象命名空间的 AF_UNIX 套接字——完全没有 xattr 支持。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=gnome_med" alt="GNOME and systemd" />
+
+<p>支持套接字上的 user.* 扩展属性主要是为了满足 GNOME 和 systemd 的新用例。systemd 和 GNOME 正在扩大对 Varlink 作为进程间通信（IPC）机制的使用。对于 D-Bus，有像 dbus-monitor 这样的工具可以观察系统内的 IPC 流量，但这仅适用于 D-Bus 有中央代理的情况。对于 Varlink，由于没有代理，目前无法识别哪些套接字使用 Varlink 协议。通过在套接字上使用 user.* xattrs，服务可以用其使用的 IPC 协议（例如 user.varlink=1）标记套接字，然后 eBPF 程序可以有选择地捕获这些套接字上的流量。结合网络链接枚举和这些 xattr 标签，可以为调试和自省提供发现所有 Varlink IPC 入口点的方法。</p>
+
+<p>同样，systemd-journald 希望在 /dev/log 套接字上使用 xattrs 进行协议协商，以指示是否支持 RFC 5424 结构化系统日志，或者是否应仅使用传统的 RFC 3164 格式。在容器环境中，这些标签尤其有用，因为用于套接字识别的高权限或更复杂的解决方案通常不可用。</p>
+
+<p>这些补丁已经提交到 VFS.git 的 vfs-7.1.xattr Git 分支。随着补丁就位，它们很可能在 4 月 Linux 7.1 合并窗口开启时被提交。</p>
+
+<p><strong>你知道吗？</strong>扩展属性（Extended Attributes，xattrs）是文件系统的一项功能，允许用户将额外的元数据（如安全标签、作者信息、字符编码等）关联到文件系统对象（文件、目录等）。在 Linux 中，xattrs 通常用于实现访问控制列表（ACLs）、SELinux 安全上下文等功能。现在这项功能将扩展到套接字，为更灵活的进程间通信管理提供了新的可能性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-Looks-xattrs-Sockets</guid>
+      <pubDate>Thu, 26 Feb 2026 13:08:00 GMT</pubDate>
+    </item>
     <item>
       <title>英特尔 Vulkan 驱动针对 Linux 上 DX12 游戏进行小幅优化</title>
       <link>https://www.phoronix.com/news/Mesa-26.1-Intel-ANV-DX12-Minor</link>
@@ -792,15 +813,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-PHY-Changes</guid>
       <pubDate>Fri, 20 Feb 2026 13:14:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 26.04 进入功能冻结阶段</title>
-      <link>https://www.phoronix.com/news/Ubuntu-26.04-Feature-Freeze</link>
-      <description>
-        <![CDATA[<p>Canonical（卡诺尼科）工程师代表 Ubuntu 发布团队宣布，Ubuntu 26.04「Resolute Raccoon」已进入功能冻结阶段。这标志着开发重心从新功能开发转向 bug 修复，为 4 月的正式发布做准备。</p><img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_2604_snapshot_3_med" alt="Ubuntu 26.04 desktop" /><p>作为下一个长期支持版本（LTS），Ubuntu 26.04 将搭载 Linux 7.0 内核和 GNOME 50 桌面环境，并升级到 GCC 15 编译器。其他亮点包括：引入 ROCm（AMD 的 GPU 计算平台）、默认使用 OpenJDK 25、新增 GNOME Resources 系统监视器等。</p><p>接下来的发布节点：3 月 12 日用户界面冻结、3 月底发布测试版、4 月 9 日内核冻结，最终将在 4 月 23 日正式发布。虽然已进入功能冻结，但 Canonical 感兴趣的重要特性仍可能获得例外批准。</p><h3>你知道吗？</h3><p>「功能冻结」（Feature Freeze）是软件发布流程中的关键节点。在这个阶段之后，开发团队原则上不再接受新功能的提交，只专注于修复现有 bug、完善文档和进行测试。这就像给正在装修的房子「封顶」——基础结构已定，接下来只做细节打磨。</p><p>对于 Ubuntu 这样的 LTS 版本尤为重要，因为它需要提供 5 年的技术支持。功能冻结确保有足够时间进行充分测试，降低稳定性风险。不过「例外批准」机制也保留了灵活性，允许那些对生态系统至关重要的功能在严格评估后加入。</p><p><small>[interest] Linux 发行版更新，属于 Linux 桌面技术范畴</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.04-Feature-Freeze</guid>
-      <pubDate>Fri, 20 Feb 2026 11:20:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
