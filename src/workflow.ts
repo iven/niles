@@ -96,6 +96,7 @@ export async function runWorkflow(params: WorkflowParams) {
         llmConfig,
         preferredLanguage: globalConfig.preferred_language,
         items: itemsToSummarize,
+        sourceContext: sourceConfig.context,
       });
 
       // 合并总结结果

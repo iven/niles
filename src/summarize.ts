@@ -22,6 +22,7 @@ interface SummarizeOptions {
   llmConfig: LlmConfig;
   preferredLanguage: string;
   item: RssItem;
+  sourceContext?: string;
 }
 
 function createSummarizeTool() {
@@ -46,9 +47,13 @@ function createSummarizeTool() {
 async function summarizeItem(
   options: SummarizeOptions,
 ): Promise<StreamResult<SummaryResult>> {
-  const { llmConfig, preferredLanguage, item } = options;
+  const { llmConfig, preferredLanguage, item, sourceContext } = options;
 
-  const userMessage = buildSummarizeUserPrompt(preferredLanguage, item);
+  const userMessage = buildSummarizeUserPrompt(
+    preferredLanguage,
+    item,
+    sourceContext,
+  );
   const adapter = createLlmClient(llmConfig, llmConfig.models.summarize);
   const { tool, getResult } = createSummarizeTool();
 
@@ -79,6 +84,7 @@ interface SummarizeItemsOptions {
   llmConfig: LlmConfig;
   preferredLanguage: string;
   items: RssItem[];
+  sourceContext?: string;
 }
 
 interface SummarizeItemsResult {
@@ -119,7 +125,7 @@ export function mergeSummaryResults(
 export async function summarizeItems(
   options: SummarizeItemsOptions,
 ): Promise<SummarizeItemsResult> {
-  const { llmConfig, preferredLanguage, items } = options;
+  const { llmConfig, preferredLanguage, items, sourceContext } = options;
 
   if (items.length === 0) {
     return {
@@ -137,6 +143,7 @@ export async function summarizeItems(
         llmConfig,
         preferredLanguage,
         item,
+        sourceContext,
       }),
     ),
   );

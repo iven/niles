@@ -58,11 +58,15 @@ export function buildGradeUserPrompt(
     })
     .join("\n\n");
 
+  const contextSection = sourceConfig.context
+    ? `## 来源说明\n\n${sourceConfig.context}\n\n`
+    : "";
+
   return `## 内容来源
 
 ${sourceConfig.name}
 
-## 用户兴趣配置
+${contextSection}## 用户兴趣配置
 
 ### 全局配置
 - 很感兴趣 (high_interest): ${globalConfig.high_interest}

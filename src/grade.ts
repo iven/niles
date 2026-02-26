@@ -147,9 +147,36 @@ export async function gradeItems(
 
   logger.start(`开始分级 ${items.length} 个条目...`);
 
-  const userMessage = buildGradeUserPrompt(sourceConfig, globalConfig, items);
+  // 预检查：标题包含 [NILES_REJECTED] 的直接标记为 rejected
+  const preRejectedItems: GradedRssItem[] = [];
+  const itemsToGrade: RssItem[] = [];
+
+  for (const item of items) {
+    if (item.title.includes("[NILES_REJECTED]")) {
+      preRejectedItems.push({
+        ...item,
+        graded: true as const,
+        level: "rejected",
+        reason: "标题包含 [NILES_REJECTED] 标记",
+      });
+    } else {
+      itemsToGrade.push(item);
+    }
+  }
+
+  // 如果所有条目都被预排除，直接返回
+  if (itemsToGrade.length === 0) {
+    logBreakdown(preRejectedItems);
+    return preRejectedItems;
+  }
+
+  const userMessage = buildGradeUserPrompt(
+    sourceConfig,
+    globalConfig,
+    itemsToGrade,
+  );
   const adapter = createLlmClient(llmConfig, llmConfig.models.grade);
-  const { tool, getResult } = createGradeTool(items);
+  const { tool, getResult } = createGradeTool(itemsToGrade);
 
   // 调用 AI
   const stream = chat({
@@ -180,7 +207,10 @@ export async function gradeItems(
     throw new Error("分级失败：AI 未成功调用工具");
   }
 
-  logBreakdown(result);
+  // 合并预排除的条目和 AI 分级的条目
+  const finalResult = [...preRejectedItems, ...result];
 
-  return result;
+  logBreakdown(finalResult);
+
+  return finalResult;
 }

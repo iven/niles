@@ -63,6 +63,7 @@ export const SUMMARIZE_SYSTEM_PROMPT = `# 角色
 export function buildSummarizeUserPrompt(
   preferredLanguage: string,
   item: RssItem,
+  sourceContext?: string,
 ): string {
   const extraFields = Object.entries(item.extra)
     .map(([key, value]) => {
@@ -73,10 +74,14 @@ export function buildSummarizeUserPrompt(
     })
     .join("\n");
 
+  const contextSection = sourceContext
+    ? `## 来源说明\n\n${sourceContext}\n\n`
+    : "";
+
   return `## 首选语言
 ${preferredLanguage}
 
-## 条目内容
+${contextSection}## 条目内容
 
 ### 基本信息
 - GUID: ${item.guid}

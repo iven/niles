@@ -31,6 +31,7 @@ export const sourceConfigSchema = z.object({
   name: z.string(),
   title: z.string().optional(),
   url: z.string(),
+  context: z.string().optional(),
   high_interest: z.string().optional(),
   interest: z.string().optional(),
   uninterested: z.string().optional(),
