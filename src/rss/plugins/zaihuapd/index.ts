@@ -12,6 +12,9 @@ const plugin: Plugin = {
   name: "zaihuapd",
 
   async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
+    // 清理标题前面的 emoji
+    item.title = item.title.replace(/^[\p{Emoji}\s]+/u, "");
+
     if (!item.description) return item;
 
     try {

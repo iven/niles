@@ -15,6 +15,24 @@ function createItem(description: string): UngradedRssItem {
 }
 
 describe("zaihuapd_clean_description plugin", () => {
+  it("should remove emoji from title", async () => {
+    const item = createItem("<p>内容</p>");
+    item.title = "🎗 标题内容";
+
+    const result = await plugin.processItem(item);
+
+    expect(result.title).toBe("标题内容");
+  });
+
+  it("should remove multiple emojis and spaces from title", async () => {
+    const item = createItem("<p>内容</p>");
+    item.title = "🎗📮  标题内容";
+
+    const result = await plugin.processItem(item);
+
+    expect(result.title).toBe("标题内容");
+  });
+
   it("should remove clover emoji and zaihuanews link from real structure", async () => {
     // 真实数据: SPAN 和 A 之间没有空格
     const html = `<p>正文内容<br><br><a href="https://example.com">来源</a><br><br><span class="emoji">🍀</span><a href="http://t.me/zaihuanews" target="_blank" rel="noopener" onclick="return confirm('Open this link?\\n\\n'+this.href);">在花频道</a>  <span class="emoji">🍵</span><a href="http://t.me/zaihuachat" target="_blank" rel="noopener" onclick="return confirm('Open this link?\\n\\n'+this.href);">茶馆聊天</a>  <span class="emoji">📮</span><a href="http://t.me/ZaiHuabot" target="_blank" rel="noopener" onclick="return confirm('Open this link?\\n\\n'+this.href);">投稿</a></p>`;
