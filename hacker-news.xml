@@ -4,7 +4,36 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 27 Feb 2026 15:52:25 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Feb 2026 16:56:39 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ BuildKit：Docker隐藏的宝石，几乎可以构建任何东西</title>
+      <link>https://news.ycombinator.com/item?id=47166264</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 详细介绍Docker BuildKit工具的功能和使用，属于编程效率改进经验，符合用户很感兴趣的主题</small></p><p>BuildKit 通常被认为是加速 Docker 构建的工具，但实际上它是一个通用的、可插拔的构建框架，能够生成各种类型的构建产物，而不仅仅是容器镜像。文章深入探讨了 BuildKit 的架构原理，并通过一个构建 Alpine APK 包的实际案例展示了其强大功能。</p>
+
+<p>BuildKit 的核心是 LLB（低级构建定义），这是一种类似于 LLVM IR 的中间表示，用于描述文件系统操作的有向无环图（DAG）。LLB 采用内容寻址机制，相同的操作会产生相同的哈希值，从而实现高效的缓存。</p>
+
+<p>前端是 BuildKit 的可插拔组件，负责将构建定义（如 Dockerfile、YAML 等）转换为 LLB。Dockerfile 只是默认前端，开发者可以创建自定义前端来支持任意构建语言。文章作者为此创建了 <a href="https://github.com/tuananh/apkbuild">apkbuild</a> 项目，这是一个能够读取 YAML 配置并生成 Alpine APK 包的 BuildKit 前端。</p>
+
+<img src="/img/buildkit-llb.png" alt="BuildKit LLB架构图" />
+
+<p>BuildKit 支持多种输出类型，包括容器镜像、本地目录、tar 包等。通过 <code>--output type=local</code> 参数，可以将构建结果直接输出到本地文件系统，无需生成容器镜像。这使得 BuildKit 可以用于编译二进制文件、生成软件包、文档等各种构建任务。</p>
+
+<p>在 Hacker News 的讨论中，社区对 BuildKit 的评价褒贬不一。许多开发者赞赏其架构设计，认为它比传统的 Make 等工具更先进。有用户分享了自己在生产环境中使用 BuildKit 的经验，表示通过切换到 BuildKit 实现了并行构建和多架构镜像支持，显著提升了构建性能。</p>
+
+<p>然而，也有不少开发者指出了 BuildKit 的实际问题。Depot 公司的创始人表示，BuildKit 在理论上很强大，但在大规模运行时存在诸多痛点，他们的团队不得不 fork 并修改 BuildKit 代码以适应生产需求。其他用户抱怨 BuildKit 的缓存机制存在问题，特别是在多阶段构建和 GitHub Actions 环境中难以正常工作。</p>
+
+<img src="/img/apkbuild-demo.png" alt="APK构建演示" />
+
+<p>讨论中还涉及了 BuildKit 与其他构建系统的比较。有用户认为 Nix 在构建可重现性方面更胜一筹，因为 Nix 要求所有输入都被明确声明，而 Docker 构建可能依赖外部资源导致不可重现。也有用户将 BuildKit 与 Bazel、Buck2 等现代构建系统进行对比，认为这些工具在某些方面更为成熟。</p>
+
+<p>尽管存在争议，BuildKit 已被多个知名项目采用，包括 <a href="https://dagger.io">Dagger</a>、<a href="https://earthly.dev">Earthly</a> 和 <a href="https://depot.dev">Depot</a>。这些项目都基于 BuildKit 的 LLB 构建了自己的 CI/CD 和构建系统，证明了该架构的可扩展性和实用性。</p>
+
+<p>总的来说，BuildKit 提供了一个强大的构建引擎，开发者可以通过创建自定义前端来支持各种构建需求。虽然在实际使用中可能遇到一些挑战，但对于需要复杂构建流程的项目来说，BuildKit 仍然是一个值得考虑的技术选择。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47166264</guid>
+      <pubDate>Thu, 26 Feb 2026 14:05:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ OsmAnd 推出全新高速公路层级路由算法，实现离线导航 100 倍速度提升</title>
       <link>https://news.ycombinator.com/item?id=47170157</link>
@@ -1559,45 +1588,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47103931</guid>
       <pubDate>Sat, 21 Feb 2026 19:40:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Taalas 如何将大语言模型「烧」进芯片？</title>
-      <link>https://www.anuragk.com/blog/posts/Taalas.html</link>
-      <description>
-        <![CDATA[<p>创业公司 Taalas 最近发布了一款专用集成电路（ASIC）芯片，能以每秒 17,000 tokens 的速度运行 Llama 3.1 8B 模型。听起来很疯狂对吧？这相当于一秒钟写满 30 张 A4 纸。更夸张的是，他们声称这款芯片的拥有成本比 GPU 低 10 倍，耗电量也少 10 倍，速度还快 10 倍。</p>
-
-<p>那么他们是怎么做到的呢？简单说，就是把模型的权重直接「刻」进了硅片里。</p>
-
-<h3>GPU 的效率瓶颈在哪？</h3>
-
-<p>传统 GPU 处理大语言模型时，需要不断在计算核心和显存之间来回搬运数据。比如 Llama 3.1 8B 有 32 层，每生成一个 token，GPU 都要从显存读取第 1 层权重、计算、存回结果，再读第 2 层权重、计算、存回……如此往复 32 次。这种不停的数据搬运就是所谓的「内存带宽瓶颈」或「冯·诺依曼瓶颈」，既慢又耗电。</p>
-
-<img src="../staticFiles/Taalas/GPUInference.png" alt="GPU Inference" />
-
-<h3>Taalas 的解决方案：打破内存墙</h3>
-
-<p>Taalas 直接把 32 层模型按顺序刻在了芯片上。模型权重不再存储在外部显存里，而是变成了物理晶体管。当用户输入到达时，数据直接流过这些晶体管层，从第 1 层一路流到第 32 层，中间不需要反复读写内存。数据就像水流一样，沿着硅片上的「管道」持续流动，直到输出最终的 token。</p>
-
-<img src="../staticFiles/Taalas/TaalasWay.png" alt="The Taalas Way" />
-
-<p>更厉害的是，他们声称发明了一种硬件方案，可以用单个晶体管存储 4 位数据并完成乘法运算。虽然具体细节保密，但这大幅提升了芯片密度。</p>
-
-<h3>那还需要内存吗？</h3>
-
-<p>Taalas 不使用外部显存（DRAM/HBM），但芯片上有少量的 SRAM，用来存储 KV 缓存（对话的临时记忆）和 LoRA 微调适配器。</p>
-
-<h3>为每个模型造一个芯片，成本不是很高吗？</h3>
-
-<p>确实，很多人质疑这一点。但 Taalas 的策略是设计一个通用的基础芯片，包含大量逻辑门和晶体管网格。要适配不同模型，只需要定制顶层的两层掩膜（mask）。虽然从 AI 迭代速度来看两个月还是很慢，但在定制芯片领域，这已经算是「疯狂快」了。</p>
-
-<h3>你知道吗？</h3>
-
-<p><strong>什么是 ASIC？</strong>专用集成电路（Application-Specific Integrated Circuit）是为特定应用定制的芯片，就像游戏卡带或 CD-ROM 一样，只能运行固定的内容，无法重新编程。相比通用处理器（如 CPU、GPU），ASIC 在特定任务上效率极高，但灵活性为零。Taalas 的芯片就像一本「印刷好的书」，只能读取 Llama 3.1 8B 这一个模型，无法更改。不过正因为这种「死板」，它才能达到极致的速度和能效。</p>
-
-<p><strong>为什么 4 位量化很重要？</strong>量化是指用更少的位数表示模型权重，比如从 32 位浮点数压缩到 4 位整数。4 位意味着每个权重只有 16 种可能的值（2^4=16）。这不仅大幅减少了存储空间，还让硬件设计变得更简单——只需要 16 个预计算的乘法器，而不是 256 个（8 位的情况）。这也是 Taalas 能够用单晶体管实现乘法的关键。</p><p><small>[high_interest] AI 硬件创新，深入分析大语言模型芯片技术，属于人工智能软件技术和编程工具主题</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47103661</guid>
-      <pubDate>Sat, 21 Feb 2026 19:07:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
