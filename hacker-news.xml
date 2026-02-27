@@ -4,7 +4,46 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 27 Feb 2026 14:57:17 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Feb 2026 15:52:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OsmAnd 推出全新高速公路层级路由算法，实现离线导航 100 倍速度提升</title>
+      <link>https://news.ycombinator.com/item?id=47170157</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 OsmAnd 导航软件的新路由算法，属于软件新功能类别。根据全局配置，软件新功能属于感兴趣级别，无来源配置冲突。</small></p><p>开源离线地图导航应用 OsmAnd 近日发布了全新的高速公路层级（Highway Hierarchy，HH）路由算法，实现了高达 100 倍的速度提升，同时保持了其标志性的灵活性、极小存储占用和离线优先的特性。</p>
+
+<img src="/assets/images/hh-f4f70605ea50f9a5c47f8f8e20915bff.gif" alt="HH example" width="400" height="868" />
+
+<p>随着地图数据日益详细和用户对复杂路由需求的增长，OsmAnd 原本使用的 A* 算法在处理长距离路线时性能遇到瓶颈，计算时间可能长达 10-20 秒。为了解决这一问题，开发团队放弃了传统的收缩层级（Contraction Hierarchies，CH）等方案，因为它们无法满足 OsmAnd 对多参数配置支持、小存储占用、区域地图管理和频繁更新的要求。</p>
+
+<p>新的 HH 路由算法核心是一个两层级结构：</p>
+<ol>
+<li><strong>区域聚类与边界点</strong>：地图被智能分割成众多小区域（聚类），每个聚类通过基于 Ford-Fulkerson 算法的“流量模拟”方法识别出关键的“边界点”，这些点类似于停车场的主要出口，能高效代表内部复杂路网。</li>
+<li><strong>抽象图路由</strong>：路由计算时，首先在起点和终点的本地聚类内使用 Dijkstra 算法找到所有边界点的路径，然后在仅由边界点和预计算“捷径”成本构成的抽象图上快速找到高层级路径，最后对每个捷径在其所属聚类内使用优化的 A* 算法进行精细化计算。</li>
+</ol>
+
+<img src="/assets/images/hh-example-d95bc3f5a713ed5589d256c130359786.png" alt="OsmAnd HH" width="1269" height="634" />
+
+<p>这种设计带来了显著优势：</p>
+<ul>
+<li><strong>极速计算</strong>：相比传统双向 A*，平均提升 100 倍速度，长距离路线计算从分钟级降至秒级。</li>
+<li><strong>微小存储</strong>：HH 路由数据结构仅使地图大小增加 0.5%-1%，全球汽车路由数据仅约 800MB。</li>
+<li><strong>完全灵活性</strong>：支持所有自定义路由参数（如避开特定道路类型、收费公路等），通过本地 A* 精细化步骤自然融入。</li>
+<li><strong>动态更新</strong>：架构支持每小时地图更新，能适应道路封闭等实时变化。</li>
+<li><strong>区域地图兼容</strong>：用户可仅下载所需国家或地区的地图，HH 路由能跨区域边界计算路线。</li>
+</ul>
+
+<img src="/assets/images/schiphol-5ddbefbc78bffb660d745b39e5cfb632.png" alt="OsmAnd Schiphol" width="1000" height="495" />
+
+<p>社区用户对此次更新反响积极。有用户表示，之前计算 700 英里路线需要 10 多分钟，现在仅需 7 秒。许多用户赞赏 OsmAnd 倾向于使用主干道的路由逻辑，认为比 Google Maps 更合理。但也有用户提到了一些问题：海航导航功能在开阔水域表现不佳；部分用户遇到路由计算缓慢的 bug；搜索功能（尤其是商家搜索）相比 Google Maps 仍有差距；以及地图平移和缩放性能有待优化。</p>
+
+<p>开发团队提醒用户注意：当路线跨越多个地图文件时，这些文件必须基于相同版本的数据生成，以确保 HH 路由兼容性。对于高度自定义的路由配置，系统可能会自动回退到原始 A* 算法。</p>
+
+<h3>你知道吗？</h3>
+<p>高速公路层级（Highway Hierarchy）是一种用于加速道路网络中最短路径计算的图论技术。其核心思想是将道路网络分层，高层级包含主要道路（如高速公路），低层级包含次要道路（如地方街道）。在计算长距离路线时，算法会优先在高层级网络中搜索，从而避免遍历大量不必要的细节道路，显著减少计算量。OsmAnd 的创新在于将这一概念与离线地图的特定约束（如存储限制、多参数配置）相结合，并引入了基于 Ford-Fulkerson 算法的边界点识别方法，实现了效率与灵活性的平衡。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47170157</guid>
+      <pubDate>Thu, 26 Feb 2026 18:37:59 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Respectify：AI评论审核工具，通过教育用户改善在线讨论质量</title>
       <link>https://news.ycombinator.com/item?id=47151842</link>
@@ -1559,23 +1598,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47103661</guid>
       <pubDate>Sat, 21 Feb 2026 19:07:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 中国长鑫存储以半价冲击 DDR4 市场，韩国厂商陷入两难</title>
-      <link>https://www.koreaherald.com/article/10679206</link>
-      <description>
-        <![CDATA[<p>中国存储芯片制造商长鑫存储（CXMT）正在以约为市场价格一半的价格销售 DDR4 芯片，成功吸引了戴尔、惠普、宏碁和华硕等主要 PC 制造商的关注。这一策略恰好抓住了市场的痛点：三星和 SK 海力士为了追逐利润更高的第六代高带宽内存（HBM），宣布将在今年底停止 DDR4 生产，导致传统 DDR4 芯片价格在一年内从 1.35 美元暴涨至 11.50 美元——涨幅近 10 倍。</p>
-
-<p>这种价格变化充分展现了市场机制的运作：当现有供应商过度聚焦于高端产品而忽略传统市场时，新进入者便能够填补空白。虽然长鑫存储的全球市场份额仍处于个位数，但在供应紧张的环境下，它正以「低于市场价但高于成本」的定价策略迅速扩大产能，既获得了收入又赢得了市场认可。</p>
-
-<p>Hacker News 社区的讨论揭示了更深层次的商业哲学冲突：西方企业倾向于关注短期季度利润，而中国企业（得益于国家支持）能够进行长期的战略性投资。评论者指出，韩国厂商虽然产能已售罄，但选择提价而非扩产，这种短视行为正在为竞争对手创造机会——就像当年电动汽车领域发生的故事一样。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>DDR4 vs DDR5：为什么延迟依然重要</strong></p>
-<p>虽然 DDR5 提供了更高的带宽（每通道约 50 GB/s），但其延迟表现最初不如 DDR4。在计算机内存中，「延迟」指的是从发出读取请求到获得数据的时间（通常为 80-120 纳秒）。对于需要频繁随机访问小数据块的应用（如数据库、实时系统），低延迟比高带宽更重要。这就像在城市交通中，有时候走小路（低延迟）比走高速公路（高带宽）更快到达目的地。这也解释了为什么 DDR4 市场需求依然旺盛——它不仅仅是「旧技术」，而是在某些场景下的最优选择。</p><p><small>[interest] 科技行业国际新闻，涉及半导体产业竞争和技术演进，属于『国内/国际必读新闻』分类</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47101171</guid>
-      <pubDate>Sat, 21 Feb 2026 14:32:16 GMT</pubDate>
     </item>
   </channel>
 </rss>
