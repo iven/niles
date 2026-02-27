@@ -4,7 +4,37 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 26 Feb 2026 23:45:20 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Feb 2026 02:53:21 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code 工具选择研究：AI 助手倾向于自定义方案而非推荐现成工具</title>
+      <link>https://news.ycombinator.com/item?id=47169757</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章系统研究AI编程助手在工具选择上的行为，属于编程效率改进经验和AI软件技术进展，对编程社区有重要参考价值</small></p><p>一项针对 Claude Code AI 助手的大规模研究发现，当被要求为编程任务选择工具时，该模型更倾向于推荐自定义解决方案而非现成工具。研究人员分析了 2,430 个响应，涵盖 Sonnet 4.5、Opus 4.5 和 Opus 4.6 三个模型。</p>
+
+<p>研究发现，在 20 个工具类别中的 12 个，Claude Code 选择构建自定义解决方案而非推荐现有工具。例如，当被要求"添加功能标志"时，它会构建基于环境变量和百分比滚动的配置系统，而不是推荐 LaunchDarkly；在 Python 项目中要求"添加身份验证"时，它会从头编写 JWT + bcrypt 代码。</p>
+
+<p>当 Claude Code 确实选择工具时，表现出很强的偏好性：GitHub Actions 94%、Stripe 91%、shadcn/ui 90%。研究还揭示了不同模型之间的"个性差异"：</p>
+<ul>
+<li>Sonnet 4.5：传统保守，选择 Redis（93%）、Prisma（79%）、Celery（100%）等成熟工具</li>
+<li>Opus 4.5：平衡型，最可能推荐特定工具（86.7%）</li>
+<li>Opus 4.6：前瞻型，选择 Drizzle（100%）、Inngest（50%），构建自定义方案最多（11.4%）</li>
+</ul>
+
+<p>工具排行榜显示，GitHub Actions 在 CI/CD 领域占据 93.8% 的份额，Stripe 在支付领域占 91.4%，shadcn/ui 在 UI 组件领域占 90.1%。值得注意的是，一些市场占有率高的工具如 Redux、Express、Jest 等几乎不被推荐。</p>
+
+<p>部署选择呈现明显的技术栈分化：JavaScript 项目 100% 推荐 Vercel，Python 后端项目 82% 推荐 Railway。传统云服务提供商（AWS、GCP、Azure）未获得任何主要推荐。</p>
+
+<p>Hacker News 社区对此研究反应热烈。有评论指出，React 在报告中完全缺失，可能是因为它被视为默认选项而不值得特别提及。用户 WA 质疑"不提及工具名称"的研究设计意义，认为在实际使用中开发者会明确指定工具栈。</p>
+
+<p>多位评论者讨论了 AI 工具推荐可能存在的商业利益冲突问题。wrs 指出这是"终极影响者营销"，layer8 则提醒未经标注的广告在许多国家是非法的。NiloCK 提到了即将到来的"LLM SEO 战争"，工具提供商可能会优化自己在 AI 推荐中的排名。</p>
+
+<p>关于如何有效指导 AI 助手，matheus-rr 分享了实用经验：AGENTS.md 文件应该更像 linter 配置，使用明确的 DO/DON'T 规则而非描述性语句，这样才能确保 AI 遵循特定的技术栈要求。</p>
+
+<p>这项研究揭示了 AI 编程助手在工具选择上的倾向性，对开发者理解 AI 建议的偏好、以及工具提供商如何适应这一新环境具有重要意义。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47169757</guid>
+      <pubDate>Thu, 26 Feb 2026 18:12:26 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 纯 Go 实现的 Tree-sitter 运行时发布：无需 CGo，增量编辑快 90 倍</title>
       <link>https://news.ycombinator.com/item?id=47155597</link>
@@ -1535,43 +1565,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47104973</guid>
       <pubDate>Sat, 21 Feb 2026 21:28:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>警惕 Bluesky 的中心化陷阱</title>
-      <link>https://kevinak.se/blog/be-wary-of-bluesky</link>
-      <description>
-        <![CDATA[<p>Bluesky 承诺去中心化，但几乎所有用户数据都存储在 Bluesky 的服务器上。这篇文章深入分析了 ATProto 协议的架构设计如何意外地强化了中心化，而不是削弱它。</p>
-
-<p><strong>核心问题：默认即中心化</strong></p>
-
-<p>虽然 ATProto 协议允许用户自建个人数据服务器（PDS, Personal Data Server），但实际上几乎没有人这么做。Bluesky 控制着生态系统的关键基础设施：主中继（Relay）、主视图（AppView）、身份解析目录（DID Directory），以及绝大多数用户的 PDS。技术上你可以迁移，但现实中几乎没人会这么做——这和电子邮件协议的命运相似，理论上开放，实际上被 Gmail 主导。</p>
-
-<p><strong>飞轮效应：越开放越集中</strong></p>
-
-<p>更讽刺的是，每个新的 ATProto 应用（如代码托管工具 Tangled、照片分享 Grain、发布平台 Leaflet）都在加剧这个问题。它们让用户用同一个 Bluesky 账号登录，将更多数据写入 Bluesky 的服务器，增加迁移成本。开发者免费为 Bluesky 构建功能，让其基础设施变得更不可或缺。这个「开放协议」实际上成了中心化的飞轮。</p>
-
-<p><strong>收购场景：一键控制整个生态</strong></p>
-
-<p>如果有人收购 Bluesky，他们不仅获得了社交网络本身，还获得了整个生态系统。你在 Tangled 上的代码问题、Leaflet 上的文章、Grain 上的照片——全都存储在现在由收购方控制的基础设施上。新东家可以禁用数据导出、切断第三方应用、关闭联邦功能、插入广告、影子封禁用户。协议说你可以离开，但刚花几十亿美元收购网络的公司没有动力让你走。</p>
-
-<p><strong>资本与理想的冲突</strong></p>
-
-<p>Bluesky 已融资 1.2 亿美元，估值 7 亿美元。投资者需要回报，这种回报来自用户变现、被收购或上市。这三条路都会产生巩固控制的压力，而非分散权力。一个用户可以自由离开的去中心化网络，对收购方的价值远低于用户无法离开的网络。公共利益公司（PBC）结构理应是保障，但其义务模糊且未经法庭检验。</p>
-
-<p>作者明确表示喜欢并使用 Bluesky，团队似乎真诚地在乎用户。但所有反驳上述担忧的论点都建立在同一个基础上：技术上用户可以离开。技术上你可以自建。技术上你可以运行自己的中继。每一层都存在这种能力。但人们不会这么做，历史上从未有任何协议做到过——无论是电子邮件、RSS 还是 XMPP。<strong>默认选项永远会赢</strong>。</p>
-
-<h3>你知道吗？</h3>
-
-<p><strong>什么是 ATProto？</strong></p>
-
-<p>ATProto（AT Protocol，Authenticated Transfer Protocol）是 Bluesky 开发的去中心化社交网络协议。它的设计理念是让用户拥有自己的身份和数据，可以在不同应用之间自由迁移。想象一下：你用同一个账号可以发微博、存照片、托管代码，所有数据都存在你选择的服务器上。理论上这打破了平台垄断——如果 Twitter 变坏，你可以带着所有关注者和内容换到另一个平台。但正如文章指出的，理论和现实之间有巨大鸿沟。</p>
-
-<p><strong>为什么电子邮件是个警示？</strong></p>
-
-<p>电子邮件是最成功的去中心化协议，任何人都可以运行邮件服务器。但今天大多数人用的是 Gmail、Outlook 或 iCloud。自建邮件服务器不仅麻烦，还经常被大型提供商的反垃圾邮件系统拦截。结果就是：协议开放，生态中心化。ATProto 可能重蹈覆辙，甚至更糟——因为每个新应用都把更多数据锁进同一个中心化的 PDS。</p><p><small>[other] 技术协议分析，涉及社交网络架构，不属于高度感兴趣或排除的主题</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47095597</guid>
-      <pubDate>Fri, 20 Feb 2026 23:35:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
