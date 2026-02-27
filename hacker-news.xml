@@ -4,7 +4,47 @@
     <title>Hacker News: Best</title>
     <link>https://hnrss.org/best</link>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 27 Feb 2026 17:52:29 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Feb 2026 19:03:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ JavaScript流API亟待革新：Cloudflare工程师剖析Web Streams的设计缺陷与改进方案</title>
+      <link>https://news.ycombinator.com/item?id=47180569</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 专注于JavaScript流API的技术分析与改进方案，属于用户高度感兴趣的编程工具主题</small></p><p>Cloudflare工程师James M Snell近日发表深度文章，指出当前广泛使用的Web Streams API存在根本性的可用性和性能问题，并提出了基于现代JavaScript语言特性的替代设计方案。该方案在多个运行时测试中性能提升可达2到120倍。</p>
+
+<img src="https://blog.cloudflare.com/cdn-cgi/image/format=auto,dpr=3,width=64,height=64,gravity=face,fit=crop,zoom=0.5/https://cf-assets.www.cloudflare.com/zkvhlag99gkb/5dR6CJtYedvLrkAZ6rxv9I/0db3d5a763a8b0a350ac04ac6410da6b/jasnell.jpg" alt="James M Snell" width="62" height="62" />
+
+<p>文章指出，WHATWG Streams Standard（俗称"Web streams"）设计于2014-2016年间，早于JavaScript的异步迭代（async iteration）特性。这一时间差导致API设计无法充分利用现代语言特性，产生了以下核心问题：</p>
+
+<ul>
+<li><strong>过度复杂的常见操作</strong>：读取流到完成需要获取reader、管理锁、处理{value, done}协议等繁琐步骤，而异步迭代本应简化这一过程</li>
+<li><strong>锁机制易出错</strong>：忘记调用releaseLock()会永久锁定流，且锁定状态难以调试</li>
+<li><strong>BYOB（自带缓冲区）读取过于复杂</strong>：虽然旨在优化内存重用，但API复杂且使用率低，无法与异步迭代或TransformStreams配合使用</li>
+<li><strong>背压机制在实践中失效</strong>：desiredSize等信号仅为建议性，无法强制生产者遵守，tee()等操作可能导致无限制的内存增长</li>
+<li><strong>Promise开销过大</strong>：规范要求在热点路径频繁创建Promise，限制了性能优化空间</li>
+</ul>
+
+<p>作者提出的替代方案围绕JavaScript语言原语构建，充分利用async iterables特性，显著简化了API设计。该方案在Cloudflare Workers、Node.js、Deno、Bun及所有主流浏览器中测试均表现出显著性能优势。</p>
+
+<img src="https://cf-assets.www.cloudflare.com/zkvhlag99gkb/5qjBI2UpJXcpCqgAY4SJkH/9e6489cd148e2c74d1bdd25dd08e6db5/image7.png" alt="" />
+
+<p>在Hacker News社区的84条评论中，开发者们展开了热烈讨论：</p>
+
+<ul>
+<li>有开发者赞同BYOB复杂性的批评，指出这对于高性能数据处理工具至关重要</li>
+<li>部分评论者对比了Go语言的简单I/O API，认为其同步阻塞模型更易用</li>
+<li>关于是否应该使用JavaScript进行高性能数据处理存在分歧，但浏览器环境限制使得JavaScript成为必然选择</li>
+<li>有开发者提出了自己的流API改进方案，强调需要更好的并发管理和同步/异步统一接口</li>
+<li>也有评论认为问题的根源在于JavaScript语言本身，期待WebAssembly能提供更好的解决方案</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p><strong>BYOB（Bring Your Own Buffer）</strong>：这是一种内存优化技术，允许开发者重复使用现有的缓冲区来读取流数据，避免为每个数据块分配新内存。虽然理论上能减少垃圾回收压力和提升性能，但Web Streams的实现过于复杂，导致实际使用率很低。</p>
+
+<p><strong>背压（Backpressure）</strong>：在流处理中，背压指慢速消费者向快速生产者发送信号，要求其减缓数据生产速度的机制。这是防止内存溢出的重要手段，但Web Streams的背压实现仅为建议性，缺乏强制执行力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47180569</guid>
+      <pubDate>Fri, 27 Feb 2026 14:02:53 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ BuildKit：Docker隐藏的宝石，几乎可以构建任何东西</title>
       <link>https://news.ycombinator.com/item?id=47166264</link>
@@ -1579,15 +1619,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47101200</guid>
       <pubDate>Sat, 21 Feb 2026 14:34:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Rust 中的「解析而非验证」与类型驱动设计</title>
-      <link>https://www.harudagondi.space/blog/parse-dont-validate-and-type-driven-design-in-rust/</link>
-      <description>
-        <![CDATA[<h2>核心思想</h2><p>这篇文章从 Rust 的角度深入解读了「解析而非验证」（Parse, Don't Validate）这一编程模式。传统的验证方式是在函数内部检查参数是否合法，但这种做法的问题在于：验证代码散布在各处，容易遗漏；验证信息无法通过类型系统传递，导致重复检查。更好的做法是将约束条件编码到类型系统中，在边界处一次性「解析」数据，之后就能安全使用。</p><p>作者用除零问题作为切入点：与其在每次除法前检查除数是否为零，不如创建一个 <code>NonZeroF32</code> 类型，通过构造函数确保其值永远不为零。这样函数签名 <code>fn divide(a: f32, b: NonZeroF32) -> f32</code> 就能清晰表达「除数必须非零」的约束，编译器会强制调用方提供正确类型，彻底消除运行时恐慌的可能。</p><h2>实战应用</h2><p>文章展示了 Rust 标准库中的实际案例。<code>String</code> 本质上就是对 <code>Vec&lt;u8&gt;</code> 的封装，通过 <code>String::from_utf8</code> 这个解析函数确保字节序列是合法的 UTF-8，之后所有字符串操作都不需要重复验证编码正确性。类似地，<code>serde_json</code> 库通过类型系统将 JSON 反序列化为结构化类型，避免了像 Python 那样反复检查字典键是否存在。</p><p>作者还讨论了配置目录列表的例子：如果函数返回 <code>Vec&lt;PathBuf&gt;</code> 并验证非空，调用方仍需通过 <code>match cfg_dirs.first()</code> 处理空列表情况（尽管已经知道不可能为空）。但如果返回 <code>NonEmptyVec&lt;PathBuf&gt;</code>，类型系统保证至少有一个元素，<code>first()</code> 方法可以直接返回引用而无需 <code>Option</code> 包装。</p><h2>两大设计原则</h2><p>文章提炼了类型驱动设计的核心原则：<strong>让非法状态无法表示</strong>。零值对于 <code>NonZeroF32</code> 是非法的，空列表对于 <code>NonEmptyVec</code> 是非法的，这些状态在类型层面就被排除了。相比之下，纯验证方式仍然允许非法状态存在，只是在运行时检测。</p><p>第二个原则是<strong>尽早证明不变量</strong>。文章引用了「霰弹枪解析」（Shotgun Parsing）反模式：验证代码分散在程序各处，容易产生安全漏洞。正确做法是在系统边界处完成解析，将不可信的外部数据转换为类型安全的内部表示，后续流程无需再担心数据合法性。</p><h2>社区讨论</h2><p>Hacker News 评论区展开了有趣的讨论。有人指出依赖类型（Dependent Types）能更进一步：在 Idris 等语言中，可以静态保证数组索引永远不越界，即使数组长度是运行时确定的。也有人质疑浮点数除零的例子不够恰当，因为 IEEE 754 标准定义了除零结果（<code>inf</code>），某些算法（如碰撞检测）正是利用这一特性来消除分支判断。</p><p>另一个争论点是类型爆炸问题。Clojure 社区倾向于「100 个函数操作 1 种数据结构，胜过 10 个函数操作 10 种数据结构」。过度使用 newtype 模式可能导致类型不兼容、接口臃肿。不过也有人指出，Rust 的 trait 系统和泛型能很好地平衡这种矛盾，核心逻辑用强类型保证正确性，边界层用灵活的类型适应变化。</p><h2>你知道吗？</h2><p><strong>Newtype 模式与零成本抽象</strong>：Rust 中的 newtype 模式（用单字段元组结构体包装现有类型）是一种零运行时开销的抽象。编译器会在优化阶段完全擦除这层包装，生成的机器码与直接使用原始类型完全相同。这意味着你可以放心使用 <code>NonZeroF32</code>、<code>NonEmptyVec</code> 等自定义类型来增强类型安全，而不用担心性能损失。这是 Rust「零成本抽象」哲学的典型体现：编译期的类型检查提供强大的安全保障,运行时却没有任何额外代价。相比之下，在动态类型语言中实现类似的安全性往往需要运行时验证，每次函数调用都会产生开销。</p><p><small>[high_interest] 深入探讨编程工具和编程效率的 Rust 语言技术文章，介绍类型系统和类型安全设计模式，属于高度感兴趣的编程技术主题</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47103931</guid>
-      <pubDate>Sat, 21 Feb 2026 19:40:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
