@@ -24,6 +24,15 @@ describe("zaihuapd_clean_description plugin", () => {
     expect(result.title).toBe("标题内容");
   });
 
+  it("should remove emoji with variation selector from title", async () => {
+    const item = createItem("<p>内容</p>");
+    item.title = "🎗️ 标题内容";
+
+    const result = await plugin.processItem(item);
+
+    expect(result.title).toBe("标题内容");
+  });
+
   it("should remove multiple emojis and spaces from title", async () => {
     const item = createItem("<p>内容</p>");
     item.title = "🎗📮  标题内容";
@@ -31,6 +40,15 @@ describe("zaihuapd_clean_description plugin", () => {
     const result = await plugin.processItem(item);
 
     expect(result.title).toBe("标题内容");
+  });
+
+  it("should preserve numbers at start of title", async () => {
+    const item = createItem("<p>内容</p>");
+    item.title = "123 标题内容";
+
+    const result = await plugin.processItem(item);
+
+    expect(result.title).toBe("123 标题内容");
   });
 
   it("should remove clover emoji and zaihuanews link from real structure", async () => {

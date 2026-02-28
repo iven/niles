@@ -8,11 +8,26 @@ import { logger } from "../../lib/logger";
 import { basePlugin } from "../../plugin";
 import type { UngradedRssItem } from "../../types";
 
+const segmenter = new Intl.Segmenter("und", { granularity: "grapheme" });
+const emojiRe = /^\p{Extended_Pictographic}/u;
+
+function trimLeadingEmoji(str: string): string {
+  const segments = [...segmenter.segment(str)];
+  const i = segments.findIndex(
+    ({ segment: s }) => !emojiRe.test(s) && s.trim() !== "",
+  );
+  return i === -1
+    ? ""
+    : segments
+        .slice(i)
+        .map(({ segment }) => segment)
+        .join("");
+}
+
 const plugin = {
   ...basePlugin,
   async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
-    // 清理标题前面的 emoji
-    item.title = item.title.replace(/^[\p{Emoji}\s]+/u, "");
+    item.title = trimLeadingEmoji(item.title);
 
     if (!item.description) return item;
 
