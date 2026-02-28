@@ -61,7 +61,7 @@ export async function runWorkflow(params: WorkflowParams) {
     isDryRun,
   } = params;
 
-  const historyPath = `.niles/${sourceName}-processed.json`;
+  const historyPath = `output/${sourceName}-processed.json`;
   const tracker = await GuidTracker.create(historyPath);
 
   logger.start("获取新条目...");
