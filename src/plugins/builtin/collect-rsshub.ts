@@ -19,11 +19,10 @@ const rsshubResponseSchema = z.object({
 const plugin = {
   ...basePlugin,
   async collect(options: Record<string, unknown>) {
-    const url = options.url as string;
-    if (!url) throw new Error("collect-rsshub: options.url 未指定");
+    const route = options.route as string;
+    if (!route) throw new Error("collect-rsshub: options.route 未指定");
 
     await rsshubInit();
-    const route = url.replace("rsshub://", "");
     const rsshubData = await rsshubRequest(route);
 
     const parseResult = rsshubResponseSchema.safeParse(rsshubData);

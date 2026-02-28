@@ -139,7 +139,7 @@ https://<username>.github.io/<repo-name>/hacker-news.xml
 
 - `name`：源名称（必需）。
 - `title`：RSS 标题（可选，默认使用原 RSS 标题）。
-- `url`：RSS feed URL（必需）。支持 RSSHub 路由格式（如 `rsshub:///telegram/channel/zaihuapd`）。
+- `url`：RSS feed URL（必需）。支持 RSSHub 路由格式（如 `//telegram/channel/zaihuapd`）。
 - `high_interest`：补充全局配置的强烈感兴趣主题（优先级更高）。
 - `interest`：补充全局配置的一般感兴趣主题（优先级更高）。
 - `uninterested`：补充全局配置的不感兴趣主题（优先级更高）。
