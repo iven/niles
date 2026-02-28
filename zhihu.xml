@@ -4,7 +4,43 @@
     <title>知乎热榜</title>
     <link>rsshub://zhihu/hot</link>
     <description>基于个人兴趣筛选的 zhihu 内容</description>
-    <lastBuildDate>Sat, 28 Feb 2026 07:38:38 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 28 Feb 2026 08:44:32 GMT</lastBuildDate>
+    <item>
+      <title>以色列称已对伊朗发动二次袭击，为什么是以色列而不是美国率先对伊朗发动打击？伊朗将如何回击？</title>
+      <link>https://www.zhihu.com/question/2011083864420918918</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为非中国相关的国际冲突（以色列-伊朗），根据知乎配置属于不太感兴趣的内容，但有一定分析深度，故列为可选</small></p><p>当地时间28日，以色列国防部长表示，以色列对伊朗发动了先发制人的打击。 28日，以色列外交部说已对伊朗发动二次袭击。更多资讯请下载央视新闻客户端新华社分享页</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.zhihu.com/question/2011083864420918918</guid>
+      <pubDate>Sat, 28 Feb 2026 06:22:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 如何看待 Ladybird 浏览器正式宣布放弃纯 C++ 开发路线并拥抱 Rust 语言？</title>
+      <link>https://www.zhihu.com/question/2010449571210367459</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为浏览器开发技术决策（C++转Rust），涉及编程工具和技术进展，用户很感兴趣，属于必看内容</small></p><p>Andreas Kling 曾经任职于苹果（负责 WebKit 的开发），是一位极具传奇色彩的“硬核”程序员，其代表作 SerenityOS 是一个完全采用 C++ 开发的操作系统。作为为 SerenityOS 开发的网络浏览器，Ladybird 最初也采用纯 C++ 进行开发，后来开始以多平台支持为目标，并成立非营利基金会来维持项目的独立性（避免倒向大互联网企业）。 Ladybird 的开发者们曾经对于使用其他语言开发该项目进行过研究，如今他们终于得出了结论：Swift 不再被考虑，Rust 才是未来。 他们使用 Claude Code 和 Codex 等 AI 编程助手，将 JavaScript 引擎 LibJS 从 C++ 翻译到了 Rust，在约两周的时间内完成了约 25,000 行 Rust 代码的移植，做到了与原 C++ 代码输出完全一致（字节级相同），且完美通过回归测试。 如何看待这一转变？曾经因为采用纯 C++ 开发而闻名、甚至没有将 Rust 作为优先考虑项的开发者也选择积极拥抱 Rust，我们是否可以认为 C++ 已经在与 Rust 的生存之战中全面溃败？ Ladybird adopts Rust, with help from AI - Ladybird 原文翻译： 我们一直在寻找一种内存安全的编程语言，以在Ladybird中取代C++。我们之前曾探索过Swift，但其与C++的互操作性始终未能尽如人意，且在苹果生态系统之外的平台支持也有限。而Rust则完全不同。对于系统编程而言，其生态系统要成熟得多，而且我们的许多贡献者已经熟悉这门语言。因此，我们将着手将Ladybird的部分代码用Rust重写。为何选择Rust？ 早在2024年我们最初评估Rust时，曾因它在C++风格的面向对象编程（OOP）方面表现不佳而否决了它。Web平台的对象模型继承了许多90年代的OOP特征，如垃圾回收、深层的继承层次结构等。而Rust的所有权模型与这些特征并不天然契合。 但在原地踏步一年后，是时候做出务实的选择了。Rust拥有我们需要的生态系统和安全保证。Firefox和Chromium都已经开始在其代码库中引入Rust，我们认为这对Ladybird来说也是正确的选择。移植LibJS 我们的首个目标是Ladybird的JavaScript引擎LibJS。其词法分析器、解析器、抽象语法树（AST）和字节码生成器相对独立，且通过test262拥有广泛的测试覆盖，这使其成为一个自然的起点。 我使用了Claude Code和Codex来进行翻译。这是一个由人工主导，而非完全自主的代码生成过程。我来决定移植什么、按什么顺序移植以及Rust代码应该是什么样子。我发出了数百个细小的指令，引导AI工具完成工作。在初步翻译完成后，我又进行了多轮对抗性审查，让不同的模型分析代码中的错误和不良模式。成果 从一开始，我们的要求就是两条流水线的输出必须字节级完全一致。最终成果是约25,000行的Rust代码，整个移植过程耗时约两周。如果完全由我手动完成，同样的工作将花费数月之久。我们已验证，Rust解析器生成的每个抽象语法树（AST）都与C++版本完全相同，Rust编译器生成的所有字节码也与C++编译器的输出一致。在所有测试中均未出现任何回归问题： 在我们追踪的所有JavaScript基准测试中，也未出现任何性能退化。 除了测试套件外，我还通过一种“锁步模式”进行了广泛的网页浏览测试，在该模式下，C++和Rust两条流水线同时运行，以验证流经它们的每一段JavaScript输出都完全相同。 如果你查看这些代码，会注意到它带有强烈的“从C++翻译而来”的风格。事实也的确如此。此次初步移植的首要目标是与我们的C++流水线兼容。Rust代码有意模仿了C++的寄存器分配模式等，以确保两个编译器能生成完全相同的字节码。正确性是仅次于兼容性的第二优先级。我们清楚这并非地道的Rust代码，一旦我们有信心可以弃用C++流水线，其中还有很多可以简化的地方。但清理工作将逐步进行。后续计划 这不会成为项目的主要焦点。我们将继续在C++中开发引擎，而将子系统移植到Rust将是一项长期的辅助工作。新的Rust代码将通过明确定义的互操作边界与现有的C++代码共存。 我们希望由核心团队来审慎决定哪些部分需要移植以及移植的顺序。因此，请在开始任何移植工作前与我们协调，以免浪费时间在我们无法合并的工作上。 我知道这将是一个有争议的举动，但我相信这对Ladybird的未来来说是正确的决定。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.zhihu.com/question/2010449571210367459</guid>
+      <pubDate>Thu, 26 Feb 2026 12:22:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>COMEX黄金期货2月份累涨超11%，白银累涨超19%，未来黄金白银价格是否有突破历史高点的可能？</title>
+      <link>https://www.zhihu.com/question/2009723766175970885</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为黄金白银期货价格预测，属于金融投资话题，用户兴趣配置未明确涉及，标题含义清晰但兴趣不明确，故列为可选</small></p><p>COMEX黄金期货2月份累涨超11%，COMEX白银期货2月份累涨超19%|界面新闻 · 快讯</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.zhihu.com/question/2009723766175970885</guid>
+      <pubDate>Tue, 24 Feb 2026 12:18:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 为什么《最强大脑》里那么多高智商的人，却没有人成为顶级科学家？</title>
+      <link>https://www.zhihu.com/question/646492901</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题探讨高智商与科学成就的关系，涉及科学知识分析，用户感兴趣，推荐阅读</small></p><p>顶级科学家定义：有诺奖级成果</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.zhihu.com/question/646492901</guid>
+      <pubDate>Thu, 29 Feb 2024 12:37:53 GMT</pubDate>
+    </item>
     <item>
       <title>春节AI大战几十亿烧完，谁赢了？这场红包雨究竟是抢到了AI入口的门票，还是只买到了一波短期日活脉冲？</title>
       <link>https://www.zhihu.com/question/2010359733668832775</link>
@@ -418,42 +454,6 @@
       </description>
       <guid isPermaLink="false">https://www.zhihu.com/question/1908514821802002264</guid>
       <pubDate>Wed, 21 May 2025 05:29:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 未来战争如果机器人完全取代了人类士兵，是否会出现到人类的意志对战争形势无法起到任何影响的情况?</title>
-      <link>https://www.zhihu.com/question/536760105</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 未来战争机器人技术涉及AI和科学知识，匹配zhihu配置interest的科学知识和全局配置interest的AI技术进展</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.zhihu.com/question/536760105</guid>
-      <pubDate>Wed, 08 Jun 2022 16:55:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 为什么大部分阿斯伯格综合征人士会合并多动症？</title>
-      <link>https://www.zhihu.com/question/1888932148611884215</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为阿斯伯格综合征与多动症的医学关联，属于科学知识，用户感兴趣</small></p><p>根据《阿斯伯格综合征完全指南》描述，有75%的阿斯伯格综合征人士合并了多动症。请问这是为什么？ ADHD制约阿斯伯格综合征人士学习、工作上的成就的关键因素？而那些取得成就的阿斯伯格综合征人士和学习特别好的阿斯伯格综合征人士是不是没有合并多动症？</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.zhihu.com/question/1888932148611884215</guid>
-      <pubDate>Fri, 28 Mar 2025 04:35:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>哪些常用的日语你发现「原来这也可以写成汉字啊」？</title>
-      <link>https://www.zhihu.com/question/543296997</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为日语汉字使用，属于语言文化范畴，兴趣不明确</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.zhihu.com/question/543296997</guid>
-      <pubDate>Thu, 14 Jul 2022 11:17:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 央行决定从 2026 年 3 月 2 日起将远期售汇业务的外汇风险准备金率下调为 0，将有哪些影响？</title>
-      <link>https://www.zhihu.com/question/2010646925943255670</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是央行政策调整，属于政策法规，用户很感兴趣</small></p><p>为促进外汇市场发展，支持企业管理好汇率风险，中国人民银行决定自2026年3月2日起，将远期售汇业务的外汇风险准备金率从20%下调至0。下一步，中国人民银行将继续引导金融机构优化对企业汇率避险服务，保持人民币汇率在合理均衡水平上的基本稳定。中国人民银行决定将远期售汇业务的外汇风险准备金率下调为0 - 新华网客户端</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.zhihu.com/question/2010646925943255670</guid>
-      <pubDate>Fri, 27 Feb 2026 01:26:23 GMT</pubDate>
     </item>
   </channel>
 </rss>
