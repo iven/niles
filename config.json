@@ -19,83 +19,166 @@
     {
       "name": "cnbeta",
       "title": "cnBeta.com - 中文业界资讯站",
-      "url": "https://www.cnbeta.com.tw/backend.php",
       "uninterested": "非技术人员的观点,奇闻轶事",
       "avoid": "健康贴士,娱乐明星日常",
-      "plugins": ["cnbeta"],
+      "plugins": [
+        {
+          "name": "builtin/collect-rss",
+          "options": { "url": "https://www.cnbeta.com.tw/backend.php" }
+        },
+        "cnbeta",
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/cnbeta.xml" }
+        }
+      ],
       "summarize": false
     },
     {
       "name": "hacker-news",
-      "url": "https://hnrss.org/best",
       "uninterested": "安全,隐私,演变史",
       "avoid": "时政/社会新闻,代码高尔夫,怀旧情怀,程序员无关新闻",
-      "plugins": ["builtin/fetch-meta", "builtin/fetch-content", "hacker-news"],
+      "plugins": [
+        {
+          "name": "builtin/collect-rss",
+          "options": { "url": "https://hnrss.org/best" }
+        },
+        "builtin/fetch-meta",
+        "builtin/fetch-content",
+        "hacker-news",
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/hacker-news.xml" }
+        }
+      ],
       "summarize": true,
       "regrade": true
     },
     {
       "name": "phoronix",
       "title": "Phoronix",
-      "url": "https://www.phoronix.com/rss.php",
       "high_interest": "新软件项目,KDE,Firefox,Chrome,苹果电脑Linux支持,新发行版",
       "interest": "Rust,Linux桌面技术",
       "uninterested": "Go,Blender,BSD,AMD显卡,网络性能,平铺式WM,虚拟化技术,RISC-V,游戏支持",
       "avoid": "非主流硬件,最新款芯片相关,主板,性能评测,硬件安全",
-      "plugins": ["builtin/fetch-content"],
+      "plugins": [
+        {
+          "name": "builtin/collect-rss",
+          "options": { "url": "https://www.phoronix.com/rss.php" }
+        },
+        "builtin/fetch-content",
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/phoronix.xml" }
+        }
+      ],
       "summarize": true
     },
     {
       "name": "zaihuapd",
       "title": "科技圈🎗在花频道📮",
-      "url": "rsshub://telegram/channel/zaihuapd",
       "avoid": "抽奖信息,节日问候,投票信息,调研信息,评论互动,闲聊信息",
-      "plugins": ["zaihuapd"],
+      "plugins": [
+        {
+          "name": "builtin/collect-rsshub",
+          "options": { "url": "rsshub://telegram/channel/zaihuapd" }
+        },
+        "zaihuapd",
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/zaihuapd.xml" }
+        }
+      ],
       "summarize": false
     },
     {
       "name": "superset-releases",
       "title": "Superset Releases",
-      "url": "https://github.com/superset-sh/superset/releases.atom",
       "context": "Superset 是编码代理的桌面终端应用，允许同时运行多个 CLI 编码代理（如 Claude Code），每个任务在独立的 git worktree 中隔离，提供内置 diff 查看器等功能。用户主要关注改动日志中与桌面应用相关的功能改进（UI、交互、终端功能等），对后端、数据库、CI 等基础设施改动不感兴趣",
       "high_interest": "Desktop Release",
       "avoid": "Canary Release",
-      "plugins": [],
+      "plugins": [
+        {
+          "name": "builtin/collect-rss",
+          "options": {
+            "url": "https://github.com/superset-sh/superset/releases.atom"
+          }
+        },
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/superset-releases.xml" }
+        }
+      ],
       "summarize": true
     },
     {
       "name": "zhihu",
       "title": "知乎热榜",
-      "url": "rsshub://zhihu/hot",
       "context": "知乎是一个问答社区，标题为用户的提问。用户阅读知乎的目的是增长知识、了解时事、查看有建设性的见解，而不是查看闲聊性质的主观感受交流、刻板印象讨论或缺乏分析深度的泛泛而谈",
       "high_interest": "国内政策法规",
       "interest": "科技公司,科学知识,中国相关国际形势,治安事件,公共安全",
       "uninterested": "习俗,具体影视作品讨论,非中国相关的国际冲突",
       "avoid": "名人轶事,游戏,个人寻求建议,体育项目,标题党,奇闻轶事",
-      "plugins": [],
+      "plugins": [
+        {
+          "name": "builtin/collect-rsshub",
+          "options": { "url": "rsshub://zhihu/hot" }
+        },
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/zhihu.xml" }
+        }
+      ],
       "summarize": false
     },
     {
       "name": "infoq",
       "title": "InfoQ 推荐",
-      "url": "rsshub://infoq/recommend",
-      "plugins": [],
+      "plugins": [
+        {
+          "name": "builtin/collect-rsshub",
+          "options": { "url": "rsshub://infoq/recommend" }
+        },
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/infoq.xml" }
+        }
+      ],
       "summarize": false
     },
     {
       "name": "producthunt",
       "title": "Product Hunt",
-      "url": "https://www.producthunt.com/feed",
       "context": "Product Hunt 是一个科技产品发现平台，每天展示新的软件产品、工具和服务",
-      "plugins": ["builtin/fetch-meta"],
+      "plugins": [
+        {
+          "name": "builtin/collect-rss",
+          "options": { "url": "https://www.producthunt.com/feed" }
+        },
+        "builtin/fetch-meta",
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/producthunt.xml" }
+        }
+      ],
       "summarize": true
     },
     {
       "name": "claude-code-releases",
       "title": "Claude Code Releases",
-      "url": "https://github.com/anthropics/claude-code/releases.atom",
       "context": "Claude Code 是 Anthropic 官方的 Claude AI 命令行工具，用于软件开发辅助。用户不关心 Windows 平台特定改动和安全相关改动。总结时需要将重要改动（新功能、重大 bug 修复）和其他改动（小优化、依赖更新等）分开描述。如果改动内容很少（如仅修复小 bug、更新依赖版本等），需要在总结标题末尾添加 [NILES_REJECTED] 标记",
-      "plugins": [],
+      "plugins": [
+        {
+          "name": "builtin/collect-rss",
+          "options": {
+            "url": "https://github.com/anthropics/claude-code/releases.atom"
+          }
+        },
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/claude-code-releases.xml" }
+        }
+      ],
       "summarize": true,
       "regrade": true
     }

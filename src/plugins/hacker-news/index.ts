@@ -3,9 +3,9 @@
  */
 
 import { z } from "zod";
-import { logger } from "../../../lib/logger";
-import type { UngradedRssItem } from "../../../types";
-import type { Plugin } from "../../plugin";
+import { logger } from "../../lib/logger";
+import { basePlugin } from "../../plugin";
+import type { UngradedRssItem } from "../../types";
 
 interface HNComment {
   author: string;
@@ -38,9 +38,8 @@ const hnApiResponseSchema = z
   })
   .passthrough();
 
-const plugin: Plugin = {
-  name: "hacker-news",
-
+const plugin = {
+  ...basePlugin,
   async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
     const url = item.guid || "";
 

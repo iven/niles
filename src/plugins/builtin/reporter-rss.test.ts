@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import type { GradedRssItem } from "../types";
-import { formatGradedItems } from "./writer";
+import type { GradedRssItem } from "../../types";
+import { formatGradedItems } from "./reporter-rss";
 
 describe("formatGradedItems", () => {
   it("should filter out rejected items", () => {

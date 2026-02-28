@@ -26,17 +26,24 @@ export const globalConfigSchema = z.object({
 });
 export type GlobalConfig = z.infer<typeof globalConfigSchema>;
 
+const pluginEntrySchema = z.union([
+  z.string(),
+  z.object({
+    name: z.string(),
+    options: z.record(z.string(), z.unknown()).optional(),
+  }),
+]);
+
 // Source 配置
 export const sourceConfigSchema = z.object({
   name: z.string(),
   title: z.string().optional(),
-  url: z.string(),
   context: z.string().optional(),
   high_interest: z.string().optional(),
   interest: z.string().optional(),
   uninterested: z.string().optional(),
   avoid: z.string().optional(),
-  plugins: z.array(z.string()).optional(),
+  plugins: z.array(pluginEntrySchema),
   summarize: z.boolean().optional(),
   regrade: z.boolean().default(false),
   timeout: z.number().optional(),

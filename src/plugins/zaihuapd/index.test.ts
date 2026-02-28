@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import type { UngradedRssItem } from "../../../types";
+import type { UngradedRssItem } from "../../types";
 import plugin from "./index";
 
 function createItem(description: string): UngradedRssItem {

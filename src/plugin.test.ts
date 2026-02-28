@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import type { UngradedRssItem } from "../types";
-import { applyPlugins } from "./plugin";
+import { applyTransform, loadPlugins } from "./plugin";
+import type { UngradedRssItem } from "./types";
 
 function createTestItem(title: string): UngradedRssItem {
   return {
@@ -14,10 +14,12 @@ function createTestItem(title: string): UngradedRssItem {
   };
 }
 
-describe("plugin loader", () => {
+describe("loadPlugins", () => {
   it("should load builtin plugins with file path format", async () => {
     const items = [createTestItem("\u200b  Test  \u200b")];
-    const result = await applyPlugins(items, ["builtin/clean-text"]);
+    const [cleanText] = await loadPlugins(["builtin/clean-text"]);
+    if (!cleanText) throw new Error("plugin not loaded");
+    const result = await applyTransform(items, cleanText);
 
     expect(result[0]?.title).toBe("Test");
   });
@@ -30,7 +32,9 @@ describe("plugin loader", () => {
         guid: "https://news.ycombinator.com/item?id=123",
       },
     ];
-    const result = await applyPlugins(items, ["hacker-news"]);
+    const [hackerNews] = await loadPlugins(["hacker-news"]);
+    if (!hackerNews) throw new Error("plugin not loaded");
+    const result = await applyTransform(items, hackerNews);
 
     expect(result).toHaveLength(2);
     expect(result[1]?.extra.comments).toBeDefined();
@@ -38,27 +42,30 @@ describe("plugin loader", () => {
 
   it("should load multiple plugins in sequence", async () => {
     const items = [createTestItem("\u200b  Test  \u200b")];
-    const result = await applyPlugins(items, [
+    const [cleanText, fetchMeta] = await loadPlugins([
       "builtin/clean-text",
       "builtin/fetch-meta",
     ]);
+    if (!cleanText || !fetchMeta) throw new Error("plugins not loaded");
+    const result = await applyTransform(
+      await applyTransform(items, cleanText),
+      fetchMeta,
+    );
 
     expect(result[0]?.title).toBe("Test");
     expect(result).toHaveLength(1);
   });
 
   it("should throw error for non-existent plugin", async () => {
-    const items = [createTestItem("Test")];
-
-    await expect(applyPlugins(items, ["non-existent-plugin"])).rejects.toThrow(
+    await expect(loadPlugins(["non-existent-plugin"])).rejects.toThrow(
       "无法加载插件",
     );
   });
 
-  it("should handle empty plugin list", async () => {
-    const items = [createTestItem("Test")];
-    const result = await applyPlugins(items, []);
-
-    expect(result).toEqual(items);
+  it("should return empty items from non-collector plugin", async () => {
+    const [cleanText] = await loadPlugins(["builtin/clean-text"]);
+    if (!cleanText) throw new Error("plugin not loaded");
+    const { items } = await cleanText.plugin.collect({});
+    expect(items).toHaveLength(0);
   });
 });

@@ -4,9 +4,9 @@
 
 import type { HTMLImageElement } from "linkedom";
 import { parseHTML } from "linkedom";
-import { logger } from "../../../lib/logger";
-import type { UngradedRssItem } from "../../../types";
-import type { Plugin } from "../../plugin";
+import { logger } from "../../lib/logger";
+import { basePlugin } from "../../plugin";
+import type { UngradedRssItem } from "../../types";
 
 interface ImageData {
   src: string;
@@ -38,9 +38,8 @@ export function shouldFilterImage(src: string, isFirstImage: boolean): boolean {
   return false;
 }
 
-const plugin: Plugin = {
-  name: "fetch_content",
-
+const plugin = {
+  ...basePlugin,
   async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
     const url = item.link;
     if (!url) return item;
