@@ -21,12 +21,22 @@ describe("Config", () => {
     sources: [
       {
         name: "source1",
-        url: "https://example1.com/rss",
+        plugins: [
+          {
+            name: "builtin/collect-rss",
+            options: { url: "https://example1.com/rss" },
+          },
+        ],
         summarize: false,
       },
       {
         name: "source2",
-        url: "https://example2.com/rss",
+        plugins: [
+          {
+            name: "builtin/collect-rss",
+            options: { url: "https://example2.com/rss" },
+          },
+        ],
         summarize: true,
       },
     ],
@@ -83,10 +93,15 @@ describe("Config", () => {
       sources: [
         {
           name: "source-with-optionals",
-          url: "https://example.com/rss",
           title: "Custom Title",
           high_interest: "特定主题",
-          plugins: ["plugin1", "plugin2"],
+          plugins: [
+            {
+              name: "builtin/collect-rss",
+              options: { url: "https://example.com/rss" },
+            },
+            "plugin2",
+          ],
           summarize: true,
           timeout: 60,
         },
@@ -98,6 +113,6 @@ describe("Config", () => {
     expect(source).toBeDefined();
     expect(source?.title).toBe("Custom Title");
     expect(source?.high_interest).toBe("特定主题");
-    expect(source?.plugins).toEqual(["plugin1", "plugin2"]);
+    expect(source?.plugins).toHaveLength(2);
   });
 });

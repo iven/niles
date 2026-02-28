@@ -13,7 +13,6 @@ import { runWorkflow } from "../src/workflow";
 interface ParsedArgs {
   values: {
     config?: string;
-    "output-dir"?: string;
     "max-items": string;
     "min-items": string;
     "dry-run"?: boolean;
@@ -26,7 +25,6 @@ async function main() {
     args: process.argv.slice(2),
     options: {
       config: { type: "string", default: "config.json" },
-      "output-dir": { type: "string", default: "output" },
       "max-items": { type: "string", default: "20" },
       "min-items": { type: "string", default: "0" },
       "dry-run": { type: "boolean", default: false },
@@ -42,10 +40,8 @@ async function main() {
   }
 
   const configPath = values.config || "config.json";
-  const outputDir = values["output-dir"] || "output";
   const isDryRun = values["dry-run"] ?? false;
 
-  // Dry run 模式：固定抓取 3 条，启用 debug 日志
   let maxItems = parseInt(values["max-items"], 10);
   let minItems = parseInt(values["min-items"], 10);
   if (isDryRun) {
@@ -54,7 +50,6 @@ async function main() {
     logger.level = LogLevels.debug;
   }
 
-  // 加载配置
   const config = await loadConfig(configPath);
   const sourceConfig = config.sources.find((s) => s.name === sourceName);
 
@@ -62,13 +57,11 @@ async function main() {
     throw new Error(`配置中未找到 source: ${sourceName}`);
   }
 
-  // 运行工作流
   await runWorkflow({
     sourceName,
     sourceConfig,
     globalConfig: config.global,
     llmConfig: config.llm,
-    outputDir,
     maxItems,
     minItems,
     isDryRun,

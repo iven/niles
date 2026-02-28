@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { GuidTracker } from "../lib/guid-tracker";
-import type { UngradedRssItem } from "../types";
+import { GuidTracker } from "./lib/guid-tracker";
+import type { UngradedRssItem } from "./types";
 
 // 从 loader.ts 复制 selectItems 函数用于测试
 function selectItems(
