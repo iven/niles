@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 01 Mar 2026 14:38:05 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 15:36:23 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.1预计将显著减少HRTICK定时器开销</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-HRTICK-Timer</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Linux内核开发者Thomas Gleixner和Peter Zijlstra提交了一系列优化补丁，旨在减少调度器HRTICK（高分辨率定时器）的开销，使其能够在Linux 7.1内核中默认启用。</p>
+
+<p>HRTICK是调度器代码的一部分，利用高精度硬件定时器替代低频固定间隔的系统时钟，能够提升系统响应速度等性能。然而，当前实现存在显著开销问题：每次上下文切换时hrtick截止时间都会改变，同时还会受到唤醒和负载平衡操作的影响。在hackbench测试中，这导致每秒约2500次时钟事件重新编程，在虚拟机环境中尤其影响性能，因为访问时钟事件设备会触发VM-Exit。</p>
+
+<p>经过优化后，时钟事件设备的重新编程频率从每秒约2500次大幅降至约100次，同时虚假hrtimer中断比例约为25%。性能测试显示，在特定参数（'-l$LOOPS -p -s8'，使用8字节消息大小的管道）的hackbench运行中，启用HRTICK后的运行时间从0.840秒降至0.481秒，性能提升约42%。对于消息大小不超过256字节的其他测试，HRTICK仍能带来改进，但幅度较小。</p>
+
+<p>目前这些补丁已进入<a href="https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git">tip/tip.git</a>代码库的sched/hrtick分支，预计将在4月的Linux 7.1合并窗口期间提交。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-HRTICK-Timer</guid>
+      <pubDate>Sun, 01 Mar 2026 14:55:25 GMT</pubDate>
+    </item>
     <item>
       <title>华硕Linux HID驱动将支持新款设备，开发者积极推动更新</title>
       <link>https://www.phoronix.com/news/ASUS-WMI-Linux-Driver-New-2026</link>
@@ -862,15 +877,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Gawk-5.4-Released</guid>
       <pubDate>Sun, 22 Feb 2026 17:18:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AOMedia 开发开放音频编解码器 OAC，旨在接替 Opus</title>
-      <link>https://www.phoronix.com/news/AOMedia-OAC-Open-Audio-Codec</link>
-      <description>
-        <![CDATA[<p>开放媒体联盟（Alliance For Open Media，AOMedia）以开发 AV1 开放视频编解码器而闻名，现在他们将目光投向了音频领域。本周，AOMedia 正式公开了「开放音频编解码器（Open Audio Codec，OAC）」项目，这是一个基于 Opus 音频编解码器构建的新一代音频解决方案。</p><img src="//www.phoronix.net/image.php?id=2026&image=open_audio_codec" alt="Open Audio Codec" /><p>OAC 项目直接基于 Opus 的代码库 libopus 进行开发。根据项目 README 文件的说明，liboac 是 OAC 规范的参考实现，目前包含了用于编码和解码原始 OAC 比特流的共享库，以及若干测试工具。不过开发团队特别提醒，这些测试工具生成的比特流不应用于 OAC 文件分发，因为它们包含了额外的调试数据且不支持定位功能。</p><p>目前 OAC 代码库的改动主要集中在基础准备工作上：调整参数、将各种符号重命名为使用「oaci_」前缀，以及为新项目建立基础架构。虽然项目刚刚起步，处于非常早期的阶段，但感兴趣的开发者已经可以在 GitHub 上追踪这个项目的进展。</p><p><strong>你知道吗？</strong></p><p>Opus 是目前互联网上广泛使用的音频编解码器，由互联网工程任务组（IETF）标准化。它的开发主要由 Mozilla、微软（特别是 Skype 时代）等公司推动，而这些公司恰好也是 AOMedia 的管理成员。Opus 的优势在于能够同时处理语音和音乐，延迟极低（最低可达 5 毫秒），非常适合实时通信应用。OAC 作为 Opus 的继任者，预计将在保持这些优势的基础上，进一步提升音频质量和编码效率。</p><p><small>[interest] 开源音频编解码器项目，属于开源技术和新软件项目主题</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AOMedia-OAC-Open-Audio-Codec</guid>
-      <pubDate>Sun, 22 Feb 2026 14:57:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
