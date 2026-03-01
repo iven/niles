@@ -3,7 +3,88 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 01 Mar 2026 03:23:33 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 05:24:11 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Andrej Karpathy 发布 microgpt：200 行纯 Python 实现的 GPT 模型</title>
+      <link>https://news.ycombinator.com/item?id=47202708</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] AI模型开发主题，发布新的GPT实现，属于新AI模型发布公告，用户很感兴趣</small></p><p>Andrej Karpathy 发布了 microgpt，这是一个仅 200 行纯 Python 代码、无任何依赖的 GPT 模型实现。该项目是他多年简化大型语言模型（LLM）核心算法的结晶，包含了从数据集处理、分词器、自动微分引擎到 GPT-2 类似架构的完整实现。</p>
+
+<img src="/assets/microgpt.jpg" alt="microgpt 代码展示" width="100%" />
+
+<p>microgpt 的核心特点包括：使用 32,000 个名字作为训练数据集，实现简单的字符级分词器（27 个 token，包含 26 个小写字母和 BOS 标记），从头构建了自动微分引擎（Value 类），以及实现了简化的 GPT-2 架构（包含注意力机制和多层感知机）。该模型仅有 4,192 个参数，相比 GPT-2 的 16 亿参数和现代 LLM 的数千亿参数，展示了 LLM 核心算法的简洁本质。</p>
+
+<p>代码已发布在 <a href="https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95">GitHub Gist</a>、<a href="https://karpathy.ai/microgpt.html">网页版本</a>和 Google Colab 笔记本中，采用 MIT 许可证。</p>
+
+<p>在 Hacker News 社区讨论中，用户们对这个项目给予了高度评价：</p>
+<ul>
+<li>许多用户称赞这是理解 GPT 工作原理的完美教学工具</li>
+<li>有用户将其比作在浏览器中实现整个复古游戏机的项目</li>
+<li>社区已出现了 <a href="https://github.com/Charbel199/microgpt.cpp?tab=readme-ov-file">C++ 版本</a> 和 <a href="https://github.com/mplekh/rust-microgpt">Rust 版本</a> 的实现</li>
+<li>有用户指出，令人惊讶的是如此核心的算法（约 1000 行代码）经过扩展后能够实现接近通用人工智能（AGI）的能力</li>
+<li>也有用户提到希望有更详细的行级解释文档</li>
+</ul>
+
+<p>Karpathy 在文章中强调，这个脚本是他多个项目（micrograd、makemore、nanogpt 等）和十年简化 LLM 核心算法追求的巅峰之作，他认为这个实现非常优美。通过训练，模型能够生成看似合理的新名字，如 "kamon"、"ann"、"karai" 等。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47202708</guid>
+      <pubDate>Sun, 01 Mar 2026 01:39:26 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Context Mode：将 Claude Code 上下文消耗减少 98% 的 MCP 服务器</title>
+      <link>https://news.ycombinator.com/item?id=47193064</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 编程效率工具主题，优化Claude Code的上下文消耗，属于编程效率改进经验，用户很感兴趣</small></p><p>Context Mode 是一个创新的 MCP（模型上下文协议）服务器，专门解决 AI 编码助手 Claude Code 中工具调用导致上下文窗口迅速填满的问题。该工具通过在 Claude Code 和外部工具之间插入一个智能层，将原始数据输出压缩 98%，显著延长了有效会话时间。</p>
+
+<h3>核心问题：MCP 工具调用的上下文消耗</h3>
+<p>在标准的 MCP 工作流程中，每次工具调用都会将原始数据直接注入 Claude Code 的 200K 上下文窗口。例如：一个 Playwright 快照占用 56 KB，20 个 GitHub issues 占用 59 KB，500 条访问日志占用 45 KB。用户通常在 30 分钟内就会消耗掉 40% 的上下文容量，导致会话效率急剧下降。</p>
+
+<h3>解决方案：沙箱隔离与智能索引</h3>
+<p>Context Mode 采用双重机制来优化上下文使用：</p>
+<ul>
+<li><strong>沙箱执行</strong>：每个工具调用都在隔离的子进程中运行，只有处理后的标准输出（stdout）进入上下文，原始数据（日志文件、API 响应、快照等）永远不会离开沙箱环境。</li>
+<li><strong>知识库索引</strong>：使用 SQLite FTS5（全文搜索第5版）虚拟表建立索引系统，采用 BM25 排名算法（基于词频、逆文档频率和文档长度归一化的概率相关性算法）和 Porter 词干提取技术，确保搜索结果的准确性。</li>
+</ul>
+
+<h3>显著的效果数据</h3>
+<p>在 11 个真实场景中的测试显示：</p>
+<ul>
+<li>Playwright 快照：56 KB → 299 B（减少 99.5%）</li>
+<li>GitHub issues（20个）：59 KB → 1.1 KB（减少 98.1%）</li>
+<li>访问日志（500个请求）：45 KB → 155 B（减少 99.7%）</li>
+<li>完整会话：315 KB 原始输出 → 5.4 KB（减少 98%）</li>
+</ul>
+<p>实际使用中，会话在出现性能下降前的时间从约 30 分钟延长到约 3 小时，45 分钟后上下文剩余量从 60% 提升到 99%。</p>
+
+<h3>技术实现细节</h3>
+<p>系统支持 10 种语言运行时：JavaScript、TypeScript、Python、Shell、Ruby、Go、Rust、PHP、Perl、R。对于 JavaScript/TypeScript，自动检测并使用 Bun 以获得 3-5 倍的速度提升。认证的 CLI 工具（gh、aws、gcloud、kubectl、docker）通过凭证传递机制工作，子进程继承环境变量和配置路径而不暴露给对话。</p>
+
+<h3>社区讨论与见解</h3>
+<p>在 <a href="https://news.ycombinator.com/item?id=47193064">Hacker News 讨论</a> 中，作者 <a href="https://news.ycombinator.com/user?id=mksglu">mksglu</a> 澄清了几个关键点：</p>
+<ul>
+<li>Context Mode 处理的是工具输出的「输出端」问题，而 Cloudflare 的 Code Mode 解决的是工具定义的「输入端」压缩</li>
+<li>系统不会破坏缓存机制，因为原始数据从未进入对话历史，只有摘要被添加到上下文中</li>
+<li>这本质上是一种「预压缩」方法，但不同于简单的修剪，完整输出保存在可搜索的 FTS5 索引中，模型可以在需要时查询特定细节</li>
+<li>已有团队报告在实际使用中显著减少了令牌消耗</li>
+</ul>
+
+<h3>安装与使用</h3>
+<p>用户可以通过两种方式安装：</p>
+<ol>
+<li>插件市场：<code>/plugin marketplace add mksglu/claude-context-mode</code> 然后 <code>/plugin install context-mode@claude-context-mode</code></li>
+<li>纯 MCP 方式：<code>claude mcp add context-mode -- npx -y context-mode</code></li>
+</ol>
+<p>安装后重启 Claude Code 即可。系统通过 PreToolUse 钩子自动路由工具输出到沙箱，用户无需改变工作方式。</p>
+
+<h3>项目背景</h3>
+<p>作者 Mert Köseoğlu 是 MCP Directory & Hub 的运营者，每天处理超过 10 万次请求。他在观察了大量 MCP 服务器后发现，普遍存在工具输出原始数据直接注入上下文的问题，而缺乏针对输出端的优化方案。该项目已在 <a href="https://github.com/mksglu/claude-context-mode">GitHub</a> 上开源，采用 MIT 许可证。</p>
+
+<h3>你知道吗？</h3>
+<p>MCP（模型上下文协议）是 Anthropic 公司为 AI 助手与外部工具交互制定的标准协议，允许 Claude 等模型安全地调用外部工具和服务。FTS5 是 SQLite 的全文搜索扩展版本，提供高效的文本搜索功能。BM25 是信息检索领域广泛使用的相关性评分算法，特别适合处理自然语言查询。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47193064</guid>
+      <pubDate>Sat, 28 Feb 2026 10:01:20 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Obsidian Sync 推出无头客户端，支持自动化同步与集成</title>
       <link>https://news.ycombinator.com/item?id=47197267</link>
@@ -1607,37 +1688,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47103649</guid>
       <pubDate>Sat, 21 Feb 2026 19:05:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>刚出生的小鸡也能感知「布巴-奇奇效应」</title>
-      <link>https://www.science.org/doi/10.1126/science.adq7188</link>
-      <description>
-        <![CDATA[<p>《科学》杂志最新研究发现，刚出生的小鸡在没有任何语言或文化训练的情况下，也能表现出「布巴-奇奇效应」（Bouba-Kiki Effect）—— 将圆润的形状与「布巴」这样柔和的音节关联，而将尖锐的形状与「奇奇」这样急促的音节关联。这项跨越 3 亿年进化距离的发现，打破了之前认为这种效应只存在于人类的假设。</p><p>研究团队用出生仅一天的小鸡进行测试，发现它们也能像人类一样做出这种跨感官联想。这意味着视觉形状和听觉信号之间的对应关系，可能是一种更原始的神经机制，而非人类语言系统特有的产物。Hacker News 社区讨论热烈，有人从信号处理角度解释：尖锐的形状对应更高的视觉频率，「奇奇」等爆破音也对应更高的音频频率，所以这种关联可能源于频率特征的相似性。也有人质疑需要用非驯化动物重复实验，因为与人类共同进化数千年可能会带来意想不到的影响。</p><h3>你知道吗？</h3><p>布巴-奇奇效应最早由德国心理学家沃尔夫冈·科勒在 1929 年发现。他给受试者展示两个形状：一个圆润柔和，一个尖锐多角，然后让他们猜哪个叫「布巴」，哪个叫「奇奇」。结果 95% 以上的人都选择用「布巴」指代圆润形状，用「奇奇」指代尖锐形状。这种现象跨越了不同语言和文化，但科学家一直不确定它是人类语言进化的产物，还是更底层的感知机制。现在小鸡实验给出了答案：这可能是脊椎动物大脑处理多感官信息的共同方式，暗示语言的某些结构可能并非完全任意，而是受到这种先天认知倾向的塑造。</p><p><small>[other] 科学前沿研究，有一定兴趣，但不是核心关注的 AI 或编程技术。</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47105198</guid>
-      <pubDate>Sat, 21 Feb 2026 21:51:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 日本浮世绘版画搜索引擎：汇聚 22 万幅名作的视觉数据库</title>
-      <link>https://ukiyo-e.org/</link>
-      <description>
-        <![CDATA[<p>Ukiyo-e.org 是一个专注于日本浮世绘（Ukiyo-e）版画的搜索平台，收录了超过 22 万幅来自全球各大博物馆和大学的版画作品。网站最大的特色是「以图搜图」功能：你可以上传一张版画照片，系统会利用计算机视觉技术（基于 TinEye）在多个馆藏中找到相似的作品，并将它们聚类展示。</p>
-
-<img src="https://data.ukiyo-e.org/met/thumbs/DP141256.jpg" alt="Example Print" width="188" height="188" />
-<img src="/images/example-compare.jpg" alt="Example Print Search Results" width="405" height="200" />
-
-<p>网站按历史时期分类，涵盖了从 18 世纪早期的单色版画，到全彩印刷的黄金时代（葛饰北斋、歌川广重等大师），再到明治时期和现代的新版画（Shin Hanga）运动。每个时期都列出了代表性艺术家及其作品数量，比如歌川国贞（Utagawa Kunisada）就有 37,000 多幅作品，而北斋也有 5,400 多幅。</p>
-
-<p>这个项目的创始人是 John Resig——没错，就是那位发明 jQuery 的开发者。他在 Hacker News 的评论中透露，自己在学习日本版画时发现没有一个集中的搜索平台，于是动手构建了这个网站。目前他正在开发一个新的衍生项目，专注于展示在售的版画作品，技术难度更高因为需要实时更新拍卖和交易商数据。</p>
-
-<p>社区讨论中，有人推荐了日本冈山县仓敷市的浮世绘博物馆，也有设计师表示这个网站是他们的灵感宝库。还有人特别点赞川濑巴水（Kawase Hasui）的作品，称他处理树木和植被的方式极具电影感。</p>
-
-<h3>你知道吗？</h3>
-
-<p>「浮世绘」字面意思是「漂浮世界的图画」，指的是江户时代（1603-1868）日本民间流行的木版画艺术。这些画作描绘的多是市井生活、美人、歌舞伎演员和风景名胜，最初只是平民娱乐消费品，却在 19 世纪末传入欧洲后，深刻影响了印象派和后印象派画家（如梵高、莫奈），掀起了一股「日本主义」（Japonisme）艺术潮流。今天，那些当年几文钱的版画，已经成为价值连城的艺术珍品。</p><p><small>[interest] 技术驱动的开源项目，展示了计算机视觉和数据库技术的应用。jQuery 创始人的项目也增加了技术价值。</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47107781</guid>
-      <pubDate>Sun, 22 Feb 2026 03:18:36 GMT</pubDate>
     </item>
   </channel>
 </rss>
