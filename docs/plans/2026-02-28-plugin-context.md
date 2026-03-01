@@ -86,10 +86,10 @@ interface PluginContext {
   "plugins": {
     "builtin/select": { "maxItems": 20, "minItems": 5 },
     "builtin/llm-grade": {
-      "high_interest": "...",
-      "interest": "...",
-      "uninterested": "...",
-      "avoid": "..."
+      "global_high_interest": "...",
+      "global_interest": "...",
+      "global_uninterested": "...",
+      "global_avoid": "..."
     },
     "builtin/summarize": {
       "preferred_language": "zh-CN"
@@ -100,6 +100,8 @@ interface PluginContext {
 ```
 
 source config 里的 `high_interest`/`interest`/`uninterested`/`avoid`/`context`/`summarize`/`regrade`/`timeout` 字段全部删除，改为在对应插件的 options 里配置。
+
+`builtin/llm-grade` 的全局 options 和 source options 由 workflow 合并后传入，普通字段（如 `model`）source 覆盖全局。关键词字段使用不同字段名区分：全局用 `global_high_interest`/`global_interest`/`global_uninterested`/`global_avoid`，source 用 `high_interest`/`interest`/`uninterested`/`avoid`/`context`，两者在 prompt 里分开展示，由 LLM 综合权衡。
 
 ## 典型 source 配置示例
 
