@@ -86,7 +86,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    if: github.event.inputs.dry-run != 'true'
     steps:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
@@ -110,6 +109,11 @@ jobs:
           git diff --cached --stat
           echo ""
           git diff --cached
+
+          if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
+            echo "Dry run mode, skipping commit and push."
+            exit 0
+          fi
 
           git commit -m "Update RSS feeds" || exit 0
           git push
