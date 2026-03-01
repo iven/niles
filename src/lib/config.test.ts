@@ -6,17 +6,10 @@ describe("Config", () => {
     llm: {
       provider: "openrouter",
       models: {
-        grade: "stepfun/step-3.5-flash:free",
-        summarize: "stepfun/step-3.5-flash:free",
+        fast: "stepfun/step-3.5-flash:free",
+        balanced: "stepfun/step-3.5-flash:free",
+        powerful: "stepfun/step-3.5-flash:free",
       },
-    },
-    global: {
-      high_interest: "AI,技术",
-      interest: "编程",
-      uninterested: "娱乐",
-      avoid: "广告",
-      preferred_language: "zh",
-      timeout: 30,
     },
     sources: [
       {
@@ -27,7 +20,6 @@ describe("Config", () => {
             options: { url: "https://example1.com/rss" },
           },
         ],
-        summarize: false,
       },
       {
         name: "source2",
@@ -37,7 +29,6 @@ describe("Config", () => {
             options: { url: "https://example2.com/rss" },
           },
         ],
-        summarize: true,
       },
     ],
   };
@@ -46,8 +37,9 @@ describe("Config", () => {
     const config = parseConfig(validConfig);
 
     expect(config.llm.provider).toBe("openrouter");
-    expect(config.llm.models.grade).toBe("stepfun/step-3.5-flash:free");
-    expect(config.llm.models.summarize).toBe("stepfun/step-3.5-flash:free");
+    expect(config.llm.models.fast).toBe("stepfun/step-3.5-flash:free");
+    expect(config.llm.models.balanced).toBe("stepfun/step-3.5-flash:free");
+    expect(config.llm.models.powerful).toBe("stepfun/step-3.5-flash:free");
     expect(config.sources).toBeArrayOfSize(2);
   });
 
@@ -56,7 +48,11 @@ describe("Config", () => {
       ...validConfig,
       llm: {
         provider: "invalid-provider",
-        models: { grade: "model", summarize: "model" },
+        models: {
+          fast: "model",
+          balanced: "model",
+          powerful: "model",
+        },
       },
     };
 
@@ -75,26 +71,18 @@ describe("Config", () => {
     expect(() => parseConfig(incompleteConfig)).toThrow();
   });
 
-  it("should reject config with invalid field types", () => {
-    const invalidTypeConfig = {
-      ...validConfig,
-      global: {
-        ...validConfig.global,
-        timeout: "not-a-number", // 应该是 number
-      },
-    };
-
-    expect(() => parseConfig(invalidTypeConfig)).toThrow();
-  });
-
   it("should accept optional source fields", () => {
     const configWithOptionals = {
       ...validConfig,
+      plugins: {
+        "builtin/llm-grade": {
+          global_high_interest: "AI",
+        },
+      },
       sources: [
         {
           name: "source-with-optionals",
           title: "Custom Title",
-          high_interest: "特定主题",
           plugins: [
             {
               name: "builtin/collect-rss",
@@ -102,8 +90,6 @@ describe("Config", () => {
             },
             "plugin2",
           ],
-          summarize: true,
-          timeout: 60,
         },
       ],
     };
@@ -112,7 +98,9 @@ describe("Config", () => {
     const source = config.sources[0];
     expect(source).toBeDefined();
     expect(source?.title).toBe("Custom Title");
-    expect(source?.high_interest).toBe("特定主题");
     expect(source?.plugins).toHaveLength(2);
+    expect(config.plugins["builtin/llm-grade"]?.global_high_interest).toBe(
+      "AI",
+    );
   });
 });

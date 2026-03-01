@@ -3,7 +3,7 @@
  */
 
 import { basePlugin } from "../../plugin";
-import type { UngradedRssItem } from "../../types";
+import type { FeedItem } from "../../types";
 
 function cleanZeroWidth(text: string): string {
   return text.replace(/^[\u200b\s]+|[\u200b\s]+$/g, "");
@@ -11,12 +11,12 @@ function cleanZeroWidth(text: string): string {
 
 const plugin = {
   ...basePlugin,
-  async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
-    return {
+  async processItems(items: FeedItem[]): Promise<FeedItem[]> {
+    return items.map((item) => ({
       ...item,
       title: cleanZeroWidth(item.title),
       description: cleanZeroWidth(item.description),
-    };
+    }));
   },
 };
 

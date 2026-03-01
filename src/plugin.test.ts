@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { applyTransform, loadPlugins } from "./plugin";
-import type { UngradedRssItem } from "./types";
+import { applyProcessItems, loadPlugins } from "./plugin";
+import type { FeedItem } from "./types";
 
-function createTestItem(title: string): UngradedRssItem {
+function createTestItem(title: string): FeedItem {
   return {
     title,
     link: "https://example.com",
@@ -10,16 +10,26 @@ function createTestItem(title: string): UngradedRssItem {
     description: "Test description",
     guid: "test-guid",
     extra: {},
-    graded: false,
+    level: "unknown",
+    reason: "未分级",
   };
 }
+
+const testContext = {
+  sourceName: "test",
+  sourceContext: undefined,
+  isDryRun: false,
+  llm: () => {
+    throw new Error("llm not available in test");
+  },
+} as Parameters<typeof applyProcessItems>[2];
 
 describe("loadPlugins", () => {
   it("should load builtin plugins with file path format", async () => {
     const items = [createTestItem("\u200b  Test  \u200b")];
     const [cleanText] = await loadPlugins(["builtin/clean-text"]);
     if (!cleanText) throw new Error("plugin not loaded");
-    const result = await applyTransform(items, cleanText);
+    const result = await applyProcessItems(items, cleanText, testContext);
 
     expect(result[0]?.title).toBe("Test");
   });
@@ -34,7 +44,7 @@ describe("loadPlugins", () => {
     ];
     const [hackerNews] = await loadPlugins(["hacker-news"]);
     if (!hackerNews) throw new Error("plugin not loaded");
-    const result = await applyTransform(items, hackerNews);
+    const result = await applyProcessItems(items, hackerNews, testContext);
 
     expect(result).toHaveLength(2);
     expect(result[1]?.extra.comments).toBeDefined();
@@ -47,9 +57,10 @@ describe("loadPlugins", () => {
       "builtin/fetch-meta",
     ]);
     if (!cleanText || !fetchMeta) throw new Error("plugins not loaded");
-    const result = await applyTransform(
-      await applyTransform(items, cleanText),
+    const result = await applyProcessItems(
+      await applyProcessItems(items, cleanText, testContext),
       fetchMeta,
+      testContext,
     );
 
     expect(result[0]?.title).toBe("Test");
@@ -65,7 +76,7 @@ describe("loadPlugins", () => {
   it("should return empty items from non-collector plugin", async () => {
     const [cleanText] = await loadPlugins(["builtin/clean-text"]);
     if (!cleanText) throw new Error("plugin not loaded");
-    const { items } = await cleanText.plugin.collect({});
+    const { items } = await cleanText.plugin.collect({}, testContext);
     expect(items).toHaveLength(0);
   });
 });

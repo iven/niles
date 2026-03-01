@@ -1,34 +1,43 @@
-import pLimit from "p-limit";
+import type { TextAdapter } from "./lib/llm";
 import { logger } from "./lib/logger";
-import type { GradedRssItem, UngradedRssItem } from "./types";
+import type { FeedItem } from "./types";
 
-interface Plugin {
+export interface PluginContext {
+  sourceName: string;
+  sourceContext: string | undefined;
+  isDryRun: boolean;
+  llm(tier: "fast" | "balanced" | "powerful"): TextAdapter;
+}
+
+export interface Plugin<O extends object = object> {
   collect(
-    options: Record<string, unknown>,
-  ): Promise<{ title?: string; items: UngradedRssItem[] }>;
-  processItem(
-    item: UngradedRssItem,
-    options?: Record<string, unknown>,
-  ): Promise<UngradedRssItem>;
-  report(
-    items: GradedRssItem[],
-    options: Record<string, unknown>,
-  ): Promise<void>;
+    options: O,
+    context: PluginContext,
+  ): Promise<{ title?: string; items: FeedItem[] }>;
+  processItems(
+    items: FeedItem[],
+    options: O,
+    context: PluginContext,
+  ): Promise<FeedItem[]>;
+  report(items: FeedItem[], options: O, context: PluginContext): Promise<void>;
 }
 
 export const basePlugin: Plugin = {
   async collect() {
     return { items: [] };
   },
-  async processItem(item) {
-    return item;
+  async processItems(items) {
+    return items;
   },
   async report() {},
 };
 
-type PluginEntry = string | { name: string; options?: Record<string, unknown> };
+type PluginEntry = string | { name: string; options?: object };
 
-type LoadedPlugin = { plugin: Plugin; options: Record<string, unknown> };
+type LoadedPlugin = {
+  plugin: Plugin;
+  options: object;
+};
 
 async function loadPlugin(pluginName: string): Promise<Plugin> {
   try {
@@ -58,22 +67,15 @@ export async function loadPlugins(
   );
 }
 
-export async function applyTransform(
-  items: UngradedRssItem[],
+export async function applyProcessItems(
+  items: FeedItem[],
   { plugin, options }: LoadedPlugin,
-  maxConcurrency = 10,
-): Promise<UngradedRssItem[]> {
-  const limit = pLimit(maxConcurrency);
-  return Promise.all(
-    items.map((item, index) =>
-      limit(async () => {
-        try {
-          return await plugin.processItem(item, options);
-        } catch (error) {
-          logger.warn(`处理 item ${index} 失败: ${error}`);
-          return item;
-        }
-      }),
-    ),
-  );
+  context: PluginContext,
+): Promise<FeedItem[]> {
+  try {
+    return await plugin.processItems(items, options, context);
+  } catch (error) {
+    logger.warn(`processItems 失败: ${error}`);
+    return items;
+  }
 }

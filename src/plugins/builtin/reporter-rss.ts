@@ -1,9 +1,12 @@
 import { generateRssFeed, parseRssFeed } from "feedsmith";
 import type { Rss } from "feedsmith/types";
-import { basePlugin } from "../../plugin";
-import type { GradedRssItem } from "../../types";
+import { basePlugin, type Plugin } from "../../plugin";
+import type { FeedItem } from "../../types";
 
-export function formatGradedItems(items: GradedRssItem[]): Rss.Item<string>[] {
+export function formatItems(
+  items: FeedItem[],
+  showReason = true,
+): Rss.Item<string>[] {
   const matchedItems = items.filter((item) => item.level !== "rejected");
 
   return matchedItems.map((item) => {
@@ -14,26 +17,35 @@ export function formatGradedItems(items: GradedRssItem[]): Rss.Item<string>[] {
       title = `⭐ ${title}`;
     }
 
+    const levelNote = showReason
+      ? `<p><small style="opacity: 0.7;">[${item.level}] ${item.reason}</small></p>`
+      : "";
+
     return {
       title,
       link: item.link,
       pubDate: item.pubDate,
       guid: { value: item.guid || item.link, isPermaLink: false },
-      description: `<p><small style="opacity: 0.7;">[${item.level}] ${item.reason}</small></p>${item.description}`,
+      description: `${levelNote}${item.description}`,
     };
   });
 }
 
-const reporter = {
+interface ReporterRssOptions {
+  outputPath: string;
+  sourceName?: string;
+  title?: string;
+  showReason?: boolean;
+}
+
+const reporter: Plugin<ReporterRssOptions> = {
   ...basePlugin,
-  async report(items: GradedRssItem[], options: Record<string, unknown>) {
-    const outputPath = options.outputPath as string;
+  async report(items: FeedItem[], options: ReporterRssOptions) {
+    const { outputPath, sourceName = "", title, showReason = true } = options;
     if (!outputPath) throw new Error("reporter-rss: options.outputPath 未指定");
+    const feedTitle = title || `${sourceName} - 精选`;
 
-    const sourceName = (options.sourceName as string) || "";
-    const title = (options.title as string) || `${sourceName} - 精选`;
-
-    const newItems = formatGradedItems(items);
+    const newItems = formatItems(items, showReason);
 
     let existingItems: Rss.Item<string>[] = [];
     const file = Bun.file(outputPath);
@@ -52,7 +64,7 @@ const reporter = {
     const allItems = [...newItems, ...existingItems].slice(0, 50);
 
     const feed = {
-      title,
+      title: feedTitle,
       description: `基于个人兴趣筛选的 ${sourceName} 内容`,
       lastBuildDate: new Date(),
       items: allItems,

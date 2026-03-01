@@ -6,8 +6,9 @@ describe("LLM Client", () => {
     const config = {
       provider: "anthropic" as const,
       models: {
-        grade: "claude-3-5-haiku-20241022",
-        summarize: "claude-3-5-sonnet-20241022",
+        fast: "claude-haiku-4-5",
+        balanced: "claude-sonnet-4-5",
+        powerful: "claude-opus-4-5",
       },
     };
 
@@ -15,7 +16,7 @@ describe("LLM Client", () => {
     const originalKey = process.env.ANTHROPIC_API_KEY;
     delete process.env.ANTHROPIC_API_KEY;
 
-    expect(() => createLlmClient(config, config.models.grade)).toThrow(
+    expect(() => createLlmClient(config, config.models.fast)).toThrow(
       "环境变量 ANTHROPIC_API_KEY 未设置",
     );
 
@@ -29,8 +30,9 @@ describe("LLM Client", () => {
     const config = {
       provider: "unsupported",
       models: {
-        grade: "model-name",
-        summarize: "model-name",
+        fast: "model-name",
+        balanced: "model-name",
+        powerful: "model-name",
       },
       // biome-ignore lint/suspicious/noExplicitAny: Testing unsupported provider value
     } as any;

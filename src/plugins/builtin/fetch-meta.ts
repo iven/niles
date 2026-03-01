@@ -5,46 +5,50 @@
 import { parseHTML } from "linkedom";
 import { logger } from "../../lib/logger";
 import { basePlugin } from "../../plugin";
-import type { UngradedRssItem } from "../../types";
+import type { FeedItem } from "../../types";
 
 const plugin = {
   ...basePlugin,
-  async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
-    const url = item.link;
-    if (!url) return item;
-
-    try {
-      const response = await fetch(url, {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-        },
-        redirect: "follow",
-        signal: AbortSignal.timeout(10000),
-      });
-
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-      const html = await response.text();
-      const { document } = parseHTML(html);
-
-      const metaDesc =
-        document
-          .querySelector('meta[name="description"]')
-          ?.getAttribute("content") ||
-        document
-          .querySelector('meta[property="og:description"]')
-          ?.getAttribute("content") ||
-        "";
-
-      item.extra.meta = metaDesc;
-    } catch (error) {
-      logger.warn(`抓取 meta ${url} 失败: ${error}`);
-      item.extra.meta = "";
-    }
-
-    return item;
+  async processItems(items: FeedItem[]): Promise<FeedItem[]> {
+    return Promise.all(items.map((item) => processOne(item)));
   },
 };
+
+async function processOne(item: FeedItem): Promise<FeedItem> {
+  const url = item.link;
+  if (!url) return item;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+      },
+      redirect: "follow",
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const html = await response.text();
+    const { document } = parseHTML(html);
+
+    const metaDesc =
+      document
+        .querySelector('meta[name="description"]')
+        ?.getAttribute("content") ||
+      document
+        .querySelector('meta[property="og:description"]')
+        ?.getAttribute("content") ||
+      "";
+
+    item.extra.meta = metaDesc;
+  } catch (error) {
+    logger.warn(`抓取 meta ${url} 失败: ${error}`);
+    item.extra.meta = "";
+  }
+
+  return item;
+}
 
 export default plugin;

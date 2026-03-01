@@ -1,12 +1,16 @@
 import { parseFeed } from "feedsmith";
 import type { Atom, DeepPartial } from "feedsmith/types";
-import { basePlugin } from "../../plugin";
-import type { UngradedRssItem } from "../../types";
+import { basePlugin, type Plugin } from "../../plugin";
+import type { FeedItem } from "../../types";
 
-const plugin = {
+interface CollectRssOptions {
+  url: string;
+}
+
+const plugin: Plugin<CollectRssOptions> = {
   ...basePlugin,
-  async collect(options: Record<string, unknown>) {
-    const url = options.url as string;
+  async collect(options) {
+    const { url } = options;
     if (!url) throw new Error("collect-rss: options.url 未指定");
 
     const response = await fetch(url, {
@@ -45,14 +49,15 @@ const plugin = {
       rawItems = (feed.items || []) as typeof rawItems;
     }
 
-    const items: UngradedRssItem[] = rawItems.map((item) => ({
+    const items: FeedItem[] = rawItems.map((item) => ({
       title: item.title || "",
       link: item.link || "",
       pubDate: item.pubDate || "",
       description: item.description || "",
       guid: item.guid?.value || item.link || "",
       extra: {},
-      graded: false as const,
+      level: "unknown" as const,
+      reason: "未分级",
     }));
 
     return {

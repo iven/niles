@@ -1,7 +1,7 @@
 import { init as rsshubInit, request as rsshubRequest } from "rsshub";
 import { z } from "zod";
-import { basePlugin } from "../../plugin";
-import type { UngradedRssItem } from "../../types";
+import { basePlugin, type Plugin } from "../../plugin";
+import type { FeedItem } from "../../types";
 
 const rssFeedItemSchema = z.object({
   title: z.string().optional(),
@@ -16,10 +16,14 @@ const rsshubResponseSchema = z.object({
   item: z.array(z.unknown()).optional(),
 });
 
-const plugin = {
+interface CollectRsshubOptions {
+  route: string;
+}
+
+const plugin: Plugin<CollectRsshubOptions> = {
   ...basePlugin,
-  async collect(options: Record<string, unknown>) {
-    const route = options.route as string;
+  async collect(options) {
+    const { route } = options;
     if (!route) throw new Error("collect-rsshub: options.route 未指定");
 
     await rsshubInit();
@@ -35,14 +39,15 @@ const plugin = {
       return itemResult.success ? itemResult.data : {};
     });
 
-    const items: UngradedRssItem[] = rawItems.map((item) => ({
+    const items: FeedItem[] = rawItems.map((item) => ({
       title: item.title || "",
       link: item.link || "",
       pubDate: item.pubDate || "",
       description: item.description || "",
       guid: item.guid?.value || item.link || "",
       extra: {},
-      graded: false as const,
+      level: "unknown" as const,
+      reason: "未分级",
     }));
 
     return {

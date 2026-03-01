@@ -19,7 +19,7 @@ type OpenRouterModel = Parameters<typeof openRouterText>[0];
 import type { LlmConfig } from "./config";
 import { logger } from "./logger";
 
-type TextAdapter = ReturnType<
+export type TextAdapter = ReturnType<
   | typeof anthropicText
   | typeof openaiText
   | typeof geminiText
@@ -94,13 +94,13 @@ interface StreamHandlerOptions<T> {
   getResult: () => T;
 }
 
-export interface TokenStats {
+interface TokenStats {
   promptTokens: number;
   completionTokens: number;
   totalTokens: number;
 }
 
-export interface StreamResult<T> {
+interface StreamResult<T> {
   result: T;
   tokenStats: TokenStats;
 }

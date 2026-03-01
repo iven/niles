@@ -5,7 +5,7 @@
 import { z } from "zod";
 import { logger } from "../../lib/logger";
 import { basePlugin } from "../../plugin";
-import type { UngradedRssItem } from "../../types";
+import type { FeedItem } from "../../types";
 
 interface HNComment {
   author: string;
@@ -40,48 +40,51 @@ const hnApiResponseSchema = z
 
 const plugin = {
   ...basePlugin,
-  async processItem(item: UngradedRssItem): Promise<UngradedRssItem> {
-    const url = item.guid || "";
+  async processItems(items: FeedItem[]): Promise<FeedItem[]> {
+    return Promise.all(items.map((item) => processOne(item)));
+  },
+};
 
-    if (!url.includes("news.ycombinator.com")) {
+async function processOne(item: FeedItem): Promise<FeedItem> {
+  const url = item.guid || "";
+
+  if (!url.includes("news.ycombinator.com")) {
+    return item;
+  }
+
+  const match = /id=(\d+)/.exec(url);
+  if (!match) return item;
+
+  const itemId = match[1];
+
+  item.link = url;
+
+  try {
+    const apiUrl = `https://hn.algolia.com/api/v1/items/${itemId}`;
+
+    const response = await fetch(apiUrl, {
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const json = await response.json();
+    const parseResult = hnApiResponseSchema.safeParse(json);
+
+    if (!parseResult.success) {
+      logger.warn(`HN API 响应格式错误: ${itemId}`);
       return item;
     }
 
-    const match = /id=(\d+)/.exec(url);
-    if (!match) return item;
+    const comments = extractComments(parseResult.data.children || [], 0, 2);
+    item.extra.comments = comments;
+  } catch (error) {
+    logger.warn(`抓取 HN 评论失败 ${itemId}: ${error}`);
+    item.extra.comments = [];
+  }
 
-    const itemId = match[1];
-
-    // 将 link 改为 HN 讨论区 URL
-    item.link = url;
-
-    try {
-      const apiUrl = `https://hn.algolia.com/api/v1/items/${itemId}`;
-
-      const response = await fetch(apiUrl, {
-        signal: AbortSignal.timeout(10000),
-      });
-
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-      const json = await response.json();
-      const parseResult = hnApiResponseSchema.safeParse(json);
-
-      if (!parseResult.success) {
-        logger.warn(`HN API 响应格式错误: ${itemId}`);
-        return item;
-      }
-
-      const comments = extractComments(parseResult.data.children || [], 0, 2);
-      item.extra.comments = comments;
-    } catch (error) {
-      logger.warn(`抓取 HN 评论失败 ${itemId}: ${error}`);
-      item.extra.comments = [];
-    }
-
-    return item;
-  },
-};
+  return item;
+}
 
 function extractComments(
   children: HNApiChild[],
