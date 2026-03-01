@@ -1,5 +1,6 @@
 import { init as rsshubInit, request as rsshubRequest } from "rsshub";
 import { z } from "zod";
+import { withRetry } from "../../lib/retry";
 import { basePlugin, type Plugin } from "../../plugin";
 import type { FeedItem } from "../../types";
 
@@ -27,7 +28,7 @@ const plugin: Plugin<CollectRsshubOptions> = {
     if (!route) throw new Error("collect-rsshub: options.route 未指定");
 
     await rsshubInit();
-    const rsshubData = await rsshubRequest(route);
+    const rsshubData = await withRetry(() => rsshubRequest(route));
 
     const parseResult = rsshubResponseSchema.safeParse(rsshubData);
     if (!parseResult.success) {
