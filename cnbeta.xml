@@ -3,7 +3,62 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Sun, 01 Mar 2026 18:51:45 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 19:34:37 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Google在Chrome中推出能抵抗量子计算威胁的HTTPS证书</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1551752.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及编程工具安全功能（Chrome HTTPS证书）和量子计算相关技术进展，符合用户对编程工具发布和AI技术的高兴趣配置</small></p>
+                                                
+                                                <p>Google近日宣布，已在 Chrome 浏览器中开始测试一类全新的抗量子 HTTPS 
+证书，目标是在量子计算真正威胁现有加密体系之前，为互联网通信提前“加固地基”。 
+当前量子计算能力尚不足以破解互联网主流加密协议，但包括Google在内的安全业界普遍担心，一旦面向大规模实际应用的量子计算机出现，如今保障 
+HTTPS 安全的密码学算法将面临被迅速攻破的风险。</p>                
+                        <div class="article-global"></div>                            <p>Google此次在 Chrome 中引入的是从底层设计就针对量子威胁的证书体系，希望在不显著拖慢网页加载速度的前提下，给浏览器和网站提供“量子安全”的备用方案。</p><p>要理解这一变化的重要性，首先需要回顾现行网页安全机制的基本原理。 当用户访问一个网站时，浏览器会验证对方提供的数字证书，以确认自己连接的是货真价实的网站，而不是中间人伪装的钓鱼站点或攻击者节点。 这些证书依赖的是常规计算机难以在合理时间内解出的复杂数学问题，保证攻击者在可预期的时间内无法伪造网站身份或解密传输内容。 然而，量子计算机的并行能力和特定算法的优势会颠覆这一前提，其中以 Shor 算法为代表的量子算法理论上能够高效分解大整数、破解当前广泛部署的公钥加密体系，使得现有证书体系在量子时代“形同虚设”。</p><p>业界直观的对策，是引入被认为对量子计算也“难题化”的抗量子密码算法。 但问题在于，这类算法的密钥和签名通常要比传统方案“胖”得多。 目前普遍使用的 X.509 证书格式中，相关数据体量大约是 64 字节量级，而一旦换上量子安全的等价方案，数据规模会膨胀至约 2.5KB，约为原来的 40 倍。 这些证书需要在每次建立 HTTPS 连接时通过网络传输，如果所有网站都切换到体量大幅增加的抗量子证书，会明显增加握手阶段的数据传输量，用户将切身感受到网页首包响应和加载时延的升高。 对普通用户而言，一旦安全措施和体验产生明显冲突，他们宁愿降低安全级别，也可能不愿接受明显变慢的网页访问。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0302/f26c060b0257fa0.webp"></p><p>为破解“安全 vs 性能”的这种矛盾，Google选择引入一种名为 Merkle 树的密码学结构，并基于此设计出所谓的 Merkle Tree Certificates（MTC）。 Google在安全博客中解释称，MTC 用紧凑的 Merkle 树证明替代了传统公钥基础设施（PKI）中层层串联、体积庞大的签名链结构。 在这种模式下，证书颁发机构（CA）不再为每张证书单独签名，而是仅对代表“整棵树”的一个“Tree Head”（树头）进行签名，这棵树可以涵盖数以百万计的证书记录。 浏览器在握手时收到的“证书”，不再是完整的单站点证书链，而是某个网站在这棵 Merkle 树中的“包含证明”，数据量因而可以保持在接近传统 64 字节证书的量级，从而兼顾量子安全能力和网络开销。</p><p>更直观地说，MTC 将证书签名的“重负”集中到 CA 维护的一棵树上，用户浏览器拿到的是一段简短、可验证的路径证明，而非一整套庞大的独立证书和中间证书链。 对 CA 而言，这意味着只需要对一个树头签名，就能覆盖庞大的证书集合；对浏览器而言，验证一个简短的 Merkle 路径所需的数据远比完整证书小得多，也有助于控制握手阶段的延迟。 在量子安全算法使单个签名体积不可避免膨胀的前提下，通过结构层面的“批处理”和压缩，Google试图避免用网络体验来为安全加固“买单”。</p><p>目前，Chrome 已经开始与 Cloudflare 合作，对这些基于 Merkle 树的新型证书进行线上实测。 Google方面透露，当前约有 1000 张证书通过这一新体系运行，所有连接在建立时同时携带传统证书作为后备保障。 换言之，即便 MTC 端出现兼容性或实现问题，浏览器仍可以回退到既有的证书验证流程，避免影响用户访问或引发大规模故障。 这种“并行试跑”机制为新方案预留了充足的磨合空间，也为后续逐步扩大部署范围提供了实践数据。</p><p>按照Google的规划，这套抗量子证书体系的全面推广将持续推进至 2027 年。 届时，Google计划推出专门的抗量子信任库，与现有的 Chrome 根证书库并行运行。 这意味着浏览器将同时维护传统 PKI 信任链和抗量子信任链，为不同类型的网站证书提供区分管理和验证路径。 在量子计算威胁尚处于“可预见但尚未到来”的时间窗口内，这种并行架构有助于逐步完成生态迁移，避免“一步到位”带来的兼容性和运维风险。</p><p>值得注意的是，Merkle 树证书的引入还有一个重要的“副作用”：证书透明度（Certificate Transparency）从可选变为强制。 由于新证书的生成必须依托公开可验证的日志结构，任何一张 MTC 证书的存在都会自然记录在公开日志里，从而难以“悄无声息”地签发或滥用。 对攻击者或内部滥用者而言，要想通过伪造证书实施中间人攻击，在这样的机制下将更加困难；而对安全研究者和监管机构来说，这也提升了对整个证书生态的可审计性与可追踪性。</p><p>实际上，Google早在十年前就开始探索如何为浏览器和互联网体系构建抵御量子计算攻击的防线。 此前，Google已经在实验性协议、加密算法候选和浏览器实现层面进行了多轮尝试与测试。 本次在 Chrome 中推动抗量子 HTTPS 证书和 Merkle 树结构的组合应用，可以视作其“量子安全路线图”的又一次关键落地：在量子威胁真正实现之前，通过协议与基础设施更新，将潜在高危点尽量提前“加固”，为未来几十年的网络安全打下基础。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1551752.htm</guid>
+      <pubDate>Sun, 01 Mar 2026 19:17:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Anthropic与五角大楼争议爆发后 Claude登顶App Store免费榜首位</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1551748.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要涉及AI模型Claude的进展和排名，虽涉及公司但技术内容占主导，符合用户对AI模型的高兴趣偏好</small></p>
+                                                
+                                                <p>科技公司 Anthropic 推出的聊天机器人 Claude近期在与美国国防部（五角大楼）的合作争议后人气激增，在苹果美国区 App Store
+ 免费应用排行榜中跃升至第一位，超过了竞争对手 OpenAI 的 ChatGPT。 据悉，Claude 
+在周六晚间首次登顶排行榜，并在周日上午继续保持这一位置，而在今年一月底，它还徘徊在免费榜单前一百名之外。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0302/7dde9ff7505b4e4.jpg"></p><p>应用数据分析机构 SensorTower 的统计显示，Claude 在一月底时刚刚挤入美国区免费应用榜单前一百名，随后整个二月份大部分时间都维持在前二十名以内。 进入本周后，其排名出现加速上升的势头，从周三的第六名，到周四升至第四名，再到周六一举攀升至第一名，短时间内完成了从“黑马”到“榜首”的跃迁。</p><p>Anthropic 一位发言人表示，公司过去一周内每天的新注册用户数量都刷新历史纪录，显示出用户增长的强劲势头。 与今年一月相比，Claude 的免费用户数已增长逾 60%，付费订阅用户数量则在年内实现了翻番，说明争议并未削弱其市场吸引力，反而在一定程度上转化为下载和付费意愿的上升。</p><p>这轮用户与关注度的激增，与 Anthropic 与美国国防部之间围绕 AI 军事与监控用途的谈判破裂密切相关。 在谈判过程中，Anthropic 试图在合同中加入安全条款，限制国防部将其大模型用于大规模国内监控或完全自主武器系统等用途。 在谈判未能达成一致后，美国总统唐纳德·特朗普指示联邦各部门停止使用所有 Anthropic 产品，美国国防部长皮特·海格塞斯则表示，计划将该公司列为“供应链威胁”。</p><p>与此形成鲜明对比的是，另一家人工智能巨头 OpenAI 随后宣布已与五角大楼达成合作协议。 OpenAI 首席执行官山姆·阿尔特曼对外称，这项协议中也包含针对国内监控与自主武器的“技术安全护栏”，试图回应外界对军方使用通用人工智能技术的担忧。</p><p>这篇报道最初于 2 月 28 日发布，随后随着 Claude 排名进一步上升至 App Store 免费榜首，TechCrunch 对内容进行了更新，同时补充了 Anthropic 提供的最新用户增长数据。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1551748.htm</guid>
+      <pubDate>Sun, 01 Mar 2026 19:13:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>Windows 11市占率再现异常飙升 或将被后续修正</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1551742.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 虽然涉及软件新功能（Windows 11），但用户对微软产品有avoid倾向，需谨慎权衡</small></p>
+                                                
+                                                <p>网站分析服务机构 Statcounter 公布的最新数据显示，2026 年 2 月，Windows 11 
+在全球桌面系统中的市场份额出现大幅跃升，再次录得“异常级”的单月增长。数据显示，Windows 11 的份额从 1 月的 62.41% 暴涨至 
+72.57%，单月上升 10.16 个百分点，而 1 月份该系统也刚刚经历过一次从 50.73% 跃升至 62.41% 的类似跳涨。</p>                
+                        <div class="article-global"></div>                            <p>与之对应的是 Windows 10 份额的同步下滑，从 1 月的 35.77% 下跌至 26.45%，一个月内回落 9.32 个百分点。在地区层面，欧洲、美国、印度、英国等市场也都出现了 Windows 11 份额的明显增长趋势。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0302/06aa467901c0127.webp"></p><p>按照 Statcounter 当前给出的 Windows 平台结构，Windows 11 以 72.57% 的占比位居首位，其次是占比 26.45% 的 Windows 10；已停止主流支持多年的 Windows 7 仍保留 0.62% 的份额，Windows XP 的残余份额则为 0.2%。不过，这种在短时间内连续出现的“十个百分点级”跳涨，被认为相当反常。一方面，微软及主流 PC 厂商近期并未发布足以引发用户大规模迁移的重大产品或政策，另一方面，Windows 10 目前仍在通过扩展安全更新（ESU）计划获得支持：普通用户可获支持至今年 10 月，商业客户则可通过额外计划继续获得数年安全更新。</p><p>正因如此，外界对这组新数据普遍持保留态度。文章指出，Statcounter 过去就曾在统计中出现异常，例如此前曾短暂显示 Windows 7 份额“突然飙升”，随后又在数据修正后恢复正常。鉴于该机构会对统计结果进行滞后调整，本次 Windows 11 市占率的异常高位在未来几周内也有可能被回调修正，因此当前数据仍需谨慎解读。</p><p>尽管存在争议，Statcounter 仍被视作观察操作系统市场走势的一个有用参考，尤其是在微软长期拒绝对外公布精确安装数量的背景下。与此同时，微软方面近期也宣称，Windows 11 的活跃用户数量已经正式突破 10 亿大关，且达到这一里程碑的速度快于当年的 Windows 10，这在一定程度上印证了新系统在装机规模上的持续扩大。考虑到 Windows 11 在硬件要求、界面改动以及内置在线服务等方面饱受社区争议，这一增长节奏被视为“爱也好恨也罢，普及仍在继续”的写照。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1551742.htm</guid>
+      <pubDate>Sun, 01 Mar 2026 18:57:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>Windows 11 将迎来音频功能升级 共享设备时体验进一步完善</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1551740.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Windows 11音频功能升级，属软件新功能，但用户配置中对微软产品有avoid倾向</small></p>
+                                                
+                                                <p>微软正在为 Windows 11 开发并推送一系列实用的音频相关新功能，其中最受关注的是对“共享音频”能力的进一步完善，部分用户已经可以通过预览版本抢先体验。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0302/660f3bf6a183f5e.webp"></p><p>微软此前已经在 Windows 11 中引入共享音频功能，允许一台电脑同时向多副耳机或耳塞输出声音，方便两人一起看电影或听音乐，如今这一功能在易用性和兼容性方面都有明显改进。 用户现在可以针对每一副已连接设备单独调节音量，各自设定舒适的听音音量，而不会再像此前那样调整一台设备的音量就同时影响所有设备。 在最新版本中，用户只需在控制中心中选择“Shared Audio（预览）”，即可看到为每一台音频设备提供的独立音量滑块；当然，任务栏系统托盘中的主音量滑块仍然可以一次性调节所有设备的总体音量。</p><p>为方便识别共享音频状态，微软还在任务栏系统托盘区域新增了专门指示图标：当共享音频开启时，网络图标旁会出现一个带有两个人物图案的小喇叭图标，用户无需先打开操作中心，即可快速察看并进入相关设置。</p><p>在设备支持方面，Windows 11 的共享音频功能也扩展了更多型号的耳机和耳塞，新增支持产品包括三星 Galaxy Buds 4、Galaxy Buds 4 Pro、索尼 WF-1000XM6 以及 Xbox 无线耳机等主流设备，使这一功能的适用范围进一步扩大。 不过，微软同时明确表示，共享音频目前依然仅限 Copilot+ PC 机型使用，搭载“传统”处理器的设备用户暂时仍无法启用该功能。</p><p>对于符合条件并希望尝鲜的用户，可以通过安装 Windows 11 预览版本来体验最新的共享音频改进：包括 Dev 通道的 26300.7939 版本以及 Beta 通道的 26220.7934 版本。 需要注意的是，这些功能采用分阶段推送策略，具体到达时间可能会因地区和设备而有所不同，可能需要数天甚至数周才会在所有符合条件的设备上出现。</p><p>除了共享音频外，微软近期也在音频领域做出其他增强，例如为 Windows 11 引入对 MIDI 2.0 标准的支持，使该系统在音乐制作、电子乐器连接等专业场景中的能力有所提升，更加适合音乐人和创作者使用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1551740.htm</guid>
+      <pubDate>Sun, 01 Mar 2026 18:51:33 GMT</pubDate>
+    </item>
     <item>
       <title>科学家研发出“智能内裤” 专门来测量你一天放几个屁</title>
       <link>https://www.cnbeta.com.tw/articles/science/1551730.htm</link>
@@ -569,54 +624,6 @@ Concept”的联想概念设备外观与名称。</p>
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1551544.htm</guid>
       <pubDate>Fri, 27 Feb 2026 11:50:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>NVIDIA迷你工作站DGX Spark官方大涨价</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1551540.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] AI硬件价格新闻，与用户感兴趣的编程工具、AI模型等技术进展匹配度不高</small></p>
-                                                
-                                                <p><strong>NVIDIA官方宣布，迷你AI工作站或者说个人桌面超级计算机DGX Spark，本周起正式涨价，FE官方公版从3999美元上调到4699美元，涨幅达17.5％。</strong>NVIDIA解释说，涨价原因是内存供应持续紧张，全球、全行业莫不如此，所以这次涨价也是全球性的。</p>                
-                        <div class="article-global"></div>                            <p>DGX Spark只有一种存储配置，128GB内存加4TB SSD，继续保持不变。</p><p><strong>DGX Spark是去年10月刚发布的，国内售价3万元起步，贵的在3.4万元左右。这么一涨就奔着4万元去了……</strong></p><p>多家OEM厂商也推出了自己的非公版，价格普遍更贵，甚至逼近4万元，是否、如何涨价将由OEM厂商自行决定。</p><p><a href="//img1.mydrivers.com/img/20260227/b941e363ae9b4958bb3d0201da90f560.jpg" style="text-align: -webkit-center;" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0227/4e2cd9b38798a76.jpg"></a></p><p>DGX Spark外观类似一台迷你机，金黄配色，被称为“小金盒”，内部采用GB10自研处理器，集成Grace CPU、Blackwell GPU，搭配128GB LPDDR5X统一内存，FP4精度算力每秒1千万亿次，能本地运行2000亿参数大模型，还可以双机并联。</p><p>它的最大优势在于丰富、强大的CUDA生态，发布后得到了众多厂商、机构、软件的支持，但<strong>它只适合开发者，不适合普通玩家</strong>，而且发布后多次被批价格需要，性能却难以令人满意。</p><p><a href="//img1.mydrivers.com/img/20260227/c4ea656bb8c14351b167dc3619c42d15.png" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0227/c7d6792238037d7.png"></a></p><p><a href="//img1.mydrivers.com/img/20260227/efb139bdd081467bb582a35c3c0bb511.png" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0227/e9e977b1800e0b8.png"></a></p><p><a href="//img1.mydrivers.com/img/20260227/c6f623ec35294255afb88f531ab9905a.png" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0227/576e7435dd02670.png"></a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1551540.htm</guid>
-      <pubDate>Fri, 27 Feb 2026 11:49:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>南非父子打造全球最高效四轴无人机 单次充电盘旋3.5小时创纪录</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1551534.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 无人机技术创新但非用户核心兴趣领域，不属于编程/AI/软件等明确感兴趣的内容，也不是avoid列表中的主题，故为可选内容</small></p>
-                                                
-                                                <p>南非一对工程师父子打造的电动四轴无人机，近日以3小时31分6秒的连续悬停成绩，非官方打破多旋翼无人机续航纪录，引发业内关注。这架无人机不仅大幅超过此前3小时12分钟的成绩，更在飞行中表现出惊人的“余量”——飞行2小时14分钟时，电池电量依然显示还有约33%。</p>                
-                        <div class="article-global"></div>                            <p>由于研发者事先并未预料到能飞这么久，也没有按照正式认证流程安排全程记录，这一成绩目前仍处于“非官方”状态。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0227/d3a6a8b08803f00.webp"></p><p>项目由来自南非的卢克·贝尔（Luke Bell）和其父亲迈克·贝尔（Mike Bell）负责，他们此前已凭借极限高速电动四轴飞行器在玩家圈中声名鹊起，如今则试图在极速与长航之间同时“吃下两头”。此次长航纪录机型的设计逻辑可以概括为一个核心原则：在每一个细节上极致压低能耗，不放过任何一个可能节省功率或减重的环节。</p><p style="text-align: center;"><iframe width="864" height="486" src="//www.youtube.com/embed/1lfVKcKQ5BI" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p><p>在动力系统方面，这款无人机选用了T-Motor G40碳纤维桨叶，每片直径达40英寸（约101厘米），以大桨低转速换取更高的升力效率，在更低转速下产生同样推力，从而减少单位时间能耗。与之匹配的是T-Motor MN105 V2 Anti-Gravity 90 KV电机，研发团队在保证能驱动大桨的前提下，刻意选择尽可能小、尽可能轻的规格，以降低自重和损耗。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0227/e6ff66918a492d7.webp"></p><p>机臂长度方面，团队通过五轮计算流体力学（CFD）仿真，在AirShaper软件中模拟各个桨盘下洗气流的相互干扰，寻找能最大限度减小气流扰动的布局，最终确定约800毫米（31.5英寸）的臂展。电机供电线束总长约11米（36英尺），则在另一轮分析中被精细计算出最优线规：AWG 18线径在导线电阻和重量之间取得平衡，从而避免因“为降阻而增重”得不偿失。此外，中央机身舱段经过两次重新设计，累计减重约40克（1.4盎司），并将这种“每一克都要抠”的理念复制到四个电机与整机结构上。</p><p>电池部分被视为整机性能的决定性环节。贝尔团队采用了Tattu的半固态NMC电芯，能量密度约320 Wh/kg，大约是常规LiPo电池（约160 Wh/kg）的两倍。所谓半固态，是指电解质形态介于传统液态LiPo与完全固态电池之间，更接近凝胶状，在安全性基础上显著提高能量密度，同时避免当前全固态技术在化学稳定性方面的高风险。这类电芯的代价是峰值放电电流较低，但在这款以低转速、低功率为设计目标的无人机上，这一短板几乎不构成限制。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0227/9e69446a615d78c.webp"></p><p>为了进一步压缩重量，卢克·贝尔甚至连电池原厂提供的部分防护外壳也一并拆除，每块电池减重约180克，两块电池合计减去约360克（12.7盎司），接近整套碳纤维机架的重量。在悬停状态下，该机平均功率消耗约400瓦；而在缓慢前飞时，功率可降至约250瓦，降幅约37.5%，这直接指向团队接下来可以在“长时间巡航飞行”方向上做进一步尝试。</p><p>不过，迈克·贝尔对于电池技术在航空领域的物理“天花板”并不浪漫，他在邮件中直言，航空煤油的单位能量约为当前最优电池的50倍，商用客机可以在一箱油下飞行约20小时，而以同等能量密度替换成电池后，对应飞行时间只有约24分钟，让“零碳长航电动客机”的想象显得格外残酷。即便将电池能量密度翻倍，对应飞行时间也不过延长到约48分钟，提升到三倍也只是约1小时12分钟，“依然糟糕”，因此他认为长航程电动飞行在现有纯电池体系下几乎是“不可能的梦想”，真正推动零碳航空的，可能会是完全不同的新型技术路线。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0227/3de1d95cdca9eb0.webp"></p><p>值得一提的是，这支团队不仅打造出号称“全球最高效”的电动遥控无人机，还在极速领域保持着官方世界纪录。澳大利亚航天工程师本杰明·比格斯近期曾放出一段非官方飞行视频，声称其Blackbird飞行器在一次试飞中达到约411英里/小时（约661公里/小时），略微超过贝尔父子的现有纪录。后者在2026年1月以约408英里/小时（约656公里/小时）的成绩获得吉尼斯官方认证，而过去两年这一速度纪录一路从2024年5月的300英里/小时、2025年10月的363英里/小时，到同年12月的389英里/小时，再到2026年初的408英里/小时，几乎呈现“阶梯式”跃升。</p><p>目前，团队已经开始筹划新一代Peregreen V5机型，但短期内重心仍会放在其他项目上，待新机成熟后再度冲击极速纪录。迈克·贝尔透露，他们希望V5的目标速度区间能提升到约450至465英里/小时，并认为在此之后仍有继续突破的潜力，不过那将是后续V6、V7的任务。在他看来，当前限制极限速度的主要瓶颈在于螺旋桨技术本身，而一旦螺旋桨设计取得突破，电池功率又将成为下一道关键约束。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1551534.htm</guid>
-      <pubDate>Fri, 27 Feb 2026 10:25:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>极客湾疑似遭&quot;全网封杀&quot;!背后力量深不可测？</title>
-      <link>https://www.cnbeta.com.tw/articles/movie/1551524.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 科技媒体被封杀事件，属于行业公司新闻，用户对这类内容不太感兴趣，但非明确avoid主题，故为可选内容</small></p>
-                                                
-                                                <p>2026年2月27日消息，科技圈顶流评测媒体极客湾（Geekerwan）似乎陷入前所未有的至暗时刻。继近期某重磅横评视频引发轩然大波后，事件持续发酵。</p>                
-                        <div class="article-global"></div>                            <p><a target="_blank" href="https://www.gamersky.com/showimage/id_gamersky.shtml?https://img1.gamersky.com/upimg/pic/2026/02/27/origin_202602271702183764.jpg"><img src="https://static.cnbetacdn.com/article/2026/0227/72c8d1dc728b051.jpg"></a></p><p>据网友“取名太难lli”最新爆料，极客湾目前疑似遭遇全网“封杀”，不仅新视频无法发布，连过往内容也陷入了审核泥潭。</p><p>爆料称，目前在B站等主流平台上，只要涉及极客湾的视频均难以通过审核。甚至有尝试者发现，哪怕视频全程黑屏仅保留声音，或者画面中只要出现主讲人云飞的脸，审核便会卡死。</p><p>更绝望的是，这次“降维打击”的源头极其神秘。爆料提到，此前哪怕面对华为麒麟9000s或9030等敏感产品的测评压力，极客湾都明确知道博弈的对象是谁，但这一次，他们甚至连对手是谁都搞不清楚。</p><p><a target="_blank" href="https://www.gamersky.com/showimage/id_gamersky.shtml?https://img1.gamersky.com/upimg/pic/2026/02/27/origin_202602271700544572.png"><img src="https://static.cnbetacdn.com/article/2026/0227/122de63b5287a0a.png"></a></p><p>此事还冲上微博热搜，引发了公众对国内手机测评行业生存现状的集体反思。</p><p>部分网友评论：</p><p>“再次证明了国内手机测评就是笑话呗，不从实际参数进行反驳，反而如来神掌天降神兵。以后看评测当作看相声呗。”</p><p>“说个搞笑的，魅族手机倒闭都没上热搜，极客湾反而上了。”</p><p>“早就说了，今年存储涨价，钱本来就难赚，你还做这种事（砸饭碗）。”</p><p>“国内测评没啥用，买东西就买喜欢的品牌。按需购买。”</p><p>“手机、测评博主集体震怒，你把碗砸了，我吃什么？”</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/movie/1551524.htm</guid>
-      <pubDate>Fri, 27 Feb 2026 10:03:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 月球研究新突破 可帮助确认南极水冰区域</title>
-      <link>https://www.cnbeta.com.tw/articles/science/1551518.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 月球水冰研究属于科学前沿进展，与用户兴趣配置中的'感兴趣'类别匹配</small></p>
-                                                
-                                                <p>据央视新闻报道，中国科学院国家空间中心太阳活动与空间天气全国重点实验室科研团队，在月球南极沙克尔顿区域水冰稳定性研究上取得新进展。<strong>相关成果已发表于国际学术期刊《行星科学杂志》，该研究也为我国嫦娥七号探测器的月球南极水冰就位探测任务提供了重要的科学支撑。</strong></p>                
-                        <div class="article-global"></div>                            <p><a href="//img1.mydrivers.com/img/20260227/68741299-0633-4012-bea9-80cb17a8d3f9.png" target="_blank"><img alt="我国月球研究新突破：可帮助确认南极水冰区域" h="610" src="https://img1.mydrivers.com/img/20260227/68741299-0633-4012-bea9-80cb17a8d3f9.png" w="600"></a></p><p>此次研究的核心区域为月球南极沙克尔顿撞击坑及其周边，该区域也是嫦娥七号探测任务的候选着陆区，而开展水冰稳定性研究，<strong>能明确水冰在月球极区的分布特征，为嫦娥七号确定更具水冰保存可能性的探测区域提供指导，水冰热稳定性即指地质时间尺度下水冰升华损失的难易程度。</strong></p><p>科研团队的关键突破在于，充分考虑低温条件下的月壤热性质，构建出适用于月球极区的水冰热稳定性模型。</p><p><strong>基于该模型对沙克尔顿区域开展了高空间分辨率的水冰热稳定性模拟，精准分析了当地的表面辐射、月壤温度，以及水冰稳定区域的分布特征，同时也探明了该区域水冰及HCN、SO₂、NH₃等其他挥发分的稳定区域分布规律。</strong></p><p><a href="//img1.mydrivers.com/img/20260227/e65e9319-cc2b-4c8a-9a4a-f4fa1cba1e0f.png" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0227/a69ed40d81351ee.png"></a></p><p>该模型具备实用的测算能力，可有效计算出月球极区光照、月壤温度，以及水冰等挥发分的稳定分布区域，能够针对性分析月球南极、尤其是嫦娥七号着陆区的水冰热稳定性，以此确定水冰潜在分布区域，为嫦娥七号开展月球南极水冰高精度遥感和就位探测的核心科学任务，提供了关键的理论与数据支撑。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1551518.htm</guid>
-      <pubDate>Fri, 27 Feb 2026 07:42:35 GMT</pubDate>
     </item>
   </channel>
 </rss>

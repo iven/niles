@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 01 Mar 2026 18:52:42 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 19:35:02 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 决策树可视化教程：嵌套决策规则的强大力量</title>
+      <link>https://news.ycombinator.com/item?id=47204964</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章是关于决策树可视化教程，属于AI软件技术进展，用户对此类教育内容感兴趣，故推荐阅读。</small></p><p>MLU-Explain 网站发布了一篇关于决策树的视觉化介绍文章，通过一个农民识别树木种类的生动例子来解释决策树的工作原理。文章展示了如何根据树干直径和高度这两个特征，通过一系列嵌套的决策规则来构建决策树，并讨论了过拟合问题。</p>
+
+<p>文章使用农民识别苹果树、樱桃树和橡树的场景，逐步演示决策树的构建过程：首先根据直径≥0.45的规则分离出橡树，然后根据高度≤4.88的规则识别樱桃树，最后通过进一步分割处理剩余的苹果树和樱桃树混合区域。文章强调决策树需要避免过度分割，否则会导致过拟合问题。</p>
+
+<p>Hacker News 社区对这篇文章反响积极，获得了298个赞和50条评论。用户普遍认为展示方式很好，但也有人指出网站的颜色对比度问题影响了可读性。</p>
+
+<p>评论中包含了丰富的技术讨论：有用户提到单比特神经网络本质上就是决策树，并讨论了将神经网络编译成 if-else 语句链的可能性；另一位曾在 CERN 工作的用户分享，在2010年左右，提升决策树（Boosted Decision Trees）因其可解释性而成为最流行的分类器，当时对神经网络存在文化上的抵触。</p>
+
+<p>还有用户分享了自己在 GNU Guile 中实现决策树的经验，以及决策树在 OCR 识别系统中的应用案例。讨论还涉及决策树与专家决策过程的关系——专家的决策往往可以用简单的决策树来建模，甚至比专家自己提出的规则更准确。</p>
+
+<p>相关资源：<a href="https://mlu-explain.github.io/random-forest/">随机森林解释</a>、<a href="https://mlu-explain.github.io/">MLU-Explain 其他教程</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47204964</guid>
+      <pubDate>Sun, 01 Mar 2026 08:55:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Ghostty：现代化的跨平台终端模拟器引发社区讨论</title>
       <link>https://news.ycombinator.com/item?id=47206009</link>
@@ -1686,43 +1705,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47130208</guid>
       <pubDate>Mon, 23 Feb 2026 22:55:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ PgDog：无需修改应用代码即可扩展 PostgreSQL 的开源代理工具</title>
-      <link>https://github.com/pgdogdev/pgdog</link>
-      <description>
-        <![CDATA[<p>PgDog 是一款用 Rust 编写的 PostgreSQL 代理工具，专为高流量应用设计。它提供连接池、负载均衡和数据库分片功能，最大的亮点是可以在不修改应用代码、不进行数据库迁移的情况下实现数据库扩展。</p>
-
-<p>这个项目现在已经在生产环境中运行了。作者 Lev 和 Justin 分享了最新进展：</p>
-
-<p><strong>跨分片查询的智能处理</strong>：系统可以透明地重写 SQL 查询，支持聚合函数（如 count、avg、stddev）、排序和分组操作。比如计算跨数据库的平均值时，PgDog 会自动添加 count() 函数获取总行数，然后在传输过程中计算结果，再把多余的 count 字段移除——应用程序完全感知不到这个过程。</p>
-
-<p><strong>原子性写入保证</strong>：通过两阶段提交（2PC）实现跨分片写入的原子性，包括 schema 变更（CREATE/DROP/ALTER）。PgDog 会拦截 COMMIT 语句，自动执行 PREPARE TRANSACTION 和 COMMIT PREPARED，不需要修改 ORM 代码。</p>
-
-<p><strong>ORM 友好设计</strong>：支持 Prisma、Sequelize、ActiveRecord 等主流 ORM。可以自动拆分多元组 INSERT 语句，将不同的数据行分发到对应的分片；支持修改分片键，PgDog 会自动生成 SELECT、INSERT、DELETE 三条语句，在分片之间移动数据行。</p>
-
-<p><strong>零停机重新分片</strong>：使用 PostgreSQL 16 的逻辑复制功能，可以并行复制多个表，每秒处理数 GB 的数据。作者提到在 Instacart 时迁移 10 TB 数据需要两周，现在只要几小时。</p>
-
-<p><strong>智能负载均衡</strong>：可以识别写操作（INSERT、UPDATE、CREATE TABLE 等）并自动路由到主库，读操作则分发到副本。支持监控副本状态，在故障切换时自动将写流量转移到新提升的主库。能处理 SELECT FOR UPDATE 和包含 INSERT/UPDATE 的 CTE 等边界情况。</p>
-
-<p><strong>连接池优化</strong>：可以自动回滚未完成的事务，清理被放弃的查询，避免因应用崩溃导致的连接风暴让 Postgres CPU 飙到 100%。</p>
-
-<p>社区反馈也很积极。有用户表示已经在生产环境中使用 PgDog 作为连接池，并正在测试分片功能。讨论中提到的技术话题包括延迟开销（通常在亚毫秒级别）、复制延迟的处理策略、以及与 Citus 等现有方案的对比。</p>
-
-<p>项目完全开源，提供了详细的文档和 Docker Compose、Kubernetes Helm chart、AWS Terraform 等多种部署方式。</p>
-
-<h3>你知道吗？</h3>
-
-<p><strong>什么是数据库分片（Sharding）？</strong></p>
-
-<p>想象你经营一家图书馆，随着藏书越来越多，单个图书管理员忙不过来了。分片就像是把图书馆拆分成多个分馆：A-M 开头的书放在 1 号馆，N-Z 开头的放在 2 号馆。每个分馆有独立的管理员，查书和借书的效率都提高了。</p>
-
-<p>数据库分片也是同样的道理。按照某个字段（分片键，比如用户 ID）把数据分散到多个数据库服务器上。用户 ID 1-1000 的数据存在服务器 A，1001-2000 存在服务器 B。这样查询和写入的压力就分散了，单个数据库不会成为瓶颈。</p>
-
-<p>但分片的难点在于：如果查询涉及多个分片（比如统计所有用户的平均订单金额），就需要汇总各个分片的结果，还要保证跨分片事务的一致性。传统做法通常需要修改应用代码来处理这些复杂情况，而 PgDog 的价值就是在代理层自动搞定这些问题。</p><p><small>[high_interest] 开源技术工具，属于编程工具和开源项目类别</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47123631</guid>
-      <pubDate>Mon, 23 Feb 2026 15:33:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
