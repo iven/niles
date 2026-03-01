@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 01 Mar 2026 05:24:11 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 07:04:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 阿里巴巴开源 Qwen3.5 大模型引发性能讨论：122B 和 35B 版本能否媲美 Claude Sonnet 4.5？</title>
+      <link>https://news.ycombinator.com/item?id=47199781</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讨论阿里巴巴开源Qwen3.5大模型性能对比，属于新AI模型发布公告和开源项目，用户很感兴趣</small></p><p>阿里巴巴新发布的开源大语言模型 Qwen3.5 122B 和 35B 版本声称在本地计算机上能达到 Anthropic Claude Sonnet 4.5 的性能水平，这一说法在 Hacker News 社区引发了广泛讨论和性能验证。</p>
+
+<p>根据社区用户提供的评测数据，Qwen3.5 122B 的实际性能更接近 Claude Haiku 4.5 而非 Sonnet 4.5。有用户指出，在 <a href="https://artificialanalysis.ai/models/capabilities/coding?models=gpt-oss-120b%2Cgpt-5-2%2Cgpt-5-2-codex%2Cgpt-5-3-codex%2Cgemini-3-flash-reasoning%2Cgemini-3-1-pro-preview%2Cclaude-sonnet-4-6-adaptive%2Cclaude-4-5-haiku-reasoning%2Cclaude-opus-4-6-adaptive%2Cdeepseek-v3-2-reasoning%2Cminimax-m2-5%2Ckimi-k2-5%2Cglm-5%2Cqwen3-5-122b-a10b%2Cqwen3-5-397b-a17b%2Cqwen3-5-35b-a3b%2Cclaude-4-5-sonnet-thinking">Artificial Analysis 的编码能力评测</a>中，该模型的表现介于 Haiku 4.5 和 Sonnet 4.5 之间。</p>
+
+<p>硬件配置方面，用户分享了运行这些模型的经验：使用 NVIDIA A5000（24GB VRAM）可以运行 Q4 量化的 35B 模型，支持 128K 上下文长度，处理速度约 1K tokens/秒，生成速度约 100 tokens/秒。对于预算有限的用户，建议使用两张 RTX 3060 12GB 显卡。</p>
+
+<p>在实际应用体验中，有用户表示 Qwen3.5 122B 是首个能正确实现 RPN 计算器 Web 应用的本地模型，而其他模型（包括未登录的 ChatGPT）都无法正确完成这一简单任务。不过也有用户指出，对于一次性功能实现，这些模型仍无法与 Claude 等前沿模型相媲美。</p>
+
+<p>量化版本的选择成为讨论焦点。Qwen3.5 对量化表现出较好的耐受性，但用户需要注意不同量化版本（如 Q4_K_S、Q4_K_M）的性能差异。有用户提供了在 M1 MacBook Pro 上运行 Qwen3-Coder-30B-A3B-Instruct 的详细指南。</p>
+
+<p>地缘政治因素也被提及：有用户表示由于处理高度敏感的金融文件，客户可能对使用外国模型（特别是中国模型）持保留态度。不过也有观点指出，目前西方模型多为闭源，而中国模型多为开源，欧洲的 Mistral 模型性能尚不令人满意。</p>
+
+<p>社区反馈显示，虽然 Qwen3.5 在特定任务上表现优异，但其"达到 Sonnet 4.5 性能"的宣传可能存在夸大。用户建议更准确的说法应该是"Qwen3.5 122B 在本地计算机上提供 Haiku 4.5 级别的性能"。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47199781</guid>
+      <pubDate>Sat, 28 Feb 2026 20:20:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Andrej Karpathy 发布 microgpt：200 行纯 Python 实现的 GPT 模型</title>
       <link>https://news.ycombinator.com/item?id=47202708</link>
@@ -1653,41 +1674,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47112174</guid>
       <pubDate>Sun, 22 Feb 2026 16:12:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>Cloudflare 2026 年 2 月 20 日服务中断事故报告</title>
-      <link>https://blog.cloudflare.com/cloudflare-outage-february-20-2026/</link>
-      <description>
-        <![CDATA[<p>2026 年 2 月 20 日，Cloudflare 遭遇了一次重大服务中断事故。UTC 时间 17:48，部分使用自带 IP（BYOIP）服务的客户发现他们的 IP 路由通过边界网关协议（BGP）被意外撤销，导致服务在互联网上无法访问。事故持续了 6 小时 7 分钟，共有 1100 个 BYOIP 前缀受到影响，约占总数的 25%。</p>
-
-<p><strong>事故原因</strong></p>
-
-<p>这起事故源于 Cloudflare 在「Code Orange: Fail Small」改进计划中的一次代码变更。工程师试图自动化 BYOIP 前缀删除流程，但在实现过程中，一个定期运行的清理子任务的 API 查询存在 bug。客户端传递了空值的 <code>pending_delete</code> 参数，导致服务器将其解释为「返回所有 BYOIP 前缀」而非「仅返回待删除的前缀」。系统随后开始系统性地删除所有返回的前缀及其相关配置。</p>
-
-<p><strong>为什么恢复如此缓慢</strong></p>
-
-<p>受影响的前缀处于三种不同状态：部分客户只是前缀被撤销，可以通过控制面板自助恢复；部分客户的前缀被撤销且部分服务绑定被删除；还有部分客户的所有服务绑定都被删除，无法通过控制面板恢复。最后这类客户需要工程师手动恢复所有配置到全球边缘节点，耗时最长。</p>
-
-<img src="https://cf-assets.www.cloudflare.com/zkvhlag99gkb/9f2k63fiixI2YXDgsnbGq/4d156aa83c47ff6cecf3bd5c747126ef/unnamed__1_.png" alt="" />
-
-<p><strong>后续改进措施</strong></p>
-
-<p>Cloudflare 承诺将采取多项措施防止类似事故：改进 API 模式标准化，确保参数类型明确；将操作状态与配置状态分离，引入快照机制实现快速回滚；完善测试环境的模拟数据和测试覆盖率。这些改进都是「Code Orange: Fail Small」计划的一部分，该计划要求所有配置变更都必须经过受控的、逐步的、由健康指标监控的部署流程。</p>
-
-<p><strong>社区反应</strong></p>
-
-<p>Hacker News 社区对此事故展开了热烈讨论。一些用户质疑 Cloudflare 近几个月频繁出现故障，认为公司可能在测试方面存在系统性问题。有评论指出，即使 Cloudflare 在事故透明度方面做得比微软等公司好，但企业客户更关心的是 SLA 和实际正常运行时间。也有用户揶揄这次事故恰好是由旨在「小范围失败」的改进计划引发的，可谓「失败得很大」。</p>
-
-<h3>你知道吗？</h3>
-
-<p>边界网关协议（Border Gateway Protocol，BGP）是互联网的核心路由协议，它决定了数据包在互联网上的传输路径。可以把 BGP 想象成互联网的「GPS 系统」：当你访问一个网站时，BGP 告诉数据包应该通过哪些网络节点到达目的地。</p>
-
-<p>BYOIP（Bring Your Own IP）服务允许企业将自己拥有的 IP 地址段迁移到云服务提供商的网络中使用。这对需要保持 IP 地址不变的企业非常重要，比如已经建立了 IP 信誉的邮件服务器，或者需要维护现有防火墙规则的企业。</p>
-
-<p>当 BGP 路由被撤销时，就像地图上的某条路突然消失了——互联网上的其他节点不再知道如何到达这个 IP 地址，导致所有试图访问该地址的连接都会超时失败。这次事故中，1100 个 IP 前缀的路由被撤销，意味着使用这些地址的所有服务都从互联网上「消失」了。</p><p><small>[other] 基础设施相关话题，属于不太关注的类别。技术细节有趣，但不属于高优先级主题。</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47103649</guid>
-      <pubDate>Sat, 21 Feb 2026 19:05:31 GMT</pubDate>
     </item>
   </channel>
 </rss>
