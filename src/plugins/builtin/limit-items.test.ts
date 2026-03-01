@@ -72,16 +72,6 @@ describe("builtin/limit-items plugin", () => {
     expect(result.filter((i) => i.level !== "rejected").length).toBe(2);
   });
 
-  it("should use DRY_RUN_ITEMS in dry run mode", async () => {
-    const context = makeContext(true);
-    const items = Array.from({ length: 10 }, (_, i) =>
-      createItem(`guid-${i}`, `Item ${i}`),
-    );
-
-    const result = await limitItemsPlugin.processItems(items, {}, context);
-    expect(result.filter((i) => i.level !== "rejected").length).toBe(3);
-  });
-
   it("should return all items if fewer than maxItems", async () => {
     const context = makeContext();
     const items = [

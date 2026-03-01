@@ -2,6 +2,8 @@ import { GuidTracker } from "../../lib/guid-tracker";
 import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
+const DRY_RUN_ITEMS = 3;
+
 const plugin: Plugin = {
   ...basePlugin,
   async processItems(
@@ -18,9 +20,14 @@ const plugin: Plugin = {
     tracker.cleanup();
     await tracker.persist();
 
-    const newGuids = new Set(newItems.map((item) => item.guid));
+    const selectedGuids = context.isDryRun
+      ? new Set(items.slice(0, DRY_RUN_ITEMS).map((item) => item.guid))
+      : new Set(newItems.map((item) => item.guid));
+
     return items.map((item) =>
-      newGuids.has(item.guid) ? item : { ...item, level: "rejected" as const },
+      selectedGuids.has(item.guid)
+        ? item
+        : { ...item, level: "rejected" as const },
     );
   },
 };

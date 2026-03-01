@@ -18,12 +18,12 @@ function createItem(guid: string, title: string): FeedItem {
   };
 }
 
-function makeContext(): PluginContext {
+function makeContext(isDryRun = false): PluginContext {
   counter++;
   return {
     sourceName: `test-deduplicate-${Date.now()}-${counter}`,
     sourceContext: undefined,
-    isDryRun: false,
+    isDryRun,
     llm: () => {
       throw new Error("llm not available in test");
     },
@@ -31,6 +31,16 @@ function makeContext(): PluginContext {
 }
 
 describe("builtin/deduplicate plugin", () => {
+  it("should keep only DRY_RUN_ITEMS items in dry run mode", async () => {
+    const context = makeContext(true);
+    const items = Array.from({ length: 10 }, (_, i) =>
+      createItem(`guid-${i}`, `Item ${i}`),
+    );
+
+    const result = await deduplicatePlugin.processItems(items, {}, context);
+    expect(result.filter((i) => i.level !== "rejected").length).toBe(3);
+  });
+
   it("should mark already-processed items as rejected", async () => {
     const context = makeContext();
     const items = [
