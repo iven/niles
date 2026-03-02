@@ -3,6 +3,7 @@
  */
 
 import { z } from "zod";
+import { http } from "../../lib/http";
 import { logger } from "../../lib/logger";
 import { basePlugin } from "../../plugin";
 import type { FeedItem } from "../../types";
@@ -62,13 +63,7 @@ async function processOne(item: FeedItem): Promise<FeedItem> {
   try {
     const apiUrl = `https://hn.algolia.com/api/v1/items/${itemId}`;
 
-    const response = await fetch(apiUrl, {
-      signal: AbortSignal.timeout(10000),
-    });
-
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const json = await response.json();
+    const json = await http.get(apiUrl).json();
     const parseResult = hnApiResponseSchema.safeParse(json);
 
     if (!parseResult.success) {

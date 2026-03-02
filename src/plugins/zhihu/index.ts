@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { http } from "../../lib/http";
 import { basePlugin } from "../../plugin";
 import type { FeedItem } from "../../types";
 
@@ -38,21 +39,11 @@ const plugin = {
   async collect(options: ZhihuOptions) {
     const limit = options.limit ?? DEFAULT_LIMIT;
 
-    const response = await fetch(
-      "https://api.zhihu.com/topstory/hot-lists/total",
-      {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-          Accept: "application/json",
-        },
-        signal: AbortSignal.timeout(15000),
-      },
-    );
-
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const json = await response.json();
+    const json = await http
+      .get("https://api.zhihu.com/topstory/hot-lists/total", {
+        headers: { Accept: "application/json" },
+      })
+      .json();
     const parsed = responseSchema.parse(json);
     const entries = parsed.data.slice(0, limit);
 

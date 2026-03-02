@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { http } from "../../lib/http";
 import { basePlugin } from "../../plugin";
 import type { FeedItem } from "../../types";
 
@@ -48,11 +49,7 @@ const query = `
 
 async function resolveLink(url: string): Promise<string> {
   try {
-    const res = await fetch(url, {
-      method: "HEAD",
-      redirect: "follow",
-      signal: AbortSignal.timeout(5000),
-    });
+    const res = await http.head(url);
     const resolved = new URL(res.url || url);
     resolved.searchParams.delete("ref");
     return resolved.toString();
@@ -78,22 +75,15 @@ const plugin = {
     if (pstMidnight > now) pstMidnight.setUTCDate(pstMidnight.getUTCDate() - 1);
     const postedAfter = pstMidnight.toISOString();
 
-    const response = await fetch("https://api.producthunt.com/v2/api/graphql", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query,
-        variables: { postedAfter, first: options.limit ?? DEFAULT_LIMIT },
-      }),
-      signal: AbortSignal.timeout(15000),
-    });
-
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-    const json = await response.json();
+    const json = await http
+      .post("https://api.producthunt.com/v2/api/graphql", {
+        headers: { Authorization: `Bearer ${token}` },
+        json: {
+          query,
+          variables: { postedAfter, first: options.limit ?? DEFAULT_LIMIT },
+        },
+      })
+      .json();
     const parsed = responseSchema.parse(json);
 
     const resolvedLinks = await Promise.all(

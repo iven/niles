@@ -1,6 +1,6 @@
 import { parseFeed } from "feedsmith";
 import type { Atom, DeepPartial } from "feedsmith/types";
-import { withRetry } from "../../lib/retry";
+import { http } from "../../lib/http";
 import { basePlugin, type Plugin } from "../../plugin";
 import type { FeedItem } from "../../types";
 
@@ -14,20 +14,7 @@ const plugin: Plugin<CollectRssOptions> = {
     const { url } = options;
     if (!url) throw new Error("collect-rss: options.url 未指定");
 
-    const response = await withRetry(() =>
-      fetch(url, {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (compatible; RSS Reader/1.0)",
-        },
-        signal: AbortSignal.timeout(10000),
-      }),
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-
-    const xml = await response.text();
+    const xml = await http.get(url).text();
     const { format, feed } = parseFeed(xml);
 
     let rawItems: Array<{
