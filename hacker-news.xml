@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 02 Mar 2026 19:48:14 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2026 20:56:44 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 为什么XML标签对Claude如此重要</title>
+      <link>https://news.ycombinator.com/item?id=47207236</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论XML标签在AI模型Claude中的应用，属于AI软件技术进展，用户对此感兴趣</small></p><p>这篇文章探讨了XML标签在Anthropic的Claude AI模型中的基础性作用。根据Hacker News社区的讨论，XML标签对Claude的重要性主要体现在几个方面。</p>
+
+<p>首先，Claude最初通过XML标签暴露工具调用功能，后来才引入JSON API。用户指出，Claude可能仍然在内部将工具调用模板化为XML格式，然后传递给模型上下文。这种设计使得XML成为Claude理解结构化指令的自然选择。</p>
+
+<p>社区讨论显示，XML标签在提示工程中起到关键作用。与普通文本分隔符（如引号）相比，XML提供了更明确的结构化语义分隔。用户提到，即使使用自定义标签如<code>&lt;think&gt;</code>或<code>&lt;reason&gt;</code>，模型也能理解其意图，这表明Claude对XML格式有深入的理解。</p>
+
+<p>技术细节方面，评论指出Claude的工具调用使用特定的XML命名空间，如<code>antml:invoke</code>，这有助于区分用户输入和系统指令，避免冲突。这种命名空间机制提供了额外的隔离层。</p>
+
+<p>关于XML与JSON的对比，社区意见不一。一些用户认为XML更易读，特别是当数据包含JSON语法中有特殊含义的字符时；而另一些用户则偏好JSON的简洁性，认为其缺少结束标签使得代码更清晰。</p>
+
+<p>实际应用方面，用户分享了使用XML标签的经验。例如，在文档处理和信息提取任务中，有人发现使用简单的键值对格式（如<code>input: ...</code>、<code>output: ...</code>）比完整XML结构效果更好，但这可能因具体用例而异。</p>
+
+<p>社区还讨论了Anthropic官方文档中关于XML提示的建议。有用户批评文档中的示例看起来像是AI生成的，存在格式不一致等问题，但随后确认这些确实是Anthropic官方文档的截图。</p>
+
+<p>总体而言，XML标签在Claude中的重要性源于其结构化特性、与工具调用系统的深度集成，以及模型训练数据中大量HTML/XML内容的影响。这种设计选择反映了AI系统与现有网络标准之间的紧密联系。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47207236</guid>
+      <pubDate>Sun, 01 Mar 2026 14:52:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ llmfit：硬件感知的 LLM 模型推荐终端工具</title>
       <link>https://news.ycombinator.com/item?id=47211830</link>
@@ -1667,49 +1690,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47145963</guid>
       <pubDate>Wed, 25 Feb 2026 01:08:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Pi：一个最小化的终端编码工具</title>
-      <link>https://news.ycombinator.com/item?id=47143754</link>
-      <description>
-        <![CDATA[<p><small>[critical] 终端编码工具发布，属于编程工具发布主题</small></p><h2>什么是 Pi？</h2>
-<p>Pi 是一个运行在终端里的编码助手，但它不是那种功能臃肿的"全能型"工具。相反，它走的是极简路线——只提供最核心的功能，剩下的都交给扩展系统。你可以把它想象成一个高度可定制的"编码工具"（coding harness），专门为开发者设计。</p>
-
-<img src="/logo.svg" alt="pi" />
-
-<h2>核心特性</h2>
-<p>Pi 支持 15+ 个 AI 模型提供商，包括 Anthropic、OpenAI、Google、Mistral 等，可以随时用快捷键切换模型。它的会话管理很特别，采用树状结构存储历史记录，你可以随时跳转到之前的任意节点继续工作。</p>
-
-<img src="/tree-view.png" alt="Tree view in pi" />
-
-<p>最酷的是它的扩展系统：用 TypeScript 写扩展，就能添加新功能、快捷键、甚至自定义界面。官方提供了 50 多个示例，从子代理系统到沙箱执行，什么都能做——没错，<strong>连 Doom 游戏都能在 Pi 里运行</strong>！</p>
-
-<img src="/doom-extension.png" alt="Doom running in pi" />
-
-<h2>四种使用模式</h2>
-<ul>
-<li><strong>交互模式</strong>：完整的终端界面体验</li>
-<li><strong>打印/JSON 模式</strong>：方便脚本调用，<code>pi -p "查询内容"</code></li>
-<li><strong>RPC 模式</strong>：通过 stdin/stdout 进行 JSON 协议通信</li>
-<li><strong>SDK 模式</strong>：把 Pi 嵌入到自己的应用里</li>
-</ul>
-
-<h2>哲学：不替你做决定</h2>
-<p>Pi 的设计哲学很明确：<strong>不内置那些可能用不到的功能</strong>。没有子代理系统？用扩展自己实现。没有权限弹窗？在容器里运行或自己写确认流程。没有计划模式？写到文件里或装个扩展包。</p>
-
-<p>这种"原语优先"的思路让 Pi 保持核心轻量，同时又能通过社区扩展满足各种需求。你可以通过 npm 或 git 安装别人分享的扩展包，也能把自己的配置打包分享。</p>
-
-<h2>你知道吗？</h2>
-<p><strong>什么是"编码工具"（coding harness）？</strong> 这个词在软件开发中其实有特定含义。传统上，harness 指的是测试框架中的"夹具"——一套用于自动化测试的驱动程序和桩模块。在 AI 编码助手领域，"编码工具"引申为：一套标准化接口和工具集，让开发者能够以统一的方式调用不同的 AI 模型，管理会话历史，扩展功能模块。它不像完整的 IDE 那样大而全，而是提供基础"骨架"，让你按需添加"肌肉"。</p>
-
-<p>Pi 的域名 pi.dev 是由 exe.dev 慷慨捐赠的，社区活跃在 GitHub 和 Discord 上，采用 MIT 许可证。</p>
-
-<img src="/exy.png" alt="Exy mascot" />
-
-<p>如果你厌倦了那些功能臃肿、限制多多的编码助手，Pi 这种"自己动手，丰衣足食"的极简主义设计，或许正是你需要的。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47143754</guid>
-      <pubDate>Tue, 24 Feb 2026 21:53:59 GMT</pubDate>
     </item>
   </channel>
 </rss>
