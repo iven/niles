@@ -167,7 +167,7 @@ const plugin: Plugin<LlmGradeOptions> = {
     options: LlmGradeOptions,
     context: PluginContext,
   ): Promise<FeedItem[]> {
-    const itemsToGrade = items.filter((item) => item.level === "unknown");
+    const itemsToGrade = items.filter((item) => item.level !== "rejected");
 
     if (itemsToGrade.length === 0) {
       return items;
@@ -213,7 +213,6 @@ const plugin: Plugin<LlmGradeOptions> = {
     const gradeMap = new Map(gradeResults.map((r) => [r.guid, r]));
 
     const result = items.map((item) => {
-      if (item.level !== "unknown") return item;
       const gradeResult = gradeMap.get(item.guid);
       if (!gradeResult) return item;
       return { ...item, level: gradeResult.level, reason: gradeResult.reason };

@@ -246,8 +246,6 @@ const plugin: Plugin<SummarizeOptions> = {
         ...item,
         title: summary.title,
         description: summary.description,
-        level: "unknown" as const,
-        reason: "未分级",
       };
     });
   },
