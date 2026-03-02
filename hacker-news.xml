@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 01 Mar 2026 23:37:07 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2026 02:54:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐ MCP已死？作者认为CLI比模型上下文协议更实用</title>
+      <link>https://news.ycombinator.com/item?id=47208398</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 核心主题是AI开发工具设计和编程效率改进，讨论CLI与MCP的实用性比较，符合用户的high_interest兴趣点</small></p><p>一篇技术文章对Anthropic推出的模型上下文协议（MCP）提出了尖锐批评，认为命令行界面（CLI）是更优选择。作者指出，尽管MCP在发布时引发行业狂热，但实际使用中CLI在多个方面表现更佳。</p>
+
+<p>作者的主要论点包括：LLM（大语言模型）已经擅长使用命令行工具，无需额外协议；CLI对人类和机器都友好，调试更简单；CLI具有天然的可组合性，可以通过管道连接工具；现有的认证系统已经成熟可靠；CLI无需管理额外进程，更稳定可靠。</p>
+
+<p>文章还列举了MCP的实际使用痛点：初始化不稳定、需要重复认证、权限控制粗糙等。作者承认当工具没有CLI等价物时MCP可能有价值，但认为对于大多数工作场景，CLI更简单、调试更快、更可靠。</p>
+
+<p>Hacker News社区对此展开了热烈讨论。支持者认为MCP对于非开发者应用和云端部署有优势，特别是在连接任意数据源时更安全。反对者则认为MCP存在安全问题和设计复杂性，而CLI经过数十年迭代已经成熟。还有评论提到MCP在令牌效率方面可能优于CLI，但CLI也可以通过优化输出格式提高效率。</p>
+
+<p>讨论中一个关键分歧点是目标用户：开发者倾向于CLI，而非开发者应用可能需要MCP这样的抽象层。安全方面，有评论指出CLI需要在容器中运行以限制权限，而MCP在隔离认证细节方面可能更有优势。</p>
+
+<p>最终，作者呼吁工具开发者优先提供良好的API和CLI，而不是盲目投资MCP服务器。</p>
+
+<p><strong>你知道吗？</strong> MCP（Model Context Protocol）是Anthropic公司推出的一种协议，旨在为LLM提供标准化的工具调用接口。它允许AI模型通过结构化方式与外部工具和服务交互，但正如文章指出的，这一协议与传统的CLI工具形成了竞争关系。这场争论反映了AI工具集成领域的技术路线分歧。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47208398</guid>
+      <pubDate>Sun, 01 Mar 2026 16:54:49 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Now I Get It：将科学论文转换为交互式网页的AI工具</title>
       <link>https://news.ycombinator.com/item?id=47195123</link>
@@ -1667,60 +1688,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47124149</guid>
       <pubDate>Mon, 23 Feb 2026 16:01:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ FreeBSD 没有我的旧 MacBook 的 Wi-Fi 驱动，于是 AI 帮我写了一个</title>
-      <link>https://vladimir.varank.in/notes/2026/02/freebsd-brcmfmac/</link>
-      <description>
-        <![CDATA[<p>作者有一台 2016 年的 MacBook Pro 闲置多年，存在屏幕「柔性门（flexgate）」问题。趁着假期，他决定在上面安装 FreeBSD 15 来玩玩。然而这款笔记本使用的 Broadcom BCM4350 Wi-Fi 芯片在 FreeBSD 上没有原生支持——通常的解决方案是运行一个微型 Linux 虚拟机（wifibox）来管理 Wi-Fi 设备。</p>
-
-<img src="/images/2026/bsky-freebsd-brcmfmac-1.png" alt="https://bsky.app/profile/vladimir.varank.in/post/3mawf7xbdws2r" width="800" />
-
-<p><strong>第一次尝试：直接移植，失败</strong></p>
-
-<p>作者最初的想法是让 Claude Code 直接将 Linux 的 brcmfmac 驱动移植到 FreeBSD。他参考了 iwlwifi 驱动（通过 LinuxKPI 兼容层运行），让 AI 照着做。模块编译成功了，但实际运行时不断出现内核崩溃（kernel panic）。Claude 尝试添加各种 <code>#ifdef __FreeBSD__</code> 包装器和补丁，但驱动始终无法工作，代码 diff 也变得越来越庞大和混乱。</p>
-
-<p><strong>转变策略：先写规范，再实现</strong></p>
-
-<p>受到 Armin Ronacher 用 Claude 和 Pi agent 从零开发游戏的启发，作者意识到自己的方法太直接了。brcmfmac 驱动代码庞大，支持多代 Wi-Fi 适配器，但他的需求很窄：一个芯片，只支持 PCI，只做 Wi-Fi 客户端。</p>
-
-<p>于是他开了一个新的 Pi session，让 AI 先编写一份详细的技术规范——解释 brcmfmac 驱动如何工作，重点关注 BCM4350 芯片，并要求「讲解到比特级别」。AI 生成了一份 11 章的规范文档，涵盖数据结构、总线层、协议层、固件接口、事件处理、初始化流程、数据路径等内容。</p>
-
-<p>为了确保规范正确，作者又用另一个 AI session（Codex 模型）来审校规范，发现了一些错误并修正。然后再用 Opus 模型进行二次验证。他还尝试了多个模型（Opus 4.5、Opus 4.6、Codex 5.2、Gemini 3 Pro），发现 Gemini 幻觉最多。</p>
-
-<p><strong>重新开始：基于规范从零构建</strong></p>
-
-<p>作者启动了全新的项目，只提供规范文档，告诉 Pi agent「我们要为 FreeBSD 构建一个全新的 BCM4350 驱动」。AI 先提出了一系列决策问题：「驱动会放在内核源码树中吗？」「用 C 语言写吗？」「依赖 LinuxKPI 吗？」等等，并将这些决策记录在项目文档中。</p>
-
-<p>过程中有些决策也发生了变化——比如最初打算使用 LinuxKPI，但几个 session 后发现效果不好，作者让 AI 完全移除 LinuxKPI 并重构代码，AI 一次性完成了。</p>
-
-<p>之后的流程变成了「无聊的例行公事」：AI 有 SSH 权限访问构建主机和测试虚拟机（Wi-Fi 设备直通），按照自己的里程碑清单逐步开发、编译、测试模块。每次完成一个阶段，作者让 AI 记录进度。偶尔虚拟机崩溃或挂起时，作者会开一个分支 session 让 AI 调查问题并记录下来。</p>
-
-<img src="/images/2026/bsky-freebsd-brcmfmac-2.png" alt="https://bsky.app/profile/vladimir.varank.in/post/3mfhnvunnr22d" width="800" />
-
-<p><strong>最终成果</strong></p>
-
-<p>经过多个低参与度的 session，作者得到了一个可用的 FreeBSD 内核模块，支持 BCM4350 Wi-Fi 芯片的网络扫描、2.4GHz/5GHz 连接、WPA/WPA2 认证。源码已发布在 GitHub（github.com/narqo/freebsd-brcmfmac），但作者强调自己没有编写任何代码，且仍有已知问题，建议只作学习用途。</p>
-
-<hr>
-
-<h3>你知道吗？</h3>
-
-<p><strong>什么是「柔性门（Flexgate）」？</strong></p>
-
-<p>这是 2016-2017 年款 MacBook Pro 的一个设计缺陷。屏幕排线过短，每次开合屏幕都会拉扯排线，导致背光电缆逐渐磨损断裂。症状是屏幕底部出现「舞台灯光效应」（stage light effect）——底部区域亮度不均或完全不亮。苹果最初不承认这是设计问题，后来才针对 13 英寸型号提供免费维修计划，但 15 英寸型号没有包含在内。许多用户只能自费维修或放弃使用。</p>
-
-<p><strong>什么是 FullMAC 和 SoftMAC？</strong></p>
-
-<p>这是 Wi-Fi 芯片的两种架构：</p>
-<ul>
-<li><strong>FullMAC</strong>：芯片内置固件处理大部分 Wi-Fi 协议栈工作（如 802.11 帧处理、加密解密），操作系统驱动只需做高层管理。好处是驱动代码简单，但固件是黑盒子，难以定制。</li>
-<li><strong>SoftMAC</strong>：协议栈主要在软件（操作系统）中实现，芯片只负责射频收发。好处是灵活可控，坏处是驱动复杂，CPU 负担重。</li>
-</ul>
-<p>Broadcom BCM4350 属于 FullMAC 芯片，这也是为什么作者认为移植驱动「理论上不太复杂」——只需要对接操作系统的管理接口即可。</p><p><small>[high_interest] 开源技术解决方案，属于编程工具和开源项目类别</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47129361</guid>
-      <pubDate>Mon, 23 Feb 2026 21:44:28 GMT</pubDate>
     </item>
   </channel>
 </rss>
