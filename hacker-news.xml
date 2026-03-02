@@ -3,7 +3,36 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 02 Mar 2026 17:04:36 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2026 17:59:43 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Anthropic Claude Cowork 功能在 macOS 上无警告创建 10GB 虚拟机包导致性能严重下降</title>
+      <link>https://news.ycombinator.com/item?id=47218288</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论AI软件Claude Desktop的技术问题，属于AI软件技术进展范畴，用户感兴趣。</small></p><p>Anthropic Claude 桌面应用的 Cowork 功能被曝存在严重性能问题，在 macOS 系统上无警告地创建高达 10GB 的虚拟机包文件，且从不自动清理，导致应用启动缓慢、界面卡顿和响应延迟。</p>
+
+<img src="https://avatars.githubusercontent.com/u/253095450?v=4&size=48" alt="@mjbyt" width="24" height="24" />
+
+<p>根据 GitHub 问题报告，该 VM bundle 文件位于 <code>~/Library/Application Support/Claude/vm_bundles/claudevm.bundle/rootfs.img</code>，使用 Cowork 功能后会迅速增长至 10GB 大小。即使用户手动删除该文件，它也会在下次使用 Cowork 时重新生成。性能测试显示，清理相关目录后应用性能可暂时提升约 75%，但几分钟内又会重新恶化，表明存在内存泄漏或工作累积问题。</p>
+
+<p>临时解决方案是退出 Claude Desktop 并删除以下目录：</p>
+<ul>
+<li><code>~/Library/Application Support/Claude/vm_bundles</code></li>
+<li><code>~/Library/Application Support/Claude/Cache</code></li>
+<li><code>~/Library/Application Support/Claude/Code Cache</code></li>
+</ul>
+
+<p>Hacker News 社区讨论揭示了更多细节：该功能使用 Apple Virtualization Framework 实现虚拟化，导致在虚拟机内运行时出现嵌套 VM 错误。有用户建议使用 Apple 的 seatbelt 沙盒技术作为更好的替代方案，但该技术文档不全且已不再维护。</p>
+
+<p>有趣的是，这个 GitHub 问题本身是通过 Claude Code 提交的，引发了关于 AI 生成问题报告可靠性的讨论。另有用户指出，10GB 的磁盘空间对于实际工作可能不足，他们需要手动扩容至 60GB 稀疏文件才能正常使用 Cowork 功能。</p>
+
+<p>社区还延伸讨论了 macOS 系统数据管理问题，许多应用滥用磁盘空间且清理困难，用户经常需要定期重装系统来恢复空间。</p>
+
+<h3>你知道吗？</h3>
+<p>Apple 提供了两种不同的安全隔离技术：Virtualization Framework 用于创建完整虚拟机，而 seatbelt 是一种沙盒技术，通过系统调用过滤来限制应用权限。OpenAI 的 Codex CLI 曾成功使用 seatbelt，但该技术现已废弃且缺乏官方文档，导致开发者更倾向于使用功能更完善但资源消耗更大的 Virtualization Framework。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47218288</guid>
+      <pubDate>Mon, 02 Mar 2026 14:21:19 GMT</pubDate>
+    </item>
     <item>
       <title>Jolla Phone：全栈式欧洲智能手机替代方案，2026年9月交付</title>
       <link>https://news.ycombinator.com/item?id=47216037</link>
@@ -1686,45 +1715,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47142156</guid>
       <pubDate>Tue, 24 Feb 2026 20:07:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Discord与身份验证服务商Persona切断合作，因后者代码暴露与政府监控关联</title>
-      <link>https://fortune.com/2026/02/24/discord-peter-thiel-backed-persona-identity-verification-breach/</link>
-      <description>
-        <![CDATA[<div>
-<h3>发生了什么？</h3>
-<p>最近，热门通讯平台 Discord 宣布终止与身份验证软件 Persona 的合作关系。这起事件的起因是安全研究人员发现，Persona 的前端代码竟然公开存放在美国政府授权的服务器上，其中包含了令人不安的监控功能。</p>
-
-<p>研究人员在联邦风险与授权管理计划（FedRAMP）端点上找到了近 2500 个可访问文件，总计约 53MB 的数据。这些代码显示，Persona 不仅进行简单的年龄验证，还会执行面部识别检查，将用户与监视名单、政治敏感人物名单进行比对。更惊人的是，该软件能进行 269 种不同的验证检查，包括筛查"负面媒体"——涵盖恐怖主义、间谍活动等 14 个类别。</p>
-
-<h3>Discord 的安全风波不断</h3>
-<p>这已经不是 Discord 第一次因第三方供应商问题陷入安全争议。去年，另一家服务商 5CA 遭黑客攻击，导致超过 7 万名用户的政府身份证信息泄露。而就在最近，Discord 还因强制推行青少年安全设置而引发用户强烈反对——该政策要求用户通过 Persona 验证年龄才能访问某些功能。</p>
-
-<p>在用户指出之前的泄露事件后，Discord 迅速修改政策，表示年龄验证将保持可选，除非用户要访问年龄限制的内容。公司声称大多数用户无需上传身份证件，可以选择视频自拍等方式验证。</p>
-
-<h3>Persona 的回应与背景</h3>
-<p>Persona CEO Rick Song 辩称，被发现的文件并非安全漏洞，只是未压缩的前端代码，这些信息在公司帮助中心和 API 文档中本就公开可得。他否认与 Palantir、ICE 或政府有直接关联，但承认公司正在寻求 FedRAMP 授权。</p>
-
-<p>值得注意的是，Persona 部分资金来自 Palantir 联合创始人 Peter Thiel 的风险投资基金 Founders Fund。目前 Persona 仍在为 OpenAI、Lime 和 Roblox 等公司提供年龄验证服务。</p>
-
-<h3>用户反应与影响</h3>
-<p>这起事件再次引发了用户对在线隐私的担忧。许多 Discord 用户表示对平台失去信任，考虑转向端到端加密的替代平台。评论中有人讽刺道："保护用户隐私是我们的首要任务"——这种公司声明已经成为明显的谎言。</p>
-
-<p>事件也暴露了身份验证行业的灰色地带：这些服务商到底收集多少数据？与政府机构有何关联？用户往往在不知情的情况下，将自己的生物识别信息交给了复杂的监控网络。</p>
-
-<h3>你知道吗？</h3>
-<p>身份验证技术在现代互联网中扮演着重要角色，但背后的运作机制很多人并不了解：</p>
-<ul>
-<li><strong>KYC 与 AML</strong>：了解你的客户（Know Your Customer, KYC）和反洗钱（Anti-Money Laundering, AML）是金融行业的合规要求，但现在这些概念正扩展到社交媒体等领域。</li>
-<li><strong>FedRAMP</strong>：联邦风险与授权管理计划是美国政府为云计算服务设立的安全认证标准，获得该授权意味着服务商可以处理政府数据。</li>
-<li><strong>生物识别风险</strong>：面部识别等生物特征一旦泄露就无法更改，比密码泄露后果更严重。这也是为什么许多隐私倡导者反对强制面部验证。</li>
-<li><strong>第三方风险</strong>：公司使用第三方服务商处理敏感数据时，实际上将安全责任外包了。但一旦出事，承担后果的却是用户和主平台。</li>
-</ul>
-<p>这起事件提醒我们，在数字时代，保护个人隐私需要保持警惕——不仅要关注直接服务的平台，还要了解它们背后复杂的供应商网络。</p>
-</div><p><small>[optional] 文章主要涉及隐私和安全主题（政府监控、身份验证服务），属于hacker-news配置中用户不太感兴趣的内容</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47136036</guid>
-      <pubDate>Tue, 24 Feb 2026 11:59:14 GMT</pubDate>
     </item>
   </channel>
 </rss>
