@@ -3,7 +3,24 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 02 Mar 2026 17:58:34 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2026 19:05:59 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.1 内核将默认在遇到致命 ACPI 错误时自动关机</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-ACPI-Error-Power-Off</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于Linux内核ACPI错误处理的底层技术细节，属于基础设施类别，用户不太感兴趣但非明确避开内容，故为可选</small></p><p>即将发布的 Linux 7.1 内核将引入一个重要行为变更：当系统遇到致命的 ACPI（高级配置与电源接口）错误时，将默认尝试自动关机，而不是像以往那样仅仅记录错误日志。</p>
+
+<p>这一变更已进入 Linux 电源管理子系统的 "linux-next" Git 分支。此前，Linux 内核在遇到 ACPI 致命错误时，仅会在系统日志中记录 "Fatal opcode executed" 消息，然后继续运行。但从 Linux 7.1 开始，系统将默认尝试关机操作。</p>
+
+<p>这一改变是为了更好地符合 ACPI 规范的要求。根据 ACPI 规范说明："此操作用于通知操作系统发生了 OEM 定义的致命错误...作为响应，操作系统必须记录该致命事件，并及时执行受控的操作系统关机。" 因此，之前 Linux 仅记录错误而不关机的行为实际上不符合规范要求。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=poweroff_on_fatal" alt="acpi.poweroff_on_fatal" />
+
+<p>对于希望保持原有行为的用户，该补丁添加了一个新的内核选项 <code>acpi.poweroff_on_fatal=0</code>。设置此选项后，系统在遇到 ACPI 致命错误时将不会自动关机。虽然大多数系统很少或从未遇到过致命的 ACPI 错误，但这一变更对于处理可能存在缺陷的系统固件具有重要意义。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-ACPI-Error-Power-Off</guid>
+      <pubDate>Mon, 02 Mar 2026 18:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Zlib-rs 0.6系列发布：AVX-512 VNNI 实现显著提升Adler32性能</title>
       <link>https://www.phoronix.com/news/Zlib-rs-VNNI-Adler32</link>
@@ -850,25 +867,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/FFmpeg-xHE-AAC-MPS212</guid>
       <pubDate>Mon, 23 Feb 2026 10:19:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 7.0-rc1 发布：新特性满满的里程碑版本</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-rc1-Released</link>
-      <description>
-        <![CDATA[<p>Linus Torvalds 刚刚发布了 Linux 7.0-rc1，标志着合并窗口的结束。虽然版本号跳到 7.0 只是因为 Linus 喜欢在 x.19 之后进位，但这次更新确实带来了大量新特性，而且意义非凡——它将成为 Ubuntu 26.04 LTS 和 Fedora 44 的默认内核。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_70_rc1" alt="Linux 7.0-rc1 Git tag" />
-
-<p>硬件支持方面，Linux 7.0 进一步完善了英特尔（Intel）Nova Lake 和 Diamond Rapids 处理器的支持，还有更多超威半导体（AMD）Zen 6 的支持代码。驱动方面也非常丰富，包括高通（Qualcomm）Snapdragon X2 的上游工作，以及 AMD 即将推出的显卡硬件支持。苹果（Apple）USB Type-C PHY 支持也首次加入。</p>
-
-<p>性能优化可以说是这次更新的一大亮点。PostgreSQL 在 AMD EPYC 平台上的性能提升明显，exFAT 顺序读取性能更好，F2FS 文件系统得到增强，EXT4 并发直接 I/O 写入也有改进。英特尔 TSX 现在默认启用自动模式，调度器的性能和可扩展性也得到优化。特别值得一提的是，Nouveau 驱动重新启用了大页支持，这对 NVK 性能有显著帮助。</p>
-
-<p>其他值得关注的特性还包括：文件系统改进、非阻塞时间戳、标准化的通用 I/O 错误报告、多通道 SPI、更多华硕（ASUS）主板的传感器监控支持，以及正式确认 Rust 编程语言支持将长期存在——这标志着 Rust 实验阶段的结束。</p>
-
-<p>Phoronix 将在未来几天发布完整的特性概览和性能基准测试结果。</p><p><small>[high_interest] Linux 内核新版本发布属于开源项目和编程技术主题，对用户非常重要</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-rc1-Released</guid>
-      <pubDate>Sun, 22 Feb 2026 22:16:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
