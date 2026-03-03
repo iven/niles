@@ -3,7 +3,38 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 03 Mar 2026 15:59:32 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Mar 2026 17:04:37 GMT</lastBuildDate>
+    <item>
+      <title>⭐ GNOME Mutter 50.rc 发布：NVIDIA 性能大幅提升，新增 SDR-Native 与 HDR 改进</title>
+      <link>https://www.phoronix.com/news/GNOME-Mutter-50.rc</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍GNOME Mutter窗口管理器新版本，属于Linux桌面技术，用户感兴趣。虽然提及NVIDIA性能改进，但非主要焦点。</small></p><p>距离 GNOME 50 稳定版发布还有两周时间，GNOME 项目今日发布了 Mutter 50 的候选版本（RC）。作为 GNOME 桌面环境的 Wayland 合成器，Mutter 50.rc 带来了多项令人期待的最后时刻增强功能。</p>
+
+<p>本次更新的主要亮点包括：</p>
+
+<ul>
+<li><strong>NVIDIA 性能大幅优化</strong>：针对官方 NVIDIA Linux 驱动程序进行了多项性能改进和工作区调整。使用 Nvidia-580 驱动时，每帧的阻塞时间从毫秒级降低到微秒级，显著提升了图形性能。</li>
+</ul>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=mutter_50_nvidia_med" alt="Mutter 50 NVIDIA merge" />
+
+<ul>
+<li><strong>渲染架构改进</strong>：为次要 GPU 渲染使用帧缓冲对象（FBO）替代 EGL 表面，这一改动不仅减少了代码量，还使 NVIDIA 驱动程序能够支持 10 位色深的扫描缓冲区。</li>
+<li><strong>HDR 屏幕共享支持</strong>：新增对高动态范围（HDR）内容屏幕共享的功能。</li>
+<li><strong>SDR-Native 色彩模式</strong>：为广色域显示器提供了标准动态范围（SDR）原生色彩模式支持。</li>
+<li><strong>Wayland 色彩管理 v2 协议</strong>：集成了最新的 Wayland 色彩管理标准。</li>
+<li><strong>可变刷新率（VRR）支持</strong>：实现了 wp_commit_timing 协议以支持可变刷新率显示技术。</li>
+<li><strong>HDR 色调映射优化</strong>：禁用了 HDR 内容的色调映射处理。</li>
+<li><strong>软件光标修复</strong>：解决了使用软件光标时直接扫描输出（direct scanout）的问题。</li>
+<li><strong>DevKit 功能增强</strong>：开发工具包现在支持剪贴板集成和多显示器配置。</li>
+<li><strong>稳定性提升</strong>：修复了多个崩溃问题和内存泄漏缺陷。</li>
+</ul>
+
+<p>更多详细技术信息可通过 GitHub 查看。同日发布的还有 GNOME Shell 50.rc，该版本包含了多项错误修复，并改进了系统操作中对 logind 抑制剂的支持。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Mutter-50.rc</guid>
+      <pubDate>Tue, 03 Mar 2026 16:19:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 德国主权技术机构扩展奖学金计划：向社区经理和技术文档作者开放申请</title>
       <link>https://www.phoronix.com/news/Sovereign-Tech-Fellowship-2026</link>
@@ -850,36 +881,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/FreeBSD-Q4-2025-Status-Report</guid>
       <pubDate>Mon, 23 Feb 2026 15:13:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 英特尔 ANV 驱动修复多个 Vulkan 视频 H.265 编码问题</title>
-      <link>https://www.phoronix.com/news/Mesa-26.1-devel-ANV-H265-Encode</link>
-      <description>
-        <![CDATA[<p>英特尔开源 Linux 驱动「ANV」在 Vulkan 视频（Vulkan Video）方面迎来好消息。上周合并到 Mesa 26.1-devel 的更新修复了多个 H.265 视频编码问题，进一步提升了这款驱动的视频加速能力。</p>
-
-<img src="//www.phoronix.net/image.php?id=intel-corei7-1280p&image=intel_1280p_6_med" alt="Intel Evo laptop" />
-
-<p>这些改进主要来自 Igalia 工程师 Hyunjun Ko 的贡献。虽然英特尔官方更专注于 VA-API 和 oneVPL 的视频加速方案,但 Ko 一直在为 ANV 驱动的 Vulkan Video 支持添砖加瓦。</p>
-
-<p>本次更新的亮点包括:</p>
-<ul>
-<li>根据量化参数（QP）动态设置变换跳过数量,不再硬编码固定值</li>
-<li>使用应用程序提供的 QP 值,而非默认的 26</li>
-<li>正确处理 GPB 帧（通用 P 帧和 B 帧）</li>
-<li>正确设置 SAD QP Lambda 值</li>
-<li>移除不支持的编码器功能</li>
-</ul>
-
-<p>这些修复预计会包含在 Mesa 26.1-devel 中,也可能回移植到 Mesa 26.0 系列。除了驱动层面的工作,Ko 还在修复 GStreamer 多媒体框架的相关问题,最近就修复了在 ANV 驱动上正确播放 AV1 内容的 bug。</p>
-
-<div style="margin-top: 20px; padding: 15px; background-color: #f5f5f5; border-left: 4px solid #4CAF50;">
-<h3>你知道吗?</h3>
-<p><strong>Vulkan Video</strong> 是 Khronos 组织为 Vulkan 图形 API 开发的视频加速扩展,让应用可以直接调用 GPU 进行视频编解码,绕过传统的 API 如 VA-API。<strong>H.265</strong>(也叫 HEVC)是比 H.264 更高效的视频压缩标准,能在相同画质下节省约 50% 的带宽。</p>
-<p><strong>QP</strong>(量化参数)控制视频压缩的「狠」度 —— 数值越大压缩越狠、画质越差但文件越小。<strong>GPB 帧</strong>是一种特殊的帧类型,它既可以像 P 帧那样参考前面的帧,又可以像 B 帧那样参考前后的帧,提供更灵活的编码效率。<strong>SAD</strong>(Sum of Absolute Differences)是视频编码中常用的运动估计算法,Lambda 值则用于平衡画质和码率。</p>
-</div><p><small>[interest] 涉及 Linux 技术和开源驱动开发，属于一般感兴趣的技术主题</small></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-26.1-devel-ANV-H265-Encode</guid>
-      <pubDate>Mon, 23 Feb 2026 13:59:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
