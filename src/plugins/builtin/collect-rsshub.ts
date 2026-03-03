@@ -1,7 +1,7 @@
 import { init as rsshubInit, request as rsshubRequest } from "rsshub";
 import { z } from "zod";
 import { withRetry } from "../../lib/retry";
-import { basePlugin, type Plugin } from "../../plugin";
+import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
 const rssFeedItemSchema = z.object({
@@ -23,10 +23,11 @@ interface CollectRsshubOptions {
 
 const plugin: Plugin<CollectRsshubOptions> = {
   ...basePlugin,
-  async collect(options) {
+  async collect(options, context: PluginContext) {
     const { route } = options;
     if (!route) throw new Error("collect-rsshub: options.route 未指定");
 
+    context.logger.start("开始获取新条目...");
     await rsshubInit();
     const rsshubData = await withRetry(() => rsshubRequest(route));
 
@@ -51,6 +52,7 @@ const plugin: Plugin<CollectRsshubOptions> = {
       reason: "未分级",
     }));
 
+    context.logger.success(`获取到 ${items.length} 个条目`);
     return {
       title: parseResult.data.title,
       items,

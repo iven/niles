@@ -1,6 +1,18 @@
 import { describe, expect, it } from "bun:test";
+import { logger } from "../../lib/logger";
+import type { PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 import plugin from "./index";
+
+const testContext = {
+  sourceName: "test",
+  sourceContext: undefined,
+  isDryRun: false,
+  llm: () => {
+    throw new Error("llm not available in test");
+  },
+  logger,
+} as unknown as PluginContext;
 
 function createItem(description: string): FeedItem {
   return {
@@ -16,7 +28,7 @@ function createItem(description: string): FeedItem {
 }
 
 async function processOne(item: FeedItem): Promise<FeedItem> {
-  const result = await plugin.processItems([item]);
+  const result = await plugin.processItems([item], {}, testContext);
   // biome-ignore lint/style/noNonNullAssertion: single item in, single item out
   return result[0]!;
 }

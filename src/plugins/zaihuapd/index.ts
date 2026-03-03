@@ -1,11 +1,5 @@
-/**
- * 在花频道 description 清理插件
- * 删除最后的固定链接和图片
- */
-
 import { parseHTML } from "linkedom";
-import { logger } from "../../lib/logger";
-import { basePlugin } from "../../plugin";
+import { basePlugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
 const segmenter = new Intl.Segmenter("und", { granularity: "grapheme" });
@@ -26,12 +20,27 @@ function trimLeadingEmoji(str: string): string {
 
 const plugin = {
   ...basePlugin,
-  async processItems(items: FeedItem[]): Promise<FeedItem[]> {
-    return Promise.all(items.map((item) => processOne(item)));
+  async processItems(
+    items: FeedItem[],
+    _options: object,
+    context: PluginContext,
+  ): Promise<FeedItem[]> {
+    context.logger.start("开始清理内容...");
+    const results = await Promise.all(
+      items.map((item) =>
+        item.level === "rejected" ? item : processOne(item, context),
+      ),
+    );
+    const count = results.filter((item) => item.level !== "rejected").length;
+    context.logger.success(`清理完成（${count} 个条目）`);
+    return results;
   },
 };
 
-async function processOne(item: FeedItem): Promise<FeedItem> {
+async function processOne(
+  item: FeedItem,
+  context: PluginContext,
+): Promise<FeedItem> {
   item.title = trimLeadingEmoji(item.title);
 
   if (!item.description) return item;
@@ -84,7 +93,7 @@ async function processOne(item: FeedItem): Promise<FeedItem> {
 
     item.description = result;
   } catch (error) {
-    logger.warn(`清理 description 失败: ${error}`);
+    context.logger.warn(`清理 description 失败: ${error}`);
   }
 
   return item;

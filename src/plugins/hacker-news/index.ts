@@ -1,11 +1,6 @@
-/**
- * Hacker News 评论抓取插件
- */
-
 import { z } from "zod";
 import { http } from "../../lib/http";
-import { logger } from "../../lib/logger";
-import { basePlugin } from "../../plugin";
+import { basePlugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
 interface HNComment {
@@ -41,12 +36,30 @@ const hnApiResponseSchema = z
 
 const plugin = {
   ...basePlugin,
-  async processItems(items: FeedItem[]): Promise<FeedItem[]> {
-    return Promise.all(items.map((item) => processOne(item)));
+  async processItems(
+    items: FeedItem[],
+    _options: object,
+    context: PluginContext,
+  ): Promise<FeedItem[]> {
+    context.logger.start("开始抓取 HN 评论...");
+    const results = await Promise.all(
+      items.map((item) =>
+        item.level === "rejected" ? item : processOne(item, context),
+      ),
+    );
+    const total = results.reduce(
+      (sum, item) => sum + ((item.extra.comments as unknown[])?.length ?? 0),
+      0,
+    );
+    context.logger.success(`抓取 HN 评论完成（共 ${total} 条）`);
+    return results;
   },
 };
 
-async function processOne(item: FeedItem): Promise<FeedItem> {
+async function processOne(
+  item: FeedItem,
+  context: PluginContext,
+): Promise<FeedItem> {
   const url = item.guid || "";
 
   if (!url.includes("news.ycombinator.com")) {
@@ -67,14 +80,14 @@ async function processOne(item: FeedItem): Promise<FeedItem> {
     const parseResult = hnApiResponseSchema.safeParse(json);
 
     if (!parseResult.success) {
-      logger.warn(`HN API 响应格式错误: ${itemId}`);
+      context.logger.warn(`HN API 响应格式错误: ${itemId}`);
       return item;
     }
 
     const comments = extractComments(parseResult.data.children || [], 0, 2);
     item.extra.comments = comments;
   } catch (error) {
-    logger.warn(`抓取 HN 评论失败 ${itemId}: ${error}`);
+    context.logger.warn(`抓取 HN 评论失败 ${itemId}: ${error}`);
     item.extra.comments = [];
   }
 

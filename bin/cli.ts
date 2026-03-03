@@ -1,9 +1,5 @@
 #!/usr/bin/env bun
 
-/**
- * Niles CLI 入口：解析命令行参数
- */
-
 import { parseArgs } from "node:util";
 import { LogLevels } from "consola";
 import { loadConfig } from "../src/lib/config";
@@ -31,7 +27,7 @@ async function main() {
   const [sourceName] = positionals;
 
   if (!sourceName) {
-    console.error("用法: niles <source-name> [--config <path>] [--dry-run]");
+    logger.error("用法: niles <source-name> [--config <path>] [--dry-run]");
     process.exit(1);
   }
 
@@ -59,7 +55,7 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(`错误: ${error}`);
-  console.error(error.stack);
+  logger.error(`错误: ${error}`);
+  logger.error(error.stack);
   process.exit(1);
 });

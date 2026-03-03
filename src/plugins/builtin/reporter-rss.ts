@@ -1,6 +1,6 @@
 import { generateRssFeed, parseRssFeed } from "feedsmith";
 import type { Rss } from "feedsmith/types";
-import { basePlugin, type Plugin } from "../../plugin";
+import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
 export function formatItems(
@@ -40,11 +40,16 @@ interface ReporterRssOptions {
 
 const reporter: Plugin<ReporterRssOptions> = {
   ...basePlugin,
-  async report(items: FeedItem[], options: ReporterRssOptions) {
+  async report(
+    items: FeedItem[],
+    options: ReporterRssOptions,
+    context: PluginContext,
+  ) {
     const { outputPath, sourceName = "", title, showReason = true } = options;
     if (!outputPath) throw new Error("reporter-rss: options.outputPath 未指定");
     const feedTitle = title || `${sourceName} - 精选`;
 
+    context.logger.start("开始生成报告...");
     const newItems = formatItems(items, showReason);
 
     let existingItems: Rss.Item<string>[] = [];
@@ -70,8 +75,16 @@ const reporter: Plugin<ReporterRssOptions> = {
       items: allItems,
     };
 
+    const nonRejected = items.filter((item) => item.level !== "rejected");
+    context.logger.log("");
+    context.logger.success(`处理完成 (${nonRejected.length} 个条目)`);
+    context.logger.log(`  源: ${sourceName}`);
+
+    if (context.isDryRun) return;
+
     const rss = generateRssFeed(feed as Rss.Feed<Date>, { loose: true });
     await Bun.write(outputPath, rss);
+    context.logger.log(`  写入 ${newItems.length} 个新条目 → ${outputPath}`);
   },
 };
 

@@ -16,8 +16,9 @@ import { openRouterText } from "@tanstack/ai-openrouter";
 // @tanstack/ai-openrouter 没有导出 OpenRouterTextModels 类型，从函数参数提取
 type OpenRouterModel = Parameters<typeof openRouterText>[0];
 
+import type { ConsolaInstance } from "consola";
 import type { LlmConfig } from "./config";
-import { logger } from "./logger";
+import { logger as rootLogger } from "./logger";
 
 export type TextAdapter = ReturnType<
   | typeof anthropicText
@@ -92,6 +93,7 @@ type ChatStream = ReturnType<typeof chat>;
 interface StreamHandlerOptions<T> {
   stream: ChatStream;
   getResult: () => T;
+  logger?: ConsolaInstance;
 }
 
 interface TokenStats {
@@ -111,7 +113,7 @@ interface StreamResult<T> {
 export async function handleStreamWithToolCall<T>(
   options: StreamHandlerOptions<T>,
 ): Promise<StreamResult<T>> {
-  const { stream, getResult } = options;
+  const { stream, getResult, logger = rootLogger } = options;
 
   let fullText = "";
   let textOutputted = false;
@@ -133,9 +135,8 @@ export async function handleStreamWithToolCall<T>(
     if (chunk.type === "TOOL_CALL_END") {
       // 第一次工具调用时输出 AI 的文本（strip 空白，用引用格式）
       if (!textOutputted && fullText.trim()) {
-        const lines = fullText.trim().split("\n");
-        for (const line of lines) {
-          logger.log(`> ${line}`);
+        for (const line of fullText.trim().split("\n")) {
+          logger.log(`│ ${line}`);
         }
         textOutputted = true;
       }

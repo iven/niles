@@ -1,3 +1,4 @@
+import type { ConsolaInstance } from "consola";
 import type { TextAdapter } from "./lib/llm";
 import { logger } from "./lib/logger";
 import type { FeedItem } from "./types";
@@ -7,6 +8,7 @@ export interface PluginContext {
   sourceContext: string | undefined;
   isDryRun: boolean;
   llm(tier: "fast" | "balanced" | "powerful"): TextAdapter;
+  logger: ConsolaInstance;
 }
 
 export interface Plugin<O extends object = object> {
@@ -35,6 +37,7 @@ export const basePlugin: Plugin = {
 type PluginEntry = string | { name: string; options?: object };
 
 type LoadedPlugin = {
+  name: string;
   plugin: Plugin;
   options: object;
 };
@@ -62,18 +65,19 @@ export async function loadPlugins(
       const options =
         typeof entry === "object" && entry.options ? entry.options : {};
       const plugin = await loadPlugin(name);
-      return { plugin, options };
+      return { name, plugin, options };
     }),
   );
 }
 
 export async function applyProcessItems(
   items: FeedItem[],
-  { plugin, options }: LoadedPlugin,
+  { name, plugin, options }: LoadedPlugin,
   context: PluginContext,
 ): Promise<FeedItem[]> {
+  const pluginContext = { ...context, logger: logger.withTag(name) };
   try {
-    return await plugin.processItems(items, options, context);
+    return await plugin.processItems(items, options, pluginContext);
   } catch (error) {
     logger.warn(`processItems 失败: ${error}`);
     return items;

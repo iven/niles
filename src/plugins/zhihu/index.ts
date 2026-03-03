@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { http } from "../../lib/http";
-import { basePlugin } from "../../plugin";
+import { basePlugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
 const targetSchema = z.object({
@@ -36,9 +36,10 @@ interface ZhihuOptions {
 
 const plugin = {
   ...basePlugin,
-  async collect(options: ZhihuOptions) {
+  async collect(options: ZhihuOptions, context: PluginContext) {
     const limit = options.limit ?? DEFAULT_LIMIT;
 
+    context.logger.start("开始获取新条目...");
     const json = await http
       .get("https://api.zhihu.com/topstory/hot-lists/total", {
         headers: { Accept: "application/json" },
@@ -58,6 +59,7 @@ const plugin = {
       reason: "未分级",
     }));
 
+    context.logger.success(`获取到 ${items.length} 个条目`);
     return { title: "知乎热榜", items };
   },
 };

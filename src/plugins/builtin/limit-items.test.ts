@@ -1,9 +1,18 @@
 import { describe, expect, it } from "bun:test";
+import { logger } from "../../lib/logger";
 import type { PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 import limitItemsPlugin from "./limit-items";
 
-let counter = 0;
+const testContext: PluginContext = {
+  sourceName: "test",
+  sourceContext: undefined,
+  isDryRun: false,
+  llm: () => {
+    throw new Error("llm not available in test");
+  },
+  logger,
+};
 
 function createItem(guid: string, title: string): FeedItem {
   return {
@@ -18,21 +27,9 @@ function createItem(guid: string, title: string): FeedItem {
   };
 }
 
-function makeContext(isDryRun = false): PluginContext {
-  counter++;
-  return {
-    sourceName: `test-limit-items-${Date.now()}-${counter}`,
-    sourceContext: undefined,
-    isDryRun,
-    llm: () => {
-      throw new Error("llm not available in test");
-    },
-  };
-}
-
 describe("builtin/limit-items plugin", () => {
   it("should keep only maxItems non-rejected items", async () => {
-    const context = makeContext();
+    const context = testContext;
     const items = [
       createItem("guid-1", "Item 1"),
       createItem("guid-2", "Item 2"),
@@ -55,7 +52,7 @@ describe("builtin/limit-items plugin", () => {
   });
 
   it("should not re-reject already rejected items", async () => {
-    const context = makeContext();
+    const context = testContext;
     const items = [
       createItem("guid-1", "Item 1"),
       { ...createItem("guid-2", "Item 2"), level: "rejected" as const },
@@ -73,7 +70,7 @@ describe("builtin/limit-items plugin", () => {
   });
 
   it("should return all items if fewer than maxItems", async () => {
-    const context = makeContext();
+    const context = testContext;
     const items = [
       createItem("guid-1", "Item 1"),
       createItem("guid-2", "Item 2"),

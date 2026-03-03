@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { http } from "../../lib/http";
-import { basePlugin } from "../../plugin";
+import { basePlugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
 const postNodeSchema = z.object({
@@ -64,7 +64,8 @@ interface ProductHuntOptions {
 
 const plugin = {
   ...basePlugin,
-  async collect(options: ProductHuntOptions) {
+  async collect(options: ProductHuntOptions, context: PluginContext) {
+    context.logger.start("开始获取新条目...");
     const token = process.env.PRODUCTHUNT_API_KEY;
     if (!token) throw new Error("PRODUCTHUNT_API_KEY not set");
 
@@ -107,6 +108,7 @@ const plugin = {
       };
     });
 
+    context.logger.success(`获取到 ${items.length} 个条目`);
     return { title: "Product Hunt", items };
   },
 };

@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { logger } from "../../lib/logger";
 import type { PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 import deduplicatePlugin from "./deduplicate";
@@ -27,6 +28,7 @@ function makeContext(isDryRun = false): PluginContext {
     llm: () => {
       throw new Error("llm not available in test");
     },
+    logger,
   };
 }
 

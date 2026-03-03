@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { applyProcessItems, loadPlugins } from "./plugin";
+import { logger } from "./lib/logger";
+import { applyProcessItems, loadPlugins, type PluginContext } from "./plugin";
 import type { FeedItem } from "./types";
 
 function createTestItem(title: string): FeedItem {
@@ -15,14 +16,15 @@ function createTestItem(title: string): FeedItem {
   };
 }
 
-const testContext = {
+const testContext: PluginContext = {
   sourceName: "test",
   sourceContext: undefined,
   isDryRun: false,
   llm: () => {
     throw new Error("llm not available in test");
   },
-} as Parameters<typeof applyProcessItems>[2];
+  logger,
+};
 
 describe("loadPlugins", () => {
   it("should load builtin plugins with file path format", async () => {

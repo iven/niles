@@ -6,7 +6,7 @@
 import { chat } from "@tanstack/ai";
 import { z } from "zod";
 import { handleStreamWithToolCall } from "../../lib/llm";
-import { logger } from "../../lib/logger";
+
 import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
 import type { FeedItem, GradeResult } from "../../types";
 import { gradeResultSchema } from "../../types";
@@ -173,7 +173,7 @@ const plugin: Plugin<LlmGradeOptions> = {
       return items;
     }
 
-    logger.start(`开始分级 ${itemsToGrade.length} 个条目...`);
+    context.logger.start(`开始分级 ${itemsToGrade.length} 个条目...`);
 
     const userMessage = buildUserPrompt(
       options,
@@ -201,9 +201,10 @@ const plugin: Plugin<LlmGradeOptions> = {
       const { result, tokenStats } = await handleStreamWithToolCall({
         stream,
         getResult,
+        logger: context.logger,
       });
       gradeResults = result;
-      logger.log(
+      context.logger.log(
         `  Token 使用: 输入 ${tokenStats.promptTokens}, 输出 ${tokenStats.completionTokens}, 总计 ${tokenStats.totalTokens}`,
       );
     } catch (_error) {
@@ -234,20 +235,20 @@ const plugin: Plugin<LlmGradeOptions> = {
       rejected: "排除",
     };
 
-    logger.success(`分级完成 (${gradeResults.length} 个条目)`);
+    context.logger.success(`分级完成 (${gradeResults.length} 个条目)`);
     let firstGroup = true;
     for (const level of ["critical", "recommended", "optional", "rejected"]) {
       const levelItems = grouped[level];
       if (!levelItems || levelItems.length === 0) continue;
-      if (!firstGroup) logger.log("");
+      if (!firstGroup) context.logger.log("");
       firstGroup = false;
-      logger.log(`  ${levelNames[level]}`);
+      context.logger.log(`  ${levelNames[level]}`);
       for (let i = 0; i < levelItems.length; i++) {
         const r = levelItems[i];
         if (!r) continue;
         const item = items.find((it) => it.guid === r.guid);
-        logger.log(`    ${i + 1}. ${item?.title ?? r.guid}`);
-        logger.log(`       理由: ${r.reason}`);
+        context.logger.log(`    ${i + 1}. ${item?.title ?? r.guid}`);
+        context.logger.log(`       理由: ${r.reason}`);
       }
     }
 

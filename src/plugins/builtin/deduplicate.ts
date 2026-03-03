@@ -11,6 +11,7 @@ const plugin: Plugin = {
     _options: object,
     context: PluginContext,
   ): Promise<FeedItem[]> {
+    context.logger.start("开始去重...");
     const historyPath = `output/${context.sourceName}-processed.json`;
     const tracker = await GuidTracker.create(historyPath);
 
@@ -23,6 +24,21 @@ const plugin: Plugin = {
     const selectedGuids = context.isDryRun
       ? new Set(items.slice(0, DRY_RUN_ITEMS).map((item) => item.guid))
       : new Set(newItems.map((item) => item.guid));
+
+    const skipped = items.length - newItems.length;
+    if (skipped > 0) {
+      context.logger.success(
+        `去重完成，${skipped} 个已处理过跳过，剩余 ${newItems.length} 个`,
+      );
+    } else {
+      context.logger.success(`去重完成，${newItems.length} 个新条目`);
+    }
+    if (context.isDryRun) {
+      context.logger.debug(`  dry-run 模式，取前 ${DRY_RUN_ITEMS} 条`);
+      for (const item of items.slice(0, DRY_RUN_ITEMS)) {
+        context.logger.debug(`    - ${item.title}`);
+      }
+    }
 
     return items.map((item) =>
       selectedGuids.has(item.guid)

@@ -6,7 +6,7 @@
 import { chat } from "@tanstack/ai";
 import pLimit from "p-limit";
 import { handleStreamWithToolCall } from "../../lib/llm";
-import { logger } from "../../lib/logger";
+
 import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
 import type { FeedItem, SummaryResult } from "../../types";
 import { summaryResultSchema } from "../../types";
@@ -169,6 +169,7 @@ async function summarizeOne(
     const { result, tokenStats } = await handleStreamWithToolCall({
       stream,
       getResult,
+      logger: context.logger,
     });
     return { result, ...tokenStats };
   } catch (_error) {
@@ -199,7 +200,7 @@ const plugin: Plugin<SummarizeOptions> = {
       return items;
     }
 
-    logger.start(`开始总结 ${itemsToSummarize.length} 个条目...`);
+    context.logger.start(`开始总结 ${itemsToSummarize.length} 个条目...`);
 
     const limit = pLimit(maxConcurrency);
     const results = await Promise.all(
@@ -219,16 +220,16 @@ const plugin: Plugin<SummarizeOptions> = {
       { promptTokens: 0, completionTokens: 0, totalTokens: 0 },
     );
 
-    logger.success(`总结完成 (${results.length} 个条目)`);
+    context.logger.success(`总结完成 (${results.length} 个条目)`);
     for (let i = 0; i < results.length; i++) {
       const r = results[i];
       if (!r) continue;
-      logger.log(`  ${i + 1}. ${r.result.title}`);
-      logger.log(
+      context.logger.log(`  ${i + 1}. ${r.result.title}`);
+      context.logger.log(
         `     Token: 输入 ${r.promptTokens}, 输出 ${r.completionTokens}, 总计 ${r.totalTokens}`,
       );
     }
-    logger.log(
+    context.logger.log(
       `  总计 Token: 输入 ${totalTokens.promptTokens}, 输出 ${totalTokens.completionTokens}, 总计 ${totalTokens.totalTokens}`,
     );
 

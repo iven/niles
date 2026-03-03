@@ -1,7 +1,7 @@
 import { parseFeed } from "feedsmith";
 import type { Atom, DeepPartial } from "feedsmith/types";
 import { http } from "../../lib/http";
-import { basePlugin, type Plugin } from "../../plugin";
+import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
 interface CollectRssOptions {
@@ -10,10 +10,11 @@ interface CollectRssOptions {
 
 const plugin: Plugin<CollectRssOptions> = {
   ...basePlugin,
-  async collect(options) {
+  async collect(options, context: PluginContext) {
     const { url } = options;
     if (!url) throw new Error("collect-rss: options.url 未指定");
 
+    context.logger.start("开始获取新条目...");
     const xml = await http.get(url).text();
     const { format, feed } = parseFeed(xml);
 
@@ -50,6 +51,7 @@ const plugin: Plugin<CollectRssOptions> = {
       reason: "未分级",
     }));
 
+    context.logger.success(`获取到 ${items.length} 个条目`);
     return {
       title: feed.title,
       items,
