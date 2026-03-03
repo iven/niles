@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 03 Mar 2026 03:13:36 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Mar 2026 04:58:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 从零构建低于500毫秒延迟的语音代理：轮次检测与延迟优化的关键突破</title>
+      <link>https://news.ycombinator.com/item?id=47224295</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲语音代理技术的实现和优化，属于AI软件技术进展领域，符合用户对AI技术进展的兴趣</small></p><p>作者详细分享了如何从零开始构建一个端到端延迟约400毫秒的语音代理系统，这一性能比市面上的Vapi等平台快2倍。文章揭示了语音代理的核心挑战不是单个模型的质量，而是各个组件之间的协调优化。</p>
+
+<p>语音交互的本质是"轮流说话"问题，而非简单的语音识别。作者首先使用Silero VAD（语音活动检测）建立基础状态机，但发现纯VAD无法准确判断用户何时真正结束发言。随后转向Deepgram Flux，该服务结合了流式转录和语义端点检测，能更准确地识别轮次边界。</p>
+
+<img src="/voice-agent-essay/v-final-architecture-diagram.png" alt="完整的语音代理架构图" />
+
+<p>系统架构围绕一个核心状态机：用户说话时，代理必须立即停止所有音频生成；用户停止时，代理需以最小延迟开始响应。作者构建了完整的STT（语音转文本）→ LLM（大语言模型）→ TTS（文本转语音）流水线，所有组件都采用流式处理以避免阻塞。</p>
+
+<p>关键优化包括：保持TTS WebSocket连接池预热（节省300毫秒）、将所有服务部署在同一地理区域（欧盟部署使延迟从1.7秒降至790毫秒）。但最大的突破来自模型选择——Groq的LLaMA-3.3-70b模型实现了约80毫秒的TTFT（首次令牌时间），这是人类眨眼速度的水平。</p>
+
+<img src="/voice-agent-essay/comparing-provider-latency.png" alt="不同LLM提供商的首次令牌延迟对比" />
+
+<p>最终系统实现了约400毫秒的端到端延迟，作者表示"对话感觉流畅，我回复的时间比代理还长"。社区反馈积极，有读者提到Soniox的端点检测可能更好，也有人讨论端到端模型的未来潜力。</p>
+
+<p>技术要点总结：1）延迟是语音代理体验的决定因素；2）TTFT占延迟的大部分，模型选择至关重要；3）地理位置比提示词优化影响更大；4）流水线化所有组件避免阻塞；5）轮次检测需要语义理解而非仅音量检测。</p>
+
+<p>项目代码已在<a href="https://github.com/NickTikhonov/shuo">GitHub开源</a>，作者表示构建过程仅需一天和约100美元的API费用，但深入理解系统架构对于优化至关重要。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47224295</guid>
+      <pubDate>Mon, 02 Mar 2026 21:23:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 研究证实：世界首例子宫内干细胞治疗脊柱裂安全可行</title>
       <link>https://news.ycombinator.com/item?id=47218743</link>
@@ -1619,66 +1644,6 @@ dequote {{B}} → {B}               # 移除操作数括号层</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47144464</guid>
       <pubDate>Tue, 24 Feb 2026 22:46:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Moonshine开源语音识别模型：准确率超越Whisper Large v3，专为实时语音优化</title>
-      <link>https://news.ycombinator.com/item?id=47143755</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍Moonshine开源语音识别模型，属于开源项目和AI软件技术进展，用户感兴趣</small></p><h2>项目概述</h2>
-<p>Moonshine Voice 是一个开源 AI 工具包，专为开发实时语音应用而设计。由一家六人小型初创公司开发，其语音转文字（STT）模型在词错误率（WER）上超越了 OpenAI 的 Whisper Large v3 模型。</p>
-<img src="/moonshine-ai/moonshine/raw/main/images/logo.png" alt="Moonshine Voice Logo" />
-
-<h2>核心优势：为何选择 Moonshine 而非 Whisper？</h2>
-<p>Moonshine 专为<strong>实时语音交互</strong>场景优化，解决了 Whisper 在直播应用中的关键限制：</p>
-<ul>
-<li><strong>灵活输入窗口</strong>：支持任意长度音频输入，无需固定 30 秒窗口，避免计算浪费。</li>
-<li><strong>流式缓存</strong>：支持音频增量输入并缓存编码状态，大幅降低重复计算，实现极低延迟。</li>
-<li><strong>语言特定模型</strong>：针对不同语言单独训练，相比单一多语言模型，在相同模型大小下获得更高准确率。</li>
-<li><strong>全平台支持</strong>：基于便携式 C++ 核心库，提供 Python、iOS、Android、macOS、Linux、Windows、Raspberry Pi 等统一 API。</li>
-<li><strong>完全在设备端运行</strong>：无需网络连接、账户或 API 密钥，保障隐私与速度。</li>
-</ul>
-
-<h2>性能对比</h2>
-<p>在 HuggingFace OpenASR 排行榜上，Moonshine Medium Streaming 模型（2.45 亿参数）的词错误率（6.65%）低于 Whisper Large v3（7.44%，15 亿参数）。延迟方面优势更为明显：</p>
-<table>
-<thead>
-<tr><th>模型</th><th>WER</th><th>参数量</th><th>MacBook Pro 延迟</th><th>Linux x86 延迟</th><th>Raspberry Pi 5 延迟</th></tr>
-</thead>
-<tbody>
-<tr><td>Moonshine Medium Streaming</td><td>6.65%</td><td>2.45 亿</td><td>107ms</td><td>269ms</td><td>802ms</td></tr>
-<tr><td>Whisper Large v3</td><td>7.44%</td><td>15 亿</td><td>11,286ms</td><td>16,919ms</td><td>N/A</td></tr>
-</tbody>
-</table>
-
-<h2>多语言支持</h2>
-<p>当前支持英语、西班牙语、普通话、日语、韩语、越南语、乌克兰语和阿拉伯语。与 Whisper 相比，Moonshine 通过语言专用模型在目标语言上实现了更好的准确率。</p>
-<img src="/moonshine-ai/moonshine/raw/main/images/lang-chart.png" alt="Language Chart" />
-
-<h2>系统架构</h2>
-<p>Moonshine 将麦克风捕获、语音活动检测、语音转文字、说话人识别和意图识别等流程集成到单一库中，为开发者提供高级事件驱动 API。</p>
-<img src="/moonshine-ai/moonshine/raw/main/images/moonshine-voice-architecture.png" alt="Moonshine Voice Architecture" />
-
-<h2>快速入门</h2>
-<p>Python 安装：<code>pip install moonshine-voice</code><br>
-基础转录示例：<code>python -m moonshine_voice.mic_transcriber --language en</code><br>
-支持从 iOS、Android 到 Raspberry Pi 等多种平台的示例项目。</p>
-
-<h2>许可证信息</h2>
-<p>代码库（除第三方代码外）采用 MIT 许可证。英语模型同样使用 MIT 许可证，其他语言模型则采用<strong>非商业性的 Moonshine Community License</strong>。</p>
-
-<h2>社区反馈</h2>
-<p>Hacker News 评论中主要关注点：</p>
-<ul>
-<li>许可证文件的完整性与明确性</li>
-<li>与 NVIDIA Parakeet、Microsoft VibeVoice 等模型的性能比较</li>
-<li>在浏览器中运行 ONNX 模型的可能性</li>
-<li>对技术术语和缩写的识别能力</li>
-</ul>
-
-<p>总体而言，Moonshine Voice 为实时语音应用提供了一个高性能、低延迟、易于集成的开源解决方案，特别适合需要在边缘设备上部署语音交互功能的开发者。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47143755</guid>
-      <pubDate>Tue, 24 Feb 2026 21:54:07 GMT</pubDate>
     </item>
   </channel>
 </rss>
