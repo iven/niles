@@ -3,7 +3,66 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 05 Mar 2026 16:02:29 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 05 Mar 2026 18:20:44 GMT</lastBuildDate>
+    <item>
+      <title>维基百科因管理员账户大规模泄露进入只读模式</title>
+      <link>https://news.ycombinator.com/item?id=47263323</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 报道维基百科管理员账户泄露和系统进入只读模式，属于技术安全事件，但涉及用户不太感兴趣的基础设施话题，故为可选内容</small></p><p>2026年3月5日，维基媒体基金会旗下所有维基站点（包括维基百科）因大规模管理员账户泄露事件进入只读模式。攻击者利用跨站脚本（XSS）蠕虫感染了多个高权限账户，导致网站编辑功能被临时禁用。</p>
+
+<img src="//dka575ofm4ao0.cloudfront.net/pages-transactional_logos/retina/233622/2560px-Wikimedia_Foundation_logo_-_horizontal.svg.png" alt="Wikimedia logo" />
+
+<p>根据维基媒体状态页面显示，事件时间线如下：</p>
+<ul>
+<li>15:36 UTC：开始调查访问问题</li>
+<li>16:11 UTC：确认问题并实施修复</li>
+<li>17:09 UTC：维基恢复读写模式，但部分功能仍被禁用</li>
+<li>17:36 UTC：修复已实施，正在监控结果</li>
+</ul>
+
+<p>社区分析显示，此次攻击涉及一个复杂的JavaScript蠕虫，其行为包括：</p>
+<ul>
+<li>将自身注入到MediaWiki:Common.js页面，确保在所有访客和编辑者浏览器中执行</li>
+<li>使用jQuery隐藏用户界面元素，掩盖感染迹象</li>
+<li>破坏20篇随机文章，插入5000像素宽的图片和额外恶意脚本</li>
+<li>如果感染管理员账户，会利用Special:Nuke功能批量删除随机文章</li>
+</ul>
+
+<p>技术社区在<a href="https://news.ycombinator.com/item?id=47263323">Hacker News讨论</a>中指出，这次攻击暴露了MediaWiki架构的长期安全隐患：允许用户编辑的命名空间中存储可执行JavaScript代码。有用户将此次攻击比作"维基化版的MySpace Samy蠕虫"，因其利用社交工程和自动传播机制。</p>
+
+<p>维基百科社区成员在讨论中表示，此类安全事件"只是时间问题"，并批评维基百科社区对安全问题的随意态度。此前，任何拥有"界面管理员"权限的用户都可以未经审查修改全局JavaScript或CSS，直到几年前才强制实施双因素认证（2FA）。</p>
+
+<p>目前，维基媒体基金会已禁用所有用户脚本，并正在清理受感染的数据库记录。此次事件再次引发了关于网络应用中客户端脚本安全性的广泛讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47263323</guid>
+      <pubDate>Thu, 05 Mar 2026 16:04:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 在Apple Silicon上使用Swift和MLX运行NVIDIA PersonaPlex 7B实现全双工语音对话</title>
+      <link>https://news.ycombinator.com/item?id=47258801</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍在Apple Silicon上部署NVIDIA AI模型实现语音对话的技术实现，涉及AI软件技术进展和编程工具应用，用户对此感兴趣，核心是AI技术而非Apple平台</small></p><p>开发者Ivan发布了一个基于Swift和MLX框架的语音处理库，成功在Apple Silicon设备上运行NVIDIA的PersonaPlex 7B模型，实现了全双工语音到语音的实时对话功能。</p>
+
+<p>该库的核心突破在于将传统的语音助手三阶段流程（语音识别ASR→大语言模型LLM→文本转语音TTS）合并为单一模型。PersonaPlex 7B直接处理音频令牌，能够同时收听和说话，实现真正的全双工对话。模型经过4位量化后，从原始的16.7GB压缩到约5.3GB，便于在本地设备运行。</p>
+
+<p>技术实现方面，项目使用了Kyutai的Mimi音频编解码器，并采用了独特的Depformer架构，通过逐步骤权重切换生成音频码本。在M2 Max 64GB设备上测试，模型运行速度快于实时，每步约68毫秒，实时因子（RTF）为0.87。库支持流式处理，能够边生成边播放音频片段。</p>
+
+<p>社区讨论中，用户对这项技术表示赞赏，但也提出了一些关注点：</p>
+<ul>
+<li>有用户指出示例对话中AI的回应存在"说谎"倾向，引发了对AI对话伦理的讨论</li>
+<li>多位用户比较了该方案与OpenAI、Google等公司的实时语音模型的差异</li>
+<li>有尝试者发现当前版本仅支持WAV文件输入，尚不能进行真正的交互式对话</li>
+<li>关于AI生成内容泛滥的担忧被多次提及</li>
+<li>技术爱好者讨论了如何将此类模型与WebRTC等技术结合实现更完整的应用</li>
+</ul>
+
+<p>项目提供了完整的命令行工具，支持语音转录、文本转语音、多语言合成和语音对话功能。开发者强调这是构建在多个开源项目基础上的成果，包括NVIDIA的PersonaPlex、Kyutai的Moshi和Mimi、阿里巴巴的Qwen模型以及Apple的MLX框架。</p>
+
+<p>尽管目前主要作为技术演示，但这项工作展示了在本地设备上运行高质量语音对话模型的可行性，为未来更智能的本地语音助手奠定了基础。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47258801</guid>
+      <pubDate>Thu, 05 Mar 2026 07:43:41 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AI辅助重写引发的开源许可证争议：chardet从LGPL改为MIT的法律困境</title>
       <link>https://news.ycombinator.com/item?id=47257803</link>
@@ -1252,72 +1311,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47197267</guid>
       <pubDate>Sat, 28 Feb 2026 16:31:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 认知债：当AI辅助开发速度超越理解深度时</title>
-      <link>https://news.ycombinator.com/item?id=47196582</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章分析AI辅助开发对编程效率的影响及认知债问题，属于编程效率改进经验和AI软件技术进展范畴，用户应会感兴趣。</small></p><img src="/images/beyondthecode/cognitive-debt-hero.svg" alt="认知债概念图示" />
-
-<p>这篇文章深入分析了AI辅助开发带来的一个隐性问题：认知债。当工程师使用AI工具快速生成代码时，产出速度远超理解速度，导致代码虽然能运行，但开发者对其内部工作原理缺乏深刻理解。</p>
-
-<h3>认知债的核心问题</h3>
-<p>传统开发中，编写代码的过程强制开发者深入理解系统。但AI辅助开发将产出与理解脱钩：AI能在几秒内生成数百行代码，而人类的理解速度无法同步跟上。这种差距形成"认知债"——与通过系统故障显现的技术债不同，认知债隐藏在开发者心智中，表现为对自己代码的不确定性。</p>
-
-<h3>组织测量系统的缺陷</h3>
-<p>现有绩效评估系统测量故事点完成数、功能发布数、合并提交数等可观察产出，这些指标源于产出与理解紧密耦合的时代。如今，工程师可以发布功能而仅对其实现保持表面熟悉，组织知识无法以相同速度积累。管理层看到的只有速度提升，无法察觉理解赤字。</p>
-
-<h3>审查者的困境</h3>
-<p>传统代码审查中，高级工程师的审查速度超过初级工程师的产出速度。AI辅助开发颠覆了这一关系：初级工程师现在能生成代码的速度超过高级工程师深度审查的能力。审查者面临两难选择：坚持原有审查标准成为瓶颈，或快速批准代码寄望测试能发现问题。组织压力通常迫使选择后者。</p>
-
-<h3>组织记忆的失效</h3>
-<p>工程组织的知识存在于两种形式：显性（文档、设计文档）和隐性（开发者心智中的直觉、模式识别）。AI辅助开发可能短路隐性知识的补充机制：如果新工程师无需深入理解就能生成有效修改，他们永远不会形成传统上通过实现摩擦积累的隐性知识。当系统最终需要这种理解时，组织才会发现赤字。</p>
-
-<h3>债务累积的三种失败模式</h3>
-<ol>
-<li><strong>可靠启发式的逆转</strong>：传统上，长期运行的代码获得信任；AI生成的代码越久未动越危险，因为人类对其上下文理解已完全关闭。</li>
-<li><strong>事故处理成本增加</strong>：值班工程师调试一个他们未构建、由他们未监督的工具生成、假设他们具备他们不具备的熟悉度的系统时，原本10分钟的修复变成4小时的调查。</li>
-<li><strong>未来高级工程师管道的损失</strong>：依赖AI辅助开发的初级工程师从未发展出手动实现带来的直觉，组织用未来高级架构师的培养换取本季度的功能交付。</li>
-</ol>
-
-<h3>社区讨论要点</h3>
-<p>Hacker News社区对此话题展开了热烈讨论：</p>
-<ul>
-<li>有用户指出相关讨论线程，强调"AI的正确用量不是零，也不是最大"</li>
-<li>部分用户怀疑文章本身可能是AI生成的，但作者表示这只是开发者开始注意到即将出现的问题的巧合</li>
-<li>关于文档的重要性：有工程师认为从手动编写代码节省的时间应用于文档，但其他用户指出管理层会要求将这些时间用于更多功能</li>
-<li>大型组织中的挑战：在拥有数十个产品的公司中，理解全局图景几乎不可能，AI工具可能使情况更糟</li>
-<li>实践经验分享：有开发者使用Claude快速实现功能，但三周后只记得系统的大致轮廓，而在手动编写的项目中，即使多年后仍能定位主要文件和回忆系统架构</li>
-<li>管理压力：有用户反映其公司管理层推崇"只关心代码是否工作，不关心如何工作"的理念，将实际理解系统视为绩效问题</li>
-<li>技能存储：引用"技能存储在手指中"的观点，强调手动实践的重要性</li>
-</ul>
-
-<h3>根本挑战</h3>
-<p>系统正在正确优化它测量的东西，但它测量的东西不再捕捉到重要的东西。速度是可测量的，理解则不是——至少没有机制将其纳入绩效评估、晋升决策或人员规划。在理解变得对组织决策系统可见之前，激励结构将继续偏向速度。工程师优先考虑理解而非产出，看起来比优先考虑产出而非理解的同行生产力更低。</p>
-
-<p>这不是个别管理者或工程师的失败，而是为产出与理解耦合时代设计的测量系统，在耦合不再保持的时代运行。差距最终会显现，无论是通过超过预期的维护成本、需要无人具备的理解的事故，还是暴露缺乏深刻理解构建的系统脆弱性的新需求。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47196582</guid>
-      <pubDate>Sat, 28 Feb 2026 15:39:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>如何取消ChatGPT订阅：步骤详解与社区讨论</title>
-      <link>https://news.ycombinator.com/item?id=47190997</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲解ChatGPT订阅取消的操作指南，属于技术工具使用管理而非AI技术创新或编程相关内容，用户兴趣配置中无明确匹配项，可作可选用途</small></p><p>OpenAI官方帮助文档详细介绍了取消ChatGPT订阅的多种方法，同时Hacker News社区围绕此话题展开了广泛讨论，许多用户因伦理担忧选择取消订阅。</p>
-
-<p>文章提供了清晰的取消步骤：对于个人订阅，若通过chatgpt.com网站注册，需登录后进入设置→账户→管理→取消订阅；若通过App Store或Play Store订阅，则需通过iOS或Android相应渠道取消。对于ChatGPT Business订阅，需进入工作区设置→账单→管理计划→取消订阅。</p>
-
-<p>取消政策方面，订阅将在下一个账单日后生效，用户可继续使用服务至该日期。需在下次账单日前至少24小时取消以避免扣费，订阅费用不可退款。若删除ChatGPT账户，订阅将自动取消且不再扣费。</p>
-
-<p>Hacker News评论显示，许多用户取消订阅的直接原因是OpenAI与五角大楼的合作协议（<a href="https://edition.cnn.com/2026/02/27/tech/openai-pentagon-deal-ai-systems">相关报道</a>），引发对AI武器化及伦理问题的担忧。部分用户转而订阅竞争对手如Anthropic的Claude服务，认为两者功能相近但更符合个人价值观。</p>
-
-<p>实用建议方面，用户在删除账户前可先导出聊天记录（<a href="https://chatgpt.com/#settings/DataControls">数据导出页面</a>），删除账户后无法使用同一邮箱重新注册。有用户反映取消时收到免费一个月挽留优惠，体现了平台的用户保留策略。</p>
-
-<p>总体而言，这篇帮助文档提供了明确的操作指引，而社区讨论反映了用户对AI公司参与军事应用的敏感反应，以及消费者用订阅选择表达价值观的趋势。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47190997</guid>
-      <pubDate>Sat, 28 Feb 2026 05:55:01 GMT</pubDate>
     </item>
   </channel>
 </rss>
