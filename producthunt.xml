@@ -3,7 +3,51 @@
   <channel>
     <title>Product Hunt</title>
     <description>基于个人兴趣筛选的 producthunt 内容</description>
-    <lastBuildDate>Thu, 05 Mar 2026 10:58:49 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 05 Mar 2026 11:48:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ OpenAI Codex Windows 应用发布：原生支持与详细配置指南</title>
+      <link>https://developers.openai.com/codex/app/windows</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍OpenAI Codex在Windows平台的发布，属于编程工具发布内容，用户对此非常感兴趣</small></p><p>OpenAI 正式发布了 Codex 桌面应用的 Windows 原生版本，该应用通过操作系统级沙盒和安全的工作树隔离任务，让并行编码代理能够在 Windows 环境中安全地编写、测试和提议代码，而不会破坏本地开发环境。</p>
+
+<img src="/images/codex/windows/codex-windows-light.webp" alt="Codex app for Windows showing a project sidebar, active thread, and review pane" />
+
+<p>Codex for Windows 提供了一个统一界面，支持跨项目工作、运行并行代理线程和审查结果。应用原生运行于 Windows，使用 PowerShell 和 Windows 沙盒，也可配置在 <a href="https://learn.microsoft.com/en-us/windows/wsl/">Windows Subsystem for Linux (WSL)</a> 中运行。</p>
+
+<h3>安装与更新</h3>
+<p>用户可以从 Microsoft Store 下载 Codex 应用，或通过命令行工具 winget 安装：<code>winget install --id 9PLM9XGG6VKS</code>。企业用户可通过 Microsoft Store 应用分发功能进行部署管理。</p>
+
+<h3>自定义开发设置</h3>
+<p>应用允许用户选择默认编辑器（如 Visual Studio、VS Code 等），并支持按项目覆盖此设置。集成终端同样可自定义，选项包括 PowerShell、命令提示符、Git Bash 和 WSL。</p>
+
+<img src="/images/codex/windows/open-in-windows-light.webp" alt="Codex app settings showing the default Open In app on Windows" />
+
+<h3>WSL 支持</h3>
+<p>默认情况下，Codex 使用 Windows 原生代理（在 PowerShell 中运行命令）。用户也可将代理切换至 WSL 环境运行，只需在设置中更改代理选项并重启应用。对于存储在 WSL 文件系统中的项目，可通过 <code>\\wsl$\\</code> 路径访问。</p>
+
+<img src="/images/codex/windows/wsl-select-light.webp" alt="Codex app settings showing the agent selector with Windows native and WSL options" />
+
+<h3>必备开发者工具</h3>
+<p>为获得最佳体验，建议安装以下工具：Git（支持审查面板）、Node.js、Python、.NET SDK（用于构建原生 Windows 应用）和 GitHub CLI。可通过 winget 一键安装：</p>
+<pre><code>winget install --id Git.Git
+winget install --id OpenJS.NodeJS.LTS  
+winget install --id Python.Python.3.14
+winget install --id Microsoft.DotNet.SDK.10
+winget install --id GitHub.cli</code></pre>
+
+<h3>故障排除与常见问题</h3>
+<ul>
+<li><strong>权限问题</strong>：如需以管理员权限运行命令，需以管理员身份启动 Codex 应用</li>
+<li><strong>PowerShell 执行策略</strong>：若遇到脚本执行被阻止，可设置执行策略为 RemoteSigned：<code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned</code></li>
+<li><strong>配置共享</strong>：Windows 应用使用 <code>%USERPROFILE%\.codex</code> 目录，WSL 中的 CLI 默认使用 Linux 主目录，可通过设置 <code>CODEX_HOME</code> 环境变量共享配置</li>
+<li><strong>Git 功能不可用</strong>：需在 Windows 上原生安装 Git</li>
+</ul>
+
+<p>该应用在 Product Hunt 上获得 79 票，排名第 10，显示了开发者社区对 Windows 原生 AI 编码工具的期待。</p>]]>
+      </description>
+      <guid isPermaLink="false">1090233</guid>
+      <pubDate>Thu, 05 Mar 2026 08:01:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Aident AI Beta 2：用自然语言构建工作流自动化的AI平台</title>
       <link>https://aident.ai/</link>
@@ -1060,37 +1104,6 @@
 <p>该工具特别适合需要批量处理视频内容、进行营销活动 A/B 测试或希望将视频编辑流程自动化的团队和个人创作者。</p>]]>
       </description>
       <guid isPermaLink="false">1077463</guid>
-      <pubDate>Mon, 02 Mar 2026 08:01:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Didit：一体化身份验证平台，整合KYC、生物识别与欺诈检测</title>
-      <link>https://didit.me/</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 身份验证平台涉及基础设施元素，用户对此不太感兴趣</small></p><p>Didit 是一个一体化身份验证平台，旨在替代分散的身份验证工具，将 KYC（了解你的客户）、生物识别、活体检测和欺诈检测整合到单一平台中。该平台声称能降低70%的成本，减少人工审核，加快用户注册流程。</p>
-
-<p>平台的核心功能包括统一的身份验证堆栈，整合了 ID 验证、活体检测、人脸匹配、AML（反洗钱）筛查、欺诈预防和认证等功能。用户可以通过简单的面部扫描证明身份，或构建完整的 KYC 流程。平台支持全球设备，适应低连接环境，并本地化为48种语言。</p>
-
-<img src="/_next/image/?url=%2Fmedia%2Fbusiness%2Fwhy-didit%2F1.png&w=1920&q=75" alt="Pay Per Use Pricing" width="960" height="680" />
-
-<p>定价方面，Didit 提供每月500次免费检查，之后采用简单的按使用付费模式，无合同、无设置费、无月最低消费。核心 KYC 功能包括 ID 验证、人脸1:1匹配、被动活体检测和 IP 分析。</p>
-
-<p>平台获得了 GDPR 和 ISO 27001 认证，支持欧盟、美国、拉丁美洲和亚太地区的合规要求。集成方式灵活，提供无代码工作流构建器和 API 集成选项，声称可在几分钟内上线，而非数周。</p>
-
-<img src="/_next/image/?url=%2Ficons%2Fcompliance%2Fgdpr.png&w=2048&q=75" alt="GDPR" />
-<img src="/_next/image/?url=%2Ficons%2Fcompliance%2Fibeta.png&w=2048&q=75" alt="iBeta Level 1" />
-
-<p>根据文章内容，Didit 已获得 Y Combinator 支持，被全球1000多家公司使用。客户反馈显示，该平台帮助减少了手动流程，提高了数据提取准确性，并降低了验证时间和成本。</p>
-
-<p>平台的工作流程分为四个步骤：通过可视化编辑器设计身份验证流程；选择集成方式（托管链接、SDK 或 API）；通过仪表板、Webhook 或 API 获取实时结果；基于验证结果设置自动批准和拒绝规则。</p>
-
-<img src="/_next/image/?url=%2Fmedia%2Fbusiness%2Fhow-verification%2F1.png&w=2048&q=75" alt="setup" />
-<img src="/_next/image/?url=%2Fmedia%2Fbusiness%2Fhow-verification%2F2.png&w=2048&q=75" alt="link" />
-<img src="/_next/image/?url=%2Fmedia%2Fbusiness%2Fhow-verification%2F3.png&w=2048&q=75" alt="results" />
-<img src="/_next/image/?url=%2Fmedia%2Fbusiness%2Fhow-verification%2F4.png&w=2048&q=75" alt="automate" />
-
-<p>文章还提到，Didit 可以帮助企业从其他身份验证提供商（如 Sumsub、Veriff、Persona、Onfido 等）快速迁移，声称迁移过程不到一天。</p>]]>
-      </description>
-      <guid isPermaLink="false">1088195</guid>
       <pubDate>Mon, 02 Mar 2026 08:01:00 GMT</pubDate>
     </item>
   </channel>
