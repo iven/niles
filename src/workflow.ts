@@ -4,11 +4,7 @@ import { logger } from "./lib/logger";
 import { applyProcessItems, loadPlugins, type PluginContext } from "./plugin";
 import type { FeedItem } from "./types";
 
-const PIPELINE_PREFIX = [
-  "builtin/deduplicate",
-  "builtin/limit-items",
-  "builtin/clean-text",
-];
+const PIPELINE_PREFIX = ["builtin/deduplicate", "builtin/clean-text"];
 
 interface WorkflowParams {
   sourceName: string;

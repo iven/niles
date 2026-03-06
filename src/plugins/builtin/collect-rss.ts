@@ -6,12 +6,13 @@ import type { FeedItem } from "../../types";
 
 interface CollectRssOptions {
   url: string;
+  maxItems?: number;
 }
 
 const plugin: Plugin<CollectRssOptions> = {
   ...basePlugin,
   async collect(options, context: PluginContext) {
-    const { url } = options;
+    const { url, maxItems } = options;
     if (!url) throw new Error("collect-rss: options.url 未指定");
 
     context.logger.start("开始获取新条目...");
@@ -51,10 +52,11 @@ const plugin: Plugin<CollectRssOptions> = {
       reason: "未分级",
     }));
 
-    context.logger.success(`获取到 ${items.length} 个条目`);
+    const limited = maxItems ? items.slice(0, maxItems) : items;
+    context.logger.success(`获取到 ${limited.length} 个条目`);
     return {
       title: feed.title,
-      items,
+      items: limited,
     };
   },
 };

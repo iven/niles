@@ -19,12 +19,13 @@ const rsshubResponseSchema = z.object({
 
 interface CollectRsshubOptions {
   route: string;
+  maxItems?: number;
 }
 
 const plugin: Plugin<CollectRsshubOptions> = {
   ...basePlugin,
   async collect(options, context: PluginContext) {
-    const { route } = options;
+    const { route, maxItems } = options;
     if (!route) throw new Error("collect-rsshub: options.route 未指定");
 
     context.logger.start("开始获取新条目...");
@@ -52,10 +53,11 @@ const plugin: Plugin<CollectRsshubOptions> = {
       reason: "未分级",
     }));
 
-    context.logger.success(`获取到 ${items.length} 个条目`);
+    const limited = maxItems ? items.slice(0, maxItems) : items;
+    context.logger.success(`获取到 ${limited.length} 个条目`);
     return {
       title: parseResult.data.title,
-      items,
+      items: limited,
     };
   },
 };
