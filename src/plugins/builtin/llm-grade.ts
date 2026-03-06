@@ -8,8 +8,14 @@ import { z } from "zod";
 import { handleStreamWithToolCall } from "../../lib/llm";
 
 import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
-import type { FeedItem, GradeResult } from "../../types";
-import { gradeResultSchema } from "../../types";
+import type { FeedItem } from "../../types";
+
+const gradeResultSchema = z.object({
+  guid: z.string().min(1),
+  level: z.enum(["critical", "recommended", "optional", "rejected"]),
+  reason: z.string().min(1),
+});
+type GradeResult = z.infer<typeof gradeResultSchema>;
 
 const GRADE_SYSTEM_PROMPT = `# 任务：内容分级
 

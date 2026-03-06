@@ -5,11 +5,19 @@
 
 import { chat } from "@tanstack/ai";
 import pLimit from "p-limit";
+import { z } from "zod";
 import { handleStreamWithToolCall } from "../../lib/llm";
 
 import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
-import type { FeedItem, SummaryResult } from "../../types";
-import { summaryResultSchema } from "../../types";
+import type { FeedItem } from "../../types";
+
+const summaryResultSchema = z.object({
+  guid: z.string().min(1),
+  title: z.string().min(1),
+  description: z.string().min(1),
+  rejected: z.boolean(),
+});
+type SummaryResult = z.infer<typeof summaryResultSchema>;
 
 const SUMMARIZE_SYSTEM_PROMPT = `# 角色
 
@@ -194,7 +202,9 @@ const plugin: Plugin<SummarizeOptions> = {
     const pluginContext = options.context;
     const maxConcurrency = options.maxConcurrency || 10;
 
-    const itemsToSummarize = items.filter((item) => item.level !== "rejected");
+    const itemsToSummarize = items.filter(
+      (item) => item.level !== "rejected" && !item.extra.skipSummarize,
+    );
 
     if (itemsToSummarize.length === 0) {
       return items;

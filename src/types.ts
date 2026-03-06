@@ -24,20 +24,3 @@ export const feedItemSchema = z.object({
 });
 
 export type FeedItem = z.infer<typeof feedItemSchema>;
-
-// 分级结果（LLM 返回的格式）
-export const gradeResultSchema = z.object({
-  guid: z.string().min(1),
-  level: z.enum(["critical", "recommended", "optional", "rejected"]),
-  reason: z.string().min(1),
-});
-export type GradeResult = z.infer<typeof gradeResultSchema>;
-
-// 总结结果（LLM 返回的格式）
-export const summaryResultSchema = z.object({
-  guid: z.string().min(1),
-  title: z.string().min(1),
-  description: z.string().min(1),
-  rejected: z.boolean(),
-});
-export type SummaryResult = z.infer<typeof summaryResultSchema>;
