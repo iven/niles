@@ -2,8 +2,6 @@ import { GuidTracker } from "../../lib/guid-tracker";
 import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
-const DRY_RUN_ITEMS = 3;
-
 const plugin: Plugin = {
   ...basePlugin,
   async processItems(
@@ -21,10 +19,6 @@ const plugin: Plugin = {
     tracker.cleanup();
     await tracker.persist();
 
-    const selectedGuids = context.isDryRun
-      ? new Set(items.slice(0, DRY_RUN_ITEMS).map((item) => item.guid))
-      : new Set(newItems.map((item) => item.guid));
-
     const skipped = items.length - newItems.length;
     if (skipped > 0) {
       context.logger.success(
@@ -33,17 +27,15 @@ const plugin: Plugin = {
     } else {
       context.logger.success(`去重完成，${newItems.length} 个新条目`);
     }
+
     if (context.isDryRun) {
-      context.logger.debug(`  dry-run 模式，取前 ${DRY_RUN_ITEMS} 条`);
-      for (const item of items.slice(0, DRY_RUN_ITEMS)) {
-        context.logger.debug(`    - ${item.title}`);
-      }
+      context.logger.debug("  dry-run 模式，返回原始输入（不过滤已处理条目）");
+      return items;
     }
 
+    const newGuids = new Set(newItems.map((item) => item.guid));
     return items.map((item) =>
-      selectedGuids.has(item.guid)
-        ? item
-        : { ...item, level: "rejected" as const },
+      newGuids.has(item.guid) ? item : { ...item, level: "rejected" as const },
     );
   },
 };

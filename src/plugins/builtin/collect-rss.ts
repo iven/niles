@@ -53,10 +53,11 @@ const plugin: Plugin<CollectRssOptions> = {
     }));
 
     const limited = maxItems ? items.slice(0, maxItems) : items;
-    context.logger.success(`获取到 ${limited.length} 个条目`);
+    const result = context.isDryRun ? limited.slice(0, 3) : limited;
+    context.logger.success(`获取到 ${result.length} 个条目`);
     return {
       title: feed.title,
-      items: limited,
+      items: result,
     };
   },
 };
