@@ -3,7 +3,53 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Fri, 06 Mar 2026 23:38:19 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Mar 2026 02:44:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.71 发布：新增循环命令和cron调度工具</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.71</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code工具新版本发布，新增循环命令和cron调度工具属于编程效率改进，完全符合用户对编程工具发布的高度兴趣配置</small></p><p>Claude Code 发布了 v2.1.71 版本，带来了多项新功能和重要修复。本次更新主要增加了循环执行命令和定时调度功能，并修复了多个影响用户体验的关键问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增 /loop 命令</strong>：可以定期运行提示或斜杠命令，例如 <code>/loop 5m check the deploy</code> 会每5分钟执行一次检查部署操作</li>
+<li><strong>新增cron调度工具</strong>：为会话内的定期提示提供了调度功能</li>
+<li><strong>新增可重新绑定的语音激活键</strong>：通过 <code>voice:pushToTalk</code> 键绑定配置，支持在 <code>keybindings.json</code> 中重新绑定（默认：空格键）</li>
+<li><strong>修复stdin冻结问题</strong>：解决了长运行会话中按键停止处理但进程仍存活的冻结问题</li>
+<li><strong>修复启动冻结问题</strong>：解决了启用语音模式用户遇到的5-8秒启动冻结，该问题由系统唤醒后CoreAudio初始化阻塞主线程引起</li>
+<li><strong>修复启动UI冻结</strong>：解决了多个claude.ai代理连接器同时刷新过期OAuth令牌时的UI冻结问题</li>
+<li><strong>修复分叉对话问题</strong>：解决了 <code>/fork</code> 命令创建的分叉对话共享同一计划文件的问题，避免了一个分叉中的计划编辑覆盖另一个</li>
+</ul>
+
+<h3>其他改进和修复</h3>
+<ul>
+<li>将 <code>fmt</code>、<code>comm</code>、<code>cmp</code>、<code>numfmt</code>、<code>expr</code>、<code>test</code>、<code>printf</code>、<code>getconf</code>、<code>seq</code>、<code>tsort</code> 和 <code>pr</code> 添加到bash自动批准白名单</li>
+<li>修复Read工具在处理失败时将过大图像放入上下文的问题，该问题会破坏图像密集的长会话的后续交互</li>
+<li>修复包含heredoc提交信息的复合bash命令的错误权限提示</li>
+<li>修复运行多个Claude Code实例时插件安装丢失的问题</li>
+<li>修复claude.ai连接器在OAuth令牌刷新后无法重新连接的问题</li>
+<li>修复claude.ai MCP连接器启动通知为每个组织配置的连接器显示的问题，现在仅显示先前连接过的</li>
+<li>修复后台代理完成通知缺少输出文件路径的问题，该问题使父代理在上下文压缩后难以恢复代理结果</li>
+<li>修复Bash工具错误消息中命令以非零状态退出时的重复输出</li>
+<li>修复在没有本地Chrome的机器上运行后Chrome扩展自动检测永久卡在"未安装"状态的问题</li>
+<li>修复市场固定到分支/标签引用时 <code>/plugin marketplace update</code> 因合并冲突失败的问题</li>
+<li>修复 <code>/plugin marketplace add owner/repo@ref</code> 错误解析 <code>@</code> 的问题</li>
+<li>修复 <code>/permissions</code> Workspace选项卡中相同目录带和不带尾部斜杠时出现重复条目的问题</li>
+<li>修复配置团队代理时 <code>--print</code> 永久挂起的问题</li>
+<li>修复每次 <code>ToolSearch</code> 调用后REPL中出现"❯ Tool loaded."的问题</li>
+<li>改进启动时间：将原生图像处理器加载延迟到首次使用时</li>
+<li>改进桥接会话重新连接：笔记本电脑从睡眠唤醒后几秒内完成，而不是等待最多10分钟</li>
+<li>改进 <code>/plugin uninstall</code>：在 <code>.claude/settings.local.json</code> 中禁用项目范围插件，而不是修改 <code>.claude/settings.json</code>，避免影响队友</li>
+<li>改进插件提供的MCP服务器去重：跳过重复手动配置服务器的插件服务器，防止重复连接和工具集</li>
+<li>更新 <code>/debug</code>：支持在会话中切换调试日志记录</li>
+<li>移除未经验证的组织注册claude.ai连接器的启动通知噪音</li>
+</ul>
+
+<p>本次更新显著提升了工具的稳定性和用户体验，特别是解决了多个影响长期使用的关键问题，并增加了实用的定时执行功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.71</guid>
+      <pubDate>Sat, 07 Mar 2026 00:12:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.59发布：新增自动记忆管理和代码块复制功能</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.59</link>
