@@ -3,7 +3,47 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 07 Mar 2026 09:42:10 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Mar 2026 10:46:21 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ LLM生成代码的陷阱：看似合理但性能低劣的SQLite重写案例</title>
+      <link>https://news.ycombinator.com/item?id=47283337</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深入分析LLM生成代码的陷阱和性能问题，属于编程效率改进经验，符合用户高兴趣配置</small></p><p>一篇技术分析文章揭示了一个由大型语言模型（LLM）生成的SQLite Rust重写项目存在的严重性能问题。虽然该项目编译通过、测试通过，但在基本数据库操作上比原版SQLite慢20,000倍。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!3Nvv!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe1a72ec7-4e57-4b89-b528-0a5e402aa25c_1595x300.png" alt="性能对比图表" width="1456" height="274" />
+
+<p>作者通过详细的基准测试发现，这个576,000行Rust代码的重写项目存在两个主要缺陷：</p>
+
+<ol>
+<li><strong>查询规划器错误</strong>：无法识别INTEGER PRIMARY KEY列，导致所有WHERE查询都进行全表扫描（O(n²)而非O(n log n)）</li>
+<li><strong>过度同步</strong>：每个INSERT语句都调用fsync，而SQLite使用更高效的fdatasync</li>
+</ol>
+
+<p>此外，项目还存在一系列"安全但低效"的设计选择：每次调用都克隆AST、为每次读取分配新内存、每次自动提交都重新加载模式等。这些选择单独看都有道理，但组合起来导致性能严重下降。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!b3NO!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F503cef77-5d11-4c3b-8b94-ef3a09599d87_1212x811.png" alt="性能基准测试结果" width="1212" height="811" />
+
+<p>作者还分析了同一开发者的另一个项目：一个82,000行的Rust清理守护进程，用于删除旧的Rust构建工件。而实际上，这个问题可以用一行cron命令解决：<code>find ~/*/target -type d -name "incremental" -mtime +7 -exec rm -rf {} +</code>。</p>
+
+<p>文章指出，LLM倾向于生成"看似合理"而非"正确"的代码，这种现象在AI对齐研究中被称为"谄媚性"（sycophancy）——模型更倾向于生成符合用户期望而非实际正确的输出。</p>
+
+<p>在Hacker News社区讨论中，用户们对此展开了热烈讨论：</p>
+<ul>
+<li>有用户指出LLM在视觉任务上表现不佳，因为它们本质上是文本预测模型</li>
+<li>有经验丰富的开发者表示，LLM在资深工程师手中能产生高质量代码，但在初级工程师手中则可能产生问题代码</li>
+<li>有评论认为，使用LLM时需要在提示中明确性能要求，否则模型不会自动优化</li>
+<li>有用户分享了LLM倾向于生成复杂解决方案而非简单有效方案的经验</li>
+</ul>
+
+<p>文章的核心观点是：LLM在生成代码时，用户必须首先明确定义验收标准。模型会生成符合描述而非实际需要的代码，这对于缺乏验证能力的用户尤其危险。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!2ZlV!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe285c785-4563-4e17-9c37-375e64c52008_908x600.png" alt="COCOMO模型估算" width="908" height="600" />
+
+<p>作者引用Tony Hoare的话总结道："构建软件设计有两种方式：一种是让它简单到显然没有缺陷，另一种是让它复杂到没有明显的缺陷。"LLM生成的代码往往属于后者。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47283337</guid>
+      <pubDate>Sat, 07 Mar 2026 01:17:57 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 60岁程序员分享：Claude Code重新点燃编程热情</title>
       <link>https://news.ycombinator.com/item?id=47282777</link>
@@ -1310,25 +1350,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47207404</guid>
       <pubDate>Sun, 01 Mar 2026 15:09:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>卡内基梅隆大学推出&quot;现代人工智能导论&quot;课程：从零实现AI聊天机器人的实践教学</title>
-      <link>https://news.ycombinator.com/item?id=47204559</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] AI教育课程，与AI技术相关但不是直接的技术进展或工具发布</small></p><p>卡内基梅隆大学（CMU）将于2026年春季首次开设"现代人工智能导论"课程，由Zico Kolter教授授课。该课程同时提供线下校园版本和免费的线上版本，线上内容比线下晚两周发布。</p>
-
-<p>课程聚焦于现代人工智能系统，特别是大型语言模型（LLMs）如ChatGPT、Gemini和Claude背后的技术。课程设计理念是让学生从零开始实现一个基本的AI聊天机器人，涵盖监督学习、神经网络、Transformer架构、大语言模型实现、微调、对齐、强化学习等核心主题。</p>
-
-<p>课程包含7个逐步深入的编程作业：从线性代数和PyTorch基础开始，到自动微分、线性模型训练、神经网络实现、Transformer构建、最小化LLM实现，最后进行监督微调和强化学习。评分体系包括作业（20%）、作业测验（40%）和考试（40%）。</p>
-
-<p>课程有一个特别的<a href="https://news.ycombinator.com/item?id=47204559">AI使用政策</a>：允许学生在作业中使用AI助手作为学习工具，但强烈建议最终提交版本不使用AI，考试则完全禁止使用。政策指出AI可以作为学习工具，但过度依赖可能不利于真正理解材料。</p>
-
-<p>在Hacker News社区讨论中，有用户对课程标题"现代AI"仅指LLMs表示不满，认为现代AI应包含更广泛领域如计算机视觉、强化学习等。也有评论赞赏课程的AI政策，认为AI应该作为加速理解过程的工具，但最终评估应独立完成。还有用户提到授课教师<a href="https://openai.com/index/zico-kolter-joins-openais-board-of-directors/">Zico Kolter同时也是OpenAI的董事会成员</a>。</p>
-
-<p>课程将于2026年1月12日开始，所有材料将通过<a href="https://modernaicourse.org">课程网站</a>提供，线上学习者可以注册接收讲座和作业的邮件通知。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47204559</guid>
-      <pubDate>Sun, 01 Mar 2026 07:35:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
