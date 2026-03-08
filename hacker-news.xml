@@ -3,7 +3,61 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 07 Mar 2026 23:35:23 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2026 03:12:08 GMT</lastBuildDate>
+    <item>
+      <title>将邮政编码放在首位：优化地址表单设计的呼吁</title>
+      <link>https://news.ycombinator.com/item?id=47292485</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为地址表单UI/UX设计优化，属于用户体验设计领域，用户配置中未明确提及，与软件新功能有一定关联但兴趣不明确，适合optional级别</small></p><p>一篇关于地址表单设计的文章引发了广泛讨论，作者强烈主张将邮政编码（ZIP code）放在表单首位，通过免费API自动填充城市、州和国家信息，从而大幅提升用户体验。</p>
+
+<p>文章指出，美国邮政编码仅需5个字符，就能确定城市、州和国家三个字段。作者提供了简单的代码示例：<code>const res = await fetch(`https://api.zippopotam.us/us/${zip}`)</code>，即可实现自动填充。这种设计能减少用户输入、提高数据准确性，并让街道地址的自动补全更加精准。</p>
+
+<p>作者批评了当前常见的糟糕表单设计，分为四个等级：</p>
+<ul>
+<li>第一级：邮政编码放在最后（亚马逊、Target、沃尔玛等普遍采用）</li>
+<li>第二级：收集邮政编码但不做任何自动填充</li>
+<li>第三级：可滚动的国家下拉菜单，包含240个国家且无搜索功能</li>
+<li>第四级：点击返回按钮后表单内容全部清空</li>
+</ul>
+
+<p>文章还提出了其他改进建议：为邮政编码使用<code>inputmode="numeric"</code>属性调用数字键盘；正确使用自动填充属性；以及考虑先选择国家再输入邮政编码的方案。</p>
+
+<p>在Hacker News的183条评论中，主要讨论点包括：</p>
+<ul>
+<li>一些邮政编码确实对应多个城市，自动填充可能不准确</li>
+<li>国际用户问题：非美国邮政编码可能导致错误填充到美国地址</li>
+<li>建议先通过IP地址预选国家，再输入邮政编码</li>
+<li>不同国家的邮政编码格式和验证规则差异很大</li>
+<li>部分评论者支持这一理念，认为能显著改善用户体验</li>
+</ul>
+
+<p>尽管存在国际兼容性的挑战，但文章的核心观点——利用已有数据减少用户不必要的输入——得到了许多开发者的认同。作者呼吁网站设计者重新思考地址表单的设计逻辑，采用更智能的解决方案。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47292485</guid>
+      <pubDate>Sat, 07 Mar 2026 23:26:26 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ CasNum：使用尺规作图实现任意精度算术的库</title>
+      <link>https://news.ycombinator.com/item?id=47291292</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源数学计算库，属于编程工具发布和开源项目，符合用户high_interest(编程工具发布/分享)和interest(开源项目)配置</small></p><p>CasNum（Compass and straightedge Number）是一个开源库，通过尺规作图（仅使用圆规和直尺的几何构造）实现任意精度算术。该项目还包含一个修改版的 Game Boy 模拟器，其中所有算术逻辑单元（ALU）操作码都完全通过几何构造实现。</p>
+
+<img src="/0x0mer/CasNum/raw/main/screenshots/vid.gif" alt="Demo" />
+
+<p>该库的核心是一个尺规作图引擎，从两个基本点（原点和单位点）开始，支持五种基本构造：通过两点的直线、以一点为中心过另一点的圆、两条直线的交点、直线与圆的交点、两圆的交点。在引擎基础上，CasNum 类将数字 x 表示为平面上的点 (x,0)，并实现了所有算术和逻辑运算。</p>
+
+<p>项目展示了两个实际应用：简单的 RSA 程序，以及集成到 <a href="https://github.com/Baekalfen/PyBoy">PyBoy</a> Game Boy 模拟器中的 ALU。在模拟器示例中，首次运行《精灵宝可梦》需要约15分钟启动，后续运行由于缓存机制可达到0.5~1 FPS。</p>
+
+<p>社区反响热烈，该项目在 Hacker News 上获得195分和24条评论。用户称赞这是"最近见过最酷的东西"，作者幽默地回应了关于性能和使用动机的问题。讨论中还提到了<a href="https://en.wikipedia.org/wiki/Constructible_number">可构造数</a>的数学概念，以及尺规作图在解决古典几何问题中的应用。</p>
+
+<p>作者表示，除了可视化构造的图形窗口部分使用了AI生成代码外，其余代码均为手工编写。项目采用 MIT 许可证，并包含了基于 LGPL 许可证的修改版 PyBoy 和 zlib 许可证的 2048.gb ROM。</p>
+
+<h3>你知道吗？</h3>
+<p>尺规作图是古希腊数学中的经典方法，只允许使用没有刻度的直尺和圆规进行几何构造。古典几何三大难题——化圆为方、倍立方体、三等分角——都被证明无法用尺规作图解决。CasNum 项目虽然不能"化圆为方"，但通过将尺规作图原理应用于计算机算术，创造性地连接了古典几何与现代计算。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47291292</guid>
+      <pubDate>Sat, 07 Mar 2026 20:43:51 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ FLASH放射治疗：毫秒级超高剂量辐射的癌症治疗新突破</title>
       <link>https://news.ycombinator.com/item?id=47288533</link>
@@ -1277,51 +1331,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47218743</guid>
       <pubDate>Mon, 02 Mar 2026 14:54:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenClaw 超越 React 成为 GitHub 上星标最多的软件项目</title>
-      <link>https://news.ycombinator.com/item?id=47217812</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于OpenClaw开源项目成为GitHub星标最多项目的里程碑新闻，属于用户感兴趣的开源项目领域</small></p><p>根据 star-history.com 的数据，AI 代理工具 OpenClaw 在 GitHub 上的星标数已超过 25 万，超越了长期占据榜首的 React，成为星标最多的非聚合类软件项目。这一里程碑事件发生在 OpenClaw 超越 Linux 登上第 14 位仅五周之后。</p>
-
-<p>OpenClaw 的增长速度令人瞩目：从零开始不到四个月便登顶 GitHub 星标榜，且增长势头未见减缓。图表显示其星标数曲线极为陡峭，与 React 和 Linux 的平缓增长形成鲜明对比。</p>
-
-<img src="/assets/blog/clawflare/openclaw.webp" alt="OpenClaw Surpasses React to Become the Most-Starred Software Project on GitHub" />
-<img src="https://api.star-history.com/svg?repos=facebook/react,openclaw/openclaw,torvalds/linux&type=Date" alt="Star History Chart" />
-
-<p>Hacker News 社区对此现象展开了热烈讨论。许多评论者质疑 GitHub 星标作为项目质量指标的有效性，认为这更多是「人气竞赛」。有用户讽刺道：「GitHub 星标很适合衡量一个项目有多少 GitHub 星标。」</p>
-
-<p>更引人关注的是对 OpenClaw 星标暴涨原因的猜测。多名用户怀疑这可能涉及 AI 代理的自动星标行为，有人调侃：「也许是成群结队的 AI 代理联手给同类项目点星？」「给 OpenClaw 仓库点星会不会是新安装的默认『Hello World』任务？」</p>
-
-<p>关于 OpenClaw 的实际应用价值，社区意见分歧。部分用户表示难以找到有效用例：「我设置了但不知道用它做什么。」另一些用户则认为可能是自身缺乏想象力，未能发掘其潜力。还有评论提及该项目可能存在的「刷星」争议。</p>
-
-<p>这一事件再次引发了关于开源项目评价体系的讨论，以及 AI 工具在开源生态中可能带来的新现象。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47217812</guid>
-      <pubDate>Mon, 02 Mar 2026 13:38:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 为什么XML标签对Claude如此重要</title>
-      <link>https://news.ycombinator.com/item?id=47207236</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论XML标签在AI模型Claude中的应用，属于AI软件技术进展，用户对此感兴趣</small></p><p>这篇文章探讨了XML标签在Anthropic的Claude AI模型中的基础性作用。根据Hacker News社区的讨论，XML标签对Claude的重要性主要体现在几个方面。</p>
-
-<p>首先，Claude最初通过XML标签暴露工具调用功能，后来才引入JSON API。用户指出，Claude可能仍然在内部将工具调用模板化为XML格式，然后传递给模型上下文。这种设计使得XML成为Claude理解结构化指令的自然选择。</p>
-
-<p>社区讨论显示，XML标签在提示工程中起到关键作用。与普通文本分隔符（如引号）相比，XML提供了更明确的结构化语义分隔。用户提到，即使使用自定义标签如<code>&lt;think&gt;</code>或<code>&lt;reason&gt;</code>，模型也能理解其意图，这表明Claude对XML格式有深入的理解。</p>
-
-<p>技术细节方面，评论指出Claude的工具调用使用特定的XML命名空间，如<code>antml:invoke</code>，这有助于区分用户输入和系统指令，避免冲突。这种命名空间机制提供了额外的隔离层。</p>
-
-<p>关于XML与JSON的对比，社区意见不一。一些用户认为XML更易读，特别是当数据包含JSON语法中有特殊含义的字符时；而另一些用户则偏好JSON的简洁性，认为其缺少结束标签使得代码更清晰。</p>
-
-<p>实际应用方面，用户分享了使用XML标签的经验。例如，在文档处理和信息提取任务中，有人发现使用简单的键值对格式（如<code>input: ...</code>、<code>output: ...</code>）比完整XML结构效果更好，但这可能因具体用例而异。</p>
-
-<p>社区还讨论了Anthropic官方文档中关于XML提示的建议。有用户批评文档中的示例看起来像是AI生成的，存在格式不一致等问题，但随后确认这些确实是Anthropic官方文档的截图。</p>
-
-<p>总体而言，XML标签在Claude中的重要性源于其结构化特性、与工具调用系统的深度集成，以及模型训练数据中大量HTML/XML内容的影响。这种设计选择反映了AI系统与现有网络标准之间的紧密联系。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47207236</guid>
-      <pubDate>Sun, 01 Mar 2026 14:52:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
