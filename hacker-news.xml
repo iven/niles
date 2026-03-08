@@ -3,7 +3,33 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 08 Mar 2026 09:42:58 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 08 Mar 2026 10:42:11 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 大语言模型写作陈词滥调大全：识别AI生成文本的常见模式</title>
+      <link>https://news.ycombinator.com/item?id=47291513</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为AI写作陈词滥调识别与避免，涉及AI软件技术进展和编程效率改进经验，用户对此感兴趣</small></p><p>一份名为《LLM写作陈词滥调》的Markdown文件在Hacker News社区引发关注，该文件系统性地整理了大语言模型（LLM）生成文本中的常见写作模式和语言特征。文件作者表示，这份文档本身也是AI辅助创建的，体现了"用AI对抗AI"的讽刺意味。</p>
+
+<p>文档将AI写作陈词滥调分为多个类别：</p>
+
+<ul>
+<li><strong>词汇选择</strong>：过度使用"quietly"、"delve"、"tapestry"、"landscape"等词汇，以及用"serves as"等复杂表达替代简单的"is"</li>
+<li><strong>句子结构</strong>：包括"否定平行结构"（"It's not X — it's Y"）、"戏剧性倒计时模式"（"Not X. Not Y. Just Z."）、自问自答的修辞问题（"The X? A Y."）等</li>
+<li><strong>段落结构</strong>：过度使用短句片段作为独立段落，以及将列表伪装成连续散文</li>
+<li><strong>语气风格</strong>：如"Here's the kicker"制造虚假悬念、"Think of It As..."的居高临下类比、"Imagine a World Where..."的未来主义邀请等</li>
+<li><strong>格式特征</strong>：破折号滥用、每个列表项都以粗体开头的格式化方式、使用特殊Unicode字符等</li>
+<li><strong>结构问题</strong>：如"分形总结"（在各个层级重复总结内容）、"死隐喻"（抓住一个隐喻反复使用）</li>
+</ul>
+
+<p>Hacker News社区对此展开了热烈讨论。有用户指出，即使将这些指导加入系统提示，LLM往往也会忽略这些指令，可能是因为预训练/强化学习权重过于强大，系统提示难以覆盖。还有用户分享了<a href="https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing">Wikipedia上关于AI写作迹象的指南</a>作为补充资源。</p>
+
+<p>一位从事LLM写作风格研究的学者表示，他们发现GPT-4o最过度使用的词是"camaraderie"（同志情谊），其次是"tapestry"（挂毯），并指出这些风格异常主要来自指令微调而非预训练数据。讨论中还提到，Claude模型特别喜欢使用"genuinely"（真正地）一词，而Gemini在拒绝回答问题时常用"I'll shoot straight with you"（我直说吧）这样的开场白。</p>
+
+<p>许多用户反映，这些写作模式在YouTube视频脚本、技术博客和在线论坛中越来越常见，影响了内容质量。有用户甚至开发了自托管解决方案，避免接触AI生成内容，同时保留喜欢的创作者内容。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47291513</guid>
+      <pubDate>Sat, 07 Mar 2026 21:08:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 文件系统复兴：AI代理为何重新拥抱文件作为交互接口</title>
       <link>https://news.ycombinator.com/item?id=47286408</link>
@@ -1314,31 +1340,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47206663</guid>
       <pubDate>Sun, 01 Mar 2026 13:49:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 从零构建低于500毫秒延迟的语音代理：轮次检测与延迟优化的关键突破</title>
-      <link>https://news.ycombinator.com/item?id=47224295</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲语音代理技术的实现和优化，属于AI软件技术进展领域，符合用户对AI技术进展的兴趣</small></p><p>作者详细分享了如何从零开始构建一个端到端延迟约400毫秒的语音代理系统，这一性能比市面上的Vapi等平台快2倍。文章揭示了语音代理的核心挑战不是单个模型的质量，而是各个组件之间的协调优化。</p>
-
-<p>语音交互的本质是"轮流说话"问题，而非简单的语音识别。作者首先使用Silero VAD（语音活动检测）建立基础状态机，但发现纯VAD无法准确判断用户何时真正结束发言。随后转向Deepgram Flux，该服务结合了流式转录和语义端点检测，能更准确地识别轮次边界。</p>
-
-<img src="/voice-agent-essay/v-final-architecture-diagram.png" alt="完整的语音代理架构图" />
-
-<p>系统架构围绕一个核心状态机：用户说话时，代理必须立即停止所有音频生成；用户停止时，代理需以最小延迟开始响应。作者构建了完整的STT（语音转文本）→ LLM（大语言模型）→ TTS（文本转语音）流水线，所有组件都采用流式处理以避免阻塞。</p>
-
-<p>关键优化包括：保持TTS WebSocket连接池预热（节省300毫秒）、将所有服务部署在同一地理区域（欧盟部署使延迟从1.7秒降至790毫秒）。但最大的突破来自模型选择——Groq的LLaMA-3.3-70b模型实现了约80毫秒的TTFT（首次令牌时间），这是人类眨眼速度的水平。</p>
-
-<img src="/voice-agent-essay/comparing-provider-latency.png" alt="不同LLM提供商的首次令牌延迟对比" />
-
-<p>最终系统实现了约400毫秒的端到端延迟，作者表示"对话感觉流畅，我回复的时间比代理还长"。社区反馈积极，有读者提到Soniox的端点检测可能更好，也有人讨论端到端模型的未来潜力。</p>
-
-<p>技术要点总结：1）延迟是语音代理体验的决定因素；2）TTFT占延迟的大部分，模型选择至关重要；3）地理位置比提示词优化影响更大；4）流水线化所有组件避免阻塞；5）轮次检测需要语义理解而非仅音量检测。</p>
-
-<p>项目代码已在<a href="https://github.com/NickTikhonov/shuo">GitHub开源</a>，作者表示构建过程仅需一天和约100美元的API费用，但深入理解系统架构对于优化至关重要。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47224295</guid>
-      <pubDate>Mon, 02 Mar 2026 21:23:40 GMT</pubDate>
     </item>
   </channel>
 </rss>
