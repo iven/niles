@@ -3,7 +3,28 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 08 Mar 2026 23:36:14 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 09 Mar 2026 03:15:00 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.0-rc3发布：Linus称其为&quot;近年来最大的&quot;版本之一</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-rc3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍Linux内核7.0-rc3发布，属于底层基础设施更新，用户兴趣配置中对基础设施不太感兴趣，且来源配置中未明确包含内核主题，故判断为可选内容。</small></p><p>Linux内核7.0的第三个候选版本（rc3）已发布，为预计4月中旬推出的稳定版Linux 7.0做准备。该版本包含大量错误修复和回归修正，其中一些重要更新包括：</p>
+<ul>
+<li>修复了slab性能的"严重"回归问题</li>
+<li>通过不同的x86平台驱动程序新增对Dell、ASUS、OneXPlayer、Lenovo等新硬件的支持</li>
+<li>针对AMD Zen 2 CPU的网络性能优化，带来约1.5%的性能提升</li>
+<li>修复了Apple Magic Trackpad 2的电池报告问题</li>
+<li>为AMD SEV-SNP客户虚拟机添加了IBPB-On-Entry安全特性</li>
+<li>修复了新一代Intel CPU的Sub-NUMA Clustering（SNC）拓扑问题</li>
+</ul>
+<p>Linux 7.0将成为Ubuntu 26.04 LTS和Fedora 44等发行版的默认内核。<img src="//www.phoronix.net/image.php?id=2026&image=linux_70_rc3" alt="Linux 7.0-rc3 Git tag" /></p>
+<p>Linus Torvalds在发布公告中表示，rc2已经是"近年来最大的"版本之一，而rc3甚至比rc2更大。他指出，虽然规模较大，但rc3中近五分之一的补丁是自测代码，其余部分也没有特别令人担忧的内容。许多提交只是小的清理工作、硬件ID添加或调整等。Torvalds希望开发活动能尽快平静下来，尤其是考虑到Ubuntu 26.04 LTS的紧张时间表。</p>
+<h3>你知道吗？</h3>
+<p>IBPB-On-Entry是AMD为SEV-SNP（安全加密虚拟化-安全嵌套分页）虚拟机引入的安全特性，主要出现在最新的AMD EPYC Zen 5服务器处理器中。该特性通过在虚拟机入口点使用间接分支预测屏障（IBPB）来防止某些类型的侧信道攻击，增强虚拟化环境的安全性。SEV-SNP是AMD安全加密虚拟化技术的第三代，提供了更强大的内存完整性和机密性保护。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-rc3</guid>
+      <pubDate>Mon, 09 Mar 2026 00:27:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ CachyOS 2026年3月更新：手持设备版改用Wayland，安装程序移除Bcachefs支持</title>
       <link>https://www.phoronix.com/news/CachyOS-March-2026</link>
@@ -877,27 +898,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.04-Snapshot-4</guid>
       <pubDate>Fri, 27 Feb 2026 00:26:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ sudo-rs 打破传统：Ubuntu 26.04 默认启用密码星号反馈</title>
-      <link>https://www.phoronix.com/news/sudo-rs-password-feedback</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍sudo-rs（Rust编写的sudo工具）默认启用密码反馈的新功能，属于新软件项目功能更新，用户对Rust和新软件项目感兴趣。</small></p><p>sudo-rs 项目在 Ubuntu 26.04 开发版本中做出了一个重大改变：默认启用密码反馈功能，用户在终端输入 sudo 密码时会看到星号(*)显示。这一改变打破了数十年来出于安全考虑不显示密码长度的传统做法。</p>
-
-<p>传统上，sudo 命令为了防范"肩窥攻击"（shoulder surfing），在用户输入密码时不提供任何视觉反馈，以避免泄露密码长度信息。然而，sudo-rs 开发者认为这种安全收益微乎其微，而新用户对没有反馈的困惑则是一个更大的用户体验问题。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=sudo_rs_pwfeedback_med" alt="sudo-rs password feedback" />
-
-<p>这一改变源于去年10月的一份<a href="https://github.com/memorysafety/sudo-rs/issues/1000">bug报告</a>，要求默认启用 pwfeedback 以"做出合理的现代用户体验决策"。sudo-rs 开发者两周前正式将默认设置改为显示星号，但仍允许用户通过配置显式关闭此功能。</p>
-
-<p>然而，并非所有人都对这一改变感到满意。在相关的<a href="https://bugs.launchpad.net/ubuntu/+source/sudo-rs/+bug/2071238">Ubuntu bug报告</a>中，有用户强烈抗议："这次升级前，输入密码时什么都不显示，这是预期的。升级后，我居然看到了星号！为什么？！这违背了数十年来不向肩窥者泄露密码长度的做法！"</p>
-
-<p>尽管存在争议，sudo-rs 开发者似乎不打算撤回这一默认改变。Ubuntu 26.04 开发版本现已采用此设置，相关 bug 报告被标记为"不予修复"。想要恢复传统行为的用户需要在配置中添加"Defaults !pwfeedback"设置。</p>
-
-<p><strong>你知道吗？</strong> sudo-rs 是 sudo 命令的 Rust 语言重写版本，旨在提高安全性并利用 Rust 的内存安全特性。这一改变反映了开源项目中用户体验与安全传统之间的平衡考量，也显示了随着更多非技术用户使用 Linux，开发者对易用性的重视程度正在提高。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/sudo-rs-password-feedback</guid>
-      <pubDate>Thu, 26 Feb 2026 21:31:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
