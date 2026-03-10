@@ -3,7 +3,52 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Tue, 10 Mar 2026 04:50:59 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2026 06:00:28 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.70 版本更新：多项错误修复与功能改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.70</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Claude Code编程工具版本更新，属于用户很感兴趣的编程工具发布/分享类别，故标记为必看内容</small></p><p>Claude Code 发布了 v2.1.70 版本，本次更新包含多项错误修复、性能优化和功能改进，主要解决了 API 错误、工具搜索、提示缓存等问题，并引入了新的 VS Code 集成功能。</p>
+
+<h3>主要修复与改进</h3>
+<ul>
+<li>修复了使用 <code>ANTHROPIC_BASE_URL</code> 与第三方网关时的 API 400 错误，工具搜索现在能正确检测代理端点并禁用 <code>tool_reference</code> 块</li>
+<li>修复了使用自定义 Bedrock 推理配置或其他不符合标准 Claude 命名模式的模型标识符时出现的 <code>API Error: 400 This model does not support the effort parameter</code> 错误</li>
+<li>修复了 <code>ToolSearch</code> 后立即出现空模型响应的问题，服务器现在以系统提示样式标签渲染工具模式，避免模型过早停止</li>
+<li>修复了当带有 <code>instructions</code> 的 MCP 服务器在第一轮之后连接时导致的提示缓存失效问题</li>
+<li>修复了在慢速 SSH 连接上打字时 Enter 键插入换行符而非提交的问题</li>
+<li>修复了 markdown 链接中包含 <code>#NNN</code> 引用时错误指向当前仓库而非目标 URL 的问题</li>
+<li>修复了重复的 "Model updated to Opus 4.6" 通知问题，当项目的 <code>.claude/settings.json</code> 中固定了旧版 Opus 模型字符串时</li>
+<li>修复了插件在 <code>/plugin</code> 中显示不准确的问题，以及全新启动时显示 "not found in marketplace" 错误的问题</li>
+<li>修复了 <code>/security-review</code> 命令在旧版 git 上因 <code>unknown option merge-base</code> 而失败的问题</li>
+<li>修复了 <code>/color</code> 命令无法重置回默认颜色的问题，现在 <code>/color default</code>、<code>/color gray</code>、<code>/color reset</code> 和 <code>/color none</code> 均可恢复默认设置</li>
+<li>修复了 <code>AskUserQuestion</code> 预览对话框中的性能回归问题，该问题导致在笔记输入中每次击键都重新运行 markdown 渲染</li>
+<li>修复了功能标志在早期启动时读取后从不刷新磁盘缓存的问题，导致过时值在会话间持续存在</li>
+<li>修复了 <code>permissions.defaultMode</code> 设置值在 Claude Code Remote 环境中被错误应用的问题，现在非 <code>acceptEdits</code> 或 <code>plan</code> 的值将被忽略</li>
+<li>修复了技能列表在每次 <code>--resume</code> 时重新注入的问题（每次恢复节省约 600 个令牌）</li>
+<li>修复了 VS Code 传送会话中传送标记不渲染的问题</li>
+<li>改进了麦克风捕获静音时的错误消息，以区别于 "未检测到语音"</li>
+<li>改进了压缩功能以在摘要请求中保留图像，允许提示缓存重用以实现更快更便宜的压缩</li>
+<li>改进了 <code>/rename</code> 命令，使其在 Claude 处理时即可工作，而非静默排队</li>
+<li>减少了回合期间提示输入重新渲染约 74%</li>
+<li>减少了无自定义 CA 证书用户的启动内存约 426KB</li>
+<li>将远程控制 <code>/poll</code> 频率降低至连接时每 10 分钟一次（原为 1-2 秒），减少服务器负载约 300 倍。重新连接不受影响——传输丢失会立即唤醒快速轮询</li>
+<li>[VSCode] 在 VS Code 活动栏中添加了火花图标，列出所有 Claude Code 会话，会话以完整编辑器形式打开</li>
+<li>[VSCode] 为 VS Code 中的计划添加了完整的 markdown 文档视图，支持添加评论以提供反馈</li>
+<li>[VSCode] 添加了原生 MCP 服务器管理对话框——在聊天面板中使用 <code>/mcp</code> 可启用/禁用服务器、重新连接和管理 OAuth 身份验证，无需切换到终端</li>
+</ul>
+
+<h3>其他优化与调整</h3>
+<ul>
+<li>修复了 Windows/WSL 上剪贴板损坏非 ASCII 文本（CJK、表情符号）的问题，通过使用 PowerShell <code>Set-Clipboard</code></li>
+<li>修复了在 Windows 上从 VS Code 集成终端运行时启动时打开额外 VS Code 窗口的问题</li>
+<li>修复了 Windows 原生二进制文件上语音模式失败并显示 "native audio module could not be loaded" 的问题</li>
+<li>修复了当设置中 <code>voiceEnabled: true</code> 时，会话启动时 push-to-talk 未激活的问题</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.70</guid>
+      <pubDate>Fri, 06 Mar 2026 01:20:02 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code 2.1.72 版本发布：新增工具搜索代理绕过、文件写入快捷键等功能</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.72</link>
