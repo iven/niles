@@ -3,7 +3,73 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 10 Mar 2026 21:41:02 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2026 23:41:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 亚马逊要求高级工程师签核AI辅助代码变更以应对服务中断问题</title>
+      <link>https://news.ycombinator.com/item?id=47323017</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲述AI编程助手在实际应用中的问题和安全管理措施，属于编程效率工具的实践经验，用户很感兴趣</small></p><p>亚马逊在经历多次服务中断后，决定实施新政策要求高级工程师对AI辅助的代码变更进行签核。这一举措源于近期一系列与AI编码工具相关的运营事件。</p>
+
+<p>根据《金融时报》报道，亚马逊电商业务近期出现了"一系列事件趋势"，这些事件具有"高影响范围"和"Gen-AI辅助变更"等特点。公司高级副总裁Dave Treadwell在内部邮件中承认："大家可能都知道，网站及相关基础设施的可用性最近表现不佳。"</p>
+
+<p>亚马逊将要求初级和中级工程师的AI辅助代码变更需要高级工程师签核。这一政策变化是在公司近期多次服务中断后提出的，其中包括本月亚马逊网站和购物应用近6小时的中断，公司称这涉及错误的"软件代码部署"。</p>
+
+<p>亚马逊云服务（AWS）也至少发生了两起与AI编码助手相关的事件。其中一起发生在12月中旬，导致客户使用的成本计算器服务中断13小时。据报道，工程师允许公司的Kiro AI编码工具进行某些变更，而AI工具选择"删除并重新创建环境"。</p>
+
+<p>亚马逊表示，对网站可用性的审查是"正常业务的一部分"，旨在持续改进。公司还否认了裁员导致近期中断增加的指控。</p>
+
+<h3>你知道吗？</h3>
+<p>AI辅助编程工具虽然能提高开发效率，但也带来了新的挑战。与传统人工编写的代码不同，AI生成的代码往往缺乏清晰的决策逻辑和可追溯的思考过程。当出现问题时，工程师难以重构当初的决策依据，这给故障排查和系统维护带来了额外困难。这种"黑箱"特性在关键业务系统中尤其值得关注。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47323017</guid>
+      <pubDate>Tue, 10 Mar 2026 13:31:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 通过复制中间层登顶AI排行榜：使用两个游戏GPU实现的LLM神经解剖学发现</title>
+      <link>https://news.ycombinator.com/item?id=47322887</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及LLM神经解剖学研究进展和硬件实现，属于AI技术前沿和科学进展范畴，用户感兴趣</small></p><p>一位研究人员通过在现有72B参数模型中复制特定中间层而不修改任何权重，成功登顶HuggingFace Open LLM排行榜。这项被称为"LLM神经解剖学"的发现揭示了Transformer模型的内部功能结构。</p>
+
+<img src="/assets/img/leaderboard.jpg" alt="Open LLM Leaderboard" />
+
+<p>作者使用两个RTX 4090游戏显卡在家中的地下室搭建实验环境，对Qwen2-72B模型进行了3240种不同层配置的测试。关键发现是：仅复制特定7个中间层块能显著提升模型在六个基准测试（IFEval、BBH、MATH Lvl 5、GPQA、MuSR和MMLU-PRO）上的表现，而复制单个层或过多层则无效。</p>
+
+<p>这一发现源于两个关键观察：首先，LLM能够用Base64格式进行对话，表明早期层作为"翻译器"将输入转换为抽象内部表示；其次，Goliath-120B模型的异常结构显示层之间具有可互换性。作者假设Transformer具有功能性解剖结构——早期层处理输入，晚期层生成输出，中间层进行纯抽象推理。</p>
+
+<img src="/assets/img/Full_GPT_architecture.svg.png" alt="By Original: Marxav, Vectorization: Mrmw - Own work based on: Full GPT architecture.png:, CC0, https://commons.wikimedia.org/w/index.php?curid=146645810" />
+
+<p>实验方法涉及构建"大脑扫描器"管道，通过重复特定层块（i到j-1层）来创建模型变体。作者开发了稳定的评分系统来处理LLM作为评判者的不一致性问题，使用期望值而非采样分数。</p>
+
+<p>社区讨论中，用户将这一方法与循环语言模型（LoopLM）和混合专家（MoE）架构进行比较。有评论指出这与<a href="https://arxiv.org/abs/2510.25741">LoopLM研究</a>相似，但作者认为预训练过程中形成的"器官"式结构可能更适合线性输入段→循环1→线性段→循环2...→线性输出的架构。</p>
+
+<p>其他用户分享了相关研究，包括<a href="https://www.alphaxiv.org/abs/2512.19941">类似观察的论文</a>和<a href="https://arxiv.org/abs/2407.09298">"Transformer Layers as Painters"研究</a>。作者表示这一方法适用于密集模型和MoE模型，并已尝试训练元模型来预测最佳层组合。</p>
+
+<p>这一发现表明，通过理解Transformer的内部功能结构，可以在不进行昂贵训练的情况下显著提升现有模型性能，为模型优化提供了新思路。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47322887</guid>
+      <pubDate>Tue, 10 Mar 2026 13:18:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>Yann LeCun 筹集10亿美元创立AMI，开发理解物理世界的AI世界模型</title>
+      <link>https://news.ycombinator.com/item?id=47320600</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 虽然提到新AI模型开发，但主要是行业人物创业新闻，用户对行业公司/人物不太感兴趣，综合考虑为可选</small></p><p>Meta 前首席 AI 科学家 Yann LeCun 共同创立的巴黎初创公司 Advanced Machine Intelligence (AMI) 宣布获得超过 10 亿美元融资，公司估值达 35 亿美元。这笔资金将用于开发 AI 世界模型，旨在构建能够理解物理世界、具备持久记忆、可推理规划且安全可控的新型 AI 系统。</p>
+
+<p>LeCun 长期主张，人类水平的 AI 应通过掌握物理世界而非语言来实现。他在接受 <a href="https://web.archive.org/web/20260310153721/https://www.wired.com/story/yann-lecun-raises-dollar1-billion-to-build-ai-that-understands-the-physical-world/">WIRED</a> 采访时表示：“认为通过扩展大语言模型（LLMs）的能力就能达到人类智能水平的想法完全是胡说八道。”他认为 LLMs 虽然在代码生成等应用中有用，但无法通向人类级智能。</p>
+
+<p>AMI 的融资由 Cathay Innovation、Greycroft、Hiro Capital、HV Capital 和 Bezos Expeditions 等机构共同领投，其他知名投资者包括 Mark Cuban、前谷歌 CEO Eric Schmidt 和法国亿万富翁 Xavier Niel。公司将在巴黎、蒙特利尔、新加坡和纽约设立办公室，LeCun 在领导公司的同时将继续担任纽约大学教授。</p>
+
+<p>与 OpenAI、Anthropic 及 Meta 等依赖 LLMs 扩展的 AI 实验室不同，AMI 专注于为制造、生物医学、机器人等行业构建世界模型。例如，公司可以构建飞机发动机的精确世界模型，帮助制造商优化效率、减少排放或确保可靠性。</p>
+
+<p>LeCun 表示，AMI 计划开发开源技术，认为人工智能过于强大，不应由任何一家私人公司控制。他提到正在与 Meta 探讨合作可能性，例如将 AMI 的世界模型用于 Meta 智能眼镜中的助手功能。</p>
+
+<p>在 Hacker News 社区讨论中，用户观点呈现分歧：部分人支持 LeCun 的方向，认为世界模型是实现通用人工智能（AGI）的关键突破；另一些人则质疑 AI 技术最终只会让富人和权贵受益，加剧社会不平等。还有评论讨论了欧洲的创新能力和投资规模，指出 10 亿美元的种子轮融资在欧洲极为罕见，但在美国则相对常见。</p>
+
+<p>AMI 计划首先与丰田、三星等合作伙伴开展工作，随后将其技术更广泛地应用。最终目标是开发“通用世界模型”，作为通用智能系统的基础，为各行业公司提供帮助。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47320600</guid>
+      <pubDate>Tue, 10 Mar 2026 08:46:53 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Debian 项目关于 AI 生成代码贡献的讨论：未达成决议，继续个案处理</title>
       <link>https://news.ycombinator.com/item?id=47324087</link>
@@ -1345,97 +1411,6 @@ chmod +x ~/.local/bin/safehouse</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47261561</guid>
       <pubDate>Thu, 05 Mar 2026 13:52:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 没人因简单而获得晋升：工程界奖励复杂性的系统性偏见</title>
-      <link>https://news.ycombinator.com/item?id=47242765</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 分析工程界奖励复杂性偏见及改进方法，涉及编程效率改进经验，用户很感兴趣</small></p><p>这篇文章探讨了软件工程领域一个普遍但很少被明确讨论的问题：复杂解决方案往往比简单有效的方案更容易获得认可和晋升。作者指出，这种系统性偏见渗透在面试、设计评审和晋升评估的各个环节中。</p>
-
-<img src="https://terriblesoftware.org/wp-content/uploads/2026/03/chjpdmf0zs9sci9pbwfnzxmvd2vic2l0zs8ymdiylta1l25zmtexndetaw1hz2uta3d2d3b1c3kuanbn.webp" alt="" width="1024" height="680" />
-
-<p>文章通过两个工程师的对比生动说明了这一问题：工程师A采用简单直接的方案，用50行代码在几天内完成功能；工程师B则构建了包含抽象层、发布/订阅系统和配置框架的"可扩展"方案，耗时三周。晋升时，工程师B的贡献可以包装成"设计并实现了可扩展的事件驱动架构"，而工程师A的成果只能描述为"实现了功能X"。</p>
-
-<p>这种偏见在面试中同样明显：候选人提出简单方案时，面试官往往会追问扩展性问题，迫使候选人添加更多复杂性组件。设计评审中，"我们不应该为未来做规划吗？"这样的问题常常导致不必要的抽象层和预优化。</p>
-
-<p>作者强调，问题不在于复杂性本身——当处理数百万交易或需要服务边界时，复杂性是必要的。问题在于"未获得的复杂性"（unearned complexity），即在不需要时提前引入的复杂性。真正的资深能力体现在知道何时不使用复杂工具和模式。</p>
-
-<p>文章给出了具体建议：工程师需要学会让简单性变得可见，用"评估了三种方案，确定简单实现满足所有需求"这样的语言描述决策过程；工程领导者则需要改变激励机制，在设计评审中以简单为默认选项，在晋升讨论中质疑复杂性的必要性。</p>
-
-<h3>社区讨论要点</h3>
-<p>Hacker News社区的91条评论呈现了多元观点：</p>
-<ul>
-<li><strong>经验差异</strong>：有评论指出，初级工程师更倾向于提出复杂方案，而有经验的工程师更看重简单性，因为他们"曾被复杂性烧伤过"</li>
-<li><strong>边缘情况</strong>：有人认为简单方案有时无法处理边缘情况，而处理这些边缘情况正是复杂性的来源</li>
-<li><strong>销售问题</strong>：多位评论者认为这更多是"销售"问题而非工程问题，工程师需要学会用管理层的语言包装自己的工作成果</li>
-<li><strong>实际案例</strong>：有用户分享了自己因简化架构而获得晋升的经验，也有亚马逊工程师分享了通过简单改动创造九位数收入的故事</li>
-<li><strong>组织文化</strong>：评论指出，在某些组织中，提出简化方案可能被视为威胁他人工作安全，即使这能为公司节省资金和时间</li>
-<li><strong>大公司现实</strong>：有人提到大型公司的晋升标准往往包含"驱动多年期项目"或"涉及多个团队"等要求，这些本质上奖励复杂性</li>
-</ul>
-
-<p>文章最终呼吁工程领导者公开表彰删除代码、避免不必要复杂性的工程师，因为"如果我们继续奖励复杂性而忽视简单性，就不应惊讶于得到更多复杂性"。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47242765</guid>
-      <pubDate>Wed, 04 Mar 2026 03:40:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>维基百科因管理员账户大规模泄露进入只读模式</title>
-      <link>https://news.ycombinator.com/item?id=47263323</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 报道维基百科管理员账户泄露和系统进入只读模式，属于技术安全事件，但涉及用户不太感兴趣的基础设施话题，故为可选内容</small></p><p>2026年3月5日，维基媒体基金会旗下所有维基站点（包括维基百科）因大规模管理员账户泄露事件进入只读模式。攻击者利用跨站脚本（XSS）蠕虫感染了多个高权限账户，导致网站编辑功能被临时禁用。</p>
-
-<img src="//dka575ofm4ao0.cloudfront.net/pages-transactional_logos/retina/233622/2560px-Wikimedia_Foundation_logo_-_horizontal.svg.png" alt="Wikimedia logo" />
-
-<p>根据维基媒体状态页面显示，事件时间线如下：</p>
-<ul>
-<li>15:36 UTC：开始调查访问问题</li>
-<li>16:11 UTC：确认问题并实施修复</li>
-<li>17:09 UTC：维基恢复读写模式，但部分功能仍被禁用</li>
-<li>17:36 UTC：修复已实施，正在监控结果</li>
-</ul>
-
-<p>社区分析显示，此次攻击涉及一个复杂的JavaScript蠕虫，其行为包括：</p>
-<ul>
-<li>将自身注入到MediaWiki:Common.js页面，确保在所有访客和编辑者浏览器中执行</li>
-<li>使用jQuery隐藏用户界面元素，掩盖感染迹象</li>
-<li>破坏20篇随机文章，插入5000像素宽的图片和额外恶意脚本</li>
-<li>如果感染管理员账户，会利用Special:Nuke功能批量删除随机文章</li>
-</ul>
-
-<p>技术社区在<a href="https://news.ycombinator.com/item?id=47263323">Hacker News讨论</a>中指出，这次攻击暴露了MediaWiki架构的长期安全隐患：允许用户编辑的命名空间中存储可执行JavaScript代码。有用户将此次攻击比作"维基化版的MySpace Samy蠕虫"，因其利用社交工程和自动传播机制。</p>
-
-<p>维基百科社区成员在讨论中表示，此类安全事件"只是时间问题"，并批评维基百科社区对安全问题的随意态度。此前，任何拥有"界面管理员"权限的用户都可以未经审查修改全局JavaScript或CSS，直到几年前才强制实施双因素认证（2FA）。</p>
-
-<p>目前，维基媒体基金会已禁用所有用户脚本，并正在清理受感染的数据库记录。此次事件再次引发了关于网络应用中客户端脚本安全性的广泛讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47263323</guid>
-      <pubDate>Thu, 05 Mar 2026 16:04:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 在Apple Silicon上使用Swift和MLX运行NVIDIA PersonaPlex 7B实现全双工语音对话</title>
-      <link>https://news.ycombinator.com/item?id=47258801</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍在Apple Silicon上部署NVIDIA AI模型实现语音对话的技术实现，涉及AI软件技术进展和编程工具应用，用户对此感兴趣，核心是AI技术而非Apple平台</small></p><p>开发者Ivan发布了一个基于Swift和MLX框架的语音处理库，成功在Apple Silicon设备上运行NVIDIA的PersonaPlex 7B模型，实现了全双工语音到语音的实时对话功能。</p>
-
-<p>该库的核心突破在于将传统的语音助手三阶段流程（语音识别ASR→大语言模型LLM→文本转语音TTS）合并为单一模型。PersonaPlex 7B直接处理音频令牌，能够同时收听和说话，实现真正的全双工对话。模型经过4位量化后，从原始的16.7GB压缩到约5.3GB，便于在本地设备运行。</p>
-
-<p>技术实现方面，项目使用了Kyutai的Mimi音频编解码器，并采用了独特的Depformer架构，通过逐步骤权重切换生成音频码本。在M2 Max 64GB设备上测试，模型运行速度快于实时，每步约68毫秒，实时因子（RTF）为0.87。库支持流式处理，能够边生成边播放音频片段。</p>
-
-<p>社区讨论中，用户对这项技术表示赞赏，但也提出了一些关注点：</p>
-<ul>
-<li>有用户指出示例对话中AI的回应存在"说谎"倾向，引发了对AI对话伦理的讨论</li>
-<li>多位用户比较了该方案与OpenAI、Google等公司的实时语音模型的差异</li>
-<li>有尝试者发现当前版本仅支持WAV文件输入，尚不能进行真正的交互式对话</li>
-<li>关于AI生成内容泛滥的担忧被多次提及</li>
-<li>技术爱好者讨论了如何将此类模型与WebRTC等技术结合实现更完整的应用</li>
-</ul>
-
-<p>项目提供了完整的命令行工具，支持语音转录、文本转语音、多语言合成和语音对话功能。开发者强调这是构建在多个开源项目基础上的成果，包括NVIDIA的PersonaPlex、Kyutai的Moshi和Mimi、阿里巴巴的Qwen模型以及Apple的MLX框架。</p>
-
-<p>尽管目前主要作为技术演示，但这项工作展示了在本地设备上运行高质量语音对话模型的可行性，为未来更智能的本地语音助手奠定了基础。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47258801</guid>
-      <pubDate>Thu, 05 Mar 2026 07:43:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
