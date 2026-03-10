@@ -3,7 +3,63 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Mon, 09 Mar 2026 23:39:26 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2026 02:51:15 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code 2.1.72 版本发布：新增工具搜索代理绕过、文件写入快捷键等功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.72</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是Claude Code编程工具的版本发布公告，属于用户很感兴趣的编程工具发布类别，故判断为必看内容。</small></p><p>Claude Code 发布了 2.1.72 版本，带来了多项功能改进和错误修复。主要更新包括工具搜索代理绕过机制、SSH 环境下实用的文件写入功能、计划模式增强等。</p>
+
+<h3>重要功能更新</h3>
+<ul>
+<li><strong>工具搜索代理绕过</strong>：当环境变量设置时，工具搜索现在可以绕过第三方代理网关，替代了已移除的 <code>CLAUDE_CODE_PROXY_SUPPORTS_TOOL_REFERENCE</code> 变量</li>
+<li><strong>SSH 文件写入功能</strong>：在 <code>/copy</code> 命令中添加了 <code>w</code> 键，可直接将选中的内容写入文件，绕过剪贴板，特别适用于 SSH 环境</li>
+<li><strong>计划模式增强</strong>：为 <code>/plan</code> 命令添加了可选描述参数，例如 <code>/plan fix the auth bug</code>，可立即进入计划模式并开始执行</li>
+<li><strong>工作树管理</strong>：新增 <code>ExitWorktree</code> 工具，用于离开 <code>EnterWorktree</code> 会话</li>
+<li><strong>环境变量控制</strong>：添加 <code>CLAUDE_CODE_DISABLE_CRON</code> 环境变量，可在会话中途立即停止计划的 cron 任务</li>
+<li><strong>命令自动批准列表扩展</strong>：将 <code>lsof</code>、<code>pgrep</code>、<code>tput</code>、<code>ss</code>、<code>fd</code> 和 <code>fdfind</code> 添加到 bash 自动批准白名单，减少常见只读操作的权限提示</li>
+<li><strong>Git URL 支持改进</strong>：支持不带 <code>.git</code> 后缀的市场 Git URL（Azure DevOps、AWS CodeCommit）</li>
+</ul>
+
+<h3>其他改进和优化</h3>
+<ul>
+<li>简化了工作量级别为低/中/高（移除了最大级别），使用新符号（○ ◐ ●）和简短通知替代持久图标</li>
+<li>改进了 <code>/config</code> 界面：Esc 取消更改，Enter 保存并关闭，Space 切换设置</li>
+<li>改进了上箭头历史记录，在运行多个并发会话时优先显示当前会话的消息</li>
+<li>减少了约 510 KB 的包大小</li>
+<li>改进了语音输入转录准确性，特别是仓库名称和常见开发术语</li>
+<li>VSCode 扩展新增 <code>vscode://anthropic.claude-code/open</code> URI 处理器，可通过编程方式打开新的 Claude Code 标签页</li>
+</ul>
+
+<h3>错误修复与优化</h3>
+<ul>
+<li>修复了后台任务或钩子响应缓慢时的缓慢退出问题</li>
+<li>修复了代理任务进度卡在"正在初始化..."的问题</li>
+<li>修复了语音模式问题：偶尔的输入延迟、释放按键通话后的错误"未检测到语音"以及提交后陈旧转录重新填充提示</li>
+<li>修复了 bash 安全解析边缘情况</li>
+<li>修复了多个插件安装问题，包括 Windows 上的 OneDrive 文件夹安装失败</li>
+<li>修复了工作树隔离问题：任务工具恢复未恢复当前工作目录</li>
+<li>修复了沙盒权限问题：某些文件写入操作错误地允许而不提示</li>
+<li>修复了长时间会话中的 CPU 利用率问题</li>
+<li>修复了 SDK <code>query()</code> 调用中的提示缓存失效问题，将输入令牌成本降低高达 12 倍</li>
+<li>修复了多个钩子问题，包括异步钩子未接收 bash <code>read -r</code> 的标准输入</li>
+<li>修复了权限规则匹配问题：通配符规则未匹配包含 heredoc、嵌入换行符或无参数的命令</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>添加了 <code>claude plugins</code> 作为 <code>claude plugin</code> 的别名</li>
+<li>支持不带 <code>.git</code> 后缀的市场 git URL（Azure DevOps、AWS CodeCommit）</li>
+<li>恢复了 Agent 工具上的 <code>model</code> 参数，用于每次调用的模型覆盖</li>
+<li>改进了市场克隆失败消息，即使 git 未产生 stderr 也显示诊断信息</li>
+<li>改进了 bash 命令解析，切换到原生模块，加快初始化速度且无内存泄漏</li>
+<li>减少了误报的 bash 权限提示，tree-sitter 解析现在处理 <code>find -exec</code>、变量赋值、命令替换等模式</li>
+<li>更改了 CLAUDE.md HTML 注释，在自动注入时对 Claude 隐藏，但使用 Read 工具读取时仍可见</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.72</guid>
+      <pubDate>Tue, 10 Mar 2026 00:43:03 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.69 发布：新增 Claude API 技能、语音支持扩展及多项性能改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.69</link>

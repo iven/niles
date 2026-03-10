@@ -3,7 +3,85 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 09 Mar 2026 23:39:29 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2026 02:50:55 GMT</lastBuildDate>
+    <item>
+      <title>⭐ JSLinux 现已支持 x86_64 架构，可在浏览器中运行完整操作系统</title>
+      <link>https://news.ycombinator.com/item?id=47311484</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍JSLinux支持x86_64架构，可在浏览器中运行完整操作系统，属于软件新功能和编程工具分享，符合用户对开源项目和软件技术进展的兴趣</small></p><p>Fabrice Bellard 开发的 JSLinux 项目近日新增对 x86_64 架构的支持，用户现在可以在浏览器中运行完整的 Alpine Linux 3.23.2 系统，并享受 AVX-512 和 APX 指令集扩展。该项目自 2011 年发布以来，一直是在浏览器中运行操作系统的先驱技术。</p>
+
+<p>目前 JSLinux 支持多种模拟系统，包括：</p>
+<ul>
+<li>x86_64 Alpine Linux 3.23.2（控制台界面）</li>
+<li>x86 Alpine Linux 3.12.0（控制台和 X Window 界面）</li>
+<li>x86 Windows 2000（图形界面）</li>
+<li>x86 FreeDOS（VGA 文本模式）</li>
+<li>riscv64 Buildroot Linux（控制台和 X Window）</li>
+<li>riscv64 Fedora 33 Linux（控制台和 X Window）</li>
+</ul>
+
+<p>在 Hacker News 社区的讨论中，用户分享了多种实际应用场景：</p>
+<ul>
+<li><strong>教学用途</strong>：大学教师在 Windows 教室中使用 JSLinux 教授 Linux 命令行操作</li>
+<li><strong>技术面试</strong>：作为远程面试时的标准化 Linux 环境</li>
+<li><strong>遗留软件维护</strong>：运行依赖特定环境的旧版软件</li>
+<li><strong>AI 代理测试</strong>：开发者 <a href="https://tools.simonwillison.net/v86">Simon Willison</a> 尝试将 JSLinux 用于编码代理的沙箱环境</li>
+</ul>
+
+<p>社区同时讨论了相关替代方案：</li>
+</ul>
+<ul>
+<li><a href="https://github.com/container2wasm/container2wasm">container2wasm</a>：支持 x86_64、riscv64 和 AArch64 架构的开源方案</li>
+<li><a href="https://github.com/copy/v86">v86</a>：功能类似但尚未支持 x86_64 架构</li>
+</ul>
+
+<p>值得注意的是，JSLinux 提供了有限的互联网访问功能，通过 WebSocket VPN 实现，带宽限制为 40 kB/s，每个公网 IP 最多允许两个并发连接。项目开发者特别提醒用户不要滥用该服务。</p>
+
+<p>社区成员还展示了在 JSLinux x86_64 上运行 <a href="https://ring0.holyc.xyz/">TempleOS</a> 的修改版本，显示了该平台的扩展潜力。同时，有开发者探讨了将此类技术用于 AI 代理沙箱的可能性，认为浏览器环境为运行代码代理提供了理想的安全隔离。</p>
+
+<p>尽管 JSLinux 的 x86_64 模拟层源代码尚未公开，但其技术实现仍然受到开发者社区的广泛关注，特别是与基于 WebAssembly 的 Linux 方案（如 linux-wasm）的性能比较。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47311484</guid>
+      <pubDate>Mon, 09 Mar 2026 16:43:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Meta中的FFmpeg：大规模媒体处理实践与上游贡献</title>
+      <link>https://news.ycombinator.com/item?id=47305236</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Meta中FFmpeg的大规模媒体处理实践及上游贡献，重点在开源项目技术应用和社区贡献，属于用户感兴趣的AI软件技术进展和开源项目范畴</small></p><p>Meta工程团队详细介绍了他们如何利用FFmpeg这一行业标准媒体处理工具，每天执行数十亿次来处理用户上传的视频内容，并分享了将内部定制功能上游化到开源项目的历程。</p>
+
+<img src="https://engineering.fb.com/wp-content/uploads/2026/03/FFmpeg-at-Meta-hero_2.png" alt="" width="1200" height="628" />
+
+<p>FFmpeg作为支持多种音视频编解码器和容器格式的多功能工具，在Meta的平台上扮演着关键角色，为用户提供新的视频体验并提升现有服务的可靠性。由于处理规模巨大，Meta曾长期维护一个内部FFmpeg分支，以提供多线程多通道编码和实时质量指标等当时上游版本不具备的功能。</p>
+
+<p>随着内部分支与上游版本差异日益扩大，Meta与FFmpeg开发者、FFlabs和VideoLAN合作，将关键功能贡献到上游项目。从FFmpeg 6.0开始引入的更高效线程机制，以及在FFmpeg 7.0中实现的实时质量指标计算功能，都直接受到Meta内部设计的影响。这些改进使得Meta能够完全弃用内部分支，全面转向上游版本。</p>
+
+<img src="https://engineering.fb.com/wp-content/uploads/2026/02/FFmpeg-at-Meta-image-2.jpg" alt="" width="1920" height="1080" />
+
+<p>文章详细解释了两个重要优化：多通道转码和实时质量指标。在动态自适应流媒体（DASH）场景中，用户上传的视频需要生成多种不同分辨率、编解码器和质量等级的编码版本。通过单次解码、并行编码的方式，Meta显著减少了重复计算开销，在处理每天超过10亿次视频上传时获得了可观的效率提升。</p>
+
+<img src="https://engineering.fb.com/wp-content/uploads/2026/02/FFmpeg-at-Meta-image-1.jpg" alt="" width="1920" height="1080" />
+
+<p>实时质量指标功能允许在转码过程中即时计算PSNR、SSIM和VMAF等视觉质量指标，这对于直播流处理尤为重要。通过"循环内"解码技术，Meta现在可以在单个FFmpeg命令行中为每个编码通道实时生成质量指标。</p>
+
+<p>文章也提到，并非所有内部开发的功能都适合上游化。例如，为Meta专有的可扩展视频处理器（MSVP）ASIC添加的支持，由于硬件仅在公司内部使用，保持为内部补丁更为合理。Meta通过FFmpeg标准硬件API集成MSVP，确保了不同硬件平台间工具链的一致性。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News社区对这篇文章的反应呈现两极分化。许多评论者批评Meta对FFmpeg项目的资金支持不足，指出德国主权科技基金在2024/2025年捐赠了157,580欧元，而FFmpeg官方推特曾表示"虽然Meta提到的资金受到赞赏，但不足以维持项目"。</p>
+
+<p>部分用户将Meta的行为比喻为"在Costco吃免费样品却宣称吃了一顿大餐"，认为这家年收入数百亿美元的公司应该确保其依赖的开源项目获得充足资金，避免出现类似XZ后门的安全事件。</p>
+
+<p>也有评论者为Meta辩护，指出该公司是开源生态的重要贡献者，不仅上游了有价值的代码，还通过赞助CI运行器、捐赠测试硬件、资助维护者等方式支持项目。他们认为代码贡献和工程时间投入往往比一次性捐款更有价值。</p>
+
+<p>关于文章语气，有工程师指出Meta将多年维护内部分支描述为"不得不依赖"，而没有承认本可以更早向上游贡献功能，这种营销口吻在技术博客中显得不够诚恳。不过更多人认为"迟做总比不做好"，Meta最终贡献了有价值的代码，这对整个社区都是有益的。</p>
+
+<p>讨论还延伸到开源项目的可持续性问题，以及大型科技公司在享受开源红利的同时应承担的责任。Meta工程师分享了类似经历，表示从内部补丁到贡献通用功能需要大量工作，并赞赏Meta最终贡献了代码。</p>
+
+<p>一些技术讨论聚焦于FFmpeg的并行编码技术，建议FFmpeg实现时间轴并行化，通过关键帧分块并行编码来提高单输出场景的效率。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47305236</guid>
+      <pubDate>Mon, 09 Mar 2026 05:37:15 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AI重新实现开源软件：法律允许与社会正当性的冲突</title>
       <link>https://news.ycombinator.com/item?id=47310160</link>
@@ -1411,52 +1489,6 @@ chmod +x ~/.local/bin/safehouse</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47257394</guid>
       <pubDate>Thu, 05 Mar 2026 04:02:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google Workspace CLI：动态构建的统一命令行工具，支持 AI 代理集成</title>
-      <link>https://news.ycombinator.com/item?id=47255881</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要是编程工具发布分享，属于用户很感兴趣的主题；同时涉及AI软件技术和软件新功能，整体兴趣度很高</small></p><p>Google Workspace CLI（gws）是一个为 Google Workspace 服务提供的统一命令行工具，支持 Drive、Gmail、Calendar、Sheets、Docs、Chat、Admin 等多项服务。该工具采用动态构建架构，通过读取 Google 的 Discovery Service 在运行时自动构建命令界面，当 Google Workspace 添加新的 API 端点时，gws 能够自动获取更新。</p>
-
-<img src="https://raw.githubusercontent.com/googleworkspace/cli/refs/heads/main/docs/logo.jpg" alt="gws logo" width="100%" />
-
-<p>gws 的主要特点包括零样板代码、结构化 JSON 输出，以及专为 AI 代理设计的 40+ 代理技能。工具支持多种认证方式，包括交互式认证（本地桌面）、手动 OAuth 设置、无头/CI 环境、服务账户等，适应不同使用场景。</p>
-
-<p>在 AI 代理集成方面，gws 提供了完整的技能生态系统，包括 100+ 代理技能文件，支持 OpenClaw 和 Gemini CLI 扩展。此外，工具还提供 MCP（Model Context Protocol）服务器功能，允许通过标准输入输出暴露 Google Workspace API 作为结构化工具，兼容 Claude Desktop、Gemini CLI、VS Code 等客户端。</p>
-
-<p>社区讨论中，用户对项目的官方支持状态表示关注，项目明确标注"这不是官方支持的 Google 产品"。有评论指出这是 Google Devrel 团队的项目，虽然可能被放弃，但不会违反服务条款。用户普遍认为这是 AI/MCP 时代推动公司构建更好 API/CLI 工具的趋势体现。</p>
-
-<p>技术实现上，gws 采用两阶段解析策略：首先识别服务并获取 Discovery 文档，然后构建命令树并执行请求。所有输出（包括成功、错误、下载元数据）均为结构化 JSON 格式。</p>
-
-<p>项目目前处于积极开发阶段，预计在 v1.0 版本前会有破坏性变更。安装可通过 npm 进行：<code>npm install -g @googleworkspace/cli</code>，尽管这是用 Rust 编写的二进制文件，但通过 npm 分发提供了跨平台安装便利性。</p>
-
-<img src="https://raw.githubusercontent.com/googleworkspace/cli/refs/heads/main/docs/demo.gif" alt="Demo" />
-
-<p>工具还支持高级功能如多部分上传、自动分页、响应清理（集成 Google Cloud Model Armor）等，为开发者和 AI 代理提供了强大的 Google Workspace 管理能力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47255881</guid>
-      <pubDate>Thu, 05 Mar 2026 00:22:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 构建新的Flash替代品：支持旧文件导入和HTML5导出</title>
-      <link>https://news.ycombinator.com/item?id=47253177</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为编程工具开发（Flash替代品），属于用户高兴趣的编程工具发布/分享类别</small></p><p>Newgrounds用户Bill正在开发一个全新的Flash替代工具，旨在恢复这一经典创作平台的活力。该项目最引人注目的功能是能够导入旧的.fla/XFL文件格式，据称这是目前唯一能够作为完整创作环境并编辑.fla文件的开源工具。</p>
-
-<p>该工具计划提供HTML5/Canvas导出功能，可将内容导出为独立的HTML5文件，使用JavaScript Canvas 2D进行播放。此外，还包含一个ActionScript到C#的转译器，帮助开发者迁移旧代码。</p>
-
-<p>在Hacker News社区的讨论中，许多用户回忆了Flash的黄金时代。一位前Flash游戏开发者分享道："Flash拥有其他工具难以复制的优势——它同时适合编码人员和艺术家使用。艺术家可以在FLA文件中制作动画，然后直接整合到项目中，这种协作流程至今仍很独特。"</p>
-
-<p>关于Flash衰落的原因，社区观点不一。有人认为Apple停止在iPhone上支持Flash是主要因素，也有人指出Adobe在管理代码库和安全漏洞方面存在问题。一位评论者表示："即使没有智能手机，笔记本电脑对效率的要求也会让Adobe版本的Flash难以维持。"</p>
-
-<p>对于.fla导入功能，部分用户持怀疑态度，因为.fla格式从未完全公开文档化。但更多人对此表示期待，认为向后兼容性对保护大量历史创作至关重要。</p>
-
-<p>讨论还涉及商业模式，有人建议采用PolyForm非商业许可证，允许免费使用但限制商业化，或要求衍生作品使用GPL/AGPL许可证。这种模式类似于Autodesk Fusion对业余3D打印爱好者的免费策略。</p>
-
-<p>值得注意的是，Adobe最近宣布将停止对Adobe Animate（Flash的继任者）的功能更新，仅提供安全补丁，这进一步凸显了开发Flash替代品的紧迫性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47253177</guid>
-      <pubDate>Wed, 04 Mar 2026 20:16:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
