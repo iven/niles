@@ -3,7 +3,38 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 10 Mar 2026 23:41:17 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2026 02:49:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 构建睡眠时运行的AI编码代理：如何验证其输出正确性？</title>
+      <link>https://news.ycombinator.com/item?id=47327559</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讨论AI编码代理的构建和输出验证，属于编程效率改进经验，用户很感兴趣</small></p><p>作者Abhishek Ray分享了构建在睡眠时运行的AI编码代理的经验，这些工具如Gastown可以连续运行数小时生成代码，但面临一个根本问题：如何验证AI生成的代码是否正确执行了预期功能。</p>
+
+<img src="https://media.beehiiv.com/cdn-cgi/image/fit=scale-down,quality=80,format=auto,onerror=redirect/uploads/user/profile_picture/a49d6fd3-0a5e-4774-ae9c-16979bd47642/Generated_Image_March_03__2026_-_1_55PM.jpg.jpeg" alt="Abhishek Ray" />
+
+<p>作者发现传统解决方案存在局限：雇佣更多审查员成本高昂且不现实；让同一个AI既写代码又写测试只是"自我验证"，无法发现原始误解。这促使他重新思考验证方法，借鉴测试驱动开发（TDD）的核心思想：先明确"正确"的标准，再检查实现。</p>
+
+<p>解决方案的核心是编写具体的验收标准（Acceptance Criteria）。以前端登录功能为例，需要明确：成功登录后的重定向、错误信息显示、表单验证、限流机制等具体行为。这些标准足够明确，可以通过自动化工具（如Playwright）进行验证，生成包含截图和详细结果的报告。</p>
+
+<img src="https://media.beehiiv.com/cdn-cgi/image/fit=scale-down,quality=80,format=auto,onerror=redirect/uploads/asset/file/5d1c9a2d-9892-4e91-9530-dcb9520ba50c/am9xlb.jpg" alt="" />
+
+<p>作者开发了<a href="https://github.com/opslane/verify">Claude Skill验证工具</a>，包含四个阶段：预检（快速失败检查）、规划（分析需求和文件）、浏览器代理（并行执行测试）和判断（综合评估结果）。该工具可作为Claude Code插件使用，无需额外API密钥。</p>
+
+<p>社区讨论中，开发者们提出了多种补充思路：使用不同AI模型相互审查（如Claude写代码，Gemini写测试）；通过权限控制防止AI修改测试文件；采用红队/绿队/重构团队的对抗性代理模式。也有评论澄清TDD不仅是"先写测试"，而是通过小步快跑获得持续反馈的设计过程。</p>
+
+<p>关键洞见是：在无法审查所有输出的情况下，必须预先定义"完成"的标准。编写验收标准虽然比写提示更困难，但能迫使开发者在看到实现前思考边界情况，这是建立信任的基础。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>验收标准（Acceptance Criteria）</strong>：在敏捷开发中，这是用户故事的可验证条件，用于确定功能是否完成。与单元测试不同，它关注的是用户可见的行为而非内部实现。</li>
+<li><strong>Claude Skill</strong>：Claude Code的插件系统，允许开发者扩展Claude的功能。作者的工具就是作为一个Skill实现的，可以通过插件市场安装。</li>
+<li><strong>MCP（Model Context Protocol）</strong>：Anthropic开发的协议，允许AI模型与外部工具和服务交互。文中提到的Playwright MCP就是让Claude能够控制浏览器进行自动化测试。</li>
+<li><strong>对抗性代理模式</strong>：社区讨论中提到的有趣概念，让不同的AI代理扮演不同角色（如红队攻击、绿队实现、重构团队优化），通过相互制衡提高代码质量。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47327559</guid>
+      <pubDate>Tue, 10 Mar 2026 19:09:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 亚马逊要求高级工程师签核AI辅助代码变更以应对服务中断问题</title>
       <link>https://news.ycombinator.com/item?id=47323017</link>
@@ -1377,40 +1408,6 @@ chmod +x ~/.local/bin/safehouse</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47265045</guid>
       <pubDate>Thu, 05 Mar 2026 18:08:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 好的软件知道何时停止：专注解决特定问题而非盲目追逐AI潮流</title>
-      <link>https://news.ycombinator.com/item?id=47261561</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论软件开发专注原则和避免AI潮流盲目追求，属于编程效率改进经验，用户很感兴趣</small></p><p>这篇文章通过一个虚构的幽默场景——经典的<code>ls</code>命令被「AI-Powered Directory Intelligence™」取代——探讨了软件设计中的重要原则：好的软件应该知道自己的边界，专注于解决特定问题，而不是无休止地添加功能或盲目追逐潮流。</p>
-
-<p>作者Olivier Girardot以讽刺的方式描述了如果<code>ls</code>命令被AI化后会出现的荒诞通知，然后引出了核心观点：在当前Minio变成AIStor、Oracle Database变成Oracle AI Database的背景下，需要提醒人们不是所有东西都需要「AI化」，成为某个问题的「事实标准」比追逐最新潮流更有价值。</p>
-
-<img src="https://writizzy.b-cdn.net/blogs/a62629cd-69f9-4e09-914f-fea827684723/1771778583844-w6trbv7.jpg?width=80&height=80" alt="Avatar of Olivier Girardot" width="80" height="80" />
-
-<p>文章引用了37Signals（Basecamp创始人）在《Rework》和《Getting Real》中提出的设计原则：</p>
-<ul>
-<li>约束是优势——小团队、紧预算和有限范围迫使做出更好决策</li>
-<li>忽略功能请求——不要构建用户要求的东西，而是理解底层问题</li>
-<li>尽早发布、频繁发布——一个真实存在的半成品胜过完美的空想产品</li>
-<li>核心设计优先——从核心界面/交互开始，而不是边缘部分</li>
-<li>默认说「不」——每个功能都有隐藏成本：复杂性、维护、边界情况</li>
-<li>解决自己的痛点——构建你自己需要的东西，你会做出更好的决策</li>
-</ul>
-
-<p>在Hacker News的140条评论中，读者们展开了热烈讨论：</p>
-<ul>
-<li>对Oracle Database更名为「Oracle AI Database」的讽刺，有评论者指出当前版本号是「Oracle AI Database 26ai」</li>
-<li>担忧AI热潮过度影响传统工具，有用户开玩笑说需要类似斯瓦尔巴全球种子库来保护「未AI化的Linux发行版」</li>
-<li>赞赏经典软件工具如Sublime Text和Vim因其专注性而保持优秀</li>
-<li>关于功能请求的讨论——以《魔兽世界》经典版为例，有时用户确实知道自己想要什么，而开发者的「你们以为自己想要，但其实不是」的判断可能是错误的</li>
-<li>有评论者指出，产品经理的晋升需求有时会压倒软件的实际生存和功能需求</li>
-</ul>
-
-<p>文章的核心信息在当前技术环境下尤其重要：软件应该保持专注，明白自己的定位，而不是试图做所有事情或盲目跟随每个技术趋势。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47261561</guid>
-      <pubDate>Thu, 05 Mar 2026 13:52:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
