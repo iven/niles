@@ -3,7 +3,47 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Wed, 11 Mar 2026 11:46:45 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2026 13:36:56 GMT</lastBuildDate>
+    <item>
+      <title>ZIP压缩文件存严重漏洞 50款主流杀软均被骗过</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1553100.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论ZIP压缩文件安全漏洞和杀毒软件检测绕过，属于软件安全技术。用户对软件技术进展感兴趣，但该主题非核心兴趣领域AI或编程工具，安全漏洞相关度中等。</small></p>
+                                                
+                                                <p>压缩软件用户群体中常有WinRAR与7-Zip的优劣之争，然而最近曝光的一项底层漏洞却让所有用户同时陷入危机。网络安全公司Bombadil 
+Systems的研究员Chris Aziz发现并曝光了一个名为“Zombie 
+ZIP”的严重安全漏洞，目前VirusTotal上的50款主流杀毒引擎均无法识别此类有问题的ZIP文件。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0311/ba39dfe2a4c5cb1.jpg"></p><p>该漏洞利用了压缩文件底层逻辑的缺陷，无论用户使用哪款解压缩工具，只要打开一个经过特殊篡改的恶意ZIP包并点击其中的文件，黑客便能执行代码并夺取系统控制权。</p><p>该漏洞的核心在于对ZIP文件标头的伪造，研究指出，大多数防毒引擎在扫描压缩包时会盲目信任其中的“Method”（压缩方式）字段。</p><p>黑客特意将该字段设为代表未压缩状态的0，诱导防毒引擎认为文件处于原始存储模式而跳过解压扫描，仅读取到一堆混乱的"压缩噪音"，根本无法识别夹带的恶意程序特征码。</p><p>与此同时，黑客针对WinRAR、7-Zip等工具的报错机制，故意将CRC校验值设为未压缩状态下的数值，却在ZIP文件内内嵌入自定义DEFLATE算法加载器，令解压工具直接无视伪造的文件头，释放隐藏的恶意代码。</p><p>这种双重欺骗手法实现了近乎完美的隐身效果，杀毒软件误判文件安全，解压工具则正常释放恶意程序，用户点击执行即中招。</p><p>电脑紧急应变小组协调中心（CERT/CC）已为该漏洞分配编号CVE-2026-0866，并指出其与20多年前影响早期ESET杀毒软件的CVE-2004-0935漏洞高度相似。</p><p>CERT/CC警告，防毒引擎不应盲目信任ZIP文件的Method标头，必须将压缩栏位与实际资料进行交叉验证，并增设机制识别结构异常的压缩包。</p><p>在厂商发布补丁前，用户对待来历不明的ZIP文件需格外谨慎，切勿轻易点击内部任何文件。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1553100.htm</guid>
+      <pubDate>Wed, 11 Mar 2026 11:57:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>工信部：关于防范OpenClaw开源智能体安全风险的“六要六不要”建议</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1553098.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 工信部对OpenClaw开源智能体安全风险的建议，涉及AI安全和开源项目，但偏向监管建议和行业指引，非深度技术分析，用户对行业/人物不太感兴趣，综合评估为可选。</small></p>
+                                                
+                                                <p>3月11日，工业和信息化部网络安全威胁和漏洞信息共享平台发布关于防范OpenClaw（“龙虾”）开源智能体安全风险的“六要六不要”建议。针对“龙虾”典型应用场景下的安全风险，工业和信息化部网络安全威胁和漏洞信息共享平台（NVDB）组织智能体提供商、漏洞收集平台运营单位、网络安全企业等，研究提出“六要六不要”建议。</p>                
+                        <div class="article-global"></div>                            <p><a href="https://static.cnbetacdn.com/article/2026/0308/f334e61fe5f1651.png" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0308/f334e61fe5f1651.png"></a></p><p>（一）使用官方最新版本。要从官方渠道下载最新稳定版本，并开启自动更新提醒；在升级前备份数据，升级后重启服务并验证补丁是否生效。不要使用第三方镜像版本或历史版本。</p><p>（二）严格控制互联网暴露面。要定期自查是否存在互联网暴露情况，一旦发现立即下线整改。不要将“龙虾”智能体实例暴露到互联网，确需互联网访问的可以使用SSH等加密通道，并限制访问源地址，使用强密码或证书、硬件密钥等认证方式。</p><p>（三）坚持最小权限原则。要根据业务需要授予完成任务必需的最小权限，对删除文件、发送数据、修改系统配置等重要操作进行二次确认或人工审批。优先考虑在容器或虚拟机中隔离运行，形成独立的权限区域。不要在部署时使用管理员权限账号。</p><p>（四）谨慎使用技能市场。要审慎下载ClawHub“技能包”，并在安装前审查技能包代码。不要使用要求“下载ZIP”、“执行shell脚本”或“输入密码”的技能包。</p><p>（五）防范社会工程学攻击和浏览器劫持。要使用浏览器沙箱、网页过滤器等扩展阻止可疑脚本，启用日志审计功能，遇到可疑行为立即断开网关并重置密码。不要浏览来历不明的网站、点击陌生的网页链接、读取不可信文档。</p><p>（六）建立长效防护机制。要定期检查并修补漏洞，及时关注OpenClaw官方安全公告、工业和信息化部网络安全威胁和漏洞信息共享平台等漏洞库的风险预警。党政机关、企事业单位和个人用户可以结合网络安全防护工具、主流杀毒软件进行实时防护，及时处置可能存在的安全风险。不要禁用详细日志审计功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1553098.htm</guid>
+      <pubDate>Wed, 11 Mar 2026 11:57:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 战略转向：OpenAI计划将Sora视频AI接入ChatGPT</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1553096.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] OpenAI计划将Sora视频AI接入ChatGPT，属于新AI模型功能集成，直接匹配用户'新AI模型发布公告'的高兴趣类别，是用户强烈感兴趣的核心AI技术进展。</small></p>
+                                                
+                                                <p>据知情人士透露，OpenAI 计划近期在 ChatGPT 中上线其 Sora AI 
+视频生成功能。这一战略调整可能会提升这款聊天机器人的使用量，但同时也会增加运营成本。此次调整距 OpenAI 推出 Sora 
+独立手机应用约五个月。该应用允许用户快速生成自己、他人或动物做出奇幻或搞笑动作的视频，界面风格模仿 TikTok，但并未获得广泛欢迎。</p>                
+                        <div class="article-global"></div>                            <p>																																																					<img src="https://n.sinaimg.cn/finance/transform/59/w550h309/20260311/af24-a8e27f7321f5499a8034f8e8581356b0.png" alt=""></p><p>将 Sora 与 ChatGPT 整合，有望帮助公司提高周活跃用户数 —— 目前已达到约 9.2 亿，但尚未达到公司去年设定的 10 亿目标。面对谷歌等竞争对手日益加剧的竞争，OpenAI 已为这款聊天机器人投入更多资源。谷歌的 Gemini 应用已搭载其 Veo AI，提供视频生成功能。</p><p>OpenAI 近期还在其他产品上快速调整方向。就在宣布在 ChatGPT 内直接开通购物功能六个月后，该公司又取消了这一计划。</p><p>据一位知情人士称，OpenAI 将继续运营 Sora 独立应用，但尚不清楚这是否为长期规划。Sora 应用上线初期表现亮眼，曾迅速登顶苹果应用商店榜首，但不久后使用量开始下滑，目前在应用商店排名仅为第 165 位。</p><p>去年秋天，OpenAI 首席执行官山姆・奥特曼曾对员工表示，只有很小比例的 Sora 用户会在应用内公开发布自己的视频。</p><p>通过在 ChatGPT 中加入便捷的视频生成功能，OpenAI 希望重现去年 3 月聊天机器人的爆红时刻 —— 当时用户争相生成吉卜力工作室风格的个人照片，一度让公司的算力资源达到极限。（此后，该聊天机器人已成为面向个人及企业客户（包括家居、服装设计师）的主流 AI 图像生成工具。）</p><p>OpenAI 预计，从现在到 2030 年，其推理成本（即运行 ChatGPT 及其他产品 AI 模型的成本）将超过 2250 亿美元。公司预计需要足够的算力容量，以应对爆款功能可能带来的使用量激增。</p><p>OpenAI 于 2024 年 2 月首次预览视频生成模型 Sora，并于同年 12 月在独立网站上更大范围开放测试。去年 9 月，公司发布了该 AI 的升级版及配套应用，用户可在滚动式社交信息流中创作并分享 AI 生成视频。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1553096.htm</guid>
+      <pubDate>Wed, 11 Mar 2026 11:52:42 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 微软官宣5月起Windows 11默认启用热补丁更新</title>
       <link>https://www.cnbeta.com.tw/articles/tech/1553092.htm</link>
@@ -576,49 +616,6 @@ Mode），专门用来管控 Chrome 中的 WebGPU 功能。</p>
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1552894.htm</guid>
       <pubDate>Tue, 10 Mar 2026 04:35:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>Google Pixel 11 Pro Fold 渲染图曝光：外观延续前代 机身更纤薄</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1552888.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Google手机硬件产品发布，与用户编程工具、AI技术等核心兴趣不直接相关，但也不在明确避开范畴</small></p>
-                                                
-                                                <p>Google下一代折叠旗舰 Pixel 11 Pro Fold 的 CAD 
-渲染图近日曝光，尽管距离该机正式发布仍有数月时间，相关爆料已经开始集中出现。 按照以往惯例，Pixel 11 系列有望在今年 8 
-月左右亮相，而此次泄露的渲染图则首次系统性展示了折叠版旗舰的大致外观。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0310/6f95217b8293ff2.jpg"></p><p>从整体造型来看，Pixel 11 Pro Fold 与前代 Pixel 10 Pro Fold 极为相似，如果将两代机型放在一起，很容易被误认为是同一款产品。 不过，Google在细节上仍做出了一些调整，尤其是后置相机模组区域。 新机在后盖左上方依旧采用标志性的横向相机岛设计，但相机岛与背板衔接处的过渡由原来的直线变为更为圆润的弧线，使整体观感略显柔和。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0310/6d56ce8f870717c.jpg"></p><p>相机模组内部结构也有明显变化。Pixel 11 Pro Fold 将 LED 闪光灯和麦克风统一收纳进相机岛内那块胶囊状的椭圆突起中，而不再像前代那样置于相机岛外部。 由于内部元件布局调整，相机岛内部的两枚椭圆区域相应被拉长，以适配新的开孔设计。 虽然具体摄像头参数此次并未披露，但这一改动意味着Google在模组排布与结构设计上进行了重新优化。</p><p>机身厚度是本次爆料的另一重点。消息称，Pixel 11 Pro Fold 在折叠状态下的厚度约为 10.1 毫米，相比 Pixel 10 Pro Fold 的 10.8 毫米略有收窄；在展开状态下，机身厚度则从上一代的 5.2 毫米降低至约 4.8 毫米。 除厚度外，其余三围尺寸据称与前代保持一致，这意味着新机在握持手感和屏幕尺寸上不会有大幅变化，但在便携性和视觉观感上会稍显更为轻薄。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0310/c3d1a43b7f340bc.jpg"></p><p>在核心硬件方面，Pixel 11 Pro Fold 预计将与 Pixel 11 系列其他机型保持同步，搭载Google自研的 Tensor G6 芯片。 这款 SoC 被视作 Tensor 系列的最新一代，预计将在性能、能效以及安全性方面进行升级，不过此次泄露并未透露更多关于处理器规格和功能特性的信息。</p><p>目前，除机身设计、厚度变化以及处理器平台外，Pixel 11 Pro Fold 的屏幕参数、折叠结构改良、影像配置以及充电电池等具体细节尚未浮出水面。 随着 Pixel 11 全系发布节点的临近，预计后续还会有更多关于这款折叠旗舰的爆料陆续释出，为今年的Android高端折叠市场再添一名重量级竞争者。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1552888.htm</guid>
-      <pubDate>Mon, 09 Mar 2026 23:03:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>MacBook Neo多彩壁纸随macOS Tahoe 26.4开发者测试版上线</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1552880.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>
-                                                
-                                                <p>苹果在最新推出的 macOS Tahoe 26.4 第四个开发者测试版中，将原本随 MacBook Neo 首发的全新多彩桌面壁纸开放给所有 
-Mac 机型使用。 这组壁纸采用气泡状线条搭配渐变色设计，提供 Mac Purple、Mac Blue、Mac Pink 和 Mac 
-Yellow 四种配色，线条和配色组合在一起还能拼出 “Mac” 字样。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0310/eb6babd42cc75da.jpg"></p><p>已经安装 macOS Tahoe 26.4 第四个开发者测试版的用户，可在系统设置中打开“墙纸”选项，下拉至“图片”栏目，即可找到并启用这组 MacBook Neo 壁纸。 一般来说，苹果会把其用于 Mac 市场宣传图片的壁纸逐步开放给所有 Mac 使用，因此此次 Neo 壁纸也加入了此前为 MacBook Air、MacBook Pro、iMac 等机型设计的壁纸阵容。</p><p>除了新增壁纸，此次 macOS Tahoe 26.4 测试版还引入了一批全新的表情符号，包括长号、宝箱、扭曲脸、毛茸茸生物、打斗云、虎鲸以及山体滑坡等图案。</p><p>&#160;当前发布的仍为开发者测试版，预计不久之后将向公众测试计划用户开放，正式版本则有望在今春面向所有用户推送。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0310/2dd082ecbbce351.png"></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1552880.htm</guid>
-      <pubDate>Mon, 09 Mar 2026 19:41:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI 宣布收购 AI 安全平台 Promptfoo</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1552878.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenAI收购AI安全平台，属于AI软件技术进展，用户感兴趣但不强烈</small></p>
-                                                
-                                                <p>3 月 9 日，OpenAI 宣布将收购人工智能安全平台 Promptfoo，并计划在交易完成后把该公司的技术全面集成到 OpenAI 
-的企业级智能体平台 OpenAI Frontier 中。Promptfoo 主要面向企业用户，在 AI 
-系统开发阶段帮助识别和修复各类安全漏洞，其工具目前已获得超过四分之一财富 500 强企业的采用，并通过开源 CLI 
-和库支持大语言模型应用的评估与红队测试。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0310/0c3bc1b516b12b7.png"></p><p>OpenAI 表示，随着企业将 “AI 同事”（AI coworkers）真实部署到业务流程中，评估、安全与合规已成为基础性要求。企业不仅需要系统化的方法来测试智能体行为、在上线前发现风险，还需要在长期运维中保留清晰的记录，以满足监管、治理与问责需求。OpenAI 计划在延续 Promptfoo 开源项目的同时，把其能力深度融入 Frontier，为企业用户提供更完备的一体化解决方案。</p><p>Promptfoo 团队由联合创始人 Ian Webster 与 Michael D’Angelo 领导，其产品已经构建出一套成熟而强大的工具，用于评估与攻击模拟（red-teaming），帮助企业在规模化应用大模型时识别潜在风险。OpenAI 方面称，Promptfoo 在企业级 AI 系统评估、安全与测试方面具有深厚工程积累，其工作有助于企业部署更安全、可靠的 AI 应用，将这些能力直接纳入 Frontier 将显著提升平台整体安全水位。</p><p>根据 OpenAI 公布的信息，未来在 Frontier 平台上构建智能体的企业，将在几个核心能力上获得增强。首先，安全与安全性测试将被内嵌为平台原生能力：自动化安全测试与红队攻击功能将帮助企业识别和缓解提示注入、越狱、数据泄露、工具误用以及超出策略范围的智能体行为等风险。其次，安全与评估能力将更紧密地融入开发工作流，使团队能够在更早阶段识别、排查并修复智能体风险，把安全作为企业级 AI 系统开发与运维的核心环节之一。第三，平台将强化监督与问责能力，通过集成报告与可追溯性工具，帮助组织记录测试过程、监测随时间变化的风险状况，并满足日益严格的治理、风险与合规要求。</p><p>Promptfoo 联合创始人兼首席执行官 Ian Webster 表示，Promptfoo 的创立初衷，是为开发者提供一套务实可行的方案，用于保障 AI 系统安全。随着 AI 智能体与真实数据和关键系统的连接愈发紧密，对其进行安全防护与系统化验证的难度和重要性都在迅速提升。他称，加入 OpenAI 将使 Promptfoo 能够加速这一方向的投入，把更强的安全性、可靠性与治理能力带给正在构建真实世界 AI 系统的团队。</p><p>OpenAI 表示，对 Promptfoo 团队的加入感到兴奋，并将继续打造相关工具，帮助企业安全、可靠地部署 AI 应用和智能体系统。此次收购的完成仍有赖于惯常的交易交割条件的满足。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1552878.htm</guid>
-      <pubDate>Mon, 09 Mar 2026 17:41:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
