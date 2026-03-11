@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 11 Mar 2026 11:00:36 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2026 11:47:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ SSH 的「秘密菜单」：转义序列实用技巧揭秘</title>
+      <link>https://news.ycombinator.com/item?id=47318797</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍SSH转义序列实用技巧，属于编程效率改进经验，用户对此很感兴趣，属于核心必读内容</small></p><p>一篇关于 SSH 转义序列的讨论在 Hacker News 上引发关注，用户分享了一些被称为「秘密菜单」的 SSH 实用技巧，但这些功能实际上都记录在 SSH 手册页中。</p>
+
+<p>SSH 转义序列以波浪号（~）开头，需要在单独一行输入。最常用的序列是 <code>~.</code>，用于立即终止挂起的 SSH 连接，这比关闭终端窗口更加方便。其他有用的序列包括：<code>~?</code> 显示所有可用转义序列的帮助信息，<code>~^Z</code> 将 SSH 会话挂起到后台，以及 <code>~#</code> 列出所有转发连接。</p>
+
+<p>社区评论指出，这些功能并非真正的「秘密」，而是大多数用户没有完整阅读手册页的结果。有用户调侃道：「就像 SSH 手册一样秘密」，并建议直接查看 <a href="http://grack.com/blog/2011/02/23/ssh-escape-sequences-or-dont-kill-9-that-process/">这篇 15 年前的博客文章</a> 获取详细信息。</p>
+
+<p>讨论中还提到了 SSH 的 ControlMaster 功能，它可以多路复用多个连接到一个主连接，使得新建会话几乎瞬间完成，同时也便于远程路径的标签补全。不过，有用户指出该功能在隧道转发时可能存在问题。</p>
+
+<p>一些用户分享了自己的使用经验：有人使用 <code>~.</code> 处理挂起的连接已有多年，有人则通过设置 <code>EscapeChar none</code> 来避免意外触发转义序列。还有用户将其与 telnet 的 <code>Ctrl+]</code> 快捷键进行对比，指出 SSH 的实现更加友好。</p>
+
+<p>总体而言，这次讨论揭示了 SSH 中一些实用但未被广泛知晓的功能，同时也反映了技术社区对于「隐藏功能」的持续兴趣，即使这些功能早已在官方文档中有所记载。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47318797</guid>
+      <pubDate>Tue, 10 Mar 2026 03:28:38 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Zig 语言发布重大更新：类型解析重新设计、I/O实现增强与包管理改进</title>
       <link>https://news.ycombinator.com/item?id=47330836</link>
@@ -1348,32 +1367,6 @@ chmod +x ~/.local/bin/safehouse</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47267947</guid>
       <pubDate>Thu, 05 Mar 2026 22:04:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Jido 2.0：基于 BEAM 虚拟机的 Elixir AI 智能体框架正式发布</title>
-      <link>https://news.ycombinator.com/item?id=47263036</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为编程工具发布和AI技术框架，符合用户对编程工具发布（high_interest）和AI软件技术进展（interest）的兴趣配置</small></p><p>Jido 2.0 是一个基于 Elixir 和 BEAM 虚拟机构建的生产级 AI 智能体框架，经过 18 个月的开发和重构后正式发布。作者认为 BEAM 的架构非常适合智能体工作负载，相比 TypeScript 和 Python 框架具有更好的并发处理能力。</p>
-
-<p>该框架的核心特性包括：</p>
-<ul>
-<li><strong>纯函数式智能体架构</strong>：智能体作为数据结构，通过 cmd/2 函数处理动作，产生更新后的智能体和指令列表</li>
-<li><strong>策略系统</strong>：支持多种推理策略，包括 ReAct、思维链（Chain of Thought）、思维树（Tree of Thought）等</li>
-<li><strong>工具调用和智能体技能</strong>：通过 jido_action 包提供统一的动作契约</li>
-<li><strong>分布式多智能体支持</strong>：基于 BEAM 进程和监督树</li>
-<li><strong>信号系统</strong>：使用 CloudEvents v1.0.2 规范构建的消息神经系统</li>
-</ul>
-
-<p>Jido AI 层建立在 ReqLLM 之上，这是一个作者开发的 Elixir LLM 客户端，支持 11 个提供商和 665+ 模型。框架还提供了完整的生态系统支持，包括与 Ash Framework 的深度集成。</p>
-
-<p>社区反馈显示，用户对 BEAM 在智能体框架中的应用表示认可，认为其监督模型和进程管理能力非常适合处理智能体的操作边界和故障恢复。有用户询问了与 <a href="https://github.com/brainlid/langchain">LangChain</a> 的关系，作者表示 Jido 1.0 曾使用 Elixir LangChain，但随着 LLM API 的发展，转向了自建的 ReqLLM。</p>
-
-<p>技术社区对框架的可视化工具 jido_studio 表示期待，作者分享了预览截图。虽然网站因流量过大出现访问问题，但这反映了社区对该项目的强烈兴趣。</p>
-
-<p>Jido 2.0 现已通过 Hex 包管理器提供，开发者可以通过添加依赖开始使用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47263036</guid>
-      <pubDate>Thu, 05 Mar 2026 15:48:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
