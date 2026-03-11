@@ -3,7 +3,69 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 11 Mar 2026 18:01:16 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 11 Mar 2026 19:09:53 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Temporal：历时九年修复 JavaScript 时间处理问题的旅程</title>
+      <link>https://news.ycombinator.com/item?id=47336989</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于JavaScript时间处理新标准Temporal的发布，属于编程工具发布类别，用户对此很感兴趣，是编程效率改进的重要进展</small></p><p>经过九年的努力，JavaScript 的日期和时间处理终于迎来了现代化解决方案。Temporal API 近日已达到 TC39 标准的 Stage 4，成为 JavaScript 语言的一部分，旨在彻底解决长期以来困扰开发者的 Date 对象问题。</p>
+
+<p>JavaScript 的 Date 对象自 1995 年诞生以来就存在诸多设计缺陷。当时 Brendan Eich 在十天冲刺中创建了 Mocha（JavaScript 的前身），为了与 Java 保持一致，直接移植了 Java 的 Date 实现。这个决定在当时是务实的，但随着 Web 应用变得越来越复杂，Date 对象的局限性日益凸显。</p>
+
+<img src="/js-blog/images/temporal-image6.png" alt="A Tweet by Brendan Eich that says: Ten-day-sprint Mocha, 25 years old today, finished in time to be demo'ed via the mocha: console that looked close to this image, did not have Date (Ken Smith helped and we agreed per MILLJ to port java.util.Date, bugs and all), had strict ==, and of course had NaNs." />
+
+<p>Date 对象的主要问题包括：可变性导致意外副作用、月份算术不一致、时区处理模糊不清等。例如，当开发者尝试给日期增加一个月时，可能会遇到意想不到的结果：</p>
+
+<pre><code>const billingDate = new Date("Sat Jan 31 2026");
+billingDate.setMonth(billingDate.getMonth() + 1);
+// 期望：2月28日
+// 实际：3月2日</code></pre>
+
+<p>这些问题促使开发者转向第三方库。Moment.js 等库迅速流行，但带来了新的问题——巨大的包体积。这些库需要包含完整的时区和本地化数据，导致应用体积臃肿。</p>
+
+<img src="/js-blog/images/temporal-image1.png" alt="npm download trends for date-fns, luxon, and moment from 2015 to January 2026, all showing steep growth. As of Jan 11, 2026: date-fns leads at 39.6M weekly downloads, moment at 25.8M, and luxon at 18.9M, totaling over 84 million downloads per week." />
+
+<img src="/js-blog/images/temporal-image5.png" alt="Bundlephobia stats for moment@2.30.1 showing a publish size and install size of 4.15 MB, with a bar chart of install sizes across versions from 2.24.0 to 2.30.1 showing steady growth." />
+
+<p>2017年，Moment.js 的维护者 Maggie Johnson-Pint 向 TC39 提交了 Temporal 提案。这个提案得到了 Bloomberg、Igalia、Microsoft、Google 等公司的支持，形成了一个由多方专家组成的 champion 团队。</p>
+
+<img src="/js-blog/images/temporal-image4.jpg" alt="TC39 Plenary hosted at Bloomberg's NY office in 2018" />
+
+<p>Temporal 的核心设计理念包括：</p>
+<ul>
+<li><strong>不可变性</strong>：所有 Temporal 对象都是不可变的，避免了 Date 对象常见的意外修改问题</li>
+<li><strong>显式时区支持</strong>：提供第一流的时区处理能力，支持 IANA 时区数据库</li>
+<li><strong>日历系统支持</strong>：内置多种日历系统，满足国际化需求</li>
+<li><strong>纳秒级精度</strong>：相比 Date 的毫秒级精度，提供更精确的时间表示</li>
+<li><strong>类型化 API</strong>：提供多种专门的类型，如 ZonedDateTime、Instant、PlainDate 等</li>
+</ul>
+
+<p>State of JS 2026 年的调查显示，日期处理是 JavaScript 开发者的第二大痛点，仅次于类型系统。</p>
+
+<img src="/js-blog/images/temporal-image3.png" alt="State of JS survey results for 'Language Pain Points' showing Dates as the #2 pain point at 10% (372 responses), behind only Lack of static typing at 28% (1,102 responses), and ahead of TypeScript support at 7% (276 responses)." />
+
+<p>Temporal 的主要类型包括：</p>
+<ul>
+<li><strong>Temporal.ZonedDateTime</strong>：最接近 Date 的替代品，包含明确的时区和日历信息</li>
+<li><strong>Temporal.Instant</strong>：表示精确的时间点，无时区信息，纳秒级精度</li>
+<li><strong>Temporal.PlainDate/PlainTime/PlainDateTime</strong>："墙上时间"类型，不考虑时区变化</li>
+</ul>
+
+<p>在 Hacker News 的讨论中，开发者对 Temporal 的发布表示热烈欢迎。用户 patchnull 指出："Temporal 中最被低估的设计决策是让所有东西都不可变。我多年来调试的 Date 错误中，一半来自有人在共享的 Date 对象上调用 setMonth() 或 setHours()。"</p>
+
+<p>其他评论者提到了 Safari 的支持问题，目前 Safari 仅在技术预览版中提供部分支持。也有开发者将 Temporal 与 Java 的 JSR 310（Java 8 引入的日期时间 API）相提并论，认为两者都从 Joda-Time 等库中汲取了灵感。</p>
+
+<p>Temporal 经过了严格的测试，拥有 4,496 个 Test262 测试用例，远超其他 JavaScript 内置对象。</p>
+
+<img src="/js-blog/images/temporal-image2.png" alt="Bar chart of Test262 ECMAScript test counts showing Temporal with 4,496 tests, far exceeding String (1,208), Date (594), Function (488), BigInt (75), and Boolean (51)." />
+
+<p>经过九年的标准化历程，Temporal 终于成为 JavaScript 标准的一部分。这个现代化的日期时间 API 不仅解决了长期存在的痛点，还为未来的 Web 应用提供了强大、可靠的时间处理基础。</p>
+
+<p>了解更多：<a href="https://bloomberg.github.io/js-blog/post/temporal/">Bloomberg 博客文章</a> | <a href="https://news.ycombinator.com/item?id=47336989">Hacker News 讨论</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47336989</guid>
+      <pubDate>Wed, 11 Mar 2026 15:35:50 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 智能体工程化的八个层次：从自动补全到自主代理团队</title>
       <link>https://news.ycombinator.com/item?id=47320614</link>
@@ -1362,31 +1424,6 @@ chmod +x ~/.local/bin/safehouse</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47272799</guid>
       <pubDate>Fri, 06 Mar 2026 09:22:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 全球变暖已显著加速：研究证实2015年后升温速度创纪录</title>
-      <link>https://news.ycombinator.com/item?id=47275088</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主题为全球变暖加速的最新科学研究，属于科学前沿进展，用户配置中标记为感兴趣</small></p><p>一项最新研究显示，全球变暖在2015年后出现了显著加速。研究人员在考虑了厄尔尼诺、火山活动和太阳变化等自然变率因素后，发现调整后的数据显示，2015年后的十年间全球温度上升速度比1945年以来的任何十年期都要快。</p>
-
-<p>这篇题为《全球变暖已显著加速》的论文目前以预印本形式发布，尚未经过正式同行评审，但作者格兰特·福斯特等人在气候科学领域享有盛誉，其研究成果被广泛引用。该研究后来已正式发表在权威期刊《Geophysical Research Letters》上，但该期刊内容需要付费访问。</p>
-
-<p>在Hacker News社区的讨论中，用户们就多个方面展开了深入交流：</p>
-
-<ul>
-<li><strong>研究可信度</strong>：尽管是预印本，但由于作者在气候科学领域的良好声誉，许多评论者表示更倾向于信任这项研究的结果。</li>
-<li><strong>科学传播挑战</strong>：有评论指出，这类科学论文的标题对领域内专家来说清晰明了，但对普通公众可能显得晦涩难懂，这反映了科学传播面临的普遍挑战。</li>
-<li><strong>政策与现实矛盾</strong>：讨论中提到了当前政策与气候行动之间的脱节，例如美国对中国电动汽车的限制措施被认为与减排目标相悖。</li>
-<li><strong>能源消耗争议</strong>：部分评论将话题转向人工智能的能源消耗问题，但随即有反驳指出，与交通、供暖和航运等行业相比，AI和数据中心的能源消耗占比相对较小。</li>
-<li><strong>社会关注度变化</strong>：有观察认为，近年来气候变化在社会议题中的关注度有所下降，地缘政治冲突等其他问题分散了公众注意力。</li>
-</ul>
-
-<p>研究原文可通过以下链接访问：<a href="https://doi.org/10.21203/rs.3.rs-6079807/v1">预印本版本</a>，正式发表版本见<a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2025GL118804">《Geophysical Research Letters》</a>。</p>
-
-<p>这项研究为全球变暖加速提供了新的数据支持，强调了应对气候变化的紧迫性，同时也引发了关于科学传播、政策协调和能源转型的多维度讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47275088</guid>
-      <pubDate>Fri, 06 Mar 2026 14:10:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
