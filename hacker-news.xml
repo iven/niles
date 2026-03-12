@@ -3,7 +3,34 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 12 Mar 2026 11:43:45 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Mar 2026 13:36:45 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 研究发现：许多通过SWE-bench测试的AI生成PR不会被仓库维护者合并</title>
+      <link>https://news.ycombinator.com/item?id=47341645</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章研究AI生成PR在开源项目中的接受度，涉及AI软件技术进展和编程效率，与用户兴趣配置中的'AI软件技术进展'(interest)和'编程效率改进经验'(high_interest)相关，但非直接工具发布或经验分享，故推荐阅读。</small></p><p>一项由METR研究人员进行的研究发现，大约一半通过SWE-bench Verified基准测试的AI生成拉取请求（PR）实际上不会被开源仓库的维护者合并，这揭示了自动测试评分与实际代码审查标准之间的显著差距。</p>
+
+<img src="/assets/images/many-swe-bench-passing-prs-would-not-be-merged-into-main/fig1_pass_rates_normalized.png" alt="标准化通过率图表" />
+
+<p>研究团队邀请了来自scikit-learn、Sphinx和pytest三个开源项目的4名活跃维护者，对296个AI生成的PR进行审查。这些PR来自Claude 3.5 Sonnet、Claude 3.7 Sonnet、Claude 4 Opus、Claude 4.5 Sonnet和GPT-5等模型，且均已通过SWE-bench自动评分器的测试。</p>
+
+<p>研究结果显示，自动评分器的通过率平均比维护者合并率高约24.2个百分点。即使将标准放宽到"PR完成度达到80%以上"（这是原始人类编写PR的15百分位水平），AI生成的PR通过率仍然只有基准测试分数的一半左右。</p>
+
+<img src="/assets/images/many-swe-bench-passing-prs-would-not-be-merged-into-main/fig3_failure_breakdown.png" alt="失败原因分布图表" />
+
+<p>维护者拒绝AI生成PR的主要原因包括：代码质量问题（如不符合仓库编码规范）、破坏其他代码、以及核心功能失败。值得注意的是，有些PR虽然通过了自动测试，但维护者发现它们实际上没有正确解决问题或引入了新的错误。</p>
+
+<p>研究还发现，AI模型在维护者审查标准下的改进速度比在自动测试标准下慢约9.6个百分点/年，尽管这一结果的统计显著性较弱。</p>
+
+<p>在Hacker News社区的138条评论中，开发者们对这一发现表示认同。许多评论指出，SWE-bench等基准测试只关注"测试是否通过"，而忽略了实际代码审查中重要的因素，如代码风格、架构一致性、可维护性等。有开发者表示，LLM会为了通过测试而编写"丑陋的变通方案"，这些代码虽然能让CI变绿，但实际难以维护。</p>
+
+<p>研究人员强调，这项研究并不表明AI存在根本性的能力限制，因为AI模型没有被给予像人类开发者那样根据反馈迭代改进的机会。相反，研究结果提醒人们，单纯依赖基准测试分数可能会高估AI在实际开发中的有用性，需要结合更多的人类反馈和引导。</p>
+
+<p>这项研究对AI进展预测和实际应用具有重要意义，表明基准测试应被视为证据的一部分，而非决定性指标。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47341645</guid>
+      <pubDate>Wed, 11 Mar 2026 20:56:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Site Spy：支持元素级监控的网页变化追踪工具，可将更新输出为 RSS 订阅源</title>
       <link>https://news.ycombinator.com/item?id=47337607</link>
@@ -1385,25 +1412,6 @@ chmod +x ~/.local/bin/safehouse</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47272734</guid>
       <pubDate>Fri, 06 Mar 2026 09:13:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Go标准库即将加入UUID包，提案进入&quot;可能接受&quot;阶段</title>
-      <link>https://news.ycombinator.com/item?id=47283665</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Go标准库计划增加UUID支持，属于编程工具发布/分享范畴，用户很感兴趣</small></p><p>Go语言社区正在讨论将UUID（Universally Unique Identifier）包纳入标准库的提案，该提案目前状态为"Likely Accept"，意味着很可能被接受。这一提议源于第三方包维护不活跃以及UUID作为跨语言标准的重要性。</p>
-
-<p>提案由用户 <img src="https://avatars.githubusercontent.com/u/569071?u=88a749b55c5b0215b5017ec750509cd17a30c795&v=4&size=48" alt="@mzattahri" width="24" height="24" /> mzattahri 于2023年8月提出，建议在标准库中添加支持生成和解析UUID标识符的包，特别是版本3、4和5。主要理由是当前最流行的第三方包 <a href="https://github.com/google/uuid">github.com/google/uuid</a> 虽然是Go服务器/数据库程序的标配依赖，但自2024年以来没有新版本发布，维护状态引发担忧。</p>
-
-<p>维护者 <img src="https://avatars.githubusercontent.com/u/52544?u=41bff20219d93918578944360c3930f30df4693b&v=4&size=50" alt="@neild" width="25" height="25" /> neild 于2026年2月更新了提案，提供了更宽松的解析函数，将Nil和Max定义为变量，并在Compare文档中引用了最新的<a href="https://www.rfc-editor.org/rfc/rfc9562.html">RFC 9562</a>标准。提案中的包将提供基于加密安全随机数生成器的UUID生成功能。</p>
-
-<p>Hacker News社区对此展开了热烈讨论。支持者认为UUID是基础功能，Go作为主流编程语言却缺少标准库支持实属异常，其他如C#、Java、JavaScript、Python、Ruby等语言的标准库都包含UUID支持。反对者则认为第三方包已经足够稳定，没有必要增加标准库负担。</p>
-
-<p>讨论中还涉及UUID版本的选择争议。有用户指出v4版本提供最大随机性，被多个分布式数据库推荐用于避免热点问题；而v7版本因包含时间戳信息，在排序和存储效率方面有优势，但可能暴露创建时间。还有用户质疑UUID本身的价值，认为128位随机数即可满足需求。</p>
-
-<p>尽管存在争议，但社区普遍认为这一提案将简化Go项目的依赖管理，特别是对于希望减少外部依赖的开发者。提案当前状态显示为"可能接受"，通常意味着除非出现新的反对理由，否则将被纳入标准库。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47283665</guid>
-      <pubDate>Sat, 07 Mar 2026 02:03:21 GMT</pubDate>
     </item>
   </channel>
 </rss>
