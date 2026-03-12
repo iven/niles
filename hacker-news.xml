@@ -3,7 +3,31 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 12 Mar 2026 16:13:16 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Mar 2026 18:02:19 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 更快的asin()函数其实一直就在眼前：从复杂优化到发现已有高效实现</title>
+      <link>https://news.ycombinator.com/item?id=47336111</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于asin()函数优化实现，属于用户很感兴趣的编程效率改进经验</small></p><p>作者在优化PSRayTracing光线追踪器时，发现<code>std::asin()</code>函数调用频繁，于是开始寻找更快的近似实现。最初尝试了泰勒级数近似，但发现在|x|&gt;0.8时误差很大，需要回退到标准函数，仅获得5%的速度提升。</p>
+
+<img src="https://storage.googleapis.com/sixteenbpp/blog/images/faster-asin-was-hiding-in-plain-sight/asin_approx_with_ec.png" alt="The Taylor series arcsin approximation with a fallback for edges" title="泰勒级数近似与回退机制" />
+
+<p>随后尝试了帕德近似(Padé Approximants)，虽然精度有所改善，但性能提升仍然有限。关键转折点出现在作者向LLM(Gemini)询问快速asin近似时，得到了一个来自Nvidia Cg Toolkit的实现，该实现基于Abramowitz和Stegun的公式4.4.45，使用霍纳法(Horner's method)计算多项式。</p>
+
+<img src="https://storage.googleapis.com/sixteenbpp/blog/images/faster-asin-was-hiding-in-plain-sight/asin_cg_with_error.png" alt="Performance and error profile of the Nvidia Cg asin approximation" title="Nvidia Cg asin近似性能与误差" />
+
+<p>这个简洁的实现带来了显著性能提升：在Intel i7-10750H上加速1.47-1.90倍，在Apple M4上也有1.02-1.05倍提升。作者反思道，这个高效实现其实早已存在于Nvidia Cg Toolkit文档(2012年)中，原始公式更可追溯到1960年代的数学手册，但之前从未被人提及。</p>
+
+<p>Hacker News社区讨论中，用户们分享了多种观点：有人提到查找表(LUT)与算术计算的权衡，认为除非asin调用占程序20%以上时间，否则LUT可能因缓存问题反而降低性能；有人探讨了SIMD向量化的可能性；还有用户介绍了雷米兹算法(Remez algorithm)和切比雪夫近似(Chebyshev approximation)等更优的数学工具。一位用户甚至展示了基于快速平方根倒数技巧的"邪恶浮点位操作"实现。</p>
+
+<p>核心教训是：在投入时间进行复杂优化前，应先检查是否已有现成解决方案。作者花费大量时间研究泰勒级数和帕德近似，但最高效的实现其实一直就在眼前。</p>
+
+<p><strong>你知道吗？</strong></p>
+<p>帕德近似是一种有理函数近似方法，通常比多项式近似更高效，特别是对于在有限点附近有奇点的函数。Nvidia Cg Toolkit是Nvidia在2002年推出的高级着色语言，虽然已于2012年停止更新，但其文档中仍包含许多有价值的图形学优化技巧。Abramowitz和Stegun的《数学函数手册》是数值计算领域的经典参考书，首次出版于1964年，至今仍被广泛使用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47336111</guid>
+      <pubDate>Wed, 11 Mar 2026 14:35:53 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 2026年重返Rails框架：一位资深开发者的现代Web开发体验</title>
       <link>https://news.ycombinator.com/item?id=47347064</link>
@@ -1403,29 +1427,6 @@ chmod +x ~/.local/bin/safehouse</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47286311</guid>
       <pubDate>Sat, 07 Mar 2026 10:29:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Helix：一款后现代文本编辑器</title>
-      <link>https://news.ycombinator.com/item?id=47282701</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新款文本编辑器 Helix，属于编程工具发布，用户对此很感兴趣</small></p><p>Helix 是一款采用 Rust 编写的模态文本编辑器，自称“后现代”编辑器，旨在为终端用户提供现代化的编辑体验。该编辑器借鉴了 Kakoune 的多光标选择理念，将其作为核心编辑原语，允许用户通过操作选区进行并发代码编辑。</p>
-
-<p>Helix 集成了 Tree-sitter 语法分析器，提供容错性强且稳健的语法树，从而实现更好的语法高亮、缩进计算和代码导航。编辑器还内置了语言服务器协议（LSP）支持，无需额外配置即可获得语言特定的自动补全、跳转到定义、文档查看和诊断等功能。</p>
-
-<p>与 Vim 和 Kakoune 相比，Helix 选择内置更多功能而非依赖外部工具。编辑器采用现代默认设置，代码库更小，对于从未使用过模态编辑器的用户来说更容易上手。项目目前没有插件系统，但计划未来添加，同时也在考虑开发基于 WebGPU 的图形界面前端。</p>
-
-<p>在 Hacker News 社区的讨论中，用户们分享了各自的使用体验。一些长期 Vim 用户表示，尽管 Helix 的设计理念很有吸引力，但多年的肌肉记忆使得切换变得困难。有用户提到：“我已经使用了 25 年 Vim，肌肉记忆已经根深蒂固。Helix 虽然借鉴了 Vim 的模态编辑，但引入了微妙而有意义的变化，这对我的肌肉记忆造成了破坏。”</p>
-
-<p>也有用户成功从 Vim 切换到 Helix，并表示配置文件比原来的 .vimrc 小很多，许多语言服务器几乎可以开箱即用。一位用户分享：“这已经成为我处理散文和代码的主要编辑器几年了（从 Sublime Text → Atom → Vim → Helix）。总体而言，体验很棒。”</p>
-
-<p>关于编辑器体积的讨论中，有用户指出编译后的二进制文件大小可能达到数百兆字节，主要是因为静态链接了 Rust 标准库以及包含大量语言语法文件。不过其他用户表示，在 NixOS 上二进制文件仅为 29MB。</p>
-
-<p>用户们还提到了 Helix 目前的一些限制，包括缺乏代码折叠功能、外部文件更改后不会自动刷新（虽然有 :reload 命令），以及 AI 集成目前只能通过 LSP 实现。社区中也有用户推荐了其他类似编辑器，如 <a href="https://ki-editor.org/">Ki Editor</a> 和 <a href="https://github.com/martanne/vis">Vis editor</a>。</p>
-
-<p>总体而言，Helix 作为一款新兴的文本编辑器，以其现代化的设计理念和“开箱即用”的特性吸引了不少开发者，特别是在寻求 Vim 替代方案但又希望避免复杂配置的用户群体中获得了关注。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47282701</guid>
-      <pubDate>Fri, 06 Mar 2026 23:53:29 GMT</pubDate>
     </item>
   </channel>
 </rss>
