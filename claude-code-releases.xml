@@ -3,7 +3,41 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Wed, 11 Mar 2026 23:38:03 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Mar 2026 02:54:59 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.74 发布：新增上下文优化建议与内存泄漏修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.74</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是编程工具Claude Code的新版本发布，包含上下文优化建议（编程效率改进）和内存泄漏修复，完全符合用户很感兴趣（high_interest）的编程工具发布/分享和编程效率改进经验类别</small></p><p>Claude Code 发布了 v2.1.74 版本，本次更新引入了多项功能改进和错误修复，主要包括新增上下文优化建议、修复内存泄漏问题等。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增功能</strong>：为 <code>/context</code> 命令添加了可操作建议，能够识别上下文密集型工具、内存膨胀和容量警告，并提供具体的优化提示。</li>
+<li><strong>新增功能</strong>：添加了 <code>autoMemoryDirectory</code> 设置，允许用户配置自定义目录用于自动内存存储。</li>
+<li><strong>重大修复</strong>：修复了内存泄漏问题，当生成器提前终止时，流式 API 响应缓冲区未被释放，导致 Node.js/npm 代码路径上的 RSS 无限增长。</li>
+<li><strong>重大修复</strong>：修复了托管策略 <code>ask</code> 规则被用户 <code>allow</code> 规则或技能 <code>allowed-tools</code> 绕过的问题。</li>
+<li><strong>重大修复</strong>：修复了完整模型 ID（如 <code>claude-opus-4-5</code>）在 agent frontmatter 的 <code>model:</code> 字段和 <code>--agents</code> JSON 配置中被静默忽略的问题，现在 agent 接受与 <code>--model</code> 相同的模型值。</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li>修复了 MCP OAuth 认证在回调端口已被占用时挂起的问题。</li>
+<li>修复了 MCP OAuth 刷新令牌过期后不再提示重新认证的问题（针对返回 HTTP 200 错误的 OAuth 服务器，如 Slack）。</li>
+<li>修复了 macOS 原生二进制文件中语音模式对从未被授予麦克风权限的终端用户静默失败的问题，现在二进制文件包含 <code>audio-input</code> 权限，macOS 会正确提示。</li>
+<li>修复了 <code>SessionEnd</code> 钩子在退出时无论 <code>hook.timeout</code> 设置如何都在 1.5 秒后被终止的问题，现在可通过 <code>CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS</code> 配置。</li>
+<li>修复了在 REPL 中安装具有本地源的市场插件时 <code>/plugin install</code> 失败的问题。</li>
+<li>修复了市场更新未同步 git 子模块的问题，子模块中的插件源在更新后不再损坏。</li>
+<li>修复了带有参数的未知斜杠命令静默丢弃输入的问题，现在会显示警告。</li>
+<li>修复了希伯来语、阿拉伯语等 RTL 文本在 Windows Terminal、conhost 和 VS Code 集成终端中渲染不正确的问题。</li>
+<li>修复了由于文件 URI 格式错误导致 LSP 服务器在 Windows 上无法工作的问题。</li>
+<li>更改了 <code>--plugin-dir</code> 行为，现在本地开发副本会覆盖已安装的同名市场插件（除非该插件被托管设置强制启用）。</li>
+<li>[VSCode] 修复了 Untitled 会话的删除按钮无法工作的问题。</li>
+<li>[VSCode] 改进了集成终端中滚轮响应的灵敏度，采用了终端感知加速。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.74</guid>
+      <pubDate>Thu, 12 Mar 2026 00:34:23 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.73 发布：新增模型映射功能，修复多个重要 bug</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.73</link>
