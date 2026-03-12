@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 12 Mar 2026 10:58:01 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Mar 2026 11:43:45 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Site Spy：支持元素级监控的网页变化追踪工具，可将更新输出为 RSS 订阅源</title>
+      <link>https://news.ycombinator.com/item?id=47337607</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是一个网页监控工具发布，属于用户很感兴趣的编程工具发布/分享类别，故判断为必看内容</small></p><p>Site Spy 是一个网站监控工具，起源于作者因错过签证预约时间而开发的个人需求。该工具能够追踪网页内容变化，特别支持精确监控页面中的特定元素（如价格、库存状态、标题等），而不仅仅是整个页面。</p>
+
+<p>工具的核心功能包括：视觉差异对比视图，可清晰显示内容的增删变化；完整的快照时间线；以及将变化输出为 RSS 订阅源的能力。用户可以通过浏览器扩展（支持 <a href="https://chromewebstore.google.com/detail/site-spy/jeapcpanagdgipcfnncmogeojgfofige">Chrome</a> 和 <a href="https://addons.mozilla.org/en-GB/firefox/addon/site-spy/">Firefox</a>）快速添加监控目标，并通过网页仪表板管理所有监控任务。</p>
+
+<img src="/screenshots/dashboard-watches-dark.png" alt="Site Spy 网页仪表板显示跟踪网站的状态指示器" width="1400" height="810" />
+
+<p>除了 RSS 输出外，Site Spy 还提供多种通知方式：浏览器推送通知、电子邮件和 Telegram 消息。工具还集成了 MCP（Model Context Protocol）服务器，可与 Claude、Cursor 等 AI 助手配合使用。</p>
+
+<p>在 Hacker News 社区讨论中，作者特别询问了两个问题：RSS 是否真的是有用的界面，以及元素级监控是否比全页面监控更有意义。社区反馈显示，对于 RSS 功能存在不同看法：一些用户认为 RSS 适合集成到现有工作流中，而另一些用户则更倾向于直接通知。关于元素级监控，用户普遍认为这是有价值的改进。</p>
+
+<p>讨论中还提到了其他类似工具，如开源的 <a href="https://github.com/dgtlmoon/changedetection.io">changedetection.io</a> 和自托管的 <a href="https://github.com/thp/urlwatch/">urlwatch</a>。有用户询问工具如何处理 JavaScript 渲染的网站，作者回应称 Site Spy 使用真实浏览器流程，能较好地处理这类页面。</p>
+
+<p>定价方面，Site Spy 提供免费版（5个监控URL，1小时检查间隔）、入门版（€4/月，25个监控URL）和专业版（€8/月，100个监控URL）。所有版本都支持元素级追踪和视觉差异对比。</p>
+
+<p>该工具的设计理念是简化浏览器优先的工作流程：安装扩展、连接仪表板、点击选择关心的页面部分，然后通过差异对比、历史记录或 RSS 跟踪变化，整个过程设置简单。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47337607</guid>
+      <pubDate>Wed, 11 Mar 2026 16:21:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ s@协议：基于静态网站的去中心化社交网络</title>
       <link>https://news.ycombinator.com/item?id=47344548</link>
@@ -1381,46 +1404,6 @@ chmod +x ~/.local/bin/safehouse</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47283665</guid>
       <pubDate>Sat, 07 Mar 2026 02:03:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ LLM生成代码的陷阱：看似合理但性能低劣的SQLite重写案例</title>
-      <link>https://news.ycombinator.com/item?id=47283337</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深入分析LLM生成代码的陷阱和性能问题，属于编程效率改进经验，符合用户高兴趣配置</small></p><p>一篇技术分析文章揭示了一个由大型语言模型（LLM）生成的SQLite Rust重写项目存在的严重性能问题。虽然该项目编译通过、测试通过，但在基本数据库操作上比原版SQLite慢20,000倍。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!3Nvv!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe1a72ec7-4e57-4b89-b528-0a5e402aa25c_1595x300.png" alt="性能对比图表" width="1456" height="274" />
-
-<p>作者通过详细的基准测试发现，这个576,000行Rust代码的重写项目存在两个主要缺陷：</p>
-
-<ol>
-<li><strong>查询规划器错误</strong>：无法识别INTEGER PRIMARY KEY列，导致所有WHERE查询都进行全表扫描（O(n²)而非O(n log n)）</li>
-<li><strong>过度同步</strong>：每个INSERT语句都调用fsync，而SQLite使用更高效的fdatasync</li>
-</ol>
-
-<p>此外，项目还存在一系列"安全但低效"的设计选择：每次调用都克隆AST、为每次读取分配新内存、每次自动提交都重新加载模式等。这些选择单独看都有道理，但组合起来导致性能严重下降。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!b3NO!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F503cef77-5d11-4c3b-8b94-ef3a09599d87_1212x811.png" alt="性能基准测试结果" width="1212" height="811" />
-
-<p>作者还分析了同一开发者的另一个项目：一个82,000行的Rust清理守护进程，用于删除旧的Rust构建工件。而实际上，这个问题可以用一行cron命令解决：<code>find ~/*/target -type d -name "incremental" -mtime +7 -exec rm -rf {} +</code>。</p>
-
-<p>文章指出，LLM倾向于生成"看似合理"而非"正确"的代码，这种现象在AI对齐研究中被称为"谄媚性"（sycophancy）——模型更倾向于生成符合用户期望而非实际正确的输出。</p>
-
-<p>在Hacker News社区讨论中，用户们对此展开了热烈讨论：</p>
-<ul>
-<li>有用户指出LLM在视觉任务上表现不佳，因为它们本质上是文本预测模型</li>
-<li>有经验丰富的开发者表示，LLM在资深工程师手中能产生高质量代码，但在初级工程师手中则可能产生问题代码</li>
-<li>有评论认为，使用LLM时需要在提示中明确性能要求，否则模型不会自动优化</li>
-<li>有用户分享了LLM倾向于生成复杂解决方案而非简单有效方案的经验</li>
-</ul>
-
-<p>文章的核心观点是：LLM在生成代码时，用户必须首先明确定义验收标准。模型会生成符合描述而非实际需要的代码，这对于缺乏验证能力的用户尤其危险。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!2ZlV!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe285c785-4563-4e17-9c37-375e64c52008_908x600.png" alt="COCOMO模型估算" width="908" height="600" />
-
-<p>作者引用Tony Hoare的话总结道："构建软件设计有两种方式：一种是让它简单到显然没有缺陷，另一种是让它复杂到没有明显的缺陷。"LLM生成的代码往往属于后者。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47283337</guid>
-      <pubDate>Sat, 07 Mar 2026 01:17:57 GMT</pubDate>
     </item>
   </channel>
 </rss>
