@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 13 Mar 2026 15:56:05 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Mar 2026 17:52:00 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux内核API规范框架通过RFC评审进入新阶段</title>
+      <link>https://www.phoronix.com/news/Kernel-API-Spec-Framework</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Linux内核API规范框架进展，属于开源项目和Linux技术进展，用户对这类主题感兴趣</small></p><p>经过五轮征求意见（RFC）评审后，Linux内核API规范框架的最新补丁系列已正式移除RFC标志，标志着该项目进入新的发展阶段。该框架旨在以人类可读和机器可读的形式更好地记录内核API，解决内核与用户空间程序之间稳定接口的长期挑战。</p>
+
+<p>尽管Linux内核承诺永不破坏用户空间，但由于缺乏机器可读的API规范，系统调用和IOCTL（输入/输出控制）仍不时出现兼容性问题。新的规范框架能够详细记录参数类型、有效范围、约束条件、对齐要求，以及返回值语义（包括成功条件和错误代码含义）。此外，执行上下文要求、能力、锁定约束、信号处理行为和副作用等都可以通过该框架进行形式化规范。</p>
+
+<p><img src="//www.phoronix.net/image.php?id=2026&image=kernel_api_spec" alt="Kernel API Specification Framework" /></p>
+
+<p>这些规范与它们所记录的代码共存，既便于人类阅读，也能被机器解析。当启用CONFIG_KAPI_RUNTIME_CHECKS配置选项时，规范可以在运行时进行验证，并通过debugfs接口导出供用户空间工具使用。规范可以从vmlinux或源代码中提取，使静态分析工具能够在编译时验证用户空间API使用情况，基于形式化规范生成测试，验证一致的错误处理，自动生成文档，并对内核接口进行形式化验证。</p>
+
+<p>实现包括一个核心框架，具有ELF节存储、用于内联规范的kerneldoc集成、用于运行时查询的debugfs接口，以及一个基于Rust的提取工具（tools/kapi），支持JSON、RST和纯文本输出格式。该补丁系列为四个基本文件系统调用（sys_open、sys_close、sys_read、sys_write）提供了示例规范，并包含一个具有38个测试的KUnit测试套件和一个具有29个以上TAP测试的运行时验证自测。</p>
+
+<p>除了移除RFC标志外，最新补丁还基于Linux 7.0-rc1进行了重新调整，增加了KUnit测试套件覆盖率，简化了示例规范，并完善了运行时验证自测。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Kernel-API-Spec-Framework</guid>
+      <pubDate>Fri, 13 Mar 2026 16:18:47 GMT</pubDate>
+    </item>
     <item>
       <title>Vulkan 1.4.346 发布，带来重要的 VK_KHR_device_address_commands 扩展</title>
       <link>https://www.phoronix.com/news/Vulkan-1.4.346-Released</link>
@@ -804,25 +823,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-50-Release-Candidate</guid>
       <pubDate>Fri, 06 Mar 2026 00:51:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Rust 1.94 发布：稳定支持 AVX-512 FP16 内部函数和数组窗口功能</title>
-      <link>https://www.phoronix.com/news/Rust-1.94-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍 Rust 1.94 新版本发布，用户对 Rust 编程语言和软件新功能感兴趣；虽然提及 AVX-512 硬件指令集可能涉及芯片技术，但非主要内容。</small></p><p>Rust 编程语言于今日发布了 1.94 版本，作为一次常规稳定更新。本次更新在语言层面引入了 <code>array_windows</code> 作为切片迭代方法，该功能类似于现有的 <code>windows</code> 方法，但具有固定长度。</p>
-
-<p>在稳定化的 API 方面，Rust 1.94 正式支持 x86 架构的 AVX-512 FP16 内部函数以及 Arm AArch64 的 NEON FP16 内部函数。不过，依赖不稳定 <code>f16</code> 数据类型的内部函数暂时仍未稳定。Rust 的 AVX512_FP16 内部函数开发工作自 2024 年就已开始。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=rust_avx512_f16" alt="Rust AVX-512 FP16 intrinsic bit" />
-
-<p>硬件支持方面，AVX-512 FP16 功能自 Intel 的 Sapphire Rapids 架构 Xeon Scalable 服务器处理器开始提供支持，AMD 方面则将在未来的 Zen 6 处理器中加入支持。</p>
-
-<p>在包管理工具 Cargo 方面，本次更新在配置文件中增加了 <code>include</code> 键，便于在不同项目或环境间更好地组织和共享配置，同时支持将包含路径标记为可选。此外，Cargo 现在支持 TOML 1.1 格式的清单和配置文件。</p>
-
-<p>更多关于 Rust 1.94 的详细变更信息可通过 <a href="https://www.rust-lang.org">Rust-Lang.org</a> 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rust-1.94-Released</guid>
-      <pubDate>Thu, 05 Mar 2026 19:09:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
