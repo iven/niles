@@ -76,10 +76,5 @@ export async function applyProcessItems(
   context: PluginContext,
 ): Promise<FeedItem[]> {
   const pluginContext = { ...context, logger: logger.withTag(name) };
-  try {
-    return await plugin.processItems(items, options, pluginContext);
-  } catch (error) {
-    logger.warn(`processItems 失败: ${error}`);
-    return items;
-  }
+  return plugin.processItems(items, options, pluginContext);
 }
