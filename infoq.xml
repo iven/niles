@@ -3,7 +3,16 @@
   <channel>
     <title>InfoQ 推荐</title>
     <description>基于个人兴趣筛选的 infoq 内容</description>
-    <lastBuildDate>Sat, 14 Mar 2026 14:45:41 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Mar 2026 15:40:16 GMT</lastBuildDate>
+    <item>
+      <title>Cloudflare 宣布支持 ASPA：为 BGP 路由路径验证引入新安全机制</title>
+      <link>https://www.infoq.cn/article/oOIf2M6slcOmV0PTPKvj</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章介绍Cloudflare支持的BGP路由路径验证新安全机制ASPA，属于网络基础设施技术，用户对基础设施不太感兴趣</small></p><p>Cloudflare 近日<a href="https://blog.cloudflare.com/aspa-secure-internet">宣布支持</a>" ASPA（Autonomous System Provider Authorization）。这一新的加密标准通过验证数据在网络之间传输的路径，使互联网路由更加安全，从而防止流量经过不可靠或不受信任的网络。</p><p></p><p><a href="https://datatracker.ietf.org/doc/draft-ietf-sidrops-aspa-profile/">ASPA</a>" 是一种基于 RPKI 的安全机制。它通过验证 AS_PATH（即路由通告经过的网络路径），来提升互联网路由协议 BGP 的安全性，从而减少路由泄露（route leaks）以及某些类型的路由劫持。这一新兴标准的目标，是提升互联网的整体可靠性，并减少由于意外或恶意行为导致的流量绕行。Cloudflare 首席系统工程师 <a href="https://www.linkedin.com/in/mingweizhang/">Mingwei Zhang</a>" 和首席网络工程师 <a href="https://www.linkedin.com/in/brytonjherdes/">Bryton Herdes</a>" 解释道：</p><p></p><blockquote>当数据在互联网上传输时，它会记录自己经过的每一个网络节点。ASPA 为网络运营者提供了一种机制，可以在 RPKI 系统中正式发布其授权的上游提供商列表。这样一来，接收网络就可以查看 AS_PATH，检查相关的 ASPA 记录，并验证数据流是否只经过被授权的网络链路。</blockquote><p></p><p></p><p>边界网关协议（BGP） 是互联网流量路由的核心协议，但它本身缺乏原生的路径验证机制，因此容易受到路由泄露和路由劫持的影响。虽然 <a href="https://www.arin.net/resources/manage/rpki/roas/">RPKI 和 Route Origin Authorization（ROA）</a>" 可以加强路由来源的验证，但它们并不会验证端到端路径。ASPA 通过一种加密方式，使网络运营者能够声明其被授权的提供商，从而让接收网络可以验证某个 AS 路径是否符合预期的结构。</p><p></p><p>ASPA 通过验证互联网路由的预期层级结构来检测路由绕行。在正常的 “valley-free”（无谷）拓扑 中，流量会从客户网络向上游提供商传递，可能在顶层经过一次对等（peer）连接，然后再通过提供商向下传递到目标客户网络。这种 客户 → 提供商的上行路径、可选的对等连接，以及提供商 → 客户的下行路径，共同构成了符合策略的标准路径。</p><p><img src="https://imgopt.infoq.com/fit-in/3000x4000/filters:quality%2885%29/filters:no_upscale%28%29/news/2026/03/cloudflare-aspa-standard/en/resources/61-1772470746561.jpg" referrerpolicy="no-referrer"></p><p></p><p>去年，美国国家标准与技术研究院（NIST）发布了<a href="https://www.nist.gov/news-events/news/2025/08/nist-releases-test-tools-accelerate-adoption-emerging-route-leak-mitigation">开源测试工具</a>"和数据集，以促进对新兴 BGP 安全和韧性机制的测试与实验，其中包括评估路由器实现 ASPA 规范的能力。</p><p></p><p>Cloudflare 还在 <a href="https://blog.cloudflare.com/radar-origin-pq-key-transparency-aspa/">Cloudflare Radar</a>" 中添加了相关工具，用于跟踪 ASPA 的采用情况，使网络运营者能够查看哪些网络正在使用该技术，以及路径验证的情况。Zhang 和 Herdes 提醒：</p><p></p><p></p><blockquote>随着 ASPA 终于成为现实，我们在互联网路径验证方面迎来了加密层面的升级。不过，对于那些从 RPKI 路由来源验证一开始就参与其中的人来说，他们知道，要让这一技术在互联网上真正产生显著价值仍然需要很长时间。 要真正利用 ASPA 对象并进行路径验证，还需要对多个组件进行改造，包括 RPKI 依赖方（RP）软件包、签名实现、RTR（RPKI-to-Router）软件以及 BGP 实现。</blockquote><p></p><p></p><p><img src="https://imgopt.infoq.com/fit-in/3000x4000/filters:quality%2885%29/filters:no_upscale%28%29/news/2026/03/cloudflare-aspa-standard/en/resources/211-1772470746561.jpg" referrerpolicy="no-referrer"></p><p></p><p>Cloudflare 表示，在最近的委内瑞拉 BGP <a href="https://blog.cloudflare.com/bgp-route-leak-venezuela/">路由泄露事件</a>" 中，如果部署了 ASPA，网络就可以通过验证观察到的 AS 路径是否符合预期的提供商授权关系，从而检测并拒绝异常的路径通告，而仅依赖来源验证是无法做到这一点的。</p><p></p><p>Cloudflare 并不是唯一致力于推动这一加密标准的提供商。在去年发布的文章 “<a href="https://aws.amazon.com/blogs/networking-and-content-delivery/aws-secures-internet-routing-with-rpki-plus-security-checks/">AWS secures internet routing with RPKI plus security checks</a>"” 中，亚马逊云科技团队写道：</p><p></p><blockquote>虽然 ASPA 仍处于标准化过程中，但我们致力于使用它以及所有可用工具，让互联网继续成为一个安全可靠的环境。</blockquote><p></p><p></p><p>尽管相关 IETF 标准仍处于草案阶段，Cloudflare 指出 ARIN 和 RIPE NCC 已经支持创建 ASPA 对象，而路由软件 OpenBGPD 和 BIRD 也已经包含 ASPA 验证功能。</p><p></p><p>原文链接：</p><p>https://www.infoq.com/news/2026/03/cloudflare-aspa-standard/</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.infoq.cn/article/oOIf2M6slcOmV0PTPKvj</guid>
+      <pubDate>Sat, 14 Mar 2026 15:19:37 GMT</pubDate>
+    </item>
     <item>
       <title>规范化后量子IPsec: Cloudflare采用混合ML-KEM以取代密码套件膨胀</title>
       <link>https://www.infoq.cn/article/liUSDE1OqvSe6PmcWbJN</link>
@@ -1027,15 +1036,6 @@ GRANT CREATE STAGE ON SCHEMA movies.PUBLIC TO ROLE semantic_quick_start_role;
       </description>
       <guid isPermaLink="false">https://www.infoq.cn/article/v1pK4PZN44ORoUZr8Fgu</guid>
       <pubDate>Tue, 10 Mar 2026 02:10:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 谷歌发布智能体架构扩展原则</title>
-      <link>https://www.infoq.cn/article/DC0RIBly3IkxTTUMfy6U</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为谷歌发布智能体架构扩展原则，属于AI软件技术进展，用户很感兴趣</small></p><p>来自<a href="https://research.google/">谷歌</a>"与<a href="https://web.mit.edu/">麻省理工学院</a>"的研究人员发表了一篇论文，提出了一个用于扩展多智能体系统的<a href="https://arxiv.org/abs/2512.08296">预测框架</a>"。该框架揭示了工具使用与系统协同之间存在权衡关系，可用于为特定任务选择最优的智能体架构。</p><p></p><p>该扩展模型依赖于系统的多个预测因素，包括底层大语言模型的智能指数、单智能体的基线性能、智能体数量、工具数量以及协调指标。研究人员发现模型中存在三种主导效应：工具‑协调权衡——对工具需求较高的任务，在多智能体带来的开销下表现会更差；能力饱和——当单智能体基线性能超过某一阈值后，增加智能体的收益会逐渐递减；以及拓扑依赖的错误放大——集中式编排能够减轻这种错误放大效应。他们还发现，最优的协调策略取决于任务类型：金融推理任务更适合采用集中式编排，而网页导航任务在分散式策略下表现更佳。在独立测试集上进行评估时，该扩展框架对最优协调策略的预测准确率达到87%。谷歌表示：</p><p></p><blockquote>随着Gemini等基础模型的持续进步，我们的研究表明：更智能的模型并不会取代对多智能体系统的需求，反而会加速其发展——前提是采用正确的架构。从启发式方法转向定量原则，我们便能构建出下一代AI智能体，它们不仅数量更多，而且更智能、更安全、更高效。</blockquote><p></p><p></p><p>谷歌团队根据智能体的不同协调方式将多智能体架构分为以下几类：独立式——智能体之间无协调；集中式——智能体仅与中央编排器通信；分散式——点对点协调；混合式——兼顾集中式与分散式。每种架构都包含若干配置参数，如智能体数量、单个智能体的迭代次数等，且在计算复杂度、内存占用与大模型调用次数上各不相同。</p><p></p><p></p><p><img src="https://static001.geekbang.org/infoq/cb/cba0dc4168dc1055f1662086bc625cc7.png" referrerpolicy="no-referrer"></p><p>多智能体架构，图片来源：<a href="https://research.google/blog/towards-a-science-of-scaling-agent-systems-when-and-why-agent-systems-work/">Google Research</a>"</p><p></p><p>研究人员开发的扩展模型是一个包含20项的回归模型，基于9个预测变量及其交互项构建。他们剔除了“无明确机制支撑的交互项……以避免过拟合”。谷歌指出，该模型确实存在一定局限性。研究团队特别发现，“工具密集型”任务会导致多智能体协调效率降低，并提出需要“为工具密集型任务设计专门的协调协议”。</p><p></p><p>在Hacker News上关于这篇论文的<a href="https://news.ycombinator.com/item?id=46847958">讨论</a>"中，多位用户分享了他们在多智能体工作流方面的实践经验。一位用户写道：</p><p></p><blockquote>我在日常工作中构建了大量智能体工作流。在确定编排策略时，我发现一个非常有效的方法：在规划阶段让智能体给出推荐方案。这种借助智能体自身来提升性能的技术，是我高效运用这项技术的关键。当然，效果因人而异。我主要使用Claude Code，因此其他模型的效果如何尚不明确。</blockquote><p></p><p></p><p>多智能体系统的协作与编排策略是当前活跃的研究方向。2025年，InfoQ曾报道亚马逊为Amazon Bedrock推出的<a href="https://www.infoq.com/news/2025/01/aws-bedrock-multi-agent-ai/">多智能体协作框架</a>"，该框架可让专业智能体在主管智能体的协调下协同工作。今年年初，InfoQ还报道了谷歌发布的多智能体系统八大基础<a href="https://www.infoq.com/news/2026/01/multi-agent-design-patterns/">设计模式</a>"指南，指南对每种模式给出了详细说明，并附带谷歌智能体开发套件（ADK）的示例代码。</p><p></p><p>原文链接：</p><p><a href="https://www.infoq.com/news/2026/03/google-multi-agent/">https://www.infoq.com/news/2026/03/google-multi-agent/</a>"</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.infoq.cn/article/DC0RIBly3IkxTTUMfy6U</guid>
-      <pubDate>Tue, 10 Mar 2026 00:52:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
