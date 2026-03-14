@@ -3,7 +3,53 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Fri, 13 Mar 2026 23:41:11 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Mar 2026 02:49:36 GMT</lastBuildDate>
+    <item>
+      <title>v2.1.76</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.76</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>What's changed</h2>
+<ul>
+<li>Added MCP elicitation support — MCP servers can now request structured input mid-task via an interactive dialog (form fields or browser URL)</li>
+<li>Added new <code>Elicitation</code> and <code>ElicitationResult</code> hooks to intercept and override responses before they're sent back</li>
+<li>Added <code>-n</code> / <code>--name &lt;name&gt;</code> CLI flag to set a display name for the session at startup</li>
+<li>Added <code>worktree.sparsePaths</code> setting for <code>claude --worktree</code> in large monorepos to check out only the directories you need via git sparse-checkout</li>
+<li>Added <code>PostCompact</code> hook that fires after compaction completes</li>
+<li>Added <code>/effort</code> slash command to set model effort level</li>
+<li>Added session quality survey — enterprise admins can configure the sample rate via the <code>feedbackSurveyRate</code> setting</li>
+<li>Fixed deferred tools (loaded via <code>ToolSearch</code>) losing their input schemas after conversation compaction, causing array and number parameters to be rejected with type errors</li>
+<li>Fixed slash commands showing "Unknown skill"</li>
+<li>Fixed plan mode asking for re-approval after the plan was already accepted</li>
+<li>Fixed voice mode swallowing keypresses while a permission dialog or plan editor was open</li>
+<li>Fixed <code>/voice</code> not working on Windows when installed via npm</li>
+<li>Fixed spurious "Context limit reached" when invoking a skill with <code>model:</code> frontmatter on a 1M-context session</li>
+<li>Fixed "adaptive thinking is not supported on this model" error when using non-standard model strings</li>
+<li>Fixed <code>Bash(cmd:*)</code> permission rules not matching when a quoted argument contains <code>#</code></li>
+<li>Fixed "don't ask again" in the Bash permission dialog showing the full raw command for pipes and compound commands</li>
+<li>Fixed auto-compaction retrying indefinitely after consecutive failures — a circuit breaker now stops after 3 attempts</li>
+<li>Fixed MCP reconnect spinner persisting after successful reconnection</li>
+<li>Fixed LSP plugins not registering servers when the LSP Manager initialized before marketplaces were reconciled</li>
+<li>Fixed clipboard copying in tmux over SSH — now attempts both direct terminal write and tmux clipboard integration</li>
+<li>Fixed <code>/export</code> showing only the filename instead of the full file path in the success message</li>
+<li>Fixed transcript not auto-scrolling to new messages after selecting text</li>
+<li>Fixed Escape key not working to exit the login method selection screen</li>
+<li>Fixed several Remote Control issues: sessions silently dying when the server reaps an idle environment, rapid messages being queued one-at-a-time instead of batched, and stale work items causing redelivery after JWT refresh</li>
+<li>Fixed bridge sessions failing to recover after extended WebSocket disconnects</li>
+<li>Fixed slash commands not found when typing the exact name of a soft-hidden command</li>
+<li>Improved <code>--worktree</code> startup performance by reading git refs directly and skipping redundant <code>git fetch</code> when the remote branch is already available locally</li>
+<li>Improved background agent behavior — killing a background agent now preserves its partial results in the conversation context</li>
+<li>Improved model fallback notifications — now always visible instead of hidden behind verbose mode, with human-friendly model names</li>
+<li>Improved blockquote readability on dark terminal themes — text is now italic with a left bar instead of dim</li>
+<li>Improved stale worktree cleanup — worktrees left behind after an interrupted parallel run are now automatically cleaned up</li>
+<li>Improved Remote Control session titles — now derived from your first prompt instead of showing "Interactive session"</li>
+<li>Improved <code>/voice</code> to show your dictation language on enable and warn when your <code>language</code> setting isn't supported for voice input</li>
+<li>Updated <code>--plugin-dir</code> to only accept one path to support subcommands — use repeated <code>--plugin-dir</code> for multiple directories</li>
+<li>[VSCode] Fixed gitignore patterns containing commas silently excluding entire filetypes from the @-mention file picker</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.76</guid>
+      <pubDate>Sat, 14 Mar 2026 01:23:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.75：代码审查内联评论确认功能改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.75</link>
