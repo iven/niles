@@ -4,27 +4,18 @@
 
 import { z } from "zod";
 
-const HISTORY_RETENTION_DAYS = 4;
+const HISTORY_MAX_SIZE = 500;
 
 export function filterRecentGuids(
   guids: Map<string, string>,
-  retentionDays: number,
+  maxSize: number,
 ): Map<string, string> {
-  const cutoffDate = new Date();
-  cutoffDate.setDate(cutoffDate.getDate() - retentionDays);
+  if (guids.size <= maxSize) return guids;
 
-  const filtered = new Map<string, string>();
-  for (const [guid, processedTime] of guids) {
-    const processedDate = new Date(processedTime);
-    // Invalid Date 或解析失败时保留
-    if (Number.isNaN(processedDate.getTime())) {
-      filtered.set(guid, processedTime);
-    } else if (processedDate >= cutoffDate) {
-      filtered.set(guid, processedTime);
-    }
-  }
-
-  return filtered;
+  const sorted = [...guids.entries()].sort(([, a], [, b]) =>
+    b.localeCompare(a),
+  );
+  return new Map(sorted.slice(0, maxSize));
 }
 
 const guidHistorySchema = z.object({
@@ -96,7 +87,7 @@ export class GuidTracker {
   cleanup(): void {
     this.processedGuids = filterRecentGuids(
       this.processedGuids,
-      HISTORY_RETENTION_DAYS,
+      HISTORY_MAX_SIZE,
     );
   }
 
