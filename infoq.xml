@@ -3,7 +3,16 @@
   <channel>
     <title>InfoQ 推荐</title>
     <description>基于个人兴趣筛选的 infoq 内容</description>
-    <lastBuildDate>Sun, 15 Mar 2026 11:36:47 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 15 Mar 2026 14:47:54 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Grab 工程实践：将 LRU 升级为 TLRU，Android 图片缓存节省 50MB+</title>
+      <link>https://www.infoq.cn/article/yu3vmzOKiqHXhwfXty41</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲述编程效率改进经验（LRU 升级为 TLRU 实现 Android 图片内存优化），属于用户很感兴趣的主题</small></p><p>为了改进 Android 应用中的图片缓存管理，Grab 的工程师将原有的 <a href="https://engineering.grab.com/reclaiming-tetabytes-optimizing-android-image-caching-with-tlru">最近最少使用</a>"（Least Recently Used，LRU）缓存机制升级为时间感知最近最少使用（Time-Aware Least Recently Used，TLRU）缓存。这一改进使他们能够更高效地回收存储空间，同时不会降低用户体验，也不会增加服务器成本。</p><p></p><p>Grab 的 Android 应用使用 <a href="https://github.com/bumptech/glide">Glide</a>" 作为主要的图片加载框架。该框架内置了一个 LRU 缓存，用于在本地存储图片，从而减少网络请求、提升加载速度并降低服务器开销。然而，数据分析显示，使用 100 MB 的 LRU 缓存存在明显问题：对于许多用户来说，缓存空间很快就被填满，导致性能下降；而在另一些情况下，如果缓存始终没有达到大小上限，图片可能会在缓存中保留数月之久，从而造成存储空间浪费。</p><p></p><p>为了绕过这些限制，Grab 工程师决定在 LRU 的基础上引入基于时间的过期机制。TLRU 通过三个参数进行控制：首先是 Time To Live（TTL），用于确定缓存条目在何时被视为过期；其次是最小缓存容量阈值，确保即使缓存条目已过期，只要缓存容量不足，关键图片仍然可以继续保留；最后是最大缓存容量，用于限制缓存的存储上限。</p><p></p><p>在实现方案上，Grab 工程师并没有从零开始编写 TLRU，而是选择 fork Glide 项目并扩展其 <a href="https://github.com/bumptech/glide/blob/master/third_party/disklrucache/src/main/java/com/bumptech/glide/disklrucache/DiskLruCache.java">DiskLruCache</a>" 实现，以利用其“成熟且经过大量实践验证的基础架构”。</p><p></p><p></p><blockquote>这一实现方式在 Android 生态中被广泛采用，并且已经处理了许多复杂的边界情况，例如崩溃恢复、线程安全以及性能优化等。如果从零实现这些能力，需要投入大量额外的工程工作。</blockquote><p></p><p></p><p>为了支持 TLRU，DiskLruCache 需要在三个方面进行扩展：一是增加对最近访问时间（last-access time）的追踪；二是实现基于时间的缓存淘汰逻辑；三是提供现有用户缓存的迁移机制。</p><p></p><p>其中，记录最近访问时间是为了能够按照“最近访问顺序”对缓存条目进行排序，并且这些时间信息必须在应用重启后仍然能够保留。时间驱动的淘汰逻辑会在每次缓存访问时运行，用于检查最近最少访问的条目是否已经过期，如果过期则将其移除。</p><p></p><p>对于已有缓存的迁移，主要挑战在于如何为原本的 LRU 缓存条目分配最近访问时间戳。由于文件系统 API 无法提供可靠的时间来源，Grab 工程师最终决定为所有缓存条目统一赋予迁移时间戳。</p><p></p><p></p><blockquote>这种方式可以保留所有现有缓存内容，并建立一个一致的时间基线。不过，它也意味着必须等待 一个完整的 TTL 周期之后，缓存淘汰机制的全部效果才会体现出来。同时，他们还确保了双向兼容性：原始的 LRU 实现可以通过忽略时间戳后缀来读取 TLRU 的日志文件，从而在需要时能够安全回滚。</blockquote><p></p><p></p><p>另一个挑战是确定最佳配置参数，这需要通过受控实验来完成。</p><p></p><p></p><blockquote>Grab 为此设定了明确的成功标准：在从 LRU 迁移到 TLRU 的过程中，缓存命中率下降不得超过 3 个百分点（pp）。例如，如果命中率从 59% 降至 56%，就意味着服务器请求量将增加约 7%。这一阈值在存储优化与性能影响之间取得了平衡。</blockquote><p></p><p></p><p>通过这种方案，95% 的应用用户缓存大小减少了约 50 MB，而缓存规模最大的 5% 用户则获得了更为显著的节省。基于这些结果，Grab 工程师估算，在保持缓存命中率处于可接受范围、且不增加服务器成本的前提下，他们可以在用户设备上回收数 TB 级别的存储空间。</p><p></p><p>原始文章对 LRU 的行为机制以及 TLRU 的实现细节提供了大量更为深入的技术说明，远超本文所能覆盖的范围。如果希望了解完整实现细节，建议阅读原文。</p><p></p><p>原文链接：</p><p>https://www.infoq.com/news/2026/03/grab-tlru-image-cache/</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.infoq.cn/article/yu3vmzOKiqHXhwfXty41</guid>
+      <pubDate>Sun, 15 Mar 2026 14:40:31 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 10分钟装好一只“龙虾”，周鸿祎亲自动手！360推出国内首个“安全龙虾”，内置百款大模型</title>
       <link>https://www.infoq.cn/article/XgX3qjd9RZ0aOaFjqbZQ</link>
@@ -1027,15 +1036,6 @@ GRANT CREATE STAGE ON SCHEMA movies.PUBLIC TO ROLE semantic_quick_start_role;
       </description>
       <guid isPermaLink="false">https://www.infoq.cn/article/t48Z8yiJ4rZGJZePxDLR</guid>
       <pubDate>Tue, 10 Mar 2026 07:25:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>Google Cloud云监控指标全面支持OpenTelemetry</title>
-      <link>https://www.infoq.cn/article/Z1jrMb7rSgZxCQThslh0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为云监控工具支持OpenTelemetry标准，虽涉及开源项目用户感兴趣，但核心是基础设施更新用户不太感兴趣，兴趣不明确</small></p><p>近期，Google Cloud<a href="https://cloud.google.com/blog/products/management-tools/otlp-opentelemetry-protocol-for-google-cloud-monitoring-metrics/">宣布</a>"在云监控服务中全面支持<a href="https://opentelemetry.io/docs/specs/otel/protocol/">OpenTelemetry协议</a>"（OTLP），此举标志着其在跨观测技术栈统一遥测数据采集方面迈出了重要一步。借助这次部署，用户现在可以使用一个供应商无关的管道，将OTLP格式的指标数据与追踪记录和日志同步发送至<a href="https://cloud.google.com/monitoring?hl=en">云监控服务</a>"，从而实现更灵活的、基于标准的监控部署，并简化遥测数据采集流程，提升其一致性。</p><p>&nbsp;</p><p>本次更新是对之前已经支持的OTLP追踪数据摄取的进一步深化，彰显了Google Cloud将OpenTelemetry作为遥测数据通用格式和API的坚定承诺。开发人员可以使用<a href="https://opentelemetry.io/docs/languages/">OpenTelemetry SDK</a>"生成指标，然后通过OTLP直接发送到云监控，或者通过OpenTelemetry收集器。在默认情况下，摄取的OTLP指标数据以类似于Prometheus的数据格式存储，并且可以使用标准的监控工具进行全量查询。</p><p>&nbsp;</p><p>Google Cloud在支持OTLP指标方面做了多项增强，改善了可观测性工作流，包括：<a href="https://oneuptime.com/blog/post/2026-02-06-cumulative-vs-delta-metric-temporality-opentelemetry/view">delta-type指标</a>"（通过仅报告计数器变化来减少客户端内存占用）；显示动态桶大小的<a href="https://opentelemetry.io/docs/specs/otel/metrics/data-model/">指数直方图</a>"；扩展命名约定，支持点和斜杠，使之更符合标准的OpenTelemetry语义规范。这些特性有助于弥合云原生监控工具、第三方遥测管道与Google Cloud自有监控基础设施之间的差距。</p><p>&nbsp;</p><p>除了原生OTLP支持外，Google Cloud还宣布了面向<a href="https://cloud.google.com/kubernetes-engine?hl=en">谷歌Kubernetes引擎（GKE）</a>"的托管OpenTelemetry。这个完全托管的摄取管道使得部署、扩展和操作面向Kubernetes工作负载的OpenTelemetry收集器变得更为便捷，为需要OTLP驱动的可观测性而又不想管理收集器基础设施的团队提供了一个即插即用的选项。</p><p>&nbsp;</p><p>对于用户而言，新增的OTLP指标支持可以大幅减少为使应用程序具备可观测性所需的配置工作：监控代码可保持供应商无关性，而Google Cloud将负责处理规模扩展和数据采集。该功能还契合了统一遥测API的行业趋势，即将推出的统一采集端点（telemetry.googleapis.com）将在众多Google Cloud项目中自动激活，从而简化日志、追踪和指标等各类可观测性数据流的传输流程。</p><p>&nbsp;</p><p>Google Cloud在云监控中新增OTLP支持显著提高了基于标准的遥测数据摄取，与此同时，其他主流可观测性平台也在向着更广泛的OpenTelemetry兼容性迈进，但每个平台都有不同的权衡。例如，亚马逊云科技的<a href="https://aws.amazon.com/cloudwatch/">CloudWatch</a>"通过其CloudWatch代理和OpenTelemetry导出器支持OTLP指标和追踪，能够收集并转换数据从而实现本地摄取，但它通常依赖于额外的配置来实现完整的管道集成。与此同时，<a href="https://www.datadoghq.com/">Datadog</a>"和<a href="https://newrelic.com/">New Relic</a>"等供应商通过自己的代理分发和收集器集成扩展了OpenTelemetry生态系统，将OTLP遥测数据与丰富的仪表板、分析工具和高级告警功能相结合。不过，为了增强功能集，部分实现方案仍混合使用了专有处理方法与开放标准。</p><p>&nbsp;</p><p>除了超大规模云提供商之外，<a href="https://signoz.io/">SigNoz</a>"、<a href="https://grafana.com/products/cloud/">Grafana Cloud</a>"等开源或混合可观测性工具也利用OTLP和OpenTelemetry生态系统提供灵活的、供应商无关的可观测性。这些平台强调互操作性和易用性，通常允许更深入的定制或自托管模型，目的是吸引希望避免供应商锁定的团队，不过他们在企业级支持或云服务紧密集成方面还各有自己的权衡。在此背景下，谷歌的策略侧重于将原生OTLP支持深度集成至其云监控体系，为现有Google Cloud客户提供更简便的迁移路径，同时契合业界推动遥测数据在不同工具间真正实现可移植性的努力方向。</p><p>&nbsp;</p><p>目前，Google Cloud云监控的OTLP支持已经提供给使用OpenTelemetry 0.140.0或更高版本的客户预览使用，使企业和云工程师有了一个更开放、更灵活、更面向未来的可观测性基础。</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>声明：本文为InfoQ翻译，未经许可禁止转载。</p><p>&nbsp;</p><p>原文链接：<a href="https://www.infoq.com/news/2026/03/google-cloud-opentelemetry/">https://www.infoq.com/news/2026/03/google-cloud-opentelemetry/</a>"</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.infoq.cn/article/Z1jrMb7rSgZxCQThslh0</guid>
-      <pubDate>Tue, 10 Mar 2026 02:40:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
