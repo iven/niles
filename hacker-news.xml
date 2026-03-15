@@ -3,7 +3,158 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 15 Mar 2026 21:39:28 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 15 Mar 2026 22:47:45 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 49MB的网页：现代新闻网站的膨胀与敌对设计分析</title>
+      <link>https://news.ycombinator.com/item?id=47390945</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 分析现代新闻网站的技术问题，涉及网页性能优化和编程效率改进经验，用户可能感兴趣</small></p><p>一篇深度分析文章揭示了现代新闻网站普遍存在的页面膨胀和敌对用户体验设计问题。作者以《纽约时报》为例，指出仅为了查看几个标题，页面就加载了49MB数据和422个网络请求，耗时两分钟才稳定。</p>
+
+<img src="/img/newsbanner.webp" alt="Collage of news websites and network tab request for NYT" />
+
+<p>文章通过历史对比凸显问题的严重性：49MB相当于Windows 95操作系统的大小（28张软盘），或10-12首高质量MP3歌曲。尽管硬件在过去20年大幅进步，但现代广告技术栈和框架的抽象层与架构臃肿似乎完全抵消了这些进步。</p>
+
+<p>技术分析显示，新闻网站充斥着程序化广告拍卖和用户跟踪。在用户阅读标题之前，浏览器就需要处理数十个并发竞价请求，下载、解析和编译数MB的JavaScript。这种「无声拍卖」在后台消耗移动设备CPU资源，同时伴随着 relentless heartbeat of surveillance——持续向跟踪端点发送POST信标，通过跨站点身份拼接进行行为监控。</p>
+
+<img src="/img/network.webp" alt="Sample of nytimes network tab" />
+
+<p>文章将这种现状归因于「敌对架构经济学」：出版商陷入程序化广告技术的死亡螺旋，用长期读者留存换取短期每千次展示费用（CPM）收益。用户的挫败感成为了产品，因为页面停留时间和可见性成为关键指标。</p>
+
+<p>作者详细列举了多种主流敌对设计模式：</p>
+
+<ul>
+<li><strong>预读伏击</strong>：页面加载后立即出现GDPR/cookie横幅、新闻订阅弹窗和浏览器通知请求，用户需要执行「视觉分诊」才能访问内容。</li>
+</ul>
+
+<img src="/img/gdpr.webp" alt="NYT and Verge GDPR modals" />
+
+<ul>
+<li><strong>双重模态伏击</strong>：如《经济时报》同时显示两个Google登录弹窗，严重违反序列化 onboarding 原则。</li>
+<li><strong>视窗窒息</strong>：广告占据85%屏幕空间，实际内容仅占15%，颠倒了内容与装饰的比例。</li>
+</ul>
+
+<img src="/img/economictimes.webp" alt="Screenshot of The Economic Times showing overwhelming ads and popups" />
+
+<ul>
+<li><strong>累积布局偏移（CLS）灾难</strong>：广告网络竞价完成后注入iframe，导致文本突然跳转，破坏用户的空间记忆和阅读流。</li>
+<li><strong>粘性视频播放器</strong>：自动播放视频在滚动时缩小并固定在屏幕右下角继续播放，关闭按钮微小违反菲茨定律。</li>
+<li><strong>文章截断</strong>：文章中途插入「阅读更多」按钮，既衡量参与度又为下方加载更多广告创造机会。</li>
+</ul>
+
+<p>Hacker News社区对此展开了112条评论讨论。主要观点包括：广告拦截器的普遍使用是对这种敌对体验的自然反应；RSS和轻量级阅读器（如Feedly）仍然存在但被边缘化；类似问题也存在于烹饪食谱网站；有用户建议默认禁用JavaScript以加速浏览并阻止跟踪；关于开发者责任与商业需求的争论持续不断。</p>
+
+<p>文章最后指出，轻量级替代方案如<a href="https://text.npr.org">text.npr.org</a>、lite.cnn.com和RSS阅读器的存在证明市场对简洁、内容为主的网站仍有需求。作者建议出版商采取更用户友好的做法：在60秒停留时间或50%滚动深度前不显示弹窗；实施序列化 onboarding 队列；为异步内容预留空间防止布局偏移。</p>
+
+<img src="/img/npr.webp" alt="Screenshot of text.npr.org text-only news site" />
+
+<p>当前新闻网站的用户体验假设读者是需要被「困住」并货币化的对手，而在盈利出版物与快速、可访问的用户体验之间做出选择并非非此即彼的决策。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47390945</guid>
+      <pubDate>Sun, 15 Mar 2026 19:25:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 让你的编码代理通过 Chrome DevTools MCP 调试浏览器会话</title>
+      <link>https://news.ycombinator.com/item?id=47390817</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Chrome DevTools新功能发布，属于编程工具发布/分享，用户很感兴趣，必看内容</small></p><p>Chrome 开发者团队近日为 Chrome DevTools MCP 服务器推出了一项重要增强功能：允许编码代理直接连接到用户当前的浏览器会话进行调试。这一功能解决了以往编码代理需要独立启动浏览器实例、无法访问已登录会话的痛点。</p>
+
+<p>新功能的核心优势包括：</p>
+<ul>
+<li><strong>重用现有浏览器会话</strong>：编码代理可以直接访问用户当前的浏览会话，无需重新登录。例如，当需要修复一个需要登录才能访问的页面问题时，代理可以直接使用已认证的会话。</li>
+<li><strong>访问活动调试会话</strong>：代理可以接入用户在 DevTools 界面中正在进行的调试工作。当用户在网络面板中发现失败的请求，或在元素面板中选中某个元素时，可以直接要求编码代理介入调查。</li>
+</ul>
+
+<img src="/static/blog/chrome-devtools-mcp-debug-your-browser-session/image/devtools-mcp-auto-connection-diagram.png" alt="Remote debugging flow: First enable the remote debugging features. Then confirm a remote debug connection request. The debug session will be indicated by a banner text." />
+
+<p>该功能基于 Chrome M144（目前处于 Beta 阶段）新增的远程调试请求能力。用户需要先在 <code>chrome://inspect/#remote-debugging</code> 页面启用远程调试功能。当使用 <code>--autoConnect</code> 参数启动 Chrome DevTools MCP 服务器时，服务器会尝试连接到正在运行的 Chrome 实例并请求远程调试会话。</p>
+
+<p>出于安全考虑，每次请求远程调试会话时，Chrome 都会向用户显示许可对话框，必须获得明确同意才能建立连接。在调试会话期间，浏览器顶部会显示“Chrome 正被自动化测试软件控制”的横幅作为提醒。</p>
+
+<img src="/static/blog/chrome-devtools-mcp-debug-your-browser-session/image/chrome-remote-debugging.png" alt="Screenshot showing how to enable remote debugging in Chrome" width="400" />
+
+<p>配置步骤分为三步：</p>
+<ol>
+<li>在 Chrome 中启用远程调试功能</li>
+<li>配置 Chrome DevTools MCP 服务器使用 <code>--autoConnect</code> 参数</li>
+<li>通过编码代理测试连接，例如要求代理检查特定网站的性能</li>
+</ol>
+
+<img src="/static/blog/chrome-devtools-mcp-debug-your-browser-session/image/chrome-enable-remote-debugging.png" alt="Chrome dialog asking the user to enable a remote debugging session." width="400" />
+
+<p>在 Hacker News 社区讨论中，开发者们对这一功能表现出浓厚兴趣，同时也提出了安全担忧。用户 <a href="https://news.ycombinator.com/item?id=47390817">Etheryte</a> 指出：“这从多个方面来看都令人恐惧，你距离通过提示注入让某人获得无限访问权限只有一步之遥。”许多开发者建议使用独立的 Chrome 配置文件来隔离风险。</p>
+
+<p>社区还提到了多个相关项目：</p>
+<ul>
+<li><a href="https://github.com/pasky/chrome-cdp-skill">chrome-cdp-skill</a>：一个已投入日常使用的代理技能</li>
+<li><a href="https://github.com/vercel-labs/agent-browser">agent-browser</a>：可与新功能配合使用</li>
+<li><a href="https://github.com/remorses/playwriter">playwriter</a>：类似理念的项目</li>
+</ul>
+
+<p>前 Chrome DevTools 团队成员 <a href="https://news.ycombinator.com/item?id=47390817">paulirish</a> 指出，Chrome DevTools MCP 由 Chrome DevTools 和 Puppeteer 团队维护，功能集更加全面，预计会更可靠。</p>
+
+<p>Chrome 团队表示这只是第一步，计划逐步通过 Chrome DevTools MCP 服务器向编码代理暴露更多面板数据。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>MCP（Model Context Protocol）</strong>是一种允许 AI 模型与外部工具和服务交互的协议。Chrome DevTools MCP 服务器实现了这一协议，使编码代理能够通过标准化接口访问浏览器调试功能。</p>
+<p><strong>编码代理（Coding Agent）</strong>是指能够理解自然语言指令并执行编程相关任务的 AI 助手，如 Claude、GitHub Copilot 或自定义的 AI 代理。这些代理通过 MCP 等协议扩展能力，可以直接操作开发工具和环境。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47390817</guid>
+      <pubDate>Sun, 15 Mar 2026 19:12:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ River 0.4.0 实现 Wayland 合成器与窗口管理器的分离架构</title>
+      <link>https://news.ycombinator.com/item?id=47388137</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] River开源项目新版本发布，属于开源项目和软件新功能，用户感兴趣</small></p><p>River 0.4.0 版本发布，标志着 Wayland 生态系统的一个重要架构变革：将窗口管理器（window manager）从合成器（compositor）中分离出来，通过新的 river-window-management-v1 协议实现两者独立运行。</p>
+
+<p>传统 Wayland 合成器采用单体架构，将显示服务器、合成器和窗口管理器三个角色合并到单一进程中。这种设计虽然解决了 X11 架构中显示服务器作为中间人导致的延迟问题，但也意味着编写 Wayland 窗口管理器需要实现整个合成器，门槛较高。</p>
+
+<img src="/blog/river-window-management/x11.svg" alt="X11架构示意图" width="60%" />
+<p>X11 架构中，显示服务器位于内核、应用程序和合成器之间，增加了不必要的往返延迟。</p>
+
+<img src="/blog/river-window-management/trad-wayland.svg" alt="传统Wayland架构示意图" width="80%" />
+<p>Wayland 通过合并显示服务器和合成器解决了 X11 的延迟问题，但传统上也将窗口管理器合并了进去。</p>
+
+<p>river-window-management-v1 协议的设计目标是给予窗口管理器最大控制权，同时不损失 Wayland 的关键优势。协议必须不要求每帧或每个输入事件都进行往返通信，保持"帧完美"（frame perfection）特性——即用户不会看到布局过渡中的视觉瑕疵。</p>
+
+<p>协议将状态分为两类：窗口管理状态（影响合成器与单个窗口的通信，如窗口尺寸、全屏状态、键盘绑定等）和渲染状态（仅影响合成器输出，如窗口位置、渲染顺序、服务端装饰等）。通过状态机管理原子更新，确保帧完美成为可能。</p>
+
+<img src="/blog/river-window-management/state-machine.svg" alt="状态机示意图" width="100%" />
+<p>状态机确保窗口管理器在用户无操作时保持空闲，仅在需要时被唤醒，避免不必要的性能开销。</p>
+
+<p>这种分离架构带来了多重优势：</p>
+<ul>
+<li><strong>降低开发门槛</strong>：窗口管理器作者可以专注于窗口管理策略，无需实现整个合成器</li>
+<li><strong>提高稳定性</strong>：窗口管理器崩溃不会导致整个 Wayland 会话丢失</li>
+<li><strong>语言灵活性</strong>：窗口管理器可以用高级垃圾回收语言实现，而不影响合成器性能</li>
+<li><strong>促进多样性</strong>：目前已有 15 个为 river 编写的窗口管理器，包括 Canoe、reka、tarazed 等</li>
+</ul>
+
+<img src="/blog/river-window-management/canoe.png" alt="Canoe窗口管理器截图" width="100%" />
+<p>Canoe - 具有经典外观的堆叠式窗口管理器</p>
+
+<img src="/blog/river-window-management/reka.png" alt="reka窗口管理器截图" width="100%" />
+<p>reka - 基于 Emacs 的 river 窗口管理器（类似 EXWM）</p>
+
+<img src="/blog/river-window-management/tarazed.png" alt="tarazed窗口管理器截图" width="100%" />
+<p>tarazed - 强大且无干扰的桌面体验</p>
+
+<p>协议当前限制包括不支持 VR 和复杂的视觉效果（如晃动窗口），但简单动画已能良好工作。作者表示未来可能探索自定义着色器以给予窗口管理器更多渲染控制。</p>
+
+<p>在 Hacker News 的讨论中，社区反应积极：</p>
+<ul>
+<li>用户 <em>oofbaroomf</em> 分享了自己使用自定义 river 窗口管理器的体验，表示分离架构让他能够实现 Hyprland 无法提供的功能（如按等面积而非二叉空间分区平铺窗口）</li>
+<li>用户 <em>asveikau</em> 认为这是"上帝的工作"，解决了 Wayland 相对于 X11 在可插拔窗口管理器方面的最大用户面损失</li>
+<li>用户 <em>davispeck</em> 称赞这是一个"事后看来显而易见"的想法，但实现需要真正的工程工作</li>
+<li>关于 Wayland 与 X11 的对比，<em>jauntywundrkind</em> 指出 Wayland 合成器依赖内核设施完成大量工作，而 X11 历史上需要自己实现更多功能</li>
+<li>用户 <em>wild_egg</em> 则对 Wayland 的整体复杂性表示怀疑，认为 X11 虽然有问题但更加灵活</li>
+</ul>
+
+<p>river 0.4.0 已具备日常使用所需的功能，river-window-management-v1 协议稳定，不会破坏现有窗口管理器。未来路线图包括改进启动和切换窗口管理器的用户体验，为 river 1.0.0 版本做准备。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47388137</guid>
+      <pubDate>Sun, 15 Mar 2026 15:09:24 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AI快速原型开发的现实：从vibecoded原型到可用产品的100小时差距</title>
       <link>https://news.ycombinator.com/item?id=47386636</link>
@@ -1173,67 +1324,6 @@ billingDate.setMonth(billingDate.getMonth() + 1);
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47318797</guid>
       <pubDate>Tue, 10 Mar 2026 03:28:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Zig 语言发布重大更新：类型解析重新设计、I/O实现增强与包管理改进</title>
-      <link>https://news.ycombinator.com/item?id=47330836</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Zig编程语言重大更新，属于编程工具发布内容，符合用户high_interest配置</small></p><p>Zig 编程语言发布了多项重要更新，其中最引人注目的是类型解析系统的全面重新设计。核心开发者 Matthew Lugg 合并了一个30,000行的PR，对编译器内部类型解析逻辑进行了重大重构。</p>
-
-<p>这次类型解析重新设计带来了几个关键改进：首先，编译器现在对类型字段的分析更加"懒惰"——如果类型从未被初始化，编译器就不会关心该类型的内部结构。这对于将类型同时用作命名空间的现代Zig模式特别重要。其次，依赖循环的错误信息得到了显著改善，现在能够清晰地显示循环依赖的具体位置。此外，增量编译功能也得到了大幅优化，修复了大量已知错误，减少了"过度分析"问题。</p>
-
-<p>在I/O方面，Zig添加了基于用户空间栈切换（纤程/协程）的<a href="https://ziglang.org/devlog/2026/#2026-03-10">io_uring和Grand Central Dispatch实现</a>。这些实现目前处于实验阶段，但已经能够让开发者轻松切换不同的I/O后端。</p>
-
-<p>包管理系统也获得了重要增强：依赖包现在存储在项目根目录的<code>zig-pkg</code>目录中，便于开发者直接编辑和探索依赖代码。同时新增的<code>--fork</code>标志允许临时使用依赖的分支版本，大大简化了处理生态系统兼容性问题的流程。</p>
-
-<p>社区讨论中，用户对Zig的稳定性表示关注。有用户提到在使用Zig 0.15时遇到编译器静默崩溃（SIGBUS）的问题，以及<code>.zig-cache</code>可能变得非常庞大（有用户报告达到173GB）。不过也有用户表示，清理缓存通常能解决这些问题。关于第三方包的使用，有经验丰富的用户建议谨慎使用，除非愿意承担额外维护工作。</p>
-
-<p>Zig创始人Andrew Kelley在评论中解释了类型系统变更的背景，指出这些变更经过了充分的讨论和提案流程。他强调这次变更使Zig语言从实验阶段向正式规范迈进了一大步，因为新的类型解析系统基于有向无环图（DAG），显著提高了编译器的稳健性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47330836</guid>
-      <pubDate>Wed, 11 Mar 2026 01:24:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 斯坦福研发新型通用鼻喷疫苗，可抵御多种呼吸道病原和过敏原</title>
-      <link>https://news.ycombinator.com/item?id=47329608</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主题为医学科学进展（新型通用疫苗研发），属于用户配置中的科学前沿进展，用户对此感兴趣</small></p><p>斯坦福医学院的研究人员开发出一种新型通用疫苗，通过鼻喷方式为小鼠提供长达数月的广泛保护，能够抵御多种呼吸道病毒、细菌甚至过敏原。这项发表在《科学》杂志上的研究展示了疫苗对抗 SARS-CoV-2 等冠状病毒、金黄色葡萄球菌、鲍曼不动杆菌以及尘螨过敏原的效果。</p>
-
-<img src="https://med.stanford.edu/news/all-news/2026/02/universal-vaccine/_jcr_content/main/article/layoutcontainer_2051415601/image.coreimg.jpeg/1771020259136/bali-pulendran--headshot-2026.jpeg" alt="Bali Pulendran" width="768" height="835" />
-
-<p>与传统疫苗依赖抗原特异性不同，这种名为 GLA-3M-052-LS+OVA 的疫苗采用全新机制：它模拟免疫细胞间通讯信号，整合先天免疫和适应性免疫系统，形成持续数月的反馈循环。疫苗包含无害的卵清蛋白抗原，能够将 T 细胞招募到肺部以维持先天免疫反应。</p>
-
-<p>实验显示，接种三剂疫苗的小鼠在至少三个月内对冠状病毒感染具有完全保护力，肺部病毒载量降低 700 倍。疫苗同样有效对抗细菌感染和过敏反应，显著减轻了尘螨引发的过敏性哮喘症状。</p>
-
-<p>研究资深作者 Bali Pulendran 教授表示，如果成功转化为人类应用，这种疫苗可能取代每年多次的季节性呼吸道感染注射，并在新发大流行病毒出现时提供即时保护。理想情况下，通用呼吸道疫苗可能在五到七年内上市。</p>
-
-<p>在 Hacker News 的讨论中，用户对这项突破性研究表达了复杂反应。部分评论者担忧长期刺激免疫系统可能导致持续炎症状态，询问这是否会带来不适的副作用如鼻塞或炎症。另有用户对研究中提到的“异位淋巴结构”表示关注，询问这些结构在感染清除后是否会消失。也有评论者认为，这种疫苗可能对高风险个体具有重要价值，但应基于个人情况与医生共同决定是否使用。</p>
-
-<p>研究人员计划下一步进行人体试验，首先是一期安全性试验，如果成功，将进行更大规模的暴露感染试验。Pulendran 认为，两剂鼻喷疫苗足以为人类提供保护。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47329608</guid>
-      <pubDate>Tue, 10 Mar 2026 22:33:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>Fedora RISC-V移植面临构建速度挑战：当前硬件性能不足</title>
-      <link>https://news.ycombinator.com/item?id=47328214</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论RISC-V架构硬件性能问题，涉及芯片技术和基础设施，用户对这些主题不太感兴趣，但未明确想要避开</small></p><p>Fedora Linux 的 RISC-V 移植维护者 Marcin Juszkiewicz 分享了在过去三个月的工作经验，重点指出了当前 RISC-V 硬件在软件包构建速度方面的严重瓶颈。</p>
-
-<p>在 Fedora RISC-V 移植工作中，作者处理了大量软件包构建问题，提交了 86 个拉取请求。然而，最突出的问题是构建速度：以 binutils 2.45.1-4.fc43 软件包为例，RISC-V 架构需要 143 分钟完成构建，而 aarch64 仅需 36 分钟，x86_64 只需 29 分钟。这种巨大差异严重影响了开发效率。</p>
-
-<p>当前 Fedora RISC-V 构建器的配置相对较低，通常只有 4 或 8 个核心，8-32GB 内存，其性能大致相当于 Arm Cortex-A55——当今 Arm 芯片中最低端的 CPU 核心。为了节省内存和构建时间，RISC-V 构建甚至禁用了链接时优化（LTO）。</p>
-
-<p>面对硬件性能限制，作者采用了 QEMU 模拟方案。通过模拟 80 个核心，可以在约 4 小时内构建 llvm15 软件包，相比之下，在 Banana Pi BPI-F3 构建器上需要 10.5 小时。</p>
-
-<img src="/files/2026/03/btop-700x.jpg" alt="busy btop" title="btop shows 80 cores being busy" />
-
-<p>社区讨论中，许多评论者指出问题不在于 RISC-V 指令集架构（ISA）本身，而在于当前的硅实现和缺乏架构特定的优化。有人认为 RISC-V 的发展比 ARM 落后多年，但也有观点提到即将推出的 SpacemiT K3 和 Tenstorrent Atlantis 等新硬件可能改善这一状况。</p>
-
-<p>作者强调，要使 RISC-V 64 位架构成为 Fedora Linux 的官方主要架构，需要能够在一小时内构建 binutils 软件包的硬件，并且这些硬件需要像普通服务器一样可机架安装和管理。目前，Fedora 团队计划开始构建 Fedora Linux 44，并引入更快的构建器来处理较重负载的软件包。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47328214</guid>
-      <pubDate>Tue, 10 Mar 2026 20:11:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
