@@ -3,7 +3,64 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 15 Mar 2026 08:54:02 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 15 Mar 2026 09:50:19 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 内核级反作弊系统工作原理深度解析</title>
+      <link>https://news.ycombinator.com/item?id=47382791</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是一篇关于内核级反作弊系统的深度技术解析，涉及软件安全和系统编程，属于技术进展范畴，符合用户对技术内容的兴趣。</small></p><p>本文深入剖析了现代游戏内核反作弊系统的技术原理和工作机制，解释了为什么简单的用户模式保护已不足以应对高级作弊手段，以及主要反作弊系统如何通过内核级操作来检测和阻止作弊行为。</p>
+
+<h3>用户模式保护的局限性</h3>
+<p>文章指出，纯粹的用户模式反作弊存在根本性的信任模型问题。运行在ring 3级别的用户进程完全受内核控制，任何内核驱动或更高权限的软件都可以轻易绕过用户模式的保护。作弊开发者很早就意识到这一点，将作弊工具迁移到内核模式，直接操纵游戏内存而无需通过用户模式API。</p>
+
+<h3>反作弊与作弊的军备竞赛</h3>
+<p>反作弊技术的发展经历了持续的升级：用户模式作弊→内核作弊→内核反作弊→BYOVD攻击（利用合法签名驱动的漏洞）→驱动黑名单→虚拟机监控器作弊→PCIe DMA设备直接内存访问。每一轮升级都提高了作弊的技术门槛和成本，客观上过滤了大多数普通作弊者。</p>
+
+<h3>主流反作弊系统架构</h3>
+<p>文章重点分析了四大主流内核反作弊系统：</p>
+<ul>
+<li><strong>BattlEye</strong>：用于《绝地求生》、《彩虹六号：围攻》等游戏，采用三组件架构</li>
+<li><strong>EasyAntiCheat (EAC)</strong>：Epic Games旗下，用于《堡垒之夜》、《Apex英雄》等</li>
+<li><strong>Vanguard</strong>：Riot Games专有反作弊，以启动时加载驱动和严格的白名单机制著称</li>
+<li><strong>FACEIT AC</strong>：FACEIT竞技平台的反作弊系统，因其有效性而受竞技社区认可</li>
+</ul>
+
+<img src="/assets/img/posts/battleye-architecture.png" alt="BattlEye Architecture" />
+
+<h3>三组件架构模型</h3>
+<p>现代内核反作弊普遍采用三层架构：</p>
+<ol>
+<li><strong>内核驱动</strong>：运行在ring 0级别，注册回调、拦截系统调用、扫描内存</li>
+<li><strong>用户模式服务</strong>：以SYSTEM权限运行，通过IOCTL与内核驱动通信，处理网络通信和封禁执行</li>
+<li><strong>游戏注入DLL</strong>：注入游戏进程，执行用户模式端检查，作为内核驱动保护的具体目标</li>
+</ol>
+
+<h3>关键技术实现</h3>
+<p>文章详细解释了内核反作弊的核心技术：</p>
+<ul>
+<li><strong>ObRegisterCallbacks</strong>：最重要的API之一，允许驱动监控进程和线程句柄操作，防止外部进程以PROCESS_VM_READ/PROCESS_VM_WRITE权限打开游戏进程</li>
+<li><strong>启动时驱动加载</strong>：Vanguard采用此策略，在系统启动前加载驱动，能够监控后续加载的所有驱动</li>
+<li><strong>驱动程序签名</strong>：Windows的驱动签名强制要求成为作弊的重要障碍，BYOVD攻击成为绕过此限制的主要手段</li>
+</ul>
+
+<h3>社区讨论要点</h3>
+<p>Hacker News社区的讨论涉及多个方面：</p>
+<ul>
+<li><strong>隐私与安全担忧</strong>：用户对内核级反作弊的隐私影响表示关切，担心这些系统可能被滥用于监控</li>
+<li><strong>TPM远程证明的可操纵性</strong>：讨论了攻击者可能通过中间人攻击等方式操纵TPM证明</li>
+<li><strong>替代方案探讨</strong>：有评论提出基于统计分析和机器学习的行为检测可能更有效</li>
+<li><strong>社区管理可能性</strong>：建议设置可选的反作弊匹配池，让玩家自行选择是否使用内核反作弊</li>
+<li><strong>技术伦理争议</strong>：关于用户是否应有权完全控制自己的机器，即使这意味着可能作弊的讨论</li>
+</ul>
+
+<h3>技术特征与根软件相似性</h3>
+<p>文章引用ARES 2024论文指出，有效的内核反作弊系统与根软件在技术特征上具有相似性，因为它们都需要使用相同的操作系统原语来获得检测作弊所需的可见性。这是Windows架构带来的约束，而非特定反作弊厂商的设计选择。</p>
+
+<p>总体而言，内核反作弊代表了当前游戏安全领域最复杂的技术解决方案之一，在保护游戏公平性和用户隐私安全之间寻求平衡。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47382791</guid>
+      <pubDate>Sun, 15 Mar 2026 00:15:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Han：用 Rust 编写的韩语编程语言</title>
       <link>https://news.ycombinator.com/item?id=47381382</link>
@@ -1156,27 +1213,6 @@ billingDate.setMonth(billingDate.getMonth() + 1);
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47317132</guid>
       <pubDate>Mon, 09 Mar 2026 23:22:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Emacs Solo 两年实践：35个自研模块，零外部依赖的配置重构</title>
-      <link>https://news.ycombinator.com/item?id=47317616</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲述Emacs配置重构和编程效率改进经验，属于用户很感兴趣的编程工具分享类别</small></p><p>Rahul M. Juliato 分享了他维护「Emacs Solo」配置两年的经验，这是一个严格遵守「零外部包」规则的 Emacs 配置。项目经过全面重构，现包含 35 个自研模块，完全依赖 Emacs 内置功能和个人编写的 Elisp 代码。</p>
-
-<img src="/_next/image?url=%2Fassets%2Fblog%2Fposts%2Femacs-solo-two-years.png&w=3840&q=75" alt="Cover Image for Two Years of Emacs Solo: 35 Modules, Zero External Packages, and a Full Refactor" width="1300" height="630" />
-
-<p>作者将配置重构为两个清晰层次：核心配置（init.el）仅调整 Emacs 内置包和功能，确保任何人都能直接复制使用；额外模块（lisp/目录）则包含 35 个自包含的 Elisp 文件，重新实现了常用外部包的功能。这种架构使维护、理解和分享变得更容易。</p>
-
-<p>核心配置涵盖了广泛的内置功能，包括：通用设置与键绑定、窗口管理、标签栏、IRC 客户端（ERC/RCIRC）、完成系统（Icomplete）、文件管理器（Dired）、Shell（Eshell）、版本控制（VC）、语言服务器协议（LSP）客户端（Eglot）、诊断工具（Flymake）、邮件新闻阅读器（Gnus）、Org-mode 等。作者特别强调了内置 VC 系统的强大，称其能覆盖 95% 的日常 Git 操作。</p>
-
-<p>35 个自研模块旨在替代常见外部包，例如：自定义主题、模式行、格式化保存、透明框架、Shell 路径同步、彩虹括号、项目选择器、Vim 式键绑定扩展、关键字高亮、Git 差异指示器等。作者承认这些模块可能「粗糙」，但强调其可控性和可理解性。</p>
-
-<p>在 Hacker News 的评论中，用户反应积极。许多人表示钦佩作者的毅力和对系统的深入理解，也有用户分享了类似的自定义经验。讨论涉及了自定义与使用现有包的权衡、学习 Elisp 的价值，以及 Emacs 内置功能的潜力。部分用户认为完全避免外部包可能有些「极端」，但赞赏其作为学习项目和参考的价值。</p>
-
-<p>作者总结道，这一实践不仅带来了更稳定、可控的配置，也是深入学习 Emacs 和 Elisp 的绝佳途径。项目代码已开源，供他人参考和使用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47317616</guid>
-      <pubDate>Tue, 10 Mar 2026 00:16:44 GMT</pubDate>
     </item>
   </channel>
 </rss>
