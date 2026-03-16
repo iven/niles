@@ -3,7 +3,63 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 16 Mar 2026 15:18:21 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 16 Mar 2026 19:21:58 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.1 sched_ext 将新增 SCX_ENQ_IMMED 标志以实现更精确的任务调度控制</title>
+      <link>https://www.phoronix.com/news/Linux-sched-ext-SCX-ENQ-IMMED</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲Linux内核调度器扩展技术，属于底层系统优化，虽涉及Linux技术但非桌面领域，用户兴趣配置中无明确匹配，主题相对专业小众</small></p><p>Linux 内核的可扩展调度器类 sched_ext 在即将到来的 Linux 7.1 周期中将引入新的 SCX_ENQ_IMMED 功能，该功能允许对任务在 CPU 上的执行时机进行更严格的控制。</p>
+<p>SCX_ENQ_IMMED 标志用于控制任务的入队行为，确保当任务能够立即开始运行时，会被加入到本地调度队列（DSQ）中。这意味着如果任务可以立即执行，它将被直接调度到 CPU 上，而不会在本地 DSQ 中堆积或等待。长期从事 Linux 开发的 Tejun Heo 负责实现了这一功能，他在补丁中解释道：使用 SCX_ENQ_IMMED 标志后，任务要么立即在 CPU 上执行并保持运行，要么被重新加入 BPF 调度器。它永远不会在本地 DSQ 中排在其他任务之后，也不会被更高优先级的调度器类占用 CPU。</p>
+<p>这一改进带来了两大优势：首先，通过防止任务在本地 DSQ 上堆积，实现了更精确的调度延迟控制；其次，它支持跨子调度器的机会性 CPU 共享——如果没有此功能，一个子调度器可能会占满共享 CPU 的本地 DSQ，导致其他调度器难以使用该 CPU。</p>
+<p>目前该补丁已进入 sched_ext 的 "for-7.1" Git 分支，预计将在下个月的 Linux 7.1 合并窗口中提交。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-sched-ext-SCX-ENQ-IMMED</guid>
+      <pubDate>Mon, 16 Mar 2026 18:41:45 GMT</pubDate>
+    </item>
+    <item>
+      <title>Fedora Workstation 44 Beta在AMD Ryzen AI Max Framework桌面平台性能评测</title>
+      <link>https://www.phoronix.com/review/fedora-44-beta</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章以Fedora新版本基准测试为主，虽然新发行版属于高兴趣内容，但性能评测是用户想要避开的主题，两者权重相当，综合评定为可选</small></p><p>Phoronix 网站对 Fedora Workstation 44 Beta 版本进行了性能测试，测试平台为搭载 AMD Ryzen AI Max+ 395 "Strix Halo" 处理器的 Framework Desktop。文章对比了 Fedora Workstation 43 稳定版、Fedora Workstation 43 最新更新版以及 Fedora Workstation 44 Beta 版的性能表现。</p>
+
+<img src="//www.phoronix.net/image.php?id=fedora-44-beta&image=fedora_44_1_med" alt="Fedora Workstation 44 Beta" />
+
+<p>测试采用相同的硬件配置，仅通过全新安装不同版本的 Fedora 系统进行对比。值得注意的是，Fedora 44 Beta 将编译器从 GCC 15 升级到了尚未正式发布的 GCC 16，这使 Fedora 继续保持在 Linux 发行版中率先采用新编译器的前沿位置。</p>
+
+<img src="//www.phoronix.net/image.php?id=fedora-44-beta&image=fedora_44_2_med" alt="Fedora 44 with GCC 16 compiler" />
+
+<p>在核心方面，Fedora 43 已经升级到与 Fedora 44 Beta 相同的 Linux 6.19 内核版本，这意味着从 Fedora 43 升级到 Fedora 44 在核心层面带来的性能提升可能有限。尽管如此，测试中仍发现了一些从 Fedora 43 迁移到 Fedora 44 Beta 时出现的性能变化。</p>
+
+<img src="//www.phoronix.net/image.php?id=fedora-44-beta&image=fedora_44_3_med" alt="Fedora Workstation 44 with GNOME 50 desktop" />
+
+<p>文章提供了多页详细的基准测试结果，涵盖不同工作负载下的性能对比。整体而言，Fedora Workstation 44 Beta 运行稳定，界面美观，尽管在某些情况下性能略低于 Fedora Workstation 43，但总体状态良好。</p>
+
+<img src="//phoronix.com/benchmark/result/fedora-workstation-44-benchmarks/result.svgz" alt="Fedora Workstation 44 Benchmarks" width="100%" height="auto" />
+
+<p>测试报告包含全面的性能数据，为考虑升级到 Fedora 44 的用户提供了实际参考依据。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/review/fedora-44-beta</guid>
+      <pubDate>Mon, 16 Mar 2026 16:20:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>Imagination开源PowerVR Vulkan驱动现与Zink良好兼容，实现开源OpenGL支持</title>
+      <link>https://www.phoronix.com/news/PowerVR-Vulkan-Does-Zink</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讲述开源图形驱动兼容性进展，开源项目属于感兴趣范畴，但PowerVR硬件属非主流硬件是用户想要避开的内容，兴趣冲突下评为可选</small></p><p>经过多年开发，Imagination Technologies 的开源 PowerVR Vulkan 驱动现已与 Zink 通用 OpenGL-on-Vulkan 实现良好兼容，从而在 PowerVR 硬件上实现了开源 OpenGL 支持。这一成果将在下一季度的 Mesa 26.1 版本中正式发布。</p>
+
+<p>近年来，Imagination 一直致力于上游开源 DRM 内核图形驱动以及 Mesa 中的 PowerVR Vulkan 驱动开发。他们的 Mesa 工作重点始终放在 Vulkan 驱动上，并计划通过 Zink 来实现 OpenGL 支持。最近几个月，PowerVR Vulkan 驱动已实现了 Zink 所需的所有缺失功能，使其完全符合 Zink 的 Vulkan 要求。</p>
+
+<p>最后的关键突破是扩展了 Zink 本身，使其能够与 Mesa 的 Kernel Mode Setting Render Only（KMSRO）框架协同工作。此前，Zink 仅支持 GPU 和显示控制器由同一内核驱动管理的设备，而 PowerVR 的情况并非如此，因为 Imagination 只提供 GPU IP。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=powervr_zink" alt="PowerVR running Zink" />
+
+<p>Imagination 在其技术博客中庆祝了这一里程碑，并宣布将继续追求 Vulkan 1.2 和 OpenGL ES 合规性。这是一个重要的成就，标志着 Imagination 的 PowerVR 开源 Linux 图形驱动栈日趋完善。</p>
+
+<p>展望未来，随着 Vulkan 在桌面和游戏领域的应用日益广泛，其他硬件厂商也很可能采用类似的 Vulkan-only 驱动支持模式，并依赖 Zink 来满足传统 OpenGL 需求。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/PowerVR-Vulkan-Does-Zink</guid>
+      <pubDate>Mon, 16 Mar 2026 15:23:07 GMT</pubDate>
+    </item>
     <item>
       <title>Linux 7.0-rc4发布：修复挂起问题，解决性能回归</title>
       <link>https://www.phoronix.com/news/Linux-7.0-rc4-Released</link>
@@ -754,62 +810,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Synology-Microp-Linux-Driver</guid>
       <pubDate>Mon, 09 Mar 2026 13:08:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GCC 16编译器目标4月中旬发布候选版，但修复进展&quot;缓慢&quot;</title>
-      <link>https://www.phoronix.com/news/GCC-16-RC-Mid-April</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍GCC 16编译器发布候选版本计划，属于编程工具发布/分享类别，用户配置为很感兴趣，故判断为必看内容。</small></p><p>SUSE的Richard Biener发布了GCC 16编译器开发状态报告，显示回归修复工作进展缓慢，但开发团队仍希望能在4月中旬发布第一个候选版本（RC）。</p>
-
-<p>目前GCC 16开发已进入第四阶段近两个月，主要目标是减少回归问题数量，特别是要将最高优先级的P1级回归问题降为零。当前仍有14个P1级回归问题需要解决，另有14个未分类（P3）回归问题和28个P4级回归问题。此外还有586个P2级和190个P3级回归问题待处理。开发团队计划在发布前通过修复或降低优先级的方式消除所有P1级问题。</p>
-
-<p>GCC 16将带来多项重要更新，包括：新增Algol 68编程语言前端、默认启用C++20标准、初步支持AMD Zen 6 "znver6"架构、支持使用Picolibc嵌入式C库、为Intel Nova Lake提供AVX10.2和APX支持、针对Intel Wildcat Lake的目标支持、提高默认LTO分区数量以适应多核处理器、ARM64平台上的函数多版本化功能结束实验状态，以及各种性能优化改进。</p>
-
-<section>
-<h3>你知道吗？</h3>
-<p>GCC开发流程分为四个阶段：第一阶段是功能开发，第二阶段是功能冻结和测试，第三阶段是文档和翻译工作，第四阶段是回归修复阶段。回归问题按优先级分为P1到P4四个等级，其中P1是最严重的回归问题，必须在发布前解决；P4则是对非关键语言或目标平台的回归，影响相对较小。</p>
-</section>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-16-RC-Mid-April</guid>
-      <pubDate>Mon, 09 Mar 2026 10:28:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Rust Coreutils 0.7 发布，带来多项性能优化</title>
-      <link>https://www.phoronix.com/news/Rust-Coreutils-uutils-0.7</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Rust Coreutils 0.7版本发布，属于编程工具发布和新软件项目，符合全局配置'编程工具发布/分享'（很感兴趣）和来源配置'新软件项目'（很感兴趣）。</small></p><p>Rust Coreutils 0.7 于近日发布，这是一个专注于性能优化的版本，对数十个工具进行了重大改进，同时致力于用更安全的抽象替换不安全的 Rust 代码。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=rust_coreutils_07" alt="Rust Coreutils 0.7" />
-
-<p>在 GNU 测试套件兼容性方面，该版本虽然通过了额外的七个测试，但由于新增了来自 GNU Coreutils 9.10 的 19 个新测试，并且跳过了六个、失败了七个测试，总体通过率从 96.2% 略微下降至 94.5%。项目仍在努力实现 100% 的兼容性目标。</p>
-
-<p>性能优化是本版本的重点，包括引入更快的哈希映射、新的 ASCII 快速路径、减少多个命令的 malloc 内存分配等。此外，还包含了对 NetBSD 和 PowerPC 平台的构建修复以及其他多项问题修正。</p>
-
-<p>用户可以通过 <a href="https://github.com/uutils/coreutils">GitHub</a> 获取更多详细信息和下载该版本。文章发布后收到了 2 条评论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rust-Coreutils-uutils-0.7</guid>
-      <pubDate>Mon, 09 Mar 2026 04:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.0-rc3发布：Linus称其为&quot;近年来最大的&quot;版本之一</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-rc3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍Linux内核7.0-rc3发布，属于底层基础设施更新，用户兴趣配置中对基础设施不太感兴趣，且来源配置中未明确包含内核主题，故判断为可选内容。</small></p><p>Linux内核7.0的第三个候选版本（rc3）已发布，为预计4月中旬推出的稳定版Linux 7.0做准备。该版本包含大量错误修复和回归修正，其中一些重要更新包括：</p>
-<ul>
-<li>修复了slab性能的"严重"回归问题</li>
-<li>通过不同的x86平台驱动程序新增对Dell、ASUS、OneXPlayer、Lenovo等新硬件的支持</li>
-<li>针对AMD Zen 2 CPU的网络性能优化，带来约1.5%的性能提升</li>
-<li>修复了Apple Magic Trackpad 2的电池报告问题</li>
-<li>为AMD SEV-SNP客户虚拟机添加了IBPB-On-Entry安全特性</li>
-<li>修复了新一代Intel CPU的Sub-NUMA Clustering（SNC）拓扑问题</li>
-</ul>
-<p>Linux 7.0将成为Ubuntu 26.04 LTS和Fedora 44等发行版的默认内核。<img src="//www.phoronix.net/image.php?id=2026&image=linux_70_rc3" alt="Linux 7.0-rc3 Git tag" /></p>
-<p>Linus Torvalds在发布公告中表示，rc2已经是"近年来最大的"版本之一，而rc3甚至比rc2更大。他指出，虽然规模较大，但rc3中近五分之一的补丁是自测代码，其余部分也没有特别令人担忧的内容。许多提交只是小的清理工作、硬件ID添加或调整等。Torvalds希望开发活动能尽快平静下来，尤其是考虑到Ubuntu 26.04 LTS的紧张时间表。</p>
-<h3>你知道吗？</h3>
-<p>IBPB-On-Entry是AMD为SEV-SNP（安全加密虚拟化-安全嵌套分页）虚拟机引入的安全特性，主要出现在最新的AMD EPYC Zen 5服务器处理器中。该特性通过在虚拟机入口点使用间接分支预测屏障（IBPB）来防止某些类型的侧信道攻击，增强虚拟化环境的安全性。SEV-SNP是AMD安全加密虚拟化技术的第三代，提供了更强大的内存完整性和机密性保护。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-rc3</guid>
-      <pubDate>Mon, 09 Mar 2026 00:27:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
