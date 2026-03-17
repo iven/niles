@@ -1,6 +1,7 @@
 import { parseFeed } from "feedsmith";
 import type { Atom, DeepPartial } from "feedsmith/types";
 import { http } from "../../lib/http";
+import { withRetry } from "../../lib/retry";
 import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
@@ -16,7 +17,7 @@ const plugin: Plugin<CollectRssOptions> = {
     if (!url) throw new Error("collect-rss: options.url 未指定");
 
     context.logger.start("开始获取新条目...");
-    const xml = await http.get(url).text();
+    const xml = await withRetry(() => http.get(url).text());
     const { format, feed } = parseFeed(xml);
 
     let rawItems: Array<{
