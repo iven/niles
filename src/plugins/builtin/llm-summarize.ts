@@ -180,8 +180,8 @@ async function summarizeOne(
       logger: context.logger,
     });
     return { result, ...tokenStats };
-  } catch (_error) {
-    throw new Error("总结失败：AI 未成功调用工具");
+  } catch (error) {
+    throw new Error("总结失败：AI 未成功调用工具", { cause: error });
   }
 }
 

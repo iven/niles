@@ -213,8 +213,8 @@ const plugin: Plugin<LlmGradeOptions> = {
       context.logger.log(
         `  Token 使用: 输入 ${tokenStats.promptTokens}, 输出 ${tokenStats.completionTokens}, 总计 ${tokenStats.totalTokens}`,
       );
-    } catch (_error) {
-      throw new Error("分级失败：AI 未成功调用工具");
+    } catch (error) {
+      throw new Error("分级失败：AI 未成功调用工具", { cause: error });
     }
 
     const gradeMap = new Map(gradeResults.map((r) => [r.guid, r]));
