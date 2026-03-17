@@ -3,7 +3,37 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 16 Mar 2026 23:41:02 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 17 Mar 2026 05:08:23 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Leanstral：首个为 Lean 4 设计的开源代码代理，专注于可信编码和形式化证明工程</title>
+      <link>https://news.ycombinator.com/item?id=47404796</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了一个新的开源编程工具 Leanstral，专注于 Lean 4 的可信编码和形式化证明，属于编程工具发布（high_interest）和开源项目（interest），符合用户的高兴趣主题。</small></p><p>Mistral AI 发布了 Leanstral，这是第一个专门为 Lean 4 证明助手设计的开源代码代理，旨在通过形式化验证实现可信编码。该模型采用稀疏架构，仅有 6B 活跃参数，在 Apache 2.0 许可证下开源，并已集成到 Mistral Vibe 平台中。</p>
+
+<p>Leanstral 的核心目标是解决高风险领域（如前沿数学研究和关键任务软件）中 AI 生成代码的验证瓶颈。与依赖人工审查的传统方式不同，Leanstral 能够根据严格规范生成代码并同时提供形式化证明。</p>
+
+<p>在性能评估方面，研究团队引入了新的 FLTEval 评估套件，专注于实际证明工程场景而非孤立的数学问题。基准测试显示，Leanstral 在成本效益上具有显著优势：</p>
+
+<ul>
+<li>Leanstral pass@2（运行两次）得分为 26.3，成本仅 36 美元</li>
+<li>相比之下，Anthropic Sonnet 得分为 23.7，成本高达 549 美元</li>
+<li>Claude Opus 4.6 虽然以 39.6 分领先，但成本达到 1,650 美元，是 Leanstral 的 92 倍</li>
+</ul>
+
+<img src="https://cms.mistral.ai/assets/78aaa774-c717-4c60-b71b-1161487b28e5.jpg?width=1861&height=1245" alt="Leanstrall Normalized Model Cost Vs Flt Eval Score" />
+
+<p>实际案例展示了 Leanstral 的应用能力：成功诊断并修复了 Lean 4.29.0-rc6 中因定义类型别名导致的编译错误，将 <code>def</code> 改为 <code>abbrev</code> 以解决模式匹配问题；还能将 Rocq 语言中的程序定义转换为 Lean 并证明相关属性。</p>
+
+<p>社区讨论中，用户对「可信 vibe 编码」概念表示幽默，同时深入探讨了成本与性能的权衡。有评论解释了 pass@k 概念——即运行模型 k 次，只要有一次输出正确即算通过，这在可自动验证正确性的形式化验证场景中特别有意义。此外，还讨论了「LLM 合金」策略，即混合使用不同模型以提升整体性能。</p>
+
+<p>Leanstral 目前可通过多种方式使用：在 Mistral Vibe 中使用 <code>/leanstall</code> 命令零配置启动；通过免费的 API 端点访问；或下载模型权重在本地运行。</p>
+
+<h3>你知道吗？</h3>
+<p>Lean 4 是一个交互式定理证明器，能够表达复杂的数学对象（如完美oid空间）和软件规范（如 Rust 代码片段的性质）。形式化验证通过数学证明确保程序完全符合其规范，这对于安全关键系统、加密算法和数学定理证明至关重要。pass@k 评估指标在形式化验证场景中特别实用，因为 Lean 可以自动验证证明的正确性，允许模型多次尝试直至成功。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47404796</guid>
+      <pubDate>Mon, 16 Mar 2026 20:59:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Meta重新承诺对jemalloc内存分配器的投入与现代化计划</title>
       <link>https://news.ycombinator.com/item?id=47402640</link>
@@ -1250,33 +1280,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47347064</guid>
       <pubDate>Thu, 12 Mar 2026 06:06:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 研究发现：许多通过SWE-bench测试的AI生成PR不会被仓库维护者合并</title>
-      <link>https://news.ycombinator.com/item?id=47341645</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章研究AI生成PR在开源项目中的接受度，涉及AI软件技术进展和编程效率，与用户兴趣配置中的'AI软件技术进展'(interest)和'编程效率改进经验'(high_interest)相关，但非直接工具发布或经验分享，故推荐阅读。</small></p><p>一项由METR研究人员进行的研究发现，大约一半通过SWE-bench Verified基准测试的AI生成拉取请求（PR）实际上不会被开源仓库的维护者合并，这揭示了自动测试评分与实际代码审查标准之间的显著差距。</p>
-
-<img src="/assets/images/many-swe-bench-passing-prs-would-not-be-merged-into-main/fig1_pass_rates_normalized.png" alt="标准化通过率图表" />
-
-<p>研究团队邀请了来自scikit-learn、Sphinx和pytest三个开源项目的4名活跃维护者，对296个AI生成的PR进行审查。这些PR来自Claude 3.5 Sonnet、Claude 3.7 Sonnet、Claude 4 Opus、Claude 4.5 Sonnet和GPT-5等模型，且均已通过SWE-bench自动评分器的测试。</p>
-
-<p>研究结果显示，自动评分器的通过率平均比维护者合并率高约24.2个百分点。即使将标准放宽到"PR完成度达到80%以上"（这是原始人类编写PR的15百分位水平），AI生成的PR通过率仍然只有基准测试分数的一半左右。</p>
-
-<img src="/assets/images/many-swe-bench-passing-prs-would-not-be-merged-into-main/fig3_failure_breakdown.png" alt="失败原因分布图表" />
-
-<p>维护者拒绝AI生成PR的主要原因包括：代码质量问题（如不符合仓库编码规范）、破坏其他代码、以及核心功能失败。值得注意的是，有些PR虽然通过了自动测试，但维护者发现它们实际上没有正确解决问题或引入了新的错误。</p>
-
-<p>研究还发现，AI模型在维护者审查标准下的改进速度比在自动测试标准下慢约9.6个百分点/年，尽管这一结果的统计显著性较弱。</p>
-
-<p>在Hacker News社区的138条评论中，开发者们对这一发现表示认同。许多评论指出，SWE-bench等基准测试只关注"测试是否通过"，而忽略了实际代码审查中重要的因素，如代码风格、架构一致性、可维护性等。有开发者表示，LLM会为了通过测试而编写"丑陋的变通方案"，这些代码虽然能让CI变绿，但实际难以维护。</p>
-
-<p>研究人员强调，这项研究并不表明AI存在根本性的能力限制，因为AI模型没有被给予像人类开发者那样根据反馈迭代改进的机会。相反，研究结果提醒人们，单纯依赖基准测试分数可能会高估AI在实际开发中的有用性，需要结合更多的人类反馈和引导。</p>
-
-<p>这项研究对AI进展预测和实际应用具有重要意义，表明基准测试应被视为证据的一部分，而非决定性指标。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47341645</guid>
-      <pubDate>Wed, 11 Mar 2026 20:56:52 GMT</pubDate>
     </item>
   </channel>
 </rss>

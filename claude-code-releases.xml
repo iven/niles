@@ -3,7 +3,68 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Mon, 16 Mar 2026 23:41:06 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 17 Mar 2026 05:06:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.77 版本发布：新增功能与多项修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.77</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code 是编程工具，新版本发布属于编程工具发布/分享范畴，用户很感兴趣。</small></p><p>Claude Code 发布了 v2.1.77 版本，带来了多项功能改进和错误修复。本次更新主要包括模型输出限制提升、沙盒权限细化、命令功能增强以及大量稳定性修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li>将 Claude Opus 4.6 的默认最大输出令牌（token）限制提升至 64k，Opus 4.6 和 Sonnet 4.6 模型的上限提升至 128k 令牌</li>
+<li>新增 <code>allowRead</code> 沙盒文件系统设置，可在 <code>denyRead</code> 区域内重新允许读取访问</li>
+<li><code>/copy</code> 命令现在支持可选索引：<code>/copy N</code> 可复制第 N 个最新的助手响应</li>
+<li>修复了复合 bash 命令（如 <code>cd src &amp;&amp; npm test</code>）中"始终允许"保存单个规则而非每个子命令的问题，避免了死规则和重复权限提示</li>
+<li>修复了斜杠命令叠加层反复打开关闭时自动更新器启动重叠二进制下载的问题，防止了数十 GB 内存的累积</li>
+<li>修复了 <code>--resume</code> 因内存提取写入与主记录之间的竞争条件而静默截断最近对话历史的问题</li>
+<li>修复了 PreToolUse 钩子返回 <code>"allow"</code> 绕过 <code>deny</code> 权限规则的问题，包括企业托管设置</li>
+<li>修复了 Write 工具在覆盖 CRLF 文件或在 CRLF 目录中创建文件时静默转换行尾的问题</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li>修复了长时间运行会话中因进度消息存活导致的内存增长问题</li>
+<li>修复了 API 回退到非流模式时成本和令牌使用未跟踪的问题</li>
+<li>修复了 <code>CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS</code> 未剥离 beta 工具模式字段导致代理网关拒绝请求的问题</li>
+<li>修复了系统临时目录路径包含空格时 Bash 工具对成功命令报告错误的问题</li>
+<li>修复了粘贴后立即键入导致粘贴内容丢失的问题</li>
+<li>修复了 <code>/feedback</code> 文本输入中 Ctrl+D 向前删除而非第二次按下退出会话的问题</li>
+<li>修复了拖入 0 字节图像文件到提示时出现的 API 错误</li>
+<li>修复了 Claude Desktop 会话错误使用终端 CLI 配置的 API 密钥而非 OAuth 的问题</li>
+<li>修复了同一 monorepo 提交不同子目录中的 <code>git-subdir</code> 插件在插件缓存中冲突的问题</li>
+<li>修复了终端 UI 中有序列表数字未渲染的问题</li>
+<li>修复了陈旧工作树清理可能删除刚从先前崩溃恢复的代理工作树的竞态条件</li>
+<li>修复了代理运行时打开 <code>/mcp</code> 或类似对话框导致的输入死锁</li>
+<li>修复了 vim NORMAL 模式下 Backspace 和 Delete 键无效的问题</li>
+<li>修复了 vim 模式切换时状态行未更新的问题</li>
+<li>修复了 VS Code、Cursor 等基于 xterm.js 的终端中 Cmd+点击超链接打开两次的问题</li>
+<li>修复了默认配置下 tmux 内背景颜色渲染为终端默认的问题</li>
+<li>修复了通过 SSH 在 tmux 内选择文本时 iTerm2 会话崩溃的问题</li>
+<li>修复了 tmux 会话中剪贴板复制静默失败的问题；复制提示现在指示使用 <code>⌘V</code> 还是 tmux <code>prefix+]</code> 粘贴</li>
+<li>修复了在设置、权限和沙盒对话框中导航列表时 <code>←</code>/<code>→</code> 意外切换标签页的问题</li>
+<li>修复了在 tmux 或 screen 内启动 Claude Code 时 IDE 集成未自动连接的问题</li>
+<li>修复了 CJK 字符在右边缘被裁剪时视觉上渗入相邻 UI 元素的问题</li>
+<li>修复了领导者退出时队友面板未关闭的问题</li>
+<li>修复了 iTerm2 自动模式未检测到 iTerm2 以进行原生分屏队友的问题</li>
+<li>macOS 启动速度提升约 60ms，通过并行读取钥匙串凭据和模块加载实现</li>
+<li><code>--resume</code> 在 fork 频繁和大型会话中速度提升高达 45%，峰值内存减少约 100-150MB</li>
+<li>改进了 Esc 中止飞行中的非流式 API 请求</li>
+<li>改进了 <code>claude plugin validate</code> 以检查技能、代理和命令前言及 <code>hooks/hooks.json</code>，捕获 YAML 解析错误和模式违规</li>
+<li>后台 bash 任务现在在输出超过 5GB 时被终止，防止失控进程填满磁盘</li>
+<li>接受计划时会话现在根据计划内容自动命名</li>
+<li>改进了无头模式插件安装，与 <code>CLAUDE_CODE_PLUGIN_SEED_DIR</code> 正确组合</li>
+<li>当 <code>apiKeyHelper</code> 耗时超过 10 秒时显示通知，防止其阻塞主循环</li>
+<li>Agent 工具不再接受 <code>resume</code> 参数——使用 <code>SendMessage({to: agentId})</code> 继续先前生成的代理</li>
+<li><code>SendMessage</code> 现在在后台自动恢复已停止的代理而非返回错误</li>
+<li>将 <code>/fork</code> 重命名为 <code>/branch</code>（<code>/fork</code> 仍作为别名可用）</li>
+<li>[VSCode] 改进了计划预览标签标题，使用计划标题而非"Claude's Plan"</li>
+<li>[VSCode] 当 macOS 上 option+点击未触发原生选择时，页脚现在指向 <code>macOptionClickForcesSelection</code> 设置</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.77</guid>
+      <pubDate>Tue, 17 Mar 2026 00:28:12 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.70版本更新：多项bug修复和VS Code集成增强</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.70</link>
