@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 18 Mar 2026 15:25:18 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2026 17:18:46 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Zeroboot：使用写时复制内存分叉实现亚毫秒级VM沙箱</title>
+      <link>https://news.ycombinator.com/item?id=47412569</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍用于AI代理的亚毫秒级VM沙箱技术，属于AI软件技术进展和开源项目，符合用户对AI软件技术进展和开源项目的兴趣</small></p><p>Zeroboot 是一个开源项目，旨在通过写时复制（CoW）内存分叉技术实现亚毫秒级启动的虚拟机沙箱，特别针对 AI 代理等需要快速隔离代码执行的场景。</p>
+
+<img src="/adammiribyan/zeroboot/raw/main/assets/logo-light.svg" alt="Zeroboot" width="500" />
+
+<p>项目核心思路是预先启动一个 Firecracker 微虚拟机，加载好 Python 和 numpy 等运行时环境，然后对完整 VM 状态（内存和 CPU）进行快照。后续每次执行时，不再启动新 VM，而是通过 Linux 的 <code>MAP_PRIVATE</code> 内存映射机制，以写时复制方式快速克隆快照内存，并恢复 CPU 状态，从而在约 0.8 毫秒内创建一个新的 KVM 虚拟机。</p>
+
+<p>每个沙箱都是真正的 KVM 虚拟机，拥有独立的客户内核、内存和页表，提供硬件强制的内存隔离。当虚拟机写入内存时，会获得该页的私有副本。</p>
+
+<p>根据项目提供的基准测试，Zeroboot 的启动延迟（p50）仅为 0.79 毫秒，p99 为 1.74 毫秒，远低于 E2B（约 150 毫秒）、microsandbox（约 200 毫秒）和 Daytona（约 27 毫秒）等现有方案。每个沙箱的内存占用约为 265KB，而其他方案通常在 50MB 到 128MB 之间。</p>
+
+<p>项目提供 Python 和 TypeScript SDK，开发者可以轻松集成沙箱功能。目前 Zeroboot 处于原型阶段，API 和基准测试已可实际使用，但尚未达到生产级强度。</p>
+
+<img src="/adammiribyan/zeroboot/raw/main/demo/demo.gif" alt="demo" />
+
+<p>在 Hacker News 的讨论中，开发者解释了项目虽通用，但当前主要面向 AI 代理场景，因为现有框架（如 LangChain、CrewAI、OpenAI Assistants）都需要沙箱化代码执行，而传统方案每次调用都需启动或恢复 VM/容器，延迟较高。亚毫秒级启动使得诸如推测性并行执行（同时 fork 多个 VM 尝试不同方法）等新用例变得可行。</p>
+
+<p>评论中也探讨了技术细节和挑战：</p>
+<ul>
+<li>有用户询问为何专门针对 AI 代理，作者回应 fork 引擎本身是通用的，但当前需求集中在 AI 领域</li>
+<li>讨论了与 CRIU（用户空间检查点恢复）的区别，CoW 分叉更侧重于低成本分支而非单纯检查点</li>
+<li>多节点扩展的挑战，未来可能采用 userfaultfd 配合远程页面获取</li>
+<li>安全更新时基镜像更新的问题，需要终止所有 VM 后重新启动基础镜像</li>
+<li>与 CodeSandbox 类似技术的比较，后者后期转向了基于 userfaultfd 的方案以绕过文件系统瓶颈</li>
+</ul>
+
+<p>项目采用 Rust 编写，Apache 2.0 许可证，开发者计划推出托管版本，支持多区域、自定义模板和按使用量计费。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47412569</guid>
+      <pubDate>Tue, 17 Mar 2026 13:43:44 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Nightingale - 开源卡拉OK应用，支持电脑上的任何歌曲</title>
       <link>https://news.ycombinator.com/item?id=47422942</link>
@@ -1401,19 +1435,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47360978</guid>
       <pubDate>Fri, 13 Mar 2026 05:18:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>John Carmack about open source and anti-AI activists</title>
-      <link>https://news.ycombinator.com/item?id=47367463</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><a href="https://xcancel.com/id_aa_carmack/status/2032460578669691171" rel="nofollow">https://xcancel.com/id_aa_carmack/status/2032460578669691171</a></p>
-<hr>
-<p>Comments URL: <a href="https://news.ycombinator.com/item?id=47367463">https://news.ycombinator.com/item?id=47367463</a></p>
-<p>Points: 260</p>
-<p># Comments: 370</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47367463</guid>
-      <pubDate>Fri, 13 Mar 2026 17:51:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
