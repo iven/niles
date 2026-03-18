@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 17 Mar 2026 22:53:05 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2026 03:19:39 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Python 3.15 JIT项目重回正轨：社区力量与幸运突破</title>
+      <link>https://news.ycombinator.com/item?id=47416486</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Python 3.15 JIT项目进展，属于编程工具发布和编程效率改进，符合用户高兴趣配置</small></p><p>Python 3.15的即时编译器（JIT）项目已提前达成性能目标，在macOS AArch64上比尾调用解释器快11-12%，在x86_64 Linux上比标准解释器快5-6%。这一进展标志着曾一度陷入困境的JIT项目重回正轨。</p>
+
+<img src="/media/jit-on-track/brrr-20260317.png" alt="JIT performance as of 17 March (PST). Lower is better versus interpreter" />
+
+<p>作者Ken Jin在博客中详细分享了项目成功的关键因素。2025年Faster CPython团队失去主要赞助商后，项目转向社区主导模式。通过将复杂问题分解为可管理的小任务，团队成功吸引了11位贡献者参与，显著降低了项目的"巴士因子"（bus factor）。</p>
+
+<p>技术突破方面，两个"幸运的赌注"发挥了关键作用：一是"双分发表"（dual dispatch）机制，通过单一追踪指令而非复制整个解释器表，大幅减少了代码膨胀；二是引用计数消除优化，移除了每个Python指令中的分支开销。其中追踪记录器将JIT代码覆盖率提高了50%。</p>
+
+<img src="/media/jit-on-track/refcount-jit-vs-interpreter.png" alt="JIT performance vs interpreter during community optimization effort" />
+
+<p>团队核心成员包括Savannah Ostrowski（负责基础设施）、Mark Shannon、Diego Russo（ARM硬件支持）、Brandt Bucher（机器代码后端基础）等。每日JIT性能测试为快速反馈提供了重要支持。</p>
+
+<p>Hacker News社区对此展开了广泛讨论。关于free-threading（自由线程）支持，有用户认为线程安全代码的代价过高，而另一些用户则期待其在3.15/3.16版本中的实现。关于PyPy的比较，有评论指出PyPy虽然已有JIT，但对CPython扩展支持有限且更新滞后。</p>
+
+<p>技术细节方面，用户对"双分发表"机制和引用计数消除的具体实现表示好奇。关于Python JIT为何比其他语言更难实现，讨论认为主要因素包括动态类型特性、既有的低效扩展接口以及特殊的线程模型。</p>
+
+<p>作者最后强调，项目的成功离不开优秀团队的协作、社区贡献者的参与，以及一定程度的技术运气。JIT项目的复苏证明了开源社区在面临挑战时的韧性和创造力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47416486</guid>
+      <pubDate>Tue, 17 Mar 2026 18:37:27 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Node.js虚拟文件系统提议引发社区热议与争议</title>
       <link>https://news.ycombinator.com/item?id=47413195</link>
@@ -1223,23 +1248,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47348275</guid>
       <pubDate>Thu, 12 Mar 2026 09:17:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ TUI Studio：可视化终端用户界面设计工具发布</title>
-      <link>https://news.ycombinator.com/item?id=47362613</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] TUI可视化设计工具发布，属于编程工具分享，用户很感兴趣</small></p><p>TUI Studio 是一款类似 Figma 的可视化终端用户界面（TUI）设计工具，允许开发者通过拖放组件、实时编辑属性的方式设计终端应用，并支持导出到多个框架。</p>
-
-<p><img src="assets/Computer.png" alt="TUIStudio Editor" />该工具提供了丰富的功能：可视化画布支持拖放组件并实时预览 ANSI 效果；包含 20 多个 TUI 组件如屏幕、盒子、按钮、文本输入、表格、列表等；支持绝对定位、Flexbox 和网格布局引擎；提供 8 种颜色主题；可导出到 Ink、BubbleTea、Blessed、Textual、OpenTUI 和 Tview 等 6 个框架。</p>
-
-<p>目前工具处于 Alpha 阶段，代码导出功能尚未完全实现。项目保存为可移植的 .tui JSON 文件，无需账户或云端存储。工具支持 macOS、Windows 和 Linux 平台，但由于缺乏代码签名，在 macOS 上会被 Gatekeeper 阻止，需要通过特定方式绕过。</p>
-
-<p>Hacker News 社区对该工具反应热烈，获得 246 个赞和 143 条评论。许多用户称赞这是一个"极其酷炫"和"近年来最原创的想法"，认为它能够简化 TUI 开发流程。但也有用户质疑其实用性，认为这可能导致 TUI 变得像旧的 BBS ANSI 艺术，或者只是以更差的方式重现 CSS 功能。部分用户指出，真正的 TUI 如 htop、ncdu 等工具的优势在于降低心智负担和资源消耗，而按钮等组件可能使 TUI 变成低分辨率 GUI。</p>
-
-<p>开发者计划未来推出专业版，包含团队功能、云同步和优先支持。目前核心编辑器可免费下载使用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47362613</guid>
-      <pubDate>Fri, 13 Mar 2026 10:32:45 GMT</pubDate>
     </item>
   </channel>
 </rss>

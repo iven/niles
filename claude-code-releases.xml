@@ -3,7 +3,56 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Tue, 17 Mar 2026 22:50:35 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2026 03:19:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.78发布：新增插件状态持久化与多项功能改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.78</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Claude Code新版本发布，属于编程工具发布分享，用户很感兴趣</small></p><p>Anthropic 官方命令行工具 Claude Code 发布了 v2.1.78 版本，本次更新带来了多项新功能、重要错误修复和优化改进。</p>
+
+<h3>重要改动</h3>
+
+<h4>新功能</h4>
+<ul>
+<li>新增 <code>StopFailure</code> 钩子事件，当对话因 API 错误（如速率限制、认证失败等）结束时触发</li>
+<li>新增 <code>${CLAUDE_PLUGIN_DATA}</code> 变量，用于存储插件持久化状态，该状态在插件更新后仍可保留；执行 <code>/plugin uninstall</code> 时会提示是否删除此数据</li>
+<li>为插件提供的代理（agent）新增 <code>effort</code>、<code>maxTurns</code> 和 <code>disallowedTools</code> 前端支持</li>
+<li>终端通知（iTerm2/Kitty/Ghostty 弹窗、进度条）现在可在启用 <code>set -g allow-passthrough on</code> 的 tmux 环境中传递到外部终端</li>
+<li>响应文本现在逐行流式生成，提升交互体验</li>
+<li>新增 <code>ANTHROPIC_CUSTOM_MODEL_OPTION</code> 环境变量，可在 <code>/model</code> 选择器中添加自定义模型选项</li>
+</ul>
+
+<h4>重大错误修复</h4>
+<ul>
+<li>修复了在 Linux 沙盒化 Bash 中执行 <code>git log HEAD</code> 失败并显示"ambiguous argument"错误的问题</li>
+<li>修复了 <code>cc log</code> 和 <code>--resume</code> 在大型会话（超过 5 MB）中使用子代理时静默截断对话历史的问题</li>
+<li>修复了 API 错误触发停止钩子，而停止钩子又将阻塞错误重新反馈给模型导致的无限循环问题</li>
+<li>修复了 <code>deny: ["mcp__servername"]</code> 权限规则未在发送给模型前移除 MCP 服务器工具的问题，此前模型仍能看到并尝试调用被阻止的工具</li>
+<li>修复了 <code>sandbox.filesystem.allowWrite</code> 无法使用绝对路径的问题（之前需要 <code>//</code> 前缀）</li>
+<li>修复了 <code>/sandbox</code> 依赖项标签在 macOS 上显示 Linux 先决条件而非 macOS 特定信息的问题</li>
+</ul>
+
+<h3>其他改进和修复</h3>
+<ul>
+<li>修复了正常模式下 ctrl+u 执行滚动而非 readline kill-line 功能的问题（ctrl+u/ctrl+d 半页滚动现在仅限转录模式）</li>
+<li>修复了语音模式中修饰键组合的按键绑定（如 ctrl+k）需要长按而非立即激活的问题</li>
+<li>修复了语音模式在 WSL2 与 WSLg（Windows 11）上无法工作的问题；WSL1/Win10 用户现在会收到明确错误提示</li>
+<li>修复了 <code>--worktree</code> 标志未从工作树目录加载技能和钩子的问题</li>
+<li>修复了 <code>CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS</code> 和 <code>includeGitInstructions</code> 设置未抑制系统提示中 git 状态部分的问题</li>
+<li>修复了 Bash 工具在 VS Code 从 Dock/Spotlight 启动时找不到 Homebrew 和其他依赖 PATH 的二进制文件的问题</li>
+<li>修复了在未声明真彩色支持的 VS Code/Cursor/code-server 终端中 Claude 橙色显示过淡的问题</li>
+<li>修复了使用 Haiku 模型时 <code>ANTHROPIC_BETAS</code> 环境变量被静默忽略的问题</li>
+<li>修复了排队提示在没有换行符分隔的情况下被连接的问题</li>
+<li>改恢复大型会话时的内存使用和启动时间</li>
+<li>[VSCode] 修复了在已认证状态下打开侧边栏时登录界面短暂闪烁的问题</li>
+<li>[VSCode] 修复了选择 Opus 模型时出现"API Error: Rate limit reached"的问题——模型下拉菜单不再向计划层级未知的订阅者提供 100 万上下文变体</li>
+</ul>
+
+<p>本次更新进一步提升了 Claude Code 的稳定性、功能性和用户体验，为开发者提供了更完善的 AI 辅助编程工具。</p>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.78</guid>
+      <pubDate>Tue, 17 Mar 2026 23:42:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.77 版本发布：新增功能与多项修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.77</link>
