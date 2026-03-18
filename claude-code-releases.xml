@@ -3,7 +3,45 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Wed, 18 Mar 2026 21:48:19 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2026 22:49:27 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.79 发布：新增控制台认证与远程控制功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.79</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Claude Code新版本发布及新增功能，属于编程工具发布/分享，用户对此类内容很感兴趣</small></p><p>Anthropic 官方命令行工具 Claude Code 发布了 v2.1.79 版本，带来多项功能增强和问题修复。本次更新主要增加了对 Anthropic Console 的认证支持、VSCode 扩展的远程控制功能，并解决了多个影响用户体验的关键问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增控制台认证</strong>：为 <code>claude auth login</code> 命令添加了 <code>--console</code> 标志，支持通过 Anthropic Console（API 计费）进行身份验证。</li>
+<li><strong>交互体验优化</strong>：在 <code>/config</code> 菜单中添加了「显示回合时长」开关；VSCode 扩展的会话标签现在会根据第一条消息自动生成 AI 标题。</li>
+<li><strong>关键问题修复</strong>：
+  <ul>
+    <li>修复了 <code>claude -p</code> 在作为子进程启动时（如 Python 的 <code>subprocess.run</code>）可能挂起的问题。</li>
+    <li>解决了 Ctrl+C 在 <code>-p</code>（打印）模式下无法中断操作的问题。</li>
+    <li>修正了 <code>/btw</code> 命令在流式传输过程中触发时返回主代理输出而非回答侧边问题的错误。</li>
+    <li>修复了语音模式在启动时未能正确激活的问题（当设置 <code>voiceEnabled: true</code> 时）。</li>
+    <li>解决了企业用户在遇到速率限制（429）错误时无法重试的问题。</li>
+    <li>修复了使用交互式 <code>/resume</code> 切换会话时 <code>SessionEnd</code> 钩子未触发的问题。</li>
+  </ul>
+</li>
+<li><strong>VSCode 扩展新功能</strong>：新增 <code>/remote-control</code> 命令，允许将会话桥接到 claude.ai/code，以便在浏览器或手机上继续操作。</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>优化了启动内存占用，所有场景下减少约 18MB。</li>
+<li>改进了非流式 API 回退机制，每次尝试设置 2 分钟超时，避免会话无限期挂起。</li>
+<li>环境变量 <code>CLAUDE_CODE_PLUGIN_SEED_DIR</code> 现在支持多个种子目录（Unix 使用 <code>:</code> 分隔，Windows 使用 <code>;</code> 分隔）。</li>
+<li>修复了 <code>/permissions</code> 中的左右箭头标签导航问题。</li>
+<li>修正了 <code>CLAUDE_CODE_DISABLE_TERMINAL_TITLE</code> 环境变量在启动时未能阻止终端标题设置的问题。</li>
+<li>解决了自定义状态行在工作区信任阻止时显示为空的问题。</li>
+<li>VSCode 扩展中修复了思考提示在响应完成后显示「Thinking」而非「Thought for Ns」的问题。</li>
+<li>修复了从左侧边栏打开会话时缺少会话差异按钮的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.79</guid>
+      <pubDate>Wed, 18 Mar 2026 22:29:36 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.78发布：新增插件状态持久化与多项功能改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.78</link>
@@ -1447,25 +1485,6 @@
       </description>
       <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.49</guid>
       <pubDate>Thu, 19 Feb 2026 23:28:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.47 发布：全面修复与性能优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.47</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude代码版本发布，属于编程工具发布内容，符合用户对编程工具发布的兴趣</small></p><p>Claude Code 发布了 v2.1.47 版本，带来了大量错误修复、性能改进和功能增强。本次更新重点解决了 Windows 平台的多项问题，优化了内存使用和启动性能，并改进了 VS Code 集成体验。</p>
-
-<p>主要更新内容包括：修复了 Windows 终端渲染因 <code>os.EOL</code> 导致的显示错误；改进了 VS Code 计划预览功能，支持自动更新和保持预览窗口打开；解决了包含大量 PDF 文档时会话压缩失败的问题；优化了长期运行会话的内存使用，释放 API 流缓冲区和代理上下文；将启动时间缩短了约 500 毫秒。</p>
-
-<p>其他重要修复涉及：bash 工具输出在 Windows 上被静默丢弃的问题；文件提及性能提升；代理任务消息历史修剪；bash 权限分类器验证；NFS/FUSE 文件系统上的用户定义代理加载问题；插件代理技能加载失败问题等。</p>
-
-<p>Windows 用户特别受益于多项修复：CWD 跟踪临时文件清理、图像粘贴在 WSL2 系统上的问题、Right Alt 键残留转义序列、Git Bash 执行钩子等。此外，还修复了 CJK 宽字符导致的布局错位、会话名称在恢复后丢失、自定义会话标题在压缩后丢失等问题。</p>
-
-<p>功能改进方面：新增 <code>chat:newline</code> 键绑定用于多行输入；<code>/rename</code> 命令现在默认更新终端标签标题；恢复选择器中初始会话数量从 10 增加到 50；配置备份文件移至 <code>~/.claude/backups/</code> 目录。</p>
-
-<p>该版本还解决了多个长期存在的问题，如 <a href="https://github.com/anthropics/claude-code/issues/17600">#17600</a> 中的 Windows 临时文件累积、<a href="https://github.com/anthropics/claude-code/issues/23610">#23610</a> 中的会话标题丢失、<a href="https://github.com/anthropics/claude-code/issues/22020">#22020</a> 中的内置命令隐藏等。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.47</guid>
-      <pubDate>Wed, 18 Feb 2026 21:38:45 GMT</pubDate>
     </item>
   </channel>
 </rss>
