@@ -3,7 +3,122 @@
   <channel>
     <title>InfoQ 推荐</title>
     <description>基于个人兴趣筛选的 infoq 内容</description>
-    <lastBuildDate>Wed, 18 Mar 2026 11:56:54 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2026 13:52:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 从零构建智能体：面向 AI 智能体的端到端数据管道搭建实战 ｜ 技术实践</title>
+      <link>https://www.infoq.cn/article/Q7g7WJDk9lBPGGmkMqqb</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为AI智能体数据管道搭建实战教程，属于编程效率改进经验范畴，用户很感兴趣，故评为必看内容。</small></p><p>2026 年，智能体将在企业级应用中取得哪些实质性突破？<a href="https://www.infoq.cn/minibook/keTZm4fpOmFEzmx77Zpq">点击下载</a>"《2026 年 AI 与数据发展预测》白皮书，获悉专家一手前瞻，抢先拥抱新的工作方式！</p><p></p><h2>概述</h2><p></p><p></p><p>本实验课程旨在指导您如何利用 Snowflake Cortex AI，完成从原始数据到可操作洞察的完整转化流程，重点关注情感分析与分类任务。您将通过动手实践，掌握 Cortex AI 与动态表技术的应用，构建自动化的 AI 增强流程，进而搭建一个可靠的数据语义层。课程还将深入解析构建营销与销售智能体所需的技术架构，该架构不仅能够整合结构化数据，还能有效处理经过增强的非结构化反馈信息，同时全程贯彻企业级安全标准。</p><p></p><h3>学习目标</h3><p></p><p></p><p>掌握如何利用 Cortex AI 函数实现情感分析与文本分类；学习如何构建动态表，打造自动化的 AI 数据增强处理管道；理解并实践如何创建语义视图，将技术字段映射至业务术语；掌握如何配置集成分析师与搜索工具的 AI 智能体；熟悉基于动态数据脱敏实现精细化角色访问控制的方法。</p><p></p><h3>构建内容</h3><p></p><p></p><p>基于 Cortex AI 与动态表，构建自动化 AI 数据增强处理管道；创建语义视图，为底层数据提供业务友好的统一抽象层；构建由 Cortex Analyst 与 Cortex Search 驱动的营销与销售分析智能体；实施动态数据脱敏策略，满足企业级数据安全管控要求。</p><p></p><h3>准备要求</h3><p></p><p></p><p>拥有具备创建数据库、Schema、表及虚拟仓库权限的 Snowflake 账户；掌握 SQL 基础知识；能够访问 Snowsight（Snowflake 网页端界面）。</p><p></p><h2>环境搭建与数据加载</h2><p></p><p></p><p>使用提供的 setup.sql 脚本建立安全基础环境。该脚本将自动完成角色与虚拟仓库的创建，并从公共 S3 存储桶导入营销数据。</p><p></p><h3>配置说明</h3><p></p><p></p><p>在 Snowsight SQL 工作表中运行 setup.sql 脚本。</p><p></p><h3>预置资源</h3><p></p><p></p><p>基础设施：创建 dash_wh_si 虚拟仓库与 snowflake_intelligence 数据库；数据导入：加载结构化指标数据（广告活动支出、产品销售数据）与非结构化对话记录（支持案例）。</p><p></p><h2>利用 Cortex AI 实现人工智能增强</h2><p></p><p></p><p>利用 Cortex AI 实现人工智能增强，指的是通过内置于标准 SQL 查询中的生成式人工智能函数，对数据进行分析、转换并提升其价值的过程。</p><p></p><p>在 Snowflake 平台上，这一能力由 Snowflake Cortex AI 提供支持，使得用户能够在无需将数据迁移至外部服务或管理复杂基础设施的前提下，直接运行高性能的大型语言模型。</p><p></p><h3>工作原理</h3><p></p><p></p><p>传统上，若要对文本进行情感分析或提取关键实体（如人名、地名等），通常需要将数据导出至Python环境或调用第三方应用程序编程接口。而在引入Cortex AI之后，使用大型语言模型变得与使用任何标准SQL函数（例如SUM()或AVG()）一样便捷。</p><p></p><h3>Snowflake Cortex AI 核心函数</h3><p></p><p></p><p>Snowflake 提供了多个专为特定任务设计的函数，能够简化数据增强流程：</p><p></p><p></p><p></p><h3>为什么使用人工智能增强？</h3><p></p><p></p><p>可扩展性：利用 Snowflake 的弹性计算（虚拟仓库）处理数百万行非结构化文本数据；安全性：您的数据始终位于 Snowflake 的安全边界之内，这对于满足 GDPR/HIPAA 合规性要求至关重要；自动化：通过将这些功能集成到动态表中，您的人工智能增强功能可在新数据到达时自动执行；低门槛：熟悉 SQL 的分析师现在无需学习 Python 或 PyTorch，即可执行高级“数据科学”任务。</p><p></p><h3>与智能体的集成</h3><p></p><p></p><p>人工智能增强是“预处理”步骤。通过首先对数据进行增强，可以实现：</p><p></p><p>智能体无需读取每一条原始记录。它可以直接查询 sentiment_score 列来定位不满意的客户。这使得智能体的响应速度更快、运行成本更低、准确性更高。</p><p></p><h3>提取趋势</h3><p></p><p></p><p>使用 Cortex AI 函数将“暗数据”（原始对话记录）转化为分析型趋势。对客户反馈运行情感分析，以创建可衡量的特征：</p><p></p><p><code lang="text">USE DATABASE DASH_DB_SI;
+USE SCHEMA RETAIL;
+UPDATE support_cases SET product = 'Fitness Wear' WHERE product = 'ThermoJacket Pro';
+SELECT 
+    title,
+    SNOWFLAKE.CORTEX.AI_SENTIMENT(transcript) AS sentiment_score,
+    SNOWFLAKE.CORTEX.AI_CLASSIFY(transcript, ['Return', 'Quality', 'Shipping']) AS issue_category
+FROM support_cases;
+</code></p><p></p><p><img src="https://static001.geekbang.org/infoq/e7/e7ae4bf1535142ce19dec04c4607a03d.png" referrerpolicy="no-referrer"></p><p></p><h3>更新市场数据</h3><p></p><p></p><p>确认左下角个人资料中角色已设置为 SNOWFLAKE_INTELLIGENCE_ADMIN。</p><p></p><p>下载 <a href="https://github.com/Snowflake-Labs/sfquickstarts/blob/master/site/sfguides/src/from-zero-to-agents/assets/marketing_data.csv">marketing_data.csv</a>" 文件；导航至 Catalog &gt; Database Explorer；打开 DASH_DB_SI.RETAIL.Tables.MARKETING_CAMPAIGN_METRICS。若未看到该数据库，请刷新数据；点击右上角的 Load Data；上传 marketing_data.csv，点击 next，然后 load；点击 View table detail 以查看上传的新数据</p><p></p><p><img src="https://static001.geekbang.org/infoq/b3/b306c0543010ebd5e69dc95755a613be.png" referrerpolicy="no-referrer"></p><p></p><h2>构建实时增强管道</h2><p></p><p></p><p>要创建"实时"增强管道，我们需要将 Cortex AI 函数与动态表相结合。这种组合使 Snowflake 能够在新数据到达时自动进行处理，无需人工干预即可保持情感评分和分类结果的实时更新。</p><p></p><h3>实时增强的架构</h3><p></p><p></p><p>该方法不是执行一次性增强，而是定义一个动态表。该表作为一个物化视图，持续"监听"原始数据（例如，新的客户反馈）的变化，并仅对新数据或发生变更的数据行运行 AI 函数。</p><p></p><h3>创建增强型动态表</h3><p></p><p></p><p>创建一个动态表，自动将营销活动指标与 AI 生成的情感评分进行关联：</p><p></p><p><code lang="text">USE DATABASE DASH_DB_SI;
+USE SCHEMA RETAIL;
+CREATE OR REPLACE DYNAMIC TABLE enriched_marketing_intelligence
+TARGET_LAG = '1 hours'
+WAREHOUSE = dash_wh_si
+AS
+SELECT m.campaign_name, m.clicks, s.product AS product_name,
+       SNOWFLAKE.CORTEX.SENTIMENT(s.transcript) AS avg_sentiment
+FROM marketing_campaign_metrics m
+JOIN support_cases s ON m.category = s.product;
+</code></p><p></p><p>通过导航至 Catalog &gt; Database Explorer &gt; DASH_DB_SI.RETAIL.DYNAMIC TABLES.ENRICHED_MARKETING_INTELLIGENCE，确认动态表是否已成功创建。如果您未看到该表，请点击刷新按钮，该表即应显示。</p><p></p><p><img src="https://static001.geekbang.org/infoq/f6/f61fd0826a7aa1a6e3cea148ad2033b6.png" referrerpolicy="no-referrer"></p><p></p><h2>语义层与智能体创建</h2><p></p><p></p><p>借助语义视图，为智能体提供业务逻辑的“地图”，帮助其理解您的业务语义。</p><p></p><h3>创建 Cortex Analyst</h3><p></p><p></p><p>该工具支持智能体通过生成 SQL 查询，实现对 Snowflake 中结构化数据的访问。其核心机制基于语义视图——即对业务概念（如“产品名称”、“销售额”）与 Snowflake 账户中底层数据表及字段之间的映射关系进行定义。该抽象层能够有效帮助大语言模型准确理解数据查询逻辑，即便原始表存在复杂或非标准的命名方式，亦可实现精准解析。</p><p></p><p>在Snowsight中导航至 AI与机器学习 &gt; Analyst 模块确认当前角色为 SNOWFLAKE_INTELLIGENCE_ADMIN，虚拟仓库为 DASH_WH_SI。点击 新建 &gt; 新建语义视图配置以下参数：</p><p>角色：SNOWFLAKE_INTELLIGENCE_ADMIN虚拟仓库：DASH_WH_SI存储位置：DASH_DB_SI.Retail名称：SEMANTIC_VIEW选择表：全选 DASH_DB_SI.Retail 下的所有表（共5张普通表与1张动态表）选择字段：全选所有列</p><p>点击创建并保存滑动至 MARKETING_CAMPAIGN_METRICS 板块，点击 编辑设置 + Primary Key 为 Category，然后点击 Save</p><p></p><p><img src="https://static001.geekbang.org/infoq/da/dae0213cd8bfe385abfefc1ae639f33a.png" referrerpolicy="no-referrer"></p><p>向下滚动，点击 + 添加 关系配置以下设置：</p><p>关系名称：Products左表：ENRICHED_MARKETING_INTELLIGENCE（增强营销智能表）右表：MARKETING_CAMPAIGN_METRICS（营销活动指标表）左列：PRODUCT_NAME右列：CATEGORY</p><p>添加该关系，然后点击右上角保存该Analyst</p><p></p><p><img src="https://static001.geekbang.org/infoq/4a/4a2a5234179c2c05941eff4c80fa208b.png" referrerpolicy="no-referrer"></p><p></p><h3>创建 Cortex 搜索服务</h3><p></p><p></p><p>该工具允许智能体搜索和检索非结构化文本数据（如客户支持工单、Slack对话或合同）中的信息。它利用 Cortex Search 对这些文本“分块”进行索引和查询，使智能体能够执行检索增强生成（RAG）。</p><p></p><p>在 Snowsight 中导航至"AI与机器学习 &gt; 搜索"将角色切换为 SNOWFLAKE_INTELLIGENCE_ADMIN选择“创建”配置以下设置：</p><p>服务数据库与模式：DASH_DB_SI.Retail服务名称：campaign_search选择数据：marketing_campaign_metrics选择搜索列：campaign name选择属性列：Select all用于索引的仓库：DASH_DB_SI</p><p>点击 create，并在右上角点击刷新图标。Serving 将从INITALIZING更新为ACTIVE</p><p></p><p></p><p><img src="https://static001.geekbang.org/infoq/17/17f0346736de2d482de7a27229728e69.png" referrerpolicy="no-referrer"></p><p></p><h1>创建智能体</h1><p></p><p></p><p>智能体是 Snowflake Intelligence 中代表用户执行操作的智能实体。智能体配置了特定的工具和编排逻辑，能够在您的数据之上回答问题并执行任务。</p><p></p><p>在 Snowsight 中导航至 AI &amp; ML &gt; Agents点击右上角的“创建智能体”</p><p>数据库和模式：DASH_DB_SI.Retail智能体对象名称：MarketingAgent</p><p>创建智能体</p><p></p><p><img src="https://static001.geekbang.org/infoq/03/03f6c7d7423375d86b541f47b3d90a50.png" referrerpolicy="no-referrer"></p><p></p><h3>添加使用说明：</h3><p></p><p></p><p>请配置为以下规范：</p><p></p><p>•&nbsp;描述：我是专业的市场营销与销售智能体，核心职责是通过分析结构化营销指标（如花费、点击量、转化率）与非结构化客户反馈（如客服对话记录），提供精准、数据驱动的洞察。我致力于打通"现象"（数据表现）与"本质"（客户情感）之间的认知壁垒。在分析过程中，始终保持专业、严谨的风格，并对引用自客服对话记录的信息明确标注出处。</p><p></p><p>•&nbsp;示例问题：按点击量排序，排名前五的营销活动是哪些？</p><p></p><p><img src="https://static001.geekbang.org/infoq/19/19b47091d3f721c3589e738b680ef65c.png" referrerpolicy="no-referrer"></p><p></p><h3>添加工具</h3><p></p><p></p><p>工具是智能体可用于完成任务的能力。您可将工具视为智能体的技能组合，并注意可以添加以下每种工具中的一个或多个。</p><p></p><p>Cortex Analyst</p><p></p><p>点击"+添加"配置以下设置</p><p>服务数据库与模式：DASH_DB_SI.Retail选择语义视图：SEMANTIC_VIEW名称：semantic_view描述：点击 Generate with Cortex仓库：Custom&nbsp;&gt;&nbsp;DASH_WH_SI查询超时：60</p><p></p><p>Cortex 搜索服务</p><p></p><p>点击"+添加"配置以下设置</p><p>服务数据库与模式：DASH_DB_SI.RetailCortex 搜索服务：DASH_DB_SI.RETAIL.CAMPAIGN_SEARCH最大结果数：4ID 列：CAMPAIGN_NAME标题列：CLICKS名称：Search</p><p></p><p><img src="https://static001.geekbang.org/infoq/b4/b4d3465866c8f086e49d75dd1613ee9f.png" referrerpolicy="no-referrer"></p><p></p><p>自定义工具</p><p>点击 +添加配置以下设置：</p><p>资源类型：procedure服务数据库与模式：DASH_DB_SI.Retail自定义工具标识符：DASH_DB_SI.RETAIL.SEND_EMAIL()名称：Send_Email仓库：Custom &gt; DASH_WH_SI查询超时：60参数：body描述：请使用HTML语法。如果获取的内容为Markdown格式，请将其转换为HTML。如果未提供body参数，则总结上一个问题，并将其内容作为邮件正文。参数：recipient_email描述：如果未提供邮箱，则将邮件发送至当前用户的邮箱地址。参数：主题描述：如果未提供主题，则使用"Snowflake Intelligence"作为主题。</p><p>编排指令：凡是能够通过图表进行可视化回答的情况，即使未得到用户明确指示，也应优先选择生成图表。</p><p>访问权限：SNOWFLAKE_INTELLIGENCE_ADMIN</p><p>点击右上角的保存</p><p></p><h3>验证</h3><p></p><p></p><p>与智能体进行交互，验证其是否符合企业级治理要求。</p><p></p><h4>访问智能体</h4><p></p><p></p><p>在您的智能体创建完成并启用 Snowflake Intelligence 功能后，它将显示在专用工作区中：</p><p>在Snowsight中，导航至 AI &amp; ML &gt; Snowflake Intelligence；您将看到您有权访问的智能体列表；选择您的 MarketingAgent。</p><p></p><p><img src="https://static001.geekbang.org/infoq/f0/f095afaf2f81fda0dd8e0fc76461951f.png" referrerpolicy="no-referrer"></p><p></p><h3>对话式交互界面</h3><p></p><p></p><p>该用户界面专为处理自然语言查询而设计。其功能不仅限于返回数据，还能提供叙述性的回答。</p><p></p><p>•&nbsp;自然语言输入：&nbsp;用户可键入问题，例如：“上个月哪些营销活动预算较低但客户情感指数较高？”</p><p>•&nbsp;提示建议：&nbsp;基于您的语义视图和智能体描述，该界面通常会提供"入门级"问题以引导用户；</p><p>•&nbsp;多模态答案：&nbsp;智能体会将文本（总结来自 Cortex Search 的反馈）与表格或图表（可视化来自 Cortex Analyst 的指标）相结合。</p><p></p><p>我们来提出以下问题：</p><p></p><p>问题1：按点击量排序，排名前五的推广活动是哪些？</p><p></p><p><img src="https://static001.geekbang.org/infoq/a7/a7703b90b695c942f70277c303d3a96e.png" referrerpolicy="no-referrer"></p><p></p><p>问题2：请展示所有推广活动成效指标及其与产品的关联关系。</p><p></p><p><img src="https://static001.geekbang.org/infoq/18/18fec1b6ae76fcd86e59a9cf98aae4fd.png" referrerpolicy="no-referrer"></p><p></p><p>问题3：按品类划分，推广活动点击量与客户满意度之间存在怎样的关联关系？</p><p></p><p><img src="https://static001.geekbang.org/infoq/b1/b1f24e42207f967efec77bcdfab21f52.png" referrerpolicy="no-referrer"></p><p></p><p>问题4：支持工单中反映的主要客户投诉问题有哪些？</p><p></p><p><img src="https://static001.geekbang.org/infoq/c7/c789a44a4ef4c381f0ad759bfb5e6c1d.png" referrerpolicy="no-referrer"></p><p></p><h2>安全（可选）</h2><p></p><p></p><h3>链路追踪</h3><p></p><p></p><p>对于实验参与者而言，链路是最关键的UI交互界面，可用于调试智能体的运行逻辑：</p><p></p><p>1.&nbsp;规划：界面展示智能体如何拆解您的提示词（例如：“步骤1：识别预算低于5000的营销活动。步骤2：获取这些营销活动的情感倾向评分。”）；</p><p>2.&nbsp;工具选择：您可以查看每个步骤调用了哪些工具——无论是选择分析师工具处理预算查询，还是调用搜索工具解答"原因"分析；</p><p>3.&nbsp;反思：界面会显示智能体是否自主发现错误并重新执行查询以获得更优结果。</p><p></p><h3>安全功能演示</h3><p></p><p></p><p>对特定指标应用动态数据脱敏，确保智能体遵循基于角色的访问控制（RBAC）机制。</p><p></p><h3>创建营销角色</h3><p></p><p></p><p>如果您严格按照 GitHub 代码库中的说明运行了setup.sql脚本，系统已创建snowflake_intelligence_admin角色。现在需要创建marketing_intelligence_role角色来代表您的"受限团队"，并为其授予必要的访问权限。</p><p></p><p><code lang="text">USE DATABASE DASH_DB_SI;
+USE SCHEMA RETAIL;
+
+-- Create the Semantic View
+CREATE OR REPLACE SECURE VIEW marketing_intelligence_view AS
+SELECT 
+    campaign_name AS "Ad Campaign",
+    category AS "Product Category",
+    clicks AS "Engagement Clicks",
+    -- avg_sentiment will come from the Dynamic Table
+    0 AS "Customer Sentiment Score" 
+FROM marketing_campaign_metrics;
+
+-- Check which roles have access to your database and schema
+SHOW GRANTS ON DATABASE dash_db_si;
+SHOW GRANTS ON SCHEMA dash_db_si.retail;
+
+-- Check specifically for your Semantic View
+SHOW GRANTS ON VIEW marketing_intelligence_view;
+
+USE ROLE snowflake_intelligence_admin;
+USE WAREHOUSE dash_wh_si;
+
+-- You should see the actual budget/click numbers
+SELECT * FROM marketing_intelligence_view LIMIT 5;
+
+USE ROLE ACCOUNTADMIN;
+
+-- Create the role
+CREATE OR REPLACE ROLE marketing_intelligence_role;
+
+-- Grant usage on the warehouse and database
+GRANT USAGE ON WAREHOUSE dash_wh_si TO ROLE marketing_intelligence_role;
+GRANT USAGE ON DATABASE dash_db_si TO ROLE marketing_intelligence_role;
+GRANT USAGE ON SCHEMA dash_db_si.retail TO ROLE marketing_intelligence_role;
+
+-- Grant access to the AI functions and the specific views
+GRANT DATABASE ROLE SNOWFLAKE.CORTEX_USER TO ROLE marketing_intelligence_role;
+GRANT SELECT ON VIEW dash_db_si.retail.marketing_intelligence_view TO ROLE marketing_intelligence_role;
+
+-- Assign to yourself for testing
+SET current_user = CURRENT_USER();
+GRANT ROLE marketing_intelligence_role TO USER IDENTIFIER($CURRENT_USER);
+</code></p><p></p><h3>应用脱敏策略</h3><p></p><p></p><p>Snowflake 中的脱敏策略需应用于特定列后才能生效。我们将对"CLICKS"（点击量）列实施脱敏处理，使营销角色查看到的数据显示为"0"，而管理员角色仍可查看真实数据。</p><p></p><p><code lang="text">USE ROLE snowflake_intelligence_admin;
+USE SCHEMA dash_db_si.retail;
+
+-- 1. Create the policy
+CREATE OR REPLACE MASKING POLICY mask_engagement_clicks AS (val number) 
+RETURNS number -&gt;
+  CASE 
+    WHEN CURRENT_ROLE() IN ('SNOWFLAKE_INTELLIGENCE_ADMIN', 'ACCOUNTADMIN') THEN val 
+    ELSE 0 -- Masked value for other roles
+  END;
+
+-- 2. Apply the policy to the base table column
+ALTER TABLE marketing_campaign_metrics MODIFY COLUMN clicks SET MASKING POLICY mask_engagement_clicks;
+
+-- 3. Verify the policy is active
+SELECT * FROM TABLE(INFORMATION_SCHEMA.POLICY_REFERENCES(
+    policy_name =&gt; 'mask_engagement_clicks'
+));
+</code></p><p></p><h3>管理员验证</h3><p></p><p></p><p><code lang="text">-- Re-run the view to ensure it picks up the table-level masking
+CREATE OR REPLACE SECURE VIEW marketing_intelligence_view AS
+SELECT 
+    campaign_name AS "Ad Campaign",
+    category AS "Product Category",
+    clicks AS "Engagement Clicks",
+    -- avg_sentiment will come from the Dynamic Table
+    0 AS "Customer Sentiment Score" 
+FROM marketing_campaign_metrics;
+
+USE ROLE snowflake_intelligence_admin;
+USE SCHEMA dash_db_si.retail;
+-- You should see numbers like 11103
+SELECT "Ad Campaign", "Engagement Clicks" FROM marketing_intelligence_view;
+</code></p><p></p><p><img src="https://static001.geekbang.org/infoq/48/4806536043d060f4d4a19ec5b8fb26c2.png" referrerpolicy="no-referrer"></p><p></p><h3>营销角色验证</h3><p></p><p></p><p><code lang="text">USE ROLE marketing_intelligence_role;
+USE SCHEMA dash_db_si.retail;
+-- You should see 0 for all clicks
+SELECT "Ad Campaign", "Engagement Clicks" FROM marketing_intelligence_view;
+</code></p><p></p><p><img src="https://static001.geekbang.org/infoq/9f/9f02b51eeb7c3dc908e100b36a1f51d6.png" referrerpolicy="no-referrer"></p><p></p><h2>总结与资源</h2><p></p><p></p><p>恭喜您！您已成功在 Snowflake 中为一个 AI 智能体构建了端到端的数据管道。您利用 Cortex AI 将原始营销数据和非结构化的客户反馈转化为可执行的洞察，借助动态表实现了自动化数据增强流程，并最终创建了一个受管控的营销智能体。</p><p></p><h2>本课要点</h2><p></p><p></p><p>如何直接在 SQL 中使用 Cortex AI 函数（AI_SENTENT、AI_CLASSIFY）进行文本分析；如何创建动态表以实现自动化的实时 AI 增强；如何构建语义视图，将技术架构映射为业务友好型术语；如何利用 Cortex Analyst 和 Cortex Search 工具配置 AI 智能体；如何使用动态数据脱敏和基于角色的访问控制（RBAC）来实现企业级安全。</p><p></p><h2>相关资源</h2><p></p><p></p><p>• <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/aisql">Snowflake Cortex AI 文档</a>"</p><p>• <a href="https://docs.snowflake.com/en/user-guide/dynamic-tables-about">动态表概述</a>"</p><p>• <a href="https://docs.snowflake.com/en/user-guide/views-semantic/overview">语义视图文档</a>"</p><p>• <a href="https://github.com/Snowflake-Labs/sfguide-getting-started-with-snowflake-intelligence">Snowflake Intelligence 入门指南</a>"</p><p>• <a href="https://docs.snowflake.com/">Snowflake 文档</a>"</p><p></p><p>原文地址：<a href="https://www.snowflake.com/en/developers/guides/from-zero-to-agents/">https://www.snowflake.com/en/developers/guides/from-zero-to-agents/</a>"</p><p></p><p><img src="https://static001.geekbang.org/infoq/36/3625913187f520bdbc21798ff22d17aa.jpeg" referrerpolicy="no-referrer"></p><p></p><p>点击链接立即报名注册：<a href="https://www.snowflake.com/events/ascent-snowflake-platform-training-china-cn/">Ascent - Snowflake Platform Training - China</a>"，更多 Snowflake 精彩活动请关注<a href="https://www.infoq.cn/space/snowflake">专区</a>"。</p><p></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.infoq.cn/article/Q7g7WJDk9lBPGGmkMqqb</guid>
+      <pubDate>Wed, 18 Mar 2026 13:19:49 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 从桌面到企业：DGX 双系统搭配 NemoClaw，打造自主智能体全流程开发平台</title>
+      <link>https://www.infoq.cn/article/5XMEXakce56W4NdSp7kI</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为AI智能体全流程开发平台，核心是AI软件技术进展，虽然涉及DGX硬件基础设施，但整体仍与用户兴趣相关，故推荐阅读。</small></p><p>当前人工智能正经历从“提示-响应”模式向自主系统的范式转变。</p><p></p><p>新一代 AI 系统具备持续推理、任务规划和工具调用能力，能够执行代码编写、数据分析、结果模拟并基于反馈迭代优化。这类长期运行的自主智能体（Autonomous Agents）对计算基础设施提出了新的技术要求：不仅需要高内存容量和持续计算能力，更需要本地部署的灵活性与严格的安全隔离机制。正是针对这些技术需求，英伟达在近日的 GTC 大会上推出了 DGX Spark 与 DGX Station 系统，配合开源 NemoClaw 软件栈，构成了面向企业本地环境的完整技术解决方案。</p><p></p><h2>NemoClaw 开源栈：智能体运行时的技术架构</h2><p></p><p></p><p>NemoClaw 是一个面向生产环境设计的开源软件栈，其核心组件 OpenShell 运行时环境作为 NVIDIA Agent Toolkit 的底层支撑，定义了智能体系统的完整安全边界。具体而言，OpenShell 通过数据访问控制规范智能体与存储系统的交互接口，借助工具调用沙箱隔离外部 API 和系统命令的执行环境，并利用策略执行引擎确保智能体行为符合预设的治理规则。该软件栈同时支持 Nemotron 系列及 Llama、Mistral 等主流开源模型的本地化部署，使企业能够在避免敏感数据外传的前提下构建自主智能体。</p><p></p><p>更为重要的是，开发者可在本地 DGX 系统完成智能体验证后，通过统一架构无缝迁移至数据中心级 AI 工厂，无需对代码架构进行任何重构。</p><p></p><h2>DGX Spark：分布式桌面 AI 集群的技术特性</h2><p></p><p></p><p>DGX Spark 采用大容量统一内存架构，单机即可支持百亿级参数模型的推理需求，其独特之处在于最多可将 4 台设备通过高速互联组成统一计算池，实现近似线性的性能扩展，形成桌面级的“微型数据中心”而无需传统机架基础设施的复杂部署。</p><p></p><p>这一架构使其广泛适用于金融领域的实时风险模型计算与压力测试、生物医药行业的药物分子模拟与研发周期压缩、能源系统的电网负荷预测与运营优化，以及媒体行业的实时内容生成与通信工作流。在软件生态方面，DGX Spark 预集成了 Anaconda、Docker、Ollama、vLLM、SGLang、ComfyUI 等主流开发工具，支持从原型验证到生产部署的平滑过渡。</p><p></p><h2>DGX Station：桌面级超级计算单元的硬件架构</h2><p></p><p>DGX Station 搭载 72 核 NVIDIA Grace 处理器与 Blackwell Ultra GPU，通过 NVLink-C2C 高带宽一致性互连构建统一内存池，总容量达 748GB，可提供 20 petaflops（FP8）的 AI 算力。</p><p></p><p><img src="https://static001.geekbang.org/infoq/84/846aaa32003bad2e4e5da4bc4c0c746b.png" referrerpolicy="no-referrer"></p><p></p><p></p><p>这一硬件配置使其能够在本地运行万亿参数级开放模型（包括 DeepSeek-V3、Qwen3 等），并支持多步推理与复杂任务规划所需的长思考能力。</p><p></p><p>DGX Station 同时支持独立隔离部署，满足金融、医疗等受监管行业以及主权数据合规要求，且其指令集与数据中心 Grace Blackwell Ultra 机架系统完全兼容，确保应用的无缝迁移。</p><p></p><p>目前该系统已在多个行业落地：Snowflake 用于本地测试 Arctic 训练框架，EPRI 开展 AI 驱动的气象预测与电网可靠性分析，Medivis 集成视觉语言模型构建手术辅助系统，成均馆大学加速蛋白质结构分析，微软研究院与康奈尔大学则将其作为大规模 AI 实践教学平台。</p><p></p><p>DGX Spark 与 DGX Station 采用与数据中心 AI 工厂相同的 Grace Blackwell 架构，实现了软件栈的一致性——使用相同的 CUDA、TensorRT、Triton 等底层库，确保模型可移植性与开发流程的统一。</p><p></p><p>开发者可在本地完成原型验证，经部门级 Spark 集群扩展后，最终部署至企业 AI 工厂，全程无需修改代码架构。支持的模型涵盖 GPT-OSS-120B、Gemma 3、Qwen3、Kimi K2.5、Mistral Large 3、DeepSeek V3.2、Nemotron 系列等主流开放权重模型，工具链则包括 1x、Aible AI、Anaconda、Docker、红帽 OpenShift、JetBrains、Ollama、llama.cpp、ComfyUI、LM Studio、Llm.c、Weights &amp; Biases、Odyssey、Roboflow、vLLM、SGLang、Unsloth、Learning Machine、Quali、Lightning AI 等平台。</p><p></p><p>对于技术选型，个人开发者或小型团队进行原型验证可选用单节点 DGX Station；部门级多智能体协作开发适合配置 2-4 节点的 DGX Spark 集群；受监管行业如金融、医疗、政务等场景建议采用隔离部署的 DGX Station；而有云端扩展需求的项目则可在统一架构下灵活选择任意 DGX 配置作为起点。</p><p></p><p>NVIDIA 通过 DGX Spark 与 DGX Station 将数据中心级 AI 算力下沉至桌面环境，配合 NemoClaw 开源栈提供的安全运行时，为企业构建自主 AI 智能体提供了合规、可控、可扩展的技术底座。其核心价值在于架构统一性——开发者可在本地完成全周期开发，再按需扩展至生产环境，避免重复工程投入。对于关注 AI 基础设施的技术团队而言，这一产品组合代表了企业级 AI 部署从“云端集中”向“边缘-云端协同”演进的重要技术路线。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.infoq.cn/article/5XMEXakce56W4NdSp7kI</guid>
+      <pubDate>Wed, 18 Mar 2026 12:00:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 从狂热到工程、组织实践，OpenClaw这阵风能刮多久？</title>
       <link>https://www.infoq.cn/article/Th0um55qt9mMORoZ7MD8</link>
@@ -648,24 +763,6 @@ Regina Lin  Snowflake 高级数据云架构师<br>
       </description>
       <guid isPermaLink="false">https://www.infoq.cn/article/9bFq7FJUQSXANWqtf8fQ</guid>
       <pubDate>Sun, 15 Mar 2026 03:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GitLab：AI 能发现漏洞，但风险治理才是关键</title>
-      <link>https://www.infoq.cn/article/SkoHHJPpp6bpctKdbFws</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是AI在安全领域的应用和风险治理，属于用户感兴趣的AI软件技术进展类别</small></p><p>根据GitLab最新发布的一篇<a href="https://about.gitlab.com/blog/ai-can-detect-vulnerabilities-but-who-governs-risk/">博文</a>"，AI正快速改变软件漏洞的检测方式，但“谁来负责治理AI所暴露的风险”以及“如何应对这些风险”等问题已变得日益紧迫。GitLab认为，尽管静态扫描器、生成式模型等AI工具在识别潜在安全问题并给出修复建议方面效率远高于传统工具，但仅靠检测无法解决风险管理的全部问题。这也促使开发者与安全团队重新思考在现代开发生命周期中应如何构建治理、问责与执行机制。</p><p></p><p>文章强调，随着AI驱动工具可发现漏洞并提出整改方案等相关成果公布，行业思路正在发生转变。尽管这些创新体现了AI在加速检测方面的价值，但GitLab的文章指出，发现漏洞本身并不等同于降低风险。企业安全负责人愈发关注漏洞是否真正依据业务风险完成分类、定级与修复，相关决策是否有明确的责任主体。如果团队缺少策略约束、场景化风险评分与治理机制来明确哪些问题必须在发布前修复、哪些可以接受或延后处理，那么单纯发现更多漏洞只会产生无效信息，形成干扰噪音。</p><p></p><p>为解决这一问题，GitLab主张将AI驱动的检测嵌入到更广泛的、基于策略的DevSecOps框架中，推荐的最佳实践包括：在组织层面定义风险容忍阈值；设置与漏洞严重性、可利用性及合规要求相关的合并与部署门禁；在风险接受时保留可审计的审批流程；随着代码、依赖项与威胁情报的变化持续重新评估风险。文章强调，在从代码、流水线到生产环境的整个软件生命周期中保持统一可视性至关重要，从而将AI发现的问题与资产重要性、运行时暴露情况相结合。在此模式下，AI成为安全开发的效能倍增器，而通过平台级管控、可审计性与可量化策略执行实现的治理仍是将检测结果转化为可问责、基于风险的决策的核心机制。</p><p></p><p>开发者与安全工程师不应将AI当作风险治理的替代品，而应将其视为加速器，并与严格的监督流程和清晰的问责机制相结合。行业趋势显示，这种平衡理念正得到越来越多的认同：近期围绕容器安全与威胁事件的讨论凸显了大规模场景下软件风险的复杂性——AI驱动的扫描与自动化手段正与日趋复杂的供应链攻击、运行时漏洞并存。</p><p></p><p>整个行业内，众多组织已就AI风险治理原则形成共识，强调检测能力必须与结构化的监督和问责机制相结合。<a href="https://www.nist.gov/">美国国家标准与技术研究院</a>"（NIST）凭借被广泛采用的<a href="https://adeptiv.ai/nist-ai-rmf-guide-to-ai-risk-management">AI风险管理框架</a>"（AI RMF），提出以治理、风险映射、度量与持续管理为核心的全生命周期管理思路。关键实践包括：明确问责角色、留存审计轨迹、针对公平性与安全标准验证模型，以及将AI风险纳入更全面的企业风险管理体系，而非将其视作孤立的技术问题。这些建议与GitLab的观点高度契合：只有将AI检测结果融入可落地的治理流程与部署管控中，其价值才能真正体现。</p><p></p><p>科技公司与行业框架也呼应了这种“治理优先”的思路。例如，<a href="https://www.microsoft.com/insidetrack/blog/responsible-ai-why-it-matters-and-how-were-infusing-it-into-our-internal-ai-projects-at-microsoft/">微软</a>"已建立规范的负责任AI治理体系，包括内部审查委员会、高风险系统的定义与审批流程，以及对模型偏见或不安全输出的持续监控。同时，<a href="https://www.ibm.com/think/insights/foundation-scalable-enterprise-ai">IBM强调</a>"透明度、可解释性与问责制是构建信任的基础。此外，<a href="https://www.iso.org/standard/42001">ISO/IEC 42001</a>"等国际标准及欧盟AI法案相关的新兴监管规范都倡导持续审计、AI使用过程可视化，以及与生产环境中的模型同步迭代的策略化管控。从这些实践中可以形成明确共识：有效的AI治理并非更依赖检测工具的复杂度，而是依托监控、人工审核、可量化的风险阈值，以及贯穿AI全生命周期的持续合规校验等运营实践。</p><p></p><p>【声明：本文由InfoQ翻译，未经许可禁止转载。】</p><p></p><p>查看英文原文：<a href="https://www.infoq.com/news/2026/03/gitlab-ai-governance/">https://www.infoq.com/news/2026/03/gitlab-ai-governance/</a>"</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.infoq.cn/article/SkoHHJPpp6bpctKdbFws</guid>
-      <pubDate>Sun, 15 Mar 2026 02:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Cloudflare 宣布支持 ASPA：为 BGP 路由路径验证引入新安全机制</title>
-      <link>https://www.infoq.cn/article/oOIf2M6slcOmV0PTPKvj</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章介绍Cloudflare支持的BGP路由路径验证新安全机制ASPA，属于网络基础设施技术，用户对基础设施不太感兴趣</small></p><p>Cloudflare 近日<a href="https://blog.cloudflare.com/aspa-secure-internet">宣布支持</a>" ASPA（Autonomous System Provider Authorization）。这一新的加密标准通过验证数据在网络之间传输的路径，使互联网路由更加安全，从而防止流量经过不可靠或不受信任的网络。</p><p></p><p><a href="https://datatracker.ietf.org/doc/draft-ietf-sidrops-aspa-profile/">ASPA</a>" 是一种基于 RPKI 的安全机制。它通过验证 AS_PATH（即路由通告经过的网络路径），来提升互联网路由协议 BGP 的安全性，从而减少路由泄露（route leaks）以及某些类型的路由劫持。这一新兴标准的目标，是提升互联网的整体可靠性，并减少由于意外或恶意行为导致的流量绕行。Cloudflare 首席系统工程师 <a href="https://www.linkedin.com/in/mingweizhang/">Mingwei Zhang</a>" 和首席网络工程师 <a href="https://www.linkedin.com/in/brytonjherdes/">Bryton Herdes</a>" 解释道：</p><p></p><blockquote>当数据在互联网上传输时，它会记录自己经过的每一个网络节点。ASPA 为网络运营者提供了一种机制，可以在 RPKI 系统中正式发布其授权的上游提供商列表。这样一来，接收网络就可以查看 AS_PATH，检查相关的 ASPA 记录，并验证数据流是否只经过被授权的网络链路。</blockquote><p></p><p></p><p>边界网关协议（BGP） 是互联网流量路由的核心协议，但它本身缺乏原生的路径验证机制，因此容易受到路由泄露和路由劫持的影响。虽然 <a href="https://www.arin.net/resources/manage/rpki/roas/">RPKI 和 Route Origin Authorization（ROA）</a>" 可以加强路由来源的验证，但它们并不会验证端到端路径。ASPA 通过一种加密方式，使网络运营者能够声明其被授权的提供商，从而让接收网络可以验证某个 AS 路径是否符合预期的结构。</p><p></p><p>ASPA 通过验证互联网路由的预期层级结构来检测路由绕行。在正常的 “valley-free”（无谷）拓扑 中，流量会从客户网络向上游提供商传递，可能在顶层经过一次对等（peer）连接，然后再通过提供商向下传递到目标客户网络。这种 客户 → 提供商的上行路径、可选的对等连接，以及提供商 → 客户的下行路径，共同构成了符合策略的标准路径。</p><p><img src="https://imgopt.infoq.com/fit-in/3000x4000/filters:quality%2885%29/filters:no_upscale%28%29/news/2026/03/cloudflare-aspa-standard/en/resources/61-1772470746561.jpg" referrerpolicy="no-referrer"></p><p></p><p>去年，美国国家标准与技术研究院（NIST）发布了<a href="https://www.nist.gov/news-events/news/2025/08/nist-releases-test-tools-accelerate-adoption-emerging-route-leak-mitigation">开源测试工具</a>"和数据集，以促进对新兴 BGP 安全和韧性机制的测试与实验，其中包括评估路由器实现 ASPA 规范的能力。</p><p></p><p>Cloudflare 还在 <a href="https://blog.cloudflare.com/radar-origin-pq-key-transparency-aspa/">Cloudflare Radar</a>" 中添加了相关工具，用于跟踪 ASPA 的采用情况，使网络运营者能够查看哪些网络正在使用该技术，以及路径验证的情况。Zhang 和 Herdes 提醒：</p><p></p><p></p><blockquote>随着 ASPA 终于成为现实，我们在互联网路径验证方面迎来了加密层面的升级。不过，对于那些从 RPKI 路由来源验证一开始就参与其中的人来说，他们知道，要让这一技术在互联网上真正产生显著价值仍然需要很长时间。 要真正利用 ASPA 对象并进行路径验证，还需要对多个组件进行改造，包括 RPKI 依赖方（RP）软件包、签名实现、RTR（RPKI-to-Router）软件以及 BGP 实现。</blockquote><p></p><p></p><p><img src="https://imgopt.infoq.com/fit-in/3000x4000/filters:quality%2885%29/filters:no_upscale%28%29/news/2026/03/cloudflare-aspa-standard/en/resources/211-1772470746561.jpg" referrerpolicy="no-referrer"></p><p></p><p>Cloudflare 表示，在最近的委内瑞拉 BGP <a href="https://blog.cloudflare.com/bgp-route-leak-venezuela/">路由泄露事件</a>" 中，如果部署了 ASPA，网络就可以通过验证观察到的 AS 路径是否符合预期的提供商授权关系，从而检测并拒绝异常的路径通告，而仅依赖来源验证是无法做到这一点的。</p><p></p><p>Cloudflare 并不是唯一致力于推动这一加密标准的提供商。在去年发布的文章 “<a href="https://aws.amazon.com/blogs/networking-and-content-delivery/aws-secures-internet-routing-with-rpki-plus-security-checks/">AWS secures internet routing with RPKI plus security checks</a>"” 中，亚马逊云科技团队写道：</p><p></p><blockquote>虽然 ASPA 仍处于标准化过程中，但我们致力于使用它以及所有可用工具，让互联网继续成为一个安全可靠的环境。</blockquote><p></p><p></p><p>尽管相关 IETF 标准仍处于草案阶段，Cloudflare 指出 ARIN 和 RIPE NCC 已经支持创建 ASPA 对象，而路由软件 OpenBGPD 和 BIRD 也已经包含 ASPA 验证功能。</p><p></p><p>原文链接：</p><p>https://www.infoq.com/news/2026/03/cloudflare-aspa-standard/</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.infoq.cn/article/oOIf2M6slcOmV0PTPKvj</guid>
-      <pubDate>Sat, 14 Mar 2026 15:19:37 GMT</pubDate>
     </item>
   </channel>
 </rss>
