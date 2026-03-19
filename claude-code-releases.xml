@@ -3,7 +3,45 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Thu, 19 Mar 2026 21:47:58 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2026 22:48:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.80 版本发布：新增速率限制监控与插件设置内联支持</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.80</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是Claude Code编程工具的新版本发布，新增速率限制监控与插件设置内联支持功能，属于用户很感兴趣的'编程工具发布/分享'类别</small></p><p>Claude Code 发布了 v2.1.80 版本，带来多项功能增强和问题修复。本次更新主要围绕开发者体验优化、插件系统改进和性能提升。</p>
+
+<h3>重要新功能</h3>
+<ul>
+<li><strong>速率限制状态显示</strong>：在状态行脚本中添加 <code>rate_limits</code> 字段，可显示 Claude.ai 的速率限制使用情况（5小时和7天窗口），包含使用百分比和重置时间</li>
+<li><strong>插件设置内联声明</strong>：新增 <code>source: 'settings'</code> 插件市场源，允许直接在 settings.json 文件中内联声明插件条目</li>
+<li><strong>CLI 工具使用检测</strong>：插件提示现在除了文件模式匹配外，还能检测 CLI 工具的使用情况</li>
+<li><strong>模型努力级别覆盖</strong>：为技能和斜杠命令添加 <code>effort</code> frontmatter 支持，可在调用时覆盖模型的努力级别</li>
+<li><strong>MCP 服务器消息推送</strong>：新增 <code>--channels</code> 参数（研究预览功能），允许 MCP 服务器向会话推送消息</li>
+</ul>
+
+<h3>关键问题修复</h3>
+<ul>
+<li><strong>会话恢复功能完善</strong>：修复 <code>--resume</code> 参数丢弃并行工具结果的问题，现在能正确恢复所有 tool_use/tool_result 对</li>
+<li><strong>语音模式稳定性提升</strong>：修复因 Cloudflare 机器人检测导致的语音模式 WebSocket 失败问题</li>
+<li><strong>API 代理兼容性改进</strong>：解决通过 API 代理、Bedrock 或 Vertex 使用细粒度工具流时出现的 400 错误</li>
+<li><strong>功能可见性优化</strong>：修复 <code>/remote-control</code> 在不支持的网关和第三方提供商部署中错误显示的问题</li>
+</ul>
+
+<h3>其他改进与优化</h3>
+<ul>
+<li>修复 <code>/sandbox</code> 标签切换不响应 Tab 或方向键的问题</li>
+<li>提升大型 Git 仓库中 <code>@</code> 文件自动完成的响应速度</li>
+<li>改进 <code>/effort</code> 命令显示，现在会展示 auto 模式当前解析的具体值</li>
+<li>优化 <code>/permissions</code> 界面，支持在列表内使用 Tab 和方向键切换标签页</li>
+<li>后台任务面板改进，左箭头现在可以从列表视图关闭面板</li>
+<li>简化插件安装提示，使用单个 <code>/plugin install</code> 命令替代两步流程</li>
+<li>减少大型仓库启动时的内存占用（约节省 80 MB，针对 25 万文件的仓库）</li>
+<li>修复托管设置（如 enabledPlugins、permissions.defaultMode 等）在启动时因缓存问题未正确应用的情况</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.80</guid>
+      <pubDate>Thu, 19 Mar 2026 22:08:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.79 发布：新增控制台认证与远程控制功能</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.79</link>
@@ -1444,47 +1482,6 @@
       </description>
       <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.50</guid>
       <pubDate>Fri, 20 Feb 2026 23:48:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.49版本发布：多项修复与性能优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.49</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude代码版本发布，属于编程工具发布内容，符合用户对编程工具发布的兴趣</small></p><p>Claude Code 发布了 v2.1.49 版本，本次更新包含多项错误修复、功能改进和性能优化。</p>
-
-<h3>主要改进内容</h3>
-
-<ul>
-<li><strong>快捷键处理</strong>：修复了后台代理运行时 Ctrl+C 和 ESC 被静默忽略的问题，现在在3秒内按两次将终止所有后台代理</li>
-<li><strong>缓存修复</strong>：修复了提示建议缓存回归问题，提高了缓存命中率</li>
-<li><strong>插件管理</strong>：改进 <code>plugin enable</code> 和 <code>plugin disable</code> 命令，当未指定 <code>--scope</code> 时自动检测正确的作用域，而不是始终默认为用户作用域</li>
-<li><strong>简单模式增强</strong>：简单模式（<code>CLAUDE_CODE_SIMPLE</code>）现在除了 Bash 工具外还包含文件编辑工具，允许在简单模式下直接编辑文件</li>
-<li><strong>权限系统</strong>：安全检查触发询问响应时现在会填充权限建议，使 SDK 使用者能够显示权限选项；改进了路径安全性和工作目录限制的权限提示，显示限制原因而非无上下文的简单提示</li>
-<li><strong>模型更新</strong>：Sonnet 4.5（1M 上下文）已从 Max 计划中移除，由新的 Sonnet 4.6 模型取代，后者现在也支持 1M 上下文，用户需要在 <code>/model</code> 中切换</li>
-<li><strong>显示修复</strong>：修复了通过 <code>/config</code> 切换时详细模式不更新思考块显示的问题</li>
-</ul>
-
-<h3>性能与内存优化</h3>
-
-<ul>
-<li><strong>内存管理</strong>：修复了长时间会话中 WASM 内存无限制增长的问题，通过定期重置 tree-sitter 解析器；修复了由 Yoga WASM 线性内存从不收缩导致的长时间运行会话中的无限制内存增长</li>
-<li><strong>启动性能</strong>：改进了非交互模式（<code>-p</code>）的性能，跳过了启动期间不必要的 API 调用</li>
-<li><strong>认证缓存</strong>：缓存 HTTP 和 SSE MCP 服务器的认证失败，避免重复连接尝试需要认证的服务器</li>
-<li><strong>分析优化</strong>：减少了分析令牌计数的 HTTP 调用；将 MCP 工具令牌计数批处理为单个 API 调用</li>
-</ul>
-
-<h3>SDK 与配置管理</h3>
-
-<ul>
-<li><strong>SDK 功能增强</strong>：SDK 模型信息现在包含 <code>supportsEffort</code>、<code>supportedEffortLevels</code> 和 <code>supportsAdaptiveThinking</code> 字段，使使用者能够发现模型能力</li>
-<li><strong>配置钩子</strong>：添加了 <code>ConfigChange</code> 钩子事件，在会话期间配置文件更改时触发，支持企业安全审计和可选的设置更改阻止</li>
-<li><strong>钩子管理修复</strong>：修复了 <code>disableAllHooks</code> 设置以尊重托管设置层次结构，非托管设置不能再禁用由策略设置的托管钩子（<a href="https://github.com/anthropics/claude-code/issues/26637">#26637</a>）</li>
-<li><strong>会话恢复</strong>：修复了 <code>--resume</code> 会话选择器显示原始 XML 标签的问题，现在正确回退到会话 ID 备用方案</li>
-</ul>
-
-<p>总体而言，v2.1.49 版本在稳定性、性能和用户体验方面都有显著提升，特别是解决了长时间运行会话中的内存增长问题，并增强了权限管理和配置控制功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.49</guid>
-      <pubDate>Thu, 19 Feb 2026 23:28:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
