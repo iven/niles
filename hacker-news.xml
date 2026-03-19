@@ -3,7 +3,40 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 19 Mar 2026 15:04:11 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2026 16:07:13 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Cook：一个用于编排 Claude Code 的简单 CLI 工具</title>
+      <link>https://news.ycombinator.com/item?id=47434024</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是一个编程工具的发布介绍，属于用户配置中'很感兴趣'的编程工具发布/分享类别</small></p><p>Cook 是一个命令行工具，专门用于编排 Anthropic 的 Claude Code AI 编码代理的工作流程。它通过定义工作单元、循环操作符和组合操作符，帮助开发者构建可重复的多步骤自动化编码任务。</p>
+
+<p>该工具解析三种核心令牌类型：Work（工作单元，代表一次代理调用）、Loop operators（循环操作符，如重复执行和审查循环）以及 Composition（组合操作符，用于并行运行和结果合并）。主要操作符包括：</p>
+
+<ul>
+<li><code>xN</code>：将工作重复执行 N 次</li>
+<li><code>review</code>：添加审查→门控循环，在每次工作后检查质量并决定是否继续迭代</li>
+<li><code>ralph</code>：包装整个流程，为任务列表推进提供外部门控</li>
+<li><code>vN</code>/<code>race</code>：并行运行 N 个相同的工作副本，然后通过解析器选择最佳结果</li>
+<li><code>vs</code>：并行运行两个不同的工作分支</li>
+</ul>
+
+<p>用户可以通过 <code>cook init</code> 在项目根目录生成配置文件，包括 <code>COOK.md</code>（项目指令和代理提示模板）、<code>.cook/config.json</code>（代理/模型/沙箱配置）等。工具支持两种沙箱模式：默认的 Agent 模式（使用代理自身的操作系统级沙箱）和 Docker 模式（在受限网络访问的容器中运行）。此外，Cook 还内置了速率限制恢复功能，当代理达到令牌配额时会自动等待并重试。</p>
+
+<p>在 Hacker News 的讨论中，用户主要关注几个方面：</p>
+
+<ul>
+<li>有用户询问 Cook 相比原生 Claude CLI 增加了什么价值，开发者回应称原生 CLI 更适合一次性交互会话，而 Cook 填补了可重复多步骤工作流的空白</li>
+<li>部分评论认为类似功能可以通过简单的 bash 脚本实现，但支持者指出 Cook 提供了更结构化的解决方案</li>
+<li>关于子代理行为差异的讨论，有用户指出子代理与主代理的思考/努力行为可能存在不同</li>
+<li>网站设计风格引发不同评价，有人觉得颜色单调难以阅读，开发者则提供了 <a href="https://github.com/rjcorwin/cook/">GitHub README</a> 作为替代</li>
+<li>其他用户提到了类似的工具，如 <a href="https://ossature.dev">Ossature</a> 和另一个同名 <a href="https://getcook.dev">Cook 代理工具</a></li>
+</ul>
+
+<p>总体而言，Cook 为 Claude Code 用户提供了一套系统化的编排方案，特别适合需要重复执行、质量审查和多版本比较的复杂编码任务。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47434024</guid>
+      <pubDate>Thu, 19 Mar 2026 02:20:34 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 我创建了48个可复制粘贴的轻量级SVG背景</title>
       <link>https://news.ycombinator.com/item?id=47427299</link>
@@ -1450,40 +1483,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47381791</guid>
       <pubDate>Sat, 14 Mar 2026 22:10:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GIMP 3.2 正式发布：新增非破坏性图层、矢量图层等多项功能</title>
-      <link>https://news.ycombinator.com/item?id=47380465</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GIMP 3.2 新版本发布，属于开源项目和软件新功能，用户对此感兴趣</small></p><p>开源图像编辑器 GIMP 发布了 3.2 版本，这是继 3.0 之后的重要更新，标志着一年来志愿者和社区的设计、开发和测试成果。新版本引入了多项功能改进和用户体验优化。</p>
-
-<img src="https://www.gimp.org/news/2026/03/14/gimp-3-2-released/gimp-3.2-splash.jpg" alt="GIMP 3.2: splash screen by Sevenix" />
-
-<p>主要新特性包括：</p>
-<ul>
-<li><strong>非破坏性链接图层</strong>：允许将外部图像作为链接图层纳入作品，可缩放、旋转和变换而不损失质量，源文件修改时内容自动更新。</li>
-<li><strong>矢量图层</strong>：路径工具现在可以创建矢量图层，绘制可调整填充和描边设置的形状。</li>
-<li><strong>MyPaint 画笔工具升级</strong>：新增 20 种笔刷，自动适应画布缩放和旋转，提供更动态的绘画体验。</li>
-<li><strong>覆盖绘画模式</strong>：允许在不混合透明度的前提下覆盖现有颜色。</li>
-<li><strong>画布文本编辑器改进</strong>：支持在画布上移动编辑器，并添加常用快捷键（如 Ctrl+B 加粗、Shift+Ctrl+V 粘贴无格式文本）。</li>
-<li><strong>新文件格式支持</strong>：包括 DDS BC7 导出、PSD 图层样式导入改进，以及得益于矢量图层而新增的 SVG 导出和 PDF 导出矢量选项扩展。</li>
-<li><strong>UI/UX 优化</strong>：根据用户反馈和设计团队努力，增加了多项改进，如画笔缩略图使用主题颜色预览、支持拖放图像到标签页打开、剪切和翻转工具的键盘快捷键支持、自动匹配操作系统颜色方案的新系统配色，以及 CMYK 颜色选择器中显示总油墨覆盖率以辅助软打样调整。</li>
-<li><strong>开发者工具</strong>：新增 GEGL 滤镜浏览器，方便查找和使用非破坏性滤镜。</li>
-</ul>
-
-<p>社区评论中，用户对 GIMP 3.2 的发布反应积极，但也引发了一些讨论：</p>
-<ul>
-<li>有用户指出 GIMP 缺乏生成式 AI（GenAI）集成，认为其他应用已实现此类功能，但也有用户认为这种“缺失”反而令人耳目一新。</li>
-<li>关于非破坏性编辑的直观性存在争议，部分用户认为在当前界面中显得“生硬”，期待更自然的节点编辑器式交互。</li>
-<li>UI 变化方面，有用户对 3.0 以来的界面更新感到困惑，但开发者回应称可通过欢迎对话框的“个性化”选项卡切换回彩色图标等传统样式。</li>
-<li>PDF 编辑功能受到好评，有用户分享利用 GIMP 处理 PDF 文件的经验。</li>
-<li>快捷键设置方面，用户确认可通过“编辑→键盘快捷键→文件→覆盖”为 Ctrl+S 分配覆盖保存功能，但默认不启用以避免误操作。</li>
-</ul>
-
-<p>官方提供了完整的<a href="https://www.gimp.org/news/2026/03/14/gimp-3-2-released/">发布说明</a>和<a href="https://www.gimp.org/downloads/">下载页面</a>。同时发布的还有 babl 0.1.124 和 GEGL 0.4.68 库。文档方面，3.2 版本的在线文档尚未就绪，建议暂时使用 3.0 文档，并欢迎社区参与 <a href="https://www.gimp.org/news/2026/03/14/gimp-3-2-released/">gimp-help 项目</a>贡献文档。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47380465</guid>
-      <pubDate>Sat, 14 Mar 2026 19:51:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
