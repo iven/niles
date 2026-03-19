@@ -3,7 +3,39 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 18 Mar 2026 23:41:02 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2026 03:22:42 GMT</lastBuildDate>
+    <item>
+      <title>NVIDIA NemoClaw：为 OpenClaw 提供安全沙盒环境的开源插件</title>
+      <link>https://news.ycombinator.com/item?id=47427027</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍NVIDIA开源安全插件，但用户兴趣配置中未明确涵盖开源软件、安全沙盒或NVIDIA相关主题，兴趣不明确。</small></p><p>NVIDIA 近日开源了 NemoClaw 项目，这是一个旨在简化 OpenClaw 常驻助手安全运行的插件栈。该项目通过集成 OpenShell 运行时，为 OpenClaw 代理创建隔离的沙盒环境，并将所有推理请求路由至 NVIDIA 云端模型服务。</p>
+
+<img src="https://camo.githubusercontent.com/d8e3b9d3b1213595b06824a404d41ad7743f1e880a3f9e47bae54533a9b60c99/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d4170616368655f322e302d626c7565" alt="License" />
+<img src="https://camo.githubusercontent.com/d7b3ea7a80c2502d6f91036a7b8d1b56bf3f0c7fda63638c5735c06d64af5644/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f53656375726974792d5265706f72742532306125323056756c6e65726162696c6974792d726564" alt="Security Policy" />
+<img src="https://camo.githubusercontent.com/71cb9a97360b8841ddfc125fa85687761845a6d44b48b4de9b527a2d2dce2930/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7374617475732d616c7068612d6f72616e6765" alt="Project Status" />
+
+<p>NemoClaw 的核心架构包含多个组件：TypeScript CLI 提供管理命令，版本化的 Python 蓝图负责协调沙盒创建、策略制定和推理设置，而沙盒本身则是运行 OpenClaw 的隔离容器。关键的安全特性在于，代理发出的推理请求从不直接离开沙盒，而是由 OpenShell 拦截并重定向至 NVIDIA 云提供商。</p>
+
+<p>系统要求方面，最低配置需要 4 个 vCPU、8 GB RAM 和 20 GB 可用磁盘空间，推荐配置为 4+ vCPU、16 GB RAM 和 40 GB 磁盘空间。软件依赖包括 Ubuntu 22.04 LTS 或更高版本、Node.js 20+、npm 10+ 以及支持的容器运行时（Linux 上主要为 Docker）。</p>
+
+<p>安装过程通过单行命令完成：<code>curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash</code>。安装后，用户可以通过 <code>nemoclaw my-assistant connect</code> 连接到沙盒，并使用 OpenClaw TUI 或 CLI 与代理交互。</p>
+
+<p>安全防护采用多层策略：网络层控制出站连接，文件系统层限制对 <code>/sandbox</code> 和 <code>/tmp</code> 之外的访问，进程层阻止权限提升和危险系统调用，推理层重定向模型 API 调用。这些策略部分可在运行时热重载，部分在沙盒创建时锁定。</p>
+
+<p>Hacker News 社区对此项目展开了广泛讨论，获得 254 分和 196 条评论。主要观点包括：</p>
+<ul>
+<li>有评论认为这是 NVIDIA 成为 OpenClaw 默认计算提供商的战略举措，可能带来可观的消费级推理收入</li>
+<li>部分用户质疑沙盒方案的根本有效性，指出 OpenClaw 的有用性取决于其对日历、邮箱等服务的访问权限，而这正是安全风险所在</li>
+<li>开发者分享了使用 OpenClaw 的困难体验，特别是在 Docker 环境中遇到的种种障碍</li>
+<li>有人注意到项目开发速度惊人，从提交历史看主要工作在一个周末完成，推测可能是内部黑客马拉松项目</li>
+<li>与其他类似项目（如 <a href="https://zo.computer">zo.computer</a>）的比较，以及关于“claw”术语起源的讨论</li>
+</ul>
+
+<p>项目目前处于 alpha 阶段，开发者明确表示这是早期软件，接口、API 和行为可能随时变更，不建议用于生产环境。NemoClaw 采用 Apache 2.0 许可证开源，旨在收集社区反馈并促进早期实验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47427027</guid>
+      <pubDate>Wed, 18 Mar 2026 15:31:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AI编程如同赌博：开发者反思创造力与成瘾性</title>
       <link>https://news.ycombinator.com/item?id=47428541</link>
@@ -1441,36 +1473,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47362350</guid>
       <pubDate>Fri, 13 Mar 2026 09:45:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Hammerspoon：强大的 macOS 桌面自动化工具</title>
-      <link>https://news.ycombinator.com/item?id=47367932</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] macOS桌面自动化编程工具，属于用户高度感兴趣的编程工具发布/分享类别</small></p><p>Hammerspoon 是一个基于 Lua 脚本的 macOS 桌面自动化工具，通过桥接操作系统与 Lua 引擎，配合一系列扩展模块，使用户能够深度控制 macOS 环境的各个方面。</p>
-
-<p>该项目起源于 Mjolnir 的分支，旨在提供更集成的用户体验。安装方式支持手动下载或通过 Homebrew 安装。启动后，用户需创建 <code>~/.hammerspoon/init.lua</code> 配置文件，项目提供了丰富的学习资源，包括入门指南、API 文档、FAQ、用户示例配置以及开发者贡献指南。</p>
-
-<img src="https://github.com/Hammerspoon/hammerspoon/workflows/CI/badge.svg" alt="CI" />
-<img src="https://camo.githubusercontent.com/2d089bb159213bf737ae6f182dbe7ac39f0e1396ed49c5ee9a453d5a3e91c6e6/68747470733a2f2f636f6465636f762e696f2f6769746875622f48616d6d657273706f6f6e2f68616d6d657273706f6f6e2f636f7665726167652e7376673f6272616e63683d6d6173746572" alt="codecov.io" />
-<img src="https://camo.githubusercontent.com/6ddd625999826b9436ba8dfda7872697cbe33a93b42668563d8fec75630e0469/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f646f776e6c6f6164732f48616d6d657273706f6f6e2f68616d6d657273706f6f6e2f6c61746573742f746f74616c2e737667" alt="Downloads current release" />
-<img src="https://camo.githubusercontent.com/d96d206320ee016a13854acb8f606b0276f7886ff24e9336f7e1bbbead6a80e2/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f646f776e6c6f6164732f48616d6d657273706f6f6e2f68616d6d657273706f6f6e2f746f74616c2e7376673f6d61784167653d32353932303030" alt="Downloads all releases" />
-<img src="https://camo.githubusercontent.com/4db7cd41adf93b9876fc868bdb13be57054bffc7a3b7f66fd324569e4022fac7/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f7461672f48616d6d657273706f6f6e2f68616d6d657273706f6f6e2e737667" alt="Latest tag" />
-<img src="https://camo.githubusercontent.com/92956660a29d5f072a573d93e9087ca517c1711e02baf6b5db8cd920f5d9d666/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f72656c656173652f48616d6d657273706f6f6e2f68616d6d657273706f6f6e2e737667" alt="Latest release" />
-
-<p>Hacker News 社区用户分享了丰富的使用案例：</p>
-<ul>
-<li>窗口管理：用户通过简单的网格系统快速调整窗口布局，也有用户探讨与 <a href="https://github.com/nikitabobko/AeroSpace">AeroSpace</a> 平铺窗口管理器的集成可能性。</li>
-<li>快捷键配置：结合 <a href="https://qmk.fm/">QMK</a> 键盘实现分层快捷键，将应用切换和常用操作直接映射到键盘。</li>
-<li>自动化任务：包括将 Safari 所有标签页导出到 Obsidian 文档、全局控制 Teams 静音、管理 Logi Litra 灯光、定时任务、确保后台应用持续运行等。</li>
-<li>系统集成：与 AeroSpace、Sketchybar 等工具配合，实现窗口跨显示器移动、工作区管理等高级功能。</li>
-</ul>
-
-<p>有用户将其称为“Mac 的粘合剂”，并列举了数十项日常自动化用例。同时，也有用户提到 Karabiner Elements 更适合处理键盘映射，而 Hammerspoon 则擅长绑定和执行复杂操作。</p>
-
-<p>未来项目发展方向包括扩展系统 API 覆盖范围、加强扩展间集成以及提升用户体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47367932</guid>
-      <pubDate>Fri, 13 Mar 2026 18:34:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
