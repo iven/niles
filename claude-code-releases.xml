@@ -3,7 +3,34 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Fri, 20 Mar 2026 21:43:11 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Mar 2026 22:47:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.81发布：新增脚本模式和支持权限中继</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.81</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 编程工具发布公告，涉及Claude Code新版本和功能更新，属于用户很感兴趣的编程工具发布/分享类别</small></p>Claude Code命令行工具发布v2.1.81版本，引入了多项新功能和改进。
+
+重要改动包括：
+- 新增<code>--bare</code>标志用于脚本化调用，跳过钩子、LSP、插件同步等流程，适合自动化场景
+- 新增<code>--channels</code>权限中继功能，支持将工具批准提示转发到手机
+- 修复多个并发会话的重复认证问题
+- 修复语音模式错误处理，避免静默失败
+- 修复<code>CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS</code>环境变量问题
+- 修复Node.js 18上的崩溃问题
+
+其他改进和修复：
+- 修复权限提示、插件钩子、竞态条件等问题
+- 改进MCP工具调用显示方式
+- 增强<code>!</code>Bash模式可发现性
+- 更新MCP OAuth支持
+- 调整计划模式默认选项
+- 修复VSCode扩展的Windows PATH继承问题
+
+该版本主要提升了工具的稳定性和脚本化支持能力。]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.81</guid>
+      <pubDate>Fri, 20 Mar 2026 22:24:50 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.80 版本发布：新增速率限制监控与插件设置内联支持</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.80</link>
@@ -1427,61 +1454,6 @@
       </description>
       <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.51</guid>
       <pubDate>Tue, 24 Feb 2026 01:40:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.50版本更新：新增LSP超时配置、修复内存泄漏等多项改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.50</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude代码版本发布，属于编程工具发布内容，符合用户对编程工具发布的兴趣</small></p><p>Claude Code 发布了 v2.1.50 版本更新，本次更新主要围绕新功能添加、内存泄漏修复和性能优化展开。</p>
-
-<h3>新增功能</h3>
-<ul>
-<li>为 LSP 服务器添加了 <code>startupTimeout</code> 配置支持，便于控制服务器启动超时时间</li>
-<li>新增 <code>WorktreeCreate</code> 和 <code>WorktreeRemove</code> 钩子事件，支持在代理工作树隔离创建或移除工作树时进行自定义版本控制系统设置和清理</li>
-<li>在代理定义中添加了 <code>isolation: worktree</code> 支持，允许代理声明式地在隔离的 git 工作树中运行</li>
-<li>新增 <code>claude agents</code> CLI 命令，用于列出所有已配置的代理</li>
-<li>VS Code 会话中增加了 <code>/extra-usage</code> 命令支持</li>
-</ul>
-
-<h3>Bug修复</h3>
-<ul>
-<li>修复了涉及符号链接的工作目录中恢复会话可能不可见的问题</li>
-<li>修复了 SSH 断开连接时可能导致的会话数据丢失问题</li>
-<li>修复了在 glibc 版本低于 2.30 的系统（如 RHEL 8）上原生模块无法加载的问题</li>
-<li>修复了 <code>/mcp reconnect</code> 命令在指定不存在的服务器名称时导致 CLI 冻结的问题</li>
-<li>修复了 MCP 工具在启用工具搜索并通过启动参数传递提示时未被发现的问题</li>
-<li>修复了提示建议缓存的回归问题，提高了缓存命中率</li>
-</ul>
-
-<h3>内存优化</h3>
-<ul>
-<li>修复了代理团队中已完成队友任务从未从会话状态进行垃圾回收的内存泄漏</li>
-<li>修复了已完成任务状态对象从未从 AppState 中移除的内存泄漏</li>
-<li>修复了 LSP 诊断数据在交付后从未清理导致长时间会话中内存无限增长的问题</li>
-<li>修复了已完成任务输出未从内存中释放的问题，减少了多任务长时间会话的内存使用</li>
-<li>修复了 TaskOutput 在清理后仍保留最近行的内存泄漏</li>
-<li>修复了 CircularBuffer 中已清除项目在支持数组中保留的内存泄漏</li>
-<li>修复了 shell 命令执行中 ChildProcess 和 AbortController 引用在清理后保留的内存泄漏</li>
-</ul>
-
-<h3>性能改进</h3>
-<ul>
-<li>通过压缩后清除内部缓存，改进了长时间会话中的内存使用</li>
-<li>通过在处理后清除大型工具结果，改进了长时间会话中的内存使用</li>
-<li>通过限制文件历史快照，修复了长时间会话中内存无限增长的问题</li>
-<li>通过延迟 Yoga WASM 和 UI 组件导入，改进了无头模式（<code>-p</code> 标志）的启动性能</li>
-</ul>
-
-<h3>CLAUDE_CODE 模式增强</h3>
-<ul>
-<li>修复了 <code>CLAUDE_CODE_SIMPLE</code> 模式，完全剥离技能、会话内存、自定义代理和 CLAUDE.md 令牌计数</li>
-<li><code>CLAUDE_CODE_SIMPLE</code> 模式现在还会禁用 MCP 工具、附件、钩子和 CLAUDE.md 文件加载，提供完全最小化的体验</li>
-<li>新增 <code>CLAUDE_CODE_DISABLE_1M_CONTEXT</code> 环境变量，用于禁用 1M 上下文窗口支持</li>
-<li>Opus 4.6（快速模式）现在包含完整的 1M 上下文窗口</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.50</guid>
-      <pubDate>Fri, 20 Feb 2026 23:48:57 GMT</pubDate>
     </item>
   </channel>
 </rss>
