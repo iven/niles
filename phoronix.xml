@@ -3,7 +3,41 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 20 Mar 2026 11:44:07 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Mar 2026 13:24:12 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Apple M3 Linux启动补丁发布，但功能尚不完善</title>
+      <link>https://www.phoronix.com/news/Apple-M3-DT-Boot-Linux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讨论苹果M3芯片上的Linux启动支持，属于来源配置中'苹果电脑Linux支持'（high_interest）范畴，用户会很感兴趣</small></p><p>Asahi Linux 开发者近日向 Linux 内核邮件列表提交了用于在 Apple M3 硬件上启动 Linux 的初始设备树补丁，但这组补丁目前仅提供最基本的硬件支持，距离实际可用还有很长的路要走。</p>
+
+<img src="https://www.phoronix.net/image.php?id=2023&image=apple_m3_med" alt="Apple M3" />
+
+<p>这组由 Janne Grunau 提交的九个补丁为 Apple Silicon M3 设备提供了初始的设备树文件和绑定支持，标志着 Asahi Linux 项目在支持 M1/M2 之后，开始向更新的 M3 硬件扩展。然而，当前实现的功能极为有限，仅能完成内核启动、初始 RAM 文件系统加载以及串行控制台访问，远未达到日常使用的水平。</p>
+
+<p>开发者指出，除了中断控制器需要单独调整外，M3 的硬件与之前的 M1 和 M2 SoC 基本兼容，现有驱动程序可以沿用。尽管如此，GPU 等关键硬件的支持尚未完成，预计还需要数月时间才能实现更完善的功能。</p>
+
+<p>随着 Apple M3 初步支持的开始，后续还有已经发布的 M4、M5 以及预计 2026 年晚些时候推出的 M6 需要适配，Asahi Linux 团队仍面临持续的移植工作。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-M3-DT-Boot-Linux</guid>
+      <pubDate>Fri, 20 Mar 2026 13:03:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux内核补丁引入任务窃取机制以提升CPU利用率</title>
+      <link>https://www.phoronix.com/news/Linux-Steal-Tasks-Improve-CPU</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核调度器优化补丁，通过任务窃取提高CPU利用率，属于开源项目和技术进展（interest），用户感兴趣</small></p><p>华为工程师陈景煌近日发布了最新的请求评论（RFC）补丁系列，旨在通过从同一最后一级缓存（LLC）域中的过载CPU核心“窃取”任务，提升多核服务器的整体CPU利用率。</p>
+
+<p>该补丁的核心机制是：当某个CPU核心没有更多完全公平调度器（CFS）任务可运行时，如果现有的空闲平衡（idle_balance）函数未能找到任务，则会尝试从同一LLC域内过载的CPU上窃取一个可迁移任务。补丁通过维护一个过载CPU的位图来高效识别候选核心，并按任务运行顺序搜索可迁移任务，以降低搜索开销并兼顾公平性。</p>
+
+<p>与传统的空闲平衡相比，这种简单的窃取策略搜索成本更低，因此可以在每次CPU即将进入空闲状态时调用，从而提高CPU利用率。开发者指出，空闲平衡函数因为需要广泛搜索最繁忙队列而工作负载较大，在系统过于繁忙时会限制搜索范围，而简单窃取虽不能卸载全局最繁忙队列，但比完全不运行任何任务要好得多。</p>
+
+<p>通过新的SCHED_STEAL功能启用这些补丁后，在双路英特尔至强铂金服务器上的测试显示，Hackbench基准测试的耗时改善了17%。<img src="//www.phoronix.net/image.php?id=amd-epyc-intel-xeon-500&image=turin_gnr_1_med" alt="Server CPUs" /></p>
+
+<p>不过，补丁的未来走向尚不明确。上游内核开发者彼得·齐尔斯特拉在邮件列表中评论称，更好的方法可能是修复当前调度器的行为，而不是引入新的任务获取机制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Steal-Tasks-Improve-CPU</guid>
+      <pubDate>Fri, 20 Mar 2026 12:16:41 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mageia 10 Beta 发布：延续 Mandrake Linux 血脉的 Linux 发行版迎来重要更新</title>
       <link>https://www.phoronix.com/news/Mageia-10-Beta</link>
@@ -830,40 +864,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Vulkan-1.4.346-Released</guid>
       <pubDate>Fri, 13 Mar 2026 12:23:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ FreeRDP 3.24发布：包含安全修复和改进的X11客户端支持</title>
-      <link>https://www.phoronix.com/news/FreeRDP-3.24-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源远程桌面项目FreeRDP发布新版本，属于用户很感兴趣的新软件项目和开源项目类别</small></p><p>开源远程桌面协议（RDP）实现 FreeRDP 发布了 3.24 版本，带来了多项安全修复和功能改进。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=freerdp" alt="FreeRDP example" />
-
-<p>本次更新修复了代码库中发现的八个安全漏洞，增强了软件的安全性。同时，FreeRDP 3.24 增加了对 C23 编译器的完整支持，不过其默认的 C 语言目标版本仍保持在 C11。</p>
-
-<p>在客户端方面，新版本改进了 X11 和 SDL3 RDP 客户端，特别是优化了 X11 rails 的窗口锁定机制。此外，SmartCard 支持得到增强，代理功能现在也支持 RFX 图形模式。</p>
-
-<p>更多详细信息和下载链接可通过 <a href="https://github.com/FreeRDP/FreeRDP">GitHub</a> 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/FreeRDP-3.24-Released</guid>
-      <pubDate>Fri, 13 Mar 2026 12:12:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME基础设施采用Fastly对抗机器人与AI爬虫</title>
-      <link>https://www.phoronix.com/news/GNOME-GitLab-Fastly</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题涉及GNOME基础设施安全，属于Linux桌面技术，用户对此感兴趣。虽然涉及基础设施（全局不太感兴趣），但主要焦点是开源桌面环境。</small></p><p>GNOME基础设施团队近日宣布，为应对日益增长的机器人和AI爬虫流量，已开始采用商业闭源服务Fastly进行边缘机器人管理。这一举措是GNOME持续对抗自动化流量攻击的最新步骤。</p>
-
-<p>此前，GNOME的GitLab基础设施已长期使用Anubis系统来防御机器人和爬虫流量，以保护服务器资源和托管预算。最近，团队还采取了将部分GitLab流量重定向到GitHub仓库的措施。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=gnome_gitlab_med" alt="GNOME GitLab" />
-
-<p>通过使用Fastly的边缘计算能力，GNOME可以将机器人缓解工作卸载到Fastly的网络边缘，从而显著减轻核心基础设施的负载。Fastly通过其Fast Forward项目赞助GNOME，覆盖了相关机器人缓解成本。</p>
-
-<p>更多关于此次变更的详细信息可在GNOME.org Discourse的公告中查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-GitLab-Fastly</guid>
-      <pubDate>Fri, 13 Mar 2026 09:48:07 GMT</pubDate>
     </item>
   </channel>
 </rss>
