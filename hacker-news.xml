@@ -3,7 +3,56 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 21 Mar 2026 13:12:11 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Mar 2026 13:52:32 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Ghostling：基于 libghostty C API 的最小化终端模拟器演示项目</title>
+      <link>https://news.ycombinator.com/item?id=47461378</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍基于libghostty C API的终端模拟器工具，属于编程工具发布/分享，用户很感兴趣</small></p><p>Ghostling 是一个基于 libghostty C API 构建的最小化终端模拟器演示项目，旨在展示如何利用 libghostty 库快速创建一个功能完整的终端界面。该项目使用 Raylib 进行窗口管理和 2D 图形渲染，采用单线程设计，代码仅包含一个 C 文件，体现了极简主义理念。</p>
+
+<img src="https://github.com/ghostty-org/ghostling/raw/main/demo.gif" alt="Ghostling Demo" />
+
+<p>libghostty 是从 Ghostty 终端模拟器核心提取的可嵌入库，提供 C 和 Zig API，支持准确的 VT 序列解析、终端状态管理、文本重排、滚动缓冲区等功能。libghostty-vt 是其零依赖版本（甚至不依赖 libc），专注于终端模拟核心逻辑，不包含渲染或窗口代码，由使用者自行实现。</p>
+
+<p>尽管 Ghostling 设计极简，但仍支持丰富的终端功能：窗口调整大小时的文本重排、24 位真彩色和 256 色调色板、粗体/斜体/反色等文本样式、Unicode 和多码点字符处理、键盘输入修饰键支持、Kitty 键盘协议、鼠标跟踪（多种模式）、滚轮支持、滚动条拖拽滚动、焦点报告等。</p>
+
+<p>项目明确表示不会包含标签页、多窗口、分屏、会话管理、配置文件 GUI 或搜索界面等功能，这些被视为 GUI 层应实现的特性，而非终端模拟核心功能。</p>
+
+<h3>社区反馈与讨论</h3>
+<p>开发者对 Ghostling 中通过 CMake 自动生成头文件嵌入字体的技术表示惊讶，认为这是一种跨平台的二进制资源嵌入解决方案。用户 <a href="https://github.com/weedonandscott/trolley">oDot</a> 分享了使用 libghostty 构建的 Trolley 项目，该工具可将 TUI 应用打包为桌面应用，类似于 Electron 对 Web 应用的做法。</p>
+
+<p>关于终端模拟器的功能边界，社区展开了讨论：有用户认为标签页应是窗口管理器的功能而非应用功能，并提及在 Alacritty 相关议题中曾引发争议。Ghostty 用户表示其渲染速度明显优于 iTerm2，特别是在处理大量日志输出时。</p>
+
+<p>还有用户提出了终端窗格嵌套最大化的构想：希望能在保持部分窗格可见的同时隐藏其他窗格，形成可任意深度的嵌套工作区。另有开发者讨论了在嵌入终端场景中 PTY（伪终端）的所有权问题——是应由嵌入的终端模拟器控制，还是由父应用控制，这涉及到接口设计和功能复杂度的平衡。</p>
+
+<p>总体而言，社区对 libghostty 寄予厚望，认为它有望为终端模拟设定新的基准。Ghostling 作为演示项目，成功展示了 libghostty 的灵活性和强大功能，为开发者构建自定义终端界面提供了有价值的参考。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47461378</guid>
+      <pubDate>Fri, 20 Mar 2026 22:11:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 将Rust WASM解析器重写为TypeScript后性能提升3倍：边界开销与算法优化是关键</title>
+      <link>https://news.ycombinator.com/item?id=47461094</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 分享Rust WASM解析器重写为TypeScript的性能优化经验，属于编程效率改进，用户很感兴趣</small></p><p>OpenUI团队分享了他们将Rust编写的WASM解析器重写为TypeScript后获得显著性能提升的经验。该解析器用于将LLM生成的自定义DSL转换为React组件树，需要处理流式数据，因此延迟至关重要。</p>
+
+<p>最初使用Rust编译为WASM的方案存在明显的"边界税"：每次调用都需要将字符串从JS堆复制到WASM线性内存，解析后再通过JSON序列化返回，这一过程产生了大量开销。尝试使用serde-wasm-bindgen直接返回JS对象反而使性能下降30%，因为需要大量细粒度的运行时边界转换。</p>
+
+<p>完全用TypeScript重写解析器后，消除了WASM边界开销，单次解析性能提升2.2-4.6倍。但更大的改进来自算法优化：原始的流式架构存在O(N²)问题，每次收到新块都重新解析整个累积字符串。通过实现语句级增量缓存，只重新解析未完成的语句，将复杂度优化到O(N)，使流式总解析成本进一步降低2.6-3.3倍。</p>
+
+<p>性能基准测试显示：</p>
+<ul>
+<li>单次解析：TypeScript（9.3-19.4µs）vs WASM（20.5-61.4µs），提升2.2-4.6倍</li>
+<li>流式总成本：增量TypeScript（69-255µs）vs 原始TypeScript（316-840µs），提升2.6-3.3倍</li>
+</ul>
+
+<p>Hacker News社区讨论指出，真正的性能提升主要来自算法优化而非语言选择。有评论认为标题有些误导，因为O(N²)到O(N)的改进独立于语言重写。其他评论提到，重写代码本身提供了重新思考和优化的机会，这才是性能提升的主要原因。</p>
+
+<p>文章最后总结了WASM的适用场景：计算密集型且交互少的任务（如图像处理、加密），以及移植原生库；不适用于频繁调用的小型函数或需要将结构化文本解析为JS对象的场景，因为边界开销会主导性能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47461094</guid>
+      <pubDate>Fri, 20 Mar 2026 21:48:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Noq：n0团队基于Rust开发的新QUIC实现，支持多路径与NAT穿越</title>
       <link>https://news.ycombinator.com/item?id=47443588</link>
@@ -1410,57 +1459,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47388137</guid>
       <pubDate>Sun, 15 Mar 2026 15:09:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI快速原型开发的现实：从vibecoded原型到可用产品的100小时差距</title>
-      <link>https://news.ycombinator.com/item?id=47386636</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论AI快速原型开发的现实挑战和效率改进经验，属于用户很感兴趣的编程工具使用范畴，故推荐阅读。</small></p><p>一篇关于使用vibecoding（AI辅助快速开发）从原型到可工作产品所需额外时间的讨论在Hacker News社区引发热议。作者分享了花费100小时进行vibecoding开发应用的经验，指出这个过程并不像人们常说的那么简单。</p>
-
-<p>社区讨论揭示了几个关键观点：首先，那些声称能在30分钟内"vibecode一个应用"的人通常只是在构建现有项目的简单复制品，或是仅能演示的微小功能。有评论者指出，即使使用最先进的vibecoding工具，构建一个真正可用的笔记应用仍需要至少6个月的全职工作。</p>
-
-<p>80/20规则在AI辅助开发中依然适用——最后的20%功能需要80%以上的开发时间。这些"最后20%"往往是特定场景下的细节和陷阱，而AI在这些不太明显、较为特殊的方面表现最弱。</p>
-
-<p>不同领域的专业人士分享了他们的经验：DevOps/SRE专家表示，vibecoding可以将概念验证/最小可行产品的开发速度提升10倍，但生产就绪代码的检查和安全加固只能带来2-3倍的效率提升。高频交易引擎开发者则发现，AI在性能优化方面经常做出错误选择，与行业最佳实践存在显著差距。</p>
-
-<p>实际项目经验也印证了这些挑战。有开发者分享使用Codex构建学习平台时，在UI设计、Docker容器安全加固和部署方面遇到了大量问题，尽管AI能快速生成初始代码，但达到生产就绪状态需要持续测试和迭代。</p>
-
-<p>讨论还涉及部署复杂性问题、测试套件的重要性，以及不同类型测试（单元测试、集成测试、性能测试等）在确保产品质量中的关键作用。社区普遍认为，虽然AI工具能加速原型开发，但构建真正可靠、可扩展的产品仍然需要大量的专业知识和时间投入。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47386636</guid>
-      <pubDate>Sun, 15 Mar 2026 12:09:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 一种优雅的TCP打洞算法：通过确定性参数简化NAT穿透</title>
-      <link>https://news.ycombinator.com/item?id=47384032</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为网络编程中的TCP打洞算法，属于用户很感兴趣的编程效率改进经验类别。</small></p><p>一篇技术文章介绍了一种简化TCP打洞（TCP hole punching）的算法，该算法通过确定性计算减少对额外基础设施的依赖。传统TCP打洞需要STUN服务器、NAT类型枚举、端口预测和时间同步等复杂步骤，而新方法仅需目标IP地址即可尝试连接。</p>
-
-<p>文章详细阐述了算法的五个核心部分：</p>
-
-<ol>
-<li><strong>选择时间桶（bucket）</strong>：基于Unix时间戳，考虑最大时钟误差（如20秒）和最小运行窗口（10秒），计算出一个双方无需通信即可收敛的数值，作为后续计算的种子。</li>
-<li><strong>选择端口</strong>：使用时间桶作为伪随机数生成器的种子，生成共享端口列表。该方法依赖于许多家用路由器保持源端口映射的特性（称为"等增量映射"），虽然不适用于所有路由器，但简化了实现。</li>
-<li><strong>套接字和网络设置</strong>：强调必须设置特定的套接字选项（SO_REUSEADDR和SO_REUSEPORT），并使用非阻塞套接字配合select进行轮询，以精确控制时序。TCP打洞对时序高度敏感，毫秒级的偏差都可能导致失败。</li>
-<li><strong>胜出连接选择</strong>：当多个端口成功建立连接时，通过比较WAN IP地址确定领导者和跟随者。领导者发送单个字符"$"标识有效连接，并关闭其他连接。</li>
-<li><strong>整体实现</strong>：提供了一个Python脚本示例，仅需目标IP即可测试打洞算法，无需额外基础设施协调。</li>
-</ol>
-
-<p>Hacker News社区的讨论提供了有价值的补充视角：</p>
-
-<ul>
-<li>有用户指出，虽然RFC标准允许同时连接（simultaneous connect），但许多防火墙会阻止传入的SYN,!ACK数据包，导致连接无法建立。</li>
-<li>关于端口映射行为，用户分享了不同厂商设备的经验：Cisco ASA默认保持源端口持久性，Fortigate根据版本有不同实现方式，而Juniper SRX通常无法保持，除非使用1:1映射。</li>
-<li>有用户提到在配置WireGuard P2P时遇到困难，因为pfSense路由器总是选择随机源端口，而该算法依赖于源端口保持特性。</li>
-<li>IPv6的讨论：虽然IPv6普及率已达46.82%，但即使使用IPv6，仍然可能存在状态防火墙需要打洞的情况，因为防火墙可能只允许出站连接。</li>
-<li>关于NAT打洞的必要性，有用户批评NAT是网络领域的"乌龙球"，认为路由器应该像DHCP分配IP地址一样，为应用程序分配可路由的地址块。</li>
-<li>社区提到了相关的RFC标准：RFC 4787（UDP NAT行为要求）和RFC 5382（TCP NAT行为要求），这些标准规定了NAT设备应支持的行为。</li>
-</ul>
-
-<p>该算法的核心创新在于通过确定性算法从单个参数（时间戳）推导出所有元数据，避免了复杂的协调基础设施。虽然牺牲了部分路由器的兼容性（仅适用于支持等增量映射的路由器），但大大简化了测试和实现过程。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47384032</guid>
-      <pubDate>Sun, 15 Mar 2026 03:29:17 GMT</pubDate>
     </item>
   </channel>
 </rss>
