@@ -3,7 +3,31 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 21 Mar 2026 10:44:57 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Mar 2026 13:12:11 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Noq：n0团队基于Rust开发的新QUIC实现，支持多路径与NAT穿越</title>
+      <link>https://news.ycombinator.com/item?id=47443588</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍基于Rust的新QUIC实现工具noq，属于编程工具发布/分享，符合用户很感兴趣(high_interest)的类别</small></p><p>n0团队近日正式发布了noq（"number 0 QUIC"），这是一个基于Rust编写的通用QUIC实现，具备多路径（Multipath）和NAT穿越支持。该实现最初从Quinn项目分叉而来，现已发展为独立的代码库，并作为iroh网络库v0.96版本的传输层在生产环境中运行。</p>
+
+<p>分叉决策源于iroh项目对QUIC功能的特殊需求。团队最初尝试在Quinn基础上进行修改，但随着多路径、NAT穿越和中继架构等深度开发，两个项目的迭代周期逐渐脱节。团队在<a href="https://github.com/quinn-rs/quinn/issues/224#issuecomment-3842537530">GitHub讨论</a>中解释了这一决定，强调这并非对Quinn的否定，而是基于特定需求的技术选择。社区对此反应积极，赞赏双方在分叉过程中的礼貌与尊重。</p>
+
+<p>noq的核心特性包括：</p>
+<ul>
+<li><strong>完整的QUIC多路径规范实现</strong>：将中继路径、直接UDP路径等作为一等公民的QUIC路径管理，使QUIC能够感知所有路径并维护每路径的拥塞状态</li>
+<li><strong>QUIC NAT穿越</strong>：基于QUIC NAT穿越草案实现，将打洞操作表达为QUIC级别的操作，提高可靠性和拥塞感知</li>
+<li><strong>QUIC地址发现（QAD）</strong>：替代STUN协议，通过QUIC连接加密学习客户端公网IP地址</li>
+<li><strong>增强的QLog支持</strong>：扩展了QUIC连接日志功能，支持多路径事件记录和可视化</li>
+<li><strong>WeakConnectionHandle</strong>：类似<code>std::sync::Weak</code>的连接句柄类型，便于构建连接管理器</li>
+</ul>
+
+<p>noq已随iroh v0.96版本投入生产，在数十万台设备上运行。团队还进行了与picoquic等参考实现的互操作性测试。未来计划包括进一步改进NAT穿越和基于多路径的性能优化。</p>
+
+<p>Hacker News社区对此次发布反应热烈。用户称赞iroh团队的技术实力，并讨论了多路径RFC的发布时间、中继工作原理等技术细节。有用户指出，noq的TLS认证完全可配置，支持原始公钥（RFC7250），无需DNS或TLS证书即可建立连接。还有用户分享了使用iroh相关工具（如sendme CLI）进行点对点文件传输的积极体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47443588</guid>
+      <pubDate>Thu, 19 Mar 2026 18:17:15 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Cursor Composer 2 被曝基于 Kimi K2.5 模型，引发授权与商业道德争议</title>
       <link>https://news.ycombinator.com/item?id=47452404</link>
@@ -1437,37 +1461,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47384032</guid>
       <pubDate>Sun, 15 Mar 2026 03:29:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>机器学习视觉化入门：通过决策树理解模式识别（2015）</title>
-      <link>https://news.ycombinator.com/item?id=47386116</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 机器学习入门教程，但2015年的历史内容，时效性较低，属于历史/旧闻范畴</small></p><p>这篇2015年发布的交互式可视化文章通过一个具体案例——区分纽约和旧金山的房屋，直观地介绍了机器学习的基本概念和工作原理。</p>
-
-<img src="/world.png" alt="语言选择界面" />
-
-<p>文章以决策树为例，解释机器学习如何通过统计学习技术自动识别数据中的模式。作者使用房屋数据集，包含海拔、每平方英尺价格等7个不同维度（特征），展示了如何通过一系列if-then语句构建分类模型。</p>
-
-<p>决策树的核心概念包括：</p>
-<ul>
-<li><strong>分裂点</strong>：决策树在每个节点根据某个特征值将数据分为两个分支</li>
-<li><strong>递归</strong>：算法在数据子集上重复分裂过程，逐步细化分类</li>
-<li><strong>叶节点</strong>：树的最终分支，包含纯粹或主要属于某一类别的数据</li>
-</ul>
-
-<p>文章特别强调了<strong>过拟合</strong>问题：当模型过于复杂，学习了训练数据中的噪声而非真实模式时，虽然对训练数据能达到100%准确率，但对新数据（测试数据）表现却会下降。这是机器学习中需要平衡的关键问题。</p>
-
-<p>社区评论普遍赞扬这篇文章是"杰作"，认为其在2015年就在技术和概念上都领先于时代。许多教育者表示在机器学习入门教学中经常使用这一可视化解释。有评论者提供了<a href="https://r2d3.us/visual-intro-to-machine-learning-part-2/">第二部分链接</a>，并推荐了其他类似的可视化学习资源，如<a href="https://statquest.org/">StatQuest</a>和<a href="https://p.migdal.pl/interactive-machine-learning-list/">交互式机器学习资源列表</a>。</p>
-
-<img src="/jadeyee.jpg" alt="Stephanie" />
-<img src="/tonyhschu.jpg" alt="Tony" />
-
-<p>文章由Stephanie（统计学硕士，曾在Meta、Netflix工作）和Tony（产品设计师，专注于D3.js可视化）共同创作。其中一位作者Tony还在评论中出现，表示愿意回答问题。</p>
-
-<p>尽管发布于2015年，这篇文章因其清晰的可视化解释和直观的教学方法，至今仍被广泛推荐为机器学习入门的最佳资源之一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47386116</guid>
-      <pubDate>Sun, 15 Mar 2026 10:47:35 GMT</pubDate>
     </item>
   </channel>
 </rss>
