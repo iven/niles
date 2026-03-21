@@ -55,7 +55,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  logger.error(`错误: ${error}`);
-  logger.error(error.stack);
+  logger.error(error);
   process.exit(1);
 });

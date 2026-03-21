@@ -162,5 +162,5 @@ export async function handleStreamWithToolCall<T>(
     }
   }
 
-  throw new Error("AI 未成功调用工具");
+  throw new Error(`AI 未成功调用工具，返回内容：${fullText.trim()}`);
 }
