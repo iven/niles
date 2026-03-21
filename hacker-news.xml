@@ -3,7 +3,42 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 21 Mar 2026 17:39:10 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Mar 2026 18:54:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Ubuntu 26.04终结46年sudo密码静默输入传统，改为显示星号反馈</title>
+      <link>https://news.ycombinator.com/item?id=47464134</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Ubuntu系统sudo密码输入显示星号的用户体验改进，属于软件新功能和开源项目范畴，符合用户对软件技术进展的兴趣。</small></p><p>Ubuntu 26.04 LTS "Resolute Raccoon" 将结束自1980年以来sudo命令密码输入时不显示任何视觉反馈的传统，改为每个按键显示一个星号(*)。这一改变源于sudo-rs项目（sudo的Rust语言重写实现）默认启用了pwfeedback选项，引发了Linux社区关于安全性与用户体验的激烈争论。</p>
+
+<img src="https://pbxscience.com/wp-content/uploads/2025/12/cc251204-ubuntu.webp" alt="Ubuntu 26.04 Ends 46 Years of Silent sudo Passwords" width="640" height="427" />
+
+<p>自1980年Bob Coggeshall和Cliff Spencer在纽约州立大学布法罗分校创建sudo以来，其静默密码提示一直是默认行为，旨在防止"肩窥"攻击者通过计数按键次数猜测密码长度。这一传统在近半个世纪中基本未变，直到Linux Mint率先在其sudo配置中默认启用视觉反馈。</p>
+
+<p>Ubuntu的变革催化剂是sudo-rs——经典C语言实现的Rust重写版本。Canonical从Ubuntu 25.10开始将sudo-rs作为默认sudo实现，并在Ubuntu 26.04开发版本中合并了启用pwfeedback的补丁。只有sudo-rs路径会显示星号，传统的sudo包（有时标记为sudo-ws）不受影响。</p>
+
+<p><strong>安全争论双方观点：</strong></p>
+<ul>
+<li><strong>反对者</strong>认为这会暴露密码长度，削弱安全性，且破坏了比许多用户年龄还长的历史安全措施。</li>
+<li><strong>支持者</strong>（包括sudo-rs开发者）指出，隐藏密码长度的安全效益在实践中微乎其微——任何能数清屏幕上星号的人，也完全能直接听到或看到按键。更重要的是，大多数用户的sudo密码与登录密码相同，而图形登录界面已经显示占位符点，在终端隐藏星号只是"安全剧场"。</li>
+</ul>
+
+<p>偏好传统静默提示的用户可以通过修改sudoers文件恢复原行为：使用<code>sudo visudo</code>命令添加<code>Defaults !pwfeedback</code>行即可立即生效。</p>
+
+<p>这一改变是Ubuntu 26.04更广泛现代化的一部分，该版本还将搭载GNOME 50（仅Wayland）、Linux内核7.0，并进一步采用基于Rust的核心工具，包括uutils/coreutils（标准Unix命令行工具的Rust重实现）。</p>
+
+<p><strong>社区反馈显示意见分歧：</strong></p>
+<ul>
+<li>许多用户支持这一改变，认为静默提示在SSH高延迟连接中令人困惑，且实际安全效益有限。</li>
+<li>批评者担心这会降低安全性，并质疑为何要在所有用户中默认启用，而不是让有需要的企业IT部门自行配置。</li>
+<li>有开发者透露，推动此改变的部分原因是sudo中无效密码的2秒延迟问题，而PAM维护者不愿修改该设计。</li>
+<li>还有评论指出，一些前沿Linux发行版（如GNOME OS）正在完全移除sudo，转而使用systemd的run0，通过Polkit提供更现代的认证体验。</li>
+</ul>
+
+<p>Ubuntu 26.04 LTS计划于2026年4月23日发布，届时数百万用户将默认看到密码输入时的星号反馈。开发者认为，默认设置应优先考虑被空白提示困惑的新用户，而非珍视传统的老用户，但恢复传统的选项仍掌握在用户手中。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47464134</guid>
+      <pubDate>Sat, 21 Mar 2026 05:06:11 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 注意力残差：Transformer架构中残差连接的改进方法</title>
       <link>https://news.ycombinator.com/item?id=47458595</link>
@@ -1381,55 +1416,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47390945</guid>
       <pubDate>Sun, 15 Mar 2026 19:25:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 让你的编码代理通过 Chrome DevTools MCP 调试浏览器会话</title>
-      <link>https://news.ycombinator.com/item?id=47390817</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Chrome DevTools新功能发布，属于编程工具发布/分享，用户很感兴趣，必看内容</small></p><p>Chrome 开发者团队近日为 Chrome DevTools MCP 服务器推出了一项重要增强功能：允许编码代理直接连接到用户当前的浏览器会话进行调试。这一功能解决了以往编码代理需要独立启动浏览器实例、无法访问已登录会话的痛点。</p>
-
-<p>新功能的核心优势包括：</p>
-<ul>
-<li><strong>重用现有浏览器会话</strong>：编码代理可以直接访问用户当前的浏览会话，无需重新登录。例如，当需要修复一个需要登录才能访问的页面问题时，代理可以直接使用已认证的会话。</li>
-<li><strong>访问活动调试会话</strong>：代理可以接入用户在 DevTools 界面中正在进行的调试工作。当用户在网络面板中发现失败的请求，或在元素面板中选中某个元素时，可以直接要求编码代理介入调查。</li>
-</ul>
-
-<img src="/static/blog/chrome-devtools-mcp-debug-your-browser-session/image/devtools-mcp-auto-connection-diagram.png" alt="Remote debugging flow: First enable the remote debugging features. Then confirm a remote debug connection request. The debug session will be indicated by a banner text." />
-
-<p>该功能基于 Chrome M144（目前处于 Beta 阶段）新增的远程调试请求能力。用户需要先在 <code>chrome://inspect/#remote-debugging</code> 页面启用远程调试功能。当使用 <code>--autoConnect</code> 参数启动 Chrome DevTools MCP 服务器时，服务器会尝试连接到正在运行的 Chrome 实例并请求远程调试会话。</p>
-
-<p>出于安全考虑，每次请求远程调试会话时，Chrome 都会向用户显示许可对话框，必须获得明确同意才能建立连接。在调试会话期间，浏览器顶部会显示“Chrome 正被自动化测试软件控制”的横幅作为提醒。</p>
-
-<img src="/static/blog/chrome-devtools-mcp-debug-your-browser-session/image/chrome-remote-debugging.png" alt="Screenshot showing how to enable remote debugging in Chrome" width="400" />
-
-<p>配置步骤分为三步：</p>
-<ol>
-<li>在 Chrome 中启用远程调试功能</li>
-<li>配置 Chrome DevTools MCP 服务器使用 <code>--autoConnect</code> 参数</li>
-<li>通过编码代理测试连接，例如要求代理检查特定网站的性能</li>
-</ol>
-
-<img src="/static/blog/chrome-devtools-mcp-debug-your-browser-session/image/chrome-enable-remote-debugging.png" alt="Chrome dialog asking the user to enable a remote debugging session." width="400" />
-
-<p>在 Hacker News 社区讨论中，开发者们对这一功能表现出浓厚兴趣，同时也提出了安全担忧。用户 <a href="https://news.ycombinator.com/item?id=47390817">Etheryte</a> 指出：“这从多个方面来看都令人恐惧，你距离通过提示注入让某人获得无限访问权限只有一步之遥。”许多开发者建议使用独立的 Chrome 配置文件来隔离风险。</p>
-
-<p>社区还提到了多个相关项目：</p>
-<ul>
-<li><a href="https://github.com/pasky/chrome-cdp-skill">chrome-cdp-skill</a>：一个已投入日常使用的代理技能</li>
-<li><a href="https://github.com/vercel-labs/agent-browser">agent-browser</a>：可与新功能配合使用</li>
-<li><a href="https://github.com/remorses/playwriter">playwriter</a>：类似理念的项目</li>
-</ul>
-
-<p>前 Chrome DevTools 团队成员 <a href="https://news.ycombinator.com/item?id=47390817">paulirish</a> 指出，Chrome DevTools MCP 由 Chrome DevTools 和 Puppeteer 团队维护，功能集更加全面，预计会更可靠。</p>
-
-<p>Chrome 团队表示这只是第一步，计划逐步通过 Chrome DevTools MCP 服务器向编码代理暴露更多面板数据。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>MCP（Model Context Protocol）</strong>是一种允许 AI 模型与外部工具和服务交互的协议。Chrome DevTools MCP 服务器实现了这一协议，使编码代理能够通过标准化接口访问浏览器调试功能。</p>
-<p><strong>编码代理（Coding Agent）</strong>是指能够理解自然语言指令并执行编程相关任务的 AI 助手，如 Claude、GitHub Copilot 或自定义的 AI 代理。这些代理通过 MCP 等协议扩展能力，可以直接操作开发工具和环境。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47390817</guid>
-      <pubDate>Sun, 15 Mar 2026 19:12:53 GMT</pubDate>
     </item>
   </channel>
 </rss>
