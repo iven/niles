@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 21 Mar 2026 16:46:40 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Mar 2026 17:39:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 注意力残差：Transformer架构中残差连接的改进方法</title>
+      <link>https://news.ycombinator.com/item?id=47458595</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Transformer架构中残差连接的改进方法，属于AI软件技术进展和开源项目，符合用户感兴趣的配置类别。</small></p><p>MoonshotAI团队提出了一种名为注意力残差（AttnRes）的新方法，用于改进Transformer架构中的标准残差连接。该方法通过注意力机制让每一层能够选择性地聚合先前层的表示，解决了标准残差连接中隐藏状态幅度无界增长和层贡献稀释的问题。</p>
+
+<img src="/MoonshotAI/Attention-Residuals/raw/master/assets/overview.png" alt="注意力残差架构对比图" width="800" />
+
+<p>标准残差连接采用固定权重累加所有层的输出，而AttnRes使用softmax注意力机制计算每层对先前层输出的加权和。为了解决全注意力残差（Full AttnRes）在大规模训练中的内存开销问题，团队还提出了块注意力残差（Block AttnRes），将层分组为块并在块级别应用注意力，将内存需求从O(Ld)降低到O(Nd)。</p>
+
+<p>实验结果显示，AttnRes在多个基准测试中全面优于基线模型。在Kimi Linear 48B/3B模型上，多步推理任务GPQA-Diamond提升7.5个百分点，代码生成任务HumanEval提升3.1个百分点。缩放定律分析表明，块AttnRes能够达到基线模型使用1.25倍计算量才能达到的损失水平。</p>
+
+<img src="/MoonshotAI/Attention-Residuals/raw/master/assets/scaling_law.png" alt="缩放定律对比图" width="420" />
+
+<p>社区讨论中，有评论者指出该方法类似于LSTM的输入门机制，并澄清了关于计算节省的误解——虽然训练效率提升约20%，但这不直接影响推理带宽需求。值得注意的是，论文第一作者是一名高中生，这一事实引发了关于人才培养的讨论。</p>
+
+<p>技术实现上，AttnRes作为即插即用的替代方案，能够改善训练动态，使输出幅度保持有界，梯度在各层间分布更均匀。该方法特别适用于需要深度模型的场景，为Transformer架构的进一步发展提供了新思路。</p>
+
+<img src="/MoonshotAI/Attention-Residuals/raw/master/assets/training_dynamics.png" alt="训练动态对比图" width="800" />
+
+<p>相关资源：<a href="https://arxiv.org/abs/2603.15031">论文</a> | <a href="https://github.com/MoonshotAI/Attention-Residuals">GitHub仓库</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47458595</guid>
+      <pubDate>Fri, 20 Mar 2026 18:23:41 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Ghostling：基于 libghostty C API 的最小化终端模拟器演示项目</title>
       <link>https://news.ycombinator.com/item?id=47461378</link>
@@ -1405,60 +1430,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47390817</guid>
       <pubDate>Sun, 15 Mar 2026 19:12:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ River 0.4.0 实现 Wayland 合成器与窗口管理器的分离架构</title>
-      <link>https://news.ycombinator.com/item?id=47388137</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] River开源项目新版本发布，属于开源项目和软件新功能，用户感兴趣</small></p><p>River 0.4.0 版本发布，标志着 Wayland 生态系统的一个重要架构变革：将窗口管理器（window manager）从合成器（compositor）中分离出来，通过新的 river-window-management-v1 协议实现两者独立运行。</p>
-
-<p>传统 Wayland 合成器采用单体架构，将显示服务器、合成器和窗口管理器三个角色合并到单一进程中。这种设计虽然解决了 X11 架构中显示服务器作为中间人导致的延迟问题，但也意味着编写 Wayland 窗口管理器需要实现整个合成器，门槛较高。</p>
-
-<img src="/blog/river-window-management/x11.svg" alt="X11架构示意图" width="60%" />
-<p>X11 架构中，显示服务器位于内核、应用程序和合成器之间，增加了不必要的往返延迟。</p>
-
-<img src="/blog/river-window-management/trad-wayland.svg" alt="传统Wayland架构示意图" width="80%" />
-<p>Wayland 通过合并显示服务器和合成器解决了 X11 的延迟问题，但传统上也将窗口管理器合并了进去。</p>
-
-<p>river-window-management-v1 协议的设计目标是给予窗口管理器最大控制权，同时不损失 Wayland 的关键优势。协议必须不要求每帧或每个输入事件都进行往返通信，保持"帧完美"（frame perfection）特性——即用户不会看到布局过渡中的视觉瑕疵。</p>
-
-<p>协议将状态分为两类：窗口管理状态（影响合成器与单个窗口的通信，如窗口尺寸、全屏状态、键盘绑定等）和渲染状态（仅影响合成器输出，如窗口位置、渲染顺序、服务端装饰等）。通过状态机管理原子更新，确保帧完美成为可能。</p>
-
-<img src="/blog/river-window-management/state-machine.svg" alt="状态机示意图" width="100%" />
-<p>状态机确保窗口管理器在用户无操作时保持空闲，仅在需要时被唤醒，避免不必要的性能开销。</p>
-
-<p>这种分离架构带来了多重优势：</p>
-<ul>
-<li><strong>降低开发门槛</strong>：窗口管理器作者可以专注于窗口管理策略，无需实现整个合成器</li>
-<li><strong>提高稳定性</strong>：窗口管理器崩溃不会导致整个 Wayland 会话丢失</li>
-<li><strong>语言灵活性</strong>：窗口管理器可以用高级垃圾回收语言实现，而不影响合成器性能</li>
-<li><strong>促进多样性</strong>：目前已有 15 个为 river 编写的窗口管理器，包括 Canoe、reka、tarazed 等</li>
-</ul>
-
-<img src="/blog/river-window-management/canoe.png" alt="Canoe窗口管理器截图" width="100%" />
-<p>Canoe - 具有经典外观的堆叠式窗口管理器</p>
-
-<img src="/blog/river-window-management/reka.png" alt="reka窗口管理器截图" width="100%" />
-<p>reka - 基于 Emacs 的 river 窗口管理器（类似 EXWM）</p>
-
-<img src="/blog/river-window-management/tarazed.png" alt="tarazed窗口管理器截图" width="100%" />
-<p>tarazed - 强大且无干扰的桌面体验</p>
-
-<p>协议当前限制包括不支持 VR 和复杂的视觉效果（如晃动窗口），但简单动画已能良好工作。作者表示未来可能探索自定义着色器以给予窗口管理器更多渲染控制。</p>
-
-<p>在 Hacker News 的讨论中，社区反应积极：</p>
-<ul>
-<li>用户 <em>oofbaroomf</em> 分享了自己使用自定义 river 窗口管理器的体验，表示分离架构让他能够实现 Hyprland 无法提供的功能（如按等面积而非二叉空间分区平铺窗口）</li>
-<li>用户 <em>asveikau</em> 认为这是"上帝的工作"，解决了 Wayland 相对于 X11 在可插拔窗口管理器方面的最大用户面损失</li>
-<li>用户 <em>davispeck</em> 称赞这是一个"事后看来显而易见"的想法，但实现需要真正的工程工作</li>
-<li>关于 Wayland 与 X11 的对比，<em>jauntywundrkind</em> 指出 Wayland 合成器依赖内核设施完成大量工作，而 X11 历史上需要自己实现更多功能</li>
-<li>用户 <em>wild_egg</em> 则对 Wayland 的整体复杂性表示怀疑，认为 X11 虽然有问题但更加灵活</li>
-</ul>
-
-<p>river 0.4.0 已具备日常使用所需的功能，river-window-management-v1 协议稳定，不会破坏现有窗口管理器。未来路线图包括改进启动和切换窗口管理器的用户体验，为 river 1.0.0 版本做准备。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47388137</guid>
-      <pubDate>Sun, 15 Mar 2026 15:09:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
