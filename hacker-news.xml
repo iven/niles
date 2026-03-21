@@ -3,7 +3,89 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 21 Mar 2026 19:34:52 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Mar 2026 20:42:26 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ FFmpeg入门指南：架构解析与代码示例（2024）</title>
+      <link>https://news.ycombinator.com/item?id=47463547</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] FFmpeg是一个开源多媒体框架，属于编程工具发布/分享和开源项目，用户对此很感兴趣，故评为critical。</small></p><p>这篇教程文章为开发者提供了FFmpeg的高层架构概述和实用入门指南，详细介绍了FFmpeg的核心组件、库结构以及如何使用C代码进行多媒体流的解复用和解码操作。</p>
+
+<h3>FFmpeg核心组成</h3>
+<p>FFmpeg由一系列工具和库构成：</p>
+<ul>
+<li><strong>命令行工具</strong>：ffmpeg（格式转换）、ffplay（简单媒体播放器）、ffprobe（流分析器）</li>
+<li><strong>核心库</strong>：libavformat（I/O和复用/解复用）、libavcodec（编解码）、libavfilter（基于图的过滤器）、libavdevice（输入输出设备）、libavutil（通用多媒体工具）、libswresample（音频重采样）、libswscale（颜色转换和图像缩放）、libpostproc（视频后处理）</li>
+</ul>
+
+<h3>多媒体处理流程</h3>
+<p>文章通过代码示例详细展示了如何从多媒体文件中提取音视频流并解码为原始数据。基本流程包括：</p>
+
+<img src="/llepage/ffmpeg-101/hs6foSB1wL-1371.svg" alt="basic processing" width="1371" height="433" />
+
+<ol>
+<li>使用AVFormatContext打开多媒体文件并分析流信息</li>
+<li>通过avformat_find_stream_info识别文件中的各个流（音频、视频等）</li>
+<li>为每个流查找对应的解码器（AVCodec）</li>
+<li>创建AVCodecContext配置解码器参数</li>
+<li>使用AVPacket结构从输入文件中提取编码数据包</li>
+<li>通过AVCodecContext将数据包解码为AVFrame（原始视频帧或音频样本）</li>
+</ol>
+
+<h3>代码实现详解</h3>
+<p>教程提供了完整的C代码示例，展示了如何：</p>
+<ul>
+<li>分配和初始化FFmpeg数据结构</li>
+<li>遍历多媒体文件中的所有流并输出详细信息（时间基准、帧率、持续时间、编解码器类型等）</li>
+<li>针对视频流查找H.264等编解码器并获取分辨率信息</li>
+<li>针对音频流获取声道数和采样率</li>
+<li>实现解码循环：发送数据包到解码器并接收解码后的帧</li>
+</ul>
+
+<img src="/llepage/ffmpeg-101/MbzZkaOoOX-635.svg" alt="processing diagram" width="635" height="602" />
+
+<h3>构建与运行</h3>
+<p>文章提供了使用Meson和Ninja构建系统的完整构建指南，并展示了运行示例代码后的输出结果，包括对sample.mp4文件的详细分析：视频流为H.264编码（206×80分辨率），音频流为AAC编码（2声道，44.1kHz采样率）。</p>
+
+<h3>社区反馈与推荐资源</h3>
+<p>Hacker News社区用户对文章反响积极，并推荐了其他深入学习资源：</p>
+<ul>
+<li>用户推荐Leandro Moreira的<a href="https://github.com/leandromoreira/ffmpeg-libav-tutorial">FFmpeg/libav教程</a>，认为是最全面深入的解释</li>
+<li>另有用户分享了另一个FFmpeg指南链接</li>
+<li>多位用户表达了对FFmpeg工具的赞赏，称其为"超能力"工具，常用于视频处理任务</li>
+</ul>
+
+<p>这篇教程为希望深入了解FFmpeg内部工作原理的开发者提供了实用的起点，通过实际代码演示了多媒体处理的核心概念。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47463547</guid>
+      <pubDate>Sat, 21 Mar 2026 02:47:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 反向莫莉防护：当按钮会自动按下时</title>
+      <link>https://news.ycombinator.com/item?id=47455138</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论软件工艺和质量，涉及编程效率改进经验，用户很感兴趣，但主题相对泛化，故评为recommended。</small></p><p>文章探讨了「莫莉防护（Molly guard）」这一老派计算术语及其反向应用。莫莉防护指的是需要额外操作才能执行重要动作的安全设计，得名于一位工程师的女儿莫莉，她在数据中心两次按下了红色按钮。</p>
+
+<img src="_media/molly-guard-in-reverse/1.avif" alt="" />
+
+<p>这种防护在物理硬件中随处可见，如塑料保护盖、凹陷按钮、按键周围的塑料边缘等。在软件中，从简单的「你确定吗？」对话框到需要组合键的操作（如 Ctrl+Alt+Del），都是莫莉防护的体现。</p>
+
+<img src="_media/molly-guard-in-reverse/7.avif" alt="" />
+
+<p>文章提出了「反向莫莉防护」的概念：如果用户在一段时间内不采取任何行动，按钮会自动按下。这种设计在需要长时间运行的任务中特别有用，比如操作系统更新或长时间渲染，可以避免用户离开后系统因等待确认而停滞。</p>
+
+<img src="_media/molly-guard-in-reverse/8.avif" alt="" />
+
+<p>Hacker News 社区对此展开了热烈讨论。有用户指出 iPhone 的长按操作是莫莉防护的一种形式，也有人提到 <code>rm</code> 命令应该有更好的防护机制。讨论中还提到了名为「molly-guard」的软件，它会在通过 SSH 关闭远程服务器时要求用户输入系统名称，防止误操作。</p>
+
+<p>用户 <a href="https://news.ycombinator.com/item?id=16530398">evanjrowley</a> 分享了一个传奇的 HN 评论链接，而 <a href="https://news.ycombinator.com/user?id=JoshTriplett">JoshTriplett</a> 详细介绍了 molly-guard 软件的功能。社区还讨论了防错设计（Poka-yoke）的概念，这是更高级的防护形式，不仅增加安全性，还引导用户避免犯错。</p>
+
+<p>一些用户分享了实际经历：有人意外重启了所有生产流量的反向代理，导致服务中断两分钟；有人因防火墙更改而切断了自己的 SSH 访问，不得不亲自前往服务器所在地。这些经历促使团队实施配对维护和更完善的系统设计。</p>
+
+<p>关于软件中是否需要莫莉防护存在不同观点：有人认为对于频繁操作，「你确定吗？」类型的防护会因用户习惯而失效；但也有人指出，在自助管理面板中，一键灾难很常见，适当的防护是必要的。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47455138</guid>
+      <pubDate>Fri, 20 Mar 2026 14:33:41 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Ubuntu 26.04终结46年sudo密码静默输入传统，改为显示星号反馈</title>
       <link>https://news.ycombinator.com/item?id=47464134</link>
@@ -1349,73 +1431,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47388676</guid>
       <pubDate>Sun, 15 Mar 2026 16:01:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 2026年AI辅助编程现状：开发者真实体验调查</title>
-      <link>https://news.ycombinator.com/item?id=47388646</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题是AI辅助编程的开发者真实体验调查，属于用户很感兴趣的'编程效率改进经验'范畴，对开发者有重要参考价值</small></p><p>2026年3月，Hacker News社区发起了一项关于AI辅助编程在专业工作中实际应用的讨论，旨在了解开发者真实体验而非两极分化的观点。帖子获得了329条评论，呈现了多样化的使用体验。</p>
-
-<p>讨论显示，AI辅助编程在不同场景下效果差异显著。在个人项目和小型绿色项目中，开发者普遍报告生产力大幅提升，有亚马逊工程师表示工作效率提高2-4倍，个人项目甚至达到10倍以上。AI在快速学习新技术、处理一次性脚本、数据分析和调试部署等方面表现突出。</p>
-
-<p>然而，在企业环境中，问题更为复杂。多位开发者指出，AI生成的代码往往不符合现有项目的API设计规范，需要大量清理和重构工作。一位开发者描述，他花费一周时间清理AI生成的代码，这些代码包含了大量不必要的错误检查和手动解析逻辑。代码审查成为新的挑战，随着AI生成代码量的增加，审查工作需要更加谨慎。</p>
-
-<p>团队动态方面出现了新问题。有开发者反映，同事使用AI修改他的半成品代码，导致多个版本冲突和业务逻辑错误。管理层过度依赖AI生成设计文档的现象也受到批评，有评论指出这些文档往往无人阅读，只是"AI之间的对话"。</p>
-
-<p>职业影响方面，开发者担忧中级工程师岗位可能被"掏空"，未来可能只剩下负责架构设计的高级工程师和执行任务的初级开发者。工具使用方面，Claude、GitHub Copilot、Amazon Kiro等工具被频繁提及，但不同工具在不同场景下效果各异。</p>
-
-<p>总体而言，AI辅助编程在提升开发速度的同时，也带来了代码质量、团队协作和职业结构等方面的新挑战。讨论反映了技术转型期的典型矛盾：效率提升与质量控制的平衡问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47388646</guid>
-      <pubDate>Sun, 15 Mar 2026 15:58:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 49MB的网页：现代新闻网站的膨胀与敌对设计分析</title>
-      <link>https://news.ycombinator.com/item?id=47390945</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 分析现代新闻网站的技术问题，涉及网页性能优化和编程效率改进经验，用户可能感兴趣</small></p><p>一篇深度分析文章揭示了现代新闻网站普遍存在的页面膨胀和敌对用户体验设计问题。作者以《纽约时报》为例，指出仅为了查看几个标题，页面就加载了49MB数据和422个网络请求，耗时两分钟才稳定。</p>
-
-<img src="/img/newsbanner.webp" alt="Collage of news websites and network tab request for NYT" />
-
-<p>文章通过历史对比凸显问题的严重性：49MB相当于Windows 95操作系统的大小（28张软盘），或10-12首高质量MP3歌曲。尽管硬件在过去20年大幅进步，但现代广告技术栈和框架的抽象层与架构臃肿似乎完全抵消了这些进步。</p>
-
-<p>技术分析显示，新闻网站充斥着程序化广告拍卖和用户跟踪。在用户阅读标题之前，浏览器就需要处理数十个并发竞价请求，下载、解析和编译数MB的JavaScript。这种「无声拍卖」在后台消耗移动设备CPU资源，同时伴随着 relentless heartbeat of surveillance——持续向跟踪端点发送POST信标，通过跨站点身份拼接进行行为监控。</p>
-
-<img src="/img/network.webp" alt="Sample of nytimes network tab" />
-
-<p>文章将这种现状归因于「敌对架构经济学」：出版商陷入程序化广告技术的死亡螺旋，用长期读者留存换取短期每千次展示费用（CPM）收益。用户的挫败感成为了产品，因为页面停留时间和可见性成为关键指标。</p>
-
-<p>作者详细列举了多种主流敌对设计模式：</p>
-
-<ul>
-<li><strong>预读伏击</strong>：页面加载后立即出现GDPR/cookie横幅、新闻订阅弹窗和浏览器通知请求，用户需要执行「视觉分诊」才能访问内容。</li>
-</ul>
-
-<img src="/img/gdpr.webp" alt="NYT and Verge GDPR modals" />
-
-<ul>
-<li><strong>双重模态伏击</strong>：如《经济时报》同时显示两个Google登录弹窗，严重违反序列化 onboarding 原则。</li>
-<li><strong>视窗窒息</strong>：广告占据85%屏幕空间，实际内容仅占15%，颠倒了内容与装饰的比例。</li>
-</ul>
-
-<img src="/img/economictimes.webp" alt="Screenshot of The Economic Times showing overwhelming ads and popups" />
-
-<ul>
-<li><strong>累积布局偏移（CLS）灾难</strong>：广告网络竞价完成后注入iframe，导致文本突然跳转，破坏用户的空间记忆和阅读流。</li>
-<li><strong>粘性视频播放器</strong>：自动播放视频在滚动时缩小并固定在屏幕右下角继续播放，关闭按钮微小违反菲茨定律。</li>
-<li><strong>文章截断</strong>：文章中途插入「阅读更多」按钮，既衡量参与度又为下方加载更多广告创造机会。</li>
-</ul>
-
-<p>Hacker News社区对此展开了112条评论讨论。主要观点包括：广告拦截器的普遍使用是对这种敌对体验的自然反应；RSS和轻量级阅读器（如Feedly）仍然存在但被边缘化；类似问题也存在于烹饪食谱网站；有用户建议默认禁用JavaScript以加速浏览并阻止跟踪；关于开发者责任与商业需求的争论持续不断。</p>
-
-<p>文章最后指出，轻量级替代方案如<a href="https://text.npr.org">text.npr.org</a>、lite.cnn.com和RSS阅读器的存在证明市场对简洁、内容为主的网站仍有需求。作者建议出版商采取更用户友好的做法：在60秒停留时间或50%滚动深度前不显示弹窗；实施序列化 onboarding 队列；为异步内容预留空间防止布局偏移。</p>
-
-<img src="/img/npr.webp" alt="Screenshot of text.npr.org text-only news site" />
-
-<p>当前新闻网站的用户体验假设读者是需要被「困住」并货币化的对手，而在盈利出版物与快速、可访问的用户体验之间做出选择并非非此即彼的决策。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47390945</guid>
-      <pubDate>Sun, 15 Mar 2026 19:25:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
