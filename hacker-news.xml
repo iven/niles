@@ -3,7 +3,93 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 22 Mar 2026 07:48:20 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Mar 2026 08:52:09 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ JavaScript依赖膨胀的三大支柱</title>
+      <link>https://news.ycombinator.com/item?id=47473718</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题为JavaScript依赖膨胀的三大原因及解决方案，属于编程效率改进经验，用户很感兴趣</small></p><p>这篇文章深入分析了JavaScript生态系统中依赖树日益膨胀的三个主要原因，并提出了相应的解决方案。</p>
+
+<p>作者指出，随着e18e社区的壮大和性能优化贡献的增加，"清理"倡议正在推进，但依赖膨胀问题依然严重。文章将这一问题归纳为三大支柱：</p>
+
+<h3>1. 对旧运行时的过度支持</h3>
+<p>许多包为了支持极旧的引擎（如ES3时代的IE6/7或早期Node.js）而存在。这些包主要解决三个问题：</p>
+<ul>
+<li>支持非常古老的引擎（缺少Array.prototype.forEach等ES5特性）</li>
+<li>防止全局命名空间被篡改（Node.js的"primordials"概念）</li>
+<li>处理跨域值（cross-realm values），如iframe间的对象传递</li>
+</ul>
+<img src="/assets/images/is-string-graph.png" alt="is-string dependency graph" />
+<p>问题在于，绝大多数开发者并不需要这些功能，他们使用近10年的Node.js版本或现代浏览器，却被迫承担这些兼容性成本。</p>
+
+<h3>2. 原子化架构的过度应用</h3>
+<p>一些开发者主张将包拆分到原子级别，创建可复用的小型构建块。这导致了极其细分的包结构：</p>
+<img src="/assets/images/execa-graph.png" alt="execa dependency graph" />
+<ul>
+<li>shebang-regex：仅包含一个正则表达式</li>
+<li>arrify：将值转换为数组的简单函数</li>
+<li>path-key：获取PATH环境变量键名</li>
+</ul>
+<p>然而，这些"原子包"往往成为单用途包（只有一个消费者）或导致代码重复。更重要的是，每个包都增加了供应链攻击面，如去年发生的维护者被入侵事件就影响了数百个这样的微型包。</p>
+
+<h3>3. 过时的"Ponyfills"</h3>
+<p>Ponyfills是库作者使用的填充方案，它们不污染全局环境，而是通过导入提供功能。问题在于，当这些功能已被所有主流引擎原生支持多年后，这些ponyfills仍然被保留。</p>
+<img src="/assets/images/eslint-plugin-react-polyfills.svg" alt="eslint-plugin-react polyfills" />
+<p>例如：</p>
+<ul>
+<li>globalthis：为globalThis提供填充（2019年已广泛支持）</li>
+<li>object.entries：为Object.entries提供填充（2017年已广泛支持）</li>
+</ul>
+<p>这些过时的填充库每周仍有数百万下载量，增加了不必要的负担。</p>
+
+<h3>解决方案</h3>
+<p>作者提出了几个实用工具和方法：</p>
+<ul>
+<li><strong>knip</strong>：帮助发现和移除未使用的依赖</li>
+<li><strong>e18e CLI</strong>：分析依赖并提供替代建议，如将chalk迁移到更轻量的picocolors</li>
+<li><strong>npmgraph</strong>：可视化依赖树，识别膨胀来源</li>
+<li><strong>模块替换项目</strong>：记录可被原生功能替代的包</li>
+</ul>
+<img src="/assets/images/eslint-graph.png" alt="eslint dependency graph" />
+
+<h3>社区反馈</h3>
+<p>Hacker News社区的评论反映了对这一问题的广泛共鸣：</p>
+<ul>
+<li>有开发者指出Rust生态也出现了类似的微包趋势</li>
+<li>Docker用户提到每个额外依赖都会增加镜像大小和构建复杂度</li>
+<li>许多开发者赞同减少依赖、使用原生功能的做法</li>
+<li>有评论认为这本质上是技术债务问题，ES5支持已有13年历史</li>
+<li>部分开发者提倡编写无依赖的JavaScript，认为现代标准库已足够强大</li>
+</ul>
+
+<p>文章最后强调，整个社区都在为极少数人的特殊需求支付成本，这种情况需要逆转。通过工具辅助和社区协作，可以逐步清理这些历史遗留的膨胀问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47473718</guid>
+      <pubDate>Sun, 22 Mar 2026 02:04:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>隐藏macOS Tahoe菜单图标的终端命令技巧</title>
+      <link>https://news.ycombinator.com/item?id=47469331</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主题为macOS Tahoe菜单图标隐藏的终端命令技巧，涉及苹果操作系统，用户不太感兴趣，兴趣不明确</small></p><p>macOS Tahoe 系统在菜单项旁添加图标的界面设计引发了许多用户的不满。开发者 Steve Troughton-Smith 发现了一个简单的终端命令可以禁用这些图标：<code>defaults write -g NSMenuEnableActionImages -bool NO</code>。执行该命令后，需要重启应用程序才能使更改生效，但会保留少数有用的图标，如窗口缩放和调整大小的功能图标。</p>
+
+<p>文章作者强烈批评苹果的这一设计选择，认为图标让菜单难以快速浏览，且许多图标在不同系统应用间缺乏一致性。社区反馈显示，这一技巧获得了188个赞和64条评论，反映了用户对Tahoe界面变化的广泛关注。</p>
+
+<p>在Hacker News的讨论中，用户意见分歧明显：</p>
+<ul>
+<li>支持者认为图标干扰视觉，使菜单杂乱难读，这一命令是"巨大改进"</li>
+<li>有用户因Tahoe的界面设计（包括窗口圆角和Finder叠加层）而坚持使用旧版本macOS，甚至考虑转向Linux</li>
+<li>反对观点认为图标对阅读障碍者有帮助，能更快识别菜单功能</li>
+<li>另有用户澄清这与菜单栏图标不同，设置中已有调整菜单栏图标的功能</li>
+</ul>
+
+<p>讨论还延伸到Tahoe的其他界面问题，如<a href="https://news.ycombinator.com/item?id=46497712">窗口圆角设计</a>和整体视觉风格变化。部分用户认为苹果试图让macOS与VisionOS保持一致的策略影响了macOS的可用性。</p>
+
+<p>尽管存在争议，这一终端命令为不喜欢菜单图标的用户提供了简单的解决方案，同时也引发了关于操作系统界面设计应如何平衡美观与功能性的持续讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47469331</guid>
+      <pubDate>Sat, 21 Mar 2026 17:46:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 基于 WebGPU 和 WASM 的浏览器内专业视频编辑器 Tooscut</title>
       <link>https://news.ycombinator.com/item?id=47471601</link>
@@ -1368,54 +1454,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47400060</guid>
       <pubDate>Mon, 16 Mar 2026 15:10:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 深度解析：如何利用大语言模型构建软件系统的工作流程</title>
-      <link>https://news.ycombinator.com/item?id=47394022</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深入探讨利用大语言模型构建软件系统的工作流程，涉及编程效率改进经验和AI软件技术进展两个用户很感兴趣的领域，属于必看内容。</small></p><p>一位开发者分享了使用大语言模型（LLM）编写软件的详细工作流程，揭示了从传统编程到AI辅助创造的思维转变。作者坦言自己真正热爱的是创造而非编程本身，LLM的出现让他能够专注于系统架构设计，而将代码实现交给AI代理。</p>
-
-<p>作者的核心工作流程采用多代理协作模式：首先由<strong>架构师代理</strong>（使用Claude Opus 4.6）与作者深入讨论需求，制定包含具体文件和函数级别的详细计划；然后<strong>开发者代理</strong>（使用Sonnet 4.6）严格按计划实现代码；最后由<strong>多个评审代理</strong>（混合使用Codex、Gemini等不同模型）独立审查代码。这种设计确保了代码质量，同时让作者始终保持对系统架构的深入理解。</p>
-
-<p>工具选择方面，作者强调需要能够同时使用不同公司的多个模型，并支持代理间自主调用的工具链。他使用OpenCode作为主要工具，认为不同模型具有互补优势：Codex擅长细节审查，Opus的决策与作者思维高度一致，Gemini则能提供独特解决方案。</p>
-
-<p>作者用这套工作流程构建了多个实际项目：<a href="https://www.stavros.io/posts/how-i-write-software-with-llms/">Stavrobot</a>是一个注重安全的个人助手，管理日历、进行研究并自主扩展功能；Middle是便携式语音笔记设备；Sleight of hand是艺术性的不规则走时钟表；Pine Town则是无限多人绘画画布。这些项目规模从数千到数万行代码不等，作者表示即使没有阅读大部分代码，仍能深刻理解每个项目的架构设计。</p>
-
-<p>关键经验包括：1）当作者熟悉相关技术栈时，系统能够保持高质量；2）对不熟悉的技术领域，仍需投入时间理解底层原理；3）LLM的进化趋势是从代码行级审查逐步上升到架构级审查。</p>
-
-<p>Hacker News社区对此展开了热烈讨论。部分评论者质疑<a href="https://news.ycombinator.com/item?id=47394022">"不读代码却能理解架构"的说法</a>，认为这存在逻辑矛盾。另一些开发者分享了类似的工作流程，强调将设计决策记录在版本控制的Markdown文件中以保持上下文一致性。还有讨论围绕代理角色细分展开，有观点认为应根据副作用域而非任务复杂度来划分代理角色。</p>
-
-<p>总体而言，这篇文章展示了AI辅助编程的成熟工作模式，强调了人类在系统架构设计和关键决策中的不可替代作用，同时揭示了LLM作为协作工具的巨大潜力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47394022</guid>
-      <pubDate>Mon, 16 Mar 2026 01:24:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 使用大型语言模型编程的疲惫体验：原因分析与应对策略</title>
-      <link>https://news.ycombinator.com/item?id=47391803</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 聚焦于使用大型语言模型编程的实际体验问题分析与解决策略，属于编程效率改进经验范畴，用户对此很感兴趣，值得重点关注。</small></p><p>一位开发者分享了使用大型语言模型（LLMs）如Claude或Codex进行编程时的疲惫体验，分析了问题根源并提出了应对策略。作者发现，长时间使用LLM后容易陷入"厄运循环"，但往往休息后能更有效地解决问题。</p>
-
-<p>文章指出几个关键问题：首先，<strong>疲惫会导致提示质量下降</strong>，当开发者疲劳时，容易写出不完整的提示、忘记提供关键上下文或频繁中断AI，这些都导致结果更差。其次，<strong>反馈循环太慢</strong>，某些任务如解析大文件需要长时间等待，像"需要10分钟才能转动的老虎机"，同时上下文很快被填满，影响AI表现。</p>
-
-<p>作者提出解决方案：<strong>识别疲惫信号</strong>，当不再享受编写优秀提示时就应该休息；<strong>进行元认知反思</strong>，检查是否因为自己没有想清楚问题而希望AI填补空白；最重要的是，<strong>将慢反馈循环本身作为问题解决</strong>，要求AI创建更快的迭代方法，类似于测试驱动开发（TDD）的理念。</p>
-
-<p>结论认为，使用LLM感到疲惫可能是"技能问题"，需要学会识别状态、避免认知外包的诱惑，并主动优化工作流程。</p>
-
-<h3>社区讨论要点</h3>
-<p>Hacker News上的156条评论展开了深入讨论：</p>
-<ul>
-<li>许多用户认同这是"技能问题"，认为需要学习如何有效调试和指导AI助手</li>
-<li>有开发者表示<strong>LLM编程比手动编码更累人</strong>，因为需要不断评估AI的工作、理解其思考过程</li>
-<li>讨论聚焦于<strong>代码审查的挑战</strong>，当AI生成大量代码而开发者没有仔细阅读时，审查变得特别困难</li>
-<li>部分评论提出批判性观点，认为这种现象类似"斯德哥尔摩综合症"，开发者过度适应有缺陷的工具</li>
-<li>也有用户指出，在实际企业环境中，AI生成的代码可能比某些人类开发者写的代码质量更高</li>
-</ul>
-
-<p>文章原文：<a href="https://tomjohnell.com/llms-can-be-absolutely-exhausting/">LLMs can be absolutely exhausting</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47391803</guid>
-      <pubDate>Sun, 15 Mar 2026 20:56:21 GMT</pubDate>
     </item>
   </channel>
 </rss>
