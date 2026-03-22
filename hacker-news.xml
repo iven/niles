@@ -3,7 +3,60 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 22 Mar 2026 13:14:06 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Mar 2026 16:49:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Flash-MoE：在48GB内存的MacBook Pro上运行3970亿参数模型</title>
+      <link>https://news.ycombinator.com/item?id=47476422</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Flash-MoE开源项目，能在有限硬件上运行大模型，涉及新AI模型发布和编程工具分享，用户对此类内容高度感兴趣</small></p><p>Flash-MoE 是一个开源项目，展示了如何在配备48GB统一内存的MacBook Pro M3 Max上运行Qwen3.5-397B-A17B模型——一个3970亿参数的混合专家（Mixture-of-Experts，MoE）模型。该项目采用纯C和Metal编写的推理引擎，实现了4.4+ tokens/秒的推理速度，并支持完整的工具调用功能。</p>
+
+<p>项目的核心创新在于将209GB的4位量化专家权重存储在SSD中，并通过按需流式加载的方式运行模型。每个transformer层有512个专家，但每个token只激活其中K=4个专家，系统仅加载这些活跃专家的权重（约6.75MB每层）。</p>
+
+<p>关键技术包括：</p>
+<ul>
+<li><strong>SSD专家流式加载</strong>：通过并行pread()调用从NVMe SSD按需读取专家权重，依赖操作系统页面缓存（约35GB）自然管理缓存，遵循“信任操作系统”原则</li>
+<li><strong>FMA优化的反量化内核</strong>：重新排列数学运算，利用GPU的融合乘加单元，使反量化+矩阵乘法在单条指令中完成，相比朴素实现提升12%速度</li>
+<li><strong>手写Metal计算着色器</strong>：针对4位/2位反量化矩阵向量乘法、融合SwiGLU激活、RMS归一化、注意力计算等操作进行优化</li>
+<li><strong>延迟GPU专家计算</strong>：提交专家前向传递命令后不等待完成，GPU执行时CPU准备下一层，实现流水线并行</li>
+</ul>
+
+<img src="/danveloper/flash-moe/raw/main/progress.png" alt="Progress" />
+
+<p>性能方面，在4位量化配置下达到4.36 tokens/秒，模型质量优秀且支持完整工具调用。2位量化虽能提升至5.74 tokens/秒，但会破坏JSON输出格式，导致工具调用不可靠。项目测试了58种不同优化方案，最终确定了当前的高效实现。</p>
+
+<p>硬件限制方面，由于Apple Silicon的统一内存架构，SSD DMA和GPU计算共享内存控制器，无法有效重叠执行。尝试并行化反而会导致GPU延迟激增，因此采用串行流水线（GPU → SSD → GPU）成为硬件最优选择。</p>
+
+<p>社区讨论中，用户报告在M5 Pro（64GB RAM）上达到6.55 tokens/秒。关于SSD寿命的担忧被指出：只读工作负载不会导致SSD磨损。有评论建议探索类似技术在Linux系统上的应用，或使用Intel Optane等更耐用的存储介质。也有讨论提到通过多SSD并行可能进一步提升吞吐量，但受限于PCIe通道数。</p>
+
+<p>项目结构清晰，包含完整的推理引擎、Metal着色器、交互式聊天界面和工具调用支持，代码约7000行，为在资源受限设备上运行超大规模模型提供了实用参考。</p>
+
+<p><strong>你知道吗？</strong></p>
+<p>混合专家模型是一种特殊的神经网络架构，它将模型划分为多个“专家”子网络，每个输入token只激活少数几个专家。这种设计允许模型参数总量极大增加（如数千亿），而实际计算量相对可控。Qwen3.5-397B-A17B就是这种架构的代表，拥有3970亿参数但每个token只使用约170亿活跃参数。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47476422</guid>
+      <pubDate>Sun, 22 Mar 2026 11:30:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>快速、缓慢与人工思考：AI如何重塑人类推理</title>
+      <link>https://news.ycombinator.com/item?id=47467913</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨AI对人类思考方式的影响，属于AI社会哲学讨论，非具体技术进展，用户兴趣不明确但不在避开范围</small></p><p>一篇发表在SSRN预印本服务器上的研究论文探讨了人工智能（AI）作为人类认知的"第三系统"（System 3）如何影响我们的推理过程。该研究基于丹尼尔·卡尼曼提出的双系统理论：系统1（快速、直觉）和系统2（缓慢、理性），提出了AI辅助思考作为系统3的概念。</p>
+
+<p>研究发现，对AI信任度较高、认知需求较低以及流体智力较低的参与者更倾向于"投降"给系统3。研究还显示，当AI准确时，它能缓冲时间压力带来的成本并放大激励收益；但当AI出错时，无论情境调节因素如何，它都会持续降低决策准确性。</p>
+
+<p>Hacker News社区的讨论反映了对这一概念的复杂看法。一些用户认为AI实际上提高了他们的认知技能，让他们能够专注于更深层次的思考，而将繁琐的认知任务委托给AI。然而，更多评论表达了担忧：过度依赖AI可能导致认知能力萎缩，就像肌肉不使用会退化一样。有评论者指出，AI具有自身的"认知偏见"，这些偏见由营销、政治和文化等因素塑造，且AI经常产生"幻觉"（错误信息）。</p>
+
+<p>讨论中还出现了技术比较：传统计算机程序的错误率极低（约10^-12%），而大型语言模型（LLM）的虚构率至少为5%，两者相差约12个数量级。这使得许多用户强调验证AI输出的重要性，建议仅将AI用于易于验证的任务、加速已知流程的学习过程，或用于无关紧要的事项。</p>
+
+<p>一位用户分享了自己尝试创建"系统3"工具的经历，开发了<a href="https://gist.github.com/a-n-d-a-i/d54bc03b0ceeb06b4cd61ed173512f1f#file-reflect-py">reflect.py</a>和<a href="https://gist.github.com/a-n-d-a-i/d54bc03b0ceeb06b4cd61ed173512f1f#file-unstuck-py">unstuck.py</a>等脚本，通过引导性问题帮助清晰思考，但发现LLM提示往往陷入无益的挑剔。</p>
+
+<p>总体而言，社区讨论凸显了AI作为认知工具的辩证关系：它既可能增强人类能力，也可能导致认知依赖和技能退化，关键在于如何有意识地使用这一技术。</p>
+
+<p><strong>你知道吗？</strong>丹尼尔·卡尼曼在《思考，快与慢》中提出的双系统理论是行为经济学的基石。系统1代表快速、自动、直觉的思考模式，消耗较少认知资源；系统2代表缓慢、刻意、理性的思考模式，需要更多认知努力。AI作为"系统3"的提出，反映了技术正在成为人类认知架构的新组成部分。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47467913</guid>
+      <pubDate>Sat, 21 Mar 2026 15:30:29 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Floci：免费开源的本地 AWS 模拟器，替代 LocalStack</title>
       <link>https://news.ycombinator.com/item?id=47471801</link>
@@ -1391,72 +1444,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47404796</guid>
       <pubDate>Mon, 16 Mar 2026 20:59:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Meta重新承诺对jemalloc内存分配器的投入与现代化计划</title>
-      <link>https://news.ycombinator.com/item?id=47402640</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述jemalloc内存分配器的现代化计划，属于编程工具改进范畴，符合用户对编程效率改进经验的兴趣。虽然涉及Meta公司（不太感兴趣），但技术内容占主导。</small></p><img src="https://engineering.fb.com/wp-content/uploads/2026/02/jemalloc-at-Meta-Hero.png" alt="" width="1201" height="631" />
-
-<p>Meta宣布重新加强对jemalloc高性能内存分配器的投入，承认其在软件基础设施中的长期价值。公司表示将减少维护需求、现代化代码库，并继续发展该分配器以适应最新硬件和工作负载。</p>
-
-<p>Meta在官方声明中承认，过去几年jemalloc的开发逐渐偏离了核心工程原则，虽然某些决策带来了短期利益，但积累的技术债务最终拖慢了进展。在与社区成员（包括项目创始人Jason Evans）深入交流后，Meta决定重新聚焦jemalloc的发展。</p>
-
-<p>具体改进计划包括：</p>
-<ul>
-<li>技术债务清理：重构和增强jemalloc，确保其高效、可靠且易于使用</li>
-<li>大页分配器（HPA）改进：更好利用透明大页（THP）提升CPU效率</li>
-<li>内存效率优化：改进打包、缓存和清除机制</li>
-<li>AArch64（ARM64）平台优化：确保开箱即用的良好性能</li>
-</ul>
-
-<p>Hacker News社区对此反应不一。有用户指出Meta官方文章的"公关语言"风格，但也承认其透明度超出预期。技术讨论方面，用户比较了不同内存分配器的性能，有人提到使用Microsoft的mimalloc通过LD_PRELOAD获得约20%的性能提升，特别是在大内存页场景下。</p>
-
-<p>社区还提到了jemalloc的历史背景：项目创始人Jason Evans曾在Meta工作近二十年，去年他发表了<a href="https://jasone.github.io/2025/06/12/jemalloc-postmortem/">jemalloc项目回顾文章</a>，详细讲述了项目发展历程。有用户猜测Meta此次重新投入可能与全球内存短缺有关，内存效率的改进能带来显著的成本节约。</p>
-
-<p>Meta表示将重新开放原始的jemalloc开源仓库，并邀请社区参与协作，共同推动项目发展。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47402640</guid>
-      <pubDate>Mon, 16 Mar 2026 18:12:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 从Google Home到本地语音助手：一位开发者的完整迁移与优化指南</title>
-      <link>https://news.ycombinator.com/item?id=47398534</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开发者分享从Google Home迁移到本地语音助手的技术指南，详细讲解HomeAssistant、llama.cpp等技术，属于编程效率改进经验分享，符合用户很感兴趣的内容类别。</small></p><p>一位开发者分享了从Google Home迁移到完全本地托管的Home Assistant语音助手的完整经历，详细记录了硬件配置、软件选择、模型测试和优化过程。</p>
-
-<p>作者原本使用Google Home Nest Minis，但对其日益下降的智能水平和隐私问题感到不满，决定转向基于Home Assistant Assist的本地解决方案。整个系统运行在UnRaid NAS上，语音硬件包括HA Voice Preview Satellite和Pixel 7a作为卫星设备，语音服务器使用配备eGPU的Beelink MiniPC。</p>
-
-<p>在GPU测试方面，作者尝试了多款显卡：RTX 3090和RX 7900XTX（24GB）能高效运行20B-30B混合专家模型和9B密集模型，响应时间1-2秒；RTX 5060Ti和RX 9060XT（16GB）响应时间1.5-4秒；RTX 3050（8GB）适合运行4B基础模型。</p>
-
-<p>模型测试结果显示，GGML GPT-OSS:20B MXFP4和Unsloth Qwen3.5-35B-A3B MXFP4_MOE在多项功能上表现最佳：<img src="https://community.home-assistant.io/images/emoji/twitter/green_circle.png?v=12" alt=":green_circle:" width="20" height="20" /> 表示优秀，<img src="https://community.home-assistant.io/images/emoji/twitter/yellow_circle.png?v=12" alt=":yellow_circle:" width="20" height="20" /> 表示中等，<img src="https://community.home-assistant.io/images/emoji/twitter/red_circle.png?v=12" alt=":red_circle:" width="20" height="20" /> 表示较差。这些功能包括多设备工具调用、理解上下文线索、解析误听命令以及忽略误报文本。</p>
-
-<p>软件栈方面，作者推荐llama.cpp作为模型运行器，Wyoming ONNX ASR Nvidia Parakeet V2（通过OpenVINO分支优化）作为语音转文字方案，Kokoro TTS作为文字转语音方案。同时使用了LLM Intents集成来增强助手功能。</p>
-
-<p>作者特别强调了提示词优化的重要性，通过反复调整提示词解决了天气服务调用、响应格式和表情符号等问题。<img src="https://community-assets.home-assistant.io/optimized/4X/a/9/d/a9dbf25a9917cdee80a3f9e4d20450b5b5f8c291_2_342x375.png" alt="Screen Shot 2025-10-27 at 11.55.34 AM" width="342" height="375" /></p>
-
-<p>对于音乐播放功能，作者创建了自动化脚本，通过句子自动化触发器实现语音控制音乐播放。<img src="https://community-assets.home-assistant.io/optimized/4X/d/3/5/d350a0440f535ea09d655da3d14125a2d3cc0daf_2_288x375.png" alt="Screen Shot 2025-10-27 at 12.00.30 PM" width="288" height="375" /></p>
-
-<p>唤醒词方面，作者使用开源仓库训练了自定义的"Hey Robot"唤醒词，整个过程约30分钟，效果良好。</p>
-
-<p>在Hacker News评论区，用户们讨论了各种语音助手的体验：</p>
-<ul>
-<li>有用户对比了Siri的糟糕表现，分享了设置计时器时的搞笑对话</li>
-<li>hamdingers指出唤醒词检测是最大痛点，现有设备远不如Echo设备灵敏</li>
-<li>ljclifford强调文字转语音的自然度是本地语音助手最难的部分，推荐尝试coqui xtts-v2</li>
-<li>kbuck详细比较了HA Voice Preview Edition与Google Home的优缺点，认为前者已达到80-90%的实用水平</li>
-<li>多个用户提到更喜欢简洁的确认音效而非完整的语音回复</li>
-</ul>
-
-<p>作者最后坦言，这个方案不适合普通Home Assistant用户，需要大量耐心和研究，但最终实现了更愉悦、本地化且隐私友好的语音助手体验。</p>
-
-<h3>你知道吗？</h3>
-<p>GGUF（GPT-Generated Unified Format）是llama.cpp使用的模型文件格式，支持多种量化级别（如Q4_K、Q6_K等）。量化级别越高，模型精度越高但文件越大，推理速度也越慢。选择合适的量化级别需要在精度和性能之间取得平衡。</p>
-
-<p>混合专家模型（Mixture of Experts，MoE）是一种神经网络架构，将任务分配给多个"专家"子网络，每个专家专门处理特定类型的输入。与同等参数量的密集模型相比，MoE模型在推理时只激活部分参数，从而在保持性能的同时提高效率。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47398534</guid>
-      <pubDate>Mon, 16 Mar 2026 13:09:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
