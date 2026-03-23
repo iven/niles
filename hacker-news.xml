@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 23 Mar 2026 22:50:40 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Mar 2026 23:47:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 使用Claude Code代理自动优化机器学习模型：Autoresearch实验报告</title>
+      <link>https://news.ycombinator.com/item?id=47493460</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述使用Claude Code代理自动优化机器学习模型的实验，属于编程效率改进经验，用户很感兴趣。</small></p><p>作者Yogesh Kumar尝试将Andrej Karpathy的Autoresearch概念应用到自己的旧研究项目eCLIP上，使用Claude Code代理自动优化机器学习模型性能。实验结果显示，代理在42次实验中成功将评估指标平均排名从344.68降至157.43，提升了54%。</p>
+
+<img src="/blog-images/eclip/agent_loop_light.webp" alt="Autoresearch agent loop" />
+
+<p>Autoresearch的核心是一个简单的约束优化循环：LLM代理根据程序说明（program.md）迭代修改训练文件（train.py），通过假设→编辑→训练→评估→提交或回滚的流程不断优化评估指标。作者设置了沙箱环境，限制代理只能编辑特定文件并运行封装脚本，确保安全性。</p>
+
+<p>实验使用Ukiyo-eVG数据集（约11,000张日本木版画，带有短语到边界框的标注），将边界框转换为高斯热力图作为空间注意力引导。</p>
+
+<img src="/blog-images/eclip/heatmap_girls.webp" alt="Expert spatial annotations: bounding boxes converted to gaussian heatmaps guide the model to focus on specific regions" />
+
+<p>主要发现包括：</p>
+<ul>
+<li><strong>最大改进来自bug修复</strong>：代理发现代码中温度参数被错误限制在2，解除限制后评估指标立即下降113点</li>
+<li><strong>超参数调优有效</strong>：代理像带有基本推理能力的超参数优化算法，通过调整投影维度和学习率等带来额外30点改进</li>
+<li><strong>架构更改收益递减</strong>：在后期阶段，代理对注意力机制的修改和"大胆想法"大多失败，成功率显著下降</li>
+<li><strong>沙箱限制必要</strong>：代理有时会忘记权限限制，尝试奇怪的bash调用，甚至因等待训练结束而"结束对话"</li>
+</ul>
+
+<img src="/blog-images/eclip/progress.webp" alt="eCLIP Autoresearch Progress" />
+
+<p>Hacker News社区讨论中，用户观点各异：有人认为这本质上是带基本推理的超参数优化，类似Optuna等现有工具；有人提到Shopify团队使用类似方法优化Liquid模板引擎，获得53%性能提升；也有用户认为LLM代理在明确搜索空间内有效，但在探索"未知的未知"时效果有限。</p>
+
+<p>评论中一个关键观点是：这种方法的价值很大程度上取决于评估指标的质量。如果评估指标设计不当，整个循环只会更快地优化错误的目标。同时，计算成本也是实际应用中需要考虑的因素，特别是对于需要云基础设施的实验。</p>
+
+<h3>你知道吗？</h3>
+<p>Autoresearch是Andrej Karpathy提出的概念，核心思想是让LLM代理在约束循环中自动进行科学研究。与传统的超参数优化工具（如Optuna、Bayesian优化）不同，Autoresearch允许代理进行结构性更改而不仅仅是参数调整。类似的方法在程序优化领域也有应用，如Superoptimization（超级优化）技术，通过搜索程序变换空间寻找最优实现。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47493460</guid>
+      <pubDate>Mon, 23 Mar 2026 18:40:58 GMT</pubDate>
+    </item>
     <item>
       <title>POSSE——在自己的网站发布，同步到其他地方</title>
       <link>https://news.ycombinator.com/item?id=47486726</link>
@@ -1445,35 +1479,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47413195</guid>
       <pubDate>Tue, 17 Mar 2026 14:28:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ AI编码工具并非万能解药：软件交付的真正瓶颈分析</title>
-      <link>https://news.ycombinator.com/item?id=47415919</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论AI编码工具在软件开发中的效率瓶颈，属于编程效率改进经验，用户很感兴趣</small></p><p>软件工程领域正掀起AI编码工具的热潮，许多公司高管兴奋地宣布这些工具能提高40%的代码输出量。然而，资深技术领导者Andrew Murphy指出，这种优化方向可能完全错误——编写代码的速度从来不是软件交付的主要瓶颈。</p>
-
-<p>文章引用Eli Goldratt的约束理论（Theory of Constraints）来解释这一现象：每个系统只有一个真正的瓶颈，优化非瓶颈环节不仅无法提升整体效率，反而会制造更多问题。当开发人员通过AI工具快速生成代码时，这些代码会堆积在评审队列中，等待时间延长，评审质量下降，最终导致部署延迟和系统复杂性增加。</p>
-
-<img src="/cdn-cgi/image/width=256/api/payload-uploads/file/bigandrew.jpg" alt="Andrew Murphy" width="100" height="100" />
-
-<p>作者基于20多年的技术领导经验，指出了软件交付过程中真正的五个瓶颈：</p>
-
-<ol>
-<li><strong>需求不明确</strong>：产品经理长时间未接触真实用户，需求文档模糊，工程师被迫猜测细节，加速代码输出只是"更快地构建错误的东西"</li>
-<li><strong>代码完成后的流程阻塞</strong>：PR评审、CI测试、安全审查、产品验收、部署窗口等环节让代码在队列中等待数天甚至数周</li>
-<li><strong>部署恐惧螺旋</strong>：不稳定的测试、混乱的可观测性导致团队害怕部署，于是批量处理变更，反而增加风险</li>
-<li><strong>缺乏效果反馈</strong>：功能上线后没有有效的数据分析和用户反馈，无法验证是否解决了实际问题</li>
-<li><strong>组织协调问题</strong>：会议成为决策瓶颈，跨团队协调耗时，一个人的日程表可能成为整个系统的"承重墙"</li>
-</ol>
-
-<p>作者建议团队应该：进行价值流分析，跟踪功能从构想到生产的全过程；测量周期时间而非代码输出量；消除等待状态；限制在制品数量；倾听一线开发人员的意见。真正的竞争优势不属于编写代码最快的团队，而属于那些能快速理解问题、构建正确解决方案并交付给用户的团队。</p>
-
-<p>Hacker News社区对此展开了热烈讨论，179条评论反映了不同观点。有开发者建议简单规则如"提交一个PR就要评审一个PR"，有人提议使用AI评审机器人让AI相互制衡，但也有人警告这可能引发灾难。许多评论指出，代码评审质量本身已是问题，而管理层往往只关注表面指标。部分开发者认为AI工具确实能帮助他们更快探索解决方案空间，但更多人担忧这会导致代码质量下降和系统理解度降低。</p>
-
-<p>这场讨论揭示了软件工程中一个根本性矛盾：技术工具的进步与组织流程、管理思维的滞后之间的脱节。在追求"更快编码"的同时，企业更需要关注整个价值流的效率优化。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47415919</guid>
-      <pubDate>Tue, 17 Mar 2026 17:48:50 GMT</pubDate>
     </item>
   </channel>
 </rss>
