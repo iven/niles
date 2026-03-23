@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 23 Mar 2026 11:52:50 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Mar 2026 13:46:44 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux sched_ext 调度器将优先选择空闲 SMT 兄弟核心以提升性能</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-sched-ext-SMT-Sibling</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Linux内核sched_ext调度器对SMT空闲线程的优先级优化，属于新软件项目/功能更新，用户对此很感兴趣。虽然涉及基础设施和性能调优，但来源配置中新软件项目为高兴趣项，故推荐阅读。</small></p><p>Linux 内核的可扩展调度器类 sched_ext 即将迎来一项重要优化，该优化将优先选择空闲的同步多线程（SMT）兄弟核心来运行任务，从而为 CPU 密集型工作负载带来约 2-3% 的性能提升。</p>
+
+<p>这项由 NVIDIA 工程师 Andrea Righi 提交的补丁修改了 sched_ext 的默认空闲 CPU 选择策略。当上一个 CPU（@prev_cpu）繁忙且没有完全空闲的核心可用时，调度器会首先检查同一核心上的 SMT 兄弟核心是否空闲。如果空闲，则优先将任务迁移到该兄弟核心，然后再考虑同一最后一级缓存（LLC）中的其他 CPU，接着是同一 NUMA 节点，最后才是系统中的任何其他空闲 CPU。</p>
+
+<p>Righi 解释说，迁移到 SMT 兄弟核心的代价较低，并且能让任务保持在同一个核心上，从而保留 L1 缓存并降低唤醒延迟。在大型 SMT 系统上，当运行的任务数量等于 SMT 核心数时，这一优化能持续将吞吐量提升约 2-3%。</p>
+
+<p>目前该补丁已进入 sched_ext.git 仓库的 "for-next" 分支，预计将在下个月的 Linux 7.1 内核合并窗口中被纳入主线。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-sched-ext-SMT-Sibling</guid>
+      <pubDate>Mon, 23 Mar 2026 13:04:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Qt 6.11 工具包发布，号称拥有“与游戏引擎相同的 3D 能力”</title>
       <link>https://www.phoronix.com/news/Qt-6.11-Toolkit</link>
@@ -860,23 +875,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/PowerVR-Vulkan-Does-Zink</guid>
       <pubDate>Mon, 16 Mar 2026 15:23:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.0-rc4发布：修复挂起问题，解决性能回归</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-rc4-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章是关于Linux内核7.0-rc4版本发布，修复挂起问题和性能回归。这属于开源系统软件更新，用户配置中对Linux内核发布没有特别兴趣，全局配置中开源项目为interested但权重较低，来源配置中无相关高兴趣项，故分级为optional。</small></p><p>Linux内核7.0的第四个候选版本（rc4）已发布，距离预计4月中旬的稳定版发布约有一个月时间。此次更新包含多项重要修复和改进。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_70_rc4" alt="Linux 7.0-rc4" />
-
-<p>主要修复内容包括：为即将到来的Rust语言版本做准备；解决了自Linux 6.19以来存在于mm/cid调度器代码中的性能回归问题；修复了AMDGPU在RDNA4 GPU上运行计算工作负载（如Llama.cpp/AI应用）后的空闲状态和功耗问题；cpupower的systemd服务文件现在允许设置能效性能偏好（EPP）参数；以及各种其他错误和回归修复。</p>
-
-<p>Linus Torvalds在发布公告中指出，虽然上周前几天相对平静，但周四网络相关提交集中涌入，周五其他开发者也开始提交工作，导致这个候选版本比通常的rc4要大一些。他推测这可能是因为"新的主版本号"带来的心理效应，开发者们变得更加活跃。尽管提交数量略多于同期典型水平，但大部分都是小型且良性的修改。</p>
-
-<p>Linux 7.0内核将作为Ubuntu 26.04 LTS和Fedora 44等2026年上半年发布的Linux发行版的基础内核。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-rc4-Released</guid>
-      <pubDate>Sun, 15 Mar 2026 21:18:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
