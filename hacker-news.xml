@@ -3,7 +3,45 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 24 Mar 2026 19:20:08 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Mar 2026 20:57:39 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Wine 11 发布：内核级同步机制 NTSYNC 大幅提升 Linux 游戏性能</title>
+      <link>https://news.ycombinator.com/item?id=47507150</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Wine 11发布及其NTSYNC机制对Linux游戏性能的提升，属于编程工具发布和开源软件新功能，符合用户对'编程工具发布/分享'的高兴趣以及对'开源项目'和'软件新功能'的兴趣类别。</small></p><p>Wine 11 近日发布，这是近年来 Linux 游戏兼容性层最重要的更新之一。本次更新不仅包含了大量错误修复和兼容性改进，更引入了内核级的 NTSYNC 同步机制、完成了 WoW64 架构重构，并对 Wayland 驱动进行了显著增强。</p>
+
+<img src="https://static0.xdaimages.com/wordpress/wp-content/uploads/2022/10/Steam-Deck-Half-Life-In-Hand.jpg?q=49&fit=crop&w=825&dpr=2" alt="Steam-Deck-Half-Life-In-Hand" width="1650" height="1238" />
+
+<h3>内核级同步机制 NTSYNC</h3>
+<p>NTSYNC 是本次更新的核心特性，它彻底改变了 Wine 处理 Windows 游戏同步的方式。过去，Wine 通过 esync 和 fsync 等用户空间方案来模拟 Windows NT 同步原语（如互斥锁、信号量等），但这些方案都存在性能瓶颈或兼容性问题。NTSYNC 通过在 Linux 内核中直接实现 Windows NT 同步 API，提供了一个 <code>/dev/ntsync</code> 设备供 Wine 使用，从而消除了用户空间到内核空间的往返开销。</p>
+
+<p>根据开发者基准测试，某些游戏在启用 NTSYNC 后帧率大幅提升：<em>Dirt 3</em> 从 110.6 FPS 提升至 860.7 FPS，<em>Resident Evil 2</em> 从 26 FPS 提升至 77 FPS。需要指出的是，这些数据是与未启用任何同步优化的原始 Wine 对比的结果。对于已经使用 fsync 的用户，性能提升通常较为温和，但对于之前因同步瓶颈而运行不佳的多线程密集型游戏，改善仍然显著。</p>
+
+<p>NTSYNC 已随 Linux 内核 6.14 版本并入主线，这意味着 Fedora 42、Ubuntu 25.04 等发行版将原生支持。Valve 已在 SteamOS 3.7.20 beta 中默认加载 NTSYNC 内核模块，Proton GE 分支也已启用该功能。</p>
+
+<h3>WoW64 架构完成</h3>
+<p>Wine 11 标志着 WoW64（Windows 32-bit on Windows 64-bit）架构的正式完成。现在，Wine 使用统一的二进制文件，能够自动检测并运行 32 位或 64 位 Windows 应用程序，无需用户在 Linux 系统上安装 32 位库文件。这一改进简化了旧版游戏的安装和运行，甚至支持 16 位应用程序。</p>
+
+<h3>Wayland 驱动及其他改进</h3>
+<p>Wayland 驱动程序现已成熟，支持 Wine 与原生 Wayland 应用之间的双向剪贴板操作、拖放功能，并能正确模拟旧游戏的显示模式切换。图形方面，EGL 成为 X11 上 OpenGL 渲染的默认后端，Vulkan 支持升级至 API 版本 1.4，并初步支持通过 Vulkan Video 进行硬件加速的 H.264 解码。</p>
+
+<p>此外，更新还改进了力反馈设备支持、新增蓝牙低功耗驱动、提升 MIDI 音源处理，并修复了《仁王 2》、《星际争霸 2》、《巫师 2》等多款游戏的兼容性问题。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 社区对此次更新反应热烈。许多用户称赞 Wine 项目的持续努力，认为这是 Linux 游戏生态的重要里程碑。也有技术讨论指出，NTSYNC 的性能增益相对于现有的 fsync 优化可能不如基准测试数据显示的那么夸张，但其正确性和可访问性（无需自定义内核）仍是重大进步。部分用户询问了 macOS 平台的移植可能性，已有开发者创建了用户空间后端项目。</p>
+
+<h3>你知道吗？</h3>
+<p>Wine 处理 Windows 同步机制经历了三个阶段：</p>
+<ol>
+<li><strong>esync</strong>：由 Elizabeth Figura 开发，利用 Linux 的 eventfd 系统调用避免 wineserver 往返，但受文件描述符数量限制。</li>
+<li><strong>fsync</strong>：基于 futex 系统调用，性能更好，但需要非主线内核补丁，对普通用户不够友好。</li>
+<li><strong>NTSYNC</strong>：由同一位开发者设计，将同步原语直接实现在 Linux 内核中，提供了最接近 Windows 原生行为的解决方案，并最终被上游内核接受。</li>
+</ol>
+<p>这一演进体现了开源社区通过持续迭代解决复杂兼容性问题的典型路径。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47507150</guid>
+      <pubDate>Tue, 24 Mar 2026 18:34:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AI真的提高了开发者生产力吗？PyPI数据分析揭示真相</title>
       <link>https://news.ycombinator.com/item?id=47503006</link>
@@ -1479,25 +1517,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47422942</guid>
       <pubDate>Wed, 18 Mar 2026 08:06:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenAI发布GPT-5.4 Mini和Nano小型模型，价格提升但性能改进</title>
-      <link>https://news.ycombinator.com/item?id=47415441</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] OpenAI发布新AI模型GPT-5.4 Mini和Nano，属于新AI模型发布公告，用户很感兴趣</small></p><p>OpenAI近日发布了GPT-5.4 Mini和Nano两款小型语言模型，作为其GPT-5.4系列的一部分。社区讨论主要集中在价格变化、性能表现以及实际应用场景等方面。</p>
-
-<p>根据用户反馈，GPT-5.4 Mini和Nano相比前代GPT-5-mini和nano在价格上有所上涨，涨幅约为2-4倍。具体来说，GPT-5.4 mini的输入价格为每百万token 0.75美元，输出为4.50美元；而GPT-5.4 nano为输入0.20美元，输出1.25美元。</p>
-
-<p>性能方面，早期测试显示GPT-5.4 mini比GPT-5-mini快约30%，在简单任务中表现良好，如在"草莓中有多少个R"测试中达到80%准确率。GPT-5.4 nano虽然速度更快，但在需要精确数据的场景下表现不如mini版本。</p>
-
-<p>在实际应用上，小型模型因其成本优势受到开发者关注。特别是在<a href="https://openai.com/index/introducing-gpt-5-4-mini-and-nano">Codex开发工具</a>中，GPT-5.4 mini只消耗30%的GPT-5.4配额，让开发者能够以约三分之一成本处理简单编码任务。有用户表示，对于许多简单任务，小型模型已经足够使用，使得在真实应用中部署这些模型越来越有吸引力。</p>
-
-<p>社区讨论中还涉及与其他模型的比较。有用户提到因性能下降而迁移到Anthropic的haiku-4.5模型，也有用户比较了Gemini和Claude在不同任务中的表现差异。部分用户对频繁的版本更新表示疲劳，希望模型能够开源。</p>
-
-<p>价格与性能的平衡成为讨论焦点。虽然新模型价格更高，但性能也有显著提升。有观点认为，与其追求极其廉价但性能不佳的模型，不如使用性价比更高的小型模型。基准测试数据显示，GPT-5.4 mini high在准确率上接近GPT-5.4 low，但延迟较高（254秒 vs 171秒）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47415441</guid>
-      <pubDate>Tue, 17 Mar 2026 17:07:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
