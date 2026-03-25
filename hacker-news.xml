@@ -3,7 +3,48 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 25 Mar 2026 11:54:59 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2026 15:20:26 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ TurboQuant：通过极端压缩重新定义AI效率的量化算法</title>
+      <link>https://news.ycombinator.com/item?id=47513475</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍AI模型量化算法TurboQuant，属于编程工具发布和AI软件技术进展，用户对这两类主题都很感兴趣</small></p><p>Google Research 团队近日发布了 TurboQuant，这是一套先进的向量量化算法，旨在通过极端压缩解决大语言模型和向量搜索引擎中的内存瓶颈问题。该技术将在 ICLR 2026 和 AISTATS 2026 上发表。</p>
+
+<img src="https://storage.googleapis.com/gweb-research2023-media/original_images/Quantization-hero.gif" alt="" />
+
+<p>TurboQuant 的核心创新在于解决了传统向量量化中的“内存开销”问题。传统方法通常需要为每个数据块计算和存储全精度的量化常数，这会额外增加每数值1-2比特的开销。TurboQuant 通过结合两种算法来应对这一挑战：</p>
+
+<ul>
+<li><strong>PolarQuant</strong>：将向量从笛卡尔坐标转换为极坐标，利用半径表示数据强度、角度表示方向。由于角度分布具有已知且高度集中的模式，该方法无需昂贵的归一化步骤，从而消除了内存开销。</li>
+<li><strong>量化 Johnson-Lindenstrauss (QJL)</strong>：使用 Johnson-Lindenstrauss 变换将高维数据压缩为单个符号位（+1或-1），实现零内存开销的数学误差检查，消除偏差。</li>
+</ul>
+
+<p>TurboQuant 的工作流程分为两步：首先使用 PolarQuant 进行高质量压缩，捕获向量的主要概念和强度；然后使用 QJL 对残留误差进行1比特的偏差校正，确保注意力得分的准确性。</p>
+
+<img src="https://storage.googleapis.com/gweb-research2023-media/images/Quantization-2.width-1250.png" alt="Quantization-2" />
+
+<p>实验结果显示，TurboQuant 在多个长上下文基准测试（LongBench、Needle In A Haystack、ZeroSCROLLS 等）上表现出色。该算法能够将键值（KV）缓存量化为仅3比特，无需训练或微调，且不损失模型精度。在 H100 GPU 上，4位 TurboQuant 相比32位未量化键值实现了高达8倍的性能提升。</p>
+
+<img src="https://storage.googleapis.com/gweb-research2023-media/images/Quantization-3.width-1250.png" alt="Quantization-3" />
+
+<p>在向量搜索任务中，TurboQuant 在 GloVe 数据集（d=200）上实现了最优的1@k召回率，优于现有的最先进量化方法（如 PQ 和 RabbiQ）。</p>
+
+<img src="https://storage.googleapis.com/gweb-research2023-media/images/Quantization-4.width-1250.png" alt="Quantization-4" />
+
+<p>Hacker News 社区对该技术展开了热烈讨论。部分评论指出文章对非专业读者的解释不够清晰，有用户认为其中一些表述“像是AI生成的”。技术讨论方面：</p>
+
+<ul>
+<li>有研究人员指出，TurboQuant 使用的几何旋转和偏差校正机制与 NeurIPS 2021 论文“DRIVE”中的技术类似，希望看到对先前工作的引用。</li>
+<li>关于 PolarQuant 的原理，用户提供了可视化解释链接：<a href="https://mesuvash.github.io/blog/2026/turboquant-interactive/">https://mesuvash.github.io/blog/2026/turboquant-interactive/</a></li>
+<li>一些用户质疑该算法在实际GPU架构上的兼容性和推理延迟，认为极坐标计算可能不利于GPU并行处理。</li>
+<li>关于压缩对性能的影响，有用户详细解释了内存带宽瓶颈如何通过量化缓解，从而提升推理速度。</li>
+</ul>
+
+<p>总体而言，TurboQuant 代表了向量量化领域的重要进展，特别是在解决键值缓存瓶颈方面。该技术不仅具有实际工程价值，还得到了严格的理论证明，为大规模AI系统的内存效率优化提供了新思路。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47513475</guid>
+      <pubDate>Wed, 25 Mar 2026 05:00:54 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Email.md：将 Markdown 转换为响应式且邮件安全的 HTML 工具</title>
       <link>https://news.ycombinator.com/item?id=47505144</link>
@@ -1458,38 +1499,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47422759</guid>
       <pubDate>Wed, 18 Mar 2026 07:43:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>NVIDIA NemoClaw：为 OpenClaw 提供安全沙盒环境的开源插件</title>
-      <link>https://news.ycombinator.com/item?id=47427027</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍NVIDIA开源安全插件，但用户兴趣配置中未明确涵盖开源软件、安全沙盒或NVIDIA相关主题，兴趣不明确。</small></p><p>NVIDIA 近日开源了 NemoClaw 项目，这是一个旨在简化 OpenClaw 常驻助手安全运行的插件栈。该项目通过集成 OpenShell 运行时，为 OpenClaw 代理创建隔离的沙盒环境，并将所有推理请求路由至 NVIDIA 云端模型服务。</p>
-
-<img src="https://camo.githubusercontent.com/d8e3b9d3b1213595b06824a404d41ad7743f1e880a3f9e47bae54533a9b60c99/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d4170616368655f322e302d626c7565" alt="License" />
-<img src="https://camo.githubusercontent.com/d7b3ea7a80c2502d6f91036a7b8d1b56bf3f0c7fda63638c5735c06d64af5644/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f53656375726974792d5265706f72742532306125323056756c6e65726162696c6974792d726564" alt="Security Policy" />
-<img src="https://camo.githubusercontent.com/71cb9a97360b8841ddfc125fa85687761845a6d44b48b4de9b527a2d2dce2930/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7374617475732d616c7068612d6f72616e6765" alt="Project Status" />
-
-<p>NemoClaw 的核心架构包含多个组件：TypeScript CLI 提供管理命令，版本化的 Python 蓝图负责协调沙盒创建、策略制定和推理设置，而沙盒本身则是运行 OpenClaw 的隔离容器。关键的安全特性在于，代理发出的推理请求从不直接离开沙盒，而是由 OpenShell 拦截并重定向至 NVIDIA 云提供商。</p>
-
-<p>系统要求方面，最低配置需要 4 个 vCPU、8 GB RAM 和 20 GB 可用磁盘空间，推荐配置为 4+ vCPU、16 GB RAM 和 40 GB 磁盘空间。软件依赖包括 Ubuntu 22.04 LTS 或更高版本、Node.js 20+、npm 10+ 以及支持的容器运行时（Linux 上主要为 Docker）。</p>
-
-<p>安装过程通过单行命令完成：<code>curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash</code>。安装后，用户可以通过 <code>nemoclaw my-assistant connect</code> 连接到沙盒，并使用 OpenClaw TUI 或 CLI 与代理交互。</p>
-
-<p>安全防护采用多层策略：网络层控制出站连接，文件系统层限制对 <code>/sandbox</code> 和 <code>/tmp</code> 之外的访问，进程层阻止权限提升和危险系统调用，推理层重定向模型 API 调用。这些策略部分可在运行时热重载，部分在沙盒创建时锁定。</p>
-
-<p>Hacker News 社区对此项目展开了广泛讨论，获得 254 分和 196 条评论。主要观点包括：</p>
-<ul>
-<li>有评论认为这是 NVIDIA 成为 OpenClaw 默认计算提供商的战略举措，可能带来可观的消费级推理收入</li>
-<li>部分用户质疑沙盒方案的根本有效性，指出 OpenClaw 的有用性取决于其对日历、邮箱等服务的访问权限，而这正是安全风险所在</li>
-<li>开发者分享了使用 OpenClaw 的困难体验，特别是在 Docker 环境中遇到的种种障碍</li>
-<li>有人注意到项目开发速度惊人，从提交历史看主要工作在一个周末完成，推测可能是内部黑客马拉松项目</li>
-<li>与其他类似项目（如 <a href="https://zo.computer">zo.computer</a>）的比较，以及关于“claw”术语起源的讨论</li>
-</ul>
-
-<p>项目目前处于 alpha 阶段，开发者明确表示这是早期软件，接口、API 和行为可能随时变更，不建议用于生产环境。NemoClaw 采用 Apache 2.0 许可证开源，旨在收集社区反馈并促进早期实验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47427027</guid>
-      <pubDate>Wed, 18 Mar 2026 15:31:07 GMT</pubDate>
     </item>
   </channel>
 </rss>
