@@ -36,7 +36,7 @@ const GRADE_SYSTEM_PROMPT = `# 任务：内容分级
      - optional：标题含义模糊或兴趣不明确，可选
      - rejected：用户不感兴趣，应该被排除
    - **综合判断示例**：
-     - 例 1：文章主要讲主题 A，顺便提到主题 B → 主要主题是 A → 即使全局配置 B 是 high_interest、A 是 avoid，也应判断为 rejected（主要主题权重更高）
+     - 例 1：文章主要讲主题 A，顺便提到主题 B → 主要主题是 A → 即使配置 B 是 high_interest、A 是 uninterested，也应判断为 rejected（主要主题权重更高）
      - 例 2：全局配置主题 X 为 interest，来源配置主题 Y 为 high_interest → 文章同时讲 X 和 Y → 两个配置都在起作用，都是高兴趣，应判断为 critical 或 recommended（根据主题占比判断）
      - 例 3：全局配置主题 X 为 high_interest，来源配置主题 Y 为 uninterested → 文章同时讲 X 和 Y，两者比重相当 → 综合评定可能为 recommended 或 optional（X 加分，Y 减分，需根据主题占比和配置综合权衡，权衡时来源配置的权重更高）
 
