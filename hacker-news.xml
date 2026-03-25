@@ -3,7 +3,43 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 25 Mar 2026 15:20:26 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2026 17:18:12 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Antithesis推出Hegel：基于Hypothesis的跨语言属性测试库家族</title>
+      <link>https://news.ycombinator.com/item?id=47504094</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新的编程测试工具发布，属于用户很感兴趣的编程工具发布类别。</small></p><p>Antithesis公司近日发布了Hegel，这是一个新的基于属性测试（property-based testing）的库家族，旨在将Python中成熟的Hypothesis测试框架的优势扩展到多种编程语言。</p>
+
+<p>Hegel的诞生源于Hypothesis创始人David R. MacIver加入Antithesis公司后，与另一位核心维护者Liam DeVoe的合作。该项目的核心思路是通过包装Hypothesis作为后端服务，为各种语言提供高质量的属性测试能力，同时与Antithesis的分布式测试平台无缝集成。</p>
+
+<p>基于属性测试是一种测试方法，开发者不是提供具体的测试用例，而是指定测试应该通过的取值范围，由库自动生成测试数据。文章展示了多个Rust示例：</p>
+<ul>
+<li>测试分数解析器不应崩溃，发现了<code>fraction</code>库中<code>from_str("0/0")</code>会panic而非返回错误的问题</li>
+<li>测试十进制数科学记数法的往返转换，发现了<code>rust_decimal</code>处理零时的bug</li>
+<li>测试标题大小写转换的幂等性，发现了Unicode字符"ß"转换的问题</li>
+<li>通过模型测试发现<code>im</code>库中<code>get_prev</code>方法在大数据量时返回错误值</li>
+</ul>
+
+<p>Hegel的技术架构采用客户端-服务器模式：Hypothesis作为核心服务器生成测试数据，各语言客户端库将数据转换为目标语言的数值。这种方式使得新语言支持只需实现Hegel协议和设计合适的API，即可获得Hypothesis的全部功能。</p>
+
+<p>目前Hegel for Rust已发布，Go版本计划在一两周内推出，C++、OCaml和TypeScript版本也在开发中。长期计划是将Hegel作为Antithesis平台的主要入口点之一。</p>
+
+<p>在AI编程时代，属性测试显得尤为重要。作者指出，AI生成的代码往往存在疏漏，而属性测试能有效发现这些问题。为此，团队还发布了Claude技能，帮助开发者编写属性测试。</p>
+
+<p>在Hacker News社区的95条评论中，讨论焦点包括：</p>
+<ul>
+<li>作者亲自解答关于Hegel设计、与QuickCheck差异等问题</li>
+<li>Hegel名称引发的哲学讨论（黑格尔辩证法）</li>
+<li>与现有属性测试库（如Rust的proptest）的比较优势</li>
+<li>AI时代测试工具的重要性及局限性</li>
+<li>技术细节如生成器设计、收缩（shrinking）算法、测试重放等</li>
+</ul>
+
+<p>Hegel继承了Hypothesis的核心优势：高质量生成器、内部收缩保证测试用例有效性、测试数据库确保可重复失败。这些特性使其区别于传统的QuickCheck风格库，更适合现代软件开发需求。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47504094</guid>
+      <pubDate>Tue, 24 Mar 2026 15:28:17 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ TurboQuant：通过极端压缩重新定义AI效率的量化算法</title>
       <link>https://news.ycombinator.com/item?id=47513475</link>
@@ -1484,21 +1520,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47434047</guid>
       <pubDate>Thu, 19 Mar 2026 02:23:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Wander：探索小型网络的去中心化工具</title>
-      <link>https://news.ycombinator.com/item?id=47422759</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍一款新的编程工具Wander，用于探索小型网络，属于用户很感兴趣的编程工具发布类别</small></p><p>Wander 是一个受 Kagi Small Web 启发的去中心化工具，旨在帮助用户探索由个人网站组成的「小型网络」。与需要中心化审核的类似服务不同，Wander 允许任何人在自己的网站上托管一个控制台，仅需两个文件：<code>index.html</code> 和 <code>wander.js</code>。</p>
-
-<p>该工具的工作原理类似于现代化的网页环（webring），但更加灵活。每个 Wander 控制台可以链接到任意数量的网站和其他控制台。当用户使用控制台时，它可以递归地发现相邻控制台并从中获取推荐链接，从而实现在整个网络图中的随机浏览。用户也可以选择切换到其他控制台继续探索。</p>
-
-<p>作者在 Hacker News 的讨论中表示，这个工具是作为概念验证快速构建的，目前已有多个控制台加入网络。社区反馈提出了改进建议，例如防止用户被困在某个控制台（已通过记录会话中发现的所有控制台列表解决），以及添加「在新标签页打开」按钮以便更好地浏览发现的内容。</p>
-
-<p>Wander 完全基于客户端，无需服务器端代码或数据库，可以轻松部署在 GitHub Pages 或 Codeberg Pages 等静态托管服务上。项目的代码和详细说明托管在 <a href="https://codeberg.org/susam/wander">Codeberg</a> 上。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47422759</guid>
-      <pubDate>Wed, 18 Mar 2026 07:43:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
