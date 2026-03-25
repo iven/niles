@@ -3,7 +3,39 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Wed, 25 Mar 2026 05:37:32 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2026 07:18:55 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.83 版本更新：新增配置管理、钩子事件与搜索功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.83</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Claude Code新版本的功能更新，属于编程工具发布/分享范畴，用户对此很感兴趣</small></p><p>Claude Code 发布了 v2.1.83 版本，带来了多项功能增强、错误修复和性能改进。本次更新重点包括配置管理优化、新的钩子事件、安全增强以及用户体验提升。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>配置管理改进</strong>：新增 <code>managed-settings.d/</code> 目录，允许不同团队部署独立的策略片段，按字母顺序合并</li>
+<li><strong>新的钩子事件</strong>：添加 <code>CwdChanged</code> 和 <code>FileChanged</code> 钩子事件，支持响应式环境管理（如 direnv）</li>
+<li><strong>安全增强</strong>：新增 <code>sandbox.failIfUnavailable</code> 设置，当沙盒启用但无法启动时退出并报错；添加 <code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1</code> 环境变量，用于从子进程环境中清除 Anthropic 和云提供商凭据</li>
+<li><strong>协议处理控制</strong>：新增 <code>disableDeepLinkRegistration</code> 设置，可防止 <code>claude-cli://</code> 协议处理程序注册</li>
+<li><strong>转录本搜索</strong>：在转录模式下按 <code>/</code> 键可进行搜索，<code>n</code>/<code>N</code> 键可浏览匹配结果</li>
+<li><strong>图片粘贴改进</strong>：粘贴的图片现在会在光标处插入 <code>[Image #N]</code> 占位符，方便在提示中按位置引用</li>
+<li><strong>代理功能增强</strong>：代理现在可以在 frontmatter 中声明 <code>initialPrompt</code> 以自动提交首次交互</li>
+<li><strong>关键错误修复</strong>：修复了 macOS 上退出时挂起、屏幕闲置后闪烁空白、差异对比大文件时挂起、语音输入导致启动时 UI 冻结、<code>caffeinate</code> 进程未正确终止、内存泄漏等重大问题</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li><strong>性能优化</strong>：改进 Bedrock SDK 冷启动延迟、减少 <code>--resume</code> 内存使用、优化插件启动速度、降低 <code>WebFetch</code> 峰值内存使用</li>
+<li><strong>用户体验提升</strong>：新增 <code>Ctrl+X Ctrl+E</code> 作为打开外部编辑器的别名快捷键；<code>chat:killAgents</code> 和 <code>chat:fastMode</code> 现在可通过 <code>~/.claude/keybindings.json</code> 重新绑定；改进远程控制会话标题显示</li>
+<li><strong>功能调整</strong>：将"停止所有后台代理"的快捷键从 <code>Ctrl+F</code> 改为 <code>Ctrl+X Ctrl+K</code>；弃用 <code>TaskOutput</code> 工具，建议改用 <code>Read</code> 读取后台任务的输出文件路径</li>
+<li><strong>平台特定改进</strong>：Linux 平台现在尊重 <code>XDG_DATA_HOME</code> 环境变量注册协议处理程序</li>
+<li><strong>VSCode 扩展改进</strong>：后端无响应时 spinner 变红显示"Not responding"；修复了通过 URL 重新打开会话或重启后会话历史记录加载不正确的问题</li>
+</ul>
+
+<p>此次更新进一步提升了 Claude Code 的稳定性、安全性和用户体验，为开发者提供了更强大的 AI 辅助编程工具。</p>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.83</guid>
+      <pubDate>Wed, 25 Mar 2026 06:08:12 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.81发布：新增脚本模式和支持权限中继</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.81</link>
@@ -1437,23 +1469,6 @@
       </description>
       <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.52</guid>
       <pubDate>Tue, 24 Feb 2026 06:39:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.51 发布：新增远程控制功能、安全增强和多项性能优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.51</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude代码版本发布，属于编程工具发布内容，符合用户对编程工具发布的兴趣</small></p><p>Claude Code 发布了 v2.1.51 版本，带来了一系列功能增强、安全修复和性能改进。主要更新包括新增远程控制子命令、插件市场优化、安全漏洞修复以及工具执行效率提升。</p>
-
-<p>新版本引入了 <code>claude remote-control</code> 子命令，支持外部构建并为所有用户启用本地环境服务。插件市场方面，默认 Git 超时从 30 秒延长至 120 秒，并增加了 <code>CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS</code> 配置选项。同时新增了对自定义 npm 注册表和特定版本锁定的支持。</p>
-
-<p>在安全方面，修复了两个重要漏洞：一是 <code>statusLine</code> 和 <code>fileSuggestion</code> 钩子命令在交互模式下无需工作区信任接受即可执行的问题；二是 HTTP 钩子可能从头部值中插入任意环境变量的安全隐患，现在环境变量插入需要在钩子配置中明确指定 <code>allowedEnvVars</code> 列表。</p>
-
-<p>性能优化包括：BashTool 在有 shell 快照时默认跳过登录 shell，提升命令执行效率；工具结果大于 50K 字符时现在会持久化到磁盘（之前为 100K），减少上下文窗口使用并延长对话寿命。</p>
-
-<p>其他改进包括：修复了重复 <code>control_response</code> 消息导致 API 400 错误的问题；新增了 <code>CLAUDE_CODE_ACCOUNT_UUID</code>、<code>CLAUDE_CODE_USER_EMAIL</code> 和 <code>CLAUDE_CODE_ORGANIZATION_UUID</code> 环境变量，消除早期遥测事件缺少账户元数据的竞态条件；修复了斜杠命令自动完成在插件描述为非字符串类型时的崩溃问题；HTTP 钩子现在在启用沙箱时通过沙箱网络代理路由，强制执行域白名单；模型选择器现在显示人类可读的标签而非原始模型 ID。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.51</guid>
-      <pubDate>Tue, 24 Feb 2026 01:40:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
