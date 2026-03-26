@@ -3,7 +3,73 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 26 Mar 2026 15:24:25 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Mar 2026 17:19:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 让生活更轻松（并保持理智）的Shell技巧</title>
+      <link>https://news.ycombinator.com/item?id=47525243</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题为Shell命令行技巧，属于编程效率改进经验，用户配置为很感兴趣，故判断为必看内容</small></p><p>一篇详细介绍实用Shell技巧的文章在Hacker News社区引发广泛讨论，获得了354个赞和165条评论。文章旨在帮助用户提高终端使用效率，避免重复性低效操作。</p>
+
+<p>文章将技巧分为两大类：几乎在所有POSIX兼容Shell中通用的「随处可用」技巧，以及Bash和Zsh等现代交互式Shell特有的「舒适区」技巧。</p>
+
+<h3>通用Shell技巧</h3>
+<ul>
+<li><strong>退格替代方案</strong>：使用Emacs风格的行编辑绑定，如<code>Ctrl+W</code>删除光标前的单词、<code>Ctrl+U</code>/<code>Ctrl+K</code>剪切行首/行尾内容、<code>Ctrl+A</code>/<code>Ctrl+E</code>跳转到行首/行尾、<code>Alt+B</code>/<code>Alt+F</code>按单词移动。</li>
+<li><strong>终端恢复</strong>：当终端因显示二进制文件而混乱时，输入<code>reset</code>或<code>stty sane</code>可恢复正常。</li>
+<li><strong>紧急退出</strong>：<code>Ctrl+C</code>取消当前命令，<code>Ctrl+D</code>发送EOF信号（空命令行时退出Shell）。</li>
+<li><strong>屏幕清理</strong>：<code>Ctrl+L</code>清屏但不中断当前输入的命令。</li>
+<li><strong>目录切换</strong>：<code>cd -</code>返回上一个目录，<code>pushd</code>和<code>popd</code>实现目录栈管理。</li>
+<li><strong>文件截断</strong>：<code>&gt; file.txt</code>清空文件内容而保留权限和打开状态。</li>
+<li><strong>最后参数变量</strong>：<code>$_</code>扩展为上一个命令的最后一个参数，便于重复使用长路径。</li>
+<li><strong>脚本安全设置</strong>：建议在脚本开头使用<code>set -e</code>（出错退出）和<code>set -u</code>（未定义变量报错）。</li>
+</ul>
+
+<h3>Bash和Zsh特有技巧</h3>
+<ul>
+<li><strong>历史搜索</strong>：<code>Ctrl+R</code>进行反向增量搜索，快速查找历史命令。</li>
+<li><strong>Sudo快捷方式</strong>：<code>!!</code>扩展为上一个完整命令，结合<code>sudo !!</code>快速重试需要权限的命令。</li>
+<li><strong>编辑器转义</strong>：<code>Ctrl+X</code>后<code>Ctrl+E</code>（Bash）或<code>fc</code>命令将当前命令放入默认编辑器进行复杂编辑。</li>
+<li><strong>最后参数插入</strong>：<code>Esc+.</code>或<code>Alt+.</code>插入上一个命令的最后一个参数，<code>!$</code>实现类似功能但立即扩展。</li>
+<li><strong>花括号扩展</strong>：如<code>cp pf.conf{,.bak}</code>扩展为<code>cp pf.conf pf.conf.bak</code>，快速创建备份或重命名文件。</li>
+<li><strong>进程替换</strong>：<code>&lt;(command)</code>将命令输出视为文件，便于<code>diff</code>等操作。</li>
+<li><strong>递归通配符</strong>：启用<code>globstar</code>后，<code>**</code>匹配所有子目录中的文件。</li>
+<li><strong>后台作业管理</strong>：<code>Ctrl+Z</code>暂停进程，<code>bg</code>放入后台运行，<code>disown</code>使其脱离当前Shell。</li>
+<li><strong>完整日志记录</strong>：<code>command |&amp; tee file.log</code>同时捕获标准输出和错误输出并保存到文件。</li>
+</ul>
+
+<h3>社区讨论亮点</h3>
+<p>评论中用户分享了更多实用技巧和注意事项：</p>
+<ul>
+<li>使用<code>#</code>注释命令，便于通过<code>Ctrl+R</code>搜索历史命令中的特定操作。</li>
+<li>有用户创建名为<code>\#</code>的脚本（内容仅为<code>cat</code>），用于在管道中临时注释部分命令。</li>
+<li>关于<code>Ctrl+W</code>的删除行为：通常删除到上一个空白处，而<code>Alt+Backspace</code>可能删除到非字母数字字符，具体行为因终端和Shell而异。</li>
+<li>POSIX标准要求支持vi编辑模式（通过<code>set -o vi</code>启用），但实际使用较少。</li>
+<li>推荐结合<a href="https://github.com/junegunn/fzf">fzf</a>工具增强<code>Ctrl+R</code>搜索功能。</li>
+<li><code>git checkout -</code>等命令也支持<code>-</code>快捷方式返回上一个分支。</li>
+</ul>
+
+<p>文章强调Shell是工具箱而非障碍场，建议用户每次掌握一个技巧并融入日常习惯，逐步提高终端使用效率。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47525243</guid>
+      <pubDate>Thu, 26 Mar 2026 00:28:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code生成的代码90%流向GitHub低星项目</title>
+      <link>https://news.ycombinator.com/item?id=47521157</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Claude Code AI代码生成工具的使用统计，属于AI软件技术进展，用户配置为感兴趣，故推荐阅读</small></p><p>根据Claude Code活动追踪仪表板的数据显示，Anthropic的Claude Code代理生成的代码中，约90%流向了GitHub上少于2颗星的项目。这一发现引发了关于AI生成代码实际应用场景的讨论。</p>
+
+<p>仪表板追踪了Claude Code自发布以来的全球编码活动，数据显示总提交数超过2080万次，新增代码行数超过504亿行，删除代码行数约197亿行。在活跃的108.7万个项目中，TypeScript以34.8%的占比成为最常用语言，其次是Python（18.9%）和JavaScript（10.2%）。</p>
+
+<p>评论区的讨论指出，虽然90%的数据看似惊人，但这可能反映了GitHub的一般情况——大多数代码仓库都是个人项目或内部工具，很少获得外部关注。有用户表示："我放在GitHub上的所有代码，无论是否使用Claude，都在零星的仓库中。"另一位用户补充道："这可能是基础率谬误的完美例子——GitHub上有多少活动的目标是少于2星的项目？我猜数字很接近。"</p>
+
+<p>仪表板创建者phantomCupcake在评论中回应，表示实际统计数据可能远超公开GitHub可见的范围，但浏览按提交和代码行数排名的"顶级表现者"时，惊讶于有多少人将所有代码放在公开仓库中。</p>
+
+<p>该仪表板还展示了早期采用者的提交记录，包括2025年2月24日发布当天的候选提交，以及每周新增的114,785个原始仓库（非分支）。系统活动日志实时显示了Claude Code在各种项目中的实际应用，从游戏开发到API文档更新、登录系统实现等多样化场景。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47521157</guid>
+      <pubDate>Wed, 25 Mar 2026 18:16:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 使用 AI 和 MediaWiki 创建个人百科全书：whoami.wiki 项目的故事</title>
       <link>https://news.ycombinator.com/item?id=47522173</link>
@@ -1455,72 +1521,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47448524</guid>
       <pubDate>Fri, 20 Mar 2026 00:22:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Kitten TTS 发布三款新模型，最小版本仅25MB，支持边缘设备语音合成</title>
-      <link>https://news.ycombinator.com/item?id=47441546</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍新发布的AI语音合成模型Kitten TTS，属于新AI模型发布公告，用户很感兴趣。</small></p><p>Kitten TTS 是一个开源的轻量级文本转语音（TTS）模型系列，专为边缘设备设计。近日，团队发布了三个新模型，参数规模分别为 80M、40M 和 14M，其中最小的模型体积小于 25MB，在同类尺寸模型中实现了表达力的新突破。</p>
-
-<img src="https://private-user-images.githubusercontent.com/224667291/551914046-f4646722-ba78-4b25-8a65-81bacee0d4f6.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzM5NTcxODIsIm5iZiI6MTc3Mzk1Njg4MiwicGF0aCI6Ii8yMjQ2NjcyOTEvNTUxOTE0MDQ2LWY0NjQ2NzIyLWJhNzgtNGIyNS04YTY1LTgxYmFjZWUwZDRmNi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMzE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDMxOVQyMTQ4MDJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zZGM4NGNkOTlkYTkxMzEzMjlhY2MwMTdhMDQ2ODkxYTE5ZTNlNmYyOTdhYWRhOGE5MmEwMmM0ZTU4YzQ1ZTExJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.B92ElyVlk_JTpKaLoSmQ_AZz1DujpEIAIVUMlLlXg2I" alt="Kitten TTS" width="607" height="255" />
-
-<p>主要特性包括：</p>
-<ul>
-<li><strong>超轻量级</strong>：模型大小从 25MB（int8 量化）到 80MB，适合在树莓派、低端智能手机、可穿戴设备等边缘设备上部署</li>
-<li><strong>CPU 优化</strong>：基于 ONNX 运行时，无需 GPU 即可高效推理</li>
-<li><strong>8 种内置声音</strong>：四男四女共八种英语语音</li>
-<li><strong>可调节语速</strong>：通过 speed 参数控制播放速度</li>
-<li><strong>文本预处理</strong>：内置管道处理数字、货币、单位等</li>
-<li><strong>24 kHz 输出</strong>：标准采样率的高质量音频</li>
-</ul>
-
-<p>模型分为三个版本：kitten-tts-mini（80M/80MB）、kitten-tts-micro（40M/41MB）和 kitten-tts-nano（15M/25MB int8 量化）。用户可通过 <a href="https://github.com/KittenML/KittenTTS">GitHub</a> 获取，并在 <a href="https://huggingface.co/spaces/KittenML/KittenTTS-Demo">Hugging Face Spaces</a> 上在线体验。</p>
-
-<p>在 Hacker News 社区的 71 条评论中，开发者们提出了多项反馈和建议：</p>
-<ul>
-<li><strong>移动端支持</strong>：用户询问 iOS 版本，作者回应官方移动 SDK 和推理引擎即将发布，目前社区已有非官方实现</li>
-<li><strong>自定义语音</strong>：有用户指出当前语音在商业场景中不够专业，作者表示正在开发 DIY 自定义语音功能，并将在未来几周内发布更专业的语音模型</li>
-<li><strong>多语言支持</strong>：当前仅支持英语，多语言模型预计四月发布，用户对西班牙语、法语、德语等语言需求强烈</li>
-<li><strong>表达控制</strong>：用户希望增加情感标签控制（如 [sarcastically]、[happily]）和音调调节功能，作者表示当前版本不支持标签，但正在考虑添加</li>
-<li><strong>性能表现</strong>：有用户测试在 Intel 9700 CPU 上 80M 模型能达到 1.5 倍实时速度，但在 RTX 3080 GPU 上未见加速，作者邀请提交详细问题以优化 GPU 支持</li>
-<li><strong>与其他模型对比</strong>：用户提及 Kokoro TTS 等小型模型在韵律方面仍有不足，作者承认小模型因容量限制在韵律处理上存在挑战，但表示下一代模型将在保持小尺寸的同时提升质量</li>
-</ul>
-
-<p>团队路线图包括发布优化的推理引擎、移动 SDK、更高质量的 TTS 模型、多语言 TTS 以及 KittenASR（自动语音识别）。商业支持方面，团队提供集成协助、自定义语音开发和企业许可服务。</p>
-
-<p>该项目采用 Apache License 2.0 开源协议，旨在通过开源更多模型，推动生产级语音代理和应用完全在设备端运行，弥补云端与设备端 TTS 应用之间的差距。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47441546</guid>
-      <pubDate>Thu, 19 Mar 2026 15:56:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>macOS 26 更新破坏自定义 DNS 解析，影响本地开发环境</title>
-      <link>https://news.ycombinator.com/item?id=47440759</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题涉及macOS系统更新和DNS基础设施，属于用户不太感兴趣的范畴，但可能影响开发环境</small></p><p>近日，macOS 26 系统更新导致长期存在的自定义 DNS 解析机制出现严重故障，影响了大量开发者的本地工作流。用户报告称，系统升级后，通过 <code>/etc/resolver/</code> 目录配置的私有域名解析完全失效。</p>
-
-<p>根据详细的 bug 报告，问题核心在于 macOS 26 中的 mDNSResponder 服务会拦截所有非 IANA 根域注册的顶级域名查询，并将其视为多播 DNS 请求处理，而不再咨询 <code>/etc/resolver/</code> 意味着必须包含。根据内容决定。</p>
-
-<p>受影响的范围包括：<code>.internal</code>、<code>.test</code>、<code>.home.arpa</code>、<code>.lan</code> 等私有或特殊用途域名。值得注意的是，<code>.test</code> 域名在 RFC 6761 中明确保留用于本地测试，但 macOS 26 仍将其视为 mDNS 专用，这违反了相关标准。</p>
-
-<p>报告提供了完整的复现步骤：安装 dnsmasq、创建解析器文件、刷新 DNS 缓存后，系统级解析工具如 <code>ping</code>、<code>curl</code> 和任何使用 <code>getaddrinfo()</code> 的应用都无法解析自定义域名。网络抓包显示，查询请求从未到达本地 DNS 服务器，而是被 mDNSResponder 内部处理并返回「无此记录」响应。</p>
-
-<p>目前唯一的临时解决方案是手动编辑 <code>/etc/hosts</code> 文件，但这对于动态环境（如 Docker 容器 DNS）极不实用。该问题影响了众多开发工具和工作流：</p>
-<ul>
-<li>使用 dnsmasq + <code>/etc/resolver/</code> 的本地开发环境</li>
-<li>Docker Desktop 的容器名称解析</li>
-<li>Vagrant、Tailscale 等工具的 macOS 集成</li>
-<li>Kubernetes 本地开发工具（minikube、kind、k3d）</li>
-</ul>
-
-<p>在 Hacker News 的讨论中，用户表达了普遍的不满。许多开发者表示因此类「小问题」而考虑转向 Linux。有评论指出，macOS 26 自 9 月发布以来，此问题竟未被广泛发现，令人惊讶。另一些用户则讨论了使用 <code>scutil</code> 配置 DNS 的替代方案，但有人指出某些查询仍会绕过该配置。</p>
-
-<p>关于 bug 报告本身，有用户质疑使用 LLM 撰写报告的质量，认为其中存在明显错误（如提及「macOS 25」这一不存在的版本），可能影响报告的可信度。但支持者认为，工具本身无罪，关键在于使用者的审校。</p>
-
-<p>目前，建议依赖此功能的用户暂缓升级至 macOS 26，等待苹果官方修复。用户已通过 <a href="https://feedbackassistant.apple.com/feedback/22280434">Apple Feedback Assistant</a> 提交了问题报告。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47440759</guid>
-      <pubDate>Thu, 19 Mar 2026 15:06:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
