@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 26 Mar 2026 17:19:25 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Mar 2026 19:23:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 从GitHub迁移到Codeberg的懒人指南</title>
+      <link>https://news.ycombinator.com/item?id=47530330</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍从GitHub迁移到Codeberg的指南，属于编程工具使用经验分享，用户对此类内容感兴趣。</small></p><p>一位开发者分享了从GitHub迁移到开源代码托管平台Codeberg的实践经验，旨在为那些觉得迁移过程繁琐的开发者提供简化方案。文章详细介绍了迁移过程中的关键步骤和主要挑战。</p>
+
+<p>文章指出，仓库本身的迁移相对简单，Codeberg提供了从GitHub直接导入的功能，能够保留issue编号、标签和作者信息。对于GitHub Pages用户，可以使用codeberg.page作为替代方案，虽然不提供正常运行时间服务等级协议（SLO），但作者表示尚未遇到停机问题。</p>
+
+<p>持续集成（CI）被描述为迁移过程中最棘手的部分。GitHub为公共仓库提供免费的macOS运行器和无限容量，而Codeberg则没有这些资源。作者建议开发者考虑跨平台编译，并自托管Forgejo Actions运行器来解决问题。Forgejo Actions的YAML语法和用户界面与GitHub Actions几乎相同，现有的大部分Actions生态系统可以直接使用。</p>
+
+<p>对于旧的GitHub仓库，作者建议更新README文件并归档仓库。虽然可以设置Codeberg向GitHub推送新提交，但这可能导致用户仍在GitHub上提交拉取请求（PR）和评论。一些项目通过禁用GitHub上的issues或编写自动关闭PR的GitHub Action来处理这个问题。</p>
+
+<h3>社区讨论要点</h3>
+<ul>
+<li><strong>CI/CD限制</strong>：多位评论者指出，缺乏免费的macOS运行器是放弃迁移的主要原因之一。Forgejo运行器目前仅提供Linux版本，Windows和macOS支持有限。</li>
+<li><strong>私有仓库政策</strong>：Codeberg作为德国非营利组织，其章程要求专注于自由开源软件（FOSS）和自由内容，因此对私有仓库有严格限制（仅限支持FOSS项目的私有仓库）。</li>
+<li><strong>稳定性和DDoS防护</strong>：有用户反映Codeberg存在停机时间，且缺乏像Cloudflare那样的强大DDoS防护。不过也有用户表示自托管解决方案的稳定性更好。</li>
+<li><strong>自托管替代方案</strong>：讨论中提到了使用简单SSH服务器设置裸git仓库、自托管Forgejo实例等方案，但承认这会增加运维负担。</li>
+<li><strong>平台定位差异</strong>：Codeberg主要面向自由开源软件项目，不适合商业项目或个人非FOSS代码存储。GitLab.com和SourceHut被提及为其他替代方案。</li>
+<li><strong>支持方式</strong>：用户可以通过Liberapay、PayPal等多种方式支持Codeberg，最低捐赠金额可低至每周0.01欧元。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>Codeberg是一个德国注册的非营利协会，其宗旨是"促进自由内容（开放内容、自由文化作品）和自由开源软件（FOSS）及其文档的创建、收集、分发和保存"。这一法律身份决定了其服务重点和限制，特别是对私有仓库的严格政策。Forgejo是Codeberg使用的Git托管软件，它是Gitea的分支，专注于自由软件理念和社区治理。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47530330</guid>
+      <pubDate>Thu, 26 Mar 2026 13:38:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 让生活更轻松（并保持理智）的Shell技巧</title>
       <link>https://news.ycombinator.com/item?id=47525243</link>
@@ -1502,25 +1530,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47448328</guid>
       <pubDate>Fri, 20 Mar 2026 00:01:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code推出Channels功能：通过MCP服务器向运行会话推送事件</title>
-      <link>https://news.ycombinator.com/item?id=47448524</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code编程工具发布Channels新功能，属于用户配置中很感兴趣的编程工具发布/分享类别</small></p><p>Anthropic为其Claude Code工具推出了名为"Channels"的研究预览功能，该功能允许通过模型上下文协议（MCP）服务器将外部事件推送到正在运行的Claude Code会话中。这意味着当用户离开终端时，Claude仍能对CI结果、聊天消息和监控事件等外部事件做出反应。</p>
-
-<p>Channels本质上是双向的MCP服务器插件，可以推送事件到Claude Code会话，同时Claude也能通过同一频道回复。目前研究预览版支持Telegram和Discord两个平台，并提供了一个本地演示fakechat。要使用此功能，用户需要Claude Code v2.1.80或更高版本，并通过claude.ai登录。</p>
-
-<p>设置过程包括：创建Telegram或Discord机器人、安装相应插件、配置令牌、使用<code>--channels</code>标志重启Claude Code，以及通过配对代码验证账户。安全方面，每个批准的频道插件都维护一个发送者白名单，只有添加到列表中的ID才能推送消息。</p>
-
-<p>对于企业和团队组织，管理员需要在管理设置中明确启用channels功能。该功能目前处于研究预览阶段，<code>--channels</code>标志语法和协议合约可能会根据反馈进行调整。</p>
-
-<p>Hacker News社区对此功能反应热烈，获得272分和148条评论。用户们将这一功能与<a href="https://github.com/anthropics/claude-code/issues/11447">openclaw项目</a>进行比较，认为这是对其理念的回应。有评论指出这实质上是"webhook作为MCP"的实现方式。企业安全方面存在分歧：有人认为这符合企业安全需求，因为企业端点已经锁定；但也有安全专家表示担忧，指出企业端点实际上并未充分锁定，用户正在以超出SOC团队调查速度的方式创建新的安全漏洞。</p>
-
-<p>开发者们讨论了实际应用场景，如构建代理间聊天工具、远程触发Claude Code基于事件运行等。一些用户期待Claude Code的后台守护进程模式，以便实现始终在线的设置。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47448524</guid>
-      <pubDate>Fri, 20 Mar 2026 00:22:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
