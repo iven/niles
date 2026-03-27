@@ -3,7 +3,71 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 27 Mar 2026 15:07:39 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2026 17:10:18 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 比 Jq 更快的 JSON 搜索工具：jsongrep 介绍与性能分析</title>
+      <link>https://news.ycombinator.com/item?id=47539825</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新的JSON搜索工具jsongrep，属于编程工具发布和编程效率改进经验，用户会很感兴趣</small></p><p>jsongrep 是一个专注于 JSON 数据搜索的命令行工具，其核心卖点是相比流行的 jq 工具具有显著的性能优势。该工具采用基于确定性有限自动机（DFA）的搜索引擎，通过声明式查询语法来匹配 JSON 路径，而非 jq 那样的命令式过滤语法。</p>
+
+<p>根据作者介绍，jsongrep 的查询语言故意设计得比 jq 更简单，它主要是一个搜索工具而非数据转换工具——能够查找值但不会计算新值，不支持过滤器、算术运算或字符串插值。这种设计选择使其在纯搜索场景下能够实现更高的效率。</p>
+
+<p>性能测试结果显示，jsongrep 在处理大型 JSON 文件时比 jq 和其他类似工具快得多，这对于需要处理 TB 级别换行分隔 JSON（ndjson）文件的用户尤其有吸引力。有评论者表示，在处理大规模数据时，jq 的速度确实成为瓶颈，迫使他们编写专门的 Node.js 或 Rust 脚本来替代。</p>
+
+<p>Hacker News 社区对该工具的反应多样：</p>
+<ul>
+<li>一些用户对性能提升表示赞赏，特别是在处理大数据集时</li>
+<li>部分用户质疑日常使用中是否真的需要比 jq 更快的工具</li>
+<li>有用户指出 jsongrep 缺少 macOS ARM64 原生二进制文件支持</li>
+<li>关于语法易用性的讨论：有人认为 jsongrep 语法更直观，也有人抱怨需要适应与 jq 不同的语法</li>
+<li>替代方案讨论：<a href="https://m.xkcd.com/1205">nushell</a> 被提及作为一个统一多种数据格式处理的 shell 环境，<a href="https://github.com/micahkepe/jsongrep">DuckDB</a> 也被建议用于更复杂的 JSON 查询需求</li>
+<li>极端观点认为“最快的 jq 替代方案就是完全不使用 JSON”</li>
+</ul>
+
+<p>总体而言，jsongrep 为特定使用场景——特别是需要高性能 JSON 搜索而非复杂数据转换的场景——提供了一个有竞争力的选择。它的出现反映了开发者社区对工具性能的持续追求，即使对于看似已经足够快的现有工具也是如此。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47539825</guid>
+      <pubDate>Fri, 27 Mar 2026 07:12:26 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 展示：在7美元/月VPS上以IRC为传输层部署的AI代理系统</title>
+      <link>https://news.ycombinator.com/item?id=47536761</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍AI代理系统的部署架构和技术实现，属于AI软件技术进展类别，用户会感兴趣</small></p><p>作者George Larson详细介绍了如何在廉价VPS上构建一个安全、高效的AI代理系统，用于个人作品集网站的智能交互。该系统采用创新的双代理架构和分层推理策略，将成本控制在每天2美元以内。</p>
+
+<img src="digital-doorman.jpg" alt="nully standing guard outside George's Code Vault" />
+
+<h3>架构设计</h3>
+<p>系统分为两个独立代理：公开代理nullclaw运行在7美元/月的VPS上，是一个678KB的Zig二进制文件，内存占用约1MB；私有代理ironclaw运行在更强大的独立服务器上，处理邮件、日程等敏感任务。两者通过IRC协议通信，形成明确的安全边界。</p>
+
+<h3>技术选择</h3>
+<p>作者选择IRC作为传输层，主要基于三个原因：符合网站终端UI的美学风格、完全自主控制技术栈、以及这个30年历史的协议简单可靠且无供应商锁定。公开代理通过Ergo IRC服务器和gamja网页客户端与访客交互。</p>
+
+<h3>分层推理策略</h3>
+<p>系统采用智能模型调度：使用Claude Haiku 4.5处理问候、简单问题等日常对话（亚秒级响应，成本低廉）；仅在需要工具调用（如克隆仓库、分析代码）时启用Sonnet 4.6。这种设计将成本硬性控制在每天2美元。</p>
+
+<h3>安全加固</h3>
+<p>公开VPS作为边界设备进行了全面加固：仅开放SSH、IRC TLS和HTTPS三个端口；Cloudflare代理处理所有WebSocket流量；代理运行在沙箱环境中，文件访问受限，命令执行有白名单限制；自动安全更新和审计日志。</p>
+
+<h3>A2A创新实现</h3>
+<p>作者实现了Google的A2A（Agent-to-Agent）协议v0.3.0，并设计了凭证传递模式：私有代理借用公开代理的推理管道，只需一个API密钥和计费关系。这意味着无论哪个代理发起请求，都由拥有密钥的代理承担费用，避免了凭证重复和管理复杂性。</p>
+
+<img src="nully-chat.png" alt="nully answering questions in IRC" />
+
+<h3>实际功能</h3>
+<p>与传统的简历聊天机器人不同，该AI代理能够：验证作者的技术栈声明、克隆GitHub仓库分析代码结构、提供具体的项目细节、处理日程安排请求。当访客询问复杂问题时，公开代理会通过私有IRC频道将请求路由给私有代理，整个过程对访客透明。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News社区对该项目反应热烈（304分，88条评论）。部分开发者认为架构过度设计，但更多人赞赏其创新性。关于模型选择，有评论指出OpenRouter上存在更便宜的替代模型（如MiniMax M2.7、Kimi K2.5），但作者解释分层推理是基于响应速度和成本平衡的设计决策。</p>
+
+<h3>作者心得</h3>
+<p>George Larson总结了几点关键经验：模型选择是系统设计的一部分，影响成本、延迟和用户体验；代理本身相对简单，通信栈、安全加固和基础设施集成更耗时；IRC作为AI代理传输层被低估；公私代理分离对安全模型至关重要；A2A协议需要结合可见性工具（如私有IRC频道）才能有效调试。</p>
+
+<p>该项目展示了如何在有限预算下构建安全、可扩展的AI代理系统，为个人开发者和小型项目提供了有价值的参考架构。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47536761</guid>
+      <pubDate>Thu, 26 Mar 2026 22:41:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ ATLAS 框架：500 美元 GPU 在编码基准测试中超越 Claude Sonnet</title>
       <link>https://news.ycombinator.com/item?id=47533297</link>
@@ -1497,53 +1561,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47461378</guid>
       <pubDate>Fri, 20 Mar 2026 22:11:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 将Rust WASM解析器重写为TypeScript后性能提升3倍：边界开销与算法优化是关键</title>
-      <link>https://news.ycombinator.com/item?id=47461094</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 分享Rust WASM解析器重写为TypeScript的性能优化经验，属于编程效率改进，用户很感兴趣</small></p><p>OpenUI团队分享了他们将Rust编写的WASM解析器重写为TypeScript后获得显著性能提升的经验。该解析器用于将LLM生成的自定义DSL转换为React组件树，需要处理流式数据，因此延迟至关重要。</p>
-
-<p>最初使用Rust编译为WASM的方案存在明显的"边界税"：每次调用都需要将字符串从JS堆复制到WASM线性内存，解析后再通过JSON序列化返回，这一过程产生了大量开销。尝试使用serde-wasm-bindgen直接返回JS对象反而使性能下降30%，因为需要大量细粒度的运行时边界转换。</p>
-
-<p>完全用TypeScript重写解析器后，消除了WASM边界开销，单次解析性能提升2.2-4.6倍。但更大的改进来自算法优化：原始的流式架构存在O(N²)问题，每次收到新块都重新解析整个累积字符串。通过实现语句级增量缓存，只重新解析未完成的语句，将复杂度优化到O(N)，使流式总解析成本进一步降低2.6-3.3倍。</p>
-
-<p>性能基准测试显示：</p>
-<ul>
-<li>单次解析：TypeScript（9.3-19.4µs）vs WASM（20.5-61.4µs），提升2.2-4.6倍</li>
-<li>流式总成本：增量TypeScript（69-255µs）vs 原始TypeScript（316-840µs），提升2.6-3.3倍</li>
-</ul>
-
-<p>Hacker News社区讨论指出，真正的性能提升主要来自算法优化而非语言选择。有评论认为标题有些误导，因为O(N²)到O(N)的改进独立于语言重写。其他评论提到，重写代码本身提供了重新思考和优化的机会，这才是性能提升的主要原因。</p>
-
-<p>文章最后总结了WASM的适用场景：计算密集型且交互少的任务（如图像处理、加密），以及移植原生库；不适用于频繁调用的小型函数或需要将结构化文本解析为JS对象的场景，因为边界开销会主导性能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47461094</guid>
-      <pubDate>Fri, 20 Mar 2026 21:48:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Noq：n0团队基于Rust开发的新QUIC实现，支持多路径与NAT穿越</title>
-      <link>https://news.ycombinator.com/item?id=47443588</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍基于Rust的新QUIC实现工具noq，属于编程工具发布/分享，符合用户很感兴趣(high_interest)的类别</small></p><p>n0团队近日正式发布了noq（"number 0 QUIC"），这是一个基于Rust编写的通用QUIC实现，具备多路径（Multipath）和NAT穿越支持。该实现最初从Quinn项目分叉而来，现已发展为独立的代码库，并作为iroh网络库v0.96版本的传输层在生产环境中运行。</p>
-
-<p>分叉决策源于iroh项目对QUIC功能的特殊需求。团队最初尝试在Quinn基础上进行修改，但随着多路径、NAT穿越和中继架构等深度开发，两个项目的迭代周期逐渐脱节。团队在<a href="https://github.com/quinn-rs/quinn/issues/224#issuecomment-3842537530">GitHub讨论</a>中解释了这一决定，强调这并非对Quinn的否定，而是基于特定需求的技术选择。社区对此反应积极，赞赏双方在分叉过程中的礼貌与尊重。</p>
-
-<p>noq的核心特性包括：</p>
-<ul>
-<li><strong>完整的QUIC多路径规范实现</strong>：将中继路径、直接UDP路径等作为一等公民的QUIC路径管理，使QUIC能够感知所有路径并维护每路径的拥塞状态</li>
-<li><strong>QUIC NAT穿越</strong>：基于QUIC NAT穿越草案实现，将打洞操作表达为QUIC级别的操作，提高可靠性和拥塞感知</li>
-<li><strong>QUIC地址发现（QAD）</strong>：替代STUN协议，通过QUIC连接加密学习客户端公网IP地址</li>
-<li><strong>增强的QLog支持</strong>：扩展了QUIC连接日志功能，支持多路径事件记录和可视化</li>
-<li><strong>WeakConnectionHandle</strong>：类似<code>std::sync::Weak</code>的连接句柄类型，便于构建连接管理器</li>
-</ul>
-
-<p>noq已随iroh v0.96版本投入生产，在数十万台设备上运行。团队还进行了与picoquic等参考实现的互操作性测试。未来计划包括进一步改进NAT穿越和基于多路径的性能优化。</p>
-
-<p>Hacker News社区对此次发布反应热烈。用户称赞iroh团队的技术实力，并讨论了多路径RFC的发布时间、中继工作原理等技术细节。有用户指出，noq的TLS认证完全可配置，支持原始公钥（RFC7250），无需DNS或TLS证书即可建立连接。还有用户分享了使用iroh相关工具（如sendme CLI）进行点对点文件传输的积极体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47443588</guid>
-      <pubDate>Thu, 19 Mar 2026 18:17:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
