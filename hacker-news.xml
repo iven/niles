@@ -3,7 +3,59 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 27 Mar 2026 18:01:52 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2026 19:11:29 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code网页端推出云定时任务功能，支持自动化重复工作</title>
+      <link>https://news.ycombinator.com/item?id=47539188</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍Claude Code网页端新推出的云定时任务功能，属于编程工具发布和编程效率改进，用户很感兴趣</small></p><p>Anthropic为其Claude Code产品在网页端推出了云定时任务功能，允许用户设置定期运行的自动化任务，即使计算机关闭也能持续工作。该功能面向所有Claude Code网页端用户，包括Pro、Max、Team和Enterprise版本。</p>
+
+<p>云定时任务可以在Anthropic管理的云基础设施上运行，用户无需保持本地机器开启或会话活跃。主要应用场景包括：每日早晨审查开源拉取请求、夜间分析CI失败并生成摘要、在PR合并后同步文档、每周运行依赖审计等。</p>
+
+<p>Claude Code提供三种调度方式：云任务（运行在Anthropic云端）、桌面任务（需要本地机器运行）和/loop命令（会话内轮询）。云任务的优势在于可靠性高，无需本地机器参与，但无法访问本地文件；桌面任务则可以访问本地文件系统。</p>
+
+<p>创建定时任务可通过网页界面、桌面应用或命令行界面完成。用户需要指定任务名称、运行提示词、GitHub仓库、云环境、调度频率和MCP连接器。任务默认每天上午9点（用户本地时区）运行，支持每小时、每天、工作日和每周等预设频率。</p>
+
+<p>在权限管理方面，默认情况下Claude只能推送到以"claude/"为前缀的分支，防止意外修改受保护分支。用户可以为特定仓库启用"允许无限制分支推送"来解除此限制。</p>
+
+<p>社区反馈显示，用户对该功能表现出浓厚兴趣。有用户表示虽然Max 20x计划只允许创建3个云定时任务，但仍计划用于：每周一运行安全审计和依赖检查、每日监控Sentry错误和日志、每日代码审查和问题发现。其他用户分享了使用该功能自动更新文档、处理GitHub问题、创建拉取请求等实际案例。</p>
+
+<p>讨论中也涉及一些关注点：定价透明度、使用限制、与类似服务（如Grok Tasks）的比较，以及通过MCP连接器访问外部服务的安全性考量。部分用户指出该功能目前不支持截图或广泛的网络访问，主要专注于代码仓库相关的自动化任务。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47539188</guid>
+      <pubDate>Fri, 27 Mar 2026 04:47:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 使用AI一天内重写JSONata为Go库，每年节省50万美元</title>
+      <link>https://news.ycombinator.com/item?id=47536712</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲述使用AI重写JSONata为Go库，显著提升性能并节省成本，涉及编程效率改进经验和AI软件技术进展，用户很感兴趣</small></p><p>Reco.ai公司的一名工程师使用Claude AI在7小时内将JSONata从JavaScript重写为纯Go库gnata，实现了1000倍的性能提升，预计每年可节省50万美元的云计算成本。</p>
+
+<p>JSONata是一种JSON查询和转换语言，Reco.ai在其安全产品中使用它来处理检测规则。由于JSONata的参考实现是JavaScript，而公司的数据处理管道基于Go语言，多年来他们一直在Kubernetes上运行Node.js进程，通过RPC（远程过程调用）让Go服务调用这些进程。这种架构导致每次事件处理都需要序列化、网络传输、评估、结果序列化和返回，产生了巨大的开销。</p>
+
+<p>据公司透露，这种架构每年消耗约30万美元的计算资源，且随着客户和检测规则的增加，成本持续上升。工程师使用AI辅助开发，花费400美元的Claude API tokens，将5500行JavaScript代码转换为13000行Go代码，创建了gnata库。重写后的性能提升了1000倍，消除了网络延迟和序列化开销。</p>
+
+<img src="https://cdn.prod.website-files.com/644fc991ce69ff211edbeb95/69bcc7acd72b5efe1d79806e_Blog%20Image%20Website-02-26.png" alt="" />
+
+<p>Hacker News社区对此事反应强烈，获得了246个赞和228条评论。主要讨论点包括：</p>
+
+<ul>
+<li><strong>成本质疑</strong>：许多评论者难以理解每年30万美元的JSON解析成本，认为这反映了严重的架构问题或资源浪费。</li>
+<li><strong>AI必要性</strong>：有开发者指出JSONata已有其他Go实现，且5500行代码手动移植可能比使用AI更快、更可靠。</li>
+<li><strong>架构批评</strong>：评论者认为最初的RPC架构设计不合理，应该更早考虑集成方案。</li>
+<li><strong>维护担忧</strong>：创建私有fork意味着需要自行维护13000行Go代码，可能带来长期的技术债务。</li>
+<li><strong>营销质疑</strong>：部分评论认为这是SEO营销文章，旨在推广公司的AI安全产品。</li>
+</ul>
+
+<p>技术实现方面，工程师采用了与Cloudflare重写Vinext类似的方法：先将官方的jsonata-js测试套件移植到Go，然后实现评估器直到所有测试通过。这种方法确保了功能兼容性，但评论者指出原始JSONata项目有15个拉取请求和150个未解决问题，长期维护可能成为挑战。</p>
+
+<p>尽管存在争议，这一案例展示了AI辅助代码移植在特定场景下的潜力，同时也引发了关于技术决策、成本优化和工程效率的广泛讨论。</p>
+
+<p><strong>你知道吗？</strong> JSONata是一种专门用于JSON数据查询和转换的表达式语言，其名称来源于"JSON"和"XPath"的组合。它提供了类似SQL的查询语法，允许开发者从复杂的JSON结构中提取和转换数据，广泛应用于API响应处理、数据转换管道和配置管理等领域。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47536712</guid>
+      <pubDate>Thu, 26 Mar 2026 22:36:41 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 比 Jq 更快的 JSON 搜索工具：jsongrep 介绍与性能分析</title>
       <link>https://news.ycombinator.com/item?id=47539825</link>
@@ -1510,57 +1562,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47464134</guid>
       <pubDate>Sat, 21 Mar 2026 05:06:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 注意力残差：Transformer架构中残差连接的改进方法</title>
-      <link>https://news.ycombinator.com/item?id=47458595</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Transformer架构中残差连接的改进方法，属于AI软件技术进展和开源项目，符合用户感兴趣的配置类别。</small></p><p>MoonshotAI团队提出了一种名为注意力残差（AttnRes）的新方法，用于改进Transformer架构中的标准残差连接。该方法通过注意力机制让每一层能够选择性地聚合先前层的表示，解决了标准残差连接中隐藏状态幅度无界增长和层贡献稀释的问题。</p>
-
-<img src="/MoonshotAI/Attention-Residuals/raw/master/assets/overview.png" alt="注意力残差架构对比图" width="800" />
-
-<p>标准残差连接采用固定权重累加所有层的输出，而AttnRes使用softmax注意力机制计算每层对先前层输出的加权和。为了解决全注意力残差（Full AttnRes）在大规模训练中的内存开销问题，团队还提出了块注意力残差（Block AttnRes），将层分组为块并在块级别应用注意力，将内存需求从O(Ld)降低到O(Nd)。</p>
-
-<p>实验结果显示，AttnRes在多个基准测试中全面优于基线模型。在Kimi Linear 48B/3B模型上，多步推理任务GPQA-Diamond提升7.5个百分点，代码生成任务HumanEval提升3.1个百分点。缩放定律分析表明，块AttnRes能够达到基线模型使用1.25倍计算量才能达到的损失水平。</p>
-
-<img src="/MoonshotAI/Attention-Residuals/raw/master/assets/scaling_law.png" alt="缩放定律对比图" width="420" />
-
-<p>社区讨论中，有评论者指出该方法类似于LSTM的输入门机制，并澄清了关于计算节省的误解——虽然训练效率提升约20%，但这不直接影响推理带宽需求。值得注意的是，论文第一作者是一名高中生，这一事实引发了关于人才培养的讨论。</p>
-
-<p>技术实现上，AttnRes作为即插即用的替代方案，能够改善训练动态，使输出幅度保持有界，梯度在各层间分布更均匀。该方法特别适用于需要深度模型的场景，为Transformer架构的进一步发展提供了新思路。</p>
-
-<img src="/MoonshotAI/Attention-Residuals/raw/master/assets/training_dynamics.png" alt="训练动态对比图" width="800" />
-
-<p>相关资源：<a href="https://arxiv.org/abs/2603.15031">论文</a> | <a href="https://github.com/MoonshotAI/Attention-Residuals">GitHub仓库</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47458595</guid>
-      <pubDate>Fri, 20 Mar 2026 18:23:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Ghostling：基于 libghostty C API 的最小化终端模拟器演示项目</title>
-      <link>https://news.ycombinator.com/item?id=47461378</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍基于libghostty C API的终端模拟器工具，属于编程工具发布/分享，用户很感兴趣</small></p><p>Ghostling 是一个基于 libghostty C API 构建的最小化终端模拟器演示项目，旨在展示如何利用 libghostty 库快速创建一个功能完整的终端界面。该项目使用 Raylib 进行窗口管理和 2D 图形渲染，采用单线程设计，代码仅包含一个 C 文件，体现了极简主义理念。</p>
-
-<img src="https://github.com/ghostty-org/ghostling/raw/main/demo.gif" alt="Ghostling Demo" />
-
-<p>libghostty 是从 Ghostty 终端模拟器核心提取的可嵌入库，提供 C 和 Zig API，支持准确的 VT 序列解析、终端状态管理、文本重排、滚动缓冲区等功能。libghostty-vt 是其零依赖版本（甚至不依赖 libc），专注于终端模拟核心逻辑，不包含渲染或窗口代码，由使用者自行实现。</p>
-
-<p>尽管 Ghostling 设计极简，但仍支持丰富的终端功能：窗口调整大小时的文本重排、24 位真彩色和 256 色调色板、粗体/斜体/反色等文本样式、Unicode 和多码点字符处理、键盘输入修饰键支持、Kitty 键盘协议、鼠标跟踪（多种模式）、滚轮支持、滚动条拖拽滚动、焦点报告等。</p>
-
-<p>项目明确表示不会包含标签页、多窗口、分屏、会话管理、配置文件 GUI 或搜索界面等功能，这些被视为 GUI 层应实现的特性，而非终端模拟核心功能。</p>
-
-<h3>社区反馈与讨论</h3>
-<p>开发者对 Ghostling 中通过 CMake 自动生成头文件嵌入字体的技术表示惊讶，认为这是一种跨平台的二进制资源嵌入解决方案。用户 <a href="https://github.com/weedonandscott/trolley">oDot</a> 分享了使用 libghostty 构建的 Trolley 项目，该工具可将 TUI 应用打包为桌面应用，类似于 Electron 对 Web 应用的做法。</p>
-
-<p>关于终端模拟器的功能边界，社区展开了讨论：有用户认为标签页应是窗口管理器的功能而非应用功能，并提及在 Alacritty 相关议题中曾引发争议。Ghostty 用户表示其渲染速度明显优于 iTerm2，特别是在处理大量日志输出时。</p>
-
-<p>还有用户提出了终端窗格嵌套最大化的构想：希望能在保持部分窗格可见的同时隐藏其他窗格，形成可任意深度的嵌套工作区。另有开发者讨论了在嵌入终端场景中 PTY（伪终端）的所有权问题——是应由嵌入的终端模拟器控制，还是由父应用控制，这涉及到接口设计和功能复杂度的平衡。</p>
-
-<p>总体而言，社区对 libghostty 寄予厚望，认为它有望为终端模拟设定新的基准。Ghostling 作为演示项目，成功展示了 libghostty 的灵活性和强大功能，为开发者构建自定义终端界面提供了有价值的参考。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47461378</guid>
-      <pubDate>Fri, 20 Mar 2026 22:11:37 GMT</pubDate>
     </item>
   </channel>
 </rss>
