@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 27 Mar 2026 22:52:09 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2026 23:46:44 GMT</lastBuildDate>
+    <item>
+      <title>macOS 26窗口圆角不一致问题及强制统一解决方案</title>
+      <link>https://news.ycombinator.com/item?id=47547009</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲解 macOS 窗口圆角不一致问题的解决方案，属于系统级 UI 修复，与用户兴趣配置中的明确兴趣点匹配度不高，且用户对 iOS 不感兴趣可能暗示对 Apple 系统技术细节兴趣有限。</small></p><p>一篇技术博客文章探讨了 macOS 26（代号 Tahoe）中窗口圆角设计不一致的问题，作者认为这种不一致性比圆角本身更令人困扰。文章提供了通过代码注入强制统一所有窗口圆角的解决方案，但该方法需要禁用系统完整性保护（SIP），存在安全风险。</p>
+
+<p>作者指出，macOS 26 的窗口圆角设计在不同应用间存在明显差异，尤其是 Safari 等系统应用的圆角效果特别突出。为了解决这个问题，作者 fork 了一个现有的解决方案并修改，通过动态库注入的方式，将所有第三方 GUI 应用的窗口圆角半径统一设置为 23.0。实现代码使用了 Objective-C 运行时的方法交换（method swizzling）技术，修改了 NSThemeFrame 类的相关方法。</p>
+
+<img src="/i/2026-03-27_19-51-20_screenshot.png" alt="macOS 26窗口圆角不一致示例截图" />
+
+<p>文章详细说明了编译、签名和部署步骤，包括创建启动代理以确保动态库在系统启动时自动加载。作者承认这种方法需要禁用 SIP，但认为如果攻击者已经获得机器访问权限，保护 /root 目录的安全意义不大。</p>
+
+<p>在 Hacker News 社区的 155 条评论中，用户观点分歧明显：</p>
+
+<ul>
+<li>部分用户表示从未注意到圆角问题，认为这无关紧要</li>
+<li>一些用户强烈批评 Safari 标签页的「药丸形状」设计，认为比之前版本更丑陋</li>
+<li>有用户指出文章对 SIP 的描述不准确，SIP 的功能远不止控制对 / 目录的写访问</li>
+<li>关于窗口使用习惯的讨论：许多 macOS 用户不习惯最大化窗口，而是让多个窗口重叠或并排显示</li>
+<li>有评论认为这种细节问题反映了 macOS 整体设计上的「分离关注点」缺陷</li>
+<li>也有观点认为，如果操作系统最大的问题是窗口圆角，反而说明该系统相当优秀</li>
+</ul>
+
+<p>文章引发了关于 macOS 设计哲学、用户界面一致性和系统安全权衡的广泛讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47547009</guid>
+      <pubDate>Fri, 27 Mar 2026 19:15:19 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GitHub默认将Copilot交互数据用于AI训练，用户需在4月24日前手动退出</title>
       <link>https://news.ycombinator.com/item?id=47548243</link>
@@ -1526,23 +1554,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47471601</guid>
       <pubDate>Sat, 21 Mar 2026 21:27:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Grafeo - 基于Rust构建的快速、轻量级、可嵌入图数据库</title>
-      <link>https://news.ycombinator.com/item?id=47467567</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Grafeo图数据库的工具发布，属于编程工具分享，符合用户'很感兴趣'的配置项</small></p><p>Grafeo 是一个用 Rust 编写的高性能、可嵌入的图数据库，核心引擎无需 C 语言依赖，支持 Python、Node.js、Go、C、C#、Dart 和 WebAssembly 等多种语言绑定。</p>
-
-<img src="assets/playground.png" alt="Grafeo Playground" />
-
-<p>该数据库在 LDBC 社交网络基准测试中表现优异，无论是嵌入式还是服务器模式都显示出较低的内存占用。其主要特性包括：支持 GQL（ISO 标准）、Cypher、Gremlin、GraphQL、SPARQL 和 SQL/PGQ 等多种查询语言；同时支持标签属性图（LPG）和 RDF 三元组双数据模型；基于 HNSW 的向量相似性搜索；完整的 ACID 事务支持（基于 MVCC 的快照隔离）；以及可直接嵌入应用程序或作为独立服务器运行的能力。</p>
-
-<p>在 Hacker News 的讨论中，社区成员提出了几个关键问题：有用户指出该项目提交历史显示单周代码量达数十万行，怀疑主要由 AI 生成，担心代码质量和架构设计；另一些用户提到近期图数据库领域涌现大量新项目，很多采用 AI 辅助开发，导致选择困难；还有用户询问与 Helix DB 等其他图数据库的对比，以及为何要在数据库中使用 GraphQL 查询语言。部分评论者表示对「用 Rust 编写」的宣传感到厌倦，而更关注实际的技术深度和可靠性。</p>
-
-<p>讨论中还提到了其他相关项目，如 LadybugDB（基于 Kuzu 技术）、agdb 等，并有用户分享了专门收集和分类图数据库的网站 <a href="https://gdb-engines.com">gdb-engines.com</a>。关于生产环境可用的图数据库，有用户推荐了 JanusGraph、DGraph、Apache AGE、HugeGraph、MemGraph 和 ArcadeDB 等开源选项。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47467567</guid>
-      <pubDate>Sat, 21 Mar 2026 14:50:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
