@@ -3,7 +3,50 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Fri, 27 Mar 2026 20:54:06 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2026 21:51:03 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.86 发布：新增会话ID头、修复多项重要bug</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.86</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code作为编程辅助工具的新版本发布，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>Claude Code 发布了 v2.1.86 版本，包含多项功能改进和错误修复。本次更新主要增加了会话标识头以支持代理聚合，并修复了多个关键问题，包括会话恢复、文件操作、内存管理等方面的bug。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增会话ID头</strong>：为API请求添加了 <code>X-Claude-Code-Session-Id</code> 头，使代理能够按会话聚合请求而无需解析请求体</li>
+<li><strong>修复会话恢复问题</strong>：解决了 <code>--resume</code> 在 v2.1.85 之前创建的会话中失败的问题，错误信息为"tool_use ids were found without tool_result blocks"</li>
+<li><strong>修复外部文件操作</strong>：修复了当配置了条件技能或规则时，在项目根目录外的文件（如 <code>~/.claude/CLAUDE.md</code>）上执行 Write/Edit/Read 操作失败的问题</li>
+<li><strong>修复配置写入问题</strong>：解决了每次技能调用时不必要的配置磁盘写入问题，该问题可能导致性能问题和Windows上的配置损坏</li>
+<li><strong>修复内存不足崩溃</strong>：修复了在包含大型转录文件的非常长会话中使用 <code>/feedback</code> 时潜在的内存不足崩溃问题</li>
+<li><strong>修复bare模式问题</strong>：解决了 <code>--bare</code> 模式在交互会话中丢弃MCP工具并静默丢弃中途入队消息的问题</li>
+<li><strong>修复插件权限问题</strong>：修复了官方市场插件脚本在 macOS/Linux 上因"Permission denied"错误而失败的问题（自 v2.1.83 版本起存在）</li>
+<li><strong>修复多实例模型显示</strong>：解决了运行多个 Claude Code 实例并在其中一个中使用 <code>/model</code> 时，状态行显示另一个会话模型的问题</li>
+<li><strong>修复VSCode扩展问题</strong>：修复了扩展在长时间运行操作期间错误显示"Not responding"的问题</li>
+<li><strong>修复模型默认设置</strong>：解决了 Max 计划用户在 OAuth 令牌刷新后（登录后8小时）扩展默认使用 Sonnet 模型的问题</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>将 <code>.jj</code> 和 <code>.sl</code> 添加到版本控制系统目录排除列表，防止 Grep 和文件自动完成功能进入 Jujutsu 或 Sapling 元数据目录</li>
+<li>修复了 <code>c</code> 快捷键只复制约20个字符的 OAuth 登录 URL 而不是完整 URL 的问题</li>
+<li>解决了掩码输入（如 OAuth 代码粘贴）在窄终端上跨多行换行时泄露令牌开头的问题</li>
+<li>修复了在长对话底部使用滚轮滚动或点击选择后，滚动不跟随新消息的问题</li>
+<li>改进了 <code>/plugin</code> 卸载对话框：现在按 <code>n</code> 键正确卸载插件同时保留其数据目录</li>
+<li>修复了点击后按 Enter 键可能使转录空白直到响应到达的回归问题</li>
+<li>解决了删除关键字后 <code>ultrathink</code> 提示残留的问题</li>
+<li>修复了长会话中 markdown/高亮渲染缓存保留完整内容字符串导致的内存增长问题</li>
+<li>减少了配置许多 claude.ai MCP 连接器时的启动事件循环停顿（macOS 钥匙串缓存从5秒延长到30秒）</li>
+<li>减少了使用 <code>@</code> 提及文件时的令牌开销，原始字符串内容不再进行 JSON 转义</li>
+<li>提高了 Bedrock、Vertex 和 Foundry 用户的提示缓存命中率，从工具描述中移除了动态内容</li>
+<li>内存文件名在"已保存N个记忆"通知中现在悬停高亮并可点击打开</li>
+<li>技能描述在 <code>/skills</code> 列表中现在限制为250个字符以减少上下文使用</li>
+<li>更改了 <code>/skills</code> 菜单按字母顺序排序以便浏览</li>
+<li>自动模式现在在因计划限制禁用时显示"您的计划不可用"（原为"暂时不可用"）</li>
+<li>Read 工具现在使用紧凑的行号格式并去重未更改的重读，减少令牌使用</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.86</guid>
+      <pubDate>Fri, 27 Mar 2026 21:42:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.85 版本更新：新增MCP环境变量、条件钩子等多项改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.85</link>
@@ -1518,15 +1561,6 @@
       </description>
       <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.56</guid>
       <pubDate>Wed, 25 Feb 2026 06:27:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 版本 v2.1.55 发布：修复 BashTool 在 Windows 上的 EINVAL 错误</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.55</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude代码版本发布，属于编程工具发布内容，符合用户对编程工具发布的兴趣</small></p><p>该版本主要修复了 BashTool 在 Windows 系统上运行时出现的 EINVAL 错误问题，解决了工具在特定环境下无法正常工作的故障。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.55</guid>
-      <pubDate>Wed, 25 Feb 2026 03:15:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
