@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 27 Mar 2026 21:49:51 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2026 22:52:09 GMT</lastBuildDate>
+    <item>
+      <title>⭐ GitHub默认将Copilot交互数据用于AI训练，用户需在4月24日前手动退出</title>
+      <link>https://news.ycombinator.com/item?id=47548243</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论GitHub Copilot隐私政策变化和AI训练数据使用，属于AI软件技术进展范畴，对程序员用户有参考价值</small></p><p>GitHub近日更新了Copilot AI助手的使用条款，宣布将从4月24日起默认收集用户与Copilot的交互数据用于AI模型训练，除非用户主动选择退出。这一变更引发了开发者社区的广泛关注和争议。</p>
+
+<p>根据GitHub官方说明，此次政策调整主要影响免费、Pro和Pro+ Copilot用户，而商业和企业版用户的数据不会被用于训练。收集的数据类型包括：用户接受或修改的Copilot输出、发送给Copilot的输入代码片段、光标位置的代码上下文、用户编写的注释和文档、文件名和仓库结构、导航模式，以及与Copilot聊天、内联建议等功能的交互数据。</p>
+
+<p>GitHub员工在讨论中澄清，公司不会训练用户私有仓库中静态存储的代码内容，仅训练与Copilot的交互数据。如果用户不使用Copilot，则完全不受此政策影响。然而，用户仍需通过<a href="https://github.com/settings/copilot/features">设置页面</a>手动关闭数据收集选项，否则将被默认加入训练计划。</p>
+
+<p>Hacker News社区对此反应强烈，许多开发者批评这种“默认加入”（opt-out）机制不合理，认为用户隐私应得到更好保护。有用户指出，早在2023年就预测到“任何能够自由访问用户数据的公司最终都会更新服务条款，将数据用于AI训练”。</p>
+
+<p>讨论中出现了多种应对方案：部分用户建议完全停止使用GitHub，转而采用GitLab、Forgejo或Gitea等自托管解决方案；也有用户认为企业版虽然目前豁免，但未来政策可能变化，不应过度信任大型科技公司的承诺。还有开发者分享了通过容器化部署Forgejo实例的经验，强调自托管方案在响应速度和稳定性方面的优势。</p>
+
+<p>这场讨论反映了开发者群体对AI时代数据隐私的普遍担忧，以及大型平台服务条款变更对开源生态的潜在影响。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47548243</guid>
+      <pubDate>Fri, 27 Mar 2026 21:04:51 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ CERN将托管欧洲旗舰开放获取出版平台Open Research Europe</title>
       <link>https://news.ycombinator.com/item?id=47534629</link>
@@ -1524,61 +1543,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47467567</guid>
       <pubDate>Sat, 21 Mar 2026 14:50:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ FFmpeg入门指南：架构解析与代码示例（2024）</title>
-      <link>https://news.ycombinator.com/item?id=47463547</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] FFmpeg是一个开源多媒体框架，属于编程工具发布/分享和开源项目，用户对此很感兴趣，故评为critical。</small></p><p>这篇教程文章为开发者提供了FFmpeg的高层架构概述和实用入门指南，详细介绍了FFmpeg的核心组件、库结构以及如何使用C代码进行多媒体流的解复用和解码操作。</p>
-
-<h3>FFmpeg核心组成</h3>
-<p>FFmpeg由一系列工具和库构成：</p>
-<ul>
-<li><strong>命令行工具</strong>：ffmpeg（格式转换）、ffplay（简单媒体播放器）、ffprobe（流分析器）</li>
-<li><strong>核心库</strong>：libavformat（I/O和复用/解复用）、libavcodec（编解码）、libavfilter（基于图的过滤器）、libavdevice（输入输出设备）、libavutil（通用多媒体工具）、libswresample（音频重采样）、libswscale（颜色转换和图像缩放）、libpostproc（视频后处理）</li>
-</ul>
-
-<h3>多媒体处理流程</h3>
-<p>文章通过代码示例详细展示了如何从多媒体文件中提取音视频流并解码为原始数据。基本流程包括：</p>
-
-<img src="/llepage/ffmpeg-101/hs6foSB1wL-1371.svg" alt="basic processing" width="1371" height="433" />
-
-<ol>
-<li>使用AVFormatContext打开多媒体文件并分析流信息</li>
-<li>通过avformat_find_stream_info识别文件中的各个流（音频、视频等）</li>
-<li>为每个流查找对应的解码器（AVCodec）</li>
-<li>创建AVCodecContext配置解码器参数</li>
-<li>使用AVPacket结构从输入文件中提取编码数据包</li>
-<li>通过AVCodecContext将数据包解码为AVFrame（原始视频帧或音频样本）</li>
-</ol>
-
-<h3>代码实现详解</h3>
-<p>教程提供了完整的C代码示例，展示了如何：</p>
-<ul>
-<li>分配和初始化FFmpeg数据结构</li>
-<li>遍历多媒体文件中的所有流并输出详细信息（时间基准、帧率、持续时间、编解码器类型等）</li>
-<li>针对视频流查找H.264等编解码器并获取分辨率信息</li>
-<li>针对音频流获取声道数和采样率</li>
-<li>实现解码循环：发送数据包到解码器并接收解码后的帧</li>
-</ul>
-
-<img src="/llepage/ffmpeg-101/MbzZkaOoOX-635.svg" alt="processing diagram" width="635" height="602" />
-
-<h3>构建与运行</h3>
-<p>文章提供了使用Meson和Ninja构建系统的完整构建指南，并展示了运行示例代码后的输出结果，包括对sample.mp4文件的详细分析：视频流为H.264编码（206×80分辨率），音频流为AAC编码（2声道，44.1kHz采样率）。</p>
-
-<h3>社区反馈与推荐资源</h3>
-<p>Hacker News社区用户对文章反响积极，并推荐了其他深入学习资源：</p>
-<ul>
-<li>用户推荐Leandro Moreira的<a href="https://github.com/leandromoreira/ffmpeg-libav-tutorial">FFmpeg/libav教程</a>，认为是最全面深入的解释</li>
-<li>另有用户分享了另一个FFmpeg指南链接</li>
-<li>多位用户表达了对FFmpeg工具的赞赏，称其为"超能力"工具，常用于视频处理任务</li>
-</ul>
-
-<p>这篇教程为希望深入了解FFmpeg内部工作原理的开发者提供了实用的起点，通过实际代码演示了多媒体处理的核心概念。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47463547</guid>
-      <pubDate>Sat, 21 Mar 2026 02:47:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
