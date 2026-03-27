@@ -3,7 +3,61 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 27 Mar 2026 19:11:29 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2026 19:50:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 深入了解.claude/文件夹结构：Claude Code配置完全指南</title>
+      <link>https://news.ycombinator.com/item?id=47543139</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍AI编程助手Claude的配置指南，属于编程效率改进经验，用户对此类内容很感兴趣</small></p><p>本文详细解析了Claude Code中.claude文件夹的完整结构，为开发者提供配置AI编码助手的实用指南。文章指出，虽然许多用户将.claude文件夹视为黑盒，但实际上它是控制Claude在项目中行为的核心配置中心。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!TT1n!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc772fb7f-94c1-42e6-83f9-c040ab875309_1068x600.png" alt=".claude文件夹控制中心示意图" width="1068" height="600" />
+
+<h3>双重文件夹结构</h3>
+<p>文章首先澄清存在两个.claude目录：项目级文件夹包含团队配置（可提交到git），而全局~/.claude/文件夹存储个人偏好和机器本地状态，如会话历史和自动记忆。</p>
+
+<h3>核心配置文件详解</h3>
+<p><strong>CLAUDE.md</strong>被描述为"Claude的指令手册"，是系统启动时首先读取的文件。作者建议保持简洁（不超过200行），包含构建命令、架构决策、非明显陷阱和项目约定，避免冗长的理论解释。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!Bdok!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0bddbd7c-d987-4c70-a38b-44db8104f8d7_680x369.png" alt="CLAUDE.local.md个人覆盖说明" width="680" height="369" />
+
+<p><strong>CLAUDE.local.md</strong>用于个人偏好覆盖，自动被git忽略，确保个人调整不会进入代码库。</p>
+
+<h3>模块化配置组件</h3>
+<p><strong>rules/文件夹</strong>解决大型团队中CLAUDE.md过长的问题，允许按关注点拆分指令文件，并支持路径范围规则。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!fLrt!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F692fdd01-f40d-4d30-9947-de28aec0bad7_680x369.png" alt="commands/文件夹自定义斜杠命令示例" width="680" height="369" />
+
+<p><strong>commands/文件夹</strong>允许创建自定义斜杠命令，使用!``语法嵌入shell命令输出，支持参数传递。项目命令与团队共享，个人命令存储在全局目录。</p>
+
+<p><strong>skills/文件夹</strong>包含可自动触发的工作流，与命令不同，技能可以在任务匹配描述时由Claude自行调用。每个技能都是包含SKILL.md和支持文件的完整包。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!tVYn!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9b9ba300-beed-43b3-a6cd-919715885bdb_680x370.png" alt="skills与commands区别示意图" width="680" height="370" />
+
+<p><strong>agents/文件夹</strong>定义专门的子代理角色，每个代理有自己的系统提示、工具访问和模型偏好，适用于复杂任务的专业处理。</p>
+
+<h3>权限与配置管理</h3>
+<p><strong>settings.json</strong>控制Claude的权限，包含允许列表（无需确认的命令）、拒绝列表（完全阻止的命令）和需要确认的中间地带。settings.local.json提供个人权限覆盖。</p>
+
+<h3>社区讨论反馈</h3>
+<p>在Hacker News的126条评论中，开发者们展开了多方面讨论：</p>
+<ul>
+<li><strong>可视化风格争议</strong>：部分用户批评文章中"纳米香蕉卡通信息图"分散注意力，认为这是"图表垃圾"</li>
+<li><strong>技术准确性质疑</strong>：有评论指出CLAUDE.md并非"最重要文件"，Claude不会在会话开始时立即读取，且其效果受上下文压缩影响</li>
+<li><strong>工作流批评</strong>：开发者将当前AI编码助手工作流描述为"提示与祈祷"，质疑其实际工程价值</li>
+<li><strong>标准化需求</strong>：用户希望不同模型提供商能收敛到标准文件集，便于在Claude、Codex、Cursor等工具间切换</li>
+<li><strong>团队协作挑战</strong>：讨论指出当多个开发者使用AI工具时，共享配置和避免代码重复成为新问题</li>
+</ul>
+
+<img src="https://substackcdn.com/image/fetch/$s_!ZHzE!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fefd043e5-89f6-4538-9a50-f0a8e2c41047_680x370.png" alt="agents/文件夹结构示意图" width="680" height="370" />
+
+<h3>实用设置建议</h3>
+<p>文章最后提供渐进式设置建议：从运行/init生成基础CLAUDE.md开始，逐步添加commands、skills和agents。完整结构展示了项目级和全局配置的协同工作方式，为团队和个人提供灵活的AI助手定制方案。</p>
+
+<p>尽管社区对AI生成内容和"提示工程"的有效性存在争议，但本文为希望深入配置Claude Code的开发者提供了详细的技术参考。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47543139</guid>
+      <pubDate>Fri, 27 Mar 2026 14:35:45 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code网页端推出云定时任务功能，支持自动化重复工作</title>
       <link>https://news.ycombinator.com/item?id=47539188</link>
@@ -1527,41 +1581,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47455138</guid>
       <pubDate>Fri, 20 Mar 2026 14:33:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 26.04终结46年sudo密码静默输入传统，改为显示星号反馈</title>
-      <link>https://news.ycombinator.com/item?id=47464134</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Ubuntu系统sudo密码输入显示星号的用户体验改进，属于软件新功能和开源项目范畴，符合用户对软件技术进展的兴趣。</small></p><p>Ubuntu 26.04 LTS "Resolute Raccoon" 将结束自1980年以来sudo命令密码输入时不显示任何视觉反馈的传统，改为每个按键显示一个星号(*)。这一改变源于sudo-rs项目（sudo的Rust语言重写实现）默认启用了pwfeedback选项，引发了Linux社区关于安全性与用户体验的激烈争论。</p>
-
-<img src="https://pbxscience.com/wp-content/uploads/2025/12/cc251204-ubuntu.webp" alt="Ubuntu 26.04 Ends 46 Years of Silent sudo Passwords" width="640" height="427" />
-
-<p>自1980年Bob Coggeshall和Cliff Spencer在纽约州立大学布法罗分校创建sudo以来，其静默密码提示一直是默认行为，旨在防止"肩窥"攻击者通过计数按键次数猜测密码长度。这一传统在近半个世纪中基本未变，直到Linux Mint率先在其sudo配置中默认启用视觉反馈。</p>
-
-<p>Ubuntu的变革催化剂是sudo-rs——经典C语言实现的Rust重写版本。Canonical从Ubuntu 25.10开始将sudo-rs作为默认sudo实现，并在Ubuntu 26.04开发版本中合并了启用pwfeedback的补丁。只有sudo-rs路径会显示星号，传统的sudo包（有时标记为sudo-ws）不受影响。</p>
-
-<p><strong>安全争论双方观点：</strong></p>
-<ul>
-<li><strong>反对者</strong>认为这会暴露密码长度，削弱安全性，且破坏了比许多用户年龄还长的历史安全措施。</li>
-<li><strong>支持者</strong>（包括sudo-rs开发者）指出，隐藏密码长度的安全效益在实践中微乎其微——任何能数清屏幕上星号的人，也完全能直接听到或看到按键。更重要的是，大多数用户的sudo密码与登录密码相同，而图形登录界面已经显示占位符点，在终端隐藏星号只是"安全剧场"。</li>
-</ul>
-
-<p>偏好传统静默提示的用户可以通过修改sudoers文件恢复原行为：使用<code>sudo visudo</code>命令添加<code>Defaults !pwfeedback</code>行即可立即生效。</p>
-
-<p>这一改变是Ubuntu 26.04更广泛现代化的一部分，该版本还将搭载GNOME 50（仅Wayland）、Linux内核7.0，并进一步采用基于Rust的核心工具，包括uutils/coreutils（标准Unix命令行工具的Rust重实现）。</p>
-
-<p><strong>社区反馈显示意见分歧：</strong></p>
-<ul>
-<li>许多用户支持这一改变，认为静默提示在SSH高延迟连接中令人困惑，且实际安全效益有限。</li>
-<li>批评者担心这会降低安全性，并质疑为何要在所有用户中默认启用，而不是让有需要的企业IT部门自行配置。</li>
-<li>有开发者透露，推动此改变的部分原因是sudo中无效密码的2秒延迟问题，而PAM维护者不愿修改该设计。</li>
-<li>还有评论指出，一些前沿Linux发行版（如GNOME OS）正在完全移除sudo，转而使用systemd的run0，通过Polkit提供更现代的认证体验。</li>
-</ul>
-
-<p>Ubuntu 26.04 LTS计划于2026年4月23日发布，届时数百万用户将默认看到密码输入时的星号反馈。开发者认为，默认设置应优先考虑被空白提示困惑的新用户，而非珍视传统的老用户，但恢复传统的选项仍掌握在用户手中。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47464134</guid>
-      <pubDate>Sat, 21 Mar 2026 05:06:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
