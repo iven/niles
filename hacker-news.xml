@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 28 Mar 2026 13:18:03 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2026 14:50:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 西班牙全部8,642条法律纳入Git仓库，每次修订即一次提交</title>
+      <link>https://news.ycombinator.com/item?id=47553798</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源项目：将西班牙法律作为Git仓库进行版本管理，展示了Git在非传统领域的应用，属于用户感兴趣的开源项目范畴。</small></p><p>开发者 Enrique Lopez 创建了一个名为 Legalize 的项目，将西班牙全部 8,642 条国家法律转换为 Markdown 文件并放入 Git 仓库，每次法律修订都作为一个独立的提交，完整记录了自 1960 年以来的法律变迁历史。</p>
+
+<p>该项目利用西班牙官方公报（BOE）的开放数据 API，自动将法律文本转换为结构化的版本控制格式。每条法律对应一个 Markdown 文件，文件开头包含 YAML 格式的元数据，如标题、标识符、发布日期和最新更新日期等。每次法律修订都生成一个 Git 提交，提交日期即为该修订的官方发布日期，提交信息包含修订标识符和官方来源链接。</p>
+
+<p>仓库目前包含 27,866 次提交，涵盖了西班牙宪法、组织法、普通法、皇家法令等多种法律类型。用户可以通过标准的 Git 命令查看法律的历史修改记录，例如使用 <code>git log</code> 查看某条法律的所有修订，或使用 <code>git diff</code> 精确查看特定修订的具体变化。</p>
+
+<p>Hacker News 社区对该项目反响热烈，主要讨论点包括：</p>
+<ul>
+<li>时间范围问题：有用户指出提交历史似乎不完整，自 2000 年以来只有 26 次提交</li>
+<li>法律与判例的关系：有评论建议将法院判决与对应法律条文关联，以展示法律解释的演变，但其他用户指出西班牙属于民法体系，判例不具有严格约束力</li>
+<li>国际比较：用户提到德国联邦议院有官方 Git 仓库（但可能已废弃），法国 Legifrance 网站也提供法律版本对比功能</li>
+<li>法律行业效率：多位用户批评法律行业和立法者故意保持法律文本的复杂性和不透明性，以维持专业壁垒和收入</li>
+<li>扩展应用：有用户认为这是让大型语言模型（LLM）更可靠地回答法律问题的好方法</li>
+<li>地域适用性：用户询问法律层级问题，因为西班牙有自治区和市镇的地方性法律</li>
+</ul>
+
+<p>项目作者表示正在探索商业化可能性，可能提供结构化的立法 API 供法律科技和合规领域使用，或作为开放的公共数据集。项目代码和工具采用 MIT 许可证，而法律文本本身属于公共领域。</p>
+
+<p><strong>你知道吗？</strong></p>
+<p>西班牙法律体系属于民法体系（civil law system），与英美等国的普通法体系（common law system）不同。在民法体系中，成文法典是主要的法律渊源，法院判例不具有严格的先例约束力，立法机关对法律修改拥有完全的「提交权限」。这种体系特点使得将法律文本纳入版本控制系统显得尤为合适，因为法律演变主要通过正式的立法修订而非判例积累来实现。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47553798</guid>
+      <pubDate>Sat, 28 Mar 2026 12:01:27 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ jai：轻量级 Linux 沙盒，保护文件系统免受 AI 代理误操作</title>
       <link>https://news.ycombinator.com/item?id=47550282</link>
@@ -1519,69 +1547,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47471801</guid>
       <pubDate>Sat, 21 Mar 2026 21:49:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ JavaScript依赖膨胀的三大支柱</title>
-      <link>https://news.ycombinator.com/item?id=47473718</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题为JavaScript依赖膨胀的三大原因及解决方案，属于编程效率改进经验，用户很感兴趣</small></p><p>这篇文章深入分析了JavaScript生态系统中依赖树日益膨胀的三个主要原因，并提出了相应的解决方案。</p>
-
-<p>作者指出，随着e18e社区的壮大和性能优化贡献的增加，"清理"倡议正在推进，但依赖膨胀问题依然严重。文章将这一问题归纳为三大支柱：</p>
-
-<h3>1. 对旧运行时的过度支持</h3>
-<p>许多包为了支持极旧的引擎（如ES3时代的IE6/7或早期Node.js）而存在。这些包主要解决三个问题：</p>
-<ul>
-<li>支持非常古老的引擎（缺少Array.prototype.forEach等ES5特性）</li>
-<li>防止全局命名空间被篡改（Node.js的"primordials"概念）</li>
-<li>处理跨域值（cross-realm values），如iframe间的对象传递</li>
-</ul>
-<img src="/assets/images/is-string-graph.png" alt="is-string dependency graph" />
-<p>问题在于，绝大多数开发者并不需要这些功能，他们使用近10年的Node.js版本或现代浏览器，却被迫承担这些兼容性成本。</p>
-
-<h3>2. 原子化架构的过度应用</h3>
-<p>一些开发者主张将包拆分到原子级别，创建可复用的小型构建块。这导致了极其细分的包结构：</p>
-<img src="/assets/images/execa-graph.png" alt="execa dependency graph" />
-<ul>
-<li>shebang-regex：仅包含一个正则表达式</li>
-<li>arrify：将值转换为数组的简单函数</li>
-<li>path-key：获取PATH环境变量键名</li>
-</ul>
-<p>然而，这些"原子包"往往成为单用途包（只有一个消费者）或导致代码重复。更重要的是，每个包都增加了供应链攻击面，如去年发生的维护者被入侵事件就影响了数百个这样的微型包。</p>
-
-<h3>3. 过时的"Ponyfills"</h3>
-<p>Ponyfills是库作者使用的填充方案，它们不污染全局环境，而是通过导入提供功能。问题在于，当这些功能已被所有主流引擎原生支持多年后，这些ponyfills仍然被保留。</p>
-<img src="/assets/images/eslint-plugin-react-polyfills.svg" alt="eslint-plugin-react polyfills" />
-<p>例如：</p>
-<ul>
-<li>globalthis：为globalThis提供填充（2019年已广泛支持）</li>
-<li>object.entries：为Object.entries提供填充（2017年已广泛支持）</li>
-</ul>
-<p>这些过时的填充库每周仍有数百万下载量，增加了不必要的负担。</p>
-
-<h3>解决方案</h3>
-<p>作者提出了几个实用工具和方法：</p>
-<ul>
-<li><strong>knip</strong>：帮助发现和移除未使用的依赖</li>
-<li><strong>e18e CLI</strong>：分析依赖并提供替代建议，如将chalk迁移到更轻量的picocolors</li>
-<li><strong>npmgraph</strong>：可视化依赖树，识别膨胀来源</li>
-<li><strong>模块替换项目</strong>：记录可被原生功能替代的包</li>
-</ul>
-<img src="/assets/images/eslint-graph.png" alt="eslint dependency graph" />
-
-<h3>社区反馈</h3>
-<p>Hacker News社区的评论反映了对这一问题的广泛共鸣：</p>
-<ul>
-<li>有开发者指出Rust生态也出现了类似的微包趋势</li>
-<li>Docker用户提到每个额外依赖都会增加镜像大小和构建复杂度</li>
-<li>许多开发者赞同减少依赖、使用原生功能的做法</li>
-<li>有评论认为这本质上是技术债务问题，ES5支持已有13年历史</li>
-<li>部分开发者提倡编写无依赖的JavaScript，认为现代标准库已足够强大</li>
-</ul>
-
-<p>文章最后强调，整个社区都在为极少数人的特殊需求支付成本，这种情况需要逆转。通过工具辅助和社区协作，可以逐步清理这些历史遗留的膨胀问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47473718</guid>
-      <pubDate>Sun, 22 Mar 2026 02:04:31 GMT</pubDate>
     </item>
   </channel>
 </rss>
