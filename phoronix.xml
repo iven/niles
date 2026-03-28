@@ -3,7 +3,54 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 28 Mar 2026 10:51:53 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 28 Mar 2026 11:39:51 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ LLVM DTLTO 显著提升文件链接添加性能，Windows 和 Linux 均获大幅改进</title>
+      <link>https://www.phoronix.com/news/LLVM-DTLTO-Faster-Files-Link</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍LLVM编译器的DTLTO性能优化，属于编程工具发布和编程效率改进，用户配置中为high_interest，故判断为必看内容</small></p><p>LLVM 编译器基础设施的分布式 ThinLTO（DTLTO）功能近期获得了一项重要性能改进，解决了在添加文件到链接时出现的瓶颈问题。这项改进由 Ben Dunbobbin 贡献，已在本周合并到 LLVM 代码库中。</p>
+
+<p>在极端测试场景下，Windows 系统（AMD Ryzen 16 核处理器）上添加文件到链接的时间从约 2799 毫秒大幅降低至 157 毫秒。Linux 系统上的性能提升同样显著，从约 255 毫秒减少到约 41 毫秒。</p>
+
+<p>技术层面，该补丁允许客户端向 DTLTO ThinLTO 后端可选地提供 AddBufferFn 回调函数。当该回调可用时，后端能够更高效地将文件添加到链接中，特别是在 ThinLTO 缓存未使用的情况下。这一改动仅涉及数十行代码的调整，却带来了显著的相对性能提升。</p>
+
+<p>测试基于 Clang 链接（调试版本，包含消毒器和插桩），使用优化工具链（PGO 非 LTO，llvmorg-22.1.0）。该改进将成为 LLVM/Clang 23 的一部分。</p>
+
+<section>
+<h3>你知道吗？</h3>
+<p>DTLTO（分布式 ThinLTO）是 LLVM 中 ThinLTO（链接时优化）的增强版本，旨在支持分布式构建环境，允许并行处理优化任务以加速大型项目的编译过程。ThinLTO 本身是 LLVM 的一种链接时优化技术，它在编译阶段保留部分中间表示，以便在链接时进行跨模块优化。</p>
+</section>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-DTLTO-Faster-Files-Link</guid>
+      <pubDate>Sat, 28 Mar 2026 11:28:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Gedit 50发布：禁止AI/LLM贡献并计划加快更新节奏</title>
+      <link>https://www.phoronix.com/news/Gedit-50-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Gedit作为Linux桌面文本编辑器发布新版本并禁止AI贡献，属于编程工具发布和Linux桌面技术，用户对编程工具发布很感兴趣，对Linux桌面技术感兴趣，综合判断为推荐阅读</small></p><p>GNOME图形文本编辑器Gedit近日发布了50版本，与GNOME 50桌面环境同步。开发团队宣布将禁止人工智能/大语言模型（AI/LLM）驱动的代码贡献，并计划在2026年加快发布节奏。</p>
+<p>尽管许多Linux发行版已改用GNOME Text Editor作为默认文本编辑器，但Gedit仍在持续开发中。部分用户仍偏好Gedit，因其在加载大型XML文件时性能更快，且查找/替换功能支持跨标签页和文档操作。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=gedit_med" alt="gedit" />
+<p>Gedit 50的更新包括翻译改进、文档优化等。新版文档明确禁止AI/LLM贡献，仅允许将问题和评论翻译成英文的例外情况。开发团队还表示将增强工具库支持、简化文档加载流程并完善代码补全框架。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Gedit-50-Released</guid>
+      <pubDate>Sat, 28 Mar 2026 11:11:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>Fish 4.6 发布：支持 systemd 环境变量及多项改进</title>
+      <link>https://www.phoronix.com/news/Fish-4.6-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Fish Shell更新支持systemd环境变量，属于系统工具更新，用户配置中无明确兴趣或避开，但也不属于high_interest范畴，故为可选内容</small></p><p>Fish Shell 4.6 版本今日发布，这个基于 Rust 的交互式 shell 为 Linux 等平台带来了多项改进。新版本增加了对 SHELL_PROMPT_PREFIX、SHELL_PROMPT_SUFFIX 和 SHELL_WELCOME 环境变量的支持。这些变量由 systemd 从 2024 年开始设置，用于在左侧提示符前后自动添加内容，并在启动后显示欢迎信息。systemd 的 run0 等软件会使用这些环境变量。</p>
+
+<img src="https://www.phoronix.net/image.php?id=2026&image=fish_46" alt="Fish 4.6 new environment variables" />
+
+<p>此外，Fish 4.6 还改进了 emoji 图标的宽度处理，标签补全分页器现在将每列描述左对齐，并优化了 set_color 功能。其他一些细微的增强也包括在内。</p>
+
+<p>这些环境变量的支持源于 2024 年的 systemd 拉取请求，旨在增强 shell 提示符和欢迎消息。Fish Shell 从 2024 年开始跟踪此需求，并在最新版本中实现了相关功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Fish-4.6-Released</guid>
+      <pubDate>Sat, 28 Mar 2026 10:54:33 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ KDE Plasma 6.7 解决五年旧请求：新增麦克风测试功能</title>
       <link>https://www.phoronix.com/news/KDE-Plasma-6.7-Microphone</link>
@@ -853,65 +900,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Microsoft-DXGKRNL-Linux-v4</guid>
       <pubDate>Thu, 19 Mar 2026 21:21:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>Thunderbird公布2026年路线图：完善Exchange支持，更新日历界面</title>
-      <link>https://www.phoronix.com/news/Thunderbird-Roadmap-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Thunderbird邮件客户端的功能更新，属于软件新功能类别，用户感兴趣但非核心关注领域</small></p><p>Thunderbird近日公布了其公开路线图网站，让用户能够更清晰地了解这款邮件客户端在桌面版、Android和iOS版本上的当前及未来开发计划。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=thunderbird_roadmap_med" alt="Thunderbird desktop roadmap" />
-
-<p>在桌面版方面，Thunderbird计划完成对Microsoft Exchange协议的支持，使其能够兼容所有版本的Exchange和Microsoft 365，并实现日历和通讯录的集成。同时，团队正在开发全局的"Panorama"数据库，并计划进行测试。此外，Thunderbird的附加组件API也将得到改进和扩展。</p>
-
-<p>其他桌面版的规划包括：增强首次用户体验、更新日历的用户界面和体验、改进设置界面，以及提升加密和安全性。</p>
-
-<p>对于Android和iOS移动版本，Thunderbird正在对从K9获取的源代码进行现代化改造，改进消息视图和消息列表，并增加对HTML签名的支持。</p>
-
-<p>在服务和基础设施方面，路线图包括完成Send用户界面、实现活跃会话跟踪、支持多因素认证、改进Pro附加组件的集成，以及增强Thunderbird Pro的概念验证版网页邮件视图。</p>
-
-<p>更多详细内容可查阅<a href="https://blog.thunderbird.net/">Thunderbird博客</a>，或直接访问<a href="https://roadmaps.thunderbird.net/">公开路线图网站</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Thunderbird-Roadmap-2026</guid>
-      <pubDate>Thu, 19 Mar 2026 19:42:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Wayland 1.25正式发布：颜色管理文档完善，新增多项功能</title>
-      <link>https://www.phoronix.com/news/Wayland-1.25-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为 Wayland 1.25 发布，属于 Linux 桌面技术，根据来源配置用户对此感兴趣 (interest)</small></p><p>Wayland 显示服务器协议近日发布了 1.25 稳定版本，这是继本月早些时候的候选版本后的正式更新。此次版本主要完善了颜色管理相关文档，并对协议文档进行了现代化改造。</p>
-
-<p>主要更新内容包括：</p>
-<ul>
-<li>颜色管理相关内容现已完全文档化，为开发者提供了更清晰的参考</li>
-<li>文档格式从传统的 DocBook 转换为现代化的 mdBook 格式</li>
-<li>新增 "frozen" 属性，用于支持具有多个父接口的接口</li>
-<li>新增 wl_surface.get_release 请求，支持每提交缓冲区释放回调</li>
-<li>新增 wl_display_dispatch_pending_single() 函数，用于调度单个事件</li>
-<li>WAYLAND_DEBUG 输出现在支持彩色显示，提升了终端调试体验</li>
-</ul>
-
-<p>此次更新通过邮件列表公告发布，目前已有 5 条相关评论。这些改进旨在提升 Wayland 协议的可维护性和开发者体验，为未来的图形栈发展奠定基础。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Wayland-1.25-Released</guid>
-      <pubDate>Thu, 19 Mar 2026 16:20:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GNUnet 0.27发布：仅适合有&quot;合理痛苦承受能力&quot;的早期采用者</title>
-      <link>https://www.phoronix.com/news/GNUnet-0.27-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍GNUnet 0.27新软件项目发布，属于来源配置中很感兴趣的新软件项目类别</small></p><p>GNUnet 0.27版本已发布，这是一个用于构建去中心化对等网络的开源框架。作为主要版本更新，它删除了GNUNET_CRYPTO_symmetric_derive_iv API，并弃用了GNUNET_CRYPTO_symmetric_*系列API，同时更新了其他接口。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=gnunet_sml" alt="GNUnet logo" />
-
-<p>发布公告明确提醒用户注意：该框架在易用性方面仍存在多个已知问题，特别是移动用户可能面临严重的隐私风险。此外，由于网络规模尚小，无法提供良好的匿名性或丰富的信息资源。因此，0.27.0版本仅适合那些具备"合理痛苦承受能力"的早期采用者。</p>
-
-<p>公告详细列出了当前版本的主要问题：TRANSPORT子系统存在重大缺陷；CADET子系统的实现限制影响了性能；FS子系统的设计问题降低了可用性和性能；SET子系统的实现限制增加了可用性攻击面；RPS子系统仍处于实验阶段。</p>
-
-<p>感兴趣的开发者可通过<a href="https://GNU.org">GNU.org</a>获取GNUnet 0.27版本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNUnet-0.27-Released</guid>
-      <pubDate>Thu, 19 Mar 2026 15:29:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
