@@ -3,7 +3,56 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 28 Mar 2026 23:45:38 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2026 03:35:01 GMT</lastBuildDate>
+    <item>
+      <title>⭐ CSS被DOOM了？开发者用纯CSS实现3D版DOOM游戏渲染</title>
+      <link>https://news.ycombinator.com/item?id=47557960</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章展示用纯CSS实现3D游戏渲染的编程技巧，属于创造性编程经验分享，用户对编程工具和效率改进经验很感兴趣，且不涉及需避开的内容</small></p><p>一位开发者成功使用纯CSS（无需Canvas或WebGL）实现了经典游戏DOOM的3D渲染，展示了现代CSS的强大功能。该项目中所有墙壁、地板、桶和怪物都是<div>元素，通过CSS 3D变换、数学函数和SVG滤镜等技术在浏览器中构建了完全可玩的第一人称射击游戏。</p>
+
+<img src="https://nielsleenheer.com/wp-content/uploads/2026/03/Screenshot-2026-03-27-at-14.22.35-1280x1000.png" alt="DOOM running in the browser fully rendered in CSS" width="1280" height="1000" />
+
+<p>项目采用JavaScript处理游戏逻辑，而渲染完全由CSS负责。作者从原始DOOM的WAD文件中提取地图数据，将顶点、线段和扇区转换为数千个<div>元素，让浏览器完成繁重的计算工作。CSS使用hypot()和atan2()函数计算墙壁宽度和旋转角度，实现了几何数学的浏览器端计算。</p>
+
+<p>技术实现中的关键点包括：</p>
+<ul>
+<li><strong>坐标系统转换</strong>：DOOM的2D坐标系统需要映射到CSS 3D空间，通过translate3d(x,-z,-y)实现坐标转换</li>
+<li><strong>移动世界而非相机</strong>：由于CSS没有相机概念，作者采用经典技巧——移动整个世界而非玩家视角</li>
+<li><strong>地板处理</strong>：通过rotateX(90deg)将垂直的div元素转为水平地板，使用clip-path处理不规则形状和孔洞</li>
+<li><strong>纹理对齐</strong>：通过世界坐标作为background-position偏移，确保相邻扇区的纹理无缝拼接</li>
+<li><strong>动画系统</strong>：利用CSS过渡和@property注册自定义属性实现门、电梯的平滑动画</li>
+</ul>
+
+<img src="https://nielsleenheer.com/wp-content/uploads/2026/03/Screenshot-2026-03-22-at-21.35.47-1280x915.png" alt="DOOM rendered in CSS with the floor having a cutout using a clipping path for the raised platform" width="1280" height="915" />
+
+<p>精灵动画采用billboarding技术，通过rotateY使2D图像始终面向相机，scaleX处理镜像效果。敌人动画使用CSS关键帧动画，通过随机animation-delay避免所有敌人同步移动的不自然效果。抛射物和爆炸效果也完全由CSS动画驱动，JavaScript只需设置起始位置和持续时间。</p>
+
+<p>作者在开发过程中遇到的主要挑战包括：</p>
+<ul>
+<li>最初尝试完全用CSS处理游戏状态和逻辑不可行，最终采用JavaScript/CSS分离架构</li>
+<li>使用Claude AI辅助移植原始DOOM的游戏循环代码</li>
+<li>纹理对齐和复杂形状剪切的技术细节处理</li>
+<li>不同浏览器兼容性和性能优化</li>
+</ul>
+
+<img src="https://nielsleenheer.com/wp-content/uploads/2026/03/PLAY.png" alt="DOOM player sprites in various poses and turned in various directions" width="180" height="280" />
+
+<p>Hacker News社区对该项目的反应热烈，获得209个赞和50条评论。讨论焦点包括：</p>
+<ul>
+<li>CSS作为网页样式语言的适用边界问题</li>
+<li>现代CSS与传统工具的对比</li>
+<li>实际演示在Brave浏览器中的兼容性问题</li>
+<li>控制方案和游戏体验反馈</li>
+<li>关于"什么设备不能运行DOOM"的幽默讨论</li>
+</ul>
+
+<p>项目在线演示可在<a href="https://cssdoom.wtf/">cssdoom.wtf</a>访问，代码已开源在GitHub。尽管存在一些浏览器兼容性和控制方案的小问题，但整体运行流畅，甚至在手机上也能获得良好的游戏体验。</p>
+
+<p>这个项目不仅是对CSS技术极限的探索，也展示了现代浏览器功能的强大。正如作者所言："CSS比以往任何时候都更好，而且只会变得更好。"</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47557960</guid>
+      <pubDate>Sat, 28 Mar 2026 20:39:01 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ ISBN可视化工具：探索安娜档案馆中的1.01亿本书籍</title>
       <link>https://news.ycombinator.com/item?id=47547508</link>
@@ -1496,38 +1545,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47478401</guid>
       <pubDate>Sun, 22 Mar 2026 15:16:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Project NOMAD：开源离线知识服务器，集成 AI 与百科全书</title>
-      <link>https://news.ycombinator.com/item?id=47476821</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源离线知识服务器项目，结合AI技术，属于用户感兴趣的开源项目和AI软件技术进展</small></p><p>Project NOMAD（Node for Offline Media, Archives, and Data）是一个免费开源的自包含离线服务器，集成了维基百科、本地人工智能、离线地图和教育工具，旨在在没有互联网连接的情况下提供持续的知识访问。</p>
-
-<img src="/_next/image?url=%2Flogo.png&w=256&q=75&dpl=dpl_54btxvENuEkQvvx4XQqYwSt7pE28" alt="Project NOMAD" width="120" height="120" />
-
-<p>该项目针对应急准备者、离网生活者、技术爱好者和教育工作者设计，将多个开源工具整合为一个统一系统：信息库基于 Kiwix 提供离线维基百科、古登堡计划、医学参考资料等；AI 助手通过 Ollama 支持完全离线运行大型语言模型；离线地图使用 OpenStreetMap 数据实现无网络导航；教育平台集成 Kolibri，提供可汗学院课程等 K-12 教育资源。</p>
-
-<img src="/_next/image?url=%2Fscreenshots%2Fdashboard.png&w=3840&q=75&dpl=dpl_54btxvENuEkQvvx4XQqYwSt7pE28" alt="NOMAD Command Center Dashboard — your central hub for offline knowledge, AI, maps, and education" width="1200" height="630" />
-
-<p>与市场上其他离线产品（如 PrepperDisk、Doom Box、R.E.A.D.I.）相比，Project NOMAD 具有显著优势：完全免费开源（Apache 2.0 许可证）、支持任意 PC 硬件（而非锁定的树莓派）、提供 GPU 加速的 AI 推理能力，并包含更完整的内容库和教育资源。</p>
-
-<img src="/_next/image?url=%2Fscreenshots%2Fcontent-explorer.png&w=3840&q=75&dpl=dpl_54btxvENuEkQvvx4XQqYwSt7pE28" alt="Content Explorer — browse and download Wikipedia, medical references, survival guides, and curated content collections" width="1200" height="630" />
-
-<p>项目推荐硬件配置为 AMD Ryzen 7 或 Intel i7+ 处理器、32GB 内存、1TB SSD，支持集成或独立 GPU 以加速 AI 推理。安装过程简单，在 Ubuntu 或 Debian 系统上只需两条命令即可完成部署。</p>
-
-<img src="/_next/image?url=%2Fscreenshots%2Fai-chat.png&w=3840&q=75&dpl=dpl_54btxvENuEkQvvx4XQqYwSt7pE28" alt="AI Chat interface — have conversations with a local AI model, completely offline and private" width="1200" height="630" />
-
-<p>在 Hacker News 社区讨论中，用户提到了其他类似项目如 <a href="https://internet-in-a-box.org/">Internet-in-a-Box</a>、<a href="https://wrolpi.org/">WROLPi</a> 和 <a href="https://kiwix.org/en/about/">Kiwix</a>，指出这些项目都基于相似的开源组件，但针对不同使用场景优化：Internet-in-a-Box 专注于低功耗设备，而 NOMAD 则面向高性能硬件并包含本地 AI。部分评论认为项目的“末日准备”叙事有些夸张，但认可其作为知识基础设施的实用价值。还有用户讨论了在 Steam Deck 上运行的可能性，以及树莓派支持的局限性。</p>
-
-<img src="/_next/image?url=%2Fscreenshots%2Fmaps.png&w=3840&q=75&dpl=dpl_54btxvENuEkQvvx4XQqYwSt7pE28" alt="Offline maps viewer — navigate and explore detailed maps without internet or cell service" width="1200" height="630" />
-
-<p>Project NOMAD 完全由社区资助，通过 <a href="https://ko-fi.com/">Ko-fi</a> 接受支持，无订阅费用或付费墙。项目定期更新内容包、AI 模型推荐和硬件指南。</p>
-
-<h3>你知道吗？</h3>
-<p>Project NOMAD 集成的核心组件均为知名开源项目：Kiwix 是专为离线浏览设计的网络内容压缩格式和阅读器，广泛用于维基百科的离线分发；Ollama 是简化本地大型语言模型运行的工具；OpenStreetMap 是社区驱动的免费全球地图数据；Kolibri 则是面向离线环境的学习管理系统。这些工具的整合使得 NOMAD 能够在不依赖互联网的情况下提供全面的知识服务。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47476821</guid>
-      <pubDate>Sun, 22 Mar 2026 12:28:38 GMT</pubDate>
     </item>
   </channel>
 </rss>
