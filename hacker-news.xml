@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 30 Mar 2026 18:04:51 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 30 Mar 2026 19:18:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 使用Excalidraw管理博客图表：自动化导出SVG的解决方案</title>
+      <link>https://news.ycombinator.com/item?id=47571376</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于Excalidraw工具使用和自动化工作流程优化，完全匹配用户的'编程工具发布/分享'和'编程效率改进经验'高兴趣配置</small></p><p>作者分享了使用Excalidraw（开源手绘风格白板工具）为博客创建图表时遇到的效率问题及自动化解决方案。原本每次修改图表后，需要手动导出亮色和暗色模式的SVG文件，这一过程涉及多次点击操作，耗时约45秒。</p>
+
+<p>作者首先尝试了GitHub Action方案：创建一个工作流，自动检测更改的.excalidraw文件，使用excalirender工具提取帧（frame）并导出为SVG。用户只需用帧包裹感兴趣的元素，并以"export_"前缀命名，系统就会自动生成对应的亮色和暗色版本SVG文件。</p>
+
+<img src="/assets/images/export.dark.exp-252e0eacdb94f7d74ecc629f7c4ea4da.svg#gh-dark-mode-only" alt="export" width="884" height="531" />
+
+<p>然而，这一方案存在局限性：依赖的渲染库存在bug，且无法在作者的ARM架构Mac上本地运行，导致必须推送文件到GitHub、等待流水线完成才能查看更新后的图像。</p>
+
+<p>于是作者开发了更优的VSCode扩展方案：扩展会监控打开的.excalidraw文件变化，自动将每个帧导出为两个独立的SVG文件（亮色和暗色模式）。现在作者只需在VSCode中编辑Excalidraw文件，用帧包裹元素并命名为"export_${image_name}"，扩展就会自动生成${image_name}.light.exp.svg和${image_name}.dark.exp.svg文件。</p>
+
+<img src="/assets/images/use_exported_images.dark.exp-85113bdc0a31376a46189505f3f9cab1.svg#gh-dark-mode-only" alt="export" width="1071" height="533" />
+
+<p>这一改进实现了本地实时预览，作者可以在编辑器中通过自动完成引用这些图像，并在预览标签页中查看渲染效果，大大提升了工作效率。</p>
+
+<p>社区讨论中，用户对Excalidraw的评价不一：有人认为其手绘风格显得不专业，更适合内部使用；也有人赞赏这种风格能明确表示图表是粗略草图而非精确蓝图。不少用户分享了他们的使用经验，包括与Obsidian集成、使用MCP（模型上下文协议）通过LLM生成图表等替代方案。</p>
+
+<p>作者表示对这个解决方案很满意，虽然花费了数小时开发，但解决了实际痛点。他考虑在Excalidraw扩展的GitHub仓库中提交问题描述这一解决方案，供其他开发者参考，而不是直接提交拉取请求。目前已在个人GitHub分叉中提供了可下载的扩展版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47571376</guid>
+      <pubDate>Mon, 30 Mar 2026 07:17:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AI编程代理可能让自由软件重新变得重要</title>
       <link>https://news.ycombinator.com/item?id=47568028</link>
@@ -1531,40 +1556,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47495527</guid>
       <pubDate>Mon, 23 Mar 2026 21:44:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 使用Claude Code代理自动优化机器学习模型：Autoresearch实验报告</title>
-      <link>https://news.ycombinator.com/item?id=47493460</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述使用Claude Code代理自动优化机器学习模型的实验，属于编程效率改进经验，用户很感兴趣。</small></p><p>作者Yogesh Kumar尝试将Andrej Karpathy的Autoresearch概念应用到自己的旧研究项目eCLIP上，使用Claude Code代理自动优化机器学习模型性能。实验结果显示，代理在42次实验中成功将评估指标平均排名从344.68降至157.43，提升了54%。</p>
-
-<img src="/blog-images/eclip/agent_loop_light.webp" alt="Autoresearch agent loop" />
-
-<p>Autoresearch的核心是一个简单的约束优化循环：LLM代理根据程序说明（program.md）迭代修改训练文件（train.py），通过假设→编辑→训练→评估→提交或回滚的流程不断优化评估指标。作者设置了沙箱环境，限制代理只能编辑特定文件并运行封装脚本，确保安全性。</p>
-
-<p>实验使用Ukiyo-eVG数据集（约11,000张日本木版画，带有短语到边界框的标注），将边界框转换为高斯热力图作为空间注意力引导。</p>
-
-<img src="/blog-images/eclip/heatmap_girls.webp" alt="Expert spatial annotations: bounding boxes converted to gaussian heatmaps guide the model to focus on specific regions" />
-
-<p>主要发现包括：</p>
-<ul>
-<li><strong>最大改进来自bug修复</strong>：代理发现代码中温度参数被错误限制在2，解除限制后评估指标立即下降113点</li>
-<li><strong>超参数调优有效</strong>：代理像带有基本推理能力的超参数优化算法，通过调整投影维度和学习率等带来额外30点改进</li>
-<li><strong>架构更改收益递减</strong>：在后期阶段，代理对注意力机制的修改和"大胆想法"大多失败，成功率显著下降</li>
-<li><strong>沙箱限制必要</strong>：代理有时会忘记权限限制，尝试奇怪的bash调用，甚至因等待训练结束而"结束对话"</li>
-</ul>
-
-<img src="/blog-images/eclip/progress.webp" alt="eCLIP Autoresearch Progress" />
-
-<p>Hacker News社区讨论中，用户观点各异：有人认为这本质上是带基本推理的超参数优化，类似Optuna等现有工具；有人提到Shopify团队使用类似方法优化Liquid模板引擎，获得53%性能提升；也有用户认为LLM代理在明确搜索空间内有效，但在探索"未知的未知"时效果有限。</p>
-
-<p>评论中一个关键观点是：这种方法的价值很大程度上取决于评估指标的质量。如果评估指标设计不当，整个循环只会更快地优化错误的目标。同时，计算成本也是实际应用中需要考虑的因素，特别是对于需要云基础设施的实验。</p>
-
-<h3>你知道吗？</h3>
-<p>Autoresearch是Andrej Karpathy提出的概念，核心思想是让LLM代理在约束循环中自动进行科学研究。与传统的超参数优化工具（如Optuna、Bayesian优化）不同，Autoresearch允许代理进行结构性更改而不仅仅是参数调整。类似的方法在程序优化领域也有应用，如Superoptimization（超级优化）技术，通过搜索程序变换空间寻找最优实现。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47493460</guid>
-      <pubDate>Mon, 23 Mar 2026 18:40:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
