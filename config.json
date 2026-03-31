@@ -117,29 +117,6 @@
       ]
     },
     {
-      "name": "superset-releases",
-      "title": "Superset Releases",
-      "context": "Superset 是编码代理的桌面终端应用，允许同时运行多个 CLI 编码代理（如 Claude Code），每个任务在独立的 git worktree 中隔离，提供内置 diff 查看器等功能。用户主要关注改动日志中与桌面应用相关的功能改进（UI、交互、终端功能等），对后端、数据库、CI 等基础设施改动不感兴趣",
-      "plugins": [
-        {
-          "name": "builtin/collect-github-releases",
-          "options": { "repo": "superset-sh/superset" }
-        },
-        {
-          "name": "builtin/llm-grade",
-          "options": {
-            "highInterest": "Desktop Release",
-            "avoid": "Canary Release"
-          }
-        },
-        "builtin/llm-summarize",
-        {
-          "name": "builtin/reporter-rss",
-          "options": { "outputPath": "output/superset-releases.xml" }
-        }
-      ]
-    },
-    {
       "name": "zhihu",
       "title": "知乎热榜",
       "context": "知乎是一个问答社区，标题为用户的提问。用户阅读知乎的目的是增长知识、了解时事、查看有建设性的见解，而不是查看闲聊性质的主观感受交流、刻板印象讨论或缺乏分析深度的泛泛而谈",
@@ -181,25 +158,33 @@
       ]
     },
     {
-      "name": "claude-code-releases",
-      "title": "Claude Code Releases",
-      "context": "Claude Code 是 Anthropic 官方的 Claude AI 命令行工具，用于软件开发辅助。用户不关心 Windows 平台特定改动和安全相关改动",
+      "name": "app-releases",
+      "title": "App Releases",
+      "context": "- Superset：编码代理的桌面终端应用，允许同时运行多个 CLI 编码代理（如 Claude Code），每个任务在独立的 git worktree 中隔离，提供内置 diff 查看器等功能。用户主要关注与桌面应用相关的功能改进（UI、交互、终端功能等），对后端、数据库、CI 等基础设施改动不感兴趣\n- Claude Code：Anthropic 官方的 Claude AI 命令行工具，用于软件开发辅助。用户不关心 Windows 平台特定改动和安全相关改动",
       "plugins": [
+        {
+          "name": "builtin/collect-github-releases",
+          "options": { "repo": "superset-sh/superset" }
+        },
         {
           "name": "builtin/collect-github-releases",
           "options": { "repo": "anthropics/claude-code" }
         },
-        "builtin/llm-grade",
+        {
+          "name": "builtin/llm-grade",
+          "options": {
+            "avoid": "Canary Release"
+          }
+        },
         {
           "name": "builtin/llm-summarize",
           "options": {
-            "context": "总结时需要将重要改动（新功能、重大 bug 修复）和其他改动（小优化、依赖更新等）分开描述"
+            "context": "按软件分组总结。每个软件内部先列重要改动（新功能、重大 bug 修复），再列其他改动（小优化、依赖更新等）。如果软件有多个组件，则在软件内再按组件分组。"
           }
         },
-        "builtin/llm-grade",
         {
           "name": "builtin/reporter-rss",
-          "options": { "outputPath": "output/claude-code-releases.xml" }
+          "options": { "outputPath": "output/app-releases.xml" }
         }
       ]
     }
