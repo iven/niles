@@ -22,6 +22,7 @@ export async function runWorkflow(params: WorkflowParams) {
     sourceName,
     sourceContext: sourceConfig.context,
     isDryRun,
+    now: new Date(),
     llm(tier) {
       return createLlmClient(llmConfig, llmConfig.models[tier]);
     },
@@ -45,6 +46,17 @@ export async function runWorkflow(params: WorkflowParams) {
       options: globalPluginOptions[name] ?? {},
     })),
   );
+
+  // beforeRun：并行检查所有插件，有一个返回 false 则跳过
+  const beforeResults = await Promise.all(
+    plugins.map(({ name, plugin, options }) =>
+      plugin.beforeRun(options, {
+        ...context,
+        logger: context.logger.withTag(name),
+      }),
+    ),
+  );
+  if (beforeResults.some((allowed) => !allowed)) return;
 
   // collect：并行执行所有 collect，合并结果
   const collectResults = await Promise.all(
@@ -84,4 +96,14 @@ export async function runWorkflow(params: WorkflowParams) {
       { ...context, logger: context.logger.withTag(name) },
     );
   }
+
+  // afterRun：并行通知所有插件 workflow 已完成
+  await Promise.all(
+    plugins.map(({ name, plugin, options }) =>
+      plugin.afterRun(options, {
+        ...context,
+        logger: context.logger.withTag(name),
+      }),
+    ),
+  );
 }

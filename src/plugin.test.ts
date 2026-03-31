@@ -20,6 +20,7 @@ const testContext: PluginContext = {
   sourceName: "test",
   sourceContext: undefined,
   isDryRun: false,
+  now: new Date(),
   llm: () => {
     throw new Error("llm not available in test");
   },

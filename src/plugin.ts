@@ -7,11 +7,14 @@ export interface PluginContext {
   sourceName: string;
   sourceContext: string | undefined;
   isDryRun: boolean;
+  now: Date;
   llm(tier: "fast" | "balanced" | "powerful"): TextAdapter;
   logger: ConsolaInstance;
 }
 
 export interface Plugin<O extends object = object> {
+  beforeRun(options: O, context: PluginContext): Promise<boolean>;
+  afterRun(options: O, context: PluginContext): Promise<void>;
   collect(
     options: O,
     context: PluginContext,
@@ -25,6 +28,10 @@ export interface Plugin<O extends object = object> {
 }
 
 export const basePlugin: Plugin = {
+  async beforeRun() {
+    return true;
+  },
+  async afterRun() {},
   async collect() {
     return { items: [] };
   },
