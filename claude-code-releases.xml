@@ -3,7 +3,53 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Mon, 30 Mar 2026 23:49:27 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 03:28:12 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.88 版本发布：新增无闪烁渲染、权限重试钩子，修复多项重大bug</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.88</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是Claude Code（AI编程工具）的版本发布公告，直接匹配用户很感兴趣的'编程工具发布/分享'类别</small></p><p>Claude Code 发布了 v2.1.88 版本，本次更新引入了多项新功能，并修复了多个影响稳定性和用户体验的重要问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增无闪烁渲染选项</strong>：添加 <code>CLAUDE_CODE_NO_FLICKER=1</code> 环境变量，支持启用无闪烁的备用屏幕渲染和虚拟化滚动历史记录。</li>
+<li><strong>权限拒绝重试机制</strong>：新增 <code>PermissionDenied</code> 钩子，在自动模式分类器拒绝命令后触发，可通过返回 <code>{retry: true}</code> 告知模型可以重试。</li>
+<li><strong>增强子代理提及</strong>：在 <code>@</code> 提及类型提示中添加了命名子代理。</li>
+<li><strong>修复重大稳定性问题</strong>：
+  <ul>
+    <li>修复长会话中因工具模式字节变化导致的提示缓存未命中问题。</li>
+    <li>修复嵌套 <code>CLAUDE.md</code> 文件在读取大量文件的长会话中被重复注入数十次的问题。</li>
+    <li>修复 <code>StructuredOutput</code> 模式缓存错误导致多模式工作流约 50% 的失败率。</li>
+    <li>修复长运行会话中大 JSON 输入作为 LRU 缓存键保留导致的内存泄漏。</li>
+    <li>修复编辑超大文件（>1 GiB）时可能出现的<strong>内存溢出崩溃</strong>。</li>
+    <li>修复从超大会话文件（超过 50MB）中删除消息时导致的崩溃。</li>
+  </ul>
+</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li><strong>错误处理改进</strong>：修复误导性的“达到速率限制”消息，现在显示实际错误并提供可操作的提示。</li>
+<li><strong>LSP 服务器恢复</strong>：修复 LSP 服务器崩溃后的僵尸状态，现在会在下次请求时重启而非需要会话重启。</li>
+<li><strong>钩子条件匹配</strong>：修复钩子 <code>if</code> 条件过滤不匹配复合命令或带环境变量前缀命令的问题。</li>
+<li><strong>数据持久性修复</strong>：修复包含 CJK 或表情符号的提示历史记录在 4KB 边界被静默丢弃的问题；修复 <code>/stats</code> 统计丢失超过 30 天历史数据的问题。</li>
+<li><strong>界面与交互优化</strong>：
+  <ul>
+    <li>修复长会话中向上滚动时滚动历史消失的问题。</li>
+    <li>修复大量并行工具使用时终端滚动历史中折叠的搜索/读取组徽章重复问题。</li>
+    <li>修复长 <code>/btw</code> 响应被截断且无法滚动的问题，现在响应在可滚动视口中渲染。</li>
+    <li>修复梵文和其他组合标记文本在助手输出中被截断的问题。</li>
+  </ul>
+</li>
+<li><strong>功能调整</strong>：交互式会话中默认不再生成思考摘要，可通过设置 <code>showThinkingSummaries: true</code> 恢复；自动模式拒绝的命令现在会显示通知并出现在 <code>/permissions</code> → 最近选项卡中。</li>
+<li><strong>工具改进</strong>：<code>/env</code> 现在也适用于 PowerShell 工具命令；改进 PowerShell 工具提示，提供版本相应的语法指导。</li>
+</ul>
+
+<p>此外，还修复了多个界面渲染、语音模式、通知系统等方面的细节问题，提升了整体的稳定性和用户体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.88</guid>
+      <pubDate>Mon, 30 Mar 2026 23:53:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Claude Code v2.1.87 修复 Cowork Dispatch 消息传递问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.87</link>
@@ -1552,15 +1598,6 @@
       </description>
       <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.59</guid>
       <pubDate>Thu, 26 Feb 2026 00:59:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 版本v2.1.58发布：远程控制功能扩展至更多用户</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.58</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude代码版本发布，属于编程工具发布内容，符合用户对编程工具发布的兴趣</small></p><p>该软件发布了版本v2.1.58更新，主要变化是将远程控制功能扩展至更多用户使用。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.58</guid>
-      <pubDate>Wed, 25 Feb 2026 20:00:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
