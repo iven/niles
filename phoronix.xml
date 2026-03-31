@@ -3,7 +3,64 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 31 Mar 2026 11:58:24 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 16:57:49 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.1内核将迎来大量Rust图形驱动改进，NVIDIA Nova驱动持续发展</title>
+      <link>https://www.phoronix.com/news/Rust-DRM-For-Linux-7.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论Rust在Linux图形驱动程序中的应用，Rust在来源配置中为'感兴趣'等级，虽然涉及显卡相关但不占主导</small></p><p>Linux 7.1内核即将在4月迎来合并窗口，其中的DRM-Next分支包含了大量Rust图形驱动相关的功能更新。这些改进旨在增强用Rust编写的图形驱动程序的能力，包括更多的编程语言抽象和基础设施工作。</p>
+
+<p>主要的Rust DRM变化包括：DMA一致API的重构、GPU伙伴分配器在Rust中的抽象、DRM共享内存GEM助手在Rust中的抽象、I/O基础设施改进、工作队列改进以及其他Rust启动组件。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=rust_turing_med" alt="rusty version of NVIDIA Turing graphics card" />
+
+<p>除了核心的Rust DRM工作外，还有对实验性Arm Mali Tyr驱动和Nova Core驱动的改进。Nova Core驱动旨在成为开源NVIDIA图形驱动Nouveau的继任者。</p>
+
+<p>Nova驱动在Linux 7.1中的工作包括：进一步启用NVIDIA Turing GPU支持、修复和加强GPU系统处理器（GSP）命令队列、支持大型RPC、重构Falcon固件处理、加强固件解析、为GSM-RM日志缓冲区添加DebugFS支持等。文章指出，NVIDIA Nova驱动正在逐步推进，但尚未准备好供最终用户使用。</p>
+
+<p>Tyr驱动则根据内核Rust编程指南进行了代码更改，修复了GPU型号/版本解码等问题。</p>
+
+<p>所有这些Rust DRM功能更改都计划用于即将到来的Linux 7.1内核周期，相关代码可通过<a href="https://www.phoronix.com/news/Rust-DRM-For-Linux-7.1">拉取请求</a>查看。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Rust-DRM-For-Linux-7.1</guid>
+      <pubDate>Tue, 31 Mar 2026 14:22:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>Meta优化Linux内核/proc/interrupts读取性能，实现29%速度提升</title>
+      <link>https://www.phoronix.com/news/Meta-Optimizing-Proc-Interrupts</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Linux内核性能优化技术（软件技术进展），但Meta公司名称在全局配置中为不太感兴趣，且网络性能在来源配置中也不太感兴趣</small></p><p>Meta公司的大规模内核工程团队正在优化Linux内核中/proc/interrupts文件的读取性能，通过改进十进制数字打印的实现方式，获得了29%的相对速度提升。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=proc_interrupts_med" alt="cat /proc/interrupts" />
+
+<p>由于监控工具需要频繁读取/proc/interrupts来收集系统中断统计信息，在Meta庞大的服务器集群中，这一操作逐渐成为显著的系统开销。工程师Dmitry Ilvokhin通过优化seq_printf()函数的使用，并添加专门的辅助例程来减少printf()格式化带来的开销，从而提升了性能。</p>
+
+<p>监控工具通常会定期扫描/proc/interrupts文件，将中断指标导出为时间序列数据用于后续分析和故障排查。在大规模服务器集群中，每台机器每隔几秒就会轮询一次该文件，数千台节点的累积开销迅速增加。随着单机核心数量的持续增长，这一开销变得更加明显，因为中断计数器是按CPU核心统计的。</p>
+
+<p>虽然从长期来看，二进制接口可能是更好的解决方案，能够减少内核端的格式化和用户空间的解析开销，但文本接口在未来一段时间内仍会继续使用。因此优化/proc/interrupts的打印代码仍然具有实际价值。</p>
+
+<p>该优化补丁目前已在Linux内核邮件列表中提交审查，并引发了社区的热烈讨论，已有9条相关评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Meta-Optimizing-Proc-Interrupts</guid>
+      <pubDate>Tue, 31 Mar 2026 13:03:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Servo 浏览器引擎发布 0.0.6 版本，带来多项重要改进</title>
+      <link>https://www.phoronix.com/news/Servo-0.0.6-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Servo浏览器引擎新版发布，属于新软件项目（来源配置中的high_interest项目），且与Firefox（high_interest）密切相关</small></p><p>基于 Rust 语言开发的 Servo 浏览器引擎近日发布了 0.0.6 版本，这是三月份的一个重要更新，带来了多项功能改进和性能提升。新版本特别强化了 servoshell 实现，并展示了在嵌入式浏览器应用方面的潜力。</p>
+
+<p>主要更新包括：部分支持 iframe 的懒加载功能、支持 @property 规则、支持 "button command" 和 "button commandfor" 属性、大部分 Pointer Events API 已实现。Servoshell 现在支持通过 <code>servo:config</code> 进行配置调整，并可以使用 F5 键刷新网页。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=servo_config" alt="servo:config example" />
+
+<p>其他重要改进还有：Servoshell 的性能和稳定性得到提升、DevTools 开发工作持续进行、现在每个版本都包含完整的源代码包，便于离线构建、图像默认根据 EXIF 元数据自动旋转、嵌入式支持功能不断完善。</p>
+
+<p>Servo 0.0.6 的源代码和二进制文件可通过 <a href="https://github.com/servo/servo">GitHub</a> 下载，更多详细信息可查看 <a href="https://servo.org/blog/">Servo.org 博客</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Servo-0.0.6-Released</guid>
+      <pubDate>Tue, 31 Mar 2026 12:23:17 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Archinstall 4.0 发布：Arch Linux 安装程序改用 Textual UI 界面</title>
       <link>https://www.phoronix.com/news/Archinstall-4.0-Released</link>
@@ -851,72 +908,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Sashiko-AI-Reviewing-Rust-Linux</guid>
       <pubDate>Sun, 22 Mar 2026 00:22:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ LibreOffice 26.8将在启动中心添加捐赠横幅</title>
-      <link>https://www.phoronix.com/news/LibreOffice-26-Donation-Banner</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍LibreOffice开源办公软件的新功能（添加捐赠横幅），属于用户感兴趣的软件新功能和开源项目类别，故推荐阅读</small></p><p>LibreOffice 26.8 已合并了在启动中心添加捐赠横幅的初始支持功能。该功能旨在让用户了解这个开源办公套件的社区驱动性质，并希望借此获得更多社区捐赠。</p>
-
-<p>根据文档基金会几周前提出的任务，计划在 LibreOffice 启动中心（即首次启动时显示最近文档等信息的界面）的底部约三分之一区域显示捐赠横幅。这一举措是为了鼓励用户向这个社区驱动的、替代 Microsoft Office 等商业办公软件的项目捐款。</p>
-
-<img src="https://www.phoronix.net/image.php?id=2026&image=libreoffice_donate_1a_med" alt="LibreOffice donation banner" />
-
-<p>昨日合并的是初始的「捐赠横幅」实现，目前仅包含占位符文本和示例图片。捐赠横幅的具体文案和正式图片仍在确定中。</p>
-
-<img src="https://www.phoronix.net/image.php?id=2026&image=libreoffice_donate_2_med" alt="LibreOffice 26.8 build with new donation banner placeholder" />
-
-<p>这些截图来自今日的 LibreOffice 主分支每日构建版本。点击捐赠按钮将跳转到 LibreOffice 的捐赠网页。预计到 2026 年 8 月 LibreOffice 26.8 正式发布时，完善的捐赠横幅将准备就绪。</p>
-
-<img src="https://www.phoronix.net/image.php?id=2026&image=libreoffice_donate_3_med" alt="LibreOffice 26.8 build on Ubuntu Linux" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/LibreOffice-26-Donation-Banner</guid>
-      <pubDate>Sat, 21 Mar 2026 13:22:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.7的KWin窗口管理器支持3D LUTs，助力现代GPU性能优化</title>
-      <link>https://www.phoronix.com/news/Plasma-6.7-KWin-Does-3D-LUTs</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要关于KDE Plasma功能更新，KDE在来源配置中为用户很感兴趣的主题</small></p><p>KDE开发团队在发布Plasma 6.6.3的同时，正积极为Plasma 6.7桌面环境开发新功能。最新一期《本周Plasma动态》概述了近期的一系列改进和新增特性。</p>
-
-<p>Plasma 6.7的主要更新包括：</p>
-<ul>
-<li>数字时钟小部件将显示已设置时区相对于默认时区的偏移量</li>
-<li>系统托盘小部件支持反转项目排列顺序</li>
-<li>屏幕取消变暗的速度现在快于变暗过程</li>
-<li>全局菜单小部件的高亮样式与其他菜单保持一致的圆角设计</li>
-<li><strong>KWin窗口管理器新增对3D LUTs（3D查找表）的支持</strong>，可在支持硬件色彩管线的GPU上降低资源占用</li>
-<li>停止为不使用OpenGL的应用程序创建不必要的OpenGL上下文</li>
-</ul>
-
-<p>此外，KDE Frameworks 6.25将修复因Qt SVG渲染器缺陷导致的OBS和Ungoogled Chromium等应用程序图标显示问题。Plasma 6.6.4将优化无指针屏幕上的全屏窗口直接扫描输出模式，降低CPU和GPU负载。Qt 6.10.3工具包修复了特定硬件上Vulkan渲染的HDR支持问题。</p>
-
-<p>更多详细信息可参考《本周Plasma动态》的相关报道。</p>
-
-<h3>你知道吗？</h3>
-<p>3D LUTs（三维查找表）是色彩管理中的关键技术，用于实现精确的色彩转换和校正。在图形处理中，3D LUTs可以将输入色彩值映射到输出色彩值，确保不同设备间的色彩一致性。硬件支持的3D LUTs处理可以显著降低GPU资源消耗，提升系统性能，特别是在需要高精度色彩处理的应用场景中。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Plasma-6.7-KWin-Does-3D-LUTs</guid>
-      <pubDate>Sat, 21 Mar 2026 10:47:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ SUSE Agama安装程序迎来重大架构革新</title>
-      <link>https://www.phoronix.com/news/SUSE-Agama-Installer-19</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于SUSE Linux安装程序的架构重组，属于Linux发行版技术更新，当前来源配置中将新发行版列为高兴趣领域，故推荐阅读</small></p><p>SUSE 为其现代操作系统安装程序 Agama 发布了自去年 11 月以来的首个新版本 Agama 19。该版本进行了重大的架构改革，旨在解决此前版本存在的诸多问题，为未来开发奠定更坚实的基础。</p>
-
-<p>根据 SUSE 工程师在公告中的说明，早期版本的 Agama 存在许多「怪癖」，无法定义一个符合质量标准的 API（应用程序编程接口）作为构建简单而全面安装程序的坚实基础。Agama 19 代表了显著的架构革新，清理了底层代码，定义了可作为未来任何开发基石的机制。</p>
-
-<p>工程师们一直希望 Agama 遵循这样的架构：安装程序的核心可以通过一致且简单的编程接口控制，而基于 Web 的用户界面、命令行工具和无人值守安装都构建在这个通用 API 之上。Agama 19 实现了这一愿景，同时保持了其基于 JSON 的配置格式不变。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=agama_19" alt="Agama 19 web interface" />
-
-<p>除了核心架构改进外，Agama 19 还对 Web 用户界面进行了清理，并改进了网络配置等功能。这些变化为 SUSE 和 openSUSE 用户提供了一个更加稳定和可靠的安装体验。</p>
-
-<p>想要了解更多关于 Agama 19 安装程序的详细信息，可以访问 Agama 项目博客。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/SUSE-Agama-Installer-19</guid>
-      <pubDate>Sat, 21 Mar 2026 10:29:05 GMT</pubDate>
     </item>
   </channel>
 </rss>
