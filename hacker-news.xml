@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 31 Mar 2026 19:17:43 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 21:16:43 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Google发布200M参数、16k上下文长度的时间序列基础模型TimesFM 2.5</title>
+      <link>https://news.ycombinator.com/item?id=47583045</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为Google新发布的时间序列预测AI模型TimesFM 2.5，属于用户高度关注的新AI模型发布公告类别</small></p><p>Google Research 开源了 TimesFM（Time Series Foundation Model）2.5 版本，这是一个用于时间序列预测的预训练基础模型。最新版本采用 200M 参数（较之前 500M 有所减少），支持长达 16k 的上下文长度（从 2048 提升），并新增了连续分位数预测功能，可预测最多 1k 时间步长的未来值。</p>
+
+<p>该模型基于解码器架构，已在 ICML 2024 上发表相关论文。用户可通过 <a href="https://github.com/google-research/timesfm">GitHub 仓库</a>获取代码和模型，或通过 <a href="https://huggingface.co/collections/google/timesfm-6747b0e7c6c6f2c6c6f2c6c6">Hugging Face</a> 下载预训练权重。Google 官方博客提供了更详细的技术介绍。</p>
+
+<p>社区讨论中，用户分享了其他时间序列基础模型，包括 <a href="https://www.datadoghq.com/blog/datadog-time-series-foundation-model/">Datadog 的模型</a>、<a href="https://moment-timeseries-foundation-model.github.io/">Moment</a>、<a href="https://priorlabs.ai/tabpfn">TabPFN</a>、<a href="https://github.com/Nixtla/nixtla">Nixtla</a>、<a href="https://facebook.github.io/prophet/">Prophet</a> 以及 <a href="https://github.com/amazon-science/chronos-forecasting">Amazon 的 Chronos</a>。部分用户对通用时间序列模型的概念表示质疑，认为不同领域（如鸡蛋价格与全球通胀）的时间序列模式差异巨大，难以用单一模型可靠预测。</p>
+
+<p>有用户表示已进行内部测试，认为 TimesFM 预测质量尚可，但效果与针对特定数据训练的 ARIMA 模型相当，且模型更大、推理更慢。这引发了对基础模型在时间序列领域实际价值的讨论——如果投入数据科学家资源，训练传统 ARIMA 模型可能更具成本效益。</p>
+
+<p>你知道吗？时间序列基础模型旨在通过预训练学习通用时间模式，然后通过微调适应特定任务。与传统方法相比，这类模型试图捕捉跨领域的共性规律，但如何平衡通用性与特定领域精度仍是研究热点。Google 已将 TimesFM 集成到 BigQuery 中作为官方产品提供。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47583045</guid>
+      <pubDate>Tue, 31 Mar 2026 05:21:59 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Ollama预览版现支持MLX框架，在Apple Silicon上实现最快性能</title>
       <link>https://news.ycombinator.com/item?id=47582482</link>
@@ -1449,45 +1466,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47498924</guid>
       <pubDate>Tue, 24 Mar 2026 05:32:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ DSPy框架为何叫好不叫座？优秀AI工程模式面临采用困境</title>
-      <link>https://news.ycombinator.com/item?id=47490365</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] DSPy是AI工程框架，涉及AI软件技术进展，用户对此感兴趣</small></p><p>一篇深度分析文章探讨了DSPy框架面临的采用困境。尽管DSPy提供了解决AI工程核心挑战的优雅方案，但其月下载量（470万）远低于LangChain（2.22亿），这一差距引人深思。</p>
-
-<p>文章通过一个公司名称提取任务的演进过程，展示了AI系统开发的典型路径：从简单的API调用开始，逐步增加提示管理、结构化输出、重试机制、RAG（检索增强生成）、评估系统和模型抽象层。作者指出，大多数团队最终都会不自觉地重新实现DSPy的一半功能，形成了所谓的"Khattab定律"：任何足够复杂的AI系统都包含一个临时、非正式、充满bug的DSPy半成品实现。</p>
-
-<p>相比之下，DSPy通过三个核心概念提供了更优雅的解决方案：</p>
-<ul>
-<li><strong>签名（Signatures）</strong>：定义类型化的输入输出</li>
-<li><strong>模块（Modules）</strong>：可组合、可测试的单元</li>
-<li><strong>优化器（Optimizers）</strong>：自动优化提示，与运行逻辑分离</li>
-</ul>
-
-<p>文章分析了DSPy采用率低的原因：</p>
-<ol>
-<li><strong>学习曲线陡峭</strong>：抽象概念不熟悉，需要不同的思维方式</li>
-<li><strong>解决的是"未来"问题</strong>：在团队感受到传统方法的痛苦之前，DSPy的益处不明显</li>
-<li><strong>工程实践冲突</strong>：奇怪的反馈循环、交付压力、不清晰的边界导致工程师选择即时可行的方案</li>
-</ol>
-
-<p>作者建议两个选择：要么接受学习曲线直接使用DSPy，要么借鉴其核心模式构建系统，包括类型化I/O、提示与代码分离、可组合单元、早期评估基础设施和模型调用抽象。</p>
-
-<h3>社区讨论要点</h3>
-<p>在Hacker News的120条评论中，开发者们分享了实际体验：</p>
-<ul>
-<li><strong>优化提示不可提取</strong>：有用户指出DSPy优化后的提示是"不透明块"，无法直接查看和使用，这让人对完全依赖框架感到不安</li>
-<li><strong>评估设置门槛</strong>：需要前期工作建立评估数据集，这对于许多探索性项目来说负担较重</li>
-<li><strong>社区解决方案</strong>：作者推荐了<a href="https://github.com/dspy-community/dspy-template-adapter">dspy-template-adapter</a>插件，帮助弥合DSPy与传统提示工程之间的差距</li>
-<li><strong>实际采用反馈</strong>：一些用户尝试后感觉帮助不如预期，但承认DSPy鼓励的代码结构在其他方面有益</li>
-<li><strong>迭代速度需求</strong>：有评论者指出，团队需要快速迭代提示，而不想为每次更改重新部署，这是现实需求</li>
-</ul>
-
-<p>文章最终结论是：DSPy体现的模式并非可选，任何足够复杂的AI系统最终都会以某种形式实现这些模式。问题在于你是刻意设计还是偶然重构。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47490365</guid>
-      <pubDate>Mon, 23 Mar 2026 14:52:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
