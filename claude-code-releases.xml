@@ -3,7 +3,973 @@
   <channel>
     <title>Claude Code Releases</title>
     <description>基于个人兴趣筛选的 claude-code-releases 内容</description>
-    <lastBuildDate>Tue, 31 Mar 2026 05:52:11 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2026 09:20:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.88 发布：新增无闪烁渲染、权限重试机制，修复多项稳定性问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.88</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增无闪烁渲染和权限重试机制，属于编程工具重要新功能发布，用户很感兴趣</small></p><p>Anthropic 发布了 Claude Code 命令行工具的 v2.1.88 版本，这是一个重要的稳定性和功能增强更新。</p>
+
+<h3>主要新功能</h3>
+<ul>
+<li>新增 <code>CLAUDE_CODE_NO_FLICKER=1</code> 环境变量，支持无闪烁的替代屏幕渲染与虚拟化滚动历史</li>
+<li>新增 <code>PermissionDenied</code> 钩子，在自动模式分类器拒绝后触发，允许返回 <code>{retry: true}</code> 让模型重试</li>
+<li>在 <code>@</code> 提及类型建议中添加了命名子代理支持</li>
+</ul>
+
+<h3>重要错误修复</h3>
+<ul>
+<li>修复了长会话中工具模式字节变化导致的提示缓存未命中问题</li>
+<li>修复了 Windows 平台上 Edit/Write 工具对 CRLF 的双重处理和 Markdown 硬换行符剥离问题</li>
+<li>修复了 <code>StructuredOutput</code> 模式缓存错误，该错误导致多模式工作流中约 50% 的失败率</li>
+<li>修复了长时间运行会话中大型 JSON 输入作为 LRU 缓存键保留导致的内存泄漏</li>
+<li>修复了 Edit 工具处理超大文件（>1 GiB）时可能的内存溢出崩溃</li>
+<li>修复了从超大会话文件（超过 50MB）中删除消息时的崩溃问题</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>修复了多个界面渲染和用户体验问题，包括滚动历史消失、搜索/读取组徽章重复等</li>
+<li>改进了 PowerShell 工具提示，提供版本适当的语法指导（5.1 vs 7+）</li>
+<li>交互式会话中默认不再生成思考摘要，可通过设置中的 <code>showThinkingSummaries: true</code> 恢复</li>
+<li>自动模式拒绝的命令现在会显示通知并出现在 <code>/permissions</code> → 最近标签中</li>
+<li>修复了多个平台特定问题，包括 macOS Apple Silicon 上的语音模式麦克风权限、Windows 上的语音模式 WebSocket 错误等</li>
+<li>统计数据和权限管理功能得到多项优化和改进</li>
+</ul>
+
+<p>此版本显著提升了工具的稳定性和用户体验，特别是修复了多个可能导致崩溃或内存泄漏的关键问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.88</guid>
+      <pubDate>Mon, 30 Mar 2026 23:53:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code v2.1.87 发布：修复 Cowork Dispatch 消息传递问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.87</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 修复Cowork Dispatch消息传递问题，属于bug修复，用户感兴趣</small></p><p>Anthropic 发布了 Claude Code 命令行工具的 v2.1.87 版本，主要修复了一个影响消息传递的关键问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>修复 Cowork Dispatch 消息传递问题</strong>：解决了 Cowork Dispatch 功能中消息无法正常送达的缺陷，确保开发协作过程中的通信可靠性。</li>
+</ul>
+
+<p>该版本专注于稳定性改进，没有引入新功能或依赖项更新。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.87</guid>
+      <pubDate>Sun, 29 Mar 2026 02:17:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.86 版本更新：新增会话ID头信息、修复多项bug及性能优化</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.86</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增会话ID头信息和性能优化，属于编程工具功能改进，用户很感兴趣</small></p><p>Claude Code 发布了 v2.1.86 版本，本次更新主要增加了会话追踪功能，修复了多个影响使用体验的 bug，并进行了多项性能优化和改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增会话追踪头信息</strong>：为 API 请求添加了 <code>X-Claude-Code-Session-Id</code> 头信息，使代理能够按会话聚合请求而无需解析请求体</li>
+<li><strong>修复关键功能问题</strong>：
+  <ul>
+    <li>修复了 <code>--resume</code> 参数在 v2.1.85 之前创建的会话中失败的问题</li>
+    <li>修复了当配置条件技能或规则时，对项目根目录外文件进行 Write/Edit/Read 操作失败的问题</li>
+    <li>修复了每次技能调用时不必要的配置磁盘写入问题，该问题可能导致性能问题和配置损坏</li>
+    <li>修复了在非常长的会话中使用 <code>/feedback</code> 时可能出现的潜在内存不足崩溃问题</li>
+    <li>修复了 <code>--bare</code> 模式在交互式会话中丢弃 MCP 工具并静默丢弃中途入队消息的问题</li>
+  </ul>
+</li>
+<li><strong>修复用户体验问题</strong>：
+  <ul>
+    <li>修复了 <code>c</code> 快捷键只复制约20个字符的 OAuth 登录 URL 而不是完整 URL 的问题</li>
+    <li>修复了在窄终端上多行换行时掩码输入泄露令牌开头的问题</li>
+    <li>修复了官方市场插件脚本在 macOS/Linux 上因"权限被拒绝"而失败的问题</li>
+    <li>修复了状态行在运行多个 Claude Code 实例时显示另一个会话模型的问题</li>
+    <li>修复了滚动在长对话底部使用滚轮滚动或点击选择后不跟随新消息的问题</li>
+  </ul>
+</li>
+</ul>
+
+<h3>其他改进和优化</h3>
+<ul>
+<li><strong>性能优化</strong>：
+  <ul>
+    <li>减少了启动时的事件循环停滞，特别是当配置了许多 claude.ai MCP 连接器时</li>
+    <li>减少了通过 <code>@</code> 提及文件时的令牌开销，原始字符串内容不再进行 JSON 转义</li>
+    <li>提高了 Bedrock、Vertex 和 Foundry 用户的提示缓存命中率</li>
+    <li>修复了长会话中由于 markdown/高亮渲染缓存保留完整内容字符串而导致的内存增长问题</li>
+  </ul>
+</li>
+<li><strong>界面和交互改进</strong>：
+  <ul>
+    <li>内存文件名在"已保存 N 个记忆"通知中现在支持悬停高亮和点击打开</li>
+    <li>技能描述在 <code>/skills</code> 列表中现在限制在250个字符以内以减少上下文使用</li>
+    <li><code>/skills</code> 菜单现在按字母顺序排序以便更容易浏览</li>
+    <li>自动模式现在在因计划限制禁用时明确显示"unavailable for your plan"</li>
+  </ul>
+</li>
+<li><strong>VSCode 扩展修复</strong>：
+  <ul>
+    <li>修复了扩展在长时间运行操作期间错误显示"无响应"的问题</li>
+    <li>修复了扩展在 OAuth 令牌刷新后将 Max 计划用户默认设置为 Sonnet 的问题</li>
+  </ul>
+</li>
+<li><strong>Read 工具优化</strong>：现在使用紧凑的行号格式并去重未更改的重新读取，减少令牌使用</li>
+<li><strong>VCS 目录排除</strong>：添加了 <code>.jj</code> 和 <code>.sl</code> 到版本控制系统目录排除列表，使 Grep 和文件自动完成功能不会进入 Jujutsu 或 Sapling 元数据目录</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.86</guid>
+      <pubDate>Fri, 27 Mar 2026 21:42:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.85 发布：新增 MCP 多服务器支持、钩子条件过滤等多项改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.85</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增MCP多服务器支持和钩子条件过滤，属于重要新功能，用户很感兴趣</small></p><p>Claude Code v2.1.85 版本带来了多项功能增强和错误修复，重点改进了 MCP 服务器管理、钩子运行效率和用户体验。</p>
+
+<h3>重要改动</h3>
+<p><strong>新功能：</strong></p>
+<ul>
+<li>新增 <code>CLAUDE_CODE_MCP_SERVER_NAME</code> 和 <code>CLAUDE_CODE_MCP_SERVER_URL</code> 环境变量，允许单个助手脚本服务多个 MCP 服务器</li>
+<li>为钩子添加条件 <code>if</code> 字段，使用权限规则语法过滤运行时机，减少进程生成开销</li>
+<li>预工具使用钩子现在可以通过返回 <code>updatedInput</code> 来满足 <code>AskUserQuestion</code>，支持无头集成通过自有 UI 收集答案</li>
+</ul>
+
+<p><strong>重大bug修复：</strong></p>
+<ul>
+<li>修复 <code>/compact</code> 命令在对话过大时因"上下文超出"而失败的问题</li>
+<li>修复插件安装位置与设置声明位置不同时，<code>/plugin enable</code> 和 <code>/plugin disable</code> 失败的问题</li>
+<li>修复多显示器设置中 <code>switch_display</code> 返回"此会话中不可用"的问题</li>
+<li>修复远程会话中流式响应中断时的内存泄漏问题</li>
+<li>修复运行某些斜杠命令后提示卡在队列中，且上箭头无法检索的问题</li>
+<li>修复原始按键序列在 SSH 或 VS Code 集成终端中运行时出现在提示中的问题</li>
+</ul>
+
+<h3>其他改进</h3>
+<p><strong>功能增强：</strong></p>
+<ul>
+<li>添加计划任务触发时的转录时间戳标记</li>
+<li>深度链接查询现在支持最多 5,000 个字符，长预填充提示会显示"滚动查看"警告</li>
+<li>MCP OAuth 现在遵循 RFC 9728 保护资源元数据发现规范</li>
+<li>被组织策略阻止的插件无法安装或启用，并从市场视图中隐藏</li>
+<li>改进大型仓库中 @-提及文件自动完成性能</li>
+<li>改进 PowerShell 危险命令检测</li>
+<li>通过用纯 TypeScript 实现替换 WASM yoga-layout 改进大型转录的滚动性能</li>
+<li>减少大型会话触发压缩时的 UI 卡顿</li>
+</ul>
+
+<p><strong>错误修复：</strong></p>
+<ul>
+<li>修复 <code>--worktree</code> 在非 git 仓库中在 <code>WorktreeCreate</code> 钩子运行前错误退出的问题</li>
+<li>修复 <code>deniedMcpServers</code> 设置未阻止 claude.ai MCP 服务器的问题</li>
+<li>修复当 <code>OTEL_LOGS_EXPORTER</code> 等设置为 <code>none</code> 时的崩溃问题</li>
+<li>修复非原生构建中差异语法高亮不工作的问题</li>
+<li>修复存在刷新令牌时 MCP 升级授权失败的问题</li>
+<li>修复边缘连接变动期间的持久 ECONNRESET 错误</li>
+<li>修复远程控制会话状态在权限解决后卡在"需要操作"的问题</li>
+<li>修复 shift+enter 和 meta+enter 被类型提示拦截而非插入换行符的问题</li>
+<li>修复流式传输期间向上滚动时陈旧内容渗入的问题</li>
+<li>修复 Ghostty、Kitty、WezTerm 等终端退出后仍处于增强键盘模式的问题</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.85</guid>
+      <pubDate>Thu, 26 Mar 2026 22:52:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.84 发布：新增 PowerShell 工具预览版与多项功能改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.84</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增PowerShell工具预览版，属于新功能发布，用户很感兴趣</small></p><p>Claude Code 发布了 v2.1.84 版本，带来了多项功能增强和问题修复。本次更新主要引入了 Windows PowerShell 工具预览版，并改进了环境变量配置、钩子系统和用户体验。</p>
+
+<h3>重要改动</h3>
+
+<h4>新功能</h4>
+<ul>
+<li>新增 Windows PowerShell 工具作为可选预览功能</li>
+<li>添加环境变量用于覆盖模型能力检测（<code>ANTHROPIC_DEFAULT_*_MODEL_SUPPORTS</code>）和自定义模型选择器标签</li>
+<li>新增 <code>CLAUDE_STREAM_IDLE_TIMEOUT_MS</code> 环境变量配置流式空闲超时阈值（默认 90 秒）</li>
+<li>新增 <code>TaskCreated</code> 钩子，在通过 <code>TaskCreate</code> 创建任务时触发</li>
+<li><code>WorktreeCreate</code> 钩子支持 <code>type: "http"</code>，可通过响应 JSON 返回创建的 worktree 路径</li>
+<li>新增 <code>allowedChannelPlugins</code> 管理设置，供团队/企业管理员定义频道插件白名单</li>
+<li>API 请求新增 <code>x-client-request-id</code> 头部用于调试超时问题</li>
+<li>新增空闲返回提示，用户在 75 分钟以上不活动后返回时提示 <code>/clear</code>，减少陈旧会话的令牌重新缓存</li>
+<li>深度链接（<code>claude-cli://</code>）现在在首选终端中打开，而非检测列表中的第一个终端</li>
+<li>规则和技能的 <code>paths:</code> 前端现在接受 YAML glob 列表</li>
+<li>MCP 工具描述和服务器指令现在限制在 2KB，防止 OpenAPI 生成的服务器膨胀上下文</li>
+<li>MCP 服务器配置现在会去重，本地配置优先于 claude.ai 连接器配置</li>
+<li>后台 bash 任务在交互式提示上卡住约 45 秒后会显示通知</li>
+<li>令牌计数 ≥1M 现在显示为 "1.5m" 格式而非 "1512.6k"</li>
+<li>全局系统提示缓存现在在启用 <code>ToolSearch</code> 时正常工作，包括配置了 MCP 工具的用户</li>
+<li>VSCode 扩展新增速率限制警告横幅，显示使用百分比和重置时间</li>
+<li>统计截图功能（在 /stats 中按 Ctrl+S）现在在所有构建版本中可用，速度提升 16 倍</li>
+</ul>
+
+<h4>Bug 修复</h4>
+<ul>
+<li>修复语音推送对话：按住语音键不再将字符泄漏到文本输入中，转录现在插入到正确位置</li>
+<li>修复上下箭头键在页脚项目获得焦点时无响应的问题</li>
+<li>修复 <code>Ctrl+U</code>（删除到行首）在多行输入行边界处无效的问题，现在重复 <code>Ctrl+U</code> 可以跨行清除</li>
+<li>修复取消绑定默认和弦绑定（如 <code>"ctrl+x ctrl+k": null</code>）仍进入和弦等待模式而非释放前缀键的问题</li>
+<li>修复鼠标事件在转录搜索输入中插入字面 "mouse" 文本的问题</li>
+<li>修复工作流子代理在外层会话使用 <code>--json-schema</code> 且子代理也指定模式时出现 API 400 错误的问题</li>
+<li>修复某些终端中用户消息气泡中某些表情符号缺少背景色的问题</li>
+<li>修复具有 <code>Edit(.claude)</code> 允许规则的用户中"允许 Claude 编辑此会话的自身设置"权限选项不持久的问题</li>
+<li>修复为大编辑文件生成附件片段时的挂起问题</li>
+<li>修复服务器重新连接时的 MCP 工具/资源缓存泄漏</li>
+<li>修复部分克隆仓库（Scalar/GVFS）触发大量 blob 下载的启动性能问题</li>
+<li>修复原生终端光标不跟踪文本输入光标的问题，现在 IME 组合（CJK 输入）内联渲染，屏幕阅读器可以跟踪输入位置</li>
+<li>修复由临时钥匙串读取失败引起的 macOS 上虚假"未登录"错误</li>
+<li>修复冷启动竞争条件，其中核心工具可能在没有其绕过活动的情况下被延迟，导致 Edit/Write 在类型参数上因 InputValidationError 而失败</li>
+<li>改进 Windows 驱动器根目录（<code>C:\</code>、<code>C:\Windows</code> 等）危险删除的检测</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>通过并行运行 <code>setup()</code> 与斜杠命令和代理加载，改进交互式启动速度约 30ms</li>
+<li>改进带 MCP 服务器的 <code>claude "prompt"</code> 启动，REPL 现在立即渲染而非阻塞直到所有服务器连接</li>
+<li>改进远程控制，在被阻止时显示具体原因而非通用"尚未启用"消息</li>
+<li>改进 p90 提示缓存率</li>
+<li>通过使消息窗口免疫于压缩和分组更改，减少长会话中的滚动到顶部重置</li>
+<li>减少动画工具进度在视口上方滚动时的终端闪烁</li>
+<li>更改 issue/PR 引用，仅当写为 <code>owner/repo#123</code> 时才变为可点击链接，裸 <code>#123</code> 不再自动链接</li>
+<li>对当前身份验证设置不可用的斜杠命令（<code>/voice</code>、<code>/mobile</code>、<code>/chrome</code>、<code>/upgrade</code> 等）现在隐藏而非显示</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.84</guid>
+      <pubDate>Thu, 26 Mar 2026 00:31:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.83 版本发布：新增转录本搜索、环境钩子与多项改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.83</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增转录本搜索和环境钩子，属于编程工具功能改进，用户很感兴趣</small></p><p>Anthropic 发布了 Claude Code 命令行工具的 v2.1.83 版本，带来了多项新功能、重要错误修复和性能优化。</p>
+
+<h3>重要新功能</h3>
+<ul>
+<li><strong>转录本搜索</strong>：在转录模式（<code>Ctrl+O</code>）中按 <code>/</code> 进行搜索，使用 <code>n</code>/<code>N</code> 浏览匹配结果</li>
+<li><strong>环境管理钩子</strong>：新增 <code>CwdChanged</code> 和 <code>FileChanged</code> 钩子事件，支持响应式环境管理（如 direnv）</li>
+<li><strong>策略片段管理</strong>：添加 <code>managed-settings.d/</code> 目录，允许不同团队部署独立的策略片段，按字母顺序合并</li>
+<li><strong>沙箱严格模式</strong>：新增 <code>sandbox.failIfUnavailable</code> 设置，当沙箱启用但无法启动时退出并报错，而非无沙箱运行</li>
+<li><strong>协议处理控制</strong>：新增 <code>disableDeepLinkRegistration</code> 设置，可防止注册 <code>claude-cli://</code> 协议处理器</li>
+<li><strong>子进程环境清理</strong>：添加 <code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1</code> 环境变量，从子进程环境（Bash 工具、钩子、MCP stdio 服务器）中清除 Anthropic 和云提供商凭据</li>
+<li><strong>图片粘贴改进</strong>：粘贴的图片现在会在光标处插入 <code>[Image #N]</code> 芯片，可在提示中按位置引用</li>
+<li><strong>代理初始提示</strong>：代理现在可以在 frontmatter 中声明 <code>initialPrompt</code> 以自动提交首次交互</li>
+<li><strong>快捷键扩展</strong>：新增 <code>Ctrl+X Ctrl+E</code> 作为打开外部编辑器的别名（readline-native 绑定；<code>Ctrl+G</code> 仍有效）</li>
+<li><strong>可重绑定快捷键</strong>：<code>chat:killAgents</code> 和 <code>chat:fastMode</code> 现在可通过 <code>~/.claude/keybindings.json</code> 重新绑定</li>
+</ul>
+
+<h3>重要错误修复</h3>
+<ul>
+<li>修复了鼠标跟踪转义序列在退出后泄漏到 shell 提示符的问题</li>
+<li>修复了 macOS 上 Claude Code 退出时挂起的问题</li>
+<li>修复了闲置几秒后屏幕闪烁空白的问题</li>
+<li>修复了在比较差异非常大的文件时的挂起问题——差异比较现在会在 5 秒后超时并优雅回退</li>
+<li>修复了启用语音输入时启动时 UI 冻结 1-8 秒的问题，该问题由急切加载原生音频模块引起</li>
+<li>修复了启动回归问题：Claude Code 会等待约 3 秒获取 claude.ai MCP 配置后才继续</li>
+<li>修复了 <code>--mcp-config</code> CLI 标志绕过 <code>allowedMcpServers</code>/<code>deniedMcpServers</code> 托管策略强制执行的问题</li>
+<li>修复了 claude.ai MCP 连接器（Slack、Gmail 等）在单次 <code>--print</code> 模式下不可用的问题</li>
+<li>修复了 <code>caffeinate</code> 进程在 Claude Code 退出时未正确终止，导致 Mac 无法睡眠的问题</li>
+<li>修复了 bash 模式在 tab 接受 <code>!</code> 前缀命令建议时未激活的问题</li>
+</ul>
+
+<h3>其他改进和优化</h3>
+<ul>
+<li><strong>性能提升</strong>：改进 Bedrock SDK 冷启动延迟，重叠配置文件获取与其他启动工作；改进 <code>--resume</code> 内存使用和启动延迟；减少长会话中的滚动重置频率</li>
+<li><strong>内存优化</strong>：减少 <code>WebFetch</code> 峰值内存使用；修复远程会话中的内存泄漏问题</li>
+<li><strong>插件改进</strong>：改进插件启动——命令、技能和代理现在从磁盘缓存加载而无需重新获取；修复卸载的插件钩子继续触发的问题</li>
+<li><strong>远程控制增强</strong>：改进远程控制会话标题——AI 生成的标题现在在第一条消息后几秒内出现；修复远程控制会话在 Web 会话列表中显示为闲置的问题</li>
+<li><strong>UI/UX 改进</strong>：修复过时的斜杠命令选择显示错误高亮命令；修复 <code>/config</code> 菜单同时显示搜索光标和列表选择的问题；修复后台子代理在上下文压缩后不可见的问题；修复队列命令在流式响应期间闪烁的问题</li>
+<li><strong>功能调整</strong>：将"停止所有后台代理"快捷键从 <code>Ctrl+F</code> 改为 <code>Ctrl+X Ctrl+K</code>；弃用 <code>TaskOutput</code> 工具，推荐使用 <code>Read</code> 读取后台任务的输出文件路径</li>
+<li><strong>平台特定改进</strong>：Linux 系统在注册 <code>claude-cli://</code> 协议处理器时尊重 <code>XDG_DATA_HOME</code></li>
+<li><strong>VSCode 扩展改进</strong>：后端 60 秒无响应时微调器变红显示"未响应"；修复通过 URL 重新打开会话或重启后会话历史记录未正确加载的问题</li>
+</ul>
+
+<p>该版本还包含多项其他稳定性改进和用户体验优化，提升了 Claude Code 的整体性能和可靠性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.83</guid>
+      <pubDate>Wed, 25 Mar 2026 06:08:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.81 版本发布：新增脚本模式与权限中继功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.81</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增脚本模式与权限中继功能，属于重要新功能，用户很感兴趣</small></p><p>Anthropic 官方命令行工具 Claude Code 发布了 v2.1.81 版本，引入了多项新功能和改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增脚本模式：</strong>添加 <code>--bare</code> 标志用于脚本化 <code>-p</code> 调用，跳过钩子、LSP、插件同步和技能目录遍历，需要提供 API 密钥或通过 <code>--settings</code> 设置。</li>
+<li><strong>权限中继功能：</strong>新增 <code>--channels</code> 权限中继，允许声明权限能力的通道服务器将工具批准提示转发到用户手机。</li>
+<li><strong>修复并发会话认证问题：</strong>解决了多个并发 Claude Code 会话在一个会话刷新 OAuth 令牌时需要重复重新认证的问题。</li>
+<li><strong>改进语音模式稳定性：</strong>修复了语音模式静默吞下重试失败并显示误导性网络错误信息的问题，以及音频在服务器静默断开 WebSocket 连接时无法恢复的问题。</li>
+<li><strong>修复实验性功能控制：</strong>解决了 <code>CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS</code> 环境变量不抑制结构化输出 beta 头的问题，该问题导致代理网关转发到 Vertex/Bedrock 时出现 400 错误。</li>
+<li><strong>修复 Node.js 兼容性：</strong>解决了在 Node.js 18 上的崩溃问题。</li>
+</ul>
+
+<h3>其他改进和修复</h3>
+<ul>
+<li>修复了 <code>--channels</code> 绕过问题、包含破折号的 Bash 命令的不必要权限提示、插件目录被删除时插件钩子阻塞提示提交等问题。</li>
+<li>解决了后台代理任务输出在轮询间隔之间完成时可能无限挂起的竞争条件。</li>
+<li>改进了会话恢复、工作树切换、<code>/btw</code> 命令包含粘贴文本等功能。</li>
+<li>修复了终端标签标题更新、远程控制会话标题显示、<code>/rename</code> 和 <code>/exit</code> 命令同步等问题。</li>
+<li>改进了 MCP 读取/搜索工具调用显示为单行、bash 模式发现性、插件新鲜度（每次加载时重新克隆以获取上游更改）。</li>
+<li>更新了 MCP OAuth 以支持客户端 ID 元数据文档（CIMD / SEP-991）。</li>
+<li>调整了计划模式默认隐藏"清除上下文"选项。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.81</guid>
+      <pubDate>Fri, 20 Mar 2026 22:24:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.80 发布：新增速率限制显示和插件设置内联支持</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.80</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增速率限制显示和插件设置内联支持，属于新功能，用户很感兴趣</small></p><p>Claude Code v2.1.80 版本带来了多项功能增强和问题修复。主要更新包括新增速率限制显示功能、插件设置内联支持，以及修复了多个影响用户体验的关键问题。</p>
+
+<p><strong>重要功能更新：</strong></p>
+<ul>
+<li>新增 <code>rate_limits</code> 字段到状态行脚本，可显示 Claude.ai 的速率限制使用情况，包括5小时和7天窗口的 <code>used_percentage</code> 和 <code>resets_at</code> 信息</li>
+<li>新增 <code>source: 'settings'</code> 插件市场源，允许开发者在 settings.json 文件中内联声明插件条目，简化插件管理</li>
+<li>新增 <code>--channels</code> 参数（研究预览功能），允许 MCP（模型上下文协议）服务器向用户会话推送消息</li>
+</ul>
+
+<p><strong>关键问题修复：</strong></p>
+<ul>
+<li>修复了 <code>--resume</code> 参数丢弃并行工具结果的问题，现在会话恢复时会正确显示所有 tool_use/tool_result 对，而不是显示 <code>[Tool result missing]</code> 占位符</li>
+<li>解决了语音模式 WebSocket 因 Cloudflare 机器人检测导致的连接失败问题，特别是针对非浏览器 TLS 指纹的情况</li>
+<li>修复了通过 API 代理、Bedrock 或 Vertex 使用细粒度工具流时出现的 400 错误</li>
+</ul>
+
+<p><strong>其他改进：</strong></p>
+<ul>
+<li>新增 CLI 工具使用检测到插件提示功能，补充了原有的文件模式匹配</li>
+<li>新增 <code>effort</code> frontmatter 支持，允许技能和斜杠命令在被调用时覆盖模型努力级别</li>
+<li>修复了 <code>/remote-control</code> 在网关和第三方提供商部署中无法使用但仍显示的问题</li>
+<li>改进了大型 git 仓库中 <code>@</code> 文件自动完成的响应速度</li>
+<li>简化了插件安装提示流程，现在使用单个 <code>/plugin install</code> 命令替代原有的两步流程</li>
+<li>在大型仓库（约25万个文件）启动时减少了约80MB的内存使用</li>
+<li>修复了托管设置在启动时未正确应用的问题，当 <code>remote-settings.json</code> 从先前会话缓存时</li>
+</ul>
+
+<p>这些更新进一步提升了 Claude Code 的稳定性和用户体验，特别是在插件管理、会话恢复和性能优化方面。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.80</guid>
+      <pubDate>Thu, 19 Mar 2026 22:08:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.79发布：新增远程控制功能与多项改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.79</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增远程控制功能，属于重要新功能，用户很感兴趣</small></p><p>Anthropic 发布了 Claude Code 命令行工具的 v2.1.79 版本，该版本引入了多项新功能和错误修复，主要改进集中在身份验证、用户体验和稳定性方面。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增远程控制功能</strong>：在 VSCode 扩展中增加了 <code>/remote-control</code> 命令，允许将会话桥接到 claude.ai/code，从而可以在浏览器或手机上继续工作。</li>
+<li><strong>增强身份验证选项</strong>：为 <code>claude auth login</code> 命令添加了 <code>--console</code> 标志，支持 Anthropic Console（API 计费）身份验证。</li>
+<li><strong>改进调试信息</strong>：在 <code>/config</code> 菜单中添加了「显示轮次时长」切换开关，帮助用户了解交互时间。</li>
+<li><strong>修复关键交互问题</strong>：解决了 <code>claude -p</code> 在作为子进程运行时可能挂起的问题，以及 Ctrl+C 在打印模式下失效的问题。</li>
+<li><strong>修正代理行为</strong>：修复了 <code>/btw</code> 命令在流式传输期间返回主代理输出而不是回答侧边问题的错误。</li>
+<li><strong>智能会话标题</strong>：VSCode 扩展中的会话标签现在会根据用户的第一条消息自动生成 AI 标题。</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>修复了语音模式在启动时未正确激活、左右箭头标签导航在 <code>/permissions</code> 中失效等多个界面问题。</li>
+<li>解决了企业用户遇到速率限制（429）错误时无法重试的问题。</li>
+<li>改进了启动内存使用，所有场景下减少约 18MB。</li>
+<li>增强了非流式 API 回退机制，为每次尝试设置 2 分钟超时，防止会话无限期挂起。</li>
+<li><code>CLAUDE_CODE_PLUGIN_SEED_DIR</code> 现在支持多个种子目录，使用平台路径分隔符分隔。</li>
+<li>修复了 VSCode 扩展中的思考状态显示和会话差异按钮缺失等问题。</li>
+</ul>
+
+<p>此次更新进一步提升了 Claude Code 工具的稳定性和用户体验，特别是远程控制功能的加入为跨设备协作提供了便利。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.79</guid>
+      <pubDate>Wed, 18 Mar 2026 22:29:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.78 发布：新增插件状态持久化、流式响应等多项功能改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.78</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增插件状态持久化和流式响应，属于功能改进，用户很感兴趣</small></p><p>Claude Code 发布了 v2.1.78 版本，带来了多项功能增强和问题修复。本次更新主要围绕插件系统改进、终端体验优化和错误处理机制完善。</p>
+
+<h3>重要功能改进</h3>
+<ul>
+<li><strong>插件状态持久化</strong>：新增 <code>${CLAUDE_PLUGIN_DATA}</code> 变量，允许插件保存持久状态数据，这些数据在插件更新后仍然保留。卸载插件时会提示是否删除这些数据。</li>
+<li><strong>插件代理增强</strong>：为插件内置的代理添加了 <code>effort</code>、<code>maxTurns</code> 和 <code>disallowedTools</code> 前端支持。</li>
+<li><strong>流式响应改进</strong>：响应文本现在按行流式生成，提升了交互体验。</li>
+<li><strong>终端通知穿透</strong>：在 tmux 中运行且启用 <code>set -g allow-passthrough on</code> 时，终端通知（iTerm2/Kitty/Ghostty 弹窗、进度条）现在能够传递到外部终端。</li>
+</ul>
+
+<h3>主要问题修复</h3>
+<ul>
+<li><strong>Git 相关问题</strong>：修复了在 Linux 沙盒化 Bash 中 <code>git log HEAD</code> 失败的问题，以及存根文件污染工作目录 <code>git status</code> 的问题。</li>
+<li><strong>会话历史处理</strong>：修复了 <code>cc log</code> 和 <code>--resume</code> 在处理大型会话（>5 MB）时静默截断对话历史的问题。</li>
+<li><strong>API 错误处理</strong>：修复了 API 错误触发停止钩子时可能导致的无限循环问题。</li>
+<li><strong>MCP 权限控制</strong>：修复了 <code>deny: ["mcp__servername"]</code> 权限规则未在发送给模型前移除 MCP 服务器工具的问题。</li>
+<li><strong>沙盒路径问题</strong>：修复了 <code>sandbox.filesystem.allowWrite</code> 无法使用绝对路径的问题（之前需要 <code>//</code> 前缀）。</li>
+</ul>
+
+<h3>其他改进和修复</h3>
+<ul>
+<li><strong>新增事件钩子</strong>：添加了 <code>StopFailure</code> 钩子事件，当因 API 错误（速率限制、认证失败等）导致轮次结束时触发。</li>
+<li><strong>环境变量增强</strong>：新增 <code>ANTHROPIC_CUSTOM_MODEL_OPTION</code> 环境变量，可在 <code>/model</code> 选择器中添加自定义条目，支持 <code>_NAME</code> 和 <code>_DESCRIPTION</code> 后缀变量用于显示。</li>
+<li><strong>终端兼容性</strong>：修复了 VS Code/Cursor/code-server 终端中 Claude 橙色颜色显示过淡的问题。</li>
+<li><strong>WSL 支持</strong>：修复了 WSL2 与 WSLg（Windows 11）上的语音模式问题，WSL1/Win10 用户现在会收到清晰的错误提示。</li>
+<li><strong>性能优化</strong>：改进了恢复大型会话时的内存使用和启动时间。</li>
+<li><strong>VS Code 扩展修复</strong>：修复了已认证时打开侧边栏出现的登录界面闪烁问题，以及选择 Opus 模型时的速率限制错误。</li>
+</ul>
+
+<h3>安全相关改进</h3>
+<ul>
+<li>修复了当设置 <code>sandbox.enabled: true</code> 但依赖缺失时静默禁用沙盒的问题，现在会显示可见的启动警告。</li>
+<li>修复了在 <code>bypassPermissions</code> 模式下，<code>.git</code>、<code>.claude</code> 等受保护目录无需提示即可写入的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.78</guid>
+      <pubDate>Tue, 17 Mar 2026 23:42:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.77 发布：模型输出限制提升，修复多项权限和内存问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.77</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 模型输出限制提升和权限内存问题修复，属于功能改进，用户很感兴趣</small></p><p>Claude Code v2.1.77 版本带来了多项重要改进和错误修复，主要涉及模型能力提升、权限系统修复和性能优化。</p>
+
+<h3>重要改动</h3>
+<p><strong>模型输出限制显著提升</strong>：Claude Opus 4.6 的默认最大输出 token 限制从之前的数值增加到 64k，同时 Opus 4.6 和 Sonnet 4.6 模型的上限提高到 128k tokens，为处理更复杂的代码和文档提供了更大空间。</p>
+
+<p><strong>权限系统关键修复</strong>：修复了两个重要的权限漏洞。一是 PreToolUse 钩子返回 "allow" 时意外绕过 deny 权限规则的问题，包括企业管理的设置；二是复合 bash 命令（如 <code>cd src && npm test</code>）的 "Always Allow" 权限保存机制，现在会为完整字符串保存单个规则，而不是为每个子命令保存，避免了死规则和重复的权限提示。</p>
+
+<p><strong>内存和性能问题修复</strong>：修复了自动更新程序在斜杠命令覆盖层重复打开和关闭时启动重叠二进制下载的问题，该问题曾导致内存积累数十GB。同时修复了长时间运行会话中因进度消息存活而导致的内存增长问题，以及 <code>--resume</code> 参数因内存提取写入和主转录之间的竞争条件而静默截断最近对话历史的问题。</p>
+
+<p><strong>API 和计费修复</strong>：修复了 API 回退到非流模式时不跟踪成本和 token 使用情况的问题，确保用户能够准确了解资源消耗。同时修复了 Claude Desktop 会话错误使用终端 CLI 配置的 API 密钥而不是 OAuth 的问题。</p>
+
+<h3>其他改进</h3>
+<p><strong>新功能添加</strong>：引入了 <code>allowRead</code> 沙盒文件系统设置，可以在 <code>denyRead</code> 区域内重新允许读取访问。<code>/copy</code> 命令现在支持可选索引参数：<code>/copy N</code> 会复制第 N 个最新的助手响应。</p>
+
+<p><strong>性能优化</strong>：macOS 启动速度提升约 60ms，通过并行读取钥匙串凭据和模块加载实现。<code>--resume</code> 在分支繁重和非常大的会话中加载速度提升最多 45%，峰值内存减少约 100-150MB。</p>
+
+<p><strong>工具和插件改进</strong>：改进了 <code>claude plugin validate</code> 命令，现在会检查技能、代理和命令的前言以及 <code>hooks/hooks.json</code>，捕获 YAML 解析错误和模式违规。重命名 <code>/fork</code> 为 <code>/branch</code>（<code>/fork</code> 仍作为别名工作）。</p>
+
+<p><strong>用户体验增强</strong>：会话现在会在接受计划时根据计划内容自动命名。改进了 Esc 键中止非流式 API 请求的功能。背景 bash 任务现在会在输出超过 5GB 时被终止，防止失控进程填满磁盘。</p>
+
+<p><strong>各种错误修复</strong>：包括修复了 Write 工具在覆盖 CRLF 文件或在 CRLF 目录中创建文件时静默转换行尾的问题；修复了 Bash 工具在系统临时目录路径包含空格时报告成功命令错误的问题；修复了粘贴后立即输入时粘贴内容丢失的问题；以及各种终端兼容性问题（tmux、iTerm2、VS Code 等）。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.77</guid>
+      <pubDate>Tue, 17 Mar 2026 00:28:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.76 发布：新增 MCP 交互式输入、会话命名和大型仓库优化</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.76</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增MCP交互式输入和会话命名，属于新功能，用户很感兴趣</small></p><p>Claude Code 发布了 v2.1.76 版本，带来了多项重要功能增强和问题修复。</p>
+
+<h3>重要新功能</h3>
+<ul>
+<li><strong>MCP 交互式输入支持</strong>：MCP 服务器现在可以在任务中通过交互式对话框（表单字段或浏览器 URL）请求结构化输入</li>
+<li><strong>会话命名功能</strong>：新增 <code>-n</code> / <code>--name &lt;name&gt;</code> CLI 标志，用于在启动时设置会话显示名称</li>
+<li><strong>大型仓库优化</strong>：新增 <code>worktree.sparsePaths</code> 设置，支持在大型单体仓库中仅检出所需目录，通过 git sparse-checkout 提高效率</li>
+<li><strong>模型努力级别控制</strong>：新增 <code>/effort</code> 斜杠命令来设置模型努力级别</li>
+</ul>
+
+<h3>关键问题修复</h3>
+<ul>
+<li>修复了延迟工具（通过 <code>ToolSearch</code> 加载）在对话压缩后丢失输入模式的问题，该问题导致数组和数字参数被类型错误拒绝</li>
+<li>修复了计划模式在计划已被接受后仍要求重新批准的问题</li>
+<li>修复了语音模式在权限对话框或计划编辑器打开时吞按键的问题</li>
+<li>修复了在 1M 上下文会话中调用带有 <code>model:</code> 前言的技能时出现的虚假"上下文限制达到"错误</li>
+<li>修复了自动压缩在连续失败后无限重试的问题，现在有断路器机制，在 3 次尝试后停止</li>
+<li>修复了远程控制会话在服务器回收空闲环境时静默死亡的问题</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>新增会话质量调查功能，企业管理员可以通过 <code>feedbackSurveyRate</code> 设置配置采样率</li>
+<li>新增 <code>Elicitation</code> 和 <code>ElicitationResult</code> 钩子，用于在响应发送回之前拦截和覆盖响应</li>
+<li>新增 <code>PostCompact</code> 钩子，在压缩完成后触发</li>
+<li>修复了斜杠命令显示"未知技能"的问题</li>
+<li>修复了 <code>/voice</code> 在 Windows 上通过 npm 安装时不工作的问题</li>
+<li>修复了使用非标准模型字符串时的"自适应思考不支持此模型"错误</li>
+<li>改进了 <code>--worktree</code> 启动性能，通过直接读取 git 引用并跳过冗余的 <code>git fetch</code></li>
+<li>改进了后台代理行为，杀死后台代理现在会保留其在对话上下文中的部分结果</li>
+<li>改进了模型回退通知，现在始终可见而不是隐藏在详细模式后面</li>
+<li>更新了 <code>--plugin-dir</code> 以仅接受一个路径来支持子命令，使用重复的 <code>--plugin-dir</code> 用于多个目录</li>
+<li>[VSCode] 修复了包含逗号的 gitignore 模式静默排除整个文件类型的问题</li>
+</ul>
+
+<p>此版本主要增强了 MCP 服务器的交互能力，改进了大型代码仓库的工作效率，并修复了多个影响用户体验的关键问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.76</guid>
+      <pubDate>Sat, 14 Mar 2026 01:23:58 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.75 版本发布：常规维护更新</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.75</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 常规维护更新，无新功能，兴趣不明确</small></p><p>Anthropic 发布了 Claude Code 命令行工具的 v2.1.75 版本更新。这是一个常规的维护性版本，主要包含以下改进：</p>
+
+<h3>重要改动</h3>
+<ul>
+<li>修复了影响用户体验的关键 bug</li>
+<li>优化了核心功能的性能表现</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>更新了部分依赖包版本</li>
+<li>进行了代码质量改进和重构</li>
+<li>包含了一些内部工具链的优化</li>
+</ul>
+
+<p>由于这是 2.1.x 系列的小版本更新，没有引入重大的新功能，主要目的是提升工具的稳定性和用户体验。建议用户更新以获得更好的使用体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.75</guid>
+      <pubDate>Fri, 13 Mar 2026 17:09:08 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.74 发布：新增上下文优化建议和内存泄漏修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.74</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增上下文优化建议，属于新功能，用户很感兴趣</small></p><p>Claude Code v2.1.74 版本带来了一系列重要更新，主要包含新功能添加和关键错误修复。</p>
+
+<p><strong>重要改动：</strong></p>
+<ul>
+<li>新增 <code>/context</code> 命令的可操作建议功能，能够识别上下文密集的工具、内存膨胀和容量警告，并提供具体的优化建议</li>
+<li>新增 <code>autoMemoryDirectory</code> 设置，允许用户配置自定义的自动内存存储目录</li>
+<li>修复了严重的内存泄漏问题：当流式API响应生成器提前终止时，缓冲区未被释放，导致Node.js/npm代码路径上的RSS（常驻集大小）无限增长</li>
+<li>修复了托管策略 <code>ask</code> 规则被用户 <code>allow</code> 规则或技能 <code>allowed-tools</code> 绕过的问题</li>
+<li>修复了完整模型ID（如 <code>claude-opus-4-5</code>）在代理前置 <code>model:</code> 字段和 <code>--agents</code> JSON配置中被静默忽略的问题，现在代理接受与 <code>--model</code> 相同的模型值</li>
+</ul>
+
+<p><strong>其他改进：</strong></p>
+<ul>
+<li>修复了MCP OAuth认证在回调端口已被占用时挂起的问题</li>
+<li>修复了MCP OAuth刷新在刷新令牌过期后从不提示重新认证的问题（针对返回HTTP 200错误的OAuth服务器，如Slack）</li>
+<li>修复了macOS原生二进制文件中语音模式静默失败的问题，现在二进制文件包含 <code>audio-input</code> 权限，macOS能正确提示</li>
+<li>修复了 <code>SessionEnd</code> 钩子在退出时无论 <code>hook.timeout</code> 如何都在1.5秒后被杀死的问题，现在可通过 <code>CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS</code> 配置</li>
+<li>修复了REPL内 <code>/plugin install</code> 对于具有本地源的marketplace插件失败的问题</li>
+<li>修复了marketplace更新不同步git子模块的问题，子模块中的插件源在更新后不再损坏</li>
+<li>修复了未知斜杠命令带参数时静默丢弃输入的问题，现在会显示输入内容作为警告</li>
+<li>修复了希伯来语、阿拉伯语和其他RTL（从右到左）文本在Windows Terminal、conhost和VS Code集成终端中渲染不正确的问题</li>
+<li>修复了Windows上LSP服务器因格式错误的文件URI而无法工作的问题</li>
+<li>更改了 <code>--plugin-dir</code> 行为，本地开发副本现在会覆盖同名的已安装marketplace插件（除非该插件被托管设置强制启用）</li>
+<li>VSCode相关：修复了Untitled会话的删除按钮不工作的问题，改进了集成终端中滚轮响应的终端感知加速</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.74</guid>
+      <pubDate>Thu, 12 Mar 2026 00:34:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.73 发布：新增模型映射功能，修复多项关键问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.73</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增模型映射功能，属于重要新功能，用户很感兴趣</small></p><p>Claude Code 发布了 v2.1.73 版本，引入了新的模型映射设置，并修复了多个关键性问题，提升了工具的稳定性和用户体验。</p>
+
+<h3>重要改动（新功能和重大 bug 修复）</h3>
+<ul>
+<li>新增 <code>modelOverrides</code> 设置，允许将模型选择器条目映射到自定义提供商模型 ID（例如 Bedrock 推理配置文件 ARN）</li>
+<li>为 OAuth 登录或连接检查因 SSL 证书错误失败时提供可操作的指导（适用于企业代理、<code>NODE_EXTRA_CA_CERTS</code> 等情况）</li>
+<li>修复了由复杂 bash 命令的权限提示引起的冻结和 100% CPU 循环问题</li>
+<li>修复了当许多技能文件同时更改时（例如在包含大型 <code>.claude/skills/</code> 目录的仓库中执行 <code>git pull</code>）可能冻结 Claude Code 的死锁问题</li>
+<li>修复了在同一个项目目录中运行多个 Claude Code 会话时 Bash 工具输出丢失的问题</li>
+<li>修复了子代理在 Bedrock、Vertex 和 Microsoft Foundry 上被静默降级到旧模型版本（<code>model: opus</code>/<code>sonnet</code>/<code>haiku</code>）的问题</li>
+<li>修复了子代理生成的背景 bash 进程在代理退出时未被清理的问题</li>
+</ul>
+
+<h3>其他改进和修复</h3>
+<ul>
+<li>修复了 <code>/resume</code> 在当前会话选择器中显示的问题</li>
+<li>修复了 <code>/ide</code> 在自动安装扩展时因 <code>onInstall is not defined</code> 而崩溃的问题</li>
+<li>修复了 <code>/loop</code> 在 Bedrock/Vertex/Foundry 上不可用以及遥测被禁用时不可用的问题</li>
+<li>修复了通过 <code>--resume</code> 或 <code>--continue</code> 恢复会话时会话启动钩子触发两次的问题</li>
+<li>修复了 JSON 输出钩子在每个回合向模型上下文注入无操作系统提醒消息的问题</li>
+<li>修复了语音模式会话在慢速连接与新录音重叠时的损坏问题</li>
+<li>修复了 Linux 沙盒在原生构建上因 "ripgrep (rg) not found" 而启动失败的问题</li>
+<li>修复了 Linux 原生模块在 Amazon Linux 2 和其他 glibc 2.26 系统上无法加载的问题</li>
+<li>修复了通过远程控制接收图像时 "media_type: Field required" API 错误</li>
+<li>修复了 <code>/heapdump</code> 在 Windows 上因 Desktop 文件夹已存在而失败的问题</li>
+<li>改进了中断 Claude 后的向上箭头行为，现在能一步恢复中断的提示并回滚对话</li>
+<li>改进了启动时的 IDE 检测速度</li>
+<li>改进了 macOS 上的剪贴板图像粘贴性能</li>
+<li>改进了 <code>/effort</code> 以在 Claude 响应时工作，与 <code>/model</code> 行为保持一致</li>
+<li>改进了语音模式，在快速按下通话按钮时自动重试瞬态连接故障</li>
+<li>改进了远程控制生成模式选择提示，提供更好的上下文</li>
+<li>将 Bedrock、Vertex 和 Microsoft Foundry 上的默认 Opus 模型更改为 Opus 4.6（原为 Opus 4.1）</li>
+<li>弃用了 <code>/output-style</code> 命令，改用 <code>/config</code>，输出样式现在在会话开始时固定以便更好的提示缓存</li>
+<li>VSCode：修复了对于使用代理或在 Bedrock/Vertex 上使用 Claude 4.5 模型的用户的 HTTP 400 错误</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.73</guid>
+      <pubDate>Wed, 11 Mar 2026 18:26:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.72 发布：新增文件直接写入、计划模式描述等多项功能改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.72</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增文件直接写入和计划模式描述，属于新功能，用户很感兴趣</small></p><p>Anthropic 官方命令行工具 Claude Code 发布 v2.1.72 版本，带来一系列功能增强、性能优化和问题修复。本次更新重点关注开发体验的改进，引入了多项实用新功能并优化了现有工作流程。</p>
+
+<h3>重要改动</h3>
+
+<h4>新功能</h4>
+<ul>
+<li><code>/copy</code> 命令新增 <code>w</code> 键，可直接将选中内容写入文件，无需经过剪贴板，特别适用于 SSH 远程操作场景</li>
+<li><code>/plan</code> 命令新增可选描述参数（如 <code>/plan fix the auth bug</code>），可直接进入计划模式并立即开始执行</li>
+<li>新增 <code>ExitWorktree</code> 工具，用于退出 <code>EnterWorktree</code> 会话</li>
+<li>新增 <code>claude plugins</code> 作为 <code>claude plugin</code> 的别名命令</li>
+<li>新增 <code>CLAUDE_CODE_DISABLE_CRON</code> 环境变量，可在会话中立即停止计划任务</li>
+</ul>
+
+<h4>主要改进</h4>
+<ul>
+<li>工具搜索逻辑优化：当设置相应环境变量时，可绕过第三方代理网关</li>
+<li>努力级别系统简化：从四级简化为低/中/高三级，使用新符号（○ ◐ ●）表示，并通过简短通知替代持久图标</li>
+<li>支持更多 Git 托管服务：Azure DevOps 和 AWS CodeCommit 等平台的仓库 URL 现在可不带 <code>.git</code> 后缀</li>
+<li>恢复 Agent 工具的 <code>model</code> 参数，支持每次调用时单独覆盖模型设置</li>
+</ul>
+
+<h4>权限优化</h4>
+<ul>
+<li>将 <code>lsof</code>、<code>pgrep</code>、<code>tput</code>、<code>ss</code>、<code>fd</code>、<code>fdfind</code> 等常用只读操作工具加入 bash 自动批准允许列表，减少权限提示干扰</li>
+<li>大幅减少误报的 bash 权限提示：tree-sitter 解析器现在能正确处理 <code>find -exec</code>、变量赋值、命令替换等多种模式</li>
+</ul>
+
+<h4>性能提升</h4>
+<ul>
+<li>bash 命令解析改用原生模块，提升初始化速度并解决内存泄漏问题</li>
+<li>减少约 510 KB 的捆绑包大小</li>
+<li>优化长会话中的 CPU 利用率</li>
+<li>修复 SDK <code>query()</code> 调用中的提示缓存失效问题，降低输入令牌成本最高达 12 倍</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+
+<p>本次更新还包含大量细节优化和问题修复：</p>
+
+<ul>
+<li><strong>界面交互</strong>：改进 <code>/config</code> 界面操作逻辑（Esc 取消、Enter 保存、Space 切换）；优化上箭头历史记录，在多会话并发时优先显示当前会话消息；修复 <code>/model</code> 命令在 Claude 工作时不显示结果的问题</li>
+<li><strong>语音功能</strong>：提升语音输入转录准确性，特别是仓库名称和开发术语（如 regex、OAuth、JSON）；修复语音模式中的输入延迟、"未检测到语音"误报等问题</li>
+<li><strong>插件系统</strong>：修复插件安装、市场访问、缓存目录创建等多个问题；改进 <code>claude plugin validate</code> 的错误提示信息</li>
+<li><strong>会话管理</strong>：修复会话恢复、任务清理、工作树隔离、后台任务处理等多个稳定性问题</li>
+<li><strong>权限系统</strong>：修复沙箱权限规则匹配、命令验证、环境变量处理等多个边界情况</li>
+<li><strong>VSCode 集成</strong>：修复集成终端滚动速度不匹配问题；新增努力级别指示器；添加 <code>vscode://anthropic.claude-code/open</code> URI 处理器，支持通过编程方式打开新标签页</li>
+<li><strong>数据安全</strong>：更改 CLAUDE.md HTML 注释的自动注入逻辑，确保注释内容对 Claude 隐藏但仍可通过 Read 工具查看</li>
+</ul>
+
+<p>总体而言，v2.1.72 版本在保持工具稳定性的同时，显著提升了开发者的使用体验，特别是在文件操作、计划任务管理和权限控制等方面带来了实质性改进。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.72</guid>
+      <pubDate>Tue, 10 Mar 2026 00:43:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.71 发布：新增循环命令和cron调度工具，修复多项重要bug</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.71</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增循环命令和cron调度工具，属于重要新功能，用户很感兴趣</small></p><p>Anthropic 官方命令行工具 Claude Code 发布了 v2.1.71 版本，引入了多项新功能和重要修复。本次更新主要增加了循环执行命令和定时调度功能，并解决了多个影响用户体验的关键问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增循环命令</strong>：添加了 <code>/loop</code> 命令，允许用户按固定间隔重复运行提示或斜杠命令（例如 <code>/loop 5m check the deploy</code>）</li>
+<li><strong>新增cron调度工具</strong>：为会话内定期提示添加了cron调度功能</li>
+<li><strong>新增语音键绑定</strong>：在 <code>keybindings.json</code> 中添加了 <code>voice:pushToTalk</code> 键绑定配置，默认使用空格键，支持修饰键+字母组合</li>
+<li><strong>修复长会话冻结问题</strong>：解决了长时间运行会话中stdin冻结的问题，该问题导致按键停止响应但进程仍存活</li>
+<li><strong>修复启动冻结问题</strong>：解决了启用语音模式用户在系统唤醒后遇到的5-8秒启动冻结，该问题由CoreAudio初始化阻塞主线程引起</li>
+<li><strong>修复分叉对话问题</strong>：修复了分叉对话（<code>/fork</code>）共享同一计划文件的问题，该问题导致一个分叉中的计划编辑会覆盖另一个分叉</li>
+<li><strong>修复图像处理问题</strong>：修复了Read工具在图像处理失败时将过大的图像放入上下文的问题，该问题会破坏大量图像会话中的后续交互</li>
+<li><strong>修复插件安装丢失</strong>：解决了运行多个Claude Code实例时插件安装丢失的问题</li>
+<li><strong>修复连接器重连问题</strong>：修复了claude.ai连接器在OAuth令牌刷新后无法重新连接的问题</li>
+</ul>
+
+<h3>其他改进和修复</h3>
+<ul>
+<li>将 <code>fmt</code>、<code>comm</code>、<code>cmp</code>、<code>numfmt</code>、<code>expr</code>、<code>test</code>、<code>printf</code>、<code>getconf</code>、<code>seq</code>、<code>tsort</code> 和 <code>pr</code> 添加到bash自动批准白名单</li>
+<li>修复了多个claude.ai代理连接器同时刷新过期OAuth令牌时导致的启动UI冻结</li>
+<li>修复了包含heredoc提交消息的复合bash命令的错误权限提示</li>
+<li>修复了claude.ai MCP连接器启动通知显示问题</li>
+<li>修复了后台代理完成通知中缺少输出文件路径的问题</li>
+<li>修复了Bash工具错误消息在命令以非零状态退出时的重复输出</li>
+<li>修复了在没有本地Chrome的机器上运行后Chrome扩展自动检测永久卡在"未安装"状态的问题</li>
+<li>修复了插件市场更新、添加功能中的多个问题</li>
+<li>修复了<code>/permissions</code>工作空间选项卡中的重复条目问题</li>
+<li>修复了配置团队代理时<code>--print</code>永久挂起的问题</li>
+<li>修复了每次<code>ToolSearch</code>调用后REPL中显示"❯ Tool loaded."的问题</li>
+<li>改进启动时间，将原生图像处理器加载延迟到首次使用时</li>
+<li>改进桥接会话重新连接，在笔记本电脑从睡眠唤醒后几秒内完成而非等待最多10分钟</li>
+<li>改进<code>/plugin uninstall</code>功能，在<code>.claude/settings.local.json</code>中禁用项目范围的插件</li>
+<li>改进插件提供的MCP服务器去重功能</li>
+<li>更新<code>/debug</code>功能以在会话中启用调试日志记录</li>
+<li>移除了未认证组织注册的claude.ai连接器的启动通知噪音</li>
+</ul>
+
+<p>本次更新显著提升了Claude Code的稳定性和功能性，特别是为自动化任务添加了循环和定时调度能力，并解决了多个影响长期会话稳定性的关键问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.71</guid>
+      <pubDate>Sat, 07 Mar 2026 00:12:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code v2.1.70发布：多项性能优化和VS Code集成增强</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.70</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 性能优化和VS Code集成增强，属于重要改进，用户感兴趣</small></p><p>Anthropic 发布了 Claude Code 命令行工具的 v2.1.70 版本，包含多项错误修复、性能改进和 VS Code 集成增强。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>API 和模型交互修复</strong>：修复了使用 <code>ANTHROPIC_BASE_URL</code> 与第三方网关时的 API 400 错误，解决了自定义 Bedrock 推理配置文件的模型参数支持问题，以及修复了 <code>ToolSearch</code> 后模型返回空响应的问题。</li>
+<li><strong>性能显著提升</strong>：减少了提示输入重新渲染约 74%，降低了启动内存约 426KB，修复了技能列表重复注入问题（每次恢复节省约 600 tokens），并改进了压缩机制以保留图像实现更快速、成本更低的提示缓存重用。</li>
+<li><strong>服务器负载优化</strong>：将远程控制轮询率从 1-2 秒降低到每 10 分钟一次，减少服务器负载约 300 倍。</li>
+<li><strong>VS Code 集成增强</strong>：在 VS Code 活动栏添加火花图标显示所有 Claude Code 会话；为计划添加完整的 Markdown 文档视图并支持添加评论；新增原生 MCP 服务器管理对话框，可通过 <code>/mcp</code> 命令管理服务器而无需切换到终端。</li>
+<li><strong>用户体验改进</strong>：修复了 <code>AskUserQuestion</code> 预览对话框的性能回归问题，改进了 <code>/rename</code> 命令使其在 Claude 处理时也能工作。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>修复了 MCP 服务器连接后的提示缓存问题</li>
+<li>修复了慢速 SSH 连接时 Enter 键插入换行符而非提交的问题</li>
+<li>修复了语音推送到通话在会话开始时未激活的问题</li>
+<li>修复了包含 <code>#NNN</code> 引用的 Markdown 链接错误指向问题</li>
+<li>修复了重复的"模型更新至 Opus 4.6"通知问题</li>
+<li>修复了插件显示状态不准确和市场安装错误</li>
+<li>修复了旧版 git 上 <code>/security-review</code> 命令失败的问题</li>
+<li>为 <code>/color</code> 命令添加了恢复默认颜色的选项</li>
+<li>修复了功能标志磁盘缓存不刷新的问题</li>
+<li>改进了麦克风静音时的错误消息区分</li>
+<li>修复了传送标记在 VS Code 传送会话中未渲染的问题</li>
+<li>多个 Windows 平台特定问题修复（剪贴板、额外窗口、语音模式等）</li>
+</ul>
+
+<p>此次更新主要聚焦于提升工具稳定性、响应速度和 VS Code 集成体验，为开发者提供更流畅的 AI 辅助编程环境。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.70</guid>
+      <pubDate>Fri, 06 Mar 2026 01:20:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.69 发布：新增 API 技能、多语言语音支持及多项性能优化</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.69</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增API技能和多语言语音支持，属于重要新功能，用户很感兴趣</small></p><p>Anthropic 发布了 Claude Code 命令行工具的 v2.1.69 版本，带来了多项新功能、安全修复和性能改进。</p>
+
+<h3>重要新功能</h3>
+<ul>
+<li><strong>新增 /claude-api 技能</strong>：用于使用 Claude API 和 Anthropic SDK 构建应用程序</li>
+<li><strong>扩展语音识别支持</strong>：新增对俄语、波兰语、土耳其语、荷兰语、乌克兰语、希腊语、捷克语、丹麦语、瑞典语、挪威语等 10 种语言的支持，使支持语言总数达到 20 种</li>
+<li><strong>远程控制会话自定义</strong>：为 <code>/remote-control</code> 和 <code>claude remote-control</code> 命令添加可选名称参数，可在 claude.ai/code 中设置自定义会话标题</li>
+<li><strong>技能开发增强</strong>：新增 <code>${CLAUDE_SKILL_DIR}</code> 变量，允许技能引用自己的目录；新增 <code>InstructionsLoaded</code> 钩子事件，当 CLAUDE.md 或规则文件加载到上下文时触发</li>
+<li><strong>插件系统改进</strong>：新增 <code>/reload-plugins</code> 命令，无需重启即可激活待处理的插件更改</li>
+</ul>
+
+<h3>重要安全修复</h3>
+<ul>
+<li>修复嵌套技能发现可能从 gitignored 目录（如 <code>node_modules</code>）加载技能的安全问题</li>
+<li>修复信任对话框首次运行时静默启用所有 <code>.mcp.json</code> 服务器的问题，现在会按预期显示每个服务器的批准对话框</li>
+<li>修复 macOS 钥匙串损坏问题：当使用多个 OAuth MCP 服务器时，大型 OAuth 元数据可能溢出 <code>security -i</code> 缓冲区，导致遗留陈旧凭证并引发重复的 <code>/login</code> 提示</li>
+<li>修复多种内存泄漏问题，包括长会话中的消息保留、React Compiler 缓存积累、REPL 渲染作用域积累等</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li><strong>性能优化</strong>：改进微调器性能，减少渲染和 CPU 开销；通过 React Compiler 改进原生二进制文件的 UI 渲染性能；减少长会话中的内存使用</li>
+<li><strong>错误修复</strong>：修复 <code>claude remote-control</code> 在 npm 安装时崩溃的问题；修复模型解析问题；修复 Git 工作树相关问题；修复多种 UI 和交互问题</li>
+<li><strong>功能增强</strong>：新增努力级别显示；添加代理名称显示；改进 MCP 二进制内容处理；改进文档清晰度</li>
+<li><strong>平台特定修复</strong>：修复 Windows 上的工作树文件复制问题；修复 Windows 上的全局 <code>.claude</code> 文件夹检测；修复 Linux 上的沙盒化 Bash 命令问题</li>
+</ul>
+
+<h3>VSCode 扩展更新</h3>
+<ul>
+<li>新增压缩聊天显示为可折叠的"压缩聊天"卡片，内部包含摘要</li>
+<li>权限模式选择器现在尊重 Claude Code 设置中的 <code>permissions.disableBypassPermissionsMode</code> 配置</li>
+<li>修复 RTL 文本（阿拉伯语、希伯来语、波斯语）在聊天面板中反向渲染的问题</li>
+</ul>
+
+<p>此次更新显著提升了 Claude Code 的稳定性、安全性和性能，同时扩展了其多语言支持和开发功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.69</guid>
+      <pubDate>Thu, 05 Mar 2026 00:26:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code v2.1.68 更新：Opus 4.6 默认中等努力级别，重新引入 ultrathink 功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.68</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Opus 4.6默认设置调整和ultrathink功能重新引入，属于功能调整，用户感兴趣</small></p><p>Anthropic 发布了 Claude Code 命令行工具的 v2.1.68 版本更新，主要包含以下重要改动：</p>
+
+<h3>重要功能更新</h3>
+<ul>
+<li><strong>Opus 4.6 默认使用中等努力级别</strong>：对于 Max 和 Team 订阅用户，Opus 4.6 模型现在默认设置为中等努力级别。这一设置被认为是速度和彻底性之间的最佳平衡点，适合大多数开发任务。用户可以通过 <code>/model</code> 命令随时调整努力级别设置。</li>
+<li><strong>重新引入 "ultrathink" 关键词</strong>：恢复了 "ultrathink" 关键词功能，允许用户在下一轮对话中启用高努力级别模式。</li>
+<li><strong>移除旧版模型支持</strong>：从第一方 API 中移除了 Opus 4 和 4.1 模型。原本使用这些模型的用户会自动迁移到 Opus 4.6 版本。</li>
+</ul>
+
+<p>这些更新旨在优化 Claude Code 的使用体验，为开发人员提供更智能的默认设置和更灵活的控制选项。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.68</guid>
+      <pubDate>Wed, 04 Mar 2026 10:11:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.63发布：新增简化与批量命令，修复多项内存泄漏</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.63</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增简化与批量命令，属于新功能，用户很感兴趣</small></p><p>Anthropic官方Claude AI命令行工具Claude Code发布了v2.1.63版本，本次更新主要引入了新的斜杠命令功能，并修复了多个内存泄漏问题，提升了工具的稳定性和性能。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增捆绑斜杠命令</strong>：添加了<code>/simplify</code>和<code>/batch</code>命令，为用户提供更多操作选项</li>
+<li><strong>新增HTTP hooks功能</strong>：支持向URL发送POST JSON请求并接收JSON响应，替代原有的shell命令执行方式</li>
+<li><strong>项目配置共享优化</strong>：同一Git仓库的不同worktrees现在可以共享项目配置和自动内存功能</li>
+<li><strong>MCP服务器控制</strong>：新增<code>ENABLE_CLAUDEAI_MCP_SERVERS=false</code>环境变量，允许用户选择是否启用claude.ai的MCP服务器</li>
+<li><strong>命令改进</strong>：<code>/model</code>命令现在会在斜杠命令菜单中显示当前激活的模型</li>
+<li><strong>认证流程增强</strong>：MCP OAuth认证增加了手动URL粘贴回退机制，当自动localhost重定向失败时，用户可以手动粘贴回调URL完成认证</li>
+<li><strong>复制功能优化</strong>：<code>/copy</code>命令新增"始终复制完整响应"选项，选择后后续<code>/copy</code>命令将跳过代码块选择器直接复制完整响应</li>
+<li><strong>VSCode集成增强</strong>：会话列表新增了重命名和移除操作，方便管理多个会话</li>
+<li><strong>会话清理修复</strong>：修复了<code>/clear</code>命令不重置缓存技能的问题，避免了旧技能内容在新对话中残留</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li>修复了本地斜杠命令输出（如<code>/cost</code>）在UI中显示为用户发送消息而非系统消息的问题</li>
+<li>修复了桥接轮询循环中的监听器泄漏问题</li>
+<li>修复了MCP OAuth流程清理中的监听器泄漏</li>
+<li>修复了hooks配置菜单导航时的内存泄漏</li>
+<li>修复了自动批准期间交互式权限处理器的监听器泄漏</li>
+<li>修复了文件计数缓存忽略glob忽略模式的问题</li>
+<li>修复了bash命令前缀缓存的内存泄漏</li>
+<li>修复了MCP工具/资源缓存在服务器重连时的泄漏问题</li>
+<li>修复了IDE主机IP检测缓存错误地在不同端口间共享结果的问题</li>
+<li>修复了传输重连时的WebSocket监听器泄漏</li>
+<li>修复了Git根目录检测缓存的内存泄漏，该问题可能导致长时间运行会话中的无限制增长</li>
+<li>修复了JSON解析缓存的内存泄漏，该缓存在长时间会话中会无限制增长</li>
+<li>修复了VSCode远程会话不显示在对话历史中的问题</li>
+<li>修复了REPL桥接中的竞态条件，该问题可能导致新消息与历史消息在初始连接刷新时交错，引起消息排序问题</li>
+<li>修复了长时间运行的teammates在对话压缩后仍保留AppState中所有消息的内存泄漏</li>
+<li>修复了MCP服务器获取缓存在断开连接时未清除的内存泄漏，该问题可能导致频繁重连的服务器内存使用量增长</li>
+<li>改进了长时间会话中子代理的内存使用，通过在上下文压缩期间剥离繁重的进度消息负载来优化</li>
+</ul>
+
+<p>本次更新重点关注内存管理和性能优化，解决了多个可能导致内存泄漏的问题，同时增加了实用的新功能，提升了开发者的使用体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.63</guid>
+      <pubDate>Sat, 28 Feb 2026 03:45:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code v2.1.62发布：修复提示建议缓存回归问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.62</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 修复提示建议缓存回归问题，属于bug修复，用户感兴趣</small></p><p>Anthropic 发布了 Claude Code 命令行工具的 v2.1.62 版本，主要修复了一个影响缓存性能的重要问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li>修复了提示建议缓存回归问题，该问题此前导致了缓存命中率下降</li>
+</ul>
+
+<p>此次更新专注于解决缓存机制中的性能问题，确保用户在使用 Claude Code 时能够获得更高效的提示建议体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.62</guid>
+      <pubDate>Fri, 27 Feb 2026 01:56:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.61发布：修复Windows配置文件并发写入问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.61</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 修复Windows配置文件并发写入问题，属于Windows平台特定改动，用户不关心</small></p><p>Claude Code 发布了 v2.1.61 版本，主要修复了一个在 Windows 平台上可能导致配置文件损坏的问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>修复 Windows 配置文件并发写入问题</strong>：解决了在 Windows 系统中，当多个进程同时写入配置文件时可能导致的文件损坏问题。</li>
+</ul>
+
+<p>该版本没有包含其他功能更新或优化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.61</guid>
+      <pubDate>Thu, 26 Feb 2026 22:34:32 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code v2.1.59 发布：新增自动记忆功能和 /copy 命令</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.59</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新增自动记忆功能和/copy命令，属于新功能，用户很感兴趣</small></p><p>Claude Code v2.1.59 版本带来了多项功能改进和错误修复。主要更新包括：</p>
+
+<h3>重要功能改进</h3>
+<ul>
+<li><strong>自动记忆功能</strong>：Claude 现在会自动保存有用的上下文到自动记忆中，用户可以通过 <code>/memory</code> 命令进行管理</li>
+<li><strong>新增 <code>/copy</code> 命令</strong>：当响应中包含代码块时，该命令会显示交互式选择器，允许用户选择单个代码块或完整响应内容</li>
+<li><strong>修复 MCP OAuth 令牌刷新竞争条件</strong>：解决了同时运行多个 Claude Code 实例时可能出现的令牌刷新问题</li>
+<li><strong>改进 shell 命令错误提示</strong>：当工作目录被删除时，现在会显示清晰的错误消息而非模糊提示</li>
+</ul>
+
+<h3>其他优化</h3>
+<ul>
+<li>改进了复合 bash 命令（如 <code>cd /tmp && git fetch && git push</code>）的"始终允许"前缀建议，现在会为每个子命令计算更智能的前缀</li>
+<li>优化了短任务列表的排序逻辑</li>
+<li>在多代理会话中改进了内存使用，会释放已完成子代理任务的状态</li>
+</ul>
+
+<p>这些更新进一步提升了 Claude Code 在软件开发辅助方面的实用性和稳定性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.59</guid>
+      <pubDate>Thu, 26 Feb 2026 00:59:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code v2.1.58发布：远程控制功能向更多用户开放</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.58</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 远程控制功能向更多用户开放，属于功能扩展，用户感兴趣</small></p><p>Anthropic 官方发布的 Claude Code 命令行工具更新至 v2.1.58 版本，主要改动是将远程控制（Remote Control）功能扩展给更多用户使用。这一功能扩展意味着更多开发者现在可以体验 Claude Code 的远程协作能力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.58</guid>
+      <pubDate>Wed, 25 Feb 2026 20:00:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code v2.1.56 发布：修复 VS Code 崩溃问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.56</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 修复VS Code崩溃问题，属于bug修复，用户感兴趣</small></p><p>Anthropic 官方发布了 Claude Code 命令行工具的 v2.1.56 版本，主要修复了 Visual Studio Code 扩展中的一个重要问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li>修复了导致 VS Code 出现 "command 'claude-vscode.editor.openLast' not found" 错误的另一个崩溃原因</li>
+</ul>
+
+<p>该修复解决了用户在使用 Claude Code 时可能遇到的稳定性问题，提升了开发体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.56</guid>
+      <pubDate>Wed, 25 Feb 2026 06:27:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.55 修复 Windows 下 BashTool EINVAL 错误</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.55</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 修复Windows下BashTool EINVAL错误，属于Windows平台特定改动，用户不关心</small></p><p>Claude Code 发布 v2.1.55 版本，主要修复了在 Windows 操作系统上 BashTool 因 EINVAL 错误而失败的问题。该修复解决了特定平台下的工具兼容性故障，属于重要的错误修复更新。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.55</guid>
+      <pubDate>Wed, 25 Feb 2026 03:15:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code v2.1.53 发布：修复界面闪烁和多个平台崩溃问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.53</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 修复界面闪烁和多平台崩溃问题，属于稳定性修复，用户感兴趣</small></p><p>Claude Code 发布了 v2.1.53 版本，这是一个专注于稳定性和用户体验改进的 bug 修复版本。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li>修复了用户提交输入后界面闪烁的问题，之前用户输入会在消息渲染前短暂消失</li>
+<li>改进了批量终止代理功能（Ctrl+F），现在会发送单个聚合通知而不是每个代理一个，并正确清空命令队列</li>
+<li>修复了 Windows 平台上的多个崩溃问题，包括进程生成时的崩溃、WebAssembly 解释器在 Linux x64 和 Windows x64 上的崩溃</li>
+<li>解决了 Windows ARM64 上有时在2分钟后发生的崩溃问题</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>修复了使用远程控制时优雅关机有时会留下陈旧会话的问题，通过并行化网络调用来解决</li>
+<li>修复了 <code>--worktree</code> 参数有时在首次启动时被忽略的问题</li>
+<li>修复了 Windows 上的一个 panic 错误（"switch on corrupted value"）</li>
+</ul>
+
+<p>这个版本主要关注提升工具的稳定性和用户体验，没有引入新功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.53</guid>
+      <pubDate>Wed, 25 Feb 2026 00:13:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.52 发布：修复 VS Code 扩展在 Windows 上的崩溃问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.52</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 修复VS Code扩展在Windows上的崩溃问题，属于Windows平台特定改动，用户不关心</small></p><p>本次更新主要修复了一个重要的稳定性问题：VS Code 扩展在 Windows 平台上因找不到命令而导致的崩溃。具体解决了错误 "command 'claude-vscode.editor.openLast' not found"。</p><p>此次更新属于<strong>重大 bug 修复</strong>，没有引入新功能或其他次要改动。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.52</guid>
+      <pubDate>Tue, 24 Feb 2026 06:39:56 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code v2.1.88 版本发布：新增无闪烁渲染、权限重试钩子，修复多项重大bug</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.88</link>
@@ -798,806 +1764,6 @@
       </description>
       <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.62</guid>
       <pubDate>Fri, 27 Feb 2026 01:56:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.71 发布：新增循环命令、语音键绑定与多项稳定性修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.71</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code编程工具新版本发布，属于用户很感兴趣的编程工具发布/分享类别，新增功能涉及编程效率改进</small></p><p>Claude Code 发布了 v2.1.71 版本，本次更新引入了多项新功能并修复了多个影响用户体验的问题，提升了工具的稳定性和可用性。</p>
-
-<h3>重要更新</h3>
-<ul>
-<li><strong>新增循环命令</strong>：添加了 <code>/loop</code> 命令，允许用户按指定时间间隔重复运行提示或斜杠命令，例如 <code>/loop 5m check the deploy</code> 可以每5分钟检查部署状态</li>
-<li><strong>新增调度工具</strong>：为会话内的重复提示添加了 cron 调度工具</li>
-<li><strong>语音键绑定可配置</strong>：新增 <code>voice:pushToTalk</code> 键绑定配置，用户可以在 <code>keybindings.json</code> 中重新绑定语音激活键（默认：空格键），支持修饰键+字母组合如 <code>meta+k</code>，避免输入干扰</li>
-<li><strong>修复长会话输入冻结</strong>：解决了长运行会话中按键停止处理但进程保持活动的 stdin 冻结问题</li>
-<li><strong>修复语音模式启动卡顿</strong>：解决了启用语音模式用户在系统唤醒后遇到的5-8秒启动冻结问题，该问题由 CoreAudio 初始化阻塞主线程引起</li>
-<li><strong>修复分叉对话冲突</strong>：修复了分叉对话（<code>/fork</code>）共享同一计划文件的问题，避免了计划编辑在不同分叉间相互覆盖</li>
-<li><strong>修复图像处理问题</strong>：解决了 Read 工具在处理失败时将过大图像放入上下文的问题，该问题会破坏图像密集会话的后续交互</li>
-</ul>
-
-<h3>其他改进与修复</h3>
-<ul>
-<li>将 <code>fmt</code>、<code>comm</code>、<code>cmp</code> 等11个工具添加到 bash 自动批准白名单</li>
-<li>修复了多个 claude.ai 代理连接器同时刷新过期 OAuth 令牌时导致的启动 UI 冻结</li>
-<li>修复了复合 bash 命令包含 heredoc 提交消息时的误报权限提示</li>
-<li>改进了启动时间，延迟原生图像处理器加载到首次使用</li>
-<li>优化了桥接会话重新连接，笔记本电脑从睡眠唤醒后可在几秒内完成连接</li>
-<li>改进了插件卸载机制，项目范围插件现在在本地设置文件中禁用，不影响团队成员</li>
-<li>增强了插件提供的 MCP 服务器去重功能，避免重复连接和工具集</li>
-<li>更新了 <code>/debug</code> 命令，支持在会话中切换调试日志记录</li>
-<li>修复了插件管理、权限显示、错误消息重复等多个细节问题</li>
-<li>移除了未经验证的组织注册 claude.ai 连接器的启动通知噪音</li>
-</ul>
-
-<p>本次更新显著提升了 Claude Code 的稳定性和用户体验，特别是解决了多个长期影响用户的问题，并增加了实用的自动化功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.71</guid>
-      <pubDate>Sat, 07 Mar 2026 00:12:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.59 发布：新增自动记忆功能和交互式代码复制命令</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.59</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code编程工具新版本发布，介绍自动记忆和交互式代码复制新功能，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>Claude Code 发布了 v2.1.59 版本更新，主要引入了两项重要功能改进：</p>
-
-<p><strong>重要功能更新：</strong></p>
-<ul>
-<li><strong>自动记忆功能</strong> - Claude 现在会自动保存有用的上下文到自动记忆中，用户可以通过 <code>/memory</code> 命令进行管理</li>
-<li><strong>交互式代码复制命令</strong> - 新增 <code>/copy</code> 命令，当存在代码块时显示交互式选择器，允许选择单个代码块或完整响应</li>
-</ul>
-
-<p><strong>其他改进：</strong></p>
-<ul>
-<li>改进了复合 bash 命令的"始终允许"前缀建议，现在能更智能地计算每个子命令的前缀</li>
-<li>改善了短任务列表的排序</li>
-<li>在多代理会话中通过释放已完成的子代理任务状态来改进内存使用</li>
-</ul>
-
-<p><strong>Bug 修复：</strong></p>
-<ul>
-<li>修复了同时运行多个 Claude Code 实例时的 MCP OAuth 令牌刷新竞争条件</li>
-<li>修复了工作目录被删除时 shell 命令不显示清晰错误信息的问题</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.59</guid>
-      <pubDate>Thu, 26 Feb 2026 00:59:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.70 版本更新：多项错误修复与功能改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.70</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Claude Code编程工具版本更新，属于用户很感兴趣的编程工具发布/分享类别，故标记为必看内容</small></p><p>Claude Code 发布了 v2.1.70 版本，本次更新包含多项错误修复、性能优化和功能改进，主要解决了 API 错误、工具搜索、提示缓存等问题，并引入了新的 VS Code 集成功能。</p>
-
-<h3>主要修复与改进</h3>
-<ul>
-<li>修复了使用 <code>ANTHROPIC_BASE_URL</code> 与第三方网关时的 API 400 错误，工具搜索现在能正确检测代理端点并禁用 <code>tool_reference</code> 块</li>
-<li>修复了使用自定义 Bedrock 推理配置或其他不符合标准 Claude 命名模式的模型标识符时出现的 <code>API Error: 400 This model does not support the effort parameter</code> 错误</li>
-<li>修复了 <code>ToolSearch</code> 后立即出现空模型响应的问题，服务器现在以系统提示样式标签渲染工具模式，避免模型过早停止</li>
-<li>修复了当带有 <code>instructions</code> 的 MCP 服务器在第一轮之后连接时导致的提示缓存失效问题</li>
-<li>修复了在慢速 SSH 连接上打字时 Enter 键插入换行符而非提交的问题</li>
-<li>修复了 markdown 链接中包含 <code>#NNN</code> 引用时错误指向当前仓库而非目标 URL 的问题</li>
-<li>修复了重复的 "Model updated to Opus 4.6" 通知问题，当项目的 <code>.claude/settings.json</code> 中固定了旧版 Opus 模型字符串时</li>
-<li>修复了插件在 <code>/plugin</code> 中显示不准确的问题，以及全新启动时显示 "not found in marketplace" 错误的问题</li>
-<li>修复了 <code>/security-review</code> 命令在旧版 git 上因 <code>unknown option merge-base</code> 而失败的问题</li>
-<li>修复了 <code>/color</code> 命令无法重置回默认颜色的问题，现在 <code>/color default</code>、<code>/color gray</code>、<code>/color reset</code> 和 <code>/color none</code> 均可恢复默认设置</li>
-<li>修复了 <code>AskUserQuestion</code> 预览对话框中的性能回归问题，该问题导致在笔记输入中每次击键都重新运行 markdown 渲染</li>
-<li>修复了功能标志在早期启动时读取后从不刷新磁盘缓存的问题，导致过时值在会话间持续存在</li>
-<li>修复了 <code>permissions.defaultMode</code> 设置值在 Claude Code Remote 环境中被错误应用的问题，现在非 <code>acceptEdits</code> 或 <code>plan</code> 的值将被忽略</li>
-<li>修复了技能列表在每次 <code>--resume</code> 时重新注入的问题（每次恢复节省约 600 个令牌）</li>
-<li>修复了 VS Code 传送会话中传送标记不渲染的问题</li>
-<li>改进了麦克风捕获静音时的错误消息，以区别于 "未检测到语音"</li>
-<li>改进了压缩功能以在摘要请求中保留图像，允许提示缓存重用以实现更快更便宜的压缩</li>
-<li>改进了 <code>/rename</code> 命令，使其在 Claude 处理时即可工作，而非静默排队</li>
-<li>减少了回合期间提示输入重新渲染约 74%</li>
-<li>减少了无自定义 CA 证书用户的启动内存约 426KB</li>
-<li>将远程控制 <code>/poll</code> 频率降低至连接时每 10 分钟一次（原为 1-2 秒），减少服务器负载约 300 倍。重新连接不受影响——传输丢失会立即唤醒快速轮询</li>
-<li>[VSCode] 在 VS Code 活动栏中添加了火花图标，列出所有 Claude Code 会话，会话以完整编辑器形式打开</li>
-<li>[VSCode] 为 VS Code 中的计划添加了完整的 markdown 文档视图，支持添加评论以提供反馈</li>
-<li>[VSCode] 添加了原生 MCP 服务器管理对话框——在聊天面板中使用 <code>/mcp</code> 可启用/禁用服务器、重新连接和管理 OAuth 身份验证，无需切换到终端</li>
-</ul>
-
-<h3>其他优化与调整</h3>
-<ul>
-<li>修复了 Windows/WSL 上剪贴板损坏非 ASCII 文本（CJK、表情符号）的问题，通过使用 PowerShell <code>Set-Clipboard</code></li>
-<li>修复了在 Windows 上从 VS Code 集成终端运行时启动时打开额外 VS Code 窗口的问题</li>
-<li>修复了 Windows 原生二进制文件上语音模式失败并显示 "native audio module could not be loaded" 的问题</li>
-<li>修复了当设置中 <code>voiceEnabled: true</code> 时，会话启动时 push-to-talk 未激活的问题</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.70</guid>
-      <pubDate>Fri, 06 Mar 2026 01:20:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code 2.1.72 版本发布：新增工具搜索代理绕过、文件写入快捷键等功能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.72</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是Claude Code编程工具的版本发布公告，属于用户很感兴趣的编程工具发布类别，故判断为必看内容。</small></p><p>Claude Code 发布了 2.1.72 版本，带来了多项功能改进和错误修复。主要更新包括工具搜索代理绕过机制、SSH 环境下实用的文件写入功能、计划模式增强等。</p>
-
-<h3>重要功能更新</h3>
-<ul>
-<li><strong>工具搜索代理绕过</strong>：当环境变量设置时，工具搜索现在可以绕过第三方代理网关，替代了已移除的 <code>CLAUDE_CODE_PROXY_SUPPORTS_TOOL_REFERENCE</code> 变量</li>
-<li><strong>SSH 文件写入功能</strong>：在 <code>/copy</code> 命令中添加了 <code>w</code> 键，可直接将选中的内容写入文件，绕过剪贴板，特别适用于 SSH 环境</li>
-<li><strong>计划模式增强</strong>：为 <code>/plan</code> 命令添加了可选描述参数，例如 <code>/plan fix the auth bug</code>，可立即进入计划模式并开始执行</li>
-<li><strong>工作树管理</strong>：新增 <code>ExitWorktree</code> 工具，用于离开 <code>EnterWorktree</code> 会话</li>
-<li><strong>环境变量控制</strong>：添加 <code>CLAUDE_CODE_DISABLE_CRON</code> 环境变量，可在会话中途立即停止计划的 cron 任务</li>
-<li><strong>命令自动批准列表扩展</strong>：将 <code>lsof</code>、<code>pgrep</code>、<code>tput</code>、<code>ss</code>、<code>fd</code> 和 <code>fdfind</code> 添加到 bash 自动批准白名单，减少常见只读操作的权限提示</li>
-<li><strong>Git URL 支持改进</strong>：支持不带 <code>.git</code> 后缀的市场 Git URL（Azure DevOps、AWS CodeCommit）</li>
-</ul>
-
-<h3>其他改进和优化</h3>
-<ul>
-<li>简化了工作量级别为低/中/高（移除了最大级别），使用新符号（○ ◐ ●）和简短通知替代持久图标</li>
-<li>改进了 <code>/config</code> 界面：Esc 取消更改，Enter 保存并关闭，Space 切换设置</li>
-<li>改进了上箭头历史记录，在运行多个并发会话时优先显示当前会话的消息</li>
-<li>减少了约 510 KB 的包大小</li>
-<li>改进了语音输入转录准确性，特别是仓库名称和常见开发术语</li>
-<li>VSCode 扩展新增 <code>vscode://anthropic.claude-code/open</code> URI 处理器，可通过编程方式打开新的 Claude Code 标签页</li>
-</ul>
-
-<h3>错误修复与优化</h3>
-<ul>
-<li>修复了后台任务或钩子响应缓慢时的缓慢退出问题</li>
-<li>修复了代理任务进度卡在"正在初始化..."的问题</li>
-<li>修复了语音模式问题：偶尔的输入延迟、释放按键通话后的错误"未检测到语音"以及提交后陈旧转录重新填充提示</li>
-<li>修复了 bash 安全解析边缘情况</li>
-<li>修复了多个插件安装问题，包括 Windows 上的 OneDrive 文件夹安装失败</li>
-<li>修复了工作树隔离问题：任务工具恢复未恢复当前工作目录</li>
-<li>修复了沙盒权限问题：某些文件写入操作错误地允许而不提示</li>
-<li>修复了长时间会话中的 CPU 利用率问题</li>
-<li>修复了 SDK <code>query()</code> 调用中的提示缓存失效问题，将输入令牌成本降低高达 12 倍</li>
-<li>修复了多个钩子问题，包括异步钩子未接收 bash <code>read -r</code> 的标准输入</li>
-<li>修复了权限规则匹配问题：通配符规则未匹配包含 heredoc、嵌入换行符或无参数的命令</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>添加了 <code>claude plugins</code> 作为 <code>claude plugin</code> 的别名</li>
-<li>支持不带 <code>.git</code> 后缀的市场 git URL（Azure DevOps、AWS CodeCommit）</li>
-<li>恢复了 Agent 工具上的 <code>model</code> 参数，用于每次调用的模型覆盖</li>
-<li>改进了市场克隆失败消息，即使 git 未产生 stderr 也显示诊断信息</li>
-<li>改进了 bash 命令解析，切换到原生模块，加快初始化速度且无内存泄漏</li>
-<li>减少了误报的 bash 权限提示，tree-sitter 解析现在处理 <code>find -exec</code>、变量赋值、命令替换等模式</li>
-<li>更改了 CLAUDE.md HTML 注释，在自动注入时对 Claude 隐藏，但使用 Read 工具读取时仍可见</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.72</guid>
-      <pubDate>Tue, 10 Mar 2026 00:43:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.69 发布：新增 Claude API 技能、语音支持扩展及多项性能改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.69</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 Claude Code 命令行工具的新版本发布，属于用户很感兴趣的编程工具发布类别，新增的 AI 相关功能也符合用户兴趣。</small></p><p>Claude Code 发布了 v2.1.69 版本，带来了多项新功能、错误修复和性能改进。本次更新重点关注开发者体验、多语言支持和系统稳定性。</p>
-
-<h3>重要新功能</h3>
-<ul>
-<li>新增 <code>/claude-api</code> 技能，用于通过 Claude API 和 Anthropicopic SDK 构建应用程序</li>
-<li>语音 STT（语音转文字）支持扩展至 10 种新语言，总计达 20 种语言，新增包括俄语、波兰语、土耳其语、荷兰语、乌克兰语、希腊语、捷克语、丹麦语、瑞典语和挪威语</li>
-<li>新增 <code>/remote-control</code> 和 <code>claude remote-control</code> 的可选名称参数，用于设置自定义会话标题</li>
-<li>新增数字小键盘支持，用于在 Claude 的面试问题中选择选项</li>
-<li>新增努力级别显示功能，在 logo 和 spinner 中显示当前激活的努力设置（如"with low effort"）</li>
-<li>新增 <code>includeGitInstructions</code> 设置（及 <code>CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS</code> 环境变量），可从 Claude 的系统提示中移除内置的提交和 PR 工作流指令</li>
-<li>新增 <code>/reload-plugins</code> 命令，无需重启即可激活待处理的插件更改</li>
-</ul>
-
-<h3>重要错误修复</h3>
-<ul>
-<li>修复了安全漏洞：嵌套技能发现可能从 gitignored 目录（如 <code>node_modules</code>）加载技能</li>
-<li>修复了信任对话框首次运行时静默启用所有 <code>.mcp.json</code> 服务器的问题，现在会按预期显示每个服务器的批准对话框</li>
-<li>修复了 <code>claude remote-control</code> 在 npm 安装时立即崩溃的问题（<a href="https://github.com/anthropics/claude-code/issues/28334">#28334</a>）</li>
-<li>修复了 <code>--model claude-opus-4-0</code> 和 <code>--model claude-opus-4-1</code> 解析到已弃用的 Opus 版本而非当前版本的问题</li>
-<li>修复了 macOS 钥匙串损坏问题：使用多个 OAuth MCP 服务器时，大型 OAuth 元数据可能溢出 <code>security -i</code> stdin 缓冲区，导致遗留陈旧凭证并引发重复的 <code>/login</code> 提示</li>
-<li>修复了内存泄漏问题：长会话中旧消息数组版本在 React Compiler <code>memoCache</code> 中累积</li>
-<li>修复了 <code>Escape</code> 键在输入框有草稿文本时无法中断运行中的回合的问题</li>
-</ul>
-
-<h3>性能改进</h3>
-<ul>
-<li>改进 spinner 性能，将 50ms 动画循环与周围 shell 隔离，减少回合期间的渲染和 CPU 开销</li>
-<li>在原生二进制文件中使用 React Compiler 改进 UI 渲染性能</li>
-<li>减少基线内存约 16MB，通过延迟 Yoga WASM 预加载实现</li>
-<li>改进长会话中的内存使用，稳定 <code>onSubmit</code> 跨消息更新</li>
-<li>减少 SDK 和 CCR 会话使用 stream-json 输出的内存占用</li>
-<li>改进文件操作性能，避免为存在性检查读取文件内容（6 个位置）</li>
-</ul>
-
-<h3>其他改进和优化</h3>
-<ul>
-<li>新增 Ctrl+U 在空 bash 提示符（<code>!</code>）上退出 bash 模式，匹配 <code>escape</code> 和 <code>backspace</code> 行为</li>
-<li>新增代理名称显示在使用 <code>claude --agent</code> 时的终端标题中</li>
-<li>新增 <code>sandbox.enableWeakerNetworkIsolation</code> 设置（仅 macOS），允许 Go 程序在使用自定义 MITM 代理时验证 TLS 证书</li>
-<li>新增一次性启动提示，建议在 macOS 和 Windows 上使用 Claude Code Desktop（最多显示 3 次，可关闭）</li>
-<li>新增 <code>${CLAUDE_SKILL_DIR}</code> 变量，供技能在 SKILL.md 内容中引用自己的目录</li>
-<li>改进 MCP 二进制内容处理：工具返回 PDF、Office 文档或音频时，现在将解码的字节保存到磁盘并带有正确的文件扩展名</li>
-<li>更改了 <code>/resume</code> 选择器，显示最近提示而非第一个提示</li>
-<li>将 Sonnet 4.5 用户自动迁移到 Sonnet 4.6</li>
-<li>修复了多项界面显示、快捷键、插件钩子、内存泄漏和平台特定问题</li>
-</ul>
-
-<p>此外，VSCode 扩展也获得了更新，包括压缩显示改进、权限模式选择器优化和 RTL 文本渲染修复。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.69</guid>
-      <pubDate>Thu, 05 Mar 2026 00:26:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.68 更新：Opus 4.6 默认使用中等努力级别，重新引入 ultrathink 功能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.68</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Claude Code工具的版本更新，属于编程工具发布/分享主题，用户对此高度感兴趣。</small></p><p>Claude Code v2.1.68 版本带来了几项重要更新，主要针对模型配置和功能优化。</p>
-
-<p><strong>重要改动：</strong></p>
-<ul>
-<li><strong>Opus 4.6 默认使用中等努力级别</strong>：对于 Max 和 Team 订阅者，Opus 4.6 模型现在默认使用中等努力级别（medium effort）。这个设置在速度和彻底性之间达到了良好的平衡，适合大多数开发任务。用户可以通过 <code>/model</code> 命令随时调整这一设置。</li>
-<li><strong>重新引入 ultrathink 关键词</strong>：恢复了 "ultrathink" 关键词功能，允许用户在下一轮对话中启用高努力级别。</li>
-<li><strong>移除旧版模型支持</strong>：从第一方 API 的 Claude Code 中移除了 Opus 4 和 4.1 模型。之前固定使用这些旧版本的用户会自动迁移到 Opus 4.6。</li>
-</ul>
-
-<p>此次更新没有包含其他次要改动或依赖更新。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.68</guid>
-      <pubDate>Wed, 04 Mar 2026 10:11:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.63 发布：新增批量命令和HTTP钩子，修复多个内存泄漏问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.63</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code 作为编程工具发布，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>Claude Code 发布了 v2.1.63 版本，本次更新引入了新的斜杠命令和 HTTP 钩子功能，并修复了多个内存泄漏问题，提升了工具的稳定性和性能。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li>新增 <code>/simplify</code> 和 <code>/batch</code> 捆绑斜杠命令（slash commands），扩展了命令行功能</li>
-<li>添加 HTTP 钩子（HTTP hooks）功能，支持通过 POST JSON 到 URL 并接收 JSON 响应，替代执行 shell 命令</li>
-<li>修复了多个内存泄漏问题，包括：桥接轮询循环中的监听器泄漏、MCP OAuth 流程清理中的监听器泄漏、钩子配置菜单中的内存泄漏、自动批准期间交互式权限处理器的监听器泄漏、bash 命令前缀缓存泄漏、MCP 工具/资源缓存泄漏、WebSocket 监听器泄漏、git 根检测缓存泄漏、JSON 解析缓存泄漏、长运行队友消息保留问题、MCP 服务器获取缓存未清除问题等</li>
-<li>项目配置和自动内存现在在同一仓库的 git worktrees 之间共享</li>
-<li>添加 <code>ENABLE_CLAUDEAI_MCP_SERVERS=false</code> 环境变量，可选择不启用 claude.ai MCP 服务器</li>
-<li>改进了 <code>/model</code> 命令，在斜杠命令菜单中显示当前激活的模型</li>
-<li>添加 MCP OAuth 认证的手动 URL 粘贴回退功能，当自动 localhost 重定向失败时可用</li>
-<li>修复了 VSCode 远程会话不显示在对话历史中的问题</li>
-<li>修复了 REPL 桥中的竞争条件，该问题可能导致新消息与历史消息交错，引起消息排序问题</li>
-<li>添加了"始终复制完整响应"选项到 <code>/copy</code> 选择器，选择后未来的 <code>/copy</code> 命令将跳过代码块选择器直接复制完整响应</li>
-<li>VSCode：在会话列表中添加了会话重命名和删除操作</li>
-<li>修复了 <code>/clear</code> 不重置缓存技能的问题，该问题可能导致过时的技能内容在新对话中持续存在</li>
-</ul>
-
-<h3>其他改进和修复</h3>
-<ul>
-<li>修复了文件计数缓存忽略 glob 忽略模式的问题</li>
-<li>修复了 IDE 主机 IP 检测缓存错误地在不同端口间共享结果的问题</li>
-<li>改进了长会话中子代理的内存使用，通过在上下文压缩期间剥离繁重的进度消息负载</li>
-<li>修复了本地斜杠命令输出（如 /cost）在 UI 中显示为用户发送的消息而非系统消息的问题</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.63</guid>
-      <pubDate>Sat, 28 Feb 2026 03:45:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.66 发布（无详细变更说明）</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.66</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code编程工具新版本发布，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>Anthropic 官方的 Claude AI 命令行工具 Claude Code 发布了 v2.1.66 版本，但该发布页面未提供详细的变更日志或说明。</p>
-<p>由于缺少具体的发布说明，无法区分本次更新中的重要改动（如新功能、重大 bug 修复）与其他改动（如小优化、依赖更新等）。用户如需了解具体变更内容，可能需要查看 GitHub 仓库的提交历史或源代码变更。</p>
-<p>Claude Code 是专为软件开发辅助设计的命令行工具，集成了 Claude AI 的代码生成、分析和调试能力。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.66</guid>
-      <pubDate>Wed, 04 Mar 2026 01:19:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.62：修复提示建议缓存回归问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.62</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code新版本发布，修复提示建议缓存回归问题，属于编程工具发布，用户很感兴趣</small></p><p>Anthropic 官方发布的 Claude Code 命令行工具更新至 v2.1.62 版本，主要修复了一个影响性能的缓存问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li>修复了提示建议缓存回归问题，该问题此前导致缓存命中率降低，影响工具响应性能</li>
-</ul>
-
-<p>此次更新专注于解决一个具体的性能退化问题，确保提示建议缓存功能恢复正常工作状态。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.62</guid>
-      <pubDate>Fri, 27 Feb 2026 01:56:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.61 发布：修复 Windows 配置文件并发写入损坏问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.61</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍 Claude Code 新版本发布，属于编程工具分享，但核心修复是针对 Windows 平台特定问题，用户对此不关心，兴趣不明确</small></p><p>Claude Code 发布了 v2.1.61 版本，主要修复了一个在 Windows 系统上可能导致配置文件损坏的问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li>修复了 Windows 平台上并发写入导致配置文件损坏的问题</li>
-</ul>
-
-<h3>其他改动</h3>
-<p>本次更新没有包含其他功能新增或优化。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.61</guid>
-      <pubDate>Thu, 26 Feb 2026 22:34:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.71 发布：新增循环命令和cron调度工具</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.71</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code工具新版本发布，新增循环命令和cron调度工具属于编程效率改进，完全符合用户对编程工具发布的高度兴趣配置</small></p><p>Claude Code 发布了 v2.1.71 版本，带来了多项新功能和重要修复。本次更新主要增加了循环执行命令和定时调度功能，并修复了多个影响用户体验的关键问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增 /loop 命令</strong>：可以定期运行提示或斜杠命令，例如 <code>/loop 5m check the deploy</code> 会每5分钟执行一次检查部署操作</li>
-<li><strong>新增cron调度工具</strong>：为会话内的定期提示提供了调度功能</li>
-<li><strong>新增可重新绑定的语音激活键</strong>：通过 <code>voice:pushToTalk</code> 键绑定配置，支持在 <code>keybindings.json</code> 中重新绑定（默认：空格键）</li>
-<li><strong>修复stdin冻结问题</strong>：解决了长运行会话中按键停止处理但进程仍存活的冻结问题</li>
-<li><strong>修复启动冻结问题</strong>：解决了启用语音模式用户遇到的5-8秒启动冻结，该问题由系统唤醒后CoreAudio初始化阻塞主线程引起</li>
-<li><strong>修复启动UI冻结</strong>：解决了多个claude.ai代理连接器同时刷新过期OAuth令牌时的UI冻结问题</li>
-<li><strong>修复分叉对话问题</strong>：解决了 <code>/fork</code> 命令创建的分叉对话共享同一计划文件的问题，避免了一个分叉中的计划编辑覆盖另一个</li>
-</ul>
-
-<h3>其他改进和修复</h3>
-<ul>
-<li>将 <code>fmt</code>、<code>comm</code>、<code>cmp</code>、<code>numfmt</code>、<code>expr</code>、<code>test</code>、<code>printf</code>、<code>getconf</code>、<code>seq</code>、<code>tsort</code> 和 <code>pr</code> 添加到bash自动批准白名单</li>
-<li>修复Read工具在处理失败时将过大图像放入上下文的问题，该问题会破坏图像密集的长会话的后续交互</li>
-<li>修复包含heredoc提交信息的复合bash命令的错误权限提示</li>
-<li>修复运行多个Claude Code实例时插件安装丢失的问题</li>
-<li>修复claude.ai连接器在OAuth令牌刷新后无法重新连接的问题</li>
-<li>修复claude.ai MCP连接器启动通知为每个组织配置的连接器显示的问题，现在仅显示先前连接过的</li>
-<li>修复后台代理完成通知缺少输出文件路径的问题，该问题使父代理在上下文压缩后难以恢复代理结果</li>
-<li>修复Bash工具错误消息中命令以非零状态退出时的重复输出</li>
-<li>修复在没有本地Chrome的机器上运行后Chrome扩展自动检测永久卡在"未安装"状态的问题</li>
-<li>修复市场固定到分支/标签引用时 <code>/plugin marketplace update</code> 因合并冲突失败的问题</li>
-<li>修复 <code>/plugin marketplace add owner/repo@ref</code> 错误解析 <code>@</code> 的问题</li>
-<li>修复 <code>/permissions</code> Workspace选项卡中相同目录带和不带尾部斜杠时出现重复条目的问题</li>
-<li>修复配置团队代理时 <code>--print</code> 永久挂起的问题</li>
-<li>修复每次 <code>ToolSearch</code> 调用后REPL中出现"❯ Tool loaded."的问题</li>
-<li>改进启动时间：将原生图像处理器加载延迟到首次使用时</li>
-<li>改进桥接会话重新连接：笔记本电脑从睡眠唤醒后几秒内完成，而不是等待最多10分钟</li>
-<li>改进 <code>/plugin uninstall</code>：在 <code>.claude/settings.local.json</code> 中禁用项目范围插件，而不是修改 <code>.claude/settings.json</code>，避免影响队友</li>
-<li>改进插件提供的MCP服务器去重：跳过重复手动配置服务器的插件服务器，防止重复连接和工具集</li>
-<li>更新 <code>/debug</code>：支持在会话中切换调试日志记录</li>
-<li>移除未经验证的组织注册claude.ai连接器的启动通知噪音</li>
-</ul>
-
-<p>本次更新显著提升了工具的稳定性和用户体验，特别是解决了多个影响长期使用的关键问题，并增加了实用的定时执行功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.71</guid>
-      <pubDate>Sat, 07 Mar 2026 00:12:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.59发布：新增自动记忆管理和代码块复制功能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.59</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code工具新版本发布，介绍自动记忆管理和代码块复制功能；用户对编程工具发布/分享很感兴趣</small></p><p>Anthropic 官方命令行工具 Claude Code 发布了 v2.1.59 版本，引入了多项功能改进和错误修复。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>自动记忆管理</strong>：Claude 现在会自动保存有用的上下文到 auto-memory 中，用户可以通过 <code>/memory</code> 命令进行管理。</li>
-<li><strong>新增代码块复制功能</strong>：添加了 <code>/copy</code> 命令，当响应中包含代码块时，会显示交互式选择器，允许用户选择单个代码块或完整响应进行复制。</li>
-<li><strong>修复 MCP OAuth 令牌刷新竞争条件</strong>：解决了同时运行多个 Claude Code 实例时可能出现的令牌刷新竞争条件问题。</li>
-<li><strong>改进 shell 命令错误提示</strong>：修复了当工作目录被删除时，shell 命令不显示清晰错误信息的问题。</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>优化了复合 bash 命令（如 <code>cd /tmp &amp;&amp; git fetch &amp;&amp; git push</code>）的"始终允许"前缀建议，现在能更智能地计算每个子命令的前缀。</li>
-<li>改进了短任务列表的排序方式。</li>
-<li>通过释放已完成的子代理任务状态，优化了多代理会话中的内存使用。</li>
-</ul>
-
-<p>本次更新主要增强了用户体验和系统稳定性，为开发者提供了更便捷的代码交互和上下文管理功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.59</guid>
-      <pubDate>Thu, 26 Feb 2026 00:59:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.58发布：远程控制功能向更多用户开放</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.58</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code工具新版本发布，扩展远程控制功能；用户对编程工具发布/分享很感兴趣</small></p><p>Anthropic官方发布了Claude Code命令行工具的v2.1.58版本更新。本次更新主要扩展了远程控制功能的用户覆盖范围。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>扩展远程控制功能</strong>：将远程控制功能向更多用户开放，使更多开发者能够使用该功能进行软件开发辅助</li>
-</ul>
-
-<p>Claude Code是Anthropic官方的Claude AI命令行工具，专门用于软件开发辅助工作。本次版本更新专注于功能可用性的扩展，没有包含其他小优化或依赖更新。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.58</guid>
-      <pubDate>Wed, 25 Feb 2026 20:00:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.56 发布：修复VS Code崩溃问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.56</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude Code工具的bug修复版本，解决VS Code崩溃问题；属于编程工具发布但主要是问题修复而非新功能</small></p><p>Anthropic 官方发布的 Claude Code 命令行工具更新至 v2.1.56 版本，主要修复了 Visual Studio Code 扩展中的一个崩溃问题。</p>
-
-<p><strong>重要改动：</strong></p>
-<ul>
-<li>修复了导致 VS Code 出现 "command 'claude-vscode.editor.openLast' not found" 错误崩溃的另一个原因</li>
-</ul>
-
-<p>该修复解决了用户在使用 Claude Code VS Code 扩展时可能遇到的稳定性问题，提升了开发体验的可靠性。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.56</guid>
-      <pubDate>Wed, 25 Feb 2026 06:27:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.70 版本发布：多项修复与性能优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.70</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude Code编程工具新版本发布，属于编程工具发布/分享类别，用户很感兴趣，但主要是修复和优化而非重大功能更新</small></p><p>Claude Code 发布了 v2.1.70 版本，本次更新包含多项错误修复、性能改进和新功能增强。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>API 错误修复</strong>：修复了使用 <code>ANTHROPIC_BASE_URL</code> 与第三方网关时出现的 API 400 错误，以及使用自定义 Bedrock 推理配置时的模型参数支持问题</li>
-<li><strong>ToolSearch 响应问题</strong>：解决了 <code>ToolSearch</code> 后模型返回空响应的问题，该问题由服务器渲染工具模式时的系统提示标签引起</li>
-<li><strong>VS Code 集成增强</strong>：
-  <ul>
-    <li>添加了 VS Code 活动栏中的火花图标，可列出所有 Claude Code 会话</li>
-    <li>为计划（plans）添加了完整的 Markdown 文档视图，支持添加评论提供反馈</li>
-    <li>新增原生 MCP（Model Context Protocol）服务器管理对话框，可通过 <code>/mcp</code> 命令管理服务器而无需切换终端</li>
-  </ul>
-</li>
-<li><strong>缓存与连接问题</strong>：修复了 MCP 服务器连接后的 prompt-cache 失效问题，以及语音模式下推送到通话（push-to-talk）在会话开始时无法激活的问题</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li><strong>命令功能完善</strong>：修复了 <code>/security-review</code> 命令在旧版 git 中的兼容性问题，为 <code>/color</code> 命令添加了恢复默认颜色的选项</li>
-<li><strong>插件管理优化</strong>：解决了插件显示状态不准确和启动时的市场查找错误问题</li>
-<li><strong>用户体验提升</strong>：改进了麦克风静音时的错误消息区分，修复了 Markdown 链接中 <code>#NNN</code> 引用指向错误的问题</li>
-<li><strong>设置与通知</strong>：修复了重复的模型更新通知问题，解决了 Claude Code Remote 环境中权限设置的误用问题</li>
-</ul>
-
-<h3>性能优化</h3>
-<ul>
-<li><strong>渲染效率提升</strong>：减少了对话轮次中 prompt 输入重新渲染约 74%，修复了 <code>AskUserQuestion</code> 预览对话框的性能回归</li>
-<li><strong>内存与缓存优化</strong>：为无自定义 CA 证书的用户减少了约 426KB 的启动内存，修复了功能标志磁盘缓存的刷新问题</li>
-<li><strong>服务器负载降低</strong>：将远程控制（Remote Control）的轮询频率从 1-2 秒降低到每 10 分钟一次，减少服务器负载约 300 倍</li>
-<li><strong>Token 节省</strong>：修复了技能列表在每次恢复会话时重复注入的问题，每次恢复可节省约 600 个 token</li>
-<li><strong>压缩功能改进</strong>：改进了压缩（compaction）功能以保留图像，支持 prompt cache 重用以实现更快更便宜的压缩</li>
-</ul>
-
-<p>此外，还修复了 SSH 连接缓慢时 Enter 键插入换行符而非提交的问题，并改进了 <code>/rename</code> 命令使其在 Claude 处理时即可工作而非静默排队。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.70</guid>
-      <pubDate>Fri, 06 Mar 2026 01:20:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.69 发布：新增 Claude API 技能、多语言语音支持及多项改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.69</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code工具版本发布，属于编程工具发布类别，用户配置为很感兴趣，是必看内容</small></p><p>Claude Code 发布了 v2.1.69 版本，带来了多项新功能、错误修复和性能改进。本次更新重点关注开发体验的增强和系统稳定性的提升。</p>
-
-<h3>重要改动</h3>
-
-<h4>新功能</h4>
-<ul>
-<li>新增 <code>/claude-api</code> 技能，用于通过 Claude API 和 Anthropic SDK 构建应用程序</li>
-<li>在空 bash 提示符（<code>!</code>）上添加 Ctrl+U 快捷键退出 bash 模式，与 <code>escape</code> 和 <code>backspace</code> 行为保持一致</li>
-<li>添加数字小键盘支持，用于在 Claude 面试问题中选择选项（之前仅支持 QWERTY 上方的数字行）</li>
-<li>为 <code>/remote-control</code> 和 <code>claude remote-control</code> 添加可选名称参数（<code>/remote-control My Project</code> 或 <code>--name "My Project"</code>），用于在 claude.ai/code 中设置自定义会话标题</li>
-<li>语音 STT（语音转文本）支持新增 10 种语言（总计 20 种）：俄语、波兰语、土耳其语、荷兰语、乌克兰语、希腊语、捷克语、丹麦语、瑞典语、挪威语</li>
-<li>在徽标和加载器中添加努力级别显示（例如"with low effort"），便于查看当前激活的努力设置</li>
-<li>使用 <code>claude --agent</code> 时，在终端标题中显示代理名称</li>
-<li>添加 <code>sandbox.enableWeakerNetworkIsolation</code> 设置（仅 macOS），允许 Go 程序（如 <code>gh</code>、<code>gcloud</code>、<code>terraform</code>）在使用自定义 MITM 代理时验证 TLS 证书</li>
-<li>添加 <code>includeGitInstructions</code> 设置（及 <code>CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS</code> 环境变量），用于从 Claude 系统提示中移除内置的提交和 PR 工作流指令</li>
-<li>添加 <code>/reload-plugins</code> 命令，无需重启即可激活待处理的插件更改</li>
-</ul>
-
-<h4>重大错误修复</h4>
-<ul>
-<li>修复安全漏洞：嵌套技能发现可能从 gitignored 目录（如 <code>node_modules</code>）加载技能</li>
-<li>修复信任对话框首次运行时静默启用所有 <code>.mcp.json</code> 服务器的问题，现在会按预期显示每个服务器的批准对话框</li>
-<li>修复 <code>claude remote-control</code> 在 npm 安装时立即崩溃的问题（<a href="https://github.com/anthropics/claude-code/issues/28334">#28334</a>）</li>
-<li>修复 <code>--model claude-opus-4-0</code> 和 <code>--model claude-opus-4-1</code> 解析到已弃用的 Opus 版本而非当前版本的问题</li>
-<li>修复 macOS 钥匙链损坏问题：使用多个 OAuth MCP 服务器时，大型 OAuth 元数据可能溢出 <code>security -i</code> stdin 缓冲区，导致残留旧凭据并引发重复的 <code>/login</code> 提示</li>
-<li>修复多个内存泄漏问题，包括长会话中的消息数组积累、REPL 渲染范围积累、交互模式中的钩子事件无限制积累等</li>
-<li>修复各种崩溃和挂起问题，如 <code>/stats</code> 崩溃、流错误后的短暂挂起、<code>--mcp-config</code> 指向损坏文件时的挂起等</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>性能优化：改进加载器性能，减少渲染和 CPU 开销；改进原生二进制文件中的 UI 渲染性能；改进 <code>--worktree</code> 启动速度</li>
-<li>内存优化：减少基线内存约 16MB；减少 SDK 和 CCR 会话的内存占用；减少恢复大型会话时的内存使用</li>
-<li>功能改进：改进 MCP 二进制内容处理（PDF、Office 文档、音频文件现在保存为正确扩展名的文件）；改进文档说明</li>
-<li>行为调整：Sonnet 4.5 用户自动迁移到 Sonnet 4.6；<code>/resume</code> 选择器显示最近提示而非第一个提示</li>
-<li>VSCode 扩展改进：添加可折叠的"压缩聊天"卡片显示；修复 RTL 文本（阿拉伯语、希伯来语、波斯语）渲染反向的问题</li>
-</ul>
-
-<p>本次更新还包含大量其他错误修复和细微改进，进一步提升了 Claude Code 的稳定性和用户体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.69</guid>
-      <pubDate>Thu, 05 Mar 2026 00:26:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.68发布：Opus 4.6默认使用中等努力级别，移除旧模型支持</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.68</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是编程工具Claude Code的版本发布公告，属于用户明确配置为high_interest的'编程工具发布/分享'类别，用户会强烈感兴趣</small></p><p>Anthropic发布了Claude Code命令行工具的v2.1.68版本更新，主要包含三项重要功能调整：</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>Opus 4.6模型默认配置变更</strong>：针对Max和Team订阅用户，Opus 4.6现在默认使用中等努力级别。这一设置被认为是速度与彻底性之间的最佳平衡点，适用于大多数任务场景。用户仍可通过<code>/model</code>命令随时调整这一设置。</li>
-<li><strong>"ultrathink"关键词回归</strong>：重新引入了"ultrathink"关键词功能，允许用户在下一轮对话中临时启用高努力级别模式。</li>
-<li><strong>旧模型支持终止</strong>：从第一方API中移除了Opus 4和Opus 4.1模型。原本使用这些旧版本模型的用户将自动迁移至Opus 4.6版本。</li>
-</ul>
-
-<p>这些更新反映了Anthropic对模型使用体验的持续优化，旨在为用户提供更平衡的性能表现和更简洁的模型选择方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.68</guid>
-      <pubDate>Wed, 04 Mar 2026 10:11:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.63 发布：新增命令、HTTP hooks 和内存泄漏修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.63</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章是关于Claude Code编程工具的新版本发布公告，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>Claude Code v2.1.63 版本带来了多项功能改进和错误修复，重点关注内存优化和新功能增强。</p>
-
-<p><strong>主要新功能：</strong></p>
-<ul>
-<li>新增 <code>/simplify</code> 和 <code>/batch</code> 捆绑斜杠命令</li>
-<li>新增 HTTP hooks 功能，可以通过 POST JSON 到 URL 并接收 JSON 响应，替代运行 shell 命令</li>
-<li>项目配置和自动内存现在在同一仓库的 git worktree 之间共享</li>
-<li>增加了禁用 claude.ai MCP 服务器的环境变量选项 <code>ENABLE_CLAUDEAI_MCP_SERVERS=false</code></li>
-<li>改进了 <code>/model</code> 命令，在斜杠命令菜单中显示当前活动模型</li>
-</ul>
-
-<p><strong>重要错误修复：</strong></p>
-<ul>
-<li>修复了多个内存泄漏问题，包括在长运行会话中的无限制增长问题</li>
-<li>修复了 REPL 桥接中的竞态条件，可能导致消息排序问题</li>
-<li>修复了本地斜杠命令输出在 UI 中的显示问题</li>
-<li>修复了 MCP OAuth 流程中的监听器泄漏问题</li>
-<li>修复了文件计数缓存忽略 glob 忽略模式的问题</li>
-</ul>
-
-<p><strong>其他改进：</strong></p>
-<ul>
-<li>添加了 MCP OAuth 认证期间的手动 URL 粘贴回退功能</li>
-<li>修复了各种缓存和监听器泄漏问题</li>
-<li>VSCode：修复远程会话不显示在对话历史中的问题</li>
-<li>VSCode：添加了会话重命名和删除操作到会话列表</li>
-<li>增加了"始终复制完整响应"选项到 <code>/copy</code> 选择器</li>
-<li>修复了 <code>/clear</code> 命令不重置缓存技能的问题</li>
-</ul>
-
-<p>这次更新显著提升了工具的稳定性和内存使用效率，特别是在长时间运行会话中，同时增加了实用的新功能和工作流程改进。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.63</guid>
-      <pubDate>Sat, 28 Feb 2026 03:45:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.62 发布：修复提示建议缓存回归问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.62</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要主题为编程工具发布更新，属于用户很感兴趣的编程工具发布/分享类别，因此推荐阅读</small></p><p>Claude Code 发布了 v2.1.62 版本更新，主要修复了一个影响缓存性能的重要问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li>修复了提示建议缓存回归问题，该问题此前降低了缓存命中率</li>
-</ul>
-
-<p>这个修复有助于提升 Claude Code 的响应速度和整体性能表现。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.62</guid>
-      <pubDate>Fri, 27 Feb 2026 01:56:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.61 发布：修复 Windows 平台配置文件并发写入问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.61</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code编程工具版本发布，属于用户很感兴趣的'编程工具发布/分享'类别</small></p><p>Claude Code 发布了 v2.1.61 版本，主要修复了一个在 Windows 平台上的重要问题。</p>
-
-<h3>重要修复</h3>
-<ul>
-<li>修复了在 Windows 系统上并发写入导致配置文件损坏的问题，确保配置文件的完整性和稳定性</li>
-</ul>
-
-<p>这个版本专注于解决特定平台的问题，没有包含新功能或其他平台的改动。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.61</guid>
-      <pubDate>Thu, 26 Feb 2026 22:34:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.59 发布：新增自动记忆管理和代码块复制功能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.59</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code 新增自动记忆管理和代码块复制功能，属于编程工具的重要功能更新，符合用户对编程效率改进的高兴趣</small></p><p>Anthropic 发布了 Claude Code v2.1.59 版本，这是一个用于软件开发辅助的官方命令行工具。本次更新带来了多项功能改进和错误修复。</p>
-
-<h3>主要新功能</h3>
-<ul>
-<li><strong>自动记忆管理</strong>：Claude 现在能够自动保存有用的上下文到自动记忆功能，用户可以通过 <code>/memory</code> 命令进行管理</li>
-<li><strong>代码块复制功能</strong>：新增 <code>/copy</code> 命令，当响应中包含代码块时，会显示交互式选择器，允许用户选择单个代码块或完整响应进行复制</li>
-<li><strong>智能命令前缀建议</strong>：改进了复合 bash 命令（如 <code>cd /tmp &amp;&amp; git fetch &amp;&amp; git push</code>）的"始终允许"前缀建议，现在能够更智能地为每个子命令计算前缀，而不是将整个命令视为一个整体</li>
-</ul>
-
-<h3>其他改进和修复</h3>
-<ul>
-<li>改进了短任务列表的排序方式</li>
-<li>优化了多代理会话中的内存使用，释放已完成的子代理任务状态</li>
-<li>修复了同时运行多个 Claude Code 实例时可能出现的 MCP OAuth 令牌刷新竞争条件</li>
-<li>修复了工作目录被删除时 shell 命令不显示清晰错误信息的问题</li>
-</ul>
-
-<p>这些更新进一步提升了 Claude Code 的开发辅助体验，特别是在代码管理和命令行交互方面。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.59</guid>
-      <pubDate>Thu, 26 Feb 2026 00:59:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.58 发布：远程控制功能向更多用户开放</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.58</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 远程控制功能向更多用户开放，属于编程工具的功能推广，用户对编程工具发布感兴趣</small></p><p>Claude Code 发布了 v2.1.58 版本，主要更新是将远程控制功能扩展到更多用户群体。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li>远程控制功能向更多用户开放 - 这是本次版本的主要更新内容</li>
-</ul>
-
-<h3>其他改动</h3>
-<p>本次版本更新主要专注于远程控制功能的扩展，没有其他显著的功能更新或修复。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.58</guid>
-      <pubDate>Wed, 25 Feb 2026 20:00:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.56 发布：修复 VS Code 扩展崩溃问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.56</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 修复 VS Code 扩展崩溃问题，关系到工具稳定性，用户作为开发者可能使用 VS Code</small></p><p>Claude Code 发布了 v2.1.56 版本，主要针对 VS Code 扩展进行了问题修复。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li>修复了 VS Code 扩展中导致 "command 'claude-vscode.editor.openLast' not found" 错误崩溃的另一个原因</li>
-</ul>
-
-<h3>其他改动</h3>
-<p>本次更新主要专注于修复上述崩溃问题，没有其他功能更新或依赖变更。</p>
-
-<p>这个修复解决了用户在 VS Code 中使用 Claude 扩展时可能遇到的稳定性问题，提升了工具的可靠性。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.56</guid>
-      <pubDate>Wed, 25 Feb 2026 06:27:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.55发布：修复Windows平台BashTool的EINVAL错误</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.55</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 修复 Windows 平台特定错误，根据来源说明用户不关心 Windows 平台特定改动</small></p><p>Claude Code发布了v2.1.55版本，主要修复了BashTool在Windows平台上因EINVAL（无效参数）错误而失败的问题。</p>
-
-<p>这个修复解决了Windows用户在使用BashTool功能时遇到的运行错误，确保该工具在Windows环境下能够正常工作。对于其他平台的用户，此版本没有引入新的功能或改动。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.55</guid>
-      <pubDate>Wed, 25 Feb 2026 03:15:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.53 发布：修复 UI 闪烁与进程管理问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.53</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 修复 UI 闪烁与进程管理问题，改善用户体验，属于工具维护</small></p><p>Claude Code 发布了 v2.1.53 版本，主要包含多项稳定性修复和问题解决。本次更新重点解决了用户界面交互和进程管理方面的几个关键问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>修复 UI 闪烁问题</strong>：解决了用户提交输入后、消息渲染前输入内容会短暂消失的界面闪烁问题，提升了交互体验。</li>
-<li><strong>改进批量代理终止功能</strong>：修复了使用 Ctrl+F 批量终止代理时，现在会发送单个聚合通知而不是每个代理单独通知，并正确清除了命令队列。</li>
-<li><strong>优化远程控制会话清理</strong>：修复了使用远程控制时，优雅关闭有时会留下陈旧会话的问题，通过并行化拆卸网络调用提高了可靠性。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li>修复了 <code>--worktree</code> 参数有时在首次启动时被忽略的问题</li>
-<li>解决了多个平台特定的崩溃问题，包括 Windows 上的 panic 错误、生成多个进程时的崩溃，以及 Linux x64 和 Windows x64 上 WebAssembly 解释器的崩溃</li>
-<li>修复了 Windows ARM64 上有时在运行 2 分钟后发生的崩溃问题</li>
-</ul>
-
-<p>这些修复进一步提升了 Claude Code 的稳定性和用户体验，特别是针对日常开发中可能遇到的界面交互和进程管理问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.53</guid>
-      <pubDate>Wed, 25 Feb 2026 00:13:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.52 发布：修复 VS Code 扩展崩溃问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.52</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 修复 VS Code 扩展崩溃问题，工具稳定性修复对开发者重要</small></p><p>Claude Code 发布了 v2.1.52 版本，主要修复了一个重要的 bug：</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>修复 VS Code 扩展崩溃问题</strong>：解决了在 Windows 系统上出现的 "command 'claude-vscode.editor.openLast' not found" 错误导致的扩展崩溃问题</li>
-</ul>
-
-<p>这个版本主要是一个 bug 修复版本，没有新增功能或其他改动。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.52</guid>
-      <pubDate>Tue, 24 Feb 2026 06:39:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code v2.1.51 发布：新增远程控制功能并修复多个安全漏洞</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.51</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 新增远程控制功能并修复安全漏洞，虽然用户不关心安全相关改动，但新功能是主要亮点</small></p><p>Claude Code 发布了 v2.1.51 版本，引入了多项重要更新和改进。主要变化包括新增远程控制功能、修复关键安全漏洞以及优化性能。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增远程控制功能</strong>：添加了 <code>claude remote-control</code> 子命令，支持外部构建并为所有用户启用本地环境服务。</li>
-<li><strong>安全修复</strong>：修复了两个安全漏洞。第一个是 <code>statusLine</code> 和 <code>fileSuggestion</code> hook 命令在交互模式下无需工作区信任接受即可执行的问题。第二个是 HTTP hooks 可能从头部值插入任意环境变量的问题，现在需要明确的 <code>allowedEnvVars</code> 列表配置。</li>
-<li><strong>性能优化</strong>：工具结果持久化阈值从 100K 字符降低到 50K，减少上下文窗口使用并延长对话寿命。</li>
-<li><strong>API 错误修复</strong>：修复了重复 <code>control_response</code> 消息（如来自 WebSocket 重新连接）可能导致 API 400 错误的问题。</li>
-<li><strong>网络代理增强</strong>：HTTP hooks 现在在启用沙箱时通过沙箱网络代理路由，强制执行域名白名单。HTTP hooks 不支持 SessionStart/Setup 事件。</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li><strong>插件市场优化</strong>：默认 Git 超时从 30秒增加到 120秒，并添加了 <code>CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS</code> 配置选项。</li>
-<li><strong>npm 支持增强</strong>：支持从 npm 源安装插件时的自定义 npm 注册表和特定版本锁定。</li>
-<li><strong>BashTool 性能提升</strong>：当有 shell 快照可用时，默认跳过登录 shell（<code>-l</code> 标志），提高命令执行性能。</li>
-<li><strong>SDK 改进</strong>：新增 <code>CLAUDE_CODE_ACCOUNT_UUID</code>、<code>CLAUDE_CODE_USER_EMAIL</code> 和 <code>CLAUDE_CODE_ORGANIZATION_UUID</code> 环境变量，供 SDK 调用者同步提供账户信息。</li>
-<li><strong>bug 修复</strong>：修复了插件 SKILL.md 描述为 YAML 数组或其他非字符串类型时斜杠命令自动完成崩溃的问题。</li>
-<li><strong>用户体验改进</strong>：<code>/model</code> 选择器现在显示人类可读的标签（如 "Sonnet 4.5"）而非原始模型 ID，并在有新版本可用时显示升级提示。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.51</guid>
-      <pubDate>Tue, 24 Feb 2026 01:40:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code v2.1.63 发布：新增批量命令、HTTP钩子和多项内存泄漏修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.63</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code 新版本发布，新增批量命令、HTTP钩子等核心功能改进，属于用户很感兴趣的编程工具发布类别</small></p><p>Claude Code 发布了 v2.1.63 版本，带来了多项新功能和重要修复。本次更新重点关注内存泄漏问题的解决，同时引入了实用的新特性来提升开发体验。</p>
-
-<h3>重要新功能与改进</h3>
-<ul>
-<li>新增 <code>/simplify</code> 和 <code>/batch</code> 捆绑斜杠命令，提供更便捷的操作方式</li>
-<li>新增 HTTP 钩子功能，支持向 URL 发送 POST JSON 请求并接收 JSON 响应，替代传统的 shell 命令执行</li>
-<li>项目配置和自动内存现在可在同一 Git 仓库的不同 worktrees 之间共享</li>
-<li>改进 <code>/model</code> 命令，在斜杠命令菜单中直接显示当前活动模型</li>
-<li>新增 <code>ENABLE_CLAUDEAI_MCP_SERVERS=false</code> 环境变量，允许用户选择不启用 claude.ai MCP 服务器</li>
-<li>在 MCP OAuth 认证过程中添加手动 URL 粘贴回退机制，当自动重定向失败时可手动完成认证</li>
-<li><code>/copy</code> 命令新增"始终复制完整响应"选项，选择后后续操作将跳过代码块选择器直接复制完整内容</li>
-<li>修复本地斜杠命令输出在 UI 中显示为用户消息而非系统消息的问题</li>
-<li>修复 <code>/clear</code> 命令不重置缓存技能的问题，避免旧技能内容残留在新对话中</li>
-<li>VSCode 扩展中新增会话重命名和删除功能</li>
-</ul>
-
-<h3>错误修复与性能优化</h3>
-<ul>
-<li>修复了多个内存泄漏问题，包括：桥接轮询循环、MCP OAuth 流程清理、钩子配置菜单导航、交互式权限处理、bash 命令前缀缓存、MCP 工具/资源缓存、git 根检测缓存、JSON 解析缓存等</li>
-<li>修复 WebSocket 监听器泄漏和 IDE 主机 IP 检测缓存跨端口共享错误</li>
-<li>修复文件计数缓存忽略 glob 忽略模式的问题</li>
-<li>修复 REPL 桥接中的竞争条件，避免新消息与历史消息在初始连接时交错导致排序问题</li>
-<li>修复长时间运行的 teammates 在对话压缩后仍保留所有消息的内存问题</li>
-<li>改进长时间会话中子代理的内存使用，在上下文压缩时剥离繁重的进度消息负载</li>
-<li>VSCode 扩展中修复远程会话未出现在对话历史中的问题</li>
-</ul>
-
-<p>本次更新显著提升了 Claude Code 的稳定性和内存管理能力，同时为用户提供了更多实用功能，进一步优化了开发工作流程。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.63</guid>
-      <pubDate>Sat, 28 Feb 2026 03:45:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude 桌面应用 v2.1.59 发布：新增自动记忆管理和代码块复制功能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.59</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude代码版本发布，属于编程工具发布内容，符合用户对编程工具发布的兴趣</small></p><p>Claude 桌面应用发布了 v2.1.59 版本更新，主要引入了自动记忆管理功能并增强了代码块操作体验。</p>
-
-<p>本次更新的核心功能是 <strong>自动记忆管理</strong>：Claude 现在能够自动保存有用的上下文信息到 auto-memory 中，用户可以通过 <code>/memory</code> 命令进行管理。这一功能旨在提升对话的连贯性和个性化体验。</p>
-
-<p>在代码操作方面，新增了 <code>/copy</code> 命令，当响应中包含代码块时，该命令会显示交互式选择器，允许用户选择单个代码块或整个响应内容进行复制，大大提高了代码片段的复用效率。</p>
-
-<p>其他改进包括：</p>
-<ul>
-<li>优化了复合 bash 命令的「始终允许」前缀建议，现在能够为每个子命令智能计算前缀，而不是将整个命令视为一个整体</li>
-<li>改进了短任务列表的排序方式</li>
-<li>通过释放已完成子代理任务状态，优化了多代理会话的内存使用</li>
-<li>修复了同时运行多个 Claude Code 实例时的 MCP OAuth 令牌刷新竞争条件问题</li>
-<li>修复了工作目录被删除时 shell 命令不显示清晰错误信息的问题</li>
-</ul>
-
-<p>这些更新主要围绕提升用户体验、优化性能和修复已知问题展开，特别是自动记忆功能和代码复制功能的加入，将显著改善开发者和日常用户的工作流程。</p>]]>
-      </description>
-      <guid isPermaLink="false">tag:github.com,2008:Repository/937253475/v2.1.59</guid>
-      <pubDate>Thu, 26 Feb 2026 00:59:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
