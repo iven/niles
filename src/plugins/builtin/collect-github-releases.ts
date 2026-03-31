@@ -37,7 +37,7 @@ const plugin: Plugin<CollectGithubReleasesOptions> = {
       headers.Authorization = `Bearer ${envToken}`;
     }
 
-    const perPage = maxItems ? Math.min(maxItems, 100) : 30;
+    const perPage = Math.min(maxItems ?? 5, 100);
     const releases = await withRetry(() =>
       http
         .get(`https://api.github.com/repos/${repo}/releases`, {
@@ -60,8 +60,7 @@ const plugin: Plugin<CollectGithubReleasesOptions> = {
         reason: "未分级",
       }));
 
-    const limited = maxItems ? items.slice(0, maxItems) : items;
-    const result = context.isDryRun ? limited.slice(0, 3) : limited;
+    const result = context.isDryRun ? items.slice(0, 3) : items;
     context.logger.success(`获取到 ${result.length} 个条目`);
     return { items: result };
   },
