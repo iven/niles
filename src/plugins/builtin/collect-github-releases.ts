@@ -48,7 +48,7 @@ const plugin: Plugin<CollectGithubReleasesOptions> = {
     );
 
     const items: FeedItem[] = releases
-      .filter((r) => !r.draft && r.published_at)
+      .filter((r) => !r.draft && !r.prerelease && r.published_at)
       .map((r) => ({
         title: r.name || r.tag_name,
         link: r.html_url,
