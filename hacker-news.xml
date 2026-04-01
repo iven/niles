@@ -3,7 +3,51 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 31 Mar 2026 23:48:01 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 01 Apr 2026 03:41:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐ SolveSpace：开源的浏览器内参数化 CAD 工具</title>
+      <link>https://news.ycombinator.com/item?id=47586614</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源的浏览器内参数化CAD工具，属于开源项目类别，用户对此感兴趣</small></p><p><img src="pics/solvespace-scalable.svg" alt="SolveSpace Logo" width="70" height="70" /> SolveSpace 是一款开源的参数化 2D/3D CAD 软件，近日推出了实验性网页版本。该版本通过 emscripten 编译，可在浏览器中直接运行，无需网络依赖，加载后完全本地工作。整个应用体积约 3MB，用户可自行下载并托管为静态网页内容。</p>
+
+<p>SolveSpace 网页版目前处于实验阶段，可能存在一些桌面版没有的 bug 和性能损失，但对于小型模型仍具有较高的可用性。该工具主要面向需要轻量级 CAD 解决方案的用户，特别适合激光切割等简单零件设计。</p>
+
+<p>在 Hacker News 的讨论中，用户们对比了多种开源 CAD 工具。有用户表示 FreeCAD 近年来进步显著，已能替代 Autodesk Fusion 360 用于木工项目，但其界面仍较复杂，几何引擎在处理圆角或曲面相交时偶有问题。相比之下，SolveSpace 以其轻量和独特的约束求解器受到关注，但其开发进度放缓，且缺乏倒角等基本功能。</p>
+
+<p>讨论中还提到了其他相关项目：Dune 3D 作为 SolveSpace 的精神续作，使用了 SolveSpace 的约束求解器但采用 OCCT 作为实体建模内核；Blender 的 CAD Sketcher 插件也集成了 SolveSpace 的约束求解器。此外，用户 <a href="https://vcad.io">ecto</a> 分享了自研的浏览器 CAD 工具 vcad，采用 Rust 编写并编译为 WebAssembly。</p>
+
+<p>SolveSpace 的开发者强调该工具注重隐私，所有数据存储在本地，不收集用户信息。其界面使用 GNU Unifont 点阵字体，以保持跨平台一致性和小巧的体积。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47586614</guid>
+      <pubDate>Tue, 31 Mar 2026 12:50:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code用户使用限制触发速度远超预期，配额过快耗尽引开发者不满</title>
+      <link>https://news.ycombinator.com/item?id=47586176</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于AI编码工具Claude Code的使用配额问题，涉及AI软件技术实际应用，用户对此类进展感兴趣</small></p><p>Anthropic公司的AI编程助手Claude Code近期出现用户配额消耗异常快速的问题，导致许多开发者工作流程中断。该公司承认用户"比预期更快地达到使用限制"，并表示正在积极调查此事。</p>
+
+<p>受影响用户包括Claude Pro订阅者（每年200美元），有用户在公司Discord论坛上表示："每周一就用完配额，要到周六才重置，这种情况已经持续了几周...30天里我只能用12天。"Reddit上的Anthropic论坛也充满抱怨，一位开发者称："Max 5计划（每月100美元）在1小时工作中就用完了，而以前可以工作8小时。"</p>
+
+<img src="/design_picker/f5daacc84b9722c1e31ba85f836c37e4ad993fc4/graphics/icons/bubble_comment_white.png" alt="comment bubble on white" width="18" height="16" />
+
+<p>问题可能源于多个因素：Anthropic上周宣布减少高峰时段配额，影响约7%用户；3月28日是Claude促销的最后一天，该促销在非高峰时段提供双倍使用限制；此外，Claude Code可能存在软件bug导致token使用量异常增加。</p>
+
+<p>有用户通过逆向工程发现"两个独立的bug导致提示缓存失效，静默地将成本提高了10-20倍"。部分用户确认降级到旧版本（如2.1.34）后情况明显改善。文档显示提示缓存"显著减少重复任务或具有一致元素的提示的处理时间和成本"，但缓存仅有5分钟生命周期，短暂中断使用会导致恢复时成本增加。虽然可将缓存升级到1小时，但"1小时缓存写入token价格是基础输入token的2倍"。</p>
+
+<p>Anthropic未明确说明各计划的具体使用限制，仅提供相对比较，如Pro计划承诺"至少是免费服务的5倍使用量"，Standard Team计划承诺"比Pro计划多1.25倍使用量"，这使得开发者难以了解实际配额，只能通过仪表板查看消耗情况。</p>
+
+<p>社区评论反映了广泛不满。用户elephanlemon表示："昨天（Pro计划）我只进行了一次小型对话，Claude执行了一组三次网络搜索，一个没有网络搜索的非常小的对话，我在一个现有的长对话中添加了单个提示。惊讶地发现最后一个提示后我 somehow 达到了限制直到下午5点。"用户p2hari则取消了订阅："从去年12月开始就是这样...最近两个月一下就没了。一个提示和一些讨论就结束了。"</p>
+
+<p>这并非孤例，本月初Google Antigravity用户也抗议过类似问题。当前情况反映了用户与提供商之间关于AI开发可接受定价和使用模式的隐性谈判。用户希望控制成本，提供商需要盈利，而供应商营销鼓励开发者在每个流程中插入AI（包括自动化工作流）与可能导致AI工具停止响应的配额系统之间存在脱节。</p>
+
+<p>一位用户观察到："对于在自动化工作流中运行Claude Code的用户：需要明确捕获速率限制错误——它们看起来像通用故障，会静默触发重试。一个循环中的会话可以在几分钟内耗尽您的每日预算。"</p>
+
+<p>这一问题促使部分开发者考虑替代方案，包括开源模型和本地部署，尽管当前最先进的开源模型在能力上仍有差距，但可用于处理简单任务以减少token支出。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47586176</guid>
+      <pubDate>Tue, 31 Mar 2026 12:11:29 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Google发布200M参数、16k上下文长度的时间序列基础模型TimesFM 2.5</title>
       <link>https://news.ycombinator.com/item?id=47583045</link>
@@ -1414,58 +1458,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47503006</guid>
       <pubDate>Tue, 24 Mar 2026 14:19:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ripgrep：高性能命令行搜索工具全面解析与基准测试（2016）</title>
-      <link>https://news.ycombinator.com/item?id=47499245</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章详细解析Ripgrep命令行搜索工具的性能和基准测试，属于编程工具分享，用户很感兴趣；虽为2016年内容，但工具本身仍具参考价值，故推荐。</small></p><p>2016年，开发者 BurntSushi 发布了 ripgrep（简称 rg），这是一个用 Rust 编写的命令行搜索工具，旨在结合 The Silver Searcher 的易用性与 GNU grep 的原始性能。文章通过详尽的基准测试和设计解析，展示了 ripgrep 在速度和功能上的优势。</p>
-
-<img src="https://burntsushi.net/stuff/ripgrep1.png" alt="ripgrep 搜索结果的截图示例" />
-
-<p>ripgrep 的核心卖点包括：默认递归搜索并尊重 <code>.gitignore</code> 规则、自动忽略隐藏和二进制文件、完整的 Unicode 支持且不影响性能、支持多种文件编码（UTF-16、GBK、Shift_JIS 等）、可搜索压缩文件（gzip、xz 等），并提供可选的 PCRE2 正则引擎以支持环视和反向引用。作者也坦诚地列出了可能不使用 ripgrep 的理由：缺乏 POSIX 标准兼容性、某些特定功能缺失、或在个别性能边缘场景下不如其他工具。</p>
-
-<p>安装方式多样，支持 Homebrew、Arch Linux 官方仓库、Cargo（Rust 包管理器）以及从源码编译。文章提供了快速入门示例，例如递归搜索当前目录（<code>rg foobar</code>）、启用全搜索（<code>rg -uuu foobar</code>）、大小写不敏感搜索（<code>-i</code>）、显示上下文（<code>-C2</code>）以及利用 Unicode 属性进行高级替换操作。</p>
-
-<p>基准测试部分涵盖了 25 个不同场景，对比了 ripgrep、GNU grep、The Silver Searcher (ag)、git grep、ucg、pt 和 sift 等工具。结论显示，无论是在单文件还是大型目录搜索中，ripgrep 在性能和准确性方面均无明显短板，并且是唯一能在不牺牲速度的前提下提供完整 Unicode 支持的工具。文章还深入剖析了 grep 类工具的工作原理，包括文件收集、路径过滤和并行搜索等关键环节的设计考量。</p>
-
-<p>Hacker News 社区对此文反响热烈（233 分，98 条评论）。许多开发者认为 ripgrep 是 Rust 生态早期的“杀手级应用”。讨论涉及命令命名（<code>rg</code> 与 <code>ripgrep</code>）、2024 年出现的更轻量级替代品 <a href="https://reddit.com/r/rust/comments/1fvzfnb/gg_a_fast_more_lightweight_ripgrep_alternative/">gg</a>、个别用户遇到的搜索 bug、以及默认遵循 <code>.gitignore</code> 是否违反“最小意外原则”等话题。也有用户成功将 ripgrep 移植到老旧的 IRIX 系统，并称赞其文档质量极高。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47499245</guid>
-      <pubDate>Tue, 24 Mar 2026 06:31:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ lnav：功能强大的终端日志文件查看器</title>
-      <link>https://news.ycombinator.com/item?id=47498924</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] lnav是终端日志文件查看器，属于编程工具发布/分享类别，用户对此很感兴趣</small></p><p>Logfile Navigator（简称 lnav）是一款面向终端的高级日志文件查看器，无需服务器或复杂配置即可提供合并、跟踪、搜索、过滤和查询日志文件的功能。</p>
-
-<img src="/assets/images/lnav-front-page.png" alt="lnav 界面截图" width="400px" />
-
-<p>该工具设计简洁易用，只需指向目录即可自动检测文件格式，并动态解压压缩文件。用户可通过 SSH 快速体验演示环境：<code>ssh playground@demo.lnav.org</code>。</p>
-
-<p>在性能方面，lnav 在处理大型日志文件时表现优异。官方数据显示，处理 3.3GB 访问日志时，其 CPU 和内存使用效率优于标准终端工具。</p>
-
-<img src="assets/images/lnav-perf.png" alt="lnav 性能对比图表" />
-
-<p>社区讨论中，许多用户对 lnav 表示赞赏。有用户回忆十年前在 GoDaddy 使用该工具监控多台 Web 服务器的经历，指出项目首次提交可追溯至 2009 年，已成为成熟稳定的工具。</p>
-
-<p>关于内存消耗的疑问，开发者回应称 lnav 从未将文件内容完全保存在内存中，仅建立行索引，少量 gzip 文件的解压缓存是性能与资源的权衡。</p>
-
-<p>讨论中还提到了其他日志处理工具：</p>
-<ul>
-<li><a href="https://kelora.dev">Kelora</a>：灵活的日志处理器，支持内置脚本</li>
-<li><a href="https://github.com/variar/klogg">klogg</a>：基于 Qt 的 GUI 日志查看器，适合处理大型文件</li>
-<li>vnlog 与 feedgnuplot：命令行数据整理与绘图工具组合</li>
-<li><a href="https://gitlab.com/makapuf/treewalker">treewalker</a>：正在开发中的类似工具</li>
-</ul>
-
-<p>有用户指出 GUI 工具需要在服务器上安装的局限性，而 lnav 作为终端工具更具部署优势。同时，也有安全提醒指出通过 SSH 连接未知主机存在风险。</p>
-
-<p>总体而言，lnav 凭借其丰富的功能、优异的性能和便捷的使用体验，成为系统管理员和开发人员处理日志文件的得力工具。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47498924</guid>
-      <pubDate>Tue, 24 Mar 2026 05:32:53 GMT</pubDate>
     </item>
   </channel>
 </rss>
