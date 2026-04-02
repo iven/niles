@@ -3,7 +3,36 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 02 Apr 2026 22:49:31 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 02 Apr 2026 23:49:38 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.91 发布：新增 MCP 结果持久化、多行提示支持等功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.91</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.91 版本，带来多项功能增强和问题修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增 MCP（Model Context Protocol）工具结果持久化覆盖功能</strong>：通过 <code>_meta["anthropic/maxResultSizeChars"]</code> 注解支持最多 50 万字符的结果，允许如数据库模式等大型结果无需截断即可传递。</li>
+<li><strong>新增 <code>disableSkillShellExecution</code> 设置</strong>：可禁用技能、自定义斜杠命令和插件命令中的内联 shell 执行。</li>
+<li><strong>新增多行提示支持</strong>：<code>claude-cli://open?q=</code> 深度链接现在支持多行提示（编码的换行符 <code>%0A</code> 不再被拒绝）。</li>
+<li><strong>插件可执行文件支持</strong>：插件现可在 <code>bin/</code> 目录下包含可执行文件，并可通过 Bash 工具作为裸命令调用。</li>
+<li><strong>修复转录链断裂问题</strong>：修复了 <code>--resume</code> 参数下的转录链断裂问题，该问题在异步转录写入静默失败时可能导致对话历史丢失。</li>
+<li><strong>修复远程会话计划模式问题</strong>：修复了远程会话中计划模式在容器重启后丢失计划文件跟踪的问题，该问题导致计划编辑时出现权限提示和空白的计划批准模态框。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>修复了 <code>cmd+delete</code> 在 iTerm2、kitty、WezTerm、Ghostty 和 Windows Terminal 中无法删除至行首的问题。</li>
+<li>修复了 settings.json 中 <code>permissions.defaultMode: "auto"</code> 的 JSON 模式验证问题。</li>
+<li><code>/feedback</code> 命令现在会解释为何不可用，而不是从斜杠菜单中消失。</li>
+<li>改进了 <code>/claude-api</code> 技能的代理设计模式指导，包括工具表面决策、上下文管理和缓存策略。</li>
+<li>性能改进：通过路由至 <code>Bun.stripANSI</code> 在 Bun 上实现更快的 <code>stripAnsi</code>。</li>
+<li>编辑工具现在使用更短的 <code>old_string</code> 锚点，减少输出令牌。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.91</guid>
+      <pubDate>Thu, 02 Apr 2026 23:45:35 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.90 发布：新增交互式教程、修复无限循环等多项改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.90</link>
@@ -1212,35 +1241,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.3.0</guid>
       <pubDate>Tue, 26 Aug 2025 08:18:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ fd v10.2.0 发布：新增超链接输出功能，保持 Windows 7 兼容性</title>
-      <link>https://github.com/sharkdp/fd/releases/tag/v10.2.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] fd主要版本更新(10.2.0)，命令行查找工具重要版本发布</small></p><p>fd（文件搜索工具）发布了 v10.2.0 版本，主要新增了超链接输出功能，并对 Windows 和 Debian 包进行了改进。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增 --hyperlink 选项</strong>：为输出添加 OSC 8 超链接，方便在支持超链接的终端中直接点击打开文件。</li>
-<li><strong>保持 Windows 7 兼容性</strong>：使用 Rust 1.77 构建 Windows 版本，确保仍支持 Windows 7 系统。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li><strong>Debian 包改进</strong>：现在包含指向 fdfind 的符号链接，与官方包保持一致。</li>
-</ul>
-
-<h3>新贡献者</h3>
-<ul>
-<li>@bryanhonof 在 <a href="https://github.com/sharkdp/fd/pull/1574">PR #1574</a> 中首次贡献</li>
-<li>@JCHacking 在 <a href="https://github.com/sharkdp/fd/pull/1602">PR #1602</a> 中首次贡献</li>
-<li>@RossSmyth 在 <a href="https://github.com/sharkdp/fd/pull/1596">PR #1596</a> 中首次贡献</li>
-</ul>
-
-<p>查看完整更新日志：<a href="https://github.com/sharkdp/fd/compare/v10.1.0...v10.2.0">v10.1.0...v10.2.0</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.2.0</guid>
-      <pubDate>Fri, 23 Aug 2024 06:36:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
