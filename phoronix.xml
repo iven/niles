@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 02 Apr 2026 19:56:07 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 02 Apr 2026 20:52:10 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.0-rc7 修复 Qualcomm Ath11k 和 Ath12k WiFi 驱动程序长期性能缺陷</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-rc7-Networking-Fixes</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题涉及Linux内核的网络性能修复，主要针对高通WiFi驱动程序。来源配置中网络性能被列为不太感兴趣，但这是重要的Linux内核修复，不属于用户明确避开的内容，建议作为可选阅读</small></p><p>Linux 内核开发团队发布了 7.0-rc7 版本的网络子系统修复，其中包含针对 Qualcomm Ath11k 和 Ath12k WiFi 驱动程序长期存在的性能问题的关键补丁。这些驱动程序自上游化以来一直存在一个缺陷，导致无线网络吞吐量显著下降。</p>
+
+<p>问题的核心在于停止 AMPDU（聚合 MAC 协议数据单元）会话时，驱动程序会传递错误的 TID（流量标识符）引用，导致错误的聚合会话被停止。具体来说，当停止某个 TID 的 AMPDU 会话时，代码错误地传递了指向 TID 0 的基地址，而非目标 TID 的地址，这使得其他活跃会话受到影响，被缩减到最小的 BA（块确认）大小，从而造成明显的吞吐量下降。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=qualcomm_ath" alt="Qualcomm WiFi adapter" />
+
+<p>该问题在 Ath11k 驱动中自 2019 年加入内核以来一直存在，而在 Ath12k 驱动中自 2022 年上游化以来也存在同样问题。修复方案已提交，确保在停止 AMPDU 会话时传递正确的 TID 参数。</p>
+
+<p>除了这一关键修复外，本周的网络修复还包括对 Netfilter 的更多输入验证，以解决潜在漏洞并防止配置错误导致的攻击。此外还有信息泄露修复以及其他有线/无线网络驱动程序的修正。<a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/">完整的网络修复列表</a>已提交至 Linux Git 仓库。</p>
+
+<p>虽然 Ath11k/Ath12k 修复现已进入 Linux 7.0 Git，但预计未来几天内将向后移植到支持的 Linux 稳定内核和 LTS（长期支持）版本中，使更多用户受益。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-rc7-Networking-Fixes</guid>
+      <pubDate>Thu, 02 Apr 2026 20:23:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 微软开源AI代理安全治理工具包，应对OWASP十大风险</title>
       <link>https://www.phoronix.com/news/Microsoft-AI-Agent-Governance</link>
@@ -894,27 +913,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-26.0-For-Fedora-44</guid>
       <pubDate>Wed, 25 Mar 2026 10:18:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>Unvanquished 0.56发布：渲染器进一步改进，引擎新增OpenMP支持</title>
-      <link>https://www.phoronix.com/news/Unvanquished-0.56</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍开源游戏引擎Unvanquished的版本更新，包含渲染器改进和OpenMP支持，用户对游戏支持主题不太感兴趣</small></p><p>开源第一人称射击游戏 Unvanquished 发布了 0.56 版本，这是该社区驱动项目开发十多年来的又一次重要更新。本次更新带来了多项视觉和性能改进，特别是在渲染引擎方面有显著提升。</p>
-
-<p>Unvanquished 0.56 对其 Daemon 引擎进行了多项渲染器改进，包括引入线性混合模式以改善光照效果，优化了 FXX 抗锯齿模式的表现，提供了更美观且更高效的雾效，以及其他 OpenGL 渲染增强。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=unvanquished_056" alt="Unvanquished 0.56" />
-
-<p>除了视觉改进外，本次更新还增强了音频系统，改进了用户界面，并在 Daemon 引擎中加入了 OpenMP（开放多处理）支持，用于多线程 CPU 骨骼模型渲染。开发团队特别指出，OpenMP 的加入对低端硬件用户尤其有益。</p>
-
-<p>文章以中国 Moore Threads 公司的 MTT S80 显卡为例说明：尽管该显卡在某些方面的原始性能接近 RX 6700XT（与 Xbox Series X 或 PlayStation 5 相当），并支持 OpenGL 4+，但由于其基于 PowerVR 架构（通常用于移动设备），存在一些与早期 2000 年代 2.1 GPU 类似的"最大顶点统一值"限制。OpenMP 支持使得这类设备的用户可以使用"Ultra"图形预设，同时建议启用"Low"模型质量选项，这样引擎会将更多模型分派给 GPU 处理，而剩余由 CPU 处理的模型则能通过 OpenMP 利用多线程加速。</p>
-
-<p>开发者 Illwieckz 还重写了部分回退模型 CPU 代码，使用更廉价但更快的计算变体来进一步提升速度。OpenMP 未来还可能用于加速更多任务，如加载时的多图像同时解压缩，或渲染时的粒子效果处理等。</p>
-
-<p>从 Daemon 0.56 开始，Linux 和 Windows 的发布版本已默认启用 OpenMP。更多详细信息和下载可通过 <a href="https://Unvanquished.net">Unvanquished.net</a> 获取，新的性能基准测试也将很快发布。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Unvanquished-0.56</guid>
-      <pubDate>Wed, 25 Mar 2026 09:47:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
