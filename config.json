@@ -40,6 +40,10 @@
           }
         },
         {
+          "name": "builtin/reporter-pending",
+          "options": { "outputPath": "output/cnbeta-pending.json" }
+        },
+        {
           "name": "builtin/reporter-rss",
           "options": { "outputPath": "output/cnbeta.xml" }
         }
@@ -111,6 +115,10 @@
           }
         },
         {
+          "name": "builtin/reporter-pending",
+          "options": { "outputPath": "output/zaihuapd-pending.json" }
+        },
+        {
           "name": "builtin/reporter-rss",
           "options": { "outputPath": "output/zaihuapd.xml" }
         }
@@ -135,8 +143,49 @@
           }
         },
         {
+          "name": "builtin/reporter-pending",
+          "options": { "outputPath": "output/zhihu-pending.json" }
+        },
+        {
           "name": "builtin/reporter-rss",
           "options": { "outputPath": "output/zhihu.xml" }
+        }
+      ]
+    },
+    {
+      "name": "news-daily",
+      "title": "每日新闻速览",
+      "context": "这是每日聚合日报，汇总来自 cnBeta、知乎热榜和在花频道的精选内容",
+      "plugins": [
+        {
+          "name": "builtin/schedule",
+          "options": { "cron": "0 7 * * *", "timezone": "Asia/Shanghai" }
+        },
+        {
+          "name": "builtin/collect-pending",
+          "options": {
+            "pendingPath": "output/cnbeta-pending.json",
+            "sourceName": "cnBeta"
+          }
+        },
+        {
+          "name": "builtin/collect-pending",
+          "options": {
+            "pendingPath": "output/zhihu-pending.json",
+            "sourceName": "知乎"
+          }
+        },
+        {
+          "name": "builtin/collect-pending",
+          "options": {
+            "pendingPath": "output/zaihuapd-pending.json",
+            "sourceName": "在花频道"
+          }
+        },
+        "builtin/llm-digest",
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/news-daily.xml" }
         }
       ]
     },
