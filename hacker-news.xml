@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 03 Apr 2026 20:52:35 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 03 Apr 2026 21:49:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 2026年4月指南：在 Mac mini 上配置 Ollama 和 Gemma 4 8B 模型的完整教程</title>
+      <link>https://news.ycombinator.com/item?id=47624731</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章是关于AI模型(Gemma 4)和AI工具(Ollama)在Mac上部署的技术教程，属于用户感兴趣的AI软件技术进展范畴，虽然涉及苹果硬件但不是主要内容，故推荐阅读</small></p><p>本文提供了一份详细的教程，指导用户在配备 Apple Silicon 芯片的 Mac mini 上安装和配置 Ollama 本地大语言模型服务，并运行 Google 最新发布的 Gemma 4 模型。文章特别强调了在 24GB 内存的 Mac mini 上应选择默认的 8B 量化版本，而非 26B 版本，以避免系统资源耗尽和性能问题。</p>
+
+<p>教程涵盖六个主要步骤：通过 Homebrew 安装 Ollama 应用、启动服务、拉取 Gemma 4 模型、测试模型运行、配置开机自启动和模型预加载，以及设置模型常驻内存。作者分享了实际经验，指出 Gemma 4 26B 版本在 24GB 内存的机器上会占用约 17GB，导致系统交换频繁、响应迟缓，因此推荐使用约 9.6GB 的 8B 默认版本，为系统留出充足余量。</p>
+
+<p>文章还介绍了 Ollama v0.19+ 版本的新特性，包括为 Apple Silicon 自动启用的 MLX 后端加速、对 NVIDIA NVFP4 格式的支持以优化内存和存储，以及针对编码和智能体任务的改进缓存机制。</p>
+
+<p>在 Hacker News 的评论区，用户们展开了激烈讨论。主要争议点围绕 Ollama 与其他本地模型运行工具的对比。部分评论者批评 Ollama 早期代码大量借鉴了 <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> 而未充分致谢，且性能可能不如原版。另一些用户则为 Ollama 的易用性辩护，认为其简单的 <code>ollama pull</code> 命令和 Docker 支持降低了入门门槛。其他被提及的替代方案包括 <a href="https://lmstudio.ai/">LM Studio</a>、<a href="https://unsloth.ai/">Unsloth Studio</a> 以及直接使用 llama.cpp。</p>
+
+<p>评论区也有用户分享了在不同硬件（如 M4 24GB、M5 32GB）上运行 Gemma 4 各种规格模型（8B、26B、32B）的实际性能体验和视频演示链接。关于模型是否适用于编码智能体任务也存在讨论，有用户指出 Gemma 4 并非专为编码优化，而 <a href="https://qwenlm.github.io/">Qwen</a> 等模型可能更合适。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47624731</guid>
+      <pubDate>Fri, 03 Apr 2026 09:35:16 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 展示：我建立了一个个人博客聚合首页，旨在维护独立网络的活力</title>
       <link>https://news.ycombinator.com/item?id=47625952</link>
@@ -1368,33 +1385,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47536761</guid>
       <pubDate>Thu, 26 Mar 2026 22:41:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ ATLAS 框架：500 美元 GPU 在编码基准测试中超越 Claude Sonnet</title>
-      <link>https://news.ycombinator.com/item?id=47533297</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新型AI编程框架ATLAS在编码基准测试中超越Claude Sonnet，属于用户高度感兴趣的编程工具发布和AI模型进展类别。</small></p><p>ATLAS（自适应测试时学习和自主专业化）是一个开源框架，通过智能基础设施包装冻结的小型模型，使其在编码基准测试中能够与前沿 API 模型竞争。该系统在单个消费级 GPU（RTX 5060 Ti 16GB）上运行，无需微调、API 调用或云端依赖。</p>
-
-<img src="/itigges22/ATLAS/raw/main/docs/images/banner.png" alt="A.T.L.A.S" width="100%" />
-
-<p>在 LiveCodeBench v5 基准测试中，ATLAS V3 使用冻结的 Qwen3-14B-Q4_K_M 量化模型达到了 74.6% 的 pass@1-v(k=3) 通过率，相比 Claude 4.5 Sonnet 的 71.4% 表现更优。该系统通过三个阶段实现这一性能：生成阶段（PlanSearch + BudgetForcing + 多样化采样）、验证阶段（几何透镜路由 + 沙箱执行）和修复阶段（自我测试生成 + PR-CoT 多视角思维链修复）。</p>
-
-<p>成本方面，ATLAS 每任务估算成本约为 0.004 美元（仅电力成本），而 Claude 4.5 Sonnet 为 0.066 美元，DeepSeek V3.2 Reasoning 为 0.002 美元。不过，ATLAS 在延迟上有所妥协——完整管道处理每个任务需要更长时间，但所有数据都保留在本地机器上。</p>
-
-<p>社区讨论中，用户对技术实现表示赞赏，但也提出了一些关切：</p>
-<ul>
-<li>基准测试优化可能无法完全反映实际使用效果</li>
-<li>硬件兼容性有限，目前主要针对 NVIDIA GPU 16GB+ VRAM 配置</li>
-<li>处理速度较慢，不适合交互式使用场景</li>
-<li>与 DeepSeek 等 API 模型相比，在成本和性能平衡上仍有差距</li>
-</ul>
-
-<p>项目目前处于 V3.0 阶段，V3.1 正在开发中，计划改进模型架构、增强几何透镜训练、添加任务并行化支持，并扩展基准测试套件以涵盖更广泛的知识和推理任务。</p>
-
-<p><strong>你知道吗？</strong> pass@1-v(k=3) 是一种特殊的评估方法，它不是单次生成，而是生成 3 个候选解决方案，通过几何透镜选择最佳候选，并对失败的任务进行迭代修复。这种方法在基准测试中取得了显著效果，但也会增加每个任务的处理时间。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47533297</guid>
-      <pubDate>Thu, 26 Mar 2026 17:31:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
