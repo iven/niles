@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 03 Apr 2026 23:48:09 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 03:15:00 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Anthropic 禁止 Claude Code 订阅用户使用 OpenClaw 等第三方工具</title>
+      <link>https://news.ycombinator.com/item?id=47633396</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论AI模型Claude的使用政策，属于AI软件技术进展范畴，用户对此感兴趣</small></p><p>Anthropic 公司近日向用户发送邮件通知，宣布从 4 月 4 日起，Claude Code 订阅用户将无法使用订阅额度来访问 OpenClaw 等第三方工具。用户仍然可以通过 Claude 账户使用这些工具，但需要启用额外使用量功能，按使用量单独计费，与订阅费用分开结算。</p>
+
+<p>Anthropic 在邮件中解释称，这些第三方工具给系统带来了「过大的压力」，公司需要谨慎管理容量资源，并优先保障使用核心产品的客户。为帮助用户过渡，Anthropic 提供了一次性信用额度，金额等于用户的月订阅费，需在 4 月 17 日前兑换。同时，公司还推出了预购额外使用量捆绑包的折扣，最高可达 30%。</p>
+
+<p>在 Hacker News 社区的讨论中，用户对此政策反应不一。部分用户认为这是订阅服务的常见商业模式，高使用量用户通常由低使用量用户补贴，而像 OpenClaw 这样的自动化工具会打破这种平衡。另有用户质疑 Anthropic 的真实动机是保护自身平台生态，而非单纯的容量管理，因为用户完全可以在 Claude Code 内置工具中达到类似的使用强度。</p>
+
+<p>一些技术用户指出，Anthropic 的订阅计划本就设有严格的令牌限制（5小时窗口限制和每周限制），这些限制本应足以管理容量。他们认为问题在于定价策略，而非使用方式。还有用户表达了对本地大语言模型（LLM）发展的期待，希望减少对 Claude 等云端服务的依赖。</p>
+
+<p>值得注意的是，有用户提到 OpenClaw 实际上是通过 Claude Code 的 harness（使用 claude -p 命令）运行的，但 Anthropic 仍将其视为第三方工具加以限制。这一政策变化引发了关于 AI 服务商业模式和用户自主权的广泛讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47633396</guid>
+      <pubDate>Fri, 03 Apr 2026 22:55:24 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 2026年4月指南：在 Mac mini 上配置 Ollama 和 Gemma 4 8B 模型的完整教程</title>
       <link>https://news.ycombinator.com/item?id=47624731</link>
@@ -1346,45 +1363,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47539825</guid>
       <pubDate>Fri, 27 Mar 2026 07:12:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 展示：在7美元/月VPS上以IRC为传输层部署的AI代理系统</title>
-      <link>https://news.ycombinator.com/item?id=47536761</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍AI代理系统的部署架构和技术实现，属于AI软件技术进展类别，用户会感兴趣</small></p><p>作者George Larson详细介绍了如何在廉价VPS上构建一个安全、高效的AI代理系统，用于个人作品集网站的智能交互。该系统采用创新的双代理架构和分层推理策略，将成本控制在每天2美元以内。</p>
-
-<img src="digital-doorman.jpg" alt="nully standing guard outside George's Code Vault" />
-
-<h3>架构设计</h3>
-<p>系统分为两个独立代理：公开代理nullclaw运行在7美元/月的VPS上，是一个678KB的Zig二进制文件，内存占用约1MB；私有代理ironclaw运行在更强大的独立服务器上，处理邮件、日程等敏感任务。两者通过IRC协议通信，形成明确的安全边界。</p>
-
-<h3>技术选择</h3>
-<p>作者选择IRC作为传输层，主要基于三个原因：符合网站终端UI的美学风格、完全自主控制技术栈、以及这个30年历史的协议简单可靠且无供应商锁定。公开代理通过Ergo IRC服务器和gamja网页客户端与访客交互。</p>
-
-<h3>分层推理策略</h3>
-<p>系统采用智能模型调度：使用Claude Haiku 4.5处理问候、简单问题等日常对话（亚秒级响应，成本低廉）；仅在需要工具调用（如克隆仓库、分析代码）时启用Sonnet 4.6。这种设计将成本硬性控制在每天2美元。</p>
-
-<h3>安全加固</h3>
-<p>公开VPS作为边界设备进行了全面加固：仅开放SSH、IRC TLS和HTTPS三个端口；Cloudflare代理处理所有WebSocket流量；代理运行在沙箱环境中，文件访问受限，命令执行有白名单限制；自动安全更新和审计日志。</p>
-
-<h3>A2A创新实现</h3>
-<p>作者实现了Google的A2A（Agent-to-Agent）协议v0.3.0，并设计了凭证传递模式：私有代理借用公开代理的推理管道，只需一个API密钥和计费关系。这意味着无论哪个代理发起请求，都由拥有密钥的代理承担费用，避免了凭证重复和管理复杂性。</p>
-
-<img src="nully-chat.png" alt="nully answering questions in IRC" />
-
-<h3>实际功能</h3>
-<p>与传统的简历聊天机器人不同，该AI代理能够：验证作者的技术栈声明、克隆GitHub仓库分析代码结构、提供具体的项目细节、处理日程安排请求。当访客询问复杂问题时，公开代理会通过私有IRC频道将请求路由给私有代理，整个过程对访客透明。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News社区对该项目反应热烈（304分，88条评论）。部分开发者认为架构过度设计，但更多人赞赏其创新性。关于模型选择，有评论指出OpenRouter上存在更便宜的替代模型（如MiniMax M2.7、Kimi K2.5），但作者解释分层推理是基于响应速度和成本平衡的设计决策。</p>
-
-<h3>作者心得</h3>
-<p>George Larson总结了几点关键经验：模型选择是系统设计的一部分，影响成本、延迟和用户体验；代理本身相对简单，通信栈、安全加固和基础设施集成更耗时；IRC作为AI代理传输层被低估；公私代理分离对安全模型至关重要；A2A协议需要结合可见性工具（如私有IRC频道）才能有效调试。</p>
-
-<p>该项目展示了如何在有限预算下构建安全、可扩展的AI代理系统，为个人开发者和小型项目提供了有价值的参考架构。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47536761</guid>
-      <pubDate>Thu, 26 Mar 2026 22:41:25 GMT</pubDate>
     </item>
   </channel>
 </rss>

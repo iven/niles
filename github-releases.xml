@@ -3,7 +3,49 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 03 Apr 2026 23:47:53 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 03:14:38 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.92 发布：新增强制远程设置刷新策略和交互式 Bedrock 设置向导</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.92</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.92 版本，带来多项功能增强和问题修复。</p>
+
+<h3>重要新功能</h3>
+<ul>
+<li>新增 <code>forceRemoteSettingsRefresh</code> 策略设置：启用后，CLI 在启动时会阻塞直至成功获取远程管理设置，若获取失败则直接退出（故障关闭模式）</li>
+<li>新增交互式 Bedrock 设置向导：在登录界面选择「第三方平台」时可访问，引导用户完成 AWS 身份验证、区域配置、凭证验证和模型固定</li>
+<li>为订阅用户新增成本分析功能：在 <code>/cost</code> 命令中提供按模型和缓存命中情况的细分统计</li>
+<li><code>/release-notes</code> 命令升级为交互式版本选择器</li>
+</ul>
+
+<h3>重大 Bug 修复</h3>
+<ul>
+<li>修复在长时间运行会话中，tmux 窗口被杀死或重新编号后，子代理生成永久失败并提示「无法确定窗格数量」的问题</li>
+<li>修复当小型快速模型返回 <code>ok:false</code> 时，提示类型 Stop 钩子错误失败的问题，并恢复非 Stop 提示类型钩子的 <code>preventContinuation:true</code> 语义</li>
+<li>修复流式传输将数组/对象字段作为 JSON 编码字符串发出时，工具输入验证失败的问题</li>
+<li>修复扩展思考产生纯空白文本块与真实内容共存时可能出现的 API 400 错误</li>
+</ul>
+
+<h3>其他改进和修复</h3>
+<ul>
+<li>远程控制会话名称现在默认使用主机名作为前缀（如 <code>myhost-graceful-unicorn</code>），可通过 <code>--remote-control-session-name-prefix</code> 覆盖</li>
+<li>专业版用户在提示缓存过期后返回会话时，会看到底部提示，显示下一轮将发送的大致未缓存令牌数量</li>
+<li>修复因自动导航按键和连续提示数字冲突导致的意外反馈调查提交</li>
+<li>修复全屏模式下处理过程中存在文本选择时，误导性的「按 esc 中断」提示与「按 esc 清除」提示同时出现的问题</li>
+<li>修复 Homebrew 安装更新提示，使其使用 cask 的发布通道（<code>claude-code</code> → 稳定版，<code>claude-code@latest</code> → 最新版）</li>
+<li>修复在多行提示中已处于行尾时，<code>ctrl+e</code> 跳转到下一行行尾的问题</li>
+<li>修复在全屏模式下向上滚动时，同一消息可能出现在两个位置的问题（影响 iTerm2、Ghostty 等支持 DEC 2026 的终端）</li>
+<li>修复闲置返回时「输入 /clear 可保存 X 个令牌」提示显示累计会话令牌数而非当前上下文大小的问题</li>
+<li>修复插件 MCP 服务器在会话启动时因重复未认证的 claude.ai 连接器而卡在「连接中」状态的问题</li>
+<li>改进 Write 工具对大文件的差异计算速度（对包含制表符、<code>&amp;</code>、<code>$</code> 的文件提速 60%）</li>
+<li>移除 <code>/tag</code> 命令</li>
+<li>移除 <code>/vim</code> 命令（可通过 <code>/config</code> → 编辑器模式切换 vim 模式）</li>
+<li>Linux 沙盒现在在 npm 和原生构建中均提供 <code>apply-seccomp</code> 助手，恢复对沙盒化命令的 Unix 套接字阻塞</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.92</guid>
+      <pubDate>Sat, 04 Apr 2026 00:42:02 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.4.7：窗格系统大改版与终端优化</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.4.7</link>
@@ -1254,33 +1296,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.4.1</guid>
       <pubDate>Sun, 08 Mar 2026 08:41:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ fd v10.4.0 发布：新增 --ignore-contain 选项，修复多项 bug</title>
-      <link>https://github.com/sharkdp/fd/releases/tag/v10.4.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] fd主要版本更新(10.4.0)，命令行查找工具重要版本发布</small></p><p>fd 命令行工具发布了 10.4.0 版本，引入了一个新选项并修复了多个问题。主要更新包括：</p>
-
-<h3>新功能</h3>
-<ul>
-<li>新增 <code>--ignore-contain</code> 选项，用于忽略包含指定名称条目的目录（例如忽略包含 <a href="https://bford.info/cachedir/">CACHEDIR.TAG</a> 文件的目录）。</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-<li>修复了 Windows 上路径包含空格时的超链接生成问题。</li>
-<li>修正了 <code>--print0</code> 与 <code>--exec</code> 结合使用时，输出分隔符的打印逻辑：现在会在每个条目输出之间打印 <code>\0</code> 分隔符（注意：当有多个 <code>--exec</code> 实例时，<code>\0</code> 出现在每组命令之间，而非每个单独命令之间）。</li>
-<li>通过更新 <code>ignore</code> 库修复了多个相关问题（包括 #1506、#1667、#1813）。</li>
-</ul>
-
-<h3>其他变更</h3>
-<ul>
-<li>最低所需 Rust 版本已提升至 1.90.0，这意味着不再完全支持 Intel 架构的 Mac 和 Windows 7 系统。</li>
-<li>针对 MSVC 构建，现在通过 Cargo 配置静态链接 C 运行时库（CRT），以避免运行时 DLL 依赖。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.4.0</guid>
-      <pubDate>Sat, 07 Mar 2026 07:04:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
