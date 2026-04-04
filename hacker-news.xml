@@ -3,7 +3,58 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 04 Apr 2026 16:51:40 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 17:49:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Claude Code发现Linux内核中隐藏23年的安全漏洞</title>
+      <link>https://news.ycombinator.com/item?id=47633855</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲Linux内核安全漏洞发现，属于编程/安全领域，用户对此类主题感兴趣，但不是强烈必看内容</small></p><p>Anthropic研究科学家Nicholas Carlini在[un]prompted AI安全会议上报告，使用Claude Code发现了Linux内核中多个可远程利用的安全漏洞，其中一个漏洞已隐藏23年之久。</p>
+
+<p>Carlini表示，他使用简单的脚本让Claude Code遍历Linux内核的所有源文件，以"寻找安全漏洞"的方式提示AI模型。这种方法发现了包括堆缓冲区溢出在内的多个严重漏洞，其中一些允许攻击者通过网络读取敏感内核内存。</p>
+
+<p>重点披露的漏洞存在于Linux的网络文件共享（NFS）驱动程序中。该漏洞于2003年9月引入，涉及NFSv4.0 LOCK重放缓存机制。攻击者可以通过两个协作的NFS客户端，利用1024字节的所有者ID字段触发缓冲区溢出——内核尝试将1056字节的数据写入仅112字节的缓冲区，从而允许攻击者覆盖受控的内核内存。</p>
+
+<img src="/claude-code-found-linux-vulnerability/model-effectiveness.png" alt="不同AI模型发现漏洞能力对比图" />
+
+<p>Carlini指出，Claude Code不仅发现了这个需要深入理解NFS协议细节的复杂漏洞，还生成了包含ASCII协议图的详细错误报告。有趣的是，这个漏洞在Linux内核中存在了23年，甚至早于Git版本控制系统的发布。</p>
+
+<p>除了这个NFS漏洞外，Carlini还发现了数百个其他潜在漏洞，但由于人工验证的时间限制，目前只向Linux内核维护者报告了5个已确认的漏洞。他表示："我现在有太多Linux内核漏洞无法报告，因为我还没有验证它们...这意味着我现在有数百个他们没见过的崩溃，只是我还没有时间检查。"</p>
+
+<p>特别值得注意的是AI模型能力的快速进步。Carlini使用最新发布的Claude Opus 4.6发现了这些漏洞，而尝试用8个月前发布的Opus 4.1和6个月前发布的Sonnet 4.5复现时，只能找到一小部分漏洞。</p>
+
+<p>Hacker News社区对此展开了热烈讨论。一些评论者认为，类似的缓冲区溢出漏洞本可以通过静态分析工具发现，但23年来却一直未被察觉。另一些讨论聚焦于AI发现漏洞的成本效益——虽然令牌成本正在下降，但彻底检查复杂代码库仍可能花费数万至数百万美元。还有评论指出，AI模型在代码审查方面的潜力可能被低估，而当前市场更关注代码生成功能。</p>
+
+<p>随着AI模型在漏洞发现方面的能力持续提升，安全研究人员预计未来几个月将出现一波安全漏洞发现浪潮，这对开源软件安全既是机遇也是挑战。</p>
+
+<h3>你知道吗？</h3>
+<p>NFS（网络文件系统）是Unix/Linux系统中常用的分布式文件系统协议，允许客户端通过网络访问服务器上的文件。NFSv4引入了状态化操作和更复杂的安全模型，但也增加了协议复杂性。Carlini发现的漏洞涉及NFSv4.0的LOCK操作重放缓存机制——这是确保操作幂等性（idempotent）的重要特性，防止网络重传导致重复执行。缓冲区溢出发生在处理锁拒绝响应时，系统未能正确验证所有者ID字段的长度，导致内存越界写入。这种漏洞如果被利用，可能允许攻击者执行任意代码或读取敏感内核数据。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47633855</guid>
+      <pubDate>Fri, 03 Apr 2026 23:46:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ TinyGo：为嵌入式系统和WebAssembly设计的Go编译器</title>
+      <link>https://news.ycombinator.com/item?id=47629116</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍TinyGo新编程编译器工具发布，用户对编程工具发布/分享主题很感兴趣，属于必看内容</small></p><p>TinyGo 是一个基于 LLVM 的 Go 编译器，专门为嵌入式系统和 WebAssembly 设计。该项目将 Go 语言扩展到资源受限的环境，支持超过 100 种不同的微控制器板，包括 BBC micro:bit、Arduino Uno 以及 Nordic Semiconductor 和 ST Microelectronics 的工业处理器。</p>
+
+<p>社区讨论显示，TinyGo 能够显著减小二进制文件大小。一个简单的 "Hello world" 程序示例显示，标准 Go 编译生成 2.3MB 文件，而 TinyGo 仅生成 192KB。用户 <a href="https://news.ycombinator.com/item?id=47629116">nasretdinov</a> 分享的测试结果显示，TinyGo 最近还增加了 macOS 支持。</p>
+
+<p>在嵌入式系统方面，用户讨论了 TinyGo 的实时性能。通过禁用垃圾回收（GC）并预先分配所有必要的缓冲区，可以获得良好的实时特性。不过如果需要动态内存分配，则无法提供实时保证，因为需要垃圾回收机制。</p>
+
+<p>实际应用案例包括：<a href="https://news.ycombinator.com/item?id=47629116">carverauto</a> 使用 TinyGo 和 Wazero 运行时构建 WASM 插件系统，成功处理 RTSP 摄像头流；<a href="https://news.ycombinator.com/item?id=47629116">rcarmo</a> 使用 TinyGo 将 RDP 解码器编译为 WASM 在浏览器端运行。</p>
+
+<p>与标准 Go 相比，TinyGo 存在一些限制：缺少部分语言特性，标准库支持不完整（特别是网络和加密相关功能）。用户 <a href="https://news.ycombinator.com/item?id=47629116">pancsta</a> 指出 TinyGo 在 WASI 中缺少网络支持，WebSocket 模块也已多年未更新。</p>
+
+<p>关于硬件支持，TinyGo 支持多种 ESP32 型号，完整列表可在其文档中查看。有用户询问是否能用 TinyGo 编译 Tailscale 以在 OpenWRT 路由器上运行，因为标准 Go 编译的 Tailscale 对 8MB 闪存的路由器来说太大。</p>
+
+<p>开发状态方面，用户 <a href="https://news.ycombinator.com/item?id=47629116">ghoul2</a> 反映项目进展似乎放缓，有 PR 等待数周未合并，并希望 TinyGo 能够被整合到主 Go 工具链中作为 "目标架构"。</p>
+
+<p>总体来说，TinyGo 为 Go 语言在嵌入式系统和 WebAssembly 领域的应用提供了可行方案，尽管存在一些限制，但在特定场景下表现出色。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47629116</guid>
+      <pubDate>Fri, 03 Apr 2026 16:57:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 简单自蒸馏方法显著提升大语言模型代码生成能力</title>
       <link>https://news.ycombinator.com/item?id=47637757</link>
@@ -1276,50 +1327,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47547009</guid>
       <pubDate>Fri, 27 Mar 2026 19:15:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GitHub默认将Copilot交互数据用于AI训练，用户需在4月24日前手动退出</title>
-      <link>https://news.ycombinator.com/item?id=47548243</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论GitHub Copilot隐私政策变化和AI训练数据使用，属于AI软件技术进展范畴，对程序员用户有参考价值</small></p><p>GitHub近日更新了Copilot AI助手的使用条款，宣布将从4月24日起默认收集用户与Copilot的交互数据用于AI模型训练，除非用户主动选择退出。这一变更引发了开发者社区的广泛关注和争议。</p>
-
-<p>根据GitHub官方说明，此次政策调整主要影响免费、Pro和Pro+ Copilot用户，而商业和企业版用户的数据不会被用于训练。收集的数据类型包括：用户接受或修改的Copilot输出、发送给Copilot的输入代码片段、光标位置的代码上下文、用户编写的注释和文档、文件名和仓库结构、导航模式，以及与Copilot聊天、内联建议等功能的交互数据。</p>
-
-<p>GitHub员工在讨论中澄清，公司不会训练用户私有仓库中静态存储的代码内容，仅训练与Copilot的交互数据。如果用户不使用Copilot，则完全不受此政策影响。然而，用户仍需通过<a href="https://github.com/settings/copilot/features">设置页面</a>手动关闭数据收集选项，否则将被默认加入训练计划。</p>
-
-<p>Hacker News社区对此反应强烈，许多开发者批评这种“默认加入”（opt-out）机制不合理，认为用户隐私应得到更好保护。有用户指出，早在2023年就预测到“任何能够自由访问用户数据的公司最终都会更新服务条款，将数据用于AI训练”。</p>
-
-<p>讨论中出现了多种应对方案：部分用户建议完全停止使用GitHub，转而采用GitLab、Forgejo或Gitea等自托管解决方案；也有用户认为企业版虽然目前豁免，但未来政策可能变化，不应过度信任大型科技公司的承诺。还有开发者分享了通过容器化部署Forgejo实例的经验，强调自托管方案在响应速度和稳定性方面的优势。</p>
-
-<p>这场讨论反映了开发者群体对AI时代数据隐私的普遍担忧，以及大型平台服务条款变更对开源生态的潜在影响。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47548243</guid>
-      <pubDate>Fri, 27 Mar 2026 21:04:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ CERN将托管欧洲旗舰开放获取出版平台Open Research Europe</title>
-      <link>https://news.ycombinator.com/item?id=47534629</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讨论开放科学和开放获取出版平台的进展，属于科学前沿进展和开源项目范畴，用户可能感兴趣。</small></p><p>欧洲核子研究中心（CERN）近日宣布，已被选中托管欧洲旗舰开放获取出版平台Open Research Europe（ORE）的新阶段。这一举措标志着开放科学领域的重要进展，旨在为欧洲研究界提供一个社区主导的学术出版替代方案。</p>
-
-<img src="/sites/default/files/2026-03/Mosaic_screens_cropped_0.jpg" alt="Representation of the multidisciplinary nature of the ORE platform (Image: Santa Fe)" width="3402" height="2544" />
-
-<p>ORE平台由欧盟委员会支持，并得到来自奥地利、法国、德国、意大利、荷兰、挪威、葡萄牙、斯洛文尼亚、西班牙、瑞典和瑞士等国研究资助机构组成的新联盟资助。该平台遵循2022年《钻石开放获取行动计划》，采用钻石开放获取模式，即作者和读者都无需支付费用。</p>
-
-<p>CERN将负责提供平台的技术和运营基础设施，基于开源软件Open Journal Systems（OJS），而治理和编辑监督仍由ORE联盟负责。平台采用创新的"发布-评审-策展"模式：文章首先接受完整性和合规性检查，然后公开发布并进行开放式同行评审，评审报告公开透明，通过评审的文章将按主题分类策展。</p>
-
-<p>ORE于2021年由欧盟委员会启动，旨在为欧盟研究项目受益者提供免费的开放获取出版平台。五年来，平台稳步增长，已发表超过1200篇文章，吸引了来自全球3000多个机构的6300多名作者参与。</p>
-
-<p>CERN在运营开放科学基础设施方面拥有丰富经验，曾主导Zenodo、Invenio和SCOAP3等旗舰项目。CERN站点运营总监Mar Capeáns表示："托管Open Research Europe是我们对开放、社区主导的科学基础设施承诺的自然延伸。"欧盟委员会研究与创新总司司长Marc Lemaître强调该平台将促进欧洲研究区内外的知识自由流动。</p>
-
-<p>在社区讨论中，用户对这一举措表示欢迎，认为这可能是对Elsevier等传统出版商的潜在替代方案。有评论指出，钻石开放获取模式避免了作者支付高额文章处理费（APCs）的问题，真正实现了免费出版和免费阅读。但也有用户对平台的可见性和采用率表示担忧，目前每年约240篇文章的出版量相对较小，且平台设计可能过于注重自我宣传而非研究成果展示。</p>
-
-<p>部分评论讨论了学术出版的现状，指出计算机科学领域的会议出版模式更为健康，而非营利会议通常不收取出版费用。还有用户提到，现代基础设施如Google Scholar和AI研究工具已经降低了高影响力期刊的重要性，但Nature等期刊的发表仍然对职业生涯至关重要。</p>
-
-<p>该计划预计将深化CERN、欧盟委员会、各国代表和研究机构之间的合作，通过与OPERAS研究基础设施合作，扩大在欧洲的推广活动，吸引符合条件的作者使用平台。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47534629</guid>
-      <pubDate>Thu, 26 Mar 2026 19:30:35 GMT</pubDate>
     </item>
   </channel>
 </rss>
