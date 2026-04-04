@@ -3,7 +3,40 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 04 Apr 2026 11:40:27 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 13:20:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ SSH证书：更好的SSH体验</title>
+      <link>https://news.ycombinator.com/item?id=47624811</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍SSH证书作为提高SSH安全性和便利性的工具，属于编程效率改进经验，符合用户高兴趣配置</small></p><p>本文深入探讨了SSH证书相较于传统SSH密钥的优势，并提供了详细的配置指南。作者Jan-Piet Mens从常见的SSH连接问题入手，解释了如何通过SSH证书认证机构（CA）简化管理并提升安全性。</p>
+
+<p>文章首先描述了传统SSH密钥认证的局限性：首次连接时的「首次使用信任（TOFU）」问题导致用户盲目接受未知主机指纹；公钥需要在每个服务器的每个用户目录中单独部署；主机密钥轮换时会触发安全警告。这些在小型环境中尚可接受，但在管理数十甚至数百台服务器时变得繁琐。</p>
+
+<p>SSH证书解决方案自OpenSSH 5.4（2010年3月）起可用，其格式基于现有SSH数据格式而非复杂的X.509。主要优势包括：</p>
+<ul>
+<li>无需在服务器<code>authorized_keys</code>文件中部署公钥</li>
+<li>主机密钥轮换时不会触发客户端警告</li>
+<li>不再需要TOFU确认</li>
+<li>用户证书可指定允许登录的远程用户名（主体）</li>
+<li>可限制源IP地址、强制执行远程命令</li>
+<li>证书具有明确有效期，自动过期</li>
+<li>客户端只需在<code>known_hosts</code>中添加一行CA引用即可信任所有服务器</li>
+</ul>
+
+<p>文章详细演示了设置SSH CA的步骤：创建CA密钥对、为用户公钥签名（指定身份、主体、序列号和有效期）、为主机公钥签名（使用<code>-h</code>选项）、在服务器配置<code>TrustedUserCAKeys</code>和<code>HostCertificate</code>、在客户端配置信任CA。整个过程仅需标准OpenSSH工具，无需额外软件。</p>
+
+<p>在Hacker News社区的114条评论中，观点各异。有用户分享15年前就已使用SSH证书的经验，也有用户询问是否值得从传统密钥迁移。支持者认为对于大型组织或多服务器环境，证书能显著简化管理；批评者则指出设置复杂，且证书并不比通过安全通道分发非TOFU SSH密钥更简单或更安全。另有评论提到撤销列表管理、GitHub仅对企业客户支持SSH证书、以及使用Yubikey作为硬件CA等实际问题。</p>
+
+<p>值得注意的是，<a href="https://userify.com">Userify</a>创始人jamiesonbecker指出SSH证书在生产环境中可能带来新问题：集中式CA成为单点故障；TTL调优困难；故障影响范围更广。他提出了基于HTTPS拉取用户密钥的替代方案，强调本地状态管理的重要性。</p>
+
+<h3>你知道吗？</h3>
+<p>SSH证书与Web中常见的X.509证书有本质区别。OpenSSH团队特意设计了基于现有SSH数据格式的证书系统，避免了X.509的复杂性。SSH证书直接编码了授权信息（如允许的用户名、源IP限制、命令限制等），而X.509主要用于身份验证。这种设计使得SSH证书更轻量且与现有SSH基础设施无缝集成。</p>
+
+<p>在实际应用中，SSH证书特别适合动态环境如云基础设施、自动扩展集群和开发/测试环境，其中主机频繁创建销毁。通过证书签名，新主机可立即被所有客户端信任，无需手动管理<code>known_hosts</code>文件。然而，对于小型静态环境，传统密钥管理可能仍是更简单直接的选择。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47624811</guid>
+      <pubDate>Fri, 03 Apr 2026 09:52:20 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mintlify 用虚拟文件系统替代 RAG，让 AI 助手像开发者一样探索文档</title>
       <link>https://news.ycombinator.com/item?id=47618223</link>
@@ -1324,27 +1357,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47543139</guid>
       <pubDate>Fri, 27 Mar 2026 14:35:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code网页端推出云定时任务功能，支持自动化重复工作</title>
-      <link>https://news.ycombinator.com/item?id=47539188</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍Claude Code网页端新推出的云定时任务功能，属于编程工具发布和编程效率改进，用户很感兴趣</small></p><p>Anthropic为其Claude Code产品在网页端推出了云定时任务功能，允许用户设置定期运行的自动化任务，即使计算机关闭也能持续工作。该功能面向所有Claude Code网页端用户，包括Pro、Max、Team和Enterprise版本。</p>
-
-<p>云定时任务可以在Anthropic管理的云基础设施上运行，用户无需保持本地机器开启或会话活跃。主要应用场景包括：每日早晨审查开源拉取请求、夜间分析CI失败并生成摘要、在PR合并后同步文档、每周运行依赖审计等。</p>
-
-<p>Claude Code提供三种调度方式：云任务（运行在Anthropic云端）、桌面任务（需要本地机器运行）和/loop命令（会话内轮询）。云任务的优势在于可靠性高，无需本地机器参与，但无法访问本地文件；桌面任务则可以访问本地文件系统。</p>
-
-<p>创建定时任务可通过网页界面、桌面应用或命令行界面完成。用户需要指定任务名称、运行提示词、GitHub仓库、云环境、调度频率和MCP连接器。任务默认每天上午9点（用户本地时区）运行，支持每小时、每天、工作日和每周等预设频率。</p>
-
-<p>在权限管理方面，默认情况下Claude只能推送到以"claude/"为前缀的分支，防止意外修改受保护分支。用户可以为特定仓库启用"允许无限制分支推送"来解除此限制。</p>
-
-<p>社区反馈显示，用户对该功能表现出浓厚兴趣。有用户表示虽然Max 20x计划只允许创建3个云定时任务，但仍计划用于：每周一运行安全审计和依赖检查、每日监控Sentry错误和日志、每日代码审查和问题发现。其他用户分享了使用该功能自动更新文档、处理GitHub问题、创建拉取请求等实际案例。</p>
-
-<p>讨论中也涉及一些关注点：定价透明度、使用限制、与类似服务（如Grok Tasks）的比较，以及通过MCP连接器访问外部服务的安全性考量。部分用户指出该功能目前不支持截图或广泛的网络访问，主要专注于代码仓库相关的自动化任务。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47539188</guid>
-      <pubDate>Fri, 27 Mar 2026 04:47:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
