@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 04 Apr 2026 10:51:58 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 11:42:12 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.0致PostgreSQL性能腰斩，修复方案存争议</title>
+      <link>https://www.phoronix.com/news/Linux-7.0-AWS-PostgreSQL-Drop</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论Linux 7.0导致的PostgreSQL性能问题，涉及Linux内核和数据库性能。用户对Linux技术感兴趣，但对基础设施不太感兴趣，且性能问题接近性能评测范畴，兴趣不明确。</small></p><p>亚马逊/AWS工程师近日发出警告，当前Linux 7.0开发内核导致PostgreSQL数据库服务器的吞吐量降至之前内核版本的一半左右。性能下降的根源已明确，但解决方案存在分歧。</p>
+
+<p>Salvatore Dipietro在Graviton4服务器上测试发现，Linux 7.0接近最终版本的吞吐量仅为之前内核的0.51倍，原因是用户空间自旋锁耗时大幅增加。问题追溯至Linux 7.0对内核可用抢占模式的限制变更，这一改动此前已在<a href="https://www.phoronix.com/news/Linux-7.0-Full-Lazy-Preemption">相关报道</a>中提及。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=pgbench_regression" alt="pgbench regression benchmark" />
+
+<p>针对这一严重的性能回归，Linux内核邮件列表已收到恢复PREEMPT_NONE作为默认抢占模式的补丁。然而，原始代码作者Peter Zijlstra回应称，正确的修复方案是让PostgreSQL利用<a href="https://lkml.kernel.org/r/[email protected]">Restartable Sequences（RSEQ）时间片扩展</a>功能，该功能同样在Linux 7.0中上线。</p>
+
+<p>Zijlstra表示：“这里的修复方案是让PostgreSQL使用rseq切片扩展……这应该能限制锁持有者抢占的影响（除非PostgreSQL在做严重不合理的事情）。”如果这一立场不变，Linux 7.0稳定版可能会在某些场景下导致PostgreSQL性能显著下降，直到该流行数据库服务器完成适配更新。</p>
+
+<p>Linux 7.0稳定版预计约两周后发布，该内核版本也将为4月下旬发布的Ubuntu 26.04 LTS提供支持。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-AWS-PostgreSQL-Drop</guid>
+      <pubDate>Sat, 04 Apr 2026 11:36:18 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ GNOME 2D CAD设计工具Design发布50 Alpha 1版本，新增多项功能</title>
       <link>https://www.phoronix.com/news/2D-CAD-Design-GNOME-2026</link>
@@ -872,27 +891,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-45-IPv6-Mostly</guid>
       <pubDate>Thu, 26 Mar 2026 10:32:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.0-rc6前夕：ASUS Armoury和HP WMI驱动新增多款笔记本电脑支持</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-rc6-More-Platform-Drv</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要关于Linux内核添加ASUS和HP笔记本电脑驱动支持，属于硬件驱动开发范畴。用户兴趣配置中对此没有明确倾向，既非高兴趣主题（如新软件项目），也非明确避开主题（如非主流硬件），故评为可选。</small></p><p>Linux内核开发团队近日合并了platform-drivers-x86子系统的一批更新，这些更改将包含在即将发布的Linux 7.0-rc6版本中。此次更新主要为更多华硕和惠普笔记本电脑添加了硬件支持。</p>
-
-<p>ASUS Armoury驱动新增支持以下型号：ROG Strix G16 2025 (G614FP)、ROG Zephyrus G15 2021 (GA503QM)和ROG Flow Z13 (GZ302EAC)。这些笔记本电脑现在可以更好地支持GPU切换（在相关型号上）、APU内存分配、P/E核心管理、自定义风扇曲线等功能。</p>
-
-<img src="//www.phoronix.net/image.php?id=ryzen9-5900hx-linux&image=asus_g15_2_med" alt="ASUS Zephyrus G15 laptop from 2021" />
-
-<p>此外，ASUS NB WMI驱动也为ROG Flow Z13-KJP GZ302EAC添加了支持，通过Windows Management Instrumentation (WMI)接口提供热键、灯光控制、电源配置文件等相关功能。</p>
-
-<p>在惠普方面，HP WMI驱动新增对Omen 16-k0xxx、16-wf1xxx和16-xf0xxx系列笔记本电脑的支持。</p>
-
-<p>这些新增支持主要涉及设备ID的添加，不会影响现有硬件的兼容性，因此可以在Linux 7.0开发周期的后期安全合并。其余更新主要是常规的错误修复。</p>
-
-<p>这些更改将包含在本周日发布的Linux 7.0-rc6中，而稳定的Linux 7.0内核预计将在4月中旬发布。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-rc6-More-Platform-Drv</guid>
-      <pubDate>Thu, 26 Mar 2026 00:29:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
