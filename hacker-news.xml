@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 04 Apr 2026 03:15:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 05:03:24 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OpenClaw 权限提升漏洞 CVE-2026-33579 曝光，CVSS 评分高达 8.6</title>
+      <link>https://news.ycombinator.com/item?id=47628608</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章报道 OpenClaw 高危权限提升漏洞 (CVE-2026-33579, CVSS 8.6)，属于软件安全领域。虽然不完全匹配用户明确指定的兴趣类别，但作为重要的安全预警，对关注技术安全的用户有价值</small></p><p>OpenClaw 软件在 2026.3.28 版本之前被发现存在严重的权限提升漏洞（CVE-2026-33579）。该漏洞位于 <code>/pair approve</code> 命令路径中，由于未能将调用者权限范围传递到核心审批检查，导致具有配对权限但没有管理员权限的用户可以批准请求更广泛权限（包括管理员访问）的设备请求。</p>
+
+<p>根据漏洞详情，该问题存在于 <code>extensions/device-pair/index.ts</code> 和 <code>src/infra/device-pairing.ts</code> 文件中。安全评分显示，CVSS 4.0 评分为 8.6（高危），CVSS 3.1 评分为 8.1（高危）。</p>
+
+<p>社区讨论中，用户对漏洞的严重性表达了担忧。有评论指出，OpenClaw 项目存在超过 400 个安全问题，引发了对其整体安全性的质疑。关于默认配置的讨论显示，早期版本默认绑定到 0.0.0.0，这可能增加了安全风险。</p>
+
+<p>用户分享了多种安全实践，包括使用受限用户账户运行 AI 代理、在虚拟机中部署，以及使用内核级沙箱技术（如 Landlock + Seccomp + eBPF）来增强隔离性。有用户建议，对于缺乏 IT 安全知识的用户来说，运行此类软件需要格外谨慎。</p>
+
+<p>相关链接：<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-33579">NVD 漏洞详情</a>、<a href="https://github.com/openclaw/openclaw/security/advisories/GHSA-hc5h-pmr3-3497">GitHub 安全公告</a>、<a href="https://github.com/openclaw/openclaw/commit/e403decb6e20091b5402780a7ccd2085f98aa3cd">修复提交</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47628608</guid>
+      <pubDate>Fri, 03 Apr 2026 16:21:32 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Anthropic 禁止 Claude Code 订阅用户使用 OpenClaw 等第三方工具</title>
       <link>https://news.ycombinator.com/item?id=47633396</link>
@@ -1338,31 +1355,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47536712</guid>
       <pubDate>Thu, 26 Mar 2026 22:36:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 比 Jq 更快的 JSON 搜索工具：jsongrep 介绍与性能分析</title>
-      <link>https://news.ycombinator.com/item?id=47539825</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新的JSON搜索工具jsongrep，属于编程工具发布和编程效率改进经验，用户会很感兴趣</small></p><p>jsongrep 是一个专注于 JSON 数据搜索的命令行工具，其核心卖点是相比流行的 jq 工具具有显著的性能优势。该工具采用基于确定性有限自动机（DFA）的搜索引擎，通过声明式查询语法来匹配 JSON 路径，而非 jq 那样的命令式过滤语法。</p>
-
-<p>根据作者介绍，jsongrep 的查询语言故意设计得比 jq 更简单，它主要是一个搜索工具而非数据转换工具——能够查找值但不会计算新值，不支持过滤器、算术运算或字符串插值。这种设计选择使其在纯搜索场景下能够实现更高的效率。</p>
-
-<p>性能测试结果显示，jsongrep 在处理大型 JSON 文件时比 jq 和其他类似工具快得多，这对于需要处理 TB 级别换行分隔 JSON（ndjson）文件的用户尤其有吸引力。有评论者表示，在处理大规模数据时，jq 的速度确实成为瓶颈，迫使他们编写专门的 Node.js 或 Rust 脚本来替代。</p>
-
-<p>Hacker News 社区对该工具的反应多样：</p>
-<ul>
-<li>一些用户对性能提升表示赞赏，特别是在处理大数据集时</li>
-<li>部分用户质疑日常使用中是否真的需要比 jq 更快的工具</li>
-<li>有用户指出 jsongrep 缺少 macOS ARM64 原生二进制文件支持</li>
-<li>关于语法易用性的讨论：有人认为 jsongrep 语法更直观，也有人抱怨需要适应与 jq 不同的语法</li>
-<li>替代方案讨论：<a href="https://m.xkcd.com/1205">nushell</a> 被提及作为一个统一多种数据格式处理的 shell 环境，<a href="https://github.com/micahkepe/jsongrep">DuckDB</a> 也被建议用于更复杂的 JSON 查询需求</li>
-<li>极端观点认为“最快的 jq 替代方案就是完全不使用 JSON”</li>
-</ul>
-
-<p>总体而言，jsongrep 为特定使用场景——特别是需要高性能 JSON 搜索而非复杂数据转换的场景——提供了一个有竞争力的选择。它的出现反映了开发者社区对工具性能的持续追求，即使对于看似已经足够快的现有工具也是如此。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47539825</guid>
-      <pubDate>Fri, 27 Mar 2026 07:12:26 GMT</pubDate>
     </item>
   </channel>
 </rss>
