@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 04 Apr 2026 08:56:56 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 09:54:09 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Mintlify 用虚拟文件系统替代 RAG，让 AI 助手像开发者一样探索文档</title>
+      <link>https://news.ycombinator.com/item?id=47618223</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Mintlify用虚拟文件系统替代RAG改进文档AI助手的探索效率，属于编程工具发布和编程效率改进经验，用户很感兴趣。</small></p><p>Mintlify 公司分享了他们如何为 AI 文档助手构建 ChromaFs 虚拟文件系统，以替代传统的检索增强生成（RAG）方法。传统 RAG 只能检索与查询匹配的文本块，无法处理跨页面答案或精确语法查找，而新的解决方案让 AI 助手能够像开发者一样使用 UNIX 命令探索文档结构。</p>
+
+<img src="/_next/image?url=%2Fimages%2Ffeatured%2Fhow-we-built-a-virtual-filesystem-for-our-assistant.png&w=1920&q=75" alt="How we built a virtual filesystem for our Assistant" width="630" height="360" />
+
+<p>ChromaFs 是一个基于现有 Chroma 数据库的虚拟文件系统，它拦截 UNIX 命令（如 grep、cat、ls、find）并将其转换为数据库查询。这种方法带来了显著改进：会话创建时间从约 46 秒降至约 100 毫秒，边际计算成本几乎为零，因为重用了现有基础设施。</p>
+
+<p>系统的工作原理是将文档页面视为文件，章节视为目录。ChromaFs 使用 just-bash 库来处理命令解析，同时内置了基于角色的访问控制（RBAC），通过用户会话令牌过滤可访问的文件路径。对于 grep 操作，系统进行了特别优化：先用 Chroma 进行粗过滤识别可能匹配的文件，然后批量预取到 Redis 缓存中，最后在内存中进行精细的正则表达式匹配。</p>
+
+<p>在 Hacker News 社区讨论中，开发者们对这一方法表示赞赏。有评论指出，这种方法重新发现了基于文件系统的搜索方式，这是一种不依赖于嵌入向量的语义搜索。也有开发者认为，如果资源不受限制，FUSE 挂载可能是更好的选择，但 ChromaFs 在当前用例下提供了更简单的解决方案。</p>
+
+<p>ChromaFs 目前每天处理超过 30,000 次对话，服务数十万用户。通过这种创新方法，Mintlify 实现了即时会话创建、零边际成本和内置访问控制，无需额外的基础设施投入。</p>
+
+<p><strong>你知道吗？</strong>这种方法反映了 AI 代理工具使用模式的演进趋势。传统 RAG 通常假设必须基于向量搜索，但现代 AI 代理能够使用各种检索后端。向量搜索正从"完整解决方案"转变为代理可用的众多工具之一，而基于文件系统的探索方式让代理能够更自然地与结构化知识交互。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47618223</guid>
+      <pubDate>Thu, 02 Apr 2026 18:24:29 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ OpenClaw 权限提升漏洞 CVE-2026-33579 曝光，CVSS 评分高达 8.6</title>
       <link>https://news.ycombinator.com/item?id=47628608</link>
@@ -1324,37 +1345,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47539188</guid>
       <pubDate>Fri, 27 Mar 2026 04:47:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 使用AI一天内重写JSONata为Go库，每年节省50万美元</title>
-      <link>https://news.ycombinator.com/item?id=47536712</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲述使用AI重写JSONata为Go库，显著提升性能并节省成本，涉及编程效率改进经验和AI软件技术进展，用户很感兴趣</small></p><p>Reco.ai公司的一名工程师使用Claude AI在7小时内将JSONata从JavaScript重写为纯Go库gnata，实现了1000倍的性能提升，预计每年可节省50万美元的云计算成本。</p>
-
-<p>JSONata是一种JSON查询和转换语言，Reco.ai在其安全产品中使用它来处理检测规则。由于JSONata的参考实现是JavaScript，而公司的数据处理管道基于Go语言，多年来他们一直在Kubernetes上运行Node.js进程，通过RPC（远程过程调用）让Go服务调用这些进程。这种架构导致每次事件处理都需要序列化、网络传输、评估、结果序列化和返回，产生了巨大的开销。</p>
-
-<p>据公司透露，这种架构每年消耗约30万美元的计算资源，且随着客户和检测规则的增加，成本持续上升。工程师使用AI辅助开发，花费400美元的Claude API tokens，将5500行JavaScript代码转换为13000行Go代码，创建了gnata库。重写后的性能提升了1000倍，消除了网络延迟和序列化开销。</p>
-
-<img src="https://cdn.prod.website-files.com/644fc991ce69ff211edbeb95/69bcc7acd72b5efe1d79806e_Blog%20Image%20Website-02-26.png" alt="" />
-
-<p>Hacker News社区对此事反应强烈，获得了246个赞和228条评论。主要讨论点包括：</p>
-
-<ul>
-<li><strong>成本质疑</strong>：许多评论者难以理解每年30万美元的JSON解析成本，认为这反映了严重的架构问题或资源浪费。</li>
-<li><strong>AI必要性</strong>：有开发者指出JSONata已有其他Go实现，且5500行代码手动移植可能比使用AI更快、更可靠。</li>
-<li><strong>架构批评</strong>：评论者认为最初的RPC架构设计不合理，应该更早考虑集成方案。</li>
-<li><strong>维护担忧</strong>：创建私有fork意味着需要自行维护13000行Go代码，可能带来长期的技术债务。</li>
-<li><strong>营销质疑</strong>：部分评论认为这是SEO营销文章，旨在推广公司的AI安全产品。</li>
-</ul>
-
-<p>技术实现方面，工程师采用了与Cloudflare重写Vinext类似的方法：先将官方的jsonata-js测试套件移植到Go，然后实现评估器直到所有测试通过。这种方法确保了功能兼容性，但评论者指出原始JSONata项目有15个拉取请求和150个未解决问题，长期维护可能成为挑战。</p>
-
-<p>尽管存在争议，这一案例展示了AI辅助代码移植在特定场景下的潜力，同时也引发了关于技术决策、成本优化和工程效率的广泛讨论。</p>
-
-<p><strong>你知道吗？</strong> JSONata是一种专门用于JSON数据查询和转换的表达式语言，其名称来源于"JSON"和"XPath"的组合。它提供了类似SQL的查询语法，允许开发者从复杂的JSON结构中提取和转换数据，广泛应用于API响应处理、数据转换管道和配置管理等领域。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47536712</guid>
-      <pubDate>Thu, 26 Mar 2026 22:36:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
