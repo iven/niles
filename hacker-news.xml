@@ -3,7 +3,49 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 04 Apr 2026 17:49:05 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 19:00:58 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 无需root权限在Android设备上运行Linux容器：Podroid项目介绍</title>
+      <link>https://news.ycombinator.com/item?id=47633131</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍编程工具Podroid，允许在Android设备上无需root运行Linux容器，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>Podroid 是一个开源项目，允许用户在 Android 设备上无需 root 权限运行 Linux 容器。该项目通过 QEMU 模拟器在手机上启动一个轻量级的 Alpine Linux 虚拟机，并集成了 Podman 容器运行时和完整的终端环境。</p>
+
+<img src="/ExTV/Podroid/raw/main/screenshots/1.png" alt="" width="24%" />
+<img src="/ExTV/Podroid/raw/main/screenshots/2.png" alt="" width="24%" />
+<img src="/ExTV/Podroid/raw/main/screenshots/3.png" alt="" width="24%" />
+<img src="/ExTV/Podroid/raw/main/screenshots/4.png" alt="" width="24%" />
+
+<h3>主要特性</h3>
+<ul>
+<li><strong>容器支持</strong>：可以拉取和运行任何 OCI 兼容的容器镜像，如 <code>podman run --rm -it alpine sh</code></li>
+<li><strong>完整终端</strong>：提供 VT100/xterm 终端模拟，支持 Ctrl、Alt、功能键、方向键等，终端尺寸自动同步</li>
+<li><strong>持久化存储</strong>：安装的软件包、配置和容器镜像在重启后得以保留</li>
+<li><strong>网络功能</strong>：默认提供互联网访问，支持端口转发到 Android 主机</li>
+<li><strong>独立运行</strong>：无需 root、Termux 或主机二进制文件，只需安装 APK 即可使用</li>
+</ul>
+
+<h3>技术要求与使用</h3>
+<p>需要 arm64 架构的 Android 设备，系统版本 Android 8.0+（API 26），约 150 MB 可用存储空间。安装后，用户只需打开应用、启动 Podman、等待约 20 秒启动完成，即可通过内置终端运行容器命令。</p>
+
+<h3>技术实现</h3>
+<p>Podroid 使用 QEMU 的 TCG（动态代码翻译）模式而非 KVM 硬件虚拟化，这意味着它完全通过软件模拟，无需特殊硬件支持。应用通过前台服务保持虚拟机运行，将终端会话通过反射机制连接到 QEMU 的串行 I/O。网络方面使用 QEMU 用户模式网络（SLIRP），虚拟机 IP 为 10.0.2.15，端口转发通过 QEMU 的 hostfwd 功能实现。</p>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上的评论主要围绕几个方面展开：</p>
+<ul>
+<li>有用户询问这是否只是软件 QEMU 模拟（确认使用 TCG 而非 KVM，性能开销较大）</li>
+<li>讨论是否可能反向运行（在 Linux 手机上运行 Android，如 Waydroid 项目）</li>
+<li>有用户指出 Android 开发者选项中的 Linux 终端应用已支持硬件加速虚拟化，但 Podroid 的优势在于支持更广泛的 Android 版本（包括 Android 14-16）</li>
+<li>有开发者建议此技术可上游集成到 Podman 的 <code>podman machine</code> 功能中作为另一个后端</li>
+<li>关于文件系统访问的讨论：本地文件系统访问通过 overlayfs 实现持久化</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>Podman 是一个与 Docker 兼容的容器运行时工具，但设计上更注重安全性，默认以非 root 用户运行容器。与 Docker 不同，Podman 不需要守护进程，每个容器都由用户直接启动。QEMU 的 TCG（Tiny Code Generator）是一种动态二进制翻译技术，允许在非虚拟化支持的硬件上运行虚拟机，但性能通常低于 KVM（基于内核的虚拟机）硬件虚拟化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47633131</guid>
+      <pubDate>Fri, 03 Apr 2026 22:23:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Claude Code发现Linux内核中隐藏23年的安全漏洞</title>
       <link>https://news.ycombinator.com/item?id=47633855</link>
@@ -1299,34 +1341,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47540383</guid>
       <pubDate>Fri, 27 Mar 2026 08:55:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>macOS 26窗口圆角不一致问题及强制统一解决方案</title>
-      <link>https://news.ycombinator.com/item?id=47547009</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲解 macOS 窗口圆角不一致问题的解决方案，属于系统级 UI 修复，与用户兴趣配置中的明确兴趣点匹配度不高，且用户对 iOS 不感兴趣可能暗示对 Apple 系统技术细节兴趣有限。</small></p><p>一篇技术博客文章探讨了 macOS 26（代号 Tahoe）中窗口圆角设计不一致的问题，作者认为这种不一致性比圆角本身更令人困扰。文章提供了通过代码注入强制统一所有窗口圆角的解决方案，但该方法需要禁用系统完整性保护（SIP），存在安全风险。</p>
-
-<p>作者指出，macOS 26 的窗口圆角设计在不同应用间存在明显差异，尤其是 Safari 等系统应用的圆角效果特别突出。为了解决这个问题，作者 fork 了一个现有的解决方案并修改，通过动态库注入的方式，将所有第三方 GUI 应用的窗口圆角半径统一设置为 23.0。实现代码使用了 Objective-C 运行时的方法交换（method swizzling）技术，修改了 NSThemeFrame 类的相关方法。</p>
-
-<img src="/i/2026-03-27_19-51-20_screenshot.png" alt="macOS 26窗口圆角不一致示例截图" />
-
-<p>文章详细说明了编译、签名和部署步骤，包括创建启动代理以确保动态库在系统启动时自动加载。作者承认这种方法需要禁用 SIP，但认为如果攻击者已经获得机器访问权限，保护 /root 目录的安全意义不大。</p>
-
-<p>在 Hacker News 社区的 155 条评论中，用户观点分歧明显：</p>
-
-<ul>
-<li>部分用户表示从未注意到圆角问题，认为这无关紧要</li>
-<li>一些用户强烈批评 Safari 标签页的「药丸形状」设计，认为比之前版本更丑陋</li>
-<li>有用户指出文章对 SIP 的描述不准确，SIP 的功能远不止控制对 / 目录的写访问</li>
-<li>关于窗口使用习惯的讨论：许多 macOS 用户不习惯最大化窗口，而是让多个窗口重叠或并排显示</li>
-<li>有评论认为这种细节问题反映了 macOS 整体设计上的「分离关注点」缺陷</li>
-<li>也有观点认为，如果操作系统最大的问题是窗口圆角，反而说明该系统相当优秀</li>
-</ul>
-
-<p>文章引发了关于 macOS 设计哲学、用户界面一致性和系统安全权衡的广泛讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47547009</guid>
-      <pubDate>Fri, 27 Mar 2026 19:15:19 GMT</pubDate>
     </item>
   </channel>
 </rss>
