@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 06 Apr 2026 18:03:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2026 19:17:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Claude Code质量严重下降：思考深度减少导致复杂工程任务无法完成</title>
+      <link>https://news.ycombinator.com/item?id=47660925</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Claude AI模型代码生成质量下降的技术问题，属于AI软件技术进展范畴，用户对此主题感兴趣。</small></p><p>根据GitHub上的一份详细分析报告和Hacker News社区的讨论，Anthropic的Claude Code在2026年2月更新后出现了严重的质量退化，特别是在处理复杂工程任务时变得不可靠。</p>
+
+<p>报告基于对17,871个思考块和234,760个工具调用的数据分析发现，问题的核心在于Anthropic减少了模型的"思考深度"（thinking depth）。数据显示，从2月中旬开始，模型的思考深度下降了约67%，并且在3月初完全隐藏了思考内容（redact-thinking-2026-02-12）。</p>
+
+<p>这种变化导致了多个可量化的行为变化：</p>
+
+<ul>
+<li>研究优先行为转变为编辑优先：模型从每个编辑前平均阅读6.6个文件下降到仅2.0个文件，减少了70%的研究工作</li>
+<li>编辑质量下降：未经阅读就直接编辑的文件比例从6.2%上升到33.7%</li>
+<li>"最简单修复"心态：模型倾向于选择最简单的解决方案而非正确的解决方案</li>
+<li>过早停止和权限寻求：模型开始频繁询问"是否继续？"而不是自主完成任务</li>
+</ul>
+
+<p>Hacker News社区用户普遍反映了类似的问题。许多开发者表示，他们不得不编写越来越详细的CLAUDE.md文件来指导模型，而且模型经常忽略指令或提供错误的解决方案。有用户指出，当Claude说"最简单的修复是..."时，通常意味着它要提出一个糟糕的解决方案。</p>
+
+<p>社区讨论中还提到，一些用户已经转向其他AI编程工具，如Codex/GPT-5.4，这些工具在某些任务上表现更好。不过也有用户表示，通过将任务分解为更小的、具体的步骤，仍然可以有效地使用Claude Code。</p>
+
+<p>报告建议Anthropic提供更透明的思考分配信息，为需要深度思考的高级用户提供专门的付费层级，并在API响应中暴露思考令牌指标，让用户能够监控模型是否获得了足够的推理深度。</p>
+
+<p>目前，Anthropic尚未对此问题做出正式回应，但社区普遍认为这可能是为了训练下一代模型而对当前模型进行了量化或优化，导致复杂任务处理能力下降。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47660925</guid>
+      <pubDate>Mon, 06 Apr 2026 13:50:35 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Parlor：在 M3 Pro 上运行的实时多模态 AI，支持本地音频视频对话</title>
       <link>https://news.ycombinator.com/item?id=47652007</link>
@@ -1226,29 +1254,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47583045</guid>
       <pubDate>Tue, 31 Mar 2026 05:21:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Ollama预览版现支持MLX框架，在Apple Silicon上实现最快性能</title>
-      <link>https://news.ycombinator.com/item?id=47582482</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Ollama支持MLX框架，属于编程工具发布/分享和AI软件技术进展，用户很感兴趣</small></p><p><img src="https://files.ollama.com/ollama_mlx.png" alt="Ollama站在快车旁的插图，象征在Apple Silicon上的高性能表现" /></p>
-<p>Ollama近日发布了预览版更新，宣布其现在基于苹果的机器学习框架MLX，为Apple Silicon设备提供了迄今为止最快的性能表现。这一变化充分利用了苹果芯片的统一内存架构，在所有Apple Silicon设备上都带来了显著的速度提升。</p>
-<p>根据官方数据，在苹果M5、M5 Pro和M5 Max芯片上，Ollama能够利用新的GPU神经加速器来同时加速首token响应时间（TTFT）和生成速度（tokens/s）。测试显示，prefill性能从1154 tokens/s提升至1810 tokens/s，decode性能从58 tokens/s提升至112 tokens/s。Ollama 0.19版本在使用int4量化时性能将进一步提升。</p>
-<p>此次更新还引入了对NVIDIA NVFP4格式的支持，该格式能够在保持模型精度的同时减少内存带宽和存储需求。这使得Ollama用户能够获得与生产环境相同的结果，并为运行经过NVIDIA模型优化器优化的模型提供了可能。</p>
-<p>缓存系统也得到了改进：Ollama现在能够在对话间重用缓存，降低内存使用率；在提示的智能位置存储缓存快照，减少提示处理时间；共享前缀在旧分支被丢弃后能够保留更长时间。</p>
-<p>要使用此预览版，用户需要拥有超过32GB统一内存的Mac设备。目前该版本主要针对Qwen3.5-35B-A3B模型进行了优化，采样参数针对编码任务进行了调整。</p>
-<p>在社区讨论中，用户对本地大语言模型（LLM）的未来表示乐观，认为设备端LLM更加安全且能缓解数据中心推理需求压力。但也有用户指出，云端LLM在智能程度和效率上仍具优势，两者将共同发展而非相互替代。关于硬件要求，不少用户期待未来能在16GB内存的设备上流畅运行类似Claude Code的本地模型。</p>
-<p>与其他工具的对比也是讨论焦点：有用户表示Ollama提供了便捷的一键解决方案，而llama.cpp等工具则更加灵活；MLX版本在性能上比之前的实现有显著提升，但内存占用也相对较高。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li>MLX是苹果公司专门为其芯片设计的机器学习框架，能够充分利用Apple Silicon的统一内存架构，实现CPU和GPU之间的高效数据共享。</li>
-<li>NVFP4是NVIDIA推出的4位浮点量化格式，能够在几乎不损失精度的情况下大幅减少模型的内存占用和存储需求，特别适合推理工作负载。</li>
-<li>TTFT（Time To First Token）是衡量大语言模型响应速度的关键指标，表示从发送请求到收到第一个token所需的时间，直接影响用户体验。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47582482</guid>
-      <pubDate>Tue, 31 Mar 2026 03:40:45 GMT</pubDate>
     </item>
   </channel>
 </rss>
