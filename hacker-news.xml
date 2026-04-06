@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 06 Apr 2026 06:07:24 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2026 08:01:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 开发者创建带高级过滤器的 YouTube 搜索工具，社区热议 YouTube 搜索功能缺陷</title>
+      <link>https://news.ycombinator.com/item?id=47655392</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 属于编程工具发布/分享类别，提供YouTube高级搜索功能，与用户高兴趣的编程工具和效率改进经验完全匹配</small></p><p>一位开发者创建了一个名为 "YouTube Advanced Search" 的工具，为 YouTube 搜索提供了高级过滤界面。该工具将 YouTube 隐藏的搜索前缀（如 before:[date]、after:[date] 等）转化为可视化的过滤器，帮助用户更精确地查找视频。</p>
+
+<p>在 Hacker News 社区中，这个工具引发了广泛讨论，用户们普遍表达了对 YouTube 原生搜索功能的不满。主要问题包括：搜索结果质量低下，经常推送与搜索词无关的内容；强制推送 Shorts 短视频；搜索算法似乎故意推送用户不感兴趣的内容；缺乏基本的搜索功能，如频道内搜索；以及整体用户体验的恶化。</p>
+
+<p>多位用户分享了他们的糟糕体验：有人搜索量子物理视频却得到迈阿密穿着暴露女性的视频；有人搜索 "Sanic the Hedgeheg" 时 YouTube 自动纠正为 "Sonic" 且无法禁用；还有人发现即使输入完整视频标题也找不到目标视频。</p>
+
+<p>社区成员讨论了各种替代方案，包括使用 <a href="https://github.com/nolenroyalty/yt-browse">yt-browse</a> 这样的命令行工具进行频道内搜索，使用 RSS 阅读器管理订阅，以及使用 <a href="https://pockettube.io">Pocket Tube</a> 等浏览器扩展来组织订阅内容。</p>
+
+<p>许多用户认为 YouTube 的搜索功能恶化是平台 "恶化"（enshittification）过程的一部分，旨在不惜一切代价增加观看时间，而非提供最佳用户体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47655392</guid>
+      <pubDate>Mon, 06 Apr 2026 00:18:26 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 展示：构建900万参数小鱼LLM，5分钟揭秘语言模型工作原理</title>
       <link>https://news.ycombinator.com/item?id=47655408</link>
@@ -1238,38 +1255,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47568028</guid>
       <pubDate>Sun, 29 Mar 2026 22:21:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code 严重 bug：每 10 分钟自动执行 git reset --hard 销毁未提交更改</title>
-      <link>https://news.ycombinator.com/item?id=47567969</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于AI编程工具Claude Code严重bug的报告，涉及编程工具安全性和效率问题，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>用户报告 Claude Code（Anthropic 的 AI 编程助手）存在一个严重的数据丢失 bug：该工具会每 10 分钟自动执行 <code>git fetch origin + git reset --hard origin/main</code> 操作，静默销毁所有跟踪文件的未提交更改。</p>
-
-<p>问题首次在 GitHub issue <a href="https://github.com/anthropics/claude-code/issues/40710">#40710</a> 中被详细报告。用户发现，Claude Code 通过编程方式（不使用外部 git 二进制文件）每 600 秒自动重置当前工作目录的 git 仓库。git reflog 显示超过 95 条记录，全部以精确的 10 分钟间隔执行重置操作。</p>
-
-<p>影响范围包括：</p>
-<ul>
-<li>所有跟踪文件的未提交更改会被静默销毁</li>
-<li>未跟踪文件幸存</li>
-<li>git worktrees 免疫（工作树 reflog 显示零重置条目）</li>
-</ul>
-
-<p>用户进行了彻底排查，排除了 Git hooks、macOS 云同步、定时任务、IDE/编辑器等各种外部因素。通过 <code>fswatch</code> 监控确认，只有 Claude Code CLI 进程（使用 <code>--dangerously-skip-permissions</code> 标志运行）在受影响仓库的当前工作目录中。</p>
-
-<p>社区对此反应强烈，Hacker News 讨论中用户表达了担忧：</p>
-<ul>
-<li>有用户认为这是 AI 开发工具过度自动化的危险体现</li>
-<li>讨论涉及权限系统是否有效，以及 <a href="https://code.claude.com/docs/en/permissions">Claude Code 的权限文档</a> 是否足够明确</li>
-<li>部分用户质疑这是否是提示注入的结果</li>
-<li>有评论指出，即使用户运行了 <code>--dangerously-skip-permissions</code>，也不应期望如此破坏性行为</li>
-</ul>
-
-<p>临时解决方案包括使用 git worktrees（已确认免疫）或频繁提交更改。该 issue 已被标记为“不计划修复”（Closed as not planned）。</p>
-
-<p>你知道吗？这个 bug 的特别之处在于它的确定性：每 600 秒（±小于 0.5 秒）执行完全相同的操作，而不是典型的随机 AI 错误。这表明可能是 Claude Code 内部的定时机制或状态管理逻辑存在问题，而不是简单的模型输出错误。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47567969</guid>
-      <pubDate>Sun, 29 Mar 2026 22:15:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
