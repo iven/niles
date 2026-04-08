@@ -3,7 +3,43 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 08 Apr 2026 21:00:02 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2026 21:58:31 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.97 发布：新增焦点视图、修复权限和内存问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.97</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.97 版本，带来多项功能增强和问题修复。主要更新包括新增焦点视图切换功能，修复了多个权限管理问题，解决了 MCP 连接的内存泄漏，并改进了 NO_FLICKER 模式下的用户体验。</p>
+
+<h3>重要功能更新</h3>
+<ul>
+<li><strong>新增焦点视图</strong>：在 NO_FLICKER 模式下添加 Ctrl+O 快捷键，可切换显示提示信息、单行工具摘要（包含编辑差异统计）和最终响应</li>
+<li><strong>状态行增强</strong>：新增 <code>refreshInterval</code> 设置，可定期重新运行状态行命令；添加 <code>workspace.git_worktree</code> 到状态行 JSON 输入</li>
+<li><strong>代理状态指示</strong>：在 <code>/agents</code> 命令旁添加运行中的子代理实例数量指示器</li>
+<li><strong>语法高亮扩展</strong>：新增对 Cedar 策略文件（<code>.cedar</code>、<code>.cedarpolicy</code>）的语法高亮支持</li>
+</ul>
+
+<h3>主要问题修复</h3>
+<ul>
+<li><strong>权限管理修复</strong>：修复了多个权限规则问题，包括与 JavaScript 原型属性名称冲突导致 <code>settings.json</code> 被忽略的问题，以及权限目录更改在会话中不生效的问题</li>
+<li><strong>内存泄漏修复</strong>：解决了 MCP HTTP/SSE 连接在服务器重连时每小时累积约 50MB 未释放缓冲区的问题</li>
+<li><strong>会话恢复改进</strong>：修复了多个 <code>/resume</code> 选择器问题，包括文件编辑差异消失、缓存未命中和中间输入丢失等问题</li>
+<li><strong>NO_FLICKER 模式优化</strong>：修复了该模式下的滚动渲染问题、内存泄漏、鼠标滚轮滚动缓慢，以及 Warp 终端中快捷键失效等问题</li>
+<li><strong>文本处理修复</strong>：解决了 NO_FLICKER 模式下复制韩文/日文/Unicode 文本时出现的乱码问题</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li><strong>编辑接受模式增强</strong>：自动批准使用安全环境变量或进程包装器前缀的文件系统命令</li>
+<li><strong>图像处理优化</strong>：粘贴和附加的图像现在会压缩到与通过 Read 工具读取的图像相同的令牌预算</li>
+<li><strong>输入体验改进</strong>：斜杠命令和 <code>@</code> 提及补全现在会在 CJK 句子标点后触发，无需在 <code>/</code> 或 <code>@</code> 前加空格</li>
+<li><strong>会话管理优化</strong>：改进 Bridge 会话显示，增强状态行布局，优化上下文不足警告显示方式</li>
+<li><strong>性能提升</strong>：通过跳过空钩子条目和限制存储的预编辑文件副本来减少会话转录大小，改进转录准确性</li>
+<li><strong>技能更新</strong>：更新 <code>/claude-api</code> 技能以覆盖托管代理功能</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.97</guid>
+      <pubDate>Wed, 08 Apr 2026 21:52:34 GMT</pubDate>
+    </item>
     <item>
       <title>chezmoi v2.70.1 发布：新增模板变量与配置检测功能</title>
       <link>https://github.com/twpayne/chezmoi/releases/tag/v2.70.1</link>
@@ -1313,41 +1349,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/fish-shell/fish-shell/releases/tag/4.6.0</guid>
       <pubDate>Sat, 28 Mar 2026 05:16:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ fish shell 4.5.0 发布：重点修复 Vi 模式问题并移除 terminfo 依赖</title>
-      <link>https://github.com/fish-shell/fish-shell/releases/tag/4.5.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Fish Shell主要版本更新(4.5.0)，命令行工具重要版本发布</small></p><p>fish shell 4.5.0 版本发布，这主要是一个针对 4.4.0 版本中 Vi 模式回归问题的修补版本，同时也包含了一些行为改进和功能调整。本次更新共包含 68 次提交，来自 16 位贡献者，其中 8 位是新提交者。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>Vi 模式回归修复</strong>：修复了 4.4.0 版本中引入的多个 Vi 模式问题，包括：
-  <ul>
-    <li><code>d,f</code> 键绑定失效问题（<a href="https://github.com/fish-shell/fish-shell/issues/12417">#12417</a>）</li>
-    <li><code>c,w</code> 键绑定错误删除尾部空格问题（<a href="https://github.com/fish-shell/fish-shell/issues/12443">#12443</a>）</li>
-    <li>接受自动建议后执行 <code>c,i,w</code> 导致崩溃问题（<a href="https://github.com/fish-shell/fish-shell/issues/12430">#12430</a>）</li>
-    <li>带模式参数调用 <code>fish_vi_key_bindings</code> 产生错误问题（<a href="https://github.com/fish-shell/fish-shell/issues/12413">#12413</a>）</li>
-  </ul>
-</li>
-<li><strong>移除 terminfo 依赖</strong>：fish 不再读取 terminfo 数据库来根据 <code>TERM</code> 环境变量改变行为，也不再依赖 ncurses 或 terminfo。4.1 版本引入并默认启用的 <code>ignore-terminfo</code> 功能标志现已永久启用。这一改动可能影响 Data General Dasher D220 和 Wyse WY-350 等老旧终端，但对 21 世纪发布的所有已知终端模拟器应继续正常工作。</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li><strong>交互改进</strong>：
-  <ul>
-    <li><code>Ctrl+L</code> 不再取消历史搜索（<a href="https://github.com/fish-shell/fish-shell/issues/12436">#12436</a>）</li>
-    <li>历史搜索光标定位现在能正确处理任意宽度字符</li>
-  </ul>
-</li>
-<li><strong>构建修复</strong>：修复了自 4.0.0 版本以来在 Illumos 系统上的构建问题（<a href="https://github.com/fish-shell/fish-shell/issues/12410">#12410</a>）</li>
-</ul>
-
-<p>本次更新还感谢了所有通过问题讨论、代码审查或代码更改做出贡献的社区成员，并欢迎了 8 位新提交者的加入。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/fish-shell/fish-shell/releases/tag/4.5.0</guid>
-      <pubDate>Tue, 17 Feb 2026 00:53:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
