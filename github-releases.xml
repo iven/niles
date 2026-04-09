@@ -3,7 +3,69 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 09 Apr 2026 17:20:13 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 09 Apr 2026 19:25:10 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.98发布：新增Google Vertex AI向导与子进程沙箱隔离</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.98</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.98 版本，引入了多项新功能和改进，重点关注用户体验和系统稳定性。</p>
+
+<h3>重要新功能</h3>
+<ul>
+<li><strong>Google Vertex AI 交互式设置向导</strong>：在登录屏幕选择「第三方平台」时可访问，引导用户完成 GCP 认证、项目和区域配置、凭证验证及模型固定</li>
+<li><strong>Perforce 模式支持</strong>：新增 <code>CLAUDE_CODE_PERFORCE_MODE</code> 环境变量，设置后对只读文件的编辑/写入操作将失败并提示 <code>p4 edit</code>，避免静默覆盖</li>
+<li><strong>Monitor 工具</strong>：新增用于从后台脚本流式传输事件的工具</li>
+<li><strong>Linux 子进程沙箱隔离</strong>：当设置 <code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB</code> 时，在 Linux 上启用 PID 命名空间隔离，增强安全性</li>
+<li><strong>改进的提示缓存</strong>：新增 <code>--exclude-dynamic-system-prompt-sections</code> 标志到打印模式，提升跨用户提示缓存效率</li>
+<li><strong>Git 工作树状态</strong>：在状态行 JSON 输入中添加 <code>workspace.git_worktree</code> 字段，标识当前目录是否在链接的 git worktree 内</li>
+<li><strong>OTEL 跟踪增强</strong>：为 Bash 工具子进程添加 W3C <code>TRACEPARENT</code> 环境变量，使子进程 span 正确关联到 Claude Code 的跟踪树</li>
+<li><strong>LSP 标识</strong>：Claude Code 现在通过 initialize 请求中的 <code>clientInfo</code> 向语言服务器标识自身</li>
+</ul>
+
+<h3>主要问题修复</h3>
+<ul>
+<li>修复停滞的流式响应超时问题，避免无限等待</li>
+<li>修复 429 重试在服务器返回较小 <code>Retry-After</code> 时过快耗尽尝试次数的问题，现在应用指数退避作为最小延迟</li>
+<li>修复 MCP OAuth <code>oauth.authServerMetadataUrl</code> 配置覆盖在重启后令牌刷新时不生效的问题，影响 ADFS 等身份提供商</li>
+<li>修复 xterm 和 VS Code 集成终端中，当 kitty 键盘协议激活时大写字母被转换为小写的问题</li>
+<li>修复 macOS 文本替换删除触发词而非插入替换内容的问题</li>
+<li>修复文件编辑差异在 <code>--resume</code> 时从 UI 消失的问题（当编辑文件大于 10KB 时）</li>
+<li>修复 <code>/resume</code> 选择器的多个问题：<code>--resume &lt;name&gt;</code> 打开不可编辑、过滤器重载清除搜索状态、空列表吞没箭头键、跨项目陈旧性、临时任务状态文本替换对话摘要等</li>
+<li>修复 <code>/export</code> 不尊重绝对路径和 <code>~</code>，并静默重写用户提供的扩展名为 <code>.txt</code> 的问题</li>
+<li>修复 <code>/effort max</code> 对未知或未来模型 ID 被拒绝的问题</li>
+<li>修复斜杠命令选择器在插件 frontmatter <code>name</code> 为 YAML 布尔关键字时崩溃的问题</li>
+<li>修复速率限制升级文本在消息重新挂载后被隐藏的问题</li>
+<li>修复 MCP 工具绕过基于令牌的持久层的问题</li>
+<li>修复语音模式在重新按住推送通话键时，若前一次转录仍在处理，会泄漏大量空格字符到输入中的问题</li>
+<li>修复 <code>DISABLE_AUTOUPDATER</code> 不完全抑制 npm 注册表版本检查及基于 npm 安装的符号链接修改的问题</li>
+<li>修复内存泄漏：Remote Control 权限处理程序条目在整个会话期间被保留的问题</li>
+<li>修复后台子代理失败时未向父代理报告部分进度的问题</li>
+<li>修复提示类型 Stop/SubagentStop 钩子在长会话中失败的问题，以及钩子评估器 API 错误显示「JSON 验证失败」而非真实消息的问题</li>
+<li>修复反馈调查渲染问题</li>
+<li>修复 Bash <code>grep -f FILE</code> / <code>rg -f FILE</code> 不提示读取工作目录外模式文件的问题</li>
+<li>修复过时子代理工作树清理删除包含未跟踪文件的工作树的问题</li>
+<li>修复 <code>sandbox.network.allowMachLookup</code> 在 macOS 上不生效的问题</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>改进 <code>/resume</code> 过滤器提示标签，并在过滤器指示器中添加项目/工作树/分支名称</li>
+<li>改进页脚指示器（Focus、通知）在窄终端宽度下保持在模式指示器行，避免换行</li>
+<li>改进 <code>/agents</code> 为标签页布局：Running 标签显示活动子代理，Library 标签添加运行代理和查看运行实例操作</li>
+<li>改进 <code>/reload-plugins</code> 无需重启即可获取插件提供的技能</li>
+<li>改进 Accept Edits 模式自动批准带有安全环境变量或进程包装器前缀的文件系统命令</li>
+<li>改进 Vim 模式：<code>j</code>/<code>k</code> 在 NORMAL 模式下导航历史记录并在输入边界选择页脚标签</li>
+<li>改进钩子错误在转录中包含 stderr 第一行，便于无需 <code>--debug</code> 的自诊断</li>
+<li>改进 OTEL 跟踪：交互 span 现在正确包装并发 SDK 调用下的完整轮次，无头轮次按轮次结束 span</li>
+<li>改进转录条目携带最终令牌使用情况而非流式占位符</li>
+<li>更新 <code>/claude-api</code> 技能以涵盖 Managed Agents 及 Claude API</li>
+<li>修复 <code>CLAUDE_CODE_MAX_CONTEXT_TOKENS</code> 在设置 <code>DISABLE_COMPACT</code> 时尊重该设置</li>
+<li>在设置 <code>DISABLE_COMPACT</code> 时移除 <code>/compact</code> 提示</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.98</guid>
+      <pubDate>Thu, 09 Apr 2026 19:18:28 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.97 发布：新增焦点视图、修复权限和内存问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.97</link>
@@ -1300,55 +1362,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/antonmedv/fx/releases/tag/39.0.2</guid>
       <pubDate>Thu, 21 Aug 2025 18:40:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ fish shell 4.6.0 发布：新增多语言翻译和终端功能改进</title>
-      <link>https://github.com/fish-shell/fish-shell/releases/tag/4.6.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Fish Shell主要版本更新(4.6.0)，命令行工具重要版本发布</small></p><p>fish shell 发布了 4.6.0 版本，包含 100 个新提交，由 27 位作者贡献，其中 15 位是新提交者。本次更新带来了多项功能改进和问题修复。</p>
-
-<h3>重要改进</h3>
-<ul>
-<li><strong>多语言支持</strong>：新增西班牙语和日语翻译（<a href="https://github.com/fish-shell/fish-shell/issues/12489">#12489</a>、<a href="https://github.com/fish-shell/fish-shell/issues/12499">#12499</a>）。</li>
-<li><strong>emoji 显示优化</strong>：emoji 默认宽度从 1 改为 2，改善从现代桌面连接旧系统时的体验。如果出现对齐问题，用户可通过设置 <code>$fish_emoji_width</code> 回退到 1（<a href="https://github.com/fish-shell/fish-shell/issues/12562">#12562</a>）。</li>
-<li><strong>交互体验提升</strong>：
-  <ul>
-    <li>标签补充分页器现在左对齐每列的描述（<a href="https://github.com/fish-shell/fish-shell/issues/12546">#12546</a>）。</li>
-    <li>支持 <code>SHELL_PROMPT_PREFIX</code>、<code>SHELL_PROMPT_SUFFIX</code> 和 <code>SHELL_WELCOME</code> 环境变量，这些变量由 systemd 的 <code>run0</code> 等工具设置（<a href="https://github.com/fish-shell/fish-shell/issues/10924">#10924</a>）。</li>
-  </ul>
-</li>
-<li><strong>终端功能增强</strong>：
-  <ul>
-    <li><code>set_color</code> 命令现在支持单独关闭斜体、反向模式、删除线和下划线（如 <code>--italics=off</code>）。</li>
-    <li><code>set_color</code> 新增前景色（<code>--foreground</code> 或 <code>-f</code>）和重置（<code>--reset</code>）选项。</li>
-    <li>修复了 macOS 启动时因终端响应慢导致的错误（<a href="https://github.com/fish-shell/fish-shell/issues/12571">#12571</a>）。</li>
-  </ul>
-</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li><strong>信号处理</strong>：<code>SIGWINCH</code>（终端调整大小时发送）等信号不再中断内置输出（<a href="https://github.com/fish-shell/fish-shell/issues/12496">#12496</a>）。</li>
-<li><strong>Bash 兼容性</strong>：为兼容 Bash，fish 现在接受 <code>|&</code> 作为 <code>&|</code> 的替代拼写，用于同时管道化标准输出和标准错误（<a href="https://github.com/fish-shell/fish-shell/issues/11516">#11516</a>）。</li>
-<li><strong>代码格式化</strong>：<code>fish_indent</code> 现在保留大括号块（<code>{ }</code>）前的注释和换行（<a href="https://github.com/fish-shell/fish-shell/issues/12505">#12505</a>）。</li>
-<li><strong>崩溃修复</strong>：修复了使用 <code>ctrl-z</code> 暂停某些管道时的崩溃问题（<a href="https://github.com/fish-shell/fish-shell/issues/12301">#12301</a>）。</li>
-<li><strong>开发者工具</strong>：<code>cargo xtask</code> 子命令在测试失败时不再 panic。</li>
-</ul>
-
-<h3>回归修复</h3>
-<ul>
-<li>修复了 4.5.0 版本中重绘提示时出现的中间 <code>⏎</code> 符号问题（<a href="https://github.com/fish-shell/fish-shell/issues/12476">#12476</a>）。</li>
-<li>修复了 4.4.0 版本中 <code>history</code> 命令再次支持显式指定的 <code>--color=</code> 选项（<a href="https://github.com/fish-shell/fish-shell/issues/12512">#12512</a>）。</li>
-<li>修复了 4.4.0 版本中的 Vi 模式 <code>dl</code> 和 <code>dh</code> 问题（<a href="https://github.com/fish-shell/fish-shell/issues/12461">#12461</a>）。</li>
-<li>修复了 4.3.0 版本中以 <code>-</code> 开头的命令补全错误（<a href="https://github.com/fish-shell/fish-shell/issues/12522">#12522</a>）。</li>
-</ul>
-
-<p>版本致谢了所有通过问题讨论、代码审查或代码更改做出贡献的参与者，并欢迎了新提交者和回归的提交者。</p>
-
-<p>下载说明：建议下载 <code>fish-4.6.0.tar.xz</code> 源代码文件，从 <code>Source code (tar.gz)</code> 下载的文件无法正确构建。同时提供了使用 <a href="https://github.com/krobelus.gpg">GPG 密钥</a>的签名文件 <code>fish-4.6.0.tar.xz.asc</code>。名为 <code>fish-4.6.0-linux-*.tar.xz</code> 的文件包含适用于给定 CPU 架构的任何 Linux 系统的<a href="https://github.com/fish-shell/fish-shell/?tab=readme-ov-file#building-fish-with-cargo">独立 fish 二进制文件</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/fish-shell/fish-shell/releases/tag/4.6.0</guid>
-      <pubDate>Sat, 28 Mar 2026 05:16:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
