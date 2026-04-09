@@ -3,7 +3,52 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 09 Apr 2026 11:15:54 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 09 Apr 2026 14:10:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 面向软件开发者的USB：编写用户空间USB驱动入门指南</title>
+      <link>https://news.ycombinator.com/item?id=47695012</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] USB驱动程序开发入门指南，属于编程工具分享范畴，用户很感兴趣</small></p><p>本文打破了编写USB驱动必须涉及内核代码的常见误解，展示了如何通过libusb库在用户空间与USB设备通信，就像使用网络套接字一样简单。文章以Android手机进入Bootloader模式为例，提供了从设备枚举到实际通信的完整实践指南。</p>
+
+<p>文章首先演示了使用<code>lsusb</code>工具手动枚举设备，获取厂商ID（VID）和产品ID（PID）等基本信息。随后介绍了如何通过libusb库编写C++程序，注册热插拔事件回调来检测特定设备的插入，整个过程无需编写任何内核代码。</p>
+
+<p>在设备通信部分，文章详细讲解了如何通过控制端点（Endpoint 0x00）发送标准化请求。示例代码展示了发送GET_STATUS请求获取设备状态，以及发送GET_DESCRIPTOR请求获取设备描述符。设备描述符是USB设备向主机报告自身能力的关键数据结构，包含设备类型、支持的协议等信息。</p>
+
+<img src="/_astro/device_descriptor_imhex.D0THRM7T_Z1gwRns.webp" alt="USB Device Descriptor, decoded using ImHex" width="1375" height="857" />
+
+<p>文章还解析了设备描述符的二进制结构，并介绍了其他描述符类型，如配置描述符、接口描述符和端点描述符。通过<code>lsusb -v</code>命令可以查看设备的完整描述符信息，了解设备支持的所有端点和接口。</p>
+
+<p>在Hacker News社区的讨论中，有开发者质疑这种方法的实际驱动性质，认为这更像是应用程序代码而非真正的驱动。作者回应称，在Linux上可以通过创建tun/tap设备与内核网络子系统交互。其他讨论包括：</p>
+<ul>
+<li>USB转以太网等标准设备通常已有通用驱动支持</li>
+<li>用户空间驱动在Windows上的优势（避免驱动签名问题）</li>
+<li>Go和Rust的USB库推荐</li>
+<li>macOS系统对覆盖系统已识别USB设备驱动的限制</li>
+<li>实际应用案例：非标准MIDI设备驱动开发</li>
+</ul>
+
+<p>文章为那些需要与自定义USB设备交互但不想深入内核开发的开发者提供了实用的入门指导，展示了用户空间USB编程的可行性和便利性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47695012</guid>
+      <pubDate>Wed, 08 Apr 2026 19:23:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ MegaTrain：在单个GPU上全精度训练1000亿+参数大语言模型的内存中心系统</title>
+      <link>https://news.ycombinator.com/item?id=47689174</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 大语言模型训练优化技术，属于AI软件技术进展，用户感兴趣</small></p><p>研究人员提出MegaTrain系统，能够在单个GPU上全精度训练参数规模超过1000亿的大型语言模型。与传统GPU中心的方法不同，MegaTrain采用内存中心设计，将模型参数和优化器状态存储在主机内存（CPU内存）中，而将GPU作为瞬态计算引擎使用。系统逐层流式传输参数并计算梯度，最小化GPU上的持久状态。</p>
+
+<p>为克服CPU-GPU带宽瓶颈，MegaTrain引入两项关键优化：1）流水线双缓冲执行引擎，通过多个CUDA流重叠参数预取、计算和梯度卸载，实现GPU连续执行；2）用无状态层模板替代持久自动微分图，在权重流入时动态绑定，消除持久图元数据的同时提供调度灵活性。</p>
+
+<p>在配备1.5TB主机内存的单个H200 GPU上，MegaTrain可稳定训练高达1200亿参数的模型。训练140亿参数模型时，其吞吐量达到DeepSpeed ZeRO-3配合CPU卸载的1.84倍。此外，该系统还支持在单个GH200上训练70亿参数、512k令牌上下文的模型。</p>
+
+<p>社区讨论中，拥有有限硬件资源的个人研究者对此表示欢迎，认为这能让他们在本地训练更大模型。但也有评论指出，虽然技术上有趣，但单GPU训练超大模型的速度可能仍无法满足实际预训练需求。部分用户将其与PyTorch的FSDP卸载策略和DeepSpeed ZeRO-3进行比较，认为思路相似但实现优化更深入。</p>
+
+<p>值得注意的是，有经验的研究者提到可通过更多技巧进一步降低显存使用，如修改优化器避免梯度卸载、使用Muon优化器替代Adam、采用量化技术等。尽管单GPU训练超大模型的实际应用场景有限，但这项技术为资源受限的研究环境提供了新的可能性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47689174</guid>
+      <pubDate>Wed, 08 Apr 2026 12:19:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Meta 发布 Muse Spark：迈向个人超级智能的多模态推理模型</title>
       <link>https://news.ycombinator.com/item?id=47692043</link>
@@ -1252,46 +1297,6 @@ Terminal-Bench 2.0:        65.4% → 82.0%</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47611921</guid>
       <pubDate>Thu, 02 Apr 2026 09:14:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qwen3.6-Plus发布引发争议：闭源模式与选择性基准测试受批评</title>
-      <link>https://news.ycombinator.com/item?id=47615002</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为新AI模型Qwen3.6-Plus的发布公告，属于用户很感兴趣的新AI模型发布公告范畴</small></p><p>通义千问团队发布了Qwen3.6-Plus模型，定位为"迈向真实世界智能体"，但这一发布在Hacker News社区引发了广泛讨论和批评。</p>
-
-<p>该模型最大的争议点在于其闭源性质。与Qwen系列之前的开源模型不同，Qwen3.6-Plus仅通过API提供服务，不提供权重下载。社区用户对此表示失望，认为这违背了团队之前建立的开源声誉。有评论指出："他们获得了开源模型发布带来的大量正面宣传，这是他们的目标。困难的部分是从开源提供商转变为被视为Claude和ChatGPT的竞争对手。"</p>
-
-<p>另一个争议焦点是基准测试的选择。Qwen团队在性能对比中主要使用了Opus 4.5、GPT-4等上一代模型，而不是最新的Opus 4.6版本。多位用户质疑这种做法的动机，认为这是"明显的欺骗企图"。一位用户评论道："当Opus 4.6已经发布这么长时间时，没有理由与Opus 4.5进行基准测试，除非是为了误导。"</p>
-
-<p>尽管存在争议，部分用户认为Qwen3.6-Plus可能在某些场景下有市场。有评论提到："我认为存在一个中等规模的市场，用于这种不完全达到SOTA水平但可以更便宜地提供的模型。"不过也有反对意见认为"几乎每个人都想要最好的"。</p>
-
-<p>隐私和安全问题也是讨论的焦点。一些用户对使用阿里云服务表示顾虑，而另一些用户则从实用角度考虑，认为使用中国服务可能在某些方面更有利于隐私保护。</p>
-
-<p>总体来看，Qwen3.6-Plus的发布反映了AI模型提供商在商业模式上的转变，从开源推广转向商业化闭源服务，这一转变在开发者社区中引发了复杂的反应。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47615002</guid>
-      <pubDate>Thu, 02 Apr 2026 14:28:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google发布Gemma 4开源模型系列，专注高级推理和移动设备应用</title>
-      <link>https://news.ycombinator.com/item?id=47616361</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Google新发布的Gemma 4开源AI模型，属于用户很感兴趣的新AI模型发布公告主题，故评为必看内容。</small></p><p>Google DeepMind发布了Gemma 4开源模型系列，这是一个专门为高级推理和代理工作流构建的模型家族。新系列包含多个变体：专注于移动设备的E2B和E4B模型，以及26BA4 MoE和31B密集模型。</p>
-
-<img src="https://lh3.googleusercontent.com/241kUbfd5jozU-ETxthrBSW7_xgCEvMzxVVuThwIzazfHluocz1svdDFjkXpZjNqbGEwMCJDtwa9u9QJAjgOfa5Y8-ss43U4yClrEY241305bqThgbU=w1440" alt="" width="1440" height="1440" />
-
-<p>模型采用Apache 2.0许可证发布，包含基础模型版本，适合开发者进行微调。社区反馈显示，<a href="https://huggingface.co/collections/unsloth/gemma-4">Unsloth团队已经提供了量化版本</a>供用户运行。</p>
-
-<p>根据基准测试数据，Gemma 4 E4B变体在多个测试中超越了之前的Gemma 3 27B模型，而参数数量却显著减少。移动端模型支持语音输入功能，这在开源模型中较为罕见。</p>
-
-<img src="https://lh3.googleusercontent.com/LoBNGAVAJpiKOwh-79dLSX_swo_0DOrHKQ4pxZ_TaD5NzTtTIsaQ6wnglBvW8gvyPVd1tMLPVeqKtbVW8z-n3_3SDy_e3A9DZwFvBvDhgxl40OPDTg=w1440" alt="" width="1440" height="1440" />
-
-<p>社区讨论中，有用户指出开源模型相比专有模型在成本上有显著优势，<a href="https://a7om.com">数据显示便宜70.7%</a>。同时也有关于基准测试呈现方式的讨论，一些用户认为ELO分数作为主要基准可能具有误导性。</p>
-
-<p>战略层面，社区分析了Google发布开源模型的动机，认为这是为了减缓竞争对手如Anthropic、OpenAI和中国公司的发展速度，同时为本地AI应用生态奠定基础。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47616361</guid>
-      <pubDate>Thu, 02 Apr 2026 16:10:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
