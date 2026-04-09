@@ -3,7 +3,19 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Wed, 08 Apr 2026 23:51:15 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 09 Apr 2026 03:26:13 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 霍尔木兹海峡已再次关闭</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1557112.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 霍尔木兹海峡关闭属于国际重要地缘政治新闻，符合用户对国内/国际必读新闻感兴趣的兴趣配置，故推荐阅读</small></p>
+                                                
+                                                <p>当地时间8日，霍尔木兹海峡已再次关闭。据海上交通追踪系统数据显示，原本驶向霍尔木兹海峡出口处的油轮“AUROURA”号，在阿曼穆桑代姆半岛海岸附近突然改变航向，在完成180度掉头后返回波斯湾深处。</p>                
+                        <div class="article-global"></div>                            <p><img id="0" src="https://n.sinaimg.cn/spider20260409/600/w1920h1080/20260409/deab-bc3988ea491a21fac5d0029873f6402b.jpg"></p><p>据此前消息，在以色列袭击黎巴嫩之后，伊朗叫停了霍尔木兹海峡的油轮通行。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1557112.htm</guid>
+      <pubDate>Thu, 09 Apr 2026 03:17:03 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ CIA秘密部署“幽灵低语”AI系统 成功参与营救在伊朗失踪的美军飞行员</title>
       <link>https://www.cnbeta.com.tw/articles/tech/1557110.htm</link>
@@ -615,18 +627,6 @@ Panel），将其所有功能逐步迁移至更现代化的“设置”应用（
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1556850.htm</guid>
       <pubDate>Tue, 07 Apr 2026 06:23:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>苹果macOS被曝存在内核级缺陷 连续运行49.7天后网络会失效</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1556848.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 苹果macOS内核缺陷，苹果产品相关但非核心避开项，用户兴趣不明确</small></p>
-                                                
-                                                <p>据 Photon 公司在 2026 年 4 月 6 日发布的博客，macOS 系统也存在时间炸弹，在连续运行 49.7 天后 TCP 连接功能会逐步瘫痪，问题发生原因则是苹果在 XNU 内核中的 TCP 网络实现存在缺陷。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://framerusercontent.com/images/8q1bjcCk4MogVeeZ2qtVTkEnew.png?scale-down-to=1024&width=1556&height=1024"></p><p>该公司提供 AI 服务并且需要长时间运行 Mac 集群处理任务并进行监控，但因为未知原因部分设备会无法正常连接网络，开发团队经过排查和验证后确认这是苹果造成的缺陷。</p><p>正常情况下这个问题不会对普通用户造成影响，即便用户没有主动重启设备，苹果也可能推送系统更新重启设备，只有长时间连续运行且不重启的设备才会受到这个问题影响。</p><p><strong>问题根源：32 位无符号整数溢出与时钟冻结 </strong></p><p>这个缺陷的核心在于 XNU 内核中使用 RFC 1323 TCP 时间戳变量 tcp_now，这是一个 uint32_t 32 位无符号整数类型的计数器，以毫秒为单位记录系统自启动以来的时间。</p><p>问题在于这个时间的最大值只能是 4，294，967，295 毫秒，约为 49 天 17 小时 2 分 47.296 秒，当系统连续运行超过这个时间周期时，计数器会发生溢出并回绕到接近零。</p><p>内核中存在一个单调性保护机制，该机制用于确保 tcp_now 只会向前递增，因此在溢出后旧值 (接近 2³²-1) 大于回绕后的新值，这导致比较条件始终为 false，因此 tcp_now 从此被冻结。</p><p>冻结后 TCP 子系统的时钟无法依赖的定时器无法正常工作，最终导致所有 TCP 连接都不能正常被回收，然后当所有端口被耗尽后 TCP 再也无法连接。</p><p><strong>缺陷带来的直接影响：</strong></p><p>macOS 上的 TCP 连接进入 TIME_WAIT 状态后，默认情况下会保留 30 秒以处理延迟报文，正常情况下内核的 tcp_gc () 垃圾回收函数会根据 tcp_now 判断并关闭这些等待状态。</p><p>但在 tcp_now 冻结后，比较逻辑 TSTMP_GEQ (tcp_now， timer) 始终失败，所有 TIME_WAIT 条目永远都不会被回收，于是这就造成诸多问题。</p><ul class="list-paddingleft-2"><li><p>临时端口被耗尽：通常临时端口在 49152~65535 之间，合计约有 1.6 万个端口，这些端口会被逐渐占用。</p></li><li><p>新 TCP 连接无法建立：后续连接尝试进入 SYN_SENT 状态并失败。</p></li><li><p>内核 CPU 占用上升：不断扫描逐渐增长的 TIME_WAIT 队列。</p></li><li><p>网络功能崩溃：除了 ICMP (即 PING) 外，大多数 TCP 应用例如浏览器、SSH、API 调用都无法正常工作。</p></li><li><p>现有网络连接仍然可能维持，但新发起的 TCP 连接都将受阻。</p></li></ul><p><strong>影响 macOS 10.15 及后续版本：</strong></p><p>经过测试可以确认这个内核缺陷至少影响 macOS Catalina 10.15 及之后的版本，更老的版本是否有类似问题暂时还无法测试。</p><p>值得注意的是这个问题不会引发内核崩溃或者产生明显的错误日志，属于静默失效，所以用户往往难以第一时间定位问题根源。</p><p>对可能遇到这个问题的用户，最简单的解决办法就是设置计划重启时间，也就是确保在 49 天以内重启系统一次，至于苹果未来是否会修复这个 BUG 还需要观察。</p><p>了解更多：</p><p><a href="https://photon.codes/blog/we-found-a-ticking-time-bomb-in-macos-tcp-networking" _src="https://photon.codes/blog/we-found-a-ticking-time-bomb-in-macos-tcp-networking" target="_blank">https://photon.codes/blog/we-found-a-ticking-time-bomb-in-macos-tcp-networking</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1556848.htm</guid>
-      <pubDate>Tue, 07 Apr 2026 06:21:14 GMT</pubDate>
     </item>
   </channel>
 </rss>
