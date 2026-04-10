@@ -3,7 +3,48 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 10 Apr 2026 15:03:23 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2026 19:10:22 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.101 发布：新增团队入职命令、改进远程会话功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.101</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.101 版本，带来多项功能改进和问题修复。本次更新重点包括新增团队入职命令、改进远程会话体验以及修复多个关键问题。</p>
+
+<h3>重要新功能与改进</h3>
+<ul>
+<li>新增 <code>/team-onboarding</code> 命令，可根据本地 Claude Code 使用情况生成团队成员入职指南</li>
+<li>默认信任操作系统 CA 证书存储，使企业 TLS 代理无需额外配置即可工作（可通过设置 <code>CLAUDE_CODE_CERT_STORE=bundled</code> 仅使用捆绑的 CA）</li>
+<li><code>/ultraplan</code> 等远程会话功能现在自动创建默认云环境，无需先进行网页设置</li>
+<li>改进简要模式：当 Claude 返回纯文本而非结构化消息时，会自动重试一次</li>
+<li>改进专注模式：Claude 现在会编写更自包含的摘要，因为它知道用户只能看到其最终消息</li>
+</ul>
+
+<h3>重要问题修复</h3>
+<ul>
+<li>修复了 LSP 二进制检测中使用的 POSIX <code>which</code> 回退机制存在的命令注入漏洞</li>
+<li>修复了长时间会话中虚拟滚动条保留数十个历史消息列表副本导致的内存泄漏问题</li>
+<li>修复了 <code>--resume</code>/<code>--continue</code> 在大型会话中丢失对话上下文的问题</li>
+<li>修复了硬编码的 5 分钟请求超时问题，该问题会中断慢速后端（本地 LLM、扩展思考、慢速网关），无视 <code>API_TIMEOUT_MS</code> 设置</li>
+<li>修复了 <code>permissions.deny</code> 规则无法覆盖 PreToolUse 钩子的 <code>permissionDecision: "ask"</code> 问题</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li>改进工具不可用错误提示，当模型调用存在但当前上下文中不可用的工具时，会解释原因并提供后续步骤</li>
+<li>改进速率限制重试消息，显示触发的具体限制和重置时间，而非不透明的秒数倒计时</li>
+<li>改进拒绝错误消息，在可用时包含 API 提供的解释</li>
+<li>改进 <code>claude -p --resume &lt;name&gt;</code> 以接受通过 <code>/rename</code> 或 <code>--name</code> 设置的会话标题</li>
+<li>修复了多个插件相关问题，包括斜杠命令解析错误、更新失败、发现页面显示已安装插件等</li>
+<li>修复了多个远程控制问题，包括会话崩溃时工作树被移除、连接失败未持久化到记录中等</li>
+<li>修复了多个用户界面问题，包括终端滚动回退在非全屏模式下被清除、渲染闪烁等</li>
+<li>修复了 VS Code 扩展中聊天输入下方的文件附件在最后一个编辑器标签关闭时未清除的问题</li>
+</ul>
+
+<p>此外还修复了 Bedrock SigV4 认证、子代理工具继承、沙盒 Bash 命令执行、MCP 工具调用等多项问题，提升了整体稳定性和用户体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.101</guid>
+      <pubDate>Fri, 10 Apr 2026 19:03:41 GMT</pubDate>
+    </item>
     <item>
       <title>Superset CLI v0.1.0发布：新增独立分发版与安全设置</title>
       <link>https://github.com/superset-sh/superset/releases/tag/cli-v0.1.0</link>
@@ -1358,19 +1399,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/antonmedv/fx/releases/tag/39.0.4</guid>
       <pubDate>Sun, 31 Aug 2025 11:34:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ fx 39.0.3 发布：修复折叠节点跳转引用问题</title>
-      <link>https://github.com/antonmedv/fx/releases/tag/39.0.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] fx命令行JSON处理工具版本更新，编程工具改进</small></p><p>fx 命令行 JSON 处理工具发布了 39.0.3 版本，主要修复了一个关于折叠节点跳转引用的 bug。</p>
-
-<p>本次更新修复了在折叠节点上使用跳转引用功能时出现的问题（对应 GitHub issue #365）。这是一个维护性更新，专注于解决特定功能缺陷，没有引入新功能或重大改动。</p>
-
-<p>fx 是一个在终端中使用的 JSON 查看和操作工具，支持语法高亮、交互式浏览等功能。该 bug 修复将提升用户在浏览复杂 JSON 结构时的体验，特别是在处理包含折叠节点的文档时。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/antonmedv/fx/releases/tag/39.0.3</guid>
-      <pubDate>Thu, 28 Aug 2025 12:31:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
