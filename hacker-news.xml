@@ -3,7 +3,72 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 11 Apr 2026 17:48:13 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2026 19:05:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐ AISLE回应Mythos：小型模型同样能发现关键漏洞，AI网络安全护城河在于系统而非模型</title>
+      <link>https://news.ycombinator.com/item?id=47732020</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论AI网络安全技术，小型模型发现漏洞的能力，属于AI软件技术进展类别，用户对此感兴趣</small></p><p>AISLE公司对Anthropic的Mythos AI网络安全模型进行了独立测试，发现小型、廉价的开源模型同样能够检测到Mythos展示的关键漏洞。这一发现挑战了"模型规模决定网络安全能力"的普遍认知。</p>
+
+<img src="/_next/image?url=https%3A%2F%2Faisle.com%2Fapi%2Fmedia%2Ffile%2Ffreepik_create-this_2743478282.webp%3F2026-04-08T16%3A00%3A02.637Z&w=3840&q=100" alt="mythos2" />
+
+<p>在实验中，研究人员将Anthropic在Mythos公告中展示的具体漏洞代码隔离出来，使用多个小型模型进行分析。结果显示：</p>
+
+<ul>
+<li>所有8个测试模型都成功检测到了Mythos的旗舰FreeBSD NFS远程代码执行漏洞（CVE-2026-4747），包括一个仅有36亿活跃参数、每百万token成本0.11美元的模型</li>
+<li>一个51亿活跃参数的开源模型恢复了27年历史的OpenBSD SACK漏洞的完整攻击链</li>
+<li>在OWASP误报检测任务中，小型开源模型的表现超过了大多数前沿模型，显示出"逆缩放"现象</li>
+</ul>
+
+<p>文章提出了"锯齿状能力前沿"的概念：AI网络安全能力并不随模型规模平滑扩展，不同任务的最佳模型完全不同。例如，GPT-OSS-120b能够恢复完整的SACK攻击链，但在简单的Java数据流分析中失败；Qwen3 32B在FreeBSD漏洞评估中表现完美，却将SACK代码误判为"稳健"。</p>
+
+<p>作者认为，AI网络安全的真正护城河在于<strong>系统而非模型</strong>。一个有效的网络安全系统包含多个组件：</p>
+<ol>
+<li>广谱扫描：在大型代码库中识别值得检查的函数</li>
+<li>漏洞检测：在正确代码中发现问题</li>
+<li>分类验证：区分真阳性与假阳性，评估严重性和可利用性</li>
+<li>补丁生成：正确修复漏洞</li>
+<li>漏洞利用构造：将漏洞转化为有效攻击</li>
+</ol>
+
+<p>由于小型廉价模型足以完成大部分检测工作，可以通过广泛部署来补偿单次推理能力的不足。这种"经济型侦探"策略改变了整个防御管道的经济学。</p>
+
+<p>在Hacker News的讨论中，社区成员对研究方法提出了质疑。主要观点包括：</p>
+<ul>
+<li>预先隔离相关代码与从完整代码库自主发现漏洞是根本不同的任务</li>
+<li>发现相关代码本身就是漏洞研究中最困难的部分</li>
+<li>文章没有提供误报率数据，这是评估安全工具实用性的关键指标</li>
+<li>有人指出Mythos的真正优势可能在于漏洞利用能力而非单纯检测</li>
+</ul>
+
+<p>尽管存在争议，这篇文章强调了AI网络安全领域的一个重要趋势：随着模型能力的普及，构建有效的系统架构和流程可能比依赖单一前沿模型更为重要。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47732020</guid>
+      <pubDate>Sat, 11 Apr 2026 16:47:28 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ JSON Formatter Chrome 扩展转向闭源并开始注入广告软件引发用户担忧</title>
+      <link>https://news.ycombinator.com/item?id=47721946</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于JSON Formatter Chrome扩展从开源转向闭源并注入广告软件的重要变化，属于编程工具发布/分享领域，用户会很感兴趣</small></p><p>流行的 JSON Formatter Chrome 扩展从开源转向闭源商业模型，并开始向用户页面注入广告软件，引发 Hacker News 社区的广泛关注和批评。</p>
+
+<p>该扩展的作者 Callum Locke 在 GitHub 上宣布停止开源开发，转向闭源商业模型以构建更全面的 API 浏览工具。然而，用户发现扩展开始注入名为 "give-freely-root-bcjindcccaagfpapjjmafapmmgkkhgoa" 的可疑元素，在结账页面添加广告并进行地理位置跟踪。</p>
+
+<p>社区反应强烈，许多用户批评这种做法。一位用户表示："我不太介意原作者想对开源项目做闭源分叉，但在没有警告的情况下开始向已经安装你通用 JSON 格式化器的用户注入广告，还美其名曰'我转向闭源商业模型以构建更全面的 API 浏览工具'——真是够了。"</p>
+
+<p>这不是孤立事件。类似情况也发生在 <a href="https://chromewebstore.google.com/detail/modheader-modify-http-hea/idgpnmonknjnojddfkpgkljpfnnfcklj">ModHeader</a> 扩展上，该扩展开始向每个 Google 搜索结果页面添加广告。JSONView 扩展在 2017 年也曾被攻击，泄露浏览器访问 URL。</p>
+
+<p>讨论中暴露了浏览器扩展权限系统的根本问题。用户指出，"读取和更改所有网站上的数据"权限过于宽泛，允许扩展注入任意脚本。一位用户评论道："如果基本上任何有价值的扩展都可以被静默更新以在任何地方注入 &lt;script&gt; 标签，那么是时候承认这是一个失败的实验了。"</p>
+
+<p>许多用户开始考虑编写自己的简单扩展来避免此类问题。一位开发者甚至创建了自己的替代方案 <a href="https://github.com/wesbos/JSON-Alexander">JSON-Alexander</a>。</p>
+
+<p>关于扩展货币化的讨论揭示了商业动机：有用户分享了扩展货币化的报价，显示每 10,000 用户每月可产生约 1,000 美元收入，对于拥有数百万用户的扩展来说，这可能是一笔可观的收入。</p>
+
+<p>这一事件再次引发了关于浏览器扩展市场安全性和可持续性的讨论，许多用户建议对扩展保持高度警惕，甚至完全避免使用非必要的浏览器扩展。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47721946</guid>
+      <pubDate>Fri, 10 Apr 2026 18:34:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Linux内核正式发布AI编码助手使用指南：人类开发者需对AI生成代码负全责</title>
       <link>https://news.ycombinator.com/item?id=47721953</link>
@@ -1290,56 +1355,6 @@ Terminal-Bench 2.0:        65.4% → 82.0%</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47629116</guid>
       <pubDate>Fri, 03 Apr 2026 16:57:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 简单自蒸馏方法显著提升大语言模型代码生成能力</title>
-      <link>https://news.ycombinator.com/item?id=47637757</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍自蒸馏方法提升大语言模型代码生成能力，属于AI软件技术进展和编程效率改进经验，用户很感兴趣。</small></p><p>一篇来自arXiv的论文提出了一种名为「简单自蒸馏（Simple Self-Distillation，SSD）」的方法，仅使用大语言模型（LLM）自身的原始输出就能显著提升代码生成性能，无需验证器、教师模型或强化学习。</p>
-
-<p>该方法的核心流程非常简单：首先以特定的温度和截断配置从基础模型中采样生成解决方案，然后使用标准的监督微调在这些未经验证的样本上对模型进行微调。实验结果显示，SSD将Qwen3-30B-Instruct模型在LiveCodeBench v6基准测试上的pass@1准确率从42.4%提升至55.3%，且提升主要集中在较难的问题上。该方法在Qwen和Llama系列的不同规模模型（4B、8B、30B）上均表现出良好的泛化能力，包括指令微调版和思维链变体。</p>
-
-<p>论文进一步分析了SSD有效的原因，指出LLM解码中存在「精度-探索冲突（precision-exploration conflict）」：代码生成过程中交替出现「分叉（fork）」位置（存在多个合理延续，对应不同解决方案）和「锁定（lock）」位置（语法和语义几乎无歧义，但仍存在低概率的干扰尾部）。SSD通过上下文相关的方式重塑标记分布，在需要精度的位置抑制干扰尾部，同时在需要探索的位置保留有用的多样性。</p>
-
-<p>在Hacker News社区的讨论中，用户对论文标题中的「Embarrassingly」一词进行了探讨，指出其在计算机科学中具有特定历史含义，类似于「<a href="https://en.wikipedia.org/wiki/Embarrassingly_parallel">Embarrassingly parallel</a>」中的用法。有评论者详细解释了论文中的fork/lock机制，认为这类似于人类在创造性任务中需要在发散思维（探索）和精确执行（精度）之间切换。此外，社区还讨论了SSD方法可能不仅适用于代码生成，也适用于其他内容生成领域，以及未来本地运行高质量代码生成模型的前景。</p>
-
-<p>一些用户对SSD的缩写与「固态硬盘（Solid State Drive）」相同表示幽默，并提出了其他可能的缩写建议。整体而言，社区认为这项研究展示了机器学习突破往往源于简单而深刻的思想，并期待未来能有更多工具来深入理解神经网络内部的工作机制。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47637757</guid>
-      <pubDate>Sat, 04 Apr 2026 10:26:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ SSH证书：更好的SSH体验</title>
-      <link>https://news.ycombinator.com/item?id=47624811</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍SSH证书作为提高SSH安全性和便利性的工具，属于编程效率改进经验，符合用户高兴趣配置</small></p><p>本文深入探讨了SSH证书相较于传统SSH密钥的优势，并提供了详细的配置指南。作者Jan-Piet Mens从常见的SSH连接问题入手，解释了如何通过SSH证书认证机构（CA）简化管理并提升安全性。</p>
-
-<p>文章首先描述了传统SSH密钥认证的局限性：首次连接时的「首次使用信任（TOFU）」问题导致用户盲目接受未知主机指纹；公钥需要在每个服务器的每个用户目录中单独部署；主机密钥轮换时会触发安全警告。这些在小型环境中尚可接受，但在管理数十甚至数百台服务器时变得繁琐。</p>
-
-<p>SSH证书解决方案自OpenSSH 5.4（2010年3月）起可用，其格式基于现有SSH数据格式而非复杂的X.509。主要优势包括：</p>
-<ul>
-<li>无需在服务器<code>authorized_keys</code>文件中部署公钥</li>
-<li>主机密钥轮换时不会触发客户端警告</li>
-<li>不再需要TOFU确认</li>
-<li>用户证书可指定允许登录的远程用户名（主体）</li>
-<li>可限制源IP地址、强制执行远程命令</li>
-<li>证书具有明确有效期，自动过期</li>
-<li>客户端只需在<code>known_hosts</code>中添加一行CA引用即可信任所有服务器</li>
-</ul>
-
-<p>文章详细演示了设置SSH CA的步骤：创建CA密钥对、为用户公钥签名（指定身份、主体、序列号和有效期）、为主机公钥签名（使用<code>-h</code>选项）、在服务器配置<code>TrustedUserCAKeys</code>和<code>HostCertificate</code>、在客户端配置信任CA。整个过程仅需标准OpenSSH工具，无需额外软件。</p>
-
-<p>在Hacker News社区的114条评论中，观点各异。有用户分享15年前就已使用SSH证书的经验，也有用户询问是否值得从传统密钥迁移。支持者认为对于大型组织或多服务器环境，证书能显著简化管理；批评者则指出设置复杂，且证书并不比通过安全通道分发非TOFU SSH密钥更简单或更安全。另有评论提到撤销列表管理、GitHub仅对企业客户支持SSH证书、以及使用Yubikey作为硬件CA等实际问题。</p>
-
-<p>值得注意的是，<a href="https://userify.com">Userify</a>创始人jamiesonbecker指出SSH证书在生产环境中可能带来新问题：集中式CA成为单点故障；TTL调优困难；故障影响范围更广。他提出了基于HTTPS拉取用户密钥的替代方案，强调本地状态管理的重要性。</p>
-
-<h3>你知道吗？</h3>
-<p>SSH证书与Web中常见的X.509证书有本质区别。OpenSSH团队特意设计了基于现有SSH数据格式的证书系统，避免了X.509的复杂性。SSH证书直接编码了授权信息（如允许的用户名、源IP限制、命令限制等），而X.509主要用于身份验证。这种设计使得SSH证书更轻量且与现有SSH基础设施无缝集成。</p>
-
-<p>在实际应用中，SSH证书特别适合动态环境如云基础设施、自动扩展集群和开发/测试环境，其中主机频繁创建销毁。通过证书签名，新主机可立即被所有客户端信任，无需手动管理<code>known_hosts</code>文件。然而，对于小型静态环境，传统密钥管理可能仍是更简单直接的选择。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47624811</guid>
-      <pubDate>Fri, 03 Apr 2026 09:52:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
