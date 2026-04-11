@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 11 Apr 2026 07:57:02 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2026 09:55:53 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linux内核正式发布AI编码助手使用指南：人类开发者需对AI生成代码负全责</title>
+      <link>https://news.ycombinator.com/item?id=47721953</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Linux内核发布的AI编码助手使用指南，涉及编程工具发布和AI软件技术进展，两者都属于用户高兴趣领域，且是重要的开源项目技术公告</small></p><p>Linux内核社区近日发布了针对AI编码助手的官方指导文件，为开发者使用人工智能工具贡献代码提供了明确规范。该文件强调人类开发者必须对AI生成的代码承担全部责任，AI工具本身不能签署开发者来源证书。</p>
+
+<p>根据新规定，所有使用AI辅助开发的代码提交必须遵循标准内核开发流程，并确保与GPL-2.0-only许可证兼容。最核心的要求是：<strong>AI代理不能添加Signed-off-by标签</strong>，只有人类开发者可以合法认证开发者来源证书(DCO)。这意味着提交者需要亲自审查所有AI生成的代码，确保符合许可要求，并添加自己的签名来承担法律责任。</p>
+
+<p>为了追踪AI在开发过程中的作用，贡献需要包含<code>Assisted-by:</code>标签，格式为<code>Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1] [TOOL2]</code>，其中可以包含使用的特定AI模型版本和可选的分析工具。</p>
+
+<p>Hacker News社区对此展开了热烈讨论。多数开发者认为这是合理的政策，如用户<a href="https://news.ycombinator.com/item?id=47721953">qsort</a>评论道："基本上规则是你可以使用AI，但你要对自己的提交和代码满足许可证要求负全责。这...出人意料地正常？"</p>
+
+<p>然而也存在争议。用户<a href="https://news.ycombinator.com/item?id=47721953">newsoftheday</a>担忧："当AI接受了包含多种许可证甚至未经版权所有者许可的闭源材料的训练后，如何保证所有代码都与GPL-2.0-only兼容？" 用户<a href="https://news.ycombinator.com/item?id=47721953">martin-t</a>则反对将AI拟人化，认为"Assisted-by"标签鼓励了魔术思维。</p>
+
+<p>支持者如<a href="https://news.ycombinator.com/item?id=47721953">ipython</a>表示："很高兴看到这个常识性规则，只有人类才能对AI代理生成的代码负责。" 而<a href="https://news.ycombinator.com/item?id=47721953">philipov</a>则简洁地总结："你承担责任。这意味着如果AI搞砸了，你会受到惩罚。不能把责任推给愚蠢的计算机。"</p>
+
+<p>这一政策的出台反映了开源社区在AI时代面临的新挑战，试图在利用新技术提高效率的同时，维护开源项目的法律完整性和开发责任体系。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47721953</guid>
+      <pubDate>Fri, 10 Apr 2026 18:35:21 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 疯狂实验：安装所有84,000个Firefox扩展并分析浏览器生态系统</title>
       <link>https://news.ycombinator.com/item?id=47724118</link>
@@ -1319,27 +1340,6 @@ Terminal-Bench 2.0:        65.4% → 82.0%</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47624811</guid>
       <pubDate>Fri, 03 Apr 2026 09:52:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Mintlify 用虚拟文件系统替代 RAG，让 AI 助手像开发者一样探索文档</title>
-      <link>https://news.ycombinator.com/item?id=47618223</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Mintlify用虚拟文件系统替代RAG改进文档AI助手的探索效率，属于编程工具发布和编程效率改进经验，用户很感兴趣。</small></p><p>Mintlify 公司分享了他们如何为 AI 文档助手构建 ChromaFs 虚拟文件系统，以替代传统的检索增强生成（RAG）方法。传统 RAG 只能检索与查询匹配的文本块，无法处理跨页面答案或精确语法查找，而新的解决方案让 AI 助手能够像开发者一样使用 UNIX 命令探索文档结构。</p>
-
-<img src="/_next/image?url=%2Fimages%2Ffeatured%2Fhow-we-built-a-virtual-filesystem-for-our-assistant.png&w=1920&q=75" alt="How we built a virtual filesystem for our Assistant" width="630" height="360" />
-
-<p>ChromaFs 是一个基于现有 Chroma 数据库的虚拟文件系统，它拦截 UNIX 命令（如 grep、cat、ls、find）并将其转换为数据库查询。这种方法带来了显著改进：会话创建时间从约 46 秒降至约 100 毫秒，边际计算成本几乎为零，因为重用了现有基础设施。</p>
-
-<p>系统的工作原理是将文档页面视为文件，章节视为目录。ChromaFs 使用 just-bash 库来处理命令解析，同时内置了基于角色的访问控制（RBAC），通过用户会话令牌过滤可访问的文件路径。对于 grep 操作，系统进行了特别优化：先用 Chroma 进行粗过滤识别可能匹配的文件，然后批量预取到 Redis 缓存中，最后在内存中进行精细的正则表达式匹配。</p>
-
-<p>在 Hacker News 社区讨论中，开发者们对这一方法表示赞赏。有评论指出，这种方法重新发现了基于文件系统的搜索方式，这是一种不依赖于嵌入向量的语义搜索。也有开发者认为，如果资源不受限制，FUSE 挂载可能是更好的选择，但 ChromaFs 在当前用例下提供了更简单的解决方案。</p>
-
-<p>ChromaFs 目前每天处理超过 30,000 次对话，服务数十万用户。通过这种创新方法，Mintlify 实现了即时会话创建、零边际成本和内置访问控制，无需额外的基础设施投入。</p>
-
-<p><strong>你知道吗？</strong>这种方法反映了 AI 代理工具使用模式的演进趋势。传统 RAG 通常假设必须基于向量搜索，但现代 AI 代理能够使用各种检索后端。向量搜索正从"完整解决方案"转变为代理可用的众多工具之一，而基于文件系统的探索方式让代理能够更自然地与结构化知识交互。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47618223</guid>
-      <pubDate>Thu, 02 Apr 2026 18:24:29 GMT</pubDate>
     </item>
   </channel>
 </rss>
