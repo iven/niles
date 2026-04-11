@@ -3,7 +3,94 @@
   <channel>
     <title>Product Hunt</title>
     <description>基于个人兴趣筛选的 producthunt 内容</description>
-    <lastBuildDate>Sat, 11 Apr 2026 07:17:59 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2026 07:58:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code ultraplan：云端代码规划与协作功能</title>
+      <link>https://code.claude.com/docs/en/ultraplan</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍Claude Code的云端代码规划协作功能，属于编程工具发布和编程效率改进经验，用户高度感兴趣</small></p><p>Claude Code ultraplan 是一项在云端进行代码库规划的功能，允许开发者将复杂的实现规划任务从本地终端转移到云会话中，在浏览器中进行注释、修订和批准后再执行。</p>
+
+<p>该功能目前处于研究预览阶段，需要 Claude Code v2.1.91 或更高版本，并且要求用户拥有 Claude Code on the web 账户和 GitHub 仓库。由于运行在 Anthropic 的云基础设施上，因此不支持 Amazon Bedrock、Google Cloud Vertex AI 或 Microsoft Foundry 平台。</p>
+
+<h3>核心功能与优势</h3>
+<ul>
+<li><strong>针对性反馈</strong>：可以在计划的特定部分添加评论，而不是对整个计划进行回复</li>
+<li><strong>无干扰草案生成</strong>：计划在远程生成，终端可以继续处理其他工作</li>
+<li><strong>灵活的执行方式</strong>：可以在云端执行并创建拉取请求，也可以将计划发送回本地终端执行</li>
+</ul>
+
+<h3>使用流程</h3>
+<p><strong>1. 从 CLI 启动 ultraplan</strong>：可以通过三种方式启动：
+<ul>
+<li>直接命令：<code>/ultraplan</code> 后跟提示</li>
+<li>关键词：在普通提示中包含 "ultraplan" 一词</li>
+<li>从本地计划转换：当 Claude 完成本地计划并显示批准对话框时，选择 "No, refine with Ultraplan on Claude Code on the web"</li>
+</ul>
+启动后，CLI 会显示状态指示器：◇ ultraplan（正在研究代码库和起草计划）、◇ ultraplan needs your input（需要用户输入）、◆ ultraplan ready（计划已准备好审查）。</p>
+
+<p><strong>2. 在浏览器中审查和修订计划</strong>：当状态变为 ◆ ultraplan ready 时，打开会话链接在 claude.ai 上查看计划。审查界面提供：
+<ul>
+<li>行内评论：高亮任何段落并留下评论供 Claude 处理</li>
+<li>表情反应：对部分内容做出反应以表示批准或关注</li>
+<li>大纲侧边栏：在计划的不同部分之间跳转</li>
+</ul>
+可以多次迭代修订直到满意。</p>
+
+<p><strong>3. 选择执行位置</strong>：计划确定后，可以选择：
+<ul>
+<li><strong>在云端执行</strong>：选择 "Approve Claude's plan and start coding in your browser"，Claude 会在同一云会话中实施计划，完成后可以审查差异并从 Web 界面创建拉取请求</li>
+<li><strong>发送回终端</strong>：选择 "Approve plan and teleport back to terminal"，计划将返回到本地终端，提供三个选项：在当前会话中实施、开始新会话或保存到文件而不执行</li>
+</ul></p>
+
+<h3>注意事项</h3>
+<ul>
+<li>如果 Remote Control 处于活动状态，启动 ultraplan 时会断开连接，因为两个功能都占用 claude.ai/code 界面</li>
+<li>停止 ultraplan 会归档云会话并清除指示器，但不会保存任何内容到终端</li>
+<li>开始新会话时，Claude 会在顶部打印 <code>claude --resume</code> 命令，以便稍后返回之前的对话</li>
+</ul>
+
+<p>这项功能为需要更丰富审查界面的复杂代码规划任务提供了云端协作解决方案，特别适合团队协作和需要详细规划的大型项目。</p>]]>
+      </description>
+      <guid isPermaLink="false">1120939</guid>
+      <pubDate>Sat, 11 Apr 2026 07:01:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 开源技术营销框架：基于Claude Code的GTM系统，30秒快速部署</title>
+      <link>https://j1ngg.github.io/tech-marketing-framework/</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 基于Claude Code的开源技术营销框架，属于开源项目和软件新功能，用户会感兴趣</small></p><p>Tech Marketing Framework 是一个开源、MIT 许可的营销框架，专为技术产品构建者设计，旨在解决开发者不擅长营销的痛点。该项目将终端转变为营销工作台，通过 11 个 Claude Code 技能帮助用户基于产品文档生成针对技术受众的营销内容。</p>
+
+<p>框架的核心是「配置即代码」的理念：用户克隆 Git 仓库后，只需在六个 Markdown 文件中填写产品简介、目标用户画像、竞品信息等基础资料，Claude Code 便会化身为熟悉产品细节的资深产品营销人员，生成准确、符合品牌调性的内容，避免通用 AI 文案中常见的空洞套话。</p>
+
+<p>框架包含 11 个可扩展的技能，每个技能都以斜杠命令形式调用，并在生成前读取产品文档以确保内容准确性：</p>
+<ul>
+<li><strong>/social-posts</strong>：从产品文档生成 LinkedIn 和 Twitter 帖子</li>
+<li><strong>/email</strong>：创建带有程序化个性化的活动跟进序列</li>
+<li><strong>/blog</strong>：生成 SEO 和 AEO 优化的博客文章</li>
+<li><strong>/ads</strong>：通过创意矩阵生成 Google、Meta 和 LinkedIn 广告文案</li>
+<li><strong>/sales-deck</strong>：使用 April Dunford 方法论制作 B2B 叙事演示稿</li>
+<li><strong>/image</strong>：通过 MCP 生成符合品牌指南的营销图片</li>
+<li><strong>/messaging-positioning</strong>：通过苏格拉底式研讨会构建定位文档</li>
+<li><strong>/editorial-calendar</strong>：使用 MKT1 方法论制定月度滚动内容计划</li>
+<li><strong>/launch-roundup</strong>：一次性生成 Slack 消息、博客、LinkedIn 和轮播图内容</li>
+<li><strong>/skill-builder</strong>：交互式设计和创建新技能或代理</li>
+<li><strong>/autoresearch</strong>：基于 Andrej Karpathy 方法论，通过自动评估循环优化技能提示词</li>
+</ul>
+
+<p>此外，框架还内置三个「即发即忘」的代理：</p>
+<ul>
+<li><strong>asset-reviewer</strong>：严格的质量检查代理，根据内容指南、产品简介和定位审核营销资产，标记禁用词、结构反模式和缺乏证据的陈述</li>
+<li><strong>how-they-market</strong>：竞品研究代理，并行搜索 HN、Reddit、LinkedIn 和 Twitter，分析公司、个人或简报的营销策略</li>
+<li><strong>ads-auditor</strong>：广告审计代理，根据基准分析广告活动指标，生成健康评分、关键问题标记和优化建议</li>
+</ul>
+
+<p>项目强调「内置 AI 套话杀手」机制，通过 asset-reviewer 代理确保所有输出符合用户设定的内容指南，避免出现「无缝集成」、「尖端平台」等空洞营销术语。与通用 AI 工具不同，该框架生成的文案基于实际产品文档，更贴近工程团队的表达方式。</p>
+
+<p>该项目由一位初创公司营销副总裁每日维护优化，承诺 30 秒内即可部署使用。用户只需执行三条命令：克隆仓库、进入目录、运行 Claude Code。所有代码开源，可在 <a href="https://github.com/j1ngg/tech-marketing-framework">GitHub</a> 上获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">1119188</guid>
+      <pubDate>Sat, 11 Apr 2026 07:01:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Lamatic.ai 推出 LLM Ops 工具包：多模型 API 运维管理与成本优化解决方案</title>
       <link>https://tools.lamatic.ai/</link>
@@ -1138,59 +1225,6 @@ npm install -g mmx-cli</code></pre>
 <p>Ogoron定位为AI驱动的开发者工具，属于软件工程和人工智能领域的产品创新，旨在解决现代软件开发中常见的质量保证挑战。</p>]]>
       </description>
       <guid isPermaLink="false">1116607</guid>
-      <pubDate>Mon, 06 Apr 2026 07:01:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AgentPulse：OpenClaw 的可视化操作中心，专为团队和机构设计</title>
-      <link>https://www.rectify.so/</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] SaaS操作平台，涉及软件开发监控工具，编程效率相关</small></p><p>AgentPulse 是 Rectify 公司推出的 OpenClaw 可视化操作中心，为开发团队和机构提供一体化的 SaaS 操作平台。该平台将原本需要在终端中完成的操作全部可视化，用户无需使用 SSH 或处理 JSON 配置文件。</p>
-
-<p>平台核心功能包括：监控智能体（agents）、管理会话、运行定时任务、跟踪支出、分配任务、查看内存日志以及管理技能。特别针对团队协作需求，AgentPulse 提供了基于角色的访问控制，开发者可以获得完全控制权限，而客户则可以获得只读权限，但仍能与名为 Quanta 的 AI 操作智能体进行交流，了解系统运行状态。</p>
-
-<img src="https://framerusercontent.com/images/hef5dDsJKoPbJVYvwnzlpmL3tc.jpeg?width=3840&height=2160" alt="Replicate Dashboard" width="3840" height="2160" />
-
-<p>根据平台介绍，AgentPulse 是一个集成了会话回放、监控、技术支持、代码扫描、产品路线图和更新日志等多种功能的一体化操作平台。平台采用对话式控制界面，用户可以通过对话来管理所有操作。</p>
-
-<img src="https://framerusercontent.com/images/UYdW6x6NwgIHntf9nnweqYm5I.webp?width=5476&height=2072" alt="" width="5476" height="2072" />
-
-<p>该平台目前已经为超过 1000 个产品提供支持，主要面向创始人和开发者群体。新用户可以享受 14 天免费试用期，无需提供信用卡信息。</p>]]>
-      </description>
-      <guid isPermaLink="false">1115294</guid>
-      <pubDate>Mon, 06 Apr 2026 07:01:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ KREV：为电商品牌打造的AI创意代理平台，一键生成高性能广告素材</title>
-      <link>https://www.krev.ai/</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI创意广告平台，AI在营销素材生成应用，用户感兴趣</small></p><p>KREV 是一个专为电商品牌设计的AI创意引擎，能够将单一产品图片快速转化为工作室质量的产品照片、视频广告和高转化率的营销素材。与通用AI工具不同，KREV基于真实的广告信号、经过验证的创意模式和品牌数据来生成更具针对性、符合品牌调性且性能优化的内容。</p>
-
-<img src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero-blank.ce95cf40.webp&w=3840&q=75&dpl=dpl_4hXdjSM9bvd1jhbgnRUkhkGRVHpv" alt="Dashboard showing AI-generated product photography with studio lighting controls" width="1920" height="1080" />
-
-<p>该平台的核心功能包括：</p>
-
-<ul>
-<li><strong>创意智能体</strong>：用户只需描述需求，系统即可自动生成视觉效果、撰写广告文案，并根据产品和品类构建完整的营销活动方向。</li>
-<li><strong>广告库</strong>：搜索超过100万条来自Meta、TikTok、Instagram和Google的高性能广告，查看所在品类的成功案例，并使用自己的产品重新制作最佳概念。</li>
-<li><strong>创意工作室</strong>：基于成功广告的视觉模式生成图像，从灯光、构图到造型和场景指导。</li>
-<li><strong>动态工作室</strong>：将单个产品图片转化为适合Reels、TikTok和Stories的约5秒和10秒短视频。</li>
-</ul>
-
-<p>KREV支持多种创意格式，包括产品摄影、视频广告、广告创意、社交媒体帖子、生活方式照片和AI生成的用户原创内容（UGC）。平台已服务超过2,500个活跃品牌，索引了90万条实时广告，并拥有4,500多个经过验证的成功模板。</p>
-
-<img src="/_next/image?url=%2Fads%2Fshowcase%2F8.webp&w=3840&q=75&dpl=dpl_4hXdjSM9bvd1jhbgnRUkhkGRVHpv" alt="Ad" width="1920" height="1080" />
-
-<p>技术方面，KREV采用品牌感知的视觉管道，包括智能分割、材质映射、组件提取、品牌DNA分析、结构化照明、模型指导和精炼等多步骤流程，确保输出内容既符合品牌形象又具有高视觉质量。</p>
-
-<p>平台声称能够帮助品牌每周产出10倍以上的广告变体，同时成本相比传统广告机构降低99%。知名品牌如Glossier、EVERLANE、Mejuri、BOMBAS等均已使用该平台。</p>
-
-<p>KREV的工作流程强调多智能体协作：策略、文案、模板和品牌DNA智能体同时运行，互不等待。系统会先扫描竞争对手广告、市场趋势和成功创意，然后生成涵盖生活方式、编辑和广告格式的完整创意素材。</p>
-
-<img src="/_next/image?url=%2Fads%2Fmeta%2Fmobile-night-balm.webp&w=3840&q=75&dpl=dpl_4hXdjSM9bvd1jhbgnRUkhkGRVHpv" alt="Night balm product ad with reviews" width="1920" height="1080" />
-
-<p>对于电商品牌而言，KREV提供了一个从产品照片到完整营销活动的一站式解决方案，旨在显著提升创意产出效率并大幅降低制作成本。</p>]]>
-      </description>
-      <guid isPermaLink="false">1114854</guid>
       <pubDate>Mon, 06 Apr 2026 07:01:00 GMT</pubDate>
     </item>
   </channel>
