@@ -3,7 +3,70 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 11 Apr 2026 05:37:54 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2026 07:17:02 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 疯狂实验：安装所有84,000个Firefox扩展并分析浏览器生态系统</title>
+      <link>https://news.ycombinator.com/item?id=47724118</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章是关于Firefox扩展生态系统的实验分析，涉及编程和开源软件领域，符合用户对编程工具和开源项目的兴趣。</small></p><p>一位开发者进行了一项极端实验：尝试安装Firefox扩展商店中的所有扩展（约84,000个），并深入分析了整个扩展生态系统的现状。</p>
+
+<img src="/_astro/launch.fuIAiunJ_ZtRu8u.png" alt="May's Firefox open on Attempt 11" width="800" height="574" />
+
+<h3>数据抓取与统计分析</h3>
+<p>作者首先通过Firefox扩展商店的公开API抓取了所有扩展数据。最初使用常规搜索仅获得约30,000个扩展，后来通过组合不同的排序方式（按创建时间、评分、热度等）和分类筛选，最终成功获取了84,235个唯一扩展的完整数据集，总大小约49.3GB，平均每个扩展584.9kB。</p>
+
+<p>统计分析显示：</p>
+<ul>
+<li>最大的扩展是"dmitlichess"，达196.3MB，包含2000多个音频文件</li>
+<li>34.3%的扩展没有日常用户，19%的扩展既无用户、无评价、无截图、无下载也无图标</li>
+<li>76.7%的扩展是开源的，2.4%需要付费</li>
+<li>最活跃的开发者"Dr. B"发布了84个扩展，全部采用"vibe coded"方式开发</li>
+</ul>
+
+<h3>安装尝试与浏览器状态</h3>
+<p>作者通过脚本批量下载所有扩展的.xpi文件，并尝试在Firefox中安装。安装过程遇到了多重挑战：</p>
+
+<img src="/_astro/xpi-select.Doz-Ecll_Zak7FD.webp" alt="The 'select add-on to install' dialog is Not Responding as I try to select all" width="1420" height="787" />
+
+<p>首次尝试时，安装对话框因选择过多扩展而无响应。最终通过直接操作扩展文件夹的方式成功安装了绝大多数扩展。安装后，Firefox出现了严重性能问题：</p>
+<ul>
+<li>内存使用量飙升至32GB以上</li>
+<li>浏览器频繁卡顿和无响应</li>
+<li>上下文菜单被大量扩展选项淹没</li>
+<li>新标签页下拉菜单变得异常庞大</li>
+</ul>
+
+<img src="/_astro/context-menu.D0MVKa2F_nDT8a.webp" alt="Context menu bloated with a lot of extensions" width="1440" height="513" />
+
+<h3>生态系统中的问题发现</h3>
+<p>在分析过程中，作者发现了扩展生态系统的多个问题：</p>
+
+<ol>
+<li><strong>钓鱼扩展</strong>：发现了使用西里尔字母同形异义词的虚假钱包扩展（如"Іron Wаllеt"），这些扩展会从远程服务器获取钓鱼页面。有趣的是，其中一个扩展的API密钥具有写权限，作者直接清空了其用于存储钓鱼URL的电子表格。</li>
+
+<li><strong>SEO垃圾</strong>：大量AI生成的扩展包含赌博网站链接，试图通过扩展页面获取反向链接。</li>
+
+<li><strong>潜在不需要的应用程序（PUAs）</strong>：发现了"Innover Online Group Ltd"等公司发布的一系列扩展，这些扩展通常包含自定义搜索功能（使用Yahoo联盟代码），总计拥有超过70万用户。部分扩展已被Mozilla禁用。</li>
+
+<li><strong>评分操纵</strong>：钓鱼扩展存在明显的评分操纵行为，有的拥有大量模板化的1星评价，有的则被刷了大量4星评价。</li>
+</ol>
+
+<img src="/_astro/1-star.CXwdwkkq_14u9G1.webp" alt="A phishing extension has 1,672 1-star reviews, which all use the same template" width="1842" height="1706" />
+
+<h3>性能瓶颈发现</h3>
+<p>实验意外发现了一个Firefox的性能问题：当扩展数量极大时，管理扩展的<code>extensions.json</code>文件会成为瓶颈。该文件采用全量序列化写入方式，每20毫秒去抖动写入一次，这在处理少量扩展时表现良好，但面对84,194个扩展时会导致严重延迟。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News社区的评论者对这个实验表示赞赏，有人将其比作"为几乎不懂电脑的老年人浏览网页的体验"。也有用户关注实验中发现的性能问题，认为这对于拥有1亿用户的软件来说值得优化。</p>
+
+<h3>你知道吗？</h3>
+<p>实验中发现的"Innover Online Group Ltd"等公司运营的扩展网络，通过发布功能相似的扩展（如"地图助手"、"包裹追踪标签"等）并集成自定义搜索来获取联盟收入。这些扩展通常在Firefox版本中包含Yahoo搜索联盟代码，而在Chrome版本中则没有，这可能与平台政策差异有关。这种商业模式在扩展生态系统中并不罕见，显示了浏览器扩展作为流量获取工具的潜在价值。</p>
+
+<p>作者已将完整的扩展数据集上传至Hugging Face，并提供了改进后的抓取脚本，避免其他人重复这项工作。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47724118</guid>
+      <pubDate>Fri, 10 Apr 2026 21:56:33 GMT</pubDate>
+    </item>
     <item>
       <title>CPU-Z和HWMonitor官方网站遭黑客入侵，下载链接被替换为恶意软件</title>
       <link>https://news.ycombinator.com/item?id=47717847</link>
@@ -1277,23 +1340,6 @@ Terminal-Bench 2.0:        65.4% → 82.0%</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47618223</guid>
       <pubDate>Thu, 02 Apr 2026 18:24:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenClaw 权限提升漏洞 CVE-2026-33579 曝光，CVSS 评分高达 8.6</title>
-      <link>https://news.ycombinator.com/item?id=47628608</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章报道 OpenClaw 高危权限提升漏洞 (CVE-2026-33579, CVSS 8.6)，属于软件安全领域。虽然不完全匹配用户明确指定的兴趣类别，但作为重要的安全预警，对关注技术安全的用户有价值</small></p><p>OpenClaw 软件在 2026.3.28 版本之前被发现存在严重的权限提升漏洞（CVE-2026-33579）。该漏洞位于 <code>/pair approve</code> 命令路径中，由于未能将调用者权限范围传递到核心审批检查，导致具有配对权限但没有管理员权限的用户可以批准请求更广泛权限（包括管理员访问）的设备请求。</p>
-
-<p>根据漏洞详情，该问题存在于 <code>extensions/device-pair/index.ts</code> 和 <code>src/infra/device-pairing.ts</code> 文件中。安全评分显示，CVSS 4.0 评分为 8.6（高危），CVSS 3.1 评分为 8.1（高危）。</p>
-
-<p>社区讨论中，用户对漏洞的严重性表达了担忧。有评论指出，OpenClaw 项目存在超过 400 个安全问题，引发了对其整体安全性的质疑。关于默认配置的讨论显示，早期版本默认绑定到 0.0.0.0，这可能增加了安全风险。</p>
-
-<p>用户分享了多种安全实践，包括使用受限用户账户运行 AI 代理、在虚拟机中部署，以及使用内核级沙箱技术（如 Landlock + Seccomp + eBPF）来增强隔离性。有用户建议，对于缺乏 IT 安全知识的用户来说，运行此类软件需要格外谨慎。</p>
-
-<p>相关链接：<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-33579">NVD 漏洞详情</a>、<a href="https://github.com/openclaw/openclaw/security/advisories/GHSA-hc5h-pmr3-3497">GitHub 安全公告</a>、<a href="https://github.com/openclaw/openclaw/commit/e403decb6e20091b5402780a7ccd2085f98aa3cd">修复提交</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47628608</guid>
-      <pubDate>Fri, 03 Apr 2026 16:21:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
