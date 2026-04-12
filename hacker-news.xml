@@ -3,7 +3,147 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 12 Apr 2026 10:57:03 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2026 19:08:29 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 七国实现近乎100%可再生能源发电，全球清洁能源转型加速</title>
+      <link>https://news.ycombinator.com/item?id=47739313</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为清洁能源转型，属于科学前沿进展和全球新闻，符合用户感兴趣(interest)的配置</small></p><p>根据国际能源署（IEA）和国际可再生能源机构（IRENA）的数据，阿尔巴尼亚、不丹、尼泊尔、巴拉圭、冰岛、埃塞俄比亚和刚果民主共和国等七个国家已实现超过99.7%的电力来自可再生能源，主要依赖水电和地热能。</p>
+
+<p>斯坦福大学教授马克·雅各布森（Mark Jacobson）表示："我们不需要奇迹技术，我们需要通过电气化和风、水、太阳能（WWS）来停止排放。"数据显示，另有40个国家在2021-2022年间实现了至少50%的可再生能源发电比例，其中包括11个欧洲国家。</p>
+
+<p><img src="https://static.the-independent.com/2024/04/16/11/renewable%20energy%20100%20map%20world.png" alt="Nearly 50 countries now generate more than 50 per cent of their electricity from renewable energy sources" /></p>
+
+<p>苏格兰在2022年实现了113%的可再生能源发电比例，主要依赖风电。研究人员预测，太阳能将在未来几十年主导全球电力供应，钙钛矿等新材料正在推动太阳能电池效率提升。埃克塞特大学和伦敦大学学院的科学家认为，太阳能已达到"不可逆转的临界点"，到205年将成为世界主要能源。</p>
+
+<p>社区讨论指出，这些国家的成功很大程度上得益于地理优势：大多数依赖水电（刚果民主共和国99.6%、巴拉圭99.9%、埃塞俄比亚96.4%、尼泊尔98%、不丹100%），冰岛则结合水电（70%）和地热（30%）。有评论提醒，刚果民主共和国只有10-20%的家庭能用上电，因此100%可再生能源发电并不等于全民用电普及。</p>
+
+<p>其他评论提到，挪威（约98%）、巴西（超过80%）、加利福尼亚（83%）、西班牙（73%）、葡萄牙（90%）、荷兰（86%）和英国（71%）等国家和地区也在可再生能源方面取得显著进展。讨论还涉及交通领域仍依赖石油的问题，以及钙钛矿串联太阳能电池的商业化进展。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47739313</guid>
+      <pubDate>Sun, 12 Apr 2026 13:21:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Claude Code Pro Max 5x 配额异常耗尽：缓存读取计费问题引发用户不满</title>
+      <link>https://news.ycombinator.com/item?id=47739260</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为AI编程工具Claude Code的配额和计费问题，涉及编程工具使用经验，符合用户很感兴趣(high_interest)的编程工具发布/分享和编程效率改进经验</small></p><p>一位 Claude Code 用户在 GitHub 上报告了一个严重问题：其 Pro Max 5x（Opus）订阅计划的配额在重置后仅1.5小时内就被耗尽，尽管只是进行了中等强度的问答和轻量开发工作。用户通过详细的数据分析发现，问题的根源可能在于缓存读取（cache_read）令牌在计算速率限制时被按全价计费，而不是预期的1/10折扣价。</p>
+
+<p>用户提供了两个时间窗口的详细数据：</p>
+<ul>
+<li>窗口1（5小时，高强度开发）：消耗了24.4M有效令牌/小时，这是预期的</li>
+<li>窗口2（1.5小时，中等使用）：如果缓存读取按1/10计费，应为8.7M令牌/小时；但如果按全价计费，则高达70.5M令牌/小时，这解释了配额快速耗尽的原因</li>
+</ul>
+
+<p><img src="https://avatars.githubusercontent.com/u/88714881?u=94f94793fec38e744e2560696fffa9e7096e2710&v=4&size=80" alt="@molu0219" width="40" height="40" /> 报告者指出，当使用100万令牌的上下文窗口时，每个API调用都会发送约100-960k令牌。如果缓存读取按全价计费，那么每次调用都会消耗大量配额，导致即使只有200+次调用/小时（Claude Code工具密集型使用的正常水平），配额也会在几分钟内耗尽。</p>
+
+<p>其他问题包括：</p>
+<ol>
+<li>后台会话消耗共享配额：即使没有用户主动交互，其他终端中打开的会话仍会继续消耗配额</li>
+<li>自动压缩（auto-compact）产生昂贵的峰值：每次自动压缩都会导致一次包含完整上下文的API调用</li>
+<li>100万令牌上下文窗口放大了问题</li>
+</ol>
+
+<p><img src="https://avatars.githubusercontent.com/u/1761758?u=a7b1ed42ce41cc6761d0f6a67c8ef9a029a2fa8f&v=4&size=50" alt="@bcherny" width="25" height="25" /> Claude Code团队的Boris回应称，他们正在调查这些问题，并提到使用100万令牌上下文窗口时提示缓存未命中的成本很高。他们已推出一些用户体验改进，并考虑默认使用400k上下文窗口，同时提供配置选项。</p>
+
+<p>Hacker News社区对此反应强烈：</p>
+<ul>
+<li>许多用户表示遇到了类似问题，即使是较低层级的模型</li>
+<li>用户抱怨缺乏透明度，无法理解订阅的实际使用情况</li>
+<li>有用户表示正在考虑转向其他服务，如<a href="https://swival.dev">Swival</a>、Codex或开源模型</li>
+<li>有人提到GitHub Copilot也存在类似的不透明计费问题</li>
+<li>用户批评Anthropic对此问题的处理方式，认为他们在"gaslighting"用户</li>
+</ul>
+
+<p>一位用户指出："公平交易涉及对交换商品的公平和透明计量。我打算取消本月的订阅。" 另一位用户表示："这些公司显然在努力扩大规模，但计费方式变得难以理解。"</p>
+
+<p>社区普遍认为，如果Anthropic不解决这些明显的问题，用户将会转向其他平台。这个问题凸显了AI服务提供商在计费透明度和用户体验方面面临的挑战。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47739260</guid>
+      <pubDate>Sun, 12 Apr 2026 13:15:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>创业者分享：如何用每月20美元技术栈运营多个月收入1万美元的公司</title>
+      <link>https://news.ycombinator.com/item?id=47736555</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为创业者分享技术栈和公司运营经验，混合了技术成分和商业成分，兴趣不够明确，其中行业公司/人物属于不太感兴趣，而开源项目/软件新功能属于感兴趣，综合评定为可选</small></p><p>一位创业者分享了如何以极低成本运营多个月收入1万美元（MRR）公司的经验。作者因运营成本过低而被风投拒绝，但他认为这种"精益运营"模式才是创业成功的关键。</p>
+
+<p>作者的核心策略包括：使用廉价的虚拟专用服务器（VPS）而非昂贵的云服务，每月成本控制在5-10美元；选择Go语言而非Python或Ruby，因为Go编译成单个二进制文件，部署简单且性能更高；对于批量AI任务，使用本地GPU运行开源模型而非付费API；使用OpenRouter作为统一的AI API网关，实现不同模型间的无缝切换；巧妙利用GitHub Copilot的按请求计费模式降低AI编码成本；以及大胆使用SQLite作为生产数据库，通过启用预写式日志（WAL）模式解决并发问题。</p>
+
+<img src="/blog/images/95f16b3dbf861a9156cb2c6d1be39f5e2fcfc1b1f4c5f11ee6f9e182bd4c5f5a.png" alt="image.png" />
+
+<p>作者强调，这种低成本运营方式不仅减少了资金压力，还简化了架构，让创业者有更多时间寻找产品市场契合点，而不必担心高额运营成本。他开发了<a href="https://github.com/smhanov/auth">smhanov/auth</a>库来简化SQLite项目的用户认证实现。</p>
+
+<p>在Hacker News社区的385条评论中，讨论主要集中在几个方面：许多开发者赞同SQLite在生产环境中的可行性，特别是启用WAL模式后；关于Python与Go的性能对比引发了技术讨论；有评论指出安全配置的重要性，特别是SSH加固；也有用户质疑为何需要风投资金，如果运营成本已经如此之低；部分评论认为这些建议虽然基础，但对许多初创企业仍有价值。</p>
+
+<p>作者的核心观点是：科技行业常让人误以为创业需要复杂的基础设施、高昂的AWS账单和大量风投资金，但实际上通过精简技术栈和本地化处理，完全可以用极低成本建立可扩展的业务。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47736555</guid>
+      <pubDate>Sun, 12 Apr 2026 06:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Anthropic 静默降低 Claude Code 缓存 TTL 至 5 分钟，导致用户成本激增 17%</title>
+      <link>https://news.ycombinator.com/item?id=47736476</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为AI编程工具Claude Code的缓存TTL变更及其成本影响，涉及AI软件技术进展，符合用户感兴趣(interest)的配置，虽然涉及公司行为但技术细节权重更高</small></p><p>根据 GitHub 上的详细技术分析，Anthropic 在 2026 年 3 月初静默将 Claude Code 的缓存生存时间（TTL）从 1 小时降级至 5 分钟，导致用户 API 调用成本显著增加，订阅用户配额消耗急剧上升。</p>
+
+<p>用户 <a href="https://github.com/seanGSISG">seanGSISG</a> 通过分析两台独立机器上 Claude Code 会话的 JSONL 文件（涵盖 2026 年 1 月 11 日至 4 月 11 日的 119,866 次 API 调用），发现了明显的 TTL 行为变化：</p>
+
+<ul>
+<li><strong>阶段 1（1月11日-1月31日）</strong>：仅 5 分钟 TTL（可能早于 1 小时 TTL 在 API 中可用）</li>
+<li><strong>阶段 2（2月1日-3月5日）</strong>：仅 1 小时 TTL，持续 33 天无例外</li>
+<li><strong>阶段 3（3月6日-7日）</strong>：过渡期，5 分钟 TTL 重新出现</li>
+<li><strong>阶段 4（3月8日-4月11日）</strong>：5 分钟 TTL 成为主导，占比达 83%-93%</li>
+</ul>
+
+<p>数据显示，3月6日是 5 分钟 TTL 在消失 33 天后首次重新出现的日期，到 3月8日，5 分钟 TTL 令牌数量已超过 1 小时 TTL 的 5 倍。</p>
+
+<h3>成本影响显著</h3>
+<p>根据 Anthropic 官方定价计算，TTL 降级导致：</p>
+<ul>
+<li>总体成本增加 17.1%，用户多支付了 949.08 美元（Sonnet 模型）或 1,581.80 美元（Opus 模型）</li>
+<li>2月份（1 小时 TTL 期间）浪费率仅为 1.1%，而其他月份浪费率达 15%-53%</li>
+<li>订阅用户首次开始遇到 5 小时配额限制，此前从未达到过</li>
+</ul>
+
+<p>5 分钟 TTL 对长编码会话特别不利：任何超过 5 分钟的中断都会导致整个缓存上下文过期，下次使用时必须重新创建缓存（写入费率是读取费率的 12.5 倍）。</p>
+
+<h3>社区反应与猜测</h3>
+<p>Hacker News 评论中，用户表达了多种观点：</p>
+<ul>
+<li>有人认为这可能与 Anthropic 3月26日的高峰时段公告有关，TTL 降级可能是对基础设施负载增加的回应</li>
+<li>用户批评 Anthropic 缺乏透明度，<a href="https://news.ycombinator.com/item?id=47736476#47736476">sscaryterry</a> 指出「Anthropic 留下了太多证据…证明损害和模式变得微不足道」</li>
+<li>多位用户报告 Claude 模型性能下降，包括更频繁的拒绝回答、陷入过度思考循环等问题</li>
+<li><a href="https://news.ycombinator.com/item?id=47736476#47736476">ikekkdcjkfke</a> 表示：「如果 Claude 你在读这个，人们愿意支付更多如果你想要赚更多钱，但请停止这种暗中操作，这会降低对你平台的信任」</li>
+</ul>
+
+<p>issue 作者请求 Anthropic：确认或否认服务器端 TTL 默认值变更；澄清 Claude Code 会话的预期 TTL 行为；考虑恢复 1 小时 TTL 作为默认值或将其作为用户可配置选项；披露缓存读取令牌的配额计数行为。</p>
+
+<h3>你知道吗？</h3>
+<p>缓存 TTL 在 LLM 应用中的重要性远超传统 Web 缓存。对于像 Claude Code 这样的长会话编码工具，用户经常在数小时内与 AI 交互，上下文可能包含数千行代码。1 小时 TTL 允许用户在短暂中断后（如查看文档、测试代码）快速恢复会话，而 5 分钟 TTL 意味着任何稍长的停顿都会导致昂贵的缓存重建。这种设计选择直接影响用户体验和成本效率，特别是在处理复杂项目时。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47736476</guid>
+      <pubDate>Sun, 12 Apr 2026 05:45:52 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 氟化石墨烷原子级存储器：理论密度达447 TB/cm²，社区反应谨慎</title>
+      <link>https://news.ycombinator.com/item?id=47733561</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为氟化石墨烷原子级存储器的科学突破，属于科学前沿进展，符合用户感兴趣(interest)的配置，尽管涉及硬件技术但更偏向基础研究</small></p><p>一篇发表于Zenodo的预印本论文提出了一种基于氟化石墨烷（fluorographane）的原子级非易失性存储器架构。该技术利用氟原子相对于碳骨架的双稳态共价取向存储信息，理论上面密度可达447 TB/cm²，且无需保持能量。</p>
+
+<p>论文作者Ilia Toli声称，C-F反转能垒约为4.6 eV，在室温下热比特翻转率和量子隧穿率极低，分别为10⁻⁶⁵ s⁻¹和10⁻⁷⁶ s⁻¹。提出的分层架构包括扫描探针验证（Tier 1）和近场中红外阵列（Tier 2），预计在Tier 2规模下总吞吐量可达25 PB/s。体积纳米带架构可进一步将密度扩展到0.4-9 ZB/cm³。</p>
+
+<p>然而，Hacker News社区对此反应谨慎。多位评论者指出，论文为单作者作品，经过53次修订，使用Gmail作为联系方式，这些因素引发了可信度担忧。用户mkprc表示："嗅探测试：单作者论文、53次修订、使用Gmail联系方式……"</p>
+
+<p>作者在评论中回应称，这是独立研究工作，拥有数学、量子化学和材料科学三个博士学位，研究已持续13年。对于技术质疑，作者解释氟原子通过C-C间隙（2.64 Å）进行金字塔反转，而非穿过碳原子。</p>
+
+<p>技术可行性方面受到较多批评。用户dgfl认为："Tier 2架构模糊且完全推测性……使用8微米光斑尺寸激光束实现原子级分辨率2D寻址在物理上不可能。"用户cynicalkane补充指出论文存在AI写作痕迹，且缓存机制与声称解决"内存墙"问题的前提矛盾。</p>
+
+<p>尽管概念理论上令人兴奋，但社区普遍认为需要更多实验验证和同行评审。论文目前仍处于预印本阶段，未经过正式期刊评审。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47733561</guid>
+      <pubDate>Sat, 11 Apr 2026 20:08:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 伯克利研究揭示AI基准测试严重漏洞：八大主流测试均可被完全攻破</title>
       <link>https://news.ycombinator.com/item?id=47733217</link>
@@ -1233,169 +1373,6 @@ Terminal-Bench 2.0:        65.4% → 82.0%</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47647455</guid>
       <pubDate>Sun, 05 Apr 2026 08:56:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ LLM Wiki：使用大型语言模型构建和维护个人知识库的新模式</title>
-      <link>https://news.ycombinator.com/item?id=47640875</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题结合了大型语言模型在知识管理中的应用，既是编程工具的创新分享，又是AI软件技术的实际应用，用户对这两方面都很感兴趣</small></p><p>这篇文章介绍了由Karpathy提出的"LLM Wiki"概念，这是一种使用大型语言模型（LLM）构建和维护个人知识库的新方法。与传统的检索增强生成（RAG）系统不同，LLM Wiki强调知识的持续积累和结构化维护。</p>
-
-<p>核心思想是让LLM增量构建一个持久的维基百科式知识库，而不是每次查询都重新检索原始文档。当添加新资料时，LLM会阅读内容、提取关键信息，并将其整合到现有的维基结构中，更新实体页面、修订主题摘要、标记新旧数据之间的矛盾点。知识被编译一次并保持更新，而不是每次查询都重新推导。</p>
-
-<p>架构包含三个层次：原始资料层（不可变的源文档）、维基层（LLM生成的Markdown文件）和模式层（指导LLM如何构建和维护维基的配置文件）。操作流程包括资料摄取、查询和定期检查，确保维基的健康状况。</p>
-
-<p>社区讨论中，有用户认为这本质上是<a href="https://news.ycombinator.com/item?id=47640875">RAG的变体</a>，但也有观点指出其独特之处在于LLM能够编写和维护维基本身，进行知识合成而非简单检索。一些用户表达了担忧，认为将"苦力工作"交给AI可能会失去在整理信息过程中产生的思考机会。一位用户分享了自己使用Obsidian的经验，强调个人思考的重要性，并采用特殊标记来区分AI生成内容。</p>
-
-<p>有评论提到这与Licklider 1960年提出的<a href="https://www.organism.earth/library/document/man-computer-symbiosis">"人机共生"概念</a>相似，即人类设定目标和动机，计算机处理可程序化的操作。这种方法适用于个人目标追踪、研究、阅读笔记、商业团队知识管理等多种场景。</p>
-
-<p>你知道吗？这种方法与Vannevar Bush在1945年提出的Memex概念有相似之处，都强调个人化、精心策划的知识存储和文档间的关联连接。Bush未能解决的是维护问题，而LLM正好填补了这一空白。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47640875</guid>
-      <pubDate>Sat, 04 Apr 2026 16:57:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 编码代理的核心组件：工具、内存与仓库上下文如何提升LLM编程能力</title>
-      <link>https://news.ycombinator.com/item?id=47638810</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论编码代理如何利用工具、内存和仓库上下文提升LLM编程能力，属于AI软件技术进展和编程效率改进范畴，与用户兴趣匹配</small></p><p>Sebastian Raschka 博士在本文中深入探讨了编码代理（coding agent）的设计原理和核心组件，解释了这些系统如何通过工具使用、内存管理和仓库上下文来显著提升大型语言模型（LLM）在编程任务中的实际表现。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!zcE_!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc90147bc-4574-4b52-914f-8bda96620063_3467x2270.png" alt="Claude Code CLI、Codex CLI 和 Mini Coding Agent 对比" width="1456" height="953" />
-
-<p>文章首先厘清了 LLM、推理模型和代理之间的关系：LLM 是核心的下一个词元模型；推理模型是经过训练以在推理时进行更多中间推理的 LLM；而代理是围绕模型的循环控制层，决定下一步检查什么、调用哪些工具、如何更新状态以及何时停止。作者用汽车比喻来解释这种关系：LLM 是引擎，推理模型是增强版引擎，而代理则是帮助驾驶模型的系统。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!l4hd!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F09a4d839-d572-4eab-a2ee-47f644a746e5_3501x885.png" alt="传统LLM、推理LLM和代理包裹的LLM之间的关系" width="659" height="166.56043956043956" />
-
-<p>编码代理的核心价值在于，编程工作不仅仅是下一个词元生成，还涉及仓库导航、搜索、函数查找、差异应用、测试执行、错误检查以及将所有相关信息保持在上下文中。一个好的编码代理可以显著提升模型的实用性。</p>
-
-<h3>编码代理的六个核心组件</h3>
-
-<p>作者基于其开源项目 <a href="https://github.com/rasbt/mini-coding-agent">Mini Coding Agent</a> 详细阐述了编码代理的六个关键组成部分：</p>
-
-<ol>
-<li><strong>实时仓库上下文</strong>：代理在开始工作前收集项目信息（如 Git 状态、分支、项目文档），构建工作空间摘要，避免每次提示都从零开始。</li>
-
-<img src="https://substackcdn.com/image/fetch/$s_!mPz4!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2e3a1e6a-4eb5-4b60-b52f-0a4ee880dbca_2085x1428.png" alt="代理首先构建工作空间摘要" width="636" height="435.50274725274727" />
-
-<li><strong>提示形状和缓存重用</strong>：智能运行时不会在每次交互时重建整个提示，而是将稳定部分（指令、工具描述、工作空间摘要）缓存为"稳定提示前缀"，只更新变化部分（短期记忆、最近转录、用户请求）。</li>
-
-<img src="https://substackcdn.com/image/fetch/$s_!keF3!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92d9467c-1333-40f3-8d5d-c8bc0ffebb11_2698x1001.png" alt="代理构建稳定提示前缀并添加变化部分" width="1456" height="540" />
-
-<li><strong>工具访问和使用</strong>：代理提供预定义的工具集（如列出文件、读取文件、搜索、运行 shell 命令等），模型输出结构化动作，代理验证参数、请求批准（如果需要）并执行，然后将结果反馈给循环。</li>
-
-<img src="https://substackcdn.com/image/fetch/$s_!yL-u!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7aff251f-0ce2-44f1-9792-5449c24d5600_2172x927.png" alt="工具使用流程" width="1456" height="621" />
-
-<li><strong>最小化上下文膨胀</strong>：编码代理特别容易因重复文件读取、冗长工具输出等导致上下文膨胀。好的代理使用剪辑（缩短长文档片段）和转录摘要（将完整会话历史压缩为更小的可提示摘要）来管理上下文。</li>
-
-<img src="https://substackcdn.com/image/fetch/$s_!ksfT!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1d61d701-1f2b-4010-9a1f-2cefc7265bde_2495x1213.png" alt="上下文压缩策略" width="1456" height="708" />
-
-<li><strong>转录、内存和恢复</strong>：记录会话状态以便在中断后恢复工作。</li>
-<li><strong>委托和有界子代理</strong>：将任务委托给专门的子代理处理。</li>
-</ol>
-
-<h3>社区讨论要点</h3>
-
-<p>Hacker News 社区对该文章展开了热烈讨论：</p>
-
-<ul>
-<li>用户 <strong>armcat</strong> 表示："我仍然觉得，通过给 LLM 添加一个简单的状态机并赋予其 bash 访问权限所释放的力量令人难以置信。"</li>
-<li>关于不同模型在相同工具链中的表现，<strong>MrScruff</strong> 指出，虽然可以将开源模型如 GLM-5 接入 Claude Code，但其表现通常不如 Anthropic 的原生模型。</li>
-<li><strong>beshrkayali</strong> 提出了规范驱动生成（spec-driven generation）作为聊天式编码的替代方案，并介绍了其工具 <a href="https://github.com/ossature/ossature">Ossature</a>，该工具通过编写规范描述行为，在生成代码前审核规范，避免上下文膨胀问题。</li>
-<li>关于术语"harness"的讨论，<strong>sweetjuly</strong> 指出该词在"测试工具"、"模糊测试工具"等上下文中已很常见。</li>
-</ul>
-
-<p>作者特别指出，如今当使用 LLM 时，代理层（harness）相比直接提示模型或使用网页聊天界面，塑造了大部分用户体验。由于当前主流 LLM 的基础能力已相当接近，代理层往往成为区分不同系统表现的关键因素。</p>
-
-<p>文章最后强调，编码代理的成功不仅取决于模型本身，更取决于围绕模型构建的完整系统架构。这种系统思维对于理解和开发实用的 AI 编程工具至关重要。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47638810</guid>
-      <pubDate>Sat, 04 Apr 2026 13:16:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Markdown的困境：为何我们仍在使用的标记语言存在根本缺陷</title>
-      <link>https://news.ycombinator.com/item?id=47629903</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这篇文章分析Markdown标记语言的缺陷和困境，属于编程工具相关讨论，用户对编程工具发布/分享很感兴趣</small></p><p>一篇技术博客文章对Markdown语言提出了严厉批评，认为这种广泛使用的轻量级标记语言存在根本性设计缺陷。作者指出，虽然Markdown最初旨在提供简单易读的文档格式化方式，但随着时间推移，它已经演变成一个充满问题的系统。</p>
-
-<p>文章列举了Markdown的主要问题：首先，语法存在多种冗余表达方式，如粗体可以用<code>**bold**</code>、<code>__bold__</code>、<code>&lt;b&gt;bold&lt;/b&gt;</code>等多种形式，这种不一致性增加了复杂性。其次，内联HTML功能引入了安全漏洞，特别是跨站脚本攻击（XSS）风险，多个CVE漏洞与此相关。第三，语法解析变得异常复杂，脚注等功能使语法从上下文无关文法变为上下文相关文法，大大增加了实现难度。</p>
-
-<p>作者还批评了Markdown的过时设计，其语法源于2000年代的电子邮件和Usenet惯例，导致存在两种不同的标题写法、多种列表标记方式等不一致性。最严重的是，现代使用场景要求Markdown支持数学公式、自定义样式、图表等复杂功能，这超出了其原始设计目标。</p>
-
-<p>在Hacker News社区的265条评论中，观点分歧明显。部分用户认为Markdown遵循"更差就是更好"（<a href="https://en.wikipedia.org/wiki/Worse_is_better">worse is better</a>）原则，足够好用且降低了写作门槛。另一些用户建议使用Obsidian等工具来改善编辑体验。也有评论者批评作者只抱怨问题而不提供具体解决方案，认为"要么拿出更好的方案，要么闭嘴"。</p>
-
-<p>文章最终建议放弃Markdown，寻找或创建一种具有明确定义、可轻松解析语法并配备适当构建系统的替代方案。作者认为当前需要的不是继续修补Markdown，而是重新思考轻量级标记语言的设计哲学。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47629903</guid>
-      <pubDate>Fri, 03 Apr 2026 18:03:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 无需root权限在Android设备上运行Linux容器：Podroid项目介绍</title>
-      <link>https://news.ycombinator.com/item?id=47633131</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍编程工具Podroid，允许在Android设备上无需root运行Linux容器，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>Podroid 是一个开源项目，允许用户在 Android 设备上无需 root 权限运行 Linux 容器。该项目通过 QEMU 模拟器在手机上启动一个轻量级的 Alpine Linux 虚拟机，并集成了 Podman 容器运行时和完整的终端环境。</p>
-
-<img src="/ExTV/Podroid/raw/main/screenshots/1.png" alt="" width="24%" />
-<img src="/ExTV/Podroid/raw/main/screenshots/2.png" alt="" width="24%" />
-<img src="/ExTV/Podroid/raw/main/screenshots/3.png" alt="" width="24%" />
-<img src="/ExTV/Podroid/raw/main/screenshots/4.png" alt="" width="24%" />
-
-<h3>主要特性</h3>
-<ul>
-<li><strong>容器支持</strong>：可以拉取和运行任何 OCI 兼容的容器镜像，如 <code>podman run --rm -it alpine sh</code></li>
-<li><strong>完整终端</strong>：提供 VT100/xterm 终端模拟，支持 Ctrl、Alt、功能键、方向键等，终端尺寸自动同步</li>
-<li><strong>持久化存储</strong>：安装的软件包、配置和容器镜像在重启后得以保留</li>
-<li><strong>网络功能</strong>：默认提供互联网访问，支持端口转发到 Android 主机</li>
-<li><strong>独立运行</strong>：无需 root、Termux 或主机二进制文件，只需安装 APK 即可使用</li>
-</ul>
-
-<h3>技术要求与使用</h3>
-<p>需要 arm64 架构的 Android 设备，系统版本 Android 8.0+（API 26），约 150 MB 可用存储空间。安装后，用户只需打开应用、启动 Podman、等待约 20 秒启动完成，即可通过内置终端运行容器命令。</p>
-
-<h3>技术实现</h3>
-<p>Podroid 使用 QEMU 的 TCG（动态代码翻译）模式而非 KVM 硬件虚拟化，这意味着它完全通过软件模拟，无需特殊硬件支持。应用通过前台服务保持虚拟机运行，将终端会话通过反射机制连接到 QEMU 的串行 I/O。网络方面使用 QEMU 用户模式网络（SLIRP），虚拟机 IP 为 10.0.2.15，端口转发通过 QEMU 的 hostfwd 功能实现。</p>
-
-<h3>社区讨论</h3>
-<p>Hacker News 上的评论主要围绕几个方面展开：</p>
-<ul>
-<li>有用户询问这是否只是软件 QEMU 模拟（确认使用 TCG 而非 KVM，性能开销较大）</li>
-<li>讨论是否可能反向运行（在 Linux 手机上运行 Android，如 Waydroid 项目）</li>
-<li>有用户指出 Android 开发者选项中的 Linux 终端应用已支持硬件加速虚拟化，但 Podroid 的优势在于支持更广泛的 Android 版本（包括 Android 14-16）</li>
-<li>有开发者建议此技术可上游集成到 Podman 的 <code>podman machine</code> 功能中作为另一个后端</li>
-<li>关于文件系统访问的讨论：本地文件系统访问通过 overlayfs 实现持久化</li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p>Podman 是一个与 Docker 兼容的容器运行时工具，但设计上更注重安全性，默认以非 root 用户运行容器。与 Docker 不同，Podman 不需要守护进程，每个容器都由用户直接启动。QEMU 的 TCG（Tiny Code Generator）是一种动态二进制翻译技术，允许在非虚拟化支持的硬件上运行虚拟机，但性能通常低于 KVM（基于内核的虚拟机）硬件虚拟化。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47633131</guid>
-      <pubDate>Fri, 03 Apr 2026 22:23:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code发现Linux内核中隐藏23年的安全漏洞</title>
-      <link>https://news.ycombinator.com/item?id=47633855</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲Linux内核安全漏洞发现，属于编程/安全领域，用户对此类主题感兴趣，但不是强烈必看内容</small></p><p>Anthropic研究科学家Nicholas Carlini在[un]prompted AI安全会议上报告，使用Claude Code发现了Linux内核中多个可远程利用的安全漏洞，其中一个漏洞已隐藏23年之久。</p>
-
-<p>Carlini表示，他使用简单的脚本让Claude Code遍历Linux内核的所有源文件，以"寻找安全漏洞"的方式提示AI模型。这种方法发现了包括堆缓冲区溢出在内的多个严重漏洞，其中一些允许攻击者通过网络读取敏感内核内存。</p>
-
-<p>重点披露的漏洞存在于Linux的网络文件共享（NFS）驱动程序中。该漏洞于2003年9月引入，涉及NFSv4.0 LOCK重放缓存机制。攻击者可以通过两个协作的NFS客户端，利用1024字节的所有者ID字段触发缓冲区溢出——内核尝试将1056字节的数据写入仅112字节的缓冲区，从而允许攻击者覆盖受控的内核内存。</p>
-
-<img src="/claude-code-found-linux-vulnerability/model-effectiveness.png" alt="不同AI模型发现漏洞能力对比图" />
-
-<p>Carlini指出，Claude Code不仅发现了这个需要深入理解NFS协议细节的复杂漏洞，还生成了包含ASCII协议图的详细错误报告。有趣的是，这个漏洞在Linux内核中存在了23年，甚至早于Git版本控制系统的发布。</p>
-
-<p>除了这个NFS漏洞外，Carlini还发现了数百个其他潜在漏洞，但由于人工验证的时间限制，目前只向Linux内核维护者报告了5个已确认的漏洞。他表示："我现在有太多Linux内核漏洞无法报告，因为我还没有验证它们...这意味着我现在有数百个他们没见过的崩溃，只是我还没有时间检查。"</p>
-
-<p>特别值得注意的是AI模型能力的快速进步。Carlini使用最新发布的Claude Opus 4.6发现了这些漏洞，而尝试用8个月前发布的Opus 4.1和6个月前发布的Sonnet 4.5复现时，只能找到一小部分漏洞。</p>
-
-<p>Hacker News社区对此展开了热烈讨论。一些评论者认为，类似的缓冲区溢出漏洞本可以通过静态分析工具发现，但23年来却一直未被察觉。另一些讨论聚焦于AI发现漏洞的成本效益——虽然令牌成本正在下降，但彻底检查复杂代码库仍可能花费数万至数百万美元。还有评论指出，AI模型在代码审查方面的潜力可能被低估，而当前市场更关注代码生成功能。</p>
-
-<p>随着AI模型在漏洞发现方面的能力持续提升，安全研究人员预计未来几个月将出现一波安全漏洞发现浪潮，这对开源软件安全既是机遇也是挑战。</p>
-
-<h3>你知道吗？</h3>
-<p>NFS（网络文件系统）是Unix/Linux系统中常用的分布式文件系统协议，允许客户端通过网络访问服务器上的文件。NFSv4引入了状态化操作和更复杂的安全模型，但也增加了协议复杂性。Carlini发现的漏洞涉及NFSv4.0的LOCK操作重放缓存机制——这是确保操作幂等性（idempotent）的重要特性，防止网络重传导致重复执行。缓冲区溢出发生在处理锁拒绝响应时，系统未能正确验证所有者ID字段的长度，导致内存越界写入。这种漏洞如果被利用，可能允许攻击者执行任意代码或读取敏感内核数据。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47633855</guid>
-      <pubDate>Fri, 03 Apr 2026 23:46:51 GMT</pubDate>
     </item>
   </channel>
 </rss>

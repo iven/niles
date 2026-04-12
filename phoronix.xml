@@ -3,7 +3,41 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 12 Apr 2026 10:57:48 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2026 19:07:00 GMT</lastBuildDate>
+    <item>
+      <title>Linux内核修复非特权用户利用特制证书触发的越界访问漏洞</title>
+      <link>https://www.phoronix.com/news/Linux-OOB-Special-Certificate</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲Linux内核安全漏洞修复，属于基础设施范畴，用户对基础设施不太感兴趣但涉及Linux桌面技术，综合判断为可选内容</small></p><p>Linux内核中存在一个已持续三年的越界访问（OOB）漏洞，非特权用户可通过向内核提交特制证书来触发。该漏洞位于X.509证书解析代码中，自2023年的Linux 6.4内核版本以来一直存在于主线内核中。</p>
+
+<p>该漏洞允许非特权用户通过内核的keyrings API提交特制证书，导致越界访问。虽然信息泄露风险较小，但仍可能引发内核崩溃或拒绝服务攻击。越界访问通常可能导致权限提升、信息泄露、任意代码执行或内核恐慌等后果。</p>
+
+<p>补丁作者Lukas Wunner在提交信息中解释道，当解析具有空Basic Constraints或Key Usage扩展的证书时，由于在检查扩展长度之前读取了第一个字节，从而触发了越界访问。安全研究人员Leo Lin通过概念验证程序在非公开渠道负责任地披露了此漏洞。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=x509_oob" alt="X.509 OOB vulnerability" />
+
+<p>该补丁已及时纳入预计今日发布的Linux 7.0稳定内核，同时标记为需要向后移植到自Linux 6.4以来所有仍受支持的稳定内核版本，包括6.6 LTS、6.12 LTS、6.18 LTS和6.19版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-OOB-Special-Certificate</guid>
+      <pubDate>Sun, 12 Apr 2026 18:45:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ CMake 4.3引入通用包规范，加强与包管理器集成</title>
+      <link>https://www.phoronix.com/news/CMake-Tighter-Package-Integrate</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] CMake构建系统与包管理器集成改进，属于编程工具发布范畴，用户对此类编程效率改进内容很感兴趣，必看内容</small></p><p>尽管Meson构建系统近年来备受开源项目青睐，但CMake构建系统仍在持续发展，最新版本CMake 4.3引入了多项重要改进。</p>
+
+<p>CMake 4.3最显著的特性是引入了基于JSON的通用包规范（Common Package Specification, CPS），该格式由Kitware的CMake开发者开发，旨在提供更好的互操作性，特别是在与包管理器集成和处理C/C++软件依赖描述方面。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=hpsf_cmake" alt="CMake presentation at HPSF 2026 conference" />
+
+<p>除了CPS外，CMake 4.3还实验性地支持软件物料清单（SBOM）生成功能。CMake开发者正在继续完善CPS规范，并致力于改进包管理器集成、集成代码检查支持等增强功能。</p>
+
+<p>Kitware首席技术官Bill Hoffman在2026年高性能软件会议上介绍了这些CMake开发计划，展示了CMake在Meson等新兴构建系统竞争下依然保持强劲发展势头。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/CMake-Tighter-Package-Integrate</guid>
+      <pubDate>Sun, 12 Apr 2026 11:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Trisquel 12.0 发布：自由软件基金会认可的纯自由软件发行版</title>
       <link>https://www.phoronix.com/news/Trisquel-12-Linux</link>
@@ -844,45 +878,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Wine-MR-Zink-By-Default</guid>
       <pubDate>Thu, 02 Apr 2026 10:13:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ KTransformers 0.5.3发布：新增AVX2 MoE支持，提升无AMX/AVX-512 CPU的AI推理性能</title>
-      <link>https://www.phoronix.com/news/KTransformers-0.5.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍KTransformers软件添加AVX2 MoE支持，属于新软件项目功能更新，符合来源配置的高兴趣（新软件项目）。虽然涉及CPU指令集技术，但重点在软件兼容性而非硬件评测，主要主题权重更高。</small></p><p>KTransformers 0.5.3版本今日发布，该框架专注于CPU-GPU异构计算，旨在高效进行大语言模型（LLM）的推理和微调。此次更新最大的亮点是引入了仅使用AVX2指令集的推理内核，使得缺乏高级矩阵扩展（AMX）和AVX-512支持的CPU也能获得可用的性能。</p>
-
-<p>新版本特别为混合专家（MoE）模型提供了AVX2-only推理支持，涵盖BF16、FP8和GPTQ-INT4精度的MoE工作负载。这对于当前及近几代缺少AVX-512的英特尔酷睿（Ultra）处理器尤其有益，相较于配备AMX和AVX-512的最新至强服务器或同样支持AVX-512的AMD Zen 4/5 CPU，这些消费级平台现在也能运行KTransformers进行AI推理。当然，拥有AVX-512或AMX的CPU仍能提供更强大的性能。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=ktransformers" alt="KTransformers logo" />
-
-<p>官方文档已更新，为有兴趣的用户提供了在仅支持AVX2的处理器上运行KTransformers的指南。除了AVX2支持，KTransformers 0.5.3还带来了多项改进：在多路处理器环境中实现了更细粒度的NUMA感知部署优化，降低了空闲CPU开销，增强了推测解码功能，并包含其他多项性能提升。</p>
-
-<p>感兴趣的用户可以通过GitHub获取KTransformers 0.5.3的下载链接和完整的版本详情。</p>
-
-<p><strong>你知道吗？</strong></p>
-<p>AVX2、AVX-512和AMX是英特尔推出的向量指令集扩展，用于加速并行计算任务，尤其在AI和科学计算领域。AVX2是较广泛支持的指令集，而AVX-512和AMX（高级矩阵扩展）则提供了更强大的矩阵运算能力，但需要更新的硬件支持。KTransformers此次更新通过优化AVX2代码路径，让更多现有硬件能够参与高效的LLM推理。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KTransformers-0.5.3</guid>
-      <pubDate>Thu, 02 Apr 2026 10:01:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ libinput Lua 插件系统发现严重安全漏洞</title>
-      <link>https://www.phoronix.com/news/Libinput-Lua-Security-Issues</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Libinput的Lua插件系统安全漏洞，属于Linux桌面技术领域的安全问题，用户对此类技术感兴趣，但安全漏洞非其核心关注点，故推荐阅读。</small></p><p>Linux 输入处理库 libinput 的 Lua 插件系统被发现存在两个严重安全漏洞，可能允许攻击者获得系统完全访问权限。libinput 是 X.Org 和 Wayland 桌面环境广泛使用的输入处理组件。</p>
-
-<p>第一个漏洞 <strong>CVE-2026-35093</strong> 是一个沙箱逃逸漏洞，libinput 的加载器存在缺陷，允许未经任何验证的预编译字节码在运行时加载。这意味着通过 libinput 的 Lua 插件，攻击者可以不受限制地访问系统，执行任意 Lua 代码。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_input_med" alt="input devices on Linux" />
-
-<p>第二个漏洞 <strong>CVE-2026-35094</strong> 是一个释放后使用漏洞。这两个漏洞都相当危险，因为字节码会在进程的权限级别执行，具有完全的系统访问权限。</p>
-
-<p>作为应对措施，libinput 项目已经发布了修复版本 <strong>libinput 1.31.1</strong> 和 <strong>libinput 1.30.3</strong> 来解决这些安全问题。用户应尽快更新到这些版本以确保系统安全。</p>
-
-<p>这些漏洞的发现凸显了在系统级组件中引入脚本支持时需要格外注意安全性，特别是当这些组件在桌面环境中广泛使用时。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Libinput-Lua-Security-Issues</guid>
-      <pubDate>Thu, 02 Apr 2026 04:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
