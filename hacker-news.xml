@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 13 Apr 2026 06:26:24 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2026 09:09:04 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 数学新发现：单个二元运算符 EML 可生成所有基本初等函数</title>
+      <link>https://news.ycombinator.com/item?id=47746610</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这篇文章介绍数学领域的新发现，属于科学前沿进展，用户配置中对此类内容感兴趣</small></p><p>波兰物理学家 Andrzej Odrzywołek 在 arXiv 预印本中展示了一个突破性的数学发现：一个名为 EML（Exp-Minus-Log）的二元运算符 <code>eml(x,y) = exp(x) - ln(y)</code>，配合常数 1，可以生成科学计算器中的所有基本初等函数。</p>
+
+<p>这一发现类似于数字电路中 NAND 或 NOR 门可以生成所有布尔逻辑门的情况，但在连续数学领域此前没有类似的「通用基元」。通过系统性的穷举搜索，研究者发现这个简单的运算符能够生成包括 e、π、i 等常数，以及加法、减法、乘法、除法、指数运算等算术操作，还有三角函数、对数函数、平方根等超越函数和代数函数。</p>
+
+<p>具体来说：
+<ul>
+<li>指数函数：exp(x) = eml(x,1)</li>
+<li>自然对数：ln(x) = eml(1,eml(eml(1,x),1))</li>
+<li>乘法运算：xy = eml(eml(1, eml(eml(eml(eml(1, eml(eml(1, eml(1, x)), 1)), eml(1, eml(eml(1, eml(y, 1)), 1))), 1), 1)), 1)</li>
+</ul></p>
+
+<p>在 EML 形式下，每个表达式都变成了相同节点的二叉树，产生了一个极其简单的语法：S → 1 | eml(S,S)。这种统一结构还支持基于梯度的符号回归：使用 EML 树作为可训练电路，研究者展示了从数值数据中精确恢复闭式初等函数的可行性，在树深度不超过 4 的情况下可以实现精确恢复。</p>
+
+<p>社区讨论中，用户们对这一发现表现出浓厚兴趣。有人尝试用 JavaScript 实现了乘法运算，验证了其正确性：<code>mul(5,7)</code> 返回 <code>35.00000000000001</code>。讨论还涉及：
+<ul>
+<li>如何通过 EML 实现加法运算（x+y = ln(exp(x) * exp(y))）</li>
+<li>与 lambda 演算的类比：这类似于连续函数的 lambda 演算</li>
+<li>硬件实现的可能性：虽然理论上可行，但实际应用中可能效率低下，因为将简单操作（如加法、乘法）转化为复杂的 EML 表达式会导致计算噩梦</li>
+<li>物理实现：可能使用运算放大器构建模拟 EML 门</li>
+</ul></p>
+
+<p>有评论者指出，这个发现的主要意义在于理论层面，类似于数字逻辑中的通用门概念，而不是为了实际替代现有的数学库。现有的数值库包含大量冗余原语，目的是为用户提供尽可能接近所需操作的优化原语，而 EML 方法将这种冗余减少到了极致。</p>
+
+<p>论文还提供了代码实现，并展示了通过梯度优化从数据中恢复精确数学公式的能力。虽然这一发现可能不会立即改变科学计算器的设计，但它为连续数学的「最小基元」问题提供了新的视角。</p>
+
+<p><img src="/static/browse/0.3.4/images/icons/social/bibsonomy.png" alt="BibSonomy logo" /> <img src="/static/browse/0.3.4/images/icons/social/reddit.png" alt="Reddit logo" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47746610</guid>
+      <pubDate>Mon, 13 Apr 2026 01:49:32 GMT</pubDate>
+    </item>
     <item>
       <title>自制软饮料指南：可乐、橙子汽水和杏仁汽水的配方与实验</title>
       <link>https://news.ycombinator.com/item?id=47741701</link>
@@ -1395,21 +1429,6 @@ Terminal-Bench 2.0:        65.4% → 82.0%</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47652561</guid>
       <pubDate>Sun, 05 Apr 2026 18:45:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenAI Codex定价模式变更：从按消息计费转向按token计费</title>
-      <link>https://news.ycombinator.com/item?id=47650726</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] OpenAI Codex定价模式重要变更，涉及编程工具调整，属于用户很感兴趣的编程工具发布/分享领域，必看内容</small></p><p>OpenAI宣布调整Codex服务的定价模式，从原先的按消息计费转向与API一致的按token使用量计费。这一变化主要影响企业级账户，现有Plus、Pro和企业/教育计划用户暂时继续使用旧费率，将在未来几周内迁移至新费率。</p>
-
-<p>根据社区讨论，这一调整被部分用户视为实质性的价格上涨，有评论称"这实际上是10倍的价格上涨"。然而，也有观点认为这是AI行业从"增长优先"阶段转向"盈利优先"阶段的自然演变，类似于Uber等科技公司的发展轨迹。</p>
-
-<p>技术社区对此反应复杂：一方面，用户开始评估本地LLM和其他AI提供商（如Google Gemini、Anthropic Claude）作为替代方案；另一方面，有开发者指出本地模型在编码任务上仍无法与拥有万亿参数的前沿模型相媲美，但在代理工作、工具调用等场景中已具备可用性。</p>
-
-<p>值得注意的是，有评论指出原标题存在误导性，实际变化主要针对商业和企业账户，而非所有用户。同时，这一调整可能预示着AI服务定价模式的整体转变，从固定订阅制转向更精细的使用量计费。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47650726</guid>
-      <pubDate>Sun, 05 Apr 2026 15:58:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
