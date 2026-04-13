@@ -3,7 +3,60 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 13 Apr 2026 09:07:43 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2026 10:56:26 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linux 7.1 中 Apple HFS/HFS+ 文件系统支持获得多项修复</title>
+      <link>https://www.phoronix.com/news/Apple-HFS-Fixes-Linux-7.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 苹果HFS/HFS+文件系统在Linux中的修复，直接匹配来源配置的high_interest主题'苹果电脑Linux支持'</small></p><p>一年前，Linux 开发者曾考虑将长期无人维护的 Apple HFS 和 HFS+ 文件系统驱动程序从内核中移除。这些驱动在过去十年中处于“孤儿”状态，成为上游开发者的维护负担。然而，令人意外的是，几位开发者随后接手了 HFS(+) 驱动的维护工作。</p>
+
+<img src="//www.phoronix.net/image.php?id=osx-fedora21-vivid&image=osx_mini_2_sml" alt="Old Apple Mac Mini" />
+
+<p>如今一年过去，这一维护工作取得了显著成效。在 Linux 7.1 内核周期中，开发者提交了大量修复补丁。这些修复主要针对 Syzbot 报告的问题以及 xfstests 测试套件中的失败用例，涵盖了 b-tree 功能、节点分配/释放逻辑、隐藏目录搜索、时间戳更新、未初始化值处理等多个方面。</p>
+
+<p>具体的修复包括：修复 generic/642 测试失败、重构 xattr b-tree 中映射节点的创建逻辑、修正 b-tree 节点分配/释放逻辑、修复 hfs_bmap_free() 的错误处理问题、解决 b-tree 功能中的潜在竞争条件、将隐藏目录搜索提取为辅助函数、修复 hfsplus_fill_super() 中锁被提前释放的问题、解决 generic/523 测试用例失败、在挂载时验证 b-tree 节点 0 的位图、重构 b-tree 映射页访问并添加节点类型验证、在重命名后更新 ctime、修复 generic/533 测试失败、在 setxattr 和 removexattr 后设置 ctime、通过验证目录记录大小修复未初始化值问题，以及修复 fsync 后可能出现的分配文件损坏问题。</p>
+
+<p>尽管 macOS 现已全面采用 Apple File System (APFS)，但 Linux 内核中对这些老旧 Apple 文件系统的支持仍在持续维护，并且通过社区的努力得以保持活力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-HFS-Fixes-Linux-7.1</guid>
+      <pubDate>Mon, 13 Apr 2026 10:17:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.1中Btrfs性能提升，shutdown ioctl功能结束实验阶段</title>
+      <link>https://www.phoronix.com/news/Btrfs-Linux-7.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Btrfs文件系统性能改进，属于软件新功能和开源项目，符合全局interest中的软件新功能类别</small></p><p>在Linux 7.0内核正式发布前，Btrfs文件系统的更新已作为早期拉取请求提交。Linux 7.1为这个写时复制（CoW）文件系统带来了多项性能优化，同时其shutdown ioctl功能也结束了实验阶段。</p>
+
+<p>性能方面，Btrfs在Linux 7.1中加快了清除跟踪范围内第一个extent的速度，在示例工作负载上带来约10%的吞吐量提升。此外，还减少了同一事务中extent缓冲区的CoW重写，避免在事务提交时更新设备统计信息时获取大设备锁，修复了截断空文件时不必要的关闭刷新，并防止了压缩预读期间的直接回收。</p>
+
+<p>shutdown ioctl功能最初在Linux 6.19中作为实验性功能引入，用于将文件系统状态设置为关闭，并让待处理操作尝试按时完成并停止。该功能类似于XFS文件系统的关闭机制，在Linux 7.1中已从实验标志后移除，成为稳定功能。Btrfs现在也通过FSERROR机制报告文件系统关闭，并包含各种错误处理改进和错误修复。</p>
+
+<p>完整的Btrfs功能变更列表可通过相关拉取请求查看。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Btrfs-Linux-7.1</guid>
+      <pubDate>Mon, 13 Apr 2026 09:55:32 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ GNU Linux-libre 7.0 发布：清理更多驱动程序并净化设备树文件</title>
+      <link>https://www.phoronix.com/news/GNU-Linux-Libre-7.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] GNU Linux-libre 7.0新版本发布，属于来源配置的high_interest主题'新发行版'和'新软件项目'</small></p><p>基于 Linux 7.0 内核的 GNU Linux-libre 7.0-gnu 版本已正式发布。该下游内核版本致力于软件自由，移除了对非自由软件内核模块的支持，并阻止加载可加载微码/固件，即使这意味着硬件支持将大幅减少。</p>
+
+<p>本次更新的主要清理目标包括：IWLMLD 驱动程序，以及 amdgpu、adreno、TI PRUeth、air_en8811h、ath12k、TI VPE、rtw8852b、rt1320、rt5575 SPI、tas2783、Intel catpt 等驱动的去 blob 化。同时，还清理了 Airoha NPU、Qualcomm/Atheros 蓝牙和 TI hms-m4fss 的设备树文档文件，以及相关的 dts 文件。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=linux_libre_7_med" alt="GNU Linux-libre 7.0 artwork" />
+
+<p>文章指出，图形和网络驱动程序尤其需要运行时加载微码/固件来支持硬件，而随着更多 NPU（神经网络处理单元）进入市场，固件 blob 的数量也在增加。项目方照例发布了原创艺术作品。</p>
+
+<p>如需下载 GNU Linux-libre 7.0 或了解更多信息，请访问 <a href="https://FSFLA.org">项目网站</a>。</p>
+
+<h3>你知道吗？</h3>
+<p>• <strong>去 blob 化（Deblobbing）</strong>：指从内核驱动中移除专有的固件 blob（二进制大对象），这些 blob 通常是预编译的、不提供源代码的二进制代码，与 GNU 项目的自由软件理念相冲突。</p>
+<p>• <strong>固件 blob</strong>：许多硬件设备需要加载特定的固件才能正常工作，这些固件通常以二进制形式提供，缺乏源代码，因此在严格遵循自由软件原则的发行版（如 GNU Linux-libre）中会被移除或替换。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Linux-Libre-7.0</guid>
+      <pubDate>Mon, 13 Apr 2026 09:35:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.0 发布：新增硬件支持、性能优化与自修复 XFS 文件系统</title>
       <link>https://www.phoronix.com/news/Linux-7.0-Released</link>
@@ -816,64 +869,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Vulkan-1.4.348-Released</guid>
       <pubDate>Fri, 03 Apr 2026 09:50:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.0-rc7 修复 Qualcomm Ath11k 和 Ath12k WiFi 驱动程序长期性能缺陷</title>
-      <link>https://www.phoronix.com/news/Linux-7.0-rc7-Networking-Fixes</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题涉及Linux内核的网络性能修复，主要针对高通WiFi驱动程序。来源配置中网络性能被列为不太感兴趣，但这是重要的Linux内核修复，不属于用户明确避开的内容，建议作为可选阅读</small></p><p>Linux 内核开发团队发布了 7.0-rc7 版本的网络子系统修复，其中包含针对 Qualcomm Ath11k 和 Ath12k WiFi 驱动程序长期存在的性能问题的关键补丁。这些驱动程序自上游化以来一直存在一个缺陷，导致无线网络吞吐量显著下降。</p>
-
-<p>问题的核心在于停止 AMPDU（聚合 MAC 协议数据单元）会话时，驱动程序会传递错误的 TID（流量标识符）引用，导致错误的聚合会话被停止。具体来说，当停止某个 TID 的 AMPDU 会话时，代码错误地传递了指向 TID 0 的基地址，而非目标 TID 的地址，这使得其他活跃会话受到影响，被缩减到最小的 BA（块确认）大小，从而造成明显的吞吐量下降。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=qualcomm_ath" alt="Qualcomm WiFi adapter" />
-
-<p>该问题在 Ath11k 驱动中自 2019 年加入内核以来一直存在，而在 Ath12k 驱动中自 2022 年上游化以来也存在同样问题。修复方案已提交，确保在停止 AMPDU 会话时传递正确的 TID 参数。</p>
-
-<p>除了这一关键修复外，本周的网络修复还包括对 Netfilter 的更多输入验证，以解决潜在漏洞并防止配置错误导致的攻击。此外还有信息泄露修复以及其他有线/无线网络驱动程序的修正。<a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/">完整的网络修复列表</a>已提交至 Linux Git 仓库。</p>
-
-<p>虽然 Ath11k/Ath12k 修复现已进入 Linux 7.0 Git，但预计未来几天内将向后移植到支持的 Linux 稳定内核和 LTS（长期支持）版本中，使更多用户受益。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-rc7-Networking-Fixes</guid>
-      <pubDate>Thu, 02 Apr 2026 20:23:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 微软开源AI代理安全治理工具包，应对OWASP十大风险</title>
-      <link>https://www.phoronix.com/news/Microsoft-AI-Agent-Governance</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲微软最新的开源项目AI Agent运行时安全，属于新软件项目，直接匹配当前来源配置的high_interest类别，且涉及AI技术</small></p><p>微软近日宣布推出其最新的开源项目——Agent Governance Toolkit（代理治理工具包），该项目采用MIT许可证，旨在为自主AI代理提供运行时安全治理。微软宣称这是首个全面应对OWASP（开放Web应用安全项目）去年识别的十大AI代理风险的工具包。</p>
-
-<p>这十大风险包括：目标劫持、工具滥用、身份滥用、供应链风险、代码执行、内存中毒、不安全通信、级联故障、人机信任利用以及恶意代理。该工具包支持多种编程语言，包括Python、Rust、TypeScript、Go和.NET。</p>
-
-<p>Agent Governance Toolkit包含多个核心组件：Agent OS作为策略引擎，在执行前拦截每个代理的操作；Agent Mesh用于保护代理间的通信安全；Agent Runtime提供动态执行环境；Agent SRE包含多种安全防护措施；Agent Compliance实现自动化的治理验证与合规评分；Agent Marketplace管理插件的生命周期；Agent Lightning则负责强化学习训练的治理。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=microsoft_agent_security" alt="Microsoft AI governance project" />
-
-<p>微软强调该工具包采用"开源设计"理念，代码已托管在GitHub上，开发者可通过微软开源博客了解更多详细信息。这一工具的发布标志着微软在AI代理安全治理领域迈出了重要一步，为日益复杂的AI系统提供了全面的安全解决方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Microsoft-AI-Agent-Governance</guid>
-      <pubDate>Thu, 02 Apr 2026 19:33:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ CentOS启动加速基础设施支持计划，专注NVIDIA AI工厂生态</title>
-      <link>https://www.phoronix.com/news/CentOS-AIE-SIG-NVIDIA-AI</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] CentOS作为Linux发行版是用户很感兴趣的主题，且涉及AI技术进展，虽然涉及基础设施但核心是发行版支持AI，综合评定为强烈感兴趣</small></p><p>CentOS项目近日成立了加速基础设施支持（AIE）特别兴趣小组，旨在为NVIDIA AI工厂等下一代硬件提供快速软件支持通道。该小组基于CentOS Stream 10，专注于集成上游开发中的补丁，特别是来自NVIDIA等合作伙伴的代码。</p>
-
-<p>AIE SIG的主要工作包括优化ARM64 Linux内核构建、提供最新虚拟化能力以及增强针对NVIDIA Connect-X、BlueField和Spectrum-X硬件平台的高级网络功能。这些工作不仅服务于NVIDIA的AI工厂生态，也对其他硬件供应商具有参考价值。</p>
-
-<img src="//www.phoronix.net/image.php?id=centos-stream-10-benchmarks&image=centos_stream_10_1_med" alt="CentOS Stream" />
-
-<p>该小组采用"快速通道"机制，允许社区在代码公开后立即进行验证和集成，这通常比完整的上游接受提前数月。这种模式能够匹配下一代硬件的快速开发节奏，确保在新硬件发布时社区已具备相应的软件基础。</p>
-
-<p>AIE SIG的成果将逐步合并到CentOS Stream主线构建中，并最终流入Red Hat Enterprise Linux（RHEL）。目前重点关注NVIDIA GB200和Vera Rubin平台，未来计划提供ISO和磁盘镜像以实现"零日"硬件支持。</p>
-
-<p>了解更多信息可访问该小组的项目页面：<a href="https://sigs.centos.org/aie/">sigs.centos.org/aie/</a></p>
-
-<h3>你知道吗？</h3>
-<p>CentOS特别兴趣小组（SIG）是社区驱动的专项工作组，专注于特定技术领域。此前CentOS已有超大规模（Hyperscale）SIG，而新成立的AIE SIG则专注于加速计算基础设施。NVIDIA所称的"AI工厂"是指集成了其最新GPU、网络和软件栈的大规模人工智能计算设施，旨在提供端到端的AI解决方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/CentOS-AIE-SIG-NVIDIA-AI</guid>
-      <pubDate>Thu, 02 Apr 2026 12:25:31 GMT</pubDate>
     </item>
   </channel>
 </rss>
