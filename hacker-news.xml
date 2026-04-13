@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 13 Apr 2026 14:12:40 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2026 17:19:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Servo 浏览器引擎首次在 crates.io 发布 v0.1.0 版本，可作为 Rust 库嵌入使用</title>
+      <link>https://news.ycombinator.com/item?id=47750872</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于Servo浏览器引擎开源项目的首次crates.io发布，属于开源项目和软件新功能，用户在全局配置中对这类内容感兴趣</small></p><p>Servo 团队宣布在 Rust 包管理器 crates.io 上发布 v0.1.0 版本，这是该浏览器引擎首次作为库发布，允许开发者将 Servo 嵌入到自己的应用中。虽然版本号显示这不是 1.0 版本（团队仍在讨论 1.0 的标准），但这一发布反映了对 Servo 嵌入 API 的信心增强。</p>
+
+<p>除了常规的月度发布外，团队还推出了长期支持（LTS）版本，为需要稳定性的嵌入者提供半年一次的主要更新，同时仍会提供安全更新和迁移指南。这一举措考虑到常规月度发布中可能会有破坏性变更。</p>
+
+<p>在 Hacker News 的讨论中，开发者 <a href="https://news.ycombinator.com/item?id=47750872">nicoburns</a> 提供了重要补充信息：文档仍在构建中，但候选版本的文档已可用；<a href="https://github.com/slint-ui/slint/tree/master/examples/servo">Slint 项目有嵌入 Servo 的示例</a>，展示了如何使用嵌入 API；Stylo 和 WebRender 也已发布到 crates.io，可以单独使用。</p>
+
+<p>关于 Servo 的成熟度，社区讨论显示：对于简单静态内容，Servo 可能足够使用，但对于 JavaScript 密集型网站可能还不够完善。有开发者指出，Servo 的 JavaScript 引擎仍使用 SpiderMonkey（C++ 实现），但考虑到其成熟度和自包含性，替换它并不具有吸引力。</p>
+
+<p>开发者 <a href="https://news.ycombinator.com/item?id=47750872">simonw</a> 分享了一个使用 Servo 创建的 <a href="https://github.com/simonw/research/tree/main/servo-crate-exploration/servo-shot">servo-shot CLI 工具</a>，可以渲染网页截图，展示了 Servo 的实际应用潜力。</p>
+
+<p>社区还讨论了版本号问题：在 Rust 的语义版本控制中，0.x 版本通常被视为初始开发阶段，但许多项目（包括 Servo）在 0.x 阶段就提供了稳定性保证，这导致项目可能长期停留在 0.x 版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47750872</guid>
+      <pubDate>Mon, 13 Apr 2026 12:12:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Hacker News社区项目分享：2026年4月开发者创意与进展合集</title>
       <link>https://news.ycombinator.com/item?id=47741527</link>
@@ -1409,35 +1428,6 @@ Terminal-Bench 2.0:        65.4% → 82.0%</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47655408</guid>
       <pubDate>Mon, 06 Apr 2026 00:20:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 在 macOS 上使用 LM Studio 命令行工具本地运行 Google Gemma 4 26B 模型并与 Claude Code 集成</title>
-      <link>https://news.ycombinator.com/item?id=47651540</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI模型本地部署与工具集成教程，涉及AI软件技术进展，用户会感兴趣但非必看</small></p><p>本文详细介绍了如何在 macOS 系统上使用 LM Studio 0.4.0 版本的新命令行工具来本地运行 Google Gemma 4 26B 模型，并将其与 Claude Code 集成使用。</p>
-
-<p>LM Studio 0.4.0 版本引入了重大架构变化，推出了 llmster 核心推理引擎和 lms 命令行界面，使得用户可以在无图形界面的环境下运行本地模型。作者在配备 48GB 统一内存的 14 英寸 MacBook Pro M4 Pro 上成功运行了 Gemma 4 26B-A4B 模型，获得了每秒 51 个令牌的生成速度。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!9o_j!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb0321dea-0461-40ae-82da-babbd6fa108e_985x402.png" alt="Google Gemma 4 26B-a4b LLM model served via LM Studio API with Claude Code alias command claude-lm" width="985" height="402" />
-
-<p>文章重点介绍了 Gemma 4 模型的混合专家（MoE）架构优势：虽然总参数量为 260 亿，但每个前向传播只激活 38 亿参数，这使得它在硬件要求上相当于一个 40 亿参数的密集模型，同时性能接近 310 亿参数的密集版本。在 MMLU Pro 基准测试中，Gemma 4 26B-A4B 获得 82.6% 的分数，AIME 2026 测试中获得 88.3% 的分数。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!-GEC!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3ade04ce-48fd-4ae5-aa80-a463752d7b7c_1932x638.png" alt="Google Gemma 4 LLM models" width="1456" height="481" />
-
-<p>安装和配置过程包括：通过 curl 命令安装 lms CLI、启动后台守护进程、下载 Gemma 4 26B 模型（默认 Q4_K_M 量化，17.99 GB）、运行交互式聊天会话等。文章还提供了内存使用估算脚本，帮助用户根据硬件配置调整上下文长度。</p>
-
-<p>技术配置方面，作者详细说明了如何调整上下文长度、GPU 卸载、并行请求处理、空闲模型自动卸载（TTL）等参数。Gemma 4 支持最大 256K 上下文、视觉输入和原生工具调用功能。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!T7fm!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5e5f4f2a-2153-4208-811c-e2b4751c497f_1622x1436.png" alt="Google Gemma 4 model performance vs size comparison" width="1456" height="1289" />
-
-<p>社区讨论中，用户分享了使用不同工具（如 Ollama）运行 Gemma 4 的经验，讨论了混合专家架构的内存使用特点，以及 Claude Code 作为前端工具的优缺点。有用户指出，虽然 MoE 架构提高了令牌生成速度，但并不能显著减少 VRAM 使用量，因为所有权重仍需加载到内存中。</p>
-
-<p>其他用户分享了在实际工作中的应用场景，如使用 Claude Code 处理金融数据管道，通过模型上下文协议（MCP）实现工具调用自动化。讨论还涉及了不同本地模型运行工具的对比，以及在实际编码任务中本地模型的性能限制。</p>
-
-<p>总的来说，这篇文章为希望在本地硬件上运行大型语言模型的开发者提供了实用的技术指南，展示了当前开源模型和工具在个人设备上运行的可行性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47651540</guid>
-      <pubDate>Sun, 05 Apr 2026 17:13:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
