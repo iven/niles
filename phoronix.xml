@@ -3,7 +3,28 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 13 Apr 2026 17:18:48 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2026 19:37:24 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.1内核为socket添加user.*扩展属性支持，满足GNOME与systemd开发者需求</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-User-xattrs-Sockets</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Linux 7.1内核新增对socket的user.*扩展属性支持，符合GNOME和systemd开发者的需求，涉及Linux桌面技术和开源项目，用户对此感兴趣</small></p><p>在Linux 7.1合并窗口的第一天，Christian Brauner提交的虚拟文件系统（VFS）拉取请求被合并，其中包含为socket启用user.*扩展属性（xattrs）支持的功能。这一改进主要由GNOME和systemd开发者推动，旨在更好地支持Varlink作为进程间通信（IPC）机制。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=user_xattr_socket_sml" alt="code snippet for user xattr on socket" />
+
+<p>根据Brauner在拉取请求中的说明，此次修改重新设计了simple_xattr基础设施，并为socket添加了user.*扩展属性支持。基于路径的AF_UNIX socket可以从底层文件系统（如tmpfs）继承xattr支持，但通过socket()创建的所有socket（包括抽象命名空间的AF_UNIX socket）此前完全没有xattr支持。</p>
+
+<p>新功能允许服务通过user.*扩展属性标记其socket所使用的IPC协议（例如user.varlink=1），使eBPF程序能够有选择地捕获这些socket上的流量。结合netlink枚举绑定的socket，这些xattr标签为调试和自省提供了发现所有Varlink IPC入口点的方法。</p>
+
+<p>此外，systemd-journald计划在/dev/log socket上使用xattr进行协议协商，以指示是否支持RFC 5424结构化syslog或仅支持传统的RFC 3164格式。在容器环境中，这些标签特别有用，因为高权限或更复杂的socket识别方案往往不可用。</p>
+
+<p>技术实现上，sockfs socket每个inode限制为128个xattr和128KB的总值大小，与kernfs已有的限制保持一致。该系列提交包含了全面的自测试，涵盖基于路径的AF_UNIX socket、sockfs socket操作、每个inode限制强制执行以及跨多个地址族（AF_INET、AF_INET6、AF_NETLINK、AF_PACKET）的xattr操作。</p>
+
+<p>Linus Torvalds已将该功能合并到Linux 7.1内核周期中，未遇到任何异议。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-User-xattrs-Sockets</guid>
+      <pubDate>Mon, 13 Apr 2026 18:45:50 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ LLMs编写Spack软件包的利与弊：HPC领域的AI应用实践</title>
       <link>https://www.phoronix.com/news/LLVM-Generated-Spack-Packages</link>
@@ -853,25 +874,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Plasma-6.7-Improvements</guid>
       <pubDate>Sat, 04 Apr 2026 10:11:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenRazer 3.12.1 在 Linux 上新增支持两款雷蛇设备</title>
-      <link>https://www.phoronix.com/news/OpenRazer-3.12.1-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenRazer 是 Razer 设备的 Linux 开源驱动程序更新，属于新软件项目（来源配置 high_interest），虽涉及游戏外设支持（来源配置 uninterested），但主要是软件发布和 Linux 硬件支持</small></p><p>OpenRazer 3.12.1 已发布，这是 Linux 平台上雷蛇硬件开源驱动程序的最新更新版本。该版本新增了对两款雷蛇产品的支持，并包含多个错误修复。</p>
-
-<p>新增支持的第一款设备是 Razer Basilisk Mobile 游戏鼠标。OpenRazer 同时支持该鼠标的有线模式和无线接收器模式。这款游戏鼠标在亚马逊等平台的零售价约为 90 美元。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=razer_mobile" alt="Razer Basilisk Mobile 游戏鼠标" />
-
-<p>另一款新增支持的设备是 Lian Li O11 Dynamic - Razer Edition。这是联力（Lian Li）推出的一款电脑机箱，集成了雷蛇的灯光控制与监控功能，该产品已于数年前上市。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=razer_lianli" alt="Lian Li O11 Dynamic Razer Edition" />
-
-<p>除了新增设备支持外，OpenRazer 3.12.1 还修复了多个错误，具体修复内容已在 GitHub 上列出。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/OpenRazer-3.12.1-Released</guid>
-      <pubDate>Fri, 03 Apr 2026 23:34:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
