@@ -3,7 +3,80 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 13 Apr 2026 21:07:04 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2026 22:00:45 GMT</lastBuildDate>
+    <item>
+      <title>Superset Desktop v1.5.3 发布：修复分割窗格尺寸问题并新增窗格焦点切换快捷键</title>
+      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 发布了 v1.5.3 版本，主要包含两个桌面应用功能改进：</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>修复 v1 分割窗格启动尺寸问题</strong>：解决了 v1 版本分割窗格在启动时的尺寸调整问题，提升了用户体验</li>
+<li><strong>新增窗格焦点切换快捷键</strong>：添加了 Cmd+Alt+方向键（Windows/Linux 为 Ctrl+Alt+方向键）快捷键，允许用户在 v2 窗格间快速移动焦点</li>
+</ul>
+
+<p>这两个改动都属于桌面应用的 UI 和交互优化，没有涉及后端基础设施的变更。版本更新相对较小，主要针对特定功能进行了改进。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.3</guid>
+      <pubDate>Mon, 13 Apr 2026 21:43:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.105 发布：新增工作树路径参数、PreCompact 钩子支持等多项改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.105</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布了 v2.1.105 版本，带来了多项功能增强和问题修复。本次更新主要围绕工具功能扩展、用户体验优化和错误修复展开。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增工作树路径参数</strong>：为 <code>EnterWorktree</code> 工具添加了 <code>path</code> 参数，允许用户切换到当前代码仓库的现有工作树。</li>
+<li><strong>PreCompact 钩子支持</strong>：钩子现在可以通过退出代码 2 或返回 <code>{"decision":"block"}</code> 来阻止压缩操作。</li>
+<li><strong>插件后台监控支持</strong>：通过顶级 <code>monitors</code> 清单键，插件可以在会话开始或技能调用时自动启动后台监控。</li>
+<li><strong>API 流处理改进</strong>：停滞的 API 流现在会在 5 分钟无数据后自动中止，并尝试重试非流式传输，避免无限期挂起。</li>
+<li><strong>网络错误提示优化</strong>：连接错误时立即显示重试提示，取代之前的无声等待状态。</li>
+<li><strong>文件写入显示优化</strong>：长单行写入内容（如压缩的 JSON）现在会在界面中截断显示，避免跨多屏分页。</li>
+<li><strong>WebFetch 改进</strong>：自动剥离获取页面中的 <code>&lt;style&gt;</code> 和 <code>&lt;script&gt;</code> 内容，确保 CSS 繁重的页面不会在获取实际文本前耗尽内容预算。</li>
+<li><strong>工作树清理优化</strong>：改进过时代理工作树清理机制，现在会清理那些 PR 已被压缩合并的工作树，而不是无限期保留。</li>
+</ul>
+
+<h3>其他改进和修复</h3>
+<ul>
+<li><code>/proactive</code> 现在作为 <code>/loop</code> 的别名</li>
+<li>改进 <code>/doctor</code> 布局，增加状态图标，支持按 <code>f</code> 键让 Claude 自动修复报告的问题</li>
+<li>优化 <code>/config</code> 的标签和描述，提高可读性</li>
+<li>提升技能描述字符上限从 250 到 1,536，并在描述被截断时显示启动警告</li>
+<li>改进 MCP 大输出截断提示，提供格式特定的处理建议（如 JSON 使用 <code>jq</code>，文本使用计算的 Read 块大小）</li>
+<li>修复附加到排队消息的图像被丢弃的问题</li>
+<li>修复长对话中提示输入换行时屏幕空白的问题</li>
+<li>修复全屏模式下选择多行助手响应时前导空格被复制的问题</li>
+<li>修复助手消息中前导空格被修剪导致 ASCII 艺术和缩进图表损坏的问题</li>
+<li>修复命令输出可点击文件链接时 bash 输出乱码的问题</li>
+<li>修复终端中 alt+enter 和 Ctrl+J 插入换行符的回归问题</li>
+<li>修复 EnterWorktree/ExitWorktree 工具显示重复文本的问题</li>
+<li>修复排队用户提示从焦点模式消失的问题</li>
+<li>修复一次性计划任务重复触发的问题</li>
+<li>修复 Team/Enterprise 用户入站通道通知被静默丢弃的问题</li>
+<li>修复 marketplace 插件依赖安装问题</li>
+<li>修复 marketplace 自动更新过程中的状态损坏问题</li>
+<li>修复会话恢复提示未显示的问题</li>
+<li>修复反馈调查快捷键误触发问题</li>
+<li>修复 MCP 服务器输出格式错误导致的会话挂起问题</li>
+<li>修复无头/远程触发会话中 MCP 工具缺失问题</li>
+<li>修复 AWS Bedrock 非美国区域模型选择器问题</li>
+<li>修复 429 速率限制错误显示原始 JSON 的问题</li>
+<li>修复会话恢复时因格式错误文本块导致的崩溃</li>
+<li>修复 <code>/help</code> 在短终端高度下的显示问题</li>
+<li>修复键绑定配置文件错误处理问题</li>
+<li>修复环境变量设置影响范围过广的问题</li>
+<li>修复 SSH/mosh 连接下特定终端颜色显示问题</li>
+<li>修复 Bash 工具权限建议问题</li>
+</ul>
+
+<p>本次更新涵盖了从核心功能到界面细节的多个方面，进一步提升了 Claude Code 的稳定性和用户体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.105</guid>
+      <pubDate>Mon, 13 Apr 2026 21:53:13 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop 发布 v1.5.2 版本：修复终端剪贴板处理问题</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.2</link>
@@ -1371,43 +1444,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.68.0</guid>
       <pubDate>Fri, 20 Feb 2026 02:06:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ fzf 0.67.0 发布：新增列冻结功能与界面优化</title>
-      <link>https://github.com/junegunn/fzf/releases/tag/v0.67.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] fzf主要版本更新(0.67.0)，命令行模糊查找工具重要版本发布</small></p><p>命令行模糊查找工具 fzf 发布了 0.67.0 版本，引入了多项功能增强和界面改进。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增 --freeze-left=N 选项</strong>：保持输入行最左侧的 N 列始终可见，适用于需要固定显示某些列（如文件名）的场景。例如在 git grep 输出中固定文件名列。</li>
-<li><strong>新增 --freeze-right=N 选项</strong>：保持输入行最右侧的 N 列始终可见，可作为 --keep-right 的强化版本。支持与 --freeze-left 同时使用，实现左右两端同时固定。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li><strong>更新 --info=inline 选项</strong>：现在会显示加载指示器（旋转器），提升交互反馈。</li>
-<li><strong>错误修复</strong>：包含多项 bug 修复，提升工具稳定性。</li>
-</ul>
-
-<p>这些改进进一步增强了 fzf 在处理结构化数据时的可视性和用户体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.67.0</guid>
-      <pubDate>Sun, 16 Nov 2025 11:04:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ fzf 0.66.1 发布：修复 Ctrl-H 绑定和颜色主题问题</title>
-      <link>https://github.com/junegunn/fzf/releases/tag/v0.66.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] fzf版本更新，命令行工具改进</small></p><p>fzf 0.66.1 版本主要包含两个错误修复：</p>
-<ul>
-<li>修复了阻止 Ctrl-H 快捷键被绑定到操作的 bug（<a href="#4556">#4556</a>）</li>
-<li>修复了 <code>--no-color</code> 选项和 <code>NO_COLOR</code> 环境变量相关的主题问题（<a href="#4561">#4561</a>）</li>
-</ul>
-<p>这是一个维护性更新，解决了用户在使用过程中遇到的两个具体问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.66.1</guid>
-      <pubDate>Sun, 26 Oct 2025 06:13:42 GMT</pubDate>
     </item>
   </channel>
 </rss>
