@@ -80,6 +80,7 @@ jobs:
           path: |
             output/${{ matrix.source.name }}.xml
             output/${{ matrix.source.name }}-processed.json
+            output/${{ matrix.source.name }}-pending.json
           retention-days: 1
 
   commit:
@@ -104,7 +105,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add *.xml *-processed.json
+          git add *.xml *-processed.json *-pending.json
 
           echo "Changes to be committed:"
           git diff --cached --stat
