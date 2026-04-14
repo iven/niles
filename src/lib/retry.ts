@@ -1,6 +1,6 @@
 export async function withRetry<T>(
   fn: () => Promise<T>,
-  retries = 1,
+  retries = 2,
 ): Promise<T> {
   let lastError: unknown;
   for (let i = 0; i <= retries; i++) {
