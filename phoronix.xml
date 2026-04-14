@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 14 Apr 2026 17:21:28 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Apr 2026 19:40:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linus Torvalds拒绝Linux 7.1的两个拉取请求：性能修复&quot;hack&quot;和Kconfig&quot;糟糕选项&quot;</title>
+      <link>https://www.phoronix.com/news/Linus-Rejects-Linux-7.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及Linux内核开发过程，属于开源项目和编程工具相关领域，用户对Linux桌面技术和开源项目感兴趣，故推荐阅读</small></p><p>在Linux 7.1内核合并窗口期间，Linus Torvalds拒绝了两个拉取请求，并给出了直率的批评意见。</p>
+
+<p>第一个被拒绝的补丁旨在解决审计子系统在高核心数工作站/服务器处理器上的性能回归问题。Christian Brauner和Red Hat的Waiman Long提出的补丁试图通过减少不必要的<a href="https://www.phoronix.com/news/Linus-Rejects-Linux-7.1">path_get()和path_put()</a>调用来避免自旋锁争用。然而Torvalds认为这是一个"hack"，因为它暴露了审计代码的历史性问题——无法正确处理chroot环境，并且错误地将pwd和root路径区别对待。Torvalds表示："这基本上是把审计的错误暴露给非审计用户。我绝对讨厌它。"Brauner随后同意Torvalds的评估，并从拉取请求中移除了这些补丁。</p>
+
+<p>第二个被拒绝的是RCU代码中的BOOTPARAM_RCU_STALL_PANIC Kconfig选项，该选项默认会在RCU停滞时触发内核恐慌。Torvalds强烈反对："不。该死，停止做这些可怕的事情。我已经说过无数次了：内核配置阶段可能是随机新人尝试构建自己内核时最大的痛点之一，我们不应该问人们愚蠢的问题。"他强调内核配置文件不是个人游乐场，而是鼓励普通用户参与内核开发的最可见接口。讨论中还提到，相同的默认行为已经可以通过启动参数<a href="https://www.phoronix.com/news/Linus-Rejects-Linux-7.1">sysctl.kernel.panic_on_rcu_stall=true</a>实现。</p>
+
+<p>这两个案例展示了Torvalds对代码质量和用户体验的严格标准，以及他对内核开发原则的坚持。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linus-Rejects-Linux-7.1</guid>
+      <pubDate>Tue, 14 Apr 2026 19:08:04 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GNOME Mutter 50.1修复部分NVIDIA驱动版本性能回归问题</title>
       <link>https://www.phoronix.com/news/GNOME-Mutter-50.1</link>
@@ -854,21 +869,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Staging-11.6</guid>
       <pubDate>Mon, 06 Apr 2026 14:15:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google提出JSIR作为JavaScript的高级中间表示</title>
-      <link>https://www.phoronix.com/news/Google-LLVM-JavaScript-IR-JSIR</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是Google提出的JavaScript中间表示JSIR，属于编程工具发布，用户很感兴趣</small></p><p>Google工程师正在开发JSIR（JavaScript Intermediate Representation），这是一个用于JavaScript的高级中间表示（IR），目前已在公司内部生产环境中使用，主要用于代码分析、将其他代码/字节码转换为JavaScript，以及反混淆JavaScript代码。</p>
-
-<p>Google编译器团队的Zhixun Tan发布了JSIR的征求意见稿（RFC），该项目部分基于LLVM和MLIR社区的工作。目前大多数JavaScript工具都依赖于基于抽象语法树（AST）的方法，而不是中间表示，JSIR旨在填补这一技术空白。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=jsir" alt="JSIR" />
-
-<p>JSIR旨在成为一个公开且稳定的中间表示，能够捕获所有源代码级信息。Google工程师正在征求LLVM/MLIR开发者的意见，探讨是否将JSIR上游到MLIR项目中。该项目已经开源，并在GitHub上可用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Google-LLVM-JavaScript-IR-JSIR</guid>
-      <pubDate>Mon, 06 Apr 2026 10:11:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
