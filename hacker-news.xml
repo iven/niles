@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 14 Apr 2026 09:48:35 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Apr 2026 11:22:28 GMT</lastBuildDate>
+    <item>
+      <title>形式化验证的lean-zlib实现通过模糊测试，漏洞出现在验证边界之外</title>
+      <link>https://news.ycombinator.com/item?id=47759709</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章聚焦形式化验证与模糊测试的技术实践，属于软件安全前沿进展，用户兴趣配置中未明确匹配此类专业主题，需根据个人专业兴趣判断是否阅读</small></p><p>作者使用Claude AI代理对经过Lean形式化验证的zlib实现（lean-zip）进行了大规模模糊测试，在1.05亿次执行后发现了两个安全漏洞，但都不在已验证的核心算法代码中。</p>
+
+<img src="../images/leo-quote.png" alt="leo-quote.png" />
+
+<p>lean-zip是一个由10个AI代理自主构建并经过Lean形式化验证的zlib实现。其核心定理保证了对于任何小于1GB的字节数组，压缩后再解压缩会得到原始数据。作者为了测试验证的实际效果，移除了所有定理和文档，让Claude代理在不知道代码已被验证的情况下进行测试。</p>
+
+<p>测试使用了AFL++、AddressSanitizer、Valgrind和UBSan等工具，针对6个攻击面进行了19小时的并行模糊测试。结果发现：</p>
+
+<ol>
+<li><strong>Lean运行时堆缓冲区溢出</strong>：在lean_alloc_sarray函数中，当分配接近SIZE_MAX大小的数组时会发生整数溢出，导致分配小缓冲区但写入大量数据。这个漏洞影响所有使用ByteArray的Lean 4程序。</li>
+<li><strong>归档解析器拒绝服务攻击</strong>：在lean-zip的Archive.lean模块中，直接从ZIP头部读取compressedSize字段并传递给内存分配，没有验证实际文件大小，导致可以通过伪造超大头部使程序内存耗尽崩溃。</li>
+</ol>
+
+<img src="../images/lean-zip.png" alt="lean-zip.png" />
+
+<p>值得注意的是，已验证的压缩/解压缩核心算法代码在测试中表现完美：零堆缓冲区溢出、零释放后使用、零栈缓冲区溢出、零未定义行为。Claude代理评价这是"分析过的最内存安全的代码库之一"。</p>
+
+<p>Hacker News社区对此展开了热烈讨论。一些评论者认为标题具有误导性，因为漏洞不在已验证代码中；作者则回应说，从最终用户角度看，整个二进制都是攻击目标，运行时漏洞同样危险。其他讨论涉及形式化验证的局限性：验证只能保证代码符合规范，但规范本身可能有缺陷；需要验证整个系统而不仅仅是核心算法；以及可信计算基础（TCB）的问题。</p>
+
+<p>这次实验展示了形式化验证的强大效果——已验证代码确实没有发现漏洞，但也暴露了验证的边界问题：未验证的组件和运行时基础组件仍然是薄弱环节。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47759709</guid>
+      <pubDate>Tue, 14 Apr 2026 00:25:08 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 在Codex CLI中本地运行Gemma 4模型的技术实践与社区讨论</title>
       <link>https://news.ycombinator.com/item?id=47744255</link>
@@ -1423,29 +1451,6 @@ Terminal-Bench 2.0:        65.4% → 82.0%</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47652007</guid>
       <pubDate>Sun, 05 Apr 2026 17:53:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 为什么我拒绝下载你的应用：网页版本已经足够好</title>
-      <link>https://news.ycombinator.com/item?id=47661439</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为应用开发与网页技术对比，属于编程效率改进经验，用户很感兴趣，必看内容</small></p><p>作者表达了对强制下载应用这一趋势的强烈不满，认为网页版本在大多数情况下已经足够好用，而应用往往带来更多问题而非价值。</p>
-
-<p>文章指出，许多服务通过弹窗、模态框等方式强制用户下载应用，即使网页版本完全能够满足需求。从社交媒体到停车服务，应用被优先推广，而网页版本则被故意忽视甚至劣化。</p>
-
-<p>作者强调浏览器提供的控制权优势：用户可以通过用户脚本、广告拦截器和自定义扩展来优化体验。相比之下，应用往往是封闭的"围墙花园"，方便公司推送通知、收集侵入性遥测数据并保持用户锁定在生态系统中。</p>
-
-<p>从技术角度看，大多数应用本质上只是获取和渲染JSON数据的"瘦客户端"，却需要下载100MB以上的文件、请求位置跟踪权限并运行后台进程。更糟糕的是，许多应用缺乏真正的原生体验，存在微妙的卡顿和不一致，形成了用户界面的"恐怖谷"效应。</p>
-
-<p>作者用"enshittification loop"（劣化循环）来描述这一商业模式：服务先在开放网页上建立用户基础，然后故意劣化网页版本以强制用户使用应用。一旦用户进入应用，他们就成为无法使用广告拦截器的"俘虏观众"。</p>
-
-<p>Hacker News社区对此话题反响强烈。许多用户表示，如果服务强制使用应用，他们会直接放弃使用该产品。有评论指出，网页浏览器本质上是沙盒环境，而原生应用则可以访问后台进程、硬件ID、联系人等敏感数据。也有用户提到，<a href="https://vectree.io/c/enshittification-how-digital-platforms-degrade-over-time">enshittification现象</a>正是公司这样做的原因 - 浏览器标签无法锁定用户，而应用可以。</p>
-
-<p>一些用户分享了具体经历：波士顿的音乐场所强制使用Ticketmaster或Dice应用入场，甚至有俱乐部要求安装单独的应用来寄存外套。但也有不同观点认为，某些应用的体验确实比网页版本更好，虽然这种情况属于例外而非规则。</p>
-
-<p>总体而言，这篇文章反映了技术用户对应用强制下载趋势的普遍不满，以及对开放网页作为通用平台的维护需求。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47661439</guid>
-      <pubDate>Mon, 06 Apr 2026 14:31:29 GMT</pubDate>
     </item>
   </channel>
 </rss>
