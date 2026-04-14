@@ -3,7 +3,42 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 14 Apr 2026 06:08:57 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Apr 2026 08:04:28 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 在Codex CLI中本地运行Gemma 4模型的技术实践与社区讨论</title>
+      <link>https://news.ycombinator.com/item?id=47744255</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲在Codex CLI中本地运行新AI模型Gemma 4的技术实践和社区讨论，直接匹配用户对编程工具发布/分享和新AI模型发布公告的高兴趣配置</small></p><p>一篇技术博客分享了在Codex CLI中本地运行Gemma 4模型的经验，引发了开发者社区的广泛讨论。文章作者Daniel Vaughan详细记录了在不同硬件平台上的测试结果和配置优化。</p>
+
+<p>社区反馈显示，Gemma 4（特别是26B参数版本）在本地运行中表现优异，许多用户表示这是首次能够通过llama.cpp服务器可靠地使用Opencode等工具完成实际编码任务。一位用户分享道，在学习Godot游戏引擎时，完全依赖本地Gemma 4作为编码伙伴，无需求助Claude等云端服务。</p>
+
+<p>硬件配置方面，讨论集中在不同平台的选择：</p>
+<ul>
+<li><strong>NVIDIA GPU</strong>：用户报告在RTX 4090（24GB显存）上运行良好，通过文章中的设置建议甚至可以在24GB显存中勉强运行31B模型</li>
+<li><strong>Mac平台</strong>：多位用户分享了在MacBook Pro上的体验，其中M5 Pro 48GB相比M4 Pro 24GB在Gemma 4 MoE模型上获得了约8倍的速度提升</li>
+<li><strong>内存要求</strong>：对于Gemma 4 26B MoE模型，用户建议选择更高内存配置，特别是需要较大上下文窗口时</li>
+</ul>
+
+<p>工具和配置方面的重要建议包括：</p>
+<ul>
+<li>使用LM Studio（0.4.11+1版本后工具调用功能正常）配合Opencode</li>
+<li>考虑使用<a href="https://www.npmjs.com/package/@mariozechner/pi-coding-agent#quick-start">pi-coding-agent</a>作为更轻量级的替代方案，系统提示和工具开销小于2k token</li>
+<li>对于编码任务，建议使用不低于Q6_K的量化级别，因为更低量化会导致更多错误</li>
+<li>可以通过<code>--cpu-moe</code>参数将混合专家模型（MoE）部分卸载到CPU，以换取更大的上下文窗口</li>
+</ul>
+
+<p>关于模型性能的核心观点是：<strong>模型质量比生成速度更重要</strong>。多位经验丰富的用户指出，对于智能体编码任务，限制因素往往是模型陷入错误思路或过度思考，而非原始生成速度。只有在需要大量新增代码时，生成速度才成为关键因素。</p>
+
+<p>技术优化方面，社区还讨论了：</p>
+<ul>
+<li>使用26B MoE作为31B模型的草案模型进行推测解码（speculative decoding），在Q8量化下可获得70%+的接受率</li>
+<li>需要固定Codex的早期版本（如0.55）以获得最佳体验</li>
+<li>使用旧的completions端点，因为llama.cpp的responses支持不完整</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47744255</guid>
+      <pubDate>Sun, 12 Apr 2026 20:43:08 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ DaVinci Resolve发布照片编辑器：将好莱坞调色工具引入静态摄影</title>
       <link>https://news.ycombinator.com/item?id=47760529</link>
@@ -1411,36 +1446,6 @@ Terminal-Bench 2.0:        65.4% → 82.0%</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47661439</guid>
       <pubDate>Mon, 06 Apr 2026 14:31:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 用于月球信号反射的开源240天线阵列项目</title>
-      <link>https://news.ycombinator.com/item?id=47656622</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为开源天线阵列项目，属于开源项目和科学前沿进展，用户感兴趣，推荐阅读</small></p><p>一个名为QuadRF的开源软件定义无线电（SDR）项目正在开发中，旨在通过组合多个4天线模块构建大型相控阵，最终实现240个天线的阵列，用于地球-月球-地球（EME）通信，即利用月球作为被动反射器进行信号传输。</p>
-
-<img src="tile_gold.png" alt="Single Tile SDR" />
-
-<p>每个QuadRF瓦片是一个独立的4天线SDR模块，工作频率为4.9-6.0 GHz（C波段），支持全双工通信。每天线提供40 MHz带宽、1W发射功率和约1.2 dB的接收噪声系数，采用右旋圆极化（RHCP）发射和左旋圆极化（LHCP）接收。模块基于Lattice ECP5 FPGA，延迟低于1毫秒，峰值功耗约25W。</p>
-
-<p>该设计可作为独立单元使用，也可作为构建更大相控阵的基础模块。应用场景包括通用4×4 MIMO软件定义无线电、无线电测向（DOA）、开放Wi-Fi路由器、开放4G/5G基站、无人机高清视频链路和机器人通信等。</p>
-
-<p>项目计划以约399美元的价格提供完整套件，包含QuadRF瓦片、树莓派5、定制外壳、三脚架、USB-C电源适配器、线缆以及预装多种SDR应用的SD卡。通过组合60个这样的瓦片，可以构建包含240个天线的阵列，总发射功率达240W，峰值功耗约1.5kW。</p>
-
-<p>在Hacker News社区的讨论中，多位技术爱好者对项目的工程实现表示赞赏，特别是其反向工程树莓派5的MIPI接口以实现5.6 Gbps数据传输的创新方法。然而，社区也提出了一些疑问和关注点：</p>
-
-<ul>
-<li><strong>开源状态</strong>：虽然项目自称开源，但设计文件尚未公开发布。项目方表示硬件设计文件和SDR软件将在产品发布时一同提供，许可证信息已在<a href="https://moonrf.com/updates/#faq">FAQ页面</a>公布。</li>
-<li><strong>ITAR限制</strong>：页面明确声明"请勿用于构建相控阵雷达"，这被解读为规避国际武器贸易条例（ITAR）限制的尝试。评论者指出，尽管通过固件修改可能实现雷达功能，但项目方试图在法律层面划清界限。</li>
-<li><strong>功率问题</strong>：1.5kW峰值功耗在12V电压下需要125安培电流，有评论认为这一设计可能存在不合理之处，因为大电流会导致显著的线路损耗。</li>
-<li><strong>技术比较</strong>：有用户将其与Starlink终端相提并论，后者使用类似相控阵技术但功耗更低。也有用户提到业余无线电爱好者进行EME通信已有数十年历史。</li>
-</ul>
-
-<p>该项目展示了将先进相控阵技术民主化的努力，以相对低廉的价格为研究者和爱好者提供实验平台。尽管在开源实施细节和某些技术规格上存在争议，但其工程创新性和潜在应用价值得到了社区的普遍认可。</p>
-
-<p><strong>你知道吗？</strong> 地球-月球-地球（EME）通信，又称"月球反射通信"，是一种利用月球表面反射无线电信号进行超远距离通信的技术。由于月球距离地球约38万公里，信号往返需要约2.5秒，且反射损耗极大，传统EME通信需要数百瓦甚至千瓦级的发射功率和大型定向天线阵列。业余无线电爱好者自20世纪50年代就开始实验EME通信，但直到相控阵等现代技术的发展，才使得较小规模的天线系统实现月球反射通信成为可能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47656622</guid>
-      <pubDate>Mon, 06 Apr 2026 03:22:42 GMT</pubDate>
     </item>
   </channel>
 </rss>
