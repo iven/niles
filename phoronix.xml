@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 14 Apr 2026 19:40:30 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Apr 2026 21:06:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linux 7.1内核i_ino字段扩展至64位，32位系统面临性能影响</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-VFS-Kino-32-bit</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讨论LLM辅助生成的Linux内核补丁对32位系统的潜在影响，涉及AI在程序开发中的应用和Linux内核技术，既符合用户对AI软件技术进展的高兴趣配置，也属于编程效率改进经验的重要案例，属于必看内容</small></p><p>Linux内核7.1版本中，虚拟文件系统（VFS）的一个基础性变更可能对仍在使用32位硬件的用户产生性能影响。该变更将inode结构体中的"i_ino"字段从unsigned long类型改为u64类型，使其在32位和64位架构上都保持64位宽度。</p>
+
+<p>这一变化解决了长期存在的问题：由于历史原因，i_ino字段在32位架构上仅为32位，导致许多文件系统不得不实现各种"hack"来将64位标识符哈希到32位字段中。现在统一为64位后，代码将更加清晰简洁。</p>
+
+<img src="//www.phoronix.net/image.php?id=161&image=speeze_ee475b13_system_med" alt="The old 32-bit Linux computing days..." />
+
+<p>然而，对于32位系统用户来说，这个变更意味着struct inode至少会增加4字节的大小。内核开发者Jeff Layton指出，这可能对缓存行对齐和slab分配器大小产生影响，进而影响性能。Layton在讨论中表示："我们正在积极讨论未来弃用32位架构，也许我们可以合理化这个问题。"</p>
+
+<p>值得注意的是，实现这一变更的补丁部分由大型语言模型（LLM）生成，特别是Claude。Layton后来澄清了LLM的使用情况："这个补丁集的大部分是由LLM生成的，但我将其归功于自己，因为我认为这属于LLM使用的'琐碎任务'类别。"</p>
+
+<p>该变更已由Linus Torvalds合并到Linux 7.1内核中。虽然对现代64位计算环境来说这是一个进步，但对于仍在32位操作系统上运行现代Linux内核的用户，可能需要关注这一变化带来的潜在影响。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-VFS-Kino-32-bit</guid>
+      <pubDate>Tue, 14 Apr 2026 20:21:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linus Torvalds拒绝Linux 7.1的两个拉取请求：性能修复&quot;hack&quot;和Kconfig&quot;糟糕选项&quot;</title>
       <link>https://www.phoronix.com/news/Linus-Rejects-Linux-7.1</link>
@@ -854,21 +873,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/NetBSD-11.0-RC3</guid>
       <pubDate>Mon, 06 Apr 2026 14:53:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Wine-Staging 11.6 发布：新增 DirectComposition 支持补丁系列</title>
-      <link>https://www.phoronix.com/news/Wine-Staging-11.6</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Wine Staging新版本发布，属于新软件项目，涉及Linux桌面兼容性技术，用户配置中对新软件项目很感兴趣，列为必看内容</small></p><p>Wine-Staging 11.6 版本已发布，基于上游 Wine 11.6 代码并添加了 285 个额外补丁。本次更新最重要的变化是包含了来自 CodeWeavers 开发者 Zhiyi Zhang 贡献的 65 个补丁系列，这些补丁旨在实现 Microsoft DirectComposition 功能的初步支持。</p>
-
-<p>DirectComposition 是 Windows 组件，用于高性能位图合成，支持变换、效果和动画，是用户界面设计的重要组成部分。这项工作的启动部分源于几个月前的一个合并请求，当时只是简单实现了 DirectComposition 的存根（stub）版本，这个版本已经足以让 Dorico 音乐记谱软件在 Wine 上运行。</p>
-
-<p>然而，仅仅实现存根版本还不足以被上游 Wine 采纳，因此 Zhiyi Zhang 一直在开发一个完整的实现。目前 Wine-Staging 中的这一系列补丁据称已经能够帮助 Steam 平台上的 Corgi Warlock 游戏运行。但要实现完整的 DirectComposition 功能，还需要 dwm.exe 桌面窗口管理器的实现以及可能的图形驱动集成。</p>
-
-<p>除了 DirectComposition 相关补丁外，Wine-Staging 11.6 还更新了 VKD3D 到最新的 Git 代码，并移除了部分 windows.web 补丁。用户可以从 <a href="https://WineHQ.org">WineHQ.org</a> 下载 Wine 11.6 和 Wine-Staging 11.6 版本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Staging-11.6</guid>
-      <pubDate>Mon, 06 Apr 2026 14:15:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
