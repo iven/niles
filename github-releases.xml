@@ -3,7 +3,54 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 15 Apr 2026 22:02:15 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 15 Apr 2026 23:00:01 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.110 发布：新增TUI全屏模式、改进插件管理与多项错误修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.110</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.110 版本，带来多项功能改进和错误修复，主要关注终端用户体验、插件管理和系统稳定性提升。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增终端用户界面（TUI）支持</strong>：添加 <code>/tui</code> 命令和 <code>tui</code> 设置，运行 <code>/tui fullscreen</code> 可在同一对话中切换到无闪烁渲染的全屏模式</li>
+<li><strong>快捷键功能分离</strong>：<code>Ctrl+O</code> 现在仅切换普通和详细转录模式，新增 <code>/focus</code> 命令单独切换焦点视图</li>
+<li><strong>插件管理改进</strong>：<code>/plugin</code> 安装标签页优化，需要关注的项目和收藏项置顶显示，禁用项可折叠隐藏，支持按 <code>f</code> 键收藏选中项</li>
+<li><strong>远程控制增强</strong>：<code>/autocompact</code>、<code>/context</code>、<code>/exit</code> 和 <code>/reload-plugins</code> 命令现在可从远程控制（移动端/网页）客户端使用</li>
+<li><strong>Write工具改进</strong>：在IDE差异查看器中编辑建议内容后再接受时，会通知模型相关内容已修改</li>
+<li><strong>重大错误修复</strong>：修复MCP工具调用在服务器连接中断时无限挂起的问题；解决非流式回退重试导致API不可达时多分钟挂起的问题；修复全屏模式下选择文本时的高CPU使用率问题</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li>新增 <code>autoScrollEnabled</code> 配置，可在全屏模式下禁用对话自动滚动</li>
+<li>新增选项，在 <code>Ctrl+G</code> 外部编辑器中以注释形式显示Claude的最后回复（通过 <code>/config</code> 启用）</li>
+<li><code>/doctor</code> 命令改进，当MCP服务器在多个配置作用域中以不同端点定义时会发出警告</li>
+<li><code>--resume</code>/<code>--continue</code> 现在可恢复未过期的计划任务</li>
+<li>Bash工具现在强制执行文档规定的最大超时值，不再接受任意大的值</li>
+<li>SDK/无头会话现在从环境读取 <code>TRACEPARENT</code>/<code>TRACESTATE</code> 用于分布式跟踪链接</li>
+<li>会话摘要现在对禁用遥测的用户启用（Bedrock、Vertex、Foundry、<code>DISABLE_TELEMETRY</code>），可通过 <code>/config</code> 或 <code>CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0</code> 选择退出</li>
+<li>修复焦点模式下会话摘要、本地斜杠命令输出和其他系统状态行不显示的问题</li>
+<li>修复插件安装不遵循 <code>plugin.json</code> 中声明的依赖关系的问题；<code>/plugin</code> 安装现在列出自动安装的依赖项</li>
+<li>修复通过 <code>/&lt;skill&gt;</code> 在消息中途调用时，带有 <code>disable-model-invocation: true</code> 的技能失败的问题</li>
+<li>修复 <code>--resume</code> 有时显示第一个提示而非 <code>/rename</code> 名称的问题（针对仍在运行或异常退出的会话）</li>
+<li>修复多工具调用轮次中排队消息短暂重复显示的问题</li>
+<li>修复会话清理未完全删除会话目录（包括子代理转录）的问题</li>
+<li>修复CLI重新启动后（如 <code>/tui</code>、提供商设置向导）按键丢失的问题</li>
+<li>修复macOS Terminal.app和其他不支持同步输出的终端中的启动渲染乱码问题</li>
+<li>强化"在编辑器中打开"操作，防止来自不受信任文件名的命令注入</li>
+<li>修复 <code>PermissionRequest</code> 钩子返回 <code>updatedInput</code> 时未重新检查 <code>permissions.deny</code> 规则的问题；<code>setMode:'bypassPermissions'</code> 更新现在尊重 <code>disableBypassPermissionsMode</code></li>
+<li>修复工具调用失败时 <code>PreToolUse</code> 钩子的 <code>additionalContext</code> 被丢弃的问题</li>
+<li>修复向标准输出打印杂散非JSON行的stdio MCP服务器在第一个杂散行时被断开连接的问题（2.1.105版本回归）</li>
+<li>修复设置 <code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC</code> 或 <code>CLAUDE_CODE_DISABLE_TERMINAL_TITLE</code> 时，无头/SDK会话自动标题触发额外Haiku请求的问题</li>
+<li>修复管道（非TTY）Ink输出包含单个非常宽的行时可能过度分配内存的问题</li>
+<li>修复全屏模式下列表溢出模态框时 <code>/skills</code> 菜单不滚动的问题</li>
+<li>修复远程控制会话在会话过旧时显示通用错误而非提示重新登录的问题</li>
+<li>修复从claude.ai进行的远程控制会话重命名未将标题持久化到本地CLI会话的问题</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.110</guid>
+      <pubDate>Wed, 15 Apr 2026 22:07:18 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.5.5 发布：剪贴板修复与快捷键优化</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.5</link>
@@ -1399,24 +1446,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/starship/starship/releases/tag/v1.24.2</guid>
       <pubDate>Tue, 30 Dec 2025 19:11:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Starship v1.24.1 发布：修复 Fish shell 任务计数等问题</title>
-      <link>https://github.com/starship/starship/releases/tag/v1.24.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Starship Shell提示符版本更新，编程工具改进</small></p><p>Starship 发布了 v1.24.1 版本，主要包含三个错误修复，涉及 Fish shell 任务计数、条件变量处理以及目录扫描器的超时警告信息改进。</p>
-
-<h3>主要错误修复</h3>
-<ul>
-<li><strong>修复 Fish shell 任务计数问题</strong>：解决了 <a href="https://github.com/starship/starship/issues/7082">#7082</a> 中报告的任务计数不准确的问题。</li>
-<li><strong>恢复条件变量处理改动</strong>：撤销了先前关于在条件语句中考虑文本元变量的更改（<a href="https://github.com/starship/starship/issues/7103">#7103</a>），回退到更稳定的行为。</li>
-<li><strong>改进目录扫描器超时警告</strong>：优化了目录扫描器在超时情况下的警告信息，使其更清晰易懂（<a href="https://github.com/starship/starship/issues/7120">#7120</a>）。</li>
-</ul>
-
-<p>该版本没有引入新功能，主要专注于提升现有功能的稳定性和用户体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/starship/starship/releases/tag/v1.24.1</guid>
-      <pubDate>Sun, 16 Nov 2025 11:48:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
