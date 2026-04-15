@@ -769,6 +769,36 @@
       "extra": {},
       "level": "optional",
       "reason": "主题为科技巨头对6G网络泼冷水，涉及基础设施技术但主要是商业投资角度，兴趣不明确"
+    },
+    {
+      "title": "宇树：受时间精力限制 仅H1一款机型参赛机器人半马",
+      "link": "https://www.cnbeta.com.tw/articles/tech/1558216.htm",
+      "pubDate": "Wed, 15 Apr 2026 10:50:26 GMT",
+      "description": "\r\n                                                \r\n                                                <p>宇树科技官方确认，将参加4月19日在北京举行的人形机器人半程马拉松。<strong>受时间与精力所限，宇树官方仅派出2023年款H1（微调版）一款机型参赛。</strong>此外，还有众多独立团队基于宇树产品进行自行开发后参赛。</p>                \r\n                        <div class=\"article-global\"></div>                            <p><a href=\"//img1.mydrivers.com/img/20260415/64f3a582008744b495bdbdeed984f144.png\" target=\"_blank\"><img src=\"https://static.cnbetacdn.com/article/2026/0415/ed0455243a28b6f.png\"></a></p><p>宇树科技公布的内部测试数据显示，H1在训练中已取得半马50多分钟的最好成绩。该机型为2023年款H1的微调版本，旨在挑战经典型号自身的性能极限。</p><p>根据官方披露的训练时间线，<strong>H1的速度提升极为迅猛：2月底达到5米/秒以上，3月提升至8米/秒以上，4月进一步飙升至10米/秒。</strong>这一训练成绩的跃升，充分展现了宇树科技在人形机器人运动能力上的快速迭代能力。</p><p>据悉，本次赛事将于4月19日在北京经济技术开发区鸣枪开跑。赛道全长21.0975公里，首次引入南海子公园生态路段，融合平地、坡道、弯道、狭窄路段等10余种地形，包含接近90度的急弯。</p><p>赛事规则明确：自主导航赛队的成绩按实际计时记录，遥控赛队的成绩需乘以1.2的加权系数，以引导技术向自主化方向发展。</p><p><a href=\"//img1.mydrivers.com/img/20260415/60095396f7064b7cb29588eb5da56c96.jpg\" target=\"_blank\"><img src=\"https://static.cnbetacdn.com/article/2026/0415/f955ae3caa142d0.jpg\"></a></p>                        ",
+      "guid": "https://www.cnbeta.com.tw/articles/tech/1558216.htm",
+      "extra": {},
+      "level": "recommended",
+      "reason": "机器人公司参加半程马拉松比赛，涉及机器人技术领域，属于科学前沿进展的感兴趣范畴"
+    },
+    {
+      "title": "Google在Pixel 10调制解调器中引入Rust代码 进一步提高安全性",
+      "link": "https://www.cnbeta.com.tw/articles/tech/1558206.htm",
+      "pubDate": "Wed, 15 Apr 2026 10:47:11 GMT",
+      "description": "\r\n                                                \r\n                                                <p><strong>Google正把安全焦点对准现代智能手机中长期防护薄弱的一块：蜂窝基带。</strong>但公司并非试图推翻重写数十年的调制解调器固件，而是通过在 Pixel \r\n10 调制解调器中引入一个基于 Rust 的 DNS 解析器，来强化这一传统操作系统防御难以覆盖的攻击面。</p>                \r\n                        <div class=\"article-global\"></div>                            <p>Google在多年研究中已经发现，一旦攻击者成功打入基带层面，操作系统常用的沙箱与漏洞缓解机制往往就不再奏效。</p><p style=\"text-align: center;\"><img src=\"https://static.cnbetacdn.com/article/2026/0415/7a75ea6ddad12af.jpg\"></p><p>问题首先出在蜂窝调制解调器的构建方式上。 手机基带实际上相当于一套独立的操作系统，通常使用 C/C++ 编写，运行着体量达数十兆字节的大量闭源代码，负责从信号处理到协议协商的方方面面。 在这种环境下进行内存管理极为困难，结果往往是固件“内存不安全”，容易出现缓冲区溢出、释放后使用、内存泄漏等缺陷，并被串联利用成远程代码执行漏洞。</p><p>Google Project Zero 团队此前已经在 Pixel 所用的 Exynos 调制解调器上，演示了可以通过互联网远程实现代码执行，并整理出二十多个 Exynos 基带漏洞，其中 18 个被评为严重等级。 尽管这些具体缺陷随后陆续被修补，但并未改变底层风险：代码库依旧复杂、闭源且高度暴露在外部攻击面上。 将整套固件彻底改写为使用内存安全语言，在现实中短期几乎不可能。 基带厂商在过去数十年中，围绕 3GPP 规范不断叠加代码层次，其中大量内容被视作商业机密。</p><p>与此同时，基带必须在实时性极高的条件下运行，这也使得 C 和 C++ 长期成为性能优先的自然选择。 其他内存安全语言，如 Python 或 C#，依赖垃圾回收机制，这会带来不可预期的延时抖动，对基带这类对时延极为敏感的负载来说不可接受。 Rust 为Google提供了一条新的路径。 该语言通过所有权与借用模型，在编译阶段强制内存安全，由严格的“借用检查器”而非垃圾回收来把关。 在 Rust 中，某一类内存错误根本无法通过编译，这让它适合用于既要求高性能又需要安全保障的关键组件。</p><p>在当前阶段，Google并未尝试全面重写，而是选定了一个暴露面突出、边界相对清晰的子系统：基带内部的 DNS 解析。 随着蜂窝网络功能不断迁移到基于 IP 的数据网络，DNS 已成为手机查找服务、路由呼叫转移等功能的核心依赖。 DNS 解析器必须接收不受信任的数据包并解析一套相当复杂的协议，当它们以 C 或 C++ 实现时，已经多次被证明会成为可被利用的漏洞源头。</p><p>为强化这一路径，Google选择了 Rust 生态中广泛使用的 hickory-proto DNS 库，该库拥有完善测试与活跃维护。 由于 Pixel 调制解调器并不存在极端严苛的内存限制，团队可以将裁剪后的、基于 no_std 的 hickory-proto 版本直接集成到基带固件中。 在剔除标准库依赖以适应基带约束之后，这些 Rust 组件为固件额外带来的体积约为 371KB。 在新的架构下，抵达调制解调器的 DNS 请求将首先由 Rust 代码处理，然后才可能触及遗留的 C/C++ 路径。 针对恶意 DNS 数据包发起的内存破坏攻击，会优先撞上 Rust 在编译期施加的安全约束，而非开发者手写的指针运算。</p><p>Pixel 10 是首款在调制解调器中搭载 Rust DNS 解析器的设备。 Google将这一举措定位为未来工作的模板：先从最危险、解析逻辑复杂的代码入手，将其隔离并迁移到内存安全的 Rust 环境中，随着时间推移逐步缩小暴露在不受信任数据面前的遗留代码占比。 这一渐进式改造路线，试图在不推翻既有基带生态的前提下，为Android体系中最薄弱的环节加上一道更牢靠的防线。</p>                        ",
+      "guid": "https://www.cnbeta.com.tw/articles/tech/1558206.htm",
+      "extra": {},
+      "level": "critical",
+      "reason": "Google在调制解调器中使用Rust代码提高安全性，涉及编程工具应用和软件安全，属于很感兴趣的编程工具发布/分享范畴"
+    },
+    {
+      "title": "Anthropic推出重构版Claude Code桌面应用 强化并行会话与自动化能力",
+      "link": "https://www.cnbeta.com.tw/articles/tech/1558204.htm",
+      "pubDate": "Wed, 15 Apr 2026 10:45:54 GMT",
+      "description": "\r\n                                                \r\n                                                <p>Anthropic 近期为 Claude 桌面应用推出全新改版的 Claude Code \r\n使用体验，重点围绕“并行会话”进行重构，并引入全新的会话侧边栏、拖拽式工作区布局以及多项开发者工作流整合功能。 \r\n新版侧边栏可在单一界面集中展示所有当前活动及最近使用的会话，用户可以按状态、项目或运行环境进行筛选，并支持按项目对会话进行分组管理。</p>                \r\n                        <div class=\"article-global\"></div>                            <p>同时，新增的侧边聊天快捷键（Command + ;）允许用户在任务运行过程中临时分支出一个提问会话，而不会将额外上下文回灌到主线程，方便排错、验证思路或追加询问。</p><p style=\"text-align: center;\"><img src=\"https://static.cnbetacdn.com/article/2026/0415/1309ea139bede98.jpg\"></p><p>为了将更多开发流程直接收拢到应用内部，Anthropic 这次在桌面端加入了集成终端，用于运行测试和构建任务，并提供内置文件编辑器以便快速修改代码。 应用内的 diff 比对视图也经过重写，重点针对大规模变更集进行优化，同时扩展预览面板，对 HTML 文件、PDF 文档以及本地应用服务器的内容均可直接预览。 所有面板均支持拖放调整布局，用户可以自由安排终端、编辑器、预览与会话窗口的位置，以适应不同项目和个人偏好。</p><p style=\"text-align: center;\"><iframe width=\"864\" height=\"486\" src=\"//www.youtube.com/embed/rWaQSQEm_aY\" title=\"\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe></p><p>在插件支持方面，新版桌面应用已与 Claude Code 的命令行工具保持一致，并在平台支持上补齐了 SSH 会话，现已可在 macOS 与 Linux 上使用远程 SSH 功能。 此外，桌面端还提供三种视图模式——Verbose（详细）、Normal（普通）和 Summary（摘要），用户可以按需决定希望看到多少 Claude 工具调用与内部活动信息，从而在调试透明度和界面简洁之间取得平衡。 这次更新目前正面向订阅 Claude Code 的 Pro、Max、Team 和 Enterprise 付费方案用户逐步推送。</p><p>除桌面应用改版之外，Anthropic 还同步发布了名为 Routines 的新功能，用于在无需保持活跃会话的前提下运行 Claude Code 自动化任务。 每个 Routine 会将提示词、代码仓库以及相关连接器打包为单一配置，可按预设时间表定时执行、通过 API 调用触发，或在 GitHub 出现特定事件（如新建拉取请求）时自动启动。 这些自动化任务运行在 Claude Code 的云端基础设施上，而非本地机器，Anthropic 也为不同订阅方案设置了随档位提升的每日运行次数上限，以控制资源消耗。 Routines 目前以“研究预览”形式向启用了 Claude Code Web 端功能的 Pro、Max、Team 和 Enterprise 用户开放，更多技术细节可在 Anthropic 官方博客进一步查阅。</p>                        ",
+      "guid": "https://www.cnbeta.com.tw/articles/tech/1558204.htm",
+      "extra": {},
+      "level": "critical",
+      "reason": "Anthropic发布重构版Claude Code桌面应用，属于AI编程工具发布，符合很感兴趣的新AI模型/编程工具发布范畴"
     }
   ]
 }
