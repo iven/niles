@@ -3,7 +3,43 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 15 Apr 2026 12:05:39 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 15 Apr 2026 14:03:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux Sched QoS：受苹果QoS启发的新调度方案发布alpha版本</title>
+      <link>https://www.phoronix.com/news/Linux-Sched-QoS-v0.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲Linux调度器QoS改进技术，属于Linux桌面技术范畴，而来源配置中Linux桌面技术为感兴趣级别，故推荐阅读</small></p><p>Google的Linux开发者Qais Yousef近日宣布了Sched QoS的alpha版本，这是一个基于用户空间辅助调度的新方案，旨在改善Linux系统的调度性能。该调度模型部分借鉴了苹果iOS中使用的服务质量（QoS）类别，用于将应用程序分类为用户交互型、用户主动型、实用工具型或后台任务型。</p>
+
+<p>由于Linux运行的硬件平台多样且工作负载范围广泛，Sched QoS通过配置提示机制，允许管理员根据不同应用程序的功耗/性能期望为其标记相应的QoS类别。开发者表示当前设置已可用，能为感兴趣的用户提供实际效果，但在全面测试中可能会暴露出一些边缘情况。</p>
+
+<p>初步结果显示，Sched QoS有望带来更响应的用户体验，并可能提升吞吐量，但目前某些错误导致了延迟问题。项目仍在积极开发中，包括多模态唤醒路径、唤醒与负载均衡器之间的连贯决策、基于推送的公平负载均衡等功能的实现工作正在进行。</p>
+
+<p>感兴趣的用户可以查看<a href="https://lore.kernel.org/lkml/">Linux内核邮件列表</a>上宣布该项目及其v0.1 alpha版本的帖子，以及去年东京Linux Plumbers Conference上关于用户空间辅助调度的<a href="https://lpc.events/">相关演示</a>。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=sched_qos_med" alt="Sched QoS slide" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Sched-QoS-v0.1</guid>
+      <pubDate>Wed, 15 Apr 2026 13:18:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.1 为 clone3() 系统调用新增自动回收和进程管理标志</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-clone3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Linux 7.1内核新增的clone3()系统调用特性，属于软件新功能，全局配置中软件新功能为感兴趣级别，且属于编程工具改进，应该推荐</small></p><p>Linux 7.1 内核为 clone3() 系统调用引入了三个新的标志位，旨在提供更精细的子进程创建控制。这些改进主要针对容器运行时、服务管理器和沙箱环境等场景。</p>
+
+<p>新增的标志包括：</p>
+
+<ul>
+<li><strong>CLONE_AUTOREAP</strong>：使用此标志创建的子进程在退出时会自动回收，避免了成为僵尸进程的可能性。</li>
+<li><strong>CLONE_PIDFD_AUTOKILL</strong>：将子进程的生命周期与 clone3() 返回的进程ID文件描述符（PIDFD）绑定。当父进程崩溃时，子进程会自动终止，这对于容器运行时和服务管理器特别有用。</li>
+<li><strong>CLONE_NNP</strong>：在创建时强制执行"无新权限"行为，类似于 prctl 的 no_new_privs 标志，有利于采用"创建即沙箱"的方法。</li>
+</ul>
+
+<p>这些改进已通过拉取请求合并到 Linux 7.1 内核中，为系统编程和容器化环境提供了更好的进程管理和安全性控制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-clone3</guid>
+      <pubDate>Wed, 15 Apr 2026 12:45:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Linux 7.1 内核移除不必要的内存破坏标记以优化性能</title>
       <link>https://www.phoronix.com/news/Linux-7.1-x86-asm</link>
@@ -834,42 +870,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Updates-Exception-Fedora</guid>
       <pubDate>Tue, 07 Apr 2026 10:09:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Lemonade 10.1发布：为AMD GPU和NPU上的本地LLM带来最新改进</title>
-      <link>https://www.phoronix.com/news/Lemonade-10.1-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是AI软件工具发布，核心是AI技术进展，AMD硬件只是支持平台，用户对AI软件技术感兴趣</small></p><p>Lemonade SDK 10.1版本已正式发布，这是继上月10.0版本后的又一次重要更新，专注于提升在AMD硬件上运行本地大语言模型（LLM）的体验。该版本为Windows和Linux用户提供了更完善的本地AI应用支持。</p>
-
-<p>Lemonade 10.1主要针对AMD Ryzen及Ryzen AI神经处理单元（NPU）硬件优化，同时也兼容现代x86_64 CPU作为备用方案。此次更新带来了多项实用改进，其中最显著的是命令行界面的全面优化。新的CLI被描述为"更加友好"的交互方式，<code>lemonade-server</code>现已简化为<code>lemonade</code>，使用更加便捷。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=lemonade_new_cli" alt="Lemonade new CLI" />
-
-<p><code>lemonade launch</code>子命令获得多项增强：用户现在可以从列表中选择模型，无需手动输入完整名称；异步模型加载功能已恢复；新增<code>--api-key</code>参数支持API密钥认证。此外，该版本还引入了"超级充电"编码功能，通过改进的<code>lemonade launch codex|claude</code>提升开发效率。</p>
-
-<p>在图像处理方面，Lemonade 10.1新增了对生成图像的超分辨率放大支持。同时，该版本开始支持在GPU上运行Gemma 4模型，进一步扩展了模型兼容性。</p>
-
-<p>用户可通过GitHub获取Lemonade 10.1的开源代码，同时提供Linux AppImage构建包、Ubuntu PPA源以及Fedora RPM包，方便不同发行版用户安装使用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Lemonade-10.1-Released</guid>
-      <pubDate>Tue, 07 Apr 2026 09:59:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Mesa 图形驱动社区制定两项生成式 AI 开发政策</title>
-      <link>https://www.phoronix.com/news/Mesa-Two-Gen-AI-Policies</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述Mesa图形驱动项目采用AI开发政策，涉及Linux桌面技术和AI软件技术进展，用户对这两方面均感兴趣</small></p><p>Mesa 图形驱动开发社区近日通过了两项关于生成式 AI（GenAI）的新政策，这些政策已合并到 Mesa 26.1 Git 中，将指导未来的开发工作。</p>
-
-<p>第一项政策规定，除非获得社区共识，否则 Mesa 不接受通过任何自主生成式 AI 工具自动提交的代码。这意味着即使使用 AI 生成补丁，也必须由真人开发者负责提交合并请求并与社区其他开发者互动。</p>
-
-<p>第二项政策要求必须披露生成式 AI 的使用情况。Mesa 会尊重通过生成式 AI/大型语言模型（LLM）做出的贡献，但开发者必须适当披露，让用户清楚了解补丁是否由 AI 生成或辅助生成。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mesa_2_genai" alt="Mesa GenAI 文档添加内容" />
-
-<p>这些政策是在先前 Mesa 贡献者指南和上游开发者讨论的基础上制定的，代表了开发社区的共识。政策的实施旨在确保代码质量，同时适应 AI 辅助开发的新趋势。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Two-Gen-AI-Policies</guid>
-      <pubDate>Mon, 06 Apr 2026 22:24:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
