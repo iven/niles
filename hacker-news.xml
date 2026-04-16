@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 16 Apr 2026 17:50:15 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 16 Apr 2026 19:37:39 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Mozilla 推出 Thunderbolt AI 客户端引发社区争议</title>
+      <link>https://news.ycombinator.com/item?id=47792368</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲 Mozilla 推出的 Thunderbolt AI 客户端（开源项目，AI 软件技术进展），符合用户感兴趣的领域，但非必看内容</small></p><p>Mozilla 宣布推出名为 Thunderbolt 的开源、跨平台、可扩展 AI 客户端，这一消息在 Hacker News 社区引发了广泛争议和批评。</p>
+
+<p>许多用户对 Mozilla 的这一新产品表示不满，认为公司应该将资源集中在核心产品 Firefox 浏览器的开发上。有评论者指出："Mozilla，为什么你们不专注于 Firefox？这才是我们想要的。" 用户普遍担心 Mozilla 分散精力开发非核心产品会影响 Firefox 的竞争力。</p>
+
+<p>社区反馈显示多个主要争议点：</p>
+<ul>
+<li><strong>产品命名问题</strong>：Thunderbolt 与 Mozilla 现有的邮件客户端 Thunderbird 名称过于相似，容易造成混淆</li>
+<li><strong>资源分配担忧</strong>：用户认为 Mozilla 应该优先改善 Firefox 的性能和功能，而不是开发新的 AI 工具</li>
+<li><strong>产品必要性质疑</strong>：在已有众多 AI 前端工具的市场中，Thunderbolt 的差异化优势不明显</li>
+<li><strong>历史包袱</strong>：用户提及 Mozilla 过去失败的产品尝试，如 Firefox OS，担心 Thunderbolt 可能重蹈覆辙</li>
+</ul>
+
+<p>有用户提到 Firefox 在性能基准测试中落后于 Chrome，认为 Mozilla 应该专注于提升浏览器竞争力，避免浏览器市场出现垄断局面。同时，也有评论对 Mozilla 的财务独立性表示理解，指出公司需要减少对 Google 广告收入的依赖。</p>
+
+<p>尽管存在争议，部分用户仍对 Thunderbolt 表示期待，认为 Mozilla 在隐私保护方面比许多其他公司更值得信任。根据 FAQ，Mozilla 计划推出托管版本供普通用户使用，但目前尚未确定发布日期。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47792368</guid>
+      <pubDate>Thu, 16 Apr 2026 13:01:36 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Anthropic发布Claude Opus 4.7模型，软件工程能力显著提升</title>
       <link>https://news.ycombinator.com/item?id=47793411</link>
@@ -1418,34 +1441,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47700388</guid>
       <pubDate>Thu, 09 Apr 2026 07:27:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 面向软件开发者的USB：编写用户空间USB驱动入门指南</title>
-      <link>https://news.ycombinator.com/item?id=47695012</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] USB驱动程序开发入门指南，属于编程工具分享范畴，用户很感兴趣</small></p><p>本文打破了编写USB驱动必须涉及内核代码的常见误解，展示了如何通过libusb库在用户空间与USB设备通信，就像使用网络套接字一样简单。文章以Android手机进入Bootloader模式为例，提供了从设备枚举到实际通信的完整实践指南。</p>
-
-<p>文章首先演示了使用<code>lsusb</code>工具手动枚举设备，获取厂商ID（VID）和产品ID（PID）等基本信息。随后介绍了如何通过libusb库编写C++程序，注册热插拔事件回调来检测特定设备的插入，整个过程无需编写任何内核代码。</p>
-
-<p>在设备通信部分，文章详细讲解了如何通过控制端点（Endpoint 0x00）发送标准化请求。示例代码展示了发送GET_STATUS请求获取设备状态，以及发送GET_DESCRIPTOR请求获取设备描述符。设备描述符是USB设备向主机报告自身能力的关键数据结构，包含设备类型、支持的协议等信息。</p>
-
-<img src="/_astro/device_descriptor_imhex.D0THRM7T_Z1gwRns.webp" alt="USB Device Descriptor, decoded using ImHex" width="1375" height="857" />
-
-<p>文章还解析了设备描述符的二进制结构，并介绍了其他描述符类型，如配置描述符、接口描述符和端点描述符。通过<code>lsusb -v</code>命令可以查看设备的完整描述符信息，了解设备支持的所有端点和接口。</p>
-
-<p>在Hacker News社区的讨论中，有开发者质疑这种方法的实际驱动性质，认为这更像是应用程序代码而非真正的驱动。作者回应称，在Linux上可以通过创建tun/tap设备与内核网络子系统交互。其他讨论包括：</p>
-<ul>
-<li>USB转以太网等标准设备通常已有通用驱动支持</li>
-<li>用户空间驱动在Windows上的优势（避免驱动签名问题）</li>
-<li>Go和Rust的USB库推荐</li>
-<li>macOS系统对覆盖系统已识别USB设备驱动的限制</li>
-<li>实际应用案例：非标准MIDI设备驱动开发</li>
-</ul>
-
-<p>文章为那些需要与自定义USB设备交互但不想深入内核开发的开发者提供了实用的入门指导，展示了用户空间USB编程的可行性和便利性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47695012</guid>
-      <pubDate>Wed, 08 Apr 2026 19:23:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
