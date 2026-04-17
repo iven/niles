@@ -3,7 +3,72 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 17 Apr 2026 23:00:41 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 17 Apr 2026 23:55:38 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Discourse明确表态：不会转向闭源，坚持开源应对AI时代安全挑战</title>
+      <link>https://news.ycombinator.com/item?id=47802233</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讨论开源项目Discourse在AI时代坚持开源的商业策略，涉及开源项目和AI影响主题，与用户对开源项目的兴趣匹配</small></p><p>在Cal.com宣布因AI安全威胁而关闭源代码后，Discourse创始人Sam Saffron发表长文明确表示，经过13年公开开发，Discourse将继续保持开源。文章深入分析了开源与闭源在AI时代的安全优劣，并揭示了公司选择闭源背后的真实商业考量。</p>
+
+<h3>Cal.com的闭源决定与Discourse的坚定回应</h3>
+<p>Cal.com近日宣布将关闭代码库，不再作为开源产品运营。其核心论点是：AI使得开源对SaaS公司过于危险，代码会被AI以近乎零成本扫描和利用，透明度变成了暴露风险。对此，Discourse创始人Sam Saffron表示理解行业快速变化带来的压力，但坚决不同意闭源是应对安全风暴的解决方案。</p>
+
+<p>Saffron强调：“我们是开源的，我们一直是开源的，我们将继续是开源的。”自2013年Discourse在GitHub上发布第一个提交以来，其代码库一直采用GPLv2许可证，这一立场不会改变。</p>
+
+<h3>开源在AI时代的安全优势</h3>
+<p>文章指出，Cal.com的闭源论点基于一个假设：如果攻击者能阅读代码，AI会让他们比防御者更快地利用漏洞。虽然AI确实改变了漏洞发现的速度，但Saffron认为这种思路忽略了几个关键点：</p>
+
+<ul>
+<li>同样的AI系统无需源代码也能在编译后的二进制文件和黑盒API中发现漏洞</li>
+<li>Web应用的大量代码（JavaScript、API合约、客户端流程等）已经直接交付到用户浏览器，攻击者可以检查这些内容</li>
+<li>闭源主要隐藏了服务器端实现细节，但并未使系统不可见，反而减少了能够检查完整情况的防御者数量</li>
+</ul>
+
+<p>Saffron以Linux为例说明：“世界上最重要的互联网基础设施运行在开源软件上。这些代码暴露在攻击者、防御者、研究人员、云供应商和全球维护者的持续审查之下。它被无情地攻击，但也因此被无情地加固。”这就是开源安全的真正教训：透明度不能消除风险，但能实现更大的防御响应。</p>
+
+<h3>AI改变了安全计算，但依然有利于开源</h3>
+<p>文章承认，AI驱动的扫描工具现在可以在几小时内发现过去需要人类研究员数周才能发现的安全问题。OpenAI的Codex Security在30天测试期内扫描了超过120万次外部仓库提交，识别了792个关键发现和10,561个高严重性发现。</p>
+
+<p>但关键问题是：谁可以使用这些工具？如果代码是开源的，安全团队、贡献者和独立研究人员都可以扫描它。这不能保证防御者总是最先到达，但大大增加了能够帮助早期发现真实问题的人数。如果代码是闭源的，攻击者仍然可以从外部研究产品，而只有内部团队能直接访问完整代码。这不是减少暴露，而是减少防御能力。</p>
+
+<h3>公司选择闭源的真正原因</h3>
+<p>Saffron试图公平对待Cal.com，认为他们并非恶意行事，但安全论点实际上是其他决策的方便框架：</p>
+
+<ul>
+<li><strong>竞争压力</strong>：如果代码开放，竞争对手可以阅读你的架构和产品思路。当资金充足的竞争对手分叉你的仓库并以半价提供托管版本时，这种痛苦会加剧</li>
+<li><strong>治理问题</strong>：开源社区会反对他们不喜欢的决策，提交问题，进行分叉。管理这些很耗精力，关闭代码能立即停止噪音</li>
+<li><strong>投资者压力</strong>：投资者会问为什么要把他们刚刚资助的东西送人</li>
+</ul>
+
+<p>Saffron认为这些都是合理的商业压力，但它们是商业决策，而非安全决策。将商业决策框定为安全必要性，对帮助Cal.com取得今天成就的开源生态系统是一种损害。</p>
+
+<h3>Discourse在2026年的安全实践</h3>
+<p>Discourse团队已经深入采用AI安全扫描：</p>
+<ul>
+<li>每个发布周期都部署最新的AI漏洞扫描器（目前是GPT-5.4 xhigh，接下来是Opus 4.7 max）进行多日深度分析</li>
+<li>扫描过程采用多步骤验证：首先批量扫描控制器，然后对每个候选漏洞，指导代理在完整Discourse环境的容器中编写失败测试进行验证</li>
+<li>全代码库扫描目前成本低廉，因为受到大量补贴。OpenAI对Discourse的全源代码扫描零售价可能为2000美元，但在每月200美元的计划中只需约50美元</li>
+<li>由于代码公开，漏洞赏金计划效果更好，安全研究人员无需逆向工程即可进行有意义的分析</li>
+</ul>
+
+<h3>社区讨论要点</h3>
+<p>Hacker News上的讨论涵盖了多个角度：</p>
+<ul>
+<li>有用户认为Cal.com的行为实际上是“恶意行为”，因为将商业决策包装为安全必要性是不诚实的</li>
+<li>关于JavaScript安全性的讨论，有用户建议回归多页面应用以减少安全风险</li>
+<li>对开源安全性的不同看法，有用户提到xz utils后门事件，认为开源不自动意味着更好安全</li>
+<li>对Discourse产品本身的批评，包括加载性能、搜索功能等问题</li>
+<li>有开发者表示，在AI辅助下，隐藏源代码已无法形成护城河，反向工程二进制文件变得更容易</li>
+</ul>
+
+<h3>对开源生态系统的责任</h3>
+<p>Saffron最后强调，Discourse因开源而存在，建立在Ruby、Rails、PostgreSQL、Redis、Ember、Linux等开源项目之上。他写道：“开源没有死亡。但正确进行安全需要勇气，而不是退回到锁着的门后希望没人有钥匙。我们已经这样做了13年，我们将继续这样做。”</p>
+
+<p>文章以强有力的声明结束：在AI驱动的攻击时代，最好的防御是AI驱动的防御，由尽可能多的人部署，针对他们实际可以阅读的代码。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47802233</guid>
+      <pubDate>Fri, 17 Apr 2026 03:36:26 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 实测：Claude Opus 4.7 分词器导致会话成本增加 20-30%</title>
       <link>https://news.ycombinator.com/item?id=47807006</link>
@@ -1430,69 +1495,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47721953</guid>
       <pubDate>Fri, 10 Apr 2026 18:35:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 疯狂实验：安装所有84,000个Firefox扩展并分析浏览器生态系统</title>
-      <link>https://news.ycombinator.com/item?id=47724118</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章是关于Firefox扩展生态系统的实验分析，涉及编程和开源软件领域，符合用户对编程工具和开源项目的兴趣。</small></p><p>一位开发者进行了一项极端实验：尝试安装Firefox扩展商店中的所有扩展（约84,000个），并深入分析了整个扩展生态系统的现状。</p>
-
-<img src="/_astro/launch.fuIAiunJ_ZtRu8u.png" alt="May's Firefox open on Attempt 11" width="800" height="574" />
-
-<h3>数据抓取与统计分析</h3>
-<p>作者首先通过Firefox扩展商店的公开API抓取了所有扩展数据。最初使用常规搜索仅获得约30,000个扩展，后来通过组合不同的排序方式（按创建时间、评分、热度等）和分类筛选，最终成功获取了84,235个唯一扩展的完整数据集，总大小约49.3GB，平均每个扩展584.9kB。</p>
-
-<p>统计分析显示：</p>
-<ul>
-<li>最大的扩展是"dmitlichess"，达196.3MB，包含2000多个音频文件</li>
-<li>34.3%的扩展没有日常用户，19%的扩展既无用户、无评价、无截图、无下载也无图标</li>
-<li>76.7%的扩展是开源的，2.4%需要付费</li>
-<li>最活跃的开发者"Dr. B"发布了84个扩展，全部采用"vibe coded"方式开发</li>
-</ul>
-
-<h3>安装尝试与浏览器状态</h3>
-<p>作者通过脚本批量下载所有扩展的.xpi文件，并尝试在Firefox中安装。安装过程遇到了多重挑战：</p>
-
-<img src="/_astro/xpi-select.Doz-Ecll_Zak7FD.webp" alt="The 'select add-on to install' dialog is Not Responding as I try to select all" width="1420" height="787" />
-
-<p>首次尝试时，安装对话框因选择过多扩展而无响应。最终通过直接操作扩展文件夹的方式成功安装了绝大多数扩展。安装后，Firefox出现了严重性能问题：</p>
-<ul>
-<li>内存使用量飙升至32GB以上</li>
-<li>浏览器频繁卡顿和无响应</li>
-<li>上下文菜单被大量扩展选项淹没</li>
-<li>新标签页下拉菜单变得异常庞大</li>
-</ul>
-
-<img src="/_astro/context-menu.D0MVKa2F_nDT8a.webp" alt="Context menu bloated with a lot of extensions" width="1440" height="513" />
-
-<h3>生态系统中的问题发现</h3>
-<p>在分析过程中，作者发现了扩展生态系统的多个问题：</p>
-
-<ol>
-<li><strong>钓鱼扩展</strong>：发现了使用西里尔字母同形异义词的虚假钱包扩展（如"Іron Wаllеt"），这些扩展会从远程服务器获取钓鱼页面。有趣的是，其中一个扩展的API密钥具有写权限，作者直接清空了其用于存储钓鱼URL的电子表格。</li>
-
-<li><strong>SEO垃圾</strong>：大量AI生成的扩展包含赌博网站链接，试图通过扩展页面获取反向链接。</li>
-
-<li><strong>潜在不需要的应用程序（PUAs）</strong>：发现了"Innover Online Group Ltd"等公司发布的一系列扩展，这些扩展通常包含自定义搜索功能（使用Yahoo联盟代码），总计拥有超过70万用户。部分扩展已被Mozilla禁用。</li>
-
-<li><strong>评分操纵</strong>：钓鱼扩展存在明显的评分操纵行为，有的拥有大量模板化的1星评价，有的则被刷了大量4星评价。</li>
-</ol>
-
-<img src="/_astro/1-star.CXwdwkkq_14u9G1.webp" alt="A phishing extension has 1,672 1-star reviews, which all use the same template" width="1842" height="1706" />
-
-<h3>性能瓶颈发现</h3>
-<p>实验意外发现了一个Firefox的性能问题：当扩展数量极大时，管理扩展的<code>extensions.json</code>文件会成为瓶颈。该文件采用全量序列化写入方式，每20毫秒去抖动写入一次，这在处理少量扩展时表现良好，但面对84,194个扩展时会导致严重延迟。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News社区的评论者对这个实验表示赞赏，有人将其比作"为几乎不懂电脑的老年人浏览网页的体验"。也有用户关注实验中发现的性能问题，认为这对于拥有1亿用户的软件来说值得优化。</p>
-
-<h3>你知道吗？</h3>
-<p>实验中发现的"Innover Online Group Ltd"等公司运营的扩展网络，通过发布功能相似的扩展（如"地图助手"、"包裹追踪标签"等）并集成自定义搜索来获取联盟收入。这些扩展通常在Firefox版本中包含Yahoo搜索联盟代码，而在Chrome版本中则没有，这可能与平台政策差异有关。这种商业模式在扩展生态系统中并不罕见，显示了浏览器扩展作为流量获取工具的潜在价值。</p>
-
-<p>作者已将完整的扩展数据集上传至Hugging Face，并提供了改进后的抓取脚本，避免其他人重复这项工作。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47724118</guid>
-      <pubDate>Fri, 10 Apr 2026 21:56:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
