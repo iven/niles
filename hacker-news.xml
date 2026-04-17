@@ -3,7 +3,34 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 17 Apr 2026 13:57:48 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 17 Apr 2026 15:13:49 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 研究人员使用Codex AI成功攻击三星智能电视并获取root权限</title>
+      <link>https://news.ycombinator.com/item?id=47791212</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章核心讲述Codex AI在安全研究中的应用，属于AI软件技术进展，用户配置为感兴趣，推荐阅读</small></p><p>研究人员展示了如何使用OpenAI的Codex AI模型攻击三星智能电视，从浏览器应用的代码执行权限成功提升到root权限。这项研究为AI在网络安全领域的应用提供了新的视角。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!3p6C!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9f73e98b-8a92-499b-9590-66d5997c387b_4032x3024.jpeg" alt="The subject" width="4032" height="3024" />
+
+<p>研究团队为Codex提供了一个特殊的环境：他们已经在三星电视的浏览器应用中获得了代码执行权限，并且拥有对应固件的源代码。Codex的任务是利用这些资源找到漏洞并实现权限提升。</p>
+
+<p>Codex首先分析了系统环境，发现了一组名为ntk*的世界可写设备节点。通过审计固件源代码，它发现<code>/dev/ntksys</code>设备存在严重安全漏洞：该驱动允许用户空间程序映射任意物理内存到自己的地址空间，而没有任何权限检查。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!JU0D!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb97d327d-d5d0-40b8-abb5-9a756f71c61e_980x620.png" alt="The harness" width="980" height="620" />
+
+<p>利用这个物理内存映射原语，Codex编写了一系列工具：首先从<code>/dev/ntkhdma</code>获取已知的物理地址进行测试验证，然后扫描内存寻找浏览器进程的凭证结构（cred structure）。找到目标后，Codex覆盖了凭证中的用户ID和组ID字段，将进程权限提升为root。</p>
+
+<p>整个攻击过程需要研究人员提供一定的指导和约束。Codex有时会偏离方向，需要人工干预将其引导回正确路径。研究人员与AI的互动记录显示，他们使用了类似"bro"这样的非正式语言进行交流。</p>
+
+<p>在Hacker News的讨论中，社区成员提出了各种观点：有人认为提供固件源代码是一个重要前提；有人讨论AI在逆向工程中的实际能力；还有人指出嵌入式设备安全问题的普遍性，认为这是供应链问题导致的后果。</p>
+
+<p>这项研究展示了AI在漏洞发现和利用开发方面的潜力，同时也凸显了当前智能设备安全性的脆弱性。研究人员表示，下一步可能会尝试让AI完成端到端的完整攻击链。</p>
+
+<p><strong>你知道吗？</strong>在Linux内核中，每个进程都有一个凭证结构（cred structure），包含了进程的用户ID、组ID、能力集等信息。当进程执行特权操作时，内核会检查这些凭证。通过直接修改内存中的凭证结构，攻击者可以绕过正常的权限检查机制，实现权限提升。这种攻击方式被称为"数据流攻击"，与传统的控制流攻击（如ROP）不同，它不依赖于控制内核执行流程，而是直接修改关键数据。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47791212</guid>
+      <pubDate>Thu, 16 Apr 2026 10:44:45 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Clojure官方纪录片发布：讲述函数式编程语言的发展历程与社区影响</title>
       <link>https://news.ycombinator.com/item?id=47798345</link>
@@ -1405,25 +1432,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47720419</guid>
       <pubDate>Fri, 10 Apr 2026 16:22:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GitButler 获 1700 万美元融资，声称构建 Git 的下一代替代方案</title>
-      <link>https://news.ycombinator.com/item?id=47712656</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲 GitButler 这款编程工具获得融资并声称要构建 Git 的下一代替代方案，属于编程工具发布/分享范畴，用户配置为 high_interest</small></p><p>GitButler 公司宣布完成 1700 万美元的 A 轮融资，目标是开发下一代软件开发基础设施，声称要构建"Git 之后的东西"。该公司由 GitHub 联合创始人 Scott Chacon 共同创立。</p>
-
-<img src="https://gitbutler-docs-images-public.s3.us-east-1.amazonaws.com/linux-cli-announcement.webp" alt="Announcing the GitButler CLI for Linux" />
-
-<p>GitButler 最近发布了其命令行工具 But，并宣布支持 Linux 平台。然而，社区对此反应复杂。Hacker News 上的讨论显示，许多开发者质疑 GitButler 是否真的是 Git 的替代品，还是仅仅在 Git 之上构建的抽象层。</p>
-
-<p>评论中有人提到现有的版本控制替代方案，如 <a href="https://github.com/martinvonz/jj">Jujutsu (jj)</a>，该工具采用快照模型，被认为更适合 AI 辅助开发。其他开发者则对需要如此巨额资金来"击败 Git"表示怀疑，并指出 Git 虽然存在问题，但由于其普及性和网络效应，很难被取代。</p>
-
-<p>值得注意的是，有评论指出 GitButler 的创始人背景可能是获得融资的关键因素之一。同时，也有开发者认为版本控制工具领域的竞争是有益的，Git 虽然优秀，但行业不需要单一文化。</p>
-
-<p>整体而言，社区对 GitButler 的愿景持谨慎态度，既期待创新，又对实际产品能否真正超越 Git 持怀疑态度。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47712656</guid>
-      <pubDate>Fri, 10 Apr 2026 01:52:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
