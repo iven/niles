@@ -3,7 +3,74 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 17 Apr 2026 18:01:27 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 17 Apr 2026 19:19:39 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 实测：Claude Opus 4.7 分词器导致会话成本增加 20-30%</title>
+      <link>https://news.ycombinator.com/item?id=47807006</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Claude Opus分词器的性能实测，属于AI软件技术进展的具体分析，用户配置为感兴趣类别</small></p><p>一项详细分析显示，Anthropic 最新发布的 Claude Opus 4.7 模型虽然标价未变，但由于其新的分词器（tokenizer）设计，实际使用成本显著增加。</p>
+
+<img src="https://media.beehiiv.com/cdn-cgi/image/fit=scale-down,quality=80,format=auto,onerror=redirect/uploads/user/profile_picture/a49d6fd3-0a5e-4774-ae9c-16979bd47642/Generated_Image_March_03__2026_-_1_55PM.jpg.jpeg" alt="Abhishek Ray" />
+
+<h3>核心发现</h3>
+<p>作者 Abhishek Ray 通过实际测量发现：</p>
+<ul>
+<li>Anthropic 官方文档声称 4.7 分词器使用的 token 数量是 4.6 的 1.0-1.35 倍</li>
+<li>但在真实技术文档上，实测比例达到 1.47 倍</li>
+<li>在真实的 CLAUDE.md 文件上，比例为 1.445 倍</li>
+<li>英语和代码内容的加权平均比例为 1.325-1.345 倍</li>
+<li>CJK（中日韩）内容基本不变，比例为 1.01 倍</li>
+</ul>
+
+<h3>成本影响</h3>
+<p>以一个典型的 80 轮 Claude Code 会话为例：</p>
+<ul>
+<li>4.6 版本会话成本约 $6.65</li>
+<li>4.7 版本会话成本约 $7.86-$8.76</li>
+<li>成本增加约 20-30%</li>
+</ul>
+<p>成本增加的主要原因是：相同的会话内容现在需要更多的 token 来表示，特别是英语和代码内容。</p>
+
+<h3>性能提升有限</h3>
+<p>作者使用 IFEval 基准测试评估了指令遵循能力的提升：</p>
+<ul>
+<li>在严格评估模式下，4.7 比 4.6 提升了 4-5 个百分点</li>
+<li>在宽松评估模式下，两者表现相同</li>
+<li>提升幅度较小，样本量有限（N=20）</li>
+</ul>
+
+<h3>社区反馈</h3>
+<p>Hacker News 社区对此反应不一：</p>
+<ul>
+<li>一些用户报告实际使用中 token 消耗增加 20-30%</li>
+<li>有用户表示 4.7 感觉更啰嗦，可能移除了简洁回应的系统提示</li>
+<li>部分用户发现 4.7 的幻觉问题似乎更严重</li>
+<li>也有用户表示在 Team Pro 账户上使用体验良好，速度更快</li>
+<li>关于成本效益的讨论：<a href="https://www.tobyord.com/writing/hourly-costs-for-ai-agents">Toby Ord 的 AI 代理小时成本分析</a>被引用</li>
+</ul>
+
+<h3>技术细节</h3>
+<p>分词器的变化模式：</p>
+<ul>
+<li>英语和代码内容受影响最大（1.20-1.47 倍）</li>
+<li>代码比普通散文受影响更严重</li>
+<li>英语的字符/令牌比从 4.33 降至 3.60</li>
+<li>TypeScript 的字符/令牌比从 3.66 降至 2.69</li>
+</ul>
+
+<h3>缓存影响</h3>
+<p>由于分词器变化，4.7 无法复用 4.6 的缓存：</p>
+<ul>
+<li>首次使用 4.7 时所有缓存失效</li>
+<li>缓存内容体积按比例增加</li>
+<li>相同会话在不同模型下 token 计数不同</li>
+</ul>
+
+<p>文章结论是，用户需要为有限的指令遵循能力提升支付 20-30% 的额外成本，是否值得取决于具体使用场景。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47807006</guid>
+      <pubDate>Fri, 17 Apr 2026 15:29:36 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Anthropic 发布 Claude Design：AI 驱动的设计协作工具</title>
       <link>https://news.ycombinator.com/item?id=47806725</link>
@@ -1426,27 +1493,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47724118</guid>
       <pubDate>Fri, 10 Apr 2026 21:56:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>CPU-Z和HWMonitor官方网站遭黑客入侵，下载链接被替换为恶意软件</title>
-      <link>https://news.ycombinator.com/item?id=47717847</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 网络安全事件，涉及知名软件工具官网被黑客入侵。虽不属于用户明确感兴趣的技术进展或编程相关内容，但网络安全话题有一定普遍关注度，分级为可选阅读</small></p><p>CPUID公司的官方网站近期遭到黑客入侵，导致其热门系统监控工具CPU-Z和HWMonitor的下载链接被替换为恶意软件。攻击发生在4月9日至10日约6小时的时间窗口内，期间访问官网的用户可能会下载到信息窃取恶意程序而非正常的软件安装包。</p>
-
-<p>根据安全分析，攻击者并未直接篡改软件二进制文件本身，而是入侵了网站后端的一个API组件，随机将官方下载链接指向恶意文件。其中一个明显的迹象是HWMonitor 1.63更新指向了一个名为"HWiNFO_Monitor_Setup.exe"的文件，这明显不是正常的安装程序。</p>
-
-<p>恶意软件分析显示，该程序针对64位HWMonitor用户，包含一个伪装成Windows系统组件CRYPTBASE.dll的恶意DLL文件。该DLL会连接到命令与控制服务器下载额外载荷，并尝试尽可能避免写入磁盘，主要通过PowerShell在内存中运行。恶意软件还会下载并编译.NET载荷，注入到其他进程中，并针对浏览器数据进行窃取，特别是通过Google Chrome的IElevation COM接口访问和解密存储的凭据。</p>
-
-<p>CPUID公司已确认此次入侵事件，并表示问题已经修复。公司声明称："调查仍在进行中，但似乎一个次要功能（基本上是一个侧边API）在4月9日至10日期间被入侵约6小时，导致主网站随机显示恶意链接（我们签名的原始文件未被入侵）。"</p>
-
-<p>社区讨论中，用户指出这是同一威胁组织继上月攻击FileZilla后的又一次行动。攻击手法从"诱使用户访问虚假网站"演变为"让真实网站提供错误文件"。有用户建议使用Windows包管理器winget安装软件，因为其会进行签名验证，且清单文件托管在GitHub上，不会自动更新。</p>
-
-<p>值得注意的是，有评论声称来自维护者之一Sam，他表示在发现入侵后立即恢复了链接，并将所有内容设置为只读模式以便进一步调查。攻击似乎是在主要开发者Franck休假期间发起的。</p>
-
-<p>此次事件提醒用户，即使从官方网站下载软件也存在风险，攻击者无需直接篡改代码本身就能造成危害。建议用户从可信的软件分发渠道获取工具，并注意安装过程中的异常迹象。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47717847</guid>
-      <pubDate>Fri, 10 Apr 2026 13:29:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
