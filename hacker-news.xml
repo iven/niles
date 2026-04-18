@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 18 Apr 2026 11:47:26 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2026 13:35:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ iTerm2 终端模拟器存在严重安全漏洞：cat 命令可触发任意代码执行</title>
+      <link>https://news.ycombinator.com/item?id=47809190</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 报道iTerm2终端模拟器的严重安全漏洞，涉及任意代码执行风险，与用户的编程工具发布/分享兴趣高度相关，对程序员来说是需要立即关注的安全警告</small></p><p>研究人员发现 iTerm2 终端模拟器中的一个严重安全漏洞，允许恶意文件通过终端转义序列触发任意代码执行。该漏洞影响 iTerm2 的 SSH 集成功能，攻击者可以构造特殊的文本文件，当用户使用 <code>cat</code> 命令查看时，iTerm2 会错误地将文件内容解析为 SSH 集成协议消息，从而执行恶意代码。</p>
+
+<p>漏洞的核心在于 iTerm2 的信任机制失效。SSH 集成功能使用 DCS 2000p 和 OSC 135 终端转义序列与远程控制器（conductor）通信，但 iTerm2 未能验证这些消息的真实来源。恶意文件可以伪造这些转义序列，冒充合法的远程控制器，引导 iTerm2 执行攻击者指定的命令。</p>
+
+<p>攻击需要特定的环境设置：攻击者需要创建一个包含恶意转义序列的文本文件（如 readme.txt），同时在当前目录下放置一个特定名称的可执行文件。当用户运行 <code>cat readme.txt</code> 时，iTerm2 会解析文件中的伪造协议消息，最终执行攻击者准备的可执行文件。</p>
+
+<p>研究人员在 3 月 30 日向 iTerm2 报告了该漏洞，开发者在 3 月 31 日提交了修复代码（<a href="https://github.com/gnachman/iTerm2/commit/a9e745993c2e2cbb30b884a16617cd5495899f86">commit a9e7459</a>）。然而，文章发布时修复尚未进入稳定版本。</p>
+
+<p>Hacker News 社区对此展开了热烈讨论。部分用户质疑为何在稳定版本修复前就公开披露漏洞，认为这增加了被利用的风险。也有用户指出，这并非 <code>cat</code> 命令本身的问题，而是 iTerm2 特定功能的漏洞。还有人提到，类似的安全问题在 6 年前就曾在 iTerm2 中出现过（<a href="https://blog.mozilla.org/security/2019/10/09/iterm2-critical-issue-moss-audit/">Mozilla 2019 年报告</a>）。</p>
+
+<p>社区讨论还涉及终端安全的普遍问题：终端转义序列的复杂性使得终端模拟器容易受到此类攻击；一些用户建议使用 <code>strings</code> 命令替代 <code>cat</code> 来查看可能包含不可打印字符的文件；还有人讨论了如何在现代编程语言中更好地处理终端输出安全。</p>
+
+<p>该漏洞凸显了功能丰富的终端模拟器面临的安全挑战，特别是在添加 SSH 集成等高级功能时，需要更加谨慎地处理来自不受信任源的终端输出。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47809190</guid>
+      <pubDate>Fri, 17 Apr 2026 18:43:32 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 手动编码三个月：在AI时代重新发现编程的本质</title>
       <link>https://news.ycombinator.com/item?id=47807583</link>
@@ -1451,48 +1472,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47733217</guid>
       <pubDate>Sat, 11 Apr 2026 19:15:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AISLE回应Mythos：小型模型同样能发现关键漏洞，AI网络安全护城河在于系统而非模型</title>
-      <link>https://news.ycombinator.com/item?id=47732020</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论AI网络安全技术，小型模型发现漏洞的能力，属于AI软件技术进展类别，用户对此感兴趣</small></p><p>AISLE公司对Anthropic的Mythos AI网络安全模型进行了独立测试，发现小型、廉价的开源模型同样能够检测到Mythos展示的关键漏洞。这一发现挑战了"模型规模决定网络安全能力"的普遍认知。</p>
-
-<img src="/_next/image?url=https%3A%2F%2Faisle.com%2Fapi%2Fmedia%2Ffile%2Ffreepik_create-this_2743478282.webp%3F2026-04-08T16%3A00%3A02.637Z&w=3840&q=100" alt="mythos2" />
-
-<p>在实验中，研究人员将Anthropic在Mythos公告中展示的具体漏洞代码隔离出来，使用多个小型模型进行分析。结果显示：</p>
-
-<ul>
-<li>所有8个测试模型都成功检测到了Mythos的旗舰FreeBSD NFS远程代码执行漏洞（CVE-2026-4747），包括一个仅有36亿活跃参数、每百万token成本0.11美元的模型</li>
-<li>一个51亿活跃参数的开源模型恢复了27年历史的OpenBSD SACK漏洞的完整攻击链</li>
-<li>在OWASP误报检测任务中，小型开源模型的表现超过了大多数前沿模型，显示出"逆缩放"现象</li>
-</ul>
-
-<p>文章提出了"锯齿状能力前沿"的概念：AI网络安全能力并不随模型规模平滑扩展，不同任务的最佳模型完全不同。例如，GPT-OSS-120b能够恢复完整的SACK攻击链，但在简单的Java数据流分析中失败；Qwen3 32B在FreeBSD漏洞评估中表现完美，却将SACK代码误判为"稳健"。</p>
-
-<p>作者认为，AI网络安全的真正护城河在于<strong>系统而非模型</strong>。一个有效的网络安全系统包含多个组件：</p>
-<ol>
-<li>广谱扫描：在大型代码库中识别值得检查的函数</li>
-<li>漏洞检测：在正确代码中发现问题</li>
-<li>分类验证：区分真阳性与假阳性，评估严重性和可利用性</li>
-<li>补丁生成：正确修复漏洞</li>
-<li>漏洞利用构造：将漏洞转化为有效攻击</li>
-</ol>
-
-<p>由于小型廉价模型足以完成大部分检测工作，可以通过广泛部署来补偿单次推理能力的不足。这种"经济型侦探"策略改变了整个防御管道的经济学。</p>
-
-<p>在Hacker News的讨论中，社区成员对研究方法提出了质疑。主要观点包括：</p>
-<ul>
-<li>预先隔离相关代码与从完整代码库自主发现漏洞是根本不同的任务</li>
-<li>发现相关代码本身就是漏洞研究中最困难的部分</li>
-<li>文章没有提供误报率数据，这是评估安全工具实用性的关键指标</li>
-<li>有人指出Mythos的真正优势可能在于漏洞利用能力而非单纯检测</li>
-</ul>
-
-<p>尽管存在争议，这篇文章强调了AI网络安全领域的一个重要趋势：随着模型能力的普及，构建有效的系统架构和流程可能比依赖单一前沿模型更为重要。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47732020</guid>
-      <pubDate>Sat, 11 Apr 2026 16:47:28 GMT</pubDate>
     </item>
   </channel>
 </rss>
