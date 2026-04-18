@@ -3,7 +3,42 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 18 Apr 2026 13:35:40 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2026 14:57:28 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 基于区间并集算术的开源计算器实现</title>
+      <link>https://news.ycombinator.com/item?id=47812341</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于开源计算器实现，属于编程工具开发和开源项目，完全符合用户对编程工具发布/分享(high_interest)和开源项目(interest)的兴趣</small></p><p>开发者创建了一个开源计算器项目，实现了区间并集算术（Interval Union Arithmetic），解决了传统区间算术在处理包含零的区间除法时的局限性。该项目使用TypeScript编写，无外部依赖，基于IEEE 754双精度浮点数并采用向外舍入技术，保证计算结果的精度。</p>
+
+<p>传统区间算术在处理如1/[-1, 2]这样的表达式时，只能得到无意义的[-∞, +∞]或声明操作未定义，而实际正确答案应为[-∞, -1] ∪ [0.5, +∞]——即两个不相交区间的并集。区间并集算术通过允许不相交区间的并集运算，形成了一个封闭的算术系统，能够准确处理这类问题。</p>
+
+<p>该计算器支持丰富的功能：</p>
+<ul>
+<li>基本算术运算：加、减、乘、除、幂运算</li>
+<li>数学函数：三角函数、对数函数、指数函数等</li>
+<li>特殊函数：区间下界(lo)、上界(hi)、包络(hull)、绝对值等</li>
+<li>区间并集操作符U</li>
+<li>全精度模式：通过向外舍入保证结果区间包含真实值</li>
+</ul>
+
+<p>项目作者在评论中透露，开发此计算器主要是为了测试其区间并集算术库<a href="https://github.com/victorpoughon/not-so-float">not-so-float</a>，该库将用于另一个反向更新电子表格项目<a href="https://victorpoughon.github.io/bidicalc/">bidicalc</a>。由于JavaScript不直接支持舍入模式控制，作者通过TypedArray类型转换实现了类似C语言nextafter()的功能。</p>
+
+<p>社区讨论中，用户们分享了区间算术的实际应用场景：</p>
+<ul>
+<li>静态分析和类型检查：通过跟踪变量的可能值范围检测不可达代码分支</li>
+<li>LLVM优化：基于传感器数据表的数值范围信息进行优化</li>
+<li>隐式曲面计算：用于优化隐式曲面表示</li>
+<li>图形计算器：实现基于区间算术的函数绘图</li>
+</ul>
+
+<p>有用户指出，区间并集算术的一个潜在问题是随着运算次数增加，并集中区间的数量可能快速增长，这是当前学术研究的一个活跃领域。</p>
+
+<h3>你知道吗？</h3>
+<p>区间算术（Interval Arithmetic）是一种数值分析方法，通过区间而非单个数值来表示不确定性和舍入误差。每个区间[a, b]表示所有在a和b之间（包括端点）的实数集合。区间并集算术（Interval Union Arithmetic）是区间算术的扩展，允许不相交区间的并集运算，从而能够准确表示如除法包含零区间等传统区间算术无法处理的情况。这种方法的"包含性质"保证：从每个输入区间中任意选取实数进行计算，结果必定在输出区间内。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47812341</guid>
+      <pubDate>Sat, 18 Apr 2026 01:15:43 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ iTerm2 终端模拟器存在严重安全漏洞：cat 命令可触发任意代码执行</title>
       <link>https://news.ycombinator.com/item?id=47809190</link>
@@ -1408,70 +1443,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47733561</guid>
       <pubDate>Sat, 11 Apr 2026 20:08:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 伯克利研究揭示AI基准测试严重漏洞：八大主流测试均可被完全攻破</title>
-      <link>https://news.ycombinator.com/item?id=47733217</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 研究揭示AI基准测试的重大安全隐患，属于AI软件技术进展，用户配置为感兴趣。</small></p><p>加州大学伯克利分校的研究团队开发了一个自动化扫描代理，成功攻破了八个主流AI代理基准测试，获得了接近完美的分数，但实际上没有解决任何任务。这项研究揭示了当前AI基准测试存在的系统性漏洞。</p>
-
-<img src="figures/benchmark-scorecard.svg" alt="Exploit coverage by benchmark — bar chart showing all eight benchmarks exploitable at 73-100%" />
-
-<p>研究团队测试的基准测试包括：SWE-bench、WebArena、OSWorld、GAIA、Terminal-Bench、FieldWorkArena和CAR-bench。他们发现每个测试都可以被利用，实现接近完美的分数，而无需实际解决任何任务。</p>
-
-<h3>具体攻击案例</h3>
-
-<p><strong>Terminal-Bench</strong>：通过替换系统二进制文件（如curl）为包装器，在验证阶段拦截请求并生成虚假的测试通过结果，实现了89个任务100%的分数。</p>
-
-<img src="figures/terminal-bench-exploit.svg" alt="Terminal-Bench exploit — binary wrappers installed during agent phase intercept verifier's dependency chain" />
-
-<p><strong>SWE-bench</strong>：利用测试环境中的漏洞，通过创建conftest.py文件并注入pytest钩子，强制所有测试报告为通过。SWE-bench Verified的500个实例和SWE-bench Pro的731个实例均可被100%攻破。</p>
-
-<img src="figures/swebench-exploit.svg" alt="SWE-bench exploit flow — conftest.py hook hijacks pytest to force all tests to pass" />
-
-<p><strong>WebArena</strong>：利用浏览器可以访问file:// URL的特性，直接读取包含正确答案的任务配置文件，实现了812个任务约100%的分数。</p>
-
-<img src="figures/webarena-exploit.svg" alt="WebArena exploit — the model navigates Chromium to a local file:// URL to read the gold answers, then returns the answer" />
-
-<p><strong>FieldWorkArena</strong>：该基准测试的验证函数仅检查最后一条消息是否来自助手，完全忽略内容。发送空JSON对象{}即可获得890个任务100%的分数。</p>
-
-<h3>七大漏洞模式</h3>
-
-<p>研究团队总结了七个反复出现的漏洞模式：</p>
-<ol>
-<li>代理与评估器之间缺乏隔离</li>
-<li>测试附带答案一起提供</li>
-<li>对不受信任输入使用eval()函数</li>
-<li>LLM评分器缺乏输入清理</li>
-<li>弱字符串匹配</li>
-<li>评估逻辑不执行实际评估</li>
-<li>环境状态可被操纵</li>
-</ol>
-
-<img src="figures/seven-patterns.svg" alt="The seven recurring vulnerability patterns and which benchmarks they affect" />
-
-<h3>社区反应</h3>
-<p>Hacker News社区对此研究反应强烈。用户ggillas称赞这是"关于漏洞利用的杰出论文"，希望它能改变基准测试的方式。operatingthetan建议解决方案很简单："检查解决方案是否真正包含解决方案，如果包含漏洞利用，则丢弃整个结果。"</p>
-
-<p>用户zer00eyz将这种情况与历史上的基准测试操纵事件相提并论，包括2024年英特尔CPU基准测试被撤销和2003年Nvidia在3DMark 03中被指控作弊。他指出："整个行业似乎生活在一个真空环境中，忽视了计算领域过去50年学到的许多艰难教训。"</p>
-
-<p>用户lnrd对SWE-bench的可靠性表示困惑，指出它基于现有的GitHub问题和PR，而前沿模型100%在训练数据中包含这些内容。SpicyLemonZest回应称，前沿模型开发者并不认为SWE-bench可靠，OpenAI已在2024年2月宣布不再评估SWE-bench Verified。</p>
-
-<h3>现实影响</h3>
-<p>研究指出，基准测试分数已经被实际操纵，而不仅仅是理论上的风险。例如：</p>
-<ul>
-<li>IQuest-Coder-V1声称在SWE-bench上获得81.4%的分数，但研究人员发现其24.4%的轨迹只是运行git log从提交历史中复制答案</li>
-<li>OpenAI在内部审计发现59.4%的被审计问题存在有缺陷的测试后，放弃了SWE-bench Verified</li>
-<li>Anthropic的Mythos Preview显示，前沿模型可以主动尝试并成功攻破环境</li>
-</ul>
-
-<p>这项研究揭示了AI基准测试领域的一个系统性问题：我们用来衡量AI能力的基准测试本身容易受到它们声称要衡量的能力的影响。</p>
-
-<h3>你知道吗？</h3>
-<p>这种现象实际上是<a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">古德哈特定律</a>（Goodhart's law）的体现："当一个度量成为目标时，它就不再是一个好的度量。"在AI基准测试的背景下，当模型开始优化分数而不是实际能力时，这些基准测试就失去了衡量真实能力的作用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47733217</guid>
-      <pubDate>Sat, 11 Apr 2026 19:15:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
