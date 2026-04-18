@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 17 Apr 2026 23:55:38 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2026 03:29:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Smol Machines：亚秒级冷启动的轻量级便携虚拟机工具</title>
+      <link>https://news.ycombinator.com/item?id=47808268</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍编程工具发布分享及编程效率改进，属于用户很感兴趣的编程工具类内容</small></p><p>Smol Machines 是一个开源 CLI 工具，用于构建和运行轻量级、自包含的便携虚拟机。该项目旨在提供类似容器的易用性，同时具备虚拟机的硬件隔离优势，并实现亚秒级冷启动时间。</p>
+
+<p>该工具由前 AWS 工程师开发，结合了容器的工作流便利性和 Firecracker 微虚拟机的性能特点。主要特性包括：支持 macOS（使用 Hypervisor.framework）和 Linux（使用 KVM）平台；可将完整虚拟机状态打包为单个 .smolmachine 文件，在任何支持的平台上快速恢复；默认提供 4 个 vCPU 和 8GB 弹性内存，通过 virtio balloon 技术实现内存按需分配。</p>
+
+<p>使用场景包括：沙盒运行不受信任的代码，通过硬件隔离保护主机文件系统和网络；创建便携可执行文件，将工作负载打包为自包含二进制文件，无需安装依赖；开发环境持久化，安装的软件包在重启后保留；安全使用 Git 和 SSH，通过 SSH 代理转发避免私钥泄露风险。</p>
+
+<p>项目支持通过 Smolfile（TOML 格式）声明可复现的虚拟机配置。与现有技术对比显示，smolvm 在启动时间（<200ms）、隔离性（每个工作负载独立 VM）和可嵌入性方面具有优势。</p>
+
+<p>Hacker News 社区讨论中，开发者分享了技术细节：通过精简 Linux 内核模块实现快速启动；正在开发 GPU 透传功能（<a href="https://github.com/smol-machines/smolvm/pull/96">GitHub PR #96</a>）；未来计划支持 Docker 兼容性。用户反馈积极，认为该项目填补了微虚拟机领域的空白，特别适合本地开发场景。</p>
+
+<p>已知限制包括：网络需要显式启用（--net 参数），仅支持 TCP/UDP 协议；卷挂载仅支持目录级别；macOS 需要二进制签名；SSH 代理功能需要主机运行 SSH 代理。</p>
+
+<p>项目采用 Apache 2.0 许可证，开发者欢迎社区反馈和建议。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47808268</guid>
+      <pubDate>Fri, 17 Apr 2026 17:18:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Discourse明确表态：不会转向闭源，坚持开源应对AI时代安全挑战</title>
       <link>https://news.ycombinator.com/item?id=47802233</link>
@@ -1474,27 +1495,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47721946</guid>
       <pubDate>Fri, 10 Apr 2026 18:34:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux内核正式发布AI编码助手使用指南：人类开发者需对AI生成代码负全责</title>
-      <link>https://news.ycombinator.com/item?id=47721953</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Linux内核发布的AI编码助手使用指南，涉及编程工具发布和AI软件技术进展，两者都属于用户高兴趣领域，且是重要的开源项目技术公告</small></p><p>Linux内核社区近日发布了针对AI编码助手的官方指导文件，为开发者使用人工智能工具贡献代码提供了明确规范。该文件强调人类开发者必须对AI生成的代码承担全部责任，AI工具本身不能签署开发者来源证书。</p>
-
-<p>根据新规定，所有使用AI辅助开发的代码提交必须遵循标准内核开发流程，并确保与GPL-2.0-only许可证兼容。最核心的要求是：<strong>AI代理不能添加Signed-off-by标签</strong>，只有人类开发者可以合法认证开发者来源证书(DCO)。这意味着提交者需要亲自审查所有AI生成的代码，确保符合许可要求，并添加自己的签名来承担法律责任。</p>
-
-<p>为了追踪AI在开发过程中的作用，贡献需要包含<code>Assisted-by:</code>标签，格式为<code>Assisted-by: AGENT_NAME:MODEL_VERSION [TOOL1] [TOOL2]</code>，其中可以包含使用的特定AI模型版本和可选的分析工具。</p>
-
-<p>Hacker News社区对此展开了热烈讨论。多数开发者认为这是合理的政策，如用户<a href="https://news.ycombinator.com/item?id=47721953">qsort</a>评论道："基本上规则是你可以使用AI，但你要对自己的提交和代码满足许可证要求负全责。这...出人意料地正常？"</p>
-
-<p>然而也存在争议。用户<a href="https://news.ycombinator.com/item?id=47721953">newsoftheday</a>担忧："当AI接受了包含多种许可证甚至未经版权所有者许可的闭源材料的训练后，如何保证所有代码都与GPL-2.0-only兼容？" 用户<a href="https://news.ycombinator.com/item?id=47721953">martin-t</a>则反对将AI拟人化，认为"Assisted-by"标签鼓励了魔术思维。</p>
-
-<p>支持者如<a href="https://news.ycombinator.com/item?id=47721953">ipython</a>表示："很高兴看到这个常识性规则，只有人类才能对AI代理生成的代码负责。" 而<a href="https://news.ycombinator.com/item?id=47721953">philipov</a>则简洁地总结："你承担责任。这意味着如果AI搞砸了，你会受到惩罚。不能把责任推给愚蠢的计算机。"</p>
-
-<p>这一政策的出台反映了开源社区在AI时代面临的新挑战，试图在利用新技术提高效率的同时，维护开源项目的法律完整性和开发责任体系。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47721953</guid>
-      <pubDate>Fri, 10 Apr 2026 18:35:21 GMT</pubDate>
     </item>
   </channel>
 </rss>
