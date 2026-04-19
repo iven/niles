@@ -3,7 +3,30 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 19 Apr 2026 10:58:35 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 11:49:11 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linux 7.1声音子系统新增总线保持器支持，提升Apple Silicon兼容性</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-Sound</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 Linux 对 Apple Silicon 的支持改进，直接匹配来源配置中'苹果电脑Linux支持'的high_interest兴趣</small></p><p>Linux 7.1内核的声音子系统更新已合并，其中最引人注目的是新增了总线保持器（bus keepers）支持，这将显著改善苹果芯片（Apple Silicon）设备在Linux上的音频兼容性。</p>
+
+<p>开源开发者James Calligero解释，这项功能允许平台驱动程序配置数字音频接口（DAI）在总线不活跃时的行为。主要应用场景是配置集成在各种编解码器中的总线保持器。这一功能的直接需求来自苹果芯片笔记本电脑上独特的音频总线拓扑结构。</p>
+
+<p>大多数苹果芯片笔记本电脑配备六个编解码器，分为三组，分别驱动左右立体声的双对置低音扬声器和高音扬声器。这些编解码器通过SDOUT引脚向系统芯片（SoC）报告连接音圈的电压和电流数据，这些数据以PCM格式通过可配置的TDM时隙传输。在macOS中，CoreAudio使用这些数据结合扬声器的Thiele/Small参数确保扬声器不会因过载而永久损坏，而在Linux上则由speakersafetyd处理。</p>
+
+<img src="//www.phoronix.net/image.php?id=apple-m2-linux&image=apple_m2_1_med" alt="Apple MacBook" />
+
+<p>所有编解码器的SDOUT引脚都连接到SoC的I2S外设的单个接收端口，但分布在两条物理数据线上（左右编解码器组各一条）。接收器前有一个OR门用于合并两条线路。如果任何时候一个编解码器尝试传输数据，而"相反"线路处于高电平浮动状态，传输编解码器的数据就会损坏。因此需要确保空闲线路保持空闲状态。</p>
+
+<p>除了总线保持器支持外，Linux 7.1声音子系统还增加了对AMD Raphael DMIC、Cirrus Logic CS42L43和CS47L47、以及配备CPCAP和WM8962的NVIDIA机器的支持。</p>
+
+<p>此外，更新还包括针对华为耳机、Focusrite Novation、MV-Silicon、Studio 1824、Arturia AF16Rig、Hotone Audio、Feaulle Rainbow、PreSonus AudioBox、Moondrop Ju Jiu和Scarlett 18i20等设备的USB音频修复。各种联想、惠普、宏碁和华硕系统也获得了高清音频修复，以解决各种问题。</p>
+
+<p>值得注意的是，这次更新还恢复了旧版遗留ISA驱动程序（如AMD InterWave）的挂起/恢复支持，从传统ISA到苹果芯片的更新在同一拉取请求中完成，展现了Linux内核的兼容性广度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-Sound</guid>
+      <pubDate>Sun, 19 Apr 2026 11:07:21 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ CachyOS 推出增强版 Linux 7.0 内核，包含多项性能优化</title>
       <link>https://www.phoronix.com/news/CachyOS-Super-Charged-Linux-7.0</link>
@@ -844,23 +867,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-OOB-Special-Certificate</guid>
       <pubDate>Sun, 12 Apr 2026 18:45:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ CMake 4.3引入通用包规范，加强与包管理器集成</title>
-      <link>https://www.phoronix.com/news/CMake-Tighter-Package-Integrate</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] CMake构建系统与包管理器集成改进，属于编程工具发布范畴，用户对此类编程效率改进内容很感兴趣，必看内容</small></p><p>尽管Meson构建系统近年来备受开源项目青睐，但CMake构建系统仍在持续发展，最新版本CMake 4.3引入了多项重要改进。</p>
-
-<p>CMake 4.3最显著的特性是引入了基于JSON的通用包规范（Common Package Specification, CPS），该格式由Kitware的CMake开发者开发，旨在提供更好的互操作性，特别是在与包管理器集成和处理C/C++软件依赖描述方面。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=hpsf_cmake" alt="CMake presentation at HPSF 2026 conference" />
-
-<p>除了CPS外，CMake 4.3还实验性地支持软件物料清单（SBOM）生成功能。CMake开发者正在继续完善CPS规范，并致力于改进包管理器集成、集成代码检查支持等增强功能。</p>
-
-<p>Kitware首席技术官Bill Hoffman在2026年高性能软件会议上介绍了这些CMake开发计划，展示了CMake在Meson等新兴构建系统竞争下依然保持强劲发展势头。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/CMake-Tighter-Package-Integrate</guid>
-      <pubDate>Sun, 12 Apr 2026 11:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
