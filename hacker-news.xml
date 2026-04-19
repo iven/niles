@@ -3,7 +3,42 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 19 Apr 2026 19:08:48 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 22:57:44 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Claude Opus 4.6到4.7系统提示的主要变化分析</title>
+      <link>https://news.ycombinator.com/item?id=47823270</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章分析Claude AI模型的系统提示变化，属于AI软件技术进展，用户配置为感兴趣级别</small></p><p>Simon Willison分析了Anthropic发布的Claude Opus 4.6（2026年2月5日）和4.7（2026年4月16日）版本系统提示之间的差异。Anthropic是唯一公开其面向用户聊天系统提示的主要AI实验室，其系统提示档案可追溯到2024年7月的Claude 3。</p>
+
+<p>主要变化包括：</p>
+<ul>
+<li>"开发者平台"更名为"Claude平台"</li>
+<li>工具列表中新增Claude in Powerpoint幻灯片代理</li>
+<li>儿童安全部分大幅扩展，新增<code>&lt;critical_child_safety_instructions&gt;</code>标签，特别强调一旦因儿童安全原因拒绝请求，后续所有请求都必须极度谨慎处理</li>
+<li>减少pushy行为：当用户表示要结束对话时，Claude不再试图挽留用户</li>
+<li>新增<code>&lt;acting_vs_clarifying&gt;</code>部分：对于细节不明确的请求，Claude倾向于直接进行合理尝试，而不是先提问澄清；当有可用工具能解决模糊信息时，优先调用工具而非询问用户</li>
+<li>新增工具搜索机制：在声称"无法访问X"之前，必须先调用<code>tool_search</code>确认没有匹配工具</li>
+<li>鼓励更简洁的回应，避免冗长回答</li>
+<li>移除了关于避免使用表情动作和特定词语（如"genuinely"、"honestly"）的指令</li>
+<li>新增"饮食失调"相关内容：如果用户显示饮食失调迹象，Claude不应提供具体的营养、饮食或运动指导</li>
+<li>新增防护措施：当被要求对复杂争议问题给出简单是/否回答时，Claude可以拒绝并提供 nuanced 解释</li>
+<li>移除了关于"唐纳德·特朗普是美国现任总统"的说明，反映了模型知识截止日期更新到2026年1月</li>
+</ul>
+
+<p>文章还指出，Anthropic发布的系统提示并不包括工具描述，但通过询问Claude可获得完整的工具列表，包括<code>ask_user_input_v0</code>、<code>bash_tool</code>、<code>conversation_search</code>、<code>web_search</code>、<code>tool_search</code>等。</p>
+
+<p>社区讨论显示用户对变化反应不一：</p>
+<ul>
+<li>有用户赞赏<code>&lt;acting_vs_clarifying&gt;</code>变化减少了使用摩擦，但另一些用户抱怨Claude现在经常选择错误解释而非询问澄清</li>
+<li>多个用户报告4.7版本对恶意软件相关内容的"偏执"程度显著增加，甚至影响正常编程工作</li>
+<li>有用户指出系统提示已超过6万词（约8万token），质疑其效率</li>
+<li>对新增的"饮食失调"限制表示担忧，认为这可能过度限制医疗和科学探究</li>
+<li>关于儿童安全部分可能"泄漏"到其他风险话题（如恶意软件分析）的讨论</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47823270</guid>
+      <pubDate>Sun, 19 Apr 2026 10:36:29 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ PgQue：基于 PostgreSQL 的零膨胀事件流系统，重新定义数据库队列</title>
       <link>https://news.ycombinator.com/item?id=47817349</link>
@@ -1409,36 +1444,6 @@ assert((p1ar->length - i) >= sizeof(*p1));</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47750872</guid>
       <pubDate>Mon, 13 Apr 2026 12:12:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Hacker News社区项目分享：2026年4月开发者创意与进展合集</title>
-      <link>https://news.ycombinator.com/item?id=47741527</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章是关于Hacker News社区开发者项目合集，主要涉及编程工具分享和开源项目进展，符合用户对编程工具发布/分享（很感兴趣）和开源项目（感兴趣）的兴趣配置。</small></p><p>Hacker News社区近期发起"你在做什么项目？"的讨论帖，吸引了大量开发者分享各自的工作进展和创新想法。该帖子获得了227个赞和721条评论，展现了技术社区的活跃度和创造力。</p>
-
-<p>在众多分享中，几个项目获得了特别关注：</p>
-
-<ul>
-<li><strong>Tela网络隧道工具</strong>：开发者paulmooreparks正在构建一个自托管的中继系统，通过加密的WireGuard连接隧道传输TCP服务。与Tailscale等工具不同，Tela无需TUN适配器、root权限或管理员权限，完全在用户空间运行。该项目使用Go语言编写，支持Windows、Linux和macOS平台，采用Apache 2.0许可证，计划在未来一个月内发布1.0稳定版。社区成员对该工具表示赞赏，并提出了添加Android客户端和出口节点支持等建议。</li>
-
-<li><strong>"Still Kicking"老年人监护设备</strong>：cmos为独居母亲开发了一款基于毫米波传感器和ESP32的监控设备，能够检测跌倒、监测睡眠质量，并通过手机应用报告基本数据。该项目考虑商业化，旨在为老年人提供无摄像头的隐私保护型家庭监护方案。医疗行业从业者对此表示兴趣，并探讨了合作可能性。</li>
-
-<li><strong>Phreepet手机使用管理应用</strong>：DevDesmond开发了一款数字宠物应用，宠物的成长和健康状态与用户的手机使用时间挂钩。与传统的专注计时应用不同，该应用全天跟踪屏幕使用时间，并通过宠物的情绪反馈帮助用户减少手机依赖。</li>
-</ul>
-
-<p>其他值得关注的项目还包括：</p>
-<ul>
-<li>ragbandit.com - 优化RAG系统的文档处理流程</li>
-<li>VCamper - 使用LLM在CVE发布前检测安全补丁</li>
-<li>量子计算科普书籍 - 为非专业读者解释量子计算原理和应用</li>
-<li>Kulikuli翻译工具 - 提供比Google/DeepL更高质量的翻译服务</li>
-<li>Deadtrees.earth - 开源无人机植被监测数据库</li>
-</ul>
-
-<p>社区反馈整体积极，许多开发者对分享的项目表示赞赏，并提出技术问题、使用建议和合作意向。讨论氛围友好，体现了技术社区的互助精神。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47741527</guid>
-      <pubDate>Sun, 12 Apr 2026 16:24:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
