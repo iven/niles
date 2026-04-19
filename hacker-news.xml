@@ -3,7 +3,60 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 19 Apr 2026 17:53:13 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 19:08:48 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ PgQue：基于 PostgreSQL 的零膨胀事件流系统，重新定义数据库队列</title>
+      <link>https://news.ycombinator.com/item?id=47817349</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是基于PostgreSQL的队列系统，属于编程工具发布/分享，用户很感兴趣，符合high_interest配置</small></p><p>PgQue 是一个基于 PostgreSQL 的纯 SQL 实现的事件流系统，它重新构建了 Skype 时代开发的 PgQ 架构，专门为解决传统数据库队列中的膨胀问题而设计。</p>
+
+<p>该系统采用快照批处理和 TRUNCATE 表轮换机制，从根本上避免了传统 SKIP LOCKED 队列在持续负载下产生的死元组问题。与大多数任务队列不同，PgQue 的架构更接近 Kafka 的日志模型，支持多消费者独立游标，每个消费者维护自己在共享事件日志上的位置。</p>
+
+<img src="https://github.com/NikolayS/pgque/raw/main/docs/images/death_spiral.gif" alt="Death spiral of a SKIP LOCKED queue under sustained load — the failure mode PgQue avoids by construction" width="720" />
+
+<p>部署方面，PgQue 极其简单：只需一个 SQL 文件即可安装，依赖 <a href="https://github.com/citusdata/pg_cron">pg_cron</a> 进行定时执行。它完全兼容托管 PostgreSQL 服务（如 RDS、Aurora、Cloud SQL 等），无需 C 扩展或外部守护进程。</p>
+
+<p>在 Hacker News 的讨论中，作者澄清了几个关键点：</p>
+<ul>
+<li>PgQue 更像是事件流系统而非传统任务队列，支持发布-订阅模式</li>
+<li>系统有三种延迟类型：生产者延迟（微秒级）、消费者延迟（微秒级）和端到端交付延迟（默认 1-2 秒）</li>
+<li>与 SKIP LOCKED 队列相比，PgQue 在 MVCC 压力下表现更稳定，不会出现性能衰减</li>
+</ul>
+
+<p>社区反馈显示，虽然有人对"队列"这个命名提出质疑，但普遍认可该技术解决的实际问题。有用户分享了在生产环境中使用类似队列系统遇到的性能问题，特别是当队列深度增长时出现的查询瓶颈。</p>
+
+<p>性能方面，初步测试显示 PgQue 能达到约 86,000 事件/秒的插入速率和 240 万事件/秒的消费读取速率，在 30 分钟持续测试中保持零死元组增长。</p>
+
+<p>该项目目前处于早期阶段，但基于的 PgQ 架构已在 Skype 的大规模生产环境中运行超过十年，证明了其稳定性和可靠性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47817349</guid>
+      <pubDate>Sat, 18 Apr 2026 16:50:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ MDV：支持数据可视化的 Markdown 超集，用于文档、仪表板和幻灯片</title>
+      <link>https://news.ycombinator.com/item?id=47816629</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是支持数据可视化的Markdown扩展工具，属于编程工具发布和开源项目，用户感兴趣，符合interest配置</small></p><p>MDV（Markdown Data & Visualization）是一个 Markdown 超集，允许用户在 Markdown 文档中嵌入图表、KPI 卡片、表格和样式化区域，适用于创建文档、仪表板和幻灯片。</p>
+
+<p>该项目在严格遵循 CommonMark 标准的基础上，添加了四个主要扩展：YAML 前置元数据用于标题、主题、命名样式和数据集引用；代码块用于数据和可视化（如 <code>```chart type=bar x=region y=sales</code>）；<code>:::</code> 容器用于样式化区域和布局；以及自动生成的目录。MDV 无需选择器、类、表达式或代码，通过主题提供默认样式，命名样式提供可重用的外观。</p>
+
+<p>MDV 可以将文档渲染为自包含的 HTML（图表为内联 SVG，无需 JavaScript 运行时）和 PDF 格式，并提供了 VS Code 扩展支持实时预览。</p>
+
+<p>在 Hacker News 社区讨论中，用户们分享了不同的观点：</p>
+<ul>
+<li>有用户赞赏这种扩展 Markdown 以包含更多视觉元素的想法，认为这是文档结构和样式分离的良好实践</li>
+<li>也有用户担心这可能会重新发明 HTML，建议直接使用自定义 HTML 元素</li>
+<li>多位用户提到了类似的工具，如 <a href="https://djot.net/">Djot</a>、<a href="https://marp.app/">Marp</a>、<a href="https://quarto.org/">Quarto</a>、Emacs Org-Mode 和 Typst</li>
+<li>Evidence.dev 项目的贡献者分享了他们使用 Stripe 的 Markdoc 变体的经验</li>
+<li>SDocs.dev 项目的创建者也介绍了自己的类似解决方案</li>
+<li>有用户指出项目缺乏在线渲染示例，但另一位热心用户 <a href="https://tacticaltypos-tools.pgs.sh/mdv/examples/out/">提供了托管示例的链接</a></li>
+</ul>
+
+<p>产品设计师表示这种工具可能适合设计工作流程，作为 Markdown 简单性和 Figma 视觉复杂性之间的良好折中方案。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47816629</guid>
+      <pubDate>Sat, 18 Apr 2026 15:24:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 独立工程师如何获得首个咨询项目：Hacker News社区经验分享</title>
       <link>https://news.ycombinator.com/item?id=47822940</link>
@@ -1386,76 +1439,6 @@ assert((p1ar->length - i) >= sizeof(*p1));</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47741527</guid>
       <pubDate>Sun, 12 Apr 2026 16:24:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 数学新发现：单个二元运算符 EML 可生成所有基本初等函数</title>
-      <link>https://news.ycombinator.com/item?id=47746610</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这篇文章介绍数学领域的新发现，属于科学前沿进展，用户配置中对此类内容感兴趣</small></p><p>波兰物理学家 Andrzej Odrzywołek 在 arXiv 预印本中展示了一个突破性的数学发现：一个名为 EML（Exp-Minus-Log）的二元运算符 <code>eml(x,y) = exp(x) - ln(y)</code>，配合常数 1，可以生成科学计算器中的所有基本初等函数。</p>
-
-<p>这一发现类似于数字电路中 NAND 或 NOR 门可以生成所有布尔逻辑门的情况，但在连续数学领域此前没有类似的「通用基元」。通过系统性的穷举搜索，研究者发现这个简单的运算符能够生成包括 e、π、i 等常数，以及加法、减法、乘法、除法、指数运算等算术操作，还有三角函数、对数函数、平方根等超越函数和代数函数。</p>
-
-<p>具体来说：
-<ul>
-<li>指数函数：exp(x) = eml(x,1)</li>
-<li>自然对数：ln(x) = eml(1,eml(eml(1,x),1))</li>
-<li>乘法运算：xy = eml(eml(1, eml(eml(eml(eml(1, eml(eml(1, eml(1, x)), 1)), eml(1, eml(eml(1, eml(y, 1)), 1))), 1), 1)), 1)</li>
-</ul></p>
-
-<p>在 EML 形式下，每个表达式都变成了相同节点的二叉树，产生了一个极其简单的语法：S → 1 | eml(S,S)。这种统一结构还支持基于梯度的符号回归：使用 EML 树作为可训练电路，研究者展示了从数值数据中精确恢复闭式初等函数的可行性，在树深度不超过 4 的情况下可以实现精确恢复。</p>
-
-<p>社区讨论中，用户们对这一发现表现出浓厚兴趣。有人尝试用 JavaScript 实现了乘法运算，验证了其正确性：<code>mul(5,7)</code> 返回 <code>35.00000000000001</code>。讨论还涉及：
-<ul>
-<li>如何通过 EML 实现加法运算（x+y = ln(exp(x) * exp(y))）</li>
-<li>与 lambda 演算的类比：这类似于连续函数的 lambda 演算</li>
-<li>硬件实现的可能性：虽然理论上可行，但实际应用中可能效率低下，因为将简单操作（如加法、乘法）转化为复杂的 EML 表达式会导致计算噩梦</li>
-<li>物理实现：可能使用运算放大器构建模拟 EML 门</li>
-</ul></p>
-
-<p>有评论者指出，这个发现的主要意义在于理论层面，类似于数字逻辑中的通用门概念，而不是为了实际替代现有的数学库。现有的数值库包含大量冗余原语，目的是为用户提供尽可能接近所需操作的优化原语，而 EML 方法将这种冗余减少到了极致。</p>
-
-<p>论文还提供了代码实现，并展示了通过梯度优化从数据中恢复精确数学公式的能力。虽然这一发现可能不会立即改变科学计算器的设计，但它为连续数学的「最小基元」问题提供了新的视角。</p>
-
-<p><img src="/static/browse/0.3.4/images/icons/social/bibsonomy.png" alt="BibSonomy logo" /> <img src="/static/browse/0.3.4/images/icons/social/reddit.png" alt="Reddit logo" /></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47746610</guid>
-      <pubDate>Mon, 13 Apr 2026 01:49:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>自制软饮料指南：可乐、橙子汽水和杏仁汽水的配方与实验</title>
-      <link>https://news.ycombinator.com/item?id=47741701</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是自制软饮料配方和家庭食品实验，与用户的技术、编程、AI等核心兴趣领域无直接关联，不在兴趣配置范围内但也不在避免列表中</small></p><p>一位开发者从2020年开始尝试自制软饮料，目标是制作无糖、无咖啡因的可乐，并逐步扩展至橙子汽水和杏仁汽水等口味。他详细记录了配方开发过程，并在GitHub上分享了最终食谱。</p>
-
-<img src="/diy-soft-drinks/3f3bb8383402a595.jpg" alt="所需原料概览：柠檬酸、阿拉伯胶、焦糖色和甜味剂" />
-
-<p>可乐制作的核心是使用精油调配风味。作者混合了橙油、酸橙油、柠檬油、肉豆蔻油、肉桂油、芫荽油和薰衣草油等七种精油，总量约2毫升即可为9升可乐提供风味。由于精油不溶于水，他添加阿拉伯胶作为天然乳化剂，通过手动搅拌器混合形成乳液。</p>
-
-<img src="/diy-soft-drinks/a95b2908c5f65bbc.jpg" alt="手持一瓶精油，瓶身印有安全警告" />
-
-<p>随后加入焦糖色赋予可乐深色外观，以及柠檬酸增加酸度。为避免咖啡因引起的头痛，作者特意不加咖啡因。甜味剂方面，他尝试了德国常见的环己基氨基磺酸钠和糖精组合，后来改用三氯蔗糖以减少余味。</p>
-
-<img src="/diy-soft-drinks/b9bf1e421eaab077.jpg" alt="手持1毫升注射器" />
-
-<p>经过多次迭代，作者开发出名为"Syntez-Cola"的配方，减少了甜味剂用量，添加了香兰素，并调整了肉桂油比例。他对比了自制可乐与市售无咖啡因可口可乐，认为自制版本风味更佳。</p>
-
-<p>除了可乐，作者还成功制作了橙子汽水和杏仁+血橙口味饮料。橙子汽水使用简单的精油组合，而杏仁饮料则混合了杏仁油、血橙油和酸橙油。这些配方也在不断优化中，例如减少杏仁油用量以突出柑橘风味。</p>
-
-<img src="/diy-soft-drinks/a2bc935b5cc796b0.jpg" alt="标有'blinry orange 0.1.1'的黄色液体瓶，旁边是装有透明黄色液体和冰块的玻璃杯" />
-
-<p>Hacker News社区对此话题反响热烈，评论中提供了许多有价值的建议：</p>
-<ul>
-<li>有用户推荐《Fix the Pumps》一书，该书结合历史与食谱介绍苏打水制作</li>
-<li>关于碳酸化，建议使用预碳酸水混合浓缩液，或使用专业设备如啤酒龙头连接CO2气瓶</li>
-<li>专业提示：使用预水合阿拉伯胶更容易操作，或直接使用水溶性香料浓缩物避免乳化步骤</li>
-<li>对于无糖配方，可从加拿大产品标签获取人工甜味剂精确用量参考</li>
-<li>其他自制饮料分享：康普茶、水开菲尔、自制俱乐部伴侣（Club Mate）等</li>
-</ul>
-
-<p>作者将所有食谱开源在<a href="https://github.com/blinry/diy-soft-drinks">GitHub仓库</a>中，采用版本号管理并记录变更日志，鼓励他人尝试并提供反馈。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47741701</guid>
-      <pubDate>Sun, 12 Apr 2026 16:38:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
