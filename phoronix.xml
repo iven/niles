@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 19 Apr 2026 16:56:40 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 17:52:27 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.1新增部分PCIe驱动，同时移除部分旧PCI驱动</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-PCI</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要关于Linux 7.1内核中PCI/PCIe驱动程序的更新，属于Linux桌面技术范畴，符合用户对Linux技术的兴趣配置</small></p><p>Linux 7.1内核的PCI子系统更新已合并，包含了一系列针对新旧硬件的PCI(e)变更。本次更新既引入了新的PCIe驱动程序，也移除了一些旧的驱动程序，并对Linux PCI代码进行了其他调整。</p>
+
+<img src="//www.phoronix.net/image.php?id=405&image=ecs_pf5e_dge_med" alt="PCI / PCIe slots" />
+
+<p>主要变更包括：移除了用于IPM PC110触摸板的pc110pad驱动，该驱动可追溯至Linux 2.5.45内核开发阶段，由于Intel 486 CPU支持已退役而失去存在意义；新增了对Root Complex Integrated Endpoints（RCiEPs）的PCI Express TLP Processing Hints（TPH）支持，此前TPH仅适用于端点及其根端口；为避免设备挂起，不再对AMD NPU设备执行Function Level Reset（FLR）；新增了ESWIN PCIe Root Complex驱动；新增了Andes QiLai SoC PCIe主机控制器驱动；随着Linux内核移除对俄罗斯Baikal CPU的支持，Baikal T-1 PCIe控制器驱动也被移除，原因是其“从未真正可用”。</p>
+
+<p>完整的Linux 7.1 PCI变更列表可通过相关拉取请求查看。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-PCI</guid>
+      <pubDate>Sun, 19 Apr 2026 17:40:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Linux 7.1声音子系统新增总线保持器支持，提升Apple Silicon兼容性</title>
       <link>https://www.phoronix.com/news/Linux-7.1-Sound</link>
@@ -850,23 +865,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.0-Released</guid>
       <pubDate>Sun, 12 Apr 2026 21:07:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux内核修复非特权用户利用特制证书触发的越界访问漏洞</title>
-      <link>https://www.phoronix.com/news/Linux-OOB-Special-Certificate</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲Linux内核安全漏洞修复，属于基础设施范畴，用户对基础设施不太感兴趣但涉及Linux桌面技术，综合判断为可选内容</small></p><p>Linux内核中存在一个已持续三年的越界访问（OOB）漏洞，非特权用户可通过向内核提交特制证书来触发。该漏洞位于X.509证书解析代码中，自2023年的Linux 6.4内核版本以来一直存在于主线内核中。</p>
-
-<p>该漏洞允许非特权用户通过内核的keyrings API提交特制证书，导致越界访问。虽然信息泄露风险较小，但仍可能引发内核崩溃或拒绝服务攻击。越界访问通常可能导致权限提升、信息泄露、任意代码执行或内核恐慌等后果。</p>
-
-<p>补丁作者Lukas Wunner在提交信息中解释道，当解析具有空Basic Constraints或Key Usage扩展的证书时，由于在检查扩展长度之前读取了第一个字节，从而触发了越界访问。安全研究人员Leo Lin通过概念验证程序在非公开渠道负责任地披露了此漏洞。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=x509_oob" alt="X.509 OOB vulnerability" />
-
-<p>该补丁已及时纳入预计今日发布的Linux 7.0稳定内核，同时标记为需要向后移植到自Linux 6.4以来所有仍受支持的稳定内核版本，包括6.6 LTS、6.12 LTS、6.18 LTS和6.19版本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-OOB-Special-Certificate</guid>
-      <pubDate>Sun, 12 Apr 2026 18:45:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
