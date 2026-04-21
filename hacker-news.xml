@@ -3,7 +3,39 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 21 Apr 2026 08:07:21 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 21 Apr 2026 09:52:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Kimi 开源供应商验证器：确保 AI 模型推理准确性的基准测试工具</title>
+      <link>https://news.ycombinator.com/item?id=47838703</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍开源AI模型基准测试工具，属于编程工具发布和AI软件技术进展，符合用户高兴趣主题</small></p><p>随着 Kimi K2.6 模型的发布，Moonshot AI 开源了 Kimi Vendor Verifier (KVV) 项目，旨在帮助用户验证开源模型在不同推理服务提供商上的实现准确性。该项目通过一套全面的基准测试，确保模型部署的质量一致性，避免因工程实现偏差导致的性能问题。</p>
+
+<img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub" />
+
+<p>项目背景源于社区反馈的基准测试异常问题。调查发现，许多问题源于解码参数（如 Temperature、TopP）的误用，以及基础设施提供商在处理视觉输入、长输出、工具调用等方面的差异。KVV 设计了六个关键基准测试：</p>
+
+<ul>
+<li><strong>预验证</strong>：确保 API 参数约束正确执行</li>
+<li><strong>OCRBench</strong>：5分钟多模态流水线冒烟测试</li>
+<li><strong>MMMU Pro</strong>：验证视觉输入预处理</li>
+<li><strong>AIME2025</strong>：长输出压力测试，捕捉 KV 缓存错误和量化退化</li>
+<li><strong>K2VV ToolCall</strong>：测量工具调用一致性（F1）和 JSON Schema 准确性</li>
+<li><strong>SWE-Bench</strong>：完整代理编码测试（因沙箱依赖未开源）</li>
+</ul>
+
+<p>除了检测问题，KVV 团队还与 vLLM、SGLang、KTransformers 等社区合作，从根源上修复问题。他们提供预发布验证，让基础设施提供商在用户遇到问题前测试其堆栈，并计划维护供应商结果的公开排行榜。</p>
+
+<p>测试成本方面，完整评估流程在两台 NVIDIA H20 8-GPU 服务器上顺序执行约需15小时。脚本已针对长时推理场景优化，支持流式推理、自动重试和检查点恢复机制。</p>
+
+<p>社区讨论中，用户普遍欢迎这一举措。<a href="https://news.ycombinator.com/item?id=47838703">Hacker News 评论</a>指出，推理提供商暗中替换量化级别是常见问题，模型制造商提供标准验证器是正确的方向。也有用户担心，恶意提供商可能像大众排放门一样在测试时作弊，但多数认为这至少能阻止半恶意行为（如未告知的量化）。</p>
+
+<p>具体案例显示，AWS Bedrock 在服务 Kimi K2 和 K2.5 模型时存在严重缺陷，导致20%-30%的工具调用尝试无声失败，这促使用户转向更昂贵的 Anthropic 模型。OpenRouter 用户则建议使用其 <a href="https://openrouter.ai/docs/guides/routing/model-variants/exacto">Exacto 选项</a>来优先选择高质量提供商。</p>
+
+<p>项目已在 <a href="https://github.com/MoonshotAI/Kimi-Vendor-Verifier">GitHub 开源</a>，团队正扩展供应商覆盖范围并寻求更轻量级的代理测试。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47838703</guid>
+      <pubDate>Mon, 20 Apr 2026 18:39:53 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AI抵抗运动兴起：数据投毒策略与社区激烈辩论</title>
       <link>https://news.ycombinator.com/item?id=47839951</link>
@@ -1488,29 +1520,6 @@ assert((p1ar->length - i) >= sizeof(*p1));</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47768133</guid>
       <pubDate>Tue, 14 Apr 2026 16:54:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Jujutsu（jj）：比 Git 更简单却更强大的分布式版本控制系统</title>
-      <link>https://news.ycombinator.com/item?id=47763759</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新的分布式版本控制系统Jujutsu，属于编程工具发布，用户很感兴趣</small></p><p>Jujutsu（简称 jj）是一个分布式版本控制系统（DVCS），它声称既比 Git 更简单易用，同时又更强大。该系统结合了 Git 和 Mercurial 的最佳特性，创造出了一个既新颖又熟悉的新版本控制工具。</p>
-
-<p>jj 的主要优势在于它拥有更少的核心工具，但这些工具更强大且协同工作更清晰。文章作者 Steve Klabnik 认为，jj 实现了在编程世界中相当罕见的特性：既简化了使用复杂度，又增强了功能。对于熟悉 Git 的用户来说，jj 提供了一个平滑的过渡路径。</p>
-
-<p>最重要的特点是 jj 具有 <a href="https://steveklabnik.github.io/jujutsu-tutorial/introduction/what-is-jj-and-why-should-i-care.html">Git 兼容的后端</a>，这意味着用户可以单独使用 jj，而不需要团队中的其他人也转换。这大大降低了尝试成本——如果不喜欢，可以无缝切换回 Git，不会丢失任何历史记录。</p>
-
-<p>在 Hacker News 的讨论中，用户对 Git 兼容性存在不同看法。有用户认为这种兼容性并不像宣传的那么无缝，需要不断导入 Git 操作。但其他用户表示他们已经成功在 Git 团队中使用 jj，而团队成员并不知道他们使用了不同的工具。</p>
-
-<p>关于 jj 的自动提交特性引发了热烈讨论。与 Git 不同，jj 会自动提交文件编辑，这意味着如果用户检出一个旧提交并编辑文件，就会自动修改该提交并重新基于其后的所有历史。一些用户认为这是「交易破坏者」，而支持者则建议使用 <code>jj new</code> 而不是 <code>jj edit</code> 来避免这个问题。</p>
-
-<p>有趣的是，有用户提到 jj 对 AI 工具更友好。由于 <code>jj undo</code> 等功能和整体架构设计，AI 代理在使用 jj 时不容易造成无法恢复的错误。一位用户表示，他们在开源框架开发中全面采用 jj，AI 代理在使用 jj 进行代码切片和操作方面表现出色。</p>
-
-<p>在实际工作流方面，有用户提到在 GitHub 上使用 jj 进行代码审查时遇到的问题：每次推送新更改时，审阅者都会丢失上次审阅的提交差异。虽然有用户提到 GitHub 的新堆栈系统可能解决这个问题，但目前还在等待列表中。</p>
-
-<p>总体而言，jj 代表了版本控制系统发展的一个新方向，特别适合那些对 Git 有经验但希望探索更好工具的开发人员。其与 Git 的兼容性使得尝试成本极低，而社区中已经有不少成功的使用案例。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47763759</guid>
-      <pubDate>Tue, 14 Apr 2026 10:33:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
