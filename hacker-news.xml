@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 21 Apr 2026 17:15:59 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 21 Apr 2026 18:13:46 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Jujutsu中的巨型合并工作流程：乐趣与收益</title>
+      <link>https://news.ycombinator.com/item?id=47841129</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讲解Jujutsu版本控制工具中提高开发效率的巨型合并工作流程，属于用户很感兴趣的'编程效率改进经验'范畴，与用户兴趣配置高度匹配。</small></p><p>本文介绍了在Jujutsu版本控制系统中使用"巨型合并"（megamerge）工作流程的实用指南。作者Isaac Corbrey详细解释了如何通过创建包含多个父节点的合并提交（称为"octopus merges"）来管理复杂的开发环境。</p>
+
+<p>巨型合并工作流程的核心思想是创建一个包含所有相关工作分支的合并提交，包括功能分支、错误修复分支、待处理的PR分支等。这个巨型合并提交作为所有分支的子节点，开发者在其基础上进行工作，从而始终在工作的总和上进行开发。</p>
+
+<p>文章列举了这种工作流程的主要优势：</p>
+<ul>
+<li>始终在工作的总和上工作，确保所有更改能正常交互</li>
+<li>显著减少合并冲突，因为更改始终在合并</li>
+<li>任务切换更加顺畅，无需频繁切换分支</li>
+<li>更容易保持分支与主干同步</li>
+</ul>
+
+<p>作者提供了具体的操作指南，包括如何创建巨型合并、使用<code>jj absorb</code>命令自动将更改吸收到现有提交、使用<code>jj squash --interactive</code>交互式整理更改，以及通过自定义别名如<code>jj stack</code>和<code>jj stage</code>将新分支纳入巨型合并。特别重要的是<code>jj restack</code>别名，它允许只重新基于开发者控制的提交，避免重写他人的工作。</p>
+
+<p>社区反馈显示，许多开发者对这种工作流程表示兴趣。评论中提到："这可能是让我真正尝试jj的缺失环节"，"我已经临时构建了这种工作流程的版本，效果相当棒"。也有用户提到Jujutsu社区非常友好，推荐加入<a href="https://discord.com/invite/dkmfj3aGQN">Discord</a>获取帮助。</p>
+
+<p>文章最后提供了完整的配置示例，帮助读者快速上手这种高效的工作流程。作者强调巨型合并本身不应推送到远程仓库，而是作为本地管理的便利工具，分支仍需按常规方式单独发布。</p>
+
+<h3>你知道吗？</h3>
+<p>Jujutsu是一个现代分布式版本控制系统，旨在提供比Git更一致和强大的用户体验。它保留了Git的核心概念，但重新设计了用户界面和数据模型，特别强调变更集的可变性、强大的撤销功能和灵活的工作流程支持。Jujutsu可以完全替代Git，同时保持与Git仓库的互操作性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47841129</guid>
+      <pubDate>Mon, 20 Apr 2026 21:32:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 软件工程定律集锦：56条塑造软件系统与团队的原则</title>
       <link>https://news.ycombinator.com/item?id=47847179</link>
@@ -1505,23 +1533,6 @@ assert((p1ar->length - i) >= sizeof(*p1));</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47774971</guid>
       <pubDate>Wed, 15 Apr 2026 05:19:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 修复Enlightenment E16窗口管理器中存在20年的牛顿算法bug</title>
-      <link>https://news.ycombinator.com/item?id=47774789</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是修复开源窗口管理器中的bug，涉及编程效率改进经验，用户很感兴趣，故定为必看内容</small></p><p>一位2004年出生的技术博主分享了修复Enlightenment E16窗口管理器中一个存在20年之久的bug的经历。E16是1997年发布的窗口管理器，至今仍有硬核爱好者日常使用。</p>
-
-<p>bug表现为在打开特定PDF文件时整个桌面会冻结。通过调试发现，问题出在文本截断函数中，该函数使用牛顿算法来估算需要在窗口标题中间删除的字符数。代码缺少迭代限制，导致在某些特定条件下会无限振荡在两个状态之间。</p>
-
-<p>修复方案包括：添加最多32次的迭代限制、确保删除字符数不小于1、将平均像素/字符下限设为1避免除零错误。这些修改保证了算法的收敛性。</p>
-
-<p>Hacker News社区对此反应热烈，许多用户分享了年轻时被Enlightenment吸引进入Linux世界的怀旧经历。评论区充满了对这款经典窗口管理器的美好回忆，有人提到这是他们第一次接触Linux时的选择，还有人回忆了与开发者Carsten Haitzler（Raster）的互动。</p>
-
-<p>文章最后讨论了软件维护的哲学问题，作者认为老旧软件虽然可能有技术债务，但其bug数量会单调减少，而且没有供应链被攻击的风险，相比之下新软件虽然功能多但也带来了新的安全问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47774789</guid>
-      <pubDate>Wed, 15 Apr 2026 04:47:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
