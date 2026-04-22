@@ -3,7 +3,80 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 22 Apr 2026 22:01:43 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 22 Apr 2026 23:04:46 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ AI编程工具的过度编辑问题：模型为何修改超出必要范围的代码？</title>
+      <link>https://news.ycombinator.com/item?id=47866913</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讨论AI编程工具的过度编辑问题，涉及编程效率改进经验和AI软件技术进展两个高兴趣领域，是实际使用中的痛点分析</small></p><p>随着AI辅助编程工具如Cursor、GitHub Copilot、Claude Code等的普及，开发者们发现一个普遍问题：模型在修复代码时经常进行超出必要范围的修改，这种现象被称为"过度编辑"。这不仅增加了代码审查的负担，还可能在不经意间降低代码库的整体质量。</p>
+
+<img src="images/overediting.png" alt="Over-editing problem" />
+
+<p>文章作者通过系统研究揭示了这一问题的严重性。研究使用BigCodeBench的400个问题，通过程序化方式引入错误（如翻转比较运算符、交换加减号等），然后评估各模型在修复错误时的编辑行为。研究采用两个关键指标：令牌级Levenshtein距离（衡量代码结构变化程度）和增加的认知复杂度（衡量代码理解难度）。</p>
+
+<p>测试结果显示，即使是前沿模型也存在明显的过度编辑倾向。GPT-5.4表现最为突出，其Levenshtein距离高达0.39（推理模式），增加的认知复杂度达2.31，而其正确率（Pass@1）仅为0.723，在测试模型中表现最弱。相比之下，Claude Opus 4.6在保持最高正确率（0.912）的同时，产生的差异最小（Levenshtein距离仅0.06）。</p>
+
+<img src="images/reasoning_vs_non.png" alt="Reasoning vs Non-Reasoning" />
+
+<p>研究还发现，明确的提示可以显著改善这一问题。当在提示中加入"重要：尽量保留原始代码和逻辑"时，所有模型的Levenshtein距离都有所降低，且多数模型的正确率反而提高。这表明约束条件实际上帮助模型更精准地定位问题。</p>
+
+<p>有趣的是，推理模型在默认情况下更容易过度编辑，但一旦给出明确指令，它们也能更好地遵循约束。这反映了推理模型更强的指令遵循能力，但也暴露了其默认行为倾向于"改进"代码而非最小化修改。</p>
+
+<p>作者进一步探索了通过训练改善模型编辑行为的方法。实验使用Qwen3 4B 2507 Instruct作为基础模型，尝试了监督微调（SFT）、拒绝采样SFT（rSFT）、偏好优化（DPO）和强化学习（RL）等多种方法。结果显示，在域内数据上，SFT几乎完美地学习了最小编辑行为，但其泛化能力有限。当训练和测试使用不同的错误类型时，SFT性能大幅下降，而其他方法表现相对稳定。</p>
+
+<img src="images/comparison_plots.png" alt="Reasoning vs Non-Reasoning" />
+
+<p>Hacker News社区的讨论反映了开发者对这一问题的深切关注。许多用户分享了使用GPT-5.4时遇到的过度编辑体验，同时就"边工作边重构"的实践展开了辩论。一些开发者认为，过度编辑反映了AI工具缺乏对代码库上下文的理解，而另一些用户则指出，完全自主的代理可能不是最佳方向，半自主、可引导的工具可能更适合实际开发工作流。</p>
+
+<p>评论中一个关键观点是：过度编辑问题在现有代码库（brown-field）中尤为严重，因为这些代码已经被团队理解并有意以特定方式编写。模型的职责应该是修复问题而非重构代码。正如一位用户指出的："没有什么比处理一个因为需要'清理'而打开1000行PR的小UI修复更糟糕的了。"</p>
+
+<h3>你知道吗？</h3>
+<p>文章中使用了一些专业指标和方法：</p>
+<ul>
+<li><strong>令牌级Levenshtein距离</strong>：这是对经典Levenshtein距离的改进，先将代码通过Python分词器分解为语法单元（如def、return等），然后计算这些令牌序列的最小编辑距离，从而更准确地衡量代码结构变化。</li>
+<li><strong>认知复杂度</strong>：相比传统的圈复杂度，认知复杂度更关注代码的理解难度，它会惩罚嵌套、递归、混合逻辑运算符和非明显的控制流。</li>
+<li><strong>各种训练方法</strong>：SFT（监督微调）直接在有标签数据上训练；DPO（直接偏好优化）通过比较偏好样本来优化模型；RL（强化学习）使用结合功能正确性和编辑最小化的奖励函数。</li>
+<li><strong>推理模型与非推理模型</strong>：推理模型通常具有更强的逻辑推理能力，但研究显示这种能力在默认情况下可能导致过度思考和不必要的代码"改进"。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47866913</guid>
+      <pubDate>Wed, 22 Apr 2026 17:51:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Show HN提交激增，AI设计模式检测揭示21%网站存在&quot;重度设计敷衍&quot;</title>
+      <link>https://news.ycombinator.com/item?id=47864393</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 分析Show HN页面的AI设计模式检测，属于AI软件技术进展和开源项目展示的交叉领域，用户会感兴趣</small></p><p>一位开发者注意到Hacker News的Show HN板块中，许多项目呈现出一种刻板、千篇一律的视觉风格，疑似完全由AI生成。为了量化这种主观感受，他分析了500个最新的Show HN提交页面，系统性地检测了15种常见的AI设计模式。</p>
+
+<p>研究显示，随着Claude Code等AI编码工具的普及，Show HN提交数量在过去几年大幅增加：<img src="/showhn-timeline.svg" alt="Monthly Show HN posts, 2022–2026" />。Hacker News管理员甚至不得不对新账户的Show HN提交进行限制。</p>
+
+<p>AI设计模式主要分为四类：</p>
+<ul>
+<li><strong>字体</strong>：过度使用Inter字体，特别是居中的标题；常见字体组合如Space Grotesk、Instrument Serif等</li>
+<li><strong>颜色</strong>：特定的紫色调（"VibeCode Purple"）、永久深色模式、渐变背景、大型彩色发光效果</li>
+<li><strong>布局怪癖</strong>：居中的通用无衬线标题、标题上方的徽章<img src="/slop-hero-eyebrow-pill.png" alt="Uppercase badge above the hero H1" />、卡片顶部或左侧的彩色边框<img src="/slop-stripe-top-border.png" alt="Cards with a colored top-border stripe and Inter copy" />、图标顶部的功能卡片网格<img src="/slop-icon-grid.png" alt="Templated feature grid of icon-topped cards" /></li>
+<li><strong>CSS模式</strong>：shadcn/ui组件库、玻璃态效果<img src="/slop-gradient-glass.png" alt="Gradient background with glassmorphism cards" /></li>
+</ul>
+
+<p>通过自动化脚本分析DOM和计算样式，作者对500个网站进行评分，结果分为三个等级：</p>
+<ul>
+<li><strong>重度设计敷衍</strong>（触发5个以上模式）：105个网站（21%）</li>
+<li><strong>轻度迹象</strong>（2-4个模式）：230个网站（46%）</li>
+<li><strong>相对干净</strong>（0-1个模式）：165个网站（33%）</li>
+</ul>
+
+<p>Hacker News社区对此展开了热烈讨论。许多评论者指出，<a href="https://news.ycombinator.com/item?id=47864393">关键区别在于"氛围编码"（vibe coding）与专业工程师使用AI加速工作的不同</a>。前者指完全依赖AI生成代码而缺乏深入思考，后者则是将AI作为工具辅助开发。</p>
+
+<p>有用户表示："<a href="https://news.ycombinator.com/item?id=47864393">'氛围编码'现在只是指'用AI编码'，这不应该比'用IDE编码'更具侮辱性</a>"。另一些人则认为，<a href="https://news.ycombinator.com/item?id=47864393">大多数副项目现在都使用AI辅助，这很正常，因为副项目通常时间有限</a>。</p>
+
+<p>作者指出，单一模式不一定意味着网站是AI生成的，但多个模式的组合确实表明缺乏设计灵感。不过他也承认，验证商业想法从来不是关于花哨的设计，在AI时代之前，所有东西看起来都像Bootstrap。</p>
+
+<p><strong>你知道吗？</strong></p>
+<p>"氛围编码"（vibe coding）这个术语最初用于描述完全依赖AI生成代码而缺乏深入工程思考的开发方式。随着AI工具能力的提升，现在许多专业开发者也开始使用"代理式AI"（agentic AI）进行实现、迭代和调试，使得单纯从代码质量判断是否属于"氛围编码"变得更加困难。社区讨论的焦点已从是否使用AI，转向如何区分有意义的AI辅助开发与缺乏实质内容的AI生成内容。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47864393</guid>
+      <pubDate>Wed, 22 Apr 2026 14:44:32 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Cal.diy：Cal.com 开源社区版发布，移除企业功能但仅限个人使用</title>
       <link>https://news.ycombinator.com/item?id=47852155</link>
@@ -1423,56 +1496,6 @@ assert((p1ar->length - i) >= sizeof(*p1));</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47793411</guid>
       <pubDate>Thu, 16 Apr 2026 14:23:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qwen3.6-35B-A3B 开源发布：增强智能编码能力，面向所有开发者</title>
-      <link>https://news.ycombinator.com/item?id=47792764</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Qwen3.6-35B-A3B新AI模型的开源发布，增强智能编码能力，完全符合用户对新AI模型发布公告的高度兴趣</small></p><p>通义千问（Qwen）团队近日发布了 Qwen3.6-35B-A3B 模型，并开放了其权重供公众使用。这是 Qwen3.6 系列中首个开源模型，被视为此前 Qwen3.5-27B 的升级版本，专注于提升智能体（Agent）编码能力。</p>
-
-<p>该模型在 Hacker News 社区引发了广泛讨论，获得了 277 分和 144 条评论。许多开发者对团队在经历核心人员离职等变动后，仍坚持开源路线表示欣慰。用户 <a href="https://news.ycombinator.com/user?id=bertili">bertili</a> 评论道：“看到 Qwen 团队在遭遇‘限制’和 Junyang Lin 等人离职后，仍然发布开源权重，真是令人松了一口气！”</p>
-
-<p>技术层面，Qwen3.6-35B-A3B 是一个混合专家（MoE）模型，其名称中的“A3B”代表 30 亿激活参数。用户 <a href="https://news.ycombinator.com/user?id=adrian_b">adrian_b</a> 指出，该模型旨在替代之前的 Qwen3.5-27B，并期待未来是否会发布更大规模模型（如 122B 和 397B）的开源版本。</p>
-
-<p>社区讨论聚焦于几个关键点：</p>
-<ul>
-<li><strong>性能对比</strong>：有用户询问该模型与商业模型（如 Claude Sonnet 4.5 或 GPT）的差距。多数观点认为，作为开源中小型模型，其目标并非直接对标最前沿的商业模型，而是为特定场景提供“足够好”的解决方案。用户 <a href="https://news.ycombinator.com/user?id=vidarh">vidarh</a> 提到，Qwen 团队将其与 Google 的开源模型 Gemma 对比，而非 Gemini 或 GPT。</li>
-<li><strong>硬件与部署</strong>：许多开发者关心模型在消费级硬件上的运行能力。用户 <a href="https://news.ycombinator.com/user?id=abhikul0">abhikul0</a> 希望有更小的版本（如 9B），以便在 36GB 内存的 Mac 上获得更大的上下文空间。讨论也涉及量化、使用 llama.cpp 的 CPU 卸载专家（--cpu-moe）等优化技术来降低内存占用。</li>
-<li><strong>应用场景</strong>：用户 <a href="https://news.ycombinator.com/user?id=mtct88">mtct88</a> 认为，这类小型开源编码模型非常适合为受监管行业（如银行、医疗）的开发团队定制专属智能体，因为这些场景往往对数据隐私有严格要求，且无法使用公共模型。</li>
-<li><strong>开源生态</strong>：用户 <a href="https://news.ycombinator.com/user?id=fooblaster">fooblaster</a> 表达了对这类开源 AI 软件的期待：“没有关于其过于危险而无法发布的炒作，没有 IPO  pumping 的炒作，没有订阅费用。我太激动了，一定要试试！”</li>
-</ul>
-
-<p>模型权重已在 Hugging Face 上提供下载：<a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B">https://huggingface.co/Qwen/Qwen3.6-35B-A3B</a>。社区也在关注 Qwen 团队是否会继续发布该系列的其他尺寸模型。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47792764</guid>
-      <pubDate>Thu, 16 Apr 2026 13:36:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Darkbloom - 利用闲置 Apple Silicon Mac 构建的去中心化私有推理网络</title>
-      <link>https://news.ycombinator.com/item?id=47788542</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题为去中心化AI推理网络工具，属于编程工具发布/分享，符合用户high_interest兴趣配置</small></p><p>Darkbloom 是一个创新的去中心化推理网络，利用全球超过1亿台闲置的 Apple Silicon Mac 设备提供 AI 推理服务。该项目借鉴了 Airbnb 和 Uber 的共享经济模式，将闲置的计算资源直接连接到需求方，声称比中心化替代方案成本降低高达70%。</p>
-
-<p>该网络的核心特点是端到端加密和硬件验证的安全机制。用户请求在设备上加密后传输，协调器只能路由密文而无法读取内容。每个节点都使用 Apple 防篡改安全硬件生成的密钥进行验证，确保推理过程在受保护的环境中运行。网络提供与 OpenAI 兼容的 API，支持聊天、图像生成和语音转文本等功能。</p>
-
-<p>在经济模型方面，Darkbloom 消除了传统 AI 计算供应链中的多层加价环节——从 GPU 制造商到超大规模云提供商再到 API 服务商。硬件所有者可以获得100%的推理收入，仅需支付电费成本（约每小时0.01-0.03美元）。根据项目方数据，使用 Gemma 4 26B 等模型时，价格比 OpenRouter 等中心化服务便宜50%。</p>
-
-<img src="assets/logos/nvidia.svg" alt="NVIDIA" height="18" />
-<img src="assets/logos/aws.svg" alt="AWS" height="20" />
-<img src="assets/logos/google-cloud.svg" alt="Google Cloud" height="18" />
-<img src="assets/logos/azure.svg" alt="Azure" height="20" />
-<img src="assets/logos/coreweave.svg" alt="CoreWeave" height="14" />
-
-<p>Hacker News 社区对该项目展开了热烈讨论。有评论者质疑为什么只支持 Mac 设备，项目支持者解释称 Apple Silicon 提供了独特的硬件验证能力，通过系统完整性保护（SIP）和安全启动机制确保运行环境可信。但也有技术专家指出，SIP 和安全启动可以被关闭，这可能会影响安全假设。</p>
-
-<p>关于经济可行性，用户 pants2 进行了粗略计算：一台 M5 Pro Mac 在完全利用的情况下，每月可能产生约67美元收入，扣除9美元电费后净收益约58美元。然而，kennywinker 质疑如果收益如此可观，为什么项目方不直接大量购买 Mac mini 自行运营。还有评论提到该项目实际上基于加密货币和稳定币进行支付分配，这被认为是加密货币的非投机性用例之一。</p>
-
-<p>安全方面，nl 等用户详细讨论了技术白皮书中描述的内存保护机制，包括使用 PT_DENY_ATTACH 阻止调试器附加、强化运行时选项等。但 flockonus 提醒，任何将数据发送到外部服务器的用户都应假设存在一定程度的保留，建议商业用户仅发送非敏感数据。</p>
-
-<p>项目目前提供命令行安装工具，正在开发原生的 macOS 菜单栏应用。支持的模型包括 Google 的 Gemma 4、Qwen3.5 系列以及 MiniMax M2.5 等，最大支持2390亿参数的混合专家模型。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47788542</guid>
-      <pubDate>Thu, 16 Apr 2026 04:06:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
