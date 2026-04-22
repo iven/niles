@@ -3,7 +3,48 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 22 Apr 2026 17:17:06 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 22 Apr 2026 18:14:00 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Qwen3.6-27B：270 亿参数密集模型实现旗舰级编码性能</title>
+      <link>https://news.ycombinator.com/item?id=47863217</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要内容为新AI模型Qwen3.6-27B发布公告，直接符合用户对'新AI模型发布公告'的高兴趣配置，属于必看内容</small></p><p>通义千问团队发布了 Qwen3.6-27B 模型，这是一个 270 亿参数的密集模型，号称在编码任务上达到旗舰级水平。该模型在 Hacker News 社区引发了广泛讨论，获得了 263 分和 141 条评论。</p>
+
+<p>社区讨论主要围绕几个关键方面展开。首先是对模型性能的质疑，有用户对 27B 参数模型能否与 Claude Opus 等更大模型竞争表示怀疑，但其他人指出模型大小并非唯一决定因素，小模型近年来已取得显著进步。</p>
+
+<p>硬件要求成为讨论焦点。原生 16 位版本需要 Mac 或 Strix Halo 128GB 系统、多块高内存消费级 GPU 或 RTX 6000 工作站显卡。对于消费级硬件，通常需要运行量化版本。4 位量化版本可在 24GB VRAM 的 RTX 3090 上运行，但可能牺牲上下文长度。有用户分享了具体性能数据：在 RTX 3090 上使用 IQ4_XS 量化获得约 44-40 tok/s，在 Radeon RX 7900 XTX 上使用 Vulkan 后端获得约 36-33 tok/s。</p>
+
+<p>量化选择被用户描述为"令人困惑"，以 Unsloth 提供的量化版本为例，仅 4 位量化就有七种选择（IQ4_XS、Q4_K_S、IQ4_NL 等），让新手难以抉择。社区建议新模型发布后等待几周，让开发者修复下游实现和量化中的 bug。</p>
+
+<p>实际应用方面，有用户表示已在 C、C++ 和 Verilog 编码中使用前代 Qwen3.5-27B 并获得良好效果，预计新版本将减少对 Claude 的依赖。还有用户展示了模型生成 SVG 图像的能力，如<a href="https://codepen.io/chdskndyq11546/pen/yyaWGJx">鹈鹕骑自行车</a>和<a href="https://codepen.io/chdskndyq11546/pen/xbENmgK">龙吃热狗开车</a>的 SVG 示例，虽然质量参差不齐，但展示了模型的潜力。</p>
+
+<p>与混合专家模型（MoE）的对比也出现在讨论中，有用户指出 A3B-35B 更适合笔记本电脑，而这款密集模型在大多数显卡上会受到带宽限制。</p>
+
+<p><strong>你知道吗？</strong></p>
+<p>量化技术是将高精度模型权重转换为低精度表示的过程，如将 16 位浮点数转换为 4 位整数。这能大幅减少模型内存占用，使其能在消费级硬件上运行，但会带来一定的精度损失。不同的量化方法（如 GPTQ、GGUF）和精度级别（如 Q4_K_M、IQ4_XS）在速度和质量间提供不同权衡，选择合适量化版本是本地部署的关键考虑因素。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47863217</guid>
+      <pubDate>Wed, 22 Apr 2026 13:19:58 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ GitHub CLI 2.91.0 版本默认启用伪匿名遥测功能引发争议</title>
+      <link>https://news.ycombinator.com/item?id=47862331</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于GitHub CLI编程工具的新版本更新及争议，符合用户对'编程工具发布/分享'的高兴趣配置，属于重要编程工具资讯</small></p><p>GitHub CLI 在 2.91.0 版本中引入了默认启用的遥测功能，声称收集"伪匿名"数据以改进产品。这一变化在开发者社区引发了广泛讨论和争议。</p>
+
+<p>根据 GitHub 官方文档，遥测数据包括命令调用信息，如命令名称、使用的标志、操作系统、架构、设备ID等。GitHub 表示这些数据有助于了解功能使用情况、优先处理工作并评估功能是否满足用户需求。例如，当发布新的子命令时，团队希望了解是否有人使用以及如何使用。</p>
+
+<p>用户可以通过多种方式选择退出遥测：设置环境变量 <code>export GH_TELEMETRY=false</code> 或 <code>export DO_NOT_TRACK=true</code>，或者使用配置命令 <code>gh config set telemetry disabled</code>。此外，用户还可以启用日志模式来查看将发送的数据而不实际发送。</p>
+
+<p>Hacker News 上的讨论显示，开发者对这一变化反应强烈。有用户指出遥测功能是默认开启的，而且似乎难以完全禁用。评论中有人质疑"伪匿名"（pseudoanonymous）这个词的正确性，认为这实际上是"假匿名"，数据可以轻松去匿名化。</p>
+
+<p>一些用户建议停留在 2.90.0 版本以避免遥测，而企业用户则报告遥测默认是禁用的。讨论中还涉及对现代软件开发中过度依赖遥测的质疑，有用户认为良好的工程和设计实践应该足够，而不需要"监视"用户。</p>
+
+<p>GitHub 强调 CLI 是开源的，遥测实现可以在 <a href="https://github.com/cli/cli">cli/cli 仓库</a>中审查。需要注意的是，GitHub 扩展可能收集自己的使用数据，不受主 CLI 退出选项的控制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47862331</guid>
+      <pubDate>Wed, 22 Apr 2026 11:58:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Anthropic疑似从其专业订阅计划中移除Claude Code功能</title>
       <link>https://news.ycombinator.com/item?id=47855565</link>
@@ -1423,84 +1464,6 @@ assert((p1ar->length - i) >= sizeof(*p1));</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47786791</guid>
       <pubDate>Wed, 15 Apr 2026 23:36:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 你真的需要数据库吗？实测显示简单文件存储可能就足够了</title>
-      <link>https://news.ycombinator.com/item?id=47778086</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲编程效率改进经验，比较不同编程语言和存储策略的性能基准测试，属于用户强烈感兴趣的编程效率改进经验类别</small></p><p>一篇来自数据库客户端公司DB Pro的技术文章通过实际基准测试挑战了传统认知，探讨了在什么情况下应用程序真正需要数据库。文章的核心观点是：数据库本质上就是文件，对于许多早期应用来说，使用简单的文件存储策略可能就足够了。</p>
-
-<p>文章作者构建了相同的HTTP服务器，分别用Go、Bun和Rust三种语言实现，并测试了三种不同的存储策略：</p>
-
-<ol>
-<li><strong>线性扫描</strong>：每次请求都打开文件并逐行扫描查找目标记录</li>
-<li><strong>内存哈希表</strong>：启动时将全部数据加载到内存中的哈希映射，读写操作都在内存中进行</li>
-<li><strong>磁盘二分查找</strong>：使用固定宽度的索引文件进行二分查找，然后直接定位到数据文件中的对应记录</li>
-</ol>
-
-<p>测试使用了三种规模的数据集：1万、10万和100万条记录。基准测试结果揭示了几个关键发现：</p>
-
-<img src="/logo-go.svg" alt="Go语言" width="16" height="16" />
-<img src="/logo-bun.svg" alt="Bun运行时" width="16" height="16" />
-<img src="/logo-rust.svg" alt="Rust语言" width="16" height="16" />
-
-<p><strong>性能对比显著</strong>：线性扫描策略性能最差，在100万条记录时，Go只能处理23个请求/秒，每个Bun请求平均需要超过1秒。而内存哈希表策略表现最佳，Rust实现达到169,000请求/秒，Bun为106,000请求/秒，Go为97,000请求/秒。</p>
-
-<p><strong>意外发现</strong>：手写的磁盘二分查找策略（约40,000请求/秒）甚至比使用SQLite（25,000-26,000请求/秒）还要快约1.7倍。作者指出，SQLite为通用性付出了开销，对于简单的ID查找场景，这种开销可能是不必要的。</p>
-
-<img src="/db-logo-sqlite.jpg" alt="SQLite数据库" width="16" height="16" />
-
-<p><strong>实际应用意义</strong>：文章将性能数据转化为实际用户规模进行分析。假设每个活跃用户每小时触发10次数据库查找，峰值时段有10%的日活跃用户同时在线：</p>
-
-<ul>
-<li>线性扫描策略（1万条记录）能支持约280万日活跃用户</li>
-<li>磁盘二分查找能支持约1.44亿日活跃用户</li>
-<li>SQLite能支持约9000万日活跃用户</li>
-<li>内存哈希表能支持3.49亿至6.08亿日活跃用户</li>
-</ul>
-
-<p>作者指出，大多数应用程序的用户规模远小于这些数字。例如，一个拥有10万日活跃用户的消费类应用，在峰值时段只产生约30个请求/秒，远低于任何测试策略的处理能力。</p>
-
-<p><strong>社区反响热烈</strong>，在Hacker News上获得了230分和262条评论。讨论焦点包括：</p>
-
-<ul>
-<li>现代NVMe驱动器和操作系统页面缓存的性能被严重低估</li>
-<li>许多初创公司在产品初期就过度设计，部署复杂的数据库集群</li>
-<li>有评论者指出，最终可能会重新实现SQLite的功能，如事务性和ACID保证</li>
-<li>有人提到早期数据库直接使用RAW设备而非文件系统的历史</li>
-</ul>
-
-<p>文章最后明确了真正需要数据库的几种情况：数据集无法完全放入内存、需要多字段查询、需要连接操作、多个进程需要同时写入，或者需要原子性事务保证。对于大多数早期应用，作者的建议是：<strong>可能还不需要数据库</strong>。当确实需要时，SQLite等轻量级解决方案通常足以应对实际需求。</p>
-
-<p>这篇文章来自一家数据库客户端公司，其坦诚的态度在社区中获得了广泛赞誉，被认为是对当前过度工程化趋势的有力反思。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47778086</guid>
-      <pubDate>Wed, 15 Apr 2026 12:26:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Hacker News讨论：OpenClaw的实际使用情况与争议分析</title>
-      <link>https://news.ycombinator.com/item?id=47783940</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讨论编程工具OpenClaw的实际使用经验与争议，涉及编程工具分享和效率改进，属于用户高兴趣范畴</small></p><p>Hacker News社区围绕OpenClaw这一AI代理框架展开了深入讨论，揭示了实际应用案例、成本考量以及技术争议。</p>
-
-<p>讨论中，多位用户分享了OpenClaw的实际使用场景。lexandstuff将其与Obsidian笔记系统结合，作为日常使用的LLM助手，通过WhatsApp访问，用于卡路里追踪、待办事项管理、生活事务处理等。他表示，OpenClaw的优势在于记忆系统不依赖特定供应商，可以随模型切换而迁移。</p>
-
-<p>另一个引人注目的用例来自brtkwr，他在家庭Telegram群组中使用OpenClaw记录家族历史。该AI每天询问家庭成员生活故事，建立跨越50多名家庭成员的丰富档案。这一应用引发了伦理讨论，有人认为这是"吸食人性"的行为，也有人认为这是重要的代际知识保存方式。</p>
-
-<p>成本是用户关注的重点之一。有用户提到OpenClaw每月花费约100美元，引发了关于性价比的讨论。社区成员比较了不同模型的选择，包括Minimax 2.7和GLM 5.1等，并提到Anthropic已禁止在固定费率订阅中使用OpenClaw，只能通过按使用量计费的API使用。</p>
-
-<p>然而，OpenClaw也面临诸多批评。部分用户认为缺乏真正有说服力的使用案例，redact207直言整个现象是"人为制造的机器人炒作"，认为这是为了让用户消耗更多token的营销手段。技术用户如bdcravens表示，大多数功能可以通过cron作业和Playwright脚本实现，无需依赖OpenClaw。</p>
-
-<p>安全性也是重要担忧。用户担心给予AI过多API访问权限的风险，lxgr形容OpenClaw是"行走的CVE漏洞"，既存在安全隐患，又容易因权限模型冲突导致用户被锁定。</p>
-
-<p>文化层面，讨论提到OpenClaw在中国市场与动漫/游戏文化有特殊联系，被称为"养龙虾"现象。社区观察到大量社交媒体炒作和课程销售，但质疑真正通过OpenClaw盈利的用户数量。</p>
-
-<p>技术实现方面，用户分享了与Obsidian、Telegram等工具的集成经验，以及本地模型与云端API的选择考量。有用户如all2分享了自己构建类似框架的经验，将"做什么"和"如何思考"分解为工作流和代理两个基本要素。</p>
-
-<p>总体而言，OpenClaw在非技术用户中受到欢迎，他们将其视为自动化工具，而对于有编程经验的用户来说，其价值相对有限。讨论反映了AI代理工具在实用性与炒作之间的平衡问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47783940</guid>
-      <pubDate>Wed, 15 Apr 2026 19:22:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
