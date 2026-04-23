@@ -3,7 +3,48 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 22 Apr 2026 23:57:56 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 23 Apr 2026 03:44:34 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.118：新增Vim视觉模式、自定义主题和更新禁用选项</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.118</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.118 版本，带来多项功能增强和错误修复。主要更新包括新增 Vim 视觉模式支持、自定义主题功能、以及更严格的更新控制选项。</p>
+
+<p><strong>重要新功能：</strong></p>
+<ul>
+<li><strong>Vim 视觉模式：</strong>新增 <code>v</code>（视觉模式）和 <code>V</code>（视觉行模式）支持，提供选择、操作符和视觉反馈功能</li>
+<li><strong>命令合并：</strong>将 <code>/cost</code> 和 <code>/stats</code> 合并为 <code>/usage</code> 命令，原有命令仍可作为快捷方式使用</li>
+<li><strong>自定义主题：</strong>通过 <code>/theme</code> 命令创建和切换命名自定义主题，支持手动编辑 <code>~/.claude/themes/</code> 目录下的 JSON 文件，插件也可通过 <code>themes/</code> 目录提供主题</li>
+<li><strong>MCP 工具直接调用：</strong>Hooks 现在可以通过 <code>type: "mcp_tool"</code> 直接调用 MCP 工具</li>
+<li><strong>更新禁用选项：</strong>新增 <code>DISABLE_UPDATES</code> 环境变量，完全禁用所有更新路径（包括手动 <code>claude update</code>），比 <code>DISABLE_AUTOUPDATER</code> 更严格</li>
+</ul>
+
+<p><strong>其他改进：</strong></p>
+<ul>
+<li>WSL 现在可以通过 <code>wslInheritsWindowsSettings</code> 策略键继承 Windows 端的管理设置</li>
+<li>自动模式增强：在 <code>autoMode.allow</code>、<code>autoMode.soft_deny</code> 或 <code>autoMode.environment</code> 中包含 <code>"$defaults"</code> 可在内置列表基础上添加自定义规则</li>
+<li>自动模式选择提示新增"不再询问"选项</li>
+<li>新增 <code>claude plugin tag</code> 命令，为插件创建带有版本验证的 Git 发布标签</li>
+<li><code>--continue</code>/<code>--resume</code> 现在可以找到通过 <code>/add-dir</code> 添加当前目录的会话</li>
+<li><code>/color</code> 命令在远程控制连接时将会话强调色同步到 claude.ai/code</li>
+<li><code>/model</code> 选择器在使用自定义 <code>ANTHROPIC_BASE_URL</code> 网关时，现在会优先使用 <code>ANTHROPIC_DEFAULT_*_MODEL_NAME</code>/<code>_DESCRIPTION</code> 覆盖设置</li>
+<li>当自动更新因其他插件的版本约束而跳过某个插件时，跳过信息现在会显示在 <code>/doctor</code> 和 <code>/plugin</code> 错误标签页中</li>
+</ul>
+
+<p><strong>错误修复：</strong></p>
+<ul>
+<li>修复了多个 MCP 服务器认证相关问题，包括 OAuth 认证/重新认证操作隐藏、HTTP/SSE MCP 服务器自定义头信息问题、OAuth 令牌刷新逻辑等</li>
+<li>修复了 macOS 钥匙串竞争条件，防止并发 MCP 令牌刷新覆盖新刷新的 OAuth 令牌</li>
+<li>修复了 Linux/Windows 上凭证保存崩溃导致 <code>~/.claude/.credentials.json</code> 损坏的问题</li>
+<li>修复了使用 <code>CLAUDE_CODE_OAUTH_TOKEN</code> 启动的会话中 <code>/login</code> 命令无效的问题</li>
+<li>修复了"新消息"滚动提示和 <code>/plugin</code> 徽章中文本不可读的问题</li>
+<li>修复了多个界面和交互问题，包括键盘输入冻结、远程会话覆盖本地设置、命令提示错误等</li>
+<li>修复了插件安装、文件监视器、远程控制会话归档等多个稳定性问题</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.118</guid>
+      <pubDate>Thu, 23 Apr 2026 00:42:21 GMT</pubDate>
+    </item>
     <item>
       <title>Neovim v0.12.2 发布：包含多项修复和功能更新</title>
       <link>https://github.com/neovim/neovim/releases/tag/v0.12.2</link>
@@ -1541,21 +1582,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.83</guid>
       <pubDate>Wed, 25 Mar 2026 06:08:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>Neovim 夜间构建版本 v0.13.0-dev-29 发布</title>
-      <link>https://github.com/neovim/neovim/releases/tag/nightly</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Neovim开发版本，预发布版本，用户对编程工具感兴趣但这是夜间版本</small></p><p>Neovim 发布了新的开发版（预发布）构建，版本号为 v0.13.0-dev-29+g1bcf2d7f90。该版本提供了详细的安装指南，支持 Windows、macOS 和 Linux 等多个平台。</p>
-
-<p>具体安装方法包括：Windows 用户可通过 ZIP 或 MSI 安装包；macOS 用户需根据芯片架构（x86_64 或 arm64）下载对应的压缩包并解压运行；Linux 用户可选择 AppImage 或 Tarball 格式，并提供了针对旧版 glibc 的替代构建方案。</p>
-
-<p>本次发布未直接列出具体的功能更新或错误修复，但提供了 <a href="https://github.com/neovim/neovim/commit/1bcf2d7f90d4b2de18bc7e409db98893f01a83f1">变更日志链接</a> 和 <a href="./runtime/doc/news.txt">新闻文档</a>（在 Nvim 中可通过 <code>:help news</code> 查看），用户可通过这些链接了解详细的改动内容。</p>
-
-<p>作为夜间构建版本，此版本可能包含实验性功能或不稳定改动，建议用户在测试环境中使用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/neovim/neovim/releases/tag/nightly</guid>
-      <pubDate>Tue, 31 Mar 2026 05:46:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
