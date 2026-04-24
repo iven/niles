@@ -3,7 +3,40 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 23 Apr 2026 21:59:14 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 24 Apr 2026 00:00:20 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.119 发布：配置持久化、PR 链接自定义等多项改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.119</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布了 v2.1.119 版本，带来了多项功能改进和 bug 修复。主要更新包括配置持久化、PR 链接自定义、环境变量控制等桌面应用相关功能。</p>
+
+<p><strong>重要功能改进：</strong></p>
+<ul>
+<li><strong>配置持久化</strong>：<code>/config</code> 设置（主题、编辑器模式、详细输出等）现在会持久化保存到 <code>~/.claude/settings.json</code> 文件</li>
+<li><strong>PR 链接自定义</strong>：新增 <code>prUrlTemplate</code> 设置，允许将底部 PR 徽章指向自定义的代码审查 URL，而不是默认的 github.com</li>
+<li><strong>工作目录隐藏</strong>：新增 <code>CLAUDE_CODE_HIDE_CWD</code> 环境变量，可在启动徽章中隐藏工作目录</li>
+<li><strong>PR 支持扩展</strong>：<code>--from-pr</code> 参数现在支持 GitLab 合并请求、Bitbucket 拉取请求和 GitHub Enterprise PR URL</li>
+<li><strong>权限模式改进</strong>：PowerShell 工具命令现在可以在权限模式下自动批准，与 Bash 行为保持一致</li>
+<li><strong>Vim 模式优化</strong>：在 INSERT 模式下按 Esc 不再将排队的消息拉回输入中；需要再次按 Esc 来中断</li>
+</ul>
+
+<p><strong>其他改进和修复：</strong></p>
+<ul>
+<li><strong>UI/UX 改进</strong>：斜杠命令建议现在会高亮匹配查询的字符；命令选择器将长描述换行到第二行而不是截断</li>
+<li><strong>输出链接优化</strong>：输出中的 <code>owner/repo#N</code> 简写链接现在使用 git remote 的主机而不是始终指向 github.com</li>
+<li><strong>粘贴问题修复</strong>：修复了粘贴 CRLF 内容（Windows 剪贴板、Xcode 控制台）时在每行之间插入额外空行的问题</li>
+<li><strong>滚动修复</strong>：修复了在全屏模式下向上滚动时，每次工具完成都会跳回底部的问题</li>
+<li><strong>工具显示修复</strong>：修复了在原生 macOS/Linux 构建中，当通过权限拒绝 Bash 工具时 Glob 和 Grep 工具消失的问题</li>
+<li><strong>VSCode 集成修复</strong>：修复了 macOS 上语音听写的首次录音在麦克风权限提示显示时无输出的问题</li>
+<li><strong>Windows 特定修复</strong>：移除了误报的 "Windows 需要 'cmd /c' 包装器" MCP 配置警告</li>
+<li><strong>多个其他 bug 修复</strong>：包括 MCP 连接、权限模式、会话管理、插件加载等方面的修复</li>
+</ul>
+
+<p>此次更新主要关注用户体验改进和稳定性提升，特别是配置管理、PR 工作流和终端交互方面的优化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.119</guid>
+      <pubDate>Thu, 23 Apr 2026 23:24:19 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.5.10 发布：工作区管理改进与用户体验优化</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.10</link>
@@ -1569,51 +1602,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.86</guid>
       <pubDate>Fri, 27 Mar 2026 21:42:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.85 发布：新增 MCP 多服务器支持、条件钩子过滤和多项性能优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.85</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Claude Code AI编码代理更新，用户不关心Windows平台改动，摘要为空无法判断具体内容</small></p><p>Claude Code 发布了 v2.1.85 版本，带来了多项功能增强和错误修复。主要更新包括新增 MCP（模型上下文协议）多服务器支持、条件钩子过滤机制，以及修复了多个影响用户体验的问题。</p>
-
-<p><strong>重要功能改进：</strong></p>
-<ul>
-<li>新增 <code>CLAUDE_CODE_MCP_SERVER_NAME</code> 和 <code>CLAUDE_CODE_MCP_SERVER_URL</code> 环境变量，允许单个辅助脚本服务多个 MCP 服务器</li>
-<li>为钩子添加条件 <code>if</code> 字段，使用权限规则语法（如 <code>Bash(git *)</code>）过滤执行时机，减少进程生成开销</li>
-<li>在计划任务（<code>/loop</code>、<code>CronCreate</code>）触发时，在转录中添加时间戳标记</li>
-<li>深链接查询（<code>claude-cli://open?q=…</code>）现在支持最多 5,000 个字符，对长预填充提示显示"滚动查看"警告</li>
-</ul>
-
-<p><strong>错误修复：</strong></p>
-<ul>
-<li>修复了 <code>/compact</code> 在对话过大时因"上下文超出"而失败的问题</li>
-<li>修复了插件安装位置与设置中声明位置不同时，<code>/plugin enable</code> 和 <code>/plugin disable</code> 失败的问题</li>
-<li>修复了多显示器设置中 <code>switch_display</code> 工具返回"此会话中不可用"的问题</li>
-<li>修复了远程会话中流式响应被中断时的内存泄漏问题</li>
-<li>修复了运行某些斜杠命令后提示卡在队列中，且上箭头无法检索的问题</li>
-<li>修复了在 SSH 或 VS Code 集成终端中运行时原始键序列出现在提示中的问题</li>
-<li>修复了 Ghostty、Kitty、WezTerm 等支持 Kitty 键盘协议的终端退出后仍处于增强键盘模式的问题</li>
-</ul>
-
-<p><strong>性能优化：</strong></p>
-<ul>
-<li>改进了大型仓库中 @-提及文件自动完成的性能</li>
-<li>通过用纯 TypeScript 实现替换 WASM yoga-layout，改进了大型转录的滚动性能</li>
-<li>减少了大型会话触发压缩时的 UI 卡顿</li>
-<li>改进了 PowerShell 危险命令检测</li>
-</ul>
-
-<p><strong>其他改进：</strong></p>
-<ul>
-<li>粘贴图片时在 <code>[Image #N]</code> 占位符后添加尾随空格</li>
-<li>MCP OAuth 现在遵循 RFC 9728 受保护资源元数据发现来查找授权服务器</li>
-<li>被组织策略（<code>managed-settings.json</code>）阻止的插件无法再安装或启用，并从市场视图中隐藏</li>
-<li>PreToolUse 钩子现在可以通过返回 <code>updatedInput</code> 和 <code>permissionDecision: "allow"</code> 来满足 <code>AskUserQuestion</code>，支持通过自有 UI 收集答案的无头集成</li>
-<li>OpenTelemetry 工具结果事件中的 <code>tool_parameters</code> 现在受 <code>OTEL_LOG_TOOL_DETAILS=1</code> 控制</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.85</guid>
-      <pubDate>Thu, 26 Mar 2026 22:52:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
