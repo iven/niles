@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 24 Apr 2026 19:58:16 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 24 Apr 2026 21:03:51 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 反思过度思考：开发者如何因范围蔓延而破坏项目</title>
+      <link>https://news.ycombinator.com/item?id=47890799</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲述开发者如何因过度思考和范围蔓延破坏项目，属于编程效率改进经验，用户很感兴趣</small></p><p>软件开发者 Kevin Lynagh 在最新通讯中反思了项目执行中的两种常见模式：直接动手完成的成功案例，以及因过度研究现有方案而陷入范围蔓延的失败经历。他通过个人项目实例分析了过度思考如何导致项目停滞，并提出了保持最小范围的解决方案。</p>
+
+<p>作者指出，当有新项目想法时，往往走向两个极端：要么立即动手实现并快速完成，要么开始研究现有方案，发现大量相关项目后不断扩展范围，最终既未解决原始问题，也未能享受创造乐趣。他认为关键区别在于是否清晰内化了个人成功标准。</p>
+
+<p>一个正面例子是周末与朋友完成的木工项目：<img src="shelf.jpg" alt="a black shelf with a painted orange/pink edge and Ikea food bins hanging off the bottom" /> 他们仅用周末时间设计制作了厨房架子，使用剩余材料，成功标准明确——与朋友享受木工乐趣。相比之下，作者花费4小时研究结构差异工具，陷入“语义树差异是博士级复杂问题”的思维困境，最终才想起原始目标只是为Emacs创建更好的差异工作流。</p>
+
+<p>作者提出“范围蔓延守恒定律”：编程速度的任何提升都会被不必要的功能、死胡同和分心所抵消。他以使用LLM构建文件搜索工具为例，本可几小时完成，却因研究Nucleo库的锚点功能而浪费数小时，最终发现该功能根本不需要。</p>
+
+<p>文章后半部分深入探讨了结构差异工具的技术现状。作者发现现有工具如difftastic虽然优于行级差异，但在匹配代码实体时仍有不足。<img src="difftastic.png" alt="" /> 他调研了semanticdiff.com、diffsitter、Gumtree、weave等多个工具，发现各自存在局限性：有的依赖Treesitter但不可靠，有的架构复杂，有的包含过多启发式分析。</p>
+
+<p>基于“最小范围”原则，作者计划自行开发工具：先构建基于Treesitter的实体提取框架，实现简单贪婪匹配，再集成到Emacs的Magit式工作流中。他强调目标不是收集GitHub星标，而是解决个人实际需求。</p>
+
+<p>Hacker News社区对此文反应热烈，获得284票和67条评论。许多开发者表示深有共鸣，认为过度规划和范围蔓延是常见失败模式。有评论者指出这与博士研究的困境相似：阅读大量相关文献后失去初始动力。还有用户联想到CIA的破坏手册，其中关于“坚持通过渠道办事”、“凡事提交委员会研究”等建议与过度流程化如出一辙。</p>
+
+<p>作者最终建议：与其过度思考，不如拥抱内心的“无知20岁青年”，直接动手做事——即使某些决定事后看来“明显糟糕”，总体上仍是净收益。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47890799</guid>
+      <pubDate>Fri, 24 Apr 2026 14:28:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 大型语言模型工作原理：基于Karpathy讲座的交互式可视化指南</title>
       <link>https://news.ycombinator.com/item?id=47886517</link>
@@ -1393,41 +1416,6 @@ assert((p1ar->length - i) >= sizeof(*p1));</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47806845</guid>
       <pubDate>Fri, 17 Apr 2026 15:15:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 基于区间并集算术的开源计算器实现</title>
-      <link>https://news.ycombinator.com/item?id=47812341</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于开源计算器实现，属于编程工具开发和开源项目，完全符合用户对编程工具发布/分享(high_interest)和开源项目(interest)的兴趣</small></p><p>开发者创建了一个开源计算器项目，实现了区间并集算术（Interval Union Arithmetic），解决了传统区间算术在处理包含零的区间除法时的局限性。该项目使用TypeScript编写，无外部依赖，基于IEEE 754双精度浮点数并采用向外舍入技术，保证计算结果的精度。</p>
-
-<p>传统区间算术在处理如1/[-1, 2]这样的表达式时，只能得到无意义的[-∞, +∞]或声明操作未定义，而实际正确答案应为[-∞, -1] ∪ [0.5, +∞]——即两个不相交区间的并集。区间并集算术通过允许不相交区间的并集运算，形成了一个封闭的算术系统，能够准确处理这类问题。</p>
-
-<p>该计算器支持丰富的功能：</p>
-<ul>
-<li>基本算术运算：加、减、乘、除、幂运算</li>
-<li>数学函数：三角函数、对数函数、指数函数等</li>
-<li>特殊函数：区间下界(lo)、上界(hi)、包络(hull)、绝对值等</li>
-<li>区间并集操作符U</li>
-<li>全精度模式：通过向外舍入保证结果区间包含真实值</li>
-</ul>
-
-<p>项目作者在评论中透露，开发此计算器主要是为了测试其区间并集算术库<a href="https://github.com/victorpoughon/not-so-float">not-so-float</a>，该库将用于另一个反向更新电子表格项目<a href="https://victorpoughon.github.io/bidicalc/">bidicalc</a>。由于JavaScript不直接支持舍入模式控制，作者通过TypedArray类型转换实现了类似C语言nextafter()的功能。</p>
-
-<p>社区讨论中，用户们分享了区间算术的实际应用场景：</p>
-<ul>
-<li>静态分析和类型检查：通过跟踪变量的可能值范围检测不可达代码分支</li>
-<li>LLVM优化：基于传感器数据表的数值范围信息进行优化</li>
-<li>隐式曲面计算：用于优化隐式曲面表示</li>
-<li>图形计算器：实现基于区间算术的函数绘图</li>
-</ul>
-
-<p>有用户指出，区间并集算术的一个潜在问题是随着运算次数增加，并集中区间的数量可能快速增长，这是当前学术研究的一个活跃领域。</p>
-
-<h3>你知道吗？</h3>
-<p>区间算术（Interval Arithmetic）是一种数值分析方法，通过区间而非单个数值来表示不确定性和舍入误差。每个区间[a, b]表示所有在a和b之间（包括端点）的实数集合。区间并集算术（Interval Union Arithmetic）是区间算术的扩展，允许不相交区间的并集运算，从而能够准确表示如除法包含零区间等传统区间算术无法处理的情况。这种方法的"包含性质"保证：从每个输入区间中任意选取实数进行计算，结果必定在输出区间内。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47812341</guid>
-      <pubDate>Sat, 18 Apr 2026 01:15:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
