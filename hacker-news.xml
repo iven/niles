@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 24 Apr 2026 17:13:35 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 24 Apr 2026 17:59:23 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 大型语言模型工作原理：基于Karpathy讲座的交互式可视化指南</title>
+      <link>https://news.ycombinator.com/item?id=47886517</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲解大型语言模型工作原理及可视化指南，属于AI软件技术进展范畴，用户配置为感兴趣</small></p><p>本文介绍了一个基于 Andrej Karpathy「大型语言模型入门」讲座的交互式可视化网站，详细解释了从数据收集到模型部署的完整流程。作者使用 Claude Code 从讲座转录本生成了整个单页 HTML 网站。</p>
+
+<p>网站内容分为四个主要章节：预训练阶段涵盖从 Common Crawl 收集的 2.7 亿网页中过滤出 44TB 高质量文本数据，通过 Byte Pair Encoding (BPE) 算法将文本转换为约 10 万个 token 的词汇表，以及使用 Transformer 架构训练包含 4050 亿参数的神经网络。基础模型被描述为「互联网模拟器」，能够基于统计模式完成文本序列但无法进行对话。</p>
+
+<p>后训练阶段通过监督微调（SFT）和基于人类反馈的强化学习（RLHF）将基础模型转化为有用的助手。SFT 使用人类标注的理想对话数据，而 RLHF 通过奖励模型进一步优化响应质量。文章还探讨了 LLM 的认知特性，包括幻觉产生机制、两种记忆类型（参数记忆和上下文记忆），以及知识截止日期的影响。</p>
+
+<p>最后介绍了检索增强生成（RAG）技术，通过将外部文档嵌入向量数据库并在查询时注入相关片段到上下文窗口，解决模型知识过时和幻觉问题。</p>
+
+<p>在 Hacker News 社区中，该文章获得 228 个点赞和 53 条评论。部分用户称赞其解释清晰，适合复习相关知识。然而也有不少批评指出网站完全由 LLM 生成，缺乏人工校对，其中「44TB 数据大约相当于一个硬盘」的表述被指不准确（当前消费级硬盘最大约 32TB）。其他技术问题包括 iOS Safari 上的滚动跳转问题，以及典型的「AI 生成」设计风格。有评论者建议添加更多技术细节，如嵌入层如何处理多义词，以及训练与推理阶段的区别。</p>
+
+<p>尽管存在争议，该可视化指南仍为理解 LLM 工作流程提供了有价值的参考，特别是对于希望直观了解从原始数据到对话助手全过程的读者。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47886517</guid>
+      <pubDate>Fri, 24 Apr 2026 06:48:53 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Matz 开发 Ruby AOT 编译器 Spinel：性能提升 11.6 倍，支持自托管编译</title>
       <link>https://news.ycombinator.com/item?id=47887334</link>
@@ -1409,27 +1428,6 @@ assert((p1ar->length - i) >= sizeof(*p1));</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47812341</guid>
       <pubDate>Sat, 18 Apr 2026 01:15:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ iTerm2 终端模拟器存在严重安全漏洞：cat 命令可触发任意代码执行</title>
-      <link>https://news.ycombinator.com/item?id=47809190</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 报道iTerm2终端模拟器的严重安全漏洞，涉及任意代码执行风险，与用户的编程工具发布/分享兴趣高度相关，对程序员来说是需要立即关注的安全警告</small></p><p>研究人员发现 iTerm2 终端模拟器中的一个严重安全漏洞，允许恶意文件通过终端转义序列触发任意代码执行。该漏洞影响 iTerm2 的 SSH 集成功能，攻击者可以构造特殊的文本文件，当用户使用 <code>cat</code> 命令查看时，iTerm2 会错误地将文件内容解析为 SSH 集成协议消息，从而执行恶意代码。</p>
-
-<p>漏洞的核心在于 iTerm2 的信任机制失效。SSH 集成功能使用 DCS 2000p 和 OSC 135 终端转义序列与远程控制器（conductor）通信，但 iTerm2 未能验证这些消息的真实来源。恶意文件可以伪造这些转义序列，冒充合法的远程控制器，引导 iTerm2 执行攻击者指定的命令。</p>
-
-<p>攻击需要特定的环境设置：攻击者需要创建一个包含恶意转义序列的文本文件（如 readme.txt），同时在当前目录下放置一个特定名称的可执行文件。当用户运行 <code>cat readme.txt</code> 时，iTerm2 会解析文件中的伪造协议消息，最终执行攻击者准备的可执行文件。</p>
-
-<p>研究人员在 3 月 30 日向 iTerm2 报告了该漏洞，开发者在 3 月 31 日提交了修复代码（<a href="https://github.com/gnachman/iTerm2/commit/a9e745993c2e2cbb30b884a16617cd5495899f86">commit a9e7459</a>）。然而，文章发布时修复尚未进入稳定版本。</p>
-
-<p>Hacker News 社区对此展开了热烈讨论。部分用户质疑为何在稳定版本修复前就公开披露漏洞，认为这增加了被利用的风险。也有用户指出，这并非 <code>cat</code> 命令本身的问题，而是 iTerm2 特定功能的漏洞。还有人提到，类似的安全问题在 6 年前就曾在 iTerm2 中出现过（<a href="https://blog.mozilla.org/security/2019/10/09/iterm2-critical-issue-moss-audit/">Mozilla 2019 年报告</a>）。</p>
-
-<p>社区讨论还涉及终端安全的普遍问题：终端转义序列的复杂性使得终端模拟器容易受到此类攻击；一些用户建议使用 <code>strings</code> 命令替代 <code>cat</code> 来查看可能包含不可打印字符的文件；还有人讨论了如何在现代编程语言中更好地处理终端输出安全。</p>
-
-<p>该漏洞凸显了功能丰富的终端模拟器面临的安全挑战，特别是在添加 SSH 集成等高级功能时，需要更加谨慎地处理来自不受信任源的终端输出。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47809190</guid>
-      <pubDate>Fri, 17 Apr 2026 18:43:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
