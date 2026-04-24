@@ -3,7 +3,52 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 23 Apr 2026 23:59:57 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 24 Apr 2026 03:48:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Honker：为 SQLite 添加 PostgreSQL 风格 NOTIFY/LISTEN 语义的扩展</title>
+      <link>https://news.ycombinator.com/item?id=47874647</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是一个SQLite扩展工具发布，属于用户很感兴趣的编程工具发布/分享类别，为主要主题，用户会强烈感兴趣</small></p><p>Honker 是一个开源 SQLite 扩展，为 SQLite 数据库添加了类似 PostgreSQL 的 NOTIFY/LISTEN 语义，实现了跨进程的事件通知、持久任务队列和发布/订阅功能，无需额外的消息代理或守护进程。</p>
+
+<img src="/russellromney/honker/raw/main/assets/honker-logo.png" alt="Honker logo" width="120" />
+
+<p>该项目由开发者 russellthehippo 创建，旨在解决 SQLite 作为主要数据存储时缺乏原生事件通知机制的问题。传统上，开发者需要引入 Redis 或 Celery 等外部系统来实现异步任务处理，但这会带来额外的运维复杂性和数据一致性问题。</p>
+
+<p>Honker 的核心创新在于利用 SQLite 的 WAL（Write-Ahead Logging）文件作为变更信号源。通过每毫秒轮询一次 WAL 文件的 stat(2) 状态变化，系统能够在提交事务后立即唤醒监听器，实现单数毫秒级的跨进程通知延迟，而无需持续轮询数据库。</p>
+
+<h3>主要特性</h3>
+<ul>
+<li><strong>原子性事务</strong>：任务入队可以与业务数据写入在同一个事务中提交，确保「要么全部成功，要么全部回滚」的一致性保证</li>
+<li><strong>持久任务队列</strong>：支持重试机制、优先级、延迟任务、死信队列和领导者选举的定时任务调度器</li>
+<li><strong>事件流</strong>：提供具有每个消费者独立偏移量的持久发布/订阅流</li>
+<li><strong>临时通知</strong>：类似 PostgreSQL pg_notify 的临时发布/订阅功能</li>
+<li><strong>多语言支持</strong>：提供 Python、Node.js、Rust、Go、Ruby、Bun、Elixir 和 C++ 绑定，所有绑定都基于同一个 SQLite 可加载扩展</li>
+</ul>
+
+<h3>技术实现</h3>
+<p>Honker 要求数据库运行在 WAL 模式下，这是 SQLite 支持并发读写的一种日志模式。扩展通过一个独立的线程监控 .db-wal 文件的大小和修改时间变化，任何提交都会触发文件状态更新，从而唤醒所有注册的监听器。</p>
+
+<p>任务队列在内部实现为带有部分索引的普通表：_honker_live 表存储待处理和处理中的任务，_honker_dead 表存储重试耗尽的任务。这种设计使得查询性能仅取决于活动任务数量，而不受历史数据影响。</p>
+
+<h3>社区反馈</h3>
+<p>在 Hacker News 上，该项目获得了 239 点赞和 58 条评论。开发者社区对以下方面表现出浓厚兴趣：</p>
+<ul>
+<li><strong>性能表现</strong>：stat(2) 轮询每毫秒仅消耗约 0.1% CPU 时间，被认为是可以接受的代价</li>
+<li><strong>跨平台兼容性</strong>：作者选择 stat(2) 而非 inotify/kqueue 等系统特定机制，因为 macOS 的 FSEvents 会丢弃同进程的通知</li>
+<li><strong>与现有工具集成</strong>：用户询问了与 SQLAlchemy、Litestream 等工具的兼容性</li>
+<li><strong>扩展性限制</strong>：作者明确表示该项目适用于单机部署，不适合需要多写入器或高并发监听器的场景</li>
+</ul>
+
+<p>Honker 的命名延续了任务队列系统的「滑稽命名」传统（如 Oban、pg-boss、Huey、RabbitMQ 等），作者表示这是为「仅使用 SQLite」的应用程序生态带来的一个新工具。</p>
+
+<h3>你知道吗？</h3>
+<p>SQLite 的 WAL 模式与传统的回滚日志模式不同，它允许一个写入器和多个读取器同时访问数据库，通过将修改先写入单独的 WAL 文件，然后在检查点时批量应用到主数据库文件来实现。这种设计不仅提高了并发性能，也为 Honker 这样的扩展提供了可靠的文件变更检测机制。</p>
+
+<p>「事务性发件箱」模式是分布式系统中确保数据一致性的常见模式，它要求业务操作和相关的异步操作在同一个事务中完成。Honker 通过将任务直接作为数据库表中的行来实现这一模式，无需额外的调度器进程。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47874647</guid>
+      <pubDate>Thu, 23 Apr 2026 11:53:11 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenAI发布GPT-5.5引发社区热议：性能优化与基准测试讨论</title>
       <link>https://news.ycombinator.com/item?id=47879092</link>
@@ -1467,33 +1512,6 @@ assert((p1ar->length - i) >= sizeof(*p1));</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47806725</guid>
       <pubDate>Fri, 17 Apr 2026 15:04:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 研究人员使用Codex AI成功攻击三星智能电视并获取root权限</title>
-      <link>https://news.ycombinator.com/item?id=47791212</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章核心讲述Codex AI在安全研究中的应用，属于AI软件技术进展，用户配置为感兴趣，推荐阅读</small></p><p>研究人员展示了如何使用OpenAI的Codex AI模型攻击三星智能电视，从浏览器应用的代码执行权限成功提升到root权限。这项研究为AI在网络安全领域的应用提供了新的视角。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!3p6C!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9f73e98b-8a92-499b-9590-66d5997c387b_4032x3024.jpeg" alt="The subject" width="4032" height="3024" />
-
-<p>研究团队为Codex提供了一个特殊的环境：他们已经在三星电视的浏览器应用中获得了代码执行权限，并且拥有对应固件的源代码。Codex的任务是利用这些资源找到漏洞并实现权限提升。</p>
-
-<p>Codex首先分析了系统环境，发现了一组名为ntk*的世界可写设备节点。通过审计固件源代码，它发现<code>/dev/ntksys</code>设备存在严重安全漏洞：该驱动允许用户空间程序映射任意物理内存到自己的地址空间，而没有任何权限检查。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!JU0D!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb97d327d-d5d0-40b8-abb5-9a756f71c61e_980x620.png" alt="The harness" width="980" height="620" />
-
-<p>利用这个物理内存映射原语，Codex编写了一系列工具：首先从<code>/dev/ntkhdma</code>获取已知的物理地址进行测试验证，然后扫描内存寻找浏览器进程的凭证结构（cred structure）。找到目标后，Codex覆盖了凭证中的用户ID和组ID字段，将进程权限提升为root。</p>
-
-<p>整个攻击过程需要研究人员提供一定的指导和约束。Codex有时会偏离方向，需要人工干预将其引导回正确路径。研究人员与AI的互动记录显示，他们使用了类似"bro"这样的非正式语言进行交流。</p>
-
-<p>在Hacker News的讨论中，社区成员提出了各种观点：有人认为提供固件源代码是一个重要前提；有人讨论AI在逆向工程中的实际能力；还有人指出嵌入式设备安全问题的普遍性，认为这是供应链问题导致的后果。</p>
-
-<p>这项研究展示了AI在漏洞发现和利用开发方面的潜力，同时也凸显了当前智能设备安全性的脆弱性。研究人员表示，下一步可能会尝试让AI完成端到端的完整攻击链。</p>
-
-<p><strong>你知道吗？</strong>在Linux内核中，每个进程都有一个凭证结构（cred structure），包含了进程的用户ID、组ID、能力集等信息。当进程执行特权操作时，内核会检查这些凭证。通过直接修改内存中的凭证结构，攻击者可以绕过正常的权限检查机制，实现权限提升。这种攻击方式被称为"数据流攻击"，与传统的控制流攻击（如ROP）不同，它不依赖于控制内核执行流程，而是直接修改关键数据。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47791212</guid>
-      <pubDate>Thu, 16 Apr 2026 10:44:45 GMT</pubDate>
     </item>
   </channel>
 </rss>
