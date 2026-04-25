@@ -3,7 +3,33 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 25 Apr 2026 15:54:37 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 25 Apr 2026 17:01:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 量子计算竞赛争议：用随机数生成器替换IBM量子硬件仍能&quot;破解&quot;ECC密钥</title>
+      <link>https://news.ycombinator.com/item?id=47897647</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论量子计算竞赛争议和RNG替换IBM硬件的实验，属于科学前沿进展，用户对此类主题配置为感兴趣。</small></p><p>一项针对量子计算竞赛的研究发现，将IBM量子计算机后端替换为简单的随机数生成器后，仍能成功"恢复"椭圆曲线加密（ECC）私钥，引发了对量子计算实际贡献的质疑。</p>
+
+<p>Project Eleven组织的Q-Day Prize挑战赛曾奖励1 BTC给声称在IBM量子硬件上恢复17位ECC密钥的研究。然而，Yuval Adam通过一个仅修改29行代码的补丁，将量子后端替换为<code>os.urandom</code>，结果成功恢复了所有报告的私钥，成功率与原始量子硬件运行在统计上无法区分。</p>
+
+<p>测试结果显示：</p>
+<ul>
+<li>4位到10位的小型挑战中，随机数生成器与量子硬件一样，都能在首次尝试中成功恢复密钥</li>
+<li>关键的17位挑战（获奖成果）用随机数生成器恢复成功率约为40%</li>
+<li>作者自己的CLI工具在两种情况下表现相同</li>
+</ul>
+
+<p>技术分析表明，原算法的提取过程接受每个shot的(j, k, r)，计算候选私钥d_cand = (r − j)·k⁻¹ mod n，然后通过经典验证器检查d_cand · G == Q。在均匀噪声下，d_cand在[0, n)上均匀分布，成功概率为1 − (1 − 1/n)^S。</p>
+
+<p>社区评论指出，这并非对量子计算本身的批评，而是暴露了竞赛评审的缺陷。17位ECC密钥对经典计算机来说微不足道（仅131,072种可能性），而原方案中的量子计算机实际上只是贡献了噪声。有评论者表示曾警告过Project Eleven这种情况会发生，认为他们会把比特币奖励给最能掩盖量子计算机未做出贡献的人。</p>
+
+<p>原作者在README中甚至预测了这种现象："当shots >> n时，仅凭随机噪声就能以高概率恢复d"。所有从4位到10位的运行都处于作者自己识别的"经典"状态，shots/n比例在1.9倍到1,170倍之间。</p>
+
+<p>这一发现凸显了在小规模问题上验证量子优势的挑战，以及需要更严格的基准测试来区分真正的量子贡献和经典噪声。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47897647</guid>
+      <pubDate>Sat, 25 Apr 2026 00:58:38 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Firefox 149 版本悄然集成 Brave 的广告拦截引擎 adblock-rust</title>
       <link>https://news.ycombinator.com/item?id=47897891</link>
@@ -1334,41 +1360,6 @@ DRAW smooth</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47820531</guid>
       <pubDate>Sat, 18 Apr 2026 23:47:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Design vs Figma：AI时代设计工具的真相源之争</title>
-      <link>https://news.ycombinator.com/item?id=47818700</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论AI时代设计工具竞争，涉及AI软件技术进展，符合用户兴趣</small></p><p>一篇深度分析文章探讨了设计工具在AI时代的演变，认为随着代码对设计师越来越友好和AI代理的不断改进，设计的"单一真相源"正从Figma这样的封闭设计文件系统回归到代码本身。</p>
-
-<p>作者指出，Figma为了在工程组织中证明设计的价值，被迫走向系统化，创造了组件、样式、变量等概念，但这些概念并不完全映射到编程中。Figma的封闭格式使其无法被大型语言模型有效训练，因此在AI时代处于劣势。</p>
-
-<img src="/.netlify/images?url=_astro%2FCleanShot+2026-04-18+at+13.41.58%402x.Du35IpVw.png&w=3126&h=2122&dpl=69e42aec79d820000814a963" alt="Figma变量面板显示946个颜色变量" width="3126" height="2122" />
-
-<p>文章展示了Figma官方设计系统文件的截图，揭示了其极度复杂的变量系统，如包含946个颜色变量，每个变量又有8种模式特定的值。这种复杂性使得调试变得异常困难：检查组件时，组件使用变量，变量又别名到另一个变量，该变量引用模式，模式在实例级别被覆盖，实例又位于应用了库交换的嵌套组件内。</p>
-
-<img src="/.netlify/images?url=_astro%2FCleanShot+2026-04-18+at+13.41.22%402x.bai4pZWw.png&w=3126&h=2122&dpl=69e42aec79d820000814a963" alt="模态页脚组件变体属性编辑器" width="3126" height="2122" />
-
-<p>相比之下，Claude Design基于HTML和JavaScript，实现了"材料真实性"原则。它能够与Claude Code无缝集成，缩短设计和实现之间的反馈循环。作者认为设计工具将分化为两种形态：一种是像Claude Design这样与代码紧密结合的工具，另一种是纯粹的探索环境，不受系统和提示约定的约束。</p>
-
-<img src="/.netlify/images?url=_astro%2FCleanShot+2026-04-18+at+13.40.44%402x.DLG3CNsj.png&w=3126&h=2122&dpl=69e42aec79d820000814a963" alt="滑块组件的效果样式面板" width="3126" height="2122" />
-
-<p>在Hacker News社区的讨论中，许多用户表达了类似的挫败感。文章作者在评论中补充道，Figma的价格昂贵，团队需要支付高昂费用才能使用这个复杂的系统，而且某些功能需要付费才能解锁，导致用户不得不在"黄金标准"实践之上进行更多hack。</p>
-
-<p>用户<strong>mojuba</strong>表示："我一直对Figma怀有强烈的厌恶感，现在读完这篇文章后，我发现讨厌它的理由又增加了一倍。"另一位用户<strong>cptcobalt</strong>提到，Figma太贵了，他只在工作时使用，个人项目则使用Sketch或手绘。</p>
-
-<img src="/.netlify/images?url=_astro%2FCleanShot+2026-04-18+at+13.39.51%402x.58L6hTmB.png&w=3126&h=2122&dpl=69e42aec79d820000814a963" alt="组合输入组件及其16个变体" width="3126" height="2122" />
-
-<p>关于AI对开发的影响，用户<strong>micromacrofoot</strong>表示："我在我们的React代码库中使用AI已经3个月了。除了某些优化外，设计师通过Claude Code可以调试大部分问题。90%的行业都要完蛋了。"</p>
-
-<p>用户<strong>ianstormtaylor</strong>批评了Figma的定价策略演变，指出其现在明确反对协作，需要付费"席位"才能与他人共享文件，这与Google Docs和GitHub等协作平台的成功模式背道而驰。</p>
-
-<img src="/.netlify/images?url=_astro%2Fn10390-24-blywf-web-crop.Cb8L33r6.jpg&w=1672&h=1816&dpl=69e42aec79d820000814a963" alt="Gustav Stickley灯桌，约1902年" width="1672" height="1816" />
-
-<p>文章最后以幽默的方式向Figma和Sketch团队喊话，建议Figma应该去年雇佣作者，而Sketch应该"停止依赖原生Mac应用的优势，停止喝可可，渴望鲜血"。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47818700</guid>
-      <pubDate>Sat, 18 Apr 2026 19:19:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
