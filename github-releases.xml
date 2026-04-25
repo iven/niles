@@ -3,7 +3,22 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 24 Apr 2026 23:54:27 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 25 Apr 2026 03:30:10 GMT</lastBuildDate>
+    <item>
+      <title>hapi v0.17.1 发布：修复 crypto.randomUUID 不可用时的回退问题</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.17.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布了 v0.17.1 版本，这是一个小版本更新，主要包含一个重要的 bug 修复。</p>
+
+<p>本次更新的核心内容是修复了 web 模块中的一个问题：当 <code>crypto.randomUUID</code> API 在某些环境下不可用时，现在会正确地回退到使用 <code>getRandomValues</code> 方法。这个修复确保了应用在不同运行环境下的兼容性和稳定性。</p>
+
+<p>该修复由开发者 @junmo-kim 提交，相关代码变更可以通过 <a href="https://github.com/tiann/hapi/pull/523">Pull Request #523</a> 查看详细信息。</p>
+
+<p>用户可以通过 <a href="https://github.com/tiann/hapi/compare/v0.17.0...v0.17.1">完整变更日志</a> 了解 v0.17.0 到 v0.17.1 之间的所有改动。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.17.1</guid>
+      <pubDate>Sat, 25 Apr 2026 02:55:54 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.5.11 发布：AI 工作区重命名增强与 PR 状态显示</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.11</link>
@@ -1536,54 +1551,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.91</guid>
       <pubDate>Thu, 02 Apr 2026 23:45:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.90 发布：新增交互式教程、修复无限循环等多项改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.90</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.90 版本，引入了交互式功能教程、多项错误修复和性能优化。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增交互式教程</strong>：添加 <code>/powerup</code> 命令，通过动画演示教学 Claude Code 的各项功能</li>
-<li><strong>新增环境变量</strong>：<code>CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE</code> 环境变量可在 <code>git pull</code> 失败时保留现有的市场缓存，适用于离线环境</li>
-<li><strong>修复严重崩溃问题</strong>：修复了达到使用限制后速率限制选项对话框反复自动打开导致的无限循环问题，该问题最终会导致会话崩溃</li>
-<li><strong>修复缓存未命中问题</strong>：修复了 <code>--resume</code> 在用户使用延迟工具、MCP 服务器或自定义代理时导致首次请求完全提示缓存未命中的问题（自 v2.1.69 版本以来的回归问题）</li>
-</ul>
-
-<h3>其他改进和修复</h3>
-<ul>
-<li><strong>文件编辑修复</strong>：修复了当 PostToolUse 格式保存钩子在连续编辑之间重写文件时，<code>Edit</code>/<code>Write</code> 失败并显示"文件内容已更改"的问题</li>
-<li><strong>钩子执行修复</strong>：修复了向 stdout 发出 JSON 并以代码 2 退出的 PreToolUse 钩子无法正确阻止工具调用的问题</li>
-<li><strong>UI 显示修复</strong>：修复了在工具调用期间自动加载 CLAUDE.md 文件时，折叠的搜索/读取摘要徽章在全屏回滚中多次出现的问题</li>
-<li><strong>自动模式边界修复</strong>：修复了自动模式不尊重显式用户边界（如"不要推送"、"在 Y 之前等待 X"）的问题，即使该操作在其他情况下被允许</li>
-<li><strong>主题兼容性修复</strong>：修复了在浅色终端主题上点击展开的悬停文本几乎不可见的问题</li>
-<li><strong>UI 稳定性修复</strong>：修复了格式错误的工具输入到达权限对话框时导致的 UI 崩溃问题</li>
-<li><strong>滚动显示修复</strong>：修复了滚动 <code>/model</code>、<code>/config</code> 和其他选择屏幕时标题消失的问题</li>
-</ul>
-
-<h3>性能优化</h3>
-<ul>
-<li>消除缓存键查找时对 MCP 工具模式进行每轮 JSON.stringify 的性能开销</li>
-<li>SSE 传输现在以线性时间处理大型流式帧（原为二次时间）</li>
-<li>具有长对话的 SDK 会话在转录写入时不再呈二次方减速</li>
-<li>改进 <code>/resume</code> 所有项目视图，并行加载项目会话，提升拥有多个项目用户的加载时间</li>
-</ul>
-
-<h3>行为变更</h3>
-<ul>
-<li>更改 <code>--resume</code> 选择器，不再显示由 <code>claude -p</code> 或 SDK 调用创建的会话</li>
-<li>将 <code>.husky</code> 添加到受保护目录（acceptEdits 模式）</li>
-</ul>
-
-<h3>安全相关</h3>
-<ul>
-<li><strong>PowerShell 工具权限检查强化</strong>：修复了尾部 <code>&amp;</code> 后台作业绕过、<code>-ErrorAction Break</code> 调试器挂起、存档提取 TOCTOU 以及解析失败回退拒绝规则降级等问题</li>
-<li>从自动允许列表中移除 <code>Get-DnsClientCache</code> 和 <code>ipconfig /displaydns</code>（DNS 缓存隐私考虑）</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.90</guid>
-      <pubDate>Wed, 01 Apr 2026 23:41:31 GMT</pubDate>
     </item>
   </channel>
 </rss>
