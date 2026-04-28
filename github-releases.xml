@@ -3,7 +3,41 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 28 Apr 2026 20:38:16 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 22:10:17 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.122 发布：新增Bedrock服务层级选择与PR会话恢复功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.122</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.122 版本，引入多项功能改进和问题修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>Bedrock 服务层级选择</strong>：新增 <code>ANTHROPIC_BEDROCK_SERVICE_TIER</code> 环境变量，支持选择 Bedrock 服务层级（<code>default</code>、<code>flex</code> 或 <code>priority</code>），并通过 <code>X-Amzn-Bedrock-Service-Tier</code> 头发送。</li>
+<li><strong>PR 会话恢复</strong>：将 PR（Pull Request）URL 粘贴到 <code>/resume</code> 搜索框后，现在能够自动找到创建该 PR 的原始会话，支持 GitHub、GitHub Enterprise、GitLab 和 Bitbucket。</li>
+<li><strong>分支创建修复</strong>：修复了 <code>/branch</code> 命令在源会话包含回滚时间线条目时，创建的分支会因「tool_use ids were found without tool_result blocks」错误而失败的问题。</li>
+<li><strong>模型配置修复</strong>：修复了 <code>/model</code> 命令不显示 Bedrock 应用推理配置文件 ARN 的 Effort 选项，且这些 ARN 未收到 <code>output_config.effort</code> 的问题。</li>
+<li><strong>结构化输出修复</strong>：修复了 Vertex AI 和 Bedrock 在会话标题生成及其他结构化输出查询时返回「invalid_request_error: output_config: Extra inputs are not permitted」错误的问题。</li>
+<li><strong>令牌计数端点修复</strong>：修复了 Vertex AI <code>count_tokens</code> 端点对使用代理网关的用户返回 400 错误的问题。</li>
+<li><strong>图像尺寸修复</strong>：修复了发送给新版模型的图像被错误地调整为每边 2576 像素（正确上限应为 2000 像素）的问题。</li>
+<li><strong>远程控制性能修复</strong>：修复了远程控制会话空闲状态每秒重绘两次导致 <code>tmux -CC</code> 控制管道可能被淹没、进而暂停终端的问题。</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li><strong>MCP 连接器显示</strong>：<code>/mcp</code> 现在会显示被手动添加的相同 URL 服务器所隐藏的 claude.ai 连接器，并提示移除重复项。</li>
+<li><strong>MCP 授权提示</strong>：澄清了当 MCP 服务器在浏览器登录流程后仍未授权时显示的 <code>/mcp</code> 消息。</li>
+<li><strong>OpenTelemetry 改进</strong>：<code>api_request</code>/<code>api_error</code> 日志事件中的数字属性现在以数字而非字符串形式发出；新增 <code>claude_code.at_mention</code> 日志事件用于记录 <code>@</code> 提及解析。</li>
+<li><strong>提示抑制修复</strong>：修复了 <code>spinnerTipsOverride.excludeDefault</code> 未抑制基于时间的旋转提示的问题。</li>
+<li><strong>MCP 工具发现修复</strong>：修复了 ToolSearch 在非阻塞模式下错过会话启动后连接的 MCP 工具的问题。</li>
+<li><strong>Shell 命令修复</strong>：修复了 bash 模式中 <code>!exit</code> / <code>!quit</code> 意外终止 CLI 而非作为 shell 命令运行的问题。</li>
+<li><strong>界面显示修复</strong>：修复了因过时的视图偏好导致某些会话中助手消息显示为空白的问题。</li>
+<li><strong>配置文件容错修复</strong>：修复了 <code>settings.json</code> 中格式错误的 hooks 条目不再导致整个文件无效的问题。</li>
+<li><strong>语音模式键绑定</strong>：语音模式中绑定到 Caps Lock 的键绑定现在会显示错误提示，因为终端无法将 Caps Lock 作为按键事件传递。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.122</guid>
+      <pubDate>Tue, 28 Apr 2026 22:05:15 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.7.1 发布：优化迁移弹窗和加载动画</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.7.1</link>
@@ -1395,68 +1429,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/cli-v0.1.0</guid>
       <pubDate>Thu, 09 Apr 2026 21:37:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.98发布：新增Google Vertex AI向导与子进程沙箱隔离</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.98</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.98 版本，引入了多项新功能和改进，重点关注用户体验和系统稳定性。</p>
-
-<h3>重要新功能</h3>
-<ul>
-<li><strong>Google Vertex AI 交互式设置向导</strong>：在登录屏幕选择「第三方平台」时可访问，引导用户完成 GCP 认证、项目和区域配置、凭证验证及模型固定</li>
-<li><strong>Perforce 模式支持</strong>：新增 <code>CLAUDE_CODE_PERFORCE_MODE</code> 环境变量，设置后对只读文件的编辑/写入操作将失败并提示 <code>p4 edit</code>，避免静默覆盖</li>
-<li><strong>Monitor 工具</strong>：新增用于从后台脚本流式传输事件的工具</li>
-<li><strong>Linux 子进程沙箱隔离</strong>：当设置 <code>CLAUDE_CODE_SUBPROCESS_ENV_SCRUB</code> 时，在 Linux 上启用 PID 命名空间隔离，增强安全性</li>
-<li><strong>改进的提示缓存</strong>：新增 <code>--exclude-dynamic-system-prompt-sections</code> 标志到打印模式，提升跨用户提示缓存效率</li>
-<li><strong>Git 工作树状态</strong>：在状态行 JSON 输入中添加 <code>workspace.git_worktree</code> 字段，标识当前目录是否在链接的 git worktree 内</li>
-<li><strong>OTEL 跟踪增强</strong>：为 Bash 工具子进程添加 W3C <code>TRACEPARENT</code> 环境变量，使子进程 span 正确关联到 Claude Code 的跟踪树</li>
-<li><strong>LSP 标识</strong>：Claude Code 现在通过 initialize 请求中的 <code>clientInfo</code> 向语言服务器标识自身</li>
-</ul>
-
-<h3>主要问题修复</h3>
-<ul>
-<li>修复停滞的流式响应超时问题，避免无限等待</li>
-<li>修复 429 重试在服务器返回较小 <code>Retry-After</code> 时过快耗尽尝试次数的问题，现在应用指数退避作为最小延迟</li>
-<li>修复 MCP OAuth <code>oauth.authServerMetadataUrl</code> 配置覆盖在重启后令牌刷新时不生效的问题，影响 ADFS 等身份提供商</li>
-<li>修复 xterm 和 VS Code 集成终端中，当 kitty 键盘协议激活时大写字母被转换为小写的问题</li>
-<li>修复 macOS 文本替换删除触发词而非插入替换内容的问题</li>
-<li>修复文件编辑差异在 <code>--resume</code> 时从 UI 消失的问题（当编辑文件大于 10KB 时）</li>
-<li>修复 <code>/resume</code> 选择器的多个问题：<code>--resume &lt;name&gt;</code> 打开不可编辑、过滤器重载清除搜索状态、空列表吞没箭头键、跨项目陈旧性、临时任务状态文本替换对话摘要等</li>
-<li>修复 <code>/export</code> 不尊重绝对路径和 <code>~</code>，并静默重写用户提供的扩展名为 <code>.txt</code> 的问题</li>
-<li>修复 <code>/effort max</code> 对未知或未来模型 ID 被拒绝的问题</li>
-<li>修复斜杠命令选择器在插件 frontmatter <code>name</code> 为 YAML 布尔关键字时崩溃的问题</li>
-<li>修复速率限制升级文本在消息重新挂载后被隐藏的问题</li>
-<li>修复 MCP 工具绕过基于令牌的持久层的问题</li>
-<li>修复语音模式在重新按住推送通话键时，若前一次转录仍在处理，会泄漏大量空格字符到输入中的问题</li>
-<li>修复 <code>DISABLE_AUTOUPDATER</code> 不完全抑制 npm 注册表版本检查及基于 npm 安装的符号链接修改的问题</li>
-<li>修复内存泄漏：Remote Control 权限处理程序条目在整个会话期间被保留的问题</li>
-<li>修复后台子代理失败时未向父代理报告部分进度的问题</li>
-<li>修复提示类型 Stop/SubagentStop 钩子在长会话中失败的问题，以及钩子评估器 API 错误显示「JSON 验证失败」而非真实消息的问题</li>
-<li>修复反馈调查渲染问题</li>
-<li>修复 Bash <code>grep -f FILE</code> / <code>rg -f FILE</code> 不提示读取工作目录外模式文件的问题</li>
-<li>修复过时子代理工作树清理删除包含未跟踪文件的工作树的问题</li>
-<li>修复 <code>sandbox.network.allowMachLookup</code> 在 macOS 上不生效的问题</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>改进 <code>/resume</code> 过滤器提示标签，并在过滤器指示器中添加项目/工作树/分支名称</li>
-<li>改进页脚指示器（Focus、通知）在窄终端宽度下保持在模式指示器行，避免换行</li>
-<li>改进 <code>/agents</code> 为标签页布局：Running 标签显示活动子代理，Library 标签添加运行代理和查看运行实例操作</li>
-<li>改进 <code>/reload-plugins</code> 无需重启即可获取插件提供的技能</li>
-<li>改进 Accept Edits 模式自动批准带有安全环境变量或进程包装器前缀的文件系统命令</li>
-<li>改进 Vim 模式：<code>j</code>/<code>k</code> 在 NORMAL 模式下导航历史记录并在输入边界选择页脚标签</li>
-<li>改进钩子错误在转录中包含 stderr 第一行，便于无需 <code>--debug</code> 的自诊断</li>
-<li>改进 OTEL 跟踪：交互 span 现在正确包装并发 SDK 调用下的完整轮次，无头轮次按轮次结束 span</li>
-<li>改进转录条目携带最终令牌使用情况而非流式占位符</li>
-<li>更新 <code>/claude-api</code> 技能以涵盖 Managed Agents 及 Claude API</li>
-<li>修复 <code>CLAUDE_CODE_MAX_CONTEXT_TOKENS</code> 在设置 <code>DISABLE_COMPACT</code> 时尊重该设置</li>
-<li>在设置 <code>DISABLE_COMPACT</code> 时移除 <code>/compact</code> 提示</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.98</guid>
-      <pubDate>Thu, 09 Apr 2026 19:18:28 GMT</pubDate>
     </item>
   </channel>
 </rss>
