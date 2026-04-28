@@ -3,7 +3,56 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 28 Apr 2026 00:04:21 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 04:03:28 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.121 发布：新增插件管理工具、MCP 服务器增强和多项内存优化</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.121</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.121 版本，带来了多项功能增强和性能优化。本次更新重点改进了插件管理、MCP 服务器配置和内存使用效率。</p>
+
+<h3>主要功能改进</h3>
+<ul>
+<li><strong>MCP 服务器增强</strong>：新增 <code>alwaysLoad</code> 配置选项，设置为 <code>true</code> 时，该服务器的所有工具将跳过工具搜索延迟，始终保持可用状态</li>
+<li><strong>插件管理工具</strong>：新增 <code>claude plugin prune</code> 命令，用于清理自动安装的孤儿插件依赖；<code>plugin uninstall --prune</code> 现在支持级联删除</li>
+<li><strong>技能搜索功能</strong>：在 <code>/skills</code> 页面添加了按类型过滤的搜索框，便于在长列表中快速查找特定技能</li>
+<li><strong>工具输出控制增强</strong>：PostToolUse 钩子现在可以通过 <code>hookSpecificOutput.updatedToolOutput</code> 替换所有工具的输出，而不仅限于 MCP 工具</li>
+</ul>
+
+<h3>用户体验优化</h3>
+<ul>
+<li><strong>全屏模式改进</strong>：在全屏模式下输入提示时，如果用户已向上滚动阅读早期输出，不再自动跳回底部</li>
+<li><strong>对话框滚动支持</strong>：超出终端显示范围的对话框现在支持使用方向键、PgUp/PgDn、Home/End 键以及鼠标滚轮进行滚动</li>
+<li><strong>URL 点击优化</strong>：在全屏模式下，点击跨行显示的长 URL 的任何一行现在都能正确打开完整链接</li>
+<li><strong>终端标签标题</strong>：终端标签的会话标题现在会根据用户配置的语言设置生成</li>
+</ul>
+
+<h3>性能与稳定性修复</h3>
+<ul>
+<li><strong>内存泄漏修复</strong>：修复了处理多张图片时可能导致数 GB 内存增长的问题</li>
+<li><strong>内存使用优化</strong>：修复了 <code>/usage</code> 命令在具有大量历史记录的机器上可能泄漏最多约 2GB 内存的问题</li>
+<li><strong>Bash 工具稳定性</strong>：修复了当 Claude 启动目录在会话中被删除或移动时，Bash 工具变得永久不可用的问题</li>
+<li><strong>恢复功能改进</strong>：修复了 <code>--resume</code> 在外部构建中启动时崩溃的问题，以及在大会话中因不干净关闭导致的损坏行问题</li>
+</ul>
+
+<h3>其他重要修复</h3>
+<ul>
+<li><strong>滚动重复修复</strong>：修复了在 tmux、GNOME Terminal、Windows Terminal 和 Konsole 中按 Ctrl+L 或触发重绘时出现的滚动重复问题</li>
+<li><strong>MCP 连接器稳定性</strong>：修复了 MCP 服务器在启动期间遇到临时错误时不再保持断开状态，而是自动重试最多 3 次</li>
+<li><strong>设置文件兼容性</strong>：修复了 <code>settings.json</code> 中无效的旧枚举值导致整个设置文件无效的问题</li>
+<li><strong>文件描述符优化</strong>：在大目录树中使用 <code>find</code> 命令时减少了峰值文件描述符使用量</li>
+</ul>
+
+<h3>VSCode 集成改进</h3>
+<ul>
+<li>语音听写现在在没有配置 Claude Code 语言时尊重 <code>accessibility.voice.speechLanguage</code> 设置</li>
+<li><code>/context</code> 命令现在会打开原生的令牌使用情况对话框</li>
+</ul>
+
+<p>本次更新还包含多项小的优化和依赖更新，进一步提升了 Claude Code 的整体稳定性和用户体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.121</guid>
+      <pubDate>Tue, 28 Apr 2026 00:31:31 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.7.0 发布：增强 v2 侧边栏、添加 GPT-5.5 支持及界面优化</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.7.0</link>
@@ -1427,39 +1476,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.97</guid>
       <pubDate>Wed, 08 Apr 2026 21:52:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>chezmoi v2.70.1 发布：新增模板变量与配置检测功能</title>
-      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.70.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>chezmoi 点文件管理器发布了 v2.70.1 版本，引入了多项新功能和改进。</p>
-
-<h3>重要改动</h3>
-
-<h4>新功能</h4>
-<ul>
-<li>添加 <code>.chezmoi.rawHomeDir</code> 模板变量，提供原始主目录路径</li>
-<li>在 <code>doctor</code> 命令中添加构建信息检查功能</li>
-<li>新增 <code>globCaseInsensitive</code> 模板函数，支持不区分大小写的全局匹配</li>
-<li>解析配置文件时自动检测未知字段，提高配置安全性</li>
-</ul>
-
-<h4>错误修复</h4>
-<ul>
-<li>修复 Debian ARM 软件包名称问题</li>
-<li>解决重新添加加密文件时不必要的密钥警告</li>
-</ul>
-
-<h3>其他改动</h3>
-
-<h4>文档更新</h4>
-<ul>
-<li>添加缺失的 protonpass 密码管理器条目</li>
-<li>进一步明确项目对 AI/LLM 技术的立场</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.70.1</guid>
-      <pubDate>Wed, 08 Apr 2026 20:57:44 GMT</pubDate>
     </item>
   </channel>
 </rss>
