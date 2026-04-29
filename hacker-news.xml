@@ -3,7 +3,50 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 29 Apr 2026 18:45:58 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2026 20:20:18 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ HERMES.md 字符串触发 Anthropic Claude Code 计费漏洞，用户被多收 200 美元</title>
+      <link>https://news.ycombinator.com/item?id=47952722</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章描述Anthropic Claude Code中的计费漏洞，属于编程工具相关的问题讨论，用户对编程工具发布/分享配置为很感兴趣</small></p><p>Anthropic 的 Claude Code 工具存在一个奇怪的漏洞：当 git 仓库的最近提交历史中包含特定字符串 "HERMES.md" 时，系统会将 API 请求错误地路由到"额外使用"计费通道，而不是用户已付费的 Max 计划配额内。这一漏洞导致用户被额外收取了 200.98 美元，而他们的 Max 20x 计划配额却仍有 86% 未使用。</p>
+
+<p>根据 GitHub issue <a href="https://github.com/anthropics/claude-code/issues/53262">#53262</a> 的报告，该漏洞具有高度特异性：只有大小写敏感的 "HERMES.md" 字符串出现在 git 提交信息中才会触发，"hermes.md"（小写）或其他类似字符串均不会产生影响。漏洞与磁盘上是否存在同名文件无关，仅与提交历史中的文本内容相关。</p>
+
+<img src="https://avatars.githubusercontent.com/u/1385751?u=341edb9239966d8a475de05e6d63e022feedece7&v=4&size=48" alt="@sasha-id" width="24" height="24" />
+
+<p>报告者通过系统性的二分排查最终定位到该问题，并提供了详细的重现步骤。受影响的用户在发现异常后联系 Anthropic 客服，却收到了令人意外的回复："我们需要告知您，我们无法对因技术错误导致的错误计费路由提供补偿。"</p>
+
+<p>这一回应在 Hacker News 社区引发了广泛讨论。许多评论者指出，拒绝为自身技术错误导致的错误收费提供退款，在大多数国家可能缺乏法律依据。有用户建议通过小额索赔法庭解决争议，也有人分享了类似经历："在 1 月份被重复收费三次后，他们承认问题但拒绝退款，我最终通过信用卡争议赢得了退款。"</p>
+
+<p>社区对 Anthropic 的处理方式表示失望，认为这严重损害了客户信任。部分用户开始探讨转向本地和开源 LLM 的可能性，以避免依赖可能随意改变政策的商业服务提供商。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47952722</guid>
+      <pubDate>Wed, 29 Apr 2026 18:54:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Mistral AI 发布 Medium 3.5 模型，推出云端远程编码代理和 Le Chat 工作模式</title>
+      <link>https://news.ycombinator.com/item?id=47949642</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Mistral AI发布新的Medium 3.5模型，新增编码代理功能，属于新AI模型发布公告，用户对此配置为很感兴趣</small></p><p>Mistral AI 发布了其新旗舰模型 Mistral Medium 3.5，这是一个 1280 亿参数的密集模型，具有 256K 上下文窗口，采用修改后的 MIT 许可证开源。该模型将指令遵循、推理和编码能力整合到单一权重集中，在 SWE-Bench Verified 基准测试中获得了 77.6% 的分数，超过了 Devstral 2 等模型。</p>
+
+<p>基于这一新模型，Mistral 推出了两项重要功能：</p>
+
+<ol>
+<li><strong>Vibe 远程编码代理</strong>：将编码代理从本地迁移到云端，允许开发者在云端异步运行编码任务。用户可以通过 Mistral Vibe CLI 或直接在 Le Chat 中启动任务，代理会在云端独立运行，完成后通知用户。这支持并行运行多个任务，并允许将本地会话"传送"到云端继续运行。</li>
+<li><strong>Le Chat 工作模式（预览版）</strong>：这是一个新的代理模式，专门处理复杂、多步骤的任务，如研究、分析和跨工具操作。该模式默认启用连接器，可以访问文档、邮箱、日历等系统，并在执行敏感操作前请求用户明确批准。</li>
+</ol>
+
+<p>技术规格方面，Mistral Medium 3.5 可以在最少 4 个 GPU 上自托管，支持按请求配置推理工作量。API 定价为每百万输入 token 1.5 美元，每百万输出 token 7.5 美元。</p>
+
+<p>在 Hacker News 社区讨论中，用户对此次发布反应不一。一些用户对非美国和非中国模型的进展表示欢迎，认为模型多样性很重要。但也有用户指出，该模型在基准测试中并未领先于所有开源模型，且价格相比同类模型较高。有用户测试了 SVG 生成等任务，发现结果令人失望。还有用户提到，在法语语法解释等特定任务上，Mistral 的表现不如其他模型。</p>
+
+<p>社区讨论中普遍认为，虽然 Mistral Medium 3.5 是一个坚实的进步，但与前沿实验室（如 OpenAI、Anthropic）的模型相比仍有差距。不过，许多欧洲用户对有一个本地替代方案表示支持。</p>
+
+<img src="https://cms.mistral.ai/assets/fa1b8643-d907-49f7-b21e-59b452db2706.jpg?width=1200&height=551" alt="Medium Scheme" />]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47949642</guid>
+      <pubDate>Wed, 29 Apr 2026 15:17:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Tangled项目：基于AT协议的联邦化代码协作平台挑战GitHub垄断</title>
       <link>https://news.ycombinator.com/item?id=47948603</link>
@@ -1252,44 +1295,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47890799</guid>
       <pubDate>Fri, 24 Apr 2026 14:28:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 大型语言模型工作原理：基于Karpathy讲座的交互式可视化指南</title>
-      <link>https://news.ycombinator.com/item?id=47886517</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲解大型语言模型工作原理及可视化指南，属于AI软件技术进展范畴，用户配置为感兴趣</small></p><p>本文介绍了一个基于 Andrej Karpathy「大型语言模型入门」讲座的交互式可视化网站，详细解释了从数据收集到模型部署的完整流程。作者使用 Claude Code 从讲座转录本生成了整个单页 HTML 网站。</p>
-
-<p>网站内容分为四个主要章节：预训练阶段涵盖从 Common Crawl 收集的 2.7 亿网页中过滤出 44TB 高质量文本数据，通过 Byte Pair Encoding (BPE) 算法将文本转换为约 10 万个 token 的词汇表，以及使用 Transformer 架构训练包含 4050 亿参数的神经网络。基础模型被描述为「互联网模拟器」，能够基于统计模式完成文本序列但无法进行对话。</p>
-
-<p>后训练阶段通过监督微调（SFT）和基于人类反馈的强化学习（RLHF）将基础模型转化为有用的助手。SFT 使用人类标注的理想对话数据，而 RLHF 通过奖励模型进一步优化响应质量。文章还探讨了 LLM 的认知特性，包括幻觉产生机制、两种记忆类型（参数记忆和上下文记忆），以及知识截止日期的影响。</p>
-
-<p>最后介绍了检索增强生成（RAG）技术，通过将外部文档嵌入向量数据库并在查询时注入相关片段到上下文窗口，解决模型知识过时和幻觉问题。</p>
-
-<p>在 Hacker News 社区中，该文章获得 228 个点赞和 53 条评论。部分用户称赞其解释清晰，适合复习相关知识。然而也有不少批评指出网站完全由 LLM 生成，缺乏人工校对，其中「44TB 数据大约相当于一个硬盘」的表述被指不准确（当前消费级硬盘最大约 32TB）。其他技术问题包括 iOS Safari 上的滚动跳转问题，以及典型的「AI 生成」设计风格。有评论者建议添加更多技术细节，如嵌入层如何处理多义词，以及训练与推理阶段的区别。</p>
-
-<p>尽管存在争议，该可视化指南仍为理解 LLM 工作流程提供了有价值的参考，特别是对于希望直观了解从原始数据到对话助手全过程的读者。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47886517</guid>
-      <pubDate>Fri, 24 Apr 2026 06:48:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Matz 开发 Ruby AOT 编译器 Spinel：性能提升 11.6 倍，支持自托管编译</title>
-      <link>https://news.ycombinator.com/item?id=47887334</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍 Ruby AOT 编译器 Spinel，属于用户很感兴趣的编程工具发布类别。</small></p><p>Ruby 语言创始人 Matz 发布了 Spinel，这是一个实验性的 Ruby AOT（提前编译）原生编译器。该项目在 Claude AI 的协助下仅用约一个月时间开发完成，并在 RubyKaigi 2026 上进行了演示。</p>
-
-<p>Spinel 将 Ruby 源代码编译成独立的原生可执行文件，通过全程序类型推断和优化的 C 代码生成，实现了显著的性能提升。基准测试显示，在 28 个测试中，几何平均性能比 miniruby（Ruby 4.1.0dev）快约 11.6 倍，部分计算密集型工作负载如生命游戏模拟达到 86.7 倍的加速。</p>
-
-<p>该编译器采用自托管设计，其后端完全用 Ruby 编写，并能将自己编译成原生二进制文件。技术栈包括使用 Prism 解析器进行解析，内置正则表达式引擎和大整数支持，生成的二进制文件无需运行时依赖。</p>
-
-<p>社区讨论中，开发者对 Matz 的参与表示信任，认为这是一个务实的设计选择。项目限制包括不支持 eval、send、method_missing、define_method 等元编程特性，无线程支持，且假设 UTF-8/ASCII 编码。这些限制与 mruby 类似，使其更适合特定用例而非通用 Ruby 开发。</p>
-
-<p>Hacker News 评论中，用户讨论了 AI 如何将优秀开发者变成更高产的工具使用者，比较了 Spinel 与 Crystal 的差异，并探讨了实际应用场景。有开发者指出，虽然限制较多，但对于计算密集型任务和嵌入式场景，这种 AOT 编译方法提供了有价值的性能优势。</p>
-
-<p>项目采用 MIT 许可证，目前处于实验阶段，但展示了 Ruby 生态系统中 AOT 编译的潜力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47887334</guid>
-      <pubDate>Fri, 24 Apr 2026 08:28:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
