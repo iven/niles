@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 29 Apr 2026 06:34:51 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2026 09:23:20 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 深度解析：ChatGPT广告投放的技术实现与归因机制</title>
+      <link>https://news.ycombinator.com/item?id=47942437</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章深度分析ChatGPT广告平台的技术实现与归因机制，属于AI软件技术进展领域，符合用户的兴趣配置。</small></p><p>OpenAI在ChatGPT中引入了广告平台，通过技术分析揭示了其广告投放和用户跟踪的完整机制。该平台分为两个部分：ChatGPT后端通过Server-Sent Events（SSE）流在对话响应中注入结构化广告单元，而商家端则使用名为OAIQ的跟踪SDK在用户浏览器中报告产品浏览数据回传给OpenAI。</p>
+
+<p>当用户向ChatGPT发送消息时，后端会在<code>chatgpt.com/backend-api/f/conversation</code>打开SSE响应。大多数事件是模型输出，但其中一些是广告单元，格式为<code>single_advertiser_ad_unit</code>类型。每个广告包含品牌信息、创意内容（如图片和链接）以及四个Fernet加密令牌用于归因跟踪。</p>
+
+<p>广告选择基于对话内容的上下文定位。测试显示，同一账户在不同话题的对话中会收到不同广告商的广告：北京旅行规划收到Grubhub中餐外卖广告，NBA季后赛话题收到Gametime票务广告，春季时尚话题收到Aritzia服装广告等。</p>
+
+<p>每个广告携带四个独立的Fernet加密令牌：<code>ads_spam_integrity_payload</code>用于服务器端防伪检查；<code>oppref</code>出现在点击URL中并被OAIQ像素复制到<code>__oppref</code>cookie中（有效期30天）；<code>olref</code>与<code>oppref</code>配对但未被SDK存储；<code>ad_data_token</code>包含另一个Fernet令牌。这些令牌使用AES-128-CBC加密和HMAC-SHA256完整性验证。</p>
+
+<p>用户点击广告后，浏览器打开商家链接并加载OAIQ SDK。该SDK会读取URL中的<code>oppref</code>参数，将其写入第一方cookie，并通过POST请求将事件数据发送到OpenAI的服务器。要阻止ChatGPT广告事件，可以过滤<code>bzrcdn.openai.com</code>和<code>bzr.openai.com</code>这两个域名，并检查<code>__oppref</code>和<code>__oaiq_domain_probe</code>这两个cookie。</p>
+
+<p>Hacker News社区对此反应强烈，许多用户用"enshittification"（粪化）一词形容这一变化，认为这标志着AI助手黄金时代的结束。评论中表达了普遍的不满情绪，有用户表示"这太恶心了"，"让粪化开始吧"。部分用户认为这是OpenAI急需收入的迹象，并讨论转向本地模型或自托管模型作为替代方案。也有用户指出，由于广告作为独立事件流提供，相对容易屏蔽，但担心未来广告可能直接注入到主要响应中。</p>
+
+<p>技术社区对这一实现持复杂态度：一方面承认其工程设计的巧妙性——通过独立事件流可以在不触及核心模型的情况下进行A/B测试；另一方面对隐私跟踪和平台商业化趋势表示担忧。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47942437</guid>
+      <pubDate>Tue, 28 Apr 2026 23:54:14 GMT</pubDate>
+    </item>
     <item>
       <title>AI生成代码的版权归属：Claude Code编写的代码归谁所有？</title>
       <link>https://news.ycombinator.com/item?id=47932937</link>
@@ -1315,27 +1336,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47874647</guid>
       <pubDate>Thu, 23 Apr 2026 11:53:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenAI发布GPT-5.5引发社区热议：性能优化与基准测试讨论</title>
-      <link>https://news.ycombinator.com/item?id=47879092</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲新AI模型OpenAI GPT-5.5的发布和性能讨论，属于用户很感兴趣的新AI模型发布公告范畴</small></p><p>OpenAI发布了最新模型GPT-5.5，在Hacker News社区引发了广泛讨论。用户们围绕新模型的性能表现、优化技术以及与竞争对手的比较展开了深入交流。</p>
-
-<p>社区注意到一个有趣的技术细节：为了更好利用GPU资源，Codex分析了数周的生产流量模式，并编写了自定义启发式算法来优化工作分区和负载均衡。这一努力带来了显著效果，将token生成速度提升了20%以上。有评论认为，这种让LLM代理优化计算效率/速度的能力是一个极具影响力的领域，值得更多关注。</p>
-
-<p>在基准测试方面，GPT-5.5在Terminal Bench上达到了82.7%的分数，但用户指出已有其他模型接近80%水平。与Anthropic的Opus 4.7相比，GPT-5.5在SWE-Bench Pro上稍逊一筹，不过有用户表示在实际使用中GPT-5.4已经优于Opus 4.7。</p>
-
-<p>开发者社区特别关注模型在编程方面的能力。有用户分享了自己使用Three.js和AI进行游戏开发的经验，指出从GPT-5.4开始，模型在处理Three.js场景、着色器(GLSL)编辑方面有了显著进步。虽然模型仍然难以从零开始创建着色器，但在编辑现有着色器方面已经相当不错。</p>
-
-<p>社区对模型发布时的营销话术也进行了调侃，有用户制作了"模型发布宾果卡"，将"我们[最高级]和[最高级]的模型"列为免费空格。还有用户幽默地将其改写为"我们最新和最昂贵的模型"。</p>
-
-<p>关于模型的实际应用，用户讨论了AI在游戏开发中的潜力，认为我们可能正处于类似Flash时代的新纪元黎明，任何游戏玩家或爱好者都能快速生成游戏概念并即时发布到网络。Three.js虽然不是游戏引擎，只是Web渲染库，但正成为使用AI设计游戏的主要方式。</p>
-
-<p>技术细节方面，用户询问是否有更快的mini/nano版本，得到的回复是这次没有，但通常这些版本会在几周后发布。还有用户希望GPT桌面应用能支持<a href="https://news.ycombinator.com/item?id=47879092">模型上下文协议(MCP)</a>，以简化本地文件系统编辑流程。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47879092</guid>
-      <pubDate>Thu, 23 Apr 2026 18:01:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
