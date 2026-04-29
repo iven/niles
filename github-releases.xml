@@ -3,7 +3,38 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 29 Apr 2026 00:04:59 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2026 04:00:02 GMT</lastBuildDate>
+    <item>
+      <title>Superset Desktop v1.7.2 发布：改进侧边栏组织、支持离线启动</title>
+      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.7.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 发布了 v1.7.2 版本，主要包含四项重要改进：</p>
+
+<ul>
+<li><strong>UI 改进</strong>：在 v2 侧边栏中将工作空间缩进显示在项目下方，使界面组织更加清晰</li>
+<li><strong>离线功能</strong>：将 Electric 集合持久化到 SQLite 数据库，支持应用离线启动</li>
+<li><strong>Bug 修复</strong>：修正了 v2 工作空间位置派生逻辑，现在从 <code>workspace.hostId</code> 而不是连接的 <code>v2Hosts</code> 派生</li>
+<li><strong>性能优化</strong>：将 Chromium WebGL 上下文上限提高到 256，提升了图形渲染能力</li>
+</ul>
+
+<p>这些改动主要关注桌面应用的用户体验改进和功能增强，包括更好的界面组织、离线使用支持以及性能优化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.7.2</guid>
+      <pubDate>Wed, 29 Apr 2026 01:29:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.123：修复特定配置下的 OAuth 认证循环问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.123</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布了 v2.1.123 版本，主要修复了一个 OAuth 认证问题。</p>
+
+<p>当用户设置了 <code>CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1</code> 环境变量时，OAuth 认证会失败并陷入 401 重试循环。这个版本修复了该问题，确保在禁用实验性测试功能的情况下，认证流程仍能正常工作。</p>
+
+<p>这是一个针对特定配置场景的 bug 修复版本，解决了认证系统的稳定性问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.123</guid>
+      <pubDate>Wed, 29 Apr 2026 03:29:13 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.122 发布：新增Bedrock服务层级选择与PR会话恢复功能</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.122</link>
@@ -1365,70 +1396,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.0</guid>
       <pubDate>Sat, 11 Apr 2026 23:31:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.101 发布：新增团队入职命令、改进远程会话功能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.101</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.101 版本，带来多项功能改进和问题修复。本次更新重点包括新增团队入职命令、改进远程会话体验以及修复多个关键问题。</p>
-
-<h3>重要新功能与改进</h3>
-<ul>
-<li>新增 <code>/team-onboarding</code> 命令，可根据本地 Claude Code 使用情况生成团队成员入职指南</li>
-<li>默认信任操作系统 CA 证书存储，使企业 TLS 代理无需额外配置即可工作（可通过设置 <code>CLAUDE_CODE_CERT_STORE=bundled</code> 仅使用捆绑的 CA）</li>
-<li><code>/ultraplan</code> 等远程会话功能现在自动创建默认云环境，无需先进行网页设置</li>
-<li>改进简要模式：当 Claude 返回纯文本而非结构化消息时，会自动重试一次</li>
-<li>改进专注模式：Claude 现在会编写更自包含的摘要，因为它知道用户只能看到其最终消息</li>
-</ul>
-
-<h3>重要问题修复</h3>
-<ul>
-<li>修复了 LSP 二进制检测中使用的 POSIX <code>which</code> 回退机制存在的命令注入漏洞</li>
-<li>修复了长时间会话中虚拟滚动条保留数十个历史消息列表副本导致的内存泄漏问题</li>
-<li>修复了 <code>--resume</code>/<code>--continue</code> 在大型会话中丢失对话上下文的问题</li>
-<li>修复了硬编码的 5 分钟请求超时问题，该问题会中断慢速后端（本地 LLM、扩展思考、慢速网关），无视 <code>API_TIMEOUT_MS</code> 设置</li>
-<li>修复了 <code>permissions.deny</code> 规则无法覆盖 PreToolUse 钩子的 <code>permissionDecision: "ask"</code> 问题</li>
-</ul>
-
-<h3>其他改进与修复</h3>
-<ul>
-<li>改进工具不可用错误提示，当模型调用存在但当前上下文中不可用的工具时，会解释原因并提供后续步骤</li>
-<li>改进速率限制重试消息，显示触发的具体限制和重置时间，而非不透明的秒数倒计时</li>
-<li>改进拒绝错误消息，在可用时包含 API 提供的解释</li>
-<li>改进 <code>claude -p --resume &lt;name&gt;</code> 以接受通过 <code>/rename</code> 或 <code>--name</code> 设置的会话标题</li>
-<li>修复了多个插件相关问题，包括斜杠命令解析错误、更新失败、发现页面显示已安装插件等</li>
-<li>修复了多个远程控制问题，包括会话崩溃时工作树被移除、连接失败未持久化到记录中等</li>
-<li>修复了多个用户界面问题，包括终端滚动回退在非全屏模式下被清除、渲染闪烁等</li>
-<li>修复了 VS Code 扩展中聊天输入下方的文件附件在最后一个编辑器标签关闭时未清除的问题</li>
-</ul>
-
-<p>此外还修复了 Bedrock SigV4 认证、子代理工具继承、沙盒 Bash 命令执行、MCP 工具调用等多项问题，提升了整体稳定性和用户体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.101</guid>
-      <pubDate>Fri, 10 Apr 2026 19:03:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset CLI v0.1.0发布：新增独立分发版与安全设置</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/cli-v0.1.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset CLI 发布了 v0.1.0 版本，主要引入了独立分发版和安全设置功能，同时修复了设备列表显示问题。</p>
-
-<h3>重要功能更新</h3>
-<ul>
-<li><strong>独立分发版</strong>：新增了嵌入主机服务的独立分发版本，简化了部署和使用流程。</li>
-<li><strong>安全设置增强</strong>：增加了安全选项，允许用户禁用主机服务的中继暴露，提升安全性。</li>
-<li><strong>设备列表修复</strong>：解决了设备列表中将设备错误分类为离线状态的问题。</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>CI/CD 流程优化：包括自动更新 Homebrew 公式、移除 darwin-x64 支持、升级 GitHub Actions 版本等基础设施调整。</li>
-</ul>
-
-<p>详细更新内容可查看 <a href="https://github.com/superset-sh/superset/compare/desktop-canary...cli-v0.1.0">完整更新日志</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/cli-v0.1.0</guid>
-      <pubDate>Thu, 09 Apr 2026 21:37:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
