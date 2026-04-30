@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 30 Apr 2026 18:24:15 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 30 Apr 2026 20:22:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ GCC 16 编译器正式发布，默认 C++ 标准升级至 C++20</title>
+      <link>https://news.ycombinator.com/item?id=47961004</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍GCC编译器新版本发布，属于编程工具发布，完全匹配用户high_interest配置，用户会强烈感兴趣</small></p><p>GNU 编译器集合（GCC）发布了第 16 个主要版本，带来了多项重要改进和新特性。此次更新最显著的变化是将默认 C++ 语言标准从 C++17 升级为 C++20，这意味着未指定标准的 C++ 代码现在将按 C++20 规范编译，开发者可能需要调整构建标志或更新代码以适应这一变化。</p>
+
+<p>在编译器优化方面，链接时优化（LTO）现在能更好地处理顶层汇编语句，推测式去虚拟化支持更多间接函数调用目标，向量化器在多方面得到增强，包括支持未计数循环的向量化、对齐剥离优化以及更高效处理带提前退出的循环。</p>
+
+<p>C++ 支持是本次更新的重点：除了默认标准升级外，GCC 16 实现了多项 C++26 特性，包括反射（Reflection）、注解（Annotations）、扩展语句（Expansion statements）和合约（Contracts）等实验性功能。C++23 支持也得到完善，同时 C++20 模块支持仍是实验性功能，但新增了 <code>--compile-std-module</code> 命令行选项来简化标准库模块的构建。</p>
+
+<p>运行时库 libstdc++ 进行了多项重要更新：<code>std::generate_canonical</code> 实现了新规范，<code>std::variant</code> 的 ABI 更新以符合 C++20 标准，<code>std::regex</code> 执行改用堆栈避免溢出。C++20 支持不再标记为实验性，但部分组件存在 ABI 不兼容变化。</p>
+
+<p>其他语言改进包括：OpenMP 和 OpenACC 并行编程支持增强；Ada 语言新增构造函数和析构函数扩展；Fortran 改进 coarrays 和参数化派生类型支持；新增实验性 Algol 68 编译器 ga68。</p>
+
+<p>目标架构支持方面，新增对 AMD Zen6 核心（<code>-march=znver6</code>）、Intel Wildcat Lake 和 Nova Lake 处理器的支持，并调整了部分指令集扩展的启用策略。</p>
+
+<p>社区讨论中，用户注意到 GCC 现在保持每年一个主要版本的规律发布节奏。有开发者分享已在使用 GCC 16 的 C++26 反射功能进行序列化/反序列化等"魔法"操作。关于 <code>std::start_lifetime_as</code> 特性的讨论指出，这为类型转换提供了符合标准的方法，替代了容易引发未定义行为的 <code>reinterpret_cast</code> 用法。还有用户比较了 GCC 与 LLVM，指出 GCC 支持更多目标平台且通常生成相似或更好的代码。</p>
+
+<p>值得注意的是，GCC 16 移除了 JSON 格式的诊断输出（<code>-fdiagnostics-format=json</code>），建议需要机器可读诊断信息的用户改用 SARIF 格式，但同时新增了实验性 HTML 诊断输出功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47961004</guid>
+      <pubDate>Thu, 30 Apr 2026 11:40:13 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code对提及&quot;OpenClaw&quot;的提交拒绝请求或收取额外费用</title>
       <link>https://news.ycombinator.com/item?id=47963204</link>
@@ -1268,34 +1291,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47899844</guid>
       <pubDate>Sat, 25 Apr 2026 08:53:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Endless Toil：让AI编程助手在阅读糟糕代码时发出呻吟声的插件</title>
-      <link>https://news.ycombinator.com/item?id=47888465</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] AI编程助手插件，直接属于编程工具发布/分享和编程效率改进，都是用户很感兴趣的高价值内容</small></p><p>Endless Toil 是一个开源插件，为AI编程助手（如Codex、Claude、Cursor等）提供实时音频反馈，当代码看起来"糟糕"时播放逐渐升级的人类呻吟声。</p>
-
-<img src="/AndrewVos/endless-toil/raw/main/assets/endless-toil.png" alt="Endless Toil" />
-
-<p>该项目自称是"AI辅助软件开发的情感可观测层"，旨在通过音频信号让开发者感知代码库的复杂性、可维护性和架构压力。插件会扫描代码中的各种问题，包括FIXME/TODO注释、深层嵌套、大文件、宽泛的异常捕获等，并根据问题的严重程度播放不同级别的呻吟声。</p>
-
-<p>项目支持多种AI编程助手平台：</p>
-<ul>
-<li>Codex Desktop 和 CLI</li>
-<li>Claude CLI</li>
-<li>Cursor</li>
-</ul>
-
-<p>社区讨论中，开发者AndrewVos表示正在准备pre-seed轮融资，寻求对开发者工具、代理工程工作流和AI原生软件团队未来感兴趣的早期投资者。用户反馈包括：有用户尝试后只听到天使合唱团的声音（可能是绿色项目），有人询问代码质量检测的准确性，还有用户建议添加更多音效如Minecraft受伤音效。</p>
-
-<p>技术实现上，插件通过Python脚本执行代码扫描，需要Python 3.10+和本地音频播放器支持。如果音频播放器不可用，插件仍会输出扫描结果但不播放声音。</p>
-
-<img src="https://camo.githubusercontent.com/7e682f413a3cb22d11572f4c7152fc41b7d165c3ece58b56126ee254d94c8c97/68747470733a2f2f696d672e796f75747562652e636f6d2f76692f6d376d597a535a644e50452f687164656661756c742e6a7067" alt="Endless Toil video demo" />
-
-<p>社区还提出了许多有趣的扩展想法，包括根据AI消耗的token数量调整呻吟的音量和强度，以及在构建失败、linter报错、段错误等情况时播放特定音效。有用户表示已经习惯了类似的终端错误音效工具，现在反而对默认的提示音感到惊讶。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47888465</guid>
-      <pubDate>Fri, 24 Apr 2026 10:58:45 GMT</pubDate>
     </item>
   </channel>
 </rss>
