@@ -3,7 +3,81 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 01 May 2026 17:10:34 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 01 May 2026 18:11:26 GMT</lastBuildDate>
+    <item>
+      <title>⭐ WhatCable：开源 macOS 应用帮你识别 USB-C 电缆真实能力</title>
+      <link>https://news.ycombinator.com/item?id=47972511</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源macOS应用，属于用户感兴趣的开源项目类别</small></p><p>WhatCable 是一款开源的 macOS 菜单栏应用，专门用于检测和分析连接到 Mac 的 USB-C 电缆的实际规格和能力。该应用解决了 USB-C 电缆外观相同但性能差异巨大的问题，让用户能够清楚了解每根电缆的真实能力。</p>
+
+<p>应用通过读取 macOS 的 IOKit 接口数据，无需特殊权限即可显示电缆的详细信息，包括：充电功率（从 5W 到 240W）、数据传输速度（USB 2.0 到 80 Gbps）、是否支持 Thunderbolt 或 DisplayPort 等。当电缆限制充电速度时，应用会明确提示瓶颈所在。</p>
+
+<img src="/darrylmorley/whatcable/raw/main/docs/screenshot.png" alt="WhatCable popover" />
+
+<p>技术特点方面，WhatCable 支持 Apple Silicon Mac（M1/M2/M3），需要 macOS 14（Sonoma）或更高版本。由于技术限制，该应用不支持 Intel Mac，因为 Intel 的 Thunderbolt 3 控制器不公开所需的 USB-PD 协商状态和电缆 e-marker 数据。</p>
+
+<p>应用提供两种使用方式：图形化的菜单栏应用和命令行界面。用户可以通过 Homebrew 安装或手动下载安装包。安装包经过 Apple 签名和公证，没有 Gatekeeper 警告。</p>
+
+<p>在 Hacker News 社区中，该项目获得了 289 分和 108 条评论的高度关注。用户反馈显示：</p>
+<ul>
+<li>部分用户遇到检测不到 USB-C 端口的问题，开发者已积极修复</li>
+<li>有用户发现应用会显示电缆"倒插"的提示，这实际上是 USB-C 双面可插特性的正常现象</li>
+<li>Linux 用户询问类似工具的可能性，社区推荐了 <a href="https://github.com/doug-gilbert/lsucpd">lsucpd</a> 等替代方案</li>
+<li>用户关注该工具是否能检测虚标电缆，开发者澄清只能读取电缆芯片报告的信息，无法验证实际物理性能</li>
+</ul>
+
+<p>值得注意的是，WhatCable 完全依赖电缆内置的 e-marker 芯片提供的信息。大多数低于 60W 的电缆没有此芯片，而任何 Thunderbolt/USB4 电缆、5A/100W+ 电缆和大多数质量较好的数据电缆都会有 e-marker。应用无法检测假冒或虚标电缆的实际物理性能。</p>
+
+<p>项目采用 Swift/SwiftUI 开发，完全开源且遵循 MIT 许可证。开发者 Darryl Morley 表示，项目的灵感来源于经常有人询问"这根电缆好用吗？"的日常需求。</p>
+
+<p><strong>你知道吗？</strong></p>
+<p>USB-C 电缆的混乱局面部分源于 USB-IF（USB 实施者论坛）的认证和标识系统不够直观。一根 USB-C 电缆可能支持多种协议组合：USB 2.0/3.2/4、Thunderbolt 3/4、不同功率的 USB Power Delivery（PD），以及可选的 DisplayPort Alt Mode 和 HDMI Alt Mode。e-marker 芯片是电缆中的小型集成电路，存储着电缆的能力信息，帮助设备协商最佳连接参数。然而，市场上有大量虚标或假冒电缆，其 e-marker 芯片可能报告高于实际物理能力的规格，这是软件工具无法检测的硬件限制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47972511</guid>
+      <pubDate>Fri, 01 May 2026 08:43:45 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Grok 4.3 模型发布：社区讨论性能基准、速度表现与功能限制</title>
+      <link>https://news.ycombinator.com/item?id=47972447</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型Grok 4.3发布讨论，属于用户很感兴趣的新AI模型发布公告</small></p><p>Grok 4.3 模型发布后，Hacker News 社区围绕其性能表现、基准测试可信度和实际使用体验展开了广泛讨论。该模型标称速度达到 202.7 tok/s，定价在 1.25-2.50 之间，被认为是性价比较高的选择。</p>
+
+<p>社区成员对性能基准测试的可信度表示怀疑，有用户指出最流行的排行榜可能"完全是编造的"。关于速度表现，有经验分享显示 Grok 模型在发布初期通常很快，但几周后速度会显著下降，如 Grok 4 从 200 tps 降至 60 tps。</p>
+
+<p>在模型比较方面，讨论涉及与 <a href="https://artificialanalysis.ai/models/grok-4-3">Kimi K2.6</a>、Claude Opus 4.6/4.7 等竞争对手的对比。有用户提到马斯克在法庭上承认 Grok 部分使用了 OpenAI 模型进行训练。</p>
+
+<p>社区进行了有趣的创意测试，如"鹈鹕骑自行车"、"海狸骑滑板车"等图像生成测试，以评估模型的真实能力。测试结果显示模型在某些创意任务上表现不佳。</p>
+
+<p>实际用户反馈指出了 Grok 产品的多项功能限制：缺乏 MCP/连接应用支持、项目功能在应用中不可用、无法直接添加生成文档到项目、没有记忆功能、每个对话都是全新的等。虽然有用户称赞 Grok 的语音模式质量较高，但整体产品体验仍有待改进。</p>
+
+<p>价格方面，社区认为 Grok 4.3 的定价相比竞争对手相当有竞争力，推测 xAI 可能拥有大量计算资源或希望通过低价吸引更多用户。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47972447</guid>
+      <pubDate>Fri, 01 May 2026 08:29:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Honker – 在 SQLite 文件中实现持久队列、流、发布/订阅和定时任务调度器</title>
+      <link>https://news.ycombinator.com/item?id=47963316</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 基于SQLite的编程工具分享，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>Honker 是一个 SQLite 加载扩展，为开发者提供了在单个 SQLite 文件中实现持久队列、事件流、发布/订阅和定时任务调度的能力。该项目旨在解决 SQLite 作为主要数据存储时，需要额外消息队列系统带来的复杂性问题。</p>
+
+<img src="/_astro/honker.DaDfuCrv_Z2dOHq9.webp" alt="honker goose logo" width="400" height="400" />
+
+<p>与传统方案需要引入 Redis 或 RabbitMQ 等外部消息代理不同，Honker 将队列直接嵌入到业务数据所在的同一个 SQLite 文件中。这意味着业务写入和队列操作可以在同一个事务中完成，实现了原子性提交或回滚。例如，在插入订单记录的同时，可以将发送邮件的任务入队，两者要么同时成功，要么同时失败。</p>
+
+<p>技术实现上，Honker 通过每毫秒轮询 SQLite 的 <code>PRAGMA data_version</code> 来检测数据库提交事件。这是一个单调递增的计数器，每次提交时都会增加，读取成本约为 3 微秒。当检测到变化时，后台线程会通知所有订阅者获取新数据。这种设计避免了客户端轮询，也不需要独立的守护进程或代理。</p>
+
+<p>项目提供了多种语言绑定，包括 Python、Node.js、Rust、Go、Ruby、Bun 和 Elixir，所有绑定共享相同的磁盘格式。开发者可以使用熟悉的语言接口进行操作，底层都是同一个 SQLite 扩展。</p>
+
+<p>在 Hacker News 的讨论中，社区成员对 Honker 的轮询机制提出了讨论。有评论认为每毫秒一次的 SELECT 操作虽然轻量，但相比内核文件监视器可能并非最优设计。作者回应称这种设计在 SQLite 的上下文中是合理的，特别是当数据库大部分时间在页面缓存中时，轮询成本很低。</p>
+
+<p>评论中还提到了其他类似工具，如支持 SQLite 的 Oban、Graphile Worker 等。有用户指出，Honker 特别适合那些处于中间地带的场景：比内存队列更可靠，但又不值得引入 Kafka 等重型基础设施的项目。</p>
+
+<p>安装方式因语言而异，可以通过各语言的包管理器获取，也可以直接编译 SQLite 扩展源码。项目文档提供了完整的 API 参考和使用示例。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47963316</guid>
+      <pubDate>Thu, 30 Apr 2026 14:43:02 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 开发者重建AppAnne并推出Appkittie应用分析平台</title>
       <link>https://news.ycombinator.com/item?id=47973203</link>
@@ -1146,91 +1220,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47905984</guid>
       <pubDate>Sun, 26 Apr 2026 00:12:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 业余爱好者借助ChatGPT解决60年未解的埃尔德什数学难题</title>
-      <link>https://news.ycombinator.com/item?id=47903126</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述AI在数学证明中的应用突破，属于AI软件技术进展和科学前沿进展，符合用户兴趣配置中的感兴趣类别</small></p><p>一位23岁的业余数学爱好者Liam Price使用ChatGPT Pro成功解决了一个困扰数学家60年的埃尔德什问题（Erdős problem）。Price在空闲的周一下午向GPT-5.4 Pro输入了这个问题，AI在80分钟内给出了解决方案，使用了人类数学家未曾想到的方法。</p>
-
-<img src="https://static.scientificamerican.com/dam/asset/124ad289-58c2-4d51-87e8-aee854d10fc7/abstract-rubiks-cube.jpg?m=1777033076.511&w=600" alt="An orange cube resembling a puzzle, suspended in space against a lavender background." />
-
-<p>这个问题涉及"原始集合"（primitive sets）——即集合中没有任何一个数能被其他数整除的整数集合，以及埃尔德什和（Erdős sum）的计算。埃尔德什曾猜测该和的最小值为1，但这一猜想60年来一直未被证明。</p>
-
-<p>著名数学家Terence Tao（陶哲轩）和Jared Lichtman验证了该解决方案。Tao指出："这个问题可能比预期的要简单，但人们似乎存在某种思维障碍。"AI使用了一个在数学相关领域中已知但从未应用于此类问题的公式。</p>
-
-<p>Lichtman表示："ChatGPT证明的原始输出实际上相当糟糕，需要专家筛选和理解它试图表达的内容。"他和Tao已经简化了证明，更好地提炼了大型语言模型（LLM）的关键见解。</p>
-
-<p>社区讨论显示，用户分享了<a href="https://chatgpt.com/share/69dd1c83-b164-8385-bf2e-8533e9baba9c">ChatGPT的原始对话链接</a>，并讨论了免费版和Pro版的差异。一些用户对AI解决数学问题的成本效益提出疑问，而另一些则认为这展示了AI在结合不同领域知识方面的潜力。</p>
-
-<p>专家们认为，AI的这种认知飞跃可能有其他潜在应用。Tao表示："我们发现了一种思考大数及其结构的新方法。"Lichtman则希望这一发现能验证他自研究生以来的直觉——这些问题以某种方式聚集在一起，具有统一的感觉。</p>
-
-<p>这一突破展示了AI在数学研究中的新作用：不是替代人类数学家，而是提供新的视角和方法，帮助突破人类可能陷入的思维定式。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47903126</guid>
-      <pubDate>Sat, 25 Apr 2026 17:40:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ USB技术速查表：完整规格与命名解析指南</title>
-      <link>https://news.ycombinator.com/item?id=47904876</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] USB技术文档属于编程工具参考材料，用户对编程工具发布/分享感兴趣，故为必看内容</small></p><p>作者因误解USB术语而浪费时间调查不存在的bug后，制作了一份全面的USB技术速查表，旨在帮助其他人避免类似困惑。</p>
-
-<p>该速查表系统整理了USB标准的多个关键方面：</p>
-
-<ul>
-<li><strong>速度规格对比</strong>：从USB 1.1（12 Mbps）到USB4 40Gbps（40,000 Mbps）的完整演进历程，包括市场营销名称与实际技术规格的对应关系</li>
-<li><strong>线缆配置</strong>：详细说明了4线、8线和12线配置的区别，以及不同线缆支持的传输模式</li>
-<li><strong>连接器类型</strong>：展示了USB-A、USB-B和USB-C连接器的物理差异</li>
-</ul>
-
-<img src="typea.svg" alt="USB Type-A连接器" width="364.90143" height="120" />
-<img src="typea3.svg" alt="USB 3.0 Type-A连接器" width="365.00143" height="120" />
-<img src="typeb.svg" alt="USB Type-B连接器" width="144" height="124.4" />
-<img src="typeb3.svg" alt="USB 3.0 Type-B连接器" width="171" height="208.5" />
-<img src="typec.svg" alt="USB Type-C连接器引脚配置" width="367.79926" height="39.918217" />
-
-<p><strong>充电标准</strong>：从USB 2.0的2.5W到USB-C PD 3.1（EPR）的240W，涵盖了各种充电协议的功率规格。</p>
-
-<p><strong>命名混乱问题</strong>：特别指出了USB 3.x系列命名的复杂性，如USB 3.0、USB 3.1 Gen 1、USB 3.2 Gen 1实际上都指代相同的5Gbps标准，这种命名方式常导致消费者混淆。</p>
-
-<p>Hacker News社区讨论中，用户普遍赞赏这份速查表的实用性，同时深入讨论了相关话题：</p>
-<ul>
-<li>Thunderbolt标准与USB的关系，特别是Thunderbolt 5与USB4v2的兼容性</li>
-<li>USB命名体系的混乱程度，有用户认为这是厂商故意为之，以便销售库存的旧标准配件</li>
-<li>实际使用中的兼容性问题，如Windows系统不明确显示USB连接的实际协商速度</li>
-<li>欧盟法规要求设备兼容USB-PD标准的影响</li>
-</ul>
-
-<p>一位用户分享了实际应用经验：通过更换办公室的USB扩展坞线缆，确保笔记本电脑获得足够电力，避免了因功率不足导致的性能降频，获得了10-30%的性能提升。</p>
-
-<p>技术专家<strong>DHowett</strong>提供了重要修正：USB-C规范中的SBU实际代表"Sideband Use"（侧带用途）而非"Secondary Bus"（辅助总线），这些引脚在不同设备上可能用于UART通信或音频传输。</p>
-
-<p>这份速查表为技术人员和普通用户提供了清晰的USB技术参考，特别是在面对日益复杂的USB标准命名时尤为实用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47904876</guid>
-      <pubDate>Sat, 25 Apr 2026 21:51:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI行业面临日益增长的公众敌意与暴力反弹</title>
-      <link>https://news.ycombinator.com/item?id=47904568</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章关注AI技术的社会负面影响而非技术进展本身，主题与用户兴趣配置匹配度较低，标题含义模糊</small></p><p>近期针对AI行业领导人的暴力事件凸显了公众对人工智能技术日益增长的敌意。4月10日，OpenAI CEO Sam Altman的住所遭到燃烧弹袭击，袭击者自称"巴特勒圣战者"，并在宣言中警告AI的生存威胁。三天前，印第安纳波利斯一名支持数据中心项目的市议员家中遭到枪击，现场留下"不要数据中心"的字条。</p>
-
-<p>这些极端事件反映了更深层的公众情绪变化。斯坦福大学人工智能指数报告显示，AI专家与公众对AI未来的看法存在巨大差距：73%的专家对AI的长期就业影响持积极态度，而公众中只有23%持相同看法。Gallup调查显示，Z世代对AI的愤怒情绪从22%上升到31%。</p>
-
-<p>文章分析认为，AI行业领导人的言论加剧了公众不满。他们常在"AI将灭绝人类"和"AI将夺走工作"两个极端之间摇摆，忽视了普通人的日常关切。同时，数据中心建设导致<a href="https://newrepublic.com/article/209163/ai-industry-discovering-public-backlash">电费上涨</a>，而AI的实际生产力提升效果却不明显。根据美国国家经济研究局的数据，80%使用AI的公司报告生产力没有提升。</p>
-
-<p>Hacker News社区评论反映了类似观点。用户<a href="https://news.ycombinator.com/item?id=47904568">Tyrubias</a>指出："AI行业的言论一直是'这项技术将消除数百万工作岗位，从根本上重塑无数其他工作，并自动化致命武力的使用，但我们还是要开发它'。"另一位用户<a href="https://news.ycombinator.com/item?id=47904568">fnoef</a>讽刺地列举了AI的负面影响："承诺改善我们的生活却让我们失业；电子元件短缺；耗电量超过普通城市；自主杀人无人机；错误信息泛滥；大规模知识产权盗窃。"</p>
-
-<p>虽然科技公司发布了一些政策文件，如OpenAI的工业政策白皮书和微软的"社区优先"倡议，但这些承诺缺乏独立的问责机制。OpenAI总裁Greg Brockman甚至向反对州级AI监管的超级政治行动委员会投入数百万美元。</p>
-
-<p>评论中<a href="https://news.ycombinator.com/item?id=47904568">cortesoft</a>提出了应对AI挑战的三个主要方面：通过税收和全民基本收入分享生产力收益；解决环境影响；处理AI创作和欺诈问题。但其他用户质疑全民基本收入的可行性，认为每年12,000美元不足以弥补失业损失。</p>
-
-<p>文章最后警告，如果AI行业不能采取可持续、可验证的行动，包括产品透明度、接受有意义的监管，以及让社区真正参与数据中心建设的决策，那么这种新兴的AI民粹主义运动将继续升级，伴随而来的暴力风险也将增加。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47904568</guid>
-      <pubDate>Sat, 25 Apr 2026 21:11:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
