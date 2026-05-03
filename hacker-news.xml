@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 03 May 2026 18:00:11 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 19:16:56 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 从AI精神病到规格说明驱动开发：Acai.sh工具包如何通过YAML规格提升AI编程质量</title>
+      <link>https://news.ycombinator.com/item?id=47994012</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍开源编程工具Acai.sh，通过YAML规格提升AI编程质量，涉及编程工具发布、AI编程效率改进、开源项目等多个用户高兴趣主题</small></p><p>作者分享了在使用AI辅助编程过程中经历的"AI精神病"——过度依赖AI工具导致代码质量下降的问题，并提出了通过编写详细规格说明的解决方案。他开发了开源工具包Acai.sh，使用YAML格式的feature.yaml文件来管理功能规格说明。</p>
+
+<p>文章核心观点是：在AI时代，规格说明变得比代码本身更重要。作者提出了"ACIDs"（Acceptance Criteria IDs）概念，为每个需求分配唯一标识符，并在代码中引用这些标识符，从而建立规格说明与代码之间的可追溯关系。这种方法旨在减少AI生成的"垃圾代码"，提高软件质量。</p>
+
+<p>Acai.sh工具包包含四个主要步骤：1）使用feature.yaml格式编写规格说明；2）让AI代理在代码中引用ACIDs；3）通过仪表板审查需求完成情况；4）迭代改进。作者认为这种方法在严谨性和灵活性之间找到了平衡点。</p>
+
+<img src="https://mintcdn.com/acai/LaJ29xrIxyCm5Sr_/images/desktop-feature-impl-view.png?fit=max&auto=format&n=LaJ29xrIxyCm5Sr_&q=85&s=d39e3b8b4643b0dbe281efa19c454146" alt="Dashboard showing status updates for the Staging implementation of the form-editor feature." width="2400" height="1600" />
+
+<p>Hacker News社区对此展开了热烈讨论（254条评论）。支持者认为这种方法有助于管理AI生成的代码，批评者则认为这只是在优化自然语言使用，而AI本身存在根本性缺陷。一些评论者提到了类似工具如<a href="https://github.com/Fission-AI/OpenSpec/blob/main/docs/getting-started.md">OpenSpec</a>、GitHub SpecKit等，并讨论了结构化规格说明与自由格式文档的权衡。</p>
+
+<p>作者在评论中强调："规格说明必须存在于某个地方，即使你不写下来，它也会存在于你的脑海中或对话中。你和你的团队、你的业务总会关心规格说明的内容，这永远不会改变。所以最好现在就把它写下来！"</p>
+
+<p>文章反映了当前AI编程工具使用中的一个重要趋势：随着AI生成代码能力的增强，如何确保代码质量、如何管理需求与实现之间的关系成为了新的挑战。Acai.sh代表了向规格说明驱动开发的一种尝试，试图在AI辅助编程的便利性与软件工程的最佳实践之间找到平衡。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47994012</guid>
+      <pubDate>Sun, 03 May 2026 06:33:38 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mercury 如何用 200 万行 Haskell 代码构建可靠的金融系统</title>
       <link>https://news.ycombinator.com/item?id=47991802</link>
@@ -1196,44 +1217,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47914677</guid>
       <pubDate>Sun, 26 Apr 2026 21:23:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Jelly帮助中心实现自动更新截图系统，解决文档截图过时难题</title>
-      <link>https://news.ycombinator.com/item?id=47908051</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍帮助中心自动化截图系统，属于编程工具发布和软件新功能，匹配用户的高兴趣配置</small></p><p>James Adam在其博客中分享了一个解决文档截图过时问题的创新方案：为Jelly帮助中心构建了一个自动截图系统。该系统能够在每次重建时自动从运行的应用中捕获最新截图，确保文档与UI保持同步。</p>
-
-<p>文章详细描述了该系统的技术实现。帮助文章使用Markdown编写，其中嵌入特殊的HTML注释作为截图指令，例如：<code>&lt;!-- SCREENSHOT: acme-tools/inbox | element | selector=#inbox-brand-new-section --&gt;</code>。这些指令指定了要捕获的页面、元素和操作方式。</p>
-
-<p>系统底层使用Rake任务启动无头Chrome浏览器（通过Capybara和Cuprite），扫描所有Markdown文件中的截图指令，按团队分组登录，导航到指定URL并捕获截图。支持三种捕获模式：</p>
-<ul>
-<li><strong>element</strong>：按CSS选择器捕获特定DOM元素</li>
-<li><strong>full_page</strong>：捕获整个页面，可选高度裁剪</li>
-<li><strong>viewport</strong>：仅捕获浏览器窗口可见部分</li>
-</ul>
-
-<p>系统还提供多种选项处理复杂情况：<code>click</code>选项可模拟按钮点击打开弹窗，<code>wait</code>可等待动画完成，<code>crop</code>可裁剪特定区域，<code>hide</code>可临时隐藏开发工具栏或Cookie横幅等不需要的元素，<code>torn</strong>选项则通过CSS clip-path应用撕纸边缘效果。</p>
-
-<p>整个流程只需运行<code>rails manual:build</code>命令即可完成所有截图的捕获和帮助页面的构建。当UI发生变化时，运行该命令即可更新所有相关截图，避免了手动裁剪、遗漏更新或截图逐渐过时的问题。</p>
-
-<p>Markdown文件按章节组织在<code>public/manual/</code>目录中，构建步骤将其处理为<code>app/views/help/</code>中的ERB视图，并自动生成面包屑导航和章节导航。这种设计使得功能开发和文档更新可以同步进行，代码和文档可以在同一个PR甚至提交中保持同步。</p>
-
-<p>James Adam坦言，虽然构建这个系统需要处理各种边界情况（如需要滚动到视图的元素、需要点击的弹窗、需要裁剪以避免显示无关内容的图像），比预期花费更多时间，但一旦完成，更新帮助中心的频率大大提高，因为摩擦几乎消失。</p>
-
-<p>在Hacker News的评论中，开发者们对这一方案表示赞赏：</p>
-<ul>
-<li>immanuwell认为"在Markdown中嵌入捕获指令作为注释是一个极其简单的解决方案，比任何花哨的外部工具都要经得起时间考验"</li>
-<li>efortis分享了类似做法，将截图链接到像素差异测试</li>
-<li>LeoDaVibeci表示"我多次需要这样的功能"</li>
-<li>taspeotis考虑过从端到端测试运行中获取截图</li>
-<li>其他开发者分享了相关工具，如<a href="https://github.com/simonw/shot-scraper">shot-scraper</a>和<a href="https://github.com/zombocom/rundoc">rundoc</a></li>
-<li>CyberShadow提到可以生成明暗主题的截图对，并根据<code>prefers-color-scheme</code>进行切换</li>
-</ul>
-
-<p>这一解决方案体现了"为什么我没有早点做这个"的经典案例，虽然前期投入较大，但长期维护成本极低，显著提高了文档更新的频率和质量。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47908051</guid>
-      <pubDate>Sun, 26 Apr 2026 07:00:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
