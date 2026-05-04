@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 04 May 2026 09:30:20 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 12:05:00 GMT</lastBuildDate>
+    <item>
+      <title>现代文本用户界面（TUI）的无障碍访问困境：为何终端应用对屏幕阅读器用户不友好</title>
+      <link>https://news.ycombinator.com/item?id=48002938</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论文本用户界面的无障碍访问问题，属于技术实践范畴。虽涉及开发者效率意识，但非用户高度关注的编程工具发布或AI模型进展主题，兴趣相对不明确。</small></p><p>文章指出，许多开发者存在一个普遍误解：认为在终端中运行的应用程序天生就具备无障碍访问特性，因为内容是纯文本。然而现实是，大多数现代文本用户界面（TUI）对无障碍访问的支持甚至比编写不佳的图形界面更差。</p>
+
+<p>文章区分了命令行界面（CLI）和文本用户界面（TUI）的关键差异：CLI 采用标准的输入/输出流模型，操作是线性和时序的，这对屏幕阅读器（如 Speakup、NVDA）非常友好；而 TUI 则将终端窗口视为二维像素网格，放弃了时间流而采用空间布局，导致光标频繁跳跃和屏幕重绘。</p>
+
+<p>以基于 Ink 框架的 gemini-cli 工具为例，当 AI 在“思考”时，工具会更新计时器或旋转图标，这会导致光标在屏幕上快速移动。对于屏幕阅读器用户来说，他们会听到“正在响应...已用时间 1 秒...正在响应...已用时间 2 秒...”等混杂的语音片段，使得无法专注于实际输入的内容。更糟糕的是，当历史记录增长时，粘贴大段文本可能导致严重的输入延迟，甚至使屏幕阅读器崩溃。</p>
+
+<p>相比之下，传统的终端工具如 nano、vim、menuconfig 和 Irssi 之所以能正常工作，是因为它们允许用户隐藏光标或使用终端硬件特性（如 VT100 滚动区域）。这些工具通过最小化光标干扰和利用终端原生功能，为屏幕阅读器提供了相对稳定的体验。</p>
+
+<p>文章批评了现代 TUI 框架（如 Ink、Bubble Tea、tcell）过度优化开发者体验，却忽视了无障碍访问需求。作者指出，Google 等维护者对无障碍问题报告（如 Issue #3435、#11305）的处理方式令人失望，这些问题被自动关闭而非解决。</p>
+
+<p>社区讨论中，用户指出问题的根源不仅在于声明式 UI 框架，更在于渲染引擎和终端模拟器缺乏对无障碍访问的支持。有评论提到，许多 GPU 渲染的终端模拟器（如 Kitty、Alacritty）根本不与系统无障碍 API 交互，导致屏幕阅读器无法读取文本内容。Mitchell Hashimoto 指出，整个技术栈都需要改进，包括终端规范、TUI 框架和终端模拟器之间的协作。</p>
+
+<p>一些用户认为，现代 TUI 本质上是“穿着终端外衣的 Web 应用”，但却缺乏 Web 平台的无障碍选项。也有开发者表示，如果关心无障碍访问，应避免使用将终端视为画布的声明式 UI 框架，而应优先考虑线性、流式的 CLI 设计。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48002938</guid>
+      <pubDate>Sun, 03 May 2026 23:59:02 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ DeepClaude：用 DeepSeek V4 Pro 替代 Claude Code 后端，成本降低 17 倍</title>
       <link>https://news.ycombinator.com/item?id=48002136</link>
@@ -1211,38 +1232,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47919240</guid>
       <pubDate>Mon, 27 Apr 2026 08:54:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Dirac 开源 AI 编码代理在 TerminalBench 2.0 基准测试中超越 Google 官方和闭源竞争对手</title>
-      <link>https://news.ycombinator.com/item?id=47920787</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍开源AI编码代理Dirac，主打编程效率改进和成本优化，完全匹配用户很感兴趣的编程工具发布和编程效率改进经验主题</small></p><p>Dirac 是一个开源的 AI 编码代理，在 TerminalBench 2.0 基准测试中使用 Gemini-3-flash-preview 模型获得了 65.2% 的优异成绩，超越了 Google 官方基准的 47.8% 和顶级闭源代理 Junie CLI 的 64.3%。作者特别强调这一成绩是在完全合规的情况下取得的，没有使用任何作弊机制。</p>
-
-<p>Dirac 是 Cline 项目的深度改进分支，专注于编码代理的效率和上下文管理。它通过多项技术创新实现了显著的性能提升：</p>
-
-<ul>
-<li><strong>哈希锚定编辑</strong>：使用稳定的行哈希精确定位编辑位置，避免传统行号编辑中的"翻译丢失"问题<img src="https://camo.githubusercontent.com/7c2146782e5ad29e647e51a95f9290c4e5eba1214d0a736d571de7f55cf7a98b/68747470733a2f2f7777772e64697261632e72756e2f7374617469632f696d616765732f6d756c7469706c655f656469742e706e67" alt="Hash-Anchored Edits" /></li>
-<li><strong>AST 原生精度</strong>：内置对多种编程语言语法的理解，支持结构化的代码操作<img src="https://camo.githubusercontent.com/37d1ad7e29ec1d50a714d80c7d60cf27efbf61514c449b48a0e0948245792a92/68747470733a2f2f7777772e64697261632e72756e2f7374617469632f696d616765732f706172616c6c656c5f4153545f656469742e706e67" alt="AST-Native Precision" /></li>
-<li><strong>多文件批处理</strong>：在单次 LLM 往返中处理多个文件，显著降低延迟和 API 成本<img src="https://camo.githubusercontent.com/17195a2ee334a899e41d17267152feae6df9bb8459a4fac440f063206c4e7ede/68747470733a2f2f7777772e64697261632e72756e2f7374617469632f696d616765732f6d756c74695f66756e6374696f6e5f726561642e706e67" alt="Multi-File Batching" /></li>
-<li><strong>高效上下文管理</strong>：优化上下文管理，确保 LLM 始终获得最相关信息</li>
-</ul>
-
-<p>在成本方面，Dirac 表现出显著优势。根据评估数据，它在 8 个复杂重构任务中平均成本仅为 0.18 美元，比竞争对手平均低 64.8%（2.8 倍成本降低），同时在所有任务中都取得了成功。</p>
-
-<p>社区讨论中，用户对 Dirac 的技术实现表现出浓厚兴趣。主要关注点包括：</p>
-<ul>
-<li>是否支持其他开源模型（如 Qwen）</li>
-<li>AST 方法在大型项目中的实际表现</li>
-<li>与其他流行代理（如 pi.dev）的比较</li>
-<li>安装和使用中的具体问题</li>
-</ul>
-
-<p>作者回应称，Dirac 支持 Cline 原有的所有模型，包括各种开源和闭源模型。对于 AST 方法，它使用 tree-sitter WASM 支持 14 种编程语言，并通过 SQLite 数据库存储符号信息以提高性能。</p>
-
-<p>Dirac 提供了 VS Code 扩展和 CLI 两种使用方式，支持多种 AI 提供商 API 密钥配置。项目采用 Apache 2.0 许可证开源，<a href="https://github.com/dirac-run/dirac">GitHub 仓库</a>显示其受欢迎程度正在快速增长<img src="https://camo.githubusercontent.com/9d2406a6f4e7ca4b176f80752b4bc65c6e46eb87e8e467bca36e43785a542736/68747470733a2f2f6170692e737461722d686973746f72792e636f6d2f7376673f7265706f733d64697261632d72756e2f646972616326747970653d44617465" alt="Star History Chart" />。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47920787</guid>
-      <pubDate>Mon, 27 Apr 2026 12:35:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
