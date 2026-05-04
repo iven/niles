@@ -3,7 +3,51 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 04 May 2026 22:13:23 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 23:09:47 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.128 发布：新增随机会话颜色、MCP工具计数显示等功能改进与多项错误修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.128</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.128 版本，带来了一系列功能改进和错误修复。本次更新主要涉及用户界面优化、MCP（模型上下文协议）功能增强、插件管理改进以及多个影响用户体验的问题修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>会话颜色随机选择</strong>：现在使用不带参数的 <code>/color</code> 命令会随机选择会话颜色</li>
+<li><strong>MCP 工具计数显示</strong>：<code>/mcp</code> 命令现在显示已连接服务器的工具数量，并标记工具数为零的服务器</li>
+<li><strong>插件目录支持 ZIP 文件</strong>：<code>--plugin-dir</code> 参数现在除了目录外，还接受 <code>.zip</code> 插件归档文件</li>
+<li><strong>控制台认证支持</strong>：<code>--channels</code> 现在可与控制台（API 密钥）认证配合使用，启用需在控制台组织中设置 <code>channelsEnabled: true</code></li>
+<li><strong>模型选择器更新</strong>：合并了重复的 Opus 4.7 条目，当前 Opus 现在显示为 "Opus" 而非 "Opus 4.7"</li>
+<li><strong>工作树分支创建修复</strong>：<code>EnterWorktree</code> 现在按照文档从本地 HEAD 创建新分支，而不是从 <code>origin/&lt;默认分支&gt;</code>，避免未推送的提交丢失</li>
+<li><strong>MCP 服务器名称保留</strong>：<code>workspace</code> 现在成为保留的服务器名称，现有同名服务器将被跳过并显示警告</li>
+<li><strong>MCP 重新连接优化</strong>：重新连接的 MCP 服务器不再在每次重连时用完整工具名称列表刷屏，改为按服务器前缀汇总重新宣布的工具</li>
+</ul>
+
+<h3>其他改进与错误修复</h3>
+<ul>
+<li>子进程（Bash、hooks、MCP、LSP）不再继承 <code>OTEL_*</code> 环境变量，防止通过 Bash 工具运行的 OTEL 检测应用获取 CLI 自身的 OTLP 端点</li>
+<li>SDK 主机现在接收持久的 <code>localSettings</code> 建议，用于 Bash 权限提示，"始终允许" 将写入 <code>.claude/settings.local.json</code></li>
+<li>自动模式：当分类器无法评估操作时，错误信息现在包含提示（重试、<code>/compact</code> 或使用 <code>--debug</code> 运行）</li>
+<li>修复了焦点模式在提交新提示时短暂变暗先前响应的问题</li>
+<li>修复了 Kitty 等终端中每次 <code>/exit</code> 时出现的杂散 "4;0;" 桌面通知</li>
+<li>修复了远程控制在速率限制时显示空白的 "正在打开您的选项..." 消息而非可操作的升级选项的问题</li>
+<li>修复了拖放图像上传在图像读取失败时卡在 "正在粘贴文本..." 的问题</li>
+<li>修复了通过 stdin 向 <code>claude -p</code> 传输超大输入（>10 MB）时的崩溃循环</li>
+<li>修复了全屏模式下长 URL 在每行换行处无法单独点击的问题</li>
+<li>修复了并行 shell 工具调用：失败的只读命令（grep、git diff、ls）不再取消同级调用</li>
+<li>修复了 vim 模式：NORMAL 模式下的 <code>Space</code> 现在向右移动光标，符合标准 vi/vim 行为</li>
+<li>修复了终端进度指示器（OSC 9;4）在工具调用之间闪烁关闭的问题，现在在整个回合期间保持可见</li>
+<li>修复了 MCP stdio 服务器在 <code>CLAUDE_CODE_SHELL_PREFIX</code> 设置且参数包含空格或 shell 元字符时接收损坏参数的问题</li>
+<li>修复了子代理进度摘要缺少提示缓存的问题（约减少 3 倍 <code>cache_creation</code>）</li>
+<li>修复了 <code>/plugin update</code> 从未检测到 npm 源插件的新版本的问题</li>
+<li>修复了子代理摘要在其转录本静态时重复触发的问题，限制了空闲子代理的最坏情况令牌成本</li>
+<li>修复了多个其他界面、配置和功能相关的问题</li>
+</ul>
+
+<p>总体而言，本次更新进一步优化了 Claude Code 的用户体验，增强了功能稳定性，并解决了多个影响日常使用的问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.128</guid>
+      <pubDate>Mon, 04 May 2026 23:01:47 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.8.0 发布：V2 侧边栏改进、PTY 守护进程升级支持</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.8.0</link>
@@ -1370,23 +1414,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.107</guid>
       <pubDate>Tue, 14 Apr 2026 06:11:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.5.3 发布：修复分割窗格尺寸问题并新增窗格焦点切换快捷键</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 发布了 v1.5.3 版本，主要包含两个桌面应用功能改进：</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>修复 v1 分割窗格启动尺寸问题</strong>：解决了 v1 版本分割窗格在启动时的尺寸调整问题，提升了用户体验</li>
-<li><strong>新增窗格焦点切换快捷键</strong>：添加了 Cmd+Alt+方向键（Windows/Linux 为 Ctrl+Alt+方向键）快捷键，允许用户在 v2 窗格间快速移动焦点</li>
-</ul>
-
-<p>这两个改动都属于桌面应用的 UI 和交互优化，没有涉及后端基础设施的变更。版本更新相对较小，主要针对特定功能进行了改进。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.3</guid>
-      <pubDate>Mon, 13 Apr 2026 21:43:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
