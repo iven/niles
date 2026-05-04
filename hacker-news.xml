@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 03 May 2026 23:02:34 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 00:01:49 GMT</lastBuildDate>
+    <item>
+      <title>开发者用AI辅助创建完全个性化的桌面环境：为自己一人编写所有工具</title>
+      <link>https://news.ycombinator.com/item?id=47997947</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 标题提及AI辅助开发桌面环境工具，可能涉及AI技术，但摘要过于简略模糊无法确定具体内容和质量，兴趣不明确</small></p><p>一位开发者分享了使用AI工具Claude Code创建完全个性化桌面环境的经历，几乎替换了所有现成软件，包括使用了25年的Vim编辑器。整个过程耗时约60小时，最终实现了为自己一人量身定制的计算体验。</p>
+
+<img src="/assets/posts/audience-of-one.png" alt="A desktop made for one" />
+
+<p>作者将桌面环境分为两个层次：CHasm层使用纯x86_64汇编语言编写，负责窗口管理、状态栏等底层功能；Fe₂O₃层使用Rust编写，包含文本编辑器、文件管理器、邮件客户端等应用。最引人注目的是在三天内替换了使用25年的Vim编辑器，新编辑器"scribe"保留了Vim的模态编辑特性，但移除了90%不用的功能，并添加了作者一直想要的功能。</p>
+
+<p>在Hacker News社区的讨论中，作者透露开发成本主要来自已有的Claude Max订阅，没有额外费用。有评论质疑文章是否由AI生成，作者承认使用了Claude Code协助起草，但进行了50%的编辑。其他开发者对此表示赞赏，认为这展示了"极端个人化软件"时代的到来，AI工具大大降低了为自己开发定制软件的门槛。</p>
+
+<p>作者强调这不是邀请他人使用自己的软件，而是展示一个理念：现在完全有可能创建一个只适合一个人的桌面环境。这种"为一人观众设计"的方法消除了传统软件开发中为多用户考虑的复杂性，使软件更小、更快、更符合个人工作流程。作者建议，即使不替换整个桌面，为自己定制一个日常工具也能带来巨大满足感。</p>
+
+<p>你知道吗？作者提到，定制后的系统使笔记本电脑功耗从约9W降至5-6W，电池续航时间增加了约3.5小时，这得益于汇编语言编写的底层减少了内存占用和CPU周期浪费。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47997947</guid>
+      <pubDate>Sun, 03 May 2026 15:32:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 哈佛研究：OpenAI o1在急诊分诊诊断中准确率达67%，优于医生表现</title>
       <link>https://news.ycombinator.com/item?id=47991981</link>
@@ -1180,44 +1199,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47919997</guid>
       <pubDate>Mon, 27 Apr 2026 10:56:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Chrome Prompt API：浏览器内置的本地 AI 模型接口详解</title>
-      <link>https://news.ycombinator.com/item?id=47917026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Chrome Prompt API（浏览器内置本地AI模型接口），属于AI软件技术进展范畴，符合用户对AI技术进展的兴趣。</small></p><p>Chrome 浏览器推出了 Prompt API，这是一个内置的 AI 接口，允许开发者直接在浏览器中使用 Gemini Nano 模型进行自然语言处理。该 API 目前处于原始试验阶段，为 Web 应用提供了本地 AI 推理能力。</p>
-
-<p>Prompt API 支持多模态输入，包括文本、图像和音频，目前支持英语、日语和西班牙语。开发者可以利用该 API 构建多种应用，如 AI 驱动的网页搜索、个性化新闻源、内容过滤器、日历事件自动创建和联系人信息提取等功能。</p>
-
-<img src="https://web.dev/images/authors/thomassteiner.jpg" alt="Thomas Steiner" width="64" height="64" />
-<img src="https://web.dev/images/authors/alexandraklepper.jpg" alt="Alexandra Klepper" width="64" height="64" />
-
-<p>文章详细介绍了 API 的技术实现细节：</p>
-<ul>
-<li>需要调用 <code>LanguageModel.availability()</code> 检查模型可用性</li>
-<li>使用 <code>LanguageModel.create()</code> 创建会话</li>
-<li>支持流式输出（<code>promptStreaming()</code>）和一次性输出（<code>prompt()</code>）</li>
-<li>可以设置温度（temperature）和 top-K 参数控制输出</li>
-<li>支持 JSON Schema 约束输出格式</li>
-<li>提供会话管理和上下文窗口监控</li>
-</ul>
-
-<p>硬件要求是社区讨论的焦点：需要至少 22GB 的存储空间，以及以下配置之一：</p>
-<ul>
-<li>GPU：超过 4GB VRAM</li>
-<li>CPU：16GB RAM 或更多，4个或更多 CPU 核心</li>
-</ul>
-
-<p>目前该 API 仅支持桌面版 Chrome（Windows 10/11、macOS 13+、Linux 和特定 Chromebook Plus 设备），不支持移动设备。</p>
-
-<p>Hacker News 社区对此 API 反应不一。有开发者表示已经实际使用该 API 作为"本地推理"解决方案，认为其免费和隐私保护的优势明显。但用户对 22GB 存储空间要求表示担忧，特别是对于存储空间有限的设备。也有评论指出，模型下载时间较长，首次使用体验可能不佳。</p>
-
-<p>一些有趣的应用想法被提出，包括创建"去讽刺化"的社交媒体过滤器，将攻击性语言转化为中性表达，以及使用该 API 进行分布式计算等。</p>
-
-<p>技术社区对此 API 的标准化表示关注，希望未来能有跨平台、跨浏览器的统一模型 API 标准。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47917026</guid>
-      <pubDate>Mon, 27 Apr 2026 02:18:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
