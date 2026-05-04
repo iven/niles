@@ -3,7 +3,30 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 04 May 2026 14:29:01 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 17:00:02 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Omarchy 3.7 Linux 发行版发布：全面升级游戏支持，新增统一命令行界面</title>
+      <link>https://www.phoronix.com/news/Omarchy-3.7-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要是Linux新发行版发布，属于高兴趣的'新发行版'类别，虽然有游戏支持的不太感兴趣内容但属于次要特性</small></p><p>基于 Arch Linux 的桌面发行版 Omarchy 发布了 3.7 版本，该版本由 David Heinemeier Hansson（DHH）领导，使用 Hyprland 合成器。此次更新主要带来了游戏支持和命令行界面的重大改进。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=omarchy_37_1_med" alt="Omarchy 3.7" />
+
+<p>在游戏支持方面，Omarchy 3.7 进行了全面升级，包括：简化的 Steam 安装程序、预配置的 RetroArch 模拟器、改进的控制器处理，以及增强的 Lutris、Heroic 和 Moonlight GameStream 客户端集成。此外，还新增了 Xbox Cloud Gaming 网页应用选项。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=omarchy_37_2_med" alt="Omarchy 3.7 updates" />
+
+<p>另一个重要变化是引入了统一的 <code>omarchy</code> 命令，取代了之前分散的 <code>omarchy-*</code> 命令。这个新的命令行中心提供了标签补全等功能，使用户能够更方便地分析问题、安装软件、截图等。</p>
+
+<p>其他改进包括：内置屏幕文本提取功能（通过 Tesseract OCR 引擎）、默认包含 cliamp 基于文本的音乐播放器、为 Panther Lake 系统默认启用 Intel FRED，以及更好的 ASUS ExpertBook Panther Lake 笔记本支持。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=omarchy_37_3_med" alt="Omarchy 3.7 Linux distribution" />
+
+<p>用户可以通过 <a href="https://github.com">GitHub</a> 下载并获取更多关于 Omarchy 3.7 Linux 发行版的详细信息。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Omarchy-3.7-Released</guid>
+      <pubDate>Mon, 04 May 2026 14:55:45 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ CachyOS 切换至尾调用解释器，Python 性能提升 5~15%</title>
       <link>https://www.phoronix.com/news/CachyOS-Better-Python-Perf</link>
@@ -906,31 +929,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Niri-26.04-Released</guid>
       <pubDate>Sat, 25 Apr 2026 16:59:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.1-rc1前夕：新NTFS驱动获多项重要修复</title>
-      <link>https://www.phoronix.com/news/New-NTFS-Driver-Fixes-Linux-7.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是Linux NTFS驱动修复，属于Linux桌面技术，在当前来源配置中为interest，且涉及开源项目技术改进，符合用户兴趣</small></p><p>随着 Linux 7.1-rc1 内核版本即将发布，本周期的显著更新之一是引入了全新的 NTFS 驱动程序。该驱动旨在提供比现有 NTFS3 内核驱动更好的性能和更现代化的功能。</p>
-
-<p>新 NTFS 驱动由 Namjae Jeon 主导开发，最初是对 Linux 内核原始 NTFS 驱动（pre-NTFS3）的全面改造，增加了写入支持以及许多其他 Linux NTFS 文件系统驱动实现中未具备的功能。</p>
-
-<p>自上周合并以来，该驱动经历了更多早期用户测试。为了确保良好的第一印象，在 Linux 7.1-rc1 发布前已经合并了一系列修复，主要包括：</p>
-
-<ul>
-<li>修复潜在的数据泄漏问题：在读取非驻留属性时，对超出初始化大小的跨块部分进行清零。</li>
-<li>移除不必要的清零操作：在 ntfs_punch_hole() 中，对于超出初始化大小的范围，由于读取时已返回零值，因此无需额外清零。</li>
-<li>修正可写检查：在 ntfs_file_mmap_prepare() 中正确使用 VMA_SHARED_BIT | VMA_MAYWRITE_BIT 处理共享映射。</li>
-<li>优化内存分配：针对 IOMAP_INLINE 数据使用页面分配而非 kmemdup()，确保页面对齐地址，避免 iomap_inline_data_valid() 中的边界检查触发 BUG。</li>
-<li>增加内存分配前的大小检查：在 ntfs_attr_readall() 中添加大小检查，拒绝过大的属性。</li>
-<li>移除不必要的 noop_direct_IO：由于 FMODE_CAN_ODIRECT 标志的存在，ntfs_aops 中的该操作已不再需要。</li>
-<li>修复七个静态分析警告：解决 Smatch 工具报告的问题。</li>
-</ul>
-
-<p>这些修复旨在提升新 NTFS 驱动的稳定性、安全性和性能，为即将到来的 Linux 7.1 版本奠定良好基础。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/New-NTFS-Driver-Fixes-Linux-7.1</guid>
-      <pubDate>Sat, 25 Apr 2026 11:26:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
