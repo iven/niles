@@ -3,7 +3,108 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Mon, 04 May 2026 04:05:28 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 06:53:48 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ “DeepSeek版Claude Code” GitHub 2.3k星</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1561238.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] AI模型和开源项目结合，用户对新AI模型发布公告很感兴趣且对开源项目感兴趣</small></p>
+                                                
+                                                <p>DeepSeek也有自己专属的Coding Agent了。名字简单粗暴，就叫DeepSeek-TUI，作者自称是一名“鲸鱼兄弟”的DeepSeek爱好者。刚刚，这个项目的星标数突然开始骤增，来到了2.3k，还登上了GitHub热榜。</p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0504/729ff8778b1ccbb.jpg"><br></p><p>这是一个用Rust语言编写的TUI编程工具，像Claude Code一样在终端里运行，但专门针对DeepSeek做了优化适配。</p><p>为了向国内网友宣传自己的作品，作者Hunter Bown还特意用DeepSeek把宣传推文翻译成了中文。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/8c39bdca904c9c7.jpg"><br></p><p>当DeepSeek-TUI在GitHub上如他所愿爆火之后，Hunter发图哦直言这是自己人生中最疯狂的两天，并用中文向“鲸鱼兄弟”们表示了感谢。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/4ec59645b0b0b1e.jpg"><br></p><p>“DeepSeek版Claude Code”</p><p>DeepSeek-TUI就是一个住在终端里的编程Agent，再简单点理解，就是“DeepSeek版Claude Code”。</p><p>它在今年1月由美国独立开发者Hunter Bown发起，用Rust语言编写，MIT协议开源，但一直不温不火，直到DeepSeek-V4的发布和Hunter的中文宣传，这个项目在这个五一假期开始爆火。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/375296008446616.jpg"><br></p><p>像读写文件、执行Shell、搜网页、管Git、调度子Agent、接MCP服务器……这些Claude Code能干活的它基本都能干，也支持安装Skills，只不过换成了DeepSeek V4在背后跑。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/98d8d7636d225c0.jpg"><br></p><p>整个工具从设计逻辑到功能细节，都在围绕DeepSeek的特性转。</p><p>最直接的一个是思维链。</p><p>DeepSeek-TUI把模型的推理过程直接流式输出到终端里——模型怎么分析问题、走了哪条路、中途改没改主意，全部实时可见。</p><p>然后是上下文。V4支持100万token的上下文窗口，项目默认就把这个用满，跑复杂任务从头到尾不用担心记忆断档。</p><p>上下文快填满时，TUI会自动对内容进行压缩，也可以手动/compact触发。</p><p>压缩策略专门考虑了DeepSeek的前缀缓存机制——尽量保住前面稳定的部分，让缓存能继续命中。</p><p>这个TUI还有一个设计叫RLM，思路“很DeepSeek”——既然DeepSeek便宜到可以拿来堆数量，这个工具就把这个特性直接用进来了。</p><p>在RLM模式中，一个主模型指挥最多16个V4 Flash子任务同时跑，用来做批量分析或任务拆解。Flash的输出价格大约是Pro的三分之一，把不需要强推理的子任务交给它，整体花费能砍不少。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/c991d5745b02606.jpg"><br></p><p>模型切换也做了专门处理，除了DeepSeek官方API，还支持NVIDIA NIM、Fireworks、自托管的SGLang几条路径。</p><p>操作模式则一共有三档：</p><ul class="list-paddingleft-2"><li><p>Plan是只读探索，先给你出个方案再说；</p></li><li><p>Agent是默认档，每步工具调用都要你点头；</p></li><li><p>YOLO顾名思义，全自动放行，不想被打断就开它。会话可以保存恢复，工作区有独立Git快照兜底，按轮次回滚不动原仓库，翻车了也不慌。</p></li></ul><p><img src="https://static.cnbetacdn.com/article/2026/0504/8b7c8b599bdc45b.jpg"><br></p><p>不过有一点需要注意的是，子Agent开多了，缓存命中率很难保证。</p><p>要知道，未命中的token价格是命中的10倍，项目界面上有逐轮费用显示，跑长会话建议留意一下，别跑完账单吓一跳。</p><p>安装上，Linux、macOS、Windows都有预编译二进制，npm install -g deepseek-tui一条命令搞定。</p><p>另外，作者还给国内用户准备了专门的中文版README文档和专门配置路径，支持TUNA Cargo镜像，release包还可以托管到阿里云OSS或腾讯云COS。</p><p>项目1月19日建仓，到现在不到4个月，已经迭代到v0.8.8，发布了37个版本，节奏不慢。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/98d8d7636d225c0.jpg"><br></p><p>从更新记录来看，大致分几个阶段。</p><p>早期版本主要在搭骨架——工具调用、session管理、基础的Git快照，把Agent跑起来是第一优先级。</p><p>v0.7.x阶段开始往细节上打磨，加了多语言界面支持（v0.7.6）、中文等语言的TUI提示、帮助文本、状态栏开始本地化，这也是为国内用户做适配的一步。</p><p>v0.8.x是最近几个版本的主轴，重心在稳定性和体验打磨上。</p><ul class="list-paddingleft-2"><li><p>v0.8.2专门修了长会话里文件句柄泄漏的问题；</p></li><li><p>v0.8.6/v0.8.7往上加了一批交互功能，包括限流或服务器报错时显示倒计时重试横幅、输入历史搜索、运行中消息队列可视化；</p></li><li><p>v0.8.8在这个基础上做了一轮收口，同时把Linux ARM64预编译二进制补上了。</p></li></ul><p>整体节奏上看，这个迭代路径中功能更新密集，但每个版本基本都有明确的问题要解决。</p><p>“爱科学的音乐家”</p><p>实际上，Hunter一直是一名DeepSeek狂热粉丝，自打V4出来之后，他就发过很多推文不断称赞。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/ec6be9f5e48d756.jpg"><br></p><p>同时他也爱好其他中国模型，参加过小米的百万亿Token创造者激励计划。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/ef3d0e62fd76e10.jpg"><br></p><p>而Hunter Bown的起点，其实是音乐，他曾立志当一名乐队指挥。</p><p>他先是在北得克萨斯州大学修读音乐教育，毕业后继续深造，取得了南方卫理公会大学的音乐教育硕士。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/65eca06aab724e1.jpg"><br></p><p>硕士毕业后，Hunter如愿当了3年的乐队指挥。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/911e7a4aaf88d2f.jpg"><br></p><p>后来，他拿了得克萨斯大学达拉斯分校的MBA，之后又回到了之前的母校SMU，进入法学院专攻专利法。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/a837ac40e6ad2dd.jpg"><br></p><p>至于码代码这件事，就更是“半路出家”的选择了。</p><p>但这个“半路”不是转行，更像是几条线最终汇到了一起。</p><p>他在学声乐科学时接触到一个概念叫“缺失基音”（missing fundamental）——人耳可以从泛音里重建出一个物理上并不存在的音高。</p><p>他后来发现这和信息论直接对应，你不需要把所有信息都显式给出，系统本身也会补全。</p><p>这个从音乐里来的直觉，成了他理解AI系统的一把钥匙。</p><p>去年，他给自己创立了一个工作室，名字叫Shannon Labs，定位是“AGI时代的下一个贝尔实验室”。</p><p>DeepSeek-TUI在他这里只是众多研究项目之一，他的GitHub上有65个公开仓库，包括面向NVIDIA Nemotron的同款终端Agent NeMoCode，以及MLX kernel工具包等等。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/ae60ec13c45efca.jpg"><br></p><p>Shannon Labs旗下的项目跨度更大。</p><ul class="list-paddingleft-2"><li><p>Hegelion是一个辩证推理引擎，走的是"正题→反题→合题"的循环逻辑；</p></li><li><p>Aleph是一个MCP服务器，主打零token成本的大容量上下文；</p></li><li><p>Heliosinger则把太阳风数据实时转化成声音，从AI基础设施一路跨界到了到太空声学。</p></li></ul><p><img src="https://static.cnbetacdn.com/article/2026/0504/c27cc91cf91c073.jpg"><br></p><p>他还自己建了三套软件架构（SCU、Driftlock、Hegelion）和一个硬件方案（Driftlock Choir），在他看来，这些拼在一起，是在为AGI时代做基础设施。</p><p>能把这些方向拼在一起，也和他的家族故事颇具关联。</p><p>他的曾祖父Ralph Bown Sr.是贝尔实验室的研究副总裁、无线电先驱，业余时间喜欢自制蜡筒、跑去卡内基音乐厅录音。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/7921da63531ab20.jpg"><br></p><p>Hunter在专利法课堂上意识到，自己正在走一条和这位先祖交汇的路——</p><p>把音乐人的感知方式带进技术研究，去发现那些“因为没有这种背景的研究者而被忽视的想法”。</p><p>他在个人网站上将自己和曾祖父进行了对比，“他是科学家，爱音乐；我是音乐家，爱科学。”</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/0de149b5cb07ed0.jpg"><br></p><p>One More Thing</p><p>在DeepSeek-TUI的贡献者列表当中，还能看到一些我们熟悉的影子。</p><p>其中包括了Claude、Gemini、Qwen等一系列AI模型和Cursor、GitHub Copilot等编程工具。</p><p><img src="https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2026%2F0504%2Fa18f0d71j00tei0sd000hd000fm007um.jpg&thumbnail=660x2147483647&quality=80&type=jpg" width="562" height="282"><br></p><p>详细记录则表明，大部分的代码由Hunter直接提交，还有150多次commit是Claude做的，另外还有一些真人贡献者提交了少量的commit。</p><p><img src="https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2026%2F0504%2F49d0b064j00tei0sd001qd000u000n6m.jpg&thumbnail=660x2147483647&quality=80&type=jpg"><br></p><p>半路出家的程序员，用AI辅助编程给AI写辅助编程框架，这工作流也是闭环了（手动狗头）。</p><p>GitHub地址：</p><p>https://github.com/Hmbown/DeepSeek-TUI</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1561238.htm</guid>
+      <pubDate>Mon, 04 May 2026 06:39:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>豆包回应推出付费订阅：尚处于测试阶段，日常使用依旧免费</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1561234.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及公司公告（不太感兴趣）但有关AI软件，需要权衡</small></p>
+                                                
+                                                <p>5月4日，据第一财经报道，针对近期豆包App在苹果应用商店展示的付费订阅服务，豆包官方回应表示，豆包始终提供免费服务，在免费服务的基础上，豆包也在探索推出更多增值服务，相关方案细节目前还在测试阶段。</p>                
+                        <div class="article-global"></div>                            <p>根据App Store页面最新披露的数据，豆包计划推出的付费版本包含三个价格梯度：标准版定价为每月68元（连续包年688元），加强版定价为每月200元（连续包年2048元），而最高阶的专业版则达到每月500元（连续包年5088元）。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/4c26e3e67b93400.webp"><br></p><p>据第一财经援引接近该项目的知情人士透露，此次豆包探索商业化变现的驱动力在于模型处理复杂任务时的高昂算力消耗与推理时间。未来上线的付费功能将严格区隔于日常对话，主要聚焦于高价值的生产力场景，具体涵盖PPT自动生成、深度数据分析以及影视内容制作等进阶需求。这一动作表明，豆包正在确立“基础工具免费+专业场景付费”的商业模式，以平衡大众普及与算力成本之间的关系。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1561234.htm</guid>
+      <pubDate>Mon, 04 May 2026 06:36:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>主板上的PCI-E插槽有什么不一样？一文就读懂</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1561230.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 硬件技术教程但涉及基础设施，平衡评估</small></p>
+                                                
+                                                <p>主板是电脑主机的承载平台，也是影响整个系统性能的基础设备，尤其是在功能扩展方面，需要安装不同的板卡，例如显卡、专业声卡、高性能网卡、RAID磁盘阵列卡等设备，都是通过PCI-E插槽扩展的，在主板上这些插槽长短不一，而不少人装机时只认得最长的显卡插槽，那么它们有什么不同呢？</p>                
+                        <div class="article-global"></div>                            <p>PCI-E是目前主板通用的高速扩展总线，分为x1、x2、x4、x8、x16、x32等规格，对应的插槽长短也不一样。从下图看，PCI-E插槽被防呆隔断分成两段，靠近机箱挡板的部分提供基础供电、复位、时钟、设备检测、SMBus等功能，根据PCI-SIG规范，它们在物理上都提供最高75W的供电能力，因此，所有PCI-E规格插槽长度这部分长度都是相同的，内部有22个接触针。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/76c8b3e380b5b25.jpg"><br></p><p>而另一段的长度根据通道数量不同，长度也不一样。通常来说，插槽物理长度越长，内部的接触针数量也越多，提供的传输通道越多，整体的带宽也就越高。在规格中，它们通常都是以2倍系数来提升的，下图是常见的几种PCI-E插槽规格。</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/35d44279ba714dc.jpg"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0504/eaa1a8620315e95.jpg"><br></p><p>最短的是PCI-E x1插槽总长度25mm，内部数据传输针脚只有14个（除去供电部分的22个），仅能提供1条传输通道，传输带宽有限，普遍应用于低速外设，包括独立声卡、网卡、无线网卡/蓝牙等设备。</p><p>长度中等的PCI-E x4插槽总长度39mm，内部数据传输针脚有42个，可提供4条传输通道，能够满足中高速硬件稳定运行的需求，例如NVMe协议的固态硬盘，也能适配万兆网卡、磁盘阵列卡这类进阶型外设。PCI-E x4插槽还有一种特殊形式的插槽，即M.2插槽，专门用来安装高速NVMe固态硬盘。</p><p>有人可能会问PCI-E x2插槽哪去了？其实主板厂家基本不做专用的PCI-E x2物理插槽，而一些扩展外设厂商通常会在PCI-E x4的规格进行缩减，例如某些罕见的OEM固态硬盘（例如XBOX Series X/S游戏机的固态硬盘）、microSD Express存储卡就是x2规格。</p><p>接下来是PCI-E x8插槽，它的长度是56mm，内部数据传输针脚有76个，可提供8条传输通道，传输带宽比PCI-E x4高出四倍，但基本只能在服务器主板或早期的消费级主板上才能看到，现代消费级主板的PCI-E x8插槽往往是由PCI-E x16插槽缩水而来，这个我们一会再说。</p><p>然后就是PCI-E x16插槽，也就是大家熟悉的显卡插槽，它的长度是89mm，内部数据传输针脚有142个，可提供16条传输通道，也就是所谓的“满血”插槽，通常都是安装独立显卡的。</p><p>另外，刚才说的消费级主板的PCI-E x8插槽由PCI-E x16插槽缩水而来，外观与PCI-E x16没什么两样，但仔细观察会发现里面只有一半数量的数据传输接触针脚。</p><p>除此之外，PCI-E规格里面还有通道数量更多的PCI-E x32插槽，插槽长度自然也更长，因此基本只能在服务器中看到了。</p><p>最后提一下兼容性，PCI-E是可以向下兼容的，例如PCI-E x1的设备就可以插在任意规格的PCI-E插槽，说白了就是只要能插进去就能用。</p><p>整体来看，不同PCI-E插槽各司其职，短槽拓展小件、中槽扩容增效、长槽专供核心硬件，合理规划安装，就能稳妥发挥全部硬件性能，新手装机也能轻松避开各类插槽误区。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1561230.htm</guid>
+      <pubDate>Mon, 04 May 2026 06:31:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 豆包计划新增付费订阅模式 主打生产力场景</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1561222.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI生产力工具相关，用户对AI软件技术进展感兴趣</small></p>
+                                                
+                                                <p>近日，豆包App 
+Store页面出现付费版本服务声明。声明称，为更好地服务专业用户，豆包将在免费版的基础上，推出包含更多增值服务的付费版本。同时，该页面还披露了三档订阅价格：标准版连续包月每月68元（连续包年688元）、加强版连续包月每月200元（连续包年2048元）、专业版连续包月每月500元（连续包年5088元）。</p>                
+                        <div class="article-global"></div>                            <p><img src="https://n.sinaimg.cn/finance/transform/650/w550h900/20260504/c698-41673f5757fb962660290682d8c25dbc.jpg" alt=""><br></p><p>目前，在豆包产品中尚未看到相关的付费选项和功能。豆包官方回应称，“豆包始终提供免费服务，在免费服务的基础上，豆包也在探索推出更多增值服务，以满足不同用户的差异化需求。相关方案细节目前还在测试阶段，正式上线时会通过官方渠道发布完整信息。”</p><p>据接近豆包的人士透露，付费功能将主要专注在复杂任务和生产力场景，如PPT生成、数据分析、影视制作等。随着模型能力持续升级，产品已经能满足越来越多的复杂高价值任务。但此类任务需消耗更多算力与推理时间，因此豆包计划上线付费服务，满足好这部分复杂场景需求。免费版本则继续面向用户的日常使用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1561222.htm</guid>
+      <pubDate>Mon, 04 May 2026 04:32:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>微软将WinUI 3彻底重做Windows 11资源管理器“属性”对话框</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1561220.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 软件新功能但涉及微软Copilot技术，用户配置有所限制</small></p>
+                                                
+                                                <p>微软正计划在 Windows 11 中淘汰沿用自 Windows 95 时代的文件资源管理器“属性”对话框，用一套基于 WinUI 3 
+的现代界面彻底替代这一几十年前的老组件，以配合其正在推进的性能与可靠性改造工程。目前的 Windows 11 表面上已经通过 WebView2 
+等新框架实现了相当统一、现代的视觉效果，但只要稍微深入系统，就会发现各种遗留界面依然随处可见，而文件资源管理器的属性窗口正是最典型的例子之一。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0504/dc2886e6feed05a.png"></p><p>在 Windows 11 中，文件资源管理器本体已经获得多标签页、全新的地址栏以及带有平滑滚动体验的现代图库视图等更新，但当用户在文件上点击右键并选择“属性”时，弹出的仍然是一个风格停留在上世纪的旧对话框。尤其是在系统开启暗黑模式时，这个仍然保持纯白背景的传统 Win32 属性窗口在昏暗环境下几乎如同“闪光弹”，给习惯暗色界面的用户带来明显割裂感和不适。</p><p>来自 Windows 11 内测版本的新发现显示，微软正在积极开发一套完全现代化的、基于 WinUI 3 的文件属性对话框。知名 Windows 观察者“phantomofearth”在最新 Insider 预览构建中挖掘代码时注意到，MicrosoftWindows.Client.FileExp（即现代文件资源管理器框架）资源文件 resources.pri 中新增了多条“DeletedFileProperties”相关字符串。这些字符串与现有遗留“已删除文件属性”对话框中的文本完全一致，这一迁移动作为微软准备用现代组件替代旧属性窗口提供了强烈信号。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0504/14988a85e12969b.png"></p><p>在与 Windows Latest 的进一步交流中，phantomofearth 表示，结合当前文件资源管理器中地址栏、搜索框、命令栏、详细信息窗格、主页和图库等部分都已采用 WinUI 3 的事实，他“几乎可以肯定”微软正在打造的正是一套 WinUI 3 版的属性对话框。在他看来，如果微软最终上线的新属性窗口不是基于 WinUI 3，反而会令人感到意外，因为在已经大规模使用该技术栈的前提下再选用其他方案并不合理。他还指出，如果微软没有计划推进属性对话框的现代化，就没有必要特地将其相关字符串迁移到现代文件资源管理器资源包中。</p><p>属性对话框迟迟不支持暗黑模式的问题，也因此有了一个更具逻辑的解释。在 Windows 11 中，还有一些遗留组件已经通过简单的暗黑模式开关或视觉微调获得了更新，但文件属性菜单始终维持原样，这让不少高级用户多年都在追问原因。按照 phantomofearth 的说法，如果这一组件本身已经被列入替换计划，微软就没有动机在旧 Win32 对话框上再投入精力进行暗黑模式适配，而是直接在新的 WinUI 3 原生版本中一并解决。Windows Latest 此前也曾证实，微软正在逐步替换 Windows 11 中残留的 Windows 8 时代界面元素，如今属性对话框相关字符串被迁移到现代框架中，则进一步表明公司正在系统性清理操作系统的历史遗留 UI。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0504/afdab012aea8075.gif"></p><p>从架构层面看，用 WinUI 3 重写属性对话框有助于缓解当前文件资源管理器代码混杂带来的性能问题。目前的资源管理器仍然在旧 Win32 基础之上叠加了 XAML 和 WinUI 等现代组件，这种混合渲染模式被认为是导致应用偶尔出现卡顿、白屏闪烁等体验问题的原因之一。此前报道显示，微软正在通过 2026 年内的一系列更新兑现“修好 Windows 11”的承诺，其中一项重要工作就是对资源管理器进行深层架构优化，并以递进方式引入更多 WinUI 3 元素，带来持续可感知的性能提升。将遗留属性对话框替换为原生 WinUI 3 版本，正好与 Windows Insider 负责人 Marcus Ash 近期提到的“性能、可靠性和打磨质量的实际改进”承诺相呼应。</p><p>在视觉层面上，用户或许也能从近期的其他更新中提前一窥新属性对话框的大致风格。例如，Windows 11 中隐藏的现代版“运行”对话框（Win+R）已经在 Insider 中出现，其整体设计更加轻盈纤细，更贴近系统其余 WinUI 3 界面的流畅观感。如果微软延续这一设计语言，那么新的属性对话框也有望摆脱“老派工具窗口”的既视感，转而呈现更统一、柔和的现代化外观，同时原生支持暗黑模式。</p><p>目前，这一现代化属性对话框仍深藏在 Insider 预览版本的资源文件中，尚未正式向测试用户开放，但其存在意味着距离进入广泛测试阶段已经不远。报道推测，该组件有望与其他即将到来的界面改进一同，率先在实验频道（Experimental Channel）向部分用户推送，时间窗口可能落在今年晚些时候。对于长期被刺眼白色属性窗口困扰的用户而言，告别这块“Windows 95 遗产”的日子，正在一步步临近。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1561220.htm</guid>
+      <pubDate>Mon, 04 May 2026 04:31:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>微软将精简Windows 11版Edge 率先对侧边栏“开刀”</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1561218.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 浏览器新功能但涉及微软技术，平衡评估</small></p>
+                                                
+                                                <p>微软认为当前的 Edge 浏览器过于臃肿，正着手对其进行精简，而侧边栏（Sidebar）被确定为首个被“动刀”的功能。 尽管微软尚未全面披露所谓“瘦身计划”的完整细节，但根据支持文档以及最新版本 Edge 中的提示信息，可以确认侧边栏功能正在走向退役。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0504/0813cddcf7f28d3.jpg"></p><p>早在 2025 年 11 月，Edge Canary 版本中就已出现侧边栏应用列表被弃用的提示，因此侧边栏的退休并不让人意外。 不过，微软在最新支持文档中的措辞耐人寻味：公司首次将这一调整明确与“简化 Microsoft Edge”的整体目标挂钩。 微软在更新后的支持文档中写道：“我们正在简化 Microsoft Edge。侧边栏应用列表将在不久的将来停用，将从微软账户（MSA）用户开始逐步实施，目前尚无确定的停用日期。” 这也是微软首次在公开材料中承认自己正在尝试为 Edge “减负”。</p><p>对不少忠实用户而言，侧边栏一直是 Edge 有别于其他 Chromium 浏览器的重要卖点，因此其被移除引发了明显的不满情绪。 作者提到，有数十名用户表示，如果侧边栏彻底消失，他们很可能会放弃 Edge，而这些用户给出的理由在他看来“并非无理取闹”。 通过侧边栏，用户可以将常用网站或 Web 应用以“小程序”的形态固定在浏览器侧边栏中，例如 Outlook、必应（Bing）以及购物网站，从而在主窗口浏览网页的同时快速访问邮件或购物页面，这一体验并不是简单的分屏模式所能替代的。</p><p>在 Windows Latest 的实际测试中，侧边栏目前仍然可用，但其退场几乎只是时间问题。 目前，用户已经无法再向侧边栏添加新应用，不过此前已添加的 Outlook 等小程序仍然可以继续使用。 当用户尝试打开侧边栏时，Edge 内部会弹出一条新提示：“我们正在简化 Edge。现在已无法添加新的应用，快速访问列表会在未来更新中逐步移除。Copilot 不受影响——这有助于我们集中精力进一步提升它的体验。” 这段话一方面确认了侧边栏应用列表的退役路径，另一方面也明确了 Copilot 将被保留在侧边区域。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0504/7d60fe44a7f4f3b.jpg"></p><p>从实现方式上看，Edge 的侧边栏默认包含“必应 / 搜索”，因此在一段时间内，多数用户仍会在浏览器侧边看到这一区域，但可供使用的，只会是必应及此前已经固定的少数小程序。 预计在接下来数周内，侧边栏将彻底停用，届时用户将无法再在不切换标签页的前提下使用 Outlook 等迷你应用。 不过，这一变化并不影响微软近年大力推广的 Copilot 服务。 尽管 Copilot 同样作为侧边栏的一部分运行，微软依然选择保留与其相关的侧边区域，这意味着公司在“简化”之余，仍会为 Copilot 开辟固定入口。</p><p>在更大的产品策略层面，微软高层也在为 Edge“站台”。 在 2026 财年第三季度财报电话会议上，微软首席执行官萨提亚·纳德拉（Satya Nadella）强调，公司正在努力挽回 Windows 用户的信任，这一目标并不限于 Windows 或 Xbox，而是覆盖包括 Edge 在内的多个消费级产品线。 他表示，在消费业务方面，微软正在打基础工作，以“赢回粉丝”并增强用户在 Windows、Xbox、必应和 Edge 上的黏性，短期内公司会优先关注产品基本功，提升质量，更好地服务核心用户。</p><p>从数据表现上看，微软对 Edge 的态度并非“放任自流”。 纳德拉在同一场财报电话会上透露，Edge 已连续 20 个季度实现市场份额增长，同时必应的月活跃用户数首次突破 10 亿。 不过，微软仍未公布 Edge 的具体用户规模，也没有给出与 Google Chrome 或 Firefox 的直接对比数据。 这也使得外界只能通过相对指标判断 Edge 的增长势头，而难以得知其在桌面浏览器市场中的真实位置。</p><p>颇具讽刺意味的是，一边强调要“重视 Edge”“提升用户参与度”，另一边微软却砍掉了如侧边栏这类在核心用户群体中口碑不错的差异化功能。 对许多已经习惯在侧边栏中整合邮件、搜索和购物工作流的用户来说，这一改变无疑提升了日常操作成本。 在微软看来，这是迈向更简洁、更聚焦体验的一步；但在部分用户眼中，失去侧边栏则意味着 Edge 正在慢慢失去自己的独特性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1561218.htm</guid>
+      <pubDate>Mon, 04 May 2026 04:30:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 英国国家医疗服务体系关闭开源代码库 AI安全威胁成关键考量</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1561216.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI安全和开源项目相关，用户对开源项目感兴趣</small></p>
+                                                
+                                                <p>据英国技术专家和开源倡导者特伦斯·伊登透露，英国国家医疗服务体系(NHS)正计划关闭几乎所有公开的源代码存储库，原因是担心人工智能带来的安全风险。伊登曾在英国政府数字服务部门负责开放标准工作，并参与了NHS新冠疫情追踪应用程序源代码的发布。他表示，这一消息来自NHS内部多个独立信源，这些知情人士对该决定感到震惊。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0504/f310f2382ee547a.webp"></p><p>NHS英格兰的一位高级技术人员表示，鉴于Anthropic公司推出的Mythos等人工智能模型的出现，该组织正在"改变我们对开放编码的策略"。该人士补充称，大部分代码库将被移除，"直到我们控制住这一风险"。Mythos是一种能够自主发现并武器化软件漏洞的人工智能，NHS担心公开代码会为这些新型AI黑客工具提供攻击蓝图。</p><p>NHS此前在4月29日发布了一份名为SDLC-8的指导文件，明确规定"所有源代码存储库必须默认设为私有"，并指出"公共存储库大大增加了意外泄露的风险，特别是考虑到人工智能模型在大规模代码摄取、推理和分析方面的快速进步"。该备忘录设定了2026年5月11日的最后期限，要求将公共存储库转为私有。</p><p>Anthropic公司于2026年4月发布的Mythos是一款在攻击性网络安全方面极为有效的人工智能模型，其创造者认为该模型过于危险而不宜公开发布。该模型在所有主要操作系统和网络浏览器中发现了数千个未知的"零日"漏洞，包括在以安全性著称的OpenBSD操作系统中发现了一个存在27年之久的漏洞。由于担心这项技术泄露会导致重大安全漏洞，Anthropic将访问权限限制在包括苹果、微软、Google、亚马逊云服务、CrowdStrike和摩根大通在内的少数科技和金融巨头组成的联盟中。</p><p>NHS并非唯一一个因AI工具而采取"通过隐藏实现安全"策略的开源项目。知名开源项目Cal.com在4月14日宣布，出于完全相同的原因，将不再保持其核心平台的开源状态。这家日程安排公司为爱好者保留了一个"自己动手"版本的开源平台，托管在cal.diy网站上。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1561216.htm</guid>
+      <pubDate>Mon, 04 May 2026 04:24:08 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 傅盛AI Agent新品陷“换皮”风波：被指套壳开源项目</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1561202.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI新产品和开源项目争议，涉及用户感兴趣的AI软件技术进展和开源主题</small></p>
+                                                
+                                                <p>近日，傅盛在X平台发文宣传其AI Agent产品“龙虾三万”。傅盛称：“我的龙虾三万已经全面切换到DeepSeek V4 
+Pro了。体感上跟Sonnet完全没差别，有些任务甚至更好。价格呢？Sonnet 15美金/百万token，DeepSeek V4 
+Pro只要8毛7。差了17倍完全没有了token焦虑。”</p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0504/f46b9efde380434.jpg"><br></p><p>随后，5月2日，有网友在社交平台发帖质疑傅盛，称其产品“龙虾三万”使用了开源项目NewApi的代码进行二次开发，但去掉了版权信息，且未在页面标注开源地址，涉嫌违反开源协议义务。</p><p>该网友称：“一个公司的老总连开源协议都不懂吗？拿NewApi项目二开代码去掉版权信息，在页面找了半天没找到你的开源地址，我寻思也没来找我们规避开源义务啊？”</p><p><img src="https://static.cnbetacdn.com/article/2026/0504/0b030a99b1fdc10.jpg"><br></p><p>另有网友评论：“好歹是个大公司，就让你手下用一眼new api的东西糊弄你啊。”</p><p>傅盛回复：“我有那么傻吗。”</p><p>据悉，“龙虾三万”是傅盛推出的AI Agent产品，近期宣布接入DeepSeek-V4 Pro。DeepSeek-V4于2026年4月24日发布，分为Pro和Flash两个版本。</p><p>NewApi是GitHub上的开源项目，定位为AI大模型聚合网关，基于One API二次开发，核心功能是将OpenAI、Claude、Gemini、DeepSeek等不同厂商的大模型API统一转换成标准的OpenAI兼容格式。该项目采用MIT协议开源，允许自由使用、修改和商用，但要求保留版权声明和原始许可证。该项目已在GitHub上获得近2万颗星标。</p><p>目前，傅盛及猎豹移动方面尚未对“去掉版权信息”的具体指控作出正式回应。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1561202.htm</guid>
+      <pubDate>Mon, 04 May 2026 04:19:02 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 工程师仅花12美元成功污染AI信息源 伪造自己是游戏世界冠军</title>
       <link>https://www.cnbeta.com.tw/articles/game/1561180.htm</link>
@@ -524,103 +625,6 @@ Arch 安装镜像，具体内核版本为 7.0.3。
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1560946.htm</guid>
       <pubDate>Fri, 01 May 2026 14:30:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 美国海军封锁重创伊朗石油出口 迫使原油浮式储存</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1560940.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 美国海军与伊朗石油出口的国际新闻，属于用户感兴趣的必读新闻类别</small></p>
-                                                
-                                                <p>航运数据显示，美国对伊朗港口的海上封锁已令伊朗石油出口大幅萎缩，随着伊朗陆上储存设施空间告急，越来越多的原油积压在油轮上。分析师表示，由于部分船只关闭了追踪系统，而美军又在持续拦截伊朗油轮，目前几乎无法衡量伊朗向客户交付了多少原油。</p>                
-                        <div class="article-global"></div>                            <p><a href="https://n.sinaimg.cn/finance/transform/100/w540h360/20260220/b2b0-e2f42765fcb669e21d18424500bbf0db.png" target="_blank"><img src="https://n.sinaimg.cn/finance/transform/100/w540h360/20260220/b2b0-e2f42765fcb669e21d18424500bbf0db.png"></a></p><p>石油分析公司Vortexa表示，4月13日至25日期间，只有少量运载伊朗原油的船只驶离阿曼湾。伦敦证券交易所集团数据显示，这比3月同期下降了80%以上，当时伊朗出口了2340万桶原油。</p><p>部分从伊朗港口驶出的船只，以及受制裁的集装箱船和在亚洲水域航行的伊朗油轮，已被美国拦截。Vortexa在给路透社的一封电子邮件中表示：“现阶段，我们估计约有400万桶伊朗原油成功运出阿曼湾。我们目前无法确认这些船只此后是否有被拦截。”</p><p>自2月28日伊朗战争爆发以来，基准布伦特原油期货价格已每桶上涨约50美元，推高了汽油、柴油和航空燃油的价格。国际能源署称这是全球规模最大的石油供应中断。</p><p>自封锁以来无油轮驶离海湾</p><p>Kpler分析师表示，自封锁开始以来，他们尚未观察到任何伊朗原油油轮驶离阿曼湾。美国中央司令部周三（4月29日）表示，其封锁正在切断伊朗政权急需的原油出口收入。“目前有41艘油轮载着6900万桶石油，伊朗政权无法出售。”</p><p>周三，伊朗货币里亚尔兑美元汇率跌至历史低点，突显出这个依赖石油的经济体所面临的财政困境。海上情报公司TankerTrackers表示，尽管面临压力，伊朗仍在哈尔克岛的主要出口枢纽装运原油。卫星图像显示，至少有10艘油轮停泊在伊朗位于阿曼湾的恰赫巴哈尔港附近。</p><p>Kpler分析师Johannes Rauball表示，由于储存空间不足，伊朗可能将在一两周内被迫开始减产。Kpler称，伊朗陆上储存设施约60%已满，库存超过5000万桶，总容量为8600万桶。咨询公司FGE NextantECA曾在4月15日估计，产能限制可能迫使伊朗在6月中旬开始减产。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1560940.htm</guid>
-      <pubDate>Fri, 01 May 2026 13:38:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Temu因不正当商业行为被匈牙利竞争管理局重罚13亿福林 消费者将获统一现金补偿</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1560938.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Temu被匈牙利处罚的国际商业新闻，属于用户感兴趣的必读新闻类别</small></p>
-                                                
-                                                <p>Temu在匈牙利的前顾客将获得现金退款，这是匈牙利竞争管理局（GVH）针对该平台运营企业不正当商业行为作出处罚决定的一部分。GVH表示，运营Temu线上平台的公司需向消费者退还至少8.82亿福林，并向匈牙利中央财政缴纳4.37亿福林罚款，总金额超过13亿福林。凡在2023年11月至2024年9月期间通过Temu购物的匈牙利消费者，均可获一次性2000福林的现金补偿。</p>                
-                        <div class="article-global"></div>                            <p><a href="https://n.sinaimg.cn/finance/transform/45/w550h295/20241014/d131-e361a31b3ca9fb4e01c9fa54a4e0fdbc.png" target="_blank"><img src="https://n.sinaimg.cn/finance/transform/45/w550h295/20241014/d131-e361a31b3ca9fb4e01c9fa54a4e0fdbc.png"></a></p><p>GVH于2024年3月对Temu欧洲运营方Whaleco Technology Limited启动竞争监管程序，怀疑其在多个方面实施了不正当商业行为并误导消费者。在调查过程中，GVH认定Temu存在一系列问题：通过划掉原价的方式制造“降价”假象；无法证明“最高95%折扣”等大幅优惠的真实性，并承认在部分情况下根本无法提供此类折扣；在并无实际优惠时仍将商品标注为促销；发布带有紧迫感的信息，以内容和视觉呈现对消费者施加心理压力；以及使用具有误导性的环保与可持续性相关表述。</p><p>据GVH介绍，Temu的运营公司在程序过程中选择与监管机构合作，已停止多项被认定为违法或不当的商业做法，并承诺实施一套全面的消费者保护计划。作为和解方案的一部分，公司同意向所有在2023年11月至2024年9月期间在Temu购物的匈牙利消费者发放2000福林现金补偿。相关消费者将收到一封含有激活链接的电子邮件，通过该链接可填报银行账户信息或选择其他安全且广泛使用的支付方式以领取退款。</p><p>若实际退还给消费者的总金额未达到8.82亿福林，Temu运营方必须以罚款形式将差额补缴至匈牙利中央财政。此外，GVH对该公司单独处以4.37亿福林的罚款，这笔罚金同样将上缴国家财政。GVH强调，此案反映出监管机构将继续对线上市场平台的营销与定价策略保持高度关注，尤其是涉及虚假折扣、过度施压及“环保”宣传等领域。</p><p>这并非GVH首次对大型线上零售或平台采取类似行动。早在2025年11月，在线时尚零售商About You便因利用具有欺骗性的促销方式、并通过制造心理压力影响消费者决策，被要求向数十万名顾客支付赔偿金。在GVH看来，Temu案延续了对电商平台强化监管的趋势，也向整个行业发出信号：虚假优惠、情绪操控和缺乏依据的可持续性宣传都可能招致高额经济代价以及强制性的消费者补偿义务。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1560938.htm</guid>
-      <pubDate>Fri, 01 May 2026 13:31:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>笔记本续航王诞生 微星轻薄本42小时刷新纪录</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1560934.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 笔记本硬件续航技术，接近用户不太感兴趣的基础设施领域，但可能有技术突破值得关注</small></p>
-                                                
-                                                <p>PCMag在测试近200款笔记本后，<strong>微星尊爵14 Flip AI+以42小时6分钟的视频续航成绩创下该测试有史以来的最高纪录。</strong>这一成绩比此前最高纪录多出超过10小时，标志着笔记本电池技术进入新的里程碑。</p>                
-                        <div class="article-global"></div>                            <p>微星尊爵14 Flip AI+搭载Intel最新酷睿Ultra X7 358H处理器，32GB内存与1TB SSD，采用14英寸1920×1200 OLED触控屏，支持360度翻转，重量约1.27公斤。</p><p><strong>PCMag的测试方法是将笔记本充满电后，以50%屏幕亮度（关闭Wi-Fi）循环播放Blender动画短片，直到电量降至5%自动休眠。</strong></p><p>此前Windows笔记本视频续航长期徘徊在20小时左右，仅少数MacBook能突破30小时，但随着高通骁龙X、Intel Lunar Lake以及Panther Lake处理器的陆续问世，25小时以上已成常态。</p><p>在PCMag 2024至2026年的数据库中，已有六款笔记本达到30小时以上续航，前十名中最短的成绩也接近28小时。</p><p>其中前三名中有三款采用Intel酷睿Ultra 300系列处理器，该系列上市仅数个月，后续增长空间可期。</p><p>不过PCMag也坦承，<strong>42小时是在特定测试条件下达成的，微星这款OLED屏幕亮度偏低，50%设定下实际耗电量较低；1920×1200分辨率相比4K也更省电。</strong></p><p>参考Tom's Guide等媒体的实测数据，实际混合使用场景（办公、串流、视频会议）续航约在15-20小时之间，但仍属当前Windows笔记本的顶尖水平。</p><p><img src="https://static.cnbetacdn.com/article/2026/0501/d7ad3ddd093e914.jpg"></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1560934.htm</guid>
-      <pubDate>Fri, 01 May 2026 11:37:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 劳动力短缺加剧 日本航空公司于东京羽田机场启动人形机器人试点</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1560930.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 虽然应用场景在航空业用户想避开，但核心是人形机器人技术试点，属于AI和科学前沿进展用户感兴趣</small></p>
-                                                
-                                                <p>受长期劳动力短缺困扰，日本航空公司已在东京羽田机场开始测试人形机器人，用于机场地面作业。双方联合声明于周一公布，日航将携手 GMO 人工智能与机器人公司，自 5 月起试点用人形机器人承担<strong>行李装卸、客舱清洁</strong>等工作。</p>                
-                        <div class="article-global"></div>                            <p><a href="https://img1.mydrivers.com/img/20260428/e4be50fa-3a9f-48ec-9ebd-ab9b302acc3a.png" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0501/d70fb87a68dc052.png"></a><a href="https://static.cnbetacdn.com/article/2026/0428/3f9a1b5f0add890.webp" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0428/3f9a1b5f0add890.webp"></a></p><p>日本人口老龄化导致劳动力人口萎缩，叠加旅游需求持续升温，航空业人力缺口愈发严峻，此次试点正是在此背景下推出。</p><p>日航表示，人形机器人将在羽田机场逐步铺开部署，本次试点周期为期两年。</p><p>在技术演示视频中，中国宇树科技研发的人形机器人可完成将货物推送至传送带、向围观人群挥手、与工作人员握手互动等动作。</p><p>日本航空股价 5 月首个交易日上涨约 2.97%，涨幅 73 日元；但今年以来整体仍累计下跌约 13%。</p><p>中国头部机器人企业宇树科技，其旗舰 H1 人形机器人曾在 2026 年央视春晚以功夫表演惊艳亮相，广受关注。</p><p>目前尚不确定宇树科技是否直接参与羽田机场试点，还是仅纳入商用机器人技术综合评估名单。针对 CNBC 问询，日航回应称相关<strong>可行性研究与风险评估</strong>仍在进行中。</p><p>宇树科技暂未对 CNBC 的置评请求作出回应。</p><p><strong>应对人口结构挑战</strong></p><p>分析师指出，东京等大城市普遍面临<strong>人口快速老龄化、生育率走低</strong>等人口结构问题，正倒逼市场加大对人形机器人的需求。</p><p>巴克莱银行在 1 月研报中表示：“人口老龄化、劳动力短缺以及劳动者就业偏好转变，为人形机器人打开了应用空间，可承接制造业、物流、农业、医疗、酒店服务业中必要但人力不愿从事的岗位。”</p><p>经合组织就业展望数据显示，2023 年至 2060 年，日本劳动年龄人口预计将减少 31%。市场研究机构 Counterpoint 研究总监马克・爱因斯坦认为，人形机器人在日本劳动力市场的参与度将持续提升。</p><p>日本首相高市早苗的执政支持基础偏向<strong>收紧移民政策</strong>，业内预计日本政府将大力扶持并推广人形机器人落地应用。</p><p>日本经济产业省已于 3 月发布机器人与人工智能应用指导方针，旨在应对少子老龄化带来的劳动力锐减等社会用工难题。</p><p>日本国家旅游组织数据显示，3 月国际入境游客数量同比增长 3.5%，进一步加重机场运营人力压力。</p><p><strong>仍存诸多落地阻碍</strong></p><p>爱因斯坦表示，近年人形机器人在关节灵活度、人工智能算法层面进步显著，如今已能完成数年前完全无法实现的作业任务。</p><p>巴克莱将实体机器人技术称作人工智能发展的<strong>下一个前沿赛道</strong>，各大企业正致力将实体自动化与人工智能深度融合。该行 2 月研报测算：当前实体 AI 行业规模仅 20 亿 —30 亿美元，到 2035 年有望飙升至 1.4 万亿美元。</p><p><strong>实体 AI</strong>：指融合人工智能与实体机器的系统，可完成现实世界物理作业，涵盖人形机器人、无人驾驶等领域。</p><p>在中国，宇树科技、智元机器人、Galbot 等企业正加速研发高性价比人形机器人，并筹备 IPO 募资，以扩大产能、匹配市场增长需求。</p><p>总部位于杭州的宇树科技已于 3 月率先获批 IPO 申请，据上交所披露文件，计划募资约 42 亿元人民币（折合 6.14 亿美元）。</p><p>尽管技术迭代迅速，但人形机器人能否彻底解决日本长期劳动力短缺，目前仍未有定论。</p><p>分析师此前向 CNBC 表示，现有机器人精细操作与精准动作的灵活度仍有欠缺。</p><p>爱因斯坦补充道，人形机器人的程序逻辑与自主推理技术尚不成熟，落地部署后<strong>仍离不开人工介入管控</strong>。</p><p>他直言：“现阶段这类机器人的智能程度依旧有限。”</p><p>不过从行业研发进度来看，Counterpoint 预估，人形机器人实现大规模商业化落地，<strong>预计不超过五年</strong>。</p><p>责任编辑：郭明煜</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1560930.htm</guid>
-      <pubDate>Fri, 01 May 2026 11:18:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>FCC将禁止所有中国实验室为计划进入美国市场的电子设备进行测试与认证</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1560924.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及国际电信法规政策新闻，属于用户可能感兴趣的领域，但非核心AI/编程主题</small></p>
-                                                
-                                                <p>美国联邦通信委员会（FCC）一致通过一项提案，<strong>将禁止所有中国实验室为计划进入美国市场的智能手机、摄像头、电脑等电子设备进行测试和认证。</strong>FCC设定了两年过渡期，将逐步撤销中国实验室的认证资格。</p>                
-                        <div class="article-global"></div>                            <p><strong>FCC在声明中透露，目前约75%的美国电子产品在中国完成测试，</strong>提案生效后，FCC将不再承认来自“未与美国签署《互相认可协议》或其他同等互惠贸易协议”国家的实验室和测试机构。</p><p>与此同时，FCC计划为在美国本土或与美国有互惠协议国家的实验室建立绿色通道，简化“受信任实验室”的审批流程。</p><p>FCC主席声称，美国不应让外国竞争对手或制裁名单上的实体，来测试和认证电子设备。</p><p><strong>去年5月，FCC曾收紧对中国、俄罗斯等国家测试机构的认证，截至目前，FCC已撤销了23家海外实验室的资格。</strong></p><p>分析指出，这一禁令将直接冲击大量依赖中国测试机构的国际科技企业，由于中国拥有成熟的测试基础设施和规模效应，大量电子设备制造商选择在中国进行认证。</p><p>一旦禁令落地，相关企业将不得不重新调整认证流程，转向美国本土或其他国家的实验室。</p><p><a href="//img1.mydrivers.com/img/20260501/344d926dccf44d03a5454ab5013dc1d0.jpg" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0501/337d94ab5c11714.jpg"></a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1560924.htm</guid>
-      <pubDate>Fri, 01 May 2026 07:23:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 微软官方定调：32GB内存才是Windows 11无忧标配 16GB仅算底线</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1560922.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论Windows 11内存配置优化建议，对程序员系统性能调优有参考价值</small></p>
-                                                
-                                                <p><strong>微软在一份支持文档中悄然更新了对Win11游戏内存配置的官方建议：16GB仍是底线，但32GB才是无忧之选。</strong>这份建议并非来自技术部门，而是直接出自微软营销部门。</p>                
-                        <div class="article-global"></div>                            <p>微软并未将16GB定义为过时，仍将其定位为实用起点，但32GB已不再被视为发烧友专属，而是被塑造为更稳妥、更具前瞻性的选择。</p><p><strong>微软给出的理由并非游戏本身变得更吃内存，而是指向了多任务场景：后台运行Discord、浏览器多个标签页、串流工具。</strong></p><p>再加上Steam、Epic或Xbox应用等启动器，以及各种常驻后台服务，内存占用会迅速增加，游戏最终要和所有这些进程争夺内存资源。</p><p>值得注意的是，Windows 11的官方最低内存推荐仍为8GB，微软希望传递的是“16GB是必须，32GB是无忧区”。</p><p><a href="//img1.mydrivers.com/img/20260501/b5ed34dd3e6643da85629578a8901197.jpg" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0501/878dabc22cfa70f.jpg"></a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1560922.htm</guid>
-      <pubDate>Fri, 01 May 2026 06:43:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Meta外包商解雇逾千名AI标注员 媒体揭Ray‑Ban智能眼镜涉大规模隐私丑闻</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1560918.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI技术进展（AI标注员），但主要是公司新闻和隐私问题，属于可关注内容</small></p>
-                                                
-                                                <p>Meta近日悄然终止了与外包公司Sama的合作关系，此前该公司受托利用Ray‑Ban智能眼镜采集的影像数据为Meta的生成式AI系统提供训练素材。随后，Sama宣布裁撤1108名员工，其中部分员工称，他们是在向媒体披露所审阅视频涉及大量高度隐私内容后遭到“报复性”解雇。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0501/1aef63add5eb637.webp"></p><p>事件最早在今年2月曝光。位于肯尼亚内罗毕的Sama员工向两家瑞典报纸披露，他们的工作内容包括为来自智能眼镜的视频打标签，而画面中的人物往往对自己被拍摄一事毫不知情。这些Ray‑Ban智能眼镜内置AI助手，需要持续录制音视频，其中一部分会被用作AI训练数据，再由人工标注员补充完善AI难以理解的内容。</p><p>Meta方面表示，其服务条款已向用户说明相关数据使用方式，且眼镜在启用AI模式前必须获得用户的明确授权。然而，多名Sama员工称，他们接触到的画面不仅包括银行账户等金融信息、私人谈话内容，还涉及浴室中全裸画面以及亲密行为场景，明显超出了公众对常规数据采集的认知边界。</p><p>在媒体调查报道发布后，Meta宣布取消与Sama的合同，并称该公司“未能达到Meta的标准”。Sama随即回应表示，从未收到任何关于其工作质量“不达标”的正式反馈。与此同时，有员工透露，公司在安保措施升级的背景下，安排他们在几乎无事可做的状态下“坐班”，疑似通过内部排查来锁定向媒体爆料的“吹哨人”。</p><p>Sama并非首次卷入AI相关劳工和伦理争议。这家总部位于加州的外包公司曾受OpenAI委托，为在2022年正式亮相的ChatGPT提供训练服务。为减少聊天机器人输出有害内容，Sama安排肯尼亚员工以每日不足2美元的报酬，长时间审阅并筛除极具冲击性的文本与图像内容，相关工作被曝对员工心理健康造成明显伤害。同一年，Meta与Sama还面临指控，被控通过具有误导性的招聘信息招募员工、构成变相人口贩运，并解雇试图组建工会的劳动者。</p><p>除了劳工权益问题，这起事件也再次将智能眼镜的隐私风险推上风口浪尖。早在Google Glass时代，其录制能力就因可能在公共空间中进行“隐形监控”而遭到舆论强烈反对。如今，Meta以更为低调、接近日常眼镜外形的产品“重启”这一品类后，有用户被拍到在法庭审理过程中佩戴使用，也有人在警务行动中启用录制，还有学生被发现利用智能眼镜在考试中作弊。</p><p>在可穿戴设备持续升温的背景下，其他科技巨头也在加速布局。报道称，苹果公司目前正在测试多达四种智能眼镜设计方案，意在未来与Meta的Ray‑Ban产品正面竞争。在AI与感知设备深度融合的趋势之下，如何在创新体验与个人隐私、劳工权益之间取得平衡，正成为科技行业绕不开的核心难题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1560918.htm</guid>
-      <pubDate>Fri, 01 May 2026 06:17:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 研究揭示疟疾在人类进化中的隐秘作用</title>
-      <link>https://www.cnbeta.com.tw/articles/science/1560916.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 科学前沿进展（疟疾在人类进化中的作用研究），属于用户感兴趣的类别</small></p>
-                                                
-                                                <p>一项最新研究显示，早期人类在数万年间主动回避疟疾高风险地区，这不仅改变了他们的迁徙与定居路线，也悄然重塑了人类演化史上的人口格局与基因多样性。 
-研究由马普地缘人类学研究所、剑桥大学及多家机构合作完成，相关成果已发表于《Science Advances》杂志。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0501/02c52b958cde648.jpg"></p><p>长期以来，科学界普遍认为，现代人类并非起源于非洲某一个单一“摇篮”，而是来自散布在非洲各地、彼此联系和更迭的多个人群“拼图”。 过去的解释多将气候变化视为主导因素，用以说明这些人群何时、在何处定居以及如何互动。 最新研究则提出，疟疾等传染病同样是塑造早期人类地理分布与演化格局的重要力量。</p><p>疟疾是一种由按蚊传播的寄生虫性疾病，主要病原体为恶性疟原虫，可导致发热、贫血乃至严重并发症，对人类群体构成强烈且持续的选择压力。 研究团队聚焦于距今约7.4万年至5000年前的关键时间窗口——这一时期既早于人类大规模走出非洲，也早于农业出现并彻底改变疟疾传播生态。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0501/dc0afa5b76dba80.jpg"></p><p>为评估疟疾对人类分布的长期影响，研究人员构建了三大主要按蚊复合种群的物种分布模型，并结合古气候模拟与流行病学数据，估算了不同时段撒哈拉以南非洲的潜在疟疾传播风险。 随后，他们将这一风险地图与重建出的“人类生态位”进行对比分析，以观察人类活动范围与高风险区域之间的空间关系。</p><p>结果显示，在过去至少7.4万年间，人类活动范围内的疟疾风险水平始终显著低于被人类“避开”的周边区域。 研究者指出，这意味着在人类历史早期，高疟疾风险地区要么难以持续维系稳定的人群聚落，要么被刻意规避，从而在地理上“隔开”了不同群体。</p><p>这种看似缓慢而分散的空间分离效应，在漫长的时间尺度上深刻影响了人群之间的接触、基因交流与迁徙路径，最终促成了今日人类所呈现的人口结构与遗传多样性格局。 换言之，疟疾不仅是早期人类面临的健康威胁，更是推动人类演化进程的一股隐性驱动力。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0501/adebb6cb8b02438.jpg"></p><p>论文合著者、剑桥大学的安德烈亚·马尼卡（Andrea Manica）教授表示，疟疾通过将人类社会“分割”在不同的景观单元上，参与塑造了现代人类的空间组织方式与人口结构。 在这一框架下，气候和地形等传统因素已不足以单独解释人类能居住在哪里，传染病风险同样是决定人群生存空间边界的重要条件。</p><p>来自马普地缘人类学研究所的埃莉诺·斯凯里（Eleanor Scerri）教授指出，此项研究为理解人类演化开辟了新的视角。 在缺乏对应时期古代病原体基因组证据的情况下，人们往往低估了疾病在我们“深层历史”中的作用。 最新成果则通过环境建模与人类生态位重建相结合，为系统探讨疾病与人类演化的关系提供了新框架。</p><p>研究团队认为，随着更多古环境与古DNA数据的积累，未来有望进一步解析疟疾等传染病如何在不同地区、不同时间尺度上影响人类迁徙、聚落分布及基因流动模式。 这些工作将帮助我们更全面地理解，现代人类为何会以今天这样的方式分布在世界各地，以及疾病在这一漫长演化进程中究竟扮演了怎样的角色。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1560916.htm</guid>
-      <pubDate>Fri, 01 May 2026 06:14:53 GMT</pubDate>
     </item>
   </channel>
 </rss>
