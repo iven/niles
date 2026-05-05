@@ -3,7 +3,43 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 05 May 2026 09:18:44 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2026 11:38:14 GMT</lastBuildDate>
+    <item>
+      <title>Google Chrome未经同意静默安装4GB AI模型到用户设备</title>
+      <link>https://news.ycombinator.com/item?id=48019219</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讨论Google Chrome未经同意安装AI模型的隐私争议，虽涉及AI技术但偏向负面报道，与用户对技术进展的兴趣匹配度一般</small></p><p>隐私专家Alexander Hanff发现，Google Chrome浏览器在未经用户明确同意的情况下，静默下载并安装一个约4GB的Gemini Nano AI模型到用户设备上。该模型文件名为weights.bin，存储在用户配置文件的OptGuideOnDeviceModel目录中。</p>
+
+<img src="/blog/assets/2026-05-04-001.png" alt="Google Chrome silently installs a 4 GB AI model on your device without consent. At a billion-device scale the climate costs are insane." />
+
+<p>文章通过macOS的.fseventsd文件系统事件日志详细记录了这一过程：在一个全新创建的审计配置文件中，Chrome在用户零交互的情况下，仅用14分28秒就完成了4GB模型文件的下载和安装。当用户删除该文件后，Chrome会在符合条件的时机自动重新下载，除非用户通过chrome://flags禁用相关AI功能或使用企业策略工具。</p>
+
+<p>作者指出，这一行为与之前Anthropic Claude Desktop案例的模式完全相同，包括：跨信任边界的强制捆绑、无选择加入机制、移除比安装更困难、预置用户未请求的功能、使用模糊命名（OptGuideOnDeviceModel而非GeminiNanoLLM）、自动重新安装等。</p>
+
+<p>法律分析认为这可能违反《电子隐私指令》（ePrivacy Directive）第5(3)条、<a href="https://gdpr-info.eu/">GDPR</a>第5(1)条的合法性、公平性和透明度原则，以及第25条的数据保护设计义务。环境分析估算，以Chrome的全球规模（约20-30亿用户），单次模型推送可能产生6,000至60,000吨CO2当量排放。</p>
+
+<p>Hacker News社区对此反应强烈，335条评论中，用户主要关注：同意机制的缺失、对有限数据流量用户的影响（4GB可能消耗一个月的流量配额）、环境分析的合理性，以及替代浏览器的选择。部分用户认为这是Google典型的越界行为，建议转向Firefox等其他浏览器。</p>
+
+<p>目前，普通用户阻止这一行为的唯一方法是：1）在chrome://flags中禁用所有AI相关功能；2）使用企业策略工具；3）完全卸载Chrome浏览器。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48019219</guid>
+      <pubDate>Tue, 05 May 2026 07:34:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 从零开始训练自己的语言模型：实践工作坊指南</title>
+      <link>https://news.ycombinator.com/item?id=48017948</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于从零开始训练语言模型的开源实践项目，符合用户对AI技术、开源项目和编程学习工具的兴趣</small></p><p>这篇文章介绍了一个名为"llm-from-scratch"的GitHub项目，这是一个实践工作坊，旨在让参与者从零开始编写GPT训练管道的每个部分。项目基于Andrej Karpathy的nanoGPT，但进行了简化，将模型参数缩减到约1000万，使其能在笔记本电脑上在一小时内完成训练。</p>
+
+<p>工作坊分为六个部分：分词器（字符级分词）、Transformer架构（嵌入、注意力机制、前馈网络）、训练循环（前向传播、损失函数、反向传播）、文本生成（温度采样、top-k采样）、整合所有组件以及竞赛环节。项目使用莎士比亚文本作为训练数据，支持在Apple Silicon GPU、NVIDIA GPU或CPU上训练，也可以在Google Colab上运行。</p>
+
+<p>社区对这个项目反应积极，认为这是一个很好的LLM入门资源。评论中提到了其他相关学习资源，如<a href="https://cs336.stanford.edu/">斯坦福大学的CS336课程</a>和Sebastian Raschka的"Build a Large Language Model (From Scratch)"书籍。有用户讨论了"大型"语言模型的定义问题，以及在实际硬件上训练模型的可行性。</p>
+
+<p>项目提供了三种模型配置：Tiny（约50万参数，训练约5分钟）、Small（约400万参数，训练约20分钟）和Medium（约1000万参数，训练约45分钟）。所有配置都使用字符级分词（词汇表大小65）和块大小256。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48017948</guid>
+      <pubDate>Tue, 05 May 2026 04:09:17 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Agent Skills：为AI编程代理添加资深工程师工作流程的框架</title>
       <link>https://news.ycombinator.com/item?id=48015397</link>
@@ -1151,40 +1187,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47942437</guid>
       <pubDate>Tue, 28 Apr 2026 23:54:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI生成代码的版权归属：Claude Code编写的代码归谁所有？</title>
-      <link>https://news.ycombinator.com/item?id=47932937</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讨论AI生成代码的版权法律问题，虽然涉及AI工具但偏向法律讨论，非技术进展或新功能发布，用户兴趣配置中对此类主题无明确指向</small></p><p>一篇法律分析文章探讨了AI生成代码的版权归属问题，特别是由Claude Code编写的代码所有权问题。文章指出，根据美国版权局目前的立场，AI生成的内容本身不受版权保护，因为缺乏人类作者的创造性贡献。</p>
-
-<p>文章分析了不同情境下的所有权归属：如果个人在工作时间使用公司工具生成代码，根据"雇佣作品"原则，雇主可能拥有所有权；如果个人在个人时间使用自己的工具生成代码，则所有权归属更加复杂。文章还讨论了开源许可证（如GPL）对AI生成代码的影响，以及训练数据版权问题可能带来的法律风险。</p>
-
-<p>Hacker News社区的讨论反映了对这一问题的不同观点。有评论者认为，如果人类对AI生成的代码进行了实质性修改，修改后的作品可以获得版权保护，类似于在公共领域作品基础上添加新元素创作的作品。另一些评论者则指出，AI不是法律意义上的人，因此不能拥有财产权，也不能签订转让知识产权的合同。</p>
-
-<p>讨论中还涉及了国际法律差异问题，虽然版权法通过《伯尔尼公约》等国际条约在一定程度上实现了统一，但不同国家对AI生成内容的态度可能存在差异。有评论者认为，在实际应用中，代码的版权保护往往不如人们想象的重要，大多数情况下代码本身并不构成真正的竞争壁垒。</p>
-
-<p>文章链接：<a href="https://legallayer.substack.com/p/who-owns-the-claude-code-wrote">https://legallayer.substack.com/p/who-owns-the-claude-code-wrote</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47932937</guid>
-      <pubDate>Tue, 28 Apr 2026 11:24:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>Ghostty终端模拟器项目宣布离开GitHub，创始人表达对平台质量下降的失望</title>
-      <link>https://news.ycombinator.com/item?id=47939579</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及终端模拟器项目迁移GitHub事件，主要讨论平台争议而非编程工具技术内容，兴趣度中等</small></p><p>Ghostty终端模拟器项目创始人Mitchell Hashimoto宣布，由于GitHub频繁的服务中断严重影响工作效率，该项目将迁移出GitHub平台。Hashimoto作为GitHub的早期用户（用户ID 1299，2008年加入），在过去18年里几乎每天都使用该平台，但最近一个月几乎每天都遭遇服务中断问题。</p>
-
-<p>Hashimoto在文章中表达了对GitHub的深厚感情，称其为"让我最快乐的地方"，但同时也对当前的服务质量感到极度失望。他提到在过去一个月中，几乎每天都在记录GitHub中断对其工作的影响，而就在撰写文章当天，GitHub Actions就中断了约2小时，导致无法进行代码审查。</p>
-
-<p>Ghostty项目计划逐步移除对GitHub的依赖，并将在当前URL保留只读镜像。Hashimoto表示正在与多个提供商（包括商业和开源方案）进行讨论，以确定项目的最终去向。他的个人项目暂时仍将留在GitHub。</p>
-
-<p>社区评论反映了对GitHub质量下降的普遍担忧。有用户分享了<a href="https://mrshu.github.io/github-statuses/">非官方状态页面</a>，显示在90天内发生了94起事故。讨论中提到了多种可能的原因，包括微软收购后的文化变化、资源过度倾斜到Copilot AI功能、AI生成代码对服务质量的影响等。</p>
-
-<p>一些评论者建议Hashimoto可以考虑创建新的代码托管平台，或者GitHub应该聘请他来领导公司。也有用户讨论了分布式和联邦化Git forge的可能性，以及当前可用的替代方案如GitLab、Bitbucket、Gitea等。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47939579</guid>
-      <pubDate>Tue, 28 Apr 2026 19:44:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
