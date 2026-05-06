@@ -3,7 +3,37 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 06 May 2026 12:04:57 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 06 May 2026 14:43:57 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Red Squares：用红色方块可视化GitHub平台中断情况的讽刺贡献图</title>
+      <link>https://news.ycombinator.com/item?id=48034587</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GitHub平台中断的可视化讽刺项目，属于编程工具相关开源项目，对编程工具使用者有参考价值</small></p><p>Red Squares 是一个讽刺性的可视化项目，它模仿 GitHub 的贡献图，但用红色方块来追踪 GitHub.com 平台的中断情况，而不是传统的绿色方块表示代码提交。该项目通过直观的方式展示了 GitHub 服务可靠性问题的时间分布。</p>
+
+<p>从可视化图表中可以观察到明显的模式：中断主要发生在工作日，周末相对较少。Hacker News 社区对此展开了热烈讨论，用户们提出了多种可能的原因：</p>
+
+<ul>
+<li>工作日有更多的部署活动，可能导致更多中断</li>
+<li>工作日的用户负载更高，增加了系统压力</li>
+<li>GitHub 将部分问题归因于 AI 使用量的增加</li>
+<li>周五中断较少可能是因为有"周五不部署"的规定</li>
+</ul>
+
+<p>一位自称前 GitHub 员工（用户名 rufo）分享了内部部署细节：GitHub 采用持续部署模式，大约每 60-90 分钟部署一次，24小时不间断（工作日）。有趣的是，过去 GitHub 在无人部署时反而更不可靠，因为存在资源泄漏问题，需要定期重启应用来缓解。</p>
+
+<p>用户们还讨论了其他相关话题：</p>
+<ul>
+<li>有用户怀疑 Azure 基础设施可能是问题根源，并引用了 Axel Rietschin 关于 Azure 问题的文章</li>
+<li>欧洲用户表示在工作时间后使用 GitHub，较少遇到中断问题</li>
+<li>美国用户则在工作日高峰时段受到更大影响</li>
+<li>多位用户赞赏该项目的简洁设计，与过度使用 AI 生成动画的现代网站形成对比</li>
+</ul>
+
+<p>该项目提供了一个独特的视角来看待平台可靠性问题，引发了关于现代软件开发部署实践、基础设施可靠性和监控工具设计的深入讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48034587</guid>
+      <pubDate>Wed, 06 May 2026 10:28:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Cloudflare 与 Stripe 合作推出新协议，允许 AI 代理自动创建账户、购买域名并部署应用</title>
       <link>https://news.ycombinator.com/item?id=48031684</link>
@@ -1189,25 +1219,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47957688</guid>
       <pubDate>Thu, 30 Apr 2026 03:21:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ HERMES.md 字符串触发 Anthropic Claude Code 计费漏洞，用户被多收 200 美元</title>
-      <link>https://news.ycombinator.com/item?id=47952722</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章描述Anthropic Claude Code中的计费漏洞，属于编程工具相关的问题讨论，用户对编程工具发布/分享配置为很感兴趣</small></p><p>Anthropic 的 Claude Code 工具存在一个奇怪的漏洞：当 git 仓库的最近提交历史中包含特定字符串 "HERMES.md" 时，系统会将 API 请求错误地路由到"额外使用"计费通道，而不是用户已付费的 Max 计划配额内。这一漏洞导致用户被额外收取了 200.98 美元，而他们的 Max 20x 计划配额却仍有 86% 未使用。</p>
-
-<p>根据 GitHub issue <a href="https://github.com/anthropics/claude-code/issues/53262">#53262</a> 的报告，该漏洞具有高度特异性：只有大小写敏感的 "HERMES.md" 字符串出现在 git 提交信息中才会触发，"hermes.md"（小写）或其他类似字符串均不会产生影响。漏洞与磁盘上是否存在同名文件无关，仅与提交历史中的文本内容相关。</p>
-
-<img src="https://avatars.githubusercontent.com/u/1385751?u=341edb9239966d8a475de05e6d63e022feedece7&v=4&size=48" alt="@sasha-id" width="24" height="24" />
-
-<p>报告者通过系统性的二分排查最终定位到该问题，并提供了详细的重现步骤。受影响的用户在发现异常后联系 Anthropic 客服，却收到了令人意外的回复："我们需要告知您，我们无法对因技术错误导致的错误计费路由提供补偿。"</p>
-
-<p>这一回应在 Hacker News 社区引发了广泛讨论。许多评论者指出，拒绝为自身技术错误导致的错误收费提供退款，在大多数国家可能缺乏法律依据。有用户建议通过小额索赔法庭解决争议，也有人分享了类似经历："在 1 月份被重复收费三次后，他们承认问题但拒绝退款，我最终通过信用卡争议赢得了退款。"</p>
-
-<p>社区对 Anthropic 的处理方式表示失望，认为这严重损害了客户信任。部分用户开始探讨转向本地和开源 LLM 的可能性，以避免依赖可能随意改变政策的商业服务提供商。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47952722</guid>
-      <pubDate>Wed, 29 Apr 2026 18:54:31 GMT</pubDate>
     </item>
   </channel>
 </rss>
