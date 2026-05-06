@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 06 May 2026 00:01:42 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 06 May 2026 06:44:15 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 基准测试显示：视觉AI代理操作成本是结构化API的45倍</title>
+      <link>https://news.ycombinator.com/item?id=48024859</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章比较视觉AI代理与结构化API的操作成本，涉及编程效率和AI技术进展，符合用户兴趣。</small></p><p>一项基准测试对比了两种AI代理操作管理面板的方法：基于视觉的浏览器使用和基于结构化API的调用。测试结果显示，视觉代理的成本是API代理的45倍，引发了关于AI代理效率的讨论。</p>
+
+<img src="https://web.reflex-assets.dev/blog/computer-use-is-45x-more-expensive-than-structured-apis.webp" alt="Image for blog post: Computer use is 45x More Expensive Than Structured APIs" />
+
+<p>测试使用相同的Claude Sonnet模型和数据集，让两个代理完成相同的管理面板任务。视觉代理通过截图和点击操作UI，需要53步、约17分钟和551k输入令牌才能完成任务。相比之下，API代理直接调用应用的HTTP端点，仅需8次调用、约20秒和12k输入令牌。</p>
+
+<p>研究发现，视觉代理最初无法完成任务，因为它无法识别页面需要滚动才能看到所有内容。需要提供14步的详细UI导航指南才能让视觉代理正常工作。此外，视觉代理的结果存在很大方差，而API代理的结果非常稳定。</p>
+
+<p>测试使用了<a href="https://reflex.dev/blog/computer-use-is-45x-more-expensive-than-structured-apis/">Reflex 0.9的插件</a>，可以自动从应用的事件处理器生成HTTP端点。这大大降低了为内部工具构建API的成本，使得结构化API方法在经济上更具吸引力。</p>
+
+<p>Hacker News社区对此展开了热烈讨论。有评论指出这是显而易见的结论："为人类设计的界面不适合AI需求，而为程序化使用设计的界面更容易被AI使用"。但作者回应称，虽然大家都知道视觉代理更昂贵，但这项研究量化了具体的差距。</p>
+
+<p>其他评论提到，视觉代理在某些场景下仍是必要选择，比如专有/锁定的桌面应用缺乏自动化层。也有讨论认为，在代理化世界中，操作系统需要重新设计，每个应用功能都应该通过API暴露，同时保持对用户的友好性。</p>
+
+<p>这项研究表明，对于内部工具开发，当API构建成本降至接近零时，结构化API方法比视觉代理更具经济优势。视觉代理更适合无法控制的第三方应用或遗留系统。</p>
+
+<p>所有基准测试代码都是开源的，可在<a href="https://github.com/reflex-dev/agent-benchmark">GitHub仓库</a>中找到。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48024859</guid>
+      <pubDate>Tue, 05 May 2026 16:34:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 当人人都有AI工具时：组织为何仍难以从中学习</title>
       <link>https://news.ycombinator.com/item?id=48020063</link>
@@ -1172,33 +1197,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47949642</guid>
       <pubDate>Wed, 29 Apr 2026 15:17:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Tangled项目：基于AT协议的联邦化代码协作平台挑战GitHub垄断</title>
-      <link>https://news.ycombinator.com/item?id=47948603</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍新的联邦化代码协作平台，属于编程工具发布/分享领域，用户配置为很感兴趣</small></p><p>近期GitHub频繁出现可用性和安全问题，引发了对代码协作平台集中化风险的关注。Tangled项目提出了一种基于AT协议（AT Protocol）的联邦化解决方案，旨在打破GitHub的垄断地位。</p>
-
-<img src="https://assets.tangled.network/blog/federation/Light.png" alt="" />
-
-<p>Tangled采用双协议架构：使用git进行代码传输，AT协议处理社交功能。平台中的每个git服务器被称为"knot"，用户可以在不同服务器间协作、fork仓库，甚至从自己的服务器向其他服务器提交pull-request。这种设计类似于自托管cgit实例并通过邮件发送补丁的传统方式。</p>
-
-<p>AT协议在Tangled中负责认证传输代码相关事件，包括issue、pull-request管理，以及时间线、关注、星标等社交功能。项目还计划引入"vouches"（担保）系统来应对垃圾信息问题。</p>
-
-<p>Hacker News社区讨论中，用户对GitHub的问题进行了详细分析，包括近期可用性下降至86%、安全漏洞（如远程代码执行漏洞CVE-2026-3854）、计费不一致等问题。有观点认为GitHub正面临容量扩展挑战，需要增加30倍处理能力来应对AI代理的指数级增长。</p>
-
-<p>关于技术选择，社区讨论了为何选择AT协议而非ActivityPub。ForgeFed项目的作者曾解释ActivityPub不适合代码协作场景，而AT协议在开发体验和社区活力方面表现更好。同时，也有用户提到了其他分布式方案如<a href="https://radicle.xyz">Radicle</a>。</p>
-
-<p>项目争议点包括：Tangled获得了包括Bain Capital Crypto在内的VC投资，引发了对未来"平台恶化"（enshittification）的担忧。支持者认为联邦化架构本身就能改变权力动态，无需信任单一实体。</p>
-
-<p>讨论中还涉及Jujutsu VCS（jj）的争议，部分用户认为其匿名分支设计和复杂命令语法增加了认知负担，而支持者则认为在实践中的直观性和安全性优于git。</p>
-
-<p>总体而言，社区普遍认同需要打破GitHub的单一文化垄断，但对实现路径存在不同看法。联邦化解决方案面临的主要挑战包括垃圾信息管理、发现机制和网络效应等问题。</p>
-
-<p><strong>你知道吗？</strong>联邦化代码协作的概念并非全新，早期就有基于邮件的代码协作流程（git + email），后来出现了ForgeFed等项目试图通过ActivityPub实现类似目标。AT协议是Bluesky社交网络背后的技术，相比ActivityPub提供了更强的账户可移植性和数据主权特性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47948603</guid>
-      <pubDate>Wed, 29 Apr 2026 14:00:59 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,61 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 05 May 2026 23:59:57 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 06 May 2026 06:43:19 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.129 发布：新增插件URL支持与多项功能改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.129</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Claude Code</h3>
+<p>Claude Code 发布了 v2.1.129 版本，引入了多项新功能、改进和错误修复。</p>
+
+<h4>重要改动</h4>
+<ul>
+<li><strong>新增插件URL支持</strong>：添加了 <code>--plugin-url &lt;url&gt;</code> 标志，允许从指定 URL 获取插件 .zip 存档供当前会话使用。</li>
+<li><strong>强制同步输出</strong>：新增 <code>CLAUDE_CODE_FORCE_SYNC_OUTPUT=1</code> 环境变量，可在自动检测失败的终端（如 Emacs eat）上强制启用同步输出。</li>
+<li><strong>包管理器自动更新</strong>：新增 <code>CLAUDE_CODE_PACKAGE_MANAGER_AUTO_UPDATE</code> 环境变量，当在 Homebrew 或 WinGet 安装中设置时，Claude Code 会在后台运行升级命令并提示重启。</li>
+<li><strong>修复代理面板隐藏问题</strong>：修复了子代理运行时提示下方的代理面板被隐藏的问题（2.1.122 版本中的回归问题）。</li>
+<li><strong>修复 OAuth 刷新竞争</strong>：修复了睡眠唤醒后 OAuth 刷新竞争导致所有运行会话被注销的问题。</li>
+</ul>
+
+<h4>其他改动</h4>
+<ul>
+<li><strong>插件清单声明</strong>：<code>themes</code> 和 <code>monitors</code> 现在应在 <code>"experimental": { ... }</code> 下声明，顶级声明仍有效但会收到警告。</li>
+<li><strong>Gateway 模型发现改为选择启用</strong>：Gateway <code>/v1/models</code> 发现现在需要通过 <code>CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1</code> 环境变量选择启用。</li>
+<li><strong>历史选择器行为调整</strong>：Ctrl+R 历史选择器现在默认搜索所有项目中的所有提示，匹配 2.1.124 之前的行为，按 Ctrl+S 可缩小到当前项目或会话。</li>
+<li><strong>第三方部署提示移除</strong>：第三方部署（Bedrock、Vertex、Foundry 或 <code>ANTHROPIC_BASE_URL</code> gateway）不再看到指向 Anthropic 官方界面的旋转提示。</li>
+<li><strong>skillOverrides 设置生效</strong>：<code>skillOverrides</code> 设置现在正常工作，提供 <code>off</code>、<code>user-invocable-only</code> 和 <code>name-only</code> 选项。</li>
+<li><strong>OTel 指标更新</strong>：<code>claude_code.pull_request.count</code> OTel 指标现在统计通过 MCP 工具创建的 PR/MR，而不仅仅是 shell 命令。</li>
+<li><strong>错误消息改进</strong>：策略拒绝错误消息现在包含 API 请求 ID，便于支持调试。</li>
+<li><strong>多项错误修复</strong>：包括修复 API 错误显示、<code>/clear</code> 后终端标签标题重置、会话标题芯片显示、外部编辑器切换、<code>/context</code> 令牌浪费、<code>/agents</code> 导航、<code>/branch</code> 消息、全屏模式粗体标题、服务器设置策略应用、提示缓存 TTL、缓存警告、路径允许规则、MCP 服务器模式匹配、WebSocket 警告日志等问题。</li>
+<li><strong>VSCode 相关修复</strong>：修复了 <code>/clear</code> 未清除对话上下文和显示转录的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.129</guid>
+      <pubDate>Wed, 06 May 2026 01:40:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>hapi v0.17.3 发布：新增网页对话大纲和子代理任务追踪功能</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.17.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布了 v0.17.3 版本，主要引入了网页对话大纲功能和子代理任务追踪显示等改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增网页对话大纲功能</strong>：为网页对话添加了结构化大纲视图，提升对话导航体验</li>
+<li><strong>在工具对话框中显示子代理任务追踪</strong>：现在可以在工具对话框中查看子代理的任务执行轨迹，便于调试和监控</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li><strong>修复权限模式应用问题</strong>：修复了在恢复非活跃会话时，未能正确应用选定权限模式的问题</li>
+</ul>
+
+<p>详细变更日志可查看 <a href="https://github.com/tiann/hapi/compare/v0.17.2...v0.17.3">完整变更记录</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.17.3</guid>
+      <pubDate>Wed, 06 May 2026 01:33:46 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.8.4 发布：新增 π 终端代理通知、修复快捷键问题</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.8.4</link>
@@ -1388,50 +1442,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.5</guid>
       <pubDate>Wed, 15 Apr 2026 06:02:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.5.4 发布：新增分页分支选择器、独立差异查看器标签页和快捷键优化</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 发布了 v1.5.4 版本，带来了多项桌面应用的功能改进和错误修复。</p>
-
-<h3>重要功能改进</h3>
-<ul>
-<li><strong>分页分支选择器</strong>：新增支持检出和打开操作的分页分支选择器，提升分支管理效率</li>
-<li><strong>V2差异查看器优化</strong>：差异查看器现在在独立标签页中打开，并改进了折叠标签页/窗格标题的解析</li>
-<li><strong>快捷键系统增强</strong>：支持在可编辑内容中触发快捷键，新增未绑定默认快捷键，并恢复了上一个/下一个标签页和工作区的快捷键功能</li>
-<li><strong>V1方向性窗格焦点</strong>：为V1版本添加了方向性窗格焦点功能，并提供了V1覆盖迁移器</li>
-<li><strong>右侧边栏修复</strong>：修复了V2右侧边栏切换的响应性问题</li>
-</ul>
-
-<h3>其他改进和修复</h3>
-<ul>
-<li>使待处理失败错误消息可选择，便于用户复制和排查问题</li>
-<li>恢复了V1终端文件链接的Cmd+点击功能</li>
-<li>改进了托盘菜单的事件驱动机制，显示真实的组织名称</li>
-<li>在开发模式下，当捆绑包发生变化时自动重启主机服务</li>
-<li>修复了MCP资源URL作为有效OAuth受众的接受问题</li>
-<li>确保V2工作区子项在集合准备就绪后才显示</li>
-<li>通过主机服务统一工作区删除操作</li>
-</ul>
-
-<p>这些更新主要针对桌面应用的交互体验、快捷键系统和界面功能进行了优化，提升了开发者的使用效率。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.4</guid>
-      <pubDate>Wed, 15 Apr 2026 04:46:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.109 发布：改进扩展思考指示器</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.109</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布了 v2.1.109 版本，主要改进了用户界面中的扩展思考指示器功能。</p>
-
-<p>本次更新的核心改进是优化了扩展思考指示器的显示效果，增加了旋转进度提示，让用户在等待AI思考时能够更直观地了解处理状态。</p>
-
-<p>这一改动属于用户界面交互优化，提升了用户体验，特别是在长时间思考任务中为用户提供更好的视觉反馈。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.109</guid>
-      <pubDate>Wed, 15 Apr 2026 04:02:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
