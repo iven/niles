@@ -3,7 +3,68 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 06 May 2026 22:07:13 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 06 May 2026 23:05:14 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.132 发布：改进终端交互、修复会话恢复和 MCP 服务器问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.132</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.132 版本，主要针对终端应用的稳定性和用户体验进行了一系列改进和修复。</p>
+
+<h3>重要功能改进</h3>
+<ul>
+<li>新增环境变量支持：添加 <code>CLAUDE_CODE_SESSION_ID</code> 环境变量到 Bash 工具子进程环境，与传递给钩子的 <code>session_id</code> 匹配</li>
+<li>提供全屏渲染器选项：通过 <code>CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1</code> 环境变量可选择退出全屏备用屏幕渲染器，保留对话在终端原生滚动缓冲区</li>
+<li>改进粘贴体验：添加 Ctrl+V 图像粘贴时的"Pasting…"页脚提示</li>
+<li>修复信号处理：外部 SIGINT 信号（如 IDE 停止按钮、<code>kill -INT</code>）现在能正常执行优雅关闭，恢复终端模式并打印 <code>--resume</code> 提示</li>
+<li>修复会话恢复：解决 <code>--resume</code> 在工具错误截断表情符号时出现 <code>no low surrogate in string</code> 错误的问题，已损坏的会话在加载时会被清理</li>
+</ul>
+
+<h3>终端交互修复</h3>
+<ul>
+<li>修复原生构建中终端关闭或 SSH 断开连接时的未捕获异常</li>
+<li>修复全屏模式在笔记本电脑睡眠/唤醒或 Ctrl+Z/<code>fg</code> 后显示空白屏幕的问题</li>
+<li>修复光标在包含印度语连字或 ZWJ 表情符号跨行换行时定位到字形中间的问题</li>
+<li>修复 vim 操作符损坏包含分解（NFD）重音字符的文本</li>
+<li>修复粘贴以 <code>/</code> 开头的文本时静默吞掉输入或触发未知命令回复的问题</li>
+<li>修复粘贴时焦点事件或鼠标跟踪报告与括号粘贴交错导致转义序列进入提示的问题</li>
+</ul>
+
+<h3>IDE 兼容性改进</h3>
+<ul>
+<li>修复 Cursor 和 VS Code 1.92–1.104 中鼠标滚轮滚动过快的问题（上游 xterm.js bug）</li>
+<li>修复 JetBrains IDE 2025.2 终端中的滚轮处理（虚假箭头键、方向错误事件、失控加速）</li>
+<li>修复 Windows Terminal 中 <code>/terminal-setup</code> 显示矛盾错误的问题（Shift+Enter 在该终端中原生支持）</li>
+<li>修复 macOS 终端中 Alt+T（思考切换）在未启用"Option as Meta"时无效的问题（iTerm2、Terminal.app 默认设置）</li>
+</ul>
+
+<h3>命令功能修复</h3>
+<ul>
+<li>修复 <code>/usage</code> Ctrl+S 在 Linux/X11 上将统计截图复制到剪贴板时挂起的问题</li>
+<li>修复 <code>/effort</code> 选择器未反映 <code>CLAUDE_CODE_EFFORT_LEVEL</code> 环境变量覆盖的问题</li>
+<li>修复 <code>/status</code> 为某些用户显示错误默认模型的问题</li>
+<li>修复斜杠命令自动完成弹出窗口被限制在约 3-5 个可见命令而不是随终端高度缩放的问题</li>
+<li>修复状态行 <code>context_window</code> 令牌计数反映累计会话总数而不是当前上下文使用情况的问题</li>
+</ul>
+
+<h3>MCP 服务器修复</h3>
+<ul>
+<li>修复当 stdio MCP 服务器向 stdout 写入非协议数据时的无界内存增长（10GB+ RSS）问题</li>
+<li>修复连接但 <code>tools/list</code> 失败的 MCP 服务器静默显示 0 工具的问题，现在会重试一次并在 <code>/mcp</code> 中显示"connected · tools fetch failed"</li>
+<li>修复未经授权的 claude.ai MCP 连接器显示为"failed"而不是"needs auth"的问题，以及无头 <code>-p</code> 模式重试非瞬态 4xx 连接失败的问题</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>修复 Windows 上从 <code>claude agents</code> 重新打开后台会话后的死键盘输入问题</li>
+<li>修复设置 <code>ENABLE_PROMPT_CACHING_1H</code> 时的 Bedrock 和 Vertex 400 错误</li>
+<li>改进斜杠命令对话框和 <code>/login</code>、<code>/upgrade</code>、<code>/extra-usage</code> 对话框间距的视觉一致性</li>
+<li>更新 <code>/tui fullscreen</code> 启动横幅以描述额外的渲染器优势（更低内存使用、鼠标支持、选择时自动复制）</li>
+<li>修复恢复计划模式会话时忽略 <code>--permission-mode</code> 标志的问题，以及在同一会话内 <code>ExitPlanMode</code> 后未重新应用计划模式的问题</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.132</guid>
+      <pubDate>Wed, 06 May 2026 22:08:13 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.131：修复Windows平台VS Code扩展激活问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.131</link>
@@ -1406,54 +1467,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.112</guid>
       <pubDate>Thu, 16 Apr 2026 19:55:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.111 发布：新增 Opus 4.7 xhigh 模式、Auto 模式及 /ultrareview 代码审查功能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.111</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.111 版本，带来多项新功能和改进，重点关注模型能力增强、用户体验优化和错误修复。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>Claude Opus 4.7 xhigh 模式</strong>：新增 xhigh 努力级别，位于 high 和 max 之间，可通过 <code>/effort</code> 命令、<code>--effort</code> 参数或模型选择器调整速度与智能平衡</li>
-<li><strong>Auto 模式开放</strong>：Max 订阅者在使用 Opus 4.7 时可使用 Auto 模式，且不再需要 <code>--enable-auto-mode</code> 标志</li>
-<li><strong>新增 /ultrareview 技能</strong>：提供云端并行多代理代码审查功能，支持审查当前分支或指定 GitHub Pull Request</li>
-<li><strong>新增 /less-permission-prompts 技能</strong>：自动扫描转录内容中的只读 Bash 和 MCP 工具调用，生成优先允许列表建议，减少权限提示干扰</li>
-<li><strong>主题匹配终端</strong>：新增"自动（匹配终端）"主题选项，可根据终端暗色/亮色模式自动切换</li>
-<li><strong>/effort 交互式滑块</strong>：不带参数调用 <code>/effort</code> 时打开交互式滑块界面，支持箭头键导航和 Enter 确认</li>
-<li><strong>权限提示优化</strong>：只读 bash 命令（含通配符）和以 <code>cd &lt;project-dir&gt; &amp;&amp;</code> 开头的命令不再触发权限提示</li>
-<li><strong>拼写错误建议</strong>：CLI 命令近似拼写错误时提供最匹配子命令建议（如 <code>claude udpate</code> → "Did you mean <code>claude update</code>?"）</li>
-<li><strong>计划文件命名改进</strong>：使用提示内容而非随机单词命名计划文件（如 <code>fix-auth-race-snug-otter.md</code>）</li>
-<li><strong>模型设置改进</strong>：<code>/setup-vertex</code> 和 <code>/setup-bedrock</code> 显示实际 <code>settings.json</code> 路径，提供"with 1M context"选项</li>
-<li><strong>/skills 菜单排序</strong>：支持按估计 token 数量排序（按 t 键切换）</li>
-<li><strong>快捷键增强</strong>：<code>Ctrl+U</code> 清除整个输入缓冲区（原仅删除至行首），<code>Ctrl+Y</code> 恢复；<code>Ctrl+L</code> 强制全屏重绘</li>
-<li><strong>转录视图快捷键显示</strong>：页脚显示 <code>[</code>（转储到回滚）和 <code>v</code>（在编辑器中打开）快捷键提示</li>
-<li><strong>截断标记改进</strong>：长粘贴的"+N lines"标记改为全宽度规则，便于扫描</li>
-</ul>
-
-<h3>其他改进与错误修复</h3>
-<ul>
-<li>修复 iTerm2 + tmux 环境下终端显示撕裂（随机字符、输入漂移）问题</li>
-<li>修复 <code>@</code> 文件建议在非 git 工作目录中重复扫描整个项目的问题</li>
-<li>修复 LSP 诊断时序问题，避免编辑后模型重新读取已编辑文件</li>
-<li>修复 <code>/resume</code> 命令 tab 补全立即恢复任意会话而非显示选择器的问题</li>
-<li>修复 <code>/context</code> 网格渲染中额外空白行问题</li>
-<li>修复 <code>/clear</code> 命令丢弃会话名称导致状态行输出丢失的问题</li>
-<li>改进插件错误处理：区分冲突、无效和复杂版本要求，修复 <code>plugin update</code> 后版本过时问题</li>
-<li>修复 Claude 调用不存在 <code>commit</code> 技能的问题</li>
-<li>修复 Bedrock/Vertex/Foundry 上错误的 429 速率限制错误提示</li>
-<li>修复反馈调查连续显示问题</li>
-<li>修复终端中裸 URL 跨行换行时无法点击的问题</li>
-<li>恢复 v2.1.110 中对非流式回退重试的限制，改善 API 过载时的行为</li>
-<li>抑制正常操作中出现的虚假解压缩、网络和临时错误消息</li>
-<li>无头模式 <code>--output-format stream-json</code> 在插件降级时包含 <code>plugin_errors</code> 信息</li>
-<li>添加 <code>OTEL_LOG_RAW_API_BODIES</code> 环境变量，支持 OpenTelemetry 调试</li>
-</ul>
-
-<p>本次更新显著增强了 Claude Code 的功能性和稳定性，为用户提供了更智能的模型选项、更高效的代码审查工具和更流畅的使用体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.111</guid>
-      <pubDate>Thu, 16 Apr 2026 15:18:45 GMT</pubDate>
     </item>
   </channel>
 </rss>
