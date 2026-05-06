@@ -3,7 +3,81 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 06 May 2026 06:43:19 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 06 May 2026 09:36:26 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.131：修复Windows平台VS Code扩展激活问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.131</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.131 版本，主要包含两个修复：</p>
+
+<p><strong>重要修复：</strong></p>
+<ul>
+<li>修复了 Windows 平台上 VS Code 扩展激活失败的问题，该问题由捆绑 SDK 中的硬编码构建路径引起（<code>createRequire</code> polyfill bug）</li>
+<li>修复了 Mantle 端点认证失败的问题，该问题由于缺少 <code>x-api-key</code> 头部导致</li>
+</ul>
+
+<p>这个版本主要针对特定平台（Windows）和认证相关的技术问题进行修复，属于维护性更新。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.131</guid>
+      <pubDate>Wed, 06 May 2026 07:47:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>fish shell 4.7.0 发布：交互体验优化与历史记录修复</title>
+      <link>https://github.com/fish-shell/fish-shell/releases/tag/4.7.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fish shell 4.7.0 版本发布，带来了多项交互体验改进和重要 bug 修复。本次更新包含 198 个新提交，由 21 位贡献者完成，其中 12 位是新加入的开发者。</p>
+
+<h3>重要改动</h3>
+
+<h4>交互体验优化</h4>
+<ul>
+<li><code>prompt_pwd</code> 现在会去除控制字符，提升显示安全性</li>
+<li>重绘事件（如颜色变量变更或事件处理器调用 <code>commandline -f repaint</code>）不再重置补全分页器和其他临时 UI 状态（<a href="https://github.com/fish-shell/fish-shell/issues/12683">#12683</a>）</li>
+<li><code>fish_color_valid_path</code> 现在支持背景色和下划线颜色（<a href="https://github.com/fish-shell/fish-shell/issues/12622">#12622</a>）</li>
+<li><code>funced</code> 在多次解析错误且文件无新更改时不再丢失工作内容</li>
+<li>修复了目录补全排序异常的问题（<a href="https://github.com/fish-shell/fish-shell/issues/12695">#12695</a>）</li>
+</ul>
+
+<h4>历史记录修复</h4>
+<ul>
+<li>修复了 fish 收到 SIGTERM 或 SIGHUP 信号时历史记录被 NUL 字节损坏的问题（<a href="https://github.com/fish-shell/fish-shell/issues/10300">#10300</a>）</li>
+<li>私有模式内存历史记录（<code>set fish_history</code>）不再与 <a href="https://fishshell.com/docs/4.7/cmds/read.html">builtin read</a> 共享（<a href="https://github.com/fish-shell/fish-shell/issues/12662">#12662</a>）</li>
+</ul>
+
+<h4>回归修复</h4>
+<ul>
+<li>修复了 Vi 模式 <code>dl</code> 命令的问题（来自 4.6 版本，<a href="https://github.com/fish-shell/fish-shell/issues/12461">#12461</a>）</li>
+<li>修复了换行后的退格问题（来自 4.6 版本，<a href="https://github.com/fish-shell/fish-shell/issues/12583">#12583</a>）</li>
+<li>修复了输入短选项后错误补全长选项的问题（来自 4.3.3 版本）</li>
+<li>修复了 <code>nosuchcommand || echo hello</code> 错误执行右侧命令的问题（来自 3.2 版本，<a href="https://github.com/fish-shell/fish-shell/issues/12654">#12654</a>）</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li><code>fish_update_completions</code> 现在能处理 groff <code>\X'...'</code> 设备控制转义符，修复了 help2man 1.50 及更高版本生成的 man 页面补全生成问题</li>
+<li>通过 <a href="https://fishshell.com/docs/4.7/cmds/fish_config.html">web-based config</a> 删除历史记录条目更加直观</li>
+<li>如果 <code>XDG_DATA_DIRS</code> 为空，会使用默认值，fish 现在也会使用 <code>$PREFIX/share/fish/vendor_completions.d</code> 等路径的配置（<a href="https://github.com/fish-shell/fish-shell/issues/11349">#11349</a>）</li>
+<li>一些内部文件描述符被移动到编号 10 或更高，减少与用户脚本中使用的描述符冲突的风险</li>
+<li>错误消息的措辞更加一致，特别是内置子命令的错误消息（<a href="https://github.com/fish-shell/fish-shell/issues/12556">#12556</a>）</li>
+</ul>
+
+<h3>已弃用和移除的功能</h3>
+<ul>
+<li>默认主题（即 <code>fish_color_*</code> 变量）在非交互式 shell 中不再设置</li>
+</ul>
+
+<h3>开发者相关</h3>
+<ul>
+<li>当默认全局配置目录（<code>$PREFIX/etc/fish</code>）存在但已被 <code>-DCMAKE_INSTALL_SYSCONFDIR</code> 覆盖时，fish 现在会尊重该覆盖（<a href="https://github.com/fish-shell/fish-shell/issues/10748">#10748</a>）</li>
+<li><code>build_tools/update_translations.fish</code> 已被 <code>cargo xtask gettext {check,new,update}</code> 替换（<a href="https://github.com/fish-shell/fish-shell/issues/12676">#12676</a>）</li>
+<li>新增 <code>cargo xtask shellcheck</code> 用于对 shell 脚本进行 lint 检查</li>
+</ul>
+
+<p>文章还列出了新加入的贡献者和回归的贡献者名单，并提供了下载链接说明，建议下载 <code>fish-4.7.0.tar.xz</code> 文件，而 <code>Source code (tar.gz)</code> 文件无法正确构建。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/fish-shell/fish-shell/releases/tag/4.7.0</guid>
+      <pubDate>Wed, 06 May 2026 06:51:16 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.129 发布：新增插件URL支持与多项功能改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.129</link>
@@ -1380,68 +1454,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.111</guid>
       <pubDate>Thu, 16 Apr 2026 15:18:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.110 发布：新增TUI全屏模式、改进插件管理与多项错误修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.110</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.110 版本，带来多项功能改进和错误修复，主要关注终端用户体验、插件管理和系统稳定性提升。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增终端用户界面（TUI）支持</strong>：添加 <code>/tui</code> 命令和 <code>tui</code> 设置，运行 <code>/tui fullscreen</code> 可在同一对话中切换到无闪烁渲染的全屏模式</li>
-<li><strong>快捷键功能分离</strong>：<code>Ctrl+O</code> 现在仅切换普通和详细转录模式，新增 <code>/focus</code> 命令单独切换焦点视图</li>
-<li><strong>插件管理改进</strong>：<code>/plugin</code> 安装标签页优化，需要关注的项目和收藏项置顶显示，禁用项可折叠隐藏，支持按 <code>f</code> 键收藏选中项</li>
-<li><strong>远程控制增强</strong>：<code>/autocompact</code>、<code>/context</code>、<code>/exit</code> 和 <code>/reload-plugins</code> 命令现在可从远程控制（移动端/网页）客户端使用</li>
-<li><strong>Write工具改进</strong>：在IDE差异查看器中编辑建议内容后再接受时，会通知模型相关内容已修改</li>
-<li><strong>重大错误修复</strong>：修复MCP工具调用在服务器连接中断时无限挂起的问题；解决非流式回退重试导致API不可达时多分钟挂起的问题；修复全屏模式下选择文本时的高CPU使用率问题</li>
-</ul>
-
-<h3>其他改进与修复</h3>
-<ul>
-<li>新增 <code>autoScrollEnabled</code> 配置，可在全屏模式下禁用对话自动滚动</li>
-<li>新增选项，在 <code>Ctrl+G</code> 外部编辑器中以注释形式显示Claude的最后回复（通过 <code>/config</code> 启用）</li>
-<li><code>/doctor</code> 命令改进，当MCP服务器在多个配置作用域中以不同端点定义时会发出警告</li>
-<li><code>--resume</code>/<code>--continue</code> 现在可恢复未过期的计划任务</li>
-<li>Bash工具现在强制执行文档规定的最大超时值，不再接受任意大的值</li>
-<li>SDK/无头会话现在从环境读取 <code>TRACEPARENT</code>/<code>TRACESTATE</code> 用于分布式跟踪链接</li>
-<li>会话摘要现在对禁用遥测的用户启用（Bedrock、Vertex、Foundry、<code>DISABLE_TELEMETRY</code>），可通过 <code>/config</code> 或 <code>CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0</code> 选择退出</li>
-<li>修复焦点模式下会话摘要、本地斜杠命令输出和其他系统状态行不显示的问题</li>
-<li>修复插件安装不遵循 <code>plugin.json</code> 中声明的依赖关系的问题；<code>/plugin</code> 安装现在列出自动安装的依赖项</li>
-<li>修复通过 <code>/&lt;skill&gt;</code> 在消息中途调用时，带有 <code>disable-model-invocation: true</code> 的技能失败的问题</li>
-<li>修复 <code>--resume</code> 有时显示第一个提示而非 <code>/rename</code> 名称的问题（针对仍在运行或异常退出的会话）</li>
-<li>修复多工具调用轮次中排队消息短暂重复显示的问题</li>
-<li>修复会话清理未完全删除会话目录（包括子代理转录）的问题</li>
-<li>修复CLI重新启动后（如 <code>/tui</code>、提供商设置向导）按键丢失的问题</li>
-<li>修复macOS Terminal.app和其他不支持同步输出的终端中的启动渲染乱码问题</li>
-<li>强化"在编辑器中打开"操作，防止来自不受信任文件名的命令注入</li>
-<li>修复 <code>PermissionRequest</code> 钩子返回 <code>updatedInput</code> 时未重新检查 <code>permissions.deny</code> 规则的问题；<code>setMode:'bypassPermissions'</code> 更新现在尊重 <code>disableBypassPermissionsMode</code></li>
-<li>修复工具调用失败时 <code>PreToolUse</code> 钩子的 <code>additionalContext</code> 被丢弃的问题</li>
-<li>修复向标准输出打印杂散非JSON行的stdio MCP服务器在第一个杂散行时被断开连接的问题（2.1.105版本回归）</li>
-<li>修复设置 <code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC</code> 或 <code>CLAUDE_CODE_DISABLE_TERMINAL_TITLE</code> 时，无头/SDK会话自动标题触发额外Haiku请求的问题</li>
-<li>修复管道（非TTY）Ink输出包含单个非常宽的行时可能过度分配内存的问题</li>
-<li>修复全屏模式下列表溢出模态框时 <code>/skills</code> 菜单不滚动的问题</li>
-<li>修复远程控制会话在会话过旧时显示通用错误而非提示重新登录的问题</li>
-<li>修复从claude.ai进行的远程控制会话重命名未将标题持久化到本地CLI会话的问题</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.110</guid>
-      <pubDate>Wed, 15 Apr 2026 22:07:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.5.5 发布：剪贴板修复与快捷键优化</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.5</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 发布了 v1.5.5 版本，主要包含以下桌面应用的功能改进和修复：</p>
-<ul>
-<li><strong>修复</strong>：在 v2 侧边栏中使用原生剪贴板进行路径复制，解决了之前可能存在的兼容性问题</li>
-<li><strong>新功能</strong>：现在可以通过按 Escape 键快速关闭设置界面，提升了操作便捷性</li>
-<li><strong>新功能</strong>：恢复了 Cmd+Alt+方向键 的快捷键组合，用于标签页和工作区导航，改进了用户的工作流效率</li>
-</ul>
-<p>详细更新内容可参考 <a href="https://github.com/superset-sh/superset/compare/desktop-v1.5.4...desktop-v1.5.5">完整更新日志</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.5.5</guid>
-      <pubDate>Wed, 15 Apr 2026 06:02:49 GMT</pubDate>
     </item>
   </channel>
 </rss>
