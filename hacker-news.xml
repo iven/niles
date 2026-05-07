@@ -3,7 +3,66 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 07 May 2026 12:04:19 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 07 May 2026 14:50:14 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Val Town 从 Clerk 迁移到 Better Auth：社交应用为何需要自主用户表</title>
+      <link>https://news.ycombinator.com/item?id=48038827</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章详细介绍了Val Town从Clerk迁移到Better Auth的技术改造经验，涉及编程工具发布、社交应用架构改进，完全符合用户很感兴趣的编程工具发布/分享和软件新功能主题</small></p><p>Val Town 团队分享了从 Clerk 身份验证服务迁移到 Better Auth 的经验。文章详细描述了他们在三年间使用 Clerk 遇到的问题，以及最终选择 Better Auth 的原因。</p>
+
+<img src="https://imagedelivery.net/iHX6Ovru0O7AjmyT5yZRoA/d58722e1-ec33-4417-59a9-e63119bd6d00/public" alt="lock-watercolor" />
+
+<p>核心问题在于 Clerk 试图完全替代用户的用户表（users table）和会话表（sessions table）。对于 Val Town 这样的社交平台来说，这带来了两个主要问题：</p>
+
+<ol>
+<li><strong>用户表问题</strong>：Clerk 的 API 有严格的速率限制（每秒5次请求），无法满足社交应用中频繁显示其他用户头像和信息的需求。这迫使团队需要在 Clerk 和自己的数据库之间同步用户数据，导致用户注册流程复杂化。</li>
+<li><strong>单点故障</strong>：Clerk 成为所有用户会话的单一故障点。当 Clerk 服务中断时，不仅登录/登出功能受影响，已登录用户也无法使用网站。数据显示自2025年5月以来，Clerk 的可用性在99.8%到99.9%之间波动。</li>
+</ol>
+
+<p>尽管 Clerk 在某些方面表现良好——易于上手、价格合理、支持多种框架，并且有不错的反滥用措施，但对于需要社交功能的复杂应用来说并不合适。作者指出，Clerk 更适合相对简单、前端为主且没有社交组件的应用。</p>
+
+<p>选择 Better Auth 的关键因素包括：</p>
+<ul>
+<li>代码质量高，与不同框架集成良好</li>
+<li>可以作为独立的开源项目使用</li>
+<li>不再依赖第三方服务保持在线状态才能工作</li>
+<li>团队完全管理自己的数据，Better Auth 的付费服务（'Infrastructure'）在会话管理方面基本是无状态的</li>
+</ul>
+
+<p>迁移过程持续了两周，期间同时支持 Clerk 和 Better Auth 两种认证方式。团队利用 LLM 辅助完成了这一复杂过渡，最终所有认证代码都经过仔细审查和重写。</p>
+
+<p>Hacker News 社区对此讨论热烈。有用户分享了自己使用 Clerk 的类似经历，包括库文件臃肿、调试困难、缺乏审计日志等问题。Better Auth 的创始人也在评论中回应，表示很高兴看到其他团队从中获得价值。</p>
+
+<p>其他用户提到了不同的身份验证解决方案，如 WorkOS 的 AuthKit、Auth0、Logto 等。讨论反映出身份验证服务市场的多样性和持续变化。</p>
+
+<p>作者总结道，选择身份验证方案时需要仔细权衡技术控制程度和供应商风险。虽然不想从头构建身份验证系统，但也不应将太多责任外包给供应商，特别是会话管理这种核心功能。</p>
+
+<p><strong>你知道吗？</strong> 在身份验证领域，存在一个重要的架构决策：是否将用户表完全外包给第三方服务。Clerk 早期的营销口号是"考虑删除你的用户表"，但这种做法对于需要频繁访问其他用户信息的社交应用来说存在根本性缺陷。现代身份验证解决方案正在向更灵活的架构演进，允许开发者在保持数据自主性的同时利用专业服务。</p>
+
+<img src="https://imagedelivery.net/iHX6Ovru0O7AjmyT5yZRoA/bb3a7d1c-305e-46b8-b560-116eca106300/public" alt="" width="20" />]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48038827</guid>
+      <pubDate>Wed, 06 May 2026 17:19:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Hallucinopedia：AI生成的虚构百科全书项目引发社区热议</title>
+      <link>https://news.ycombinator.com/item?id=48038257</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍AI生成的虚构百科全书项目Hallucinopedia，涉及AI技术应用和创新，符合用户感兴趣的AI软件技术进展和开源项目主题</small></p><p>Hallucinopedia 是一个创新的 AI 生成内容项目，它创建了一个"不存在的宇宙的百科全书"。该项目在 Hacker News 上获得了 262 分和 232 条评论，引发了广泛讨论。</p>
+
+<p>这个网站使用人工智能技术动态生成虚构的百科条目，只有当用户访问特定主题时，相应的文章才会被创建并永久缓存。技术实现上，它目前依赖 JavaScript 加载内容，作者表示将很快实现服务器端渲染（SSR）。</p>
+
+<p>社区反应呈现多样化：一些用户赞赏其创意和幽默感，特别是网站上关于 <a href="https://halupedia.com/y-combinator">Y Combinator 的虚构文章</a>被认为是对硅谷文化的巧妙讽刺。然而，也有用户担忧这类项目可能对网络生态造成负面影响，因为 AI 训练数据可能被这些虚构内容污染。</p>
+
+<p>有趣的是，用户测试发现 Google AI 已经对虚构的"1887年大鸽子普查"做出了回应，这引发了关于 AI 内容可靠性的讨论。评论中还提到了其他类似项目，如 <a href="https://encyclopedai.stavros.io">EncyclopedAI</a> 和 <a href="https://grokipedia.com/">Grokipedia</a>。</p>
+
+<p>项目作者在评论中积极回应用户反馈，包括考虑添加"讨论页面"功能以展示文章中的争议点，这模仿了真实百科全书的编辑讨论机制。</p>
+
+<p>这个项目不仅展示了 AI 生成内容的潜力，也引发了关于网络信息真实性、AI 训练数据质量以及创意表达边界的深入讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48038257</guid>
+      <pubDate>Wed, 06 May 2026 16:37:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ SQLite被美国国会图书馆列为推荐数据存储格式，社区讨论其长期保存价值</title>
       <link>https://news.ycombinator.com/item?id=48042434</link>
@@ -1212,51 +1271,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47963316</guid>
       <pubDate>Thu, 30 Apr 2026 14:43:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 开发者重建AppAnne并推出Appkittie应用分析平台</title>
-      <link>https://news.ycombinator.com/item?id=47973203</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 核心主题为应用分析平台的发布，属于high_interest的'编程工具发布/分享'类别，结合AI洞察功能，是开发者工具的重要进展</small></p><p>开发者宣布重建了应用商店分析平台AppAnne，并推出了新的服务Appkittie。该平台提供AI驱动的应用商店洞察分析，帮助用户发现热门应用、分析排名趋势、跟踪增长模式。</p>
-
-<p>Appkittie的主要功能包括：查看任何应用的下载量、收入数据、广告投放情况以及关键词表现。该服务旨在为应用开发者和市场研究人员提供全面的应用商店数据分析工具。</p>
-
-<p>这个产品发布在Hacker News上获得了310个点赞，显示了社区对这一工具的兴趣。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47973203</guid>
-      <pubDate>Fri, 01 May 2026 10:41:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ IBM发布Granite 4.1：8B密集模型性能媲美32B MoE模型</title>
-      <link>https://news.ycombinator.com/item?id=47960507</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要主题是IBM发布新的开源AI模型Granite 4.1，属于'新AI模型发布公告'类别，用户配置为很感兴趣，且涉及开源项目和AI技术进展等用户感兴趣主题</small></p><p>IBM近日发布了Granite 4.1系列开源语言模型，专为企业应用设计。该系列包含3B、8B和30B三个版本，均采用Apache 2.0许可证。最引人注目的是8B参数的密集架构模型，在多项基准测试中表现优异，甚至能与上一代32B参数的混合专家（MoE）模型相媲美。</p>
-
-<img src="https://firethering.com/wp-content/uploads/2026/04/Granite-4.1-IBMs-8B-Model-Is-Competing-With-Models-Four-Times-Its-Size.jpg" alt="Granite 4.1 IBM's 8B Model Is Competing With Models Four Times Its Size" width="1200" height="675" />
-
-<p>在ArenaHard基准测试中，8B指令模型获得69.0分，超过了上一代32B MoE模型。在BFCL V3工具调用基准测试中，8B模型得分为68.3，同样优于32B模型的64.7。GSM8K数学推理测试中，8B模型达到92.5分的高分。</p>
-
-<p>IBM采用了五阶段训练策略，在15万亿token上进行训练，特别注重数据质量。训练过程中，他们构建了严格的数据过滤系统，使用LLM-as-Judge评估每个助手响应的六个维度，包括指令遵循、正确性、完整性等。低于阈值的样本会被剔除，确保训练数据质量。</p>
-
-<p>强化学习过程分为四个阶段：第一阶段联合训练九个领域，第二阶段通过RLHF提升聊天质量，第三阶段进行身份和知识校准，第四阶段专门恢复因RLHF受损的数学能力。这种多阶段方法成功解决了训练过程中的性能回归问题。</p>
-
-<img src="https://firethering.com/wp-content/uploads/2026/04/Granite-4.1-AI-models-benchmarks-scaled.webp" alt="Granite 4.1 AI models benchmarks" width="2560" height="1194" />
-
-<p>模型支持512K上下文长度，通过分阶段扩展方法实现：先扩展到32K，然后是128K，最后到512K。每个扩展阶段后，IBM都会进行模型合并，以保护短上下文性能。RULER基准测试显示，8B基础模型在32K上下文时得分为83.6，在128K时降至73.0。</p>
-
-<p>Hacker News社区对此反应热烈，获得297个赞和191条评论。用户讨论主要集中在：</p>
-<ul>
-<li>有用户询问是否发布了嵌入模型，其他用户指出IBM确实发布了311M和97M版本的Granite Embedding Multilingual R2</li>
-<li>关于模型性能比较，有用户提到Qwen 3.6表现更优，而Gemma 4在工具调用和代理工作方面存在不足</li>
-<li>讨论MoE架构的价值，有观点认为密集架构适合小型模型，而MoE更适合大型模型</li>
-<li>有用户对文章写作风格提出批评，认为包含典型的LLM表达模式</li>
-<li>关于开源许可的讨论，确认模型采用Apache 2.0许可证，商业使用无限制</li>
-</ul>
-
-<p>模型可通过Ollama、Hugging Face、vLLM和Transformers等多种方式运行。FP8量化版本可将内存占用减少约一半，同时保持大部分性能。对于需要可靠工具调用、可预测延迟和清晰许可证的生产环境，Granite 4.1值得考虑。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47960507</guid>
-      <pubDate>Thu, 30 Apr 2026 10:31:17 GMT</pubDate>
     </item>
   </channel>
 </rss>
