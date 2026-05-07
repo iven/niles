@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 07 May 2026 17:02:09 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 07 May 2026 18:58:25 GMT</lastBuildDate>
+    <item>
+      <title>个人博客流量观察：RSS订阅流量超越Google搜索</title>
+      <link>https://news.ycombinator.com/item?id=48043964</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲个人博客流量观察（RSS订阅 vs Google搜索），属于个人博客运营分析。不在用户明确感兴趣（编程工具、AI模型等）或明确要避开（NFT、汽车等）的范畴内，故判定为可选内容。</small></p><p>一位博主分享了对个人网站流量来源的观察，发现RSS和Atom订阅带来的访问量超过了Google搜索流量。通过简单的本地统计工具，博主在过去28天内记录了不同来源的访问数据。</p>
+
+<p><img src="https://shkspr.mobi/blog/wp-content/uploads/2026/05/page-views.webp" alt="Atom 13774. Google 10833. RSS 10419. DuckDuckGo 2302. Email 2123." width="553" height="395" /></p>
+
+<p>数据显示，Atom订阅带来13774次访问，RSS订阅10419次，合计24193次，而Google搜索为10833次。其他流量来源包括DuckDuckGo（2302次）和邮件订阅（2123次）。博主承认数据存在局限性，因为RSS阅读器可能自动下载内容而不代表实际阅读，他通过文章末尾的懒加载图片来尝试追踪实际打开情况。</p>
+
+<p>Hacker News社区对此展开了讨论。有评论指出存在选择偏差，因为博主主要撰写开放网络标准等主题，对RSS用户群体特别有吸引力。另一些讨论聚焦于RSS流量与搜索流量的本质差异：RSS用户是主动订阅者，而搜索用户是带着特定目的偶然访问。</p>
+
+<p>社区还讨论了AI聊天摘要（如Google的AI Overviews）对内容创作者的影响，有用户提到这导致搜索点击率大幅下降，被称为"Google Zero"现象。同时，RSS被视作逃离算法控制互联网的重要工具，尽管企业平台往往因商业利益而放弃对RSS的支持。</p>
+
+<p>技术方面，有用户分享了使用语言嵌入和LLM技术来组织和分类RSS内容的经验，展示了如何通过AI技术改善信息过载问题。整体而言，这个单一数据点反映了个人博客在当今互联网生态中的独特流量模式，以及RSS技术对独立内容创作者的重要性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48043964</guid>
+      <pubDate>Thu, 07 May 2026 00:40:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Val Town 从 Clerk 迁移到 Better Auth：社交应用为何需要自主用户表</title>
       <link>https://news.ycombinator.com/item?id=48038827</link>
@@ -1248,29 +1267,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47972447</guid>
       <pubDate>Fri, 01 May 2026 08:29:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Honker – 在 SQLite 文件中实现持久队列、流、发布/订阅和定时任务调度器</title>
-      <link>https://news.ycombinator.com/item?id=47963316</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 基于SQLite的编程工具分享，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>Honker 是一个 SQLite 加载扩展，为开发者提供了在单个 SQLite 文件中实现持久队列、事件流、发布/订阅和定时任务调度的能力。该项目旨在解决 SQLite 作为主要数据存储时，需要额外消息队列系统带来的复杂性问题。</p>
-
-<img src="/_astro/honker.DaDfuCrv_Z2dOHq9.webp" alt="honker goose logo" width="400" height="400" />
-
-<p>与传统方案需要引入 Redis 或 RabbitMQ 等外部消息代理不同，Honker 将队列直接嵌入到业务数据所在的同一个 SQLite 文件中。这意味着业务写入和队列操作可以在同一个事务中完成，实现了原子性提交或回滚。例如，在插入订单记录的同时，可以将发送邮件的任务入队，两者要么同时成功，要么同时失败。</p>
-
-<p>技术实现上，Honker 通过每毫秒轮询 SQLite 的 <code>PRAGMA data_version</code> 来检测数据库提交事件。这是一个单调递增的计数器，每次提交时都会增加，读取成本约为 3 微秒。当检测到变化时，后台线程会通知所有订阅者获取新数据。这种设计避免了客户端轮询，也不需要独立的守护进程或代理。</p>
-
-<p>项目提供了多种语言绑定，包括 Python、Node.js、Rust、Go、Ruby、Bun 和 Elixir，所有绑定共享相同的磁盘格式。开发者可以使用熟悉的语言接口进行操作，底层都是同一个 SQLite 扩展。</p>
-
-<p>在 Hacker News 的讨论中，社区成员对 Honker 的轮询机制提出了讨论。有评论认为每毫秒一次的 SELECT 操作虽然轻量，但相比内核文件监视器可能并非最优设计。作者回应称这种设计在 SQLite 的上下文中是合理的，特别是当数据库大部分时间在页面缓存中时，轮询成本很低。</p>
-
-<p>评论中还提到了其他类似工具，如支持 SQLite 的 Oban、Graphile Worker 等。有用户指出，Honker 特别适合那些处于中间地带的场景：比内存队列更可靠，但又不值得引入 Kafka 等重型基础设施的项目。</p>
-
-<p>安装方式因语言而异，可以通过各语言的包管理器获取，也可以直接编译 SQLite 扩展源码。项目文档提供了完整的 API 参考和使用示例。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47963316</guid>
-      <pubDate>Thu, 30 Apr 2026 14:43:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
