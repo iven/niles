@@ -3,7 +3,48 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 08 May 2026 19:44:22 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 08 May 2026 21:15:37 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 开发者遭遇实际UUID v4碰撞，揭示随机数生成器质量隐患</title>
+      <link>https://news.ycombinator.com/item?id=48060054</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及UUID碰撞和随机数生成器质量问题，属于编程实践经验分享，用户对编程效率改进经验很感兴趣，故推荐</small></p><p>一位开发者在Hacker News上分享，其系统在仅约15,000条记录的情况下，意外遭遇了UUID版本4（UUIDv4）碰撞。原记录生成于2025年，而今日系统新生成的文档竟产生了完全相同的UUID：b6133fd6-70fe-4fe3-bed6-8ca8fc9386cd。该开发者使用npm的<a href="https://www.npmjs.com/package/uuid">uuid包</a>，仅调用<code>uuidv4()</code>函数生成标识符，未做任何修改。</p>
+
+<p>社区讨论指出，此类碰撞虽统计概率极低，但实际上并不罕见。核心问题在于UUIDv4的安全性依赖于高质量熵源（entropy source），而硬件缺陷、软件漏洞或开发者对「高质量熵源」理解的不足，均可能导致熵源失效。由于检测熵源故障成本较高，多数系统并未实施监控，往往在碰撞发生时才察觉问题。</p>
+
+<p>评论中提及，许多高可靠性与高保障软件系统明确禁止使用UUIDv4，因其依赖的随机性假设在实际环境中易被打破。替代方案包括：</p>
+<ul>
+<li><strong>UUID版本7（UUIDv7）</strong>：结合时间戳与随机数，既提高可排序性，又降低纯随机碰撞风险，但可能泄露时间信息。</li>
+<li><strong>结构化标识符</strong>：使用128位结构化数值（无概率成分），必要时通过AES-128加密对外提供，既保证唯一性又不泄露内部状态。</li>
+<li><strong>分布式ID生成方案</strong>：如Snowflake算法，融合时间戳、机器ID和序列号。</li>
+</ul>
+
+<p>熵源多样性成为讨论焦点。CloudFlare著名的<a href="https://blog.cloudflare.com/harnessing-office-chaos/">熔岩灯墙</a>虽被部分视为公关展示，但其象征意义在于强调多源熵值采集的重要性。其他熵源建议包括大气噪声（如<a href="https://www.random.org/">random.org</a>）、摄像头暗噪声、放射性衰变（如<a href="https://www.fourmilab.ch/hotbits/">HotBits</a>）等。</p>
+
+<p>开发者亦反思自身流程：早期版本在用户设备生成UUID，后迁移至服务器端，环境差异可能影响熵源质量。数据库通过<code>UNIQUE</code>约束发现重复，凸显了即使概率极低，碰撞风险仍现实存在。</p>
+
+<p><strong>你知道吗？</strong></p>
+<p>UUIDv4完全由随机位构成，不包含时间戳或MAC地址信息。其122位随机空间（约5.3×10³⁶种可能）理论上使碰撞「几乎不可能」，但前提是随机数生成器（RNG）完美无瑕。现实中，操作系统、硬件或库实现的缺陷均可导致熵源质量下降。相较之下，UUIDv1基于时间戳与MAC地址，UUIDv3/5基于命名空间与MD5/SHA-1哈希，UUIDv6/7/8则为较新变体，旨在平衡排序、唯一性与隐私。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48060054</guid>
+      <pubDate>Fri, 08 May 2026 07:57:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Mojo 编程语言发布 1.0 Beta 版本</title>
+      <link>https://news.ycombinator.com/item?id=48057901</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Mojo编程语言发布1.0 Beta版本，属于编程工具发布/分享，用户对此类内容很感兴趣，故列为必看</small></p><img src="/img/mojo-wordmark-letters.svg" alt="Mojo" />
+<p>Mojo 编程语言近日发布了 1.0 Beta 版本，旨在结合 Python 的易用性与 C++ 的性能，支持从 CPU 到 GPU 的多种硬件，同时保证内存安全。该语言的设计理念是“像 Python 一样编写，像 C++ 一样运行”，让开发者无需在生产力与性能之间做出妥协。</p>
+<p>Mojo 融合了现代编程语言的多个优点：采用 Python 直观的语法、借鉴 Rust 的内存安全特性以及 Zig 强大的编译时元编程能力。作为“AI 原生”语言，Mojo 专为在现代 AI 系统所需的多样化硬件上提供最佳性能而构建。它使 GPU 编程变得更加普及，无需依赖厂商特定的库或单独编译的代码，即可在同一语言中编写高性能的 CPU 和 GPU 内核。</p>
+<p>Mojo 与 Python 具有原生互操作性，允许开发者将现有 Python 代码中的性能瓶颈逐步迁移到 Mojo，而无需重写整个项目。此外，Mojo 的编译时元编程使用与运行时相同的语言，提供了直观的系统来最大化性能。</p>
+<p>官方公布了 Mojo 的发展路线图，分为四个阶段：第一阶段（已完成）包括核心解析器、内存类型、函数等基础语言特性；第二阶段（进行中）专注于高性能 CPU 和 GPU 编码；第三阶段将扩展至系统应用编程，提供更强的内存安全保证；第四阶段计划支持更多 Python 动态特性，如类、继承和无类型变量，以最大化与 Python 代码的兼容性。</p>
+<p>目前，Mojo 的标准库已在 GitHub 上完全开源，但编译器仍处于闭源状态。开发团队计划在 2026 年开源编译器，并承诺最终将完全开源整个 Mojo 语言。</p>
+<p>在社区讨论中，开发者对 Mojo 的闭源编译器表示担忧，认为这会影响其广泛采用。同时，有观点指出 Julia 在类似领域已更加成熟，且 NVIDIA、AMD 和 Intel 等厂商也在提供类似的 Python GPU 编程方案。关于 Mojo 与 Python 的兼容性，最初宣传的“直接编译现有 Python 代码”愿景尚未实现，目前主要通过互操作方式逐步迁移性能关键代码。此外，Mojo 的“AI 原生”定位也引发了一些讨论，部分开发者认为这可能会限制其更广泛的应用场景。</p>
+<p>总体而言，Mojo 作为一个新兴的编程语言，其试图桥接高性能系统编程与 Python 生态的愿景颇具吸引力，但能否获得广泛采用仍需时间验证。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48057901</guid>
+      <pubDate>Fri, 08 May 2026 02:49:01 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Meshtastic 简介：基于 LoRa 的离网网状通信平台</title>
       <link>https://news.ycombinator.com/item?id=48061566</link>
@@ -1229,56 +1270,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=47991802</guid>
       <pubDate>Sun, 03 May 2026 00:01:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 开源模型Kimi K2.6在编程挑战中击败Claude、GPT-5.5和Gemini</title>
-      <link>https://news.ycombinator.com/item?id=47993235</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讲述开源AI模型Kimi K2.6在编程竞赛中击败多个主流模型，主题涉及新AI模型发布、AI技术进展和开源项目，完全匹配用户高兴趣配置</small></p><p>在AI编程竞赛的第12天"Word Gem Puzzle"挑战中，中国初创公司Moonshot AI的开源权重模型Kimi K2.6以22分（7胜1平0负）的成绩获得第一名，击败了包括Claude Opus 4.7、GPT-5.5和Gemini Pro 3.1在内的多个西方前沿模型。</p>
-
-<img src="https://thinkpol.ca/wp-content/uploads/2026/04/tp_cover.png" alt="A colourful 7x7 Word Gem Puzzle board with KIMI highlighted in green and CLAUDE in purple" width="450" height="450" />
-
-<p>Word Gem Puzzle是一个滑动字母拼图游戏，玩家需要在10×10到30×30的网格上滑动相邻字母到空白处，并识别有效的英语单词。比赛采用客观评分系统，奖励长单词并惩罚短单词。十款模型参与了比赛，但Nvidia的Nemotron Super 3因代码包含语法错误未能连接服务器。</p>
-
-<p>Kimi K2.6采用贪婪策略：不断滑动以解锁新的高分值单词，当没有正面选择时回退到按字母顺序的第一个合法方向。这种策略在30×30的大网格上特别有效，因为初始单词基本被打乱，需要大量滑动来重建单词。相比之下，小米的MiMo V2-Pro采用完全不同的静态扫描策略，仅识别初始网格中已存在的长单词，不进行任何滑动。</p>
-
-<p>比赛结果显示，Kimi累计得分77分最高，MiMo以43分获得第二，两者仅差2分。GPT-5.5排名第三，Claude Opus 4.7排名第五。有趣的是，GLM 5.1成为比赛中最激进的滑动者，总滑动次数超过80万次，但经常在正面移动耗尽时停滞。DeepSeek V4每轮都发送格式错误的数据，而Muse则因识别并提交所有短单词（包括惩罚性短词）而获得-15,309分的灾难性成绩。</p>
-
-<p>社区讨论中，用户对开源模型能与前沿闭源模型竞争表示欢迎。有用户指出，Kimi K2.6在Artificial Analysis Intelligence Index上得分为54分，与GPT-5.5的60分和Claude的57分差距不大。用户们讨论了实际使用体验，包括Kimi的订阅成本（约20美元/月）比使用Anthropic API便宜20倍，但也提到Kimi在处理复杂任务时可能需要更长的思考时间。</p>
-
-<p>一些用户分享了使用经验：Kimi在规划方面接近Claude Opus水平，适合日常使用，但在处理大型复杂库时可能过度思考并填满其256k上下文窗口。社区普遍认为，开源前沿模型的出现改变了竞争格局，为开发者提供了更多选择。</p>
-
-<p>文章作者指出，这一结果反映了开源模型与闭源前沿模型之间的差距正在缩小。虽然单一挑战不能推翻通用基准测试，但Kimi K2.6的表现表明，当模型能力接近前沿水平且可免费下载时，竞争格局已与一年前大不相同。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47993235</guid>
-      <pubDate>Sun, 03 May 2026 04:05:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ladybird 浏览器 2026 年 4 月更新：性能大幅提升，Reddit 和 YouTube 兼容性显著改善</title>
-      <link>https://news.ycombinator.com/item?id=47990318</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Ladybird浏览器性能更新，属于开源项目和软件新功能，用户配置为感兴趣，推荐阅读。</small></p><p>Ladybird 浏览器项目在 2026 年 4 月取得了显著进展，共合并了来自 35 位贡献者的 333 个拉取请求，其中 7 位是首次贡献者。项目获得了新的赞助支持，包括人权基金会通过"AI for Individual Rights"项目提供的 5 万美元赞助。</p>
-
-<p>本月的主要技术改进包括：</p>
-
-<ul>
-<li><strong>PDF 查看功能</strong>：通过集成的 pdf.js 实现了内联 PDF 查看器，支持页面导航、文本选择和缩放功能。<img src="/assets/img/newsletter-apr-2026-pdf-viewer.png" alt="Inline PDF viewer" /></li>
-<li><strong>浏览历史管理</strong>：基于 SQLite 的浏览历史存储系统，支持地址栏智能自动补全，显示访问过的页面、收藏图标和标题。<img src="/assets/img/newsletter-apr-2026-autocomplete.png" alt="Address bar autocomplete with history-aware suggestions" /></li>
-<li><strong>HTML 解析优化</strong>：实现了推测性和增量 HTML 解析，能够在主解析器阻塞时提前获取资源，显著提升页面加载性能。</li>
-<li><strong>JavaScript 引擎性能提升</strong>：多项优化包括离线程编译、更快的 JS 调用、优化的寄存器分配器、缓存的 for-in 迭代等，Speedometer 2 分数从 67.7 提升至 73.6。</li>
-<li><strong>新前端界面</strong>：新增基于 GTK4 和 libadwaita 的 Linux 前端，遵循 GNOME 设计指南。</li>
-<li><strong>CSS 功能增强</strong>：支持 image-set() 响应式图像、CSS 锚点定位、颜色插值重写等新特性。<img src="/assets/img/newsletter-apr-2026-image-set-before.png" alt="Before" /> <img src="/assets/img/newsletter-apr-2026-image-set-after.png" alt="After" /></li>
-<li><strong>网络性能优化</strong>：异步 DNS 查询、内存流优化，减少网络延迟。</li>
-</ul>
-
-<p>在网站兼容性方面，<strong>Reddit</strong> 和 <strong>YouTube</strong> 的体验得到显著改善。Reddit 的图片轮播现在正常工作，无限滚动性能提升；YouTube 受益于离线程 JS 编译、字体优化等多重改进。其他网站如 gocomics.com、yandex.com/maps、strava.com 等也修复了各种兼容性问题。</p>
-
-<p>Web Platform Tests (WPT) 分数从 2,003,537 提升至 2,067,263，其中包含新导入的 test262 JavaScript 测试套件，Ladybird 在其中取得了 97.8% 的通过率。</p>
-
-<p>社区讨论中，用户对项目进展表示兴奋，有人将浏览器开发比作游戏模拟器开发，每个网站就像不同的游戏 ROM。也有讨论关注赞助商背景、浏览器兼容性挑战以及 DRM 支持等问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47990318</guid>
-      <pubDate>Sat, 02 May 2026 20:46:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
