@@ -3,7 +3,40 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 09 May 2026 03:53:56 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 09 May 2026 06:27:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ WebRTC专家批评OpenAI语音AI技术选择：WebRTC不适合语音AI应用</title>
+      <link>https://news.ycombinator.com/item?id=48051951</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论语音AI技术选择和WebRTC适用性问题，属于AI软件技术进展范畴，用户配置为感兴趣级别。</small></p><p>一位在Twitch和Discord有丰富WebRTC开发经验的专家发表文章，批评OpenAI在语音AI产品中使用WebRTC协议的决定。作者认为WebRTC是为实时会议设计的，不适合语音AI应用场景。</p>
+
+<p>文章指出WebRTC存在多个根本性问题：首先，WebRTC为了保持低延迟会主动丢弃音频数据包，这在网络条件不佳时会导致语音提示不完整。作者表示，对于语音AI应用，用户宁愿多等待200毫秒获得准确的响应，也不愿接受因丢包导致的垃圾输出。</p>
+
+<img src="/blog/webrtc-is-the-problem/car.png" alt="car or wash" />
+
+<p>其次，WebRTC缺乏缓冲机制，而语音AI的文本转语音（TTS）通常比实时更快生成音频。理想情况下应该流式传输并缓冲音频，但WebRTC基于到达时间渲染，迫使OpenAI人为添加延迟后再丢弃数据包来"保持低延迟"。</p>
+
+<p>在技术层面，WebRTC的端口管理存在问题：每个连接需要分配临时端口，但在大规模部署时端口数量有限，防火墙也经常阻止这些端口。OpenAI的解决方案是仅解析STUN头部，但这破坏了源IP/端口变化时的连接恢复功能。</p>
+
+<img src="/blog/webrtc-is-the-problem/trenchcoat.png" alt="trenchcoat" />
+
+<p>连接建立需要至少8次往返时间（RTT），即使信令和媒体服务器在同一主机上也需要冗余握手。作者认为这些复杂性都源于WebRTC需要支持点对点（P2P）通信，而语音AI通常只需要客户端-服务器架构。</p>
+
+<img src="/blog/webrtc-is-the-problem/rtt.png" alt="8 RTTS ahead" />
+
+<p>作为替代方案，作者建议OpenAI考虑使用WebSocket传输音频，或者采用基于QUIC的WebTransport。QUIC具有连接ID机制，支持无状态负载均衡，连接建立只需1次RTT，更适合大规模部署。</p>
+
+<p>在Hacker News的讨论中，有评论者指出文章观点片面，认为WebRTC的复杂性反映了实时媒体在公共互联网上的真实挑战。另一些用户则赞同WebRTC确实难以实现，特别是SDP、TURN/STUN、ICE候选等概念的复杂性。关于延迟问题存在分歧：部分用户认为对话流畅性至关重要，不能接受额外延迟；而作者澄清是指在网络拥塞时，宁愿等待也不愿丢包。</p>
+
+<img src="/blog/webrtc-is-the-problem/chad.png" alt="QUIC is chad" />
+
+<p>还有评论提到OpenAI的语音模式实际上是语音到语音（speech-to-speech），而非文本转语音，这导致转录可能不完全匹配实际对话。WebRTC维护者Sean-Der回应称，最新语音AI趋势是20毫秒级的流式处理，用户期望即时响应，中断会破坏体验。</p>
+
+<p>作者承认OpenAI工程师面临前所未有的扩展压力，但认为WebRTC不是语音AI的最佳选择，其扩展难度大，协议本身存在根本缺陷。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48051951</guid>
+      <pubDate>Thu, 07 May 2026 17:11:59 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AI技术正在打破两种传统的漏洞披露文化</title>
       <link>https://news.ycombinator.com/item?id=48066524</link>
@@ -1245,27 +1278,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48000028</guid>
       <pubDate>Sun, 03 May 2026 18:42:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 从AI精神病到规格说明驱动开发：Acai.sh工具包如何通过YAML规格提升AI编程质量</title>
-      <link>https://news.ycombinator.com/item?id=47994012</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍开源编程工具Acai.sh，通过YAML规格提升AI编程质量，涉及编程工具发布、AI编程效率改进、开源项目等多个用户高兴趣主题</small></p><p>作者分享了在使用AI辅助编程过程中经历的"AI精神病"——过度依赖AI工具导致代码质量下降的问题，并提出了通过编写详细规格说明的解决方案。他开发了开源工具包Acai.sh，使用YAML格式的feature.yaml文件来管理功能规格说明。</p>
-
-<p>文章核心观点是：在AI时代，规格说明变得比代码本身更重要。作者提出了"ACIDs"（Acceptance Criteria IDs）概念，为每个需求分配唯一标识符，并在代码中引用这些标识符，从而建立规格说明与代码之间的可追溯关系。这种方法旨在减少AI生成的"垃圾代码"，提高软件质量。</p>
-
-<p>Acai.sh工具包包含四个主要步骤：1）使用feature.yaml格式编写规格说明；2）让AI代理在代码中引用ACIDs；3）通过仪表板审查需求完成情况；4）迭代改进。作者认为这种方法在严谨性和灵活性之间找到了平衡点。</p>
-
-<img src="https://mintcdn.com/acai/LaJ29xrIxyCm5Sr_/images/desktop-feature-impl-view.png?fit=max&auto=format&n=LaJ29xrIxyCm5Sr_&q=85&s=d39e3b8b4643b0dbe281efa19c454146" alt="Dashboard showing status updates for the Staging implementation of the form-editor feature." width="2400" height="1600" />
-
-<p>Hacker News社区对此展开了热烈讨论（254条评论）。支持者认为这种方法有助于管理AI生成的代码，批评者则认为这只是在优化自然语言使用，而AI本身存在根本性缺陷。一些评论者提到了类似工具如<a href="https://github.com/Fission-AI/OpenSpec/blob/main/docs/getting-started.md">OpenSpec</a>、GitHub SpecKit等，并讨论了结构化规格说明与自由格式文档的权衡。</p>
-
-<p>作者在评论中强调："规格说明必须存在于某个地方，即使你不写下来，它也会存在于你的脑海中或对话中。你和你的团队、你的业务总会关心规格说明的内容，这永远不会改变。所以最好现在就把它写下来！"</p>
-
-<p>文章反映了当前AI编程工具使用中的一个重要趋势：随着AI生成代码能力的增强，如何确保代码质量、如何管理需求与实现之间的关系成为了新的挑战。Acai.sh代表了向规格说明驱动开发的一种尝试，试图在AI辅助编程的便利性与软件工程的最佳实践之间找到平衡。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=47994012</guid>
-      <pubDate>Sun, 03 May 2026 06:33:38 GMT</pubDate>
     </item>
   </channel>
 </rss>
