@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 10 May 2026 21:03:23 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2026 22:01:23 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 本地AI应成为软件开发的新常态</title>
+      <link>https://news.ycombinator.com/item?id=48085821</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨本地AI作为软件开发新常态，属于AI软件技术进展和编程效率改进领域，用户对此类主题感兴趣。</small></p><p>一篇技术文章指出，当前软件开发中过度依赖云端AI服务的趋势正在催生脆弱、侵犯隐私且存在根本缺陷的应用程序。作者呼吁开发者回归本地计算，充分利用设备自身的神经网络引擎处理AI任务。</p>
+
+<p>文章批评了开发者简单调用OpenAI或Anthropic等云端API的"懒惰"做法，认为这种做法不仅带来数据隐私、服务依赖和系统复杂性等问题，还使应用程序在服务器宕机或信用卡过期时立即失效。作者强调，现代移动设备拥有强大的计算能力，其专用的神经网络引擎大多处于闲置状态，而用户却在等待弗吉尼亚州服务器农场的JSON响应，这显得十分荒谬。</p>
+
+<p>作者以自己开发的新闻聚合应用"The Brutalist Report"为例，展示了本地AI的实际应用。该应用的iOS客户端使用苹果的本地模型API在设备上直接生成文章摘要，无需将数据发送到云端服务器。<img src="/images/brutalist_ios_main.png" alt="Brutalist iOS Main View" /> <img src="/images/brutalist_ios_readerview.png" alt="Brutalist iOS AI View" /> <img src="/images/brutalist_ios_aiview.png" alt="Brutalist iOS AI View" /></p>
+
+<p>技术实现方面，文章详细介绍了苹果生态系统中的本地AI工具。开发者可以使用<code>SystemLanguageModel.default</code>检查模型可用性，并通过<code>LanguageModelSession</code>与本地模型交互。更重要的是，苹果推动了从非结构化文本输出向类型化数据的转变，开发者可以定义Swift结构体来描述期望的输出格式，让模型生成结构化的类型实例，这大大提升了工程化水平。</p>
+
+<p>针对"本地模型不够智能"的常见质疑，作者回应道：大多数应用功能并不需要能够撰写莎士比亚作品、解释量子力学或通过律师考试的超人模型。对于总结、分类、提取、重写或规范化等任务，本地模型完全可以表现出色。本地AI的真正优势在于处理用户已有的数据，而不是充当整个互联网的搜索引擎。</p>
+
+<p>Hacker News社区的讨论反映了对这一观点的多元看法。有评论者支持本地AI的方向，认为这是对抗科技巨头控制的重要途径；也有用户指出硬件限制的现实问题，表示当前消费级设备运行本地模型在响应时间和上下文长度方面仍有挑战。部分评论者讨论了技术突破的可能性，认为一旦出现重大创新，现有的AI数据中心可能变得无关紧要。还有人对AI泡沫表示担忧，将其与互联网泡沫相提并论。</p>
+
+<p>总体而言，文章主张开发者应更审慎地选择AI实现方式：只有在真正必要时才使用云端模型，尽可能将用户数据保留在本地设备上，并将AI作为具有类型化输出和可预测行为的可靠子系统来使用，而不是简单地将其作为聊天框粘接到应用中。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48085821</guid>
+      <pubDate>Sun, 10 May 2026 17:19:28 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GitHub沉没：微软收购后的质量下滑与迁移替代方案探讨</title>
       <link>https://news.ycombinator.com/item?id=48085095</link>
@@ -1248,27 +1269,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48019163</guid>
       <pubDate>Tue, 05 May 2026 07:26:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>Google Chrome未经同意静默安装4GB AI模型到用户设备</title>
-      <link>https://news.ycombinator.com/item?id=48019219</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讨论Google Chrome未经同意安装AI模型的隐私争议，虽涉及AI技术但偏向负面报道，与用户对技术进展的兴趣匹配度一般</small></p><p>隐私专家Alexander Hanff发现，Google Chrome浏览器在未经用户明确同意的情况下，静默下载并安装一个约4GB的Gemini Nano AI模型到用户设备上。该模型文件名为weights.bin，存储在用户配置文件的OptGuideOnDeviceModel目录中。</p>
-
-<img src="/blog/assets/2026-05-04-001.png" alt="Google Chrome silently installs a 4 GB AI model on your device without consent. At a billion-device scale the climate costs are insane." />
-
-<p>文章通过macOS的.fseventsd文件系统事件日志详细记录了这一过程：在一个全新创建的审计配置文件中，Chrome在用户零交互的情况下，仅用14分28秒就完成了4GB模型文件的下载和安装。当用户删除该文件后，Chrome会在符合条件的时机自动重新下载，除非用户通过chrome://flags禁用相关AI功能或使用企业策略工具。</p>
-
-<p>作者指出，这一行为与之前Anthropic Claude Desktop案例的模式完全相同，包括：跨信任边界的强制捆绑、无选择加入机制、移除比安装更困难、预置用户未请求的功能、使用模糊命名（OptGuideOnDeviceModel而非GeminiNanoLLM）、自动重新安装等。</p>
-
-<p>法律分析认为这可能违反《电子隐私指令》（ePrivacy Directive）第5(3)条、<a href="https://gdpr-info.eu/">GDPR</a>第5(1)条的合法性、公平性和透明度原则，以及第25条的数据保护设计义务。环境分析估算，以Chrome的全球规模（约20-30亿用户），单次模型推送可能产生6,000至60,000吨CO2当量排放。</p>
-
-<p>Hacker News社区对此反应强烈，335条评论中，用户主要关注：同意机制的缺失、对有限数据流量用户的影响（4GB可能消耗一个月的流量配额）、环境分析的合理性，以及替代浏览器的选择。部分用户认为这是Google典型的越界行为，建议转向Firefox等其他浏览器。</p>
-
-<p>目前，普通用户阻止这一行为的唯一方法是：1）在chrome://flags中禁用所有AI相关功能；2）使用企业策略工具；3）完全卸载Chrome浏览器。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48019219</guid>
-      <pubDate>Tue, 05 May 2026 07:34:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
