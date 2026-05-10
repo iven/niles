@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 09 May 2026 23:01:55 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2026 00:01:41 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 网站管理员禁止查询字符串以抵制追踪参数</title>
+      <link>https://news.ycombinator.com/item?id=48076173</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论网站管理员禁止查询字符串的技术实现以抵制追踪参数，属于隐私保护技术和实用软件技术范畴，符合用户对技术进展的兴趣但非核心高兴趣主题</small></p><p>一位网站管理员宣布在自己的网站上全面禁止查询字符串，主要针对其他人在链接中添加的追踪参数。作者表示不喜欢人们在URL中添加追踪信息，特别是未经允许的ref、utm_source等参数。</p>
+
+<p>作者在自己的网站上实施了一个全面禁令：禁止未经授权的查询字符串。目前该网站不使用任何查询字符串，如果将来需要使用，也只允许已知的参数。对于包含查询字符串的请求，网站会返回HTTP 414（URI Too Long）错误，作者承认这有点滥用状态码，但认为这样更有趣。</p>
+
+<p>在Hacker News社区的讨论中，观点存在分歧。支持者认为添加追踪参数侵犯用户隐私，是不礼貌的行为。反对者则认为查询字符串有很多合法用途，如<a href="https://news.ycombinator.com/item?id=48076173">搜索查询、分页、筛选等</a>，不应该一概禁止。有评论者提到，查询字符串有时会破坏链接功能，造成不可预测的问题。</p>
+
+<p>技术讨论方面，有评论者指出查询字符串在Web标准中定义明确，是URL的一部分，服务器有权拒绝未知参数。还有人讨论了查询字符串与路径的区别，以及它们的历史演变。</p>
+
+<p>这场讨论反映了Web开发社区对于隐私保护、用户体验和技术标准的不同看法。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48076173</guid>
+      <pubDate>Sat, 09 May 2026 16:28:36 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Bun 从 Zig 到 Rust 的实验性重写达到 99.8% 测试兼容性</title>
       <link>https://news.ycombinator.com/item?id=48073680</link>
@@ -1238,27 +1255,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48006445</guid>
       <pubDate>Mon, 04 May 2026 09:40:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>现代文本用户界面（TUI）的无障碍访问困境：为何终端应用对屏幕阅读器用户不友好</title>
-      <link>https://news.ycombinator.com/item?id=48002938</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论文本用户界面的无障碍访问问题，属于技术实践范畴。虽涉及开发者效率意识，但非用户高度关注的编程工具发布或AI模型进展主题，兴趣相对不明确。</small></p><p>文章指出，许多开发者存在一个普遍误解：认为在终端中运行的应用程序天生就具备无障碍访问特性，因为内容是纯文本。然而现实是，大多数现代文本用户界面（TUI）对无障碍访问的支持甚至比编写不佳的图形界面更差。</p>
-
-<p>文章区分了命令行界面（CLI）和文本用户界面（TUI）的关键差异：CLI 采用标准的输入/输出流模型，操作是线性和时序的，这对屏幕阅读器（如 Speakup、NVDA）非常友好；而 TUI 则将终端窗口视为二维像素网格，放弃了时间流而采用空间布局，导致光标频繁跳跃和屏幕重绘。</p>
-
-<p>以基于 Ink 框架的 gemini-cli 工具为例，当 AI 在“思考”时，工具会更新计时器或旋转图标，这会导致光标在屏幕上快速移动。对于屏幕阅读器用户来说，他们会听到“正在响应...已用时间 1 秒...正在响应...已用时间 2 秒...”等混杂的语音片段，使得无法专注于实际输入的内容。更糟糕的是，当历史记录增长时，粘贴大段文本可能导致严重的输入延迟，甚至使屏幕阅读器崩溃。</p>
-
-<p>相比之下，传统的终端工具如 nano、vim、menuconfig 和 Irssi 之所以能正常工作，是因为它们允许用户隐藏光标或使用终端硬件特性（如 VT100 滚动区域）。这些工具通过最小化光标干扰和利用终端原生功能，为屏幕阅读器提供了相对稳定的体验。</p>
-
-<p>文章批评了现代 TUI 框架（如 Ink、Bubble Tea、tcell）过度优化开发者体验，却忽视了无障碍访问需求。作者指出，Google 等维护者对无障碍问题报告（如 Issue #3435、#11305）的处理方式令人失望，这些问题被自动关闭而非解决。</p>
-
-<p>社区讨论中，用户指出问题的根源不仅在于声明式 UI 框架，更在于渲染引擎和终端模拟器缺乏对无障碍访问的支持。有评论提到，许多 GPU 渲染的终端模拟器（如 Kitty、Alacritty）根本不与系统无障碍 API 交互，导致屏幕阅读器无法读取文本内容。Mitchell Hashimoto 指出，整个技术栈都需要改进，包括终端规范、TUI 框架和终端模拟器之间的协作。</p>
-
-<p>一些用户认为，现代 TUI 本质上是“穿着终端外衣的 Web 应用”，但却缺乏 Web 平台的无障碍选项。也有开发者表示，如果关心无障碍访问，应避免使用将终端视为画布的声明式 UI 框架，而应优先考虑线性、流式的 CLI 设计。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48002938</guid>
-      <pubDate>Sun, 03 May 2026 23:59:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
