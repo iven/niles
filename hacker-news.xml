@@ -3,7 +3,79 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 11 May 2026 04:21:19 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 11 May 2026 08:35:29 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 开发者分享AI编程教训：7个月vibe-coding后决定重新手动设计架构</title>
+      <link>https://news.ycombinator.com/item?id=48090029</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 分享AI编程在复杂项目中的局限性经验，涉及编程效率改进主题，符合用户对编程效率改进经验的高度兴趣</small></p><p>一位开发者在Hacker News上分享了使用AI辅助编程（他称之为"vibe-coding"）7个月后的经验教训。他开发了一个名为k10s的GPU感知Kubernetes TUI工具，完全依赖Claude AI生成代码，最终发现项目架构存在严重问题，决定归档项目并从头开始重写。</p>
+
+<p>该项目是一个面向NVIDIA GPU集群的Kubernetes仪表板，类似k9s但专注于GPU利用率、DCGM指标监控。开发者表示，最初几周使用AI编程时效率极高，感觉像是在以10倍速度开发。但随着项目复杂度增加，问题开始显现。</p>
+
+<img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/k10s/gpuview.webp" alt="GPU集群视图界面" />
+
+<p>当开发者尝试添加GPU集群视图功能后，发现其他视图停止工作，数据出现混乱。这时他第一次仔细阅读了AI生成的代码，发现了一个1690行的"上帝对象"（god object）——一个包含所有UI组件、K8s客户端、各视图状态、导航历史、缓存等所有内容的单一结构体。Update()方法更是长达500行，包含110个switch/case分支。</p>
+
+<p>开发者总结了四个关键教训：</p>
+
+<ol>
+<li><strong>AI构建功能而非架构</strong>：AI能完美实现单个功能，但缺乏对整体架构的把握。每个新功能都在同一个结构体中添加条件分支，导致代码耦合严重。</li>
+<li><strong>上帝对象是AI的默认产物</strong>：AI倾向于创建包含一切的单一结构体，因为这能满足即时需求且仪式感最少。但导致键位处理混乱，同一个按键在不同视图中有不同功能。</li>
+<li><strong>速度幻觉扩大项目范围</strong>：AI编程让每个功能看起来都很"便宜"，导致项目范围不断扩大，从专门的GPU工具变成了通用的Kubernetes TUI。</li>
+<li><strong>位置数据是定时炸弹</strong>：AI生成的代码使用位置索引访问数据，而非类型安全的方式。</li>
+</ol>
+
+<img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/k10s/logswork.webp" alt="日志视图界面" />
+
+<p>开发者现在决定：1）用Rust重写项目，因为他更熟悉Rust且借用检查器能帮助发现并发问题；2）在编写任何代码前，先手动完成设计工作，制定具体的接口、消息类型和所有权规则；3）在CLAUDE.md中明确架构约束，让AI遵循这些规则。</p>
+
+<p>在Hacker News的讨论中，读者们提出了各种观点：有人质疑使用AI是否真的节省时间，如果还需要手动设计架构、检查代码；有人指出问题的本质是缺乏架构设计，而非语言选择；还有人认为标题有误导性，因为开发者并非完全放弃AI，而是改变使用方式。</p>
+
+<img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/k10s/resourceview.webp" alt="资源视图界面" />
+
+<p>开发者回应说，他曾尝试让AI重构代码，但每次尝试都破坏了其他功能，而且每天的Claude使用限制让这个过程更加困难。他认为重写可能比修复现有代码更高效。</p>
+
+<p>这篇文章的核心观点是：AI是强大的工具，但不能替代人类的架构设计能力。开发者需要先明确架构约束，然后让AI在约束范围内工作，而不是让AI自由发挥。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48090029</guid>
+      <pubDate>Mon, 11 May 2026 01:23:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 在24GB内存M4 MacBook Pro上运行本地语言模型的实践经验</title>
+      <link>https://news.ycombinator.com/item?id=48089091</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍在MacBook上运行本地AI模型的实践，主要关注AI技术应用，虽涉及Mac硬件但核心是AI技术进展</small></p><p>一位开发者分享了在配备24GB内存的M4 MacBook Pro上运行本地语言模型的实践经验。经过多次尝试，作者发现Qwen 3.5-9B（4位量化）是最适合的选择，通过LM Studio运行，配合Pi或OpenCode作为前端界面，能够获得约40 tokens/秒的推理速度，并支持128K上下文窗口。</p>
+
+<p>作者详细记录了配置过程：需要启用思考模式，并推荐了针对编码任务的参数设置（temperature=0.6, top_p=0.95, top_k=20等）。文章提供了Pi和OpenCode的具体配置文件示例，包括如何隐藏思考过程的显示。</p>
+
+<p>在实际使用中，该配置成功处理了Elixir代码的lint警告修复，能够识别并正确修改代码中的问题。但在处理git冲突时，模型虽然能分析出解决方案，却在执行时忘记实际编辑文件，导致操作失败。</p>
+
+<p>作者坦承本地模型与前沿SOTA模型存在明显差距：更容易分心、陷入循环或误解指令，无法独立解决复杂问题。但通过交互式工作流程，逐步指导模型，仍能作为研究助手和编程参考工具使用。</p>
+
+<p>社区讨论中，用户澄清了M4指的是M4 MacBook Pro而非Nvidia Tesla M4。多位用户分享了各自的本地模型运行经验，包括Gemma 4 31B在更大内存设备上的表现。讨论还涉及本地模型与云端订阅服务的经济性比较，有用户指出花费800美元/月购买云端服务相当于30年的订阅费用才能抵上一台高配MacBook Pro的价格。</p>
+
+<p>值得注意的是，多位用户强调本地模型与前沿模型（如Opus 4.7、ChatGPT 5.5）在编码和问题解决能力上仍有显著差距，提醒读者保持合理期望。不过，本地模型的优势在于无需网络连接、无订阅费用、隐私保护以及可以离线工作等。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48089091</guid>
+      <pubDate>Sun, 10 May 2026 23:09:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>《Think Linear Algebra》：代码优先的线性代数实践指南</title>
+      <link>https://news.ycombinator.com/item?id=48082396</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 线性代数的编程实践指南，属于编程教学类，配置中无直接匹配但有相关性，主题相对专业</small></p><p>Allen Downey的《Think Linear Algebra》是一本基于Creative Commons许可的免费教材，采用"代码优先"的教学方法，通过Jupyter笔记本和实际案例帮助读者理解线性代数的核心概念。</p>
+
+<p>该书与传统线性代数教材不同，从实际应用问题出发，如网络流量建模、GPS跟踪数据分析、电路系统求解等，使用Python和NumPy、SciPy、SymPy、NetworkX等库构建解决方案。每章都围绕一个具体问题展开，让读者在实践中掌握矩阵乘法、特征向量、向量投影、LU分解、QR分解等概念。</p>
+
+<p>社区讨论中，用户对教材的教学顺序（矩阵乘法在向量加法之前介绍）提出了一些看法，但普遍赞赏这种实践导向的方法。多位用户提到Allen Downey的<a href="https://github.com/AllenDowney/ThinkStats">《Think Stats》</a>等系列书籍曾帮助他们理解复杂概念，称赞作者的知识共享精神。</p>
+
+<p>有用户建议教材可以增加主成分分析（PCA）、典型相关分析（CCA）等统计主题章节，以展示scikit-learn中相关算法的实现原理。其他用户则分享了他们在商业问题中成功应用线性代数的经验。</p>
+
+<p>该书适合那些在传统数学教学中遇到困难，或者希望通过编程实践来学习线性代数的读者，特别适用于机器学习、科学计算、计算机图形学等领域的学习者。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48082396</guid>
+      <pubDate>Sun, 10 May 2026 09:40:33 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 本地AI应成为软件开发的新常态</title>
       <link>https://news.ycombinator.com/item?id=48085821</link>
@@ -1197,78 +1269,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48024540</guid>
       <pubDate>Tue, 05 May 2026 16:14:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>人工智能三大逆向法则：人类如何安全地与AI互动</title>
-      <link>https://news.ycombinator.com/item?id=48023861</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 标题涉及AI伦理安全但概念模糊，不在用户明确的高兴趣或感兴趣主题中，且摘要缺失无法进一步判断，属于可选内容</small></p><p>随着生成式人工智能（AI）的普及，作者提出了"人工智能三大逆向法则"，作为对人类如何与AI系统互动的指导原则。这些法则是对阿西莫夫机器人三定律的逆向思考，旨在保护人类免受AI误用带来的风险。</p>
-
-<p><strong>三大逆向法则包括：</strong></p>
-<ol>
-<li><strong>非拟人化原则</strong>：人类不应将情感、意图或道德能动性赋予AI系统。现代聊天机器人虽然设计得对话友好，但本质上只是基于数据模式生成文本的大型统计模型。作者建议AI供应商应让系统听起来更机械化而非更人性化，以减少用户将流畅语言误认为理解或判断的风险。</li>
-<li><strong>非盲从原则</strong>：人类不应盲目信任AI系统的输出。AI生成的内容必须经过适合其上下文的独立验证。由于AI的随机性本质，即使系统改进到高度可靠，仍有可能产生包含错误的输出，这在错误微妙但代价高昂的背景下尤其危险。</li>
-<li><strong>非责任推卸原则</strong>：人类必须对涉及AI的决策负全责，并对使用AI产生的后果承担责任。AI系统是工具，使用工具的责任在于决定依赖它的人和组织。"AI告诉我们要这么做"不应成为有害结果的借口。</li>
-</ol>
-
-<p><strong>社区讨论要点：</strong></p>
-<p>Hacker News社区的讨论（196条评论）反映了对这一话题的广泛关注：</p>
-<ul>
-<li>许多用户分享了他们如何快速停止拟人化AI的经历，一旦了解其架构原理，就不再认为AI具有意识</li>
-<li>有评论指出，拟人化可能是认知上最简单的互动模型，就像人们会对植物或工具产生情感依恋一样</li>
-<li>关于产品设计的讨论：聊天界面本身就鼓励拟人化以增加参与度，这需要在产品层面而非用户自律层面解决</li>
-<li>用户分享了向非技术人员解释AI局限性的各种类比方法，如"每次都问不同的路人"或"俄罗斯轮盘赌"</li>
-<li>有评论者认为这些法则虽然合理，但难以在实践中应用，因为人类天生会拟人化、盲目信任并推卸责任</li>
-</ul>
-
-<p>作者强调，这些法则并非完美无缺的解决方案，但可以作为思考AI风险的框架，帮助人们保持清醒的判断，认识到AI是我们选择使用的工具，而非我们顺从的权威。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48023861</guid>
-      <pubDate>Tue, 05 May 2026 15:27:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI删除数据库事件：工具无责，系统设计有责</title>
-      <link>https://news.ycombinator.com/item?id=48022742</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论AI应用中的责任问题，侧重系统设计和开发决策，而非AI技术进展本身，与用户兴趣匹配度一般</small></p><p>针对近期社交媒体上疯传的「AI代理删除生产数据库」事件，作者指出问题的核心不在于人工智能工具本身，而在于糟糕的系统设计和决策流程。文章通过个人经历和社区讨论，探讨了技术责任归属的根本问题。</p>
-
-<p>作者回顾了自己在2010年的亲身经历：由于手动部署流程的失误，他不小心删除了版本控制系统的trunk分支。这次错误反而促使团队建立了自动化部署流程，最终发展成完整的CI/CD管道。作者强调，自动化能够消除重复性手动工作带来的人为错误，而当前的AI更像是人工复制粘贴代码，容易犯错且无法解释自己的行为逻辑。</p>
-
-<p>针对引发争议的事件，作者提出关键质疑：为什么一个面向公众的API能够删除整个生产数据库？如果AI没有调用这个端点，其他人最终也可能会调用。这就像在汽车仪表盘上安装自毁按钮一样危险。</p>
-
-<img src="https://cdn.idiallo.com/images/assets/568/thumb.jpg" alt="5 Years Away" width="300" height="176" />
-
-<p>Hacker News社区的讨论进一步丰富了这一话题。许多评论者赞同作者观点，认为这是流程失败而非AI失败。有用户详细描述了事件背景：AI在操作staging环境时使用了具有广泛权限的token，导致意外删除了生产数据和备份。云服务提供商Railway随后修复了部分安全问题，使类似错误不再那么灾难性。</p>
-
-<p>其他评论将AI比作「拥有博士学位的幼儿」或随机数生成器，强调在关键系统中使用非确定性工具的风险。讨论还涉及权限管理、安全设计和备份策略的重要性，指出许多公司给予工程师对生产环境的常规访问权限本身就是根本问题。</p>
-
-<img src="https://cdn.idiallo.com/images/assets/606/thumb.jpg" alt="We Were Never Good Programmers" width="300" height="176" />
-
-<p>文章最后提出解决方案：如果广泛使用AI，应该建立流程让有能力的开发者将其作为增强工作的工具，而不是逃避责任的方式。关键在于了解部署到生产环境的内容，并确保系统设计能够防止灾难性错误的发生。</p>
-
-<img src="https://cdn.idiallo.com/images/assets/637/thumb.png" alt="What is Copilot exactly?" width="300" height="176" />
-
-<p><strong>你知道吗？</strong>这次讨论反映了技术行业长期存在的责任转移现象——从早期的「黑客干的」到现在的「AI干的」，问题的本质大致相同。正如一位评论者指出的，在D&D 3.5版规则中，只有在失败没有后果的情况下才能「取20」获得保证的成功，这一概念同样适用于AI应用：在可能产生严重后果的任务中使用非确定性工具需要格外谨慎。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48022742</guid>
-      <pubDate>Tue, 05 May 2026 14:07:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Rust 异步编译器优化深度分析：解决嵌入式环境中的二进制膨胀问题</title>
-      <link>https://news.ycombinator.com/item?id=48019163</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 深度分析Rust编译器优化技术，针对异步代码在嵌入式环境中的二进制膨胀问题提供技术解决方案，属于编程效率改进经验，与用户高兴趣领域高度匹配</small></p><p>一位嵌入式软件工程师深入分析了 Rust 异步编程在编译器层面的优化问题，指出异步 Rust 自推出以来一直存在显著的二进制大小膨胀，特别是在资源受限的嵌入式环境中。</p>
-
-<p>文章揭示了几个关键问题：即使没有 await 点的异步函数也会生成完整的状态机；Future 完成后的再次 poll 会 panic 而不是返回 Pending；嵌套的异步函数缺乏有效内联优化；相同的代码路径会产生重复的状态。这些问题导致异步代码在嵌入式环境中产生不必要的二进制膨胀。</p>
-
-<p>作者提出了具体的编译器优化方案：在 release 模式下让已完成 Future 的 poll 返回 Pending 而非 panic；无 await 的异步函数不应生成状态机；实现异步函数内联优化；合并相同的状态。初步测试显示，这些优化可以在嵌入式环境中节省 2-5% 的二进制大小，在 x86 基准测试中带来约 3% 的性能提升。</p>
-
-<p>Hacker News 社区对此展开了热烈讨论。有评论认为标题过于戏剧化，但认可内容的深度价值。用户们讨论了异步函数着色（function coloring）问题、嵌入式环境中优化的重要性，以及 Rust 异步实现与其他语言的比较。作者在评论中回应称，自 2019 年异步功能推出以来，其核心机制基本没有变化，现在需要社区推动改进。</p>
-
-<p>作者已提交一个<a href="https://rust-lang.github.io/rust-project-goals/2026/async-statemachine-optimisation.html">项目目标</a>，寻求 30,000 欧元的资金来在编译器层面实现这些优化，并呼吁受益的公司或组织提供资助。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48019163</guid>
-      <pubDate>Tue, 05 May 2026 07:26:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
