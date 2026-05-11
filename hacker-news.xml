@@ -3,7 +3,36 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 11 May 2026 21:39:01 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 11 May 2026 23:10:44 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Swift中LLM训练优化：从Gflop/s到Tflop/s的矩阵乘法性能提升</title>
+      <link>https://news.ycombinator.com/item?id=48085685</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题是编程语言中的矩阵乘法性能优化，核心匹配high_interest的'编程效率改进经验'，同时涉及LLM训练优化属于interest的'AI软件技术进展'。Swift语言相关但iOS属性不明显，编程效率改进是主要主题。</small></p><p>本文是作者Matt Gallagher在Swift中训练大型语言模型（LLM）系列的第一部分，详细介绍了如何通过多种优化技术将矩阵乘法性能从最初的2.8 Gflop/s提升到1.1 Tflop/s。</p>
+
+<p>作者基于Andrej Karpathy的llm.c（一个纯C实现的GPT2兼容模型）作为参考实现，尝试在Swift中实现相同的功能。初始的Swift实现性能极差，仅为C版本的7.3%，训练迭代速度只有0.014次/秒。</p>
+
+<p>文章逐步展示了多个优化步骤：</p>
+
+<ol>
+<li><strong>使用mutableSpan</strong>：解决Swift数组的COW（写时复制）开销问题，使训练性能提升3倍</li>
+<li><strong>引入Relaxed数学运算</strong>：使用Swift-Numerics的Relaxed.multiplyAdd实现融合乘加（FMA）操作，获得近10倍的速度提升</li>
+<li><strong>循环展开优化</strong>：利用Swift 6.2的InlineArray特性，实现类似C的循环展开策略</li>
+<li><strong>SIMD向量化</strong>：通过手动向量化进一步提升性能</li>
+<li><strong>Metal GPU实现</strong>：最终达到1.1 Tflop/s的性能</li>
+</ol>
+
+<img src="/assets/blog/cwlllmswift.png" alt="CwlLlmSwift showing comparison between all engines on the TinyShakespeare training set" width="800px" />
+
+<p>性能对比结果显示，经过优化的Swift实现最终达到1.1 Tflop/s，虽然仍低于M3 Max GPU理论上的15 Tflop/s能力，但对于此类任务的实际天花板通常在3-5 Tflop/s范围内。</p>
+
+<p>社区评论中，用户对这篇文章给予了高度评价，认为即使不关心LLM应用，这也是关于Swift性能优化的优秀教程。有评论指出，在机器学习/AI应用中可以使用<code>-ffast-math</code>标志来启用FMA操作，但在其他需要数值精度的应用中应谨慎使用。</p>
+
+<p>你知道吗？作者提到，虽然苹果提供了多个机器学习框架（如Core ML、ML Compute等），这些框架经过了多年的矩阵内核优化，但本文采用"无框架、无库"的纯代码方法，旨在探索Swift语言本身的性能潜力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48085685</guid>
+      <pubDate>Sun, 10 May 2026 17:05:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ NVIDIA 推出官方 Rust 到 CUDA 编译器 cuda-oxide</title>
       <link>https://news.ycombinator.com/item?id=48096692</link>
@@ -1229,36 +1258,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48028842</guid>
       <pubDate>Tue, 05 May 2026 21:26:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Red Squares：用红色方块可视化GitHub平台中断情况的讽刺贡献图</title>
-      <link>https://news.ycombinator.com/item?id=48034587</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GitHub平台中断的可视化讽刺项目，属于编程工具相关开源项目，对编程工具使用者有参考价值</small></p><p>Red Squares 是一个讽刺性的可视化项目，它模仿 GitHub 的贡献图，但用红色方块来追踪 GitHub.com 平台的中断情况，而不是传统的绿色方块表示代码提交。该项目通过直观的方式展示了 GitHub 服务可靠性问题的时间分布。</p>
-
-<p>从可视化图表中可以观察到明显的模式：中断主要发生在工作日，周末相对较少。Hacker News 社区对此展开了热烈讨论，用户们提出了多种可能的原因：</p>
-
-<ul>
-<li>工作日有更多的部署活动，可能导致更多中断</li>
-<li>工作日的用户负载更高，增加了系统压力</li>
-<li>GitHub 将部分问题归因于 AI 使用量的增加</li>
-<li>周五中断较少可能是因为有"周五不部署"的规定</li>
-</ul>
-
-<p>一位自称前 GitHub 员工（用户名 rufo）分享了内部部署细节：GitHub 采用持续部署模式，大约每 60-90 分钟部署一次，24小时不间断（工作日）。有趣的是，过去 GitHub 在无人部署时反而更不可靠，因为存在资源泄漏问题，需要定期重启应用来缓解。</p>
-
-<p>用户们还讨论了其他相关话题：</p>
-<ul>
-<li>有用户怀疑 Azure 基础设施可能是问题根源，并引用了 Axel Rietschin 关于 Azure 问题的文章</li>
-<li>欧洲用户表示在工作时间后使用 GitHub，较少遇到中断问题</li>
-<li>美国用户则在工作日高峰时段受到更大影响</li>
-<li>多位用户赞赏该项目的简洁设计，与过度使用 AI 生成动画的现代网站形成对比</li>
-</ul>
-
-<p>该项目提供了一个独特的视角来看待平台可靠性问题，引发了关于现代软件开发部署实践、基础设施可靠性和监控工具设计的深入讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48034587</guid>
-      <pubDate>Wed, 06 May 2026 10:28:40 GMT</pubDate>
     </item>
   </channel>
 </rss>
