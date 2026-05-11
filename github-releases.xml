@@ -3,7 +3,28 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 11 May 2026 18:02:35 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 11 May 2026 20:02:33 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.139 发布：新增代理视图、目标命令和多项功能改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.139</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布了 v2.1.139 版本，带来多项重要功能更新和问题修复。本次更新引入了代理视图功能作为研究预览，用户可以通过 <code>claude agents</code> 命令查看所有会话状态。新增的 <code>/goal</code> 命令允许设置完成条件，Claude 会持续工作直到目标达成，并在交互式、<code>-p</code> 和远程控制模式下显示实时进度。</p>
+
+<p>其他新增功能包括 <code>/scroll-speed</code> 命令用于调整鼠标滚轮滚动速度，以及 <code>claude plugin details &lt;name&gt;</code> 命令查看插件组件清单和预计令牌消耗。转录视图增加了导航功能，包括 <code>?</code> 查看键盘快捷键、<code>{</code>/<code>}</code> 在用户提示间跳转等。</p>
+
+<p>技术改进方面，MCP stdio 服务器现在可以接收 <code>CLAUDE_PROJECT_DIR</code> 环境变量，插件配置可以引用 <code>${CLAUDE_PROJECT_DIR}</code>。压缩提示现在要求模型保留敏感用户指令，<code>/context all</code> 的每技能令牌估算现在考虑模型的标记器并显示四舍五入值。</p>
+
+<p>本次更新修复了多个重要问题，包括修复了过期凭证导致的死锁问题、修复了 <code>autoAllowBashIfSandboxed</code> 不自动批准包含 shell 扩展的命令、修复了钩子写入终端可能损坏屏幕交互提示的问题。还修复了 HTTP/SSE MCP 服务器流式传输非协议数据时的内存无限增长问题，现在每个 SSE 帧的响应体限制为 16 MB。</p>
+
+<p>界面和交互方面，修复了打字光标在标签名称、列表指针和对话框选择行上闪烁的问题，修复了转录视图字母快捷键在鼠标点击后失效的问题，修复了 Bash 模式下上箭头历史重复第一个条目并覆盖进行中草稿的问题。还修复了深色主题下超链接使用难以阅读的深海军蓝色的问题，现在它们会适应活动主题。</p>
+
+<p>对于 VS Code 用户，现在可以按 Cmd/Ctrl+Shift+T 重新打开最近关闭的会话标签，可通过 <code>claudeCode.enableReopenClosedSessionShortcut</code> 配置。</p>
+
+<p>其他修复包括：修复了设置热重载不检测符号链接 <code>~/.claude/settings.json</code> 的编辑、修复了插件详情在市场键与清单名称不同时加载失败、修复了 <code>/model</code> 选择器中"默认"行不反映环境变量覆盖等问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.139</guid>
+      <pubDate>Mon, 11 May 2026 18:43:42 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.138 版本发布：内部修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.138</link>
@@ -1492,43 +1513,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.17.1</guid>
       <pubDate>Tue, 31 Mar 2026 20:27:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>Devbox 0.17.0 发布：Git 插件支持扩展、Nushell 兼容性改进和多项功能增强</title>
-      <link>https://github.com/jetify-com/devbox/releases/tag/0.17.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 0.17.0 版本带来了多项重要更新，主要关注插件系统扩展、shell 兼容性改进和开发工具集成优化。</p>
-
-<h3>重要新功能</h3>
-<ul>
-<li><strong>Git 插件支持扩展</strong>：现在可以从任何 Git 仓库（支持 git+ssh、git+http、git+file 传输协议）加载插件，不再局限于 GitHub，支持指定分支、修订版本或子目录</li>
-<li><strong>Nushell 全局包支持</strong>：<code>devbox global shellenv</code> 现在在 Nushell 中正常工作，自动生成原生 Nushell 兼容的输出</li>
-<li><strong>独立的 .envrc 目录控制</strong>：新增 <code>--envrc-dir</code> 标志，允许独立控制 <code>.envrc</code> 文件的写入位置，解决 direnv 和 devbox 配置在不同目录的情况</li>
-<li><strong>Zsh ZDOTDIR 支持</strong>：正确处理 Zsh 的 <code>ZDOTDIR</code> 环境变量，修复引用该变量的 Zsh 配置</li>
-<li><strong>PostgreSQL 插件端口配置</strong>：PostgreSQL 插件现在支持通过 <code>PGPORT</code> 环境变量配置端口，支持同时运行多个 PostgreSQL 实例</li>
-<li><strong>Process Compose 监控增强</strong>：新增 <code>devbox services pcport</code> 查看端口，<code>devbox services ls</code> 显示进程 ID、命名空间、运行时间、健康状态和重启次数</li>
-</ul>
-
-<h3>重要 Bug 修复</h3>
-<ul>
-<li>修复 process-compose 合并配置时的重复 <code>-f</code> 标志错误</li>
-<li>修复 macOS 上 Elixir 插件因 Darwin SDK 模式变更导致的问题</li>
-<li>修复 NixOS 上 <code>.envrc</code> 文件的 shebang 兼容性问题（改为 <code>/usr/bin/env bash</code>）</li>
-<li>修复 VS Code "在 Devbox shell 环境中重新打开" 在 WSL 中的功能</li>
-<li>修复 VS Code Devbox shell 中 <code>HOME</code> 环境变量被剥离的问题</li>
-</ul>
-
-<h3>依赖和运行时更新</h3>
-<ul>
-<li>process-compose 升级到 1.87.0（从 1.64.1）</li>
-<li>最低 Nix 版本要求提升到 2.18</li>
-<li>内置 Nix 安装器切换到上游实验性安装器</li>
-</ul>
-
-<p>此版本还包含了多项依赖更新、文档改进和代码质量提升，共有 15 位新贡献者参与。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.17.0</guid>
-      <pubDate>Wed, 04 Mar 2026 00:04:42 GMT</pubDate>
     </item>
   </channel>
 </rss>

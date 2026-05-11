@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 11 May 2026 18:02:49 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 11 May 2026 20:03:19 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ NVIDIA 推出官方 Rust 到 CUDA 编译器 cuda-oxide</title>
+      <link>https://news.ycombinator.com/item?id=48096692</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 核心主题是编程工具发布（Rust到CUDA编译器），直接匹配用户「很感兴趣」的编程工具发布类别，虽然涉及NVIDIA芯片技术（用户不太感兴趣），但主要关注点是新开发工具</small></p><p>NVIDIA 实验室发布了 cuda-oxide，这是一个实验性的 Rust 到 CUDA 编译器，允许开发者使用安全的 Rust 语法编写 GPU 内核。该项目目前处于早期 alpha 阶段（v0.1.0），存在错误和不完整功能。</p>
+
+<img src="_images/logo.png" alt="cuda-oxide logo" />
+
+<p>cuda-oxide 的核心特性包括：使用 Rust 类型系统和所有权模型编写 GPU 内核；作为 SIMT 编译器而非领域特定语言（DSL），通过自定义 rustc 代码生成后端将纯 Rust 代码编译为 PTX；支持异步执行，可将 GPU 工作组合为惰性的 DeviceOperation 图。</p>
+
+<p>社区对 cuda-oxide 的反应积极。开发者 arpadav 表示，该项目看起来可以成为现有 Rust CUDA 库（如 <a href="https://crates.io/crates/cudarc">cudarc</a>）的近替代品，并特别关注编译时间问题。他指出，大多数 Rust CUDA 库依赖调用 CMake 或 nvcc，可能导致编译缓慢。</p>
+
+<p>然而，也有开发者指出，cuda-oxide 仍依赖 NVIDIA 的闭源 CUDA 编译器 nvcc，对于关注开源软件的用户来说，这并未解决根本问题。rvz 评论道："这仍然使用 NVIDIA 的闭源 CUDA 编译器 'nvcc'，他们永远不会开源。"</p>
+
+<p>技术讨论方面，开发者们关注 Rust 内存模型如何映射到 CUDA 语义，以及 Rust 类型系统是否能真正为 CUDA 带来更多安全性。cyber_kinetist 表示："我很好奇他们如何处理 Rust 的内存模型，这可能不会整齐地映射到 CUDA 的语义上。"</p>
+
+<p>项目文档解释了安全模型，包括安全层、基本安全层和不安全层。由于并行工作的特殊性，一些笨拙的设计是必要的，因为它们无法轻易适应 Rust 的 Send/Sync 模型。</p>
+
+<p>开发者们还讨论了自动微分（AD）作为一等公民的重要性，以及与其他语言（如 Julia）的对比。rowanG077 表示："我个人真的不想要没有将 AD 作为一等公民的新 GPU 语言。"</p>
+
+<p>总体而言，cuda-oxide 代表了 NVIDIA 对 Rust 生态系统的正式支持，为希望在 GPU 计算中使用 Rust 的开发者提供了官方解决方案，尽管仍处于早期阶段且存在一些限制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48096692</guid>
+      <pubDate>Mon, 11 May 2026 15:55:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Ratty：支持内联 3D 图形的终端模拟器</title>
       <link>https://news.ycombinator.com/item?id=48093100</link>
@@ -1234,41 +1259,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48034587</guid>
       <pubDate>Wed, 06 May 2026 10:28:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cloudflare 与 Stripe 合作推出新协议，允许 AI 代理自动创建账户、购买域名并部署应用</title>
-      <link>https://news.ycombinator.com/item?id=48031684</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲AI代理自动化的编程工具集成（Cloudflare与Stripe合作），属于编程工具发布/分享（high_interest）和AI软件技术进展（interest），用户会强烈感兴趣</small></p><p>Cloudflare 宣布与 Stripe 合作推出一项新协议，使 AI 代理能够代表用户自动完成从创建 Cloudflare 账户到部署生产应用的完整流程。该集成通过 Stripe Projects 实现，消除了传统部署中的人工干预环节。</p>
-
-<p>根据 Cloudflare 官方博客介绍，AI 代理现在可以执行以下操作：创建新的 Cloudflare 账户、启动付费订阅、注册域名，并立即获取 API 令牌来部署代码。用户只需在开始时授权并接受服务条款，之后无需访问仪表板、复制粘贴 API 令牌或输入信用卡信息。</p>
-
-<img src="https://cf-assets.www.cloudflare.com/zkvhlag99gkb/7zsV0PbSCJ5t1ImOeO6ymW/31f074c51b99bf86454aa201e43ed53f/image3.png" alt="" />
-
-<p>该协议基于三个核心组件：</p>
-<ol>
-<li><strong>服务发现</strong>：代理可以通过调用命令查询可用服务目录</li>
-<li><strong>授权机制</strong>：平台验证用户身份，允许提供商创建账户或链接现有账户</li>
-<li><strong>支付系统</strong>：平台提供支付令牌，允许代理启动订阅和进行购买</li>
-</ol>
-
-<p>在支付安全方面，Stripe 设置了每月 100 美元的默认消费限额，原始支付信息（如信用卡号）不会与代理共享。用户还可以在 Cloudflare 账户上设置预算提醒。</p>
-
-<p>Hacker News 社区对此反应热烈，获得了 380 分和 206 条评论。用户讨论主要集中在几个方面：</p>
-<ul>
-<li>有用户指出购买域名是这一功能的关键突破</li>
-<li>部分用户分享了他们使用 Claude 等 AI 代理购买域名并部署到 Vercel 的经验</li>
-<li>法律和责任问题成为讨论焦点，包括域名所有权、内容合规性以及代理行为的法律责任</li>
-<li>有评论担忧这可能导致更多低质量内容充斥网络</li>
-<li>一些用户讨论了这对 DevOps 和系统管理员工作的影响，认为 AI 代理可能自动化许多传统运维任务</li>
-</ul>
-
-<p>Cloudflare 表示，任何拥有登录用户的平台都可以以与 Stripe 相同的方式与 Cloudflare 集成，充当"协调者"角色。该公司还宣布为通过 Stripe Atlas 注册的新创业公司提供 10 万美元的 Cloudflare 信用额度。</p>
-
-<p>目前 Stripe Projects 处于公开测试阶段，用户可以通过安装 Stripe CLI 并登录 Stripe 来开始使用这一功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48031684</guid>
-      <pubDate>Wed, 06 May 2026 03:10:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
