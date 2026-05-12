@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 12 May 2026 12:10:11 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 12 May 2026 14:50:25 GMT</lastBuildDate>
+    <item>
+      <title>软件架构学习：从实践到社会激励的深度思考</title>
+      <link>https://news.ycombinator.com/item?id=48106024</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是关于软件架构学习方法，与编程相关但比较宏观，没有明确的工具发布或具体的效率改进内容，属于可选阅读</small></p><p>一位资深软件工程师回复物理学研究员的邮件，分享了对软件架构学习的深刻见解。作者认为软件设计最好通过实践学习，而非课堂理论，并以自己在IntelliJ Rust和rust-analyzer项目的经验为例说明。</p>
+
+<p>文章的核心观点是康威定律（Conway's Law）的重要性：软件架构会反映产生它的组织的社会结构。作者指出，工业软件与科学软件的主要差异不在于软件构建知识，而在于驱动人们生产软件的激励机制。例如，"三个月内需要发表博士论文"这样的时间压力会显著影响软件质量。</p>
+
+<p>作者以rust-analyzer项目为例，详细说明了如何根据项目的"物理现实"和"社会现实"设计架构。该项目同时具有深度（编译器核心）和广度（多种IDE功能）的特点。为了吸引不同类型的贡献者：</p>
+<ul>
+<li>对深度编译器部分，通过简化构建系统（不依赖rustc、使用稳定版本、无C依赖、快速测试）来吸引专注的核心贡献者</li>
+<li>对广度功能部分，采用模块化设计，每个功能运行时用catch_unwind隔离，降低贡献门槛，吸引"周末战士"（短期贡献者）</li>
+</ul>
+
+<p>作者推荐了一些学习资源，包括Gary Bernhardt的"Boundaries"演讲、Pieter Hintjens的ØMQ指南、Jamii的"Reflections on a decade of coding"等，但强调没有一本包含所有真理的书籍，实践是学习软件架构的必需元素。</p>
+
+<p>Hacker News社区讨论中，有评论者将软件架构学习与中国古代哲学思想对比：孔子式的学习（通过实践、反思、犯错逐渐培养判断力）和老子的"为学日益，为道日损"（通过减法去除不必要的抽象和复杂性）。其他讨论涉及SOLID原则的争议、不同编程范式对架构的影响，以及推荐《开源应用程序架构》等实践案例书籍的重要性。</p>
+
+<p>社区共识是：软件架构没有单一正确答案，它是艺术与科学的结合，需要在具体约束下做出最佳选择，并且架构最终往往反映了组织的社交结构和激励机制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48106024</guid>
+      <pubDate>Tue, 12 May 2026 09:30:21 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 《They Live》电影启发的广告拦截器：用电影标语替换广告</title>
       <link>https://news.ycombinator.com/item?id=48102700</link>
@@ -1236,29 +1259,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48037986</guid>
       <pubDate>Wed, 06 May 2026 16:17:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ CSS 实现多描边文字效果的技术探索与浏览器渲染差异分析</title>
-      <link>https://news.ycombinator.com/item?id=48032265</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章深入探讨CSS多描边文字实现技术及浏览器差异，属于编程效率改进经验，用户对此类技术内容感兴趣</small></p><p>本文介绍了如何使用 CSS 实现复古风格的多描边文字效果。作者原本尝试使用 CSS 的 <code>text-stroke</code> 属性来复制这种效果，但发现该属性只接受单个值，效果不理想。通过偶然为不同图层设置不同的 <code>text-stroke-width</code> 值，作者发现浏览器会自动绘制字符轮廓，从而实现了多描边效果。</p>
-
-<p><img src="/assets/images/post/multiple-text-stroke/from-book.webp" alt="pattern from book Graphic Japan : from woodblock and zen to manga and kawaii" /></p>
-
-<p>实现原理是通过设置不同的描边宽度，浏览器会自动绘制字符轮廓，描边宽度越大，轮廓越粗，同时保持原始形状。然后使用不同颜色并按顺序排列这些轮廓层。作者发现不同浏览器对字符轮廓的渲染方式存在显著差异：Firefox 提供更平滑的渲染效果，而 Chrome 和 Safari 的渲染则有所不同。</p>
-
-<p><img src="/assets/images/post/multiple-text-stroke/chrome.webp" alt="" />
-<img src="/assets/images/post/multiple-text-stroke/firefox.webp" alt="" /></p>
-
-<p>最终效果很大程度上取决于所选字体，作者使用了 <code>@google-font</code> 函数来快速加载不同字体进行实验。文章提到这种技术的性能与 CSS 滤镜类似，当字体尺寸变大时可能会出现闪烁，因此更适合实验或使用 <a href="https://css-doodle.com/">css-doodle</a> 生成图像，而不适合生产环境使用。</p>
-
-<p><img src="/assets/images/post/multiple-text-stroke/poster-1.webp" alt="" />
-<img src="/assets/images/post/multiple-text-stroke/poster-2.webp" alt="" /></p>
-
-<p>Hacker News 社区评论中，用户们讨论了浏览器渲染差异、替代方案（如使用阴影或 SVG），以及这项技术的实用性。一些用户赞赏这种创意实现，而另一些则建议使用更合适的工具如 SVG。还有用户提到了作者开发的 css-doodle 工具，这是一个允许在 HTML 中内联使用 CSS 变体的 Web 组件。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48032265</guid>
-      <pubDate>Wed, 06 May 2026 04:43:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
