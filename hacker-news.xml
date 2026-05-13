@@ -3,7 +3,58 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 13 May 2026 04:11:20 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 13 May 2026 07:24:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OrcaSlicer 恢复 Bambu Lab 打印机完整云端支持，引发用户隐私与自主权讨论</title>
+      <link>https://news.ycombinator.com/item?id=48115127</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为3D打印切片软件OrcaSlicer恢复云端功能及隐私讨论，属于编程工具发布和开源项目，用户很感兴趣</small></p><p><img src="/FULU-Foundation/OrcaSlicer-bambulab/raw/main/resources/images/OrcaSlicer.png" alt="OrcaSlicer logo" width="15%" height="15%" /> OrcaSlicer 的一个新版本恢复了 Bambu Lab 3D 打印机的完整 BambuNetwork 支持，允许用户通过互联网进行远程打印，而不再仅限于局域网使用。该项目提供了 Windows、Linux 和 macOS 的安装指南，其中 Windows 需要 WSL 2 支持。</p>
+
+<p>社区讨论揭示了用户对 Bambu Lab 强制云服务政策的强烈不满。Bambu Lab 目前提供两种工作模式：默认的云模式需要 Bambu Studio 并通过云端认证，以及局域网/开发者模式使用本地令牌但禁用远程监控功能。用户希望同时拥有本地认证和云端功能，但当前系统不允许两者并存。</p>
+
+<p>评论中多位用户表达了对隐私和数据安全的担忧，认为强制将打印数据路由通过公司控制的基础设施存在安全风险，特别是在实验室、初创公司和政府环境中使用时。有用户将这种情况与华为网络设备面临的审查相提并论。</p>
+
+<p>支持该项目的用户强调选择权的重要性：“我买了这个东西，让我决定如何使用它。” 同时也有用户表示远程监控功能确实实用，但希望有更好的本地模式用户体验。</p>
+
+<p>关于 Bambu Lab 的动机，社区存在多种猜测，包括数据收集、模型训练，甚至可能是为了应对未来可能的3D打印机监管法规。一些用户指出，某些州正在考虑将3D打印机像枪支一样严格监管，这可能促使制造商实施更严格的控制措施。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48115127</guid>
+      <pubDate>Tue, 12 May 2026 21:55:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ DuckDB 推出 Quack 客户端-服务器协议，支持多进程并发访问</title>
+      <link>https://news.ycombinator.com/item?id=48111765</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] DuckDB推出新的客户端-服务器协议Quack，属于编程工具重要更新，用户很感兴趣</small></p><p>DuckDB 团队近日发布了名为 "Quack" 的客户端-服务器协议，使 DuckDB 实例能够相互通信，支持多进程并发写入操作。这一协议基于 HTTP 构建，简单易用且性能出色。</p>
+
+<p>DuckDB 原本是一个进程内数据库系统，适用于数据科学和嵌入式应用场景，但在多进程并发访问同一数据库文件时存在限制。Quack 协议的推出解决了这一问题，允许 DuckDB 在客户端-服务器架构下运行。</p>
+
+<p>Quack 协议的设计特点包括：</p>
+<ul>
+<li>基于 HTTP 协议，兼容现有网络基础设施</li>
+<li>支持 DuckDB-Wasm 在浏览器中直接连接远程实例</li>
+<li>使用 application/duckdb MIME 类型进行高效序列化</li>
+<li>默认生成随机认证令牌，增强安全性</li>
+<li>支持自定义认证和授权回调函数</li>
+</ul>
+
+<p>性能测试显示，Quack 在批量数据传输方面表现优异。在传输 6000 万行数据（约 76GB CSV 格式）时，Quack 仅需 4.94 秒，而 Arrow Flight SQL 需要 17.40 秒，PostgreSQL 协议则需要 158.37 秒。</p>
+
+<img src="/images/blog/quack/quack-bulk-light.svg" alt="批量传输性能对比" width="809" height="514" />
+
+<p>在小规模写入测试中，Quack 同样表现出色，在 8 个并行线程下达到约 5,500 次事务/秒，优于 PostgreSQL 的 4,320 次事务/秒和 Arrow Flight 的 1,358 次事务/秒。</p>
+
+<img src="/images/blog/quack/quack-transactional-light.svg" alt="小规模写入性能对比" width="800" height="628" />
+
+<p>社区反馈显示，用户对这一协议表示欢迎。有用户提到 Quack 解决了他们在水平扩展方面的顾虑，也有用户表示这正好解决了他们需要同时运行服务器和查看数据的实际问题。不过也有评论对基于 HTTP 的设计提出质疑，认为 HTTP 不适合大数据传输和流式处理。</p>
+
+<p>DuckDB 团队表示，Quack 协议将作为扩展提供，目前已在 DuckDB v1.5.2 中通过 core_nightly 仓库可用。该协议的推出标志着 DuckDB 从单纯的进程内数据库向更通用的数据操作工具演进。</p>
+
+<p><strong>你知道吗？</strong> DuckDB 的名字来源于 "Duck Database"，而 Quack 协议的名称则延续了这一鸟类主题——鸭子之间通过 "嘎嘎叫"（quack）来交流。这种命名方式在技术项目中并不罕见，它有助于建立品牌识别度和社区认同感。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48111765</guid>
+      <pubDate>Tue, 12 May 2026 17:54:12 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Needle：将 Gemini 工具调用能力蒸馏至 2600 万参数模型，专为消费设备设计</title>
       <link>https://news.ycombinator.com/item?id=48111896</link>
@@ -1220,65 +1271,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48044638</guid>
       <pubDate>Thu, 07 May 2026 02:18:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>个人博客流量观察：RSS订阅流量超越Google搜索</title>
-      <link>https://news.ycombinator.com/item?id=48043964</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲个人博客流量观察（RSS订阅 vs Google搜索），属于个人博客运营分析。不在用户明确感兴趣（编程工具、AI模型等）或明确要避开（NFT、汽车等）的范畴内，故判定为可选内容。</small></p><p>一位博主分享了对个人网站流量来源的观察，发现RSS和Atom订阅带来的访问量超过了Google搜索流量。通过简单的本地统计工具，博主在过去28天内记录了不同来源的访问数据。</p>
-
-<p><img src="https://shkspr.mobi/blog/wp-content/uploads/2026/05/page-views.webp" alt="Atom 13774. Google 10833. RSS 10419. DuckDuckGo 2302. Email 2123." width="553" height="395" /></p>
-
-<p>数据显示，Atom订阅带来13774次访问，RSS订阅10419次，合计24193次，而Google搜索为10833次。其他流量来源包括DuckDuckGo（2302次）和邮件订阅（2123次）。博主承认数据存在局限性，因为RSS阅读器可能自动下载内容而不代表实际阅读，他通过文章末尾的懒加载图片来尝试追踪实际打开情况。</p>
-
-<p>Hacker News社区对此展开了讨论。有评论指出存在选择偏差，因为博主主要撰写开放网络标准等主题，对RSS用户群体特别有吸引力。另一些讨论聚焦于RSS流量与搜索流量的本质差异：RSS用户是主动订阅者，而搜索用户是带着特定目的偶然访问。</p>
-
-<p>社区还讨论了AI聊天摘要（如Google的AI Overviews）对内容创作者的影响，有用户提到这导致搜索点击率大幅下降，被称为"Google Zero"现象。同时，RSS被视作逃离算法控制互联网的重要工具，尽管企业平台往往因商业利益而放弃对RSS的支持。</p>
-
-<p>技术方面，有用户分享了使用语言嵌入和LLM技术来组织和分类RSS内容的经验，展示了如何通过AI技术改善信息过载问题。整体而言，这个单一数据点反映了个人博客在当今互联网生态中的独特流量模式，以及RSS技术对独立内容创作者的重要性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48043964</guid>
-      <pubDate>Thu, 07 May 2026 00:40:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Val Town 从 Clerk 迁移到 Better Auth：社交应用为何需要自主用户表</title>
-      <link>https://news.ycombinator.com/item?id=48038827</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章详细介绍了Val Town从Clerk迁移到Better Auth的技术改造经验，涉及编程工具发布、社交应用架构改进，完全符合用户很感兴趣的编程工具发布/分享和软件新功能主题</small></p><p>Val Town 团队分享了从 Clerk 身份验证服务迁移到 Better Auth 的经验。文章详细描述了他们在三年间使用 Clerk 遇到的问题，以及最终选择 Better Auth 的原因。</p>
-
-<img src="https://imagedelivery.net/iHX6Ovru0O7AjmyT5yZRoA/d58722e1-ec33-4417-59a9-e63119bd6d00/public" alt="lock-watercolor" />
-
-<p>核心问题在于 Clerk 试图完全替代用户的用户表（users table）和会话表（sessions table）。对于 Val Town 这样的社交平台来说，这带来了两个主要问题：</p>
-
-<ol>
-<li><strong>用户表问题</strong>：Clerk 的 API 有严格的速率限制（每秒5次请求），无法满足社交应用中频繁显示其他用户头像和信息的需求。这迫使团队需要在 Clerk 和自己的数据库之间同步用户数据，导致用户注册流程复杂化。</li>
-<li><strong>单点故障</strong>：Clerk 成为所有用户会话的单一故障点。当 Clerk 服务中断时，不仅登录/登出功能受影响，已登录用户也无法使用网站。数据显示自2025年5月以来，Clerk 的可用性在99.8%到99.9%之间波动。</li>
-</ol>
-
-<p>尽管 Clerk 在某些方面表现良好——易于上手、价格合理、支持多种框架，并且有不错的反滥用措施，但对于需要社交功能的复杂应用来说并不合适。作者指出，Clerk 更适合相对简单、前端为主且没有社交组件的应用。</p>
-
-<p>选择 Better Auth 的关键因素包括：</p>
-<ul>
-<li>代码质量高，与不同框架集成良好</li>
-<li>可以作为独立的开源项目使用</li>
-<li>不再依赖第三方服务保持在线状态才能工作</li>
-<li>团队完全管理自己的数据，Better Auth 的付费服务（'Infrastructure'）在会话管理方面基本是无状态的</li>
-</ul>
-
-<p>迁移过程持续了两周，期间同时支持 Clerk 和 Better Auth 两种认证方式。团队利用 LLM 辅助完成了这一复杂过渡，最终所有认证代码都经过仔细审查和重写。</p>
-
-<p>Hacker News 社区对此讨论热烈。有用户分享了自己使用 Clerk 的类似经历，包括库文件臃肿、调试困难、缺乏审计日志等问题。Better Auth 的创始人也在评论中回应，表示很高兴看到其他团队从中获得价值。</p>
-
-<p>其他用户提到了不同的身份验证解决方案，如 WorkOS 的 AuthKit、Auth0、Logto 等。讨论反映出身份验证服务市场的多样性和持续变化。</p>
-
-<p>作者总结道，选择身份验证方案时需要仔细权衡技术控制程度和供应商风险。虽然不想从头构建身份验证系统，但也不应将太多责任外包给供应商，特别是会话管理这种核心功能。</p>
-
-<p><strong>你知道吗？</strong> 在身份验证领域，存在一个重要的架构决策：是否将用户表完全外包给第三方服务。Clerk 早期的营销口号是"考虑删除你的用户表"，但这种做法对于需要频繁访问其他用户信息的社交应用来说存在根本性缺陷。现代身份验证解决方案正在向更灵活的架构演进，允许开发者在保持数据自主性的同时利用专业服务。</p>
-
-<img src="https://imagedelivery.net/iHX6Ovru0O7AjmyT5yZRoA/bb3a7d1c-305e-46b8-b560-116eca106300/public" alt="" width="20" />]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48038827</guid>
-      <pubDate>Wed, 06 May 2026 17:19:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
