@@ -3,7 +3,34 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 13 May 2026 16:32:25 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 13 May 2026 19:06:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Elevator：首个无需启发式的确定性全静态二进制翻译系统</title>
+      <link>https://news.ycombinator.com/item?id=48117810</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍首个无需启发式的确定性全静态二进制翻译系统，属于编程工具发布和技术进展，符合用户对编程工具的高兴趣配置。</small></p><p>研究人员开发了名为 Elevator 的二进制翻译系统，这是首个能够在没有调试信息、源代码或代码布局假设的情况下，将整个 x86-64 可执行文件静态翻译到 AArch64 架构的工具。</p>
+
+<p>与传统系统依赖启发式方法或运行时回退处理代码与数据解码错误不同，Elevator 采用了一种独特方法：考虑每个字节的所有可能解释，并为每个可行的解释提前生成单独的翻译。任何字节都可能被解释为数据、操作码或操作码参数，系统为所有解释生成单独的控制流路径，仅剪除那些导致异常终止的路径。</p>
+
+<p>翻译通过组合从源指令集架构（ISA）高级描述自动派生的代码"图块"构建，形成了一个灵活的翻译框架。该方法具有确定性，并产生完整、自包含的二进制文件，可信代码库中无需运行时组件。</p>
+
+<p>主要代价是显著的代码大小扩展（据评论提到可达50倍），但关键优势在于输出是实际运行的代码，使得在部署前能够进行测试、验证、认证和加密签名，相比模拟器或即时编译（JIT）编译器降低了风险。</p>
+
+<p>研究人员在包括整个 SPECint 2006 套件在内的多样化真实世界二进制文件上评估了 Elevator，证明静态全程序二进制翻译既可靠又实用。Elevator 的性能与 QEMU 的用户模式 JIT 模拟相当或更好。</p>
+
+<p>社区讨论中，用户指出了该技术的局限性：不支持自修改代码或 JIT 编译代码，目前仅支持单线程二进制文件，不支持使用异常处理的二进制文件，以及某些 x64 扩展不受支持。有评论提到，对于受监管行业（如航空、医疗设备），这种确定性翻译特别有价值，因为这些行业通常无法使用 JIT，运行的代码必须是经过认证的代码。</p>
+
+<p>技术讨论涉及了如何处理代码与数据歧义的问题。Elevator 通过超集反汇编技术解决这一问题：同时将原始二进制文件中的每个可执行字节偏移解释为（i）数据和（ii）从该偏移开始的潜在指令序列的开始，并从每个候选解码构建超集控制流图。</p>
+
+<img src="/static/browse/0.3.4/images/icons/social/reddit.png" alt="Reddit" />
+
+<p>性能方面，虽然与 QEMU 的 JIT 模拟相当，但有用户指出 QEMU 的 JIT 是一个相对容易超越的目标，特别是如果专门针对"仅 x86 到 aarch64"和"仅用户模式"进行设计，可以获得相当大的性能提升。</p>
+
+<p>代码大小扩展（50倍）被一些评论者认为是缓存灾难，任何避免 JIT 的性能优势都会被吞噬。但也有观点认为，只有实际在运行时使用的代码才会被加载，大多数可能的解码起始点不会被使用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48117810</guid>
+      <pubDate>Wed, 13 May 2026 04:25:03 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 关于Starship V3火箭的Hacker News讨论</title>
       <link>https://news.ycombinator.com/item?id=48116781</link>
@@ -1214,46 +1241,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48050751</guid>
       <pubDate>Thu, 07 May 2026 15:40:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI垃圾内容正在扼杀在线社区</title>
-      <link>https://news.ycombinator.com/item?id=48053203</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讨论AI垃圾内容对在线社区的影响，属于AI技术的社会影响层面，虽然涉及AI技术但更多是应用和社会层面，与用户编程工具和技术进展的高兴趣配置匹配度一般</small></p><p>这篇文章深入探讨了AI生成内容对在线社区的负面影响，作者将这种现象称为"AI slop"（AI垃圾内容）。文章指出，随着AI工具的普及，网络上充斥着大量低质量、缺乏实质价值的AI生成内容，这些内容正在逐渐侵蚀在线社区的活力。</p>
-
-<img src="/images/2026/05/h_IMG_1675.webp" alt="" />
-
-<p>作者通过生动的比喻，将AI生成内容比作幼儿园孩子的蜡笔画 - 虽然对创作者个人有意义，但不一定适合广泛分享。文章强调，问题的核心不在于使用AI本身，而在于如何负责任地使用这项技术。作者区分了"好的AI辅助内容"（能够帮助人们完成以前无法完成的事情，为社区做出真正贡献）和"坏的AI slop"（仅仅是出于刷存在感、获取关注或制造噪音的目的而分享的低质量内容）。</p>
-
-<img src="/images/2026/05/IMG_6442.webp" alt="A child’s painting of five colourful flowers — purple, blue, yellow and orange — with green stems and leaves" height="300" />
-
-<p>文章提出了几个关键建议：在分享AI生成项目前，应该认真思考该项目是否真正有用、是否有良好文档、是否愿意长期维护。作者强调要"尊重社区"，建议新用户在分享内容前先"潜水"观察社区氛围，了解什么类型的内容会受到欢迎。</p>
-
-<p>Hacker News社区对此话题反应强烈，获得了312个赞和297条评论。许多用户分享了类似经历：</p>
-<ul>
-<li>有用户表示因为AI内容泛滥而<a href="https://news.ycombinator.com/item?id=48053203">不再使用Reddit</a></li>
-<li>用户carlgreene分享了自己的实验经历，让AI代理在Reddit上刷karma并进行隐蔽广告，发现作为读者根本无法区分这些内容是AI生成的</li>
-<li>多位用户指出Hacker News上也存在大量AI生成的评论，虽然明显的会被标记，但很多难以察觉</li>
-<li>用户phoronixrly感谢作者说出了自己不再查看"Show HN"的原因</li>
-</ul>
-
-<img src="/images/2026/05/joshua-ralph-6hv1oVJAUMU-unsplash.webp" alt="Bindweed" height="200" />
-
-<p>讨论中还涉及了解决方案的探讨：</p>
-<ul>
-<li>有人建议通过收费（如Something Awful的10美元账户费）来过滤低质量内容</li>
-<li>用户01284a7e询问如何建立免受AI代理影响的在线社区</li>
-<li>Colechristensen提出了一个有趣的观点：大量低质量AI内容可能会提高噪音水平，反而让高质量内容更容易脱颖而出</li>
-</ul>
-
-<p>文章最后警告，如果不加以控制，在线社区可能会逐渐枯萎消亡，或者演变成AI代理之间相互"对话"而无人参与的 dystopian-but-banal 状态。作者呼吁人们在享受AI强大能力的同时，要保持对社区的尊重，只分享真正相关且有价值的内容。</p>
-
-<img src="/images/2026/05/IMG_0175.webp" alt="A child’s crayon drawing of a red dragon roaring, with 'roar!' scrawled above its head" height="400" />
-
-<p><strong>你知道吗？</strong>文章中提到"AI slop"这个术语已经成为流行词，但不同群体对其定义有所不同。有些人（通常是AI反对者）将所有关于AI的内容都称为"AI slop"，即使这些内容不是AI生成的。而作者使用的定义更具体：指那些低努力、由AI生成、对接收者毫无益处的内容。这种术语的演变反映了社会对AI生成内容态度的复杂性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48053203</guid>
-      <pubDate>Thu, 07 May 2026 18:46:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
