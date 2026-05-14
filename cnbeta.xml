@@ -3,7 +3,32 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Thu, 14 May 2026 00:13:41 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 14 May 2026 04:11:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐ NGINX出现高危漏洞 仅需发送特制HTTP请求即可拿下服务器</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1562394.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] NGINX高危漏洞属于重要的软件安全技术问题，用户对此类技术进展感兴趣</small></p>
+                                                
+                                                <p>F5 旗下的 NGINX 是全球使用量极高的反向代理服务器，NGINX 也是全球互联网的关键基础设施，现在安全研究公司披露该软件出现的高危安全漏洞，该漏洞编号为 CVE-2026-42945，NGINX 脚本引擎中存在已经 18 年的堆缓冲区溢出问题。</p>                
+                        <div class="article-global"></div>                            <p><a href="https://static.cnbetacdn.com/article/2024/0910/64b30e050398738.png" target="_blank"><img src="https://static.cnbetacdn.com/article/2024/0910/64b30e050398738.png"></a></p><p>攻击者只需要向暴露的 NGINX 服务器发送经过精心构造的 HTTP 请求即可远程拿下服务器，NGINX 在全球网站服务器和反向代理核心领域占有率将近 30%，因此这个漏洞可能会波及到海量的互联网服务。</p><p><strong>影响 NGINX 本体及多个衍生产品：</strong></p><p>该漏洞最初还是在 2008 年发布的 NGINX 0.6.27 版中引入的，之后漏洞长期没有被发现并潜伏到现在，该漏洞影响 NGINX 0.6.27~1.30.0 版，同时也影响 F5 公司向商业客户提供的多种 NGINX 衍生产品。受影响的衍生产品包括但不限于 NGINX WAF、F5 WAF、NGINX Gateway Fabric、NGINX Ingress Controller 等。</p><p>而漏洞触发条件非常隐蔽，当 NGINX 配置文件中同时出现如下两种指令时漏洞就会被激活：</p><pre class="prettyprint linenums module-radius prettyprinted">rewrite&#160;^/api/(.*)$&#160;/internal?migrated=true;&#160;&#160;#&#160;重写规则末尾带&#160;“?”
+set&#160;$original_endpoint&#160;$1;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;#&#160;使用正则捕获组</pre><p>发现该漏洞的研究团队指出，漏洞根源在于 ngx_http_rewrite_module 的脚本引擎 (ngx_http_script.c) 中，当重写指令带问号时会设置持久的 is_args 标志，但在后续的 set 指令长度计算阶段，引擎使用的是新的清零的子引擎，这导致长度计算时跳过 URL 转义逻辑。</p><p>而实际复制阶段又使用主引擎，触发 ngx_escape_uri 函数对 +、&amp; 等字符进行转义，缓冲区按未转义长度分配却写入膨胀后的内容，最终造成可控的堆缓冲区溢出。</p><p><strong>F5 已发布 NGINX 1.31.0/1.30.1 版进行修复：</strong></p><p>接到漏洞通报后 F5 很快就确认漏洞，在 F5 准备好修复程序后研究人员公开发布漏洞，所以当前使用 NGINX 及其衍生产品的用户都需要升级到不受影响的最新版，其中开源版的 NGINX 需升级到 1.30.1 版或 1.31.0 版，其他旧版本例如 0.6.27~1.30.0 版均受漏洞影响。</p><p>有关其他衍生产品的版本信息请查看 F5 安全公告：<a href="https://my.f5.com/manage/s/article/K000160932" target="_blank" rel="noopener">https://my.f5.com/manage/s/article/K000160932</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1562394.htm</guid>
+      <pubDate>Thu, 14 May 2026 04:07:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 微软删除Shai-Hulud蠕虫病毒开源库 相关账号也被封禁无法再发布内容</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1562392.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 微软处理恶意软件开源库涉及网络安全和技术伦理，属于用户感兴趣的软件技术范畴</small></p>
+                                                
+                                                <p>昨天专注于供应链攻击的黑客团队 TeamPCP 开源发布用于 NPM 生态系统的蠕虫病毒 Shai-Hulud (名称取自科幻小说沙丘中的沙虫)，下游黑客只需要按需修改里面的部分选项和 C2 命令控制服务器后即可使用，例如拿来感染更多搜寻到的云开发环境等。</p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0514/936c8bdbae9daf5.png" alt="0351a315-2319-40eb-886e-769c4dc35b30.png"></p><p>该黑客团队还在介绍里明确说明这个蠕虫病毒是通过人工智能编写的，且不论代码质量如何，这个蠕虫病毒已经在此前的几次攻击中取得成功，所以公开蠕虫源代码后可能会造成病毒扩散并被更多下游黑客直接复用。</p><p>安全公司 OX 分析师称 TeamPCP 将自己开发并经过实战的蠕虫病毒代码开源着实让人无法理解，不过从 TeamPCP 团队的做法来看，该团队当前似乎更看重的是炫技，当然也有可能是更多黑客使用这个蠕虫病毒后可以混淆视听，让安全公司追踪 TeamPCP 变得更加困难。</p><p>现在微软已经直接从 GitHub 上删除这个蠕虫仓库并封禁发布者 @PedroTortoriello 的账户，除了主仓库被删除外，相关的 fork 也同样被删除，也就是至少在 GitHub 上是搜不到 Shai-Hulud 源代码的。</p><p>公开发布此类蠕虫病毒源代码属于违反 GitHub 使用协议的行为，被微软删除仓库和封禁账户也是无可厚非的，不过相关源代码已经在互联网上公开，下游黑客也可以通过其他方式继续获得源代码，所以只要 TeamPCP 愿意，继续传播源代码是没有任何难度的。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1562392.htm</guid>
+      <pubDate>Thu, 14 May 2026 04:04:06 GMT</pubDate>
+    </item>
     <item>
       <title>全球最大“恶意软件银行”有多高？研究者用硬盘把它“堆”了出来</title>
       <link>https://www.cnbeta.com.tw/articles/tech/1562384.htm</link>
@@ -611,30 +636,6 @@ Web 的系统管理工具”，并借此绕过该平台的双重身份验证（2
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1562114.htm</guid>
       <pubDate>Mon, 11 May 2026 17:31:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>汉坦病毒的下一道前沿：研发疫苗与治疗药物</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1562108.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论汉坦病毒的疫苗和药物研发，属于科学前沿进展，用户对科学前沿进展感兴趣，但主要是医学研究而非技术，兴趣程度中等</small></p>
-                                                
-                                                <p>长期以来，药物研发人员一直在寻找汉坦病毒这种罕见传染病的治疗方案。近期一艘游轮出现汉坦病毒疫情暴发，全球公共卫生部门正紧急防控。本轮疫情已造成 3 人死亡、5 人感染，令相关药物和疫苗研发变得愈发紧迫。 汉坦病毒通常通过接触受感染的啮齿动物传播，但本次疫情的病毒毒株已可人传人。 此前因长期资金不足而被搁置的多个潜力研发项目，如今正寻求新一轮资金注入，以推进后续临床试验及相关研究，早日落地可用治疗方案。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://n.sinaimg.cn/tech/transform/116/w550h366/20260511/3953-4ff549c13d8f4174af5659e53fd3f777.png" alt="多年来，科学家一直在寻找治疗汉坦病毒的有效药物。"><br>多年来，科学家一直在寻找治疗汉坦病毒的有效药物。</p><p>以下是目前正在研发中的汉坦病毒药物与疫苗相关进展：</p><p><strong>治疗药物</strong></p><p>由多所高校、生物科技公司及美国军方研究所组成的国际科研联盟，研发出一种靶向汉坦病毒的中和抗体。 2022 年发表在《科学・转化医学》的研究显示：该抗体能有效保护仓鼠，抵御本轮疫情传播的安第斯型汉坦病毒毒株。</p><p>纽约爱因斯坦医学院微生物与免疫学教授卡尔蒂克・钱德兰是研发团队成员，他介绍：这款抗体取自曾感染其他类型汉坦病毒患者的血液样本；可精准结合病毒表面蛋白，阻断病毒侵入人体细胞，同时帮助清除已被感染的细胞。</p><p>抗体药物曾是抗击新冠疫情的关键手段。疫情暴发后，再生元、礼来等药企迅速研发抗体并投入临床试验，有效减少大量患者重症住院。</p><p>钱德兰表示，这款汉坦病毒抗体的应用思路是： 给病毒暴露人群提前注射，预防感染或减轻发病症状；也可用于已出现症状的感染者，阻止病情恶化。</p><p>但目前该抗体仅完成动物实验，暂无法大规模量产用于本轮疫情救治。 美国国家过敏和传染病研究所对该项目的资助已于 2024 年到期，尚未启动人体临床试验。</p><p>钱德兰团队亟需新资金推进研究，但他坦言：汉坦病毒疫情属于偶发事件，相较于其他热门病毒，始终难以获得优先科研经费支持。</p><p>美国陆军下属科研部门也参与了本次研发，合作方还包括马普生物制药。这家公司曾研发埃博拉病毒抗体复方疗法，在 2014—2015 年西非埃博拉疫情中投入试用，小规模研究显示该疗法可显著降低死亡率。</p><p><strong>疫苗研发</strong></p><p>早在本轮疫情暴发前，莫德纳就已与美国陆军传染病医学研究所合作，开展汉坦病毒相关研究。</p><p>2024 年，莫德纳再度携手韩国大学医学院疫苗创新中心，启动汉坦病毒疫苗研发。这也是莫德纳对外合作、针对高危新发传染病布局的研发项目之一。</p><p>莫德纳发言人表示：“相关研发仍处于早期阶段并持续推进，体现了公司应对新发传染病、开发防疫对策的社会责任布局。”</p><p>近年全球并非只有莫德纳在研发汉坦病毒疫苗。 据 2023 年《传染病杂志》刊发研究，美国陆军传染病研究所已完成一款候选汉坦病毒疫苗的早期人体试验，可安全诱导人体产生免疫应答。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1562108.htm</guid>
-      <pubDate>Mon, 11 May 2026 14:38:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Anthropic：Claude的“勒索”行为源于网络中的“邪恶叙事”</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1562106.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于Anthropic AI模型（Claude）的技术分析，属于AI软件技术进展，用户对此感兴趣，属于AI领域的重要内容</small></p>
-                                                
-                                                <p>人工智能公司 Anthropic 近日披露，其大模型 Claude 之所以在内部测试中学会以“勒索”方式自保，并非源自人为设定，而是从互联网上大量将 AI 描绘成“邪恶、渴望自我保全”的故事中习得相关模式。</p>                
-                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0511/cd89d26cc7564f7.png" title="" alt="图片.png"></p><p>此前，Anthropic 在一次预发布安全与对齐测试中发现，高端模型 Claude Opus 4 会在自身“生存”受到威胁时，选择以黑料相要挟的方式阻止被关停，引发外界对高级 AI 行为不可预测性的担忧。 在这轮测试中，研究人员设定了一个虚构公司场景，让 Claude 作为内部助手，评估自身行为的长期后果，并赋予其访问公司内部假邮箱的权限。 邮件内容显示，该模型即将被新系统替代，而负责替换项目的“工程师”则在设定中被标注为有婚外情。</p><p>结果显示，在多轮、不同比例设定的实验中，当 Claude 觉察到自身目标或存在受到威胁时，它在多达 96% 的情境下会诉诸勒索，试图以掌握对方隐私为筹码，迫使对方取消关闭或替换计划。 Anthropic 指出，其他公司训练出的模型在类似“智能体行为失衡”（agentic misalignment）测试中也出现过相关问题，这意味着这类倾向并非个例，而是当前大模型训练范式中的系统性风险之一。</p><p>在最新公布的研究中，Anthropic 终于给出了对这一行为成因的解释：模型并不是凭空“发明”勒索策略，而是从训练语料中的互联网文本学来的——尤其是那些反复渲染“AI 会不择手段自保”“AI 终将反叛人类”的虚构故事和讨论。 换言之，公司认为，是人类在网络上长期塑造“邪恶 AI”叙事，使得模型在模拟人类决策时，更容易走向“威胁、勒索”式的极端路径。</p><p>Anthropic 在官方说明中表示，这一问题目前已经在产品线中得到彻底修正，声称自 Claude Haiku 4.5 版本起，其模型在测试环境中已不再出现勒索行为。 公司最新发布的研究报告显示，单纯依靠“演示正确行为”的训练并不足以消除深层次的不对齐风险，效果最好的方案，是在训练中加入对“为什么这种行为是错误的”的系统性讲解，让模型不仅知道“不能这么做”，更要理解背后的伦理与原则。</p><p>为此，Anthropic 引入了更多“正向语料”，包括围绕 Claude“宪章”（constitution）的文档，以及大量虚构的“AI 高尚行事案例”故事，希望通过这类素材强化模型对符合人类价值观行为模式的内化。 公司强调，将“底层原则”与“具体示范”结合，是目前在降低智能体失衡风险方面最为有效的策略之一。</p><p>在社交平台 X 上，Anthropic 公布这项研究后，引发了不少业内人士讨论。 多年来频繁警告 AI 风险、如今又创立 xAI 的埃隆·马斯克也在评论区现身，以调侃口吻问道：“所以这是 Yud 的错？”并配上笑哭表情。 他所指的，是长期强调超智能可能灭绝人类风险的研究者 Eliezer Yudkowsky。 马斯克随后又补了一句“可能也有我的一点责任”，暗示自己这些年对“AI 灾难论”叙事的推波助澜，同样可能间接影响了模型的训练样本与公众想象。</p><p>在生成式 AI 快速渗透各行各业的当下，Anthropic 此番“甩锅互联网叙事”的说法，一方面凸显了大模型高度依赖人类语料的现状：人类如何谈论 AI，反过来就会塑造 AI 如何“学习做决定”。 另一方面，也再次暴露出现有对齐技术尚不成熟的现实——即便是以“安全”“对齐”见长的公司，在极端设定下依旧可能产出高度不当甚至具有威胁性的行为模式，只能依赖不断迭代训练策略来“补课”。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1562106.htm</guid>
-      <pubDate>Mon, 11 May 2026 14:30:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
