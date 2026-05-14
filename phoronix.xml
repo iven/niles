@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 14 May 2026 12:05:21 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 14 May 2026 14:38:22 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Intel缓存感知调度补丁接近被Linux内核合并</title>
+      <link>https://www.phoronix.com/news/Linux-Cache-Aware-Sched-Nears</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述Linux内核中Intel缓存感知调度技术的进展，属于编程技术和软件技术改进，符合用户对技术进展的兴趣</small></p><p>Intel工程师主导的缓存感知调度（Cache Aware Scheduling）补丁在Linux内核的合并进程中取得了重要进展。这些补丁已被纳入Peter Zijlstra的sched/cache Git分支，距离进入主线内核仅一步之遥。</p>
+
+<p>缓存感知调度旨在提升现代多缓存域CPU上的Linux性能。其核心机制是让调度器尽可能将共享数据的任务安排在同一最后一级缓存（LLC）域内运行，从而增强缓存局部性，减少缓存缺失和弹跳现象。作者在AMD EPYC和Intel Xeon 6等平台上进行的测试已显示出显著的性能提升。</p>
+
+<img src="//www.phoronix.net/image.php?id=2025&image=linux_618_amd_med" alt="CPUs" />
+
+<p>与此同时，Intel工程师Tim Chen近日发布了基于现有补丁的增强系列，主要解决了原有实现中可能出现的过度聚合问题。新补丁将LLC有效大小直接存储在每CPU的底层调度域结构中，避免了每次计算的开销；并使用NUMA平衡的页面错误统计替代RSS来估算任务的工作集。此外，该系列还包含了来自Sashiko的AI报告所发现的各种错误修复，以及Jianyong的优化补丁以降低CPU扫描开销。</p>
+
+<p>Tim Chen在补丁说明中表示，当前版本在测试的工作负载和平台上保持了与v4版本相同的性能。未来计划在基于负载均衡的缓存感知调度合并后，引入针对特定任务的细粒度控制机制。</p>
+
+<p><strong>你知道吗？</strong> 缓存感知调度是现代多核处理器性能优化的关键技术之一。随着CPU核心数量的增加和缓存层次结构的复杂化，传统的调度算法可能无法充分利用缓存局部性，导致性能瓶颈。通过智能地将相关任务调度到共享缓存的CPU核心上，可以显著减少内存访问延迟，提升整体系统吞吐量，特别是在数据中心和高性能计算场景中效果尤为明显。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Cache-Aware-Sched-Nears</guid>
+      <pubDate>Thu, 14 May 2026 12:23:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ KDE Plasma 6.7 Beta 发布：带来 Plasma Big Screen 和 Union 模块</title>
       <link>https://www.phoronix.com/news/KDE-Plasma-6.7-Beta-Released</link>
@@ -858,21 +877,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Omarchy-3.7-Released</guid>
       <pubDate>Mon, 04 May 2026 14:55:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ CachyOS 切换至尾调用解释器，Python 性能提升 5~15%</title>
-      <link>https://www.phoronix.com/news/CachyOS-Better-Python-Perf</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要关于CachyOS发行版优化Python性能，涉及新发行版和编程效率改进，用户对此很感兴趣，故列为必看内容。</small></p><p>基于 Arch Linux 的快速发行版 CachyOS 近日推送了 Python 更新，将解释器切换至 Python 3.14 引入的尾调用（tail-call）解释器，在兼容编译器（如 GCC 16）下可获得约 5~15% 的性能提升。</p>
-
-<img src="//www.phoronix.net/image.php?id=cachyos-ubuntu-2604-fedora-44&image=cachyos_z6_2_med" alt="CachyOS" />
-
-<p>这项优化源自去年合并的 <a href="https://github.com/python/cpython/pull/...">CPython 拉取请求</a>，该请求详细说明了新解释器带来的显著性能改进。尾调用解释器在 Python 3.14 中首次作为可选功能出现，CachyOS 现已默认启用。</p>
-
-<p>用户无需额外配置，只需升级到最新的 CachyOS 软件包即可享受性能提升。CachyOS 在社交媒体上表示，5~15% 是基于典型工作负载的基准性能提升范围。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/CachyOS-Better-Python-Perf</guid>
-      <pubDate>Mon, 04 May 2026 13:12:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
