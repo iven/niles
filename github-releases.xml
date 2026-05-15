@@ -3,7 +3,53 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 15 May 2026 21:16:45 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 23:10:22 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.143 发布：新增插件依赖强制与上下文成本预估功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.143</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布了 v2.1.143 版本，引入了多项功能改进和错误修复，主要涉及插件管理、上下文成本预估、工作树隔离设置等方面。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>插件依赖强制</strong>：<code>claude plugin disable</code> 现在会拒绝禁用被其他已启用插件依赖的目标插件，并提供可复用的禁用链提示；<code>claude plugin enable</code> 会强制启用传递依赖。</li>
+<li><strong>预估上下文成本</strong>：在 <code>/plugin</code> 市场浏览面板中添加了每轮和每次调用的令牌估算，帮助用户评估插件使用成本。</li>
+<li><strong>新增工作树隔离设置</strong>：添加 <code>worktree.bgIsolation: "none"</code> 设置，允许背景会话直接编辑工作副本，无需 <code>EnterWorktree</code>，适用于 worktree 不实用的仓库。</li>
+<li><strong>修复凭证文件损坏问题</strong>：修复了损坏的 <code>.credentials.json</code> 文件导致 CLI 启动挂起或静默中止 OAuth 令牌刷新的问题。</li>
+<li><strong>修复停止钩子无限循环</strong>：修复停止钩子重复阻塞导致无限循环的问题，现在连续阻塞 8 次后回合会以警告结束（可通过 <code>CLAUDE_CODE_STOP_HOOK_BLOCK_CAP</code> 覆盖）。</li>
+<li><strong>修复循环唤醒取消问题</strong>：修复 Esc/Ctrl+C 无法取消待处理的 <code>/loop</code> 唤醒的问题。</li>
+<li><strong>修复目标评估器触发时机</strong>：修复 <code>/goal</code> 评估器在背景 shell 或委托子代理仍在运行时触发的问题。</li>
+<li><strong>修复颜色设置影响 UI</strong>：修复 <code>NO_COLOR</code>/<code>FORCE_COLOR</code> 在 settings.json 的 <code>env</code> 中错误地剥离 Claude Code 自身 UI 颜色的问题，现在这些设置仅应用于子进程。</li>
+<li><strong>改进工作树清理安全性</strong>：工作树清理不再在 <code>git worktree remove</code> 失败时回退到 <code>rm -rf</code>，防止 git 忽略或进行中的文件丢失。</li>
+<li><strong>修复 macOS 文件访问权限</strong>：修复背景作业会话在 macOS 上读取 <code>~/Documents</code>、<code>~/Desktop</code> 或 <code>~/Downloads</code> 下文件时出现 "Operation not permitted" 错误的问题，即使已授予完全磁盘访问权限。</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li>背景会话现在在从空闲状态唤醒后保留设置的模型和努力级别。</li>
+<li>Shift+Tab 在附加代理会话中现在包含自动模式循环。</li>
+<li>修复 <code>/bg</code> 没有提示时向分叉会话发送 "continue" 的问题，现在分叉会话等待输入。</li>
+<li>修复 <code>--agent &lt;name&gt;</code> 找不到没有 <code>plugin:</code> 前缀的插件贡献代理的问题。</li>
+<li>修复从代理视图删除会话时未删除其转录文件的问题。</li>
+<li>修复主机睡眠或 macOS App Nap 后背景代理误报工作线程停滞检测风暴的问题。</li>
+<li>修复 5xx 错误消息指向 status.claude.com 而不是命名配置的网关或云提供商的问题。</li>
+<li><code>claude agents</code> 现在接受 <code>--add-dir</code>、<code>--settings</code>、<code>--mcp-config</code> 和 <code>--plugin-dir</code> 参数，并将其应用于仪表板和从中调度的背景会话。</li>
+<li><code>claude agents</code> 接受 <code>--permission-mode</code>、<code>--model</code>、<code>--effort</code> 和 <code>--dangerously-skip-permissions</code> 来设置从视图调度的会话的默认值。</li>
+<li><code>claude --bg --dangerously-skip-permissions</code> 现在在退休→唤醒后保持。</li>
+<li>修复背景会话静默捕获 IDE 文件引用到热备输入中的问题，该问题导致引用被预置到从 <code>claude agents</code> 调度的下一个提示中。</li>
+<li><code>/bg</code> 现在保留 <code>--mcp-config</code>、<code>--settings</code>、<code>--add-dir</code>、<code>--plugin-dir</code> 和 <code>--strict-mcp-config</code>，使背景会话在重启后保持其 MCP 服务器和设置。</li>
+<li>从 <code>claude agents</code> 启动的背景会话现在遵循 settings.json 中的 <code>permissions.defaultMode</code>（之前被覆盖为自动模式）。</li>
+<li><code>/bg</code> 和 <code>←</code>-detach 现在保留 <code>--fallback-model</code>，使背景工作线程在过载时降级到回退模型而不是硬失败。</li>
+<li><code>/bg</code> 和 <code>←</code>-detach 现在保留 <code>--allow-dangerously-skip-permissions</code>，使分叉工作线程在其 Shift+Tab 循环中保持绕过权限可用。</li>
+<li>修复背景守护进程生成在 <code>~/.local/bin/claude</code> 启动器丢失或不可执行时回退到运行二进制文件的问题。</li>
+<li>修复 <code>claude agents --allow-dangerously-skip-permissions</code> 默认将调度的会话设置为绕过模式而不是使其在权限循环中可用的问题。</li>
+</ul>
+
+<p>此外，该版本还包含多个平台特定的修复和改进，涉及 Windows Terminal、PowerShell 工具等，但根据用户关注点，此处不详细展开。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.143</guid>
+      <pubDate>Fri, 15 May 2026 22:28:22 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.9.6 发布：版本更新与安全策略调整</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.9.6</link>
@@ -1447,39 +1493,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.16.5</guid>
       <pubDate>Tue, 31 Mar 2026 10:54:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.16.4 发布：修复远程会话审批、终端重连循环等问题</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.16.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布了 v0.16.4 版本，本次更新主要包含一个功能改进和多个错误修复，涉及远程会话审批、终端连接、Web 界面和 CLI 工具等方面。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新功能</strong>：支持使用 Markdown 渲染问题文本和选项，提升用户界面显示效果。</li>
-<li><strong>错误修复</strong>：
-  <ul>
-    <li>修复远程会话中 Codex 默认审批策略的问题</li>
-    <li>解决 Windows 主机上终端可能出现的无限重连循环</li>
-    <li>修复恢复会话时未正确传递 resumeSessionId 的问题</li>
-  </ul>
-</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>修复 Web 端将 sidechain 提示渲染为用户消息的问题</li>
-<li>解决 CLI 中进程退出处理死锁和错误屏蔽的问题</li>
-<li>为 Web 界面发送消息状态添加视觉指示器</li>
-<li>修复 CLI 中当中止请求时，将任何退出代码视为预期行为的问题</li>
-</ul>
-
-<p>本次更新有三位新贡献者加入：@lifu963、@xyzhang626 和 @hqhq1025。</p>
-
-<p>完整更新日志可查看 <a href="https://github.com/tiann/hapi/compare/v0.16.3...v0.16.4">GitHub 比较页面</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.16.4</guid>
-      <pubDate>Tue, 24 Mar 2026 05:05:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
