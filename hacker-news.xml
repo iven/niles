@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 17 May 2026 09:58:27 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 17 May 2026 11:24:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐ δ-mem：大型语言模型的高效在线记忆机制</title>
+      <link>https://news.ycombinator.com/item?id=48158506</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍大型语言模型的高效在线记忆机制，属于AI软件技术进展范畴，用户配置为感兴趣</small></p><p>研究人员提出了一种名为δ-mem的新型记忆机制，旨在为大型语言模型提供高效的在线记忆能力。该技术通过一个轻量级的记忆模块来增强冻结的全注意力主干网络，使用紧凑的在线关联记忆状态来积累和重用历史信息。</p>
+
+<p>δ-mem的核心创新在于将过去的信息压缩到一个固定大小的状态矩阵中，通过delta规则学习进行动态更新。在文本生成过程中，系统会读取这个记忆状态，并生成低秩修正来调整主干网络的注意力计算。论文显示，仅使用8×8的在线记忆状态，δ-mem就能将模型在多个基准测试上的平均分数提升至冻结主干模型的1.10倍，以及最强非δ-mem记忆基线的1.15倍。在内存密集型任务如MemoryAgentBench和LoCoMo上，提升更为显著，分别达到1.31倍和1.20倍。</p>
+
+<p>Hacker News社区对该技术展开了深入讨论。部分用户对记忆机制的实际应用价值表示关注，特别是对于编码代理场景，希望看到经过实践验证的解决方案。有评论指出，固定大小的记忆状态并不能从根本上解决容量限制问题，输入查询的轻微变化可能导致完全不同的激活模式，从而影响缓存效果。</p>
+
+<p>技术细节方面，有用户注意到论文标题中使用的δ-mem（小写delta）与Hacker News帖子标题显示的Δ-Mem（大写delta）存在差异，强调在数学和科学术语中大小写通常具有特定含义。社区还讨论了替代方法，如使用动态生成的正则表达式来精确提取相关上下文，避免将冗余信息塞入注意力窗口。</p>
+
+<p>关于模型实用性，有用户呼吁在论文中明确报告模型运行所需的具体内存大小（以字节为单位），而不仅仅是参数数量，因为参数的数据类型（如FP16与INT4）会显著影响实际内存需求。还有评论认为δ-mem本质上是将DeltaNet超网络技术应用于现有LLM，虽然有一定创新性，但并非突破性进展。</p>
+
+<p>总体而言，δ-mem代表了在不大幅增加计算成本的前提下为LLM添加记忆能力的一种有前景的方法，但社区对其实际应用效果和根本性创新程度持审慎态度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48158506</guid>
+      <pubDate>Sat, 16 May 2026 09:30:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ DeepSeek-V4-Flash 让模型引导技术重新变得有趣</title>
       <link>https://news.ycombinator.com/item?id=48160807</link>
@@ -1266,37 +1285,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48085993</guid>
       <pubDate>Sun, 10 May 2026 17:34:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Mythos AI 扫描 curl 代码库：仅发现一个低危漏洞，炒作成分大于实际突破</title>
-      <link>https://news.ycombinator.com/item?id=48091737</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章核心是关于Anthropic新AI模型Mythos的发布及其安全漏洞检测能力的评估，完全符合用户'新AI模型发布公告'的高兴趣配置</small></p><p>curl 项目负责人 Daniel Stenberg 近日分享了 Anthropic 最新 AI 模型 Mythos 对其代码库的安全扫描结果。此前 Anthropic 曾高调宣称 Mythos「危险地擅长」发现源代码安全漏洞，引发业界广泛关注。</p>
-
-<img src="https://daniel.haxx.se/blog/wp-content/uploads/2026/05/jinwon-robot.jpg" alt="" width="672" height="336" />
-
-<p>作为 curl 的首席开发者，Stenberg 通过 Linux 基金会的 Alpha Omega 项目获得了 Mythos 的访问权限。不过最终是由第三方使用该模型对 curl 的 master 分支进行了扫描，共分析了 17.8 万行 C 代码。</p>
-
-<p>报告最初声称发现了五个「确认的安全漏洞」，但经过 curl 安全团队数小时的深入审查，最终确认其中只有一个真正的漏洞——一个低严重性 CVE，计划在 6 月底随 curl 8.21.0 版本发布。其余四个中，三个是误报（涉及 API 文档中已说明的限制），另一个被认定为普通 bug。</p>
-
-<p>报告还包含了约 20 个非漏洞性质的 bug，这些 bug 的描述和解释质量很高，误报率极低。Stenberg 表示，所有发现的 bug 都在逐一修复中。</p>
-
-<img src="https://daniel.haxx.se/blog/wp-content/uploads/2026/05/curl-secured-for-the-billions3.jpg" alt="" width="1920" height="1080" />
-
-<p>值得注意的是，curl 项目在此之前已经使用过多种 AI 驱动的代码分析工具，包括 AISLE、Zeropath 和 OpenAI 的 Codex Security。这些工具在过去 8-10 个月内已促使 curl 合并了 200-300 个 bug 修复，其中十几个被确认为漏洞并发布了 CVE。</p>
-
-<p>Stenberg 在文章中直言不讳地指出：「我个人得出的结论只能是，围绕这个模型的大肆炒作主要是营销手段。我没有看到任何证据表明这种设置发现问题的程度比 Mythos 之前的其他工具更高或更先进。」</p>
-
-<p>他同时强调，AI 驱动的代码分析器确实比传统分析工具表现更好，能够发现注释与代码不一致、第三方库 API 滥用、协议规范违反等传统工具难以检测的问题。任何尚未使用 AI 工具扫描源代码的项目，都可能发现大量漏洞和 bug。</p>
-
-<img src="https://daniel.haxx.se/blog/wp-content/uploads/2026/05/Screenshot-2026-05-09-at-23-57-54-daniel-__-stenberg-__-@bagder@mastodon.social-Mastodon.png" alt="" width="544" height="561" />
-
-<p>Hacker News 社区对此展开了热烈讨论。有用户认为这提醒人们该领域的竞争激烈，营销成分很重；也有用户赞扬 curl 和 SQLite 等项目的工程质量，认为它们体现了严谨工程实践的成果；还有用户指出，虽然 Mythos 在 curl 上表现平平，但大多数软件项目并没有像 curl 那样经过如此彻底的审计和分析。</p>
-
-<p>Stenberg 最后总结道，AI 代码分析器正在改变安全研究格局，但需要理性看待各种模型的宣传。curl 项目将继续使用各种工具进行扫描，直到它们真正找不到新问题为止。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48091737</guid>
-      <pubDate>Mon, 11 May 2026 06:39:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
