@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 17 May 2026 11:24:16 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 17 May 2026 13:55:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 开源low_latency_layer项目为AMD和Intel显卡在Linux上带来Reflex与Anti-Lag 2支持</title>
+      <link>https://www.phoronix.com/news/Low-Latency-Layer</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要是开源软件项目，将NVIDIA的Reflex技术移植到AMD/Intel Linux平台，符合新软件项目的高兴趣配置，虽然涉及游戏支持但非主要主题</small></p><p>一个名为low_latency_layer的开源Vulkan层项目正在为Linux游戏玩家带来硬件无关的低延迟技术支持。该项目允许AMD和Intel显卡用户享受到原本专属于特定硬件的NVIDIA Reflex 2和AMD Anti-Lag 2技术。</p>
+
+<p>开发者Nicolas James表示，他创建此项目的动机源于对Linux上Anti-Lag 2实现现状的不满。Mesa驱动中的AL2实现存在稳定性问题且默认被禁用，其延迟改善效果也不及Windows上的专有版本。在成功实现Anti-Lag 2后，他发现类似的方法也可以用于实现NVIDIA的VK_NV_low_latency2扩展。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=low_latency_layer_cs2" alt="Low Latency Layer benchmark" />
+
+<p>low_latency_layer通过拦截Vulkan设备扩展来工作，理论上任何Vulkan层都可以实现类似功能。该层与DXVK-NVAPI配合使用，为Steam Play（Proton）游戏提供全面支持。根据项目测试数据，其性能与专有Windows实现相当甚至更好。</p>
+
+<p>开发者使用配备NVIDIA Reflex Analyzer的540Hz显示器进行了测试，涵盖了《THE FINALS》、《反恐精英2》、《赛博朋克2077》、《生化危机：安魂曲》、《漫威争锋》和《守望先锋2》等多款游戏。特别值得注意的是，对于仅支持Reflex的游戏，Linux上的AMD用户现在可以获得比Windows上更好的体验，因为Windows上的AMD用户只能使用功能较弱的Anti-Lag 1。</p>
+
+<p>该项目已在GitHub上开源，采用MIT许可证，更多技术细节、基准测试和配置信息可通过<a href="https://github.com/Korthos-Software/low_latency_layer">Korthos-Software/low_latency_layer</a>获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Low-Latency-Layer</guid>
+      <pubDate>Sun, 17 May 2026 12:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code助力Adobe Lightroom CC在Linux上成功运行</title>
       <link>https://www.phoronix.com/news/Adobe-Lightroom-CC-Linux</link>
@@ -859,27 +878,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Flat-Image-Tree-1.0</guid>
       <pubDate>Thu, 07 May 2026 14:26:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.7通过UDMABUF技术大幅提升CPU渲染性能</title>
-      <link>https://www.phoronix.com/news/KDE-Plasma-Faster-WL-SHM</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讨论KDE Plasma桌面环境的CPU渲染技术改进，属于来源配置中high_interest的KDE主题内容，用户会很感兴趣</small></p><p>KDE开发者Xaver Hugl为即将发布的Plasma 6.7桌面环境带来了一项重要的性能优化，解决了QtWidgets在Wayland下使用CPU渲染时的性能瓶颈问题。</p>
-
-<p>由于QtWidgets仍然依赖CPU渲染，在使用Wayland共享内存（wl_shm）时性能表现不佳，导致过多的缓冲区复制。开发者通过利用Linux的UDMABUF技术，将MEMFD分配的内存包装成DMA-BUF供GPU使用，从而避免了多余的缓冲区复制，显著提升了在Wayland下处理CPU渲染和共享内存使用时的流畅度。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_2604_3_med" alt="KDE Plasma desktop" />
-
-<p>在Plasma 6.7中，KWin窗口管理器将为每个wl_shm缓冲区创建UDMABUF，并将其导入GPU驱动程序，这比现有的缓冲区上传代码更加高效。开发者表示，在他的高端Ryzen 7840U笔记本电脑上，优化前在KDevelop中快速移动光标时会出现跳帧现象，特别是在省电模式下感觉非常卡顿。</p>
-
-<p>优化后，KDevelop中的光标移动变得完全流畅。具体数据显示，KDevelop中滚动时的KWin CPU使用率从单核80-90%下降到20%，性能提升显著。</p>
-
-<p>这项优化将包含在Plasma 6.7和Qt 6.11.2中，开发者建议其他使用共享内存缓冲区的工具包和应用程序也进行类似改进，因为这种优化可以带来明显的性能差异。</p>
-
-<p>更多技术细节可以参考<a href="https://xaverhugl.github.io/">Xaver的博客</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-Faster-WL-SHM</guid>
-      <pubDate>Thu, 07 May 2026 10:29:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
