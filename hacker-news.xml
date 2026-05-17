@@ -3,7 +3,58 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 17 May 2026 00:04:42 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 17 May 2026 04:19:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Zerostack：用纯 Rust 编写的低内存占用编码代理工具</title>
+      <link>https://news.ycombinator.com/item?id=48164287</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 用纯 Rust 编写的编程工具发布，属于用户很感兴趣的编程工具分享类别</small></p><p>Zerostack 是一个受 Unix 启发的编码代理工具，完全使用 Rust 语言编写，以其极低的内存占用（空会话约 8MB，工作时约 12MB）在 Hacker News 社区引起广泛关注。</p>
+
+<p>开发者 gidellav 在讨论中详细解释了内存优化的技术细节：使用 Rust 而非 JavaScript/Python 避免了解释器开销；采用按需加载机制；使用 <code>smallvec</code> 和 <code>compactstring</code> 等高效数据结构；设置编译器优化级别为 <code>opt-level=z</code>；以及大量使用链接时优化（LTO）。</p>
+
+<p>社区用户对低内存占用表示赞赏，特别是对于低端笔记本电脑用户来说，相比 Claude Code 使用数 GB 内存，Zerostack 的内存效率更高。有用户提到 OpenCode 存在内存泄漏问题，最终可能占用 6GB 内存，而开发者表示这个项目正是源于旧笔记本电脑因同时运行多个 OpenCode 实例和 Firefox 而导致 OOM killer 被触发的经历。</p>
+
+<p>Zerostack 采用基于提示的系统设计，使用存储在 <code>~/.config/zerostack/prompt</code> 目录的 .md 文件来定义不同的"代理"行为。与 OpenCode 不同，它不实现 Skills 和 Subagents 功能，而是采用提示库方法。工具包含集成的 git worktree 支持和 Ralph Wiggum 循环功能，用于处理长期任务。</p>
+
+<p>权限系统提供 4 级模式，从"限制性"（无命令执行）到"YOLO"模式（允许代理执行任何操作），并支持自定义正则表达式模式来控制 <code>bash</code> 调用的权限。开发者提到部分代码由 DeepSeek v4 Flash 协助编写，但 TUI 逻辑和内存优化部分由人工完成。</p>
+
+<p>社区讨论中还提到了与其他 Rust 编写的编码代理工具如 Codex 和 deepseek-tui 的比较，以及用户对工具性能基准测试和设置迁移功能的期待。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48164287</guid>
+      <pubDate>Sat, 16 May 2026 22:23:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Orthrus-Qwen3：通过双视图扩散解码实现高达 7.8 倍推理加速，保持无损输出</title>
+      <link>https://news.ycombinator.com/item?id=48154865</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型推理加速技术，涉及用户很感兴趣的新AI模型发布和AI技术进展</small></p><p>Orthrus 是一个创新的双架构框架，通过融合自回归大语言模型（LLM）的精确生成能力与扩散模型的并行 token 生成优势，实现了显著加速且严格无损的推理过程。该项目在 GitHub 上开源，并提供了基于 Qwen3 的多个模型版本。</p>
+
+<img src="/chiennv2000/orthrus/raw/main/assets/orthrus_logo.svg" alt="Orthrus logo" width="30%" />
+
+<p>该框架的核心技术是「双视图扩散解码」，在每个 Transformer 层中注入可训练的扩散注意力模块，同时保持基础 LLM 完全冻结。两个视图（自回归视图和扩散视图）共享同一份 Key-Value（KV）缓存，从而实现了仅 O(1) 的内存开销。扩散视图能够并行预测最多 32 个 token，随后由自回归视图进行验证并接受最长匹配前缀，确保输出分布与原始基础模型完全相同。</p>
+
+<img src="/chiennv2000/orthrus/raw/main/assets/orthrus.png" alt="Orthrus Architecture" width="80%" />
+
+<p>根据项目数据，Orthrus 在生成任务上实现了高达 7.8 倍的 token/前向传递加速，在 MATH-500 基准测试中实现了约 6 倍的端到端加速。模型仅需微调总参数的 16%（使用不到 10 亿 token 数据，在 8×H200 GPU 上训练 24 小时），即可获得并行生成能力。</p>
+
+<p>与推测解码方法（如 EAGLE-3、DFlash）相比，Orthrus 无需外部草稿模型，避免了单独缓存的开销，实现了零首次 token 时间（TTFT）惩罚。在 MATH-500 上，Orthrus 的平均接受长度达到 11.7，显著高于 DFlash 的 7.9 和 EAGLE-3 的 3.5。</p>
+
+<img src="/chiennv2000/orthrus/raw/main/assets/acceptance_length.png" alt="Average Acceptance Length Comparison" width="48%" />
+<img src="/chiennv2000/orthrus/raw/main/assets/long_context_benchmark.png" alt="Long Context Generation Time Benchmark" width="48%" />
+
+<p>与最近的扩散语言模型（dLLM）相比，后者虽然提供并行解码，但常出现显著的条件漂移和复杂推理任务上的准确性下降。Orthrus 通过将并行生成与顺序约束解耦，在保持严格无损性能的同时实现了速度提升。</p>
+
+<img src="/chiennv2000/orthrus/raw/main/assets/math500_speed.png" alt="Throughput vs. Accuracy on MATH-500" width="60%" />
+
+<p>Hacker News 社区对该项目反应热烈，获得了 221 分和 43 条评论。项目共同作者在评论中详细解释了技术原理：注入可训练的扩散注意力模块到冻结的自回归 Transformer 的每一层，两个头共享一个 KV 缓存，扩散头并行预测 K=32 个 token，自回归头在第二次前向传递中验证并接受最长匹配前缀，输出分布被证明与基础模型完全相同。</p>
+
+<p>用户讨论集中在几个方面：技术可行性扩展到 Qwen 3.6 27B 等更大模型、与量化（GGUF）的兼容性、与多 token 预测（MTP）等现有技术的对比、以及在实际部署中的适用场景。有用户指出，对于个人本地推理（低批量大小），LLM 通常受内存延迟限制而非计算限制，此类技术通过并行处理多个 token 更好地利用了 GPU 计算能力。但对于数据中心的大规模批量推理，GPU 通常是计算受限的，因此收益模式不同。</p>
+
+<p>项目提供了 <a href="https://camo.githubusercontent.com/eff96fda6b2e0fff8cdf2978f89d61aa434bb98c00453ae23dd0aab8d1451633/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667">Colab 快速体验</a>，并计划 soon 与 vLLM 和 SGLang 进行原生集成。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48154865</guid>
+      <pubDate>Fri, 15 May 2026 22:38:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 深入解析HTML列表：五种类型及其正确使用场景</title>
       <link>https://news.ycombinator.com/item?id=48161861</link>
@@ -1265,42 +1316,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48090029</guid>
       <pubDate>Mon, 11 May 2026 01:23:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 在24GB内存M4 MacBook Pro上运行本地语言模型的实践经验</title>
-      <link>https://news.ycombinator.com/item?id=48089091</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍在MacBook上运行本地AI模型的实践，主要关注AI技术应用，虽涉及Mac硬件但核心是AI技术进展</small></p><p>一位开发者分享了在配备24GB内存的M4 MacBook Pro上运行本地语言模型的实践经验。经过多次尝试，作者发现Qwen 3.5-9B（4位量化）是最适合的选择，通过LM Studio运行，配合Pi或OpenCode作为前端界面，能够获得约40 tokens/秒的推理速度，并支持128K上下文窗口。</p>
-
-<p>作者详细记录了配置过程：需要启用思考模式，并推荐了针对编码任务的参数设置（temperature=0.6, top_p=0.95, top_k=20等）。文章提供了Pi和OpenCode的具体配置文件示例，包括如何隐藏思考过程的显示。</p>
-
-<p>在实际使用中，该配置成功处理了Elixir代码的lint警告修复，能够识别并正确修改代码中的问题。但在处理git冲突时，模型虽然能分析出解决方案，却在执行时忘记实际编辑文件，导致操作失败。</p>
-
-<p>作者坦承本地模型与前沿SOTA模型存在明显差距：更容易分心、陷入循环或误解指令，无法独立解决复杂问题。但通过交互式工作流程，逐步指导模型，仍能作为研究助手和编程参考工具使用。</p>
-
-<p>社区讨论中，用户澄清了M4指的是M4 MacBook Pro而非Nvidia Tesla M4。多位用户分享了各自的本地模型运行经验，包括Gemma 4 31B在更大内存设备上的表现。讨论还涉及本地模型与云端订阅服务的经济性比较，有用户指出花费800美元/月购买云端服务相当于30年的订阅费用才能抵上一台高配MacBook Pro的价格。</p>
-
-<p>值得注意的是，多位用户强调本地模型与前沿模型（如Opus 4.7、ChatGPT 5.5）在编码和问题解决能力上仍有显著差距，提醒读者保持合理期望。不过，本地模型的优势在于无需网络连接、无订阅费用、隐私保护以及可以离线工作等。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48089091</guid>
-      <pubDate>Sun, 10 May 2026 23:09:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>《Think Linear Algebra》：代码优先的线性代数实践指南</title>
-      <link>https://news.ycombinator.com/item?id=48082396</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 线性代数的编程实践指南，属于编程教学类，配置中无直接匹配但有相关性，主题相对专业</small></p><p>Allen Downey的《Think Linear Algebra》是一本基于Creative Commons许可的免费教材，采用"代码优先"的教学方法，通过Jupyter笔记本和实际案例帮助读者理解线性代数的核心概念。</p>
-
-<p>该书与传统线性代数教材不同，从实际应用问题出发，如网络流量建模、GPS跟踪数据分析、电路系统求解等，使用Python和NumPy、SciPy、SymPy、NetworkX等库构建解决方案。每章都围绕一个具体问题展开，让读者在实践中掌握矩阵乘法、特征向量、向量投影、LU分解、QR分解等概念。</p>
-
-<p>社区讨论中，用户对教材的教学顺序（矩阵乘法在向量加法之前介绍）提出了一些看法，但普遍赞赏这种实践导向的方法。多位用户提到Allen Downey的<a href="https://github.com/AllenDowney/ThinkStats">《Think Stats》</a>等系列书籍曾帮助他们理解复杂概念，称赞作者的知识共享精神。</p>
-
-<p>有用户建议教材可以增加主成分分析（PCA）、典型相关分析（CCA）等统计主题章节，以展示scikit-learn中相关算法的实现原理。其他用户则分享了他们在商业问题中成功应用线性代数的经验。</p>
-
-<p>该书适合那些在传统数学教学中遇到困难，或者希望通过编程实践来学习线性代数的读者，特别适用于机器学习、科学计算、计算机图形学等领域的学习者。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48082396</guid>
-      <pubDate>Sun, 10 May 2026 09:40:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
