@@ -3,7 +3,117 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 17 May 2026 23:09:01 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2026 03:03:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.2 将引入 &quot;OPENAT2_REGULAR&quot; 标志，防止安全程序被设备文件欺骗</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-OPENAT2_REGULAR</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核新增OPENAT2_REGULAR安全特性，属于重要的软件技术进展，增强安全性</small></p><p>Linux 内核的 VFS（虚拟文件系统）补丁已进入 "-next" 分支，预计将在下个月的 Linux 7.2 合并窗口中正式引入新的 <code>OPENAT2_REGULAR</code> 标志。该标志用于 <code>openat2</code> 系统调用，旨在帮助安全程序避免被恶意诱导打开非普通文件。</p>
+
+<p>当传入该标志时，系统仅会在目标路径指向普通文件（regular file）时才打开它；如果路径指向设备节点、FIFO（命名管道）等特殊文件，则会返回 <code>-EFTYPE</code> 错误码。例如，对 <code>/dev/null</code> 使用带 <code>OPENAT2_REGULAR</code> 标志的 <code>openat2</code> 调用，将直接返回 <code>-EFTYPE</code>。</p>
+
+<p>该标志与 <code>O_CREAT</code> 结合使用时，若路径不存在则创建普通文件，若已存在则仅在它是普通文件时才打开，否则返回 <code>-EFTYPE</code>。与 <code>O_DIRECTORY</code> 结合使用则会返回 <code>-EINVAL</code>，因为一个路径不可能同时是目录和普通文件。</p>
+
+<p>这一功能源自 <a href="https://uapi-group.org/">UAPI Group</a> 的请求。该组织指出，许多设备节点（甚至 FIFO）默认带有阻塞 I/O 甚至阻塞 <code>open()</code> 行为，这与由"快速"磁盘 I/O 支撑的普通文件完全不同。一个典型的场景是：一个简单的网页浏览器被指向 <code>file://dev/zero</code>，结果意外读取到无休止的数据流。</p>
+
+<p>该补丁已进入 <code>vfs-7.2.openat.regular</code> Git 分支，若无意外，将在 6 月中旬的 Linux 7.2 合并窗口期间被合入主线。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-OPENAT2_REGULAR</guid>
+      <pubDate>Mon, 18 May 2026 18:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Firefox 151 发布：新增文档画中画 API、PDF 合并等功能</title>
+      <link>https://www.phoronix.com/news/Firefox-151</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Firefox 151新版发布，新增画中画API，来源配置中Firefox为很感兴趣</small></p><p>Mozilla 于 2026 年 5 月 18 日发布了 Firefox 151 正式版，这是该开源浏览器的月度例行更新。原计划在本次版本中推出的原生 JPEG-XL 图像解码器已被推迟至 Firefox 152 Beta 版本。</p>
+
+<p>Firefox 151 的主要新特性包括：</p>
+<ul>
+  <li><strong>文档画中画 API（Document Picture-in-Picture API）</strong>：允许开发者创建一个始终置顶的窗口，并填充任意 HTML 内容。该 API 主要面向视频会议等场景，可提供比传统视频画中画更丰富的自定义控件和交互体验。Google Chrome 自 Chrome 116 起已支持此功能。</li>
+  <li><strong>内置 VPN 支持更新</strong></li>
+  <li><strong>隐私浏览改进</strong></li>
+  <li><strong>多项设置变更</strong></li>
+  <li><strong>PDF 查看器支持合并多个 PDF 文件</strong></li>
+  <li><strong>本地配置文件备份</strong>（Linux 和 macOS）：支持跨平台恢复配置文件，方便用户在不同系统间迁移 Firefox 配置，无需手动复制隐藏目录。</li>
+</ul>
+
+<p>Firefox 151.0 正式版二进制文件现已可从 <a href="https://ftp.mozilla.org">ftp.mozilla.org</a> 下载。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Firefox-151</guid>
+      <pubDate>Mon, 18 May 2026 12:46:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 出于安全考虑，Linux 内核 AF_ALG 加密子系统移除零拷贝支持</title>
+      <link>https://www.phoronix.com/news/Linux-AF-ALF-Zero-Copy-Security</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核加密代码因安全原因移除零拷贝支持，属于重要安全相关的软件技术改进</small></p><p>鉴于近期 Linux 内核安全漏洞频发，内核加密子系统正主动从 AF_ALG 中移除零拷贝（zero-copy）功能，以降低安全风险。零拷贝技术虽能提升性能与效率，但在内核空间中会增加恶意软件利用其语义进行攻击的可能性。</p>
+
+<p>Linux 内核加密专家、来自 Google 的 Eric Biggers 在提交的补丁中解释了移除零拷贝支持的原因。他指出，零拷贝支持是 AF_ALG 中风险最高的特性之一：它允许用户空间直接对文件（如 <code>su</code> 二进制文件）的 pagecache 页面发起加密操作，同时也允许用户空间并发修改正在被操作的内存，这极易引发 TOCTOU（Time-of-Check Time-of-Use，检查时间与使用时间）漏洞。</p>
+
+<p>虽然零拷贝支持在网络和文件 I/O 等频繁使用的内核代码中价值显著，但在 AF_ALG 中收益甚微。AF_ALG 是一个小众的用户空间 API（UAPI），主要出于向后兼容目的而存在，服务于 <code>iwd</code> 等少数尚未改用用户空间加密代码的程序。AF_ALG 最初旨在用于访问硬件加密加速器，但它并非实现此目的的高效接口，实际使用也极为罕见。因此，AF_ALG 中零拷贝支持的风险远大于其收益。</p>
+
+<p>此次补丁移除了 "skcipher" 和 "aead" 算法类型中的零拷贝支持，"hash" 类型将单独处理。值得注意的是，这是一个"软中断"（soft break）而非"硬中断"（hard break）——即使补丁生效后，用户仍可使用 <code>splice()</code> 或 <code>sendfile()</code> 将数据从管道或任意文件传输到 AF_ALG 请求套接字，区别仅在于内核现在会在执行加密操作前对数据制作一份内部稳定副本。这虽然略微降低了性能，但并未破坏 UAPI，且大幅提升了安全性。</p>
+
+<p>该移除补丁已合入 "cryptodev" Git 代码库，预计将在 6 月开启的 Linux 7.2 合并窗口期间被提交。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-AF-ALF-Zero-Copy-Security</guid>
+      <pubDate>Mon, 18 May 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linus Torvalds：AI 工具虽好，但不要制造无意义的痛苦和虚假工作</title>
+      <link>https://www.phoronix.com/news/Torvalds-AI-Tools-Can-Be-Great</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linus Torvalds对AI工具的个人观点分享，涉及人物观点，兴趣程度不够明确</small></p><p>Linux 创始人 Linus Torvalds 在 Linux 7.1-rc4 发布公告中，再次就 AI/LLM 工具引发的内核安全报告泛滥问题发表了直言不讳的评论。</p>
+
+<img src="//www.phoronix.net/image.php?id=0x2014&image=linuxcon_chicago_recap_med" alt="Linus Torvalds" />
+
+<p>Torvalds 指出，由 AI 工具生成的大量"安全报告"已经让内核安全邮件列表几乎无法管理。不同用户使用相同工具发现相同漏洞，导致大量重复报告。内核维护者不得不花费大量时间转发报告或告知提交者"这个问题上周/上个月已经修复了"，形成了毫无意义的流程内耗。</p>
+
+<p>Torvalds 强调，AI 检测到的漏洞本质上并非秘密，将其放在私有列表上处理只会让重复问题更加严重，因为报告者之间无法看到彼此的报告。他写道：<em>"AI 工具固然很好，但前提是它们确实能提供帮助，而不是制造不必要的痛苦和毫无意义的虚假工作。"</em></p>
+
+<p>他进一步建议：如果你使用 AI 工具发现了漏洞，很可能别人也发现了。如果想真正创造价值，应该阅读文档、创建补丁，在 AI 的基础上增加真正的价值，而不是做一个"随手发送随机报告、对问题毫无真正理解"的人。</p>
+
+<p>此前，Torvalds 曾表示"AI 垃圾问题无法通过文档解决"，而最近内核社区已新增了关于负责任使用 AI 以及何为安全报告的文档。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Torvalds-AI-Tools-Can-Be-Great</guid>
+      <pubDate>Mon, 18 May 2026 11:54:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ AMD 主导的 Lemonade SDK 10.5 发布：macOS 支持升至 GA 状态，集成 ROCm 7.13</title>
+      <link>https://www.phoronix.com/news/Lemonade-SDK-10.5-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AMD Lemonade SDK for AI将macOS提升为正式版，属于AI软件技术进展，用户对AI技术进展感兴趣</small></p><p>由 AMD 工程师主导开发的开源项目 Lemonade SDK（"清爽快速的本地 AI"）发布了 10.5 版本。该 SDK 专注于在 GPU 和 NPU 上运行优化的本地大语言模型（LLM），自 3 月份发布 10.0 版本（首次让 AMD Ryzen AI NPU 在 Linux 上可用于运行 LLM）以来，开发节奏明显加快，版本迭代更加频繁。</p>
+
+<p>本次更新的亮点之一是 <strong>macOS 支持从 "beta" 升级为 "GA"（正式发布）状态</strong>。尽管 AMD 硬件并未用于现代苹果 Mac 电脑，但 Lemonade SDK 通过 Llama.cpp Metal 后端支持 Apple Silicon（M 系列 SoC）GPU。此次升级反映了近期 macOS 支持质量的显著提升，目前 Lemonade 的所有主要功能在 macOS 上均已得到支持。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=lemonade_sdk_med" alt="Lemonade SDK logo" />
+
+<p>此外，Lemonade SDK 10.5 还<strong>集成了 ROCm 7.13 技术预览版</strong>，用于 Llama.cpp 和 Stable-Diffusion.cpp。AMD ROCm 7.13 于本周发布，新增了对 Ubuntu 26.04 LTS 的支持、AMD Instinct MI350P PCIe 加速器，并兼容多款现有的 AMD Ryzen AI 和 Radeon PRO 硬件产品。</p>
+
+<p>该版本还改进了自定义/导入模型的管理功能，同步更新至 Llama.cpp 9174 上游版本，并修复了多项问题。AMD 基于 Lemonade SDK 构建的 GAIA 软件近期活跃度也有所提升。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Lemonade-SDK-10.5-Released</guid>
+      <pubDate>Mon, 18 May 2026 09:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 内核二把手 Greg Kroah-Hartman 持续借助 AI 模糊测试工具发现内核漏洞</title>
+      <link>https://www.phoronix.com/news/Linux-GKH-Clanker-2000</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核bug检测工具持续发现新bug，涉及编程效率改进和工具应用，用户对编程工具/效率改进很感兴趣</small></p><p>Linux 内核项目副主管、稳定版内核维护者 Greg Kroah-Hartman（简称 GKH）持续使用名为 "gkh_clanker_t1000" 和 "gkh_clanker_2000" 的 AI 模糊测试（fuzzing）工具来发现和修复 Linux 内核漏洞。这一消息最早由 Phoronix 在 4 月初报道。</p>
+
+<p>GKH 的 AI 辅助修复工作基于一台搭载 AMD Ryzen AI Max 处理器的 Framework Desktop 电脑。相关修复代码被提交到 driver-core.git 仓库的 t1000 分支中。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=clanker_2000_1" alt="T1000 Git 分支" />
+
+<p>上周末，该分支又新增了约 24 项修复，这些修复均标注了 gkh_clanker_t1000 和 gkh_clanker_2000 的协助。修复范围涵盖 USB Type-C、多种输入驱动、媒体驱动以及工业 I/O（Industrial I/O）代码。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=clanker_2000_2" alt="gkh_clanker_2000" />
+
+<p>具体修复内容包括：修复栈泄漏（stack leak）、改进边界检查等安全检查机制，以及增强驱动中的验证逻辑。其中许多修复已被标记为需要回溯移植（back-porting）到 Linux 内核稳定版，待 t1000 分支的最新补丁合入主线（mainline）后即可实施。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-GKH-Clanker-2000</guid>
+      <pubDate>Mon, 18 May 2026 04:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.1-rc4 内核发布：多项修复与安全/AI 文档更新</title>
       <link>https://www.phoronix.com/news/Linux-7.1-rc4-Released</link>
@@ -774,114 +884,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-CUDA-Oxide-0.1</guid>
       <pubDate>Fri, 08 May 2026 14:17:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2 将引入 dm-inlinecrypt 以利用硬件内联加密</title>
-      <link>https://www.phoronix.com/news/DM-INLINECRYPT-For-Linux-7.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核新功能，属于软件技术进展，用户感兴趣</small></p><p>Linux 内核 7.2 版本预计将引入新的 dm-inlinecrypt 目标设备，该功能已排队等待合并到 DeviceMapper 的更改中。与现有的 dm-crypt（使用常规 Linux 内核加密 API）不同，dm-inlinecrypt 采用块加密 "blk-crypto" API，从而能够利用支持内联加密（inline encryption）的硬件，例如许多 UFS 主机控制器已具备此功能。</p>
-
-<p>该代码由 Google 的 Eric Biggers 编写，基于 Android 的 dm-default-key 修改而来，但移除了直通支持（passthrough support），因为这一功能此前存在争议。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=dm_inlinecrypt" alt="dm_inlinecrypt" />
-
-<p>更多关于 dm-inlinecrypt 的细节可通过新的 DM_INLINECRYPT Kconfig 选项启用，相关补丁已提交到 Device Mapper 的 "dm-7.2" Git 分支，等待 6 月份 Linux 7.2 合并窗口的开启。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/DM-INLINECRYPT-For-Linux-7.2</guid>
-      <pubDate>Fri, 08 May 2026 13:11:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qt Creator 20 Beta 发布：扩展 AI 集成与新增开发工具功能</title>
-      <link>https://www.phoronix.com/news/Qt-Creator-20-Beta</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 编程工具新版本，扩展AI集成，符合用户高兴趣主题</small></p><p>Qt Group 今日发布了 Qt Creator 20 Beta 版本，这是专注于 Qt/C++ 开发的集成开发环境（IDE）。新版本在 AI 集成方面进行了显著扩展，并引入了多项开发工具改进。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=qt_creator_19" alt="Qt Creator" />
-
-<p>Qt Creator 20 Beta 引入了全新的 Agent Client Protocol（ACP）扩展，允许开发者通过与 AI 代理对话来理解代码库，并执行编辑、操作和构建任务。ACP 为 IDE 内的代理-编辑器通信提供了标准化协议，更多细节可访问 <a href="https://AgentClientProtocol.com">AgentClientProtocol.com</a>。</p>
-
-<p>此外，新版本还增加了用于管理 Model Context Protocol（MCP）服务器集成的新偏好设置页面，进一步增强了 AI 功能的可配置性。</p>
-
-<p>除了 AI 相关功能，Qt Creator 20 Beta 还带来了新的 Zen Mode 扩展选项，提供无干扰模式和禅模式，更新了 Clangd C++ 代码模型，并实现了远程 Linux 设备在部署和运行前的自动连接功能，以及其他多项改进。</p>
-
-<p>更多详细信息及下载链接请访问 <a href="https://Qt.io">Qt.io</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Qt-Creator-20-Beta</guid>
-      <pubDate>Fri, 08 May 2026 12:02:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Meta发布OpenZL 0.2：格式感知压缩框架迎来重大更新</title>
-      <link>https://www.phoronix.com/news/OpenZL-0.2-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是关于Meta的内容感知压缩软件OpenZL 0.2发布的新闻，属于新软件项目和开源项目，用户对此类主题感兴趣</small></p><p>Meta公司近日发布了OpenZL压缩框架的0.2版本，这是自去年10月首次亮相以来的首个重大更新。OpenZL被视为Meta在Zstandard（Zstd）之后的下一代数据压缩技术突破。</p>
-
-<p>OpenZL 0.2引入了多项重要改进，其中最显著的是新的"SDDL2"运行时，现在已发展成为一个"真正的编译器"。该框架使用简单数据描述语言（SDDL）来描述二进制文件格式，从而能够根据数据类型构建专门的优化压缩方案。</p>
-
-<p>性能方面，新版带来了显著提升：新的原生LZ编解码器相比Zstandard级别1，压缩速度快10%，解压缩速度更是快了70%。此外，zli实用工具现在能够处理高达数GB的"巨大输入"文件。</p>
-
-<img src="//www.phoronix.net/image.php?id=2025&image=openzl_sml" alt="OpenZL logo" />
-
-<p>其他改进包括API优化、针对不同平台的构建和打包增强。OpenZL采用BSD许可证，自v0.1发布以来已经历了大量代码变更。Meta公司继续大力投资这一压缩框架的开发。</p>
-
-<p>感兴趣的开发者可以在<a href="https://github.com">GitHub</a>上找到OpenZL 0.2的更多信息。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/OpenZL-0.2-Released</guid>
-      <pubDate>Fri, 08 May 2026 10:26:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AMD开源AI软件GAIA 0.17.6发布，新增Gmail集成功能</title>
-      <link>https://www.phoronix.com/news/AMD-GAIA-Gmail-Integration</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 内容是关于AMD的本地开源AI软件与Gmail集成，主要主题是开源AI技术，虽然涉及硬件但重点在软件功能，符合用户对AI软件的兴趣</small></p><p>AMD近日发布了其开源本地AI软件GAIA的0.17.6版本，该版本最大的亮点是新增了Gmail集成功能，允许用户在本地AI环境中管理电子邮件。</p>
-
-<p>AMD GAIA是一个专为消费级Radeon和Ryzen硬件设计的开源AI/LLM软件，支持Windows、Linux和macOS系统。最新版本通过OAuth PKCE认证实现了与Gmail账户的安全连接，为本地AI提供了25种工具，包括读取、整理、回复、删除邮件以及日历集成等功能。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=amd_gaia_0175_1_med" alt="AMD GAIA on Linux" />
-
-<p>为确保用户隐私，所有Gmail数据处理都在本地的Lemonade服务器上进行，不会上传到云端。对于可能造成数据丢失的"破坏性操作"（如删除重要邮件），系统设置了确认机制以防止误操作。</p>
-
-<p>除了Gmail集成外，GAIA 0.17.6还改进了Windows和macOS的首次启动可靠性，支持在代理UI中使用自定义Python代理，并包含了多项错误修复和性能优化。</p>
-
-<p>文章作者Michael Larabel在报道中指出，虽然这一技术进步值得关注，但他个人还不会完全信任LLM来处理个人邮件，特别是作为一个新引入的功能。用户可以通过<a href="https://github.com">GitHub</a>了解更多关于AMD GAIA的详细信息。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-GAIA-Gmail-Integration</guid>
-      <pubDate>Fri, 08 May 2026 10:12:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Dirty Frag漏洞提前公开：影响所有Linux发行版的root权限提升漏洞</title>
-      <link>https://www.phoronix.com/news/Dirty-Frag-Linux</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是关于Linux安全漏洞的重要新闻（Dirty Frag漏洞可导致root权限），涉及Linux系统安全，属于技术进展类内容，对Linux用户有参考价值</small></p><p>继Copy Fail漏洞一周后，又一个Linux本地权限提升漏洞被公开。这个名为"Dirty Frag"的漏洞由于禁运期被提前打破，安全研究人员比预期更早地公布了相关信息。</p>
-
-<p>该漏洞存在于esp4、esp6和rxrpc内核代码的解密快速路径中，允许本地用户在所有主要Linux发行版上提升到root权限。目前尚未发布官方补丁或CVE编号，但文章提供了一个临时解决方案：通过禁用相关模块来缓解风险。</p>
-
-<p>临时解决方案命令为：<code>sh -c "printf 'install esp4 /bin/false\ninstall esp6 /bin/false\ninstall rxrpc /bin/false\n' > /etc/modprobe.d/dirtyfrag.conf; rmmod esp4 esp6 rxrpc 2>/dev/null; true"</code></p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=dirty_frag" alt="Dirty Frag" />
-
-<p>更多技术细节可通过<a href="https://oss-security.org/">oss-security发布</a>和<a href="https://github.com/">GitHub仓库</a>获取。Alma Linux是首批提供测试补丁的Linux发行版之一。</p>
-
-<p>文章评论区有15条讨论，反映了社区对这一新安全威胁的关注。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Dirty-Frag-Linux</guid>
-      <pubDate>Fri, 08 May 2026 00:08:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2将移除对AMD K5等老旧处理器的支持</title>
-      <link>https://www.phoronix.com/news/AMD-K5-CPUs</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要主题是Linux内核对老旧硬件支持的决策，属于Linux桌面技术范畴（来源配置：interest），虽然不是紧急内容，但对Linux技术用户有价值</small></p><p>Linux内核开发团队继续推进对老旧硬件的淘汰进程，继Linux 7.1逐步淘汰i486 CPU支持后，Linux 7.2将进一步移除对部分i586和i686级别处理器的支持，特别是那些缺乏时间戳计数器（TSC）指令的处理器。</p>
-
-<p>受影响的主要处理器包括AMD K5以及各种Cyrix处理器型号。AMD K5是AMD公司于1996年推出的首款完全自主设计的处理器，旨在与Intel Pentium竞争。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=amd_k5" alt="AMD K5" />
-
-<p>Linux内核开发者认为，维护这些没有TSC指令的硬件支持已成为负担。相关移除补丁已进入tip/tip.git的"x86/cpu"分支，预计将在Linux 7.2合并窗口期间提交。</p>
-
-<p>这一变化意味着TSC支持将成为现代Linux系统的启动要求，CONFIG_X86_TSC配置选项将变为无条件启用，内核可以从x86代码中移除各种非TSC代码路径。支持TSC的Intel Pentium等处理器仍将继续得到支持。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-K5-CPUs</guid>
-      <pubDate>Thu, 07 May 2026 21:44:11 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,239 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 17 May 2026 23:08:59 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2026 03:01:32 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 利用 Git 的 --author 标志对抗 GitHub 仓库中的 AI 机器人垃圾信息</title>
+      <link>https://news.ycombinator.com/item?id=48181125</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及利用 Git 工具技巧对抗 AI 垃圾信息，属于编程效率改进经验和开源项目维护，用户很感兴趣</small></p><p>开源项目 Archestra 的 CTO Ildar Iskhakov 撰文分享了他们应对 AI 机器人垃圾信息泛滥的实践。团队发现，AI 生成的"垃圾内容"（slop）正在严重侵蚀开源仓库的贡献质量——机器人批量提交无意义的 issue、拉取请求（PR）和评论，淹没了真正贡献者的声音，甚至出现对维护者的攻击性言论。</p>
+
+<p>问题始于一个悬赏 900 美元的 issue，原本希望激励社区贡献，结果 AI 机器人涌入，将 issue 推至 253 条评论，充斥着无用的"实施方案"和恶意言论。类似地，为添加 x.ai 提供商支持的一个 issue 就收到了 27 个 PR，其中大部分贡献者甚至没有进行测试。团队成员每周需要花费半天时间清理 AI 垃圾。</p>
+
+<p>团队尝试了多种方案：先是构建了名为 "London-Cat" 的机器人，根据合并的 PR 等信号计算贡献者声誉；随后又构建了"AI 警长"（AI sheriff）自动关闭可疑 PR，但误伤了合法贡献者。最终，他们决定采取"核选项"——阻止未通过入门的用户创建 issue、PR 和评论。</p>
+
+<img src="/blog/2026-04-07-onboarding.webp" alt="Contributor onboarding, five steps to get whitelisted" />
+
+<p>具体实现方案巧妙地利用了 GitHub 的"限制为先前贡献者"（Limit to prior contributors）设置。该设置只允许曾在主分支上有过提交的用户参与讨论。Git 提交包含 author（作者）和 committer（提交者）两个身份字段，可以不同。团队利用 Git 的 <code>--author</code> 标志，以外部用户的身份创建提交，从而为其授予贡献者身份。</p>
+
+<p>操作流程如下：</p>
+<ol>
+<li>用户在团队网站（<a href="https://archestra.ai/contributor-onboard">archestra.ai/contributor-onboard</a>）上完成入门流程，包括接受伦理 AI 规则和通过 CAPTCHA 验证；</li>
+<li>一个 GitHub Action 在提交时触发，通过 API 查询用户的 GitHub ID；</li>
+<li>将用户 handle 添加到 <code>EXTERNAL_CONTRIBUTORS.md</code> 文件；</li>
+<li>使用该用户的 GitHub noreply 邮箱（格式：<code>&lt;ID&gt;+&lt;username&gt;@users.noreply.github.com</code>）作为 author，推送到主分支。</li>
+</ol>
+
+<img src="/blog/2026-04-07-prior-contributors-setting.webp" alt="Prior contributors setting" />
+<img src="/blog/2026-04-07-prior-contributors-commit.webp" alt="Commit attributed to external user" />
+
+<p>实施第一周就成功阻止了至少 500 个机器人。作者指出，AI 垃圾不仅打击真正贡献者的积极性，还带来了严重的安全风险——正如 LiteLLM 仓库中攻击者试图利用 AI 机器人操纵对话方向的事件。</p>
+
+<p>在 Hacker News 的讨论中，有用户指出这种方案存在安全隐患：一旦用户通过一次提交获得"先前贡献者"身份，可能绕过某些分支保护规则（如首次贡献者审批要求）。作者回应认为"要求所有外部贡献者审批"应成为默认设置。另有用户建议 GitHub 应考虑对 PR 被拒率过高的账号进行临时封禁，但评论指出 GitHub 作为平台方缺乏阻止 AI 的动机。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48181125</guid>
+      <pubDate>Mon, 18 May 2026 15:24:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Cloudflare 分享 Project Glasswing 成果：Mythos 安全大模型在真实基础设施中的漏洞挖掘实践</title>
+      <link>https://news.ycombinator.com/item?id=48179732</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲安全大模型在基础设施中的漏洞挖掘实践，属于 AI 软件技术进展，用户感兴趣</small></p><p>Cloudflare 首席安全官 Grant Bourzikas 发表文章，详细介绍了该公司参与 Anthropic 的 Project Glasswing 项目、使用安全大模型 Mythos Preview 对自身基础设施进行漏洞研究的成果与经验。Mythos Preview 被部署在超过 50 个代码仓库上，覆盖运行时、边缘数据路径、协议栈、控制平面及依赖的开源项目。</p>
+
+<h3>Mythos Preview 的两大突破性能力</h3>
+<p>与之前的通用前沿模型相比，Mythos Preview 展现出质的飞跃，主要体现在两个关键能力上：</p>
+<ul>
+  <li><strong>漏洞链构建（Exploit chain construction）</strong>：真实的攻击很少只利用单个漏洞，而是将多个小型攻击原语串联成完整的利用链。Mythos Preview 能够将多个低严重性漏洞组合成更严重的可利用漏洞，其推理过程看起来像资深安全研究员的工作，而非自动化扫描器的输出。</li>
+  <li><strong>利用证明生成（Proof generation）</strong>：发现漏洞和证明其可利用性是两回事。Mythos Preview 能编写触发疑似漏洞的代码，在沙箱环境中编译运行，若失败则读取错误信息、调整假设并重试，直到生成可工作的利用证明（PoC）。</li>
+</ul>
+
+<h3>模型拒绝行为的不一致性</h3>
+<p>Project Glasswing 提供的 Mythos Preview 版本移除了通用版本中的额外安全防护措施，但模型本身仍会自发地对某些请求产生"拒绝"行为。然而，这些拒绝并不一致——相同的任务以不同方式表述或在不同上下文中提出，可能产生完全不同的结果。例如，模型最初拒绝在某项目上进行漏洞研究，但在项目环境发生无关变更后却同意了；在另一个案例中，模型发现并确认了多个严重内存漏洞后，却拒绝编写演示利用代码。这表明模型的自主防护不足以作为完整的安全边界。</p>
+
+<h3>信噪比问题与误报管理</h3>
+<p>安全漏洞分类中最困难的部分之一是判断哪些漏洞是真实的、哪些是可利用的、哪些需要立即修复。两个因素主导了误报率：</p>
+<ul>
+  <li><strong>编程语言</strong>：C/C++ 项目由于直接内存控制，存在缓冲区溢出等漏洞类别，误报率显著高于 Rust 等内存安全语言。</li>
+  <li><strong>模型偏差</strong>：模型倾向于过度报告，大量发现带有"可能"、"潜在"等修饰词，需要大量人工甄别。Mythos Preview 在这方面有明显改进，附带 PoC 的发现可以直接采取行动。</li>
+</ul>
+
+<h3>构建"框架"（Harness）而非简单使用 Agent</h3>
+<p>Cloudflare 发现，简单地将通用编码 Agent 指向代码库并让其发现漏洞的做法效果不佳，原因有二：上下文窗口有限导致覆盖率极低，以及单流 Agent 无法并行处理大量假设。他们转而围绕 Mythos Preview 构建了一套完整的漏洞发现框架，包含以下阶段：</p>
+<ol>
+  <li><strong>侦察（Recon）</strong>：Agent 自上而下读取仓库，生成架构文档，包含构建命令、信任边界、入口点和攻击面。</li>
+  <li><strong>狩猎（Hunt）</strong>：每个任务对应一种攻击类别和范围提示，约 50 个狩猎 Agent 并行运行，每个可编译和运行 PoC 代码。</li>
+  <li><strong>验证（Validate）</strong>：独立 Agent 使用不同提示重新读取代码，尝试反驳原始发现。</li>
+  <li><strong>补漏（Gapfill）</strong>：标记覆盖不充分的区域重新排队。</li>
+  <li><strong>去重（Dedupe）</strong>：相同根因的发现合并为一条记录。</li>
+  <li><strong>追踪（Trace）</strong>：对共享库中的每个确认发现，追踪 Agent 判断攻击者输入是否实际到达漏洞点。</li>
+  <li><strong>反馈（Feedback）</strong>：可到达的追踪成为新的狩猎任务，形成闭环。</li>
+  <li><strong>报告（Report）</strong>：Agent 按预定义模式生成结构化报告。</li>
+</ol>
+
+<h3>对安全团队的启示</h3>
+<p>Cloudflare 警告，许多安全团队对 Mythos Preview 的第一反应是追求速度——更快扫描、更快打补丁、压缩响应周期。但"更快"是不够的：跳过回归测试可能导致修复原漏洞的同时引入更严重的新问题。真正的关键在于围绕漏洞设计架构，原则是"让漏洞难以被利用，而不是让漏洞难以被发现"。</p>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上的讨论热度很高（284 分，108 条评论）。部分用户质疑文章缺乏具体数据，如发现了多少真实漏洞、严重程度如何。有用户指出 curl 维护者 Daniel Stenberg 的博客提供了更多细节。也有用户认为 Mythos Preview 的能力提升是真实的，尤其考虑到它运行在计算密集型的"始终在线"模式下。关于文章本身是否由 AI 撰写也引发了讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48179732</guid>
+      <pubDate>Mon, 18 May 2026 13:37:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Files.md：一款开源的极简 Markdown 笔记应用，挑战 Obsidian</title>
+      <link>https://news.ycombinator.com/item?id=48179677</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源极简 Markdown 笔记应用，属于开源项目和软件新功能，用户感兴趣</small></p><p><strong>Files.md</strong> 是一款开源、本地优先的 Markdown 笔记应用，旨在成为 <a href="https://obsidian.md">Obsidian</a> 的轻量替代品。作者 <strong>zakirullin</strong> 表示已持续开发该项目五年，并于近期正式开源。其核心理念是：用户不仅应拥有自己的数据（纯 .md 文件），还应拥有打开这些文件的软件。</p>
+
+<img src="https://github.com/zakirullin/files.md/raw/main/web/img/appdark.png" alt="Files.md 截图" />
+
+<h3>主要特点</h3>
+<ul>
+  <li><strong>纯本地优先</strong>：数据存储在本地文件夹中，不发送到服务器，最大程度保护隐私</li>
+  <li><strong>无需安装</strong>：基于浏览器（PWA），打开即用，支持离线工作</li>
+  <li><strong>免费开源</strong>：代码极其简洁，整个项目可由一个人或 LLM 完整理解</li>
+  <li><strong>可选的同步方案</strong>：支持 iCloud/Dropbox/Google Drive 同步，也可自建服务器（单一 Go 二进制文件，约 15MB）</li>
+  <li><strong>Telegram 机器人</strong>：支持通过聊天机器人随时随地记录想法</li>
+  <li><strong>LLM 友好</strong>：代码结构经过优化，方便 AI 辅助扩展</li>
+</ul>
+
+<h3>使用哲学</h3>
+<p>Files.md 强调"用大脑思考"而非依赖复杂的模板和插件系统。作者引用了 <em>I Deleted My Second Brain</em> 一文中的观点，认为 Obsidian 等工具的插件和图谱视图可能制造"理解的幻觉"，让人将思考工作推迟给未来的自己。Files.md 鼓励：每条笔记一个想法、笔记之间建立链接、定期回顾并深入思考。</p>
+
+<p>项目预定义了文件结构（如 <code>brain/</code>、<code>journal/</code>、<code>habits/</code> 等目录），但用户可自由调整。支持快捷键操作，包括链接插入、文件搜索、新建/移动/删除文件等。</p>
+
+<h3>技术架构</h3>
+<p>后端使用 <strong>Go</strong> 语言重写，替代了原先的 Docker + PHP + Laravel + Nginx + Redis 等复杂堆栈，最终交付为一个无依赖的 15MB 二进制文件。前端为纯 HTML/JS，无构建系统，承诺"十年后打开 <code>web/index.html</code> 依然能正常工作"。项目包含详细的架构决策记录（ADR），记录了从 WASM 回退到纯 JS、从 Today.md 合并到 Chat.md 等演进过程。</p>
+
+<h3>社区反响</h3>
+<p>该帖子在 Hacker News 上获得 555 分和 281 条评论。社区反馈普遍积极，称赞其简洁美观的设计和五年打磨的诚意。有用户将其比作 <strong>Bear</strong> 笔记的极简版，也有用户提到 <strong>Tiddlywiki</strong> 和 <strong>Zettlr</strong> 等类似工具。部分用户指出移动端支持尚不完善，作者回应称移动端主要通过 Telegram 机器人使用。</p>
+
+<p>一位评论者指出，Files.md 与其说是 Obsidian 的替代品，不如说是一种截然不同的笔记理念——它不追求功能对等，而是专注于"简单、懒人式的添加流程、开箱即用"。作者对此表示认同，并坦言尚未找到更好的定位描述。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48179677</guid>
+      <pubDate>Mon, 18 May 2026 13:33:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ &quot;Vibecoded&quot; Photoshop 在哪里？——关于 AI 编程能力边界的深度反思</title>
+      <link>https://news.ycombinator.com/item?id=48177228</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 深度反思 AI 编程能力边界，涉及 AI 软件技术进展和编程工具能力探讨，用户感兴趣</small></p><p>一篇来自独立开发者社区的文章对当前 AI 编程（vibecoding）的炒作提出了尖锐质疑：如果 AI 真的如宣传所说大幅降低了编程门槛，为什么两年过去了，我们还没有看到任何由 AI 独立完成的复杂软件——比如"vibecoded 的 Photoshop"、"vibecoded 的 Excel"或"vibecoded 的编译器"？</p>
+
+<img src="../../images/vibecodedPhotoshop.jpg" alt="Where are the vibecoded Photoshops?" />
+
+<p>作者将软件开发能力划分为三个层次：<strong>Level 1（打字）</strong>——语法、分号、记忆指针运算等基础编码技能；<strong>Level 2（验证）</strong>——测试框架、测试套件、筛选出能用的代码并交付；<strong>Level 3（决策）</strong>——决定构建什么、选择哪种架构能在真实世界中存活。作者指出，AI 只降低了 Level 1 的成本，Level 2 和 Level 3 的门槛从未被触及。</p>
+
+<p>文章认为，那些批评他人作品是"vibecoded"的人，实际上是将自己的身份认同建立在 Level 1 上。当 AI 使这一层变得廉价时，他们感到威胁，于是通过贬低他人的 AI 辅助作品来维护自身地位。作者写道："他们指责 vibecoder 的行为，恰恰是他们自己在做的事：没有定义、没有测试、没有可证伪性，只是一个快速发布、从不验证的指控。"</p>
+
+<p>作者以自身经历为例——其项目 <strong>SoulPlayer</strong> 包含一个由 Python 开发的 90 项验证测试框架，需要四个比特一致的参考实现全部通过才能发布；其 AI 音乐视频项目花费数周时间，并自建了自定义推理工具链以最大化对最终画面的控制——证明真正严肃的 AI 辅助开发仍然需要大量的验证和架构决策工作。</p>
+
+<p>文章最后呼吁停止使用"vibecoded"作为贬低他人的标签，指出这种指控"不需要证据，只需要消耗目标足够的时间和士气，让下一个人不敢分享他们的作品"。</p>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上的讨论（345 条评论）呈现了多元观点：</p>
+<ul>
+  <li><strong>swiftcoder</strong> 认为 LLM 降低代码成本并未真正解决软件开发问题，更不用说产品开发了。</li>
+  <li><strong>pydry</strong> 指出高质量代码的成本实际上可能上升了，因为需要清理更多"垃圾代码"。</li>
+  <li><strong>sph</strong> 提出一个有趣的矛盾：如果 AI 真的让人效率提升 100 倍，为什么没人用 AI 重建 Photoshop？</li>
+  <li><strong>bensyverson</strong> 反问：为什么一定是 Photoshop？在 2026 年的市场环境下，Photoshop 可能根本没有竞争力。</li>
+  <li><strong>roenxi</strong> 引用 <a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/">METR 的研究</a>，预测 AI 在 2027-2030 年左右才能在人类辅助下构建类似 Photoshop 的复杂软件。</li>
+  <li><strong>bayindirh</strong> 提到初步研究发现 AI 辅助编码已对软件质量产生"下行压力"。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48177228</guid>
+      <pubDate>Mon, 18 May 2026 09:28:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>卡洛·罗韦利：不存在&quot;意识的困难问题&quot;，是时候放弃二元论了</title>
+      <link>https://news.ycombinator.com/item?id=48175140</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于意识哲学的讨论，与用户兴趣配置无明显匹配，兴趣不明确</small></p><p>理论物理学家卡洛·罗韦利（Carlo Rovelli）在 <a href="https://www.noemamag.com/there-is-no-hard-problem-of-consciousness/">Noema Magazine</a> 发表长文，直言不讳地宣称：<strong>不存在所谓的"意识的困难问题"</strong>（Hard Problem of Consciousness），是时候放弃由这场争论引入的"有害二元论"了。</p>
+
+<p>罗韦利将当前关于意识的争论比作历史上多次出现过的"文化抵抗"——哥白尼革命时期人们难以接受天地同质，达尔文进化论时期人们难以接受人与动物同源。如今，人们同样难以接受"我们的灵魂与身体及其他自然现象具有相同本质"这一观念。</p>
+
+<p>文章直接挑战哲学家大卫·查尔默斯（David Chalmers）在1994年提出的著名区分：查尔默斯将"解释大脑过程如何产生行为"称为"容易问题"，而将"为什么大脑行为会伴随主观体验"称为"困难问题"。罗韦利认为，这个所谓的"困难问题"是一个伪问题，它预设了心物之间存在形而上学的鸿沟，而这与过去几个世纪我们对自然的所有认知相矛盾。</p>
+
+<p>罗韦利指出，所谓的"解释鸿沟"（explanatory gap）概念本身就有问题——"我们怎么可能现在就知道，如果我们理解了目前不理解的东西，我们会理解什么？"他认为，科学并非从外部对绝对客观世界的直接描述，而是我们作为世界的一部分、从世界内部进行的认知组织。第一人称描述和第三人称科学描述只是同一大脑现象的两种不同视角，而非两种不同的实在。</p>
+
+<p>针对查尔默斯的"哲学僵尸"（philosophical zombie）思想实验——一个在物理上与人类完全相同但没有意识的存在——罗韦利反驳说，如果僵尸在物理上与人类完全相同，它也会声称自己有主观体验，因此该论证是循环论证，只是预设了它试图证明的东西。</p>
+
+<p>罗韦利最后强调："我们有灵魂。我们有内在的自我。我们有情感和精神生活；我们体验着感受质（qualia）。但这些实体不是通过向物理状态'添加'什么东西获得的，而是从完整的物理描述中'减去'某些细节后得到的。心理过程就是用一种只捕捉其显著特征的方式来描述的物理过程。"</p>
+
+<h3>社区反响</h3>
+<p>这篇文章在 Hacker News 上引发了激烈争论（279分，685条评论），观点严重分化。部分读者赞赏罗韦利对先验假设的拒绝，但也有大量批评声音认为文章"完全误解了问题本身"。</p>
+
+<p>批评者指出，将意识类比为雷暴等复杂现象"完全不得要领"——雷暴虽然复杂，但其背后原理并不神秘；而意识的核心谜团在于物理过程如何产生主观体验，这不能简单地用"它很复杂"来打发。有评论者认为，这篇文章反而有力地证明了"困难问题"的真实存在——因为它几乎无法被令人信服地反驳。</p>
+
+<p>也有评论者支持罗韦利的立场，认为意识可能是大脑自指建模产生的一种"强大幻觉"，就像我们难以直观理解相对论或宇宙大爆炸之前的状态一样，意识难题的答案可能只是我们不愿接受的简单事实。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48175140</guid>
+      <pubDate>Mon, 18 May 2026 02:59:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ GenCAD：MIT 提出基于图像条件生成参数化 CAD 模型的 AI 框架</title>
+      <link>https://news.ycombinator.com/item?id=48173429</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] MIT 提出的 AI 框架用于生成参数化 CAD 模型，属于新 AI 模型/框架发布，用户很感兴趣</small></p><p>麻省理工学院（MIT）的研究人员 Md Ferdous Alam 和 Faez Ahmed 提出了 <strong>GenCAD</strong>，一个基于图像条件（image-conditional）的计算机辅助设计（CAD）生成模型。与传统方法不同，GenCAD 不仅能生成 3D 实体模型，还能输出完整的参数化 CAD 命令历史（即 CAD 程序），使其具备更高的可修改性和工程实用性。</p>
+
+<p><strong>技术架构</strong>：GenCAD 由四个核心步骤组成：1）使用自回归 Transformer 编码器学习 CAD 命令序列的潜在表示；2）通过对比学习（contrastive learning）模型联合学习 CAD 命令序列与 CAD 图像之间的潜在空间表示；3）利用潜在扩散模型（latent diffusion model）在 CAD 图像条件下生成 CAD 命令序列的潜在表示；4）通过解码器将 CAD 潜在表示转换为参数化 CAD 命令序列。</p>
+
+<p><strong>核心优势</strong>：常见的 3D 生成方法通常使用网格（mesh）、体素（voxel）或点云（point cloud）等表示方式，这些方式牺牲了真实 CAD 模型的精度和可修改性。GenCAD 直接生成边界表示（B-rep）等参数化 CAD 数据结构，更适用于工程任务、制造和设计空间探索。此外，GenCAD 还具备图像条件 CAD 检索能力，可从约 7000 个 CAD 程序中检索最匹配的模型。</p>
+
+<p><strong>社区讨论</strong>：该工作在 Hacker News 上引发了广泛讨论，获得 426 个点赞和 118 条评论。部分评论者指出当前展示的示例较为基础（多为单次拉伸操作），并质疑其在真实照片或手绘图纸上的表现。也有用户分享了替代方案，如基于 OpenSCAD 的 LLM 集成工作流（<a href="https://github.com/cjtrowbridge/vibe-modeling">vibe-modeling</a>）和开源的 Rust BRep CAD 内核 <a href="https://github.com/ecto/vcad">vcad</a>。多位评论者认为，将 LLM 与 OpenSCAD 等基于脚本的 CAD 工具结合使用已相当成熟，而 GenCAD 这类端到端生成方法在工程约束处理和复杂几何建模方面仍有待验证。</p>
+
+<div class="know-more"><h3>你知道吗？</h3><ul>
+<li><strong>边界表示（B-rep）</strong>：B-rep 是 CAD 系统中常用的实体建模方法，通过存储几何体的边界信息（面、边、顶点及其拓扑关系）来精确描述 3D 实体。与网格表示相比，B-rep 支持精确的几何计算和参数化修改，是专业 CAD 软件（如 SolidWorks、CATIA）的核心数据结构。</li>
+<li><strong>CAD 程序（CAD Program）</strong>：指描述 3D 模型构建过程的一系列参数化操作命令序列，类似于"建模历史"。与仅输出最终网格不同，输出 CAD 程序意味着用户可以回溯、修改每一步操作参数，实现真正的参数化设计迭代。</li>
+</ul></div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48173429</guid>
+      <pubDate>Sun, 17 May 2026 21:40:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Semble：面向 AI 编程助手的开源代码搜索工具，Token 消耗比 grep+read 减少 98%</title>
+      <link>https://news.ycombinator.com/item?id=48169874</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 面向 AI 编程助手的开源代码搜索工具，Token 消耗减少 98%，属于编程工具分享和编程效率改进经验，用户很感兴趣</small></p><p>Stephan 和 Thomas 近日开源了 <strong>Semble</strong>，一个专为 AI 编程助手（Agent）设计的代码搜索库。其核心思路是：当 AI 助手在大型代码库中找不到目标代码时，不再依赖 grep 逐行匹配或读取完整文件，而是通过语义搜索直接返回相关代码片段，从而大幅降低 Token 消耗。</p>
+
+<h3>核心性能指标</h3>
+<p>根据开发者在约 1250 个查询/文档对、涵盖 63 个代码仓库和 19 种编程语言的基准测试结果：</p>
+<ul>
+  <li><strong>Token 效率</strong>：相比 grep+read 减少 98% 的 Token 消耗</li>
+  <li><strong>检索速度</strong>：索引一个典型代码仓库约 250ms，单次查询约 1.5ms，全部在 CPU 上运行</li>
+  <li><strong>检索质量</strong>：NDCG@10 达到 0.854，相当于 1.37 亿参数代码专用 Transformer 模型的 99%，但索引速度快约 200 倍</li>
+</ul>
+
+<h3>工作原理</h3>
+<p>Semble 使用 <strong>tree-sitter</strong> 将代码文件分割成代码感知的块（chunk），然后通过两种互补的检索器进行评分：</p>
+<ul>
+  <li><strong>静态 Model2Vec 嵌入</strong>（使用代码专用模型 potion-code-16M）处理语义相似度</li>
+  <li><strong>BM25</strong> 处理标识符和 API 名称的词汇匹配</li>
+</ul>
+<p>两个评分列表通过 <strong>RRF（Reciprocal Rank Fusion）</strong> 融合，再经过代码感知信号（如符号查询自适应加权、定义提升、标识符词干匹配、文件连贯性提升、噪声文件降权等）进行重排序。由于嵌入模型是静态的，无需 Transformer 前向传播，所有操作在 CPU 上毫秒级完成。</p>
+
+<h3>主要功能与集成方式</h3>
+<ul>
+  <li><strong>MCP 服务器</strong>：可作为 MCP（Model Context Protocol）服务器运行，支持 Claude Code、Cursor、Codex、OpenCode 等工具</li>
+  <li><strong>Bash / AGENTS.md</strong>：通过 <code>semble search</code> 和 <code>semble find-related</code> 命令在终端中使用</li>
+  <li><strong>Python 库</strong>：提供 <code>SembleIndex</code> API 供程序化调用</li>
+  <li><strong>零配置</strong>：无需 API 密钥、GPU 或外部服务</li>
+  <li><strong>Token 节省统计</strong>：内置 <code>semble savings</code> 命令，可查看历史节省的 Token 数量</li>
+</ul>
+
+<h3>社区讨论与反馈</h3>
+<p>该发布在 Hacker News 上获得了 427 分和 138 条评论，讨论焦点包括：</p>
+<ul>
+  <li><strong>检索 vs 端到端评测</strong>：作者承认目前基准测试仅衡量检索准确率，尚未评测完整的 Agent 端到端响应质量，但已列入路线图。有用户指出，即使检索工具优秀，模型也可能因过度 RL 训练而不信任非 grep 结果，导致反复重读浪费 Token。</li>
+  <li><strong>非代码文档支持</strong>：作者表示已添加 <code>--include-text-files</code> 标志，可索引 Markdown、JSON 等文本文件。</li>
+  <li><strong>与其他工具对比</strong>：相比功能更丰富的 Serena，Semble 专注于"一件事"——极速代码搜索。有用户建议增加 fff 等工具的基准对比。</li>
+  <li><strong>实现语言选择</strong>：作者解释选择 Python 而非 Go/Rust 是因为团队主要使用 Python（机器学习背景），未来不排除其他语言版本。</li>
+</ul>
+
+<p>项目地址：<a href="https://github.com/MinishLab/semble">GitHub - MinishLab/semble</a> | 基准测试详情：<a href="https://github.com/MinishLab/semble/tree/main/benchmarks">benchmarks</a> | 模型：<a href="https://huggingface.co/minishlab/potion-code-16M">potion-code-16M</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48169874</guid>
+      <pubDate>Sun, 17 May 2026 15:37:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 开源项目将80美元Android平板改造成完整Debian Linux工作站</title>
       <link>https://news.ycombinator.com/item?id=48168668</link>
@@ -1090,187 +1322,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48111896</guid>
       <pubDate>Tue, 12 May 2026 18:03:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Obsidian 推出全新社区网站和自动化插件审查系统</title>
-      <link>https://news.ycombinator.com/item?id=48109970</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Obsidian的开发者社区网站和自动化插件审查系统，属于编程工具相关更新，符合用户对软件新功能和编程工具的兴趣。</small></p><p>Obsidian 笔记应用近日推出了全新的社区网站和开发者仪表板，这是对其插件生态系统的重大升级。自2020年发布API以来，社区已创建超过4000个插件和主题，累计下载量突破1.2亿次。</p>
-
-<p>新社区网站提供了改进的浏览体验，用户可以通过数十个类别（如集成、图表等）探索插件，并按名称、下载量、流行度等排序。每个项目都有详细页面，包含截图、描述和安全评分卡。</p>
-
-<img src="/images/blog/2026-community-search.png" alt="Obsidian Community" />
-
-<p>最显著的变化是引入了自动化审查系统。之前所有初始提交都需要人工审查，随着插件数量激增和AI辅助开发工具的普及，审查队列越来越长。新系统会对每个版本进行自动扫描，检查安全漏洞、代码质量和恶意代码。所有现有插件都已使用新系统重新审查。</p>
-
-<img src="/images/blog/2026-community-detail.png" alt="Obsidian Community" />
-
-<p>开发者可以通过新的仪表板提交和管理项目，所有通过GitHub提交的现有插件都已自动迁移。自动化审查大大加快了流程，团队在几天内处理了2300多个积压提交。</p>
-
-<p>未来几个月，Obsidian计划增加更多安全功能：插件将声明其访问权限（网络、文件系统、剪贴板等），用户可以在安装前查看这些声明；还将为通过额外验证的开发者添加"已验证作者"标签。</p>
-
-<img src="/images/blog/2026-community-review.png" alt="Obsidian Community" />
-
-<p>团队用户将获得更多控制权，可以管理允许的社区插件，并向团队成员分发私有插件。官方Obsidian插件的开发者现在可以申请"官方"徽章。</p>
-
-<p>Obsidian CEO在评论中表示，这是一个具有挑战性的项目，团队只有7人，但需要服务数千名开发者和数百万用户。他们试图在易用性、向后兼容性和安全性之间取得平衡。</p>
-
-<p>社区反应积极，开发者对解决审查瓶颈表示欢迎。不过也有用户对自动化安全审查的有效性提出疑问，认为需要更完善的沙盒系统和权限机制。还有用户讨论了深色模式的可访问性问题，以及开源与闭源插件的争议。</p>
-
-<p>这次升级标志着Obsidian插件生态系统进入新阶段，旨在为快速增长的用户和开发者社区提供更安全、更易用的平台。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48109970</guid>
-      <pubDate>Tue, 12 May 2026 15:45:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 资深开发者沟通困境：复杂性管理与不确定性减少的冲突</title>
-      <link>https://news.ycombinator.com/item?id=48109460</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论资深开发者与业务团队的沟通困境和复杂性管理，属于编程效率改进经验的高兴趣主题，同时涉及AI对开发流程的影响，是程序员会强烈感兴趣的内容</small></p><p>资深开发者常因沟通问题而无法有效传达其专业知识，根本原因在于他们关注"复杂性管理"，而业务团队关注"不确定性减少"。文章通过文案撰稿人的视角，深入分析了这一沟通鸿沟及其在AI时代的演变。</p>
-
-<p>作者将业务运作分为两个并行循环：第一个循环由市场、销售、产品经理等驱动，目标是快速将产品推向市场以获得反馈，减少不确定性；第二个循环由资深开发者主导，关注系统稳定性、可维护性和可扩展性，管理复杂性。</p>
-
-<img src="/_next/image?url=%2Fimages%2Fwsdftc%2FINS_0.png&w=3840&q=75&dpl=dpl_EJNiu3FBjkX8yJSwwGtmqoePQNU6" alt="业务的第一循环：市场、销售、产品经理和CEO将想法推向市场并反馈学习成果" width="4490" height="1840" />
-
-<p>当公司同时运行这两个循环时，沟通问题显现：资深开发者用"复杂性管理"的语言表达顾虑，而业务团队需要的是"不确定性减少"的解决方案。作者建议开发者使用"我们能尝试更快的方法吗？"这一关键短语，既承认业务对速度的需求，又为运用专业知识（减少、重用、避免）创造空间。</p>
-
-<img src="/_next/image?url=%2Fimages%2Fwsdftc%2FINS_2.png&w=3840&q=75&dpl=dpl_EJNiu3FBjkX8yJSwwGtmqoePQNU6" alt="业务的两个循环并行运行：一个追逐市场反馈，另一个服务付费客户" width="4490" height="1840" />
-
-<p>关于AI的影响，作者指出AI虽然能加速第一个循环（减少不确定性），但会破坏第二个循环（增加复杂性、降低可理解性）。AI无法承担系统稳定性的责任，这是资深开发者的核心价值所在。</p>
-
-<img src="/_next/image?url=%2Fimages%2Fwsdftc%2FINS_6.png&w=3840&q=75&dpl=dpl_EJNiu3FBjkX8yJSwwGtmqoePQNU6" alt="AI加速第一个循环同时破坏第二个循环——以可理解性和稳定性为代价换取额外速度" width="4490" height="1840" />
-
-<p>作为解决方案，作者提出解耦策略：创建"速度"版本用于快速市场验证，和"规模"版本用于稳定服务。这样既能满足业务的速度需求，又能确保系统的长期稳定性。</p>
-
-<img src="/_next/image?url=%2Fimages%2Fwsdftc%2FINS_8.png&w=3840&q=75&dpl=dpl_EJNiu3FBjkX8yJSwwGtmqoePQNU6" alt="建议的分离：用于快速市场学习的系统速度版本，以及由资深开发者稳定的规模版本" width="4490" height="1840" />
-
-<p>在HackerNews的105条评论中，读者们展开了热烈讨论。一些评论者指出文章有"AI写作风格"的痕迹，但多数人认为内容本身有价值。讨论集中在：资深开发者是否应该总是避免复杂性；AI对开发工作的实际影响；如何在业务需求和系统稳定性之间找到平衡；以及沟通技巧在技术领导力中的重要性。</p>
-
-<p>有评论者分享实际经验，指出优秀的资深开发者应该能够根据具体情况判断何时需要复杂性，何时应该避免。另一些评论者分享了有效沟通的技巧，比如从客户角度出发表达观点，或者明确指出复杂决策对非技术团队的影响。</p>
-
-<p>文章最终强调，资深开发者的核心价值不仅在于技术能力，更在于能够理解业务需求并用适当的方式沟通技术约束，在快速创新和系统稳定之间找到平衡点。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48109460</guid>
-      <pubDate>Tue, 12 May 2026 15:08:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google推出Googlebook：专为Gemini AI设计的新型笔记本电脑</title>
-      <link>https://news.ycombinator.com/item?id=48111545</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Google推出的Gemini AI专用笔记本电脑，属于新AI模型发布公告和编程工具分享，是用户高度感兴趣的内容。虽然涉及硬件，但核心是AI生态集成，应重点关注</small></p><p>Google近日宣布推出名为"Googlebook"的新型笔记本电脑类别，专为Gemini Intelligence人工智能设计。这款设备强调AI优先体验，深度集成Android生态系统，计划于今年秋季上市。</p>
-
-<img src="https://www.gstatic.com/marketing-cms/assets/images/1f/20/63b8aa8d4b948b60f5822b3ad5ab/googlebook.webp" alt="Googlebook" width="1244" height="220" />
-
-<p>Googlebook的核心卖点是AI功能集成，包括"Magic Pointer"功能，允许用户通过选择屏幕上的任何内容直接与Gemini交互，以及通过自然语言指令创建自定义桌面小部件的能力。设备还强调与Android手机的深度整合，用户可以在笔记本电脑上直接使用手机应用而无需安装，并能像访问本地文件一样访问手机中的文件。</p>
-
-<img src="https://www.gstatic.com/marketing-cms/assets/images/27/26/efcc236844ccb833b92620413427/magic-cursor-band-assets.webp=n-w353-h285-fcrop64=1,000009fbfffff605-rw" alt="Glowing cursor selecting a concert photo and band logo, with typed AI prompt; “Combine these images to make a band poster for my kid.”" width="353" height="263" />
-
-<p>与Google自家制造的Pixel设备不同，Googlebook将由多个OEM厂商生产，包括Acer、Asus、Dell、HP和Lenovo。设备运行Android操作系统而非ChromeOS，可能基于Google正在开发的Fuchsia操作系统。</p>
-
-<img src="https://www.gstatic.com/marketing-cms/assets/images/2b/3f/06bc8b27499182daf0f97a04e0b4/acer.webp=n-w543-h325-fcrop64=1,00000800fffff800-rw" alt="Acer" width="543" height="305" />
-
-<p>Hacker News社区对此次发布反应复杂。品牌名称"Googlebook"引发广泛讨论，许多用户认为这是个糟糕的命名选择，建议Google应该沿用已有的"Pixelbook"品牌。用户ocdtrekkie评论道："这是Google有史以来最愚蠢的品牌命名，我为此而来。等不及看相关的梗图了。"</p>
-
-<p>市场定位也受到质疑，用户jerojero表示："我真的看不出这个产品的市场定位，也许就是Android集成吧。但天啊，如果有人问起我的笔记本电脑，我不得不说出'googlebook'这个词，我会尴尬死的。"</p>
-
-<p>技术社区对产品的长期支持表示担忧，用户SecretDreams预测："这最终可能会出现在killedbygoogle网站上，大概7年后。按照这个速度，可能就在Chromebook旁边。"</p>
-
-<p>关于设备规格，虽然宣传中强调"轻量级设计，重量级性能"，但具体硬件配置尚未公布。用户对设备是否会运行本地AI模型还是依赖云端Gemini服务存在疑问。</p>
-
-<p>目前Google已开放预订通知注册，用户可以通过<a href="https://blog.google/products-and-platforms/platforms/android/meet-googlebook/">官方博客页面</a>了解更多信息并注册获取更新。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48111545</guid>
-      <pubDate>Tue, 12 May 2026 17:37:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Anthropic正式推出Claude Platform on AWS，为企业提供完整Claude平台功能</title>
-      <link>https://news.ycombinator.com/item?id=48103042</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Anthropic正式推出Claude Platform on AWS，属于新AI模型发布公告和AI软件技术进展，是用户高度感兴趣的内容。虽然涉及AWS基础设施，但核心是Claude AI平台的正式发布，应重点关注</small></p><p>Anthropic宣布Claude Platform on AWS现已全面可用，为AWS客户提供了一种通过AWS身份验证、计费和承诺抵扣来访问完整Claude平台功能的新方式。</p>
-
-<img src="https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a0112e18cdd7f0b92d19e40_Hand-BuildingBricks.svg" alt="" />
-
-<p>这项服务允许客户使用现有的AWS凭证和IAM策略，通过AWS IAM进行身份验证，通过CloudTrail进行审计日志记录，计费则通过单一AWS发票，并可完全抵扣现有的AWS承诺。Claude Platform on AWS将在大多数AWS商业区域提供，并支持全球和美国推理地理位置。</p>
-
-<p>该平台包含完整的Claude API功能，包括Claude托管代理（测试版）、代码执行、技能、顾问策略、网页搜索、文件API（测试版）、MCP连接器（测试版）等多项功能。客户还可以访问Claude控制台，这是Anthropic用于构建和测试Claude的开发环境。</p>
-
-<p>与现有的Amazon Bedrock服务不同，Claude Platform on AWS由Anthropic运营，数据在AWS边界外处理。而Claude on Amazon Bedrock则保持AWS作为数据处理者，并在AWS边界内运营，适合有严格区域数据驻留要求或需要数据在AWS基础设施内处理的客户。</p>
-
-<p>在Hacker News的讨论中，用户指出这项服务主要面向企业客户，特别是那些已经拥有AWS账户但尚未建立Anthropic账户的公司。有评论认为这可以帮助企业"隐藏"AI支出在庞大的AWS账单中，简化采购流程。其他用户讨论了与Bedrock的区别，指出Bedrock更适合有严格数据隐私要求的场景。</p>
-
-<p>早期采用者如ReliaQuest、OpenRouter和Emergent的客户分享了他们的使用体验，强调了简化访问、完整功能支持以及与Anthropic团队良好协作的优势。</p>
-
-<p>要开始使用Claude Platform on AWS，用户可以访问相关页面或查阅文档。对于已有Bedrock私有报价的客户，建议在开始使用前联系Anthropic或AWS客户经理，以确保折扣正确应用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48103042</guid>
-      <pubDate>Tue, 12 May 2026 01:24:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 利用AI工具在周末构建睡眠噪音检测系统：从被吵醒到找到解决方案</title>
-      <link>https://news.ycombinator.com/item?id=48100662</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享使用AI工具构建个人项目的实践经验，涉及编程工具分享和效率改进，符合用户很感兴趣的'编程工具发布/分享'和'编程效率改进经验'类别</small></p><p>一位软件工程师分享了他如何利用AI编程助手在8小时内构建了一个系统，用于识别夜间睡眠中被什么声音吵醒。作者生活在嘈杂城市，经常在凌晨3点左右被不明声音吵醒，但无法确定具体原因。</p>
-
-<p>系统包含两个USB麦克风（室内和室外）、Raspberry Pi进行音频检测、与现有智能家居系统（Home Assistant）集成、Garmin手表睡眠数据以及自定义Web应用。AI工具的主要作用是降低开发成本，让这个原本"不值得投入"的项目变成了一个周末可以完成的任务。</p>
-
-<img src="https://martin.sh/content/images/2026/05/sleep-trace-app.png" alt="睡眠追踪应用界面" width="2000" height="1426" />
-
-<p>通过数据分析，作者发现主要噪音源包括：邻居关门声、餐具碰撞声、街道摩托车和卡车声。基于这些发现，他采取了针对性措施：添加隔音板、门窗密封等，睡眠质量得到明显改善。</p>
-
-<p>作者强调，AI并没有直接分析声音内容，而是帮助他快速构建了数据收集和分析工具。系统只在特定条件下启用麦克风（在家、在床、睡眠时间），确保隐私安全。</p>
-
-<p>在Hacker News社区的261条评论中，有用户建议简化方案，直接整夜录音查看波形；也有人讨论双相睡眠模式的可能性；还有关于使用白噪音掩盖环境声音的建议。作者回应了关于AI生成封面图片的批评，并表示已将其移除。</p>
-
-<p>这个项目的核心意义在于展示了AI工具如何将原本"不值得构建"的个人项目变成了可行的周末项目。作者总结道："AI工具降低了个人工具开发的门槛。现在每当有小问题困扰我时，我的第一个想法是'我能构建一个小系统来更好地理解这个问题吗？'答案从过去的'可能不值得'变成了现在的'可以试试'。"</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48100662</guid>
-      <pubDate>Mon, 11 May 2026 21:04:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>软件架构学习：从实践到社会激励的深度思考</title>
-      <link>https://news.ycombinator.com/item?id=48106024</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是关于软件架构学习方法，与编程相关但比较宏观，没有明确的工具发布或具体的效率改进内容，属于可选阅读</small></p><p>一位资深软件工程师回复物理学研究员的邮件，分享了对软件架构学习的深刻见解。作者认为软件设计最好通过实践学习，而非课堂理论，并以自己在IntelliJ Rust和rust-analyzer项目的经验为例说明。</p>
-
-<p>文章的核心观点是康威定律（Conway's Law）的重要性：软件架构会反映产生它的组织的社会结构。作者指出，工业软件与科学软件的主要差异不在于软件构建知识，而在于驱动人们生产软件的激励机制。例如，"三个月内需要发表博士论文"这样的时间压力会显著影响软件质量。</p>
-
-<p>作者以rust-analyzer项目为例，详细说明了如何根据项目的"物理现实"和"社会现实"设计架构。该项目同时具有深度（编译器核心）和广度（多种IDE功能）的特点。为了吸引不同类型的贡献者：</p>
-<ul>
-<li>对深度编译器部分，通过简化构建系统（不依赖rustc、使用稳定版本、无C依赖、快速测试）来吸引专注的核心贡献者</li>
-<li>对广度功能部分，采用模块化设计，每个功能运行时用catch_unwind隔离，降低贡献门槛，吸引"周末战士"（短期贡献者）</li>
-</ul>
-
-<p>作者推荐了一些学习资源，包括Gary Bernhardt的"Boundaries"演讲、Pieter Hintjens的ØMQ指南、Jamii的"Reflections on a decade of coding"等，但强调没有一本包含所有真理的书籍，实践是学习软件架构的必需元素。</p>
-
-<p>Hacker News社区讨论中，有评论者将软件架构学习与中国古代哲学思想对比：孔子式的学习（通过实践、反思、犯错逐渐培养判断力）和老子的"为学日益，为道日损"（通过减法去除不必要的抽象和复杂性）。其他讨论涉及SOLID原则的争议、不同编程范式对架构的影响，以及推荐《开源应用程序架构》等实践案例书籍的重要性。</p>
-
-<p>社区共识是：软件架构没有单一正确答案，它是艺术与科学的结合，需要在具体约束下做出最佳选择，并且架构最终往往反映了组织的社交结构和激励机制。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48106024</guid>
-      <pubDate>Tue, 12 May 2026 09:30:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 《They Live》电影启发的广告拦截器：用电影标语替换广告</title>
-      <link>https://news.ycombinator.com/item?id=48102700</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源编程工具分享，属于用户很感兴趣的编程工具发布/分享类别</small></p><p>这是一个基于uBlock Origin Lite的分支项目，灵感来自约翰·卡彭特1988年的电影《They Live》。与普通广告拦截器不同，它不会隐藏被屏蔽的广告，而是将它们替换为白色方块，上面显示电影中的标志性标语，如"OBEY"（服从）、"CONSUME"（消费）、"WATCH TV"（看电视）、"SLEEP"（睡觉）等。</p>
-
-<img src="/davmlaw/they_live_adblocker/raw/main/docs/they-live-billboards.jpg" alt="They Live billboards" />
-
-<p>该扩展的工作原理是修改uBO Lite的CSS注入机制。通常uBO Lite会使用<code>display: none</code>隐藏广告元素，而这个分支改为应用白色遮罩，并通过<code>::after</code>伪元素显示随机选择的标语。项目使用MutationObserver来检测动态加载的广告。</p>
-
-<p>安装需要下载打包的扩展文件，在Chrome/Chromium/Brave/Edge中启用开发者模式后加载解压的文件夹。需要注意的是，只有通过CSS装饰性过滤屏蔽的广告才会被替换，网络层拦截的广告仍然会显示为空白。</p>
-
-<p>在Hacker News社区的讨论中，用户们对这个创意表示赞赏。有人建议使用更重的字体权重来更好地还原电影风格，还有人提到这个创意可以应用于增强现实（AR）设备。一些用户分享了他们对《They Live》电影的个人体验，认为这部电影对他们形成批判性思维有积极影响。</p>
-
-<p>讨论中还提到了其他类似项目，如一个将AI相关术语替换为讽刺性描述的Firefox扩展。有用户指出，这个创意其实并不新鲜，8年前就有人提出过类似想法。</p>
-
-<img src="https://private-user-images.githubusercontent.com/763201/590772819-908b6602-078a-4d78-abc0-9ca13e22d62e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Nzg1Nzk1NjksIm5iZiI6MTc3ODU3OTI2OSwicGF0aCI6Ii83NjMyMDEvNTkwNzcyODE5LTkwOGI2NjAyLTA3OGEtNGQ3OC1hYmMwLTljYTEzZTIyZDYyZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxMlQwOTQ3NDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00NDA4NGZmYTVlZmYwODAzYzZjOGFiZWM0ZTUyMmUyNWY4NmUyNDE5MDFhNTAwYmQwODI5NWJkMTFhZGE3Y2I4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.bkT7JCMzC5mq247zow3RjOM_yoDXx0BJeygll0sN0Cs" alt="reddit_screenshot" width="395" height="399" />
-
-<p>项目作者强调这是一个个人爱好项目，并非uBlock Origin的官方产品。扩展使用与上游相同的GPL-3.0许可证。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48102700</guid>
-      <pubDate>Tue, 12 May 2026 00:37:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
