@@ -3,7 +3,43 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 21 May 2026 13:33:30 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2026 16:52:35 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 逆向工程 Apple 私有框架：开源项目 Phosphene 让 macOS Tahoe 支持自定义视频壁纸</title>
+      <link>https://news.ycombinator.com/item?id=48215979</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源项目，通过逆向工程实现macOS视频壁纸功能，属于开源项目类别，用户对此感兴趣</small></p><p>开发者 <strong>@kageroumado</strong> 发布了一款名为 <strong>Phosphene</strong> 的开源项目，通过逆向工程 Apple 的私有框架 <strong>WallpaperExtensionKit.framework</strong>，让 macOS Tahoe（26.0+）用户能够将自定义视频设置为桌面和锁屏壁纸。该项目已在 GitHub 上以 MIT 许可证开源。</p>
+
+<h3>核心功能</h3>
+<ul>
+  <li><strong>自定义视频壁纸</strong>：支持导入 MP4、MOV 等 AVFoundation 可读取的视频文件，视频会出现在系统原生的壁纸选择器中，与 Apple 自带的 Aerials 并列显示</li>
+  <li><strong>无缝循环播放</strong>：通过 PTS（显示时间戳）偏移实现帧精确的无缝循环，无闪烁、无卡顿</li>
+  <li><strong>多显示器支持</strong>：可为每个显示器设置不同的壁纸，macOS 会持久化保存设置</li>
+  <li><strong>功耗感知播放</strong>：根据热状态、电池电量、是否连接电源、游戏模式以及演示模式（活跃/锁定/空闲）自动调整或暂停播放</li>
+  <li><strong>窗口遮挡检测</strong>：当所有显示器被窗口完全覆盖时暂停渲染，桌面可见时恢复</li>
+  <li><strong>锁屏平滑过渡</strong>：启用"仅在锁屏显示"时，锁定/解锁过程使用三次曲线缓动效果，与 Apple 原版 Aerials 一致</li>
+  <li><strong>自适应变体</strong>：可预渲染低分辨率/低帧率版本，播放器会在循环边界自动切换到满足当前策略的最优版本</li>
+</ul>
+
+<h3>技术架构</h3>
+<p>Phosphene 由两部分组成：<strong>Phosphene.app</strong>（菜单栏 UI 应用）负责库管理和偏好设置；<strong>PhospheneExtension.appex</strong>（扩展）运行在系统 WallpaperAgent 进程中，负责实际渲染。扩展通过 <code>dlopen</code> 动态加载 WallpaperExtensionKit，并使用 Swift 的 <code>Mirror</code> 运行时反射来解析 Apple 的 XPC 请求类型。</p>
+
+<p>渲染引擎直接驱动 <strong>AVSampleBufferDisplayLayer</strong>，而非 AVPlayerLayer（后者在远程 CAContext 中会静默失败）。它使用两个 AVAssetReader（一个用于当前循环，一个预加载下一循环），通过跨循环递增 PTS 偏移来保持时间线单调递增，实现无闪烁循环。</p>
+
+<h3>已知限制</h3>
+<ul>
+  <li>依赖私有框架，Apple 可能在主要 OS 版本更新中改动</li>
+  <li>仅支持 macOS Tahoe（26.0+）和 Apple Silicon</li>
+  <li>需要 Xcode 17+ 自行构建，需设置开发团队进行代码签名</li>
+  <li>项目包含一个 WallpaperSnapshotXPC 的 method swizzle，用于修复系统快照编码器对 NSXPCCoder 子类的类型检查问题</li>
+</ul>
+
+<h3>社区反响</h3>
+<p>该帖子在 Hacker News 上获得了 366 分和 88 条评论。用户普遍对项目表示赞赏，有评论者提到曾因 Apple 自动下载/删除视频壁纸导致每月消耗近 1TB 流量，作者回应称 Phosphene 直接注入 Apple 的原始管道，视频不会被系统移除或更改。也有用户表示怀念 Windows Vista 时代的视频壁纸风格。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48215979</guid>
+      <pubDate>Wed, 20 May 2026 23:54:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenAI 推理模型推翻离散几何核心猜想，引发学界热议</title>
       <link>https://news.ycombinator.com/item?id=48212493</link>
@@ -1342,36 +1378,6 @@ AI Mode 中的个人智能功能扩展至近 200 个国家和地区、98 种语�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48146369</guid>
       <pubDate>Fri, 15 May 2026 09:19:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 美国超60%地区遭遇干旱，专家称这是几十年来最严重情况之一</title>
-      <link>https://news.ycombinator.com/item?id=48142193</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于美国大范围干旱的国际重要新闻，属于用户感兴趣的'国内/国际必读新闻'范畴，涉及气候变化和自然灾害</small></p><p>根据弗吉尼亚理工大学气候学家安德鲁·埃利斯（Andrew Ellis）的分析，美国目前有超过60%的地区正在经历干旱条件，其中超过20%处于极端干旱状态。埃利斯表示，这种干旱强度和覆盖范围的结合是罕见的，属于几十年来最严重的干旱情况之一。</p>
-
-<img src="/content/news_vt_edu/en/articles/2026/05/drought-united-states-la-nina-expert/_jcr_content/article-image.transform/m-medium/image.png" alt="美国干旱严重程度分布图" />
-
-<p>埃利斯指出，此次干旱的主要原因是去年秋季和冬季出现的非典型拉尼娜现象。在拉尼娜期间，风暴路径通常向北移动至美加边境，导致美国南部缺乏产生降水的风暴系统。西南部的太平洋风暴系统减少，墨西哥湾流向美国东部的湿气流也不如往常频繁。</p>
-
-<p>气候变暖加剧了干旱影响。埃利斯解释："虽然降水仍然是干旱的主要驱动因素，但气温升高导致土壤通过蒸散作用流失更多水分，加剧了干旱期的影响。"</p>
-
-<p>受影响最严重的地区包括科罗拉多州以及东南部地区，特别是佐治亚州和佛罗里达州。这些地区广泛存在极端和异常干旱条件。从深南部到中大西洋的美国东南部四分之一地区都面临广泛而严重的干旱，而落基山脉中部和高大平原地区也正在经历广泛而严重的干旱。</p>
-
-<p>相比之下，俄亥俄河谷在拉尼娜年份通常较为湿润，今年到目前为止基本没有干旱。</p>
-
-<p>关于干旱缓解的前景，埃利斯表示在温暖月份实现显著缓解很困难。最显著的缓解通常来自夏末或初秋的热带系统，但这些系统可能带来破坏性大风和短时强降雨的风险。落基山脉和高大平原地区在夏季尤其难以缓解，因为这些地区严重依赖冬季积雪和大规模冬季风暴系统。</p>
-
-<p>展望未来，埃利斯提到："看起来我们可能会在明年秋季和冬季迎来一次历史性的厄尔尼诺事件。理论上，这可能产生与去年拉尼娜相反的条件。"</p>
-
-<p>在社区讨论中，读者对<a href="https://droughtmonitor.unl.edu/About/WhatistheUSDM.aspx">美国干旱监测地图</a>的可靠性进行了讨论。有评论指出该地图部分基于主观判断，不同专家对其准确性存在不同看法。也有用户分享了个人观察，指出某些地区的水循环模式已经发生变化，冬季积雪减少，夏季更加干燥。</p>
-
-<p>还有评论提到了干旱对农业的影响，引用相关报道指出美国小麦收成可能创下自1972年以来的最低水平。同时，有用户提醒，从干旱到多雨的突然转变可能导致洪水风险增加，因为干燥的土壤吸收水分能力较差。</p>
-
-<p><strong>你知道吗？</strong></p>
-<p>拉尼娜（La Niña）和厄尔尼诺（El Niño）是太平洋赤道地区海表温度异常变化的两种相反模式，统称为厄尔尼诺-南方涛动（ENSO）。拉尼娜期间，赤道太平洋东部和中部海表温度低于平均水平，而厄尔尼诺期间则高于平均水平。这两种现象对全球天气模式都有深远影响，包括降水分布、风暴路径和温度异常等。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48142193</guid>
-      <pubDate>Thu, 14 May 2026 22:38:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
