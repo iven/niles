@@ -3,7 +3,57 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 21 May 2026 19:14:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2026 20:57:25 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.147 发布：新增 Workflow 多代理编排工具、/code-review 命令及多项修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.147</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
+<ul>
+  <li><strong>新增 Workflow 工具</strong>：支持确定性多代理编排，默认关闭，需设置环境变量 <code>CLAUDE_CODE_WORKFLOWS=1</code> 启用。</li>
+  <li><strong>后台会话增强</strong>：固定（pinned）的后台会话（<code>claude agents</code> 中按 <code>Ctrl+T</code>）在空闲时保持活跃，应用 Claude Code 更新后会在原地重启，且仅在内存压力下且非固定会话已被清理后才被释放。</li>
+  <li><strong><code>/simplify</code> 更名为 <code>/code-review</code></strong>：新命令可按指定努力级别报告正确性缺陷（如 <code>/code-review high</code>），添加 <code>--comment</code> 参数可将结果作为 GitHub PR 内联评论发布。原有的清理与修复行为已被移除。</li>
+  <li><strong>REPL 和 Workflow 工具沙箱加固</strong>：防止原型污染（prototype-pollution）和基于 thenable 的逃逸攻击。</li>
+  <li><strong>自动更新器改进</strong>：支持重试临时网络故障，报告具体错误类别和操作系统错误码，更新失败时显示当前版本。</li>
+  <li><strong>大文件差异渲染性能提升</strong>。</li>
+  <li><strong>提示历史去重</strong>：连续重复的提示条目不再被记录。</li>
+</ul>
+
+<h3>其他修复</h3>
+<ul>
+  <li>修复了企业登录限制（<code>forceLoginOrgUUID</code> 和 <code>forceLoginMethod</code> 管理设置）未对第三方提供商和 API 密钥会话生效的问题。</li>
+  <li>修复了 <code>!</code> 命令输出中 <code>&amp;</code> 显示为 <code>&amp;amp;</code> 导致无法复制 URL 的问题。</li>
+  <li>修复了无头/SDK 模式下未知斜杠命令静默无响应的问题，现会显示错误信息。</li>
+  <li>修复了 <code>/help</code> 在非全屏小终端上标签页头显示异常的问题。</li>
+  <li>修复了 shell 快照丢弃以单下划线开头的用户函数，导致引用这些函数的别名失效的问题。</li>
+  <li>修复了在 <code>tools:</code> frontmatter 中声明多个 <code>Agent(...)</code> 类型的插件代理仅保留最后一个的问题。</li>
+  <li>修复了 hook 的 <code>if</code> 条件（如 <code>PowerShell(git push*)</code>）从未匹配的问题。</li>
+  <li>修复了 PowerShell 工具丢弃依赖默认格式化器的命令输出的问题。</li>
+  <li>修复了 Windows 上 PowerShell 脚本调用"是，不再询问"选项写入的规则无法匹配后续运行的问题。</li>
+  <li>修复了 Windows 上通过 winget 或 Microsoft Store 安装 <code>pwsh</code> 时 PowerShell 工具返回退出码 1 的问题。</li>
+  <li>修复了 <code>/effort</code> 滑块初始位置错误的问题，现从当前 effort 级别开始。</li>
+  <li>修复了 MCP 服务器分页时丢弃第 1 页之后的资源、模板和提示的问题。</li>
+  <li>修复了 Windows Terminal 中附加后台会话流式输出时的全屏闪烁问题。</li>
+  <li>修复了 Windows 上移除后台任务工作树时跟随 NTFS 交接点进入主仓库的问题。</li>
+  <li>修复了 <code>/background</code> 拒绝仅输入了技能或自定义斜杠命令的会话的问题。</li>
+  <li>修复了自动模式在用户或技能明确依赖 <code>AskUserQuestion</code> 时抑制该功能的问题。</li>
+  <li>修复了 <code>/theme</code> 的"新建自定义主题"和颜色编辑器对话框无法响应 Esc 键的问题。</li>
+  <li>修复了通过 Agent SDK 运行时流式会话结束时的未捕获异常问题。</li>
+  <li>修复了 Windows 上等待滚动稳定时的罕见挂起问题。</li>
+  <li>修复了 Windows 上后台会话结果包含宽字符（CJK）时代理视图列表中的行重复和错位问题。</li>
+  <li>修复了粘贴文本被作为不可读的 <code>[Pasted text #N]</code> 占位符而非实际内容发送给代理的问题。</li>
+  <li>修复了插件组件计数（<code>claude plugin details</code> 和 <code>/plugin</code>）在插件清单路径与默认目录重叠时翻倍的问题。</li>
+  <li>修复了后台会话对已授予"不再询问"权限的工具重新请求权限的问题。</li>
+  <li>修复了 GNOME Terminal 中右键和中键粘贴无法插入文本的问题。</li>
+  <li>修复了 <code>CLAUDE_CODE_SUBAGENT_MODEL</code> 未应用于代理团队生成的队友进程的问题。</li>
+  <li>修复了斜杠命令后跟制表符或换行符被视为未知命令的问题。</li>
+  <li>修复了 <code>/plugin</code>、<code>/status</code>、<code>/mobile</code>、<code>/sandbox</code> 和 <code>/permissions</code> 菜单中的多个间距和布局问题。</li>
+  <li>修复了已剥离的图片导致模型反复重新读取已不存在媒体内容的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.147</guid>
+      <pubDate>Thu, 21 May 2026 20:39:22 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.10.2：终端体验优化、UI 缓存优先与 PTY 守护进程改进</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.10.2</link>
@@ -1502,62 +1552,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.6.2</guid>
       <pubDate>Mon, 27 Apr 2026 07:20:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.6.1 发布：终端体验优化与侧边栏功能增强</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.6.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 发布 v1.6.1 版本，本次更新主要针对终端体验、侧边栏功能和用户界面进行了一系列改进和修复。</p>
-
-<h3>重要改动</h3>
-
-<h4>新功能</h4>
-<ul>
-<li><strong>远程端口显示</strong>：侧边栏现在可以显示远程主机服务的端口信息（<a href="https://github.com/superset-sh/superset/pull/3676">#3676</a>）</li>
-<li><strong>边缘渐变遮罩工具</strong>：新增 fade-edge mask 实用工具，提升界面视觉效果（<a href="https://github.com/superset-sh/superset/pull/3735">#3735</a>）</li>
-<li><strong>终端会话标题</strong>：为终端会话添加标题显示功能（<a href="https://github.com/superset-sh/superset/pull/3740">#3740</a>）</li>
-<li><strong>跨工作区终端会话显示</strong>：下拉菜单现在显示所有工作区的终端会话（<a href="https://github.com/superset-sh/superset/pull/3751">#3751</a>）</li>
-</ul>
-
-<h4>错误修复</h4>
-<ul>
-<li><strong>侧边栏分支行显示</strong>：修复 v2 侧边栏工作区项目中多余分支行的显示问题（<a href="https://github.com/superset-sh/superset/pull/3733">#3733</a>）</li>
-<li><strong>终端 OSC 链接</strong>：修复 v2 终端 OSC 链接功能（<a href="https://github.com/superset-sh/superset/pull/3736">#3736</a>）</li>
-<li><strong>终端重绘问题</strong>：修复 v1 终端调整大小时的重绘问题（<a href="https://github.com/superset-sh/superset/pull/3756">#3756</a>）</li>
-<li><strong>主机服务重启适配</strong>：修复主机服务重启时的适配问题（<a href="https://github.com/superset-sh/superset/pull/3732">#3732</a>）</li>
-</ul>
-
-<h3>其他改进</h3>
-
-<h4>终端优化</h4>
-<ul>
-<li>稳定 v2 终端调整大小功能（<a href="https://github.com/superset-sh/superset/pull/3739">#3739</a>）</li>
-<li>改进 v2 窗格标题栏的响应性能（<a href="https://github.com/superset-sh/superset/pull/3737">#3737</a>）</li>
-<li>优化 v2 终端会话下拉菜单布局（<a href="https://github.com/superset-sh/superset/pull/3743">#3743</a>）</li>
-<li>处理 v2 调整大小时浏览器透传问题（<a href="https://github.com/superset-sh/superset/pull/3744">#3744</a>）</li>
-<li>字体稳定后重新调整 v2 终端尺寸（随后该更改被还原）（<a href="https://github.com/superset-sh/superset/pull/3742">#3742</a>、<a href="https://github.com/superset-sh/superset/pull/3750">#3750</a>）</li>
-</ul>
-
-<h4>侧边栏与界面改进</h4>
-<ul>
-<li>改进侧边栏分组管理用户体验（<a href="https://github.com/superset-sh/superset/pull/3745">#3745</a>）</li>
-<li>重构 v2 工作区页面布局（<a href="https://github.com/superset-sh/superset/pull/3747">#3747</a>）</li>
-<li>更新仪表板侧边栏工作区图标（<a href="https://github.com/superset-sh/superset/pull/3755">#3755</a>）</li>
-<li>将 v2 切换功能移至实验性设置（<a href="https://github.com/superset-sh/superset/pull/3748">#3748</a>）</li>
-</ul>
-
-<h4>其他调整</h4>
-<ul>
-<li>使用动态页脚版权年份（<a href="https://github.com/superset-sh/superset/pull/3754">#3754</a>）</li>
-<li>移除污染其他测试的主机服务协调器测试（<a href="https://github.com/superset-sh/superset/pull/3734">#3734</a>）</li>
-<li>修复自动化时区调度问题（<a href="https://github.com/superset-sh/superset/pull/3738">#3738</a>）</li>
-<li>添加乐观 Electric 集合更新（<a href="https://github.com/superset-sh/superset/pull/3722">#3722</a>）</li>
-</ul>
-
-<p>本次更新包含多项用户体验改进，重点关注终端功能的稳定性和侧边栏的信息展示能力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.6.1</guid>
-      <pubDate>Sun, 26 Apr 2026 18:25:23 GMT</pubDate>
     </item>
   </channel>
 </rss>
