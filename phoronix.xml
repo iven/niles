@@ -3,7 +3,37 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 22 May 2026 08:30:25 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 22 May 2026 11:58:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ LLVM 社区提出多线程并行编译（MTPC）方案，ThinLTO 性能提升显著</title>
+      <link>https://www.phoronix.com/news/LLVM-ThinLTO-MTPC-Proposal</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] LLVM并行编译提案大幅提升编译效率，属于编程效率改进经验，用户很感兴趣</small></p><p>LLVM 开发者近日提出了一项名为"多线程并行编译（Multi-Thread Parallel Compilation，MTPC）"的新方案，旨在为 ThinLTO（链接时优化）模块引入函数级别的并行代码生成能力。当前 ThinLTO 虽然支持模块级并行，但单个大型模块内部的代码生成与优化过程仍以串行方式执行，在高核心数处理器上形成了显著的编译瓶颈。</p>
+
+<p>MTPC 方案的核心思路是将大型模块按函数粒度拆分，使多个线程能够同时处理同一模块内的不同函数，从而充分利用现代 CPU 的多核潜力。实验数据显示，在完整构建流程中，MTPC 可将总编译时间最多缩短 <strong>32%</strong>。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=mtpc_benchmark" alt="MTPC benchmark comparison" />
+
+<p>目前，LLVM 社区已在 <a href="https://discourse.llvm.org/">Discourse 论坛</a>上展开讨论，并有多项基础性拉取请求（Pull Request）处于开放状态，为 MTPC 的落地铺平道路。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-ThinLTO-MTPC-Proposal</guid>
+      <pubDate>Fri, 22 May 2026 10:18:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 音频子系统也迎来大量 AI/LLM 驱动的修复补丁</title>
+      <link>https://www.phoronix.com/news/Linux-7.1-Sound-Many-Fixes</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI/LLM驱动Linux声音子系统修复，结合AI应用与Linux桌面技术，用户感兴趣</small></p><p>继 Linux 网络子系统出现大量由 AI/LLM 驱动的修复补丁（包括多个本地权限提升安全漏洞修复）之后，Linux 音频（Sound）子系统近期也呈现出类似的活跃态势。过去数周内，大量带有"assisted-by"标记的补丁涌入该子系统。</p>
+
+<p>SUSE 的音频子系统维护者 Takashi Iwai 在最新的音频修复拉取请求中表示："正如预期，我们仍在持续收到大量小修复。其中一个主要变化涉及 HD-audio 的待处理 IRQ 处理，但这仅会影响少数特殊机器或慢速虚拟机。核心部分还有几个其他修复，其中多数是不太严重的释放后使用（UAF）修复，其余则主要是设备特定的修复和 quirks（特殊配置）。"</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=codex_55" alt="Assisted-by GPT-5.5" />
+
+<p>查看 Linux 音频邮件列表可以发现，本月来自 Claude Code 到 GPT-5.5 的"assisted-by"补丁层出不穷。本次拉取请求包含多项核心音频修复、针对不同 HP 和 ASUS 笔记本型号的 Realtek quirks、音频 LED 修复、针对 Panther Lake / Nova Lake / Arrow Lake 的 Intel 表格更新，以及众多跨领域的小型修复。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-Sound-Many-Fixes</guid>
+      <pubDate>Fri, 22 May 2026 09:43:32 GMT</pubDate>
+    </item>
     <item>
       <title>Linux 7.1 网络子系统修复持续激增，AI 检测工具引发安全漏洞潮</title>
       <link>https://www.phoronix.com/news/Linux-7.1-Networking-Craziness</link>
@@ -817,45 +847,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/IBM-s390-Linux-Kernel-Rust</guid>
       <pubDate>Tue, 12 May 2026 16:55:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>ARCTIC风扇控制器驱动程序预计将登陆Linux 7.2内核</title>
-      <link>https://www.phoronix.com/news/ARCTIC-Fan-Controller-Linux-7.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于Linux内核驱动程序集成，属于Linux系统技术范畴，但主题相对边缘，不是用户明确感兴趣的核心Linux桌面技术</small></p><p>ARCTIC公司直接开发的风扇控制器驱动程序已进入Linux硬件监控（HWMON）子系统的hwmon-next Git分支，预计将在6月中旬的Linux 7.2内核合并窗口中被纳入。该驱动程序支持ARCTIC即将推出的USB HID风扇控制器产品，提供10个风扇通道的转速监控和PWM控制功能。</p>
-
-<p>根据ARCTIC工程师Aureo Serrano de Souza的描述，该设备通过sysfs暴露风扇转速（只读）和PWM占空比（0-255，读写）。设备以约1Hz的频率推送包含RPM读数的IN报告，PWM设置通过OUT报告完成，设备会发送2字节的ACK确认。驱动程序最多等待1秒接收ACK确认，实测设备最大延迟约为563毫秒。</p>
-
-<p>值得注意的是，这是ARCTIC公司直接参与Linux内核驱动程序开发，而非依赖开源社区进行逆向工程。该公司现有的10端口机箱风扇集线器产品没有USB接口，仅依赖单个PWM信号控制所有风扇，因此这个驱动程序显然是针对即将推出的新产品。</p>
-
-<p>驱动程序当前版本的C代码可在<a href="https://www.phoronix.com">hwmon-next的提交记录</a>中找到。这一进展显示了硬件厂商对Linux平台支持的重视，在正式产品发布前就提供上游内核支持。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/ARCTIC-Fan-Controller-Linux-7.2</guid>
-      <pubDate>Tue, 12 May 2026 12:27:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 调度器优化显著提升老旧硬件游戏性能</title>
-      <link>https://www.phoronix.com/news/Linux-Flatten-The-Pick</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲Linux调度器改进（编程效率改进经验，用户high_interest），游戏性能只是次要影响</small></p><p>英特尔 Linux 内核工程师 Peter Zijlstra 正在开发一系列名为 "Flatten the pick" 的调度器补丁，旨在改进 Linux 内核调度器的行为，特别是在老旧硬件上提升性能表现。</p>
-
-<p>Zijlstra 将测试硬件描述为 "土豆"（potato）级设备——一台搭载 Intel Sandy Bridge 2600K CPU 和 AMD Radeon RX 580 Polaris 显卡的旧电脑。他直言不讳地批评了 Linux cgroup 调度系统，称其为"屁股疼"，问题从权重分配开始，到层级选择结束，整个系统都很糟糕。</p>
-
-<p>为了验证优化效果，Zijlstra 进行了实际测试：运行游戏《Shadows: Awakening》，同时在后台启动8个占用 CPU 的进程来模拟高负载情况。结果显示，在应用调度器优化后，游戏从几乎无法运行变得完全可玩。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=potato_pick" alt="benchmark result graphs" />
-
-<p>具体性能数据对比显示：</p>
-<ul>
-<li>默认设置下：最小帧率 3.8 FPS，平均 48.0 FPS</li>
-<li>优化后：最小帧率提升至 20.6 FPS，平均达到 57.2 FPS</li>
-<li>帧时间（FrameTime）也从平均 34.5ms 改善到 19.5ms</li>
-</ul>
-
-<p>这项工作的核心目标是解决随着核心数量增加而出现的调度效率问题。虽然目前测试主要关注游戏性能，但 Zijlstra 表示其他类型的工作负载也可能从中受益。这项优化有望在未来进入 Linux 内核主线，为更广泛的硬件和应用程序带来性能提升。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Flatten-The-Pick</guid>
-      <pubDate>Tue, 12 May 2026 10:30:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
