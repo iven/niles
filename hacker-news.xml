@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 23 May 2026 15:28:20 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 23 May 2026 18:21:17 GMT</lastBuildDate>
+    <item>
+      <title>
+        <![CDATA[HTML 描述列表（&lt;dl&gt;）的语义价值与正确用法]]>
+      </title>
+      <link>https://news.ycombinator.com/item?id=48247325</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于HTML描述列表语义的技术文章，属于Web标准知识分享，未明确匹配到用户兴趣配置中的任何类别，兴趣程度中等</small></p><p>Ben Myers 撰文深入探讨了 HTML 中常被低估的 <code>&lt;dl&gt;</code>（描述列表，description list）元素。该元素用于标记名称-值对（name–value pairs）列表，这是一种在网页中极为常见的 UI 模式，例如电商产品详情页、联系人卡片、维基百科信息框等场景。</p>
+
+<p>文章详细介绍了描述列表的三个核心元素：<code>&lt;dl&gt;</code>（描述列表容器）、<code>&lt;dt&gt;</code>（描述术语，即"名称"）和 <code>&lt;dd&gt;</code>（描述详情，即"值"）。一个 <code>&lt;dt&gt;</code> 可以对应多个 <code>&lt;dd&gt;</code>，例如一本书有多个作者的情况。此外，规范允许使用 <code>&lt;div&gt;</code> 包裹 <code>&lt;dt&gt;</code> 及其对应的 <code>&lt;dd&gt;</code> 以便于样式控制——这是唯一允许作为包裹容器的元素。</p>
+
+<p>作者强调语义化标记的重要性：相比使用嵌套 <code>&lt;div&gt;</code>，使用 <code>&lt;dl&gt;</code> 能让屏幕阅读器等辅助技术识别出"名称-值对列表"这一模式，从而告知用户列表中有多少组、当前所处位置，并允许用户跳过整个列表块。不过文章也指出，不同浏览器/屏幕阅读器组合对 <code>&lt;dl&gt;</code> 的支持程度存在差异。</p>
+
+<p>文章以《龙与地下城》怪物数据卡（statblock）作为终极示例，展示了如何用多个 <code>&lt;dl&gt;</code> 分别标记属性值、技能、特质和攻击动作等不同类别的名称-值对，充分体现了该模式的灵活性。</p>
+
+<p>在 Hacker News 讨论中，多位开发者分享了实际使用经验。有用户指出，在 HTML5 之前 <code>&lt;dl&gt;</code> 被称为"定义列表"（definition list），最初仅用于术语表。关于辅助技术兼容性，有评论引用 Adrian Roselli 的评估：描述列表的支持情况总体良好（VoiceOver 仍是例外）。另有用户提到英国政府设计系统（GOV.UK Design System）的摘要列表组件也使用了 <code>&lt;dl&gt;</code> 并配合包裹 <code>&lt;div&gt;</code> 实现样式控制。关于能否嵌套 <code>&lt;dl&gt;</code>，社区确认 <code>&lt;dd&gt;</code> 内部允许包含任意流内容，因此嵌套是合法的。</p>
+
+<p>文章还提到，HTML 规范允许在 <code>&lt;dd&gt;</code> 元素内嵌套另一个 <code>&lt;dl&gt;</code>，这在渲染嵌套的 JSON 对象等场景中非常实用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48247325</guid>
+      <pubDate>Sat, 23 May 2026 13:03:43 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Kanbots：开源看板桌面应用，每张卡片可并行运行 AI 代理</title>
       <link>https://news.ycombinator.com/item?id=48239413</link>
@@ -1447,38 +1468,6 @@ AI Mode 中的个人智能功能扩展至近 200 个国家和地区、98 种语�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48164287</guid>
       <pubDate>Sat, 16 May 2026 22:23:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Orthrus-Qwen3：通过双视图扩散解码实现高达 7.8 倍推理加速，保持无损输出</title>
-      <link>https://news.ycombinator.com/item?id=48154865</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型推理加速技术，涉及用户很感兴趣的新AI模型发布和AI技术进展</small></p><p>Orthrus 是一个创新的双架构框架，通过融合自回归大语言模型（LLM）的精确生成能力与扩散模型的并行 token 生成优势，实现了显著加速且严格无损的推理过程。该项目在 GitHub 上开源，并提供了基于 Qwen3 的多个模型版本。</p>
-
-<img src="/chiennv2000/orthrus/raw/main/assets/orthrus_logo.svg" alt="Orthrus logo" width="30%" />
-
-<p>该框架的核心技术是「双视图扩散解码」，在每个 Transformer 层中注入可训练的扩散注意力模块，同时保持基础 LLM 完全冻结。两个视图（自回归视图和扩散视图）共享同一份 Key-Value（KV）缓存，从而实现了仅 O(1) 的内存开销。扩散视图能够并行预测最多 32 个 token，随后由自回归视图进行验证并接受最长匹配前缀，确保输出分布与原始基础模型完全相同。</p>
-
-<img src="/chiennv2000/orthrus/raw/main/assets/orthrus.png" alt="Orthrus Architecture" width="80%" />
-
-<p>根据项目数据，Orthrus 在生成任务上实现了高达 7.8 倍的 token/前向传递加速，在 MATH-500 基准测试中实现了约 6 倍的端到端加速。模型仅需微调总参数的 16%（使用不到 10 亿 token 数据，在 8×H200 GPU 上训练 24 小时），即可获得并行生成能力。</p>
-
-<p>与推测解码方法（如 EAGLE-3、DFlash）相比，Orthrus 无需外部草稿模型，避免了单独缓存的开销，实现了零首次 token 时间（TTFT）惩罚。在 MATH-500 上，Orthrus 的平均接受长度达到 11.7，显著高于 DFlash 的 7.9 和 EAGLE-3 的 3.5。</p>
-
-<img src="/chiennv2000/orthrus/raw/main/assets/acceptance_length.png" alt="Average Acceptance Length Comparison" width="48%" />
-<img src="/chiennv2000/orthrus/raw/main/assets/long_context_benchmark.png" alt="Long Context Generation Time Benchmark" width="48%" />
-
-<p>与最近的扩散语言模型（dLLM）相比，后者虽然提供并行解码，但常出现显著的条件漂移和复杂推理任务上的准确性下降。Orthrus 通过将并行生成与顺序约束解耦，在保持严格无损性能的同时实现了速度提升。</p>
-
-<img src="/chiennv2000/orthrus/raw/main/assets/math500_speed.png" alt="Throughput vs. Accuracy on MATH-500" width="60%" />
-
-<p>Hacker News 社区对该项目反应热烈，获得了 221 分和 43 条评论。项目共同作者在评论中详细解释了技术原理：注入可训练的扩散注意力模块到冻结的自回归 Transformer 的每一层，两个头共享一个 KV 缓存，扩散头并行预测 K=32 个 token，自回归头在第二次前向传递中验证并接受最长匹配前缀，输出分布被证明与基础模型完全相同。</p>
-
-<p>用户讨论集中在几个方面：技术可行性扩展到 Qwen 3.6 27B 等更大模型、与量化（GGUF）的兼容性、与多 token 预测（MTP）等现有技术的对比、以及在实际部署中的适用场景。有用户指出，对于个人本地推理（低批量大小），LLM 通常受内存延迟限制而非计算限制，此类技术通过并行处理多个 token 更好地利用了 GPU 计算能力。但对于数据中心的大规模批量推理，GPU 通常是计算受限的，因此收益模式不同。</p>
-
-<p>项目提供了 <a href="https://camo.githubusercontent.com/eff96fda6b2e0fff8cdf2978f89d61aa434bb98c00453ae23dd0aab8d1451633/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667">Colab 快速体验</a>，并计划 soon 与 vLLM 和 SGLang 进行原生集成。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48154865</guid>
-      <pubDate>Fri, 15 May 2026 22:38:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
