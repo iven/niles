@@ -3,7 +3,93 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 24 May 2026 18:10:59 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2026 19:39:15 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ DeepSeek reasonix：专为 DeepSeek 缓存优化的开源终端编码代理，大幅降低使用成本</title>
+      <link>https://news.ycombinator.com/item?id=48256953</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源编码代理工具发布，针对DeepSeek缓存优化，属于编程工具发布/分享（很感兴趣）和新AI模型应用范畴</small></p><p>DeepSeek 团队发布了 <strong>reasonix</strong>，一个开源的终端 AI 编码代理（coding agent），其核心设计围绕 DeepSeek 的前缀缓存（prefix-cache）机制进行优化，旨在让长时间编码会话的 token 成本保持在极低水平。该项目采用 MIT 许可证，支持 MCP（Model Context Protocol）、plan mode 和 cache-first loop 等特性。</p>
+
+<p>reasonix 的缓存优化策略引发了社区广泛讨论。用户 <strong>embedding-shape</strong> 分享了自己编写的简易桥接工具，通过 Codex 使用 DeepSeek V4 Pro，发现缓存命中率极高——在一次会话中，缓存命中输入达 39,123,200 tokens，而缓存未命中仅 1,692,286 tokens。他指出，缓存效率的关键在于避免在系统提示中注入每次都会变化的内容（如精确到秒的时间戳），否则整个会话上下文将无法被缓存，每次交互都需要重新处理全部历史。</p>
+
+<p>多位用户分享了实际使用体验。用户 <strong>bwfan123</strong> 表示，将 Claude Code 与 DeepSeek V4 Pro 配合使用是最具性价比的方案，可以长时间编码而无需担心成本。用户 <strong>chillfox</strong> 认为 DeepSeek V4 Pro 在能力上与 Claude Sonnet 相当，但价格更具优势，不过仍不及 Claude Opus。用户 <strong>unshavedyak</strong> 提到，尽管自己是每月 $200 的 Claude 订阅用户，但由于 Claude 近期对工作流的限制（特别是 IDE/-p 用法的变更），正在考虑转向其他方案。</p>
+
+<p>关于缓存机制，用户 <strong>everforward</strong> 解释称，许多编码代理的 harness 会在每次交互中改变上下文（如注入当前时间、工作目录、文件列表等），或进行上下文压缩（compaction），这些操作都会导致缓存失效。reasonix 的设计范式类似于函数式编程语言——它禁止那些会导致缓存失效的操作，或者让开发者清晰地意识到哪些操作可能引发缓存未命中。</p>
+
+<p>不过，reasonix 的官网页面因顶部动画不断重排页面内容而受到多位用户批评，被认为严重影响阅读体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48256953</guid>
+      <pubDate>Sun, 24 May 2026 13:02:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 从第一性原理理解深度学习性能优化：计算、内存带宽与开销</title>
+      <link>https://news.ycombinator.com/item?id=48246889</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 深度学习性能优化的技术原理分析，属于AI软件技术进展（感兴趣）范畴</small></p><p>PyTorch 团队成员 Horace He 撰写了一篇经典技术文章，系统性地从第一性原理出发，将深度学习系统的性能瓶颈拆解为三个核心维度：<strong>计算（Compute）</strong>、<strong>内存带宽（Memory Bandwidth）</strong>和<strong>开销（Overhead）</strong>，并给出了针对不同瓶颈的优化策略。</p>
+
+<h3>三个核心性能维度</h3>
+
+<p><strong>计算（Compute）</strong>：GPU 执行实际浮点运算（FLOPS）所花费的时间。作者指出，优化的目标是尽可能让 GPU 处于"计算受限"（compute-bound）状态，因为只有计算是你真正"付费"的部分。现代 GPU（如 A100）拥有 312 万亿次浮点运算/秒的峰值性能，但其中只有矩阵乘法能利用 Tensor Cores 达到峰值——非矩阵乘法运算的吞吐量仅为 19.5 teraflops。好在实际模型中，非矩阵乘法运算（如 layer norm、激活函数）仅占总 FLOPS 的约 0.2%，影响不大。</p>
+
+<p><strong>内存带宽（Memory Bandwidth）</strong>：在 GPU 内部搬运张量数据所花费的时间。作者用"工厂与仓库"的类比来解释：计算单元是工厂（SRAM，速度快但容量小），全局内存是仓库（DRAM，容量大但速度慢），每次 GPU 内核执行都需要在两者之间搬运数据。对于简单的逐元素操作（如 <code>torch.cos</code>），绝大部分时间都花在数据搬运上，而非实际计算——这类操作被称为"内存受限"（memory-bound）。</p>
+
+<p><strong>开销（Overhead）</strong>：除计算和内存传输之外的所有时间，包括 Python 解释器执行时间、PyTorch 框架调度时间、CUDA 内核启动时间等。作者给出了一个惊人的对比：Python 每秒只能执行约 3200 万次加法，而 A100 GPU 在同一时间内可执行 975 万倍的运算量。PyTorch 框架本身每秒也只能处理约 28 万次操作，因此对于小张量操作，开销可能成为主要瓶颈。</p>
+
+<h3>关键优化技术：算子融合（Operator Fusion）</h3>
+
+<p>针对内存带宽瓶颈，最重要的优化手段是<strong>算子融合</strong>。以 <code>x.cos().cos()</code> 为例，如果不融合，需要执行 4 次全局内存读写（读取 x、写入 x1、读取 x1、写入 x2）；融合后只需 2 次（读取 x、写入 x2），速度可提升 2 倍。作者指出，融合后的 <code>x.cos().cos()</code> 与单独的 <code>x.cos()</code> 耗时几乎相同——这也是为什么不同激活函数（如 GELU 与 ReLU）的计算成本几乎一样。</p>
+
+<p>算子融合需要编译器支持（如 NVFuser、XLA），无法在 PyTorch 的 eager 模式下自动完成。作者推荐使用 <a href="https://triton-lang.org/">Triton</a> 编写自定义 CUDA 内核来实现更复杂的融合。</p>
+
+<h3>如何判断瓶颈所在</h3>
+
+<p>作者提供了一个实用的方法：通过测量<strong>计算强度</strong>（compute intensity，即每次内存访问对应的计算量）来判断系统处于哪个瓶颈区间。实验表明，当计算强度较低时（如重复执行少于 32 次乘法），GPU 处于内存带宽受限状态，实际 FLOPS 仅约 0.2 teraflops；当计算强度足够高时（重复超过 64 次），才能接近峰值性能（9.75 teraflops）。</p>
+
+<p>文章还提到一个反直觉的结论：通过重计算（rematerialization/activation checkpointing）有时可以同时降低内存占用和运行时间，因为额外的重计算可能减少内存带宽消耗。</p>
+
+<h3>社区讨论</h3>
+
+<p>该文章在 Hacker News 上引发了热烈讨论（183 分，64 条评论）。有读者指出，这篇文章是理解现代 ML 系统性能的经典读物，作者 Horace 还在 2024 年 12 月于 Jane Street 做了相关的<a href="https://www.youtube.com/watch?v=139UPjoq7Kw">专题演讲</a>。也有读者讨论了性能优化的可移植性问题——同一模型在不同运行时（ONNX Runtime、TensorRT）和不同硬件上的表现可能截然不同。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48246889</guid>
+      <pubDate>Sat, 23 May 2026 11:50:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 当组织决定不再阅读LLM生成的代码：软件开发流程的范式转变</title>
+      <link>https://news.ycombinator.com/item?id=48246232</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论LLM生成代码的软件开发流程改进，属于编程效率改进经验（很感兴趣）范畴</small></p><p>Facundo Olano 在其博客文章中探讨了一个激进但现实的问题：如果组织管理层在充分了解风险后，仍然决定使用大语言模型（LLM）生成代码并跳过人工审查，软件开发应该怎么做？</p>
+
+<p>作者认为，LLM生成代码的速度远超人类阅读速度，因此传统上"程序员必须阅读和理解每一行代码"的假设需要被重新审视。但这并不意味着放弃严谨性，而是将严谨性转移到别处。关键前提是：这必须是一个<strong>组织层面的决策</strong>，而非个人或团队的选择——这不仅关乎风险管理和问责，还涉及阿姆达尔定律（Amdahl's law）：如果只最大化代码生成速度而不重新组织工作流程，就不会有实质性的生产力提升。</p>
+
+<p>作者提出的新流程包括：</p>
+<ul>
+  <li>移除人工审核环节，减少协调、摩擦和官僚主义</li>
+  <li>工程师扮演"伪产品设计师"角色，自主决策整个工作流</li>
+  <li>接受"返工几乎免费"的前提，不刻意预防错误发生</li>
+  <li>使用标准化的 Markdown 规范（specification）作为新的知识单元</li>
+  <li>产品负责人和工程师协作编写规范和测试用例，而非代码</li>
+  <li>自动化 PR 检查验证代码是否符合规范，而不仅仅是测试是否通过</li>
+</ul>
+
+<p>作者引用 <a href="https://www.thoughtworks.com/insights/blog/technology-strategy/retreat-report-ai-assisted-coding">Thoughtworks 的 retreat 报告</a>作为灵感来源，指出规范（而非提示词）和测试（而非 TDD）将成为新的严谨性落脚点。</p>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上的讨论热烈且观点多元：</p>
+
+<p><strong>支持/探索方向</strong>：用户 <strong>hombre_fatal</strong> 分享了类似实践——先让 AI 生成计划文件（plan file），迭代完善后再实现，将计划作为工作单元而非代码。用户 <strong>montroser</strong> 和 <strong>jondwillis</strong> 也认同规范将成为新的"源码"，代码只是构建产物。</p>
+
+<p><strong>理论挑战</strong>：用户 <strong>wizzwizz4</strong> 指出"自动验证代码是否符合规范"是一个未解决的问题。用户 <strong>InsideOutSanta</strong> 和 <strong>soraminazuki</strong> 提到这涉及停机问题等理论限制。不过 <strong>wizzwizz4</strong> 进一步辩称，对于人类可理解的算法子集，理论上可以构建数学证明的自动化。</p>
+
+<p><strong>历史视角</strong>：多位用户将这一思路与 COBOL、CASE 工具、可视化编程、UML 等历史尝试联系起来，认为这些"让业务人员无需程序员就能写软件"的尝试都未完全成功。用户 <strong>SoftTalker</strong> 和 <strong>dasil003</strong> 指出，代码之所以强大，正是因为它提供了精确且机器可读的规范。</p>
+
+<p><strong>批评声音</strong>：用户 <strong>jmull</strong> 尖锐批评该文章"假装软件开发的其他方面不存在"，指出产品负责人、设计师、跨团队沟通、共识建立等存在的理由远不止"编码太慢"。用户 <strong>vinnymac</strong> 认为在真正实现可靠的自洽之前，这些讨论只是"为垃圾代码做门面功夫"。</p>
+
+<p>用户 <strong>vips7L</strong> 举出反例：Anthropic 甚至无法让 Claude 构建一个可用的 C 编译器，而 C 语言拥有比任何团队能写的规范都要好得多的规范和多个参考实现。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48246232</guid>
+      <pubDate>Sat, 23 May 2026 09:37:16 GMT</pubDate>
+    </item>
     <item>
       <title>仅16字节的x86汇编程序：同时生成谢尔宾斯基分形与PC喇叭音频的极致代码压缩艺术</title>
       <link>https://news.ycombinator.com/item?id=48253060</link>
@@ -1456,68 +1542,6 @@ AI Mode 中的个人智能功能扩展至近 200 个国家和地区、98 种语�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48168221</guid>
       <pubDate>Sun, 17 May 2026 12:13:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 原生开发者的困境：为何构建Markdown聊天UI时，WebKit和Electron反而更优</title>
-      <link>https://news.ycombinator.com/item?id=48168058</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论编程技术选择和开发经验，与用户配置的'编程工具发布/分享'和'编程效率改进经验'高度相关，是用户会感兴趣的内容</small></p><p>一位有近20年macOS/iOS开发经验的开发者分享了在构建支持Markdown的聊天UI时遇到的困境。尽管尝试了各种原生技术方案，最终发现WebKit和Electron提供了更好的解决方案。</p>
-
-<p>开发者最初尝试使用纯Swift/SwiftUI构建简单的Markdown聊天应用，但很快发现原生方案存在诸多限制。SwiftUI虽然性能尚可，但无法实现全选Markdown文档的功能。转向NSTextView后，虽然支持TextKit 2，却失去了SwiftUI的测试和性能优化优势，且在流式文本处理时出现CPU峰值问题。</p>
-
-<p>进一步尝试AppKit和NSCollectionView，虽然成熟且经过实战检验，但单元格闪烁问题无法避免。即使使用纯TextKit 2，流式文本性能仍然不佳，与现代框架兼容性差。最终开发者发现，要实现基本的macOS原生功能（如上下文菜单、字典查找、选择、可访问性等）需要数月时间。</p>
-
-<p>转向WebKit渲染Markdown后，问题得到解决：性能良好、排版近乎完美、控制级别适当。更令人惊讶的是，尝试Electron项目后发现，文本操作、Markdown渲染、良好排版等功能都开箱即用，性能甚至优于纯TextKit 2实现。</p>
-
-<p>Hacker News社区对此展开了热烈讨论。有评论者表示：「Electron是构建桌面应用最差的方式……除了其他所有方式！」许多开发者分享了类似经历，指出在需要非标准行为的UI中，SwiftUI往往表现不佳。也有开发者建议考虑Qt、JUCE或Slint等跨平台解决方案。</p>
-
-<p>文章核心观点是：对于依赖聊天、长格式富文本、灵活排版等现代界面模式的应用程序，原生SDK不再是优势，反而成为约束。SwiftUI适合简单屏幕，Swift适合性能关键部分，但对于富文本渲染的长格式聊天应用，Web技术栈提供了更优的解决方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48168058</guid>
-      <pubDate>Sun, 17 May 2026 11:49:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>更美观的电压表时钟：结合木工与电子技术的创意项目</title>
-      <link>https://news.ycombinator.com/item?id=48164432</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 这是一个DIY电子项目，涉及电压表、木工和电子制作，主要属于硬件开发板相关，用户配置为不太感兴趣，但并非明确避开主题</small></p><p>这篇文章介绍了一个创意电子项目——使用模拟电压表制作的时钟。作者 Michał Zalewski（网名 lcamtuf）分享了他如何将三个模拟电压表改造成一个美观的时钟，展示了从设计到制作的完整过程。</p>
-
-<p>项目核心是将电压表指针的偏转角度转换为时间显示。作者使用 Arduino 微控制器和 PWM（脉冲宽度调制）技术来控制每个电压表的指针位置，分别显示小时、分钟和秒。时钟的电子部分相对简单，但真正的亮点在于其精美的木制外壳设计。</p>
-
-<p>作者详细描述了使用 CNC（计算机数控）路由器制作木制外壳的过程，包括前面板的精密加工和整体组装。外壳采用优质木材制作，表面经过精细打磨和涂装处理，呈现出专业级的工艺水准。</p>
-
-<p>在 Hacker News 社区的讨论中，读者们对这个项目给予了高度评价。许多评论者赞赏项目的创意和精美的木工工艺，有人表示这激发了他们学习 3D 建模和 CNC 加工的兴趣。关于技术细节的讨论包括：</p>
-<ul>
-<li>指针从高位到低位移动时的「过冲和回弹」现象，有读者认为这是需要改进的地方，也有人认为这种效果很美观</li>
-<li>秒针的移动平滑度问题，有用户注意到秒针不是完全平滑移动而是有微小步进</li>
-<li>关于电压测量原理的讨论，解释了 PWM 技术和电容充电时间测量电压的方法</li>
-</ul>
-
-<p>一些读者分享了类似的项目经验，包括使用面板仪表制作模拟计算机显示，以及在不同 CAD（计算机辅助设计）软件之间选择的工作流程建议。还有人提到了当地创客空间和图书馆可能提供的工具资源，为想要尝试类似项目但缺乏设备的人提供了实用建议。</p>
-
-<p>这个项目展示了如何将简单的电子元件与精良的工艺设计相结合，创造出既实用又具有艺术价值的作品。它不仅是一个功能性的时钟，更是一个体现创客精神的精美工艺品。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48164432</guid>
-      <pubDate>Sat, 16 May 2026 22:45:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenAI与马耳他政府合作，为全体公民提供ChatGPT Plus免费访问</title>
-      <link>https://news.ycombinator.com/item?id=48163392</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] OpenAI与政府合作提供ChatGPT Plus免费访问和培训，用户对新AI模型发布公告高度感兴趣，且这是AI技术普及的重要进展</small></p><p>OpenAI与马耳他政府宣布全球首个此类合作，通过"AI for All"计划为所有马耳他公民提供AI素养教育和ChatGPT Plus免费访问。完成由马耳他大学开发的AI课程后，公民可免费使用ChatGPT Plus一年。</p>
-
-<p>马耳他经济部长Silvio Schembri表示，该计划确保每个公民无论背景如何，都有机会在数字世界中发展技能。OpenAI国家事务主管George Osborne称赞马耳他引领欧洲和世界，将智能作为国家公共事业。</p>
-
-<p>该合作是OpenAI for Countries计划的最新进展，旨在支持各国从早期AI兴趣转向战略性国家采用。OpenAI已在爱沙尼亚和希腊等国家与政府合作支持国家教育系统。</p>
-
-<p>社区评论对此合作表达了复杂看法。有用户认为这是"明智之举"，但希望由更伦理的公司执行。其他担忧包括：数据隐私和<a href="https://support.google.com/googleone/answer/14534406?hl=en">GDPR合规性</a>问题，特别是欧盟公民数据如何受到保护；对"免费一年"后收费模式的质疑，认为这是让用户上瘾的策略；对国家安全的担忧，认为将整个国家的思维交给受美国《云法案》管辖的外国公司存在风险。</p>
-
-<p>还有评论质疑OpenAI主导AI教育的正当性，认为这类似于让烟草公司做反吸烟教育。关于AI是否真正提供"智能"的哲学讨论也引发了争议，有用户指出AI的"智能"建立在未经作者补偿的数百万书籍训练基础上。</p>
-
-<p>马耳他作为欧盟成员国，这一合作在数据安全和隐私保护方面面临特殊挑战。尽管马耳他规模较小，但这一合作模式可能为其他国家提供参考。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48163392</guid>
-      <pubDate>Sat, 16 May 2026 20:14:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
