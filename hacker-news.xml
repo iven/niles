@@ -3,7 +3,44 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 24 May 2026 00:09:08 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2026 04:41:34 GMT</lastBuildDate>
+    <item>
+      <title>将旧笔记本改造为无干扰的 Writerdeck：纯终端写作设备实践</title>
+      <link>https://news.ycombinator.com/item?id=48250144</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章是将旧笔记本改造为纯终端写作设备的个人实践分享，涉及Linux安装和终端工具配置。不属于用户兴趣配置中明确标记的高兴趣或感兴趣类别，也不属于想避开的内容，兴趣程度不明确，故判断为可选</small></p><p>作者 Veronica 因注意力问题，将一台闲置的 System76 Galago Pro 旧笔记本改造为专用的"Writerdeck"——一台完全脱离现代互联网干扰的写作设备。她没有选择复杂的硬件方案，而是利用手头的设备，通过软件配置实现极简写作环境。</p>
+
+<p><strong>核心思路</strong>：安装纯控制台版 Debian（Trixie），不安装 X11 或 Wayland 等桌面环境，仅保留 tty（虚拟终端）。这样做的目的是打破桌面操作系统的肌肉记忆，迫使自己专注于文字本身。</p>
+
+<p><strong>主要配置步骤</strong>：</p>
+<ul>
+  <li><strong>安装 Debian</strong>：使用文本安装器，跳过全盘加密（因设备上无隐私数据），不设 root 密码以启用 sudo 用户。</li>
+  <img src="https://veronicaexplains.net/content/images/2026/05/image.png" alt="Debian TUI 安装器中的用户设置界面" width="1920" height="1080" />
+  <li><strong>移除桌面环境</strong>：在软件选择界面取消勾选"Debian desktop environment"和"GNOME"。</li>
+  <img src="https://veronicaexplains.net/content/images/2026/05/image-1.png" alt="Debian 软件选择界面" width="1920" height="1080" />
+  <li><strong>安装 network-manager</strong>：使用 <code>nm-tui</code> 的 curses 界面方便地管理网络连接，以便必要时备份文件。</li>
+  <img src="https://veronicaexplains.net/content/images/2026/05/image-4.png" alt="nm-tui 网络管理界面" width="1920" height="1080" />
+  <li><strong>安装 neovim 和 kmscon</strong>：neovim 作为编辑器；kmscon 替代默认终端模拟器，支持自定义字体和 <code>Ctrl+/-</code> 缩放。</li>
+  <li><strong>配置 tmux</strong>：实现终端分屏、顶部状态栏，并通过 <code>acpi</code> 显示电池百分比，通过 <code>light</code> 绑定 F8/F9 调节屏幕亮度。</li>
+  <li><strong>设置 vimwiki</strong>：安装 <code>vim-vimwiki</code> 包，用于组织写作笔记。</li>
+  <li><strong>安装 Syncthing</strong>：将 writerdeck 上的 vimwiki 文件夹同步到服务器，同时避免同步桌面 vimwiki 中的敏感笔记。</li>
+  <li><strong>自动登录与自动启动</strong>：配置 kmscon 自动登录，并在 <code>.bashrc</code> 中添加脚本，登录后自动启动 tmux 并打开 vimwiki 索引。</li>
+</ul>
+
+<p><strong>使用体验</strong>：经过一周的使用，作者用这台设备完成了本文、配套视频脚本以及另一个正在进行的项目。她强调，这种极简设置帮助她摆脱了浏览器通知、音乐播放器等持续不断的干扰，实现了"一个设备只做一件事"的意图性技术选择。</p>
+
+<p><strong>社区讨论亮点</strong>：</p>
+<ul>
+  <li>多位用户提到纯终端 Linux 带来的减压效果，以及让人回想起 DOS 时代的 WordPerfect 5.1 体验。</li>
+  <li>有用户推荐 <a href="https://github.com/davidgiven/wordgrinder">Wordgrinder</a>（控制台文字处理器）和 <a href="https://zellij.dev/">Zellij</a>（tmux 替代品）。</li>
+  <li>关于电子墨水（e-ink）写作设备的讨论热烈，有人推荐 <a href="https://getfreewrite.com/products/freewrite-traveler">Freewrite Traveler</a>，也有人认为其价格过高。</li>
+  <li>部分用户提出替代方案：安装常规 Linux 发行版 + 轻量窗口管理器 + 全屏编辑器，同样能达到减少干扰的目的。</li>
+  <li>有评论者从更宏观的角度反思：数字内容从物理实体（书籍、文件）转移到通用设备中，使我们与周围环境的联系变得模糊。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48250144</guid>
+      <pubDate>Sat, 23 May 2026 18:45:37 GMT</pubDate>
+    </item>
     <item>
       <title>数十年睡眠研究催生新型睡眠呼吸暂停药物 AD109，III 期临床试验取得积极结果</title>
       <link>https://news.ycombinator.com/item?id=48242278</link>
@@ -1456,23 +1493,6 @@ AI Mode 中的个人智能功能扩展至近 200 个国家和地区、98 种语�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48158506</guid>
       <pubDate>Sat, 16 May 2026 09:30:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ DeepSeek-V4-Flash 让模型引导技术重新变得有趣</title>
-      <link>https://news.ycombinator.com/item?id=48160807</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍DeepSeek-V4-Flash新AI模型发布，匹配'新AI模型发布公告'的高兴趣类别，是用户会强烈感兴趣必看的内容</small></p><p>引导向量（steering vectors）技术通过直接操纵大语言模型的激活状态来引导输出，这一概念因 DeepSeek-V4-Flash 模型的本地可用性而重新受到关注。antirez 的 DwarfStar 4 项目专门优化了该模型的推理，使得更多工程师能够尝试这一技术。</p>
-
-<p>引导的基本原理是：通过比较模型在有特定指令（如「简洁回答」）和无指令时的激活差异，提取出「引导向量」，然后在推理过程中增强这些激活。更复杂的方法包括使用稀疏自编码器来提取更深层的模式特征。</p>
-
-<p>作者认为引导技术虽然理论上能够直接调整模型的「智能度」等内在特性，但实际应用中面临挑战。大型AI实验室可以直接训练模型，而普通用户无法访问模型权重。更重要的是，许多引导效果可以通过精心设计的提示词实现。</p>
-
-<p>然而，Hacker News 评论揭示了引导技术的重要应用：antirez 本人指出，通过 DwarfStar 4 的引导功能，他成功移除了 DeepSeek-V4-Flash 的拒绝行为。评论者提到，引导向量的一个重要应用是移除模型的拒绝机制（uncensoring/abliteration），这比通过提示词更有效。antirez 进一步解释，运行时引导比直接修改模型权重更优越，因为过度引导会损害模型能力，而运行时引导可以按需应用。</p>
-
-<p>社区讨论还涉及模型比较：有用户认为 Minimax M2.7 在某些方面优于 DeepSeek-V4-Flash，但其他人指出 DeepSeek 模型在实际使用中表现更好，且具有更高效的内存使用。引导技术为本地模型用户提供了前所未有的控制能力，可能改变未来的模型交互方式。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48160807</guid>
-      <pubDate>Sat, 16 May 2026 14:58:16 GMT</pubDate>
     </item>
   </channel>
 </rss>
