@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 25 May 2026 00:11:47 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 25 May 2026 04:55:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Show HN：AudioMass——一款免费开源的网页版多轨音频编辑器</title>
+      <link>https://news.ycombinator.com/item?id=48258015</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 免费开源的网页版音频编辑工具发布，属于编程工具发布/分享（高兴趣）和开源项目（感兴趣）范畴</small></p><p>AudioMass 是一款免费、开源、基于 Web 的多轨音频编辑器，用户无需安装任何软件即可在浏览器中完成音频编辑工作。该项目在 Hacker News 上获得了 219 个点赞和 50 条评论，开发者 pantelisk 亲自参与了社区讨论。</p>
+
+<p>AudioMass 的设计理念是轻量、尊重用户隐私：整个应用加载完成后不再向服务器发送任何请求，不上传用户数据，无广告。其 JavaScript 体积仅 98KB，CSS 仅 10KB，在同类工具中极为精简。开发者表示，其灵感来源于 Audacity，但在界面设计上更加沉稳、清爽。</p>
+
+<p>在功能方面，AudioMass 支持多轨编辑，用户可通过侧边栏的 [+] 按钮无限添加音轨。不过由于目前使用 DOM 渲染波形图，音轨过多时性能可能下降，未来计划迁移至 WebGPU 以解决此限制。对于单轨编辑，目前尚不支持会话自动保存；多轨会话可导出为 .amss 文件，保存所有设置、标记和轨道信息。IndexedDB 缓存功能已存在但尚未默认启用，开发者出于对用户存储空间的谨慎考虑，暂未实现自动保存。</p>
+
+<p>关于文件大小限制，开发者表示通常用于编辑 10 分钟以内的音频，但也有用户成功处理了 1 小时以上的播客。有评论者提到成功加载了 12 小时的录音文件，加载后界面仍保持流畅，但缩放时波形图无法自适应。</p>
+
+<p>社区反馈中，有用户希望支持 MIDI 和 VST 插件，但目前尚未实现。也有用户提出希望支持 XM 格式（一种模块音乐格式）和音轨分轨导入（stem bundles）。开发者表示会考虑 XM 格式支持，但需注意控制文件体积。此外，开发者还提到，目前网络上缺乏一款优秀的开源网页版音频音序器（类似 Renoise 的 Web 版本），这是一个值得探索的方向。</p>
+
+<p>整体而言，AudioMass 定位类似于 Photopea 之于 Photoshop——快速、易用、能满足 90% 的日常编辑需求。对于更专业的操作，开发者建议用户使用桌面端的专业 DAW 解决方案。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48258015</guid>
+      <pubDate>Sun, 24 May 2026 15:25:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 约束衰减：LLM 智能体在后端代码生成中的脆弱性研究</title>
+      <link>https://news.ycombinator.com/item?id=48256912</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] LLM智能体在后端代码生成中的脆弱性研究，属于AI软件技术进展（感兴趣）和科学前沿进展范畴</small></p><p>一篇来自 arXiv 的学术论文系统性地研究了大型语言模型（LLM）智能体在后端代码生成中的结构性约束遵循能力。研究发现，当代码生成任务从松散规范转向包含严格架构约束（如设计模式、数据库配置、对象关系映射等）的生产级场景时，智能体的性能会出现显著下降，作者将这一现象称为<strong>「约束衰减」（Constraint Decay）</strong>。</p>
+
+<p>研究团队在 8 种 Web 框架（Flask、FastAPI、Django 等）上设计了 80 个绿地生成任务和 20 个功能实现任务，通过统一的 API 契约和双重评估（端到端行为测试 + 静态验证器）来隔离结构性复杂度的影响。结果显示：能力较强的配置在从基线任务到完全指定任务时，断言通过率平均下降 30 个百分点，而较弱的配置在某些场景下几乎降至零。框架敏感性分析表明，智能体在结构明确、约定较少的框架（如 Flask）中表现较好，但在约定密集的框架（如 FastAPI、Django）中表现明显更差。错误分析进一步指出，数据层缺陷（如错误的查询组合和 ORM 运行时违规）是主要的失败原因。</p>
+
+<p>该论文在 Hacker News 上引发了广泛讨论。有评论指出，这一发现与「LLM 在长跨度任务中累积错误」的已知现象类似，但本文聚焦于「结构约束的广度」而非「时间跨度」。多位开发者分享了实际经验：有用户发现，在大型遗留代码库中，智能体的补丁反而更准确，因为丰富的上下文提供了更多约束条件；也有用户观察到，使用静态类型语言（如 Go）时，智能体可以通过编译检查来自我修正错误。还有评论者指出，这本质上是一个多目标优化问题——同时满足功能性和非功能性需求对当前模型仍是开放挑战。</p>
+
+<p>值得注意的是，该研究因成本限制未完全测试最前沿的模型（如 GPT-5.2-codex），具体性能数据需谨慎看待，但「约束衰减」这一现象本身具有重要的实践意义。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48256912</guid>
+      <pubDate>Sun, 24 May 2026 12:55:53 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Claude 不是你的架构师：别再让 AI 假装做架构决策</title>
       <link>https://news.ycombinator.com/item?id=48259784</link>
@@ -1495,58 +1529,6 @@ AI Mode 中的个人智能功能扩展至近 200 个国家和地区、98 种语�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48168668</guid>
       <pubDate>Sun, 17 May 2026 13:16:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ John Gruber反驳AI需要&quot;杀手级产品&quot;观点：AI是技术而非产品，苹果传统是融入体验而非单纯推技术</title>
-      <link>https://news.ycombinator.com/item?id=48168626</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论AI技术本质和苹果的技术集成理念，属于AI软件技术进展类别（感兴趣），虽然涉及行业人物John Gruber和苹果公司（不太感兴趣），但技术讨论是核心焦点</small></p><p>John Gruber在Daring Fireball上发表文章，回应Steven Levy在Wired上关于苹果需要推出"杀手级AI产品"的观点。Gruber认为Levy的观点是"胡说八道"，并强调苹果的传统哲学是从不单纯"推出技术"，而是将技术融入产品体验中。</p>
-
-<img src="/graphics/logos/" alt="Daring Fireball" height="56" />
-
-<p>文章指出，Levy在Wired文章中认为苹果新任CEO需要推出定义AI时代的产品，就像iPhone定义移动时代一样。但Gruber反驳说，苹果硬件工程高级副总裁John Ternus的观点才是正确的：AI是"一个巨大的转折点"，但苹果思考的是"推出令人惊叹的产品、功能和体验"，而不是让用户思考底层技术。</p>
-
-<p>Gruber详细批评了Levy关于AI将颠覆整个iPhone生态系统的预测，特别是关于"AI代理会自动叫车"的设想。他认为这种设想不切实际，并质疑：人们真的会喜欢没有请求就有车等待的感觉吗？司机如何应对可能错误的请求？如果没有手机，如何与AI代理交互？</p>
-
-<p>文章强调，到2030年，人们叫车时最可能使用的仍然是手机。Gruber认为，更小的设备（如手表、耳机、眼镜）将与手机配对使用，而不是取代手机。他提出三个问题：哪家公司最擅长制造比手机更小的个人计算设备？人们用什么设备作为相机？人们用什么设备作为屏幕？他的答案是：苹果、手机、手机。</p>
-
-<p>Gruber将AI类比为无线网络技术：无线网络渗透到所有苹果产品中，但苹果没有"杀手级无线网络产品"。同样，AI将渗透到所有设备中，而不是成为一个独立的"杀手级AI设备"。</p>
-
-<p>在Hacker News的评论中，用户们展开了深入讨论。有用户指出<a href="https://youtu.be/oeqPrUmVz-o?si=ndUU1H5D3pNifWss">史蒂夫·乔布斯早就揭示了秘密</a>："你必须从客户体验出发反向工作。"这符合苹果将技术与产品区分的DNA。</p>
-
-<p>其他评论包括：AI更像是<a href="https://taalas.com/the-path-to-ubiquitous-ai/">Dropbox那样的"功能而非产品"</a>；手机形态不会消失，但用户界面可能随着AGI的发展而变化；AI的实际应用价值仍有待证明，特别是对于普通用户的非编程用例。</p>
-
-<p>有用户质疑："GPT 3.5已经快4年了，有什么非编程用例能实质性改善普通美国中部人的生活？"讨论还涉及苹果可能面临的AI风险，包括缺乏自己的前沿模型和数据中心，但多数认为苹果可以通过API访问适应需求。</p>
-
-<img src="/martini/images/drata-blue.png" alt="Drata" height="90" />
-
-<p>总体而言，社区讨论支持Gruber的核心观点：AI是基础技术，应该无缝融入现有产品体验中，而不是作为一个独立的"产品"来营销。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48168626</guid>
-      <pubDate>Sun, 17 May 2026 13:11:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 在8位微控制器上搭建网站服务器的技术探索</title>
-      <link>https://news.ycombinator.com/item?id=48165295</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 纯技术探索内容，在8位微控制器上搭建网站服务器，涉及编程工具分享和技术实验，符合用户对编程工具发布/分享的强兴趣配置</small></p><p>一位技术爱好者成功在仅1美元的AVR64DD32 8位微控制器上搭建了完整的网站服务器。该项目展示了在极其有限的硬件资源（24MHz主频、8KB RAM、64KB Flash）下实现网络服务的可能性。</p>
-
-<img src="/projects/mcusite/webscale.jpg" alt="安装在木块上的小型电路板，包含SMD芯片、引脚接头和两个LED" />
-
-<p>由于标准以太网（10BASE-T）的20Mbps线速超出了微控制器的处理能力，作者选择了串行线路互联网协议（SLIP）作为网络连接方案。通过USB转串口适配器，在Linux系统上创建了一个虚拟网络接口，实现了与微控制器的网络连接。</p>
-
-<p>在协议实现方面，作者简化了IPv6协议实现，并开发了自定义的TCP协议栈。HTTP服务器则采用硬编码响应的方式，只支持单一URL访问。为了将服务器公开到互联网，作者使用WireGuard隧道连接到位于赫尔辛基的VPS服务器，并通过代理方式将特定路径的请求转发到微控制器。</p>
-
-<img src="/projects/mcusite/sch.png" alt="电路原理图" />
-
-<p>Hacker News社区对此项目反应热烈。有用户评论说看到HTML实时加载的场景让人回想起拨号上网时代。技术讨论方面，用户<a href="https://news.ycombinator.com/item?id=48165295">dragontamer</a>详细分析了AVR DD系列芯片的特点，并讨论了Microchip新推出的PIC32 CM系列对AVR平台的影响。还有人提到这个项目让人想起25年前的最小网络服务器竞赛，当时获胜者使用的是ACE1101微控制器。</p>
-
-<p>作者在文中还提到了相关项目：<a href="http://ewaste.fka.wtf/">Vape Server</a>（从垃圾中回收的32位MCU搭建的网站）和关于AVR Dx系列的<a href="https://lcamtuf.substack.com/p/psa-if-youre-a-fan-of-atmega-try">技术文章</a>。</p>
-
-<p><strong>你知道吗？</strong>SLIP（串行线路互联网协议）是1988年制定的一个非常简单的网络协议标准（RFC 1055），主要用于通过串行线路传输IP数据包。虽然现在已被PPP协议取代，但Linux等现代操作系统仍然支持SLIP，这使得老旧设备或资源受限的嵌入式系统能够轻松实现网络连接。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48165295</guid>
-      <pubDate>Sun, 17 May 2026 01:25:26 GMT</pubDate>
     </item>
   </channel>
 </rss>
