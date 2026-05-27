@@ -170,7 +170,7 @@ async function summarizeOne(
     ],
     tools: [tool],
     temperature: 0.3,
-    maxTokens: 8192,
+    maxTokens: 16384,
   });
 
   try {

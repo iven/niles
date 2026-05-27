@@ -199,7 +199,7 @@ const plugin: Plugin<LlmGradeOptions> = {
         },
       ],
       tools: [tool],
-      maxTokens: 8192,
+      maxTokens: 16384,
     });
 
     let gradeResults: GradeResult[];
