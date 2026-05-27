@@ -6,7 +6,7 @@
 import { chat } from "@tanstack/ai";
 import pLimit from "p-limit";
 import { z } from "zod";
-import { handleStreamWithToolCall } from "../../lib/llm";
+import { handleStreamWithToolCall, MaxTokensError } from "../../lib/llm";
 
 import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
@@ -139,17 +139,20 @@ function createSummarizeTool() {
   };
 }
 
+interface SummarizeOneResult {
+  result: SummaryResult | null;
+  promptTokens: number;
+  completionTokens: number;
+  totalTokens: number;
+  skipped?: "max_tokens";
+}
+
 async function summarizeOne(
   item: FeedItem,
   preferredLanguage: string,
   context: PluginContext,
   pluginContext: string | undefined,
-): Promise<{
-  result: SummaryResult;
-  promptTokens: number;
-  completionTokens: number;
-  totalTokens: number;
-}> {
+): Promise<SummarizeOneResult> {
   const userMessage = buildUserPrompt(
     preferredLanguage,
     item,
@@ -181,6 +184,18 @@ async function summarizeOne(
     });
     return { result, ...tokenStats };
   } catch (error) {
+    if (error instanceof MaxTokensError) {
+      context.logger.warn(
+        `条目 ${item.guid} 总结达到 max_tokens 上限，跳过该条目`,
+      );
+      return {
+        result: null,
+        promptTokens: 0,
+        completionTokens: 0,
+        totalTokens: 0,
+        skipped: "max_tokens",
+      };
+    }
     throw new Error("总结失败：AI 未成功调用工具", { cause: error });
   }
 }
@@ -230,11 +245,19 @@ const plugin: Plugin<SummarizeOptions> = {
       { promptTokens: 0, completionTokens: 0, totalTokens: 0 },
     );
 
-    context.logger.success(`总结完成 (${results.length} 个条目)`);
-    for (let i = 0; i < results.length; i++) {
-      const r = results[i];
-      if (!r) continue;
-      context.logger.log(`  ${i + 1}. ${r.result.title}`);
+    const succeeded = results.filter(
+      (r) => r.result && !r.result.rejected,
+    ).length;
+    const rejected = results.filter((r) => r.result?.rejected).length;
+    const skipped = results.filter((r) => r.skipped).length;
+    context.logger.success(
+      `总结完成 (成功 ${succeeded} 个，拒绝 ${rejected} 个，跳过 ${skipped} 个)`,
+    );
+    let printIndex = 0;
+    for (const r of results) {
+      if (!r.result) continue;
+      printIndex += 1;
+      context.logger.log(`  ${printIndex}. ${r.result.title}`);
       context.logger.log(
         `     Token: 输入 ${r.promptTokens}, 输出 ${r.completionTokens}, 总计 ${r.totalTokens}`,
       );
@@ -244,7 +267,9 @@ const plugin: Plugin<SummarizeOptions> = {
     );
 
     const summaryMap = new Map(
-      results.map((r, i) => [itemsToSummarize[i]?.guid, r.result]),
+      results
+        .map((r, i) => [itemsToSummarize[i]?.guid, r.result] as const)
+        .filter(([, result]) => result !== null),
     );
 
     return items.map((item) => {

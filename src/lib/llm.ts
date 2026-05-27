@@ -90,6 +90,13 @@ export function createLlmClient(config: LlmConfig, model: string): TextAdapter {
 
 type ChatStream = ReturnType<typeof chat>;
 
+export class MaxTokensError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "MaxTokensError";
+  }
+}
+
 interface StreamHandlerOptions<T> {
   stream: ChatStream;
   getResult: () => T;
@@ -123,8 +130,13 @@ export async function handleStreamWithToolCall<T>(
     totalTokens: 0,
   };
 
+  let maxTokensReached = false;
+
   for await (const chunk of stream) {
     if (chunk.type === "RUN_ERROR") {
+      if (chunk.error.code === "max_tokens") {
+        maxTokensReached = true;
+      }
       logger.error("API 错误:", JSON.stringify(chunk.error, null, 2));
     }
 
@@ -160,6 +172,12 @@ export async function handleStreamWithToolCall<T>(
         totalTokens: chunk.usage.totalTokens,
       };
     }
+  }
+
+  if (maxTokensReached) {
+    throw new MaxTokensError(
+      `AI 输出达到 max_tokens 上限，未成功调用工具，返回内容：${fullText.trim()}`,
+    );
   }
 
   throw new Error(`AI 未成功调用工具，返回内容：${fullText.trim()}`);
