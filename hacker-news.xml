@@ -3,7 +3,49 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 27 May 2026 19:33:45 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2026 22:07:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 将 Claude Code 转化为日常主力开发工具：CLAUDE.md、Skills 与子代理深度指南</title>
+      <link>https://news.ycombinator.com/item?id=48289950</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章是对 Claude Code（AI 编程工具）的深度使用指南，涵盖配置、技能和子代理等功能，符合用户对编程工具分享及编程效率改进的高兴趣配置</small></p><article>
+<p>本文深入探讨了如何将 <a href="https://arps18.github.io/posts/claude-code-mastery/">Claude Code</a> 从简单的提示响应工具转变为可编程的自主代理（Autonomous Agent），适用于日常高强度开发工作流。文章基于 Anthropic 团队及资深用户的实践经验，系统介绍了配置优化、技能复用与高级工作流模式。</p>
+
+<h3>核心工作流原则</h3>
+<p>将 Claude Code 视为需要护栏的自主代理，而非结对编程的助手。核心建议包括：</p>
+<ul>
+<li><strong>探索-规划-编码</strong>：使用 Plan Mode（Shift+Tab 两次）进行只读探索，生成设计文档后再执行。对于跨文件修改，规划能显著提升质量。</li>
+<li><strong>精确引用</strong>：使用 <code>@filename</code> 或管道输入错误日志，而非模糊描述。</li>
+<li><strong>委派任务</strong>：提供清晰的初始简报后让模型独立运行，避免逐行指导。</li>
+<li><strong>自我验证</strong>：让 Claude 自行验证工作成果，可带来 2-3 倍的质量提升。</li>
+</ul>
+
+<h3>配置系统：.claude 目录深度解析</h3>
+<p><code>.claude/</code> 目录采用分层配置模型，区分项目级（提交至 Git）与全局级（跨项目生效）：</p>
+<ul>
+<li><strong>CLAUDE.md</strong>：每次会话加载的核心指令文件。最佳实践是保持简短，仅包含模型无法自行推断的构建命令、测试顺序及常见陷阱（Gotchas）。推荐在每次模型犯错后，指示其“更新 CLAUDE.md 以避免重复此错误”，实现规则的自我迭代与积累。</li>
+<li><strong>CLAUDE.local.md</strong>：个人私有笔记，用于记录 PR 审查反馈或个人编码习惯修正，建议加入 <code>.gitignore</code>。</li>
+<li><strong>rules/*.md</strong>：支持路径门控（Path-gated），可针对特定目录（如 <code>db/migrations/</code>）加载专属规则，避免主文件臃肿。</li>
+</ul>
+
+<h3>高级功能：Skills 与 Subagents</h3>
+<ul>
+<li><strong>Skills（技能）</strong>：可复用的专业知识单元。支持渐进式披露（仅加载 frontmatter 描述），可捆绑模板、脚本等辅助文件。通过 <code>disable-model-invocation: true</code> 可防止副作用操作被意外触发。</li>
+<li><strong>Subagents（子代理）</strong>：在独立上下文窗口中运行，拥有独立的工具权限。适用于处理大型任务（如审查包含数十个文件的 PR），避免污染主会话上下文。</li>
+</ul>
+
+<h3>社区反馈与扩展讨论</h3>
+<p>文章发布后引发广泛讨论，主要集中在以下方面：</p>
+<ul>
+<li><strong>环境管理</strong>：许多开发者推荐使用 <a href="https://github.com/nix-tools/bubblebox">Nix</a> 或 <a href="https://mise.en.dev">Mise</a> 管理开发环境，确保 Agent 能在一致的环境中运行，替代传统的 Docker 挂载方案。</li>
+<li><strong>自动化与确定性</strong>：部分用户指出，对于 lint、测试等确定性步骤，应优先使用 pre-commit hooks 等脚本强制执行，而非依赖 Agent 的随机性。</li>
+<li><strong>成本与实用性</strong>：日常深度使用 Claude Code 需订阅 Pro 版或消耗 API 额度，但开发者普遍认为其在减少调试时间与提升代码规范方面具有显著回报。</li>
+</ul>
+</article>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48289950</guid>
+      <pubDate>Wed, 27 May 2026 05:13:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 人类烹饪知识被压缩进2MB？一项关于食材嵌入的AI研究</title>
       <link>https://news.ycombinator.com/item?id=48291225</link>
@@ -1402,22 +1444,6 @@ AI Mode 中的个人智能功能扩展至近 200 个国家和地区、98 种语�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48182516</guid>
       <pubDate>Mon, 18 May 2026 17:20:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 一颗草莓的高斯泼溅（Gaussian Splatting）3D 重建</title>
-      <link>https://news.ycombinator.com/item?id=48191602</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于高斯泼溅3D重建技术的内容，属于AI软件技术/计算机图形学进展，用户对技术类内容感兴趣</small></p><p>摄影师 Dany Bittel 在 SuperSplat 平台上发布了一颗草莓的高斯泼溅（Gaussian Splatting）3D 重建作品，视觉效果极为精细。该作品使用尼康 Z8 全画幅相机、Laowa 180mm 微距镜头，以 f/7.1、1/160 秒、ISO 100 的参数，从 90 个不同角度拍摄，每个角度拍摄 88 张焦点堆叠（focus stacking）图像，总共拍摄了 7920 张照片，整个拍摄过程仅耗时 20 分钟。最终生成的高斯泼溅模型可以在浏览器中自由旋转和缩放查看。</p>
-
-<p>在 Hacker News 的讨论中，作者 Dany Bittel 分享了拍摄设备照片（<a href="https://i.imgur.com/o0hgybh.jpeg">1</a>、<a href="https://i.imgur.com/mcNiomp.jpeg">2</a>、<a href="https://i.imgur.com/vIjw6pc.jpeg">3</a>、<a href="https://i.imgur.com/nzOwmSC.jpeg">4</a>）。他提到通常使用 PostShot 进行训练，但这次因显卡显存不足无法运行 LichtFeld Studio，于是由 Mykhailo 代为训练并获得了更好的质量。他还拍摄了自己的工作室场景（<a href="https://superspl.at/scene/0a3916cd">链接</a>），效果被网友形容为"如画一般"。</p>
-
-<p>有评论指出草莓底部存在缺失，作者解释是因为草莓底部被固定，相机无法完全覆盖，未来可能尝试两遍拍摄。另有用户推荐了 Dany Bittel 的其他微距高斯泼溅作品，如大黄蜂（<a href="https://superspl.at/scene/cf6ac78e">链接</a>）。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>高斯泼溅（Gaussian Splatting，3DGS）</strong> 是一种基于点云的 3D 场景表示与渲染技术。它用大量带有颜色、位置、形状和透明度参数的三维高斯椭球体（"泼溅点"）来表示场景，通过优化这些参数来拟合多视角照片中的真实场景。相比传统的神经辐射场（NeRF），高斯泼溅训练速度更快，且能实现实时渲染，近年来在 3D 重建和沉浸式内容领域备受关注。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48191602</guid>
-      <pubDate>Tue, 19 May 2026 10:38:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
