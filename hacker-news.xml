@@ -3,7 +3,52 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 28 May 2026 12:42:58 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 28 May 2026 17:03:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 前沿大语言模型在现实事实核查中高度不一致（67%存在分歧）</title>
+      <link>https://news.ycombinator.com/item?id=48307887</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要评估前沿大语言模型在现实事实核查中的一致性表现，属于AI模型能力与技术进展分析，符合用户感兴趣的主题。</small></p><div>
+<p>一项来自事实核查平台 Lenz 的新研究评估了五个前沿大语言模型（LLM）在 1,000 个真实用户提交的事实核查声明上的一致性。研究结果显示，模型在现实世界的复杂事实面前表现出显著的分歧。</p>
+<h3>核心发现</h3>
+<ul>
+<li><strong>高度不一致：</strong> 在 67% 的声明中，模型组未能达成一致（至少一个模型反对多数意见，或没有形成严格多数）。仅有 33% 的声明获得了所有五个模型的一致认可。</li>
+<li><strong>实质性分歧：</strong> 34% 的声明中，模型之间的判定跨越了两个或更多类别（例如从“真”到“假”），这不仅仅是置信度校准的差异，而是对事实本身的实质性分歧。</li>
+<li><strong>统计指标：</strong> 模型组的 Krippendorff's α（序数）得分为 0.639，表明模型间的判定具有结构化特征，但远未达到可互换的可靠性水平。</li>
+</ul>
+<h3>模型行为差异</h3>
+<p>不同模型在判定分布上表现出明显的偏好差异。例如，Gemini 3 Pro 倾向于给出更极端的“真”或“假”判定，而 Claude Opus 4.7 则更频繁地使用中间的“大部分为真”类别。在模型对方面，同源的 Gemini 3 Pro 与 Gemini 3 Pro + Search 一致性最高（75%），而 Claude Opus 4.7 与 Gemini 3 Pro 之间的一致性最低（53%）。</p>
+<h3>方法论与局限性</h3>
+<p>该研究使用了 Lenz 平台 2026 年 2 月 15 日之后的最新真实声明，要求模型在“真”、“大部分为真”、“误导”和“假”四个选项中强制选择，且不提供“无法验证”或“拒绝回答”的选项。这一设计引发了社区讨论：对于缺乏搜索能力的模型而言，面对尚未发生或超出知识截止日期的近期事件（如 2026 年 5 月的声明），强制选择可能导致无意义的猜测。此外，由于缺乏对中间类别的明确定义，部分分歧可能源于模型对判定标准理解的不同，而非事实认知错误。</p>
+<h3>社区反馈</h3>
+<p>Hacker News 社区指出，在缺乏明确定义和“无法验证”选项的情况下，该研究更多反映了提示词工程（Prompt Engineering）和评估框架的局限性。有评论认为，人类在面对同样复杂、模糊或近期发生的事件时，分歧程度可能甚至高于 LLM。作者也承认，该研究旨在测量标签不一致性的下限，而非判定哪个模型绝对正确，并计划后续引入人类标注进行对照。</p>
+<p>研究全文及详细数据表可参考：<a href="https://lenz.io/research/llm-disagreement">https://lenz.io/research/llm-disagreement</a></p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48307887</guid>
+      <pubDate>Thu, 28 May 2026 12:20:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Go 1.27 将支持泛型方法（Generic Methods）</title>
+      <link>https://news.ycombinator.com/item?id=48291575</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Go语言1.27版本即将支持泛型方法的新特性，属于编程语言工具的功能发布与分享，符合用户很感兴趣的主题。</small></p><p>Go 语言团队正式接受了一项提案，计划在 <a href="https://github.com/golang/go/issues/77273">Go 1.27</a> 版本中引入对泛型方法（Generic Methods）的支持。这一变更旨在填补 Go 泛型系统的一大空白，允许开发者在具体的方法（concrete methods）声明中定义类型参数。</p>
+
+<p>此次提案的核心变化在于，方法声明的语法将允许包含类型参数列表，使其与泛型函数的声明方式保持一致。例如，开发者可以编写如下代码：</p>
+
+<p><code>func (s *S) m[P any](x P) { ... }</code></p>
+
+<p>尽管支持泛型方法，但提案明确指出了其限制：泛型方法无法用于实现接口（interface）。由于接口方法在语法上不允许包含类型参数，因此带有类型参数的方法无法匹配接口定义。此外，未实例化的泛型方法也无法通过反射（reflection）直接访问。</p>
+
+<p><img src="https://avatars.githubusercontent.com/u/8528975?u=f805aea1bf2bea2dbd5c2aaed2cefcdab2205ef2&v=4&size=48" alt="@griesemer" width="24" height="24" /></p>
+
+<p>Go 团队此前长期拒绝该功能，主要顾虑在于支持泛型方法将不可避免地需要解决泛型接口方法的实现难题。由于 Go 采用动态类型检查机制，编译器在编译期无法确定运行时具体需要实例化哪些泛型方法，导致静态分发和运行时效率难以兼顾。此次提案的转变源于团队观点的调整：具体的方法不仅是实现接口的工具，更是组织代码和实现链式调用（如 <code>x.a().b().c()</code>）的重要语法特性。即使泛型方法不能用于接口，其本身对代码组织依然具有显著价值。</p>
+
+<p>在 Hacker News 的讨论中，该提案获得了广泛支持。许多开发者表示，泛型方法的缺失曾迫使他们在 API 设计上采用复杂的变通方案，而该功能的引入将大幅简化数据结构相关的代码编写。同时，也有部分评论指出，Go 团队此前在官方 FAQ 中曾明确表示“不打算添加泛型方法”，此次转变被视为对社区长期呼声的回应。此外，讨论中也引发了关于 Go 语言“极简主义”设计哲学与追赶现代编程语言特性之间平衡的持续争论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48291575</guid>
+      <pubDate>Wed, 27 May 2026 09:02:59 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AI革命下的“周五休假”幻想与现实：生产力提升能否转化为闲暇时间？</title>
       <link>https://news.ycombinator.com/item?id=48302745</link>
@@ -1350,78 +1395,6 @@ AI Mode 中的个人智能功能扩展至近 200 个国家和地区、98 种语�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48192383</guid>
       <pubDate>Tue, 19 May 2026 12:23:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google 发布 Gemini 3.5 Flash：面向代理和编程的前沿模型</title>
-      <link>https://news.ycombinator.com/item?id=48196570</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Google 发布新 AI 模型，属于「新AI模型发布公告」的 high_interest 类别，且面向代理和编程，与编程相关兴趣高度契合</small></p><p>在 Google I/O 2026 大会上，Google DeepMind 正式发布了 <strong>Gemini 3.5</strong> 系列模型的首个版本——<strong>Gemini 3.5 Flash</strong>。该模型定位为"结合前沿智能与行动能力"的代理型模型，在编程和复杂长周期任务方面表现突出。</p>
-
-<h3>性能与基准测试</h3>
-<p>Gemini 3.5 Flash 在多项基准测试中表现优异：Terminal-Bench 2.1 得分 76.2%、GDPval-AA 达 1656 Elo、MCP Atlas 得分 83.6%，多模态理解方面 CharXiv Reasoning 得分 84.2%。在输出速度上，它比其他前沿模型快 4 倍。</p>
-
-<h3>定价</h3>
-<p>根据 <a href="https://ai.google.dev/pricing">Google AI 定价页面</a>，Gemini 3.5 Flash 的定价为：输入 $1.50/百万 tokens，输出 $9/百万 tokens（包含思考 tokens）。相比之下，Gemini 2.5 Flash 为 $0.30/$2.50，Gemini 3.1 Pro Preview 为 $2.00/$12.00。社区评论中不少用户指出价格较前代有显著上涨，但也有观点认为其性能足以匹配定价。</p>
-
-<h3>代理能力与应用</h3>
-<p>3.5 Flash 与更新后的 <strong>Antigravity</strong> 框架结合，可部署协作性子代理（subagents）处理大规模任务。文章展示了多个实际应用案例，包括自动重命名分类非结构化资产、将遗留代码库迁移至 Next.js、在六小时内合成 AlphaZero 论文并编写可玩游戏等。</p>
-
-<h3>行业合作</h3>
-<p>多家企业已开始使用 3.5 Flash：<strong>Shopify</strong> 运行并行子代理进行长期数据分析以预测商家增长；<strong>Macquarie Bank</strong> 试点用其加速客户入职流程；<strong>Salesforce</strong> 将其集成到 Agentforce 中；<strong>Ramp</strong> 用于智能 OCR；<strong>Xero</strong> 用于自动化税务表单处理；<strong>Databricks</strong> 用于监控和诊断数据问题。</p>
-
-<h3>Gemini Spark 个人 AI 代理</h3>
-<p>Google 还推出了基于 3.5 Flash 的 <strong>Gemini Spark</strong> 个人 AI 代理，可 24/7 运行，帮助用户处理数字生活中的各类任务。目前已向受信任的测试者开放，计划下周向 Google AI Ultra 订阅用户推出 Beta 版。</p>
-
-<h3>安全与可用性</h3>
-<p>Gemini 3.5 依据 Google 的 Frontier Safety Framework 开发，加强了网络和 CBRN（化学、生物、辐射、核）安全防护。模型现已通过 Google Antigravity、Gemini API、Google AI Studio、Android Studio、Gemini Enterprise 等平台全面可用，同时已在 Gemini 应用和 AI Mode in Search 中面向全球用户开放。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 社区对定价讨论热烈，有用户指出输出价格是 Gemini 3 Flash 的 3 倍。部分用户认为 Antigravity 框架是 Google 的强项，但在价格上 DeepSeek 仍具竞争力。也有用户测试了模型的 SVG 生成能力，发现 3.5 Flash 在 token 效率上远优于 3.1 Pro（约 7500 vs 28000 tokens），但生成的动画精细度略逊。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48196570</guid>
-      <pubDate>Tue, 19 May 2026 17:43:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenBSD 7.9 正式发布：新增延迟休眠、异构 CPU 调度、802.11ax 支持等大量改进</title>
-      <link>https://news.ycombinator.com/item?id=48192882</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenBSD 7.9 作为开源操作系统发布，属于「开源项目」的 interest 类别，值得关注</small></p><p><img src="images/PinkPuffy-s.gif" alt="PinkPuffy" width="200" height="300" /></p>
-<p>OpenBSD 项目于 2026 年 5 月 19 日正式发布了 7.9 版本，这是该项目的第 60 个发行版。本次发布附带了一首名为 "Diamond in the Rough" 的歌曲，由 Lyra Henderson 创作艺术作品。这是自 7.3 版本以来首次附带歌曲的发布，引发了社区的热烈讨论。</p>
-
-<h3>主要新特性</h3>
-
-<p><strong>异构 CPU 调度</strong>：引入了一种新机制，允许调度器管理不同速度的 CPU 核心。通过 <code>sysctl(8)</code> 变量 <code>hw.blockcpu</code>，用户可以使用四个字母的组合来选择要排除出调度器的核心：S（SMT 超线程）、P（常规性能核心）、E（高效核心，通常性能为 80% 至 50%）和 L（迟缓核心，性能更低）。默认值为 SL，目前支持 amd64 和 arm64 架构。</p>
-
-<p><strong>延迟休眠（Delayed Hibernation）</strong>：为防止挂起期间电池耗尽，系统可在挂起后经过可配置的时间自动唤醒并执行休眠。通过 <code>machdep.hibernatedelay</code> sysctl 设置延迟秒数。</p>
-
-<p><strong>内核锁机制改进</strong>：将内核互斥锁中的 CAS 自旋锁替换为"停车锁"（parking lock）。根据社区讨论，这是一种将阻塞线程置于睡眠状态的锁实现，通过协作式让出调度器而非持续执行 CAS 操作，在锁竞争激烈时能有效避免 CPU 核心空转。</p>
-
-<p><strong>无线网络重大更新</strong>：添加了基础的 802.11ax（Wi-Fi 6）支持，支持 5 GHz 频段的 160 MHz 信道宽度。iwx(4) 驱动新增省电模式并默认启用，PMF（受保护管理帧）支持已添加到 iwm(4)、iwx(4) 和 qwx(4) 驱动中。</p>
-
-<p><strong>图形与虚拟化</strong>：drm(4) 更新至 Linux 6.18.22。vmd(8) 新增 vmboot 微型内核，使虚拟机支持 sysupgrade(8)。新增对 Apple Virtualization 的支持。虚拟机现可使用机密计算方法（如 AMD SEV）。</p>
-
-<p><strong>平台支持扩展</strong>：arm64 新增对 RK3588 和 RK3576 SoC 的支持，以及 Apple Silicon 笔记本上的 SDHC 控制器支持。amd64 的 MAXCPUs 提升至 255，修复了 512GB 以上内存机器的 bug，缓解了 AMD Zen/Zen+ 上的浮点状态泄漏问题。新增对 SpacemiT K1 SoC（riscv64）和 Sophgo SG2042 SoC 的支持。</p>
-
-<p><strong>安全改进</strong>：移除了 root 用户绕过 bpf(4) BIOCLOCK 的特权。移除了 pledge(2) 的 'tmppath' 承诺。引入了 <code>__pledge_open(2)</code> 系统调用，允许 libc 在 pledge 和 unveil 限制下打开少量受控内部文件，且获得的文件描述符仅限于只读使用。</p>
-
-<p><strong>安装与升级</strong>：amd64 新增从 EFI 系统分区加载内核的支持。sysupgrade 在 /usr 文件系统使用率超过 90% 时会失败，避免系统损坏。</p>
-
-<h3>社区反响</h3>
-
-<p>该发布在 Hacker News 上获得了 339 分和 253 条评论，社区反响热烈。多位用户分享了使用 OpenBSD 的经验：</p>
-<ul>
-  <li>有用户表示在 Hetzner VPS、裸金属服务器和旧款 Apple 硬件上使用 OpenBSD，认为其在稳定性和安全性方面表现出色。</li>
-  <li>有用户从 Ubuntu/Debian 全面迁移至 OpenBSD，认为其数十年的安全专注无可匹敌。</li>
-  <li>有用户指出 OpenBSD 适合作为密钥保管、数据存储和网络接口暴露的场景，但不适合 CPU 密集型任务。</li>
-  <li>部分用户提到蓝牙支持的缺失是桌面使用的障碍，社区回应称蓝牙栈曾因复杂性和维护问题被移除。</li>
-  <li>关于性能，有用户表示相比 Linux 通常有 5% 到 15% 的性能损失，因为 OpenBSD 将安全置于性能之上。</li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p><strong>停车锁（Parking Lock）</strong>：这一概念源自 WebKit 项目约 10 年前的设计。与自旋锁（spinlock）不同，停车锁在锁被持有时将等待线程置于睡眠状态，而非让 CPU 空转等待。这在锁竞争激烈时能显著提高系统整体效率，但锁持有时间极短时自旋锁可能更快。OpenBSD 7.9 用停车锁替换了内核互斥体中的 CAS 自旋锁，是内核并发性能的重要改进。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48192882</guid>
-      <pubDate>Tue, 19 May 2026 13:11:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
