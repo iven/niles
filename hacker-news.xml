@@ -3,7 +3,55 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 28 May 2026 23:41:36 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 29 May 2026 04:42:24 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 基于 Postgres 构建持久化工作流：简化架构与社区探讨</title>
+      <link>https://news.ycombinator.com/item?id=48313530</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深入探讨基于Postgres的持久化工作流架构及与Temporal系统的对比，属于后端开发工具选型与工程效率优化范畴，高度契合用户“编程工具分享”与“编程效率改进经验”的高兴趣配置。</small></p><p>持久化工作流（Durable Workflows）是一种通过定期将程序进度检查点（Checkpoint）保存到数据库来构建可靠程序的技术。传统上，这类工作流通常依赖外部编排系统（如 Temporal、Airflow 或 AWS Step Functions）来协调步骤执行与状态恢复。然而，DBOS 在最新博客文章中提出，外部编排器架构往往过于复杂，既然核心在于数据库检查点，完全可以直接利用数据库本身作为编排器。</p>
+
+<p>在基于 Postgres 的持久化工作流架构中，应用服务器直接与 Postgres 通信。客户端通过在工作流表中创建条目来提交任务，应用服务器轮询该表进行任务出队与执行，并将每一步的输出直接检查点回数据库。若执行服务器崩溃，其他服务器可无缝接管并从检查点恢复。这种去中心化的设计消除了对中央编排器服务器的依赖，使系统架构更加简洁。</p>
+
+<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a0dbd9279898da496135035_f62a8f73.png" alt="External workflow orchestration system architecture diagram" />
+
+<p>文章指出，该方案具备多项显著优势：</p>
+<ul>
+  <li><strong>可扩展性与可用性</strong>：系统能力直接取决于底层数据库。Postgres 成熟的垂直/水平扩展方案（如分布式 Postgres 或分片）及高可用部署机制（如流复制、多可用区）可直接赋能工作流系统。</li>
+  <li><strong>内置可观测性</strong>：所有工作流与步骤数据均存储在关系型表中，开发者可直接使用 SQL 进行实时监控、过滤与分析，无需引入额外的监控系统。</li>
+  <li><strong>可靠性与安全性</strong>：减少了中央编排器及其数据存储带来的单点故障风险，所有数据仅在 Postgres 内部流转，降低了系统攻击面与合规审计成本。</li>
+</ul>
+
+<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a0dbd9279898da496135032_7bffa8dc.png" alt="Postgres-backed durable execution system architecture diagram" />
+
+<p><strong>社区反馈与讨论</strong></p>
+<p>该文章在 Hacker News 引发了广泛讨论。部分开发者分享了在 Postgres 上构建分布式队列的经验，指出合理使用 <code>SKIP LOCKED</code> 和 <code>pg advisory lock</code> 可以有效避免竞争条件。然而，也有观点认为，虽然“仅依赖数据库”的初始架构很简洁，但随着业务复杂度增加（如需要重试、退避、超时、版本控制、任务路由等），团队可能最终需要自行实现一套粗糙的工作流引擎，此时权衡“自研复杂度”与“购买成熟系统（如 Temporal）”变得尤为重要。</p>
+
+<p>此外，讨论还涉及了数据正确性（Consistency）与可用性的权衡，指出简单的伪代码示例可能掩盖了崩溃恢复时的数据一致性问题。关于 Secrets 管理、DBOS 与 Temporal 在负载限制及运维复杂度上的对比，以及 PgFlow 等新兴 Postgres 原生工作流工具的提及，也丰富了此次技术探讨的维度。</p>
+
+<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a0dbd9279898da49613502f_e0ebb3ff.png" alt="SQL Query to analyze durable workflow execution observability data" />
+
+<p>如需进一步了解 DBOS 框架或查看快速入门指南，可访问：<a href="https://docs.dbos.dev/quickstart">DBOS Quickstart</a>、<a href="https://github.com/dbos-inc">GitHub</a> 及 <a href="https://discord.gg/eMUHrvbu67">Discord 社区</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48313530</guid>
+      <pubDate>Thu, 28 May 2026 18:41:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 60秒小游戏揭示 AI 代理权限疲劳（Permission Fatigue）困境</title>
+      <link>https://news.ycombinator.com/item?id=48308376</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨AI代理（Claude Code）的权限审批交互体验及“权限疲劳”现象，聚焦AI软件在人机协作中的技术进展与体验优化，契合用户“AI软件技术进展”的兴趣配置。</small></p><div>
+  <p>ScaleX 推出的 60 秒小游戏 <a href="https://llmgame.scalex.dev">Continue? Y/N</a> 模拟了 AI 代理（如 Claude Code）在开发过程中频繁请求权限审批的场景。该游戏以直观的方式揭示了当前 AI 辅助编程中普遍存在的“权限疲劳（Permission Fatigue）”问题。</p>
+  <p>游戏的核心机制要求玩家在 60 秒内对 AI 代理发起的数十次权限请求做出“继续”或“拒绝”的判断。随着请求频率的增加，玩家往往会因认知负荷过重而倾向于盲目点击“继续”，这生动地还原了真实开发环境中的“人在回路（Human-in-the-loop）”困境。社区反馈指出，这种高频审批机制不仅拖慢开发效率，更会训练用户养成不审查直接授权的习惯，从而带来虚假的安全感。</p>
+  <p>评论区进一步探讨了该机制的安全漏洞。有开发者指出，要求用户逐条审批命令的模型存在逻辑缺陷。例如，批准运行 <code>npm run build</code> 实际上等同于允许执行 <code>package.json</code> 中定义的任意 Shell 命令，而恶意代码可能早已通过修改依赖库或构建脚本潜伏其中。面对这一挑战，部分开发者分享了各自的应对策略：有人使用 <code>claude --dangerously-skip-permissions</code> 参数直接跳过审批；也有人采用沙箱或容器（如 LXD）隔离环境，默认自动批准本地操作，仅在触及生产环境时进行人工审查。然而，也有观点认为，完全依赖自动批准可能导致本地环境被恶意更改污染，进而影响后续的合并与部署。</p>
+  <p>该游戏引发了社区对 AI 代理权限管理边界的深刻反思。许多开发者认为，问题的根源不仅在于 AI 工具本身，更在于操作系统和开发工具链缺乏细粒度的权限隔离机制。如何在保障开发效率与系统安全之间找到平衡，仍是 AI 代理落地过程中的关键挑战。</p>
+  <h3>你知道吗？</h3>
+  <p><strong>权限疲劳（Permission Fatigue）</strong> 是信息安全领域的一个常见现象。当用户频繁收到权限请求时，由于认知负荷增加，往往会养成不阅读直接点击“允许”的习惯。这种习惯会严重削弱安全机制的实际效果，使系统暴露在潜在风险中。</p>
+  <p><strong>人在回路（Human-in-the-loop, HITL）</strong> 指在自动化系统中保留人工干预环节。在 AI 代理场景中，HITL 本意是增加安全性，但在高频请求下反而成为效率瓶颈。业界正在探索更细粒度的权限沙箱、基于策略的自动批准以及上下文感知的风险评估，以替代传统的逐条审批模式。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48308376</guid>
+      <pubDate>Thu, 28 May 2026 13:02:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Anthropic 发布 Claude Opus 4.8：强化智能体任务与编码能力，推出动态工作流</title>
       <link>https://news.ycombinator.com/item?id=48311647</link>
@@ -1336,78 +1384,6 @@ $$A^{(p)}[k] \equiv 2 \binom{k+p}{p-1} \pmod{256}$$</p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48203698</guid>
       <pubDate>Wed, 20 May 2026 06:07:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Remove-AI-Watermarks：一款移除 AI 图像水印的开源命令行工具</title>
-      <link>https://news.ycombinator.com/item?id=48200569</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 分享一款移除AI图像水印的开源命令行工具，符合编程工具发布/分享兴趣，也涉及开源项目和AI技术进展</small></p><p>GitHub 上出现了一款名为 <strong>Remove-AI-Watermarks</strong> 的开源工具，能够从 AI 生成的图像中移除可见和不可见的水印及元数据。该项目在 Hacker News 上引发了热烈讨论（338 分，212 条评论），围绕其技术原理、使用场景和法律边界展开了激烈辩论。</p>
-
-<h3>核心功能</h3>
-<p>该工具支持移除多种 AI 模型的图像水印，包括：</p>
-<ul>
-<li><strong>可见水印移除</strong>：针对 Google Gemini（内部代号 Nano Banana）的闪光标志，通过逆向 Alpha 混合算法实现，速度约 0.05 秒/张，无需 GPU。</li>
-<li><strong>不可见水印移除</strong>：针对 Google SynthID、Meta StableSignature、TreeRing 等频域水印，采用基于扩散模型（SDXL）的再生技术，将图像编码到潜空间、加噪、去噪后再解码回像素，推荐使用 GPU。</li>
-<li><strong>元数据剥离</strong>：移除 C2PA 内容凭证、EXIF/XMP 标签（如 "Made with AI"）、PNG 文本块等，保留标准元数据（作者、版权、标题）。</li>
-<li><strong>人脸保护</strong>：在扩散处理前通过 YOLO 检测人脸，处理后用软椭圆蒙版将原始人脸融合回去，防止 AI 扭曲面部特征。</li>
-<li><strong>模拟人眼拍摄效果</strong>：可选的胶片颗粒和色差注入，使输出图像看起来像屏幕翻拍，从而绕过 AI 图像分类器。</li>
-</ul>
-
-<h3>技术原理</h3>
-<p>对于 Gemini 的可见水印，工具利用已知的 Alpha 通道反向计算原始图像。对于 SynthID 等不可见水印，则通过 SDXL 扩散模型以低噪声强度（0.05）进行再生，默认将图像缩放到 1024×1024 像素（SDXL 原生分辨率）后处理。项目 README 指出，SDXL 管道自 2026 年 5 月起成为默认方案，因为经验证它能有效对抗 Gemini 3 Pro 输出中的 SynthID v2。</p>
-
-<h3>社区讨论焦点</h3>
-<p>Hacker News 上的评论呈现了多元观点：</p>
-<ul>
-<li><strong>技术有效性争议</strong>：用户 Tiberium 指出，移除 SynthID 需要 SDXL 低噪声再生，这会破坏大量细节，且对高分辨率输出（如 NB2 和 GPT Image 2 支持的 4K）效果不佳。项目维护者回应称，NB2 原生仅支持 1K 分辨率，更高分辨率是上采样结果。</li>
-<li><strong>使用动机质疑</strong>：用户 j2kun 直言 README 中"保护艺术作品免受 AI 误判"等说辞是借口，真实目的是帮助绕过社交媒体上的"AI 生成"标签。但也有用户认为，水印技术本身存在误判风险——例如用 AI 修改真实照片的局部（如光影），结果可能被标记为 AI 生成。</li>
-<li><strong>隐私与伦理之争</strong>：支持者认为，拒绝接受给每张数字图像打上"条形码"是黑客精神的体现，用户应有权运行本地开源模型而非依赖大公司。反对者则担忧，盲目破坏"真实性"概念会加剧虚假信息问题。</li>
-<li><strong>法律风险</strong>：项目 README 详细列出了各司法管辖区的法规现状，包括欧盟 AI 法案、美国 COPIED 法案（将移除来源信息以欺骗定为刑事犯罪）、中国深度合成管理规定等，并明确声明"作者不纵容将本工具用于欺骗、欺诈或任何违法活动"。</li>
-</ul>
-
-<h3>威胁模型与局限</h3>
-<p>项目 README 坦诚地说明了工具的局限性：SynthID-Image v2 嵌入的 136 位载荷据信编码了用户/会话标识符。如果原始水印文件曾经过提示发起者控制的系统（如 Gemini 账户历史记录），Google 仍保留将原始文件与生成账户关联的能力。移除你手中的副本水印，并不能抹去 Google 服务器端的记录。</p>
-
-<p>该工具采用 MIT 许可证发布，支持通过 pipx 或 uv 安装，也可在线使用 raiw.cc 提供的免费 Web 服务。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48200569</guid>
-      <pubDate>Tue, 19 May 2026 22:30:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Google 宣布搜索框 25 年来最大升级：全面 AI 化，引入搜索代理与 Agentic 编码能力</title>
-      <link>https://news.ycombinator.com/item?id=48197370</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Google搜索AI化升级，属于AI软件技术进展和新AI能力发布，用户对此感兴趣</small></p><p>2026 年 5 月 19 日，Google 在 I/O 大会上宣布了其搜索引擎的重大变革，这是搜索框自诞生 25 年来的最大升级。核心变化包括：智能 AI 搜索框、搜索代理（Search Agents）以及 Agentic 编码能力。</p>
-
-<h3>主要更新内容</h3>
-
-<p><strong>1. 全新 AI 智能搜索框</strong><br/>
-搜索框被彻底重新设计，集成了 AI 能力。它能够动态扩展以容纳更复杂的自然语言提问，提供超越传统自动补全的 AI 驱动建议，并支持文本、图片、文件、视频和 Chrome 标签页等多模态输入。该功能即日起在 AI Mode 可用的所有国家和地区逐步推出。</p>
-
-<p><strong>2. AI Mode 升级至 Gemini 3.5 Flash</strong><br/>
-Google 将 AI Mode 的默认模型升级为 <strong>Gemini 3.5 Flash</strong>，面向全球用户免费开放。AI Mode 上线一年后月活用户已突破 10 亿，查询量每季度翻倍以上。</p>
-
-<p><strong>3. 搜索代理（Search Agents）</strong><br/>
-Google 推出了"信息代理"功能，可在后台 7×24 小时运行，智能监控博客、新闻、社交媒体以及实时金融、购物、体育等数据，在用户关心的信息发生变化时主动推送智能合成的更新。例如，找房时可将所有需求告知代理，它会持续扫描并在符合条件的房源出现时通知用户。该功能今夏首先面向 Google AI Pro 和 Ultra 订阅用户推出。</p>
-
-<p><strong>4. Agentic 编码能力</strong><br/>
-搜索可根据用户问题实时生成自定义交互式 UI，包括可视化工具、表格、图表、模拟器等。对于重复性任务（如婚礼策划、搬家），搜索可构建自定义仪表盘或追踪器（类似"迷你应用"），并接入实时数据源。该功能今夏免费向所有用户开放，高级功能后续面向订阅用户推出。</p>
-
-<p><strong>5. 个人智能（Personal Intelligence）扩展</strong><br/>
-AI Mode 中的个人智能功能扩展至近 200 个国家和地区、98 种语言，无需订阅。用户可安全连接 Gmail、Google Photos 等应用，后续将支持 Google Calendar。</p>
-
-<h3>社区反响</h3>
-
-<p>Hacker News 上的讨论（418 分，587 条评论）呈现出强烈的负面情绪。许多用户认为 Google 正在重蹈 Yahoo 的覆辙，强行将用户推向 AI 聊天界面而非传统的链接式搜索结果。</p>
-
-<p>用户 <strong>egorfine</strong> 指出，传统网页搜索无法让股东满意，而 AI 驱动的交互式功能可以。但 <strong>embedding-shape</strong> 批评道，想要传统搜索的用户将被强制进入聊天 UI，这是一种糟糕的 UX 决策。知名开发者 <strong>simonw</strong> 提到了"Google Zero"概念——Google 实质上停止向其他网站导流的临界点。</p>
-
-<p>多位用户表达了对独立搜索引擎的期待，<strong>ivraatiems</strong> 认为 Google 正在为竞争对手创造市场机会。也有用户指出，AI 聊天界面相比传统链接提供了更多植入广告和操纵用户情绪的途径。</p>
-
-<p>关于网站生态的担忧尤为突出：如果 Google 直接用 AI 摘要呈现网站内容，网站所有者将失去被引流的动力。<strong>SoftTalker</strong> 悲观地表示"我们所知的网络已经结束"，未来的网站可能变成仅面向 LLM 爬虫优化的 API。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48197370</guid>
-      <pubDate>Tue, 19 May 2026 18:34:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
