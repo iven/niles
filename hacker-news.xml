@@ -3,7 +3,27 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 29 May 2026 22:03:47 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 29 May 2026 23:41:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐ SQLite 作为持久化工作流的存储方案：简单、低成本与适用场景分析</title>
+      <link>https://news.ycombinator.com/item?id=48326802</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨了 SQLite 在持久化工作流场景下的应用，分析了其简化架构和降低成本的优势。涉及数据库选型与架构优化，属于编程工具与开发经验范畴，故推荐。</small></p><p>本文探讨了将 <a href="https://obeli.sk/blog/sqlite-is-all-you-need-for-durable-workflows/">SQLite</a> 作为持久化工作流（Durable Workflows）核心存储方案的可行性。作者认为，对于大量 AI Agent 和实验性系统而言，无需引入复杂的分布式数据库或独立的编排层，本地 SQLite 配合备份工具即可构建出简单、低成本且高效的持久化系统。</p>
+
+<img src="/blog/2026-05-29-sqlite-is-all-you-need/architecture.svg" alt="展示了多个 Obelisk 工作节点写入 SQLite 状态，Litestream 将其备份至 S3，以及观察者拉取数据库进行检查的架构图" />
+
+<h3>核心架构与优势</h3>
+<p>持久化工作流的关键在于保留工作流状态（Workflow State），而计算节点可以保持轻量且可丢弃。该方案采用 Obelisk 框架，将工作流进度保存在本地 SQLite 执行日志中。通过 Litestream 工具，SQLite 的变更可异步流式传输至 S3 等对象存储，实现数据的备份、迁移与检查。这种模式消除了网络延迟、额外的控制平面和运维负担，同时为每个 Agent 或租户提供了独立的故障隔离单元。</p>
+
+<h3>适用场景与局限性</h3>
+<p>该架构特别适合突发型、实验性强且状态相对独立的 AI 工作流。然而，作者也明确指出其局限性：Litestream 的异步复制机制意味着在极端故障下可能丢失最新写入的数据，因此不适用于强一致性要求极高的场景。对于需要高可用性、多节点共享扩展或复杂并发写入的系统，Postgres 等网络数据库仍是更稳妥的选择。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 社区对此话题展开了热烈讨论。许多开发者分享了实际经验，认为 SQLite 在单机环境下避免了 IPC 和网络开销，性能表现优异，且比解析 Markdown 或 JSON 文件更利于结构化数据管理。同时，也有观点指出异步备份的数据一致性风险，并推荐了 <a href="https://temporal.io">Temporal</a> 等成熟的编排框架，后者在提供类似本地开发体验的同时，内置了强大的重试、可观测性和分布式能力。此外，评论区还穿插了关于斯洛伐克 .sk 顶级域名历史趣闻的讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48326802</guid>
+      <pubDate>Fri, 29 May 2026 17:54:50 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 巴黎 Mistral AI Now 峰会纪要：聚焦本地部署、欧洲数据主权与实际应用案例</title>
       <link>https://news.ycombinator.com/item?id=48325340</link>
@@ -1363,29 +1383,6 @@ $$A^{(p)}[k] \equiv 2 \binom{k+p}{p-1} \pmod{256}$$</p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48215979</guid>
       <pubDate>Wed, 20 May 2026 23:54:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenAI 推理模型推翻离散几何核心猜想，引发学界热议</title>
-      <link>https://news.ycombinator.com/item?id=48212493</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为AI推理模型在离散几何领域取得重大突破，属于AI模型能力进展和科学前沿突破，用户对AI模型进展和科学前沿均感兴趣，内容具有突破性和话题性，评为critical</small></p><p>OpenAI 宣布其通用推理模型（非专门为数学问题设计的系统）成功推翻了一个离散几何领域的核心猜想——关于二维平面中单位距离图（unit distance graph）的边数上界问题。该猜想此前被认为在数学上成立，但 OpenAI 的模型通过构造反例证明了其不成立。</p>
-
-<p>据 OpenAI 介绍，这一成果并非通过专门的数学工具或定制化工作流实现，而是由通用推理模型独立完成。模型在形式化数学系统 <a href="https://lean-lang.org/">Lean</a> 中完成了证明，这类似于为数学问题搭建了一个"棋盘"，然后让 AI 在上面进行推理和计算。</p>
-
-<p>值得注意的是，该证明是非构造性的（non-constructive），即证明了反例的存在性，但并未给出一个易于计算或可视化的具体构造方案。因此，OpenAI 的博客文章未能提供"反例"的可视化图示，这也引发了部分读者的不满。有评论者指出，博客文章对证明过程的解释过于简略，仅引用了一些术语而未做深入说明，若非发布在 OpenAI 官方博客，可能会被误认为是低质量内容。</p>
-
-<p>OpenAI 同时发布了一份 <a href="https://cdn.openai.com/pdf/74c24085-19b0-4534-9c90-465b8e29ad73/unit-distance-remarks.pdf">PDF 文件</a>，收录了九位数学家对该证明的简短评论。数学家们以较为通俗的语言肯定了该结果的意义。</p>
-
-<p>在 Hacker News 的讨论中，社区对这一成果的看法呈现分化：</p>
-<ul>
-  <li>部分评论者认为这是 AI 推动科学研究的重要里程碑，展示了通用推理模型在数学发现中的潜力</li>
-  <li>也有评论者对 OpenAI 的营销话术持保留态度，认为缺乏具体细节和可视化方案令人失望</li>
-  <li>有用户指出，AI 在形式化数学系统（如 Lean）中的表现优于处理模糊的现实世界任务，这符合预期</li>
-  <li>关于 AI 是否会取代人类数学家，讨论中出现了不同观点——有人认为 AI 将"超充"（supercharge）科学而非取代人类，也有人认为从长远看人类数学家可能被边缘化</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48212493</guid>
-      <pubDate>Wed, 20 May 2026 19:05:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
