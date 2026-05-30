@@ -3,7 +3,42 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 30 May 2026 19:41:06 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 30 May 2026 21:13:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Openrsync：OpenBSD 团队推出的 BSD 许可证 rsync 实现</title>
+      <link>https://news.ycombinator.com/item?id=48334854</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 OpenBSD 团队推出的 BSD 许可证 rsync 实现，属于开源项目，符合用户的兴趣配置，建议推荐阅读。</small></p><p><a href="https://github.com/kristapsdz/openrsync">Openrsync</a> 是由 OpenBSD 团队开发的一款 <a href="https://en.wikipedia.org/wiki/Rsync">rsync</a> 重新实现，采用 BSD（ISC）许可证。该项目最初作为 OpenBSD 的 RPKI 验证器（rpki-client）的一部分而开发，现已正式合并至 OpenBSD 基础系统（base）中。</p>
+<p>在核心架构上，openrsync 兼容现代 rsync 协议（Protocol 27），但仅支持部分命令行参数。其设计将传统的生成器（generator）与接收者（receiver）合并为单一进程，并通过事件循环机制处理读写请求，从而提升响应效率。文件同步底层沿用经典的“块交换（block exchange）”算法，通过计算 Adler-32 和 MD4 哈希值来比对文件块差异。</p>
+<p>安全性是 openrsync 的核心设计理念之一。项目深度集成了 OpenBSD 的 <code>pledge(2)</code> 系统调用限制与 <code>unveil(2)</code> 文件系统访问控制，严格限制进程权限，防止恶意或异常数据突破目标目录。尽管该项目可移植至 Linux、FreeBSD 和 macOS 等平台，但官方明确表示，完整的安全沙箱功能仅在 OpenBSD 上得到全面支持；其他系统由于缺乏同等完善的底层安全机制，运行时的安全边界将有所放宽。</p>
+<p>在社区讨论中，用户主要关注以下几点：</p>
+<ul>
+<li><strong>功能兼容性</strong>：部分用户指出早期版本缺失 <code>--exclude</code> 或 <code>-z</code> 等常用参数，但 OpenBSD 7.9 已修复该问题。</li>
+<li><strong>命名与许可证</strong>：OpenBSD 项目习惯以“Open”命名（如 OpenSSH、OpenSMTPD），且团队认为 BSD 许可证比 GPL 更符合其“开放”理念。</li>
+<li><strong>安全边界争议</strong>：有观点认为 rsync 通常通过 SSH 隧道运行于受信任网络，无需过度强调沙箱；但开发者坚持认为，任何处理网络数据的工具都应默认遵循最小权限原则。</li>
+<li><strong>其他讨论</strong>：评论区也出现了关于“避免代码冗余（AI 代码）”的幽默调侃，以及关于 rsync 路径处理逻辑的常规技术探讨。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48334854</guid>
+      <pubDate>Sat, 30 May 2026 10:51:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Liquid AI 发布 LFM2.5-8B-A1B：专为边缘设备优化的 38T Token 训练 MoE 模型</title>
+      <link>https://news.ycombinator.com/item?id=48325306</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要发布并介绍 Liquid AI 的新 AI 模型 LFM2.5-8B-A1B，契合用户对“新AI模型发布公告”的高兴趣配置，属于强烈感兴趣内容。</small></p><p>Liquid AI 正式发布了 <a href="https://www.liquid.ai/blog/lfm2-5-8b-a1b">LFM2.5-8B-A1B</a>，这是一款专为消费级硬件优化的边缘端混合专家（Mixture of Experts, MoE）模型。该模型在架构和训练数据上进行了显著升级：预训练 Token 数量从 12T 扩展至 38T，上下文窗口从 32K 提升至 128K，词汇量翻倍至 128K 以优化非拉丁语系（如印地语、泰语、阿拉伯语等）的编码效率。</p>
+<p>与上一代模型不同，LFM2.5-8B-A1B 采用了推理专用（reasoning-only）架构，在输出最终答案前会生成显式的思维链（Chain of Thought）。这种设计利用 MoE 模型激活参数少的特点，在推理成本极低的情况下大幅提升了模型质量。基准测试显示，该模型在 AA-Omniscience Index、MATH500 和 AIME25 等指标上较前代提升显著，并在指令遵循和智能体（Agentic）任务中展现出与更大规模模型（如 Gemma 4-26B）相匹敌的性能。</p>
+<img src="https://cdn.prod.website-files.com/67cb8aa6e9184b6e44813189/6a17874a7db7a603d7eb3627_lfm2_5_8b_a1b_benchmarks.png" alt="LFM2.5-8B-A1B 基准测试对比图" />
+<p>在推理性能方面，该模型针对 CPU 和 GPU 进行了深度优化，支持 llama.cpp、MLX、vLLM 和 SGLang 等主流框架。在消费级硬件上表现优异：在 Apple M5 Max 笔记本上推理速度可达 253 tokens/s，在 Ryzen AI Max+ 上达到 146 tokens/s，即使在手机端也能保持约 30 tokens/s 的速度。Liquid AI 还展示了名为 Local Cowork 的开源桌面 Agent 演示，证明该模型可在单台笔记本上本地运行 67 个工具，实现完全隐私保护的交互体验。</p>
+<img src="https://cdn.prod.website-files.com/67cb8aa6e9184b6e44813189/6a1788594d077d0205e0e94a_lfm2_5_8b_a1b_cpu_inference.png" alt="LFM2.5-8B-A1B 在不同硬件上的 CPU 推理速度对比" />
+<h3>社区反馈</h3>
+<p>HN 社区对该模型的性能提升表示认可，有用户测试其在代码审查和长文本摘要任务中表现优异。部分讨论关注其训练数据量（38T tokens）是否会导致过拟合，Liquid AI 方面指出通过强化学习（RL）和针对性优化（如减少“死循环”和幻觉）有效控制了这一问题。也有用户指出模型在特定语言翻译上仍有提升空间，但整体速度优势明显。</p>
+<h3>你知道吗？</h3>
+<p><strong>MoE（混合专家）架构</strong>通过在模型内部设置多个“专家”子网络，每次推理仅激活其中一小部分参数。这使得模型在保持庞大总参数量的同时，大幅降低了计算成本和推理延迟，非常适合资源受限的边缘设备。LFM2.5-8B-A1B 采用 8B 总参数量但仅激活 1B 参数（A1B），在性能与效率之间取得了良好平衡。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48325306</guid>
+      <pubDate>Fri, 29 May 2026 16:19:54 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Zig 构建系统重大重构：进程拆分与增量编译大幅提速</title>
       <link>https://news.ycombinator.com/item?id=48334048</link>
@@ -1283,82 +1318,6 @@ $$A^{(p)}[k] \equiv 2 \binom{k+p}{p-1} \pmod{256}$$</p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48223362</guid>
       <pubDate>Thu, 21 May 2026 14:34:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 在2021款MacBook上本地索引一年视频：用Gemma 4 31B和50GB交换内存构建可查询视频档案</title>
-      <link>https://news.ycombinator.com/item?id=48222733</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 使用Gemma 4 31B在本地构建可查询视频档案，涉及AI模型应用和本地部署，符合新AI模型使用与AI技术进展兴趣</small></p><p>作者（马赛马拉一家 safari 旅店的经营者）面临一个常见问题：每年有大量来自 iPhone、DJI Pocket、无人机、Nikon Z8 等设备的视频素材，但编辑时间严重不足。他尝试了 SaaS 方案（Eddie AI、Higgsfield 等，约 $140/月），但发现两个核心问题：生成式 AI 视频不适合真实旅行品牌（可能引发 TripAdvisor 差评），且更根本的问题是——所有 AI 视频编辑器都假设素材已标注好，而他的文件只是 <code>IMG_*.mov</code> 和 <code>DJI_*.mp4</code>，没有任何语义标签。</p>
-
-<p>于是他决定自己构建一个本地视频索引系统，项目名为 <strong>Framedex</strong>（<a href="https://github.com/Simbastack-hq/framedex">GitHub 仓库</a>，MIT 许可）。</p>
-
-<h3>技术架构</h3>
-<p>整个流水线约 1400 行 Python 代码，由 Claude Code 编写，作者负责架构设计和提示词工程。处理每个视频的流程如下：</p>
-<ul>
-<li><strong>ffprobe</strong> 提取元数据</li>
-<li><strong>exiftool</strong> 提取 GPS 经纬度/海拔，通过 Nominatim（OpenStreetMap）反向地理编码</li>
-<li><strong>ffmpeg</strong> 提取 5 张均匀分布的 1920px 帧</li>
-<li><strong>WhisperX</strong> 进行词级对齐的转录，支持 97 种语言（含印地语、斯瓦希里语）</li>
-<li><strong>insightface</strong> 检测人脸并存储 512 维 ArcFace 嵌入到本地 SQLite 数据库</li>
-<li><strong>视觉模型</strong>（Gemma 4 31B Q4）读取帧、转录片段和文件夹上下文，输出 YAML 格式的元数据 + 散文描述</li>
-<li>每个视频旁生成 <code>.description.md</code> 侧边文件，纯文本可 grep</li>
-</ul>
-
-<h3>本地运行的"荒谬"之处</h3>
-<p>作者使用 2021 款 MacBook Pro M1 Max（64GB RAM）在 LM Studio 中运行 Gemma 4 31B Q4 模型（占用约 28.4GB 显存）。批量处理时，系统使用了高达 <strong>50.89GB 的交换内存</strong>，内存压力处于黄色区域，风扇全速运转。作者表示这种状态持续一两天对 SSD 是安全的，但不应作为常态。他盛赞 M1 Max 是"传奇级"硬件——五年前为 Chrome 买的机器，现在运行着当时还不存在的模型。</p>
-
-<h3>四个 Bug 与教训</h3>
-<ol>
-<li><strong>WhisperX API 变更</strong>：<code>DiarizationPipeline</code> 移到了子模块，<code>use_auth_token</code> 参数重命名为 <code>token</code>。修复方案是使用签名自省（signature introspection）自动适配。</li>
-<li><strong>Claude CLI 静默失败</strong>：非交互模式下，权限拒绝信息以成功响应的形式返回（退出码 0）。修复是添加 <code>--permission-mode bypassPermissions</code> 标志和防御性字符串匹配。</li>
-<li><strong>Schema 设计问题</strong>：<code>people_count</code> 字段允许整数或字符串 "many"，导致下游处理复杂。教训：不要使用联合类型 schema 字段。</li>
-<li><strong>筛选标准偏差</strong>：初始筛选提示词偏向摄影师视角，误删了手持夜间摩托车视频（模糊正是氛围所在）。修复后将筛选标准改为仅排除"非真实录制"（镜头盖、口袋误触、测试片段等）。</li>
-</ol>
-
-<h3>核心见解</h3>
-<ul>
-<li><strong>枚举约束优于自由文本指令</strong>：结构化 schema 强制模型从预定义选项中选取（如 <code>golden_hour | bright_daylight | overcast | dim_interior | nighttime | mixed | unclear</code>），有效防止幻觉。</li>
-<li><strong>本地 31B 模型配合结构化提示</strong>，在大部分测试片段上输出质量接近 Sonnet 4.6。云端模型仅在困难的 10-20% 片段上体现价值。建议采用"本地批量索引 + 云端复查标记片段"的两层架构。</li>
-<li><strong>AI 视频编辑器的定位错误</strong>：最有价值的层是索引层。一旦档案可以用自然语言查询（"显示马赛马拉的室内手持片段，黄金时段，有人物，长度超过 8 秒"），上层的编辑器就变得简单直接。</li>
-</ul>
-
-<h3>社区反响</h3>
-<p>文章在 Hacker News 上获得 366 分和 107 条评论。作者在评论中分享了 Framedex 的 GitHub 仓库，并表示下一步将利用索引配合 Claude Code 和 DaVinci Resolve MCP 实现自动化视频编辑。多位读者对 M1 Max 的持久性能表示赞赏，也有读者讨论本地模型与云端 API 的权衡。部分读者注意到文章本身使用了 AI 辅助写作，作者坦诚回应并分享了 <a href="https://github.com/blader/humanizer">humanizer 项目</a>。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>ArcFace 人脸嵌入</strong>：文章中使用 insightface 生成 512 维 ArcFace 嵌入向量。这是一种将人脸图像映射到高维空间的技术，同一人的不同照片在该空间中的距离很近，不同人的照片距离较远。与 LLM 直接识别人名不同，这种方法完全在本地运行、确定性高、可跨片段比对，适合隐私敏感的个人档案管理场景。</p>
-
-<p><strong>侧边文件（Sidecar）模式</strong>：作者选择为每个视频生成独立的 <code>.description.md</code> 文件，而非集中式数据库。这种设计的好处是：元数据与数据共存，随文件迁移而迁移；即使索引器损坏也不会丢失信息；纯文本格式可被 grep 等传统工具搜索。这是一种"反过度工程"的务实设计哲学。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48222733</guid>
-      <pubDate>Thu, 21 May 2026 14:01:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Python 3.15 值得关注的隐藏特性：TaskGroup 取消、上下文管理器改进、线程安全迭代器等</title>
-      <link>https://news.ycombinator.com/item?id=48220696</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Python 3.15新特性介绍，涉及编程语言更新和软件新功能，对开发者有价值</small></p><p>Python 3.15 即将发布，除了备受关注的延迟导入（lazy imports）和 tachyon 性能分析器之外，该版本还包含多项值得关注的隐藏特性。以下是主要亮点：</p>
-
-<h3>Asyncio TaskGroup 优雅取消</h3>
-<p>新增 <code>TaskGroup.cancel()</code> 方法，允许开发者优雅地取消整个任务组，无需再通过抛出自定义异常并配合 <code>contextlib.suppress</code> 的变通方式处理。</p>
-
-<h3>上下文管理器（Context Manager）装饰器改进</h3>
-<p>Python 3.3 起，上下文管理器可兼作装饰器使用，但此前对异步函数、生成器和异步迭代器支持不佳。3.15 中 <code>ContextDecorator</code> 会检查被装饰函数的类型，确保装饰器覆盖完整生命周期，使上下文管理器成为编写装饰器的更优选择。</p>
-
-<h3>线程安全迭代器</h3>
-<p>新增 <code>threading.serialize_iterator()</code> 和 <code>threading.synchronized_iterator()</code> 工具，可将普通迭代器包装为线程安全版本。同时新增 <code>threading.concurrent_tee()</code>，可将值复制到多个迭代器中供不同线程消费，避免因使用队列而改变抽象层。</p>
-
-<h3>Counter 异或（xor）操作</h3>
-<p><code>collections.Counter</code> 新增 <code>^</code> 操作符支持，计算两个计数器的对称差集，完善了集合操作体系。</p>
-
-<h3>不可变 JSON 对象</h3>
-<p>配合 Python 3.15 新增的 <code>frozendict</code>，<code>json.load</code> 和 <code>json.loads</code> 新增 <code>array_hook</code> 参数，可配合 <code>object_hook</code> 将 JSON 直接解析为完全不可变（可哈希）的形式，例如 <code>frozendict({'a': (1, 2, 3, 4)})</code>。</p>
-
-<h3>社区讨论</h3>
-<p>Hacker News 上的讨论围绕多个话题展开。有开发者表示正在将大量 Python 代码迁移至 Go 或 Rust，认为在 AI 辅助编程时代 Python 除机器学习领域外生存空间有限。也有开发者指出，Python 的延迟导入（lazy imports）功能（3.15+）值得关注。关于安全性，有用户呼吁 Python 生态应利用命名空间、cgroup 等机制加强包安装的安全性，以应对日益严重的供应链攻击。另有评论指出，LLM 的训练数据尚未覆盖这些新特性，开发者仍需依靠自身经验来使用最新功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48220696</guid>
-      <pubDate>Thu, 21 May 2026 11:10:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
