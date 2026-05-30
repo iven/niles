@@ -3,7 +3,33 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 30 May 2026 10:12:46 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 30 May 2026 11:46:26 GMT</lastBuildDate>
+    <item>
+      <title>⭐ MCP 真的过时了吗？Quandri 工程师实测：上下文膨胀与可靠性挑战</title>
+      <link>https://news.ycombinator.com/item?id=48330436</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章分析了 MCP 模型上下文协议在工程实践中的表现与缺陷，属于 AI 技术进展范畴。</small></p><p>Quandri 后端工程师 Chloe Kim 发布文章《<a href="https://www.quandri.io/engineering-blog/mcp-is-dead">MCP is dead?</a>》，对近期备受关注的模型上下文协议（Model Context Protocol，简称 MCP）进行了实测与反思。文章指出，尽管 MCP 被业界誉为“AI 生态的 USB-C”，但在实际工程应用中暴露出上下文窗口消耗过大、运行可靠性低以及与现有命令行工具（CLI）功能重叠等问题。</p>
+<p>文章首先分析了 MCP 的三大痛点：</p>
+<ul>
+<li><strong>上下文窗口消耗严重</strong>：连接多个 MCP 服务器时，工具定义（Tool Definitions）会占用大量上下文。Quandri 的测试显示，仅 4 个服务器（Linear、Notion、Slack、Postgres）的工具定义就占用了约 10.5% 的上下文窗口，且这些定义在会话中始终加载，即使并未使用。</li>
+<li><strong>运行可靠性较低</strong>：MCP 服务器需要独立维护进程，容易出现初始化失败、会话中途崩溃等问题。性能测试表明，MCP 调用比直接调用 REST API 慢 3 到 9 倍，因为每次调用都增加了进程层开销。</li>
+<li><strong>与现有 CLI 高度重叠</strong>：大型语言模型（LLM）已通过训练数据掌握了大量 CLI 命令。直接使用 CLI 不仅无需加载工具定义，还能利用管道（Pipes）和过滤工具（如 <code>grep</code>）自由组合，调试也更加直观。测试数据显示，查询同一个 Linear 问题，MCP 消耗的 Token 是 CLI 方式的约 65 倍。</li>
+</ul>
+<p>针对上述问题，作者提出了两种替代方案：</p>
+<ul>
+<li><strong>CLI 优先策略</strong>：直接利用现有的 CLI 和 API，保持人与 AI 使用相同的接口，零上下文成本且易于调试。</li>
+<li><strong>Skills 模式</strong>：将 CLI 使用说明嵌入 Skills 中，实现“按需加载”。与 MCP 一次性加载所有工具定义不同，Skills 仅在调用时引入必要的指令，大幅节省上下文资源。</li>
+</ul>
+<p>文章最后指出，MCP 并未完全“死亡”，在以下场景中仍具价值：缺乏 CLI 的纯 Web SaaS 服务、面向非开发者的用户、需要实时双向通信的场景，以及需要服务端强制限制查询权限（如数据库只读模式）和凭证保护的工程环境。Quandri 在实际工作中采取了混合策略：日常工具使用 Bash+CLI，多步工作流使用 Skills，而统一权限管控和无 CLI 服务则继续使用 MCP。</p>
+<p>值得注意的是，文章末尾补充说明，自测试以来，Claude Code 已推出“延迟加载工具搜索”（Tool Search with Deferred Loading），按需加载 MCP 工具模式可将上下文使用量减少 85% 以上，部分缓解了上下文膨胀问题，但性能延迟与架构调试等核心痛点依然存在。相关更新说明详见：<a href="https://www.anthropic.com/engineering/advanced-tool-use">https://www.anthropic.com/engineering/advanced-tool-use</a></p>
+<p>社区讨论中，许多开发者指出该文章的数据可能已滞后，因为延迟加载机制早在数月前就已引入。同时，也有观点认为 CLI 存在非确定性（non-determinism），而 MCP 凭借 Schema 定义在复杂企业级权限管理和非技术人员使用中更具优势。</p>
+<img src="https://cdn.prod.website-files.com/668aa55ff9fc77f31f6cc2f0/6a0f2926a73de3ec41126467_post%20image%20b.webp" alt="MCP is dead 文章配图" />
+<h3>你知道吗？延迟加载与 CLI 非确定性的权衡</h3>
+<p>MCP 的核心优势在于通过标准化的 JSON Schema 约束工具调用，降低了 LLM 产生幻觉或格式错误的概率。而 CLI 调用虽然节省上下文，但依赖 LLM 自行构造 Shell 命令，容易因参数拼写错误或环境差异导致执行失败。随着各大 LLM API 逐步支持“延迟加载”（Deferred Loading）或“工具搜索”（Tool Search），客户端可以在会话初期仅加载工具名称列表，在 LLM 识别意图后再动态注入具体 Schema。这种机制试图在保留 MCP 可靠性的同时，消除其上下文膨胀的劣势。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48330436</guid>
+      <pubDate>Fri, 29 May 2026 22:56:49 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ SQLite 作为持久化工作流的存储方案：简单、低成本与适用场景分析</title>
       <link>https://news.ycombinator.com/item?id=48326802</link>
@@ -1347,42 +1373,6 @@ $$A^{(p)}[k] \equiv 2 \binom{k+p}{p-1} \pmod{256}$$</p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48219992</guid>
       <pubDate>Thu, 21 May 2026 09:31:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 逆向工程 Apple 私有框架：开源项目 Phosphene 让 macOS Tahoe 支持自定义视频壁纸</title>
-      <link>https://news.ycombinator.com/item?id=48215979</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源项目，通过逆向工程实现macOS视频壁纸功能，属于开源项目类别，用户对此感兴趣</small></p><p>开发者 <strong>@kageroumado</strong> 发布了一款名为 <strong>Phosphene</strong> 的开源项目，通过逆向工程 Apple 的私有框架 <strong>WallpaperExtensionKit.framework</strong>，让 macOS Tahoe（26.0+）用户能够将自定义视频设置为桌面和锁屏壁纸。该项目已在 GitHub 上以 MIT 许可证开源。</p>
-
-<h3>核心功能</h3>
-<ul>
-  <li><strong>自定义视频壁纸</strong>：支持导入 MP4、MOV 等 AVFoundation 可读取的视频文件，视频会出现在系统原生的壁纸选择器中，与 Apple 自带的 Aerials 并列显示</li>
-  <li><strong>无缝循环播放</strong>：通过 PTS（显示时间戳）偏移实现帧精确的无缝循环，无闪烁、无卡顿</li>
-  <li><strong>多显示器支持</strong>：可为每个显示器设置不同的壁纸，macOS 会持久化保存设置</li>
-  <li><strong>功耗感知播放</strong>：根据热状态、电池电量、是否连接电源、游戏模式以及演示模式（活跃/锁定/空闲）自动调整或暂停播放</li>
-  <li><strong>窗口遮挡检测</strong>：当所有显示器被窗口完全覆盖时暂停渲染，桌面可见时恢复</li>
-  <li><strong>锁屏平滑过渡</strong>：启用"仅在锁屏显示"时，锁定/解锁过程使用三次曲线缓动效果，与 Apple 原版 Aerials 一致</li>
-  <li><strong>自适应变体</strong>：可预渲染低分辨率/低帧率版本，播放器会在循环边界自动切换到满足当前策略的最优版本</li>
-</ul>
-
-<h3>技术架构</h3>
-<p>Phosphene 由两部分组成：<strong>Phosphene.app</strong>（菜单栏 UI 应用）负责库管理和偏好设置；<strong>PhospheneExtension.appex</strong>（扩展）运行在系统 WallpaperAgent 进程中，负责实际渲染。扩展通过 <code>dlopen</code> 动态加载 WallpaperExtensionKit，并使用 Swift 的 <code>Mirror</code> 运行时反射来解析 Apple 的 XPC 请求类型。</p>
-
-<p>渲染引擎直接驱动 <strong>AVSampleBufferDisplayLayer</strong>，而非 AVPlayerLayer（后者在远程 CAContext 中会静默失败）。它使用两个 AVAssetReader（一个用于当前循环，一个预加载下一循环），通过跨循环递增 PTS 偏移来保持时间线单调递增，实现无闪烁循环。</p>
-
-<h3>已知限制</h3>
-<ul>
-  <li>依赖私有框架，Apple 可能在主要 OS 版本更新中改动</li>
-  <li>仅支持 macOS Tahoe（26.0+）和 Apple Silicon</li>
-  <li>需要 Xcode 17+ 自行构建，需设置开发团队进行代码签名</li>
-  <li>项目包含一个 WallpaperSnapshotXPC 的 method swizzle，用于修复系统快照编码器对 NSXPCCoder 子类的类型检查问题</li>
-</ul>
-
-<h3>社区反响</h3>
-<p>该帖子在 Hacker News 上获得了 366 分和 88 条评论。用户普遍对项目表示赞赏，有评论者提到曾因 Apple 自动下载/删除视频壁纸导致每月消耗近 1TB 流量，作者回应称 Phosphene 直接注入 Apple 的原始管道，视频不会被系统移除或更改。也有用户表示怀念 Windows Vista 时代的视频壁纸风格。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48215979</guid>
-      <pubDate>Wed, 20 May 2026 23:54:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
