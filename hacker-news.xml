@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 31 May 2026 19:40:49 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 31 May 2026 21:16:22 GMT</lastBuildDate>
+    <item>
+      <title>用200英镑将数据中心GPU改装进游戏PC，实现高性价比本地大模型推理</title>
+      <link>https://news.ycombinator.com/item?id=48345694</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 虽然涉及本地大模型推理（AI领域），但文章主要内容侧重于数据中心GPU的购买、硬件改装（风扇、跳线）及电源方案，属于硬件DIY工程范畴（类似用户不感兴趣的芯片/硬件技术），而非纯粹的AI软件技术进展或模型发布，主要主题偏向硬件，故列为可选。</small></p><div>
+<p>为了在个人电脑上低成本运行参数量较大的本地大语言模型（LLM），作者购买了一块二手的 <a href="https://blog.tymscar.com/posts/v100localllm/">NVIDIA Tesla V100 SXM2 16GB</a> 数据中心GPU，并通过非官方的 SXM2 转 PCIe 适配器将其安装到现有的游戏主机中。这套方案总成本仅约 200 英镑，成功将系统总显存（VRAM）提升至 32GB，足以流畅运行 Qwen3.6-27B 等模型。</p>
+<img src="/V100-gpu-llm/front_of_v100_sxm2.jpg" alt="V100 SXM2 显卡正面" />
+<p>数据中心 GPU 通常采用服务器机架散热设计，直接安装在消费级主板上会产生高达 82 分贝的噪音。作者通过测试针脚定义，发现该风扇支持 PWM 控制。通过使用跳线和转接线将风扇连接至主板接口，并将转速限制在 10%，成功将噪音降至可接受范围，且满载温度未超过 50°C。</p>
+<img src="/V100-gpu-llm/82db_apple_watch_measurement.jpg" alt="82分贝噪音测量" />
+<p>在软件配置上，由于 V100 属于 Volta 架构，较新的 NVIDIA 驱动已停止支持。作者使用 NixOS 系统，配置了 legacy_535 驱动分支与 CUDA 12.2，并解决了内核版本兼容及 X server 加载问题。通过 llama.cpp 的张量拆分（Tensor Splitting）技术，模型被均匀分配至 V100 和原有的 RTX 4080 上。最终推理速度达到约 32 tokens/秒，不仅满足交互式使用需求，其性能在多项基准测试中甚至能与 Claude Sonnet 4.6 等云端模型相媲美。</p>
+<img src="/V100-gpu-llm/nvidia-smi.png" alt="nvidia-smi显示双卡状态" />
+<p>该方案不仅大幅降低了本地 AI 推理的硬件门槛，还通过 NAS 存储模型文件，实现了完全离线的 AI 编程助手（OpenCode）部署。尽管需要处理驱动兼容性和硬件改装，但对于追求高性价比和隐私的 DIY 爱好者而言，这是一次极具参考价值的实践。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48345694</guid>
+      <pubDate>Sun, 31 May 2026 13:53:16 GMT</pubDate>
+    </item>
     <item>
       <title>取消 AI 订阅：是止损还是错失学习良机？</title>
       <link>https://news.ycombinator.com/item?id=48345896</link>
@@ -1160,30 +1177,6 @@ $$A^{(p)}[k] \equiv 2 \binom{k+p}{p-1} \pmod{256}$$</p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48250144</guid>
       <pubDate>Sat, 23 May 2026 18:45:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>数十年睡眠研究催生新型睡眠呼吸暂停药物 AD109，III 期临床试验取得积极结果</title>
-      <link>https://news.ycombinator.com/item?id=48242278</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲睡眠呼吸暂停新药的临床试验进展，属于医学/药物研发领域，与用户核心兴趣（编程、AI、软件开发）关联较弱，勉强可归于科学前沿进展范畴，兴趣不明确</small></p><p>多伦多大学（University of Toronto）医学与生理学教授 Richard Horner 三十年来对睡眠呼吸生理机制的研究，催生了一款名为 AD109 的新型睡眠呼吸暂停（sleep apnea）药物。该药物在近期公布的 III 期随机临床试验中取得积极结果，为无法耐受传统 CPAP（持续气道正压通气）治疗的患者提供了新的口服药选择。</p>
-
-<p>阻塞性睡眠呼吸暂停（obstructive sleep apnea）是最常见且最严重的睡眠问题。据 2024 年发表于《加拿大公共卫生杂志》的研究，超过四分之一的加拿大人患有此病，但确诊率不足 10%。全球约有 16 亿成年人受其影响。患者在睡眠中上呼吸道肌肉反复塌陷，导致呼吸频繁中断，长期未治疗会增加高血压、心脏病、代谢紊乱和认知障碍的风险。</p>
-
-<p>Horner 实验室在 2006 年首次发现神经递质去甲肾上腺素（noradrenaline）在清醒和特定睡眠阶段对舌肌（维持上呼吸道通畅最重要的肌肉）的激活起关键作用。在快速眼动（REM）睡眠期间，大脑中去甲肾上腺素水平下降，导致舌肌张力丧失，进而引发呼吸困难。2013 年，该团队又发现一类名为毒蕈碱受体（muscarinic receptors）的蛋白质在 REM 睡眠期间抑制舌肌运动。当用药物阻断这些受体时，舌肌被强烈激活。</p>
-
-<p>基于这两项突破——去甲肾上腺素"启动"信号的缺失和毒蕈碱受体介导的"停止"信号——波士顿的研究人员开发了 AD109。这款每日口服药物包含两种成分：一种提高去甲肾上腺素水平，另一种阻断毒蕈碱受体。III 期临床试验显示，与安慰剂组相比，服用 AD109 的轻至重度患者每小时呼吸暂停或浅呼吸事件平均减少 4 次，气道阻塞程度更低，血氧水平更高。</p>
-
-<p>目前睡眠呼吸暂停的标准疗法是 CPAP 治疗，即睡眠时佩戴连接持续送气装置的面罩。该方法极为有效，但许多患者因不适和笨重而难以坚持。Horner 表示，如果 AD109 获得监管批准，将为无法耐受 CPAP 的患者提供有价值的替代方案。他本人未直接参与 AD109 的开发，但对基础研究成果能转化为临床治疗感到欣慰和惊喜。</p>
-
-<h3>社区讨论</h3>
-<p>在 Hacker News 的讨论中，多位用户分享了个人经历。有用户指出，睡眠呼吸暂停的症状（日间疲劳、夜间频繁醒来、醒来后仍感疲惫等）常被忽视，建议有相关症状者尽早进行睡眠检测，目前已有售价低于 100 美元的居家检测套件。也有用户提到，GLP-1 类药物（如 Zepbound）在减重的同时对睡眠呼吸暂停有显著疗效，超过半数患者在使用约一年后症状消失，但减重并非对所有患者都有效。</p>
-
-<p>关于 AD109 的效果，部分评论者认为每小时仅减少 4 次呼吸暂停事件对中重度患者帮助有限（重度患者每小时可达 30 次以上甚至上百次）。但也有用户指出这是药物治疗的起点，未来有望进一步优化。还有用户分享了使用软式颈托、BongoRX 鼻用装置等替代方案的经验。</p>
-
-<p>有评论者根据药物代码 AD109 推测，其成分为 aroxybutynin 2.5 mg 和 atomoxetine 75 mg——前者是一种抗胆碱能药物，后者是一种用于 ADHD 的非兴奋剂类药物。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48242278</guid>
-      <pubDate>Fri, 22 May 2026 22:05:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
