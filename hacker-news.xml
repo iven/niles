@@ -3,7 +3,20 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 01 Jun 2026 05:13:51 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jun 2026 10:33:13 GMT</lastBuildDate>
+    <item>
+      <title>Chuwi Minibook X：$350 迷你超极本的 Linux 折腾体验与评测</title>
+      <link>https://news.ycombinator.com/item?id=48350598</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要评测一款迷你笔记本电脑。虽然涉及 Linux 系统体验，但核心主题是硬件评测，与用户配置中的核心兴趣点匹配度不高，故评为可选。</small></p><p>Chuwi Minibook X 是一款售价 350 美元的 10.5 英寸迷你超极本（sub-ultrabook），旨在重现当年上网本（netbook）的便携与低价优势。该设备搭载 Intel N150 处理器、16GB LPDDR5 内存和 512GB NVMe 固态硬盘，重量仅为 911 克，机身采用铝合金材质，做工扎实。<img src="https://photos.tylercipriani.com/thumbs/58/ec9d31f64e7d203a6d40603d8ec352/medium.jpg" alt="Chuwi Minibook X, KDE lock screen" /></p>
+<p>作者将这台设备作为 Linux 折腾平台，尝试了 Debian 和 NixOS。大部分硬件（摄像头、触摸屏、Wi-Fi 等）均可正常工作，但存在一个显著的硬件设计缺陷：屏幕面板被横向安装，导致系统启动时画面旋转 270 度。作者不得不通过在引导加载程序、内核参数、桌面环境（X11/Wayland）以及帧缓冲等多个层级进行配置，才最终解决了屏幕方向问题。<img src="https://photos.tylercipriani.com/thumbs/fd/618ab5184903c7a8a69428d4df70e0/medium.jpg" alt="Tails setup screen rotated" /></p>
+<p>在性能与续航方面，Geekbench 6 测试显示其单核得分为 1295，多核为 3332。设备散热表现良好，高负载运行 10 分钟后机身最热点温度低于 32°C。电池续航方面，连续播放电影可达约 6 小时。<img src="https://photos.tylercipriani.com/thumbs/e1/ece6929d3378c0b9bff4e42c4f6352/medium.jpg" alt="Chuwi Minibook X running stress-ng on thermal camera. Thermal camera reads 88.4°F" /></p>
+<p>尽管作者认为该设备的 50Hz 刷新率屏幕、触发点苛刻的键盘以及无物理按键的悬浮触控板存在明显短板，但在 400 美元以下的价位中，这些缺点尚在可接受范围内。作者享受将其作为备用机尝试 NixOS、RiverWM 等新技术的乐趣，认为这种廉价且可随意折腾的设备为创新提供了安全空间。<img src="https://photos.tylercipriani.com/thumbs/20/2a52c0ab8facc8cb6d6bb6f81fe137/medium.jpg" alt="Chuwi Minibook X with banana for scale" /></p>
+<p>HN 社区用户分享了更多使用技巧：有用户指出通过修改 EC 解锁 BIOS 可将内存频率提升至 4800MT/s，并解锁 95Hz 屏幕刷新率。多数用户认可其紧凑的键盘布局，认为比 GPD 等同类产品的键位设计更合理。关于 50Hz 刷新率，有用户指出这可能与欧洲 50Hz 交流电及电视标准的历史遗留有关。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48350598</guid>
+      <pubDate>Sun, 31 May 2026 22:59:50 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 重启序列（Restartable Sequences）：解锁多核时代极致性能的系统编程利器</title>
       <link>https://news.ycombinator.com/item?id=48346019</link>
@@ -1101,39 +1114,6 @@ AI 辅助编程正在重复这一过程。通过自然语言描述需求，开�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48256953</guid>
       <pubDate>Sun, 24 May 2026 13:02:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 从第一性原理理解深度学习性能优化：计算、内存带宽与开销</title>
-      <link>https://news.ycombinator.com/item?id=48246889</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 深度学习性能优化的技术原理分析，属于AI软件技术进展（感兴趣）范畴</small></p><p>PyTorch 团队成员 Horace He 撰写了一篇经典技术文章，系统性地从第一性原理出发，将深度学习系统的性能瓶颈拆解为三个核心维度：<strong>计算（Compute）</strong>、<strong>内存带宽（Memory Bandwidth）</strong>和<strong>开销（Overhead）</strong>，并给出了针对不同瓶颈的优化策略。</p>
-
-<h3>三个核心性能维度</h3>
-
-<p><strong>计算（Compute）</strong>：GPU 执行实际浮点运算（FLOPS）所花费的时间。作者指出，优化的目标是尽可能让 GPU 处于"计算受限"（compute-bound）状态，因为只有计算是你真正"付费"的部分。现代 GPU（如 A100）拥有 312 万亿次浮点运算/秒的峰值性能，但其中只有矩阵乘法能利用 Tensor Cores 达到峰值——非矩阵乘法运算的吞吐量仅为 19.5 teraflops。好在实际模型中，非矩阵乘法运算（如 layer norm、激活函数）仅占总 FLOPS 的约 0.2%，影响不大。</p>
-
-<p><strong>内存带宽（Memory Bandwidth）</strong>：在 GPU 内部搬运张量数据所花费的时间。作者用"工厂与仓库"的类比来解释：计算单元是工厂（SRAM，速度快但容量小），全局内存是仓库（DRAM，容量大但速度慢），每次 GPU 内核执行都需要在两者之间搬运数据。对于简单的逐元素操作（如 <code>torch.cos</code>），绝大部分时间都花在数据搬运上，而非实际计算——这类操作被称为"内存受限"（memory-bound）。</p>
-
-<p><strong>开销（Overhead）</strong>：除计算和内存传输之外的所有时间，包括 Python 解释器执行时间、PyTorch 框架调度时间、CUDA 内核启动时间等。作者给出了一个惊人的对比：Python 每秒只能执行约 3200 万次加法，而 A100 GPU 在同一时间内可执行 975 万倍的运算量。PyTorch 框架本身每秒也只能处理约 28 万次操作，因此对于小张量操作，开销可能成为主要瓶颈。</p>
-
-<h3>关键优化技术：算子融合（Operator Fusion）</h3>
-
-<p>针对内存带宽瓶颈，最重要的优化手段是<strong>算子融合</strong>。以 <code>x.cos().cos()</code> 为例，如果不融合，需要执行 4 次全局内存读写（读取 x、写入 x1、读取 x1、写入 x2）；融合后只需 2 次（读取 x、写入 x2），速度可提升 2 倍。作者指出，融合后的 <code>x.cos().cos()</code> 与单独的 <code>x.cos()</code> 耗时几乎相同——这也是为什么不同激活函数（如 GELU 与 ReLU）的计算成本几乎一样。</p>
-
-<p>算子融合需要编译器支持（如 NVFuser、XLA），无法在 PyTorch 的 eager 模式下自动完成。作者推荐使用 <a href="https://triton-lang.org/">Triton</a> 编写自定义 CUDA 内核来实现更复杂的融合。</p>
-
-<h3>如何判断瓶颈所在</h3>
-
-<p>作者提供了一个实用的方法：通过测量<strong>计算强度</strong>（compute intensity，即每次内存访问对应的计算量）来判断系统处于哪个瓶颈区间。实验表明，当计算强度较低时（如重复执行少于 32 次乘法），GPU 处于内存带宽受限状态，实际 FLOPS 仅约 0.2 teraflops；当计算强度足够高时（重复超过 64 次），才能接近峰值性能（9.75 teraflops）。</p>
-
-<p>文章还提到一个反直觉的结论：通过重计算（rematerialization/activation checkpointing）有时可以同时降低内存占用和运行时间，因为额外的重计算可能减少内存带宽消耗。</p>
-
-<h3>社区讨论</h3>
-
-<p>该文章在 Hacker News 上引发了热烈讨论（183 分，64 条评论）。有读者指出，这篇文章是理解现代 ML 系统性能的经典读物，作者 Horace 还在 2024 年 12 月于 Jane Street 做了相关的<a href="https://www.youtube.com/watch?v=139UPjoq7Kw">专题演讲</a>。也有读者讨论了性能优化的可移植性问题——同一模型在不同运行时（ONNX Runtime、TensorRT）和不同硬件上的表现可能截然不同。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48246889</guid>
-      <pubDate>Sat, 23 May 2026 11:50:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
