@@ -3,7 +3,54 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 02 Jun 2026 01:35:13 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2026 11:41:17 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.160 更新：会话恢复修复、ultracode 触发词变更及多项体验优化</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.160</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>核心功能变更</h2>
+<ul>
+<li><strong>动态工作流触发词重命名</strong>：触发动态工作流的关键词从 <code>workflow</code> 重命名为 <code>ultracode</code>。输入 <code>workflow</code> 不再触发运行，但使用自然语言描述工作流仍有效。触发词在输入框中以紫色高亮显示。</li>
+<li><strong>移除环境变量</strong>：移除了 <code>CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE</code> 环境变量，该变量现已无效。</li>
+<li><strong>启动优化</strong>：移除了启动时关于 JetBrains 插件的安装建议。</li>
+</ul>
+
+<h2>重要 Bug 修复</h2>
+<ul>
+<li><strong>会话恢复问题</strong>：修复了从 <code>claude agents</code> 恢复已完成会话，或后台会话过夜后重新附加时，导致聊天记录丢失并重新运行原始提示词的问题。</li>
+<li><strong>后台代理状态显示</strong>：修复了后台代理恢复工作时错误显示在“已完成（Completed）”列表中的问题。</li>
+<li><strong>后台代理冷启动</strong>：修复了 <code>claude --bg</code> 在机器负载较高时冷启动偶尔因“socket missing”而失败的问题。</li>
+<li><strong>会话清理改进</strong>：改进了后台会话清理逻辑（<code>claude rm</code>/<code>stop</code> 及空闲回收），在发送 SIGKILL 前先发送 SIGTERM，确保清理处理器能正常运行。</li>
+<li><strong>UI/UX 修复</strong>：
+<ul>
+<li>修复了 CJK IME 输入法在 <code>claude agents</code> 视图中位置显示错误的问题。</li>
+<li>修复了打开会话后鼠标滚轮滚动历史记录而非转录内容的问题。</li>
+<li>修复了恢复简短模式（brief mode）会话且该模式已关闭时，Claude 历史回复从滚动条中消失的问题。</li>
+<li>修复了 Vim 模式下 <code>p</code> 命令在寄存器通过 <code>v$</code> 抓取时粘贴位置错误的问题。</li>
+<li>修复了后台代理向不支持同步输出的终端（如 Apple Terminal, tmux）发送标记导致的渲染伪影问题。</li>
+</ul>
+</li>
+<li><strong>错误提示优化</strong>：
+<ul>
+<li>修复了第三方提供商（Bedrock/Vertex/Foundry）自动模式不可用时的误导性错误信息，现在指向 <code>CLAUDE_CODE_ENABLE_AUTO_MODE</code> 选项。</li>
+<li>修复了 <code>/effort ultracode</code> 在模型不支持 xhigh 时错误提示动态工作流设置的问题，现在不再对不支持的模型提供 ultracode。</li>
+<li>修复了通过 SDK 或其他主机运行时，模型未找到错误错误建议使用 <code>--model</code> 标志的问题。</li>
+</ul>
+</li>
+<li><strong>语音模式兼容性</strong>：修复了当项目目录或分支名称包含非 ASCII 或特殊字符时，语音模式无法连接的问题。</li>
+</ul>
+
+<h2>性能与体验改进</h2>
+<ul>
+<li><strong>界面响应</strong>：修复了返回会话列表时，因自动更新器每次退出都重新检查而导致的界面冻结问题。</li>
+<li><strong>会话打开性能</strong>：改进了打开近期不活跃的后台代理会话的性能。</li>
+<li><strong>自动模式优化</strong>：通过减少常规操作的推理，降低了自动模式分类器的延迟，减少了“无法评估此操作”的阻断情况。</li>
+<li><strong>编辑前读取检查</strong>：单文件 <code>grep</code>/<code>egrep</code>/<code>fgrep</code> 命令现在满足“编辑前读取”的检查，无需额外执行 <code>Read</code> 操作。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.160</guid>
+      <pubDate>Tue, 02 Jun 2026 02:10:25 GMT</pubDate>
+    </item>
     <item>
       <title>Hapi v0.19.0 发布：新增 Kimi Code CLI 支持，Web 端 UI 与交互全面升级</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.19.0</link>
@@ -1388,23 +1435,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.132</guid>
       <pubDate>Wed, 06 May 2026 22:08:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.131：修复Windows平台VS Code扩展激活问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.131</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.131 版本，主要包含两个修复：</p>
-
-<p><strong>重要修复：</strong></p>
-<ul>
-<li>修复了 Windows 平台上 VS Code 扩展激活失败的问题，该问题由捆绑 SDK 中的硬编码构建路径引起（<code>createRequire</code> polyfill bug）</li>
-<li>修复了 Mantle 端点认证失败的问题，该问题由于缺少 <code>x-api-key</code> 头部导致</li>
-</ul>
-
-<p>这个版本主要针对特定平台（Windows）和认证相关的技术问题进行修复，属于维护性更新。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.131</guid>
-      <pubDate>Wed, 06 May 2026 07:47:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
