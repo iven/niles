@@ -3,7 +3,38 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 02 Jun 2026 20:16:36 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2026 23:09:05 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.161 发布说明总结</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.161</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>新功能与核心优化</h3>
+<ul>
+  <li><strong>指标数据增强</strong>：遥测指标数据点现在包含 OpenTelemetry 资源属性（<code>OTEL_RESOURCE_ATTRIBUTES</code>）值作为标签，支持按团队、仓库等自定义维度切片分析使用指标。</li>
+  <li><strong>并行工具调用改进</strong>：同一批次中的 Bash 命令失败不再取消其他并行调用，各工具独立返回结果。</li>
+  <li><strong>全屏模式剪贴板优化</strong>：Linux 环境下优先使用 <code>wl-copy</code>/<code>xclip</code>/<code>xsel</code>，同时同步至剪贴板与 PRIMARY 选择（支持中键粘贴），并修正了原生选择提示键。</li>
+  <li><strong>代理进度显示</strong>：<code>claude agents</code> 列表在详细信息前显示 <code>done/total</code> 进度，Peek 预览视图默认展示运行时间最长的任务。</li>
+  <li><strong>Model Context Protocol（MCP）连接器管理</strong>：未登录的 claude.ai 连接器默认折叠至“显示未使用的连接器”行，简化界面。</li>
+</ul>
+
+<h3>关键 Bug 修复</h3>
+<ul>
+  <li><strong>会话与工作流</strong>：修复了 <code>/effort</code> 对话框、工作流动画及提示关键词 shimmer 闪烁效果未遵循“减少运动”设置的问题；修复了恢复会话后渲染 Write 工具结果时的潜在崩溃；修复了子代理最终化结果出错时卡住显示为运行中的状态。</li>
+  <li><strong>后台任务与隔离</strong>：修复了后台子代理输出在使用 <code>--output-format text</code> 或 <code>json</code> 时损坏 <code>claude -p</code> 标准输出的问题；修复了使用 <code>isolation: "worktree"</code> 的后台工作流代理无法编辑自身 worktree 内文件的问题；修复了从 <code>claude agents</code> 分派的后台会话错误使用过时模型启动的问题。</li>
+  <li><strong>命令与配置</strong>：修复了 <code>forceLoginOrgUUID</code>/<code>forceLoginMethod</code> 托管策略阻止第三方提供商（Bedrock, Vertex, Foundry, Mantle）会话及组织固定的回归问题；修复了 <code>/usage-credits</code> 为管理员错误触发重新登录的问题；修复了 <code>/autofix-pr</code> 在 git worktree 中误报无法在默认分支运行的问题；修复了 <code>--resume</code> 在非 git worktree（如 jj 工作区）中不显示当前目录会话的问题。</li>
+  <li><strong>终端与日志</strong>：修复了遥测初始化完成前发出的 OpenTelemetry 日志事件（<code>user_prompt</code>, <code>api_request</code> 等）被静默丢弃的问题；修复了 <code>CLAUDE_CODE_TMPDIR</code> 路径过深导致 Unix 套接字绑定 <code>EADDRINUSE</code> 错误的问题。</li>
+</ul>
+
+<h3>性能提升与其他改进</h3>
+<ul>
+  <li>通过稳定终端布局引擎的 JIT 编译配置档案，显著提升了终端渲染性能。</li>
+  <li>优化了大文件写入时的渲染性能。</li>
+  <li><strong>[VSCode]</strong>：新增提示建议禁用终端 GPU 加速（或运行 <code>/terminal-setup</code>）以修复乱码字符问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.161</guid>
+      <pubDate>Tue, 02 Jun 2026 21:58:22 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.160 更新：会话恢复修复、ultracode 触发词变更及多项体验优化</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.160</link>
@@ -1374,67 +1405,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.8.5</guid>
       <pubDate>Thu, 07 May 2026 03:04:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.132 发布：改进终端交互、修复会话恢复和 MCP 服务器问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.132</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.132 版本，主要针对终端应用的稳定性和用户体验进行了一系列改进和修复。</p>
-
-<h3>重要功能改进</h3>
-<ul>
-<li>新增环境变量支持：添加 <code>CLAUDE_CODE_SESSION_ID</code> 环境变量到 Bash 工具子进程环境，与传递给钩子的 <code>session_id</code> 匹配</li>
-<li>提供全屏渲染器选项：通过 <code>CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1</code> 环境变量可选择退出全屏备用屏幕渲染器，保留对话在终端原生滚动缓冲区</li>
-<li>改进粘贴体验：添加 Ctrl+V 图像粘贴时的"Pasting…"页脚提示</li>
-<li>修复信号处理：外部 SIGINT 信号（如 IDE 停止按钮、<code>kill -INT</code>）现在能正常执行优雅关闭，恢复终端模式并打印 <code>--resume</code> 提示</li>
-<li>修复会话恢复：解决 <code>--resume</code> 在工具错误截断表情符号时出现 <code>no low surrogate in string</code> 错误的问题，已损坏的会话在加载时会被清理</li>
-</ul>
-
-<h3>终端交互修复</h3>
-<ul>
-<li>修复原生构建中终端关闭或 SSH 断开连接时的未捕获异常</li>
-<li>修复全屏模式在笔记本电脑睡眠/唤醒或 Ctrl+Z/<code>fg</code> 后显示空白屏幕的问题</li>
-<li>修复光标在包含印度语连字或 ZWJ 表情符号跨行换行时定位到字形中间的问题</li>
-<li>修复 vim 操作符损坏包含分解（NFD）重音字符的文本</li>
-<li>修复粘贴以 <code>/</code> 开头的文本时静默吞掉输入或触发未知命令回复的问题</li>
-<li>修复粘贴时焦点事件或鼠标跟踪报告与括号粘贴交错导致转义序列进入提示的问题</li>
-</ul>
-
-<h3>IDE 兼容性改进</h3>
-<ul>
-<li>修复 Cursor 和 VS Code 1.92–1.104 中鼠标滚轮滚动过快的问题（上游 xterm.js bug）</li>
-<li>修复 JetBrains IDE 2025.2 终端中的滚轮处理（虚假箭头键、方向错误事件、失控加速）</li>
-<li>修复 Windows Terminal 中 <code>/terminal-setup</code> 显示矛盾错误的问题（Shift+Enter 在该终端中原生支持）</li>
-<li>修复 macOS 终端中 Alt+T（思考切换）在未启用"Option as Meta"时无效的问题（iTerm2、Terminal.app 默认设置）</li>
-</ul>
-
-<h3>命令功能修复</h3>
-<ul>
-<li>修复 <code>/usage</code> Ctrl+S 在 Linux/X11 上将统计截图复制到剪贴板时挂起的问题</li>
-<li>修复 <code>/effort</code> 选择器未反映 <code>CLAUDE_CODE_EFFORT_LEVEL</code> 环境变量覆盖的问题</li>
-<li>修复 <code>/status</code> 为某些用户显示错误默认模型的问题</li>
-<li>修复斜杠命令自动完成弹出窗口被限制在约 3-5 个可见命令而不是随终端高度缩放的问题</li>
-<li>修复状态行 <code>context_window</code> 令牌计数反映累计会话总数而不是当前上下文使用情况的问题</li>
-</ul>
-
-<h3>MCP 服务器修复</h3>
-<ul>
-<li>修复当 stdio MCP 服务器向 stdout 写入非协议数据时的无界内存增长（10GB+ RSS）问题</li>
-<li>修复连接但 <code>tools/list</code> 失败的 MCP 服务器静默显示 0 工具的问题，现在会重试一次并在 <code>/mcp</code> 中显示"connected · tools fetch failed"</li>
-<li>修复未经授权的 claude.ai MCP 连接器显示为"failed"而不是"needs auth"的问题，以及无头 <code>-p</code> 模式重试非瞬态 4xx 连接失败的问题</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>修复 Windows 上从 <code>claude agents</code> 重新打开后台会话后的死键盘输入问题</li>
-<li>修复设置 <code>ENABLE_PROMPT_CACHING_1H</code> 时的 Bedrock 和 Vertex 400 错误</li>
-<li>改进斜杠命令对话框和 <code>/login</code>、<code>/upgrade</code>、<code>/extra-usage</code> 对话框间距的视觉一致性</li>
-<li>更新 <code>/tui fullscreen</code> 启动横幅以描述额外的渲染器优势（更低内存使用、鼠标支持、选择时自动复制）</li>
-<li>修复恢复计划模式会话时忽略 <code>--permission-mode</code> 标志的问题，以及在同一会话内 <code>ExitPlanMode</code> 后未重新应用计划模式的问题</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.132</guid>
-      <pubDate>Wed, 06 May 2026 22:08:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
