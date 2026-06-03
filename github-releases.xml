@@ -3,7 +3,32 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 03 Jun 2026 20:26:23 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jun 2026 23:11:55 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.162 发布说明</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.162</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>本次更新主要聚焦于交互逻辑优化、搜索工具支持增强以及多项底层稳定性修复。</p>
+<h3>重要改动</h3>
+<p><code>claude agents --json</code> 新增 <code>waitingFor</code> 字段，可显示等待会话阻塞的具体原因（如权限提示）。<code>/effort</code> 命令现在会明确确认所选级别将作为新会话的默认值。斜杠命令自动补全菜单的交互逻辑已调整，点击命令仅将其填充至输入框，需按 Enter 键方可执行。</p>
+<p>Remote Control 功能不再以启动消息形式出现，改为持久化的页脚药丸（Footer Pill），并附带会话链接。</p>
+<p>通过 <code>--tools</code> 参数显式指定 Grep/Glob 时，在支持嵌入式搜索的原生构建中将正确启用专用搜索工具（此前该参数会被静默忽略）。此外，LSP 工具的 <code>workspaceSymbol</code> 操作现已支持 <code>query</code> 参数，修复了此前无法返回结果的问题。</p>
+<p>修复了配置目录为只读或不可写时导致的静默启动挂起问题，应用现可启动并提示错误。中断指令（Esc）在流式 JSON/SDK 会话开始时被静默丢弃的问题已修复。MCP 服务器 <code>timeout</code> 配置值低于 1000ms 时被错误截断为 1 秒的问题已修正，低于该阈值的值将回退至全局默认配置。跨会话消息传递（<code>SendMessage</code>）在 <code>CLAUDE_CODE_TMPDIR</code> 指向深层目录时静默中断的问题，以及后台会话附加时的卡顿和丢失对话问题均已解决。</p>
+<h3>其他优化与修复</h3>
+<p><code>claude agents</code> 终端视图不再在宽屏下截断状态文本与长会话名称，现自适应终端宽度。启动日志进行了精简，通知按严重程度分组，警告信息更简短清晰且固定显示于输入框下方。失败回合的报错提示改为紧凑的单行警告，替代了冗长的红色错误块。此外，移除了部分冗余的启动提示，并改进了后台服务启动时的安全扫描等待逻辑。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.162</guid>
+      <pubDate>Wed, 03 Jun 2026 21:31:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>chezmoi v2.70.5 发布说明（仅文档更新）</title>
+      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.70.5</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>chezmoi v2.70.5 版本已发布。本次更新仅包含文档方面的改进，主要为添加了相关文章的链接，未涉及代码功能或 bug 修复。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.70.5</guid>
+      <pubDate>Wed, 03 Jun 2026 22:05:41 GMT</pubDate>
+    </item>
     <item>
       <title>Superset Desktop v1.12.2 更新：终端性能优化与多项 Bug 修复</title>
       <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.2</link>
@@ -1373,35 +1398,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.70.3</guid>
       <pubDate>Thu, 07 May 2026 21:04:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.8.7 发布：修复导入模态框的关闭和响应式问题</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.8.7</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 发布了 v1.8.7 版本，这是一个维护更新，主要修复了用户界面中的一个重要问题。</p>
-
-<p><strong>重要改动：</strong></p>
-<ul>
-<li>修复了 v1 导入模态框的问题，使其可以正常关闭并具有响应式布局</li>
-</ul>
-
-<p>这个修复解决了用户在使用导入功能时可能遇到的两个问题：模态框无法关闭以及在小屏幕设备上的布局问题。对于使用 Superset Desktop 进行编码代理管理的用户来说，这是一个提升用户体验的实用改进。</p>
-
-<p>该版本没有包含其他功能更新或依赖更新，专注于解决这个特定的界面交互问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.8.7</guid>
-      <pubDate>Thu, 07 May 2026 15:59:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>fish shell 4.7.1 发布：修复 web 配置工具启动问题</title>
-      <link>https://github.com/fish-shell/fish-shell/releases/tag/4.7.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fish shell 发布了 4.7.1 版本，主要修复了 4.7.0 版本中的一个回归问题。该问题导致 web 配置工具（fish_config）无法正常启动。</p>
-
-<p>用户需要注意下载正确的源代码文件：建议下载 <code>fish-4.7.1.tar.xz</code> 文件，而不要下载标记为 "Source code (tar.gz)" 的文件，因为后者无法正确构建。同时提供了适用于各种 Linux CPU 架构的独立二进制文件。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/fish-shell/fish-shell/releases/tag/4.7.1</guid>
-      <pubDate>Thu, 07 May 2026 16:58:34 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,27 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 03 Jun 2026 20:28:07 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jun 2026 23:12:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Elixir v1.20 发布：引入渐进式类型系统，无需注解即可发现 Bug</title>
+      <link>https://news.ycombinator.com/item?id=48388324</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Elixir 编程语言新版本发布及引入的类型系统功能，属于编程工具发布与软件新功能，符合用户兴趣，故推荐。</small></p><img src="/images/logo/logo.png" alt="Elixir Logo" />
+<h2>正文</h2>
+<p>Elixir v1.20 正式发布，标志着该语言正式成为一门<strong>渐进式类型语言（gradually typed language）</strong>。此次更新引入了基于集合的类型系统（set-theoretic type system），能够在不引入任何类型注解的情况下，自动进行类型推断并检查代码，从而高效地发现死代码和已验证的运行时错误（verified bugs）。</p>
+<p>该类型系统的核心在于其独特的 <code>dynamic()</code> 类型。与许多语言中意味着“任何类型均可”的 <code>any()</code> 不同，Elixir 的 <code>dynamic()</code> 具备<strong>兼容性（compatibility）</strong>和<strong>类型收窄（narrowing）</strong>两大特性：</p>
+<ul>
+  <li><strong>兼容性</strong>：只有当传入的类型与函数接受的类型完全不相交时，才会报告类型违规，从而大幅降低误报率。</li>
+  <li><strong>类型收窄</strong>：随着代码的执行，<code>dynamic()</code> 类型会根据上下文被不断细化。例如，当访问了 <code>data.a</code> 和 <code>data.b</code> 后，<code>data</code> 会被收窄为包含这两个数字字段的 Map 结构。</li>
+</ul>
+<p>此外，新版本还增强了对 <code>guards</code>（守卫子句）、<code>case</code> 分支和条件语句的类型推断能力，能够利用这些结构进一步缩小类型范围并识别冗余代码。在性能方面，Elixir v1.20 优化了多核环境下的编译速度，并引入了 <code>:module_definition</code> 编译器选项，允许开发者选择以编译模式还是解释模式执行模块定义，以进一步提升大型项目的构建效率。</p>
+<p>关于未来的发展，Elixir 团队表示，引入显式类型签名（type signatures）仍需解决递归类型、参数化类型以及 Map 遍历等底层问题。目前，团队将继续优化现有类型系统的性能。</p>
+<h2>你知道吗？</h2>
+<p><strong>渐进式类型（Gradual Typing）</strong>是一种结合了静态类型检查和动态类型特性的类型系统。它允许开发者在代码的某些部分使用静态类型注解，而在其他部分保留动态类型。这种设计旨在兼顾开发效率与代码安全性：在快速原型开发阶段无需编写繁琐的类型注解，而在核心逻辑或大型项目中则可以通过类型系统捕获潜在错误。Elixir 的 <code>dynamic()</code> 类型正是这一理念的体现，它在保持动态语言灵活性的同时，通过静态分析提供了类似静态语言的错误检测能力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48388324</guid>
+      <pubDate>Wed, 03 Jun 2026 19:02:26 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Gemma 4 12B：一款面向本地笔记本的统一无编码器多模态模型</title>
       <link>https://news.ycombinator.com/item?id=48385906</link>
@@ -1083,37 +1103,6 @@ AI 辅助编程正在重复这一过程。通过自然语言描述需求，开�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48313810</guid>
       <pubDate>Thu, 28 May 2026 19:02:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 基于 Postgres 构建持久化工作流：简化架构与社区探讨</title>
-      <link>https://news.ycombinator.com/item?id=48313530</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深入探讨基于Postgres的持久化工作流架构及与Temporal系统的对比，属于后端开发工具选型与工程效率优化范畴，高度契合用户“编程工具分享”与“编程效率改进经验”的高兴趣配置。</small></p><p>持久化工作流（Durable Workflows）是一种通过定期将程序进度检查点（Checkpoint）保存到数据库来构建可靠程序的技术。传统上，这类工作流通常依赖外部编排系统（如 Temporal、Airflow 或 AWS Step Functions）来协调步骤执行与状态恢复。然而，DBOS 在最新博客文章中提出，外部编排器架构往往过于复杂，既然核心在于数据库检查点，完全可以直接利用数据库本身作为编排器。</p>
-
-<p>在基于 Postgres 的持久化工作流架构中，应用服务器直接与 Postgres 通信。客户端通过在工作流表中创建条目来提交任务，应用服务器轮询该表进行任务出队与执行，并将每一步的输出直接检查点回数据库。若执行服务器崩溃，其他服务器可无缝接管并从检查点恢复。这种去中心化的设计消除了对中央编排器服务器的依赖，使系统架构更加简洁。</p>
-
-<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a0dbd9279898da496135035_f62a8f73.png" alt="External workflow orchestration system architecture diagram" />
-
-<p>文章指出，该方案具备多项显著优势：</p>
-<ul>
-  <li><strong>可扩展性与可用性</strong>：系统能力直接取决于底层数据库。Postgres 成熟的垂直/水平扩展方案（如分布式 Postgres 或分片）及高可用部署机制（如流复制、多可用区）可直接赋能工作流系统。</li>
-  <li><strong>内置可观测性</strong>：所有工作流与步骤数据均存储在关系型表中，开发者可直接使用 SQL 进行实时监控、过滤与分析，无需引入额外的监控系统。</li>
-  <li><strong>可靠性与安全性</strong>：减少了中央编排器及其数据存储带来的单点故障风险，所有数据仅在 Postgres 内部流转，降低了系统攻击面与合规审计成本。</li>
-</ul>
-
-<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a0dbd9279898da496135032_7bffa8dc.png" alt="Postgres-backed durable execution system architecture diagram" />
-
-<p><strong>社区反馈与讨论</strong></p>
-<p>该文章在 Hacker News 引发了广泛讨论。部分开发者分享了在 Postgres 上构建分布式队列的经验，指出合理使用 <code>SKIP LOCKED</code> 和 <code>pg advisory lock</code> 可以有效避免竞争条件。然而，也有观点认为，虽然“仅依赖数据库”的初始架构很简洁，但随着业务复杂度增加（如需要重试、退避、超时、版本控制、任务路由等），团队可能最终需要自行实现一套粗糙的工作流引擎，此时权衡“自研复杂度”与“购买成熟系统（如 Temporal）”变得尤为重要。</p>
-
-<p>此外，讨论还涉及了数据正确性（Consistency）与可用性的权衡，指出简单的伪代码示例可能掩盖了崩溃恢复时的数据一致性问题。关于 Secrets 管理、DBOS 与 Temporal 在负载限制及运维复杂度上的对比，以及 PgFlow 等新兴 Postgres 原生工作流工具的提及，也丰富了此次技术探讨的维度。</p>
-
-<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a0dbd9279898da49613502f_e0ebb3ff.png" alt="SQL Query to analyze durable workflow execution observability data" />
-
-<p>如需进一步了解 DBOS 框架或查看快速入门指南，可访问：<a href="https://docs.dbos.dev/quickstart">DBOS Quickstart</a>、<a href="https://github.com/dbos-inc">GitHub</a> 及 <a href="https://discord.gg/eMUHrvbu67">Discord 社区</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48313530</guid>
-      <pubDate>Thu, 28 May 2026 18:41:46 GMT</pubDate>
     </item>
   </channel>
 </rss>
