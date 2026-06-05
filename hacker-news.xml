@@ -3,7 +3,29 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 05 Jun 2026 18:05:34 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2026 20:10:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Microsoft 开源 pg_durable：在 PostgreSQL 内部实现持久化执行</title>
+      <link>https://news.ycombinator.com/item?id=48414367</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍微软开源的 PostgreSQL 持久化执行扩展项目，属于开源项目与编程工具分享，符合用户兴趣配置中的兴趣项，故推荐阅读。</small></p><p>Microsoft 近日开源了 <code>pg_durable</code>，这是一个旨在 PostgreSQL 数据库内部实现<strong>持久化执行（Durable Execution）</strong>的扩展。长久以来，处理长时间运行且需容错的后台任务（如数据管道、定时维护或外部 API 调用）往往需要开发者拼接 cron 任务、状态表、消息队列甚至外部编排器（如 <a href="https://github.com/NikolayS/pgque">pgque</a> 或 <a href="https://www.dbos.dev/">DBOS</a>）。这种架构不仅复杂，还容易因数据库重启或步骤失败导致状态丢失和重复计算。</p>
+
+<p><img src="/microsoft/pg_durable/raw/main/docs/website/lockup_arrow_dark.svg" alt="pg_durable logo" width="560" /></p>
+
+<p><code>pg_durable</code> 将工作流逻辑直接移至 SQL 中，通过声明式 DSL 定义步骤图，并在每一步自动进行持久化检查点（Checkpoint）。当发生崩溃、重启或单步失败时，执行引擎会自动从最后一个检查点恢复，无需手动重建状态。其底层基于微软开源的 <a href="https://github.com/microsoft/duroxide">duroxide</a> 持久化任务框架和 <code>duroxide-pg</code> 状态提供者，作为 PostgreSQL 扩展运行，无需依赖 Redis 或外部服务。</p>
+
+<p><img src="/microsoft/pg_durable/raw/main/docs/website/workflow-graph.svg" alt="A durable function fans out into three parallel queries — count users, count orders, sum revenue — that join into a dashboard step" width="450" /></p>
+
+<p>该扩展特别适用于向量嵌入管道、数据摄取、定时维护、扇出聚合以及需要逐行或批量处理的外部 API 工作流。通过将重试状态、进度跟踪和检查点逻辑内置于数据库，开发者可以大幅减少应用层的工作者、队列消费者和调度胶水代码，同时利用 PostgreSQL 自身的认证、备份和行级安全（RLS）机制来管理工作流实例。</p>
+
+<p>在 Hacker News 社区讨论中，开发者对此褒贬不一。支持者认为它简化了架构，避免了引入额外基础设施，特别适合数据和本地状态管理。但也有不少开发者质疑将控制流逻辑写在 SQL 中的可维护性，认为版本控制、调试和测试工具链尚不完善，且更倾向于使用代码管理队列逻辑或依赖成熟的 DAG 调度器（如 Airflow）。微软贡献者回应称，底层框架已支持函数版本控制，且团队正在根据反馈优化 DSL 的易用性。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>持久化执行（Durable Execution）</strong>是一种设计模式，旨在确保长时间运行的计算任务即使在下层基础设施发生故障（如服务器宕机、网络中断）时也能可靠恢复。与传统工作流引擎将状态存储在外部数据库或消息队列不同，持久化执行通常将状态与计算逻辑紧密耦合，通过记录事件日志或检查点来实现确定性重放。将这一模式引入关系型数据库，能够利用数据库本身的 ACID 特性来保证工作流的原子性和一致性，从而降低系统复杂度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48414367</guid>
+      <pubDate>Fri, 05 Jun 2026 15:59:57 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 追踪欧洲上空的强大空间GNSS干扰源</title>
       <link>https://news.ycombinator.com/item?id=48409664</link>
@@ -971,64 +993,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48341578</guid>
       <pubDate>Sat, 30 May 2026 23:26:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 安永（EY）加拿大分公司网络安全报告被曝大量引用系 AI 幻觉伪造</title>
-      <link>https://news.ycombinator.com/item?id=48339580</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要探讨AI幻觉导致的报告引用造假问题，涉及AI技术在真实场景中的应用与影响，符合用户对AI相关话题的兴趣，故推荐阅读。</small></p><p>GPTZero 发布了一项调查，揭露了安永（Ernst & Young，简称 EY）加拿大分公司发布的网络安全报告《Points of Attack: Uncovering Cyber Threats and Fraud in Loyalty Systems》中存在大量由人工智能（LLM）幻觉产生的虚假引用（vibe citing）。</p>
-
-<img src="/investigations/ey/pages/EY.jpg" alt="EY Tower, Toronto — as seen from GPTZero's office" />
-
-该调查指出，这份 44 页的报告充斥着伪造的参考文献、不准确的声明以及 AI 生成的文本。报告的资源表（Resources table）中列出的 URL 大多失效或指向虚假内容，且超过一半的标题无法对应到真实来源。
-
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Fcover.webp&w=3840&q=75" alt="Cover — EY 'Points of Attack' report" width="1191" height="1685" />
-
-调查人员通过具体案例揭示了报告中的严重问题：
-
-<h3>1. 数据矛盾与伪造来源</h3>
-<p>报告声称全球忠诚积分市场价值为 2000 亿美元，并引用了不存在的《Forbes》文章和《McKinsey & Company》报告。进一步追溯发现，McKinsey 的引用实际上源自一个不知名的金融科技博客，而该博客也引用了一个不存在的 McKinsey 报告。</p>
-
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Fpage-4.webp&w=3840&q=75" alt="PDF page 4" width="1191" height="1685" />
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Fpage-42.webp&w=3840&q=75" alt="PDF page 42" width="1191" height="1685" />
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Fpage-10.webp&w=3840&q=75" alt="PDF page 10" width="1191" height="1685" />
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Fpage-43.webp&w=3840&q=75" alt="PDF page 43" width="1191" height="1685" />
-
-<h3>2. 来源追溯</h3>
-<p>报告中的 McKinsey 引用实际上源自一个不知名的金融科技博客，而该博客也引用了一个不存在的 McKinsey 报告。</p>
-
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Ffinancial-it-page-1.webp&w=3840&q=75" alt="PDF page 1" width="1191" height="1685" />
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Ffinancial-it-page-3.webp&w=3840&q=75" alt="PDF page 3" width="1191" height="1685" />
-
-<h3>3. 错误的归因与未引用的主张</h3>
-<p>报告中关于“72% 的忠诚度计划报告过欺诈”的统计数据被错误地归因于不存在的来源，且在不同页面引用了不同的（同样不存在的）来源。此外，部分关键主张甚至未提供任何引用。</p>
-
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Fpage-6.webp&w=3840&q=75" alt="PDF page 6" width="1191" height="1685" />
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Fpage-11.webp&w=3840&q=75" alt="PDF page 11" width="1191" height="1685" />
-
-<h3>4. 过时的数据</h3>
-<p>部分引用的数据来源（如 Forter Fraud Attack Index）严重过时，且报告对数据的解读存在偏差。</p>
-
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Fpage-6.webp&w=3840&q=75" alt="PDF page 6" width="1191" height="1685" />
-<img src="/_next/image?url=%2Finvestigations%2Fey%2Fpages%2Fpage-11.webp&w=3840&q=75" alt="PDF page 11" width="1191" height="1685" />
-
-<h3>影响</h3>
-<p>这种“氛围引用”不仅误导了人类读者，还污染了互联网数据池，导致 AI 搜索工具（如 ChatGPT、Claude 和 Perplexity）在回答相关问题时引用了该报告中的错误信息。</p>
-
-<img src="/investigations/ey/ai-responses/chatgpt.png" alt="ChatGPT response citing EY report" />
-<img src="/investigations/ey/ai-responses/claude.png" alt="Claude response citing EY report" />
-<img src="/investigations/ey/ai-responses/perplexity.png" alt="Perplexity response citing EY report" />
-
-<h3>社区反馈</h3>
-<p>HN 用户对此事进行了广泛讨论，主要观点包括：</p>
-<ul>
-<li>批评大型咨询公司（Big Four）为了追求效率和降低成本，导致服务质量下降，缺乏资深人员审核 AI 生成的内容。</li>
-<li>指出企业咨询行业存在“为了写报告而写报告”的现象，许多报告最终并未被阅读。</li>
-<li>部分用户吐槽 GPTZero 的调查页面在移动端和桌面端的滚动体验较差。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48339580</guid>
-      <pubDate>Sat, 30 May 2026 19:02:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
