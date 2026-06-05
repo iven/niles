@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 05 Jun 2026 21:44:06 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2026 23:24:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐ rsync 引入 AI 辅助开发后 bug 真的变多了吗？一项数据驱动的分析</title>
+      <link>https://news.ycombinator.com/item?id=48411635</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章分析了 AI 辅助编程在开源项目中的应用效果，符合对 AI 技术进展的兴趣。</small></p><p>近期，rsync 项目因主要维护者在开发中引入 <a href="https://www.anthropic.com/claude">Claude</a>（Anthropic 开发的大型语言模型）辅助编程，在社区引发了激烈争议。部分用户认为新版 rsync 的回归（regression）和 bug 增多是 AI 介入导致的，相关讨论在 Mastodon、GitHub 和 Hacker News 上迅速发酵，甚至演变为针对维护者的人身攻击。</p>
+
+<p>为回应这种基于“直觉”的指责，作者对 rsync 的历史版本进行了数据驱动的分析，试图客观评估 AI 辅助开发是否真的降低了软件质量。</p>
+
+<h3>分析背景与争议</h3>
+<p>争议始于 2024 年 5 月底，一条缺乏实证的 Mastodon 帖子声称 rsync 新版本存在回归问题，并将其归咎于版本中包含了 Claude 生成的代码。该帖子迅速获得大量转发，并在 GitHub 上引发了长达数百条评论的激烈争论。争论从最初的“不喜欢就 fork”迅速升级为情绪宣泄，甚至出现了包含暴力威胁的极端评论。</p>
+<img src="images/github-issue.png" alt="GitHub issue screenshot" />
+<p>面对这种情绪化的舆论，作者决定采用统计学方法，直接检验“包含 Claude 提交的版本 bug 更多”这一核心指控是否成立。</p>
+
+<h3>方法论与核心发现</h3>
+<p>分析选取了 36 个包含 bug 数据的 rsync 历史版本（v2.4.6 至 v3.4.3）。其中，仅有 v3.4.2 和 v3.4.3 两个版本包含了 Claude 辅助编写的代码。为了量化软件质量，作者采用了“每 10 次提交的严重程度加权 bug 数”（sev/10c）作为核心指标，并利用 Qwen 3 35B 模型对 GitHub Issue、Bugzilla 和邮件列表中的 bug 报告进行 0-100 分的严重程度打分。</p>
+<img src="images/hn-thread.png" alt="Hacker News thread screenshot" />
+<p>统计检验结果（包括排列检验和 Fisher 精确检验）显示，包含 Claude 代码的两个版本在历史 bug 分布中处于中间位置，并非异常值。数据表明，Claude 版本的 bug 严重程度并未显著高于历史平均水平，甚至在某些统计维度上表现更好。作者强调，所有数据和图表均由 Python 脚本自动生成，排除了 AI 幻觉或数据篡改的可能。</p>
+
+<h3>社区反馈与讨论</h3>
+<p>该分析发布后，在 Hacker News 和 Lobste.rs 等社区引发了关于指标合理性的讨论。支持者认为，这是用严谨数据回应情绪化指责的有效尝试。然而，批评者指出，该指标过于简化，未能充分区分“拼写错误”与“安全漏洞”对用户实际影响的差异，也未考虑提交代码的复杂度。此外，社区还探讨了使用 openrsync 等替代方案的可行性，以及 AI 辅助开发对开源项目测试覆盖率和维护压力的潜在影响。</p>
+<img src="images/death-threat.png" alt="Threatening drawing" />]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48411635</guid>
+      <pubDate>Fri, 05 Jun 2026 12:43:33 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Conventional Commits 鼓励关注错误的重点</title>
       <link>https://news.ycombinator.com/item?id=48414027</link>
@@ -972,36 +997,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48342705</guid>
       <pubDate>Sun, 31 May 2026 03:16:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 艺术家 Shantell Martin 基于手写体创作的开源字体 Shantell Sans</title>
-      <link>https://news.ycombinator.com/item?id=48341062</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍一款基于艺术家手写体的开源字体项目，属于开源项目范畴，符合用户兴趣，推荐阅读。</small></p><p>艺术家 Shantell Martin 与字体设计师 Stephen Nixon 合作，推出了一款名为 <a href="https://shantellsans.com/process">Shantell Sans</a> 的开源可变字体。该字体基于 Martin 标志性的记号笔手写体创作，旨在打破传统字体的刻板印象，提供兼具专业性与亲和力的排版体验。</p>
-<p><img src="assets/shantell-martin-portrait.jpg" alt="Shantell Martin drawing on a piece of paper" /></p>
-<p><strong>创作初衷与灵感</strong></p>
-<p>Martin 自幼患有阅读障碍（dyslexia），曾因拼写测试不及格而受罚，但她始终热爱文字。受 <a href="https://en.wikipedia.org/wiki/Comic_Sans">Comic Sans</a> 易读且友好的启发，她希望创造一款能让阅读变得轻松、有趣的字体。她认为字体能引发情感共鸣，宽松的字间距和手写感能降低阅读畏惧感，尤其对阅读障碍者更为友好。</p>
-<p><strong>设计特点与技术实现</strong></p>
-<p>Shantell Sans 是一款<strong>可变字体（Variable Font）</strong>，除了常规的字重（Weight）和斜体（Italic）外，还引入了独特的调节轴：</p>
-<ul>
-<li><strong>随意度（Informality）</strong>：模拟手写的不规则感。</li>
-<li><strong>弹跳（Bounce）</strong>：增加字体的动态与趣味性。</li>
-</ul>
-<p>在字符设计上，字体特别注重易混淆字母的区分（如 b/d/p/q、n/u、I/l/1），并采用儿童学习中常见的单层结构（single-story）a 和 g，以提升辨识度。字体支持拉丁字母和西里尔字母，覆盖超过 380 种语言。</p>
-<p><img src="assets/differentiated-letters-diagram.png" alt="Comparison of visual distinctions between potentially similar characters" /></p>
-<p><strong>开源发布与实际应用</strong></p>
-<p>为了让更多人受益，该字体以开放字体许可证（OFL）免费开源，并收录于 Google Fonts。目前，Shantell Sans 已广泛应用于多个领域：</p>
-<ul>
-<li><img src="assets/various-keytags-cleanup.jpg" alt="Shantell Martin Various Keytags for the Whitney Museum of Art" /> 纽约惠特尼博物馆（Whitney Museum）的周边商品。</li>
-<li><img src="assets/in_use-cashapp.png" alt="Shantell Sans in use for a Cash App card design" /> 金融科技平台 Cash App 的定制实体卡。</li>
-<li><img src="assets/in_use-tldraw.png" alt="Shantell Sans in use by tldraw" /> 协作绘图应用 tldraw 的默认字体。</li>
-<li><img src="assets/in_use-universe.png" alt="Shantell Sans in use by univer.se" /> 移动端建站工具 univer.se 的网页模板。</li>
-</ul>
-<p><strong>社区反馈</strong></p>
-<p>在 Hacker News 等社区，该字体获得了高度评价。用户普遍认为它在保持趣味性的同时兼顾了极高的易读性，尤其适合有阅读障碍的群体。可变字体的“随意度”和“弹跳”轴被赞为近年来最具创意的字体轴设计之一。也有开发者表示，其清晰的字符结构使其成为理想的终端（Terminal）或编程字体候选。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48341062</guid>
-      <pubDate>Sat, 30 May 2026 22:06:38 GMT</pubDate>
     </item>
   </channel>
 </rss>
