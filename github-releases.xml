@@ -3,7 +3,61 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 05 Jun 2026 10:12:46 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2026 16:09:11 GMT</lastBuildDate>
+    <item>
+      <title>Superset Desktop v1.12.3 更新：支持文件拖拽上传，修复终端休眠恢复及数据库膨胀问题</title>
+      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 发布了 v1.12.3 版本，本次更新主要聚焦于桌面端交互优化与终端稳定性修复。新增文件拖拽上传功能，移除了远程 Web 终端特性，并重点解决了数据库文件膨胀及终端休眠恢复等关键问题。</p>
+
+<h3>重要功能与改进</h3>
+<ul>
+  <li><strong>文件上传优化</strong>：v2 文件标签页现已支持拖拽上传文件，提升了文件管理效率 <a href="https://github.com/superset-sh/superset/pull/5082">[PR #5082]</a>。</li>
+  <li><strong>功能移除</strong>：移除了远程控制的 Web 终端功能 <a href="https://github.com/superset-sh/superset/pull/5105">[PR #5105]</a>。</li>
+</ul>
+
+<h3>关键修复</h3>
+<ul>
+  <li><strong>数据库性能修复</strong>：停止了 TanStack DB SQLite 的空闲写入操作，有效防止了磁盘占用激增和数据库文件膨胀 <a href="https://github.com/superset-sh/superset/pull/5129">[PR #5129]</a>。</li>
+  <li><strong>终端稳定性提升</strong>：修复了笔记本电脑休眠/唤醒后远程终端无法恢复的问题，并增加了终端恢复时的并发连接保护机制 <a href="https://github.com/superset-sh/superset/pull/5135">[PR #5135]</a> <a href="https://github.com/superset-sh/superset/pull/5137">[PR #5137]</a>。</li>
+  <li><strong>工作区与通知范围限制</strong>：将 v2 通知和端口范围限定在侧边栏可见的工作区内，避免跨工作区干扰 <a href="https://github.com/superset-sh/superset/pull/5134">[PR #5134]</a>。</li>
+  <li><strong>清理逻辑优化</strong>：工作区删除清理逻辑现基于 Git 状态判断，而非依赖错误文本，提高了可靠性 <a href="https://github.com/superset-sh/superset/pull/5138">[PR #5138]</a>。</li>
+</ul>
+
+<h3>其他更新</h3>
+<ul>
+  <li>添加了 Google Ads gtag 追踪功能 <a href="https://github.com/superset-sh/superset/pull/5074">[PR #5074]</a>。</li>
+  <li>修复了 better-auth 和 hono 等依赖包的安全漏洞 <a href="https://github.com/superset-sh/superset/pull/5118">[PR #5118]</a>。</li>
+  <li>修复了 CI 测试任务 <a href="https://github.com/superset-sh/superset/pull/5136">[PR #5136]</a>。</li>
+  <li>将 desktop_version 作为渲染器超级属性附加 <a href="https://github.com/superset-sh/superset/pull/5117">[PR #5117]</a>。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.3</guid>
+      <pubDate>Fri, 05 Jun 2026 14:17:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>Hapi v0.20.0 发布：新增多代理支持、语音交互与多项 UI 优化</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.20.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.20.0 版本已发布。本次更新大幅扩展了对多种编码代理的支持，增强了语音交互能力，并对 Web 界面与桌面端体验进行了多项优化。</p>
+<h3>主要新功能与改进</h3>
+<ul>
+  <li><strong>多代理支持扩展</strong>：新增对 Kimi Code CLI 的支持；Codex 代理支持将本地会话导入 Hapi；Cursor 代理支持模型选择及 <code>/summarize</code>、<code>/clear</code> 斜杠命令；OpenCode 代理新增斜杠命令支持、计划模式、推理努力程度设置及状态遥测。</li>
+  <li><strong>语音交互升级</strong>：语音功能支持动态设置语音选择器与安全回退，并新增可插拔的语音后端，现已支持 Gemini Live 与 Qwen Realtime。</li>
+  <li><strong>Web 界面与交互优化</strong>：聊天消息新增时间戳显示；支持聊天图片的灯箱预览；会话列表新增状态指示器（注意力与已排期）；新增每会话的 scratchlist（工作台）面板；支持导出会话对话记录；修复移动端模态框关闭按钮及用户提示换行保留等问题。</li>
+  <li><strong>其他改进</strong>：新增 <code>display_image</code> MCP 工具用于内联图片展示；对齐 Claude 努力程度选项与 Claude Code 的 <code>--effort</code> 级别；更新贡献文档策略。</li>
+</ul>
+<h3>其他修复与更新</h3>
+<ul>
+  <li><strong>Web 端修复</strong>：修复了无障碍属性、会话预览折叠、SSE 连接保持、消息 ID 唯一性及滚动恢复等交互问题。</li>
+  <li><strong>Hub 与 CLI 修复</strong>：修复了权限模式持久化、跳过冗余 RPC 调用及队列状态更新问题；解决了 Windows 平台上的 Claude npm shim、PowerShell 执行问题及 spawn 窗口隐藏等兼容性缺陷。</li>
+  <li><strong>底层逻辑与依赖</strong>：修复了 Claude 上下文窗口传播、权限模式变更应用、ACP 数据冲刷及使用量发射等逻辑问题；升级了 <code>@tanstack/react-router</code> 依赖，并优化了集成测试的隔离机制。</li>
+</ul>
+<p>本次更新由多位新贡献者共同参与，完整变更记录可查阅：<a href="https://github.com/tiann/hapi/compare/v0.18.4...v0.20.0">Full Changelog</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.20.0</guid>
+      <pubDate>Fri, 05 Jun 2026 13:50:37 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.165 版本更新</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.165</link>
@@ -1275,128 +1329,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.8.8</guid>
       <pubDate>Fri, 08 May 2026 17:23:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.136 发布：新增企业调查功能，修复多项重要 bug</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.136</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布版本 v2.1.136，本次更新主要新增了面向企业的会话质量调查功能，并修复了多个重要 bug，包括 MCP 服务器消失、登录循环、OAuth 令牌丢失等问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增企业调查功能</strong>：添加 <code>CLAUDE_CODE_ENABLE_FEEDBACK_SURVEY_FOR_OTEL</code> 环境变量，为通过 OpenTelemetry 收集响应的企业重新启用会话质量调查。</li>
-<li><strong>新增自动模式规则</strong>：添加 <code>settings.autoMode.hard_deny</code> 配置，用于自动模式分类器规则，可无条件阻止操作，无论用户意图如何或是否允许例外。</li>
-<li><strong>修复 MCP 服务器消失问题</strong>：修复了在 VS Code 扩展、JetBrains 插件和 Agent SDK 中执行 <code>/clear</code> 命令后，<code>.mcp.json</code>、插件和 claude.ai 连接器中配置的 MCP 服务器静默消失的问题。</li>
-<li><strong>修复登录循环</strong>：修复了罕见的登录循环问题，该问题因并发凭证写入覆盖了新轮换的 OAuth 令牌而强制重新登录。</li>
-<li><strong>修复 MCP OAuth 刷新令牌丢失</strong>：修复了多个服务器并发刷新时 MCP OAuth 刷新令牌丢失的问题，配置了多个远程 MCP 服务器的用户不再需要每日重新认证。</li>
-<li><strong>修复 API 错误</strong>：修复了扩展思考在工具调用后发出编辑思考块时出现的 API 错误（400）。</li>
-<li><strong>修复会话恢复问题</strong>：修复了 <code>--resume</code> / <code>--continue</code> 在项目路径包含下划线时找不到会话的问题。</li>
-<li><strong>修复计划模式文件写入控制</strong>：修复了计划模式在存在匹配的 <code>Edit(...)</code> 允许规则时未阻止文件写入的问题。</li>
-<li><strong>WSL2 图像粘贴改进</strong>：WSL2 环境下，当 xclip/wl-paste 无法读取图像数据时，现在可以通过 PowerShell 回退机制从 Windows 剪贴板粘贴图像。</li>
-<li><strong>修复插件钩子失败</strong>：修复了缓存清理删除仍在运行会话中使用的版本时，插件 <code>Stop</code>/<code>UserPromptSubmit</code> 钩子失败的问题。</li>
-</ul>
-
-<h3>其他改进和修复</h3>
-<ul>
-<li>改进了斜杠命令对话框的视觉一致性：标准化了底部提示、对话框间距和箭头键样式，对话框框架在加载期间立即显示而非延迟弹出。</li>
-<li>修复了 bash 命令输出和 markdown 代码块中颜色显示位置错误的问题。</li>
-<li>修复了 ReasonML 差异渲染在单词差异边界处显示损坏的 "undefined" 文本的问题。</li>
-<li>修复了工作树移除后关于错误目录中未提交文件的退出对话框警告。</li>
-<li>修复了 <code>@</code> 文件选择器在小型非 git 目录中无法匹配会话期间创建的文件的问题。</li>
-<li>修复了 <code>@</code> 提及文件选择器在包含超过 100 个条目的目录中找不到文件的问题。</li>
-<li>修复了全屏模式下输出被截断时，失败的工具调用无法点击展开的问题。</li>
-<li>修复了在具有持久扩展键模式的终端上使用 Ctrl+G 打开外部编辑器后，Backspace 和 Ctrl+Backspace 键功能互换的问题。</li>
-<li>修复了 <code>/usage</code> 每周重置显示时间而非日历日期的问题。</li>
-<li>修复了欢迎横幅省略号在 CJK 终端上导致列溢出的问题。</li>
-<li>修复了会话历史包含输入字段格式错误的工具调用时 <code>/insights</code> 崩溃的问题。</li>
-<li>修复了工具的可折叠性分类在会话期间更改时导致的渲染器崩溃。</li>
-<li>修复了 <code>plugin.json</code> 中的 <code>skills</code> 条目隐藏插件默认 <code>skills/</code> 目录的问题，现在列出文件路径时会显示错误而非静默失败。</li>
-<li>修复了 IDE shell-integration 锁文件未遵循 <code>CLAUDE_CONFIG_DIR</code> 的问题。</li>
-<li>修复了流式传输期间复制的终端输出中包含尾随空格的问题。</li>
-<li>修复了插件卸载和启用/禁用功能未对 slug 进行大小写不敏感匹配的问题。</li>
-<li>修复了工具错误截断标记对代理对字符串显示负数计数的问题。</li>
-<li>修复了 <code>CLAUDE_ENV_FILE</code> SessionStart 钩子的环境变量在 <code>/resume</code> 或 <code>/clear</code> 后变得陈旧的问题。</li>
-<li>修复了 <code>/branch</code> 在给定粘贴的多行名称时保存多行会话标题的问题。</li>
-<li>修复了在列边界处换行文本第二行的前导空格问题。</li>
-<li>修复了 Esc 键无法关闭 <code>/install-github-app</code>、<code>/desktop</code>、<code>/resume</code> 和 <code>/web-setup</code> 对话框的问题。</li>
-<li>修复了 <code>/doctor</code> MCP 模式错误未显示缺失字段名称或源文件路径的问题。</li>
-<li>修复了 Bash 权限提示显示内部解析器诊断信息而非用户可读解释的问题。</li>
-<li>修复了带空格的插件斜杠命令（如 <code>/myplugin review</code>）未解析为其命名空间形式的问题。</li>
-<li>修复了 <code>AskUserQuestion</code> 在以数组形式提供多选答案时丢弃答案的问题。</li>
-<li>修复了 <code>/clear &lt;name&gt;</code> 未为 <code>/resume</code> 标记已清除会话的问题。</li>
-<li>修复了 <code>CronList</code> 输出缺少限定符和计划提示的问题。</li>
-<li>修复了“跳到底部”覆盖层在 CJK 字符上留下颜色痕迹的问题。</li>
-<li>修复了宽 markdown 表格在流式传输时在终端滚动历史中留下陈旧边框渲染的问题。</li>
-<li>修复了当带有粘贴文本占位符的长提示被自动截断时，粘贴的文本被静默丢弃的问题。</li>
-<li>修复了 <code>/release-notes</code> 在变更日志刷新失败后停留在旧版本的问题。</li>
-<li>修复了 <code>/mcp</code> 服务器列表在服务器数量超过终端显示范围时无法滚动的问题。</li>
-<li>修复了在初始斜杠命令后，输入过程中的斜杠命令自动补全无法工作的问题。</li>
-<li>修复了在 <code>autoScrollEnabled: false</code> 时滚动到底部重新启用自动跟随的问题。</li>
-<li>修复了提示建议在空输入时被 Enter 键自动提交而非需要 Tab 或箭头键接受的问题。</li>
-<li>修复了键盘快捷键提示未反映 <code>keybindings.json</code> 中重新绑定的键的问题。</li>
-<li>修复了 <code>/settings</code> 语言更改在确认后按 Escape 键被还原的问题。</li>
-<li>修复了 <code>/terminal-setup</code> 仅在完全名称匹配而非部分前缀匹配时出现在自动补全中的问题。</li>
-<li>修复了在 <code>AskUserQuestion</code> 对话框上“Chat about this”擦除问题文本的问题。</li>
-<li>修复了 MCP 工具结果在服务器返回内容块时不可见的问题。</li>
-<li>改进了 <code>--worktree</code> 与现有或陈旧工作树冲突时的错误消息。</li>
-<li>将插件市场移除键从 <code>r</code>（与其他地方的删除键冲突）更改为 <code>d</code>。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.136</guid>
-      <pubDate>Fri, 08 May 2026 18:39:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.17.4 发布：支持 Codex 0.129，新增 Web 会话大纲和侧边栏搜索功能</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.17.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi 发布了 v0.17.4 版本，主要增加了对 Codex 0.129 的支持，并带来了多项 Web 界面和功能改进。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>Codex 支持升级</strong>：支持 Codex 0.129 版本，新增斜杠命令控制和技能发现功能</li>
-<li><strong>Web 界面增强</strong>：
-  <ul>
-    <li>新增 Web 会话大纲功能</li>
-    <li>添加侧边栏搜索和按组预览限制</li>
-    <li>支持折叠长代码和终端输出预览</li>
-    <li>显示消息元数据（调用时间、持续时间、模型）</li>
-  </ul>
-</li>
-<li><strong>多工作区支持</strong>：新增多工作区根目录支持功能</li>
-<li><strong>Codex 多代理时间线</strong>：添加 Codex 多代理时间线支持</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li><strong>Web 界面优化</strong>：
-  <ul>
-    <li>在工具对话框中显示子代理任务跟踪</li>
-    <li>队列消息在调用前浮动显示在编辑器上方</li>
-    <li>取消队列消息功能</li>
-    <li>可配置的 Enter 键行为设置</li>
-    <li>优化会话搜索和排序</li>
-  </ul>
-</li>
-<li><strong>功能修复</strong>：
-  <ul>
-    <li>修复恢复非活动会话时应用所选权限模式的问题</li>
-    <li>改进 Codex 事件的 Web 渲染</li>
-    <li>修复 Windows 上隐藏 Codex 应用服务器控制台窗口</li>
-    <li>修复会话历史恢复稳定性</li>
-  </ul>
-</li>
-<li><strong>模型支持增强</strong>：
-  <ul>
-    <li>OpenCode 支持模型选择和会话中模型切换</li>
-    <li>Gemini 模型支持会话中通过 ACP RPC 切换模型</li>
-  </ul>
-</li>
-</ul>
-
-<p>此版本还修复了多个 CLI 和 Web 界面的问题，并迎来了 6 位新贡献者的首次贡献。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.17.4</guid>
-      <pubDate>Fri, 08 May 2026 11:14:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
