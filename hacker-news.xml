@@ -3,7 +3,19 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 06 Jun 2026 21:15:55 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2026 22:17:39 GMT</lastBuildDate>
+    <item>
+      <title>超越 fork() + exec()：Linux 进程创建机制的演进探讨</title>
+      <link>https://news.ycombinator.com/item?id=48425528</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要探讨Linux底层进程创建机制的演进，偏向系统底层技术与基础设施范畴，与用户配置的兴趣主题匹配度不高，故标记为可选。</small></p><p>长期以来，Unix 和 Linux 系统依赖 <code>fork()</code> 和 <code>exec()</code> 系统调用来创建进程。尽管这一模型设计优雅，但 <code>fork()</code> 需要复制整个进程状态（包括内存页表等结构），开销较大。更糟糕的是，<code>fork()</code> 后往往紧跟 <code>exec()</code>，导致之前复制的内存被直接丢弃。</p>
+<p>近期，开发者 Li Chen 提出了一项名为 <a href="https://lwn.net/SubscriberLink/1076018/16f01bbbb8e0d1f0/">"spawn templates"（生成模板）</a> 的内核补丁集，试图优化这一模式。该提案引入了 <code>spawn_template_create()</code> 和 <code>spawn_template_spawn()</code> 系统调用，允许应用程序为频繁运行的可执行文件建立模板并缓存信息，从而加速后续调用。基准测试显示该方案能带来约 2% 的性能提升，但该补丁集最终未被内核接受。</p>
+<p>在内核开发者的评审中，Mateusz Guzik 指出优化的重点应放在彻底消除 <code>fork()</code> 的复制开销上，而非仅仅优化 <code>exec()</code> 部分。Christian Brauner 则建议基于现有的 <code>pidfd</code> 抽象构建全新的 API（例如通过 <code>pidfd_open()</code> 创建空进程，再用 <code>pidfd_config()</code> 配置环境），目标是支持用户空间原生实现 <a href="https://en.wikipedia.org/wiki/Posix_spawn">posix_spawn()</a>，从而彻底取代传统的 <code>fork()/exec()</code> 模式。</p>
+<p>社区对此展开了广泛讨论。许多开发者指出，在现代多线程或大内存应用中，<code>fork()</code> 复制页表和 VMA（虚拟内存区域）的开销确实显著。讨论还涉及了 <code>io_uring</code> 在进程创建中的应用潜力、<code>vfork()</code> 与写时复制（Copy-on-Write, COW）的权衡，以及 Windows 系统基于线程优先设计导致的进程创建性能差异。此外，Android 等系统中广泛使用的 <a href="https://en.wikipedia.org/wiki/Zygote_(Android)">Zygote 模式（受精卵模式）</a> 也被提及，作为一种在应用启动期派生进程以共享内存的优化手段。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48425528</guid>
+      <pubDate>Sat, 06 Jun 2026 14:34:20 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 《宝可梦 绿宝石》移植 WebAssembly 实现 100k FPS 极速运行</title>
       <link>https://news.ycombinator.com/item?id=48423762</link>
@@ -984,22 +996,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48345694</guid>
       <pubDate>Sun, 31 May 2026 13:53:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>取消 AI 订阅：是止损还是错失学习良机？</title>
-      <link>https://news.ycombinator.com/item?id=48345896</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 探讨AI订阅服务的取消决策与学习成本，虽非模型公告或技术进展，但涉及AI使用成本与体验，兴趣度中等。</small></p><p>近日，<a href="https://thoughts.hmmz.org/2026-05-31.html">一篇探讨 AI 订阅价值的文章</a>在 Hacker News 引发热议。作者反思了自己在使用 AI 辅助开发期间创建的大量小项目，指出这些项目缺乏长期承诺且未产生实际收入，认为取消订阅或许是解决问题的方案。</p>
-<p>社区反馈围绕 AI 工具对开发者工作模式的影响展开了深入讨论：</p>
-<ul>
-<li><strong>注意力碎片化与 ADHD 放大效应</strong>：多位用户指出，AI 极大地降低了技术门槛，但也像“老虎机”一样捕获了注意力。它被称为“热核 ADHD 放大器”，导致许多人同时追逐多个不相关的项目。有经验的 ADHD 开发者建议，应将 AI 用于维护单一核心产品，倾注心血，而非不断追逐新玩具。</li>
-<li><strong>学习价值 vs. 实际产出</strong>：争议焦点在于构建这些 AI 项目的意义。支持者认为，探索新工具本身就是学习过程，创造出的代码只是副产品；反对者则指出，若不产生实际成果或深入理解，这种“无脑参与”只是纯粹的浪费，甚至剥夺了亲手编码带来的乐趣与成长。</li>
-<li><strong>工具的本质：延伸还是替代？</strong>：讨论延伸至媒介理论，有观点认为 AI 并非像计算器那样延伸人类能力，而是直接替代了思考过程。正如一位资深导师所言：“AI 是力的乘数，但前提是你得先有“力”可乘。”（参见 <a href="https://news.ycombinator.com/item?id=48254336">相关讨论</a>）</li>
-</ul>
-<p>总体而言，社区共识认为 AI 订阅本身并非原罪，真正的挑战在于如何克服工具带来的注意力陷阱，培养在无需外部强制下依然追求卓越的新工程严谨性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48345896</guid>
-      <pubDate>Sun, 31 May 2026 14:23:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
