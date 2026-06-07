@@ -3,7 +3,31 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 07 Jun 2026 18:17:15 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jun 2026 20:23:05 GMT</lastBuildDate>
+    <item>
+      <title>devbox 0.17.3 发布：支持声明式 Shell 别名、自动激活 Corepack 及 AI 代理集成</title>
+      <link>https://github.com/jetify-com/devbox/releases/tag/0.17.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>devbox 0.17.3 发布：支持声明式 Shell 别名、自动激活 Corepack 及 AI 代理集成</h3>
+<p>Jetify 发布了 devbox 0.17.3 版本，主要引入了配置管理、Node.js 环境优化以及 AI 代理集成等新功能，并修复了若干关键问题。</p>
+<h4>✨ 新功能</h4>
+<ul>
+  <li><strong>声明式 Shell 别名</strong>：在 <code>devbox.json</code> 中新增顶层 <code>aliases</code> 配置项，允许用户直接定义 shell 别名，兼容 bash、zsh 和 fish 等主流 Shell。别名支持跨插件合并，且可通过 <code>devbox run &lt;alias&gt;</code> 在非交互式环境中执行。</li>
+  <li><strong>Node.js 自动激活 Corepack</strong>：当启用 Corepack 时，nodejs 插件会自动读取 <code>package.json</code> 中的 <code>packageManager</code> 字段，并执行 <code>corepack prepare --activate</code> 命令，确保项目指定的 pnpm/yarn/npm 版本在 Shell 中就绪。用户可通过设置 <code>DEVBOX_DISABLE_NODEJS_PACKAGE_MANAGER_AUTODETECT=1</code> 环境变量关闭此功能。</li>
+  <li><strong>AI 编码代理集成</strong>：新增 <code>use-devbox</code> agent skill，使 AI 编码代理能够自动发现项目的 devbox 环境，并在隔离环境中安全执行命令。</li>
+</ul>
+<h4>🐛 Bug 修复与维护</h4>
+<ul>
+  <li>修复了 <code>devbox update</code> 命令未能正确刷新 flake refs 锁定修订的问题。</li>
+  <li>nginx 插件现内置 <code>mime.types</code> 文件，解决静态文件 <code>Content-Type</code> 识别错误的问题。</li>
+  <li>升级 process-compose 版本，修复服务运行时的额外 stderr 输出。</li>
+  <li>更新测试用例及 README 演示视频。</li>
+</ul>
+<p>完整更新日志：<a href="https://github.com/jetify-com/devbox/compare/0.17.2...0.17.3">https://github.com/jetify-com/devbox/compare/0.17.2...0.17.3</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.17.3</guid>
+      <pubDate>Sun, 07 Jun 2026 19:33:53 GMT</pubDate>
+    </item>
     <item>
       <title>kitty 终端模拟器发布 v0.47.2 版本</title>
       <link>https://github.com/kovidgoyal/kitty/releases/tag/v0.47.2</link>
@@ -1220,52 +1244,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.141</guid>
       <pubDate>Wed, 13 May 2026 23:19:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.9.1发布：新增浏览器远程控制、v2终端增强和团队功能</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.9.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 桌面应用发布了 v1.9.1 版本，带来多项重要功能改进和优化。</p>
-
-<h3>重要功能更新</h3>
-<ul>
-<li><strong>浏览器远程控制</strong>：新增浏览器对 v2 桌面终端的远程控制功能</li>
-<li><strong>v2 终端增强</strong>：通过生命周期钩子在 v2 终端面板显示代理图标</li>
-<li><strong>工作空间管理</strong>：添加基于预设的工作空间运行功能，修复创建和删除导航稳定性</li>
-<li><strong>CLI 命令扩展</strong>：新增 <code>workspaces open</code>、<code>projects create</code>、<code>projects setup</code> 等命令</li>
-<li><strong>团队功能</strong>：将团队作为组织的一级原语添加，支持团队管理</li>
-</ul>
-
-<h3>UI/UX 改进</h3>
-<ul>
-<li><strong>侧边栏优化</strong>：使 v2 变更侧边栏可滚动，顶部栏显示工作空间和分支信息</li>
-<li><strong>菜单系统</strong>：新增文件菜单，重命名仓库添加选项</li>
-<li><strong>终端界面</strong>：在 v2 标签栏显示后台终端会话，恢复移至后台按钮</li>
-<li><strong>视觉增强</strong>：启动加载 logo 添加渐变动画擦除效果</li>
-<li><strong>布局调整</strong>：为差异评论线程添加复制操作并收紧布局</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-<li>修复关闭最后一个工作空间后项目在侧边栏保持显示的问题</li>
-<li>修复主机服务工作树采用和 PR 查询性能问题</li>
-<li>修复 OAuth 注册阻塞问题，为自动默认团队提供 slug</li>
-<li>修复 v2 工作空间对不稳定主机在线状态的依赖</li>
-<li>修复侧边栏在 Electric 缓慢时卡在"创建中"状态的问题</li>
-</ul>
-
-<h3>其他优化</h3>
-<ul>
-<li>样式调整：终端日志按钮从琥珀色改为灰色</li>
-<li>Codex 改进：使用最宽松的预设标志，恢复 v2 资源监控</li>
-<li>CLI 集成：将 CLI 捆绑到桌面应用中</li>
-<li>版本管理：固定确切版本并要求 3 天发布年龄</li>
-</ul>
-
-<p>此版本显著提升了 Superset Desktop 的用户体验，特别是在终端控制、工作空间管理和团队协作方面。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.9.1</guid>
-      <pubDate>Tue, 12 May 2026 21:16:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
