@@ -3,7 +3,59 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 07 Jun 2026 20:22:42 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jun 2026 22:19:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linear 为何如此快速？深度解析其本地优先架构与性能优化策略</title>
+      <link>https://news.ycombinator.com/item?id=48437609</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要解析 Linear 的本地优先架构与性能优化策略，属于编程工具深度分享与效率改进经验，符合高兴趣配置。</small></p><h2>核心架构：本地优先与乐观更新</h2>
+<p>Linear 的速度并非依赖单一“银弹”，而是从底层架构开始就针对性能进行了极致优化。其核心在于将浏览器作为用户的本地数据库（<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/IndexedDB_API">IndexedDB</a>），结合 <a href="https://mobx.js.org/">MobX</a> 响应式系统进行数据管理。</p>
+<p>传统 CRUD 应用通常遵循“点击 -> 发送 HTTP 请求 -> 等待服务器响应 -> 更新 UI”的循环，这会导致数百毫秒的延迟。而 Linear 采用了<strong>本地优先（Local-first）</strong>与<strong>乐观更新（Optimistic Updates）</strong>策略：用户操作时，UI 立即在内存中同步更新，随后在后台异步将变更推送到服务器。这种设计彻底消除了加载状态（如 Spinner），让应用体验如同原生应用般流畅。</p>
+<img src="https://media.performance.dev/cdn-cgi/image/width=893,quality=100,format=auto,fit=scale-down/posts/p_gAMR6Z7y49Fp/yLYBhiiY_FsV.jpg" alt="How's Linear so fast? A technical breakdown" width="893" height="502" />
+
+<h2>极简的技术栈与客户端渲染</h2>
+<p>Linear 的技术栈出乎意料地简单：前端使用 <a href="https://react.dev/">React</a>、<a href="https://www.typescriptlang.org/">TypeScript</a> 和 <a href="https://mobx.js.org/">MobX</a>，后端使用 Node.js 和 PostgreSQL。作者特别指出，Linear 坚持使用<strong>客户端渲染（CSR）</strong>，避免了服务器端渲染（SSR）带来的复杂性。通过简单的架构和约束，Linear 构建了一个清晰的心智模型，同时利用 <a href="https://github.com/jakearchibald/idb">idb</a> 等工具高效管理本地数据。</p>
+
+<h2>首屏加载优化：让应用“瞬间”打开</h2>
+<p>为了消除首屏加载的等待时间，Linear 在构建和加载阶段采取了多项激进措施：</p>
+<ul>
+<li><strong>极致的代码分割（Code Splitting）：</strong> 放弃对旧浏览器的支持（移除 Polyfills），将代码拆分为数百个路由级别的 Chunk。每个 npm 包独立成 Chunk，优化了缓存策略。</li>
+<li><strong>预加载（Preloading）：</strong> 在 JS 执行前，通过 <code>&lt;link rel="modulepreload"&gt;</code> 并行请求所有关键 Chunk，打破了传统的串行瀑布流加载模式。</li>
+<li><strong>Service Worker 缓存：</strong> 在后台缓存未访问的路由 Chunk，实现离线可用和极速导航。</li>
+<li><strong>内联应用外壳（Inlined App Shell）：</strong> 在 <code>&lt;head&gt;</code> 中内联必要的 CSS，确保在外部样式表加载前即可渲染加载状态。</li>
+</ul>
+
+<h2>细节优化：字体与构建工具演进</h2>
+<p>在字体加载上，Linear 使用可变字体（Variable fonts）减少请求，并正确配置 <code>font-display: swap</code> 和 <code>crossorigin</code> 避免重绘。此外，其构建工具经历了 Parcel -> Rollup -> Vite -> Rolldown 的多次演进，目标始终是减少打包体积和提升开发体验。</p>
+<img src="https://media.performance.dev/cdn-cgi/image/width=400,quality=100,format=auto,fit=scale-down/posts/p_gAMR6Z7y49Fp/2__J_PuPKayE.jpg" alt="Vendor bundle composition" width="400" height="374" />
+
+<h3>你知道吗？</h3>
+<p><strong>本地优先（Local-first）与 CRDT：</strong> 为了实现多设备间的数据同步，许多本地优先应用（如 Linear）会使用 <a href="https://crdt.tech/">CRDT（无冲突复制数据类型）</a>。CRDT 允许数据在离线状态下被多个客户端独立修改，并在重新联网时自动合并冲突，无需中央服务器协调。这种技术不仅提升了响应速度，还天然支持了离线编辑和实时协作功能。</p>
+
+<h3>社区反馈</h3>
+<p>文章发布后引发了关于“300ms 延迟”和“乐观更新风险”的讨论。部分开发者指出，通过优化后端和边缘计算，传统 CRUD 应用也能达到 30ms 级别的响应速度；同时，也有用户担心乐观更新在网络失败时的回滚机制。不过，Linear 团队表示他们通过完善的同步状态提示和后台重试机制，已将回滚对用户的影响降至最低。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48437609</guid>
+      <pubDate>Sun, 07 Jun 2026 19:01:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Lathe：利用 LLM 生成动手实践教程，辅助深度学习而非直接代劳</title>
+      <link>https://news.ycombinator.com/item?id=48433756</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍 Lathe 项目利用 LLM 生成技术教程，结合 AI 软件技术进展与开源项目特点，且作为辅助学习的工具，符合高兴趣配置。</small></p><p>Lathe 是一个实验性工具，旨在利用大语言模型（LLM）生成<strong>动手实践型（hands-on）</strong>技术教程，引导用户通过手动输入代码来深入学习新领域，而非直接代劳。</p>
+<p>与传统 LLM 直接输出完整代码不同，Lathe 生成的教程包含目录导航、思考提示、练习题和来源引用。用户可以在本地 Web UI 中阅读教程，并通过 LLM 技能（Skills）对内容进行提问、验证代码是否可编译运行，或扩展新章节。</p>
+<img src="/devenjarvis/lathe/raw/main/docs/img/read-tutorial.png" alt="Reading a tutorial in the Lathe UI" width="800" />
+<p>该项目由 Go 编写的 CLI 工具与 Claude Code、Cursor 或 Codex 等 LLM 代理技能结合使用。教程数据在本地持久化存储，支持搜索、过滤和管理。作者表示，其初衷是弥补那些缺乏人类编写教程的冷门技术领域的空白，重现过去通过手动编写代码获得“顿悟”的学习体验。</p>
+<img src="/devenjarvis/lathe/raw/main/docs/img/tutorial-selection-light-mode.png" alt="Browsing tutorials in lathe (light mode)" width="800" />
+<p>HN 社区对此项目反响积极，认为这是一种理智且高效利用 LLM 的方式，能有效降低新项目的入门门槛。部分用户询问了与 NotebookLM 等产品的区别，作者指出 Lathe 更侧重于结构化教程的本地持久化管理和手动交互学习。</p>
+<img src="/devenjarvis/lathe/raw/main/docs/img/table-of-contents.png" alt="Table of contents in generated lathe tutorial" width="800" />
+<p>如果你希望深入了解某个冷门技术栈，或厌倦了 LLM 直接代劳剥夺学习乐趣，Lathe 提供了一个值得尝试的替代方案。项目开源地址：<a href="https://github.com/devenjarvis/lathe" rel="nofollow">https://github.com/devenjarvis/lathe</a></p>
+<h3>你知道吗？</h3>
+<p><strong>动手学习（Hands-on Learning）</strong>在教育心理学中被证明是极其有效的学习方式。与被动阅读或复制粘贴代码不同，手动输入代码要求大脑进行更深层的信息处理，包括语法检查、逻辑构建和错误调试。这种“认知负荷”虽然增加了初期的学习阻力，但能显著增强长期记忆和概念理解，帮助用户真正掌握底层原理而非仅仅停留在表面应用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48433756</guid>
+      <pubDate>Sun, 07 Jun 2026 11:16:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Python 指导委员会要求暂停 JIT 编译器开发，需提交正式 PEP</title>
       <link>https://news.ycombinator.com/item?id=48425982</link>
@@ -934,54 +986,6 @@ Bright Data 公开了一份合作伙伴清单，包括 PlayWorks、CloudTV 等�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48359130</guid>
       <pubDate>Mon, 01 Jun 2026 16:33:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>KDE 三十而立：回顾开源桌面环境的辉煌历程与未来展望</title>
-      <link>https://news.ycombinator.com/item?id=48357355</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 虽然涉及知名的开源项目 KDE，但主要内容为回顾历史（三十而立），属于历史/旧闻性质，故归为可选</small></p><p>KDE 项目迎来 30 周年庆典，回顾其从 1995 年 Qt 框架创建至今的辉煌历程。作为致力于为用户提供数字生活控制权、自由和隐私的开源社区，KDE 在过去三十年中推出了众多经典桌面环境与应用，并见证了 Linux 桌面生态的演变。</p>
-<p><img src="https://kde.org/anniversaries/30/30Kori_1500.png" alt="KDE 30周年庆典标志" /></p>
-<p>KDE 的发展史是一部开源社区的奋斗史。1996 年，Matthias Ettrich 宣布创建 KDE（最初意为 Kool Desktop Environment），旨在为 Unix 系统提供友好的图形界面。随后，KDE 1、KDE 3 和 KDE 4 等版本相继发布，不断革新桌面体验。2014 年推出的 Plasma 5 引入了全新的硬件加速图形栈，而 2024 年的 Plasma 6 则全面转向 Wayland 显示协议和 Qt 6 框架。2021 年，Valve 选择 KDE Plasma 作为 Steam Deck 的默认桌面环境，标志着 KDE 在硬件领域的重大突破。2025 年，KDE 更是推出了全新的操作系统 KDE Linux（代号 Project Banana）。</p>
-<p><img src="https://timeline.kde.org/images/kde_deck.jpg" alt="KDE Plasma 运行在 Steam Deck 上" /></p>
-<p>除了桌面环境，KDE 的开源贡献还深远影响了互联网。其开发的 KHTML 网页引擎成为了 Apple WebKit 和 Google Blink 的基础，这意味着 Safari、Chrome 等现代主流浏览器都间接源自 KDE 的技术。此外，KDE 还曾助力火星探测任务，NASA 工程师在飞往火星途中曾使用 KDE 3 工作站进行故障排除。</p>
-<p><img src="https://kde.org/anniversaries/30/oppy_timestamped.png" alt="NASA 工程师在飞往火星途中使用 KDE 3 工作站进行故障排除" /></p>
-<p>在 30 周年之际，KDE 社区发起了“30 for 30”环保挑战，并呼吁用户通过捐款或成为支持会员来维持项目的可持续发展。Hacker News 社区用户对此反响热烈，许多人分享了使用 KDE 桌面和应用程序（如 Krita、Kate、Okular）的怀旧经历，并对 Plasma 桌面的高度可定制性和现代性能表示赞赏。同时，社区也讨论了 KDE 逐步放弃 X11 转向 Wayland 的未来规划。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48357355</guid>
-      <pubDate>Mon, 01 Jun 2026 14:31:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 斯坦福 CS336：从零构建语言模型课程介绍</title>
-      <link>https://news.ycombinator.com/item?id=48357075</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍从零构建语言模型的课程，涉及 AI 核心技术进展，属于感兴趣的内容</small></p><p>斯坦福大学 <a href="https://cs336.stanford.edu/">CS336：从零构建语言模型（Language Modeling from Scratch）</a> 课程（2026年春季）正式开放。该课程由 Tatsunori Hashimoto 和 Percy Liang 联合授课，旨在通过完整的实践项目，让学生深入掌握语言模型（Language Models, LMs）的底层构建与优化。</p>
-<img src="/assets/images/stanford-nlp-logo-new.jpg" alt="Stanford Natural Language Processing Group logo" width="195" height="120" />
-<img src="/assets/images/crfm-rgb.png" alt="Stanford Center for Research on Foundation Models logo" width="192" height="120" />
-<p>课程借鉴了操作系统课程的设计思路，要求学生从零开始完成数据清洗、Transformer 架构搭建、模型训练、评估到部署的全流程。与常规 AI 课程不同，CS336 强调高强度的代码实现与系统优化，学生需使用 Python 和 PyTorch 编写大量底层代码，并掌握 GPU 分布式训练与内存优化等系统级概念。</p>
-<p><strong>师资团队：</strong></p>
-<ul>
-<li>讲师：Tatsunori Hashimoto、Percy Liang</li>
-<li>助教：Herman Brunborg、Marcel Rød、Steven Cao</li>
-</ul>
-<img src="/assets/images/thashim.jpeg" alt="Tatsunori Hashimoto headshot" width="120" height="120" />
-<img src="/assets/images/pliang.jpeg" alt="Percy Liang headshot" width="120" height="120" />
-<img src="/assets/images/brunborg.jpg" alt="Herman Brunborg headshot" />
-<img src="/assets/images/mroed.jpg" alt="Marcel Rod headshot" />
-<img src="/assets/images/shcao.jpg" alt="Steven Cao headshot" />
-<p><strong>先修要求：</strong>课程要求具备扎实的 Python 编程能力、深度学习与系统优化经验（熟悉 PyTorch 及内存层次结构），以及微积分、线性代数、概率统计和机器学习基础。</p>
-<p><strong>课程作业：</strong>共包含五个核心作业与一个可选模块：</p>
-<ul>
-<li>作业 1：实现 Tokenizer、模型架构与优化器，训练基础 Transformer 语言模型。</li>
-<li>作业 2：使用高级工具进行性能分析，用 Triton 实现 FlashAttention2 优化注意力机制，并构建内存高效的分布式训练代码。</li>
-<li>作业 3：理解 Transformer 各组件功能，通过查询训练 API 拟合缩放定律（Scaling Laws）。</li>
-<li>作业 4：处理原始 Common Crawl 数据，进行过滤与去重以优化预训练数据质量。</li>
-<li>作业 5：结合监督微调（SFT）与强化学习（RL）训练模型解决数学推理问题，可选模块涉及 DPO 等安全对齐方法。</li>
-</ul>
-<p><strong>社区反馈与学习建议：</strong></p>
-<p>课程助教 Marcel Rød 表示，今年主要更新了分布式训练、缩放定律拟合及强化学习对齐等作业内容。对于希望自学的学习者，课程提供了完整的 YouTube 视频讲座与代码材料。关于硬件需求，课程官网推荐了 Modal、Lambda Labs 等提供 B200 GPU 的云服务，但社区讨论指出初学者完全可以使用消费级显卡（如 RTX 4090）甚至 CPU 进行前期调试与基础训练。此外，有学习者自发组织了线上学习小组，建议结合斯坦福 CS224N 等先修课程视频共同学习，以更好地应对高强度的实践挑战。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48357075</guid>
-      <pubDate>Mon, 01 Jun 2026 14:10:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
