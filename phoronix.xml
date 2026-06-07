@@ -3,7 +3,73 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 07 Jun 2026 00:15:44 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jun 2026 14:19:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Wayland Protocols 1.49 发布：增强多 GPU 支持、Windows HDR 处理与分数缩放</title>
+      <link>https://www.phoronix.com/news/Wayland-Protocols-1.49</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Wayland 协议更新及多 GPU 支持改进，属于 Linux 桌面技术发展，符合用户兴趣配置</small></p><p>Wayland 核心协议集的最新版本 <b>Wayland Protocols 1.49</b> 已由 Simon Ser 正式发布。本次更新主要聚焦于提升多 GPU 环境下的兼容性、优化 Windows HDR 内容处理，并引入实验性的分数缩放协议。</p>
+<p>在多 GPU 支持方面，本次更新对 <code>linux-dmabuf-v1</code> 协议进行了重要改进。长期以来，在多 GPU 系统中，当客户端在非主合成器设备上渲染时，无法确认 <b>DMA-BUF</b> 缓冲区导入是否成功。此次更新后，合成器可以明确声明系统支持的多设备信息，并告知客户端其能够成功采样的格式与修饰符（modifiers）。该功能主要由 KDE 开发者 Xaver Hugl 自 2023 年起推动开发，现已正式落地。</p>
+<p>此外，<code>color-management-v1</code> 协议新增了对 <b>Windows BT.2100</b> 图像描述请求的支持。这一由 Xaver Hugl 贡献的更新，使得 Wayland 合成器能够针对 Windows 系统的 HDR 内容实施特殊的色彩管理处理，从而提升跨平台视觉体验。</p>
+<p>第三个主要更新是实验性的 <code>xx-fractional-scale-v2</code> 协议。该协议允许客户端与合成器使用独立的坐标空间来通信表面坐标，解决了 v1 版本中的局限性，为高分辨率屏幕下的界面缩放提供了更灵活的方案。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=wayland_info_med" alt="wayland-info" />
+<p>如需了解 Wayland Protocols 1.49 的详细变更内容，可查阅邮件列表中的官方公告。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Wayland-Protocols-1.49</guid>
+      <pubDate>Sun, 07 Jun 2026 13:32:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ &quot;Flatten The Pick&quot; v3 补丁推进 Linux cgroup 调度优化，提升游戏性能</title>
+      <link>https://www.phoronix.com/news/Flatten-The-Pick-v3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论 Linux 内核 cgroup 调度优化补丁，虽提及游戏场景但核心为系统调度技术改进，具有推荐价值</small></p><html>
+<h2>正文</h2>
+<p>Intel 工程师 Peter Zijlstra 正在推进一项旨在提升旧硬件上 Linux 游戏性能的调度器优化工作。继前两个版本后，名为 "Flatten The Pick" 的补丁集已发布第三版（v3），旨在解决 Linux cgroup（控制组）调度中存在的痛点。</p>
+<p>该补丁集引入了 <code>cgroup_mode</code> 配置选项，并实施了新策略以解决层级权重不匹配（hierarchy level weight mismatch）的问题。其核心目标是创建一个扁平化或单运行队列（flat/single run-queue）调度器，通过动态权重管理来表达 cgroup 层级结构。v3 版本还包含了多项修复，并重新基于最新的上游代码状态进行了调整。</p>
+<p>在性能测试中，Peter 在搭载旧款 Intel Sandy Bridge 处理器和 Radeon RX 580 显卡的硬件上运行游戏，并加载了额外的调度任务。结果显示，该补丁显著提升了最低帧率（minimum frame rate）和平均 FPS，同时大幅降低了平均和最大帧时间（frame times）。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=flatten_the_pick_3" alt="Flatten The Pick benchmark" />
+<p>目前，这些补丁正在 Linux 内核邮件列表（LKML）上接受审查，有望在不久的将来被合并到主线内核中。</p>
+<h2>你知道吗？</h2>
+<ul>
+<li><strong>cgroup (Control Groups)</strong>：是 Linux 内核的一个功能，用于限制、记录并隔离进程组所使用的物理资源。在桌面环境中，cgroup 常用于隔离后台服务与前台应用。但在某些复杂场景下，其层级调度逻辑可能导致前台应用（如游戏）无法获得预期的 CPU 时间片，从而影响性能。</li>
+</ul>
+</html>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Flatten-The-Pick-v3</guid>
+      <pubDate>Sun, 07 Jun 2026 11:06:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Mesa 26.2 支持直接显示模式下的 VK_GOOGLE_display_timing 扩展</title>
+      <link>https://www.phoronix.com/news/VK-Google-Timing-KHR-Display</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Mesa 26.2 更新及显示时序支持，属于 Linux 桌面开源软件新进展，符合用户兴趣配置</small></p>Mesa 26.2 版本正式合并了对 <code>VK_GOOGLE_display_timing</code> 扩展在 <code>VK_KHR_display</code>（直接显示模式）下的支持。该扩展允许应用程序获取显示时序信息，对于优化游戏帧同步（frame-pacing）和消除微卡顿（micro-stuttering）具有重要作用。
+
+此次更新由开源开发者 Mario Kleiner 主导，他基于 anholt 和 keithp 的早期工作，将代码重构为基于 <code>VK_EXT_present_timing</code> 的基础设施，从而最大限度地减少了代码重复。这一改进将立即惠及 Intel ANV、Radeon RADV、PowerVR、Turnip 以及 V3DV 等 Vulkan 驱动。
+
+相比功能更强大的 <code>VK_EXT_present_timing</code>，<code>VK_GOOGLE_display_timing</code> 的主要优势在于其兼容性。现有的成熟应用（如 Psychtoolbox-3 和 Monado OpenXR 运行时）拥有成熟的后端支持，可以直接利用新的时序功能，而无需进行额外的移植工作。
+
+未来，开发者计划探索在 Wayland 或原生 X11 环境下支持该扩展的可能性，但这需要解决其无法逐表面（per-surface）报告支持的技术限制。
+
+<div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
+<strong>你知道吗？</strong><br>
+<strong>直接显示模式（Direct Display Mode）：</strong>在 Linux 图形栈中，直接显示模式（通常通过 <code>VK_KHR_display</code> 实现）允许 Vulkan 应用程序绕过 X11 或 Wayland 合成器，直接与 DRM/KMS（Direct Rendering Manager / Kernel Mode Setting）交互。这种模式通常用于嵌入式系统、VR 头显或需要极低延迟和直接硬件控制的场景。
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/VK-Google-Timing-KHR-Display</guid>
+      <pubDate>Sun, 07 Jun 2026 10:47:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>Broadcom V3D 3.3/4.1 图形支持因缺乏测试面临弃用与移除</title>
+      <link>https://www.phoronix.com/news/Broadcom-V3D-Some-Deprecations</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论 Broadcom V3D 图形驱动因缺乏测试将被移除，涉及非主流硬件维护状态，兴趣不明确故列为可选</small></p><p>Broadcom V3D 3.3 和 V3D 4.1 图形 IP 即将在内核图形/显示驱动中被弃用并最终移除。这一决定源于开发者缺乏相关硬件进行测试，且 Mesa 驱动支持已于两年前（2024年）因同样原因被移除。</p>
+<p>目前，V3D 3.3 图形主要存在于 BCM7268 SoC 中，而 V3D 4.1 则用于 BCM7278。BCM7268 是首款搭载 VideoCore V "VC5" IP 的芯片，但并未得到广泛部署；BCM7278 也仅见于少数机顶盒设备，且极难在运行主线 Linux 内核的设备上找到。</p>
+<p>Igalia 的 Maíra Canal 于近日提交了补丁，提议首先在内核探测阶段发出弃用警告，并计划在 Linux v7.3 版本中彻底移除对这两个版本的支持。Canal 指出，由于缺乏用户空间驱动和已知用户，维护这些代码路径不仅没有收益，反而增加了维护成本。不过，如果未来出现真实用户并说明使用场景，支持仍可保留。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=v3d_deprecates" alt="V3D deprecates" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Broadcom-V3D-Some-Deprecations</guid>
+      <pubDate>Sun, 07 Jun 2026 10:23:34 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GNOME 文件预览器 Sushi 正式迁移至 GTK4，新增暗色模式</title>
       <link>https://www.phoronix.com/news/GNOME-File-Previewer-GTK4</link>
@@ -705,68 +771,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-Hide-Docs-clearcpuid</guid>
       <pubDate>Sun, 31 May 2026 10:29:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>开放媒体联盟正式发布 AV2 v1.0 下一代视频编码规范</title>
-      <link>https://www.phoronix.com/news/AV2-1.0-Specification-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 介绍新一代视频编码规范AV2 v1.0发布，偏向媒体技术标准与底层实现，与编程效率或日常开发工具关联较弱，故列为可选。</small></p><p>开放媒体联盟（AOMedia）于周五正式发布了 <a href="https://av2.aomedia.org">AV2 v1.0 规范</a>，标志着下一代视频编码标准的诞生。作为基于极受欢迎的 AV1 标准构建的后续版本，AV2 旨在提供卓越的压缩效率。</p>
-
-<p>根据 AOMedia 的描述，AV2 能够在显著降低码率的情况下实现高质量视频传输，并针对流媒体、广播和实时视频会议等不断发展的需求进行了优化。该标准的开发工作已历时五年多。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=av2" alt="AV2 logo" />
-
-<p>尽管硬件层面的支持（如内置 AV2 解码功能的 GPU）可能还需要一段时间才能普及，但软件生态正在逐步建立。目前，AOMedia 提供了 AOMedia Video Model (AVM) 参考软件，而 VideoLAN 开发者也在积极开发基于 CPU 的 AV2 解码器 DAV2D。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AV2-1.0-Specification-Released</guid>
-      <pubDate>Sun, 31 May 2026 10:17:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.1-rc6 发布前合并多项 USB 修复与设备适配</title>
-      <link>https://www.phoronix.com/news/Linux-7.1-rc6-USB</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述了 Linux 7.1-rc6 内核的 USB 兼容性补丁合并情况，属于 Linux 内核开发进展，与用户的 Linux 桌面技术和开源项目兴趣相关。</small></p><p>在 Linux 7.1-rc6 内核发布前夕，Linux 内核维护者 Greg Kroah-Hartman 提交了本周的 USB 修复合并请求。此次更新主要包含一系列针对用户反馈问题的微小修复，以及通过静态扫描工具发现的旧补丁。</p>
-<p>此次更新中几个值得关注的设备适配（Quirks）包括：</p>
-<ul>
-  <li><strong>PNY Elite Portable SSD 性能修复</strong>：该设备采用基于 Phison 主控的 USB-SATA 桥接方案，其固件存在缺陷，导致 UAS（USB Attached SCSI）驱动无法正确执行 <code>READ CAPACITY</code> 命令。新增的 quirks 修复了此问题，使设备能够正确枚举并发挥完整的 UAS 传输性能。<img src="//www.phoronix.net/image.php?id=2022&image=linux_517_usb_med" alt="USB cables" /></li>
-  <li><strong>Lenovo ThinkPad USB-C Dock Gen2 稳定性修复</strong>：该集线器控制器在启用 USB 链路电源管理（Link Power Management, LPM）时会出现链路不稳定，引发长达两分钟的反复断开与重连循环。通过禁用 LPM 可解决此问题。</li>
-  <li><strong>EIC7700 RISC-V SoC 复位问题修复</strong>：解决了该 RISC-V 片上系统（SoC）的 USB 复位问题，主要源于设备树（Device Tree）配置不当。</li>
-</ul>
-<p>如需了解本周其他 USB 修复与 quirks 的详细信息，可查阅 <a href="https://www.phoronix.com/news/Linux-7.1-rc6-USB">此次更新报道</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-rc6-USB</guid>
-      <pubDate>Sun, 31 May 2026 00:53:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Rust Coreutils 0.9 发布：强化安全性与零拷贝 I/O 性能</title>
-      <link>https://www.phoronix.com/news/Rust-Coreutils-0.9</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Rust 实现的 Coreutils 0.9 版本发布，主要涉及 Rust 语言生态及系统工具更新。根据来源配置，Rust 为感兴趣（interest）主题，故判定为推荐阅读。</small></p><p>Rust Coreutils 0.9 正式发布，这是 GNU Coreutils 的 Rust 语言实现。该版本重点提升了代码安全性与性能，并扩展了多平台支持。</p>
-<p>在安全性方面，Rust Coreutils 0.9 基于 Canonical 资助的第三方安全审计结果进行了大量加固，修复了已知漏洞并大幅减少了 <code>unsafe</code> Rust 代码的使用。性能上，<code>splice</code>、<code>tee</code> 和 <code>pipe</code> 等命令引入了零拷贝 I/O（Zero-Copy I/O）优化，有效降低了数据复制开销。此外，该版本还增强了对 WebAssembly、Cygwin 和 Windows 的支持。</p>
-<p>在兼容性测试方面，Rust Coreutils 0.9 针对 GNU 测试套件（GNU Test Suite）的通过率为 90.4%。虽然相比 0.8 版本的 94.7% 有所下降，但这主要是由于测试套件本身增加了新的测试用例，而 Rust Coreutils 尚未完全覆盖这些新增测试。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=rust_coreutils_09" alt="Rust Coreutils 0.9 pass rate" />
-<p>更多发布详情可访问 <a href="https://github.com/uutils/coreutils">GitHub 项目页面</a>。</p>
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>GNU Coreutils 与 Rust Coreutils</strong>：GNU Coreutils 是 Linux 系统中提供基础命令行工具（如 <code>ls</code>、<code>cp</code>、<code>mv</code> 等）的标准集合。Rust Coreutils（原名 uutils）旨在用 Rust 语言重写这些工具，利用 Rust 的内存安全特性来替代传统的 C 语言实现，从而从根本上消除缓冲区溢出等内存错误。</li>
-<li><strong>零拷贝 I/O（Zero-Copy I/O）</strong>：传统文件复制操作需要在用户空间和内核空间之间多次复制数据。零拷贝技术允许数据直接在设备、内核缓冲区和用户缓冲区之间传输，无需经过 CPU 的多次拷贝，从而显著降低 CPU 负载并提升 I/O 吞吐量，尤其适用于大文件传输或管道操作。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rust-Coreutils-0.9</guid>
-      <pubDate>Sat, 30 May 2026 17:08:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ NixOS 26.05 发布：默认采用 systemd 初始化，新增两万余个软件包</title>
-      <link>https://www.phoronix.com/news/NixOS-26.05-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章报道了 NixOS 新发行版的发布及其核心特性更新，匹配用户对“新发行版”的很感兴趣配置，属核心必读内容。</small></p><p>NixOS 26.05 正式发布，这是基于 <a href="https://nixos.org/">Nix 包管理器</a> 的 Linux 发行版最新版本。本次更新在软件包生态和系统初始化架构方面带来了显著变化。</p>
-<p>在软件包生态方面，Nixpkgs 仓库新增了 20,442 个软件包，更新了 20,641 个现有包，并移除了 17,532 个过时包。此外，系统还新增了 85 个模块和 1,547 个配置选项。主要软件更新包括 GNOME 50 桌面环境和 GCC 15 编译器。</p>
-<p><img src="//www.phoronix.net/image.php?id=2025&image=nixos" alt="NixOS logo" /></p>
-<p>系统架构方面，NixOS 26.05 的一项重大变更是将其 Stage 1 initrd（Initial RAM Disk）的默认实现从原有的脚本方式切换为 systemd。这一改动旨在提升系统初始化的稳定性和兼容性，简化底层引导流程。</p>
-<p>更多详细信息及下载请访问 <a href="https://www.nixos.org/download/">NixOS 官网</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NixOS-26.05-Released</guid>
-      <pubDate>Sat, 30 May 2026 14:05:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
