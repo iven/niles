@@ -3,7 +3,39 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 08 Jun 2026 00:19:57 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 08 Jun 2026 06:11:22 GMT</lastBuildDate>
+    <item>
+      <title>⭐ DeepSeek V4 Pro 在精确度测试中超越 GPT-5.5 Pro，社区热议其高性价比与评测争议</title>
+      <link>https://news.ycombinator.com/item?id=48440448</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要对比 DeepSeek V4 Pro 与 GPT-5.5 Pro 的评测表现，属于 AI 软件技术进展，符合用户兴趣配置。</small></p><p>近日，<a href="https://runtimewire.com/article/deepseek-v4-pro-beats-gpt-5-5-pro-on-precision">Runtime Wire</a> 发布的一项对比测试显示，DeepSeek V4 Pro 在遵循指令、匹配数据模式及解决边缘情况方面比 OpenAI 的 GPT-5.5 Pro 更为精确。尽管该测试仅包含 4 个动态任务并由 AI 裁判打分，引发了部分开发者对评测严谨性的质疑，但社区反馈普遍聚焦于 DeepSeek 模型在实际应用中的极高性价比。</p>
+<p>多位开发者分享了 DeepSeek V4 Pro 在编程辅助场景中的表现。在漏洞扫描基准测试中，DeepSeek V4 Pro 仅花费约 1 美元便完成了 GPT-5.5 Pro 花费 100 美元预算才勉强覆盖的测试用例；另有用户在使用 Zed 编辑器时，处理 1600 万 tokens 仅花费 0.47 美元，得益于极高的缓存命中率，其响应速度显著提升了编程时的“心流”体验。尽管部分用户认为其在复杂任务或“氛围编程”中略逊于顶级闭源模型，但其低廉的 API 定价已被视为对 Anthropic 和 OpenAI 等厂商构成的重大价格压力。</p>
+<p>值得注意的是，部分评论指出该文章方法论粗糙（样本量小、缺乏明确评分标准），且 AI 生成内容泛滥与社区“站队”现象正逐渐侵蚀技术讨论的理性空间。</p>
+<p><strong>你知道吗？</strong><br>
+<strong>AI 裁判（AI Judge）的局限性</strong><br>
+在大型语言模型（LLM）的自动化评测中，使用另一个模型作为裁判（AI Judge）来打分已成为常见做法。然而，这种方法存在明显的局限性：裁判模型可能受自身训练数据偏见的影响，对特定风格的输出存在偏好；此外，仅凭少量任务（如本测试中的 4 个）和主观性较强的“精确度”指标，难以全面反映模型在复杂现实场景中的鲁棒性。因此，业界通常建议结合自动化指标（如代码通过率）与人工评估，以获得更客观的结论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48440448</guid>
+      <pubDate>Mon, 08 Jun 2026 01:39:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Sem：基于 Git 的实体级代码理解工具</title>
+      <link>https://news.ycombinator.com/item?id=48428475</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了一款名为 Sem 的基于 Git 的编程工具，符合用户对编程工具发布/分享的高度关注。</small></p><p>近日，Ataraxy Labs 开源了 <a href="https://ataraxy-labs.github.io/sem/">Sem</a>，这是一个旨在革新代码理解方式的命令行工具。与传统语言服务器协议（LSP）或基于文本行的 Git 操作不同，Sem 在 Git 之上构建了一层“实体（Entity）”抽象，将代码解析为函数、类、方法等结构，并提供实体级别的差异分析、依赖追踪和历史记录。</p>
+<p>Sem 的核心功能包括：</p>
+<ul>
+<li><strong>sem diff</strong>：实体级差异对比。不仅显示代码行的增删，还能识别函数的添加、修改或删除，并支持重命名检测。</li>
+<li><strong>sem impact</strong>：影响范围分析。通过跨文件依赖图，快速展示修改某个函数会波及哪些其他实体及测试用例。</li>
+<li><strong>sem blame</strong> 与 <strong>sem log</strong>：提供实体级别的作者追踪与完整历史演进记录。</li>
+<li><strong>sem context</strong>：为 AI 模型提供结构化的上下文窗口，自动提取目标实体及其依赖/被依赖项，优化 Token 预算。</li>
+</ul>
+<p>该工具支持 TypeScript、Python、Go、Rust 等 26 种编程语言，安装后会自动接管 <code>git diff</code> 命令，实现零配置使用。官方声称，在使用 Sem 输出作为上下文时，AI 代理的代码理解准确率比传统行级 Diff 高出 2.3 倍。</p>
+<p>在 Hacker News 社区讨论中，开发者普遍认为 Sem 为 AI 辅助编程和代码审查提供了更精准的结构化视图，能有效解决大模型在处理代码库时上下文碎片化的问题。不过，部分用户对其“2.3 倍准确率”的基准测试提出质疑，认为该测试过于依赖工具自身的输出格式，缺乏真实开发场景的验证。此外，关于工具自动劫持 <code>git diff</code> 并安装 pre-commit hook 的行为，社区认为虽然提供了 <code>sem unsetup</code> 命令用于撤销，但默认行为仍略显激进。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48428475</guid>
+      <pubDate>Sat, 06 Jun 2026 20:03:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Linear 为何如此快速？深度解析其本地优先架构与性能优化策略</title>
       <link>https://news.ycombinator.com/item?id=48437609</link>
@@ -960,32 +992,6 @@ Bright Data 公开了一份合作伙伴清单，包括 PlayWorks、CloudTV 等�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48357905</guid>
       <pubDate>Mon, 01 Jun 2026 15:11:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 斯坦福大学CS336课程发布AI编程助手使用指南：定位为教学辅助而非解题工具</title>
-      <link>https://news.ycombinator.com/item?id=48359232</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章分享斯坦福大学开源的AI语言模型课程作业资源及编程助手使用指南，涉及AI辅助编程技术与开源项目，符合用户兴趣配置，故推荐阅读。</small></p><p>斯坦福大学CS336课程（从零开始的语言建模）近日发布了一份针对AI编程助手（如ChatGPT、Claude Code、GitHub Copilot等）的详细使用指南。该指南旨在规范学生在完成作业和实验时如何合理使用AI工具，核心原则是明确AI代理应作为“教学辅助（Teaching Assistant）”，而非“解决方案生成器（Solution Generator）”。</p>
-<p>指南详细规定了AI代理的“可为”与“不可为”：</p>
-<ul>
-<li><strong>应该做</strong>：当学生遇到困惑时，通过提问引导其思考方向；解释Python、PyTorch、CUDA等报错信息；审查学生编写的代码并提供改进建议；建议进行健全性检查（sanity checks）或调试。</li>
-<li><strong>不应该做</strong>：编写任何Python或伪代码；提供问题的直接解决方案；完成作业代码中的TODO部分；运行bash命令；将作业要求直接转化为可运行的代码。</li>
-</ul>
-<p>在教学互动方面，指南强调AI应优先询问学生已经尝试了哪些方法，并引导其参考课程讲义或官方文档。例如，当学生询问注意力掩码（causal mask）出错的原因时，AI不应直接给出修复代码，而是引导学生检查掩码是否在softmax之前应用、广播形状是否正确等。</p>
-<p>此外，指南重申了学术诚信的重要性，指出CS336是一门高度依赖动手实现的课程，学生必须通过编写大量Python/PyTorch代码来学习。AI工具仅可用于低层编程辅助和高层概念探讨，严禁直接生成核心组件（如分词器、Transformer块、优化器、训练循环等）。</p>
-<p>该指南以<a href="https://github.com/stanford-cs336/assignment1-basics/blob/main/CLAUDE.md">CLAUDE.md</a>和AGENTS.md文件的形式托管在课程代码仓库中，以便AI工具自动读取。这一举措在Hacker News社区引发了广泛讨论。部分评论认为，在AI工具日益普及的背景下，试图完全禁止学生使用AI是不现实的，斯坦福的做法承认了现实，并试图引导学生将AI作为学习工具而非作弊手段。也有观点指出，真正的挑战在于如何确保学生真正掌握知识，而非仅仅获得学位，建议通过增加项目难度、强化实践环节或引入线下考试等方式来适应AI时代的教育需求。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48359232</guid>
-      <pubDate>Mon, 01 Jun 2026 16:41:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ DuckDuckGo推出“无AI”浏览器扩展，应对Google AI搜索改版带来的流量激增</title>
-      <link>https://news.ycombinator.com/item?id=48359130</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍 DuckDuckGo 推出浏览器扩展，属于编程工具发布/分享，符合 high_interest 配置</small></p><p>替代搜索引擎DuckDuckGo近期推出了全新的浏览器扩展（适用于Chrome和Firefox），旨在让用户更便捷地访问其“无AI”搜索服务。通过启用该扩展，用户可将 <a href="https://noai.duckduckgo.com">noai.duckduckgo.com</a> 设置为默认搜索引擎，从而获得不包含AI辅助回答、聊天提示及AI生成图片的纯净搜索结果。<img src="https://techcrunch.com/wp-content/uploads/2026/06/368466.png" alt="DuckDuckGo无AI搜索界面" width="1440" height="900" /></p><p>此次更新的背景是Google在开发者大会上宣布了对搜索引擎的“AI优先”重大改版。Google计划用交互式AI生成的搜索概述（AI Overviews）取代传统的“十大蓝色链接”，这一举措引发了部分用户的担忧，促使他们转向DuckDuckGo、Kagi等注重隐私和传统搜索体验的替代平台。数据显示，自Google宣布改版以来，DuckDuckGo的无AI搜索页面访问量周环比增长近30%，美国应用安装量也实现了18.1%的增长，其中iOS端峰值增长达69.9%。</p><p>值得注意的是，DuckDuckGo并非完全排斥人工智能技术。该公司目前仍提供接入多种流行模型的AI聊天机器人，并推出了包含最新模型访问权限及VPN、身份盗用恢复等服务的订阅计划。此次推出的扩展更多是为了满足用户对“无AI”搜索体验的明确需求。此外，DuckDuckGo还计划更新其原有的隐私保护扩展，以提供AI搜索设置的更多控制选项。</p><p>社区反馈方面，Hacker News用户讨论了Google AI搜索的优缺点，部分用户认为AI摘要存在误导风险，且过度依赖AI会削弱搜索的客观性。同时，也有用户分享了从Kagi转向DuckDuckGo或尝试Brave浏览器的经验，指出不同引擎在结果准确性和隐私保护之间的权衡。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48359130</guid>
-      <pubDate>Mon, 01 Jun 2026 16:33:59 GMT</pubDate>
     </item>
   </channel>
 </rss>
