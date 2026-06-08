@@ -3,7 +3,18 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 08 Jun 2026 11:21:03 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 08 Jun 2026 16:18:01 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Performative-UI：一个讽刺设计陈词滥调的 React 组件库</title>
+      <link>https://news.ycombinator.com/item?id=48445554</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍React组件库，属于编程工具发布分享，用户对此类内容很感兴趣</small></p><h2>Performative-UI：一个讽刺设计陈词滥调的 React 组件库</h2>
+<p>Performative-UI 是一个 React 组件库，旨在通过实现各种“设计陈词滥调（design tropes）”来讽刺现代初创公司网站和 AI 生成的 UI 风格。该库包含了一系列看似专业但实际缺乏实际用途的 UI 效果组件。</p>
+<p>社区反馈指出，该库中的组件（如 ASCII 熔岩灯效果）实现得非常精致，甚至可能让一些公司误将其用于真实产品中。评论认为，这种设计讽刺了初创公司页面的千篇一律以及“AI Native”和“AI slop”（AI 生成的垃圾内容）现象。有趣的是，该库本身也是利用 AI 构建的，进一步增强了其讽刺意味。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48445554</guid>
+      <pubDate>Mon, 08 Jun 2026 14:05:16 GMT</pubDate>
+    </item>
     <item>
       <title>从零构建感知机：Python实现与核心概念解析</title>
       <link>https://news.ycombinator.com/item?id=48440064</link>
@@ -967,37 +978,6 @@ Bright Data 公开了一份合作伙伴清单，包括 PlayWorks、CloudTV 等�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48363132</guid>
       <pubDate>Mon, 01 Jun 2026 21:50:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>RGB值归一化：除以255还是256？</title>
-      <link>https://news.ycombinator.com/item?id=48360054</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨图像处理中 RGB 值归一化的具体编程技术细节，属于开发基础问题，未直接命中核心高优兴趣，故设为可选。</small></p><div>
-  <p>在图像处理与计算机图形学中，将 8 位整数像素值（0-255）转换为浮点数（0.0-1.0）进行计算时，开发者通常面临两种归一化方案的选择：</p>
-  <ul>
-    <li><strong>标准方案（除以 255）</strong>：直接执行 <code>img / 255.0</code>。整数 0 映射为 0.0，255 映射为 1.0。</li>
-    <li><strong>替代方案（除以 256）</strong>：执行 <code>(img + 0.5) / 256.0</code>。整数 0 映射为约 0.00195，255 映射为 1.0。</li>
-  </ul>
-  <p>作者 Pekka Väänänen 通过数学推导与可视化，深入剖析了这两种方案的底层逻辑与工程取舍：</p>
-  <p><strong>1. 标准方案的“极端值陷阱”</strong><br>
-  除以 255 的最大优势在于符合直觉：0 严格映射为 0.0，极大简化了代码逻辑（如直接判断 <code>pixel == 0.0</code> 即可识别黑色）。然而，其数轴分布存在缺陷。在将浮点数舍入回整数时，0 和 255 的接收区间（Bin）宽度仅为中间值的一半，导致极端值在均匀随机噪声中出现的概率减半。此外，128/255 无法被浮点数精确表示，会产生极微小的舍入抖动。</p>
-  <img src="std_vs_alt_numberline.png" alt="数轴图直观展示了两种归一化方法在数值分布与区间宽度上的差异" /><br>
-  <p><strong>2. 替代方案的量化理论优势</strong><br>
-  除以 256 的方法将每个浮点值精确放置在两个整数的正中间。从信号处理的角度来看，这属于 <strong>Mid-tread（阶梯式）量化器</strong>，而标准方案属于 <strong>Mid-riser（上升式）量化器</strong>。Mid-tread 量化器理论上具有更低的平均重建误差（1/1024 vs 1/1020），且数值分布更加均匀对称。</p>
-  <img src="staircases.png" alt="Mid-tread 与 Mid-riser 量化器的阶梯映射图对比" /><br>
-  <p><strong>3. 核心结论与工程建议</strong><br>
-  尽管除以 256 在纯数学与量化理论上更为优雅，但作者强调：<strong>处理外部提供的图像时，必须使用除以 255</strong>。因为绝大多数图像在保存时已采用标准公式量化，混用解码公式会引入不必要的色彩偏移。只有当你完全控制图像的保存与加载全流程，且不需要 0 映射到 0.0 时，才推荐使用除以 256 以获取微小的精度提升。切勿混用两种量化器的编码与解码步骤。</p>
-  <p><strong>社区讨论与扩展视角：</strong></p>
-  <ul>
-    <li><strong>SDR 与“零亮度”的认知偏差</strong>：有开发者指出，在标准动态范围（SDR）图像中，“0”并不代表物理上的绝对零亮度，而是相对最暗点。广播系统甚至常用 16-235 的范围，因此“必须保留零”的论点在实际视觉系统中并不绝对。</li>
-    <li><strong>音频 DSP 的相似困境</strong>：16 位整数音频的范围为 [-32768, 32767]，同样存在不对称性。音频处理领域也面临类似的浮点归一化取舍，部分格式采用特殊值处理边界。</li>
-    <li><strong>性能与舍入策略</strong>：有评论指出，现代 CPU 的浮点乘法极快，移位优化已无实际意义；另有专家建议直接依赖 IEEE 754 默认的舍入模式（round-to-nearest-even），避免手动添加 0.5 带来的复杂性。</li>
-  </ul>
-  <p>原文链接：<a href="https://30fps.net/pages/255-vs-256-division/">https://30fps.net/pages/255-vs-256-division/</a></p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48360054</guid>
-      <pubDate>Mon, 01 Jun 2026 17:37:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
