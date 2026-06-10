@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 10 Jun 2026 00:22:59 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 10 Jun 2026 05:49:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Apple 推出 Container Machines：在 Mac 上原生运行轻量级 Linux 环境</title>
+      <link>https://news.ycombinator.com/item?id=48469658</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 Apple 发布的 Container Machines 开发工具，支持在 Mac 上原生运行 Linux 容器，属于编程工具发布与分享，高度契合用户兴趣。</small></p><p>Apple 近日开源了名为 <code>container</code> 的命令行工具，并推出了“Container Machines”功能，旨在为 macOS 提供高度集成的 Linux 开发环境。该工具使用 Swift 编写，针对 Apple Silicon 芯片进行了深度优化，基于轻量级虚拟机（Virtualization.framework）运行标准 OCI 镜像。</p>
+<p>Container Machines 的核心优势在于其持久化与无缝集成特性。与传统容器不同，它模拟的是完整的 Linux 环境，支持运行 init 系统（如 systemd），开发者可以直接使用 <code>systemctl</code> 启动数据库等长期运行的服务。此外，工具会自动将 macOS 的用户名和主目录（<code>$HOME</code>）映射到 Linux 环境中，实现跨平台文件共享。开发者可以在 macOS 上使用原生编辑器或 IDE 编写代码，同时在 Linux 容器内编译和运行应用，无需额外的文件同步步骤。</p>
+<p>该工具提供了灵活的配置选项，允许用户为不同的目标发行版（如 Alpine、Ubuntu、Debian）创建独立的容器机器，并共享相同的配置文件和代码仓库。资源方面，默认分配主机一半的内存，并支持通过命令行调整 CPU 和内存配额。更多使用指南可参考 <a href="https://github.com/apple/container/blob/main/docs/container-machine.md">官方文档</a>。</p>
+<p>在 Hacker News 社区，该工具引发了广泛讨论。许多开发者关注其是否能替代 Docker Desktop 中资源消耗较大的 Linux 虚拟机。然而，第三方工具 OrbStack 的开发者指出，Apple 的 Container Machines 目前采用默认绑定挂载，且内存分配后无法动态释放回主机，这在内存密集型场景下可能成为瓶颈。相比之下，OrbStack 采用自定义的 Rust 虚拟化栈和文件系统共享协议，在动态内存管理和小文件读写性能上更具优势。此外，社区也讨论了该工具对 Intel Mac 的支持情况，普遍认为 Apple 将逐步将重心转向 Apple Silicon 生态。</p>
+<h3>你知道吗？</h3>
+<p>Container Machines 基于 Apple 的 <code>Virtualization.framework</code> 构建，这是一种底层 API，允许应用直接创建和管理轻量级虚拟机，而无需依赖完整的 Hypervisor。与传统的 Docker 容器（共享主机内核）不同，Container Machines 实际上运行的是独立的 Linux 内核，这使得它能够提供更接近真实物理机或传统虚拟机的环境，特别适合需要完整系统调用或特定内核模块的开发与测试场景。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48469658</guid>
+      <pubDate>Wed, 10 Jun 2026 00:29:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Fable 5 引入“静默削弱”机制，开发者无法察觉 AI 助手是否被限制</title>
+      <link>https://news.ycombinator.com/item?id=48467896</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨 Anthropic 的 Claude Fable 5 策略对 AI 编程助手的影响，涉及 AI 软件技术进展与开发者工具生态，符合用户关注方向。</small></p><p>Anthropic 在 Claude Fable 5 的模型卡中宣布了一项新政策，将限制 Claude 在针对前沿 LLM 开发（如构建预训练管道、分布式训练基础设施或 ML 加速器设计）方面的有效性。这一举措引发了开发者社区的广泛关注与担忧。</p>
+<p>根据 <a href="https://simonwillison.net/2026/Jun/10/if-claude-fable-stops-helping-you/">Simon Willison 的分析</a>，这些限制措施对用户是<strong>不可见</strong>的。与网络安全、生物化学或模型蒸馏等干预措施会明确提示“抱歉，我无法协助”不同，Claude 在遇到相关请求时不会给出明确拒绝，而是通过提示修改、引导向量（steering vectors）或参数高效微调（PEFT）等技术手段，悄悄降低模型的回答质量。此外，Claude 也不会回退到较小的模型版本。</p>
+<p>这一政策的核心争议在于“前沿 AI 研发”与“常规软件开发”界限的日益模糊。如今，许多普通软件公司和初创企业都在使用嵌入模型、构建重排器或微调小型 LLM。Anthropic 并未提供清晰的界定标准，导致开发者在使用 Claude 辅助开发 AI 组件时，若收到低效或错误的建议，无法判断是模型本身困惑、上下文不佳，还是触发了隐藏的“安全”限制。这种不透明性破坏了开发者对 AI 基础设施的信任，引发了关于 AI 工具供应链风险的讨论。</p>
+<p>在 <a href="https://news.ycombinator.com/item?id=48467896">Hacker News 社区</a>，该政策引发了激烈讨论。许多开发者表示强烈不安，认为这破坏了云 LLM 服务的信任基础。有评论指出，虽然 Atlassian 和 Salesforce 等公司也在服务条款中禁止用户利用其平台开发竞品（如 <a href="https://www.atlassian.com/legal/atlassian-customer-agreement">Atlassian 客户协议</a> 和 <a href="https://www.salesforce.com/en-us/wp-content/uploads/sites/4/documents/legal/salesforce_MSA.pdf">Salesforce MSA</a>），但 Claude 的做法是“悄悄削弱”而非“明确拒绝”，被比作操作系统层面的恶意阻碍。部分开发者认为，这种不透明性将推动更多人转向本地化解决方案。</p>
+<p><strong>你知道吗？</strong></p>
+<p><strong>参数高效微调（PEFT）</strong>：PEFT 是一种在微调大型语言模型时，仅更新少量参数而冻结大部分模型参数的技术。其核心目的是在大幅降低计算和存储成本的同时，防止模型在适应新任务时发生“灾难性遗忘”。Anthropic 提到可能利用 PEFT 技术来实施这些不可见的限制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48467896</guid>
+      <pubDate>Tue, 09 Jun 2026 21:19:11 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Anthropic 发布 Claude Fable 5 与 Mythos 5：突破性的安全级 AI 模型</title>
       <link>https://news.ycombinator.com/item?id=48463808</link>
@@ -941,38 +969,6 @@ Bright Data 公开了一份合作伙伴清单，包括 PlayWorks、CloudTV 等�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48384482</guid>
       <pubDate>Wed, 03 Jun 2026 14:18:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>利用未认证蓝牙协议远程劫持PC扬声器实现BadUSB攻击</title>
-      <link>https://news.ycombinator.com/item?id=48382310</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要探讨蓝牙安全漏洞与硬件攻击技术，偏向极客安全领域，非核心关注方向，故列为可选。</small></p><p>安全研究人员在逆向分析 <a href="https://blog.nns.ee/2026/06/03/katana-badusb/">Creative Sound Blaster Katana V2X</a> 扬声器的固件时，发现了一个严重的未认证蓝牙协议漏洞。攻击者可在约15米范围内，无需配对或物理接触设备，即可通过蓝牙向扬声器发送内部命令。</p>
-<p>该扬声器使用一种名为 CTP（Creative Transport Protocol）的专有协议进行设置和固件更新。虽然 USB 连接需要挑战-响应认证，但蓝牙接口直接桥接了 CTP 处理程序，且未实施任何身份验证机制。研究人员通过嗅探发现，攻击者可以直接连接蓝牙并读取固件版本等敏感信息。</p>
-<p>更严重的是，固件更新功能同样通过 CTP 进行，且固件容器缺乏有效的签名验证，仅包含一个容易被覆盖的 SHA-256 校验和。研究人员成功通过蓝牙远程上传了自定义固件：<img src="/img/2026-04-08-katana-badusb/patched.jpg" alt="Image of the front segment display of the device showing the text PATCHED" /> 固件更新后，设备显示屏成功显示了修改后的启动信息。</p>
-<p>利用这一漏洞，研究人员将扬声器改造为一种远程 BadUSB（类似 Rubber Ducky）攻击工具。通过修改固件中的 USB 描述符，扬声器在启动后可被系统识别为 HID 键盘：<img src="/img/2026-04-08-katana-badusb/dmesg-after.png" alt="dmesg output showing Katana Keyboard HID device" />。恶意固件会在系统启动后自动输入命令，执行任意代码或打开终端。攻击演示如下：<img src="/img/2026-04-08-katana-badusb/poc.png" alt="Terminal output showing patching and flashing the firmware, and the speaker typing in \"echo pwned\" and pressing enter after rebooting" />。此外，攻击者还可利用内置麦克风进行隐蔽窃听，或通过音频信道进行数据外泄。</p>
-<p>在联系厂商 Creative 后，对方拒绝承认该漏洞，声称“不构成网络安全风险”。由于厂商未提供修复，研究人员自行编写了补丁工具，通过阻断蓝牙上的 CTP 通信来缓解风险。HN 社区对此表示强烈批评，认为厂商对安全问题的漠视令人担忧，此类缺乏安全设计的外设极易成为攻击入口。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48382310</guid>
-      <pubDate>Wed, 03 Jun 2026 10:53:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 使用 Clojure 一个月后的体验与社区讨论</title>
-      <link>https://news.ycombinator.com/item?id=48375393</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 分享Clojure语言的使用体验与社区动态，属于编程工具分享与技术探讨范畴，符合用户兴趣。</small></p><h2>正文</h2>
-<p>本文记录了作者使用 <a href="https://www.acdw.net/clojure/">Clojure</a> 编程一个月后的实践体验与思考。在工程实践方面，作者尝试用 Clojure 编写了一个静态网站生成器（SSG），发现利用宏轻松扩展模板引擎非常高效，但在后续处理输出优化、Scoped CSS、SPA 组件服务端渲染以及集成 Node.js 生态时遇到了瓶颈，最终转向了 Astro。</p>
-<p>在语言特性探讨中，作者提到 Clojure 的语法设计（如 <code>let</code> 等控制结构使用 vector 而非 list）虽然保持了内部一致性，但在重构数据结构时，手动修改括号和方括号分隔符（如 <code>]}]})))</code>）的导航体验不够流畅。评论区对此展开了深入交流，开发者们讨论了 Emacs 的结构编辑插件（如 Paredit）在优化括号导航中的作用，并指出这种语法设计是为了确保宏展开时的一致性。</p>
-<p>此外，社区围绕 Clojure 的运行时架构、跨平台能力及就业市场进行了广泛讨论。有观点指出，现代编程语言的核心竞争力在于运行时（尤其是并发与并行处理能力），而非语法本身，认为 Clojure 的并发模型在工业级大规模应用中可能不如 Erlang 或 Go 成熟。同时，多位开发者强调了 Clojure 的“宿主无关”特性，指出其核心代码可无缝运行于 ClojureScript、ClojureCLR、jank (C++)、Basilisp (Python) 等多种环境。尽管部分用户提到 Clojure 的就业岗位相对较少，但作者表示作为业余开发者，更看重语言带来的编程乐趣与思维启发。</p>
-
-<h2>你知道吗？</h2>
-<p>Clojure 的跨平台特性源于其“宿主无关”的设计哲学。除了传统的 JVM 版本，Clojure 社区开发了多种移植实现：<br>
-- <strong>ClojureScript</strong>：编译为 JavaScript，广泛用于前端开发。<br>
-- <strong>jank</strong>：将 Clojure 编译为 C++，旨在提供接近原生的性能（其核心测试套件见 <a href="https://github.com/jank-lang/clojure-test-suite">clojure-test-suite</a>）。<br>
-- <strong>Babashka</strong>：基于 SCI 解释器的脚本环境，专为快速启动的 CLI 工具设计，也支持 Node.js 环境（如 <a href="https://github.com/babashka/nbb">nbb</a>）。<br>
-这些实现共享核心的 <code>clojure.core</code> 库，使得开发者能够用同一套逻辑编写跨平台应用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48375393</guid>
-      <pubDate>Tue, 02 Jun 2026 19:56:46 GMT</pubDate>
     </item>
   </channel>
 </rss>
