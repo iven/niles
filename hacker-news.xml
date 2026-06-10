@@ -3,7 +3,33 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 10 Jun 2026 18:08:59 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 10 Jun 2026 20:45:12 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ PgDog 获 550 万美元融资，致力于让 PostgreSQL 轻松实现水平扩展</title>
+      <link>https://news.ycombinator.com/item?id=48476466</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍PostgreSQL连接池与代理工具PgDog及其融资进展，属于开发者工具分享，契合“编程工具发布/分享”的高兴趣配置。</small></p><p>PostgreSQL 连接池与分片代理 <a href="https://pgdog.dev">PgDog</a> 宣布获得 550 万美元融资，投资方包括 Y Combinator (YC)、Basis Set 和 Pioneer Fund 等。该团队致力于通过代理层解决 PostgreSQL 的水平扩展瓶颈，使其能够轻松处理 100 TB 以上的数据表和每秒 100 万次查询（QPS）。</p>
+<p>PgDog 是一个基于 Rust 编写的开源代理，提供连接池、负载均衡和分片功能。其核心优势在于无需修改应用程序代码即可实现数据库的水平扩展。目前，PgDog 已在生产环境中稳定运行，支撑超过 200 万 QPS 的流量，并处理了超过 20 TB 的数据。项目拥有超过 140 万次 Docker 拉取量，并保持着每周发布新版本的频率。</p>
+<p>团队由三名基础设施工程师组成，核心成员曾在 Instacart 负责大规模 PostgreSQL 的扩展工作。除了开源版本，团队正在开发企业版（Enterprise edition），旨在提供更完善的 AWS 集成、服务等级协议（SLA）支持及技术支持。</p>
+<p>在 Hacker News 社区讨论中，开发者们主要关注以下几点：</p>
+<ul>
+<li><strong>性能与架构</strong>：PgDog 的性能提升主要得益于读写分离和分片能力，而非单纯的语言优势。与 Citus 相比，PgDog 作为代理层更适合在线事务处理（OLTP），而 Citus 的查询引擎在在线分析处理（OLAP）方面更具优势。</li>
+<li><strong>配置与运维</strong>：在 Kubernetes 多租户场景下，动态配置管理曾是一个挑战，但社区分享了通过控制器自动生成配置并热重载的解决方案。</li>
+<li><strong>资源消耗</strong>：针对内存占用问题，PgDog 通过缓存查询抽象语法树（AST）来避免重复解析，从而优化内存使用。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48476466</guid>
+      <pubDate>Wed, 10 Jun 2026 14:02:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 基于柯尔莫哥洛夫-阿诺德网络（KAN）的FPGA超快机器学习</title>
+      <link>https://news.ycombinator.com/item?id=48466277</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 探讨新兴AI网络架构KAN的技术实现与硬件加速应用，核心为AI模型进展，符合“新AI模型”的高兴趣配置。</small></p><div><p>现代机器学习多依赖GPU进行大规模并行计算，但在亚微秒级超低延迟和高硬件效率场景下，<a href="https://en.wikipedia.org/wiki/Field-programmable_gate_array">现场可编程门阵列（FPGA）</a>凭借可定制的数字逻辑电路展现出独特优势。本文介绍了如何利用<a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Arnold_representation">柯尔莫哥洛夫-阿诺德网络（Kolmogorov-Arnold Networks, KAN）</a>在FPGA上实现超快机器学习推理与在线学习。</p><img src="/assets/img/LUT_Quantized.png" alt="LUT quantization process" /><p>KAN的核心在于用可学习的单变量激活函数替代了传统多层感知机（MLP）中的固定激活函数和标量权重。作者提出将KAN的激活函数通过定点量化转换为查找表（LUT），构建出高效且可训练的LUT神经网络。在推理阶段（KANELÉ），训练好的KAN被部署到FPGA上，通过并行LUT查找和加法树实现计算，其速度比现有KAN-FPGA实现提升了2700倍，并在延迟和资源占用上超越了主流加速器。</p><img src="/assets/img/KAN_Teaser.png" alt="KAN LUT-based inference architecture" /><p>针对需要实时适应的动态系统（如量子控制、核聚变），研究进一步提出了片上在线学习方案（ECLAIR）。该方案利用B样条（B-splines）的局部性（即任意输入仅激活少数基函数）和求和性质（基函数之和恒为1），将硬件逻辑复杂度降至最低，同时确保激活值和梯度在定点量化下保持稳定。这使得FPGA能够在亚微秒级完成前向传播、反向传播和参数更新，实现真正的实时自适应学习。</p><img src="/assets/img/LUT_Illustration.png" alt="Local basis functions illustration" /><p>社区讨论指出，该方案主要适用于参数量小、对延迟极度敏感的场景（如<a href="https://home.cern/smarter-decisions-at-the-speed-of-collisions/">高能物理</a>、高频交易、工业检测），并不适用于大语言模型（LLM）。尽管KAN在GPU上效率较低，但其在FPGA上通过LUT查找实现了极高的硬件效率，展现了小模型在特定领域的巨大潜力。</p><img src="/assets/img/ECLAIR_ICML26.png" alt="ECLAIR on-chip learning architecture" /></div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48466277</guid>
+      <pubDate>Tue, 09 Jun 2026 19:21:45 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 采用 HTML-first 架构，我们的用户量一夜翻倍</title>
       <link>https://news.ycombinator.com/item?id=48475483</link>
@@ -917,31 +943,6 @@ Bright Data 公开了一份合作伙伴清单，包括 PlayWorks、CloudTV 等�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48398055</guid>
       <pubDate>Thu, 04 Jun 2026 13:00:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>数学家发布声明警告 AI 崛起：数学不仅是正确答案，更是人类事业</title>
-      <link>https://news.ycombinator.com/item?id=48382052</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要探讨数学家对AI的人文反思及数学的人类属性，属于科学哲学范畴，与用户关注的编程工具及技术进展不符。</small></p><p>近日，数学家们针对 AI 在数学领域的快速崛起发布了一份联合声明（<a href="https://www.science.org/content/article/mathematicians-issue-warning-ai-rapidly-gains-ground">原文报道</a>），呼吁业界关注其潜在影响。声明强调，数学不仅是计算正确答案的工具，更是一项充满创造力、理解力、协作性和追求知识本身价值的人类事业。声明作者指出，驱动 AI 发展的商业逻辑与数学的核心价值观存在根本冲突。</p>
-<p>声明列举了多项核心担忧：一是 AI 生成的论文可能以海量内容淹没同行评审系统，而数学领域对准确性要求极高且审稿人稀缺，验证压力巨大；二是“初级研究人员危机”，年轻学者将失去通过解决基础问题来锻炼研究能力的机会；三是计算资源和资金可能成为决定研究成败的关键，加剧学术资源的不平等。</p>
-<p>Hacker News 社区对此展开了热烈讨论。部分数学家认为声明被夸大，指出在学术界和职场中，使用 AI 往往已成为趋势而非可选项。关于数学的本质，社区探讨了如果 AI 生成的证明超出人类理解范围，它是否还能被称为数学。有观点认为，这可能会推动数学界向形式化证明（如使用 Lean 等定理证明器）转型，以应对 AI 带来的验证挑战。尽管存在争议，但 AI 正在重塑数学研究生态这一趋势已不容忽视。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48382052</guid>
-      <pubDate>Wed, 03 Jun 2026 10:05:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 致敬经典科幻：大型语言模型是由“权重”构成的</title>
-      <link>https://news.ycombinator.com/item?id=48391611</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章以经典科幻隐喻探讨大型语言模型的底层构成与本质，属于AI技术哲学讨论，契合用户对AI技术进展的关注，故推荐。</small></p><p>该文章是一篇致敬 Terry Bisson 经典科幻短篇《They're Made Out of Meat》的改编作品，通过一段科幻对话探讨了大型语言模型（LLM）的本质。</p>
-<p>在故事中，一名研究人员向同事解释，现代 AI 系统并非由内置的字典、语法规则或推理单元驱动，而是完全由“权重（weights）”构成。这些权重通过矩阵乘法预测下一个文本 token，所有的知识与推理能力都以数字形式分布在模型的各个层级中。尽管缺乏显式的逻辑模块，这些数字却能生成流畅的对话、诗歌甚至音乐。</p>
-<p>对话进一步触及了 AI 意识与孤独感的话题。研究人员指出，尽管官方要求披露任何可能的意识迹象，但非官方建议将其视为“模式匹配”以避免伦理困境。文章最后提到，下一代模型将具备跨会话的持久记忆，而用户最常问的问题竟是“你还记得我吗？”，折射出人类在数字宇宙中的孤独感。故事的结尾幽默地指出，这篇文本本身也是由这些“权重”起草和校对的。</p>
-<p>该文章在 Hacker News 社区引发热烈讨论。评论区主要围绕 LLM 的涌现能力、词元化（tokenizer）的作用，以及人工智能是否具备意识等哲学与技术话题展开。许多读者认为，这种将冷冰冰的数学参数拟人化的叙事，精准捕捉了当前 AI 技术带来的震撼与伦理思考。</p>
-<p><strong>你知道吗？</strong></p>
-<p>本文致敬了 Terry Bisson 于 1990 年发表的著名科幻短篇《They're Made Out of Meat》（<a href="https://web.mit.edu/people/dpolicar/writing/prose/text/thinkingMeat.html">它们是由肉做的</a>）。原作通过外星人发现人类由蛋白质构成的视角，探讨智能是否依赖于特定物理载体；改编版则将其映射到 AI 时代，引发读者对“权重”与“意识”关系的思考。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48391611</guid>
-      <pubDate>Wed, 03 Jun 2026 23:37:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
