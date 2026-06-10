@@ -3,7 +3,60 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 10 Jun 2026 10:21:06 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 10 Jun 2026 14:29:51 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ NVIDIA工程师提交补丁大幅缩短GCC原生引导时间</title>
+      <link>https://www.phoronix.com/news/NVIDIA-Reduce-GCC-Bootstrap</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 GCC 编译器构建引导时间的优化补丁，属于编程工具与编译效率改进，符合全局高兴趣配置。</small></p><p>NVIDIA工程师Kyrylo Tkachov提交了一项补丁，旨在显著缩短GNU编译器集合（GCC）进行原生引导（native bootstrap）所需的时间。GCC的引导过程需要在三个构建阶段中串行执行Autoconf配置脚本，由于代码库庞大，这一过程非常耗时。该补丁通过缓存配置结果，使其在GCC的三个编译阶段之间共享，从而避免了重复执行。</p>
+<p>在测试中（推测为NVIDIA Vera AArch64服务器），配置脚本占用了约30%的引导时间，但机器利用率不足15%。应用补丁后，配置时间减少了约43%，整体引导时间缩短了约15%，且生成的配置头文件与未缓存构建完全一致，阶段2和阶段3的对比测试也顺利通过。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=vera_bootstrap_med" alt="NVIDIA Vera CPU" />
+<p>该补丁已提交至gcc-patches邮件列表供社区测试。部分开发者认为这更像是一种“变通方案（hack）”，建议进一步清理配置脚本中无用的检查项（如GNU Gold链接器支持等），以从根本上优化构建速度，这也将惠及交叉编译构建。总体而言，任何能显著降低GCC构建时间的努力都具有积极意义。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Reduce-GCC-Bootstrap</guid>
+      <pubDate>Wed, 10 Jun 2026 13:30:32 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 内核 CrOS EC 驱动将支持自定义风扇曲线，利好 Framework 笔记本</title>
+      <link>https://www.phoronix.com/news/CrOS-EC-Custom-Fan-Cuves</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Linux 内核 EC 驱动对自定义风扇曲线的支持，属于 Linux 系统底层技术支持，符合兴趣配置。</small></p><p>Linux 内核中的 <code>cros_ec</code> 驱动主要用于支持 ChromeOS 嵌入式控制器（ChromeOS Embedded Controller, EC），广泛服务于 Chromebooks 以及 Framework Laptops 等第三方笔记本设备。近期，开发者 Thomas Weißschuh 提交了一系列补丁，旨在为该驱动引入自定义风扇曲线（Custom Fan Curves）的支持。</p>
+<p>该补丁允许用户在受支持的笔记本上读取和写入由 CrOS EC 管理的风扇转速策略。出于对硬件安全的考虑，补丁内置了保护机制：写入的新风扇曲线必须比当前默认的曲线更为激进（即风扇转速更高），从而有效避免设备因散热不足而发生过热或热损坏。</p>
+<p>目前，相关补丁已在 Linux 内核邮件列表中接受审查。尽管可能还需进行部分调整，但预计不久后将合入主线 Linux 内核。这一更新将显著提升 Framework 等支持该控制器的笔记本在 Linux 下的散热管理灵活性。</p>
+<p><img src="//www.phoronix.net/image.php?id=framework-16-ryzen-ai-300-series&image=framework_16_12_med" alt="Framework Laptop 16" /></p>
+<p><strong>你知道吗？</strong></p>
+<p>风扇曲线（Fan Curve）是指定义设备风扇转速与系统温度之间关系的策略表。在 Linux 笔记本散热管理中，默认的风扇策略通常由 BIOS/UEFI 或嵌入式控制器（EC）固件提供，往往偏向保守以确保静音。通过内核驱动支持自定义风扇曲线，用户可以根据实际负载和散热需求，手动调整风扇转速阈值，在静音与性能之间取得更优平衡。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/CrOS-EC-Custom-Fan-Cuves</guid>
+      <pubDate>Wed, 10 Jun 2026 13:12:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ KDE KWin 补丁旨在优化游戏延迟，以更好地与 Windows 竞争</title>
+      <link>https://www.phoronix.com/news/KDE-KWin-Gaming-Latency-2026</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章核心围绕 KDE KWin 窗口管理器的延迟优化展开，虽然涉及游戏性能，但直接命中来源高兴趣配置，故强烈推荐。</small></p><p>开源开发者 Jakub Okoński 近期对比了 Linux（KDE Plasma 6）与 Windows 11 的游戏延迟，发现 Windows 在显示延迟方面表现更优。为缩小这一差距，他针对 KDE 的 KWin Wayland 合成器开发了优化补丁。测试中，他使用 Teensy 微控制器配合光传感器测量了“点击到光子（click-to-photon）”延迟。</p>
+<p>补丁主要针对窗口化游戏和应用，预计能带来显著改善；对于开启垂直同步（V-Sync）且支持直接扫描输出（direct scanout）的全屏游戏，延迟可降低约 1 毫秒。不过，对于使用可变刷新率（VRR）或允许画面撕裂（tearing）且帧率低于刷新率的游戏，延迟改善有限。Okoński 指出，这些改进使 Linux 与 Windows 在最佳测量下的延迟差距从约 4 毫秒缩小了 1.1-1.2 毫秒。</p>
+<p>他计划在未来几周将补丁提交至 KWin 上游，但遗憾无法赶上即将发布的 Plasma 6.7 版本。更多测试细节可参考其个人博客。</p>
+<img src="//www.phoronix.net/image.php?id=nvidia-595-kde-gnome&image=nvidia_kde_1_med" alt="KDE Plasma gaming" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-KWin-Gaming-Latency-2026</guid>
+      <pubDate>Wed, 10 Jun 2026 10:37:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux Firmware 仓库引入文档，正式支持 AI 编码代理贡献</title>
+      <link>https://www.phoronix.com/news/Linux-Firmware-AI-Coding-Agents</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Linux 固件仓库为 AI 编程代理整理数据的进展，结合全局 AI 技术进展与开源项目兴趣，作为推荐阅读。</small></p>Linux 内核的固件仓库 <code>linux-firmware.git</code> 近日引入了 <code>AGENTS.md</code> 文档，标志着该项目开始正式为 AI 编码代理（AI coding agents）参与贡献做准备。该仓库是 Linux 内核开源驱动使用的二进制固件（binary blobs）的主要存放地。
+
+新文档旨在指导 Codex、Claude Code 等 AI 代理遵循仓库规范，协助添加或更新固件文件。值得注意的是，该文档本身由 Anthropic 的 Claude Opus 4.8 协助共同撰写。文档中明确了 AI 代理贡献的“黄金规则”，并鼓励在提交代码时使用 <code>co-developed-by</code> 或 <code>assisted-by</code> 标签来标注 AI 的参与。
+
+此外，仓库现有的规范要求所有固件文件必须附带相应的许可证文件。然而，对于 AI 代理在逆向工程或固件增强过程中修改或生成固件二进制文件所涉及的法律问题，目前的文档尚未给出明确界定，仍属于法律灰色地带。
+
+<img src="//www.phoronix.net/image.php?id=2026&image=linux_firmware_ai" alt="Linux Firmware for AI coding agents" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Firmware-AI-Coding-Agents</guid>
+      <pubDate>Wed, 10 Jun 2026 10:25:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Alpine Linux 3.24 发布：改进安装体验，新增 COSMIC 桌面选项</title>
       <link>https://www.phoronix.com/news/Alpine-Linux-3.24</link>
@@ -676,63 +729,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/KRAID-Merged-To-Mesa</guid>
       <pubDate>Wed, 03 Jun 2026 09:44:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 微软发布开源版“Intelligent Terminal”，原生集成 AI 代理</title>
-      <link>https://www.phoronix.com/news/Microsoft-Intelligent-Terminal</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍微软宣布的开源智能终端项目，属于新软件项目和开源项目，用户对此类内容有很高兴趣</small></p><p>微软近日宣布推出全新的开源项目“Intelligent Terminal”（智能终端）。该项目基于 MIT 许可证发布，是 Windows Terminal 的一个分支版本，主要特色在于原生集成了 AI 代理（AI agent）功能。</p>
-<p>Intelligent Terminal 引入了多项增强功能，包括终端内置的代理状态栏、上下文感知的专用“代理面板”（agent pane），用户可在此配置并连接首选的代理命令行界面（CLI）。此外，该终端还支持命令自动错误检测（automatic error detection）、代理管理支持以及多种 AI 代理的灵活配置。</p>
-<p>微软表示，将继续维护原版 Windows Terminal，以满足不需要 AI 代理集成的用户需求。目前，Intelligent Terminal 仅支持 Windows 平台，感兴趣的用户可前往 <a href="https://github.com">GitHub</a> 获取源代码。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=intelligent_terminal" alt="Intelligent Terminal example" /></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Microsoft-Intelligent-Terminal</guid>
-      <pubDate>Tue, 02 Jun 2026 19:18:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.8 计划移除 X11 支持，95% 的 Plasma 6.6 用户已转向 Wayland</title>
-      <link>https://www.phoronix.com/news/KDE-Plasma-Wayland-Ex-X11</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 内容直接涉及 KDE Plasma 桌面环境放弃 X11 支持的技术路线规划，完全匹配来源配置中“KDE”及“Linux桌面技术”的高兴趣项，为必看内容。</small></p><p>KDE 开发者 David Edmundson 近日撰文确认，<a href="https://www.kde.org/">KDE Plasma</a> 6.8 版本将按计划正式移除 X11 会话支持，转为 Wayland 独占。Plasma 6.7 将成为最后一个支持 X11 的版本。</p>
-<p>数据显示，目前 95% 的 Plasma 6.6 用户已经在使用 Wayland 会话。<img src="//www.phoronix.net/image.php?id=2026&image=plasma_wayland_95" alt="Plasma Wayland 95% stat" /></p>
-<p>随着 X11 支持的移除，开发团队将着手清理与 X11 相关的特定代码，从而为 Wayland 的性能优化和其他功能增强腾出空间。尽管原生 X11 会话将被弃用，但 XWayland 服务将继续保留，以确保旧版 X11 应用程序和游戏仍能正常运行。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-Wayland-Ex-X11</guid>
-      <pubDate>Tue, 02 Jun 2026 14:24:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 内核准备将 TSC 设为 x86 处理器的硬性要求</title>
-      <link>https://www.phoronix.com/news/Linux-Kernel-TSC-Unconditional</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论 Linux 内核将 TSC 设为 x86 硬件硬要求的技术规范调整，属于底层架构与兼容性变更，未直接命中高兴趣配置但作为内核更新仍具参考价值，故设为可选。</small></p><p>Linux 内核正在逐步移除对 Intel 486、AMD K5 等老旧处理器的支持。随着这些历史遗留架构的淘汰，内核开发者计划将时间戳计数器（Time Stamp Counter, TSC）的支持从可选变为 x86 架构的硬性要求。</p>
-<p>TSC 自 Intel Pentium 时代引入，用于记录 CPU 自上次重置以来的周期数，具有高分辨率和低开销的特点。过去，由于内核需要兼容缺乏 TSC 的旧款处理器（如 i486），TSC 功能只能作为可选特性。如今，随着旧硬件支持的全面移除，内核可以安全地假设所有 x86 处理器均具备 TSC 功能。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_unconditional_tsc" alt="Unconditional TSC for Linux x86" />
-<p>目前，相关补丁已提交至 tip/tip.git 的 "x86/cpu" 分支，预计将在 Linux 7.2 内核的合并窗口中正式合并。与此同时，内核中将逐步剥离不再需要的非 TSC 代码路径。这一举措是内核整体代码清理与简化工作的一部分，旨在提升架构的现代化水平与运行效率。</p>
-<h3>你知道吗？</h3>
-<p>TSC（Time Stamp Counter）是 x86 架构中一个 64 位的寄存器，由 CPU 内部计时器驱动。与依赖操作系统中断或硬件定时器的传统计时方式相比，读取 TSC 只需一条指令，几乎不产生系统调用开销，因此被广泛用于高精度性能分析、调度器时间片计算以及虚拟化环境中的时间同步。随着现代 x86 处理器普遍具备 TSC 且频率相对固定（或支持恒定 TSC 特性），它已成为 Linux 内核计时子系统（如 <code>clocksource</code>）的核心基础。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Kernel-TSC-Unconditional</guid>
-      <pubDate>Tue, 02 Jun 2026 13:25:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 开源 NVIDIA Vulkan 驱动 NVK 正式支持 Mesh Shader</title>
-      <link>https://www.phoronix.com/news/NVK-Mesh-Shaders-Merged</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 内容关于开源 NVIDIA Vulkan 驱动 NVK 项目合并 Mesh Shader 支持的技术进展，契合全局配置中的“开源项目”与 Linux 桌面图形生态发展方向，推荐阅读。</small></p><div>
-  <p>Mesa 项目的开源 NVIDIA Vulkan 驱动 "NVK" 近日在 Git 仓库中合并了 Mesh Shader 支持。这一进展由 Mary Guillemard 完成，标志着 NVK 驱动在支持现代 Linux 游戏和图形工作负载方面迈出了重要一步。</p>
-  
-  <p>Mesh Shader 支持基于 <code>VK_EXT_mesh_shader</code> 扩展。该扩展旨在取代传统的图形渲染管线，引入两个新的可编程阶段：任务着色器（Task Shader）和网格着色器（Mesh Shader）。</p>
-  
-  <img src="//www.phoronix.net/image.php?id=nvidia-maxwell-to-blackwell&image=nvidia_maxwell_blackwell_1_med" alt="NVIDIA GeForce graphics cards" />
-  
-  <p>NVK 驱动及其编译器后端 NAK 对 Mesh Shader 的支持早在 2023 年就已列入开发计划。目前该功能已准备就绪，预计将在下季度发布的 Mesa 26.2 版本中正式推出。</p>
-  
-  <h3>你知道吗？</h3>
-  <p><strong>Mesh Shader（网格着色器）</strong>是 Vulkan 1.3 引入的一项关键技术。在传统管线中，几何处理通常由顶点着色器、几何着色器（可选）和图元装配阶段完成，这种固定流程在处理复杂场景时效率较低。Mesh Shader 允许开发者编写自定义代码来生成图元，从而更灵活地控制几何数据的处理，显著降低 CPU 开销并提高渲染吞吐量。对于开源驱动而言，完善 Mesh Shader 支持对于提升 Linux 平台上的游戏性能至关重要。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVK-Mesh-Shaders-Merged</guid>
-      <pubDate>Tue, 02 Jun 2026 12:30:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
