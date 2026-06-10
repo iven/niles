@@ -3,7 +3,55 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 10 Jun 2026 14:29:33 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 10 Jun 2026 18:08:59 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 采用 HTML-first 架构，我们的用户量一夜翻倍</title>
+      <link>https://news.ycombinator.com/item?id=48475483</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 分享采用HTML-first架构的技术实践与业务增长经验，契合用户对编程效率改进与工程技术实践的高度兴趣。</small></p><p>本文分享了一家公用事业公司如何通过采用 <a href="https://mohkohn.co.uk/writing/html-first/">HTML-first（HTML优先）</a> 架构重构服务申请页面，使表单完成率在一夜之间翻倍的实战经验。</p>
+<p>该客户面临严格的监管要求，用户满意度需维持在96%以上，否则将面临巨额罚款。此前，外包团队开发的 React 应用因加载缓慢、缺乏无障碍支持以及使用 localStorage 存储图片（受限于 5MB 容量）而引发大量投诉，最终被迫下线。</p>
+<p>作者决定使用 Astro 框架重新开发，核心设计原则为：<b>公共服务必须兼容所有设备、在弱网环境下可用，且表单数据绝不可丢失。</b> 技术实现上，网站采用 HTML 优先策略，JavaScript 仅通过 Web Components 进行渐进增强。表单流程被拆分为多个独立页面，用户点击“下一步”后提交数据，API 验证通过后再重定向至下一页。这种传统的表单提交与重定向模式有效避免了重型客户端应用的问题。</p>
+<p>针对表单验证痛点，作者开发了一个极简的 HTML Web Component。该组件封装了浏览器原生验证逻辑，通过 aria-describedby 属性动态显示错误信息，并在用户输入、失焦和提交时实时评估状态。若 JS 环境异常，系统会自动回退至浏览器原生验证或后端 API 处理。</p>
+<p>此外，系统为每个表单会话分配唯一 ID，并在每一步将数据（含文件上传）实时同步至服务器。上线后，表单完成率实现翻倍，甚至捕获到一位用户在一个月后成功补全表单的案例。文章最后引用了 GOV.UK 在老旧 PSP 设备上流畅运行的案例，强调包容性设计对公共服务的重要性，并呼吁行业回归稳健、成熟的基础工程实践。</p>
+<p><b>社区反馈：</b> HN 用户讨论了 SPA 的适用场景、Astro 与 Next.js/React 在默认配置上的差异（Astro 采用客户端渲染 opt-in 模式，而 React/Next.js 多为 opt-out），并指出在 AI 时代，清晰的结构化 HTML 内容对 SEO/AEO 依然至关重要。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48475483</guid>
+      <pubDate>Wed, 10 Jun 2026 12:45:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ AWS Bedrock 要求 Fable 5 及未来模型共享数据至 Anthropic</title>
+      <link>https://news.ycombinator.com/item?id=48473166</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论AWS Bedrock平台对AI模型数据共享的政策调整，属于AI模型生态与云AI平台动态的重要进展，符合用户高度关注的新AI模型发布范畴。</small></p><p>Anthropic 近日宣布，对于在 <a href="https://aws.amazon.com/blogs/aws/anthropic-claude-fable-5-on-aws-mythos-class-capabilities-with-built-in-safeguards-now-available/" rel="nofollow">AWS Bedrock</a> 平台上运行的 Fable 5、Mythos 5 以及未来能力相当或更高的模型，将要求用户同意保留 30 天的交互数据。Anthropic 官方解释称，短期保留数据有助于检测单轮对话中难以发现的滥用模式。数据将在 30 天后自动清除，除非涉及安全调查或法律强制要求。值得注意的是，启用该选项后，用户数据将离开 AWS 的数据与安全边界。</p>
+<p>该政策在 <a href="https://news.ycombinator.com/item?id=48473166">Hacker News</a> 社区引发广泛讨论。用户主要关注点包括：</p>
+<ul>
+<li><strong>企业合规与隐私风险</strong>：许多受监管行业及政府客户对数据外流极为敏感。尽管 Anthropic 强调数据仅保留 30 天，但部分用户质疑其实际用途，担心数据可能被用于模型训练或满足政府监控需求。</li>
+<li><strong>行业趋势与竞争格局</strong>：有观点认为，随着顶尖 AI 模型（SOTA）逐渐向企业级和国家安全级别靠拢，数据共享可能成为行业标配。OpenAI 等竞争对手的类似模型也可能跟进此政策。</li>
+<li><strong>区域合规性争议</strong>：针对欧盟市场，部分用户指出只要明确声明保留期限并定期清理，该政策在 <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation" rel="nofollow">GDPR</a> 框架下可能具备合规性；但也有声音担忧作为美国企业，Anthropic 在数据主权和跨境传输方面仍面临法律挑战。</li>
+</ul>
+<p>目前，Fable 5 尚未在 <a href="https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-us.html" rel="nofollow">AWS GovCloud</a> 上提供，但商业 AWS 环境中的政府机构可能需要重新评估其 Bedrock 使用策略以符合新的数据保留要求。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48473166</guid>
+      <pubDate>Wed, 10 Jun 2026 08:21:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Chrome 将永久弃用 MV2 扩展，uBlock Origin 等面临终结</title>
+      <link>https://news.ycombinator.com/item?id=48471970</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 报道Chrome浏览器弃用MV2扩展协议对uBlock Origin等知名开源插件的影响，涉及软件生态更新与开源项目动态，符合用户的兴趣配置。</small></p><p>Google Chrome 正在推进其从 <a href="https://en.wikipedia.org/wiki/Manifest_V2">Manifest V2 (MV2)</a> 向 <a href="https://en.wikipedia.org/wiki/Manifest_V3">Manifest V3 (MV3)</a> 扩展标准的过渡，并即将进入弃用的最后阶段。近期在 <a href="https://github.com/w3c/webextensions-community">w3c WebExtensions 社区组</a> 的讨论中，Chromium 贡献者及 Google 工程师透露，Chrome 已开始移除控制 MV2 可用性的底层功能标志（flags）。</p>
+<img src="https://cdn.neowin.com/news/images/uploaded/2025/03/1741346735_ublock_origin_in_chrome.jpg" alt="Chrome Logo next to uBlock Origin" width="1280" height="720" />
+<p>Google 工程师 Devlin Cronin 指出，标志 <code>kExtensionManifestV2Disabled</code> 已被完全移除，这意味着在受支持的 Chrome 版本中，uBlock Origin 等依赖 MV2 的扩展将无法再被加载或管理。Cronin 表示，由于维护 MV2 功能带来的技术债务日益增加、实现复杂性上升以及潜在的安全风险（近期已发现多项仅存在于 MV2 中的漏洞），Google 决定不再无限期维持该功能。</p>
+<p>根据 Chromium 的版本更新计划，弃用进程正在加速：</p>
+<ul>
+<li><strong>Chromium 150</strong>：已移除 <code>ExtensionManifestV2Disabled</code> 选项。</li>
+<li><strong>Chromium 151</strong>（预计 2026 年 7 月 28 日发布）：将移除 <code>ExtensionManifestV2Unsupported</code>、<code>ExtensionManifestV2Availability</code> 以及 <code>AllowLegacyMV2Extensions</code> 选项。届时，通过 Windows 注册表修改等第三方手段延长 MV2 可用性的绕过方案也将失效。</li>
+</ul>
+<p>这一变动不仅影响 Chrome，其他基于 Chromium 的浏览器也可能跟进。Microsoft Edge 已于今年 2 月开始禁用 uBlock Origin，Opera 亦向开发者发送通知，要求尽快将扩展迁移至 MV3 以避免服务中断。目前，Brave 和 Vivaldi 仍表示将继续支持 MV2 扩展，而 Mozilla Firefox 则同时支持 MV2 与 MV3，被视为保留传统扩展功能的替代选择。对于坚持使用 Chrome 的用户，官方建议迁移至基于 MV3 的 <a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin-lite/">uBlock Origin Lite</a>，尽管部分用户认为其功能不及原版。</p>
+<p><strong>社区反馈：</strong> 该消息在 Hacker News 引发广泛讨论。许多用户批评 Google 此举实质上是削弱广告拦截器，尤其是在 YouTube 加强反广告拦截技术的背景下。部分评论指出，Google 的“以用户为中心”和“不作恶”的企业理念与此举相悖。同时，也有用户探讨了 Brave 的隐私政策例外情况，以及 Vivaldi 和 Firefox 在扩展生态中的现状。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48471970</guid>
+      <pubDate>Wed, 10 Jun 2026 05:50:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 体验 Mythos 级 AI：从“施法者”到“委托方”的转变</title>
       <link>https://news.ycombinator.com/item?id=48464140</link>
@@ -894,59 +942,6 @@ Bright Data 公开了一份合作伙伴清单，包括 PlayWorks、CloudTV 等�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48391611</guid>
       <pubDate>Wed, 03 Jun 2026 23:37:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 科幻作家 Ted Chiang：人工智能（AI）并不具备意识</title>
-      <link>https://news.ycombinator.com/item?id=48387270</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章引用知名科幻作家观点深入探讨人工智能是否具备意识的核心命题，属于AI前沿思想探讨，契合用户兴趣，故推荐。</small></p><p>著名科幻作家 Ted Chiang 撰文反驳了当前科技界对人工智能（AI）的拟人化倾向，明确指出大语言模型（LLM）并不具备意识或道德主体性。文章针对 Anthropic 公司发布的《Claude 宪法》及其高管关于“AI 可能拥有情感”的言论提出批评，认为将文本生成的流利度误认为意识是极其危险的错误。</p>
-<p>Chiang 指出，LLM 的本质是“句子续写”与文本预测。无论是生成历史人物的虚构对话，还是扮演 AI 助手，其底层逻辑完全一致：它们只是在生成虚构角色的台词，人类与 AI 的交互本质上是一种“角色扮演（role-play）”或“共同创作文档”。此外，LLM 每次仅生成一个词，通过多次运行拼接成完整回答，这进一步证明了其缺乏主观体验。</p>
-<p>在判断 AI 是否具备意识的问题上，Chiang 强调不能仅凭一段流畅的对话下结论，因为文本本身就是一种“深度伪造（deepfake）”媒介。他提出，若要真正验证计算机程序具备意识，必须经历类似地球生物进化的漫长过程：从具备物理或虚拟身体（embodied agent）、感官，到拥有生存能力、处理新情境的能力，再到具备复杂的社会互动与工具制造能力，并最终学会用非语言方式表达欲望。目前的 LLM 仅仅是“句子续写机器”，距离真正的意识还有“数光年”的距离。</p>
-<p>文章最后总结道，Anthropic 的《Claude 宪法》更像是一份角色扮演游戏的角色设定卡。如果我们混淆了文本流利度与意识，将在 AI 引发问题时错误地归咎于完全错误的对象。</p>
-<h3>你知道吗？</h3>
-<p>Ted Chiang 是当代极具影响力的科幻作家，其作品以严谨的科学逻辑和深刻的哲学思考著称。他的短篇小说《你一生的故事》（Story of Your Life）被改编为著名科幻电影《降临》（Arrival），而《软件体的生命周期》（The Lifecycle of Software Objects）则深入探讨了人工智能、虚拟宠物与意识伦理的关系，与本文观点一脉相承。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48387270</guid>
-      <pubDate>Wed, 03 Jun 2026 17:51:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Show HN: Edsger – 为 reMarkable 2 打造的手写 Clojure REPL</title>
-      <link>https://news.ycombinator.com/item?id=48374552</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章展示了名为 Edsger 的手写 Clojure REPL 工具，属于编程工具发布与分享，符合高兴趣配置。</small></p><p>开发者 Daniel Janus 发布了 <a href="https://handwritten.danieljanus.pl/2026-06-01-edsger.html">Edsger</a>，这是一个在 reMarkable 2 电子纸平板（e-paper）上运行的手写 Clojure 交互式编程环境（REPL）。该项目的介绍文章本身也是通过手写完成并转换为网页（SVG）形式发布。</p>
-<p>Edsger 的核心功能是通过识别手写笔迹，将其转录为 Clojure 代码并执行，随后将结果回显在屏幕上。项目架构主要涉及手写输入处理、代码执行与屏幕渲染模块。</p>
-<img src="2026-06-01-edsger-arch.svg" alt="Handwritten post: architecture" />
-<p>在延迟表现方面，社区测试发现从停笔到看到结果存在约 12 至 14 秒的延迟。经作者确认，这主要源于 reMarkable 设备底层文件系统更新（xochitl）的延迟，而非识别或计算过程缓慢。作者表示目前尚未找到触发文件更早写入磁盘的解决方案。</p>
-<p>评论区围绕 reMarkable 的硬件与开发生态展开了讨论。部分用户指出该设备 USB-C 接口存在设计缺陷，易损坏且官方售后支持有限。此外，由于官方笔记应用（xochitl）闭源，直接驱动电子墨水屏较为困难。开发者们分享了通过 <a href="https://github.com/asivery/rm-appload">Appload</a> 和 <a href="https://github.com/asivery/xovi">Xovi</a> 等工具绕过限制进行自定义开发的方法，并探讨了 waved 等第三方库在屏幕驱动方面的应用。</p>
-<h3>你知道吗？</h3>
-<ul>
-  <li><strong>Edsger W. Dijkstra</strong>：项目命名致敬计算机科学家艾兹格·迪科斯彻，他是结构化编程的奠基人之一，提出了著名的 Dijkstra 算法，并撰写了影响深远的论文《GOTO 语句有害论》（GOTO considered harmful）。</li>
-  <li><strong>Clojure</strong>：一种运行在 Java 虚拟机（JVM）上的现代 Lisp 方言，强调不可变数据、函数式编程和并发处理，适合快速原型开发和脚本编写。</li>
-  <li><strong>reMarkable 生态</strong>：该设备以极简设计和电子墨水屏著称。由于官方系统相对封闭，极客社区开发了大量第三方工具（如 Appload、Xovi、ReManager）来解锁 SSH 访问、安装自定义应用及优化文件同步，形成了活跃的开源生态。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48374552</guid>
-      <pubDate>Tue, 02 Jun 2026 18:52:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Elixir v1.20 发布：引入渐进式类型系统，无需注解即可发现 Bug</title>
-      <link>https://news.ycombinator.com/item?id=48388324</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Elixir 编程语言新版本发布及引入的类型系统功能，属于编程工具发布与软件新功能，符合用户兴趣，故推荐。</small></p><img src="/images/logo/logo.png" alt="Elixir Logo" />
-<h2>正文</h2>
-<p>Elixir v1.20 正式发布，标志着该语言正式成为一门<strong>渐进式类型语言（gradually typed language）</strong>。此次更新引入了基于集合的类型系统（set-theoretic type system），能够在不引入任何类型注解的情况下，自动进行类型推断并检查代码，从而高效地发现死代码和已验证的运行时错误（verified bugs）。</p>
-<p>该类型系统的核心在于其独特的 <code>dynamic()</code> 类型。与许多语言中意味着“任何类型均可”的 <code>any()</code> 不同，Elixir 的 <code>dynamic()</code> 具备<strong>兼容性（compatibility）</strong>和<strong>类型收窄（narrowing）</strong>两大特性：</p>
-<ul>
-  <li><strong>兼容性</strong>：只有当传入的类型与函数接受的类型完全不相交时，才会报告类型违规，从而大幅降低误报率。</li>
-  <li><strong>类型收窄</strong>：随着代码的执行，<code>dynamic()</code> 类型会根据上下文被不断细化。例如，当访问了 <code>data.a</code> 和 <code>data.b</code> 后，<code>data</code> 会被收窄为包含这两个数字字段的 Map 结构。</li>
-</ul>
-<p>此外，新版本还增强了对 <code>guards</code>（守卫子句）、<code>case</code> 分支和条件语句的类型推断能力，能够利用这些结构进一步缩小类型范围并识别冗余代码。在性能方面，Elixir v1.20 优化了多核环境下的编译速度，并引入了 <code>:module_definition</code> 编译器选项，允许开发者选择以编译模式还是解释模式执行模块定义，以进一步提升大型项目的构建效率。</p>
-<p>关于未来的发展，Elixir 团队表示，引入显式类型签名（type signatures）仍需解决递归类型、参数化类型以及 Map 遍历等底层问题。目前，团队将继续优化现有类型系统的性能。</p>
-<h2>你知道吗？</h2>
-<p><strong>渐进式类型（Gradual Typing）</strong>是一种结合了静态类型检查和动态类型特性的类型系统。它允许开发者在代码的某些部分使用静态类型注解，而在其他部分保留动态类型。这种设计旨在兼顾开发效率与代码安全性：在快速原型开发阶段无需编写繁琐的类型注解，而在核心逻辑或大型项目中则可以通过类型系统捕获潜在错误。Elixir 的 <code>dynamic()</code> 类型正是这一理念的体现，它在保持动态语言灵活性的同时，通过静态分析提供了类似静态语言的错误检测能力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48388324</guid>
-      <pubDate>Wed, 03 Jun 2026 19:02:26 GMT</pubDate>
     </item>
   </channel>
 </rss>
