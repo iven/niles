@@ -3,7 +3,19 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Wed, 10 Jun 2026 20:44:03 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 10 Jun 2026 22:56:04 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 近百万份各国护照和身份证明在互联网上被曝光</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1565348.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述数据泄露与隐私安全事件，属于国际网络安全新闻，符合用户配置中“国内/国际必读新闻”的兴趣范畴，故推荐阅读。</small></p>
+                                                
+                                                <p>一位安全研究人员近日发现，近 98.5 万份护照、驾照等照片身份证明及相关个人信息，被一家为西班牙大麻俱乐部提供软件服务的公司以几乎零防护的方式暴露在公网上，任何技术水平一般的黑客都可以轻易获取。这批数据涉及来自世界各地的用户，包括约 3 万名美国访客，还有部分名人，他们在西班牙等地的大麻俱乐部登记身份信息、本人的自拍照、联系方式以及消费习惯等隐私内容，都可能已被悄然暴露。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0611/f10654323f6fde8.jpg"></p><p>发现这一严重漏洞的是安全研究员 Sammy Azdoufal，他此前曾披露多款扫地机、婴儿监视器和安全摄像头存在严重安全缺陷。他表示，通过简单的脚本扫描，他在互联网上发现了超过 98.5 万张身份证件照片，其中绝大部分来自西班牙的大麻俱乐部会员注册系统。这些文件被存放在极其简单、可预测的公开 URL 下，没有任何密码或访问控制，只要知道链接格式就能查看任意用户的证件图像。</p><p>这些大麻俱乐部本身并不直接运营相关系统，而是使用一家名为 Cannabis Club Systems（CCS）的爱尔兰公司提供的软件和云服务，该公司此前也名为 Nefos Solutions。CCS 为俱乐部提供销售、财务以及入场验证系统：接待人员会将用户护照或身份证照片以及自拍上传到 Nefos 的云端，以便日后快速核验身份。在传统模式下，会员每次进店都要出示实体证件，而该系统则允许工作人员通过调出云端资料进行比对，部分俱乐部还配套使用名为 PuffPal 的手机应用，通过扫描二维码加快入场流程。</p><p>然而，当 Azdoufal 对 PuffPal 应用进行反编译分析时，他发现 Nefos 的整体安全设计几乎形同虚设。应用内不仅以明文形式嵌入了 Stripe 支付平台的密钥，用户资料接口也只需修改一个数字就能访问到不同会员的完整档案，其中可能包括电话号码、家庭住址、护照信息以及个人大麻消费偏好等敏感数据。更严重的是，系统将身份证件照片保存在类似 “https://ccsnubev2.com/v8/images/{club}/ID/{user_id}-front.jpg” 的公开地址上，没有任何令牌或权限校验，而各俱乐部每天仍在以这样的方式上传约 5000 张新证件照。</p><p>Azdoufal 还发现，一个面向俱乐部的管理后台同样暴露在公网，并且俱乐部账号使用的弱密码在现代 GPU 的暴力破解下可以在数分钟内被攻破。通过 PuffPal 应用在俱乐部与会员之间的私聊消息，也被证明存在潜在泄露风险。在他看来，这种“把一整座金库的钥匙随手扔在街上”的做法，让任何有心的攻击者都能够批量窃取并转卖这些高度敏感的身份数据，对当事人造成无法预估的损害。</p><p>在媒体介入后，Nefos 终于开始采取实质行动。据 Azdoufal 在 6 月 10 日的最新测试结果，这家公司已经宣布暂时关闭 PuffPal 整套系统及其存在漏洞的 API，护照图片和个人数据目前看起来已被加固，外界已无法再通过此前的方式直接访问。公司方面表示，已向当地监管机构通报情况，将全面修复问题并承担罚款责任，同时向用户说明事件经过。</p><p>Nefos 联合创始人 Andreas Nilsen 在接受采访时称，公司已经就此次数据泄露事件与爱尔兰数据保护委员会（DPC）取得联系，这一点也得到了 DPC 发言人通过邮件的证实。Nilsen 表示，他们“必须向所有可能受影响的人发出通知”，并希望 DPC 能指导公司如何规范地履行这一义务。他同时声称，目前尚无证据显示除 Azdoufal 以外的外部人员访问过这些数据。</p><p>不过，从时间线上看，Nefos 对这起严重风险的响应明显拖延。在 Azdoufal 主动联系公司后，Nefos 迟迟未做出实质回应，直到媒体表明要报道此事五天之后才正式回复。在此期间，公司更多是在“打补丁”式地封堵局部漏洞，以避免影响业务运转，而非从根本上停止存在安全隐患的系统。</p><p>更具讽刺意味的是，今年 6 月初，当 Azdoufal 告知记者护照照片似乎已经被锁定时，记者却意外发现 Azdoufal 本人的护照图像再次在网上公开可见。原因在于，Nefos 虽暂时限制了图像访问，但并未立刻停止俱乐部使用 PuffPal 应用，而后者的客户因抱怨“图片加载不如从前方便”，促使 Nefos 再次放开了访问限制。Nilsen 辩称，在他们与研究人员和媒体沟通期间，图像大约有“70% 的时间”处于封锁状态，但事实证明公司在保护用户隐私和维护客户体验之间，明显偏向了后者。</p><p>到了 6 月 9 日，Azdoufal 又发现，尽管 Nefos 已经为护照图片等文件增加了访问令牌，用户档案中的其他数据仍处于“裸奔”状态。黑客只需在命令行中输入类似 “curl -X POST https://ccsnubev2.com/v8/api/userProfile.php -d 'user_id=[编号]&amp;[俱乐部名]=test&amp;language=en'” 的请求，就能获取到包括护照号码、电话、邮箱和家庭住址在内的一整套个人信息。在研究员和媒体再次提醒后，Nefos 才彻底封堵了这一接口。</p><p>面对质疑，Nilsen 在承认最终责任在公司的同时，也将部分锅甩给了外包团队。他点名一家名为 9Series 的外包公司，称其负责开发 PuffPal 应用和相关 API，而正是这些接口让大量未加保护的数据从 Nefos 的用户数据库中被直接调取至公网。截至发稿时，9Series 尚未就此作出回应。</p><p>目前，随着 PuffPal 被关闭，Nefos 正通过邮件通知各家大麻俱乐部，其会员今后将无法再使用二维码入场。不过，俱乐部仍可通过扫描会员的 RFID 卡或输入电话号码等方式，从 Nefos 服务器调用相关身份资料进行现场核验。Nilsen 强调，公司不会因为俱乐部要求就重新上线安全性不足的 PuffPal，而是在与 9Series 终止合作后，计划在未来几个月推出一款新的应用。他承诺，新系统将由独立安全研究人员进行审核，并在确认“百分之百安全”后才会重新投入使用。</p><p>根据欧盟《通用数据保护条例》（GDPR），企业在发生数据泄露后 72 小时内必须向监管机构报告，否则可能面临巨额罚款。Nilsen 也承认，公司没有在法定时限内完成披露，因此“肯定会受到某种形式的处罚”。就在上个月，一家名为 “UK Visa Portal” 的网站同样因将至少 10 万份护照及自拍照暴露在可猜测 URL 下而引发舆论关注。业内人士担心，类似事件正在不断累积，暴露出越来越多企业在处理高度敏感身份信息时的疏忽和短视，也再次敲响了数据安全的警钟。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1565348.htm</guid>
+      <pubDate>Wed, 10 Jun 2026 22:19:28 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 网络安全研究人员质疑Anthropic Fable安全护栏过于严格</title>
       <link>https://www.cnbeta.com.tw/articles/tech/1565342.htm</link>
@@ -600,18 +612,6 @@ Industries）达成协议，在印度古吉拉特邦贾姆讷格尔建设并租�
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/game/1565130.htm</guid>
       <pubDate>Tue, 09 Jun 2026 05:19:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 微信灰度测试朋友圈搜索功能 支持按朋友或发布时间筛选</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1565128.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍微信App灰度测试朋友圈搜索功能，符合配置中“感兴趣”的软件新功能类别，故推荐。</small></p>
-                                                
-                                                <p>6月8日，据多名网友分享，微信新版朋友圈主页最近右上角出现了“放大镜”图标，支持搜索历史朋友圈内容，点击图标输入关键词即可快速定位。</p>                
-                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0609/14f723b92fca535.jpg"><br></p><p>从目前网友的分享来看，该功能正处于灰度开放的阶段。荆楚网记者也就此向腾讯客服进行求证，对方表示：</p><p>微信朋友圈近期新增了搜索功能。您可以在朋友圈主页右上角点击“放大镜”图标，选择【朋友圈搜索】功能-&gt;【前往】，输入关键词即可搜索历史发布的朋友圈。目前还支持按【选择朋友】或【选择发布时间】进一步筛选结果哦。该功能正在逐步优化中，部分功能可能暂时未开放，我们会持续改进体验的。</p><p><img src="https://static.cnbetacdn.com/article/2026/0609/2e4a2dc4aecc332.jpg"><br></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1565128.htm</guid>
-      <pubDate>Tue, 09 Jun 2026 05:18:45 GMT</pubDate>
     </item>
   </channel>
 </rss>
