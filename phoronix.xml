@@ -3,7 +3,54 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 11 Jun 2026 01:36:56 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jun 2026 11:46:56 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OpenJPH 0.28 发布：引入 AVX2 优化，HTJ2K 编解码速度最高提升 1.9 倍</title>
+      <link>https://www.phoronix.com/news/OpenJPH-0.28-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍开源JPEG2000图像压缩库的版本更新与AVX2性能优化，属于开源项目与软件技术进展，符合兴趣配置，故推荐阅读。</small></p><p>开源项目 OpenJPH 发布了 0.28 版本。作为高吞吐量 JPEG2000 Part-15（JPH 或 HTJ2K）的开源实现，该版本针对 Intel 和 AMD 的 x86_64 处理器引入了新的 AVX2（Advanced Vector Extensions 2）优化，显著提升了编码和解码性能。</p>
+<p>此次更新的核心优化由 Prof Osamu Watanabe 贡献，主要集中于块编码器（block coder）的 AVX2 加速。性能测试显示，新版在编解码速度上最高提升了 1.9 倍：</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=openjph_28" alt="OpenJPH 0.28 性能对比图" />
+<p>开发者可通过 <a href="#">GitHub</a> 仓库获取新版本，详细的优化技术细节可参考相关的 <a href="#">Pull Request</a>。</p>
+<h3>你知道吗？</h3>
+<p><strong>HTJ2K（High-Throughput JPEG2000）</strong> 是传统 JPEG2000 的改进版本，专为现代多核处理器和高吞吐量应用场景设计。它保留了 JPEG2000 的渐进式加载和无损/有损压缩特性，同时大幅提升了编解码速度。HTJ2K 广泛应用于医学影像（如 DICOM 标准）、数字电影制作、卫星遥感图像以及需要快速流式传输的专业领域。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/OpenJPH-0.28-Released</guid>
+      <pubDate>Thu, 11 Jun 2026 11:27:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Intel Open Image Denoise 2.5 发布：显著提升 Intel 显卡去噪性能</title>
+      <link>https://www.phoronix.com/news/Open-Image-Denoise-2.5</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Intel开源图像降噪库的版本更新及GPU性能提升，属于开源软件技术进展，符合兴趣配置，故推荐阅读。</small></p>Intel 近日发布了开源光线追踪去噪库 <a href="https://OpenImageDenoise.org">Open Image Denoise (OIDn)</a> 的 2.5 版本。该库被 Blender 等众多渲染器和创意应用广泛采用，用于提供强大的实时去噪能力。<br><br>
+<img src="//www.phoronix.net/image.php?id=2026&image=oidn_25_med" alt="Open Image Denoise 2.5" /><br><br>
+本次 2.5 版本主要带来了针对 Intel 硬件的显著性能优化。在 GPU 方面，新版本针对 Intel Arc 显卡的 XMX（Xe 矩阵扩展）单元进行了专项优化；在 CPU 方面，则新增了对 AMX（高级矩阵扩展）FP16 指令集的优化支持（此前已支持 AMX-BF16）。<br><br>
+作者使用搭载 Intel Arc Pro B70 (BMG-G31) 显卡的设备进行了基准测试，结果显示新版本在 Intel Battlemage 架构显卡上带来了显著的速度提升，大幅降低了内存占用并提高了渲染效率。<img src="//phoronix.com/benchmark/result/oidn-25-benchmarks/result.svgz" alt="OIDn 2.5 Benchmarks" width="100%" height="auto" /> 测试图表详细对比了不同渲染场景下的性能表现，2.5 版本在多项 GPU 加速测试中均表现最佳。<img src="//phoronix.com/benchmark/result/oidn-25-benchmarks/intel-open-image-denoise-rthdr_alb_nrm3840x2160-intel-oneapi-sycl.svgz" alt="Intel Open Image Denoise benchmark with settings of Version Comparison (Run: RT.hdr_alb_nrm.3840x2160, Device: Intel oneAPI SYCL). 2.5 was the fastest." width="100%" height="auto" /> <img src="//phoronix.com/benchmark/result/oidn-25-benchmarks/intel-open-image-denoise-rtldr_alb_nrm3840x2160-intel-oneapi-sycl.svgz" alt="Intel Open Image Denoise benchmark with settings of Version Comparison (Run: RT.ldr_alb_nrm.3840x2160, Device: Intel oneAPI SYCL). 2.5 was the fastest." width="100%" height="auto" /> <img src="//phoronix.com/benchmark/result/oidn-25-benchmarks/intel-open-image-denoise-rtlightmaphdr4096x4096-intel-oneapi-sycl.svgz" alt="Intel Open Image Denoise benchmark with settings of Version Comparison (Run: RTLightmap.hdr.4096x4096, Device: Intel oneAPI SYCL). 2.5 was the fastest." width="100%" height="auto" /><br><br>
+值得注意的是，在桌面 CPU 端（测试平台为搭载 Arrow Lake Refresh 处理器的 Core Ultra 7 270K Plus）的纯 CPU 渲染测试中，2.5 版本并未带来明显的性能变化，部分场景下旧版 2.4 仍保持领先。<img src="//phoronix.com/benchmark/result/oidn-25-benchmarks/intel-open-image-denoise-rthdr_alb_nrm3840x2160-cpu-only.svgz" alt="Intel Open Image Denoise benchmark with settings of Version Comparison (Run: RT.hdr_alb_nrm.3840x2160, Device: CPU-Only). 2.4 was the fastest." width="100%" height="auto" /> <img src="//phoronix.com/benchmark/result/oidn-25-benchmarks/intel-open-image-denoise-rtldr_alb_nrm3840x2160-cpu-only.svgz" alt="Intel Open Image Denoise benchmark with settings of Version Comparison (Run: RT.ldr_alb_nrm.3840x2160, Device: CPU-Only). 2.4 was the fastest." width="100%" height="auto" /> <img src="//phoronix.com/benchmark/result/oidn-25-benchmarks/intel-open-image-denoise-rtlightmaphdr4096x4096-cpu-only.svgz" alt="Intel Open Image Denoise benchmark with settings of Version Comparison (Run: RTLightmap.hdr.4096x4096, Device: CPU-Only). 2.4 was the fastest." width="100%" height="auto" /><br><br>
+总体而言，OIDn 2.5 的发布为依赖该库进行光线追踪渲染的用户（尤其是使用 Intel 显卡的创作者）带来了切实的性能红利。]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Open-Image-Denoise-2.5</guid>
+      <pubDate>Thu, 11 Jun 2026 10:04:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GNOME 基金会公布首批 Fellowship 项目入选者</title>
+      <link>https://www.phoronix.com/news/GNOME-Fellowship-First</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GNOME基金会公布新人培养计划，涉及Linux桌面生态与社区发展，符合Linux桌面技术兴趣，故推荐阅读。</small></p>GNOME 基金会于 3 月宣布启动 Fellowship 项目，旨在通过为期 12 个月的资助，支持独立和社区贡献者，以保障 GNOME 桌面的长期可持续性。6 月 11 日，基金会正式公布了首批两名入选者：Peter Eisenmann 和 Sophie Herold，他们将于 7 月正式开始工作。
+
+Sophie Herold 将致力于建立新的 RFC（Request for Comments，征求意见）流程，以优化项目级治理结构；同时，她将推动在 GNOME 库开发中采用 Rust 语言，以提升代码的可维护性和安全性。Peter Eisenmann 则专注于 Files 应用（文件管理器）的现代化改造，工作内容包括优化缩略图生成、改进用户目录本地化以及遵循最新的 GNOME 平台规范。
+
+<div class="admonition">
+<strong>你知道吗？</strong>
+<ul>
+<li><strong>Rust 语言</strong>：一种系统级编程语言，以内存安全和并发安全著称。近年来，Rust 逐渐被 Linux 内核及各类系统软件（包括 GNOME 组件）采用，用于替代传统的 C/C++，从而有效减少内存泄漏和缓冲区溢出等安全漏洞。</li>
+<li><strong>RFC 流程</strong>：在开源社区中，RFC（Request for Comments，征求意见）通常指一种用于提出新想法、技术变更或政策调整的文档机制。通过公开 RFC 并收集社区反馈，开发者可以达成共识，确保变更符合项目长远利益。</li>
+</ul>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Fellowship-First</guid>
+      <pubDate>Thu, 11 Jun 2026 09:50:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Intel 发布 XPU Manager 2.0：全面重构 Arc Pro 数据中心 GPU 管理工具</title>
       <link>https://www.phoronix.com/news/Intel-XPU-Manager-2.0</link>
@@ -680,48 +727,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/3mdeb-June-B850-P-WiFI</guid>
       <pubDate>Thu, 04 Jun 2026 00:59:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ COSMIC Epoch 1.0.15 发布：引入 Wayland 指针约束协议以改善游戏体验</title>
-      <link>https://www.phoronix.com/news/COSMIC-Epoch-1.0.15</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 虽然标题提及游戏体验，但文章主要内容是 Linux 桌面环境 COSMIC 的功能更新（Wayland 指针约束），属于 Linux 桌面技术与新软件项目范畴，符合来源配置中的高兴趣。</small></p><p>COSMIC Epoch 1.0.15 版本今日正式发布。虽然尚未包含备受期待的桌面 UI “毛玻璃（Frosted Glass）”效果，但此次更新带来了多项重要改进，显著提升了桌面环境的稳定性与游戏体验。</p>
-<p>本次更新的核心亮点是合成器（Compositor）正式实现了 <a href="https://wayland.freedesktop.org/">Wayland</a> 的指针约束协议（Pointer Constraints Protocol）。该协议对于第一人称射击（FPS）和第三人称游戏至关重要，能够确保鼠标指针在游戏中的正确行为。此前，COSMIC 用户常需依赖 Gamescope 合成器来优化游戏体验，如今原生支持该协议将大幅改善鼠标控制体验。</p>
-<img src="//www.phoronix.net/image.php?id=popos-2404-ubuntu-2604&image=popos_mira_1_med" alt="COSMIC" />
-<p>此外，合成器现在支持每个工作区运行多个全屏窗口，解决了 Steam Big Picture 模式下的兼容性问题。Alt-Tab 切换窗口时，焦点将正确跟随至目标输出设备。其他更新还包括修复键盘快捷键、小程序、Wayland 上下文菜单，优化 COSMIC 启动器的 SVG 字体渲染重用机制，修复亮度屏幕显示（OSD），并为 COSMIC Player 新增播放速度配置选项。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/COSMIC-Epoch-1.0.15</guid>
-      <pubDate>Wed, 03 Jun 2026 18:53:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Intel 准备 GCC 函数多版本（FMV）以支持 APX 与 AVX10.2</title>
-      <link>https://www.phoronix.com/news/GCC-FMV-Patches-APX-AVX10.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲述GCC编译器补丁更新功能，属于编程工具发布/分享，符合全局high_interest配置，故评为critical。</small></p><p>Intel 正在为 GCC 编译器添加对函数多版本（Function Multi-Versioning, FMV）的支持，以适配下一代 Intel 处理器（Nova Lake 和 Diamond Rapids）的 APX（Advanced Performance Extensions）与 AVX10.2 指令集扩展。</p>
-<p>FMV 是一项关键的编译器特性，允许开发者为同一函数编写多个版本。编译器在运行时会根据目标 CPU 支持的指令集自动选择最优的代码路径。这一机制使得开发人员能够在利用 AVX2、AVX-512 等现代 ISA 特性提升性能的同时，确保代码在缺乏这些扩展的旧架构上仍能回退至通用或优化较少的版本，从而兼顾性能与兼容性。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=gcc_fmv_example" alt="GCC FMV example" />
-<p>目前，相关补丁已提交至 GCC 主线进行审查。该补丁支持 <code>avx10.2</code>、<code>apxf</code> 以及针对 Diamond Rapids 和 Nova Lake 架构的属性目标，预计将在明年的 GCC 17 稳定版中正式推出。此外，Intel 团队还在进行针对这两款处理器的编译器调优工作，部分新的 APX 功能因在实际测试中未能带来显著的性能增益，已被调整或优化。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-FMV-Patches-APX-AVX10.2</guid>
-      <pubDate>Wed, 03 Jun 2026 13:40:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 将通过 SRU 为 26.04 LTS 推送更新的 AMD ROCm 版本</title>
-      <link>https://www.phoronix.com/news/Ubuntu-Newer-ROCm-SRUs</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要关注Ubuntu发行版的软件更新推送及开源计算框架进展，符合Linux系统与开源项目兴趣配置，故推荐。</small></p><p>Ubuntu 26.04 LTS 目前通过 <code>apt install rocm</code> 提供的 AMD 开源 GPU 计算栈（ROCm，Radeon Open Compute）版本为 7.1，已落后于上游当前的稳定版 7.2 及技术预览版 7.13。为此，Canonical 宣布将采用稳定发布更新（SRU，Stable Release Updates）机制，在不等待新 Ubuntu 版本发布的情况下，向现有系统推送更新的 ROCm 版本。</p>
-<img src="//www.phoronix.net/image.php?id=framework-16-ryzen-ai-300-series&image=framework_16_14_med" alt="AMD Ryzen laptop with Ubuntu Linux" />
-<p>此举旨在支持最新的 AMD 硬件并引入新功能。然而，原地升级 ROCm 面临显著挑战，特别是应用程序二进制接口（ABI，Application Binary Interface）的变更可能导致基于旧版本编译的应用程序崩溃。由于人工智能（AI）软件迭代迅速，部分小版本更新也可能引入破坏性变更。</p>
-<p>Canonical 表示，短期计划提供 ROCm 7.2，长期则评估 7.13+ 或未来的 ROCm 8.0（代号 "The Rock"）。此外，Canonical 还发布了 Lemonade Server 和 Lemonade Desktop，以利用 ROCm 和 AMD NPU 进行 AI 计算，并提供 APT 和 Snap 两种打包格式。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>SRU（稳定发布更新）</strong>：Ubuntu 为长期支持（LTS）版本提供的更新机制。它允许用户在保持操作系统主版本不变的情况下，接收新软件版本、安全补丁和硬件支持，从而兼顾系统稳定性与软件时效性。</li>
-<li><strong>ABI（应用程序二进制接口）</strong>：定义了程序与库之间交互的底层约定。与源代码接口（API）不同，ABI 变更通常不向后兼容，可能导致已编译的程序无法在新库上运行，因此在 LTS 系统中升级包含 ABI 变更的软件包需要格外谨慎。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Newer-ROCm-SRUs</guid>
-      <pubDate>Wed, 03 Jun 2026 11:44:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
