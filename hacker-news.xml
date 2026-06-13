@@ -3,7 +3,65 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 12 Jun 2026 23:45:11 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2026 04:47:55 GMT</lastBuildDate>
+    <item>
+      <title>开源AI必须胜利：为何智能基础设施必须保持开放</title>
+      <link>https://news.ycombinator.com/item?id=48511908</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要探讨开源AI生态和智能基础设施的开放性问题，属于观点论述，未涉及具体的模型发布、工具或技术进展，兴趣不明确。</small></p><p>本文主张<strong>开源人工智能（Open Source AI）必须胜利</strong>，强调智能不应成为公众只能从少数封闭机构租赁的商品。作者指出，AI已成为支撑工作、教育、科学、软件及公共服务的<strong>文明基础设施</strong>。若智能系统被少数前沿实验室和平台公司垄断，公众不仅将丧失软件自由，更会失去操作自由，面临沦为“认知订阅经济”的风险。</p>
+<p>文章强调，AI基础设施必须保持可用、可理解、可重现且可本地部署，其访问权不应受制于封闭API、不透明的审核机制或由少数公司随意更改的条款与定价。作者呼吁美国在运行、检查、修改和保存智能基础设施的自由上保持领先，并提出“美国能力与全球开放标准”相结合的发展路径。</p>
+<p>该文章在黑客新闻（HN）社区引发了广泛讨论，主要反馈如下：</p>
+<ul>
+  <li><strong>资本与性能挑战：</strong>部分用户认为，开放权重（Open-weight）AI可能缺乏巨额资本投入，难以在性能上完全匹敌封闭的前沿模型，未来可能呈现“封闭模型主导高端，开源模型满足日常”的格局（类似Photoshop与GIMP的关系）。</li>
+  <li><strong>本地部署的必然性：</strong>出于数据主权、成本控制及规避审查的需求，本地运行AI被视为不可逆转的趋势。尽管硬件成本较高，但像Qwen等开源模型已在性能上展现出极强的竞争力。</li>
+  <li><strong>垄断与政治风险：</strong>社区担忧过度依赖封闭AI巨头会导致人类认知能力退化及思想控制风险。同时，出口管制和地缘政治因素（如GPU限制）也凸显了掌握自主智能基础设施的重要性。</li>
+  <li><strong>术语辨析：</strong>讨论中亦涉及对“开源”定义的争议。许多AI项目实际为“开放权重”，即公开模型参数但未必公开训练代码与数据，这与传统开源软件标准存在差异。</li>
+</ul>
+<p>作者提供了进一步交流的联系方式：<a href="https://opensourceaimustwin.com/?share=v2">https://opensourceaimustwin.com/?share=v2</a></p>
+<h3>你知道吗？</h3>
+<p><strong>开放权重（Open-weight）与开源（Open Source）的区别</strong>：在AI领域，这两个概念常被混用，但存在关键差异。严格意义上的“开源”要求模型架构、训练代码、训练数据及具体配方完全公开，允许任何人从头复现。而“开放权重”仅公开模型训练后的参数文件（Weights），允许用户下载、微调和本地部署，但通常不公开原始训练数据或完整的训练流程。目前主流的开源AI项目多采用开放权重模式，以在保护商业机密与促进社区创新之间取得平衡。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48511908</guid>
+      <pubDate>Sat, 13 Jun 2026 02:14:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 在 macOS 上搭建高性能本地编程代理：Gemma 4 与 MTP 加速实战</title>
+      <link>https://news.ycombinator.com/item?id=48507020</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章内容涉及使用llama.cpp等工具在本地运行AI模型（Gemma 4, Qwen）并构建编程代理，符合“编程工具分享”及“编程效率改进”的高兴趣配置。</small></p><p>本文介绍了如何在 macOS 上搭建一个快速、支持图像输入的本地编程代理（Coding Agent）。作者因网络中断无法使用云端服务，决定在本地部署 <a href="https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF">Gemma 4 26B-A4B</a> 模型，并通过 <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> 提供 OpenAI 兼容 API，配合 <a href="https://github.com/earendil-works/pi">Pi</a> 终端代理使用。</p>
+
+<h3>技术栈与性能优化</h3>
+<p>测试环境为 Apple M1 Max (64GB 统一内存)。作者对比了不同配置下的推理速度：</p>
+<ul>
+  <li><strong>基线配置</strong>（llama.cpp + Metal 加速）：生成速度约为 <code>58.2 tok/s</code>。</li>
+  <li><strong>启用 MTP（Multi-Token Prediction，多令牌预测）</strong>：引入 Q8 格式的 MTP 草稿模型进行推测解码（Speculative Decoding）后，生成速度提升至 <code>72.2 tok/s</code>，提速约 24%。</li>
+  <li><strong>对比 MLX 框架</strong>：尽管 MLX 针对 Mac 优化，但在该场景下 llama.cpp 配合 MTP 的表现（72.2 tok/s）明显优于 MLX-LM（约 45.8 tok/s）。</li>
+</ul>
+
+<img src="how-to-setup-a-local-coding-agent-on-macos/Gemma_4_-_Short.mp4" alt="Gemma 4 实时响应演示" />
+
+<h3>多模态与替代模型</h3>
+<p>为了实现截图输入功能，作者加载了 <code>mmproj-BF16.gguf</code> 多模态投影层。测试表明，加载投影层后文本生成速度未受影响。此外，作者还测试了 <a href="https://huggingface.co/unsloth/Qwen3.6-35B-A3B-MTP-GGUF">Qwen3.6 35B-A3B</a> 模型，其代码能力更强，但受限于 MOE（Mixture of Experts，混合专家）架构，MTP 加速效果不明显，速度降至 <code>55 tok/s</code>。</p>
+
+<img src="how-to-setup-a-local-coding-agent-on-macos/Qwen_3.6_-_Offline_Test.mp4" alt="Qwen 3.6 离线测试演示" />
+
+<h3>配置步骤概要</h3>
+<ol>
+  <li>使用 Homebrew 安装依赖并编译开启 Metal 加速的 llama.cpp。</li>
+  <li>通过 huggingface-cli 下载主模型、MTP 草稿模型及多模态投影层。</li>
+  <li>启动 llama-server，配置 <code>--spec-type draft-mtp</code> 和 <code>--mmproj</code> 参数。</li>
+  <li>在 Pi 的 <code>models.json</code> 中配置本地 API 端点，并设置 <code>input: ["text", "image"]</code> 以启用图像支持。</li>
+</ol>
+
+<h3>社区反馈</h3>
+<p>评论区指出，MTP 对 MOE 模型的加速收益通常低于稠密模型。同时，许多用户分享了在不同内存配置（如 16GB/48GB）Mac 上运行本地模型的体验，普遍认为本地运行虽无法完全替代云端大模型，但在离线环境、隐私保护及学习底层原理方面具有独特价值。另有开发者推荐了 <a href="https://github.com/jundot/omlx">oMLX</a> 等工具简化本地推理部署。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>推测解码（Speculative Decoding）</strong> 是一种加速大语言模型推理的技术。它训练一个轻量级的“草稿模型”来快速预测多个后续令牌，随后由参数量更大、更准确的主模型并行验证。如果草稿模型的预测被主模型接受，则跳过主模型的部分计算步骤，从而在不损失生成质量的前提下显著提升推理速度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48507020</guid>
+      <pubDate>Fri, 12 Jun 2026 17:34:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 软件工程师拒绝成为“反向半人马”：抵制 AI 生成代码对开源项目的冲击</title>
       <link>https://news.ycombinator.com/item?id=48507282</link>
@@ -888,37 +946,6 @@ Moonshot 此次发布的模型附带了修改后的开源许可证，要求商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48434436</guid>
       <pubDate>Sun, 07 Jun 2026 13:06:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>LLM正在侵蚀我的软件工程职业生涯，我该怎么办？</title>
-      <link>https://news.ycombinator.com/item?id=48434312</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨LLM技术对软件工程职业发展的影响及个人困惑，偏向行业观点与职业规划讨论，非核心编程工具或技术进展，兴趣指向不明确，故选可选。</small></p><p>一位拥有十年经验的软件工程师撰文分享了他对大语言模型（LLM）逐渐削弱其职业竞争力的担忧。作者早期从事前端开发，后转向后端，并在金融、支付和会计领域积累了深厚的领域知识（Domain-specific knowledge）。然而，随着AI技术的快速迭代，他发现自己职业生涯的三大支柱正逐一被侵蚀：</p>
-<p>首先，领域特定知识正在贬值。作者所在公司鼓励使用AI辅助编写设计文档。他发现，LLM能够高效地连接技术细节并生成高质量的架构文档，过去需要多年经验才能掌握的权衡取舍和系统设计思路，现在通过提示词即可实现。</p>
-<img src="https://i.ibb.co/SDdRz6RG/pawel-czerwinski-G6ez-Kt1-XOs-unsplash-1.jpg" alt="Red black and white abstract painting by Pawel Czerwinski on Unsplash" />
-<p>其次，调试与分布式系统经验的优势不再明显。作者曾认为调试复杂系统（如竞态条件、分布式追踪）是工程师的核心护城河。但随着Claude Code等AI编程工具的普及，结合Sentry和DataDog等MCP（模型上下文协议）工具，AI能够迅速定位并修复过去需要耗费数天时间的复杂Bug，人工干预的需求大幅降低。</p>
-<img src="https://i.ibb.co/qY17WByt/egor-komarov-6u-I9uw-M3-WJQ-unsplash-1-1.jpg" alt="Abstract glitch art with pink and yellow patterns by Egor Komarov on Unsplash" />
-<p>最后，代码质量与软件架构的重要性也在下降。作者一直推崇良好的代码规范、重构和架构设计（如DDD、整洁架构）。但他观察到，行业趋势正转向“为机器编写代码”，只要代码能运行，即使存在轻微的技术债务或架构瑕疵（C或D级）也能被接受，人类对代码“品味”的要求正在被边缘化。</p>
-<img src="https://i.ibb.co/dwpWtgrz/steve-a-johnson-Go-MXr-TCBj3c-unsplash-1.jpg" alt="A red cube with many squares by Steve A Johnson on Unsplash" />
-<p>面对专业知识贬值和招聘标准泛化的现状，作者感到迷茫。他注意到公司招聘已不再强调领域经验，而是统一为通用软件工程师岗位。在Hacker News（HN）社区，该文章引发了广泛共鸣与讨论。部分开发者认同领域知识和调试能力正变得廉价，也有人指出管理层对代码质量的忽视在AI时代只是被加速了。乐观者认为AI将接管重复性劳动，使编程回归艺术；悲观者则担忧这会导致脑力劳动者大规模失业，加剧经济不平等。作者目前仍在寻找新的职业突破口，但尚未找到明确的出路。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48434312</guid>
-      <pubDate>Sun, 07 Jun 2026 12:49:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Jane Street 员工分享：为何我现在更多使用 Claude Code 而非 Figma 进行设计</title>
-      <link>https://news.ycombinator.com/item?id=48431981</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享实际工作中使用 Claude Code 替代其他工具的经验，属于编程工具分享与效率改进范畴，高度匹配用户兴趣。</small></p><p>Jane Street 博客发布了一篇文章，作者分享了其在使用 Claude Code 进行设计工作方面的体验，声称现在使用 Claude Code 的频率超过了 Figma。</p>
-<p>文章主要探讨了利用大语言模型（LLM）辅助前端开发和 UI 原型设计的流程。评论区对此展开了热烈讨论：</p>
-<ul>
-  <li><strong>效率与原型设计</strong>：支持者认为，使用 LLM 生成代码可以快速构建交互式原型，比在 Figma 中手动设计更高效，且便于产品人员直接参与反馈。</li>
-  <li><strong>设计同质化</strong>：部分用户指出，AI 生成的设计往往缺乏创意，倾向于“安全”的默认风格（如 Bootstrap/Tailwind 风格），除非提供非常具体的提示。</li>
-  <li><strong>动机质疑</strong>：有评论指出 Jane Street 是 Anthropic 的投资者，质疑文章的客观性，认为这可能是一篇带有宣传性质的文章。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48431981</guid>
-      <pubDate>Sun, 07 Jun 2026 05:04:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
