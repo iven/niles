@@ -3,7 +3,41 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sat, 13 Jun 2026 16:42:33 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2026 18:22:31 GMT</lastBuildDate>
+    <item>
+      <title>tig 2.6.1 版本更新：安全修复与多项功能改进</title>
+      <link>https://github.com/jonas/tig/releases/tag/tig-2.6.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>tig 是一款基于 ncurses 的 Git 文本界面终端工具。2.6.1 版本现已发布，本次更新主要包含一项安全修复、多项功能改进以及一系列 Bug 修复。</p>
+<h3>重要改动</h3>
+<ul>
+  <li><strong>安全修复</strong>：修复了编辑器命令注入漏洞（<a href="https://github.com/jonas/tig/issues/1432">#1432</a>），该漏洞仅影响 2.6.0 版本。</li>
+  <li><strong>功能增强</strong>：
+    <ul>
+      <li>支持 <code>append</code> 选项（<a href="https://github.com/jonas/tig/issues/1413">#1413</a>）。</li>
+      <li>新增选项使树视图（tree view）支持递归显示。</li>
+      <li>在干净的 HEAD 状态下，允许直接编辑 blob 文件（<a href="https://github.com/jonas/tig/issues/1416">#1416</a>）。</li>
+      <li>支持处理 <code>NO_COLOR</code> 环境变量（<a href="https://github.com/jonas/tig/issues/1402">#1402</a>）。</li>
+    </ul>
+  </li>
+</ul>
+<h3>其他改进与修复</h3>
+<ul>
+  <li>修复了给定子目录路径时 <code>tig status</code> 运行缓慢的问题（<a href="https://github.com/jonas/tig/issues/1424">#1424</a>）。</li>
+  <li>修复了主视图中 notes 的处理逻辑（<a href="https://github.com/jonas/tig/issues/1394">#1394</a>）。</li>
+  <li>修复了带 revision 参数的 grep 功能（<a href="https://github.com/jonas/tig/issues/1398">#1398</a>）。</li>
+  <li>修复了裸仓库无 HEAD 时的仓库信息显示问题。</li>
+  <li>修复了 "DU" 冲突被错误显示为 'Staged changes' 的问题（<a href="https://github.com/jonas/tig/issues/471">#471</a>）。</li>
+  <li>改进了 diff 视图对纯文件重命名的处理（<a href="https://github.com/jonas/tig/issues/1426">#1426</a>）。</li>
+  <li>修复了 'Not Committed Yet' 更改的日期显示问题（<a href="https://github.com/jonas/tig/issues/1423">#1423</a>）。</li>
+  <li>修复了 glibc-2.43 环境下的编译器警告。</li>
+  <li>更新了 Cygwin 构建配置，并修复了 chocolate 主题在后台视图中的光标颜色问题（<a href="https://github.com/jonas/tig/issues/1419">#1419</a>）。</li>
+  <li>测试框架支持通过 <code>SYSTEM_TIG=1</code> 运行测试（<a href="https://github.com/jonas/tig/issues/1400">#1400</a>）。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jonas/tig/releases/tag/tig-2.6.1</guid>
+      <pubDate>Sat, 13 Jun 2026 17:56:46 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.176 更新：会话语言自适应、Bedrock 凭证缓存优化及多项体验修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.176</link>
@@ -1109,36 +1143,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.10.2</guid>
       <pubDate>Thu, 21 May 2026 00:42:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.146：命令重命名、自动模式修复及多项改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.146</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
-<ul>
-<li><strong>命令重命名</strong>：<code>/simplify</code> 命令已重命名为 <code>/code-review</code>，并支持可选的 effort 级别参数（如 <code>/code-review high</code>）</li>
-<li><strong>自动模式修复</strong>：当用户或技能明确依赖 <code>AskUserQuestion</code> 时，自动模式不再抑制该行为</li>
-<li><strong>Diff 渲染性能提升</strong>：改进了大文件编辑时的差异对比渲染性能</li>
-<li><strong>自动更新可靠性提升</strong>：版本检查和下载现在会在临时网络故障时自动重试，而非立即失败</li>
-</ul>
-<h3>其他修复与改进</h3>
-<ul>
-<li>修复了 Windows 上通过 winget 或 Microsoft Store 安装 <code>pwsh</code> 时 PowerShell 工具报错 "command line is invalid" 的问题（v2.1.124 引入的回归）</li>
-<li>修复了 MCP 分页服务器上 <code>resources/list</code>、<code>resources/templates/list</code> 和 <code>prompts/list</code> 丢失第一页之后条目的问题</li>
-<li>修复了 Windows Terminal 中附加后台会话在 Claude 流式输出时全屏闪烁的问题</li>
-<li>修复了自动更新状态行在更新失败时不显示当前版本号的问题</li>
-<li>修复了 Windows 上删除后台任务工作区时不再跟随 NTFS 联接点进入主仓库的问题</li>
-<li>修复了 <code>/background</code> 拒绝仅包含技能或自定义斜杠命令的会话的问题</li>
-<li>修复了后台会话对已授予"不再询问"权限的工具重新请求权限的问题</li>
-<li>修复了 <code>/theme</code> 颜色编辑器和"新建自定义主题"对话框无法响应 Esc 键的问题</li>
-<li>修复了通过 Agent SDK 运行时流式会话结束时的未捕获异常</li>
-<li>修复了 <code>forceLoginOrgUUID</code> 和 <code>forceLoginMethod</code> 管理策略未对第三方提供商和 API 密钥会话生效的问题</li>
-<li>修复了 GNOME 终端中右键和中键粘贴无法插入文本的问题</li>
-<li>修复了 <code>CLAUDE_CODE_SUBAGENT_MODEL</code> 环境变量未传递给多代理会话中子进程的问题</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.146</guid>
-      <pubDate>Thu, 21 May 2026 01:51:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
