@@ -3,7 +3,21 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 13 Jun 2026 18:23:19 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2026 20:39:48 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Arch Linux AUR 仓库遭大规模恶意软件攻击，逾 1,500 个软件包受影响</title>
+      <link>https://news.ycombinator.com/item?id=48516379</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章报道 Arch Linux AUR 仓库遭遇大规模恶意软件攻击，涉及超1500个软件包。属于开源生态安全事件，对系统环境安全有直接影响，符合开源相关兴趣，且具有较高时效性与重要性。</small></p><p>Arch Linux 的 AUR（Arch User Repository，用户贡献软件仓库）近日遭遇大规模恶意软件攻击。据 <a href='https://www.phoronix.com/news/Arch-Linux-AUR-More-Than-1500'>Phoronix</a> 报道，事件最初报告有 400 多个软件包被感染，随后数字迅速攀升，最终确认超过 1,500 个（确切为 1,579 个）用户贡献的软件包受到影响。目前，Arch Linux 开发者已删除所有已知的恶意提交，认为该事件已得到控制。</p>
+<p>此次攻击主要针对孤儿包（orphaned packages）和低使用率的软件包。攻击者通过接管维护权或上传新版本的方式，在构建脚本中植入了恶意代码。恶意软件主要利用 Node.js 生态系统的依赖项，如 <code>atomic-lockfile</code>、<code>js-digest</code> 和 <code>lockfile-js</code>，部分攻击还使用了 <code>bun</code> 替代 <code>npm</code>。</p>
+<p>社区对此事件展开了热烈讨论。许多用户指出，AUR 本身是用户维护的，官方文档一直警告用户在安装前应自行审查 <code>PKGBUILD</code> 和安装脚本。然而，也有观点认为，随着供应链攻击的日益猖獗，单纯依赖“用户自行审查”已显不足，建议引入同行评审或发布冷却期等机制。不过，支持者认为严格的审核会违背 AUR 快速提供最新软件（如游戏驱动和内核）的初衷。</p>
+<p>评论中还分享了检查系统是否受影响的方法，例如使用 <code>pacman -Qmi</code> 命令查看已安装的外来软件包，或检查 <code>/var/log/pacman.log</code> 日志。此外，社区也推荐了第三方检测工具，如 <a href='https://github.com/lenucksi/aur-malware-check' rel='nofollow'>aur-malware-check</a>。</p>
+<h3>你知道吗？</h3>
+<p>AUR（Arch User Repository）是 Arch Linux 社区维护的一个软件仓库，其中包含大量官方仓库未收录的软件包。与官方仓库经过严格审核不同，AUR 中的软件包由用户上传，通常以 <code>PKGBUILD</code> 脚本的形式提供，用户需自行下载、审查并编译安装。这种机制虽然提供了极高的灵活性和软件更新速度，但也带来了潜在的安全风险。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48516379</guid>
+      <pubDate>Sat, 13 Jun 2026 11:55:30 GMT</pubDate>
+    </item>
     <item>
       <title>UI 动画的“每一帧完美”原则：细节如何影响用户信任</title>
       <link>https://news.ycombinator.com/item?id=48516251</link>
@@ -890,40 +904,6 @@ Moonshot 此次发布的模型附带了修改后的开源许可证，要求商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48428475</guid>
       <pubDate>Sat, 06 Jun 2026 20:03:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linear 为何如此快速？深度解析其本地优先架构与性能优化策略</title>
-      <link>https://news.ycombinator.com/item?id=48437609</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要解析 Linear 的本地优先架构与性能优化策略，属于编程工具深度分享与效率改进经验，符合高兴趣配置。</small></p><h2>核心架构：本地优先与乐观更新</h2>
-<p>Linear 的速度并非依赖单一“银弹”，而是从底层架构开始就针对性能进行了极致优化。其核心在于将浏览器作为用户的本地数据库（<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/IndexedDB_API">IndexedDB</a>），结合 <a href="https://mobx.js.org/">MobX</a> 响应式系统进行数据管理。</p>
-<p>传统 CRUD 应用通常遵循“点击 -> 发送 HTTP 请求 -> 等待服务器响应 -> 更新 UI”的循环，这会导致数百毫秒的延迟。而 Linear 采用了<strong>本地优先（Local-first）</strong>与<strong>乐观更新（Optimistic Updates）</strong>策略：用户操作时，UI 立即在内存中同步更新，随后在后台异步将变更推送到服务器。这种设计彻底消除了加载状态（如 Spinner），让应用体验如同原生应用般流畅。</p>
-<img src="https://media.performance.dev/cdn-cgi/image/width=893,quality=100,format=auto,fit=scale-down/posts/p_gAMR6Z7y49Fp/yLYBhiiY_FsV.jpg" alt="How's Linear so fast? A technical breakdown" width="893" height="502" />
-
-<h2>极简的技术栈与客户端渲染</h2>
-<p>Linear 的技术栈出乎意料地简单：前端使用 <a href="https://react.dev/">React</a>、<a href="https://www.typescriptlang.org/">TypeScript</a> 和 <a href="https://mobx.js.org/">MobX</a>，后端使用 Node.js 和 PostgreSQL。作者特别指出，Linear 坚持使用<strong>客户端渲染（CSR）</strong>，避免了服务器端渲染（SSR）带来的复杂性。通过简单的架构和约束，Linear 构建了一个清晰的心智模型，同时利用 <a href="https://github.com/jakearchibald/idb">idb</a> 等工具高效管理本地数据。</p>
-
-<h2>首屏加载优化：让应用“瞬间”打开</h2>
-<p>为了消除首屏加载的等待时间，Linear 在构建和加载阶段采取了多项激进措施：</p>
-<ul>
-<li><strong>极致的代码分割（Code Splitting）：</strong> 放弃对旧浏览器的支持（移除 Polyfills），将代码拆分为数百个路由级别的 Chunk。每个 npm 包独立成 Chunk，优化了缓存策略。</li>
-<li><strong>预加载（Preloading）：</strong> 在 JS 执行前，通过 <code>&lt;link rel="modulepreload"&gt;</code> 并行请求所有关键 Chunk，打破了传统的串行瀑布流加载模式。</li>
-<li><strong>Service Worker 缓存：</strong> 在后台缓存未访问的路由 Chunk，实现离线可用和极速导航。</li>
-<li><strong>内联应用外壳（Inlined App Shell）：</strong> 在 <code>&lt;head&gt;</code> 中内联必要的 CSS，确保在外部样式表加载前即可渲染加载状态。</li>
-</ul>
-
-<h2>细节优化：字体与构建工具演进</h2>
-<p>在字体加载上，Linear 使用可变字体（Variable fonts）减少请求，并正确配置 <code>font-display: swap</code> 和 <code>crossorigin</code> 避免重绘。此外，其构建工具经历了 Parcel -> Rollup -> Vite -> Rolldown 的多次演进，目标始终是减少打包体积和提升开发体验。</p>
-<img src="https://media.performance.dev/cdn-cgi/image/width=400,quality=100,format=auto,fit=scale-down/posts/p_gAMR6Z7y49Fp/2__J_PuPKayE.jpg" alt="Vendor bundle composition" width="400" height="374" />
-
-<h3>你知道吗？</h3>
-<p><strong>本地优先（Local-first）与 CRDT：</strong> 为了实现多设备间的数据同步，许多本地优先应用（如 Linear）会使用 <a href="https://crdt.tech/">CRDT（无冲突复制数据类型）</a>。CRDT 允许数据在离线状态下被多个客户端独立修改，并在重新联网时自动合并冲突，无需中央服务器协调。这种技术不仅提升了响应速度，还天然支持了离线编辑和实时协作功能。</p>
-
-<h3>社区反馈</h3>
-<p>文章发布后引发了关于“300ms 延迟”和“乐观更新风险”的讨论。部分开发者指出，通过优化后端和边缘计算，传统 CRUD 应用也能达到 30ms 级别的响应速度；同时，也有用户担心乐观更新在网络失败时的回滚机制。不过，Linear 团队表示他们通过完善的同步状态提示和后台重试机制，已将回滚对用户的影响降至最低。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48437609</guid>
-      <pubDate>Sun, 07 Jun 2026 19:01:37 GMT</pubDate>
     </item>
   </channel>
 </rss>
