@@ -3,7 +3,48 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 13 Jun 2026 08:30:19 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2026 14:27:23 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Fedora 45 考虑为机密计算引入精简版 GRUB 引导程序</title>
+      <link>https://www.phoronix.com/news/Fedora-45-Light-GRUB-For-CoCo</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及 Fedora 45 新发行版的引导程序技术，符合来源配置中新发行版的高兴趣。</small></p><p>Fedora 45 正在考虑为机密计算（Confidential Compute）虚拟机引入一个精简版的 GRUB 引导加载程序（GRUB bootloader）。Red Hat 工程师提议创建一个专注于 UEFI 启动和 UEFI Secure Boot 的独立轻量级包，仅包含最少的内置模块，同时支持统一内核镜像（UKIs）和引导加载程序规范（BLS）文件。</p>
+<p>引入该精简版 GRUB 的主要目的是满足机密虚拟机对测量启动（measured boot）和远程证明（remote attestation）的需求。通过减少引导程序的复杂性，开发者希望保持 TPM PCR 值（平台配置寄存器）的稳定性，从而为机密计算提供更可靠的体验。标准的 GRUB 引导程序仍将是 Fedora Linux 的默认选项。</p>
+<p>开发团队最初曾考虑使用 <code>systemd-boot</code> 作为替代方案，但最终因 systemd 开发者拒绝添加额外功能、该引导程序未经过如 GRUB 般广泛的测试与模糊测试（fuzzing）、避免维护多个引导程序的复杂性以及其他架构考量而放弃了这一想法。</p>
+<h3>你知道吗？</h3>
+<p><strong>机密计算与测量启动</strong>：机密计算（Confidential Compute）是一种旨在保护数据在使用中（In-use）状态的安全技术，通常利用硬件隔离技术（如 Intel TDX 或 AMD SEV）来防止云服务商或管理员访问虚拟机内存。为了验证虚拟机环境的完整性，系统需要进行“测量启动”，即从引导加载程序开始，逐级计算并记录启动组件的哈希值到 TPM（可信平台模块）的 PCR 寄存器中。远程证明（Remote Attestation）则允许外部方验证这些 PCR 值，确保虚拟机是在一个可信、未被篡改的环境中运行的。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-45-Light-GRUB-For-CoCo</guid>
+      <pubDate>Sat, 13 Jun 2026 12:22:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GCC 17 合并 APX 与 AVX10.2 指令集的函数多版本支持</title>
+      <link>https://www.phoronix.com/news/GCC-17-FMV-For-APX-AVX10.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及 GCC 17 编译器对 APX 及 AVX10.2 指令集的支持，属于重要的编程工具发布，符合全局高兴趣及来源 Linux 桌面技术兴趣。</small></p><p>GCC 17 编译器已合并了对 Intel 新指令集 <a href="https://en.wikipedia.org/wiki/Advanced_Performance_Extensions">Advanced Performance Extensions (APX)</a> 和 <a href="https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#AVX10">Advanced Vector Extensions 10.2 (AVX10.2)</a> 的函数多版本（Function Multi-Versioning, FMV）支持。这一功能允许开发者针对特定处理器特性编写优化代码，并在不支持该特性的 CPU 上自动回退到通用代码路径。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=fmv_apx_avx10" alt="FMV of new features" />
+
+<p>APX 和 AVX10.2 指令集首次引入于 Nova Lake 和 Diamond Rapids 处理器。GCC 的 FMV 特性此前已支持 AVX-512、SSE4 等架构特性。此次更新新增的 FMV 属性目标包括 "avx10.2"、"apxf"、"arch=diamondrapids" 和 "arch=novalake"，开发者可以使用这些属性来指定针对特定指令集或处理器的优化版本。</p>
+
+<p>该功能已合并至 GCC 代码库，预计将在明年的 GCC 17.1 稳定版编译器中发布。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>函数多版本（FMV）</strong>是 GCC 编译器的一项特性，它允许开发者为同一函数编写多个版本，每个版本针对不同的 CPU 特性进行优化。在运行时，编译器生成的代码会根据当前 CPU 支持的特性自动选择最优版本执行，从而在不牺牲兼容性的前提下提升性能。</p>
+<p><strong>APX (Advanced Performance Extensions)</strong> 是 Intel 推出的下一代通用指令集扩展，旨在提高通用计算性能，特别是在整数运算和内存访问方面。而 <strong>AVX10</strong> 则是 Intel 针对 x86 架构设计的新一代 SIMD（单指令多数据）指令集，旨在提升并行计算能力，其第二个版本 AVX10.2 进一步增强了功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-17-FMV-For-APX-AVX10.2</guid>
+      <pubDate>Sat, 13 Jun 2026 10:20:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ KDE Plasma 6.7 发布前夕迎来多项关键修复与优化</title>
+      <link>https://www.phoronix.com/news/KDE-Plasma-6.7-Next-Week</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及 KDE Plasma 桌面环境即将发布的版本，完全符合来源配置中对 KDE 的高兴趣。</small></p><div><p>KDE 开发者在 <a href="https://www.phoronix.com/news/KDE-Plasma-6.7-Next-Week">Plasma 6.7</a> 桌面环境正式发布前夕，集中进行了多项错误修复与回归测试工作。根据最新一期 <i>This Week in Plasma</i> 的更新日志，开发团队不仅解决了影响系统稳定性的关键崩溃问题，还针对搜索体验、主题适配及交互逻辑进行了多项优化。</p><p>在稳定性方面，Plasma 6.6.6 修复了登录过程中更改显示器布局导致系统崩溃的缺陷；Plasma 6.7 则解决了睡眠唤醒后插拔显示器引发的崩溃问题。在功能优化上，Plasma 6.7 改进了内置应用启动器与搜索工具 KRunner 的排序逻辑，通过抑制低优先级结果来提升搜索质量。Plasma 6.8 增强了深色主题适配能力，可自动为旧版 GTK2 应用匹配匹配的图标主题，解决图标不可读的问题。</p><p>此外，Frameworks 6.28 允许用户单独使用 Meta 键触发窗口管理器 KWin 的概览屏幕，并修复了包含本地 AVIF 图标的桌面快捷方式导致系统冻结的异常。Plasma 6.8 的浏览器集成模块也将新增对 Flatpak 版 Microsoft Edge 的支持。Plasma 6.7 正式版定于 6 月 16 日推出。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.7-Next-Week</guid>
+      <pubDate>Sat, 13 Jun 2026 09:46:41 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Arch Linux AUR 恶意软件事件已受控：逾 1,500 个软件包受影响</title>
       <link>https://www.phoronix.com/news/Arch-Linux-AUR-More-Than-1500</link>
@@ -703,50 +744,6 @@ Sophie Herold 将致力于建立新的 RFC（Request for Comments，征求意见
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/OpenCV-5.0-Released</guid>
       <pubDate>Sat, 06 Jun 2026 12:06:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ape：一款基于 Zig 语言的全新开源 Vulkan 驱动</title>
-      <link>https://www.phoronix.com/news/Vulkan-Ape-Driver</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍使用Zig编写的新型Vulkan驱动程序，符合来源配置中对于“新软件项目”的兴趣点，具有一定的技术可读性。</small></p><p>Ape 是一款全新的开源 Vulkan 驱动，完全使用 <a href="https://ziglang.org/">Zig</a> 编程语言编写，且不依赖任何 Mesa 代码。该项目目前正接近通过 Vulkan 1.0 一致性测试，作者也已向 Vulkan 规范提交申请，以获取专属的 "Ape" 厂商 ID。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=ape_driver" alt="Ape driver project logo" />
-<p>与 Mesa 的 Lavapipe 软件渲染驱动类似，Ape 采用纯软件实现路径，旨在为开发者提供一个基于现代编程语言的 Vulkan 驱动参考实现。Zig 语言带来的内存安全保证和可预测性，使其成为替代传统 C/C++ 驱动开发的理想选择。该项目采用 MIT 许可证开源，感兴趣的用户可通过其 Git 仓库进行查看。</p>
-<h3>你知道吗？</h3>
-<p><strong>Zig 语言</strong> 是一种注重性能、可靠性和良好可维护性的现代系统编程语言，旨在替代 C/C++。它通过内置的错误处理、编译时代码执行和确定性内存管理，大幅降低了系统级编程的复杂度。</p>
-<p><strong>Vulkan 驱动生态</strong> 目前主要由 Mesa 项目主导。Ape 的出现展示了独立于 Mesa 的驱动开发可能性，有助于推动 Vulkan 生态的多样化，并为驱动开发者提供新的技术参考。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Vulkan-Ape-Driver</guid>
-      <pubDate>Sat, 06 Jun 2026 11:03:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.8 将在全屏应用中显示低电量通知</title>
-      <link>https://www.phoronix.com/news/Plasma-6.8-Low-Battery-Full-S</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章核心内容涉及KDE Plasma 6.8的功能更新，来源配置中“KDE”为high_interest，故判为必看内容。</small></p><p>KDE 开发团队在准备 Plasma 6.7 发布的同时，也在为 Plasma 6.8 进行早期功能开发，并继续修复 Plasma 6.6 稳定系列的问题。最新的 "This Week in Plasma" 报告了以下主要进展：</p>
-<ul>
-<li><strong>Plasma 6.8</strong>：将在全屏应用（如游戏）中显示低电量通知，确保用户不会错过重要提示。</li>
-<li><strong>Plasma 6.6.6</strong>：修复了刷新附近 WiFi 网络列表时导致 Plasma 崩溃的 bug。</li>
-<li><strong>Plasma 6.7</strong>：修复了基于 VNC 的屏幕共享功能中 Ctrl 和 Alt 修饰符无法正确发送的问题；同时解决了数字时钟小部件在快速切换月份时可能发生的冻结问题。</li>
-<li><strong>KDE Frameworks 5.27</strong>：修复了切换浅色和全局深色主题时，部分 UI 元素颜色变化不完整的问题。</li>
-</ul>
-<p>此外，开发团队还进行了其他多项 bug 修复工作。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Plasma-6.8-Low-Battery-Full-S</guid>
-      <pubDate>Sat, 06 Jun 2026 10:55:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNUtrition 时隔 14 年发布 0.33 版，重回营养分析软件领域</title>
-      <link>https://www.phoronix.com/news/GNUtrition-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述GNU项目回归营养软件开发，属于全局配置中“开源项目”的范畴。</small></p><p>GNU 的 <a href="https://www.gnu.org/software/gnutrition/">GNUtrition</a> 营养分析软件在沉寂 14 年后，于 2026 年 6 月发布了 0.33 版本。这是该自 2012 年以来的首个更新版本。</p>
-<p>GNUtrition 是一款基于美国农业部（USDA）数据源的营养分析工具。由于旧版数据库已停用，新版本采用了更新的数据源。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=gnutrition_1_med" alt="GNUtrition 软件界面" />
-<p>在技术架构上，该版本进行了重大重构：核心代码从 Python 2 重写为纯 C 语言，用户界面也从 GTK2 升级至 GTK3。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=gnutrition_2_med" alt="GNUtrition 在 Ubuntu Linux 上的运行界面" />
-<p>更多详细信息可访问 <a href="https://www.gnu.org/software/gnutrition/">GNU.org</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNUtrition-2026</guid>
-      <pubDate>Sat, 06 Jun 2026 10:36:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
