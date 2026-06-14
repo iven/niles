@@ -3,7 +3,47 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 14 Jun 2026 09:54:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jun 2026 12:13:49 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Arch Linux AUR 再遭恶意软件攻击，混淆手段更为隐蔽</title>
+      <link>https://www.phoronix.com/news/Arch-Linux-AUR-More-Malware</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讨论 Arch Linux AUR 仓库的安全问题，属于 Linux 发行版生态动态，契合用户对 Linux 桌面技术及发行版的兴趣，故推荐阅读。</small></p><p>Arch Linux 的用户软件仓库 AUR（Arch User Repository）近日再次遭遇恶意软件攻击。在上一轮波及 1,500 余个软件包的恶意软件事件刚被初步控制后，仅过一天，攻击者便发起了新一轮攻势，且手段更为隐蔽。</p>
+<p>此次攻击的显著特征是广泛使用代码混淆（code obfuscation）技术来隐藏恶意意图。开发者 a821 首先报告了受影响的软件包，包括多个 Node.js 包、Plasma 6 小部件、Firefox 扩展、Aura 浏览器、LibreWolf 插件以及 NeoVim 插件等。在 a821 确认已清理相关包后，仅数小时，开发者 Nicolas Boichat 又发现了更多恶意软件。</p>
+<p>Boichat 利用本地部署的 Gemma E2B（Gemma E2B AI model）模型成功检测出这批新型恶意代码。该攻击在混淆技术的基础上，进一步针对 Bun（Bun）命令的执行逻辑进行了伪装，试图绕过常规审查。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=aur_mal_obfuscate" alt="obfuscated malware install command example" /></p>
+<p>尽管社区开发者迅速响应并清理了受感染软件包，但 AUR（Arch User Repository）作为完全由用户贡献的仓库，其安全性仍面临严峻挑战。作者指出，官方应尽快实施更严格的变更验证机制或安全护栏（safeguards），而非仅依赖社区事后清理。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Arch-Linux-AUR-More-Malware</guid>
+      <pubDate>Sun, 14 Jun 2026 10:32:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 内核优化：修订版 AVX-512 xor_gen() 实现带来更高 RAID 性能</title>
+      <link>https://www.phoronix.com/news/AVX-512-Xor-Gen-More-Perf</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章聚焦 Linux RAID 子系统的底层性能优化，偏向基础设施与性能调优范畴，符合来源配置中性能类内容权重较低的特点，故列为可选。</small></p><h2>正文</h2>
+Google 工程师 Eric Biggers 正在主导 Linux 内核中 <code>xor_gen()</code> 函数的 AVX-512 加速实现。该函数是内核用于生成和验证奇偶校验块（如 RAID5/RAID6 软件阵列）的核心组件，同时也被 Btrfs 等文件系统直接调用。此前的初始实现已带来最高 41% 的性能提升，而近日发布的 v2 版本进一步优化了计算逻辑，将性能提升幅度推高至 43%，并在不同数据源数量（src count）场景下展现出更广泛的优化效果。目前，该 v2 实现已提交至 Linux 内核邮件列表（LKML）接受社区审查。
+<img src="//www.phoronix.net/image.php?id=2026&image=xor_gen_2" alt="xor_gen v2 benchmark" />
+
+<h2>你知道吗？</h2>
+<b>AVX-512 与软件 RAID 加速</b><br>
+AVX-512（Advanced Vector Extensions 512-bit）是 Intel 推出的 512 位宽 SIMD（单指令多数据）指令集。在软件 RAID 环境中，数据写入和校验过程涉及大量的异或（XOR）运算。传统 CPU 指令一次只能处理少量数据，而 AVX-512 允许单次指令并行处理 64 个 8 字节数据，大幅降低了 CPU 在奇偶校验计算上的开销，从而显著提升存储子系统的吞吐量和响应速度。]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AVX-512-Xor-Gen-More-Perf</guid>
+      <pubDate>Sun, 14 Jun 2026 10:22:57 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ pkgcli：PackageKit 的现代命令行界面</title>
+      <link>https://www.phoronix.com/news/PackageKit-pkgcli</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍 PackageKit 推出的新命令行工具 pkgcli，属于软件包管理工具的新发布，高度契合用户对“新软件项目”及“编程工具”的极高兴趣，故列为必看。</small></p><p>开源开发者 Matthias Klumpp 近期开发了一款名为 pkgcli 的新工具，旨在作为 PackageKit 包管理抽象层的现代命令行界面（CLI）。在经历了近二十年的 pkcon 工具后，Klumpp 在 Sovereign Tech Agency 奖学金的支持下，从零开始设计了 pkgcli。</p>
+<p>pkgcli 的设计重点在于提升用户体验，不仅命令名称和输出更加人性化，还提供了通过 --json 参数输出的 JSON lines 格式，极大地方便了脚本编写。此外，该工具具备合理的默认设置，旨在为 PackageKit 提供整体更佳的交互体验。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=pkgcli_med" alt="pkgcli on Ubuntu" /></p>
+<p>目前，如果用户的 Linux 发行版已更新并包含最新的 PackageKit，可能已经可以使用 pkgcli。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/PackageKit-pkgcli</guid>
+      <pubDate>Sun, 14 Jun 2026 10:09:38 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Wine-Staging 11.11 发布，基于上游代码新增 289 个补丁</title>
       <link>https://www.phoronix.com/news/Wine-Staging-11.11</link>
@@ -681,58 +721,6 @@ Sophie Herold 将致力于建立新的 RFC（Request for Comments，征求意见
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Wayland-Protocols-1.49</guid>
       <pubDate>Sun, 07 Jun 2026 13:32:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ &quot;Flatten The Pick&quot; v3 补丁推进 Linux cgroup 调度优化，提升游戏性能</title>
-      <link>https://www.phoronix.com/news/Flatten-The-Pick-v3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论 Linux 内核 cgroup 调度优化补丁，虽提及游戏场景但核心为系统调度技术改进，具有推荐价值</small></p><html>
-<h2>正文</h2>
-<p>Intel 工程师 Peter Zijlstra 正在推进一项旨在提升旧硬件上 Linux 游戏性能的调度器优化工作。继前两个版本后，名为 "Flatten The Pick" 的补丁集已发布第三版（v3），旨在解决 Linux cgroup（控制组）调度中存在的痛点。</p>
-<p>该补丁集引入了 <code>cgroup_mode</code> 配置选项，并实施了新策略以解决层级权重不匹配（hierarchy level weight mismatch）的问题。其核心目标是创建一个扁平化或单运行队列（flat/single run-queue）调度器，通过动态权重管理来表达 cgroup 层级结构。v3 版本还包含了多项修复，并重新基于最新的上游代码状态进行了调整。</p>
-<p>在性能测试中，Peter 在搭载旧款 Intel Sandy Bridge 处理器和 Radeon RX 580 显卡的硬件上运行游戏，并加载了额外的调度任务。结果显示，该补丁显著提升了最低帧率（minimum frame rate）和平均 FPS，同时大幅降低了平均和最大帧时间（frame times）。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=flatten_the_pick_3" alt="Flatten The Pick benchmark" />
-<p>目前，这些补丁正在 Linux 内核邮件列表（LKML）上接受审查，有望在不久的将来被合并到主线内核中。</p>
-<h2>你知道吗？</h2>
-<ul>
-<li><strong>cgroup (Control Groups)</strong>：是 Linux 内核的一个功能，用于限制、记录并隔离进程组所使用的物理资源。在桌面环境中，cgroup 常用于隔离后台服务与前台应用。但在某些复杂场景下，其层级调度逻辑可能导致前台应用（如游戏）无法获得预期的 CPU 时间片，从而影响性能。</li>
-</ul>
-</html>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Flatten-The-Pick-v3</guid>
-      <pubDate>Sun, 07 Jun 2026 11:06:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Mesa 26.2 支持直接显示模式下的 VK_GOOGLE_display_timing 扩展</title>
-      <link>https://www.phoronix.com/news/VK-Google-Timing-KHR-Display</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Mesa 26.2 更新及显示时序支持，属于 Linux 桌面开源软件新进展，符合用户兴趣配置</small></p>Mesa 26.2 版本正式合并了对 <code>VK_GOOGLE_display_timing</code> 扩展在 <code>VK_KHR_display</code>（直接显示模式）下的支持。该扩展允许应用程序获取显示时序信息，对于优化游戏帧同步（frame-pacing）和消除微卡顿（micro-stuttering）具有重要作用。
-
-此次更新由开源开发者 Mario Kleiner 主导，他基于 anholt 和 keithp 的早期工作，将代码重构为基于 <code>VK_EXT_present_timing</code> 的基础设施，从而最大限度地减少了代码重复。这一改进将立即惠及 Intel ANV、Radeon RADV、PowerVR、Turnip 以及 V3DV 等 Vulkan 驱动。
-
-相比功能更强大的 <code>VK_EXT_present_timing</code>，<code>VK_GOOGLE_display_timing</code> 的主要优势在于其兼容性。现有的成熟应用（如 Psychtoolbox-3 和 Monado OpenXR 运行时）拥有成熟的后端支持，可以直接利用新的时序功能，而无需进行额外的移植工作。
-
-未来，开发者计划探索在 Wayland 或原生 X11 环境下支持该扩展的可能性，但这需要解决其无法逐表面（per-surface）报告支持的技术限制。
-
-<div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
-<strong>你知道吗？</strong><br>
-<strong>直接显示模式（Direct Display Mode）：</strong>在 Linux 图形栈中，直接显示模式（通常通过 <code>VK_KHR_display</code> 实现）允许 Vulkan 应用程序绕过 X11 或 Wayland 合成器，直接与 DRM/KMS（Direct Rendering Manager / Kernel Mode Setting）交互。这种模式通常用于嵌入式系统、VR 头显或需要极低延迟和直接硬件控制的场景。
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/VK-Google-Timing-KHR-Display</guid>
-      <pubDate>Sun, 07 Jun 2026 10:47:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>Broadcom V3D 3.3/4.1 图形支持因缺乏测试面临弃用与移除</title>
-      <link>https://www.phoronix.com/news/Broadcom-V3D-Some-Deprecations</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论 Broadcom V3D 图形驱动因缺乏测试将被移除，涉及非主流硬件维护状态，兴趣不明确故列为可选</small></p><p>Broadcom V3D 3.3 和 V3D 4.1 图形 IP 即将在内核图形/显示驱动中被弃用并最终移除。这一决定源于开发者缺乏相关硬件进行测试，且 Mesa 驱动支持已于两年前（2024年）因同样原因被移除。</p>
-<p>目前，V3D 3.3 图形主要存在于 BCM7268 SoC 中，而 V3D 4.1 则用于 BCM7278。BCM7268 是首款搭载 VideoCore V "VC5" IP 的芯片，但并未得到广泛部署；BCM7278 也仅见于少数机顶盒设备，且极难在运行主线 Linux 内核的设备上找到。</p>
-<p>Igalia 的 Maíra Canal 于近日提交了补丁，提议首先在内核探测阶段发出弃用警告，并计划在 Linux v7.3 版本中彻底移除对这两个版本的支持。Canal 指出，由于缺乏用户空间驱动和已知用户，维护这些代码路径不仅没有收益，反而增加了维护成本。不过，如果未来出现真实用户并说明使用场景，支持仍可保留。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=v3d_deprecates" alt="V3D deprecates" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Broadcom-V3D-Some-Deprecations</guid>
-      <pubDate>Sun, 07 Jun 2026 10:23:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
