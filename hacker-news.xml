@@ -3,7 +3,47 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 14 Jun 2026 12:12:37 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jun 2026 14:29:48 GMT</lastBuildDate>
+    <item>
+      <title>阿拉伯文排版的体验与技术债务：从古典书法到现代Web的困境</title>
+      <link>https://news.ycombinator.com/item?id=48516710</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要探讨阿拉伯文排版在Web端的技术挑战与历史渊源，属于特定领域的技术讨论，非用户核心关注的AI或编程工具话题，兴趣不明确。</small></p><p>本文探讨了在Web环境中渲染阿拉伯文（Arabic typography）所面临的复杂技术挑战与历史遗留问题。作者从一次前端工单切入：设计稿要求阿拉伯语文本两端对齐（justified），但生产环境中的浏览器默认拉伸词间距，导致排版效果与设计严重不符。这背后折射出阿拉伯文排版在现代计算环境中的系统性困境。</p>
+<p>文章首先追溯了阿拉伯文书法与排版的古典传统。与拉丁文通过拉伸词间距对齐不同，古典阿拉伯文排版通过拉长字母内部的连接笔画（kashida，又称 taṭwīl）来实现两端对齐。这一系统由阿拔斯王朝书法家伊本·穆格莱（Ibn Muqla）确立，后经伊本·巴瓦卜（Ibn al-Bawwāb）等人完善，发展出纳斯赫（Naskh）、纳斯塔利克（Nastaʿlīq）等多种字体风格。在这种传统中，对齐被视为一种字形塑造（shaping）问题，而非简单的间距调整。</p>
+<img src="/i/arabic-met-folio.jpg" alt="一幅十四世纪纳斯赫体古兰经手稿，每行两端对齐" />
+<p>现代计算机处理阿拉伯文面临多重技术障碍。首先，阿拉伯文是连写文字（cursive），每个字母在词中的位置（独立、词首、词中、词尾）决定了其形状。一个Unicode码位对应四种字形，必须由排版引擎（shaping engine）在渲染时根据上下文实时计算。其次，早期编码标准（如DOS和Windows 8-bit code pages）将字形直接编码，导致Unicode中保留了“阿拉伯文表现形（Arabic Presentation Forms）”区块。新旧编码混用会导致搜索失败和数据匹配错误，例如文章开头提到的客户搜索工单，根源正是未进行NFKC规范化处理。</p>
+<p>在Web开发中，CSS的 text-align: justify 默认拉伸词间距，不符合阿拉伯文传统。尽管OpenType规范提供了字形拉伸（JSTF）表，但浏览器支持并不完善。开发者往往需要手动插入U+0640 TATWEEL字符，或依赖复杂的字体回退链（font fallback chains）来保证跨语言（如波斯语、乌尔都语）的正确渲染。</p>
+<p>在HackerNews社区的讨论中，开发者指出排版、双向文本（bidi）、字体回退和搜索模型等层面相互交织，难以单独修复。有评论提到微软曾短暂在IE 5.5中支持过 text-justify: kashida，但现代Web栈仍未彻底解决这一痛点。尽管AI可能帮助优化排版引擎的实现，但行业对非主流语言排版支持的投资意愿仍是主要瓶颈。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48516710</guid>
+      <pubDate>Sat, 13 Jun 2026 12:40:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 双显卡（RTX 5080 + 3090）部署 Qwen 3.6 27B 模型，推理速度达 80 tok/s</title>
+      <link>https://news.ycombinator.com/item?id=48515454</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 内容聚焦于Qwen 3.6大模型在双显卡下的部署与推理速度，符合用户对“新AI模型”及“编程效率改进”的高兴趣配置，核心为AI技术应用。</small></p><h2>硬件与驱动配置</h2>
+<p>作者分享了一套基于 <a href="https://imil.net/blog/posts/2026/rtx-5080-+-rtx-3090-setup-80+-tok-s-on-qwen-3.6-27b-q8/">双显卡（RTX 5080 + RTX 3090）</a> 的本地大模型部署方案。硬件方面，利用 Asus Prime X570-Pro 主板将 PCIe 16x 通道拆分为两个 8x 插槽，分别连接 16GB 显存的 RTX 5080 和 24GB 显存的二手 RTX 3090，总计 39GB 显存足以容纳 Qwen 3.6 27B 模型的 Q8 量化版本。</p>
+<p>在驱动配置上，由于两张显卡架构不同（Ampere 与 Blackwell），作者无法使用支持 P2P（Peer-to-Peer）通信的修改版驱动，转而使用标准的 <code>nvidia-open</code> 驱动。BIOS 设置中需开启 Above 4G Decoding 和 ReSize BAR，并将 PCIe 链路模式设为 Gen 4。</p>
+
+<h2>推理优化与性能</h2>
+<p>推理引擎选用 <code>llama.cpp</code>，通过编译时指定 <code>CMAKE_CUDA_ARCHITECTURES="86;120"</code> 同时支持 Ampere 和 Blackwell 架构。关键运行参数包括：</p>
+<ul>
+  <li><code>-sm tensor</code>：启用张量并行（Tensor Parallelism），将模型层分布在两张显卡上。</li>
+  <li><code>-ts 2,3</code>：调整显存分配比例，确保两张卡的显存利用率最大化。</li>
+  <li><code>--spec-type ngram-mod,draft-mtp</code>：结合 n-gram 和 MTP（Multi-Token Prediction，多令牌预测）推测解码技术加速生成。</li>
+</ul>
+<p>在该配置下，模型在 229k 上下文窗口内的推理速度稳定在 <strong>80 tok/s</strong> 以上，部分任务可达 90 tok/s 以上。</p>
+
+<h2>社区讨论</h2>
+<p>评论区围绕本地部署的性价比与功耗展开了讨论。有用户指出，虽然本地硬件投入（二手 3090 + 5080 + 主板等）超过 2000 美元，且满载功耗可达 600W-700W，但本地部署提供了数据隐私和长期可预测的运行成本，避免了云端 API 价格波动或断供的风险。此外，也有用户分享了在 Apple Silicon 或 Tenstorrent 硬件上运行同类模型的体验对比。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>MTP（Multi-Token Prediction）推测解码</strong>：这是一种加速大语言模型推理的技术。传统推理每次只生成一个 token，而 MTP 允许模型在生成当前 token 的同时，预测后续多个 token。如果预测正确，这些 token 会被一次性接受，从而显著减少生成时间。结合 n-gram 等轻量级草稿生成器，可以在不显著增加计算负担的前提下提升吞吐量。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48515454</guid>
+      <pubDate>Sat, 13 Jun 2026 09:55:32 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 在家进行AI编程的省钱策略与最佳实践</title>
       <link>https://news.ycombinator.com/item?id=48518969</link>
@@ -891,45 +931,6 @@ Moonshot 此次发布的模型附带了修改后的开源许可证，要求商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48446893</guid>
       <pubDate>Mon, 08 Jun 2026 15:46:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Zig by Example：一份面向 Zig 0.16 的交互式代码示例指南</title>
-      <link>https://news.ycombinator.com/item?id=48444871</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章提供Zig 0.16编程语言的交互式代码示例指南，属于典型的编程工具分享与开源教程，直接对应用户对编程工具与经验分享的高兴趣配置，故推荐阅读。</small></p><p><a href="https://github.com/boringcollege/zig-by-example">Zig by Example</a> 是一个开源项目，旨在通过带详细注释的示例代码，为开发者提供一份关于 <a href="https://ziglang.org/">Zig</a> 编程语言的动手实践指南。<img src="https://camo.githubusercontent.com/bc6540c99a7ff6ef1524cd04ed866e3e508be746fed0672a5fc008fb820c0685/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7a69672d302e31362d6f72616e67652e737667" alt="Zig 0.16" /> <img src="https://camo.githubusercontent.com/59896db2b47e60cf6b6cdd3af4bc9ec3e8d290389a9d3ce7cdb95a955e9d0923/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d43432532304259253230342e302d6c69676874677265792e737667" alt="License: CC BY 4.0" /></p>
-<p>Zig 是一种通用的编译型系统语言，其设计哲学强调代码的健壮性、执行效率与语法简洁性，主张消除隐藏的控制流、隐式内存分配以及预处理器。该项目灵感来源于著名的《Go by Example》，内容结构清晰，分为带注释的文档与可运行的源代码两部分。教程涵盖了从基础的“Hello, World”、数据类型（整数、浮点数、字符串、数组、切片等）、控制流，到进阶的指针、编译时代码（<a href="https://ziglang.org/learn/comptime">Comptime</a>）、泛型、内存管理、I/O 接口（0.16 版本新增）、并发模型以及 C 语言互操作等核心主题。所有示例均针对 Zig 0.16.0 版本编写并经过编译测试。</p>
-<p>在 Hacker News 社区的讨论中，开发者们分享了多种 Zig 学习资源，包括 Karl Seguin 的《Learning Zig》、在线书籍《Introduction to Zig》以及交互式练习平台 <a href="https://codeberg.org/ziglings/exercises">Ziglings</a>。针对 Zig 尚未发布 1.0 稳定版导致的编译器版本管理问题，社区建议开发者使用 mise、Nix 或 Docker 等工具进行环境隔离。此外，也有讨论涉及 Zig 的并发模型（与 Go 语言类似，采用 std.io.queue 和 std.io.async 等机制）以及其与 Rust 在系统编程领域的定位差异。</p>
-<h3>你知道吗？</h3>
-<p>Zig 的并发模型借鉴了 Go 语言的 CSP（通信顺序进程）理念，但并未引入 <code>go</code> 关键字或通道（channels）。相反，它通过标准库中的 <code>std.io.Queue</code> 处理队列，使用 <code>std.io.async</code> 和 <code>std.io.concurrent</code> 进行异步与并发操作，并通过 <code>std.io.Select</code> 实现多路复用选择。这种设计保持了语言核心语法的极简，同时将并发原语交由标准库实现。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48444871</guid>
-      <pubDate>Mon, 08 Jun 2026 13:06:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 小米发布 MiMo-V2.5-Pro-UltraSpeed：在消费级 GPU 上实现 1T 模型 1000 tokens/s 推理速度</title>
-      <link>https://news.ycombinator.com/item?id=48446639</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要发布小米推出的AI模型推理加速工具及模式，大幅突破消费级GPU上的大模型推理速度极限，高度契合用户对新AI模型发布及效率改进的高兴趣配置。</small></p><div>
-<p>小米与 TileRT 团队联合发布 <strong>MiMo-V2.5-Pro-UltraSpeed</strong>，在消费级 GPU 集群上首次实现了 1 万亿参数（1T）大模型 <strong>1000 tokens/s</strong> 的生成速度。该版本通过极致的“模型-系统协同设计（Model-System Codesign）”突破了传统推理瓶颈，旨在将 AI 响应速度提升至实时交互水平。</p>
-<img src="/mimo-tilert-1000tps/1000tpsfp4.png" alt="Model capability comparison between FP4 quantization (MoE Experts only) and FP8 across benchmarks, with overall capability essentially on par with the original model" />
-<h3>技术突破：极致协同设计</h3>
-<p>在万亿参数规模下，传统 8 位或 16 位推理面临巨大的显存带宽压力。小米团队采取了以下核心优化：</p>
-<ul>
-<li><strong>FP4 量化（MXFP4）</strong>：仅对 MoE（混合专家）架构中的 Experts 模块进行 FP4 量化，保留其他模块的原始精度。配合量化感知训练（QAT），大幅降低显存占用与带宽需求，同时保持模型在复杂推理和代码生成上的能力不降级。</li>
-<li><strong>DFlash 投机解码</strong>：采用基于块级掩码并行预测的投机解码（Speculative Decoding）技术。通过滑动窗口注意力（SWA）设计的轻量级草稿模型，一次性并行预测多个 Token，将自回归生成的串行限制转化为并行验证，显著提升单次验证的接受长度（Coding 场景平均接受长度达 6.30）。</li>
-<li><strong>TileRT 推理引擎</strong>：底层采用持久化内核（Persistent Engine Kernel）与 Warp 专业化（Warp Specialization）技术，彻底消除算子启动延迟与硬件同步间隙，实现微秒级数据搬运与计算的重叠。</li>
-</ul>
-<h3>应用价值与开放计划</h3>
-<p>1000 tokens/s 的速度不仅意味着更快的打字体验，更将重塑 AI 应用范式。它使得模型能够在相同时间内并行运行数十条推理路径（Best-of-N），利用速度换取思考深度；同时极大释放了 Coding Agent 的生产力，并支持高频交易、实时反欺诈等毫秒级决策场景。</p>
-<p>目前，UltraSpeed 版本 API 已上线，价格为标准版的 3 倍，但生成速度提升约 10 倍。由于算力资源有限，该版本仅面向企业开发者开放限时申请（6月9日至23日）。此外，小米已在 HuggingFace 开源了包含 FP4 权重与 DFlash 参数的模型检查点，供社区研究使用。</p>
-<img src="/mimo-tilert-1000tps/snake.gif" alt="Build a Snake game in just 10 seconds" />
-<img src="/mimo-tilert-1000tps/1000tps_macos.gif" alt="Recreate a MacOS interface in just 1 minute" />
-<h3>社区反馈</h3>
-<p>该发布在 Hacker News 引发热烈讨论。用户普遍对消费级硬件实现如此高的推理速度表示惊叹，认为这是短期内提升 AI Agent 效率的最佳路径。关于定价，尽管价格翻倍，但相比 OpenAI 或 Anthropic 的同类产品仍极具竞争力。部分技术爱好者深入探讨了 FP4 量化对模型质量的潜在影响，以及投机解码在长上下文中的表现。此外，也有用户质疑为何采取限量申请模式，推测可能与中国当前 GPU 算力短缺有关，或企业希望优先保障高利润业务。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48446639</guid>
-      <pubDate>Mon, 08 Jun 2026 15:27:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
