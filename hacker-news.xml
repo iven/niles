@@ -3,7 +3,43 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 14 Jun 2026 20:40:22 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jun 2026 22:21:03 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Kage：将任意网站剥离 JavaScript 后打包为离线可执行文件或 ZIM 归档的工具</title>
+      <link>https://news.ycombinator.com/item?id=48529990</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍名为 Kage 的编程工具，用于剥离 JavaScript 并打包网站为离线格式，属于编程工具发布与开源项目分享，高度契合用户的高兴趣配置。</small></p><p><strong>Kage</strong>（影）是一个开源命令行工具，旨在将任意网站完整克隆到本地，并在剥离所有 JavaScript 代码后提供纯静态的离线浏览体验。该工具通过驱动无头 Chrome 浏览器渲染目标页面，等待页面加载完成后抓取最终 DOM 状态，随后移除所有脚本，并将 CSS、图片和字体等静态资源下载并重写到本地路径。</p>
+<p>核心功能与工作流程包括：</p>
+<ul>
+<li><code>kage clone &lt;url&gt;</code>：执行广度优先爬取，支持限制爬取页数/深度、处理懒加载图片、增量更新（<code>--refresh</code>）以及遵守 <code>robots.txt</code> 规范。</li>
+<li><code>kage serve [dir]</code>：在本地启动轻量级 HTTP 服务器，方便预览克隆的文件夹结构。</li>
+<li><code>kage pack &lt;mirror-dir&gt;</code>：将镜像打包为两种格式之一：<strong>ZIM 归档</strong>（兼容 Kiwix 生态，适合跨平台分享与长期保存）或<strong>自包含二进制文件</strong>（约 13MB 基础大小，运行后无需额外依赖即可离线服务网站）。</li>
+</ul>
+<p>该工具由 Go 语言编写，底层依赖系统安装的 Chrome 或 Chromium。开发者还提供了一个可选的 <code>webview</code> 构建标签，可将打包后的网站以原生应用窗口的形式打开，而非浏览器标签页。</p>
+<img src="https://github.com/tamnd/kage/raw/main/docs/static/webview.png" alt="paul Graham's essays, offline, in a native kage window" />
+<p>在 Hacker News 的讨论中，社区成员指出 Kage 类似于现代版的 <a href="https://en.wikipedia.org/wiki/HTTrack">HTTrack</a>，能够处理依赖 JavaScript 渲染的现代网站（如 Next.js 应用）。作者回应称，项目目前专注于整站克隆与离线归档，并正在探索支持 <a href="https://en.wikipedia.org/wiki/Web_Archive">WARC</a> 格式以及结合 <code>mitmproxy</code> 提升抓取保真度的方案。此外，也有用户建议优化并发控制以避免对目标服务器造成过大压力，以及讨论了在打包二进制文件时绕过部分操作系统安全软件误报的问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48529990</guid>
+      <pubDate>Sun, 14 Jun 2026 17:25:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 里约热内卢市政府发布的“本土”大模型被曝实为模型合并产物</title>
+      <link>https://news.ycombinator.com/item?id=48528371</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要报道里约热内卢市政府发布的大模型实为模型合并产物的争议事件，涉及开源项目与 AI 模型技术讨论，虽非官方技术突破公告，但符合用户对 AI 领域进展及开源项目的兴趣配置，故推荐。</small></p><p>里约热内卢市政府（通过其IT公司IplanRIO）近期发布了名为 <a href="https://github.com/nex-agi/Nex-N2/issues/4">Rio-3.5-Open-397B</a> 的大语言模型，宣称是自主研发的 397B 参数模型，并在多项基准测试中表现优异。然而，该模型的实际来源引发了巨大争议。</p>
+<p><img src="https://avatars.githubusercontent.com/u/24990260?u=9b711a48f9a45a0b2c182d9abb7fe17a3d0854a4&v=4&size=48" alt="@00INDEX" width="24" height="24" /> 模型开发者 Nex-AGI 在 GitHub 上发布 Issue 指出，该模型并非自主研发，而是直接将 Nex-AGI 的 Nex-N2 Pro 模型（约 60% 权重）与开源模型 Qwen3.5-397B-A17B（约 40% 权重）进行元素级合并（Element-wise Merge）的产物，且未发现任何额外的训练痕迹。Nex-AGI 提供了两项独立证据：</p>
+<ul>
+  <li>移除 Rio 模型硬编码的“你是 Rio”系统提示后，模型自称“Nex, from Nex-AGI”的概率高达 79%，自称“Rio”为 0%，甚至一字不差地背诵了 Nex-AGI 的专属背景故事。</li>
+  <li>权重张量分析显示，Rio 模型的所有 60 层网络参数与 0.6/0.4 的 Nex 和 Qwen 混合体在数千个标准差内完全一致。</li>
+</ul>
+<p>随后，Rio 模型在 HuggingFace 的页面已更新说明，承认其为合并模型，并补充称合并后进行了“在线策略蒸馏（On-Policy Distillation）”，但此前错误上传了基础合并版本而非最终蒸馏版本。</p>
+<p>社区对此反应强烈。技术爱好者讨论了模型合并技术的有效性，指出该技术自 2022 年起已被证明可行，但批评里约方面缺乏透明度且未正确归因。部分评论则调侃市政部门可能存在预算挪用问题，用低成本合并模型应付差事，并引用了科技史上关于借鉴与创新的经典轶事进行讽刺。</p>
+<h3>你知道吗？</h3>
+<p><b>模型合并（Model Merging）</b>是一种无需重新训练即可结合多个模型优势的技术。它通过线性插值或更复杂的算法（如 Task Arithmetic、TIES-Merging）直接融合不同模型的权重参数。自 2022 年相关研究发表以来，该技术已成为开源 AI 社区的重要工具，允许开发者以极低的计算成本“定制”具备特定能力的大模型。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48528371</guid>
+      <pubDate>Sun, 14 Jun 2026 15:37:31 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 不要盲目信任大型上下文窗口（Large Context Windows）</title>
       <link>https://news.ycombinator.com/item?id=48524620</link>
@@ -893,47 +929,6 @@ Moonshot 此次发布的模型附带了修改后的开源许可证，要求商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48463808</guid>
       <pubDate>Tue, 09 Jun 2026 16:58:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 清理“AI摇滚明星开发者”留下的代码烂摊子</title>
-      <link>https://news.ycombinator.com/item?id=48458586</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讨论清理前任开发者留下的技术债与代码维护经验，属于编程工程实践范畴，符合用户对编程经验与效率改进的关注。</small></p><p>在软件开发领域，“摇滚明星开发者”（Rockstar Developer）一直是一个充满争议的角色。他们技术精湛、思维敏捷，热衷于引入新技术和架构，但往往以牺牲代码的可维护性和团队协作为代价。当他们离职后，留下的往往是无人能懂的复杂代码和沉重的技术债务。如今，随着大语言模型（LLM）等生成式AI工具的普及，一种新型的“AI摇滚明星开发者”正在加剧这一困境。</p>
-<img src="https://www.codingwithjesse.com/images/2026-06-08-rockstar-developers.jpg" alt="tangled wires in an audio mixer setup" width="800" height="600" />
-<p>文章指出，AI模型在生成代码时具有极高的效率，但缺乏长期记忆和全局架构视野。它们不记得之前的上下文，倾向于快速生成大量代码，且往往套用通用的最佳实践，导致系统复杂度呈指数级增长。与人类开发者不同，AI生成的代码库往往是多轮对话、不同提示词（Prompt）和不同上下文的“缝合体”，清理这些代码的难度远超传统的人类遗留代码。</p>
-<p>面对这一挑战，作者建议开发者在利用AI时应保持主导地位：引导AI生成小块、可理解的代码片段，严格把控架构设计，避免过度工程化。当AI生成的代码难以理解时，应及时踩下刹车。软件工程的核心依然是“工匠精神”，开发者不能完全将代码质量的控制权外包给机器。</p>
-<p><strong>社区反馈：</strong></p>
-<ul>
-<li>许多开发者指出，AI生成的代码主要问题在于“不必要的复杂性”和“对抽象理解的缺失”，而外包代码则更多表现为复制粘贴和破坏无关模块。</li>
-<li>部分评论强调，解决AI代码烂摊子的根本在于严格的代码审查（Code Review）流程，必须拒绝低质量代码进入主分支。</li>
-<li>也有观点认为，AI极大地降低了原型设计和想法验证的成本，但企业需警惕“原型直接上线”的风险，避免让非专业人员的“氛围编程”（Vibe Coding）产物污染生产环境。</li>
-</ul>
-<p>原文链接：<a href="https://www.codingwithjesse.com/blog/rockstar-developers/">Cleaning up after AI rockstar developers</a></p>
-<h3>你知道吗？</h3>
-<p><strong>“摇滚明星开发者”的争议：</strong>这一术语在20世纪90年代末至21世纪初的硅谷流行，通常指代那些能一人抵十人产出的天才程序员。然而，软件工程领域普遍认为该概念具有误导性。著名计算机科学家Fred Brooks在《人月神话》中提出，向延期的软件项目增加人手只会使其更加延期。现代软件工程强调可维护性、团队协作和持续集成，而非依赖个人的英雄主义代码。过度追求“明星效应”往往会导致知识孤岛和团队士气下降。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48458586</guid>
-      <pubDate>Tue, 09 Jun 2026 09:10:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Gitdot：一款基于 Rust 的开源 GitHub 替代品，主打极简 CLI 风格 UI</title>
-      <link>https://news.ycombinator.com/item?id=48447806</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍了一款基于 Rust 开发的开源 GitHub 替代品 Gitdot，属于编程工具发布与开源项目，高度匹配用户兴趣，故列为必看。</small></p><p><img src="/gitdot-long-black.svg?dpl=dpl_8t5VFhVE6K7TBrthov6GwELeHBLj" alt="gitdot logo" width="64" height="30" /></p>
-<p><b>Gitdot</b> 是一款开源的 GitHub 替代品，由开发者 Paul 和 Mikkel 使用 <a href="https://gitdot.io/designs">Rust</a> 编写并展示于 Hacker News。该项目旨在提供更快、更简洁的代码托管体验。</p>
-<p>目前，Gitdot 已支持用户注册、组织创建、私有/公共仓库管理以及从 GitHub 导入仓库（支持只读镜像与完整迁移）。用户可正常进行代码的创建、推送与拉取操作。不过，Issues、Pull Requests (PRs) 以及持续集成 (CI) 等功能尚在规划中。</p>
-<p>该项目的核心特色在于其独特的界面设计。网站 UI 灵感来源于终端命令行界面（CLI，如 fzf、broot、vim），摒弃了传统 Web 应用的常规交互，转而采用键盘驱动的即时导航模式，以实现极致的加载速度（目标首次内容绘制 FCP 为 100ms）。</p>
-<p>在开发者访谈与社区讨论中，团队明确了与现有开源替代品（如 Forgejo）的差异化路径：不仅追求极致的产品设计与性能，还计划引入堆叠差异（Stacked Diffs）作为 PR 基础、基于 Nix 的可复现 CI 系统，以及更直观的 Bug 追踪器。针对当前热门的 AI 功能，团队明确表示不会内置 AI Copilot，也不会训练或出售用户代码数据，认为 AI 不应掩盖糟糕的设计。但为了应对 AI 生成代码带来的审查挑战，他们计划通过集成外部 AI 订阅（如 Claude、Codex）来优化代码审查流程。</p>
-<p>社区反馈普遍对极简 UI 和极速响应表示赞赏，同时也建议团队优化可访问性（如调整字体大小、明确按钮样式）并建立开发者社区。开发者已采纳部分建议，并承诺持续改进交互细节。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li><b>堆叠差异（Stacked Diffs）</b>：一种代码审查工作流，允许开发者将大型功能变更拆分为多个逻辑独立的小提交（diffs）。审查者可以逐个审阅每个小差异，最后再合并。这种机制特别适合处理 AI 生成的大段代码，能有效降低审查难度并提高代码质量。</li>
-<li><b>首次内容绘制（FCP）</b>：衡量网页性能的关键指标，指浏览器从开始加载到渲染出 DOM 中第一个内容节点（如文本、图片、SVG 等）所花费的时间。FCP 越低，用户感知页面加载越快，体验越流畅。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48447806</guid>
-      <pubDate>Mon, 08 Jun 2026 16:52:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
