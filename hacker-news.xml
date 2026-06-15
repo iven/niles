@@ -3,7 +3,66 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 15 Jun 2026 06:38:28 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jun 2026 13:27:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Anthropic 推出 Claude for Foundation Models，无缝接入 Apple 平台 AI 框架</title>
+      <link>https://news.ycombinator.com/item?id=48536776</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍 Anthropic 发布将 Claude 模型接入 Apple 平台的 Swift 开发包，属于新AI模型发布与编程工具分享，与用户 high_interest 配置高度吻合。</small></p><div><h2>正文</h2><p>Anthropic 发布了 <a href="https://github.com/anthropics/ClaudeForFoundationModels">Claude for Foundation Models</a> Swift 包，允许开发者通过 Apple 的 <a href="https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/apple-foundation-models">Foundation Models 框架</a> 直接使用 Claude 模型。该框架计划随 iOS 27 和 macOS 27 于今秋发布，旨在为 Apple 平台提供统一的设备端 AI 标准 API。</p><p>通过此包，开发者可以使用相同的 API 接口在本地小模型与 Claude 之间无缝切换。例如，轻量级任务可由本地模型快速处理，而复杂推理或长上下文任务则交由云端 Claude 处理，无需修改应用代码架构。不过，由于 Claude 模型参数量较大，实际运行主要依赖云端服务。在生产环境中，开发者需通过后端代理（Proxy）路由请求，以避免将 API 密钥直接嵌入客户端应用。</p><h2>社区反馈</h2><ul><li><strong>战略意图</strong>：许多开发者认为，Apple 建立统一的 AI 抽象层可能是为了未来推广自有模型（如传闻中的 Apple Intelligence 或 Siri 底层模型）铺路，同时也确保用户在使用第三方模型时，仍能计入 Apple Intelligence 的使用数据。</li><li><strong>本地模型共享问题</strong>：有开发者指出，若多个应用各自下载相同的本地模型，将导致设备存储迅速膨胀。目前框架尚未提供自定义模型间的去重或共享机制，呼吁 Apple 引入统一的模型 ID 协议与共享存储方案。</li><li><strong>密钥管理</strong>：针对 API 密钥的安全问题，官方文档明确指出生产环境应使用后端代理层，由服务器端处理 Claude 凭证，客户端仅负责发送请求头进行授权。</li></ul><h2>你知道吗？</h2><p>Foundation Models 框架是 Apple 专为 iOS 和 macOS 设计的 AI 开发工具包，支持在设备端运行大型语言模型（LLM）、文本嵌入模型等。它提供了统一的编程接口，简化了模型加载、流式输出、工具调用（Tool Calling）及结构化输出等功能，旨在降低开发者在 Apple 生态内集成 AI 功能的门槛。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48536776</guid>
+      <pubDate>Mon, 15 Jun 2026 04:55:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Emacs 更多内置功能：探索鲜为人知的实用特性</title>
+      <link>https://news.ycombinator.com/item?id=48535886</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享 Emacs 编辑器的隐藏实用功能，属于编程工具特性分享与开发效率改进经验，符合用户 high_interest 兴趣点。</small></p><p>本文是“Emacs 内置功能（Batteries Included）”系列的第三篇，旨在介绍 Emacs 中一些实用但鲜为人知的原生特性。作者强调这些功能无需安装第三方包，且学习曲线平缓（5分钟内掌握），适合希望深入挖掘 Emacs 原生能力的用户。</p>
+<p>文章主要介绍了以下几项功能：</p>
+<ul>
+  <li><strong>悬停查词 (M-x dictionary-tooltip-mode)</strong>：开启后，鼠标悬停在单词上即可显示释义。它支持本地字典，并可通过 Wiktionary 查询当代俚语或专业术语。<img src="/img/dictionary-tooltip-01.png" alt="Emacs dictionary-tooltip-mode 演示" /></li>
+  <li><strong>通配符文件操作</strong>：<code>find-file</code> 和 <code>dired</code> 均支持通配符。例如使用 <code>*foo*.txt</code> 可批量打开文件，或在 Dired 中筛选特定目录下的文件。</li>
+  <li><strong>批量列出 URL (M-x ffap-menu)</strong>：扫描当前缓冲区，列出所有类似文件路径或 URL 的文本，并提供补全界面，方便批量复制或打开。</li>
+  <li><strong>轻量级文本比较 (M-x compare-windows)</strong>：对比两个窗口中的文本，光标会自动跳转到第一个不匹配处。相比功能强大的 <code>ediff</code>，它更轻量且上下文无关，适合快速“找不同”。</li>
+  <li><strong>目录比较 (M-x dired-compare-directories)</strong>：在 Dired 中直接比较两个目录，可标记名称不同或属性（如修改时间、大小）不一致的文件。</li>
+  <li><strong>高亮缓冲区更改 (M-x highlight-changes-mode)</strong>：实时高亮显示未保存的修改。作者提供了通过 Hooks 自动在保存前开启、保存后关闭该模式的代码片段。</li>
+  <li><strong>内置版本控制接口</strong>：Emacs 的 VC 包提供了查看和比较文件历史版本的功能，如 <code>vc-diff</code>、<code>vc-ediff</code> 和 <code>vc-revision-other-window</code>，无需依赖外部 Git 命令即可管理文件历史。</li>
+</ul>
+<p><img src="/img/dired-compare-directories-01.png" alt="Dired 目录比较功能演示" /></p>
+<p>在 Hacker News 的讨论中，社区成员围绕 Emacs 的生态系统展开了交流。部分用户指出，Emacs 的“电池已包含”理念虽好，但第三方包的兼容性和稳定性往往是实际使用中的痛点，容易导致配置冲突。也有资深用户认为，遵循 Vanilla Emacs 理念或使用如 Doom Emacs 等成熟发行版能有效避免此类问题。此外，关于 Emacs 的学习曲线和配置哲学，社区普遍认为深入理解原生功能（如本文介绍的内容）是发挥 Emacs 强大潜力的关键。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48535886</guid>
+      <pubDate>Mon, 15 Jun 2026 02:30:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>Ask HN：你最近在做什么？（2026年6月）</title>
+      <link>https://news.ycombinator.com/item?id=48528779</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 为 Hacker News 社区常规讨论帖，内容偏向开发者日常交流，缺乏明确的技术或前沿新闻主题，兴趣指向不明确，故归为可选。</small></p><p>这是 Hacker News 的月度常规帖子，开发者们在此分享近期正在进行的项目、新想法及技术实践。本期讨论涵盖了独立游戏开发、开发者工具、硬件 DIY 以及健康数据应用等多个领域。</p>
+
+<h3>独立游戏与模拟</h3>
+<p>独立开发者 <a href="https://microlandia.city">phaser</a> 分享了其城市建造游戏 <a href="https://microlandia.city">Microlandia</a> 的最新进展。该游戏上线约半年已售出近 10,000 份。开发者表示目前虽为单人开发，但已聘请 2D、3D 及音乐艺术家协助制作，并正在为游戏加入能源、气候模型及全民基本收入（Universal Basic Income, UBI）等新政策模拟。社区对游戏的像素艺术风格和非严肃的幽默设计给予高度评价，并热烈讨论了游戏内的土地价格逻辑及 UBI 政策可能引发的经济模拟结果（如通货膨胀、生活成本变化等）。此外，开发者还分享了 Steam 上架经验（仅需支付 99 美元）及使用的 3D 建模工具 <a href="https://goxel.xyz">Goxel</a>。</p>
+
+<h3>开发者工具与平台</h3>
+<p>多位开发者展示了旨在提升开发效率的工具：</p>
+<ul>
+  <li><a href="https://croncoco.io">croncoco.io</a>：一个面向 API 的调度与编排平台。</li>
+  <li><a href="https://cotect.dev">cotect.dev</a>：快速代码检查器，帮助开发者在代码提交至 GitHub 前验证变更。</li>
+  <li><a href="https://grafly.io">grafly.io</a> 与 <a href="https://github.com/lnenad/difiko">difiko</a>：分别用于图表制作与 AI 生成代码的审查。</li>
+  <li><a href="https://totemkb.com">Totem</a>：一款完全使用 Rust 语言编写的协作知识管理系统，支持 Windows、macOS、Ubuntu 及 iOS 平台。</li>
+  <li><a href="https://hnalerts.com">HN Alerts</a>：监控 Hacker News 热门故事，通过邮件提醒用户特定关键词或点赞速率。</li>
+  <li><a href="https://kavla.dev">kavla.dev</a>：在 SQL 画布中集成 AI Agent，可自动执行数据查询与可视化任务。</li>
+</ul>
+
+<h3>硬件 DIY 与健康应用</h3>
+<p>硬件爱好者分享了使用 <a href="https://github.com/evanpurkhiser/HOP">KiCad</a> 设计印刷电路板（Printed Circuit Board, PCB）的经历，成功为 IKEA 窗帘定制了支持 Zigbee 协议的电机控制器，并验证了从设计到 JLCPCB 打样的全流程。在健康领域，<a href="https://www.kickstarter.com/projects/why5/peak-flow-meter-diary?ref=1ijcee">Peak Flow Meter Diary</a> 项目致力于记录哮喘患者的峰值流量数据，并结合天气、花粉等环境因素提供预警；<a href="https://macrocodex.app/">MacroCodex</a> 则利用算法精准计算基础代谢率，帮助用户动态调整饮食计划，目前已拥有超过 13,000 名用户。</p>
+
+<h3>其他创意项目</h3>
+<p>此外，还有开发者分享了 3D 光学模拟器、电影剪辑配乐合集（<a href="https://brodlist.com">brodlist.com</a>）以及自动恢复 AI 编码会话的脚本等有趣项目。社区对这些多样化的尝试给予了积极反馈，并就版权合规、平台支持及功能细节展开了交流。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48528779</guid>
+      <pubDate>Sun, 14 Jun 2026 16:05:28 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 大西洋出现异常“冷区”，或预示洋流系统崩溃</title>
       <link>https://news.ycombinator.com/item?id=48527658</link>
@@ -862,63 +921,6 @@ Moonshot 此次发布的模型附带了修改后的开源许可证，要求商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48473166</guid>
       <pubDate>Wed, 10 Jun 2026 08:21:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Chrome 将永久弃用 MV2 扩展，uBlock Origin 等面临终结</title>
-      <link>https://news.ycombinator.com/item?id=48471970</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 报道Chrome浏览器弃用MV2扩展协议对uBlock Origin等知名开源插件的影响，涉及软件生态更新与开源项目动态，符合用户的兴趣配置。</small></p><p>Google Chrome 正在推进其从 <a href="https://en.wikipedia.org/wiki/Manifest_V2">Manifest V2 (MV2)</a> 向 <a href="https://en.wikipedia.org/wiki/Manifest_V3">Manifest V3 (MV3)</a> 扩展标准的过渡，并即将进入弃用的最后阶段。近期在 <a href="https://github.com/w3c/webextensions-community">w3c WebExtensions 社区组</a> 的讨论中，Chromium 贡献者及 Google 工程师透露，Chrome 已开始移除控制 MV2 可用性的底层功能标志（flags）。</p>
-<img src="https://cdn.neowin.com/news/images/uploaded/2025/03/1741346735_ublock_origin_in_chrome.jpg" alt="Chrome Logo next to uBlock Origin" width="1280" height="720" />
-<p>Google 工程师 Devlin Cronin 指出，标志 <code>kExtensionManifestV2Disabled</code> 已被完全移除，这意味着在受支持的 Chrome 版本中，uBlock Origin 等依赖 MV2 的扩展将无法再被加载或管理。Cronin 表示，由于维护 MV2 功能带来的技术债务日益增加、实现复杂性上升以及潜在的安全风险（近期已发现多项仅存在于 MV2 中的漏洞），Google 决定不再无限期维持该功能。</p>
-<p>根据 Chromium 的版本更新计划，弃用进程正在加速：</p>
-<ul>
-<li><strong>Chromium 150</strong>：已移除 <code>ExtensionManifestV2Disabled</code> 选项。</li>
-<li><strong>Chromium 151</strong>（预计 2026 年 7 月 28 日发布）：将移除 <code>ExtensionManifestV2Unsupported</code>、<code>ExtensionManifestV2Availability</code> 以及 <code>AllowLegacyMV2Extensions</code> 选项。届时，通过 Windows 注册表修改等第三方手段延长 MV2 可用性的绕过方案也将失效。</li>
-</ul>
-<p>这一变动不仅影响 Chrome，其他基于 Chromium 的浏览器也可能跟进。Microsoft Edge 已于今年 2 月开始禁用 uBlock Origin，Opera 亦向开发者发送通知，要求尽快将扩展迁移至 MV3 以避免服务中断。目前，Brave 和 Vivaldi 仍表示将继续支持 MV2 扩展，而 Mozilla Firefox 则同时支持 MV2 与 MV3，被视为保留传统扩展功能的替代选择。对于坚持使用 Chrome 的用户，官方建议迁移至基于 MV3 的 <a href="https://addons.mozilla.org/en-US/firefox/addon/ublock-origin-lite/">uBlock Origin Lite</a>，尽管部分用户认为其功能不及原版。</p>
-<p><strong>社区反馈：</strong> 该消息在 Hacker News 引发广泛讨论。许多用户批评 Google 此举实质上是削弱广告拦截器，尤其是在 YouTube 加强反广告拦截技术的背景下。部分评论指出，Google 的“以用户为中心”和“不作恶”的企业理念与此举相悖。同时，也有用户探讨了 Brave 的隐私政策例外情况，以及 Vivaldi 和 Firefox 在扩展生态中的现状。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48471970</guid>
-      <pubDate>Wed, 10 Jun 2026 05:50:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 体验 Mythos 级 AI：从“施法者”到“委托方”的转变</title>
-      <link>https://news.ycombinator.com/item?id=48464140</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讨论Claude Fable AI模型的发布与进展，符合用户high_interest配置</small></p><p>Anthropic 发布的 Mythos 级模型 <a href="https://www.oneusefulthing.org/p/what-it-feels-like-to-work-with-mythos">Claude 5 Fable</a> 引发了行业震动。学者 Ethan Mollick 通过深度体验指出，这不仅是性能的飞跃，更标志着人机协作关系的根本性转变。</p>
-
-<p>Fable 展现出处理超长任务的能力，能独立运行数小时完成复杂项目。例如，它能根据 19 页设计文档，耗时 9.5 小时生成名为 <b>Concord</b> 的复杂数据分析软件，或根据模糊指令生成基于纯代码的互动游戏。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!oDKl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F313cee40-acdc-423b-85e1-222f2caeca08_1664x1179.png" alt="AI 生成的 Concord 软件界面" width="431" height="305.49" />
-
-<p>在构建 <b>等时线图（Isochrone Map）</b> 的案例中，AI 展现了自主规划能力：它自行调度子代理（Sub-agents）检索海量交通数据，编写代码，并在发现数据缺失后自动启动“对抗性代理组”进行验证。作者仅需提供初始指令和少量反馈，AI 便完成了从研究到开发的全过程。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!a0S0!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0c6c38c3-5f48-4440-969f-5c3a04c0dcb1_1145x749.jpeg" alt="1881年原始的等时线图" width="509" height="332.96" />
-<img src="https://substackcdn.com/image/fetch/$s_!hxhY!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ff58114c7-7286-4a9f-ab75-3c8a7e414dc3_2382x1247.png" alt="AI 生成的等时线图" width="513" height="268.48" />
-
-<p>Mollick 将这种体验概括为从“巫师”到“赞助人”的转变。过去用户像巫师一样控制每一个步骤，而现在更像赞助人——描述需求、支付费用并验收结果，而不再介入 AI 内部复杂的决策过程。这种“黑盒”化是换取强大算力的代价。</p>
-
-<p>尽管能力惊人，Fable 仍存在显著局限：Token 消耗极快导致成本高昂，安全护栏过于敏感，且在处理具体数据时可能出现幻觉（如地图数据错误）。社区对此反应两极：有人惊叹于其生产力飞跃，认为开发者将进入“等待 AI 编译”的新时代；也有人质疑其准确性、高昂成本及作者的商业立场。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48464140</guid>
-      <pubDate>Tue, 09 Jun 2026 17:17:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ npm v12 即将推出重大安全默认变更</title>
-      <link>https://news.ycombinator.com/item?id=48467705</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 该文章介绍了 npm 包管理器 v12 版本中的安全默认配置变更，属于开发者工具发布，符合用户的高兴趣配置。</small></p><p>npm 官方宣布，预计于 2026 年 7 月发布的 <a href="https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12/">npm v12</a> 将引入一系列针对 <code>npm install</code> 的安全默认变更，旨在遏制软件供应链攻击风险。这些变更目前已在 npm 11.16.0 或更高版本中以警告形式提供，供开发者提前准备。</p>
-<p>主要变更包括：</p>
-<ul>
-<li><strong>脚本执行默认关闭（<code>allowScripts</code>）</strong>：安装依赖时将不再自动执行 <code>preinstall</code>、<code>install</code>、<code>postinstall</code> 以及来自 Git、文件或链接依赖的 <code>prepare</code> 脚本（包括隐式的 <code>node-gyp</code> 构建）。开发者需使用 <code>npm approve-scripts</code> 和 <code>npm deny-scripts</code> 命令显式管理白名单，配置将保存至 <code>package.json</code>。</li>
-<li><strong>Git 依赖默认禁用（<code>--allow-git</code>）</strong>：默认不再解析任何 Git 依赖，除非显式允许。此举旨在关闭攻击者通过依赖的 <code>.npmrc</code> 文件覆盖 Git 可执行文件以执行恶意代码的路径。</li>
-<li><strong>远程 URL 依赖默认禁用（<code>--allow-remote</code>）</strong>：默认不再解析来自远程 URL（如 HTTPS tarball）的依赖，除非显式允许。</li>
-</ul>
-<p>社区对此反响热烈，许多开发者认为这是 npm 面对近年来频发的供应链漏洞后“受够了”的必然之举。讨论中，开发者还对比了 pnpm 默认启用 1 天安装延迟的策略，认为多层防御（如延迟更新、强制 2FA 验证、白名单机制）结合使用能更有效地平衡安全性与紧急漏洞修复的需求。</p>
-<p>了解更多准备指南：<a href="https://docs.npmjs.com/cli/v12/configuring-npm/package-json#allow-scripts" rel="nofollow">npm 官方文档</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48467705</guid>
-      <pubDate>Tue, 09 Jun 2026 21:01:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

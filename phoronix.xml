@@ -3,7 +3,68 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 15 Jun 2026 06:37:20 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jun 2026 13:26:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.2 内核正式合并“感知缓存调度”（Cache Aware Scheduling）</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-Scheduler</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲述 Linux 7.2 内核调度器新特性合并以优化现代 CPU 性能，属于 Linux 底层技术/开源项目进展，符合兴趣配置，推荐阅读</small></p><h2>Linux 7.2 内核正式合并“感知缓存调度”（Cache Aware Scheduling）</h2>
+<p>Linux 7.2 内核的调度器更新已于近日正式合并，其中最引人注目的新功能为“感知缓存调度”（Cache Aware Scheduling）。该功能经过超过一年的开发，旨在应对现代处理器日益增加的核数与更复杂的缓存架构，尤其利好拥有多个最后一级缓存（Last Level Cache, LLC）的 Intel 和 AMD 处理器。</p>
+<p>感知缓存调度的核心机制在于提升数据共享任务之间的缓存局部性（Cache Locality）。通过将相关任务绑定至同一个 LLC 域，该调度器能有效减少缓存未命中（Cache Misses）和缓存数据抖动（Cache Bouncing）现象。目前，该功能已通过 <code>CONFIG_SCHED_CACHE</code> 内核配置选项向用户开放。</p>
+<p>在性能表现方面，作者此前的基准测试显示，该调度机制在 AMD EPYC 处理器及 Intel Xeon 6 平台上均带来了显著的性能收益。随着该功能正式合入 Linux 7.2，后续将公布更多基于新内核的详细基准测试数据。</p>
+<p><img src="//www.phoronix.net/image.php?id=cache-aware-scheduling-hedt&image=cache_aware_sched_2a_med" alt="Cache Aware Scheduling sysfs" /></p>
+<p>除感知缓存调度外，Linux 7.2 的调度器更新还包含多项优化：包括带有 SMT 感知能力的 <code>SD_ASYM_CPUCAPACITY</code> 调度改进、针对 <code>cfs_rq</code> 和 <code>sched_entity</code> 分配的优化以提升数据局部性，以及针对代理执行（Proxy Execution）的捐赠者迁移（Donor Migration）优化等。这些改进共同提升了现代多核系统的任务调度效率。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Scheduler</guid>
+      <pubDate>Mon, 15 Jun 2026 12:31:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2 引入 Rust Zerocopy 库，大幅减少不安全代码并提升性能</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-Rust</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 直接匹配用户感兴趣的 Rust 主题，讲述 Linux 内核引入 Rust 库以提升代码安全性，符合兴趣配置，推荐阅读</small></p><p>Linux 7.2 内核开发中，Miguel Ojeda 已提交了大量 Rust 代码变更，本次更新新增约 40,000 行 Rust 代码。此次更新的核心是引入了 Zerocopy 库，旨在消除内核中更多的 "Unsafe"（不安全）Rust 代码。Zerocopy 库提供了可派生的 trait（如 `FromBytes`）和宏（如 `transmute!`），允许在字节序列与其他类型之间进行安全转换。该库也是 Rust 编译器自身所使用的组件之一。</p>
+<p>引入 Zerocopy 后，内核中的 Nova 驱动成功移除了一个 `unsafe impl` 实现。性能测试表明，使用 Zerocopy 的版本即使在启用 `debug-assertions` 时也不会发生 panic，编译器能够静态证明剩余检查的有效性，实现了“快速且安全”的目标。</p>
+<p>除了引入 Zerocopy，Linux 7.2 的 Rust 代码还增加了对 AutoFDO（Automatic Feedback Directed Optimizations，自动反馈导向优化）的支持，使编译器能够生成性能更优的代码。测试显示，Rust Binder 代码的性能因此提升了约 13%。此外，本次更新还包含了对软件基于标签的内核地址 sanitizer（KASAN）的支持，以及对即将发布的 Rust 1.98 版本的兼容性改进。</p>
+<h3>你知道吗？</h3>
+<p>Rust 语言以其内存安全性著称，通过所有权（Ownership）和借用（Borrowing）机制在编译期防止数据竞争和悬垂指针。然而，在处理底层硬件交互或高性能网络/存储驱动时，Rust 仍需要与字节流进行转换，这往往需要借助 "unsafe" 代码块。Zerocopy 库通过提供经过严格验证的零拷贝转换工具，大幅降低了内核开发者编写安全底层代码的门槛，是 Linux 内核向纯 Rust 驱动演进的重要一步。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Rust</guid>
+      <pubDate>Mon, 15 Jun 2026 11:03:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2 改进文件系统大小写折叠报告，优化 Windows NFS 客户端兼容性</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-Casefolding</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲述 Linux 7.2 文件系统改进以提升跨平台兼容性，属于 Linux 技术进展与开源软件新功能，符合兴趣配置，推荐阅读</small></p><p>在即将发布的 Linux 7.2 内核中，虚拟文件系统（VFS）模块迎来了一项重要更新。新合并的代码通过新增的 <code>file_kattr</code> 标志，正式暴露了本地文件系统的大小写折叠（Case-folding）行为。这一改进旨在让 Linux 文件服务器（如 NFSD、KSMBD）及用户空间文件服务器能够准确向客户端报告实际的大小写敏感性，彻底取代以往依赖猜测或硬编码的方式。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=tux_sensitive" alt="Tux" />
+<p>此次更新的主要动机是解决 Microsoft Windows NFS 客户端的互操作性需求。Windows 客户端在连接 NFS 服务时，严格要求服务器明确报告不区分大小写（Case-insensitive）的特性，以确保 Win32 应用程序能够正常运行。通过准确报告该特性，客户端可以避免因大小写变体（如 "FILE.TXT" 与 "file.txt"）而发起多余的 LOOKUP/READDIR 请求，从而提升网络文件访问效率。</p>
+<p>在技术实现上，文件系统通过 <code>fileattr_get</code> 接口上报其大小写行为。Linux 7.2 已为 fat、exfat、ntfs3、hfs、hfsplus、xfs、cifs、nfs、vboxsf 和 isofs 等文件系统接入了该功能；未明确处理的本机文件系统则默认遵循 POSIX 标准（区分大小写且保留大小写）。服务器端方面，<code>nfsd</code> 利用此功能在 NFSv3 的 PATHCONF 及 NFSv4 的 <code>FATTR4_CASE_INSENSITIVE</code> 和 <code>FATTR4_CASE_PRESERVING</code> 属性中正确报告大小写折叠状态；<code>ksmbd</code> 则通过 <code>FS_ATTRIBUTE_INFORMATION</code> 进行报告。</p>
+<p>这一改进对于运行在多协议环境（同时提供 NFS 和 SMB 服务）的文件服务器尤为重要，使其能够作为“一等公民”无缝参与跨平台文件共享。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Casefolding</guid>
+      <pubDate>Mon, 15 Jun 2026 10:24:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ GNU Linux-libre 7.1-gnu 发布：强化驱动去 blob 化，遗憾 Intel 486 支持终止</title>
+      <link>https://www.phoronix.com/news/GNU-Linux-Libre-7.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 直接匹配来源配置中“新发行版”的很感兴趣主题，讲述 GNU Linux-libre 发布进展，符合高兴趣配置，强烈推荐阅读</small></p><p>继上游 <a href="https://www.phoronix.com/news/GNU-Linux-Libre-7.1">Linux 7.1</a> 内核发布后，<a href="https://www.phoronix.com/news/GNU-Linux-Libre-7.1">GNU Linux-libre 7.1-gnu</a> 正式推出。该版本继续致力于软件自由，对内核代码进行了深度清理，移除了多种 GPU 和 WiFi 驱动中依赖的非自由软件微码与固件（deblobbing）。主要更新包括：</p>
+<ul>
+  <li>修复了启用 <a href="https://www.rust-lang.org/">Rust</a> 支持时的编译问题，并回ported 至 7.0.*-gnu 稳定版。</li>
+  <li>更新了 Nova-core、hx9023s、prueth、btmtk、qat_6xxx、amdgpu、m88ds3103、saa7164、r8169、ath12k、mt792x 和 mt7996 等驱动的清理工作。</li>
+  <li>清理了 Lontium LT8713SX DP MST bridge 桥接器及 Realtek 802.11be (Wi-Fi 7) 8922D 芯片的新驱动。</li>
+  <li>清理了高通（Qualcomm）SoC 设备树文件中的大量 blob 名称，并调整了 rtw89 的清理逻辑以适配上游重构。</li>
+  <li>移除了上游已废弃驱动的清理任务（如 FORE Systems 200E、Alteon AceNIC 等）。</li>
+</ul>
+<p>此外，GNU Linux-libre 项目对上游 Linux 7.1 终止 Intel 486 (i486) CPU 支持表示遗憾。项目指出，这一决定使得怀旧硬件爱好者无法在现代内核上运行老式 i486 电脑，可能导致这些仍具功能的设备被废弃。这也标志着 x86 架构中可用于自由软件的最后几代处理器窗口正在关闭。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=gnu_linux_libre_71" alt="GNU Linux-libre 7.1" />
+<p>感兴趣的用户可前往 FSFLA.org 获取该版本。</p>
+<h3>你知道吗？</h3>
+<p><strong>GNU Linux-libre</strong> 是自由软件基金会（FSF）认证的 Linux 内核版本。由于 Linux 内核中包含大量非自由的二进制固件（firmware）和微码（microcode），不符合自由软件定义，因此 GNU Linux-libre 通过“去 blob化（deblobbing）”技术移除了这些闭源组件，确保整个内核完全符合自由软件标准。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Linux-Libre-7.1</guid>
+      <pubDate>Mon, 15 Jun 2026 09:55:51 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Linux 7.2 将提高 LLVM/Clang 编译器最低版本要求，新增分布式 ThinLTO 支持</title>
       <link>https://www.phoronix.com/news/Linux-7.2-Kbuild</link>
@@ -668,69 +729,6 @@ Sophie Herold 将致力于建立新的 RFC（Request for Comments，征求意见
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Xfce-Ported-To-Redox-OS</guid>
       <pubDate>Mon, 08 Jun 2026 15:09:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Canonical 为 Ubuntu 26.10 实验性提供 x86-64-v3 软件包</title>
-      <link>https://www.phoronix.com/news/Ubuntu-26.10-amd64v3-Packages</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Ubuntu 26.10实验性推出x86-64-v3包架构，属于新发行版发布与技术演进，直接命中来源配置的高兴趣项“新发行版”，强烈推荐。</small></p><p>Canonical 工程师正在评估为 <a href="https://www.ubuntu.com/">Ubuntu 26.10</a> 构建 <strong>x86-64-v3</strong>（代号 <strong>amd64v3</strong>）微架构级别软件包的影响，旨在为现代 Intel 和 AMD 系统带来显著的性能提升。</p>
-<p>通过针对 x86-64-v3 级别构建软件包，系统可以默认启用过去十年间引入的较新 CPU 指令集能力，包括 <strong>AVX/AVX2</strong>、<strong>FMA</strong>、<strong>BMI1/BMI2</strong> 和 <strong>MOVBE</strong> 等。不过，运行这些优化后的二进制文件需要硬件支持，最低要求为 Intel Haswell 或 AMD Excavator 架构及更新的处理器（大致涵盖过去十年的主流 CPU）。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_2610_amd64v3_1" alt="Ubuntu 26.10 amd64v3" />
-<p>在 Linux 发行版领域，Red Hat 已在其 <a href="https://www.redhat.com/en/rhel-10">RHEL 10</a> 中正式转向 x86-64-v3 标准，而 CachyOS 等发行版也提供了相关软件包。Canonical 目前尚未在 Ubuntu 中正式默认启用该架构，但已为 Ubuntu 26.10 开发版用户提供了测试用的 amd64v3 软件包存档。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_2610_amd64v3_2" alt="Ubuntu 26.10 Stonking amd64v3 package archive" />
-<p>目前，传统的 amd64 软件包存档依然可用且保持默认状态。amd64v3 存档并未在兼容系统上自动启用，而是作为可选测试项供用户验证性能差异。随着 Ubuntu 26.10 进入发布周期，Canonical 也在探索基于此架构的正式支持方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.10-amd64v3-Packages</guid>
-      <pubDate>Mon, 08 Jun 2026 14:35:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2 内核将加入 ACPI CPPC v4 支持，助力 NVIDIA Vera 平台</title>
-      <link>https://www.phoronix.com/news/ACPI-CPPC-v4-Linux-7.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章报道Linux 7.2内核加入ACPI CPPC v4电源与性能管理支持，虽偏向底层内核技术而非纯桌面应用，但整体属于Linux技术发展范畴，符合兴趣配置，推荐阅读。</small></p><p>即将发布的 Linux 7.2 内核将正式加入对 ACPI 协作式处理器性能控制接口（Collaborative Processor Performance Control, CPPC）第 4 版（CPPC v4）的支持。该功能由 NVIDIA 工程师 Sumit Gupta 编写，主要为了配合 NVIDIA Vera CPU 平台的发布与性能调优。</p>
-<p>CPPC v4 基于 ACPI 6.6 规范，主要引入了两项关键特性：</p>
-<ul>
-  <li><strong>OSPM 标称性能（OSPM Nominal Performance）</strong>：允许操作系统向硬件平台反馈其认为的“标称”性能水平。平台将以此为基准，高于该水平视为性能提升（boost），低于该水平则根据功耗或散热需求进行节流（throttle）。</li>
-  <li><strong>资源优先级（Resource Priority）</strong>：允许操作系统为处理器在共享资源（如性能提升、节流、L2/L3 缓存及内存带宽）上的访问设置相对优先级。</li>
-</ul>
-<img src="//www.phoronix.net/image.php?id=nvidia-vera-benchmarks&image=nvidia_vera_2_med" alt="NVIDIA Vera" />
-<p>相关内核补丁目前已进入电源管理子系统的 linux-next 分支，预计将在 Linux 7.2 的合并窗口中正式提交。除了 NVIDIA Vera 平台外，其他遵循 ACPI CPPC 规范的硬件厂商也将受益于此次内核更新。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/ACPI-CPPC-v4-Linux-7.2</guid>
-      <pubDate>Mon, 08 Jun 2026 13:41:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Flatpak 1.18 发布：集成 AMD ROCm 支持并优化多项性能</title>
-      <link>https://www.phoronix.com/news/Flatpak-1.18</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章核心为Flatpak 1.18版本正式发布及集成AMD ROCm功能，属于典型的新软件项目发布与开发工具更新，高度契合全局及来源的高兴趣配置，强烈推荐。</small></p><p>Flatpak 1.18 版本今日正式发布，为这款领先的应用沙盒与分发技术带来了多项改进。此次更新在常规优化方面，增强了 <code>flatpak-coredumpctl</code> 命令的错误处理与输出信息，改进了 <code>flatpak update</code> 的输出格式，并优化了在 Fish shell 环境下的应用启动速度，同时修复了若干已知问题。</p>
-<p>最引人注目的更新是增加了对 AMD ROCm 计算栈的集成支持。新版本引入了针对 <code>/dev/kfd</code> 设备（由 AMDKFD 内核计算驱动暴露）的特定权限控制。这意味着沙盒应用现在可以直接请求 <code>/dev/kfd</code> 的访问权限，而无需像过去那样通过覆盖（override）机制开放对所有设备的访问。这一改进源于 2023 年提出的功能请求，使得沙盒应用能够更安全地利用 AMD ROCm/OpenCL 进行计算任务，大幅提升了安全性与便利性。</p>
-<img src="//www.phoronix.net/image.php?id=2024&image=flatpak_sml" alt="Flatpak logo" />
-<h3>你知道吗？</h3>
-<p>AMD ROCm (Radeon Open Compute) 是 AMD 推出的开源计算平台，旨在为 GPU 加速计算提供类似 NVIDIA CUDA 的编程环境。/dev/kfd 是 Linux 内核中 AMD GPU 计算驱动（AMDKFD）暴露的设备节点，允许用户空间应用直接与 GPU 硬件交互进行计算任务。在 Flatpak 等沙盒环境中，默认情况下应用无法访问此类底层硬件设备，此次更新通过细粒度的权限控制解决了这一痛点。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Flatpak-1.18</guid>
-      <pubDate>Mon, 08 Jun 2026 13:14:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.1-rc7 发布，稳定版预计下周日推出</title>
-      <link>https://www.phoronix.com/news/Linux-7.1-rc7</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 7.1 rc7 内核版本发布，属于 Linux 开源生态与技术进展，符合用户对该领域技术的兴趣，故推荐阅读。</small></p><p>Linux 7.1-rc7 已正式发布。尽管该版本代码量仍略高于该周期历史平均水平，但相比之前的 rc6 有所缩减，这让 Linus Torvalds 感到安心，预计若无意外，<a href="https://www.phoronix.com/news/Linux-7.1-rc7">Linux 7.1 稳定版</a>将于下周日（6 月 14 日）推出。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_71_rc7" alt="Linux 7.1-rc7" />
-
-<p>此次版本代码量偏大，部分原因是受 AI/大型语言模型（LLM）编码代理（AI/LLM coding agents）影响，导致补丁数量有所增加。主要变更包括：</p>
-<ul>
-    <li>禁用了 AMD 开发的用于 ROCm CRIU（用户空间检查点/恢复）的 DRM ioctl（设备资源管理输入/输出控制），以解决持续的安全挑战。</li>
-    <li>增加了对更多 AMD Zen 6 CPU 型号的识别支持。</li>
-    <li>Linus Torvalds 指出，最大的改动区域集中在 GPU 修复和网络（networking）修复，其余为架构（主要是 KVM 相关）、驱动、文件系统及构建修复。</li>
-</ul>
-
-<p>Linus 表示，虽然 rc7 不算小版本，但整体趋势向好，未发现会导致发布延迟的严重问题。他呼吁用户继续测试一周，为最终版本的发布做准备。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-rc7</guid>
-      <pubDate>Mon, 08 Jun 2026 00:26:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
