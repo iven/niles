@@ -3,7 +3,33 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 15 Jun 2026 18:46:27 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jun 2026 21:49:43 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Hacker News 讨论：本地大模型能否替代 Claude/GPT 用于日常编程？</title>
+      <link>https://news.ycombinator.com/item?id=48542100</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论了本地大模型在编程中的应用可能性，属于AI软件技术进展与编程工具话题，符合用户对AI技术发展的关注。</small></p><h2>讨论概述</h2>
+<p>该帖子探讨了开发者是否已完全使用本地大语言模型（Local LLM）替代 Claude 或 GPT 作为日常编程主力工具。社区反馈显示，随着开源模型能力的提升，越来越多的开发者出于<strong>数据隐私</strong>和<strong>成本控制</strong>的考虑，开始在本地部署 AI 编程代理。</p>
+
+<h2>核心体验与模型推荐</h2>
+<p>多位用户分享了他们的实际部署方案。目前社区公认的“甜点区”模型是 <strong>Qwen 3.6 35B-A3B</strong>。作为混合专家（Mixture of Experts, MoE）模型，它虽然拥有 350 亿总参数，但每次推理仅激活约 30 亿参数，在 Mac Studio 或配备 128GB 统一内存的笔记本上运行速度极快，足以胜任网站重构和复杂代码生成任务。</p>
+<p>对于更复杂的任务，部分用户会切换至 <strong>Qwen 3.5 122B-A10B</strong>，但推理速度会显著下降。此外，<strong>Gemma 4 31B</strong> 和 <strong>12B</strong> 也常被用于日常聊天、翻译和音频处理。</p>
+
+<h2>局限性对比与使用技巧</h2>
+<p>与云端旗舰模型（如 Claude Opus）相比，本地模型更像一名“需要指导的初级工程师”。它们缺乏自主架构设计能力，容易陷入死循环或工具调用错误。为了获得最佳效果，开发者必须掌握精细的提示词工程（Prompt Engineering）：</p>
+<ul>
+<li><strong>精确指令</strong>：明确指定目标文件、开发架构和代码风格，避免模型进行“快速且粗糙”的修复。</li>
+<li><strong>任务拆解</strong>：将复杂问题分解为原子级 TODO 列表，并在提示词中明确上下文范围。</li>
+<li><strong>编辑优化</strong>：有开发者建议采用基于哈希的代码替换方法，以减少编辑错误（参考：<a href="https://blog.can.ac/2026/02/12/the-harness-problem/">The Harness Problem</a>）。</li>
+</ul>
+
+<h2>硬件配置与推理优化</h2>
+<p>在推理引擎方面，<strong>llama.cpp</strong> 配合 <strong>Vulkan</strong> 后端在 AMD Strix Halo 等硬件上表现优异。针对 MoE 模型上下文重处理（Context Re-processing）的问题，社区建议保持 llama.cpp 更新，并在配置中启用 <code>preserve_thinking</code> 参数，以保留推理链并大幅提升缓存命中率。</p>
+<p>尽管本地模型目前无法完全匹敌拥有庞大算力的云端集群，但考虑到其免费、离线且无需担心订阅费上涨的优势，许多开发者认为其性价比已经令人惊叹。未来两三年内，300 亿至 1000 亿参数级别的开源模型有望达到当前云端旗舰的水平。对于 AMD Strix Halo 平台的本地 AI 部署工具，可参考：<a href="https://kyuz0.github.io/amd-strix-halo-toolboxes/">AMD Strix Halo Toolboxes</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48542100</guid>
+      <pubDate>Mon, 15 Jun 2026 14:46:53 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Iroh 1.0 正式发布：基于密钥拨号的 P2P 网络库</title>
       <link>https://news.ycombinator.com/item?id=48542480</link>
@@ -925,23 +951,6 @@ Moonshot 此次发布的模型附带了修改后的开源许可证，要求商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48479452</guid>
       <pubDate>Wed, 10 Jun 2026 17:11:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ PgDog 获 550 万美元融资，致力于让 PostgreSQL 轻松实现水平扩展</title>
-      <link>https://news.ycombinator.com/item?id=48476466</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍PostgreSQL连接池与代理工具PgDog及其融资进展，属于开发者工具分享，契合“编程工具发布/分享”的高兴趣配置。</small></p><p>PostgreSQL 连接池与分片代理 <a href="https://pgdog.dev">PgDog</a> 宣布获得 550 万美元融资，投资方包括 Y Combinator (YC)、Basis Set 和 Pioneer Fund 等。该团队致力于通过代理层解决 PostgreSQL 的水平扩展瓶颈，使其能够轻松处理 100 TB 以上的数据表和每秒 100 万次查询（QPS）。</p>
-<p>PgDog 是一个基于 Rust 编写的开源代理，提供连接池、负载均衡和分片功能。其核心优势在于无需修改应用程序代码即可实现数据库的水平扩展。目前，PgDog 已在生产环境中稳定运行，支撑超过 200 万 QPS 的流量，并处理了超过 20 TB 的数据。项目拥有超过 140 万次 Docker 拉取量，并保持着每周发布新版本的频率。</p>
-<p>团队由三名基础设施工程师组成，核心成员曾在 Instacart 负责大规模 PostgreSQL 的扩展工作。除了开源版本，团队正在开发企业版（Enterprise edition），旨在提供更完善的 AWS 集成、服务等级协议（SLA）支持及技术支持。</p>
-<p>在 Hacker News 社区讨论中，开发者们主要关注以下几点：</p>
-<ul>
-<li><strong>性能与架构</strong>：PgDog 的性能提升主要得益于读写分离和分片能力，而非单纯的语言优势。与 Citus 相比，PgDog 作为代理层更适合在线事务处理（OLTP），而 Citus 的查询引擎在在线分析处理（OLAP）方面更具优势。</li>
-<li><strong>配置与运维</strong>：在 Kubernetes 多租户场景下，动态配置管理曾是一个挑战，但社区分享了通过控制器自动生成配置并热重载的解决方案。</li>
-<li><strong>资源消耗</strong>：针对内存占用问题，PgDog 通过缓存查询抽象语法树（AST）来避免重复解析，从而优化内存使用。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48476466</guid>
-      <pubDate>Wed, 10 Jun 2026 14:02:59 GMT</pubDate>
     </item>
   </channel>
 </rss>
