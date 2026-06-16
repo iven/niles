@@ -3,7 +3,23 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 16 Jun 2026 21:17:38 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 16 Jun 2026 23:46:28 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.2 正式实施新文件系统准入指南，提高内核合并门槛</title>
+      <link>https://www.phoronix.com/news/Linux-New-File-System-Docs</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论 Linux 内核文件系统合并标准的规范更新，属于底层开发与维护者层面的基础设施调整，并非直接面向用户的新功能或技术进展，兴趣度不明确，故列为可选。</small></p><p>Linux 内核社区近日正式通过了一项新文档，明确规定了新文件系统（File-Systems）被接受进入内核的严格标准。该文档已合并至 <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/" target="_blank">Linux 7.2</a> 内核，旨在解决日益增长的文件系统维护负担问题。</p>
+<p>随着开源生态的发展，不断有新文件系统涌现，但许多项目最终因维护不善、用户稀少或创新不足而难以维持。近期如 FTRFS 和 VMUFAT 的加入，以及多个 NTFS 驱动的存在，进一步加剧了这一问题。这给虚拟文件系统（VFS）维护者及其他存储开发团队带来了沉重负担，尤其是当这些文件系统被废弃或维护不佳时。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=doc_new_fs" alt="New file-system documentation preview" />
+<p>新实施的准入指南确立了多项核心要求。首先，新文件系统必须具备足够的独特性，不能仅仅是现有实现的简单重复。对于特定的利基（niche）用例，社区建议优先考虑使用 FUSE 用户态文件系统。其次，进入主线的文件系统必须采用现代 VFS 接口，并提供必要的用户态工具（如 <code>mkfs</code> 和 <code>fsck</code>）。此外，项目还必须具备良好的可测试性，并配备完善的文档支持。</p>
+<p>该文档在提交后未遭到任何反对意见，现已正式生效。这意味着未来任何希望进入 Linux 主线的文件系统项目，都必须严格遵循这些规范，以确保内核的整洁与高效维护。</p>
+<h3>你知道吗？</h3>
+<p><strong>虚拟文件系统（VFS）</strong>是 Linux 内核中的一个抽象层，它屏蔽了不同底层文件系统（如 ext4、Btrfs、NTFS 等）的差异，为内核其他部分提供统一的文件操作接口。这使得内核代码无需针对每种文件系统单独编写逻辑，极大地提高了系统的可维护性和扩展性。</p>
+<p><strong>FUSE（用户空间文件系统）</strong>允许开发者在不修改内核源代码的情况下，在用户空间实现文件系统逻辑。通过 FUSE，开发者可以灵活地创建实验性或特定用途的文件系统，而无需承担进入内核主线的高昂维护成本和严格审查门槛。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-New-File-System-Docs</guid>
+      <pubDate>Tue, 16 Jun 2026 21:16:42 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Slackware 终于引入 KDE Plasma 6 桌面环境</title>
       <link>https://www.phoronix.com/news/Slackware-KDE-Plasma-6</link>
@@ -722,25 +738,6 @@ D-Bus 是 Linux 系统上广泛使用的进程间通信（IPC）机制，用于�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Open-Image-Denoise-2.5</guid>
       <pubDate>Thu, 11 Jun 2026 10:04:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME 基金会公布首批 Fellowship 项目入选者</title>
-      <link>https://www.phoronix.com/news/GNOME-Fellowship-First</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GNOME基金会公布新人培养计划，涉及Linux桌面生态与社区发展，符合Linux桌面技术兴趣，故推荐阅读。</small></p>GNOME 基金会于 3 月宣布启动 Fellowship 项目，旨在通过为期 12 个月的资助，支持独立和社区贡献者，以保障 GNOME 桌面的长期可持续性。6 月 11 日，基金会正式公布了首批两名入选者：Peter Eisenmann 和 Sophie Herold，他们将于 7 月正式开始工作。
-
-Sophie Herold 将致力于建立新的 RFC（Request for Comments，征求意见）流程，以优化项目级治理结构；同时，她将推动在 GNOME 库开发中采用 Rust 语言，以提升代码的可维护性和安全性。Peter Eisenmann 则专注于 Files 应用（文件管理器）的现代化改造，工作内容包括优化缩略图生成、改进用户目录本地化以及遵循最新的 GNOME 平台规范。
-
-<div class="admonition">
-<strong>你知道吗？</strong>
-<ul>
-<li><strong>Rust 语言</strong>：一种系统级编程语言，以内存安全和并发安全著称。近年来，Rust 逐渐被 Linux 内核及各类系统软件（包括 GNOME 组件）采用，用于替代传统的 C/C++，从而有效减少内存泄漏和缓冲区溢出等安全漏洞。</li>
-<li><strong>RFC 流程</strong>：在开源社区中，RFC（Request for Comments，征求意见）通常指一种用于提出新想法、技术变更或政策调整的文档机制。通过公开 RFC 并收集社区反馈，开发者可以达成共识，确保变更符合项目长远利益。</li>
-</ul>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Fellowship-First</guid>
-      <pubDate>Thu, 11 Jun 2026 09:50:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
