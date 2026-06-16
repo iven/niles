@@ -3,7 +3,65 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 16 Jun 2026 11:33:53 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 16 Jun 2026 17:20:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.2 内核优化匿名管道写入性能</title>
+      <link>https://www.phoronix.com/news/Linux-72-Faster-Anon-Pipe-Write</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核匿名管道性能改进，属于Linux桌面技术范畴，用户感兴趣</small></p><p>Linux 7.2 内核开发主线已合并一项针对 <code>anon_pipe_write</code> 函数的性能优化，旨在显著提升匿名/未命名管道（anonymous/unnamed pipes）的数据写入速度。此类管道广泛应用于 Shell 管道命令及应用程序的标准输入输出流中。</p>
+
+<p>此次优化的背景源于 Meta 工程师 Breno Leitao 在分析缓存代码时发现的性能瓶颈。原代码在持有管道互斥锁（pipe->mutex）时逐页调用 <code>alloc_page()</code> 进行内存分配。由于内存分配可能触发直接回收（direct reclaim）并延长临界区，导致并发读取进程在等待同一把锁时产生严重阻塞。</p>
+
+<p>新代码通过“锁外预分配”策略解决了该问题。在获取互斥锁之前，系统会预先分配最多 8 个页面。未使用的页面会被回收至每管道临时缓存（per-pipe tmp_page[]）以供后续复用，多余页面则在解锁后释放。这一改动成功将耗时的内存分配操作移出临界区，大幅降低了锁争用。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=linux_72_pipes" alt="Linux 7.2 unnamed pipes performance" />
+
+<p>性能测试数据显示，在使用 64KB 数据写入 1MB 管道容量的场景下，吞吐量提升了 6% 至 28%，平均写入延迟降低了 5% 至 22%。在内存压力较大的环境下，由于持有锁进行回收的成本最高，优化效果尤为明显：吞吐量提升幅度达到 21% 至 48%，延迟降低 17% 至 33%。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-72-Faster-Anon-Pipe-Write</guid>
+      <pubDate>Tue, 16 Jun 2026 17:05:44 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2 引入新标志限制程序仅打开常规文件，提升安全性</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-VFS-OPENAT2-REGULAR</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux VFS安全功能改进，限制程序仅打开常规文件，属于Linux系统软件安全新功能</small></p><p>在 Linux 7.2 内核的虚拟文件系统（VFS）更新中，引入了针对 <code>openat2</code> 系统调用的新标志 <code>OPENAT2_REGULAR</code>。该标志允许用户空间程序限制自身仅能打开常规文件系统文件，从而避免意外或恶意打开设备文件（如 <code>/dev/zero</code> 或 <code>/dev/random</code>）及其他特殊文件。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=firefox_dev_random_med" alt="Firefox 尝试打开 /dev/random" /></p>
+<p>这一功能主要出于安全考虑，防止程序打开其预期之外或无需交互的文件。当程序使用 <code>OPENAT2_REGULAR</code> 标志时，若尝试访问非常规文件，系统将返回 <code>EFTYPE</code> 错误代码。例如，Web 浏览器或文本编辑器通常无需访问这些设备节点，该限制可有效减少潜在的安全风险。</p>
+<p>此外，本次 VFS 合并请求还引入了 <code>O_EMPTYPATH</code> 标志，用于从 <code>O_PATH</code> 文件描述符获取可操作的文件描述符，进一步完善了文件系统的操作灵活性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-VFS-OPENAT2-REGULAR</guid>
+      <pubDate>Tue, 16 Jun 2026 13:54:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Wine Wayland 原生驱动正式支持分数缩放</title>
+      <link>https://www.phoronix.com/news/Wine-Wayland-Fractional-Scaling</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Wine实现Wayland分屏缩放支持，对Linux桌面用户体验影响重大，属于Linux桌面技术的重要改进</small></p><p>继上周 Wine 11.11 版本引入透明度处理（alpha modifier）支持后，Wine 项目本周正式合并了 Wayland 原生驱动的分数缩放（fractional scaling）功能。该功能由开发者 Etaash Mathamsetty 实现，并计划在下周发布的 Wine 11.12 开发版本中上线。</p>
+<p>分数缩放旨在为高分辨率显示器提供更优质的用户界面缩放体验。Mathamsetty 指出，该功能允许 Wine 环境在 winecfg 中指定的 DPI 下运行，同时保持窗口画面清晰。与传统的 XWayland 方案相比，Wine Wayland 驱动不仅支持为不同显示器设置独立的分数缩放比例，还能有效避免多显示器混合缩放时可能出现的画面模糊问题，实际表现更为出色。</p>
+<p>随着 Wayland 原生驱动的持续成熟，开发团队预计将在 2027 年初发布的 Wine 12.0 版本中，为用户带来更加完善和流畅的 Wayland 原生运行体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Wayland-Fractional-Scaling</guid>
+      <pubDate>Tue, 16 Jun 2026 13:22:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.2 内核继续清理 i486 代码残留，新增坚固版 Panther Lake 支持</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-x86</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 既有内核代码清理也有Panther Lake新硬件支持（最新款芯片相关），综合评定为可选</small></p><p>Linux 7.2 内核已合并 x86/cpu 架构的更新，此次更新跨度极大，既彻底清除了 36 年前 Intel 486 时代的代码残留，也新增了对工业级处理器的支持。</p>
+<p>在清理旧代码方面，继 Linux 7.1 退役 Intel 486 支持后，7.2 版本继续移除了 AMD Elan 驱动及其他相关的 i486 代码。内核现在将时间戳计数器（TSC）和 8 字节比较交换指令（CX8）的支持设为无条件启用，并移除了过时的 &quot;no387&quot; 启动选项。</p>
+<img src="//www.phoronix.net/image.php?id=2022&image=intel_486_linux" alt="Intel 486" />
+<p>此外，更新引入了集中式的 CPUID 解析器与数据模型，简化了内核识别处理器的逻辑。在硬件支持方面，Linux 7.2 正式加入了对 Intel Panther Lake R（坚固版）的支持。作为 Panther Lake 系列的工业级变体，其 CPU 模型 ID 已纳入内核，无需额外修改即可兼容。</p>
+<h3>你知道吗？</h3>
+<ul>
+  <li><strong>CPUID 指令</strong>：x86 架构中用于查询处理器身份、特性及功能的关键指令。内核通过它获取 CPU 型号、缓存大小和指令集支持等信息。</li>
+  <li><strong>TSC (Time Stamp Counter)</strong>：CPU 内部的一个 64 位寄存器，每执行一条指令通常递增一次，常用于高精度计时。</li>
+  <li><strong>Panther Lake R</strong>：Intel 面向工业控制和嵌入式市场推出的“坚固版”处理器，具备更宽的工作温度范围和更长的供货周期。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-x86</guid>
+      <pubDate>Tue, 16 Jun 2026 12:25:38 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.2 中 XFS 区域分配器（Zone Allocator）转正</title>
       <link>https://www.phoronix.com/news/XFS-Zone-Allocator-Linux-7.2</link>
@@ -684,63 +742,6 @@ Sophie Herold 将致力于建立新的 RFC（Request for Comments，征求意见
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Reduce-GCC-Bootstrap</guid>
       <pubDate>Wed, 10 Jun 2026 13:30:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核 CrOS EC 驱动将支持自定义风扇曲线，利好 Framework 笔记本</title>
-      <link>https://www.phoronix.com/news/CrOS-EC-Custom-Fan-Cuves</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Linux 内核 EC 驱动对自定义风扇曲线的支持，属于 Linux 系统底层技术支持，符合兴趣配置。</small></p><p>Linux 内核中的 <code>cros_ec</code> 驱动主要用于支持 ChromeOS 嵌入式控制器（ChromeOS Embedded Controller, EC），广泛服务于 Chromebooks 以及 Framework Laptops 等第三方笔记本设备。近期，开发者 Thomas Weißschuh 提交了一系列补丁，旨在为该驱动引入自定义风扇曲线（Custom Fan Curves）的支持。</p>
-<p>该补丁允许用户在受支持的笔记本上读取和写入由 CrOS EC 管理的风扇转速策略。出于对硬件安全的考虑，补丁内置了保护机制：写入的新风扇曲线必须比当前默认的曲线更为激进（即风扇转速更高），从而有效避免设备因散热不足而发生过热或热损坏。</p>
-<p>目前，相关补丁已在 Linux 内核邮件列表中接受审查。尽管可能还需进行部分调整，但预计不久后将合入主线 Linux 内核。这一更新将显著提升 Framework 等支持该控制器的笔记本在 Linux 下的散热管理灵活性。</p>
-<p><img src="//www.phoronix.net/image.php?id=framework-16-ryzen-ai-300-series&image=framework_16_12_med" alt="Framework Laptop 16" /></p>
-<p><strong>你知道吗？</strong></p>
-<p>风扇曲线（Fan Curve）是指定义设备风扇转速与系统温度之间关系的策略表。在 Linux 笔记本散热管理中，默认的风扇策略通常由 BIOS/UEFI 或嵌入式控制器（EC）固件提供，往往偏向保守以确保静音。通过内核驱动支持自定义风扇曲线，用户可以根据实际负载和散热需求，手动调整风扇转速阈值，在静音与性能之间取得更优平衡。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/CrOS-EC-Custom-Fan-Cuves</guid>
-      <pubDate>Wed, 10 Jun 2026 13:12:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE KWin 补丁旨在优化游戏延迟，以更好地与 Windows 竞争</title>
-      <link>https://www.phoronix.com/news/KDE-KWin-Gaming-Latency-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章核心围绕 KDE KWin 窗口管理器的延迟优化展开，虽然涉及游戏性能，但直接命中来源高兴趣配置，故强烈推荐。</small></p><p>开源开发者 Jakub Okoński 近期对比了 Linux（KDE Plasma 6）与 Windows 11 的游戏延迟，发现 Windows 在显示延迟方面表现更优。为缩小这一差距，他针对 KDE 的 KWin Wayland 合成器开发了优化补丁。测试中，他使用 Teensy 微控制器配合光传感器测量了“点击到光子（click-to-photon）”延迟。</p>
-<p>补丁主要针对窗口化游戏和应用，预计能带来显著改善；对于开启垂直同步（V-Sync）且支持直接扫描输出（direct scanout）的全屏游戏，延迟可降低约 1 毫秒。不过，对于使用可变刷新率（VRR）或允许画面撕裂（tearing）且帧率低于刷新率的游戏，延迟改善有限。Okoński 指出，这些改进使 Linux 与 Windows 在最佳测量下的延迟差距从约 4 毫秒缩小了 1.1-1.2 毫秒。</p>
-<p>他计划在未来几周将补丁提交至 KWin 上游，但遗憾无法赶上即将发布的 Plasma 6.7 版本。更多测试细节可参考其个人博客。</p>
-<img src="//www.phoronix.net/image.php?id=nvidia-595-kde-gnome&image=nvidia_kde_1_med" alt="KDE Plasma gaming" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-KWin-Gaming-Latency-2026</guid>
-      <pubDate>Wed, 10 Jun 2026 10:37:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux Firmware 仓库引入文档，正式支持 AI 编码代理贡献</title>
-      <link>https://www.phoronix.com/news/Linux-Firmware-AI-Coding-Agents</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Linux 固件仓库为 AI 编程代理整理数据的进展，结合全局 AI 技术进展与开源项目兴趣，作为推荐阅读。</small></p>Linux 内核的固件仓库 <code>linux-firmware.git</code> 近日引入了 <code>AGENTS.md</code> 文档，标志着该项目开始正式为 AI 编码代理（AI coding agents）参与贡献做准备。该仓库是 Linux 内核开源驱动使用的二进制固件（binary blobs）的主要存放地。
-
-新文档旨在指导 Codex、Claude Code 等 AI 代理遵循仓库规范，协助添加或更新固件文件。值得注意的是，该文档本身由 Anthropic 的 Claude Opus 4.8 协助共同撰写。文档中明确了 AI 代理贡献的“黄金规则”，并鼓励在提交代码时使用 <code>co-developed-by</code> 或 <code>assisted-by</code> 标签来标注 AI 的参与。
-
-此外，仓库现有的规范要求所有固件文件必须附带相应的许可证文件。然而，对于 AI 代理在逆向工程或固件增强过程中修改或生成固件二进制文件所涉及的法律问题，目前的文档尚未给出明确界定，仍属于法律灰色地带。
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_firmware_ai" alt="Linux Firmware for AI coding agents" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Firmware-AI-Coding-Agents</guid>
-      <pubDate>Wed, 10 Jun 2026 10:25:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Alpine Linux 3.24 发布：改进安装体验，新增 COSMIC 桌面选项</title>
-      <link>https://www.phoronix.com/news/Alpine-Linux-3.24</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 Alpine Linux 3.24 发行版的更新内容，包括安装器改进和新支持 COSMIC 桌面。来源配置明确对“新发行版”为很感兴趣（high_interest），对“Linux桌面技术”感兴趣，判定为 critical。</small></p><p>轻量级 Linux 发行版 <a href="https://www.phoronix.com/news/Alpine-Linux-3.24">Alpine Linux</a> 近日发布了 3.24 版本。该版本继续围绕 musl libc 和 Busybox 构建，专为容器、微服务和嵌入式设备优化。</p>
-<p>此次更新重点改进了安装体验，<code>setup-alpine</code> 脚本现支持 Limine 引导加载程序，增强了对 IPv6 的支持，并优化了无头（headless）环境的配置流程。</p>
-<p>在软件包方面，Alpine Linux 3.24 带来了多项核心组件的升级，包括 LLVM 22、Rust 1.96、OpenZFS 2.4.2、Qt 6.11、Ruby 3.4 以及 Nginx 1.30 等。桌面环境支持方面，除了 GNOME 50、KDE Plasma 6.6 和 Sway 1.12 外，System76 开发的 COSMIC 桌面环境也已加入社区仓库。</p>
-<p>此外，该版本正式告别了 GTK2 和 Qt 5 包，标志着其进一步向现代技术栈迁移。</p>
-<img src="https://www.phoronix.net/image.php?id=2023&image=alpine_linux" alt="Alpine Linux logo" />
-<p>更多详情及下载请访问 <a href="https://www.alpinelinux.org">AlpineLinux.org</a>。</p>
-<h3>你知道吗？</h3>
-<p>Alpine Linux 之所以在容器和嵌入式领域广受欢迎，主要得益于其核心组件的选择。它使用 <strong>musl libc</strong> 作为标准 C 库，相比传统的 glibc，musl 更加轻量且注重标准合规性，显著减少了镜像体积。同时，系统大量使用 <strong>Busybox</strong>，这是一个集成了众多常用 Unix 工具（如 ls、cat、grep 等）的单一可执行文件，进一步压缩了资源占用，使其成为构建精简 Docker 镜像的理想选择。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Alpine-Linux-3.24</guid>
-      <pubDate>Tue, 09 Jun 2026 21:02:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
