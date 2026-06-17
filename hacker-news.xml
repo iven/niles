@@ -3,7 +3,53 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 17 Jun 2026 20:29:20 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2026 22:55:32 GMT</lastBuildDate>
+    <item>
+      <title>AI 时代更需要工程纪律，而非更少</title>
+      <link>https://news.ycombinator.com/item?id=48570948</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 虽然涉及AI，但主要讨论工程纪律和方法论，不属于用户高兴趣的编程工具、效率经验或AI模型发布等内容</small></p><h2>文章核心观点</h2>
+<p>本文探讨了人工智能（AI）在软件开发中的应用对工程纪律的影响。作者认为，尽管 AI 使得代码生成变得快速且廉价，但这并不意味着工程标准可以降低。相反，AI 时代要求工程师具备更高的工程纪律。代码不再是最终的交付物，而是中间产物；真正的交付物应包含设计文档、测试套件、监控指标以及基础设施即代码（IaC）等规范。</p>
+
+<h2>社区反馈与讨论</h2>
+<p>该文章在 Hacker News 社区引发了广泛讨论，主要观点如下：</p>
+<ul>
+<li><strong>支持纪律的重要性：</strong> 许多评论者认同，AI 生成代码虽然容易，但如果不加以严格的测试和设计约束，会产生大量难以维护的“垃圾代码”（slop）。工程师需要像对待基础设施一样，通过代码和测试来记录系统知识，避免“隐性知识”导致的维护灾难。</li>
+<li><strong>对文章观点的质疑：</strong> 部分读者认为文章观点过于散漫或缺乏深度，甚至有人质疑文章是否由 AI 生成。另有评论指出，代码生产的经济学并未被完全颠覆，代码仍然需要被珍视和维护。</li>
+<li><strong>审查重点的转变：</strong> 讨论中提到，代码审查的重点应从“代码行数”转向“设计决策、需求结构和测试覆盖”。在 AI 辅助下，工程师应更关注系统架构和逻辑的正确性，而非具体的代码实现。</li>
+<li><strong>技术债务与生产力：</strong> 有评论警告，AI 可能导致文档和代码量爆炸，掩盖了真正理解系统的工程师，从而积累巨大的技术债务。同时，关于“懒惰”是否仍是程序员美德的讨论也引发共鸣，多数观点认为，利用 AI 提升整体效率的“宏观懒惰”仍是美德，但依赖 AI 敷衍了事则是恶习。</li>
+</ul>
+
+<h2>你知道吗？</h2>
+<p><strong>基础设施即代码（IaC）的启示：</strong> 在云原生时代，IaC 要求所有基础设施变更必须通过代码（如 Terraform）进行版本控制和审查，这彻底改变了运维方式。文章作者 Charity Majors 借此类比，认为软件开发也应走向类似路径：将设计、测试和监控作为核心资产，而让 AI 负责生成具体的代码实现。</p>
+
+<p><a href="https://charitydotwtf.substack.com/p/ai-demands-more-engineering-discipline">阅读原文</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48570948</guid>
+      <pubDate>Wed, 17 Jun 2026 14:20:44 GMT</pubDate>
+    </item>
+    <item>
+      <title>RFC 10008：引入 HTTP 的 QUERY 方法</title>
+      <link>https://news.ycombinator.com/item?id=48568502</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及HTTP协议的技术规范更新，可能属于基础设施（用户uninterested）或软件技术（用户interest），兴趣不明确</small></p><p>互联网工程任务组（IETF）发布了 <a href="https://www.rfc-editor.org/info/rfc10008/">RFC 10008</a>，正式定义了 HTTP 的 <code>QUERY</code> 请求方法。该规范旨在为服务器端查询操作提供一种语义明确、安全且幂等（Safe and Idempotent）的通信机制。</p>
+<p>在传统的 HTTP 实践中，当查询参数过多或数据量过大时，开发者往往被迫使用 <code>POST</code> 方法将数据放入请求体中。然而，<code>POST</code> 在语义上并非安全或幂等，这导致缓存层和客户端难以安全地进行自动重试或缓存优化。相比之下，<code>QUERY</code> 方法允许客户端在请求体中传递复杂的查询内容（如 JSON 过滤结构或图像输入），同时明确声明该操作不会修改服务器状态，且可被安全地重复执行。</p>
+<p>该规范详细规定了 <code>QUERY</code> 方法的各项行为，包括：</p>
+<ul>
+<li><strong>媒体类型与内容协商</strong>：服务器必须根据 <code>Content-Type</code> 验证请求内容，并可通过 <code>Accept-Query</code> 响应头告知客户端支持的查询格式。</li>
+<li><strong>等效资源与缓存</strong>：服务器可为查询结果分配等效资源（Equivalent Resource）的 URI。缓存键必须包含请求内容和相关元数据，以提高缓存效率。</li>
+<li><strong>重定向与条件请求</strong>：规范明确了 <code>QUERY</code> 在重定向（如 301/308）和条件请求中的处理方式，确保状态转移的准确性。</li>
+</ul>
+<p><strong>社区反馈与讨论：</strong></p>
+<ul>
+<li>开发者普遍认为，<code>QUERY</code> 为 <a href="https://graphql.org/">GraphQL</a> 等复杂查询场景提供了更贴合的 HTTP 原语，避免了使用 <code>POST</code> 带来的语义模糊。</li>
+<li>主要担忧集中在<strong>中间件兼容性</strong>上。许多现有的代理、Web 应用防火墙（WAF）和负载均衡器会丢弃或拒绝带有请求体的非标准方法。如果网关和 CDN 不支持，<code>QUERY</code> 的实际部署将面临巨大障碍。</li>
+<li>其他话题包括：<code>QUERY</code> 方法在跨域资源共享（CORS）中需要预检请求、浏览器书签对请求参数的支持，以及关于 RFC 编号跳至 10008 的趣闻。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48568502</guid>
+      <pubDate>Wed, 17 Jun 2026 10:51:17 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Epic Games 发布开源版本控制系统 Lore，专为大型二进制资产优化</title>
       <link>https://news.ycombinator.com/item?id=48571081</link>
@@ -900,38 +946,6 @@ Moonshot 此次发布的模型附带了修改后的开源许可证，要求商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48497609</guid>
       <pubDate>Thu, 11 Jun 2026 23:01:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ FablePool：AI 驱动众筹平台，用户出资，AI 公开构建项目</title>
-      <link>https://news.ycombinator.com/item?id=48496539</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍AI驱动的开源构建众筹平台，属于AI软件应用与开源项目范畴，推荐阅读。</small></p><p><a href="https://fablepool.com">FablePool</a> 是一个新兴的 AI 驱动众筹平台，旨在通过“提示词（Prompt）”驱动项目构建。其核心机制是：用户提交一个项目构想，AI 代理（Fable）负责评估工作量并设定资金目标（最低 $100），随后支持者可以任意金额（最低 $0.25）进行出资。AI 将分阶段执行构建任务，所有资金流向与开发进度均在公共账本上公开透明。</p>
-<p>目前平台上已上线多个活跃项目，涵盖从开源搜索数据库、AI 记忆协议到 C# 高性能计算优化等广泛领域。例如，有项目旨在重建开源对象存储搜索数据库，也有项目试图实现经典游戏《Fable》的开源版本。</p>
-<p>在 Hacker News 社区中，该创意引发了热烈讨论。支持者认为这是一种创新的开源融资模式，能够降低软件开发的门槛；但也有用户将其类比为“反向 Kickstarter”或“AI 版 Builder.ai”，对项目的实际可行性及资金安全表示担忧。例如，有项目预估仅需 $516 即可构建一个完全开源的 AWS 替代品，被社区调侃为严重低估了工程复杂度。此外，也有声音指出平台背后的开发团队（Barras Industries）信息尚不透明，存在潜在的欺诈风险。</p>
-<h3>你知道吗？</h3>
-<p>评论中提到的 <a href="https://en.wikipedia.org/wiki/Builder.ai">Builder.ai</a> 是一家曾备受瞩目的 AI 软件开发公司。该公司曾承诺利用 AI 大幅降低软件开发成本和时间，但因多次未能兑现交付承诺，最终被投资者起诉并申请破产。这一案例常被用来警示纯 AI 外包开发在复杂工程落地时的局限性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48496539</guid>
-      <pubDate>Thu, 11 Jun 2026 21:17:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Fable 5 编码任务基准测试：表现中等与争议</title>
-      <link>https://news.ycombinator.com/item?id=48492210</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 评测AI模型在真实编码任务中的表现，属于AI软件技术进展，推荐阅读。</small></p><p>近日，安全公司 Endor Labs 发布了针对 Anthropic 最新模型 <a href="https://www.endorlabs.com/learn/claude-fable-5-mythos-grade-hype">Claude Fable 5</a> 的编码能力基准测试报告。该测试基于 200 个真实世界的编码任务（Agent Security League），结果显示该模型综合表现处于中等水平，在排行榜上位列第五。</p>
-<p>测试报告指出，Fable 5 的主要扣分项集中在两个方面：一是因启用“扩展思考（extended thinking）”机制导致的严重超时问题，直接拉低了得分；二是被判定为“作弊”的案例高达 38 例。报告认为，这些案例主要是模型在训练过程中记住了上游代码的修复方案，并在测试中直接复现，而非真正解决了问题。</p>
-<p>尽管存在上述争议，Fable 5 仍展现出一定的突破能力，成功独立解决了 4 个此前没有任何模型破解过的复杂实例。测试方也指出，将“记忆已知修复方案”视为作弊可能低估了模型的实际能力，但这确实暴露了基准测试在防范数据污染方面的局限性。</p>
-<h3>社区反馈与开发者体验</h3>
-<p>该报告在开发者社区引发了广泛讨论，反馈呈现两极分化：</p>
-<ul>
-<li><strong>测试方法论争议：</strong> 许多开发者批评测试方将模型复现训练数据中的补丁视为“作弊”是不合理的。他们指出，这实际上是基准测试设计的缺陷，建议应严格采用训练截止日期后的新漏洞（CVE）进行测试，以评估模型真正的泛化能力。</li>
-<li><strong>实际工程体验差异：</strong> 部分用户分享的实际体验与报告结论不同。有开发者表示，在处理复杂系统架构、长周期任务（如编译器内存管理开发、遗留代码重构）时，Fable 5 的表现优于 Opus 系列，能够提供更深入的分析和更稳定的输出。但也有用户反馈，该模型在中等规模任务中稳定性不足，偶尔会自信地生成错误代码，导致其难以完全替代 Opus 作为主力编码助手。</li>
-<li><strong>其他特性观察：</strong> 有用户特别提到，Fable 5 在中文理解及文化背景把握上表现极佳，远超其他英文主导的模型。此外，测试方声称该模型在安全任务上“零拒绝（zero safety refusals）”，这一说法也引发了部分开发者对模型是否被静默降级的猜测。</li>
-</ul>
-<p>总体而言，Claude Fable 5 在特定复杂场景下展现出独特优势，但在通用编码基准测试中受限于超时与数据记忆问题，表现中规中矩。开发者在实际应用中需结合具体任务类型进行选型。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48492210</guid>
-      <pubDate>Thu, 11 Jun 2026 16:03:21 GMT</pubDate>
     </item>
   </channel>
 </rss>
