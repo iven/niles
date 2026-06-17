@@ -3,7 +3,47 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 17 Jun 2026 17:21:03 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2026 20:29:14 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Bcachefs Tools 1.38.6 发布：大幅提升性能与多设备支持</title>
+      <link>https://www.phoronix.com/news/Bcachefs-Tools-1.38.6</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍Bcachefs文件系统工具的新版本及性能优化，符合用户对Linux底层工具及软件效率改进的兴趣，故推荐。</small></p><p>Bcachefs 创始人 Kent Overstreet 近日发布了 Bcachefs-Tools 1.38.6 版本。作为围绕 Bcachefs 写时复制（Copy-on-Write, CoW）文件系统构建的用户空间工具，该版本在保持磁盘格式兼容的前提下，带来了多项新功能与显著的性能优化。</p><p>主要更新包括：</p><ul><li><strong>多设备支持</strong>：单个文件系统现支持最多 255 个存储设备。</li><li><strong>包管理优化</strong>：官方发布了适用于 Ubuntu 26.04 LTS 的 APT 软件包（可通过 <a href="https://apt.bcachefs.org">apt.bcachefs.org</a> 获取），便于用户测试。</li><li><strong>核心性能提升</strong>：本次更新的重头戏在于底层代码的性能调优。日志（Journaling）子系统实现了完全无锁的刷新机制，并引入二分查找优化读取流程，大幅降低了多线程 O_SYNC/fsync 工作负载下的锁争用。同时，Btree 迭代器与事务提交代码经过深度优化，有效减少了 icache 占用。</li><li><strong>并发与分片优化</strong>：Btree 分片（Sharding）策略改为基于进程 ID（PID）而非 CPU 核心分配新 inode，并在锁争用时动态迁移线程，显著提升了 dbench 等高并发场景下的吞吐量。此外，多线程写缓冲区刷新机制的改进也进一步减少了锁反转导致的停顿。</li></ul><p>目前，Bcachefs 团队正致力于推动更多 Linux 文件系统（如默认启用大 folios（Large Folios）的 Btrfs）的性能基准测试对比，相关结果有望在 Phoronix 平台陆续公布。更多发布详情可查阅 <a href="https://github.com/bcachefs/bcachefs-tools">bcachefs-tools.git</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Bcachefs-Tools-1.38.6</guid>
+      <pubDate>Wed, 17 Jun 2026 20:06:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2 内核 Slab 内存分配器更新：多项性能优化与 LLVM 支持</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-Slab</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 聚焦Linux内核Slab分配器的性能优化更新，属于核心系统技术进展，符合用户对Linux底层技术的兴趣，故推荐。</small></p><p>Linux 7.2 内核已合并多项 Slab 内存分配器（SLUB）的更改，继续推进性能优化工作。主要改进包括延迟空闲列表构建、批量处理部分 Slab，以及新增对 LLVM Clang 22+ 编译器分配令牌（allocation tokens）的支持。</p>
+<p>其中一项关键优化是将空闲列表（freelist）的构建推迟至从新 Slab 进行批量分配之后。中兴（ZTE）工程师 Shengming Hu 指出，在 <code>slub_bulk_bench</code> 基准测试中，该更改使每个对象的耗时降低了约 42% 至 70%（在 <code>CONFIG_SLAB_FREELIST_RANDOM=n</code> 配置下）以及 58% 至 69%（在 <code>CONFIG_SLAB_FREELIST_RANDOM=y</code> 配置下）。该测试模拟了从新 Slab 填充路径的最佳场景，旧路径即使没有剩余对象也会构建完整空闲列表，而新路径有效避免了这一冗余工作。在实际工作负载中，收益幅度可能因达到新 Slab 填充路径的频率而异。</p>
+<p>另一项改进是批量分离和重新附加部分 Slab（partial slabs）。该优化为 <code>mmap()</code> 操作带来了 2% 至 5% 的性能提升，在 <code>will-it-scale mmap</code> 基准测试中得到了验证。</p>
+<p>此外，合并的 Slab 拉取请求还引入了对分配令牌的支持。这是 LLVM Clang 22 及以上版本的一项编译器特性，能够根据分配对象的类型，更智能地划分 <code>kmalloc</code> 缓存，从而进一步提升内存管理效率。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Slab</guid>
+      <pubDate>Wed, 17 Jun 2026 20:00:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>AMD Lemonade AI 服务器 v10.8 发布：集成 MCP 协议，大幅增强本地 AI 能力</title>
+      <link>https://www.phoronix.com/news/AMD-Lemonade-10.8-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 虽提及AMD AI服务器平台，但核心内容为MCP协议的软件集成更新；受来源配置对AMD硬件关注稍低的影响，综合评定为可选。</small></p><p>AMD 支持的开源本地 AI 服务器 Lemonade 发布了 v10.8 版本，进一步提升了其在 Windows 和 Linux 平台上的实用性。该服务器旨在利用 AMD Ryzen AI NPU、Radeon GPU 和 x86_64 CPU 实现“100% 免费且私密”的 AI 使用体验。</p>
+<p>本次更新的核心亮点是引入了模型上下文协议（Model Context Protocol, MCP）服务器集成。通过这一功能，GitHub Copilot、Claude Desktop、Cursor 等支持 MCP 的客户端可以将本地运行的 AI 模型作为工具进行调用，支持聊天、音频转录、图像生成及多模态处理。这意味着前沿大模型可以将隐私敏感或高计算量的任务路由至本地 Lemonade 模型处理，实现免费、私密且离线的操作。</p>
+<p>此外，v10.8 版本还带来了多项硬件与功能更新：</p>
+<ul>
+<li>启用 ROCm 支持 GFX1152 / Radeon 860M 显卡。</li>
+<li>新增实时模型管理功能。</li>
+<li>集成 Moonshine 语音转文本（Speech-to-Text）模型。</li>
+<li>提供实验性的 NVIDIA GB10 ARM64 支持（基于 Llama.cpp CUDA 后端）。</li>
+</ul>
+<img src="//www.phoronix.net/image.php?id=2026&image=lemonade_sdk_med" alt="Lemonade showcase" />
+<p>更多详细信息及下载可访问其 GitHub 页面。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-Lemonade-10.8-Released</guid>
+      <pubDate>Wed, 17 Jun 2026 19:43:23 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 实验性 Rust 编写的 Vino 驱动支持现代 DisplayLink 硬件</title>
       <link>https://www.phoronix.com/news/Experimental-Vino-DRM-Driver</link>
@@ -689,55 +729,6 @@ D-Bus 是 Linux 系统上广泛使用的进程间通信（IPC）机制，用于�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/review/amd-opensil-coreboot-ar1</guid>
       <pubDate>Fri, 12 Jun 2026 14:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.1 新 NTFS 驱动改进：支持 Windows 原生符号链接</title>
-      <link>https://www.phoronix.com/news/NTFS-Windows-Symbolic-Links</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲述Linux系统下NTFS文件系统驱动对Windows符号链接的支持优化，属于Linux桌面环境下的驱动功能改进，符合Linux桌面技术及软件优化兴趣。</small></p><p>Linux 7.1 内核版本引入了全新的 NTFS 文件系统内核驱动（ntfs3），旨在提供比现有开源方案更优越的性能和功能。然而，该驱动在初期版本中存在一个主要限制，即对 Windows 原生符号链接（Native Symbolic Links）的支持不足。</p>
-
-<p>Windows 原生符号链接与传统的 .lnk 快捷方式不同，它在文件系统级别处理链接，提供了类似 Linux 或 macOS 的透明符号链接处理机制。为了解决这一短板，开源开发者 Hyunchul Lee 近日提交了一组补丁，致力于完善新 NTFS 驱动对原生符号链接的支持。</p>
-
-<p>此次更新的主要内容包括：</p>
-<ul>
-    <li>实现了对 Windows 原生符号链接的解析和跟随。</li>
-    <li>新增 <code>native_symlink=raw|rel</code> 挂载选项，用于配置目标解析方式。</li>
-    <li>新增 <code>symlink=wsl|native</code> 挂载选项，允许用户选择符号链接的创建行为（兼容 WSL 或原生模式）。</li>
-    <li>包含若干错误修复及文档补充。</li>
-</ul>
-
-<p>由于开发周期原因，这些改进可能无法赶上即将到来的 Linux v7.2 版本，预计将推迟到后续的内核发布周期中。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Windows 原生符号链接 vs .lnk 快捷方式</strong></p>
-<p>在 Windows 中，我们常见的“快捷方式”通常是以 .lnk 为后缀的文件，它们实际上是一个包含目标路径信息的独立文件。而“原生符号链接”（Native Symbolic Links）则是文件系统层面的功能，它让一个目录或文件看起来像是另一个目录或文件的副本，系统会自动将对该链接的访问重定向到目标位置，这种体验与 Linux 下的 <code>symlink</code> 或 macOS 下的 <code>symbolic link</code> 非常相似。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NTFS-Windows-Symbolic-Links</guid>
-      <pubDate>Fri, 12 Jun 2026 13:00:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Arch Linux AUR 遭遇大规模恶意软件攻击，超 400 个用户包受感染</title>
-      <link>https://www.phoronix.com/news/Arch-Linux-AUR-400-Compromised</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章报道Arch Linux AUR包仓库遭遇恶意软件入侵的安全事件，涉及开源生态与Linux桌面系统安全，符合用户对开源项目及重要资讯的兴趣。</small></p><p>本周，Arch Linux 用户仓库（<a href="https://aur.archlinux.org/">AUR</a>）遭遇大规模恶意软件攻击，导致超过 400 个用户提交的软件包被感染。目前，Arch Linux 维护团队正在紧急处理，包括重置或删除所有恶意内容，并封禁受影响的账户。</p>
-<p>官方强调，此次事件仅影响 AUR 中的用户提交包，官方维护的软件包不受影响。</p>
-<img src="//www.phoronix.net/image.php?id=cachyos-thelio-major&image=cachyos_thelio_2_med" alt="CachyOS Arch Linux" />
-<p>社区对此进行了广泛讨论，相关信息可在 Arch Linux 邮件列表和 CachyOS 论坛找到。</p>
-<h3>你知道吗？</h3>
-<p><b>AUR（Arch User Repository）</b> 是 Arch Linux 社区维护的软件仓库，包含用户提交的软件包。与官方仓库不同，AUR 中的包没有经过官方严格的安全审查，因此更容易受到恶意软件的攻击。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Arch-Linux-AUR-400-Compromised</guid>
-      <pubDate>Fri, 12 Jun 2026 10:39:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Wine Wayland 驱动获 Alpha Modifier 支持，优化窗口不透明度处理</title>
-      <link>https://www.phoronix.com/news/Wine-Wayland-Alpha-Modifier</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Wine Wayland驱动新增透明度处理支持，属于Linux桌面兼容性与显示技术的具体进展，符合用户对Linux桌面技术的兴趣。</small></p><p>Wine 的 Wayland 驱动正持续优化，旨在让 Windows 游戏与应用直接在原生 Wayland Linux 桌面环境中运行，无需依赖 X11/XWayland 兼容层。近日，该驱动最新合并的功能是 <code>alpha-modifier-v1</code> 协议支持，用于提升窗口表面的不透明度（opacity）处理体验。</p>
-<p>该功能由 JiangYi Chen 与 Rémi Bernon 共同开发。Wayland 的 <code>alpha-modifier-v1</code> 协议允许指定不透明度乘数，合成器（compositor）在渲染窗口表面时（例如实现淡入淡出及其他背景效果）会应用该乘数。<img src="//www.phoronix.net/image.php?id=2026&image=wine_wayland_opacity" alt="Wine Wayland opacity demo" />代码已于昨日合并至 Git 仓库，并将随即将发布的 Wine 11.11 双周开发版一同推出。开发团队期望，到 2027 年初发布的 Wine 12.0 稳定版时，Wine Wayland 驱动将达到更为稳健的状态。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Wayland-Alpha-Modifier</guid>
-      <pubDate>Fri, 12 Jun 2026 10:15:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
