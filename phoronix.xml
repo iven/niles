@@ -3,7 +3,28 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 17 Jun 2026 05:12:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2026 10:01:43 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.2 存储子系统更新：IO_uring 性能优化、NVMe 增强与内联加密支持</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-Storage</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲解Linux 7.2内核中IO_uring、NVMe驱动及块设备子系统的技术更新，属于开源Linux系统底层功能优化与软件新功能，符合对Linux技术的兴趣，故推荐阅读。</small></p><p>Linux 7.2 内核继续整合了大量存储相关的改进，涵盖文件系统、块设备代码、软件 RAID、IO_uring 接口以及设备映射器（Device Mapper）等多个层面。以下是本次合并的主要特性更新：</p>
+<ul>
+  <li><strong>NVMe 驱动增强：</strong>新增了每个控制器的管理 I/O 超时 sysfs 属性，并为多路径设备启用了 PCI 点对点 DMA（P2PDMA）。此外，还引入了新的 sysfs 属性组以暴露每个控制器的计数器。</li>
+  <li><strong>软件 RAID (MD) 改进：</strong>修复了 RAID1 和 RAID10 在读取错误恢复路径中可能出现的死锁问题。同时，MD 代码现在能更好地处理从成员设备到 RAID 设备的 PCI P2PDMA 传播。</li>
+  <li><strong>IO_uring 性能与功能提升：</strong>重写了 task_work 基础设施以提升性能；新增零拷贝接收（zcrx）用户通知机制，通过专用完成队列条目（CQE）与用户空间通信，并提升了其可靠性。此外还包括注册缓冲区改进、支持 IORING_OP_CONNECT 操作码过滤等清理工作。</li>
+  <li><strong>设备映射器（Device Mapper）新特性：</strong>引入了 dm-inlinecrypt 目标，专为块设备内联加密设计，相较于传统的 dm-crypt 具有更高效率，尤其适用于支持内联加密的通用闪存存储（UFS）主机控制器。</li>
+</ul>
+<p>块子系统整体代码现已支持 LLVM 的 Clang 锁上下文分析（Clang lock context analysis）。更多块设备相关更改可查阅相关 Git 合并记录，IO_uring 相关细节可查阅相关 Git 合并记录。随着 6 月 28 日合并窗口的结束，Linux Git 仓库中还将持续有新的特性代码落地。</p>
+<p><strong>你知道吗？</strong></p>
+<ul>
+  <li><strong>PCI P2PDMA：</strong>允许不同 PCIe 设备之间直接进行 DMA 数据传输，无需经过系统内存，从而降低延迟并减轻 CPU 和内存总线的负担。</li>
+  <li><strong>dm-inlinecrypt：</strong>一种设备映射器目标，利用硬件（如 UFS 控制器）自带的加密引擎直接在块设备层面进行加密/解密，避免了传统软件加密（如 dm-crypt）带来的性能开销。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Storage</guid>
+      <pubDate>Wed, 17 Jun 2026 08:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Firefox 151 引入 Rust 版 zlib-rs 提升压缩性能与内存安全</title>
       <link>https://www.phoronix.com/news/Mozilla-Firefox-zlib-rs-Usage</link>
@@ -719,20 +740,6 @@ D-Bus 是 Linux 系统上广泛使用的进程间通信（IPC）机制，用于�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/YSERVER-Rust-X11-Server</guid>
       <pubDate>Thu, 11 Jun 2026 13:46:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenJPH 0.28 发布：引入 AVX2 优化，HTJ2K 编解码速度最高提升 1.9 倍</title>
-      <link>https://www.phoronix.com/news/OpenJPH-0.28-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍开源JPEG2000图像压缩库的版本更新与AVX2性能优化，属于开源项目与软件技术进展，符合兴趣配置，故推荐阅读。</small></p><p>开源项目 OpenJPH 发布了 0.28 版本。作为高吞吐量 JPEG2000 Part-15（JPH 或 HTJ2K）的开源实现，该版本针对 Intel 和 AMD 的 x86_64 处理器引入了新的 AVX2（Advanced Vector Extensions 2）优化，显著提升了编码和解码性能。</p>
-<p>此次更新的核心优化由 Prof Osamu Watanabe 贡献，主要集中于块编码器（block coder）的 AVX2 加速。性能测试显示，新版在编解码速度上最高提升了 1.9 倍：</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=openjph_28" alt="OpenJPH 0.28 性能对比图" />
-<p>开发者可通过 <a href="#">GitHub</a> 仓库获取新版本，详细的优化技术细节可参考相关的 <a href="#">Pull Request</a>。</p>
-<h3>你知道吗？</h3>
-<p><strong>HTJ2K（High-Throughput JPEG2000）</strong> 是传统 JPEG2000 的改进版本，专为现代多核处理器和高吞吐量应用场景设计。它保留了 JPEG2000 的渐进式加载和无损/有损压缩特性，同时大幅提升了编解码速度。HTJ2K 广泛应用于医学影像（如 DICOM 标准）、数字电影制作、卫星遥感图像以及需要快速流式传输的专业领域。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/OpenJPH-0.28-Released</guid>
-      <pubDate>Thu, 11 Jun 2026 11:27:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
