@@ -3,7 +3,38 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 18 Jun 2026 07:04:01 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 18 Jun 2026 11:18:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Valve 发布 SteamOS 3.8.10 稳定版：默认启用 Wayland 并支持 Steam Machine</title>
+      <link>https://www.phoronix.com/news/SteamOS-3.8.10-Stable</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] SteamOS 3.8.10 稳定版发布，涉及 Arch 系统更新及 Wayland 桌面默认支持，符合对 Linux 新发行版及桌面技术的兴趣。</small></p>Valve 已将 SteamOS 3.8.10 推送至稳定频道，正式取代 3.7 版本。作为专为 Steam Deck 掌机及即将推出的 Steam Machine 硬件打造的 Linux 发行版，此次更新带来了底层系统与游戏体验的全面升级。
+
+系统底层方面，基于 Arch Linux 的发行版基础已全面更新，默认内核升级至 Linux 6.16，并新增对 LAVD CPU 调度器的支持。桌面环境方面，KDE Plasma 已更新至 6.4 版本，且桌面模式默认采用 Wayland 显示协议（X11 仍保留供需要兼容的用户使用）。
+
+硬件与外设支持是本次更新的核心亮点。系统初步支持了即将发布的 Steam Machine，并针对较新的 AMD 硬件修复了无缝启动问题。Valve 还扩展了手柄与掌机设备的兼容性，优化了 Steam Controller 的驱动支持。
+
+在游戏体验与多媒体方面，SteamOS 3.8.10 提升了游戏模式下的录屏与串流功能，更新了系统固件。此外，系统初步支持了 HDMI VRR（可变刷新率），并同步优化了 VRR 帧同步表现与音频输出。
+
+<img src="//www.phoronix.net/image.php?id=2025&image=steam_2" alt="Steam Machine" />
+
+完整更新日志与详细列表可访问 <a href="https://www.steamcommunity.com">Steam Community</a> 查看。]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/SteamOS-3.8.10-Stable</guid>
+      <pubDate>Thu, 18 Jun 2026 10:06:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2 内核引入定时器安全改进，防御“愚蠢或恶意”的 DoS 攻击</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-Timers</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 7.2 内核在定时器安全机制方面的改进，属于 Linux 内核技术进展，符合用户对 Linux 技术的兴趣。</small></p><p>Linux 7.2 内核在定时器（timer）核心子系统方面引入了多项安全加固更改，旨在提升内核的健壮性与防御能力。其中最受关注的改进是修复了 HRTIMER（高精度定时器）接口中的一个潜在拒绝服务（DoS）漏洞。</p>
+<p>在早期内核版本中，系统在定时器入队时并未检查其触发时间是否已处于“过去”。若用户空间程序（无论是出于疏忽还是恶意）将定时器设置为过去的时间，该定时器便会成为每个 CPU 上最早过期的任务。这会导致时钟事件设备（clockevent device）被反复编程为最小时间增量（delta value）。在高速机器上，这会引发无限循环，导致定时器中断无法触发，进而“饿死”中断并触发内核的锁检测器（lockup detector），最终造成系统死锁。</p>
+<p>除了防御此类 DoS 攻击外，Linux 7.2 还修复了 POSIX CPU 定时器代码中一个隐蔽的 PID 引用计数泄漏问题。该漏洞自 Linux 2.6.12 版本起便已存在，长达二十余年未被发现，最终在错误处理路径中被定位并修复。</p>
+<p>相关定时器改进补丁已合并至 Linux 内核 Git 主线仓库。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Timers</guid>
+      <pubDate>Thu, 18 Jun 2026 09:58:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AI/LLM生成补丁影响ARM64 Linux 7.2内核开发进度</title>
       <link>https://www.phoronix.com/news/ARM64-Linux-7.2-Changes</link>
@@ -678,44 +709,6 @@ AVX-512（Advanced Vector Extensions 512-bit）是 Intel 推出的 512 位宽 SI
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Red-Hat-RHEL-10.2-For-RISC-V</guid>
       <pubDate>Fri, 12 Jun 2026 15:56:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.1 内核亮点预览：新 NTFS 驱动、Intel FRED 默认启用及多项性能提升</title>
-      <link>https://www.phoronix.com/news/Linux-7.1-Best-Features</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍Linux 7.1内核的核心新特性与性能提升，符合来源配置的“Linux桌面技术”及全局“软件新功能”兴趣，故推荐。</small></p><div>
-  <p>预计 Linux 7.1 稳定版将于 2026 年 6 月 14 日由 Linus Torvalds 正式发布。作为年中重要更新，该版本带来了多项性能优化与新硬件支持，以下是主要亮点：</p>
-  <ul>
-    <li><strong>新 NTFS 文件系统驱动</strong>：引入全新的 NTFS 驱动，显著改善对微软广泛使用的 NTFS 文件系统的读写体验。</li>
-    <li><strong>Intel FRED 默认启用</strong>：Flexible Return and Event Delivery（灵活返回与事件交付）功能默认开启，为 Intel Panther Lake 处理器带来显著的性能提升。</li>
-    <li><strong>Intel Arc 显卡性能优化</strong>：针对 Intel Arc Battlemage 系列显卡（包括消费级 B580 及专业级 B-Series）进行了性能改进。</li>
-    <li><strong>系统性能与调度优化</strong>：包含调度器改进、默认启用更多加密算法优化，并修复了 Sheaves 性能回归问题。</li>
-    <li><strong>AMD 老硬件支持</strong>：AMDGPU DC 增加对 GCN 1.1 APUs（如 AMD Kaveri）的支持，提升老旧硬件的使用体验。</li>
-    <li><strong>ARM 实时内核支持</strong>：32 位 ARM 环境现可原生支持实时（RT）内核构建，无需额外 out-of-tree 补丁。</li>
-    <li><strong>新硬件与驱动支持</strong>：支持 Realtek RTL8157 等新网络设备，并新增 Lenovo 风扇驱动，覆盖 Legion、Flex、Slim 及 IdeaPad 等笔记本系列。</li>
-  </ul>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-Best-Features</guid>
-      <pubDate>Fri, 12 Jun 2026 15:38:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Ubuntu 26.10 确认将默认 D-Bus 实现切换为 Dbus-Broker</title>
-      <link>https://www.phoronix.com/news/Ubuntu-26.10-Dbus-Broker</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章报道Ubuntu新版本发行版的系统组件迁移计划，高度契合来源配置中“新发行版”与“Linux桌面技术”兴趣点，属于强烈推荐阅读内容。</small></p>Ubuntu 26.10 计划引入多项新特性，其中一项重要更新是将默认的 D-Bus（Desktop Bus，桌面总线）实现切换为高性能的 Dbus-Broker。这一举措与七年前 Fedora 30 的决策一致。Ubuntu 开发者 Alessandro Astone 指出，此次切换旨在显著提升系统的性能、可靠性与可扩展性。
-
-<img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_dbus_med" alt="Ubuntu D-Bus" />
-
-此次切换的延迟主要源于技术依赖问题。GNOME 的显示管理器（GDM）曾依赖旧版 `dbus-daemon` 提供的 `dbus-run-session` 功能，直到 GNOME 49 才重构代码以消除该依赖。此外，Ubuntu 的 AppArmor 安全集成以及 Snaps 包管理机制也需要进行相应的适配处理。
-
-根据 Canonical 的计划，`dbus-broker` 包将被移至 main 仓库，并在 Ubuntu 26.10 中默认安装与启用。原有的 `dbus` 和 `dbus-daemon` 包则将被移至 universe 仓库。开发者可通过 <a href="https://discourse.ubuntu.com/">Ubuntu Discourse</a> 了解更多细节。与此同时，基于 Rust 语言开发的新内核级 IPC（进程间通信）机制 BUS1 也引起了关注，为未来的系统通信架构提供了新方向。
-
-<strong>你知道吗？</strong>
-D-Bus 是 Linux 系统上广泛使用的进程间通信（IPC）机制，用于应用程序与系统服务之间的交互。传统的 `dbus-daemon` 虽然稳定，但在高负载下可能存在性能瓶颈。Dbus-Broker 是一个用 Rust 编写的高性能替代方案，它通过更高效的内存管理和异步处理机制，大幅降低了资源占用并提升了响应速度，特别适合现代桌面环境和容器化环境。]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.10-Dbus-Broker</guid>
-      <pubDate>Fri, 12 Jun 2026 15:26:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
