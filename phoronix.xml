@@ -3,7 +3,29 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 19 Jun 2026 20:02:13 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2026 21:21:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 开源 NVIDIA NVK Vulkan 驱动现已支持 DLSS</title>
+      <link>https://www.phoronix.com/news/Mesa-NVK-Vulkan-Does-DLSS</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述开源NVIDIA Vulkan驱动新增DLSS技术，属于Linux桌面图形技术与开源软件进展，符合用户兴趣，故推荐。</small></p><p>随着代码正式合并至 Mesa 26.2-devel 分支，开源的 NVIDIA “NVK” Vulkan 驱动现已具备支持深度学习超级采样（Deep Learning Super Sampling，DLSS）的能力，这意味着现代游戏在 Linux 或 Steam Play 环境下运行时将能使用该功能。</p>
+
+<p>该功能的核心在于实现了 <code>VK_NVX_binary_import</code> 扩展。这是一个二进制扩展，允许应用程序导入 NVIDIA 的 CuBIN 二进制文件并在 GPU 上执行。CuBIN 是预编译的 CUDA 二进制文件（ELF 格式），通过此扩展，NVK 驱动得以加载并运行 DLSS 所需的 CUDA 二进制代码。这一功能最初由开发者 Autumn Ashton 于去年提交，近期由 Thomas Andersen 修复合并冲突及其他问题后完成最终合并。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=nvk_dlss_1" alt="NVK DLSS action" />
+
+<p>目前，由于仍存在部分已知缺陷，该功能默认处于隐藏状态。用户需设置环境变量 <code>NVK_EXPERIMENTAL=dlss</code> 方可启用。此外，DLSS 的运行高度依赖 CUDA 二进制文件，因此需要 GPU 具备兼容的字节码。虽然 NVIDIA 的专有 Vulkan 驱动支持从 PTX（Parallel Thread Execution）到字节码的转换路径，但 Mesa NVK 驱动目前尚无法将 NVIDIA PTX 翻译为 Mesa 的 NIR（New Intermediate Representation）表示，因此仍需依赖预编译的二进制文件。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=nvk_dlss_2" alt="NVK DLSS merge" />
+
+<p>Mesa 26.2 稳定版预计将于今年 8 月正式发布，届时该功能有望得到更广泛的测试与优化。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>DLSS 与 CUDA 的关系</strong>：DLSS 是 NVIDIA 基于 AI 的图像放大技术，其核心算法运行在 GPU 的 Tensor Core 上。在 Linux 开源驱动中，由于缺乏完整的 CUDA 运行时支持，NVK 驱动通过直接加载预编译的 CuBIN 文件来绕过这一限制。相比之下，专有驱动通常通过 PTX（一种中间汇编语言）在运行时进行即时编译（JIT），而开源驱动目前更依赖静态预编译的二进制文件，这在一定程度上限制了对新架构或特定 CUDA 版本的动态支持。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-NVK-Vulkan-Does-DLSS</guid>
+      <pubDate>Fri, 19 Jun 2026 20:26:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Systemd 261 正式发布：引入系统安装程序、IMDS 与存储管理工具</title>
       <link>https://www.phoronix.com/news/systemd-261</link>
@@ -699,15 +721,6 @@ AVX-512（Advanced Vector Extensions 512-bit）是 Intel 推出的 512 位宽 SI
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/PackageKit-pkgcli</guid>
       <pubDate>Sun, 14 Jun 2026 10:09:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Wine-Staging 11.11 发布，基于上游代码新增 289 个补丁</title>
-      <link>https://www.phoronix.com/news/Wine-Staging-11.11</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章报道了 Wine-Staging 11.11 的发布，Wine 是 Linux 桌面环境运行 Windows 程序的关键开源兼容层，属于 Linux 桌面技术和开源项目范畴，符合用户兴趣配置。</small></p><p>Wine-Staging 11.11 现已正式发布。该实验性/测试版分支在最新的上游 Wine 11.11 代码库基础上，累计携带了 289 个补丁。上游 Wine 11.11 版本此前已引入了 Wayland 驱动改进。</p><p>在过去两周中，Wine-Staging 未添加新补丁，但进行了以下更新：</p><ul><li>更新了 VKD3D 代码库，以支持更新的 Direct3D 12 on Vulkan 转换层。</li><li>更新了 DCompositionCreateDevice2 补丁至最新状态。</li></ul><p>该版本现已提供下载，更多详细信息可访问 WineHQ.org GitLab 页面查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Staging-11.11</guid>
-      <pubDate>Sun, 14 Jun 2026 00:52:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
