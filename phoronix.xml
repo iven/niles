@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 19 Jun 2026 17:25:37 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2026 20:02:13 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Systemd 261 正式发布：引入系统安装程序、IMDS 与存储管理工具</title>
+      <link>https://www.phoronix.com/news/systemd-261</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 systemd 261 版本发布及其新增的系统安装与存储管理功能，属于 Linux 系统技术范畴，符合来源配置中用户对 Linux 相关技术的兴趣。</small></p><p>Systemd 261 稳定版已正式发布，此次更新引入了多项新功能与改进，旨在配合 2026 年下半年 Linux 发行版的迭代需求。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=systemd_261" alt="systemd 261 release tag" /></p>
+<p>本次版本的核心亮点包括：</p>
+<ul>
+  <li><strong>实例元数据服务（Instance Metadata Service, IMDS）</strong>：新增 <code>systemd-imdsd</code> 服务，通过 SMBIOS 信息自动识别主流公有云环境（如 Amazon EC2、Microsoft Azure、Google Compute Engine、Oracle Cloud、Tencent Cloud 及 Hetzner 等），为本地程序提供统一的虚拟机元数据访问方式。</li>
+  <li><strong>存储管理工具（storagectl）</strong>：推出全新的命令行工具与 Varlink 接口，用于统一暴露存储资源，便于将其作为受管用户存储进行调用。</li>
+  <li><strong>系统安装程序（systemd-sysinstall）</strong>：引入现代化的文本模式 OS 安装器。该工具封装了 systemd 的分区能力、凭证管理及系统管理功能，支持从 USB 等临时引导介质直接复制并部署操作系统。</li>
+  <li><strong>内核与安全增强</strong>：PID1 现已支持 Linux 内核的实时更新编排器（Live Update Orchestrator, LUO）与内核交接（Kernel Handover, KHO）功能。此外，新增 <code>RestrictFileSystemAccess=</code> 单元设置，利用 BPF LSM 程序限制执行权限，仅允许运行存储在签名且经 DM-VERITY 验证的文件系统上的二进制文件。</li>
+</ul>
+<p>其他改进还包括：新增 <code>systemd-tpm2-swtpm.service</code> 以在缺乏物理 TPM 的系统中自动回退至 IBM 软件 TPM；通过 <code>tmpfiles.d/root.conf</code> 强制根目录权限为 0555；支持用户会话持久化文件描述符存储；新增 CPU 集 cgroup 分区配置（CPUSetPartition=）及系统级 Zswap 写回默认设置等。</p>
+<p>如需查看完整的更新日志与源代码，可访问 <a href="https://github.com/systemd/systemd">GitHub 项目页面</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/systemd-261</guid>
+      <pubDate>Fri, 19 Jun 2026 18:28:56 GMT</pubDate>
+    </item>
     <item>
       <title>Linux 7.2 网络子系统更新：强化 WiFi Aware、WiFi 8 支持及多款网卡驱动</title>
       <link>https://www.phoronix.com/news/Linux-7.2-Networking</link>
@@ -689,22 +708,6 @@ AVX-512（Advanced Vector Extensions 512-bit）是 Intel 推出的 512 位宽 SI
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Staging-11.11</guid>
       <pubDate>Sun, 14 Jun 2026 00:52:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Intel 停止开发 BigDL：开源 AI/LLM 项目即将归档</title>
-      <link>https://www.phoronix.com/news/Intel-Ending-BigDL</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要报道英特尔终止开源AI项目BigDL的开发。符合兴趣配置中的“开源项目”与“AI技术动态”范畴，具备一定阅读价值，故推荐阅读。</small></p><p>Intel 近日宣布将停止维护其开源项目 <a href="https://github.com/intel/BigDL">BigDL</a>（Big Data Deep Learning），该项目专注于在 Intel XPU 硬件上以低延迟方式运行大型语言模型（LLM）。这是 Intel 近期缩减开源项目维护范围的最新举措。</p>
-<p>在过去一年中，受开源战略调整、企业重组及成本削减等因素影响，Intel 已陆续终止了多个开源项目的正式维护。尽管 BigDL 近期仍有活跃的代码提交，且市场需求旺盛，但该项目仍被列入关停名单。BigDL 旨在实现数据分析与 AI 应用从笔记本到云端的无缝扩展，深度集成了 TensorFlow、Keras、PyTorch 以及 Apache Spark/Flink 等主流框架，并支持 CPU 与 GPU 加速。此外，该项目还结合了 Intel SGX 和 TDX 技术，为大数据和 AI 工作负载提供安全保障。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=intel_bigdl" alt="Intel BigDL logo" /></p>
-<p>本周，BigDL 项目已在 GitHub 上被标记为归档状态。官方最初的通知表示项目将立即停止维护，随后更新为将于 2026 年 6 月 30 日正式归档。这意味着用户需要在月底前完成迁移或数据备份。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=intel_bigdl_eol" alt="Intel BigDL being archived" /></p>
-<p>值得注意的是，BigDL 的核心组件 BigDL-LLM 此前已独立为 IPEX-LLM 项目，但 IPEX-LLM 本身也已于今年 1 月停止维护并归档。对于希望继续使用相关代码的用户，目前仍可通过 GitHub 仓库获取历史版本。</p>
-<h3>你知道吗？</h3>
-<p>BigDL 是 Intel 推出的一个开源深度学习库，主要面向大数据和 AI 场景。它允许开发者利用 Intel 的硬件加速能力（如 CPU、GPU 和 FPGA）来运行深度学习模型。随着 AI 大模型的兴起，Intel 试图通过 BigDL 及其衍生项目在开源 AI 生态中占据一席之地。然而，面对 NVIDIA 等竞争对手在 CUDA 生态上的绝对优势，以及开源社区维护成本的上升，Intel 选择收缩战线，将资源集中在核心硬件和更基础的软件栈上。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Ending-BigDL</guid>
-      <pubDate>Sat, 13 Jun 2026 14:38:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
