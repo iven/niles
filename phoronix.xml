@@ -3,7 +3,28 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 20 Jun 2026 12:09:04 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2026 14:28:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.2 正式移除 strncpy API，历时六年完成 360+ 补丁清理</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-Drops-strncpy</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 7.2 内核移除 strncpy API，属于 Linux 底层系统开发与开源项目范畴，符合 Linux 技术关注兴趣。</small></p><p>Linux 7.2 版本正式从内核中移除了 <code>strncpy</code> API。该函数用于复制指定数量的字节，但长期以来因其反直觉的语义（特别是关于 NUL 终止符的处理）和性能问题（冗余的零填充）而被视为内核中“持续存在的 bug 来源”。</p>
+<p>经过六年的努力和约 362 次代码提交（patches），内核开发者终于移除了所有对 <code>strncpy</code> 的使用。在 Linux 7.2 的合并中，不仅移除了通用的 API，也移除了各架构特定的实现。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=strncpy" alt="strncpy" />
+<p>作为替代，内核代码现在应使用以下函数：</p>
+<ul>
+<li><code>strscpy()</code>：用于 NUL 终止的目标。</li>
+<li><code>strscpy_pad()</code>：用于需要零填充的 NUL 终止目标。</li>
+<li><code>strtomem_pad()</code>：用于非 NUL 终止的定宽字段。</li>
+<li><code>memcpy_and_pad()</code>：用于带有显式填充的有界复制。</li>
+<li><code>memcpy()</code>：用于已知长度的内存复制。</li>
+</ul>
+<h3>你知道吗？</h3>
+<p><code>strncpy</code> 是 C 语言标准库中的函数，但在内核开发中它一直备受争议。它的设计初衷是为了防止缓冲区溢出，但行为往往与直觉相悖：如果源字符串长度小于指定长度，它会用 NUL 填充剩余空间；但如果源字符串长度大于或等于指定长度，它<strong>不会</strong>在目标字符串末尾添加 NUL 终止符。这导致许多开发者误以为复制后的字符串一定是以 NUL 结尾的，从而引发严重的内存访问错误。相比之下，新的 <code>strscpy</code> 函数不仅性能更好，而且总是保证目标字符串以 NUL 结尾（除非目标缓冲区太小），从而从根本上消除了这类安全隐患。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Drops-strncpy</guid>
+      <pubDate>Sat, 20 Jun 2026 14:22:30 GMT</pubDate>
+    </item>
     <item>
       <title>Linux 7.2 将 ARM64 NEON 加速的 CRC64 算法移植至 32 位 ARM</title>
       <link>https://www.phoronix.com/news/Linux-CRC64-NEON-On-ARM32</link>
@@ -700,27 +721,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Casefolding</guid>
       <pubDate>Mon, 15 Jun 2026 10:24:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GNU Linux-libre 7.1-gnu 发布：强化驱动去 blob 化，遗憾 Intel 486 支持终止</title>
-      <link>https://www.phoronix.com/news/GNU-Linux-Libre-7.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 直接匹配来源配置中“新发行版”的很感兴趣主题，讲述 GNU Linux-libre 发布进展，符合高兴趣配置，强烈推荐阅读</small></p><p>继上游 <a href="https://www.phoronix.com/news/GNU-Linux-Libre-7.1">Linux 7.1</a> 内核发布后，<a href="https://www.phoronix.com/news/GNU-Linux-Libre-7.1">GNU Linux-libre 7.1-gnu</a> 正式推出。该版本继续致力于软件自由，对内核代码进行了深度清理，移除了多种 GPU 和 WiFi 驱动中依赖的非自由软件微码与固件（deblobbing）。主要更新包括：</p>
-<ul>
-  <li>修复了启用 <a href="https://www.rust-lang.org/">Rust</a> 支持时的编译问题，并回ported 至 7.0.*-gnu 稳定版。</li>
-  <li>更新了 Nova-core、hx9023s、prueth、btmtk、qat_6xxx、amdgpu、m88ds3103、saa7164、r8169、ath12k、mt792x 和 mt7996 等驱动的清理工作。</li>
-  <li>清理了 Lontium LT8713SX DP MST bridge 桥接器及 Realtek 802.11be (Wi-Fi 7) 8922D 芯片的新驱动。</li>
-  <li>清理了高通（Qualcomm）SoC 设备树文件中的大量 blob 名称，并调整了 rtw89 的清理逻辑以适配上游重构。</li>
-  <li>移除了上游已废弃驱动的清理任务（如 FORE Systems 200E、Alteon AceNIC 等）。</li>
-</ul>
-<p>此外，GNU Linux-libre 项目对上游 Linux 7.1 终止 Intel 486 (i486) CPU 支持表示遗憾。项目指出，这一决定使得怀旧硬件爱好者无法在现代内核上运行老式 i486 电脑，可能导致这些仍具功能的设备被废弃。这也标志着 x86 架构中可用于自由软件的最后几代处理器窗口正在关闭。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=gnu_linux_libre_71" alt="GNU Linux-libre 7.1" />
-<p>感兴趣的用户可前往 FSFLA.org 获取该版本。</p>
-<h3>你知道吗？</h3>
-<p><strong>GNU Linux-libre</strong> 是自由软件基金会（FSF）认证的 Linux 内核版本。由于 Linux 内核中包含大量非自由的二进制固件（firmware）和微码（microcode），不符合自由软件定义，因此 GNU Linux-libre 通过“去 blob化（deblobbing）”技术移除了这些闭源组件，确保整个内核完全符合自由软件标准。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Linux-Libre-7.1</guid>
-      <pubDate>Mon, 15 Jun 2026 09:55:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
