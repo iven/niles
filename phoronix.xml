@@ -3,7 +3,64 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 20 Jun 2026 09:35:10 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2026 12:09:04 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.2 将 ARM64 NEON 加速的 CRC64 算法移植至 32 位 ARM</title>
+      <link>https://www.phoronix.com/news/Linux-CRC64-NEON-On-ARM32</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Linux内核底层ARM硬件优化技术，偏向基础设施层面，与桌面应用关联度低</small></p><div><p>Linux 7.2 内核近日正式合并了一项重要优化：将原本仅适用于 ARM64 架构的 NEON 加速 CRC64 算法移植到 32 位 ARM 平台。这一改进由 Ard Biesheuvel 提交补丁实现，旨在解决通用代码在 NVMe 及其他存储子系统中作为性能瓶颈的问题。</p><p>CRC64-NVMe 算法主要用于验证存储数据完整性，防止数据损坏。在 Linux 7.1 中，该算法的 ARM64 NEON 加速版本已实现约 6 倍的性能提升。此次更新通过共享 NEON 内在函数（NEON intrinsics），使得具备 NEON 支持单元的 32 位 ARM 处理器也能直接调用这些优化代码，从而获得同等的加速效果。</p><img src="//www.phoronix.net/image.php?id=2026&image=arm32_crc64_nvme" alt="ARM32 CRC64-NVME benchmark results" /><p>此外，该补丁系列还允许 32 位 ARM NEON 架构复用 ARM64 的优化 <code>xor_gen()</code> 函数。对于 2026 年及以后仍在使用 32 位 ARM 设备并跟进上游 Linux 内核的用户而言，这一更新将显著提升存储子系统的运行效率。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-CRC64-NEON-On-ARM32</guid>
+      <pubDate>Sat, 20 Jun 2026 11:19:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GIMP 1996 年老版本 v0.54 现已被打包为 Flatpak 供现代 Linux 使用</title>
+      <link>https://www.phoronix.com/news/GIMP-0.54-Flatpak</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GIMP软件通过Flatpak在现代Linux桌面运行，涉及Linux桌面技术，用户感兴趣</small></p><p>开源社区期待已久的 GIMP 3.0 已于去年正式发布，带来了基于 GTK3 的重构与诸多改进。然而，开发者 <a href="https://gitlab.gnome.org/balooii">balooii</a> 近日将 1996 年发布的 GIMP 0.54 版本打包为 Flatpak，使其能够在现代 Linux 桌面环境中运行。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=gimp_motif_1_med" alt="GIMP 0.54 in 2026" />
+<p>GIMP 0.54 的历史意义在于，它是最后一个采用 <a href="https://en.wikipedia.org/wiki/Motif_(toolkit)">Motif</a> 工具包的版本。尽管该版本在 2026 年已无实际实用价值，但对于怀念早期图形界面风格的爱好者而言，这提供了一个重温经典的途径。作者在 2026 年的 Linux 发行版上测试了该 Flatpak 包，确认其运行正常。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=gimp_motif_2_med" alt="GIMP 0.54 in 2026 with Ubuntu Linux" />
+<p>以下是 GIMP 0.54 与现代 GIMP 3.2 的界面对比：</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=gimp_motif_3_med" alt="GIMP 0.54 vs. GIMP 3.2" />
+<p>更多 GNOME 相关的更新动态可查阅 <a href="https://weekly.gnome.org/">This Week in GNOME</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GIMP-0.54-Flatpak</guid>
+      <pubDate>Sat, 20 Jun 2026 10:56:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.2 中 exFAT 文件系统借助 IOmap 转换实现性能提升</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-exFAT</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] exFAT文件系统性能优化属于Linux底层技术改进，兴趣指向不明确</small></p><div><p>Linux 7.2 中的 exFAT 文件系统通过引入 IOmap 转换获得了显著的性能提升。该文件系统由开源开发者 Namjae Jeon 维护，此次更新完成了向 IOmap 基础设施的适配，支持缓冲 I/O、直接 I/O 以及 LLSEEK SEEK_HOLE/SEEK_DATA 操作。</p><p>IOmap 是 Linux 内核中用于将逻辑文件偏移量映射到物理存储块的框架，旨在取代旧的 buffer head 机制，从而优化文件系统的通用操作处理。性能基准测试显示，这一转换带来了可观的速度增益。</p><img src="//www.phoronix.net/image.php?id=2026&image=exfat_iomap" alt="exFAT IOmap 基准测试性能提升" /><p>此外，该更新还包含多项错误修复与代码优化，相关补丁已合并至 Linux 7.2 内核。</p></div><div><h3>你知道吗？</h3><p>IOmap 是 Linux 内核中用于处理文件偏移映射的基础设施，旨在取代传统的 buffer head 机制。buffer head 机制在处理大文件或复杂存储布局时容易产生性能瓶颈，而 IOmap 通过更高效的映射算法和更简洁的代码结构，提升了文件系统的整体吞吐量和响应速度。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-exFAT</guid>
+      <pubDate>Sat, 20 Jun 2026 10:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ KDE Plasma 6.8 引入彩色编号徽章，简化多显示器配置</title>
+      <link>https://www.phoronix.com/news/KDE-Plasma-6.8-Multi-Monitor</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] KDE桌面环境功能更新，来源配置中KDE为high_interest</small></p><p>KDE Plasma 6.7 桌面环境发布后，开发团队已将重心转向 Plasma 6.8 的功能开发，同时 Plasma 6.7.1 的修复工作也在同步进行。</p>
+
+<p>在 Plasma 6.8 中，多显示器配置界面迎来了显著改进。配置时，显示器现在会显示带有颜色编码的编号徽章（color-coded number badges）。这一功能使得在多显示器设置中识别显示器变得更为直观，特别是对于拥有多台同型号显示器的用户而言，能有效避免配置混淆。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=plasma_color_coded" alt="Plasma 6.7 color coded monitor labels" />
+
+<p>此外，Plasma 6.8 还改进了 QML 应用的颜色选择器，使其采用 KDE 风格而非 Qt 默认风格，从而更好地遵循 KDE 配色方案。</p>
+
+<p>针对 Plasma 6.7.1 版本，主要修复包括：</p>
+<ul>
+  <li>在全局主题切换时提供平滑的混合效果。</li>
+  <li>默认禁用游戏控制器输入插件（game controller input plug-in），以解决热插拔时存在的竞态条件（race condition）问题。</li>
+  <li>修复了当应用程序请求无效颜色格式时 KWin 可能崩溃的问题。</li>
+</ul>
+
+<p>对于上一稳定系列 Plasma 6.6.6，修复了一项导致部分旧显卡在登录时 KWin 无法启动的问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8-Multi-Monitor</guid>
+      <pubDate>Sat, 20 Jun 2026 10:15:20 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.2 改进 NTFS 驱动：支持 Windows 原生符号链接与多项安全加固</title>
       <link>https://www.phoronix.com/news/Linux-7.2-NTFS-Improvements</link>
@@ -664,70 +721,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Linux-Libre-7.1</guid>
       <pubDate>Mon, 15 Jun 2026 09:55:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 7.2 将提高 LLVM/Clang 编译器最低版本要求，新增分布式 ThinLTO 支持</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-Kbuild</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讨论Linux 7.2内核提高LLVM/Clang编译器要求并支持分布式ThinLTO技术，属于编译器工具链更新和编译效率改进范畴，符合用户high_interest配置的编程工具与效率改进兴趣</small></p><p>在 Linux 7.1 发布之际，针对 Linux 7.2 的 Kbuild 更新补丁已提前提交。其中最受关注的改动包括提高 LLVM/Clang 编译器的最低版本要求，以及新增对分布式 ThinLTO（Distributed ThinLTO, DTLTO）的支持。</p>
-<p>对于使用 LLVM/Clang 而非 GCC 编译 Linux 内核的用户，Linux 7.2 将最低 Clang 版本要求从 15 提升至 17。这一调整旨在更好地匹配 GCC 编译器的能力，同时解决 Clang 15/16 在作用域检查器（scope checker）以及处理标记为 const 的变量在 _static_assert 等宏中使用时与 GCC 8.1+ 的兼容性问题。此次版本要求仅提升了一个 LLVM 发布周期，有助于减轻维护负担。</p>
-<p>此外，Linux 7.2 将正式支持 LLVM 的分布式 ThinLTO（DTLTO）模式。相比传统的进程内 ThinLTO，DTLTO 能够利用分布式计算资源，从而实现更快的内核构建速度。随着 LLVM 的持续优化，DTLTO 的性能表现也在不断提升。</p>
-<img src="//www.phoronix.net/image.php?id=clang-lto-kernel&image=linux_clang_lto_sml" alt="LLVM Linux" />
-<p>除了上述主要更新，Linux 7.2 的 Kbuild 还包含对 Kconfig 的安全加固（防止潜在的空指针解引用）、多项拼写错误修复，以及新增的 kconfig-sym-check 构建目标，用于检测悬空的 Kconfig 符号引用。相关详细更新内容可通过官方提交记录查阅。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Kbuild</guid>
-      <pubDate>Mon, 15 Jun 2026 00:33:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.1 正式发布：全新 NTFS 驱动、Intel FRED 支持及 Arc 显卡性能提升</title>
-      <link>https://www.phoronix.com/news/Linux-7.1-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 Linux 7.1 内核版本发布及其新特性（新驱动、硬件支持优化等），属于 Linux 技术进展与开源项目更新，符合用户对 Linux 相关技术内容的兴趣，故推荐。</small></p><p>Linus Torvalds 已提前半天正式发布 Linux 7.1 稳定版内核。尽管内核开发过程中 AI/LLM 相关的错误报告数量有所增长，但 7.1 版本仍按计划顺利推出。</p>
-
-<p>Linux 7.1 引入了多项备受瞩目的新特性，主要包括：</p>
-<ul>
-  <li><strong>全新 NTFS 驱动程序</strong>：正式合入主线，提供对 Windows NTFS 文件系统更原生、高效的支持。</li>
-  <li><strong>Intel FRED 支持</strong>：引入 Fast Redirection Entry（快速重定向入口）技术，旨在优化 Intel Panther Lake 及未来处理器的性能表现。</li>
-  <li><strong>显卡性能优化</strong>：提升了 Intel Arc Battlemage 显卡的运行速度，并对部分旧款 AMD Radeon 显卡进行了改进。</li>
-</ul>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_71" alt="Linux 7.1 Git tag" />
-
-<p>Linus Torvalds 在更新公告中解释，发布提前是由于他的个人旅行计划。合并窗口（Merge Window）将于明日开启，但他将在长途飞行中，可能会面临网络不便。不过，他已提前拉取了早期的 Pull Requests（PR），以便在离线状态下处理部分工作。目前内核可通过 Git 下载，详细的更新日志和公告将随后在 LKML（Linux Kernel Mailing List）上发布。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>关于 FRED 技术：</strong>Intel FRED（Fast Redirection Entry）是一项旨在优化用户态与内核态之间上下文切换的技术。传统的系统调用和异常处理往往伴随着较高的延迟，FRED 通过硬件层面的优化，显著减少了切换开销，从而提升整体系统响应速度和性能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.1-Released</guid>
-      <pubDate>Sun, 14 Jun 2026 15:09:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Arch Linux AUR 再遭恶意软件攻击，混淆手段更为隐蔽</title>
-      <link>https://www.phoronix.com/news/Arch-Linux-AUR-More-Malware</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讨论 Arch Linux AUR 仓库的安全问题，属于 Linux 发行版生态动态，契合用户对 Linux 桌面技术及发行版的兴趣，故推荐阅读。</small></p><p>Arch Linux 的用户软件仓库 AUR（Arch User Repository）近日再次遭遇恶意软件攻击。在上一轮波及 1,500 余个软件包的恶意软件事件刚被初步控制后，仅过一天，攻击者便发起了新一轮攻势，且手段更为隐蔽。</p>
-<p>此次攻击的显著特征是广泛使用代码混淆（code obfuscation）技术来隐藏恶意意图。开发者 a821 首先报告了受影响的软件包，包括多个 Node.js 包、Plasma 6 小部件、Firefox 扩展、Aura 浏览器、LibreWolf 插件以及 NeoVim 插件等。在 a821 确认已清理相关包后，仅数小时，开发者 Nicolas Boichat 又发现了更多恶意软件。</p>
-<p>Boichat 利用本地部署的 Gemma E2B（Gemma E2B AI model）模型成功检测出这批新型恶意代码。该攻击在混淆技术的基础上，进一步针对 Bun（Bun）命令的执行逻辑进行了伪装，试图绕过常规审查。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=aur_mal_obfuscate" alt="obfuscated malware install command example" /></p>
-<p>尽管社区开发者迅速响应并清理了受感染软件包，但 AUR（Arch User Repository）作为完全由用户贡献的仓库，其安全性仍面临严峻挑战。作者指出，官方应尽快实施更严格的变更验证机制或安全护栏（safeguards），而非仅依赖社区事后清理。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Arch-Linux-AUR-More-Malware</guid>
-      <pubDate>Sun, 14 Jun 2026 10:32:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 内核优化：修订版 AVX-512 xor_gen() 实现带来更高 RAID 性能</title>
-      <link>https://www.phoronix.com/news/AVX-512-Xor-Gen-More-Perf</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章聚焦 Linux RAID 子系统的底层性能优化，偏向基础设施与性能调优范畴，符合来源配置中性能类内容权重较低的特点，故列为可选。</small></p><h2>正文</h2>
-Google 工程师 Eric Biggers 正在主导 Linux 内核中 <code>xor_gen()</code> 函数的 AVX-512 加速实现。该函数是内核用于生成和验证奇偶校验块（如 RAID5/RAID6 软件阵列）的核心组件，同时也被 Btrfs 等文件系统直接调用。此前的初始实现已带来最高 41% 的性能提升，而近日发布的 v2 版本进一步优化了计算逻辑，将性能提升幅度推高至 43%，并在不同数据源数量（src count）场景下展现出更广泛的优化效果。目前，该 v2 实现已提交至 Linux 内核邮件列表（LKML）接受社区审查。
-<img src="//www.phoronix.net/image.php?id=2026&image=xor_gen_2" alt="xor_gen v2 benchmark" />
-
-<h2>你知道吗？</h2>
-<b>AVX-512 与软件 RAID 加速</b><br>
-AVX-512（Advanced Vector Extensions 512-bit）是 Intel 推出的 512 位宽 SIMD（单指令多数据）指令集。在软件 RAID 环境中，数据写入和校验过程涉及大量的异或（XOR）运算。传统 CPU 指令一次只能处理少量数据，而 AVX-512 允许单次指令并行处理 64 个 8 字节数据，大幅降低了 CPU 在奇偶校验计算上的开销，从而显著提升存储子系统的吞吐量和响应速度。]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AVX-512-Xor-Gen-More-Perf</guid>
-      <pubDate>Sun, 14 Jun 2026 10:22:57 GMT</pubDate>
     </item>
   </channel>
 </rss>

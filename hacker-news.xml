@@ -3,7 +3,20 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 20 Jun 2026 09:36:41 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2026 12:08:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 大模型并非越大越好：GPT-5.5 幻觉率远超开源模型 GLM-5.2</title>
+      <link>https://news.ycombinator.com/item?id=48600167</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要对比 GPT-5.5 与 GLM-5.2 的幻觉率，涉及新 AI 模型性能评估与技术进展，符合用户对新 AI 模型及 AI 技术进展的兴趣，推荐阅读。</small></p><p>文章指出，随着 AI 实验室盲目追求参数数量和训练数据规模，模型性能出现了边际效益递减甚至倒退的现象。对比数据显示，开源模型 <a href="https://arrowtsx.dev/bigger-models/">GLM-5.2</a>（753B 参数）在 Artificial Analysis Intelligence Index 上仅落后于 GPT-5.5 和 Claude Fable 5 几个百分点，但在幻觉率（Hallucination Rate）上表现优异。</p>
+<p>在 AA-Omniscience 基准测试中，GLM-5.2 的幻觉率为 28%，而 GPT-5.5 高达 86%，DeepSeek V4 Pro 更是达到 94%。这意味着大模型在遇到无法解决的问题时，更倾向于自信地编造答案。文章通过一个复杂的 Python 异步事件循环设计任务展示了这一点：DeepSeek V4 Pro 耗费大量计算资源给出了错误答案，而 GLM-5.2 迅速识别出任务的技术不可能性。</p>
+<p>作者提出，现代 AI 发展面临“不可能三角”：原始能力、不确定性校准（幻觉率）和计算效率。盲目增加模型规模不仅无法带来预期的智能提升，反而可能导致模型在真实场景中的可信度下降。</p>
+<p><b>社区反馈：</b></p>
+<p>HN 用户对此进行了热烈讨论。部分用户指出，幻觉率指标的解释具有复杂性，因为它取决于模型是否“知道”答案，且不同模型的准确率分布不同。也有评论认为，幻觉率与训练数据分布（如书籍中通常没有无解的问题）和训练目标（HFRL 中对“有趣”答案的偏好）有关。此外，有用户分享经验称，通过精心设计的提示词（Prompting）明确告知模型“不知道是可以的”，可以显著降低幻觉率。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48600167</guid>
+      <pubDate>Fri, 19 Jun 2026 16:11:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AI正在削弱人类专业技能？早期研究揭示“技能退化”隐忧</title>
       <link>https://news.ycombinator.com/item?id=48601286</link>
@@ -951,32 +964,6 @@ MicroUI 采用的是“即时模式”UI 架构。与传统的“保留模式”
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48516710</guid>
       <pubDate>Sat, 13 Jun 2026 12:40:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 双显卡（RTX 5080 + 3090）部署 Qwen 3.6 27B 模型，推理速度达 80 tok/s</title>
-      <link>https://news.ycombinator.com/item?id=48515454</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 内容聚焦于Qwen 3.6大模型在双显卡下的部署与推理速度，符合用户对“新AI模型”及“编程效率改进”的高兴趣配置，核心为AI技术应用。</small></p><h2>硬件与驱动配置</h2>
-<p>作者分享了一套基于 <a href="https://imil.net/blog/posts/2026/rtx-5080-+-rtx-3090-setup-80+-tok-s-on-qwen-3.6-27b-q8/">双显卡（RTX 5080 + RTX 3090）</a> 的本地大模型部署方案。硬件方面，利用 Asus Prime X570-Pro 主板将 PCIe 16x 通道拆分为两个 8x 插槽，分别连接 16GB 显存的 RTX 5080 和 24GB 显存的二手 RTX 3090，总计 39GB 显存足以容纳 Qwen 3.6 27B 模型的 Q8 量化版本。</p>
-<p>在驱动配置上，由于两张显卡架构不同（Ampere 与 Blackwell），作者无法使用支持 P2P（Peer-to-Peer）通信的修改版驱动，转而使用标准的 <code>nvidia-open</code> 驱动。BIOS 设置中需开启 Above 4G Decoding 和 ReSize BAR，并将 PCIe 链路模式设为 Gen 4。</p>
-
-<h2>推理优化与性能</h2>
-<p>推理引擎选用 <code>llama.cpp</code>，通过编译时指定 <code>CMAKE_CUDA_ARCHITECTURES="86;120"</code> 同时支持 Ampere 和 Blackwell 架构。关键运行参数包括：</p>
-<ul>
-  <li><code>-sm tensor</code>：启用张量并行（Tensor Parallelism），将模型层分布在两张显卡上。</li>
-  <li><code>-ts 2,3</code>：调整显存分配比例，确保两张卡的显存利用率最大化。</li>
-  <li><code>--spec-type ngram-mod,draft-mtp</code>：结合 n-gram 和 MTP（Multi-Token Prediction，多令牌预测）推测解码技术加速生成。</li>
-</ul>
-<p>在该配置下，模型在 229k 上下文窗口内的推理速度稳定在 <strong>80 tok/s</strong> 以上，部分任务可达 90 tok/s 以上。</p>
-
-<h2>社区讨论</h2>
-<p>评论区围绕本地部署的性价比与功耗展开了讨论。有用户指出，虽然本地硬件投入（二手 3090 + 5080 + 主板等）超过 2000 美元，且满载功耗可达 600W-700W，但本地部署提供了数据隐私和长期可预测的运行成本，避免了云端 API 价格波动或断供的风险。此外，也有用户分享了在 Apple Silicon 或 Tenstorrent 硬件上运行同类模型的体验对比。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>MTP（Multi-Token Prediction）推测解码</strong>：这是一种加速大语言模型推理的技术。传统推理每次只生成一个 token，而 MTP 允许模型在生成当前 token 的同时，预测后续多个 token。如果预测正确，这些 token 会被一次性接受，从而显著减少生成时间。结合 n-gram 等轻量级草稿生成器，可以在不显著增加计算负担的前提下提升吞吐量。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48515454</guid>
-      <pubDate>Sat, 13 Jun 2026 09:55:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
