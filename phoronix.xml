@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 21 Jun 2026 00:19:39 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2026 06:17:46 GMT</lastBuildDate>
+    <item>
+      <title>Broadcom 正在开发 VMware 虚拟机与管理程序间的零拷贝缓冲区共享技术</title>
+      <link>https://www.phoronix.com/news/VMware-Zero-Copy-Sharing-Linux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要涉及 VMware 虚拟化技术的零拷贝共享，属于虚拟化技术范畴，用户对该内容不太感兴趣</small></p><p>Broadcom 正在为 Linux 平台上的 VMware 虚拟化环境开发一项新功能：虚拟机（VM）与宿主机管理程序（Hypervisor）之间的零拷贝缓冲区共享。这一特性旨在通过减少数据复制操作来提升系统效率。</p>
+
+<p>该功能由 Broadcom 工程师 Rishi Chhibber 提交至 Linux 内核邮件列表，引入了名为 <code>vmw_zerocopy_driver</code> 的新驱动。该驱动允许客户机（Guest）用户空间应用程序通过 VMCI（虚拟机通信接口）数据报接口，以零拷贝方式与管理程序共享固定内存缓冲区。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=vmw_zc" alt="VMware Zero Copy Kconfig" />
+
+<p>这一机制避免了数据在客户机 VM 与管理程序之间进行中间拷贝，从而带来显著的性能和效率提升。目前该功能的细节尚不明确，补丁可通过 <code>VMW_ZC</code> Kconfig 选项启用。文章指出，虽然零拷贝技术能提升效率，但过往经验表明其可能伴随安全隐患。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/VMware-Zero-Copy-Sharing-Linux</guid>
+      <pubDate>Sun, 21 Jun 2026 00:34:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.2 正式移除 strncpy API，历时六年完成 360+ 补丁清理</title>
       <link>https://www.phoronix.com/news/Linux-7.2-Drops-strncpy</link>
@@ -708,19 +723,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Rust</guid>
       <pubDate>Mon, 15 Jun 2026 11:03:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2 改进文件系统大小写折叠报告，优化 Windows NFS 客户端兼容性</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-Casefolding</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲述 Linux 7.2 文件系统改进以提升跨平台兼容性，属于 Linux 技术进展与开源软件新功能，符合兴趣配置，推荐阅读</small></p><p>在即将发布的 Linux 7.2 内核中，虚拟文件系统（VFS）模块迎来了一项重要更新。新合并的代码通过新增的 <code>file_kattr</code> 标志，正式暴露了本地文件系统的大小写折叠（Case-folding）行为。这一改进旨在让 Linux 文件服务器（如 NFSD、KSMBD）及用户空间文件服务器能够准确向客户端报告实际的大小写敏感性，彻底取代以往依赖猜测或硬编码的方式。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=tux_sensitive" alt="Tux" />
-<p>此次更新的主要动机是解决 Microsoft Windows NFS 客户端的互操作性需求。Windows 客户端在连接 NFS 服务时，严格要求服务器明确报告不区分大小写（Case-insensitive）的特性，以确保 Win32 应用程序能够正常运行。通过准确报告该特性，客户端可以避免因大小写变体（如 "FILE.TXT" 与 "file.txt"）而发起多余的 LOOKUP/READDIR 请求，从而提升网络文件访问效率。</p>
-<p>在技术实现上，文件系统通过 <code>fileattr_get</code> 接口上报其大小写行为。Linux 7.2 已为 fat、exfat、ntfs3、hfs、hfsplus、xfs、cifs、nfs、vboxsf 和 isofs 等文件系统接入了该功能；未明确处理的本机文件系统则默认遵循 POSIX 标准（区分大小写且保留大小写）。服务器端方面，<code>nfsd</code> 利用此功能在 NFSv3 的 PATHCONF 及 NFSv4 的 <code>FATTR4_CASE_INSENSITIVE</code> 和 <code>FATTR4_CASE_PRESERVING</code> 属性中正确报告大小写折叠状态；<code>ksmbd</code> 则通过 <code>FS_ATTRIBUTE_INFORMATION</code> 进行报告。</p>
-<p>这一改进对于运行在多协议环境（同时提供 NFS 和 SMB 服务）的文件服务器尤为重要，使其能够作为“一等公民”无缝参与跨平台文件共享。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Casefolding</guid>
-      <pubDate>Mon, 15 Jun 2026 10:24:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
