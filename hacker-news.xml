@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 21 Jun 2026 06:19:23 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2026 10:43:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 研究发现：延长呼气的慢呼吸模式会增强大脑奖励反应并增加风险行为</title>
+      <link>https://news.ycombinator.com/item?id=48613555</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及关于呼吸模式与大脑奖励反应之间关系的科学研究，属于科学前沿进展，符合用户兴趣。</small></p><p>一项发表在《神经元》（<a href="https://www.cell.com/neuron/fulltext/S0896-6273(26)00339-9">Neuron</a>）期刊上的最新研究揭示了呼吸模式对大脑功能和风险决策的显著影响。研究发现，<strong>延长呼气的慢呼吸模式</strong>（例如吸气2秒、呼气8秒）能够增强大脑的奖励反应（<em>reward responsiveness</em>），并意外地<strong>增加个体的风险承担行为</strong>。</p>
+<p>这一发现挑战了大众对“慢呼吸让人冷静谨慎”的普遍认知。研究指出，这种特定的呼吸节奏通过增强心脏副交感神经调节（<em>cardiac parasympathetic modulation</em>），降低了恐惧情绪对决策的干扰。当恐惧感减弱时，个体对潜在奖励的敏感度上升，从而更愿意尝试高风险高回报的行为。</p>
+<p>该研究在临床领域具有重要潜力。由于焦虑症、恐慌症和抑郁症等心理疾病往往伴随自主神经系统失衡和适应不良的奖励处理机制，这种延长呼气的呼吸训练可能成为一种低成本、低风险的辅助治疗手段，帮助患者恢复情绪调节能力。</p>
+<h3>社区反馈</h3>
+<ul>
+<li><strong>反直觉的结论</strong>：许多读者对“慢呼吸增加风险行为”的结果感到惊讶。有评论指出，这实际上解释了为何在极限运动（如蹦极、攀岩）中，克服恐惧、保持冷静反而能让人更从容地面对危险。</li>
+<li><strong>传统呼吸法的科学印证</strong>：有用户提到，这种“延长呼气”的节奏与瑜伽（<em>Pranayama</em>）和亚洲武术中的传统呼吸技巧高度一致。它并非单纯的“深呼吸”，而是通过调整吸呼比例来调节自主神经系统。</li>
+<li><strong>实际应用</strong>：在公开演讲或高压场景前进行此类呼吸练习，有助于快速平复生理性恐惧，提升自信与表现。</li>
+</ul>
+<h3>你知道吗？</h3>
+<p><strong>副交感神经系统（Parasympathetic Nervous System）</strong>：自主神经系统的一部分，主要负责“休息与消化”（<em>rest and digest</em>）功能。与负责“战斗或逃跑”（<em>fight or flight</em>）的交感神经系统相反，副交感神经激活会降低心率、血压，促进身体恢复。研究中的延长呼气技巧正是通过刺激迷走神经，增强副交感神经活性，从而改变大脑的情绪处理模式。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48613555</guid>
+      <pubDate>Sat, 20 Jun 2026 22:22:52 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2 正式移除 strncpy API，历经六年与 360 余次代码审查</title>
+      <link>https://news.ycombinator.com/item?id=48612943</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及Linux内核（开源项目）移除特定API的底层技术更新，属于开源项目和技术进展范畴，符合用户兴趣。</small></p><p>Linux 7.2 内核已正式移除 <code>strncpy</code> API。经过长达六年的开发与代码审查，开发者共提交了约 362 个补丁（patches），彻底清除了内核中所有对 <code>strncpy</code> 的依赖。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=strncpy" alt="strncpy" /></p>
+<p><code>strncpy</code> 长期以来被内核开发者视为“持续存在的 bug 来源”。该函数在复制指定字节数时，若源字符串较短，会用 NUL 字符填充剩余空间，这种冗余的零填充不仅影响性能，其关于 NUL 终止（NUL termination）的语义也极易引发误用。例如，当源字符串长度大于等于目标缓冲区大小时，<code>strncpy</code> 不会自动在末尾添加 NUL 终止符，导致许多开发者在后续处理中遭遇缓冲区溢出或内存越界问题。</p>
+<p>随着 <code>strncpy</code> 的移除，Linux 内核代码将全面转向更安全的替代方案。官方推荐使用 <code>strscpy()</code>（用于需要 NUL 终止的目标）、<code>strscpy_pad()</code>（带零填充的 NUL 终止目标）、<code>strtomem_pad()</code>（非 NUL 终止的固定宽度字段）、<code>memcpy_and_pad()</code> 或 <code>memcpy()</code>。</p>
+<p>该消息在 Hacker News 社区引发热烈讨论。许多开发者指出，C 语言中基于 NUL 终止的字符串处理机制是系统编程中最大的痛点之一，极易导致 off-by-one 错误和内存覆盖。有人怀念 Pascal 风格（带长度前缀）的字符串设计，也有人提到 BSD 系统提供的 <code>strlcpy</code> 已存在约 30 年，但 Linux 最终选择了 <code>strscpy</code> 作为更优接口。此外，社区还探讨了 AI 工具在处理此类大规模、高一致性代码重构时的潜力，以及 C 语言类型系统在防止内存错误方面的局限性。</p>
+<h3>你知道吗？</h3>
+<p><code>strncpy</code> 的设计初衷是为了处理固定长度的缓冲区，但其“不保证 NUL 结尾”的特性在实际开发中常被忽视。现代 C 语言编程中，<code>strscpy</code> 已成为事实上的标准，它不仅保证结果字符串一定以 NUL 结尾，还会返回实际复制的字节数或负错误码，从而让开发者能更轻松地处理截断情况并避免安全漏洞。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48612943</guid>
+      <pubDate>Sat, 20 Jun 2026 20:59:40 GMT</pubDate>
+    </item>
     <item>
       <title>StartupWiki：一个免费且无订阅的初创公司数据库替代方案</title>
       <link>https://news.ycombinator.com/item?id=48610224</link>
@@ -928,29 +962,6 @@ MicroUI 采用的是“即时模式”UI 架构。与传统的“保留模式”
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48527658</guid>
       <pubDate>Sun, 14 Jun 2026 14:40:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核 7.1 发布：常规更新与 AI 驱动的代码清理</title>
-      <link>https://news.ycombinator.com/item?id=48528729</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍Linux 7.1内核发布及特性更新，属于开源项目与软件更新范畴，契合感兴趣配置，故推荐。</small></p><p>Linux 内核 7.1 版本已按计划正式发布。根据 Linus Torvalds 发布的更新日志，本次合并窗口进展顺利，未出现重大紧急问题，属于常规的季度功能更新。</p>
-<p>本次更新的一个显著变化是内核代码库的清理。受 AI 辅助漏洞扫描与 bug 报告工具的普及影响，内核维护团队决定移除大量老旧且不常用的驱动代码（如 ISDN 网络驱动）。由于这些遗留代码极少被实际使用，但 AI 工具会不断对其发出潜在 bug 警告，清理它们能有效减少维护噪音，提高代码库的健康度。</p>
-<p>社区对此进行了广泛讨论。多数用户认为 7.1 是一次平稳的常规迭代，并分享了在 Debian 等发行版中跟进新内核的经验。部分用户指出，虽然 Debian 等稳定版发行版更新节奏较慢，但用户仍可相对便捷地从源码编译最新内核。此外，也有开发者提到 AI 辅助审查正在倒逼开源项目精简冗余代码，被视为技术发展的积极副作用。</p>
-<p>如需了解详细的功能变更与性能优化，可参考 <a href="https://www.phoronix.com/review/linux-71-features-changes">Phoronix 的完整总结</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48528729</guid>
-      <pubDate>Sun, 14 Jun 2026 16:01:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 利用 M1 Max 与开源模型索引 669 GB GoPro 视频</title>
-      <link>https://news.ycombinator.com/item?id=48528029</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章聚焦利用开源AI模型进行视频索引的实践案例，契合AI软件技术进展与开源项目兴趣，故推荐。</small></p><p>作者利用 M1 Max 电脑和开源机器学习模型，成功索引了 669 GB 的 GoPro 视频素材（共计 628 个视频，时长约 15 小时）。该项目的目的是从大量的骑行记录中快速检索精彩片段，并直接导入 <a href="https://www.blackmagicdesign.com/products/davinciresolve/">DaVinci Resolve</a> 进行剪辑。</p>
-<p>处理流程包括提取视频帧（降采样至 720p 以提高速度）、场景描述、物体检测、人脸识别、屏幕文字识别（OCR）以及音频转录。提取的数据被转换为向量嵌入并存储在向量数据库（Vector DB）和 SQL 数据库中，支持语义搜索、截图搜索和音频搜索。</p>
-<p>整个索引过程耗时约 68 小时。作者指出虽然 M1 Max 表现良好，但使用 NVIDIA 显卡（如 RTX 3060）可以显著加速处理。社区讨论中，有用户提到了 DaVinci Resolve 21 内置的 AI 索引功能（AI IntelliSearch），虽然处理也是本地的，但在自定义标签（如人脸识别）方面可能不如开源方案灵活。此外，也有讨论涉及硬件性能对比及手动标记章节与 AI 索引的优劣。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48528029</guid>
-      <pubDate>Sun, 14 Jun 2026 15:13:57 GMT</pubDate>
     </item>
   </channel>
 </rss>

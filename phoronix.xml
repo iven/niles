@@ -3,7 +3,20 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 21 Jun 2026 06:17:46 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2026 10:43:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux KUnit 终于支持 JUnit 输出格式</title>
+      <link>https://www.phoronix.com/news/Linux-KUnit-JUnit</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 内核单元测试工具 KUnit 增加 JUnit 输出支持的功能改进，符合全局配置中“编程工具”的兴趣点，属于开发者关心的技术进展。</small></p><p>Linux 内核的单元测试框架 <a href="https://www.kernel.org/doc/html/latest/dev-tools/kunit.html">KUnit</a> 终于开始支持输出 JUnit 格式。KUnit 最初在设计时部分灵感来源于 Java 的 JUnit，但直到 Linux 7.2 内核中才正式合并了 JUnit XML 输出支持。这一功能允许开发者通过 <code>--junit</code> 参数将测试结果输出为 JUnit XML 格式，作为对原有 JSON 等格式的补充。此举旨在提升 KUnit 与 Jenkins 等依赖 JUnit 格式的持续集成（CI）系统的互操作性。</p>
+<p>尽管 KUnit 早在十年前就被提出并于 2020 年随 Linux 5.5 发布，但 JUnit 输出功能的实现耗时约六年，目前仅为“基础”级别的支持。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=junit_example_med" alt="JUnit example output" />
+<h3>你知道吗？</h3>
+<p>JUnit 是 Java 编程语言中广泛使用的单元测试框架，由 Erich Gamma 和 Kent Beck 开发。它已成为 Java 生态系统中单元测试的事实标准，并衍生出许多其他语言的类似框架（如 Python 的 pytest、C++ 的 Google Test 等）。许多 CI/CD 平台（如 Jenkins、GitLab CI、GitHub Actions）都原生支持解析 JUnit XML 格式的测试报告，以便可视化测试进度和结果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-KUnit-JUnit</guid>
+      <pubDate>Sun, 21 Jun 2026 09:45:14 GMT</pubDate>
+    </item>
     <item>
       <title>Broadcom 正在开发 VMware 虚拟机与管理程序间的零拷贝缓冲区共享技术</title>
       <link>https://www.phoronix.com/news/VMware-Zero-Copy-Sharing-Linux</link>
@@ -710,19 +723,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Scheduler</guid>
       <pubDate>Mon, 15 Jun 2026 12:31:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2 引入 Rust Zerocopy 库，大幅减少不安全代码并提升性能</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-Rust</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 直接匹配用户感兴趣的 Rust 主题，讲述 Linux 内核引入 Rust 库以提升代码安全性，符合兴趣配置，推荐阅读</small></p><p>Linux 7.2 内核开发中，Miguel Ojeda 已提交了大量 Rust 代码变更，本次更新新增约 40,000 行 Rust 代码。此次更新的核心是引入了 Zerocopy 库，旨在消除内核中更多的 "Unsafe"（不安全）Rust 代码。Zerocopy 库提供了可派生的 trait（如 `FromBytes`）和宏（如 `transmute!`），允许在字节序列与其他类型之间进行安全转换。该库也是 Rust 编译器自身所使用的组件之一。</p>
-<p>引入 Zerocopy 后，内核中的 Nova 驱动成功移除了一个 `unsafe impl` 实现。性能测试表明，使用 Zerocopy 的版本即使在启用 `debug-assertions` 时也不会发生 panic，编译器能够静态证明剩余检查的有效性，实现了“快速且安全”的目标。</p>
-<p>除了引入 Zerocopy，Linux 7.2 的 Rust 代码还增加了对 AutoFDO（Automatic Feedback Directed Optimizations，自动反馈导向优化）的支持，使编译器能够生成性能更优的代码。测试显示，Rust Binder 代码的性能因此提升了约 13%。此外，本次更新还包含了对软件基于标签的内核地址 sanitizer（KASAN）的支持，以及对即将发布的 Rust 1.98 版本的兼容性改进。</p>
-<h3>你知道吗？</h3>
-<p>Rust 语言以其内存安全性著称，通过所有权（Ownership）和借用（Borrowing）机制在编译期防止数据竞争和悬垂指针。然而，在处理底层硬件交互或高性能网络/存储驱动时，Rust 仍需要与字节流进行转换，这往往需要借助 "unsafe" 代码块。Zerocopy 库通过提供经过严格验证的零拷贝转换工具，大幅降低了内核开发者编写安全底层代码的门槛，是 Linux 内核向纯 Rust 驱动演进的重要一步。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Rust</guid>
-      <pubDate>Mon, 15 Jun 2026 11:03:21 GMT</pubDate>
     </item>
   </channel>
 </rss>
