@@ -3,7 +3,98 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 22 Jun 2026 12:23:31 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 22 Jun 2026 22:54:05 GMT</lastBuildDate>
+    <item>
+      <title>Codex CLI v0.142.0 更新：插件管理优化、多代理委托与令牌预算控制</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.142.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex CLI 发布了 <code>v0.142.0</code> 版本，带来了多项功能增强，包括插件管理优化、多代理委托配置、使用量预算控制以及搜索和时间提醒功能。</p>
+
+<h3>核心功能更新</h3>
+<ul>
+  <li><strong>插件管理优化</strong>：<code>/plugins</code> 命令现在支持将远程插件分类为 OpenAI 精选、工作区和与我共享三个部分，并支持智能推荐与安装。同时改进了插件加载、安装及市场布局的处理逻辑。</li>
+  <li><strong>多代理与预算控制</strong>：支持配置多代理委托模式（禁用、显式请求或主动），并引入可配置的发布令牌预算（rollout token budgets），用于跨线程跟踪使用情况、提供预算提醒并在耗尽时自动中止回合。</li>
+  <li><strong>搜索与时间功能</strong>：新增索引网络搜索模式（indexed web-search mode），允许实时搜索但限制直接页面访问至服务器批准的 URL；支持接收定时 UTC 提醒及直接查询当前时间。</li>
+  <li><strong>使用量管理</strong>：<code>/usage</code> 命令新增显示和兑换使用限制重置积分（usage-limit reset credits）的功能。</li>
+</ul>
+
+<h3>稳定性与修复</h3>
+<ul>
+  <li>修复了 Linux TUI 在 <code>Ctrl+Z</code> 挂起后使用 <code>fg</code> 恢复时渲染异常的问题。</li>
+  <li>增强了 exec-server 进程和 stdio MCP 会话在短暂断开连接后的恢复能力，包括签名 URL 刷新和重试安全的 stdin 写入。</li>
+  <li>改进了远程环境跨操作系统的兼容性，保留执行器原生路径、shell 及 <code>AGENTS.md</code> 发现机制。</li>
+  <li>修复了父代理无法获取终端子代理错误的问题，以及目标优先线程（goal-first threads）持久化丢失的缺陷。</li>
+</ul>
+
+<h3>性能优化</h3>
+<p>通过推迟不必要的 DNS 查询、预热模型缓存、重用解析的插件技能、并行化技能元数据读取等措施，显著降低了启动和会话延迟。同时移除了冗余的 WebSocket 事件日志记录，优化了持久日志的存储。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.142.0</guid>
+      <pubDate>Mon, 22 Jun 2026 22:19:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.186 发布说明：新增 MCP 认证命令与 Bash 自动响应功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.186</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.186 更新概览</h2>
+<p>Claude Code 发布了 v2.1.186 版本。本次更新重点增强了 MCP（Model Context Protocol）服务器的命令行认证能力，引入了 Bash 命令自动响应机制，并对后台 Agent（智能体）交互、内存管理及权限提示进行了多项优化与修复。</p>
+
+<h3>核心功能与新增特性</h3>
+<ul>
+<li><strong>MCP 命令行认证</strong>：新增 <code>claude mcp login &lt;name&gt;</code> 和 <code>claude mcp logout &lt;name&gt;</code> 命令，允许用户通过 CLI（Command Line Interface）直接完成 MCP 服务器认证，无需打开交互式 <code>/mcp</code> 菜单。同时支持 <code>--no-browser</code> 参数，便于在 SSH（Secure Shell）环境中通过 stdin 重定向完成认证。</li>
+<li><strong>Bash 命令自动响应</strong>：执行 <code>!</code> 开头的 Bash 命令时，Claude 现在会自动响应输出内容。若需恢复仅保留上下文的旧行为，可在 <code>settings.json</code> 中设置 <code>"respondToBashCommands": false</code>。</li>
+<li><strong>后台 Agent 权限提示优化</strong>：后台子 Agent 请求权限时，不再自动拒绝，而是在主会话中弹出提示对话框。对话框会明确显示请求来源，按 <code>Esc</code> 仅拒绝该特定工具请求。</li>
+<li><strong>内存管理改进</strong>：当 Agent 内存接近容量限制时，系统会自动提醒其压缩 <code>MEMORY.md</code> 索引文件。</li>
+<li><strong>技能（Skills）配置增强</strong>：技能 frontmatter（前置元数据）中的 <code>display-name</code>、<code>default-enabled</code> 等键现在兼容 kebab-case、snake_case 和 camelCase 命名格式。同时改进了损坏的 YAML（YAML Ain't Markup Language）frontmatter 处理逻辑，避免静默失败。</li>
+<li><strong>重试机制调整</strong>：<code>CLAUDE_CODE_MAX_RETRIES</code> 环境变量上限调整为 15；针对无监督会话，建议改用 <code>CLAUDE_CODE_RETRY_WATCHDOG</code>。</li>
+<li><strong>其他新增项</strong>：新增 <code>teammateMode: "it2"</code> 设置项以支持 iTerm2 终端；<code>/login</code> 命令新增 AWS 凭证刷新选项；<code>/review &lt;pr&gt;</code> 命令底层引擎已对齐至 <code>/code-review medium</code>。</li>
+</ul>
+
+<h3>体验优化与 Bug 修复</h3>
+<ul>
+<li><strong>会话与终端交互修复</strong>：修复了机器从睡眠唤醒后流式请求因 "Content block not found" 或 JSON 解析错误而失败的问题；修复了浅色终端中打开后台会话时的深色主题闪烁现象；修复了 <code>claude agents</code> 中鼠标选中文本删除后仍保持高亮的问题。</li>
+<li><strong>后台任务与子 Agent 修复</strong>：修复了子 Agent 转录滚动位置泄露至主会话的问题；修复了后台任务预览在计划加载前闪烁原始工具名称的问题；修复了后台会话摘要重复显示的问题；修复了从 <code>claude agents</code> 打开后台会话时背景屏幕残留的问题。</li>
+<li><strong>权限与工具限制修复</strong>：修复了冷启动首次运行时 <code>--tools</code> 标志加载前，功能门控工具（feature-gated tools）意外通过的问题；修复了命名子 Agent 生成时 <code>Agent(type)</code> 拒绝规则和类型限制未生效的问题；修复了主轮次结束后 <code>Esc</code> 和 <code>Ctrl+C</code> 无法中断仍在运行的后台 Agent 的问题。</li>
+<li><strong>界面与显示修复</strong>：修复了权限提示中选项文本溢出导致编号对齐错位的问题；修复了 <code>/plugin</code> 已安装页面在顶部时仍显示 "more above" 指示器的问题；修复了助手消息中 <code>~~strikethrough~~</code> 被渲染为字面波浪号而非删除线的问题。</li>
+<li><strong>其他修复</strong>：修复了工作流 <code>agent({schema})</code> 子 Agent 在模式验证失败时无限循环而非在 5 次尝试后中止的问题；修复了通过 tmux（Terminal Multiplexer）/pane 后端生成的队友未继承领导者 <code>--effort</code> 级别的问题；修复了企业版和团队版订阅者未显示 Agent 团队成本的问题；改进了 <code>claude mcp get/remove</code> 命令的拼写纠错与长列表截断提示。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.186</guid>
+      <pubDate>Mon, 22 Jun 2026 20:37:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>Devbox 0.17.4 发布：支持环境变量配置路径，修复空格路径与 Corepack 问题</title>
+      <link>https://github.com/jetify-com/devbox/releases/tag/0.17.4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 0.17.4 版本现已发布，主要带来了配置文件路径的环境变量支持，并修复了多项影响稳定性和兼容性的问题。</p>
+
+<h3>主要更新</h3>
+<ul>
+  <li><strong>新增环境变量支持</strong>：引入了 <code>DEVBOX_CONFIG</code> 环境变量，允许用户直接指定配置文件路径，无需在每次命令中重复传递 <code>--config</code> 参数 <a href="https://github.com/jetify-com/devbox/pull/2838">#2838</a>。</li>
+  <li><strong>路径与 Shell 兼容性修复</strong>：解决了项目目录或 <code>ZDOTDIR</code> 包含空格时导致 Shell 失效的问题 <a href="https://github.com/jetify-com/devbox/pull/2860">#2860</a> <a href="https://github.com/jetify-com/devbox/pull/2876">#2876</a>，并修复了插件路径引用错误。同时，新增了对无效环境变量名称的跳过处理，防止破坏 Shell 环境 <a href="https://github.com/jetify-com/devbox/pull/2883">#2883</a>。</li>
+  <li><strong>Node.js Corepack 改进</strong>：将 <code>setup-corepack</code> 重写为 ESM 模块，修复了在 <code>"type": "module"</code> 项目中 Corepack 设置失败的问题 <a href="https://github.com/jetify-com/devbox/pull/2857">#2857</a> <a href="https://github.com/jetify-com/devbox/pull/2873">#2873</a>。</li>
+  <li><strong>其他修复与优化</strong>：
+    <ul>
+      <li><code>devbox generate</code> 生成的 Dockerfile 现使用完全限定的 <code>docker.io</code> 镜像地址 <a href="https://github.com/jetify-com/devbox/pull/2847">#2847</a>。</li>
+      <li>修复了 <code>direnv</code> 集成中 <code>DEVBOX_SHELL_ENABLED</code> 变量的设置问题 <a href="https://github.com/jetify-com/devbox/pull/2861">#2861</a>。</li>
+      <li>修正了默认 <code>devbox.json</code> 配置的缩进格式 <a href="https://github.com/jetify-com/devbox/pull/2851">#2851</a>。</li>
+      <li>更新了 Elixir 和 Jekyll 示例项目以适配最新依赖 <a href="https://github.com/jetify-com/devbox/pull/2882">#2882</a> <a href="https://github.com/jetify-com/devbox/pull/2881">#2881</a>。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>维护与基础设施</h3>
+<ul>
+  <li>恢复了 Devbox 的官方 Logo，并修复了文档中的失效链接。</li>
+  <li>强化了 CI 与发布流程，解决了 GitHub API 403 限流问题 <a href="https://github.com/jetify-com/devbox/pull/2884">#2884</a>，升级了 GitHub Actions 的 Node.js 运行时 <a href="https://github.com/jetify-com/devbox/pull/2886">#2886</a>，并优化了测试分片策略以加速构建 <a href="https://github.com/jetify-com/devbox/pull/2885">#2885</a>。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p><strong>Corepack</strong> 是 Node.js 官方提供的包管理器工具，旨在统一管理不同 Node.js 版本中使用的包管理器（如 Yarn、Pnpm 等）版本，确保项目依赖的一致性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.17.4</guid>
+      <pubDate>Mon, 22 Jun 2026 13:26:10 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.185 更新：优化 API 响应等待提示与延迟设置</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.185</link>
@@ -1028,75 +1119,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.73.1</guid>
       <pubDate>Mon, 25 May 2026 05:37:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.11.3 发布：可跳过的新手引导、终端输出流控制、Diff 面板重构等</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.11.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
-<ul>
-<li><strong>可跳过的 v2 新手引导 + 设置入口</strong>：新增可跳过的 v2 版本引导流程，并可在设置中重新运行引导，降低新用户上手门槛。</li>
-<li><strong>终端输出流控制</strong>：新增终端输出流控制功能，改善大量输出时的终端体验。</li>
-<li><strong>Diff 面板重构</strong>：将 v2 版本的 DiffPane 重构为基于 <code>@pierre/diffs</code> 的 CodeView 组件，提升代码差异查看体验。</li>
-<li><strong>终端 WebGL 渲染修复</strong>：升级 <code>@xterm/*</code> 至 beta.220 版本，修复上游 WebGL 纹理图集合并（atlas-merge）问题，解决终端渲染异常。</li>
-<li><strong>浏览器面板快捷键优化</strong>：修复浏览器面板中 <code>Cmd+W</code>（关闭标签页）和 <code>Cmd+R</code>（刷新）快捷键的焦点感知问题，确保仅在焦点在浏览器面板内时触发对应操作。</li>
-</ul>
-<h3>其他改动</h3>
-<ul>
-<li>修复 v2 预设环境命令问题。</li>
-<li>版本号更新至 1.11.2（随后发布 1.11.3）。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.11.3</guid>
-      <pubDate>Sun, 24 May 2026 19:54:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.11.2 发布：终端面板归属修复、磁盘访问检测改进等</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.11.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Superset Desktop v1.11.2</h3>
-<p>本次小版本更新主要包含以下改动：</p>
-<h4>重要改动</h4>
-<ul>
-<li><strong>强化 v2 工作区终端面板归属</strong>（PR #4878）：改进了终端面板的所有权管理，确保多任务环境下终端归属更加稳定可靠。</li>
-<li><strong>修复完全磁盘访问检测</strong>（PR #4825）：修正了应用检测系统完全磁盘访问权限的逻辑。</li>
-<li><strong>新增 Codex hook 信任绕过功能</strong>（PR #4881，随后被回滚 #4886）：短暂添加了绕过 Codex hook 信任检查的功能，但因故立即回退。</li>
-</ul>
-<h4>其他改动</h4>
-<ul>
-<li><strong>修复桌面打开事件锚定</strong>（PR #4858）：将 <code>desktop_opened</code> 事件绑定到稳定的设备 ID，提升事件追踪的准确性。</li>
-<li><strong>升级 @pierre/diffs 依赖</strong>（PR #4848）：修复了 diff 查看器中行号排序的问题（SUPER-804）。</li>
-<li><strong>移除 /login 斜杠命令</strong>（PR #4856）：从内置命令中删除了失效的 <code>/login</code> 斜杠命令。</li>
-<li><strong>版本号更新</strong>（PR #4847）：版本号从 1.11.1 更新至 1.11.2。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.11.2</guid>
-      <pubDate>Sat, 23 May 2026 17:02:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>fzf v0.73.0 发布：Nushell 集成、预览窗口新位置、定时事件驱动等多项新功能</title>
-      <link>https://github.com/junegunn/fzf/releases/tag/v0.73.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>主要新功能</h3>
-<ul>
-<li><strong>Nushell 集成</strong>：新增 <code>fzf --nushell</code> 命令及安装器支持（#4630）（@sim590）</li>
-<li><strong>预览窗口新位置 <code>next</code></strong>：新增 <code>--preview-window=next</code> 选项，将预览窗口放置在输入区域旁边、列表一侧——默认布局中位于输入区上方，<code>--layout=reverse</code> 布局中位于下方（#4798）</li>
-<li><strong>定时驱动事件 <code>every(N)</code></strong>：<code>--bind</code> 新增 <code>every(N)</code> 事件，N 为秒数，可周期性触发绑定动作</li>
-<li><strong>空闲时间变量</strong>：新增 <code>$FZF_IDLE_TIME</code>（整秒）和 <code>$FZF_IDLE_TIME_MS</code>（毫秒），记录自上次用户操作以来的空闲时长，可与 <code>every(N)</code> 配合实现自动接受、自动退出等基于空闲的行为（#1211）</li>
-<li><strong>当前项变量</strong>：新增 <code>$FZF_CURRENT_ITEM</code>，方便在 <code>{}</code> 引用不便的 shell 中使用（#4802）</li>
-</ul>
-<h3>Bug 修复</h3>
-<ul>
-<li>评分修复：输入开头或分隔符后的非单词字符现在与单词字符享有相同的边界加分（#4795）</li>
-<li><code>change-preview-window</code> 不再重置通过 <code>toggle-preview-wrap</code> / <code>toggle-preview-wrap-word</code> 设置的 <code>wrap</code> / <code>wrap-word</code> 状态（#4791）</li>
-<li>安全修复：从渲染项中剥离 UTF-8 编码的 C1 控制字符，防止终端控制序列注入攻击</li>
-<li>修复 32 位构建中 <code>FuzzyMatchV2</code> 的整数溢出崩溃问题（Michal Majchrowicz, Marcin Wyczechowski, AFINE Team）</li>
-<li>修复 <code>bg-transform</code> 中 <code>reload</code> / <code>exclude</code> 负载被丢弃的问题</li>
-<li>修复预览窗口在左侧时与页脚组合出现的渲染异常</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.73.0</guid>
-      <pubDate>Sat, 23 May 2026 15:19:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
