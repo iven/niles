@@ -3,7 +3,40 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 22 Jun 2026 05:26:56 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 22 Jun 2026 12:27:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Miracle-WM 0.10 发布，基于 Mir 的 Wayland 合成器迈向 1.0 版本</title>
+      <link>https://www.phoronix.com/news/Miracle-WM-0.10</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍基于Mir的Wayland合成器Miracle-WM即将推出1.0版本，属于新软件项目与Linux桌面技术进展，匹配来源高兴趣与感兴趣配置。</small></p><p>Miracle-WM 是一款基于 Mir 的 Wayland 合成器（Wayland Compositor），其 0.10 版本已于近日正式发布。该版本由 Canonical 工程师 Matthew Kosarek 宣布，带来了多项功能改进与协议支持。</p>
+<p>在插件方面，0.10 版本允许插件为单个窗口或整个输出设置着色器管道（Shader Pipeline），例如实现焦点模糊或类似夜间模式（Nightlight）的效果。此外，该版本新增了对多个 Wayland 协议的支持，包括 ext_data_control_manager_v1、ext_image_copy_capture_manager_v1、ext_output_image_capture_source_manager_v1、ext_foreign_toplevel_list_v1 以及 zwp_input_method_v1。这些改进使得 Grimshot、wl-copy 以及 xdg-desktop-portal-wlr 等工具现在能够在 Miracle-WM 上正常运行。</p>
+<p>为了提升用户体验与开发调试效率，新版本引入了基于 GTK4 的配置错误报告客户端，以及用于显示窗口位置等调试信息的 GTK4 调试覆盖层（Debug Overlay）。官方同时发布了演示视频，并附带了多项错误修复。</p>
+<p>Miracle-WM 团队表示，若开发进展顺利，该合成器有望在 2026 年底正式推出 1.0 稳定版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Miracle-WM-0.10</guid>
+      <pubDate>Mon, 22 Jun 2026 11:12:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Valve 推出光线追踪检查器“RTI”，助力 Linux GPU 驱动优化</title>
+      <link>https://www.phoronix.com/news/Mesa-Ray-Tracing-Inspector-RTI</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Valve开发的新Ray-Tracing Inspector优化工具，用于提升Linux GPU驱动性能，属于新软件项目及Linux桌面技术，匹配来源高兴趣配置。</small></p><p>Valve 的 Linux 图形团队近日推出了一款名为<strong>光线追踪检查器（Ray-Tracing Inspector，简称 RTI）</strong>的新图形界面（GUI）工具，并已成功合并至 Mesa 26.1 版本中。该工具旨在帮助开发者深入分析并优化 Vulkan 光线追踪性能，特别是针对 Radeon RADV 驱动在 Steam Play 及 Linux 游戏环境下的光线追踪表现。</p>
+<p>RTI 由 Valve 工程师 Konstantin Seurer 主导开发，基于现有的 RADV 调试功能构建，采用 ImGUI 框架编写，并支持 Vulkan 与 SDL3。该工具主要面向底层驱动开发者，而非普通终端用户。使用时，开发者只需设置环境变量 <code>RADV_DEBUG=rti</code>，驱动即可自动转储内部的光线追踪加速结构（BVH，层次包围盒）及光线历史数据至 <code>/tmp</code> 目录。随后，这些数据可被导入 RTI 工具中进行可视化检查与性能剖析。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=valve_rti" alt="Valve RTI" /></p>
+<p>构建该工具需使用 Meson 构建系统并添加 <code>-D tools=rti</code> 选项。尽管目前 RTI 主要聚焦于 Radeon RADV Vulkan 驱动，但未来计划通过不同的后端扩展支持更多硬件与驱动。此举是 Valve 近年来持续推动开源 Linux GPU 驱动及 Vulkan 光线追踪性能优化的又一重要进展。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Ray-Tracing-Inspector-RTI</guid>
+      <pubDate>Mon, 22 Jun 2026 10:33:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.2 内核 sched_ext 继续推进子调度器支持</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-sched-ext</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨Linux内核调度器扩展（sched_ext）的次级调度器支持进展，属于底层基础设施开发，全局配置对此类内容不太感兴趣，故设为可选。</small></p><p>Linux 7.2 内核已合并 <code>sched_ext</code>（可扩展调度器）的相关更改，该特性允许从用户空间加载 BPF 程序来处理任务调度。Linux 7.2 继续构建子调度器（sub-scheduler）支持，允许将多个调度器实例附加到 cgroup 层次结构，以应对系统中不同的工作负载。这一功能对多租户平台和异构工作负载环境极具价值。</p><p>本次合并建立了更多子调度器支持的基础设施，主要包括：拓扑 CPU ID（CIDs）、cmask 基础设施、BPF arena 集成（子调度器支持构建的基础），以及重新设计 <code>scx_qmap</code> 以利用新的 arena 和 CID 接口。后续补丁集将完成层级调度的入队路径（enqueue-path）支持。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-sched-ext</guid>
+      <pubDate>Mon, 22 Jun 2026 09:59:21 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ zlib-rs 0.6.4 发布：修复 Intel Raptor Lake 崩溃及 SIMD 优化</title>
       <link>https://www.phoronix.com/news/zlib-rs-0.6.4</link>
@@ -683,45 +716,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Performance-Skills</guid>
       <pubDate>Mon, 15 Jun 2026 20:15:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD 获资启动 AI 辅助漏洞发现项目</title>
-      <link>https://www.phoronix.com/news/FreeBSD-AI-Bug-Discovery</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章核心聚焦FreeBSD（BSD系统分支）引入AI进行漏洞发现，来源配置明确将BSD标记为不太感兴趣，虽涉及AI技术但权重不及来源偏好，故综合评定为可选。</small></p><p>FreeBSD 项目宣布启动 AI 辅助漏洞发现项目，获得 Linux Foundation 支持的 Alpha-Omega 项目（Alpha-Mega）的资助。该项目由 Microsoft、AWS、Google、Anthropic、OpenAI 等公司赞助，为期六个月，旨在减少 FreeBSD 代码库中可利用的漏洞数量。</p>
-<p>项目将获得 25 万美元资助，用于支持 FreeBSD 安全团队的关键成员。Netflix 将协助测试和验证此次安全研究产生的更改。团队将使用公开可用的大型语言模型（LLM），部分参与者还能通过 Project Glasswing 访问 Clade Mythos 工具。</p>
-<p>更多详情可访问 <a href="https://www.freebsdfoundation.org">FreeBSDFoundation.org</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/FreeBSD-AI-Bug-Discovery</guid>
-      <pubDate>Mon, 15 Jun 2026 19:08:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GCC 指导委员会批准 WebAssembly 后端提案</title>
-      <link>https://www.phoronix.com/news/GCC-Steering-WebAssembly</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述GCC编译器官方支持WebAssembly后端，属于核心编程工具的功能扩展与架构更新，契合全局配置中对编程工具及软件新功能的兴趣偏好。</small></p><p>GNU 编译器集合（GCC）指导委员会（GCC Steering Committee）近日正式批准了将 WebAssembly 后端纳入 GCC 的提案。这一决定意味着开发者未来将能够直接使用 GCC 工具链将 C/C++ 代码编译为 WebAssembly（WASM）格式，而不再完全依赖基于 LLVM 的工具链。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=webassembly" alt="WebAssembly logo" /></p>
-<p>该 WebAssembly 后端目前仍处于早期开发阶段，功能尚未完整。指导委员会的批准主要认可了该方向的正确性及贡献者的工作，而非对具体代码实现的最终验收。委员会强调，新后端的维护责任重大，建议贡献者寻找另一位经验丰富的社区成员作为共同维护者（co-maintainer），并需与 GCC 全局审查员（Global Reviewers）合作完成技术审查。</p>
-<p>如果开发进展顺利，GCC 17.1 稳定版有望在明年引入该后端的初始支持。</p>
-<div class="extra-info"><h3>你知道吗？</h3><p><strong>WebAssembly (WASM)</strong> 是一种为 Web 设计的二进制指令格式。它旨在作为一种可移植的编译目标，允许 C、C++、Rust 等语言编写的高性能代码在浏览器或其他 WASM 运行时环境中高效执行，从而弥补传统 JavaScript 在某些计算密集型任务上的性能瓶颈。</p></div>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-Steering-WebAssembly</guid>
-      <pubDate>Mon, 15 Jun 2026 18:51:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 俄罗斯垃圾信息与侮辱性言论正困扰 Arch Linux AUR 仓库</title>
-      <link>https://www.phoronix.com/news/Arch-Linux-AUR-Russian-Spam</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章涉及Arch Linux发行版的AUR仓库垃圾信息问题，来源配置对Linux发行版（Arch Linux）有high_interest，故评为必看内容</small></p><h2>俄罗斯垃圾信息与侮辱性言论正困扰 Arch Linux AUR 仓库</h2>
-<p>继前几天 Arch Linux 用户仓库（AUR）遭遇超过 1500 个包含恶意软件的包之后，该仓库近日又出现了新的安全困扰：大量包被植入了俄罗斯垃圾信息和侮辱性言论。</p>
-<p>据 Arch Linux 开发者 Nicolas Boichat 的 AI/LLM 检测机器人发现，部分 AUR 包在安装后，会向用户的 <code>bashrc</code>、<code>zshrc</code> 或 Fish 等配置文件末尾追加包含侮辱性内容的俄语消息。这些恶意提交发生在 6 月 14 日，紧随此前的恶意软件事件之后。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=aur_spam_1_med" alt="AUR spam" /></p>
-<p>在过去的一天里，社区报告了数十个 AUR 包存在类似的俄语垃圾信息。目前受影响范围已扩大至至少 70 个包，涉及 Python、Ruby 包以及 Llama.cpp 等多个项目。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=aur_spam_2_med" alt="AUR spam translation" /></p>
-<p>尽管 AUR 作为用户维护的仓库，其审核机制一直面临挑战，但此次 AI/LLM 检测机器人的介入被证明是有效的。它能够在根本性解决方案出台前，主动识别并拦截部分 AUR 滥用行为，为社区争取了宝贵的响应时间。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Arch-Linux-AUR-Russian-Spam</guid>
-      <pubDate>Mon, 15 Jun 2026 16:43:05 GMT</pubDate>
     </item>
   </channel>
 </rss>
