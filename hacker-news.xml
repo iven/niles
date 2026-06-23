@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 23 Jun 2026 12:15:34 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 15:27:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 评估 Mythos 的安全漏洞检测能力：开源模型能否匹敌？</title>
+      <link>https://news.ycombinator.com/item?id=48640196</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要评估了 Mythos 模型的安全漏洞检测能力及运营成本，涉及 AI 软件技术进展与开源项目对比。</small></p><p>这篇文章探讨了 Anthropic 的 <strong>Mythos</strong> 模型在发现复杂安全漏洞方面的能力，并通过构建基准测试来评估其他公开模型是否能达到类似水平。</p>
+<h3>测试背景与方法</h3>
+<p>由于 Mythos 并未广泛开放，且其高昂的运营成本可能限制了普及，作者怀疑其漏洞检测能力是否被过度宣传。为了验证这一点，作者收集了 Mythos 文档中提到的 9 个真实安全漏洞（均在模型知识截止日期之后），并构建了一个盲测基准。测试中，模型仅被提供目标文件和查看整个代码库的权限，不给予任何关于漏洞位置的提示。</p>
+<h3>主要测试结果</h3>
+<ul>
+<li><strong>表现优异的模型</strong>：<strong>Qwen 3.6</strong>（27B）表现超出预期，在误报控制上优于多个商业模型；<strong>Gemini 3.5 Flash</strong> 也显著优于其前代产品。</li>
+<li><strong>高性价比的中国模型</strong>：<strong>MiMo</strong> 和 <strong>DeepSeek</strong> 在漏洞检测上接近 <strong>Opus 4.8</strong> 和 <strong>GPT 5.5</strong>，但成本仅为后者的十分之一。</li>
+<li><strong>意外发现</strong>：<strong>Gemma 4 MoE</strong> 检测出了 4/9 的漏洞，但容易陷入循环；而 <strong>Mistral Medium</strong> 和 <strong>Laguna M.1</strong> 则完全未能发现已知漏洞，可能受限于安全策略或能力不足。</li>
+<li><strong>Mythos 的优势</strong>：Mythos 找到了 4 个其他模型均未发现的漏洞。但作者指出，当直接提示漏洞位置时，顶级模型（如 Opus）均能准确识别，这表明 Mythos 的优势可能更多源于其先进的工具链（如调试器、模糊测试）和持久性，而非模型本身的绝对智能。</li>
+</ul>
+<img src="/img/full-bench.png" alt="Full benchmark results, click for full HTML report" />
+<h3>结论</h3>
+<p>该基准测试表明，普通模型在配备适当的工具和时间后，同样具备发现复杂安全漏洞的潜力。Mythos 的“神秘感”可能部分源于其封闭的工具生态，而非不可逾越的技术壁垒。</p>
+<h3>你知道吗？</h3>
+<p><strong>Mythos 与 Fable 的区别</strong>：Mythos 是 Anthropic 内部使用的高级模型版本，去除了标准的安全限制（guardrails），使其能够处理如逆向工程二进制文件或查找漏洞等敏感任务。而 <strong>Fable</strong> 则是面向公众的、带有安全护栏的版本。社区反馈指出，Fable 在代码生成和通用任务上表现优异，但在安全审计等特定领域，Mythos 的“持久性”和“自信度”使其表现更为突出。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48640196</guid>
+      <pubDate>Tue, 23 Jun 2026 04:15:04 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ VibeThinker-3B：30亿参数模型在推理任务上匹敌旗舰级大模型</title>
       <link>https://news.ycombinator.com/item?id=48639240</link>
@@ -908,29 +931,6 @@ HN 社区对此功能反响积极。开发者普遍认为，将数据共享的�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48576824</guid>
       <pubDate>Wed, 17 Jun 2026 21:00:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ MicroUI：一个极简的 ANSI C 即时模式 UI 库</title>
-      <link>https://news.ycombinator.com/item?id=48569205</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为开源 C 语言即时模式 UI 库 MicroUI 的技术介绍，符合“开源项目”兴趣配置，对底层开发有参考价值，故评为 recommended。</small></p><p>MicroUI 是一个极简、可移植的即时模式（immediate-mode）UI 库，完全使用 ANSI C 编写。该库的核心优势在于其极小的体积，整个库仅包含约 1100 行代码，并且能够在固定大小的内存区域中运行，无需动态分配额外内存。</p>
-<p><img src="https://user-images.githubusercontent.com/3920290/75171571-be83c500-5723-11ea-8a50-504cc2ae1109.png" alt="microui" /></p>
-<p>库内置了窗口、可滚动面板、按钮、滑块、文本框、标签、复选框等常用控件，并采用简单的布局系统。与许多现代 UI 框架不同，MicroUI 本身不进行任何实际的绘制操作，而是期望用户自行提供输入处理，并接收库生成的绘制命令（如矩形和文本绘制指令）。这种设计使其能够无缝集成到任何支持基础图形绘制的渲染后端（如 OpenGL、Vulkan 或 SDL）。</p>
-<p><img src="https://user-images.githubusercontent.com/3920290/75187058-2b598800-5741-11ea-9358-38caf59f8791.png" alt="example" /></p>
-<p>在开发者社区中，MicroUI 常被用作游戏引擎或应用程序中的轻量级调试 UI 覆盖层。与功能庞大的 LVGL（约 44 万行代码）或 Dear ImGui 相比，MicroUI 的二进制体积显著更小。例如，在基于 sokol 的 WASM 演示中，MicroUI 的压缩体积仅为 79.6 KB，远低于 Dear ImGui 的 491 KB。</p>
-<p><img src="https://user-images.githubusercontent.com/3920290/75188642-63ae9580-5744-11ea-9eee-d753ff5c0aa7.png" alt="screenshot" /></p>
-<h3>社区反馈</h3>
-<ul>
-<li><strong>集成与渲染</strong>：开发者指出，虽然库本身极简，但将其接入实际的窗口系统（如 X11、Win32）并编写文本渲染的胶水代码是主要的工作量所在。不过，其灵活的回调接口允许用户完全自定义渲染逻辑。</li>
-<li><strong>项目状态</strong>：部分用户提到该项目目前维护较少，存在少量底层指针访问的 Bug，但也有人认为其代码已足够稳定，适合作为基础框架自行扩展。</li>
-<li><strong>应用场景</strong>：除了调试 UI，MicroUI 也被用于 Odin 语言结合 Raylib 的调试菜单，以及编译为 WebAssembly 的轻量级 Web 演示中。</li>
-</ul>
-<h3>你知道吗？</h3>
-<p><strong>即时模式（Immediate Mode）与保留模式（Retained Mode）</strong><br>
-MicroUI 采用的是“即时模式”UI 架构。与传统的“保留模式”（如 Qt 或 GTK，UI 元素的状态由系统长期维护）不同，即时模式 UI 在每一帧都重新创建和销毁。开发者只需描述“这一帧应该显示什么”，库负责计算布局并返回绘制指令。这种模式代码极其精简，非常适合游戏开发、调试工具以及需要高度定制化渲染的场景，但通常难以直接实现复杂的无障碍访问（Accessibility）功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48569205</guid>
-      <pubDate>Wed, 17 Jun 2026 12:04:28 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,20 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 23 Jun 2026 12:14:51 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 15:28:38 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.2 内核中 EROFS 文件系统增强：优化 AI 稀疏数据集与 I/O 性能</title>
+      <link>https://www.phoronix.com/news/EROFS-Sparse-AI-Datasets</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Linux文件系统EROFS针对AI数据集的I/O效率改进，同时契合用户来源配置的Linux技术兴趣与全局配置中的AI软件进展兴趣，属于推荐阅读内容。</small></p><p>在即将发布的 Linux 7.2 内核中，开源只读文件系统 <b>EROFS（Enhanced Read-Only File System）</b> 迎来了多项重要更新，旨在提升 I/O 效率并更好地支持大型稀疏 AI 数据集。</p>
+<p>首先，EROFS 针对基于块（chunk-based）的 inodes 优化了请求映射机制。新的映射代码显著提升了 I/O 性能，尽管官方尚未提供具体的性能对比数据，但已确认其处理效率更高。</p>
+<p>另一项重大改进是在 pcluster layout 代码中增加了对稀疏（sparse）数据的支持。阿里巴巴工程师兼 EROFS 维护者高翔（Gao Xiang）指出，虽然 EROFS 能够透明压缩零值，但在处理大型稀疏 AI 数据集时，将整个 pcluster 标记为空洞（hole）依然至关重要。这不仅能防止 overlayfs 在复制文件时分配过多空间，还能确保 SEEK_HOLE 系统调用正确报告空洞位置。该补丁引入了两种将 pcluster 标记为空洞的新方法。</p>
+<p>此外，Linux 7.2 正式移除了 EROFS 之前标记为弃用的 FSCACHE 后端。该功能原本用于实现镜像的延迟拉取（lazy pulling），但由于 NETFS 后来成为其硬依赖，导致维护成本过高，最终被移除。目前，类似功能已通过文件支持挂载（file-backed mounts）和 fanotify 预内容钩子（fanotify pre-content hooks）得以实现。</p>
+<img src="//www.phoronix.net/image.php?id=2023&image=erofs_logo" alt="EROFS" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/EROFS-Sparse-AI-Datasets</guid>
+      <pubDate>Tue, 23 Jun 2026 13:42:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.2 内核中 8250/16550 串行驱动迎来现代化更新</title>
       <link>https://www.phoronix.com/news/Linux-7.2-Serial</link>
@@ -694,24 +707,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Wayland-Fractional-Scaling</guid>
       <pubDate>Tue, 16 Jun 2026 13:22:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.2 内核继续清理 i486 代码残留，新增坚固版 Panther Lake 支持</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-x86</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 既有内核代码清理也有Panther Lake新硬件支持（最新款芯片相关），综合评定为可选</small></p><p>Linux 7.2 内核已合并 x86/cpu 架构的更新，此次更新跨度极大，既彻底清除了 36 年前 Intel 486 时代的代码残留，也新增了对工业级处理器的支持。</p>
-<p>在清理旧代码方面，继 Linux 7.1 退役 Intel 486 支持后，7.2 版本继续移除了 AMD Elan 驱动及其他相关的 i486 代码。内核现在将时间戳计数器（TSC）和 8 字节比较交换指令（CX8）的支持设为无条件启用，并移除了过时的 &quot;no387&quot; 启动选项。</p>
-<img src="//www.phoronix.net/image.php?id=2022&image=intel_486_linux" alt="Intel 486" />
-<p>此外，更新引入了集中式的 CPUID 解析器与数据模型，简化了内核识别处理器的逻辑。在硬件支持方面，Linux 7.2 正式加入了对 Intel Panther Lake R（坚固版）的支持。作为 Panther Lake 系列的工业级变体，其 CPU 模型 ID 已纳入内核，无需额外修改即可兼容。</p>
-<h3>你知道吗？</h3>
-<ul>
-  <li><strong>CPUID 指令</strong>：x86 架构中用于查询处理器身份、特性及功能的关键指令。内核通过它获取 CPU 型号、缓存大小和指令集支持等信息。</li>
-  <li><strong>TSC (Time Stamp Counter)</strong>：CPU 内部的一个 64 位寄存器，每执行一条指令通常递增一次，常用于高精度计时。</li>
-  <li><strong>Panther Lake R</strong>：Intel 面向工业控制和嵌入式市场推出的“坚固版”处理器，具备更宽的工作温度范围和更长的供货周期。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-x86</guid>
-      <pubDate>Tue, 16 Jun 2026 12:25:38 GMT</pubDate>
     </item>
   </channel>
 </rss>
