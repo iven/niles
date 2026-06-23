@@ -3,7 +3,35 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 23 Jun 2026 18:09:46 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 22:22:16 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.187 更新：沙盒凭据限制、模型组织管控与多项交互修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.187</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>安全与配置增强</h3>
+<p>新增 <code>sandbox.credentials</code> 配置项，限制沙盒环境读取凭据文件与秘密环境变量。引入组织级模型限制策略，在模型选择器及相关命令行参数（<code>--model</code>、<code>/model</code>、<code>ANTHROPIC_MODEL</code>）中生效，选择受限模型时将显示明确提示。</p>
+
+<h3>交互体验优化</h3>
+<p>全屏模式新增鼠标点击支持，可直接操作权限提示及配置菜单。命令 <code>/install-github-app</code> 使 GitHub Actions 工作流配置变为可选；<code>/btw</code> 支持方向键浏览历史回答，<code>/plugin</code> 优化插件管理界面，便于清理近期未使用的插件。</p>
+
+<h3>核心功能修复</h3>
+<p>解决结构化输出（<code>--json-schema</code>）无限重试及后续轮次返回异常的问题，确保可靠返回结构化数据。修复远程 MCP 工具调用长时间挂起无响应的问题，现默认超时中止（可通过 <code>CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT</code> 覆盖）。修复 <code>--resume</code> 在无交互记录时的失败问题。</p>
+
+<h3>稳定性与细节修复</h3>
+<p>修复远程会话启动延迟、粘贴中日韩文本乱码、代理视图后台作业卡死、频道连接断开及子代理深度跟踪异常等问题。优化 VSCode 扩展在大会话恢复时的响应速度，并修正 Ghostty 终端 URL 点击及帮助文档缺失标志等细节。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.187</guid>
+      <pubDate>Tue, 23 Jun 2026 21:03:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>DevBox 0.17.5 发布说明</title>
+      <link>https://github.com/jetify-com/devbox/releases/tag/0.17.5</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>DevBox v0.17.5 版本主要包含一项针对环境管理器的回滚操作。该版本撤销了此前关于 direnv 的修复（#2890），该修复原本旨在通过 <code>shellenv --init-hook</code> 在进入开发环境时设置 <code>DEVBOX_SHELL_ENABLED</code> 变量。此次回滚通常是因为原修复引入了未预期的副作用或兼容性问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.17.5</guid>
+      <pubDate>Tue, 23 Jun 2026 20:35:44 GMT</pubDate>
+    </item>
     <item>
       <title>Codex CLI v0.142.0 更新：插件管理优化、多代理委托与令牌预算控制</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.142.0</link>
@@ -1063,62 +1091,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.153</guid>
       <pubDate>Thu, 28 May 2026 00:52:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>v2.1.152</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.152</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>## What's changed
-
-- `/code-review --fix` now applies review findings to your working tree after the review, surfacing reuse, simplification, and efficiency suggestions; `/simplify` now invokes `/code-review --fix`
-- Skills and slash commands can now set `disallowed-tools` in frontmatter to remove tools from the model while the skill is active
-- Added `/reload-skills` command to re-scan skill directories without restarting the session
-- `SessionStart` hooks can now return `reloadSkills: true` to re-scan skill directories, making skills installed by the hook available in the same session
-- `SessionStart` hooks can now set the session title via `hookSpecificOutput.sessionTitle` on startup and resume
-- Added a `MessageDisplay` hook event that lets hooks transform or hide assistant message text as it is displayed
-- Added `pluginSuggestionMarketplaces` managed setting: admins can allowlist org marketplaces whose plugins may be suggested via context-aware tips
-- `claude plugin marketplace remove` now accepts `--scope user|project|local` for symmetry with `marketplace add`, `install`, and `uninstall`
-- Claude Code now switches to your configured `--fallback-model` for the rest of the session when the primary model is not found, instead of failing every request
-- Auto mode no longer requires opt-in consent
-- Vim mode: `/` in NORMAL mode now opens reverse history search (like Ctrl+R), matching bash/zsh vi-mode
-- The `/usage` breakdown now includes large session files; files are scanned with a streaming read so memory usage stays flat
-- Thinking summaries in the collapsed group now stay readable for at least 3 seconds, render as markdown, and cap at 10 lines (`Ctrl+O` shows the full thinking)
-- In fullscreen mode, the "Thinking for Ns" indicator now counts up live while the model is thinking, and keeps its value if you interrupt mid-thought
-- Simplified the Workflow tool's inline progress display — live agent counts now show only in the persistent workflow status row below the prompt
-- The post-response timer now shows "Waiting for N background agents/workflows to finish" when backgrounded agents or workflows are still running, and reports the cumulative time once their results are processed
-- Added the session entrypoint as an OpenTelemetry metric attribute (`app.entrypoint`, opt-in via `OTEL_METRICS_INCLUDE_ENTRYPOINT=true`)
-- Fixed terminal styling degrading in very long sessions by recycling the renderer's style pool
-- Fixed the sandbox-enabled warning not appearing in condensed startup mode — it now shows in every layout
-- Fixed the loading spinner showing "still thinking"/"almost done thinking" while a tool is running, and reset the thinking status to "thinking" after each tool
-- Fixed focus mode showing a spurious "N messages hidden" count on turns with no hidden activity
-- Fixed clicking a link inside an expanded tool result collapsing the section instead of opening the link
-- Fixed markdown table cell borders inheriting the color of inline code, wrapped continuation lines losing their style, and empty header cells showing a label in the narrow-terminal stacked layout
-- Fixed plugin MCP servers with the same command but different environment variables being incorrectly deduplicated
-- Fixed `/doctor` reporting "marketplace not found" or "plugin not found" for stale `enabledPlugins` entries referencing removed marketplaces or dropped plugins
-- Fixed plugins that track a git branch silently no longer receiving updates after the plugin registry was rebuilt
-- Fixed remote MCP servers failing to connect in Claude Code Remote sessions when the egress proxy is enabled
-- Fixed the effort-change confirmation dialog appearing when the conversation has no messages or when switching between effort levels that resolve to the same underlying value
-- Fixed the Agent tool description referencing an agent list that is never delivered when running with `--bare` or with attachments disabled
-- Fixed a background worker crash in `claude agents` when accepting a stale permission prompt after a subagent was cancelled
-- Fixed `cache_creation_input_tokens` reporting as 0 in transcript and result usage when the API reports cache writes only via the nested `cache_creation` breakdown
-- Fixed the PushNotification tool incorrectly reporting "Mobile push not sent (Remote Control inactive)" in SDK-hosted sessions when Remote Control is enabled
-- Fixed sessions getting stuck after a model or login switch left stale thinking-block signatures in history; now stripped proactively with a retry safety-net]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.152</guid>
-      <pubDate>Wed, 27 May 2026 01:30:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>fzf v0.73.1 发布：修复 NUL 字节环境变量导出与 HTTP 请求性能问题</title>
-      <link>https://github.com/junegunn/fzf/releases/tag/v0.73.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fzf 发布了 v0.73.1 补丁版本，修复了两个关键问题：</p>
-<ul>
-<li>当条目包含 NUL 字节时，跳过 <code>$FZF_CURRENT_ITEM</code> 环境变量的导出，因为 <code>exec(2)</code> 会拒绝该环境变量，导致预览和其他子命令中断（<a href="https://github.com/junegunn/fzf/issues/4806">#4806</a>）</li>
-<li>修复了 <code>--listen</code> 模式下 HTTP 请求体的 O(n²) 累积问题；单个约 390 KB 的请求曾阻塞单线程服务器长达约 8 秒（感谢 Michal Majchrowicz、Marcin Wyczechowski 及 AFINE Team）</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.73.1</guid>
-      <pubDate>Mon, 25 May 2026 05:37:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
