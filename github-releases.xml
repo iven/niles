@@ -3,7 +3,29 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 24 Jun 2026 21:42:17 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 23:20:42 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.191 更新：支持对话恢复、MCP 可靠性提升与性能优化</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.191</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.191 版本发布，本次更新聚焦于对话管理、MCP（Model Context Protocol）服务可靠性提升以及多项性能优化。以下是主要变更内容：</p>
+<h3>核心功能与改进</h3>
+<ul>
+  <li><strong>对话恢复支持：</strong>新增 <code>/rewind</code> 命令，允许用户在执行 <code>/clear</code> 清除对话后，恢复到之前的对话状态。</li>
+  <li><strong>MCP 服务增强：</strong>提升了 MCP 服务器的可靠性，能力发现（如 <code>tools/list</code>、<code>prompts/list</code>）在遇到短暂网络错误时会自动重试。MCP OAuth 流程在令牌请求失败时增加重试机制，且在无头（headless）环境下将跳过浏览器弹窗，直接提示用户粘贴 URL。</li>
+  <li><strong>沙箱权限优化：</strong>改进沙箱网络权限对话框，用户允许访问的主机将在本次会话中自动记住，避免重复提示。</li>
+</ul>
+<h3>其他修复与优化</h3>
+<ul>
+  <li><strong>交互体验修复：</strong>修复了流式响应期间阅读早期输出时滚动位置跳至底部的问题；优化了代理面板滚动时的界面跳动；修复了欢迎界面在默认终端窗口中的溢出显示问题。</li>
+  <li><strong>后台代理与权限管理：</strong>修复了后台代理被停止后意外复活的问题，确保从任务面板停止的操作永久生效；修正了 <code>/permissions</code> 面板中批准拒绝请求未持久化的问题；改进了 <code>/voice</code> 被组织策略禁用时的错误提示，明确说明限制原因。</li>
+  <li><strong>性能提升：</strong>通过将文本更新合并至 100ms 间隔，流式响应期间的 CPU 使用率降低约 37%；同时优化了长会话中终端输出缓存的内存增长问题。</li>
+  <li><strong>其他细节修复：</strong>修复了 <code>claude agents</code> 命令中内置斜杠命令被误发为提示文本、图片路径未显示占位符、钩子匹配器不生效以及托管设置刷新未生效等多项问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.191</guid>
+      <pubDate>Wed, 24 Jun 2026 21:58:12 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.190 发布：错误修复与可靠性改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.190</link>
@@ -1058,32 +1080,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.1</guid>
       <pubDate>Thu, 28 May 2026 18:24:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.154 更新：引入 Opus 4.8 与动态工作流</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.154</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.154 版本，带来多项重大更新与优化。本次更新引入了最新的 <a href="https://www.anthropic.com/news/claude-4-family">Claude Opus 4.8</a> 模型，默认启用 high effort 模式，并推出了动态工作流（Dynamic Workflows）功能，允许 Claude 在后台编排多个 Agent 处理复杂任务。</p>
-
-<h3>主要更新</h3>
-<ul>
-  <li><strong>Opus 4.8 上线与性能优化</strong>：Opus 4.8 现已默认使用 high effort。Fast mode 成本大幅降低，以 2.5 倍的价格提供 2 倍的速度。</li>
-  <li><strong>动态工作流（Dynamic Workflows）</strong>：用户可要求 Claude 创建工作流，系统将在后台协调数十至数百个 Agent 并行处理，以应对更大规模、更复杂的任务。可通过 <code>/workflows</code> 查看运行状态。</li>
-  <li><strong>默认系统提示词调整</strong>：Lean system prompt 现已成为除 Haiku、Sonnet 及 Opus 4.7 及更早版本外的所有模型的默认设置。</li>
-  <li><strong>Agent 后台执行能力增强</strong>：在 <code>claude agents</code> 中，用户现在可以通过输入 <code>! &lt;command&gt;</code> 将 Shell 命令作为后台会话运行，支持附加和分离操作。</li>
-  <li><strong>插件与工具优化</strong>：插件现在可以在 <code>plugin.json</code> 中声明 <code>defaultEnabled: false</code> 以默认禁用。流式工具执行（Streaming tool execution）在所有环境下默认开启。</li>
-</ul>
-
-<h3>修复与改进</h3>
-<ul>
-  <li><strong>安全性提升</strong>：改进了自动模式分类器对数据外泄（特别是仓库内容批量传输）的检测能力，并修复了 <code>rm -rf $HOME</code> 路径处理的安全漏洞。</li>
-  <li><strong>后台会话稳定性</strong>：修复了后台会话在更新后频繁重生、处于阻塞状态无法退休、以及子 Agent 绕过工作树隔离等问题。</li>
-  <li><strong>终端与 UI 修复</strong>：解决了 <code>claude agents</code> 中高亮文本不可读、终端渲染损坏、Windows 更新失败提示不明确以及 VS Code 插件面板显示异常等问题。</li>
-  <li><strong>命令行为修正</strong>：<code>/simplify</code> 命令现仅执行清理审查（复用、简化、效率、高度），不再运行完整的代码审查。修复了 <code>/model</code> 选择器在特定情况下未显示 Fast mode 定价的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.154</guid>
-      <pubDate>Thu, 28 May 2026 18:00:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
