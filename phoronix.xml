@@ -3,7 +3,50 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 25 Jun 2026 08:30:06 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 11:50:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ AMD向FFmpeg DNN过滤器贡献ONNX Runtime后端</title>
+      <link>https://www.phoronix.com/news/FFmpeg-DNN-ONNX-Runtime</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍FFmpeg引入ONNX Runtime后端以支持DNN计算，属于新软件项目与AI技术进展，符合高兴趣配置。</small></p><p>AMD工程师Steven Xiao向FFmpeg上游贡献了ONNX Runtime后端，用于其DNN（深度神经网络）过滤器。</p>
+<p>FFmpeg的DNN过滤器允许在视频处理流水线中本地运行AI模型，支持超分辨率（Upscaling）、目标检测、背景分割等功能。此次更新显著扩展了FFmpeg的硬件加速能力，除了传统的CPU执行外，现在还支持NVIDIA CUDA、Windows DirectML（覆盖主要GPU厂商），以及通过ONNX Runtime VitisAI执行提供程序支持AMD Ryzen AI NPU。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=ffmpeg_onnx" alt="example usage of FFmpeg ONNX Runtime back-end" />
+<p>这一贡献使得Ryzen AI NPU在FFmpeg中的应用成为可能，进一步提升了FFmpeg在AI视频处理方面的灵活性。</p>
+<h4>你知道吗？</h4>
+<p>ONNX Runtime 是由微软主导的跨平台机器学习推理引擎，旨在提供高性能和跨硬件（CPU、GPU、NPU等）的模型运行支持。通过引入该后端，FFmpeg得以利用更广泛的硬件加速能力，而不仅仅局限于特定的厂商方案。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/FFmpeg-DNN-ONNX-Runtime</guid>
+      <pubDate>Thu, 25 Jun 2026 10:23:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2 内核继续清理 Realtek RTL8723BS 驱动</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-Staging</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 聚焦Linux 7.2内核开发进展及特定硬件驱动优化，属于Linux技术与开源项目范畴，符合一般兴趣配置。</small></p><p>Realtek rtl8723bs WiFi 驱动自 2017 年（Linux 4.12 内核）被加入内核的 staging 区域以来，一直未能正式合并。在即将发布的 Linux 7.2 内核中，该驱动的清理工作依然是 staging 区域变更的主要部分。</p>
+
+<p>Linux 内核维护者 Greg Kroah-Hartman 将该驱动形容为“野兽般的驱动（beast of a driver）”，本合并周期共有 154 个补丁用于清理该驱动。这些补丁主要涉及移除函数包装器、清理代码元素、重命名函数以及移除不必要的抽象，旨在使其代码风格与上游 Linux WiFi 驱动保持一致。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=realtek_beast_sml" alt="RTL8723BS ASIC" />
+
+<p>Realtek RTL8723BS 是一款支持 Bluetooth 4.0 的 802.11 b/g/n WiFi 芯片组。随着清理工作的推进，希望该驱动能早日从 staging 区域毕业，正式进入内核网络子系统。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Staging</guid>
+      <pubDate>Thu, 25 Jun 2026 10:08:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2 内核 KSMBD 添加 SMB2 压缩支持</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-KSMBD</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍Linux内核网络服务KSMBD新增SMB2压缩支持，属于软件新功能与开源进展，符合一般兴趣配置。</small></p><p>内核级 <strong>KSMBD</strong>（内核级 SMB3 文件服务器）自 2021 年合并至 Linux 5.15 以来进展平稳。在即将发布的 Linux 7.2 内核中，该模块迎来了重要更新：正式添加了对 <strong>SMB2</strong> 压缩的支持。</p>
+<p>Linux 开发者 Namjae Jeon 在负责 NTFS 和 F2FS 驱动开发之余，为 KSMBD 实现了这一压缩功能。微软在 <strong>SMB 3.1.1</strong> 协议中引入了原生的传输中数据压缩（in-transit data compression）特性，旨在通过 <strong>LZ4</strong>、<strong>XPRESS/LZ77</strong> 和 <strong>Pattern_V1</strong> 等算法加速文件复制。KSMBD 现已完整实现该压缩标准，并与 CIFS 共享 LZ77 编码器。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=ksmbd_compression" alt="KSMBD compression patches" />
+<p>目前，KSMBD 内核驱动已能够协商 <strong>LZ77</strong> 和 <strong>Pattern_V1</strong> 压缩支持，并通告相应的 <strong>SMB</strong> 能力。此次合并不仅涵盖了静态数据（at rest data）的压缩，也支持传输中数据（over the wire）的压缩。此外，Linux 7.2 中的 KSMBD 还包含多项错误修复，进一步提升了稳定性。</p>
+<h3>你知道吗？</h3>
+<p><strong>KSMBD 与 Samba 的区别</strong>：传统的 Linux 网络共享通常依赖用户态的 Samba 服务，而 KSMBD 是直接在 Linux 内核中实现的 SMB 服务器。内核态实现避免了用户态与内核态之间的数据拷贝开销，因此在高吞吐量和低延迟场景下性能更优。此次加入的压缩功能进一步减少了网络带宽占用，特别适合大文件传输和慢速网络环境。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-KSMBD</guid>
+      <pubDate>Thu, 25 Jun 2026 09:42:51 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.2 更新：NTFS3 驱动持续维护并修复多项问题</title>
       <link>https://www.phoronix.com/news/Linux-7.2-NTFS3</link>
@@ -662,53 +705,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Myna-Speech-To-Text</guid>
       <pubDate>Wed, 17 Jun 2026 13:34:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qt Creator 20 发布：引入 AI 代理支持与禅模式</title>
-      <link>https://www.phoronix.com/news/Qt-Creator-20-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要发布Qt Creator 20 IDE及AI功能，高度契合全局“编程工具发布”与来源“新软件项目/KDE生态”的高兴趣配置，评为必看。</small></p><h2>正文</h2>
-<p>Qt Creator 20 集成开发环境（IDE）今日正式发布，该版本主要面向 Qt/C++ 编程，核心亮点是引入了 AI 代理（AI Agent）支持。</p>
-<p>新版通过 ACP（Agent Client Protocol）客户端扩展，在 IDE 中新增了一个聊天面板，用于集成 AI 代理。该功能兼容多种 AI/LLM 提供商，包括 Claude Code、Codex 和 GitHub Copilot 等。<img src="//www.phoronix.net/image.php?id=2026&amp;image=qt_creator_20" alt="Qt Creator 20 with AI agent integration, demo with Claude Code" /> 这一更新是对 Qt Creator 19 中引入的 MCP（Model Context Protocol）支持的补充，进一步完善了 IDE 的 AI 功能生态。</p>
-<p>除了 AI 功能，Qt Creator 20 还引入了“禅模式”（Zen Mode）扩展，旨在通过减少界面干扰，让用户更专注于代码编辑。在技术底层方面，Clangd C++ 代码模型已更新至 LLVM 22.1.2 版本，并新增了对 Generate Ninja (GN) 项目的支持。</p>
-<h2>你知道吗？</h2>
-<p>ACP（Agent Client Protocol）和 MCP（Model Context Protocol）是旨在标准化 AI 工具与应用程序交互的协议。MCP 由 Anthropic 提出，主要用于让 AI 模型安全地访问用户数据；而 ACP 则更侧重于让 AI 代理（Agent）能够执行任务并与开发环境进行更深层次的交互。Qt Creator 同时支持这两种协议，意味着开发者可以灵活选择最适合其工作流的 AI 工具。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Qt-Creator-20-Released</guid>
-      <pubDate>Wed, 17 Jun 2026 10:31:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GCC 17 发布 C++29 标准初始支持基础设施</title>
-      <link>https://www.phoronix.com/news/GCC-17-std-CPP29-Experimental</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍GCC 17编译器更新及C++29支持，属于核心编程工具发布，符合全局“编程工具发布/分享”的高兴趣配置，评为必看。</small></p><p>GNU 编译器集合（GCC）开发团队近日在 GCC 17 版本的代码库中合并了针对 C++29 标准的初始基础设施支持。尽管 C++29 标准预计要到 2029 年左右才会正式定稿发布，但开发者已开始为这一后续修订版搭建实验性支持框架。</p>
-<p>此次更新由红帽（Red Hat）编译器工程师 Jakub Jelinek 提交，主要引入了使用 <code>-std=c++29</code> 或别名 <code>-std=c++2d</code> 来指定 C++29 标准的编译选项，同时提供了 <code>-std=gnu++29</code> 的 GNU 方言变体。目前 GCC 对 C++26 的支持仍在持续推进中，C++29 的早期工作紧随其后展开。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=gcc_cpp29" alt="GCC C++29" />
-<p>此次基础设施的更新紧随近期在布尔诺（Brno）举行的 C++ 委员会会议之后。会议中采纳的 C++29 草案特性包括：<strong>全面捕获未定义行为（catching all undefined behavior）</strong>、<strong>基类的指定初始化（designated initializers for base classes）</strong>，以及其他旨在提升内存安全性的相关工作。如需了解近期 C++ 标准会议的详细情况，可参考 Herb Sutter 撰写的会议报告。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-17-std-CPP29-Experimental</guid>
-      <pubDate>Wed, 17 Jun 2026 10:23:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2 存储子系统更新：IO_uring 性能优化、NVMe 增强与内联加密支持</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-Storage</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲解Linux 7.2内核中IO_uring、NVMe驱动及块设备子系统的技术更新，属于开源Linux系统底层功能优化与软件新功能，符合对Linux技术的兴趣，故推荐阅读。</small></p><p>Linux 7.2 内核继续整合了大量存储相关的改进，涵盖文件系统、块设备代码、软件 RAID、IO_uring 接口以及设备映射器（Device Mapper）等多个层面。以下是本次合并的主要特性更新：</p>
-<ul>
-  <li><strong>NVMe 驱动增强：</strong>新增了每个控制器的管理 I/O 超时 sysfs 属性，并为多路径设备启用了 PCI 点对点 DMA（P2PDMA）。此外，还引入了新的 sysfs 属性组以暴露每个控制器的计数器。</li>
-  <li><strong>软件 RAID (MD) 改进：</strong>修复了 RAID1 和 RAID10 在读取错误恢复路径中可能出现的死锁问题。同时，MD 代码现在能更好地处理从成员设备到 RAID 设备的 PCI P2PDMA 传播。</li>
-  <li><strong>IO_uring 性能与功能提升：</strong>重写了 task_work 基础设施以提升性能；新增零拷贝接收（zcrx）用户通知机制，通过专用完成队列条目（CQE）与用户空间通信，并提升了其可靠性。此外还包括注册缓冲区改进、支持 IORING_OP_CONNECT 操作码过滤等清理工作。</li>
-  <li><strong>设备映射器（Device Mapper）新特性：</strong>引入了 dm-inlinecrypt 目标，专为块设备内联加密设计，相较于传统的 dm-crypt 具有更高效率，尤其适用于支持内联加密的通用闪存存储（UFS）主机控制器。</li>
-</ul>
-<p>块子系统整体代码现已支持 LLVM 的 Clang 锁上下文分析（Clang lock context analysis）。更多块设备相关更改可查阅相关 Git 合并记录，IO_uring 相关细节可查阅相关 Git 合并记录。随着 6 月 28 日合并窗口的结束，Linux Git 仓库中还将持续有新的特性代码落地。</p>
-<p><strong>你知道吗？</strong></p>
-<ul>
-  <li><strong>PCI P2PDMA：</strong>允许不同 PCIe 设备之间直接进行 DMA 数据传输，无需经过系统内存，从而降低延迟并减轻 CPU 和内存总线的负担。</li>
-  <li><strong>dm-inlinecrypt：</strong>一种设备映射器目标，利用硬件（如 UFS 控制器）自带的加密引擎直接在块设备层面进行加密/解密，避免了传统软件加密（如 dm-crypt）带来的性能开销。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Storage</guid>
-      <pubDate>Wed, 17 Jun 2026 08:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
