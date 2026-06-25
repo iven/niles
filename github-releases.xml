@@ -3,7 +3,40 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 25 Jun 2026 20:20:22 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 22:43:08 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.193 更新日志</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.193</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>本次更新主要增强了自动模式（Auto Mode）的控制能力与后台代理（Background Agents）的稳定性，并引入了多项开发者体验改进。</p>
+<h3>核心功能与设置增强</h3>
+<ul>
+  <li>新增 <code>autoMode.classifyAllShell</code> 设置，允许将所有 Bash/PowerShell 命令路由至自动模式分类器，而不仅限于任意代码执行模式。</li>
+  <li>在自动模式拒绝时，现在会在转录记录、拒绝提示（toast）及 <code>/permissions</code> 命令中显示具体的拒绝原因。</li>
+  <li>引入实时文件路径自动补全功能，在 bash 模式（<code>!</code>）下使用更加便捷。</li>
+  <li>新增 <code>claude_code.assistant_response</code> OpenTelemetry 日志事件，用于记录模型响应文本（可通过环境变量控制是否记录）。</li>
+  <li>当 MCP 服务器需要身份验证时，启动时会显示相应通知并引导至 <code>/mcp</code>。</li>
+</ul>
+<h3>后台任务与代理优化</h3>
+<ul>
+  <li>引入空闲后台 shell 命令的自动内存压力回收机制（可通过 <code>CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP=1</code> 禁用）。</li>
+  <li>优化后台代理行为：启动结果不再强制要求 Claude “结束响应”，代理可在后台继续处理其他任务。</li>
+  <li>改进 MCP <code>headersHelper</code> 的身份验证逻辑，当工具调用返回 401/403 时会自动重新运行并重新连接。</li>
+  <li>插件市场重命名映射现在会自动生效，自动更新用户设置中的插件名称。</li>
+</ul>
+<h3>错误修复与体验改进</h3>
+<ul>
+  <li>修复了 <code>/model</code> 等依赖客户端数据的 UI 在 <code>/login</code> 后立即显示陈旧或空状态的问题。</li>
+  <li>修复了后台任务在会话切换时错误提示“将放弃 N 个后台任务”的问题。</li>
+  <li>修复了固定后台代理在每次自动更新后重复提示“从上次中断处继续”的问题。</li>
+  <li>修复了将主对话后台化时生成幽灵“通用（恢复）”子代理并重复运行主对话的问题。</li>
+  <li>修复了查看子代理时代理面板隐藏同级代理的显示问题。</li>
+  <li>优化了 <code>/add-dir</code> 命令在目录已是工作目录时的提示信息。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.193</guid>
+      <pubDate>Thu, 25 Jun 2026 21:45:57 GMT</pubDate>
+    </item>
     <item>
       <title>Codex v0.142.2 更新：MCP 工具搜索默认启用与 macOS 代理支持</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.142.2</link>
@@ -1057,32 +1090,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.158</guid>
       <pubDate>Sat, 30 May 2026 02:42:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.157 发布：插件自动加载、工作区管理优化及多项 UI 修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.157</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.157 发布：插件自动加载、工作区管理优化及多项 UI 修复</h2>
-<p>Claude Code 发布了 v2.1.157 版本，此次更新重点增强了插件与工作区（Worktrees）的管理能力，并修复了多项终端与用户界面（UI）问题。</p>
-<h3>插件与工作区管理增强</h3>
-<ul>
-    <li><strong>插件自动加载</strong>：位于 <code>.claude/skills</code> 目录下的插件现在会自动加载，无需再通过市场安装。新增 <code>claude plugin init &lt;name&gt;</code> 命令用于创建新插件，并支持 <code>/plugin</code> 参数的自动补全。</li>
-    <li><strong>工作区改进</strong>：支持在会话中使用 <code>EnterWorktree</code> 切换工作区；代理完成后工作区将自动解锁，便于清理；修复了后台会话重新附加后日期错误、后台子代理状态报告不准确等问题。</li>
-</ul>
-<h3>终端与 UI 体验优化</h3>
-<ul>
-    <li><strong>终端修复</strong>：修复了全屏模式下的 Markdown 标记显示、终端冻结、滚动回退重复行、右键粘贴重复等问题。针对集成终端（VS Code/Cursor/Windsurf）的乱码问题，通过禁用 GPU 加速解决。</li>
-    <li><strong>图片处理</strong>：修复了损坏图片导致请求崩溃的问题，并在 WSL 环境下支持图片粘贴和拖拽。</li>
-    <li><strong>其他 UI 调整</strong>：Feature of the Week 状态改为通知显示，移除了部分启动横幅和提示。</li>
-</ul>
-<h3>性能与稳定性</h3>
-<ul>
-    <li><strong>性能提升</strong>：通过消除冗余的消息渲染重计算，提升了长对话和恢复会话的性能。</li>
-    <li><strong>稳定性修复</strong>：修复了沙盒网络权限提示在特定模式下错误出现的问题，并增强了遥测（Telemetry）数据，<code>tool_decision</code> 事件现在包含工具参数。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.157</guid>
-      <pubDate>Fri, 29 May 2026 20:20:38 GMT</pubDate>
     </item>
   </channel>
 </rss>
