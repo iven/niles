@@ -3,7 +3,94 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 25 Jun 2026 11:49:06 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 20:24:13 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Hacker Trends：基于 18 年 HN 数据构建的“Google Trends”</title>
+      <link>https://news.ycombinator.com/item?id=48673671</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 基于 HN 数据构建的数据分析可视化工具，属于开源项目/开发者工具范畴，对用户有兴趣的技术主题</small></p><p>作者开发了 <a href="https://hackernewstrends.com">Hacker Trends</a>，该项目深度索引了 Hacker News 过去 18 年间积累的 4500 万篇帖子与评论，构建了一个类似 Google Trends 的技术话题趋势分析工具。</p>
+<p>该工具基于 <a href="https://upstash.com/">Upstash Redis Search</a> 构建，支持用户输入任意关键词（如技术栈、公司、人物或事件）生成时间轴图表，并可叠加多个词汇对比其热度起伏。图表下方直接关联了该时间段内的原始帖子与评论，方便用户追溯讨论源头。</p>
+<p>通过该工具，可以清晰观察到技术领域的代际更迭与话题变迁。例如，在 AI 领域，OpenAI 与 Anthropic 的讨论热度在 2023 年后交替领先；前端框架经历了从 Angular 到 Vue 再到 Svelte 的接力；数据库领域 MySQL 逐渐被 Postgres 超越；编辑器生态中 Vim 与 Emacs 长期占据主导，而 Zed 在 2024 年后迅速崛起。此外，工具还涵盖了从 CI/CD 工具、云服务商到加密货币周期的广泛对比。</p>
+<p>项目上线后迅速获得社区高度认可。有用户指出 HN 的完整档案极具价值，相当于一个离线搜索引擎。针对社区反馈，作者计划增加全屏图表视图与情绪分析功能，并考虑对趋势数据进行归一化处理（按时间段的总发帖量折算），以更准确地反映相对热度。项目初期因流量激增遭遇“Slashdotting”效应导致服务短暂超时，作者已记录问题并持续优化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48673671</guid>
+      <pubDate>Thu, 25 Jun 2026 14:08:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Cloudflare 推出自托管 OAuth 并分享零停机迁移经验</title>
+      <link>https://news.ycombinator.com/item?id=48668033</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 分享零停机迁移经验对开发者有实用价值，属于编程效率改进经验范畴，但主要是公司发布的内容</small></p><p><img src="https://cf-assets.www.cloudflare.com/zkvhlag99gkb/470YV3u8pJdiSjyhZl1Zro/12aaff16d7787082571eeee0d2b8217f/image1.png" alt="Cloudflare OAuth for all" /></p>
+<p>Cloudflare 近日宣布全面开放 <a href="https://blog.cloudflare.com/oauth-for-all/">Self-Managed OAuth（自托管 OAuth）</a> 功能，允许所有客户创建和管理自己的 OAuth 客户端，用于对 Cloudflare API 的委托访问。此举旨在替代以往主要依赖的 API 令牌，解决其在权限管理和安全性上的不足，从而更好地支持第三方集成、内部开发者平台及 AI 智能体（Agents）等场景。</p>
+<p>为了支撑这一功能并实现零停机迁移，Cloudflare 对其底层 OAuth 引擎（基于开源的 <a href="https://github.com/go-oauth2/hydra">Hydra</a>）进行了重大架构升级。升级过程分为两个阶段：首先升级至 1.X 版本，随后升级至 2.X 版本。在此过程中，团队克服了数据库 Schema 迁移导致的锁表问题、旧版 SDK 中 <code>SELECT *</code> 引发的反序列化错误，以及新版本更严格的刷新令牌（Refresh Token）失效机制等挑战。通过采用并发索引创建、定制 Hydra 版本、蓝绿部署策略，以及利用 <a href="https://developers.cloudflare.com/queues/">Cloudflare Queues</a> 实现撤销事件的重放，Cloudflare 成功在升级期间保持了系统的高可用性。</p>
+<p>升级完成后，系统性能得到显著提升。API P95 延迟降低 45%，CPU 使用率下降 37%，内存占用减少 14%。目前，该功能已正式面向所有开发者开放。</p>
+<p><strong>社区反馈：</strong></p>
+<ul>
+  <li><strong>安全性与滥用担忧：</strong>部分开发者指出，将 OAuth 用于基础设施访问可能存在权限滥用风险，认为这类似于将 API 密钥分发给第三方。但 Cloudflare 强调 OAuth 提供了更细粒度的权限控制和便捷的撤销机制，安全性优于静态令牌。</li>
+  <li><strong>平台化战略讨论：</strong>有用户担心 Cloudflare 向综合云平台转型可能会影响其核心免费服务的可持续性，也有用户认为这是合理的商业演进。</li>
+  <li><strong>技术深度评价：</strong>部分读者认为文章更多是分享偿还技术债的过程，缺乏颠覆性创新，但仍有不少开发者欣赏这种大规模系统迁移的幕后经验。</li>
+</ul>
+<p><strong>你知道吗？</strong></p>
+<p>OAuth 与传统的 API 密钥（API Key）有何不同？API 密钥通常是静态的，一旦泄露或需要更改，必须手动轮换且难以撤销特定权限。而 OAuth 是一种授权框架，允许用户在不共享凭证的情况下，向第三方应用授予有限、可撤销的访问权限。通过 OAuth，用户可以精确控制应用能访问哪些资源（Scope），并在随时发现异常时一键撤销授权，这在现代微服务和第三方集成生态中已成为标准的安全实践。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48668033</guid>
+      <pubDate>Thu, 25 Jun 2026 02:18:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>博客写作的本质：敢于陈述显而易见之事</title>
+      <link>https://news.ycombinator.com/item?id=48666927</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论博客写作技巧，与编程工具、AI 模型等技术主题关联度不高，兴趣不明确</small></p><p>本文探讨了博客写作的核心价值，指出写作不必追求新颖或深刻，敢于指出那些显而易见却被忽视的问题，或清晰复述常识，本身就是一种有价值的表达。</p>
+<p>作者引用 <a href="https://blog.jim-nielsen.com/2026/blogging-stating-the-obvious/">John Gruber</a> 对网站弹窗的批评，强调“网页应展示网页”是基本常识。社区反馈进一步延伸了这一观点：</p>
+<ul>
+  <li><strong>打破“知识的诅咒”（Curse of Knowledge）：</strong> 专家常低估初学者的认知盲区。清晰复述常识能帮助新手建立基础，即使想法不新，个人的复述和视角也赋予其独特价值。</li>
+  <li><strong>平台体验的倒退：</strong> 评论者批评 Substack 等平台强制订阅弹窗和臃肿代码，认为这违背了网页展示内容的初衷。有评论指出 <a href="https://www.theguardian.com/media/2026/feb/07/revealed-how-substack-makes-money-from-hosting-nazi-newsletters">Substack 甚至因流量利益托管极端内容</a>，加剧了用户反感。</li>
+  <li><strong>AI 与原创性的边界：</strong> 关于 AI 对博客的影响存在分歧。部分观点认为 AI 可辅助寻找未充分讨论的话题；另一部分则强调 AI 无法替代个人经验与独特视角，且保留个人博客是对时代精神的记录。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48666927</guid>
+      <pubDate>Wed, 24 Jun 2026 23:46:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Google 在 Gemini 3.5 Flash 中内置计算机使用（Computer Use）功能</title>
+      <link>https://news.ycombinator.com/item?id=48662999</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍 Google 新 AI 模型 Gemini 3.5 Flash 的功能更新，属于用户很感兴趣的新 AI 模型发布内容</small></p><div>
+  <p>Google DeepMind 近日宣布，将<strong>计算机使用（Computer Use）</strong>功能正式内置于 <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-computer-use-gemini-3-5-flash/">Gemini 3.5 Flash</a> 模型中。该功能旨在赋能开发者构建能够跨平台交互的智能代理（Agents），使其在浏览器、移动端及桌面环境中具备“视觉感知、逻辑推理与实际操作”的能力。</p>
+  <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini-3-5__benchmark-OSWorld-Ver.width-100.format-webp.webp" alt="Gemini 3.5 benchmarks" width="100" />
+  <p>内置 Computer Use 后，开发者可通过 Gemini API 和 <a href="https://deepmind.google/models/evals-methodology/gemini-3-5-flash">Gemini Enterprise Agent Platform</a> 快速部署定制化代理，显著提升长周期任务与企业自动化（如持续软件测试、跨专业应用的知识工作）的执行效率。</p>
+  <p>针对代理在真实环境中运行可能面临的提示注入（Prompt Injection）风险，Google 采用了定向对抗性训练，并推出两项可选的企业级安全护栏：<br/>
+  - 要求对敏感或不可逆操作进行明确的用户确认；<br/>
+  - 自动识别并停止受间接提示注入影响的任务。<br/>
+  官方建议结合安全沙箱、人工审核（Human-in-the-loop）及严格访问控制，采用“纵深防御（Defense-in-depth）”策略。</p>
+  <p>目前，Browserbase、Browser Use 及 UIPath 等合作伙伴已率先利用该功能验证其商业价值。</p>
+  <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_3.5_Flash_BrowserBase_v2.width-100.format-webp.webp" alt="Quote from Miguel Gonzalez Fernandez, Browserbase" width="100" />
+  <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_3.5_Flash_Browser_Use_1.width-100.format-webp.webp" alt="Quote from Magnus Muller, CEO, Browser Use" width="100" />
+  <h3>社区反馈</h3>
+  <p>该公告在 Hacker News 引发广泛讨论，主要聚焦于以下几点：</p>
+  <ul>
+    <li><strong>生态集成短板：</strong>多位开发者指出，Gemini 应用目前仍缺乏对 <a href="https://modelcontextprotocol.io/">模型上下文协议（MCP）</a> 的支持，导致难以通过自然对话无缝连接各类数据源与外部设备，削弱了其在多端生态中的竞争力。</li>
+    <li><strong>Computer Use 的实用性争议：</strong>部分用户认为该功能运行缓慢、成本高昂且易出错，主张 LLM 应通过 API 而非“观看屏幕”与操作系统交互；但支持者强调，其在 UI 自动化测试、质量保证（QA）及辅助视障人士方面具有不可替代的作用。</li>
+    <li><strong>基准测试图表争议：</strong>有用户指出，官方博客展示的 OSWorld 基准测试图表在视觉上可能产生误导。实际数据显示，Gemini 3.5 Flash 在该项目上略低于 Claude Opus 4.8 和 GPT 5.5，但官方解释称两者差距仅 0.3 分，图表绘制初衷仅为突出蓝色系的 Gemini 模型。</li>
+    <li><strong>安全限制与稳定性：</strong>部分用户反馈近期测试中频繁遭遇过度安全拦截（Guardrails），以及模型在多次迭代失败后直接放弃任务而非继续尝试的问题。</li>
+  </ul>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48662999</guid>
+      <pubDate>Wed, 24 Jun 2026 17:21:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Nub：基于 Node.js 增量的全栈开发工具集</title>
+      <link>https://news.ycombinator.com/item?id=48660267</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍全新的 Node.js 全栈开发工具集 Nub，属于用户很感兴趣的编程工具发布内容</small></p><p><a href="https://github.com/nubjs/nub" rel="nofollow"><img src="https://camo.githubusercontent.com/ccc0686b675dfa20501426cc5efa05a3f5c3033031b2ba6b294535eba0bf3b49/68747470733a2f2f6e75626a732e636f6d2f69636f6e2d626f726465722e737667" alt="Nub logo" width="200px" /></a> Nub 是一款由开发者 Colin 推出的开源工具集，旨在通过增强原生 Node.js 来提供类似 Bun 的开发体验（DX），同时避免厂商锁定。该项目核心思路是“增量增强”而非“替换运行时”，所有代码最终仍在 Node.js 原生引擎与标准库上执行。</p>
+<p>Nub 主要利用 Node.js 的扩展接口实现功能注入：<a href="https://nodejs.org/api/cli.html#-require-module" rel="nofollow">--require</a> 预加载钩子用于挂载基于 oxc 的转译器，<a href="https://nodejs.org/api/module.html#moduleregisterhooksoptions" rel="nofollow">module.registerHooks()</a> 负责模块解析，并按需注入 <code>Temporal</code>、<code>Worker</code> 等现代 API 的多态填充（Polyfill）。此外，它支持 TypeScript/JSX/TSX 直出、装饰器、自动加载 <code>.env</code> 文件，并内置了对常见数据格式（YAML、TOML 等）的解析器。</p>
+<p>在性能方面，Nub 通过 Rust 编写核心组件并消除 JavaScript 启动开销，表现显著：脚本运行器（<code>nub run</code>）比 <code>pnpm run</code> 快约 24 倍，包执行器（<code>nubx</code>）比 <code>npx</code> 快约 19 倍，包管理器（<code>nub install</code>）比 <code>npm</code> 快约 3.7 倍，整体启动速度较 <code>tsx</code> 提升 2.9 倍。工具集还包含自动 Node 版本管理、依赖图驱动的监听模式，以及默认拦截 <code>postinstall</code> 并集成 osv.dev 恶意包检测的安全机制。</p>
+<p>HN 社区对该项目的设计理念给予积极反馈。开发者普遍认为“增强而非替代”的策略有效降低了迁移成本，且 Docker 与多平台支持完善。技术讨论中，作者解释了采用同步钩子与 <code>--require</code> 主要是为了将预加载开销控制在 0.5ms 以内；同时，针对社区关于 Node.js 配置文件缺乏注释支持的讨论，作者表示 Nub 未来可引入独立配置文件，但目前仍选择遵循 Node 的无配置策略以保持生态兼容。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48660267</guid>
+      <pubDate>Wed, 24 Jun 2026 14:14:18 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Anthropic 指控阿里巴巴非法提取 Claude AI 模型能力</title>
       <link>https://news.ycombinator.com/item?id=48664814</link>
@@ -818,107 +905,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48600167</guid>
       <pubDate>Fri, 19 Jun 2026 16:11:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI正在削弱人类专业技能？早期研究揭示“技能退化”隐忧</title>
-      <link>https://news.ycombinator.com/item?id=48601286</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要探讨依赖AI工具可能导致医生和软件工程师专业技能退化的早期研究。虽非直接的技术进展公告，但涉及AI应用对人类技能的影响，与用户关注的AI领域相关，故推荐阅读。</small></p><p>随着人工智能（AI）工具在医疗、编程等领域的广泛应用，专业人士开始担忧过度依赖AI会导致自身核心技能退化（deskilling）。《自然》（Nature）近期报道了多项研究，揭示了这一现象在医学和计算机科学领域的初步迹象。</p><p>在医学领域，一项针对波兰内窥镜医生的研究发现，当医生习惯使用AI辅助检测结肠癌前病变（腺瘤）后，一旦脱离AI系统，其检测准确率显著下降。研究指出，持续接触AI工具可能导致临床医生在独立决策时变得“动力不足、注意力分散且责任感降低”。</p><img src="//media.nature.com/lw767/magazine-assets/d41586-026-01947-1/d41586-026-01947-1_52722984.jpg" alt="结肠镜检查场景" /><p>在计算机科学领域，AI公司Anthropic进行的一项随机对照试验显示，52名软件工程师在完成基础编码任务后，曾使用AI辅助的工程师在随后的知识测验中得分（平均50%）显著低于未使用AI的工程师（平均67%）。这表明，即使是经验丰富的专业人士，在借助AI完成工作后，也可能因缺乏深度思考而削弱对任务的理解与掌握。</p><p>专家指出，目前尚无解决技能退化的成熟方案，这应成为未来十年的重要研究课题。研究人员建议，专业人士需保持警惕，明确哪些技能必须保留，哪些可以外包给AI。</p><h3>社区反馈</h3><ul><li><strong>创新停滞的担忧</strong>：有用户指出，真正的威胁不在于个人技能下降，而在于社会整体创新能力的停滞。AI目前尚不具备创新能力，如果人类将过多思考外包给机器，可能会阻碍未来的技术突破。</li><li><strong>技能转移与常态</strong>：部分观点认为，技能退化是技术进步的常态。正如计算器取代了心算、高级编程语言取代了汇编语言，关键在于保留核心判断力。如果一项技能已被机器更高效地完成，它便转化为“技术”而非“人类技能”。</li><li><strong>个人实践差异</strong>：一些资深开发者分享称，重度依赖AI确实导致代码质量下降和判断力减弱，因此选择停用AI以维持手感；但也有管理者表示，AI帮助他们保留了部分编码能力，从而更高效地推动项目。</li></ul><p>总体而言，AI带来的技能退化风险不容忽视，但如何平衡工具效率与核心能力保留，仍是每个专业人士需要面对的课题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48601286</guid>
-      <pubDate>Fri, 19 Jun 2026 18:00:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Google Workspace 警告 Firefox 用户：需改用 Chrome 否则可能失去访问权限</title>
-      <link>https://news.ycombinator.com/item?id=48600345</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讨论 Google Workspace 调整浏览器兼容策略，偏向软件平台功能与政策更新，符合用户对软件新功能与技术进展的兴趣，故推荐。</small></p><h2>事件概述</h2>
-<p>2026年6月，多位 Google Workspace 用户反馈，在使用 Firefox 浏览器访问 Workspace 时遇到了访问拦截警告。系统提示用户设备未满足组织的安全要求，并强烈建议下载 Chrome 浏览器以恢复访问权限，否则账户访问可能会受到限制。</p>
-<p><img src="/static/2026-06-18-google-workspace-threatening-to-block-firefox/warning-screen.png" alt="A google workspace page with the following text Icon indicating that the user may soon lose their access to their account and that they must install Chrome" width="610" /></p>
-<p>事件曝光后，作者联系了 Google 官方支持，但仅得到重复的转接回复，未能获得实质性帮助。作者指出，此举不仅影响其个人使用偏好，也给团队的多浏览器兼容性测试带来了困扰。</p>
-
-<h2>社区讨论与技术分析</h2>
-<p>在 Hacker News 等社区的讨论中，用户们深入分析了背后的技术原因与潜在动机：</p>
-<ul>
-<li><strong>企业安全策略限制</strong>：多数评论认为，这并非 Google 面向所有用户的强制行为，而是企业 IT 管理员启用了 <a href="https://knowledge.workspace.google.com/admin/security/create-context-aware-access-levels" rel="nofollow">上下文感知访问（Context-Aware Access, CAA）</a> 或设备策略。由于 Firefox 尚未完全支持 Google 的端点验证插件（Endpoint Verification）或设备浏览器安全控制（DBSC），导致被安全网关拦截。</li>
-<li><strong>调试与排查困难</strong>：有安全工程师指出，CAA 机制存在一个显著缺陷：当访问被拒时，系统不会告知用户或管理员具体是哪个安全策略导致了拦截。这使得配置和排查企业安全策略变得极其困难且容易出错。</li>
-<li><strong>反竞争与生态锁定争议</strong>：部分用户批评 Google 此举具有明显的反竞争（anticompetitive）和垄断倾向，认为其正通过技术手段将企业客户锁定在 Chrome 生态中。也有观点反驳称，这是企业为满足合规要求而做出的安全选择，Google 只是提供了相应的管理工具。</li>
-</ul>
-
-<h2>你知道吗？</h2>
-<p><strong>上下文感知访问（Context-Aware Access, CAA）</strong> 是 Google Workspace 提供的一项高级安全功能，允许管理员根据用户访问资源时的上下文（如设备状态、网络位置、时间等）动态调整访问权限。虽然该功能能显著提升企业数据安全，但由于其高度依赖 Google 专有的端点验证机制，跨浏览器和跨平台的兼容性一直是企业部署时的痛点。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48600345</guid>
-      <pubDate>Fri, 19 Jun 2026 16:30:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ ATProto 为什么没有“实例”？解析去中心化社交网络的新架构</title>
-      <link>https://news.ycombinator.com/item?id=48599515</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要解析 ATProto 去中心化社交网络的底层协议架构，涉及开源协议与网络技术设计，符合用户对开源项目与技术架构的兴趣，故推荐。</small></p><p>在去中心化社交网络（如 Bluesky）的讨论中，一个常见的问题是：“为什么没有像 Mastodon 那样的实例（Instances）？”作者指出，这实际上是一个<span class="highlight">范畴错误（Category Error）</span>。文章通过回顾互联网架构的演变，解释了 ATProto 协议为何不采用“实例”概念，以及这种设计带来的去中心化优势。</p>
-
-<h3>从 RSS 到联邦宇宙：架构的演变</h3>
-<p>互联网早期的博客时代（如 RSS 和 Google Reader）采用了一种“发布与聚合分离”的模式：内容发布在个人博客上，由第三方应用进行聚合。随后，传统社交媒体（如 Facebook）将内容与封闭的 App 捆绑，导致了中心化问题。为了去中心化，Mastodon 等联邦宇宙（Fediverse）平台引入了“实例（Instances）”概念，将托管与聚合捆绑在一起。每个实例如同一个独立的“小 Facebook”，实例之间通过联邦协议（Federation）互相转发内容。这种模式虽然实现了去中心化，但也带来了身份与实例强绑定、实例间关系复杂（O(n²)）以及实例宕机导致身份丢失等问题。</p>
-
-<h3>ATProto 的设计：回归发布与聚合分离</h3>
-<p>ATProto 协议的设计回归了 RSS 时代的思路，在协议层面将托管（Hosting）与聚合（Apps）彻底解耦。在 ATProto 网络中：</p>
-<ul>
-  <li><strong>托管服务（PDS）</strong>：负责存储用户数据。</li>
-  <li><strong>聚合应用（AppView）</strong>：负责从各个托管服务中拉取数据并进行展示。</li>
-  <li><strong>中继（Relays）</strong>：作为底层基础设施，高效地在网络中传输数据流。</li>
-</ul>
-<p>这种架构意味着 ATProto 中没有传统意义上的“实例”。用户的数据并不“居住”在某个 App 内部，而是独立存在。用户可以随时更换托管服务商，或尝试不同的第三方 App（如 Tangled、Semble），而无需像 Mastodon 那样受限于特定的实例管理员。</p>
-
-<h3>社区反馈与争议</h3>
-<p>文章发布后，Hacker News 社区展开了热烈讨论。部分用户指出，虽然 ATProto 没有 Mastodon 式的实例，但其 PDS、AppView 和 Relay 同样构成了去中心化网络的不同功能节点。同时，社区也提出了几点担忧：</p>
-<ul>
-  <li><strong>中心化风险</strong>：目前 ATProto 高度依赖 Bluesky PBC（一家获得风投的初创公司），其商业模式和长期去中心化承诺仍受质疑。</li>
-  <li><strong>身份目录的唯一性</strong>：PLC 目录（负责身份认证）目前只有一个，被视作潜在的单点故障或中心化瓶颈，尽管官方计划将其移交瑞士的非营利组织管理（<a href="https://atproto.com/blog/plc-directory-org" rel="nofollow">https://atproto.com/blog/plc-directory-org</a>）。</li>
-  <li><strong>隐私与追踪</strong>：有观点认为 Mastodon 的实例切换能提供更好的“合理否认（Plausible Deniability）”，而 ATProto 的架构可能更容易被追踪。</li>
-</ul>
-<p>总体而言，ATProto 试图通过解耦托管与聚合来修复传统社交网络的激励错配问题，但其实际的去中心化程度与生态成熟度仍需时间验证。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48599515</guid>
-      <pubDate>Fri, 19 Jun 2026 15:10:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ MCP 企业级授权扩展 EMA 稳定发布：实现零摩擦 OAuth 登录</title>
-      <link>https://news.ycombinator.com/item?id=48592163</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 MCP 协议的企业级授权扩展（EMA）稳定发布，解决了 OAuth 登录摩擦痛点，提升了 AI 编程工具的使用效率，符合用户对 AI 软件技术进展及编程效率改进的高兴趣偏好。</small></p>MCP 的 <b>企业级授权扩展（Enterprise-Managed Authorization, EMA）</b> 现已正式稳定。该扩展旨在解决传统逐用户 OAuth 授权在企业环境中的高摩擦问题，允许组织通过 <b>身份提供商（Identity Provider, IdP）</b> 集中管理 <b>模型上下文协议（Model Context Protocol, MCP）</b> 服务器访问权限，实现用户首次登录即自动连接所需服务器的“零摩擦”体验。
-
-<img src="/posts/enterprise-managed-auth/ema-comparison.png" alt="Standard MCP authorization requires authenticating to every server one by one. Enterprise-Managed Authorization authenticates once through your identity provider and every server the admin authorized connects automatically, scoped to the user’s groups and roles." />
-
-在传统模式下，企业员工需逐个授权连接不同的 MCP 服务器，导致安全团队难以统一管控策略，且公私账号界限容易模糊。EMA 将 IdP 设为权威决策者，管理员只需在 IdP 控制台定义一次策略，用户通过 <b>单点登录（Single Sign-On, SSO）</b> 即可自动获得授权。其底层机制依赖于 <b>身份断言 JWT 授权授予（Identity Assertion JWT Authorization Grant, ID-JAG）</b> 协议：客户端在 SSO 期间获取 ID-JAG 令牌，并直接用于向 MCP 服务器交换访问令牌，全程无需用户跳转至第三方同意页面。
-
-该扩展具备三大核心优势：
-1. <b>一次授权，处处继承</b>：管理员启用服务器后，用户自动获得与其角色和组匹配的访问权限。
-2. <b>集中策略与审计</b>：所有访问决策与日志统一由 IdP 管理，满足企业合规要求。
-3. <b>隔离公私数据</b>：通过移除交互式账号选择步骤，有效防止企业数据意外流向个人账号。
-
-目前，<b>Okta</b> 已率先通过其 <b>跨应用访问（Cross App Access, XAA）</b> 协议支持该标准，<b>Anthropic (Claude)</b>、<b>Visual Studio Code</b> 等客户端以及 <b>Figma</b>、<b>Linear</b>、<b>Supabase</b> 等 MCP 服务器也已完成集成。值得注意的是，EMA 并非 MCP 独有，其依赖的 ID-JAG 标准（<a href="https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/">IETF 草案</a>）可广泛应用于任何依赖同一 SSO 提供者的企业应用间安全数据共享。
-
-<b>社区反馈</b>
-HN 社区对此功能反响积极。开发者普遍认为，将数据共享的决策权从员工转移至 IT 管理员更符合企业安全逻辑，能显著降低数据泄露风险。部分讨论指出，集中式授权需进一步细化控制粒度，以避免企业资源被无差别共享给所有会话。此外，关于 MCP 协议本身的讨论中，社区认可其将认证流程隔离在 AI Agent 上下文窗口之外、并提供统一语义层的价值，认为这是推动企业级 AI 工具规模化落地的关键基础设施。
-
-<b>你知道吗？</b>
-- <b>ID-JAG 协议</b>：全称为 Identity Assertion JWT Authorization Grant，是 OAuth 2.0 的一种新授权授予类型。它允许客户端使用身份提供商签发的 JWT 断言直接换取应用访问令牌，从而绕过传统的重定向授权流程，非常适合企业级 SSO 场景。
-- <b>MCP 与 Skills 之争</b>：在 AI 工具生态中，MCP 与传统的 Skills（技能）常被拿来比较。MCP 的优势在于提供标准化的客户端-服务器通信协议，将认证和上下文管理剥离出 Agent 的核心逻辑，而 Skills 通常更依赖客户端本地的硬编码或脚本。两者并非互斥，而是针对不同复杂度场景的互补方案。]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48592163</guid>
-      <pubDate>Thu, 18 Jun 2026 21:54:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Show HN: Are You in the Weights? - 探索你的名字是否“存在”于 AI 模型的权重中</title>
-      <link>https://news.ycombinator.com/item?id=48591348</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主题为探索 AI 模型权重交互的实验工具，涉及 AI 软件应用与技术展示，符合用户对 AI 技术进展的兴趣，故推荐阅读。</small></p><p>随着网络流量逐渐向大语言模型（LLM）转移，开发者推出了一款名为 <a href="https://www.intheweights.com">Are You in the Weights?</a> 的实验性网站，旨在探索人类信息在 AI 模型“权重”中留下的痕迹。用户只需输入姓名，该工具会并行查询多个前沿及小型 LLM，通过聚类分析返回模型对该名字的识别结果及关联身份（如职业、成就等）。</p>
-<p>社区反馈显示该工具兼具趣味性与争议性。许多用户发现模型将他们“识别”为其他同名人士，甚至完全虚构的身份（如墨西哥画家、澳大利亚橄榄球运动员等）。部分结果引发了不适，例如有用户被模型错误关联为历史屠杀事件的凶手。作者解释称，工具的聚类分类器偏向高召回率而非精确率，因此会包含大量模型“幻觉”（hallucinations）。尽管如此，该工具仍为观察 LLM 知识边界与训练数据残留提供了有趣的视角。作者提供了 <a href="https://intheweights.com/about">关于聚类机制的详细说明</a> 以及 <a href="https://news.ycombinator.com/item?id=48592415">查询 Prompt 示例</a>。</p>
-<h3>你知道吗？</h3>
-<p>大语言模型的“权重”（Weights）是模型在训练过程中学习到的数十亿甚至数万亿个参数，它们存储了模型从海量文本数据中提取的模式和知识。当用户输入提示词时，模型通过激活这些权重来生成回答。因此，如果某人的名字或事迹广泛出现在训练数据中，模型便可能在权重中形成对该名字的“记忆”。然而，由于训练数据的复杂性和模型生成机制的特性，这种“记忆”往往伴随着混淆、同名同姓的张冠李戴，甚至是完全虚构的“幻觉”。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48591348</guid>
-      <pubDate>Thu, 18 Jun 2026 20:49:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
