@@ -3,7 +3,27 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 27 Jun 2026 16:17:54 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jun 2026 18:17:25 GMT</lastBuildDate>
+    <item>
+      <title>Linux 内核提议 Reserved THP 特性以结合 HugeTLB 与 THP 优势</title>
+      <link>https://www.phoronix.com/news/Reserved-THP-Linux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论了 Linux 内核内存管理机制（THP）的功能改进提议。该内容属于底层系统开发，与用户来源配置中明确的“Linux桌面技术”兴趣点存在层级差异，且不涉及高优先级的特定应用或发行版，故评定为可选。</small></p><p>Linux 内核开发者、字节跳动工程师 Qi Zheng 近日提交了一个名为 <b>Reserved THP</b> 的新功能请求评论（RFC）补丁系列。该特性旨在结合 <a href="https://en.wikipedia.org/wiki/HugeTLB">HugeTLB</a> 和 <a href="https://en.wikipedia.org/wiki/Transparent_HugePages">透明大页（THP）</a> 的优点，解决现有大页内存管理中的痛点。</p>
+
+<p>目前，Linux 内核中的 HugeTLB 支持内存预留和保证分配，但不支持交换（swap）；而 THP 虽然与核心内存管理集成更紧密且支持交换，却不支持预留，分配也无法保证。字节跳动在内部场景中遇到了热升级（hot-upgrade）时的内存预留难题：为了应对升级，往往需要预留双倍于业务所需的内存，导致大量资源浪费。此外，由于 HugeTLB 不支持交换，无法回收升级过程中的冷内存。</p>
+
+<p>为此，Qi Zheng 提出了 Reserved THP 方案。该方案允许预留 THP 内存，并通过 <code>madvise()</code> 等接口进行消费，普通内存分配无法占用这部分资源。这样既实现了类似 HugeTLB 的预留保证，又保留了 THP 支持交换的能力，从而有效解决内存浪费和冷内存回收问题。</p>
+
+<p>这被视为统一 HugeTLB 和 THP 支持的一个潜在跳板。感兴趣的开发者可以通过 LKML 查看相关补丁系列。</p>
+
+<img src="//www.phoronix.net/image.php?id=intel-xeon-mrdimm-scaling&image=intel_mrdimm_3_med" alt="MRDIMM memory" />
+
+<h3>你知道吗？</h3>
+<p><b>HugeTLB 与 THP 的区别</b>：HugeTLB 是传统的大页机制，需要预先分配，适合数据库等需要确定性内存的场景；THP（透明大页）由内核自动管理，对应用透明，适合通用场景。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Reserved-THP-Linux</guid>
+      <pubDate>Sat, 27 Jun 2026 16:50:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GNOME AI 助手 Newelle 1.4.5 发布：新增图像生成与重构聊天界面</title>
       <link>https://www.phoronix.com/news/GNOME-Newelle-Image-Gen</link>
@@ -717,25 +737,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-NVK-Vulkan-Does-DLSS</guid>
       <pubDate>Fri, 19 Jun 2026 20:26:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Systemd 261 正式发布：引入系统安装程序、IMDS 与存储管理工具</title>
-      <link>https://www.phoronix.com/news/systemd-261</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 systemd 261 版本发布及其新增的系统安装与存储管理功能，属于 Linux 系统技术范畴，符合来源配置中用户对 Linux 相关技术的兴趣。</small></p><p>Systemd 261 稳定版已正式发布，此次更新引入了多项新功能与改进，旨在配合 2026 年下半年 Linux 发行版的迭代需求。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=systemd_261" alt="systemd 261 release tag" /></p>
-<p>本次版本的核心亮点包括：</p>
-<ul>
-  <li><strong>实例元数据服务（Instance Metadata Service, IMDS）</strong>：新增 <code>systemd-imdsd</code> 服务，通过 SMBIOS 信息自动识别主流公有云环境（如 Amazon EC2、Microsoft Azure、Google Compute Engine、Oracle Cloud、Tencent Cloud 及 Hetzner 等），为本地程序提供统一的虚拟机元数据访问方式。</li>
-  <li><strong>存储管理工具（storagectl）</strong>：推出全新的命令行工具与 Varlink 接口，用于统一暴露存储资源，便于将其作为受管用户存储进行调用。</li>
-  <li><strong>系统安装程序（systemd-sysinstall）</strong>：引入现代化的文本模式 OS 安装器。该工具封装了 systemd 的分区能力、凭证管理及系统管理功能，支持从 USB 等临时引导介质直接复制并部署操作系统。</li>
-  <li><strong>内核与安全增强</strong>：PID1 现已支持 Linux 内核的实时更新编排器（Live Update Orchestrator, LUO）与内核交接（Kernel Handover, KHO）功能。此外，新增 <code>RestrictFileSystemAccess=</code> 单元设置，利用 BPF LSM 程序限制执行权限，仅允许运行存储在签名且经 DM-VERITY 验证的文件系统上的二进制文件。</li>
-</ul>
-<p>其他改进还包括：新增 <code>systemd-tpm2-swtpm.service</code> 以在缺乏物理 TPM 的系统中自动回退至 IBM 软件 TPM；通过 <code>tmpfiles.d/root.conf</code> 强制根目录权限为 0555；支持用户会话持久化文件描述符存储；新增 CPU 集 cgroup 分区配置（CPUSetPartition=）及系统级 Zswap 写回默认设置等。</p>
-<p>如需查看完整的更新日志与源代码，可访问 <a href="https://github.com/systemd/systemd">GitHub 项目页面</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/systemd-261</guid>
-      <pubDate>Fri, 19 Jun 2026 18:28:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
