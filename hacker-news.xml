@@ -3,7 +3,43 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 27 Jun 2026 20:17:45 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jun 2026 22:16:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Weave Router：智能模型路由工具，无缝接入编程代理并节省40%成本</title>
+      <link>https://news.ycombinator.com/item?id=48688700</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Weave Router这一AI模型路由工具，用于编程代理并大幅降低成本，涉及编程工具发布与效率改进经验，符合用户high_interest配置，故评为critical。</small></p>Weave团队近期开源了一款名为**Weave Router**的模型路由工具，旨在无缝接入Claude Code、Codex、Cursor等编程代理（Coding Agents），通过智能调度不同的大语言模型（LLM）来优化成本与性能。
+
+随着AI编程的普及，模型使用成本急剧上升，尤其是Anthropic发布Opus 4.7后，由于分词器（Tokenizer）变更导致费用激增。Weave团队在内部实践中发现，并非所有任务都需要使用最昂贵的前沿模型。为此，他们开发了Weave Router，作为一个兼容Anthropic、OpenAI和Gemini API的代理端点，拦截并智能路由每一个推理请求。
+
+<img src="https://private-user-images.githubusercontent.com/56594084/593310735-139b6a47-f306-4553-a638-764549a1e76b.svg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODI1OTg3NjEsIm5iZiI6MTc4MjU5ODQ2MSwicGF0aCI6Ii81NjU5NDA4NC81OTMzMTA3MzUtMTM5YjZhNDctZjMwNi00NTUzLWE2MzgtNzY0NTQ5YTFlNzZiLnN2Zz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA2MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNjI3VDIyMTQyMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWY5MzNkZWI3MjgyNDlmNTA0YmMxZGY2MWRhZGJjZGJmYTEzODIxY2IxODJlYzlhZDhiZTkzNTIzOTI1YzhjNGEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnN2ZyUyQnhtbCJ9.0Rt_N7oo6xvZqQblX1ngqVZIv0k-nyNZ7fTcbxJrfoI" alt="One endpoint. Every model. Always the right one. A drop-in proxy for Anthropic, OpenAI, and Gemini that picks the best model for every request: using a tiny on-box embedder, not a vibes-based prompt." width="2000" height="318" />
+
+**智能路由机制**
+该路由器的核心是一个经过强化学习（RL）训练的调度模型。Weave团队在数万条代理交互轨迹上对其进行训练，当路由模型成功选择能完成任务的LLM时，系统会给予奖励。例如，规划复杂代码变更的任务会被路由至Opus 4.8等前沿模型；而探索代码库上下文或执行具体实现的任务，则会被分配给DeepSeek V4 Flash、GLM 5.2等更快、更经济的模型。此外，路由器具备**缓存感知（Cache-aware）**能力，在已有缓存的情况下会提高切换模型的阈值，避免因频繁切换模型导致缓存命中率下降和成本增加。
+
+<img src="https://camo.githubusercontent.com/a216d156f660d12e7b9d47f3cbe43fbbfc34af596fee8464e36e46d320a3ff0d/68747470733a2f2f696d672e736869656c64732e696f2f656e64706f696e743f75726c3d68747470732533412532462532466170702e776f726b77656176652e61692532466170692532467265706f7369746f727925324662616467652532466f72675f5157734844635251575145733652706b64455a726c464b38253246313232323738393938392532466874747073253235334125323532466769746875622e636f6d2663616368655365636f6e64733d33363030" alt="Weave Badge" />
+<img src="https://camo.githubusercontent.com/710b805fa359ad004e6f606f1342973e05b052a635e48594f12adf45da0e7543/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f476f2d312e32352532422d3030414444383f6c6f676f3d676f" alt="Go" />
+<img src="https://github.com/workweave/router/actions/workflows/test.yml/badge.svg" alt="Tests" />
+<img src="https://camo.githubusercontent.com/5b6c34f102331675a202b8aaf4a1feb12d627e02728dc2cc7c7f1a00d4696141/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d454c76322d3030424642332e737667" alt="License: ELv2" />
+
+**核心特性与部署**
+- **多模型支持**：兼容Anthropic Messages、OpenAI Chat Completions及Gemini API，支持流式传输、工具调用和视觉输入。同时支持通过OpenRouter接入DeepSeek、Kimi、GLM、Qwen、Llama等开源模型。
+- **自带密钥（BYOK）**：上游提供商的API密钥默认保存在本地并加密存储，不经过第三方服务器。
+- **可观测性**：内置OTLP追踪，可无缝对接Weave Dashboard、Honeycomb、Datadog等监控工具。
+- **无缝集成**：提供一键安装脚本（`npx @workweave/router`），支持Claude Code、Codex、opencode及Cursor（早期测试版）。支持订阅制与API按量付费混合计费，优先利用订阅额度。
+
+在内部试用一个月后，Weave团队报告称，在保持代码质量和开发速度无明显下降的前提下，成功将Token使用成本降低了40%。该工具以Elastic License 2.0协议开源，支持自托管或访问托管服务（<a href="https://weaverouter.com" rel="nofollow">weaverouter.com</a>）。
+
+社区讨论中，开发者关注了缓存命中率对成本的影响、与Cursor内置“Auto”模式的差异，以及提示词（Prompt）依赖特定模型的问题。Weave团队回应称，其路由模型基于实际代理会话训练，并设有“救援机制”（Guardrails），当小模型陷入死循环或报错时，会自动切换至大模型接管任务。
+
+**你知道吗？**
+**强化学习（RL）在模型路由中的应用**：传统的路由策略多基于规则或简单的分类器，而Weave Router采用强化学习（Reinforcement Learning, RL）训练调度模型。RL模型通过与环境（即编程代理的实际执行结果）交互，根据“任务是否成功完成”这一奖励信号不断调整路由策略。这种方法能够动态适应不同任务类型和模型表现，比静态规则更灵活，尤其适合上下文复杂、任务多变的AI编程场景。相关技术细节可参考其引用的论文《Beyond GPT-5: Making LLMs Cheaper and Better via Performance–Efficiency Optimized Routing (Avengers-Pro)》（<a href="https://arxiv.org/abs/2508.12631" rel="nofollow">arXiv:2508.12631</a>）。
+
+<img src="https://camo.githubusercontent.com/6c26e5ebf81937037cfbf3d98edb550c11840b4731ec658083cbe02c53df42b0/68747470733a2f2f6170692e737461722d686973746f72792e636f6d2f7376673f7265706f733d776f726b77656176652f726f7574657226747970653d44617465" alt="Star History Chart" />]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48688700</guid>
+      <pubDate>Fri, 26 Jun 2026 16:40:11 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Fintech Engineering Handbook：金融科技系统核心工程模式与原则</title>
       <link>https://news.ycombinator.com/item?id=48696982</link>
@@ -919,18 +955,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48614631</guid>
       <pubDate>Sun, 21 Jun 2026 00:58:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 异步 I/O 对比：Epoll 与 io_uring 的深度解析与实战</title>
-      <link>https://news.ycombinator.com/item?id=48613872</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深度解析Linux异步I/O技术（Epoll与io_uring对比），属于编程工具与技术经验分享，符合用户high_interest中的编程工具发布/分享及效率改进经验</small></p><p>本文作者分享了在开发反向代理服务器 TinyGate 过程中，为突破性能瓶颈而进行的底层 I/O 模型演进历程。项目最初采用简单的同步 Worker 模型，性能受限；引入 <a href="https://sibexi.co/posts/epoll-vs-io_uring/">epoll</a> 后性能大幅提升，但仍不及 nginx 等成熟产品。最终，团队决定全面转向 <a href="https://sibexi.co/posts/epoll-vs-io_uring/">io_uring</a> 并重写架构。</p>
-<p>文章核心对比了两种 Linux 异步 I/O 机制的架构差异：<b>epoll</b> 采用“就绪模型（Readiness Model）”，仅通知应用何时可读写，每次 I/O 仍需调用 read()/write()，导致频繁的用户态与内核态切换及大量系统调用开销。相比之下，<b>io_uring</b>（2019年引入）采用“完成模型（Completion Model）”，通过用户态与内核态共享的环形缓冲区（Ring Buffers）批量提交和获取 I/O 请求。一次系统调用即可处理一批操作，配合 SQPOLL 模式甚至可实现近乎零系统调用，显著降低延迟。</p>
-<p>作者提供了 C 语言代码示例，直观展示了两者 API 的繁简差异。此外，io_uring 还支持真正的零拷贝（Zero-copy）网络发送，但开启内核轮询（SQPOLL）会持续占用 CPU 资源，且其错误处理机制为异步返回。</p>
-<p><b>社区反馈：</b>开发者指出，io_uring 的共享内存机制虽大幅提升性能，但也引发了安全担忧，导致 Go 等主流语言未将其设为默认选项。针对部分测试中 CPU 利用率上升的现象，社区认为在繁忙负载下，CPU 活跃往往意味着减少了 IO 等待时间，是性能优化的正常表现。另有建议提及结合 CPU 亲和性（CPU Pinning）及底层网络优化，可进一步压榨代理性能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48613872</guid>
-      <pubDate>Sat, 20 Jun 2026 23:07:09 GMT</pubDate>
     </item>
   </channel>
 </rss>
