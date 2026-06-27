@@ -3,7 +3,72 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 27 Jun 2026 12:19:28 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jun 2026 16:28:37 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Fintech Engineering Handbook：金融科技系统核心工程模式与原则</title>
+      <link>https://news.ycombinator.com/item?id=48696982</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要探讨金融科技系统的核心工程模式与架构原则，属于软件开发最佳实践范畴，契合技术阅读兴趣，故评定为推荐阅读。</small></p><p>本文介绍了一份由拥有六年行业经验的工程师撰写的开源资源——<a href="https://w.pitula.me/fintech-engineering-handbook/">Fintech Engineering Handbook</a>。该手册旨在为金融科技（Fintech）领域的开发者提供处理金钱系统的核心设计模式与最佳实践，内容涵盖从金额表示、汇率处理到复式记账与审计追踪等关键环节。</p>
+
+<h3>核心设计原则</h3>
+<p>整个手册围绕三大原则展开：</p>
+<ul>
+  <li><strong>不虚构数据（No invented data）</strong>：金钱不能凭空产生，系统必须通过幂等性、去重和对账机制，杜绝重复记录或任意余额更新。</li>
+  <li><strong>不丢失数据（No lost data）</strong>：所有资金变动必须被完整追踪与持久化，采用全精度计算、至少一次投递（at-least-once delivery）及不可变日志来保障。</li>
+  <li><strong>不盲目信任（No trust）</strong>：不信任外部提供商、内部组件或外部环境，通过验证 Webhook、交叉核对数据源以及在假设失效时快速失败（fail loudly）来维护系统安全。</li>
+</ul>
+
+<h3>关键技术实践</h3>
+<p><strong>金额表示与精度处理</strong>：文章强烈建议避免使用浮点数（Floating-point），因其会导致不可预测的精度丢失。推荐采用最小单位整数（如将 12.34 存储为 1234）或任意精度类型（如 Java 的 BigDecimal）。在 JSON API 传输时，金额应作为字符串传递，以防止解析器隐式转换为浮点数。</p>
+<p><strong>舍入与货币管理</strong>：舍入应作为显式的业务决策，并尽量推迟到系统边界（如持久化或展示前）进行。货币处理需将金额与币种打包，禁止跨币种直接运算，且汇率转换必须使用受控的汇率源。</p>
+<p><strong>复式记账与账本设计</strong>：金融系统普遍采用复式记账法（Double-entry bookkeeping），每笔交易同时记录借方与贷方，确保账目始终平衡。余额不应直接存储，而应从交易流水中派生计算。此外，需严格区分交易的价值时间（Value time）、系统记账时间（Booking time）与资金实际结算时间（Settlement time）。</p>
+<p><strong>审计追踪与事件溯源</strong>：为满足监管审计要求，系统必须保留完整的操作历史与决策逻辑。事件溯源（Event Sourcing）被推荐为构建不可变审计追踪的最佳实践，即只存储事件并从中派生状态，但这会显著增加系统复杂度。</p>
+
+<h3>社区反馈</h3>
+<p>该文章在 Hacker News 社区引发了热烈讨论。开发者普遍认为手册中的幂等性设计与审计追踪章节极具实战价值。关于金额存储格式，社区内部存在不同观点：部分资深工程师坚持“永远使用整数”，而另一些人则建议在 API 层使用字符串以规避 JSON 解析风险。此外，也有开发者指出，这些关于幂等性、重试和事件排序的原则不仅适用于金融系统，对所有需要高数据准确性的分布式系统同样适用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48696982</guid>
+      <pubDate>Sat, 27 Jun 2026 10:28:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 开源权重 LLM 与闭源 LLM 的能力差距：单一基准的误导与多基准的真实情况</title>
+      <link>https://news.ycombinator.com/item?id=48692058</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 深入对比开源与闭源大语言模型的能力基准与预测趋势，紧扣AI技术进展与开源项目主题，高度契合用户技术兴趣，故评定为推荐阅读。</small></p><p>本文基于 Artificial Analysis 的数据，深入分析了开源权重（open weights）大语言模型与闭源前沿模型之间的能力差距。文章指出，如果仅依赖单一的基准测试（如 Artificial Analysis Intelligence Index），会得出极具误导性的结论：数据显示该差距正在迅速缩小，按趋势外推，开源模型可能在2026年底完全追平闭源模型。</p>
+<p>然而，当考察 Artificial Analysis 提供的18个不同基准测试时，真实情况截然不同。综合数据显示，闭源模型与开源模型的平均能力差距几乎保持稳定，持续领先约5个月。其中，编程（coding）领域的追赶速度最快，差距已从落后15个月缩小至1-2个月；但其他大多数基准测试的差距并未明显缩小，甚至略有扩大。这表明，单一基准测试无法全面反映模型的真实能力，LLM 的质量评估高度依赖于具体的衡量标准。</p>
+<p>社区讨论围绕以下几个核心议题展开：</p>
+<ul>
+<li><strong>术语与定义</strong>：许多用户指出，“开放权重（open weights）”并不等同于“开源（open source）”。开源通常要求公开训练数据和代码，而目前许多“开放权重”模型仅公开参数，训练数据可能涉及版权争议或商业机密。</li>
+<li><strong>可持续性与发展动力</strong>：开源模型的发布目前主要依赖部分企业的商业策略或“慈善”行为，存在随时停止的风险。但也有观点认为，一旦模型发布，其能力便永远存在（可通过 fork 保留），且硬件厂商（如 NVIDIA）和浏览器厂商（如 Google）有强烈的商业动机维持开源生态。</li>
+<li><strong>实际感知与地缘政治</strong>：对于大多数日常应用场景，普通用户很难感知到开源与闭源模型在智能上的显著差异。此外，讨论还涉及美国出口管制是否反而促使中国实验室通过开源生态加速追赶闭源模型。</li>
+</ul>
+<p>原文链接：<a href="https://blog.doubleword.ai/frontier-os-llm">https://blog.doubleword.ai/frontier-os-llm</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48692058</guid>
+      <pubDate>Fri, 26 Jun 2026 21:14:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 《垃圾回收手册：自动内存管理的艺术》（第二版）发布</title>
+      <link>https://news.ycombinator.com/item?id=48680370</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 发布关于自动内存管理与垃圾回收技术的核心手册第二版，属于底层编程实践与计算机基础理论，对开发者具有较高技术参考价值，故评定为推荐阅读。</small></p><p>Richard Jones 等人编写的《垃圾回收手册：自动内存管理的艺术》（The Garbage Collection Handbook: The Art of Automatic Memory Management）第二版已于2023年发布。该书是对1996年经典著作及2012年第一版的全面更新，旨在为现代程序员提供关于自动内存管理的权威指南。</p>
+<p><img src="https://award.bookauthority.org/best-memory-management-books.png?b=1420082795&c=1&v=6&w=300" alt="书籍封面" /></p>
+<p>新版手册涵盖了并行、增量、并发和实时垃圾回收（Garbage Collection, GC）算法，详细讨论了现代高性能商业收集器的工作原理，并解释了与运行时系统的接口等棘手问题。此外，书中新增了关于持久性（Persistence）和节能垃圾回收的章节，以应对硬件和软件环境的最新挑战。作者还提供了一个包含近3,400篇相关文献的在线数据库，并推出了包含超过37,000个超链接的电子书版本。读者可通过 <a href="https://www.routledge.com/The-Garbage-Collection-Handbook-The-Art-of-Automatic-Memory-Management/Jones-Hosking-Moss/p/book/9781032231785" rel="nofollow">Routledge 出版社官网</a> 获取该书。</p>
+<p><img src="https://award.bookauthority.org/best-data-structures-books.png?b=1420082795&c=1&v=6&w=150" alt="相关奖项标识" /></p>
+<p>在 Hacker News 的讨论中，社区用户对该书给予了高度评价，认为其是该领域的最佳读物之一。讨论也延伸到了几个有趣的话题：</p>
+<ul>
+<li><strong>术语争议：</strong> 学术界将追踪 GC 和引用计数（Reference Counting）都归为“垃圾回收”，但这与社区习惯用法存在差异。许多程序员仍将 C++ 或 Rust 视为手动内存管理语言，尽管它们广泛使用引用计数（如 <code>std::shared_ptr</code>）。</li>
+<li><strong>内核中的 GC：</strong> 有用户指出 Linux 内核也大量使用了类似垃圾回收的技术，例如 <a href="https://en.wikipedia.org/wiki/Read-copy-update" rel="nofollow">读后复制更新（Read-Copy-Update, RCU）</a>，这是一种在用户态难以实现的并发内存管理技术。</li>
+<li><strong>AI 与内存管理：</strong> 随着大语言模型（LLM）的发展，用户探讨了 AI 在辅助手动内存管理（如 C/C++ 中的内存泄漏检测）方面的潜力，但也指出 AI 在处理复杂全局状态和生命周期推理时仍不够可靠。</li>
+</ul>
+<p><img src="http://www2.clustrmaps.com/stats/maps-no_clusters/gchandbook.org-thumb.jpg" alt="网站访问地图" /></p>
+
+<h3>你知道吗？</h3>
+<p><strong>RCU（读后复制更新）：</strong> 在 Linux 内核中，RCU 是一种用于处理并发读写的内存管理技术。它允许读者在不获取锁的情况下读取数据，而写者则复制数据、修改副本并原子地更新指针。旧版本的数据会在所有读者读完后再被安全回收。这种机制极大地提高了内核在高并发环境下的性能，被视为一种特殊的垃圾回收形式。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48680370</guid>
+      <pubDate>Thu, 25 Jun 2026 23:10:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ DeepSeek 开源 DSpark 推理优化技术，推理速度提升 60-85%</title>
       <link>https://news.ycombinator.com/item?id=48696585</link>
@@ -866,64 +931,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48613872</guid>
       <pubDate>Sat, 20 Jun 2026 23:07:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ TownSquare：为网站注入访客互动与存在感的轻量级插件</title>
-      <link>https://news.ycombinator.com/item?id=48608570</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍一个网站访客互动插件TownSquare，允许访客以虚拟形象互动聊天，属于软件新功能/开源项目范畴，符合用户interest级别</small></p><p>TownSquare 是一个轻量级插件，旨在为网站添加“存在感层（presence layer）”，让原本空旷的网站变得“有人气”。访客无需注册账号，即可进入虚拟空间，看到彼此并实时互动。</p>
-<p>集成过程非常简单，只需在页面底部添加一个 <code>&lt;script&gt;</code> 标签即可激活。访客可以通过点击、键盘方向键或触摸在空间中移动，按 <code>T</code> 键说话，按 <code>J</code> 跳跃，按 <code>H</code> 与他人击掌。</p>
-<p><img src="/screenshots/2.png" alt="A TownSquare moment shared by a visitor" /></p>
-<p>该项目在 Hacker News 发布后引发了热烈讨论。许多用户赞赏其创意，认为它让网络回归了社交乐趣，让人会心一笑。</p>
-<p><img src="/screenshots/5.png" alt="A TownSquare moment shared by a visitor" /></p>
-<p>然而，也有部分用户提出了担忧：</p>
-<ul>
-<li><strong>审核与安全：</strong>演示页面因缺乏有效管理，出现了冒犯性言论。有评论指出，这种无账号、无审核的模式可能导致内容失控。</li>
-<li><strong>项目维护：</strong>开发者在发布后未积极互动，被部分用户质疑为“vibe-coded”（随性编写）项目，担心其成为“弃坑”软件。</li>
-<li><strong>技术建议：</strong>有用户建议引入 WebRTC 技术以增强实时通信能力，或使用 OpenAI 的免费审核接口来改善内容管理。</li>
-</ul>
-<p><img src="/screenshots/1.png" alt="A TownSquare moment shared by a visitor" /></p>
-<p>尽管存在争议，TownSquare 仍被视为一种有趣的实验，试图在日益算法化的网络中找回人与人之间真实的连接。</p>
-<p><img src="/screenshots/map.png" alt="Verified TownSquares on the network map" /></p>
-<h3>你知道吗？</h3>
-<p><strong>vibe-coded（随性编写）</strong>是近期在开发者社区流行的一个术语，通常指开发者仅凭直觉、灵感或“感觉”快速编写代码，而不经过严格的规划、测试或文档编写。虽然这种开发方式有时能带来快速的原型验证，但也常暗示项目可能缺乏长期维护、代码质量不稳定或存在安全隐患。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48608570</guid>
-      <pubDate>Sat, 20 Jun 2026 11:55:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 研究发现：延长呼气的慢呼吸模式会增强大脑奖励反应并增加风险行为</title>
-      <link>https://news.ycombinator.com/item?id=48613555</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及关于呼吸模式与大脑奖励反应之间关系的科学研究，属于科学前沿进展，符合用户兴趣。</small></p><p>一项发表在《神经元》（<a href="https://www.cell.com/neuron/fulltext/S0896-6273(26)00339-9">Neuron</a>）期刊上的最新研究揭示了呼吸模式对大脑功能和风险决策的显著影响。研究发现，<strong>延长呼气的慢呼吸模式</strong>（例如吸气2秒、呼气8秒）能够增强大脑的奖励反应（<em>reward responsiveness</em>），并意外地<strong>增加个体的风险承担行为</strong>。</p>
-<p>这一发现挑战了大众对“慢呼吸让人冷静谨慎”的普遍认知。研究指出，这种特定的呼吸节奏通过增强心脏副交感神经调节（<em>cardiac parasympathetic modulation</em>），降低了恐惧情绪对决策的干扰。当恐惧感减弱时，个体对潜在奖励的敏感度上升，从而更愿意尝试高风险高回报的行为。</p>
-<p>该研究在临床领域具有重要潜力。由于焦虑症、恐慌症和抑郁症等心理疾病往往伴随自主神经系统失衡和适应不良的奖励处理机制，这种延长呼气的呼吸训练可能成为一种低成本、低风险的辅助治疗手段，帮助患者恢复情绪调节能力。</p>
-<h3>社区反馈</h3>
-<ul>
-<li><strong>反直觉的结论</strong>：许多读者对“慢呼吸增加风险行为”的结果感到惊讶。有评论指出，这实际上解释了为何在极限运动（如蹦极、攀岩）中，克服恐惧、保持冷静反而能让人更从容地面对危险。</li>
-<li><strong>传统呼吸法的科学印证</strong>：有用户提到，这种“延长呼气”的节奏与瑜伽（<em>Pranayama</em>）和亚洲武术中的传统呼吸技巧高度一致。它并非单纯的“深呼吸”，而是通过调整吸呼比例来调节自主神经系统。</li>
-<li><strong>实际应用</strong>：在公开演讲或高压场景前进行此类呼吸练习，有助于快速平复生理性恐惧，提升自信与表现。</li>
-</ul>
-<h3>你知道吗？</h3>
-<p><strong>副交感神经系统（Parasympathetic Nervous System）</strong>：自主神经系统的一部分，主要负责“休息与消化”（<em>rest and digest</em>）功能。与负责“战斗或逃跑”（<em>fight or flight</em>）的交感神经系统相反，副交感神经激活会降低心率、血压，促进身体恢复。研究中的延长呼气技巧正是通过刺激迷走神经，增强副交感神经活性，从而改变大脑的情绪处理模式。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48613555</guid>
-      <pubDate>Sat, 20 Jun 2026 22:22:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2 正式移除 strncpy API，历经六年与 360 余次代码审查</title>
-      <link>https://news.ycombinator.com/item?id=48612943</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及Linux内核（开源项目）移除特定API的底层技术更新，属于开源项目和技术进展范畴，符合用户兴趣。</small></p><p>Linux 7.2 内核已正式移除 <code>strncpy</code> API。经过长达六年的开发与代码审查，开发者共提交了约 362 个补丁（patches），彻底清除了内核中所有对 <code>strncpy</code> 的依赖。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=strncpy" alt="strncpy" /></p>
-<p><code>strncpy</code> 长期以来被内核开发者视为“持续存在的 bug 来源”。该函数在复制指定字节数时，若源字符串较短，会用 NUL 字符填充剩余空间，这种冗余的零填充不仅影响性能，其关于 NUL 终止（NUL termination）的语义也极易引发误用。例如，当源字符串长度大于等于目标缓冲区大小时，<code>strncpy</code> 不会自动在末尾添加 NUL 终止符，导致许多开发者在后续处理中遭遇缓冲区溢出或内存越界问题。</p>
-<p>随着 <code>strncpy</code> 的移除，Linux 内核代码将全面转向更安全的替代方案。官方推荐使用 <code>strscpy()</code>（用于需要 NUL 终止的目标）、<code>strscpy_pad()</code>（带零填充的 NUL 终止目标）、<code>strtomem_pad()</code>（非 NUL 终止的固定宽度字段）、<code>memcpy_and_pad()</code> 或 <code>memcpy()</code>。</p>
-<p>该消息在 Hacker News 社区引发热烈讨论。许多开发者指出，C 语言中基于 NUL 终止的字符串处理机制是系统编程中最大的痛点之一，极易导致 off-by-one 错误和内存覆盖。有人怀念 Pascal 风格（带长度前缀）的字符串设计，也有人提到 BSD 系统提供的 <code>strlcpy</code> 已存在约 30 年，但 Linux 最终选择了 <code>strscpy</code> 作为更优接口。此外，社区还探讨了 AI 工具在处理此类大规模、高一致性代码重构时的潜力，以及 C 语言类型系统在防止内存错误方面的局限性。</p>
-<h3>你知道吗？</h3>
-<p><code>strncpy</code> 的设计初衷是为了处理固定长度的缓冲区，但其“不保证 NUL 结尾”的特性在实际开发中常被忽视。现代 C 语言编程中，<code>strscpy</code> 已成为事实上的标准，它不仅保证结果字符串一定以 NUL 结尾，还会返回实际复制的字节数或负错误码，从而让开发者能更轻松地处理截断情况并避免安全漏洞。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48612943</guid>
-      <pubDate>Sat, 20 Jun 2026 20:59:40 GMT</pubDate>
     </item>
   </channel>
 </rss>
