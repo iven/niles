@@ -3,7 +3,34 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 28 Jun 2026 16:22:12 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jun 2026 18:18:28 GMT</lastBuildDate>
+    <item>
+      <title>Starship v1.26.0 发布：支持 Git am 进度显示、SHA-256 及 Nix 嵌套深度</title>
+      <link>https://github.com/starship/starship/releases/tag/v1.26.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Starship v1.26.0 版本已发布，本次更新主要围绕提示符模块的功能增强与多项缺陷修复展开。</p>
+
+<h3>主要功能更新</h3>
+<ul>
+<li><strong>Git 模块</strong>：新增 <code>git_state</code> 状态显示，可在提示符中直观展示 <code>git am</code> 的进度 <a href="https://github.com/starship/starship/issues/7500">#7500</a>；同时正式启用对 SHA-256 哈希算法的支持 <a href="https://github.com/starship/starship/issues/7531">#7531</a>。</li>
+<li><strong>Nix 模块</strong>：新增 <code>level</code> 变量，用于显示当前 Nix shell 的嵌套深度，方便开发者管理多层环境 <a href="https://github.com/starship/starship/issues/7394">#7394</a>。</li>
+<li><strong>Pixi 模块</strong>：新增 <code>PIXI_PROJECT_NAME</code> 格式占位符，便于自定义项目信息展示 <a href="https://github.com/starship/starship/issues/7346">#7346</a>。</li>
+<li><strong>时间模块</strong>：底层时区处理逻辑迁移至 <code>jiff</code> 库，提升了时区计算的准确性与性能 <a href="https://github.com/starship/starship/issues/7222">#7222</a>。</li>
+</ul>
+
+<h3>缺陷修复与优化</h3>
+<ul>
+<li>修复了 GCloud 模块未正确读取 <code>CLOUDSDK_COMPUTE_REGION</code> 环境变量的问题 <a href="https://github.com/starship/starship/issues/7451">#7451</a>。</li>
+<li>优化了配置文件写入机制，显著提升了写入可靠性 <a href="https://github.com/starship/starship/issues/5426">#5426</a>。</li>
+<li>修复了 Maven 模块将用户级 <code>.mvn</code> 配置误判为项目配置 <a href="https://github.com/starship/starship/issues/7426">#7426</a>，以及 Node.js 模块误识别 Deno 项目文件的问题 <a href="https://github.com/starship/starship/issues/7478">#7478</a>。</li>
+<li>在 Tokyo Night 主题中，操作系统符号（OS symbol）现已支持动态显示 <a href="https://github.com/starship/starship/issues/7555">#7555</a>。</li>
+<li>修复了 Statusline 模块在会话初始化时处理 <code>context_window</code> 为 null 导致的异常 <a href="https://github.com/starship/starship/issues/7533">#7533</a>。</li>
+<li>构建流程改用 <code>cargo-zigbuild</code>，完善了对 <code>riscv64gc-unknown-linux-musl</code> 架构的发布支持 <a href="https://github.com/starship/starship/issues/7449">#7449</a>。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/starship/starship/releases/tag/v1.26.0</guid>
+      <pubDate>Sun, 28 Jun 2026 17:02:47 GMT</pubDate>
+    </item>
     <item>
       <title>Codex CLI 0.142.3 发布说明（维护性更新）</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.142.3</link>
@@ -1059,46 +1086,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.160</guid>
       <pubDate>Tue, 02 Jun 2026 02:10:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.19.0 发布：新增 Kimi Code CLI 支持，Web 端 UI 与交互全面升级</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.19.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.19.0 版本已发布，本次更新重点增强了多编码代理（如 Claude Code、Cursor、OpenCode 等）的集成体验，并大幅优化了 Web 端的用户界面与交互细节。</p>
-<h3>主要更新内容</h3>
-<ul>
-  <li><strong>新增代理支持</strong>：正式支持 Kimi Code CLI，进一步丰富了桌面终端可管理的编码代理生态。</li>
-  <li><strong>Web 端 UI 与交互升级</strong>：
-    <ul>
-      <li>新增聊天图片的灯箱（lightbox）预览功能，并优化了内联图片预览的交互体验。</li>
-      <li>会话列表新增状态指示器，可直观显示“需关注（attention）”与“已排期（scheduled）”的会话状态。</li>
-      <li>语音模块支持动态语音选择器，提供安全回退与试听预览功能；同时修复了语音就绪事件中的文本嵌入问题。</li>
-      <li>改进了会话预览的折叠保留、滚动恢复机制，以及日程选择器的回车提交体验。</li>
-      <li>修复了会话头部代理类型图标显示问题，并优化了无障碍访问（移除不规范的 <code>role="button"</code> 用法）。</li>
-    </ul>
-  </li>
-  <li><strong>代理组件功能增强</strong>：
-    <ul>
-      <li><strong>Cursor</strong>：支持模型选择，并优化了会话恢复逻辑（持久化 resume id 并处理不可用状态）。</li>
-      <li><strong>OpenCode</strong>：新增计划模式（plan mode）、推理努力程度（reasoning effort）设置及状态遥测，全面支持斜杠命令（slash commands）。</li>
-      <li><strong>Claude</strong>：修复了上下文窗口（contextWindow）从 SDK 到 Web 状态栏的传递问题，Web 端努力程度选项现已与 Claude Code 的 <code>--effort</code> 级别对齐。</li>
-      <li><strong>Codex</strong>：修复了 <code>/help</code> 和 <code>/status</code> 命令的 Markdown 渲染问题。</li>
-      <li><strong>ACP</strong>：优化了会话/提示返回后的数据块刷新机制，并修正了使用量（usage）更新频率，仅在回合结束时发送。</li>
-    </ul>
-  </li>
-  <li><strong>其他改进与修复</strong>：
-    <ul>
-      <li>新增 <code>display_image</code> MCP 工具，支持聊天中的内联图片显示。</li>
-      <li>Hub 组件修复了权限模式（permissionMode）在重启后的持久化问题，并优化了恢复时的冗余 RPC 调用。</li>
-      <li>CLI 组件更新了 runner 启动命令，并接入了 Cursor 的 <code>/summarize</code> 和 <code>/clear</code> 内置斜杠命令。</li>
-      <li>技能（skills）组件现按会话类型（session flavor）限制自动补全范围。</li>
-    </ul>
-  </li>
-</ul>
-<p>本次更新还包含多项底层稳定性修复、依赖升级（如 <code>@tanstack/react-router</code>）及文档政策调整。更多详情可查阅：<a href="https://github.com/tiann/hapi/compare/v0.18.4...v0.19.0">Full Changelog</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.19.0</guid>
-      <pubDate>Mon, 01 Jun 2026 04:39:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
