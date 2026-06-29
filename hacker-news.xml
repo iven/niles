@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 29 Jun 2026 21:43:36 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jun 2026 23:16:20 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Outer Shell：基于SSH与浏览器的原生图形化服务器外壳</title>
+      <link>https://news.ycombinator.com/item?id=48720758</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了Outer Shell，一款基于SSH与浏览器的图形化服务器外壳工具。该内容属于编程工具发布，契合用户全局配置中“编程工具发布/分享”的高兴趣点，故给出推荐评级。</small></p><p>文章介绍了开发者Marcus Lewis提出的一种新架构：<a href="https://probablymarcus.com/blocks/2026/06/28/native-graphical-shell-for-SSH.html">Outer Shell</a>。该方案旨在为服务器和边缘设备提供一种基于浏览器的图形化“外壳”，允许用户通过其他设备远程访问。</p><p>在该架构中，每个应用本质上是一个小型的HTTP服务器，提供Web用户界面。外壳层提供API供应用互相发现URL，实现类似操作系统的文件关联功能（如双击文本文件调用编辑器）。与传统方案不同，这些HTTP服务不依赖localhost端口，而是通过具有明确用户权限的Unix域套接字（Unix domain socket）进行通信。由于加密工作由SSH层统一处理，应用本身无需处理TLS，架构更加轻量。作者已开源了作为SSH浏览器的Outer Loop以及Outer Shell，并发布了演示视频：<a href="https://youtu.be/e40PLLuZ5KI">Outer Shell演示</a>。详细文档包括：<a href="https://outerloop.sh/">浏览器工作原理</a>、<a href="https://outershell.org/">外壳API</a>以及<a href="https://outerframe.org/">原生应用开发</a>。</p><p>该方案在Hacker News上引发了广泛讨论。部分用户指出，对于个人实验或深度学习等场景，这种架构省去了配置反向代理和TLS证书的繁琐步骤，比传统的SSH端口转发更为直观。然而，也有评论质疑其必要性，认为现有的X11转发、VNC或SSH端口转发已能满足需求。此外，关于“Shell”定义的争论持续存在，有观点认为终端（CLI）的历史优势在于键盘操作，若强行引入GUI特性，最终可能退化为传统图形界面，失去终端的简洁性。</p><p><strong>你知道吗？</strong><br>Unix域套接字（Unix domain socket）是Unix系统中进程间通信（IPC）的一种方式。与基于网络IP地址和端口的TCP/UDP套接字不同，它使用文件系统路径作为标识符。在本地通信中，Unix域套接字通常比TCP套接字更快，且能利用操作系统的文件权限机制进行精细的安全控制，非常适合用于本地或SSH隧道内的服务间通信。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48720758</guid>
+      <pubDate>Mon, 29 Jun 2026 15:42:17 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Qwen 3.6 27B：本地开发的性能与成本平衡之选</title>
       <link>https://news.ycombinator.com/item?id=48721903</link>
@@ -944,15 +953,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48629064</guid>
       <pubDate>Mon, 22 Jun 2026 12:09:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code “Extended Thinking” 输出实为摘要，原始推理过程被加密隐藏</title>
-      <link>https://news.ycombinator.com/item?id=48630535</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍Claude Code的Extended Thinking功能特性及推理过程透明度问题，属于AI软件技术进展，用户会感兴趣</small></p><p>近期，开发者 Patrick McCanna 在检查 Claude Code 的本地会话日志时，发现了一个令人意外的现象：文档中提到的“思考块（thinking blocks）”——即模型在解决问题时的推理过程——实际上并未以明文形式存储，而只是一个约 600 字符的加密签名。</p><p>经过查阅 <a href="https://platform.claude.com/docs/en/build-with-claude/extended-thinking">官方文档</a> 确认，Anthropic 将模型的完整推理过程加密为签名，密钥由 Anthropic 持有，本地设备无法解密。API 返回给用户的实际上是推理过程的“摘要（SUMMARY）”，而非原始推理文本。若需获取完整的推理输出，用户必须签订企业协议。</p><p>作者指出，通过快捷键 Ctrl+O 生成的“扩展思考（Extended Thinking）”输出，实际上是 Fable/Opus 模型推理逻辑的摘要，而非驱动模型实际行为的原始推理。作者将其比喻为“将 JPEG 保存为 BMP 后再编辑并当作 JPEG 展示”，强调这种转换会导致数据损失。此外，作者对文档中关于“扩展思考返回完整思考过程摘要”的间接表述表示不满，认为这可能导致用户误以为本地文件能提供完整的审计轨迹（audit trail）。</p><img src="https://i0.wp.com/patrickmccanna.net/wp-content/uploads/2026/06/IMG_0730.jpeg?resize=740%2C147&ssl=1" alt="Claude Code 本地日志中仅显示加密签名而非推理文本的截图" width="740" height="147" /><p>该发现引发了 Hacker News 社区的广泛讨论。多数观点认为，隐藏原始推理过程是大厂保护技术壁垒的常见策略。若竞争对手能够直接访问模型的推理标记（reasoning tokens），将更容易通过蒸馏（distillation）技术复制其思考机制。同时，也有开发者指出，计算机本质上是在进行数学处理而非人类意义上的“思考”，所谓的思考日志本身也是近似描述，且必然存在信息损失。尽管如此，仍有不少用户表示，若需长期监控模型的性能漂移（performance drift）或进行深度审计，完整的推理文本将极具价值，而当前的摘要机制在透明度上仍有欠缺。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48630535</guid>
-      <pubDate>Mon, 22 Jun 2026 14:22:46 GMT</pubDate>
     </item>
   </channel>
 </rss>
