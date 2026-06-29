@@ -3,7 +3,46 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 29 Jun 2026 04:59:15 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jun 2026 14:20:51 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Infinity Scheduler：一种直接修改 CFS 与 RT 的 Linux 新调度器</title>
+      <link>https://www.phoronix.com/news/Infinity-Scheduler</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Linux内核调度器的改进方案，属于Linux桌面技术与系统开发范畴，符合用户感兴趣的主题。</small></p><p>开源开发者 Galih Tama 推出了名为 <b>Infinity Scheduler</b> 的 Linux CPU 调度器项目，旨在解决现有基于 BPF 的 <code>sched_ext</code> 调度器（如 <code>scx_flow</code>）在高负载下可能出现的误报问题。与依赖 <code>sched_ext</code> 框架的方案不同，Infinity Scheduler 采用原生修改的方式，直接针对 Linux 内核中的完全公平调度器（CFS）和实时调度器（RT）进行底层优化。</p>
+<p>该调度器的核心机制引入了指数移动平均（EMA）算法，用于追踪每个任务的近期运行历史。根据任务类型，调度策略会有所调整：CPU 密集型任务的时间片会被压缩（最低降至 400µs），而交互式任务则能保留完整的调度份额。此外，低 EMA 唤醒的任务将获得 50% 更短的虚拟运行时间（vslice），从而在最早截止时间优先变体（EEVDF）树中获得更早的截止时间；同时，通过 <code>pick_eevdf()</code> 函数中的 futex 等待绕过机制，系统能在下一个调度点实现即时抢占。实时（RT）任务也通过队列放置调制接受了相同的 EMA 处理。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=infinity_scheduler" alt="Infinity Scheduler architecture" />
+<p>目前，Infinity Scheduler 以补丁形式提供，主要面向 Linux 6.18 LTS、7.0 及 7.1 内核版本。开发者已在 GitHub 上开源了相关补丁与详细文档，并表示若社区兴趣浓厚，将考虑在 Phoronix 平台上进行性能基准测试。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Infinity-Scheduler</guid>
+      <pubDate>Mon, 29 Jun 2026 13:52:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ RADV Vulkan 驱动默认启用 Descriptor Heap 支持</title>
+      <link>https://www.phoronix.com/news/RADV-Descriptor-Heap-Default</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍RADV图形驱动在Linux桌面栈的默认功能优化，属于Linux桌面技术与图形栈开发进展，符合用户感兴趣的主题。</small></p><p>随着预计于 8 月发布的 Mesa 26.2 稳定版临近，Radeon RADV Vulkan 驱动现已默认启用 <code>VK_EXT_descriptor_heap</code> 描述符堆（Descriptor Heap）支持。</p>
+<p>该功能最初在 Mesa 26.1 中引入，当时需手动设置 <code>RADV_EXPERIMENTAL=heap</code> 环境变量。Valve 开发者 Samuel Pitoiset 确认已知问题已解决，遂在最新代码中将其设为默认。此举与 Intel 近期的操作一致，新版 DXVK 3.0 也已默认采用此技术。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=radv_heap_default" alt="RADV heap default" />
+<p>描述符堆扩展允许显式管理描述符及其内存，旨在解决 <code>VK_EXT_descriptor_buffer</code> 暴露的问题，并提供更稳定的可移植性和性能表现。</p>
+<h3>你知道吗？</h3>
+<p><strong>描述符堆（Descriptor Heap）</strong>是 Vulkan 1.3 引入的核心特性。在旧版 Vulkan 中，描述符（用于连接着色器与资源如纹理、缓冲区）的管理较为繁琐且效率低下。Descriptor Heap 允许驱动程序一次性分配和批量管理描述符，从而显著降低 CPU 开销并提高性能。</p>
+<p><strong>DXVK</strong> 是一个开源的 DirectX 11/12 到 Vulkan 的转译层，允许在 Linux 等系统上运行 Windows 游戏。DXVK 3.0 默认启用 Descriptor Heap 支持，意味着 Linux 上的游戏性能有望得到进一步提升。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/RADV-Descriptor-Heap-Default</guid>
+      <pubDate>Mon, 29 Jun 2026 09:35:52 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAPV 0.3 发布：新增 APV RAW 编码与解码支持</title>
+      <link>https://www.phoronix.com/news/OpenAPV-0.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍软件库的版本更新及新增的RAW编码解码功能，属于软件新功能发布，符合用户感兴趣的主题。</small></p><p>Academy Software Foundation 旗下的开源项目 OpenAPV 发布了 0.3 版本。OpenAPV 是 Advanced Professional Video (APV) 编解码器的参考实现，作为 Apple ProRes 的主要开源替代方案，已被 Samsung 和 DaVinci Resolve 等广泛采用，用于高保真视频内容制作。</p>
+<p>此次 0.3 版本的核心更新是增加了对 APV RAW 格式的完整支持，包括编码与解码功能。新版本引入了针对 16 位 4 通道线性像素值数据的压缩与扩展算法，并新增了一种配置文件（profile），以便更清晰地区分 APV 与 APV RAW 格式。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=openapv_new" alt="OpenAPV logo" />
+<p>开发者可通过 Academy Software Foundation 的 GitHub 仓库获取采用 BSD 许可证的 0.3 版本软件。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/OpenAPV-0.3</guid>
+      <pubDate>Mon, 29 Jun 2026 09:20:04 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mageia 10 正式发布，延续 Mandrake 发行版血脉</title>
       <link>https://www.phoronix.com/news/Mageia-10-Released</link>
@@ -667,49 +706,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-sched-ext</guid>
       <pubDate>Mon, 22 Jun 2026 09:59:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ zlib-rs 0.6.4 发布：修复 Intel Raptor Lake 崩溃及 SIMD 优化</title>
-      <link>https://www.phoronix.com/news/zlib-rs-0.6.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 Rust 编写的 zlib-rs 库版本发布及 SIMD 优化，契合用户对 Rust 及新软件项目的兴趣。</small></p><p>基于 Rust 的 Zlib 实现 zlib-rs 发布了 0.6.4 版本。该版本主要修复了 Intel Raptor Lake 平台上的稳定性问题，并包含多项 SIMD 优化。</p>
-
-<p>此前，zlib-rs 在 Intel Raptor Lake 处理器上存在一个稳定性 bug，源于特定的 MOVB 指令模式导致的静默内存损坏。0.6.4 版本通过变通方法解决了这一问题（较新的 LLVM Clang 编译器代码也能规避此问题）。此外，该版本还修复了 AArch64 平台上 Adler32 实现的 off-by-one 错误，该错误由整数溢出导致，仅影响 NEON 代码路径，会导致校验和计算错误。</p>
-
-<p>在性能优化方面，zlib-rs 0.6.4 在标准 AVX-512 中引入了 VNNI ILP 技巧，在 AMD Zen 5 处理器上测试显示性能略有提升。其他更新包括 LoongArch64 架构的 CRC32 优化、CI 流程改进以及多项其他变更。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=zlib_rs_064" alt="Zlib-rs 0.6.4 release on GitHub" />
-
-<p>zlib-rs 因其内存安全性和在大规模数据压缩/解压方面的高性能而受到关注，Firefox 等项目已开始采用该库。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/zlib-rs-0.6.4</guid>
-      <pubDate>Sun, 21 Jun 2026 19:33:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Mesa 26.2 将 Vulkan 呈现时间支持合并至 X11/XWayland</title>
-      <link>https://www.phoronix.com/news/Mesa-26.2-X11-Present-Timing</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论Mesa图形驱动在X11/XWayland下的Vulkan新功能，属于Linux桌面技术范畴，符合用户兴趣。</small></p><p>Mesa 的 Vulkan 窗口系统集成（WSI）代码现已支持针对 X11 和 XWayland 的 <code>VK_EXT_present_timing</code> 呈现时间功能。该功能有助于优化渲染帧的显示调度，接收历史呈现时间反馈以改善帧率控制（Frame Pacing），从而有效减少游戏卡顿、降低输入延迟并提升操控体验。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=mesa_x11_present_time" alt="Mesa X11 present timing code merged" />
-<p>此前，Mesa 的呈现时间支持已在 Wayland 环境下完成，但一直未接入 X11/XWayland。Valve Linux 团队工程师 Hans-Kristian Arntzen 数月前来负责该功能的 X11 后端及基础 XWayland 支持开发。经过四个月的代码审查，相关合并请求现已正式通过。</p>
-<p>该功能将随预计于 8 月发布的 Mesa 26.2 版本一同推出，将显著改善在 X11/XWayland 环境下运行 Steam Play 及 Linux 原生游戏的用户帧率表现。</p>
-<h3>你知道吗？</h3>
-<p>Vulkan 呈现时间（Present Timing）是图形 API 中用于精确同步帧渲染与显示器刷新率的技术。通过向驱动层提供精确的时间戳反馈，图形驱动可以更智能地调度 GPU 渲染任务，避免在显示器垂直同步（V-Sync）窗口之外过早或过晚提交帧，从而减少画面撕裂、卡顿及操作延迟。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-26.2-X11-Present-Timing</guid>
-      <pubDate>Sun, 21 Jun 2026 12:49:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 谷歌 Gemini 协助定位华硕笔记本 Linux 启动缓慢问题</title>
-      <link>https://www.phoronix.com/news/Gemini-ASUS-Laptop-Boot-Time</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论Linux桌面系统的启动性能排查与兼容性分析，属于Linux桌面技术范畴，符合用户兴趣。</small></p><p>近期，一位 Linux 用户反馈其搭载 AMD Ryzen 9 处理器与 32GB 内存的现代华硕 ROG Strix G16 G614 笔记本，内核启动时间异常长达 36 秒。为排查此问题，用户借助谷歌 Gemini 3.5 Flash 模型在 Linux 内核邮件列表发帖求助。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=asus_amd_gpio" alt="ASUS ROG Strix G16 laptop" />
-<p>AI 初步分析指出，问题源于华硕固件在启动时将触摸板的 ActiveBoth GPIO 引脚保持为低电平，导致中断处理程序在探测阶段被同步调用并阻塞约 36 秒。不过，在后续的代码审查中，开发者通过 ACPI 转储数据发现 AI 的判断略有偏差：实际触发该 GPIO 异常的是显卡而非触摸板。</p>
-<p>目前，社区已提交一项针对该华硕机型的 DMI 兼容特性（DMI quirk）补丁，旨在绕过固件缺陷以恢复正常启动速度。该补丁预计将并入主线内核，供尚未更新 BIOS 的用户使用。与此同时，开发者正积极与华硕及 AMD 沟通，推动厂商提供彻底的固件修复方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Gemini-ASUS-Laptop-Boot-Time</guid>
-      <pubDate>Sun, 21 Jun 2026 10:43:53 GMT</pubDate>
     </item>
   </channel>
 </rss>
