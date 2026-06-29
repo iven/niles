@@ -3,7 +3,36 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 29 Jun 2026 17:47:52 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jun 2026 20:12:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Bcachefs v1.38.7 计划在内核模块中引入 Rust 代码</title>
+      <link>https://www.phoronix.com/news/Bcachefs-1.38.7-Rust-Kernel</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及 Bcachefs 新版本及 Rust 在内核模块中的应用，符合来源高兴趣（新软件项目）与兴趣（Rust），故推荐。</small></p><p>Bcachefs 文件系统（Copy-on-Write 文件系统）此前已在用户空间工具中采用 Rust 语言，并计划进一步将其应用于内核模块。根据项目首席开发者 Kent Overstreet 的规划，即将发布的 Bcachefs v1.38.7 版本将首次在内核驱动中引入 Rust 代码，初期将作为软依赖（soft dependency）以完善部署流程与基础设施。</p>
+<p>由于 Bcachefs 属于树外（out-of-tree）模块，引入 Rust 增加了构建与部署的复杂性。Rust 缺乏稳定的应用程序二进制接口（ABI），导致动态内核模块系统（DKMS）构建面临挑战：编译内核所需的 Rustc 版本必须严格匹配，同时还需安装对应的 Rust 标准库源码、bindgen 命令行工具及内核构建产物。这使得 DKMS 方案对大多数用户而言并不切实际。</p>
+<img src="//www.phoronix.net/image.php?id=bcachefs-1386&image=bcachefs_1386_2_med" alt="Bcachefs kernel module" />
+<p>为解决上述问题，Bcachefs 团队决定调整策略，未来将主要面向主流发行版提供常规的二进制包形式内核模块，而非依赖 DKMS 动态构建。这一挑战与 Linux 生态中其他采用 Rust 编写的树外内核模块项目类似。更多技术细节可参考项目官方 Patreon 页面。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Bcachefs-1.38.7-Rust-Kernel</guid>
+      <pubDate>Mon, 29 Jun 2026 19:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Git 2.55 发布：默认启用 Rust 支持，增强历史提交修复功能</title>
+      <link>https://www.phoronix.com/news/Git-2.55-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Git 编程工具新版本发布并默认启用 Rust 支持，符合全局高兴趣（编程工具发布/分享）及来源高兴趣（新软件项目），强烈推荐阅读。</small></p><p>Git 2.55 作为分布式版本控制（distributed version control system）系统的最新稳定版本已正式发布。本次更新带来了多项核心改进，其中最引人注目的是对 Rust 语言支持的默认启用。</p>
+<p>在以往的版本中，Git 的 Rust 代码支持仅在构建时作为可选（opt-in）配置。从 Git 2.55 开始，除非用户在构建时明确使用 "NO_RUST" 选项进行禁用，否则 Rust 支持将默认开启。项目维护者表示，在 Git 3.0 或未来的某个版本中，Rust 支持可能会从可选变为强制要求。</p>
+<img src="//www.phoronix.net/image.php?id=2022&image=git" alt="Git logo" />
+<p>除了底层语言支持的演进，Git 2.55 还优化了多项日常开发体验：</p>
+<ul>
+<li><strong>增量多包索引（incremental multi-pack indexes）</strong>：改进了重新打包（repacking）的性能与效率。</li>
+<li><strong>git history fixup 命令增强</strong>：该命令现在允许开发者更便捷地将暂存（staged）的更改直接合并到较早的提交中，无需再经历繁琐的交互式变基（interactive rebase）流程。不过需要注意的是，整个 <code>git history</code> 子命令系列在 2.55 版本中仍被标记为实验性（experimental）功能。</li>
+</ul>
+<p>如需查看完整的更新日志与详细变更列表，可参考官方发布公告及 GitHub 博客的相关概述。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Git-2.55-Released</guid>
+      <pubDate>Mon, 29 Jun 2026 17:50:00 GMT</pubDate>
+    </item>
     <item>
       <title>微软发布 WSL 容器（WSLC）公共预览版</title>
       <link>https://www.phoronix.com/news/Microsoft-Preview-WSL-WSLC</link>
@@ -688,30 +717,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Xfwl4-First-Release</guid>
       <pubDate>Mon, 22 Jun 2026 14:37:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Miracle-WM 0.10 发布，基于 Mir 的 Wayland 合成器迈向 1.0 版本</title>
-      <link>https://www.phoronix.com/news/Miracle-WM-0.10</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍基于Mir的Wayland合成器Miracle-WM即将推出1.0版本，属于新软件项目与Linux桌面技术进展，匹配来源高兴趣与感兴趣配置。</small></p><p>Miracle-WM 是一款基于 Mir 的 Wayland 合成器（Wayland Compositor），其 0.10 版本已于近日正式发布。该版本由 Canonical 工程师 Matthew Kosarek 宣布，带来了多项功能改进与协议支持。</p>
-<p>在插件方面，0.10 版本允许插件为单个窗口或整个输出设置着色器管道（Shader Pipeline），例如实现焦点模糊或类似夜间模式（Nightlight）的效果。此外，该版本新增了对多个 Wayland 协议的支持，包括 ext_data_control_manager_v1、ext_image_copy_capture_manager_v1、ext_output_image_capture_source_manager_v1、ext_foreign_toplevel_list_v1 以及 zwp_input_method_v1。这些改进使得 Grimshot、wl-copy 以及 xdg-desktop-portal-wlr 等工具现在能够在 Miracle-WM 上正常运行。</p>
-<p>为了提升用户体验与开发调试效率，新版本引入了基于 GTK4 的配置错误报告客户端，以及用于显示窗口位置等调试信息的 GTK4 调试覆盖层（Debug Overlay）。官方同时发布了演示视频，并附带了多项错误修复。</p>
-<p>Miracle-WM 团队表示，若开发进展顺利，该合成器有望在 2026 年底正式推出 1.0 稳定版本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Miracle-WM-0.10</guid>
-      <pubDate>Mon, 22 Jun 2026 11:12:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Valve 推出光线追踪检查器“RTI”，助力 Linux GPU 驱动优化</title>
-      <link>https://www.phoronix.com/news/Mesa-Ray-Tracing-Inspector-RTI</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Valve开发的新Ray-Tracing Inspector优化工具，用于提升Linux GPU驱动性能，属于新软件项目及Linux桌面技术，匹配来源高兴趣配置。</small></p><p>Valve 的 Linux 图形团队近日推出了一款名为<strong>光线追踪检查器（Ray-Tracing Inspector，简称 RTI）</strong>的新图形界面（GUI）工具，并已成功合并至 Mesa 26.1 版本中。该工具旨在帮助开发者深入分析并优化 Vulkan 光线追踪性能，特别是针对 Radeon RADV 驱动在 Steam Play 及 Linux 游戏环境下的光线追踪表现。</p>
-<p>RTI 由 Valve 工程师 Konstantin Seurer 主导开发，基于现有的 RADV 调试功能构建，采用 ImGUI 框架编写，并支持 Vulkan 与 SDL3。该工具主要面向底层驱动开发者，而非普通终端用户。使用时，开发者只需设置环境变量 <code>RADV_DEBUG=rti</code>，驱动即可自动转储内部的光线追踪加速结构（BVH，层次包围盒）及光线历史数据至 <code>/tmp</code> 目录。随后，这些数据可被导入 RTI 工具中进行可视化检查与性能剖析。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=valve_rti" alt="Valve RTI" /></p>
-<p>构建该工具需使用 Meson 构建系统并添加 <code>-D tools=rti</code> 选项。尽管目前 RTI 主要聚焦于 Radeon RADV Vulkan 驱动，但未来计划通过不同的后端扩展支持更多硬件与驱动。此举是 Valve 近年来持续推动开源 Linux GPU 驱动及 Vulkan 光线追踪性能优化的又一重要进展。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Ray-Tracing-Inspector-RTI</guid>
-      <pubDate>Mon, 22 Jun 2026 10:33:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
