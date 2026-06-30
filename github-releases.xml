@@ -3,7 +3,17 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 30 Jun 2026 15:39:12 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 18:09:53 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.197 更新：默认模型升级为 Claude Sonnet 5</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.197</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.197 版本，将默认模型更新为 <a href="https://www.anthropic.com/news/claude-sonnet-5">Claude Sonnet 5</a>。该模型原生支持 100 万 token 上下文窗口，能够处理更长的代码库或文档。</p>
+<p>Anthropic 同时推出了限时促销定价：在 8 月 31 日前，Claude Sonnet 5 的 API 价格为每百万输入 token 2 美元，每百万输出 token 10 美元。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.197</guid>
+      <pubDate>Tue, 30 Jun 2026 17:56:37 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.196 更新总结</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.196</link>
@@ -1038,37 +1048,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.2</guid>
       <pubDate>Wed, 03 Jun 2026 20:12:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.161 发布说明总结</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.161</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>新功能与核心优化</h3>
-<ul>
-  <li><strong>指标数据增强</strong>：遥测指标数据点现在包含 OpenTelemetry 资源属性（<code>OTEL_RESOURCE_ATTRIBUTES</code>）值作为标签，支持按团队、仓库等自定义维度切片分析使用指标。</li>
-  <li><strong>并行工具调用改进</strong>：同一批次中的 Bash 命令失败不再取消其他并行调用，各工具独立返回结果。</li>
-  <li><strong>全屏模式剪贴板优化</strong>：Linux 环境下优先使用 <code>wl-copy</code>/<code>xclip</code>/<code>xsel</code>，同时同步至剪贴板与 PRIMARY 选择（支持中键粘贴），并修正了原生选择提示键。</li>
-  <li><strong>代理进度显示</strong>：<code>claude agents</code> 列表在详细信息前显示 <code>done/total</code> 进度，Peek 预览视图默认展示运行时间最长的任务。</li>
-  <li><strong>Model Context Protocol（MCP）连接器管理</strong>：未登录的 claude.ai 连接器默认折叠至“显示未使用的连接器”行，简化界面。</li>
-</ul>
-
-<h3>关键 Bug 修复</h3>
-<ul>
-  <li><strong>会话与工作流</strong>：修复了 <code>/effort</code> 对话框、工作流动画及提示关键词 shimmer 闪烁效果未遵循“减少运动”设置的问题；修复了恢复会话后渲染 Write 工具结果时的潜在崩溃；修复了子代理最终化结果出错时卡住显示为运行中的状态。</li>
-  <li><strong>后台任务与隔离</strong>：修复了后台子代理输出在使用 <code>--output-format text</code> 或 <code>json</code> 时损坏 <code>claude -p</code> 标准输出的问题；修复了使用 <code>isolation: "worktree"</code> 的后台工作流代理无法编辑自身 worktree 内文件的问题；修复了从 <code>claude agents</code> 分派的后台会话错误使用过时模型启动的问题。</li>
-  <li><strong>命令与配置</strong>：修复了 <code>forceLoginOrgUUID</code>/<code>forceLoginMethod</code> 托管策略阻止第三方提供商（Bedrock, Vertex, Foundry, Mantle）会话及组织固定的回归问题；修复了 <code>/usage-credits</code> 为管理员错误触发重新登录的问题；修复了 <code>/autofix-pr</code> 在 git worktree 中误报无法在默认分支运行的问题；修复了 <code>--resume</code> 在非 git worktree（如 jj 工作区）中不显示当前目录会话的问题。</li>
-  <li><strong>终端与日志</strong>：修复了遥测初始化完成前发出的 OpenTelemetry 日志事件（<code>user_prompt</code>, <code>api_request</code> 等）被静默丢弃的问题；修复了 <code>CLAUDE_CODE_TMPDIR</code> 路径过深导致 Unix 套接字绑定 <code>EADDRINUSE</code> 错误的问题。</li>
-</ul>
-
-<h3>性能提升与其他改进</h3>
-<ul>
-  <li>通过稳定终端布局引擎的 JIT 编译配置档案，显著提升了终端渲染性能。</li>
-  <li>优化了大文件写入时的渲染性能。</li>
-  <li><strong>[VSCode]</strong>：新增提示建议禁用终端 GPU 加速（或运行 <code>/terminal-setup</code>）以修复乱码字符问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.161</guid>
-      <pubDate>Tue, 02 Jun 2026 21:58:22 GMT</pubDate>
     </item>
   </channel>
 </rss>

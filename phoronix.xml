@@ -3,7 +3,70 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 30 Jun 2026 15:42:50 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 18:10:41 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Fedora 45 拟正式支持 Stratis 存储安装</title>
+      <link>https://www.phoronix.com/news/Fedora-45-Stratis-Storage</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Fedora 45 新发行版安装功能更新，属于来源配置中高度感兴趣的新发行版内容。</small></p><p>自 Red Hat Enterprise Linux (RHEL) 放弃 Btrfs 计划以来，Red Hat 工程师开发了 Stratis Storage 作为其存储管理解决方案，该方案基于 XFS、LUKS、设备映射器（DM）以及基于 Rust 的守护进程。虽然 Stratis 自 Fedora 28 起就已可用，但长期以来用户无法在 Fedora 安装过程中将其用作根文件系统（root file-system）。</p>
+<p>随着 Fedora 45 的开发推进，这一限制有望被打破。Red Hat 工程师 Vojtech Trefny 已提交变更提案，旨在将 Stratis 支持集成到 Anaconda 安装程序中。该提案允许用户通过 Anaconda WebUI 进行自动安装或手动分区，将 Stratis 设置为根文件系统。此外，提案还包含原生 Kickstart 支持，使用户能够配置 Stratis 作为默认的端到端存储管理方案。</p>
+<p>Stratis 通过单一统一的管理层，提供了精简配置（thin provisioning）、快照（snapshots）、缓存层（cache tiers）和加密（encryption）等现代存储功能。此前，要实现类似功能需手动组合多种技术，配置复杂。Stratis 的简化使得安装过程更加便捷。</p>
+<img src="//www.phoronix.net/image.php?id=2025&image=fedora_42_2_med" alt="Fedora Anaconda WebUI" />
+<p>目前，该提案仍需 Fedora 工程与指导委员会（FESCo）投票批准。若顺利通过，Fedora 45 将于今年晚些时候正式推出支持 Stratis 的安装选项，使其与 Btrfs 和 LVM 并列成为一等公民。社区正密切关注其实际采用情况及其在 Fedora Workstation 上与 Btrfs 的竞争表现。</p>
+<h3>你知道吗？</h3>
+<p>Stratis 是一个开源的存储管理解决方案，旨在简化 Linux 上的存储管理。它通过整合 XFS 文件系统和 LUKS 加密，提供了一个更直观、更易于使用的界面来管理块设备。Stratis 的设计目标是让存储管理变得像管理文件系统一样简单，同时提供高级功能如快照和缓存，而无需用户深入理解底层块设备管理的复杂性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-45-Stratis-Storage</guid>
+      <pubDate>Tue, 30 Jun 2026 18:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2 新特性预览：缓存感知调度、USB4STREAM 与 AMD GPU 支持</title>
+      <link>https://www.phoronix.com/review/linux-72-features</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍 Linux 内核 7.2 新特性，属于 Linux 技术进展，符合用户感兴趣的 Linux 桌面技术范畴。</small></p><h2>Linux 7.2 新特性预览：缓存感知调度、USB4STREAM 与 AMD GPU 支持</h2>
+<p>Linux 7.2 预计将于今年 8 月正式发布，其代码库规模已突破 4300 万行。本次更新带来了多项针对现代硬件的优化与新功能，以下是核心亮点总结：</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=tux_72_sml" alt="Tux for Linux 7.2" />
+<h3>核心功能与硬件支持</h3>
+<ul>
+<li><strong>缓存感知调度（Cache Aware Scheduling）</strong>：已合并至主线，旨在优化现代 Intel 和 AMD 处理器的任务放置，提升多缓存域（LLC）下的性能。</li>
+<li><strong>USB4STREAM</strong>：新增利用 USB4 或 Thunderbolt 接口在系统间进行高速数据传输的功能。</li>
+<li><strong>AMD ISP4 驱动</strong>：终于进入主线内核，将支持 HP ZBook Ultra G1a 等搭载高端 AMD Ryzen 处理器的笔记本摄像头。</li>
+<li><strong>Apple M3 支持</strong>：Apple M3 芯片现已可在主线内核中启动，但实用性尚待提升。</li>
+<li><strong>AMDGPU HDMI 2.1 FRL</strong>：初步支持 Fixed Rate Link 功能，为后续完整支持 HDMI 2.1 奠定基础。</li>
+</ul>
+<h3>内核性能与优化</h3>
+<p>Linux 7.2 在内核底层优化方面表现显著。内存管理改进（MGLRU）使 MongoDB 的基准测试吞吐量提升了 30% 至 100%。此外，内核还优化了 poll 性能、本地网络速度以及匿名管道（anonymous pipe）性能。容器退出与卸载延迟大幅降低，/proc/filesystems 的读取速度更是提升了惊人的 444%。同时，内核引入了新指南以防止文件系统进一步泛滥，并继续逐步淘汰对老旧 i486 CPU 的支持。</p>
+<h3>处理器与图形驱动进展</h3>
+<p>在处理器方面，Intel TDX 现已支持运行时安全更新，无需重启即可应用补丁。AMD 正在为下一代音频 IP 和 Zen 6 架构做准备。RISC-V 架构减少了内核启动开销，并默认启用 ESWIN SoC 支持。图形驱动方面，Intel 正在准备多款 Crescent Island 型号，NVIDIA 开始为 "Blackwell-Next" 架构做准备，Nouveau 驱动也新增了对 NVIDIA GA100 加速器的支持。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/review/linux-72-features</guid>
+      <pubDate>Tue, 30 Jun 2026 16:20:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Linux 内核新补丁：为 Apple M3 MacBook 引入键盘支持</title>
+      <link>https://www.phoronix.com/news/Apple-DockChannel-M3-Keyboard</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 为 M3 MacBooks 提供 Linux 键盘支持驱动，属于来源配置中高度感兴趣的苹果电脑 Linux 支持内容。</small></p><p>Linux 7.2 虽然引入了在 Apple M3 Mac 上启动的能力，但由于缺乏 GPU 加速和键盘支持，目前仅能作为简单控制台使用，无法满足日常需求。近日，Michael Reeves 在内核邮件列表提交了 10 个补丁，引入了 <code>apple-dockchannel</code> 驱动，旨在为 Apple M2 和 M3 MacBook 启用内置键盘支持。</p>
+
+<p>在 Apple Silicon 平台上，内置输入设备由运行 RTKit 操作系统的协处理器管理，并通过名为 DockChannel 的低延迟硬件字节 FIFO 接口与主处理器通信。该补丁系列引入了以下新组件：</p>
+<ul>
+    <li><code>apple-dockchannel</code> mailbox 驱动：处理底层字节流 FIFO。</li>
+    <li><code>apple-hid</code> DockChannel HID 传输驱动：使用 RTKit 框架引导协处理器，并封装 HID 协议。</li>
+    <li>对 <code>apple-rtkit</code> 和 <code>hid-apple</code> 的修改，以及设备树绑定更新。</li>
+</ul>
+
+<p>该传输驱动基于 Hector Martin 的原始实现重写，旨在合入主线内核。目前该系列补丁仅支持键盘功能，触控板支持因需要加载固件，将作为后续补丁提交。该驱动已在 MacBook Air M3 上进行测试。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=apple_m3_keyboard" alt="Apple M3 MacBook's keyboard" />
+
+<p>下游发行版 Asahi Linux 也在持续开发 Apple M3 的支持，目前仍处于 alpha 质量阶段。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>Asahi Linux</strong> 是一个致力于在 Apple Silicon（M1/M2/M3 等芯片）上运行 Linux 的项目。由于 Apple 的硬件架构与传统的 x86 或 ARM 设备不同，且许多硬件组件（如 GPU、电源管理）的驱动代码未开源，Asahi Linux 团队需要逆向工程并编写专有驱动，这使得在 Mac 上运行 Linux 变得极具挑战性。该项目目前已成为在 Apple Silicon 上运行 Linux 的主要推动力量。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-DockChannel-M3-Keyboard</guid>
+      <pubDate>Tue, 30 Jun 2026 16:05:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ KDE Plasma 6.7.2 发布：修复 KWin 常见崩溃，优化 Chromium 视频播放</title>
       <link>https://www.phoronix.com/news/KDE-Plasma-6.7.2-Released</link>
@@ -679,47 +742,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/COSMIC-Epoch-1.1</guid>
       <pubDate>Tue, 23 Jun 2026 20:49:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ BASIC09 编程语言 LLVM 前端开发完成，助力复古代码现代化</title>
-      <link>https://www.phoronix.com/news/BASIC09-LLVM-Front-End</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及LLVM编译器前端的开发，属于编程工具与开源项目范畴，符合全局配置中“编程工具发布”的高兴趣偏好，故评为recommended。</small></p><p>46 年前诞生的 BASIC09 编程语言近日获得了新的编译器支持。开源开发者 Boisy Gene Pitre 成功开发了针对 LLVM（Low Level Virtual Machine）编译器栈的 BASIC09 前端（basic09c），并宣布将其合并到 LLVM 代码库中。</p>
-<p>BASIC09 是一种结构化 BASIC 方言，最初于 1980 年为运行 OS-9 操作系统的 Motorola 6809 CPU 设计，曾在 Tandy Color Computer 等经典硬件生态系统中广泛使用。新的前端工具能够完成词法分析、语法解析、抽象语法树（AST）构建及语义检查，最终生成 LLVM 中间表示（LLVM IR），供 LLVM 的各类后端进行编译。该实现完全独立于 Motorola 6809 硬件或 OS-9 系统。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=basic09" alt="BASIC09 代码示例" />
-<p>Pitre 表示，开发该前端的初衷是为了保留和编译现有的 BASIC09 程序。长期来看，这不仅能延续复古代码的生命力，还能让 BASIC09 程序跨越历史硬件限制，面向多种现代后端架构。</p>
-<p>在 LLVM 开发者社区中，该提议并未获得合并至主线代码库的支持。LLVM 开发者 Eli Friedman 指出，80 年代的小众编程语言无法满足 LLVM 添加新语言的标准。另一位核心开发者 Nikita Popov 也建议，该项目可作为独立软件存在，只需将 LLVM 作为库进行链接即可。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/BASIC09-LLVM-Front-End</guid>
-      <pubDate>Tue, 23 Jun 2026 19:28:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 提出 DeviceTree-ACPI 混合模式以改善 Linux 在骁龙笔记本上的支持</title>
-      <link>https://www.phoronix.com/news/DT-ACPI-Hybrid-Mode-Linux</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲述DeviceTree-ACPI混合模式改进Linux在Snapdragon笔记本上的支持，属于Linux桌面技术支持，故推荐阅读</small></p><p>Red Hat 前工程师 Hans de Goede 加入高通后，提交了一份重要的 RFC 补丁系列，旨在通过引入 <b>DeviceTree-ACPI 混合模式（DT-ACPI hybrid mode）</b>，显著改善 Linux 在 Qualcomm Snapdragon X 系列笔记本上的支持。</p>
-
-<p>长期以来，Linux 在 Snapdragon X1/X2 笔记本上主要依赖 <a href="https://en.wikipedia.org/wiki/Device_tree" target="_blank">Device Tree (DT)</a> 来启用系统支持。相比之下，Windows 11 on Arm 使用 <a href="https://en.wikipedia.org/wiki/Advanced_Configuration_and_Power_Interface" target="_blank">ACPI</a> 表，但由于现有 ACPI 表信息不足，Linux 一直无法直接使用。Hans 提出的混合模式允许内核在启动时解析 ACPI 表，并将 ACPI fwnodes 暴露给设备驱动程序使用，从而在不完全依赖 DT 的情况下利用 ACPI 数据。</p>
-
-<img src="//www.phoronix.net/image.php?id=snapdragon-x-elite-linux-benchmarks&image=snapdragon_x_elite_1_med" alt="Snapdragon X Elite laptop with Ubuntu Linux" />
-
-<p>该方案不仅有助于加速现有设备的 Linux 适配，其长远目标更是推动未来的 Snapdragon 笔记本能够仅通过 ACPI 启动 Linux，彻底摆脱为不同机型创建和维护 DT 的繁琐工作。目前，Hans 已在 Lenovo ThinkPad T14s Gen 6 上成功测试了该补丁，实现了将键盘和触控板的设备实例化从 DT 切换至 ACPI，且运行正常。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/DT-ACPI-Hybrid-Mode-Linux</guid>
-      <pubDate>Tue, 23 Jun 2026 15:23:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2 内核中 EROFS 文件系统增强：优化 AI 稀疏数据集与 I/O 性能</title>
-      <link>https://www.phoronix.com/news/EROFS-Sparse-AI-Datasets</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Linux文件系统EROFS针对AI数据集的I/O效率改进，同时契合用户来源配置的Linux技术兴趣与全局配置中的AI软件进展兴趣，属于推荐阅读内容。</small></p><p>在即将发布的 Linux 7.2 内核中，开源只读文件系统 <b>EROFS（Enhanced Read-Only File System）</b> 迎来了多项重要更新，旨在提升 I/O 效率并更好地支持大型稀疏 AI 数据集。</p>
-<p>首先，EROFS 针对基于块（chunk-based）的 inodes 优化了请求映射机制。新的映射代码显著提升了 I/O 性能，尽管官方尚未提供具体的性能对比数据，但已确认其处理效率更高。</p>
-<p>另一项重大改进是在 pcluster layout 代码中增加了对稀疏（sparse）数据的支持。阿里巴巴工程师兼 EROFS 维护者高翔（Gao Xiang）指出，虽然 EROFS 能够透明压缩零值，但在处理大型稀疏 AI 数据集时，将整个 pcluster 标记为空洞（hole）依然至关重要。这不仅能防止 overlayfs 在复制文件时分配过多空间，还能确保 SEEK_HOLE 系统调用正确报告空洞位置。该补丁引入了两种将 pcluster 标记为空洞的新方法。</p>
-<p>此外，Linux 7.2 正式移除了 EROFS 之前标记为弃用的 FSCACHE 后端。该功能原本用于实现镜像的延迟拉取（lazy pulling），但由于 NETFS 后来成为其硬依赖，导致维护成本过高，最终被移除。目前，类似功能已通过文件支持挂载（file-backed mounts）和 fanotify 预内容钩子（fanotify pre-content hooks）得以实现。</p>
-<img src="//www.phoronix.net/image.php?id=2023&image=erofs_logo" alt="EROFS" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/EROFS-Sparse-AI-Datasets</guid>
-      <pubDate>Tue, 23 Jun 2026 13:42:22 GMT</pubDate>
     </item>
   </channel>
 </rss>

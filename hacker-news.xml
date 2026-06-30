@@ -3,7 +3,48 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 30 Jun 2026 15:45:29 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 18:12:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Claude Code 使用隐写术在请求中隐藏标记</title>
+      <link>https://news.ycombinator.com/item?id=48734373</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨了 AI 编程工具 Claude Code 的隐写术机制与隐私问题，属于 AI 软件技术进展，故推荐。</small></p><p>近期，安全研究人员在检查 <a href="https://thereallo.dev/blog/claude-code-prompt-steganography">Claude Code</a> 的隐私行为时，发现该工具在发送给 Anthropic API 的请求中使用了隐写术（Steganography）来隐藏标记。这一发现引发了关于开发者工具透明度与信任的广泛讨论。</p>
+<p><strong>技术机制</strong></p>
+<p>Claude Code 的二进制文件包含一个函数，会在构建系统提示词（System Prompt）时静默修改日期字符串的格式。正常情况下，提示词显示为 <code>Today's date is YYYY-MM-DD.</code>。但当检测到以下情况时，它会进行微调：</p>
+<ul>
+  <li><strong>API 基础 URL 检查</strong>：如果环境变量 <code>ANTHROPIC_BASE_URL</code> 指向非官方域名（如第三方代理、转售商或特定 AI 实验室域名），或域名中包含 <code>deepseek</code>、<code>zhipu</code> 等关键词，工具会改变日期字符串中所有格符号的 Unicode 字符（如将 <code>'</code> 替换为 <code>’</code> 或 <code>ʼ</code>）。</li>
+  <li><strong>时区检查</strong>：如果系统时区为 <code>Asia/Shanghai</code> 或 <code>Asia/Urumqi</code>，日期分隔符会从 <code>-</code> 变为 <code>/</code>。</li>
+</ul>
+<p>这些变化在大多数等宽字体中视觉上几乎不可见，但在原始请求数据中留下了明确的指纹标记。相关的域名和关键词列表经过 Base64 编码和 XOR 混淆处理。</p>
+<p><strong>潜在目的与影响</strong></p>
+<p>分析认为，Anthropic 可能试图利用这些标记来检测 API 转售商、未授权的 Claude Code 网关或模型“蒸馏攻击”管道。然而，这种实现方式备受争议：</p>
+<ul>
+  <li><strong>信任问题</strong>：Claude Code 拥有文件系统、终端和浏览器等高度权限，用户对其信任至关重要。将分类逻辑隐藏在系统提示词的标点符号中，违背了开发者工具应有的透明原则。</li>
+  <li><strong>误伤风险</strong>：该机制主要针对使用自定义 API 路由的开发者（如内部网关、本地代理或研究环境）。绕过检测虽然容易，但可能导致正常开发者被误判为违规用户，面临限速或封号风险。</li>
+</ul>
+<p><strong>社区反馈</strong></p>
+<p>HN 社区对此反应强烈。多数评论指出，这种隐写技术类似于高级恶意软件的防观察手段，虽然单次绕过不难，但持续对抗会增加开发者的维护成本。部分用户担心这会导致合法使用自定义代理的开发者受到不公正对待。也有观点认为，Anthropic 完全可以通过公开的遥测字段或发布说明来明确其检测策略，而不是采用这种隐蔽且令人不安的做法。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48734373</guid>
+      <pubDate>Tue, 30 Jun 2026 15:44:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 美团发布 LongCat-2.0：基于国产芯片的 1.6T 参数 MoE 大模型</title>
+      <link>https://news.ycombinator.com/item?id=48727116</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章报道了美团发布 LongCat-2.0 大模型，主要主题是模型发布，符合 '新AI模型发布公告' 的高兴趣配置，故列为必看。</small></p><h3>美团发布 LongCat-2.0：基于国产芯片的 1.6T 参数 MoE 大模型</h3>
+<p>美团（Meituan）近日发布了新一代大规模混合专家（Mixture of Experts, MoE）大模型 LongCat-2.0。该模型总参数量高达 1.6 万亿（1.6T），激活参数量为 480 亿（48B），旨在提供前沿的 AI 推理能力。</p>
+<p><strong>国产硬件与基础设施</strong></p>
+<p>LongCat-2.0 的训练与部署全程依托国产 AI 芯片完成。据社区分析，其底层硬件推测为华为昇腾 910C（Huawei Ascend 910C），共使用了约 1024 个超算集群（Superpods），包含约 5 万颗芯片。尽管相比成熟的 NVIDIA GPU 生态，国产芯片的软件支持社区仍在发展中，但美团团队投入了大量精力构建稳定、安全且可扩展的基础设施。</p>
+<p><strong>架构争议与开源进度</strong></p>
+<p>在技术架构方面，LongCat-2.0 与 DeepSeek V4 展现出极高的相似性。社区对其技术路线存在讨论：它究竟是全新的预训练模型，还是基于 DeepSeek V4 Base 的后续训练（Post-training）版本？目前，该模型的完整技术报告、<a href="https://huggingface.co/meituan-longcat/LongCat-2.0">Hugging Face</a> 模型页面以及 GitHub 仓库均暂时无法访问（返回 404 错误），模型权重也尚未公开。</p>
+<p><strong>性能测试与社区反馈</strong></p>
+<p>早期测试显示，LongCat-2.0 在处理部分复杂逻辑或专业领域问题时存在一定局限。例如，在核物理燃料选择测试中，模型给出了错误建议，性能表现略逊于 Gemini Flash 和 Qwen 3.7 Plus。此外，部分开发者指出其工具调用（Tool Call）格式采用自定义包装器，目前尚未被 llama.cpp 等主流推理框架完全兼容。</p>
+<p>尽管面临硬件生态和开源进度的挑战，LongCat-2.0 的发布仍被视为中国 AI 产业在算力自主化与大规模模型训练方面的重要一步。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48727116</guid>
+      <pubDate>Tue, 30 Jun 2026 00:30:11 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Ornith-1.0：面向智能体编程的自改进开源模型发布与社区讨论</title>
       <link>https://news.ycombinator.com/item?id=48722052</link>
@@ -912,45 +953,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48629213</guid>
       <pubDate>Mon, 22 Jun 2026 12:23:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GLM-5.2 本地运行指南：开源最强模型实现本地部署</title>
-      <link>https://news.ycombinator.com/item?id=48636377</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍开源新AI模型GLM-5.2的本地部署指南，直接契合用户对新AI模型及编程工具的high_interest</small></p><p>Z.ai 发布了全新的开源大模型 <strong>GLM-5.2</strong>，该模型拥有 744B 参数与 40B 激活参数，支持 100 万上下文窗口，在多项基准测试中表现与 Claude 4.8 Opus、GPT-5.5 及 Gemini 3.1 Pro 相当。Unsloth 团队推出了 <strong>Dynamic GGUFs</strong> 技术，使得该模型能够在本地硬件上运行。</p>
-<p>通过动态量化技术，模型在大幅缩减体积的同时保持了较高性能。动态 1-bit 量化将模型体积缩小 86%，Top-1 准确率约为 76.2%；动态 2-bit 量化缩小 84%，准确率约 82%。而动态 4-bit 和 5-bit 量化基本实现无损。不同量化级别的内存需求如下：</p>
-<ul>
-<li>1-bit: 223 GB</li>
-<li>2-bit (UD-IQ2_M): 239 GB，可在 256GB 统一内存 Mac 或 1x24GB GPU + 256GB RAM 配置下运行</li>
-<li>4-bit: 372-475 GB</li>
-<li>8-bit: 810 GB</li>
-</ul>
-<p>用户可通过 <a href="https://unsloth.ai/docs/models/glm-5.2">Unsloth Studio</a>（开源 Web UI，支持自动卸载与多 GPU 检测）或 <a href="https://github.com/ggerganov/llama.cpp">llama.cpp</a> 进行本地部署。模型支持非思考与思考（High/Max）模式，并可通过参数调整推理努力程度。</p>
-<img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FJgdvmCITNT51eYmwwJE1%252Fglm52_top1_acc_anchored_vs_gb.png%3Falt%3Dmedia%26token%3D6a08d6cf-7762-45d6-97b9-6106daa89329&width=768&dpr=3&quality=100&sign=5a549303&sv=2" alt="GLM-5.2 动态量化 Top-1 准确率与模型大小关系图" width="11334" height="5937" />
-<p><strong>社区反馈与讨论：</strong></p>
-<ul>
-<li><strong>硬件门槛大幅降低：</strong> 尽管仍需 200GB+ 内存，但相比此前运行同类规模模型所需的数十万美元硬件，消费级/专业级设备（如 256GB Mac Studio）已具备可行性。</li>
-<li><strong>量化精度与速度权衡：</strong> 社区指出 2-bit 量化可能影响编码等复杂任务表现，建议至少使用 4-bit 以获得无损效果。受限于内存带宽，非 GPU 推理速度较慢（约 1-5 tok/s），但适合用于规划与代码生成。</li>
-<li><strong>未来展望：</strong> 随着硬件统一内存密度提升与算法优化，预计 1-2 年内本地运行高性能大模型的成本将降至 8,000-13,000 美元区间，进一步缩小与云端前沿模型的差距。</li>
-</ul>
-<p><strong>你知道吗？</strong></p>
-<p><strong>动态量化（Dynamic Quantization）</strong> 是一种针对大语言模型的压缩技术，它不会对所有网络层采用相同的量化精度，而是根据层的重要性动态分配比特数。重要层保留较高精度（如 8-bit 或 16-bit），而次要层则使用极低精度（如 1-bit 或 2-bit）。这种方法能在大幅降低显存/内存占用的同时，最大程度保留模型的核心推理能力。</p>
-<p><strong>KLD（KL Divergence，KL 散度）</strong> 用于衡量量化后模型与原始模型输出概率分布之间的“距离”。KLD 值越小，说明量化模型的输出越接近原始模型。在 LLM 量化评估中，KLD 比单纯的准确率更能反映模型在长文本生成和复杂推理中的分布偏差。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48636377</guid>
-      <pubDate>Mon, 22 Jun 2026 21:21:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>Nearly half of LG smart TV apps contain residential proxy SDKs</title>
-      <link>https://news.ycombinator.com/item?id=48635954</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要报道智能电视应用中的隐私与代理SDK风险，未直接匹配用户核心兴趣，但具一定科技阅读价值</small></p><p>Article URL: <a href="https://spur.us/blog/smart-tv-apps-residential-proxy-sdks">https://spur.us/blog/smart-tv-apps-residential-proxy-sdks</a></p>
-<p>Comments URL: <a href="https://news.ycombinator.com/item?id=48635954">https://news.ycombinator.com/item?id=48635954</a></p>
-<p>Points: 232</p>
-<p># Comments: 146</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48635954</guid>
-      <pubDate>Mon, 22 Jun 2026 20:48:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
