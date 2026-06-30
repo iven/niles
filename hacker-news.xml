@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 30 Jun 2026 00:25:15 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 05:32:04 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 运行 CUDA 内核时到底发生了什么？</title>
+      <link>https://news.ycombinator.com/item?id=48718863</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章深入解析了 CUDA 编译器（nvcc）的执行原理，属于编程工具底层技术的深度分享，符合用户的编程技术兴趣。</small></p><p>本文通过一个简单的向量加法 CUDA 程序，深入剖析了从高级代码到 GPU 硬件执行指令的完整底层流程。文章指出，看似简单的内核启动背后，涉及数千万条 CPU 指令、设备文件交互、数百次 <code>ioctl</code> 调用以及内存映射的门铃寄存器操作。</p>
+
+<h3>编译与代码生成</h3>
+<p>编译过程由 <code>nvcc</code> 驱动，将设备代码转化为 <a href="https://fergusfinn.com/blog/what-happens-when-you-run-a-gpu-kernel/">PTX</a>（虚拟 ISA）和 <a href="https://fergusfinn.com/blog/what-happens-when-you-run-a-gpu-kernel/">SASS</a>（特定架构机器码）。PTX 具有设备无关性，拥有无限类型化寄存器；而 <code>ptxas</code> 会将其转换为针对具体架构（如 sm_89）优化的 SASS，在此过程中虚拟寄存器被映射到实际寄存器，多条指令（如乘加）会被融合为单条指令（如 <code>IMAD.WIDE</code>）。内核参数（指针与大小）会被放置在常量内存（Constant Bank 0）中，以便所有线程通过常量缓存进行广播读取。最终，编译产物被打包为 <code>fatbin</code>，包含 SASS 和压缩的 PTX（用于向后兼容与 JIT 编译）。</p>
+
+<h3>主机触发与驱动交互</h3>
+<p>当程序执行 <code>&lt;&lt;&lt;4096, 256&gt;&gt;&gt;</code> 启动语法时，编译器会生成宿主启动桩（Host Launch Stub），将参数打包至内存缓冲区，并调用 <code>__cudaLaunch</code>。运行时库通过宿主函数地址查找设备符号，进而进入用户态驱动 <code>libcuda.so.1</code>。自 CUDA 12.2 起，模块加载默认为延迟模式，驱动仅在首次启动时才将 SASS 上传至 GPU 内存。随后，驱动通过 <code>ioctl</code> 与内核态驱动 <code>nvidia.ko</code> 通信，创建上下文并准备命令流。</p>
+
+<h3>GPU 命令队列与执行</h3>
+<p>GPU 不接收传统的函数调用，而是从主机内存读取命令流。驱动通过 <code>pushbuffer</code> 写入命令方法，并利用 <code>GPFIFO</code>（环缓冲区）协调主机与 GPU 的读写进度。启动内核时，驱动会向 <code>pushbuffer</code> 写入一系列方法，将队列元数据（Queue Meta Data, QMD）流式传输。QMD 是计算网格的启动描述符，包含网格/块维度、资源需求、SASS 起始地址及常量内存地址。最后，驱动通过内存映射的门铃寄存器（MMIO doorbell）通知 GPU 开始执行。</p>
+
+<h3>社区反馈</h3>
+<p>HN 用户指出，NVIDIA 提供了部分开放硬件文档（如 <a href="https://github.com/NVIDIA/open-gpu-doc">open-gpu-doc</a>），有助于理解底层机制。许多开发者推荐使用 Driver API（如 <a href="https://github.com/NVIDIA/cuda-samples/tree/master/cpp/0_Introduction/vectorAdd_nvrtc">NVRTC</a>）进行更底层的透明开发，支持内核热重载与动态编译。也有开发者吐槽在生产环境中排查 CUDA 驱动与库 Bug 耗时巨大，但普遍赞赏本文清晰揭示了从高级启动语法到底层硬件提交的完整映射关系。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48718863</guid>
+      <pubDate>Mon, 29 Jun 2026 13:11:08 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Outer Shell：基于SSH与浏览器的原生图形化服务器外壳</title>
       <link>https://news.ycombinator.com/item?id=48720758</link>
@@ -938,21 +959,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48630171</guid>
       <pubDate>Mon, 22 Jun 2026 13:53:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 为什么绘图板品牌拒绝在Linux开源驱动上合作？</title>
-      <link>https://news.ycombinator.com/item?id=48629064</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论绘图板厂商与Linux开源驱动的生态合作问题，涉及开源项目与底层驱动开发，符合用户interest</small></p><p>文章作者David Revoy长期在YouTube上评测绘图板，并坚持在GNU/Linux环境下使用自由开源软件（FLOSS）进行评测。为了改善Linux平台的绘图板驱动生态，他尝试改变策略，直接联系XpPen、Gaomon、Huion等品牌的营销部门，希望推动它们直接向Red Hat的开发者提供硬件规格，以便开发基于<span title="Userspace Virtual Event Device for HID BPF">udev-hid-bpf</span>项目的开源驱动。</p>
-<p>然而，这一合作构想遭遇了挫折。Gaomon的营销团队回复称，他们决定不推进该项目。经过调查，作者发现这些品牌的专有驱动包结构相似，背后可能由同一家公司（深圳绘王趋势科技有限公司）负责。在尝试对接技术负责人后，对方明确表示拒绝合作，主要原因在于现有的开源基础设施（如<span title="Wacom Library">libwacom</span>和<span title="Wacom HID Descriptors">wacom-hid-descriptors</span>等仓库）带有浓厚的Wacom品牌标识。其他品牌担心在带有竞争对手名称的项目中共享核心硬件规格，且系统显示时仍会带有Wacom的商标，这让他们感到不适。</p>
-<img src="https://www.davidrevoy.com/plugins/vignette/plxthumbnailer.php?src=https://www.davidrevoy.com/data/images/blog/2026/2026-06-22_article-illustration-about-wacom-and-other-brands-on-linux.jpg&w=1280&h=1100&zc=4&s=1&q=92" alt="A digital painting illustration with large brush strokes of a sandbox. This one has a label: Linux drawing tablet driver, and is also branded with many Wacom ads. Inside it, a cute penguin labeled Wacom is the only one to play. Three other penguin, outside and labelled Huion, XpPen and Gaomon are outside, hesitating to enter the sandbox." />
-<p>作者指出，虽然获取硬件规格在Linux下并非难事（可通过<span title="HID Recorder">hid-recorder</span>工具轻松提取），但基础设施的品牌归属问题严重阻碍了厂商间的协作。他呼吁相关企业或社区出资聘请全职开发人员，对底层仓库进行重构并去除带有特定厂商色彩的品牌标识，以建立真正中立、开放的协作环境。目前，作者将恢复逐一评测并手动记录规格的传统方式，继续为Linux开源驱动生态贡献力量。</p>
-<p>社区反馈方面，Hacker News的讨论普遍认为，既然带有“Wacom”字样的项目确实阻碍了其他厂商的贡献，那么将其重命名为中性名称（如<span title="Library Tablet">libtablet</span>）是显而易见的解决方案。也有评论指出，维护这些项目的核心人员可能来自Wacom或不愿承担重构带来的巨大工作量，导致这一争论持续了十年之久。此外，部分用户探讨了利用AI逆向工程Windows专有驱动以生成Linux驱动的可行性。</p>
-<h3>你知道吗？</h3>
-<p>在Linux内核的输入子系统（Input Subsystem）中，Wacom作为数位板领域的先驱，其驱动程序和硬件描述符长期以来占据了主导地位。许多早期开源项目直接以“Wacom”命名，这既是历史遗留，也反映了Wacom在Linux图形输入设备标准化方面的巨大贡献。然而，随着中国厂商（如绘王、高漫等）凭借高性价比迅速抢占市场，这种带有单一厂商色彩的基础设施逐渐引发了商业竞争上的顾虑。如何在保留历史贡献与建立中立协作平台之间取得平衡，成为了开源硬件驱动开发中的一个典型难题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48629064</guid>
-      <pubDate>Mon, 22 Jun 2026 12:09:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
