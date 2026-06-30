@@ -3,7 +3,37 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 29 Jun 2026 23:13:59 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 00:19:49 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.196 更新总结</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.196</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.196 版本主要引入了组织级模型配置、后台任务可靠性提升以及多项交互与安全性优化。</p>
+<h3>核心功能与体验改进</h3>
+<ul>
+  <li><strong>组织默认模型支持</strong>：管理员可在控制台设置组织默认模型。用户在使用 <code>/model</code> 命令时，将看到 "Org default"（组织默认）或 "Role default"（角色默认）选项。</li>
+  <li><strong>会话与附件交互优化</strong>：启动会话时自动生成更易识别的默认名称；聊天中的文件附件支持 Cmd/Ctrl 点击，可直接在系统文件管理器（Finder/Explorer）中打开。</li>
+  <li><strong>后台代理与流式处理增强</strong>：后台会话的长命令和工作流现在能更好地应对进程停止、重启或更新，Windows 平台下后台 shell 将采用交接机制而非直接终止。此外，守护进程重启后中断的代理会在下次打开代理视图时自动从断点恢复。</li>
+  <li><strong>流式空闲看门狗（Streaming Idle Watchdog）</strong>：默认开启，当响应流在 5 分钟内无事件输出时自动中止并重试，可通过设置 <code>CLAUDE_ENABLE_STREAM_WATCHDOG=0</code> 关闭。</li>
+  <li><strong>代码审查工作流优化</strong>：合并了 <code>/code-review</code> 工作流中的多项清理查找器，使 Token 使用量减少约 25%。</li>
+</ul>
+<h3>安全性与 Bug 修复</h3>
+<ul>
+  <li><strong>MCP 服务器安全加固</strong>：<code>claude mcp list</code> 和 <code>get</code> 命令不再启动通过仓库 <code>.claude/settings.json</code> 自批准的 <code>.mcp.json</code> 服务器；不受信任的工作空间将显示 <code>⏸ Pending approval</code> 状态。</li>
+  <li><strong>后台作业与状态修复</strong>：修复了后台作业唤醒时误删对话和重复运行提示的问题；修正了 <code>claude agents</code> 侧边栏的键盘焦点卡住、子代理类型丢失及会话状态显示错误等问题。</li>
+  <li><strong>协议与集成修复</strong>：解决了 MCP OAuth 请求完整 scopes 导致 GitLab 等企业内部 IdP 认证失败的问题；修复了 Bedrock 上 <code>/context</code> 显示 0 token 以及 <code>/deep-research</code> 误报验证器失败的问题。</li>
+  <li><strong>终端与命令修复</strong>：修正了 PowerShell 中 <code>git diff</code>/<code>git grep</code> 等命令退出码为 1 时被误报为失败的问题；修复了语音听写在快速打字时吞掉空格或误启动录音的缺陷。</li>
+</ul>
+<h3>其他调整</h3>
+<ul>
+  <li>减少终端 UI 每帧渲染工作量，提升流式输出时的流畅度。</li>
+  <li>非 Anthropic 主机下默认禁用 Remote Control 功能。</li>
+  <li>从会话打开代理视图的操作从两次按键简化为一次 <code>←</code> 键。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.196</guid>
+      <pubDate>Mon, 29 Jun 2026 23:27:32 GMT</pubDate>
+    </item>
     <item>
       <title>Starship v1.26.0 发布：支持 Git am 进度显示、SHA-256 及 Nix 嵌套深度</title>
       <link>https://github.com/starship/starship/releases/tag/v1.26.0</link>
@@ -1039,53 +1069,6 @@ Nagle 算法旨在优化网络传输，通过缓冲小数据包来减少网络�
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.161</guid>
       <pubDate>Tue, 02 Jun 2026 21:58:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.160 更新：会话恢复修复、ultracode 触发词变更及多项体验优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.160</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>核心功能变更</h2>
-<ul>
-<li><strong>动态工作流触发词重命名</strong>：触发动态工作流的关键词从 <code>workflow</code> 重命名为 <code>ultracode</code>。输入 <code>workflow</code> 不再触发运行，但使用自然语言描述工作流仍有效。触发词在输入框中以紫色高亮显示。</li>
-<li><strong>移除环境变量</strong>：移除了 <code>CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE</code> 环境变量，该变量现已无效。</li>
-<li><strong>启动优化</strong>：移除了启动时关于 JetBrains 插件的安装建议。</li>
-</ul>
-
-<h2>重要 Bug 修复</h2>
-<ul>
-<li><strong>会话恢复问题</strong>：修复了从 <code>claude agents</code> 恢复已完成会话，或后台会话过夜后重新附加时，导致聊天记录丢失并重新运行原始提示词的问题。</li>
-<li><strong>后台代理状态显示</strong>：修复了后台代理恢复工作时错误显示在“已完成（Completed）”列表中的问题。</li>
-<li><strong>后台代理冷启动</strong>：修复了 <code>claude --bg</code> 在机器负载较高时冷启动偶尔因“socket missing”而失败的问题。</li>
-<li><strong>会话清理改进</strong>：改进了后台会话清理逻辑（<code>claude rm</code>/<code>stop</code> 及空闲回收），在发送 SIGKILL 前先发送 SIGTERM，确保清理处理器能正常运行。</li>
-<li><strong>UI/UX 修复</strong>：
-<ul>
-<li>修复了 CJK IME 输入法在 <code>claude agents</code> 视图中位置显示错误的问题。</li>
-<li>修复了打开会话后鼠标滚轮滚动历史记录而非转录内容的问题。</li>
-<li>修复了恢复简短模式（brief mode）会话且该模式已关闭时，Claude 历史回复从滚动条中消失的问题。</li>
-<li>修复了 Vim 模式下 <code>p</code> 命令在寄存器通过 <code>v$</code> 抓取时粘贴位置错误的问题。</li>
-<li>修复了后台代理向不支持同步输出的终端（如 Apple Terminal, tmux）发送标记导致的渲染伪影问题。</li>
-</ul>
-</li>
-<li><strong>错误提示优化</strong>：
-<ul>
-<li>修复了第三方提供商（Bedrock/Vertex/Foundry）自动模式不可用时的误导性错误信息，现在指向 <code>CLAUDE_CODE_ENABLE_AUTO_MODE</code> 选项。</li>
-<li>修复了 <code>/effort ultracode</code> 在模型不支持 xhigh 时错误提示动态工作流设置的问题，现在不再对不支持的模型提供 ultracode。</li>
-<li>修复了通过 SDK 或其他主机运行时，模型未找到错误错误建议使用 <code>--model</code> 标志的问题。</li>
-</ul>
-</li>
-<li><strong>语音模式兼容性</strong>：修复了当项目目录或分支名称包含非 ASCII 或特殊字符时，语音模式无法连接的问题。</li>
-</ul>
-
-<h2>性能与体验改进</h2>
-<ul>
-<li><strong>界面响应</strong>：修复了返回会话列表时，因自动更新器每次退出都重新检查而导致的界面冻结问题。</li>
-<li><strong>会话打开性能</strong>：改进了打开近期不活跃的后台代理会话的性能。</li>
-<li><strong>自动模式优化</strong>：通过减少常规操作的推理，降低了自动模式分类器的延迟，减少了“无法评估此操作”的阻断情况。</li>
-<li><strong>编辑前读取检查</strong>：单文件 <code>grep</code>/<code>egrep</code>/<code>fgrep</code> 命令现在满足“编辑前读取”的检查，无需额外执行 <code>Read</code> 操作。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.160</guid>
-      <pubDate>Tue, 02 Jun 2026 02:10:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
