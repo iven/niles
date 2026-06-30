@@ -3,7 +3,29 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 30 Jun 2026 12:22:37 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 15:45:29 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Ornith-1.0：面向智能体编程的自改进开源模型发布与社区讨论</title>
+      <link>https://news.ycombinator.com/item?id=48722052</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍面向智能体编程的自改进开源AI模型Ornith-1.0的发布，高度契合用户“新AI模型发布公告”的高兴趣配置，属必看内容。</small></p><p>DeepReinforce 团队发布了 <a href="https://github.com/deepreinforce-ai/Ornith-1">Ornith-1.0</a>，这是一系列针对智能体编程（Agentic Coding）优化的开源推理模型。该模型提供 9B-Dense、31B-Dense、35B-MoE 和 397B-MoE 四种规格，基于 Gemma 4 和 Qwen 3.5 进行后训练，并采用 MIT 许可证开源。</p>
+<img src="/deepreinforce-ai/Ornith-1/raw/main/assets/ornith_logo.png" alt="Ornith-1.0 Logo" width="65%" />
+<p>文章指出，Ornith-1.0 的核心创新在于其“自改进”训练框架。通过强化学习（RL），模型不仅学习生成代码解决方案，还学习生成指导求解过程的脚手架（Scaffold）。这种联合优化机制使模型能够发现更优的搜索轨迹，从而在 Terminal-Bench 2.1、SWE-Bench 和 NL2Repo 等编程基准测试中达到同类开源模型的性能巅峰。</p>
+<img src="/deepreinforce-ai/Ornith-1/raw/main/assets/ornith_397b_eval.png" alt="Ornith 397B Benchmark Results" />
+<p>在部署方面，Ornith-1.0 提供 OpenAI 兼容接口，支持 vLLM、SGLang、Transformers 以及 llama.cpp 和 Ollama 等本地推理框架。模型原生支持思维链（CoT）推理与工具调用（Tool Calling），可无缝对接 OpenHands、Hermes 等智能体框架。</p>
+<h3>社区反馈</h3>
+<p>Hacker News 社区对该发布进行了热烈讨论，主要集中在以下几点：</p>
+<ul>
+<li><b>“自改进”定义的争议</b>：多位用户指出，标题中的“自改进（Self-improving）”具有误导性。这实际上是训练阶段的 RL 优化过程，而非模型在推理时动态自我更新。</li>
+<li><b>基准测试与微调性质</b>：部分评论认为该模型本质上是 Qwen 或 Gemma 的微调版本（benchmaxxed），通过调整 Prompt 和采样参数提升了特定基准的分数，而非架构上的根本突破。</li>
+<li><b>实际性能与硬件门槛</b>：有用户实测发现 35B 版本推理速度较快且思维链更短，但 9B 版本仍需 80GB 显存，对本地部署不友好。此外，有反馈指出模型在无工具辅助时容易产生幻觉。</li>
+</ul>
+<h3>你知道吗？</h3>
+<p><b>智能体编程（Agentic Coding）</b> 是指利用大语言模型作为自主代理（Agent），通过循环调用代码解释器、文件系统和网络工具来独立完成任务的开发范式。与传统编程辅助不同，Agentic Coding 强调模型的规划、工具使用和错误自我修正能力。Ornith-1.0 等模型通过强化学习优化“脚手架”生成，正是为了提升模型在复杂多步任务中的规划与执行效率。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48722052</guid>
+      <pubDate>Mon, 29 Jun 2026 17:16:17 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 运行 CUDA 内核时到底发生了什么？</title>
       <link>https://news.ycombinator.com/item?id=48718863</link>
@@ -929,36 +951,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48635954</guid>
       <pubDate>Mon, 22 Jun 2026 20:48:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Moebius：参数量仅 0.2B 却具备 10B 级性能的轻量级图像修复模型</title>
-      <link>https://news.ycombinator.com/item?id=48630171</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 探讨参数量极小的轻量化AI图像修复模型技术，属于AI软件技术进展，符合用户interest</small></p><p>华中科技大学与 VIVO AI Lab 联合推出的 <b>Moebius</b> 模型，是一款专为图像修复（Image Inpainting）设计的轻量级扩散模型框架。该研究旨在解决当前工业级大型基础模型（如拥有 119 亿参数的 FLUX.1-Fill-Dev）计算成本高昂、难以在实际场景中部署的痛点。</p>
-
-<img src="./image_assets/logo_dynamic_woWaterMark.gif" alt="Moebius 论文标题页" />
-
-<p>Moebius 的核心突破在于实现了极致的参数压缩与性能保留。通过引入<b>局部-λ混合交互（Local-λ Mix Interaction, LλMI）</b>模块，该模型重构了扩散骨干网络（Diffusion backbone）。LλMI 模块将空间上下文与全局语义先验压缩为固定大小的线性矩阵，在保留复杂潜在交互的同时，大幅降低了计算复杂度。</p>
-
-<img src="image_assets/method/pipeline.png" alt="Moebius 整体流程架构" />
-
-<p>为了弥补极端压缩带来的表征瓶颈，研究团队采用了<b>自适应多粒度蒸馏（Adaptive multi-granularity distillation）</b>策略。该策略在潜在空间（Latent space）内运行，避免了昂贵的像素空间解码，并通过动态平衡梯度损失，将大型教师模型（PixelHacker）的知识高效迁移至仅 0.22B 参数的学生模型中。</p>
-
-<img src="./image_assets/tab1.png" alt="Moebius 性能与参数量对比" width="80%" />
-
-<p><b>性能与效率表现：</b></p>
-<ul>
-  <li><b>极致轻量化：</b>模型参数量仅为 0.22B，不到 FLUX.1-Fill-Dev 的 2%。</li>
-  <li><b>推理加速：</b>单卡推理每步仅需 26.01 毫秒，整体运行速度提升超过 15 倍。</li>
-  <li><b>生成质量：</b>在 Places2（自然场景）和 CelebA-HQ/FFHQ（肖像场景）等 6 个基准测试中，其生成质量与 10B 级工业模型相当，甚至在复杂纹理和面部合理性方面表现更优。</li>
-</ul>
-
-<img src="./image_assets/tab2.png" alt="Moebius 核心创新总结" width="80%" />
-
-<p>在 Hacker News 的讨论中，社区对该模型的实际应用价值给予了高度评价。由于模型总大小仅约 1.2GB（含 UNet 和 SDXL VAE 约 3GB），用户普遍认为其非常适合在消费级显卡甚至边缘设备上本地运行，极大地降低了高质量图像编辑的门槛。尽管部分在线演示空间在特定测试图像上表现不稳定，但开源模型已托管于 <a href="https://huggingface.co/hustvl/Moebius">Hugging Face</a>，为本地部署和二次开发提供了便利。此外，也有用户提及模型命名让人联想到著名漫画家 Moebius（Jean Giraud），引发了关于 AI 生成技术与经典艺术遗产之间关系的讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48630171</guid>
-      <pubDate>Mon, 22 Jun 2026 13:53:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
