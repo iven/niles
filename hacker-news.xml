@@ -3,7 +3,62 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 01 Jul 2026 12:18:10 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2026 15:50:48 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Asahi Linux 7.1 进展报告：修复 macOS 27 引导问题，M3 与 AVD 视频解码取得突破</title>
+      <link>https://news.ycombinator.com/item?id=48744518</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章为Asahi Linux开源项目更新报告，符合“开源项目”兴趣配置；虽涉及苹果芯片与macOS适配，但主体仍为开源社区进展，故推荐。</small></p><h2>正文</h2>
+<p>Asahi Linux 团队发布了 7.1 版本进展报告，详细说明了近期在兼容性修复、M3 系列支持及底层固件开发方面的重大突破。</p>
+<h3>macOS 27 引导与固件兼容性修复</h3>
+<p>随着 macOS 27 开发者测试版的发布，部分用户发现 Asahi Linux 在启动选择器（Boot Picker）中消失。经排查，Apple 的启动工具新增了对 APFS 卷“可引导（bootable）”标志的检查，而 Asahi 安装程序此前未设置该标志。团队已更新安装程序自动添加此标志，并提供了修复现有安装的工具。</p>
+<p>此外，macOS 27 的 SMC（System Management Controller，系统管理控制器）固件更新改变了电池管理接口的返回值（从 32 位整数变为单字节），导致 Linux 电源驱动误判电池故障并触发紧急关机。该问题已在 Asahi 下游内核 7.0.12 版本中修复，现在驱动可同时兼容新旧固件 ABI。</p>
+<h3>M3 系列硬件支持取得显著进展</h3>
+<p>得益于 Apple Silicon 平台硬件设计的稳定性，M3 系列机型的驱动适配进展迅速：</p>
+<ul>
+<li><strong>音频系统</strong>：由于 Apple 的 I2S（Inter-IC Sound）音频控制器和放大器芯片自 M1 以来变化不大，团队仅需添加设备树（Device Tree）配置，M3 机型现已支持高质量的扬声器和耳机插孔输出。</li>
+<li><strong>CPU 调度</strong>：支持 CPU 频率切换及 big.LITTLE 任务调度，可根据负载智能分配能效核与性能核，提升能效与性能。</li>
+<li><strong>其他核心组件</strong>：PCIe、WiFi、蓝牙、NVMe、键盘及触控板等核心 SoC 块驱动均已工作。团队正为 M4 和 A18 Pro 机型奠定基础。</li>
+</ul>
+<h3>AVD 视频解码器（Apple Video Decoder）突破</h3>
+<p>AVD 是 Apple 专有的硬件视频解码单元，其固件通常捆绑在 Apple 的 kext 驱动中，且随 SoC 版本不同而偏移，维护困难。Asahi 团队决定绕过 Apple 的闭源固件，通过逆向工程（利用 QEMU 单步调试）分析底层硬件指令，编写了自定义的轻量级固件。</p>
+<p>新固件仅负责安装中断处理程序并应用硬件调优参数，视频解码工作完全交由 Linux 内核的 V4L2（Video for Linux 2）驱动处理。目前，该方案已实现 10-bit AVC（H.264）视频硬件解码（最高支持 4K），未来将扩展至 VP9、HEVC 和 AV1 格式，并支持 VA-API 和 Vulkan Video 等标准接口。</p>
+<h3>m1n1 1.6.0 发布与底层重构</h3>
+<p>作为 Apple Silicon 启动链核心组件的 m1n1 已发布 1.6.0 版本。该版本首次要求使用 Rust 进行 stage 2 构建，并将 GPU 初始化工作迁移至 m1n1 层面。这一改动不仅消除了内核驱动处理 Apple 硬件初始化数据中浮点数的复杂性，还大幅简化了设备树绑定。同时，Apple 设备树解析代码也已移植至 Rust，进一步提升了底层启动固件的稳定性与可维护性。</p>
+<h3>社区反馈与展望</h3>
+<p>社区对 Asahi 团队在缺乏官方支持的情况下取得的技术突破表示高度赞赏。讨论中也指出，尽管项目进展迅速，但受限于人力，开发速度仍较缓慢，且 M1 Air 等机型的空闲功耗管理等问题尚未完全解决。不过，随着核心补丁持续向 Linux 主线（Upstream）提交，未来基于 Debian 或 Ubuntu 等发行版运行 Asahi Linux 的门槛将进一步降低。例如，已有社区维护的 <a href="https://ubuntuasahi.org/" rel="nofollow">Ubuntu Asahi</a> 项目，以及 <a href="https://wiki.debian.org/InstallingDebianOn/Apple/M1" rel="nofollow">Debian 官方安装指南</a> 可供参考。</p>
+<h2>你知道吗？</h2>
+<p><strong>关于 I2S 与 I2C 的区别</strong>：文章中提到 I2S 是优化音频数据的总线。虽然名称相似，但 I2S（Inter-IC Sound）与 I2C（Inter-IC Communication）实际上是两种不同的协议。I2S 专门用于传输原始音频数据流，而 I2C 是一种用于连接低速外设（如传感器、EEPROM）的双向二线制串行总线。许多音频芯片同时支持 I2S（传数据）和 I2C/SPI（传配置），这可能导致初学者产生混淆。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48744518</guid>
+      <pubDate>Wed, 01 Jul 2026 10:07:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 单次注射青蛙肠道细菌在小鼠模型中实现100%肿瘤清除</title>
+      <link>https://news.ycombinator.com/item?id=48744232</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 报道了利用特定细菌在小鼠模型中实现肿瘤清除的医学与生物学前沿研究，直接契合“科学前沿进展”兴趣配置，故推荐。</small></p><div>
+<p>一项发表在《Gut Microbes》上的最新研究揭示了一种来自两栖动物和爬行动物肠道微生物组的天然细菌——<b>美国欧文氏菌（<i>Ewingella americana</i>）</b>，在结直肠癌小鼠模型中展现出惊人的抗癌潜力。</p>
+<p><img src="https://substackcdn.com/image/fetch/$s_!_z6l!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7976a5a8-dc37-42d7-a4fb-163fa39db558_3784x3031.png" alt="研究机制示意图" width="1456" height="1166" /></p>
+<p>在免疫健全的小鼠实验中，研究人员仅通过单次静脉注射该细菌，便实现了<b>100%的肿瘤完全消除</b>，且未出现复发迹象，表明其能诱导持久的免疫记忆。这一结果甚至优于现代肿瘤学的两大支柱疗法：化疗（如阿霉素）和免疫检查点阻断（抗PD-L1）。</p>
+<p><b>作用机制：</b>该细菌属于兼性厌氧菌，能够特异性地归巢并富集于缺氧的肿瘤微环境中。在24小时内，其肿瘤内负荷增加了约3000倍。它通过双重机制发挥作用：一方面直接产生细胞毒性杀伤肿瘤，另一方面迅速激活广泛的免疫反应，促使T细胞、B细胞和中性粒细胞浸润肿瘤，并引发TNF-α和IFN-γ等关键炎症细胞因子的激增。</p>
+<p><img src="https://substackcdn.com/image/fetch/$s_!Cc-z!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1e9690ca-bd6f-4f8c-8ee1-8a1f1ecd76a2_2409x1314.png" alt="细菌在肿瘤内增殖与免疫激活示意图" width="1456" height="794" /></p>
+<p><b>安全性与现状：</b>临床前数据显示，该细菌在体内无显著毒性，未引起体重下降或器官损伤，且能在24小时内从血液循环中清除，仅保留在肿瘤部位。值得注意的是，该菌株是天然存在的，并非基因工程改造产物。</p>
+<p>尽管前景广阔，但社区讨论也指出了关键限制：<a href="https://www.cureus.com/articles/342789-sepsis-caused-by-ewingella-americana-in-an-immunocompromised-patient-a-case-report" rel="nofollow">已有病例报告</a>显示该细菌曾导致免疫缺陷患者发生败血症。由于癌症患者通常伴随免疫功能低下，该疗法在人体应用时仍需严格评估安全性。目前该研究仍处于临床前阶段，尚需进一步的人体临床试验验证。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48744232</guid>
+      <pubDate>Wed, 01 Jul 2026 09:21:44 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Google Copybara：跨仓库代码转换与同步工具</title>
+      <link>https://news.ycombinator.com/item?id=48740698</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍Google发布的跨仓库代码转换与同步工具，直接匹配“编程工具发布/分享”的高兴趣配置，属开发者核心关注内容，故判定为critical。</small></p><p>Google 开源了其内部使用的代码同步工具 <a href="https://github.com/google/copybara">Copybara</a>。该工具主要用于在不同代码仓库之间转换和移动源代码，特别适用于需要维护保密仓库与公开仓库同步的场景。</p><p>Copybara 的核心设计围绕以下几个特性：</p><ul><li><strong>权威源（Authoritative Repository）</strong>：同步操作必须指定一个权威仓库作为唯一事实来源（Source of Truth），确保数据一致性。</li><li><strong>无状态架构（Stateless）</strong>：工具本身不存储同步状态，而是将状态信息作为标签写入目标仓库的提交记录（Commit Message）中。这使得多用户或服务可以基于同一配置安全地并行运行。</li><li><strong>强大的转换能力</strong>：支持路径重映射、文件排除、作者信息修改等转换操作。配置文件使用 Starlark 语言编写，具备高度可扩展性。</li><li><strong>多仓库支持</strong>：目前主要支持 Git，实验性支持 Mercurial。</li></ul><p><strong>典型应用场景</strong></p><ul><li>将内部 Monorepo（单体仓库）中的特定模块导出为开源项目。</li><li>将上游开源项目的代码同步导入到内部仓库，并应用必要的转换（如依赖路径调整）。</li><li>在多个仓库间共享少量代码，避免复杂的依赖管理。</li></ul><p><strong>社区反馈与对比</strong></p><p>开发者指出，Copybara 与 <code>git subtree</code> 或 <code>git submodules</code> 不同，它更侧重于确定性的代码转换而非简单的目录合并。在 Rust 项目中，类似功能的工具 <a href="https://josh-project.dev">Josh</a> 也被用于跨仓库提交同步（详见 <a href="https://blog.rust-lang.org/inside-rust/2026/06/04/how-josh-helps-rust-manage-code-across-multiple-repositories/">Rust 官方博客</a>）。社区建议，虽然工具支持双向同步，但实际使用中（包括 Google 内部）更推荐单向同步，因为转换逻辑（如路径重映射）往往难以完美逆向，双向同步容易在代码分歧时引发混乱。此外，处理大量提交时建议使用本地仓库路径以提升性能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48740698</guid>
+      <pubDate>Tue, 30 Jun 2026 23:45:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mistral 发布 Leanstral 1.5：专为 Lean 4 形式化证明优化的大模型</title>
       <link>https://news.ycombinator.com/item?id=48738938</link>
@@ -901,53 +956,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48648619</guid>
       <pubDate>Tue, 23 Jun 2026 17:50:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>Jerry's Map：跨越半个世纪的虚构城市地图创作</title>
-      <link>https://news.ycombinator.com/item?id=48649435</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍跨越半个世纪的虚构城市地图艺术创作项目，属于个人爱好与创意范畴，未涉及用户关注的编程、AI或科技前沿领域，兴趣不明确，故归为可选。</small></p><p>《Jerry's Map》是一项持续了半个多世纪的非凡艺术项目。自1963年夏天起，艺术家 Jerry Gretzinger 在一份枯燥的工作间隙，开始在纸上涂鸦一座虚构城市的地图。<img src="https://images.squarespace-cdn.com/content/v1/551565dce4b057e153ef5fd7/1449864504674-YK78OW5V8Z0MRJT3WSC6/image-asset.jpeg" alt="Jerry's Map 的早期草图或局部展示" width="1349" height="1600" /> 该项目在1983年一度搁置，直到二十年后被他的儿子 Henry 在阁楼发现并重新提起，Jerry 才再次拿起画笔。</p>
-<p>如今的《Jerry's Map》已演变成一个庞大的二维“虚拟世界”艺术项目，由超过4000块8x10英寸的面板组成，拼合后形成一个近似圆形的矩阵。地图的每个位置都有明确的坐标，但其内容并非固定不变，而是根据一套复杂的规则不断迭代更新。</p>
-<p>该项目的核心驱动力是一套艺术家自制的卡牌系统（Card Deck）。<img src="https://images.squarespace-cdn.com/content/v1/551565dce4b057e153ef5fd7/1576077163035-8SDX915EY1RECQXD4YR7/pretavoyager-jerrymap-palaisdetokyo-2.jpg" alt="Jerry's Map 的展览现场或整体布局" width="1000" height="750" /> 每次创作周期开始时，Jerry 会从这副约100张的卡牌中随机抽取一张。卡牌上印有黑色或红色的数字及具体指令。黑色代表顺时针方向，红色代表逆时针方向；数字则规定了本次需要完成的工作量（例如覆盖多少平方英寸的区域）。卡牌指令涵盖了多种创作行为，包括在特定面板上作画、混合新颜料、进行拼贴、甚至修改卡牌系统本身（如增加或移除卡牌）。</p>
-<p><img src="https://images.squarespace-cdn.com/content/v1/551565dce4b057e153ef5fd7/1449864444302-1WQ4JIPB0RFG8Z0LUZ39/image-asset.jpeg" alt="卡牌系统的运作示意" width="1239" height="960" /> 这种将随机性与严格规则结合的创作方式，让 Jerry 形容自己只是“观察者”，而卡牌则是“地图未来的预言者”。随着时间推移，地图经历了不同的发展阶段。早期（1963-1983）更多是个人随性的涂鸦与记录；重启后（2003年至今），随着面板数量激增，卡牌系统被引入以实现自动化与系统化管理，创作媒介也从简单的纸张墨水扩展到了丙烯、马克笔、拼贴和喷墨打印等多种材料。</p>
-<p><img src="https://images.squarespace-cdn.com/content/v1/551565dce4b057e153ef5fd7/1576077426022-AUAE04K9OQNAAIQZTTL1/jerry-gretzinger-jerrymap-installation-view-uica.jpg" alt="Jerry's Map 的复杂细节与图层结构" width="2000" height="1125" /> 社区对这一项目给予了高度评价。在 Hacker News 的讨论中，许多读者将其与博尔赫斯（Borges）的文学迷宫相提并论，认为其充满了“局外人艺术（Outsider Art）”的魅力。也有评论者指出，这种基于规则生成地图的机制，与现代 AI 图像生成或沙盒游戏（如《矮人要塞 Dwarf Fortress》）的底层逻辑有异曲同工之妙。此外，独立游戏团队 People Make Games 还为此制作了一部纪录片，进一步引发了公众对这种独特创作形式的关注。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48649435</guid>
-      <pubDate>Tue, 23 Jun 2026 18:40:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI的负担能力危机：巨额补贴难以为继，企业转向按量计费引发成本激增</title>
-      <link>https://news.ycombinator.com/item?id=48646276</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章聚焦AI平台计费模式转型与行业成本危机，属于AI商业与财务分析范畴，非用户关注的模型发布、编程工具或AI软件技术进展，核心兴趣不匹配，故归为可选。</small></p><div>
-<p>近期，人工智能（AI）行业的商业模式正面临严峻的“负担能力危机（Affordability Crisis）”。文章指出，OpenAI、Anthropic和微软等AI平台过去长期采用类似“毒贩算法（drug-dealer's algorithm）”的定价策略，即通过巨额补贴来制造需求并培养用户习惯，期望在未来收回天文数字的研发与基础设施投资。早在2023年，红杉资本（Sequoia Capital）的David Cahn就对此类模式的可持续性提出了质疑<a href="https://blog.dshr.org/2026/06/ais-affordability-crisis.html#IMAGE_0"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuTLj-6oHxAz8yvEo1928xM8bxW3K58OrmxbvNnesyd-o37-lY8Pw6fPFmMupStauhJB8xXh6l7FY-rVHwwPqKyBFsI-WLbaXLSytoAuk6FTRcf02DIWUo7ib3FpP5yc0AKOH6XxmNL9gcIr4H8_K5oxDlhU-_voTtMPgbPY-u2OfM4TuEFG5ukArx99S9/w200-h56/200B-Question.png" alt="David Cahn质疑AI商业模式" width="200" height="56" /></a>。</p>
-<p>然而，这种烧钱换增长的模式已难以为继。根据记者Ed Zitron和SemiAnalysis的数据，AI平台的补贴比例极高，生成1美元收入的成本往往高达8至14美元。例如，每月200美元的Anthropic订阅可消耗价值8000美元的Token，而OpenAI订阅可消耗14000美元<a href="https://blog.dshr.org/2026/06/ais-affordability-crisis.html#IMAGE_1"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgPaajVCJYuSt8Rkj3fR8GSZQ_pAbHJldOsS17qRHqBrH8Ps-tDNb1l1sLmgZWOC6s1-fs5EpZhIJzc5lwWLSJz2tNfu9gvvG9WSU_2uVwaxIBG39ZiRj1Lthyphenhyphenv_y8qBVFlYIdDQvoNpm6Nj8KODEmw0lrbKuHcTs7zVDWIyNOo3cu88-dWjXWS_T87fbvp/w200-h111/Subsidy.png" alt="AI平台补贴比例分析" width="200" height="111" /></a>。以OpenAI 2025年的财务数据为例，其收入为130.7亿美元，成本与支出高达340亿美元，净亏损达385.3亿美元，其中销售和营销费用竟占收入的44%。尽管投入巨资，企业端的AI采用率近期却趋于停滞<a href="https://blog.dshr.org/2026/06/ais-affordability-crisis.html#IMAGE_3"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmLWHadpYmfxhvqhloAmrBMw0rZH626WmOFeCcf5o_EyRNIgbZTXP8ELgCBmbvRt53SwRZ02VVojsyZwlesAfGXF8Gu9gYn5sBnF2Gfshrm9YtP1BUq_30nrr74qJCfhGNUAb1PKsSZU-8C8kl2e_0OO5aMb8MbiPgOIIcZHV25jd3gnMF-p5hwOYjoC6E/w200-h121/BusinessAdoption.png" alt="企业AI采用率趋于平稳" width="200" height="121" /></a>。</p>
-<p>随着SpaceX、Anthropic和OpenAI等公司逼近IPO，巨大的资金压力迫使它们提前转向“按Token计费（token-based billing）”并收紧速率限制。这一转变导致企业用户的AI使用成本瞬间激增，部分公司首日支出暴涨7倍。高昂的成本引发了主流商业媒体的广泛担忧，Nvidia高管甚至直言AI的计算成本已远超雇佣人类员工的成本。一项2024年的MIT研究也指出，在77%的情况下，由人类完成工作仍比使用AI更具性价比。</p>
-<p>文章进一步通过数学模型推演了AI行业的盈利困境：假设AI行业积累了约3万亿美元的债务，仅每年偿还本息就需要产生约3090亿美元的现金流。根据《金融时报》（Financial Times）与潘默尔·利伯勒姆（Panmure Liberum）的测算，在零成本假设下，多数科技巨头的AI投资回报率仍为负值<a href="https://blog.dshr.org/2026/06/ais-affordability-crisis.html#IMAGE_4"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4b-fysJWHH_-zjI8dZGzpTvex25EkZocVPwpaAxYDwUERqcUrCsltDuW7tF2To7xzN8PIdTiji6iAa_xlkNJXZZlNE9_n06aQuvc0pWmdmBeHt1rPPAAwEfmCwCWG72VzL1_5YNsylgtJQ28XOVl6m3NtpD1fY4c_p_SxbnQGZbpfF3iskMlllnDDvVzF/s200/FT-graph.jpeg" alt="AI投资回报率测算" width="200" height="152" /></a>。在极其乐观的假设下（AI替代岗位的平均利润为9500美元），行业需要替代约3250万个美国工作岗位（约占美国就业总数的27%）才能维持财务健康。这凸显了当前AI商业模式对大规模替代人类劳动力的极端依赖。</p>
-<p>在Hacker News的社区讨论中，用户指出该文章忽略了DeepSeek等中国模型及开源模型（如Qwen、GLM）的低价竞争压力。评论普遍认为，随着“按Token计费”的普及，AI需求的弹性显现，企业用户开始精打细算，AI行业正从“探索期”进入残酷的“ROI（投资回报率）考核期”。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48646276</guid>
-      <pubDate>Tue, 23 Jun 2026 15:11:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ F3：一种基于 Wasm 解码器的下一代开源列式数据文件格式</title>
-      <link>https://news.ycombinator.com/item?id=48647799</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍一款基于Wasm的开源列式数据文件格式，属于开源项目与新技术分享，符合用户兴趣配置。</small></p><p><img src="/future-file-format/F3/raw/main/doc/f3-logo.svg" alt="f3_logo" width="200" /></p>
-<p><a href="https://github.com/future-file-format/f3">F3</a> 是一个开源的下一代列式数据文件格式项目，旨在解决 Parquet 等上一代格式在布局上的局限性。该格式由学术界提出，相关论文计划发表于 <a href="https://doi.org/10.1145/3749163">SIGMOD 2026</a>。</p>
-<p>F3 的核心设计理念是<strong>高效性、互操作性与可扩展性</strong>。与传统格式不同，F3 文件是自描述的，不仅包含数据和元数据，还内嵌了用于解码数据的 <a href="https://webassembly.org/">WebAssembly (Wasm)</a> 二进制文件。这种设计允许开发者轻松添加新的编码方案，无需因计算技术的变革而频繁创建新格式。即使在没有原生解码器的平台上，也能通过极小的存储开销（KB 级别）确保数据兼容性。</p>
-<p>目前，该项目仍处于<strong>研究原型阶段</strong>，官方不建议在生产环境中使用。在 Hacker News 的讨论中，社区对 F3 的评价呈现两极分化：</p>
-<ul>
-  <li><strong>创新认可</strong>：许多用户认为在文件中嵌入 Wasm 解码器是一个极具创意的想法，有效解决了跨平台兼容性和格式演进的问题。</li>
-  <li><strong>安全与实用性担忧</strong>：部分用户质疑在数据文件中嵌入可执行代码的安全风险，尽管 Wasm 的沙箱机制能降低风险。此外，也有声音指出 Parquet 等现有格式仍在持续迭代，且工具链成熟，F3 作为研究项目目前缺乏实际采用，且 README 文档未能清晰说明其相对于现有方案的具体优势。</li>
-</ul>
-<h3>你知道吗？</h3>
-<p><strong>为什么需要新的数据文件格式？</strong> 目前广泛使用的 Parquet 格式发布于 2011 年左右，主要针对当时的硬件环境和负载设计。随着 AI 和大数据时代的到来，数据规模和计算模式发生了巨大变化，旧格式在压缩效率、随机读取和扩展性上逐渐显露出瓶颈。</p>
-<p><strong>Wasm 沙箱机制</strong>：WebAssembly (Wasm) 是一种二进制指令格式，专为基于堆栈的虚拟机设计。与传统的可执行文件不同，Wasm 运行在沙箱环境中，默认无法直接访问宿主机的文件系统或网络，这使其在数据文件中嵌入代码时，相比原生二进制文件具有更高的安全性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48647799</guid>
-      <pubDate>Tue, 23 Jun 2026 16:53:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
