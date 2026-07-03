@@ -3,7 +3,30 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 03 Jul 2026 16:43:27 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2026 18:37:24 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.200 发布：默认权限改为手动，修复后台代理稳定性与插件加载问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.200</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.200 版本发布，主要更新了权限控制策略并修复了多项后台代理与插件相关的稳定性问题。</p>
+<h3>核心功能更新</h3>
+<ul>
+  <li><strong>权限模式默认变更</strong>：跨 CLI、VS Code 及 JetBrains 插件，默认权限模式已更改为“Manual”（手动）。系统现接受 <code>--permission-mode manual</code> 及 <code>"defaultMode": "manual"</code> 配置。</li>
+  <li><strong>交互行为调整</strong>：<code>AskUserQuestion</code> 对话框默认不再自动继续执行，用户需通过 <code>/config</code> 命令显式配置空闲超时（idle timeout）以启用自动继续功能。</li>
+  <li><strong>无障碍体验优化</strong>：改进了屏幕阅读器输出，隐藏了装饰性图形符号，优化了转录符号的朗读标签，并将嵌套表格格式化为“Header: value.”结构以提升可读性。</li>
+  <li><strong>安装脚本改进</strong>：在安装过程中，若因系统内存不足导致安装被终止，脚本现会提供明确的解释说明。</li>
+</ul>
+<h3>问题修复与优化</h3>
+<ul>
+  <li><strong>后台代理与会话稳定性</strong>：修复了后台代理在崩溃后因残留锁文件（<code>daemon.lock</code>）无法重启的问题；改进了守护进程交接逻辑，防止旧版本错误接管；修复了后台会话在睡眠唤醒或重新连接时意外停止、以及被取消的轮次在停滞后错误重跑的问题。</li>
+  <li><strong>插件与配置加载</strong>：修复了项目范围插件在 <code>git worktrees</code> 中无法正确加载的问题；修正了 <code>claude agents --plugin-dir &lt;dir&gt;</code> 命令中参数位置错误导致插件未显示的情况；解决了当 <code>.claude.json</code> 中 MCP 服务器配置非数组值时引发的启动崩溃。</li>
+  <li><strong>终端与 UI 修复</strong>：解决了 tmux 3.4+ 环境下的终端渲染闪烁问题（通过启用同步输出）；修复了后台代理输出中的控制字节泄露至终端视图的问题；修正了语音听写在无音频输入时显示误导性“连接失败”提示的情况。</li>
+  <li><strong>其他改进</strong>：修复了子代理因速率限制提前截断时返回空结果而非优雅失败的问题；解决了 <code>/mcp</code> 服务器列表在屏幕阅读器下的焦点追踪问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.200</guid>
+      <pubDate>Fri, 03 Jul 2026 16:52:33 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.199 更新：支持堆叠技能调用、增强重试机制与多项 Bug 修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.199</link>
@@ -1021,36 +1044,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.165</guid>
       <pubDate>Fri, 05 Jun 2026 05:45:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.163 更新：新增插件列表命令与后台会话优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.163</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.163 更新：新增插件列表命令与后台会话优化</h2>
-<p>Claude Code 发布了 v2.1.163 版本，本次更新主要聚焦于插件管理、后台会话体验优化以及多项关键 Bug 修复。</p>
-<h3>主要新功能与改进</h3>
-<ul>
-  <li><strong>插件管理增强</strong>：新增 <code>/plugin list</code> 命令，支持列出已安装的插件，并可通过 <code>--enabled</code> 或 <code>--disabled</code> 参数进行过滤。</li>
-  <li><strong>版本范围限制</strong>：新增 <code>requiredMinimumVersion</code> 和 <code>requiredMaximumVersion</code> 托管设置。当 Claude Code 版本不在允许范围内时，程序将拒绝启动并引导用户使用指定版本。</li>
-  <li><strong>快捷键与命令优化</strong>：在 <code>/btw</code> 命令中新增 <code>c</code> 键快捷键，用于将原始 Markdown 答案复制到剪贴板；Skills 模块新增 <code>$</code> 转义语法，方便在命令体中直接输入字面量 <code>$</code> 后跟数字。</li>
-  <li><strong>Hooks 与 MCP 改进</strong>：<code>Stop</code> 和 <code>SubagentStop</code> 钩子现在可返回 <code>hookSpecificOutput.additionalContext</code>，以便向 Claude 提供反馈并继续对话；stdio MCP 服务器在 <code>--resume</code> 时现在能接收与 Hooks/Bash 相同的 <code>CLAUDE_CODE_SESSION_ID</code>。</li>
-</ul>
-<h3>后台会话与体验优化</h3>
-<ul>
-  <li><strong>后台会话自动更新</strong>：后台代理会话现在会在后台自动更新到新版 Claude Code，重新打开会话时无需等待冷启动。</li>
-  <li><strong>调度与界面优化</strong>：<code>claude agents</code> 从状态分组视图调度时，将自动从代理视图打开的目录启动会话；内置命令和技能的描述更加清晰；订阅切换建议现在显示在启动公告槽中。</li>
-</ul>
-<h3>关键问题修复</h3>
-<ul>
-  <li>修复了 <code>claude -p</code> 在后台命令不退出时永久挂起的问题，后台 shell 现在会在结果输出后约 5 秒自动停止。</li>
-  <li>修复了 <code>claude agents</code> 后台会话在重新附加后丢失运行任务的问题。</li>
-  <li>修复了终端对齐问题及退出代理视图时的卡顿现象。</li>
-  <li>修复了粘贴操作导致终端键盘输入永久无响应的严重问题。</li>
-  <li>修复了 Hook <code>if: "Bash(...)"</code> 条件误触发以及拒绝规则对 <code>$HOME</code> 路径不生效的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.163</guid>
-      <pubDate>Thu, 04 Jun 2026 21:52:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
