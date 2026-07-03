@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 03 Jul 2026 14:31:31 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2026 16:44:54 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ crustc：将完整 rustc 编译器翻译为 C 语言</title>
+      <link>https://news.ycombinator.com/item?id=48768464</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 分享 Rust 编译器（编程工具）底层实现重构为 C 的开源项目，属于编程工具分享与开源项目，符合高兴趣配置</small></p><div>
+<h2>正文</h2>
+<p>开发者 FractalFir 发布了 <a href="https://github.com/FractalFir/crustc">crustc</a> 项目，成功将 <code>rustc</code>（Rust 编译器）的完整源码（1.98.0-nightly）翻译成了约 4600 万行 C 代码。该项目是作者历时 3 年、历经 14 次尝试后开发的 <code>cilly</code> 工具链的演示版本。</p>
+<p><code>cilly</code> 是一个 Rust 库和编译器后端插件，能够将 Rust 代码实时转换为 C 代码。其核心创新在于强大的兼容性探测机制：通过生成“见证程序（witness programs）”，<code>cilly</code> 能够检测目标 C 编译器和平台的具体支持情况（如 <code>_Thread_local</code> 关键字、浮点数大小、字符编码等），从而生成适配特定编译器的 C 代码。此外，该项目具备网络透明性，支持通过 TCP 连接远程 C 编译器，有效解决了在缺乏交叉编译器的平台上引导 Rust 编译器的难题（例如在 x86 Plan 9 虚拟机上运行，而在 Arm64 Linux 上编译）。</p>
+<p>该项目的核心目标是支持缺乏 LLVM 或 GCC 支持的老式与小众硬件（如 Plan 9），消除 Rust 项目移植到 C 时的目标平台限制。目前，生成的 C 代码在 ABI（应用程序二进制接口）兼容性上大体良好，但在 arm64 等平台的小结构体返回指针传递上存在差异。由于该项目目前仅为演示，完整工具链尚未公开，作者表示将尽快发布。</p>
+<h2>你知道吗？</h2>
+<p><strong>多样化双重编译（Diverse Double-Compiling, DDC）</strong>：社区讨论中提及，此类跨语言编译器转换技术可用于解决肯·汤普逊（Ken Thompson）在经典论文《信任信任（Reflections on Trusting Trust）》中提出的编译器后门问题。通过使用不同的编译器（如 <code>crustc</code> 和官方 <code>rustc</code>）对同一源码进行编译，开发者可以比对输出结果，检测是否存在恶意植入的代码。</p>
+<p><strong>替代引导方案</strong>：在 <code>crustc</code> 之前，已有用 C++ 手写的 Rust 编译器 <code>mrustc</code> 被用于 Guix 等发行版的 Rust 引导过程。虽然 <code>mrustc</code> 主要针对 Rust 的特定子集，但 <code>crustc</code> 通过 C 语言转换提供了另一种潜在的跨平台编译路径，尤其适用于 LLVM 不支持的目标架构。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48768464</guid>
+      <pubDate>Thu, 02 Jul 2026 22:57:35 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 半成品产品：一个关于创业陷阱与技术债的寓言</title>
       <link>https://news.ycombinator.com/item?id=48772388</link>
@@ -920,15 +937,6 @@ HTTP 402 (Payment Required) 状态码早在 1999 年的 HTTP/1.1 规范中就已
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48680370</guid>
       <pubDate>Thu, 25 Jun 2026 23:10:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ DeepSeek 开源 DSpark 推理优化技术，推理速度提升 60-85%</title>
-      <link>https://news.ycombinator.com/item?id=48696585</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍 DeepSeek 开源的 DSpark 推理优化技术与代码库，涉及 AI 模型推理加速及开源项目，高度契合用户对 AI 技术进展、效率改进及开源项目的关注。</small></p><p>DeepSeek 近日开源了 <a href="https://github.com/deepseek-ai/DeepSpec">DeepSpec</a> 代码库，并发布了关于 DSpark 的论文。DSpark 是一种全栈式的推测解码（speculative decoding）算法框架，旨在大幅提升大语言模型的推理生成速度。根据论文数据，在同等系统容量下，DSpark 能够实现 57% 至 78% 的每用户生成速度提升（部分场景下甚至达到 60-85%）。</p><p>该技术已在 DeepSeek-V4-Flash 和 DeepSeek-V4-Pro 等预览版模型中实际部署。通过引入 Lookahead Sparse Attention（前瞻稀疏注意力）等机制，DSpark 在加速生成的同时大幅降低了内存消耗，使得草稿模型（draft models）能够与主模型协同高效运行。</p><p>社区讨论指出，这种底层推理优化是 DeepSeek 能够大幅降低 API 定价的关键因素之一。许多用户反馈，使用 DeepSeek V4 Pro 的成本仅为同类竞品（如 Claude）的几分之一，且响应速度快、上下文窗口大。此外，评论中引发了关于中美 AI 实验室发展策略的对比：DeepSeek 选择开源优化方案以促进技术普惠，而部分美国头部实验室则倾向于保密核心技术或依赖巨额资本投入建设数据中心。</p><h3>你知道吗？</h3><p>推测解码（Speculative Decoding）是一种通过利用一个小而快的“草稿模型”来预测大模型的输出，再由大模型并行验证这些预测的技术。如果预测正确，大模型只需进行一次前向传播即可生成多个 token，从而显著减少推理延迟。DeepSeek 的 DSpark 进一步优化了这一流程，使其在工业级部署中更加高效。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48696585</guid>
-      <pubDate>Sat, 27 Jun 2026 09:18:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
