@@ -3,7 +3,33 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 03 Jul 2026 22:14:09 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2026 23:18:38 GMT</lastBuildDate>
+    <item>
+      <title>⭐ GNOME 51 Alpha 发布，带来多项功能增强与改进</title>
+      <link>https://www.phoronix.com/news/GNOME-51-Alpha</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 GNOME 51 Alpha 版本的发布及增强功能，属于 Linux 桌面环境的重要更新，符合用户对 Linux 桌面技术及新软件项目的兴趣。</small></p><p>GNOME 51 Alpha 版本现已发布，旨在为今年 9 月推出的稳定版 GNOME 51 桌面环境做准备。该版本并未引入单一的重大变革，而是通过一系列分散在多个组件中的小型改进，进一步打磨用户体验并增加新功能。</p>
+<p>主要更新包括：</p>
+<ul>
+<li><strong>Epiphany 浏览器</strong>：新增复制当前页面 URL 的快捷键及其他改进。</li>
+<li><strong>GDM 显示管理器</strong>：新增对 KMSCON VT 的兼容性，并支持更改 fallback session。</li>
+<li><strong>GNOME Calendar</strong>：进行性能提升、渲染优化及内部代码重构。</li>
+<li><strong>GNOME Control Center（控制中心）</strong>：重新排列系统软硬件信息页面，新增显示选项，支持插入鼠标时自动禁用触控板，并新增 WiFi 共享 QR 码小部件。</li>
+<li><strong>GNOME Maps</strong>：支持离线地图下载。</li>
+<li><strong>GNOME Remote Desktop</strong>：修复并启用 AMD 显卡驱动的硬件加速支持。</li>
+<li><strong>GNOME Shell</strong>：支持 vA-API H.264 屏幕录制的速率控制，并支持 text_input_v3 协议 v2 版本。</li>
+<li><strong>GTK</strong>：在多处尊重系统的“减少动画”设置，避免不必要的动画效果。</li>
+<li><strong>Loupe 图像查看器</strong>：现在可显示图像元数据，包括创建者、版权、相机镜头及所用软件信息。</li>
+<li><strong>Nautilus 文件管理器</strong>：增强视图重新加载性能。</li>
+<li><strong>Sushi</strong>：已移植至 GTK4。</li>
+</ul>
+<p>此外，Mutter 合成器包含多项修复，GNOME Session 启用了 oo7-portal 作为 Secret portal 的实现，XDG Desktop Portal GNOME 支持输入捕获门户的会话持久性。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=gnome_51_alpha" alt="GNOME 51 Alpha" />
+<p>更多详细信息可参考 GNOME Discourse 上的发布说明。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-51-Alpha</guid>
+      <pubDate>Fri, 03 Jul 2026 22:43:31 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ UPower 1.91.3 修复充电模式回退问题，防止笔记本电池加速老化</title>
       <link>https://www.phoronix.com/news/UPower-1.91.3</link>
@@ -711,26 +737,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Nourish-Wayland-Compositor</guid>
       <pubDate>Sun, 28 Jun 2026 00:52:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 内核提议 Reserved THP 特性以结合 HugeTLB 与 THP 优势</title>
-      <link>https://www.phoronix.com/news/Reserved-THP-Linux</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论了 Linux 内核内存管理机制（THP）的功能改进提议。该内容属于底层系统开发，与用户来源配置中明确的“Linux桌面技术”兴趣点存在层级差异，且不涉及高优先级的特定应用或发行版，故评定为可选。</small></p><p>Linux 内核开发者、字节跳动工程师 Qi Zheng 近日提交了一个名为 <b>Reserved THP</b> 的新功能请求评论（RFC）补丁系列。该特性旨在结合 <a href="https://en.wikipedia.org/wiki/HugeTLB">HugeTLB</a> 和 <a href="https://en.wikipedia.org/wiki/Transparent_HugePages">透明大页（THP）</a> 的优点，解决现有大页内存管理中的痛点。</p>
-
-<p>目前，Linux 内核中的 HugeTLB 支持内存预留和保证分配，但不支持交换（swap）；而 THP 虽然与核心内存管理集成更紧密且支持交换，却不支持预留，分配也无法保证。字节跳动在内部场景中遇到了热升级（hot-upgrade）时的内存预留难题：为了应对升级，往往需要预留双倍于业务所需的内存，导致大量资源浪费。此外，由于 HugeTLB 不支持交换，无法回收升级过程中的冷内存。</p>
-
-<p>为此，Qi Zheng 提出了 Reserved THP 方案。该方案允许预留 THP 内存，并通过 <code>madvise()</code> 等接口进行消费，普通内存分配无法占用这部分资源。这样既实现了类似 HugeTLB 的预留保证，又保留了 THP 支持交换的能力，从而有效解决内存浪费和冷内存回收问题。</p>
-
-<p>这被视为统一 HugeTLB 和 THP 支持的一个潜在跳板。感兴趣的开发者可以通过 LKML 查看相关补丁系列。</p>
-
-<img src="//www.phoronix.net/image.php?id=intel-xeon-mrdimm-scaling&image=intel_mrdimm_3_med" alt="MRDIMM memory" />
-
-<h3>你知道吗？</h3>
-<p><b>HugeTLB 与 THP 的区别</b>：HugeTLB 是传统的大页机制，需要预先分配，适合数据库等需要确定性内存的场景；THP（透明大页）由内核自动管理，对应用透明，适合通用场景。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Reserved-THP-Linux</guid>
-      <pubDate>Sat, 27 Jun 2026 16:50:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
