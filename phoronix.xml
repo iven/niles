@@ -3,7 +3,18 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 03 Jul 2026 08:24:26 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2026 11:41:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.2-rc2 内核 BPF 代码新增 JIT 喷溅攻击防护机制</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-rc3-BPF-Hardening</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述Linux内核BPF代码的安全加固改进，防范特定攻击，属于开源项目（Linux内核）的技术进展，符合用户感兴趣的主题。</small></p><p>在 Linux 7.2-rc2 发布前夕，内核代码库合并了针对 BPF（Berkeley Packet Filter，伯克利数据包过滤器）代码的加固补丁，旨在防御 JIT（Just-In-Time，即时编译）喷溅（JIT Spraying）攻击。</p>
+<p>英特尔工程师 Pawan Gupta 提交了相关补丁。BPF JIT 分配器会将多个小程序打包到较大的可执行内存块中，并在程序加载和释放时复用空间。当新代码写入旧程序占用的空间时，间接跳转可能会复用旧程序留下的分支预测状态，从而带来安全风险。</p>
+<p>为了解决这一问题，补丁引入了在重用 JIT 内存前刷新间接分支预测器的机制。通过新增 <code>bpf_arch_pred_flush_enabled</code> 静态键和 <code>bpf_arch_pred_flush</code> 静态调用，各架构可根据需要实现预测器刷新函数，默认情况下为无操作（NOP）。此外，另一项补丁启用了间接分支预测器屏障（Indirect Branch Predictor Barrier, IBPB）刷新。当系统启用 Spectre-v2 缓解措施时，BPF JIT 内存复用将触发 IBPB 刷新。若 BPF 调度器已使用 retpoline 序列，则跳过该刷新。相关代码已合并至 Linux Git 仓库，将随 Linux 7.2-rc2 正式发布。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-rc3-BPF-Hardening</guid>
+      <pubDate>Fri, 03 Jul 2026 10:49:59 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ ReactOS 实现首个 Windows NT6 系统调用，向 Vista 兼容性迈进</title>
       <link>https://www.phoronix.com/news/ReactOS-First-NT6-Syscall</link>
@@ -711,17 +722,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/COSMIC-System-Monitor</guid>
       <pubDate>Sat, 27 Jun 2026 10:02:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Shotcut 26.6 发布：增强 HDR 支持，Linux 引入 Vulkan 显示</title>
-      <link>https://www.phoronix.com/news/Shotcut-26.6-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章报道开源视频编辑软件 Shotcut 的新版本发布及其 Linux Vulkan 显示支持改进，契合当前来源配置中“新软件项目”的高兴趣设定，属于用户必看的内容更新。</small></p><p>开源跨平台视频编辑软件 Shotcut 发布了 26.6 版本。本次更新重点增强了高动态范围（HDR）内容的处理与显示能力，新增了 HDR 预览窗口、时间线属性中的动态范围数据，并支持通过 GPU 处理模式进行 HDR 转换及导出。此外，版本还引入了 RNNoise 音频过滤器，通过 "--experimental" 命令行参数激活了新的过滤器 UI 生成器，并改进了多项插件功能。在 Linux 平台上，用户现在可以通过显示模式设置选择 Vulkan 作为渲染后端。底层依赖已更新至 FFmpeg 8.1.2 和 MLT 7.40 框架，并修复了数十项已知问题。</p>
-<img src="//www.phoronix.net/image.php?id=2024&image=shotcut_2410" alt="Shotcut video editor" />
-<p>更多详细信息及下载请访问 <a href="https://www.shotcut.org">Shotcut.org</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Shotcut-26.6-Released</guid>
-      <pubDate>Sat, 27 Jun 2026 00:10:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
