@@ -3,7 +3,49 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 03 Jul 2026 23:19:01 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jul 2026 03:58:49 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 本地运行 SOTA 大语言模型（LLM）的硬件构建与配置指南</title>
+      <link>https://news.ycombinator.com/item?id=48775921</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章核心为本地运行SOTA大语言模型的开源项目与技术配置指南，契合用户对编程工具分享及AI软件技术进展的高兴趣偏好，属于高价值实用内容，故评定为critical。</small></p><p>本文作者 jamesob 分享了其构建并配置一台高性能本地机器以运行最新 SOTA（State-of-the-Art）大语言模型（LLM）的详细经验。文章提供了从 $2,000 到 $40,000 不等的硬件预算方案，并重点介绍了如何突破硬件限制以运行参数量高达 594B 的模型。</p>
+
+<h3>硬件构建与成本分级</h3>
+<p>作者将方案分为两个主要预算级别：</p>
+<ul>
+  <li><strong>约 $2,000 方案</strong>：使用 2 张 RTX 3090（共 48GB 显存），可流畅运行 Qwen3.6-27B 模型及进行高质量的本地语音转文本（STT）处理。</li>
+  <li><strong>约 $40,000 方案</strong>：搭载 4 张 NVIDIA RTX PRO 6000 Blackwell 工作站显卡，提供总计 384GB 显存，能够运行接近 Claude Opus 级别的模型。</li>
+</ul>
+
+<p>在 $40,000 的高端方案中，作者为了控制基础平台成本，特意选择了上一代的 AMD EPYC 处理器和 DDR4 内存，将预算集中在显存（VRAM）上。为了打破 PCIe 通道瓶颈，他引入了第三方 <a href="https://c-payne.com">Gen4 PCIe 交换机</a>，使 GPU 之间能够以线速进行点对点（P2P）通信，从而大幅降低张量并行（Tensor Parallelism）中的延迟。</p>
+<p><img src="/jamesob/local-llm/raw/master/images/switch.png" alt="PCIe 交换机连接示意图" /></p>
+
+<h3>系统调优与软件配置</h3>
+<p>要让这套复杂的硬件协同工作，作者进行了大量的底层调优：</p>
+<ul>
+  <li><strong>BIOS 与内核参数</strong>：强制 PCIe 链路为 Gen4 速度，禁用 ASPM（主动状态电源管理）以防止链路降速，关闭 IOMMU 以避免 NCCL 通信挂起，并通过脚本禁用 ACS（访问控制服务）以确保 P2P 流量完全在交换机内部处理。</li>
+  <li><strong>功耗管理</strong>：由于受限于 110V 普通电路，作者将每张 GPU 的功耗限制在 350W，以确保整机在安全功率范围内运行。</li>
+</ul>
+<p><img src="/jamesob/local-llm/raw/master/images/monitor.png" alt="系统性能监控面板，显示 GPU 互联带宽与延迟" /></p>
+
+<p>在软件层面，作者使用 Docker 容器隔离运行模型，并缓存模型权重。他推荐的模型是经过量化（Int8-mix NVFP4）和专家剪枝（REAP）的 GLM-5.2 变体。此外，他还分享了自己开发的本地 AI 助手框架（Clanker），集成了搜索、代码仓库协作等功能。</p>
+<p><img src="/jamesob/local-llm/raw/master/images/rig.png" alt="作者搭建的本地 LLM 推理整机" /></p>
+
+<h3>社区反馈与争议</h3>
+<p>该指南在 Hacker News 上引发了热烈讨论。社区普遍认为本地运行 LLM 在隐私保护和避免 API 限制方面具有不可替代的价值。然而，针对 $40,000 方案的可行性也存在质疑：</p>
+<ul>
+  <li><strong>量化与剪枝的代价</strong>：多位用户指出，NVFP4 量化和 REAP 剪枝虽然能让超大模型塞进有限显存，但在长上下文编码或复杂逻辑任务中，模型质量会出现明显下降，甚至不如全精度的小参数模型。</li>
+  <li><strong>成本效益分析</strong>：有用户指出，考虑到硬件折旧和电费，自建机器的成本可能远高于按需租赁云 GPU。Apple 的 M 系列芯片凭借统一内存架构也被视为一种更具性价比的替代方案，尽管其内存带宽较低。</li>
+</ul>
+<p><img src="/jamesob/local-llm/raw/master/images/enclosure.png" alt="作者手工制作的 GPU 与交换机定制机箱" /></p>
+
+<h3>你知道吗？</h3>
+<p><strong>什么是 REAP 和 NVFP4？</strong><br>
+为了让参数量巨大的模型（如 594B）在消费级或工作站级硬件上运行，研究人员开发了多种压缩技术。<strong>NVFP4</strong>（NVIDIA Format Point 4）是一种极致的 4-bit 量化格式，能大幅减少显存占用，但可能损失精度。<strong>REAP</strong>（Randomized Expert Pruning，随机专家剪枝）则是一种针对 MoE（混合专家）架构模型的优化技术，通过移除对特定任务贡献较小的“专家”网络来进一步压缩模型体积。虽然这些技术让本地运行 SOTA 模型成为可能，但往往伴随着推理质量（尤其是长程逻辑推理）的妥协。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48775921</guid>
+      <pubDate>Fri, 03 Jul 2026 15:03:43 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ ProseMirror 作者推出全新开源富文本编辑器 Wordgard</title>
       <link>https://news.ycombinator.com/item?id=48772573</link>
@@ -924,32 +966,6 @@ HTTP 402 (Payment Required) 状态码早在 1999 年的 HTTP/1.1 规范中就已
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48688700</guid>
       <pubDate>Fri, 26 Jun 2026 16:40:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Fintech Engineering Handbook：金融科技系统核心工程模式与原则</title>
-      <link>https://news.ycombinator.com/item?id=48696982</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要探讨金融科技系统的核心工程模式与架构原则，属于软件开发最佳实践范畴，契合技术阅读兴趣，故评定为推荐阅读。</small></p><p>本文介绍了一份由拥有六年行业经验的工程师撰写的开源资源——<a href="https://w.pitula.me/fintech-engineering-handbook/">Fintech Engineering Handbook</a>。该手册旨在为金融科技（Fintech）领域的开发者提供处理金钱系统的核心设计模式与最佳实践，内容涵盖从金额表示、汇率处理到复式记账与审计追踪等关键环节。</p>
-
-<h3>核心设计原则</h3>
-<p>整个手册围绕三大原则展开：</p>
-<ul>
-  <li><strong>不虚构数据（No invented data）</strong>：金钱不能凭空产生，系统必须通过幂等性、去重和对账机制，杜绝重复记录或任意余额更新。</li>
-  <li><strong>不丢失数据（No lost data）</strong>：所有资金变动必须被完整追踪与持久化，采用全精度计算、至少一次投递（at-least-once delivery）及不可变日志来保障。</li>
-  <li><strong>不盲目信任（No trust）</strong>：不信任外部提供商、内部组件或外部环境，通过验证 Webhook、交叉核对数据源以及在假设失效时快速失败（fail loudly）来维护系统安全。</li>
-</ul>
-
-<h3>关键技术实践</h3>
-<p><strong>金额表示与精度处理</strong>：文章强烈建议避免使用浮点数（Floating-point），因其会导致不可预测的精度丢失。推荐采用最小单位整数（如将 12.34 存储为 1234）或任意精度类型（如 Java 的 BigDecimal）。在 JSON API 传输时，金额应作为字符串传递，以防止解析器隐式转换为浮点数。</p>
-<p><strong>舍入与货币管理</strong>：舍入应作为显式的业务决策，并尽量推迟到系统边界（如持久化或展示前）进行。货币处理需将金额与币种打包，禁止跨币种直接运算，且汇率转换必须使用受控的汇率源。</p>
-<p><strong>复式记账与账本设计</strong>：金融系统普遍采用复式记账法（Double-entry bookkeeping），每笔交易同时记录借方与贷方，确保账目始终平衡。余额不应直接存储，而应从交易流水中派生计算。此外，需严格区分交易的价值时间（Value time）、系统记账时间（Booking time）与资金实际结算时间（Settlement time）。</p>
-<p><strong>审计追踪与事件溯源</strong>：为满足监管审计要求，系统必须保留完整的操作历史与决策逻辑。事件溯源（Event Sourcing）被推荐为构建不可变审计追踪的最佳实践，即只存储事件并从中派生状态，但这会显著增加系统复杂度。</p>
-
-<h3>社区反馈</h3>
-<p>该文章在 Hacker News 社区引发了热烈讨论。开发者普遍认为手册中的幂等性设计与审计追踪章节极具实战价值。关于金额存储格式，社区内部存在不同观点：部分资深工程师坚持“永远使用整数”，而另一些人则建议在 API 层使用字符串以规避 JSON 解析风险。此外，也有开发者指出，这些关于幂等性、重试和事件排序的原则不仅适用于金融系统，对所有需要高数据准确性的分布式系统同样适用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48696982</guid>
-      <pubDate>Sat, 27 Jun 2026 10:28:53 GMT</pubDate>
     </item>
   </channel>
 </rss>
