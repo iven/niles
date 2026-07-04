@@ -3,7 +3,48 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 04 Jul 2026 09:31:08 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jul 2026 11:45:59 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Mistral AI 发布 Leanstral 1.5：低成本、高性能的 Lean 4 形式化验证模型</title>
+      <link>https://news.ycombinator.com/item?id=48780801</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Mistral AI发布的Leanstral 1.5新AI模型，核心主题为新AI模型发布公告，符合用户很感兴趣的内容，故定为必读。</small></p><p>Mistral AI 发布了 <strong>Leanstral 1.5</strong>，这是一个基于 Apache-2.0 协议开源的 6B 激活参数模型，专为 Lean 4 形式化验证设计。该模型旨在降低形式化验证的门槛，使其在数学证明和代码验证中更加高效且易于获取。</p>
+<img src="/_astro/Cover-Leanstral_Z1UAbrK.webp?dpl=6a47cdd357510b0008482aed" alt="Leanstral 1.5 封面图" width="2400" height="1333" />
+
+<h3>性能突破与训练方法</h3>
+<p>Leanstral 1.5 在多项形式化数学基准测试中取得了突破性进展：</p>
+<ul>
+<li><strong>miniF2F</strong>：达到 100% 饱和。</li>
+<li><strong>PutnamBench</strong>：成功解决 587/672 道难题。</li>
+<li><strong>FATE-H 与 FATE-X</strong>：分别创下 87% 和 34% 的新纪录。</li>
+</ul>
+<p>在成本效益方面，Leanstral 1.5 在 PutnamBench 上每个问题的推理成本约为 $4，远低于同类模型（如 Seed-Prover 1.5 的 $300+）。此外，该模型展现出极强的测试时扩展（Test-time scaling）能力，随着 token 预算的增加，其解题成功率呈现单调上升趋势。</p>
+<img src="/_astro/putnambench_test_time_scaling_1JbrNe.webp?dpl=6a47cdd357510b0008482aed" alt="PutnamBench 测试时扩展性能图" width="2224" height="1288" />
+
+<p>为了实现这些性能，模型采用了三阶段训练流程：中期训练、监督微调（SFT）以及基于 CISPO 的强化学习。其强化学习环境模拟了真实的证明工程工作流：</p>
+<ul>
+<li><strong>多轮证明环境</strong>：模型根据定理提交证明，并根据 Lean 编译器的反馈进行迭代优化。</li>
+<li><strong>代码代理环境</strong>：模型像开发者一样操作文件系统、运行命令，并利用语言服务器实时检查类型信息。</li>
+</ul>
+<img src="/_astro/Multiturn%20Lean%20verifier%20flow_1BLkKq.webp?dpl=6a47cdd357510b0008482aed" alt="多轮 Lean 验证器流程图" width="2400" height="1476" />
+<img src="/_astro/Agentic%20Prover%20Figure%20Recreation_ZnQGBs.webp?dpl=6a47cdd357510b0008482aed" alt="代理证明者流程图" width="2400" height="1476" />
+
+<h3>代码验证与漏洞挖掘</h3>
+<p>除了数学证明，Leanstral 1.5 在代码验证方面同样表现出色。在案例研究中，它成功证明了 AVL 树的时间复杂度为 O(log n)，并消耗了超过 270 万个 token。在漏洞挖掘方面，该模型在 57 个开源仓库中自动发现了 11 个真实漏洞，其中包括 5 个此前未报告的边界条件溢出问题（例如 <code>datrs/varinteger</code> 库中的 zigzag 解码溢出）。</p>
+<img src="/_astro/chart-2_1x0qy1.webp?dpl=6a47cdd357510b0008482aed" alt="FLTEval 性能对比图" width="2048" height="1380" />
+
+<h3>社区反馈</h3>
+<p>尽管模型性能备受认可，但社区对其“漏洞挖掘”案例的有效性存在一定争议。部分用户指出，被发现的溢出漏洞属于常见的边界条件问题，通常的测试和模糊测试（Fuzzing）不应遗漏，且该库本身测试覆盖率较低。此外，有开发者表示使用 GPT-5.5 等通用模型也能发现同类问题。不过，社区普遍认可形式化验证在“证明程序无特定类别错误”方面的核心价值，并赞赏 Leanstral 1.5 的低成本与可在消费级硬件本地部署的优势。</p>
+
+<h3>获取方式</h3>
+<p>Leanstral 1.5 已完全开源，权重可在 <a href="https://huggingface.co/mistralai/Leanstral-1.5">Hugging Face</a> 获取，并提供免费 API 接口。推荐用户使用 Mistral Vibe 进行本地部署与交互。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>形式化验证（Formal Verification）</strong>是一种使用数学方法证明或反驳软件或硬件系统特定属性的技术。与传统的测试（Testing）不同，测试只能证明程序在特定输入下存在错误，而无法证明程序在所有情况下都正确；形式化验证则通过构建严格的数学模型，确保程序在所有可能的执行路径下都满足预期规范。Lean 是一种广泛应用于形式化验证和数学证明的编程语言，近年来随着 AI 大模型的介入，其在自动化定理证明（Automated Theorem Proving）领域的应用正变得日益普及。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48780801</guid>
+      <pubDate>Fri, 03 Jul 2026 22:33:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 将代码转为图片可节省 60% Token 费用：pxpipe 项目解析</title>
       <link>https://news.ycombinator.com/item?id=48776464</link>
@@ -931,25 +972,6 @@ HTTP 402 (Payment Required) 状态码早在 1999 年的 HTTP/1.1 规范中就已
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48697958</guid>
       <pubDate>Sat, 27 Jun 2026 13:10:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI 深度介入数学研究：数学家重新思考自身角色与学科未来</title>
-      <link>https://news.ycombinator.com/item?id=48692883</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨AI系统在数学研究中的应用能力及对学科未来的影响，涉及AI技术进展，符合用户对AI和科学领域的兴趣配置</small></p><p>随着大语言模型（LLM）与数学推理能力的飞速进步，AI 已能在国际数学奥林匹克竞赛中夺得金牌，甚至自主产出博士级研究成果并推翻重要猜想。这一突破正迫使数学界重新审视 AI 的角色以及人类数学家在学科中的定位。</p>
-<img src="https://spectrum.ieee.org/media-library/a-photo-shows-a-man-standing-in-front-of-the-projection-of-a-computer-screen-thats-filled-with-computer-code.jpg?id=67007150&width=980&quality=100" alt="一名男子站在投射着满屏计算机代码的屏幕前" width="2000" height="1500" />
-<p>目前，AI 在数学领域的应用主要集中在两个方面：一是直接进行复杂的数学推理与猜想验证；二是与形式化证明助手（如 Lean、Isabelle 和 Rocq）结合，将人类手写的非形式化证明自动转换为机器可逐行验证的代码。例如，AI 系统已能在数天至数周内完成菲尔兹奖得主玛丽娜·维亚佐夫斯卡（Maryna Viazovska）高维球体堆积问题证明的形式化工作。</p>
-<p>面对 AI 的崛起，数学界对未来路径产生了分歧，主要形成三种愿景：</p>
-<ul>
-  <li><strong>AI 作为工具：</strong>强调人类对数学的“理解”与“美感”才是核心。数学家认为，推导过程中的挣扎与顿悟是学科的灵魂，AI 生成的证明若无法被人类理解，其价值将大打折扣。</li>
-  <li><strong>AI 作为合作伙伴：</strong>以菲尔兹奖得主陶哲轩（Terence Tao）为代表，提出“大数学（Big Mathematics）”概念。人类负责提出创造性问题、设计架构与抽象概念，AI 承担繁琐的技术性计算与证明步骤，双方协同攻克单一人类无法解决的复杂难题。</li>
-  <li><strong>AI 作为神谕：</strong>部分学者担忧，若 AI 能完全自主完成猜想、证明与验证，人类数学家可能退化为仅负责解读 AI 结果的“神谕祭司”。</li>
-</ul>
-<p>在 <a href="https://news.ycombinator.com/item?id=48692883">Hacker News 社区</a> 的讨论中，用户们普遍指出 AI 目前仍面临验证可靠性、提示工程成本高昂以及生成代码可读性差等挑战。许多人强调，数学的本质在于人类共识与逻辑理解，而非单纯的结果输出；AI 的引入更像是一层新的同行评审机制，而非完全替代人类数学家。</p>
-<p>原文完整阅读：<a href="https://spectrum.ieee.org/ai-in-mathematics">AI in mathematics is forcing big questions (IEEE Spectrum)</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48692883</guid>
-      <pubDate>Fri, 26 Jun 2026 22:36:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
