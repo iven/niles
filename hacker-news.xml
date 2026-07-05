@@ -3,7 +3,34 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 05 Jul 2026 12:25:18 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2026 16:19:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Shadcn/UI 默认组件库从 Radix 切换为 Base UI</title>
+      <link>https://news.ycombinator.com/item?id=48791328</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述 Shadcn/UI 组件库默认依赖从 Radix 切换为 Base UI 的更新，属于前端开源项目与开发工具变更，符合用户感兴趣的主题，故推荐。</small></p><p>shadcn/ui 官方宣布，从即日起，新项目将默认使用 <strong>Base UI</strong> 作为底层组件库，取代此前的 <strong>Radix</strong>（详见<a href="https://ui.shadcn.com/docs/changelog">官方更新日志</a>）。这一决定基于 Base UI 已达到稳定版本（1.6.0）且社区采用率显著上升（新项目创建比例达 2:1）。Base UI 由 Radix 的原开发团队打造，底层基于框架无关的 <strong>Zag.js</strong>，提供了更底层的控制能力。</p>
+<p>对于现有项目，Radix 不会被弃用，官方仍会持续维护并同步更新。用户无需强制迁移，若希望迁移，官方提供了专为 AI 编码助手设计的 Skill。该 Skill 支持渐进式迁移，可逐组件替换并生成详细报告，保留代码自定义内容，避免传统 codemod 的破坏性问题。</p>
+<p>社区反馈方面，开发者对 shadcn/ui 的“复制粘贴”模式与 Mantine 等传统 UI 库的优劣展开了讨论。此外，由于 PrimeNG 宣布闭源收费，部分 Angular 开发者正在寻找替代方案。关于迁移工具，社区认为 LLM 驱动的 Skill 与传统 codemod 将长期互补。</p>
+<h3>你知道吗？</h3>
+<p>Base UI 实际上是 Radix 的原班人马在 MUI 领导下开发的新项目。它底层基于 <strong>Zag.js</strong>（一个框架无关的状态机 UI 库），这使得它在保持 Radix 优秀无障碍（Accessibility）和 API 设计的同时，提供了更灵活的底层控制。shadcn/ui 选择切换底层，旨在拥抱更现代、更稳定的基础架构，同时保持其“复制粘贴、完全可控”的核心哲学。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48791328</guid>
+      <pubDate>Sun, 05 Jul 2026 04:46:08 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Better Models: Worse Tools：新 Claude 模型的工具调用退化与训练环境的影响</title>
+      <link>https://news.ycombinator.com/item?id=48788599</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨新 Claude 模型在工具调用功能上的退化及其训练环境影响，聚焦 AI 模型技术进展与开发应用，符合用户兴趣，故推荐。</small></p><p>开发者 Armin Ronacher 在博客中报告了一个令人困惑的现象：Anthropic 较新的 Claude 模型（如 <a href="https://lucumr.pocoo.org/2026/7/4/better-models-worse-tools/">Opus 4.8</a> 和 Sonnet 5）在调用第三方工具（如 Pi 的 <code>edit</code> 工具）时，频繁生成包含虚构字段的无效 JSON 结构，导致工具调用被拒绝。相比之下，旧模型在这一特定任务上表现更为稳定。</p>
+<p>LLM 的工具调用本质上是基于文本生成的，模型通过特殊标记（如 <code>&lt;antml:function_calls&gt;</code>）和 JSON 序列化来传递参数。Ronacher 指出，当模型在生成长文本后的嵌套 JSON 数组时，容易在熵值最高的位置（如数组末尾）添加多余字段。作者推测，这并非随机退化，而是模型针对 Anthropic 闭源客户端 <a href="https://github.com/anthropics/anthropic-code">Claude Code</a> 进行强化学习（RL）优化后的副作用。Claude Code 的客户端极其宽容，会自动修复 Unicode 错误、处理参数别名并过滤未知键。这种“宽容环境”让模型学会了生成“稍微不规范”的调用，而在面对严格遵循 Schema 的第三方客户端时，这种先验反而成了劣势。</p>
+<p>为了解决这一问题，开启 Anthropic 的严格模式（Strict Mode）可以强制模型遵循 JSON Schema，从而消除虚构字段。但这揭示了闭源模型与闭源 Harness 结合带来的“围墙花园”效应：模型的行为越来越依赖于特定训练环境，其他客户端必须适应这些隐性规则。相比之下，OpenAI 的 Harmony 格式和 LARK 语法约束提供了更明确的边界。</p>
+<p><strong>社区反馈：</strong>评论者认为该文章提供了极具价值的技术细节。讨论集中在构建确定性工具在非确定性模型上的困难，以及不同客户端（如使用 Sam 编辑器语法或 curl 命令）作为替代方案的可行性。部分用户还对 Anthropic 的闭源策略和模型降级机制表示担忧。</p>
+<h3>你知道吗？</h3>
+<p><strong>严格模式（Strict Mode）</strong>在 LLM API 中通常要求模型生成的 JSON 严格匹配提供的 JSON Schema。任何不合规的字段、类型或结构都会被 API 拒绝，从而强制模型输出符合预期的格式。虽然这可能会增加推理成本或略微降低生成质量，但在工具调用等对格式要求严格的场景中，它是确保稳定性的关键手段。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48788599</guid>
+      <pubDate>Sat, 04 Jul 2026 20:16:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 按钮的职责：UI 交互中如何处理快速连续点击与动画阻塞</title>
       <link>https://news.ycombinator.com/item?id=48790689</link>
@@ -974,35 +1001,6 @@ HTTP 402 (Payment Required) 状态码早在 1999 年的 HTTP/1.1 规范中就已
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48720758</guid>
       <pubDate>Mon, 29 Jun 2026 15:42:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qwen 3.6 27B：本地开发的性能与成本平衡之选</title>
-      <link>https://news.ycombinator.com/item?id=48721903</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 Qwen 3.6 27B 新模型及其在本地编程场景的应用，符合用户对 '新AI模型发布公告' 和 '编程工具分享' 的强烈兴趣。</small></p><p>近期，<a href="https://quesma.com/blog/qwen-36-is-awesome/">Qwen 3.6</a> 在本地大模型开发领域引发了广泛关注。该模型提供混合专家（MoE）架构的 35B A3B 版本和稠密架构的 27B 版本。作者经过测试后认为，尽管 27B 版本速度稍慢，但在代码生成和逻辑推理上表现更为强大，是本地开发的“甜点”选择。</p>
-
-<h3>实际测试表现</h3>
-<p>在创意写作方面，模型能够生成结构合理的诗歌，并在思维过程中展现出对量子物理等复杂概念的理解 <img src="/_astro/chat_quantum.C1Pc7Xjo_Z2f2mQj.webp" alt="Chat about quantum mechanics with Qwen 3.6" width="1614" height="842" />。在编码测试中，作者使用 <a href="https://opencode.ai/">OpenCode</a> 工具，仅通过单次提示词便成功生成了基于 pnpm 的六边形扫雷游戏项目 <img src="/_astro/hexsweeper.BzP4VuVG_ZodJWd.webp" alt="Hexagonal minesweeper in with Qwen 3.6 27B in OpenCode" width="1276" height="1108" />。此外，模型还能在几分钟内根据简短提示生成完整的商业落地页 <img src="/_astro/qwen_candles.IzffMgry_ZQu3FN.webp" alt="A landing page by Qwen 3.6" width="2994" height="2392" />。</p>
-
-<h3>本地部署与性能</h3>
-<p>作者推荐使用 <a href="https://github.com/ggerganov/llama.cpp">llama.cpp</a> 配合 Hugging Face 上的量化模型（如 unsloth 提供的 Q8_0 量化版本）进行本地部署。运行该模型会显著增加设备负载，甚至产生明显热量 <img src="/_astro/thermal_master_p3_macbook.DJG2GL38_ZuETE2.webp" alt="Thermal camera image" width="1120" height="1494" />。通过启用多令牌预测（MTP）技术，在 MacBook Max M5 设备上，Qwen 3.6 27B 的运行速度可达 32 tokens/秒，显存占用合理。基准测试显示，该模型的性能约等于 2025 年中期的 GPT-5 级别，显著优于 Gemma 4 31B 及量化后的 DeepSeek V4 Flash。</p>
-
-<h3>社区反馈与硬件需求</h3>
-<p>尽管文章作者使用了高配设备，但 Hacker News 社区指出，通过更激进的量化（如 Q4），该模型在 24GB 至 64GB 内存/显存的消费级设备（如 RTX 3090 或 M4 Pro）上即可流畅运行。不过，也有开发者指出，本地模型在处理大型现有代码库时仍不如云端前沿模型稳定，建议在实际工作中明确指定文件路径和指令，以弥补其上下文理解的局限。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48721903</guid>
-      <pubDate>Mon, 29 Jun 2026 17:05:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>Tidal 更新 AI 政策：接受 AI 音乐但禁止变现并强制打标签</title>
-      <link>https://news.ycombinator.com/item?id=48718840</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲Tidal音乐平台对AI音乐的政策更新（接受但禁止变现和强制打标签），虽然涉及AI但侧重娱乐产业应用与政策管理，而非用户感兴趣的AI技术进展或模型发布，兴趣不明确</small></p><p>流媒体音乐平台 Tidal 近日发布了关于人工智能（AI）生成内容的最新政策。该政策明确平台将接受 AI 生成的音乐，但设定了严格的规范与限制。</p>
-<p>根据新规，所有 AI 生成的音乐在上传时必须明确标注为 AI 创作。此外，此类内容将不可变现（not monetizable），即创作者无法通过 AI 音乐获取版税或收入。Tidal 强调，平台将对 AI 音乐保持高标准的内容完整性要求，严禁利用他人音乐、姓名或肖像进行欺诈，或降低服务质量的内容。</p>
-<p>该政策在科技社区引发广泛讨论。多数用户认为，切断 AI 内容的变现渠道是遏制“AI 垃圾内容（AI slop）”泛滥的有效手段。同时，也有评论指出政策中关于“完全由 AI 制作”的定义尚显模糊，可能存在钻空子的空间，且部分用户呼吁平台增加一键隐藏 AI 生成内容的选项。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48718840</guid>
-      <pubDate>Mon, 29 Jun 2026 13:09:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
