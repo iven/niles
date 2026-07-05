@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 05 Jul 2026 10:26:34 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2026 12:25:18 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 按钮的职责：UI 交互中如何处理快速连续点击与动画阻塞</title>
+      <link>https://news.ycombinator.com/item?id=48790689</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论UI交互中的按钮处理最佳实践，属于软件工艺和开发经验，对应用户感兴趣的编程效率改进经验</small></p><p>本文通过对比 iPhone 与 Nothing Phone（Android）在快速连续点击照片旋转按钮时的不同表现，探讨了 UI 按钮在处理快速输入时的设计原则。</p>
+<p>作者指出，旋转图片是一个常见的交互控件。当用户快速连续点击 8 次时，iPhone 会缓冲后续点击，在当前动画结束后依次执行；而 Nothing Phone 每次点击都会提供触觉与声音反馈，但若前一个旋转动画仍在进行，则会忽略后续点击。作者认为，虽然动画能提供视觉引导，但在批量处理照片等“情境性重度使用（situational power user-ness）”场景下，用户更需要的是可预测且不被阻塞的交互体验。</p>
+<p>文章强调了一个核心设计原则：<b>永远不要强迫用户等待动画完成</b>。无论是缓冲点击队列，还是在接收到新点击时中断或加速当前动画，都是可行的解决方案。作者还借用“情境性残疾（situational disability）”的概念指出，普通用户在特定场景下也会面临类似重度用户的操作需求，UI 设计应提前考虑此类边缘情况，而非仅针对 casual 使用场景优化。</p>
+<img src="_media/if-youre-a-button-you-have-one-job/5.1088w.avif" alt="情境性残疾（situational disability）概念示意图" />
+<p>评论区中，开发者们围绕按键缓冲机制、动画的必要性以及历史 UX 案例展开了讨论。有观点指出，过度依赖动画可能导致交互迟滞，甚至引发类似 <a href="https://en.wikipedia.org/wiki/Therac-25" rel="nofollow">THERAC-25</a> 医疗设备灾难中的安全漏洞；也有用户分享了对 Apple 近年来动画滥用现象的不满，认为这牺牲了实际的操作效率。另有评论建议，对于高频或关键操作，应建立类似芯片设计的“UX 规则集”来自动检测并拦截不良交互模式。</p>
+<p>原文链接：<a href="https://unsung.aresluna.org/if-youre-a-button-you-have-one-job/">https://unsung.aresluna.org/if-youre-a-button-you-have-one-job/</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48790689</guid>
+      <pubDate>Sun, 05 Jul 2026 02:01:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Zig 开发日志：包管理功能迁移至构建系统，SPIR-V 后端与 LLVM 重大改进</title>
+      <link>https://news.ycombinator.com/item?id=48786638</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Zig编程语言的开发日志，涉及包管理、构建系统和后端改进，属于开源项目和编程工具进展</small></p><p><a href="https://ziglang.org/devlog/2026/#2026-06-30">Zig 语言近期开发日志</a>（2026年6月下旬）主要聚焦于架构解耦、图形后端增强以及核心内置函数的语义重构。</p>
+<h3>包管理功能迁移至构建系统</h3>
+<p>Andrew Kelley 宣布将包管理功能（如 <code>zig fetch</code>、<code>zig init</code> 等）从编译器核心移至独立的 <code>maker</code> 构建系统进程中。这一变更使得包获取逻辑、网络通信（HTTP/TLS）及压缩解析等模块以源码形式分发，用户无需重新编译编译器即可进行修补。同时，构建系统现在以 <code>ReleaseSafe</code> 模式运行，提升了网络操作的安全性，并能利用主机 CPU 指令加速加密与哈希计算。此举旨在为未来的构建服务器协议（Build Server Protocol, BSP）铺平道路，优化 <code>zig build --watch</code> 等长驻进程的体验。</p>
+<h3>SPIR-V 后端重大进展</h3>
+<p>Ali Cheraghi 大幅推进了 SPIR-V 后端，修复了长期存在的退化问题。引入 <code>@SpirvType</code> 内置函数以支持 Zig 类型系统无法表达的图形类型（如采样器、图像）。执行模式（如工作组大小）现通过调用约定传递，并新增了对网格着色（mesh shading）和任务着色（task shading）的支持。此外，后端实现了多线程代码生成，恢复了类型去重与死代码消除优化，并将 <code>.spv</code> 文件视为对象文件支持链接，行为测试通过率提升至 49%。</p>
+<h3><code>@bitCast</code> 语义重构与 LLVM 优化</h3>
+<p>Matthew Lugg 对 LLVM 后端的整数降低策略进行了优化，避免将非 ABI 位宽整数直接映射为 LLVM 的 bit-int 类型，从而减少未定义行为和崩溃风险。同时，彻底重构了 <code>@bitCast</code> 的语义，从基于内存字节重解释转变为基于“逻辑位表示”（logical bit layout）。新语义消除了字节序对聚合类型转换的影响，并支持更灵活的位级操作（如将数组转换为向量）。</p>
+<h3>社区反馈</h3>
+<p>社区开发者普遍认为此次架构解耦是必要的改进，尽管部分用户曾担忧包管理移出编译器会影响开发体验，但维护者指出这为构建服务器协议和长驻进程优化奠定了基础。此外，关于跨平台多语言构建系统的讨论也反映出开发者对更统一构建工具的期待。</p>
+<h3>你知道吗？</h3>
+<p><strong>构建服务器协议（Build Server Protocol, BSP）</strong>：一种旨在标准化 IDE 与构建系统之间通信的协议。Zig 正在开发其 MVP 版本，以解决 ZLS（Zig Language Server）在架构解耦后面临的配置重载问题，实现更流畅的代码编辑体验。</p>
+<p><strong>SPIR-V</strong>：一种用于表示图形和计算着色器的中间表示（IR）格式，由 Vulkan 规范定义。Zig 对其的支持使得开发者能够使用高级语言特性编写高性能的 GPU 着色器和计算内核。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48786638</guid>
+      <pubDate>Sat, 04 Jul 2026 16:30:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GPT-5.5 Codex 推理 Token 异常聚类或致复杂任务性能下降</title>
       <link>https://news.ycombinator.com/item?id=48789428</link>
@@ -969,38 +1003,6 @@ HTTP 402 (Payment Required) 状态码早在 1999 年的 HTTP/1.1 规范中就已
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48718840</guid>
       <pubDate>Mon, 29 Jun 2026 13:09:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ HackerRank open sourced its ATS. My resume scored 90/100. Oh wait 74. No – 88</title>
-      <link>https://news.ycombinator.com/item?id=48713832</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要分享HackerRank开源ATS招聘工具的测试结果与体验，涉及编程工具发布与开源项目，符合high_interest配置，故评定为critical。</small></p><p>Article URL: <a href="https://danunparsed.com/p/hackerrank-open-source-ats">https://danunparsed.com/p/hackerrank-open-source-ats</a></p>
-<p>Comments URL: <a href="https://news.ycombinator.com/item?id=48713832">https://news.ycombinator.com/item?id=48713832</a></p>
-<p>Points: 677</p>
-<p># Comments: 285</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48713832</guid>
-      <pubDate>Mon, 29 Jun 2026 01:44:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI Codex 敏感文件排除功能仍未解决</title>
-      <link>https://news.ycombinator.com/item?id=48706714</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章聚焦OpenAI Codex在敏感文件管理方面的功能进展与开发者需求，属于AI软件技术进展范畴，符合interest配置，故评定为recommended。</small></p><div>
-<p>该条目讨论了 GitHub 上关于 <a href="https://github.com/openai/codex/issues/2847">OpenAI Codex 的一个未决 Issue（#2847）</a>。用户提出希望 Codex 能够提供一个明确的机制，允许在仓库级别或全局级别排除敏感文件（如 <code>.env</code>、<code>.pem</code> 等），防止 AI Agent 读取或将其发送给大语言模型。</p>
-<p>在 Hacker News 的评论区中，开发者们围绕“如何有效隔离敏感数据”展开了深入讨论，主要观点包括：</p>
-<ul>
-<li><strong>权限与沙箱隔离</strong>：多位开发者指出，依赖配置文件无法提供真正的安全保障，因为 Agent 仍可能通过 Bash 工具、内存读取或其他方式意外获取敏感信息。真正的解决方案应依赖于操作系统层面的权限控制（如 <code>chmod</code>）、容器化隔离，或使用专门的沙箱环境（如 YoloAI、SmolVM）。</li>
-<li><strong>用户责任</strong>：部分观点认为，如果敏感文件对运行 Agent 的用户可见，那么 Agent 自然也能访问。建议将 Agent 视为不受信任的进程，通过限制其运行环境（如独立用户、云端临时 VM）来从根本上杜绝数据泄露风险。</li>
-<li><strong>功能定位</strong>：有开发者强调，忽略文件（如 <code>.agentsignore</code>）应仅作为提示 Agent 节省 Token 的“建议”，而非安全工具。对于涉及机密数据的场景，必须采用 OS 强制的沙箱机制。</li>
-</ul>
-<p>整体来看，社区普遍认为 Codex 目前缺乏原生的安全隔离机制，开发者更倾向于通过外部工具或系统级配置来管理 AI Agent 的访问权限。</p>
-<h3>你知道吗？</h3>
-<p><strong>AI Agent 沙箱（Sandboxing）</strong> 是一种将程序限制在隔离环境中运行的技术。在 AI 编程助手的场景中，沙箱可以防止 Agent 意外或恶意地访问宿主机的敏感文件、执行危险命令或泄露数据。常见的实现方式包括容器化（Docker）、虚拟机（VM）隔离以及操作系统级的权限控制（如 Linux 的 AppArmor 或 Seccomp）。对于处理企业代码的 AI 工具，沙箱通常被视为保障数据安全的必要基础设施。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48706714</guid>
-      <pubDate>Sun, 28 Jun 2026 12:27:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
