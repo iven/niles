@@ -3,7 +3,27 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 06 Jul 2026 21:45:25 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 23:21:14 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.202 更新：新增动态工作流大小设置与 OpenTelemetry 支持</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.202</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.202">v2.1.202</a> 版本更新，主要引入了动态工作流配置与遥测增强，并修复了多项交互与稳定性问题。</p>
+<h3>重要改动</h3>
+<ul>
+  <li><strong>动态工作流大小设置</strong>：在 <code>/config</code> 中新增 "Dynamic workflow size" 选项，允许用户通过小/中/大代理数量来指导动态工作流的规模，该设置作为建议性指南而非硬性限制。</li>
+  <li><strong>OpenTelemetry 遥测增强</strong>：新增 <code>workflow.run_id</code> 和 <code>workflow.name</code> 属性，便于从遥测数据中重建工作流运行活动。</li>
+  <li><strong>代码审查命令调整</strong>：<code>/review &lt;pr&gt;</code> 恢复为快速单次审查模式；若需进行多代理审查，请使用 <code>/code-review &lt;level&gt; &lt;pr#&gt;</code>。</li>
+</ul>
+<h3>修复与改进</h3>
+<ul>
+  <li><strong>交互与稳定性修复</strong>：修复了内联历史搜索崩溃、后台会话重命名失效、客户端证书轮换期间 mTLS 握手失败、远程控制命令与无标题文件发送失败、SSH 环境下登录 URL 不可点击、工作流脚本 Unicode 转义损坏、语音听写无限重试以及技能重复加载等问题。</li>
+  <li><strong>性能与体验优化</strong>：优化了 <code>/workflows</code> 代理列表布局；改进了 MCP 服务器配置缺失 <code>type</code> 时的错误提示；解决了在大量 git worktrees 环境下会话恢复耗时过长的问题；增强了安装程序与更新程序在代理或网络中断时的重试机制。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.202</guid>
+      <pubDate>Mon, 06 Jul 2026 22:51:16 GMT</pubDate>
+    </item>
     <item>
       <title>fzf v0.74.0 发布：支持终端浮动窗格、新增事件与动作</title>
       <link>https://github.com/junegunn/fzf/releases/tag/v0.74.0</link>
@@ -1003,36 +1023,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.167</guid>
       <pubDate>Sat, 06 Jun 2026 01:33:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.166 更新总结</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.166</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.166 更新总结</h2>
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增备用模型配置（fallbackModel）</strong>：支持配置最多三个备用模型，当主模型过载或不可用时按顺序尝试；<code>--fallback-model</code> 参数现已扩展至交互式会话。</li>
-<li><strong>增强思考功能控制</strong>：新增 <code>MAX_THINKING_TOKENS=0</code>、<code>--thinking disabled</code> 及每模型思考开关，允许用户禁用默认开启思考功能的模型（第三方提供商不受影响）。</li>
-<li><strong>修复图片处理与 Token 消耗问题</strong>：解决了发送无法处理的图片时重复报错及额外消耗 Token 的缺陷。</li>
-<li><strong>修复远程会话卡死问题</strong>：解决了远程会话在启动阶段因短暂后端中断导致 worker 注册失败而永久卡死的问题。</li>
-<li><strong>终端体验优化</strong>：修复了 JetBrains IDE 终端（2026.1+）输出闪烁问题（通过启用同步输出）；修复了 Kitty 键盘协议终端中 Shift+非 ASCII 字符丢失的问题。</li>
-<li><strong>修复后台代理与语音模式缺陷</strong>：解决了后台代理会话在 git worktree 中重新打开时崩溃循环的问题；修复了语音模式切换后需手动登录清除过期验证检查的问题。</li>
-<li><strong>修复托管设置策略失效问题</strong>：解决了当托管设置包含无效条目时，其余有效策略的强制执行被静默禁用的问题。</li>
-</ul>
-<h3>其他改动</h3>
-<ul>
-<li><code>claude update</code> 命令在下载更新前会明确提示目标版本。</li>
-<li><code>claude agents</code> 列表支持通过输入 URL 过滤出首个提示包含该 URL 的会话。</li>
-<li>修复了 Ctrl+O 转录视图流式传输时出现重复思考文本的问题。</li>
-<li>修复了 <code>/doctor</code> 命令在远程会话内误报“不在远程会话中”的问题。</li>
-<li>修复了多行提示输入时光标卡在第一行末尾的问题。</li>
-<li>修复了无 Unicode 支持终端中任务列表后台代理行之间显示多余空白行的问题。</li>
-<li>修复了托管设置中 <code>allowedMcpServers</code> 和 <code>deniedMcpServers</code> 使用 <code>${VAR}</code> 引用时无法正确匹配的问题。</li>
-<li>修复了 macOS 上守护进程意外终止后 <code>claude --bg-pty-host</code> 进程持续占用 100% CPU 的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.166</guid>
-      <pubDate>Sat, 06 Jun 2026 00:55:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
