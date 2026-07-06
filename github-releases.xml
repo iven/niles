@@ -3,7 +3,34 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 06 Jul 2026 10:58:36 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 14:35:32 GMT</lastBuildDate>
+    <item>
+      <title>fzf v0.74.0 发布：支持终端浮动窗格、新增事件与动作</title>
+      <link>https://github.com/junegunn/fzf/releases/tag/v0.74.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>终端集成增强</h3>
+<p>在 <a href="https://github.com/tmux/tmux">tmux</a> 3.7 及以上版本中，<code>--popup</code> 选项现在会在浮动窗格（floating pane）中启动 fzf。与传统的弹出窗口不同，浮动窗格是非模态的，允许用户在 fzf 运行时切换其他窗格或窗口，并支持鼠标拖拽移动、调整大小和全屏查看。浮动窗格默认带有原生边框，若用户显式使用 <code>--border</code> 指定边框样式，则会回退使用 fzf 绘制的边框。同时，<code>--border-label</code> 将作为浮动窗格的标题显示。Zellij 终端也获得了类似的原生边框支持。</p>
+
+<h3>事件与动作扩展</h3>
+<p>新增 <code>result-final</code> 事件，该事件仅在输入流关闭后触发一次，适用于需要基于最终结果执行一次性操作的场景。新增 <code>wait</code> 动作，可阻塞后续动作直到搜索完成，方便将查询更改动作与移动动作进行链式组合，或用于等待初始输入完全加载。</p>
+
+<h3>默认绑定调整</h3>
+<p>默认将 <code>Alt+Left</code> 绑定为 <code>backward-word</code>（向前移动一个单词），<code>Alt+Right</code> 绑定为 <code>forward-word</code>（向后移动一个单词）。</p>
+
+<h3>缺陷修复与优化</h3>
+<ul>
+  <li>修复了当匹配项超过 64KB 时导出 <code>$FZF_CURRENT_ITEM</code> 导致 <code>ARG_MAX</code> 溢出并破坏预览功能的问题。</li>
+  <li>允许在 <code>transform</code> 和 <code>bg-transform</code> 动作的输出中使用裸 <code>put</code> 关键字，以插入触发该动作的按键。</li>
+  <li>修复了 zsh 中 <code>Alt+C</code> 更改目录时意外解析符号链接的问题，使其与内置 <code>cd</code> 行为一致。</li>
+  <li>修正了水平鼠标滚轮事件被错误识别为垂直滚动的问题。</li>
+  <li>修复了 <code>bw</code> 主题未正确继承覆盖颜色的问题。</li>
+  <li>解决了 fish shell 中当特定颜色变量为空时 <code>Ctrl+R</code> 失效的问题。</li>
+  <li>修正了安装脚本的空 shell 检测逻辑，以及向非 nushell 配置文件错误写入 nushell 代码的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.0</guid>
+      <pubDate>Mon, 06 Jul 2026 13:33:58 GMT</pubDate>
+    </item>
     <item>
       <title>Neovim 0.12.4 发布说明与安装指南</title>
       <link>https://github.com/neovim/neovim/releases/tag/v0.12.4</link>
@@ -1006,37 +1033,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.166</guid>
       <pubDate>Sat, 06 Jun 2026 00:55:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.12.3 更新：支持文件拖拽上传，修复终端休眠恢复及数据库膨胀问题</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop 发布了 v1.12.3 版本，本次更新主要聚焦于桌面端交互优化与终端稳定性修复。新增文件拖拽上传功能，移除了远程 Web 终端特性，并重点解决了数据库文件膨胀及终端休眠恢复等关键问题。</p>
-
-<h3>重要功能与改进</h3>
-<ul>
-  <li><strong>文件上传优化</strong>：v2 文件标签页现已支持拖拽上传文件，提升了文件管理效率 <a href="https://github.com/superset-sh/superset/pull/5082">[PR #5082]</a>。</li>
-  <li><strong>功能移除</strong>：移除了远程控制的 Web 终端功能 <a href="https://github.com/superset-sh/superset/pull/5105">[PR #5105]</a>。</li>
-</ul>
-
-<h3>关键修复</h3>
-<ul>
-  <li><strong>数据库性能修复</strong>：停止了 TanStack DB SQLite 的空闲写入操作，有效防止了磁盘占用激增和数据库文件膨胀 <a href="https://github.com/superset-sh/superset/pull/5129">[PR #5129]</a>。</li>
-  <li><strong>终端稳定性提升</strong>：修复了笔记本电脑休眠/唤醒后远程终端无法恢复的问题，并增加了终端恢复时的并发连接保护机制 <a href="https://github.com/superset-sh/superset/pull/5135">[PR #5135]</a> <a href="https://github.com/superset-sh/superset/pull/5137">[PR #5137]</a>。</li>
-  <li><strong>工作区与通知范围限制</strong>：将 v2 通知和端口范围限定在侧边栏可见的工作区内，避免跨工作区干扰 <a href="https://github.com/superset-sh/superset/pull/5134">[PR #5134]</a>。</li>
-  <li><strong>清理逻辑优化</strong>：工作区删除清理逻辑现基于 Git 状态判断，而非依赖错误文本，提高了可靠性 <a href="https://github.com/superset-sh/superset/pull/5138">[PR #5138]</a>。</li>
-</ul>
-
-<h3>其他更新</h3>
-<ul>
-  <li>添加了 Google Ads gtag 追踪功能 <a href="https://github.com/superset-sh/superset/pull/5074">[PR #5074]</a>。</li>
-  <li>修复了 better-auth 和 hono 等依赖包的安全漏洞 <a href="https://github.com/superset-sh/superset/pull/5118">[PR #5118]</a>。</li>
-  <li>修复了 CI 测试任务 <a href="https://github.com/superset-sh/superset/pull/5136">[PR #5136]</a>。</li>
-  <li>将 desktop_version 作为渲染器超级属性附加 <a href="https://github.com/superset-sh/superset/pull/5117">[PR #5117]</a>。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.3</guid>
-      <pubDate>Fri, 05 Jun 2026 14:17:15 GMT</pubDate>
     </item>
   </channel>
 </rss>

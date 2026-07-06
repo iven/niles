@@ -3,7 +3,20 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 06 Jul 2026 11:00:50 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 14:35:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Intel i915 驱动补丁推进与 PREEMPT_RT 实时内核的兼容性</title>
+      <link>https://www.phoronix.com/news/Intel-i915-RT-Linux-Kernel</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Intel i915 驱动与 RT Linux 内核的兼容进展，属于 Linux 底层技术与驱动开发范畴，用户对该类技术配置为感兴趣，故推荐阅读</small></p><p>在 Linux 内核的实时（Real-Time, RT）补丁生态中，针对 Intel i915 内核 DRM 图形驱动程序的调整占据了相当大的比例。目前，主线 Linux 内核及其 RT 支持依赖于在构建 i915 驱动时禁用 <strong>PREEMPT_RT</strong>（实时抢占补丁）。</p>
+<p>近日，开发者 Maarten Lankhorst 发布了最新版本的补丁系列，旨在修复 i915 驱动以使其与 PREEMPT_RT 良好兼容。该补丁系列已提交至 dri-devel 邮件列表供审查。不过，目前的兼容性修复仅针对不带显示支持（Display Support）的 i915 模块，且尚未移除驱动配置中现有的 <code>depends on !PREEMPT_RT</code> Kconfig 依赖项。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=rt_patches_with_i915" alt="RT patch queue" /></p>
+<p>此次补丁的推进意味着，未来主线内核将不再需要依赖大量的外部 RT 补丁来适配 i915 驱动。一旦这些修复正式合入主线，外部 RT 补丁队列中仅剩少量 PowerPC 架构相关的补丁需要处理，实时 Linux 的图形驱动支持将迈出重要一步。</p>
+<div class="extra"><h3>你知道吗？</h3><p><strong>PREEMPT_RT</strong> 是 Linux 内核的一个实时补丁集，它通过修改内核调度器、中断处理和自旋锁等机制，将原本不可抢占的代码段变为可抢占，从而大幅降低系统的中断延迟和抖动。这使得 Linux 能够应用于工业控制、高频交易、专业音频处理等对时间确定性要求极高的场景。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-i915-RT-Linux-Kernel</guid>
+      <pubDate>Mon, 06 Jul 2026 12:29:31 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Canonical 致力于将 Ubuntu ARM64 打造为“真正的一等架构”</title>
       <link>https://www.phoronix.com/news/Ubuntu-ARM64-2026</link>
@@ -738,21 +751,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Git-2.55-Released</guid>
       <pubDate>Mon, 29 Jun 2026 17:50:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>微软发布 WSL 容器（WSLC）公共预览版</title>
-      <link>https://www.phoronix.com/news/Microsoft-Preview-WSL-WSLC</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章介绍WSL支持Linux容器预览版，虽涉及软件新功能，但核心属于虚拟化技术范畴，在来源配置中为不太感兴趣，综合兴趣不明确，故列为可选。</small></p><p>微软今日发布了 WSL 容器（WSL Containers，简称 WSLC）的公共预览版，这是 Windows 子系统 Linux（WSL）在 Windows 11 上的最新扩展功能。WSLC 为 WSL 带来了原生的 Linux 容器体验，用户可通过 <code>wslc</code> 命令行工具轻松构建、运行和管理 Linux 容器。该预览版提供了完整的容器生命周期管理、多种网络配置选项、开箱即用的 GPU 支持，以及针对 C++ 和 C#/WinRT 的 SDK 集成等工具与功能。</p>
-<p><img src="https://www.phoronix.net/image.php?id=2026&image=wslc_preview" alt="WSLC preview in WSL release" /></p>
-<p>此次 WSLC 公共预览版随 WSL 2.9.3 版本一同发布。微软在官方开发者博客中详细介绍了该功能，指出其优势涵盖云原生工作负载部署，以及更便捷的测试与分发流程。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=wslc_microsoft" alt="Microsoft screenshot previewing WSLC containers support" /></p>
-<p>除了 WSLC，微软还宣布了一系列 WSL 改进。其中包括将 VirtIOFS 设为 WSL 容器的新默认文件系统，据称可将性能提升高达 2 倍。此外，更新还包含了网络优化与内存回收机制的改进。</p>
-<h3>你知道吗？</h3>
-<p>WSL（Windows Subsystem for Linux）允许用户在 Windows 上直接运行 Linux 二进制文件，而无需运行完整的虚拟机。WSLC 的引入进一步弥合了 Windows 与 Linux 容器生态的差距，使开发者能够在 Windows 环境中无缝使用 Docker 等容器技术，简化了跨平台开发工作流。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Microsoft-Preview-WSL-WSLC</guid>
-      <pubDate>Mon, 29 Jun 2026 15:49:29 GMT</pubDate>
     </item>
   </channel>
 </rss>
