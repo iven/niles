@@ -3,7 +3,42 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 07 Jul 2026 04:16:46 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jul 2026 11:24:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 引入新机制进一步限制存在安全风险的 AF_ALG 接口</title>
+      <link>https://www.phoronix.com/news/AF-ALG-Restrict-Sysctl-Linux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论Linux内核安全机制的调整与版本更新，属于Linux核心开发领域，符合兴趣设定。</small></p><p>Linux 内核的 <a href="https://www.kernel.org/doc/html/latest/crypto/af_alg.html">AF_ALG</a> 接口允许用户空间程序直接访问内核加密 API，但由于其暴露了过多底层功能且存在安全隐患，被安全专家称为“维护噩梦”和“巨大的攻击面”。该接口已在 Linux 7.2 中被正式弃用并移除了部分功能。</p>
+
+<p>在即将发布的 Linux 7.3 中，Google 的 Linux 内核加密专家 Eric Biggers 引入了一个新的 sysctl 选项 <code>af_alg_restrict</code>，以进一步限制该接口的默认行为。该选项位于 <code>/proc/sys/crypto/af_alg_restrict</code>，支持以下三种模式：</p>
+<ul>
+    <li><strong>0</strong>：无限制（保留原有行为）。</li>
+    <li><strong>1</strong>：受限功能（默认值）。为非特权进程启用算法白名单，特权进程可使用稍长的白名单。</li>
+    <li><strong>2</strong>：完全禁用。</li>
+</ul>
+
+<p><img src="//www.phonorix.net/image.php?id=2026&image=af_alg_restrict" alt="af_alg_restrict documentation" /></p>
+
+<p>设计者指出，默认值设为 1 是为了在安全与兼容性之间取得平衡。常见的用例如 <a href="https://wiki.gentoo.org/wiki/Iwd">iwd</a>（Intel 无线守护进程）和 <a href="https://www.bluez.org/">bluez</a> 已被纳入白名单考虑，确保它们在默认设置下仍能正常工作。虽然目前默认设置为受限而非禁用，但这被视为逐步移除该接口前的过渡措施，未来可能会进一步收紧或最终将其从内核代码库中移除。</p>
+
+<details>
+<summary>你知道吗？</summary>
+<p><strong>AF_ALG 是什么？</strong></p>
+<p>AF_ALG 是 Linux 内核提供的一种套接字地址族（Address Family），旨在允许用户空间应用程序直接调用内核中的加密算法。虽然这能减少数据在内核与用户空间之间的拷贝开销，但它也暴露了大量内核内部实现细节（如 "authencesn" 等），使得未授权或恶意程序更容易利用这些细节发起攻击。在现代 Linux 系统中，大多数加密需求可以通过用户空间的加密库（如 OpenSSL）满足，因此直接依赖 AF_ALG 的场景已大幅减少。</p>
+</details>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AF-ALG-Restrict-Sysctl-Linux</guid>
+      <pubDate>Tue, 07 Jul 2026 10:24:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 知名 LLVM 内核维护者 Nick Desaulniers 回归 Google 并重启内核贡献</title>
+      <link>https://www.phoronix.com/news/Nick-Desaulniers-LLVM-Linux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要围绕LLVM编译器生态及开发者回归Linux内核社区，属于编程工具链动态，符合兴趣设定。</small></p><p>谷歌（Google）资深工程师 Nick Desaulniers 已重返公司，并重新投入 Linux 内核的 LLVM/Clang 编译器支持工作。Desaulniers 曾是 Linux 内核中 LLVM 支持的主要维护者之一，负责推动相关代码的上游合并与持续开发。2025 年 2 月，他离职加入特斯拉（Tesla）后停止了内核贡献。近期他重返谷歌，并在一次更新个人维护者（MAINTAINERS）信息的补丁中，以一句颇具戏剧性的提交信息宣告回归：“MAINTAINERS: update ndesaulniers I'm coming back. I will return. I will possess your body, and I'll make LKML burn.”（LKML 指 Linux 内核邮件列表）。该补丁已被 Linus Torvalds 合并至 Linux 7.2 开发分支。</p><p>目前，使用 LLVM/Clang 替代 GCC 编译 Linux 内核已成为重要趋势。这不仅有助于提升代码可移植性、规避 GCC 的特定实现差异，还能利用 LLVM 独有的编译器特性进行性能评估。随着 Linux 内核正式集成 Rust 语言支持，LLVM/Clang 在底层编译工具链中的地位显得尤为关键。社区正密切关注 Desaulniers 回归后将为内核带来哪些新进展。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Nick-Desaulniers-LLVM-Linux</guid>
+      <pubDate>Tue, 07 Jul 2026 10:15:23 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Mesa 26.2 引入微软贡献的 DirectX 12 + HMFT AV1 硬件编码支持</title>
       <link>https://www.phoronix.com/news/Microsoft-AV1-Encode-DX12-HMFT</link>
@@ -727,41 +762,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.7.2-Released</guid>
       <pubDate>Tue, 30 Jun 2026 14:36:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 开发商 Canonical 成为 Trifecta Tech 基金会首个黄金赞助商，加速 Rust 系统工具开发</title>
-      <link>https://www.phoronix.com/news/Canonical-Gold-Trifecta-Tech</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是基于Rust的基础设施项目，来源配置中Rust为interest，用户会感兴趣</small></p><p>Ubuntu Linux 开发商 Canonical 宣布成为 Trifecta Tech 基金会（Trifecta Tech Foundation）的首个黄金赞助商，每年提供 40,000 欧元的赞助，以支持使用 Rust 编程语言构建更安全的开源系统基础设施。此前，Canonical 已通过开发 sudo 的 Rust 版本（sudo-rs）与该基金会合作。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=trifecta_ubuntu_gold_med" alt="Trifecta Ubuntu Gold" />
-<p>双方接下来的合作重点将转向 ntpd-rs，即 NTP（Network Time Protocol，网络时间协议）时间同步客户端和服务器的 Rust 实现。Canonical 计划在 Ubuntu 26.10 版本中对该项目进行测试，并有望在 Ubuntu 27.04 中将其设为默认配置。</p>
-<p>除了 Canonical 之外，Trifecta Tech 基金会目前还拥有 AWS 和 Google 两家白银赞助商。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Canonical-Gold-Trifecta-Tech</guid>
-      <pubDate>Tue, 30 Jun 2026 12:48:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Servo 0.3 发布：在不足 $8k 月捐下持续取得显著进展</title>
-      <link>https://www.phoronix.com/news/Servo-0.3-Monthly-Changes</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Servo 浏览器引擎的月度开发进展，属于开源项目，且 Servo 主要基于 Rust 编写，匹配来源配置中的'感兴趣'（Rust）及全局配置中的'感兴趣'（开源项目）。</small></p>Servo 浏览器引擎（Servo Browser Engine）近期发布了 0.3 版本及最新的 Servoshell 演示浏览器，并公布了月度开发回顾。尽管每月捐赠收入维持在 7,000 至 8,000 美元之间，未能达到 10,000 美元的目标，项目仍在持续取得显著进展。
-
-本月更新亮点包括：
-- 支持多种 CSS 字体特性（CSS font features）。
-- 新增多项 DOM API，并改进 DOM 中的 JavaScript 错误提示。
-- 升级 SpiderMonkey JavaScript 引擎，修复多项内存安全漏洞。
-- 实现更多 WebGPU 特性，提升图形处理能力。
-- 增强无障碍支持（accessibility）及 Servo Embedding API。
-- 优化表格、表单、列表等 HTML 元素的默认外观及表单提交合规性。
-- 引入 "about:memory" 工具，用于检测未跟踪的内存分配。
-- 减少每个 CPU 核心所需的操作系统线程数，并带来多项性能与稳定性优化。
-
-<img src="//www.phoronix.net/image.php?id=2026&image=servo_03_2_med" alt="Servoshell 0.3" />
-
-资金方面，上月项目收到约 7,659 美元捐赠。这些资金主要用于支付持续集成（CI）与基准测试服务器费用、支持 Outreachy 实习生计划、资助维护者工作及相关运营成本。更多详细更新内容可访问 <a href="https://blog.servo.org/">Servo 官方博客</a> 了解。]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Servo-0.3-Monthly-Changes</guid>
-      <pubDate>Tue, 30 Jun 2026 10:21:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
