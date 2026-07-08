@@ -3,7 +3,19 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 08 Jul 2026 11:55:36 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 08 Jul 2026 14:39:53 GMT</lastBuildDate>
+    <item>
+      <title>⭐ GitLost：研究人员通过提示词注入漏洞欺骗GitHub AI Agent泄露私有仓库</title>
+      <link>https://news.ycombinator.com/item?id=48827858</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及 GitHub AI Agent 的提示词注入漏洞，属于 AI 与编程工具安全方面的进展，对用户有重要参考价值。</small></p><p>安全研究团队 <a href="https://noma.security/">Noma Security</a> 近日披露了一项名为 <strong>GitLost</strong> 的安全漏洞。该漏洞允许攻击者通过精心构造的提示词（Prompt Injection），欺骗 GitHub 集成的 AI Agent 越权访问并泄露私有仓库的敏感代码。</p>
+<p>文章指出，该漏洞的核心在于 GitHub AI Agent 的权限模型与安全边界设计存在缺陷。Agent 被赋予了超出普通用户的访问权限，且系统未能严格隔离底层系统指令与不受信任的公开用户输入。尽管 GitHub 试图通过“安全护栏（Guardrails）”进行限制，但在复杂的提示词诱导下，这些防护机制均被绕过。</p>
+<p>文章配图探讨了 Agent 身份认证（Agent Identity）对身份与访问管理（IAM）带来的新挑战 <img src="https://noma.security/wp-content/uploads/Does-Access-Control-Work-When-the-Agent-Starts-Deciding-for-Itself_.png" alt="探讨Agent自主决策时的访问控制与IAM变化" width="2400" height="1256" />。</p>
+<p>在 Hacker News 社区讨论中，开发者们普遍认为该漏洞暴露了当前企业级 AI 集成的普遍风险。多数观点指出，将 LLM 同时接入私有数据与公开输入本身就是一种配置错误；Agent 应严格遵循“最小权限原则”，仅执行用户本身拥有的操作，而非代表平台获取额外权限。此外，评论也批评了大型科技公司盲目追逐 AI 热点而忽视基础安全设计的现象，强调在 AI Agent 时代，传统的软件安全模型亟需重构。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48827858</guid>
+      <pubDate>Wed, 08 Jul 2026 05:25:35 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 专收 AI 生成的烂代码：三位工程师每周收费 1 万美元提供重构服务</title>
       <link>https://news.ycombinator.com/item?id=48823359</link>
@@ -997,23 +1009,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48769639</guid>
       <pubDate>Fri, 03 Jul 2026 01:37:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ crustc：将完整 rustc 编译器翻译为 C 语言</title>
-      <link>https://news.ycombinator.com/item?id=48768464</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 分享 Rust 编译器（编程工具）底层实现重构为 C 的开源项目，属于编程工具分享与开源项目，符合高兴趣配置</small></p><div>
-<h2>正文</h2>
-<p>开发者 FractalFir 发布了 <a href="https://github.com/FractalFir/crustc">crustc</a> 项目，成功将 <code>rustc</code>（Rust 编译器）的完整源码（1.98.0-nightly）翻译成了约 4600 万行 C 代码。该项目是作者历时 3 年、历经 14 次尝试后开发的 <code>cilly</code> 工具链的演示版本。</p>
-<p><code>cilly</code> 是一个 Rust 库和编译器后端插件，能够将 Rust 代码实时转换为 C 代码。其核心创新在于强大的兼容性探测机制：通过生成“见证程序（witness programs）”，<code>cilly</code> 能够检测目标 C 编译器和平台的具体支持情况（如 <code>_Thread_local</code> 关键字、浮点数大小、字符编码等），从而生成适配特定编译器的 C 代码。此外，该项目具备网络透明性，支持通过 TCP 连接远程 C 编译器，有效解决了在缺乏交叉编译器的平台上引导 Rust 编译器的难题（例如在 x86 Plan 9 虚拟机上运行，而在 Arm64 Linux 上编译）。</p>
-<p>该项目的核心目标是支持缺乏 LLVM 或 GCC 支持的老式与小众硬件（如 Plan 9），消除 Rust 项目移植到 C 时的目标平台限制。目前，生成的 C 代码在 ABI（应用程序二进制接口）兼容性上大体良好，但在 arm64 等平台的小结构体返回指针传递上存在差异。由于该项目目前仅为演示，完整工具链尚未公开，作者表示将尽快发布。</p>
-<h2>你知道吗？</h2>
-<p><strong>多样化双重编译（Diverse Double-Compiling, DDC）</strong>：社区讨论中提及，此类跨语言编译器转换技术可用于解决肯·汤普逊（Ken Thompson）在经典论文《信任信任（Reflections on Trusting Trust）》中提出的编译器后门问题。通过使用不同的编译器（如 <code>crustc</code> 和官方 <code>rustc</code>）对同一源码进行编译，开发者可以比对输出结果，检测是否存在恶意植入的代码。</p>
-<p><strong>替代引导方案</strong>：在 <code>crustc</code> 之前，已有用 C++ 手写的 Rust 编译器 <code>mrustc</code> 被用于 Guix 等发行版的 Rust 引导过程。虽然 <code>mrustc</code> 主要针对 Rust 的特定子集，但 <code>crustc</code> 通过 C 语言转换提供了另一种潜在的跨平台编译路径，尤其适用于 LLVM 不支持的目标架构。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48768464</guid>
-      <pubDate>Thu, 02 Jul 2026 22:57:35 GMT</pubDate>
     </item>
   </channel>
 </rss>
