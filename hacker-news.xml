@@ -3,7 +3,42 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 08 Jul 2026 23:30:36 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 09 Jul 2026 04:12:01 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Bun 从 Zig 重写为 Rust：利用 LLM 实现百万行代码迁移与稳定性提升</title>
+      <link>https://news.ycombinator.com/item?id=48837877</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲解编程运行环境Bun利用LLM辅助完成大规模代码迁移的重构实践，符合用户对编程工具迭代及编程效率改进经验的高兴趣配置。</small></p><div>
+  <p>Bun 的创始人 Jarred Sumner 宣布，Bun 的核心代码库已从 Zig 完全重写为 Rust。Bun 最初作为 esbuild 的移植项目使用 Zig 开发，凭借 Zig 的低级控制能力在一年内实现了涵盖编译器、包管理器及 Node.js API 兼容等庞大功能。然而，随着项目规模扩大，手动内存管理与 JavaScript 垃圾回收（GC）的混合使用导致了大量 use-after-free 和内存泄漏等稳定性问题。</p>
+  <p>为彻底解决内存安全问题，团队决定进行全量重写。由于增量重写会产生难以维护的临时代码，作者选择利用 Anthropic 的 Claude Fable 5 模型进行一次性迁移。通过 50 多个动态工作流，在 11 天内完成了约 53 万行代码的转换。重写过程不仅包括机械语法转换，还结合了严格的测试套件（包含百万级断言）和“对抗性审查”（Adversarial Review）机制，即由独立的 AI 模型专门寻找代码漏洞。</p>
+  <p>重写后的 Bun 在保持原有架构和功能的同时，取得了显著的性能与体积优化：</p>
+  <ul>
+    <li>二进制体积在 Linux 和 Windows 上缩小了约 20%。</li>
+    <li>性能提升约 5%，例如 Claude Code 的启动时间从 517ms 降至 464ms。</li>
+  </ul>
+  <img src="/images/claude-code-rust-bun-startup.png" alt="Claude Code startup time from production telemetry (Linux p50): v2.1.179 at 517ms vs v2.1.181, the first release on Rust Bun, at 464ms — 10% faster" />
+  <p>尽管重写带来了稳定性提升，但也引入了 19 个回归问题，团队正通过持续测试和重构逐步修复，并计划将代码进一步调整为更地道的 Rust 风格。此次重写消耗了约 16.5 万美元的 API 费用，展示了大型语言模型（LLM）在辅助复杂代码迁移方面的潜力。</p>
+  <h3>你知道吗？</h3>
+  <ul>
+    <li><strong>对抗性审查（Adversarial Review）</strong>：在 AI 辅助编程中，让一个模型生成代码，另一个模型专门扮演“挑刺者”寻找漏洞，能显著提高代码质量。这种机制模拟了人类开发中的代码审查（Code Review），但能全天候、无偏见地执行。</li>
+    <li><strong>Rust 的 RAII 机制</strong>：资源获取即初始化（RAII）是 Rust 的核心特性之一，通过 <code>Drop</code> trait 确保资源在离开作用域时自动释放，极大降低了手动管理内存带来的崩溃风险。</li>
+  </ul>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48837877</guid>
+      <pubDate>Wed, 08 Jul 2026 21:49:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Cloudflare 推出 Drop 服务：无需注册，上传即部署静态网站</title>
+      <link>https://news.ycombinator.com/item?id=48836233</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍Cloudflare推出的免注册静态网站部署工具Drop，降低部署门槛，属于面向开发者的编程工具发布，符合高兴趣配置。</small></p><p>Cloudflare 近日推出了名为 <strong>Drop</strong> 的新服务，允许用户直接拖拽文件夹或 ZIP 压缩包进行部署。该服务无需注册账户，上传后网站会立即在 Cloudflare 的全球网络上生效，并在 60 分钟后自动过期（除非用户认领）。</p>
+<p>社区对此功能反响热烈，同时也引发了关于安全与滥用的讨论。部分用户指出，这种无需身份验证的临时部署机制可能被用于钓鱼攻击或数据外泄，尽管 Cloudflare 拥有强大的安全防护体系。此外，许多网友将其与 <a href="https://app.netlify.com/drop">Netlify 的 Drop 服务</a>、早期的 <a href="http://web.archive.org/web/20131028083240/https://www.bitballoon.com/">BitBalloon</a> 以及 Dropbox 等经典产品进行了对比，认为这是“旧概念的新演绎”。在实际应用方面，开发者认为该工具非常适合快速分享静态网页、代码演示或临时文件，省去了配置服务器或 Git 的繁琐步骤。</p>
+<p>该服务延续了 Cloudflare 近期推出的临时账户（<a href="https://blog.cloudflare.com/temporary-accounts/">Temporary Accounts</a>）策略，旨在降低开发者尝试新项目的门槛。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48836233</guid>
+      <pubDate>Wed, 08 Jul 2026 19:18:26 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Grok 4.5 发布：xAI 最强编码与智能体模型，主打高性价比与 Cursor 深度集成</title>
       <link>https://news.ycombinator.com/item?id=48835111</link>
@@ -900,64 +935,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48777832</guid>
       <pubDate>Fri, 03 Jul 2026 17:54:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>拒绝 AI 炒作：停止“AI 自信表演”（AI Confidence Theater）</title>
-      <link>https://news.ycombinator.com/item?id=48774414</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 探讨AI行业中的炒作现象与心理焦虑，属于社会文化评论而非技术进展或模型发布，兴趣程度中等</small></p><p>AI 领域正陷入一场“<b>AI 自信表演（AI Confidence Theater）</b>”的过度炒作中。作者 Elena Verna 指出，这种虚假宣传不仅未能带来真正的创新，反而扭曲了现实、加剧了职场焦虑，并让招聘变得困难重重。</p>
-
-<p><img src="https://substackcdn.com/image/fetch/$s_!P6rE!,w_36,h_36,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6eeab89f-c508-46ec-91a1-9e8e3ce3021a_1926x2892.jpeg" alt="Elena Verna's avatar" width="36" height="36" /></p>
-
-<h3>核心问题：虚假的“改变生活”与职场异化</h3>
-<p>尽管 AI 新闻层出不穷，从取代教育、写作到现在的 AI Agent，但 99% 的人甚至不知道 AI Agent 究竟是什么。作者发现，大多数人所谓的“改变生活”的 AI 应用，其实只是总结 Slack、回复邮件等基础工作流。真正不可或缺的 AI 应用极少。</p>
-<p>这种“AI 自信表演”带来了多重负面影响：</p>
-<ul>
-<li><b>扭曲现实，阻碍创新：</b>夸张的失败案例让人对 AI 失去信心，反而忽略了 AI 实际能带来的时间节省和效率提升。</li>
-<li><b>催生“反向奋斗文化”（Reverse-hustle culture）：</b>职场文化从炫耀努力工作转变为炫耀用 AI 偷懒和烧 token。人们试图营造“隐形 AI 员工团队”的假象，却拿不出实际的业务成果。</li>
-<li><b>招聘混乱：</b>AI 让专业术语（如 MCP、RAG）变得廉价，人人都能说出专业词汇，但缺乏实际构建能力，导致传统面试失效。</li>
-<li><b>制造 FOMO（错失恐惧感）：</b>虚假的高标准让人觉得自己落后，停止欣赏 AI 实际带来的小便利。</li>
-</ul>
-
-<h3>背后原因：流量、不确定性与业绩压力</h3>
-<p>文章分析了炒作背后的四大驱动力：</p>
-<ul>
-<li><b>社交媒体奖励肤浅炒作：</b>为了点击率和印象数，真实的 AI 应用被夸大其词。</li>
-<li><b>技术迭代过快，真假难辨：</b>AI 发展迅速，普通人难以验证他人分享的成功案例是否真实。</li>
-<li><b>营销团队过度承诺：</b>AI 产品本身具有不确定性，但营销却试图销售“确定性”，导致演示与日常现实差距巨大。</li>
-<li><b>来自高层的压力：</b>VC 和高管要求 AI 奇迹，迫使员工进行“表演”以保住工作或获得晋升。</li>
-</ul>
-
-<p><img src="https://substackcdn.com/image/fetch/$s_!Rhpl!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcaf3ac3e-b2a1-4809-91a1-7d591c61902f_3840x1606.png" alt="Firecrawl 广告" width="725" height="303.25" /></p>
-
-<h3>建议与展望：回归诚实与真实价值</h3>
-<p>作者呼吁各方停止这场闹剧：</p>
-<ul>
-<li><b>内容创作者：</b>停止分享炒作，展示真实、有深度的成果。如果工作流需要维护或经常出错，应诚实承认。</li>
-<li><b>公司与管理层：</b>设定合理预期，关注实际业务成果，为员工提供学习和构建的时间。</li>
-<li><b>员工：</b>将 AI 学习视为工作的一部分，关注 AI 如何解决核心业务问题。</li>
-</ul>
-<p>AI 已经是当代最酷的技术创新，我们不需要假装它像魔法一样。承认 AI 系统的维护成本，庆祝微小的时间节省（如每天节省 20 分钟），才是健康的发展方式。</p>
-
-<h3>社区反馈</h3>
-<p>HN 社区普遍认同这一观点，认为营销和 VC 是主要推手，制造了不必要的焦虑。同时，也有评论指出，在特定场景（如黑客松、跨学科小团队、个人项目）下，AI 确实能发挥显著的实际价值，关键在于提供正确的上下文和聚焦痛点。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48774414</guid>
-      <pubDate>Fri, 03 Jul 2026 12:51:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ SearXNG：一款免费且注重隐私的互联网元搜索引擎</title>
-      <link>https://news.ycombinator.com/item?id=48779454</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了SearXNG这一开源元搜索引擎，聚合了多种搜索服务且注重用户隐私，符合用户对“开源项目”的兴趣配置。</small></p><p>SearXNG 是一款开源的免费互联网元搜索引擎（metasearch engine），能够聚合来自多个搜索服务和数据库的结果，同时严格保护用户隐私，不追踪或分析用户数据。</p>
-<img src="https://raw.githubusercontent.com/searxng/searxng/master/client/simple/src/brand/searxng.svg" alt="SearXNG" width="512px" />
-<p>该项目基于 GNU Affero 通用公共许可证（AGPL-3.0）发布，提供了详细的安装与配置指南，并鼓励社区贡献与协作。用户可通过 <a href="https://github.com/searxng/searxng">GitHub 仓库</a> 获取项目源码，或通过 Matrix 频道参与社区讨论。</p>
-<p>在 Hacker News 社区中，SearXNG 获得了广泛好评。许多用户分享了自己长期自托管（self-host）该引擎作为日常搜索默认工具的经验，认为其稳定且可靠。相比之下，部分公共托管实例常被反馈存在频繁报错或搜索结果质量不佳的问题。</p>
-<p>在技术集成方面，社区探讨了将其与 AI 工具结合的方案。虽然 SearXNG 未内置 MCP 服务器，但凭借其 JSON 响应功能，开发者可以轻易将其对接至大语言模型（LLM）或构建 MCP 服务。此外，也有工具如 TinySearch 对其进行封装，以优化上下文并减少 AI Agent 的 Token 消耗。</p>
-<p>关于搜索源配置，用户指出连接 Brave Search API 能获得较高质量的结果，但依赖网页爬虫的引擎（如 Google）近期稳定性下降。对于希望限制搜索范围的用户，SearXNG 支持自定义配置，例如仅检索 Stack Overflow 或 GitHub 等特定平台。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48779454</guid>
-      <pubDate>Fri, 03 Jul 2026 20:15:49 GMT</pubDate>
     </item>
   </channel>
 </rss>
