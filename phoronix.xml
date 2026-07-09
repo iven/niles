@@ -3,7 +3,31 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 09 Jul 2026 11:22:49 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 09 Jul 2026 18:08:09 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Wayland 1.26 RC1 发布：新增事件修正指针坐标获取问题</title>
+      <link>https://www.phoronix.com/news/Wayland-1.26-RC1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Wayland 1.26 RC1的发布及其指针坐标修正机制，Wayland是Linux显示协议核心，符合来源配置中“感兴趣”的“Linux桌面技术”主题，故推荐阅读。</small></p><p>Wayland 1.26 候选版本 1 (RC1) 已发布，此次更新除了常规的 Bug 修复外，还引入了旨在解决指针坐标获取问题的新事件。与此同时，Wayland 参考实现 Weston 16 也即将发布其候选版本。</p>
+<p>此次更新的核心亮点是新增的 <code>wl_pointer.warp</code> 事件。在 Wayland 的现有机制中，客户端有时无法获取正确的指针位置信息。例如，当鼠标焦点位于按钮上且鼠标未移动，但窗口大小发生变化时，客户端无法通过 <code>motion</code> 事件更新位置信息，从而导致坐标错误。新事件 <code>wl_pointer.warp</code> 旨在解决这一问题：当指针的本地坐标因表面（surface）移动、调整大小或进入全屏状态而改变时，系统将发送此事件通知客户端，无需用户主动移动鼠标即可获取正确的坐标。</p>
+<p>目前，KDE KWin、GNOME Mutter 和 wlroots 等显示服务器均有相关补丁待合并，而 Qt 和 SDL 等工具包也已准备好实现该功能。</p>
+<p>此外，Wayland 1.26 RC1 还引入了 <code>wl_fixes.ack_global_remove</code> 请求，用于处理潜在的竞态条件问题。同时，<code>WAYLAND_DEBUG</code> 的时间戳格式也经过了优化，使其更易于阅读和与其他日志进行对比。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Wayland-1.26-RC1</guid>
+      <pubDate>Thu, 09 Jul 2026 15:47:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>建议 Linux 内核补丁：为 D3cold 状态添加短暂延迟以修复 xHCI 控制器唤醒故障</title>
+      <link>https://www.phoronix.com/news/Linux-Delay-D3cold-Patch-Fix</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论Linux内核中针对PCI D3cold功耗状态的底层补丁修复，偏向内核与硬件规范适配，虽属Linux领域但不直接面向桌面应用，兴趣点不明确，故列为可选。</small></p><p>近期有用户报告，在使用搭载 AMD Ryzen AI Max+ “Strix Halo” 处理器的 Framework Desktop 时，系统从 s2idle（浅度睡眠）状态唤醒后，xHCI（USB 控制器）会失效，导致所有 USB 设备丢失。虽然通过重新绑定驱动可恢复功能，但根本原因长期未明。</p>
+<p>经过数月排查，AMD Linux 工程师 Mario Limonciello 提出了一项内核补丁。问题根源在于 PCI 规范的一项细节：规范明确要求设备从 D3（低功耗状态）恢复到 D0（工作状态）时，必须预留至少 10 毫秒的恢复时间。然而，Linux 内核此前仅在 D3hot（保留内存状态）路径上设置了强制延迟，而 D3cold（深度睡眠，内存断电）路径上并未包含此延迟。</p>
+<p>该补丁通过在 D3cold 到 D0 的转换路径中强制添加 10 毫秒延迟，严格遵循了 PCI 规范。Limonciello 在邮件列表中补充指出，该故障的发生率与 BIOS 预留的 VRAM 大小存在关联（预留显存越大，唤醒失败率越高），但具体机制尚待进一步研究。目前该补丁已提交至 Linux 内核社区，初步测试表明其能有效解决 Framework Desktop 上的 xHCI 控制器唤醒故障。</p>
+<img src="//www.phoronix.net/image.php?id=framework-desktop-linux&image=framework_desktop_9_med" alt="Framework Desktop" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Delay-D3cold-Patch-Fix</guid>
+      <pubDate>Thu, 09 Jul 2026 13:35:01 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Apple M4 芯片初始设备树补丁发布，Linux 基础引导支持迈出第一步</title>
       <link>https://www.phoronix.com/news/Apple-M4-DT-Linux</link>
@@ -718,36 +742,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Linux-June-2026</guid>
       <pubDate>Wed, 01 Jul 2026 21:06:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 将优化 PCIe Gen5 NVMe SSD 小 I/O 性能瓶颈</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Faster-Small-Direct</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述Linux 7.3内核针对PCIe Gen5 NVMe SSD小块I/O瓶颈的技术优化，属于Linux系统底层技术进步，符合来源配置中对Linux相关技术的interest兴趣，故推荐。</small></p><p>随着 Linux 7.3 内核开发周期的推进，一项针对高速存储设备的性能优化补丁已引起关注。该优化旨在解决 PCIe Gen5 NVMe SSD 在处理小尺寸直接 I/O（Direct I/O）请求时面临的显著性能瓶颈。</p>
-<p>字节跳动工程师 Fengnan Chang 在测试中发现，当使用 Gen5 NVMe SSD 进行 4K 随机读取时，Linux 内核的 IOmap 框架及其直接 I/O 路径存在较高的软件开销。CPU 在处理此类请求时，会花费大量时间在内存分配和 IOmap 状态机操作上，从而限制了存储设备的实际性能发挥。</p>
-<p>为了解决这一问题，Fengnan Chang 为使用 IOmap 的文件系统（如 EXT4 和 XFS）设计了一个简化的直接 I/O 路径。该路径在读取请求的 I/O 大小小于或等于 inode 块大小，且文件未加密时生效，从而有效降低 IOmap 的开销。</p>
-<p>测试数据显示，引入该优化后，PCIe Gen5 NVMe SSD 的 4K 随机读取性能从 1.92M IOPS 提升至 2.19M IOPS。在使用 IO_uring 异步 I/O 接口时，EXT4 和 XFS 文件系统的性能提升最高可达 10%，尤其是在较高队列深度下表现更为明显。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=simple_dio_iomap_med" alt="benchmark for IOmap simple DIO" />
-<p>目前，该优化补丁已合并至虚拟文件系统（VFS）子系统的 "fvfs-7.3.iomap" 分支，并排队进入 vfs/vfs.git 的 "7.3" 分支，预计将在今年晚些时候正式提交给 Linux 7.3 内核周期。</p>
-<p><strong>你知道吗？</strong></p>
-<ul>
-<li><strong>直接 I/O（Direct I/O）：</strong> 一种绕过操作系统页缓存（Page Cache），直接在用户空间缓冲区与块设备之间传输数据的技术。它适用于需要精确控制数据读写位置或处理超大文件的应用场景，但频繁的小文件读写容易引发性能开销。</li>
-<li><strong>IO_uring：</strong> Linux 内核提供的一种现代异步 I/O 接口，旨在解决传统异步 I/O 系统调用（如 aio）的性能瓶颈。它通过零拷贝和减少上下文切换，显著提升了高并发 I/O 场景下的吞吐量。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Faster-Small-Direct</guid>
-      <pubDate>Wed, 01 Jul 2026 16:06:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>AMD 发布 RMPOPT 优化最新 Linux 内核补丁</title>
-      <link>https://www.phoronix.com/news/AMD-RMPOPT-Linux-v10</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及AMD底层指令优化与Linux补丁提交，偏向底层开发与架构适配，虽属开源生态但非用户重点关注的桌面技术或编程工具，故评为可选。</small></p><p>AMD 今年早些时候公布了 RMPOPT 指令，预计将在未来的 Zen 6 EPYC "Venice" 处理器中引入。该功能旨在优化启用了安全加密虚拟化安全嵌套分页（SEV-SNP）的 AMD EPYC 服务器性能，通过减少反向映射表（RMP）的开销来实现。RMP 用于确保系统物理地址与访客物理地址之间的一对一映射，并在内存写入时执行检查以防止 SEV-SNP 数据损坏。RMPOPT 允许在已知不包含 SEV-SNP 访客内存的 1GB 内存区域中跳过这些检查，从而降低非机密虚拟机或其他用途的内存访问延迟。</p>
-<p>自 2 月以来，Linux 内核工程师一直在为 RMPOPT 进行适配开发，本周已发布第 10 版补丁（v10）。该版本补丁趋于稳定，有望很快被合并至 Linux 内核主线。不过，由于未能赶上 Linux 7.2 合并窗口，该功能将无法作为 Ubuntu 26.10 及未来 26.04 LTS HWE 内核的默认支持。当前补丁支持高达 2TB 内存的服务器，未来版本计划进一步提高内存支持上限。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=rmpopt" alt="RMPOPT cover" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-RMPOPT-Linux-v10</guid>
-      <pubDate>Wed, 01 Jul 2026 15:38:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
