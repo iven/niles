@@ -3,7 +3,50 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 09 Jul 2026 23:38:11 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jul 2026 04:11:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 极客精神：在普通消费级电脑上运行 744B 参数 GLM 5.2 模型</title>
+      <link>https://news.ycombinator.com/item?id=48842459</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍纯C实现的开源推理引擎，展示如何在普通消费级硬件上高效运行超大参数模型，属于极客级编程工具分享与底层优化经验，符合high_interest配置，故评为critical。</small></p><p>近日，一位开发者在普通消费级电脑（32GB 内存、12 核 CPU）上成功运行了 744B 参数的大型 MoE（Mixture-of-Experts，混合专家模型）GLM 5.2，并开源了其自研的推理引擎 Colibrì。</p>
+<p>由于模型体积庞大，直接加载极易导致内存溢出（OOM）。为此，作者开发了名为 Colibrì 的纯 C 语言推理引擎。该引擎仅由一个约 1300 行的 C 文件组成，无需 GPU、Python 运行时或外部依赖。其核心思路是利用 MoE 模型的稀疏激活特性：将约 17B 参数的密集部分（经 int4 量化后约 9.9GB）常驻内存，而将约 370GB 的路由专家（Routed Experts）存储在磁盘上，按需流式读取。配合 LRU 缓存、热存储以及操作系统的页缓存，引擎能够在资源受限的环境下维持模型运行。</p>
+<p>在作者的测试机器上，冷启动解码速度约为 0.05 至 0.1 tok/s。尽管速度较慢，但该引擎实现了 MLA（Multi-Latent Attention）注意力机制、MTP（Multi-Token Prediction，多 token 预测）投机解码、异步专家预读以及多种量化支持。作者表示，随着缓存预热和硬件配置的提升（如更快的 NVMe SSD 和更大内存），推理速度将有显著提升。</p>
+<p>该项目的 GitHub 仓库地址为：<a href="https://github.com/JustVugg/colibri" rel="nofollow">https://github.com/JustVugg/colibri</a></p>
+<p>在 Hacker News 社区，该帖子引发了热烈讨论。许多用户赞赏了这种“极客精神”（Hacker Spirit）。针对用户关于 SSD 寿命的担忧，作者解释称引擎主要为只读操作，对 SSD 磨损影响有限，但需注意长时间高负载下的散热问题以及避免系统交换内存（Swap）的使用。此外，社区成员还分享了不同硬件配置下的性能预期，并探讨了将该引擎用于 AI Agent 或分布式集群的可行性。</p>
+<img src="/JustVugg/colibri/raw/main/assets/colibri.svg" alt="colibrì — piccolo motore, modello immenso" width="500" />
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>Mixture-of-Experts (MoE)</strong>：一种神经网络架构，模型由多个“专家”子网络组成。在推理时，输入数据只会激活其中一小部分专家，从而在保持模型总参数规模巨大的同时，大幅降低计算和内存需求。</li>
+<li><strong>MTP (Multi-Token Prediction)</strong>：一种投机解码技术。主模型在生成下一个 token 的同时，会额外预测后续几个 token。如果预测正确，可以一次性输出多个 token，从而显著提升生成速度。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48842459</guid>
+      <pubDate>Thu, 09 Jul 2026 08:05:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ pgrust：基于 Rust 的 PostgreSQL 重写项目，100% 通过回归测试</title>
+      <link>https://news.ycombinator.com/item?id=48841676</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍基于Rust重写PostgreSQL的开源项目技术进展，目前已100%通过官方回归测试，符合interest配置中开源项目与软件技术进展的兴趣，故评为recommended。</small></p><p>开发者 malisper 发布了一个名为 <a href="https://github.com/malisper/pgrust">pgrust</a> 的项目，旨在使用 <a href="https://www.rust-lang.org/">Rust</a> 语言重写 <a href="https://www.postgresql.org/">PostgreSQL</a> 数据库。该项目目前已实现与 PostgreSQL 18.3 的完全兼容，并成功通过了超过 46,000 个回归测试，匹配了原始版本的预期输出。</p>
+
+<img src="https://camo.githubusercontent.com/d10e57f69bd1b927fd18df04bb0c4a2fc0b0fb641d400572f8b2c17bc0a0cb1c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506f7374677265732d31382e332d333336373931" alt="Postgres 18.3" />
+<img src="https://camo.githubusercontent.com/e67d7138f3b40a31a866c7e789a447b9309b6ed03d1a1b2960bf721633b8b30c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f72656772657373696f6e5f717565726965732d34366b2532422d627269676874677265656e" alt="Regression queries: 46k+" />
+<img src="https://camo.githubusercontent.com/e75361a6644d5c0f8c3efce74ee774f25811f1c1b9a2d7c7d3a1f05a33d790a3/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4147504c2d2d332e302d626c7565" alt="License: AGPL-3.0" />
+
+<p>pgrust 的核心目标是利用 Rust 的内存安全性和 AI 辅助编程技术，探索更深层的服务器架构改进。该项目实现了磁盘级兼容，可以直接启动现有的 PostgreSQL 18.3 数据目录。目前的路线图包括实现多线程内部机制、内置连接池、更好的 JSON 支持以及无 vacuum 存储设计等实验性功能。</p>
+
+<p>尽管在回归测试中表现优异，但项目方明确表示 pgrust 目前尚非生产就绪状态，未进行性能优化，且现有的扩展生态系统（如 PL/Python、PL/Perl 等）尚未完全兼容。项目采用 AGPL-3.0 许可证发布。</p>
+
+<p>在 Hacker News 的讨论中，社区对 AI 辅助重写代码的质量、版权（AGPL 与 Copyleft 在 AI 生成代码上的适用性）以及测试通过是否等同于生产环境可靠性展开了热烈讨论。此外，关于 Rust 重写是否能发现原 C 代码中的内存不安全 bug，以及扩展生态系统的兼容性问题，也是大家关注的焦点。</p>
+
+<div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;">
+  <strong>你知道吗？</strong>
+  <p>关于 PostgreSQL 的发音，虽然官方并未严格规定，但 PostgreSQL 的创始人 Richard Hipp 曾明确表示他将其发音为 "S-Q-L-ite"。而在讨论中，也有开发者幽默地提到了 SQLite 的发音争议（SQL-ite vs SQL-lite），这反映了开源社区对技术细节的严谨与趣味并存的态度。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48841676</guid>
+      <pubDate>Thu, 09 Jul 2026 06:18:19 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenAI 推出 ChatGPT Work：基于 GPT-5.6 的跨应用工作代理</title>
       <link>https://news.ycombinator.com/item?id=48849059</link>
@@ -925,43 +968,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48790066</guid>
       <pubDate>Sat, 04 Jul 2026 23:41:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>欧洲南方天文台警告：百万颗卫星与镜面卫星将毁灭夜空观测能力</title>
-      <link>https://news.ycombinator.com/item?id=48787042</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲述天文台对卫星及镜面卫星干扰夜空观测的警告，未直接命中用户明确标注的兴趣领域，主题较中立，列为可选。</small></p><p>欧洲南方天文台（<a href="https://www.eso.org/public/news/eso2607/">ESO</a>）发布的一项新研究警告称，目前计划发射的超过 170 万颗卫星（包括极其明亮的镜面卫星）将对夜空观测造成“毁灭性后果”。为了保障现代望远镜的观测能力，研究建议地球轨道上的卫星总数应限制在 10 万颗以内，且必须足够暗淡，肉眼不可见。</p>
-
-<p>自 2019 年以来，地球轨道卫星数量激增，主要由 SpaceX 的 Starlink 主导。SpaceX 计划发射 100 万颗卫星用于太空数据中心，这将导致夜空亮度显著增加。此外，美国初创公司 <a href="https://www.eso.org/public/news/eso2607/">Reflect Orbital</a> 计划发射 5 万颗大型镜面卫星，旨在夜间反射阳光。这些卫星将成为轨道上最亮的物体，其亮度甚至可能超过金星，并使夜空背景亮度增加 3 至 4 倍。</p>
-
-<p>模拟显示，SpaceX 的卫星将在 ESO 的甚大望远镜（<a href="https://www.eso.org/public/telescopes/vlt/">VLT</a>）图像中留下数十道亮痕，而 Reflect Orbital 的卫星将使几乎所有天文图像变得不可用。除了光污染，大规模卫星发射还涉及生态健康、空气质量及大气污染等问题。ESO 已联合国际天文学联合会等机构向美国联邦通信委员会（<a href="https://www.eso.org/public/news/eso2607/">FCC</a>）提交反对意见，呼吁严格限制卫星发射。</p>
-
-<img src="https://cdn.eso.org/images/newsfeature/eso2607a.jpg" alt="The background of this image shows a starry sky, including the bright lane of the Milky Way. Hundreds of bright streaks cross the sky in different directions, as if scratching the background natural sky behind it. The bottom of the image is occupied by the dark silhouette of a mountainous desert landscape. Atop the mountain at the centre, is a small, distant metallic dome and yellow-orange lasers shine behind it." />
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论反映了公众对此问题的复杂看法。部分用户担忧天文学的未来，认为这是人类被剥夺了仰望星空的权利；也有观点认为这是基础设施发展的必要代价，并指出卫星发射主要服务于军事或商业利益。此外，有评论提到光污染不仅影响天文观测，还干扰生态系统，例如智利曾因光污染问题取消了阿塔卡马沙漠附近的太阳能项目。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>卫星为何如此明亮？</strong> 卫星在太空中通常使用高反射材料（如铝箔或镜面），这主要是出于热控（Thermal Control）的考虑。在真空中，散热非常困难，深色材料会吸收过多太阳辐射导致卫星过热，而高反射材料可以将大部分阳光反射出去，保持卫星内部温度稳定。</li>
-<li><strong>光污染对生态的影响：</strong> 除了影响天文观测，人造光污染还会干扰动植物的生物钟。例如，海龟幼崽会因海岸灯光而迷失方向，无法爬向大海；候鸟迁徙也会因城市灯光而偏离路线。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48787042</guid>
-      <pubDate>Sat, 04 Jul 2026 17:17:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Shadcn/UI 默认组件库从 Radix 切换为 Base UI</title>
-      <link>https://news.ycombinator.com/item?id=48791328</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述 Shadcn/UI 组件库默认依赖从 Radix 切换为 Base UI 的更新，属于前端开源项目与开发工具变更，符合用户感兴趣的主题，故推荐。</small></p><p>shadcn/ui 官方宣布，从即日起，新项目将默认使用 <strong>Base UI</strong> 作为底层组件库，取代此前的 <strong>Radix</strong>（详见<a href="https://ui.shadcn.com/docs/changelog">官方更新日志</a>）。这一决定基于 Base UI 已达到稳定版本（1.6.0）且社区采用率显著上升（新项目创建比例达 2:1）。Base UI 由 Radix 的原开发团队打造，底层基于框架无关的 <strong>Zag.js</strong>，提供了更底层的控制能力。</p>
-<p>对于现有项目，Radix 不会被弃用，官方仍会持续维护并同步更新。用户无需强制迁移，若希望迁移，官方提供了专为 AI 编码助手设计的 Skill。该 Skill 支持渐进式迁移，可逐组件替换并生成详细报告，保留代码自定义内容，避免传统 codemod 的破坏性问题。</p>
-<p>社区反馈方面，开发者对 shadcn/ui 的“复制粘贴”模式与 Mantine 等传统 UI 库的优劣展开了讨论。此外，由于 PrimeNG 宣布闭源收费，部分 Angular 开发者正在寻找替代方案。关于迁移工具，社区认为 LLM 驱动的 Skill 与传统 codemod 将长期互补。</p>
-<h3>你知道吗？</h3>
-<p>Base UI 实际上是 Radix 的原班人马在 MUI 领导下开发的新项目。它底层基于 <strong>Zag.js</strong>（一个框架无关的状态机 UI 库），这使得它在保持 Radix 优秀无障碍（Accessibility）和 API 设计的同时，提供了更灵活的底层控制。shadcn/ui 选择切换底层，旨在拥抱更现代、更稳定的基础架构，同时保持其“复制粘贴、完全可控”的核心哲学。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48791328</guid>
-      <pubDate>Sun, 05 Jul 2026 04:46:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
