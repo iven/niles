@@ -3,7 +3,57 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 10 Jul 2026 07:48:41 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jul 2026 11:18:22 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linux Device Tree 补丁为 Apple M3 Pro/Max/Ultra 提供基础启动支持</title>
+      <link>https://www.phoronix.com/news/Linux-DT-Apple-M3-Pro-Max-Ultra</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 来源配置对「苹果电脑Linux支持」为高兴趣，文章提供 Apple M3 系列芯片在 Linux 中的设备树支持，符合用户兴趣</small></p><p>Linux 7.2 内核已引入对 Apple M3 芯片的初始支持，但仅能实现基础控制台启动，缺乏图形加速等日常使用所需功能。近日，Asahi Linux 贡献者 Janne Grunau 提交了新的 Device Tree（设备树，DT）补丁，进一步扩展了对 Apple M3 Pro、M3 Max 和 M3 Ultra 芯片的初步支持。</p>
+<p>与 M1 和 M2 世代不同，M3 世代的设备组合有所精简，非笔记本设备仅包含搭载 M3 Ultra 的 Mac Studio。笔记本方面涵盖 14 英寸和 16 英寸 MacBook Pro。值得注意的是，M3 Pro 采用了独立设计，不再像前代那样作为 M3 Max 的降频版本存在。因此，M3 Max 和 M3 Ultra 将共用 <code>apple,t6030</code> 兼容前缀，而低配版 M3 Max（T6034）则拥有独立的标识符。</p>
+<p>该补丁系列为这些设备添加了 CPU 核心、中断控制器、电源状态、看门狗、串口、引脚控制器、I2C 以及启动帧缓冲等基础硬件支持。这为主线 Linux 内核后续统一添加其他硬件驱动（如 GPU 支持）奠定了基础。<img src="//www.phoronix.net/image.php?id=2026&image=m3_mac_studio_med" alt="Apple M3 Ultra Mac Studio rear I/O" /></p>
+<p>目前这些补丁正在审查中，若进展顺利，有望在 Linux v7.3 开发周期内合并入主线内核。不过，要实现 M3 系列硬件在 Linux 下的完整可用体验，仍需较长时间来完善图形加速及其他集成设备功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-DT-Apple-M3-Pro-Max-Ultra</guid>
+      <pubDate>Fri, 10 Jul 2026 10:26:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Intel ANV Vulkan 驱动合并 HiZ 平面优化，Linux 游戏性能小幅提升</title>
+      <link>https://www.phoronix.com/news/Intel-HiZ-Plane-Optimization</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 来源配置对「Linux桌面技术」感兴趣，文章介绍 Intel Vulkan Linux 驱动的性能优化，属于 Linux 桌面技术范畴</small></p><p>Intel 开源的 "ANV" Vulkan 驱动程序已合并一项 HiZ plane 优化，可为 Linux 平台上的游戏和图形处理带来最高约百分之几的帧率提升，主要惠及较新的 Intel 集成与独立显卡硬件。</p>
+<p>自 2024 年 8 月起，Mesa 项目一直在针对 Intel GFX12 及更新架构硬件研究此项优化。此前，虽然已设置了对性能有利的标志位，但为规避渲染损坏（rendering corruption）问题而暂时禁用。随着该合并请求的落地，分层-Z（Hierarchical-Z "HiZ"）平面优化现已针对只读深度测试（read-only depth tests）正式启用。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=intel_hiz_plane" alt="Intel HiZ plane optimization benchmark" />
+<p>实测数据显示，在《赛博朋克 2077》（Cyberpunk 2077）中，Alchemist 和 Battlemage 架构显卡可获得约 3% 的性能提升；在《霍格沃茨之遗》（Hogwarts Legacy）中，从 Alchemist 到 Panther Lake 的集成显卡性能提升约 1%~2%。此外，该优化还允许在《森林之子》（Sons of the Forest）等游戏中启用 HiZ 而不会引发性能回退。此项更改已合并至 Mesa Git 仓库，并将在 8 月发布的 Mesa 26.2 稳定版中正式提供。</p>
+<h3>你知道吗？</h3>
+<p><strong>分层-Z（Hierarchical-Z，简称 HiZ）</strong>是一种图形渲染优化技术。传统的深度测试需要对每个像素逐一进行，而 HiZ 通过维护一个层级化的深度图（Mipmap 结构），可以在渲染早期快速剔除大量被遮挡的片段。这能显著减少不必要的像素着色器调用和显存带宽消耗，从而提升渲染效率，尤其适用于包含大量遮挡关系的复杂场景。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-HiZ-Plane-Optimization</guid>
+      <pubDate>Fri, 10 Jul 2026 10:13:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ LLVM/Clang 编译器合并 NVIDIA Rigel 核心初步支持</title>
+      <link>https://www.phoronix.com/news/LLVM-Clang-NVIDIA-Rosa-Rigel</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 全局配置对「编程工具发布/分享」为高兴趣，文章介绍 LLVM/Clang 编译器对 NVIDIA 新 CPU 架构的初始支持，属于编程工具更新</small></p><p>NVIDIA 近日确认了其下一代 Rosa 处理器将采用基于 Olympus 核心设计的 "Rigel" Armv9.2-A 架构。随着该核心基本信息的公开，NVIDIA 迅速将 Rigel 核心支持引入了 GCC 编译器，并进一步将初步支持上游合并至 LLVM/Clang 编译器中。</p>
+<p>近日，NVIDIA 编译器工程师提交的 <code>-mcpu=rigel</code> 目标支持代码已成功合并入 LLVM/Clang 仓库，恰逢 LLVM 23 代码分支节点。此次合并主要添加了 Rigel 核心的基本细节与检测机制，虽然尚未包含专门的指令调优与成本表，但已足以启用该 CPU 核心的全部功能特性。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=llvm_nvidia_rigel" alt="LLVM NVIDIA Rigel commit" />
+<p>该更新将随 LLVM/Clang 23.1.0 稳定版（预计 8 月底发布）一同推出。NVIDIA 在 Rosa 处理器正式发售前便积极推进开源生态的上游支持，未来几个月内还将陆续提交针对 Linux 内核及其他组件的更多相关补丁。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-Clang-NVIDIA-Rosa-Rigel</guid>
+      <pubDate>Fri, 10 Jul 2026 09:52:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Intel 发布 Intel-Scaler-vLLM 0.21.0-b1，优化 vLLM 在 Intel GPU 上的运行</title>
+      <link>https://www.phoronix.com/news/Intel-Scaler-vLLM-0.21-b1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 全局配置对「AI软件技术进展」感兴趣，文章介绍 vLLM 在 Intel GPU 上的功能更新，属于 AI 软件技术进展</small></p><p>Intel 发布了基于 Docker 的 <strong>Intel-Scaler-vLLM</strong> 0.21.0-b1 版本，旨在为 <strong>Intel Arc (Pro)</strong> 系列图形硬件提供优化的 vLLM 推理栈。该版本主要基于上游 vLLM 0.21 进行了更新，并实验性支持了 XPU graph 技术。</p>
+<p>此外，新版本增加了对多个 Gemma 4 系列模型的支持，包括 diffusiongemma-26B-A4B-it、gemma-4-12B-it、gemma-4-31B-it 以及 gemma-4-26B-A4B-it。</p>
+<img src="//www.phoronix.net/image.php?id=linux-71-arc-pro-b70&image=linux_71_b70_1_med" alt="Intel Arc Pro B70" />
+<p>总体而言，这是一次较为直接的版本更新，重点在于同步上游 vLLM 版本并扩展对更多 Gemma 4 模型的支持。感兴趣的用户可以通过 GitHub 仓库了解更多信息，或通过 Docker Hub 试用新版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Scaler-vLLM-0.21-b1</guid>
+      <pubDate>Fri, 10 Jul 2026 09:41:43 GMT</pubDate>
+    </item>
     <item>
       <title>Phoronix Premium 夏季支持促销今晚结束</title>
       <link>https://www.phoronix.com/news/Premium-Summer-26-Ending</link>
@@ -697,51 +747,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Drop-Old-ARM-2027</guid>
       <pubDate>Thu, 02 Jul 2026 10:18:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ FFmpeg 引入 Vulkan 加速的 APV 视频编码器</title>
-      <link>https://www.phoronix.com/news/FFmpeg-Vulkan-Encoder-APV</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍FFmpeg新增Vulkan APV编码器功能，属于知名开源项目的软件新功能更新，符合用户感兴趣的范围，推荐阅读。</small></p><div>FFmpeg 项目近日正式引入了基于 Vulkan 图形 API 的 APV（Advanced Professional Video）视频编码器。该功能由 FFmpeg 核心开发者 Lynne 实现，代码已合并至 FFmpeg 的 Git 主分支。</div><div>此次更新是对 FFmpeg 此前 Vulkan 加速解码功能的补充。早在今年 5 月，FFmpeg 便通过 Vulkan 着色器实现了 APV 格式的硬件加速解码。如今，随着 <code>apv_encode_vulkan</code> 的落地，FFmpeg 完成了对 APV 格式的完整 Vulkan 硬件加速支持。</div><div>APV 作为一种开源视频编解码标准，被视为 Apple ProRes 的有力替代品，广泛应用于三星设备、DaVinci Resolve 等专业领域。同时，APV 格式也已获得 Google Android 16+ 的原生支持。此前，OpenAPV 项目主要提供基于 CPU 的编解码方案，而 FFmpeg 此次引入的 Vulkan 编码器将显著利用 GPU 算力，大幅提升 APV 视频的处理效率。</div><div><img src="//www.phoronix.net/image.php?id=2026&image=openapv_new" alt="OpenAPV logo" /></div><div><strong>你知道吗？</strong><br>Vulkan 是一个跨平台、高性能的 3D 图形和计算 API。在视频处理领域，利用 Vulkan 进行硬件加速编解码，能够绕过传统图形 API 的开销，直接调用 GPU 的专用计算单元。对于 APV 这类高码率、高分辨率的专业视频格式，GPU 加速编码不仅能显著缩短渲染时间，还能在保持画质的同时降低 CPU 负载，非常适合现代多媒体工作流。</div>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/FFmpeg-Vulkan-Encoder-APV</guid>
-      <pubDate>Thu, 02 Jul 2026 10:04:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Rusticl OpenCL 驱动在 Mesa 26.2 中提升硬件利用率</title>
-      <link>https://www.phoronix.com/news/Rusticl-Better-Utilization-Mesa</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述Rust编写的OpenCL驱动Rusticl在Mesa图形栈中的硬件利用率优化。来源配置明确将Rust列为感兴趣，且涉及Linux桌面图形技术，故推荐。</small></p><p>Red Hat 工程师 Karol Herbst 已将针对 <a href="https://www.phoronix.com/news/Rusticl-Better-Utilization-Mesa">Rusticl</a> 的最新优化工作合入 Mesa 26.2。Rusticl 是一款基于 Rust 语言编写的 OpenCL（Open Computing Language）驱动，旨在为 Gallium3D 架构提供跨硬件平台的计算支持。</p>
-<p>此次优化的核心在于提升硬件利用率。Herbst 改进了工作块大小（workgroup size）的选择算法，使其能够更精准地匹配最佳块大小。通过更有效地填充工作组（workgroup）和子工作组（subgroup），该更改预计将“显著提高硬件利用率”，并改善处理任意全局大小请求时的应用程序性能。</p>
-<p>虽然此次合并请求未提供完整的真实世界基准测试数据，但在填充率（fill rate）测试中确实取得了巨大进步，有效提升了 GPU 的利用率：<img src="//www.phoronix.net/image.php?id=2026&image=rusticl_fill_rate" alt="Rusticl benchmark comparison" /></p>
-<p>目前该优化已包含在 Mesa 26.2 版本中，预计将于今年 8 月进行稳定发布。</p>
-<h3>你知道吗？</h3>
-<p><strong>OpenCL 与 Gallium3D</strong>：OpenCL 是一种跨平台的并行编程框架，允许开发者编写在 CPU、GPU 及其他处理器上运行的代码。而 Gallium3D 是 Linux 图形栈中的核心架构，旨在简化图形驱动开发并提高兼容性。Rusticl 作为 Gallium3D 的一部分，使用 Rust 语言重写，旨在替代传统的 clover 驱动，利用 Rust 的内存安全特性提升驱动的稳定性和执行效率。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rusticl-Better-Utilization-Mesa</guid>
-      <pubDate>Thu, 02 Jul 2026 09:54:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>libjxl 0.12 发布：JPEG-XL 参考实现迎来重大性能优化</title>
-      <link>https://www.phoronix.com/news/JPEG-XL-libjxl-0.12</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章介绍JPEG-XL图像格式库libjxl 0.12版的性能优化更新。属于特定开源库的版本迭代，兴趣指向不明确，故列为可选。</small></p><p>libjxl 0.12 版本已正式发布。作为 <a href="https://jpegxl.io/">JPEG-XL</a> 图像格式的参考实现，该版本全面支持图像编码与解码，并带来了显著的性能优化与功能更新。</p>
-<p>本次更新的核心亮点在于对渐进式无损图像的优化。新版本使此类图像体积缩小了 30%~40%，同时大幅提升了处理速度。此外，通过引入多线程处理机制，编码性能实现了 2~5 倍的提升。对于一般无损图像，解码速度同样得到改善，体积缩减幅度达 30%~80%。</p>
-<img src="//www.phoronix.net/image.php?id=2023&image=jpeg_xl" alt="JPEG-XL logo" />
-<p>在底层技术方面，libjxl 0.12 进行了多项 SIMD（单指令多数据流）优化。其中包括对 <code>EstimateCost</code> 函数的 SIMD 化改造，带来 5% 的性能提升；模块化编解码加速最高可达 4 倍；以及对直方图编解码模块的大规模重构，进一步释放了性能潜力。</p>
-<p>此外，新版本还引入了全新的 <code>jxltran</code> 工具，专门用于从 JXLP boxes 中提取码流。更多详细更新内容与下载链接可访问 <a href="https://github.com/libjxl/libjxl">GitHub 项目页面</a> 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/JPEG-XL-libjxl-0.12</guid>
-      <pubDate>Thu, 02 Jul 2026 09:44:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Fedora 理事会暂停“AI 开发者桌面”讨论并改革社区倡议流程</title>
-      <link>https://www.phoronix.com/news/Fedora-Council-AI-Desktop</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讨论Fedora社区关于AI开发者桌面的决策方向，属于Linux桌面技术与发行版生态动态，符合用户对Linux桌面技术及发行版的兴趣配置，故推荐阅读。</small></p><p>Fedora 理事会（Fedora Council）近日发布声明，正式暂停关于“AI 开发者桌面（AI Developer Desktop）”提案的讨论，并暂时中止 Fedora 社区倡议（Community Initiatives）流程。</p><p>该提案旨在提供预配置环境，以无缝的硬件加速体验运行本地 AI 和机器学习工作负载。然而，提案引发了社区的广泛争议，分歧主要集中在 NVIDIA CUDA 驱动（闭源软件）是否应纳入 Fedora 生态，以及 AI 和大型语言模型（LLM）的伦理与功耗问题。</p><p>理事会指出，当前的社区倡议流程未能有效为新想法提供反馈框架并获得支持，因此决定暂停该流程。现有的 Fedora Forge、Atomic 和 Fedora Docs 2026 等项目将继续按计划推进。理事会强调，若未来 AI 桌面工作趋于成熟，可通过正式途径（如作为 Remix 提案、申请商标/品牌审批及 FESCo 技术审查）成为官方产品。在此之前，该项目仍属于独立探索。理事会同时鼓励提案者及相关开发者继续与 AI/机器学习特别兴趣小组（AI/ML SIG）等社区组织协作，并承诺将建立更开放、透明的新机制来设定项目战略方向。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-Council-AI-Desktop</guid>
-      <pubDate>Thu, 02 Jul 2026 01:40:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
