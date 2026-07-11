@@ -3,7 +3,19 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 11 Jul 2026 06:23:48 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jul 2026 08:57:58 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Mesa 26.2 将默认启用 Rusticl 对 Arm Mali Panfrost 驱动的支持</title>
+      <link>https://www.phoronix.com/news/Mesa-Rusticl-Panfrost-Default</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章报道 Mesa 默认启用 Rusticl 支持 ARM Mali Panfrost 驱动。内容涉及 Linux 桌面底层图形技术更新及 Rust 语言在图形驱动中的应用，符合来源配置中对 'Rust' 和 'Linux桌面技术' 感兴趣（interest）的设定，故评级为 recommended。</small></p><p>近日，Mesa 项目通过了一项由 Arm 工程师 Ahmed Hesham 提交的补丁，使得 <b>Panfrost</b> Gallium3D 驱动（用于 Arm Mali 图形硬件）现在默认与 <b>Rusticl</b> 驱动（基于 Rust 语言的 OpenCL 驱动）配合工作。</p>
+<p>此前，Panfrost 虽然已经支持 Rusticl，但用户必须手动设置 <code>RUSTICL_ENABLE=panfrost</code> 环境变量才能启用该功能，这与许多尚未完全官方验证的驱动支持类似。此次变更旨在提供更好的开箱即用体验，让用户无需额外配置即可在 Arm Mali 硬件上使用现代开源 OpenCL。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=rusticl_panfrost_default" alt="Panfrost Rusticl default" />
+<p>该功能将包含在预计于 2026 年 8 月发布的 Mesa 26.2 稳定版中。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Rusticl-Panfrost-Default</guid>
+      <pubDate>Sat, 11 Jul 2026 08:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Pop!_OS 率先推出 COSMIC 桌面“磨砂玻璃”外观效果</title>
       <link>https://www.phoronix.com/news/COSMIC-Frosted-Glass-Arrives</link>
@@ -708,39 +720,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-AI-Attribution-Again</guid>
       <pubDate>Thu, 02 Jul 2026 15:11:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Intel 发布 GCC 编译器初始补丁，支持 AI 计算扩展（ACE）</title>
-      <link>https://www.phoronix.com/news/Intel-GCC-ACE-AI-Patches</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍Intel为GCC编译器提交的AI计算扩展补丁，属于编程编译器工具的发布与更新，符合全局配置“编程工具发布/分享”的很感兴趣偏好，故评为critical。</small></p><html>
-<body>
-<p>由 Intel 和 AMD 领导的 x86 生态系统顾问组（x86 Ecosystem Advisory Group）近日正式确定了 <b>AI 计算扩展（AI Compute Extensions, ACE）</b> 的规范。ACE 旨在优化 x86 架构在机器学习工作负载（特别是矩阵乘法）上的性能，被视为 Intel 现有 <b>高级矩阵扩展（Advanced Matrix Extensions, AMX）</b> 的跨厂商继任者。</p>
-
-<p>ACEv1 规范定义了矩阵乘法原语，旨在增强现有的 <b>AVX（高级矢量扩展）</b> 和标量代码。其新增功能包括：</p>
-<ul>
-<li>新的寄存器状态，包括 tile 和 block scale 寄存器。</li>
-<li>消耗 AVX 寄存器输入并操作 tile 寄存器状态的数据处理操作。</li>
-<li>在 ACE 寄存器状态与 AVX 寄存器之间移动数据的数据移动操作。</li>
-<li>系统管理 ACE 的状态和操作。</li>
-</ul>
-
-<p>为了实现这一目标，ACE 实现了 AVX 向量与 ACE tile 寄存器之间的紧密集成，将高计算密度的 tile 处理操作与 AVX 的综合数据处理功能相结合。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=x86_ace_med" alt="x86 ACE" />
-
-<p>目前，Intel 工程师已在 GCC 邮件列表上发布了针对 ACE 的初始编译器补丁。这些补丁部分基于 Intel 现有的 AMX-TILE 编译器代码以及部分 AVX-512 元素。开发者可以在 GCC patches mailing list 上查看这些初步的 ACE 启用工作。希望 ACEv1 的支持能顺利进入明年的 GCC 17 稳定版编译器发布。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li><b>AMX 与 ACE 的关系</b>：AMX 是 Intel 专为 AI 计算设计的指令集，主要应用于其数据中心处理器（如 Sapphire Rapids）。ACE 则是 Intel 与 AMD 合作推出的跨厂商标准，旨在统一 x86 平台的 AI 加速能力，避免生态碎片化。</li>
-<li><b>GCC 补丁流程</b>：GCC（GNU Compiler Collection）是开源界最广泛使用的编译器。新特性通常需要经历漫长的代码审查、测试和集成过程，从初始补丁到进入稳定版往往需要数个版本迭代。</li>
-</ul>
-</body>
-</html>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-GCC-ACE-AI-Patches</guid>
-      <pubDate>Thu, 02 Jul 2026 13:08:38 GMT</pubDate>
     </item>
   </channel>
 </rss>
