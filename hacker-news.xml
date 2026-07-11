@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 11 Jul 2026 21:01:57 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jul 2026 22:04:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 推荐在 SQLite 中使用严格表（Strict Tables）</title>
+      <link>https://news.ycombinator.com/item?id=48873940</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享 SQLite 数据库的 Strict Tables 特性以避免数据类型错误，属于编程工具分享及开发经验交流，符合高兴趣配置。</small></p><p>SQLite 的严格表（Strict Tables）是一项自 3.37.0 版本引入的特性，通过在 <code>CREATE TABLE</code> 语句末尾添加 <code>STRICT</code> 关键字启用。该特性旨在通过强制执行严格的类型检查来提升数据完整性。</p>
+<h3>核心优势</h3>
+<ul>
+<li><strong>防止类型不匹配</strong>：严格表会拦截将文本插入数值列等错误操作，但允许无损转换（如字符串 <code>'123'</code> 自动转为整数 <code>123</code>）。</li>
+<li><strong>拒绝无效类型声明</strong>：默认情况下 SQLite 接受任意列类型名（如 <code>DATETIME</code>、<code>JSON</code>），而严格表仅允许 <code>INT</code>、<code>INTEGER</code>、<code>REAL</code>、<code>TEXT</code>、<code>BLOB</code> 和 <code>ANY</code>，有效避免拼写错误或概念混淆。</li>
+<li><strong>保留灵活性</strong>：若需存储异构数据，可使用 <code>ANY</code> 数据类型，在严格模式下依然允许插入任意类型。</li>
+</ul>
+<h3>局限性与争议</h3>
+<ul>
+<li><strong>版本兼容</strong>：仅支持 SQLite 3.37.0 及以上版本，旧版本无法读取包含严格表的数据库文件。</li>
+<li><strong>迁移成本</strong>：无法直接通过 <code>ALTER TABLE</code> 将现有表转为严格模式，需重建表并迁移数据，若原表存在脏数据则迁移可能失败。</li>
+<li><strong>官方立场</strong>：SQLite 官方文档强调灵活类型的优势，认为其在键值存储或导入非结构化数据时更为实用。</li>
+</ul>
+<h3>社区反馈</h3>
+<p>HN 社区普遍支持严格表作为默认设置，认为其能避免隐蔽的类型错误。讨论指出，SQLite 维持灵活类型主要是出于向后兼容性考虑。对于旧版本或遗留系统，开发者建议使用 <a href="https://sqlite.org/lang_createtable.html#ckconst" rel="nofollow">CHECK 约束</a> 来实现类似的数据校验效果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48873940</guid>
+      <pubDate>Sat, 11 Jul 2026 17:33:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Ghost Font：一种人类可读但 AI 难以识别的动态字体</title>
       <link>https://news.ycombinator.com/item?id=48870381</link>
@@ -978,27 +1001,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48808002</guid>
       <pubDate>Mon, 06 Jul 2026 17:44:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cloudflare 推出 Workers Cache：为 Serverless 应用提供原生 HTTP 缓存支持</title>
-      <link>https://news.ycombinator.com/item?id=48804014</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 Cloudflare 为 Serverless 架构推出的原生缓存功能，属于开发工具与性能优化更新，匹配 high_interest 中的编程工具发布与效率改进，故评级为 critical。</small></p><p>Cloudflare 正式推出 <a href="https://blog.cloudflare.com/workers-cache/">Workers Cache</a>，这是一项直接部署在 Worker 入口点（Entrypoint）之前的区域分层缓存（Regionally Tiered Cache）功能。该功能旨在解决 Serverless 和 SSR（服务端渲染）应用面临的性能与成本平衡问题。</p>
-<p>通过简单的 Wrangler 配置和标准的 <code>Cache-Control</code> 响应头，开发者即可启用缓存。当请求命中缓存时，Cloudflare 直接返回缓存内容，不触发 Worker 运行，从而节省 CPU 计费；未命中时则运行 Worker 并将结果缓存供后续请求使用。</p>
-<p>核心特性包括：</p>
-<ul>
-<li><strong>按需渲染与缓存</strong>：提供“按需服务器渲染 + 缓存”的第三条路径，兼顾静态站点的速度与 SSR 的内容实时性。</li>
-<li><strong>stale-while-revalidate 支持</strong>：缓存过期时立即返回旧内容，同时在后台刷新缓存，确保用户始终获得极速响应。</li>
-<li><strong>标准内容协商</strong>：完整支持 HTTP <code>Vary</code> 头，可根据 <code>Accept</code> 等请求头缓存不同版本（如 WebP 与 JPEG）。</li>
-<li><strong>Worker 级缓存归属</strong>：缓存绑定于 Worker 而非 Zone 级别，适用于自定义域名、workers.dev、预览环境及 Service Bindings。缓存清除操作仅作用于当前 Worker，互不干扰。</li>
-<li><strong>双层缓存架构</strong>：默认包含靠近用户的 Lower tier 和聚合全网的 Upper tier，大幅提升全局缓存命中率。</li>
-</ul>
-<p><img src="https://cf-assets.www.cloudflare.com/zkvhlag99gkb/3CeobeovHxD6ZsSYvoMMJg/9c1f16ff9b7dc4ffd4f780e0ac7e986a/BLOG-3262_image4.png" alt="" /></p>
-<p>该功能现已向所有 Worker 计划开放。Hacker News 社区对此反响积极，认为其填补了 Workers 平台长期缺乏原生缓存支持的空白。不过，部分用户指出博文写作风格存在明显的 AI 生成痕迹。</p>
-<p><img src="https://cf-assets.www.cloudflare.com/zkvhlag99gkb/oBNxdamAbzN4vUeiCSLWu/e3f3bc3ce02ed15a4e5b793f62eaa7f2/Dan_Lapid.jpg" alt="Dan Lapid" width="62" height="62" /> <img src="https://cf-assets.www.cloudflare.com/zkvhlag99gkb/7ChQBYRPNIiEuQnGQdajbt/3b67f09fd6dae792eb8a1ffafaa1254a/_tmp_mini_magick20221017-43-y5gfah.jpg" alt="Connor Harwood" width="62" height="62" /></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48804014</guid>
-      <pubDate>Mon, 06 Jul 2026 13:02:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
