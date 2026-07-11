@@ -3,7 +3,53 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sat, 11 Jul 2026 00:07:52 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jul 2026 03:42:57 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.207 更新：Auto mode 默认开启，默认模型升级至 Claude Opus 4.8，修复终端冻结问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.207</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
+<ul>
+  <li><strong>Auto mode 默认开启</strong>：在 Bedrock、Vertex AI 和 Foundry 上，Auto mode 现在默认开启，无需设置 <code>CLAUDE_CODE_ENABLE_AUTO_MODE</code> 环境变量。用户可以通过设置 <code>disableAutoMode</code> 来关闭此功能。</li>
+  <li><strong>默认模型变更</strong>：Bedrock、Vertex 和 AWS 上的 Claude Platform 现在默认使用 Claude Opus 4.8。</li>
+  <li><strong>终端性能修复</strong>：修复了当流式响应包含长列表、表格、段落或代码块时，终端冻结和按键延迟的问题。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+  <li><strong>UI/UX 改进</strong>：
+    <ul>
+      <li>代理视图：粘贴相同文本时，现在会展开折叠的 <code>[Pasted text #N]</code> 占位符，而不是添加第二个。</li>
+      <li>代理视图：被阻止的会话预览现在以问题开头，并显示带文字的停滞时钟（如 <code>waiting 3m</code>）。</li>
+    </ul>
+  </li>
+  <li><strong>Bug 修复</strong>：
+    <ul>
+      <li>修复了自动更新器覆盖自定义启动器脚本或符号链接的问题。</li>
+      <li>修复了包含 <code>cd</code> 的复合命令在输出重定向到 <code>/dev/null</code> 时提示权限的问题。</li>
+      <li>修复了响应流式传输结束时转录本跳回答案开头的问题。</li>
+      <li>修复了 <code>extensions.worktreeConfig</code> 在最后一个 <code>worktree.sparsePaths</code> 工作树被移除后留在 <code>.git/config</code> 中的问题。</li>
+      <li>修复了规则通配符、技能路径等中的格式错误的括号模式导致文件读取等问题。</li>
+      <li>修复了代理团队中格式错误的队友邮箱消息导致的崩溃循环。</li>
+      <li>修复了后台会话自动命名和冷重启后空白的问题。</li>
+      <li>修复了远程控制在网络中断或凭据刷新后丢失任务状态更新的问题。</li>
+      <li>修复了桌面应用托管的远程控制在移动和网页上未显示后台代理和工作流进度的问题。</li>
+      <li>修复了深度研究运行中标记 Fetch 阶段代理为 "unknown" 的问题。</li>
+      <li>修复了 Bedrock 每次 API 请求都重复请求 AWS SSO 凭据的问题。</li>
+      <li>修复了 <code>/usage-credits</code> 命令现在拒绝格式错误的金额输入，超过 $1,000 需要打字确认。</li>
+    </ul>
+  </li>
+  <li><strong>设置变更</strong>：
+    <ul>
+      <li>自动模式设置不再从 <code>.claude/settings.local.json</code> 读取 <code>autoMode</code>，改用 <code>~/.claude/settings.json</code>。</li>
+      <li>插件选项值（<code>pluginConfigs</code>）不再从项目级 <code>.claude/settings.json</code> 读取。</li>
+    </ul>
+  </li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.207</guid>
+      <pubDate>Sat, 11 Jul 2026 00:52:10 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.206 更新：新增目录建议与后台代理升级优化</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.206</link>
@@ -1039,22 +1085,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.172</guid>
       <pubDate>Wed, 10 Jun 2026 20:44:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>Superset Desktop v1.12.5 更新：全面开放 v1/v2 切换与多项 UI 优化</title>
-      <link>https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.5</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Superset Desktop <a href="https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.5">v1.12.5</a> 版本已发布，本次更新主要聚焦于界面交互优化与版本切换功能的全面开放。</p>
-<h3>主要更新</h3>
-<ul>
-  <li><strong>v1/v2 版本切换全面开放</strong>：向所有用户显示 v1 与 v2 的切换开关，并新增逻辑以准确检测用户最初是在 v1 还是 v2 版本上完成初始设置（Onboarding）。</li>
-  <li><strong>工作区与顶部栏 UI 优化</strong>：将 v1 版本的 Resources 按钮移至顶部栏的“最近查看（Recently Viewed）”之后；从 v1 工作区顶部栏移除了搜索栏触发器；修复了当 v2 工作区所在分组缺失时，已固定的 v2 工作区无法显示的问题。</li>
-  <li><strong>数据分析改进</strong>：在分析数据中为 <code>workspace_created</code> 事件添加了 <code>host_kind</code> 标签，用于区分本地（local）与远程（remote）主机。</li>
-  <li><strong>其他修复</strong>：CLI 构建版本现在直接从 <code>package.json</code> 中派生，提升了版本管理的准确性。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superset-sh/superset/releases/tag/desktop-v1.12.5</guid>
-      <pubDate>Tue, 09 Jun 2026 18:44:40 GMT</pubDate>
     </item>
   </channel>
 </rss>
