@@ -3,7 +3,39 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 11 Jul 2026 08:57:58 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jul 2026 10:24:55 GMT</lastBuildDate>
+    <item>
+      <title>⭐ LLVM 23 合并 x86 LFI 目标，实现高效进程内沙箱</title>
+      <link>https://www.phoronix.com/news/LLVM-x86-LFI-Merged</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 LLVM 编译器合并 x86 LFI 特性用于进程内沙箱，属于编程工具底层技术发布，符合全局配置中对编程工具发布/分享的关注。</small></p><p>斯坦福大学研究人员开发的 <a href="https://en.wikipedia.org/wiki/Lightweight_fault_isolation">轻量级故障隔离（Lightweight Fault Isolation，LFI）</a> 编译器目标已正式合并至 LLVM 23。继 AArch64 目标之后，本周 x86/x86_64 的 LFI 目标也已完成上游合并。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=llvm_x86_lfi" alt="LLVM x86 LFI merged" />
+<p>LFI 是一种基于编译器的技术，旨在为 C、C++ 和汇编代码提供高效的进程内沙箱机制，以抵御内存安全漏洞，同时保持现有代码的性能与兼容性。该研究源于斯坦福大学，并得到了 Google 等公司的工程资源支持。</p>
+<p>LFI 的核心优势在于极低的性能开销。由于采用进程内沙箱架构，其上下文切换仅需数十个时钟周期（cycles），速度比传统的基于进程的沙箱快约 100 倍。在 Spec2017 基准测试中，AArch64 架构下的完整沙箱开销约为 7%，若仅对写操作进行沙箱隔离，开销可降至 2%。此外，LFI 的沙箱开销比当前最先进的 WebAssembly（Wasm）工具链低 3 到 10 倍。</p>
+<p>在设计理念上，LFI 并不追求跨平台独立性，而是赋予编译器和运行时最大自由度，以充分利用特定平台的硬件特性或新型优化技术。同时，它尽可能遵循现有的目标 ABI 和二进制规范（如 ELF 和 Dwarf），以确保与现有代码和工具的兼容性。LFI 对系统调用和库接口保持中立，支持直接运行未修改的库和驱动程序。</p>
+
+<h3>你知道吗？</h3>
+<p>内存安全漏洞（如缓冲区溢出）长期以来是 C/C++ 程序面临的主要安全威胁。传统的沙箱方案通常依赖操作系统级别的进程隔离或虚拟机，虽然安全性高，但上下文切换和 IPC（进程间通信）开销巨大。LFI 通过编译器在编译阶段插入隔离代码，在同一个进程内划分出受保护的内存区域，从而在接近原生性能的前提下实现安全隔离。这种“近硬件（closer to the metal）”的方法使其成为运行高安全性要求且对性能敏感的传统二进制代码的理想方案。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-x86-LFI-Merged</guid>
+      <pubDate>Sat, 11 Jul 2026 10:12:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ KDE 6.8 开发进展：Spectacle 新增音频录制与显存监控等功能</title>
+      <link>https://www.phoronix.com/news/Plasma-6.8-Spectacle-Audio</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 KDE 开发团队为 Plasma 6.8 桌面环境引入新功能，直接命中来源配置中的 high_interest (KDE)。</small></p><p>本周的 <a href="https://www.phoronix.com/news/Plasma-6.8-Spectacle-Audio">This Week in Plasma</a> 周报汇总了 KDE 桌面环境 6.8 版本的最新开发进展。主要更新包括：</p>
+<ul>
+  <li><strong>Spectacle 屏幕录制工具</strong>：新增录制系统音频和麦克风音频的功能；同时移除了对 OpenCV 库的依赖，实现了更轻量的模糊效果。</li>
+  <li><strong>KDE System Monitor</strong>：新增显存（vRAM）使用率监控功能，支持以百分比形式显示。</li>
+  <li><strong>登录管理器</strong>：修复了自动登录功能在旧版 systemd 系统上的兼容性问题。</li>
+  <li><strong>显示设置</strong>：优化了亮度与颜色小部件的响应速度，调整外部显示器亮度时滑块反馈更及时。</li>
+</ul>
+<p>这些更新进一步丰富了 Plasma 6.8 的功能，并伴随对现有 6.6 和 6.7 系列的诸多修复与优化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Plasma-6.8-Spectacle-Audio</guid>
+      <pubDate>Sat, 11 Jul 2026 09:51:44 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Mesa 26.2 将默认启用 Rusticl 对 Arm Mali Panfrost 驱动的支持</title>
       <link>https://www.phoronix.com/news/Mesa-Rusticl-Panfrost-Default</link>
@@ -684,42 +716,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/ReactOS-First-NT6-Syscall</guid>
       <pubDate>Fri, 03 Jul 2026 00:22:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Fedora 45 计划默认启用 x86_64 影子栈（Shadow Stack）以增强安全性</title>
-      <link>https://www.phoronix.com/news/Fedora-45-Consider-Shadow-Stack</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲述新发行版 Fedora 45 正在考虑默认启用 Shadow Stack 功能，符合来源配置中对“新发行版”的高兴趣。</small></p><p>Fedora 45 正在考虑一项变更提案，旨在默认启用 x86_64 架构上的影子栈（Shadow Stack）功能，以提升现代 Intel 和 AMD 处理器的安全性。</p>
-<p>该功能主要针对使用 GCC、LLVM Clang 或 Rustc 编译的应用程序和库。通过动态链接器或静态启动例程，系统会自动为所有依赖项均支持影子栈的进程启用该保护机制。</p>
-<p>影子栈是现代 CPU 硬件强制执行的安全特性，旨在防御返回导向编程（Return-Oriented Programming, ROP）和跳转导向编程（Jump-Oriented Programming, JOP）等攻击。它是英特尔控制流执行技术（Control-Flow Enforcement Technology, CET）的一部分，与间接分支跟踪（Indirect Branch Tracking, IBT）共同构成防护体系。</p>
-<img src="//www.phoronix.net/image.php?id=2023&image=shadow_stack_1_med" alt="Intel Shadow Stack diagram" />
-<p>此次提案仅涉及影子栈的默认启用，暂不包含 IBT。该变更具有高度的向后兼容性。自 2018 年以来，Fedora 的 <code>redhat-rpm-config</code> 已默认启用 <code>-fcf-protection</code> 编译标志，大多数二进制文件已具备相应标记。因此，大多数应用将透明地获得保护；若应用加载了不支持影子栈的依赖项，则不会启用该功能，仅在运行时尝试动态加载（<code>dlopen</code>）不合规对象时才会报错。</p>
-<p>启用影子栈的性能开销极小，且此举也为未来全面启用 CET 保护奠定了基础。</p>
-<h3>你知道吗？</h3>
-<p><strong>什么是 ROP 攻击？</strong> 返回导向编程（ROP）是一种高级代码复用攻击技术。攻击者利用程序中已有的短代码片段（称为 gadgets）来构建恶意代码，从而绕过传统的栈保护机制（如栈不可执行保护）。影子栈通过硬件强制验证返回地址，有效防御此类攻击。</p>
-<p><strong>控制流执行技术（CET）</strong> 是 Intel 引入的一项硬件安全特性，旨在防止控制流劫持攻击。它包含两个主要部分：影子栈（Shadow Stack）和间接分支跟踪（Indirect Branch Tracking, IBT）。影子栈用于保护返回地址，而 IBT 用于验证间接分支（如函数调用和跳转）的目标地址是否合法。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-45-Consider-Shadow-Stack</guid>
-      <pubDate>Thu, 02 Jul 2026 21:17:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 内核开发者再次讨论 AI 代理归属政策，或考虑取消强制披露</title>
-      <link>https://www.phoronix.com/news/Linux-AI-Attribution-Again</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论 Linux 内核（全局配置为基础设施，不太感兴趣）社区关于 AI 代理署名权的议题。虽然涉及 AI 技术（全局配置为感兴趣），但属于底层内核开发社区的特定讨论，且非 Linux 桌面技术，综合判断为可选。</small></p><h2>正文</h2>
-<p>Linux 内核社区近期再次引发了关于 AI/LLM（大型语言模型）代理归属政策的激烈讨论。目前，Linux 内核文档规定，当开发者使用 AI 辅助编写补丁时，必须在提交记录中使用 "Assisted-by" 标签，并详细注明所使用的模型名称及版本。</p>
-<p>然而，这一政策正面临严峻挑战。知名内核开发者 Christian Brauner 发起讨论，批评当前的 git 历史已演变为 AI 公司的“免费广告平台”，且披露的信息过于冗余。他建议要么简化标签（仅保留模型通用名称），要么彻底取消披露要求。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_ai_attribute" alt="Linux AI attribution guidelines" />
-<p>社区反馈呈现出明显的分歧与共识：</p>
-<ul>
-<li><strong>噪音与广告嫌疑</strong>：多数开发者认为该政策未被普遍遵守，且增加了阅读补丁时的噪音，实质上是在为商业 LLM 做推广。</li>
-<li><strong>缺乏上下文</strong>：目前的标签无法区分 AI 的具体用途（是生成了代码，还是仅用于测试或代码审查）。</li>
-<li><strong>彻底移除提议</strong>：内核工程师 Jeff Layton 近日提交补丁，建议完全删除 LLM 归属要求。他指出，收集的数据质量低且目的不明，信号噪音比极低。</li>
-</ul>
-<p>目前，Linux 内核维护者 Linus Torvalds 尚未对此事表态，讨论仍在继续。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-AI-Attribution-Again</guid>
-      <pubDate>Thu, 02 Jul 2026 15:11:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
