@@ -3,7 +3,97 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 12 Jul 2026 18:08:40 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jul 2026 21:04:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐ geohot 谈 LLM：热爱技术进步，但厌恶炒作与前沿实验室的垄断叙事</title>
+      <link>https://news.ycombinator.com/item?id=48883343</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要围绕开发者对LLM及AI技术的个人观点展开，虽涉及AI进展与编程工具，但以人物访谈和行业评论为主，综合评定为推荐阅读。</small></p><p>知名黑客与 AI 开发者 George Hotz（geohot）在博客中表达了对大语言模型（LLM）的极度热情，同时严厉批评了围绕该技术的过度炒作（hype）。</p>
+<p>作者指出，他讨厌两种极端的叙事：一是制造焦虑的“负面炒作”，如宣扬“窗口即将关闭”或“永久底层阶级”，他认为这旨在让人产生焦虑；二是过度乐观的“奇点神话”，即从“高级自动补全”直接跳跃到“拥有整个光锥（Light Cone）”的超级智能。作者认为这种“世界瞬间改变”的叙事是虚假的。</p>
+<p>针对前沿实验室（Frontier Labs），geohot 认为 AI 的进步主要归功于摩尔定律和计算技术的普遍发展，而非实验室的“魔法”。他批评这些实验室反对开源的核心动机是恐惧商品化（commodification），试图通过安全或地缘政治借口来维持对巨额资金的垄断。</p>
+<p>在编程领域，作者将 LLM 比作编译器，认为它们正在改变编程方式并提升生产力，但这需要掌握新技能并警惕认知疲劳。他批评“Vibe coding”（凭感觉写代码）产出的质量低劣，但肯定 AI 作为工具（类似正则表达式或 Stack Overflow）的价值，视其为计算机革命的延续。</p>
+<p>HN 社区对此展开了热烈讨论：</p>
+<ul>
+<li>部分用户指出 geohot 自身也在售卖 AI 硬件，存在“商人”身份的双重标准。</li>
+<li>关于开源软件的未来，有用户担忧 AI 使得分叉（Fork）软件变得过于容易，可能导致上游维护动力下降。</li>
+<li>还有讨论涉及“AI”一词是否导致了公众期望的扭曲，以及训练数据在模型训练中的核心地位。</li>
+</ul>
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>Vibe Coding</strong>：指一种主要依赖大语言模型生成代码，开发者仅凭直觉或粗略描述来指导生成，而不深入审查代码逻辑的编程方式。geohot 认为这种方式产出的软件质量低下。</li>
+<li><strong>光锥（Light Cone）</strong>：在物理学中指时空中的一个区域。在 AI 炒作语境中，“拥有整个光锥”常被用来夸张地形容超级智能将控制或影响宇宙中的一切事物。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48883343</guid>
+      <pubDate>Sun, 12 Jul 2026 18:31:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 对比 Claude Code 与 OpenCode 的 Token 开销：基础开销、缓存效率与配置影响</title>
+      <link>https://news.ycombinator.com/item?id=48883275</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深度对比两款编程AI工具的Token开销与缓存配置，直接契合用户关注的编程工具分享与开发效率改进经验，技术实用性强。</small></p><h2>核心发现</h2>
+<p>该研究在相同的模型（claude-sonnet-4-5）、机器和任务条件下，对比了 <a href="https://github.com/anthropics/claude-code">Claude Code</a> 与 <a href="https://github.com/opencode-ai/opencode">OpenCode</a> 两个 AI 编程代理（harness）在 API 边界的 token 开销。结果显示，Claude Code 的基础 token 开销远高于 OpenCode，且缓存策略存在显著差异。</p>
+
+<h3>1. 基础开销（Baseline）差异巨大</h3>
+<p>在发送用户提示词之前，Claude Code 默认会发送约 <strong>33,000 个 token</strong>，其中包含系统提示、27 个工具的定义以及注入的脚手架（如代理类型目录、技能列表等）。相比之下，OpenCode 仅需约 <strong>7,000 个 token</strong>，其系统提示更精简，工具定义也更少。</p>
+
+<h3>2. 缓存效率与配置膨胀</h3>
+<ul>
+<li><strong>缓存稳定性：</strong>OpenCode 的请求前缀在多次运行中保持字节级一致，缓存命中率高。而 Claude Code 在会话中频繁重写缓存，缓存写入量最高可达 OpenCode 的 54 倍。由于缓存写入费用较高（基础价格的 1.25 倍至 2 倍），这直接推高了使用成本。</li>
+<li><strong>配置叠加：</strong>添加生产级指令文件（如 AGENTS.md）会使每次请求增加约 20,000 个 token。连接 MCP（Model Context Protocol）服务器和启用子代理（Subagents）会进一步放大开销。特别是子代理，由于每个子代理都有独立的引导成本，且父代理需消耗其转录内容，任务 token 消耗可能激增 4 倍以上。</li>
+</ul>
+
+<h3>3. 任务表现权衡</h3>
+<p>虽然 Claude Code 的基础开销较高，但在多步复杂任务中，它通过并行批量调用工具（将多个文件写入和脚本执行合并为一次往返），总 token 消耗可能与串行调用工具的 OpenCode 持平甚至更低。这表明，基础开销大的代理在复杂任务中可能通过减少请求次数来弥补劣势。</p>
+
+<h3>社区反馈与优化建议</h3>
+<p>社区讨论指出，AI 代理普遍存在“Tokenflation（Token 通胀）”现象，即代理倾向于过度搜索上下文和触发工具调用。为降低开销，用户分享了以下经验：</p>
+<ul>
+<li>使用更轻量的代理框架，如 <a href="https://github.com/earendil-works/pi">Pi</a>，其系统提示词仅约 1,000 个 token。</li>
+<li>通过 <code>--system-prompt ""</code> 参数禁用 Claude Code 的默认系统指令，可大幅削减基础开销。</li>
+<li>采用动态上下文修剪（Dynamic Context Pruning）技术，在长周期任务中有效节省 token。</li>
+</ul>
+
+<h2>你知道吗？</h2>
+<p><strong>动态上下文修剪（Dynamic Context Pruning）</strong>是一种在长对话或复杂编程任务中优化上下文窗口使用的技术。传统的 AI 代理会将所有历史消息和工具结果保留在上下文中，导致 token 消耗随时间线性增长。动态上下文修剪通过智能算法，在运行时自动识别并移除冗余、过时或低相关性的上下文片段，同时保留关键信息。这种方法不仅能显著降低 API 调用成本，还能防止上下文窗口过早耗尽，从而提升代理处理复杂任务的能力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48883275</guid>
+      <pubDate>Sun, 12 Jul 2026 18:25:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 带状疱疹疫苗或可降低痴呆症风险：效果、争议与成本考量</title>
+      <link>https://news.ycombinator.com/item?id=48881874</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨疫苗降低痴呆症风险的医学研究成果，属于科学前沿进展汇报，符合用户的兴趣配置。</small></p><p>近期讨论指出，接种带状疱疹疫苗（Shingles vaccine）可能与降低痴呆症（Dementia）风险相关，部分早期观察性研究显示风险可降低约20%。与其他干预痴呆症风险的因素（如抗抑郁治疗、教育提升、听力改善、控制肥胖和减少饮酒）相比，疫苗接种因其实施便捷性而受到公共卫生领域的关注。</p>
+<p>然而，该结论的科学严谨性备受质疑。有分析指出，早期疫苗（如减毒活疫苗 Zostavax）所显示的显著效果可能源于统计偏差：未接种疫苗的患者更倾向于因带状疱疹前往医院治疗，从而增加了在医院被诊断出痴呆症的概率。相关机制分析可参考 <a href="https://youtu.be/qlTnnQytOJ0" rel="nofollow">此视频讲解</a>。目前广泛使用的新版疫苗（Shingrix，重组蛋白疫苗）是否具备同等效果，尚缺乏病例对照研究来证实因果关系。</p>
+<p>在潜在机制方面，有观点认为疫苗可能通过减少全身性感染或刺激免疫系统来间接保护大脑。此外，随着阿尔茨海默病主流的“淀粉样蛋白假说（Amyloid hypothesis）”受到质疑，学界正探索其他神经保护路径。在个人层面，自费接种两剂 Shingrix 疫苗成本约 500 美元，对无保险人群构成一定经济门槛，但许多有家族病史或担忧带状疱疹后遗症（如剧烈神经痛、听力损失）的个体仍倾向于提前接种。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48881874</guid>
+      <pubDate>Sun, 12 Jul 2026 15:23:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>不要说“灭绝”，要说“进化”：AI 时代程序员的生存之道</title>
+      <link>https://news.ycombinator.com/item?id=48881830</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章聚焦AI时代程序员的职业发展与生存观点，偏向泛行业评论与职场建议，缺乏具体技术或工具干货，用户兴趣指向不明确。</small></p><p>文章以《侏罗纪公园》制作期间的一个轶事开篇：定格动画大师 <a href="https://fabiensanglard.net/extinct/index.html">Phil Tippett</a> 原本负责恐龙制作，但在看到工业光魔（ILM）展示的 CGI 霸王龙测试后，感叹自己“感觉快要灭绝了”。作者 Fabien Sanglard 借此类比当前程序员对大语言模型（LLM）等 AI 技术的焦虑，指出避免被淘汰的最佳方式是“进化”。</p>
+<p>文章分享了作者在实际工作中使用 LLM 编程的经验与思考：</p>
+<ul>
+  <li><strong>转变思维</strong>：引用 John Carmack 的观点，强调“解决问题”才是核心能力，而非单纯的手写代码。</li>
+  <li><strong>保持代码质量</strong>：虽然生成代码的速度大幅提升，但阅读和理解 AI 生成的代码仍需大量精力。作者通过迭代代码审查（PR）和配置 LLM 的个性化指令文件（如 <code>GEMINI.md</code>），确保输出符合团队规范。</li>
+  <li><strong>提高审查标准</strong>：在 AI 辅助下，作者对提交信息（Commit Message）、代码清晰度、测试覆盖率以及 PR 规模提出了更高要求。</li>
+  <li><strong>应对精神疲劳</strong>：同时使用多个 AI Agent 处理不同项目会导致“上下文切换”带来的精神消耗，需要合理监控。</li>
+</ul>
+<p>HN 社区对此展开了热烈讨论。部分开发者指出，虽然 AI 提升了生成速度，但审查和理解 AI 代码的时间成本并未显著降低，甚至可能因为“上下文切换”增加精神负担；也有开发者分享，在代码库导航、调试和测试生成方面，AI 确实带来了显著的效率提升。此外，关于“强制使用 AI 是否会导致工作质量下降”以及“AI 对行业就业结构的长远影响”也引发了广泛争议。</p>
+<p>文章最后再次回到 Phil Tippett 的故事：他并未被 CGI 淘汰，而是转型为“恐龙监督”，发明了物理传感器设备“恐龙输入设备（Dinosaur Input Device, DID）”将传统动画经验融入数字空间，最终与团队共同斩获奥斯卡奖。作者以此鼓励开发者：新技术浪潮下，主动学习并驾驭工具，才能将危机转化为机遇。</p>
+<h3>你知道吗？</h3>
+<ul>
+  <li><strong>恐龙输入设备（Dinosaur Input Device, DID）</strong>：这是 Tippett Studio 为《侏罗纪公园》开发的一种高精度物理操纵杆。它允许动画师像操作传统定格动画模型一样，通过物理关节控制屏幕上的数字恐龙，将传统动画师对重量、节奏和生物意图的理解直接转化为数字动画数据。</li>
+  <li><strong>LLM 辅助编程的现状</strong>：尽管 LLM 能大幅提升代码生成速度，但多项研究表明，开发者在审查 AI 生成代码时花费的时间往往与手写代码相当。因此，现代开发流程更强调“人机协作”，将 AI 用于原型设计、单元测试生成和代码库导航，而非完全替代人工审查。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48881830</guid>
+      <pubDate>Sun, 12 Jul 2026 15:17:20 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Ghostel.el：基于 libghostty 的 Emacs 终端模拟器</title>
       <link>https://news.ycombinator.com/item?id=48879504</link>
@@ -898,77 +988,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48819608</guid>
       <pubDate>Tue, 07 Jul 2026 15:58:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Knockoff：一款过滤亚马逊仿冒伪品牌的 Chrome 扩展</title>
-      <link>https://news.ycombinator.com/item?id=48818963</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了Knockoff这款Chrome扩展，用于过滤亚马逊上的仿冒伪品牌，属于编程与软件工具发布，符合high_interest的高兴趣偏好。</small></p><p><a href="https://knockoff.shopping/">Knockoff</a> 是一款免费且公平开源（fair-source）的 Chrome 扩展程序，旨在过滤亚马逊（Amazon）上的商标抢注（trademark-squatting）伪品牌商品，帮助用户识别并购买正规品牌产品。</p>
-<p><strong>工作原理</strong></p>
-<p>该扩展完全在浏览器本地运行，无需注册账户或进行云端查询。其核心机制包括：</p>
-<ul>
-<li><strong>品牌白名单</strong>：内置超过 5000 个真实品牌库，每日自动刷新。</li>
-<li><strong>启发式评分</strong>：对未知商品名称进行语言学特征分析，识别伪品牌特征（如全大写、无元音字母、不可发音的辅音连缀等）。</li>
-<li><strong>灵活过滤</strong>：提供宽松（Relaxed）、标准（Standard）和严格（Strict）三种过滤级别。被标记的商品可被完全隐藏、变暗或添加警告标签，且支持一键覆盖判定。</li>
-</ul>
-<p><strong>附加功能与隐私设计</strong></p>
-<p>扩展支持一键屏蔽亚马逊的赞助广告（Sponsored listings），并允许用户建立个人品牌信任或屏蔽列表。所有判定结果均可通过社区报告机制进行反馈，修正内容将在一天内同步至所有用户。项目强调隐私保护，无账户、无数据分析、无用户追踪，仅保留每日品牌列表同步的网络请求。软件采用 <a href="https://fsl.software/">FSL-1.1-MIT</a> 许可证，承诺在发布两年后转为 MIT 协议。</p>
-<p><strong>社区讨论</strong></p>
-<p>Hacker News 社区对该工具进行了广泛讨论。部分用户指出，在通货膨胀背景下，仿冒品已成为许多消费者的无奈之选。关于商品质量，多数观点认为“一分钱一分货”，正规品牌在材料和工艺上通常优于仿冒品。另有用户建议，若对物流时间不敏感，可直接前往 Temu 或 AliExpress 等平台购买，以规避中间商溢价。此外，有技术用户质疑该项目采用 FSL 许可证的必要性，认为其功能相对简单，采用更自由的开源协议可能更利于社区维护。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48818963</guid>
-      <pubDate>Tue, 07 Jul 2026 15:13:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ StreetComplete: Fixing OpenStreetMap, one tiny quest at a time</title>
-      <link>https://news.ycombinator.com/item?id=48816883</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 OpenStreetMap 的众包测绘应用，属于开源项目，符合用户兴趣。</small></p><p>Article URL: <a href="https://streetcomplete.app/">https://streetcomplete.app/</a></p>
-<p>Comments URL: <a href="https://news.ycombinator.com/item?id=48816883">https://news.ycombinator.com/item?id=48816883</a></p>
-<p>Points: 345</p>
-<p># Comments: 69</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48816883</guid>
-      <pubDate>Tue, 07 Jul 2026 12:38:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 为什么“98%”在工程实践中往往不够：对覆盖率统计的反思</title>
-      <link>https://news.ycombinator.com/item?id=48816959</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题聚焦软件工程中的代码覆盖率指标反思与最佳实践，属于编程效率改进经验范畴，符合用户兴趣配置。</small></p><h2>为什么“98%”在工程实践中往往不够</h2>
-<p>这篇文章探讨了在技术设计与工程实践中，“98%覆盖率”这一统计数据的误导性。作者指出，98%在统计学上看似很高，但在涉及基本预期或安全底线的场景中，它实际上意味着不可忽视的失败率。</p>
-<p>文章通过对比指出，98%适用于“优秀表现”（如考试高分或彩票中奖），但不适用于“基本预期”（如餐厅食品安全或婴儿看护）。在Web开发领域，作者强调，声称“广泛支持”的新特性（如2023年标准化的嵌套CSS（Nested CSS））若仅覆盖98%的通用用户，可能意味着约1.5亿人无法使用。更重要的是，特定受众的实际覆盖率往往远低于通用统计数据——作者曾发现某客户网站仅有约70%的访客浏览器支持该特性。</p>
-<p>作者的核心结论是：98%的统计数据是一种懒惰的捷径。真正的稳健工程（robust engineering）不应只关注它适用于大多数人，而应致力于如何优雅地处理边缘情况（edge cases）。如果一项新功能无法实现优雅降级（gracefully degrade），那么它对那2%的用户而言就是彻底的失败。</p>
-<h3>社区讨论</h3>
-<p>Hacker News 社区对此文展开了关于“目标受众”与“技术债”的深入讨论：</p>
-<ul>
-<li><strong>受众差异与商业考量：</strong> 多位开发者指出，放弃对旧浏览器（如IE11）的支持往往取决于目标受众。对于消费级网站，为95%-98%的用户构建并放弃旧环境是合理的；但对于企业级软件，客户往往受限于锁定版本的旧系统，盲目放弃支持可能损失重要收入。</li>
-<li><strong>统计数据的局限性：</strong> 有评论提到，Bot流量可能扭曲覆盖率统计。此外，1%的失败率在百万级用户基数下将转化为巨大的绝对失败数，因此不能简单套用“100次里错1次没关系”的逻辑。</li>
-<li><strong>技术演进的观点：</strong> 部分开发者认为，过度维护旧环境是一种纵容，应推动用户升级；但也有观点反驳，现代Web特性带来的体验提升足以抵消维护成本，不应轻易放弃任何潜在用户。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48816959</guid>
-      <pubDate>Tue, 07 Jul 2026 12:45:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 弱网环境下小型AI模型（SLMs）的应用与趋势</title>
-      <link>https://news.ycombinator.com/item?id=48812055</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题探讨小型语言模型（SLMs）在边缘设备及弱网环境下的落地应用趋势，属于AI软件技术进展范畴，符合用户兴趣配置。</small></p><p>在缺乏稳定网络连接和数据中心基础设施的地区，<a href="https://spectrum.ieee.org/small-language-models-ai-pharmaceuticals">小型AI模型（Small AI Models）</a>正因其独特的优势而获得广泛应用。与依赖云端算力的大型模型不同，小型模型（如小型语言模型 SLMs 和微型机器学习 TinyML）能够在廉价手机、无人机等边缘设备上离线运行，显著降低了部署门槛。</p>
-<p>文章指出，这类模型已在实际场景中展现出巨大潜力。例如，研究人员利用 TinyML 模型在本地生成心电图以辅助医疗诊断，或通过无人机搭载模型实现快速的药物真伪验证与农作物疾病警报。这些应用有效弥补了偏远地区医疗与农业基础设施的不足。</p>
-<img src="https://spectrum.ieee.org/media-library/a-middle-aged-man-monitors-his-younger-colleague-through-a-simulator-lab-window-as-he-conducts-heart-rhythm-experiments-on-a-med.jpg?id=67101131&width=1200&height=900" alt="研究人员在模拟器实验室通过窗户观察同事进行心律实验" width="5000" height="3750" />
-<p>在 Hacker News 的讨论中，社区重点关注了小型模型在<strong>离线应急</strong>与<strong>技术路线演进</strong>方面的价值：</p>
-<ul>
-<li><strong>离线应急与“急救包”应用：</strong> 用户探讨了将 LLM 预装至 USB 或平板的“LLM-in-a-box”概念，用于断网环境下的信息查询。社区推荐了包含 LLM、维基百科和地图的离线项目 <a href="https://www.projectnomad.us/" rel="nofollow">Project Nomad</a>，以及适合本地运行的 Gemma 4 12B 模型。</li>
-<li><strong>专业化模型与神经符号AI：</strong> 部分观点认为，未来 AI 的发展可能并非单纯追求模型规模，而是转向大量高度专业化的微型模型与通用编排层的结合。同时，<a href="https://jjd.io/posts/swollm-bbh-leaderboard.html" rel="nofollow">神经符号 AI（Neuro-symbolic AI）</a> 也被提及，该路线主张让小模型处理对话，结合传统求解器处理复杂计算，以发挥更大潜力。</li>
-<li><strong>低成本训练与部署：</strong> 针对训练成本，社区指出通过按小时租用廉价 GPU 实例，即可高效完成小型模型的训练与微调。</li>
-</ul>
-<h3>你知道吗？</h3>
-<p><strong>微型机器学习（TinyML）</strong> 是一种将机器学习算法部署在超低功耗微控制器（MCU）上的技术。它允许设备在本地实时处理数据，无需连接云端，从而大幅降低延迟和带宽需求，广泛应用于物联网（IoT）设备中。</p>
-<p><strong>神经符号 AI（Neuro-symbolic AI）</strong> 试图结合深度学习（擅长感知和模式识别）与符号逻辑（擅长推理和规则处理）的优势。这种混合架构旨在解决纯神经网络模型在逻辑推理和可解释性方面的不足，同时保持其在处理非结构化数据（如文本、图像）时的强大能力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48812055</guid>
-      <pubDate>Mon, 06 Jul 2026 23:59:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
