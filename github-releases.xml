@@ -3,7 +3,40 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 12 Jul 2026 00:06:56 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jul 2026 03:52:10 GMT</lastBuildDate>
+    <item>
+      <title>Hapi v0.21.0 发布说明</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.21.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.21.0 版本更新主要聚焦于扩展 AI 编码代理支持、增强 Web 端交互体验以及修复多项底层问题。</p>
+<h3>核心功能更新</h3>
+<ul>
+<li><b>新增代理支持</b>：正式支持 Claude Code 的 <code>auto</code> 权限模式，并新增对 Pi Coding Agent 的支持。同时移除了可启动的 Gemini CLI agent，但保留旧会话的读取功能。</li>
+<li><b>Codex 功能增强</b>：新增 Fast mode（服务层级）切换功能，支持通过 <code>/fast</code> 命令快速启用，并修复了 Windows 驱动器根路径规范化及 Qwen 实时兼容性问题。</li>
+<li><b>Web 端交互与 UI 升级</b>：
+<ul>
+<li>新增 PWA（渐进式 Web 应用）更新提示，当新 Service Worker 可用时会在应用内提示。</li>
+<li>推出 OLED 黑主题，并支持按外观自定义颜色。</li>
+<li>集成 Android 系统分享表（Web Share Target），支持从系统分享面板直接发送内容。</li>
+<li>聊天面板支持拖拽文件作为附件，文件查看器新增下载按钮。</li>
+<li>会话侧边栏新增机器健康状态显示，头部支持文件与大纲视图切换。</li>
+<li>文件面板新增 Markdown 源/预览切换，点击 Mermaid 图表可全屏查看。</li>
+</ul>
+</li>
+</ul>
+<h3>性能优化与 Bug 修复</h3>
+<ul>
+<li>优化 <code>useSession</code> 的 <code>staleTime</code> 配置，有效抑制不必要的焦点与挂载重新获取请求。</li>
+<li>修复多项会话管理与 Hub 重启级联清理相关的 Bug，包括导入会话绑定、文本发送错误提示及权限卡片固定问题。</li>
+<li>改进 Runner 状态检测，修复异常关闭后的过期 PID 识别、dangling-symlink 错误提示及 macOS 内存健康计算。</li>
+<li>修复 Claude 消息队列刷新机制、上下文窗口状态栏闪烁，以及 Cursor CLI SKU 映射与 ACP 参数化模型选择器兼容性问题。</li>
+<li>修复 Pi RPC 解析器兼容 Zod 4 的问题，清理全局 React 测试，并更新安装文档以补充 systemd 单元配置。</li>
+</ul>
+<p>详细更新日志：<a href="https://github.com/tiann/hapi/compare/v0.20.2...v0.21.0">Full Changelog</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.21.0</guid>
+      <pubDate>Sun, 12 Jul 2026 03:06:41 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.207 更新：Auto mode 默认开启，默认模型升级至 Claude Opus 4.8，修复终端冻结问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.207</link>
@@ -1059,32 +1092,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/neovim/neovim/releases/tag/v0.12.3</guid>
       <pubDate>Wed, 10 Jun 2026 22:57:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.172 更新：支持子代理嵌套生成、多项性能与交互优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.172</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.172 更新：支持子代理嵌套生成、多项性能与交互优化</h2>
-<p>Claude Code 发布了 v2.1.172 版本，本次更新重点增强了代理嵌套能力，并修复了多项影响会话稳定性、权限控制及用户体验的缺陷。</p>
-<h3>核心功能与重大修复</h3>
-<ul>
-<li><strong>子代理嵌套支持</strong>：子代理（Sub-agents）现在可以生成自己的子代理，嵌套深度最高可达 5 层。</li>
-<li><strong>Amazon Bedrock 区域读取优化</strong>：当未设置 <code>AWS_REGION</code> 环境变量时，Bedrock 现在会遵循 AWS SDK 优先级，自动从 <code>~/.aws</code> 配置文件中读取 AWS 区域，并在 <code>/status</code> 中显示区域来源。</li>
-<li><strong>插件市场搜索</strong>：在 <code>/plugin</code> 命令浏览市场插件时新增了搜索栏，提升插件查找效率。</li>
-<li><strong>会话与代理状态修复</strong>：修复了使用 1M 上下文但未消耗信用额度的会话永久卡住的问题，系统现在会自动将其压缩回标准上下文限制；同时修复了后台代理在分派到预热 worker 时可能错误读取其他目录项目设置（<code>.mcp.json</code> 审批与信任状态）的漏洞，以及子代理停止后在面板中仍显示“活动”状态的显示错误。</li>
-<li><strong>权限与历史记录修复</strong>：修复了 <code>WebFetch</code> 通配符域名规则不匹配子域名、带中间通配符的文件权限规则启动时被拒绝的问题；修正了向上箭头提示历史在子代理聊天选项卡打开时错误显示主代理提示的缺陷；解决了工作流验证错误拒绝仅提及 <code>Date.now()</code> 或 <code>Math.random()</code> 的脚本的问题。</li>
-<li><strong>多模态与跨平台优化</strong>：修复了包含多张图片时重复触发“图像无法处理”的错误；改进了 VSCode 中 PowerShell 工具调用的渲染逻辑，使其显示为规范命令与权限对话框而非原始 JSON；禁用了不支持完整鼠标跟踪的 Windows 控制台的鼠标追踪功能。</li>
-</ul>
-<h3>性能与交互改进</h3>
-<ul>
-<li><strong>长对话性能提升</strong>：通过移除冗余的消息归一化，并在流式传输工具使用状态未变更时避免全量消息历史转换，显著改善了长对话的处理性能。</li>
-<li><strong>降低空闲 CPU 占用</strong>：<code>/goal</code> 状态芯片不再以 5 Hz 频率在空闲时重新渲染终端，并行运行子代理时减少了不必要的 UI 重绘，有效降低了 CPU 占用率。</li>
-<li><strong>浏览器工具加载优化</strong>：Chrome 工具中的 Claude 加载方式改为单次批量调用，替代了原先逐个工具调用的模式，提升了加载速度。</li>
-<li><strong>模型选择器与 UI 细节修复</strong>：修复了 <code>/model</code> 建议渲染误导性斜杠前缀、<code>availableModels</code> 限制未正确应用于子代理覆盖及选择器、Bedrock 模型选择器显示提供商未提供的模型、模型 ID 出现双倍 1M 上下文后缀、<code>opusplan</code> 模型设置未在计划模式下正确提供 1M 上下文等问题；缩短了远程控制的页脚指示器并适配窄终端显示。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.172</guid>
-      <pubDate>Wed, 10 Jun 2026 20:44:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
