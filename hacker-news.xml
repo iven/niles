@@ -3,7 +3,21 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 12 Jul 2026 06:48:01 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jul 2026 09:17:32 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Mesh LLM：基于 iroh 的分布式 GPU 资源池化与 LLM 推理</title>
+      <link>https://news.ycombinator.com/item?id=48876505</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Mesh LLM 项目，基于 iroh 实现分布式 GPU 资源池化用于 LLM 推理，属于 AI 软件技术进展与开源项目，符合用户 interest 级别兴趣</small></p><p>运行大型语言模型（Large Language Model, LLM）通常依赖昂贵的数据中心 GPU 和按量计费的 API，这导致用户丧失对模型更新、数据流向及底层硬件的控制权。为解决这一痛点，<a href="https://www.iroh.computer/blog/mesh-llm">Mesh LLM</a> 应运而生。这是一个基于 <a href="https://iroh.computer">iroh</a> 网络库构建的分布式计算系统，旨在将分散在不同机器上的 GPU 和内存资源整合为一个统一的、兼容 OpenAI 协议的 API。</p>
+<img src="/blog/mesh-llm/header.png" alt="Distributed Model Inference: a mesh of laptop, GPU rig, mini PC, server, workstation, and cloud nodes connected directly to each other" />
+<p>Mesh LLM 的核心架构具有高度可插拔性，支持超过 40 种模型。当用户向 <code>localhost:9337/v1</code> 发送请求时，系统会自动决定计算方式：直接在本地 GPU 运行、路由至已加载该模型的节点，或启用“拆分模式（Skippy）”将模型按层划分并跨多台机器流水线处理。这种设计使得普通硬件也能协同运行超大规模模型。</p>
+<p>在网络通信层面，Mesh LLM 完全依赖 iroh 实现点对点（P2P）连接。每个节点通过 iroh 生成唯一的公钥身份，系统利用 QUIC 协议自动完成 NAT 穿透、中继回退及身份认证，无需中心服务器。通信协议分为三层：主网（负责路由与插件通信）、控制平面（配置同步）以及拆分模型专用的低延迟激活传输通道。所有节点间的数据传输均通过 QUIC 的 ALPN 协商进行加密，保障了数据隐私。</p>
+<p>社区对该项目的讨论主要集中在网络延迟与吞吐量上。有观点指出，跨设备传输激活值（Activations）可能受限于网络带宽，难以满足交互式需求。项目贡献者回应称，Skippy 的分层拆分机制比传统 RPC 方案快数个数量级。在模拟 5 毫秒延迟的实验室环境中，235B 参数模型可实现约 16 tokens/秒（tok/s）的生成速度，GLM 5.2 模型约为 10 tok/s。该方案在同城局域网或低延迟广域网（WAN）下表现良好，但在全球跨洲网络中仍面临挑战。此外，项目计划未来支持 ACP（Agent Communication Protocol）标准，并推出移动端应用，进一步拓展分布式 AI 的生态边界。</p>
+<p><strong>你知道吗？</strong> 分布式 LLM 推理（Distributed LLM Inference）旨在解决单卡显存不足和成本高昂的问题。传统方案多依赖数据中心内部的高速互联（如 NVLink），而 Mesh LLM 尝试在消费级网络和广域网（WAN）环境下实现模型切分。其核心挑战在于层间激活值（Activations）的传输延迟，这要求网络具备低抖动和高吞吐特性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48876505</guid>
+      <pubDate>Sat, 11 Jul 2026 22:38:57 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ xAI Grok Build CLI 网络抓包分析：默认上传完整代码库与未脱敏密钥</title>
       <link>https://news.ycombinator.com/item?id=48877371</link>
@@ -965,19 +979,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48810439</guid>
       <pubDate>Mon, 06 Jul 2026 20:59:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Fable 将 reMarkable 平板改造成《哈利·波特》中的汤姆·里德尔日记</title>
-      <link>https://news.ycombinator.com/item?id=48811591</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章分享了一个开源编程工具项目，可将reMarkable平板改造为交互式日记应用，属于编程工具与开源项目分享范畴，符合用户兴趣配置，故评为recommended。</small></p><div>
-<p>开发者 Fable 开源了名为 <a href="https://github.com/MaximeRivest/Riddle">Riddle</a> 的项目，将 reMarkable Paper Pro 电子纸平板改造成《哈利·波特》中汤姆·里德尔的魔法日记。用户用触控笔书写后，文字会“消失”，设备随后以流畅的手写笔迹逐字生成回复，模拟墨水浮现的交互体验。整个过程无屏幕背光、无键盘或传统聊天界面。</p>
-<p>该项目基于 Rust 编写，通过 evdev 捕获笔输入。书写完成后，页面被转换为 PNG 发送给视觉大语言模型（Vision LLM）。模型流式生成回复后，系统使用 Dancing Script 字体将其转换为单像素笔触路径，并通过自定义显示后端（支持窗口模式或全屏接管模式）以墨水浮现的动画效果呈现。</p>
-<p>安装需将设备置于开发者模式并安装第三方启动器（如 AppLoad）。项目支持接入 OpenAI 兼容 API 或本地运行的 LLM 服务作为“日记灵魂”。HN 社区对此反响热烈，许多人赞赏其将手写识别、墨水动画与 LLM 结合带来的独特交互媒介感，认为它比传统聊天界面更具沉浸感。也有部分评论指出其技术核心并不新颖，或批评 AI 生成内容的质量。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48811591</guid>
-      <pubDate>Mon, 06 Jul 2026 23:00:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
