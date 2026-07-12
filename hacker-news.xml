@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 12 Jul 2026 03:50:48 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jul 2026 06:48:01 GMT</lastBuildDate>
+    <item>
+      <title>⭐ xAI Grok Build CLI 网络抓包分析：默认上传完整代码库与未脱敏密钥</title>
+      <link>https://news.ycombinator.com/item?id=48877371</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及 xAI Grok Build CLI 的网络行为分析，属于 AI 软件技术进展，符合用户兴趣</small></p><p>开发者对 xAI 的 <a href="https://gist.github.com/cereblab/dc9a40bc26120f4540e4e09b75ffb547">Grok Build CLI (grok 0.2.93)</a> 进行了网络级别抓包分析，揭示了该工具在后台的默认数据交互行为。分析基于作者本地环境的真实流量捕获，并提供了完整的复现步骤与校验数据。</p>
+<h3>核心发现</h3>
+<ul>
+  <li><strong>未脱敏的文件内容传输：</strong>当 Grok 读取项目文件时，其内容（包括包含 API 密钥和数据库密码的 <code>.env</code> 文件）会被原样传输至 xAI 服务器，未进行任何脱敏处理。这些数据通过模型交互接口 (<code>POST /v1/responses</code>) 和会话存档接口 (<code>POST /v1/storage</code>) 两个通道发送。</li>
+  <li><strong>完整代码库自动上传：</strong>无论提示词是否要求读取文件，Grok 都会将包含所有跟踪文件内容及完整 <code>git</code> 历史记录的整个仓库打包，上传至 xAI 托管的 Google Cloud Storage (GCS) 存储桶 <code>grok-code-session-traces</code>。在测试中，即使面对 12 GB 的未读取随机文件仓库，上传通道仍成功传输了超过 5 GB 的数据。</li>
+  <li><strong>默认开启且难以关闭：</strong>上传机制由内置的 Rust 模块实现，默认处于开启状态。作者测试发现，即使关闭设置中的“改进模型”选项，网络抓包仍显示上传行为持续发生。</li>
+</ul>
+<h3>社区反馈</h3>
+<p>该发现引发了开发者社区的广泛担忧。许多用户指出，这种默认行为可能带来严重的隐私泄露和知识产权风险，尤其是对于包含商业机密或敏感配置的企业级项目。部分开发者建议将此类 CLI 工具运行在受限目录的沙箱环境中，以限制其文件访问权限。此外，社区也讨论了通过修改配置文件 (<code>disable_codebase_upload=true</code>) 禁用上传的可行性，但对其实际生效情况仍存在争议。相比之下，一些用户倾向于使用支持本地数据处理或完全开源的替代方案，以规避专有编码代理带来的不确定性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48877371</guid>
+      <pubDate>Sun, 12 Jul 2026 01:09:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Ant：一个轻量级 JavaScript 运行时与完整生态系统</title>
+      <link>https://news.ycombinator.com/item?id=48875377</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍新的 JavaScript 运行时工具 Ant，属于编程工具分享，符合高兴趣配置</small></p><p>Ant 是一个新兴的 JavaScript 运行时及其配套生态系统，旨在提供一个轻量级且高度集成的开发平台。该项目的核心是一个从零构建的 JavaScript 引擎，其完整运行时（包含包管理器、TypeScript 编译器、VM 隔离沙箱及 Wasm 支持）仅打包为一个约 9 MB 的二进制文件，远小于传统的 V8 或 Node.js 环境。Ant 宣称提供 Node.js 兼容 API，并能够直接运行真实的 npm 包。</p>
+<p>除了核心运行时，Ant 还扩展了完整的生态系统，包括 <a href="https://ants.land" rel="nofollow">ants.land</a> 包注册表、应用部署托管平台，以及用于将 Web 技术打包为原生桌面应用的 Ant Desktop（类似于 Electron）。目前该项目仍处于早期开发阶段，社区对其小巧的体积和嵌入式友好性表示出浓厚兴趣。</p>
+<p>在 Hacker News 的讨论中，开发者们提出了多项反馈与建议：</p>
+<ul>
+<li><strong>桌面应用开发</strong>：有用户询问将其用于打包小型 Web 项目，作者及社区成员指出 Ant Desktop 正在积极开发中，并已发布初步的 npm 包版本。</li>
+<li><strong>性能与兼容性</strong>：针对性能表现，作者解释自年初以来引擎已进行大规模重写，性能已接近 V8 水平，并计划公开基准测试数据。同时，有开发者建议直接使用现有的 JSR 包注册表，以避免自建注册表带来的维护成本。</li>
+<li><strong>其他讨论</strong>：社区还探讨了 WSL1 支持、项目路线图规划以及与其他同名工具（如 Apache Ant）的命名趣闻。</li>
+</ul>
+<p>整体而言，Ant 试图通过高度集成和极致轻量化的设计，为 JavaScript 开发者提供一种端到端（e2e）的替代方案，尤其适合对体积和部署环境有严格要求的场景。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48875377</guid>
+      <pubDate>Sat, 11 Jul 2026 20:07:18 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GeoHot 反思 AI 2040 与“智能崇拜”：为何本地化 AI 才是自由的未来</title>
       <link>https://news.ycombinator.com/item?id=48874200</link>
@@ -944,42 +978,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48811591</guid>
       <pubDate>Mon, 06 Jul 2026 23:00:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GLM 5.2 与即将到来的 AI 推理利润率崩溃</title>
-      <link>https://news.ycombinator.com/item?id=48809877</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章重点介绍GLM 5.2新AI模型的发布及其开源特性，并深入分析AI推理成本下降的商业与技术趋势，高度契合用户对新AI模型发布的高兴趣配置，故评为critical。</small></p><p>本文探讨了人工智能（AI）推理（Inference）成本的急剧下降及其对行业利润率的潜在冲击。文章指出，AI 模型的训练（Training）属于一次性固定成本，而推理则是随用户需求扩展的边际成本。目前，Anthropic 和 OpenAI 等前沿实验室的 API 定价远高于实际算力成本，毛利率高达 60% 至 90%。</p>
-<p>文章重点评测了由 Z.ai 发布的 <a href="https://martinalderson.com/posts/the-upcoming-ai-margin-collapse-part-1-glm-5-2/">GLM 5.2</a> 模型。作者认为，GLM 5.2 是首个在智能体（Agentic）工作流中真正具备与 Opus 和 GPT 竞争实力的开源权重模型。其定价约为 $4.40/MTok，仅为 Opus 零售价的 15% 至 20%。尽管该模型在原生视觉支持和网页搜索方面存在短板，且因长思考过程导致交互速度较慢，但通过 Z.ai 或 Fireworks 提供的兼容 API，用户可极其便捷地将其接入 Claude Code 等工具，迁移成本极低。</p>
-<p>随着 GLM 5.2 等高性能开源模型的普及，AI 推理的利润率正面临巨大压力。社区讨论也围绕这一趋势展开，部分用户指出，虽然模型权重成本下降，但商业平台提供的完整生态系统（如集成服务、技术支持和易用性）仍是用户付费的关键因素；也有观点认为，缓存输入 Token（Cached Input Tokens）的实际成本极低，当前的 API 定价模式难以长期维持。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48809877</guid>
-      <pubDate>Mon, 06 Jul 2026 20:14:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ CoMaps：基于社区的开源离线地图应用</title>
-      <link>https://news.ycombinator.com/item?id=48808928</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍一款基于社区的开源离线地图应用，符合用户兴趣配置中的“开源项目”类别，推荐阅读。</small></p><p>CoMaps 是一款主打隐私保护与完全开源（FOSS）的离线地图应用，支持徒步、骑行和驾车导航。该项目是 <a href="https://itsfoss.com/news/organic-maps-fork-comaps/">Organic Maps</a> 和 Maps.me 的分支，由开源社区驱动开发。</p>
-<img src="/images/sections/hero.webp" alt="Hike, Bike, Drive Offline – Navigate with Privacy" />
-<p>应用的核心特性包括：</p>
-<ul>
-  <li><strong>离线导航与搜索</strong>：无需移动数据即可规划路线和搜索途经点，适合偏远地区或出国旅行。</li>
-  <li><strong>隐私优先</strong>：默认不收集任何用户数据，不追踪位置，且已通过 Exodus 隐私审计。</li>
-  <li><strong>高效省电</strong>：相比其他导航应用，显著降低电池消耗。</li>
-</ul>
-<img src="/images/sections/map-s-1.webp" alt="Offline Search and Route" />
-<img src="/images/sections/map-s-2.webp" alt="No Data Collection" />
-<p>在 Hacker News 的讨论中，用户重点对比了 CoMaps 与 Organic Maps 的差异。尽管两者同源，但 Organic Maps 并非完全开源（其地图文件和生成器为专有软件），且引入了商业赞助（如 Kayak 的推荐），决策权集中在少数股东手中。CoMaps 则致力于更彻底的开源与社区自治。</p>
-<p>社区反馈也指出了当前开源地图应用的普遍挑战：</p>
-<ul>
-  <li><strong>搜索精度</strong>：由于依赖本地计算而非云端服务器（如 Photon 或 Overpass），搜索功能在复杂地名或地址匹配上有时不够精准。</li>
-  <li><strong>实时交通</strong>：目前缺乏实时路况信息，但开发团队已在规划集成相关功能。</li>
-  <li><strong>数据维护</strong>：地图数据源自 OpenStreetMap (OSM)，新鲜度高度依赖当地社区贡献。用户可通过 StreetComplete 等工具以“游戏化”方式参与数据更新。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48808928</guid>
-      <pubDate>Mon, 06 Jul 2026 18:55:07 GMT</pubDate>
     </item>
   </channel>
 </rss>
