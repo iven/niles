@@ -3,7 +3,36 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 13 Jul 2026 07:33:50 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2026 11:28:12 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ GNOME OS 开发“测试中心”，为实验性软件提供类 TestFlight 的测试平台</title>
+      <link>https://www.phoronix.com/news/GNOME-OS-Test-Center</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及 GNOME OS 发行版的新特性，符合来源配置中对“新发行版”的高兴趣，且涉及 Linux 桌面环境技术。</small></p><p>GNOME OS 开发团队宣布，已获得德国 Prototype Fund 的资助，正在开发一套名为“开发者工具套件”（暂称“测试中心”）的工具。该项目旨在现代 Linux 环境中，为实验性应用程序与系统库提供标准化的测试流程。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=gnome_test_center" alt="GNOME Test Center mockup" />
+<p>“测试中心”的功能定位类似于 Apple 的 TestFlight 或早期的 Mozilla Labs，但专门针对现代 Linux 基于镜像的操作系统架构进行了优化。在 systemd-sysext 和 Buildstream 等技术普及的背景下，该工具将帮助开发者在符合镜像系统约束的前提下，更高效地分发和测试实验性软件版本。</p>
+<p>目前该项目仍处于原型开发阶段，相关技术细节与进展可通过官方博客及资助页面查阅。此外，GNOME 生态近期亦有其他更新，包括 Glycin 图像查看器新增 OpenEXR 格式支持，以及 GLib 默认网络监控机制的优化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-OS-Test-Center</guid>
+      <pubDate>Mon, 13 Jul 2026 10:39:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 系统调用入口处理重构预计将进入 Linux 7.3 内核</title>
+      <link>https://www.phoronix.com/news/Rework-Sysclal-Entry-Linux-7.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及 Linux 内核 7.3 的底层技术更新，属于广义的 Linux 技术进展，符合用户对 Linux 生态的关注。</small></p><p>Linux 内核资深开发者 Thomas Gleixner 在审查系统调用号（system call number）处理补丁时，深入研究了内核的系统调用入口（system call entry）处理代码，发现不同 CPU 架构在内核栈随机化（kernel stack randomization）的实现上存在不一致。部分架构（如 PowerPC）的处理存在错误或次优，且存在多余的开销。为此，Gleixner 对系统调用入口处理代码进行了全面的重构与优化。</p>
+<p>此次重构的主要改进包括：</p>
+<ul>
+  <li>将所有架构统一适配到通用的系统调用入口代码，确保在尽可能早且正确的时机进行栈随机化。</li>
+  <li>解决了 x86 架构中历史遗留的复杂逻辑（x86 oddities）。</li>
+  <li>优化了 seccomp 和 ptrace 相关函数的返回值逻辑，使其更直观。</li>
+</ul>
+<p>重构后的代码在所有架构上遵循相同的方案，且没有引入功能变更。测试显示，x86_64 架构的系统调用入口代码体积略微减小，系统调用密集型工作负载和微基准测试均表现出小幅性能提升。目前，该系列补丁已进入 tip/tip.git 的 core/entry 分支，预计将在 <a href="https://www.kernel.org/">Linux 7.3</a> 内核的合并窗口中引入。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=syscall_entry_rework" alt="syscall entry rework patches" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Rework-Sysclal-Entry-Linux-7.3</guid>
+      <pubDate>Mon, 13 Jul 2026 10:17:21 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.2-rc3 发布：接近“新常态”</title>
       <link>https://www.phoronix.com/news/Linux-7.2-rc3-Released</link>
@@ -671,44 +700,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-GPU-Reset-Recovery-2026</guid>
       <pubDate>Sat, 04 Jul 2026 00:48:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME 51 Alpha 发布，带来多项功能增强与改进</title>
-      <link>https://www.phoronix.com/news/GNOME-51-Alpha</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 GNOME 51 Alpha 版本的发布及增强功能，属于 Linux 桌面环境的重要更新，符合用户对 Linux 桌面技术及新软件项目的兴趣。</small></p><p>GNOME 51 Alpha 版本现已发布，旨在为今年 9 月推出的稳定版 GNOME 51 桌面环境做准备。该版本并未引入单一的重大变革，而是通过一系列分散在多个组件中的小型改进，进一步打磨用户体验并增加新功能。</p>
-<p>主要更新包括：</p>
-<ul>
-<li><strong>Epiphany 浏览器</strong>：新增复制当前页面 URL 的快捷键及其他改进。</li>
-<li><strong>GDM 显示管理器</strong>：新增对 KMSCON VT 的兼容性，并支持更改 fallback session。</li>
-<li><strong>GNOME Calendar</strong>：进行性能提升、渲染优化及内部代码重构。</li>
-<li><strong>GNOME Control Center（控制中心）</strong>：重新排列系统软硬件信息页面，新增显示选项，支持插入鼠标时自动禁用触控板，并新增 WiFi 共享 QR 码小部件。</li>
-<li><strong>GNOME Maps</strong>：支持离线地图下载。</li>
-<li><strong>GNOME Remote Desktop</strong>：修复并启用 AMD 显卡驱动的硬件加速支持。</li>
-<li><strong>GNOME Shell</strong>：支持 vA-API H.264 屏幕录制的速率控制，并支持 text_input_v3 协议 v2 版本。</li>
-<li><strong>GTK</strong>：在多处尊重系统的“减少动画”设置，避免不必要的动画效果。</li>
-<li><strong>Loupe 图像查看器</strong>：现在可显示图像元数据，包括创建者、版权、相机镜头及所用软件信息。</li>
-<li><strong>Nautilus 文件管理器</strong>：增强视图重新加载性能。</li>
-<li><strong>Sushi</strong>：已移植至 GTK4。</li>
-</ul>
-<p>此外，Mutter 合成器包含多项修复，GNOME Session 启用了 oo7-portal 作为 Secret portal 的实现，XDG Desktop Portal GNOME 支持输入捕获门户的会话持久性。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=gnome_51_alpha" alt="GNOME 51 Alpha" />
-<p>更多详细信息可参考 GNOME Discourse 上的发布说明。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-51-Alpha</guid>
-      <pubDate>Fri, 03 Jul 2026 22:43:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ UPower 1.91.3 修复充电模式回退问题，防止笔记本电池加速老化</title>
-      <link>https://www.phoronix.com/news/UPower-1.91.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 桌面电源管理组件 UPower 的版本更新，主要优化电池保护逻辑，属于 Linux 桌面技术范畴，符合用户兴趣配置。</small></p><p>Linux 系统广泛使用的电源管理抽象层 <b>UPower</b> 发布了 1.91.3 版本，此次更新包含一项关键修复，旨在防止笔记本电池因意外启用“快速（Fast）”充电模式而加速老化。</p>
-<p>此前，当用户禁用<b>电池充电阈值（charging threshold）</b>功能时，UPower 会错误地将默认充电类型从“标准（Standard）”切换为“快速”。快速充电在过程中会产生大量热量，引发<b>热应力（thermal stress）</b>，长期下来会导致<b>电池单元（battery cells）</b>受损并降低整体性能。许多用户在不了解这一机制的情况下，可能在调整设置时无意中触发了该行为。</p>
-<img src="//www.phoronix.net/image.php?id=framework-laptop&image=framework_laptop_2_med" alt="A laptop battery inside a Framework laptop" />
-<p>该问题已由开源开发者 Armin Wolf 修复并合并至代码库。修复后，UPower 在处理设备电池时将优先采用“标准”充电模式，而非“快速”模式。此项修复是 UPower 1.91.3 版本的核心更新，版本同时还包含其他若干常规错误修复。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/UPower-1.91.3</guid>
-      <pubDate>Fri, 03 Jul 2026 18:57:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
