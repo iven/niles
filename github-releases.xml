@@ -3,7 +3,46 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 14 Jul 2026 00:04:12 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 03:28:52 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.208 发布说明</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.208</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.208 发布说明</h2>
+<p>Claude Code 发布了 v2.1.208 版本，本次更新重点增强了无障碍访问支持、Vim 模式交互，并大幅优化了后台会话管理、内存使用及渲染性能。</p>
+<h3>核心功能与交互改进</h3>
+<ul>
+  <li><strong>屏幕阅读器模式（Screen Reader Mode）</strong>：新增专为视障用户设计的纯文本渲染模式。用户可通过运行 <code>claude --ax-screen-reader</code>、设置环境变量 <code>CLAUDE_AX_SCREEN_READER=1</code> 或在配置中启用 <code>"axScreenReader": true</code> 来激活。</li>
+  <li><strong>Vim 插入模式重映射</strong>：新增 <code>vimInsertModeRemaps</code> 设置，支持将双键序列（如 <code>jj</code>）映射为 Escape 键。</li>
+  <li><strong>企业级进程包装器</strong>：引入 <code>CLAUDE_CODE_PROCESS_WRAPPER</code> 环境变量，允许企业通过自定义启动器运行 Claude Code 的自生成进程。</li>
+  <li><strong>全屏多选支持</strong>：在全屏模式下新增对多选菜单和“其他”输入行的鼠标点击支持。</li>
+  <li><strong>危险命令提示增强</strong>：对于包含命令替换符（如 <code>$(…)</code>）的毁灭性命令（如 <code>rm -rf ~</code>），在 <code>--dangerously-skip-permissions</code> 和自动模式下将触发明确提示。</li>
+</ul>
+<h3>性能与内存优化</h3>
+<ul>
+  <li><strong>工具调用加速</strong>：通过缓存工具池组装，显著降低高 MCP 工具数量下的 CPU 开销，工具轮次速度最高提升 7 倍。</li>
+  <li><strong>内存管理改进</strong>：将文件编辑读取缓存上限限制为 16 MB；修复了 MCP stdio 服务器 stderr 累积、LSP 文档无限期保持、异步钩子输出保留等多个长期会话内存泄漏问题；修复了读取超长单行文件时的内存爆炸问题。</li>
+  <li><strong>渲染与转录优化</strong>：超大 Markdown 表格（超过 200 行）将仅显示前 200 行并附加提示，避免渲染卡顿；通过修剪被覆盖的文件历史备份，会话转录大小最高减少 79 倍。</li>
+  <li><strong>权限规则响应提速</strong>：权限拒绝/询问规则匹配器现被编译并缓存，消除了多规则会话中的延迟。</li>
+</ul>
+<h3>后台会话与稳定性修复</h3>
+<ul>
+  <li><strong>后台会话可靠性提升</strong>：修复了后台会话附加失败、HTTP/2 GOAWAY 连接导致的崩溃、旧版守护进程错误重启新版工作进程等问题。完成后台会话在清理前将保留在 <code>/tasks</code> 列表中，附加已停止的后台代理可立即显示转录内容。</li>
+  <li><strong>上下文与模式状态恢复</strong>：修复了 CLI 自动更新后上下文窗口短暂重置为 200k 导致误报“100% 已用”的问题；修复了快速模式在切换模型后保持关闭的问题。</li>
+  <li><strong>数据丢失修复</strong>：修复了投递失败时后台代理回复文本丢失的问题，现文本将被保存并在会话重启时投递。</li>
+</ul>
+<h3>其他修复与改进</h3>
+<ul>
+  <li>修复了 Bedrock 流式请求在网关转换响应时出现的误导性错误，现会明确指出内容类型及代理问题。</li>
+  <li>修复了 <code>/release-notes</code> 命令将查看的更新日志注入模型上下文的问题，避免后续请求负担。</li>
+  <li>修复了 Bedrock AWS SSO 配置文件区域与 Bedrock 区域不一致导致的认证失败问题。</li>
+  <li>改进了 Agent 视图中的图片粘贴内存泄漏，以及任务列表更新时的 UI 响应速度。</li>
+  <li>修复了 <code>CLAUDE_CODE_MAX_OUTPUT_TOKENS</code> 等环境变量解析科学计数法时的精度丢失问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.208</guid>
+      <pubDate>Tue, 14 Jul 2026 01:10:42 GMT</pubDate>
+    </item>
     <item>
       <title>fish-shell 4.8.1 发布：修复 4.8.0 回归问题与交互改进</title>
       <link>https://github.com/fish-shell/fish-shell/releases/tag/4.8.1</link>
@@ -1057,43 +1096,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.175</guid>
       <pubDate>Fri, 12 Jun 2026 04:23:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.174 更新：修复模型选择器显示问题，优化后台会话与环境变量管理</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.174</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Claude Code v2.1.174 更新</h3>
-<p>Claude Code 发布了 v2.1.174 版本，主要修复了模型选择器（<code>/model</code>）的显示逻辑，优化了后台会话的环境变量继承问题，并增强了 VSCode 扩展的使用量统计功能。</p>
-
-<h4>主要改进</h4>
-<ul>
-    <li><strong>模型选择器优化</strong>：修复了 <code>/model</code> 选择器在特定计划（如 Max/Team Premium/Enterprise）下无法正确显示默认解析到的模型家族（如 Opus）的问题。同时修复了当环境变量 <code>ANTHROPIC_DEFAULT_SONNET_MODEL</code> 固定了特定版本时，选择器仍显示硬编码标签的问题。</li>
-    <li><strong>VSCode 使用量统计增强</strong>：在账户与使用量对话框（<code>/usage</code>）中增加了详细的使用量归属信息，支持查看过去 24 小时或 7 天的缓存未命中、长上下文、子代理以及各技能/代理/插件/MCP 的细分数据。</li>
-    <li><strong>全屏滚动设置</strong>：新增 <code>wheelScrollAccelerationEnabled</code> 设置，允许用户在全屏模式下禁用鼠标滚轮加速。</li>
-</ul>
-
-<h4>问题修复</h4>
-<ul>
-    <li><strong>AWS Bedrock 集成修复</strong>：解决了 Bedrock GovCloud 区域（<code>us-gov-*</code>）因推导错误的前缀（<code>global</code> 而非 <code>us-gov</code>）导致模型 ID 派生失败（400 错误）的问题。</li>
-    <li><strong>后台会话与环境变量</strong>：修复了后台会话错误继承启动后台守护程序的 Shell 中其他会话的 <code>ANTHROPIC_*</code> 提供者环境变量（如网关 URL、自定义标头）的问题。同时修复了预热的后台工作程序在闲置后被认领时因身份验证解析失败而崩溃的问题。</li>
-    <li><strong>性能与交互优化</strong>：
-        <ul>
-            <li>修复了 macOS 和 Linux 上在 Shell 命令被中断或杀死后退出 Claude Code 时出现的 1-2 秒延迟。</li>
-            <li>优化了技能热重载机制，现在仅重新通知发生更改的技能，而非重新发送整个列表。</li>
-            <li>修复了 Git 提交合作作者归属显示模型名称不正确的问题。</li>
-            <li>修复了 Workflow 工具 <code>agent()</code> 子代理缺少归属标头的问题。</li>
-        </ul>
-    </li>
-    <li><strong>其他修复</strong>：
-        <ul>
-            <li>修复了基于用量计费的 enterprise 账户错误显示 "Fable 5 is now consuming usage credits" 横幅的问题。</li>
-            <li>修复了 <code>/advisor</code> 对话框预选择被 <code>availableModels</code> 允许列表阻止的模型的问题。</li>
-        </ul>
-    </li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.174</guid>
-      <pubDate>Fri, 12 Jun 2026 01:16:36 GMT</pubDate>
     </item>
   </channel>
 </rss>

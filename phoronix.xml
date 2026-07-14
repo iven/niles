@@ -3,7 +3,23 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 14 Jul 2026 00:02:53 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 03:29:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 内核新补丁改进多交换设备处理</title>
+      <link>https://www.phoronix.com/news/Linux-Improve-Multi-Swap-Device</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 Linux 内核针对多交换设备处理的新补丁，属于 Linux 系统技术范畴，符合用户对 Linux 技术的兴趣，故推荐。</small></p><p>腾讯（Tencent）工程师 Kairui Song 提交了一组新的 Linux 内核补丁，旨在优化多交换设备（multiple swap devices）的处理机制，特别是针对交换分层（swap tiering）和分层交换处理场景。</p>
+<p>该补丁集的核心目标是改进 I/O 在多个交换设备间的分发策略。新设计通过引入 percpu 读取器优先级队列（percpu reader priority queue），并使用 percpu rwsem 进行保护，彻底移除了原有的可变优先列表（plist）和全局锁（global lock），同时也去除了全局集群缓存（global cluster cache）。这一改进旨在解决旧设计中存在的几个长期问题：</p>
+<ul>
+    <li><strong>缓存冲突</strong>：原有的全局 percpu 集群缓存与交换分层概念存在根本冲突，导致在绕过特定设备时性能大幅下降。</li>
+    <li><strong>CPU 竞争</strong>：旧设计依赖 plist 进行轮换，需要持有全局锁，导致分配器在不同 CPU 间产生竞争。</li>
+    <li><strong>设计限制</strong>：快/慢路径的设计导致了一些非最优的工作区（workarounds），且轮换规则不明确，与集群分配算法强绑定。</li>
+</ul>
+<p>目前，该补丁集已作为 RFC（Request for Comments）发布，等待社区审查。作者表示，交换分层功能的合并可能是该补丁集合并的前置依赖。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Improve-Multi-Swap-Device</guid>
+      <pubDate>Tue, 14 Jul 2026 00:38:08 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ GNOME OS 开发“测试中心”，为实验性软件提供类 TestFlight 的测试平台</title>
       <link>https://www.phoronix.com/news/GNOME-OS-Test-Center</link>
@@ -691,15 +707,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Plasma-6.8-KWin-No-Desktop-GL</guid>
       <pubDate>Sat, 04 Jul 2026 09:52:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME Mutter 正在实现 GPU 重置恢复功能</title>
-      <link>https://www.phoronix.com/news/GNOME-GPU-Reset-Recovery-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了 Linux 桌面技术 GNOME Mutter 的 GPU 重置恢复功能进展，符合用户对 Linux 桌面技术的兴趣。</small></p><p>在 Linux 环境下，GPU 重置（GPU Reset）虽然罕见，但一旦发生，GNOME 桌面会话通常会直接崩溃。得益于今年的 Google Summer of Code (GSoC) 项目，GNOME 的 Mutter 合成器正在逐步实现稳健的 GPU 重置恢复机制。</p><p>学生开发者 Toluwaleke Ogundipe 基于 OpenGL 的 <code>GL_EXT_robustness</code> 扩展及相关基础设施，为 Mutter 开发了该功能。目前，Mutter 已能在 GPU 重置后保持合成器存活，确保桌面会话稳定运行。测试显示，窗口能够正常刷新，输入设备恢复响应，且不再出现会话崩溃或系统冻结的情况。<img src="//www.phoronix.net/image.php?id=2026&image=gnome_reset_recovery" alt="GNOME Mutter reset recovery demo" /></p><p>尽管核心功能已初步跑通，但部分细节仍需完善，例如帧缓冲区（Frame-buffer）尚未实现自动重建、桌面背景渲染存在异常，以及残留的 OpenGL 错误等。开发团队正在继续优化这些模块，待完善后将提交合并请求（Merge Request）以争取上游集成。</p><h3>你知道吗？</h3><p>GPU 重置（GPU Reset）通常发生在显卡驱动遇到无法恢复的错误、硬件过热或系统资源耗尽时。在传统的 Linux 桌面环境中，GPU 重置往往会导致图形服务器（X11 或 Wayland）崩溃，进而使整个桌面会话丢失。Mutter 作为 GNOME 的核心合成器，其恢复能力的提升意味着未来用户在遇到显卡驱动异常时，无需重启电脑或重新登录，系统有望自动恢复图形界面。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-GPU-Reset-Recovery-2026</guid>
-      <pubDate>Sat, 04 Jul 2026 00:48:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
