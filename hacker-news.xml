@@ -3,7 +3,28 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 14 Jul 2026 12:20:57 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 15:02:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Codex 加密子代理提示词引发审计与调试难题</title>
+      <link>https://news.ycombinator.com/item?id=48905028</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Codex（AI编程工具）CLI的多代理加密功能及调试问题，涉及编程工具的技术细节，与用户high_interest的编程工具类别相关</small></p><p>OpenAI 近期在 <a href="https://github.com/openai/codex/issues/28058">Codex CLI 的 MultiAgentV2 功能</a>中引入了加密机制，旨在保护子代理（sub-agent）间的通信内容。然而，这一更新引发了严重的回归问题（Regression），导致本地会话历史、追踪记录（trace）和审计日志（audit trail）中的任务与消息内容变为不可读的密文。</p>
+
+<p>从技术实现来看，代码中的 <code>InterAgentCommunication</code> 结构体在加密传输时将明文内容字段留空，仅将密文存储在 <code>encrypted_content</code> 中。由于本地持久化逻辑直接读取了该密文，且解密密钥仅存在于 OpenAI 后端，用户无法在本地查看代理的具体指令或进行事后审查（post-mortem review）。</p>
+
+<p>社区对此进行了广泛讨论：</p>
+<ul>
+  <li><strong>加密的初衷</strong>：多位用户指出，加密主要是为了防止第三方（如黑市转售商或竞争对手）通过代理抓取提示词（prompts）进行模型训练或逆向工程。OpenAI 的核心价值很大程度上体现在其提示词工程与编排逻辑（orchestration）上，加密有助于保护这一知识产权。</li>
+  <li><strong>用户体验受损</strong>：批评者认为，牺牲可调试性（debuggability）和审计能力代价过大。当代理出现错误时，用户无法追踪具体的子任务内容，导致排查困难。</li>
+  <li><strong>改进建议</strong>：社区普遍建议采用“双轨制”方案：在代理间通信时继续使用加密内容，同时在本地保留一份明文副本（或结构化摘要）用于审计和调试，从而在隐私保护与用户体验之间取得平衡。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>在讨论中，有用户提到“使用密文进行推理（uses ciphertext for inference）”，这容易让人联想到<strong>同态加密（Homomorphic Encryption）</strong>。同态加密是一种特殊的加密技术，允许在密文上直接进行数学运算，计算结果解密后与在明文上运算的结果一致。然而，OpenAI 目前的实现并非如此：密文仅在本地存储和传输，推理过程仍在 OpenAI 服务器端解密明文后进行。本地用户看到的“密文推理”实际上只是数据在传输和存储过程中的加密状态。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48905028</guid>
+      <pubDate>Tue, 14 Jul 2026 11:21:32 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 日本开发新技术：从废旧EV电池中回收高达90%的锂</title>
       <link>https://news.ycombinator.com/item?id=48901569</link>
@@ -1009,17 +1030,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48837877</guid>
       <pubDate>Wed, 08 Jul 2026 21:49:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cloudflare 推出 Drop 服务：无需注册，上传即部署静态网站</title>
-      <link>https://news.ycombinator.com/item?id=48836233</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍Cloudflare推出的免注册静态网站部署工具Drop，降低部署门槛，属于面向开发者的编程工具发布，符合高兴趣配置。</small></p><p>Cloudflare 近日推出了名为 <strong>Drop</strong> 的新服务，允许用户直接拖拽文件夹或 ZIP 压缩包进行部署。该服务无需注册账户，上传后网站会立即在 Cloudflare 的全球网络上生效，并在 60 分钟后自动过期（除非用户认领）。</p>
-<p>社区对此功能反响热烈，同时也引发了关于安全与滥用的讨论。部分用户指出，这种无需身份验证的临时部署机制可能被用于钓鱼攻击或数据外泄，尽管 Cloudflare 拥有强大的安全防护体系。此外，许多网友将其与 <a href="https://app.netlify.com/drop">Netlify 的 Drop 服务</a>、早期的 <a href="http://web.archive.org/web/20131028083240/https://www.bitballoon.com/">BitBalloon</a> 以及 Dropbox 等经典产品进行了对比，认为这是“旧概念的新演绎”。在实际应用方面，开发者认为该工具非常适合快速分享静态网页、代码演示或临时文件，省去了配置服务器或 Git 的繁琐步骤。</p>
-<p>该服务延续了 Cloudflare 近期推出的临时账户（<a href="https://blog.cloudflare.com/temporary-accounts/">Temporary Accounts</a>）策略，旨在降低开发者尝试新项目的门槛。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48836233</guid>
-      <pubDate>Wed, 08 Jul 2026 19:18:26 GMT</pubDate>
     </item>
   </channel>
 </rss>
