@@ -3,7 +3,41 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 14 Jul 2026 23:08:48 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jul 2026 00:08:41 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.210 更新：实时运行时间计数器、权限规则警告与多项体验优化</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.210</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>核心功能与体验优化</h2>
+<ul>
+<li><strong>实时运行时间显示</strong>：在折叠的工具摘要行中增加了实时运行时间计数器，长时间运行的工具调用将显示动态跳动，避免误以为程序卡死。</li>
+<li><strong>权限规则启动警告</strong>：针对 <code>Write(path)</code>、<code>NotebookEdit(path)</code> 和 <code>Glob(path)</code> 权限规则增加了启动警告，建议用户改用 <code>Edit(path)</code> 或 <code>Read(path)</code>。</li>
+<li><strong>自动模式改进</strong>：权限分类器现在默认使用 Sonnet 5 模型，并在会话首次请求时进行验证和固定。</li>
+<li><strong>无障碍支持增强</strong>：屏幕阅读器模式现在支持在通过 <kbd>Shift</kbd>+<kbd>Tab</kbd> 切换权限模式时进行语音播报。</li>
+<li><strong>智能体视图优化</strong>：智能体页脚提示现在会显示等待用户输入的后台智能体数量，并在数量变化时提供颜色强调；从会话返回智能体视图时，原会话将保持可见标记。</li>
+<li><strong>数据可视化技能升级</strong>：内置的数据可视化技能（dataviz skill）改进了图表颜色验证，采用感知 OKLab 颜色差异标准并重新校准了色盲阈值。</li>
+</ul>
+
+<h2>问题修复与稳定性提升</h2>
+<ul>
+<li>修复了 <code>isolation: 'worktree'</code> 子智能体越权执行 git 修改命令的问题，现已严格限制在其隔离的工作树中。</li>
+<li>修复了 <code>ultracode</code> 关键词在非人类输入（如 webhook 负载或转发的 Pull Request（PR）评论）时被错误触发的问题。</li>
+<li>修复了 <code>claude attach</code> 在会话转换期间因状态未就绪而失败的问题，现已增加等待机制并优化终端尺寸调整逻辑。</li>
+<li>修复了工具结果渲染器返回非 UI 元素（如 bigint 或纯文本）时导致的会话崩溃问题。</li>
+<li>修复了后台命令超时后 Claude 错误假设 <code>cd</code> 生效的问题，工具结果现会明确说明工作目录未更改。</li>
+<li>修复了会话中途重新同步 Model Context Protocol（MCP）服务器时，插件提供的 MCP 服务器被意外拆除的问题。</li>
+<li>修复了 <code>/doctor</code> 在 AWS Bedrock、Google Vertex AI 和 Microsoft Azure Foundry 平台跳过自动模式建议的问题。</li>
+<li>修复了 Grep 分页超出结果末尾时错误显示 "No matches found" 的问题。</li>
+<li>修复了插件缓存写入失败时遗留临时文件，以及在 Windows/网络文件系统上因文件锁定导致重命名失败的问题。</li>
+<li>修复了被终止的后台会话遗留永久 <code>git worktree lock</code> 的问题，定期清理机制现已能正确释放已失效的锁。</li>
+<li>修复了 <code>claude agents --effort ultracode</code> 参数被静默丢弃导致无法到达已调度会话的问题。</li>
+<li>修复了使用 <code>CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1</code> 时，返回智能体视图出现重叠幽灵帧的问题。</li>
+<li>临时将 Fable 顾问在选择器中设为不可用，以规避服务器端故障。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.210</guid>
+      <pubDate>Tue, 14 Jul 2026 23:45:25 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.209 更新：修复后台会话对话框拦截问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.209</link>
@@ -1070,30 +1104,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/jonas/tig/releases/tag/tig-2.6.1</guid>
       <pubDate>Sat, 13 Jun 2026 17:56:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.176 更新：会话语言自适应、Bedrock 凭证缓存优化及多项体验修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.176</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>核心功能与体验优化</h3>
-<ul>
-  <li><strong>会话标题自适应</strong>：支持根据对话语言自动生成标题，用户可通过 <code>language</code> 设置固定特定语言。</li>
-  <li><strong>页脚链接配置增强</strong>：新增 <code>footerLinksRegexes</code> 设置，支持通过正则表达式匹配配置页脚行的链接徽章。</li>
-  <li><strong>Bedrock 凭证缓存改进</strong>：<code>awsCredentialExport</code> 导出的凭证现缓存至 <code>Expiration</code> 指定时间，替代原有的固定 1 小时缓存策略。</li>
-  <li><strong>模型访问控制修复</strong>：修正 <code>availableModels</code> 强制执行逻辑，防止别名模型被环境变量重定向至受限模型，并限制 <code>/fast</code> 模式切换至白名单外模型。</li>
-  <li><strong>自动模式回退机制</strong>：针对未启用 Opus 4.8 的组织，Fable 5 自动模式失败时，分类器现自动回退至最佳可用 Opus 模型。</li>
-  <li><strong>工具路径匹配修复</strong>：修正 Read/Edit/Write 工具的 <code>if</code> 条件路径匹配逻辑，确保 <code>Edit(src/**)</code> 等模式正确生效。</li>
-</ul>
-<h3>其他修复与稳定性提升</h3>
-<ul>
-  <li><strong>环境与沙箱优化</strong>：修复 Linux 沙箱在配置文件为绝对路径符号链接时无法启动的问题；优化 tmux 环境下的剪贴板交互，解决 <code>/copy</code> 及鼠标复制无法同步至系统剪贴板，以及旧版 tmux 粘贴缓冲区加载失败的问题。</li>
-  <li><strong>远程会话（Remote Control）完善</strong>：修复连接时静默切换模型、断开通知显示异常、多账户登录未正确断开，以及跨自动更新窗口无法提交回复时的提示优化。</li>
-  <li><strong>会话状态与后台代理修复</strong>：修正工作树切换后分支显示滞后、后台会话状态卡死、PR URL 搜索遗漏、会话名称初始化失败及损坏状态文件恢复拒绝等问题。</li>
-  <li><strong>云会话稳定性提升</strong>：解决长时间空闲导致的认证解析失败问题，并优化 <code>claude daemon status</code> 的版本差异说明。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.176</guid>
-      <pubDate>Fri, 12 Jun 2026 21:53:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
