@@ -3,7 +3,37 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 15 Jul 2026 00:02:30 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jul 2026 03:29:43 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Cursor 曝高危 0day 漏洞：恶意 git.exe 可静默执行，厂商七个月未修复</title>
+      <link>https://news.ycombinator.com/item?id=48910676</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 AI 编程工具 Cursor 的高危漏洞，属于 AI 软件技术进展，用户对此类软件感兴趣，故推荐阅读</small></p><p>安全研究公司 Mindgard 披露了 AI 编程助手 Cursor 的一个高危 0day 漏洞。该漏洞允许攻击者在 Windows 系统上实现任意代码执行（Arbitrary Code Execution）。</p>
+<p>当开发者在 Windows 上使用 Cursor 打开一个包含恶意 <code>git.exe</code> 的 Git 仓库时，IDE 会在后台自动执行该文件，全程无需用户交互或弹窗警告。由于 Cursor 拥有超过 700 万活跃用户且被众多企业采用，该漏洞影响广泛。</p>
+<p>漏洞于 2025 年 12 月被发现并报告给 Cursor。然而，经过 7 个月和 197 多个版本的迭代，Cursor 官方虽曾承认内部流程失误，但此后便对修复请求和状态更新石沉大海。鉴于协调披露（Coordinated Disclosure）渠道失效，Mindgard 决定进行完全公开（Full Disclosure），以提醒用户采取缓解措施（如在隔离环境中打开不受信任的仓库，或使用 AppLocker 限制执行）。</p>
+<p><img src="https://cdn.prod.website-files.com/673f0725df990f6c96bf18ea/6a32f51a4c94038ed163d939_cursor-zero-day-web.webp" alt="Cursor 0day 漏洞文章封面" width="Auto" /></p>
+<p><strong>漏洞原理与影响</strong></p>
+<p>Cursor 在加载项目时，会尝试在多个位置（包括项目根目录）查找 Git 二进制文件。如果攻击者在仓库根目录放置一个恶意的 <code>git.exe</code>，Cursor 的路径解析逻辑会将其作为 Git 客户端执行。研究人员使用重命名的 Windows 计算器（<code>calc.exe</code>）作为概念验证（PoC），成功证明了 Cursor 会在项目打开后反复执行该文件。</p>
+<p><img src="https://cdn.prod.website-files.com/673f0725df990f6c96bf18ea/6a32e9026030b8ea785b2598_cursor-screenshots.webp" alt="概念验证演示：Cursor 自动执行重命名为 git.exe 的计算器程序" /></p>
+<p>攻击者只需诱导开发者 <code>git clone</code> 一个包含恶意文件的仓库，或攻击受信任的开源项目（供应链攻击），即可在开发者打开项目时植入恶意代码。该漏洞利用了 Windows 环境下常见的路径解析逻辑缺陷。</p>
+<p><strong>厂商响应与完全公开</strong></p>
+<p>Mindgard 指出，协调披露（Coordinated Disclosure）机制依赖于厂商的及时响应与修复。然而，在长达 7 个月的沟通中，Cursor 的 CISO 仅承认内部自动化失败导致报告未进入正常流程，随后便再无实质性进展。在多次通过 HackerOne 和直接联系管理层无果后，Mindgard 认为继续隐瞒信息将使用户处于危险之中，因此选择公开漏洞细节。</p>
+<p><strong>社区反馈</strong></p>
+<p>Hacker News 社区对此漏洞的触发机制和厂商态度展开了热烈讨论。许多用户指出，该漏洞的根源可能是 AI 代理在尝试“修复” Git 故障时，错误地将 <code>git.exe</code> 放入仓库并调用；或者是 Windows 命令行默认将当前目录加入 <code>PATH</code> 环境变量所致。此外，社区也质疑在 AI 辅助开发普及的背景下，传统的漏洞响应流程是否已不堪重负，以及厂商在追求快速增长时是否牺牲了安全优先级。</p>
+<p><strong>缓解建议</strong></p>
+<ul>
+<li><strong>企业用户：</strong>使用 AppLocker 或 Windows App Control 策略，禁止在工作区目录（如 <code>%USERPROFILE%\source\repos\*</code>）下执行 <code>git.exe</code>。</li>
+<li><strong>个人用户：</strong>在打补丁前，仅在隔离环境（如虚拟机、Windows Sandbox）中打开不受信任的仓库，切勿依赖文件哈希黑名单。</li>
+</ul>
+<p><strong>你知道吗？</strong></p>
+<ul>
+<li><strong>协调披露（Coordinated Disclosure）：</strong>指安全研究人员发现漏洞后，先私下通知厂商，给予其修复时间，之后再公开细节。这能避免在漏洞未修复前将用户暴露于风险中。但当厂商失联或拖延时，研究人员可能被迫选择完全公开。</li>
+<li><strong>PATH 环境变量与当前目录：</strong>在早期的 Windows 系统（如 Windows 95/98）中，命令行默认将当前目录（<code>.</code>）包含在 <code>PATH</code> 中，这导致运行程序时会优先执行当前目录下的同名文件。出于安全考虑，现代 Windows 已移除该默认行为，但部分老旧脚本或特定配置仍可能引发类似的路径混淆攻击（Path Traversal/Confusion）。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48910676</guid>
+      <pubDate>Tue, 14 Jul 2026 17:58:35 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Bonsai 27B：首款可在手机端运行的 27B 级多模态大模型</title>
       <link>https://news.ycombinator.com/item?id=48910545</link>
@@ -995,22 +1025,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48841259</guid>
       <pubDate>Thu, 09 Jul 2026 05:14:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenBSD 7.9 及以下版本存在释放后使用漏洞，可导致本地提权至 root</title>
-      <link>https://news.ycombinator.com/item?id=48831658</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍开源操作系统 OpenBSD 的安全漏洞更新与修复，属于开源项目范畴。用户全局配置对开源项目感兴趣，故推荐。</small></p><p>OpenBSD 7.9 及更早版本的内核模块 <code>sys/kern/sysv_sem.c</code> 中发现了一个严重的本地权限提升（Local Privilege Escalation, LPE）漏洞（<a href="https://nvd.nist.gov/vuln/detail/cve-2026-57589">CVE-2026-57589</a>）。该漏洞属于“释放后使用（use-after-free）”类型，具体发生在 <code>sys_semget()</code> 函数处理 System V 信号量时的 <code>tsleep</code> 上下文切换过程中。攻击者利用此漏洞可获取系统 root 权限。</p>
-<p>该漏洞由 OpenAI 发起的 "Patch The Planet" 项目结合 Trail of Bits 安全团队的研究发现。MITRE 为其评定 CVSS 3.1 基础分数为 7.4（高危），向量显示其利用条件为本地访问、高攻击复杂度且无需用户交互。<img src="/site-media/images/NVD_Contributor_Stack_Plain.svg" alt="CVSS 评分图表" /></p>
-<p>社区对此进行了广泛讨论。部分用户指出，尽管 OpenBSD 以极高的安全性著称，但此类本地提权漏洞并非闻所未闻，只是相比 Linux 或 Windows 等系统更为罕见。此外，讨论还延伸至编程语言的安全性，许多开发者探讨了 Rust 的所有权模型是否能从编译层面杜绝此类内存错误。内核开发者指出，虽然 Rust 能有效防止大部分内存安全问题，但在内核等复杂环境中，正确管理对象生命周期和合理使用 <code>unsafe</code> 代码块依然是关键。</p>
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>释放后使用（Use-After-Free, UAF）</strong>：这是一种常见的内存安全漏洞，发生在程序释放了一块内存后，仍然持有对该内存的引用并尝试访问它。如果攻击者能控制该内存的重新分配，就可能执行恶意代码或提升权限。</li>
-<li><strong>Patch The Planet</strong>：这是 OpenAI 与 Trail of Bits 合作推出的一个安全项目，旨在利用大型语言模型（LLM）自动化扫描开源软件中的安全漏洞，并协助修复。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48831658</guid>
-      <pubDate>Wed, 08 Jul 2026 13:24:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
