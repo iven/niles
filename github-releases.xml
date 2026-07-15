@@ -3,7 +3,33 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 15 Jul 2026 22:11:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jul 2026 23:11:04 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.211 更新总结</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.211</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.211 更新总结</h2>
+<p>Claude Code 发布了 v2.1.211 版本，本次更新重点增强了子代理文本输出能力，优化了终端渲染性能与后台代理状态报告机制，并修复了多项涉及会话管理、权限持久化及多平台兼容性的问题。</p>
+<h3>重要改动</h3>
+<ul>
+  <li><strong>新增子代理文本转发功能</strong>：引入 <code>--forward-subagent-text</code> 命令行标志与 <code>CLAUDE_CODE_FORWARD_SUBAGENT_TEXT</code> 环境变量，支持在 <code>stream-json</code> 输出中完整包含子代理（Subagent）的文本与思维过程。</li>
+  <li><strong>终端性能与布局优化</strong>：显著改进了终端布局与渲染性能，提升交互流畅度。</li>
+  <li><strong>后台代理结果报告机制升级</strong>：Claude 现在会准确报告仍在运行的后台代理状态并等待真实完成结果，替代了以往可能出现的伪造结果行为。</li>
+  <li><strong>权限规则持久化改进</strong>：将“始终允许（Always allow）”权限规则的保存位置更改为仓库根目录，确保在 <code>git worktree</code> 切换及跨会话时审批记录得以保留。</li>
+  <li><strong>环境变量格式扩展</strong>：整数类型的环境变量（如超时时间、令牌预算、重试次数）现支持科学记数法与数字分隔符写法（例如 <code>1e6</code> 或 <code>64_000</code>）。</li>
+</ul>
+<h3>其他改进与修复</h3>
+<ul>
+  <li><strong>会话与代理管理优化</strong>：修复了并行会话共享凭证库时唤醒后同时登出、MCP 服务器空闲唤醒后未重连、子代理显式模型覆盖失效以及后台作业状态显示异常等问题。</li>
+  <li><strong>文件上传与验证增强</strong>：加固了文件上传路径验证逻辑，接受以 <code>.prn</code> 或尾随点结尾的文件名，拒绝多重硬链接文件，并修复了 Chrome 扩展与 CLI 环境下的上传故障。</li>
+  <li><strong>终端交互体验修复</strong>：解决了异步内容（设置、统计、差异视图等）加载延迟、输入 <code>?</code> 误触快捷键面板、屏幕阅读器终端铃声丢失以及 Vim 模式 <code>s</code> 和 <code>S</code> 命令兼容性问题。</li>
+  <li><strong>多平台兼容性修复</strong>：解决了 Windows 环境下 Claude in Chrome 设置页无法打开、无头打印模式崩溃、启动挂起等问题，并加固了 Windows 平台的目录命名同步逻辑。</li>
+  <li><strong>计费与缓存修正</strong>：修复了 Bedrock、Vertex、Mantle 和 Foundry 后端环境下的提示缓存（Prompt-caching）计费回归问题，避免将尾随系统上下文错误计费为新鲜输入令牌；同时修正了 <code>/clear</code> 命令未重置会话成本计数器的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.211</guid>
+      <pubDate>Wed, 15 Jul 2026 23:02:35 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.210 更新：实时运行时间计数器、权限规则警告与多项体验优化</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.210</link>
@@ -1070,40 +1096,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/kovidgoyal/kitty/releases/tag/v0.47.4</guid>
       <pubDate>Mon, 15 Jun 2026 03:43:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>tig 2.6.1 版本更新：安全修复与多项功能改进</title>
-      <link>https://github.com/jonas/tig/releases/tag/tig-2.6.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>tig 是一款基于 ncurses 的 Git 文本界面终端工具。2.6.1 版本现已发布，本次更新主要包含一项安全修复、多项功能改进以及一系列 Bug 修复。</p>
-<h3>重要改动</h3>
-<ul>
-  <li><strong>安全修复</strong>：修复了编辑器命令注入漏洞（<a href="https://github.com/jonas/tig/issues/1432">#1432</a>），该漏洞仅影响 2.6.0 版本。</li>
-  <li><strong>功能增强</strong>：
-    <ul>
-      <li>支持 <code>append</code> 选项（<a href="https://github.com/jonas/tig/issues/1413">#1413</a>）。</li>
-      <li>新增选项使树视图（tree view）支持递归显示。</li>
-      <li>在干净的 HEAD 状态下，允许直接编辑 blob 文件（<a href="https://github.com/jonas/tig/issues/1416">#1416</a>）。</li>
-      <li>支持处理 <code>NO_COLOR</code> 环境变量（<a href="https://github.com/jonas/tig/issues/1402">#1402</a>）。</li>
-    </ul>
-  </li>
-</ul>
-<h3>其他改进与修复</h3>
-<ul>
-  <li>修复了给定子目录路径时 <code>tig status</code> 运行缓慢的问题（<a href="https://github.com/jonas/tig/issues/1424">#1424</a>）。</li>
-  <li>修复了主视图中 notes 的处理逻辑（<a href="https://github.com/jonas/tig/issues/1394">#1394</a>）。</li>
-  <li>修复了带 revision 参数的 grep 功能（<a href="https://github.com/jonas/tig/issues/1398">#1398</a>）。</li>
-  <li>修复了裸仓库无 HEAD 时的仓库信息显示问题。</li>
-  <li>修复了 "DU" 冲突被错误显示为 'Staged changes' 的问题（<a href="https://github.com/jonas/tig/issues/471">#471</a>）。</li>
-  <li>改进了 diff 视图对纯文件重命名的处理（<a href="https://github.com/jonas/tig/issues/1426">#1426</a>）。</li>
-  <li>修复了 'Not Committed Yet' 更改的日期显示问题（<a href="https://github.com/jonas/tig/issues/1423">#1423</a>）。</li>
-  <li>修复了 glibc-2.43 环境下的编译器警告。</li>
-  <li>更新了 Cygwin 构建配置，并修复了 chocolate 主题在后台视图中的光标颜色问题（<a href="https://github.com/jonas/tig/issues/1419">#1419</a>）。</li>
-  <li>测试框架支持通过 <code>SYSTEM_TIG=1</code> 运行测试（<a href="https://github.com/jonas/tig/issues/1400">#1400</a>）。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jonas/tig/releases/tag/tig-2.6.1</guid>
-      <pubDate>Sat, 13 Jun 2026 17:56:46 GMT</pubDate>
     </item>
   </channel>
 </rss>
