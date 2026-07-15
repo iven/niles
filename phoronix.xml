@@ -3,7 +3,27 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 15 Jul 2026 11:53:54 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jul 2026 14:06:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linux 补丁终于支持通过蓝牙监控 Apple Magic 键盘/鼠标电量</title>
+      <link>https://www.phoronix.com/news/Apple-Magic-Bluetooth-Battery</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要内容是 Linux 内核补丁，用于在 Linux 系统上支持 Apple Magic 键鼠的电池监控功能。这属于来源配置中 high_interest 的'苹果电脑Linux支持'主题，同时也是 Linux 桌面技术的改进，故评为 critical。</small></p><p>Linux 对 Apple 外设的支持一直存在诸多挑战，尽管 Magic Mouse 和 Magic Keyboard 等输入设备已能在 Linux 上正常工作，但电池电量报告功能却存在明显短板：目前仅在使用 USB 连接时有效，而通过蓝牙连接时，系统往往错误地显示电量为 0%。</p>
+
+<p>鉴于用户主要通过蓝牙无线使用这些设备，电池信息的缺失带来了不便。近日，开源开发者 Alec Hall 提交了一组补丁，旨在解决 Apple Magic Keyboard、Magic Mouse 2 以及 Magic Trackpad 2 的蓝牙电池报告问题。</p>
+
+<p><img src="//www.phoronix.net/image.php?id=2021&image=magic_mouse_2_med" alt="Magic Mouse 2" /></p>
+
+<p>根据 Alec 的解释，Linux 内核驱动程序虽然已经具备获取这些设备电池数据的能力，但此前仅针对 USB 连接进行了优化。若直接在蓝牙连接下启用该功能，由于获取操作在原子上下文（atomic context）中运行，而蓝牙传输（uhid transport）需要休眠，这将导致系统死锁。</p>
+
+<p>该补丁系列的核心改进在于将电池数据的获取操作移至工作队列（workqueue）中执行，从而避免了死锁问题。此外，补丁还增强了 <code>hid-magicmouse</code> 驱动的功能，使其能够解析并报告设备的充电状态字节。目前，这组补丁正处于审核阶段，有望在未来合并至主线 Linux 内核中。</p>
+
+<h3>你知道吗？</h3>
+<p>在 Linux 内核开发中，<strong>原子上下文（atomic context）</strong> 是一种特殊的执行环境，要求代码在执行期间不能被抢占或休眠。蓝牙数据传输通常涉及复杂的协议栈和可能的等待操作，这属于“休眠”行为。因此，在原子上下文中直接发起蓝牙请求会导致内核恐慌或死锁。通过将操作移至工作队列（workqueue），开发者可以将耗时或可能休眠的操作推迟到允许休眠的上下文中执行，这是 Linux 内核驱动开发中解决此类问题的常见模式。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-Magic-Bluetooth-Battery</guid>
+      <pubDate>Wed, 15 Jul 2026 12:54:47 GMT</pubDate>
+    </item>
     <item>
       <title>Linus Torvalds 重申 Linux 内核并非“反 AI”项目，反对阻碍 AI 工具使用</title>
       <link>https://www.phoronix.com/news/Linux-Is-Not-Anti-AI</link>
@@ -667,21 +687,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Microsoft-AV1-Encode-DX12-HMFT</guid>
       <pubDate>Tue, 07 Jul 2026 00:34:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Intel Alchemist GPU 在 Linux 上通过 Vulkan Video 重新支持 H.264/H.265 编码</title>
-      <link>https://www.phoronix.com/news/Intel-ANV-Gen125-H265-Encode</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了Linux系统下Intel显卡的Vulkan视频编码支持进展，属于Linux图形/多媒体技术范畴，符合用户来源配置中“Linux桌面技术”的兴趣。</small></p><p>今年早些时候，由于 Intel ANV 开源驱动测试不足，Vulkan Video 编码功能在 Intel 较新硬件（Gen12.5 及更新架构，包括 Alchemist 系列）上被暂时禁用。目前，这一限制已解除，Intel Arc A 系列显卡现已重新支持 H.264 和 H.265 编码。</p>
-
-<p>此前 Vulkan Video 在 Intel Linux 平台上关注较少，Intel 主要将资源投入 Video Acceleration API（VA-API）及其 oneVPL 软件栈。ANV 的 Vulkan Video 工作主要由第三方开发者推动，包括 Red Hat 和 Igalia 等机构。</p>
-
-<img src="//www.phoronix.net/image.php?id=intel-a750-a770-arc-linux&image=intel_arc_8_med" alt="Intel Arc A750" />
-
-<p>Igalia 的 Hyunjun Ko 已在 Intel Arc A750 显卡上成功实现 H.264/H.265 编码功能。此次更新已合并至 Mesa 26.2 版本，标志着 Intel ANV 驱动现在能够正确处理 Alchemist 架构的 H.264/H.265 编码。这一进展也为后续实现 Vulkan Video AV1 编码奠定了基础。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-ANV-Gen125-H265-Encode</guid>
-      <pubDate>Mon, 06 Jul 2026 21:04:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
