@@ -3,7 +3,38 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 16 Jul 2026 16:41:25 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jul 2026 18:20:27 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Roc编译器从Rust迁移至Zig的重写进展与经验总结</title>
+      <link>https://news.ycombinator.com/item?id=48933149</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍Roc编译器底层语言从Rust迁移至Zig的技术进展与开发经验，属于开源编译器与编程语言底层开发范畴，符合用户对开源项目及编程工具的兴趣，故推荐阅读。</small></p><p>Roc编译器团队在过去一年半的时间里，成功将约30万行Rust代码彻底重写为Zig，并刚刚达成了与原始编译器功能对等（feature parity）的重要里程碑。此次重写不仅是一次语言层面的迁移，更是对编译器底层架构的全面重构。</p>
+
+<h3>新编译器带来的核心突破</h3>
+<p>新编译器在开发体验与性能上实现了多项突破。首先，它原生支持开发时热代码加载（Hot Code Loading），开发者在运行服务器或游戏时修改代码，无需重启即可自动生效。其次，编译器能够生成经过LLVM优化的自包含二进制文件，并支持稳定的交叉编译。此外，团队引入了类型安全的模式匹配与字符串插值功能，该特性在编译期完成处理，实现了零堆分配（zero heap allocations）。</p>
+<p>作为成果展示，团队更新了WASM-4游戏Rocci Bird。在新编译器优化下，生成的WASM二进制文件体积缩减至31KB，仅为原编译器输出的一半以下。</p>
+
+<h3>为何选择彻底重写与Zig？</h3>
+<p>决定进行彻底重写（Scratch-rewrite）的主要原因是原编译器中用于提升性能的核心机制——多态反函数化（polymorphic defunctionalization）——在实现上极其复杂且存在深层架构缺陷。团队意识到修补不如重构，因此决定从零开始构建。</p>
+<p>在语言选择上，团队最终放弃了Rust而转向Zig，主要基于以下考量：</p>
+<ul>
+  <li><strong>构建速度</strong>：Rust的增量构建时间随着代码库增长而显著变慢，而Zig的增量编译速度极快。</li>
+  <li><strong>内存控制</strong>：编译器开发需要大量使用arena分配器和数组结构布局（struct-of-arrays）。Zig的生态默认支持细粒度内存分配器，而Rust生态通常假设使用全局分配器。</li>
+  <li><strong>生态与底层辅助</strong>：针对编译器生成LLVM bitcode等底层需求，Zig生态中有更相关的现成代码。同时，Zig提供了更多特性来帮助正确编写内存不安全代码（编译器生成机器码时的常见需求），弥补了失去Rust借用检查器（Borrow-Checking）后的安全缺口。</li>
+</ul>
+
+<h3>内存安全与社区反馈</h3>
+<p>失去Rust的静态借用检查器后，团队主要依赖Zig的ReleaseSafe（运行时内存安全检查）和ReleaseFast模式。文章指出，虽然Zig的运行时检查会带来一定开销，但在TigerBeetle、Ghostty等知名项目中已证明其可靠性。相比之下，Rust的unsafe块同样存在内存安全风险，且缺乏类似的运行时兜底机制。</p>
+<p>在Hacker News社区的讨论中，开发者们就Zig的增量构建优势、Rust的构建缓存占用空间问题，以及Zig的内存安全机制展开了深入交流。部分开发者认为，Zig作为1.0之前的语言，其迭代灵活性反而更适合快速演进的编译器项目。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>为什么编译器项目经常进行彻底重写？</strong> 编译器是一种特殊的软件，它需要处理极其复杂的语法分析、类型检查和代码生成逻辑。随着语言特性的不断演进，早期编译器中积累的“技术债务”和架构限制往往会成为新功能的阻碍。因此，在编译器发展史上，彻底重写（Scratch-rewrite）是一种常见且有效的策略。例如，TypeScript最初是用C#编写的，后来为了提升性能和可维护性，被重写为Go语言；而Rust编译器（rustc）最初也是用OCaml编写的，后来才重写为Rust本身。通过彻底重写，团队可以摆脱历史包袱，采用更现代的架构和工具链，从而为语言的长期发展奠定坚实基础。</p>
+
+<p>了解更多详情，请访问原文：<a href="https://rtfeldman.com/rust-to-zig">How Our Rust-to-Zig Rewrite Is Going</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48933149</guid>
+      <pubDate>Thu, 16 Jul 2026 11:39:27 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Kimi K3 正式发布：性能对标前沿模型，定价与 Sonnet 系列持平</title>
       <link>https://news.ycombinator.com/item?id=48935342</link>
@@ -1006,31 +1037,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48863490</guid>
       <pubDate>Fri, 10 Jul 2026 18:29:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>好的工具是隐形的：为何我们不应将工具的缺陷浪漫化</title>
-      <link>https://news.ycombinator.com/item?id=48858121</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨工具设计与使用的哲学反思，主题较为抽象，兴趣倾向不明确，故列为可选。</small></p><h2>核心观点：工具应当“隐形”</h2>
-<p>文章指出，优秀的工具在设计上应当追求“隐形（Invisible）”，即在使用过程中不产生干扰，让用户完全专注于任务本身。当工具熟练时，它会融入背景；一旦无法轻松处理某项任务，它就不再“隐形”。</p>
-<h2>批判“缺陷浪漫化”与身份认同</h2>
-<p>作者批评了一种常见现象：开发者倾向于将工具的缺点（如 <a href="https://www.gingerbill.org/article/2026/07/10/good-tools-are-invisible/">vim</a> 的宏或复杂的配置）包装成“解谜游戏”或“极客乐趣”。这种将摩擦感视为“好玩”的心态，实际上降低了工作效率。此外，工具选择往往与个人身份认同（Identity）绑定，导致用户盲目维护所选工具，甚至将缺陷视为优点，阻碍了客观评价。</p>
-<h2>效率错觉与真实产出</h2>
-<p>解决工具带来的麻烦可能让人产生“我很聪明”的错觉，但这只是“感觉高效”而非“真正高效”。真正的效率应通过实际耗时（wall-clock time）和错误率来衡量，而非主观的成就感。例如，花费大量时间编写宏可能不如直接使用多光标（multiple cursors）或编写脚本来得高效。</p>
-<h2>具体领域的反思</h2>
-<ul>
-<li><strong>终端（TUI）与图形界面（GUI）：</strong> TUI 并非天生优于 GUI。许多 GUI 缺乏键盘导航是设计者的疏忽，而非技术限制。优秀的 GUI 完全可以做到高效的键盘操作。</li>
-<li><strong>Linux 桌面普及难题：</strong> Linux 桌面未能普及的部分原因在于，许多开发者享受折腾配置的过程，将“可配置性”视为乐趣。然而，优秀的工具设计应提供“良好的默认值（Good Defaults）”，将配置负担降至最低，仅在必要时提供“逃生通道（Escape Hatches）”。</li>
-</ul>
-<h2>学习曲线是成本，而非美德</h2>
-<p>陡峭的学习曲线不应被美化为筛选机制。它本质上是用户的时间成本，不能以“沉没成本（Sunk-cost）”来证明其合理性。如果学习成本不能带来真实的效率提升，那么这种学习就是无意义的。</p>
-<h2>结论</h2>
-<p>最好的工具是你忘记正在使用的工具。设计者应致力于提供优秀的默认值，尊重用户的时间；而用户则应诚实评估工具，不要将缺陷浪漫化，也不要让工具的选择定义自己的身份。</p>
-<h3>你知道吗？</h3>
-<p>文章中提到的设计理念与软件设计中的<strong>“成功之坑（Pit of Success）”</strong>概念不谋而合。该概念由 <a href="https://blog.codinghorror.com/falling-into-the-pit-of-success/">Jeff Atwood</a> 推广，指优秀的软件设计应当引导用户自然而然地做出正确选择，同时让错误行为变得困难。正如评论中所引用的，好的内部工具设计应让用户“落入成功之坑”，而不是将复杂的配置选项暴露给用户，从而增加认知负担。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48858121</guid>
-      <pubDate>Fri, 10 Jul 2026 10:32:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
