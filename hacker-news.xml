@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 15 Jul 2026 23:10:07 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jul 2026 00:08:43 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 在13年前无GPU的Xeon服务器上以5 tokens/sec运行Gemma 4 26B</title>
+      <link>https://news.ycombinator.com/item?id=48922434</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍在老旧CPU上运行现代AI模型的技术优化实践，符合AI软件技术进展的兴趣配置，故推荐阅读。</small></p><h2>旧服务器运行现代大模型：在13年前Xeon上部署Gemma 4</h2>
+<p>本文记录了作者在一台13年前退役的HP StoreVirtual存储服务器上成功运行Google <a href="https://www.neomindlabs.com/2026/06/08/running-gemma-4-26b-at-5-tokens-sec-on-a-13-year-old-xeon-with-no-gpu/">Gemma 4 26B-A4B</a>（混合专家模型）的过程。该服务器配备双路Xeon E5-2690 v2处理器（Ivy Bridge架构，2013年发布），仅支持AVX1指令集，无GPU，硬件成本不到300美元。在CPU-only环境下，模型推理速度达到约5.2 tokens/sec，实现了“阅读速度”。</p>
+<p><img src="/images/we-taught-a-dead-server/gemma4-running.png" alt="Gemma 4 26B generating text locally on the StoreVirtual, no GPU" /></p>
+<p><strong>技术挑战与AI辅助调试</strong></p>
+<p>作者使用的推理引擎 <a href="https://github.com/ikawrakow/ik_llama.cpp">ik_llama.cpp</a> 针对现代硬件进行了深度优化，默认依赖AVX2和FMA3指令集。由于Ivy Bridge架构缺乏这些指令，直接编译会导致启动失败或产生看似流畅的多语言乱码输出。经排查，乱码源于两个MoE图操作（MOE_FUSED_UP_GATE和FUSED_UP_GATE）在非AVX2构建中未找到对应的计算路径，导致输出张量读取了未初始化的内存。</p>
+<p>作者借助AI（Claude）分析日志与堆栈跟踪，定位了问题根源。修复方案通过条件编译，将缺失的优化路径回退至支持旧架构的标量/SSE实现（如拆分矩阵乘法与激活函数操作），并修复了相关的编译stub问题。该补丁已提交为 <a href="https://github.com/ikawrakow/ik_llama.cpp/pull/2138">PR #2138</a>，目前仍在等待维护者审查。</p>
+<p><strong>社区反馈与硬件优化</strong></p>
+<p>Hacker News社区对此进行了广泛讨论。多位用户分享了在类似旧款Xeon服务器上运行大模型的经验，指出内存带宽通常是性能瓶颈，而使用单路CPU可避免NUMA（非统一内存访问）带来的延迟惩罚。此外，社区也探讨了量化精度（如Q8_0与Q4_0）对速度的影响，以及利用廉价旧硬件替代昂贵云GPU订阅的可行性。</p>
+<p>本文不仅展示了旧企业级硬件在AI推理领域的余热，也验证了AI辅助调试复杂C++代码库的实际效能。对于希望利用闲置硬件搭建本地AI服务的用户，该方案提供了一条低成本、高可行性的技术路径。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>混合专家模型（Mixture of Experts, MoE）</strong>：一种大语言模型架构，通过路由机制在每次推理时仅激活模型总参数中的一小部分（即“专家”）。这种设计使得模型可以在保持庞大参数规模（提升能力）的同时，大幅降低计算开销和推理延迟。</li>
+<li><strong>AVX2与FMA3指令集</strong>：Intel推出的高级矢量扩展指令集，专为加速科学计算和AI负载设计。FMA3（融合乘加）能在一条指令中完成乘法和加法运算，显著提升矩阵乘法效率。Ivy Bridge架构（2013年）仅支持早期的AVX1，缺乏这些现代优化指令，导致许多为Haswell及以后架构优化的代码无法直接运行。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48922434</guid>
+      <pubDate>Wed, 15 Jul 2026 15:34:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Thinking Machines 发布开源多模态大模型 Inkling，支持 100 万上下文与可控推理</title>
       <link>https://news.ycombinator.com/item?id=48924912</link>
@@ -1011,25 +1034,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48845209</guid>
       <pubDate>Thu, 09 Jul 2026 13:06:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 极客精神：在普通消费级电脑上运行 744B 参数 GLM 5.2 模型</title>
-      <link>https://news.ycombinator.com/item?id=48842459</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍纯C实现的开源推理引擎，展示如何在普通消费级硬件上高效运行超大参数模型，属于极客级编程工具分享与底层优化经验，符合high_interest配置，故评为critical。</small></p><p>近日，一位开发者在普通消费级电脑（32GB 内存、12 核 CPU）上成功运行了 744B 参数的大型 MoE（Mixture-of-Experts，混合专家模型）GLM 5.2，并开源了其自研的推理引擎 Colibrì。</p>
-<p>由于模型体积庞大，直接加载极易导致内存溢出（OOM）。为此，作者开发了名为 Colibrì 的纯 C 语言推理引擎。该引擎仅由一个约 1300 行的 C 文件组成，无需 GPU、Python 运行时或外部依赖。其核心思路是利用 MoE 模型的稀疏激活特性：将约 17B 参数的密集部分（经 int4 量化后约 9.9GB）常驻内存，而将约 370GB 的路由专家（Routed Experts）存储在磁盘上，按需流式读取。配合 LRU 缓存、热存储以及操作系统的页缓存，引擎能够在资源受限的环境下维持模型运行。</p>
-<p>在作者的测试机器上，冷启动解码速度约为 0.05 至 0.1 tok/s。尽管速度较慢，但该引擎实现了 MLA（Multi-Latent Attention）注意力机制、MTP（Multi-Token Prediction，多 token 预测）投机解码、异步专家预读以及多种量化支持。作者表示，随着缓存预热和硬件配置的提升（如更快的 NVMe SSD 和更大内存），推理速度将有显著提升。</p>
-<p>该项目的 GitHub 仓库地址为：<a href="https://github.com/JustVugg/colibri" rel="nofollow">https://github.com/JustVugg/colibri</a></p>
-<p>在 Hacker News 社区，该帖子引发了热烈讨论。许多用户赞赏了这种“极客精神”（Hacker Spirit）。针对用户关于 SSD 寿命的担忧，作者解释称引擎主要为只读操作，对 SSD 磨损影响有限，但需注意长时间高负载下的散热问题以及避免系统交换内存（Swap）的使用。此外，社区成员还分享了不同硬件配置下的性能预期，并探讨了将该引擎用于 AI Agent 或分布式集群的可行性。</p>
-<img src="/JustVugg/colibri/raw/main/assets/colibri.svg" alt="colibrì — piccolo motore, modello immenso" width="500" />
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>Mixture-of-Experts (MoE)</strong>：一种神经网络架构，模型由多个“专家”子网络组成。在推理时，输入数据只会激活其中一小部分专家，从而在保持模型总参数规模巨大的同时，大幅降低计算和内存需求。</li>
-<li><strong>MTP (Multi-Token Prediction)</strong>：一种投机解码技术。主模型在生成下一个 token 的同时，会额外预测后续几个 token。如果预测正确，可以一次性输出多个 token，从而显著提升生成速度。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48842459</guid>
-      <pubDate>Thu, 09 Jul 2026 08:05:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
