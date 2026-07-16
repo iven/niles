@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 16 Jul 2026 06:35:09 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jul 2026 09:29:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐ SQLite 应引入类似 Rust 的“版本（Editions）”机制以更新默认配置</title>
+      <link>https://news.ycombinator.com/item?id=48928135</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论了 SQLite 引入新版本机制以更新配置的提议，属于软件新功能与改进范畴。</small></p><div>
+<p>SQLite 作为嵌入式数据库的工业标准，因其轻量、自包含的特性被广泛使用。然而，作者指出 SQLite 的默认配置存在几个可能导致数据不一致或性能问题的缺陷：</p>
+<ul>
+<li><strong>默认禁用外键约束</strong>：SQLite 默认不强制执行外键，结合其 ROWID 重用机制，可能导致数据引用错误且静默失败。</li>
+<li><strong>宽松的数据类型检查</strong>：默认采用类型亲和性（Type Affinity）而非严格类型检查，允许将文本等非预期类型存入数值列，容易引发数据验证问题。</li>
+<li><strong>并发写入直接报错</strong>：多进程并发写入时，默认直接返回 <code>SQLITE_BUSY</code> 错误，而非自动等待锁释放。</li>
+<li><strong>默认禁用 WAL 模式</strong>：未启用预写日志（Write-Ahead Log），导致写入性能受限。</li>
+</ul>
+<p>为解决向后兼容性与现代化需求之间的矛盾，作者提议引入类似 Rust 的 <strong>“版本（Editions）”</strong> 机制。通过执行一条“超级 pragma”（例如 <code>PRAGMA edition = 2026;</code>），即可一次性启用上述更合理的默认设置。这种基于年份的版本划分允许 SQLite 在未来持续更新默认配置，而无需破坏旧有软件生态。</p>
+<p>在 Hacker News 社区的讨论中，许多开发者表示这些设置在实际生产环境中已是标配，强烈支持该提议。同时，社区也探讨了相关挑战：例如引入 Edition 可能导致旧版 SQLite 无法读取新版数据库文件；部分 ORM 工具（如 Drizzle）对 STRICT 表的支持仍显滞后。作为替代方案，开发者也可通过包装库（如 <a href="https://rogerbinns.github.io/apsw/bestpractice.html">APSW</a>）或编译时标志来统一配置默认行为。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48928135</guid>
+      <pubDate>Wed, 15 Jul 2026 22:42:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ SpaceX AI 编程助手 Grok Build 正式开源</title>
       <link>https://news.ycombinator.com/item?id=48926590</link>
@@ -1016,15 +1035,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48859701</guid>
       <pubDate>Fri, 10 Jul 2026 13:33:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Ghostty 与 Zig 开发者 Mitchell Hashimoto 访谈：终端未来、开源维护理念与 AI 辅助开发</title>
-      <link>https://news.ycombinator.com/item?id=48849292</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章涉及 AI 辅助开发及终端工具等话题，但主要形式为开发者访谈（人物），受限于用户对“人物”类内容的“uninterested”配置，且摘要信息较少，故综合评定为可选。</small></p><div><p>本文是对知名开源开发者 Mitchell Hashimoto 的深度访谈。Hashimoto 曾创立 HashiCorp 并开发了 Vagrant、Terraform 等基础设施工具，目前正专注于终端模拟器 Ghostty 和 Vouch 的开发。</p><p><strong>开发 Ghostty 的初衷</strong><br>离开 HashiCorp 后，Hashimoto 希望重新磨练底层技术，特别是 GPU 编程、桌面系统编程以及 Zig 语言。他发现市场上缺乏一款兼具高性能、功能丰富且原生跨平台的终端模拟器，于是着手开发 Ghostty。经过长期私有测试，Ghostty 因其出色的性能迅速在开发者社区中获得了关注。</p><p><strong>终端协议的未来与 API 设计</strong><br>Hashimoto 指出，当前的终端通信协议（伪终端，PTY）基于非结构化字节流和转义序列，已难以满足现代需求。他提出了一系列改进构想，包括“多屏幕 API”（允许终端后台渲染多个独立屏幕）和“按钮协议”（为历史滚动内容中的元素提供持久交互）。他主张借鉴 Windows PowerShell 等成熟生态的结构化数据处理经验，而非从零发明协议。</p><p><strong>开源维护者的哲学</strong><br>访谈中，Hashimoto 强烈表达了开源维护者的立场：开源软件“按原样（as is）”提供，维护者对用户没有义务。他反对将开源项目视为商业产品，鼓励用户通过 Fork 来满足个性化需求，而不是要求维护者合并所有功能请求或修复所有 Bug。他认为过度迎合用户会导致软件停滞或代码库臃肿。</p><p><strong>Zig 语言与 AI 辅助开发</strong><br>Hashimoto 对 Zig 语言的演进持乐观态度，认为其创始人 Andrew Kelley 坚持必要的 API 变更对语言长期发展有益。尽管 Zig 社区对 AI 持保守态度，但 Hashimoto 发现 AI 在代码迁移和重构中极具价值，能大幅降低 API 升级带来的维护成本。</p><h3>社区反馈</h3><p>Hacker News 社区围绕访谈内容展开了热烈讨论：</p><ul><li><strong>语言社区文化：</strong>部分用户指出 Rust 和 Zig 社区之间存在“文化战争”，但也有人认为这只是不同技术偏好导致的自然现象。</li><li><strong>终端协议演进：</strong>开发者们探讨了终端输出结构化数据（如 JSON）的利弊，以及 Elvish 等现代 Shell 在处理结构化数据方面的优势。</li><li><strong>实际应用体验：</strong>有用户分享了基于 libghostty 的 iOS 终端应用 RootShell 的使用体验，称赞其解决了 iPad 上会话管理的痛点。</li></ul><h3>你知道吗？</h3><p><strong>伪终端（PTY）协议</strong><br>PTY 是 Unix 系统中用于模拟终端设备的机制，由主设备（master）和从设备（slave）组成。现代终端模拟器（如 Ghostty、iTerm2）和 Shell 程序（如 Bash、Zsh）通过 PTY 进行通信。由于其设计于几十年前，PTY 仅支持纯文本流和简单的 ANSI 转义序列，缺乏对鼠标事件、多窗口布局及结构化数据的原生支持，这也是当前终端生态面临的主要技术瓶颈。</p><p><strong>libghostty</strong><br>libghostty 是 Ghostty 终端模拟器的核心渲染与逻辑库，完全使用 Zig 编写。它采用了现代图形 API（如 Metal、DirectX、Vulkan）进行硬件加速渲染，并实现了高效的文本布局算法。由于其模块化设计，libghostty 已被多个第三方终端应用采用，成为跨平台高性能终端开发的重要基础设施。</p></div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48849292</guid>
-      <pubDate>Thu, 09 Jul 2026 17:17:16 GMT</pubDate>
     </item>
   </channel>
 </rss>
