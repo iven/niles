@@ -3,7 +3,31 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 16 Jul 2026 09:24:07 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jul 2026 11:54:47 GMT</lastBuildDate>
+    <item>
+      <title>新 Linux 驱动改善 GETAC 坚固笔记本支持</title>
+      <link>https://www.phoronix.com/news/GETAC-ACPI-Driver-Buttons-Linux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及 Linux 驱动开发但针对非主流加固型笔记本设备，并非核心 Linux 桌面技术，兴趣不明确故评为可选</small></p><p>GETAC 是一家专注于为公共安全、国防及工业制造等领域生产坚固型（Rugged）笔记本电脑的厂商。尽管这些设备出厂默认预装 Windows 系统，但近期开源社区提出了一项新的 ACPI 驱动程序，旨在提升 GETAC 笔记本在 Linux 环境下的兼容性。</p>
+<p>该驱动程序名为 <code>getac-mpmd</code>，由开源开发者 Zhan Chubukou 编写，目前已在 platform-driver-x86 邮件列表上提交审查。其主要作用是处理硬件 ID 为 <code>MTC0303</code> 的 MPMD ACPI 设备，从而让笔记本上的可编程按钮（Programmable Buttons）在 Linux 下正常工作。此前，由于嵌入式控制器（EC）未能正确处理这些供应商特定的按钮事件，相关操作会被系统静默丢弃。</p>
+<p>虽然 GETAC 笔记本普遍采用 Intel Core 处理器，Linux 基础支持已较为完善，但这一针对特定硬件按钮的驱动填补了关键的兼容性空白。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=getac_laptop" alt="GETAC laptop" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GETAC-ACPI-Driver-Buttons-Linux</guid>
+      <pubDate>Thu, 16 Jul 2026 10:16:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>阿里巴巴平头哥 TH1520 SoC 的 PowerVR GPU 固件已合并至 Linux 主线</title>
+      <link>https://www.phoronix.com/news/IMG-PowerVR-BXM-4-64-FW</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及 GPU 固件上游化开源贡献但关联非主流硬件，来源配置中非主流硬件为避开类别但固件上游化有一定技术价值，综合评定为可选</small></p><p>Imagination Technologies 的 PowerVR BXM-4-64 Rogue GPU 固件二进制文件近日已被正式合并至上游的 <a href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git">linux-firmware.git</a> 集中仓库中。这一更新为搭载该 GPU 的硬件提供了关键的开源支持。</p>
+<p>该 GPU 主要应用于阿里巴巴平头哥（T-Head）开发的 TH1520 片上系统（SoC），该 SoC 集成了四核 RISC-V CPU（玄铁 C910）。目前，Imagination 的 PowerVR DRM 内核驱动以及 Mesa 中的 PowerVR Vulkan 驱动已支持 BXM-4-64 一段时间。此次固件的上游化补全了开源 GPU 驱动栈的最后一块拼图，显著提升了相关硬件的用户体验。</p>
+<p><img src="//www.phoronix.net/image.php?id=2024&image=lichee_4a_med" alt="Lichee 4A 开发板" /></p>
+<p>来自 Imagination 的 Frank Binns 表示，针对 T-Head TH1520 中 BXM-4-64 GPU 的上游 Linux 内核支持已相当成熟。此次提交包含了一个 131KB 的固件文件，标志着该硬件在开源生态中的支持达到了新阶段。该 SoC 常见于 Lichee Pi4A 和 BeagleV Ahead 等开源开发板中。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/IMG-PowerVR-BXM-4-64-FW</guid>
+      <pubDate>Thu, 16 Jul 2026 09:51:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AMD 正式发布 ROCm 7.14，新增 Ryzen AI 400 系列支持</title>
       <link>https://www.phoronix.com/news/AMD-ROCm-7.14</link>
@@ -663,29 +687,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/XWayland-24.1.13-Released</guid>
       <pubDate>Wed, 08 Jul 2026 01:44:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NVIDIA 将初代 Rigel CPU 核心支持提交至 GCC 上游</title>
-      <link>https://www.phoronix.com/news/NVIDIA-Rigel-Upstream-GCC</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题涉及编译器对NVIDIA新CPU核心的支持提交上游。属于编程工具与编译器更新，符合全局配置中对编程工具的高兴趣设定，故推荐阅读。</small></p><p>NVIDIA 近日确认了其新一代 Rosa 处理器将采用名为 Rigel 的自研 CPU 核心。紧随其后，NVIDIA 编译器工程师 Dhruv Chawla 已将 Rigel 核心的初步支持提交至 GNU 编译器集合（GCC）的上游代码库。</p>
-<p>该提交引入了 <code>-mcpu=rigel</code> 编译选项，用于支持下一代 Rosa 处理器。目前该支持仅包含基础的目标架构识别，尚未加入针对 Rigel 的专项性能调优。Rigel 核心基于 Armv9.2-A 指令集架构，其 ISA 能力与属性与上一代 Vera 处理器的 Olympus 核心保持一致，但 CPU 部分标识符（Part ID）已从 0x10 更新为 0x11。<img src="//www.phoronix.net/image.php?id=2026&image=nvidia_rigel_gcc_med" alt="NVIDIA Rigel in GCC code" /></p>
-<p>此项基础支持已抢先合并至 GCC Git 仓库，有望在明年发布的 GCC 17 稳定版中可用。社区期待在 GCC 17.1 版本前能看到针对 Rigel 核心的进一步调优更新。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Rigel-Upstream-GCC</guid>
-      <pubDate>Tue, 07 Jul 2026 15:45:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NVIDIA 发布 610.43.03 Linux 驱动：仅标注小修复与改进</title>
-      <link>https://www.phoronix.com/news/NVIDIA-610.43.03-Linux-Driver</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题报道NVIDIA新版Linux图形驱动的发布。属于Linux桌面技术相关的软件更新，符合全局“感兴趣”及来源“Linux桌面技术”配置，故推荐阅读。</small></p><p>NVIDIA 于 7 月 7 日发布了 R610 分支的最新稳定版 Linux 驱动 610.43.03，这是该分支一个多月以来的首个新版本。与以往详细的更新日志不同，本次发布的说明极为简略，仅注明包含“小错误修复与改进（Minor bug fixes and improvements）”。</p>
-<p>由于发布时间点较为特殊，社区推测该版本可能已适配 Linux 7.1 稳定版内核，但官方并未透露具体的修复细节。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=nvidia_610_fixes_med" alt="NVIDIA 610.43.03 Linux driver listing" />
-<p>如需体验该版本，可访问 <a href="https://www.nvidia.com">NVIDIA 官网</a> 进行下载。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-610.43.03-Linux-Driver</guid>
-      <pubDate>Tue, 07 Jul 2026 14:58:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
