@@ -3,7 +3,31 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 16 Jul 2026 11:51:58 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jul 2026 14:19:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Show HN：将 Firefox 浏览器编译为 WebAssembly 并在 Canvas 中运行</title>
+      <link>https://news.ycombinator.com/item?id=48926939</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章展示了将 Firefox 浏览器编译为 WebAssembly 的技术项目，属于前沿技术展示与开源项目范畴，符合对技术进展和开源项目的兴趣，且不属于避开或不感兴趣领域，故推荐阅读。</small></p><p>该项目展示了一项前沿实验：将完整的 Firefox 浏览器编译为 WebAssembly（WASM），并在网页的 Canvas 元素中直接渲染。Gecko 渲染引擎、全部 UI 组件以及 SpiderMonkey JavaScript 引擎均被编译为 WASM 格式，在浏览器沙箱内独立运行。</p>
+<img src="logo.webp" alt="Firefox in WebAssembly 运行界面" />
+<p>项目具备以下核心技术特点：</p>
+<ul>
+  <li><strong>端到端加密通信</strong>：采用 WISP 协议将 TCP 流量封装在 WebSocket 中，实现安全的数据传输。</li>
+  <li><strong>实验性 JIT 加速</strong>：实现了新颖的 WASM 到 JavaScript 的即时编译（JIT）机制，用于提升网页渲染速度。</li>
+  <li><strong>高昂的开发成本</strong>：仅调试与 JIT 研究就消耗了超过 25,000 个 Opus/Fable 模型 tokens（约 300 亿 tokens）。</li>
+</ul>
+<p>作者表示，这主要是一次探索 WebAssembly 性能边界的趣味实验。对于需要更高可用性的场景，团队还开发了 <a href="https://github.com/HeyPuter/browser.js" rel="nofollow">browser.js</a>，该项目在保持“浏览器内嵌浏览器”体验的同时，显著降低了内存占用。</p>
+<p>社区对此项目反响热烈，主要讨论集中在以下几个方面：</p>
+<ul>
+  <li><strong>安全性与沙盒机制</strong>：部分用户认为，攻击者需同时突破 WASM 运行时和内部 Firefox 的漏洞，安全性极高；但也有技术专家指出，该方案破坏了 Firefox 原有的 Fission 多进程沙盒架构，退化为单进程模式，可能降低整体安全性。</li>
+  <li><strong>移动端与兼容性</strong>：目前项目暂不支持移动端。Android 用户需使用 Firefox Beta 版本并开启特定配置才能勉强渲染首帧，iOS 版本则因系统限制无法运行。</li>
+  <li><strong>实际应用场景</strong>：有用户提出可将其应用于封闭系统的智能电视（如 VIDAA OS），通过内嵌 Firefox 并安装 uBlock Origin 实现广告拦截。此外，项目作者也确认未来计划为 <a href="https://github.com/HeyPuter/browser.js" rel="nofollow">browser.js</a> 添加扩展支持。</li>
+  <li><strong>同类项目对比</strong>：评论区提及了早期的 WebKit.js 以及近期的 WebkitWasm 项目，展示了将不同浏览器内核移植至 Web 环境的持续探索。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48926939</guid>
+      <pubDate>Wed, 15 Jul 2026 21:00:17 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ SQLite 应引入类似 Rust 的“版本（Editions）”机制以更新默认配置</title>
       <link>https://news.ycombinator.com/item?id=48928135</link>
@@ -1018,23 +1042,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48856904</guid>
       <pubDate>Fri, 10 Jul 2026 07:39:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI 时代写代码：为何仍需遵循人类维护标准</title>
-      <link>https://news.ycombinator.com/item?id=48859701</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要探讨了 AI（LLM）辅助编程环境下的代码规范与维护性问题，涉及编程效率改进与 AI 技术应用的结合，符合用户对 AI 软件技术进展及编程效率话题的兴趣。</small></p><p>在使用大语言模型（LLM）辅助编程时，开发者容易陷入“能跑就行”的误区，忽视 DRY（Don't Repeat Yourself，不要重复自己）原则。作者 Scott Robinson 在 <a href="https://unstack.io/write-code-like-a-human-will-maintain-it">原文</a> 中分享了自己的经历：在开发过程中，他多次让 AI 生成相同的权限校验逻辑，虽然每次都能通过测试，但导致代码库中充斥着重复的条件判断。</p>
-<p>文章指出，LLM 并非在真空中工作，它会读取并学习代码库中的现有模式。如果开发者允许重复代码和糟糕的架构存在，AI 会将其视为项目的“标准风格”，并在后续生成中不断复制这些坏味道（code smells）。最终，代码库会变得难以通过提示词（prompt）修复，开发者实际上是在“训练” AI 养成越来越差的编码习惯。</p>
-<p><strong>社区讨论亮点：</strong></p>
-<ul>
-<li><strong>关于注释的争议：</strong> 多位开发者吐槽 AI 生成的注释往往解释“是什么”而非“为什么”，甚至破坏封装性。有人分享了在 <code>CLAUDE.md</code> 中强制要求 AI 忽略周围代码风格、只写必要注释的经验。</li>
-<li><strong>人类 vs AI 的代码质量：</strong> 有观点认为，人类早就在写难以维护的代码，LLM 只是让这一过程变得更快、更一致。</li>
-<li><strong>反直觉视角：</strong> 部分开发者提出，如果使用 AI 进行维护，或许不必过度优化代码的人类可读性，但需接受“AI 锁定（AI coding lock-in）”并调整工作流。</li>
-<li><strong>代码审查工具：</strong> 有开发者建议定期使用不同模型扫描代码库，自动识别重复代码等坏味道，以维持代码质量。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48859701</guid>
-      <pubDate>Fri, 10 Jul 2026 13:33:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
