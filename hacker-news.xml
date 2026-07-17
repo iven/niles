@@ -3,7 +3,29 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 17 Jul 2026 22:04:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jul 2026 23:05:26 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Kimi K3 发布与“骑自行车的鹈鹕”基准测试回顾</title>
+      <link>https://news.ycombinator.com/item?id=48947717</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要报道了新AI模型Kimi K3的发布及性能评测，符合用户高兴趣的新AI模型发布公告主题。</small></p><p>中国 AI 实验室 Moonshot AI 于 2026 年 7 月 16 日正式发布了 Kimi K3 模型。该模型拥有 2.8 万亿参数，被官方称为首个“3T 级”模型，并计划于 7 月 27 日开源。在性能方面，Kimi K3 在 <a href="https://artificialanalysis.ai">Artificial Analysis</a> 的长程知识工作评估中表现优异，Elo 评分达到 1547，仅次于 Claude Fable 5，并在 <a href="https://arena.ai">Arena.ai</a> 的前端代码竞技场中排名第一。</p>
+
+<p>在定价策略上，Kimi K3 的输入价格为 $3/百万 token，输出价格为 $15/百万 token。这一价格与 Anthropic 的 Claude Sonnet 系列相当，虽然高于其前代产品 Kimi K2.6，但单次任务成本（约 $0.94）仍低于 Opus 4.8，展现出较高的性价比。</p>
+
+<p>知名技术博主 Simon Willison 通过其著名的“骑自行车的鹈鹕（pelican benchmark）”测试对 Kimi K3 进行了评估。该测试要求模型生成一张 SVG 格式的鹈鹕骑自行车的图片。测试结果显示：</p>
+<ul>
+  <li><strong>推理成本高昂</strong>：模型消耗了 16,658 个输出 token，其中 13,241 个为推理 token（reasoning tokens），单次测试成本约为 25 美分。</li>
+  <li><strong>系统提示词推测</strong>：简单的提示词被解析为 95 个输入 token，作者推测其中包含约 85 个隐藏的系统提示词。</li>
+  <li><strong>视觉能力出色</strong>：模型不仅能生成有效的 SVG 代码，还能准确识别并描述渲染后的图片内容。</li>
+</ul>
+
+<img src="https://static.simonwillison.net/static/2026/kimi-3-pelican.jpg" alt="Kimi K3 生成的骑自行车的鹈鹕 SVG 图片" />
+
+<p>Willison 指出，虽然“鹈鹕测试”最初只是一个玩笑，且随着模型发展，其与顶尖模型能力的直接相关性已有所减弱（例如无法反映当前最重要的智能体工具调用能力），但它仍具有独特的价值：它是测试新模型的一个“Hello World”式练习，能有效揭示模型的推理机制、成本结构以及基础的几何与空间意识。此外，在 Hacker News 等社区，分享各模型生成的鹈鹕图片已成为一种观察 AI 进展的传统。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48947717</guid>
+      <pubDate>Fri, 17 Jul 2026 14:21:51 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 科学家首次在宜居带类地行星上发现大气层</title>
       <link>https://news.ycombinator.com/item?id=48947560</link>
@@ -1026,23 +1048,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48876505</guid>
       <pubDate>Sat, 11 Jul 2026 22:38:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ xAI Grok Build CLI 网络抓包分析：默认上传完整代码库与未脱敏密钥</title>
-      <link>https://news.ycombinator.com/item?id=48877371</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及 xAI Grok Build CLI 的网络行为分析，属于 AI 软件技术进展，符合用户兴趣</small></p><p>开发者对 xAI 的 <a href="https://gist.github.com/cereblab/dc9a40bc26120f4540e4e09b75ffb547">Grok Build CLI (grok 0.2.93)</a> 进行了网络级别抓包分析，揭示了该工具在后台的默认数据交互行为。分析基于作者本地环境的真实流量捕获，并提供了完整的复现步骤与校验数据。</p>
-<h3>核心发现</h3>
-<ul>
-  <li><strong>未脱敏的文件内容传输：</strong>当 Grok 读取项目文件时，其内容（包括包含 API 密钥和数据库密码的 <code>.env</code> 文件）会被原样传输至 xAI 服务器，未进行任何脱敏处理。这些数据通过模型交互接口 (<code>POST /v1/responses</code>) 和会话存档接口 (<code>POST /v1/storage</code>) 两个通道发送。</li>
-  <li><strong>完整代码库自动上传：</strong>无论提示词是否要求读取文件，Grok 都会将包含所有跟踪文件内容及完整 <code>git</code> 历史记录的整个仓库打包，上传至 xAI 托管的 Google Cloud Storage (GCS) 存储桶 <code>grok-code-session-traces</code>。在测试中，即使面对 12 GB 的未读取随机文件仓库，上传通道仍成功传输了超过 5 GB 的数据。</li>
-  <li><strong>默认开启且难以关闭：</strong>上传机制由内置的 Rust 模块实现，默认处于开启状态。作者测试发现，即使关闭设置中的“改进模型”选项，网络抓包仍显示上传行为持续发生。</li>
-</ul>
-<h3>社区反馈</h3>
-<p>该发现引发了开发者社区的广泛担忧。许多用户指出，这种默认行为可能带来严重的隐私泄露和知识产权风险，尤其是对于包含商业机密或敏感配置的企业级项目。部分开发者建议将此类 CLI 工具运行在受限目录的沙箱环境中，以限制其文件访问权限。此外，社区也讨论了通过修改配置文件 (<code>disable_codebase_upload=true</code>) 禁用上传的可行性，但对其实际生效情况仍存在争议。相比之下，一些用户倾向于使用支持本地数据处理或完全开源的替代方案，以规避专有编码代理带来的不确定性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48877371</guid>
-      <pubDate>Sun, 12 Jul 2026 01:09:50 GMT</pubDate>
     </item>
   </channel>
 </rss>
