@@ -3,7 +3,47 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 16 Jul 2026 22:13:46 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jul 2026 03:33:41 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.212 更新：后台会话优化、防循环限制与多项体验修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.212</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>核心功能与交互改进</h3>
+<ul>
+  <li><strong>/fork 命令重构</strong>：将当前对话复制至独立的后台会话，原会话内启动的子代理功能现已更名为 <code>/subtask</code>。</li>
+  <li><strong>新增会话调用限制</strong>：为 WebSearch 工具调用和子代理生成设置上限（默认均为 200 次），有效防止无限循环调用消耗资源。</li>
+  <li><strong>后台会话增强</strong>：MCP 工具调用超过默认 2 分钟自动转入后台；<code>/resume</code> 命令新增历史会话选择器；后台代理完成时提供脉冲提示。</li>
+  <li><strong>自动模式重置</strong>：新增 <code>claude auto-mode reset</code> 命令，用于恢复默认自动模式配置。</li>
+</ul>
+
+<h3>性能与可靠性优化</h3>
+<ul>
+  <li><strong>Web 搜索与抓取稳定性提升</strong>：增加对 529 错误和限流请求的指数退避重试机制，改善 API 过载时的表现。</li>
+  <li><strong>提示词缓存优化</strong>：使会话中期的系统块缓存兼容 LLM 网关和自定义基础 URL（如 Bedrock、Vertex）。</li>
+  <li><strong>代理通信效率提升</strong>：优化代理间消息传输，避免在重放历史中重复存储请求体，降低 Token 消耗。</li>
+  <li><strong>后台代理附加加速</strong>：冷启动附加后台会话时，即时显示格式化转录内容，消除空白等待。</li>
+</ul>
+
+<h3>其他重要变更</h3>
+<ul>
+  <li><strong>权限与配置调整</strong>：弃用 Task 工具的 <code>mode</code> 参数，子代理默认继承父会话权限模式；Enterprise 环境的 <code>forceLoginMethod</code> 策略扩展至 VS Code 扩展、SDK 及安装流程。</li>
+  <li><strong>会话记录增强</strong>：会话转录记录增加助手消息的推理努力级别（reasoning effort level）。</li>
+  <li><strong>Headless/SDK 模式改进</strong>：支持中途 <code>set_model</code> 控制请求，新模型设置立即生效，无需等待下一轮交互。</li>
+</ul>
+
+<h3>Bug 修复</h3>
+<ul>
+  <li>修复 Plan Mode 下自动执行文件修改命令（如 <code>touch</code>、<code>rm</code>）未提示权限的问题。</li>
+  <li>修复 <code>/ultrareview</code> 命令对 PR 引用格式识别错误、分支抓取逻辑及计费确认跳过等问题。</li>
+  <li>修复包含大量图片的对话错误触发“请求过大”提示，以及 Web 搜索/抓取在 API 过载时返回 "API Error" 文本的问题。</li>
+  <li>修复 OpenTelemetry HTTP 导出被 Azure Monitor 等不支持分块传输的端点拒绝的问题。</li>
+  <li>修复终端全屏调整大小时欢迎横幅面板宽度保留旧值、Diff 预览丢失行号等 UI 渲染异常。</li>
+  <li>修复会话恢复、后台会话状态显示、Agent Teams 重复通知、Hook 中断处理等多项底层逻辑错误。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.212</guid>
+      <pubDate>Fri, 17 Jul 2026 00:26:27 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.144.5 更新：改进危险命令检测</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.144.5</link>
@@ -1070,30 +1110,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.140.0</guid>
       <pubDate>Mon, 15 Jun 2026 21:06:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.178 更新：权限规则增强与子代理管理优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.178</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>权限规则与子代理管理增强</h3>
-<p>本次更新引入了 <code>Tool(param:value)</code> 语法，允许权限规则更精细地匹配工具的输入参数（支持通配符 <code>*</code>）。例如，可通过 <code>Agent(model:opus)</code> 规则阻止调用 Opus 模型的子代理。同时，<strong>Auto mode</strong> 增加了分类器预评估机制，在子代理启动前拦截潜在违规操作，填补了权限审查的漏洞。</p>
-
-<h3>工作流、技能与目录解析优化</h3>
-<p>嵌套 <code>.claude/skills</code> 目录现支持在对应文件工作时自动加载技能；若发生名称冲突，嵌套技能将以 <code>&lt;dir&gt;:name</code> 格式显示以实现共存。对于嵌套 <code>.claude/</code> 目录，系统优先采用距离工作目录最近的 <code>agent</code>、<code>workflow</code> 和 <code>output-style</code> 配置，项目级 <code>workflow</code> 保存操作也会自动定位至最近的配置目录。</p>
-
-<h3>交互体验与 UI 改进</h3>
-<p><code>/doctor</code> 命令采用统一的扁平树布局，优化了状态图标与命令名高亮。Workflow 提示词改为紫色闪烁高亮，并仅在明确短语（如 <code>run a workflow</code> 或 <code>workflow:</code>）时触发，避免误触发。远程控制（Remote Control）错误提示更加明确，连接失败时会在页脚显示持久的红色 <code>/rc failed</code> 指示器，并详细区分门控、检查失败或组织策略等具体原因。此外，<code>/bug</code> 提交现强制要求填写描述，不再使用模型拒绝文本作为 GitHub Issue 标题。</p>
-
-<h3>稳定性与 Bug 修复</h3>
-<p>修复了多项关键问题，包括：<br>
-- 解决 CLI 继承过时 websocket/OAuth 文件描述符导致的内存溢出（OOM）崩溃。<br>
-- 修复 OAuth 令牌账户与登录账户不一致时，Chrome 环境下静默连接失败的问题。<br>
-- 完善子代理功能：查看转录记录现支持显示工具结果与实时进度；修复了后台运行（<code>ctrl+b</code>）时任务从头重启及消息丢失的问题。<br>
-- 解决 <code>compaction</code>（上下文压缩）未遵循 <code>--fallback-model</code> 配置的问题，确保在模型过载或不可用时能正确回退。<br>
-- 修复了 <code>MCP</code> 服务器级规范在子代理中被静默忽略、Vim 模式撤销逻辑异常以及 VSCode 中 <code>Esc</code> 键误触导致任务中断等细节问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.178</guid>
-      <pubDate>Mon, 15 Jun 2026 21:35:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
