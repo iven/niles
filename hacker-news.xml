@@ -3,7 +3,21 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 17 Jul 2026 15:35:47 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jul 2026 17:25:28 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 使用传统机器学习模型检测LLM生成文本</title>
+      <link>https://news.ycombinator.com/item?id=48936880</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主题涉及使用传统机器学习检测LLM生成文本，属于AI软件技术进展和科学前沿范畴，符合用户兴趣配置中的AI相关兴趣，故推荐。</small></p><p>本文介绍了一种使用传统机器学习（如TF-IDF结合线性支持向量机 <code>LinearSVC</code>）有效检测大语言模型（LLM）生成文本的方法。作者受Lofter平台上大量低质量AI同人小说的启发，开发了一款开源的AI文本检测工具。早期尝试使用文本困惑度（text perplexity）等方法时，作者发现其误报率高且推理成本大，最终转向了更稳健的传统机器学习方案。<img src="ppl.png" alt="Failed attempt—got tricked by a bunch of soft-ad \"tutorials\"" /></p>
+<p>在数据准备阶段，作者抓取了2010至2022年间的人类文章，并利用多种低成本或免费的LLM API（如Gemini、Qwen、GLM-5等）生成对应的AI改写样本。<img src="gemini_usage.png" alt="What do you mean I used over 300M Gemini tokens worth $2000 at full price?!" /><img src="data.png" alt="The generated files" /> 训练过程中，作者对7种不同的LLM分别训练了二分类模型，并采用多数投票机制（7个模型中至少2个判定为AI即标记）来提高准确性。最终，单句检测准确率达到了约85%，F1分数超过80%。</p>
+<p>为了实现无需服务器的便捷使用，作者放弃了复杂的ONNX Web Runtime方案，转而将模型导出为JSON格式，并在浏览器端使用JavaScript实现了TF-IDF特征提取与SVM推理。<img src="first_attempt.png" alt="Even this buggy first version hit 88% accuracy (later optimized to 85%)" /><img src="multi.png" alt="Multi-class results—apparently not separable. Maybe my model sucks, but whatever, not important" /> 测试表明，该检测器不仅对训练集中的模型（如Deepseek、Doubao）有极高的检测率，对未见过的模型（如Claude、GPT）也能保持约70%的检测率。而在对真实人类小说和Lofter同人小说的大规模测试中，误报率极低（低于30%）。然而，在抓取Lofter热门标签的数万篇文章后，发现超过22%的文章AI得分超过50%，且均无主动声明。</p>
+<p>作者还测试了常见的绕过手段（如中译英再译回中文的翻译法，以及要求LLM“减少AI味”的提示词），发现检测效果依然稳固，证明该传统机器学习方法具有极强的鲁棒性。<img src="example_deepseek.png" alt="Deepseek V3.2: 78.4%" /><img src="example_doubao.png" alt="Doubao Seed Code: 93.0%" /><img src="example_claude.png" alt="Claude Sonnet 4.6: 71.9%" /><img src="example_gpt52.png" alt="GPT 5.2: 73.3%" /></p>
+<p>在Hacker News的讨论中，社区成员指出商业LLM为了最大化用户参与度而进行了特定调优，导致其输出文本呈现出明显的“平庸”和“套路化”特征，这正是传统模型能够轻易捕捉到的信号。同时，大家也讨论了AI检测可能带来的误报风险（如影响非母语者或正式文体写作），以及这是否会引发一场“猫鼠游戏”式的军备竞赛。</p>
+<p>在线Demo：<a href="https://lyc8503.github.io/AITextDetector/">https://lyc8503.github.io/AITextDetector/</a><br>GitHub：<a href="https://github.com/lyc8503/AITextDetector">lyc8503/AITextDetector</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48936880</guid>
+      <pubDate>Thu, 16 Jul 2026 16:41:37 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ DeepMind Kaggle 大奖被指由 AI 生成内容赢得，引发关于 AI 评估与公平性的争议</title>
       <link>https://news.ycombinator.com/item?id=48946010</link>
@@ -1026,40 +1040,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48873940</guid>
       <pubDate>Sat, 11 Jul 2026 17:33:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ghost Font：一种人类可读但 AI 难以识别的动态字体</title>
-      <link>https://news.ycombinator.com/item?id=48870381</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 探讨面向AI对抗的动态字体技术，属于AI安全与算法应用进展，符合用户对AI技术进展的兴趣。</small></p><p>Ghost Font 是一种旨在让<strong>人类可读但 AI 难以识别</strong>的动态字体实验。与传统静态字体不同，它利用运动、视频帧、视觉噪声和诱饵信息（decoy message）来隐藏文本。在播放视频中，由点阵组成的字母会动态显现，但一旦暂停或截图，所有点都会与背景融为一体，单帧图像无法被识别。</p>
-<p>作者将其与 2013 年发布的反 OCR 字体 <a href="https://en.wikipedia.org/wiki/ZXX_(typeface)">ZXX</a> 进行了对比。ZXX 曾通过噪声和伪装标记来阻挡光学字符识别（OCR）软件，但现代多模态 AI 模型（如 ChatGPT）已能轻松读取 ZXX 的内容。相比之下，Ghost Font 通过动态点阵和诱饵机制成功迷惑了包括 GPT-Sol 5.6 Ultra 和 Claude Fable 在内的先进 AI 模型。</p>
-<figure>
-  <img src="https://static.mixfont.com/assets/20260710-213239-image-a9ow65qv.webp" alt="GPT-Sol 5.6 Ultra attempting to decode a message written with Ghost Font. The model reads the hidden decoy message, but fails to read the actual moving message." width="2218" height="1420" />
-  <figcaption>AI 模型在尝试解码 Ghost Font 时，往往会被隐藏的诱饵信息误导，无法识别真实的动态消息。</figcaption>
-</figure>
-<figure>
-  <img src="https://static.mixfont.com/assets/20260710-221516-image-gdrs7om3.webp" alt="Claude Fable with Max reasoning attempting to decode a message written with Ghost Font. The model reads the hidden decoy message, but fails to read the actual moving message." width="3062" height="1642" />
-  <figcaption>Claude Fable 同样受困于诱饵信息，未能成功解码实际内容。</figcaption>
-</figure>
-<p>为了进一步增加 AI 的识别难度，Ghost Font 在生成视频时会故意嵌入一段“诱饵信息”。当 AI 代理试图寻找隐藏文本时，往往会先发现这段诱饵信息并误认为是真实内容，从而放弃进一步分析。此外，项目还探讨了其在 CAPTCHA（人机验证）系统和 AI 视觉感知基准测试中的应用潜力。</p>
-<figure>
-  <img src="https://static.mixfont.com/assets/20260711-084601-image-k48crt0m.webp" alt="Example of the ZXX font" width="790" height="402" />
-  <figcaption>2013 年发布的 ZXX 字体曾成功阻挡 OCR，但现代 AI 已能轻松读取。</figcaption>
-</figure>
-<figure>
-  <img src="https://static.mixfont.com/assets/20260711-085613-image-qhdogrc5.webp" alt="ChatGPT easily reads the text in this image" width="1670" height="1664" />
-  <figcaption>相比之下，ChatGPT 能轻易识别 ZXX 字体中的文本。</figcaption>
-</figure>
-<figure>
-  <img src="https://static.mixfont.com/assets/20260711-090235-image-r2iwp9xy.webp" alt="Trying ChatGPT 5.5 Pro with Ghost Font" width="1680" height="1652" />
-  <figcaption>即使经过 19 分钟的深度分析，ChatGPT 5.5 Pro 面对 Ghost Font 的单帧截图也只能产生幻觉，无法还原真实信息。</figcaption>
-</figure>
-<p>尽管该实验旨在探索 AI 感知极限并保留人类的独特表达，但作者也承认，Ghost Font 对人类阅读者来说同样具有一定难度，且色盲用户反馈阅读体验较差。作者计划将视频生成代码开源，并继续优化长文本支持。</p>
-<h3>社区反馈</h3>
-<p>在 Hacker News 的讨论中，用户指出此类技术可能加剧数字无障碍性问题，且本质上是 CAPTCHA 战场的延续。也有评论提到，类似“暂停即消失”的视觉错觉概念在早期互联网和独立游戏中早已存在。尽管实用性存疑，但多数观点认为这是一次有趣的研究探索，为衡量多模态 AI 的视觉感知能力提供了新视角。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48870381</guid>
-      <pubDate>Sat, 11 Jul 2026 09:36:53 GMT</pubDate>
     </item>
   </channel>
 </rss>
