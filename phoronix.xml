@@ -3,7 +3,21 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 18 Jul 2026 19:20:41 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 21:02:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Mesa 26.2 中 NVK Vulkan 驱动性能提升，逐步缩小与 NVIDIA 专有驱动差距</title>
+      <link>https://www.phoronix.com/news/NVK-Mesa-26.2-Performance</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 Mesa 26.2 中 NVK 开源 Vulkan 驱动的性能优化进展，属于 Linux 桌面图形技术范畴，符合用户兴趣配置。</small></p><p>随着 Mesa 26.2 版本的发布，基于 Nouveau 内核驱动的开源 Vulkan 实现 <a href="https://www.mesa3d.org/nvk.html">NVK</a> 在性能上取得了稳步提升，正逐步缩小与 NVIDIA 官方专有 Vulkan 驱动的差距。</p>
+<p>Red Hat 工程师 Karol Herbst 分享了由 NVK 贡献者 Phomes 提供的基准测试数据。数据显示，相较于 Mesa 26.1 稳定版，Mesa 26.2 的 Git 开发版在多项测试中表现更佳：<img src="//www.phoronix.net/image.php?id=2026&image=mesa_262_nvk" alt="Mesa 26.2 NVK benchmarks" /></p>
+<p>在与 NVIDIA 专有驱动的对比中，NVK 虽然在多数游戏中仍存在显著的性能差距，但进步趋势明显。例如在《Serious Sam 2017》中，NVK 的性能已非常接近 NVIDIA 专有驱动；而在较新的游戏中，两者之间仍有一定差距：<img src="//www.phoronix.net/image.php?id=2026&image=mesa_262_nvk_karol" alt="Mesa 26.2 NVK benchmark Karol's post" /></p>
+<p>过去几年间，NVK 的成熟度显著提升。随着 2026 年下半年更多优化措施的落地，以及 NVIDIA 正在开发的现代 Nova 内核驱动（Nova kernel driver）的持续进展，NVK 未来的性能表现值得期待。</p>
+<h3>你知道吗？</h3>
+<p>NVK 是 Mesa 项目中的开源 Vulkan 驱动，它依赖于 Linux 内核中的 Nouveau 驱动（NVIDIA 的开源 GPU 内核驱动）。长期以来，NVIDIA 的专有驱动在 Linux 游戏性能上占据绝对优势，但 NVK 近年来通过重写渲染管线和深度优化，性能提升显著。不过，由于缺乏 NVIDIA 官方的底层硬件文档支持，开源驱动在实现最新图形 API 特性时仍面临挑战。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NVK-Mesa-26.2-Performance</guid>
+      <pubDate>Sat, 18 Jul 2026 19:57:56 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AMD Linux 显卡驱动修复 Apple Studio Display 显示问题</title>
       <link>https://www.phoronix.com/news/AMDGPU-DC-Apple-Studio-Display</link>
@@ -671,20 +685,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-DT-Apple-M3-Pro-Max-Ultra</guid>
       <pubDate>Fri, 10 Jul 2026 10:26:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Intel ANV Vulkan 驱动合并 HiZ 平面优化，Linux 游戏性能小幅提升</title>
-      <link>https://www.phoronix.com/news/Intel-HiZ-Plane-Optimization</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 来源配置对「Linux桌面技术」感兴趣，文章介绍 Intel Vulkan Linux 驱动的性能优化，属于 Linux 桌面技术范畴</small></p><p>Intel 开源的 "ANV" Vulkan 驱动程序已合并一项 HiZ plane 优化，可为 Linux 平台上的游戏和图形处理带来最高约百分之几的帧率提升，主要惠及较新的 Intel 集成与独立显卡硬件。</p>
-<p>自 2024 年 8 月起，Mesa 项目一直在针对 Intel GFX12 及更新架构硬件研究此项优化。此前，虽然已设置了对性能有利的标志位，但为规避渲染损坏（rendering corruption）问题而暂时禁用。随着该合并请求的落地，分层-Z（Hierarchical-Z "HiZ"）平面优化现已针对只读深度测试（read-only depth tests）正式启用。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=intel_hiz_plane" alt="Intel HiZ plane optimization benchmark" />
-<p>实测数据显示，在《赛博朋克 2077》（Cyberpunk 2077）中，Alchemist 和 Battlemage 架构显卡可获得约 3% 的性能提升；在《霍格沃茨之遗》（Hogwarts Legacy）中，从 Alchemist 到 Panther Lake 的集成显卡性能提升约 1%~2%。此外，该优化还允许在《森林之子》（Sons of the Forest）等游戏中启用 HiZ 而不会引发性能回退。此项更改已合并至 Mesa Git 仓库，并将在 8 月发布的 Mesa 26.2 稳定版中正式提供。</p>
-<h3>你知道吗？</h3>
-<p><strong>分层-Z（Hierarchical-Z，简称 HiZ）</strong>是一种图形渲染优化技术。传统的深度测试需要对每个像素逐一进行，而 HiZ 通过维护一个层级化的深度图（Mipmap 结构），可以在渲染早期快速剔除大量被遮挡的片段。这能显著减少不必要的像素着色器调用和显存带宽消耗，从而提升渲染效率，尤其适用于包含大量遮挡关系的复杂场景。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-HiZ-Plane-Optimization</guid>
-      <pubDate>Fri, 10 Jul 2026 10:13:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
