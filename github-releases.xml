@@ -3,7 +3,80 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sat, 18 Jul 2026 00:04:53 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 06:18:48 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.214 发布说明</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.214</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.214</h2>
+<p>Claude Code 发布 v2.1.214 版本，主要引入了会话控制、遥测增强及后台会话管理优化，并修复了多项 Bash 权限检查与流式传输相关的缺陷。</p>
+<h3>重要改动</h3>
+<ul>
+<li>新增 <code>EndConversation</code> 工具，允许 Claude 主动结束与高度滥用用户或越狱尝试的会话（详见 <a href="https://www.anthropic.com/research/end-subset-conversations">官方研究说明</a>）。</li>
+<li>新增长运行工具调用的周期性进度心跳，解决此前长时间运行时的静默问题。</li>
+<li>增强 OpenTelemetry 支持：日志事件新增 <code>message.uuid</code>、<code>client_request_id</code> 和 <code>tool_source</code> 属性，并新增 <code>CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH</code> 配置项以调整内容截断限制。</li>
+<li>新增 <code>subagentStatusLine</code> payload 中的 reasoning effort 字段，支持自定义代理行渲染模型与 effort。</li>
+<li>新增对携带 daemon-redirect 标志（如 <code>--url</code>、<code>--connection</code> 等）的 <code>docker</code> 命令的权限提示。</li>
+<li>调整 <code>file</code> 命令逻辑：使用 <code>-m</code>/<code>--magic-file</code> 或 <code>-f</code>/<code>--files-from</code> 时不再自动允许，需进行权限提示。</li>
+</ul>
+<h3>其他改动</h3>
+<ul>
+<li><strong>Bash 权限检查优化</strong>：修正长命令（&gt;10,000 字符）现强制提示；修复 <code>[[ ]]</code> 比较中 zsh 变量下标和修饰符的处理逻辑；不再自动批准部分 <code>help</code> 和 <code>man</code> 命令。</li>
+<li><strong>路径匹配规则调整</strong>：单段 <code>dir/**</code> 规则（如 <code>Edit(src/**)</code>）现仅匹配 <code>&lt;cwd&gt;/dir</code>，不再匹配树中任意位置的嵌套目录。</li>
+<li><strong>后台会话管理</strong>：修复后台会话闲置时守护进程无限期存活的问题；修复通过 <code>claude rm</code> 或代理视图删除后台会话的失败问题；修复从非 git 文件夹分派的后台会话无法删除及恢复时因不可读文件夹导致失败的问题。</li>
+<li><strong>稳定性与 Bug 修复</strong>：修复 GrowthBook 特性评估为 null 时的崩溃；修复 <code>--settings</code> 指向大文件时的无界内存增长（现限制 2 MiB）；修复流式传输退出时的数据截断；修复计划任务提示输入信任问题；修复插件加载回归及长运行会话中特性标志过期问题。</li>
+<li><strong>其他修复</strong>：修复 <code>claude update</code> 和 <code>claude doctor</code> 挂起问题；修复内存 frontmatter 值被静默截断；修复遥测重复计数；修复 MCP 瞬态错误清除斜杠命令的问题；调整 <code>SessionStart</code> 钩子源报告逻辑。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.214</guid>
+      <pubDate>Sat, 18 Jul 2026 01:20:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>kitty 终端模拟器 v0.48.0 版本发布</title>
+      <link>https://github.com/kovidgoyal/kitty/releases/tag/v0.48.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>kitty 是一款高性能的跨平台终端模拟器。此次发布的 v0.48.0 版本已正式推出。由于发布说明中未包含详细的更新日志内容，建议访问官方页面查看完整更新详情：<a href="https://sw.kovidgoyal.net/kitty/changelog/#detailed-list-of-changes">详细更新日志</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/kovidgoyal/kitty/releases/tag/v0.48.0</guid>
+      <pubDate>Sat, 18 Jul 2026 02:33:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>Hapi v0.23.0 发布说明：新增 kimi-code 支持及多项 UI/交互优化</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.23.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi <a href="https://github.com/tiann/hapi/releases/tag/v0.23.0">v0.23.0</a> 版本已发布，本次更新重点增强了对 <code>kimi-code</code> 的支持，并带来了多项界面交互优化与终端功能改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+  <li><strong>新增代理支持</strong>：正式支持 <code>kimi-code</code> 编码代理。</li>
+  <li><strong>目录浏览器增强</strong>：在 Web 端目录浏览器中增加了元数据显示与排序功能，提升文件浏览体验 <a href="https://github.com/tiann/hapi/pull/1055">[PR #1055]</a>。</li>
+  <li><strong>主题与视觉优化</strong>：新增颜色主题预设（Color Theme Presets），方便用户快速切换界面风格 <a href="https://github.com/tiann/hapi/pull/1040">[PR #1040]</a>。</li>
+  <li><strong>会话与工具调用展示</strong>：
+    <ul>
+      <li>在 Task/Agent 卡片头部显示子代理（Subagent）执行的模型名称 <a href="https://github.com/tiann/hapi/pull/1045">[PR #1045]</a>。</li>
+      <li>在详细对话框中显示工具调用（Tool Call）的持续时间 <a href="https://github.com/tiann/hapi/pull/1036">[PR #1036]</a>。</li>
+      <li>在侧边栏中更好地区分不同 <code>worktree</code> 的会话 <a href="https://github.com/tiann/hapi/pull/1039">[PR #1039]</a>。</li>
+    </ul>
+  </li>
+  <li><strong>终端与 CLI 改进</strong>：
+    <ul>
+      <li><code>opencode</code> 现在接受 <code>-s/--session</code> 作为会话恢复（Resume）的别名 <a href="https://github.com/tiann/hapi/pull/1042">[PR #1042]</a>。</li>
+      <li>为非原生代理添加了 <code>skill_lookup</code> MCP 支持 <a href="https://github.com/tiann/hapi/pull/1035">[PR #1035]</a>。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>其他修复与优化</h3>
+<ul>
+  <li><strong>Codex 相关修复</strong>：修复了增量扫描转录（Transcripts）、等待手动压缩（Compaction）完成，以及向 Codex Desktop 暴露 HAPI 线程等问题 <a href="https://github.com/tiann/hapi/pull/1031">[PR #1031]</a> <a href="https://github.com/tiann/hapi/pull/1038">[PR #1038]</a> <a href="https://github.com/tiann/hapi/pull/1022">[PR #1022]</a>。</li>
+  <li><strong>Web 端交互修复</strong>：同步浏览器标签页标题与会话、扩展悬停显示信息以支持触摸设备、修复重新连接后的过期排队消息、澄清消息详情中的令牌使用标签，并对齐会话操作菜单 <a href="https://github.com/tiann/hapi/pull/1034">[PR #1034]</a> <a href="https://github.com/tiann/hapi/pull/1046">[PR #1046]</a> <a href="https://github.com/tiann/hapi/pull/1063">[PR #1063]</a> <a href="https://github.com/tiann/hapi/pull/1062">[PR #1062]</a> <a href="https://github.com/tiann/hapi/pull/1061">[PR #1061]</a>。</li>
+  <li><strong>代理状态与设置</strong>：为 <code>pi</code> 代理添加 'max' 思考级别，并使用每个模型的上下文窗口正确显示状态栏 <a href="https://github.com/tiann/hapi/pull/1032">[PR #1032]</a> <a href="https://github.com/tiann/hapi/pull/1033">[PR #1033]</a>。CLI 支持从设置加载额外标头 <a href="https://github.com/tiann/hapi/pull/1041">[PR #1041]</a>。</li>
+  <li><strong>其他问题修复</strong>：重新打开前验证 Cursor 聊天存储 <a href="https://github.com/tiann/hapi/pull/1037">[PR #1037]</a>；修复 <code>opencode</code> 中空工具输入的处理及延迟工具调用恢复 <a href="https://github.com/tiann/hapi/pull/1052">[PR #1052]</a>；保留 Claude 恢复锚点并报告真实的压缩结果 <a href="https://github.com/tiann/hapi/pull/1056">[PR #1056]</a>。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.23.0</guid>
+      <pubDate>Sat, 18 Jul 2026 04:30:52 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.212 更新：后台会话优化、防循环限制与多项体验修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.212</link>
@@ -1021,95 +1094,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.141.0</guid>
       <pubDate>Thu, 18 Jun 2026 04:43:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.181 更新：新增配置命令与沙盒 Apple 事件支持</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.181</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>主要更新</h3>
-<ul>
-  <li><strong>新增配置命令</strong>：支持 <code>/config key=value</code> 语法，允许直接从提示符设置任意配置项（如 <code>/config thinking=false</code>），适用于交互模式、<code>-p</code> 参数及远程控制。</li>
-  <li><strong>沙盒增强</strong>：新增 <code>sandbox.allowAppleEvents</code> 可选设置，允许沙盒内的命令在 macOS 上发送 Apple Events。</li>
-  <li><strong>静默模式支持</strong>：引入 <code>CLAUDE_CLIENT_PRESENCE_FILE</code> 环境变量，通过指向标记文件来抑制移动端推送通知，适用于用户正在本地操作时。</li>
-  <li><strong>运行时升级</strong>：内置 Bun 运行时已升级至 1.4 版本。</li>
-</ul>
-
-<h3>体验优化</h3>
-<ul>
-  <li><strong>流式传输改进</strong>：长段落文本现逐行显示，无需等待首个换行符，提升阅读流畅度。</li>
-  <li><strong>自动重试机制</strong>：思考过程中若 API 连接中断，系统将自动重试，不再显示“思考时连接关闭”错误。</li>
-  <li><strong>子代理面板优化</strong>：空闲子代理 30 秒后自动隐藏，列表上限设为 5 行并显示滚动提示，底部增加键盘操作提示。</li>
-  <li><strong>MCP OAuth 流程</strong>：浏览器认证页面视觉风格与 Claude Code 保持一致，认证成功后自动关闭。</li>
-</ul>
-
-<h3>问题修复</h3>
-<ul>
-  <li><strong>macOS 稳定性</strong>：修复了因 Spotlight 索引导致的 TUI 冻结、启动延迟回归、以及 <code>open</code> 和 <code>osascript</code> 命令报错 -600 的问题。</li>
-  <li><strong>文件与缓存</strong>：修复了网络驱动器/云同步文件夹上的文件截断问题，以及自定义 <code>ANTHROPIC_BASE_URL</code> 下的提示缓存失效问题。</li>
-  <li><strong>子代理逻辑</strong>：修复了前台子代理无限嵌套、计时显示错误以及模型切换后 <code>/recap</code> 仍使用旧模型的问题。</li>
-  <li><strong>其他修复</strong>：解决了 AWS 凭证频繁刷新、Windows 工作树删除失败、剪贴板处理异常及 UI 显示错位等多项问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.181</guid>
-      <pubDate>Wed, 17 Jun 2026 22:07:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.179 发布：修复连接中断与 WSL2 滚动问题，优化远程会话性能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.179</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.179 更新摘要</h2>
-<p>Claude Code 发布了 v2.1.179 版本，主要修复了多项影响用户体验的缺陷，并优化了远程会话的性能。以下是本次更新的主要内容：</p>
-<h3>核心修复与改进</h3>
-<ul>
-  <li><strong>连接稳定性提升</strong>：修复了中途连接断开时部分响应丢失的问题，现在将保留部分响应而非显示原始错误；同时解决了旋转图标卡在“running tool”状态的问题。</li>
-  <li><strong>远程会话优化</strong>：修复了远程会话后台任务在轮次之间显示为“仍在运行”的问题，并显著提升了远程会话中的插件加载性能。</li>
-  <li><strong>WSL2 交互修复</strong>：解决了在 Windows Terminal 和 VS Code 环境下 WSL2 的鼠标滚轮滚动失效问题（该问题为 v2.1.172 引入的回归）。</li>
-  <li><strong>沙箱与工具描述优化</strong>：修复了在 Linux 上使用沙箱 <code>denyRead</code>/<code>allowRead</code> 通配符覆盖大型目录树时，导致 Bash 工具描述过大从而使会话无法使用的问题。</li>
-</ul>
-<h3>其他改进</h3>
-<ul>
-  <li>修复了欢迎屏幕堆叠多个促销横幅的问题，现在每个会话最多仅显示一个。</li>
-  <li>修复了 Ctrl+O 快捷键在查看子代理（subagent）时不显示其转录本的问题。</li>
-  <li>修复了点击提示输入框时无法从子代理/页脚面板返回焦点的问题。</li>
-  <li>修复了反馈调查在轮次完成后立即捕获个位数回复作为会话评分的误判问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.179</guid>
-      <pubDate>Tue, 16 Jun 2026 20:22:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenAI Codex CLI v0.140.0 更新：新增 Token 用量查看、会话删除与 Claude Code 导入功能</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.140.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI 发布了 Codex CLI 的 Rust 版本 v0.140.0。本次更新引入了多项实用功能，并修复了若干影响稳定性的问题。</p>
-
-<h3>主要新功能</h3>
-<ul>
-  <li><strong>Token 用量管理</strong>：新增 <code>/usage</code> 命令，支持查看每日、每周及累计的账户 Token 使用情况，帮助用户更好地管理 API 消耗。</li>
-  <li><strong>会话与目标增强</strong>：<code>/goal</code> 命令现在支持保留超长文本、大段粘贴内容及图片附件，即使在远程 app-server 会话中也能正常工作。同时，新增了永久会话删除功能，可通过 <code>codex delete</code> 或 <code>/delete</code> 命令执行，并包含确认机制与子代理清理逻辑。</li>
-  <li><strong>跨工具数据迁移</strong>：引入 <code>/import</code> 命令，允许用户从 Claude Code 选择性导入设置、项目配置及最近聊天记录，降低迁移成本。</li>
-  <li><strong>认证与安全</strong>：新增受管的 Amazon Bedrock API 密钥认证方式，并为 CLI 和 MCP (Model Context Protocol) OAuth 凭据提供加密本地存储，提升安全性。</li>
-  <li><strong>交互优化</strong>：默认启用 <code>@</code> 统一提及菜单，方便快速调用文件、插件和技能。</li>
-</ul>
-
-<h3>Bug 修复与稳定性</h3>
-<ul>
-  <li>修复了 SQLite 状态数据库损坏时的自动备份与重建机制，增强了数据恢复能力。</li>
-  <li>解决了 <code>/review</code> 命令在特定按键组合下崩溃的问题，并改进了非 TTY 后台命令的 <code>Ctrl-C</code> 中断处理。</li>
-  <li>提升了 MCP 的可靠性，包括重试启动失败和正确处理不可用的 OAuth 凭据。</li>
-</ul>
-
-<h3>性能优化与其他改动</h3>
-<ul>
-  <li>针对大型仓库和长会话场景进行了多项性能优化，包括保留 Git 文件系统监控器、避免重复读取历史记录以及缓存差异渲染，显著提升了响应速度。</li>
-  <li>移除了 TUI 中实验性的 <code>/realtime</code> 语音控制功能及相关音频依赖。</li>
-  <li>内部代码进行了多项重构，如迁移文件系统路径协议至 <code>PathUri</code>、移除 <code>async_trait</code> 依赖等，为后续开发奠定基础。</li>
-</ul>
-
-完整更新日志可参考：<a href="https://github.com/openai/codex/compare/rust-v0.139.0...rust-v0.140.0">Full Changelog</a>。]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.140.0</guid>
-      <pubDate>Mon, 15 Jun 2026 21:06:37 GMT</pubDate>
     </item>
   </channel>
 </rss>

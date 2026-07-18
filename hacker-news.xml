@@ -3,7 +3,50 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 18 Jul 2026 00:05:45 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 06:20:22 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 在生产环境中运行 SQLite 的几点心得与避坑指南</title>
+      <link>https://news.ycombinator.com/item?id=48950122</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享在生产环境部署与优化 SQLite 的实践经验与避坑指南，直接契合“编程效率改进经验”兴趣点，属于开发者会强烈关注的内容，故定为 critical。</small></p><p>本文作者分享了在 Django 项目中将 SQLite 作为生产数据库时积累的实践经验。尽管 SQLite 常被推荐用于小型网站，但作者发现其作为数据库的复杂性远超预期，并总结了以下关键经验：</p>
+<ul>
+  <li><b>ANALYZE 的重要性</b>：在使用 FTS5（SQLite 的全文搜索扩展）进行查询时，作者发现执行时间异常缓慢。运行 <code>ANALYZE</code> 命令生成统计信息后，查询时间从 5 秒骤降至 0.05 秒。该命令能帮助查询规划器（Query Planner）优化执行计划。</li>
+  <li><b>数据清理需分批进行</b>：直接删除大量数据容易耗时过长，导致其他并发写入的 Worker 因超时而崩溃。作者目前采用分批清理的策略，这也促使作者理解了为何高并发场景下需要支持多写入者的数据库（如 PostgreSQL）。</li>
+  <li><b>备份策略</b>：作者尝试了两种备份方式。一是结合 <code>sqlite3 VACUUM INTO</code> 与 <code>restic</code> 备份至 S3；二是使用 <code>litestream</code> 进行增量备份。作者还强调了通过“死人开关（Dead Man's Switch）”监控备份状态的重要性。</li>
+  <li><b>拆分数据库文件</b>：在过往项目 "Mess with DNS" 中，作者通过将表拆分到多个独立的 SQLite 文件中，成功支撑了长达 4 年的稳定运行。</li>
+</ul>
+<p><b>社区反馈与扩展阅读：</b></p>
+<ul>
+  <li><b>性能优化</b>：评论指出，SQLite 的 <code>.expert</code> 模式可自动分析查询并推荐索引。对于大批量删除或更新，社区一致认为分批处理是通用最佳实践，不仅能缓解锁表问题，也能降低 MySQL/PostgreSQL 等数据库的复制压力。</li>
+  <li><b>备份工具推荐</b>：开发者 simonw 推荐了 <a href="https://github.com/simonw/s3-credentials">s3-credentials</a> 工具以简化 AWS 凭证生成，并提及 <code>restic</code> 配合 Cloudflare R2 效果良好。另有用户分享了使用 <code>sqlite3 .dump</code> 结合 <code>zstd</code> 压缩进行增量同步的备份方案。</li>
+  <li><b>SQLite 的定位与扩展</b>：针对“SQLite 仅适合本地”的观点，社区指出通过分片（Sharding）、读写分离或使用 <a href="https://turso.tech">Turso</a> 等网络层封装，SQLite 也能应对分布式场景。不过，SQLite 官方文档明确表示其设计初衷是替代文件读写（fopen），而非直接竞争传统服务端数据库。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48950122</guid>
+      <pubDate>Fri, 17 Jul 2026 17:45:41 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 新书《数据科学的数学基础》探讨高维空间与机器学习核心算法</title>
+      <link>https://news.ycombinator.com/item?id=48939896</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨数据科学的数学基础及机器学习核心算法理论，属于“AI软件技术进展”与“科学前沿进展”范畴，符合用户兴趣配置，故定为 recommended。</small></p><h2>书籍概述</h2>
+<p>由 Afonso S. Bandeira、Amit Singer 和 Thomas Strohmer 撰写的《数据科学的数学基础》（<i>Mathematics of Data Science</i>）近日在 arXiv 上发布。该书系统梳理了数据科学背后的数学原理，旨在为现代数据科学提供坚实的理论支撑。全书共十六章，内容涵盖<strong>高维空间中的直觉与现象</strong>、<a href="https://arxiv.org/abs/2607.11938">奇异值分解（SVD）与主成分分析（PCA）</a>、线性回归与正则化、图网络与聚类、非线性降维、随机投影、优化算法、分类、深度学习数学导论、压缩感知与稀疏性，以及低秩矩阵恢复等核心主题。</p>
+
+<h2>社区讨论与反馈</h2>
+<p>该条目在 Hacker News 引发热烈讨论，核心观点集中在数据科学的基础理论与统计学的重要性上：</p>
+<ul>
+<li><strong>高维直觉的构建：</strong>多位评论者指出，理解高维空间中的反直觉现象（如体积分布、正交性等）是掌握现代机器学习（如随机梯度下降）的关键基础。</li>
+<li><strong>统计学的核心地位：</strong>尽管“数据科学”一词常被泛化，但评论者普遍认为统计学（尤其是贝叶斯统计）仍是该领域的基石。深入理解基础统计概念能帮助从业者避免数据误读，并在 AI 辅助编程时代有效审核模型推荐。</li>
+<li><strong>对本书的批评：</strong>有读者指出，该书虽然理论扎实，但过于侧重作者研究领域的“谱近似（spectral approximations）”理论，未能全面覆盖数据科学实践所需的基础。</li>
+</ul>
+<p>此外，社区还推荐了其他相关著作，如 Blum 等人撰写的《<a href="https://home.ttic.edu/~avrim/book.pdf" rel="nofollow">Foundations of Data Science</a>》以及 Steve Brunton 即将发布的工程导向新书。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>高维空间中的“集中现象”（Concentration of Measure）：</strong>在低维空间中，我们习惯认为点与点之间距离差异明显；但在高维空间中，随机向量的长度和它们之间的夹角往往会惊人地趋于一致（即“几乎正交”）。这一数学特性不仅是理解现代高维数据模型的基础，也解释了为什么在海量数据下，简单的线性模型往往能表现出惊人的鲁棒性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48939896</guid>
+      <pubDate>Thu, 16 Jul 2026 20:38:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Kimi K3 发布与“骑自行车的鹈鹕”基准测试回顾</title>
       <link>https://news.ycombinator.com/item?id=48947717</link>
@@ -1022,32 +1065,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48876441</guid>
       <pubDate>Sat, 11 Jul 2026 22:28:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Show HN：ShipThatCode - 通过从零构建 Redis、Git 等系统学习编程</title>
-      <link>https://news.ycombinator.com/item?id=48871973</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍了ShipThatCode项目，通过构建真实系统（Redis、Git等）进行编程教学，属于高质量的开源编程项目/资源，符合用户对编程项目的兴趣。</small></p><p><a href="https://shipthatcode.com">ShipThatCode</a> 是一个提供“从零构建”系统编程课程的学习平台。该平台目前提供超过 80 门实战课程，涵盖 Redis、Git、数据库、编译器、容器运行时及分布式系统等核心主题，支持 Python、Go、Rust、C 和 C++ 等多种编程语言。</p>
-<p>与传统复制粘贴式的教程不同，ShipThatCode 采用“选择规范 → 编写代码 → 运行测试”的教学模式。平台会为每个项目提供真实的技术规格说明，学习者需自行实现功能并通过自动化测试。测试代码在平台服务器端执行，确保学习效果的真实性。</p>
-<p>除了单点课程，平台还规划了后端工程师、前端开发、全栈开发、DevOps/SRE 及数据科学家等职业路径，旨在帮助学习者从基础到就业全面掌握相关技术栈。平台目前完全免费，无需绑定信用卡。</p>
-<p>该条目在 Hacker News 引发讨论。社区成员将其与知名编程学习平台 <a href="https://app.codecrafters.io/catalog">CodeCrafters</a> 进行对比，赞赏其免费模式。部分用户质疑课程内容是否由 AI 生成或洗稿自《Building Git》《Crafting Interpreters》等经典技术书籍。项目作者回应称，团队欢迎社区贡献并考虑开源，允许使用 AI 辅助但需保证课程质量。此外，有用户反馈平台部分功能存在报错，并建议增加 Zig 和 Java 语言支持，同时明确标注课程的难度等级与先修知识要求。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48871973</guid>
-      <pubDate>Sat, 11 Jul 2026 13:40:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Mesh LLM：基于 iroh 的分布式 GPU 资源池化与 LLM 推理</title>
-      <link>https://news.ycombinator.com/item?id=48876505</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Mesh LLM 项目，基于 iroh 实现分布式 GPU 资源池化用于 LLM 推理，属于 AI 软件技术进展与开源项目，符合用户 interest 级别兴趣</small></p><p>运行大型语言模型（Large Language Model, LLM）通常依赖昂贵的数据中心 GPU 和按量计费的 API，这导致用户丧失对模型更新、数据流向及底层硬件的控制权。为解决这一痛点，<a href="https://www.iroh.computer/blog/mesh-llm">Mesh LLM</a> 应运而生。这是一个基于 <a href="https://iroh.computer">iroh</a> 网络库构建的分布式计算系统，旨在将分散在不同机器上的 GPU 和内存资源整合为一个统一的、兼容 OpenAI 协议的 API。</p>
-<img src="/blog/mesh-llm/header.png" alt="Distributed Model Inference: a mesh of laptop, GPU rig, mini PC, server, workstation, and cloud nodes connected directly to each other" />
-<p>Mesh LLM 的核心架构具有高度可插拔性，支持超过 40 种模型。当用户向 <code>localhost:9337/v1</code> 发送请求时，系统会自动决定计算方式：直接在本地 GPU 运行、路由至已加载该模型的节点，或启用“拆分模式（Skippy）”将模型按层划分并跨多台机器流水线处理。这种设计使得普通硬件也能协同运行超大规模模型。</p>
-<p>在网络通信层面，Mesh LLM 完全依赖 iroh 实现点对点（P2P）连接。每个节点通过 iroh 生成唯一的公钥身份，系统利用 QUIC 协议自动完成 NAT 穿透、中继回退及身份认证，无需中心服务器。通信协议分为三层：主网（负责路由与插件通信）、控制平面（配置同步）以及拆分模型专用的低延迟激活传输通道。所有节点间的数据传输均通过 QUIC 的 ALPN 协商进行加密，保障了数据隐私。</p>
-<p>社区对该项目的讨论主要集中在网络延迟与吞吐量上。有观点指出，跨设备传输激活值（Activations）可能受限于网络带宽，难以满足交互式需求。项目贡献者回应称，Skippy 的分层拆分机制比传统 RPC 方案快数个数量级。在模拟 5 毫秒延迟的实验室环境中，235B 参数模型可实现约 16 tokens/秒（tok/s）的生成速度，GLM 5.2 模型约为 10 tok/s。该方案在同城局域网或低延迟广域网（WAN）下表现良好，但在全球跨洲网络中仍面临挑战。此外，项目计划未来支持 ACP（Agent Communication Protocol）标准，并推出移动端应用，进一步拓展分布式 AI 的生态边界。</p>
-<p><strong>你知道吗？</strong> 分布式 LLM 推理（Distributed LLM Inference）旨在解决单卡显存不足和成本高昂的问题。传统方案多依赖数据中心内部的高速互联（如 NVLink），而 Mesh LLM 尝试在消费级网络和广域网（WAN）环境下实现模型切分。其核心挑战在于层间激活值（Activations）的传输延迟，这要求网络具备低抖动和高吞吐特性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48876505</guid>
-      <pubDate>Sat, 11 Jul 2026 22:38:57 GMT</pubDate>
     </item>
   </channel>
 </rss>

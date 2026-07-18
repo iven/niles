@@ -3,7 +3,20 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 18 Jul 2026 00:04:55 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 06:17:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐ DXVK 3.0.2 发布：改进 GPU 挂起调试与多项游戏修复</title>
+      <link>https://www.phoronix.com/news/DXVK-3.0.2-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 DXVK 3.0.2 版本发布，包含调试改进与游戏修复。该更新属于新软件项目发布及 Linux 桌面技术进展，依据来源配置对“新软件项目”的高兴趣设定，判定为推荐阅读。</small></p><p>Valve 近日发布了 <a href="https://github.com/doitsujin/dxvk/releases">DXVK 3.0.2</a>，这是一款用于在 Linux 系统上通过 Vulkan API 运行 Windows 游戏（支持 Direct3D 8/9/10/11）的兼容层软件。本次更新主要聚焦于游戏兼容性修复与开发者调试体验的优化。</p>
+<p>在兼容性方面，DXVK 3.0.2 针对多款游戏进行了修复，包括《消逝的光芒：野兽》（Dying Light: The Beast）、《碧蓝幻想：Relink》（Granblue Fantasy Relink）、《光环：战斗进化》（Halo CE）、《守望先锋》（Overwatch）以及《细胞分裂：混沌理论》（Splinter Cell: Chaos Theory）。修复内容涵盖了渲染错误、NVIDIA 硬件上的 GPU 挂起问题，以及启用 FSR（超分辨率技术）时的性能回退现象。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=dxvk_302" alt="DXVK 3.0.2 GPU hang debug example" /></p>
+<p>此外，本次更新显著增强了 GPU 挂起或驱动崩溃的调试能力。开发者现在可以通过设置 <code>DXVK_DEBUG=hang</code> 环境变量，在 Vulkan 设备丢失时获取更详细的调试信息。该功能目前主要对 AMD 和 NVIDIA 显卡有效，有助于快速定位底层图形驱动问题。</p>
+<p>如需了解更多技术细节，可访问 <a href="https://github.com/doitsujin/dxvk/releases">GitHub 发布页面</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/DXVK-3.0.2-Released</guid>
+      <pubDate>Sat, 18 Jul 2026 00:46:33 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ FastFlowLM 团队加入 AMD，加速开源 NPU 软件生态</title>
       <link>https://www.phoronix.com/news/FastFlowLM-Joins-AMD</link>
@@ -669,18 +682,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Wayland-1.26-RC1</guid>
       <pubDate>Thu, 09 Jul 2026 15:47:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>建议 Linux 内核补丁：为 D3cold 状态添加短暂延迟以修复 xHCI 控制器唤醒故障</title>
-      <link>https://www.phoronix.com/news/Linux-Delay-D3cold-Patch-Fix</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论Linux内核中针对PCI D3cold功耗状态的底层补丁修复，偏向内核与硬件规范适配，虽属Linux领域但不直接面向桌面应用，兴趣点不明确，故列为可选。</small></p><p>近期有用户报告，在使用搭载 AMD Ryzen AI Max+ “Strix Halo” 处理器的 Framework Desktop 时，系统从 s2idle（浅度睡眠）状态唤醒后，xHCI（USB 控制器）会失效，导致所有 USB 设备丢失。虽然通过重新绑定驱动可恢复功能，但根本原因长期未明。</p>
-<p>经过数月排查，AMD Linux 工程师 Mario Limonciello 提出了一项内核补丁。问题根源在于 PCI 规范的一项细节：规范明确要求设备从 D3（低功耗状态）恢复到 D0（工作状态）时，必须预留至少 10 毫秒的恢复时间。然而，Linux 内核此前仅在 D3hot（保留内存状态）路径上设置了强制延迟，而 D3cold（深度睡眠，内存断电）路径上并未包含此延迟。</p>
-<p>该补丁通过在 D3cold 到 D0 的转换路径中强制添加 10 毫秒延迟，严格遵循了 PCI 规范。Limonciello 在邮件列表中补充指出，该故障的发生率与 BIOS 预留的 VRAM 大小存在关联（预留显存越大，唤醒失败率越高），但具体机制尚待进一步研究。目前该补丁已提交至 Linux 内核社区，初步测试表明其能有效解决 Framework Desktop 上的 xHCI 控制器唤醒故障。</p>
-<img src="//www.phoronix.net/image.php?id=framework-desktop-linux&image=framework_desktop_9_med" alt="Framework Desktop" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Delay-D3cold-Patch-Fix</guid>
-      <pubDate>Thu, 09 Jul 2026 13:35:01 GMT</pubDate>
     </item>
   </channel>
 </rss>
