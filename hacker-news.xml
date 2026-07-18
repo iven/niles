@@ -3,7 +3,18 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 18 Jul 2026 22:04:59 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 23:06:15 GMT</lastBuildDate>
+    <item>
+      <title>社交活动的供需法则：主动组织是融入圈子的捷径</title>
+      <link>https://news.ycombinator.com/item?id=48959090</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨社交活动的供需法则和融入圈子的技巧，属于软技能话题，未命中用户偏好的硬科技配置项，也不属于需避开的领域，兴趣不明确。</small></p><p>作者 Ben Landau-Taylor 指出，想要加入新群体，最有效的方法是主动组织该群体的核心活动。文章分析了社交活动的供需关系，指出大多数人持“消费者心态”，认为活动会像自然生长的植物一样出现，但实际上需要有人付出努力（legwork）去组织。</p>
+<p>作者认为，现代社交疏离感部分源于“搭便车（Free riders）”现象，即人们只消费社交网络而不愿生产。HN 评论区中，有用户分享了建立社区的经历，提到虽然社交媒体让部分社区消亡，但组织活动依然值得。也有观点认为，现代社会压力大，人们没有余力无偿组织活动，导致活动多由少数人承担。</p>
+<img src="https://substackcdn.com/image/fetch/$s_!GEAi!,w_36,h_36,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F5edd4742-1fc8-4dfc-a1d6-9c6381376d46_400x400.jpeg" alt="Ben Landau-Taylor's avatar" width="36" height="36" />]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48959090</guid>
+      <pubDate>Sat, 18 Jul 2026 15:37:01 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Kimi K3 与 Claude 的对比：价格、质量与美国 AI 政策的反思</title>
       <link>https://news.ycombinator.com/item?id=48960218</link>
@@ -1039,40 +1050,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48884395</guid>
       <pubDate>Sun, 12 Jul 2026 20:23:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 将生产环境AI代理迁移至GPT-5.6：速度提升2.2倍，成本降低27%</title>
-      <link>https://news.ycombinator.com/item?id=48882716</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章聚焦新AI模型GPT-5.6的发布及生产环境迁移优化指南，精准命中“新AI模型发布公告”与“编程效率改进经验”高兴趣配置</small></p><p>营销自动化平台 Ploy 宣布将其生产环境中的 AI 代理默认模型从 Claude Opus 4.8 切换至 OpenAI 最新发布的 <a href="https://openai.com/">GPT-5.6 Sol</a>。经过严格的评估测试，新模型在构建速度上提升了 2.2 倍，成本降低了 27%，同时输出代码更精简，视觉评分也更高。</p>
-
-<img src="https://storage.googleapis.com/ployai/d21bf4ad-2458-43ee-9561-54c28ab0e85f/user/98bfdea9-ai-generated-1783640379759.webp" alt="Colorful Ploy inflatable forms connected by a translucent tube, representing a production AI agent migrating between model systems" />
-
-<p>然而，模型迁移并非简单的 API 密钥替换。Ploy 团队在迁移过程中遇到了几个关键的技术挑战，并开发了相应的解决方案：</p>
-
-<ul>
-  <li><strong>评估框架（Harness）适配：</strong> 原有的评估套件针对 Claude 的串行调用习惯设计。GPT-5.6 倾向于并行调用和批量文件读取，导致部分测试用例因框架假设不符而误判。团队调整了工具调用预算和文件读取逻辑，确保评估的公平性。</li>
-  <li><strong>工具调用（Tool Calls）行为差异：</strong> GPT-5.6 倾向于发送所有参数（包括未使用的），并填充占位值，导致大量空文件读取。团队通过在 Provider 边界修改 Schema，将可选参数改为“必填但可为 null”，并在验证前剥离 null 值，成功解决了这一问题。</li>
-  <li><strong>提示词缓存（Prompt Caching）重构：</strong> GPT-5.6 放弃了旧版的部分前缀匹配机制，改为显式缓存。由于每个缓存键的节点流量限制约为 15 次请求/分钟，团队采用了按工作区（workspace）划分缓存键的策略，将系统提示分层，从而在保持高缓存命中率的同时避免了节点过载。</li>
-  <li><strong>推理重放（Reasoning Replay）配置：</strong> GPT-5.6 默认使用服务器端引用重放推理，导致对话中断。团队通过设置 <code>store: false</code> 强制 SDK 获取自包含的加密推理内容，确保了对话的连续性。</li>
-</ul>
-
-<p>经过优化，GPT-5.6 Sol 在多项指标上均优于 Claude Opus 4.8。例如，在构建品牌主页的任务中，GPT-5.6 的平均构建时间从 8 分钟缩短至 3 分 42 秒，成本从 3.06 美元降至 2.22 美元，且生成的 CSS 代码量大幅减少。</p>
-
-<img src="https://storage.googleapis.com/ployai/d21bf4ad-2458-43ee-9561-54c28ab0e85f/user/fcebce5c-colorful-hero-opus-vs-gpt.png" alt="Build-colorful-hero comparison: Opus's gradient hero passed at 1.0; GPT-5.6's color-block study scored 0.98 and failed only an implicit default threshold" />
-
-<img src="https://storage.googleapis.com/ployai/d21bf4ad-2458-43ee-9561-54c28ab0e85f/user/36c00e91-createcards-opus48-visual-1.00.png" alt="Claude Opus 4.8 completed CreateCards redesign passing all ten visual checks" />
-<img src="https://storage.googleapis.com/ployai/d21bf4ad-2458-43ee-9561-54c28ab0e85f/user/e763f595-createcards-gpt56-visual-0.90.png" alt="GPT-5.6 completed CreateCards redesign passing nine of ten visual checks" />
-
-<p>尽管 GPT-5.6 在速度和成本上表现优异，但团队也指出其在设计一致性上存在一定局限，容易生成较为通用的现代布局，需要额外的设计指导来保持品牌独特性。</p>
-
-<img src="https://storage.googleapis.com/ployai/d21bf4ad-2458-43ee-9561-54c28ab0e85f/user/4b052f98-clay-use-case-opus-vs-gpt.png" alt="Opus on the left reproduced the Clay brand system; GPT-5.6 on the right shipped a clean but generic page" />
-
-<p><strong>你知道吗？</strong></p>
-<p>在 LLM 应用中，<strong>提示词缓存（Prompt Caching）</strong> 是降低延迟和成本的关键技术。它允许模型在多次请求中复用相同的系统提示或工具定义，而无需重复计算。不同提供商（如 Anthropic 和 OpenAI）在缓存机制上存在显著差异：Anthropic 采用组织级共享缓存，而 OpenAI 的 GPT-5.6 引入了显式缓存键和断点机制，要求开发者更精细地管理缓存范围以避免节点流量限制。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48882716</guid>
-      <pubDate>Sun, 12 Jul 2026 17:13:07 GMT</pubDate>
     </item>
   </channel>
 </rss>
