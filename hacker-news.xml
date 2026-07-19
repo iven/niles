@@ -3,7 +3,20 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 19 Jul 2026 17:14:43 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jul 2026 18:06:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code 已采用 Rust 版 Bun 运行时，启动速度微升</title>
+      <link>https://news.ycombinator.com/item?id=48966569</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Claude Code通过采用Rust版Bun运行时实现启动速度提升，属于AI编程工具的性能优化与版本更新，直接契合用户“编程工具发布/分享”及“编程效率改进经验”的高兴趣配置，故评定为critical。</small></p><p>Simon Willison 在博客中证实，Anthropic 的 AI 编程助手 Claude Code 自 v2.1.181 版本起，已在其底层运行时中集成了由 Rust 重写的 <a href="https://bun.sh">Bun</a> 运行时环境。通过检查二进制文件中的字符串和运行内嵌脚本，作者确认 Claude Code 内部使用的是 Bun v1.4.0（macOS arm64），这是一个尚未对外正式发布的预览版本。</p>
+<p>尽管官方表示此次迁移使 Linux 环境下的启动速度提升了 10%，但由于原有基于 Zig 的版本性能已经相当出色，普通用户在日常使用中几乎察觉不到显著变化。此次迁移的主要动机在于解决底层内存安全问题，以及 Anthropic 对 Bun 项目治理权的掌控。</p>
+<p>HN 社区对此展开了热烈讨论。部分开发者担忧，随着 Anthropic 深度介入，Bun 项目可能会偏离其开源初衷，导致原有的 Zig 开发者社区流失。同时，也有观点认为，利用 AI 进行大规模代码重构（如将 Zig 重写为 Rust）标志着软件开发进入新阶段：未来代码的维护与迭代将更多依赖 AI，而非人类对源码的可读性要求。此外，评论中也有人将此事与 TypeScript 7.0 计划将核心代码重写为 Go 语言的现象相提并论，引发了关于编程语言迁移与开源项目治理的广泛争议。</p>
+<h3>你知道吗？</h3>
+<p>Bun 最初是使用 Zig 语言编写的，因其极快的启动速度和内置的包管理器、测试框架等工具链而受到关注。Anthropic 在接管相关开发资源后，决定将其核心运行时重写为 Rust，以利用 Rust 在内存安全方面的优势，并更好地集成到其 AI 生态系统中。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48966569</guid>
+      <pubDate>Sun, 19 Jul 2026 10:03:23 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ QwenCloud 推出 Token 订阅计划，Qwen 3.8 Max Preview 模型上线</title>
       <link>https://news.ycombinator.com/item?id=48966190</link>
@@ -999,25 +1012,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48905248</guid>
       <pubDate>Tue, 14 Jul 2026 11:46:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>欧洲数字身份钱包年龄验证规格争议：强制依赖 Google/Apple API 遭社区强烈反对</title>
-      <link>https://news.ycombinator.com/item?id=48903777</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及数字身份基础设施标准争议及 Google/Apple 平台 API 集成问题。虽然涉及编程工具/API 范畴，但主题偏向基础设施标准和巨头平台限制，与用户配置中不感兴趣的基础设施及 iOS 主题重合，故评为可选。</small></p><div>
-<p>文章讨论了 GitHub 上关于欧洲数字身份钱包（EUDI Wallet）年龄验证技术规格（AV-doc-technical-specification）的争议。原规格草案中提议使用 Google Play Integrity API 和 Apple App Attestation 进行应用和设备验证，这一提议在社区中引发了强烈反对。</p>
-<p>主要争议点包括：</p>
-<ul>
-<li><strong>数字主权与依赖风险</strong>：社区成员指出，强制依赖美国科技巨头的 API 会加深欧洲对美国的依赖，违背了数字主权（Digital Sovereignty）原则。有评论警告，一旦美国公司或政府封锁该应用，将对欧洲社会造成严重影响。</li>
-<li><strong>违背设计原则</strong>：该提议被指违反了规格中明确列出的“互操作性（Interoperability）”和“用户控制”原则。强制绑定特定操作系统和厂商，将排斥使用 GNU/Linux、Windows、macOS 或其他非主流移动操作系统的用户，造成严重的数字排斥。</li>
-<li><strong>替代方案已存在</strong>：荷兰的开源应用 <a href="https://yivi.app/en/">Yivi</a>（原 IRMA）已证明在不依赖 Google 或 Apple 生态的情况下，通过开源应用商店（如 F-Droid）即可实现政府认可的年龄验证。</li>
-<li><strong>技术合理性与用户体验</strong>：许多开发者质疑这种“万物皆需 App”的威胁模型（Threat Model）是否现实，并建议采用基于浏览器的方案（如 Digital Credentials API）或一次性挑战签名机制。此外，意大利的数字钱包（IO App）已因 Play Integrity API 出现大量兼容性问题，为欧洲项目敲响了警钟。</li>
-</ul>
-<p>社区普遍认为，以“保护儿童”为借口推行强制年龄验证，实际上可能成为推行监控和审查的工具，且起草技术规格的人员对底层技术缺乏了解，可能导致欧洲互联网陷入类似韩国当年 IE6 的技术锁定困境。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48903777</guid>
-      <pubDate>Tue, 14 Jul 2026 08:34:57 GMT</pubDate>
     </item>
   </channel>
 </rss>
