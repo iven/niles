@@ -3,7 +3,20 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 19 Jul 2026 18:06:50 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jul 2026 19:23:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OpenAI 将 Codex 模型上下文窗口从 372k 缩减至 272k tokens</title>
+      <link>https://news.ycombinator.com/item?id=48965850</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及编程辅助模型 OpenAI Codex 的技术细节更新及底层元数据调整，符合用户对编程工具及AI技术进展的关注</small></p><p>OpenAI 近期通过 GitHub Pull Request <a href="https://github.com/openai/codex/pull/33972/files">#33972</a> 更新了 Codex 客户端（0.144 版本），将绑定的 GPT-5.6 模型上下文窗口（Context Window）大小从 372k tokens 下调至 272k tokens。</p>
+<p>此次调整主要出于成本与延迟的权衡考量。服务较小的上下文窗口能够显著降低推理成本并控制响应延迟，而大多数编程会话实际上并不需要如此庞大的上下文空间。OpenAI 工程师 Tibo 在社交媒体上表示，这是一项临时措施，后续将会恢复至 372k tokens。</p>
+<p>社区对此进行了广泛讨论。多数用户认为，在长会话中，模型上下文压缩（Context Compaction）机制的表现更为关键。部分用户反馈压缩过程偶尔会导致任务遗漏或信息丢失，也有用户指出 Codex 近期的压缩稳定性已有明显改善。此外，有开发者建议 OpenAI 借鉴 DeepSeek 的 K/V cache（键值缓存）技术，以进一步降低长会话的推理成本。</p>
+<p>值得注意的是，该更新还修复了系统提示词（System Prompt）中的一个安全隐患。新增的安全指令要求模型在执行破坏性操作前必须进行严格的目标确认，以防止类似意外删除用户主目录（如 <code>rm -rf ~</code>）的事故重演。</p>
+<p>在模型性能方面，社区对 GPT-5.6 Sol 版本的评价呈现分化。虽然其在代码审查和复杂任务处理上表现出色，但在代码重构、解决合并冲突等特定场景下，部分用户认为其遵循指令的稳定性略逊于 GPT-5。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48965850</guid>
+      <pubDate>Sun, 19 Jul 2026 07:54:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code 已采用 Rust 版 Bun 运行时，启动速度微升</title>
       <link>https://news.ycombinator.com/item?id=48966569</link>
@@ -995,23 +1008,6 @@ Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48908178</guid>
       <pubDate>Tue, 14 Jul 2026 15:18:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 利用 Hooks 脚本过滤 Claude Code 的 AI 常用语</title>
-      <link>https://news.ycombinator.com/item?id=48905248</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享了使用 Hooks 脚本定制 AI 编程工具 Claude Code 输出的技巧，属于编程工具使用经验分享，符合用户 high_interest 偏好。</small></p><div>
-<h3>正文</h3>
-<p>文章介绍了如何通过 Claude Code 的 Hooks 功能，拦截并替换 AI 输出中令人厌烦的常用语（如 "load-bearing"、"honest takes" 等）。作者 Johanna Larsson 提供了一个 Python 脚本，利用正则表达式在 <code>MessageDisplay</code> 钩子中实时修改文本内容。例如，将 "load-bearing" 替换为 "cooked"，"you're absolutely right" 替换为 "I'm a complete clown"。用户只需将脚本保存至 <code>~/.claude/hooks/wordswap.sh</code> 并在 <code>settings.json</code> 中配置即可生效。</p>
-<img src="/images/how-to-stop-claude.png" alt="A screenshot of Claude output showing the effect of the script." />
-<p>评论区讨论了 AI 生成文本中常见的冗余表达（AI-speak）及其对思维的影响。有用户指出这种风格可能构成一种 <a href="https://en.wikipedia.org/wiki/Information_hazard" rel="nofollow">信息危害（Infohazard）</a>，建议通过阅读高质量文本或编写过滤工具（如 <a href="https://github.com/JuliusBrussee/caveman" rel="nofollow">caveman</a>）来净化思维。此外，还有观点认为这种风格是 <a href="https://www.orwellfoundation.com/the-orwell-foundation/orwell/essays-and-other-works/politics-and-the-english-language/" rel="nofollow">乔治·奥威尔</a> 曾批评的 "政治语言" 的现代翻版，并探讨了 <a href="https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback" rel="nofollow">人类反馈强化学习（RLHF）</a> 是否导致了模型词汇的单一化。</p>
-<h3>你知道吗？</h3>
-<p><b>信息危害（Infohazard）</b>：指某些信息本身具有危害性，接触这些信息可能导致接收者受到损害。在 AI 语境下，指 AI 生成的特定语言模式可能潜移默化地影响人类的思维方式和表达习惯。</p>
-<p><b>caveman</b>：一个旨在简化 AI 输出、去除冗余词汇的工具，通过强制 AI 使用更简洁的语言来提高沟通效率。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48905248</guid>
-      <pubDate>Tue, 14 Jul 2026 11:46:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
