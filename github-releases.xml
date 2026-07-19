@@ -3,7 +3,33 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 19 Jul 2026 00:05:02 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jul 2026 06:41:28 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.215 更新：手动触发代码审查与验证技能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.215</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布了 v2.1.215 版本。此次更新主要涉及交互行为的变更：Claude 不再自动运行 <code>/verify</code> 和 <code>/code-review</code> 技能。用户现在需要手动输入 <code>/verify</code> 或 <code>/code-review</code> 命令来显式触发这些功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.215</guid>
+      <pubDate>Sun, 19 Jul 2026 02:56:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>Hapi v0.23.1 发布：新增 Codex 会话导入、Claude Code 离开摘要及多项 Web 与 CLI 优化</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.23.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.23.1 版本已发布。Hapi 是一款编码代理的桌面终端应用，允许同时运行多个 CLI 编码代理（如 <a href="https://github.com/tiann/hapi">Claude Code</a>），每个任务在独立的 <a href="https://git-scm.com/docs/git-worktree">git worktree</a> 中隔离。本次更新主要聚焦于 Web 界面优化、Claude Code 与 Codex 的功能增强，以及 CLI 稳定性的提升。</p>
+<h3>主要功能与改进</h3>
+<ul>
+<li><strong>Claude Code 集成优化</strong>：在本地模式聊天中新增显示 Claude Code 的离开摘要（away recap）功能，方便用户快速回顾中断前的任务状态；同时优化了会话转录内容的扫描方式，改为增量扫描以提升性能，并改进了标题显示逻辑，保留原生标题并增加远程回退机制。</li>
+<li><strong>Codex 会话管理</strong>：新增从运行器（runners）导入和恢复会话的功能，并修复了安全审批策略（safe-yolo approval policy）的兼容性问题。</li>
+<li><strong>Web 界面体验提升</strong>：支持按最后活动时间过滤会话列表；优化移动端体验，保持会话标题紧凑；确保机器名称始终可见，且健康状态提示支持触控操作。</li>
+<li><strong>CLI 稳定性修复</strong>：修复了远程启动失败时排队消息丢失的问题，提升了任务调用的可靠性。</li>
+</ul>
+<p>本次更新还包含多项底层修复与依赖更新，进一步增强了应用的稳定性与兼容性。完整更新日志可访问：<a href="https://github.com/tiann/hapi/compare/v0.23.0...v0.23.1">Full Changelog</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.23.1</guid>
+      <pubDate>Sun, 19 Jul 2026 06:22:39 GMT</pubDate>
+    </item>
     <item>
       <title>OpenAI Codex 0.144.6 更新：修正 GPT-5.6 模型上下文窗口</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.144.6</link>
@@ -1037,52 +1063,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.186</guid>
       <pubDate>Mon, 22 Jun 2026 20:37:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>Devbox 0.17.4 发布：支持环境变量配置路径，修复空格路径与 Corepack 问题</title>
-      <link>https://github.com/jetify-com/devbox/releases/tag/0.17.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 0.17.4 版本现已发布，主要带来了配置文件路径的环境变量支持，并修复了多项影响稳定性和兼容性的问题。</p>
-
-<h3>主要更新</h3>
-<ul>
-  <li><strong>新增环境变量支持</strong>：引入了 <code>DEVBOX_CONFIG</code> 环境变量，允许用户直接指定配置文件路径，无需在每次命令中重复传递 <code>--config</code> 参数 <a href="https://github.com/jetify-com/devbox/pull/2838">#2838</a>。</li>
-  <li><strong>路径与 Shell 兼容性修复</strong>：解决了项目目录或 <code>ZDOTDIR</code> 包含空格时导致 Shell 失效的问题 <a href="https://github.com/jetify-com/devbox/pull/2860">#2860</a> <a href="https://github.com/jetify-com/devbox/pull/2876">#2876</a>，并修复了插件路径引用错误。同时，新增了对无效环境变量名称的跳过处理，防止破坏 Shell 环境 <a href="https://github.com/jetify-com/devbox/pull/2883">#2883</a>。</li>
-  <li><strong>Node.js Corepack 改进</strong>：将 <code>setup-corepack</code> 重写为 ESM 模块，修复了在 <code>"type": "module"</code> 项目中 Corepack 设置失败的问题 <a href="https://github.com/jetify-com/devbox/pull/2857">#2857</a> <a href="https://github.com/jetify-com/devbox/pull/2873">#2873</a>。</li>
-  <li><strong>其他修复与优化</strong>：
-    <ul>
-      <li><code>devbox generate</code> 生成的 Dockerfile 现使用完全限定的 <code>docker.io</code> 镜像地址 <a href="https://github.com/jetify-com/devbox/pull/2847">#2847</a>。</li>
-      <li>修复了 <code>direnv</code> 集成中 <code>DEVBOX_SHELL_ENABLED</code> 变量的设置问题 <a href="https://github.com/jetify-com/devbox/pull/2861">#2861</a>。</li>
-      <li>修正了默认 <code>devbox.json</code> 配置的缩进格式 <a href="https://github.com/jetify-com/devbox/pull/2851">#2851</a>。</li>
-      <li>更新了 Elixir 和 Jekyll 示例项目以适配最新依赖 <a href="https://github.com/jetify-com/devbox/pull/2882">#2882</a> <a href="https://github.com/jetify-com/devbox/pull/2881">#2881</a>。</li>
-    </ul>
-  </li>
-</ul>
-
-<h3>维护与基础设施</h3>
-<ul>
-  <li>恢复了 Devbox 的官方 Logo，并修复了文档中的失效链接。</li>
-  <li>强化了 CI 与发布流程，解决了 GitHub API 403 限流问题 <a href="https://github.com/jetify-com/devbox/pull/2884">#2884</a>，升级了 GitHub Actions 的 Node.js 运行时 <a href="https://github.com/jetify-com/devbox/pull/2886">#2886</a>，并优化了测试分片策略以加速构建 <a href="https://github.com/jetify-com/devbox/pull/2885">#2885</a>。</li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p><strong>Corepack</strong> 是 Node.js 官方提供的包管理器工具，旨在统一管理不同 Node.js 版本中使用的包管理器（如 Yarn、Pnpm 等）版本，确保项目依赖的一致性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.17.4</guid>
-      <pubDate>Mon, 22 Jun 2026 13:26:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.185 更新：优化 API 响应等待提示与延迟设置</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.185</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>本次更新主要优化了 API 响应等待时的用户界面提示与触发逻辑：</p>
-<ul>
-<li><strong>提示文本优化</strong>：将流停滞（stream-stall）提示语从 <code>No response from API · Retrying in …</code> 调整为 <code>Waiting for API response · will retry in …</code>，以更准确地反映当前等待状态。</li>
-<li><strong>触发延迟调整</strong>：将触发该提示的静默等待时间从 10 秒延长至 20 秒，旨在减少因短暂网络波动或 API 响应延迟导致的误报，提升交互体验。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.185</guid>
-      <pubDate>Sat, 20 Jun 2026 20:59:19 GMT</pubDate>
     </item>
   </channel>
 </rss>

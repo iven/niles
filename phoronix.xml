@@ -3,7 +3,27 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 19 Jul 2026 00:05:12 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jul 2026 06:42:20 GMT</lastBuildDate>
+    <item>
+      <title>⭐ GNU Hurd 2026 年第二季度进展：AArch64 支持与 Rust 翻译器开发</title>
+      <link>https://www.phoronix.com/news/GNU-Hurd-Q2-2026</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 GNU Hurd 项目在 AArch64 上的移植进展以及使用 Rust 语言编写翻译器。根据来源配置，用户对 Rust 语言感兴趣，且文章涉及开源内核项目进展，故判断为推荐阅读。</small></p><p>GNU Hurd 项目近日发布了 2026 年第二季度（Q2）进展报告。尽管其开发节奏不及 Linux 或 Haiku 等项目显著，但开发者团队仍在稳步推进各项核心任务。</p>
+<p>本季度主要进展包括：</p>
+<ul>
+<li><strong>AArch64 架构支持</strong>：针对 ARM 64 位架构的适配工作持续进行，部分关键代码已成功合入上游内核。</li>
+<li><strong>9P 翻译器（Translator）开发</strong>：团队宣布开发 9P 翻译器，旨在优化文件浏览体验，并支持通过 virtio-9p 协议在虚拟机与宿主机之间共享目录树。</li>
+<li><strong>POSIX 兼容性与权限管理</strong>：完成了 <code>msync</code> 验证工作以更好地遵循 POSIX 规范；同时实现了允许特权用户设置任务优先级 nice 值的功能。</li>
+<li><strong>Rust 语言集成探索</strong>：开发了基于 Rust 的 TRIVFS 实现原型，成功验证了使用 Rust 编写 Hurd 翻译器的技术可行性。</li>
+</ul>
+<p>此外，项目还推进了 Neovim 编辑器、OpenBSD 的 OpenNTPD 时间同步服务以及 Glibc 库的移植与增强工作。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=hurd_rust_translators" alt="GNU Hurd Rust translators" /></p>
+<h3>你知道吗？</h3>
+<p><strong>GNU Hurd</strong> 是 GNU 操作系统的内核微内核实现，采用分布式微内核架构，与传统的单体内核（如 Linux）设计哲学不同。在 Hurd 中，<strong>翻译器（Translator）</strong>是核心机制，负责处理文件系统、网络等系统调用。本季度提到的 <strong>9P</strong> 是一种网络文件系统协议，常用于 Plan 9 操作系统及现代虚拟化环境；<strong>TRIVFS</strong> 则是 Hurd 中用于实现虚拟文件系统的组件。使用 Rust 编写翻译器有助于提升内存安全性并降低系统级编程的复杂度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Hurd-Q2-2026</guid>
+      <pubDate>Sun, 19 Jul 2026 00:53:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Mesa 26.2 中 NVK Vulkan 驱动性能提升，逐步缩小与 NVIDIA 专有驱动差距</title>
       <link>https://www.phoronix.com/news/NVK-Mesa-26.2-Performance</link>
@@ -673,18 +693,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/review/plasma-67-wayland-cachyos</guid>
       <pubDate>Fri, 10 Jul 2026 15:45:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux Device Tree 补丁为 Apple M3 Pro/Max/Ultra 提供基础启动支持</title>
-      <link>https://www.phoronix.com/news/Linux-DT-Apple-M3-Pro-Max-Ultra</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 来源配置对「苹果电脑Linux支持」为高兴趣，文章提供 Apple M3 系列芯片在 Linux 中的设备树支持，符合用户兴趣</small></p><p>Linux 7.2 内核已引入对 Apple M3 芯片的初始支持，但仅能实现基础控制台启动，缺乏图形加速等日常使用所需功能。近日，Asahi Linux 贡献者 Janne Grunau 提交了新的 Device Tree（设备树，DT）补丁，进一步扩展了对 Apple M3 Pro、M3 Max 和 M3 Ultra 芯片的初步支持。</p>
-<p>与 M1 和 M2 世代不同，M3 世代的设备组合有所精简，非笔记本设备仅包含搭载 M3 Ultra 的 Mac Studio。笔记本方面涵盖 14 英寸和 16 英寸 MacBook Pro。值得注意的是，M3 Pro 采用了独立设计，不再像前代那样作为 M3 Max 的降频版本存在。因此，M3 Max 和 M3 Ultra 将共用 <code>apple,t6030</code> 兼容前缀，而低配版 M3 Max（T6034）则拥有独立的标识符。</p>
-<p>该补丁系列为这些设备添加了 CPU 核心、中断控制器、电源状态、看门狗、串口、引脚控制器、I2C 以及启动帧缓冲等基础硬件支持。这为主线 Linux 内核后续统一添加其他硬件驱动（如 GPU 支持）奠定了基础。<img src="//www.phoronix.net/image.php?id=2026&image=m3_mac_studio_med" alt="Apple M3 Ultra Mac Studio rear I/O" /></p>
-<p>目前这些补丁正在审查中，若进展顺利，有望在 Linux v7.3 开发周期内合并入主线内核。不过，要实现 M3 系列硬件在 Linux 下的完整可用体验，仍需较长时间来完善图形加速及其他集成设备功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-DT-Apple-M3-Pro-Max-Ultra</guid>
-      <pubDate>Fri, 10 Jul 2026 10:26:14 GMT</pubDate>
     </item>
   </channel>
 </rss>
