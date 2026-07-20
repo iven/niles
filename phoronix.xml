@@ -3,7 +3,19 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 20 Jul 2026 15:21:53 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2026 18:16:13 GMT</lastBuildDate>
+    <item>
+      <title>⭐ GNOME 因 AI 生成报告调整安全披露政策</title>
+      <link>https://www.phoronix.com/news/GNOME-Security-Changes-2026</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲述GNOME桌面环境为应对AI生成的虚假报告而调整安全披露政策。GNOME属于核心开源项目与Linux桌面技术，符合用户感兴趣的主题，故推荐。</small></p><p>GNOME 项目宣布将调整安全报告的处理流程，主要应对近期激增的由人工智能（AI）/大语言模型（LLM）生成的安全发现报告。</p>
+<p><strong>披露窗口缩短</strong>：未来的安全报告披露窗口将从行业标准的 90 天缩短至 30 天。Red Hat 的 Michael Catanzaro 指出，大多数 GNOME 安全问题通常在 1 到 3 周内得到修复，或者根本未被修复，因此缩短期限更为合理。</p>
+<p><strong>AI 报告处理</strong>：针对那些明确禁止 AI 生成内容的子项目，GNOME 将不再转发包含 AI 生成内容的报告，而是直接在跟踪器中关闭。不过，项目维护者仍会被通知以知晓相关发现。</p>
+<p><strong>负责人变动</strong>：自 2020 年起负责 GNOME 安全跟踪工作的 Michael Catanzaro 宣布将于 11 月卸任。他表示因感到疲惫，将不再追踪新报告的安全问题，并计划在 12 月所有截止日期到期后结束工作。目前他正在寻找有经验的社区成员来接替这一角色。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Security-Changes-2026</guid>
+      <pubDate>Mon, 20 Jul 2026 15:55:56 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Firefox 153 发布：引入 Vulkan 视频解码与实验性 JPEG-XL 支持</title>
       <link>https://www.phoronix.com/news/Firefox-153-Downloads</link>
@@ -676,22 +688,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-rc3-Multi-GPU-Fix</guid>
       <pubDate>Sat, 11 Jul 2026 13:20:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ LLVM 23 合并 x86 LFI 目标，实现高效进程内沙箱</title>
-      <link>https://www.phoronix.com/news/LLVM-x86-LFI-Merged</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 LLVM 编译器合并 x86 LFI 特性用于进程内沙箱，属于编程工具底层技术发布，符合全局配置中对编程工具发布/分享的关注。</small></p><p>斯坦福大学研究人员开发的 <a href="https://en.wikipedia.org/wiki/Lightweight_fault_isolation">轻量级故障隔离（Lightweight Fault Isolation，LFI）</a> 编译器目标已正式合并至 LLVM 23。继 AArch64 目标之后，本周 x86/x86_64 的 LFI 目标也已完成上游合并。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=llvm_x86_lfi" alt="LLVM x86 LFI merged" />
-<p>LFI 是一种基于编译器的技术，旨在为 C、C++ 和汇编代码提供高效的进程内沙箱机制，以抵御内存安全漏洞，同时保持现有代码的性能与兼容性。该研究源于斯坦福大学，并得到了 Google 等公司的工程资源支持。</p>
-<p>LFI 的核心优势在于极低的性能开销。由于采用进程内沙箱架构，其上下文切换仅需数十个时钟周期（cycles），速度比传统的基于进程的沙箱快约 100 倍。在 Spec2017 基准测试中，AArch64 架构下的完整沙箱开销约为 7%，若仅对写操作进行沙箱隔离，开销可降至 2%。此外，LFI 的沙箱开销比当前最先进的 WebAssembly（Wasm）工具链低 3 到 10 倍。</p>
-<p>在设计理念上，LFI 并不追求跨平台独立性，而是赋予编译器和运行时最大自由度，以充分利用特定平台的硬件特性或新型优化技术。同时，它尽可能遵循现有的目标 ABI 和二进制规范（如 ELF 和 Dwarf），以确保与现有代码和工具的兼容性。LFI 对系统调用和库接口保持中立，支持直接运行未修改的库和驱动程序。</p>
-
-<h3>你知道吗？</h3>
-<p>内存安全漏洞（如缓冲区溢出）长期以来是 C/C++ 程序面临的主要安全威胁。传统的沙箱方案通常依赖操作系统级别的进程隔离或虚拟机，虽然安全性高，但上下文切换和 IPC（进程间通信）开销巨大。LFI 通过编译器在编译阶段插入隔离代码，在同一个进程内划分出受保护的内存区域，从而在接近原生性能的前提下实现安全隔离。这种“近硬件（closer to the metal）”的方法使其成为运行高安全性要求且对性能敏感的传统二进制代码的理想方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-x86-LFI-Merged</guid>
-      <pubDate>Sat, 11 Jul 2026 10:12:09 GMT</pubDate>
     </item>
   </channel>
 </rss>
