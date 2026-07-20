@@ -3,7 +3,45 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 20 Jul 2026 18:17:47 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2026 20:41:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Kimi K3与Qwen 3.8开源，前沿AI实验室的经济学与竞争格局重构</title>
+      <link>https://news.ycombinator.com/item?id=48980019</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要报道Kimi K3与Qwen 3.8两款开源大模型的发布与能力验证，直接契合用户“新AI模型发布公告”的高兴趣偏好，判定为critical。</small></p><div>
+<p>近期，月之暗面（Moonshot Labs）发布的 <a href="https://x.com/MoonshotAI/status/...">Kimi K3</a> 与阿里巴巴发布的 <a href="https://x.com/QwenLM/status/...">Qwen 3.8</a> 两款顶尖基础模型相继亮相。这两款模型不仅性能逼近 Anthropic 的 Fable 5，且均计划开源。这一动向标志着开源模型已具备与资本雄厚的前沿实验室（Frontier Labs）正面竞争的实力，对现有 AI 产业格局构成了战略级挑战。</p>
+
+<p>文章深入剖析了基础模型（Foundation Models）的经济学逻辑。模型开发成本高昂，但一旦训练完成，主要的边际成本将转向推理阶段的算力与电力。对于不拥有数据中心或发电设施的公司（如 Anthropic、Moonshot Labs），其可变成本随收入线性增长，利润率难以通过规模效应提升。相反，像 Meta、SpaceX 和 Alibaba 这样拥有基础设施的公司，能将部分可变成本转化为固定成本，从而在用户规模扩大时获得更高的边际利润，甚至可以通过出租算力获利。</p>
+
+<img src="images/2026-07-19-wiltw-model-cost.png" alt="Figure 1: 模型每完成一项任务的成本对比，显示 Fable 5 的成本显著高于竞争对手" />
+
+<p>在此经济模型下，纯模型提供商面临严峻的生存压力。Anthropic 尤其处于脆弱位置：其 Fable 5 模型每任务成本几乎是 OpenAI 的 3 倍，且高度依赖监管策略与“递归自我改进”（Recursive Self-Improvement）作为护城河。尽管其推出的 Claude Code 等产品体验优异，但开源替代品（如 OpenCode）正在快速追赶。相比之下，OpenAI 在消费者硬件、产品生态及基础设施投资上布局更早，长期韧性更强。</p>
+
+<p>社区讨论进一步指出，Kimi K3 等开源模型的普及将大幅降低 AI 创业门槛，使研究人员能够基于开源权重快速启动新项目，而不必承担高昂的预训练资本支出。同时，关于“纯模型是否具备长期商业价值”的争论持续存在：部分用户认为，尽管开源模型性能强劲，但 Anthropic 等公司提供的完整产品体验（如 Claude Code）仍具有不可替代的粘性；而另一些观点则认为，随着价格战爆发和推理成本下降，模型本身的差异化优势将被削弱，最终拥有基础设施和生态系统的公司将主导市场。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48980019</guid>
+      <pubDate>Mon, 20 Jul 2026 15:13:42 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Firefox 正式合并 Vulkan 视频解码支持</title>
+      <link>https://news.ycombinator.com/item?id=48978835</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍Firefox浏览器新增Vulkan视频解码支持的功能更新，属于用户明确感兴趣的“软件新功能”类别，判定为recommended。</small></p>Firefox 153 版本正式合并了对 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2021722">Vulkan 视频解码（Vulkan Video Decoding）</a> 的支持。该功能旨在解决 Linux 平台上 Firefox 长期存在的硬件解码不稳定问题，有望使其硬件加速体验接近 Chrome/Chromium 的水平。
+
+社区讨论聚焦于硬件解码的实际表现与功耗优化：
+<ul>
+<li><b>能效与平台差异</b>：硬件解码的核心优势在于能效。有用户指出，在 Linux 环境下，独立显卡（dGPU）的 PCIe 链路和显存唤醒功耗较高，可能导致未加速播放反而更省电。相比之下，现代 CPU 的集成显卡（iGPU）通常拥有更高效的专用解码器。</li>
+<li><b>NVIDIA 驱动优化</b>：针对 NVIDIA GPU 用户，有建议指出在使用 <code>nvidia-vaapi-driver</code> 时，需设置环境变量 <code>CUDA_DISABLE_PERF_BOOST</code> 以消除额外的 GPU 功耗开销。</li>
+<li><b>未来扩展</b>：Vulkan 解码的引入为后续优化提供了空间。解码后的视频帧可直接对接基于 Vulkan 的滤镜管线（如 <a href="https://code.videolan.org/videolan/libplacebo">libplacebo</a>），避免 CPU 与 GPU 之间的数据拷贝，从而提升 8K 等高码率视频的播放效率。</li>
+</ul>
+
+<b>你知道吗？</b><br>
+<b>Vulkan 视频解码（Vulkan Video Decoding）</b> 是 Vulkan 图形 API 的扩展，允许应用程序直接利用 GPU 的专用硬件单元进行视频解码。传统上，视频解码多依赖 CPU 或厂商私有的 API（如 NVIDIA 的 NVDEC 或 Intel 的 VAAPI）。Vulkan 视频解码提供了跨厂商的统一标准，减少了驱动层的转换开销。对于 Linux 用户而言，这意味着 Firefox 等浏览器可以更高效、更统一地调用 GPU 硬件加速，摆脱以往依赖复杂且碎片化的后端配置。]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48978835</guid>
+      <pubDate>Mon, 20 Jul 2026 13:47:13 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 中国开放权重AI策略正取得领先优势</title>
       <link>https://news.ycombinator.com/item?id=48979269</link>
@@ -946,41 +984,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48922434</guid>
       <pubDate>Wed, 15 Jul 2026 15:34:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Thinking Machines 发布开源多模态大模型 Inkling，支持 100 万上下文与可控推理</title>
-      <link>https://news.ycombinator.com/item?id=48924912</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Thinking Machines发布的开源多模态大模型，符合用户对新AI模型发布的高兴趣配置。</small></p>Thinking Machines AI 近日发布了其首款开源权重（open-weights）多模态大语言模型 <b>Inkling</b>。该模型基于 <a href="https://thinkingmachines.ai/news/introducing-inkling/">Mixture-of-Experts (MoE)</a> 架构，总参数量达 9750 亿，激活参数量为 410 亿，支持高达 100 万 token 的上下文窗口。模型在 45 万亿 token 的文本、图像、音频和视频数据上进行了预训练，并原生支持多模态推理。
-
-Inkling 的核心设计理念是作为通用基础模型，强调广泛的能力平衡而非单一基准的极致优化。其亮点包括：
-<ul>
-<li><b>可控思考努力（Controllable thinking effort）</b>：允许用户根据任务复杂度动态调整模型的推理深度，从而在响应速度与计算成本之间取得平衡。</li>
-<li><b>强大的微调生态</b>：模型已上线 <a href="https://thinkingmachines.ai/news/introducing-inkling/">Tinker</a> 平台供开发者进行微调。官方展示了 Inkling 的 <b>Self-finetuning（自我微调）</b> 演示，模型能够自主编写训练脚本、生成数据集并完成权重更新（例如将其微调为不输出字母 "e" 的 lipogram 模型）。</li>
-<li><b>基准表现</b>：在 Design Arena 的 Agentic Web Dev 排行榜中，Inkling 以 1257 分位列开源模型前列，展现了优秀的智能体（Agentic）代码生成与工具调用能力。</li>
-</ul>
-
-在 Hacker News 社区讨论中，开发者普遍认为 Inkling 填补了西方开源多模态模型的空白，其长上下文和多模态输入能力备受认可。不过，也有声音指出其部分基准分数略低于 GLM 5.2 或 Nemotron 3 Ultra，且对 Tinker 平台的实际微调体验及商业化前景持观望态度。社区建议开发者结合具体任务进行独立评估。
-
-<h3>你知道吗？</h3>
-<ul>
-<li><b>Mixture-of-Experts (MoE)</b>：一种神经网络架构，通过引入多个“专家”子网络，并在推理时仅激活其中一部分来处理特定输入。这种机制能在保持庞大总参数量的同时，显著降低计算成本和推理延迟。</li>
-<li><b>Controllable thinking effort</b>：指模型在生成回答前进行内部推理（类似思维链）的深度可控性。对于简单任务可快速响应，对于复杂逻辑问题则可延长推理过程以提升准确性，有效优化资源分配。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48924912</guid>
-      <pubDate>Wed, 15 Jul 2026 18:12:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenAI 推出硬件外设 &quot;Work Louder&quot; (Codex Micro)</title>
-      <link>https://news.ycombinator.com/item?id=48923079</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍OpenAI推出的硬件外设产品，并非核心AI模型或编程工具，用户兴趣导向不明确，故设为可选。</small></p><p>OpenAI 近日发布了名为 <strong>Work Louder</strong>（内部代号 Codex Micro）的硬件设备。该设备是一款小型物理外设，配备 RGB 键盘与旋钮，售价为 230 美元。详情可参阅 <a href="https://openai.com/supply/co-lab/work-louder/">官方页面</a>。</p>
-<p>在 Hacker News 社区，该发布引发了广泛讨论。多数用户将其类比为 <a href="https://www.elgato.com/us/en/p/stream-deck">Elgato Stream Deck</a> 或 <a href="https://en.wikipedia.org/wiki/Teenage_Engineering">Teenage Engineering</a> 的极客玩具，认为其定位偏向硅谷工程师与开发者的昂贵周边。部分评论指出，该设备可能旨在测试 OpenAI 的硬件生产能力，或作为展示其技术实力的开发者工具。</p>
-<p>与此同时，社区中也存在不少质疑声音。有用户认为其功能完全可通过软件界面实现，230 美元的价格缺乏实际生产力价值；另有观点调侃称，这或许是 OpenAI 此前被指“窃取苹果硬件机密”的动机之一。此外，也有评论担忧此类物理交互设备的流行，可能进一步将编程工作“婴儿化”。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48923079</guid>
-      <pubDate>Wed, 15 Jul 2026 16:12:58 GMT</pubDate>
     </item>
   </channel>
 </rss>

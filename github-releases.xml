@@ -3,7 +3,20 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 20 Jul 2026 18:15:50 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2026 20:38:34 GMT</lastBuildDate>
+    <item>
+      <title>Chezmoi v2.71.1 发布：新增升级详细输出与跳过机密处理功能</title>
+      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.71.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Chezmoi v2.71.1 版本已发布，主要包含以下更新：</p>
+<ul>
+  <li><strong>新功能</strong>：<code>upgrade</code> 命令现在支持 <code>--verbose</code> 标志，允许用户查看升级过程的详细输出；同时新增了 <code>--skip-secrets</code> 标志，允许在处理配置文件时跳过机密信息。</li>
+  <li><strong>修复</strong>：修复了外部目标路径的验证逻辑，确保其位于目标目录内，增强了路径处理的安全性。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.71.1</guid>
+      <pubDate>Mon, 20 Jul 2026 20:11:45 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.215 更新：手动触发代码审查与验证技能</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.215</link>
@@ -1033,36 +1046,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.142.0</guid>
       <pubDate>Mon, 22 Jun 2026 22:19:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.186 发布说明：新增 MCP 认证命令与 Bash 自动响应功能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.186</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.186 更新概览</h2>
-<p>Claude Code 发布了 v2.1.186 版本。本次更新重点增强了 MCP（Model Context Protocol）服务器的命令行认证能力，引入了 Bash 命令自动响应机制，并对后台 Agent（智能体）交互、内存管理及权限提示进行了多项优化与修复。</p>
-
-<h3>核心功能与新增特性</h3>
-<ul>
-<li><strong>MCP 命令行认证</strong>：新增 <code>claude mcp login &lt;name&gt;</code> 和 <code>claude mcp logout &lt;name&gt;</code> 命令，允许用户通过 CLI（Command Line Interface）直接完成 MCP 服务器认证，无需打开交互式 <code>/mcp</code> 菜单。同时支持 <code>--no-browser</code> 参数，便于在 SSH（Secure Shell）环境中通过 stdin 重定向完成认证。</li>
-<li><strong>Bash 命令自动响应</strong>：执行 <code>!</code> 开头的 Bash 命令时，Claude 现在会自动响应输出内容。若需恢复仅保留上下文的旧行为，可在 <code>settings.json</code> 中设置 <code>"respondToBashCommands": false</code>。</li>
-<li><strong>后台 Agent 权限提示优化</strong>：后台子 Agent 请求权限时，不再自动拒绝，而是在主会话中弹出提示对话框。对话框会明确显示请求来源，按 <code>Esc</code> 仅拒绝该特定工具请求。</li>
-<li><strong>内存管理改进</strong>：当 Agent 内存接近容量限制时，系统会自动提醒其压缩 <code>MEMORY.md</code> 索引文件。</li>
-<li><strong>技能（Skills）配置增强</strong>：技能 frontmatter（前置元数据）中的 <code>display-name</code>、<code>default-enabled</code> 等键现在兼容 kebab-case、snake_case 和 camelCase 命名格式。同时改进了损坏的 YAML（YAML Ain't Markup Language）frontmatter 处理逻辑，避免静默失败。</li>
-<li><strong>重试机制调整</strong>：<code>CLAUDE_CODE_MAX_RETRIES</code> 环境变量上限调整为 15；针对无监督会话，建议改用 <code>CLAUDE_CODE_RETRY_WATCHDOG</code>。</li>
-<li><strong>其他新增项</strong>：新增 <code>teammateMode: "it2"</code> 设置项以支持 iTerm2 终端；<code>/login</code> 命令新增 AWS 凭证刷新选项；<code>/review &lt;pr&gt;</code> 命令底层引擎已对齐至 <code>/code-review medium</code>。</li>
-</ul>
-
-<h3>体验优化与 Bug 修复</h3>
-<ul>
-<li><strong>会话与终端交互修复</strong>：修复了机器从睡眠唤醒后流式请求因 "Content block not found" 或 JSON 解析错误而失败的问题；修复了浅色终端中打开后台会话时的深色主题闪烁现象；修复了 <code>claude agents</code> 中鼠标选中文本删除后仍保持高亮的问题。</li>
-<li><strong>后台任务与子 Agent 修复</strong>：修复了子 Agent 转录滚动位置泄露至主会话的问题；修复了后台任务预览在计划加载前闪烁原始工具名称的问题；修复了后台会话摘要重复显示的问题；修复了从 <code>claude agents</code> 打开后台会话时背景屏幕残留的问题。</li>
-<li><strong>权限与工具限制修复</strong>：修复了冷启动首次运行时 <code>--tools</code> 标志加载前，功能门控工具（feature-gated tools）意外通过的问题；修复了命名子 Agent 生成时 <code>Agent(type)</code> 拒绝规则和类型限制未生效的问题；修复了主轮次结束后 <code>Esc</code> 和 <code>Ctrl+C</code> 无法中断仍在运行的后台 Agent 的问题。</li>
-<li><strong>界面与显示修复</strong>：修复了权限提示中选项文本溢出导致编号对齐错位的问题；修复了 <code>/plugin</code> 已安装页面在顶部时仍显示 "more above" 指示器的问题；修复了助手消息中 <code>~~strikethrough~~</code> 被渲染为字面波浪号而非删除线的问题。</li>
-<li><strong>其他修复</strong>：修复了工作流 <code>agent({schema})</code> 子 Agent 在模式验证失败时无限循环而非在 5 次尝试后中止的问题；修复了通过 tmux（Terminal Multiplexer）/pane 后端生成的队友未继承领导者 <code>--effort</code> 级别的问题；修复了企业版和团队版订阅者未显示 Agent 团队成本的问题；改进了 <code>claude mcp get/remove</code> 命令的拼写纠错与长列表截断提示。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.186</guid>
-      <pubDate>Mon, 22 Jun 2026 20:37:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
