@@ -3,7 +3,64 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 21 Jul 2026 09:37:18 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jul 2026 11:59:28 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Jane Street 开源 Incremental：构建高效增量计算的 OCaml 库</title>
+      <link>https://news.ycombinator.com/item?id=48987822</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Jane Street 开源的增量计算 OCaml 库，属于编程工具发布与开源项目，符合用户兴趣配置，故推荐。</small></p><p>
+  Jane Street 开源了 <a href="https://github.com/janestreet/incremental">Incremental</a>，这是一个用于构建复杂增量计算的 OCaml 库。该库灵感来源于 Umut Acar 等人关于自我调整计算（self-adjusting computations）的研究，旨在当输入数据发生变化时，能够高效地更新计算结果，而无需重新执行整个计算过程。
+</p>
+<p>
+  Incremental 的核心机制类似于在计算图（DAG）上建立缓存。它通过内省（introspection）自动构建依赖关系，并在输入改变时仅重算受影响的节点。这种特性使其非常适合以下场景：
+</p>
+<ul>
+  <li>构建类似电子表格的大型计算，能高效响应数据变化。</li>
+  <li>构建 GUI 应用的视图，高效整合新数据。</li>
+  <li>计算衍生数据，确保其与源数据保持同步。</li>
+</ul>
+<p>
+  在 Hacker News 的讨论中，开发者们探讨了 Incremental 与 Observable 模式的区别。虽然两者都涉及数据流追踪，但 Incremental 更侧重于通过自动构建计算图来优化重计算，避免不必要的传播。社区还提到了类似的技术实现，如 JavaScript 中的 Signals 提案、Rust 的 Salsa 库以及 JetBrains 的 Noria 平台。此外，有评论指出这种技术在金融衍生品定价和反向传播算法中也有重要应用。
+</p>
+<h3>你知道吗？</h3>
+<p>
+  <b>增量计算（Incremental Computation）</b>，也被称为自我调整计算（Self-adjusting Computations），是一种计算范式。其核心思想是：当程序的输入发生微小变化时，程序能够自动且高效地更新输出，而不是从头开始重新运行整个程序。
+</p>
+<p>
+  这与传统的响应式编程（Reactive Programming）有相似之处，但增量计算更强调“最小化重计算”。它通常通过维护一个有向无环图（DAG）来记录计算依赖关系。当输入改变时，系统只重新计算受影响的节点，并跳过那些输入未发生变化的节点。这种技术在电子表格软件、图形用户界面（GUI）渲染以及机器学习中的反向传播算法中有着广泛的应用。
+</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48987822</guid>
+      <pubDate>Tue, 21 Jul 2026 03:50:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 如何测量 arXiv 上的 AI 写作比例及其局限性</title>
+      <link>https://news.ycombinator.com/item?id=48981206</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨 arXiv 论文中 AI 生成内容的测量方法与分析结果，涉及 AI 技术进展与科学前沿分析，符合用户兴趣配置，故推荐。</small></p><p>一项针对 arXiv 预印本平台的研究对 12,750 篇论文进行了全面分析，发现约三分之一的近期新论文呈现出机器生成的特征。该研究旨在量化生成式 AI 对学术写作的影响，并详细披露了检测方法的校准过程与实际局限性。</p>
+<p>研究团队开发了一种针对学术写作校准的检测器，将 2021 至 2022 年（ChatGPT 发布前）的论文作为真实人类写作的基线，将假阳性率严格控制在 0.4%。通过对 2023 年初至 2026 年 7 月提交的论文全文进行评分，结果显示：AI 写作标记率在 ChatGPT 发布后迅速攀升，分两波增长，在 2026 年初达到近 39% 的峰值，近期季度平均约为 32%。</p>
+<img src="/blog/assets/paper-trend.png" alt="Share of new arXiv papers flagged as machine-written, 2021 to 2026, at a threshold calibrated so pre-ChatGPT papers flag at 0.4%. The eight slate points are the pre-LLM control months; the band is a bootstrap 95% interval." />
+<p>不同学科领域的 AI 写作渗透率存在显著差异。计算机科学（Computer Science）以约 65% 的比例位居榜首，其次是定量生物学（Quantitative Biology，56.3%）和电气工程（Electrical Engineering，51.3%）。相比之下，数学（Mathematics）的标记率仅为 0.7%。然而，作者指出数学领域的低分可能并非因为 AI 使用率低，而是由于数学论文高度依赖公式和证明结构，剩余的自然语言文本稀疏，超出了检测器的训练分布，导致检测盲区。</p>
+<img src="/blog/assets/paper-fields.png" alt="Share of papers flagged as machine-written by field, over the 12 months to July 2026 (about 300 papers per field)." />
+<p>研究同时强调了多项局限性。首先，检测器对不同生成模型的敏感度不一，且无法覆盖作者实际使用的私有模型组合，因此报告的比例实际上是实际使用率的“下限”。其次，标记为“机器写作”仅表示文本具有机器生成的特征，可能包含重度 AI 辅助编辑的内容，并不能直接作为指控特定作者使用 AI 的证据。此外，LaTeX 格式等排版因素也可能对检测分数产生干扰。</p>
+<p>社区对此研究的讨论主要集中在检测器的准确性与学术伦理上。部分用户指出，检测器在处理特定格式或经典文本时可能存在偏差，但也有用户验证了该检测器对爱因斯坦等早期人类科学文本的误判率极低。关于 AI 写作的普及，观点呈现两极分化：一方认为只要不降低输出质量，AI 辅助能提升科研沟通效率；另一方则担忧 AI 生成的“水论文”会污染学术环境，降低知识传播的信噪比。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48981206</guid>
+      <pubDate>Mon, 20 Jul 2026 16:36:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>基于 Three.js 的新宿站室内 3D 可视化地图</title>
+      <link>https://news.ycombinator.com/item?id=48978792</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章内容为基于 Three.js 的新宿站 3D 可视化地图，主题偏向特定场景的 Web 技术展示，与用户明确的高兴趣或兴趣主题匹配度一般，故列为可选。</small></p><p>本文介绍了一个基于 <a href="https://satoshi7190.github.io/Shinjuku-indoor-threejs-demo/">Three.js</a> 构建的新宿站室内 3D 可视化项目。该项目利用日本国土交通省公开的“新宿站周边室内地图数据”，将新宿站复杂的立体交通网络以 3D 形式呈现。</p>
+<p>在 Hacker News 社区中，该演示因其流畅的性能和精细的结构受到关注。评论者将其复杂的立体迷宫结构与经典游戏场景相类比，如《最终幻想7》中的米德加（Midgar）或《攻壳机动队》的计算机界面。部分用户指出，虽然地图展示了多层站台和通道，但数据可能并不完整，例如缺少与新宿三丁目站的连接部分。</p>
+<p>关于实际应用，有用户提议开发基于此的 3D 导航应用以解决新宿站复杂的路线问题，但也有人反驳称通勤者无暇在拥挤的车站内使用手机导航，且站内现有的指示牌系统虽然复杂但已具备一定指引作用。</p>
+<h4>你知道吗？</h4>
+<p><strong>新宿站</strong>常年位居世界最繁忙火车站前列，日均客流量巨大。其复杂的立体结构源于多条私铁、JR线路和地铁线路的交汇，导致站内通道错综复杂，甚至被戏称为“迷宫”。此外，<strong>Three.js</strong> 是一个基于 WebGL 的 JavaScript 3D 库，允许开发者在网页浏览器中轻松创建和展示交互式 3D 图形。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48978792</guid>
+      <pubDate>Mon, 20 Jul 2026 13:43:10 GMT</pubDate>
+    </item>
     <item>
       <title>Jellyfin联合创始人及核心领导层宣布和平离职，项目将继续发展</title>
       <link>https://news.ycombinator.com/item?id=48986091</link>
@@ -877,99 +934,6 @@ Jellyfin是一个完全免费、开源的媒体系统，旨在替代Plex等商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48939524</guid>
       <pubDate>Thu, 16 Jul 2026 20:03:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>LLM 批评者全对，但我依然在使用：一种平衡之道</title>
-      <link>https://news.ycombinator.com/item?id=48933310</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要探讨对LLM批评的看法及个人使用平衡，偏向主观观点与体验分享，未直接涉及具体技术进展或工具发布，兴趣指向不明确，故归为可选。</small></p><p>在近期的 <a href="https://news.ycombinator.com/item?id=48933310">Local-First Conf</a> 会议上，作者观察到一种普遍存在的矛盾心理：许多工程师一边热烈批评大语言模型（LLM）的缺陷，一边在实际工作中依赖它们（如使用 Claude Code）。这篇文章旨在探讨这种认知失调，并分享作者在承认 LLM 诸多问题的同时，仍坚持使用它的理由与方法。</p>
-
-<h3>LLM 的批评者为何有理</h3>
-<p>作者认同大多数 LLM 批评者的观点，主要担忧包括：</p>
-<ul>
-  <li><strong>开源信任危机</strong>：LLM 导致大量低质量代码提交（PR），维护者难以区分人类努力与机器生成，可能导致开源项目拒绝外部贡献。</li>
-  <li><strong>对初级工程师的影响</strong>：资深工程师可能因 LLM 接管基础任务而失去教学动力，且难以评估初级工程师的真实能力。</li>
-  <li><strong>地缘政治风险</strong>：如 <a href="https://www.theocharis.dev/blog/llm-critics-are-right-i-use-llms-anyway/">Anthropic</a> 因美国出口管制指令，被迫对非美国用户禁用其前沿模型。</li>
-</ul>
-<p><img src="https://www.theocharis.dev/blog/llm-critics-are-right-i-use-llms-anyway/anthropic-fable-statement_hu3648486020534622876.png" alt="Anthropic 的声明，关于美国出口管制导致 Fable 5 和 Mythos 5 不可用" /></p>
-<ul>
-  <li><strong>思想同质化</strong>：LLM 可能潜移默化地融合训练数据的多数观点，影响用户的独立思考。</li>
-</ul>
-
-<h3>为何依然使用 LLM</h3>
-<p>尽管存在上述问题，作者认为 LLM 已成为不可逆的趋势，并提出了以下使用理由：</p>
-<ul>
-  <li><strong>放大人类思维</strong>：LLM 能增强人类已有的观点、结构和框架。关键在于人类是否投入了思考，而非完全外包给 AI。</li>
-  <li><strong>提高产出质量</strong>：通过大量使用 LLM 进行头脑风暴、语法检查和迭代，作者能以更少的精力产出更高质量的内容。</li>
-  <li><strong>本地模型的备份作用</strong>：运行本地模型（Open-weights）可减少对外部大公司的依赖，并在“泡沫破裂”时提供保障。</li>
-</ul>
-<p>作者坦言自己每月在 token 上的花费高达约 10,000 美元，但认为这种投入带来的价值是值得的。</p>
-<p><img src="https://www.theocharis.dev/blog/llm-critics-are-right-i-use-llms-anyway/june-2026-token-spend.png" alt="作者 2026 年 6 月的 token 花费截图，总额约 10,000 美元" /></p>
-
-<h3>高效使用模式</h3>
-<p>作者分享了几个关键的使用技巧，以平衡效率与质量：</p>
-<ul>
-  <li><strong>"Grill-me" 技巧</strong>：源自 Matt Pocock 的方法，让 LLM 不断提问以确保双方对问题有共同理解，避免盲目生成。</li>
-  <li><strong>撰写简短的问题陈述</strong>：强迫自己用三句话概括问题，确保核心逻辑清晰，再交由 LLM 执行。</li>
-  <li><strong>人类背书原则</strong>：区分 "AI 垃圾" 与 "好内容" 的标准是，人类是否愿意公开朗读并为之负责。</li>
-</ul>
-
-<h3>社区反馈</h3>
-<p>评论区讨论了多个相关话题：</p>
-<ul>
-  <li><strong>技能退化担忧</strong>：部分用户担心过度依赖 LLM 会导致基础技能（如正则表达式）的丧失，但也有人认为 LLM 能加速学习过程。</li>
-  <li><strong>开源信任重建</strong>：有维护者表示，由于 LLM 生成的 PR 难以验证，他们倾向于拒绝外部贡献，但这可能破坏开源社区的信任基础。</li>
-  <li><strong>软件工程教育</strong>：资深工程师是否还需要初级工程师，以及公司是否愿意承担培养新人的成本，成为热议话题。</li>
-</ul>
-
-<p>总体而言，文章提供了一种务实的视角：在承认 LLM 缺陷的同时，通过明确的使用模式和人类主导的思维投入，最大化其价值。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48933310</guid>
-      <pubDate>Thu, 16 Jul 2026 11:59:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Google 将 NotebookLM 更名为 Gemini Notebook，新增代码执行与跨应用同步</title>
-      <link>https://news.ycombinator.com/item?id=48936451</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 Google NotebookLM 更名为 Gemini Notebook 及新增代码执行功能，属于 AI 软件新功能更新，符合用户对 AI 软件技术进展的兴趣。</small></p><p>Google 官方博客宣布，其 AI 研究工具 <a href="https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/">NotebookLM 正式更名为 Gemini Notebook</a>。该产品最初于 2023 年 Google I/O 以 Project Tailwind 项目发布，目前已拥有超过 3000 万用户和 60 万组织。此次更名旨在强化其作为 Google AI 家族核心成员的身份，并深化与 Google 生态系统的整合。</p>
-<p>此次更新的核心功能包括：</p>
-<ul>
-<li><strong>安全云计算机（Secure Cloud Computer）</strong>：每个笔记本现配备独立的云环境，允许用户直接编写和执行代码，以进行更复杂的数据分析。该功能目前面向 Google AI Ultra 用户及企业客户开放，即将向所有 Web 端 Pro 用户推送。</li>
-<li><strong>跨应用同步</strong>：用户可在 <a href="https://gemini.google.com/">Gemini 应用</a>中直接访问和创建笔记本，实现全平台数据同步。未来，笔记本功能还将整合至 Google Search 的 AI 模式（AI Mode）中。</li>
-</ul>
-<p>在 Hacker News 社区讨论中，用户普遍认可此次更名解决了原名称在品牌定位上的割裂感。部分用户指出，相较于 ChatGPT 或 Claude，NotebookLM 在基于源文档引用回答方面表现更优，有效降低了大语言模型（LLM）的幻觉问题。然而，也有评论对 Google 频繁重新包装产品的策略表示担忧，并指出 Google 在推理速度与模型能力上仍落后于 Anthropic 和 OpenAI。</p>
-<p><strong>你知道吗？</strong></p>
-<p>NotebookLM 的核心技术基于检索增强生成（RAG, Retrieval-Augmented Generation）与代码解释器（Code Interpreter）的结合。通过安全沙箱环境执行代码，它能够在不暴露原始敏感数据的前提下，对用户上传的 PDF、表格或网页进行自动化清洗与可视化分析。这种“文档驱动+代码执行”的架构，使其在企业级知识管理与复杂数据研究场景中具备独特优势。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48936451</guid>
-      <pubDate>Thu, 16 Jul 2026 16:08:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Decoy Font：利用空间频率混淆AI视觉的“双关”字体</title>
-      <link>https://news.ycombinator.com/item?id=48936584</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了一款能够混淆AI视觉识别的字体工具项目，兼具编程工具分享与AI技术进展属性，符合用户的高兴趣配置，推荐阅读。</small></p><p>Decoy Font 是一款由 Mixfont 开发的实验性字体，旨在利用视觉错觉技术防止人工智能（AI）读取文本内容。</p>
-<p>该字体基于“混合图像（Hybrid Images）”原理，利用不同的空间频率在同一字符中呈现两个不同的信息。字符的前景由清晰的细线轮廓组成，而背景则是模糊的低频质量。这种设计使得：</p>
-<ul>
-  <li><strong>近看时</strong>：人类和AI容易识别清晰的“诱饵”文字（例如 "SORRY ROBOT"）。</li>
-  <li><strong>远看或眯眼时</strong>：人类更容易识别模糊背景中的“隐藏”文字（例如 "HAPPY HUMAN"）。</li>
-</ul>
-<img src="https://static.mixfont.com/assets/20260715-073057-decoy-font-message-3-ohuk5x8p.webp" alt="Decoy font says two different things from up close vs far away" width="2400" height="2400" />
-<p>作者通过测试展示了该字体的效果。当将包含 Decoy Font 的图片发送给 ChatGPT 或 Gemini 等模型时，AI 往往只能读取到前景的诱饵文字，而无法发现隐藏的真相。</p>
-<img src="https://static.mixfont.com/assets/20260715-072934-image-7pdyl5wd.webp" alt="Screenshot of an AI reading the Decoy Font image as BINGE SHOWS" width="1830" height="1166" />
-<img src="https://static.mixfont.com/assets/20260715-073540-image-41r73tjp.webp" alt="Screenshot of Gemini reading the Decoy Font image as BINGE SHOWS" width="2102" height="1158" />
-<p>尽管概念新颖，但该字体在实际应用中存在局限性：</p>
-<ul>
-  <li><strong>传输方式限制</strong>：只有当文本以图片形式（如截图）发送时，AI 才会被“欺骗”；如果作为 HTML 文本传输，AI 可以直接读取字符编码。</li>
-  <li><strong>无障碍访问问题</strong>：这种字体对屏幕阅读器（Screen Readers）不友好，可能影响视障用户的阅读体验。</li>
-  <li><strong>安全性并非绝对</strong>：高级 AI 模型或特定的技术手段（如调整分辨率、编写图像处理脚本）可能破解该机制。</li>
-</ul>
-<p>作者表示，Decoy Font 更多是一种探索排版与 AI 交互的实验，旨在为隐私保护提供新思路，而非绝对的安全屏障。</p>
-<h3>你知道吗？</h3>
-<p><strong>混合图像（Hybrid Images）</strong>：这一概念由麻省理工学院（MIT）的研究人员提出。人类视觉系统对不同空间频率的敏感度不同：近距离观察时，我们更容易看到高频细节（清晰的边缘）；远距离观察时，低频信息（模糊的轮廓）占主导。Decoy Font 正是利用了这一生理特性，将两张不同的图像（或文字）融合在同一个字符中，从而实现“近看一种字，远看另一种字”的视觉错觉。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48936584</guid>
-      <pubDate>Thu, 16 Jul 2026 16:18:21 GMT</pubDate>
     </item>
   </channel>
 </rss>
