@@ -3,7 +3,28 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 21 Jul 2026 20:23:13 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jul 2026 22:11:27 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.217 更新摘要</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.217</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>本次更新引入了多项新功能，重点优化了子代理（subagent）的管理机制与提示词输入体验，同时修复了多项影响稳定性和性能的问题。
+
+**新功能与核心改进**
+- **表情符号快捷补全**：在提示词输入框中新增了表情符号快捷方式自动补全功能。用户输入 `:heart:` 即可插入 ❤️，输入 `:hea` 可获取建议。该功能可通过 `emojiCompletionEnabled` 设置进行禁用。
+- **子代理并发与嵌套限制**：为单条消息可能无限制生成后台代理的问题增加了防护。默认限制并发运行的子代理数量为 20 个，可通过 `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` 覆盖。同时，子代理默认不再允许嵌套生成，可通过 `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` 设置允许更深层次的嵌套。
+- **预算限制生效**：修复了 `--max-budget-usd` 参数未对后台子代理生效的问题。达到预算上限后，系统将拒绝新的代理生成请求并终止正在运行的后台代理。
+- **转录失败警告**：新增了转录写入失败（例如磁盘空间不足）或由于继承的环境变量导致会话保存关闭时的警告提示，避免转录记录静默丢失。
+
+**性能优化与 Bug 修复**
+- **内存与启动优化**：修复了截断的 MCP 工具输出导致内存泄漏的问题。针对 `CLAUDE.md` 或 `SKILL.md` 路径前缀包含大量花括号组导致启动时内存溢出（OOM）或停滞的问题，现在对花括号扩展进行了预算限制。
+- **会话与命令修复**：修复了 Claude Opus 4.8 在 Bedrock 上自动压缩（auto-compact）未触发以及 `/compact` 命令超限失败的问题。修复了 `--resume`/`--continue` 和 `/resume` 命令在转录包含格式错误的附件条目时抛出 TypeError 的问题。修复了远程会话中，权限提示出现后连接的查看者未显示待处理权限提示的问题。
+- **界面与交互改进**：修复了屏幕阅读器模式的启动公告被首次提示渲染截断，以及思考状态行频繁重渲染的问题。修复了附加到起始后台会话时转录预览与输入区域紧贴的问题，现在保持了一行间隙。改进了页脚 PR 徽章链接，使其在无法检测终端支持时（如通过 ssh/tmux）也可点击。
+- **其他修复**：修复了 Claude Desktop 会话中企业 mTLS、TLS 验证、OAuth 范围和代理设置被忽略的问题。修复了托管设置中 `OTEL_EXPORTER_OTLP_ENDPOINT` 未控制所有信号的问题。登录过期警告提前至过期前 3 天显示。限制了前端设计插件建议提示的展示次数（最多 3 次）。]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.217</guid>
+      <pubDate>Tue, 21 Jul 2026 21:35:10 GMT</pubDate>
+    </item>
     <item>
       <title>OpenAI Codex v0.145.0 更新：分页线程历史、多代理 V2 稳定化及音频支持</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.145.0</link>
@@ -1062,25 +1083,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/fish-shell/fish-shell/releases/tag/4.8.0</guid>
       <pubDate>Wed, 24 Jun 2026 10:07:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.187 更新：沙盒凭据限制、模型组织管控与多项交互修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.187</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>安全与配置增强</h3>
-<p>新增 <code>sandbox.credentials</code> 配置项，限制沙盒环境读取凭据文件与秘密环境变量。引入组织级模型限制策略，在模型选择器及相关命令行参数（<code>--model</code>、<code>/model</code>、<code>ANTHROPIC_MODEL</code>）中生效，选择受限模型时将显示明确提示。</p>
-
-<h3>交互体验优化</h3>
-<p>全屏模式新增鼠标点击支持，可直接操作权限提示及配置菜单。命令 <code>/install-github-app</code> 使 GitHub Actions 工作流配置变为可选；<code>/btw</code> 支持方向键浏览历史回答，<code>/plugin</code> 优化插件管理界面，便于清理近期未使用的插件。</p>
-
-<h3>核心功能修复</h3>
-<p>解决结构化输出（<code>--json-schema</code>）无限重试及后续轮次返回异常的问题，确保可靠返回结构化数据。修复远程 MCP 工具调用长时间挂起无响应的问题，现默认超时中止（可通过 <code>CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT</code> 覆盖）。修复 <code>--resume</code> 在无交互记录时的失败问题。</p>
-
-<h3>稳定性与细节修复</h3>
-<p>修复远程会话启动延迟、粘贴中日韩文本乱码、代理视图后台作业卡死、频道连接断开及子代理深度跟踪异常等问题。优化 VSCode 扩展在大会话恢复时的响应速度，并修正 Ghostty 终端 URL 点击及帮助文档缺失标志等细节。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.187</guid>
-      <pubDate>Tue, 23 Jun 2026 21:03:48 GMT</pubDate>
     </item>
   </channel>
 </rss>

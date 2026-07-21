@@ -3,7 +3,19 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 21 Jul 2026 20:23:13 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jul 2026 22:11:54 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Cryptsetup 2.8.7 发布：应对 Linux AF_ALG 接口弃用及多项加密改进</title>
+      <link>https://www.phoronix.com/news/Cryptsetup-2.8.7-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章讨论 Cryptsetup 工具 2.8.7 版本发布，解决 Linux 内核 AF_ALG 加密 API 弃用问题，属于新软件项目发布，根据来源配置 high_interest，故分级为 critical</small></p><p>Linux 磁盘加密管理工具 Cryptsetup 已发布 2.8.7 版本，主要旨在应对 Linux 内核中 AF_ALG（Address Family for Linux Cryptographic API）接口的快速弃用。该接口长期被用于为用户空间应用程序提供直接访问内核内部加密 API 的途径，但因其存在巨大的安全攻击面，已在 Linux 7.2 中被标记为弃用，并计划在 Linux 7.3 中进一步限制。</p>
+<p><img src="//www.phoronix.net/image.php?id=ryzen-disk-encrypt&image=fedora_26_encryption_med" alt="Linux disk encryption" /></p>
+<p>在此版本中，开发者开始重构代码以确保在 AF_ALG 不可用时仍能正常运行，并回退至用户空间加密库。对于处理 LUKS（Linux Unified Key Setup）密钥槽等特定操作，系统会在必要时回退到临时的 dm-crypt（Device Mapper Crypt）映射，但这需要 root 权限。尽管此举旨在保障兼容性，但用户空间库目前仍存在局限：若所需算法（如仅在内核中实现的 Adiantum 密码）或加密模式（如 Serpent 或 Twofish 的 XTS（XEX-based tweaked cipher with Ciphertext Stealing mode）模式）未在该库中实现，可能会引发严重的兼容性问题。此外，若 AF_ALG 接口不可用，Cryptsetup 的密码基准测试功能也将被移除。</p>
+<p>除应对接口弃用外，2.8.7 版本还引入了密钥环处理改进、解决 LUKS 卷密钥摘要潜在碰撞问题的机制，并在 libgcrypt 后端增加了对 Aria 和 Camellia 密码的支持。该版本现已可通过 <a href="https://gitlab.com/cryptsetup/cryptsetup">GitLab</a> 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Cryptsetup-2.8.7-Released</guid>
+      <pubDate>Tue, 21 Jul 2026 22:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Ubuntu 披露三个 Snap 安全漏洞，最老漏洞可追溯至 16.04 LTS</title>
       <link>https://www.phoronix.com/news/Ubuntu-Snap-Three-More-Vulns</link>
@@ -707,21 +719,6 @@ Level Zero 是英特尔推出的底层图形与计算 API，旨在提供接近�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Haiku-June-2026</guid>
       <pubDate>Tue, 14 Jul 2026 10:11:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Fedora 45 批准“轻量级”GRUB 替代包，专用于机密计算环境</title>
-      <link>https://www.phoronix.com/news/GRUB-Light-Approved-Fedora-45</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 内容涉及 Fedora 45 发行版的新软件包批准，符合来源配置中“新发行版”的高兴趣设定。</small></p><p>Fedora 工程与指导委员会（FESCo）正式批准了一项变更提案，将在 Fedora 45 中引入一个专注于机密计算（Confidential Computing，简称 CoCo）需求的“轻量级” GRUB2 替代引导程序包。</p>
-<p>该独立包仅支持 UEFI 架构，并精简了启动现代机密计算环境所需的最少内置模块。它支持通过引导程序规范（Bootloader Specification，简称 BLS）文件引导统一内核镜像（Unified Kernel Images，简称 UKI）。</p>
-<p>推出该轻量级引导程序的动机主要源于机密虚拟机（VM）对安全性的严苛要求。这类环境高度依赖远程证明（Remote Attestation）技术，需要保持可信平台模块（TPM）平台配置寄存器（PCR）值的长期稳定性，而传统引导程序的频繁更新可能会影响这些关键值。此外，移除冗余代码和功能也有助于缩小攻击面，提升系统安全性。</p>
-<p>该提案在 FESCo 投票中获得 5 票赞成，无人反对。此外，FESCo 本周还批准了将 LLVM 23 编译器栈引入 Fedora 45，延续了 Fedora 始终搭载最新编译器工具链的传统。</p>
-<h3>你知道吗？</h3>
-<p><strong>机密计算（Confidential Computing）</strong>是一种旨在保护正在处理中的数据的技术。与通常保护静态数据（加密存储）和传输中数据（加密传输）不同，机密计算确保数据在内存中处理时也是加密的，防止操作系统、hypervisor 甚至云提供商管理员访问敏感信息。</p>
-<p><strong>远程证明（Remote Attestation）</strong>是机密计算的核心机制。它允许远程方验证运行在远程设备上的软件（如 VM 或容器）是否处于可信状态。在引导过程中，引导程序会将自身及后续加载组件的哈希值记录到 TPM 的 PCR 寄存器中。如果引导程序被修改或更新，PCR 值就会改变，从而导致远程证明失败，阻止敏感数据被解密或加载。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GRUB-Light-Approved-Fedora-45</guid>
-      <pubDate>Tue, 14 Jul 2026 09:51:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
