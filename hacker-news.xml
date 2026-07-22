@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 22 Jul 2026 06:42:58 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2026 09:38:45 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Poolside AI 发布 Laguna S 2.1：轻量级 MoE 模型在代码与推理任务中表现强劲</title>
+      <link>https://news.ycombinator.com/item?id=48995261</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章报道 Poolside AI 发布新模型 Laguna S 2.1，聚焦代码与推理能力，契合“新AI模型发布公告”与“编程工具发布/分享”的高兴趣配置，属于核心关注内容。</small></p><p>Poolside AI 正式发布了 <strong>Laguna S 2.1</strong>，这是一款专注于长周期任务处理与深度推理的轻量级代码智能体模型。该模型采用混合专家（Mixture-of-Experts, MoE）架构，总参数量为 118B，但每个 token 仅激活 8B 参数，并支持高达 100 万 token 的上下文窗口。从训练启动到发布仅耗时不到九周。</p>
+
+<p>在多项基准测试中，Laguna S 2.1 展现了超越其体量的竞争力：</p>
+<ul>
+  <li><strong>Terminal-Bench 2.1</strong>：得分 70.2%，在同等规模模型中遥遥领先，甚至逼近 DeepSeek-V4-Pro-Max 等千亿级参数模型。</li>
+  <li><strong>SWE-Bench Multilingual</strong>：得分 78.5%。</li>
+  <li><strong>DeepSWE</strong>：得分 40.4%，在长周期、高难度的软件工程任务中表现突出。</li>
+</ul>
+
+<p>该模型的核心突破在于行为模式的优化：通过强化验证机制、减少盲目假设、提升持久性，使其能够独立完成复杂的长周期工作。官方展示了三个实际案例：</p>
+<ul>
+  <li><strong>从零构建浏览器引擎</strong>：在无视觉能力的情况下，模型通过运行无头 Chromium 并数值比对截图，成功在 50 分钟内从零构建出 HTML/CSS 渲染引擎。</li>
+</ul>
+<img src="/assets/laguna/laguna-s-browser-engine.png" alt="Laguna S 浏览器引擎界面，左侧为模型渲染的画布，右侧为浏览器 iframe 渲染结果，用于对比验证。" />
+<ul>
+  <li><strong>优化自身框架</strong>：在自动化循环中，模型成功优化了 Poolside 的 Agent 框架，使运行速度提升 5.2%，内存分配减少约 70%。</li>
+  <li><strong>独立数学证明</strong>：模型独立推导并证明了 Erdős 问题 #397，展现了超越以往版本的数学推理能力。</li>
+</ul>
+
+<p>Laguna S 2.1 已开源完整权重，并公开了所有评估轨迹（<a href="https://trajectories.poolside.ai">trajectories.poolside.ai</a>）。社区反馈热烈，许多开发者认为其紧凑的体积和 MoE 架构使其成为本地部署（如 Strix Halo、DGX Spark 等设备）的理想选择，有望在中等算力设备上提供接近前沿闭源模型的开发体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48995261</guid>
+      <pubDate>Tue, 21 Jul 2026 17:17:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Kimi K3 与 Fable 5 模型对比：多模型路由策略展现 SoTA 性能与成本优势</title>
       <link>https://news.ycombinator.com/item?id=48999291</link>
@@ -900,27 +928,6 @@ Jellyfin是一个完全免费、开源的媒体系统，旨在替代Plex等商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48941104</guid>
       <pubDate>Thu, 16 Jul 2026 22:27:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 在生产环境中运行 SQLite 的几点心得与避坑指南</title>
-      <link>https://news.ycombinator.com/item?id=48950122</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享在生产环境部署与优化 SQLite 的实践经验与避坑指南，直接契合“编程效率改进经验”兴趣点，属于开发者会强烈关注的内容，故定为 critical。</small></p><p>本文作者分享了在 Django 项目中将 SQLite 作为生产数据库时积累的实践经验。尽管 SQLite 常被推荐用于小型网站，但作者发现其作为数据库的复杂性远超预期，并总结了以下关键经验：</p>
-<ul>
-  <li><b>ANALYZE 的重要性</b>：在使用 FTS5（SQLite 的全文搜索扩展）进行查询时，作者发现执行时间异常缓慢。运行 <code>ANALYZE</code> 命令生成统计信息后，查询时间从 5 秒骤降至 0.05 秒。该命令能帮助查询规划器（Query Planner）优化执行计划。</li>
-  <li><b>数据清理需分批进行</b>：直接删除大量数据容易耗时过长，导致其他并发写入的 Worker 因超时而崩溃。作者目前采用分批清理的策略，这也促使作者理解了为何高并发场景下需要支持多写入者的数据库（如 PostgreSQL）。</li>
-  <li><b>备份策略</b>：作者尝试了两种备份方式。一是结合 <code>sqlite3 VACUUM INTO</code> 与 <code>restic</code> 备份至 S3；二是使用 <code>litestream</code> 进行增量备份。作者还强调了通过“死人开关（Dead Man's Switch）”监控备份状态的重要性。</li>
-  <li><b>拆分数据库文件</b>：在过往项目 "Mess with DNS" 中，作者通过将表拆分到多个独立的 SQLite 文件中，成功支撑了长达 4 年的稳定运行。</li>
-</ul>
-<p><b>社区反馈与扩展阅读：</b></p>
-<ul>
-  <li><b>性能优化</b>：评论指出，SQLite 的 <code>.expert</code> 模式可自动分析查询并推荐索引。对于大批量删除或更新，社区一致认为分批处理是通用最佳实践，不仅能缓解锁表问题，也能降低 MySQL/PostgreSQL 等数据库的复制压力。</li>
-  <li><b>备份工具推荐</b>：开发者 simonw 推荐了 <a href="https://github.com/simonw/s3-credentials">s3-credentials</a> 工具以简化 AWS 凭证生成，并提及 <code>restic</code> 配合 Cloudflare R2 效果良好。另有用户分享了使用 <code>sqlite3 .dump</code> 结合 <code>zstd</code> 压缩进行增量同步的备份方案。</li>
-  <li><b>SQLite 的定位与扩展</b>：针对“SQLite 仅适合本地”的观点，社区指出通过分片（Sharding）、读写分离或使用 <a href="https://turso.tech">Turso</a> 等网络层封装，SQLite 也能应对分布式场景。不过，SQLite 官方文档明确表示其设计初衷是替代文件读写（fopen），而非直接竞争传统服务端数据库。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48950122</guid>
-      <pubDate>Fri, 17 Jul 2026 17:45:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
