@@ -3,7 +3,40 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 22 Jul 2026 12:02:55 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2026 14:20:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐ libx11-compat：基于 SDL 实现 Xlib 以支持 Wayland、macOS 和 Android</title>
+      <link>https://www.phoronix.com/news/libx11-compat</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲解libx11-compat在Linux图形兼容层面的新进展，属于Linux桌面技术与开源项目范畴，符合用户兴趣配置。</small></p><p>开源开发者 Ching-Chun (Jim) Huang 正在开发 <a href="https://github.com/jh119/libx11-compat" target="_blank">libx11-compat</a> 项目，旨在通过 SDL2/SDL3 重新实现 Xlib 客户端库，从而在不原生支持 X11 的平台上运行 X11 客户端应用。</p>
+<p>该项目作为一个轻量级的兼容性层，允许依赖 Xlib 的应用程序在不修改源代码的情况下，在 Wayland-only 的 Linux 桌面会话、macOS（无需 XQuartz）、Android 以及无头 CI 环境中运行。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=libx11_compat_1" alt="libx11-compat demo with XMMS" />
+<p>libx11-compat 库是一个进程内实现的 X Window System 客户端库，构建于 SDL2/SDL3、SDL_ttf 和 Pixman 之上。目前，该库已能支持运行 XMosaic、Qt2 应用、XCircuit、XMMS 等经典 X11 应用程序，而无需 X Server。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=libx11_compat_2" alt="libx11-compat demo with Mosaic" />
+<p>开发者表示，该项目旨在为现代 Linux 桌面世界（Wayland）以及其他平台提供 X11 客户端的兼容性支持。更多关于 libx11-compat 的信息可访问其 <a href="https://github.com/jh119/libx11-compat" target="_blank">GitHub 页面</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/libx11-compat</guid>
+      <pubDate>Wed, 22 Jul 2026 12:28:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.2-rc5 音频修复：硬件兼容性补丁与“新常态”</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-rc5-Audio-Fixes</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要涉及Linux内核音频驱动的兼容性修复，属于Linux桌面底层技术支持的一部分，符合用户对Linux桌面技术的兴趣范围。</small></p><p>Linux 7.2-rc5 阶段，Linux 声音子系统（Sound Subsystem）维护者 Takashi Iwai 提交了本周的音频修复补丁。Iwai 将这些修复的规模描述为“新常态（New Normal）”，这反映了近期由于人工智能/大语言模型（AI/LLM）活动增加，导致补丁和漏洞披露的节奏加快。尽管修复数量较多，但均为小规模修复，主要集中在硬件特定的兼容性处理（Quirks）上。</p>
+<p>本周提交的主要修复内容包括：</p>
+<ul>
+  <li><strong>Intel 硬件修复：</strong>修复了 Intel HDMI 保持静音模式（Keep-alive silent mode）下出现的无声流问题，该问题涉及 2022 年为 Alder Lake 和 DG2/Alchemist 硬件添加的代码。</li>
+  <li><strong>笔记本设备兼容性：</strong>修复了 MSI Vector A16 HX A8WIG 笔记本电脑内部数字麦克风检测问题；为 Dell XPS Wildcat Lake 和 Panther Lake 型号添加 Sound Open Firmware（SOF）的兼容性补丁以启用侧边放大器配置；解决了 HP ZBook 8 G2a 和 HP EliteBook 830 G8 的扬声器静音 LED 极性反转及启用问题；修复了 HP Pavilion x360 的无声输出问题。</li>
+  <li><strong>外设与驱动修复：</strong>为 JBL Quantum650 Wireless 耳机添加固定速率补丁；修复 Dell Pro QC1255 的爆音（Pop Noise）问题；修复 Lunnen Ground 14 和 Alienware x16 R2 的扬声器问题；解决 ASUS TUF ACP70 系统（如 TUF Gaming Vivobook 18 和 A14 FA401EA）的 SoundWire 驱动加载问题。</li>
+</ul>
+<p>这些补丁旨在提升 Linux 内核对各类新硬件和特定外设的兼容性与稳定性。</p>
+<h3>你知道吗？</h3>
+<p><strong>什么是 Quirks（硬件怪癖处理）？</strong> 在 Linux 内核开发中，由于硬件厂商在实现音频、USB 等标准协议时存在差异或错误，内核无法通过通用代码完美支持所有设备。因此，开发者需要针对特定设备添加特殊的处理代码，称为 "Quirks"。这些补丁通常只影响极少量的硬件，但能解决特定的兼容性问题。</p>
+<p><strong>Sound Open Firmware (SOF)：</strong> 一种开源的音频固件框架，旨在为基于 Intel、AMD 和 ARM 的处理器提供统一的音频驱动支持。通过 SOF，Linux 可以更好地管理现代笔记本电脑和台式机中的高级音频功能，如侧边放大器配置。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-rc5-Audio-Fixes</guid>
+      <pubDate>Wed, 22 Jul 2026 11:56:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Cryptsetup 2.8.7 发布：应对 Linux AF_ALG 接口弃用及多项加密改进</title>
       <link>https://www.phoronix.com/news/Cryptsetup-2.8.7-Released</link>
@@ -688,37 +721,6 @@ Level Zero 是英特尔推出的底层图形与计算 API，旨在提供接近�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Vulkan-Video-10-bit-H265</guid>
       <pubDate>Tue, 14 Jul 2026 11:58:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 解决 Apple Silicon SoC 传感器数据混乱难题：Linux 内核推进 Apple SMC 硬件监控驱动</title>
-      <link>https://www.phoronix.com/news/Apple-Wild-Mess-Sensors-Linux</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讨论 Linux 对 Apple Silicon 传感器的支持问题，精准匹配来源配置中“苹果电脑Linux支持”的 high_interest，属于核心关注领域。</small></p><p>Linux 内核中已存在用于 Apple Silicon SoC 的 Apple 系统管理控制器（System Management Controller, SMC）硬件监控（Hardware Monitoring, HWMON）驱动，旨在向 Linux 系统暴露电池、电源、温度及风扇转速等传感器数据。然而，由于主线内核中缺失相应的设备树（Device Tree）节点，且不同 Apple M 系列 SoC 的传感器布局极为混乱，该驱动一直未能稳定运行。</p>
-<img src="//www.phoronix.net/image.php?id=apple-m2-december&image=m2_december_1_med" alt="Apple MacBook M2" />
-<p>Apple Silicon Linux 贡献者 James Calligeros 近期提交了最新的补丁系列，致力于梳理并规范 SMC 传感器的数据上报。Apple 的 SMC 固件通过 FourCC 键值对系统暴露了数百个分散在 SoC 及整机中的传感器，但缺乏统一的命名与映射规律。部分传感器（如 PSTR 平台总功耗）全平台通用，部分仅存在于特定设备类别（如带风扇的机型），部分则仅属于特定 SoC 或单一设备。甚至同一 SoC 在不同设备中的核心温度传感器读取键值也存在差异。</p>
-<p>为解决这一难题，补丁系列引入了基于 <code>.dtsi</code> 文件的模块化设备树架构，通过分层组合来精准描述各设备传感器：</p>
-<ul>
-  <li><code>hwmon-common.dtsi</code>：存放经实证存在于所有 SoC 和设备的通用传感器。</li>
-  <li><code>hwmon-${soc}.dtsi</code>：存放特定 SoC 独有的传感器。</li>
-  <li><code>hwmon-${class}.dtsi</code>：存放特定设备类别（如笔记本）共有的传感器。</li>
-  <li><code>hwmon-fan-*.dtsi</code>：独立拆分风扇控制端点。</li>
-  <li>设备专属传感器：直接写入对应设备的 <code>.dts</code> 文件中。</li>
-</ul>
-<p>该补丁系列已提交至 Linux 内核邮件列表，初步引入了已知的基础传感器。由于逐一验证所有设备传感器的工作极为繁琐，未来将持续补充更多数据。与此同时，针对 Apple M4 及 M3 Pro/Max/Ultra 硬件在 Linux 下的引导支持也在同步进行代码审查。</p>
-<h3>你知道吗？</h3>
-<p><strong>设备树（Device Tree）与 .dtsi 模块化设计</strong>：设备树是 Linux 内核用于描述硬件配置的标准数据结构。在高度定制化的硬件平台（如 Apple Silicon）上，不同设备间的硬件差异往往极大。通过 <code>.dtsi</code> 文件（类似于编程中的头文件），开发者可以将通用的硬件描述抽离为独立模块并跨设备复用。这种分层组合策略能大幅降低内核维护成本，避免为每个设备编写冗余代码，是应对碎片化硬件生态的有效方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-Wild-Mess-Sensors-Linux</guid>
-      <pubDate>Tue, 14 Jul 2026 10:31:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Haiku 发布 2026 年 6 月进展报告：初步支持 NVMM 虚拟化，Beta 6 版本稳步推进</title>
-      <link>https://www.phoronix.com/news/Haiku-June-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Haiku 属于新软件项目（来源 high_interest），虽然涉及虚拟化技术（uninterested）且功能未完善，但作为操作系统版本的更新资讯，仍具有阅读价值。</small></p><p>BeOS 灵感开源操作系统 Haiku 近日发布了 2026 年 6 月项目进展报告。本月开发团队主要完成了多项系统改进，并持续推进备受期待的 Haiku r1 Beta 6 版本开发。</p><p>在虚拟化方面，开发者成功将 NetBSD 虚拟机监视器（NetBSD Virtual Machine Monitor，简称 NVMM）移植并合并至 Haiku 上游代码库，旨在为 QEMU 提供硬件加速的虚拟化支持。该移植工作最早可追溯至 2024 年夏季代码编程（Google Summer of Code）项目。不过，由于目前 NVMM 在 Haiku 上“尚未完全正常工作”——在 Haiku 或 Linux 等客户机操作系统启动后期会出现异常崩溃，且初步调试未能解决问题，该功能目前默认处于禁用状态。</p><p>除虚拟化支持外，本月 Haiku 还在多项底层与用户体验层面取得进展：实现了更多强制性的蓝牙控制命令支持，优化了屏幕亮度调节逻辑，修复了 BFS 文件系统的崩溃问题，并持续改进各类硬件驱动。此外，构建系统已初步启动对 64 位 PowerPC 架构的支持工作。</p><img src="//www.phoronix.net/image.php?id=2024&image=haiku_r1_b5" alt="Haiku desktop" /><p>开发团队表示，计划于本周晚些时候为 Beta 6 版本进行代码分支，并有望在 8 月中旬正式推出该测试版。更多 6 月详细进展可参考 Haiku 官方项目页面。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Haiku-June-2026</guid>
-      <pubDate>Tue, 14 Jul 2026 10:11:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
