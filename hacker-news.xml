@@ -3,7 +3,94 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 22 Jul 2026 22:14:14 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2026 23:18:07 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ GigaToken：基于 SIMD 与缓存优化的极速语言模型分词器</title>
+      <link>https://news.ycombinator.com/item?id=49010167</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了一个基于 SIMD 优化的开源语言模型分词器项目，涉及编程工具发布、分享及效率改进经验，符合 high_interest 配置。</small></p><p><a href="https://github.com/marcelroed/gigatoken/">GigaToken</a> 是一款基于 Rust 编写的高性能语言模型分词器（Tokenizer），旨在解决大规模文本处理中的性能瓶颈。该项目号称在吞吐量上比 HuggingFace 的 tokenizers 和 tiktoken 快约 <strong>1000 倍</strong>，并提供即插即用的兼容性支持。</p>
+
+<p>文章详细展示了 Gigatoken 在 AMD EPYC、Apple M4 Max 及 AMD Ryzen 等主流 CPU 上的基准测试数据。通过原生 Gigatoken API，该工具在处理 GPT-2、Llama 3、Qwen 3 等常见模型时，编码吞吐量（Encoding throughput）可达数十 GB/s。其核心加速原理在于：<a href="https://en.wikipedia.org/wiki/Single_instruction,_multiple_data">SIMD</a>（单指令多数据流）优化了通常由正则表达式引擎处理的预处理（Pretokenization）阶段，同时大幅优化了缓存层级（Cache Hierarchies）以减少分支预测失败，并最小化了与 Python 的交互开销。</p>
+
+<img src="https://raw.githubusercontent.com/marcelroed/gigatoken/main/assets/throughput_owt_train_gpt-2.svg" alt="GPT-2 Speedup" />
+
+<p>GigaToken 提供两种使用模式：一是原生 API，追求极致性能；二是兼容模式（Compatibility Mode），可无缝替换 HuggingFace Tokenizers 或 Tiktoken，虽然会因 Python 交互产生一定开销，但速度仍可提升约 200-300 倍。项目目前已知限制包括暂不支持 WordPiece 算法，SentencePiece 优化程度较低，且 Windows 环境支持尚不完善。</p>
+
+<p>在 Hacker News 的讨论中，社区针对“分词通常仅占模型推理时间的不到 0.1%，此类优化是否有实际意义”提出了疑问。回应指出，尽管比例微小，但在 <a href="https://www.gartner.com/en/newsroom/press-releases/2026-07-20-gartner-forecasts-worldwide-ai-platforms-and-models-market-to-grow-63-percent-in-2026" rel="nofollow">Gartner</a> 预估的数千亿美元 AI 推理支出规模下，优化分词环节仍能节省巨额成本。此外，分词在数据预处理、API 输入校验及计费统计等场景中具有独立且关键的价值。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49010167</guid>
+      <pubDate>Wed, 22 Jul 2026 17:20:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 实验验证：AI 实验室并未针对“鹈鹕骑自行车”基准进行过拟合训练</title>
+      <link>https://news.ycombinator.com/item?id=49010129</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 通过实验验证 AI 实验室模型是否存在过拟合特定基准的问题，属于 AI 软件技术进展领域，符合 interest 配置。</small></p><p>近年来，AI 研究者 Simon Willison 一直使用“生成一只骑自行车的鹈鹕（pelican riding a bicycle）的 SVG 图像”作为非正式基准，来测试各大语言模型（LLM）的图像生成能力。这一测试在 AI 社区广为人知，但也引发了关于 AI 实验室是否为了在公开基准上取得高分而进行针对性训练（即“Pelicanmaxxing”）的猜测。</p>
+<p>为了验证这一假设，作者 Dylan Castillo 进行了一项量化实验。他选取了 7 个前沿模型（包括 GPT-5.6 Terra、Claude Sonnet 5、Gemini 3.5 Flash 等），设计了包含 8 种动物和 6 种交通工具的 48 组提示词（Prompt），共生成了 1,008 张 SVG 图像。这些图像随后通过 LLM 评分模型（GPT-5.6 Luna）和特征提取工具进行了多维度评估。完整实验代码与数据已开源。</p>
+<p>实验结果并未发现 AI 实验室针对该基准进行过拟合的证据：</p>
+<ul>
+  <li><strong>单项能力未领先：</strong>在所有模型中，鹈鹕的评分在 8 种动物中仅排第 6，自行车的评分更是倒数第二。如果实验室进行了针对性训练，鹈鹕和自行车的得分理应显著高于其他同类物体。</li>
+  <li><strong>组合得分靠后：</strong>即使通过固定效应回归模型调整了不同动物和车辆的固有绘制难度，“鹈鹕骑自行车”的组合得分依然排在 48 种组合中的第 42 位。统计分析显示，没有任何实验室在该特定组合上表现出具有统计学意义的提升。</li>
+  <li><strong>无“记忆”痕迹：</strong>虽然所有 21 张生成的鹈鹕骑自行车图像都朝右，但这在实验中属于常见现象（自行车和鹈鹕本身从侧面绘制更容易）。场景元素（如阳光、围巾等）也未显示出重复的“记忆”模式。</li>
+</ul>
+<p>作者得出结论，目前几乎没有证据表明 AI 实验室在“Pelicanmaxxing”。更可能的情况是部分实验室（如 Google/DeepMind）进行了“SVGmaxxing”，即整体优化 SVG 生成能力，但这属于通用能力的提升，而非针对单一基准的作弊。社区评论中也指出，真正的基准测试应当避免被单一公开提示词所主导，并讨论了古德哈特定律（Goodhart's Law）在 AI 评估中的影响。</p>
+<p>原文链接：<a href="https://dylancastillo.co/posts/pelicanmaxxing.html">Are AI Labs Pelicanmaxxing?</a></p>
+<h3>你知道吗？</h3>
+<p><strong>什么是“Maxxing”与“Pelicanmaxxing”？</strong></p>
+<p>“Maxxing”一词源自网络亚文化（如“Looksmaxxing”），意为通过极端手段将某项属性提升到极致。在 AI 领域，“Benchmaxxing”指模型为了在特定基准测试（Benchmark）上刷高分而进行的针对性优化，这可能导致模型在真实世界任务中表现不佳。“Pelicanmaxxing”则是该概念的戏称，特指为了在 Simon Willison 的鹈鹕基准上得分而进行的训练。</p>
+<p><strong>古德哈特定律（Goodhart's Law）</strong></p>
+<p>评论中提到的古德哈特定律指出：“当一项措施成为目标时，它就不再是一项好的措施。”在 AI 领域，如果模型过度针对公开基准进行训练，基准分数将失去衡量模型真实能力的价值。这也是为什么 AI 社区越来越倾向于使用隐蔽提示词（Secret Prompts）或动态基准来评估模型能力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49010129</guid>
+      <pubDate>Wed, 22 Jul 2026 17:17:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>肌酸能让人变聪明吗？科学证据与常见误区解析</title>
+      <link>https://news.ycombinator.com/item?id=49008642</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要探讨肌酸对大脑影响的科学证据与常见误区，偏向健康科普而非硬核科学前沿，与用户关注的编程/AI 核心兴趣关联较弱，兴趣不明确。</small></p><div>
+<p>肌酸（Creatine）常被误认为是类固醇或“聪明药”，但科学证据表明它实际上是一种安全的天然营养素，主要作用是提升细胞内的能量传递效率。本文深入探讨了肌酸对肌肉力量和大脑认知的实际影响，并澄清了诸多常见误区。</p>
+
+<h3>肌酸的基本作用与安全性</h3>
+<p>肌酸并非激素，人体自身可合成，也广泛存在于肉类中。它通过转化为磷酸肌酸（Phosphocreatine）为细胞提供快速能量储备。广泛的研究证实，每日补充 3-5 克肌酸对健康人群安全无副作用，且不会导致脱发或异常增加睾酮水平。</p>
+
+<h3>对肌肉力量的显著提升</h3>
+<p>肌酸在增强爆发力方面证据确凿。补充肌酸可增加肌肉中磷酸肌酸的储备约 16%，从而在短跑或高强度训练中提升 5-15% 的最大力量/功率输出。然而，它对耐力运动（如长跑）几乎没有益处。</p>
+
+<h3>大脑为何需要肌酸？</h3>
+<p>虽然大脑不像肌肉那样有爆发性能量需求，但肌酸在神经元中扮演着“能量穿梭机”的角色，帮助将能量从线粒体输送到活跃区域，避免局部能量短缺。缺乏肌酸会导致严重的智力障碍和肌肉无力，这证明了其对大脑功能的重要性。</p>
+
+<h3>肌酸能让人变聪明吗？</h3>
+<p>关于肌酸提升认知的研究结果存在巨大争议。2003年的一项著名研究声称素食者补充肌酸后智商（IQ）大幅提升 17-26 分，但该结果从未被成功复现：<img src="/img/creatine/rae.png" alt="Rae et al. (2003) 研究结果图" />。2023年一项高质量的随机对照试验（RCT）显示，肌酸对认知能力的提升微乎其微（约 1-2.5 个 IQ 点），且统计上不显著：<img src="/img/creatine/sandkühler.png" alt="Sandkühler et al. (2023) 研究结果图" />。目前的共识是：肌酸可能对认知有极微小的帮助，尤其是在疲劳或睡眠不足时，但绝非显著的“聪明药”。</p>
+
+<h3>社区讨论与实用建议</h3>
+<p>在 Hacker News 的讨论中，用户指出补充剂行业存在夸大宣传，许多效果源于安慰剂效应。关于服用方法，专家建议无需“循环”（cycling），每日固定摄入 3-5 克即可。部分用户分享称，在睡眠不足时服用肌酸有助于缓解头痛和疲劳，但也有人报告了胃肠道不适等个体差异。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49008642</guid>
+      <pubDate>Wed, 22 Jul 2026 15:45:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>AI 时代的“制作”困境：当 AI 代劳时，我们是否还算是创作者？</title>
+      <link>https://news.ycombinator.com/item?id=49008440</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 探讨 AI 时代的创作伦理与身份认同问题，属于社会文化讨论，非技术核心内容，兴趣不明确。</small></p><p>在生成式 AI 迅速改变创作方式的今天，资深开发者 Brian "Beej Jorgensen" 在博客中探讨了 <a href="https://beej.us/blog/data/ai-making/">“制作（Making）”</a> 这一概念在 AI 辅助下的心理变化。文章通过对比亲手制作的木工项目与 AI 生成的代码、小说及画作，揭示了“发起者”与“制作者”之间的心理界限。</p>
+
+<p>作者指出，虽然 AI 带来了高层问题解决的便利，但也剥夺了底层问题解决的挑战、技艺的磨练以及亲手完成项目的成就感。他坦言，尽管他是 AI 生成内容的发起者，但无法像使用编译器或锤子那样，理直气壮地声称“我制作了它”。这种不适感源于“制作”与“委托制作”之间的本质区别。</p>
+
+<p><img src="images/nail.jpg" alt="Nail in wood with hammer" /></p>
+
+<p>HN 社区对此展开了热烈讨论。许多人共鸣于这种“所有权感”的缺失，认为关键在于是否通过过程获得了“理解”。也有观点认为，AI 让缺乏时间的人也能实现想法，是一种积极的工具化转变。</p>
+
+<p>文章进一步探讨了“提示词工程（Prompting）”是否算作“制作”。作者认为，提示词更像是一种领导力或委托，而非亲手制作。他通过对比编译器（C 语言到汇编）和 AI 助手，探讨了“制作”与“要求制作”的灰色地带。编译器被视为精确的工具（如同锤子），而 AI 则更像是一个人类协作者或承包商。</p>
+
+<p><img src="images/wiz2.jpg" alt="Dueling Wizard Hackers" /></p>
+
+<p>社区反馈中，许多人共鸣于这种“空虚感”，认为 AI 剥夺了动手的乐趣和所有权感。也有观点认为，关键在于“理解（understanding）”和“过程控制权（agency over the process）”。如果通过 AI 获得了理解，或者只是想要一个结果，那么使用 AI 是合理的。还有人指出，AI 像“健美中的类固醇”，虽然能更快达到目标，但可能让人失去对过程的控制和真正的理解。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49008440</guid>
+      <pubDate>Wed, 22 Jul 2026 15:33:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 陶哲轩与 ChatGPT 探讨雅可比猜想反例的对话记录</title>
       <link>https://news.ycombinator.com/item?id=49010345</link>
@@ -844,64 +931,6 @@ Jellyfin是一个完全免费、开源的媒体系统，旨在替代Plex等商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48959392</guid>
       <pubDate>Sat, 18 Jul 2026 16:12:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Elixir 官网迎来全新设计，社区热议语言特性与 BEAM 性能</title>
-      <link>https://news.ycombinator.com/item?id=48959042</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述 Elixir 语言官网的更新及社区对语言特性的讨论，属于“开源项目”和“软件新功能”的范畴，符合用户的常规兴趣。</small></p><p>Elixir 官网（<a href="https://elixir-lang.org/">elixir-lang.org</a>）近日完成了全新改版。新设计采用更简洁现代的布局，重点突出了 Elixir 作为一门动态函数式语言在构建可扩展、高可维护性应用方面的核心优势，并展示了其在机器学习（Machine Learning）等领域的实际应用场景。</p>
-<p>社区对新改版反响积极，开发者们赞赏新页面清晰传达了 Elixir 的不可变性、内存安全及渐进式类型系统等技术特性。同时，页面也展示了采用该语言的企业案例，进一步印证了其工业级应用价值。</p>
-<p>讨论还延伸至语言底层与生态发展：<br>
-- <strong>BEAM 虚拟机性能优化</strong>：部分开发者指出 BEAM 虚拟机在纯计算性能上仍有提升空间。Elixir 创始人 Jose Valim 回应称，过去数年间已有团队专注于 JIT 编译器的优化，未来计划探索跨模块优化以突破现有瓶颈。<br>
-- <strong>分布式与嵌入式应用</strong>：社区分享了在 Kubernetes 集群及嵌入式控制场景中利用 Elixir 分布式特性的实践经验。<br>
-- <strong>细节反馈</strong>：有用户指出页面动画过渡过快（0.1秒）以及禁用 JavaScript 时的兼容性问题，官方表示将收集反馈并持续改进。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48959042</guid>
-      <pubDate>Sat, 18 Jul 2026 15:32:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Gleam 编程语言正式迁移至 Tangled 平台</title>
-      <link>https://news.ycombinator.com/item?id=48959143</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍编程语言Gleam迁移至新社交平台Tangled，属于编程生态和工具相关的新闻，符合用户对编程工具的兴趣方向</small></p><p>Gleam 是一种用于构建可扩展的类型安全系统的友好编程语言，近日宣布正式迁移至新一代社交编码平台 <a href="https://tangled.org/gleam.run/gleam">Tangled</a>。Gleam 项目强调其非公司所有，主要依靠社区赞助商支持。此次迁移旨在摆脱对 GitHub 等中心化平台宕机的依赖，并探索更开放的协作模式。</p>
-<p>Tangled 是一个基于 <a href="https://blog.tangled.org/seed/">ATProto</a>（去中心化社交协议）构建的联邦式代码托管平台。与传统的 Git 服务相比，Tangled 引入了多项创新特性，包括原生堆叠拉取请求（Stacked PRs）、基于担保系统（Vouch System）的用户信任机制，以及基于 NixOS 的 CI/CD 运行环境。平台支持通过插件桥接其他 CI 系统，并允许用户自托管 Git 存储节点（Knot）和 CI 运行器（Spindle）。</p>
-<p><img src="/gleam.run/gleam/raw/main/images/lucy.png" alt="Lucy, Gleam's mascot" /></p>
-<p>社区对此反响热烈，但也指出了平台目前存在的不足。部分开发者分享了从 Codeberg 迁移至 Tangled 的流畅体验，称赞其 UI 交互更为舒适。然而，也有用户反馈平台的注册与登录流程存在一定摩擦，且由于身份认证与应用程序分离，首次使用体验略显生硬。此外，平台在私有仓库、受保护分支等企业级功能上仍有欠缺，早期创建仓库时偶尔会出现 404 延迟问题。尽管 Tangled 目前尚未完全实现自托管（UI/API 部分仍较中心化），但其联邦架构和开源理念吸引了大量寻求 GitHub 替代方案的开发者。</p>
-<p><strong>你知道吗？</strong></p>
-<p>Gleam 是一种运行在 BEAM（Erlang 虚拟机）上的函数式编程语言，旨在提供类似 TypeScript 的开发体验，同时享受 Erlang/Elixir 的高并发与容错能力。ATProto 最初由 Bluesky 社交网络开发，旨在为去中心化社交网络提供身份认证、数据索引和内容分发的标准化协议。Tangled 将其创新性地应用于代码托管领域，实现了代码仓库与社交身份的解耦与联邦化。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48959143</guid>
-      <pubDate>Sat, 18 Jul 2026 15:44:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>社交活动的供需法则：主动组织是融入圈子的捷径</title>
-      <link>https://news.ycombinator.com/item?id=48959090</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨社交活动的供需法则和融入圈子的技巧，属于软技能话题，未命中用户偏好的硬科技配置项，也不属于需避开的领域，兴趣不明确。</small></p><p>作者 Ben Landau-Taylor 指出，想要加入新群体，最有效的方法是主动组织该群体的核心活动。文章分析了社交活动的供需关系，指出大多数人持“消费者心态”，认为活动会像自然生长的植物一样出现，但实际上需要有人付出努力（legwork）去组织。</p>
-<p>作者认为，现代社交疏离感部分源于“搭便车（Free riders）”现象，即人们只消费社交网络而不愿生产。HN 评论区中，有用户分享了建立社区的经历，提到虽然社交媒体让部分社区消亡，但组织活动依然值得。也有观点认为，现代社会压力大，人们没有余力无偿组织活动，导致活动多由少数人承担。</p>
-<img src="https://substackcdn.com/image/fetch/$s_!GEAi!,w_36,h_36,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F5edd4742-1fc8-4dfc-a1d6-9c6381376d46_400x400.jpeg" alt="Ben Landau-Taylor's avatar" width="36" height="36" />]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48959090</guid>
-      <pubDate>Sat, 18 Jul 2026 15:37:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Kimi K3 与 Claude 的对比：价格、质量与美国 AI 政策的反思</title>
-      <link>https://news.ycombinator.com/item?id=48960218</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讨论 Kimi K3 和 Claude 在编程场景下的对比评测，涉及编程工具效率与新 AI 模型技术，符合用户对编程及 AI 模型的高兴趣。</small></p><div>
-  <p>作者在实际编程工作中将 <a href="https://stephen.bochinski.dev/blog/2026/07/18/the-kimi-k3-moment/">Kimi K3</a> 与 Anthropic 的 Claude Fable 模型进行对比，发现两者在输出质量和 Token 消耗上几乎无法区分，但价格差异显著。</p>
-  <img src="/assets/posts/2026-07-18-the-kimi-k3-moment.png" alt="The Kimi K3 Moment" />
-  <p>在 API 定价上，Kimi K3 的输入和输出价格分别为每百万 Token 3 美元和 15 美元，远低于 Claude 的 10 美元和 50 美元。订阅方面，Kimi 的付费计划限制较少，而 Claude 的 20 美元套餐已无法维持 Fable 访问，会降级为 Opus 模型。</p>
-  <p>文章进一步批评了美国 AI 政策，认为政府对本土模型的限制导致其功能受限且成本高昂。相比之下，中国实验室发布的无限制前沿模型（如 Kimi K3 和 GLM 5.2）不仅性能强劲，且成本极低。作者预测，美国政府可能会效仿汽车行业，通过补贴和保护主义扶持本土 AI，最终导致美国消费者无法获得最佳质量和价格的模型选择。</p>
-</div>
-<div>
-  <h3>你知道吗？</h3>
-  <p><b>知识蒸馏（Distillation）</b>：评论区讨论中提到的一种常见技术，通过将大型“教师”模型的知识迁移到小型“学生”模型中，以降低推理成本并提高部署效率。有观点认为，这种技术使得前沿模型的优势难以长期维持，投资硬件基础设施可能比投资模型公司更具长远价值。</p>
-  <p><b>辨别力地平线（Discernment Horizon）</b>：Steve Yegge 提出的概念，指当模型能力提升到一定程度后，普通用户难以区分不同模型输出的差异。此时，模型竞争将主要转向价格、可用性和生态系统的完善程度。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48960218</guid>
-      <pubDate>Sat, 18 Jul 2026 17:32:40 GMT</pubDate>
     </item>
   </channel>
 </rss>
