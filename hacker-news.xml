@@ -3,7 +3,69 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 23 Jul 2026 00:12:58 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2026 03:44:41 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 面试作业暗藏玄机：开发者在Take-Home项目中发现恶意挖矿与窃密脚本</title>
+      <link>https://news.ycombinator.com/item?id=49013036</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述开发者在面试作业中遭遇恶意脚本的安全问题，涉及软件开发实践与代码防范经验，对开发者具有参考价值，故推荐。</small></p><div>
+  <p>近期，一名软件工程师在LinkedIn上收到一份高薪远程Python开发职位的邀约。尽管对方开出的薪资（月薪$10,000-$15,000）和直接透露薪资的行为显得异常，作者仍接受了面试，并收到了包含作业说明和项目代码的Google Drive链接。</p>
+  <img src="/_astro/Screenshot_20260719-211017.DYnt8aCJ_Z1UUdvu.webp" alt="Intro message" width="846" height="1617" />
+  <p>解压项目后，作者发现这是一个标准的FastAPI后端代码库。出于做CTF（夺旗赛）的安全习惯，作者运行了命令检查隐藏目录，意外在 <code>.git/hooks</code> 目录下发现了大量预配置的Git钩子（Git Hooks）。检查 <code>pre-commit</code> 脚本后，作者发现该脚本会检测受害者的操作系统，并从远程IP地址 <code>45.61.164.38:5777</code> 下载并静默执行恶意载荷。</p>
+  <img src="/_astro/Screenshot_20260719-211026.DcWSSXgd_1u3gxU.webp" alt="Pay" width="841" height="522" />
+  <p>深入分析Payload后发现，攻击者设计了多阶段感染机制。第一阶段脚本会下载并运行一个名为 <code>tokenlinux.sh</code> 的脚本；第二阶段则静默安装Node.js环境，下载混淆的 <code>parser.js</code> 和 <code>package.json</code>，并安装依赖包。通过分析依赖项（如 <code>hardhat</code>、<code>clipboardy</code> 等），作者推测攻击者旨在利用以太坊开发环境窃取加密货币钱包信息或劫持本地浏览器扩展。</p>
+  <img src="/_astro/Screenshot_20260722_014855.D362_Vkr_ir2J.webp" alt="Hardhat NPM" width="1048" height="923" />
+  <p>作者尝试使用大语言模型（LLM）对混淆的 <code>parser.js</code> 进行反混淆，Claude触发了安全拦截，而Gemini则给出了详细分析。此外，攻击者通过URL参数 <code>id=402</code> 为不同受害者定制专属Payload。作者进一步调查指出，该作业代码本身只是克隆了一个公开的财务服务仓库，攻击者仅在其上添加了恶意目录。除了Git钩子，攻击者还利用VSCode的 <code>.vscode</code> 配置文件夹实现“免操作”感染。</p>
+  <img src="/_astro/Screenshot_20260722_015900.5hv_WpO1_Z2si7Xm.webp" alt="Claude's response" width="1032" height="1323" />
+  <img src="/_astro/Screenshot_20260722_020216.CJgNPp3m_ZWKSfe.webp" alt="Gemini's response" width="906" height="1672" />
+  <img src="/_astro/Screenshot_20260722_023415.DY_zQUT__1GkDR1.webp" alt="tokenlinux" width="1103" height="965" />
+  <p>作者对攻击者的服务器进行了端口扫描，发现其服务器运行着较新的OpenSSH版本，未留下明显的可利用漏洞。目前，冒用该公司名义的招聘账号已被删除。该事件在Hacker News社区引发热议，许多开发者表示此类攻击将日益普遍，甚至可能是AI辅助自动化的产物。社区普遍建议求职者：务必通过公司官网验证招聘方身份，切勿在未经验证的情况下运行第三方代码，并警惕那些绕过常规招聘流程的“高薪”邀约。</p>
+  <img src="/_astro/nmap_scan.B_kHFcNI_1LqjdH.webp" alt="nmap scan" width="1307" height="467" />
+</div>
+
+<div class="extra">
+  <h3>你知道吗？</h3>
+  <ul>
+    <li><strong>Take-Home Assignment（居家作业）：</strong> 技术面试中常见的考核方式，要求候选人在规定时间内完成一个小型项目。虽然能考察实际编码能力，但也常被攻击者利用作为传播恶意软件的载体。建议开发者在隔离环境（如虚拟机或容器）中运行此类作业。</li>
+    <li><strong>Git Hooks（Git钩子）：</strong> Git允许在特定事件（如提交、推送）触发时运行自定义脚本。攻击者常利用 <code>pre-commit</code> 或 <code>pre-push</code> 钩子，诱导开发者在提交代码时不知不觉地触发恶意程序，实现持久化控制。</li>
+    <li><strong>Hardhat：</strong> 以太坊生态中流行的开发环境框架，用于编译、部署和调试智能合约。由于其具备与区块链网络交互的能力，恶意攻击者可能将其打包在依赖中，用于在受害者本地部署恶意合约或窃取钱包私钥。</li>
+  </ul>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49013036</guid>
+      <pubDate>Wed, 22 Jul 2026 20:33:44 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 每个开发者都应了解 SIMD：概念、模式与实践</title>
+      <link>https://news.ycombinator.com/item?id=49010648</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深入讲解SIMD编程概念与实践模式，属于底层代码性能优化技术，直接契合用户关注编程效率改进经验的兴趣点，属强烈推荐内容。</small></p><p>单指令多数据（SIMD）技术允许 CPU 在一次指令中并行处理多个数据值，从而显著提升处理大规模连续数据的效率。Mitchell Hashimoto 在<a href="https://mitchellh.com/writing/everyone-should-know-simd">本文</a>中指出，尽管 SIMD 常被视为复杂且小众的优化手段，但其核心逻辑遵循一个通用的五步模式，掌握后编写起来并不比常规循环复杂。</p>
+<p>SIMD 代码的通用模式包括：<b>广播常量</b>、<b>按向量宽度循环</b>、<b>并行执行操作</b>、<b>归约结果</b>以及<b>使用标量尾部处理剩余元素</b>。作者以 Zig 语言为例，演示了如何将一个查找控制字符的标量循环转换为 SIMD 实现，在 AVX2 架构下可获得约 5 倍的性能提升。</p>
+<p>尽管现代编译器具备一定的自动向量化（auto-vectorization）能力，但其在处理复杂控制流（如提前跳出循环）时往往力不从心，且优化结果不可预测。手动编写 SIMD 能够确保性能优化的明确性与可控性。社区讨论进一步指出，合理的<b>数据导向设计（Data-Oriented Design）</b>与内存布局优化是充分发挥 SIMD 潜力的关键前提。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49010648</guid>
+      <pubDate>Wed, 22 Jul 2026 17:48:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Reddit 以“安全”为由强制登录旧版界面，实为保护 AI 数据资产</title>
+      <link>https://news.ycombinator.com/item?id=49005747</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨平台强制登录政策背后保护AI数据资产的真实意图，涉及AI技术生态与数据策略进展，符合用户关注AI软件技术进展的兴趣，故推荐。</small></p><div>
+<p>近日，知名社区平台 Reddit 宣布要求用户登录才能继续使用其轻量级的旧版界面（old.reddit.com）。这一举措引发了技术社区和用户的广泛讨论与不满。</p>
+<p>Reddit 官方给出的理由是，旧版界面的无登录体验是“滥用爬取和自动化流量”的主要来源，且缺乏“现代安全栈”（见<a href="https://old.reddit.com/r/modnews/comments/1ujtebf/logging_in_to_use_old_reddit/">官方公告</a>）。然而，作者通过技术对比指出，这并非出于安全考量，而是为了阻止第三方爬虫抓取其宝贵的用户生成数据（UGC）。在 <a href="https://en.wikipedia.org/wiki/Large_language_model">大语言模型（LLM）</a> 时代，高质量的人类生成数据已成为极具商业价值的资产。Reddit 此前已与 OpenAI 和 Google 等公司达成数据授权协议，此举意在保护其数据资产。</p>
+<p>作者对新旧版界面进行了详细的技术分析：</p>
+<ul>
+  <li><strong>旧版界面（Old Reddit）</strong>：采用纯 HTML 结构，无需 JavaScript 即可完整浏览。页面请求轻量（约 33 个请求，总大小约 1 MB），加载迅速（约 2 秒），且能高效加载评论。<img src="/img/reddit/old-reddit-page-load.png" alt="Old Reddit does 33 page requests totalling about 1 MB. It takes about 2 seconds to load." /><img src="/img/reddit/old-reddit-page-fetch-time.png" alt="Old Reddit takes 2 seconds to load a single HTML page." /></li>
+  <li><strong>新版界面（New Reddit）</strong>：重度依赖 JavaScript 和 Web Components。页面加载内容庞大（请求数约为旧版的 5 倍），加载时间更长。其防爬机制主要依靠执行 JS 渲染内容以及持续向服务器发送“心跳（heartbeat）”数据来追踪用户行为。<img src="/img/reddit/new-reddit-page-load.png" alt="New Reddit does 112 requests loading about 5x more content in around 3s." /><img src="/img/reddit/new-reddit-heartbeat.png" alt="New Reddit sends heartbeats about every 0.5s." /></li>
+</ul>
+<p>作者认为，Reddit 通过增加前端复杂度和强制登录，实质上是提高了数据爬取的门槛。尽管新版界面在技术上更难被直接抓取，但这种“安全”声明更多是公关话术，核心目的在于将数据垄断在平台内部，并服务于其 AI 数据授权业务。</p>
+<p><strong>社区反馈</strong></p>
+<p>该文章在 Hacker News 上引发了热烈讨论。用户普遍对 Reddit 的商业化转型表示失望，认为平台已从“社区驱动”转向“广告与数据变现驱动”。部分用户指出，Reddit 早期关闭免费 API 的行为已严重破坏了第三方客户端生态，而此次强制登录旧版界面进一步剥夺了匿名浏览的权利。此外，评论区也提及了 Reddit 社区质量下降、版主滥用封禁权力以及互联网日益严格的身份验证趋势等问题。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49005747</guid>
+      <pubDate>Wed, 22 Jul 2026 12:32:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ GigaToken：基于 SIMD 与缓存优化的极速语言模型分词器</title>
       <link>https://news.ycombinator.com/item?id=49010167</link>
@@ -878,59 +940,6 @@ Jellyfin是一个完全免费、开源的媒体系统，旨在替代Plex等商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48964015</guid>
       <pubDate>Sun, 19 Jul 2026 00:59:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 发布基于 ggml 的跨平台语音转文字库 Transcribe.cpp，支持 60+ 模型与多后端加速</title>
-      <link>https://news.ycombinator.com/item?id=48963879</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了基于 ggml 的跨平台开源语音转文字库 Transcribe.cpp，属于“编程工具发布/分享”，符合用户的高兴趣配置。</small></p><p>Handy 应用的维护者发布了 <a href="https://workshop.cjpais.com/projects/transcribe-cpp">Transcribe.cpp</a>，这是一个基于 <a href="https://github.com/ggerganov/ggml">ggml</a> 的跨平台语音转文字（ASR）推理库。作者旨在解决现有 ASR 分发方案（如 ONNX、whisper.cpp）在跨平台支持、性能优化和模型验证上的痛点。</p>
-<p><strong>核心特性包括：</strong></p>
-<ul>
-<li><strong>广泛的模型支持：</strong>支持 16 个 ASR 家族（60+ 模型），涵盖最新模型。</li>
-<li><strong>多后端加速：</strong>提供 Vulkan、Metal、CUDA 和 TinyBLAS 加速支持。</li>
-<li><strong>严格验证：</strong>每个模型均经过数值验证和 WER（词错误率）测试，确保与参考实现一致。</li>
-<li><strong>易用性：</strong>支持流式和批量转录，兼容 whisper.cpp 的 .bin 文件，并提供 Python、JavaScript/TypeScript、Rust 和 ObjC/Swift 绑定。</li>
-</ul>
-<p>该项目旨在降低本地运行 ASR 的门槛，减少对云服务的依赖。HN 社区对此给予高度评价，认为其解决了本地推理分发的痛点。作者回复了关于说话人分离（Diarization）功能的开发进度，并分享了关于开源维护与资助的看法。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48963879</guid>
-      <pubDate>Sun, 19 Jul 2026 00:38:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>告别“自行车棚效应”：隐私绝对主义与年龄验证的争议</title>
-      <link>https://news.ycombinator.com/item?id=48960155</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论互联网隐私与年龄验证的政策争议，偏向社会议题而非硬核技术，虽然属于新闻但用户兴趣不鲜明。</small></p><h2>正文</h2>
-<p>本文是对 <a href="https://queue.acm.org/detail.cfm?id=3818307">ACM Queue 文章《Goodbye, and Thanks for All the Bikesheds》</a> 及其在 Hacker News 社区引发的广泛讨论的总结。该文章探讨了数字隐私保护、法律合规与自由开源软件（FOSS）之间的紧张关系，并引发了关于隐私绝对主义与务实妥协的激烈辩论。</p>
-<p>文章似乎主张，隐私倡导者不应采取绝对主义立场，而应与法律体系寻求“最小兼容”的妥协方案，以避免更严苛的监管。然而，这一观点在评论区遭到了强烈反对。评论者指出，历史上的政府监控滥用（如 <a href="https://en.wikipedia.org/wiki/PRISM_(surveillance_program)">斯诺登事件</a> 和 Stingray 设备）已经证明，依赖法律妥协无法保障隐私，隐私必须通过技术手段实现绝对保护。</p>
-<p>此外，文章批评“科技巨头（tech bros）”拒绝妥协导致了隐私的丧失。但评论者反驳称，大型科技公司实际上在积极游说支持年龄验证（Age Verification）和身份锁定，因为这有助于他们建立市场护城河、收集更多用户数据，并打击自由开源软件（FOSS）的竞争。社区普遍认为，年龄验证本质上等同于身份验证，不仅无法有效阻止网络犯罪，还会严重侵蚀普通用户的隐私。</p>
-<p>部分评论者认为文章逻辑连贯性不足，立场模糊，甚至怀疑其是否为 AI 生成的讽刺作品。整体而言，Hacker News 社区对该文章持批评态度，认为其低估了政府监控的风险，并误解了科技巨头的商业动机。</p>
-<h2>你知道吗？</h2>
-<p><strong>自行车棚效应（Bikeshed's Law）</strong>：又称帕金森琐碎定律（Parkinson's Law of Triviality），指在组织决策中，人们往往对复杂重要的议题避重就轻，却对琐碎且易于理解的问题投入大量时间和精力争论。标题中的“Bikesheds”正是借此隐喻作者对无休止且偏离核心的琐碎争论感到疲惫。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48960155</guid>
-      <pubDate>Sat, 18 Jul 2026 17:27:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 将闲置Mac打造为Claude Code专属控制终端：详细设置指南</title>
-      <link>https://news.ycombinator.com/item?id=48959392</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章详细讲解了如何利用闲置电脑搭建 Claude Code（AI 编程工具）以提升工作流效率，符合“编程效率改进经验”及 AI 工具的高兴趣配置。</small></p><p>本文提供了一份详细的操作指南，指导用户如何将闲置的 Mac 设备配置为一台始终在线的服务器，供 <a href="https://claude.ai/">Claude Code</a> 进行完全控制。通过该设置，用户可以从手机上的 <a href="https://claude.ai/">Claude App</a> 或主电脑通过 SSH 随时与 AI 代理交互。</p>
-<h3>核心优势与动机</h3>
-<p>作者指出，在主电脑上直接运行带有 <code>--dangerously-skip-permissions</code> 标志的 Claude Code 存在安全风险。使用独立的备用 Mac 可以实现环境隔离，避免敏感数据泄露。此外，相比 <a href="https://github.com/anthropics/anthropic-quickstarts/tree/main/claude-code">容器化方案（如 Dispatch/Cowork）</a>，物理隔离的 Mac 能够运行原生应用（如 Unity），且不受容器网络权限限制。</p>
-<h3>关键设置步骤</h3>
-<ol>
-<li><strong>环境初始化</strong>：彻底擦除备用 Mac 数据，创建不带 Apple ID 的本地管理员账户。</li>
-<li><strong>网络与权限配置</strong>：启用 SSH 远程登录，配置免密 sudo 权限，并设置 SSH 密钥实现主电脑到备用电脑的无密码连接。</li>
-<li><strong>保持设备在线</strong>：通过 <code>pmset</code> 命令禁用系统睡眠和屏幕保护，确保设备 24/7 在线。</li>
-<li><strong>剪贴板同步</strong>：利用自定义脚本 <code>clip.sh</code> 通过 SSH 加密通道同步文本与图片。</li>
-<li><strong>安装与交互</strong>：远程安装 Claude Code，配置 GitHub 登录，并可选地通过 <code>ic.sh</code> 脚本实现 Computer Use（屏幕控制）和多会话管理。</li>
-</ol>
-<h3>社区讨论焦点</h3>
-<p>该指南在 Hacker News 引发了广泛讨论。部分用户质疑 24/7 运行 AI 代理的实际价值，认为缺乏“杀手级应用”；但也有开发者反驳称，在应对海量邮件/Slack 摘要、自动化开发任务以及突破 API 使用限制等方面，该方案能显著降低认知负荷。此外，社区还探讨了 Anthropic 的订阅制与按量付费（API）模式的成本差异，以及使用 Tailscale 或 Ubuntu VM 等替代方案的可行性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48959392</guid>
-      <pubDate>Sat, 18 Jul 2026 16:12:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
