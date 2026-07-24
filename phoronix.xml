@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 24 Jul 2026 14:11:34 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jul 2026 15:42:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Ubuntu 计划移除 /etc/debian_version 历史遗留文件</title>
+      <link>https://www.phoronix.com/news/Ubuntu-Drop-Debian-Version</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论 Ubuntu Linux 发行版移除历史遗留文件的技术决策，属于 Linux 发行版技术讨论，匹配来源配置中 'Linux桌面技术' 的兴趣。</small></p><p>Ubuntu 开发者正计划移除长期存在于系统中的 <code>/etc/debian_version</code> 文件。该文件源自上游 Debian，目前仅用于指示软件包来源的 Debian Sid 版本，往往导致版本信息不准确。</p><p>自 2005 年以来，社区就指出该文件可能引起混淆，并建议工具转而使用 <code>/etc/os-release</code> 或 <code>lsb_release</code> 命令来获取系统版本信息。随着 <code>/etc/os-release</code> 成为读取操作系统版本的标准方式，移除这一历史遗留文件的时机已经成熟。</p><p>Ubuntu 开发者 Benjamin Drung 正在推动这一更改，预计该文件有望在 2026 年发布的 Ubuntu 26.10 版本中被正式移除。</p><img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_debian_version_med" alt="/etc/debian_version on Ubuntu 26.04" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Drop-Debian-Version</guid>
+      <pubDate>Fri, 24 Jul 2026 14:20:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Fedora 45 计划逐步淘汰内核加密用户空间 API</title>
       <link>https://www.phoronix.com/news/Fedora-45-Disable-Kernel-Crypt</link>
@@ -742,26 +751,6 @@ Level Zero 是英特尔推出的底层图形与计算 API，旨在提供接近�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/AMD-Lemonade-11.0</guid>
       <pubDate>Wed, 15 Jul 2026 19:51:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 补丁终于支持通过蓝牙监控 Apple Magic 键盘/鼠标电量</title>
-      <link>https://www.phoronix.com/news/Apple-Magic-Bluetooth-Battery</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要内容是 Linux 内核补丁，用于在 Linux 系统上支持 Apple Magic 键鼠的电池监控功能。这属于来源配置中 high_interest 的'苹果电脑Linux支持'主题，同时也是 Linux 桌面技术的改进，故评为 critical。</small></p><p>Linux 对 Apple 外设的支持一直存在诸多挑战，尽管 Magic Mouse 和 Magic Keyboard 等输入设备已能在 Linux 上正常工作，但电池电量报告功能却存在明显短板：目前仅在使用 USB 连接时有效，而通过蓝牙连接时，系统往往错误地显示电量为 0%。</p>
-
-<p>鉴于用户主要通过蓝牙无线使用这些设备，电池信息的缺失带来了不便。近日，开源开发者 Alec Hall 提交了一组补丁，旨在解决 Apple Magic Keyboard、Magic Mouse 2 以及 Magic Trackpad 2 的蓝牙电池报告问题。</p>
-
-<p><img src="//www.phoronix.net/image.php?id=2021&image=magic_mouse_2_med" alt="Magic Mouse 2" /></p>
-
-<p>根据 Alec 的解释，Linux 内核驱动程序虽然已经具备获取这些设备电池数据的能力，但此前仅针对 USB 连接进行了优化。若直接在蓝牙连接下启用该功能，由于获取操作在原子上下文（atomic context）中运行，而蓝牙传输（uhid transport）需要休眠，这将导致系统死锁。</p>
-
-<p>该补丁系列的核心改进在于将电池数据的获取操作移至工作队列（workqueue）中执行，从而避免了死锁问题。此外，补丁还增强了 <code>hid-magicmouse</code> 驱动的功能，使其能够解析并报告设备的充电状态字节。目前，这组补丁正处于审核阶段，有望在未来合并至主线 Linux 内核中。</p>
-
-<h3>你知道吗？</h3>
-<p>在 Linux 内核开发中，<strong>原子上下文（atomic context）</strong> 是一种特殊的执行环境，要求代码在执行期间不能被抢占或休眠。蓝牙数据传输通常涉及复杂的协议栈和可能的等待操作，这属于“休眠”行为。因此，在原子上下文中直接发起蓝牙请求会导致内核恐慌或死锁。通过将操作移至工作队列（workqueue），开发者可以将耗时或可能休眠的操作推迟到允许休眠的上下文中执行，这是 Linux 内核驱动开发中解决此类问题的常见模式。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-Magic-Bluetooth-Battery</guid>
-      <pubDate>Wed, 15 Jul 2026 12:54:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
