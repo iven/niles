@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 25 Jul 2026 03:37:08 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jul 2026 06:30:15 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Postgres LISTEN/NOTIFY 性能优化：通过缓冲与批处理实现高扩展性</title>
+      <link>https://news.ycombinator.com/item?id=49040296</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享了Postgres LISTEN/NOTIFY的性能优化经验，通过缓冲和批处理技术实现高并发写入优化，这属于典型的编程效率改进与性能调优经验分享，符合用户的高兴趣偏好。</small></p><p>Postgres 的 <code>LISTEN/NOTIFY</code> 机制长期以来被诟病“不具扩展性（does not scale）”，主要瓶颈在于其底层实现中，提交包含 <code>NOTIFY</code> 的事务需要获取一个全局排他锁（global exclusive lock）以保证通知按事务提交顺序发送。这种串行化机制阻止了 Postgres 的常规优化（如 group commit），导致并发写入时吞吐量极低（早期测试仅约 2.9K writes/s）。</p>
+
+<p>为突破这一限制，DBOS 团队提出了一种应用层的缓冲与批处理（buffering and batching）策略。该方案不再通过数据库触发器为每次写入发送通知，而是在应用内存中累积通知，并定期通过单个批量事务统一刷新。这一优化将全局锁的获取频率从“每次写入”大幅降低为“批量刷新时”，使常规写入能够充分利用数据库的并发处理能力。</p>
+
+<p>引入缓冲机制的副作用是进程崩溃可能导致未刷新的通知丢失。为此，方案增加了一个低频轮询（polling）作为回退机制，确保数据最终一致性。优化后的基准测试显示，单台 Postgres 服务器可实现高达 60K writes/s 的吞吐量，延迟保持在 15-100ms，系统瓶颈从锁竞争成功转移至正常的 CPU 处理能力。相关基准测试代码已开源：<a href="https://github.com/dbos-inc/dbos-postgres-benchmark">github.com/dbos-inc/dbos-postgres-benchmark</a>。</p>
+
+<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a62e413c65ce4c0d0d761a4_13f2e588.png" alt="Postgres-backed streams basic design" />
+
+<p>在初始实现中，系统依赖数据库触发器在每次写入时发送通知，虽然延迟低但吞吐量受限：</p>
+
+<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a62e413c65ce4c0d0d761a7_3dbd6478.png" alt="Initial implementation with trigger-based notifications" />
+
+<p>该性能瓶颈的根源在于 Postgres 为保证通知顺序而采用的全局锁机制：</p>
+
+<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a63b6103906514c580a128e_Triggered-Notifications-Benchmark.png" alt="Triggered Notifications Benchmark showing low throughput" />
+
+<p>采用缓冲与批处理优化后，吞吐量实现了 20 倍以上的提升：</p>
+
+<img src="https://cdn.prod.website-files.com/672411cbf038560468c9e68f/6a63b627c7ac5219e5d501b1_Batched-Notifications-Benchmark.png" alt="Batched Notifications Benchmark showing high throughput" />
+
+<h3>你知道吗？</h3>
+<ul>
+  <li><strong>扩展性的相对性：</strong> 社区讨论指出，“扩展性”并非二元概念。60K writes/s 对许多应用已绰绰有余，但对于需要数百万 RPS 的系统（如大型即时通讯服务），仍可能面临瓶颈。设计时应根据实际负载预留适当余量，避免过度工程化。</li>
+  <li><strong>Postgres 19 的进展：</strong> 原文提到，Postgres 核心社区正在推进相关优化补丁（预计随 Postgres 19 发布）。该补丁虽未移除全局锁，但针对“多通知频道且监听器仅等待特定频道”的场景进行了专门优化，进一步提升了特定工作负载下的性能。</li>
+  <li><strong>数据大小限制：</strong> 使用 <code>LISTEN/NOTIFY</code> 时需注意，通知有效载荷有 8000 字节的硬性限制。对于需要传输大量数据的应用，通常建议仅传递数据 ID，由监听器查询数据库获取实际内容。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49040296</guid>
+      <pubDate>Fri, 24 Jul 2026 19:05:53 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Buz：基于现代 Zig 的 Bun Fork，实现亚秒级增量构建与代码库清理</title>
       <link>https://news.ycombinator.com/item?id=49033099</link>
@@ -995,35 +1029,6 @@ Jellyfin是一个完全免费、开源的媒体系统，旨在替代Plex等商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48978835</guid>
       <pubDate>Mon, 20 Jul 2026 13:47:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 中国开放权重AI策略正取得领先优势</title>
-      <link>https://news.ycombinator.com/item?id=48979269</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论中美开放权重AI策略的竞争与宏观影响，属于AI技术进展与国际新闻范畴，符合用户的interest偏好。</small></p><p>近日，Robert Hart在<a href="https://werd.io/american-ai-is-locked-down-and-proprietary-its-losing/">《The Verge》</a>发表文章指出，中国通过推行<strong>开放权重（Open-weights）</strong>AI模型策略，正在全球人工智能竞争中取得显著优势。文章认为，尽管美国在算力上占据主导，但中国选择开放模型权重的做法，成功将算力劣势转化为分发优势，并正在重塑全球AI生态格局。</p>
-<p>文章分析指出，AI模型本身作为独立产品的护城河其实很浅。用户在不同模型（如ChatGPT与Claude）之间切换的成本极低，尤其是在工程领域，通过API替换模型几乎不会影响工作流。真正的商业壁垒在于围绕模型构建的企业服务、合同关系以及系统集成能力。</p>
-<p>相比之下，美国采取的是“封闭优先”策略，结合严格的GPU出口管制和数据共享限制，试图通过集中式服务锁定客户。然而，这种策略面临巨大挑战。中国公司虽然受限于算力，但通过开放模型权重，实现了技术的免许可使用和高度可移植性。这种策略不仅将美国公司赖以盈利的模型层商品化，还催生了更活跃的全球创新生态。目前，中国头部企业（如<strong>Moonshot</strong>和<strong>阿里巴巴</strong>）推出的模型在性能上已能与美国顶尖模型抗衡，且成本大幅降低。</p>
-<p>在Hacker News社区的讨论中，用户们围绕该话题展开了多维度探讨：</p>
-<ul>
-<li><strong>市场策略争议：</strong>部分用户认为中国是在通过“倾销”（以低于成本的价格抢占市场）来挤压美国企业，而另一些用户则指出这符合风险投资和国家资本支持下的标准市场扩张逻辑。</li>
-<li><strong>模型安全与隐私：</strong>许多开发者担忧使用中国模型可能带来的数据泄露或后门风险，但也有人指出美国模型同样存在黑盒问题，且美国API服务存在随时断供的地缘政治风险。有用户分享了关于模型安全的研究：<a href="https://arxiv.org/pdf/2401.05566">相关论文</a>。</li>
-<li><strong>长期维护优势：</strong>有用户指出，美国商业公司经常弃用旧版模型，导致企业需频繁重新评估和迁移；而开放权重模型允许企业永久托管和微调，避免了供应商锁定（Vendor Lock-in）的长期隐患。</li>
-<li><strong>开源生态趋势：</strong>尽管有用户质疑“开放是否总是赢”，但数据显示，在主流模型路由平台（如<a href="https://openrouter.ai/models?categories=programming&amp;order=most-popular">OpenRouter</a>）上，最受欢迎的编程类模型大多为开源或开放权重模型，印证了开放基础设施在采用率上的优势。</li>
-</ul>
-<p>文章最后强调，美国AI产业若继续追逐短期利润而忽视生态系统建设，可能会面临严重的经济反噬。随着性能差距的缩小，开放、协作的AI发展模式正成为不可逆转的趋势。</p>
-
-<div style="background-color: #f0f7ff; padding: 15px; border-radius: 8px; margin-top: 20px;">
-<h4 style="margin-top: 0; color: #0056b3;">💡 你知道吗？</h4>
-<p><strong>开放权重（Open-weights）与开源（Open Source）的区别：</strong></p>
-<p>在AI领域，这两个概念常被混淆，但存在关键差异：</p>
-<ul>
-<li><strong>开源（Open Source）：</strong>通常指公开模型的权重（参数）、训练代码、训练数据集以及推理代码。它遵循开源定义，允许任何人自由使用、修改和分发。</li>
-<li><strong>开放权重（Open-weights）：</strong>仅公开模型的权重文件，允许用户下载并在本地运行或微调，但通常不公开训练数据、具体训练方法或底层架构代码。它更侧重于技术的可访问性和可移植性，而非完全的透明性。</li>
-</ul>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48979269</guid>
-      <pubDate>Mon, 20 Jul 2026 14:21:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
