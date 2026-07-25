@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 25 Jul 2026 10:41:44 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jul 2026 12:10:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Android 或将限制设备内 ADB 连接，引发开源工具生态担忧</title>
+      <link>https://news.ycombinator.com/item?id=49045159</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讨论Android系统对ADB的限制措施及其对开源应用生态的影响，符合用户关于“开源项目”的兴趣配置。</small></p><p>近日，<a href="https://kitsumed.github.io/blog/posts/android-may-soon-restrict-on-device-adb/">Google IssueTracker</a> 上的一项功能请求引发了 Android 开发者社区的广泛关注。该请求旨在允许开发者选择 ADB 守护进程（ADBD）监听的网络接口，初衷是为了修复 <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-0073" rel="nofollow">CVE-2026-0073</a>（无线 ADB 认证绕过漏洞）。然而，一名 Google 核心 ADB 维护者在评论中建议，为防范恶意软件利用 localhost socket 进行提权，应直接将 ADB 限制为仅绑定到 Wi-Fi 接口（wlan0）。</p>
+
+<p>这一提议实际上将彻底阻断“设备内 ADB（On-Device ADB）”的使用。设备内 ADB 是指开发者在 Android 设备本地通过终端模拟器（如 Termux）运行 ADB 客户端，并通过回环地址（127.0.0.1）连接本地 ADB 守护进程的技术。虽然这并非 ADB 最初的设计用途，但它催生了一个庞大的开源高级用户工具生态，包括 <a href="https://github.com/RikkaApps/Shizuku" rel="nofollow">Shizuku</a>、<a href="https://github.com/MuntashirAkon/LibADB" rel="nofollow">libadb-android</a>、App Manager、Canta 等。如果 ADB 被强制仅监听 wlan0，这些依赖本地回环连接的工具将无法正常工作。</p>
+
+<p>文章作者 Kitsumed（Shizuku 生态应用开发者）指出，恶意软件实际上很难利用设备内 ADB 进行提权。在正常场景下，恶意应用无法自行启动 ADBD，也无法绕过用户手动开启的配对码验证或屏幕上的授权提示。作者认为，Google 的初衷是合理的，但直接永久禁止回环连接过于极端。他建议 Google 应提供一个<strong>可持久化的用户设置开关</strong>，允许高级用户自行决定是否禁用本地回环连接，且该设置不应被第三方应用读取，从而在安全性与开发者需求之间取得平衡。</p>
+
+<p>该提议在 Hacker News 等社区引发了激烈讨论。多数评论批评了这种“一刀切”的过度安全策略（Toxic max security），认为现代软件应当提供配置选项而非直接剥夺用户控制权。也有观点指出，Google 近年来在 Android 侧载限制、应用验证器等方面的举措，正逐渐收紧对设备底层功能的控制，引发了对生态开放性的担忧。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>ADB（Android Debug Bridge）</strong> 是 Google 为 Android 设备设计的调试桥接协议，最初用于通过 USB 连接电脑进行应用开发和系统调试。随着技术发展，它支持了 TCP/IP 和无线调试（Wireless Debugging）。</p>
+<p><strong>Shizuku</strong> 是一款基于 ADB 权限的开源工具。它通过 ADB 启动一个具有较高权限的后台服务，随后其他应用通过 Binder IPC（进程间通信）机制与该服务交互，从而在无需 Root 的情况下获取系统级权限（如修改系统设置、管理应用等）。这种架构使得 Shizuku 成为 Android 无 Root 高级定制生态的核心基石。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49045159</guid>
+      <pubDate>Sat, 25 Jul 2026 06:57:14 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Opus 5 登顶 Artificial Analysis 智能排行榜，但高昂成本与审查争议引发讨论</title>
       <link>https://news.ycombinator.com/item?id=49040741</link>
@@ -1007,25 +1026,6 @@ Jellyfin是一个完全免费、开源的媒体系统，旨在替代Plex等商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48981620</guid>
       <pubDate>Mon, 20 Jul 2026 17:07:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Kimi K3与Qwen 3.8开源，前沿AI实验室的经济学与竞争格局重构</title>
-      <link>https://news.ycombinator.com/item?id=48980019</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要报道Kimi K3与Qwen 3.8两款开源大模型的发布与能力验证，直接契合用户“新AI模型发布公告”的高兴趣偏好，判定为critical。</small></p><div>
-<p>近期，月之暗面（Moonshot Labs）发布的 <a href="https://x.com/MoonshotAI/status/...">Kimi K3</a> 与阿里巴巴发布的 <a href="https://x.com/QwenLM/status/...">Qwen 3.8</a> 两款顶尖基础模型相继亮相。这两款模型不仅性能逼近 Anthropic 的 Fable 5，且均计划开源。这一动向标志着开源模型已具备与资本雄厚的前沿实验室（Frontier Labs）正面竞争的实力，对现有 AI 产业格局构成了战略级挑战。</p>
-
-<p>文章深入剖析了基础模型（Foundation Models）的经济学逻辑。模型开发成本高昂，但一旦训练完成，主要的边际成本将转向推理阶段的算力与电力。对于不拥有数据中心或发电设施的公司（如 Anthropic、Moonshot Labs），其可变成本随收入线性增长，利润率难以通过规模效应提升。相反，像 Meta、SpaceX 和 Alibaba 这样拥有基础设施的公司，能将部分可变成本转化为固定成本，从而在用户规模扩大时获得更高的边际利润，甚至可以通过出租算力获利。</p>
-
-<img src="images/2026-07-19-wiltw-model-cost.png" alt="Figure 1: 模型每完成一项任务的成本对比，显示 Fable 5 的成本显著高于竞争对手" />
-
-<p>在此经济模型下，纯模型提供商面临严峻的生存压力。Anthropic 尤其处于脆弱位置：其 Fable 5 模型每任务成本几乎是 OpenAI 的 3 倍，且高度依赖监管策略与“递归自我改进”（Recursive Self-Improvement）作为护城河。尽管其推出的 Claude Code 等产品体验优异，但开源替代品（如 OpenCode）正在快速追赶。相比之下，OpenAI 在消费者硬件、产品生态及基础设施投资上布局更早，长期韧性更强。</p>
-
-<p>社区讨论进一步指出，Kimi K3 等开源模型的普及将大幅降低 AI 创业门槛，使研究人员能够基于开源权重快速启动新项目，而不必承担高昂的预训练资本支出。同时，关于“纯模型是否具备长期商业价值”的争论持续存在：部分用户认为，尽管开源模型性能强劲，但 Anthropic 等公司提供的完整产品体验（如 Claude Code）仍具有不可替代的粘性；而另一些观点则认为，随着价格战爆发和推理成本下降，模型本身的差异化优势将被削弱，最终拥有基础设施和生态系统的公司将主导市场。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48980019</guid>
-      <pubDate>Mon, 20 Jul 2026 15:13:42 GMT</pubDate>
     </item>
   </channel>
 </rss>
