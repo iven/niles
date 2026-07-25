@@ -3,7 +3,23 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 25 Jul 2026 06:30:15 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jul 2026 09:10:24 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Opus 5 登顶 Artificial Analysis 智能排行榜，但高昂成本与审查争议引发讨论</title>
+      <link>https://news.ycombinator.com/item?id=49040741</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍Opus 5 AI模型的性能排名与成本争议，契合用户对AI技术进展及新模型发布的兴趣。</small></p><p>AI 模型评测平台 Artificial Analysis 近日更新了其模型智能排行榜（Intelligence Leaderboard）。根据最新数据，<a href="https://artificialanalysis.ai/models">Anthropic 的 Claude Opus 5</a> (max 与 xhigh 模式) 凭借卓越的综合表现，目前稳居智能指数（Intelligence Index）榜首。紧随其后的是 Claude Fable 5 以及 OpenAI 的 GPT-5.6 Sol。</p>
+<img src="/img/logos/anthropic_small.svg" alt="Claude Opus 5 (max) logo" width="12" height="12" />
+<img src="/img/logos/anthropic_small.svg" alt="Claude Opus 5 (xhigh) logo" width="12" height="12" />
+<p>该平台的 Intelligence Index v4.1 评估体系涵盖了 9 项核心基准测试，包括知识可靠性（AA-Omniscience）、科学推理（GPQA Diamond）、代码生成（SciCode）、终端工具使用（Terminal-Bench v2.1）以及长上下文推理（AA-LCR）等。评测不仅关注模型在单一任务上的表现，还综合考量了输出速度、延迟、价格以及上下文窗口大小等多个维度。</p>
+<img src="/img/logos/anthropic_small.svg" alt="Claude Fable 5 (with fallback) logo" width="12" height="12" />
+<img src="/img/logos/openai_small.svg" alt="GPT-5.6 Sol (max) logo" width="12" height="12" />
+<p>尽管 Opus 5 在智能评分上领先，但社区对其高昂的成本和实际使用体验展开了热烈讨论。多位 HN 用户指出，Opus 5 的 API 调用价格远高于 GPT-5.6 Sol 等竞品，而在降低推理强度（如切换至 high 模式）后，其性能优势会大幅缩小，性价比并不突出。此外，部分开发者反馈 Anthropic 的安全审查机制（safeguards）过于敏感，常在处理常规技术内容（如生物学词汇或汇编代码）时触发误拦截，影响了模型的可靠性与可用性。</p>
+<p>在性能与成本的权衡上，市场呈现出明显的分化趋势。一方面，追求极致智能的用户愿意为 Opus 5 支付溢价；另一方面，GPT-5.6 Sol 等模型以接近的分数和更低的价格吸引了大量企业用户。同时，社区也密切关注着 DeepSeek 等开源/低成本模型未来的蒸馏进展，认为其可能在未来几个月内以极低的价格提供同等性能，进一步重塑 AI 模型的市场格局。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49040741</guid>
+      <pubDate>Fri, 24 Jul 2026 19:45:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Postgres LISTEN/NOTIFY 性能优化：通过缓冲与批处理实现高扩展性</title>
       <link>https://news.ycombinator.com/item?id=49040296</link>
@@ -1010,25 +1026,6 @@ Jellyfin是一个完全免费、开源的媒体系统，旨在替代Plex等商�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48980019</guid>
       <pubDate>Mon, 20 Jul 2026 15:13:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Firefox 正式合并 Vulkan 视频解码支持</title>
-      <link>https://news.ycombinator.com/item?id=48978835</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍Firefox浏览器新增Vulkan视频解码支持的功能更新，属于用户明确感兴趣的“软件新功能”类别，判定为recommended。</small></p>Firefox 153 版本正式合并了对 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2021722">Vulkan 视频解码（Vulkan Video Decoding）</a> 的支持。该功能旨在解决 Linux 平台上 Firefox 长期存在的硬件解码不稳定问题，有望使其硬件加速体验接近 Chrome/Chromium 的水平。
-
-社区讨论聚焦于硬件解码的实际表现与功耗优化：
-<ul>
-<li><b>能效与平台差异</b>：硬件解码的核心优势在于能效。有用户指出，在 Linux 环境下，独立显卡（dGPU）的 PCIe 链路和显存唤醒功耗较高，可能导致未加速播放反而更省电。相比之下，现代 CPU 的集成显卡（iGPU）通常拥有更高效的专用解码器。</li>
-<li><b>NVIDIA 驱动优化</b>：针对 NVIDIA GPU 用户，有建议指出在使用 <code>nvidia-vaapi-driver</code> 时，需设置环境变量 <code>CUDA_DISABLE_PERF_BOOST</code> 以消除额外的 GPU 功耗开销。</li>
-<li><b>未来扩展</b>：Vulkan 解码的引入为后续优化提供了空间。解码后的视频帧可直接对接基于 Vulkan 的滤镜管线（如 <a href="https://code.videolan.org/videolan/libplacebo">libplacebo</a>），避免 CPU 与 GPU 之间的数据拷贝，从而提升 8K 等高码率视频的播放效率。</li>
-</ul>
-
-<b>你知道吗？</b><br>
-<b>Vulkan 视频解码（Vulkan Video Decoding）</b> 是 Vulkan 图形 API 的扩展，允许应用程序直接利用 GPU 的专用硬件单元进行视频解码。传统上，视频解码多依赖 CPU 或厂商私有的 API（如 NVIDIA 的 NVDEC 或 Intel 的 VAAPI）。Vulkan 视频解码提供了跨厂商的统一标准，减少了驱动层的转换开销。对于 Linux 用户而言，这意味着 Firefox 等浏览器可以更高效、更统一地调用 GPU 硬件加速，摆脱以往依赖复杂且碎片化的后端配置。]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48978835</guid>
-      <pubDate>Mon, 20 Jul 2026 13:47:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
