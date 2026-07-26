@@ -3,7 +3,17 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 26 Jul 2026 13:56:34 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2026 15:19:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Inflect-Micro-v2：仅需 936 万参数即可实现完整的本地语音合成</title>
+      <link>https://news.ycombinator.com/item?id=49053375</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍了一个新的开源AI语音合成模型发布，匹配用户全局配置中对新AI模型发布公告的很感兴趣兴趣点。</small></p><p><a href="https://huggingface.co/owensong/Inflect-Micro-v2">Inflect-Micro-v2</a> 是一款轻量级的本地文本转语音（Text-to-Speech, TTS）模型，提供 3.96M 和 9.36M 两种参数规模，并官方发布了 PyTorch 和 ONNX Runtime 版本。尽管参数量极小，该模型在生成的语音质量上获得了社区的高度评价。</p>
+<p>在 Hacker News 的讨论中，用户指出该模型虽然音质优于许多十年前的旧版 TTS 工具（如 macOS 的 Samantha 或 Ivona），但在语调自然度上仍有提升空间。需要指出的是，该模型目前仅支持英语，且仅包含一个固定的男声，并不支持零样本语音克隆（Zero-shot Voice Cloning）。不过，社区开发者已基于此模型开发了 Web Demo 和集成方案，展示了其在端侧部署的潜力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49053375</guid>
+      <pubDate>Sun, 26 Jul 2026 00:36:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Ruff v0.16.0 发布：默认规则激增至 413 项，支持 Markdown 格式化</title>
       <link>https://news.ycombinator.com/item?id=49056112</link>
@@ -1028,31 +1038,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48989701</guid>
       <pubDate>Tue, 21 Jul 2026 08:44:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cursor 发布新一代 Agent Swarm：以更低成本构建 SQLite 并揭示模型经济学</title>
-      <link>https://news.ycombinator.com/item?id=48982535</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Cursor发布的新一代Agent Swarm工具，涉及编程工具发布和效率改进经验，与用户high_interest配置高度匹配</small></p><p>Cursor 团队发布了一项关于“智能体群（Agent Swarms）”的最新研究成果。他们改进了智能体协作系统，并成功让该系统从零开始用 Rust 语言构建了 SQLite 数据库。文章详细阐述了新系统的架构设计、高并发版本控制机制，以及不同模型组合下的成本效益分析。</p>
-
-<p>在早期的实验中，Cursor 曾尝试用智能体群构建一个网页浏览器，虽然作为概念验证取得了成功，但生成的代码远未达到工业级标准。为了优化这一过程，团队重新设计了系统，并选择构建 SQLite 作为新的测试基准。新系统采用了树状任务分解架构：<a href="https://cursor.com/blog/agent-swarm-model-economics">智能体群（Agent Swarms）</a>将复杂任务拆解为子任务，由<strong>规划者智能体（Planner agents）</strong>负责顶层设计，由<strong>执行者智能体（Worker agents）</strong>负责具体编码。</p>
-
-<img src="https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/blog/decomposing-work-light-2.png" alt="Diagram of decomposing work across planner and worker agents in a task tree" width="800" height="450" />
-
-<p>这种设计极大地提高了上下文（Context）效率。规划者专注于全局目标而不陷入底层细节，执行者则能集中全部上下文处理单一任务。为了支持智能体群每秒高达 1000 次的代码提交（旧系统仅为每小时 1000 次），Cursor 甚至自研了一套<strong>版本控制系统（VCS）</strong>，以解决高并发下的冲突、分裂设计（Split-brain）以及大文件拥堵等问题。</p>
-
-<p>在 SQLite 实验中，团队测试了包括 GPT-5.5、Grok 4.5 以及 Opus 4.8 与 Composer 2.5 混合在内的多种模型配置。结果显示，新系统在所有配置下均优于旧系统，且最终都能通过 100% 的测试套件。更重要的是，新系统生成的代码更加精简，冲突率大幅降低。</p>
-
-<img src="https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/blog/sqlite-grade-over-time-gpt-5-5-light.png" alt="SQLite test suite grade over time for GPT-5.5 under old and new swarms" width="800" height="450" />
-
-<p>文章的核心发现之一是<strong>模型经济学（Model Economics）</strong>。虽然不同模型组合产生的代码质量相似，但成本差异巨大（从约 1300 美元到 10500 美元不等）。研究指出，只有少数关键节点（如任务分解和设计决策）需要前沿（Frontier）大模型，而大量的执行工作可以由更便宜、更快的模型完成。通过“强模型规划 + 弱模型执行”的混合模式，可以在保持高质量的同时大幅降低成本。</p>
-
-<img src="https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/blog/in-our-new-agent-swarm-the-same-models-needed-far-fewer-lines-of-code-to-complete-the-sqlite-experiment-light-2.png" alt="Lines of engine code needed to complete the SQLite experiment, old harness versus new" width="800" height="450" />
-
-<p>社区对此展开了热烈讨论。部分开发者质疑 SQLite 的源码可能已存在于大模型的训练数据中，认为这更像是“知识提取”而非真正的“从零构建”。此外，也有观点指出，这种“元智能体工程（Meta-agentic engineering）”目前仍面临高昂的 Token 消耗和实际落地困难，但不可否认它展示了未来自动化软件开发的重要方向。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48982535</guid>
-      <pubDate>Mon, 20 Jul 2026 18:06:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
