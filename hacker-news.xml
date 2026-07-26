@@ -3,7 +3,38 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 26 Jul 2026 11:38:16 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2026 13:56:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Ruff v0.16.0 发布：默认规则激增至 413 项，支持 Markdown 格式化</title>
+      <link>https://news.ycombinator.com/item?id=49056112</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍编程工具 Ruff 的新版本发布，符合全局配置中“很感兴趣”类别（编程工具发布/分享）</small></p><p>Ruff v0.16.0 现已发布，这款由 Rust 编写的 Python 代码检查器（Linter）和格式化器迎来了重大更新。此次更新的核心在于大幅增加了默认启用的规则数量，从之前的 59 项激增至 413 项，旨在让大多数项目在不进行额外配置的情况下就能捕获更严重的语法和运行时错误。</p>
+
+<h3>主要更新内容</h3>
+<ul>
+<li><strong>默认规则集扩展</strong>：新增规则包括来自 <code>flake8-bugbear</code> (B) 和 <code>pyupgrade</code> (UP) 的规则，以及 Ruff 自有的 <code>RUF</code> 类别规则。这有助于开发者在不修改配置文件的情况下发现更多潜在问题。</li>
+<li><strong>Markdown 代码块格式化</strong>：Ruff 现在支持格式化 Markdown 文件中的 Python 代码块（如 <code>py</code>, <code>python</code>, <code>pyi</code> 等标识符），同时也兼容 Quarto 笔记本。</li>
+</ul>
+<p><img src="/static/PNG/Ruff_v_0_16_0_format_markdown.png" alt="Ruff formatter output showing a Markdown code block that would be reformatted" /></p>
+<ul>
+<li><strong>新的抑制注释机制</strong>：引入了 <code>ruff: ignore</code> 和 <code>ruff: file-ignore</code> 注释，允许更灵活地抑制特定行或整个文件的诊断信息，并支持添加原因说明。</li>
+<li><strong>修复建议可视化</strong>：在 <code>ruff check</code> 和 <code>ruff format --check</code> 的输出中，现在可以直接显示修复后的代码差异（diff），无需额外运行 <code>--diff</code> 标志。</li>
+</ul>
+<p><img src="/static/PNG/Ruff_v_0_16_0_check_fixes.png" alt="Ruff check output showing the diff for an unused-import fix" /></p>
+<p><img src="/static/PNG/Ruff_v_0_16_0_format_fixes.png" alt="Ruff formatter output showing the diff for an unformatted file" /></p>
+<ul>
+<li><strong>规则与行为稳定化</strong>：多个预览模式的规则（如 <code>AIR303</code>, <code>CPY001</code>, <code>FURB164</code> 等）正式稳定，部分行为逻辑（如 <code>BLE001</code> 的抑制条件）也进行了固化。</li>
+</ul>
+
+<h3>社区反馈</h3>
+<p>社区对此次更新反应热烈。许多开发者欢迎默认规则的增加，认为这大大降低了配置门槛，特别适合新项目（Greenfield projects）。然而，也有部分开发者对现有项目升级表示担忧，担心 413 条规则会引发大量的警告风暴。此外，评论区还讨论了 Semver 版本策略（0.x 版本允许破坏性更新）以及 Ruff 与 Go 语言生态中类似工具（如 <code>golangci-lint</code>）的性能对比。</p>
+
+<h3>你知道吗？</h3>
+<p>在语义化版本控制（Semver）中，主版本号（Major Version）为 0 的版本（如 0.16.0）通常表示项目处于初始开发阶段，API 和内部实现可能随时发生不兼容的更改。因此，Ruff v0.16.0 中包含的破坏性更新（Breaking Changes）是符合 Semver 规范的。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49056112</guid>
+      <pubDate>Sun, 26 Jul 2026 09:01:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Debian 社区就 LLM 使用发起三项提案投票</title>
       <link>https://news.ycombinator.com/item?id=49050859</link>
@@ -1022,35 +1053,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48982535</guid>
       <pubDate>Mon, 20 Jul 2026 18:06:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Jane Street 开源 Incremental：构建高效增量计算的 OCaml 库</title>
-      <link>https://news.ycombinator.com/item?id=48987822</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Jane Street 开源的增量计算 OCaml 库，属于编程工具发布与开源项目，符合用户兴趣配置，故推荐。</small></p><p>
-  Jane Street 开源了 <a href="https://github.com/janestreet/incremental">Incremental</a>，这是一个用于构建复杂增量计算的 OCaml 库。该库灵感来源于 Umut Acar 等人关于自我调整计算（self-adjusting computations）的研究，旨在当输入数据发生变化时，能够高效地更新计算结果，而无需重新执行整个计算过程。
-</p>
-<p>
-  Incremental 的核心机制类似于在计算图（DAG）上建立缓存。它通过内省（introspection）自动构建依赖关系，并在输入改变时仅重算受影响的节点。这种特性使其非常适合以下场景：
-</p>
-<ul>
-  <li>构建类似电子表格的大型计算，能高效响应数据变化。</li>
-  <li>构建 GUI 应用的视图，高效整合新数据。</li>
-  <li>计算衍生数据，确保其与源数据保持同步。</li>
-</ul>
-<p>
-  在 Hacker News 的讨论中，开发者们探讨了 Incremental 与 Observable 模式的区别。虽然两者都涉及数据流追踪，但 Incremental 更侧重于通过自动构建计算图来优化重计算，避免不必要的传播。社区还提到了类似的技术实现，如 JavaScript 中的 Signals 提案、Rust 的 Salsa 库以及 JetBrains 的 Noria 平台。此外，有评论指出这种技术在金融衍生品定价和反向传播算法中也有重要应用。
-</p>
-<h3>你知道吗？</h3>
-<p>
-  <b>增量计算（Incremental Computation）</b>，也被称为自我调整计算（Self-adjusting Computations），是一种计算范式。其核心思想是：当程序的输入发生微小变化时，程序能够自动且高效地更新输出，而不是从头开始重新运行整个程序。
-</p>
-<p>
-  这与传统的响应式编程（Reactive Programming）有相似之处，但增量计算更强调“最小化重计算”。它通常通过维护一个有向无环图（DAG）来记录计算依赖关系。当输入改变时，系统只重新计算受影响的节点，并跳过那些输入未发生变化的节点。这种技术在电子表格软件、图形用户界面（GUI）渲染以及机器学习中的反向传播算法中有着广泛的应用。
-</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48987822</guid>
-      <pubDate>Tue, 21 Jul 2026 03:50:53 GMT</pubDate>
     </item>
   </channel>
 </rss>
