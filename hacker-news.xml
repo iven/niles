@@ -3,7 +3,61 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 26 Jul 2026 09:24:06 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2026 11:38:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Debian 社区就 LLM 使用发起三项提案投票</title>
+      <link>https://news.ycombinator.com/item?id=49050859</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述Debian社区对LLM（大语言模型）使用的提案投票，涉及AI技术进展和开源社区治理，符合用户对AI软件和开源项目的兴趣</small></p><p>Debian 项目社区近期发起了一项关于大型语言模型（LLM）使用的一般决议（General Resolution）投票，旨在明确 AI 工具在该项目中的定位。此次投票包含三项主要提案：<a href="https://www.debian.org/vote/2026/vote_002">详见提案页面</a>。</p>
+<ul>
+<li><strong>提案 A（全面禁止）</strong>：由 Matthias Geiger 等人提出，主张明确禁止任何使用或辅助于 LLM 的 Debian 贡献（包括源码包、官方软件、文档和翻译）。提案指出，LLM 输出存在版权模糊、质量难以保证（易产生幻觉）等问题，且会加重审查者负担。此外，LLM 公司对开源数据的抓取和资源消耗也被视为违背 Debian 的社会契约。</li>
+<li><strong>提案 B（有条件允许）</strong>：由 Lucas Nussbaum 提出，允许 AI 辅助贡献，但设定了严格条件。贡献者需确保 AI 工具条款不与 Debian 许可冲突，验证版权合规，并对贡献的技术价值、安全性和许可完全负责。同时，若贡献主要由 AI 生成，必须进行披露。</li>
+<li><strong>提案 C（建议避免）</strong>：不采取全面禁止，而是请求贡献者在 Debian 工作中尽量避免使用 LLM。</li>
+</ul>
+
+<img src="../../Pics/openlogo-50.png" alt="Debian" width="50" height="61" />
+
+社区对此展开了激烈讨论。支持者认为 Debian 的核心优势在于稳定性和高质量，全面禁止有助于维护社区文化和减轻志愿者压力。反对者则指出，完全禁止在实际操作中难以执行，且可能阻碍安全漏洞的修复（例如利用 LLM 分析代码发现漏洞）。此外，关于“辅助”的界定（如使用 LLM 进行代码分析而非直接生成代码）以及非英语母语者的翻译需求也成为争论焦点。目前，Debian 社区正通过这一流程寻求共识，以平衡技术创新与项目传统。
+
+<h3>你知道吗？</h3>
+<p>Debian 的 General Resolution（一般决议）流程是其治理结构的重要组成部分，用于处理宪法未明确涵盖但影响项目整体方向的重要议题。投票结果通常具有指导性，若无法达成共识，项目可继续通过后续决议进行调整。此外，类似 Debian 的 AI 使用争议在开源社区中日益普遍，如 GNOME 和 Gentoo 等项目也相继出台了各自的 AI 贡献政策。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49050859</guid>
+      <pubDate>Sat, 25 Jul 2026 19:44:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 在 8 美元微控制器上运行 2890 万参数大语言模型</title>
+      <link>https://news.ycombinator.com/item?id=49050512</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍在低成本微控制器上运行大型语言模型的技术实践，涉及AI模型部署和嵌入式AI技术进展，符合用户对AI技术领域的兴趣</small></p><p>该项目成功将一款拥有 <strong>2890 万参数</strong> 的大语言模型（LLM）部署在售价约 <strong>8 美元的 ESP32-S3 微控制器</strong>上，实现完全离线运行。模型生成文本的速度约为每秒 9.5 个 token，并通过连接的小屏幕实时显示。</p>
+<img src="/slvDev/esp32-ai/raw/main/media/esp32-ple-demo.gif" alt="28.9M参数LLM在ESP32-S3上的运行演示" />
+<p><strong>核心技术：分层嵌入（Per-Layer Embeddings）</strong></p>
+<p>微控制器通常受限于极小的快速内存（SRAM），以往同类设备仅能运行约 26 万参数的模型。该项目借鉴了 Google Gemma 模型中的“分层嵌入”架构，将模型中占绝大部分的 2500 万参数嵌入表直接存储在慢速 Flash 中。生成文本时，芯片仅需按需从 Flash 读取极少量数据（约 450 字节），而负责实际计算的少量参数则保留在高速内存中。这种内存布局优化使得大模型得以在资源受限的边缘设备上运行。</p>
+<p><strong>能力与局限</strong></p>
+<p>模型基于 <a href="https://arxiv.org/abs/2305.07759">TinyStories</a> 数据集训练，擅长生成连贯的短篇故事，但受限于推理核心规模，无法回答问题、执行复杂指令、编写代码或提供事实知识。该项目的核心价值在于验证了边缘 AI 的架构创新，而非提供通用型 AI 工具。</p>
+<p><strong>社区反馈</strong></p>
+<p>开发者社区对该项目评价积极，认为其展示了极具潜力的边缘计算架构。讨论中提及，类似技术未来可能赋能离线语音合成（TTS）或结合多板卡并行计算提升性能。也有观点指出，尽管在 CPU 配合大容量存储运行更大模型在理论上可行，但受限于 I/O 带宽和延迟，实际体验仍远不及专用硬件。完整固件、训练代码及性能测试数据已开源至 <a href="https://github.com/slvDev/esp32-ai">GitHub 仓库</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49050512</guid>
+      <pubDate>Sat, 25 Jul 2026 18:59:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Shell 中的冒号（:）：不仅是空命令，更是参数扩展的利器</title>
+      <link>https://news.ycombinator.com/item?id=49047453</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享Shell脚本中使用冒号的实用技巧，属于编程效率改进经验的范畴，用户对此类编程工具分享有高兴趣</small></p><p>本文探讨了 Shell 脚本中常被忽视的冒号（<code>:</code>）的多种实用技巧。尽管冒号在语法上是一个“空命令”（null-command），仅评估参数并丢弃结果，但结合参数扩展（parameter expansion）机制，它能实现许多简洁而强大的功能。原文链接：<a href="https://refp.se/articles/your-shell-and-the-magic-colon">https://refp.se/articles/your-shell-and-the-magic-colon</a></p>
+<h3>核心用法解析</h3>
+<ul>
+  <li><strong>参数校验与默认值设置</strong>：利用 <code>${var:?error}</code> 语法，配合 <code>:</code> 可以一行代码检查变量是否已设置。例如 <code>: "${1:?missing argument}"</code> 能在参数缺失时直接报错退出。同时，<code>: "${VAR:=default}"</code> 可在变量未设时赋予默认值，且只需书写一次变量名，减少拼写错误。</li>
+  <li><strong>文件操作与权限检查</strong>：借助重定向特性，<code>: &gt; file.log</code> 可快速截断或创建文件。在子shell中，<code>( : &lt; file )</code> 可用于安全地测试文件是否可读，而不会像直接重定向那样输出文件内容。</li>
+  <li><strong>语法占位符</strong>：在 <code>if-else</code> 等需要命令但无需执行操作的分支中，<code>:</code> 可作为完美的占位符，保持代码结构的完整性。</li>
+</ul>
+<h3>社区反馈与讨论</h3>
+<p>文章发布后引发了关于 Shell 脚本“可读性”与“代码简洁性”的广泛讨论。多数开发者认为，虽然这些技巧展示了 Shell 的灵活性，但在生产环境中会严重降低代码可读性，建议超过一定长度的脚本改用 Python 或 Ruby 等现代语言。此外，评论区还指出了不同 Shell（如 Bash 与 Zsh）在处理重定向时的行为差异，作者也据此补充了使用 <code>:</code> 保证跨 Shell 兼容性的必要性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49047453</guid>
+      <pubDate>Sat, 25 Jul 2026 13:33:49 GMT</pubDate>
+    </item>
     <item>
       <title>Brolly：一款极简纯文本风格的天气预测网站</title>
       <link>https://news.ycombinator.com/item?id=49049693</link>
@@ -997,52 +1051,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=48987822</guid>
       <pubDate>Tue, 21 Jul 2026 03:50:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 如何测量 arXiv 上的 AI 写作比例及其局限性</title>
-      <link>https://news.ycombinator.com/item?id=48981206</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨 arXiv 论文中 AI 生成内容的测量方法与分析结果，涉及 AI 技术进展与科学前沿分析，符合用户兴趣配置，故推荐。</small></p><p>一项针对 arXiv 预印本平台的研究对 12,750 篇论文进行了全面分析，发现约三分之一的近期新论文呈现出机器生成的特征。该研究旨在量化生成式 AI 对学术写作的影响，并详细披露了检测方法的校准过程与实际局限性。</p>
-<p>研究团队开发了一种针对学术写作校准的检测器，将 2021 至 2022 年（ChatGPT 发布前）的论文作为真实人类写作的基线，将假阳性率严格控制在 0.4%。通过对 2023 年初至 2026 年 7 月提交的论文全文进行评分，结果显示：AI 写作标记率在 ChatGPT 发布后迅速攀升，分两波增长，在 2026 年初达到近 39% 的峰值，近期季度平均约为 32%。</p>
-<img src="/blog/assets/paper-trend.png" alt="Share of new arXiv papers flagged as machine-written, 2021 to 2026, at a threshold calibrated so pre-ChatGPT papers flag at 0.4%. The eight slate points are the pre-LLM control months; the band is a bootstrap 95% interval." />
-<p>不同学科领域的 AI 写作渗透率存在显著差异。计算机科学（Computer Science）以约 65% 的比例位居榜首，其次是定量生物学（Quantitative Biology，56.3%）和电气工程（Electrical Engineering，51.3%）。相比之下，数学（Mathematics）的标记率仅为 0.7%。然而，作者指出数学领域的低分可能并非因为 AI 使用率低，而是由于数学论文高度依赖公式和证明结构，剩余的自然语言文本稀疏，超出了检测器的训练分布，导致检测盲区。</p>
-<img src="/blog/assets/paper-fields.png" alt="Share of papers flagged as machine-written by field, over the 12 months to July 2026 (about 300 papers per field)." />
-<p>研究同时强调了多项局限性。首先，检测器对不同生成模型的敏感度不一，且无法覆盖作者实际使用的私有模型组合，因此报告的比例实际上是实际使用率的“下限”。其次，标记为“机器写作”仅表示文本具有机器生成的特征，可能包含重度 AI 辅助编辑的内容，并不能直接作为指控特定作者使用 AI 的证据。此外，LaTeX 格式等排版因素也可能对检测分数产生干扰。</p>
-<p>社区对此研究的讨论主要集中在检测器的准确性与学术伦理上。部分用户指出，检测器在处理特定格式或经典文本时可能存在偏差，但也有用户验证了该检测器对爱因斯坦等早期人类科学文本的误判率极低。关于 AI 写作的普及，观点呈现两极分化：一方认为只要不降低输出质量，AI 辅助能提升科研沟通效率；另一方则担忧 AI 生成的“水论文”会污染学术环境，降低知识传播的信噪比。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48981206</guid>
-      <pubDate>Mon, 20 Jul 2026 16:36:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>基于 Three.js 的新宿站室内 3D 可视化地图</title>
-      <link>https://news.ycombinator.com/item?id=48978792</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章内容为基于 Three.js 的新宿站 3D 可视化地图，主题偏向特定场景的 Web 技术展示，与用户明确的高兴趣或兴趣主题匹配度一般，故列为可选。</small></p><p>本文介绍了一个基于 <a href="https://satoshi7190.github.io/Shinjuku-indoor-threejs-demo/">Three.js</a> 构建的新宿站室内 3D 可视化项目。该项目利用日本国土交通省公开的“新宿站周边室内地图数据”，将新宿站复杂的立体交通网络以 3D 形式呈现。</p>
-<p>在 Hacker News 社区中，该演示因其流畅的性能和精细的结构受到关注。评论者将其复杂的立体迷宫结构与经典游戏场景相类比，如《最终幻想7》中的米德加（Midgar）或《攻壳机动队》的计算机界面。部分用户指出，虽然地图展示了多层站台和通道，但数据可能并不完整，例如缺少与新宿三丁目站的连接部分。</p>
-<p>关于实际应用，有用户提议开发基于此的 3D 导航应用以解决新宿站复杂的路线问题，但也有人反驳称通勤者无暇在拥挤的车站内使用手机导航，且站内现有的指示牌系统虽然复杂但已具备一定指引作用。</p>
-<h4>你知道吗？</h4>
-<p><strong>新宿站</strong>常年位居世界最繁忙火车站前列，日均客流量巨大。其复杂的立体结构源于多条私铁、JR线路和地铁线路的交汇，导致站内通道错综复杂，甚至被戏称为“迷宫”。此外，<strong>Three.js</strong> 是一个基于 WebGL 的 JavaScript 3D 库，允许开发者在网页浏览器中轻松创建和展示交互式 3D 图形。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48978792</guid>
-      <pubDate>Mon, 20 Jul 2026 13:43:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>Jellyfin联合创始人及核心领导层宣布和平离职，项目将继续发展</title>
-      <link>https://news.ycombinator.com/item?id=48986091</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲Jellyfin开源项目领导层人事变动，虽涉及开源项目但偏向行业人事新闻，对用户兴趣配置中的开源项目关注贡献有限，故评为可选</small></p>Jellyfin论坛发布公告，前项目领导者（Project Leader）Joshua和核心团队成员Anthony宣布离开项目，此前联合创始人Andrew也已辞职。<img src="https://avatars.githubusercontent.com/u/4031396?v=4" alt="Joshua's avatar" width="85" height="85" />Joshua表示，由于长期投入导致严重倦怠（burnout）和心理健康风险，他无法继续承担项目领导职责，因此选择退出。Anthony则因生活重心转移，需要优先处理其他事务。两人强调，交接过程和平友好，项目将继续由剩余团队运营，不存在分裂（fork）风险。
-
-Joshua在告别信中回顾了Jellyfin的发展历程，从最初的小众项目成长为目前排名第一的FLOSS（自由开源软件）媒体服务器，成为Plex的强力替代方案，惠及数百万用户。他相信剩余团队能继续传承项目的理念与代码。
-
-社区反馈方面，HN用户普遍对创始团队的贡献表示感谢。部分用户借此批评Plex近期转向流媒体服务及大幅提高终身会员价格（涨至750美元）[1]，凸显了Jellyfin作为开源替代品的价值。同时，社区也讨论了Jellyfin的实际体验：有用户称赞其跨平台应用和与“Arr Stack”（如Sonarr、Radarr）的集成，也有用户指出其在部分硬件（如Synology NAS）上性能不佳，或提到社区内部存在对第三方客户端和插件的排外文化。总体而言，用户认为Jellyfin仍是自托管媒体服务的优秀选择。
-
-你知道吗？
-Jellyfin是一个完全免费、开源的媒体系统，旨在替代Plex等商业媒体服务器软件。它允许用户搭建自己的媒体服务器，管理视频、音乐和照片，并提供跨平台的客户端应用。作为FLOSS（自由开源软件）生态的一部分，Jellyfin不依赖商业订阅，完全由社区驱动开发。
-
-[1] <a href="https://www.plex.tv/blog/new-lifetime-plex-pass-pricing/" rel="nofollow">https://www.plex.tv/blog/new-lifetime-plex-pass-pricing/</a>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=48986091</guid>
-      <pubDate>Mon, 20 Jul 2026 23:15:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
