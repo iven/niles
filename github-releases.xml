@@ -3,7 +3,40 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 26 Jul 2026 23:09:22 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2026 04:01:59 GMT</lastBuildDate>
+    <item>
+      <title>Hapi v0.24.0 发布：支持 Codex 主动模式与工具执行耗时显示</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.24.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Hapi v0.24.0 发布：支持 Codex 主动模式与工具执行耗时显示</h3>
+<p>Hapi 发布了 v0.24.0 版本，主要引入了对 Codex 主动 <code>/agent</code> 模式的支持，并在 Web 界面新增了工具执行耗时显示功能。此外，该版本还包含多项 CLI 交互优化、UI 细节修复以及会话管理改进。</p>
+<h4>核心功能与特性</h4>
+<ul>
+  <li><strong>Codex 主动模式支持</strong>：新增对 Codex 主动 <code>/agent</code> 模式的支持，提升自动化工作流效率 <a href="https://github.com/tiann/hapi/pull/1172">(#1172)</a>。</li>
+  <li><strong>工具执行耗时显示</strong>：Web 端现在可以直观展示工具执行耗时，帮助开发者更好地追踪任务进度与性能瓶颈 <a href="https://github.com/tiann/hapi/pull/1140">(#1140)</a>。</li>
+</ul>
+<h4>交互与 UI 优化</h4>
+<ul>
+  <li>修复了会话侧边栏在选择后不稳定的问题，并优化了设置界面的视觉层次与标签间距 <a href="https://github.com/tiann/hapi/pull/1173">(#1173)</a> <a href="https://github.com/tiann/hapi/pull/1177">(#1177)</a>。</li>
+  <li>改进了语音后端检测逻辑，避免误触发错误横幅；同时对齐了会话代理图标与文本 <a href="https://github.com/tiann/hapi/pull/1164">(#1164)</a> <a href="https://github.com/tiann/hapi/pull/1159">(#1159)</a>。</li>
+  <li>修复了历史消息加载时时间戳不稳定的问题，并完善了圆形操作图标的箭头连接 <a href="https://github.com/tiann/hapi/pull/1152">(#1152)</a> <a href="https://github.com/tiann/hapi/pull/1154">(#1154)</a>。</li>
+</ul>
+<h4>CLI 与代理管理改进</h4>
+<ul>
+  <li>修复了 CLI 中内部代理事件泄露为原始 JSON 到聊天窗口的问题 <a href="https://github.com/tiann/hapi/pull/1165">(#1165)</a>。</li>
+  <li>优化了本地交接（local handoff）时活跃 Claude 模型的保留逻辑 <a href="https://github.com/tiann/hapi/pull/1168">(#1168)</a>。</li>
+  <li>改进了孤儿子代理追踪的分组逻辑，现按 <code>parent_tool_use_id</code> 进行归类 <a href="https://github.com/tiann/hapi/pull/1175">(#1175)</a>。</li>
+</ul>
+<h4>其他修复</h4>
+<ul>
+  <li>Hub 模块现在可以自动归档具有过期元数据的活跃会话 <a href="https://github.com/tiann/hapi/pull/1170">(#1170)</a>。</li>
+  <li>Codex 模块清除了已完成的安全审查提示，并默认显示目录中的 Fast 层级 <a href="https://github.com/tiann/hapi/pull/1156">(#1156)</a> <a href="https://github.com/tiann/hapi/pull/1179">(#1179)</a>。</li>
+</ul>
+<p>完整更新日志与代码变更：<a href="https://github.com/tiann/hapi/compare/v0.23.4...v0.24.0">v0.23.4...v0.24.0</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.24.0</guid>
+      <pubDate>Mon, 27 Jul 2026 02:24:23 GMT</pubDate>
+    </item>
     <item>
       <title>v2.1.220</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.220</link>
@@ -1052,26 +1085,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.142.3</guid>
       <pubDate>Fri, 26 Jun 2026 21:29:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.195 更新日志</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.195</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>主要更新</h3>
-<ul>
-  <li>新增 <code>CLAUDE_CODE_DISABLE_MOUSE_CLICKS</code> 环境变量，允许在全屏模式下禁用鼠标点击、拖拽和悬停操作，同时保留滚轮滚动功能。</li>
-  <li>改进了远程会话启动流程，增加了容器启动时的配置清单（provisioning checklist）。</li>
-  <li>优化了 <code>claude agents</code> 完成列表的显示逻辑，使其自动填满可用垂直空间，并在终端高度不足时自动压缩头部以保持实时会话可见。</li>
-</ul>
-<h3>修复与优化</h3>
-<ul>
-  <li><strong>语音听写：</strong>修复了 macOS 上长会话中因默认输入设备更改而捕获静音的问题；解决了日语、中文、泰语等无空格语言中自动提交功能失效的问题；改进了 Linux 环境下对“无麦克风”和“SoX 未安装”状态的区分提示。</li>
-  <li><strong>插件与 Hook 匹配：</strong>修复了带有连字符的 Hook 标识符（如 <code>code-reviewer</code>、<code>mcp__brave-search</code>）意外进行子串匹配的问题，现改为精确匹配；解决了仅通过项目配置文件启用的外部插件重复请求安装同意的问题；修复了插件名称与市集名称不一致时导致启用/禁用功能失效的 Bug。</li>
-  <li><strong>后台任务：</strong>修复了后台任务在 <code>claude agents</code> 中消失或在新版本写入时丢失数据的问题；解决了重新打开崩溃任务时出现长达 5 秒空白屏幕的显示异常；修复了控制套接字启动失败导致后台代理守护进程不可达并阻塞重启的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.195</guid>
-      <pubDate>Fri, 26 Jun 2026 21:29:42 GMT</pubDate>
     </item>
   </channel>
 </rss>
