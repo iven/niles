@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 27 Jul 2026 20:41:18 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2026 22:16:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ LLM 赋能自动化证明：基于 Lean 的 Zstandard 解压器实践</title>
+      <link>https://news.ycombinator.com/item?id=49062291</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨 LLM 在 Lean 形式化验证中的实践应用，涉及 AI 技术进展与编程工具效率改进，符合用户兴趣，故推荐。</small></p><p>本文探讨了大型语言模型（LLM）如何结合<strong>证明无关性（proof irrelevance）</strong>特性，大幅降低<strong>依赖类型语言（Dependently-typed languages）</strong>（如 Lean 和 Rocq）的证明成本，从而推动形式化验证在软件工程中的普及。作者通过实际在 Lean 中实现 Zstandard (zstd) 解压器，验证了 LLM 辅助证明的可行性，并深入解析了 zstd 的核心压缩算法与 Lean 的语言特性。</p>
+<p>依赖类型语言允许开发者以类型系统编码并强制执行复杂的不变量，避免传统语言中因注释丢失或团队规模扩大导致的组件对齐问题。然而，传统形式化验证面临巨大的工作量挑战。例如，seL4 微内核项目花费在证明上的时间约为设计和实现阶段的 10 倍，证明代码行数更是 C 代码的 20 倍以上。早期的自动化工具（如 F* 结合 SMT 求解器）虽能处理简单案例，但极易陷入长时间运行或陷入局部最优的困境。</p>
+<p>作者指出，LLM 的出现为证明自动化带来了新契机。由于证明无关性原则认为只要证明存在即可，其具体内容往往不影响最终结果，LLM 能够高效生成和验证这些证明，从而大幅减少人工进行“证明工程（proof engineering）”的需求。为了测试这一设想，作者使用 Lean 编写了一个 zstd 解压器。</p>
+<p>在算法解析部分，文章重点介绍了 zstd 的<strong>有限状态熵编码（Finite State Entropy, FSE）</strong>。与传统的 Huffman 编码只能使用整数位不同，FSE 利用状态机和非均匀概率分配，允许符号平均使用非整数位进行编码，从而在保持极高速度的同时实现更高压缩率。FSE 通过为高频符号分配更多状态，并在编码时结合状态转移携带额外信息，实现了高效的熵编码。此外，zstd 采用反向编码机制，解压时需从数据块末尾向前读取。</p>
+<p>文章还详细分析了 Lean 语言的设计优势。作为一种<strong>严格求值（strict evaluation）</strong>的纯函数式语言，Lean 避免了 Haskell 等惰性语言中性能难以预测的问题。它提供了类似命令式编程的语法糖（如 do 块、循环和 break），并支持在引用计数为 1 时进行原地内存修改，为性能优化提供了灵活手段。</p>
+<p>HN 社区对此展开了热烈讨论。多数观点认为，LLM 确实能降低形式化验证的门槛，但<strong>证明工程（proof engineering）</strong>和抽象设计依然关键。有开发者指出，LLM 在生成证明时容易偏离原始规范，需要人类监督以确保对齐。此外，形式化验证在区块链协议、密码学等对安全性要求极高的领域具有巨大潜力，但如何将其与主流编程语言（如 Rust 的 Verus 或 Haskell）结合仍是当前探索的重点。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49062291</guid>
+      <pubDate>Sun, 26 Jul 2026 20:53:26 GMT</pubDate>
+    </item>
+    <item>
+      <title>AI 时代无法逃避的细节：外包细节并非真正的赋权</title>
+      <link>https://news.ycombinator.com/item?id=49060592</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要为 AI 时代外包行业的观点评论，缺乏具体技术或工具内容，兴趣指向不明确，故列为可选。</small></p><div>
+  <p>在人工智能热潮中，许多人渴望通过 LLM 等技术摆脱繁琐的细节，直接实现想法。然而，这篇文章指出，<strong>细节是无法被完全外包的</strong>。真正的专业能力源于对细节的深入理解和专注，而“知道该将哪些细节外包”本身就是一种需要长期积累的核心技能。</p>
+  <p>作者认为，如果一个人不擅长某项工作，就无法判断 AI 输出的质量，更无法决定该外包什么。试图通过 AI 规避细节不仅无法带来真正的“赋权（Empowerment）”，反而会导致对事物的失控。完全依赖 AI 而缺乏底层知识，恰恰是“什么也没做”的表现。</p>
+  <p><strong>社区反馈：</strong></p>
+  <ul>
+    <li><strong>效率与聚焦：</strong> 部分开发者认为，AI 擅长处理枯燥的样板代码和重复性任务，让人能将精力集中在核心逻辑和有趣的细节上。</li>
+    <li><strong>判断力的重要性：</strong> 经验丰富的工程师指出，AI 目前更像是一个“过度自信的产物”，容易生成冗长且包含隐蔽错误的代码。人类必须保持“驾驶座”上的最终判断力，通过“代码异味（Code Smell）”等经验来甄别 AI 的输出。</li>
+    <li><strong>抽象与底层知识：</strong> 讨论中有人提出抽象层存在的意义就是屏蔽底层细节，但作者反驳称，LLM 并非简单的代码翻译，它需要做复杂的逻辑判断，这要求使用者具备深厚的领域知识。</li>
+  </ul>
+  <p>总体而言，文章提醒开发者：AI 是强大的辅助工具，但无法替代人类对细节的掌控与专业判断的培养。</p>
+  <p>原文：<a href="https://davidnicholaswilliams.com/its-not-empowering-to-hand-off-the-details/">It's not empowering to hand off the details</a></p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49060592</guid>
+      <pubDate>Sun, 26 Jul 2026 17:58:02 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Kimi-K3 技术报告发布：开源前沿模型、配套基础设施与许可证争议</title>
       <link>https://news.ycombinator.com/item?id=49070985</link>
@@ -991,33 +1025,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49007374</guid>
       <pubDate>Wed, 22 Jul 2026 14:25:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Bento：一个集编辑、演示与协作于一体的单文件 HTML 幻灯片工具</title>
-      <link>https://news.ycombinator.com/item?id=49008211</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍一款基于HTML的单文件幻灯片工具，属于编程工具分享与软件新功能范畴，符合用户high_interest兴趣配置。</small></p><div>
-<p><a href="https://bento.page/slides/" rel="nofollow">Bento</a> 是一款由开发者 starfallg 推出的单文件 HTML 幻灯片工具，旨在解决使用代码生成网页幻灯片后难以进行可视化编辑的痛点。该工具集编辑、演示、数据管理与实时协作于一体，无需安装或云登录，完全支持离线运行。</p>
-<p>Bento 的核心优势在于其极致的便携性。默认演示文稿文件仅约 560 KB，加载后无需向外部服务器请求任何资源。用户可通过浏览器直接打开文件进行编辑、演示、打印和保存，并支持通过邮件或 AirDrop 分享。接收方仅需浏览器即可参与实时协作。此外，用户还可将现有 PPTX 文件拖入 AI 助手（如 Claude 或 ChatGPT）中，快速转换为 Bento 格式。</p>
-<p>在技术实现上，Bento 基于 <a href="https://github.com/nyblnet/bento" rel="nofollow">reveal.js</a> 和 <a href="https://github.com/nyblnet/bento" rel="nofollow">GSAP/Flip</a> 动画库构建。幻灯片数据以 JSON 格式存储于文件顶部，应用代码经 Base64 编码并压缩后嵌入文件中。实时协作功能采用 <a href="https://github.com/nyblnet/bento" rel="nofollow">CRDT</a>（无冲突复制数据类型）算法，并通过部署在 <a href="https://github.com/nyblnet/bento" rel="nofollow">Cloudflare Durable Objects</a> 上的加密盲中继进行通信，确保数据在传输过程中保持加密且中继服务器无法读取明文。</p>
-<p>该项目的开源代码已托管于 <a href="https://github.com/nyblnet/bento" rel="nofollow">GitHub</a>，采用 MIT 协议授权。作者透露，该项目主要利用 <a href="https://github.com/nyblnet/bento" rel="nofollow">Claude Code</a> 在业余时间完成。HN 社区对“单文件 Web 应用（Single-File Web Apps）”的理念给予了高度评价，认为其摆脱了传统云端依赖和复杂办公格式的束缚。部分用户建议增加关闭动画的选项，作者表示将考虑加入。社区还讨论了类似 <a href="https://github.com/nyblnet/bento" rel="nofollow">TiddlyWiki</a> 的单文件架构优势，以及 AI 在降低此类工具使用门槛方面的作用。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49008211</guid>
-      <pubDate>Wed, 22 Jul 2026 15:19:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Late.sh：一个基于 SSH 的命令行社区与语音聊天室</title>
-      <link>https://news.ycombinator.com/item?id=49001127</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了一个新的基于SSH的命令行社区与聊天室工具，属于编程工具分享，符合用户“编程工具发布/分享”的高兴趣配置。</small></p><p>Late.sh 是一个面向计算机爱好者的命令行社区平台，旨在复刻经典 BBS（电子公告板系统）的体验，同时融入现代实时交互功能。用户只需通过标准的 SSH 客户端连接至 <a href="https://late.sh/">late.sh</a> 即可进入该平台，无需注册账户或密码，系统以用户的 SSH 公钥指纹作为唯一身份标识。</p>
-<p>平台提供了丰富的功能模块，包括实时聊天、技术新闻分享、协作 ASCII 画板、每日挑战以及街机游戏（如 2048、数独等）。此外，Late.sh 还引入了类似 Clubhouse 的语音聊天室功能，用户可以在其中进行技术讨论或休闲交流。为了增强体验，项目还提供了配套的命令行工具 <code>late</code>，支持播放电台音乐、音频可视化、语音房间麦克风接入以及图片粘贴等功能。在隐私保护方面，平台承诺不记录 IP 地址、不进行用户追踪或数据分析，仅存储密钥指纹，并支持用户使用一次性密钥以保障匿名性。</p>
-<p>社区反馈方面，该项目在 Hacker News 上引发了热烈讨论。许多用户赞赏其将复古终端体验与现代功能结合的设计，认为其提供了互联网上难得的深度交流空间。同时，部分评论指出网站前端设计的对比度较低，影响阅读体验；也有用户对一键安装脚本的安全性提出质疑，不过开发者强调用户完全可以通过原生 SSH 客户端直接使用平台核心功能，无需依赖额外脚本。</p>
-<h3>你知道吗？</h3>
-<p><strong>BBS（Bulletin Board System）</strong>是互联网普及前流行的在线社区形式，用户通过调制解调器拨号连接至主机，使用文本界面进行文件下载、留言和聊天。随着图形界面和 Web 2.0 的兴起，BBS 逐渐式微，但近年来随着终端复用器（如 tmux）和 SSH 的普及，复古命令行社区再次受到开发者青睐。Late.sh 正是这一复古计算文化复兴趋势的代表之一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49001127</guid>
-      <pubDate>Wed, 22 Jul 2026 02:32:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
