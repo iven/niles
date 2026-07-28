@@ -3,7 +3,64 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 28 Jul 2026 03:33:45 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 09:47:56 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 使用开源模型带来意想不到的自由感：数据主权与成本效益的探讨</title>
+      <link>https://news.ycombinator.com/item?id=49078583</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论开源模型的优势与使用体验，涉及开源项目与AI技术，符合用户兴趣</small></p><p>本文记录了开发者在私有环境中部署开源大模型（如 <a href="https://www.kimi.com/">Kimi K3</a>）的实际体验。作者指出，通过自建推理端点，数据仅在个人设备与服务器间流转，这种对数据的完全掌控带来了摆脱商业平台束缚的自由感。</p>
+<p>HN 社区围绕该话题展开了深入讨论，主要观点如下：</p>
+<ul>
+  <li><strong>数据隐私与主权：</strong> 私有部署有效规避了商业 AI 平台的数据收集风险，满足了开发者对隐私的严格要求。</li>
+  <li><strong>成本与性能权衡：</strong> 多位开发者分享经验表明，开源或低成本模型在处理细粒度代码修改和迭代时表现优异。结合闭源大模型进行高层规划，可大幅降低 API 调用成本。</li>
+  <li><strong>工作流优化：</strong> 通过优化提示词工程与工具调用框架，开源模型能够胜任大部分日常开发辅助任务。</li>
+  <li><strong>营销争议：</strong> 部分评论指出，由于作者就职于 AI 基础设施公司 Modal，且文中明确提及了特定模型的部署体验，该文章可能带有软广性质。</li>
+</ul>
+<h3>你知道吗？</h3>
+<p><strong>零数据保留（Zero Data Retention, ZDR）</strong> 是 AI 推理服务中的一项隐私保护机制。采用 ZDR 的服务承诺在模型完成推理后不存储、不记录任何用户输入或输出数据。这对于处理敏感代码、商业机密或个人隐私信息的开发者至关重要。</p>
+<p><strong>开源模型（Open Models）</strong> 指模型权重和架构向公众公开的 AI 模型。与闭源模型（如 Claude、GPT 系列）相比，开源模型允许开发者在自有硬件或第三方托管平台上运行，从而实现完全的数据本地化或私有化部署，避免了数据外泄风险，并可根据特定需求进行微调。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49078583</guid>
+      <pubDate>Tue, 28 Jul 2026 02:37:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ SlopCodeBench 基准测试：Claude Opus 5 在长期代码维护中的表现</title>
+      <link>https://news.ycombinator.com/item?id=49076391</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍Claude Opus 5在代码维护中的基准测试结果，涉及AI编程工具与效率改进，属于用户非常感兴趣的领域</small></p><h2>SlopCodeBench 基准测试：Claude Opus 5 在长期代码维护中的表现</h2>
+<p>本文介绍了由威斯康星大学麦迪逊分校（UW Madison）开发的 <a href="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/main/benchmarking-opus-5-on-slop-code-bench.md">SlopCodeBench</a> 基准测试，并报告了 Claude Opus 5 在该测试中的表现。与传统一次性提供完整问题的基准测试不同，SlopCodeBench 采用多“检查点（Checkpoint）”机制，逐步揭示新需求，从而更真实地模拟长期软件工程中的代码维护场景。</p>
+<p><img src="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/raw/main/images/sota-changes-wm-shadow.png" alt="传统基准测试一次性披露问题，而 SlopCodeBench 模拟逐步揭示需求的长期维护场景" width="70%" /></p>
+<p>作者选取了 3 个不同难度的问题（共 17 个检查点），对 Opus 4.8、Sonnet 5 和 Opus 5 进行了并行测试。结果显示：</p>
+<ul>
+<li><strong>严格通过率（Strict Pass Rate）：</strong>Opus 5 以 24%（4/17）的通过率领先，Opus 4.8 和 Sonnet 5 均为 6%（1/17）。然而，没有任何模型能够顺利完成所有检查点。</li>
+<li><strong>代码质量退化：</strong>随着迭代进行，所有模型的代码复杂度、冗长度（Slop）及代码异味指标均显著上升。Opus 5 生成的函数数量是 Opus 4.8 的五倍，且单用函数（Single-use functions）比例较低，倾向于生成大量小型函数。</li>
+<li><strong>成本与缺陷：</strong>虽然 Opus 5 表现最佳，但“每一美元买到的正确性”仍显不足。测试表明，增加成本并未线性转化为更高的通过率。</li>
+</ul>
+<p><img src="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/raw/main/images/scb-strict.png" alt="Opus 5 严格通过率领先，但整体表现仍不理想" /></p>
+<p>作者指出，尽管 Opus 5 在技术上优于前代，但其生成的代码冗长且复杂度随迭代增加。这证实了长期代码维护中模型难以完全脱离人工干预（Lights-off）的观点。SlopCodeBench 提供的多维代码质量指标（如复杂度、重复率、依赖图等）为评估模型维护代码库的能力提供了更有价值的信号。</p>
+<p><img src="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/raw/main/images/scb-complexity.png" alt="随着检查点推进，模型生成的代码复杂度普遍上升" /></p>
+<h3>社区反馈</h3>
+<p>社区用户对 Opus 5 的评价呈现分化：部分用户认为其相比 Opus 4.8 缺乏革命性提升，且存在过度冗长（Slop）和过度严谨导致反馈循环的问题；也有用户认为 Opus 5 Medium 版本在性价比和速度上表现优异。大家普遍认同，随着模型解决单次问题的能力增强，评估其长期代码维护能力的基准测试（如 SlopCodeBench）将变得愈发重要。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49076391</guid>
+      <pubDate>Mon, 27 Jul 2026 22:37:52 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Paged Out #9 电子刊发布：涵盖子像素渲染、C 语言技巧与可计算平铺</title>
+      <link>https://news.ycombinator.com/item?id=49070138</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涵盖C语言技巧与图形学技术分享，属于编程经验与技术进展范畴，符合用户兴趣</small></p><p><a href="https://pagedout.institute/download/PagedOut_009.pdf">Paged Out #9</a> 电子刊现已发布，该期内容以设计精美、技术深度高且主题分散著称，被社区读者誉为兼具极客精神与视觉美感的现代技术小册子（zine）。</p>
+<p>本期引发讨论的亮点内容主要包括：</p>
+<ul>
+  <li><strong>子像素渲染（Subpixel rendering）</strong>：文章《The Subpixel Zoo》探讨了该技术在桌面操作系统、电视及移动设备上的支持差异。社区指出，桌面系统通常假设垂直子像素（RGB/BGR），而电视和移动设备大多不支持子像素渲染。</li>
+  <li><strong>C 语言代码混淆</strong>：《Baby Steps in C》一文展示了利用 GNU 扩展（如 <code>asm("puts")</code>）和复杂类型声明编写的极端 C 语言示例。读者在拆解代码时发现其巧妙利用了 C 标准与编译器扩展的结合，引发了关于 C 语言复杂性的广泛共鸣与调侃。</li>
+  <li><strong>可计算平铺（Computable tilings）</strong>：相关章节被指重新发现了 1960 年代 Wang 的理论，探讨了可计算平铺与“多米诺骨牌问题”的等价性，并指出其本质上与图灵机的停机问题（halting problem）相通。</li>
+</ul>
+<p>此外，社区还提到了 Michał Zalewski 撰写的幽默文章，并将该刊物的排版风格比作带有光栅艺术广告的 <a href="https://www.phrack.org/">Phrack</a> 杂志。印刷版目前正通过 Lulu 平台进行质量保证（QA）测试，预计本周内发售。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49070138</guid>
+      <pubDate>Mon, 27 Jul 2026 14:22:34 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Anthropic CEO 阐述开放权重模型立场：反对禁令，主张芯片管制、打击蒸馏与强制安全测试</title>
       <link>https://news.ycombinator.com/item?id=49076057</link>
@@ -970,76 +1027,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49010167</guid>
       <pubDate>Wed, 22 Jul 2026 17:20:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 实验验证：AI 实验室并未针对“鹈鹕骑自行车”基准进行过拟合训练</title>
-      <link>https://news.ycombinator.com/item?id=49010129</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 通过实验验证 AI 实验室模型是否存在过拟合特定基准的问题，属于 AI 软件技术进展领域，符合 interest 配置。</small></p><p>近年来，AI 研究者 Simon Willison 一直使用“生成一只骑自行车的鹈鹕（pelican riding a bicycle）的 SVG 图像”作为非正式基准，来测试各大语言模型（LLM）的图像生成能力。这一测试在 AI 社区广为人知，但也引发了关于 AI 实验室是否为了在公开基准上取得高分而进行针对性训练（即“Pelicanmaxxing”）的猜测。</p>
-<p>为了验证这一假设，作者 Dylan Castillo 进行了一项量化实验。他选取了 7 个前沿模型（包括 GPT-5.6 Terra、Claude Sonnet 5、Gemini 3.5 Flash 等），设计了包含 8 种动物和 6 种交通工具的 48 组提示词（Prompt），共生成了 1,008 张 SVG 图像。这些图像随后通过 LLM 评分模型（GPT-5.6 Luna）和特征提取工具进行了多维度评估。完整实验代码与数据已开源。</p>
-<p>实验结果并未发现 AI 实验室针对该基准进行过拟合的证据：</p>
-<ul>
-  <li><strong>单项能力未领先：</strong>在所有模型中，鹈鹕的评分在 8 种动物中仅排第 6，自行车的评分更是倒数第二。如果实验室进行了针对性训练，鹈鹕和自行车的得分理应显著高于其他同类物体。</li>
-  <li><strong>组合得分靠后：</strong>即使通过固定效应回归模型调整了不同动物和车辆的固有绘制难度，“鹈鹕骑自行车”的组合得分依然排在 48 种组合中的第 42 位。统计分析显示，没有任何实验室在该特定组合上表现出具有统计学意义的提升。</li>
-  <li><strong>无“记忆”痕迹：</strong>虽然所有 21 张生成的鹈鹕骑自行车图像都朝右，但这在实验中属于常见现象（自行车和鹈鹕本身从侧面绘制更容易）。场景元素（如阳光、围巾等）也未显示出重复的“记忆”模式。</li>
-</ul>
-<p>作者得出结论，目前几乎没有证据表明 AI 实验室在“Pelicanmaxxing”。更可能的情况是部分实验室（如 Google/DeepMind）进行了“SVGmaxxing”，即整体优化 SVG 生成能力，但这属于通用能力的提升，而非针对单一基准的作弊。社区评论中也指出，真正的基准测试应当避免被单一公开提示词所主导，并讨论了古德哈特定律（Goodhart's Law）在 AI 评估中的影响。</p>
-<p>原文链接：<a href="https://dylancastillo.co/posts/pelicanmaxxing.html">Are AI Labs Pelicanmaxxing?</a></p>
-<h3>你知道吗？</h3>
-<p><strong>什么是“Maxxing”与“Pelicanmaxxing”？</strong></p>
-<p>“Maxxing”一词源自网络亚文化（如“Looksmaxxing”），意为通过极端手段将某项属性提升到极致。在 AI 领域，“Benchmaxxing”指模型为了在特定基准测试（Benchmark）上刷高分而进行的针对性优化，这可能导致模型在真实世界任务中表现不佳。“Pelicanmaxxing”则是该概念的戏称，特指为了在 Simon Willison 的鹈鹕基准上得分而进行的训练。</p>
-<p><strong>古德哈特定律（Goodhart's Law）</strong></p>
-<p>评论中提到的古德哈特定律指出：“当一项措施成为目标时，它就不再是一项好的措施。”在 AI 领域，如果模型过度针对公开基准进行训练，基准分数将失去衡量模型真实能力的价值。这也是为什么 AI 社区越来越倾向于使用隐蔽提示词（Secret Prompts）或动态基准来评估模型能力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49010129</guid>
-      <pubDate>Wed, 22 Jul 2026 17:17:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>肌酸能让人变聪明吗？科学证据与常见误区解析</title>
-      <link>https://news.ycombinator.com/item?id=49008642</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要探讨肌酸对大脑影响的科学证据与常见误区，偏向健康科普而非硬核科学前沿，与用户关注的编程/AI 核心兴趣关联较弱，兴趣不明确。</small></p><div>
-<p>肌酸（Creatine）常被误认为是类固醇或“聪明药”，但科学证据表明它实际上是一种安全的天然营养素，主要作用是提升细胞内的能量传递效率。本文深入探讨了肌酸对肌肉力量和大脑认知的实际影响，并澄清了诸多常见误区。</p>
-
-<h3>肌酸的基本作用与安全性</h3>
-<p>肌酸并非激素，人体自身可合成，也广泛存在于肉类中。它通过转化为磷酸肌酸（Phosphocreatine）为细胞提供快速能量储备。广泛的研究证实，每日补充 3-5 克肌酸对健康人群安全无副作用，且不会导致脱发或异常增加睾酮水平。</p>
-
-<h3>对肌肉力量的显著提升</h3>
-<p>肌酸在增强爆发力方面证据确凿。补充肌酸可增加肌肉中磷酸肌酸的储备约 16%，从而在短跑或高强度训练中提升 5-15% 的最大力量/功率输出。然而，它对耐力运动（如长跑）几乎没有益处。</p>
-
-<h3>大脑为何需要肌酸？</h3>
-<p>虽然大脑不像肌肉那样有爆发性能量需求，但肌酸在神经元中扮演着“能量穿梭机”的角色，帮助将能量从线粒体输送到活跃区域，避免局部能量短缺。缺乏肌酸会导致严重的智力障碍和肌肉无力，这证明了其对大脑功能的重要性。</p>
-
-<h3>肌酸能让人变聪明吗？</h3>
-<p>关于肌酸提升认知的研究结果存在巨大争议。2003年的一项著名研究声称素食者补充肌酸后智商（IQ）大幅提升 17-26 分，但该结果从未被成功复现：<img src="/img/creatine/rae.png" alt="Rae et al. (2003) 研究结果图" />。2023年一项高质量的随机对照试验（RCT）显示，肌酸对认知能力的提升微乎其微（约 1-2.5 个 IQ 点），且统计上不显著：<img src="/img/creatine/sandkühler.png" alt="Sandkühler et al. (2023) 研究结果图" />。目前的共识是：肌酸可能对认知有极微小的帮助，尤其是在疲劳或睡眠不足时，但绝非显著的“聪明药”。</p>
-
-<h3>社区讨论与实用建议</h3>
-<p>在 Hacker News 的讨论中，用户指出补充剂行业存在夸大宣传，许多效果源于安慰剂效应。关于服用方法，专家建议无需“循环”（cycling），每日固定摄入 3-5 克即可。部分用户分享称，在睡眠不足时服用肌酸有助于缓解头痛和疲劳，但也有人报告了胃肠道不适等个体差异。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49008642</guid>
-      <pubDate>Wed, 22 Jul 2026 15:45:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI 时代的“制作”困境：当 AI 代劳时，我们是否还算是创作者？</title>
-      <link>https://news.ycombinator.com/item?id=49008440</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 探讨 AI 时代的创作伦理与身份认同问题，属于社会文化讨论，非技术核心内容，兴趣不明确。</small></p><p>在生成式 AI 迅速改变创作方式的今天，资深开发者 Brian "Beej Jorgensen" 在博客中探讨了 <a href="https://beej.us/blog/data/ai-making/">“制作（Making）”</a> 这一概念在 AI 辅助下的心理变化。文章通过对比亲手制作的木工项目与 AI 生成的代码、小说及画作，揭示了“发起者”与“制作者”之间的心理界限。</p>
-
-<p>作者指出，虽然 AI 带来了高层问题解决的便利，但也剥夺了底层问题解决的挑战、技艺的磨练以及亲手完成项目的成就感。他坦言，尽管他是 AI 生成内容的发起者，但无法像使用编译器或锤子那样，理直气壮地声称“我制作了它”。这种不适感源于“制作”与“委托制作”之间的本质区别。</p>
-
-<p><img src="images/nail.jpg" alt="Nail in wood with hammer" /></p>
-
-<p>HN 社区对此展开了热烈讨论。许多人共鸣于这种“所有权感”的缺失，认为关键在于是否通过过程获得了“理解”。也有观点认为，AI 让缺乏时间的人也能实现想法，是一种积极的工具化转变。</p>
-
-<p>文章进一步探讨了“提示词工程（Prompting）”是否算作“制作”。作者认为，提示词更像是一种领导力或委托，而非亲手制作。他通过对比编译器（C 语言到汇编）和 AI 助手，探讨了“制作”与“要求制作”的灰色地带。编译器被视为精确的工具（如同锤子），而 AI 则更像是一个人类协作者或承包商。</p>
-
-<p><img src="images/wiz2.jpg" alt="Dueling Wizard Hackers" /></p>
-
-<p>社区反馈中，许多人共鸣于这种“空虚感”，认为 AI 剥夺了动手的乐趣和所有权感。也有观点认为，关键在于“理解（understanding）”和“过程控制权（agency over the process）”。如果通过 AI 获得了理解，或者只是想要一个结果，那么使用 AI 是合理的。还有人指出，AI 像“健美中的类固醇”，虽然能更快达到目标，但可能让人失去对过程的控制和真正的理解。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49008440</guid>
-      <pubDate>Wed, 22 Jul 2026 15:33:48 GMT</pubDate>
     </item>
   </channel>
 </rss>
