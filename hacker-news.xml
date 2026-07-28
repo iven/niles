@@ -3,7 +3,40 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 28 Jul 2026 18:41:22 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 20:24:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 线性注意力机制演进：从 Softmax 到 Kimi Delta Attention (KDA)</title>
+      <link>https://news.ycombinator.com/item?id=49085909</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要探讨线性注意力机制的技术演进，属于AI底层技术进展，符合用户兴趣配置</small></p><p>本文深入解析了线性注意力机制（Linear Attention）的演进路径，详细推导了从基础 Softmax 注意力到 Kimi Delta Attention (KDA) 的完整数学过程。文章指出，现代线性注意力变体虽然复杂，但其核心思想可以通过对隐藏状态（Hidden State）施加简单约束逐步推导得出。</p>
+<p>演进路线主要分为四个阶段：</p>
+<p>1. <b>线性注意力（Linear Attention）</b>：通过移除 Softmax 归一化，利用外积求和将历史键值对压缩为固定大小的状态矩阵，将计算复杂度从二次方降至线性。但这种方式存在“加法干扰”问题，新写入的值会与旧状态叠加，无法直接覆盖。</p>
+<p>2. <b>DeltaNet</b>：为解决覆盖问题，引入 Delta 规则（Delta Rule）。模型在写入新值前，先计算当前状态对当前键的预测值，仅将预测误差（Error）乘以学习到的强度系数后写入状态。这实现了对特定键方向的精准修正。</p>
+<p>3. <b>Gated DeltaNet</b>：针对线性状态压缩导致无法选择性遗忘陈旧信息的问题，引入全局遗忘门（Retention Gate）。在读取和写入前，对旧状态进行缩放，使模型能够根据当前输入决定是否保留历史信息。</p>
+<p>4. <b>Kimi Delta Attention (KDA)</b>：将全局标量遗忘门升级为按通道独立控制的向量（对角矩阵）。这使得模型能够针对不同键通道（Key Channel）进行细粒度的独立遗忘，进一步提升了状态管理的灵活性。</p>
+<p>文章最后展示了 KDA 的循环与分块（Chunkwise）Triton 程序实现。在 Hacker News 社区讨论中，多数读者表示难以独立推导出 KDA 的公式，赞叹其设计的巧妙性。此外，社区还就文章中使用的狄拉克符号（Bra-ket notation）与传统数学符号的优劣、大模型创新的本质以及数学符号统一性等问题展开了热烈讨论。</p>
+<p><b>你知道吗？</b></p>
+<p>文章作者拥有牛津大学物理学硕士及量子计算博士学位，因此采用了物理学中常用的狄拉克符号（Bra-ket notation）来推导公式。这种符号在量子力学中用于描述态矢量，作者认为它能更清晰地展示线性注意力推导中的矩阵形状与维度变化。文章也贴心地提供了传统数学符号的切换选项。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49085909</guid>
+      <pubDate>Tue, 28 Jul 2026 16:02:07 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Kimi Linear：一种高效且表达能力强的混合线性注意力架构</title>
+      <link>https://news.ycombinator.com/item?id=49082022</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Kimi Linear的混合线性注意力架构，属于AI算法与架构技术进展，符合用户兴趣配置</small></p><p>Kimi Linear 是月之暗面（Moonshot AI）Kimi 团队提出的一种混合线性注意力架构，旨在解决传统全注意力机制在长上下文场景下的计算瓶颈。该架构的核心在于 <a href="https://arxiv.org/abs/2510.26692">Kimi Delta Attention (KDA)</a> 模块，它在 Gated DeltaNet 的基础上引入了更细粒度的门控机制，从而更有效地利用有限状态 RNN 的内存。</p>
+<p>在算法优化方面，团队设计了一种基于 Diagonal-Plus-Low-Rank (DPLR) 转换矩阵变体的定制分块算法，在保持与经典 delta 规则一致性的同时大幅降低了计算量。Kimi 团队预训练了一个拥有 3B 激活参数和 48B 总参数的模型，该模型采用 KDA 与 Multi-Head Latent Attention (MLA) 的逐层混合结构。实验表明，在相同的训练配方下，Kimi Linear 在短上下文、长上下文以及强化学习（RL）扩展场景中均全面优于全注意力 MLA 模型。具体而言，该架构将 KV cache 的使用量减少了高达 75%，并在 100 万（1M）上下文长度下实现了高达 6 倍的解码吞吐量提升。</p>
+<p>为了促进研究，Kimi 团队已开源了 KDA kernel 和 vLLM 实现，并发布了预训练及指令微调的模型权重。</p>
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>与 Kimi K3 的关系</strong>：社区讨论指出，Kimi 最新的 K3 模型大量采用了 KDA 架构（69 层 KDA 与 24 层 Gated MLA），进一步验证了该架构在大规模模型中的有效性。</li>
+<li><strong>技术演进脉络</strong>：Kimi Linear 可被视为从 LSTM 到线性注意力，再到 Mamba2 和 DeltaNet 的技术演进路线的延续。它通过改进门控机制，解决了传统线性注意力在长上下文检索等任务中表现较弱的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49082022</guid>
+      <pubDate>Tue, 28 Jul 2026 10:52:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 500美元强化学习微调9B开源模型，在目录审查任务上击败前沿模型</title>
       <link>https://news.ycombinator.com/item?id=49078454</link>
@@ -1003,48 +1036,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49015639</guid>
       <pubDate>Thu, 23 Jul 2026 01:16:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 面试作业暗藏玄机：开发者在Take-Home项目中发现恶意挖矿与窃密脚本</title>
-      <link>https://news.ycombinator.com/item?id=49013036</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述开发者在面试作业中遭遇恶意脚本的安全问题，涉及软件开发实践与代码防范经验，对开发者具有参考价值，故推荐。</small></p><div>
-  <p>近期，一名软件工程师在LinkedIn上收到一份高薪远程Python开发职位的邀约。尽管对方开出的薪资（月薪$10,000-$15,000）和直接透露薪资的行为显得异常，作者仍接受了面试，并收到了包含作业说明和项目代码的Google Drive链接。</p>
-  <img src="/_astro/Screenshot_20260719-211017.DYnt8aCJ_Z1UUdvu.webp" alt="Intro message" width="846" height="1617" />
-  <p>解压项目后，作者发现这是一个标准的FastAPI后端代码库。出于做CTF（夺旗赛）的安全习惯，作者运行了命令检查隐藏目录，意外在 <code>.git/hooks</code> 目录下发现了大量预配置的Git钩子（Git Hooks）。检查 <code>pre-commit</code> 脚本后，作者发现该脚本会检测受害者的操作系统，并从远程IP地址 <code>45.61.164.38:5777</code> 下载并静默执行恶意载荷。</p>
-  <img src="/_astro/Screenshot_20260719-211026.DcWSSXgd_1u3gxU.webp" alt="Pay" width="841" height="522" />
-  <p>深入分析Payload后发现，攻击者设计了多阶段感染机制。第一阶段脚本会下载并运行一个名为 <code>tokenlinux.sh</code> 的脚本；第二阶段则静默安装Node.js环境，下载混淆的 <code>parser.js</code> 和 <code>package.json</code>，并安装依赖包。通过分析依赖项（如 <code>hardhat</code>、<code>clipboardy</code> 等），作者推测攻击者旨在利用以太坊开发环境窃取加密货币钱包信息或劫持本地浏览器扩展。</p>
-  <img src="/_astro/Screenshot_20260722_014855.D362_Vkr_ir2J.webp" alt="Hardhat NPM" width="1048" height="923" />
-  <p>作者尝试使用大语言模型（LLM）对混淆的 <code>parser.js</code> 进行反混淆，Claude触发了安全拦截，而Gemini则给出了详细分析。此外，攻击者通过URL参数 <code>id=402</code> 为不同受害者定制专属Payload。作者进一步调查指出，该作业代码本身只是克隆了一个公开的财务服务仓库，攻击者仅在其上添加了恶意目录。除了Git钩子，攻击者还利用VSCode的 <code>.vscode</code> 配置文件夹实现“免操作”感染。</p>
-  <img src="/_astro/Screenshot_20260722_015900.5hv_WpO1_Z2si7Xm.webp" alt="Claude's response" width="1032" height="1323" />
-  <img src="/_astro/Screenshot_20260722_020216.CJgNPp3m_ZWKSfe.webp" alt="Gemini's response" width="906" height="1672" />
-  <img src="/_astro/Screenshot_20260722_023415.DY_zQUT__1GkDR1.webp" alt="tokenlinux" width="1103" height="965" />
-  <p>作者对攻击者的服务器进行了端口扫描，发现其服务器运行着较新的OpenSSH版本，未留下明显的可利用漏洞。目前，冒用该公司名义的招聘账号已被删除。该事件在Hacker News社区引发热议，许多开发者表示此类攻击将日益普遍，甚至可能是AI辅助自动化的产物。社区普遍建议求职者：务必通过公司官网验证招聘方身份，切勿在未经验证的情况下运行第三方代码，并警惕那些绕过常规招聘流程的“高薪”邀约。</p>
-  <img src="/_astro/nmap_scan.B_kHFcNI_1LqjdH.webp" alt="nmap scan" width="1307" height="467" />
-</div>
-
-<div class="extra">
-  <h3>你知道吗？</h3>
-  <ul>
-    <li><strong>Take-Home Assignment（居家作业）：</strong> 技术面试中常见的考核方式，要求候选人在规定时间内完成一个小型项目。虽然能考察实际编码能力，但也常被攻击者利用作为传播恶意软件的载体。建议开发者在隔离环境（如虚拟机或容器）中运行此类作业。</li>
-    <li><strong>Git Hooks（Git钩子）：</strong> Git允许在特定事件（如提交、推送）触发时运行自定义脚本。攻击者常利用 <code>pre-commit</code> 或 <code>pre-push</code> 钩子，诱导开发者在提交代码时不知不觉地触发恶意程序，实现持久化控制。</li>
-    <li><strong>Hardhat：</strong> 以太坊生态中流行的开发环境框架，用于编译、部署和调试智能合约。由于其具备与区块链网络交互的能力，恶意攻击者可能将其打包在依赖中，用于在受害者本地部署恶意合约或窃取钱包私钥。</li>
-  </ul>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49013036</guid>
-      <pubDate>Wed, 22 Jul 2026 20:33:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 每个开发者都应了解 SIMD：概念、模式与实践</title>
-      <link>https://news.ycombinator.com/item?id=49010648</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深入讲解SIMD编程概念与实践模式，属于底层代码性能优化技术，直接契合用户关注编程效率改进经验的兴趣点，属强烈推荐内容。</small></p><p>单指令多数据（SIMD）技术允许 CPU 在一次指令中并行处理多个数据值，从而显著提升处理大规模连续数据的效率。Mitchell Hashimoto 在<a href="https://mitchellh.com/writing/everyone-should-know-simd">本文</a>中指出，尽管 SIMD 常被视为复杂且小众的优化手段，但其核心逻辑遵循一个通用的五步模式，掌握后编写起来并不比常规循环复杂。</p>
-<p>SIMD 代码的通用模式包括：<b>广播常量</b>、<b>按向量宽度循环</b>、<b>并行执行操作</b>、<b>归约结果</b>以及<b>使用标量尾部处理剩余元素</b>。作者以 Zig 语言为例，演示了如何将一个查找控制字符的标量循环转换为 SIMD 实现，在 AVX2 架构下可获得约 5 倍的性能提升。</p>
-<p>尽管现代编译器具备一定的自动向量化（auto-vectorization）能力，但其在处理复杂控制流（如提前跳出循环）时往往力不从心，且优化结果不可预测。手动编写 SIMD 能够确保性能优化的明确性与可控性。社区讨论进一步指出，合理的<b>数据导向设计（Data-Oriented Design）</b>与内存布局优化是充分发挥 SIMD 潜力的关键前提。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49010648</guid>
-      <pubDate>Wed, 22 Jul 2026 17:48:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
