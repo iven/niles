@@ -3,7 +3,31 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 29 Jul 2026 00:08:22 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 03:33:46 GMT</lastBuildDate>
+    <item>
+      <title>OpenAI Codex (Rust) v0.146.0 发布说明</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.146.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex (Rust) v0.146.0 版本正式发布，本次更新聚焦于会话管理流程优化、插件生态扩展以及终端交互体验的提升。</p>
+<h3>核心功能更新</h3>
+<ul>
+  <li><strong>会话与线程管理</strong>：支持使用 <code>/new</code> 或 <code>/clear</code> 命令为会话命名；新增线程固定功能，并允许在不关闭当前会话的情况下切换侧边对话。线程分叉功能现已支持分页历史加载，包含临时分叉选项。</li>
+  <li><strong>插件与市场扩展</strong>：正式支持 Agent Plugins manifests 和工作区插件发布，同时为 Amazon Bedrock 和 Claude Code 接入更多插件市场。</li>
+  <li><strong>远程连接与搜索</strong>：通过 WebSocket 协议实现 app-server 与远程 Code Mode 主机的连接；兼容的自定义模型提供商可启用独立网页搜索功能。</li>
+  <li><strong>技能系统优化</strong>：支持发现并安全读取执行器提供的技能资源。在上下文预算紧张时，系统会自动优化技能目录展示并提示截断警告。</li>
+</ul>
+<h3>体验改进与 Bug 修复</h3>
+<ul>
+  <li><strong>终端交互增强</strong>：大幅提升终端响应速度与渲染效率，优化了非阻塞中断处理、键盘事件响应、窄屏布局适配及超链接显示。</li>
+  <li><strong>代理与连接稳定性</strong>：全面统一了代理配置在认证、插件下载、MCP 授权、远程执行及 WebSocket 等场景下的行为。MCP 连接现在能在配置或认证变更时自动刷新，无需重启健康连接。</li>
+  <li><strong>数据一致性保障</strong>：确保提交的消息、审批设置、时间戳及错误状态在会话中断、重放、导入或分叉时完整保留。</li>
+  <li><strong>平台修复</strong>：解决了 Windows 平台的导航键响应问题，改进了沙箱进程树的终止逻辑，并修复了安全审查期间代理设置丢失的问题。</li>
+</ul>
+<p>完整更新日志：<a href="https://github.com/openai/codex/compare/rust-v0.145.0...rust-v0.146.0">查看完整 Changelog</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.146.0</guid>
+      <pubDate>Wed, 29 Jul 2026 01:42:51 GMT</pubDate>
+    </item>
     <item>
       <title>Hapi v0.25.0 发布：Scratchlist v2、原生推送通道与对话分享功能增强</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.25.0</link>
@@ -1077,33 +1101,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.196</guid>
       <pubDate>Mon, 29 Jun 2026 23:27:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>Starship v1.26.0 发布：支持 Git am 进度显示、SHA-256 及 Nix 嵌套深度</title>
-      <link>https://github.com/starship/starship/releases/tag/v1.26.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Starship v1.26.0 版本已发布，本次更新主要围绕提示符模块的功能增强与多项缺陷修复展开。</p>
-
-<h3>主要功能更新</h3>
-<ul>
-<li><strong>Git 模块</strong>：新增 <code>git_state</code> 状态显示，可在提示符中直观展示 <code>git am</code> 的进度 <a href="https://github.com/starship/starship/issues/7500">#7500</a>；同时正式启用对 SHA-256 哈希算法的支持 <a href="https://github.com/starship/starship/issues/7531">#7531</a>。</li>
-<li><strong>Nix 模块</strong>：新增 <code>level</code> 变量，用于显示当前 Nix shell 的嵌套深度，方便开发者管理多层环境 <a href="https://github.com/starship/starship/issues/7394">#7394</a>。</li>
-<li><strong>Pixi 模块</strong>：新增 <code>PIXI_PROJECT_NAME</code> 格式占位符，便于自定义项目信息展示 <a href="https://github.com/starship/starship/issues/7346">#7346</a>。</li>
-<li><strong>时间模块</strong>：底层时区处理逻辑迁移至 <code>jiff</code> 库，提升了时区计算的准确性与性能 <a href="https://github.com/starship/starship/issues/7222">#7222</a>。</li>
-</ul>
-
-<h3>缺陷修复与优化</h3>
-<ul>
-<li>修复了 GCloud 模块未正确读取 <code>CLOUDSDK_COMPUTE_REGION</code> 环境变量的问题 <a href="https://github.com/starship/starship/issues/7451">#7451</a>。</li>
-<li>优化了配置文件写入机制，显著提升了写入可靠性 <a href="https://github.com/starship/starship/issues/5426">#5426</a>。</li>
-<li>修复了 Maven 模块将用户级 <code>.mvn</code> 配置误判为项目配置 <a href="https://github.com/starship/starship/issues/7426">#7426</a>，以及 Node.js 模块误识别 Deno 项目文件的问题 <a href="https://github.com/starship/starship/issues/7478">#7478</a>。</li>
-<li>在 Tokyo Night 主题中，操作系统符号（OS symbol）现已支持动态显示 <a href="https://github.com/starship/starship/issues/7555">#7555</a>。</li>
-<li>修复了 Statusline 模块在会话初始化时处理 <code>context_window</code> 为 null 导致的异常 <a href="https://github.com/starship/starship/issues/7533">#7533</a>。</li>
-<li>构建流程改用 <code>cargo-zigbuild</code>，完善了对 <code>riscv64gc-unknown-linux-musl</code> 架构的发布支持 <a href="https://github.com/starship/starship/issues/7449">#7449</a>。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/starship/starship/releases/tag/v1.26.0</guid>
-      <pubDate>Sun, 28 Jun 2026 17:02:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
