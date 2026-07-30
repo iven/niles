@@ -3,7 +3,45 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 30 Jul 2026 09:37:55 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jul 2026 12:03:59 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 华为拟开源自研 GPU Vulkan 驱动，因核心编译器闭源恐难合入 Mesa 主线</title>
+      <link>https://www.phoronix.com/news/Huawei-Half-Open-Mesa-Vulkan</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论Mesa Vulkan驱动的开源可能性，涉及开源图形项目进展与Linux桌面技术，用户对此类内容感兴趣，故推荐。</small></p><p>华为工程师近日在 Mesa 邮件列表发帖，提议将团队为自研 GPU 开发的 Vulkan 驱动合入 Mesa 主线。然而，由于该方案存在核心组件闭源的问题，社区普遍认为其合入前景渺茫。</p>
+<p>该驱动被指为“半吊子”开源尝试。华为工程师表示，由于自研 GPU 的指令集架构（ISA）无法对外公开，负责将 Mesa 中间表示（IR）转换为目标机器码的着色器编译器后端只能作为运行时加载的二进制闭源模块（blob）保留。若缺少此模块，驱动将无法正常运行。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=huawei_atlas" alt="Huawei Ascend Atlas" />
+<p>Mesa 社区对此反应冷淡。红帽工程师 David Airlie 指出，在缺乏完整开源编译器的情况下，该驱动几乎不可能被合入主线。他建议华为直接公开 GPU ISA，并指出在当前的 AI 与大模型时代，闭源模块极易被逆向工程，保留闭源并无实际安全优势。</p>
+<p>目前，华为尚未推出面向游戏或通用计算的独立显卡，其主要图形与计算硬件集中在 Ascend 和 Atlas 系列 AI 加速卡上。若华为不推出完全开源的驱动方案，该 Vulkan 驱动预计将仅作为下游闭源模块存在。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Huawei-Half-Open-Mesa-Vulkan</guid>
+      <pubDate>Thu, 30 Jul 2026 10:18:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 上 Intel Alchemist 显卡媒体加速补丁发布</title>
+      <link>https://www.phoronix.com/news/Intel-HuC-DG2-Alchemist-Xe</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讨论Intel GPU在Linux上的媒体加速改进，涉及硬件驱动优化，但属于显卡相关技术，兴趣不明确，故列为可选。</small></p><p>Intel Arc A-Series (DG2) 显卡在 Linux 上的驱动正经历从 i915 到 Xe 驱动的过渡。虽然 Xe 驱动在 Alchemist 及更新架构上已默认支持，但在 A-Series 上使用 Xe 驱动时，一直存在缺乏媒体加速支持的痛点。</p>
+<p>HuC（Hardware Unified Codec）是 Intel 显卡上的一个微控制器，负责处理视频编解码任务。在 i915 驱动下，Alchemist 的 HuC 功能正常，但在 Xe 驱动中尚未完全打通，导致 H.265/HEVC 等编解码器无法利用 GPU 进行硬件加速。</p>
+<p>近日，开源开发者 Daniil Seliverstov 提交了一项合并请求，旨在为 Xe 驱动添加 DG2/Alchemist 的 HuC 支持。该补丁涵盖了 DG2 特定的 GSC/MEI 接口支持、HuC 固件解析、加载与认证处理改进，以及 GSC 寄存器定义更新等关键内容。</p>
+<img src="//www.phoronix.net/image.php?id=intel-arc-nov&image=intel_arc_0_med" alt="Intel Arc A770" />
+<p>这一改进将解决 A-Series 用户在 Linux 上使用 Xe 驱动时的媒体加速缺失问题，有助于更多用户转向 Xe 驱动以获得更好的性能。</p>
+<h3>你知道吗？</h3>
+<p><strong>HuC (Hardware Unified Codec)</strong>：这是 Intel 显卡内部的一个独立微控制器，专门负责视频编解码任务。通过硬件加速，它可以显著降低 CPU 在播放或转码视频时的负载。</p>
+<p><strong>GSC (Graphics System Controller)</strong>：在 Intel Xe 架构中，GSC 是负责处理图形系统控制任务的微控制器，负责管理固件加载、认证以及与 HuC 等组件的通信。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-HuC-DG2-Alchemist-Xe</guid>
+      <pubDate>Thu, 30 Jul 2026 10:05:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Debian 开发者正权衡五项关于 AI/LLM 使用的提案</title>
+      <link>https://www.phoronix.com/news/Debian-GR-AI-Usage-5-Proposals</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Debian社区讨论AI/LLM使用提案，涉及开源项目与AI技术进展，用户对此类内容感兴趣，故推荐。</small></p><p>Debian 项目开发者近期正在讨论一项关于在 Debian 生态系统中使用大型语言模型（LLM）和生成式 AI 的一般性决议（General Resolution, GR）。目前，共有五项不同的提案正在被评估，旨在明确是否允许或限制 AI 工具在 Debian 开发及贡献流程中的使用。</p><p>这五项提案的具体内容如下：</p><ul><li><strong>提案 A</strong>：明确禁止任何使用 LLM 或生成式 AI 工具辅助编写的贡献。</li><li><strong>提案 B</strong>：全面允许 AI 辅助贡献。</li><li><strong>提案 C</strong>：尽可能拒绝 LLM 等生成式 AI，并呼吁其他自由软件社区效仿，但也承认该呼吁未必能被广泛采纳。</li><li><strong>提案 D</strong>：允许在 Debian 网站、软件打包、资源文件及其他 Debian 专属资产中使用 AI。</li><li><strong>提案 E</strong>：提倡“负责任地使用生成式 AI”。该提案既不禁止也不支持 GenAI 工具，但要求开发者在使用时必须进行披露，并保持审慎态度。</li></ul><p>目前，Debian 社区仍在就这些提案的细节进行公开讨论，完整的提案说明可在 <a href="https://wiki.debian.org">Debian Wiki</a> 上查阅。最终社区将选择哪条路径来规范 AI 在开源项目中的应用，仍待观察。</p><img src="//www.phoronix.net/image.php?id=debian-13-benchmarks&image=debian_13_3_med" alt="Debian 13" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Debian-GR-AI-Usage-5-Proposals</guid>
+      <pubDate>Thu, 30 Jul 2026 09:47:34 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ COSMIC Epoch 1.5 发布：更多修复与改进</title>
       <link>https://www.phoronix.com/news/COSMIC-Epoch-1.5-Released</link>
@@ -727,50 +765,6 @@ Level Zero 是英特尔推出的底层图形与计算 API，旨在提供接近�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/InputPlumber-0.78-Released</guid>
       <pubDate>Tue, 21 Jul 2026 09:48:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核引入冷重置恢复机制，改善 Intel GPU 稳定性</title>
-      <link>https://www.phoronix.com/news/Intel-Cold-Reset-Recovery-Linux</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述 Linux 系统下 Intel 显卡驱动关于冷重启恢复功能的技术改进，属于 Linux 桌面技术范畴，符合来源配置中的兴趣。</small></p><p>目前，Linux 内核图形驱动（Direct Rendering Manager，简称 DRM）正在开发一种新的“冷重置恢复（cold reset recovery）”机制，该机制最初将应用于 Intel Xe 内核图形驱动。</p>
-<p>冷重置恢复旨在处理那些必须通过完全断电重启（power cycle）才能解决的硬件错误。对于某些特定的硬件故障，执行冷重置可以彻底清除设备状态，使硬件在不重启整个系统或重新插拔电源的情况下恢复正常。</p>
-<p>Intel 工程师目前主要致力于解决 Power Management Unit (PUNIT) 错误。这类错误往往在热重置（warm reset）或驱动重载后依然存在，只有通过冷重置才能有效清除并恢复设备。</p>
-<img src="//www.phoronix.net/image.php?id=intel-arc-pro-b70&image=arc_pro_b70_2_med" alt="Intel Arc Pro 显卡" />
-<p>在实现上，该补丁系列向通用 DRM 代码引入了 <code>DRM_WEDGE_RECOVERY_COLD_RESET</code> 作为新的 DRM 挂起恢复方法。当 DRM 核心检测到需要冷重置时，会通过 uevent 通知用户空间，随后用户空间（例如 udev）即可根据系统情况采取相应的恢复措施。目前该补丁系列已经过近十次修订，相关代码已提交至 dri-devel 邮件列表供社区审阅。</p>
-<h3>你知道吗？</h3>
-<p>热重置（Warm Reset）与冷重置（Cold Reset）的区别在于，热重置通常仅重置设备的逻辑状态或部分电路，而冷重置则涉及完全切断并重新施加电源，能够重置更底层的硬件状态。在图形处理单元（GPU）出现严重驱动崩溃或硬件挂起（wedge）时，冷重置提供了一种不重启操作系统的恢复手段，从而提升桌面和服务器环境的稳定性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Cold-Reset-Recovery-Linux</guid>
-      <pubDate>Tue, 21 Jul 2026 00:35:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NetworkManager 1.58 发布：新增 464XLAT CLAT 与 GENEVE 支持</title>
-      <link>https://www.phoronix.com/news/NetworkManager-1.58</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍NetworkManager新版本发布及网络协议支持，属于Linux网络与桌面技术范畴，符合用户配置中感兴趣的主题</small></p><p>NetworkManager 1.58 正式发布，旨在进一步提升 Linux 系统下的有线与无线网络管理能力。本次更新引入了多项关键特性，并对部分旧有组件进行了清理。</p>
-<p>在核心功能方面，NetworkManager 1.58 新增了对 <a href="https://en.wikipedia.org/wiki/464XLAT">464XLAT 客户端转换器（Customer-side Translator, CLAT）</a> 的支持。该功能允许在纯 IPv6 网络环境中为遗留应用程序创建虚拟 IPv4 接口，拦截并转换出站 IPv4 流量，从而帮助设备在过渡期间继续访问传统的 IPv4 服务。此外，更新还引入了对 <a href="https://en.wikipedia.org/wiki/Generic_Network_Virtualization_Encapsulation">通用网络虚拟化封装（Generic Network Virtualization Encapsulation, GENEVE）</a> 接口的支持，该协议可用于在 Hypervisor 与虚拟交换机之间建立覆盖隧道，高效路由虚拟化流量。</p>
-<p>其他改进包括：D-Bus API 与 <code>nmcli</code> 命令行工具现支持在系统重启后持久化网络受管状态；WiFi 连接的 "band" 属性正式支持 "6GHz" 频段；在使用 IWD 后端时，电源管理（powersave）属性现已生效。</p>
-<p>与此同时，NetworkManager 1.58 正式弃用并默认禁用了 Wireless Extensions（无线扩展）支持，并彻底移除了已废弃数个版本的 <code>dhclient</code> DHCP 后端。更多下载与详情可访问 <a href="https://gitlab.freedesktop.org/NetworkManager/NetworkManager">FreeDesktop.org GitLab</a>。</p>
-<h3>你知道吗？</h3>
-<ul>
-  <li><strong>464XLAT</strong> 是一种 IPv6 过渡技术，通过 NAT64 和 CLAT 组件的组合，使仅支持 IPv4 的旧设备能够在纯 IPv6 网络中无缝通信，广泛应用于移动运营商网络。</li>
-  <li><strong>GENEVE</strong> 是一种轻量级的网络虚拟化封装协议，设计用于简化数据中心和云环境中的跨主机流量路由。相比 VXLAN 等协议，GENEVE 具有更高的灵活性和可扩展性，支持任意数量的元数据字段。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NetworkManager-1.58</guid>
-      <pubDate>Mon, 20 Jul 2026 20:12:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME 因 AI 生成报告调整安全披露政策</title>
-      <link>https://www.phoronix.com/news/GNOME-Security-Changes-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲述GNOME桌面环境为应对AI生成的虚假报告而调整安全披露政策。GNOME属于核心开源项目与Linux桌面技术，符合用户感兴趣的主题，故推荐。</small></p><p>GNOME 项目宣布将调整安全报告的处理流程，主要应对近期激增的由人工智能（AI）/大语言模型（LLM）生成的安全发现报告。</p>
-<p><strong>披露窗口缩短</strong>：未来的安全报告披露窗口将从行业标准的 90 天缩短至 30 天。Red Hat 的 Michael Catanzaro 指出，大多数 GNOME 安全问题通常在 1 到 3 周内得到修复，或者根本未被修复，因此缩短期限更为合理。</p>
-<p><strong>AI 报告处理</strong>：针对那些明确禁止 AI 生成内容的子项目，GNOME 将不再转发包含 AI 生成内容的报告，而是直接在跟踪器中关闭。不过，项目维护者仍会被通知以知晓相关发现。</p>
-<p><strong>负责人变动</strong>：自 2020 年起负责 GNOME 安全跟踪工作的 Michael Catanzaro 宣布将于 11 月卸任。他表示因感到疲惫，将不再追踪新报告的安全问题，并计划在 12 月所有截止日期到期后结束工作。目前他正在寻找有经验的社区成员来接替这一角色。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Security-Changes-2026</guid>
-      <pubDate>Mon, 20 Jul 2026 15:55:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
