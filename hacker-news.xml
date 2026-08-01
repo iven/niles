@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 01 Aug 2026 18:11:15 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 01 Aug 2026 19:34:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Cursor 移除使用页面的金额显示，改为仅展示 Token 数量引发用户不满</title>
+      <link>https://news.ycombinator.com/item?id=49135257</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述 AI 编程工具 Cursor 的 UI 变更（从金额显示改为 Token 数量），属于编程工具相关的使用体验/新功能变更，用户可能对 AI 编程工具的变更感兴趣，故推荐。</small></p><p>Cursor 近日对其使用量（Usage）页面进行了更新，移除了自助服务计划（包括个人版和 Teams 版）的金额（$$）显示，改为仅展示 Token 数量。企业计划的使用页面仍保留金额显示。</p>
+<p>针对这一变更，Cursor 官方解释称，此举是为了减少用户的混淆。过去显示的金额往往包含了计划内慷慨的免费额度，导致数值高于用户实际账单。官方指出，按需使用（On-demand）产生的费用仍可在 <a href="https://forum.cursor.com/t/usage-page-to-token-amount-what/167153">Dashboard > Spending</a> 页面查看，且 CSV 导出的按需部分依然包含金额列。</p>
+<p>然而，该变更引发了社区的强烈不满。许多用户指出，金额显示是他们日常跟踪预算、评估不同模型性价比的核心依据。移除该数据不仅增加了手动计算成本的难度，还破坏了依赖 Cursor API 进行独立成本监控的第三方工具（API 返回的 <code>chargedCents</code> 等字段已被清零）。部分用户建议官方提供切换开关，以保留原有的金额视图。</p>
+<p>在评论区，讨论还延伸至 Cursor 被 SpaceXAI 收购后的产品走向、与 VS Code 及其他 AI 编程工具（如 Claude Code、Codex）的体验对比，以及不同 Agent 框架在 Token 消耗效率上的差异。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49135257</guid>
+      <pubDate>Sat, 01 Aug 2026 15:25:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ RipGrep 在 musl 平台上搜索超大目录时偶发段错误</title>
+      <link>https://news.ycombinator.com/item?id=49133889</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述开源编程工具 RipGrep 的 bug 报告（在 musl 平台上搜索超大目录时段错误），属于开源项目/编程工具的技术问题，可能对开发者有用，故推荐。</small></p><p>近日，<a href="https://github.com/BurntSushi/ripgrep/issues/3494">RipGrep</a>（一款高性能文本搜索工具）在 GitHub 上提交了一个关于在 <code>x86_64-unknown-linux-musl</code> 平台上偶发段错误（SIGSEGV）的 Issue。该问题在搜索包含数百万文件、体积达数十 GiB 的超大目录树时出现，崩溃发生在 musl 的 <code>mallocng</code> 内存分配器内部，具体是在 <code>calloc</code> 调用时触发了堆元数据完整性断言。</p>
+<p>社区与内核开发者的深入分析指出，这并非 RipGrep、Rust 标准库或 musl 本身的代码缺陷，而极有可能是 <a href="https://github.com/dfoxfranke/ripgrep-3494-analysis">Linux 内核层面的竞态条件 Bug</a>。专家分析认为，问题可能源于 CPU 迁移时的复杂竞态，或是内核在撤销内存映射（<code>munmap</code>）时，页表项（PTE）的清理路径存在短暂暴露错误状态的情况。内核开发者也在邮件列表中确认了该报告的真实性，并指出相关的分析文章由 AI 生成。</p>
+<p>为什么该问题仅在 musl 环境下触发？评论指出，musl 的默认分配器（mallocng）倾向于将新发生缺页中断的页面直接暴露给应用程序，而其他分配器（如 glibc）通常会预分配多个页面。这种分配策略的差异使得 musl 环境下的竞态窗口更宽，从而更容易暴露出内核中原本难以触发的底层 Bug。此外，尽管 RipGrep 在 64 位 musl 构建中默认启用了 <code>jemalloc</code>，但部分代码路径可能仍调用了默认分配器，导致问题复现。</p>
+<p>该 Issue 最初由 OpenAI Codex 的开发者发现，因为 Codex 捆绑了相同的 musl 版本 RipGrep 二进制文件。讨论也延伸到了大规模小文件搜索对集群文件系统的压力，以及 AI 时代代码库碎片化带来的存储与检索挑战。</p>
+<p><img src="https://github.githubassets.com/assets/github-copilot-app-light-7138e992c731a2bb.png" alt="GitHub Copilot 按钮" /></p>
+
+<h3>你知道吗？</h3>
+<p><strong>Linux 内核页表竞态（Page Table Race）</strong>：在现代操作系统中，内存映射（mmap）和撤销映射（munmap）涉及复杂的页表（Page Table）更新。当多个线程或 CPU 核心同时操作同一块内存区域时，如果内核的锁机制或更新顺序存在瑕疵，可能会导致某个 CPU 核心在读取页表时，读到的是已被释放或正在被修改的中间状态数据（如错误的 PTE）。这种底层竞态条件极难复现，通常只有在特定的硬件架构、特定的分配器行为以及极高的并发压力下才会显现。musl 等轻量级 C 库的分配策略往往更“直接”，因此更容易成为这类内核 Bug 的“触发器”。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49133889</guid>
+      <pubDate>Sat, 01 Aug 2026 12:34:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Gander：一款无需权限、完全离线的 Android 全能文件查看器</title>
       <link>https://news.ycombinator.com/item?id=49119425</link>
@@ -965,40 +993,6 @@ ZGM 固件将直接写入鼠标内部存储器，无需依赖后台软件即可�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49067301</guid>
       <pubDate>Mon, 27 Jul 2026 09:58:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ LLM 赋能自动化证明：基于 Lean 的 Zstandard 解压器实践</title>
-      <link>https://news.ycombinator.com/item?id=49062291</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨 LLM 在 Lean 形式化验证中的实践应用，涉及 AI 技术进展与编程工具效率改进，符合用户兴趣，故推荐。</small></p><p>本文探讨了大型语言模型（LLM）如何结合<strong>证明无关性（proof irrelevance）</strong>特性，大幅降低<strong>依赖类型语言（Dependently-typed languages）</strong>（如 Lean 和 Rocq）的证明成本，从而推动形式化验证在软件工程中的普及。作者通过实际在 Lean 中实现 Zstandard (zstd) 解压器，验证了 LLM 辅助证明的可行性，并深入解析了 zstd 的核心压缩算法与 Lean 的语言特性。</p>
-<p>依赖类型语言允许开发者以类型系统编码并强制执行复杂的不变量，避免传统语言中因注释丢失或团队规模扩大导致的组件对齐问题。然而，传统形式化验证面临巨大的工作量挑战。例如，seL4 微内核项目花费在证明上的时间约为设计和实现阶段的 10 倍，证明代码行数更是 C 代码的 20 倍以上。早期的自动化工具（如 F* 结合 SMT 求解器）虽能处理简单案例，但极易陷入长时间运行或陷入局部最优的困境。</p>
-<p>作者指出，LLM 的出现为证明自动化带来了新契机。由于证明无关性原则认为只要证明存在即可，其具体内容往往不影响最终结果，LLM 能够高效生成和验证这些证明，从而大幅减少人工进行“证明工程（proof engineering）”的需求。为了测试这一设想，作者使用 Lean 编写了一个 zstd 解压器。</p>
-<p>在算法解析部分，文章重点介绍了 zstd 的<strong>有限状态熵编码（Finite State Entropy, FSE）</strong>。与传统的 Huffman 编码只能使用整数位不同，FSE 利用状态机和非均匀概率分配，允许符号平均使用非整数位进行编码，从而在保持极高速度的同时实现更高压缩率。FSE 通过为高频符号分配更多状态，并在编码时结合状态转移携带额外信息，实现了高效的熵编码。此外，zstd 采用反向编码机制，解压时需从数据块末尾向前读取。</p>
-<p>文章还详细分析了 Lean 语言的设计优势。作为一种<strong>严格求值（strict evaluation）</strong>的纯函数式语言，Lean 避免了 Haskell 等惰性语言中性能难以预测的问题。它提供了类似命令式编程的语法糖（如 do 块、循环和 break），并支持在引用计数为 1 时进行原地内存修改，为性能优化提供了灵活手段。</p>
-<p>HN 社区对此展开了热烈讨论。多数观点认为，LLM 确实能降低形式化验证的门槛，但<strong>证明工程（proof engineering）</strong>和抽象设计依然关键。有开发者指出，LLM 在生成证明时容易偏离原始规范，需要人类监督以确保对齐。此外，形式化验证在区块链协议、密码学等对安全性要求极高的领域具有巨大潜力，但如何将其与主流编程语言（如 Rust 的 Verus 或 Haskell）结合仍是当前探索的重点。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49062291</guid>
-      <pubDate>Sun, 26 Jul 2026 20:53:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI 时代无法逃避的细节：外包细节并非真正的赋权</title>
-      <link>https://news.ycombinator.com/item?id=49060592</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要为 AI 时代外包行业的观点评论，缺乏具体技术或工具内容，兴趣指向不明确，故列为可选。</small></p><div>
-  <p>在人工智能热潮中，许多人渴望通过 LLM 等技术摆脱繁琐的细节，直接实现想法。然而，这篇文章指出，<strong>细节是无法被完全外包的</strong>。真正的专业能力源于对细节的深入理解和专注，而“知道该将哪些细节外包”本身就是一种需要长期积累的核心技能。</p>
-  <p>作者认为，如果一个人不擅长某项工作，就无法判断 AI 输出的质量，更无法决定该外包什么。试图通过 AI 规避细节不仅无法带来真正的“赋权（Empowerment）”，反而会导致对事物的失控。完全依赖 AI 而缺乏底层知识，恰恰是“什么也没做”的表现。</p>
-  <p><strong>社区反馈：</strong></p>
-  <ul>
-    <li><strong>效率与聚焦：</strong> 部分开发者认为，AI 擅长处理枯燥的样板代码和重复性任务，让人能将精力集中在核心逻辑和有趣的细节上。</li>
-    <li><strong>判断力的重要性：</strong> 经验丰富的工程师指出，AI 目前更像是一个“过度自信的产物”，容易生成冗长且包含隐蔽错误的代码。人类必须保持“驾驶座”上的最终判断力，通过“代码异味（Code Smell）”等经验来甄别 AI 的输出。</li>
-    <li><strong>抽象与底层知识：</strong> 讨论中有人提出抽象层存在的意义就是屏蔽底层细节，但作者反驳称，LLM 并非简单的代码翻译，它需要做复杂的逻辑判断，这要求使用者具备深厚的领域知识。</li>
-  </ul>
-  <p>总体而言，文章提醒开发者：AI 是强大的辅助工具，但无法替代人类对细节的掌控与专业判断的培养。</p>
-  <p>原文：<a href="https://davidnicholaswilliams.com/its-not-empowering-to-hand-off-the-details/">It's not empowering to hand off the details</a></p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49060592</guid>
-      <pubDate>Sun, 26 Jul 2026 17:58:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
