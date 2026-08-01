@@ -3,7 +3,25 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 01 Aug 2026 06:39:02 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 01 Aug 2026 09:19:14 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 在消费级笔记本上运行 2.78 万亿参数 Kimi K3：WASTE 引擎的 NVMe 流式推理实践</title>
+      <link>https://news.ycombinator.com/item?id=49123386</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了 WASTE 这一 C 语言推理引擎，展示了在普通消费级硬件上运行超大参数 AI 模型的硬核技术方案。该文章属于编程工具分享及 AI 软件技术进展，符合 high_interest 中的编程工具发布分享。</small></p><p>近日，<a href="https://github.com/sqliteai/waste">sqliteai/waste</a> 项目发布了一款名为 WASTE（Weight-Aware Streaming Tensor Engine，权重感知流式张量引擎）的推理工具。该引擎由 C 语言编写，无第三方运行时依赖，成功实现了在消费级硬件上运行 2.78 万亿参数（2.78-trillion-parameter）的 Kimi K3 模型。</p>
+<p>由于 Kimi K3 的原始模型体积高达 1.42 TB，远超主流消费级设备的内存容量，WASTE 采用了混合专家（Mixture of Experts, MoE）架构的特性进行优化。MoE 模型在每次推理时仅激活约 4% 的权重，WASTE 将模型转换为 982 GiB 的容器，把未激活的权重保留在 NVMe 磁盘上。在推理过程中，引擎通过流式传输（streaming）技术按需从磁盘读取激活的专家权重，并将剩余内存作为有界的专家缓存（expert cache）。</p>
+<p>在性能与内存管理方面，该引擎在 64GB RAM 的 MacBook Pro 上仅需约 29GB 内存即可启动，推理速度约为 0.49–0.54 tokens/秒（tok/s）。为了进一步降低读取开销，专家权重采用了 3-bit 残差向量量化（Residual Vector Quantization, RVQ）技术。作者指出，内存管理的核心在于避免操作系统分页（paging）：当分配的内存预算超过一定阈值（如 52GB）时，系统会因分页导致性能急剧下降甚至崩溃，因此引擎将缓存大小严格限制在单次推理的工作集大小内。</p>
+<p>社区反馈与讨论主要集中在以下几个方面：</p>
+<ul>
+<li><strong>实际可用性</strong>：部分用户指出 0.5 tok/s 的速度过慢，仅适合在夜间运行异步任务（如长文本摘要），不适合实时交互。</li>
+<li><strong>运行成本</strong>：有计算表明，由于 CPU/NPU 处理效率远低于专用 GPU 集群，该方案每百万 token 的电费成本可能高达数美元，且硬件前期投入较高。</li>
+<li><strong>技术对比</strong>：与类似项目 Deltafin 相比，WASTE 通过量化减少了每次 token 的磁盘读取量（约 17GB vs 25.8GB），但承认这可能导致约 34% 的精度损失。</li>
+<li><strong>项目文档争议</strong>：部分 HN 用户认为项目的 README 文档风格疑似由 LLM 生成，引发了关于开发者是否应亲自撰写文档的讨论。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49123386</guid>
+      <pubDate>Fri, 31 Jul 2026 14:12:38 GMT</pubDate>
+    </item>
     <item>
       <title>讽刺短篇《Severance》：当 AI 代币成为生存刚需，视频裁员背后的荒诞现实</title>
       <link>https://news.ycombinator.com/item?id=49125971</link>
@@ -971,27 +989,6 @@ ZGM 固件将直接写入鼠标内部存储器，无需依赖后台软件即可�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49067854</guid>
       <pubDate>Mon, 27 Jul 2026 11:12:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Vercel 发布 Scriptc：无需 JavaScript 引擎的 TypeScript 原生编译器</title>
-      <link>https://news.ycombinator.com/item?id=49063175</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Vercel发布的TypeScript原生编译器Scriptc，属于前沿编程工具发布，完全契合用户“编程工具发布/分享”的高兴趣配置，故评为critical。</small></p><p>Vercel 开源了名为 <strong>Scriptc</strong> 的编译器，能够将标准的 TypeScript 代码直接编译为体积小、启动快的原生可执行文件，且二进制文件中不包含 Node.js 或 V8 等 JavaScript 引擎。</p>
-<p>Scriptc 的核心设计理念是“可见的静态性”，它通过静态分析判断代码中哪些部分可以编译为原生代码。编译器提供三种明确的模式：</p>
-<ul>
-<li><strong>静态编译（默认）</strong>：将符合静态分析条件的 TypeScript 代码直接编译为原生机器码。</li>
-<li><strong>动态运行（--dynamic）</strong>：对于无法静态编译的代码（如部分 npm 依赖），编译器会嵌入一个约 620KB 的轻量级 JavaScript 引擎（<a href="https://github.com/quickjs-ng/quickjs" rel="nofollow">quickjs-ng</a>）进行运行时执行，并在数据跨边界时进行类型验证。</li>
-<li><strong>拒绝（Rejected）</strong>：无法编译的代码会返回明确的错误代码和修复建议，绝不会静默错误编译。</li>
-</ul>
-<p>该项目支持广泛的 TypeScript 特性（如类、闭包、泛型、async/await）以及 Node.js 的核心 API（如 <code>fs</code>、<code>http</code>、<code>crypto</code> 等）。在性能方面，Scriptc 编译出的二进制文件通常仅 170–200KB，启动时间约 2.4ms，内存占用在 1–4MB 左右，在启动速度和内存效率上优于 Node.js 和 Go。</p>
-<p>在架构上，Scriptc 首先使用 TypeScript 编译器（tsc）进行解析和类型检查，随后通过 lowering 阶段生成类型化中间表示（IR），最后通过 LLVM 或 C 后端生成原生可执行文件。项目强调正确性，通过差分测试（Differential testing）确保原生二进制与 Node.js 的行为完全一致，并包含内存安全检测。</p>
-<h3>社区反馈</h3>
-<p>在 Hacker News 上，该项目的发布引发了广泛讨论。许多用户对仅 178KB 的二进制体积表示惊叹，但也有人对 Vercel 如此快速取得进展表示怀疑，指出该项目在单周内提交了超过 91 万行代码，推测大量使用了 AI 编程助手（Coding agents），导致代码质量和架构设计可能存在隐患。此外，社区也将其与 <a href="https://porffor.dev" rel="nofollow">Porffor</a> 和 <a href="https://www.assemblyscript.org/" rel="nofollow">AssemblyScript</a> 等类似项目进行了对比，并讨论了其在 Electron 桌面应用开发中的潜在应用价值，普遍认为其更适合服务端场景。</p>
-<h3>你知道吗？</h3>
-<p>TypeScript 之所以能够被编译为原生代码，主要得益于其静态类型系统。与纯动态语言不同，TypeScript 在编译期提供了丰富的类型信息，使得编译器能够进行更激进的优化和机器码生成。类似的项目还有 <strong>AssemblyScript</strong>（将 TypeScript 子集编译为 WebAssembly）和 <strong>Porffor</strong>（尝试将 JavaScript 直接编译为机器码），它们都在探索消除 JavaScript 运行时开销的可能性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49063175</guid>
-      <pubDate>Sun, 26 Jul 2026 22:46:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
