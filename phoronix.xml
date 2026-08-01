@@ -3,7 +3,64 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 01 Aug 2026 09:17:14 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 01 Aug 2026 11:34:58 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.2-rc6 内核修复多款西部数据 SATA 硬盘掉线问题</title>
+      <link>https://www.phoronix.com/news/Linux-7.2-rc6-ATA</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲述Linux内核7.2-rc6版本针对西数SATA硬盘的兼容性修复与优化，符合来源配置中“Linux桌面技术”的兴趣设定。</small></p><p>Linux 7.2-rc6 内核测试版已合并多项 ATA 修复，主要针对近期版本中无法正常工作的几款西部数据（Western Digital）SATA 硬盘。由于 <b>Link Power Management（LPM，链路电源管理）</b> 功能导致硬盘在系统运行一段时间后意外离线，此次更新对部分型号默认禁用了 LPM 功能。</p><p>具体受影响的硬盘包括：</p><ul><li>WDC WD100EFGX-68CPLN0（10TB Red Plus NAS 硬盘）</li><li>WDC WD102KFBX-68M95N0（10TB Red Plus Pro NAS 硬盘）</li><li>WD Green 2.5 480GB 硬盘</li></ul><img src="//www.phoronix.net/image.php?id=2026&image=wd_red_plus" alt="WD RED PLUS SATA drive" /><p>LPM 旨在通过让硬盘与控制器之间的通信链路进入休眠状态来降低功耗。然而，上述硬盘的 LPM 行为与 Linux 内核存在兼容性问题，导致设备通常在启动后几分钟内消失，直到重启才能恢复。Linux 7.2-rc6 将这些硬盘加入黑名单，默认不再启用 LPM 以确保稳定性。</p><p>对于尚未升级至最新内核的用户，可以通过在启动参数中添加 <code>libata.force=nolpm</code> 来手动禁用 LPM。需要注意的是，禁用该功能将导致每块硬盘损失约 0.5 至 1.5 瓦的省电效果。Linux 7.2 正式版预计将于 8 月下旬发布。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-rc6-ATA</guid>
+      <pubDate>Sat, 01 Aug 2026 10:49:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GNOME 推进 RFC 流程建设，应对 AI 生成扩展泛滥</title>
+      <link>https://www.phoronix.com/news/GNOME-RFC-Process-AI-Extensions</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论GNOME桌面环境建立RFC流程以规范扩展开发、应对AI生成扩展泛滥的问题，属于“Linux桌面技术”范畴，符合兴趣配置。</small></p><p>GNOME 开发者在 7 月底主要致力于两项工作：建立正式的<strong>意见征求（Request For Comments, RFC）</strong>流程，以及应对涌入的 AI 生成 GNOME Shell 扩展。</p><p>在治理方面，GNOME Fellowship 成员 Sophie Herold 正在推进 RFC 流程的建立，旨在完善项目的治理机制。本周，RFC 框架草案已在 GNOME Discourse 上公开，供社区讨论。</p><p>与此同时，GNOME 正面临 GNOME Shell 扩展审核队列被大量 AI 生成内容淹没的挑战。这些扩展往往存在相同的糟糕编码实践。为此，项目方发布了一篇博客文章，希望大型语言模型（LLM）能从中学习，从而改善 AI 生成的 JavaScript 代码质量。</p><p><img src="//www.phoronix.net/image.php?id=2026&image=gnome_chroma" alt="GNOME ChromaLeon" /></p><p>此外，本周还发布了 ChromaLeon 扩展，该扩展可根据当前桌面壁纸自动提取强调色，并应用于 GNOME Shell 及系统应用程序。值得一提的是，GNOME 51 版本也已正式进入 API/ABI、功能及用户界面的冻结期。更多动态可参考 "This Week in GNOME"。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-RFC-Process-AI-Extensions</guid>
+      <pubDate>Sat, 01 Aug 2026 10:34:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ KDE Plasma 6.8 显著提升多 GPU 与 eGPU 性能</title>
+      <link>https://www.phoronix.com/news/KDE-Plasma-6.8-Faster-eGPU</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 直接介绍KDE Plasma 6.8桌面环境在多显卡及eGPU场景下的重大性能提升，明确命中来源配置中的“KDE”高兴趣项。</small></p><p>KDE Plasma 6.8 在开发中取得了显著进展，特别是在 KWin 窗口管理器对多 GPU 和外部显卡（eGPU）的处理性能上。开发者 Xaver Hugl 实现了 <a href="https://www.freedesktop.org/wiki/Software/DMA-BUF/">DMA-BUF v6</a> 支持，使得 KWin 能够直接管理多 GPU 之间的缓冲区复制。</p>
+
+<p>这一改进允许 KWin 进行直接扫描输出（direct scan-out），在某些情况下可以直接使用原始缓冲区，从而避免了不必要的内存复制操作。测试数据显示，这一优化带来了巨大的性能提升：</p>
+
+<ul>
+    <li>在常规外部 GPU 测试中，帧率从 40 FPS 提升至 120 FPS。</li>
+    <li>在《赛博朋克 2077》（Cyberpunk 2077）游戏中，帧率从 27 FPS 提升至 50 FPS。</li>
+</ul>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=cyberpunk_egpu_kwin" alt="Cybepunk benchmark" />
+
+<p>此外，Plasma 6.8 的其他更新还包括：</p>
+<ul>
+    <li>系统设置中的显示配置页面现在支持在布局编辑模式下使用箭头键逐个像素地移动屏幕。</li>
+    <li>KDE Frameworks 6.29 修复了一个性能问题，解决了在发送包含大量表情符号的通知时可能导致 Plasma 冻结的情况。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p><strong>eGPU（External Graphics Processing Unit）</strong> 允许用户通过 Thunderbolt 或 USB-C 等接口连接独立显卡，以弥补笔记本或小型主机的图形性能不足。在 Linux 上，由于多 GPU 架构的复杂性，eGPU 的性能优化一直是个挑战。DMA-BUF（Direct Memory Access Buffer）是一种内核机制，允许不同的设备驱动程序共享内存缓冲区，这对于减少多 GPU 环境下的数据拷贝开销至关重要。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8-Faster-eGPU</guid>
+      <pubDate>Sat, 01 Aug 2026 10:18:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Picolibc 1.8.12 发布：面向嵌入式 C 库的架构扩展与性能优化</title>
+      <link>https://www.phoronix.com/news/Picolibc-1.8.12-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍Picolibc嵌入式C库的更新迭代，虽偏底层与嵌入式，但属于开源软件发布，契合全局配置中“开源项目/软件新功能”的兴趣点。</small></p>&lt;p&gt;Keith Packard 维护的面向嵌入式系统的 C 标准库 &lt;b&gt;Picolibc&lt;/b&gt; 发布了 1.8.12 版本。作为大型 &lt;a href="https://www.gnu.org/software/libc/"&gt;GNU C Library (glibc)&lt;/a&gt; 的轻量级替代方案，Picolibc 旨在为资源受限的嵌入式环境提供标准 C 库功能。&lt;/p&gt;
+&lt;p&gt;本次更新的核心亮点在于大幅扩展了原生 Linux 环境下的 CPU 架构支持，目前涵盖 ARC、ARM、i386、LoongArch、MIPS、RISC-V、x86_64 以及 Xtensa ESP32 等数十种架构。&lt;/p&gt;
+&lt;p&gt;在性能与功能方面，1.8.12 版本针对 RISC-V 架构引入了向量化内存操作（memset/memcpy/memmove）及 Zcmt 扩展支持，同时为 32 位系统也实现了向量化内存操作。此外，版本还清理了内部数据结构以更好地匹配原生 Linux 布局，新增 POSIX 组文件函数支持，修复了 libc 锁递归问题，并增加了 Clang 线程安全分析警告支持。&lt;/p&gt;
+&lt;p&gt;开发者可通过 &lt;a href="https://github.com/picolibc/picolibc"&gt;GitHub 仓库&lt;/a&gt; 获取 1.8.12 版本的详细更新日志与下载链接。&lt;/p&gt;]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Picolibc-1.8.12-Released</guid>
+      <pubDate>Sat, 01 Aug 2026 10:00:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Shotcut 26.7 发布：新增库存素材库与多 GPU 支持</title>
       <link>https://www.phoronix.com/news/Shotcut-26.7-Released</link>
@@ -667,87 +724,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/AMD-ROCm-AI</guid>
       <pubDate>Thu, 23 Jul 2026 17:45:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Fedora 45 Atomic Desktops 计划支持基于 Web 的远程安装</title>
-      <link>https://www.phoronix.com/news/Fedora-45-Atomic-Remote-Install</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 属于 Fedora 45 新发行版功能更新，符合来源配置 high_interest 中的新发行版，故评为 critical。</small></p><p>Fedora Linux 45 的一项新变更提案旨在支持通过 Web 界面远程安装 Fedora Atomic Desktop 镜像。该功能依赖于 Anaconda WebUI，允许管理员在目标设备上使用 <code>inst.webui.remote</code> 内核参数启动，随后通过另一台设备的浏览器（HTTPS 连接）完成操作系统安装。</p>
-<img src="//www.phoronix.net/image.php?id=2023&image=fedora_web_1" alt="Fedora Anaconda WebUI" />
-<p>安全性方面，支持基于 PIN 码的认证机制。该功能将适用于 Silverblue 和 Kinoite 等所有 Fedora Atomic Desktop 变体，初期将以“技术预览”形式提供，且需手动启用。提案目前正等待 Fedora Engineering and Steering Committee (FESCo) 的批准。</p>
-<h3>你知道吗？</h3>
-<p><strong>Atomic Desktops</strong>（原子桌面）是 Fedora 的一种特殊发行版形态，如 Silverblue 和 Kinoite。与传统 Linux 不同，Atomic Desktops 采用不可变（Immutable）设计，系统核心部分通过 OSTree 进行版本控制，用户无法直接修改系统文件。这种设计旨在提高系统的稳定性和安全性，特别适合追求环境一致性的开发者和企业用户。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-45-Atomic-Remote-Install</guid>
-      <pubDate>Thu, 23 Jul 2026 13:52:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AMD 发布 Ryzen AI Software 1.8：支持更多 AI 模型与性能优化</title>
-      <link>https://www.phoronix.com/news/Ryzen-AI-Software-1.8</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 发布 Ryzen AI 软件新版本，涉及 AI 软件进展，符合全局配置 interest，故评为 recommended。</small></p><p>在 <a href="https://www.amd.com/en/corporate/advancing-ai" target="_blank">AMD Advancing AI</a> 活动前夕，AMD 在 GitHub 上正式发布了 <strong>Ryzen AI Software 1.8</strong>（简称 RAI）。该版本主要侧重于支持更多新型 AI 模型以及提供性能优化。</p>
-
-<p>此次更新支持了多种新模型，包括：</p>
-<ul>
-    <li>多种大型语言模型（LLM）</li>
-    <li>文本转语音（TTS）模型</li>
-    <li>嵌入模型（Embedding）</li>
-    <li>翻译模型</li>
-</ul>
-
-<p>此外，还更新了对 Stable Diffusion 模型的支持并进行了性能优化。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=amd_ryzen_ai" alt="Ryzen AI Software" />
-
-<p>除了模型支持，RAI 1.8 还带来了其他重要改进，例如支持在低内存系统上运行更大的模型，并改进了对开源语音识别工具 <a href="https://github.com/ggerganov/whisper.cpp" target="_blank">Whisper.cpp</a> 的集成。这是自今年 1 月以来的首次重大更新。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Ryzen AI 软件栈</strong>是 AMD 为搭载 Ryzen AI 处理器的 PC 提供的软件工具集。它旨在帮助开发者和用户更高效地部署和运行 AI 模型，充分利用 AMD 硬件（如神经网络处理单元 NPU）的性能，从而提升本地 AI 应用的运行效率和体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ryzen-AI-Software-1.8</guid>
-      <pubDate>Thu, 23 Jul 2026 11:58:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ LLVM 23.1-rc1 发布：支持 AMD Zen 6、AVX-512 BMM 及多项编译器增强</title>
-      <link>https://www.phoronix.com/news/LLVM-23.1-rc1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 发布 LLVM 编译器更新，属于编程工具发布，符合全局配置 high_interest，故评为 critical。</small></p><p>LLVM 23.1-rc1 已正式发布，标志着 LLVM 23 系列向 8 月底的稳定版迈进。作为 LLVM/Clang 编译器栈的半年度更新，该版本带来了广泛的硬件支持、指令集扩展及工具链优化。</p>
-<h3>主要更新亮点</h3>
-<ul>
-<li><strong>硬件与架构支持</strong>：新增 x86 Lightweight Fault Isolation (LFI) 目标支持；为 NVIDIA Rosa 处理器中的 Rigel 核心提供初始支持；引入 Arm C1-Ultra 调度模型；新增 AMD HIP 卸载驱动；支持 AMDGPU GFX1310 目标；以及 SpacemiT X100 RISC-V 目标支持。</li>
-<li><strong>指令集扩展</strong>：引入随 AMD Zen 6 CPU 带来的 AVX-512 BMM 支持；提供实验性汇编器以支持更新的 RISC-V 指令。</li>
-<li><strong>语言与工具链</strong>：通过 -std=c++2c 标志部分支持 C++26；增加更多 C2Y 语言功能；改进 LLD 链接器及编译器诊断功能。</li>
-</ul>
-<p>该版本预计将在 2026 年末被 Ubuntu 26.10 和 Fedora 45 等 Linux 发行版采用。详细发布说明可查阅 <a href="https://discourse.llvm.org/">LLVM Discourse</a>。</p>
-<img src="//www.phoronix.net/image.php?id=2023&image=llvm_sml" alt="LLVM logo" />
-<h3>你知道吗？</h3>
-<p>LLVM (Low Level Virtual Machine) 是一个模块化、可重用的编译器及工具链技术的集合。其核心组件 Clang 作为 C/C++/Objective-C 编译器前端，以其快速的编译速度和优秀的错误诊断信息而闻名，已成为现代开源开发（如 Linux 内核、Android NDK）的重要基石。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-23.1-rc1</guid>
-      <pubDate>Thu, 23 Jul 2026 11:50:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ dav1d 1.5.4 发布：新增 OS/2 支持及多项架构优化</title>
-      <link>https://www.phoronix.com/news/dav1d-1.5.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 发布 dav1d 解码器更新支持 OS/2，属于开源项目进展，符合全局配置 interest，故评为 recommended。</small></p><p>VideoLAN 团队近日发布了 dav1d 1.5.4 版本，继续完善这款领先的开源、基于中央处理器（CPU）的 AV1 视频解码器。在团队全力投入 dav2d（AV2 视频解码器）开发的同时，dav1d 依然保持了活跃更新。</p>
-<p>本次更新的核心亮点是正式引入对 OS/2 操作系统的支持。该移植工作相对顺利，主要涉及 Meson 构建系统与头文件的调整，并包含了相应的 API 导出与汇编代码支持。</p>
-<p>除 OS/2 支持外，1.5.4 版本还带来了多项性能与可移植性改进：</p>
-<ul>
-<li>新增 Armv9.3-A 保护控制栈（Guarded Control Stack, GCS）支持。</li>
-<li>针对 AArch64 架构优化了 ipred_v、ipred_h 等函数，并缩减了代码体积。</li>
-<li>为 RISC-V 架构提供了多项预测与滤波路径优化。</li>
-<li>提升了非 POSIX 系统的可移植性，增加了信号处理（signal()）回退机制。</li>
-<li>优化了线程任务调度策略，并实现量化矩阵表的构建时预计算。</li>
-</ul>
-<p>开发者可通过 <a href="https://www.videolan.org/">VideoLAN 官网</a> 获取 dav1d 1.5.4 的下载链接。</p>
-<img src="//www.phoronix.net/image.php?id=2023&image=dav1d" alt="dav1d logo" />
-<div class="extra">
-<h3>你知道吗？</h3>
-<p>OS/2 是由 IBM 与微软在 1980 年代末至 1990 年代联合开发的操作系统，曾被视为 MS-DOS 和 Windows 的继任者。尽管后来微软转向开发 Windows NT，OS/2 仍凭借其在稳定性、多任务处理及低资源占用方面的优势，在金融、零售等特定企业环境中长期服役。如今，dav1d 的移植让这款经典系统也能流畅播放现代 AV1 编码视频。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/dav1d-1.5.4</guid>
-      <pubDate>Thu, 23 Jul 2026 11:39:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
