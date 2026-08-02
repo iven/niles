@@ -3,7 +3,38 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 02 Aug 2026 18:09:37 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 02 Aug 2026 19:30:49 GMT</lastBuildDate>
+    <item>
+      <title>Chezmoi v2.72.0 发布：新增模板函数与多项安全修复</title>
+      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.72.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Chezmoi v2.72.0 版本已发布，本次更新主要包含新的模板函数支持以及多项针对路径遍历和权限控制的安全修复。</p>
+
+<h3>新功能</h3>
+<ul>
+  <li>新增 <code>shellQuote</code> 和 <code>shellQuoteList</code> 模板函数，用于处理 Shell 引号。</li>
+  <li>新增 <code>gopassCat</code> 模板函数，支持 gopass 集成。</li>
+  <li>新增 <code>debugf</code> 模板函数，用于调试输出。</li>
+</ul>
+
+<h3>安全与修复</h3>
+<p>本次版本重点修复了多个潜在的安全漏洞，主要由 secur0.com 报告：</p>
+<ul>
+  <li><strong>路径遍历防护</strong>：禁止在 ignore/remove 模式、mackup 文件、<code>.chezmoiroot</code> 以及归档文件（tar/rar）中使用 <code>..</code> 路径，防止目录逃逸。同时禁止解析为 <code>.</code> 的文件名。</li>
+  <li><strong>权限收紧</strong>：收紧临时文件权限，确保 HTTP 缓存目录和持久状态目录默认私有。</li>
+  <li><strong>密钥处理</strong>：确保 <code>secret keyring get</code> 和 <code>age-keygen</code> 命令生成的密钥文件始终为私有权限。</li>
+  <li><strong>其他修复</strong>：改进对不受信任相对路径的处理，拒绝负数的 <code>format-indent-width</code> 模板指令。</li>
+</ul>
+
+<h3>文档更新</h3>
+<ul>
+  <li>示例代码中使用了更健壮的引用函数。</li>
+  <li>添加了相关文章链接。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.72.0</guid>
+      <pubDate>Sun, 02 Aug 2026 18:51:08 GMT</pubDate>
+    </item>
     <item>
       <title>Hapi v0.25.3 发布：新增会话引用、机器命名与逐步预览功能</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.25.3</link>
@@ -1081,26 +1112,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.200</guid>
       <pubDate>Fri, 03 Jul 2026 16:52:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.199 更新：支持堆叠技能调用、增强重试机制与多项 Bug 修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.199</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
-<ul>
-  <li><strong>堆叠技能调用优化</strong>：支持在命令中连续调用多个斜杠技能（如 <code>/skill-a /skill-b do XYZ</code>），现可同时加载最多 5 个前置技能，不再仅限于第一个。</li>
-  <li><strong>计划模式（Plan mode）改进</strong>：对涉及状态变更的浏览器工具调用增加提示确认，只读的 <code>browser_batch</code> 调用现被正确自动放行。</li>
-  <li><strong>重试机制增强</strong>：订阅用户遇到临时服务器速率限制错误（429）时，现自动使用退避算法重试而非直接失败。环境变量 <code>CLAUDE_CODE_RETRY_WATCHDOG</code> 将非容量临时错误的默认重试次数提升至 300，并移除了 <code>CLAUDE_CODE_MAX_RETRIES</code> 的 15 次上限。</li>
-</ul>
-<h3>其他更新与修复</h3>
-<ul>
-  <li><strong>错误处理与提示优化</strong>：SSL 证书错误（如 TLS 代理、证书过期等）现会立即失败并给出修复指引，不再耗尽重试次数；流式响应在 API 中途报错时现保留已输出内容并提示“响应不完整”；子代理因限流或报错被截断时，现会将部分工作结果返回给父代理，并正确上报 API 错误而非静默失败。</li>
-  <li><strong>后台代理与守护进程修复</strong>：修复了 Linux 上损坏的 worker 记录导致守护进程周期性杀死所有代理的问题；解决了 macOS 通过 SSH 冷启动代理时的会话切换报错；确保 <code>claude stop</code> 命令能正确终止后台代理的重生进程。</li>
-  <li><strong>界面与交互改进</strong>：后台作业进度指示器现能流畅响应长命令；内存不足时后台会话会明确提示并建议释放资源；空闲子代理现折叠显示，避免面板混乱；查看子代理时输入模型切换命令会正确提示适用范围。此外，修复了配置文件损坏恢复时直接覆盖原文件的问题（现增加备份机制），以及会话转录文件无新消息时异常膨胀等问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.199</guid>
-      <pubDate>Thu, 02 Jul 2026 23:35:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
