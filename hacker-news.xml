@@ -3,7 +3,45 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 02 Aug 2026 16:12:24 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 02 Aug 2026 17:14:57 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 在AMD MI355X上运行Kimi K3：超越B300的每美元性能表现</title>
+      <link>https://news.ycombinator.com/item?id=49141073</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要评测开源大模型Kimi K3的性能表现，属于AI技术进展与开源项目范畴，符合用户兴趣配置。</small></p><h2>在AMD MI355X上运行Kimi K3：超越B300的每美元性能表现</h2>
+<p>随着开源大语言模型（LLM）能力的飞跃，Kimi K3等模型参数量已达2.8万亿（2.8T），对显存（VRAM）的需求超过1.5TB。由于单节点NVIDIA B200无法容纳，部署此类模型通常需依赖NVIDIA B300或双节点B200集群。然而，<a href="https://www.wafer.ai/blog/kimi-k3-mi355x">Wafer.ai</a> 的测试表明，配备288GB显存的AMD MI355X在性价比上展现出显著优势。</p>
+<p>[IMAGE_0]</p>
+<p><strong>性能与成本对比</strong></p>
+<p>在1024输入/400输出的基准测试中，8卡MI355X（张量并行TP8）集群实现了952 tok/s的节点聚合吞吐量，单流解码达到118 tok/s。相较于双节点B200（TP16），MI355X的聚合吞吐量高出3.8倍，单流解码高出1.3倍。虽然NVIDIA B300在绝对聚合吞吐量（1568 tok/s）上领先，但考虑到B300的租赁成本约为MI355X的2.4倍，MI355X在“每美元性能”（Performance per Dollar）上实现了碾压。</p>
+<p>[IMAGE_1]</p>
+<p><strong>关键技术优化</strong></p>
+<p>为了在AMD ROCm平台上充分发挥Kimi K3的性能，Wafer团队进行了两项核心优化：</p>
+<ul>
+<li><strong>推测解码（Speculative Decode）修复：</strong> Kimi K3未内置草稿张量，团队引入了RadixArk的Kimi-K3-DSpark。针对ROCm环境下<code>top_k_renorm_prob</code>未定义导致的调度器崩溃问题，团队通过简单的PyTorch函数实现了Top-k重归一化，无需编写自定义Kernel。该优化使单流性能提升2.2倍，聚合吞吐量提升18%。</li>
+<li><strong>预填充（Prefill）加速：</strong> 针对MI355X在冷预填充阶段速度较慢的问题，团队发现是AITER MLA（Multi-Head Latent Attention）Kernel的Head Count不匹配所致。通过将12个Head零填充至16个以适配快速Kernel，成功将预填充速度提升2-3倍，大幅降低了用户感知的首字延迟（TTFT）。</li>
+</ul>
+<p>[IMAGE_2]</p>
+<p><strong>结论与社区反馈</strong></p>
+<p>Wafer团队认为，在AMD硬件上实现SOTA（State of the Art）推理性能已指日可待，且无需复杂的自定义Kernel开发。不过，该文章在Hacker News上引发了激烈讨论。部分用户指出文章存在对比不公平（如B200跨节点通信开销未完全抵消）、价格基于租赁网站而非实际采购成本（TCO），并质疑文章由AI生成。Wafer员工回应称，该部署已上线OpenRouter，并通过了包括GPQA在内的多项准确性与一致性测试。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49141073</guid>
+      <pubDate>Sun, 02 Aug 2026 04:21:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>动漫中的用户界面设计：复古科幻与功能主义的视觉盛宴</title>
+      <link>https://news.ycombinator.com/item?id=49139304</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨动漫中的UI设计风格，未涉及用户指定的科技或编程兴趣领域，与兴趣配置相关性不强。</small></p><p>Tumblr 博客 <a href="https://animeuserinterface.tumblr.com">Anime User Interface</a> 汇集了大量动漫与动画电影中的用户界面（UI）设计截图。这些设计往往呈现出浓厚的复古科幻色彩，充满了复杂的仪表盘、全息投影、数据流以及密集的物理按钮。</p>
+<img src="https://64.media.tumblr.com/9a2cb72f2cd6b1756e490135b0f62046/tumblr_mniucqFj5m1r2kbn7o1_r3_540.png" alt="动漫中的复杂 UI 设计截图" />
+<p>与当代追求极简主义和“防呆”设计的消费级电子产品不同，这些动漫 UI 通常具有极高的信息密度和操作复杂度。评论指出，许多设计灵感直接来源于现实中的军事、航空和工业设备，强调在高压环境下的信息清晰度和操作可靠性，而非视觉上的简洁。</p>
+<img src="https://64.media.tumblr.com/5c7a72f2cd6b1756e490135b0f62046/tumblr_n9y22jDWta1s5oxc0o2_500.gifv" alt="《Macross Plus》中的驾驶舱 UI 设计" />
+<p>社区在讨论中列举了多部经典作品，包括《Macross Plus》、《Dirty Pair: Project Eden》、《新世纪福音战士》、《星际牛仔》以及《黄金小子》等。网友们不仅探讨了 UI 的广义定义（任何信息展示或交互媒介），还分享了现实中的相关周边，例如 Wacom 推出的《新世纪福音战士》联名平板电脑，展示了这种美学在现实产品中的延续。</p>
+<h3>你知道吗？</h3>
+<p>这种充满复杂仪表盘和物理按键的设计风格，在设计领域常被称为“功能主义（Functionalism）”或“复古未来主义（Retro-futurism）”。在现实世界中，专业级设备（如飞机驾驶舱、核电站控制台或医疗仪器）至今仍保留着大量物理按钮和复杂显示屏，因为它们在紧急情况下能提供明确的触觉反馈和状态指示，避免误操作。动漫创作者往往将这种专业级设备的视觉语言放大，结合全息技术和数据可视化，构建出既硬核又充满想象力的未来世界。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49139304</guid>
+      <pubDate>Sat, 01 Aug 2026 22:47:24 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Go 1.27 交互式教程：泛型、错误处理与HTTP行为变更</title>
       <link>https://news.ycombinator.com/item?id=49140218</link>
@@ -921,39 +959,6 @@ ZGM 固件将直接写入鼠标内部存储器，无需依赖后台软件即可�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49085698</guid>
       <pubDate>Tue, 28 Jul 2026 15:48:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 线性注意力机制演进：从 Softmax 到 Kimi Delta Attention (KDA)</title>
-      <link>https://news.ycombinator.com/item?id=49085909</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要探讨线性注意力机制的技术演进，属于AI底层技术进展，符合用户兴趣配置</small></p><p>本文深入解析了线性注意力机制（Linear Attention）的演进路径，详细推导了从基础 Softmax 注意力到 Kimi Delta Attention (KDA) 的完整数学过程。文章指出，现代线性注意力变体虽然复杂，但其核心思想可以通过对隐藏状态（Hidden State）施加简单约束逐步推导得出。</p>
-<p>演进路线主要分为四个阶段：</p>
-<p>1. <b>线性注意力（Linear Attention）</b>：通过移除 Softmax 归一化，利用外积求和将历史键值对压缩为固定大小的状态矩阵，将计算复杂度从二次方降至线性。但这种方式存在“加法干扰”问题，新写入的值会与旧状态叠加，无法直接覆盖。</p>
-<p>2. <b>DeltaNet</b>：为解决覆盖问题，引入 Delta 规则（Delta Rule）。模型在写入新值前，先计算当前状态对当前键的预测值，仅将预测误差（Error）乘以学习到的强度系数后写入状态。这实现了对特定键方向的精准修正。</p>
-<p>3. <b>Gated DeltaNet</b>：针对线性状态压缩导致无法选择性遗忘陈旧信息的问题，引入全局遗忘门（Retention Gate）。在读取和写入前，对旧状态进行缩放，使模型能够根据当前输入决定是否保留历史信息。</p>
-<p>4. <b>Kimi Delta Attention (KDA)</b>：将全局标量遗忘门升级为按通道独立控制的向量（对角矩阵）。这使得模型能够针对不同键通道（Key Channel）进行细粒度的独立遗忘，进一步提升了状态管理的灵活性。</p>
-<p>文章最后展示了 KDA 的循环与分块（Chunkwise）Triton 程序实现。在 Hacker News 社区讨论中，多数读者表示难以独立推导出 KDA 的公式，赞叹其设计的巧妙性。此外，社区还就文章中使用的狄拉克符号（Bra-ket notation）与传统数学符号的优劣、大模型创新的本质以及数学符号统一性等问题展开了热烈讨论。</p>
-<p><b>你知道吗？</b></p>
-<p>文章作者拥有牛津大学物理学硕士及量子计算博士学位，因此采用了物理学中常用的狄拉克符号（Bra-ket notation）来推导公式。这种符号在量子力学中用于描述态矢量，作者认为它能更清晰地展示线性注意力推导中的矩阵形状与维度变化。文章也贴心地提供了传统数学符号的切换选项。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49085909</guid>
-      <pubDate>Tue, 28 Jul 2026 16:02:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Kimi Linear：一种高效且表达能力强的混合线性注意力架构</title>
-      <link>https://news.ycombinator.com/item?id=49082022</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Kimi Linear的混合线性注意力架构，属于AI算法与架构技术进展，符合用户兴趣配置</small></p><p>Kimi Linear 是月之暗面（Moonshot AI）Kimi 团队提出的一种混合线性注意力架构，旨在解决传统全注意力机制在长上下文场景下的计算瓶颈。该架构的核心在于 <a href="https://arxiv.org/abs/2510.26692">Kimi Delta Attention (KDA)</a> 模块，它在 Gated DeltaNet 的基础上引入了更细粒度的门控机制，从而更有效地利用有限状态 RNN 的内存。</p>
-<p>在算法优化方面，团队设计了一种基于 Diagonal-Plus-Low-Rank (DPLR) 转换矩阵变体的定制分块算法，在保持与经典 delta 规则一致性的同时大幅降低了计算量。Kimi 团队预训练了一个拥有 3B 激活参数和 48B 总参数的模型，该模型采用 KDA 与 Multi-Head Latent Attention (MLA) 的逐层混合结构。实验表明，在相同的训练配方下，Kimi Linear 在短上下文、长上下文以及强化学习（RL）扩展场景中均全面优于全注意力 MLA 模型。具体而言，该架构将 KV cache 的使用量减少了高达 75%，并在 100 万（1M）上下文长度下实现了高达 6 倍的解码吞吐量提升。</p>
-<p>为了促进研究，Kimi 团队已开源了 KDA kernel 和 vLLM 实现，并发布了预训练及指令微调的模型权重。</p>
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>与 Kimi K3 的关系</strong>：社区讨论指出，Kimi 最新的 K3 模型大量采用了 KDA 架构（69 层 KDA 与 24 层 Gated MLA），进一步验证了该架构在大规模模型中的有效性。</li>
-<li><strong>技术演进脉络</strong>：Kimi Linear 可被视为从 LSTM 到线性注意力，再到 Mamba2 和 DeltaNet 的技术演进路线的延续。它通过改进门控机制，解决了传统线性注意力在长上下文检索等任务中表现较弱的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49082022</guid>
-      <pubDate>Tue, 28 Jul 2026 10:52:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
