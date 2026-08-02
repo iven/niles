@@ -158,6 +158,23 @@
       ]
     },
     {
+      "name": "github-trending",
+      "title": "GitHub Trending",
+      "context": "GitHub Trending 是 GitHub 每日热门开源仓库榜单。条目内容为上榜仓库的 README 文档。用户关注该项目的背景、核心功能、使用场景、特点等，以了解最新技术热点，因此需要忽略安装说明、配置细节、贡献指南等与项目价值无关的内容。",
+      "plugins": [
+        {
+          "name": "github-trending",
+          "options": { "limit": 15 }
+        },
+        "builtin/llm-summarize",
+        "builtin/llm-grade",
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/github-trending.xml" }
+        }
+      ]
+    },
+    {
       "name": "github-releases",
       "title": "GitHub 软件版本更新",
       "context": "这是一个 GitHub 软件发布订阅。特别说明：\n- Superset：编码代理的桌面终端应用，允许同时运行多个 CLI 编码代理（如 Claude Code），每个任务在独立的 git worktree 中隔离，提供内置 diff 查看器等功能。用户主要关注与桌面应用相关的功能改进（UI、交互、终端功能等），对后端、数据库、CI 等基础设施改动不感兴趣\n- Claude Code：用户不关心 Windows 平台特定改动和安全相关改动",
