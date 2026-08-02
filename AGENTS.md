@@ -81,7 +81,7 @@ collect-rss → deduplicate → limit-items → clean-text
 
 **GUID 跟踪**（`src/lib/guid-tracker.ts`）：
 - `builtin/deduplicate` 插件使用，记录已处理的 GUID，避免重复处理动态排名 RSS 中的旧条目。
-- 自动清理超过 4 天的历史记录。
+- 自动清理历史记录，保留最近 500 条（按处理时间排序）。
 
 ## 设计原则
 
