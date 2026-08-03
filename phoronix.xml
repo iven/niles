@@ -3,7 +3,82 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 03 Aug 2026 11:41:40 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2026 15:13:06 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ zlib-rs 0.6.7 发布：修复 UAF 漏洞并优化龙芯 LSX 性能</title>
+      <link>https://www.phoronix.com/news/zlib-rs-0.6.7</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍zlib-rs（Rust实现的压缩库）的发布，Rust属于interest，编程工具发布属于high_interest，综合判断为critical</small></p><p>zlib-rs 是一个使用 Rust 语言编写的 zlib 库实现，旨在提供与 zlib-ng 相当的高性能。近日，该库发布了 0.6.7 版本，主要带来了安全漏洞修复以及针对龙芯（LoongArch）架构的性能优化。</p>
+<p>在安全性方面，0.6.7 版本修复了一个新发现的 <b>Use-After-Free (UAF)</b> 漏洞。该漏洞位于 <code>Deflate::compress_uninit</code> 函数中，即使代码中禁用了 unsafe Rust 特性，PoC 代码仍能触发该问题。</p>
+<p>在性能优化方面，新版本重点增强了针对 LoongArch64 架构的 <b>LSX (Loongson SIMD eXtension)</b> 支持。具体改进包括：</p>
+<ul>
+<li>实现了 LSX 版本的 <code>compare256</code>，在特定测试中带来了约 4% 的速度提升。</li>
+<li>在 inflate 代码中引入了更宽的 LSX 加载/存储操作，性能最高提升达 10%。</li>
+</ul>
+<img src="//www.phoronix.net/image.php?id=loongson-3b6000-loongarch&image=loongson_3b6000_5_med" alt="LoongArch motherboard" />
+<p>作者 Michael Larabel 表示，接下来将针对其龙芯测试系统（Loongson 3B6000）进行新一轮的基准测试。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/zlib-rs-0.6.7</guid>
+      <pubDate>Mon, 03 Aug 2026 13:19:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>GNOME Boxes 重大重写：原生支持安装 Windows 11 并转向 Flatpak 分发</title>
+      <link>https://www.phoronix.com/news/GNOME-Boxes-2026</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲虚拟化技术改进（uninterested），但GNOME Boxes属于Linux桌面应用（interest），来源配置权重更高，虚拟化为主要主题故不推荐但可选</small></p>GNOME Boxes 作为 libvirt 和 QEMU 的前端应用，正在经历一次重大重写，旨在为 GNOME 桌面用户带来更优质的虚拟机体验。核心开发者 Felipe Borges 近日宣布了该应用的新 Beta 版本。
+
+此次更新带来了多项显著改进：
+<ul>
+    <li><strong>技术栈升级</strong>：应用已迁移至 GTK4 工具包和 libadwaita 库。</li>
+    <li><strong>Windows 11 支持</strong>：新版 GNOME Boxes 现在能够直接安装 Microsoft Windows 11，无需用户手动处理 Secure Boot 或 TPM 等要求。</li>
+    <li><strong>新增功能</strong>：引入了 VSOCK 设备，用于更方便地访问虚拟机上下文。</li>
+    <li><strong>分发模式变更</strong>：未来的新版本将优先通过 Flatpak 进行分发。</li>
+</ul>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=gnome_boxes" alt="New GNOME Boxes running Windows 11 in a VM" />
+
+感兴趣的用户可以通过 Flathub 获取 Beta 版本进行测试，或查阅 Felipe Borges 的博客了解更多技术细节。
+
+<h3>你知道吗？</h3>
+<p><strong>VSOCK 是什么？</strong> VSOCK 是一种套接字类型，专门设计用于在主机操作系统和虚拟机（客户机）之间进行通信。在虚拟化环境中，它允许主机和虚拟机之间建立低延迟、双向的通信通道，常用于管理虚拟机或传输数据。</p>
+<p><strong>Flatpak-first 模式</strong>：这意味着开发者将优先维护和支持 Flatpak 格式的软件包。Flatpak 是一种跨发行版的 Linux 软件打包格式，能够解决依赖冲突问题，并提供更一致的用户体验。转向此模式通常意味着开发者可能不再为特定发行版（如 Ubuntu 或 Fedora）提供原生的 .deb 或 .rpm 包。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Boxes-2026</guid>
+      <pubDate>Mon, 03 Aug 2026 13:06:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>NVIDIA 发布 610.57.04 Linux 驱动更新，修复多项游戏与 Vulkan 问题</title>
+      <link>https://www.phoronix.com/news/NVIDIA-610.57.04-Linux-Driver</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章为NVIDIA显卡驱动更新修复，虽涉及软件更新但主要是bug修复而非新功能，用户对该主题兴趣不明确</small></p><p>NVIDIA 于 8 月 3 日发布了 R610 系列的 Linux 驱动更新版本 610.57.04。此次更新包含的 Bug 修复数量远超常规的次要版本更新，主要解决了多项稳定性与兼容性问题。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=nvidia_610_august" alt="NVIDIA Linux driver release" />
+<p>本次更新的重点修复内容包括：</p>
+<ul>
+  <li>修复了在使用 GLX 间接渲染（GLX indirect rendering）时可能导致 X Server 崩溃的问题。</li>
+  <li>解决了多个游戏的渲染错误与崩溃问题。</li>
+  <li>修复了 Vulkan 驱动相关的多项问题。</li>
+  <li>修正了 NVIDIA DKMS 内核模块构建过程中出现的错误。</li>
+</ul>
+<p>此次更新涵盖的游戏修复列表相当广泛，包括《007 First Light》、《刺客信条：起源》（Assassin's Creed Origins）、《极限竞速：地平线 6》（Forza Horizon 6）、《怪物猎人：荒野》（Monster Hunter Wilds）、《潜行者 2》（Stalker 2）、《Crimson Desert》、《艾尔登法环》（Elden Ring）及其 DLC《黄金树幽影》（Elden Ring Nightrein）、《ExoDomia》、《Far Far West》、《Grounded 2》、《Incursion Red River》、《John Carpenter's Toxic Commando》、《Paradise Nowhere》、《Screamer》、《Star Rupture》、《Windrose》以及《X-Plane》等。</p>
+<p>用户可前往 <a href="https://www.nvidia.com">NVIDIA 官网</a> 下载该驱动并查看详细信息。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-610.57.04-Linux-Driver</guid>
+      <pubDate>Mon, 03 Aug 2026 12:58:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.3 计划移除 FreeVxFS 文件系统驱动</title>
+      <link>https://www.phoronix.com/news/Linux-Retiring-FreeVxFS</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Linux内核更新将移除FreeVxFS文件系统驱动，属于Linux技术范畴，来源配置中Linux桌面技术为interest，故推荐阅读</small></p><p>Linux 7.3 合并窗口预计将移除 <b>FreeVxFS</b> 文件系统驱动。FreeVxFS 是 Linux 内核中用于读取 Veritas VxFS 文件系统的只读驱动程序，该文件系统曾广泛应用于 HP-UX 和 SCO UnixWare 等旧式 Unix 系统。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=freevxfs_removal" alt="FreeVxFS removal" />
+<p>内核维护者 Christoph Hellwig 提交补丁，主张将该驱动从主线内核中移除。他指出，虽然 25 年前为旧 Unix 系统提供兼容性很有趣，但在当前缺乏活跃用户（过去 15 年仅有一名贡献者）的情况下，继续维护该驱动只会吸引自动错误检查器生成大量无意义的噪音。补丁已提交至 VFS Git 分支，计划在 Linux 7.3 中正式移除，除非收到最后的反对意见。</p>
+<p>此次移除反映了内核开发的一个趋势：随着自动化代码检查工具和 AI 编码代理的普及，缺乏维护且用户稀少的旧代码更容易因报错而成为清理目标。</p>
+<h3>你知道吗？</h3>
+<p><b>Veritas VxFS</b>（Veritas File System）最初由 Veritas Software 开发，后被 Symantec 收购。它曾是企业级 Unix 和 Linux 平台上广泛使用的高性能文件系统。FreeVxFS 是该项目的一个开源实现，允许 Linux 系统只读挂载 VxFS 分区，主要用于数据迁移或恢复旧系统数据。随着旧系统的淘汰，其实际需求已大幅减少。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Retiring-FreeVxFS</guid>
+      <pubDate>Mon, 03 Aug 2026 12:35:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ KGamma2 助力 KDE Plasma Wayland 下的便捷 Gamma 调节</title>
       <link>https://www.phoronix.com/news/KDE-KGamma2-Gamma-Wayland</link>
@@ -674,68 +749,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Binutils-2.47</guid>
       <pubDate>Sun, 26 Jul 2026 19:36:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Auto-CPUFreq 3.1 发布：GUI 新增监控模式与蓝牙控制</title>
-      <link>https://www.phoronix.com/news/Auto-CPUFreq-3.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍 Linux 桌面工具 Auto-CPUFreq 3.1 的功能更新与配置优化，契合用户对 Linux 桌面技术及软件新功能的兴趣，推荐阅读。</small></p><p>Auto-CPUFreq 是一款旨在优化 Linux 系统 CPU 频率与功耗的开源工具，致力于在不牺牲用户体验的前提下延长设备续航。近日，该项目发布了 v3.1 版本，带来了多项新特性与改进。</p>
-<p>本次更新的主要亮点包括：</p>
-<ul>
-  <li><strong>GUI 监控模式</strong>：图形界面新增了基础监控模式，布局与命令行界面（CLI）保持一致，方便用户直观查看系统状态。</li>
-  <li><strong>蓝牙控制</strong>：GUI 中加入了蓝牙开关功能，允许用户直接禁用蓝牙以节省电量。</li>
-  <li><strong>兼容性增强</strong>：扩展了对更多联想（Lenovo）机型的节能模式支持，并增加了对缺少 <code>/sys/class/power_supply/</code> sysfs 接口系统的支持。</li>
-  <li><strong>新配置选项</strong>：新增“enforce platform profile”配置项，并修复了多项已知问题。</li>
-</ul>
-<p>Auto-CPUFreq 3.1 的监控模式界面如下：</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=auto_cpufreq_31" alt="Auto-CPUFreq monitor mode GUI" />
-<p>用户可通过 <a href="https://github.com/AdnanHodzic/auto-cpufreq">GitHub 官方仓库</a> 下载最新版本并获取详细信息。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Auto-CPUFreq-3.1</guid>
-      <pubDate>Sun, 26 Jul 2026 11:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Realtek RTL8723B/RTL8723BS 芯片正尝试整合至 Linux RTW88 驱动</title>
-      <link>https://www.phoronix.com/news/Realtek-RTL8723B-RTW88-Patches</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讨论 Realtek 无线网卡芯片在 Linux 内核驱动中的补丁支持进展，属于底层硬件驱动维护，与用户偏好的桌面技术及编程兴趣关联度不高，兴趣不明确，故列为可选。</small></p><p>自 2017 年 Linux 4.12 引入以来，Realtek rtl8723bs 驱动一直停留在内核的 <code>staging</code>（暂存）区域近十年。该驱动因代码冗余、缺乏抽象以及需要处理恶意 WiFi 接入点等问题，被 Linux 核心维护者 Greg Kroah-Hartman 称为“驱动巨兽（beast of a driver）”。</p>
-<p>为了解决这一问题，开发者 Luka Gejak 正在提交补丁，试图将 Realtek RTL8723B 802.11n 芯片及其 SDIO 变体 RTL8723BS 的支持整合到现有且更完善的 RTW88 驱动中。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=realtek_beast_sml" alt="RTL8723BS ASIC" />
-<p>此次补丁系列包含约 5600 行新代码。目前，该支持仅在 SDIO 接口配置下进行了测试，PCIe 和 USB 变体尚未启用或验证。此外，驱动仅在 STA（站点）模式下测试过，AP（接入点）和 IBSS（独立基本服务集）模式尚未验证。开发者也指出，该硬件在 WiFi 与蓝牙共存方面存在已知的硬件和固件限制。</p>
-<p>对于仍在使用 802.11n 规格 Realtek 无线硬件的用户而言，这是将硬件支持迁移至 RTW88 驱动的最新进展。如果该补丁系列能够成熟并合入 Linux 主线内核，有望最终取代长期滞留在 <code>staging</code> 区域的 rtl8723bs 驱动。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Realtek-RTL8723B-RTW88-Patches</guid>
-      <pubDate>Sun, 26 Jul 2026 10:49:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.2-rc5 修复 IPv4 over Firewire 长期存在的重组 Bug</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-Fix-IPv4-Firewire</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲述 Linux 内核修复 IPv4 在 Firewire 旧协议上的网络 Bug，该技术标准已较陈旧，补丁偏向底层遗留问题修复，与用户当前关注领域匹配度低，故列为可选。</small></p><p>Linux 7.2-rc5 内核版本发布，修复了 <a href="https://www.phoronix.com/news/Linux-7.2-Fix-IPv4-Firewire">IPv4 over Firewire</a> 驱动中一个长期存在的重组 Bug。</p>
-
-<p>尽管 Firewire（IEEE-1394）技术已较为古老，但 Linux 社区计划至少维护该标准至 2029 年。自 2009 年起，内核便通过 <code>fw-ipv4</code> 驱动支持基于 <a href="https://datatracker.ietf.org/doc/html/rfc2734">RFC 2734</a> 标准的 IPv4 网络传输。然而，开发者 Ruoyu Wang 发现该驱动存在一个隐蔽的缺陷：当数据报（datagram）跨越多个缓冲区范围时，驱动无法正确将其重新组装。</p>
-
-<p>该问题源于列表边缘的邻居查找逻辑错误。在特定情况下，跨越两个现有范围的片段可能导致相邻范围未能正确合并，进而使完整性检查函数 <code>fwnet_pd_is_complete()</code> 漏判完整的数据报。Ruoyu Wang 最初通过静态分析检查器发现了此问题，并通过代码审查确认了修复方案。修复后的代码增加了针对列表头的检查，确保在合并范围时能正确比较新片段的边缘。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=firewire_networking_med" alt="Firewire cable in front of network switch" />
-
-<p>虽然该驱动已存在多年，但实际应用场景可能较为有限。此次修复已合并至 Linux 7.2-rc5 版本，为仍在使用 Firewire 网络的用户提供了更稳定的支持。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Firewire (IEEE-1394)</strong>：由苹果公司开发的高速串行总线标准，曾广泛用于连接数字摄像机、外部硬盘等。虽然 USB 和 Thunderbolt 逐渐取代了它在消费级市场的位置，但在专业音频、视频制作以及部分工业控制领域，Firewire 因其低延迟和确定性传输特性仍有一席之地。</p>
-<p><strong>IPv4 over Firewire</strong>：允许 Firewire 设备像普通网卡一样通过 IP 协议进行通信，使得 Firewire 网络上的设备可以接入互联网或局域网，这在早期的数字媒体设备互联中非常有用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Fix-IPv4-Firewire</guid>
-      <pubDate>Sun, 26 Jul 2026 10:38:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Ubuntu Touch 24.04-2.0 发布：支持刘海屏与圆角，Chromium 大幅升级</title>
-      <link>https://www.phoronix.com/news/Ubuntu-Touch-24.04-2.0-Release</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Ubuntu Touch操作系统的2.0版本发布及其UI功能更新。根据来源配置，用户对“新发行版”和“新软件项目”处于high_interest，故判定为critical。</small></p><p>Ubuntu Touch 24.04-2.0 正式版现已发布，这是基于 Ubuntu 24.04 LTS 的移动端操作系统的重要功能更新。该版本不仅新增了对 Zinwa Q25 等设备的原生支持，还继续优化了包括 Asus Zenfone Max Pro M1、Fairphone 4/5、OnePlus Nord 系列、Volla Phone 系列及多款小米设备在内的广泛设备列表。</p><p>此次更新的核心亮点在于底层引擎与界面适配的大幅升级。其内置的 Morph 网页浏览器已全面升级至 Chromium 134 内核，彻底告别了此前陈旧的 Chromium 87 版本，显著提升了网页兼容性与性能。同时，系统终于适配了现代智能手机常见的刘海屏（Notch）与圆角屏幕显示，解决了长期存在的界面遮挡问题。</p><img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_touch_notch_med" alt="Ubuntu Touch" /><p>在用户体验方面，Lomiri 桌面环境新增了原生截图编辑器，移动数据连接的稳定性也得到改善。此外，用户数据加密功能在支持 FSCRYPT v2 的设备上正式脱离实验阶段，系统还引入了新表情符号并修复了多项已知错误。更多更新详情可访问 <a href="https://ubports.com">UBports 官网</a>。</p><p>开发者目前正稳步推进下一代重大里程碑，计划将系统基础全面重构至 Ubuntu 26.04 LTS。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Touch-24.04-2.0-Release</guid>
-      <pubDate>Sun, 26 Jul 2026 00:15:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
