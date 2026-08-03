@@ -3,7 +3,31 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 03 Aug 2026 00:08:52 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2026 03:50:31 GMT</lastBuildDate>
+    <item>
+      <title>Hapi v0.25.4 发布：支持消息级对话分支与回退、新增听写模式及会话状态面板</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.25.4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.25.4 版本正式发布，本次更新重点增强了对话交互能力，扩展了语音听写功能，并对 Web 端的编辑器体验与多项交互细节进行了优化与修复。</p>
+<h3>核心功能更新</h3>
+<ul>
+  <li><strong>消息级对话分支与回退</strong>：新增消息级别的对话分支（Fork）和回退（Rewind）功能，允许用户在对话历史中创建独立分支或回退至特定消息节点，提升多任务处理灵活性。</li>
+  <li><strong>听写模式扩展</strong>：引入基于提供者的听写模式（Provider-backed dictation mode）及实时听写提供者（Realtime dictation providers），进一步丰富语音输入选项。</li>
+  <li><strong>会话状态面板</strong>：新增只读会话状态面板（Read-only session status panel），便于用户直观查看当前会话状态。</li>
+  <li><strong>会话管理优化</strong>：支持将进行中的会话固定至“进行中”区域，并附带状态徽章（State badges）显示。</li>
+  <li><strong>编辑器交互升级</strong>：消息编辑器支持可展开（Expandable message composer）设计，并允许用户自定义编辑器工具栏的可见性。</li>
+</ul>
+<h3>体验优化与 Bug 修复</h3>
+<ul>
+  <li><strong>编辑器稳定性提升</strong>：修复了富文本编辑器（Rich Composer）的光标保留、DOM 与 Unicode 边界对齐问题，并优化了取消操作时排队编辑的保留机制。</li>
+  <li><strong>附件与发送修复</strong>：恢复了附件上传功能，确保预览失败时保留上传数据，并实现了发送失败时的原子性恢复。</li>
+  <li><strong>多平台适配</strong>：修复了移动端指针取消后的滚动意图保留、Windows 文件搜索路径显示异常，以及 Pi 归档会话的安全恢复问题。</li>
+  <li><strong>其他改进</strong>：新增显示 Pi 推理努力（Reasoning effort）选项，保持自动补全结果查询稳定，并优化了 Scratchlist 中的附件迁移逻辑。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.25.4</guid>
+      <pubDate>Mon, 03 Aug 2026 03:15:59 GMT</pubDate>
+    </item>
     <item>
       <title>Chezmoi v2.72.0 发布：新增模板函数与多项安全修复</title>
       <link>https://github.com/twpayne/chezmoi/releases/tag/v2.72.0</link>
@@ -1089,29 +1113,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.201</guid>
       <pubDate>Fri, 03 Jul 2026 23:50:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.200 发布：默认权限改为手动，修复后台代理稳定性与插件加载问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.200</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.200 版本发布，主要更新了权限控制策略并修复了多项后台代理与插件相关的稳定性问题。</p>
-<h3>核心功能更新</h3>
-<ul>
-  <li><strong>权限模式默认变更</strong>：跨 CLI、VS Code 及 JetBrains 插件，默认权限模式已更改为“Manual”（手动）。系统现接受 <code>--permission-mode manual</code> 及 <code>"defaultMode": "manual"</code> 配置。</li>
-  <li><strong>交互行为调整</strong>：<code>AskUserQuestion</code> 对话框默认不再自动继续执行，用户需通过 <code>/config</code> 命令显式配置空闲超时（idle timeout）以启用自动继续功能。</li>
-  <li><strong>无障碍体验优化</strong>：改进了屏幕阅读器输出，隐藏了装饰性图形符号，优化了转录符号的朗读标签，并将嵌套表格格式化为“Header: value.”结构以提升可读性。</li>
-  <li><strong>安装脚本改进</strong>：在安装过程中，若因系统内存不足导致安装被终止，脚本现会提供明确的解释说明。</li>
-</ul>
-<h3>问题修复与优化</h3>
-<ul>
-  <li><strong>后台代理与会话稳定性</strong>：修复了后台代理在崩溃后因残留锁文件（<code>daemon.lock</code>）无法重启的问题；改进了守护进程交接逻辑，防止旧版本错误接管；修复了后台会话在睡眠唤醒或重新连接时意外停止、以及被取消的轮次在停滞后错误重跑的问题。</li>
-  <li><strong>插件与配置加载</strong>：修复了项目范围插件在 <code>git worktrees</code> 中无法正确加载的问题；修正了 <code>claude agents --plugin-dir &lt;dir&gt;</code> 命令中参数位置错误导致插件未显示的情况；解决了当 <code>.claude.json</code> 中 MCP 服务器配置非数组值时引发的启动崩溃。</li>
-  <li><strong>终端与 UI 修复</strong>：解决了 tmux 3.4+ 环境下的终端渲染闪烁问题（通过启用同步输出）；修复了后台代理输出中的控制字节泄露至终端视图的问题；修正了语音听写在无音频输入时显示误导性“连接失败”提示的情况。</li>
-  <li><strong>其他改进</strong>：修复了子代理因速率限制提前截断时返回空结果而非优雅失败的问题；解决了 <code>/mcp</code> 服务器列表在屏幕阅读器下的焦点追踪问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.200</guid>
-      <pubDate>Fri, 03 Jul 2026 16:52:33 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 03 Aug 2026 00:12:33 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2026 03:51:24 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Kakehashi：在 Linux ARM64 上运行 macOS 二进制文件的实验性用户态翻译层</title>
+      <link>https://news.ycombinator.com/item?id=49145937</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Kakehashi开源项目，这是一个允许在Linux ARM64上运行macOS二进制文件的实验性翻译层，属于编程工具发布和开源项目范畴，用户对此类内容很感兴趣</small></p><p><a href="https://github.com/wie-project/kakehashi">Kakehashi</a> 是一个实验性开源项目，旨在通过用户态翻译层在 Linux ARM64 系统上原生运行 macOS (Darwin) 二进制文件。该项目由开发者 vlad_kalinkin 发起，目前已在 Hacker News 社区引发关注。</p>
+<p>在技术实现上，Kakehashi 使用 <a href="https://www.rust-lang.org/">Rust</a> 编写，采用纯用户态架构，无需 JIT 编译。它主要负责加载 Mach-O 格式文件，映射独立的 <code>libSystem</code>，并翻译 BSD 系统调用。目前，项目已验证支持 7-Zip (7zz)、curl 以及 Xcode 基础工具（如 git）的部分功能，并可在 Docker、Colima 和 UTM 等环境中运行。</p>
+<p>在性能方面，开发者在 8000 文件的多线程压缩测试中测得，运行 Darwin 7-Zip 的速度约为原生 Linux 版本的 1/5.2。尽管存在性能损耗，但开发者指出，在 CI/CD 环境中，Linux ARM64 运行器的成本远低于 macOS 运行器（后者价格约为前者的 10 倍以上），因此 Kakehashi 仍能为 macOS 工具链提供极具成本效益的替代方案。</p>
+<p>社区讨论中，许多用户将其与著名的 macOS 兼容层 <a href="https://github.com/darlinghq/darling">Darling</a> 进行比较。开发者强调，Kakehashi 采用纯用户态设计，与 Darling 的内核级模拟架构不同，且代码完全从头编写，未直接借鉴 Darling。目前项目仍处于早期阶段，开发者表示未来的目标是支持完整的 Xcode 工具链和 macOS 版 Homebrew，以实现在 Linux 上构建 iOS 应用等高级功能。</p>
+<h3>你知道吗？</h3>
+<ul>
+  <li><strong>Darling 项目：</strong> Darling 是一个历史悠久的开源项目，旨在 Linux 上运行 macOS 应用程序。它通过在内核层模拟 macOS 的系统调用和框架来实现兼容性。与 Darling 不同，Kakehashi 专注于用户态，避免了加载内核模块的复杂性，但可能在系统调用的全面覆盖上有所取舍。</li>
+  <li><strong>Mach-O 与 libSystem：</strong> Mach-O 是 macOS 和 iOS 的可执行文件格式。libSystem 是 macOS 的基础系统库，包含 C 标准库、线程管理等核心功能。要在 Linux 上运行 macOS 程序，必须解决这些底层依赖的兼容性问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49145937</guid>
+      <pubDate>Sun, 02 Aug 2026 16:26:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Meshdiff：在浏览器中可视化对比 3D 模型版本差异</title>
       <link>https://news.ycombinator.com/item?id=49143479</link>
@@ -937,18 +954,6 @@ ZGM 固件将直接写入鼠标内部存储器，无需依赖后台软件即可�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49093569</guid>
       <pubDate>Wed, 29 Jul 2026 04:58:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Steel Bank Common Lisp 2.6.7 发布：新增 SIMD 支持、文档改进与多项优化</title>
-      <link>https://news.ycombinator.com/item?id=49086971</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍Lisp编译器版本更新发布，属于编程工具发布，高度匹配很感兴趣配置</small></p><p><img src="sbclbutton.png" alt="(get 'sbcl)" width="88" height="31" /></p>
-<p>Steel Bank Common Lisp (SBCL) 发布了 2.6.7 版本，继续完善其作为高性能 Common Lisp 编译器的特性。本次更新引入了 <code>SB-MANUAL</code> 模块，将官方手册整合至 Lisp 的 docstrings 中，支持通过 SLIME 等工具进行交互式探索（详见 <a href="https://sbcl.org/all-news.html?2.6.7">官方更新日志</a>）。此外，<code>SB-SIMD</code> 贡献模块新增了对 ARM64 平台的支持，并在 X86-64 上启用了 AVX512 指令集，进一步提升了数值计算性能。</p>
-<p>在 2.6.x 系列更新中，SBCL 持续优化编译器与运行时。2.6.6 调整了 <code>FDEFINITION</code> 的行为并优化了 <code>SB-THREAD:BARRIER</code>；2.6.5 利用哈希表加速了 <code>INTERSECTION</code> 和 <code>UNION</code> 等列表操作；2.6.4 修复了编译器无限循环问题并优化了 <code>TRUNCATE</code> 等函数；2.6.3 提升了垃圾回收稳定性并加速了 PPC64 上的函数调用；2.6.2 则正式加入了对 Windows ARM64 的支持，并修复了 RISC-V 和 LoongArch 架构下的多项运行时问题。</p>
-<p>社区讨论围绕新特性与实际应用展开。开发者指出，尽管 <code>SB-SIMD</code> 提供了底层指令支持，但目前 SBCL 尚不支持自动向量化（auto-vectorization），需显式调用相关接口。针对新引入的内存分配器（arena）功能，社区反馈其文档较为匮乏，并分享了 <code>SB-VM:NEW-ARENA</code> 与 <code>SB-VM:WITH-ARENA</code> 的基本用法。此外，评论中提及了 SBCL 名称的趣味由来（源自 Carnegie-Mellon 大学及 "Sanely Bootstrappable" 的缩写，详见 <a href="https://www.sbcl.org/history.html">项目历史</a>），并指出 Hacker News 的后端服务目前正是运行在 SBCL 之上。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49086971</guid>
-      <pubDate>Tue, 28 Jul 2026 17:11:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
