@@ -3,7 +3,61 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 03 Aug 2026 23:16:43 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 03:35:35 GMT</lastBuildDate>
+    <item>
+      <title>⭐ LLMs奖励专业知识：提示词工程的核心在于领域知识</title>
+      <link>https://news.ycombinator.com/item?id=49161518</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨LLM提示词工程与领域知识的关系，属于AI软件技术进展与使用经验，用户感兴趣。</small></p><p><a href="https://www.seangoedecke.com/llms-reward-expertise/">原文链接</a> 随着大语言模型（LLM）的普及，技术门槛被大幅降低。过去需要依赖专业人士才能完成的任务，如今普通人只需通过提示词即可获取大致满意的结果。这种“人人皆可为通才”的现象，让许多人误以为使用LLM不再需要专业技能。然而，作者指出，提示词工程（prompting）中最核心的技能其实是<strong>领域专业知识（domain expertise）</strong>。</p>
+
+<p>文章以著名数学家陶哲轩（Terence Tao）与ChatGPT探讨“雅可比猜想（Jacobian Conjecture）”反例的对话为例，展示了专家如何高效利用LLM。陶哲轩的提问简短且直击要害，不纠结于模型的逐字回复，而是抓住核心逻辑。这种交流方式向模型发出了“专家信号”，使其自动切换到“与数学家对话”模式，而非“向初学者解释”模式。专家不仅能识别模型输出中的逻辑漏洞，还能通过提出具体的跳跃性思维和建议，牢牢掌握对话的主导权。</p>
+
+<p>这一现象在软件工程领域同样适用。作者认为，系统设计中具体的代码库细节往往比通用的软件原则更重要。拥有领域知识的用户能够提出诸如“这里是否可以用更简单的方案？”或“我们是否已经实现了X功能？”等精准问题，从而大幅压榨出LLM的潜力。相反，缺乏专业知识的用户只能被动接受模型的建议，难以辨别其优劣。</p>
+
+<p>社区讨论进一步补充了该观点。许多开发者指出，LLM实际上放大了使用者的能力：对于专家而言，它是效率的<strong>乘数（multiplier）</strong>；而对于缺乏判断力的非专家，它则可能成为混乱和“看似合理实则错误”内容的<strong>贬值器（devaluer）</strong>。因此，在AI时代，人类的专业知识不仅不会过时，反而将成为筛选、验证和引导AI产出的关键瓶颈。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>AI辅助数学研究的突破：</strong> 陶哲轩与ChatGPT的对话发生在2024年初，当时AI在数学领域的表现引发了广泛关注。雅可比猜想是一个著名的未解数学难题，陶哲轩利用LLM进行头脑风暴，最终帮助团队发现了一个重要的反例。这一事件标志着AI从单纯的“代码生成工具”向“科研直觉辅助器”的转变。专家通过LLM快速验证猜想、探索非传统路径，而LLM则依赖专家的领域知识来过滤噪音并聚焦核心问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49161518</guid>
+      <pubDate>Mon, 03 Aug 2026 21:13:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ AirLLM：流式加载技术实现单张 4GB 显卡运行 70B 大模型</title>
+      <link>https://news.ycombinator.com/item?id=49154228</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍AirLLM开源项目，利用流式加载技术实现低显存运行大模型，属于编程工具发布与AI效率改进经验，用户强烈感兴趣。</small></p><p>AirLLM 是一个开源项目，旨在通过流式加载技术大幅降低大语言模型（LLM）的推理显存需求。该项目允许用户在显存受限的消费级硬件上运行超大参数模型，而无需进行量化（quantization）、蒸馏（distillation）或剪枝（pruning）。</p>
+<p><img src="https://github.com/lyogavin/airllm/raw/main/assets/airllm_logo_sm.png?v=3&raw=true" alt="airllm_logo" /></p>
+<p><strong>核心能力与模型支持</strong><br />
+AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU 上保留一层（layer）或 MoE（混合专家模型）中的一个专家，其余参数存储在磁盘或系统内存中。因此，显存需求取决于模型的层大小，而非总参数量。这使得以下配置成为可能：</p>
+<ul>
+<li>单张 4GB 显存 GPU 运行 70B 模型（如 Llama 3.x）。</li>
+<li>8GB 显存运行 405B 模型（如 Llama 3.1）。</li>
+<li>~12GB 显存运行 671B 模型（如 DeepSeek-V3）。</li>
+<li>不到 4GB 显存运行 2.8T 参数模型（如 Kimi K3）。</li>
+</ul>
+<p>项目支持通过一行代码调用 <code>AutoModel.from_pretrained()</code> 自动检测并加载主流模型，包括 Llama、Qwen、DeepSeek、Mistral、Phi、Gemma 等，并支持 CPU 推理及 MacOS（Apple Silicon）环境。</p>
+<p><strong>性能优化</strong><br />
+为了缓解流式加载带来的速度瓶颈，AirLLM 提供了多项优化：</p>
+<ul>
+<li><strong>模型压缩</strong>：支持基于分块量化（block-wise quantization）的 4-bit 和 8-bit 压缩。由于瓶颈主要在磁盘加载而非计算，仅量化权重即可大幅减小加载体积，最高可将推理速度提升 3 倍，且精度损失可忽略。</li>
+</ul>
+<p><img src="https://github.com/lyogavin/airllm/raw/main/assets/airllm2_time_improvement.png?v=2&raw=true" alt="speed_improvement" /></p>
+<ul>
+<li><strong>预取技术（Prefetching）</strong>：通过预取下一层数据，重叠模型加载与计算过程，可提升约 10% 的推理速度。</li>
+</ul>
+<p><strong>适用场景与社区反馈</strong><br />
+由于需要频繁从磁盘读取数据，AirLLM 的推理速度相对较慢（例如 Kimi K3 在 RTX 6000 Ada 上的速度约为 292 秒/token）。社区讨论指出，该技术并不适合需要实时交互的场景，但在以下领域具有实用价值：</p>
+<ul>
+<li><strong>离线批处理</strong>：适合处理大量不要求即时响应的任务，如代码重构、批量问答等。</li>
+<li><strong>显存受限设备</strong>：为拥有大磁盘空间但小显存（如 4GB-8GB 显卡）的用户提供了运行前沿大模型的可能。</li>
+<li><strong>成本控制</strong>：利用闲置硬件或避免云端 API 调用费用，适合预算有限的个人开发者。</li>
+</ul>
+<p>尽管存在维护挑战和速度限制，AirLLM 通过降低大模型部署门槛，为资源受限环境下的 AI 应用提供了新的解决方案。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49154228</guid>
+      <pubDate>Mon, 03 Aug 2026 11:15:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenAI的Astra模型在数学与理论计算机科学领域取得十项重大突破</title>
       <link>https://news.ycombinator.com/item?id=49157930</link>
@@ -929,37 +983,6 @@ GPT-5.6 的定价策略反映了 AI 行业从单纯追求性能向“性价比�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49111237</guid>
       <pubDate>Thu, 30 Jul 2026 15:15:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>主动出击：冷邮件如何改变了我的人生轨迹</title>
-      <link>https://news.ycombinator.com/item?id=49103089</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 内容主要为个人经验分享与随笔合集，未涉及用户明确配置的兴趣主题，兴趣不明确。</small></p><p>Zach Holman 在文章中分享了自己人生中三次重大转折，均源于主动出击（cold outreach）的经历。</p>
-<p>第一次是申请卡内基梅隆大学（Carnegie Mellon University）时，他在等待名单（waitlist）上，听从父亲建议追加了个人材料，最终成功录取。第二次是 2010 年，他回复了 GitHub 联合创始人 Chris Wanstrath 关于寻找 Ruby 开发者的推文，随后被当场录用。第三次则是六年前通过 Twitter 私信，意外获得了一家足球俱乐部的股份，并由此深入涉足体育科技领域。</p>
-<p><img src="/images/posts/cold-email.png" alt="GitHub 招聘推文截图" /></p>
-<p>尽管承认存在幸存者偏差，Holman 强调“不尝试就永远没机会”。他建议人们在联系他人时应保持真诚和尊重，真正对对方感兴趣，而非机械地群发。同时，作为接收方，他也呼吁保持开放心态，接受冷简历和 Pitch，这有助于扩展人脉并打破认知盲点。</p>
-<p>HN 社区对此反响热烈，许多读者分享了类似的经历，认为“被拒绝也没什么损失，问了可能就有好结果”。此外，评论区还讨论了当前 AI 生成邮件泛滥的问题，大家普遍认为在冷联系中保持人性化、简短且真诚的风格更容易获得回应。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49103089</guid>
-      <pubDate>Wed, 29 Jul 2026 21:06:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 生产力错觉：为什么折腾工具不如解决正确的问题</title>
-      <link>https://news.ycombinator.com/item?id=49104335</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章探讨编程生产力与工具使用的误区，强调专注解决问题而非过度折腾工具，契合用户“很感兴趣”的编程效率改进经验主题。</small></p><p>在《生产力错觉》一文中，作者 Alex Kotliarskyi 分享了一段在 Facebook 的经历，揭示了开发者常陷入的一个误区：过度关注工具而忽视了解决问题本身。</p>
-
-<p>作者曾自诩为“生产力狂人”，拥有高度定制化的 Vim 环境和复杂的开发工作流。然而，在一次黑客马拉松中，他惊讶地发现，最终获胜的传奇工程师 Bob 使用的是最基础的 Sublime Text，甚至不用调试器，而是通过 <code>printf</code> 打印日志来调试。Bob 的成功并非源于工具的先进，而是因为他拥有敏锐的<strong>产品直觉（Product Intuition）</strong>，能够专注于解决正确的问题。</p>
-
-<p>文章指出，每天都有人发明新的工作方式或工具（如 AI 代理、笔记应用等），承诺能彻底改变一切。但正如社区评论所讨论的，这种对工具的痴迷往往类似于“汽车改装文化”，更多是为了开发者个人的乐趣或减少主观上的疲劳，而非直接提升最终产出。许多开发者倾向于构建基础设施或优化流程，却逃避面对真实业务逻辑的复杂性。</p>
-
-<p>结论是：工具只是辅助，真正的生产力来自于对产品的深刻理解和对正确问题的解决。不要陷入“生产力错觉”，而应关注实际价值。</p>
-
-<h3>你知道吗？</h3>
-<p>这种对工具的过度迷恋在心理学上有时被称为<strong>“生产力色情（Productivity Porn）”</strong>或“准备陷阱”。人们往往通过整理工具、优化工作流来逃避面对真实问题的焦虑和不确定性。正如《人月神话》（The Mythical Man-Month）中所暗示的，软件开发者常有一种倾向：更愿意花时间在构建解决工具的工具上，而不是直接去解决核心问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49104335</guid>
-      <pubDate>Wed, 29 Jul 2026 23:18:11 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,58 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 03 Aug 2026 23:16:45 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 03:34:23 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.221 更新总结</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.221</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要特性与核心功能改进</h3>
+<ul>
+  <li><strong>Focus View 模式</strong>：在 VSCode 中新增 Focus view，可通过 <code>Ctrl+Alt+F</code> 或命令切换。该功能隐藏工具活动详情，改为显示可展开的每轮摘要，并带有实时运行工具指示器，有助于减少界面干扰。</li>
+  <li><strong>沙箱凭据文件支持 <code>mode: "mask"</code></strong>：在 Linux 和 WSL 环境中，沙箱命令现在可以读取凭据文件的副本或指定片段，代理会在出口处替换真实值，增强凭据管理灵活性。</li>
+  <li><strong>提示词审计工具</strong>：新增 <code>prompt-audit</code> 子命令，可帮助开发者审计提示词和工具描述，识别针对旧版模型编写的模式并进行优化。</li>
+  <li><strong>后台会话工作流优化</strong>：后台会话现在会自动提交并推送代码以保留工作进度，仅在任务明确要求时创建草稿 PR，并严格遵循 <code>CLAUDE.md</code> 中的 Git 指令，最终报告工作位置。</li>
+  <li><strong>会话分支独立化</strong>：使用 <code>/fork</code> 命令分叉的会话现在会创建独立的工作树（worktree），避免与原始会话的签出目录冲突。</li>
+  <li><strong>快速模式积分耗尽提示</strong>：当快速模式会话中途积分用完时，系统会在流中明确报告，而非静默失败。</li>
+</ul>
+<h3>其他改进与修复</h3>
+<ul>
+  <li><strong>性能与缓存优化</strong>：改进了自动模式下的权限检查缓存效率，通过复用对话前缀减少提示缓存成本；Stats 面板现已统计缓存 token 总量，并按输入、输出、缓存读取和写入分类展示。</li>
+  <li><strong>MCP 与工具交互修复</strong>：修复了 print mode 下 MCP 服务器未连接导致模型输出工具调用为文本的问题；解决了 SDK MCP 工具命名冲突引发的崩溃；修复了 WebSearch 在禁用思考模式时的 400 错误。</li>
+  <li><strong>Vim 模式与交互优化</strong>：修复了 Vim 模式下 yank 寄存器在对话框和历史搜索中被清空的问题，以及撤销至空提示时的行为；改进了表情符号自动补全，支持更多常用别名。</li>
+  <li><strong>会话管理与通知优化</strong>：修复了按 Esc 撤回提示词后重新提交时 @-提及文件丢失的问题；修复了会话重命名在不同客户端间不同步的问题；优化了插件安装后的即时激活逻辑及通知清除机制。</li>
+  <li><strong>其他修复</strong>：修复了 Bedrock 认证在特定环境下的失败问题；解决了休眠唤醒后 OAuth 令牌刷新竞态条件；改进了 <code>/ultrareview</code> 和 Monitor 命令的错误提示；移除了审批提示中重复的权限模式变更通知。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.221</guid>
+      <pubDate>Tue, 04 Aug 2026 00:14:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>Hapi v0.26.0 发布：新增 GitHub Copilot CLI 支持、缓存 Token 仪表盘及多项 UI 优化</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.26.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>Hapi 是一款允许同时运行多个 CLI 编码代理（如 Claude Code）的桌面终端应用，每个任务在独立的 git worktree 中隔离。本次 v0.26.0 版本带来了多项核心功能增强与界面优化。
+
+<h3>核心功能与特性更新</h3>
+<ul>
+  <li><strong>新增 GitHub Copilot CLI 支持</strong>：通过 ACP（Agent Communication Protocol）协议，正式支持 GitHub Copilot CLI 代理。</li>
+  <li><strong>Token 使用可视化</strong>：新增缓存感知（cache-aware）的 Token 使用仪表盘，帮助用户更直观地监控代理资源消耗。</li>
+  <li><strong>工作区与会话管理优化</strong>：工作区浏览器现支持显示隐藏目录；执行“清除”操作时将自动开启全新会话；“进行中”会话固定区域默认为关闭状态，用户可自定义配置；Codex 探索折叠功能也变为可配置项。</li>
+  <li><strong>交互与预览增强</strong>：改进了 Fork（分支）和 Rewind（回退）操作体验；Composer 编辑器现支持图片附件预览；同时更新了 Pi agent 的官方 Logo。</li>
+</ul>
+
+<h3>界面修复与细节调整</h3>
+<ul>
+  <li><strong>UI 与布局修复</strong>：修复了跨主题的动作按钮对比度问题、文件搜索控件对齐问题、文件复制按钮重叠以及 Pull 刷新指示器动画等界面细节。</li>
+  <li><strong>语音与推送功能优化</strong>：修复了语音平台规则在设置预览中的显示问题，确保 Brief me（简报）能正确总结代理活动；在未配置语音后端时自动隐藏语音按钮；优化了 VAPID（Voluntary Application Server Identification）密钥变更后的推送订阅重连机制。</li>
+  <li><strong>输入与兼容性改进</strong>：改善了富文本编辑器（Rich Composer）的 IME（输入法编辑器）输入与换行处理逻辑；修复了浏览器本地语音探测在 Android 设备上的兼容性问题；初始化了会话未读基线数据。</li>
+</ul>
+
+<p>本次更新还迎来了新贡献者 @weixiang1862 的首次代码提交。完整更新日志可查阅：<a href="https://github.com/tiann/hapi/compare/v0.25.4...v0.26.0">Full Changelog</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.26.0</guid>
+      <pubDate>Tue, 04 Aug 2026 00:34:42 GMT</pubDate>
+    </item>
     <item>
       <title>Hapi v0.25.4 发布：支持消息级对话分支与回退、新增听写模式及会话状态面板</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.25.4</link>
@@ -1088,31 +1139,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.0</guid>
       <pubDate>Mon, 06 Jul 2026 13:33:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>Neovim 0.12.4 发布说明与安装指南</title>
-      <link>https://github.com/neovim/neovim/releases/tag/v0.12.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Neovim 0.12.4 正式发布，内置 LuaJIT 2.1.1774638290。本版本提供了完整的跨平台安装指南，支持 Windows、macOS (x86_64/arm64) 以及 Linux (x86_64/arm64)。</p>
-<h3>安装方式</h3>
-<ul>
-<li><strong>Windows</strong>：提供 Zip 压缩包与 MSI 安装包，解压或运行安装程序后即可使用。</li>
-<li><strong>macOS</strong>：提供 x86_64 与 arm64 架构的 tar.gz 压缩包，解压后运行二进制文件。</li>
-<li><strong>Linux</strong>：提供 AppImage 与 Tarball 两种格式，支持 x86_64 与 arm64 架构。若系统缺少 FUSE 支持，AppImage 可手动提取使用。</li>
-</ul>
-<p>详细的更新日志、功能改进与 Bug 修复列表，请参阅官方 <a href="https://github.com/neovim/neovim/commit/68ea43cd0c28af25cd47731308c94fedfcfd1b0b">Changelog</a> 或在 Neovim 内执行 <code>:help news</code> 查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/neovim/neovim/releases/tag/v0.12.4</guid>
-      <pubDate>Sun, 05 Jul 2026 13:41:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.201 发布：优化 Claude Sonnet 5 会话机制</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.201</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.201 版本已发布。本次更新主要涉及 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.201">Claude Sonnet 5</a> 会话机制的调整：在长对话过程中，系统不再使用对话中间（mid-conversation）的 system role 来发送 harness reminders（通常用于维持 AI 行为准则或特定指令的提醒机制）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.201</guid>
-      <pubDate>Fri, 03 Jul 2026 23:50:35 GMT</pubDate>
     </item>
   </channel>
 </rss>
