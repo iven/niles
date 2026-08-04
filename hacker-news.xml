@@ -3,7 +3,37 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 04 Aug 2026 14:42:19 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 17:03:06 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 在单张 AMD MI300X 上生产运行 DeepSeek V4 Flash 模型</title>
+      <link>https://news.ycombinator.com/item?id=49166386</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章核心介绍 DeepSeek V4 Flash 新AI模型的开源部署实践与生产运行经验，契合用户对高AI模型与开源项目的兴趣，故定为 critical。</small></p><h2>项目概述</h2>
+<p>该 GitHub 仓库提供了一套完整的配置与补丁，旨在单张 <a href="https://en.wikipedia.org/wiki/AMD_MI300X">AMD MI300X</a> GPU 上生产环境运行 <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731">DeepSeek V4 Flash</a> 模型（304B 参数，256 MoE 专家）。该项目填补了官方 vLLM 配方主要针对 NVIDIA 及较新 AMD 硬件（如 MI325X/MI355X）的空白。</p>
+
+<h2>核心挑战与解决方案</h2>
+<p>在 MI300X 上直接运行该模型面临多项硬件与软件兼容性问题，项目通过一系列补丁（patches）解决了这些障碍：</p>
+<ul>
+  <li><strong>FP8 格式不兼容</strong>：MI300X 使用 AMD/Graphcore 的 FNUZ 变体，而官方代码默认使用 OCP 标准。直接混用会导致数量级的精度误差。项目修正了 Lightning Indexer 缓存写入器的字节布局。</li>
+  <li><strong>MoE 路由与 MXFP4 优化</strong>：修复了 Triton 内核中 MXFP4 位矩阵填充掩码错误，并针对 gfx942 架构提供了 AITER GEMM 调优表，显著提升吞吐量。</li>
+  <li><strong>推测解码支持</strong>：实现了因果多令牌推测验证（Causal Multi-Token Speculative Verification），以支持 DSpark 模块。</li>
+</ul>
+
+<h2>性能表现</h2>
+<p>在保留全精度权重（无额外量化或权重卸载）的情况下，模型占用 156.67 GiB HBM 显存，并采用 20 GB GPU 缓存 + 96 GiB CPU 卸载的混合 KV 策略。实测性能如下：</p>
+<ul>
+  <li><strong>单流解码</strong>：168.6 tok/s（中位数）</li>
+  <li><strong>Prefill 速度</strong>：约 7.9K–8.5K tok/s</li>
+  <li><strong>并发性能</strong>：8 流并发时聚合 542 tok/s（单流中位数 90.3 tok/s）；64 流突发时聚合 830 tok/s，无内存溢出（OOM）。</li>
+  <li><strong>上下文窗口</strong>：验证支持 256K 长度（架构原生支持 1M）。</li>
+</ul>
+
+<h2>部署与社区反馈</h2>
+<p>部署采用 Docker Compose 栈，包含 vLLM ROCm 夜间构建版、Caddy 反向代理及一系列 SHA-256 校验的生产级覆盖文件。社区讨论指出，虽然 MI300X 通常以昂贵的 8 卡 OAM 模块形式出售，但可通过 <a href="https://www.amd.com/en/developer/resources/cloud-access/amd-developer-cloud.html">AMD Developer Cloud</a> 租赁试用。尽管单卡吞吐量不及 DeepSeek 官方在 H800 集群上的表现，但该方案成功在单卡上实现了全精度运行，并在上下文窗口缩减与硬件成本之间取得了实用平衡。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49166386</guid>
+      <pubDate>Tue, 04 Aug 2026 10:00:55 GMT</pubDate>
+    </item>
     <item>
       <title>AI生成图片劝退读者：为何个人博客应拒绝AI配图</title>
       <link>https://news.ycombinator.com/item?id=49167113</link>
@@ -932,23 +962,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49119559</guid>
       <pubDate>Fri, 31 Jul 2026 06:08:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI推理API正在制造“会话锁定”：用户失去对会话数据的控制权</title>
-      <link>https://news.ycombinator.com/item?id=49118781</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨了AI推理API的机制及其带来的数据锁定问题，属于AI软件技术范畴，符合用户对AI软件技术进展的兴趣。</small></p><p>文章指出，AI推理API（Inference APIs）正在背离“会话属于用户”的初衷，转而通过加密推理、隐藏搜索、不透明压缩和加密子代理消息等方式，将会话状态锁定在提供商的服务器上。这导致用户的本地转录本不再是完整的会话，而只是指向服务器端数据的指针。</p>
-<p>文章提出了评估会话所有权的五个测试标准：检查（Inspection）、导出（Export）、重放（Replay）、审计（Audit）和删除（Deletion）。目前，主流模型提供商普遍采用“提供商密封状态”（provider-sealed state），例如返回加密的思维链（chain of thought）、隐藏服务器端搜索的完整上下文、以及使用加密的上下文压缩（compaction）和子代理通信。这些功能虽然声称能提升性能或安全性，但实际上剥夺了用户对会话数据的控制权，并加剧了生态系统的锁定（lock-in）。</p>
-<p>尽管大多数用户可能不会频繁切换模型，但会话的可移植性至关重要。它不仅是应对服务中断或政策变更的备份手段，更是维持市场竞争和信任的纪律。文章呼吁推理API提供商应承诺：以本地事件日志为权威，提供显式的存储选项，确保加密内容附带可读的移交摘要，记录托管工具的全保真日志，并实现子代理通信的完全可审计性。</p>
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>思维链（Chain of Thought, CoT）</strong>：指大语言模型在生成最终答案前进行的逐步推理过程。提供商通常隐藏此过程以防止“角色混淆攻击”（Role-Confusion Attacks），即攻击者通过观察模型的推理来提取系统提示词或越权操作，但这也导致用户无法审计模型的决策逻辑。</li>
-<li><strong>上下文压缩（Context Compaction）</strong>：当对话过长超出模型上下文窗口时，系统会将早期对话总结或压缩。服务器端压缩通常生成加密或不可读的格式，以便原提供商继续高效处理，但牺牲了跨模型迁移的能力。</li>
-<li><strong>POSSE（Publish on your own site and Syndicate Elsewhere）</strong>：IndieWeb运动中的理念，主张用户应首先在自己的平台上发布内容，再同步到第三方平台。这与文章主张的“会话数据应本地优先、可导出”的理念高度契合，强调数据主权。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49118781</guid>
-      <pubDate>Fri, 31 Jul 2026 03:47:59 GMT</pubDate>
     </item>
   </channel>
 </rss>
