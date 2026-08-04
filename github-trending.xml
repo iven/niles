@@ -3,7 +3,129 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Tue, 04 Aug 2026 09:47:18 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 12:19:20 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Uber 开源企业级 AI 代理安全系统 ADR：实现可观测性、基准测试与威胁检测</title>
+      <link>https://github.com/uber/ADR</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍企业级AI代理安全系统，契合AI软件技术进展兴趣，故推荐阅读。</small></p><p>Uber 开源了企业级 AI 代理安全系统 <strong>ADR (Agentic AI Detection and Response)</strong>，该系统已在 Uber 生产环境中部署，相关研究论文已被 MLSys 2026 接收（<a href="docs/adr-paper.pdf">Paper PDF</a> · <a href="docs/adr-mlsys-2026-slides.pdf">Slides PDF</a>）。ADR 旨在保护员工端（如 Cursor、Claude Code、Codex）和客户端（如 AI 客服）的 AI 代理，通过四大核心能力构建安全防线：</p>
+<ol>
+  <li><strong>可观测性 (Observability)</strong>：通过 ADR Sensor 收集并标准化来自 7 种以上 AI 编码工具及内部自动化系统的遥测数据，全面掌握代理意图、工具调用与执行轨迹。</li>
+  <li><strong>基准测试 (Benchmark)</strong>：开源的 ADR-Bench 包含 300 多项任务、133 个 MCP 服务器，覆盖全部 17 种已知代理攻击技术，用于在真实企业环境下评估代理安全性。</li>
+  <li><strong>威胁检测 (Detection)</strong>：采用双层架构，结合高召回率初筛与深度代理推理，高效识别可疑会话中的风险行为。</li>
+  <li><strong>主动防御 (Prevention)</strong>：在操作造成损害前阻止不安全行为（注：该模块暂未包含在本次开源版本中）。</li>
+</ol>
+<p>当前开源仓库主要包含 ADR Sensor、ADR-Bench 以及 ADR Detector 组件。项目采用 Apache 2.0 许可证，基准测试数据均为合成数据，仅用于防御性安全研究。如需复现基准测试与论文图表，可参考 <a href="docs/REPRODUCIBILITY.md">docs/REPRODUCIBILITY.md</a>；关于开源审查细节详见 <a href="docs/OPEN_SOURCE_REVIEW.md">docs/OPEN_SOURCE_REVIEW.md</a>。</p>
+<h3>你知道吗？</h3>
+<p>MCP (Model Context Protocol) 是由 Anthropic 提出的开放标准，旨在为 AI 模型提供统一的外部数据与工具接口。在 ADR 的基准测试中，利用 133 个 MCP 服务器模拟真实企业环境，能够有效检验 AI 代理在面对复杂外部工具调用时的安全性与鲁棒性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/uber/ADR</guid>
+      <pubDate>Tue, 04 Aug 2026 12:15:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Superpowers：为 AI 编码代理设计的系统化软件开发方法论</title>
+      <link>https://github.com/obra/superpowers</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 聚焦AI编码代理的开发方法论，直接契合编程效率改进经验与AI进展，故列为必看。</small></p><p><a href="https://github.com/obra/superpowers">Superpowers</a> 是一个专为 AI 编码代理（coding agents）设计的完整软件开发方法论与技能框架。它通过一组可组合的“技能（Skills）”和初始指令，引导 AI 代理在开发过程中遵循严谨的工程实践，而非盲目生成代码。</p>
+<p>该项目的核心工作流程始于需求澄清。当代理启动时，它会先通过交互式提问提炼用户的设计规格，并在用户确认后才制定详细的实施计划。计划执行阶段采用<strong>子代理驱动开发（subagent-driven-development）</strong>模式，代理会自主拆解任务、编写代码并进行两阶段审查（规范合规性与代码质量），强调真正的红绿测试驱动开发（TDD）、YAGNI 和 DRY 原则。</p>
+<p>Superpowers 内置了丰富的技能库，涵盖以下核心领域：</p>
+<ul>
+<li><strong>测试与调试：</strong>强制执行 RED-GREEN-REFACTOR 循环，并提供系统化的根因分析流程。</li>
+<li><strong>协作与规划：</strong>包含头脑风暴、并行子代理调度、Git 工作树管理及代码审查机制。</li>
+<li><strong>元技能：</strong>提供技能编写指南与系统引导。</li>
+</ul>
+<p>该项目广泛兼容主流 AI 编程工具，包括 <a href="https://claude.com/plugins/superpowers">Claude Code</a>、<a href="https://github.com/openai/plugins">OpenAI Codex</a>、Cursor、GitHub Copilot CLI 以及 Gemini CLI 等。其设计哲学强调系统化流程优于临时发挥，以简化复杂性为首要目标，并坚持“证据优于声明”的验证原则。此外，项目提供企业商业支持选项，并默认包含可选的遥测（telemetry）功能以统计版本使用情况。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/obra/superpowers</guid>
+      <pubDate>Tue, 04 Aug 2026 12:15:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Cypress：现代前端浏览器自动化测试框架</title>
+      <link>https://github.com/cypress-io/cypress</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍现代前端自动化测试框架，属于编程工具分享，故推荐阅读。</small></p><p><a href="https://www.cypress.io">Cypress</a> 是目前 GitHub 上备受瞩目的开源项目之一，它是一款专为现代 Web 应用设计的快速、简单且可靠的浏览器自动化测试框架。与传统测试工具不同，Cypress 直接在浏览器沙箱中运行测试代码，从而消除了网络延迟和异步操作带来的不确定性。</p>
+<p>该项目基于 <a href="https://www.typescriptlang.org/">TypeScript</a> 构建，原生支持 Mac、Linux 和 Windows 平台。Cypress 提供了直观的测试运行器（Test Runner），允许开发者实时预览测试执行过程，并具备自动等待、网络拦截和强大的调试工具链。此外，项目团队推出了 <a href="https://www.cypress.io/cloud">Cypress Cloud</a> 服务，为团队提供测试运行状态监控、测试覆盖率分析以及历史数据追踪功能。</p>
+<p>作为开源项目，Cypress 采用 MIT 协议，并拥有极其活跃的开发者社区。用户可以通过 <a href="https://on.cypress.io/discord">Discord</a> 参与交流，或查阅详尽的 <a href="https://on.cypress.io">官方文档</a>、<a href="https://on.cypress.io/changelog">更新日志</a> 与 <a href="https://on.cypress.io/roadmap">开发路线图</a> 来跟进项目进展。</p>
+<img src="./assets/cypress-logo-light.png" alt="Cypress Logo" />]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/cypress-io/cypress</guid>
+      <pubDate>Tue, 04 Aug 2026 12:15:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Webpack：现代前端工程化的核心模块打包工具</title>
+      <link>https://github.com/webpack/webpack</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 阐述前端工程化核心打包工具，属于编程工具范畴，故推荐阅读。</small></p><div align="center">
+  <img src="https://webpack.js.org/assets/icon-square-big.svg" alt="Webpack Logo" width="200" height="200" />
+</div>
+<p>Webpack 是一款广泛使用的 JavaScript 模块打包工具（Module Bundler），目前在 GitHub 上已获得超过 6.5 万星。它的核心目标是将各类模块打包为浏览器可运行的资产，同时具备强大的资源转换与处理能力。</p>
+<p><strong>核心特性：</strong></p>
+<ul>
+  <li><strong>多格式模块支持</strong>：可打包 ES Modules、CommonJS 和 AMD 模块，并支持混合使用。</li>
+  <li><strong>按需加载与代码分割</strong>：支持生成多个异步加载的代码块（Chunks），有效减少应用初始加载时间。</li>
+  <li><strong>依赖预解析</strong>：在编译阶段解析依赖关系，从而优化运行时体积。</li>
+  <li><strong>Loader 预处理机制</strong>：通过加载器（Loader）预处理各类静态资源，支持将 TypeScript、CoffeeScript、图片、JSON 等转换为 JavaScript 可识别的格式。</li>
+  <li><strong>高度可扩展的插件系统</strong>：内置丰富的插件接口，允许开发者自定义构建流程，满足复杂的应用需求。</li>
+</ul>
+<p>Webpack 兼容所有 ES5 标准浏览器，并提供了完善的官方指南与视频教程供开发者入门。凭借其灵活的架构和庞大的生态（如 <a href="https://webpack.js.org/plugins/">Plugins</a> 和 <a href="https://webpack.js.org/loaders/">Loaders</a> 列表），它已成为现代前端工程化不可或缺的基础设施。</p>
+<p><strong>你知道吗？</strong></p>
+<p>Webpack 的“Loader”和“Plugin”机制是其区别于其他打包工具的核心设计。Loader 专注于文件内容的转换（如将 SCSS 转为 CSS），而 Plugin 则作用于构建生命周期的各个阶段，负责执行更广泛的任务（如优化、注入环境变量等）。这种职责分离的设计使得 Webpack 能够以极低的成本扩展出数百种功能，支撑起庞大的前端生态。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/webpack/webpack</guid>
+      <pubDate>Tue, 04 Aug 2026 12:15:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ spdlog：高性能跨平台 C++ 日志库</title>
+      <link>https://github.com/gabime/spdlog</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍高性能C++日志库，属于编程工具分享，故推荐阅读。</small></p><p>spdlog 是一款专为 C++ 设计的高性能日志记录库，以其极快的执行速度和轻量级的架构在开发者社区中广受好评。该库支持跨平台运行，兼容 Linux、Windows、macOS 及 Android 等主流操作系统，并可通过各大主流包管理器（如 Homebrew、vcpkg、Conan 等）便捷集成。</p><p>在功能设计上，spdlog 提供了丰富的日志处理特性。它支持异步日志模式，能够有效降低日志记录对主线程性能的影响；内置基于 <a href="https://github.com/fmtlib/fmt">fmt</a> 库的字符串格式化功能，支持丰富的占位符与自定义格式。开发者可灵活配置多种日志输出目标，包括控制台（支持彩色输出）、循环日志文件、每日日志文件、syslog 以及 Windows 事件日志等。此外，该库还支持运行时与编译时的日志级别动态过滤，并具备回溯（Backtrace）功能，可将调试信息暂存于环形缓冲区中，便于在错误发生时集中排查。</p><p>对于复杂应用场景，spdlog 提供了高度可扩展的 API。开发者可轻松创建多目标日志器（Multi-sink），为不同输出渠道设置独立的日志级别与格式；同时支持自定义回调函数、二进制数据十六进制打印以及日志文件打开/关闭事件钩子。凭借其简洁的 API 设计与卓越的性能表现，spdlog 已成为现代 C++ 项目中替代传统日志方案的热门选择。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/gabime/spdlog</guid>
+      <pubDate>Tue, 04 Aug 2026 12:15:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Deno：基于 Rust 和 V8 的现代 JavaScript/TypeScript 运行时</title>
+      <link>https://github.com/denoland/deno</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍现代JS/TS运行时环境，属于编程工具与平台，故推荐阅读。</small></p><p><a href="https://deno.com">Deno</a> 是一个现代化的 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>、<a href="https://en.wikipedia.org/wiki/TypeScript">TypeScript</a> 和 <a href="https://en.wikipedia.org/wiki/WebAssembly">WebAssembly</a> 运行时环境，以安全默认配置和优秀的开发者体验著称。该项目底层基于 <a href="https://v8.dev/">V8</a> 引擎、<a href="https://www.rust-lang.org/">Rust</a> 语言和 <a href="https://tokio.rs/">Tokio</a> 异步运行时构建。</p>
+<p>Deno 广泛应用于构建 Web 服务器等网络应用。其核心设计理念强调安全性，默认情况下不授予文件系统或网络访问权限，开发者需显式声明所需权限。官方提供了完善的文档体系、标准库（<a href="https://jsr.io/@std">Deno Standard Library</a>）以及现代化的包注册表 <a href="https://jsr.io/">JSR</a>，方便开发者快速上手与生态扩展。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/denoland/deno</guid>
+      <pubDate>Tue, 04 Aug 2026 12:15:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Angular：现代化的 Web 开发平台</title>
+      <link>https://github.com/angular/angular</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍现代化Web开发平台，属于核心开源项目与编程工具，故推荐阅读。</small></p><p>Angular 是一个现代化的 Web 开发者平台，专为构建移动和桌面端 Web 应用程序而设计。该项目基于 TypeScript 开发，以其跨平台兼容性、高性能、可扩展性以及完善的工具链著称，深受全球数百万开发者喜爱。</p>
+<p><img src="adev/src/assets/images/press-kit/angular_icon_gradient.gif" alt="Angular Logo" width="120px" height="120px" /></p>
+<p>Angular 提供了一套完整的开发生态系统，核心包括用于项目初始化和构建的 <a href="https://angular.dev/tools/cli">Angular CLI</a>，以及遵循 Material Design 规范的 UI 组件库 <a href="https://material.angular.dev/">Angular Material</a>。官方文档 <a href="https://angular.dev/">angular.dev</a> 详细记录了从入门指南、架构原理到高级特性（如服务端渲染 SSR、懒加载、动画等）的全面内容。</p>
+<p>作为开源项目，Angular 拥有活跃的社区支持。开发者可通过 <a href="https://discord.gg/angular">Discord</a>、<a href="https://stackoverflow.com/questions/tagged/angular">Stack Overflow</a> 等平台交流技术，并可通过 <a href="https://github.com/angular/angular/labels/help%20wanted">Help Wanted</a> 或 <a href="https://github.com/angular/angular/labels/good%20first%20issue">Good First Issue</a> 标签参与代码贡献。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/angular/angular</guid>
+      <pubDate>Tue, 04 Aug 2026 12:15:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Tailwind CSS：基于实用优先理念的 CSS 框架，助力快速 UI 开发</title>
+      <link>https://github.com/tailwindlabs/tailwindcss</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍实用优先CSS框架，属于前端编程工具，故推荐阅读。</small></p><p>Tailwind CSS 是一个开源的 CSS 框架，采用“实用优先（utility-first）”的设计理念，旨在帮助开发者快速构建自定义用户界面。</p>
+
+<img src="https://raw.githubusercontent.com/tailwindlabs/tailwindcss/HEAD/.github/logo-light.svg" alt="Tailwind CSS" width="350" height="70" />
+
+与传统 CSS 框架（如 Bootstrap）提供预定义的组件不同，Tailwind CSS 提供了一组低级别的实用类（如 <code>p-4</code> 表示内边距，<code>text-center</code> 表示文本居中）。开发者可以直接在 HTML 标记中组合这些类来设计样式，从而避免了编写大量自定义 CSS 文件的需求。
+
+该项目目前使用 TypeScript 编写，在 GitHub 上拥有超过 9.6 万颗 Star，是前端开发社区中极受欢迎的工具之一。通过提供丰富的预设类和高度可定制的配置选项，Tailwind CSS 极大地提高了 UI 开发的效率，同时保持了代码的整洁性和可维护性。
+
+如需了解更多详细信息，请访问其官方文档：<a href="https://tailwindcss.com">tailwindcss.com</a>。
+
+<h3>你知道吗？</h3>
+<p><strong>什么是“实用优先（Utility-First）” CSS？</strong></p>
+<p>传统 CSS 开发通常遵循“语义化”原则，即先定义类名（如 <code>.btn-primary</code>），再编写对应的样式规则。而“实用优先”方法则反其道而行之，它提供大量单一功能的类（如 <code>bg-blue-500</code> 设置背景色，<code>rounded</code> 设置圆角），开发者直接在 HTML 中组合使用。这种方法减少了 CSS 文件的大小，避免了类名冲突，并允许在不离开 HTML 的情况下快速迭代设计。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tailwindlabs/tailwindcss</guid>
+      <pubDate>Tue, 04 Aug 2026 12:15:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ pdf-inspector：高性能 Rust PDF 解析与智能路由库</title>
       <link>https://github.com/firecrawl/pdf-inspector</link>

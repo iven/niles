@@ -3,7 +3,37 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 04 Aug 2026 09:47:21 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 12:17:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 内核 Staging 区域将拒绝 LLM 生成补丁，真实安全修复除外</title>
+      <link>https://www.phoronix.com/news/Linux-Staging-Reject-LLMs</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Linux内核开发策略与LLM补丁审核，属于开源项目范畴，符合用户对开源项目及编程改进的兴趣。</small></p><p>Linux 内核维护者 Greg Kroah-Hartman 宣布，将拒绝通过大语言模型（LLM）生成的 <code>drivers/staging/</code> 子系统补丁。该目录的主要目的是为新内核开发者提供一个安全、友好的学习环境，包含大量适合练习的代码清理和 API 修改任务。直接使用工具生成补丁会违背让新人“在实践中学习”的初衷。</p>
+<p>不过，该政策有一个例外：如果补丁涉及真正的安全问题，允许提交。但提交者必须提供在相关硬件上的实际测试记录，并详细描述测试过程，以证明修复方案的有效性。Greg Kroah-Hartman 指出，当前 LLM 生成的安全修复方案中约有三分之一存在错误甚至有害，因此必须经过严格验证。他同时警告，LLM 生成的补丁特征明显，试图隐瞒使用行为将被视为欺骗。</p>
+<p>在 <code>drivers/staging/</code> 区域之外，AI 辅助开发仍被允许。Linux 内核创始人 Linus Torvalds 也明确表示，内核社区并不排斥 AI，应将其视为辅助工具。</p>
+<p><strong>你知道吗？</strong> <code>drivers/staging/</code> 目录中的代码通常包含不符合现代内核编码规范的内容。加载这些模块时，内核会设置 <code>TAINT_CRAP</code> 标志，表明系统已加载不受官方支持的第三方或实验性代码。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Staging-Reject-LLMs</guid>
+      <pubDate>Tue, 04 Aug 2026 10:29:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Wild Linker 0.10 发布：新增 GDB 索引支持及 Btrfs 性能优化</title>
+      <link>https://www.phoronix.com/news/Wild-Linker-0.10</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍Wild Linker 0.10发布，提供GDB索引及性能修复，属于编程工具发布与新软件项目，高度匹配用户high_interest配置。</small></p><p>Wild Linker 0.10 已正式发布。这是一个使用 Rust 语言编写的快速 Linux 链接器，旨在支持迭代开发。本次更新引入了备受期待的 <code>--gdb-index</code> 支持。该功能最初由 GNU Gold 链接器引入，随后被 LLD 和 Mold 等链接器采用。启用后，链接器会在最终二进制文件中预计算并嵌入符号索引部分（<code>.gdb_index</code>），从而显著加快 GDB 等调试器的启动速度并降低运行时开销。</p>
+<p>针对使用 Btrfs 或 VFAT 文件系统的用户，Wild 0.10 默认启用了 <code>--no-mmap-output-file</code> 选项以优化性能。虽然官方仍建议构建环境尽量避免使用这些文件系统，但该优化能带来一定的速度提升。</p>
+<p>在性能表现方面，Wild 0.10 保持了与前一版本相当的水平：<img src="//www.phoronix.net/image.php?id=2026&image=wild_010" alt="Wild 0.10 benchmark" /></p>
+<p>此外，本次更新还包含多项改进：修复了若干错误，初步启动了 32 位架构支持，WebAssembly (WASM) 端口现已能够链接更多程序，且 <code>libwild</code> 库支持完全在内存中处理输入和输出文件。更多详细信息可访问其 <a href="https://github.com/johnthagen/wild">GitHub 仓库</a>。</p>
+<h3>你知道吗？</h3>
+<ul>
+  <li><strong>链接器（Linker）</strong>是编译过程中的关键工具，负责将多个目标文件（Object Files）和库文件合并为单一的可执行文件或库。</li>
+  <li><code>--gdb-index</code> 通过在二进制文件中预先生成符号表索引，避免了调试器在启动时扫描整个二进制文件，从而大幅缩短加载时间，特别适用于大型项目。</li>
+  <li><strong>Btrfs</strong> 是一种现代写时复制（Copy-on-Write, CoW）文件系统，在某些高并发写入或特定内存映射（mmap）操作下可能表现不如传统文件系统（如 ext4），因此在构建大型软件时，开发者常建议使用 ext4 以获得最佳性能。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Wild-Linker-0.10</guid>
+      <pubDate>Tue, 04 Aug 2026 10:14:21 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ FFmpeg 9.0 正式发布：全面增强 Vulkan 加速、动画 WebP 与 AMD AMF</title>
       <link>https://www.phoronix.com/news/FFmpeg-9.0-Released</link>
@@ -732,36 +762,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Virtualization-HWE-Stack</guid>
       <pubDate>Mon, 27 Jul 2026 11:32:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Wayfire 0.11 发布，Wayland 合成器即将迎来 v1.0 正式版</title>
-      <link>https://www.phoronix.com/news/Wayfire-0.11-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍Wayfire Wayland合成器即将发布v1.0版本，属于典型的Linux桌面技术与开源软件进展，高度符合用户感兴趣的主题，故推荐阅读。</small></p><p>Wayfire 是一款模块化且可扩展的 <a href="https://wayland.freedesktop.org/">Wayland</a> 合成器（Wayland Compositor），曾作为树莓派单板计算机（Raspberry Pi SBC）的默认合成器。近日，该合成器发布了 0.11 版本，这也是开发团队在迈向 v1.0 正式版前的最后一个计划版本。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=wayfire_1" alt="Wayfire demo" />
-<p>该版本基于 <a href="https://github.com/wlroots/wlroots">wlroots</a> 框架，设计灵感源自经典的 Compiz 窗口管理器，带来了大量更新与改进。主要特性包括：</p>
-<ul>
-  <li>修复多项已知问题并新增快捷键</li>
-  <li>支持 Wayland security-context-v1、ext-copy-capture、ext-foreign-toplevel-list 及 ext-data-control-v1 等协议</li>
-  <li>支持光标移动提示（cursor warp hints）</li>
-  <li>优化 XWayland 集成、触摸交互、网格布局以及显式同步（explicit sync）功能</li>
-</ul>
-<p>由于更新内容较多，该版本被视为 v1.0 里程碑的重要铺垫。用户可前往 <a href="https://github.com/WayfireWM/wayfire">GitHub 仓库</a> 下载该版本并查看详细更新日志。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Wayfire-0.11-Released</guid>
-      <pubDate>Mon, 27 Jul 2026 10:10:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>NVIDIA 联合微软等成立 Open Secure AI Alliance，致力于开源 AI 模型安全</title>
-      <link>https://www.phoronix.com/news/Open-Secure-AI-Alliance</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲述NVIDIA等企业组建AI安全联盟的行业新闻，虽涉及AI领域但并非新模型发布或具体软件技术进展，且偏行业公司动向，用户兴趣指向不明确，故列为可选。</small></p><p>NVIDIA 联合 Microsoft、Adobe、IBM、Red Hat、SpaceX 等 20 余家企业，正式发起 <b>Open Secure AI Alliance</b>（开放安全 AI 联盟），旨在提升开源人工智能（AI）模型的安全性及规范使用。</p>
-<p>该联盟依托 Linux Foundation 的 Akrites 倡议与开放安全软件基金会（OpenSSF），致力于利用开放技术修复并披露相关漏洞。<img src="//www.phoronix.net/image.php?id=2026&image=open_secure_ai" alt="Open Secure AI Alliance" /></p>
-<p>NVIDIA 在公告中特别提及了 Hugging Face 的安全事件作为典型案例。当封闭的 AI 工具因无法区分攻击者与防御者而阻碍了必要的取证分析时，Hugging Face 在其自有基础设施上部署了开源的 GLM 5.2 模型，成功分析了逾 17,000 个操作并有效遏制了入侵。这一事件凸显了防御者自主掌控高级 AI 工具的重要性。</p>
-<p>Open Secure AI Alliance 的核心使命是确保全球防御者能够拥有可信任、可控制的开放前沿工具。通过构建多供应商生态系统，避免单点故障，防御者可以根据实际需求灵活结合使用封闭与开放模型，从而在关键安全领域实现透明度、适应性与主权控制。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Open-Secure-AI-Alliance</guid>
-      <pubDate>Mon, 27 Jul 2026 09:45:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
