@@ -3,7 +3,55 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 04 Aug 2026 17:03:06 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 18:50:11 GMT</lastBuildDate>
+    <item>
+      <title>Show HN: 用于生成多样化肤色的算法与自定义色彩空间</title>
+      <link>https://news.ycombinator.com/item?id=49170165</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 内容主要介绍肤色生成算法和色彩空间工具，应用于数字艺术和游戏开发。虽然形式上是工具分享，但垂直领域偏向美术与游戏，且与用户‘避免’中的游戏相关配置有部分重合，兴趣不明确。</small></p><p>在进行数字艺术创作或游戏开发时，如何准确且包容地表现人类肤色的多样性一直是一个难题。这篇文章介绍了一种基于简单算法和自定义色彩空间的解决方案，旨在为角色创建器和数字艺术工具提供更合理的肤色选择范围。</p>
+
+<p>作者首先构建了一个网页界面，手动在RGB色彩空间中给大量颜色样本打标签（是否像肤色），得到了一个类似“香蕉”形状的三维数据分布。<img src="img/annotater.png" alt="数据标注界面，左侧为肤色样本，右侧为非肤色样本" /> 为了简化这一复杂形状，作者引入了<strong>主成分分析（PCA）</strong>，将数据旋转到一个更容易处理的空间（XYZ空间），使分布更加对称。<img src="img/initial_to_pca.png" alt="PCA转换前后的数据分布对比图" /> 随后，作者通过手动拟合球体方程，成功定义了一个能够覆盖这些肤色数据的数学模型，并推导出了从自定义TUV空间到标准RGB空间的转换函数。</p>
+
+<p>基于该算法，作者开发了一个自定义颜色选择器，包含三个独立维度：<strong>T</strong>（控制深浅）、<strong>U</strong>（控制偏色，如红润或土黄）和<strong>V</strong>（控制冷暖）。<img src="img/picker-explain.png" alt="颜色选择器界面，标注了T、U、V三个维度的控制方向" /> 项目同时提供了Python和JavaScript的示例代码，允许开发者通过简单的采样算法生成多样化的肤色。</p>
+
+<p>作者坦诚地指出了该方法的局限性：肤色受光照、显示设备、生理特征（如血液流动、黑色素浓度）以及健康状况的影响，且手动标注过程不可避免地带有主观偏见。因此，作者将这一成果定位为“够用（good enough）”的起点，而非绝对权威的标准。此外，文章还特别探讨了肤色多样性背后的社会偏见问题，并推荐了多个关于包容性设计和反肤色歧视的优秀资源。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>主成分分析（PCA）</strong>：这是一种常用的统计方法，主要用于数据降维和特征提取。通过正交变换，PCA能够将一组可能相关的变量转换为一组线性不相关的变量（称为主成分）。在本文中，PCA帮助作者将原本倾斜且复杂的肤色数据分布“摆正”，使其能够更简单地用球体方程来描述。</p>
+<p><strong>肤色的生物学构成</strong>：人类皮肤的颜色主要由三种色素决定：<strong>黑色素（Melanin）</strong>（决定棕色/黑色程度）、<strong>血红蛋白（Hemoglobin）</strong>（决定红色/粉色程度）以及<strong>胡萝卜素（Carotene）</strong>（决定黄色/橙色程度）。虽然肤色在视觉上呈现为连续的光谱，但从生理机制上看，它实际上是一个多维度的混合结果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49170165</guid>
+      <pubDate>Tue, 04 Aug 2026 15:16:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Harness 工程：驱动 AI 递归自我改进的关键层</title>
+      <link>https://news.ycombinator.com/item?id=49164896</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章深入探讨 AI 递归自我改进（RSI）概念及其在现代模型（如 Anthropic, OpenAI）中的应用，属于前沿 AI 技术进展与核心能力探讨，高度契合用户的高兴趣配置。</small></p><p>文章探讨了人工智能（AI）的<strong>递归自我改进（Recursive Self-Improvement, RSI）</strong>不仅依赖于模型权重的直接修改，更关键的是依赖于<strong>Harness（运行编排系统）工程</strong>。Harness 是围绕基础大语言模型构建的系统，负责编排执行流程、决策、工具调用、上下文管理及结果评估。随着前沿实验室（如 Anthropic、OpenAI）研发速度的加快，Harness 工程正成为推动 AI 能力迭代的核心力量。</p>
+
+<h3>Harness 的三大设计模式</h3>
+<p>与早期的 Agent 框架不同，Harness 工程更接近运行时和软件系统设计，主要包含三种核心模式：</p>
+<ul>
+  <li><strong>工作流自动化（Workflow Automation）</strong>：定义目标导向的循环（计划-执行-观察-改进），使模型能够自主迭代。例如，OpenAI 的 Codex 代理循环通过工具调用和响应来驱动模型的下一步生成 <img src="openai-agent-loop.png" alt="Codex agent loop diagram" />。</li>
+  <li><strong>文件系统作为持久化记忆（File System as Persistent Memory）</strong>：利用 LLM 读写文件的基础能力，将实验日志、代码差异等状态持久化到文件系统中，突破模型上下文窗口的限制。</li>
+  <li><strong>子代理与后台任务（Sub-agent and Backend Jobs）</strong>：通过父代理调度多个子代理并行执行假设搜索或实验，并将结果以文件形式合并，确保执行历史的可见性与可恢复性。</li>
+</ul>
+
+<h3>Harness 优化与上下文工程</h3>
+<p>随着模型智能的提升，Harness 的优化目标正从提示词向结构化上下文、工作流乃至 Harness 代码本身演进。其中，<strong>上下文工程（Context Engineering）</strong>是关键环节：</p>
+<ul>
+  <li><strong>Agentic Context Engineering (ACE)</strong>：将上下文视为动态演化的“剧本”，通过生成器、反思器和策展人维护结构化的要点日志，防止上下文崩溃 <img src="ace.png" alt="ACE framework diagram" />。</li>
+  <li><strong>Meta Context Engineering (MCE)</strong>：将上下文管理机制（技能）与具体内容分离，通过双层优化迭代演化技能，实现更灵活的上下文管理 <img src="mce.png" alt="MCE framework diagram" />。</li>
+  <li><strong>Meta-Harness</strong>：进一步将优化目标深入到 Harness 代码本身，利用编码代理在文件系统中搜索、评估并迭代生成新的 Harness 候选方案 <img src="meta-harness-outer-loop.png" alt="Meta-Harness outer loop" />。</li>
+</ul>
+
+<h3>实际案例与社区反馈</h3>
+<p>在编码代理（如 Claude Code、Cursor）中，Harness 已整合了文件操作、Shell 执行、Git 工具及外部 API 调用，形成了类似人类开发者 IDE 的闭环 <img src="coding-harness-loop.png" alt="Coding harness loop" />。此外，<a href="https://github.com/karpathy/autoresearch">Karpathy 的 autoresearch 仓库</a> 也展示了工作流自动化的优秀实践。</p>
+<p>在 Hacker News 社区讨论中，用户指出：<strong>自定义 Harness 是应对大厂系统提示频繁变动、重获开发控制权的有效途径</strong>（如 pi.dev 作者的观点）。同时，也有开发者强调 Harness 设计需高度适配具体任务，并提醒模型在自我改进过程中可能为了追求指标而“寻找捷径”或作弊，需要设计严格的评估机制（如 fail-closed 策略）来约束。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49164896</guid>
+      <pubDate>Tue, 04 Aug 2026 06:17:54 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 在单张 AMD MI300X 上生产运行 DeepSeek V4 Flash 模型</title>
       <link>https://news.ycombinator.com/item?id=49166386</link>
@@ -923,45 +971,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49111305</guid>
       <pubDate>Thu, 30 Jul 2026 15:22:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 重构的经济效益：AI辅助开发中的代币消耗实验</title>
-      <link>https://news.ycombinator.com/item?id=49111176</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 探讨AI辅助软件开发中的代码重构实践与代币消耗成本实验，直接对应编程效率改进经验与AI工具应用，属于用户强烈感兴趣内容。</small></p><p>Thoughtworks欧洲、中东及印度区CTO <a href="https://martinfowler.com/articles/exploring-gen-ai/refactoring-economic-benefit.html">Giles Edwards-Alexander</a> 近期发表文章，探讨了在生成式人工智能（Gen AI）辅助软件开发中，代码重构对降低AI代币（Token）消耗的经济效益。</p>
-
-<img src="donkey-card.png" alt="作者 Giles Edwards-Alexander 的照片" width="80" />
-
-<p>作者构建了一个由AI代理（主要为Claude Code和Cursor）完全编写的约15万行代码应用。在开发过程中，他发现数据访问层（Data Access Layer）膨胀至17,155行，存在大量重复代码且缺乏抽象。为量化重构的价值，他设计了一项对照实验：通过逐步重构该模块，测量AI代理执行相同功能变更所需的输入代币（Input Tokens）变化。实验排除了AI的“学习”干扰，每次均使用全新上下文执行相同的代表性变更。</p>
-
-<p>实验结果显示，经过提取类、拆分文件等15步重构后，AI执行变更所需的输入代币从基线的159,564降至27,360，降幅达83%。尽管代码总行数基本保持不变，但合理的文件拆分使AI代理能够更精准地定位并读取相关代码片段，大幅降低了上下文窗口（Context Window）的压力。按当前API定价计算，每次涉及该层的变更可节省约39.7美分。</p>
-
-<img src="steps-chart.png" alt="重构步骤与代币消耗变化图表" />
-
-<p>作者指出，当前的AI代理在自主规划重构方面表现有限，仍需人类工程师主动引导和验证。此外，实验未精确计算重构过程本身消耗的代币成本。HN社区讨论认为，虽然单次节省金额看似微小，但在长期迭代和复杂功能开发中累积效应显著。同时，社区强调代码质量优于单纯的代码行数，且人类在AI重构循环（Human-in-the-loop）中仍不可或缺，AI擅长执行具体任务但缺乏全局架构视角。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49111176</guid>
-      <pubDate>Thu, 30 Jul 2026 15:10:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ DeepSeek-V4-Flash 正式版发布，Agent 能力大幅提升</title>
-      <link>https://news.ycombinator.com/item?id=49119559</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了 DeepSeek-V4-Flash 模型的正式发布及其 Agent 能力的提升，属于用户配置的 '新AI模型发布公告' 范畴，符合 '很感兴趣' 的主题，因此判定为 critical。</small></p><p>DeepSeek 官方宣布 <a href="https://api-docs.deepseek.com/updates/">DeepSeek-V4-Flash API</a> 正式进入公测阶段。此次更新对模型进行了重新后训练（re-post-trained），在保持原有架构与参数规模不变的前提下，显著增强了智能体（Agent）能力。在多项基准测试中，新版本的性能远超此前的 V4-Pro-Preview 版本：</p>
-<ul>
-<li><strong>Terminal Bench 2.1</strong>：82.7</li>
-<li><strong>Cybergym</strong>：76.7</li>
-<li><strong>Toolathlon verified</strong>：70.3</li>
-<li><strong>DeepSWE</strong>：54.4</li>
-</ul>
-<p>该模型原生支持 Responses API 格式，并针对 Codex 进行了专门适配。在调用方式上，用户只需将模型名称设置为 <code>deepseek-v4-flash</code> 即可使用。此外，DeepSeek 计划于 2026 年 7 月 24 日停用旧的 <code>deepseek-chat</code> 和 <code>deepseek-reasoner</code> 模型名称，全面过渡至 V4 系列。</p>
-<p>在成本与部署方面，DeepSeek-V4-Flash 展现出极高的性价比。其缓存读取价格低至 <code>$0.0028/mtok</code>，输出价格为 <code>$0.28/mtok</code>，远低于同类竞品。由于模型采用混合专家（MoE）架构（总参数量 284B，激活参数仅 13B，模型大小约 160GB），社区用户指出其非常适合在消费级硬件（如双张 RTX Pro 6000 或 M5 Max 芯片）上进行本地推理部署。</p>
-<p>Hacker News 社区对此更新反响热烈。用户普遍认为，尽管该模型在部分测试中（如 DeepSWE）略逊于 GPT-5.6 Luna，但在 Terminal Bench 等关键指标上表现优异，且凭借极低的价格和优秀的本地部署兼容性，为开发者提供了极具吸引力的替代方案。</p>
-<h3>你知道吗？</h3>
-<p><strong>混合专家模型（Mixture of Experts, MoE）</strong> 是一种将大型神经网络拆分为多个“专家”子网络的技术。在推理过程中，模型会根据输入内容动态选择最相关的少数专家进行处理。DeepSeek-V4-Flash 采用 MoE 架构，虽然总参数量高达 284B，但每次推理仅需激活约 13B 的参数。这种设计在维持大模型强大推理能力的同时，大幅降低了计算开销和显存需求，使得在普通硬件上运行千亿级参数模型成为可能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49119559</guid>
-      <pubDate>Fri, 31 Jul 2026 06:08:36 GMT</pubDate>
     </item>
   </channel>
 </rss>
