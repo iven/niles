@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 04 Aug 2026 03:35:35 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 06:43:06 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Cloudflare 优化 Kimi 与 GLM 模型推理：量化、压缩与缓存保护技术解析</title>
+      <link>https://news.ycombinator.com/item?id=49158581</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲解 Cloudflare 针对 Kimi 与 GLM 等大模型推理服务优化的量化、压缩与缓存保护技术，属于 AI 工程部署与软件技术进展，符合用户 interest 配置，故推荐阅读。</small></p><p>Cloudflare 在 Workers AI 平台部署 Kimi K-series 与 Z.ai 的 GLM 等大语言模型时，面临 GPU 显存受限的挑战。为提升服务效率、降低成本并保障安全，团队基于 <a href="https://github.com/sgl-project/sglang">SGLang</a> 推理框架实施了三项核心优化技术：</p>
+<p><strong>量化 KV 缓存（Quantizing the KV cache）</strong>：将默认 16 位精度（BF16）的键值缓存转为 8 位浮点数（FP8, e4m3），内存占用减半。实测中，Kimi K2.6 的上下文容量从约 68.6 万 token 提升至 137 万，并发请求承载量翻倍，总吞吐量提升约 41%，且各基准测试准确率无显著差异。</p>
+<p><strong>压缩模型权重（Compressing the model weights）</strong>：将 GLM 5.2 的模型权重从 FP8 压缩至 4 位整数（INT4），权重体积缩减约 40%。由于解码（decode）阶段受限于显存带宽，数据量减少显著提升了生成速度；预填充（prefill）阶段因需反量化略有延迟，但整体精度保持持平。</p>
+<p><strong>缓存完整性检查（KV cache integrity checking）</strong>：高并发共享显存易引发页表映射错误。Cloudflare 引入了轻量级校验机制，在读取缓存前核对页映射关系，异常请求将被安全中止。该机制对吞吐量与延迟的开销低于 1%，且默认路径无额外性能损耗。</p>
+<p><img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01KZ1PVA5SC9J87PS1R2B97N1F.png&w=1999&h=1125&f=webp&fit=cover&position=center" alt="Cloudflare 模型服务优化技术示意图" width="1999" height="1125" /></p>
+<p><strong>社区反馈：</strong>Hacker News 用户对此文评价不一。部分开发者指出，官方测试缺乏编程类基准（如 LiveCodeBench），担忧 KV 量化可能在长上下文任务中累积误差，影响工具调用（Tool-call）的稳定性。另有评论质疑文章行文风格疑似 AI 生成，并讨论了模型定价透明度及底层推理工程师（MLOps / Applied ML Research Engineer）的技能要求。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49158581</guid>
+      <pubDate>Mon, 03 Aug 2026 17:08:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Show HN: 通过 SSH 终端进行多人协作涂鸦的在线画布 ssh.place</title>
+      <link>https://news.ycombinator.com/item?id=49149805</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章展示了一个基于 SSH 终端实现多人协作涂鸦的编程工具，属于典型的极客向编程工具分享，匹配用户 high_interest 配置，故强烈推荐。</small></p><p><a href="https://ssh.place">ssh.place</a> 是一个基于 SSH 协议的在线多人协作画布项目。用户只需在终端运行 <code>ssh ssh.place</code> 即可连接，无需注册账号或安装任何软件。</p><p>连接后，用户可以使用方向键、WASD 或 Vim 风格的 hjkl 键移动光标，通过 0-9 数字或 Tab 键选择颜色，按空格键在画布上绘制色块。画布尺寸大于标准终端窗口，支持滚动浏览。项目设有 15 秒的绘制冷却时间，且该限制与用户的 SSH 密钥绑定，防止重复连接绕过限制。此外，服务器仅接受纯绘图指令，会拒绝任何包含字符的输入，因此无法在画布上书写文字。</p><img src="/canvas.png" alt="当前的 ssh.place 画布" width="1400" height="780" /><p>该项目由 Hack Club 的一名青少年开发者创建，灵感来源于 <a href="https://github.com/zachlatta/sshtron">SSHtron</a>。技术栈主要基于 Go 语言的 <code>wish</code> 库以及 Charm 团队的 <code>bubbletea</code> 和 <code>lipgloss</code> 终端 UI 框架，代码已开源。HN 社区对此反响热烈，部分用户讨论了类似 Reddit r/place 的阵营协作玩法，也有安全专家提醒注意 SSH 代理转发（Agent Forwarding）可能带来的风险。作者表示，若用户量激增，将进一步完善 IP 和设备维度的反作弊机制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49149805</guid>
+      <pubDate>Mon, 03 Aug 2026 00:23:21 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ LLMs奖励专业知识：提示词工程的核心在于领域知识</title>
       <link>https://news.ycombinator.com/item?id=49161518</link>
@@ -935,54 +958,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49112232</guid>
       <pubDate>Thu, 30 Jul 2026 16:26:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenAI 发布 GPT-5.6 系列，大幅降价并推出快速模式</title>
-      <link>https://news.ycombinator.com/item?id=49112867</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲述OpenAI发布GPT-5.6系列新模型并调整定价策略，直接对应全局配置中“新AI模型发布公告”的high_interest项，属于用户强烈关注的核心内容。</small></p>OpenAI 正式发布了 GPT-5.6 系列模型，通过提升模型、推理系统及上下文管理的效率，显著降低了成本并提升了性能。此次更新主要包括以下核心内容：
-
-1. **大幅降价**：
-   - **GPT-5.6 Luna**（最快、最经济模型）：价格降低 80%。
-   - **GPT-5.6 Terra**（日常平衡型模型）：价格降低 20%。
-   - 新定价：Terra 为 $2/百万输入 token 和 $12/百万输出 token；Luna 为 $0.20/百万输入 token 和 $1.20/百万输出 token。
-
-2. **GPT-5.6 Sol 快速模式**：
-   推出 Fast mode，速度比 Standard 处理快最高 2.5 倍，价格为两倍，旨在满足对响应时间要求较高的场景，同时保持智能水平不变。
-
-3. **企业应用与反馈**：
-   多家企业分享了使用体验。Replit、Notion、Ramp 和 Cognition 等公司表示，Luna 和 Terra 在成本效益、处理速度和智能表现上取得了显著进步，非常适合大规模部署、日常任务及代码生成工作流。
-
-4. **效率提升技术**：
-   OpenAI 指出，GPT-5.6 通过更直接的工作路径、优化的硬件路由和上下文管理实现了效率提升。值得注意的是，GPT-5.6 Sol 甚至被用于自主优化生产内核，使端到端服务成本降低了 20%，token 生成效率提升了 15% 以上。
-
-**社区讨论**：
-在 Hacker News 上，用户对该降价幅度表示震惊，并讨论了中美电力成本差异对模型定价的影响。此外，社区还探讨了不同模型（Luna/Terra/Sol）的搭配使用策略，以及 OpenAI 此举在市场竞争中的战略意义。
-
-**你知道吗？**
-GPT-5.6 的定价策略反映了 AI 行业从单纯追求性能向“性价比”和“规模化部署”的转变。通过模型分层（Luna/Terra/Sol），企业可以根据任务复杂度、容错率和预算灵活选择模型，从而在保持 AI 工作流高效运行的同时最大化投资回报。]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49112867</guid>
-      <pubDate>Thu, 30 Jul 2026 17:15:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google DeepMind 发布 Gemini Robotics 2，赋予机器人全身智能与精细操作能力</title>
-      <link>https://news.ycombinator.com/item?id=49111237</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Google DeepMind发布Gemini Robotics 2新AI模型，赋予机器人智能控制与精细操作能力，契合用户“新AI模型发布公告”的高兴趣配置。</small></p><div>
-  <p>Google DeepMind 发布了 <strong>Gemini Robotics 2</strong>，旨在通过多模态大模型赋予机器人“全身智能（whole-body intelligence）”。该技术致力于实现智能的全身控制、精细的灵巧操作（fine dexterity）以及团队协作能力，以应对广泛的复杂任务。</p>
-  <img src="https://lh3.googleusercontent.com/QetWez9OHWvris-YT-8xvXSoLkDG975oWnx4N_zTaxVrLSn84xgZeE34qbPMT6L3ZX9YhbiNaOjBGi_bR3Fl92kP3vAB1_etc1-I1e2xuVHu-kJ3KxA=w2464-h2464-n-nu" alt="Gemini Robotics 2 机器人演示" />
-  <p>在 Hacker News 社区中，该发布引发了热烈讨论：</p>
-  <ul>
-    <li><strong>技术潜力与商业化前景：</strong> 许多评论认为这标志着机器人领域的“GPT-2 时刻”即将到来。相比家用场景，商业应用（如制造业、物流）因能替代三班倒人力且对速度要求不高，可能率先实现经济可行性。</li>
-    <li><strong>现实挑战：</strong> 尽管进展显著，但机器人处理日常任务（如拧门把手、跌倒恢复）的成功率仍有限。专家指出，灵巧操作不仅是软件问题，更是硬件瓶颈（如传感器和夹爪设计），引用了 Rodney Brooks 关于“夹爪并非双手”的观点（<a href="https://rodneybrooks.com/why-todays-humanoids-wont-learn-dexterity/" rel="nofollow">https://rodneybrooks.com/why-todays-humanoids-wont-learn-dexterity/</a>）。</li>
-    <li><strong>架构与安全争议：</strong> 部分讨论聚焦于当前基于视觉-语言-动作（VLM/VLA）的模型是否是最优解，有人提及 Yann LeCunn 的 JEPA 架构可能更具潜力。此外，近距离人机交互的安全性和未来控制权也是社区担忧的焦点。</li>
-  </ul>
-  <p>总体而言，Gemini Robotics 2 展示了 AI 在机器人控制领域的巨大潜力，但距离可靠、低成本的通用机器人普及仍需跨越硬件与算法的双重门槛。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49111237</guid>
-      <pubDate>Thu, 30 Jul 2026 15:15:48 GMT</pubDate>
     </item>
   </channel>
 </rss>
