@@ -3,7 +3,33 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 05 Aug 2026 06:39:15 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2026 09:47:21 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Pi的极简主义设计：为何少即是多？</title>
+      <link>https://news.ycombinator.com/item?id=49176038</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Pi编程代理的极简设计及其在提升效率与降低成本方面的表现，符合用户'编程工具'及'编程效率改进经验'的高兴趣配置。</small></p><p>随着AI编程能力的提升，许多公司倾向于构建更复杂的工具（如更大的提示词、更多的编排层），但这往往导致使用成本上升。与此相反，<a href="https://earendil.com/posts/pi-autoresearch-and-databricks/">Pi</a> 刻意采用极简主义设计，自带仅 4 个工具，系统提示词和工具定义总计不到 1000 tokens。这种“少即是多”的理念正被证明在成本与性能上具有显著优势。</p>
+
+<p><img src="/static/posts/pi-autoresearch-and-databricks/databricks-cost-per-task.png" alt="Databricks benchmark chart comparing coding-agent pass rate and cost per task." /></p>
+
+<p><strong>极简设计带来的实际效益：</strong></p>
+<ul>
+  <li><strong>成本与质量并重：</strong> Databricks 在其数百万行代码库上的基准测试表明，模型调用的 <a href="https://en.wikipedia.org/wiki/Harness_(computing)">harness（运行框架）</a> 会显著影响成本与质量。在相同模型和推理强度下，简单的 harness 如 Pi 能以显著更低的成本（部分场景相差 2 倍以上）实现同等甚至更高的任务通过率。</li>
+  <li><strong>上下文纪律（Context Discipline）：</strong> Pi 通过精简指令和工具定义，每次交互发送的上下文量约为其他工具的 1/3。这种“上下文纪律”不仅减少了冗余，还使任务能在更少的交互轮次中完成。</li>
+  <li><strong>高度可扩展性：</strong> 极简不等于僵化。Shopify 利用 Pi 的扩展机制，仅通过自然语言指令便构建了 <code>pi-autoresearch</code> 扩展。该扩展实现了自动化实验与回归测试，使单元测试运行速度提升 300%，React 组件挂载速度提升 20%。</li>
+</ul>
+
+<p><img src="/static/posts/pi-autoresearch-and-databricks/shopify-autoresearch.png" alt="Screenshot from Shopify’s pi-autoresearch GitHub repository." /></p>
+
+<p><strong>为何极简主义现在能赢？</strong></p>
+<p>早期，原生 harness 因模型训练数据偏向而具有优势。但随着前沿模型（如 Claude Code 最近削减了 80% 的系统提示词）对终端环境的理解能力大幅提升，复杂的预设指令反而成为负担。Pi 提供了干净的环境接口，避免浪费上下文，尤其适合上下文窗口较小、prefill 时间较长的本地模型。</p>
+
+<p><strong>社区反馈：</strong></p>
+<p>在 Hacker News 的讨论中，用户常将 Pi 比作 <strong>Emacs</strong> 或 <strong>Neovim</strong>，赞赏其高度可定制性，但也承认其学习曲线较陡。部分用户指出，Pi 缺乏开箱即用的完善沙盒自动批准机制，需要用户自行配置权限或采用“像对待牲畜一样对待开发机”（随时重置）的策略。总体而言，社区认为 Pi 适合愿意投入时间打磨工作流、追求极致控制权的开发者。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49176038</guid>
+      <pubDate>Tue, 04 Aug 2026 22:22:12 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mistral 发布 Shieldstral：3B 参数开源多模态内容审核模型</title>
       <link>https://news.ycombinator.com/item?id=49171268</link>
@@ -950,21 +976,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49120097</guid>
       <pubDate>Fri, 31 Jul 2026 07:29:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 学术审稿遭遇“AI垃圾”泛滥：伪造引用与AI生成论文激增</title>
-      <link>https://news.ycombinator.com/item?id=49116721</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论AI生成内容在学术审稿中的泛滥与伪造引用问题，涉及AI技术进展与实际应用影响，符合用户对AI软件技术进展的兴趣。</small></p><p>在近期多个顶级人工智能会议（如 <a href="https://neurips.cc/Conferences/2026/ai-reviewing-experiment">NeurIPS</a>、WACV 和 TerraBytes）的审稿过程中，两位审稿人发现学术出版正面临严重的“AI垃圾（AI slop）”泛滥问题。他们今年夏天共审阅了22篇论文投稿，其中高达15篇（68%）包含完全伪造的引用、伪造的作者列表，或明显的LLM生成痕迹。</p>
-
-<p>这一现象并非孤例。多项独立审计显示，AI生成的虚假引用在学术界迅速蔓延。例如，《Nature》的分析指出，数万篇2025年的出版物可能包含无效的AI生成参考文献；针对 arXiv 和 bioRxiv 的审计发现，约14.69万篇虚假引用在2025年单独出现，且85.3%的虚假引用在同行评审中未被发现。此外，AI参与审稿的比例也在激增，部分会议的AI生成或AI辅助审稿比例已超过20%。</p>
-
-<p>面对这一挑战，审稿人分享了识别AI生成内容的常见特征：包括过度使用破折号和加粗格式、数据指标与表格不一致、行文生硬且过度吹嘘结果等。他们强调，虽然使用LLM辅助写作和校对是可以接受的，但作者必须对内容进行严格的人工验证和修改。直接提交未经人工仔细检查的AI生成内容，不仅浪费了审稿人的宝贵时间，也严重损害了学术研究的诚信与质量。</p>
-
-<p>社区对此反响强烈，许多从业者担忧学术出版正迅速陷入“AI生成、AI审稿、AI阅读”的自动化循环。评论中普遍呼吁建立更有效的筛选机制，例如强制要求披露LLM使用情况，或开发专门的工具来过滤低质量投稿，以保护学术生态的健康发展。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49116721</guid>
-      <pubDate>Thu, 30 Jul 2026 22:33:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
