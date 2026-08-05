@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 05 Aug 2026 14:30:16 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2026 16:53:07 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Denial WM：一款深度集成 Flutter 引擎的新型 Wayland 合成器</title>
+      <link>https://www.phoronix.com/news/Denial-WM-Compositor</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了一个名为Denial的Wayland Compositor，使用Flutter构建。符合来源配置中的“新软件项目”（high_interest）及“Linux桌面技术”（interest）。虽涉及WM，但作为基于Flutter的新项目发布，符合用户对新技术的关注。</small></p><p>Denial WM 是一款专注于 Arch Linux 集成的新型 Wayland 合成器（Wayland Compositor），采用 Rust 语言开发，并基于 Smithay 框架处理底层协议。该项目最大的特点是直接将 Flutter 引擎（Flutter Engine）深度嵌入到合成器代码中，而非将其作为普通应用运行在其他合成器之上。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=denial" alt="Denial WM" />
+<p>在架构设计上，Denial WM 通过 Rust 与 Smithay 负责 Wayland 协议状态、输入处理、DMA-BUF（Direct Memory Access Buffer）管理、DRM/KMS 呈现及原生资源生命周期。它将 Wayland 应用程序的 DMA-BUF 缓冲区直接作为 GPU 纹理（使用 EGL_EXT_image_dma_buf_import）导入 Flutter 场景，无需 CPU 读取或像素复制。Flutter 渲染结果直接输出至 GBM（Generic Buffer Manager）缓冲区用于 KMS 呈现，省去了中间渲染目标与二次合成步骤。</p>
+<p>为追求低延迟与稳定的帧率，项目团队对 Flutter 引擎与 Skia 图形库（Skia Graphics Library）进行了定制化优化，包括外部纹理损伤追踪、专用帧调度机制，以及在高频绘制路径中消除堆内存分配。目前 Denial WM 处于 Alpha 测试阶段，已支持原生 Wayland 应用、XWayland 兼容层、Steam 及 Proton 游戏、多显示器配置（已为 nwg-displays 实现专属后端）、窗口级音量控制、屏幕锁定、DPMS 及屏幕共享（已通过 OBS 测试）。此外，项目提供完整的 Flutter 开发工作流，支持热重载、DevTools 与运行时性能分析，且已通过 CI/CD（持续集成/持续部署）流程生成签名 Arch 软件包。</p>
+<p>该项目代码采用 GPLv3+ 协议开源，更多详情可访问 <a href="https://denialwm.org">DenialWM.org</a> 或查阅其 <a href="https://github.com">GitHub 仓库</a>。</p>
+<h3>你知道吗？</h3>
+<p>Wayland 合成器（Wayland Compositor）是 Linux 桌面环境的核心组件，负责管理窗口绘制、输入事件分发与屏幕输出。传统方案中，Flutter 通常作为独立应用运行在 Mutter、KWin 等合成器之上，存在额外的渲染开销。Denial WM 采用“直接嵌入”架构，利用 DMA-BUF 技术实现 GPU 与合成器之间的零拷贝数据共享，大幅降低了 CPU 负载与内存带宽占用，这在追求高性能桌面体验的 Linux 发行版中具有重要意义。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Denial-WM-Compositor</guid>
+      <pubDate>Wed, 05 Aug 2026 16:10:08 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Cloudflare 开源 Cloudflare OS：面向 AI 代理与应用的“操作系统”</title>
       <link>https://www.phoronix.com/news/Cloudflare-OS</link>
@@ -744,19 +759,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Starling-Swift-Desktop</guid>
       <pubDate>Tue, 28 Jul 2026 15:50:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE 开发者修复长期存在的文件复制缓慢问题</title>
-      <link>https://www.phoronix.com/news/KDE-Ridiculous-File-Copy-Times</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章聚焦KDE桌面环境及文件复制性能优化，高度契合来源配置中“KDE”的high_interest设定，同时属于Linux桌面技术范畴，故评为critical。</small></p><p>自 2014 年以来，KDE 社区一直存在一个关于“大量小文件复制速度极慢”的长期问题。在使用 Dolphin 文件管理器或其他基于 KIO（KDE 的输入输出框架）的程序时，复制大量小文件的速度往往远不及直接使用 <code>cp</code> 命令或 <code>rsync</code> 等工具。</p>
-<p>近日，KDE 开发者 Méven Car 着手修复这一长期缺陷。他通过修改 KIO 代码，移除了内存传输机制，并将原本逐文件处理的操作优化为批量复制折叠（将一系列文件的复制合并为单次命令）。根据性能测试数据，这一改进显著提升了复制速度：</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=kio_slow_copy" alt="KIO benchmark" />
-<p>Méven Car 指出，在 KIO 6.28 版本中，小文件复制速度比 <code>cp</code> 慢约 20 倍。通过移除进程内工作的套接字并取消每次文件的目标文件系统探测，速度提升了约 4 倍；而引入批量复制后，处理时间进一步缩短至 88 毫秒，基本达到了 <code>cp</code> 的速度，整体性能提升了约 18 倍。</p>
-<p>目前相关代码尚未合并至主分支，预计将在 KDE Plasma 6.29 版本之后发布。这一修复有望彻底解决用户长期以来“不得不使用命令行 <code>cp</code> 替代 Dolphin 进行文件复制”的痛点。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Ridiculous-File-Copy-Times</guid>
-      <pubDate>Tue, 28 Jul 2026 09:39:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
