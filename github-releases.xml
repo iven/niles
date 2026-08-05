@@ -3,7 +3,43 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 04 Aug 2026 22:20:12 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2026 00:13:59 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.222 更新说明</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.222</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.222 更新说明</h2>
+<p>本次更新主要聚焦于安全性增强、工作树隔离机制的完善以及多项交互与稳定性修复。以下是核心改动与其他更新详情：</p>
+<h3>核心功能与安全改进</h3>
+<ul>
+  <li><strong>强化工作树隔离：</strong>修复了工作树隔离会话及其子代理能够针对主签出运行破坏性 Git 命令的问题。现在，隔离机制已全面覆盖所有会话类型的文件编辑与 Bash 操作。</li>
+  <li><strong>提升自动模式安全性：</strong>通过 <code>SendMessage</code> 发送给其他代理会话的消息，在分发前将经过权限分类器评估，防止越权操作。</li>
+  <li><strong>优化 Diff 视图渲染：</strong><code>/diff</code> 视图、Remote Control 工作区差异及 Web 会话中的文件编辑差异现在直接使用原始 Git Blob 内容，忽略工作区配置的差异驱动（diff drivers）和 textconv，确保显示一致性。</li>
+  <li><strong>调整 Remote Control 启动逻辑：</strong>仓库本地设置（<code>.claude/settings.json</code> 或 <code>.claude/settings.local.json</code>）已无法开启 Remote Control 自动启动功能（仅保留关闭权限）。如需启用，请通过 <code>/config</code> 在用户级别进行配置。</li>
+  <li><strong>改进技能调用拒绝策略：</strong>当 Claude 尝试调用带有 <code>disable-model-invocation</code> 标记的技能时，系统会提示用户手动运行该技能，而非尝试自行复制其工作流。</li>
+  <li><strong>移除 Ultraplan 功能：</strong>该功能已从客户端中移除。</li>
+</ul>
+<h3>其他修复与优化</h3>
+<ul>
+  <li>修复了 PreToolUse 自动允许钩子绕过后台代理任务（如摘要生成、上下文压缩、重命名）中工具限制的问题。</li>
+  <li>修复了 Team 和 Enterprise 用户在执行 <code>/usage-credits</code> 命令时，因历史请求被忽略而错误提示“已发送请求”导致无法重新申请的问题。</li>
+  <li>修复了启动时的连接检查在 HTTPS 代理环境下挂起并失败的问题，现采用与 API 请求相同的代理感知传输层，并提供清晰的超时提示。</li>
+  <li>修复了 <code>/usage</code> 命令对 MCP 服务器使用量统计不准确的问题，现仅统计实际消耗其工具结果的请求。</li>
+  <li>修复了会话无法自动链接到推送到分支后创建的拉取请求（包括通过 GitHub REST API 创建）的问题。</li>
+  <li>修复了组织限制下 <code>model: opus</code> 风格子代理和队友别名降级逻辑错误的问题，现会正确降级至组织允许的最新模型。</li>
+  <li>修复了自定义 <code>ANTHROPIC_BASE_URL</code> 网关上流空闲超时误触发的问题。</li>
+  <li>修复了 claude.ai 连接器在会话令牌无效时被错误标记为需要授权的问题，现会正确提示 <code>/login</code>。</li>
+  <li>修复了本地工具不可用（如移除 MCP 服务器后）时不显示错误信息的问题。</li>
+  <li>修复了 <code>SendMessage</code> 因摘要过长而拒绝发送的问题，现会自动截断。</li>
+  <li>修复了子代理转录视图中努力（effort）标签显示会话级别而非子代理自身设置的问题。</li>
+  <li>修复了文件监视器在遇到文件系统错误或拆卸时可能引发的罕见崩溃。</li>
+  <li>修复了无障碍模式（<code>--ax-screen-reader</code>）下屏幕阅读器在每次退格时重新读取整个输入行的问题，现仅回显删除的字符。</li>
+  <li>修复了主机模型选择键在设置 <code>CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST</code> 时未优先于本地过期配置的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.222</guid>
+      <pubDate>Tue, 04 Aug 2026 22:39:55 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.221 更新总结</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.221</link>
@@ -1112,33 +1148,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.202</guid>
       <pubDate>Mon, 06 Jul 2026 22:51:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>fzf v0.74.0 发布：支持终端浮动窗格、新增事件与动作</title>
-      <link>https://github.com/junegunn/fzf/releases/tag/v0.74.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>终端集成增强</h3>
-<p>在 <a href="https://github.com/tmux/tmux">tmux</a> 3.7 及以上版本中，<code>--popup</code> 选项现在会在浮动窗格（floating pane）中启动 fzf。与传统的弹出窗口不同，浮动窗格是非模态的，允许用户在 fzf 运行时切换其他窗格或窗口，并支持鼠标拖拽移动、调整大小和全屏查看。浮动窗格默认带有原生边框，若用户显式使用 <code>--border</code> 指定边框样式，则会回退使用 fzf 绘制的边框。同时，<code>--border-label</code> 将作为浮动窗格的标题显示。Zellij 终端也获得了类似的原生边框支持。</p>
-
-<h3>事件与动作扩展</h3>
-<p>新增 <code>result-final</code> 事件，该事件仅在输入流关闭后触发一次，适用于需要基于最终结果执行一次性操作的场景。新增 <code>wait</code> 动作，可阻塞后续动作直到搜索完成，方便将查询更改动作与移动动作进行链式组合，或用于等待初始输入完全加载。</p>
-
-<h3>默认绑定调整</h3>
-<p>默认将 <code>Alt+Left</code> 绑定为 <code>backward-word</code>（向前移动一个单词），<code>Alt+Right</code> 绑定为 <code>forward-word</code>（向后移动一个单词）。</p>
-
-<h3>缺陷修复与优化</h3>
-<ul>
-  <li>修复了当匹配项超过 64KB 时导出 <code>$FZF_CURRENT_ITEM</code> 导致 <code>ARG_MAX</code> 溢出并破坏预览功能的问题。</li>
-  <li>允许在 <code>transform</code> 和 <code>bg-transform</code> 动作的输出中使用裸 <code>put</code> 关键字，以插入触发该动作的按键。</li>
-  <li>修复了 zsh 中 <code>Alt+C</code> 更改目录时意外解析符号链接的问题，使其与内置 <code>cd</code> 行为一致。</li>
-  <li>修正了水平鼠标滚轮事件被错误识别为垂直滚动的问题。</li>
-  <li>修复了 <code>bw</code> 主题未正确继承覆盖颜色的问题。</li>
-  <li>解决了 fish shell 中当特定颜色变量为空时 <code>Ctrl+R</code> 失效的问题。</li>
-  <li>修正了安装脚本的空 shell 检测逻辑，以及向非 nushell 配置文件错误写入 nushell 代码的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.0</guid>
-      <pubDate>Mon, 06 Jul 2026 13:33:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
