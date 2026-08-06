@@ -3,7 +3,34 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 06 Aug 2026 12:19:21 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 06 Aug 2026 14:35:51 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 内核 Lockdown 模式遗留 I/O 与内存接口安全漏洞及修复</title>
+      <link>https://www.phoronix.com/news/Linux-Lockdown-Legacy-IO-Mem</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Linux内核锁定模式下遗留I/O与内存处理器未正确关闭的安全问题，属于Linux底层开发与系统安全范畴，符合用户对Linux技术的兴趣，故推荐。</small></p><p>Linux 内核的 <a href="https://en.wikipedia.org/wiki/Kernel_lockdown">Lockdown 模式</a>（内核锁定模式）自引入以来，旨在配合 UEFI Secure Boot（安全启动）等机制，严格限制用户空间对内核的访问，防止恶意程序修改内核代码或窃取敏感内存数据。该模式通常禁止写入 <code>/dev/mem</code> 并限制 PCI BAR 访问。</p>
+<p>然而，近期发现该模式存在一处安全疏忽：暴露给用户的 <code>legacy_io</code> 和 <code>legacy_mem</code> sysfs 接口在 Lockdown 模式下并未受到保护。这意味着即使内核处于锁定状态，拥有 root 权限的用户仍可通过这些接口写入任意 I/O 端口，或映射遗留的 PCI 内存空间，从而绕过安全限制。</p>
+<p><img src="//www.phoronix.net/image.php?id=asrock_z68_pro3&image=asrock_z68_mobo4_med" alt="PCI/PCIe slots" /></p>
+<p>该漏洞的根源可追溯至 2019 年。当时内核引入了对 PCI BAR 访问的锁定检查（通过 <code>pci_write_config()</code> 等函数），但遗漏了对遗留 I/O 和内存处理程序的安全校验。开发者 Krzysztof Wilczyński 已提交补丁修复此问题，该补丁已合并至 Linux 7.3 的 PCI 子系统分支中。由于这是对早期安全机制的补充修复，该补丁预计也将向后移植至现有的稳定版 Linux 内核中。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Lockdown-Legacy-IO-Mem</guid>
+      <pubDate>Thu, 06 Aug 2026 13:50:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 无线维护者对 AI/LLM 生成的补丁采取强硬立场</title>
+      <link>https://www.phoronix.com/news/Linux-WiFi-Strict-AI-Slop-Patch</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述Linux无线子系统维护者抵制AI/LLM生成代码补丁的立场，涉及开源社区维护规范与AI辅助编程趋势，符合用户对Linux技术及开源生态的关注，故推荐。</small></p><div>
+<p>继 Linux 内核暂存区（staging area）开始拒绝 AI/LLM 生成的补丁（安全修复除外）后，Linux 无线网络代码维护者 Johannes Berg 也宣布了对 AI 生成补丁的新政策。</p>
+<img src="//www.phoronix.net/image.php?id=intel_6205_wlan&image=intel_ivywifi_sys2_med" alt="Installed WiFi adapter" />
+<p>Berg 提出了“三秒审查”规则：如果 AI 生成的补丁不能在 3 秒内明显看出是真正的修复，他将会直接忽略这些补丁，并明确表示不会像往常一样与 LLM 生成的补丁进行评论和争论。</p>
+<p>他指出，LLM 生成的补丁往往只关注狭窄的目标修复，而忽略了代码的语义和整体架构。例如，LLM 可能会生成不必要的代码分支，而人类工程师本应在此时退后一步思考代码的正确性。他强调，维护者无法为每个问题都做出这种语义判断，需要贡献者真正思考代码的语义，而不是盲目提交 AI 生成的补丁。</p>
+<p>关于 syzbot，澄清 syzbot 生成的补丁实际上是由人类预先审查和批准的，syzbot 本身不会自动回复或提交新版本。因此，syzbot 现在被禁用发送覆盖 Linux 无线子系统的 AI 辅助补丁。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-WiFi-Strict-AI-Slop-Patch</guid>
+      <pubDate>Thu, 06 Aug 2026 12:22:18 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Rust Coreutils 0.10 发布：强化安全性并提升 GNU 兼容性</title>
       <link>https://www.phoronix.com/news/Rust-Coreutils-0.10</link>
@@ -730,34 +757,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-AMDGPU-GFX6-Modifiers</guid>
       <pubDate>Wed, 29 Jul 2026 20:47:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>Steam 客户端 Beta 更新：支持 Steam Deck OLED HDR 串流与 AV1 视频解码</title>
-      <link>https://www.phoronix.com/news/Steam-Beta-Video-Streaming</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论 Steam 客户端针对 Steam Deck 的 HDR 串流与 AV1 视频功能更新。鉴于内容涉及 Steam Deck 游戏设备及相关技术支持，匹配来源配置中对于“游戏支持”的不太感兴趣设定，故标记为可选。</small></p><p>Valve 近日发布的 Steam 客户端 Beta 更新为 Linux 玩家带来了多项游戏串流与视频播放功能的增强。本次更新主要包含两项核心改进：</p>
-<p>首先，针对 Steam Deck OLED 机型，新客户端内置了高动态范围（HDR）串流支持。该功能可显著提升远程串流时的画面色彩表现与对比度，为玩家带来更沉浸的视觉体验。</p>
-<img src="//www.phoronix.net/image.php?id=steam-deck-oled-benchmarks&image=steamdeck_oled_1_med" alt="Steam Deck OLED" />
-<p>其次，在实验性 SteamRT3 客户端环境下，Steam Deck 现已支持 AV1 视频串流。AV1 作为一种现代、开源的视频编解码格式，相比传统的专有编码方案具有更高的压缩效率与画质表现，适合偏好开放标准的用户。</p>
-<p>此外，本次 Beta 版本还包含若干已知的错误修复，具体细节可参考官方发布说明。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Steam-Beta-Video-Streaming</guid>
-      <pubDate>Wed, 29 Jul 2026 19:07:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.3 内核引入 Intel Xe3 显卡“峰值带宽阈值”省电功能</title>
-      <link>https://www.phoronix.com/news/Intel-Linux-7.3-Peak-Bandwidth</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍 Linux 7.3 内核中 Intel 显卡驱动对 Xe3 架构特性的支持，属于 Linux 内核/驱动技术范畴，符合用户兴趣；但内容聚焦于最新硬件架构特性，与来源配置中“想要避开最新款芯片相关”存在一定冲突，故综合评定为可选。</small></p><p>Intel 已向 Linux 7.3 内核合并窗口提交了最新的显卡驱动更新。本次更新的核心亮点是为 Intel Xe3 Panther Lake 及更新架构的显卡引入了“峰值带宽阈值（Peak Bandwidth Threshold）”功能，旨在优化显示功耗。</p>
-<p><img src="//www.phoronix.net/image.php?id=framework-laptop-13-pro&image=framework_13pro_7_med" alt="Framework 13 Pro powered Panther Lake" /></p>
-<p>该功能的工作原理是：当显示系统所需的带宽低于设定的最小 GV 点时，系统片上网络（SoC）会自动降低 fabric 频率以节省电力。补丁将这一带宽阈值定义为 20 GB/s。当驱动检测到所需数据率低于此阈值时，会请求添加一个额外的 QGV（量化增益电压）条目，将其峰值带宽和降频带宽均设置为 20 GB/s。该机制仅在平台为 Xe3+、存在至少一个现有 QGV 点且 QGV 总数少于 8 个时生效。</p>
-<p>尽管补丁未提供具体的省电数据，但这一机制有望降低最新一代 Intel 显卡在低负载显示场景下的功耗。此外，本周的 DRM（Direct Rendering Manager）驱动更新还启用了 Thunderbolt 隧穿链路的 Ultra-High Bit Rate (UHBR) 链接速率，为所有支持 alpha 混合的显示平面添加了 blend mode 属性，并包含多项 Bug 修复与性能优化。</p>
-<h3>你知道吗？</h3>
-<p><strong>QGV 与功耗管理：</strong>QGV（Quantized Gain Voltage）是 Intel 显卡驱动中用于管理电压和频率调节的离散点。通过限制 QGV 的数量和设定特定阈值，驱动可以更精细地控制硬件功耗，避免不必要的电压提升。</p>
-<p><strong>合并窗口（Merge Window）：</strong>Linux 内核的“合并窗口”是开发者向主线内核提交新功能的固定时间段，通常持续两周。本次更新正是为了赶在 Linux 7.3 的合并窗口前完成代码审查与合并。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Linux-7.3-Peak-Bandwidth</guid>
-      <pubDate>Wed, 29 Jul 2026 13:12:09 GMT</pubDate>
     </item>
   </channel>
 </rss>
