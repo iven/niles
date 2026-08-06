@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 06 Aug 2026 03:31:25 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 06 Aug 2026 06:44:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 以 100 倍更低成本实现开源模型检索性能超越 GPT-5.6 Sol</title>
+      <link>https://news.ycombinator.com/item?id=49186762</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了开源模型（Castform）在检索任务上的新技术进展，性能超越商业模型且成本低，符合用户对“新AI模型”及“开源项目”的兴趣偏好。</small></p><div>
+<p>Neon 与 Castform 联合发布了一项研究，展示了一个名为 <strong>Castform</strong> 的 4B 参数开源模型。该模型经过强化学习（RL）后训练（RL post-training）后，在检索搜索结果的准确性上达到了与 <strong>GPT-5.6 Sol</strong> 相当的水平，而单次请求的成本降低了约 100 倍。</p>
+<p>随着 AI 代理（Agents）的发展，检索方式已从传统的单次 RAG（检索增强生成）演变为 <strong>Agentic Search（代理检索）</strong>。代理检索允许模型在复杂任务中进行多跳搜索和规划，但每次迭代都需要调用大语言模型，导致端到端延迟超过 10 秒，单次请求成本高达约 0.03 美元，难以大规模商用。</p>
+<img src="https://cdn.neonapi.io/public/images/pages/blog/how-castform-neon-beats-frontier-models-on-price-and-efficiency/diagram-2.jpg" alt="Comparison of a traditional RAG pipeline and an agentic search workflow" />
+<p>为解决这一成本与性能的矛盾，Castform 提供了一种无需深入机器学习底层即可进行后训练的解决方案。其核心流程包括：</p>
+<ul>
+<li><strong>数据利用</strong>：将企业现有的非结构化数据（如内部文档、产品记录）转化为训练任务。</li>
+<li><strong>合成数据生成</strong>：自动生成问题与标准答案对，构建训练集。</li>
+<li><strong>RL 训练循环</strong>：通过奖励函数（如检索准确性、引用正确性）引导模型优化检索策略。</li>
+</ul>
+<p>在基础设施层面，Castform 深度集成了 Neon 的 <a href="https://neon.com/blog/how-castform-neon-beats-frontier-models-on-price-and-efficiency">Lakebase Search</a> 扩展。由于训练过程中会产生数千次并行的搜索调用，Neon 的动态计算扩展功能能够有效吸收流量峰值。同时，数据库分支（branching）和时间旅行查询（time-travel queries）为每个代理 rollout 提供了低成本的状态隔离环境。</p>
+<img src="https://cdn.neonapi.io/public/images/pages/blog/how-castform-neon-beats-frontier-models-on-price-and-efficiency/image-3.jpg" alt="Average reward over training steps" />
+<p>在 Hacker News 的讨论中，社区对这一方向表现出浓厚兴趣，但也提出了几点关键反馈：</p>
+<ul>
+<li><strong>基准测试透明度</strong>：多位用户指出，当前检索领域缺乏统一的公开基准（如 BrowseComp），许多性能声称缺乏严谨的对比数据。</li>
+<li><strong>数据质量挑战</strong>：企业知识库往往包含过时或矛盾的信息，如何设计奖励函数以训练模型处理此类噪声仍是待解难题。</li>
+<li><strong>模型路由趋势</strong>：越来越多的开发者倾向于采用“专用模型路由”架构，将检索、重排序、推理和生成任务分配给各自优化的模型，而非依赖单一通用大模型。</li>
+</ul>
+<p>Castform 团队在评论区补充了完整的代码示例和训练监控面板链接，并确认了测试数据集来源于 GitLab 的开源产品手册。尽管在 DeepSeek Flash 等更廉价模型的对比测试上仍有空白，但该方案为降低 AI 代理部署成本提供了切实可行的工程路径。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49186762</guid>
+      <pubDate>Wed, 05 Aug 2026 18:18:56 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Zed 推出 DeltaDB：面向 AI 编程的版本控制系统</title>
       <link>https://news.ycombinator.com/item?id=49187256</link>
@@ -927,24 +955,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49132058</guid>
       <pubDate>Sat, 01 Aug 2026 07:37:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 在消费级笔记本上运行 2.78 万亿参数 Kimi K3：WASTE 引擎的 NVMe 流式推理实践</title>
-      <link>https://news.ycombinator.com/item?id=49123386</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了 WASTE 这一 C 语言推理引擎，展示了在普通消费级硬件上运行超大参数 AI 模型的硬核技术方案。该文章属于编程工具分享及 AI 软件技术进展，符合 high_interest 中的编程工具发布分享。</small></p><p>近日，<a href="https://github.com/sqliteai/waste">sqliteai/waste</a> 项目发布了一款名为 WASTE（Weight-Aware Streaming Tensor Engine，权重感知流式张量引擎）的推理工具。该引擎由 C 语言编写，无第三方运行时依赖，成功实现了在消费级硬件上运行 2.78 万亿参数（2.78-trillion-parameter）的 Kimi K3 模型。</p>
-<p>由于 Kimi K3 的原始模型体积高达 1.42 TB，远超主流消费级设备的内存容量，WASTE 采用了混合专家（Mixture of Experts, MoE）架构的特性进行优化。MoE 模型在每次推理时仅激活约 4% 的权重，WASTE 将模型转换为 982 GiB 的容器，把未激活的权重保留在 NVMe 磁盘上。在推理过程中，引擎通过流式传输（streaming）技术按需从磁盘读取激活的专家权重，并将剩余内存作为有界的专家缓存（expert cache）。</p>
-<p>在性能与内存管理方面，该引擎在 64GB RAM 的 MacBook Pro 上仅需约 29GB 内存即可启动，推理速度约为 0.49–0.54 tokens/秒（tok/s）。为了进一步降低读取开销，专家权重采用了 3-bit 残差向量量化（Residual Vector Quantization, RVQ）技术。作者指出，内存管理的核心在于避免操作系统分页（paging）：当分配的内存预算超过一定阈值（如 52GB）时，系统会因分页导致性能急剧下降甚至崩溃，因此引擎将缓存大小严格限制在单次推理的工作集大小内。</p>
-<p>社区反馈与讨论主要集中在以下几个方面：</p>
-<ul>
-<li><strong>实际可用性</strong>：部分用户指出 0.5 tok/s 的速度过慢，仅适合在夜间运行异步任务（如长文本摘要），不适合实时交互。</li>
-<li><strong>运行成本</strong>：有计算表明，由于 CPU/NPU 处理效率远低于专用 GPU 集群，该方案每百万 token 的电费成本可能高达数美元，且硬件前期投入较高。</li>
-<li><strong>技术对比</strong>：与类似项目 Deltafin 相比，WASTE 通过量化减少了每次 token 的磁盘读取量（约 17GB vs 25.8GB），但承认这可能导致约 34% 的精度损失。</li>
-<li><strong>项目文档争议</strong>：部分 HN 用户认为项目的 README 文档风格疑似由 LLM 生成，引发了关于开发者是否应亲自撰写文档的讨论。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49123386</guid>
-      <pubDate>Fri, 31 Jul 2026 14:12:38 GMT</pubDate>
     </item>
   </channel>
 </rss>
