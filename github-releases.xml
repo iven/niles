@@ -3,7 +3,33 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 06 Aug 2026 00:08:29 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 06 Aug 2026 03:32:38 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.223 更新：会话压缩优化、命令别名调整及多项 Bug 修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.223</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>核心功能与交互改进</h3>
+<ul>
+<li><strong>会话上下文自动压缩优化</strong>：更新了 <code>CLAUDE_CODE_DISABLE_1M_CONTEXT</code> 环境变量的行为，现在会将所有原生支持 1M 窗口的 Claude 模型自动压缩至 200K 上下文，并在启动时提供警告提示。同时，自动压缩逻辑已扩展至未识别的模型 ID，防止上下文超出假设窗口大小（可通过设置 <code>CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_ENFORCEMENT=1</code> 恢复旧行为）。</li>
+<li><strong>命令别名与审查功能调整</strong>：<code>/review</code> 命令现作为 <code>/code-review</code> 的别名，支持审查当前差异或 PR。若未指定审查级别，将复用上次使用的级别；输入 <code>/code-review ultra</code> 可触发深度云审查。</li>
+<li><strong>会话恢复与子代理提示</strong>：在云端会话中新增 <code>/teleport</code> 提示，指导用户如何通过 <code>claude --teleport &lt;session id&gt;</code> 在本地继续会话。当工作流代理、Fork 技能或后台代理请求的子代理模型受限时，系统将发出警告并自动切换至父代理模型运行。</li>
+</ul>
+<h3>配置与管理设置优化</h3>
+<ul>
+<li><strong>市场仓库通配符支持</strong>：在 <code>strictKnownMarketplaces</code> 和 <code>blockedMarketplaces</code> 管理设置中新增了对 <code>"owner/*"</code> 通配符的支持，便于批量管理特定 GitHub 组织下的所有市场仓库。</li>
+<li><strong>网关模型发现修复</strong>：修正了网关模型发现功能，现在能够正确识别并显示以 <code>vertex_ai/claude-*</code> 或 <code>bedrock/anthropic.claude-*</code> 等 provider-prefixed IDs 注册的 Claude 模型。</li>
+<li><strong>管理设置合并逻辑修正</strong>：修复了服务器下发的设置会覆盖本地 <code>managed-settings.json</code> 或 MDM 配置中 <code>env</code> 块的问题，现改为按键合并管理设置。</li>
+</ul>
+<h3>Bug 修复与稳定性提升</h3>
+<ul>
+<li><strong>权限与安全机制修复</strong>：解决了 Bash 权限绕过漏洞、权限提示中通过制表符或不可见 Unicode 隐藏命令的问题，以及工作流脚本利用动态 <code>import()</code> 绕过沙箱执行的漏洞。同时修复了代理定义中 <code>bypassPermissions</code> 模式忽略组织禁用策略的问题。</li>
+<li><strong>会话恢复与代理状态修复</strong>：修复了会话在 <code>/cd</code> 命令后恢复为空、Fork 后台代理因父提示重建失败而卡住、以及历史包含畸形诊断附件导致会话持续失败或界面无响应的问题。</li>
+<li><strong>平台兼容性与解析优化</strong>：修正了 Linux 环境下因 <code>sandbox.filesystem.denyWrite</code> 覆盖工作目录导致沙盒命令无法启动的问题，以及解析异常 <code>git push</code> 输出时可能发生的罕见挂起现象。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.223</guid>
+      <pubDate>Thu, 06 Aug 2026 00:52:37 GMT</pubDate>
+    </item>
     <item>
       <title>0.146.1</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.146.1</link>
@@ -1128,15 +1154,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.143.0</guid>
       <pubDate>Wed, 08 Jul 2026 01:31:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.204 更新：修复无头会话远程工作进程回收问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.204</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布了 v2.1.204 版本更新。本次更新主要修复了一个关键问题：在无头会话（headless sessions）的 <code>SessionStart</code> 钩子（hook）执行期间，钩子事件未能正确流式传输。该问题可能导致远程工作进程（remote workers）在钩子处理过程中被系统错误地判定为空闲，从而被意外回收（idle-reaped），影响任务的正常执行。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.204</guid>
-      <pubDate>Wed, 08 Jul 2026 00:27:50 GMT</pubDate>
     </item>
   </channel>
 </rss>
