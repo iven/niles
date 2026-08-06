@@ -3,7 +3,37 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 05 Aug 2026 22:19:01 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 06 Aug 2026 00:09:22 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Rust Coreutils 0.10 发布：强化安全性并提升 GNU 兼容性</title>
+      <link>https://www.phoronix.com/news/Rust-Coreutils-0.10</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Rust Coreutils新版本发布，匹配用户兴趣配置中的“Rust”及“新软件项目”，故评为critical。</small></p><p>由 <a href="https://github.com/uutils/coreutils">uutils</a> 项目开发的 Rust Coreutils 0.10 正式发布。作为 GNU Coreutils 的现代化替代方案，本次更新重点聚焦于<strong>安全加固（Security Hardening）</strong>与<strong>GNU 测试套件兼容性</strong>的提升。</p>
+
+<p>在兼容性方面，Rust Coreutils 0.10 新增通过了 20 项 GNU 测试用例，使整体通过率创下 93.48% 的历史新高。此次更新改进了行为对齐、不同 CPU 条件下的 <code>nproc</code> 处理、日期越界年份解析及格式差异，并优化了错误提示信息。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=rust_coreutils_010" alt="Rust Coreutils GNU pass rate" />
+
+<p>安全性方面，项目完成了第二轮安全加固。修复了 <abbr title="Time-of-Check to Time of-Use">TOCTOU</abbr> 竞态条件漏洞，修正了安全递归下降问题，并让 <code>mkdir</code>、<code>mkfifo</code> 和 <code>mknod</code> 在创建时自动应用 <abbr title="Security-Enhanced Linux">SELinux</abbr> 标签。此外，版本移除了多个核心工具中的 <code>panic</code> 和 <code>abort</code> 调用，增强了程序稳定性。</p>
+
+<p>功能与性能上，新增支持 <code>mv --exchange</code>（实现两个路径的原子交换）与 <code>rm --one-file-system</code>，并带来了多项性能优化。完整更新日志与下载链接可访问 <a href="https://github.com/uutils/coreutils">GitHub 仓库</a>。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>TOCTOU 漏洞（Time-of-Check to Time of-Use）</strong>是一种常见的安全漏洞。它发生在程序检查某个资源的状态（如文件是否存在或权限是否足够）与随后实际使用该资源之间存在时间窗口时。攻击者可以利用这个时间差修改资源状态，导致程序基于过时的检查结果执行不安全操作。Rust 语言通过所有权模型和并发安全机制，在底层设计上能有效减少此类竞态条件的发生。</p>
+<p><strong>uutils 项目</strong>致力于使用现代编程语言（如 Rust）重写传统的 Unix 核心工具集。相比传统的 C 语言实现，Rust 版本在保持 POSIX 兼容性的同时，提供了更强的内存安全性、更好的跨平台支持以及更易于维护的代码库。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Rust-Coreutils-0.10</guid>
+      <pubDate>Wed, 05 Aug 2026 22:59:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Mesa 26.2 发布：带来 NVK 网格着色器支持及多项 Vulkan 改进</title>
+      <link>https://www.phoronix.com/news/Mesa-26.2-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍Mesa图形库新版本发布及Vulkan改进，属于开源项目与软件新功能，符合用户兴趣，故评为recommended。</small></p><p>Mesa 26.2 稳定版已正式发布，这是面向 Linux 系统的开源 OpenGL 和 Vulkan 驱动的最新季度特性更新。本次更新在 Vulkan API 方面带来了显著进展，同时也推动了 Zink（OpenGL-on-Vulkan）和 Rusticl（Gallium3D 上的 OpenCL）的发展。</p><p>主要改进包括：</p><ul><li><strong>Vulkan 驱动优化</strong>：Intel ANV 和 AMD RADV 驱动获得了多项性能优化，并合并了大量新的 Vulkan 扩展。</li><li><strong>NVIDIA NVK 驱动</strong>：继续成熟，新增了对 <code>VK_EXT_mesh_shader</code>（网格着色器）的支持。</li><li><strong>KosmicKrisp 驱动</strong>：这款将 Vulkan 转换为 Apple Metal 的驱动现已支持 Vulkan 1.4。</li><li><strong>OpenCL 支持</strong>：Rusticl 持续改进，为 asahi、iris、radeonsi、llvmpipe 和 zink 等后端提供了 OpenCL 3.1 支持。</li><li><strong>新工具与编译器</strong>：新增了 <code>Gamma</code> 工具，用于检查加速结构和光线追踪调度（目前仅支持 RADV）；Arm Mali Panfrost/PanVK 驱动合并了新的 KRAID 编译器。</li><li><strong>其他进展</strong>：包括 AMD GFX12.1 图形支持的早期开发，以及针对老旧 Radeon R600g 和 R300g 驱动的修复工作。</li></ul><p>此外，本次更新还引入了数十项新的 Vulkan 和 OpenGL 扩展，涵盖了从子组操作、着色器功能到设备内存报告等多个方面，进一步丰富了开源图形栈的功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-26.2-Released</guid>
+      <pubDate>Wed, 05 Aug 2026 22:13:57 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Denial WM：一款深度集成 Flutter 引擎的新型 Wayland 合成器</title>
       <link>https://www.phoronix.com/news/Denial-WM-Compositor</link>
@@ -728,37 +758,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Linux-7.3-Peak-Bandwidth</guid>
       <pubDate>Wed, 29 Jul 2026 13:12:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GCC 将拒绝 AI/LLM 生成的代码贡献，测试用例除外</title>
-      <link>https://www.phoronix.com/news/GCC-Declining-AI-Contributions</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章报道核心编程工具 GCC 官方决定拒绝通过 AI/LLM 提交的重大代码贡献，属于重要的编程工具政策与生态动态，符合全局配置中很感兴趣的编程工具发布/分享主题。</small></p><p>GCC 指导委员会已正式采纳 AI/LLM 政策工作组的建议，确立了对人工智能生成代码的接受标准。根据新政策，GCC 将拒绝任何“具有法律意义”的由大型语言模型（LLM）生成或衍生的代码贡献。不过，对于“不具有法律意义”的 LLM 生成代码，只要符合常规提交要求并明确标注来源，维护者仍可选择接受。作为例外，测试用例（test cases）不受此限制，允许使用 LLM 生成。该政策与 GNU 项目现有的 AI 贡献限制保持一致，GCC 利益相关者计划于 2027 年初对该政策进行重新评估。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-Declining-AI-Contributions</guid>
-      <pubDate>Wed, 29 Jul 2026 09:43:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 基于 Swift 与 AI 辅助开发的新型 Linux 桌面环境 Starling 发布</title>
-      <link>https://www.phoronix.com/news/Starling-Swift-Desktop</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了全新的Linux桌面环境Starling，匹配来源配置中的“新软件项目”（high_interest）以及“Linux桌面技术”（interest），符合用户高兴趣。</small></p><p>近日，一个名为 <strong>Starling</strong> 的新型开源 Linux 桌面环境项目正式亮相。该项目由单一开发者主导，在开发过程中大量使用了 AI 语言模型 <a href="https://claude.ai">Claude</a> 进行辅助编写。Starling 采用 <strong>Swift</strong> (Swift 编程语言) 构建桌面环境、窗口管理器及应用程序，并自带一个基于 C 语言实现的自定义 <strong>Wayland</strong> (Wayland 显示协议) 合成器（Compositor）。</p>
-
-<p>Starling 的技术架构具有以下几个显著特点：</p>
-<ul>
-<li><strong>合成器与显示协议</strong>：其自研的 Wayland 合成器实现了 xdg-shell、linux-dmabuf（零拷贝导入）、fractional-scale-v1 等多种协议，并内置了 <strong>X11</strong> (X11 显示协议) 服务器以兼容传统 X11 客户端。</li>
-<li><strong>UI 框架</strong>：桌面运行在 <strong>Flutter</strong> (Flutter 跨平台框架) 引擎的 C 核心之上，通过 <strong>DRM/KMS</strong> (DRM/KMS 显示驱动) 嵌入器工作。其 UI 框架是对 Flutter 框架到 Swift 的完整移植，无需 Dart 虚拟机。</li>
-<li><strong>安全性与启动</strong>：支持非特权会话（Unprivileged session），通过 <strong>libseat</strong> (libseat 会话库) 从 <strong>logind</strong> (logind 会话管理) 获取 DRM 主设备和输入权限，可像普通 Wayland 会话一样通过 <strong>GDM</strong> (GDM 显示管理器) 启动。</li>
-</ul>
-
-<p>在应用兼容性方面，Starling 能够运行 Chrome、VS Code、Slack、GIMP 和 Blender 等原生应用，覆盖了 Chromium/Electron、Qt6、GTK3/4 以及 JetBrains Runtime 等主流框架。项目目前提供约 53 MB 的 <strong>Ubuntu</strong> (Ubuntu 操作系统) 26.04 LTS <strong>.deb</strong> (.deb 软件包) 安装包。</p>
-
-<p>Starling 目前处于 v0.2 早期预览阶段，已在 <strong>AMD</strong> (AMD 显卡) Radeon 780M 和虚拟机 virtio-gpu 环境下验证，<strong>Intel</strong> (Intel 显卡) 和 <strong>NVIDIA</strong> (NVIDIA 显卡) 显卡支持尚在规划中，且当前缩放比例固定为 2.0。该项目采用 <strong>Apache 2.0</strong> (Apache 2.0 许可证) 开源协议，源代码托管于 <a href="https://github.com">GitHub</a> (GitHub 代码托管)，更多详情可访问 <a href="https://starling.build">Starling.build</a> (Starling 项目官网)。</p>
-
-<p>[IMAGE_0] [IMAGE_1] [IMAGE_2]</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Starling-Swift-Desktop</guid>
-      <pubDate>Tue, 28 Jul 2026 15:50:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
