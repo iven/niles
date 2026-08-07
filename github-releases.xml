@@ -3,7 +3,65 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 07 Aug 2026 00:43:43 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2026 04:03:42 GMT</lastBuildDate>
+    <item>
+      <title>Codex v0.147.0 发布：新增 Agent 插件搜索、对话区块管理与自动批准功能</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.147.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>核心功能更新</h3>
+<ul>
+<li><strong>插件生态扩展</strong>：支持安装便携式 Agent 插件，并新增跨本地、个人、工作区及远程插件目录的搜索功能，方便用户快速发现和集成外部工具。</li>
+<li><strong>对话管理增强</strong>：允许将对话组织为持久化且可手动排序的区块，支持增量浏览长对话记录，大幅提升复杂项目上下文的管理效率。</li>
+<li><strong>自动化审批</strong>：新增 <code>--approve-for-me</code> CLI 标志，启用自动审查批准功能，进一步减少人工干预，提升自动化脚本的执行效率。</li>
+<li><strong>外部技能与对话同步</strong>：支持导入 Cursor 管理的技能，并同步导入的 Claude 和 Cursor 对话记录，有效避免数据重复。</li>
+<li><strong>MCP 协议升级</strong>：全面支持 MCP 2026-07-28 协议，包括分页发现、多轮请求及非阻塞服务器启动，增强了模型上下文协议的兼容性与性能。</li>
+<li><strong>Amazon Bedrock 优化</strong>：为 Amazon Bedrock 环境启用了缓存网络搜索与远程对话压缩功能，优化了云端推理的响应速度与资源占用。</li>
+</ul>
+<h3>修复与维护</h3>
+<ul>
+<li><strong>安全性与稳定性</strong>：修复了终端输入在焦点切换、MCP 服务器初始化或 Ghostty 快捷键触发时可能丢失或卡住的问题；改进了对不熟悉本地项目的信任提示，并在插件策略更新失败时强制拒绝网络访问，强化安全隔离。</li>
+<li><strong>显示与路径处理</strong>：修正了日语字符、表情符号及超链接在终端中的渲染与光标定位问题；统一了 Windows 文件系统路径的处理逻辑，并优化了后台进程的中断机制。</li>
+<li><strong>敏感信息保护</strong>：优化了命令执行与对话历史回放中的敏感信息处理，自动隐藏密钥与完整的 bearer token。</li>
+<li><strong>依赖与构建更新</strong>：将 MCP SDK 升级至 3.0.0，Ratatui 升级至 0.30.2，V8 引擎升级至 150.4.0；采用 Azure Key Vault 进行 macOS 发布公证以提升安全性；移除了废弃的 <code>codex exec --full-auto</code> 标志，并优化了 Linux 发布包的归档策略。</li>
+</ul>
+<p>详细更新日志与完整变更对比可参考：<a href="https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.147.0">Full Changelog</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.147.0</guid>
+      <pubDate>Fri, 07 Aug 2026 01:41:49 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.224 更新：支持自托管环境、跨会话通信及移除子代理限制</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.224</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>核心功能更新</h3>
+<ul>
+  <li><strong>自托管环境支持</strong>：新增 <code>claude self-hosted-runner</code> 命令，允许 Team 和 Enterprise 用户将自有机器或容器配置为运行 Claude Code Web、移动端和桌面端会话的环境。</li>
+  <li><strong>跨会话通信</strong>：引入 <code>SendMessage</code> 功能，支持同一用户的 Claude Code 会话在不同机器间互相发送消息（目前支持 macOS 和 Linux）。</li>
+  <li><strong>移除子代理上限</strong>：移除了每会话 200 个子代理的生成限制，长会话现在可以无限制生成新代理（并发与深度限制依然有效）。</li>
+  <li><strong>新插件安装源</strong>：新增 <code>archive</code> 插件源，支持通过 HTTPS 直接安装 ZIP 格式的插件，无需依赖 Git 或 npm，并可选 SHA-256 校验。</li>
+</ul>
+
+<h3>安全与沙箱增强</h3>
+<ul>
+  <li><strong>沙箱凭据屏蔽</strong>：新增针对结构化环境变量、JWT 和 AWS SigV4 的更精细屏蔽选项，增强敏感信息保护。</li>
+  <li><strong>沙箱规则修复</strong>：修复了带尾部斜杠的文件拒绝规则（如 <code>denyRead: "~/.aws/"</code>）在 Linux 和 macOS 上可被静默绕过的问题。</li>
+  <li><strong>违规详情可见</strong>：修复了沙箱违规详情未在 Bash 工具结果中显示的问题，Claude 现在能明确获知被拒绝的文件或网络访问原因。</li>
+</ul>
+
+<h3>远程会话与体验优化</h3>
+<ul>
+  <li><strong>远程控制改进</strong>：连接失败时显示持久化错误提示与重连快捷方式；压缩进度和 <code>/clear</code> 重置操作现在会同步到附加的 Web 和移动端客户端。</li>
+  <li><strong>会话恢复修复</strong>：修复了远程会话在服务器过期后重建时，错误上传旧本地对话历史的问题。</li>
+  <li><strong>反馈调查升级</strong>：在用户授权下，反馈调查现在可上传模型设置（系统提示词、工具定义等，已自动脱敏）。</li>
+  <li><strong>路径与剪贴板修复</strong>：修复了超长项目路径导致会话目录混淆的问题；改进了 Wayland 环境下的剪贴板同步逻辑。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>本次更新引入的<strong>自托管环境（Self-hosted Environments）</strong>主要面向企业级用户。通过该功能，团队可以将代码运行在内部服务器或私有容器中，满足严格的数据合规与安全审计要求。而<strong>跨会话通信（Cross-session Messaging）</strong>则打破了传统终端实例的隔离状态，允许开发者在不同项目或机器间传递指令与上下文，显著提升了多任务并行处理时的协作效率。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.224</guid>
+      <pubDate>Fri, 07 Aug 2026 04:00:59 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.223 更新：会话压缩优化、命令别名调整及多项 Bug 修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.223</link>
@@ -1098,62 +1156,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.144.0</guid>
       <pubDate>Thu, 09 Jul 2026 16:47:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.205 更新：代理视图增强、内存优化与多项修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.205</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
-<ul>
-  <li><strong>代理视图（Agent View）增强</strong>：会话行现在显示彩色状态词和分类器生成的标题，取代原始工具调用文本；peek 模式展示完整状态及阻塞会话的具体请求。编辑、合并、评论或推送至现有 PR 的会话现在会在 <code>claude agents</code> 中直接链接该 PR。</li>
-  <li><strong>安全与自动模式改进</strong>：新增规则阻止自动模式篡改会话转录文件；在无法从上下文中解析变量时，执行 <code>rm -rf</code> 前会先进行确认。背景任务通知明确标注无人工输入，防止伪造批准被误执行。</li>
-  <li><strong>性能与资源优化</strong>：自动更新二进制文件下载改为流式传输至磁盘，替代内存缓冲，使更新器峰值内存占用降低约 400 MB。</li>
-  <li><strong>诊断与 MCP 服务器管理</strong>：<code>/doctor</code>（别名 <code>/checkup</code>）升级为完整的设置检查工具，支持诊断与自动修复问题。保留 <code>Claude Browser</code> 和 <code>Claude Preview</code> 作为保留的 MCP 服务器名称，防止用户配置冲突。</li>
-</ul>
-<h3>Bug 修复与其他改进</h3>
-<ul>
-  <li>修复 <code>--json-schema</code> 在模式无效或使用 <code>format</code> 关键字时静默产生非结构化输出的问题。</li>
-  <li>修复 Windows 环境下删除 worktree 时，若内部存在 NTFS 联接或目录符号链接，可能导致 worktree 外部文件被误删的问题。</li>
-  <li>修复后台代理在使用 <code>SendMessage</code> 恢复后，状态仍错误显示为“失败”或“已完成”的问题。</li>
-  <li>修复 <code>claude attach</code> 在后台代理处于升级重启状态时直接报错，而非等待恢复的问题。</li>
-  <li>修复会话到 PR 链接在 Bash 调用输出超过 30K 内联限制时丢失的问题。</li>
-  <li>修复 <code>claude mcp add-from-claude-desktop</code> 在服务器名称包含不支持字符时卡住的问题，现改为报告无效名称并继续导入其余服务器。</li>
-  <li>修复 Windows 上命令运行时启动目录被删除、锁定或卸载导致的崩溃，以及文件监视器在目录扫描未完成时关闭引发的崩溃。</li>
-  <li>修复代理视图在作业列表溢出屏幕时标题被裁剪的问题，以及 Web 和移动端远程控制面板中后台任务状态显示过时的问题。</li>
-  <li>修复 Cowork VM 模式本地代理会话启动失败并提示“未登录”的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.205</guid>
-      <pubDate>Wed, 08 Jul 2026 21:22:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex CLI v0.143.0 更新：远程插件默认启用、支持系统代理路由及新增 GPT-5.6 模型</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.143.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>核心功能更新</h3>
-<ul>
-<li><strong>远程插件默认启用</strong>：远程插件现已默认开启，支持 npm 市场源，并在界面中清晰显示远程与本地版本。</li>
-<li><strong>系统代理支持</strong>：Codex 现在支持通过 macOS 和 Windows 系统代理（包括 PAC 和 WPAD 配置）路由认证及 Responses API 流量，提升了企业网络环境下的兼容性。</li>
-<li><strong>模型与推理扩展</strong>：新增对 Amazon Bedrock 上 GPT-5.6 Sol、Terra 和 Luna 模型的支持，并首次将 <code>max</code> 推理努力（reasoning effort）作为一等公民支持。</li>
-<li><strong>远程协作与 MCP 增强</strong>：引入 <code>codex remote-control pair</code> 命令用于生成手动配对码；MCP 工具默认启用工具搜索，ChatGPT 托管的 MCP 服务器现支持会话认证。</li>
-<li><strong>客户端功能</strong>：App-server 客户端新增环境检查、后代线程列表查看及基于特定轮次的历史分叉功能。</li>
-</ul>
-<h3>Bug 修复与稳定性</h3>
-<ul>
-<li>修复了 Windows 平台 ConPTY 输入处理中的换行符与退格键问题，以及沙箱凭据重试的边缘情况。</li>
-<li>解决了 TUI 安全提示过时或取消审查导致 MCP 启动状态卡住的问题。</li>
-<li>改进了执行服务器（exec-server）临时离线时的自动恢复机制，并防止了远程控制令牌刷新时的重试风暴。</li>
-<li>优化了增量 WebSocket 请求成功率，并减少了因 GitHub API 速率限制导致的安装失败。</li>
-</ul>
-<h3>其他改进</h3>
-<ul>
-<li>更新了 OpenSSL、Hono、fast-uri、quick-xml 和 crossbeam-epoch 等依赖以修复安全漏洞。</li>
-<li>完善了 UUID7 线程/轮次 ID 的文档及远程执行器集成测试工作流。</li>
-</ul>
-<p>完整更新日志：<a href="https://github.com/openai/codex/compare/rust-v0.142.0...rust-v0.143.0">Full Changelog</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.143.0</guid>
-      <pubDate>Wed, 08 Jul 2026 01:31:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
