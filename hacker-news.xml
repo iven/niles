@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 07 Aug 2026 21:52:20 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2026 22:54:07 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Assembly Hall of Shame：寻找 x86 指令延迟的极限</title>
+      <link>https://news.ycombinator.com/item?id=49214098</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了一个关于 x86 指令延迟极限的 GitHub 开源项目，符合用户“开源项目”的兴趣配置；同时涉及底层汇编技术的分享，属于值得阅读的技术内容。</small></p><p><a href="https://github.com/xoreaxeaxeax/asm-hall-of-shame">Assembly Hall of Shame</a> 是一个旨在探索 x86 架构指令延迟极限的研究项目。与通常追求性能优化的方向相反，该项目致力于寻找单条指令执行的最慢情况（即性能底线）。</p>
+<p>项目设定了严格的测试规则：仅对单条指令进行计时，需经过特定前置设置，时间按 CPU 基础频率归一化，且硬件必须保持出厂配置。测试涵盖了从基础算术运算到内存管理、I/O 端口访问等多种指令类型。</p>
+<p>在当前的 x86 排行榜中，<a href="https://github.com/xoreaxeaxeax/asm-hall-of-shame">冠军指令</a>为 <code>fxrstor64</code>。该指令用于恢复 512 字节的 FPU/MMX/XMM 状态。测试者通过一种名为“PCIe 总线饥饿（PCIe fabric starvation）”的策略，利用其他核心不断向高延迟的内存映射 I/O（MMIO）区域发送非缓存事务（non-posted transactions），从而阻塞总线。这使得 <code>fxrstor64</code> 在 AMD Ryzen 7 5800H 处理器上不得不排队等待，最终耗时约 62 秒（约 1980 亿个时钟周期）。</p>
+<img src="/xoreaxeaxeax/asm-hall-of-shame/raw/main/artifacts/x86_graph.png" alt="x86 Leaderboard" />
+<p>排行榜中其他高延迟指令多与硬件底层交互有关。例如，读取未知 GPU 寄存器的 <code>mov</code> 指令、触发缓存写回的 <code>wbinvd</code>，以及访问 I/O 端口的 <code>in</code> 和 <code>out</code> 指令均榜上有名。而最慢的垫底指令则是 <code>nop</code>（空操作），仅需 1 个时钟周期。</p>
+<p>该项目由知名安全研究员 Christopher Domas (@xoreaxeaxeax) 发起。他在系统底层安全领域颇有建树，曾开发 <a href="https://github.com/xoreaxeaxeax/sandsifter">sandsifter</a>（通过暴力破解寻找未记录的 CPU 指令）和 <a href="https://github.com/xoreaxeaxeax/repsych">repsych</a>（通过控制流混淆干扰调试器）等工具。社区反馈普遍认为该项目为理解硬件底层行为提供了独特视角，部分讨论还延伸到了指令延迟测量方法（如 <code>rdtsc</code>）以及不同架构下的潜在差异。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>内存映射 I/O（MMIO）与 PCIe 总线饥饿</strong>：MMIO 允许 CPU 像访问内存一样访问外设寄存器。当 CPU 向高延迟的 MMIO 区域（如某些 GPU 寄存器）发起读取请求时，如果 PCIe 总线被大量非缓存事务（non-posted transactions，即必须等待确认的写入操作）阻塞，后续的读取请求将被迫排队等待，导致指令执行时间呈指数级增长。这种“总线饥饿”策略是该项目打破常规延迟记录的核心手段。<img src="https://github.githubassets.com/images/icons/emoji/finnadie.png" alt=":finnadie:" width="20" height="20" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49214098</guid>
+      <pubDate>Fri, 07 Aug 2026 18:01:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ DeepSeek V4 Flash 0731 在 ARC-AGI 基准测试中展现卓越性价比与推理能力</title>
       <link>https://news.ycombinator.com/item?id=49214008</link>
@@ -1007,21 +1024,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49141073</guid>
       <pubDate>Sun, 02 Aug 2026 04:21:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>动漫中的用户界面设计：复古科幻与功能主义的视觉盛宴</title>
-      <link>https://news.ycombinator.com/item?id=49139304</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨动漫中的UI设计风格，未涉及用户指定的科技或编程兴趣领域，与兴趣配置相关性不强。</small></p><p>Tumblr 博客 <a href="https://animeuserinterface.tumblr.com">Anime User Interface</a> 汇集了大量动漫与动画电影中的用户界面（UI）设计截图。这些设计往往呈现出浓厚的复古科幻色彩，充满了复杂的仪表盘、全息投影、数据流以及密集的物理按钮。</p>
-<img src="https://64.media.tumblr.com/9a2cb72f2cd6b1756e490135b0f62046/tumblr_mniucqFj5m1r2kbn7o1_r3_540.png" alt="动漫中的复杂 UI 设计截图" />
-<p>与当代追求极简主义和“防呆”设计的消费级电子产品不同，这些动漫 UI 通常具有极高的信息密度和操作复杂度。评论指出，许多设计灵感直接来源于现实中的军事、航空和工业设备，强调在高压环境下的信息清晰度和操作可靠性，而非视觉上的简洁。</p>
-<img src="https://64.media.tumblr.com/5c7a72f2cd6b1756e490135b0f62046/tumblr_n9y22jDWta1s5oxc0o2_500.gifv" alt="《Macross Plus》中的驾驶舱 UI 设计" />
-<p>社区在讨论中列举了多部经典作品，包括《Macross Plus》、《Dirty Pair: Project Eden》、《新世纪福音战士》、《星际牛仔》以及《黄金小子》等。网友们不仅探讨了 UI 的广义定义（任何信息展示或交互媒介），还分享了现实中的相关周边，例如 Wacom 推出的《新世纪福音战士》联名平板电脑，展示了这种美学在现实产品中的延续。</p>
-<h3>你知道吗？</h3>
-<p>这种充满复杂仪表盘和物理按键的设计风格，在设计领域常被称为“功能主义（Functionalism）”或“复古未来主义（Retro-futurism）”。在现实世界中，专业级设备（如飞机驾驶舱、核电站控制台或医疗仪器）至今仍保留着大量物理按钮和复杂显示屏，因为它们在紧急情况下能提供明确的触觉反馈和状态指示，避免误操作。动漫创作者往往将这种专业级设备的视觉语言放大，结合全息技术和数据可视化，构建出既硬核又充满想象力的未来世界。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49139304</guid>
-      <pubDate>Sat, 01 Aug 2026 22:47:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
