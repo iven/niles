@@ -3,7 +3,21 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 07 Aug 2026 11:54:16 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2026 13:34:18 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 新增 HID-HyperX 驱动，专用于修复 HyperX QuadCast 2 麦克风静音状态无法上报问题</title>
+      <link>https://www.phoronix.com/news/HID-HyperX-QuadCast-2-Linux-7.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了 Linux 7.3 内核即将加入针对 HyperX 麦克风静音状态的支持。该内容属于 Linux 桌面底层技术的改进，符合来源配置中“Linux桌面技术”的 interest 级别配置。虽然涉及硬件驱动，但不属于避开的核心硬件类别，故建议阅读。</small></p><p>即将随 <a href="https://www.kernel.org/">Linux 7.3</a> 内核发布的新驱动 <code>HID-HyperX</code>，其功能非常单一：专门用于修复 HyperX QuadCast 2 USB 游戏麦克风在 Linux 系统下静音状态无法正确上报的问题。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=hyperx_quadcast2" alt="HyperX QuadCast 2 microphone" />
+<p>HyperX QuadCast 2 是一款定位高端的 USB 麦克风，标称具备“录音室级录音”质量。然而，该设备的固件在处理静音按钮（Tap-to-mute sensor）时行为不符合标准协议。当用户按下静音键时，固件虽然会在内部切断音频流，但不会发送标准的“电话静音（Phone Mute）”HID 报告，也不会触发 USB 音频类（UAC）特性单元。</p>
+<p>由于缺乏标准的状态反馈，Linux 内核的 <code>evdev</code> 或 <code>ALSA</code> 子系统无法捕获静音事件。这导致桌面环境持续显示麦克风处于“开启”状态，而会议软件则在静音状态下继续传输静音信号，造成用户体验混乱。</p>
+<p>静音状态实际上是通过厂商自定义集合（Vendor-Defined collection）以 64 字节的数据包形式发送的。开发者 Benjamin Blume 为此编写了 <code>HID-HyperX</code> 驱动，该驱动负责解码这些厂商私有数据，并将其转换为标准的 <code>KEY_MICMUTE</code> 按键事件。由于设备报告的是绝对状态，而 <code>KEY_MICMUTE</code> 是瞬时按键，驱动会在状态改变时触发一次按键事件，从而让系统正确响应。</p>
+<p>该驱动目前仅包含 117 行 C 代码，且仅针对 HyperX QuadCast 2（设备 ID: 03f0:07b4）进行了适配。目前该补丁已提交至内核 HID 子系统的 "for-next" 开发分支，预计将于本月晚些时候正式合并入 Linux 7.3。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/HID-HyperX-QuadCast-2-Linux-7.3</guid>
+      <pubDate>Fri, 07 Aug 2026 12:23:21 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ NetworkManager 正式采纳 AI 编码辅助政策</title>
       <link>https://www.phoronix.com/news/NetworkManager-AI-Coding-Policy</link>
@@ -741,25 +755,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Servo-0.4-Released</guid>
       <pubDate>Fri, 31 Jul 2026 11:01:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 将支持 Nouveau 驱动实现 NVK Vulkan 视频解码</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Nouveau-NVDEC</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 内核 Nouveau 开源驱动更新，支持 NVK Vulkan 视频加速。属于 Linux 桌面底层技术进展，匹配“Linux桌面技术”兴趣，故定为 recommended。</small></p><div>
-  <p>本周发布的 <code>drm-misc-next</code> 补丁集为即将到来的 Linux 7.3 内核合并窗口带来了针对开源 NVIDIA "Nouveau" 驱动的重要更新。Red Hat 工程师 David Airlie 提交了一项关键补丁，支持通过 ABI16 接口分配 NVIDIA 视频解码（NVDEC）通道。</p>
-  <img src="//www.phoronix.net/image.php?id=2026&image=nouveau_nvdec_med" alt="Nouveau NVDEC" />
-  <p>这一内核驱动的改进将直接服务于 Mesa 项目中的 NVK 驱动，使其能够利用 Vulkan Video 进行视频处理。目前，相关的 Mesa 合并请求（Merge Request）正在等待审核。根据计划，NVK 驱动初期将首先支持 H.264 视频解码，而 H.265 解码的支持仍在开发中，目前因 NVIDIA GPU 系统处理器（GSP）的兼容性问题导致系统不稳定。</p>
-  <p>在硬件支持方面，该功能主要针对 NVIDIA Turing 架构及更新的显卡。由于依赖 NVIDIA GSP 固件支持，Turing 之前的旧架构显卡将无法使用此功能。Linux 7.3 的合并窗口预计将于 8 月下旬开启。</p>
-</div>
-<div>
-  <h3>你知道吗？</h3>
-  <p><strong>NVK 驱动</strong>是 Mesa 开源图形项目中针对 NVIDIA 显卡开发的 Vulkan 驱动程序。与传统的 Nouveau 驱动（主要支持 OpenGL）不同，NVK 专注于提供原生 Vulkan 支持，旨在摆脱对 NVIDIA 专有驱动（Proprietary Driver）的依赖，从而在 Linux 上获得更好的游戏性能和 API 兼容性。</p>
-  <p><strong>Vulkan Video</strong> 是 Vulkan API 的扩展功能，旨在提供硬件加速的视频解码和编码能力。它允许应用程序直接利用显卡内部的专用视频处理单元（如 NVDEC），而无需通过 CPU 进行软解码，从而显著降低功耗并提高视频播放效率。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Nouveau-NVDEC</guid>
-      <pubDate>Fri, 31 Jul 2026 10:20:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
