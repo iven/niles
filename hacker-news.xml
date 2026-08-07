@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 07 Aug 2026 19:58:11 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2026 20:56:29 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ DeepSeek V4 Flash 0731 在 ARC-AGI 基准测试中展现卓越性价比与推理能力</title>
+      <link>https://news.ycombinator.com/item?id=49214008</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章涉及 DeepSeek V4 Flash 模型在 ARC-AGI 测试中的表现，属于新AI模型发布，符合 high_interest 配置</small></p><p>DeepSeek 于 2026 年 7 月 31 日发布了 <a href="https://arcprize.org/results/deepseek-v4-flash-0731">DeepSeek V4 Flash 0731</a> 推理模型变体，并在 ARC-AGI（Abstraction and Reasoning Corpus，抽象与推理语料库）基准测试中公布了详细成绩。该模型在 ARC-AGI-1 和 ARC-AGI-2 的半私有（Semi-Private）评估中表现优异，其中 Max 推理变体在 ARC-AGI-1 上达到 89.0% 的通过率，在 ARC-AGI-2 上达到 61.4% 的通过率。</p>
+<img src="/media/images/badges/arc-prize-verified-badge-dark-color.svg" alt="ARC Prize Verified" />
+<p>文章附带了详尽的表格数据，展示了模型在 Max、High 和 Low 三种推理强度下对数百个 ARC-AGI 任务的 pass/fail 结果。社区讨论高度聚焦于该模型的<strong>成本效益</strong>与<strong>实际应用潜力</strong>：</p>
+<ul>
+<li><strong>极致性价比</strong>：多位用户指出，DeepSeek V4 Flash 0731 在保持与 GPT 5.6 Luna 等模型相当性能的同时，推理成本仅为后者的四分之一甚至更低。Max 推理模式的成本甚至低于 High 模式，打破了常规认知。</li>
+<li><strong>开源权重带来的价格竞争</strong>：由于该模型为开源权重（Open-weights）模型，市场定价由竞争决定。尽管有用户担忧 DeepSeek 未来可能大幅上调 API 价格，但目前 OpenRouter 等提供商的价格极具竞争力，且其他提供商正通过租用 GPU 或优化缓存（如 vLLM 的新方法）来匹配或超越其价格。</li>
+<li><strong>解锁新应用场景</strong>：极低的成本使得以往因费用或延迟而不可行的应用变得可行。例如，在 CI/CD 流程中自动生成测试、自动修复测试失败、持续安全审计以及实时日志监控等。有用户分享，即使同时运行多个会话，每日成本也仅数美元。</li>
+</ul>
+<p>部分用户也指出，尽管基准测试成绩亮眼，但在实际日常使用中，该纯文本模型在复杂任务上可能略逊于 Kimi K3 等多模态大模型或 GLM 5.2，不过其在代码生成和推理优化方面的针对性设计使其在特定领域依然极具竞争力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49214008</guid>
+      <pubDate>Fri, 07 Aug 2026 17:56:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ pgrust 如何通过批处理、算子融合与 SIMD 实现 300 倍性能提升</title>
+      <link>https://news.ycombinator.com/item?id=49208535</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 pgrust 数据库工具的版本发布与性能大幅提升，属于编程工具发布与分享，符合 high_interest 配置</small></p><p>文章介绍了 <a href="https://malisper.me/how-we-made-postgres-hundreds-of-times-faster-the-query-engine/">pgrust</a> 项目（一个使用 Rust 重写的 Postgres 查询引擎）如何通过底层架构优化实现性能飞跃。在 Clickbench 基准测试中，pgrust 比传统 Postgres 快 300 倍，甚至超越了专为分析设计的 ClickHouse。作者指出，Postgres 诞生于磁盘 I/O 主导性能的时代，其采用的 <b>Volcano 模型（Volcano model）</b> 每次仅处理单行数据，导致在现代 CPU 和内存带宽成为瓶颈的环境下产生巨大开销。</p>
+<p><img src="https://malisper.me/wp-content/uploads/2026/08/image-300x129.png" alt="Postgres 查询计划示意图" width="300" height="129" /></p>
+<p>为突破性能瓶颈，pgrust 引入了三项核心优化：</p>
+<ul>
+<li><b>批处理（Batching）：</b> 将逐行处理改为每次处理固定批次（如 1024 行）的数据，大幅减少函数调用与内存分配开销，性能提升约 2.7 倍。</li>
+<li><b>算子融合（Operator Fusion）：</b> 将紧密相连的操作节点（如顺序扫描与聚合）合并，消除中间数据拷贝，性能进一步提升至接近原生循环的水平。</li>
+<li><b>SIMD 指令集：</b> 利用 CPU 的 SIMD（单指令多数据流）特性并行处理多个数据，最终将查询耗时压缩至 135 毫秒，较原始 Volcano 模型快近 10 倍。</li>
+</ul>
+<p>在 Hacker News 社区讨论中，开发者关注了该项目的 AGPL 许可证选择、AI 辅助开发（使用 Claude 重构代码）的争议，以及项目的可靠性。作者回应称，团队已通过形式化验证和大规模模糊测试（Fuzz Testing）确保逻辑正确性，并发现并修复了 Postgres 自身存在的浮点数精度等 Bug。此外，项目采用了基于论文研究的线程与 I/O 调度器，支持资源限制与工作窃取（Work Stealing）机制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49208535</guid>
+      <pubDate>Fri, 07 Aug 2026 11:00:35 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Oracle 禁止 AI 生成代码提交至 OpenJDK，内部却大力推广 AI 编程</title>
       <link>https://news.ycombinator.com/item?id=49213754</link>
@@ -988,43 +1022,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49139304</guid>
       <pubDate>Sat, 01 Aug 2026 22:47:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Go 1.27 交互式教程：泛型、错误处理与HTTP行为变更</title>
-      <link>https://news.ycombinator.com/item?id=49140218</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 Go 1.27 新版本的交互式教程及语言特性变更，属于编程语言工具发布与分享，符合用户 high_interest 配置，故评为 critical。</small></p><p>VictoriaMetrics 发布了 <a href="https://victoria-metrics.com/blog/go-1-27/index.html">Go 1.27 交互式教程</a>，通过可运行的示例详细解析了 Go 1.27 版本在语言特性、运行时及标准库方面的关键更新。</p>
-
-<p><strong>核心更新内容：</strong></p>
-<ul>
-    <li><strong>泛型（Generics）</strong>：Go 正式引入泛型。社区回顾了漫长的设计过程，核心维护者 Ian Lance Taylor 坚持的方案最终获得通过。虽然部分开发者认为语法略显冗长，但普遍认为其设计比 C++ 更简洁。</li>
-    <li><strong>错误处理（Error Handling）</strong>：针对泛型是否能替代传统的 <code>if err != nil</code> 模式，Go 团队此前已明确表态，未来将停止对错误处理语法的探索，现有的错误处理机制将继续保留。</li>
-    <li><strong>HTTP 连接复用优化</strong>：<code>http.Response.Body</code> 在 <code>Close()</code> 时现在会自动排空未读取的内容。这有助于 HTTP/1 连接的重用，但对于依赖提前关闭连接来中断大文件下载的场景，可能会导致连接挂起。</li>
-    <li><strong>性能与兼容性</strong>：标准库引入了 SIMD 指令集支持以提升性能；修复了 <code>runtime.findnull()</code> 以支持 Android 的 MTE（内存标签扩展）。</li>
-</ul>
-
-<p><strong>社区观点：</strong> 开发者普遍对泛型的到来表示期待，尽管对其语法仍有争议。关于错误处理，社区认为现有的 <code>errcheck</code> 工具配合 <code>if err != nil</code> 已能覆盖绝大多数场景，引入复杂的 Option 类型收益有限。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49140218</guid>
-      <pubDate>Sun, 02 Aug 2026 01:35:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Servo 0.4.0 发布：媒体查询、SharedWorker 与现实世界兼容性提升</title>
-      <link>https://news.ycombinator.com/item?id=49126765</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍了 Servo 浏览器引擎的新版本发布及兼容性改进，属于软件新功能发布，符合用户感兴趣的主题</small></p><p>Servo 0.4.0 版本于 2026 年 7 月 31 日正式发布，本月共收录 558 次代码提交，再次创下项目提交量纪录。</p>
-<img src="/img/blog/2026-07-diffie.png" alt="servoshell 0.4.0 展示的新特性界面" />
-<p>本次更新大幅扩展了 Web 平台支持，包括实验性支持 <code>attr()</code> 函数、<code>image()</code> 颜色函数以及 <code>calc()</code> 的延迟解析。媒体查询（Media Queries）方面新增了 <code>device-width</code>、<code>device-height</code>、<code>aspect-ratio</code>、<code>orientation</code>、<code>pointer</code> 和 <code>hover</code> 等规则。DOM API 方面引入了 <code>SharedWorker</code>、<code>console.dir()</code>、指针捕获 API 以及触摸事件处理器，并增强了 <code>crypto.subtle</code> 的加密算法支持。</p>
-<p>在安全性方面，Servo 的 JavaScript 运行时 SpiderMonkey 更新至 140.11.0 和 140.12.0，修复了多项安全漏洞。RSA 和 ML-DSA 操作现已采用常量时间实现，同时修复了 <code>file:///</code> 目录列表中的 HTML 注入（XSS）漏洞。</p>
-<p>现实世界兼容性取得显著进展。得益于可变字体（Variable Fonts）处理和布局正确性的改进，<a href="https://lichess.org">lichess.org</a>、<a href="https://servo.zulipchat.com">Zulip</a> 和 <a href="https://speedtest.net">Speedtest</a> 等网站的渲染效果大幅提升。Google Photos、Cash Converters 等网站继续稳定运行，Google Maps 和 OpenStreetMap 的渲染效果也有所改善。</p>
-<img src="/img/blog/2026-07-commits.png" alt="2023年9月至2026年6月Servo每月提交量增长折线图" />
-<p>开发团队还引入了 Servo Highfive 机器人，简化社区成员协助撰写月度更新流程。进行中的工作包括更强大的 <code>attr()</code> 支持、WebGPU 兼容性改进、无障碍功能、文本选择功能、Web Animations API 以及面向嵌入应用的 C API 设计。</p>
-<p>在底层架构上，团队利用 Rust 类型系统引入了 <code>NoGC</code> 标记类型，有效防止垃圾回收（Garbage Collection, GC）期间的借用冲突，不仅提升了代码安全性，还使布局过程和 HTMLCollection 的开销降低超过 1%。此外，内存占用得到优化，2D 画布功耗降低 23%，并实现了图像的异步解码与缓存填充。HN 社区对此更新反响积极，部分用户赞赏其持续的开发进度，也有讨论聚焦于 Servo 在实际生产环境中的兼容性现状与构建难度。</p>
-<h3>你知道吗？</h3>
-<p>Servo 最初由 Mozilla 发起，旨在构建一个基于 Rust 语言、能够充分利用多核 CPU 并行处理能力的现代浏览器渲染引擎。虽然目前尚未成为主流浏览器的核心引擎，但其在 Web 标准兼容性、内存安全和性能优化方面的持续探索，为整个 Web 生态提供了重要的技术参考。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49126765</guid>
-      <pubDate>Fri, 31 Jul 2026 18:17:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
