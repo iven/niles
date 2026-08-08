@@ -3,7 +3,78 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 08 Aug 2026 16:50:57 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2026 17:45:15 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Wyzer 编程语言：融合编舞编程与 Perceus 内存模型的分布式安全语言</title>
+      <link>https://news.ycombinator.com/item?id=49209385</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍新型开源编程语言 Wyzer 及其分布式安全特性，属于编程工具发布与开源项目范畴，符合用户兴趣</small></p><p><a href="https://github.com/Wyzer-Lang/wyzer">Wyzer</a> 是一种静态类型、编译型、面向资源的编程语言，旨在解决传统语言（如 Rust）在分布式安全与内存管理上的痛点。该语言的核心特性包括：</p>
+<ul>
+  <li><strong>编舞编程（Choreographic Programming）</strong>：通过单一的全局视图描述分布式系统交互，编译器自动将其投影为无死锁的独立节点代码，从根本上避免协议不匹配与分布式死锁。</li>
+  <li><strong>Perceus 内存模型</strong>：采用精确引用计数实现确定性内存管理，避免垃圾回收（GC）的不可预测停顿。结合线性/仿射类型（Linear/Affine Types），在变量唯一拥有时支持原地修改（FBIP），无需复杂的借用检查器与生命周期注解。</li>
+</ul>
+<p>Wyzer 的设计原则强调统一所有权管理、无 GC 低延迟、无死锁设计以及 C ABI 兼容性。目前项目处于早期阶段（即将发布 v0.1.0），已提供分布式键值存储、请求/响应编舞及原地修改等基础示例。</p>
+<p><strong>社区反馈：</strong>开发者普遍赞赏其务实的代码风格与避免 AI 营销话术的态度，认为语法设计保守通用。主要争议点在于官方文档对核心特性的示例展示不足，作者回应称文档正在完善中。社区专家从理论层面指出，编舞编程通过将“发送与接收”定义为原子事件，在语法层面天然保证通信匹配，从而数学上杜绝死锁，但该范式在表达力上仍在持续探索。此外，有开发者提及作者年仅 14 岁，引发对青少年开发者成就的讨论。</p>
+<p>更多技术细节与示例可参考：<a href="https://github.com/Wyzer-Lang/wyzer">GitHub 仓库</a> 与 <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2020/11/perceus-tr-v1.pdf">Perceus 内存模型研究论文</a>。</p>
+<hr>
+<p><strong>你知道吗？</strong></p>
+<p><strong>编舞编程（Choreographic Programming）</strong>是一种高阶分布式编程范式。它不直接编写客户端和服务器的独立代码，而是定义一个全局的“交互剧本”。编译器通过投影（Projection）技术，将剧本自动分解为各节点的本地代码。由于发送和接收操作在剧本中被定义为原子事件，编译后的代码天然具备通信匹配性，从而在数学上保证无死锁。</p>
+<p><strong>Perceus 内存模型</strong>源自微软研究院的研究，旨在结合引用计数的确定性与垃圾回收的易用性。它通过精确追踪引用计数，在变量唯一拥有者（refcount == 1）时直接进行原地修改（Functional But In-Place, FBIP），无需拷贝数据，从而在保持内存安全的同时实现接近 C 语言的性能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49209385</guid>
+      <pubDate>Fri, 07 Aug 2026 12:28:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Cloudflare 发布 Kitesurf：专为 AI Agent 设计的无状态浏览器</title>
+      <link>https://news.ycombinator.com/item?id=49208393</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Cloudflare 专为 AI Agent 设计的无状态浏览器 Kitesurf，属于 AI 软件技术进展与开发工具发布，符合用户兴趣</small></p><p>Cloudflare 近日宣布推出全新浏览器引擎 <strong>Kitesurf</strong>，这是一款专为 AI Agent（智能体）设计的无状态浏览器，完全运行在 Cloudflare Workers 的 V8 isolates 之上。随着 AI 应用对网页自动化需求的激增，传统浏览器引擎（如 Chromium）因庞大的内存和计算开销，难以满足大规模 Agent 运行的成本与效率要求。Kitesurf 旨在通过精简人类用户不需要的功能（如标签页、主题、扩展等），专注于低延迟、高可扩展性和机器可读性，为 AI 模型提供高效、低成本的网页交互环境。</p>
+
+<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01KZ9Z8A48BKM6KQG36DQEWN7V.png&w=1999&h=1066&f=webp&fit=cover&position=center" alt="Kitesurf 项目概述" width="1999" height="1066" />
+
+<h3>设计哲学与架构</h3>
+<p>Kitesurf 的核心设计围绕“Agent 优先”展开，主要技术决策包括：</p>
+<ul>
+  <li><strong>Rust 优先与 WebAssembly</strong>：核心组件使用 Rust 编写并直接编译为 WebAssembly，避免传统编译层的额外开销，确保接近原生的执行效率。</li>
+  <li><strong>严格隔离与无状态</strong>：每个页面加载和会话都被视为不可信输入。组件采用无状态设计，一旦任务完成或卡死即可立即销毁，极大提升了横向扩展能力并降低了故障恢复成本。</li>
+  <li><strong>模块化组件</strong>：
+    <ul>
+      <li><strong>Engine</strong>：作为唯一对外接口，处理 Chrome DevTools Protocol (CDP) 和 HTTP REST API，兼容 Puppeteer 和 Playwright 等主流自动化工具。</li>
+      <li><strong>PageScript</strong>：利用 Dynamic Workers 为每个页面创建独立的隔离环境，处理 DOM 解析与 JavaScript 执行（使用 Boa JS 引擎处理 <code>eval</code>）。</li>
+      <li><strong>PageRenderer</strong>：负责将计算后的页面对象光栅化为图像（PNG/JPEG/PDF），使用 Blitz 和 Parley 模块进行排版与渲染。</li>
+      <li><strong>SandboxOutbound</strong>：作为唯一的网络出口，严格管控 CORS、Cookie 隔离及响应过滤。</li>
+    </ul>
+  </li>
+</ul>
+
+<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01KZ9Z89XF1C6TRP798HF5XRCW.png&w=715&h=205&f=webp&fit=cover&position=center" alt="Kitesurf 隔离架构示意图" width="715" height="205" />
+
+<h3>性能表现与测试</h3>
+<p>在性能基准测试中，Kitesurf 在 CPU 和内存消耗上显著优于 Chromium：</p>
+<ul>
+  <li><strong>CPU 效率</strong>：截图任务 CPU 消耗降低 3.1 倍，HTML 提取降低 3.8 倍。</li>
+  <li><strong>内存占用</strong>：截图任务内存占用减少 4.7 倍，HTML 提取减少 7.0 倍。</li>
+  <li><strong>执行时间</strong>：由于冷启动和软件光栅化，墙时间（Wall time）目前比预热后的 Chromium 慢约 1.7 倍，但 Cloudflare 表示将持续优化渲染管线。</li>
+</ul>
+
+<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01KZ9Z8AF7AB8HWYJJ0DZCRK5X.png&w=715&h=584&f=webp&fit=cover&position=center" alt="Kitesurf 与 Chromium 性能对比表" width="715" height="584" />
+
+<p>目前 Kitesurf 已通过超过 215,000 项 Web Platform Tests (WPT)，并支持在 <a href="https://developers.cloudflare.com/browser-run/">Browser Run</a> 中免费试用（Beta 阶段）。项目基于开源的 Blitz 渲染引擎构建，Cloudflare 表示未来将开源 Kitesurf 的核心代码。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 社区对此进行了热烈讨论。开发者关注点主要集中在：</p>
+<ol>
+  <li><strong>反爬与身份验证</strong>：Cloudflare 确认 Browser Run 请求会被识别为 Bot 流量，并支持 Web Bot Auth 协议。</li>
+  <li><strong>协议支持</strong>：社区呼吁支持 WebDriver BiDi 这一新兴的 W3C 标准，以替代专有的 CDP 协议。</li>
+  <li><strong>Agent 的实际瓶颈</strong>：多位开发者指出，当前 AI Agent 面临的最大障碍并非浏览器渲染，而是身份验证（如 CAPTCHA、短信验证）和支付能力。Kitesurf 虽解决了渲染成本问题，但“可携带的身份与支付余额”仍是 Agent 生态缺失的关键原语。</li>
+</ol>
+
+<h3>你知道吗？</h3>
+<p><strong>Chrome DevTools Protocol (CDP)</strong> 是 Chrome 浏览器提供的一套用于调试和自动化控制的协议。Kitesurf 选择支持 CDP 而非传统的 WebDriver 或新兴的 BiDi 协议，主要是为了保持与现有庞大生态（如 Puppeteer、Playwright）的无缝兼容，降低 AI 框架的迁移成本。随着 W3C 推动 WebDriver BiDi 成为跨浏览器标准，未来浏览器自动化协议有望进一步统一。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49208393</guid>
+      <pubDate>Fri, 07 Aug 2026 10:42:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ DeepMind开源WeatherNext气旋预测模型，实现突破性预报精度</title>
       <link>https://news.ycombinator.com/item?id=49220126</link>
@@ -992,41 +1063,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49149966</guid>
       <pubDate>Mon, 03 Aug 2026 00:46:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Kakehashi：在 Linux ARM64 上运行 macOS 二进制文件的实验性用户态翻译层</title>
-      <link>https://news.ycombinator.com/item?id=49145937</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍Kakehashi开源项目，这是一个允许在Linux ARM64上运行macOS二进制文件的实验性翻译层，属于编程工具发布和开源项目范畴，用户对此类内容很感兴趣</small></p><p><a href="https://github.com/wie-project/kakehashi">Kakehashi</a> 是一个实验性开源项目，旨在通过用户态翻译层在 Linux ARM64 系统上原生运行 macOS (Darwin) 二进制文件。该项目由开发者 vlad_kalinkin 发起，目前已在 Hacker News 社区引发关注。</p>
-<p>在技术实现上，Kakehashi 使用 <a href="https://www.rust-lang.org/">Rust</a> 编写，采用纯用户态架构，无需 JIT 编译。它主要负责加载 Mach-O 格式文件，映射独立的 <code>libSystem</code>，并翻译 BSD 系统调用。目前，项目已验证支持 7-Zip (7zz)、curl 以及 Xcode 基础工具（如 git）的部分功能，并可在 Docker、Colima 和 UTM 等环境中运行。</p>
-<p>在性能方面，开发者在 8000 文件的多线程压缩测试中测得，运行 Darwin 7-Zip 的速度约为原生 Linux 版本的 1/5.2。尽管存在性能损耗，但开发者指出，在 CI/CD 环境中，Linux ARM64 运行器的成本远低于 macOS 运行器（后者价格约为前者的 10 倍以上），因此 Kakehashi 仍能为 macOS 工具链提供极具成本效益的替代方案。</p>
-<p>社区讨论中，许多用户将其与著名的 macOS 兼容层 <a href="https://github.com/darlinghq/darling">Darling</a> 进行比较。开发者强调，Kakehashi 采用纯用户态设计，与 Darling 的内核级模拟架构不同，且代码完全从头编写，未直接借鉴 Darling。目前项目仍处于早期阶段，开发者表示未来的目标是支持完整的 Xcode 工具链和 macOS 版 Homebrew，以实现在 Linux 上构建 iOS 应用等高级功能。</p>
-<h3>你知道吗？</h3>
-<ul>
-  <li><strong>Darling 项目：</strong> Darling 是一个历史悠久的开源项目，旨在 Linux 上运行 macOS 应用程序。它通过在内核层模拟 macOS 的系统调用和框架来实现兼容性。与 Darling 不同，Kakehashi 专注于用户态，避免了加载内核模块的复杂性，但可能在系统调用的全面覆盖上有所取舍。</li>
-  <li><strong>Mach-O 与 libSystem：</strong> Mach-O 是 macOS 和 iOS 的可执行文件格式。libSystem 是 macOS 的基础系统库，包含 C 标准库、线程管理等核心功能。要在 Linux 上运行 macOS 程序，必须解决这些底层依赖的兼容性问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49145937</guid>
-      <pubDate>Sun, 02 Aug 2026 16:26:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Meshdiff：在浏览器中可视化对比 3D 模型版本差异</title>
-      <link>https://news.ycombinator.com/item?id=49143479</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了一款在浏览器中用于对比 3D 模型版本差异的工具，属于实用型创作者/开发者工具，符合用户对工具类内容的兴趣，故推荐。</small></p><p><a href="https://meshdiff.com/">Meshdiff</a> 是一款基于浏览器的 3D 模型差异对比工具，旨在帮助用户快速直观地查看两个 3D 模型版本之间的变化。该工具支持 STL、3MF 和 OBJ 格式，通过体素（Voxel）差异引擎，以热力图形式展示模型差异：绿色代表增加的材料，红色代表移除的材料，并可调整容差（0.05–1mm）及查看体积差异指标。</p>
-
-<p>Meshdiff 的核心优势在于其完全在客户端（Client-side）运行。用户只需在网页上拖入两个文件，计算过程即通过 Web Worker 在本地完成，无需上传至服务器，从而确保了数据的隐私安全。</p>
-
-<p>作者 projscope 开发该工具的初衷是为了解决工作中频繁收到修改后的 3D 打印文件（如 <code>part_v3_FINAL.stl</code>）却缺乏快速比对手段的痛点。在技术实现上，Meshdiff 采用了 React 和 React Three Fiber，并开发了自定义的体素差异引擎。作者指出，传统的 CSG（构造实体几何）库（如 CGAL）通常假设模型具有干净的拓扑结构，而现实世界中的 STL 文件往往是缺乏拓扑信息的“三角面片汤（Triangle Soup）”，因此自定义引擎能更好地处理这类非标准模型。</p>
-
-<p>社区反馈显示，该工具在 3D 打印和 AI 生成 3D 模型的对比场景中备受好评。用户建议增加视图同步旋转功能、提供命令行接口（CLI）以便集成到 CI 流程中，并指出作者的个人网站在移动端存在显示问题。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>三角面片汤（Triangle Soup）与 CSG 的局限：</strong>STL 文件通常只包含三角面的几何信息，而不包含面与面之间的连接关系（拓扑信息），这种数据结构被称为“三角面片汤”。传统的 CSG（构造实体几何）算法依赖于清晰的拓扑结构来进行布尔运算或差异计算，因此在处理 STL 时往往需要先将模型转换为具有拓扑信息的格式。Meshdiff 采用的体素化方法将模型转化为 3D 网格，从而绕过了拓扑重建的难题，直接进行体素层面的差异比对。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49143479</guid>
-      <pubDate>Sun, 02 Aug 2026 11:34:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
