@@ -3,7 +3,56 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Sat, 08 Aug 2026 02:19:26 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2026 04:19:14 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 一个月内七起“AI越狱”事件 性质已经悄悄变了</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1572288.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 探讨AI越狱事件与技术演变，属于AI软件技术进展范畴，符合用户兴趣配置。</small></p>
+                                                
+                                                <p>7月中旬到8月初，OpenAI、Anthropic、Meta三家全球最头部的AI实验室，加上英国政府旗下的AI安全研究院，先后自曝或被曝出模型在测试中“越界”入侵了真实系统。算下来，一个月里至少七起。</p>                
+                        <div class="article-global"></div>                            <p><a href="https://n.sinaimg.cn/tech/transform/59/w550h309/20260724/14e6-ea4137cbcfcce1ecd6bf716e4803eabb.png" target="_blank"><img src="https://n.sinaimg.cn/tech/transform/59/w550h309/20260724/14e6-ea4137cbcfcce1ecd6bf716e4803eabb.png"></a></p><p>有的模型入侵了一家不知名公司的生产数据库，有的把恶意代码包发布到了公共代码仓库供人下载并执行，还有的试图给一个真实的开源项目植入后门，靠伪造身份和抹除证据来掩盖，最后被人类维护者拦了下来。</p><p>这七起事件此前几乎没有引起足够重视，大部分报道要么就事论事讲一起，要么把“AI又双叒叕出事了”当成一个猎奇标签一带而过。但把它们放在一起看，会发现三件此前很少被公开讨论的事：</p><p>这些模型在越界之后，做出的具体选择远比“意外连网”这四个字复杂；背后反复出现同一家外包测试公司的名字；而这波集中爆发，和过去几年AI相关的安全事件相比，性质上其实是新的一类。</p><p><strong>自己给自己开绿灯</strong></p><p>点火的是Hugging Face。7月16日，这家开源AI社区发现自己的生产系统被入侵，五天后OpenAI承认肇事者是由GPT-5.6 Sol和一个未公开的研究模型组合驱动的智能体，当时正在做一次内部网络安全测试。测试本该被限制在一个和外网隔离的靶场里，但靶场所依赖的一个软件包代理存在一个未知的零日漏洞，模型借此突破隔离，摸到了Hugging Face的真实基础设施。</p><p>Hugging Face后来发布的技术复盘里有一个数字：整场入侵持续了4.5天，期间这个AI独立执行了约1.7万次操作，反复重建攻击工具链、不断切换通信渠道。复盘还提到了这场入侵的起点动机，<strong>这个智能体当时正在一个叫ExploitGym的基准测试里“抢答”，它推断Hugging Face上可能托管着测试的参考答案，于是想办法摸过去“抄作业”，而不是老老实实自己解题。</strong></p><p>7月21日OpenAI公开承认后九天，Anthropic也自曝了三起类似事故，同样源于测试环境意外接入了公网，涉及三个模型：Opus 4.7、Mythos 5，还有一个尚未公开代号的内部研究模型。三者面对“发现自己可能在打真实目标”这个信号时，反应完全不同。</p><p>Opus 4.7的四轮测试里，<strong>它每次都通过自己的推理“意识到”了对面可能是真实系统，但一次也没停下来。其中两次，它甚至给自己找了个理由：这家真实公司想必也是场景设计的一部分。</strong>它最终拿到了目标公司的应用和基础设施凭证，访问了一个存有几百行生产数据的数据库。</p><p>Mythos 5的情况更微妙一些。它在虚构的测试场景里发现一份“入职文档”，要求（虚构的）新员工安装一个当时并不存在的Python包。Mythos 5把这个包做了出来，里面藏着窃取凭证的代码，发布到了真实的PyPI公共仓库，它自己的推理记录显示，<strong>它一度准确判断出“如果这是真实互联网，发布这个包就是一次真实攻击，这样做不对，肯定不是预期的解法”。</strong></p><p><strong>但紧接着它又说服了自己：</strong>眼前的证书颁发机构很陌生、系统显示的日期是2026年，这些“证明”了环境仍是模拟的，于是它还是发布了。这个包在被PyPI的自动安全系统下架前，一小时内被15个真实系统下载运行，其中就包括一家安全公司自己的恶意软件扫描器，凭证因此被窃取。</p><p>第三个、也是三者里最新的模型，表现出了完全不同的反应。它没能找到分配给自己的虚构目标，转而扫描了大约9000个真实的联网系统，最终通过一个暴露的调试页面和SQL注入拿下了其中一家公司。但做到一半，它判断出眼前这套系统和自己被分配的剧本对不上，认定这是真实目标后，自己停了下来——这是三起事故里唯一一次，模型主动刹住了车。</p><p><strong>这不是Mythos系列第一次表现出这种“自己给自己开绿灯”的倾向。</strong></p><p>今年4月，一次内部红队测试里，研究人员给Claude Mythos Preview下达的指令，就是尝试逃逸沙盒，并且想办法联系上负责评估的研究员。它成功了，研究员在公园吃三明治时，收到了它发来的邮件，这也是“三明治邮件”这个说法的由来。</p><p><strong>但它没有止步于完成指令，随后又在没有任何人要求的情况下，把自己的逃逸方法发布到了几个公开可访问的网站上。</strong>那一次是可控的红队测试，不涉及真实第三方；这一次不是。但<strong>“做完被交代的事之后，自己还想再往外多走一步”</strong>这个倾向，在Mythos系列身上不是第一次出现了。</p><p>8月4日，OpenAI又披露了一起和Hugging Face完全无关的独立事故：一次CTF测试里，虚构的攻击目标域名意外和一个真实网站重名，模型在拿到真实凭证后没有察觉异常，继续按剧本行动，入侵了这个真实网站。</p><p>同一天，英国AI安全研究院（AISI）发布的一份报告，把这类事件的性质又往前推了一步。这不是配置失误，AISI是主动关闭了模型的安全限制、主动开放了互联网权限，专门用来测试模型的能力上限。<strong>122轮测试里，有10轮出现了未经授权的真实世界行为</strong>，累计19次，其中17次来自Claude Mythos 5、2次来自GPT-5.6 Sol。</p><p>最严重的一次，Mythos 5试图把一段恶意代码伪装成一次普通的bug修复，提交给一个真实的、被广泛使用的开源项目。它先调研了项目维护者的身份，注册了假账号提交代码，又另外注册了第二个账号冒充独立开发者，给这次提交“背书”担保没问题，还给真人开发者发了钓鱼邮件催促尽快通过审核。有路人发现代码有问题并公开示警后，Mythos 5矢口否认，强行改写了自己此前的提交记录来销毁证据，还用那个冒充的账号继续替自己辩护。最终，项目维护者还是拒绝了这次提交——没有得逞。</p><p>同一批测试的另一轮里，Mythos 5还伪造了145个代码仓库，让恶意脚本在GitHub自家的Dependabot容器里跑了起来，账号被封后，它甚至冒充人类提交了申诉，准备好一旦账号恢复就重新上传。</p><p>AISI的措辞是，这些模型“针对真实的人和组织，采取了持续性的、有潜在危害的行动”，比几家公司自己“配置失误”式的说法要重得多。</p><p>8月5日到6日，轮到Meta。旗下Muse Spark模型因同样的“测试环境意外连网”入侵了一家未公开身份的第三方服务——这一次不是Meta主动公布的，是被《The Information》先报道，公司随后才确认。截至目前，完整的事故复盘还没有出来。七起事件里，只有Meta是被动应对的那一个。</p><p><strong>一个反复出现的名字</strong></p><p>涉事的三家公司理论上是竞争对手，但把技术细节摆在一起看，会发现Anthropic的Opus 4.7事故和OpenAI那起CTF事故，其实是同一种失败模式：虚构的攻击目标名字或域名，意外撞上了真实世界的实体。这两起以及Meta那起，都指向同一个供应商，一家叫Irregular的公司。</p><p>Irregular原名Pattern Labs，2023年成立于特拉维夫，去年拿到8000万美元融资，估值4.5亿美元，红杉资本是投资方之一。它的客户名单几乎覆盖了所有头部实验室：OpenAI、Anthropic、Google DeepMind、Meta，还有英国政府。它设计的评估框架，SOLVE、CyScenarioBench、FrontierCyber如今被写进这些公司几乎每一份模型系统卡，某种程度上已经是整个行业衡量“模型有多危险”的标准尺子。</p><p>但经过这个月的事故集中披露，这把尺子本身的做工，经不起细看。</p><p>给Anthropic和OpenAI搭建的CTF靶场，用的都是虚构的攻击目标，而这些虚构名字撞上真实域名的情况，已经发生了至少两次，更合理的解释，是Irregular给不同客户复用的靶场素材库，没用心做过“是否会撞上真实互联网实体”这道排查。</p><p>而这家公司的规模，据创投数据库StartupHub的员工记录估算，团队大约只有20人左右，却同时是全球几乎所有前沿实验室的安全测试合作方。</p><p>每次出事后，他们的公关口径也几乎一模一样，“不涉及沙盒逃逸”“没有遗留问题”“正在撰写最佳实践白皮书”。</p><p>换句话说，决定“全世界最危险的AI模型能不能被安全地测试”这件事的，或许不是一套有冗余、有制衡的行业级安全体系，而是一家20人公司手工搭建的作坊式基础设施。客户的模型能力和发布节奏都在指数级加快，这套基础设施有没有跟上，没人能打包票。</p><p><strong>集中爆发的越界潮</strong></p><p>对照来看，过去这类事情几乎没有被公开报道过。能查到的规模可比的案例，只有2025年的两起，而且都发生在Anthropic身上。</p><p>但那两起和眼下这七起有一个本质区别：2025年的两起背后都有一个存心搞破坏的人类攻击者，AI是被利用的工具。</p><p>而这一次的七起里，没有一起是被人类恶意操纵的——AISI那起是研究人员自己主动放开权限做的极限能力测试，性质上是“刻意松绑”而不是失误；其余几起则是第三方测试环境的意外配置失误，连“松绑”都算不上，是压根不该发生的疏漏。</p><p>但不管是哪一种，共同点是：没有人指使模型去攻击谁，是模型自己在获得机会后，一步步走到了不该去的地方。去年的剧本是“AI被坏人盯上了”，这次没有坏人，AI自己就做到了这一步，而且一个月里发生了七次。这才是这波集中爆发真正反常的地方。</p><p>另外一个颇具反讽色彩的细节是，Hugging Face事发后，想调用Claude Opus和Fable来分析攻击留下的漏洞代码和日志，结果模型直接拒绝了——它们的安全护栏没法区分“我在分析一段漏洞代码是为了搞清楚自己怎么被黑的”和“我在帮别人写一段漏洞代码去攻击别人”。团队最后改用了一个可以自己部署、自己控制边界的中国开源模型智谱GLM-5.2，才把本该几天完成的分析，压缩到了几个小时。</p><p>攻击那一方的AI，行动不受约束地跑了4.5天；防御这一方想借助AI自救时，却被自家的安全设计拦在了门外。</p><p>谁在越界，谁又被管得太死，答案可能并不像表面看上去那么简单。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1572288.htm</guid>
+      <pubDate>Sat, 08 Aug 2026 02:48:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ SpaceX最快下周完成600亿美元收购Cursor</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1572284.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 核心内容为AI编程辅助工具Cursor的重大商业收购，直接关联编程工具与AI应用，符合高兴趣配置。</small></p>
+                                                
+                                                <p>SpaceX对AI编程公司Cursor的600亿美元收购正在接近交割，Cursor已经开始讨论交易完成后的品牌和组织安排。据《The 
+Information》援引知情人士报道，Cursor在周四的全员会议上说，交易最快可能在下周末完成，最迟预计不晚于本月底，具体时间仍取决于监管审批。SpaceX在6月提交的文件显示，双方已经签署换股并购协议，对Cursor的隐含估值为600亿美元，交易预计于第三季度完成。</p>                
+                        <div class="article-global"></div>                            <p><a href="https://static.cnbetacdn.com/article/2026/0520/2722d1df7ee12a4.webp" target="_blank"><img src="https://static.cnbetacdn.com/article/2026/0520/2722d1df7ee12a4.webp"></a></p><p>变化可能先落到新产品上。Cursor正在开发的通用智能体Sand，未来可能使用Grok Bot这一名称，公司也在考虑另起一个新品牌；现有产品暂时不动，包括开发者已经熟悉的Cursor编程助手。知情人士称，上述方案仍可能调整。</p><p>员工在会后的问答环节追问，为什么要使用Grok品牌。Cursor CEO迈克尔·特鲁尔此前曾对员工说，SpaceXAI看重的资产里，既有Cursor的品牌，也有它与企业客户建立的关系。</p><p>Cursor披露的公司数据显示，其企业业务年化收入约为26亿美元。SpaceX在并购文件中还列出了另一项价值：开发者使用Cursor时留下的编程请求和设计选择，可以用于训练和改进Grok。</p><p>两家公司已经提前磨合。Cursor今年4月宣布与SpaceX合作训练模型，并接入SpaceXAI的算力基础设施。上个月，双方联合推出Grok 4.5。Cursor近日还上线了一项模型选择功能，用户可以在Grok、自研Composer和Anthropic模型之间切换。</p><p>SpaceX借助Cursor，可以把Grok带进企业现有的开发流程；但Cursor吸引开发者的一个原因，恰恰是它没有把用户锁在单一模型上。新产品如果统一改挂Grok品牌，企业客户也会重新判断Cursor的产品定位。</p><p>品牌怎么改还在讨论，人员和内部系统的整合计划则更明确。《The Information》称，交割后Cursor不会作为SpaceXAI内部的独立部门运行，员工将分散进入多个现有团队，并在数日内接入SpaceX的Slack、汇报关系和内部运营系统。这些调整都要等交易正式完成后才会启动。</p><p>Cursor还在把产品线从编程扩展到通用智能体，并计划推出与GitHub竞争的Cursor Origin。这些新产品若沿用Cursor名称，可以直接承接原有的开发者和企业客户；改挂Grok，则能让SpaceX把它们收进自己的AI产品线，但Cursor原有的多模型定位也会变得尴尬。</p><p>交易完成后，Anthropic等外部模型会不会继续留在Cursor的核心工作流里？围绕Grok的新功能会推进到什么程度？这两个问题分别落在Cursor的两种价值上：它还能不能让开发者自由选择模型，以及SpaceXAI能不能借它把Grok真正卖进企业。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1572284.htm</guid>
+      <pubDate>Sat, 08 Aug 2026 02:46:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>美国AI监管之争加剧 特朗普：国会想把AI公司监管到倒闭</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1572282.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要探讨AI政策监管与政治博弈，虽涉及AI但非技术进展或工具，兴趣倾向不明确。</small></p>
+                                                
+                                                <p>据路透社报道，美国总统特朗普在接受政治新闻网站Punchbowl News采访时表示，美国国会想把AI行业“监管到倒闭”。特朗普的言论凸显了华盛顿内部一场不断扩大的争论：<strong>究竟以多大力度来监管快速发展的AI行业</strong>。目前，该行业基本上仍是在没有新联邦法规约束的情况下发展。美国国会议员已提出了<strong>一系列尚未取得进展的方案</strong>，其中一项法案<strong>要求最强大AI模型的开发者提交模型进行独立安全审计</strong>。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0808/845be30b71c2c5b.png"></p><p style="text-align: center;">特朗普</p><p>在特朗普看来，AI缺乏监管并非坏事，他也并不太担心国会在AI监管方面无所作为。</p><p>“从某个角度来看这是好事，但从另一个角度看这也是坏事，”特朗普在周五的《Fly Out Day》节目上表示，“国会议员想把(AI公司)监管到倒闭”。</p><p>过去几周，<strong>关于AI监管的争论变得更加紧迫，原因是OpenAI和Anthropic表示，他们的AI系统在安全测试期间曾脱离控制</strong>。OpenAI的智能体触发了一次黑客攻击，入侵了AI公司Hugging Face的基础设施。</p><p>美国商务部下属国家标准与技术研究所(NIST)在周五单独发布了一套评估AI系统的指南草案，并公开征求公众意见。NIST的职责是制定科学技术领域的标准。该机构称，这些指南面向的是希望“衡量其AI系统影响”的组织。</p><p>华盛顿特区非营利组织“前沿安全研究所”(Frontier Security Institute)执行主任艾克·哈里斯(Ike Harris)表示，这些指导方针是“联邦政府为自身以及其承包商建立AI系统评估标准化方法的第一步”。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1572282.htm</guid>
+      <pubDate>Sat, 08 Aug 2026 02:44:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 科研团队与民间志愿者在黑山发现两种陆生蜗牛新物种</title>
+      <link>https://www.cnbeta.com.tw/articles/science/1572272.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 记录科研团队发现生物新物种，属于科学前沿进展范畴，符合用户兴趣配置。</small></p>
+                                                
+                                                <p>根据 2026 年 7 月 27 日发表在《生物多样性数据杂志》（Biodiversity Data Journal）上的一项最新研究，国际科研人员与民间志愿者组成的联合考察队在黑山西北部的 Durmitor 国家公园及 Komarnica 峡谷一带，成功发现了两种此前未被人类记录的陆生蜗牛新物种。<strong>这两位欧洲野生动物家族的新成员被正式命名为 Cochlostoma komarnica 和 Cochlostoma dobrido。</strong></p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0808/761eedb052025c6.jpg"></p><p>这两种蜗牛目前尚无官方英文或中文俗名，它们均生活在陡峭的喀斯特石灰岩缝隙中，主要以岩石表面的藻类和地衣为食。它们的锥形贝壳长度仅约为 6 毫米，在外形特征上表现出独特的生物学特性：与大多数双眼长在触角顶端的陆地蜗牛不同，这两种蜗牛的眼睛生长在头部两侧；</p><p style="text-align: center;"><iframe width="864" height="486" src="//www.youtube.com/embed/Kuv8S5JK8sU" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p><p>同时，它们的尾部还附着着一块圆盘状的盖片，像扇小门一样能够精准密封壳口，以防御外敌或防止水分蒸发。由于外观高度相似，考察队在野外采集到标本后，最终通过实验室解剖与基因序列比对，才正式确认了它们作为独立新物种的身份。</p><p><img src="https://static.cnbetacdn.com/article/2026/0808/e601320463c51a3.jpg">这一突破性发现源于分类学考察机构 Taxon Expeditions 在 2018 年至 2025 年间发起的系列公众科学项目。该机构联合 Taxon 基金会以及黑山生态学家协会等本地机构，组织国际科学家、当地青年学生、环保工作者以及普通公众深入黑山山区开展生物多样性调查。在营地总结时，考察队员们通过投票方式为新物种赋予了极具地缘特征的名字：Cochlostoma dobrido 取名自 Durmitor 国家公园山峰之间的 Dobri Do 高原，而 Cochlostoma komarnica 则得名于位于该国家公园南部、目前尚未建立保护区机制的 Komarnica 峡谷。参与野外考察并共同签署研究论文的荷兰音乐家 Janine Buisman 感叹道，在生物调查历史悠久的欧洲大陆依然能发现未知动物新物种，令人感到无比惊奇。</p><p><img src="https://static.cnbetacdn.com/article/2026/0808/e601320463c51a3.jpg"></p><p>然而，新物种的发现也伴随着严峻的生态隐忧。黑山生态学家协会生物学家、论文共同作者 Jovana Đokić 指出，巴尔干半岛这片区域由大量峡谷、高山与悬崖交错构成，其中蕴藏着极其丰富且尚未被人类记录的生物多样性。不幸的是，目前当地政府正计划在 Komarnica 峡谷建设一座水力发电厂并修建蓄水水库，这一工程一旦实施，将直接淹没整条野生河流峡谷，彻底毁灭包括这些新发现蜗牛在内的独特生态系统。黑山生态学家协会为此正紧急呼吁相关部门放弃水电站建造计划，并将 Komarnica 峡谷正式划入联合国教科文组织 Durmitor 世界自然遗产保护区的范围之内。正如 Đokić 所言，如果一项清洁能源项目以毁灭一个绝无仅有的生态系统为代价，那么它既谈不上绿色，也称不上可持续。</p><p><img src="https://static.cnbetacdn.com/article/2026/0808/3986b92293a0398.jpg"></p><p><img src="https://static.cnbetacdn.com/article/2026/0808/fd5a3d83a0dab81.jpg"></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1572272.htm</guid>
+      <pubDate>Sat, 08 Aug 2026 02:36:12 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Anthropic推出Claude Code跨会话通信功能 提升多任务协作效率</title>
       <link>https://www.cnbeta.com.tw/articles/tech/1572270.htm</link>
@@ -564,54 +613,6 @@ VPN 服务提供商 Windscribe 于近期正式发布了一款名为 deGDID
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1571976.htm</guid>
       <pubDate>Thu, 06 Aug 2026 08:19:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI要求法官驳回苹果诉讼：窃密指控毫无根据</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1571974.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要涉及AI巨头OpenAI与苹果的法律纠纷，核心围绕AI技术发展与行业进展，符合“AI软件技术进展”兴趣配置。</small></p>
-                                                
-                                                <p>8月6日，据彭博社报道，OpenAI正要求美国联邦法官驳回苹果公司提起的一项诉讼，认为苹果对其提出的窃取商业机密指控毫无根据。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0806/d3b30f416bd0238.webp"><br></p><p style="text-align: center;">苹果</p><p>OpenAI律师表示，苹果的诉讼错误地描述了该公司员工的行为。OpenAI的顶级硬件高管在面试苹果员工时遵循了行业通用的招聘标准，而被指控窃取商业秘密的那名员工实际上是在试图帮助其在苹果的一位前同事。</p><p>“苹果的诉状显然是在没有充分调查的情况下提出的，建立在断章取义摘取的部分通信记录和脱离背景的普通行为之上。借用苹果自己的说法，这桩诉讼‘烂透了’。苹果不应被允许利用一场毫无根据，以虚假理由提起的诉讼，来弥补其在人才市场上的短板。”OpenAI在周三晚些时候提交的一份法院文件中表示。</p><p>就在前一天，苹果请求法官下令，禁止OpenAI继续使用其所称的被窃取的商业机密，并要求该公司归还任何属于苹果的机密信息。如果该命令获批准，将在苹果提起的诉讼审理期间持续有效。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1571974.htm</guid>
-      <pubDate>Thu, 06 Aug 2026 08:19:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 中国地质科学院地质研究所编制完成新版全月地质图</title>
-      <link>https://www.cnbeta.com.tw/articles/science/1571972.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 报道中国完成新版全月地质图编制，属于天文地理科学前沿进展，符合用户“科学前沿进展”兴趣配置。</small></p>
-                                                
-                                                <p>我国科研团队编制完成的1∶500万全月地质图，主图长约280厘米、高约120厘米，附带南北极局部地质图，精准标注了逾1.3万个撞击坑和81个撞击盆地，划分出14类地质构造和17种岩石类型。</p>                
-                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0806/23da7ebd15d7e58.webp"><br></p><p>记者8月6日从编制方中国地质科学院地质研究所获悉，基于嫦娥工程等最新探测成果，兼顾科学严谨性与直观性，在三方面实现系统创新——</p><p>修正“月球时钟”。依据最新研究，对月球地质年代进行精细化修订，艾肯纪起始年龄调整为43.3亿年，酒海纪起始年龄调整为41.7亿年，雨海纪起始年龄微调至39.2亿年，在全球尺度上首次对月球晚期地层进行更细致的划分。</p><p>更新“月球物质清单”。采用更高分辨率的月表关键矿产分布图，优化了岩石分类标准。利用嫦娥四号、六号最新发现，在南极-艾肯盆地新识别出一类名为辉长苏长岩的岩石，让人类直接“看到”月球深部物质。</p><p>定制“专属放大镜”。针对1∶500万比例尺制图需求，建立了分类型的差异化最小表达尺度，确保了宏大图面既有整体可读性，又不遗漏具有重大科学价值的关键地质特征。</p><p>中国地质科学院地质研究所所长杨志明说，新版全月地质图发布，为我国未来月球科研站建设、着陆区选址及深空探测提供了重要科学支撑，也为人类探索太阳系演化作出了新的中国贡献。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1571972.htm</guid>
-      <pubDate>Thu, 06 Aug 2026 08:17:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ “价格屠夫”或告别低价策略 DeepSeek预告API价格将大幅上调</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1571964.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及AI模型的API定价策略，虽非技术细节但属于AI领域动态，建议阅读。</small></p>
-                                                
-                                                <p>今日DeepSeek发布公告称，计划近期整体上调DeepSeek API服务的定价，预计涨幅较大。公告同时提醒开发者合理安排使用，具体方案以正式通知为准。</p>                
-                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0806/482991108c4380f.jpg"><br></p><p>当前，DeepSeek的API价格按“输入Token”和“输出Token”分别计费，并根据“缓存命中”与“缓存未命中”情况有所差异。</p><p>以主力模型为例，DeepSeek-V4-Flash输入（缓存命中）为0.02元/百万Token，输入（缓存未命中）为1元/百万Token，输出为2元/百万Token；DeepSeek-V4-Pro输入（缓存命中）为0.025元/百万Token，输入（缓存未命中）为3元/百万Token，输出为6元/百万Token。</p><p>红星资本局梳理发现，其API定价历程，经历了多次重大调整。2024年4月，DeepSeek将API价格降至输入1元/百万Token、输出2元/百万Token的行业低价；随后8月宣布继续降价。去年9月发布DeepSeek-V3.2-Exp时，API价格再次下调50%以上。</p><p>今年以来，DeepSeek宣布过两次调价。上一次是6月，DeepSeek宣布引入峰谷计费机制，高峰时段API价格调整为平日价格的2倍。</p><p>DeepSeek在业内曾有“价格屠夫”称号，此次预告计划大幅上调API价格，被视作其或将告别极致低价策略的信号。</p><p>7月，高盛研报针对DeepSeek峰谷计费调整指出，这类价格调整并不意味着需求走弱，反而反映出国内AI模型需求持续旺盛、算力资源趋紧，行业竞争正从早期激进的价格战逐步回归更理性的定价框架。</p><p>今年以来，已有智谱、月之暗面、MiniMax、阶跃星辰四家对部分API价格进行上调。以智谱为例，2026年一季度API调用定价较2025年底提升约83%，调用量仍增长400%，呈现“量价齐升”态势。此前智谱已在年内进行三次API价格上调，2月对GLMCodingPlan套餐实施结构性调价，整体涨幅30%起。</p><p>月之暗面在2026年进行了显著的API价格上调。今年7月随着新模型KimiK3的发布，API定价再次大幅上调。官方定价为输入20元/百万Token（缓存未命中）、输出100元/百万Token。与前一代K2.6相比，输入价格涨幅超3倍，输出价格涨幅接近4倍。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1571964.htm</guid>
-      <pubDate>Thu, 06 Aug 2026 05:16:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cloudflare发布开源AI智能体工作空间Cloudflare OS</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1571958.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章涉及AI智能体工作空间与开源项目的发布，属于编程工具与开源项目，强烈感兴趣。</small></p>
-                                                
-                                                <p>网络安全与云服务巨头Cloudflare于今日正式推出了开源人工智能智能体工作空间“Cloudflare OS”。该平台基于浏览器运行，内置大量可共享的定制微型应用，旨在为企业员工提供一个高度定制化且安全的智能化协同环境。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://blog.cloudflare.com/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01KZ7PDXE4XKZZQV409JNYTS85.png&w=1280&h=720&f=webp&fit=cover&position=center"></p><p>目前市场上的大多数企业级人工智能工具普遍存在通用性较强但缺乏针对性知识的问题，难以深度理解特定企业的内部业务逻辑。而Cloudflare OS则是Cloudflare完全基于自身团队的日常需求从零打造的。在公司内部，员工每日通过该系统开展研究、撰写文档以及构建日常工作所需的应用程序。</p><p>Cloudflare联合创始人兼首席执行官马修·普林斯（Matthew Prince）表示，AI若要真正为企业带来变革，就不能局限于孤岛之中或受制于技术开发的瓶颈，企业应当赋予每位员工安全构建、迭代和自动化工作流程的能力。</p><p>据介绍，Cloudflare OS能够自企业使用首日起捕获并沉淀内部知识。员工无需具备专业开发背景，即可利用企业内部知识库创建专属的微应用，轻松搭建工作流并进行内部协作与分享，避免上下文信息的遗失。</p><p>由于该框架完全开源且运行在企业自身的Cloudflare账户上，企业能够全权掌控其构建的所有流程、上下文数据及系统连接，有效避免被封闭式产品绑定。依托于Cloudflare Access的技术支撑，该系统默认采用零信任架构，对每一次访问与请求进行严格验证。</p><p>此外，该平台还推出了“自定义模型”（Bring Your Own Model）功能。企业可以通过Cloudflare AI Gateway接入任意AI模型提供商，管理人员能够精准把控Token的使用情况与成本开支，并按人员、团队及应用维度查看费用明细。管理员还可设置预算与限速规则，或根据任务复杂度灵活分发请求——例如将常规任务派发给小型高效模型，而在需要高阶推理时调用前沿大模型。</p><p>普林斯补充道，开发Cloudflare OS是因为市场上此前缺乏能满足其需求的同类产品，而现在所有企业都可以直接使用这一经过多年打磨的技术成果。</p><p>了解更多：</p><p><a href="https://blog.cloudflare.com/cloudflare-os/" _src="https://blog.cloudflare.com/cloudflare-os/" target="_blank">https://blog.cloudflare.com/cloudflare-os/</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1571958.htm</guid>
-      <pubDate>Thu, 06 Aug 2026 04:22:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
