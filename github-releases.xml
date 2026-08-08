@@ -3,7 +3,34 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 07 Aug 2026 23:45:06 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2026 02:18:55 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.225 更新日志</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.225</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>主要更新</h3>
+<ul>
+  <li><strong>网关支出限制支持</strong>：使用警告信息现已包含额度上限、重置时间及操作员消息（需配合 2.1.225 网关使用）。</li>
+  <li><strong>工作区信任提示</strong>：<code>claude agents</code> 命令现在会对未信任的目录显示工作区信任提示，行为与 <code>claude</code> 保持一致。</li>
+  <li><strong>远程会话功能增强</strong>：<code>SendMessage</code> 现在支持通过名称直接启动与其他机器上远程会话的对话；远程控制的照片附件现在直接展示给 Claude，无需额外工具调用。</li>
+  <li><strong>VSCode 插件优化</strong>：修复了 Focus 视图折叠导致待办事项和上下文丢失的问题；优化了思考过程折叠显示逻辑。</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+  <li>修复了 OAuth 令牌替换导致的 401 错误，解决了无头会话中断问题。</li>
+  <li>修复了 macOS 上 MCP OAuth 服务器因密钥链读取超时而间歇性 401 错误的问题。</li>
+  <li>修复了自动模式下安全过滤器拒绝计入连续阻止限制的问题，模型现在会直接跳过而非重试。</li>
+  <li>修复了无头会话及启动期间跨会话消息滞留无提示的问题。</li>
+  <li>修复了大型对话压缩后恢复远程会话时对话历史断裂的问题。</li>
+  <li>修复了代理列表中悬停其他项目会话导致目录切换的问题。</li>
+  <li>修复了 <code>claude self-hosted-runner</code> 在无法创建或写入 <code>--base-dir</code> 时注册失败的问题，改为启动时直接报错。</li>
+  <li>修复了 Web 端会话被误报为卡住及重连时事件积压重发的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.225</guid>
+      <pubDate>Sat, 08 Aug 2026 01:09:26 GMT</pubDate>
+    </item>
     <item>
       <title>Codex v0.147.0 发布：新增 Agent 插件搜索、对话区块管理与自动批准功能</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.147.0</link>
@@ -1125,37 +1152,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.144.1</guid>
       <pubDate>Thu, 09 Jul 2026 23:02:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex CLI v0.144.0 更新：新增应用写入审批模式与 MCP 交互认证</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.144.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>核心功能更新</h3>
-<p>Codex CLI v0.144.0 版本重点增强了积分管理、应用审批流程及外部工具认证能力，同时优化了多平台兼容性与交互体验。</p>
-<ul>
-  <li><strong>积分管理优化</strong>：额度重置积分（reset credits）现显示具体类型与过期时间，支持用户手动选择使用哪种积分。</li>
-  <li><strong>应用审批模式</strong>：新增 <code>writes</code> 模式，允许声明只读操作的同时，对写入操作进行提示审批。</li>
-  <li><strong>MCP 交互认证</strong>：MCP (Model Context Protocol) 工具现支持交互式请求认证，无需再开启实验性选项。</li>
-  <li><strong>运行时认证支持</strong>：App-server 主机可在运行时提供 Codex 认证，并将成功登录重定向至托管页面。</li>
-  <li><strong>包管理器自动检测</strong>：自动识别全局 pnpm 安装环境，确保诊断与更新调用正确的包管理器。</li>
-  <li><strong>高并发用量预警</strong>：选择 Ultra 推理模式时，若高多智能体并发可能快速消耗额度，系统将主动发出警告。</li>
-</ul>
-<h3>缺陷修复与性能优化</h3>
-<ul>
-  <li><strong>线程恢复机制</strong>：恢复 ChatGPT 线程时，若压缩（compaction）引用了已退役模型，将自动回退至当前选中模型重试。</li>
-  <li><strong>平台兼容性修复</strong>：修复了 Intel macOS 版本中 Code Mode 的崩溃问题；Windows 沙盒会话现支持在可写根目录删除文件并访问托管主运行时。</li>
-  <li><strong>终端渲染修复</strong>：修复了粘贴终端控制序列导致 TUI (Text User Interface) 渲染损坏或对话历史恢复异常的问题。</li>
-  <li><strong>连接与代理支持</strong>：长期运行应用会话支持刷新过期认证；响应 WebSockets 在保持低延迟传输的同时，更好地兼容系统代理与自定义 CA (Certificate Authority)。</li>
-  <li><strong>性能提升</strong>：优化了远程执行器上的插件技能加载时间；加速了大型仓库中 <code>/review</code> 分支选择器的响应速度。</li>
-  <li><strong>审查流程改进</strong>：改进了自动审查（auto review）的提示指令与工具集，使其更加聚焦。</li>
-  <li><strong>模型命名优化</strong>：明确 Amazon Bedrock 模型名称以区分 GPT-5.6 系列变体。</li>
-</ul>
-<h3>文档与安全提示</h3>
-<p>更新了设备代码登录警告说明，详细解释如何识别并防范网络钓鱼攻击，提升用户账户安全性。</p>
-<p><a href="https://github.com/openai/codex/compare/rust-v0.143.0...rust-v0.144.0">查看完整更新日志</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.144.0</guid>
-      <pubDate>Thu, 09 Jul 2026 16:47:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
