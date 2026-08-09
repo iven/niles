@@ -3,7 +3,37 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 09 Aug 2026 09:52:59 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 09 Aug 2026 10:52:07 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 美观与鲁棒性的平衡：如何制作抖动艺术二维码</title>
+      <link>https://news.ycombinator.com/item?id=49226742</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍如何制作艺术二维码，涉及算法与编程实现技术，属于技术分享范畴。</small></p><h2>美观与鲁棒性的平衡：如何制作抖动艺术二维码</h2>
+<p>二维码（QR Code）本质上是一种将少量数据编码为易于手机或设备拍照识别的网格图案。它由<strong>功能图案（Function Patterns）</strong>和<strong>数据模块（Data Modules）</strong>组成。功能图案用于帮助扫描器快速定位，而数据模块则存储实际数据。由于扫描器主要依赖功能图案定位，数据模块的位置允许进行一定程度的修改，这为在二维码中嵌入图像提供了可能。</p>
+<p>要在二维码中嵌入图片，通常需要将数据模块缩小，留出空间放置图像。然而，直接将图像放入会导致明显的“椒盐噪声”（salt-and-pepper noise），使图像看起来杂乱无章。为了解决这个问题，作者引入了<strong>抖动（Dithering）</strong>技术。</p>
+<p>抖动技术旨在通过有限的颜色深度（如黑白两色）模拟出灰度效果。常见的 Bayer 抖动通过棋盘格模式产生中间色调，而 Floyd-Steinberg 误差扩散算法则更进一步。该算法在阈值化像素时，会将当前像素的亮度误差扩散到周围尚未处理的像素中，从而在整体上更准确地还原图像的明暗分布，且产生的不规则图案更具美感。</p>
+<p>文章的核心创新在于将误差扩散算法应用于二维码的数据模块。由于数据模块本身是强制设定的黑白像素，它们会产生巨大的亮度误差。通过进行<strong>两次误差扩散</strong>：第一次专门处理数据模块的误差并将其扩散到周围像素，第二次进行常规处理，可以有效掩盖数据模块带来的随机噪声，使最终生成的图像更加平滑清晰。</p>
+<img src="/dithered-qr-codes/david1.7e489f32.png" alt="A noisy Floyd-Steinberg dithered picture of Michaelangelo's David, with QR code patterns on top" />
+<p>上述图像展示了未经数据模块误差扩散处理的效果，QR 码图案与图像叠加后显得较为嘈杂。经过优化后，图像质量显著提升：</p>
+<img src="/dithered-qr-codes/david2.a85a7c85.png" alt="A less noisy Floyd-Steinberg dithered picture of Michaelangelo's David, with QR code patterns on top" />
+<p>该生成工具还支持旋转二维码、调整编码设置，并利用二维码强大的纠错能力微调部分像素，以优化视觉效果。不过，作者也提醒，美观与可扫描性之间存在权衡。在实际应用中（如印刷品），需要保留足够的边缘空白（Quiet Zone），并注意 CSS 缩放可能导致的模糊问题，以确保二维码在各种设备上都能被可靠扫描。</p>
+<img src="/dithered-qr-codes/lena.c347bd89.png" alt="A dithered version of Morten Rieger Hannemose's ethically-sourced Lena image, with standard QR code alignment patterns superimposed on it" />
+<p><strong>社区反馈与扩展讨论：</strong></p>
+<ul>
+<li>有用户指出，除了黑白，还可以利用颜色生成艺术二维码，并分享了相关工具：<a href="https://1mentat.github.io/qr-code-shenanigans/" rel="nofollow">https://1mentat.github.io/qr-code-shenanigans/</a>。</li>
+<li>部分讨论延伸至动态二维码，例如在二维码中运行动画或游戏（如《Doom》），甚至有人期待出现全二维码构成的《Bad Apple!!》视频。</li>
+<li>关于二维码美观化（如中间添加 Logo）对鲁棒性的影响，社区认为这确实会消耗纠错预算，但在大尺寸屏幕或海报上通常影响有限，而在易受损的纸质媒介上则需谨慎使用。</li>
+</ul>
+
+<div style="background-color: #f0f8ff; padding: 10px; border-radius: 5px; margin-top: 15px;">
+<h3>你知道吗？</h3>
+<p><strong>Floyd-Steinberg 抖动</strong>：这是一种广泛使用的图像抖动算法，由 Floyd 和 Steinberg 于 1976 年提出。它通过按行从左到右、从上到下扫描图像，将当前像素的量化误差按特定权重（右方 7/16、下方左侧 3/16、正下方 5/16、下方右侧 1/16）分配给相邻像素。这种方法能很好地保留图像的细节和渐变，广泛应用于早期的计算机图形学和打印技术中。</p>
+<p><strong>Lena 图像</strong>：文中使用的 Lena 图像是计算机视觉和图像处理领域最著名的测试图像之一。它拍摄于 1972 年，原图出自《花花公子》杂志。由于其在 1973 年被用于一篇重要的图像处理论文，从此成为学术界评估图像压缩、去噪和增强算法的标准基准图。尽管近年来因其来源争议逐渐被其他图像取代，但它仍在许多经典教程和算法演示中出现。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49226742</guid>
+      <pubDate>Sat, 08 Aug 2026 23:05:24 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 利用 AI 追踪蓝牙信号强度，快速找回丢失手机</title>
       <link>https://news.ycombinator.com/item?id=49215786</link>
@@ -1059,22 +1089,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49152023</guid>
       <pubDate>Mon, 03 Aug 2026 06:42:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 通过手动重打 LLM 生成的代码来防止认知债务</title>
-      <link>https://news.ycombinator.com/item?id=49153374</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论了LLM辅助编程中的认知债务问题及应对方法，属于AI软件技术进展与编程实践的探讨，符合用户对AI技术的兴趣。</small></p><p>在人工智能辅助编程日益普及的背景下，开发者面临着一个新挑战：过度依赖 LLM 生成代码可能导致对项目的“认知债务（Cognitive Debt）”——即开发者逐渐失去对代码逻辑和架构的掌控。一位开发者分享了他独特的应对策略：要求 LLM 在聊天窗口中生成代码片段和命令，然后由自己手动逐行输入到编辑器中，而非让 AI 直接修改文件。</p>
-<p>这种工作流的核心在于“慢即是快”。虽然手动输入将开发速度限制在使用 LLM 时的约 2 倍（而非直接生成的 10 倍），但它带来了显著优势：</p>
-<ul>
-<li><strong>建立心智模型：</strong> 手动输入迫使开发者放慢节奏，在敲入每一行代码时思考其逻辑，从而在脑海中构建起代码库的“空间地图（Spatial Map）”。</li>
-<li><strong>把控代码质量：</strong> 在输入过程中，开发者能及时发现 LLM 的幻觉或糟糕的设计，并顺手进行重构、添加注释或调整风格。</li>
-<li><strong>保持学习动力：</strong> 这种做法类似于传统编程教学中“手动敲代码”的理念，将个人项目的重心从单纯追求产出转向对技术原理的深度掌握。</li>
-</ul>
-<p>在 <a href="https://news.ycombinator.com/item?id=49153374">Hacker News</a> 的讨论中，社区对此观点反响不一。支持者认为，复制粘贴代码会留下“理解盲区”，手动输入是保持开发者核心竞争力的有效手段；质疑者则指出，这种方式在个人项目上进度过慢，可能会消磨创作乐趣。也有开发者建议，先建立完整的心智模型再与 LLM 交互，可能是兼顾效率与理解的更优解。作者最终表示，尽管牺牲了部分速度，但完全理解自己编写的软件是程序员的职业操守，否则将付出巨大的长期代价。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49153374</guid>
-      <pubDate>Mon, 03 Aug 2026 09:32:07 GMT</pubDate>
     </item>
   </channel>
 </rss>
