@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 09 Aug 2026 10:52:07 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 09 Aug 2026 11:56:07 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Shopify 将库存预留系统从 Redis 迁移至 MySQL 的扩展实践</title>
+      <link>https://news.ycombinator.com/item?id=49226536</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章分享了Shopify数据库迁移与性能优化的实战经验，涉及SKIP LOCKED等具体技术实现，属于编程技术效率改进与架构实践分享，用户会很感兴趣。</small></p><p>Shopify 在结账环节需要处理极高并发的库存预留，以防止超卖或漏卖。过去该系统运行在 Redis 上，但跨系统操作无法保证 ACID 一致性，且增加了运维复杂度。为统一数据库策略，Shopify 将库存预留迁移至 MySQL，并成功应对了黑五等高峰流量。</p>
+<img src="https://cdn.shopify.com/b/shopify-brochure2-assets/d5a289aad251536cebddff8378b429f0.png?originalWidth=1848&originalHeight=782" alt="Redis to MySQL for inventory" width="1848" height="782" />
+<p>核心方案是利用 MySQL 8 引入的 <a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-reads.html">SKIP LOCKED</a> 特性。设计改为“每个可售单位一行”（而非每个商品一行带数量列）。为应对大规模数据扫描的性能瓶颈，系统为每个商品/位置组合维护了一个容量上限为 1000 行的可用池，并通过后台进程动态补充。</p>
+<p>在技术实现上，团队做出了多项关键决策：</p>
+<ul>
+<li><strong>复合主键设计</strong>：将过滤字段纳入主键，减少 InnoDB 的行锁数量。</li>
+<li><strong>调整隔离级别</strong>：使用 <code>READ COMMITTED</code> 替代默认的 <code>REPEATABLE READ</code>，避免间隙锁（Gap Locks）导致的死锁。</li>
+<li><strong>统一锁顺序与批量查询</strong>：标准化表操作顺序防止死锁，并使用 <code>UNION ALL</code> 合并多商品查询以减少数据库往返延迟。</li>
+</ul>
+<p>在压测初期，系统遭遇吞吐量瓶颈。通过应用层打标签结合 ProxySQL 追踪，团队发现真正的瓶颈并非 CPU 或查询效率，而是数据库连接耗尽。结账流程的其他部分占用了过多连接，清理并优化后，连接池压力大幅缓解，系统顺利达到扩展目标。</p>
+<p>迁移过程采用了“双写影子模式”（Shadow Mode），在 Redis 和 MySQL 并行运行期间验证数据一致性与性能，确认无误后逐步切换主数据源。</p>
+<img src="https://cdn.shopify.com/s/files/1/0779/4361/files/water_line_vs_race.png?v=1778597595" alt="Water line vs race meme: inventory" />
+<h3>你知道吗？</h3>
+<p><strong>SKIP LOCKED 的应用场景</strong>：该特性允许在 <code>SELECT ... FOR UPDATE</code> 时跳过已被其他事务锁定的行。这在处理高并发资源抢占（如抢票、库存预留、任务队列）时非常有效，能显著降低行锁竞争带来的等待时间。</p>
+<p><strong>InnoDB 锁机制与主键设计</strong>：InnoDB 使用二级索引叶子节点存储主键值。若主键为自增 ID，查询时可能同时锁定二级索引和聚簇索引。将过滤字段设计为复合主键，可大幅减少锁竞争，提升高并发下的吞吐量。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49226536</guid>
+      <pubDate>Sat, 08 Aug 2026 22:32:50 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 美观与鲁棒性的平衡：如何制作抖动艺术二维码</title>
       <link>https://news.ycombinator.com/item?id=49226742</link>
@@ -1065,30 +1088,6 @@ AirLLM 的核心技巧是“流式加载”（streaming）。它一次仅在 GPU
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49152842</guid>
       <pubDate>Mon, 03 Aug 2026 08:29:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Rust 2026 项目目标：引入不可移动类型与保证析构机制</title>
-      <link>https://news.ycombinator.com/item?id=49152023</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论Rust 2026项目目标和技术改进，属于开源项目进展，用户对此感兴趣</small></p><p>本文介绍了 <a href="https://github.com/rust-lang/rust-project-goals/blob/main/src/2026/move-trait.md">Rust 2026 年项目目标</a> 中的核心提案：<strong>不可移动类型（Immobile types）与保证析构（Guaranteed destructors）</strong>。该提案旨在通过引入新的类型特征（Traits），解决当前 Rust 类型系统中关于内存移动和析构函数执行的固有假设限制。</p>
-<h3>背景与动机</h3>
-<p>目前，Rust 默认假设所有值都可以在内存中移动（relocated），并且可以通过 <code>mem::forget</code> 安全地“遗忘”（不运行析构函数）。然而，这种设计在实际应用中遇到了瓶颈：</p>
-<ul>
-<li><strong>自引用类型限制</strong>：许多异步（async）任务需要自引用结构，但自引用类型无法安全移动。当前解决方案 <code>Pin</code> 将不可移动性绑定在“位置（place）”而非“类型”上，导致 API 设计复杂且难以在 Linux 内核等系统中安全实现。</li>
-<li><strong>析构函数执行不确定性</strong>：某些资源（如事务处理、作用域任务句柄）必须确保析构函数在作用域退出时运行。由于 <code>mem::forget</code> 是安全的，Rust 无法保证析构执行，从而阻碍了安全的异步作用域 spawn（scoped spawn）等模式。</li>
-</ul>
-<h3>核心提案</h3>
-<p>项目提议借鉴 <code>Sized</code> 层次结构的设计模式，放松“所有类型均可移动/可遗忘”的假设，引入一组 auto-traits 来显式描述类型的操作能力：</p>
-<ul>
-<li><code>Move</code> trait：标记类型可被移动。实现 <code>!Move</code> 的类型在生命周期内必须保持地址稳定，不可移动性成为类型本身的属性。</li>
-<li><code>Forget</code> trait：标记类型可被安全遗忘。实现 <code>!Forget</code> 的类型析构函数必然运行，从而为安全的 scoped spawn 提供基础。</li>
-</ul>
-<h3>路线图与社区反馈</h3>
-<p>该目标计划于 2026-2027 年实施，初期将聚焦于编译器实现、RFC 撰写以及在 Linux 内核中的实际测试。值得注意的是，由于 <code>Future</code> trait 强依赖 <code>Pin</code>，本次提案暂时不修改异步生态的核心 trait，相关迁移工作将作为独立项目后续推进。</p>
-<p>在 Hacker News 社区的讨论中，开发者普遍认为这是对 Rust 长期存在的类型系统缺口的填补。讨论指出，该提案实际上是作为 <a href="https://github.com/rust-lang/rust-project-goals/blob/main/src/2025/pin-ergonomics.md">Pin 语法扩展（Pin Ergonomics）</a> 的替代方案，最终目标是彻底弃用 <code>Pin</code>。此外，社区还探讨了该机制与 C++ 移动语义的对比、线性类型（Linear types）在强制资源清理（如事务 commit/rollback）中的应用，以及如何兼容现有基于 <code>Pin</code> 的生态系统。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49152023</guid>
-      <pubDate>Mon, 03 Aug 2026 06:42:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
