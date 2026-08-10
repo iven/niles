@@ -3,7 +3,23 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 10 Aug 2026 22:53:09 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2026 23:48:07 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.227 更新：修复功能标志评估错误及斜杠菜单优化</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.227</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.227 版本更新主要包含以下修复与改进：</p>
+<ul>
+  <li><strong>功能标志修复</strong>：修复了当会话使用过期令牌启动时，功能标志（feature flags）未正确评估用户订阅层级的问题。此前可能导致 Max 计划用户被错误提示为 Fable 功能启用使用额度。</li>
+  <li><strong>GitHub Actions 修复</strong>：解决了在 GitHub 托管运行器上，当配置了 <code>allowed_non_write_users</code> 时，<code>claude-code-action</code> 下的所有 Bash 命令均会失败的问题。</li>
+  <li><strong>对话回退修复</strong>：修复了使用 <code>/tui</code> 命令时，若对话已被回退至第一条消息之前，会重新打开该对话的异常行为。</li>
+  <li><strong>斜杠菜单优化</strong>：改进了斜杠命令菜单（slash-command menu）的视觉表现。蓝色高亮现在仅用于标记选中行，匹配的字符改为加粗显示，且 Emoji 或带重音符号的名称能正确保留字形。</li>
+  <li><strong>性能提升</strong>：优化了事件循环性能，减少了在文件未找到建议和 @提及（at-mention）大小检查时的卡顿现象。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.227</guid>
+      <pubDate>Mon, 10 Aug 2026 22:56:53 GMT</pubDate>
+    </item>
     <item>
       <title>Hapi v0.27.2 发布：新增会话列表“仅未读”过滤器、交互式存储使用饼图及音频文件显示</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.27.2</link>
@@ -1106,52 +1122,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.21.0</guid>
       <pubDate>Sun, 12 Jul 2026 03:06:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.207 更新：Auto mode 默认开启，默认模型升级至 Claude Opus 4.8，修复终端冻结问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.207</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
-<ul>
-  <li><strong>Auto mode 默认开启</strong>：在 Bedrock、Vertex AI 和 Foundry 上，Auto mode 现在默认开启，无需设置 <code>CLAUDE_CODE_ENABLE_AUTO_MODE</code> 环境变量。用户可以通过设置 <code>disableAutoMode</code> 来关闭此功能。</li>
-  <li><strong>默认模型变更</strong>：Bedrock、Vertex 和 AWS 上的 Claude Platform 现在默认使用 Claude Opus 4.8。</li>
-  <li><strong>终端性能修复</strong>：修复了当流式响应包含长列表、表格、段落或代码块时，终端冻结和按键延迟的问题。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-  <li><strong>UI/UX 改进</strong>：
-    <ul>
-      <li>代理视图：粘贴相同文本时，现在会展开折叠的 <code>[Pasted text #N]</code> 占位符，而不是添加第二个。</li>
-      <li>代理视图：被阻止的会话预览现在以问题开头，并显示带文字的停滞时钟（如 <code>waiting 3m</code>）。</li>
-    </ul>
-  </li>
-  <li><strong>Bug 修复</strong>：
-    <ul>
-      <li>修复了自动更新器覆盖自定义启动器脚本或符号链接的问题。</li>
-      <li>修复了包含 <code>cd</code> 的复合命令在输出重定向到 <code>/dev/null</code> 时提示权限的问题。</li>
-      <li>修复了响应流式传输结束时转录本跳回答案开头的问题。</li>
-      <li>修复了 <code>extensions.worktreeConfig</code> 在最后一个 <code>worktree.sparsePaths</code> 工作树被移除后留在 <code>.git/config</code> 中的问题。</li>
-      <li>修复了规则通配符、技能路径等中的格式错误的括号模式导致文件读取等问题。</li>
-      <li>修复了代理团队中格式错误的队友邮箱消息导致的崩溃循环。</li>
-      <li>修复了后台会话自动命名和冷重启后空白的问题。</li>
-      <li>修复了远程控制在网络中断或凭据刷新后丢失任务状态更新的问题。</li>
-      <li>修复了桌面应用托管的远程控制在移动和网页上未显示后台代理和工作流进度的问题。</li>
-      <li>修复了深度研究运行中标记 Fetch 阶段代理为 "unknown" 的问题。</li>
-      <li>修复了 Bedrock 每次 API 请求都重复请求 AWS SSO 凭据的问题。</li>
-      <li>修复了 <code>/usage-credits</code> 命令现在拒绝格式错误的金额输入，超过 $1,000 需要打字确认。</li>
-    </ul>
-  </li>
-  <li><strong>设置变更</strong>：
-    <ul>
-      <li>自动模式设置不再从 <code>.claude/settings.local.json</code> 读取 <code>autoMode</code>，改用 <code>~/.claude/settings.json</code>。</li>
-      <li>插件选项值（<code>pluginConfigs</code>）不再从项目级 <code>.claude/settings.json</code> 读取。</li>
-    </ul>
-  </li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.207</guid>
-      <pubDate>Sat, 11 Jul 2026 00:52:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
