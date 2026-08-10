@@ -3,7 +3,21 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 10 Aug 2026 17:05:13 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2026 18:00:54 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.3 引入 KCFI 优化，提升老款 Intel CPU 性能</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-KCFI-Optimization</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲Linux内核7.3版本中KCFI安全技术优化，用户兴趣配置仅提及Linux桌面技术，内核技术优化不明确匹配，故归为可选</small></p><p>Linux 7.3 合并窗口将引入一项由 Intel 工程师 Peter Zijlstra 开发的内核控制流完整性（<a href="https://en.wikipedia.org/wiki/Control-flow_integrity" target="_blank">KCFI</a>）优化补丁，旨在提升不支持 FineIBT 的老款 Intel 处理器的性能。</p>
+<p>在缺乏 FineIBT 支持的老平台上，传统的 KCFI 实现会使用 <code>je</code> 指令进行跳转检查。由于该指令通常被处理器预测为“不跳转”，而实际执行中却总是跳转，这会导致分支预测失败并降低吞吐量。新的补丁将这一序列替换为 <code>jne</code> 配合 <code>test</code> 指令，将跳转目标指向 <code>test</code> 指令中的立即数字节，从而优化分支预测并提升执行效率。</p>
+<p>FineIBT（细粒度间接分支跟踪）与 CET（控制流执行保护）技术目前仅在 Intel 第 11 代 "Tiger Lake" 及更新的 CPU 上提供支持。针对老平台，Intel 工程师 Scott Constable 进行了基准测试，结果显示该优化带来了显著的性能收益：<img src="//www.phoronix.net/image.php?id=2026&image=kcfi_optimization" alt="KCFI optimization benchmark" /></p>
+<p>目前该补丁已合并至 <code>tip/tip.git</code> 的 <code>x86/core</code> 分支，预计将在即将到来的 Linux 7.3 合并窗口中正式提交。</p>
+<h3>你知道吗？</h3>
+<p><strong>KCFI（内核控制流完整性）</strong> 是一种内核安全机制，通过在编译时插入检查点并在运行时验证函数指针调用是否符合预期，来防止攻击者劫持内核的控制流（例如利用 ROP 攻击）。对于不支持硬件级间接分支跟踪（如 Intel 的 FineIBT 或 AMD 的 CET）的旧款 CPU，软件实现的 KCFI 往往伴随着一定的性能开销，此次优化正是为了在保障安全的前提下降低这一开销。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-KCFI-Optimization</guid>
+      <pubDate>Mon, 10 Aug 2026 17:26:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Qt 即将推出边缘 AI 子模块，初期聚焦视觉 AI</title>
       <link>https://www.phoronix.com/news/Qt-Edge-AI-Module-Coming</link>
@@ -731,18 +745,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/AerynOS-Big-Update-2026</guid>
       <pubDate>Mon, 03 Aug 2026 00:23:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2-rc6 发布：Linus 称“这是一个巨大的版本”</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-rc6-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 Linux 内核 7.2 第六个候选版本的更新与发布内容，属于开源项目及 Linux 技术范畴，符合用户兴趣，故推荐。</small></p><p>Linux 7.2-rc6 内核版本现已发布，作为迈向稳定版 Linux 7.2 的关键一步，预计将在两周后正式推出。此次更新包含大量错误修复，部分修复数量的增加与 AI/LLM 编码代理在开发中的广泛应用有关。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_72_rc6" alt="Linux 7.2-rc6" />
-<p>根据 Linus Torvalds 的统计，此次更新中驱动程序修复占比近 60%，网络驱动占 20%，其余 20% 为架构、工具及文件系统等。主要更新集中在 DRM 图形驱动、声音驱动、SPI 和 ATA 等领域。此外，此次版本还修复了西部数据（Western Digital）部分 SATA 驱动器的兼容性问题，并修正了 AMD Zen 5 CPU 被系统误识别为 Zen 6 的 Bug。</p>
-<p>Linus Torvalds 在发布公告中表示，尽管此次更新规模庞大，可能是多年来最大的 rc6 版本，但代码内容并未显示异常，也没有迹象表明需要推迟发布。他同时表示，希望剩余的开发周期能够趋于平稳，顺利完成最终测试。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-rc6-Released</guid>
-      <pubDate>Sun, 02 Aug 2026 23:38:50 GMT</pubDate>
     </item>
   </channel>
 </rss>
