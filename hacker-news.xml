@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 11 Aug 2026 02:26:16 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2026 04:37:28 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 为何“人性化”LLM 输出是一种错误的抽象</title>
+      <link>https://news.ycombinator.com/item?id=49243474</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨LLM输出提示词设计与技术英语规范应用，属于AI技术进展与工具使用经验，符合用户兴趣配置。</small></p><p>原文链接：<a href="https://kuber.studio/blog/Reflections/Humanising-LLM-Outputs-is-Actually-Dumb">https://kuber.studio/blog/Reflections/Humanising-LLM-Outputs-is-Actually-Dumb</a></p>
+
+<p>近期，AI 社区中流行起使用“我有ADHD”或“使用 ASD-STE100 简化技术英语”等指令，要求大语言模型（LLM）的输出更加简洁、人性化。然而，有观点指出，这种试图让 LLM 输出更“人性化（humanising）”的做法，实际上是一种错误的抽象。</p>
+
+<p>核心问题在于，这些指令并非在模型完成任务后应用，而是直接融入了工作流本身。要求模型使用短句、避免术语并只保留重要细节，本质上是在强制模型持续将其输出压缩至更低带宽的格式。这种压缩必然是有损的，且往往在不知不觉中丢失了关键信息。</p>
+
+<img src="https://i.ytimg.com/vi/ExaNNAIysks/maxresdefault.jpg" alt="We're evolving, just backwards" />
+
+<p>在代理（Agent）协作场景中，这种信息损耗尤为明显。当子代理将调查结果转化为易读的摘要，父代理再将其转译为另一份易读摘要呈现给用户时，用户得到的可能只是模糊的“大多数测试通过了”。相比之下，用户实际上更需要精确的数据，例如 <code>5/6 PASS FAIL: test_cache_invalidation</code>。此外，人性化的语言擅长将冲突证据、堆栈跟踪等“丑陋但极具价值”的失败迹象，平滑为“这里有几点需要考虑”之类的客套话，从而掩盖了模型幻觉或接近 Token 限制等真实问题。</p>
+
+<p>作者将这一现象与其他软件系统进行了对比：数据库、编译器和 API 都会尽可能保持最高保真度的数据表示，直到人类消费的边界才进行格式转换。而当前的 LLM 工具却在反向操作。作者建议，如果用户需要简洁或简化英语的输出，应将其作为最后的渲染层（renderer）步骤，而非系统指令。代理系统应以精确的、面向机器的状态进行原生交互，仅在最终呈现给用户时才进行压缩。这些病毒式传播的提示词技能，实际上是用户在使用提示词层修补底层架构缺陷的“错误报告”。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+  <li><strong>ASD-STE100（Simplified Technical English）</strong>：一种受控自然语言标准，最初由航空航天工业制定，用于编写技术文档。它通过限制词汇量和语法结构来消除歧义，旨在提高非母语读者的理解度。但在 AI 代理（Agent）的机器交互中，过度简化反而可能丢失必要的上下文。</li>
+  <li><strong>多智能体系统中的“电话游戏”效应</strong>：在 Multi-Agent Systems 中，如果多个代理之间通过自然语言摘要进行通信，信息会在每次转译中发生衰减和扭曲。保持结构化数据（如 JSON、Schema）在代理间流转，是避免信息丢失的关键。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49243474</guid>
+      <pubDate>Mon, 10 Aug 2026 13:35:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Needle 2：仅 14MB 的微型边缘 AI 智能体模型，专为手机与 IoT 设备打造</title>
       <link>https://news.ycombinator.com/item?id=49246804</link>
@@ -984,23 +1009,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49176038</guid>
       <pubDate>Tue, 04 Aug 2026 22:22:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Mistral 发布 Shieldstral：3B 参数开源多模态内容审核模型</title>
-      <link>https://news.ycombinator.com/item?id=49171268</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 Mistral 发布开源多模态安全模型 Shieldstral，属于新 AI 模型发布公告，符合全局配置中 '新AI模型发布公告' 的高兴趣标准。</small></p><p>Mistral 正式发布了 <strong>Shieldstral</strong>，一个 3B 参数的开源多模态安全分类器（multimodal safety classifier），采用 Apache 2.0 协议。该模型旨在解决传统内容审核模型依赖固定分类体系、难以适应不同业务场景的痛点。</p>
-<p><img src="/_astro/Cover-Model_Cover-Shieldstral_Z1gJ2X9.webp?dpl=6a71ffa2b153950008e88155" alt="Shieldstral 模型封面" width="1440" height="800" /></p>
-<p><strong>核心创新：策略自适应审核</strong><br>
-Shieldstral 将内容审核重新定义为“策略自适应问答（policy-adaptive question-answering）”任务。与传统将危害分类硬编码在权重中的模型不同，Shieldstral 允许用户在推理时直接输入自然语言策略（例如：“该内容是否向未成年人展示不安全？”）。模型会读取指令、查询和待评估文档（文本或图像），直接输出校准后的连续安全分数。这种设计使得单一模型无需重新训练即可适应全新的审核策略。</p>
-<p><strong>性能与效率</strong><br>
-尽管参数量仅为 3B，Shieldstral 在文本安全、拒绝检测（refusal detection）和多模态基准测试中的表现，匹敌甚至超越了比其大 7 倍的开源守卫模型。得益于高效的训练策略（包括统一异构数据、训练模型区分细微政策边界、以及使用 SLERP 技术合并不同检查点），该模型可在单张 16GB NVIDIA GPU 上高效运行。</p>
-<p><strong>社区反馈与讨论</strong><br>
-在 Hacker News 社区，该发布引发了广泛讨论。多数用户认可 Mistral 避开与中美大厂在算力上的正面竞争，转而深耕垂直领域和合规需求的务实策略，认为其非常适合 B2B 场景及满足欧盟 AI 法案等合规要求。部分用户指出，纯黑盒输出概率而缺乏推理过程（reasoning trace）可能在生产环境中带来可解释性挑战。此外，模型命名“Shieldstral”也引发了一些调侃，有用户建议改为“Safestral”。</p>
-<p>模型权重已开源：<a href="https://huggingface.co/mistralai/Shieldstral-1.0-3B">https://huggingface.co/mistralai/Shieldstral-1.0-3B</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49171268</guid>
-      <pubDate>Tue, 04 Aug 2026 16:36:05 GMT</pubDate>
     </item>
   </channel>
 </rss>
