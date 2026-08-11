@@ -3,7 +3,37 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 11 Aug 2026 19:16:28 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2026 21:01:09 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.228 更新总结</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.228</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Claude Code v2.1.228 更新总结</h3>
+<p>Claude Code v2.1.228 版本主要优化了跨会话通信、模型交互逻辑以及后台任务处理，同时修复了多项影响会话稳定性和终端体验的缺陷。</p>
+<h4>核心功能与交互优化</h4>
+<ul>
+  <li><strong>跨会话消息改进</strong>：修复了跨会话消息在首次启动或升级后可能缺失收件箱的问题。现在发送者与消息正文将以内联形式显示，而非折叠行；向其他机器上的 Remote Control 会话发送消息时，将显示你的 Remote Control 会话名称作为发送者。</li>
+  <li><strong>模型与命令行为调整</strong>：修复了 <code>/tui</code> 命令在 <code>/model</code> 更改后意外回退到早期模型的问题。同时，<code>Write</code> 工具的行为已对齐 <code>Edit</code> 工具：较新的模型现在可以直接覆盖本会话中未读取的现有文件，而旧模型仍需遵循先读取后修改的规则。</li>
+  <li><strong>Vertex AI 凭据处理</strong>：优化了 Google Cloud 凭据的验证逻辑，过期或缺失的凭据现在会在数秒内快速失败，避免了此前长达数分钟的重试等待。</li>
+</ul>
+<h4>稳定性与后台任务修复</h4>
+<ul>
+  <li><strong>会话与终端渲染</strong>：修复了罕见的内部布局错误导致交互式会话停止重绘但进程仍在后台运行的问题。更新了终端标题的忙线旋转符号（busy-spinner glyphs），以减少部分终端环境下的标签栏抖动。</li>
+  <li><strong>压缩（Compaction）进度反馈</strong>：在上下文压缩过程中，现在会实时显示重试倒计时和停滞提示，而不仅仅是静态进度条。</li>
+  <li><strong>自托管运行器（Self-hosted Runners）</strong>：修复了因 <code>checkout</code> 钩子失败或后台任务间隙导致会话意外终止的问题。现在对于未推送的仓库将跳过检查并发出警告，确保运行器会话稳定。</li>
+  <li><strong>清理与缓存机制</strong>：修复了会话清理误删项目内存文件夹内容、以及后台插件缓存清理误删符号链接开发签出插件缓存的问题。</li>
+</ul>
+<h4>其他调整</h4>
+<ul>
+  <li>修复了 Remote Control <code>/resume</code> 命令在连接时泄露已恢复对话标题或历史的问题。</li>
+  <li>解决了设置合并时的优先级冲突：市场条目在较高优先级设置层重新定义时，现在作为完整条目合并，不再错误继承其他层的自定义标头。</li>
+  <li>修复了延迟工具提醒在技能调用后偶尔重复发送给模型的问题。</li>
+  <li>移除了 Pro、Max 和 Team 计划首次使用通知中关于自动模式会话成本略高的过时说明。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.228</guid>
+      <pubDate>Tue, 11 Aug 2026 19:50:59 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.227 更新：修复功能标志评估错误及斜杠菜单优化</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.227</link>
@@ -1089,39 +1119,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.21.1</guid>
       <pubDate>Mon, 13 Jul 2026 01:04:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.21.0 发布说明</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.21.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.21.0 版本更新主要聚焦于扩展 AI 编码代理支持、增强 Web 端交互体验以及修复多项底层问题。</p>
-<h3>核心功能更新</h3>
-<ul>
-<li><b>新增代理支持</b>：正式支持 Claude Code 的 <code>auto</code> 权限模式，并新增对 Pi Coding Agent 的支持。同时移除了可启动的 Gemini CLI agent，但保留旧会话的读取功能。</li>
-<li><b>Codex 功能增强</b>：新增 Fast mode（服务层级）切换功能，支持通过 <code>/fast</code> 命令快速启用，并修复了 Windows 驱动器根路径规范化及 Qwen 实时兼容性问题。</li>
-<li><b>Web 端交互与 UI 升级</b>：
-<ul>
-<li>新增 PWA（渐进式 Web 应用）更新提示，当新 Service Worker 可用时会在应用内提示。</li>
-<li>推出 OLED 黑主题，并支持按外观自定义颜色。</li>
-<li>集成 Android 系统分享表（Web Share Target），支持从系统分享面板直接发送内容。</li>
-<li>聊天面板支持拖拽文件作为附件，文件查看器新增下载按钮。</li>
-<li>会话侧边栏新增机器健康状态显示，头部支持文件与大纲视图切换。</li>
-<li>文件面板新增 Markdown 源/预览切换，点击 Mermaid 图表可全屏查看。</li>
-</ul>
-</li>
-</ul>
-<h3>性能优化与 Bug 修复</h3>
-<ul>
-<li>优化 <code>useSession</code> 的 <code>staleTime</code> 配置，有效抑制不必要的焦点与挂载重新获取请求。</li>
-<li>修复多项会话管理与 Hub 重启级联清理相关的 Bug，包括导入会话绑定、文本发送错误提示及权限卡片固定问题。</li>
-<li>改进 Runner 状态检测，修复异常关闭后的过期 PID 识别、dangling-symlink 错误提示及 macOS 内存健康计算。</li>
-<li>修复 Claude 消息队列刷新机制、上下文窗口状态栏闪烁，以及 Cursor CLI SKU 映射与 ACP 参数化模型选择器兼容性问题。</li>
-<li>修复 Pi RPC 解析器兼容 Zod 4 的问题，清理全局 React 测试，并更新安装文档以补充 systemd 单元配置。</li>
-</ul>
-<p>详细更新日志：<a href="https://github.com/tiann/hapi/compare/v0.20.2...v0.21.0">Full Changelog</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.21.0</guid>
-      <pubDate>Sun, 12 Jul 2026 03:06:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
