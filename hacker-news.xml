@@ -3,7 +3,27 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 11 Aug 2026 21:59:43 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2026 22:59:46 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Mojo 1.0 正式发布：提供稳定基础，承诺 2026 年开源编译器</title>
+      <link>https://news.ycombinator.com/item?id=49261128</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章报道了 Mojo 1.0 编程语言的正式发布，属于编程工具发布主题，符合全局 high_interest 配置，故评为 critical。</small></p><p>Modular 宣布 Mojo 语言正式达到 1.0 版本（属于 Modular 26.5 更新）。自 2023 年首次发布以来，Mojo 已发展为一个拥有活跃社区的通用编程语言。此次 1.0 版本的核心目标是提供稳定、生产就绪的语言基础，承诺在 1.x 期间以添加新特性为主，谨慎处理破坏性变更。</p>
+<img src="https://cdn.prod.website-files.com/68c9c3107effc2ea46e1b033_Frame%203%20(1).png" alt="Mojo 1.0 发布主视觉" />
+<h3>主要改进与特性</h3>
+<ul>
+<li><strong>语言一致性提升</strong>：统一了变量声明（使用 <code>var</code>）、闭包语法及单一 <code>Pointer</code> 类型，使语言更简洁可预测。</li>
+<li><strong>开发者体验优化</strong>：支持 Python 风格的 <code>lambda</code> 语法；<code>LSP</code> 服务器大幅稳定，改善 VS Code 等编辑器体验；<code>Mojo AI Skills</code> 达到 1.0 就绪状态。</li>
+<li><strong>安全性与诊断</strong>：新增内存安全诊断功能，可检测引用失效（如 <code>List.append</code> 导致引用失效）等问题；<code>where</code> 子句得到统一，提供更明确的错误提示。</li>
+</ul>
+<h3>未来规划与 MAX 更新</h3>
+<p>Mojo 团队计划继续投资核心语言与开发者体验，未来将引入强大的异步编程模型、模式匹配与联合类型。Modular 重申将在 2026 年开源 Mojo 编译器与工具链（<a href="https://www.modular.com/blog/modular-26-5-mojo-1-0-is-here">详见官方博客</a>）。此外，配套的 MAX 推理平台也更新了安装流程，并新增了对 GLM-5.2、Nemotron-H 和 Kimi 2.5 等模型的支持。</p>
+<h3>社区反馈</h3>
+<p>社区对 Mojo 1.0 的发布表示祝贺，认为其在性能、内存安全和硬件无关性方面的优势，结合 LLM 降低的学习门槛，使其在 AI 时代仍具重要价值。然而，<strong>编译器闭源</strong>成为主要争议点。尽管官方承诺 2026 年开源，但部分开发者质疑为何不立即提供源码可见性，认为闭源编译器缺乏透明度，限制了开发者自主排查和修复底层问题的能力。此外，官方博客配图使用 AI 生成图像也引发了一些讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49261128</guid>
+      <pubDate>Tue, 11 Aug 2026 16:56:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 在 macOS 虚拟机中通过能力层劫持实现 LLM 推理加速</title>
       <link>https://news.ycombinator.com/item?id=49259339</link>
@@ -971,52 +991,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49197137</guid>
       <pubDate>Thu, 06 Aug 2026 14:26:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Prime Agent：基于递归语言模型（RLM）的自我改进代码代理框架</title>
-      <link>https://news.ycombinator.com/item?id=49189075</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 发布了一款基于递归语言模型的开源AI代码代理框架，涉及AI技术进展与开源项目，符合用户interest配置。</small></p><h2>概述</h2>
-<p>Prime Intellect 发布了开源代码代理框架 <strong>Prime Agent</strong>，旨在通过 <strong>递归语言模型（Recursive Language Model, RLM）</strong> 和 <strong>持续运行框架（Continual Harness）</strong> 两大核心抽象，解决现代代理框架上下文受限和静态设计的问题。该框架允许代理在运行过程中自我优化，并支持复杂的子代理编排。</p>
-
-<h2>核心抽象与架构</h2>
-<p>Prime Agent 摒弃了传统的固定工具调用模式，转而采用持久化的 <strong>IPython kernel</strong> 作为唯一的工具接口。</p>
-<ul>
-<li><strong>RLM</strong>：将上下文视为变量，子代理的委托视为函数调用。代理可以通过编程方式访问其历史记录和工具，从而处理任意长度的会话而不丢失信息。</li>
-<li><strong>Continual Harness</strong>：允许代理通过 CRUD（创建、读取、更新、删除）操作动态管理自身的提示词、技能、记忆和子代理。这种机制使得代理能够根据运行轨迹进行自我优化。</li>
-</ul>
-<p><img src="https://www.primeintellect.ai/blog/prime-agent/architecture.png" alt="Prime Agent 架构图" /></p>
-
-<h2>关键特性</h2>
-<ul>
-<li><strong>代理间通信（A2A）</strong>：通过后台守护进程（Background Daemon）管理所有会话，支持父子代理及同级代理之间的消息传递和编排。代理可以派生持久化的子代理，并在后续会话中继续与其交互。</li>
-<li><strong>会话与上下文管理</strong>：所有会话历史以追加式 JSONL 文件存储，支持分支、克隆和压缩（compaction）。系统会自动异步清理内核状态以防止内存溢出。</li>
-<li><strong>自我改进机制</strong>：代理可以通过 <code>/refine</code> 命令，基于自身的失败经验或成功策略，自动更新技能或记忆。这种改进是“基于证据”的，且支持回滚。</li>
-</ul>
-
-<h2>性能表现</h2>
-<p>在 <strong>ARC-AGI-3</strong>（一种衡量符号推理和规则学习能力的基准测试）中，Prime Agent 结合 Opus 5 模型取得了 <strong>95.5%</strong> 的成绩（RHAE Best@1），超过了 95.4% 的人类专家基线。测试显示，Prime Agent 在达到更高分数时，相比模型原生框架使用了更少的 token，主要通过编程方式处理数据而非消耗 token 读取数据。</p>
-<p><img src="https://www.primeintellect.ai/blog/prime-agent/arc-agi3-scaling.svg" alt="ARC-AGI-3 性能缩放图" /></p>
-
-<h2>社区反馈</h2>
-<p>Hacker News 社区对此进行了热烈讨论：</p>
-<ul>
-<li><strong>技术观点</strong>：部分用户认为 RLM 的核心思想（将上下文卸载到外部存储）早已存在，Prime Agent 的价值在于工程化实现和“持续运行框架”的引入。也有观点指出，随着基础模型能力的提升，过于复杂的框架可能会限制模型的推理能力。</li>
-<li><strong>代码质量</strong>：有用户指出，LLM 生成的代码往往较为臃肿，建议在使用自我改进代理时保持代码库的精简。</li>
-<li><strong>其他</strong>：部分用户提到了安装脚本将文件安装到 Homebrew 目录的小问题，以及项目名与科幻小说《Prime Intellect》撞车的趣事。</li>
-</ul>
-
-<h3>延伸阅读</h3>
-<ul>
-<li><a href="https://alexzhang13.github.io/blog/2025/rlm/" rel="nofollow">RLM 论文作者对递归语言模型的解读</a></li>
-<li><a href="https://arcprize.org/leaderboard" rel="nofollow">ARC-AGI 官方排行榜</a></li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p><strong>ARC-AGI</strong> 是由 Andrej Karpathy 提出的基准测试，旨在评估 AI 系统的“人类通用智能”水平，特别是其在未见过的模拟世界中进行符号推理和规则学习的能力。Prime Agent 在此基准上的优异表现，展示了其在复杂逻辑推理和自主规划方面的潜力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49189075</guid>
-      <pubDate>Wed, 05 Aug 2026 21:11:57 GMT</pubDate>
     </item>
   </channel>
 </rss>
