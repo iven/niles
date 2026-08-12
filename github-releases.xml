@@ -3,7 +3,33 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 12 Aug 2026 19:16:23 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 12 Aug 2026 22:00:02 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.229 更新：修复崩溃与 UI 卡顿，增强插件市场与远程会话支持</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.229</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
+<ul>
+  <li><strong>远程会话与 Hook 支持</strong>：新增 <code>claude remote-control --continue</code> 文档，支持恢复最近的远程会话；新增服务器提供的 Claude Code hook 支持，匹配托管环境行为。</li>
+  <li><strong>连接稳定性</strong>：增加 SSE keepalive pings，防止在 Vertex 和 Bedrock 上游的长思考暂停期间断开连接。</li>
+  <li><strong>插件市场增强</strong>：新增 <code>command</code> 源，支持本地命令（如 IDE）打印插件目录，无需重启即可应用。</li>
+  <li><strong>会话管理</strong>：<code>ListAgents</code> 现在标记断开的远程会话为 <code>offline</code>，并将云会话标记为 <code>cloud</code>。</li>
+  <li><strong>工作流优化</strong>：改进工作流扇出，交错相同前缀的兄弟代理，避免重复支付提示符前缀；改进“提示词过长”错误信息，解释自动压缩失败的原因。</li>
+  <li><strong>沙盒与安全</strong>：沙盒中 IPv6 字面量现在加括号，模糊拼写强制执行 fail-closed 并由 <code>/doctor</code> 标记；更改 <code>/commit-push-pr</code>，不再自动批准带有危险标志（如 <code>--force</code>）的 git/gh 命令。</li>
+  <li><strong>VSCode 扩展</strong>：新增侧边栏会话组功能，支持右键创建、重命名、删除，以及多选移动会话；调整 <code>/btw</code> 侧边问题面板大小。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+  <li><strong>崩溃修复</strong>：修复流式传输时长响应部分消失并打印两次的问题；修复工具调用中非字符串 <code>glob</code>、<code>file_path</code> 或 <code>command</code> 值导致的崩溃；修复终端窗口过窄时进度条或 Markdown 表格渲染导致的 <code>RangeError</code> 崩溃；修复 Windows 上工具调用或消息引用扩展长度（<code>\\?\</code>）或 UNC 路径时的崩溃。</li>
+  <li><strong>功能修复</strong>：修复 <code>auto</code> 模式下禁用属性头时所有工具调用失败的问题；修复 <code>/model</code> 拒绝 Sonnet/Opus 1M 的问题（针对使用自定义网关的 claude.ai 订阅用户）；修复 MCP OAuth 与严格授权服务器的问题，将重定向 URI 中的 <code>localhost</code> 改为 <code>127.0.0.1</code>；修复远程控制客户端在终端输入斜杠命令后显示卡住的加载动画的问题；修复 Claude Code Review 工作流在完成时未发布评论的问题。</li>
+  <li><strong>性能与稳定性</strong>：修复连接 IDE 扩展时编辑包含数千个诊断信息的文件导致的 UI 卡顿；修复一次性 <code>claude plugin</code> 命令遗留的 liveness 文件导致插件版本清理失败的问题；修复 CPU 受限容器中动态工作流使用主机核心数而非容器限制的问题；修复原子文件替换后的文件监视器句柄泄漏，以及 Windows 上网络或虚拟文件系统上的计划任务监视器未捕获错误；修复 SDK 和 <code>--input-format stream-json</code> 会话在提交仅包含空白的消息时出现 400 API 错误的问题；修复消息超过 API 32 MB 限制时重试压缩失败的问题，现在会明确报错；修复 OpenTelemetry 导出被桌面管理网关拒绝的问题；修复自托管运行器在部署 <code>managed-mcp.json</code> 时启动退出的问题，现在跳过这些服务器并警告；修复自托管运行器 Windows 启动时因 Git 凭据管理器提示而挂起的问题，现在凭据缺失时快速失败。</li>
+  <li><strong>其他</strong>：更新 <code>/login</code> 在成功登录后重复 <code>CLAUDE_CODE_OAUTH_TOKEN</code> 覆盖警告；更改自托管运行器 Windows 启动要求显式 <code>--base-dir</code>，Windows 上无默认签出目录；[VSCode] “报告问题”和 <code>/bug</code> 现在打开内置反馈对话框。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.229</guid>
+      <pubDate>Wed, 12 Aug 2026 20:56:22 GMT</pubDate>
+    </item>
     <item>
       <title>Hapi v0.27.3 发布：支持固定会话、Android 分享优化与多代理状态修复</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.27.3</link>
@@ -1111,30 +1137,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.144.2</guid>
       <pubDate>Mon, 13 Jul 2026 04:39:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.22.3 发布：新增 Grok Build 支持，Cursor 多任务与 autoReview 模式，Codex 动态推理努力支持</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.22.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi <a href="https://github.com/tiann/hapi">v0.22.3</a> 版本已发布，本次更新主要聚焦于增强对多种编码代理的支持，并优化了用户界面与稳定性。</p>
-
-<h3>主要更新</h3>
-<ul>
-  <li><strong>新增 Grok Build 支持</strong>：扩展了对 xAI 旗下 Grok Build 模型的兼容性。</li>
-  <li><strong>Cursor 功能增强</strong>：新增多任务斜杠命令（multitask slash）与 autoReview 模式，并支持原生的 worktree 和 add-dir 功能，进一步提升多任务处理效率。</li>
-  <li><strong>Codex 优化</strong>：支持动态推理努力（dynamic reasoning efforts），并在会话头部（SessionHeader）中直观显示该设置；同时改进了本地会话导入的兼容性，并通过用户输入桥接了 MCP elicitation 流程。</li>
-  <li><strong>OpenCode 修复</strong>：修复了 ACP text delta chunks 的保留问题，确保文本处理更准确。</li>
-</ul>
-
-<h3>界面与修复</h3>
-<ul>
-  <li><strong>界面优化</strong>：重新设计了响应式的设置导航界面，提升移动端及不同屏幕尺寸下的使用体验。</li>
-  <li><strong>稳定性修复</strong>：修复了 Hub 和 CLI 中因会话 <code>activeAt</code> 字段为 null 导致恢复时出现 500 错误的问题；同时保留了 Codex 的原生安全行为。</li>
-  <li><strong>测试优化</strong>：稳定了 CLI runner 的集成超时测试。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.22.3</guid>
-      <pubDate>Mon, 13 Jul 2026 01:04:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
