@@ -3,7 +3,52 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 12 Aug 2026 23:54:44 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2026 02:44:14 GMT</lastBuildDate>
+    <item>
+      <title>为什么微小的 JPEG 图片在 Chrome 中看起来更“厚”？</title>
+      <link>https://news.ycombinator.com/item?id=49272549</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章探讨Chrome浏览器中微小JPEG图片的渲染显示差异，属于前端底层技术细节，与用户核心兴趣匹配度一般，故列为可选。</small></p><div>
+<p>这篇文章探讨了为什么同一个微小的 JPEG 图标在 Chrome 和 Firefox 浏览器中渲染效果存在差异。作者最初发现某个 Logo 在 Chrome 中看起来比在 Firefox 中更“厚”，经过深入调查，发现这并非渲染 Bug，而是 Chrome 采用的一种 JPEG 解码优化策略所致。</p>
+<img src="/_astro/compare.DJwphvWD_1VRb2.webp" alt="Firefox 与 Chrome 渲染同一微小 JPEG 的对比图" width="1000" height="500" />
+<p>文章首先指出，将大尺寸 JPEG 完全解压后再缩小会浪费大量内存和计算资源。在大幅缩小图像时，大部分高频细节会丢失，只保留低频信息。为了提升效率，JPEG 压缩使用离散余弦变换（DCT）将图像分为 8×8 的块并转换到频率域。[IMAGE_1]</p>
+<img src="/_astro/tree-example.DKPmTY7__Z18pM3I.webp" alt="树状图像缩小后高频细节丢失的示意图" width="1280" height="500" />
+<p>当图像需要缩小到 1/8 或更小的比例时，Chrome 依赖的渲染引擎 Skia 及其使用的 libjpeg-turbo 库会启用一种名为 <strong>Partial IDCT Scaling（部分逆离散余弦变换缩放）</strong> 的优化技术。该技术会跳过高频系数的解码，仅利用低频系数直接生成缩小后的图像，从而显著降低内存占用并提升解码速度。[IMAGE_2]</p>
+<img src="/_astro/basisfunctions.JXE3qjuw_Zb0tor.webp" alt="JPEG 频率域中的基函数示意图" width="438" height="438" />
+<p>评论区补充指出，Firefox 采用的是流式解码并实时下采样（downscale-during-decode）的策略，且不同浏览器的缩放算法也会影响最终视觉效果。作者最终总结，JPEG 的压缩与优化机制是专为照片设计的，对于图标等需要清晰边缘的数字图形，强烈建议使用 SVG 或 PNG 格式。更多技术细节可参考 <a href="https://guillaumetech.github.io/posts/jpg-scaling-chrome/">原文</a> 及 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1045926">Firefox 的解码优化讨论</a>。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49272549</guid>
+      <pubDate>Wed, 12 Aug 2026 14:00:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Woxi：用 Rust 编写的开源 Wolfram Language 解释器</title>
+      <link>https://news.ycombinator.com/item?id=49270040</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍基于Rust编写的Wolfram Language开源解释器及其多环境运行支持，契合用户对开源项目及编程工具的关注，推荐阅读。</small></p><p><b>Woxi</b> 是一个使用 <a href="https://www.rust-lang.org/" rel="nofollow">Rust</a> 编写的开源 <b>Wolfram Language</b>（Mathematica 的底层语言）解释器。该项目旨在提供一个免费、高性能且易于嵌入的替代方案，以应对 Mathematica 高昂的授权费用。</p>
+
+<h3>核心特性</h3>
+<ul>
+  <li><b>多环境支持</b>：除了提供类似 Mathematica 的图形界面 <b>Woxi Studio</b>（基于 <a href="https://iced.rs/" rel="nofollow">iced</a> 构建），还支持命令行（CLI）、Jupyter 内核、Python 包、npm 包以及浏览器端的 WASM 模块。</li>
+  <li><b>极速启动</b>：启动时间通常在毫秒级，远快于 Wolfram 内核的秒级启动，使其非常适合用于 Shell 脚本、一次性命令（one-liners）等短生命周期进程。</li>
+  <li><b>高度可嵌入</b>：可通过 WASM 在浏览器中运行，或作为脚本语言嵌入到其他应用程序中。</li>
+</ul>
+
+<p>为了确保与 Wolfram Language 的兼容性，Woxi 目前运行着约 26,000 个单元测试和 900 个脚本快照测试。项目当前正专注于修复边缘情况、提升性能以及扩大社区规模。</p>
+
+<img src="images/jupyterlite.png" alt="Jupyter notebook running the Woxi kernel" />
+
+<h3>社区反馈与开发者回应</h3>
+<p>在 Hacker News 的讨论中，开发者 <b>adius</b> 表示，自六个月前首次发布以来，项目已进行了超过 7,000 次提交，功能大幅扩展。针对社区关注的问题，主要反馈如下：</p>
+<ul>
+  <li><b>重新实现的意义</b>：有用户质疑为何要重新实现已有成熟产品，开发者解释称 Wolfram Language 在数学计算领域已非常成熟（80-90% 正确），重新实现主要是为了打破商业壁垒并保留现有代码库的兼容性。未来可能会探索更现代的交互界面（UX）。</li>
+  <li><b>特定功能支持</b>：著名的基于规则的积分器 <b>Rubi</b> 目前已基本可用，但性能仍有优化空间。此外，有用户反馈将其作为 <b>MCP</b>（Model Context Protocol）供 AI 代理调用体验极佳。</li>
+  <li><b>性能与兼容性</b>：符号计算性能整体良好，但部分函数尚未深度优化。开发者也欢迎用户报告诸如系统变量类型（如 <code>$VersionNumber</code>）或文件路径处理等边缘兼容性问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49270040</guid>
+      <pubDate>Wed, 12 Aug 2026 10:06:29 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Zed 发布 Delta：面向 AI 代理协作的多用户编码环境</title>
       <link>https://news.ycombinator.com/item?id=49276574</link>
@@ -948,74 +993,6 @@ Hacker News 社区对此进行了热烈讨论。部分开发者指出，GitHub �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49209385</guid>
       <pubDate>Fri, 07 Aug 2026 12:28:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Cloudflare 发布 Kitesurf：专为 AI Agent 设计的无状态浏览器</title>
-      <link>https://news.ycombinator.com/item?id=49208393</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Cloudflare 专为 AI Agent 设计的无状态浏览器 Kitesurf，属于 AI 软件技术进展与开发工具发布，符合用户兴趣</small></p><p>Cloudflare 近日宣布推出全新浏览器引擎 <strong>Kitesurf</strong>，这是一款专为 AI Agent（智能体）设计的无状态浏览器，完全运行在 Cloudflare Workers 的 V8 isolates 之上。随着 AI 应用对网页自动化需求的激增，传统浏览器引擎（如 Chromium）因庞大的内存和计算开销，难以满足大规模 Agent 运行的成本与效率要求。Kitesurf 旨在通过精简人类用户不需要的功能（如标签页、主题、扩展等），专注于低延迟、高可扩展性和机器可读性，为 AI 模型提供高效、低成本的网页交互环境。</p>
-
-<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01KZ9Z8A48BKM6KQG36DQEWN7V.png&w=1999&h=1066&f=webp&fit=cover&position=center" alt="Kitesurf 项目概述" width="1999" height="1066" />
-
-<h3>设计哲学与架构</h3>
-<p>Kitesurf 的核心设计围绕“Agent 优先”展开，主要技术决策包括：</p>
-<ul>
-  <li><strong>Rust 优先与 WebAssembly</strong>：核心组件使用 Rust 编写并直接编译为 WebAssembly，避免传统编译层的额外开销，确保接近原生的执行效率。</li>
-  <li><strong>严格隔离与无状态</strong>：每个页面加载和会话都被视为不可信输入。组件采用无状态设计，一旦任务完成或卡死即可立即销毁，极大提升了横向扩展能力并降低了故障恢复成本。</li>
-  <li><strong>模块化组件</strong>：
-    <ul>
-      <li><strong>Engine</strong>：作为唯一对外接口，处理 Chrome DevTools Protocol (CDP) 和 HTTP REST API，兼容 Puppeteer 和 Playwright 等主流自动化工具。</li>
-      <li><strong>PageScript</strong>：利用 Dynamic Workers 为每个页面创建独立的隔离环境，处理 DOM 解析与 JavaScript 执行（使用 Boa JS 引擎处理 <code>eval</code>）。</li>
-      <li><strong>PageRenderer</strong>：负责将计算后的页面对象光栅化为图像（PNG/JPEG/PDF），使用 Blitz 和 Parley 模块进行排版与渲染。</li>
-      <li><strong>SandboxOutbound</strong>：作为唯一的网络出口，严格管控 CORS、Cookie 隔离及响应过滤。</li>
-    </ul>
-  </li>
-</ul>
-
-<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01KZ9Z89XF1C6TRP798HF5XRCW.png&w=715&h=205&f=webp&fit=cover&position=center" alt="Kitesurf 隔离架构示意图" width="715" height="205" />
-
-<h3>性能表现与测试</h3>
-<p>在性能基准测试中，Kitesurf 在 CPU 和内存消耗上显著优于 Chromium：</p>
-<ul>
-  <li><strong>CPU 效率</strong>：截图任务 CPU 消耗降低 3.1 倍，HTML 提取降低 3.8 倍。</li>
-  <li><strong>内存占用</strong>：截图任务内存占用减少 4.7 倍，HTML 提取减少 7.0 倍。</li>
-  <li><strong>执行时间</strong>：由于冷启动和软件光栅化，墙时间（Wall time）目前比预热后的 Chromium 慢约 1.7 倍，但 Cloudflare 表示将持续优化渲染管线。</li>
-</ul>
-
-<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01KZ9Z8AF7AB8HWYJJ0DZCRK5X.png&w=715&h=584&f=webp&fit=cover&position=center" alt="Kitesurf 与 Chromium 性能对比表" width="715" height="584" />
-
-<p>目前 Kitesurf 已通过超过 215,000 项 Web Platform Tests (WPT)，并支持在 <a href="https://developers.cloudflare.com/browser-run/">Browser Run</a> 中免费试用（Beta 阶段）。项目基于开源的 Blitz 渲染引擎构建，Cloudflare 表示未来将开源 Kitesurf 的核心代码。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 社区对此进行了热烈讨论。开发者关注点主要集中在：</p>
-<ol>
-  <li><strong>反爬与身份验证</strong>：Cloudflare 确认 Browser Run 请求会被识别为 Bot 流量，并支持 Web Bot Auth 协议。</li>
-  <li><strong>协议支持</strong>：社区呼吁支持 WebDriver BiDi 这一新兴的 W3C 标准，以替代专有的 CDP 协议。</li>
-  <li><strong>Agent 的实际瓶颈</strong>：多位开发者指出，当前 AI Agent 面临的最大障碍并非浏览器渲染，而是身份验证（如 CAPTCHA、短信验证）和支付能力。Kitesurf 虽解决了渲染成本问题，但“可携带的身份与支付余额”仍是 Agent 生态缺失的关键原语。</li>
-</ol>
-
-<h3>你知道吗？</h3>
-<p><strong>Chrome DevTools Protocol (CDP)</strong> 是 Chrome 浏览器提供的一套用于调试和自动化控制的协议。Kitesurf 选择支持 CDP 而非传统的 WebDriver 或新兴的 BiDi 协议，主要是为了保持与现有庞大生态（如 Puppeteer、Playwright）的无缝兼容，降低 AI 框架的迁移成本。随着 W3C 推动 WebDriver BiDi 成为跨浏览器标准，未来浏览器自动化协议有望进一步统一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49208393</guid>
-      <pubDate>Fri, 07 Aug 2026 10:42:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ DeepMind开源WeatherNext气旋预测模型，实现突破性预报精度</title>
-      <link>https://news.ycombinator.com/item?id=49220126</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 DeepMind 发布并开源了用于气旋预测的 AI 模型，符合用户 high_interest 的“新AI模型发布公告”以及 interest 的“开源项目”和“科学前沿进展”，属于高价值内容。</small></p><p>DeepMind近日发布了WeatherNext模型，这是一个专注于气旋（台风/飓风）预测的人工智能模型。该模型能够实现更精准的气旋路径与强度预测，为受影响地区提供额外一天的预警时间。目前，该模型已正式开源。</p>
-<p>WeatherNext模型的一个显著优势是其极高的计算效率。它能够在TPU上于不到一分钟内生成长达15天的预测结果，使预报员能够快速评估潜在灾害风险的概率分布。评论指出，这类针对特定领域的AI模型（通常基于多尺度图神经网络架构）在气象预报领域已展现出超越传统数值天气预报（NWP）模型的能力，同时在推理效率上具有数量级的优势。</p>
-<p>值得注意的是，气象预报的突破不仅依赖于AI算法的进步，也离不开政府气象机构（如NOAA）建立的基础数据采集网络。社区普遍认为，WeatherNext在航运安全、防灾减灾以及资源优化方面具有巨大的实际应用价值，是AI技术造福社会的典型案例。</p>
-<img src="https://lh3.googleusercontent.com/BWPawwoxIwgocie_nM-XDj_Ke3NEbABelqTw02KmPGSwGcWBOIbrLX8rP1rogFZNnuEYYy_WbjYMSqoWCJncAH1X9fQLAKvxFeJ0SFbLUg_8i8hU=w2464-h2464-n-nu" alt="WeatherNext模型示意图" width="1080" height="1080" />
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>数值天气预报（NWP）与AI预测</strong>：传统的气象预测依赖于数值天气预报（NWP），即通过超级计算机求解描述大气物理过程的复杂方程组。而AI预测（如Graphcast、WeatherNext）则利用深度学习模型，在历史气象数据上进行训练，直接学习从当前状态到未来状态的映射。AI方法通常计算速度更快，且在短期至中期预报中精度已逐渐超越传统方法。</li>
-<li><strong>气旋预测的挑战</strong>：气旋（台风/飓风）的路径和强度受多种复杂因素影响，包括海温、大气环流、科里奥利力等。准确预测其“突变”或“停滞”一直是气象学的难题，AI模型通过捕捉非线性关系，有望在复杂环境下的预测中提供更优解。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49220126</guid>
-      <pubDate>Sat, 08 Aug 2026 09:18:50 GMT</pubDate>
     </item>
   </channel>
 </rss>
