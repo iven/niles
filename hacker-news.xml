@@ -3,7 +3,45 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 13 Aug 2026 13:49:12 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2026 15:13:20 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ HTML over WebSockets：用极少量 JavaScript 构建实时单页应用</title>
+      <link>https://news.ycombinator.com/item?id=49275335</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了一种前端开发技术，旨在用极少 JavaScript 构建实时单页应用，属于编程工具与开发实践分享，符合 high_interest 配置。</small></p><img src="https://img.andros.dev/x97oO8U0xgXZa95meq19NwcyJcI=/800x0/filters:format(avif):quality(85)/https://andros.dev/media/thumbnails/kier-in-sight-archives-Sbxf5Dbyerk-unsplash.jpg" alt="文章配图" />
+<p>传统单页应用（SPA）开发通常涉及前端 JavaScript 框架、后端 JSON API 以及两套独立代码库的维护，架构复杂且耦合度高。本文介绍了一种替代方案：<b>HTML over WebSockets</b>（通过 WebSocket 传输 HTML）。该模式将渲染逻辑完全移至后端，后端直接生成已渲染的 HTML 片段，通过 WebSocket 发送给前端，前端仅负责接收并将其插入 DOM 中。</p>
+<p>该理念最早由 Elixir 框架 Phoenix 的创始人 Chris McCord 在 2019 年提出的 <a href="https://phoenixframework.org/liveview">Phoenix LiveView</a> 中普及。其核心工作流程如下：</p>
+<ul>
+  <li><b>传统 SPA</b>：浏览器发起 HTTP 请求 -> 后端查询数据库并返回 JSON -> 前端解析 JSON 并使用框架渲染 HTML。</li>
+  <li><b>HTML over WebSockets</b>：建立持久 WebSocket 连接 -> 前端发送页面请求 -> 后端查询数据库并直接渲染 HTML -> 返回 HTML 片段 -> 前端直接替换或插入对应 DOM 节点。后端还可主动推送实时更新。</li>
+</ul>
+<p><b>主要优势：</b></p>
+<ul>
+  <li><b>架构简化</b>：无需维护前后端分离的 API 契约，单一语言即可完成全栈开发。</li>
+  <li><b>实时性与广播</b>：持久连接支持低延迟的双向通信，服务端可轻松实现广播（如聊天室、实时仪表盘）。</li>
+  <li><b>状态管理集中</b>：应用状态保留在服务端，避免了复杂的客户端状态同步问题。</li>
+  <li><b>安全与 SEO</b>：服务端渲染首屏利于搜索引擎抓取；HTML 在服务端转义后传输，天然免疫 XSS 攻击。</li>
+  <li><b>网络开销低</b>：避免重复的 TCP 握手与 HTTP 头部传输，直接发送渲染好的内容。</li>
+</ul>
+<p><b>局限性与挑战：</b></p>
+<ul>
+  <li><b>服务端资源消耗</b>：需为每个连接维护状态，水平扩展时需借助 Redis 等中间件共享状态。</li>
+  <li><b>网络依赖</b>：不支持离线使用，断连需自行实现重连逻辑；高物理延迟会影响“实时”体验。</li>
+  <li><b>学习曲线</b>：需掌握 WebSocket 服务端编程及特定的组件生命周期模式。</li>
+</ul>
+<p><b>技术生态与传输协议选择：</b></p>
+<p>目前该模式已在多种语言中实现，如 <a href="https://phoenixframework.org/liveview">Phoenix LiveView</a>（Elixir）、<a href="https://www.django-liveview.com/">Django LiveView</a>（Python）、<a href="https://livewire.laravel.com/">Laravel Livewire</a>（PHP）以及 <a href="https://dotnet.microsoft.com/zh-cn/apps/aspnet/web-apps/blazor">Blazor Server</a>（C#）。文章指出，传输层的选择取决于业务需求：</p>
+<ul>
+  <li><b>WebSocket</b>：适合需要低延迟双向通信的场景（如聊天、协同编辑、游戏）。</li>
+  <li><b>SSE (Server-Sent Events)</b>：仅支持服务端向客户端单向推送，基础设施更简单，适合通知流、直播字幕等，且浏览器内置自动重连机制。</li>
+  <li><b>HTTP</b>：适合传统的请求-响应模式，如 <a href="https://htmx.org/">htmx</a>。</li>
+</ul>
+<p><b>社区反馈：</b></p>
+<p>在 Hacker News 讨论中，开发者普遍认为这是经典服务端渲染（如 DHTML、ASP.NET Ajax）思想的现代回归。部分观点指出，对于大多数仅需单向推送的应用，SSE 配合标准 Fetch API 往往比维护 WebSocket 连接更轻量且延迟相当。同时，也有开发者提醒在生产环境中需考虑企业级防火墙对 WebSocket 升级请求的拦截问题，以及服务端状态管理的复杂性。总体而言，该方案被视为简化现代 Web 开发、摆脱重型前端框架束缚的有效路径。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49275335</guid>
+      <pubDate>Wed, 12 Aug 2026 16:51:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenAI 推出 Codex 桌面应用，Linux 用户现可下载体验</title>
       <link>https://news.ycombinator.com/item?id=49281916</link>
@@ -956,15 +994,6 @@ Hacker News 社区对此进行了热烈讨论。部分开发者指出，GitHub �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49215786</guid>
       <pubDate>Fri, 07 Aug 2026 20:25:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Fastmail 推出欧盟数据区域，用户可自主选择数据存储位置</title>
-      <link>https://news.ycombinator.com/item?id=49223082</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍Fastmail新增欧盟数据存储区域的功能，属于软件服务新功能范畴，符合用户兴趣配置中的“感兴趣”级别。</small></p><p>电子邮件服务提供商 Fastmail 宣布推出欧盟（EU）数据区域，允许用户选择将主要数据存储在其位于阿姆斯特丹的自有服务器上，而非全部位于美国。该数据中心由 Fastmail 工程师自行搭建，使用自有硬件和软件，不依赖大型云服务商。</p><p>对于选择 EU 区域的用户，其邮件和文件的主副本将存储在阿姆斯特丹，日常应用连接也将指向该区域。然而，为了保障数据容灾（DR），Fastmail 明确表示目前 EU 区域的数据副本仍会保留在美国。此外，Fastmail 是一家澳大利亚公司，受澳大利亚法律管辖。由于澳大利亚与美国签有双边协议，Fastmail 仍可能响应美国《云法案》（CLOUD Act）下的合法数据请求。因此，Fastmail 坦诚表示，目前无法保证数据完全仅停留在欧盟境内。</p><p><strong>社区反馈：</strong>HN 用户普遍认为这是一个积极的进展，但指出由于 Fastmail 的澳大利亚背景（“五眼联盟”成员国）以及数据副本仍在美国，该举措并不能完全解决数据隐私和司法管辖权的问题。部分用户建议，若追求严格的数据本地化，需寻找完全由欧盟实体拥有且无美国业务关联的服务商。</p><p><strong>你知道吗？</strong><br>《云法案》（CLOUD Act）允许美国执法部门通过传票或搜查令，强制要求受美国管辖的科技公司提供其控制的数据，无论该数据存储在美国境内还是境外。此外，澳大利亚与英国、加拿大、新西兰同属“五眼联盟”（Five Eyes），在情报共享和数据披露方面有着紧密的合作关系。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49223082</guid>
-      <pubDate>Sat, 08 Aug 2026 16:04:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
