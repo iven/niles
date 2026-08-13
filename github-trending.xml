@@ -3,7 +3,136 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Thu, 13 Aug 2026 10:19:17 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2026 11:58:09 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Needle 2：仅14MB、28MB内存的端侧工具调用与结构化提取模型</title>
+      <link>https://github.com/cactus-compute/needle</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为端侧 AI 模型发布，符合用户 high_interest 配置中的“新AI模型发布公告”，故评为 critical。</small></p><h2>项目简介</h2>
+<p>Needle 2 是由 Cactus Compute 团队开源的轻量级基础模型，专为手机、可穿戴设备、智能家居和机器人等微型设备设计。该模型仅包含 4500 万参数，整体打包为 14MB 的二进制文件，运行时仅需约 28MB 内存。它通过极致的压缩与架构创新，在资源受限的端侧设备上实现了强大的工具调用（Tool Calling）与结构化数据提取能力。</p>
+
+<h2>核心特性</h2>
+<ul>
+  <li><strong>自包含引擎</strong>：模型权重直接烘焙至单一 14MB 引擎中，推理过程无需联网或加载外部文件，部署极其简便。</li>
+  <li><strong>结构化输出契约</strong>：采用“文本输入，JSON 输出”的设计，通过字节级语法严格约束输出格式，确保工具调用参数准确无误。</li>
+  <li><strong>置信度门控</strong>：每个响应均附带校准的置信度分数。开发者可设定阈值，低于阈值时自动升级或重新询问，将失败模式控制在“安全升级”而非“错误执行”。</li>
+  <li><strong>高效工具检索</strong>：支持声明海量工具目录，模型内置检索头每轮仅提取最相关的 5 个工具进入上下文，大幅降低计算开销。</li>
+  <li><strong>有界内存管理</strong>：利用 256-token 滑动窗口与键值（KV）缓存优化，无论对话多长，内存占用始终稳定在 28MB 左右。</li>
+</ul>
+
+<h2>架构与设计</h2>
+<p>Needle 2 基于团队提出的 <a href="https://arxiv.org/abs/2607.18363">Simple Attention Network（简单注意力网络）</a> 架构。该设计采用 Hadamard 矩阵乘法替代传统的前馈神经网络（FFN），结合分组查询注意力（GQA）与 engram 键值记忆机制，并通过 Cactus Quants 技术压缩至 2-bit 精度。这种架构在大幅削减参数体积的同时，保持了与 FunctionGemma 270M 等更大规模模型相当的性能表现。</p>
+
+<h2>使用与微调</h2>
+<p>项目提供 Python 包（<code>pip install cactus-needle</code>），开发者可通过装饰器、类型注解或 Pydantic 模型快速定义工具与提取规则。模型将一切交互视为函数调用，无声明工具的问题将直接返回空调用。此外，项目内置完整的 <a href="https://github.com/cactus-compute/needle">LoRA 微调流程</a>，支持结合合成数据对模型进行低成本适配，最终导出为单文件 <code>.cact</code> 格式直接部署至目标设备。</p>
+
+<h2>你知道吗？</h2>
+<p><strong>端侧大模型（On-device AI）</strong>旨在将 AI 能力直接运行在终端设备上，以保护用户隐私、降低网络延迟并摆脱对云端的依赖。Needle 2 通过极致的量化（2-bit）与架构创新，在保持 4500 万参数规模的同时实现了强大的工具调用能力，为资源受限的 IoT 设备提供了可行的 AI 代理（AI Agent）解决方案，标志着轻量化智能体向边缘计算迈出的重要一步。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/cactus-compute/needle</guid>
+      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ FluidVoice：支持本地 AI 增强的 macOS 开源语音听写应用</title>
+      <link>https://github.com/altic-dev/FluidVoice</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为 macOS 平台的 AI 语音听写开源应用，涉及 AI 软件技术进展与开源项目，符合 interest 配置，故评为 recommended。</small></p><p><a href="https://github.com/altic-dev/FluidVoice">FluidVoice</a> 是一款开源的 macOS 语音转文字（语音听写）应用，主打本地处理与 AI 增强功能，可作为本地版 Wispr Flow 的替代方案。该项目目前已在 GitHub 上获得近万星关注，并计划扩展至 iOS 和 Windows 平台。</p>
+<h3>核心功能与特性</h3>
+<ul>
+  <li><strong>Fluid Intelligence（本地 AI 增强）</strong>：提供完全在设备端运行的 AI 模型，支持智能文本格式化、上下文感知的大小写调整及语音后处理，无需联网即可提升听写质量。</li>
+  <li><strong>双模式操作</strong>：包含 <strong>Command Mode</strong>（通过语音控制 Mac，如启动应用、运行快捷指令）和 <strong>Write Mode</strong>（在任何应用的文本框中直接听写或重写选中文本）。</li>
+  <li><strong>多模型支持</strong>：内置多种高性能语音识别模型，包括 Nemotron Speech 3.5、Parakeet Flash/TDT、Cohere Transcribe、Apple Speech 以及 Whisper 系列，用户可根据语言需求和延迟要求自由选择。</li>
+  <li><strong>隐私优先</strong>：采用本地优先（Local-First）架构，语音、音频和转录文本默认不会离开本机。用户可选择性接入 OpenAI 或 Groq 等云端 AI 进行增强，或关闭匿名数据统计。</li>
+</ul>
+<h3>其他亮点</h3>
+<p>应用提供实时转录覆盖层，并针对 MacBook 刘海屏进行了适配优化。此外，还支持本地音频历史记录管理、全局快捷键、菜单栏集成以及自适应明暗主题。项目采用 GPLv3 协议开源，目前仅支持 macOS（Apple Silicon 原生支持，Intel Mac 需配合 Whisper 模型），iOS 与 Windows 版本已开放排队等待。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/altic-dev/FluidVoice</guid>
+      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Unsloth：本地运行与训练大模型的高效桌面应用</title>
+      <link>https://github.com/unslothai/unsloth</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为本地运行与训练大模型的高效开发工具，符合“编程工具发布/分享”，属于用户 highly 感兴趣的范畴，故评为 critical。</small></p><p>Unsloth 是一款旨在让用户在本地高效运行、训练和部署人工智能模型的开源工具。它提供了 <a href="https://unsloth.ai/download">Unsloth Desktop</a> 桌面应用、<a href="https://unsloth.ai/docs/new/studio/">Unsloth Studio</a> Web UI 以及基于代码的 Unsloth Core 三种使用方式。</p>
+<img src="https://raw.githubusercontent.com/unslothai/unsloth/main/images/unsloth%20logo%20black%20text.png" alt="Unsloth logo" height="80" />
+<p>该项目支持广泛的模型类型，包括大型语言模型（LLM）、扩散模型、音频模型及多模态模型，涵盖 Qwen3.8、Kimi K3、MiniMax-H3、Gemma 4、DeepSeek-V4 等主流架构。在训练方面，Unsloth 能够将微调速度提升 2 倍，同时将显存占用降低 70%。它完整支持 LoRA、QLoRA、RL（强化学习）、GRPO、DPO 等训练范式，并允许将模型导出为 GGUF、NVFP4、FP8 等格式。</p>
+<p>此外，Unsloth 提供了强大的 Agent 集成能力，可通过一条命令将本地模型与 Claude Code、Codex 等编程助手结合使用。它兼容 NVIDIA、AMD、Intel 显卡及 macOS 硬件，并支持通过 Cloudflare 隧道实现安全的远程访问。项目还附带了丰富的免费 Colab Notebook，方便用户快速上手测试各种模型。</p>
+<h3>你知道吗？</h3>
+<p><b>GRPO（Group Relative Policy Optimization）</b> 是一种强化学习算法，常用于大语言模型的推理能力微调。相比传统的 PPO 算法，GRPO 通过组内相对优势估计，在显存占用和训练稳定性上具有显著优势，非常适合资源受限的本地训练环境。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/unslothai/unsloth</guid>
+      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>Holehe：利用“忘记密码”功能高效查询邮箱注册信息的OSINT工具</title>
+      <link>https://github.com/megadose/holehe</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为 OSINT 安全侦察工具，涉及网络信息收集与黑客技术，不属于用户配置的兴趣领域，兴趣不明确，故评为 optional。</small></p><p>Holehe 是一款基于 Python 的开源情报（OSINT）工具，主要用于高效查询指定电子邮件在各大网站上的注册情况。该工具支持超过 120 个平台，包括 Twitter、Instagram、GitHub 等主流社交和电商平台。</p>
+<img src="https://files.catbox.moe/5we2ya.png" alt="Holehe 项目介绍图" />
+<p>其核心原理是利用各网站的“忘记密码”功能进行探测，在查询过程中不会向目标邮箱发送任何通知邮件，从而避免打草惊蛇。用户可通过命令行（CLI）直接运行，或将其作为 Python 库嵌入现有应用中。查询结果以标准化的 JSON 格式返回，包含账户是否存在、部分脱敏的恢复邮箱或手机号等详细信息。</p>
+<img src="https://github.com/megadose/gif-demo/raw/master/holehe-demo.gif" alt="Holehe 运行演示动图" />
+<p>此外，Holehe 还提供了在线版本以及 Maltego 转换模块，方便安全研究人员和情报分析师进行深度调查。该项目采用 GPL-3.0 许可证，明确声明仅用于教育和合法调查目的。</p>
+<h3>你知道吗？</h3>
+<p>OSINT（Open Source Intelligence，开源情报）是指从公开可用的来源收集、处理和分析信息的过程。在网络安全领域，OSINT 常被用于攻击前的信息收集（如确定攻击面）或防御方的威胁情报分析。Holehe 正是利用了网站前端交互逻辑中的信息泄露风险，成为 OSINT 工具链中的常用组件。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/megadose/holehe</guid>
+      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ holaOS：支持多 AI Agent 协同的本地优先全合一工作区</title>
+      <link>https://github.com/holaboss-ai/holaOS</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为本地优先的多 AI Agent 协同工作区，属于 AI 软件技术进展与效率改进探索，符合 interest 配置，故评为 recommended。</small></p><h2>holaOS：支持多 AI Agent 协同的本地优先全合一工作区</h2>
+<p>holaOS 是一款开源的“全合一”AI Agent 工作区，旨在为用户和 AI 代理提供一个统一的本地优先操作环境。它打破了单一 AI 代理的限制，允许用户在同一工作区内并行运行 Claude Code、Codex 或内置的 holaOS 代理，并实现记忆、工具和技能的无缝共享。</p>
+
+<img src="docs/images/desktop-workspace.png" alt="holaOS 桌面工作区界面" width="1280" />
+
+<h3>核心特性</h3>
+<ul>
+  <li><strong>多代理共存与共享记忆：</strong> 所有代理共享同一上下文、偏好和项目历史。记忆以纯文本文件形式本地存储，确保数据隐私且跨会话持久化，避免每次从头开始。</li>
+  <li><strong>灵活的模型支持：</strong> 内置 Kimi K3、GLM 5.2、GPT 5.6、Claude Opus 5 和 Fable 5 等前沿模型，开箱即用。同时也支持自带密钥（BYOK）接入 OpenAI 或 Anthropic 等第三方服务。</li>
+  <li><strong>HolaApps 应用并排交互：</strong> 应用（如 Notion、浏览器）作为实时交互界面与 AI 代理并排显示。代理可直接驱动应用进行操作，用户可随时介入，结果直接反馈在应用界面而非聊天文本中。</li>
+  <li><strong>丰富的集成与 MCP 支持：</strong> 提供 50+ 工具（Gmail、Slack、GitHub 等）的一键 OAuth 集成，并原生支持 <a href="https://www.modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer">Model Context Protocol (MCP)</a> 服务器，方便扩展新工具和工作流。</li>
+  <li><strong>全工作站自动化：</strong> 内置真实浏览器驱动、多模态生成（图/视频/音频）以及真实格式文件（.xlsx, .pptx 等）导出功能。支持通过飞书、微信、Slack 等聊天入口下达任务，并可设置定时自动化任务。</li>
+</ul>
+
+<img src="docs/images/hola-app-example.png" alt="Notion 应用与 AI 代理并排运行" width="1280" />
+
+<h3>部署与协议</h3>
+<p>holaOS 提供多种部署方式以满足不同需求：</p>
+<ul>
+  <li><strong>桌面应用：</strong> 开箱即用，内置前沿模型，适合个人用户快速上手。</li>
+  <li><strong>开源自托管：</strong> 采用 Modified Apache 2.0 协议，支持完全本地化部署，用户可自带密钥并掌控全部数据。</li>
+  <li><strong>企业版：</strong> 提供单点登录（SSO）、细粒度权限控制、操作审计日志以及私有化部署方案。</li>
+</ul>
+
+<p>该项目目前已在 GitHub 上获得超过 6000 星，成为开发者与 AI 爱好者关注的热门开源项目。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>Model Context Protocol (MCP)</strong> 是由 Anthropic 提出的一种开放标准，旨在解决 AI 模型与外部数据源及工具之间的连接问题。它通过标准化的接口，让 AI 代理能够安全、一致地访问各种应用程序（如文件系统、数据库、API 等），而无需为每个应用单独开发适配器。holaOS 原生支持 MCP，意味着用户可以轻松接入社区开发的各类 MCP 服务器，极大扩展了 AI 的工作边界。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/holaboss-ai/holaOS</guid>
+      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Obsidian Skills：让 AI 智能体掌握 Obsidian 笔记格式与操作</title>
+      <link>https://github.com/kepano/obsidian-skills</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为让 AI 智能体集成 Obsidian 笔记软件，属于 AI 软件新功能与应用场景拓展，符合 interest 配置，故评为 recommended。</small></p><p><a href="https://github.com/kepano/obsidian-skills">Obsidian Skills</a> 是一个专为 AI 智能体（Agent）设计的技能扩展包，旨在让智能体能够直接理解并操作 Obsidian 笔记应用中的专有格式与数据。该项目遵循 <a href="https://agentskills.io/specification">Agent Skills specification</a> 标准，目前已兼容 Claude Code、Codex 和 Open Code 等主流 AI 编程助手。</p>
+<p>项目核心提供了五大技能模块，全面覆盖 Obsidian 的生态功能：</p>
+<ul>
+  <li><strong>obsidian-markdown</strong>：支持创建和编辑包含双向链接（Wikilinks）、嵌入（Embeds）、提示块（Callouts）及元数据（Properties）的 Obsidian 专属 Markdown 格式。</li>
+  <li><strong>obsidian-bases</strong>：支持创建和编辑数据库视图（Bases），具备视图管理、筛选、公式计算和摘要生成能力。</li>
+  <li><strong>json-canvas</strong>：支持读写 JSON Canvas 文件，用于构建包含节点、连线与分组的可视化关系图。</li>
+  <li><strong>obsidian-cli</strong>：通过命令行接口（CLI）与本地笔记库（Vault）交互，便于自动化插件开发与主题调试。</li>
+  <li><strong>defuddle</strong>：集成 Defuddle 工具，可从网页中提取纯净的 Markdown 文本，有效去除冗余内容以降低 AI 处理的 Token 消耗。</li>
+</ul>
+<p>用户可通过插件市场、npx 命令或手动配置目录的方式，将这些技能快速集成到智能体环境中。该项目的出现，标志着 AI 助手正逐步从通用的文本处理向深度集成特定生产力工具迈进，为知识管理自动化提供了新的可能性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/kepano/obsidian-skills</guid>
+      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Macro：基于 Rust 构建的一体化团队协作与工作空间</title>
       <link>https://github.com/macro-inc/macro</link>
@@ -868,170 +997,6 @@ MiroFish 的底层模拟引擎基于 <a href="https://github.com/camel-ai/oasis"
       </description>
       <guid isPermaLink="false">https://github.com/mattpocock/skills</guid>
       <pubDate>Thu, 06 Aug 2026 12:15:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ authentik：开源现代单点登录（SSO）身份提供商</title>
-      <link>https://github.com/goauthentik/authentik</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主题为开源现代单点登录（SSO）身份提供商，属于开源项目范畴，虽涉及部分基础设施，但综合其开源热度与实用价值，评定为 recommended。</small></p><p>authentik 是一款开源的身份提供商（Identity Provider, IdP）解决方案，专为现代单点登录（SSO）场景设计。该项目支持 SAML、OAuth2/OIDC、LDAP 和 RADIUS 等多种主流认证协议，旨在为从小型测试环境到大规模生产集群提供灵活的自托管身份管理方案。</p>
-<p align="center"><img src="https://goauthentik.io/img/icon_top_brand_colour.svg" height="150" alt="authentik logo" /></p>
-<p>在功能定位上，authentik 可作为现有商业 IdP（如 Okta、Auth0、Entra ID 等）的替代方案，满足企业级安全与大规模身份管理需求。项目提供了多种部署方式以适应不同规模的基础设施，包括适用于小型环境的 <a href="https://docs.goauthentik.io/docs/install-config/install/docker-compose/">Docker Compose</a>、适合大型集群的 Kubernetes（Helm Chart），以及 AWS CloudFormation 和 DigitalOcean 的一键部署方案。</p>
-<p>项目界面支持亮色与暗色模式，并提供完善的开发者文档与贡献指南。目前该项目采用 MIT 许可证开源，并在 GitHub 上获得了超过 2.2 万颗 Star 的关注。</p>
-<p>以下是项目界面的部分展示：</p>
-<p><img src="https://docs.goauthentik.io/img/screen_apps_light.jpg" alt="应用界面（亮色模式）" /> <img src="https://docs.goauthentik.io/img/screen_apps_dark.jpg" alt="应用界面（暗色模式）" /></p>
-<p><img src="https://docs.goauthentik.io/img/screen_admin_light.jpg" alt="管理界面（亮色模式）" /> <img src="https://docs.goauthentik.io/img/screen_admin_dark.jpg" alt="管理界面（暗色模式）" /></p>
-<h3>你知道吗？</h3>
-<p>单点登录（SSO）是一种身份验证方案，允许用户使用一组凭据登录多个相关但独立的软件系统。在 SSO 架构中，身份提供商（IdP）负责验证用户身份，而服务提供方（SP）则信任 IdP 的验证结果，从而实现“一次登录，处处通行”的体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/goauthentik/authentik</guid>
-      <pubDate>Thu, 06 Aug 2026 12:15:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>TapXWorld/ChinaTextbook：开源小初高及大学教材PDF资源库</title>
-      <link>https://github.com/TapXWorld/ChinaTextbook</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主题为中小学及大学教材 PDF 资源库，内容偏向教育资料分享，与用户关注的编程/AI 技术领域无关，兴趣不明确，故评为 optional。</small></p><p>该仓库是一个开源的中文教材PDF资源库，涵盖小学、初中、高中及大学阶段的数学教材。项目发起人指出，尽管国内教育网站提供免费资源，但获取渠道往往受限，甚至存在私人售卖带水印资源的现象。为此，作者将这些资源集中并开源，旨在促进义务教育普及、缩小地区教育差距，并方便海外华人子女了解国内教育体系。</p>
-<p>仓库主要收录了人民教育出版社版本的数学教材，包括小学至高中的各年级上册与下册，以及大学阶段的高等数学、线性代数、离散数学和概率论等课程资料。由于GitHub对单文件大小有限制（超过50MB会警告，超过100MB无法上传），部分大型PDF文件被拆分为多个35MB的片段。用户可通过仓库提供的<a href="https://github.com/TapXWorld/ChinaTextbook-tools/releases">合并工具</a>将拆分文件重新合并为完整文档。对于网络环境不同的用户，项目方推荐使用 <a href="https://github.com/happycola233/tchMaterial-parser">tchMaterial-parser</a> 或根据所在地区选择最优下载方式。</p>
-<p>此外，项目方开放了教材捐献渠道与 <a href="https://t.me/+1V6WjEq8WEM4MDM1">Telegram社区</a>，鼓励用户参与资源维护与扩展。</p>
-<h3>你知道吗？</h3>
-<p>GitHub 对单个仓库的总大小限制为 1GB，对单个文件限制为 100MB。因此，大型开源项目（如数据集、多媒体资源库）常采用 Git LFS（Large File Storage）或文件分卷压缩的方式存储大文件。本仓库采用分卷拆分后提供合并工具的方式，是一种兼顾兼容性与下载效率的替代方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/TapXWorld/ChinaTextbook</guid>
-      <pubDate>Thu, 06 Aug 2026 12:15:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ AutoGPT：开源AI代理平台，让每个人都能构建和运行自动化工作流</title>
-      <link>https://github.com/Significant-Gravitas/AutoGPT</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题为开源 AI 代理平台及自动化工作流构建，属于前沿 AI 软件技术进展与开发效能提升，符合 high_interest，故评为 critical。</small></p><p>AutoGPT 是一个开源的 <a href="https://github.com/Significant-Gravitas/AutoGPT">AI 代理（AI agents）平台</a>，旨在让每个人都能轻松构建和运行自动化工作流。该项目在 GitHub 上已获得超过 18.5 万颗 Star，并获得了包括 OpenAI 联合创始人 Andrej Karpathy 在内的多位业界知名人士的高度评价。</p>
-
-<p>平台提供四大核心功能模块：</p>
-<ul>
-  <li><strong>AutoPilot</strong>：用户只需使用自然语言描述任务目标，系统即可自动将其转化为可运行的代理。</li>
-  <li><strong>Agents</strong>：提供集中式仪表盘，实时监控所有代理的运行状态、资源消耗及待处理事项。</li>
-  <li><strong>Marketplace</strong>：提供社区预制的成熟代理模板，用户可直接复用并根据需求进行定制。</li>
-  <li><strong>Build</strong>：可视化构建画布，支持通过拖拽、连接和分支模块，对代理的工作流步骤进行精确控制。</li>
-</ul>
-
-<p align="center">
-  <img src="docs/content/imgs/readme/autogpt_autopilot_chat.jpg" alt="AutoPilot chat creating an AutoGPT agent" />
-</p>
-
-<p>在部署方式上，AutoGPT 提供两种路径：一是付费的托管平台（AutoGPT Platform），官方负责基础设施、模型接入与运维，用户可开箱即用；二是免费的自托管（Self-host）方案，用户需自备服务器与模型 API 密钥，通过 Docker 进行部署。两者共享同一代码库，核心构建器与代理运行时均包含在内。</p>
-
-<p>AutoGPT 支持接入数百个 AI 模型及 45 多个主流平台（如 <a href="https://agpt.co/docs/integrations">Gmail、Slack、Notion、GitHub</a> 等），广泛应用于高管简报、销售线索挖掘、营销内容生成、工程故障排查及客服自动化等场景。</p>
-
-<p>在开源协议方面，AutoGPT 的核心平台采用 <a href="https://polyformproject.org/licenses/shield/1.0.0">Polyform Shield</a> 许可证，允许个人及企业内部免费使用，但禁止将其作为竞争性托管服务进行商业化转售；其经典独立版本（classic）则继续保留 MIT 开源协议。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Polyform Shield 许可证</strong> 是一种近年来兴起的“源代码可用（Source Available）”协议。与传统的 MIT 或 Apache 协议不同，它明确限制了云服务商和竞争对手将开源项目直接打包为 SaaS 服务进行商业牟利的行为。这种协议旨在平衡开源社区的贡献热情与项目维护者的商业可持续性，防止“搭便车”现象，同时依然鼓励开发者在本地或内部环境中自由使用和修改代码。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/Significant-Gravitas/AutoGPT</guid>
-      <pubDate>Thu, 06 Aug 2026 12:15:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ code-review-graph：本地优先的代码智能图谱，大幅降低 AI 代码审查 Token 消耗</title>
-      <link>https://github.com/tirth8205/code-review-graph</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题为本地优先的代码智能图谱及降低 AI 代码审查 Token 消耗，直击编程效率改进痛点，属于高价值 AI 编程工具，符合 high_interest，故评为 critical。</small></p><h2>项目概述</h2>
-<p><code>code-review-graph</code> 是一个本地优先的代码智能图谱工具，专为 MCP（Model Context Protocol）和 CLI 设计。它通过构建代码库的持久化结构映射，使 AI 编程助手在代码审查和大型仓库工作流中仅读取关键上下文，从而显著降低 Token 消耗。</p>
-
-<p>该项目利用 <a href="https://tree-sitter.github.io/tree-sitter/">Tree-sitter</a> 解析代码库生成抽象语法树（AST），并将其存储为包含函数、类、导入和调用关系等节点与边的图谱。在代码审查时，AI 工具可通过 <a href="https://modelcontextprotocol.io/">MCP</a> 接口查询图谱，获取最小化的相关文件集。</p>
-
-<p align="center">
-  <img src="diagrams/diagram1_before_vs_after.png" alt="Token 消耗对比：读取整个 Flask 代码库需 143,594 个 Token，而图谱查询仅需 2,196 个，减少约 71 倍" width="85%" />
-</p>
-
-<h2>核心特性</h2>
-<h3>爆炸半径分析（Blast-radius analysis）</h3>
-<p>当文件发生变更时，图谱会追踪所有受影响的调用者、依赖项和测试用例。AI 助手只需审查这些“爆炸半径”内的文件，而非扫描整个项目。这种精准定位有效避免了 AI 在大型代码库中盲目读取无关代码。</p>
-
-<p align="center">
-  <img src="diagrams/diagram3_blast_radius.png" alt="爆炸半径可视化：展示对 login() 函数的变更如何传播至调用者、依赖项和测试用例" width="70%" />
-</p>
-
-<h3>秒级增量更新</h3>
-<p>支持通过文件保存钩子或 Watch 模式自动更新图谱。系统仅重新解析哈希值发生变化的文件及其依赖，在约 3,000 个文件的 Django 项目中，双文件编辑的重新索引时间仅需约 2.5 秒。这保证了图谱在开发过程中的实时性与低开销。</p>
-
-<p align="center">
-  <img src="diagrams/diagram4_incremental_update.png" alt="增量更新流程：受支持的钩子或 Watch 更新触发 git diff，通过图谱边查找依赖项，仅重新解析 SHA-256 哈希值变化的文件" width="90%" />
-</p>
-
-<h3>广泛的编程语言支持</h3>
-<p>原生支持 Python、JavaScript/TypeScript、Go、Rust、Java、C/C++、PHP 等数十种语言，并兼容 Jupyter 和 Databricks 笔记本。开发者还可通过 <code>languages.toml</code> 配置文件自定义新语言支持，无需 Fork 项目。PHP 项目额外获得 Composer PSR-4 解析、Blade 模板引用及 Laravel 路由语义边支持。</p>
-
-<h3>CI 风险评分审查</h3>
-<p>提供 GitHub Action 集成，在 CI 流水线中本地运行图谱分析，不将源代码发送至外部服务。每次推送 PR 时，会自动在评论区发布包含风险评分函数、受影响执行流和测试空白的静态评论，并可配置为合并门禁。</p>
-
-<p align="center">
-  <img src="diagrams/diagram7_mcp_integration_flow.png" alt="MCP 集成流程：用户发起审查请求，AI 检查 MCP 工具，图谱返回爆炸半径和风险评分，AI 仅读取关键内容" width="80%" />
-</p>
-
-<h2>基准测试数据</h2>
-<p>根据官方基准测试，在 6 个真实开源仓库（涵盖 fastapi、flask、gin 等）的评估中，该工具使每次查询的 Token 消耗中位数降低了约 <strong>65 倍</strong>（最高达 376 倍）。例如，在 fastapi 仓库中，原始代码库的 948,793 个 Token 被压缩至平均 2,653 个 Token。对于大型 Monorepo 项目，该工具能有效解决 AI 上下文窗口浪费问题，将数十万 Token 的源码压缩为数千 Token 的精准问答切片。</p>
-
-<p align="center">
-  <img src="diagrams/diagram5_benchmark_board.png" alt="基准测试概览：在 6 个真实仓库上测试，中位数每次查询 Token 减少约 65 倍，最大减少 376 倍" width="85%" />
-</p>
-
-<h2>安装与使用</h2>
-<p>安装与使用极为简便。通过 <code>pip install code-review-graph</code> 安装后，运行 <code>code-review-graph install</code> 即可自动检测并配置支持的 AI 编程平台（如 Cursor、Claude Code、GitHub Copilot、Zed 等）。随后执行 <code>code-review-graph build</code> 即可开始解析代码库。完整的命令参考、故障排除及自定义语言指南可查阅 <a href="docs/COMMANDS.md">Commands</a>、<a href="docs/FAQ.md">FAQ</a> 及 <a href="docs/CUSTOM_LANGUAGES.md">CUSTOM_LANGUAGES.md</a>。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>MCP（Model Context Protocol）</strong> 是由 Anthropic 提出的一种开放标准，旨在为 AI 模型提供安全、标准化的外部数据与工具访问接口。通过 MCP，AI 编程助手能够以统一的方式连接本地代码库、数据库或 API，而无需为每个工具编写定制集成。code-review-graph 正是利用 MCP 实现了与各类 AI 编辑器的无缝对接，大幅降低了 AI 上下文窗口的无效占用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tirth8205/code-review-graph</guid>
-      <pubDate>Thu, 06 Aug 2026 12:15:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cloudflare Computer：为 AI Agent 提供沙箱计算环境的虚拟文件系统</title>
-      <link>https://github.com/cloudflare/computer</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍 Cloudflare 为 AI Agent 提供的沙箱计算环境开源项目，涉及 AI 应用开发工具及底层技术支持，符合用户的高兴趣配置（编程工具发布、AI软件技术进展）。</small></p><p><a href="https://github.com/cloudflare/computer">Cloudflare Computer</a> 是一个运行在 Cloudflare Durable Object 内的虚拟文件系统，旨在为 AI Agent 提供安全、隔离的计算环境。该项目目前处于预览阶段，主要面向实验、探索和原型开发。</p>
-<h3>核心特性</h3>
-<ul>
-<li><strong>持久化存储</strong>：基于 SQLite 存储权威状态，确保数据一致性。</li>
-<li><strong>多后端执行</strong>：提供三种执行环境，通过 <code>workspace.runtime.exec</code> 统一调用：</li>
-</ul>
-<ul>
-<li><strong>Container</strong>：通过 FUSE 将 SQLite 状态挂载为真实文件系统，支持在沙箱容器中运行完整的 Linux 用户空间和二进制文件。</li>
-<li><strong>Isolate shell</strong>：在 Dynamic Worker 中运行 <a href="https://github.com/vercel-labs/just-bash">just-bash</a>，通过 Workers RPC 直接访问 Workspace。</li>
-<li><strong>Isolate JavaScript</strong>：在 Dynamic Worker 中运行 ECMAScript 模块，支持持久化导入、<code>node:fs/promises</code> 等 Node.js 兼容功能。</li>
-</ul>
-<h3>架构与示例</h3>
-<p>项目采用 monorepo 结构，核心组件包括 <code>@cloudflare/dofs</code>（虚拟文件系统与同步协议）、<code>@cloudflare/computer-rpc</code>（通信协议）以及 <code>computerd</code>（FUSE 挂载与 RPC 服务器）。官方提供了丰富的示例，涵盖聊天代理（<code>@cloudflare/think</code>）、运行时性能对比、文档生成教程以及 AI 图像生成等场景。</p>
-<h3>性能表现</h3>
-<p>基准测试显示，<code>computerd</code> 的 FUSE 挂载在元数据密集型任务上表现优于真实磁盘，但在大文件顺序读写方面略逊一筹。详细数据可参考官方性能文档。</p>
-<p><strong>注意</strong>：该项目 API 尚不稳定，设计可能随时调整，目前仅适合实验用途，不建议用于生产环境。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/cloudflare/computer</guid>
-      <pubDate>Wed, 05 Aug 2026 14:29:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ LoopX：面向长周期 AI Agent 团队的轻量级本地控制平面</title>
-      <link>https://github.com/huangruiteng/loopx</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题是AI Agent团队的本地控制平面，涉及AI技术进展与编程工具，匹配用户high_interest的兴趣配置</small></p><p><a href="https://github.com/huangruiteng/loopx">LoopX</a> 是一个轻量级的状态内核（state kernel）与本地控制平面（local control plane），专为管理长时间运行的 AI Agent 团队而设计。它旨在解决传统聊天记忆和定时器无法有效治理的长周期工程、研究或实验工作流问题。</p>
-
-<img src="docs/assets/loopx-social-preview.png" alt="LoopX 项目社交预览图" width="560" />
-
-<p>LoopX 的核心设计理念是将 Agent 转化为可管理、可复盘、可持续改进的“数字员工”。它不替代现有的 Agent 运行时（如 <a href="https://github.com/openai/codex">Codex</a>、<a href="https://www.anthropic.com/claude-code">Claude Code</a> 或 <a href="https://cursor.com">Cursor</a>），而是作为一层独立的控制层，提供以下关键能力：</p>
-<ul>
-  <li><strong>持久化状态管理</strong>：维护目标（objectives）、关卡（gates）、待办事项（todos）、范围（scope）、证据（evidence）和配额（quota）的稳定状态。</li>
-  <li><strong>跨 Agent 协作与交接</strong>：支持多 Agent 团队并行工作，通过租约（leases）、任务边界和类型化延续（typed continuation）实现可验证的工作交接，无需固定的领导者身份。</li>
-  <li><strong>配额感知与自动唤醒</strong>：通过配额机制决定何时执行、何时暂停或请求人类判断，防止无效计算资源的浪费。</li>
-  <li><strong>人类监督与安全边界</strong>：强调“让循环继续，让判断回归人类”。危险权限、生产环境写入和最终所有权始终保留在人类手中。</li>
-</ul>
-
-<p>项目提供了丰富的内置能力（Capabilities），涵盖开源 Issue 修复、内容运营、机器学习实验建议、基准测试证据追踪等。官方展示了多个长达 200 小时以上的实际运行轨迹，包括 OpenViking 项目的 Issue 修复流程和 Auto ML 实验，证明了其在复杂、长周期任务中的稳定性与可追溯性。</p>
-
-<p>LoopX 采用 Python 开发，支持通过一行命令快速安装，并提供了与主流 AI 编程工具（如 Codex App/CLI、Claude Code、OpenCode 等）的集成适配器。对于需要多日工程、跨工具切换或严格合规审查的 AI 工作流，LoopX 提供了一个类似“Agent 原生看板（Agent-native Kanban）”的可视化与控制中枢。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>循环工程（Loop Engineering）</strong> 是一种针对 AI Agent 工作流的设计范式。与传统单次调用的 API 不同，它强调将 AI 任务拆分为多个有状态、可中断、可验证的“循环（Loop）”。通过引入持久化状态、人工审核关卡（Gates）和证据日志，循环工程能够有效应对长周期任务中目标漂移、上下文丢失和幻觉累积等问题，使 AI 从“一次性问答工具”进化为“可长期协作的数字员工”。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/huangruiteng/loopx</guid>
-      <pubDate>Wed, 05 Aug 2026 12:11:29 GMT</pubDate>
     </item>
   </channel>
 </rss>
