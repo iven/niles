@@ -3,7 +3,23 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 14 Aug 2026 17:09:15 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 14 Aug 2026 18:03:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Qwen 3.8 27B 模型发布：消费级硬件上的性能与智能新标杆</title>
+      <link>https://news.ycombinator.com/item?id=49299605</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了Qwen 3.8大模型的发布，属于“新AI模型发布公告”，符合用户high_interest配置；同时涉及开源内容，也符合interest配置，故评定为critical。</small></p><p>阿里通义千问（Qwen）团队发布了 Qwen 3.8 27B 模型。该模型作为 270 亿参数（27B）的密集模型，在保持较高推理效率的同时，展现了卓越的性能表现。社区反馈指出，Qwen 3.8 27B 在 DeepSWE 等代码基准测试中表现优异，甚至超越了部分前沿模型（如 Claude 的 Opus 4.7 Max）。</p>
+<p>由于架构与 Qwen 3.5/3.6 保持一致，该模型能够无缝兼容现有的本地推理工具链（如 llama.cpp 和 vLLM）。Unsloth 已提供预量化的 GGUF 格式，方便用户在消费级硬件上部署：<a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">Unsloth Qwen3.8-27B-GGUF</a>。实测数据显示，在单张 RTX 4090 上，该模型量化运行可达到约 48 tokens/秒（tps）；若配合推测解码（Speculative Decoding）技术或升级至 RTX 5090，推理速度可轻松突破 100-200 tps，大幅超越商业模型 API 的响应速度。</p>
+<p>尽管性能强劲，部分用户也指出 Qwen 系列模型倾向于“过度思考（overthinking）”，导致生成冗长。社区建议可通过调整提示词模板或采用特定微调版本（如基于 Claude 推理轨迹的微调模型：<a href="https://huggingface.co/rico03/Qwen3.6-27B-Claude-Opus-Reasoning-Distilled">Qwen3.6-27B-Claude-Opus-Reasoning-Distilled</a>）来优化体验。此外，开发者们仍在期待更小参数但采用混合专家（MoE）架构的变体，以在显存占用、功耗和推理速度之间取得更优平衡。</p>
+<h3>你知道吗？</h3>
+<ul>
+  <li><strong>GGUF 与量化</strong>：GGUF 是一种专为本地大语言模型推理优化的文件格式，支持多种量化级别（如 q4km、q8_0 等）。量化能显著降低模型显存占用并提升推理速度，而 GGUF 格式使其能在 CPU、GPU 甚至移动端设备上高效运行。</li>
+  <li><strong>推测解码（Speculative Decoding）</strong>：一种加速大模型推理的技术，通过一个小模型快速生成多个候选 token，再由大模型并行验证和修正。该技术可在不牺牲质量的前提下，将推理速度提升数倍。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49299605</guid>
+      <pubDate>Fri, 14 Aug 2026 15:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 阿里巴巴发布 Qwen3.8-27B 开源模型：原生多模态，性能超越 Qwen3.7-Plus</title>
       <link>https://news.ycombinator.com/item?id=49299684</link>
@@ -980,15 +996,6 @@ Hacker News 社区对此进行了热烈讨论。部分开发者指出，GitHub �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49227365</guid>
       <pubDate>Sun, 09 Aug 2026 00:59:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Meta 发布 Muse Glimmer：300 亿参数开源本地智能体模型</title>
-      <link>https://news.ycombinator.com/item?id=49241679</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍Meta新发布的300亿参数开源本地AI智能体模型，直接命中“新AI模型发布公告”兴趣点，属核心必看内容。</small></p><p>Meta 超级智能实验室（Meta Superintelligence Labs）近日发布了 <strong>Muse Glimmer</strong>，这是一个拥有 300 亿参数（30B）的开源智能体（Agentic）模型，采用 Apache 2.0 许可证。该模型专为在消费级硬件上运行本地智能体工作流而优化，旨在让用户无需依赖云端即可实现全天候的 AI 辅助。</p><p>Muse Glimmer 具备端到端的任务执行能力，支持可靠的工具调用、多步推理、失败恢复以及多模态输入（文本与图像混合）。模型经过预训练、中训练和后训练三个阶段，结合了监督微调与强化学习，在 DeepSearch QA、SWE-Bench 等智能体基准测试中表现强劲。</p><img src="https://lookaside.fbsbx.com/elementpath/media/?media_id=1617455483266790&version=1786319248" alt="Muse Glimmer 30B 与 Gemma4 31B、Qwen3.6 27B 在智能体、编码、多模态等基准测试中的性能对比" width="1080" height="2010" /><p>为了适配本地部署，Meta 采用了两项关键技术：</p><ol><li><strong>模型量化</strong>：通过压缩技术将模型权重降至约 4-bit 精度，使模型体积从全精度的 55GB 以上缩减至 20GB 以内，可流畅运行于 24GB 或 32GB 显存/内存的设备中。</li></ol><img src="https://lookaside.fbsbx.com/elementpath/media/?media_id=1479406130664613&version=1786319248" alt="全精度、K-Quant-Dynamic 与 K-Quant-17GB 的精度损失与目标硬件内存对比" width="2160" height="674" /><ol start="2"><li><strong>投机解码（Speculative Decoding）</strong>：内置基于 DFlash 的轻量级草稿模型，通过并行验证提议的 token 块，显著提升了生成速度。在 RTX 5090、M5 Max 和 M4 Max 上，解码速度分别提升了 3.1 倍、1.8 倍和 1.5 倍。</li></ol><img src="https://lookaside.fbsbx.com/elementpath/media/?media_id=1786825739136571&version=1786319248" alt="DFlash 投机解码在 RTX 5090、M5 Max 和 M4 Max 上提升 Muse Glimmer 解码速度的对比图" width="1080" height="1080" /><p>目前，Muse Glimmer 已在 <a href="https://huggingface.co">Hugging Face</a> 开源，并计划支持 llama.cpp、MLX 和 ExecuTorch 等主流推理框架。社区开发者对 Meta 重新拥抱开源表示欢迎，认为这为本地 AI 应用提供了更多选择。不过，部分讨论指出，作为密集模型（Dense Model），Muse Glimmer 在缺乏高带宽内存（HBM）的消费级硬件上可能受限于内存带宽，实际解码速度存在瓶颈；相比之下，混合专家（MoE）架构模型在同等条件下可能更具优势。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49241679</guid>
-      <pubDate>Mon, 10 Aug 2026 10:10:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
