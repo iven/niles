@@ -3,7 +3,41 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 14 Aug 2026 08:34:56 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 14 Aug 2026 10:15:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux DRM 调度器“公平（fair）”策略回归问题已获修复</title>
+      <link>https://www.phoronix.com/news/Linux-Patches-Fix-DRM-Fair</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 聚焦Linux DRM图形调度器的策略修复补丁，属于Linux底层图形与桌面技术范畴，符合来源配置中“Linux桌面技术”的兴趣设定，故推荐阅读。</small></p><p>在 Linux 7.2 内核发布前夕，Direct Rendering Manager（DRM）子系统因最后一刻发现的回归问题，被迫将默认的调度策略从新引入的“公平（fair）”策略回退为 FIFO。目前，Igalia 工程师 Tvrtko Ursulin 已针对用户报告的 Radeon RX 9070 XT 性能下降问题发布了修复补丁。这两个补丁修改了不到一百行代码，成功解决了该回归问题。开发者计划在下个内核版本（预计 Linux 7.3）中重新将 fair 策略设为默认，并计划移除 FIFO 和 round-robin 策略以简化代码库。目前该策略在 Steam Deck 等设备上测试表现良好，将进一步提升 GPU 客户端的整体性能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Patches-Fix-DRM-Fair</guid>
+      <pubDate>Fri, 14 Aug 2026 10:04:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 开源 exFAT 用户空间工具 exfatprogs 1.4.3 发布，优化文件系统检查与创建</title>
+      <link>https://www.phoronix.com/news/exfatprogs-1.4.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍开源exFAT工具集的1.4.3版本更新，主要提升文件系统维护与格式化工具功能，属于常规Linux/开源工具更新，符合用户兴趣，故推荐阅读。</small></p><p>在 Linux 7.2 内核发布前夕，开源 exFAT 文件系统用户空间工具 <b>exfatprogs</b> 迎来了 1.4.3 版本更新。该版本主要提升了文件系统检查（fsck）和创建（mkfs）的性能与本地化体验。</p>
+<p>在文件系统检查方面，<code>fsck.exfat</code> 程序优化了对未使用目录项（dentry）的扫描逻辑，通过增大读取块大小来加速大型未使用目录尾部的扫描过程，从而提升整体检查速度。此外，新版本还引入了对完整用户区域设置（locale）的支持，使诊断消息和日期格式化更符合本地化习惯。<code>mkfs.exfat</code> 工具也获得了多项改进，用于创建新的 exFAT 文件系统。除了上述功能增强外，该版本还包含了一系列错误修复。</p>
+<p>开发者可通过 GitHub 获取该版本的下载链接及详细更新日志。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/exfatprogs-1.4.3</guid>
+      <pubDate>Fri, 14 Aug 2026 09:44:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 基于 Slackware 的 Zenwalk Linux 引入 BORE 调度器，旨在实现“真正的低延迟桌面体验”</title>
+      <link>https://www.phoronix.com/news/Zenwalk-BORE-Kernel</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 报道Zenwalk Linux发行版更新动态，主打低延迟桌面体验优化，精准命中来源配置中“新发行版”的很感兴趣主题，权重更高，判定为必看。</small></p><p>基于 Slackware 的 Linux 发行版 <a href="https://www.zenwalk.org/">Zenwalk</a> 近期宣布了一项新计划，旨在通过引入 <a href="https://github.com/BORE2/BORE">BORE 调度器（Burst-Oriented Response Enhancer）</a> 来实现“真正的低延迟桌面体验”。</p>
+<p><img src="//www.phoronix.net/image.php?id=954&image=zenwalk_5b_b2_med" alt="Zenwalk old" /><img src="//www.phoronix.net/image.php?id=505&image=zenlive_26_04_med" alt="Old Zenwalk" /></p>
+<p>BORE 调度器是一个非树内（out-of-tree）的 CPU 调度器，已被 CachyOS 等其他发行版采用。它主要针对游戏、音频处理和桌面交互等突发型任务进行了优化。Zenwalk 目前提供了一款集成 BORE 补丁的内核构建，同时保持与上游 Slackware 的兼容性。</p>
+<p>据 Zenwalk 官方博客测试，在后台进行大型应用程序编译和大规模多线程媒体转码时，使用 BORE 内核可以彻底解决音频播放卡顿和掉帧的问题，显著提升了桌面使用的流畅度。</p>
+<h3>你知道吗？</h3>
+<p><strong>BORE 调度器（Burst-Oriented Response Enhancer）</strong> 是一种针对突发负载优化的 CPU 调度器。传统的 Linux 调度器（如 CFS）在处理长时间运行的计算任务时，可能会抢占交互式任务（如音频播放或鼠标移动），导致系统响应延迟。BORE 通过动态调整任务的优先级和权重，确保交互式任务在突发负载下仍能获得及时的 CPU 时间片，从而改善桌面体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Zenwalk-BORE-Kernel</guid>
+      <pubDate>Fri, 14 Aug 2026 09:30:21 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AMD GAIA 0.23 发布：支持终端安装与运行 AI 代理</title>
       <link>https://www.phoronix.com/news/AMD-GAIA-0.23</link>
@@ -630,39 +664,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Btrfs-Restores-Fixup-Worker</guid>
       <pubDate>Thu, 06 Aug 2026 21:09:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 网络子系统持续面临 AI 生成补丁的冲击</title>
-      <link>https://www.phoronix.com/news/Linux-Net-Bombarded-AI-Patches</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 探讨Linux网络栈整合AI技术补丁，全局配置对AI技术进展很感兴趣，内容偏向技术整合而非性能，故推荐。</small></p><p>尽管 Linux 无线（WiFi/wireless）子系统维护者近期推出了“三秒审查（three second review）”规则以抵制 AI/LLM 生成的低质量补丁，但更广泛的 Linux 网络子系统仍持续面临大量 AI 生成补丁的冲击。</p>
-<p>Linux 网络维护者 Jakub Kicinski 在 Linux 7.2-rc7 内核测试版发布前提交了本周的网络补丁集合。他指出，AI 生成补丁的数量已呈常态化增长，部分周数的补丁量甚至达到平时的两倍。为应对这一现象，Linux 7.1 版本已移除了旧的网络驱动和 ISDN 子系统等代码，试图减少 AI/LLM 对废弃代码的无意义生成。</p>
-<p>Kicinski 透露，在最近 9 天内，网络子系统收到了 405 个标记为 [PATCH net] 和 687 个 [PATCH net-next] 的补丁。其中高达 37% 为修复类补丁，且由于部分 LLM 生成者未正确标记补丁分支，实际数量可能更高。面对这一“新常态”，维护团队正在不断调整审查标准，并预计下一个补丁请求（PR）的规模将有所缩减。本周的补丁主要涵盖各网络子系统的 Bug 修复与回归问题处理。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Net-Bombarded-AI-Patches</guid>
-      <pubDate>Thu, 06 Aug 2026 19:07:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ IceWM 4.1 发布：修复罕见视频性能问题并新增窗口选项</title>
-      <link>https://www.phoronix.com/news/IceWM-4.1-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] IceWM桌面窗口管理器版本发布修复视频问题，属于Linux桌面技术范畴，符合用户兴趣。</small></p><p>IceWM 4.1 作为 X11 窗口管理器 IceWM 的最新版本，已于近日正式推出。此次更新主要聚焦于稳定性修复与少量功能增强。</p><img src="//www.phoronix.net/image.php?id=2025&image=icewm_med" alt="IceWM" /><p>在修复方面，最引人注目的是解决了罕见的视频性能问题。开发团队通过将默认 Alpha 通道值设为 <code>false</code> 来优化渲染流程。此外，该版本还修复了配置文件中的未终止字符串处理、<code>_NET_STARTUP_ID</code> 字符串解析错误，以及通过调整 <code>picture</code> 与 <code>pixmap</code> 的释放顺序来避免报错。</p><p>功能更新方面，IceWM 4.1 引入了新的窗口选项 <code>ignoreUserTime</code>（对应 Issue #833），并为命令行工具 <code>icesh</code> 新增了 <code>mousemove</code> 命令。同时，项目还同步更新了多语言翻译文件。</p><p>IceWM 4.1 现已在 GitHub 上提供下载。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/IceWM-4.1-Released</guid>
-      <pubDate>Thu, 06 Aug 2026 18:55:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Asahi Linux 修复 Apple NVMe 驱动以适配 macOS 15 新固件</title>
-      <link>https://www.phoronix.com/news/Apple-NVMe-Linux-Fixes-Firmware</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 针对苹果电脑NVMe硬盘在Linux下的驱动修复，直接对应来源配置中对苹果电脑Linux支持的很感兴趣配置。</small></p><p>Asahi Linux 团队近日发布了一组补丁，旨在修复 Apple Silicon 设备的 NVMe 驱动程序在运行较新固件时出现的问题。由于 macOS 15+ 引入了更严格的 NVMe 控制器固件，导致现有的开源驱动程序出现兼容性故障。</p>
-<img src="//www.phoronix.net/image.php?id=apple-m2-linux&image=apple_m2_2_med" alt="Apple Silicon MacBook Air" />
-<p>新固件虽然是为 Linux 支持 Apple M4 芯片所做的必要准备，但也引发了控制器初始化失败导致的内核恐慌（Kernel Panic）以及缺失控制位（chicken bit）等问题。开发者 Sven Peter 指出，新固件使控制器和 XNU 更加严格。此次修复补丁解决了初始化 panic，通过变通方法处理缺失的控制位，改进了与 macOS 行为的一致性，并添加了针对 M4 及后续芯片 NVMe 控制器的页对齐管理队列缓冲区（page-aligned admin queue buffers）的 quirks。</p>
-<h3>你知道吗？</h3>
-<p><strong>Asahi Linux</strong> 是一个致力于在 Apple Silicon（M 系列芯片）Mac 上运行 Linux 内核的项目。由于 Apple 的硬件架构与传统的 x86 或 ARM 设备不同，且部分硬件（如 NVMe 控制器）的固件由 Apple 专有控制，因此需要专门的驱动程序和补丁来确保 Linux 系统的稳定性和功能完整性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-NVMe-Linux-Fixes-Firmware</guid>
-      <pubDate>Thu, 06 Aug 2026 16:00:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
