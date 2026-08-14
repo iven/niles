@@ -3,7 +3,31 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 14 Aug 2026 21:36:38 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 14 Aug 2026 22:37:53 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.233 发布说明：支持 GitLab MR、内存限制与安全修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.233</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Claude Code v2.1.233 发布说明：支持 GitLab MR、内存限制与安全修复</h3>
+<p>Claude Code v2.1.233 版本发布，带来了一系列新功能、改进和安全修复。</p>
+<h4>主要更新</h4>
+<ul>
+  <li><strong>GitLab 支持增强</strong>：<code>--worktree</code> 标志和 <code>claude agents</code> 视图现在支持 GitLab merge request URL，MR 在视图中显示为 <code>!N</code> 格式。</li>
+  <li><strong>内存限制（Linux）</strong>：新增 <code>CLAUDE_CODE_TOOL_MEMORY_LIMIT</code> 环境变量，支持 Bash 工具的内存 cgroup 限制，防止失控的构建进程卡住会话。</li>
+  <li><strong>用户身份转发</strong>：Anthropic upstreams 新增 <code>forward_user_identity</code> 设置，可将已登录用户的身份信息作为 headers 发送，便于代理统计用户支出。</li>
+  <li><strong>WebFetch 缓存配置</strong>：新增 <code>CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS</code> 环境变量，允许配置 WebFetch 会话 URL 缓存的 TTL（默认保持 15 分钟）。</li>
+  <li><strong>新模型工具限制</strong>：在 Opus 4.8、Sonnet 5、Fable 5、Mythos 5 及更新模型上，Todo/task-tracking 工具（如 <code>TaskCreate</code>、<code>TodoWrite</code>）默认不再可用，可通过设置 <code>CLAUDE_CODE_ENABLE_TODO_TOOLS=1</code> 重新启用。</li>
+</ul>
+<h4>安全与修复</h4>
+<ul>
+  <li><strong>安全修复</strong>：修复了 Windows 路径中 NT <code>\??\</code> 设备前缀绕过 UNC 路径验证的问题，消除了潜在的 NTLM 凭证泄露风险。</li>
+  <li><strong>性能与稳定性</strong>：改进了 <code>claude self-hosted-runner</code> 的会话启动时间，无需重写工作树即可创建会话分支；修复了 MCP v2 连接在特定服务器（如 Serverless 主机）上无限重连订阅流的问题；修复了沙箱模式下 Linux 空闲会话偶尔占用 100% CPU 的问题；修复了 Windows Bash 命令自动模式下反复请求手动批准的回归问题。</li>
+  <li><strong>其他修复</strong>：修复了通知钩子在 Claude Desktop 或 VS Code 下运行权限提示时未触发的问题；修复了 bundled skill 别名在 <code>-p</code> 模式下报错的问题；改进了屏幕阅读器模式的 <code>/effort</code> 选择器渲染。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.233</guid>
+      <pubDate>Fri, 14 Aug 2026 22:20:57 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.232 更新：Subagent 默认分叉、跨会话通信与 GitLab 支持</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.232</link>
@@ -1108,45 +1132,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.209</guid>
       <pubDate>Tue, 14 Jul 2026 06:36:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.208 发布说明</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.208</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.208 发布说明</h2>
-<p>Claude Code 发布了 v2.1.208 版本，本次更新重点增强了无障碍访问支持、Vim 模式交互，并大幅优化了后台会话管理、内存使用及渲染性能。</p>
-<h3>核心功能与交互改进</h3>
-<ul>
-  <li><strong>屏幕阅读器模式（Screen Reader Mode）</strong>：新增专为视障用户设计的纯文本渲染模式。用户可通过运行 <code>claude --ax-screen-reader</code>、设置环境变量 <code>CLAUDE_AX_SCREEN_READER=1</code> 或在配置中启用 <code>"axScreenReader": true</code> 来激活。</li>
-  <li><strong>Vim 插入模式重映射</strong>：新增 <code>vimInsertModeRemaps</code> 设置，支持将双键序列（如 <code>jj</code>）映射为 Escape 键。</li>
-  <li><strong>企业级进程包装器</strong>：引入 <code>CLAUDE_CODE_PROCESS_WRAPPER</code> 环境变量，允许企业通过自定义启动器运行 Claude Code 的自生成进程。</li>
-  <li><strong>全屏多选支持</strong>：在全屏模式下新增对多选菜单和“其他”输入行的鼠标点击支持。</li>
-  <li><strong>危险命令提示增强</strong>：对于包含命令替换符（如 <code>$(…)</code>）的毁灭性命令（如 <code>rm -rf ~</code>），在 <code>--dangerously-skip-permissions</code> 和自动模式下将触发明确提示。</li>
-</ul>
-<h3>性能与内存优化</h3>
-<ul>
-  <li><strong>工具调用加速</strong>：通过缓存工具池组装，显著降低高 MCP 工具数量下的 CPU 开销，工具轮次速度最高提升 7 倍。</li>
-  <li><strong>内存管理改进</strong>：将文件编辑读取缓存上限限制为 16 MB；修复了 MCP stdio 服务器 stderr 累积、LSP 文档无限期保持、异步钩子输出保留等多个长期会话内存泄漏问题；修复了读取超长单行文件时的内存爆炸问题。</li>
-  <li><strong>渲染与转录优化</strong>：超大 Markdown 表格（超过 200 行）将仅显示前 200 行并附加提示，避免渲染卡顿；通过修剪被覆盖的文件历史备份，会话转录大小最高减少 79 倍。</li>
-  <li><strong>权限规则响应提速</strong>：权限拒绝/询问规则匹配器现被编译并缓存，消除了多规则会话中的延迟。</li>
-</ul>
-<h3>后台会话与稳定性修复</h3>
-<ul>
-  <li><strong>后台会话可靠性提升</strong>：修复了后台会话附加失败、HTTP/2 GOAWAY 连接导致的崩溃、旧版守护进程错误重启新版工作进程等问题。完成后台会话在清理前将保留在 <code>/tasks</code> 列表中，附加已停止的后台代理可立即显示转录内容。</li>
-  <li><strong>上下文与模式状态恢复</strong>：修复了 CLI 自动更新后上下文窗口短暂重置为 200k 导致误报“100% 已用”的问题；修复了快速模式在切换模型后保持关闭的问题。</li>
-  <li><strong>数据丢失修复</strong>：修复了投递失败时后台代理回复文本丢失的问题，现文本将被保存并在会话重启时投递。</li>
-</ul>
-<h3>其他修复与改进</h3>
-<ul>
-  <li>修复了 Bedrock 流式请求在网关转换响应时出现的误导性错误，现会明确指出内容类型及代理问题。</li>
-  <li>修复了 <code>/release-notes</code> 命令将查看的更新日志注入模型上下文的问题，避免后续请求负担。</li>
-  <li>修复了 Bedrock AWS SSO 配置文件区域与 Bedrock 区域不一致导致的认证失败问题。</li>
-  <li>改进了 Agent 视图中的图片粘贴内存泄漏，以及任务列表更新时的 UI 响应速度。</li>
-  <li>修复了 <code>CLAUDE_CODE_MAX_OUTPUT_TOKENS</code> 等环境变量解析科学计数法时的精度丢失问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.208</guid>
-      <pubDate>Tue, 14 Jul 2026 01:10:42 GMT</pubDate>
     </item>
   </channel>
 </rss>
