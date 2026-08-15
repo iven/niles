@@ -3,7 +3,25 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 15 Aug 2026 01:48:19 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 15 Aug 2026 03:03:03 GMT</lastBuildDate>
+    <item>
+      <title>⭐ RustDesk 在 Wayland 上实现真正的无人值守远程访问</title>
+      <link>https://news.ycombinator.com/item?id=49300759</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍了开源软件 RustDesk 在 Wayland 上的功能更新，属于开源项目与软件技术进展，符合用户兴趣。</small></p><p>RustDesk 宣布在 Wayland 显示协议上正式支持真正的无人值守（unattended）远程访问功能。这意味着用户无需在远程计算机前手动批准连接请求，即可在初始设置后直接建立会话，甚至支持在系统重启后的登录界面进行连接。该功能同时支持多显示器环境。目前，RustDesk 为基于 Debian/Ubuntu 的 x86_64 系统提供了预览版构建，并计划在功能稳定后扩展至 Fedora 和 Arch Linux 等发行版，最终纳入标准版本。相比之下，AnyDesk 和 TeamViewer 等主流商业软件在 Wayland 上的支持仍较为有限或处于实验阶段。</p>
+
+<h3>社区反馈</h3>
+<p>该功能发布后引发了广泛讨论，主要观点如下：</p>
+<ul>
+  <li><strong>优势对比</strong>：许多用户认为，尽管 VNC、Xpra 或 SSH 等传统工具也能实现远程访问，但 RustDesk 凭借开源特性、支持完全自托管（self-hosted）、无需端口转发以及无供应商锁定等优势，提供了更便捷的使用体验。</li>
+  <li><strong>技术实现</strong>：技术讨论指出，该功能通常通过 DRM/KMS（直接渲染管理器/内核模式设置）捕获帧缓冲，并利用 uinput 模拟输入事件来实现。这种方式绕过了 X11 与 Wayland 的差异，但意味着远程会话期间物理座位可能被接管。</li>
+  <li><strong>安全与配置</strong>：部分用户关注自托管时的加密连接问题（详见 <a href="https://github.com/rustdesk/rustdesk/issues/3714">GitHub Issue #3714</a>），建议结合 Tailscale 等加密覆盖网络使用。另有用户讨论了密码策略，指出网络服务端的速率限制能有效防御暴力破解。</li>
+  <li><strong>其他反馈</strong>：有用户指出官方博客演示视频仍依赖 X11，引发了一些调侃；但整体社区对该功能持积极态度，认为这是 Linux 远程桌面生态的重要进步。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49300759</guid>
+      <pubDate>Fri, 14 Aug 2026 16:12:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Firefox 宣布继续支持 uBlock Origin，成为主流浏览器中的“最后堡垒”</title>
       <link>https://news.ycombinator.com/item?id=49303202</link>
@@ -979,17 +997,6 @@ Hacker News 社区对此进行了热烈讨论。部分开发者指出，GitHub �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49243880</guid>
       <pubDate>Mon, 10 Aug 2026 14:06:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Mistral AI 获“代码实现工具调用”专利引争议，社区指其仅为基础 RPC 模式</title>
-      <link>https://news.ycombinator.com/item?id=49243397</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章聚焦Mistral AI在AI工具调用方面的专利争议与技术探讨，属于“AI软件技术进展”范畴，符合用户兴趣，故评为recommended。</small></p><p>法国 AI 公司 Mistral AI 获得了一项名为“代码实现工具调用（Code implemented tool calls）”的专利（<a href="https://patentsgazette.uspto.gov/week26/OG/html/1547-5/US12670045-20260630.html">US12670045</a>）。该专利的核心机制是让大语言模型（LLM）生成一段封装了工具调用的代码块，并在服务器沙箱中执行。当执行过程中遇到需要外部交互的挂起调用时，系统会暂停代码执行，将调用发送至客户端完成，待接收结果后恢复执行并替换相应部分，最终将结果返回给 LLM。</p>
-<img src="US12670045-20260630-D00000.gif" alt="专利附图" />
-<p>该专利在 Hacker News 社区引发广泛讨论。多数开发者指出，该专利所描述的流程本质上只是软件工程中的基础通信模式，如远程过程调用（RPC）或进程间通信（IPC），缺乏应有的新颖性。有评论提到，类似机制（如 <a href="https://blog.cloudflare.com/code-mode-mcp/">Cloudflare 的 Code Mode MCP</a>）早在该专利申请前就已存在。此外，讨论还延伸至美国专利商标局（USPTO）的软件专利授权标准、科技巨头通过申请基础专利进行防御性布局的策略，以及 Mistral AI 在欧盟监管政策中的角色争议。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49243397</guid>
-      <pubDate>Mon, 10 Aug 2026 13:29:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
