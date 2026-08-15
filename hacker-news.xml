@@ -3,7 +3,38 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 15 Aug 2026 15:32:15 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 15 Aug 2026 16:38:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 使用Codex实现自动研究：如何获得232倍GPU内核加速</title>
+      <link>https://news.ycombinator.com/item?id=49309549</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲解利用AI工具Codex进行自动研究以大幅优化GPU内核性能，属于编程效率改进和AI技术应用范畴，符合用户的高兴趣配置。</small></p><div>
+  <p>本文作者分享了参加 <a href="https://github.com/gpumode/qr">GPU Mode</a> 举办的自动研究（Auto-research）竞赛的经验。该竞赛要求实现批处理方形紧凑 <a href="https://en.wikipedia.org/wiki/QR_decomposition">Householder QR分解</a>（QR decomposition）。作者利用 <a href="https://openai.com/index/introducing-codex/">Codex</a>（ChatGPT Pro）作为主要工具，通过建立自动化测试与提交循环，在183名参赛者中排名第12，相比基线实现了 <strong>232倍</strong> 的速度提升。</p>
+  
+  <p>在核心算法上，作者采用了 <strong>分块Householder算法</strong>（Blocked Householder algorithm）。由于传统的Householder QR分解存在串行依赖，作者将串行工作限制在狭窄的面板内，并利用 <strong>WY表示法</strong>（WY representation）将多个反射器压缩为单个秩-b更新，从而将大部分计算转化为矩阵乘法（GEMM），充分释放了GPU Tensor Cores的性能。</p>
+  
+  <img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/sankalp/codex-image-1.webp" alt="Codex自动化研究流程示意图" />
+  
+  <p>在优化过程中，作者面临了内部低精度计算（如FP16/FP8）的数值稳定性挑战，以及从3x3到4096x4096不等的大跨度矩阵尺寸适配问题。为此，作者引入了 <strong>束搜索</strong>（Beam Search）和想法多样性策略来跳出局部最优，并强调详细的日志记录对于追踪有效优化思路至关重要。</p>
+  
+  <p>作者指出，虽然LLM能大幅降低优化门槛，但深厚的领域知识（如GPU内核编程和矩阵分解原理）能将“未知的未知”转化为“已知的未知”，从而生成更精准的提示词（Prompt）。HN社区对此反响热烈，多位开发者分享了使用DeepSeek等模型优化FlashAttention等内核的经验，并探讨了自动化研究在约束明确任务中的巨大潜力与局限。</p>
+  
+  <h3>你知道吗？</h3>
+  <p><strong>Householder反射（Householder Reflection）</strong> 是一种线性代数变换，通过关于一个超平面的反射来将向量映射到另一个向量。在QR分解中，它被用来逐步将矩阵下方对角线的元素置零，从而将矩阵转化为上三角矩阵R。相比其他方法（如Gram-Schmidt正交化），Householder方法在数值稳定性上表现更佳，是现代高性能计算库（如LAPACK、cuBLAS）中实现QR分解的标准方法。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49309549</guid>
+      <pubDate>Sat, 15 Aug 2026 11:00:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 将RSS订阅转换为电子墨水报纸，告别手机屏幕阅读</title>
+      <link>https://news.ycombinator.com/item?id=49299081</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍将RSS订阅转换为电子墨水报纸的技术实现，推测为开源项目分享，符合用户对开源项目及软件工具的兴趣。</small></p><div>作者因长时间在手机屏幕上阅读个人博客导致眼睛疲劳，决定购买一款4.3英寸的口袋电子阅读器 <a href="https://heyjonny.dev/posts/rss-to-eink-newspaper/">X4</a>（由Xteink生产），以改善阅读体验。<br><br>该设备采用电子墨水屏（E-ink），无触摸屏和背光。作者为其刷入了开源固件 <a href="https://crosspointreader.com/">Crosspoint</a>，并开发了一个名为 <a href="https://github.com/wowitsjack/feedpaper">feedpaper</a> 的工具。该工具通过 <a href="https://feedbin.com/">Feedbin</a> 的API获取未读RSS文章，过滤掉不适合电子墨水屏的内容（如YouTube频道、JavaScript-heavy博客等），并利用AI快速生成EPUB格式的电子报纸。项目已开源，可通过Homebrew安装。<br><br>通过这种“数字报纸”工作流，作者成功实现了脱离手机，在户外咖啡馆等场景中享受舒适的横向阅读体验。<img src="/rss-to-eink-newspaper.jpeg" alt="一只手在户外握着小巧的X4电子阅读器，电子墨水屏幕上显示着一篇博客文章。背景是阳光下的拿铁咖啡和金属咖啡馆椅子。" /><br><br><strong>社区反馈：</strong>许多读者对电子墨水设备上的RSS阅读体验表示共鸣。大家讨论了全文抓取（如 <a href="https://miniflux.app/">Miniflux</a>、<a href="https://wallabag.org/">Wallabag</a>）、离线阅读以及 <a href="https://github.com/koreader/koreader">KOReader</a> 等替代方案，普遍认为目前电子墨水设备的RSS客户端生态仍不够完善，但通过自定义工作流（如OPDS、Instapaper同步）可以实现类似体验。</div><br><div><h3>你知道吗？</h3><ul><li><strong>电子墨水屏（E-ink）技术：</strong> 利用微胶囊电泳技术，通过电场控制黑白微粒的移动来显示文字。由于仅在刷新画面时耗电，电子墨水设备极其省电，且显示效果接近纸质书，无反光，非常适合长时间阅读。</li><li><strong>RSS全文抓取（Full Text RSS）：</strong> 许多现代网站出于广告或数据追踪目的，在RSS订阅源中仅发布文章摘要。使用支持全文抓取的阅读器（如Miniflux）或配合稍后读服务（如Wallabag），可以确保在电子墨水屏上获得完整的阅读内容，避免点击链接跳转的繁琐。</li></ul></div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49299081</guid>
+      <pubDate>Fri, 14 Aug 2026 14:21:18 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 如何高效使用 Claude Code：减少 Token 消耗与优化工作流指南</title>
       <link>https://news.ycombinator.com/item?id=49300800</link>
@@ -971,45 +1002,6 @@ Hacker News 社区对此进行了热烈讨论。部分开发者指出，GitHub �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49252179</guid>
       <pubDate>Tue, 11 Aug 2026 01:22:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 深入探索 Claude 的数学能力：在黎曼猜想相关问题上取得突破</title>
-      <link>https://news.ycombinator.com/item?id=49247070</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章报道了未发布的 Claude 模型在数学领域的突破性进展，属于新AI模型技术发布，符合 high_interest 兴趣配置。</small></p><p>Anthropic 近日发布文章，详细介绍未发布研究版 Claude 在数学研究领域的最新进展。尽管 Claude 未能直接证明著名的<strong>黎曼猜想（Riemann Hypothesis）</strong>，但在其尝试过程中意外取得了重要突破。</p>
-<p>Claude 成功将黎曼ζ函数（Riemann zeta function）零点位于临界线上的比例下界从历史最高纪录 41.6% 提升至 <strong>67.2%</strong>。该成果通过结合 Baluyot、Goldston、Suriajaya、Turnage-Butterbaugh 等人的近期研究与 Bombieri 的早期工作，利用二次型（quadratic form）与 Weil 诱导空间的新方法实现。</p>
-<p><img src="https://www-cdn.anthropic.com/images/4zrzovbb/website/406d8496be38ea8a5459c66eaa7c5c7edab4a62f-4107x2310.png" alt="Illustration of a mathematical compass" width="4107" height="2310" /></p>
-<p><strong>研究过程与方法</strong><br>挑战由 Anthropic 非数学家员工 Jarred Sumner 发起。Claude 在 Claude Code 环境中运行约 3100 万输出 token，协调约 60 个子代理（subagents）进行深度计算。期间共执行 2400 条 Shell 命令，编写数百个 Python 脚本，并针对已知ζ函数零点进行数千次数值校验。人类员工的干预极少，主要提供“继续尝试”或“相信自己”等鼓励性提示，帮助模型克服初始的自我怀疑。</p>
-<p><strong>验证与公开资料</strong><br>Anthropic 内部数学家 Levent Alpöge 和 Ralph Furman 对结果进行了审查与验证。Claude 不仅生成了完整的数学论文，还输出了可通过标准验证工具（comparator）检查的 Lean 形式化证明。Anthropic 公开了详细资料供学界参考：<br>- <a href="https://www.anthropic.com/research/riemann-zeta">完整论文与过程记录</a><br>- <a href="https://github.com/anthropics/zeta-23-lean">Lean 形式化验证代码</a></p>
-<p><strong>社区反馈</strong><br>该文章在 Hacker News 引发 120 余条评论。社区普遍认为，AI 已具备高效整合复杂数学文献并发现新组合路径的能力。部分讨论聚焦于 Anthropic 对 AI 的拟人化表述（如“鼓励”模型），认为这反映了当前 AI 营销的常见倾向。另有观点指出，尽管该成果未直接解决黎曼猜想，但展示了 AI 在辅助数学研究、执行繁琐计算与形式化验证方面的巨大潜力，未来或将成为数学家的标准研究工具。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49247070</guid>
-      <pubDate>Mon, 10 Aug 2026 17:41:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 为何“人性化”LLM 输出是一种错误的抽象</title>
-      <link>https://news.ycombinator.com/item?id=49243474</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨LLM输出提示词设计与技术英语规范应用，属于AI技术进展与工具使用经验，符合用户兴趣配置。</small></p><p>原文链接：<a href="https://kuber.studio/blog/Reflections/Humanising-LLM-Outputs-is-Actually-Dumb">https://kuber.studio/blog/Reflections/Humanising-LLM-Outputs-is-Actually-Dumb</a></p>
-
-<p>近期，AI 社区中流行起使用“我有ADHD”或“使用 ASD-STE100 简化技术英语”等指令，要求大语言模型（LLM）的输出更加简洁、人性化。然而，有观点指出，这种试图让 LLM 输出更“人性化（humanising）”的做法，实际上是一种错误的抽象。</p>
-
-<p>核心问题在于，这些指令并非在模型完成任务后应用，而是直接融入了工作流本身。要求模型使用短句、避免术语并只保留重要细节，本质上是在强制模型持续将其输出压缩至更低带宽的格式。这种压缩必然是有损的，且往往在不知不觉中丢失了关键信息。</p>
-
-<img src="https://i.ytimg.com/vi/ExaNNAIysks/maxresdefault.jpg" alt="We're evolving, just backwards" />
-
-<p>在代理（Agent）协作场景中，这种信息损耗尤为明显。当子代理将调查结果转化为易读的摘要，父代理再将其转译为另一份易读摘要呈现给用户时，用户得到的可能只是模糊的“大多数测试通过了”。相比之下，用户实际上更需要精确的数据，例如 <code>5/6 PASS FAIL: test_cache_invalidation</code>。此外，人性化的语言擅长将冲突证据、堆栈跟踪等“丑陋但极具价值”的失败迹象，平滑为“这里有几点需要考虑”之类的客套话，从而掩盖了模型幻觉或接近 Token 限制等真实问题。</p>
-
-<p>作者将这一现象与其他软件系统进行了对比：数据库、编译器和 API 都会尽可能保持最高保真度的数据表示，直到人类消费的边界才进行格式转换。而当前的 LLM 工具却在反向操作。作者建议，如果用户需要简洁或简化英语的输出，应将其作为最后的渲染层（renderer）步骤，而非系统指令。代理系统应以精确的、面向机器的状态进行原生交互，仅在最终呈现给用户时才进行压缩。这些病毒式传播的提示词技能，实际上是用户在使用提示词层修补底层架构缺陷的“错误报告”。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-  <li><strong>ASD-STE100（Simplified Technical English）</strong>：一种受控自然语言标准，最初由航空航天工业制定，用于编写技术文档。它通过限制词汇量和语法结构来消除歧义，旨在提高非母语读者的理解度。但在 AI 代理（Agent）的机器交互中，过度简化反而可能丢失必要的上下文。</li>
-  <li><strong>多智能体系统中的“电话游戏”效应</strong>：在 Multi-Agent Systems 中，如果多个代理之间通过自然语言摘要进行通信，信息会在每次转译中发生衰减和扭曲。保持结构化数据（如 JSON、Schema）在代理间流转，是避免信息丢失的关键。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49243474</guid>
-      <pubDate>Mon, 10 Aug 2026 13:35:40 GMT</pubDate>
     </item>
   </channel>
 </rss>
