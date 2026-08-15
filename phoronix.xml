@@ -3,7 +3,18 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 15 Aug 2026 13:39:33 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 15 Aug 2026 14:36:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Intel 的 Jay 着色器编译器在 Xe2/Xe3 硬件上通过 Vulkan CTS 测试</title>
+      <link>https://www.phoronix.com/news/Intel-Jay-Compiler-Xe2-Xe3-CTS</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍英特尔Jay图形着色器编译器通过Vulkan CTS测试的技术进展，属于新软件项目，符合用户high_interest兴趣配置</small></p><p>Intel 的 Alyssa Rosenzweig 领导开发的基于 SSA（静态单赋值形式）的开源着色器编译器 <b>Jay</b> 取得了重要进展。自今年 4 月公开以来，Jay 已陆续通过 OpenGL ES 3.0 和 OpenCL 3.0 测试。本周，随着 63 个补丁合并至 Mesa 26.3-devel 分支，Jay 正式在 Intel Xe2 和 Xe3 硬件上通过了 Vulkan 一致性测试套件（Vulkan CTS）。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=jay_sml" alt="Jay" /></p>
+<p>Alyssa Rosenzweig 在合并请求中表示，此次更新清理了遗留的临时补丁，标志着上游代码已具备在 Xe2 和 Xe3 上通过 Vulkan CTS 的能力。这一里程碑距离项目公开仅不到一年时间。接下来，社区将关注 Jay 在 11 月发布的 Mesa 26.3 版本中的表现，以及其未来成为开源 Linux 图形驱动默认着色器编译器的时间表。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Jay-Compiler-Xe2-Xe3-CTS</guid>
+      <pubDate>Sat, 15 Aug 2026 14:23:19 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ RustConn 0.20 发布：基于 GTK4/libadwaita 的现代连接管理器迎来重大更新</title>
       <link>https://www.phoronix.com/news/RustConn-0.20-Released</link>
@@ -667,20 +678,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/PoCL-7.2-RC1</guid>
       <pubDate>Fri, 07 Aug 2026 13:39:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 新增 HID-HyperX 驱动，专用于修复 HyperX QuadCast 2 麦克风静音状态无法上报问题</title>
-      <link>https://www.phoronix.com/news/HID-HyperX-QuadCast-2-Linux-7.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了 Linux 7.3 内核即将加入针对 HyperX 麦克风静音状态的支持。该内容属于 Linux 桌面底层技术的改进，符合来源配置中“Linux桌面技术”的 interest 级别配置。虽然涉及硬件驱动，但不属于避开的核心硬件类别，故建议阅读。</small></p><p>即将随 <a href="https://www.kernel.org/">Linux 7.3</a> 内核发布的新驱动 <code>HID-HyperX</code>，其功能非常单一：专门用于修复 HyperX QuadCast 2 USB 游戏麦克风在 Linux 系统下静音状态无法正确上报的问题。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=hyperx_quadcast2" alt="HyperX QuadCast 2 microphone" />
-<p>HyperX QuadCast 2 是一款定位高端的 USB 麦克风，标称具备“录音室级录音”质量。然而，该设备的固件在处理静音按钮（Tap-to-mute sensor）时行为不符合标准协议。当用户按下静音键时，固件虽然会在内部切断音频流，但不会发送标准的“电话静音（Phone Mute）”HID 报告，也不会触发 USB 音频类（UAC）特性单元。</p>
-<p>由于缺乏标准的状态反馈，Linux 内核的 <code>evdev</code> 或 <code>ALSA</code> 子系统无法捕获静音事件。这导致桌面环境持续显示麦克风处于“开启”状态，而会议软件则在静音状态下继续传输静音信号，造成用户体验混乱。</p>
-<p>静音状态实际上是通过厂商自定义集合（Vendor-Defined collection）以 64 字节的数据包形式发送的。开发者 Benjamin Blume 为此编写了 <code>HID-HyperX</code> 驱动，该驱动负责解码这些厂商私有数据，并将其转换为标准的 <code>KEY_MICMUTE</code> 按键事件。由于设备报告的是绝对状态，而 <code>KEY_MICMUTE</code> 是瞬时按键，驱动会在状态改变时触发一次按键事件，从而让系统正确响应。</p>
-<p>该驱动目前仅包含 117 行 C 代码，且仅针对 HyperX QuadCast 2（设备 ID: 03f0:07b4）进行了适配。目前该补丁已提交至内核 HID 子系统的 "for-next" 开发分支，预计将于本月晚些时候正式合并入 Linux 7.3。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/HID-HyperX-QuadCast-2-Linux-7.3</guid>
-      <pubDate>Fri, 07 Aug 2026 12:23:21 GMT</pubDate>
     </item>
   </channel>
 </rss>
