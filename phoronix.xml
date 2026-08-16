@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 15 Aug 2026 23:31:21 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 16 Aug 2026 03:10:40 GMT</lastBuildDate>
+    <item>
+      <title>Marek Olšák 提交 19 个补丁进一步优化 RADV 驱动与 ACO 编译器</title>
+      <link>https://www.phoronix.com/news/RADV-ACO-19-More-Patches-Valve</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要介绍AMD显卡开源驱动RADV及ACO编译器的优化补丁。虽涉及Linux底层技术，但核心偏向AMD显卡驱动优化，符合用户不太感兴趣的AMD显卡范畴，故评为可选。</small></p><p>前 AMD 员工、现 Valve 图形驱动开发者 Marek Olšák 近日提交了 19 个新补丁，进一步针对 RADV Vulkan 驱动和 ACO 着色器编译器（ACO Shader Compiler）进行优化。这些补丁已合并至 Mesa 26.3，预计将于第四季度稳定发布。</p>
+<p>本次优化的核心在于提升像素着色器（Pixel Shader, PS）的吞吐量。主要改进包括：</p>
+<ul>
+<li><strong>无用输出消除：</strong> 当深度和模板片段着色器输出无实际作用时，补丁将其移除。Olšák 指出，在极少数情况下，这甚至能将性能提升一倍。</li>
+<li><strong>Alpha-to-Coverage 性能修复：</strong> 针对 GFX11/RDNA3 及更新架构，修复了 alpha-to-coverage 状态静态启用时的性能问题，将直接利好 DXVK 和 VKD3D 等兼容层。</li>
+</ul>
+<img src="//www.phoronix.net/image.php?id=amd-radeon-rx9070-linux&image=amd_rx9070_1_med" alt="AMD RX 9070 series graphics cards" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/RADV-ACO-19-More-Patches-Valve</guid>
+      <pubDate>Sun, 16 Aug 2026 00:17:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GNOME 51 Beta 发布：多项细节优化与功能改进</title>
       <link>https://www.phoronix.com/news/GNOME-51-Beta</link>
@@ -657,23 +672,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-HIDPP-Reprogrammable</guid>
       <pubDate>Fri, 07 Aug 2026 19:28:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 将引入更激进的 TTM 显存管理机制，优化游戏等受保护应用的显存分配</title>
-      <link>https://www.phoronix.com/news/More-Aggressive-TTM-Linux-7.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述 Linux 内核图形内存管理框架(TTM)的性能优化改进，与用户 Linux 桌面技术兴趣相关，故推荐。</small></p><p>Valve 的开源 Linux 图形团队为即将发布的 Linux 7.3 内核提交了 TTM（Translation Table Maps）内存管理代码的改进，旨在优化显存（VRAM）稀缺场景下的内存分配策略。</p>
-<p>长期以来，当系统显存不足时，不受保护的应用程序往往会先占满显存，导致受保护的应用程序（如游戏）在分配显存时被迫回退到 GTT（Graphics Translation Table）内存，现有的驱逐保护机制无法有效防止这一现象。此次改进由 Valve 工程师 Natalie Vock 主导，经过八轮修订后，TTM 内存管理代码将在分配受 cgroup 保护的应用程序时，不再立即回退，而是主动尝试驱逐不受保护的缓冲区，为受保护应用腾出空间。这一机制有效避免了受保护应用与不受保护应用之间的“乒乓效应”，确保游戏等关键应用能充分利用系统授予的显存保护。</p>
-<img src="//www.phoronix.net/image.php?id=amd-rx5500xt-linux&image=amd_rx5500xt_2_med" alt="Radeon RX 5500 XT with just 8GB of vRAM..." />
-<p>除了 TTM 内存管理的核心改进外，本周提交的 DRM-Misc-Next 更新包还包含多项图形驱动优化：</p>
-<ul>
-  <li><strong>DMEMCG 支持</strong>：Device Memory Control Group（设备内存控制组）现已支持驱逐功能，并正式应用于 AMDGPU 和 Xe 驱动。</li>
-  <li><strong>UDMABUF 优化</strong>：移除了此前发现的 64MB 人工限制，有助于提升 KDE 多 GPU 和 eGPU 的使用体验。</li>
-  <li><strong>驱动更新</strong>：Allwinner Sun4i DRM 驱动增强了 YUV 和 4K 显示支持；Nouveau 驱动也同步获得了 DMEMCG 支持。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/More-Aggressive-TTM-Linux-7.3</guid>
-      <pubDate>Fri, 07 Aug 2026 15:57:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
