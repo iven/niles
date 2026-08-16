@@ -3,7 +3,51 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 16 Aug 2026 09:37:18 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 16 Aug 2026 11:33:23 GMT</lastBuildDate>
+    <item>
+      <title>AVX-512 xor_gen 优化助力 Linux RAID 性能提升超 40%</title>
+      <link>https://www.phoronix.com/news/AVX-512-xor-gen-v4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论AVX-512指令集技术对Linux RAID的改进，属于芯片/指令集技术范畴。根据全局配置，芯片技术为uninterested，来源配置中无直接匹配项，综合判断为兴趣不明确，故定为optional。</small></p><p>Google 工程师 Eric Biggers 近期发布了针对 Linux RAID 的 AVX-512 优化补丁，在 AMD Ryzen 9 9950X (Zen 5) 处理器上实现了高达 43% 的性能提升。该优化针对的是 <code>xor_gen()</code> 函数，该函数负责生成和校验 Linux 软件 RAID 以及 Btrfs 等文件系统的原生 RAID 奇偶校验块。</p>
+<p><img src="//www.phoronix.net/image.php?id=amd-ryzen-9950x-9900x&image=amd_ryzen9900_3_med" alt="AMD Ryzen 9 9950X CPU" /></p>
+<p>Biggers 致力于通过 AVX-512 指令集提升现代 Intel 和 AMD 处理器的吞吐量。该实现支持 AMD Zen 4 及更新架构、Intel Xeon Sapphire Rapids 及更新处理器、Intel Raptor Lake 以及未来的 Intel Nova Lake 等。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=xor_gen_2_med" alt="xor_gen benchmark with AVX-512" /></p>
+<p>尽管该优化可能无法赶上 Linux v7.3 的合并窗口，但 Biggers 已于周末发布了 v4 补丁系列。新版本修复了缺失的 <code>VZEROUPPER</code> 指令，并增强了对 AVX/AVX-512 特性标志的处理。目前代码尚未合并至主线内核。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AVX-512-xor-gen-v4</guid>
+      <pubDate>Sun, 16 Aug 2026 10:54:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.3 扩展 binfmt_misc：支持 BPF 动态选择执行环境</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-binfmt-misc</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述Linux 7.3版本中binfmt_misc功能的改进，允许BPF程序动态选择执行环境。这属于Linux系统技术进展，来源配置中Linux桌面技术为interest，全局配置中开源项目和软件新功能也为interest，故定为recommended。</small></p><p>Linux 内核的 <code>binfmt_misc</code> 功能允许系统直接运行非原生或自定义格式的文件（例如通过 Wine 运行 Windows EXE 文件，或通过 Java 运行时处理 JAR 文件）。在即将推出的 Linux 7.3 合并窗口中，该功能将迎来重大扩展，允许以编程方式匹配二进制类型，并在每次执行时动态确定解释器。此外，开发者还可以将 BPF（Berkeley Packet Filter）程序附加到 <code>binfmt_misc</code> 条目中，从而实现基于单个二进制文件的执行环境动态选择。</p>
+<p>Linux 内核开发者 Christian Brauner 在提交的文件系统（VFS）拉取请求中详细说明了这些改进。此次更新不仅修复了旧有缺陷并重构了锁机制，还扩展了格式注册表，使解释器或动态加载器能够根据二进制文件的位置以编程方式确定。这一特性特别有利于 NixOS 等平台实现可重定位二进制文件（relocatable binaries）。</p>
+<p>此次重构还引入了两种新的调度模式：</p>
+<ul>
+<li><strong>透明调度（Transparent Dispatch）</strong>：解释器通过 <code>AT_EXECFD</code> 加载二进制文件，保留调用者构建的参数向量，并将进程标识标记为实际二进制文件，解决了传统模式下解释器完全接管进程身份的问题。</li>
+<li><strong>加载器替换（Loader Substitution）</strong>：允许二进制文件以原生方式执行，仅替换其解释器。</li>
+</ul>
+<p>如果 Linus Torvalds 在合并窗口期间未提出异议，这些功能将正式纳入 Linux 7.3。未来，Linux 发行版和开发环境有望充分利用这一灵活的机制，探索更多创新的二进制执行方案。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-binfmt-misc</guid>
+      <pubDate>Sun, 16 Aug 2026 10:37:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>全新 Linux 驱动实现华硕 ROG Astral 显卡 12VHPWR 供电接口监控</title>
+      <link>https://www.phoronix.com/news/ASUS-ROG-Astral-12VHPWR</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲述针对ASUS ROG Astral显卡的12VHPWR电源接口监控Linux驱动。虽然涉及Linux驱动更新，但聚焦于特定游戏品牌硬件，用户兴趣配置不明确（来源配置中AMD显卡为uninterested但此为NVIDIA平台，非主流硬件为avoid但ASUS为常见品牌），故定为optional。</small></p><p>针对近期备受关注的 12VHPWR 供电接口电流不平衡或电压波动问题，开发者 Krzysiek Sokolowski 为 Linux 系统推出了一款开源内核驱动 <code>astral-hwmon</code>。该驱动专为华硕 ROG Astral 系列显卡设计，能够将 12VHPWR 接口的六路独立电流与电压数据上报至 Linux 硬件监控（HWMON）子系统。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=asus_rog_astral_1" alt="ASUS ROG Astral RTX 5090" />
+<p>目前该驱动已在搭载 ITE IT8915FN 监控芯片的 ROG Astral RTX 5090 OC 上完成测试，并预计兼容 ROG Astral 系列的 RTX 5090D、Matrix、LC 及 RTX 5080 等多个衍生型号。通过集成 HWMON 标准接口，该驱动可无缝配合各类 Linux 用户态监控软件使用。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=asus_rog_astral_2" alt="ASUS ROG Astral HWMON driver monitoring output" />
+<p>除了内核驱动，开源仓库还附带了名为 <code>astral-guard</code> 的用户态程序。该程序借鉴了华硕 Windows 端 Power Detector+ 软件的检测逻辑，可在检测到异常或临界状态时提供警告提示。目前该驱动及工具已开源至 GitHub，供广大 Linux 用户下载使用。</p>
+<h3>你知道吗？</h3>
+<p>12VHPWR（12V High Power Connector）是 PCI-SIG 推出的新一代显卡供电标准，旨在为 RTX 40/50 系列等高性能显卡提供最高 600W 的电力。由于该接口采用单线承载大电流设计，早期曾因接触不良或负载分配不均引发过热风险。在 Linux 生态中，显卡硬件监控长期依赖 HWMON 子系统，但厂商驱动往往优先支持 Windows，导致 Linux 用户难以直接读取供电接口的实时电气参数。此开源驱动的推出填补了这一空白。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/ASUS-ROG-Astral-12VHPWR</guid>
+      <pubDate>Sun, 16 Aug 2026 10:19:06 GMT</pubDate>
+    </item>
     <item>
       <title>Marek Olšák 提交 19 个补丁进一步优化 RADV 驱动与 ACO 编译器</title>
       <link>https://www.phoronix.com/news/RADV-ACO-19-More-Patches-Valve</link>
@@ -629,49 +673,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Design-Fellowship</guid>
       <pubDate>Sat, 08 Aug 2026 11:20:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2-rc7 内核 HWMON 子系统修复：多数为严重或高危漏洞</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-rc7-HWMON</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论 Linux 内核硬件监控子系统的多项紧急修复补丁，属于 Linux 内核底层开发与开源技术进展，符合用户对 Linux 技术的关注，故推荐。</small></p><p>随着 <a href="https://www.kernel.org/">Linux 7.2</a> 稳定版发布临近，内核开发活动依然活跃。这一现象主要得益于 AI/LLM 编码代理持续在开源代码库中挖掘缺陷。本周，<b>硬件监控（Hardware Monitoring，HWMON）</b>子系统迎来了大量修复，主要解决了竞态条件、计算错误、越界访问及溢出等严重问题。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=sashiko_dev" alt="Sashiko logo" />
-<p>HWMON 维护者 Guenter Roeck 指出，本周合并的补丁大多修复了由 <b>Sashiko AI 机器人</b>报告的高严重性漏洞。这些修复已整合至即将发布的 <a href="https://www.phoronix.com/news/Linux-7.2-rc7-HWMON">Linux 7.2-rc7</a> 版本中。开发者可通过 <a href="https://sashiko.dev/">Sashiko.dev</a> 跟踪该 AI 代理的最新发现。Sashiko 作为新兴的自动化代码审查工具，正显著提升内核代码的质量与安全性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-rc7-HWMON</guid>
-      <pubDate>Sat, 08 Aug 2026 10:55:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.8 开发进展：内置远程桌面优化与 UI 改进</title>
-      <link>https://www.phoronix.com/news/KDE-Plasma-6.8-Remote-Desktop</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍 KDE Plasma 6.8 的界面与远程桌面更新，属于 KDE 项目，匹配来源配置中的 high_interest。</small></p><p>KDE 开发者正致力于 10 月发布的 Plasma 6.8 桌面环境，本周的更新日志（This Week in Plasma）展示了多项重要改进。</p>
-<p>在打印功能方面，Plasma 6.8 改进了错误处理机制。当尝试连接不可用的打印机时，系统会弹出通知提示用户，而非像以往那样静默失败。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=kde_no_printer_med" alt="KDE no printer UI" />
-<p>用户界面（UI）方面，任务管理器（Task Manager）的缩略图标签周围增加了内边距，视觉效果更加清晰。此外，在创建新用户账户时，系统对用户名和密码的限制条件提供了更明确的反馈。</p>
-<p>内置远程桌面服务器（Built-in Remote Desktop Server）也得到了优化。开发者修复了导致部分客户端出现黑屏的问题，并针对网络状况不佳的情况降低了延迟，提升了连接性能。</p>
-<p>为了优化内存使用，剪贴板弹出窗口（Clipboard pop-up）不再在启动时加载，而是改为按需加载。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8-Remote-Desktop</guid>
-      <pubDate>Sat, 08 Aug 2026 01:01:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 将支持罗技 HID++ 2.0 可重编程按钮功能</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-HIDPP-Reprogrammable</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲 Linux 7.3 内核增加对罗技鼠标 HID++ 2.0 可编程按键的支持。根据来源配置，用户对 Linux 桌面技术感兴趣，该内核驱动更新属于 Linux 桌面硬件兼容性改进范畴，符合推荐阅读标准。</small></p><p>Linux 7.3 内核将引入对罗技（Logitech）HID++ 2.0 协议中可重编程按钮（Reprogrammable Buttons）的支持。这一功能允许软件查询、重映射和重定向鼠标按键及特殊键盘按键。当按键被重定向时，系统将发送特殊通知而非标准的按键事件。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=logitech_buttons" alt="Logitech mouse" />
-
-<p>此前，用户空间已有部分开源软件支持罗技设备的相关功能，但随着内核驱动 <code>logitech-hidpp</code> 获得更新，这一支持将直接深入内核层面。主要贡献者 Elliot Douglas 在补丁说明中指出，部分罗技 HID++ 2.0 鼠标可通过 HID++ 特性 0x1b04（SpecialKeysMseButtons / REPROG_CONTROLS_V4）报告重定向的控制信号。内核驱动将添加一个基于 quirk 的事件路径来处理这些控制，并解析当前按下的控制列表，报告对应的 evdev 键状态。</p>
-
-<p>该补丁目前已进入 HID 子系统的 "for-next" 分支，预计将在即将到来的 Linux 7.3 合并窗口中正式合并。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>HID++ 2.0</strong> 是罗技为其高端外设（如 G 系列游戏鼠标和键盘）开发的高级通信协议。相比标准的 USB HID 协议，HID++ 2.0 支持更多高级功能，例如多设备切换、DPI 调节、宏按键编程以及电池电量监控等。通过内核层面的原生支持，Linux 用户无需依赖额外的用户空间守护进程即可直接使用这些高级功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-HIDPP-Reprogrammable</guid>
-      <pubDate>Fri, 07 Aug 2026 19:28:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
