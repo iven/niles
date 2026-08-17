@@ -3,7 +3,50 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 17 Aug 2026 19:37:16 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 21:37:48 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 引入 vRAM 管理改进代码，更多优化持续推进</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-Improving-vRAM-Mgmt</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要探讨Linux 7.3内核中vRAM管理的改进代码，涉及Linux桌面技术生态，用户对此感兴趣</small></p><div>Valve 图形团队工程师 Natalie Vock 近期公布了针对 Linux 系统显存（Video RAM, vRAM）管理的优化补丁，旨在改善显存受限设备的游戏体验。相关内核代码已提交至 DRM-Next 分支，计划在下两周的合并窗口中正式引入至 <a href="https://www.phoronix.com/news/Linux-7.3-Improving-vRAM-Mgmt">Linux 7.3</a> 内核。</div>
+<div>Vock 在最新博客中详细阐述了针对 AMDGPU 驱动的显存管理改进。测试以《印第安纳·琼斯与大圆环》（Indiana Jones: The Great Circle）为例，在仅配备 8GB 显存的 Radeon RX 5500 XT 显卡上，游戏在最高画质下试图占用 9GB 显存。尽管出现 1GB 的显存超额分配（Overcommit），但得益于优化的内存驱逐（Eviction）机制，游戏依然保持了良好的可玩性。</div>
+<div><img src="//www.phoronix.net/image.php?id=amd-rx5500xt-8gb&image=rx5500xt_8gb_5_med" alt="Radeon RX 5500 XT 8GB graphics card" /></div>
+<div>针对显存耗尽的情况，Vock 指出，虽然将数据驱逐至系统内存（CPU RAM）可能引发性能波动，但通过内核驱动与应用程序的协同优化，显存超额分配带来的性能损失是可控的。她强调：“即使部分内存被驱逐至系统 RAM，性能下降也在可接受范围内。”</div>
+<div>目前，这些优化已随 SteamOS 内核推送至稳定版与预览版。Vock 仍在推进更多底层优化工作（测试分支名为 "vramstuff-rebase"），计划在未来合入主线 Linux 内核。更多技术细节可查阅 <a href="#">Natalie Vock 的博客原文</a>。</div>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Improving-vRAM-Mgmt</guid>
+      <pubDate>Mon, 17 Aug 2026 21:15:57 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ FFmpeg 优化 H.265/HEVC Vulkan 编码性能，速度追平 H.264</title>
+      <link>https://www.phoronix.com/news/FFmpeg-Faster-HEVC-Encode</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍FFmpeg多媒体处理工具添加H.265 Vulkan编码性能优化，属于软件技术进展，用户感兴趣</small></p><p>多媒体处理库 <a href="https://www.phoronix.com/news/FFmpeg-Faster-HEVC-Encode">FFmpeg</a> 近日合并了一项针对 <abbr title="High Efficiency Video Coding">HEVC</abbr>（H.265）Vulkan 编码路径的性能优化补丁。此次更新旨在提升 HEVC 的编码速度，使其性能大致追平 H.264 编码。</p>
+<img src="//www.phoronix.net/image.php?id=2022&image=ffmpeg" alt="FFmpeg logo" />
+<p>该优化补丁主要借鉴了 <code>h264_vulkan</code> 的调优策略。此前，<code>hevc_vulkan</code> 在常见质量级别下会保持较重的编码配置（如强制使用 16x16 宏块且无 min-CU SPS 字段）。优化后，代码在 CTB（编码树块）大于等于 32 时，将 min CU 设置为 16x16，并修复了 <code>max_transform_hierarchy_depth_inter</code> 的赋值问题。此外，在应用 <code>GetEncoded</code> SPS 反馈时，系统现在会同步覆盖字段（如 extent/conf_win、min/diff CU 和 TB 尺寸、变换层级等），以解决部分实现重写 min CU 后导致的不可解码 HEVC 问题。</p>
+<p>根据提交者提供的 1080p 测试数据（testsrc2，质量 1，1000 帧），优化前 HEVC 编码速度约为 200–317 fps，明显低于 H.264；优化后 HEVC 速度提升至 289/325/358 fps，与 H.264 的 288/317/359 fps 达到持平水平。该补丁已合并至 FFmpeg Git 仓库。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/FFmpeg-Faster-HEVC-Encode</guid>
+      <pubDate>Mon, 17 Aug 2026 20:14:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ LLVM 将 Rust 卸载至 GPU：兼顾高性能与内存安全</title>
+      <link>https://www.phoronix.com/news/LLVM-Offload-Rust-Performance</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要探讨Rust语言在GPU上的应用与性能表现，Rust是用户明确感兴趣的主题</small></p><p>一篇新的研究论文探讨了利用 LLVM 基础设施将 Rust 代码卸载（Offload）至 GPU 加速器的潜力。研究由 Manuel S. Drehwald 等人完成，旨在验证使用安全的 Rust 代码编写 GPU 内核的可行性，同时保留 Rust 语言在内存安全方面相对于 C++、CUDA 和 HIP 的优势。</p>
+
+<p>研究团队发现，基于 LLVM 后端和 Rust 编译器的实现，在性能上具有竞争力。基准测试结果显示，该 Rust 卸载方案在大多数测试中与原生的 AMD HIP 和 NVIDIA CUDA 解决方案表现相当，互有胜负。尽管在某些特定场景下仍有差距，但研究人员认为通过在代码生成和中间表示（IR）层面的进一步优化，可以缩小这些差距。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=rust_offload_benchmarks" alt="Rust offload benchmarks" />
+
+<p>该方案的主要优势在于其前端被视为“安全”的（Safe），这意味着开发者在编写大多数 GPU 内核时，可以避免使用原始指针（raw pointers），从而利用 Rust 的所有权系统来防止内存错误。目前，该功能的上游追踪可在 Rust-Lang 的相关工单中查看。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>Rust 的内存安全优势</strong>：Rust 通过其独特的所有权（Ownership）系统和借用检查器（Borrow Checker），在编译阶段就能防止空指针解引用、数据竞争等常见内存错误。在 GPU 编程这种对性能和稳定性要求极高的领域，使用安全的 Rust 代码可以显著降低因内存管理不当导致的崩溃风险，而无需像 C++ 那样依赖手动内存管理或垃圾回收。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-Offload-Rust-Performance</guid>
+      <pubDate>Mon, 17 Aug 2026 19:30:16 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.3 内核 SMP 改进：降低延迟，提升实时性能</title>
       <link>https://www.phoronix.com/news/Linux-7.3-SMP</link>
@@ -666,44 +709,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/FastFlowLM-1.0</guid>
       <pubDate>Tue, 11 Aug 2026 10:24:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Rusticl 驱动新增浮点数原子操作支持，推进 OpenCL 现代化</title>
-      <link>https://www.phoronix.com/news/Rusticl-cl_ext_float_atomics</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Rusticl新增对cl_ext_float_atomics扩展的支持，主要涉及Rust生态与底层计算技术进展，符合来源配置中“Rust”的兴趣等级，故判定为recommended。</small></p><h2>正文</h2>
-<p>Mesa 项目中的 Rusticl OpenCL 驱动近期取得重要进展。继 Mesa 26.2 版本支持 OpenCL 3.1 后，开发者 Karol Herbst 为即将发布的 Mesa 26.3 引入了 <code>cl_ext_float_atomics</code> 扩展支持。</p>
-<p>该扩展允许在内存中对浮点数（包括 FP16、FP32 和 FP64）执行原子操作（Atomic Operations），这对于并行计算中的数据一致性至关重要。目前，LLVMpipe、Zink 和 Intel Iris 后端已具备支持该扩展的基础设施，现阶段主要支持 FP32 类型，FP16 和 FP64 的支持仍在完善中。</p>
-<p>Rusticl 作为一个基于 Rust 语言编写的现代 OpenCL 驱动，旨在为 RadeonSI、LLVMpipe、Zink、Intel Iris 和 Apple Asahi 等后端提供更安全、高效的计算能力。Mesa 26.3 稳定版预计将于 11 月发布。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=rusticl_atomic_float" alt="Rusticl cl_ext_float_atomics" />
-<h2>你知道吗？</h2>
-<ul>
-<li><strong>原子操作（Atomic Operations）</strong>：在多线程或多核环境中，原子操作是指不可中断的操作。当一个线程执行原子操作时，其他线程无法访问该数据，直到操作完成。这在并行计算中用于防止数据竞争（Data Race）。</li>
-<li><strong>Rusticl</strong>：Rusticl 是基于 Rust 语言编写的 OpenCL 驱动程序实现。相比传统的 C/C++ 实现，它利用 Rust 的内存安全特性，旨在减少内存错误并提高代码的可维护性，同时保持高性能。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rusticl-cl_ext_float_atomics</guid>
-      <pubDate>Tue, 11 Aug 2026 10:13:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 内核预览：开源 NVIDIA “Nova” 驱动功能增强与 Rust 核心进展</title>
-      <link>https://www.phoronix.com/news/NVIDIA-Nova-Rust-Linux-7.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍Linux 7.3内核中基于Rust编写的NVIDIA Nova开源驱动的新功能更新，匹配用户对Rust语言和Linux桌面技术的兴趣配置。</small></p><p>随着 Linux 7.3 合并窗口临近，DRM-Next 分支已提交大量基于 Rust 的 DRM（Direct Rendering Manager，直接渲染管理器）核心与驱动更新。本次更新重点聚焦于两大 Rust 驱动项目：开源 NVIDIA GPU 驱动 Nova（Nouveau 继任者）以及正在开发中的 Arm Mali 驱动 Tyr。</p>
-<p>在 Nova 驱动方面，开发者对下一代开源 NVIDIA 内核驱动进行了多项功能增强。主要改进包括整合 GPU 系统处理器（GSP）启动流程、新增 vGPU 启动支持、引入 TLV 固件镜像格式支持，并大幅优化了对 NVIDIA Hopper 与 Blackwell 架构的底层支持代码。<img src="//www.phoronix.net/image.php?id=nvidia-rtx-pro-blackwell&image=nvidia_rtx_pro_2_med" alt="NVIDIA RTX PRO Blackwell graphics cards" /> 此外，DRM 核心基础设施也同步更新，新增了针对 I/O 处理的优化、支持易失性访问的共享系统内存（SysMem）后端，以及用于管理设备生命周期资源的 RegistrationData 与 RegistrationGuard 机制。</p>
-<p>与此同时，Tyr 驱动也在固件加载与 MCU（微控制器单元）启动流程上取得进展。作者近期探访 NVIDIA 时获悉，Nova 项目正获得内部工程师的大量资源投入。尽管官方尚未发布正式书面说明，但从公开邮件列表的活跃度来看，该项目已成为开源 GPU 驱动领域的重要发展方向。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Nova-Rust-Linux-7.3</guid>
-      <pubDate>Tue, 11 Aug 2026 01:08:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 内核将支持更多联想笔记本的风扇传感器报告</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Yogafan-Driver</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 7.3 内核更新增加了对多款联想笔记本风扇传感器的驱动支持，属于 Linux 桌面技术与内核优化范畴，契合用户对 Linux 技术领域的兴趣，故推荐。</small></p><p>Linux 7.3 内核版本将进一步扩展对联想（Lenovo）笔记本电脑散热风扇传感器（fan sensors）的支持。此前在 Linux 7.1 中合并的 Yogafan 驱动已支持部分联想 Yoga、Legion、Flex、Slim 和 IdeaPad 系列机型的风扇转速监控。此次更新将在 Linux 7.3 中新增对五款特定型号的支持，包括 IdeaPad 3 15ALC6、Legion Pro 7 16、Yoga Pro 7 14IAH、Yoga 7 16ARP8 以及 XiaoXinPro 13ARE。</p><p>该更新通过添加 69 行 C 代码，为上述机型配置了正确的桌面管理接口（DMI, Desktop Management Interface）条目，从而实现准确的风扇速度报告。相关补丁已提交至硬件监控子系统（hwmon-next）的 Git 分支，预计将在 Linux 7.3 的合并窗口期间正式纳入内核。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Yogafan-Driver</guid>
-      <pubDate>Mon, 10 Aug 2026 18:40:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
