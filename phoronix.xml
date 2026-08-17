@@ -3,7 +3,34 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 17 Aug 2026 13:50:45 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 16:14:41 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 内核 SMP 改进：降低延迟，提升实时性能</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-SMP</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 7.3 内核针对 SMP 的改进以降低延迟并提升实时性能。属于核心开源项目的重大功能更新，符合全局配置中 interest（开源项目、软件新功能）的兴趣范畴。</small></p><p>随着 Linux 7.3 合并窗口的开启，多项 SMP（对称多处理）改进代码被提交至主线内核。其中一项由字节跳动（Bytedance）工程师主导的优化，旨在解决多核环境下调度延迟激增的问题，从而显著提升实时 Linux 的性能表现。</p>
+
+<p>在多处理器系统中，当主 CPU 需要远程 CPU 执行特定任务时，通常会通过 IPI（处理器间中断）进行通信。然而，现有的内核机制要求在等待远程 CPU 完成 IPI 操作期间保持抢占禁用状态。随着远程 CPU 数量的增加，这种等待会导致调度延迟“急剧”上升。特别是在 x86_64 架构下，TLB（转换后备缓冲区）的刷新依赖于 IPI，进程退出或页面回收等操作可能引发大量的 IPI 等待，严重影响延迟敏感型工作负载（如 DPDK）的性能。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=linux_73_smp_med" alt="SMP monitoring" />
+
+<p>为了解决这一问题，字节跳动工程师重新设计了内核 SMP 代码。他们允许内核在等待 IPI 完成期间进行抢占，从而避免了调度延迟的剧烈波动。内核维护者 Thomas Gleixner 对该优化进行了总结：通过为每个任务提供独立的 CPU 掩码来跟踪等待目标，使得等待信息变为任务本地化。这使得内核可以在等待远程 CPU 响应前重新启用抢占。尽管这一改动带来了适度的额外内存开销，但实测数据显示，高优先级任务的 SMP 函数调用诱导延迟从约 17ms 大幅降低至 1.5ms，降幅高达 90%。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=linux_73_smp_benchmark_med" alt="SMP latency benchmark result" />
+
+<p>目前，该优化补丁已提交至 Linus Torvalds 处等待审查。若无重大代码问题，预计将在本周内正式合并入 Linux 7.3 内核。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+  <li><strong>SMP（Symmetric Multi-Processing）</strong>：对称多处理架构，指多个 CPU 共享内存、I/O 设备，并平等地处理任务的系统架构。Linux 内核广泛支持 SMP 以充分利用多核性能。</li>
+  <li><strong>IPI（Inter-Processor Interrupt）</strong>：处理器间中断，用于多核 CPU 之间发送信号或指令。在 Linux 中，常用于跨核内存管理（如 TLB 刷新）和调度同步。</li>
+  <li><strong>TLB（Translation Lookaside Buffer）</strong>：转换后备缓冲区，是 CPU 内部用于加速虚拟地址到物理地址转换的高速缓存。当内存页表发生变化时，必须通过 IPI 通知所有相关 CPU 刷新其 TLB，否则可能导致数据不一致。</li>
+  <li><strong>DPDK（Data Plane Development Kit）</strong>：数据平面开发套件，一套用于快速数据包处理的库和驱动，常用于网络数据包的高性能处理，对系统延迟极其敏感。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-SMP</guid>
+      <pubDate>Mon, 17 Aug 2026 14:09:01 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Firefox 154 发布：新增“管理 AI”快速操作与多项安全增强</title>
       <link>https://www.phoronix.com/news/Firefox-154-Released</link>
@@ -677,20 +704,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Yogafan-Driver</guid>
       <pubDate>Mon, 10 Aug 2026 18:40:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.3 引入 KCFI 优化，提升老款 Intel CPU 性能</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-KCFI-Optimization</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲Linux内核7.3版本中KCFI安全技术优化，用户兴趣配置仅提及Linux桌面技术，内核技术优化不明确匹配，故归为可选</small></p><p>Linux 7.3 合并窗口将引入一项由 Intel 工程师 Peter Zijlstra 开发的内核控制流完整性（<a href="https://en.wikipedia.org/wiki/Control-flow_integrity" target="_blank">KCFI</a>）优化补丁，旨在提升不支持 FineIBT 的老款 Intel 处理器的性能。</p>
-<p>在缺乏 FineIBT 支持的老平台上，传统的 KCFI 实现会使用 <code>je</code> 指令进行跳转检查。由于该指令通常被处理器预测为“不跳转”，而实际执行中却总是跳转，这会导致分支预测失败并降低吞吐量。新的补丁将这一序列替换为 <code>jne</code> 配合 <code>test</code> 指令，将跳转目标指向 <code>test</code> 指令中的立即数字节，从而优化分支预测并提升执行效率。</p>
-<p>FineIBT（细粒度间接分支跟踪）与 CET（控制流执行保护）技术目前仅在 Intel 第 11 代 "Tiger Lake" 及更新的 CPU 上提供支持。针对老平台，Intel 工程师 Scott Constable 进行了基准测试，结果显示该优化带来了显著的性能收益：<img src="//www.phoronix.net/image.php?id=2026&image=kcfi_optimization" alt="KCFI optimization benchmark" /></p>
-<p>目前该补丁已合并至 <code>tip/tip.git</code> 的 <code>x86/core</code> 分支，预计将在即将到来的 Linux 7.3 合并窗口中正式提交。</p>
-<h3>你知道吗？</h3>
-<p><strong>KCFI（内核控制流完整性）</strong> 是一种内核安全机制，通过在编译时插入检查点并在运行时验证函数指针调用是否符合预期，来防止攻击者劫持内核的控制流（例如利用 ROP 攻击）。对于不支持硬件级间接分支跟踪（如 Intel 的 FineIBT 或 AMD 的 CET）的旧款 CPU，软件实现的 KCFI 往往伴随着一定的性能开销，此次优化正是为了在保障安全的前提下降低这一开销。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-KCFI-Optimization</guid>
-      <pubDate>Mon, 10 Aug 2026 17:26:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
