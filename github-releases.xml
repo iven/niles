@@ -3,7 +3,34 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 16 Aug 2026 23:31:21 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 03:10:33 GMT</lastBuildDate>
+    <item>
+      <title>Hapi v0.28.0 发布：新增 AI 会话标题建议与 Composer 快捷按钮，优化搜索与代理配置</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.28.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.28.0 版本已发布，本次更新重点增强了会话管理、搜索功能以及 Composer 交互体验，同时优化了底层代理配置与连接稳定性。</p>
+
+<h3>主要功能更新</h3>
+<ul>
+  <li><strong>会话与搜索增强</strong>：新增按需 AI 会话标题建议功能，提升会话管理效率；会话搜索支持跨字段的通配符模式，并优化了搜索 UI 与清空操作体验。</li>
+  <li><strong>Composer 交互优化</strong>：在 Composer 中新增模型选择与努力值（effort）快捷按钮，并提供专属权限控制。</li>
+  <li><strong>代理配置统一</strong>：引入统一的代理配置描述符，整合了分散的会话配置，简化了代理管理流程。</li>
+  <li><strong>Web 端 Pi 命令支持</strong>：支持在 HAPI Web 端直接使用 Pi 斜杠命令（如 compact、session、model、help 等）。</li>
+</ul>
+
+<h3>修复与优化</h3>
+<ul>
+  <li><strong>Cursor 集成改进</strong>：修复了 Cursor 独占代理租约问题，并增加了 ACP 连接瞬态错误的重试机制。</li>
+  <li><strong>连接与状态管理</strong>：优化了 SSE 连接静默断开后的快速恢复机制，防止生成过程中的 Banner 噪音；修复了重放历史助手输出的问题。</li>
+  <li><strong>UI 细节调整</strong>：调整了上下文使用警告阈值，优化了 Codex 同步标签显示；恢复并修复了 Ctrl+A 全选功能及会话侧边栏滚动稳定性。</li>
+  <li><strong>其他改进</strong>：新增 ServerChan 后台通知回退机制；CLI 状态摘要现在支持跟随对话语言；替换 Agy 代理的 PTY/TUI 包装器为更稳定的无头 print-mode 传输。</li>
+</ul>
+
+<p>完整更新日志：<a href="https://github.com/tiann/hapi/compare/v0.27.3...v0.28.0">Full Changelog</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.28.0</guid>
+      <pubDate>Mon, 17 Aug 2026 02:04:32 GMT</pubDate>
+    </item>
     <item>
       <title>Devbox 0.18.0 发布：移除 Jetify Cloud 功能并修复构建问题</title>
       <link>https://github.com/jetify-com/devbox/releases/tag/0.18.0</link>
@@ -1098,40 +1125,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.211</guid>
       <pubDate>Wed, 15 Jul 2026 23:02:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.210 更新：实时运行时间计数器、权限规则警告与多项体验优化</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.210</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>核心功能与体验优化</h2>
-<ul>
-<li><strong>实时运行时间显示</strong>：在折叠的工具摘要行中增加了实时运行时间计数器，长时间运行的工具调用将显示动态跳动，避免误以为程序卡死。</li>
-<li><strong>权限规则启动警告</strong>：针对 <code>Write(path)</code>、<code>NotebookEdit(path)</code> 和 <code>Glob(path)</code> 权限规则增加了启动警告，建议用户改用 <code>Edit(path)</code> 或 <code>Read(path)</code>。</li>
-<li><strong>自动模式改进</strong>：权限分类器现在默认使用 Sonnet 5 模型，并在会话首次请求时进行验证和固定。</li>
-<li><strong>无障碍支持增强</strong>：屏幕阅读器模式现在支持在通过 <kbd>Shift</kbd>+<kbd>Tab</kbd> 切换权限模式时进行语音播报。</li>
-<li><strong>智能体视图优化</strong>：智能体页脚提示现在会显示等待用户输入的后台智能体数量，并在数量变化时提供颜色强调；从会话返回智能体视图时，原会话将保持可见标记。</li>
-<li><strong>数据可视化技能升级</strong>：内置的数据可视化技能（dataviz skill）改进了图表颜色验证，采用感知 OKLab 颜色差异标准并重新校准了色盲阈值。</li>
-</ul>
-
-<h2>问题修复与稳定性提升</h2>
-<ul>
-<li>修复了 <code>isolation: 'worktree'</code> 子智能体越权执行 git 修改命令的问题，现已严格限制在其隔离的工作树中。</li>
-<li>修复了 <code>ultracode</code> 关键词在非人类输入（如 webhook 负载或转发的 Pull Request（PR）评论）时被错误触发的问题。</li>
-<li>修复了 <code>claude attach</code> 在会话转换期间因状态未就绪而失败的问题，现已增加等待机制并优化终端尺寸调整逻辑。</li>
-<li>修复了工具结果渲染器返回非 UI 元素（如 bigint 或纯文本）时导致的会话崩溃问题。</li>
-<li>修复了后台命令超时后 Claude 错误假设 <code>cd</code> 生效的问题，工具结果现会明确说明工作目录未更改。</li>
-<li>修复了会话中途重新同步 Model Context Protocol（MCP）服务器时，插件提供的 MCP 服务器被意外拆除的问题。</li>
-<li>修复了 <code>/doctor</code> 在 AWS Bedrock、Google Vertex AI 和 Microsoft Azure Foundry 平台跳过自动模式建议的问题。</li>
-<li>修复了 Grep 分页超出结果末尾时错误显示 "No matches found" 的问题。</li>
-<li>修复了插件缓存写入失败时遗留临时文件，以及在 Windows/网络文件系统上因文件锁定导致重命名失败的问题。</li>
-<li>修复了被终止的后台会话遗留永久 <code>git worktree lock</code> 的问题，定期清理机制现已能正确释放已失效的锁。</li>
-<li>修复了 <code>claude agents --effort ultracode</code> 参数被静默丢弃导致无法到达已调度会话的问题。</li>
-<li>修复了使用 <code>CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1</code> 时，返回智能体视图出现重叠幽灵帧的问题。</li>
-<li>临时将 Fable 顾问在选择器中设为不可用，以规避服务器端故障。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.210</guid>
-      <pubDate>Tue, 14 Jul 2026 23:45:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
