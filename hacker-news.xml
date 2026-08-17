@@ -3,7 +3,21 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 17 Aug 2026 03:59:19 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 04:55:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Qwen 3.8 27B 本地运行评测：性能卓越但默认设置易导致过度思考</title>
+      <link>https://news.ycombinator.com/item?id=49324985</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章评测新发布的Qwen 3.8 27B大模型及其本地运行表现，属于新AI模型发布与评测范畴，直接匹配用户high_interest兴趣配置。</small></p><p>阿里 Qwen 实验室发布了开源的 <a href="https://simonwillison.net/2026/Aug/16/qwen-38-27b/">Qwen 3.8 27B</a> 视觉大语言模型。作者在实际测试中发现，该模型在本地硬件上运行表现优异，能够胜任代码生成、视觉检测及工具调用等复杂任务，但其默认的推理强度设置（reasoning_effort 的 xhigh 模式）会导致模型“过度思考”，严重拖慢响应速度并消耗大量 Token。</p>
+<p>在生成鹈鹕骑自行车的 SVG 图像测试中，开启默认推理耗时 21 分钟，而关闭推理仅需 2 分钟。<img src="https://static.simonwillison.net/static/2026/qwen-thinking-bicycle-27b.jpg" alt="A very pleasing image of a pelican riding a bicycle. The bicycle is red and has the correct frame shape. The pelican looks like a pelican and has its wing extended to the handlebars." /> 相比之下，关闭推理后的版本生成速度大幅提升，尽管图像细节略有损失。<img src="https://static.simonwillison.net/static/2026/qwen-3.8-27b-no-reasoning-pelican-2.png" alt="The bicycle frame is a bad shape now. The pelican remains recognizable but has a less obvious pouch. The feet miss the pedal, there is no attempt to hold the handlebars." /></p>
+<p>在边界框检测任务中，模型展现了极高的准确性，能够精准框出照片中的鹈鹕。<img src="https://static.simonwillison.net/static/2026/qwen-over-engineered-bbox.webp" alt="A photograph of two pelicans on a rocky outcrop, with three other smaller birds. The pelicans both have bounding boxes exactly surrounding them, each with a label that says pelican." /> 当要求模型编写配套工具时，它展现了强大的代码生成能力，但默认设置下出现了过度工程化的倾向（如自动绘制占位鹈鹕）。<img src="https://static.simonwillison.net/static/2026/qwen-full-ui-with-pelicans.webp" alt="Screenshot of bbox·lab, a dark-themed web tool that overlays object-detection bounding boxes on an image..." /> 关闭推理后工具虽能运行，但在坐标映射上出现了偏差。<img src="https://static.simonwillison.net/static/2026/qwen-no-reasoning-bug.webp" alt="BBox Studio screenshot - a solid UI but the yellow and green boxes do not cover the pelicans." /></p>
+<p>针对本地运行速度慢（约 15-30 tokens/秒）的问题，作者测试了 llama.cpp 的 Multi-Token Prediction (MTP) 优化技术，推理速度提升了约 72%。总体而言，17GB 的模型文件能在消费级硬件上实现强大的通用能力，标志着本地大模型技术的重大突破，但内存带宽限制导致的延迟仍是当前主要瓶颈。</p>
+<h3>你知道吗？</h3>
+<p><b>Multi-Token Prediction (MTP)</b> 是一种架构优化技术，通过在推理过程中使用一个轻量级的“草稿模型”并行预测多个后续 Token，再由主模型快速验证其正确性。这种机制能显著减少自回归生成的串行等待时间，从而大幅提升本地部署大模型的推理速度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49324985</guid>
+      <pubDate>Sun, 16 Aug 2026 23:45:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Anthropic 在 Claude 中引入文本水印被批为“对写作的扭曲”</title>
       <link>https://news.ycombinator.com/item?id=49324087</link>
@@ -937,17 +951,6 @@ Hacker News 社区对此进行了热烈讨论。部分开发者指出，GitHub �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49263340</guid>
       <pubDate>Tue, 11 Aug 2026 19:35:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ LinkedIn CringeBot 3000：一键生成典型“职场鸡汤”帖子的讽刺工具</title>
-      <link>https://news.ycombinator.com/item?id=49268564</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍一款用于生成 LinkedIn 风格帖子的开源脚本/工具，属于编程工具分享范畴，符合兴趣配置。</small></p><p><a href="https://www.cringebot3000.com/">LinkedIn CringeBot 3000</a> 是一款讽刺性网页工具，能够将任意输入的主题或话题，自动转换为典型的 LinkedIn 风格“思想领导力（thought leadership）”文章。这类文章通常以极短的段落排版、夸张的励志故事、空洞的职场鸡汤以及刻意营造的“成功学”口吻为特征，旨在精准复刻该平台广为人知的“尴尬（cringe）”文化。</p>
-<p>在 Hacker News 社区的讨论中，用户对该工具的制作质量给予了高度评价。大家指出，该工具不仅完美捕捉了 LinkedIn 帖子的常见套路（如碎片化短句、虚假的创业轶事、以及“你行你上（You go girl）”式的盲目鼓励），还能将离谱的输入（如宠物意外或红酒品鉴）转化为令人捧腹的职场鸡汤。多位用户分享了自己尝试输入各种话题后的生成结果，认为其讽刺效果极佳。</p>
-<p>讨论也延伸至 LinkedIn 平台生态的现状。有用户提到，LinkedIn 近期推出的“标记 AI 垃圾内容（This looks like AI slop）”按钮在一定程度上改善了信息流质量，但此类人工或 AI 生成的“废话”依然泛滥。部分用户甚至透露自己曾使用 AI 自动化操作账号以刷取互动数据，进一步折射出该平台内容生态的异化与算法驱动下的内容同质化问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49268564</guid>
-      <pubDate>Wed, 12 Aug 2026 06:30:49 GMT</pubDate>
     </item>
   </channel>
 </rss>
