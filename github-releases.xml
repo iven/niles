@@ -3,7 +3,24 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 17 Aug 2026 03:10:33 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 03:58:44 GMT</lastBuildDate>
+    <item>
+      <title>fzf v0.74.3 发布：非 ASCII 输入性能大幅提升及多项 Bug 修复</title>
+      <link>https://github.com/junegunn/fzf/releases/tag/v0.74.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fzf v0.74.3 版本已发布，本次更新主要聚焦于非 ASCII 输入的性能优化以及多项关键 Bug 修复。</p>
+<p>在性能方面，该版本对非 ASCII 输入处理进行了深度优化。ASCII 查询速度最高提升 16 倍，非 ASCII 查询速度最高提升 12 倍。此外，带重音的拉丁字符读取速度提升 37%，CJK（中日韩）输入内存占用降低最高 29%，且 ASCII 输入性能保持原有水平不受影响。</p>
+<p>在功能修复方面，主要解决了以下问题：</p>
+<ul>
+  <li>修复了预览命令生成的图像在行由 IND 而非换行符分隔时（如 tmux 下使用 <code>chafa</code>）被撕裂的问题。</li>
+  <li>修复了 <code>replace-query</code> 命令在后续编辑查询时损坏项目文本的问题。</li>
+  <li>修复了退出时错误关闭已开启的括号粘贴模式（bracketed paste mode）的问题，解决了从行编辑器小部件运行 fzf 的 shell 中粘贴失效的缺陷。</li>
+  <li>修复了在 FreeBSD 虚拟终端等不响应转义序列的终端上启动阻塞的问题，避免了等待回复时丢弃按键的情况。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.3</guid>
+      <pubDate>Mon, 17 Aug 2026 03:10:34 GMT</pubDate>
+    </item>
     <item>
       <title>Hapi v0.28.0 发布：新增 AI 会话标题建议与 Composer 快捷按钮，优化搜索与代理配置</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.28.0</link>
@@ -1099,32 +1116,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.144.5</guid>
       <pubDate>Thu, 16 Jul 2026 02:54:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.211 更新总结</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.211</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.211 更新总结</h2>
-<p>Claude Code 发布了 v2.1.211 版本，本次更新重点增强了子代理文本输出能力，优化了终端渲染性能与后台代理状态报告机制，并修复了多项涉及会话管理、权限持久化及多平台兼容性的问题。</p>
-<h3>重要改动</h3>
-<ul>
-  <li><strong>新增子代理文本转发功能</strong>：引入 <code>--forward-subagent-text</code> 命令行标志与 <code>CLAUDE_CODE_FORWARD_SUBAGENT_TEXT</code> 环境变量，支持在 <code>stream-json</code> 输出中完整包含子代理（Subagent）的文本与思维过程。</li>
-  <li><strong>终端性能与布局优化</strong>：显著改进了终端布局与渲染性能，提升交互流畅度。</li>
-  <li><strong>后台代理结果报告机制升级</strong>：Claude 现在会准确报告仍在运行的后台代理状态并等待真实完成结果，替代了以往可能出现的伪造结果行为。</li>
-  <li><strong>权限规则持久化改进</strong>：将“始终允许（Always allow）”权限规则的保存位置更改为仓库根目录，确保在 <code>git worktree</code> 切换及跨会话时审批记录得以保留。</li>
-  <li><strong>环境变量格式扩展</strong>：整数类型的环境变量（如超时时间、令牌预算、重试次数）现支持科学记数法与数字分隔符写法（例如 <code>1e6</code> 或 <code>64_000</code>）。</li>
-</ul>
-<h3>其他改进与修复</h3>
-<ul>
-  <li><strong>会话与代理管理优化</strong>：修复了并行会话共享凭证库时唤醒后同时登出、MCP 服务器空闲唤醒后未重连、子代理显式模型覆盖失效以及后台作业状态显示异常等问题。</li>
-  <li><strong>文件上传与验证增强</strong>：加固了文件上传路径验证逻辑，接受以 <code>.prn</code> 或尾随点结尾的文件名，拒绝多重硬链接文件，并修复了 Chrome 扩展与 CLI 环境下的上传故障。</li>
-  <li><strong>终端交互体验修复</strong>：解决了异步内容（设置、统计、差异视图等）加载延迟、输入 <code>?</code> 误触快捷键面板、屏幕阅读器终端铃声丢失以及 Vim 模式 <code>s</code> 和 <code>S</code> 命令兼容性问题。</li>
-  <li><strong>多平台兼容性修复</strong>：解决了 Windows 环境下 Claude in Chrome 设置页无法打开、无头打印模式崩溃、启动挂起等问题，并加固了 Windows 平台的目录命名同步逻辑。</li>
-  <li><strong>计费与缓存修正</strong>：修复了 Bedrock、Vertex、Mantle 和 Foundry 后端环境下的提示缓存（Prompt-caching）计费回归问题，避免将尾随系统上下文错误计费为新鲜输入令牌；同时修正了 <code>/clear</code> 命令未重置会话成本计数器的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.211</guid>
-      <pubDate>Wed, 15 Jul 2026 23:02:35 GMT</pubDate>
     </item>
   </channel>
 </rss>
