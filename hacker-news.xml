@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 17 Aug 2026 16:14:08 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 16:42:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ DuckDB v2.0 预览：迈向服务器模式与性能飞跃</title>
+      <link>https://news.ycombinator.com/item?id=49330781</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍DuckDB v2.0预览版的新特性，包括服务器模式、异步I/O等，属于开源项目更新与软件新功能，符合用户兴趣配置，故推荐</small></p><p>DuckDB v2.0（代号“Cyanoptera”）将于今年秋季正式发布。作为一次重大版本更新，该版本基于超过 10,000 次提交，标志着 DuckDB 从纯粹的进程内分析引擎向支持多租户、长运行的服务器模式迈进。以下是 v2.0 的核心特性概览：</p>
+<ul>
+  <li><strong>服务器模式与远程连接</strong>：引入 <code>Quack</code> 扩展实现原生网络协议，支持通过 <code>CONNECT</code> 语句连接远程数据库（包括其他 DuckDB、PostgreSQL 和 MySQL）。配合远程查询下推优化，可直接在远程服务器执行 SQL 并流式返回结果。</li>
+  <li><strong>VARIANT 类型全面升级</strong>：作为“增强版 JSON”，VARIANT 能自动检测半结构化数据的结构并进行“拆解”（shredding），实现高效的存储压缩与查询。v2.0 完善了从存储到查询的全链路支持，并计划在未来用其替代标准 JSON 类型。</li>
+  <li><strong>触发器（Triggers）支持</strong>：完整实现 BEFORE/AFTER、行级/语句级触发器及过渡表，非常适合数据审计和变更追踪场景。</li>
+  <li><strong>异步 I/O 引擎</strong>：全面支持对象存储（如 S3）的异步读写，Parquet、CSV 及原生格式均受益。I/O 层与查询处理层解耦，大幅提升网络存储上的查询并发与速度。</li>
+  <li><strong>查询性能飞跃</strong>：重写递归 CTE 引擎（微基准测试提速约 40 倍），支持部分聚合下推、内存溢出转磁盘、更广泛的行组剪枝（支持结构体、列表、UUID 等），以及分区感知查询规划。</li>
+  <li><strong>存储格式 v2.0 与去 ICU 依赖</strong>：默认存储格式升级，引入缓冲管理的 ART 索引（按需分页加载）和懒加载列元数据，大幅降低大表内存占用。同时彻底移除 ICU 库依赖，改用原生实现的时区与排序规则，体积缩减至约 45KB，性能提升 2 倍以上。</li>
+  <li><strong>全新 PEG 解析器与稳定 C API</strong>：弃用 PostgreSQL 派生解析器，采用现代可扩展的 PEG 解析器，支持扩展自定义语法。C API 基于声明式 YAML 规范生成，实现“一次编写，长期兼容”，极大降低了扩展开发门槛。</li>
+</ul>
+<p>社区反馈方面，开发者普遍对 DuckDB 向云数据仓库基础架构的转型表示期待。许多用户分享了在浏览器端使用 WebAssembly (WASM) 版本进行本地数据分析的成功案例。同时，社区也讨论了异步 I/O 的实用性、对过程化 SQL（如 PL/pgSQL）的期待，以及对重写 ICU 库带来的性能提升与潜在风险的看法。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49330781</guid>
+      <pubDate>Mon, 17 Aug 2026 13:46:27 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Buf 发布首个生产级 Protobuf LSP 服务器</title>
       <link>https://news.ycombinator.com/item?id=49322573</link>
@@ -938,25 +957,6 @@ Qwen3.8-2.4T 采用因果语言模型（Causal Language Model）架构，总参�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49272832</guid>
       <pubDate>Wed, 12 Aug 2026 14:22:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI 正在消除软件工程中的“中产阶级”</title>
-      <link>https://news.ycombinator.com/item?id=49271994</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论AI对软件工程的影响，匹配interest中的'AI软件技术进展'</small></p><p>文章探讨了人工智能（AI）如何重塑软件工程行业，特别是它如何通过降低代码实现的成本，加速技术债务（Technical Debt）的积累，并导致工程师群体的“中产阶级”被消除。</p>
-
-<h3>主要观点</h3>
-<p><strong>工程师价值的两极分化：</strong> AI 使得“将需求转化为代码”这一技能变得廉价。过去，中级工程师（“中产阶级”）通过执行任务创造价值；现在，AI 可以替代这一过程。这导致具备架构设计、代码审查和技术判断力的高级工程师变得更加珍贵，而缺乏这些能力的工程师面临失业或薪资下降的风险。</p>
-
-<p><strong>技术债务的指数级增长：</strong> 文章指出，AI 让缺乏工程文化的团队能够以极快的速度生成代码。虽然这些代码在短期内看似功能正常，但由于缺乏深思熟虑的设计，它们会迅速累积成难以维护的复杂性。由于实现成本极低，糟糕的决策（如随意引入新技术或数据库变更）会迅速落地，且随着系统变大，修复成本将变得极高。</p>
-
-<p><strong>审查负担与“虚假”生产力：</strong> AI 生成的代码往往体积庞大（例如数万行的 Pull Request），这超出了人类审查者的处理能力。这导致错误和坏设计更容易被合并。文章警告，这种“虚假”的生产力会让团队在不知不觉中陷入无法理解的代码泥潭，最终导致项目失败。</p>
-
-<h3>社区反馈</h3>
-<p>HN 社区对此话题讨论热烈。许多开发者认同 AI 是一把双刃剑：它既能让优秀工程师的效率倍增，也能让糟糕的工程师制造出难以收拾的烂摊子。有评论指出，AI 放大了“垃圾进，垃圾出”的风险，如果缺乏良好的架构约束，AI 生成的代码可能会迅速污染整个代码库。此外，也有观点提到，像 <a href="https://northeasttimes.com/2026/08/07/oracle-bans-ai-code-from-java-s-backbone-while-spending-billions-on-ai/">Oracle 禁止 JDK 使用 AI 代码</a> 这样的案例，反映了企业在版权和稳定性方面的担忧，这与追求速度的 AI 开发模式形成了对比。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49271994</guid>
-      <pubDate>Wed, 12 Aug 2026 13:20:05 GMT</pubDate>
     </item>
   </channel>
 </rss>
