@@ -3,7 +3,37 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 18 Aug 2026 21:35:26 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 18 Aug 2026 22:38:39 GMT</lastBuildDate>
+    <item>
+      <title>Codex CLI v0.148.0 更新：支持会话分叉、Markdown 导出及 Amazon Bedrock 集成</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.148.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Codex CLI v0.148.0 更新：支持会话分叉、Markdown 导出及 Amazon Bedrock 集成</h2>
+<p>OpenAI 发布了 Codex CLI（Command Line Interface）的 v0.148.0 版本。本次更新重点增强了终端用户界面（TUI）的会话管理能力，引入了会话分叉、对话导出及成本追踪功能，同时扩展了对 Amazon Bedrock Runtime 的原生支持，并大幅提升了 Hooks 与 MCP（Model Context Protocol）工具的集成能力。</p>
+<h3>主要新功能</h3>
+<ul>
+  <li><strong>会话管理与分叉</strong>：新增 <code>codex exec fork</code> 命令，允许用户基于当前会话创建分叉。TUI 的恢复选择器现已支持会话归档与恢复操作。启动时支持草稿提示编辑，并实时显示恢复与分叉进度。</li>
+  <li><strong>对话导出</strong>：引入 <code>/export</code> 命令，用户可将完整的 TUI 对话历史导出为 Markdown 格式，支持直接复制到剪贴板或保存为新文件。</li>
+  <li><strong>成本与状态追踪</strong>：<code>/status</code> 命令及状态栏现支持显示预估线程积分或 API 调用成本，便于用户监控资源消耗。</li>
+  <li><strong>Amazon Bedrock 集成</strong>：内置支持 Amazon Bedrock Runtime 作为提供商，兼容 AWS profile 与区域配置，并支持 GPT-5.6 路由。</li>
+  <li><strong>Hooks 能力升级</strong>：Hooks 引擎现支持异步执行命令，并可直接调用 MCP 工具，进一步扩展了自动化工作流的灵活性。</li>
+</ul>
+<h3>核心修复与稳定性提升</h3>
+<ul>
+  <li><strong>会话恢复与连接稳定性</strong>：修复了恢复会话时工作目录与审批策略（Approval Policy）丢失的问题，转录预览更加准确。改进了模型切换逻辑，避免在活跃轮次中遗留陈旧指令或中途变更设置。增强了通过临时提供商中断恢复连接的能力，MCP 服务器在 OAuth 重新认证后可自动恢复，无需重启 Codex。</li>
+  <li><strong>终端交互优化</strong>：修复了 TUI 启动时缓冲的终端输入意外激活提示的问题，并在缺失认证状态时正确显示引导流程。改进了 Composer 与转录渲染逻辑，正确处理 CRLF 粘贴、换行空白及长 URL 的显示。</li>
+  <li><strong>沙盒安全加固</strong>：在 Linux 和 Windows 平台上，沙盒对拒绝或不可读路径的访问现在会正确采取“失败关闭（fail closed）”策略，提升了环境安全性。</li>
+</ul>
+<h3>其他改进</h3>
+<ul>
+  <li><strong>内部架构与性能</strong>：本次更新包含大量底层重构，包括全面引入 gRPC 代码模式支持、Guardian V2 安全审查扩展、MCP 服务器启动优化及沙盒环境配置调整。</li>
+  <li><strong>文档与工具链</strong>：优化了捆绑的 skill-creator 使用指南，并加强了对未完成 TODO 占位符的验证机制。</li>
+</ul>
+<p>完整更新日志与代码变更：<a href="https://github.com/openai/codex/compare/rust-v0.147.0...rust-v0.148.0">Full Changelog</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.148.0</guid>
+      <pubDate>Tue, 18 Aug 2026 22:26:03 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.235 发布：新增提示词拼写检查，优化后台会话性能与终端 UI 细节</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.235</link>
@@ -1086,43 +1116,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/kovidgoyal/kitty/releases/tag/v0.48.0</guid>
       <pubDate>Sat, 18 Jul 2026 02:33:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.23.0 发布说明：新增 kimi-code 支持及多项 UI/交互优化</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.23.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi <a href="https://github.com/tiann/hapi/releases/tag/v0.23.0">v0.23.0</a> 版本已发布，本次更新重点增强了对 <code>kimi-code</code> 的支持，并带来了多项界面交互优化与终端功能改进。</p>
-
-<h3>重要改动</h3>
-<ul>
-  <li><strong>新增代理支持</strong>：正式支持 <code>kimi-code</code> 编码代理。</li>
-  <li><strong>目录浏览器增强</strong>：在 Web 端目录浏览器中增加了元数据显示与排序功能，提升文件浏览体验 <a href="https://github.com/tiann/hapi/pull/1055">[PR #1055]</a>。</li>
-  <li><strong>主题与视觉优化</strong>：新增颜色主题预设（Color Theme Presets），方便用户快速切换界面风格 <a href="https://github.com/tiann/hapi/pull/1040">[PR #1040]</a>。</li>
-  <li><strong>会话与工具调用展示</strong>：
-    <ul>
-      <li>在 Task/Agent 卡片头部显示子代理（Subagent）执行的模型名称 <a href="https://github.com/tiann/hapi/pull/1045">[PR #1045]</a>。</li>
-      <li>在详细对话框中显示工具调用（Tool Call）的持续时间 <a href="https://github.com/tiann/hapi/pull/1036">[PR #1036]</a>。</li>
-      <li>在侧边栏中更好地区分不同 <code>worktree</code> 的会话 <a href="https://github.com/tiann/hapi/pull/1039">[PR #1039]</a>。</li>
-    </ul>
-  </li>
-  <li><strong>终端与 CLI 改进</strong>：
-    <ul>
-      <li><code>opencode</code> 现在接受 <code>-s/--session</code> 作为会话恢复（Resume）的别名 <a href="https://github.com/tiann/hapi/pull/1042">[PR #1042]</a>。</li>
-      <li>为非原生代理添加了 <code>skill_lookup</code> MCP 支持 <a href="https://github.com/tiann/hapi/pull/1035">[PR #1035]</a>。</li>
-    </ul>
-  </li>
-</ul>
-
-<h3>其他修复与优化</h3>
-<ul>
-  <li><strong>Codex 相关修复</strong>：修复了增量扫描转录（Transcripts）、等待手动压缩（Compaction）完成，以及向 Codex Desktop 暴露 HAPI 线程等问题 <a href="https://github.com/tiann/hapi/pull/1031">[PR #1031]</a> <a href="https://github.com/tiann/hapi/pull/1038">[PR #1038]</a> <a href="https://github.com/tiann/hapi/pull/1022">[PR #1022]</a>。</li>
-  <li><strong>Web 端交互修复</strong>：同步浏览器标签页标题与会话、扩展悬停显示信息以支持触摸设备、修复重新连接后的过期排队消息、澄清消息详情中的令牌使用标签，并对齐会话操作菜单 <a href="https://github.com/tiann/hapi/pull/1034">[PR #1034]</a> <a href="https://github.com/tiann/hapi/pull/1046">[PR #1046]</a> <a href="https://github.com/tiann/hapi/pull/1063">[PR #1063]</a> <a href="https://github.com/tiann/hapi/pull/1062">[PR #1062]</a> <a href="https://github.com/tiann/hapi/pull/1061">[PR #1061]</a>。</li>
-  <li><strong>代理状态与设置</strong>：为 <code>pi</code> 代理添加 'max' 思考级别，并使用每个模型的上下文窗口正确显示状态栏 <a href="https://github.com/tiann/hapi/pull/1032">[PR #1032]</a> <a href="https://github.com/tiann/hapi/pull/1033">[PR #1033]</a>。CLI 支持从设置加载额外标头 <a href="https://github.com/tiann/hapi/pull/1041">[PR #1041]</a>。</li>
-  <li><strong>其他问题修复</strong>：重新打开前验证 Cursor 聊天存储 <a href="https://github.com/tiann/hapi/pull/1037">[PR #1037]</a>；修复 <code>opencode</code> 中空工具输入的处理及延迟工具调用恢复 <a href="https://github.com/tiann/hapi/pull/1052">[PR #1052]</a>；保留 Claude 恢复锚点并报告真实的压缩结果 <a href="https://github.com/tiann/hapi/pull/1056">[PR #1056]</a>。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.23.0</guid>
-      <pubDate>Sat, 18 Jul 2026 04:30:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
