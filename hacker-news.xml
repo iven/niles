@@ -3,7 +3,21 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 18 Aug 2026 01:47:26 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 18 Aug 2026 03:09:26 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Bluesky如何在截图中巧妙显示Logo的技术揭秘</title>
+      <link>https://news.ycombinator.com/item?id=49338459</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了 Bluesky 软件截图功能的技术实现细节，属于软件技术进展，符合用户感兴趣的主题</small></p><p>许多用户在使用Bluesky应用时注意到一个有趣的现象：在截取帖子时，屏幕右上角会自动显示Bluesky的Logo，但在应用界面中该位置实际上是“Follow”（关注）按钮。作者通过查看Bluesky的开源代码，揭示了这一功能背后的技术实现原理。原文：<a href="https://timmarinin.net/2026/bluesky-screenshots/">https://timmarinin.net/2026/bluesky-screenshots/</a></p>
+<p><img src="./skeet.jpg" alt="A screenshot of Bluesky post by @eroston.bsky.social, the important part is that Bluesky logo is visible in the top right corner" width="50%" /></p>
+<p>经过对代码库的追踪，作者发现该功能由名为 <code>GrowthHack.tsx</code> 的文件实现，并依赖于第三方包 <code>expo-privacy-sensitive</code>。其核心技巧在于创建一个 <code>UITextField</code> 对象，并将其 <code>isSecureTextEntry</code>（安全文本输入）属性设置为 <code>true</code>。随后，应用将实际的“Follow”按钮渲染到该文本字段的图层（<code>.layer</code>）上。当iOS系统检测到截图操作时，出于隐私保护机制，会自动清空或隐藏标记为安全输入的文本字段，从而让预先放置在底层的Bluesky Logo显露出来。</p>
+<p><img src="./mid-switch.png" alt="Screenshot of zoomed out version of Bluesky app mid-switching, Follow button is visible" width="50%" /></p>
+<p>作者还解释了为何在切换应用的过程中截图无法触发此效果：iOS在用户开始滑动切换应用时，会立即截取当前屏幕快照，此时应用内已没有活跃的 <code>UITextField</code> 实例可供系统清空，因此只能显示原始的“Follow”按钮。此外，该技巧目前仅针对iOS平台，其他平台（如Android）则直接渲染内容，不进行隐藏处理。</p>
+<p>这一功能在Hacker News社区引发了广泛讨论。部分用户认为，应用通过技术手段劫持或修改系统截图行为，是将商业利益置于用户体验之上，属于对API的滥用。然而，也有观点指出，在截图上添加来源标识有助于品牌传播和内容溯源。事实上，Telegram、Signal、X（原Twitter）以及Reddit等主流应用也早已采用过类似或完全禁止截图的技术手段。由于该技巧巧妙地利用了iOS系统原有的隐私保护机制，作者认为Apple短期内不太可能对其进行修复或限制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49338459</guid>
+      <pubDate>Mon, 17 Aug 2026 22:20:40 GMT</pubDate>
+    </item>
     <item>
       <title>AI;DR：拒绝未经编辑的 AI 生成文本</title>
       <link>https://news.ycombinator.com/item?id=49336573</link>
@@ -916,29 +930,6 @@ HN 讨论：<a href="https://news.ycombinator.com/item?id=49289512">https://news
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49276574</guid>
       <pubDate>Wed, 12 Aug 2026 18:19:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Grok 4.6 跻身 AI 前沿：智能持平 GPT-5.6，代理性能与成本优势显著</title>
-      <link>https://news.ycombinator.com/item?id=49275385</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要对Grok 4.6 AI模型进行性能分析与评测，对比前沿模型并探讨代理性能优势，属于新AI模型发布与技术进展，符合high_interest配置</small></p><div>
-  <p>独立 AI 模型分析平台 Artificial Analysis 发布报告，SpaceX 旗下 xAI 的 <a href="https://artificialanalysis.ai/articles/grok-4-6-benchmarks-and-analysis">Grok 4.6</a> 在 Artificial Analysis Intelligence Index 上取得 61 分，正式跻身 AI 前沿阵营。该成绩与 OpenAI 的 GPT-5.6 Sol 持平，仅次于 Anthropic 的 Claude Opus 5（63 分）和 Claude Fable 5（62 分）。相较于一个月前的 Grok 4.5，其智能指数提升了 5 分，较 Grok 4.3 更是大幅跃升 23 分。</p>
-  <img src="https://cdn.sanity.io/images/6vfeftx9/articles/5be9320cb6edf4847a0ab5beaf98244c1d5da13d-2228x912.png?w=1200&auto=format" alt="Grok 4.6 在 Intelligence Index 上的排名" />
-  <p>Grok 4.6 的核心优势在于<strong>代理性能（Agentic performance）</strong>与<strong>长程知识工作（Long-horizon knowledge work）</strong>的高效执行。在衡量现实世界代理任务的 GDPval-AA v2 基准中，其 Elo 评分达 1753，仅次于 Claude Opus 5。在金融客服模拟（𝜏³-Banking）和终端软件操作（Terminal-Bench v2.1）中，Grok 4.6 均位列前两。在长程任务测试 AA-Briefcase 中，Grok 4.6 平均仅需 53 轮交互和 0.5B 输入 token 即可完成，而 Claude Opus 5 则需要 103 轮和 2.0B token，展现出极高的上下文利用效率。</p>
-  <img src="https://cdn.sanity.io/images/6vfeftx9/articles/be932eb7dacf9e48a7883d08139cfb8612d28d04-2228x2747.png?w=1200&auto=format" alt="Grok 4.6 代理性能与长程任务效率对比" />
-  <p>在成本方面，Grok 4.6 保持了与上一代相同的定价策略：输入/输出 token 价格为 $2/$6 每百万 token，缓存命中价格上调至 $0.5 每百万 token。这一价格比 Claude Opus 5 和 GPT-5.6 Sol 低 60% 以上。结合其高效的 token 消耗，Grok 4.6 的每任务成本仅为 $0.84，与 Kimi K3 持平，但在智能水平上更胜一筹，使其在性能与成本的帕累托前沿上占据有利位置。</p>
-  <img src="https://cdn.sanity.io/images/6vfeftx9/articles/a3edd8e9f8c667b005694d2dd81513e17d90c2db-2196x1296.png?w=1200&auto=format" alt="Grok 4.6 成本与性能对比" />
-  <p><strong>社区反馈：</strong>HN 用户对该模型的性价比表示认可，尤其是与 Cursor 编辑器集成后，大幅降低了前沿模型的使用门槛。不过，也有用户指出其缓存读取价格上调可能影响重度编程用户的账单。此外，部分讨论聚焦于 xAI 通过收购 Cursor 获得的高质量代码数据对模型训练的潜在贡献，以及其使用便携式燃气发电机训练模型所带来的碳排放效率争议。</p>
-</div>
-
-<div>
-  <h3>你知道吗？</h3>
-  <p><strong>Artificial Analysis Intelligence Index</strong> 是一个独立的大模型评估基准，它不仅衡量模型的静态推理能力，还重点评估其在现实世界任务中的“代理性能”（Agentic performance）。代理性能指的是 AI 模型作为智能体（Agent）自主调用工具、执行多步任务的能力，而非仅仅回答静态问题。</p>
-  <p><strong>长程知识工作（Long-horizon knowledge work）</strong> 指的是需要模型在数十甚至上百轮交互中，持续维护上下文、逐步解决复杂商业或技术问题的任务。这类任务对模型的上下文窗口管理、注意力机制和 token 消耗效率提出了极高要求。Grok 4.6 在此类任务中展现出的“半轮次、四分之一 token”效率，直接转化为实际使用中的显著成本优势。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49275385</guid>
-      <pubDate>Wed, 12 Aug 2026 16:54:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
