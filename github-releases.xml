@@ -3,7 +3,32 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 18 Aug 2026 20:36:35 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 18 Aug 2026 21:35:26 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.235 发布：新增提示词拼写检查，优化后台会话性能与终端 UI 细节</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.235</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.235 版本发布，主要带来了提示词输入框的拼写检查功能，并对终端 UI、后台会话性能及多项交互细节进行了修复与优化。</p>
+<h3>主要更新</h3>
+<ul>
+  <li><strong>新增拼写检查</strong>：提示词输入框现在支持拼写检查，可配置使用 <code>aspell</code>、<code>hunspell</code> 或 <code>ispell</code> 来下划线标记拼写错误的单词。</li>
+  <li><strong>性能优化</strong>：优化了后台云会话（如 <code>/ultrareview</code> 或 <code>/autofix-pr</code>）的内存和 CPU 占用，避免在每次更新时重新扫描和渲染事件流。</li>
+  <li><strong>终端 UI 改进</strong>：修复了嵌套 Markdown 列表在深度 3 及以上的对齐问题，并为换行列表项添加了悬挂缩进；改进了 Vim 模式下的光标位置保留；优化了对话框的按键响应逻辑。</li>
+  <li><strong>交互与错误处理修复</strong>：
+    <ul>
+      <li>修复了多行提示词中高亮显示（斜杠命令、关键词等）偏移的问题。</li>
+      <li>修复了权限提示框中 <code>Shift+Tab</code> 误操作问题。</li>
+      <li>改进了 Notebook 单元格审批对话框的内容显示逻辑。</li>
+      <li>修复了 <code>SendMessage</code> 静默丢弃过大跨会话消息的问题。</li>
+      <li>优化了嵌入式 <code>grep</code> 的性能，防止病态模式耗尽内存。</li>
+      <li>改进了上下文限制错误的提示，当自动压缩关闭时提供指引。</li>
+    </ul>
+  </li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.235</guid>
+      <pubDate>Tue, 18 Aug 2026 20:38:54 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.234 更新日志</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.234</link>
@@ -1098,46 +1123,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.23.0</guid>
       <pubDate>Sat, 18 Jul 2026 04:30:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.212 更新：后台会话优化、防循环限制与多项体验修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.212</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>核心功能与交互改进</h3>
-<ul>
-  <li><strong>/fork 命令重构</strong>：将当前对话复制至独立的后台会话，原会话内启动的子代理功能现已更名为 <code>/subtask</code>。</li>
-  <li><strong>新增会话调用限制</strong>：为 WebSearch 工具调用和子代理生成设置上限（默认均为 200 次），有效防止无限循环调用消耗资源。</li>
-  <li><strong>后台会话增强</strong>：MCP 工具调用超过默认 2 分钟自动转入后台；<code>/resume</code> 命令新增历史会话选择器；后台代理完成时提供脉冲提示。</li>
-  <li><strong>自动模式重置</strong>：新增 <code>claude auto-mode reset</code> 命令，用于恢复默认自动模式配置。</li>
-</ul>
-
-<h3>性能与可靠性优化</h3>
-<ul>
-  <li><strong>Web 搜索与抓取稳定性提升</strong>：增加对 529 错误和限流请求的指数退避重试机制，改善 API 过载时的表现。</li>
-  <li><strong>提示词缓存优化</strong>：使会话中期的系统块缓存兼容 LLM 网关和自定义基础 URL（如 Bedrock、Vertex）。</li>
-  <li><strong>代理通信效率提升</strong>：优化代理间消息传输，避免在重放历史中重复存储请求体，降低 Token 消耗。</li>
-  <li><strong>后台代理附加加速</strong>：冷启动附加后台会话时，即时显示格式化转录内容，消除空白等待。</li>
-</ul>
-
-<h3>其他重要变更</h3>
-<ul>
-  <li><strong>权限与配置调整</strong>：弃用 Task 工具的 <code>mode</code> 参数，子代理默认继承父会话权限模式；Enterprise 环境的 <code>forceLoginMethod</code> 策略扩展至 VS Code 扩展、SDK 及安装流程。</li>
-  <li><strong>会话记录增强</strong>：会话转录记录增加助手消息的推理努力级别（reasoning effort level）。</li>
-  <li><strong>Headless/SDK 模式改进</strong>：支持中途 <code>set_model</code> 控制请求，新模型设置立即生效，无需等待下一轮交互。</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-  <li>修复 Plan Mode 下自动执行文件修改命令（如 <code>touch</code>、<code>rm</code>）未提示权限的问题。</li>
-  <li>修复 <code>/ultrareview</code> 命令对 PR 引用格式识别错误、分支抓取逻辑及计费确认跳过等问题。</li>
-  <li>修复包含大量图片的对话错误触发“请求过大”提示，以及 Web 搜索/抓取在 API 过载时返回 "API Error" 文本的问题。</li>
-  <li>修复 OpenTelemetry HTTP 导出被 Azure Monitor 等不支持分块传输的端点拒绝的问题。</li>
-  <li>修复终端全屏调整大小时欢迎横幅面板宽度保留旧值、Diff 预览丢失行号等 UI 渲染异常。</li>
-  <li>修复会话恢复、后台会话状态显示、Agent Teams 重复通知、Hook 中断处理等多项底层逻辑错误。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.212</guid>
-      <pubDate>Fri, 17 Jul 2026 00:26:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
