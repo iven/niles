@@ -3,7 +3,24 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 18 Aug 2026 19:36:17 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 18 Aug 2026 20:37:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 引入 bpf_sock_read_xattr 功能，增强 systemd 与 BPF 程序交互</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-bpf_sock_read_xattr</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 7.3 内核新增的 BPF 功能特性，属于 Linux 开源技术与系统底层开发范畴，契合用户对 Linux 技术及新功能的兴趣配置，故推荐</small></p><p>Linux 7.3 内核引入了新的 <code>bpf_sock_read_xattr()</code> 函数，旨在解决此前 BPF 程序无法高效读取 socket 扩展属性（extended attributes）的问题。这一功能此前已在 Linux 7.1 中为 socket 支持扩展属性，主要服务于 GNOME 和 systemd 等组件的 Varlink IPC 需求。</p>
+
+<p>该功能由 Christian Brauner 实现，允许 BPF 程序无锁（locklessly）读取 socket 的 <code>sockfs</code> inode 上的 <code>user.*</code> 扩展属性。systemd 利用这些属性实现 socket 速率限制和标记（例如 varlink registry）。新函数使得在 <code>bind/connect</code> 阶段读取监听 socket 的属性成为可能，从而对连接的 socket 实施策略。这允许非特权用户管理器（如 <code>systemd --user</code>）从用户空间标记 socket 并进行重新发现或策略实施。</p>
+
+<p>技术实现上，该 kfunc 注册为 <code>KF_RCU</code>，仅适用于 BPF LSM 程序。读取操作不休眠且不获取锁，通过 RCU 保护的 rhashtable 查找实现高效访问。需要注意的是，该功能排除了嵌入在 sockfs 之外的 socket（如 tun/tap），仅处理由 LSM socket hook 交出的 socket。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>BPF（Berkeley Packet Filter）</strong> 最初用于网络包过滤，现已演变为一种强大的内核技术，广泛用于性能分析、监控和安全策略实施。它允许用户空间程序在内核中运行沙箱化的代码。</p>
+<p><strong>LSM（Linux Security Modules）</strong> 是 Linux 内核的安全框架，提供了一组钩子（hooks），允许安全模块（如 SELinux、AppArmor）在内核的关键路径上实施访问控制策略。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-bpf_sock_read_xattr</guid>
+      <pubDate>Tue, 18 Aug 2026 19:38:32 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.3 内核 IOmap 框架优化，显著提升 EXT4 与 XFS 性能</title>
       <link>https://www.phoronix.com/news/IOmap-Linux-7.3-Faster</link>
@@ -680,26 +697,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Intel-LLM-Scaler-Muse-Glimmer</guid>
       <pubDate>Wed, 12 Aug 2026 10:12:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ LACT 0.10 发布：新增 NVIDIA 超频控制与 Blackwell 热点传感器支持</title>
-      <link>https://www.phoronix.com/news/LACT-0.10-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 发布LACT 0.10软件版本，主要主题是新软件发布（来源配置high_interest），虽涉及NVIDIA Blackwell芯片支持（avoid），但以软件更新为主</small></p><p>LACT 是一款流行的跨平台 Linux GPU 配置与监控工具，全面支持 NVIDIA、AMD 及 Intel 显卡。在 Linux 平台长期缺乏 AMD Radeon 和 Intel Arc 官方图形控制面板的背景下，LACT 凭借其直观的超频控制与详尽的硬件状态报告，成为用户管理显卡的重要工具。</p>
-<p>LACT 0.10 版本带来了多项核心更新：</p>
-<ul>
-  <li><strong>NVIDIA 超频功能扩展</strong>：新增 PowerMizer 模式管理，允许用户强制锁定最高性能状态（p-state），并提供电压提升（voltage boost）选项，以解锁更高的运行电压与频率潜力。</li>
-  <li><strong>传感器监控升级</strong>：新增对 NVIDIA Blackwell 架构显卡热点温度的支持，并首次支持监控单颗显存芯片（per-memory-chip）的温度数据。</li>
-  <li><strong>体验与兼容性优化</strong>：改进了首次安装与设置流程，新增 AMD Radeon 显卡 GTT 内存使用情况的显示功能，并包含多项底层稳定性增强。</li>
-</ul>
-<p>用户可通过 <a href="https://github.com/ilya-zlobintsev/LACT">GitHub 官方仓库</a> 获取 LACT 0.10 的下载链接与完整更新说明。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=lact_010" alt="LACT 0.10 项目界面截图" />
-<h3>你知道吗？</h3>
-<p><strong>Blackwell 架构</strong>：NVIDIA 于 2024 年推出的最新一代 GPU 架构，专为高性能 AI 计算与图形渲染设计。其传感器架构相比前代更为精细，支持更细粒度的热点监控，有助于用户更精准地掌握显卡核心温度分布。</p>
-<p><strong>GTT（Graphics Translation Table）</strong>：即图形翻译表，是显卡用于管理虚拟地址到物理显存映射的硬件结构。在 Linux 系统中，监控 GTT 使用量有助于用户了解系统内存与显存之间的数据交换效率，对排查显存瓶颈与优化游戏性能具有参考价值。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/LACT-0.10-Released</guid>
-      <pubDate>Wed, 12 Aug 2026 09:52:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
