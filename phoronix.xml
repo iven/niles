@@ -3,7 +3,46 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 19 Aug 2026 17:37:03 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 18:52:26 GMT</lastBuildDate>
+    <item>
+      <title>Go 1.27 发布：引入泛型方法、SIMD 支持与标准库增强</title>
+      <link>https://www.phoronix.com/news/Go-1.27</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主题为Go语言1.27版本发布，属于编程工具发布，全局配置对此很感兴趣，但来源配置将Go列为不太感兴趣且权重更高，综合评定为可选</small></p><p>Go 1.27 正式发布，这是 Google Go 团队推出的该编程语言的最新版本。本次更新带来了多项语言增强，包括<strong>泛型方法</strong>（generic methods）、结构体字面量中键允许使用任何有效的字段选择器，以及函数类型推断已推广到所有赋值上下文。</p>
+
+<p>在泛型方法方面，Go 1.27 允许在泛型类型上定义方法，进一步提升了泛型编程的灵活性。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=go_generic_methods" alt="Go generic methods example" />
+
+<p>Go 1.27 还引入了多项工具改进，以及大小专用的内存分配优化，可将小对象分配成本降低高达 30%。标准库方面新增了多个重要包：<code>encoding/json/v2</code> 提供高级 JSON 处理功能，包含新选项和更严格的默认值；<code>crypto/mldsa</code> 支持后量子 ML-DSA 签名；<code>uuid</code> 包用于生成和解析 UUID。</p>
+
+<p>此外，Go 1.27 带来了一个实验性的 SIMD 包，提供可移植且与向量大小无关的 SIMD 支持。其中 <code>simd/archsimd</code> 用于架构特定的 SIMD 操作，修订了 AMD64 API，并新增了对 Arm Neon 128-bit SIMD 和 WebAssembly 128-bit SIMD 的支持。</p>
+
+<p>更多详情可访问 Go 官方网站 <a href="https://go.dev">go.dev</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Go-1.27</guid>
+      <pubDate>Wed, 19 Aug 2026 18:23:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>Btrfs 为 Linux 7.3 带来更多性能改进：部分场景性能提升 3 到 5 倍</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-Btrfs</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主题为Btrfs文件系统在Linux内核中的性能改进，涉及开源项目和新功能（感兴趣），但属于基础设施范畴（不太感兴趣），兴趣不明确</small></p><p>SUSE 的 David Sterba 已向 Linux 7.3 合并窗口提交了 Btrfs 文件系统的特性更新，带来了多项性能改进。其中一些改进使特定工作负载的性能提升了约 3 到 5 倍。</p>
+
+<p>主要改进包括：</p>
+<ul>
+<li><strong>直接 I/O 优化</strong>：Btrfs 现在使用 IOmap 反弹缓冲区（IOmap bounce buffer）进行直接 I/O，而非回退到缓冲 I/O。这使得性能从理论最大值的约 50% 提升至约 95%，有效翻倍。</li>
+<li><strong>受抑制 extent 缓冲区跟踪优化</strong>：用本地 LRU 列表替换了 XArray，性能提升约 3 倍。</li>
+<li><strong>非 SSD 模式延迟优化</strong>：移除了不必要的 jiffy 延迟，在多个日志任务场景下，延迟降低，吞吐量提升约 5 倍。</li>
+<li><strong>fsync 优化</strong>：在完整 fsync 期间跳过空洞检测逻辑，对于无空洞但包含大量 extents 的文件，性能提升约 5 倍。</li>
+<li><strong>其他改进</strong>：包括锁定优化等。此外，Btrfs 现在默认禁用空闲空间 v1（free-space v1），转而使用已默认多年的空闲空间 v2（free-space v2）。</li>
+</ul>
+
+<p>此外，该更新还包含大量错误修复和其他代码改进。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Btrfs</guid>
+      <pubDate>Wed, 19 Aug 2026 17:50:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ XWayland 26.1 RC1 发布，带来众多新特性</title>
       <link>https://www.phoronix.com/news/XWayland-26.1-RC1</link>
@@ -710,30 +749,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Rsync-3.5</guid>
       <pubDate>Thu, 13 Aug 2026 01:26:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GCC 17 编译器新增 `-m128bit-atomic` 选项以支持 128 位原子内存操作</title>
-      <link>https://www.phoronix.com/news/GCC-Git-m128bit-atomic</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍GCC编译器17版本的新特性，属于编程工具发布，符合全局high_interest配置。</small></p><p>GNU Compiler Collection (GCC) 的 Git 代码库今日已合并一项新特性：为即将发布的 GCC 17 版本引入 <code>-m128bit-atomic</code> 编译选项。该选项旨在为支持的 Intel、AMD、海光 (Hygon) 及兆芯 (Zhaoxin) 处理器生成 128 位原子内存操作指令。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=m128bit-atomic" alt="-m128bit-atomic" />
-<p>通过启用此内置选项，开发者可以在程序中直接使用内联的 128 位原子加载和存储操作，从而避免调用 <code>libatomic</code> 库所带来的额外开销。在获得上述 x86_64 处理器厂商对 128 位原子加载和存储支持的确认后，该功能得以顺利推进（详见 <a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104688">相关讨论</a>）。</p>
-<p>此外，当使用 <code>-march=native</code> 等参数指定目标处理器，且该处理器支持此功能（通常属于 x86-64-v3 或支持 AVX 的处理器）时，GCC 将默认启用 <code>-m128bit-atomic</code> 选项。该功能已通过相关提交合并至代码库，预计将在明年春季发布的 GCC 17.1 稳定版中正式亮相。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-Git-m128bit-atomic</guid>
-      <pubDate>Wed, 12 Aug 2026 18:40:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Manjaro Linux 26.1 发布：搭载 GNOME 50 与 KDE Plasma 6.7</title>
-      <link>https://www.phoronix.com/news/Manjaro-Linux-26.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍Manjaro Linux新发行版的发布，并提及KDE，符合来源配置high_interest中的新发行版及KDE。</small></p><p>Manjaro Linux 26.1 "Bian-May" 现已正式发布，这是基于 Arch Linux 的桌面发行版的最新功能更新。作为自今年 1 月 Manjaro 26.0 以来的首个新标记版本，此次更新引入了大量新软件包。</p>
-<img src="//www.phoronix.net/image.php?id=2025&image=manjaro" alt="Manjaro Linux with KDE desktop" />
-<p>在桌面环境方面，本次更新主要提供了 GNOME 50 和 KDE Plasma 6.7，同时保留了轻量级的 Xfce 4.20 供偏好选择。底层内核默认搭载 Linux 7.1 稳定版，用户也可根据需求选择 Linux 6.18 LTS 或 6.12 LTS。</p>
-<p>更多详细更新信息可前往 Manjaro 官方论坛查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Manjaro-Linux-26.1</guid>
-      <pubDate>Wed, 12 Aug 2026 18:28:03 GMT</pubDate>
     </item>
   </channel>
 </rss>

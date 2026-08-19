@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 19 Aug 2026 17:39:39 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 18:52:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 用几何与 CUDA 编程定位一座随机小岛：OSINT 挑战全记录</title>
+      <link>https://news.ycombinator.com/item?id=49360545</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述使用几何与CUDA编程定位随机小岛的OSINT挑战，属于编程技术分享与效率改进经验，用户对这类内容很感兴趣，故推荐阅读。</small></p><p>这篇文章是作者 yassa9 对 OSINT 挑战「gralhix 004」（由 Sofia Santos 发起）的完整解题记录。挑战要求仅凭一张度假村小岛照片回答三个问题：度假村名称、岛屿坐标、以及拍摄时相机朝向。作者没有使用 Google Lens 等捷径，而是选择用数学和 CUDA 编程来解决。</p>
+
+<img src="/osint/gralhix-004/main.jpg" alt="挑战照片" />
+
+<p>解题过程分为多个阶段。首先检查照片元数据，未发现任何 EXIF/GPS 信息。接着从照片中识别出三块陆地（P0 主岛、P1 右侧岛屿、P2 左前带山峰的岛屿），通过自制的点击 GUI 构建出三角形指纹（角度与距离比）。随后以 OpenStreetMap 的全球海岸线矢量数据（882 MB）为数据集，依次应用热带纬度过滤（±30°）、局部密度过滤、聚类、三元组生成等启发式筛选，最终产生约 8070 万个候选三角形。</p>
+
+<img src="/osint/gralhix-004/01_01.jpg" alt="照片中的三块陆地" />
+
+<p>匹配阶段使用 CUDA 在 GPU 上并行处理：每个三角形分配一个线程，在 NVIDIA RTX 3050 上仅用 204 毫秒完成全部计算，158,784 个候选通过匹配。经过去重和「开阔水域」矩形检查后剩 948 个。后续又通过珊瑚礁小岛形状检查（紧凑度、微型沙洲环绕）、椭圆形状检查、NDVI 植被指数检查（阈值 0.6）和海拔检查（主岛低于 50 米、前方 2–20 公里扇形区域内存在 100–500 米高地），最终剩 26 个候选。作者逐一人工核对 Google Maps 卫星图，在第 8 个候选（密克罗尼西亚）中找到了答案。</p>
+
+<p>最终答案：度假村名为 Oan，岛屿坐标为 7°21′48.4″N、151°45′20.7″E（7.363444°, 151.755750°），相机朝向为西北（NW，方位角 324.97°）。作者在文末列出了所用数据源及其许可协议（OpenStreetMap、Copernicus DEM、Sentinel-2 影像等）。</p>
+
+<h3>社区反馈</h3>
+<p>这篇帖子在 Hacker News 上获得 292 分和 52 条评论，多数读者称赞其思路清晰、过程精彩。有评论指出该技术与无人机和导弹使用的<a href="https://en.wikipedia.org/wiki/Terrain_contour_matching">地形轮廓匹配（TERCOM）</a>技术原理相似，且不依赖 GNSS，可抵抗射频干扰。也有读者就「未使用 LLM 生成」的声明展开讨论，作者澄清博客正文为手写，但最终代码经过 LLM 整理润色。</p>
+
+<h3>你知道吗？</h3>
+<p>地形轮廓匹配（TERCOM，Terrain Contour Matching）是一种古老的导航技术，早在 1960 年代就被用于巡航导弹，比 GPS 和卫星导航早了数十年。它通过将预先测绘的地形高度剖面与实际测量值比对来确定位置。有趣的是，海湾战争期间「战斧」导弹使用 TERCOM 反而限制了作战路线规划——导弹必须绕开平坦沙漠，因为那里缺乏可用于匹配的地形特征。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49360545</guid>
+      <pubDate>Wed, 19 Aug 2026 12:19:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Moderna与Merck宣布mRNA个性化新抗原疗法在黑色素瘤III期试验中取得首个阳性结果</title>
       <link>https://news.ycombinator.com/item?id=49361395</link>
@@ -891,22 +916,6 @@ HN 讨论：<a href="https://news.ycombinator.com/item?id=49289512">https://news
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49288889</guid>
       <pubDate>Thu, 13 Aug 2026 17:05:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cerebras 与 OpenAI 合作推出 GPT-5.6 Sol Ultrafast 模式，推理速度大幅提升</title>
-      <link>https://news.ycombinator.com/item?id=49289844</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 OpenAI 发布新的 GPT-5.6 模型及其 Ultrafast 模式，属于新AI模型发布公告，符合用户对高兴趣配置。</small></p><p>Cerebras 与 OpenAI 宣布合作推出 <strong>Ultrafast Mode</strong>（超快模式），该模式基于 Cerebras 的晶圆级引擎架构，为 OpenAI API 中的 GPT-5.6 Sol 模型提供前所未有的推理速度。</p>
-<p><img src="https://cdn.sanity.io/images/e4qjo92p/production/96417454c2234a5f3241876a06719db0d27fae1e-1273x910.png?auto=format&dpr=2&fit=max&q=75&w=1273" alt="GPT-5.6 Sol Ultrafast 模式速度对比图" width="1273" height="910" /></p>
-<p>在性能方面，GPT-5.6 Sol Ultrafast 模式的输出速度高达 <strong>750 tokens/秒</strong>，在保持同等质量的前提下，比 Anthropic 的 Fable 5 快 11 倍，比 OpenAI 的 Opus 4.8 Fast 模式快 5 倍。在博士级难度的 <a href="https://www.humanitylastexam.com/" rel="nofollow">Humanity's Last Exam (HLE)</a> 基准测试中，该模式在 11 小时 11 分钟内完成了全部 2,500 道题目，而 Fable 5 需要超过 78 小时，速度提升近 7 倍。此外，在经济价值知识工作基准 GDP-Val 上，端到端速度提升了 5.6 倍。</p>
-<p><img src="https://cdn.sanity.io/images/e4qjo92p/production/27cfc20402c698c9b6ac0ae255f7c50941b9993f-1920x1080.gif?auto=format&dpr=2&fit=max&q=75&w=1400" alt="HLE 基准测试速度对比动画" width="1400" height="787.5" /></p>
-<p>这一突破主要得益于 Cerebras 的 <strong>Wafer-Scale Engine（晶圆级引擎）</strong> 架构。传统 GPU 在大模型推理时受限于内存带宽，需要频繁在片上内存和外部存储间传输权重。Cerebras 采用反直觉的设计，在每个晶圆级芯片上集成 44 GB SRAM，使模型权重始终保留在片上，并通过流水线方式跨晶圆传输 token，从而彻底消除了数据移动瓶颈。</p>
-<p><img src="https://cdn.sanity.io/images/e4qjo92p/production/e9f547a2b0f2ece2a7929042fdc428b00f8e07e7-4866x2082.png?auto=format&dpr=2&fit=max&q=75&w=2000" alt="GDP-Val 基准测试结果" width="2000" height="856" /></p>
-<p>目前，Ultrafast 模式已在 OpenAI API 中上线有限预览，主要面向法律、金融、工程及网络安全等对实时性要求极高的场景。社区对此反响热烈，开发者普遍认为极速推理将大幅减少等待过程中的上下文切换，提升生产力。不过，由于采用定制硬件，评论中也指出该服务定价可能较高，且初期仅向特定客户开放。</p>
-<p>了解更多：<a href="https://openai.com/index/previewing-ultrafast/" rel="nofollow">OpenAI 官方预览页面</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49289844</guid>
-      <pubDate>Thu, 13 Aug 2026 18:10:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
