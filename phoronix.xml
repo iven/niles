@@ -3,7 +3,30 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 19 Aug 2026 19:35:17 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 20:42:23 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 合并窗口迎来两项激动人心的内存管理优化</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-MM</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 内核内存管理优化，属于 Linux 内核开发与开源项目进展。全局配置中开源项目、软件新功能为感兴趣，来源配置中 Linux 桌面技术为感兴趣，且无明显减分项，故判定为推荐阅读</small></p><p>Andrew Morton 于周二提交了 Linux 7.3 合并窗口的所有内存管理（MM）更新。本次补丁量巨大，共发送 1,250 封 "added-to-MM" 邮件（上周期为 920 封），为此他甚至借助 Google 的 Gemini AI 来编写补丁摘要。</p>
+
+<p>在众多更新中，有两个补丁系列尤其值得关注：</p>
+
+<h3>1. zs_free() 锁争用优化</h3>
+<p>该优化针对 zsmalloc 内存分配器中的 zs_free() 函数，该函数被 Zswap 和 zRAM 用于释放压缩内存页。在内存压力下，zs_free() 的锁争用会严重影响性能。优化后，在模拟测试中（每个进程独立映射 256MB、写入数据、通过 madvise 换出到 zRAM，然后并发取消映射），Raspberry Pi 4B 的速度提升高达 <strong>1.83 倍</strong>，20 核 Intel 系统提升高达 <strong>1.4 倍</strong>。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=zs_free_benchmark" alt="zs_free 优化基准测试" />
+
+<h3>2. rmap_walk_ksm() 性能优化</h3>
+<p>该优化针对 KSM（内核同页合并）的反向映射遍历函数 rmap_walk_ksm()。ZTE 工程师发现，当大量无关的 VMA 共享同一个 anon_vma 时，KSM 反向映射会导致严重的性能问题，应用程序可能冻结数百毫秒。优化后，锁持有时间从超过 <strong>500ms 降至不到 2ms</strong>，最坏情况从 705ms 降至平均 1.44ms / 最大 1.67ms。</p>
+
+<p>ZTE 的 Xu Xin 指出，实际场景中 JVM/Go 运行时和数据库引擎（MySQL、PostgreSQL）都可能触发此问题。在生产系统上曾观察到约 20,000 个 VMA 共享一个 anon_vma，锁持有时间高达 228ms。该优化对未受影响的系统几乎无额外开销，而对受影响的系统可带来 <strong>100 到 500 倍</strong> 的锁持有时间降低，直接减少应用延迟、提高吞吐量，并避免容器超时等问题。</p>
+
+<p>这些优化仅是 Linux 7.3 MM 更新的一部分，更多性能改进将在后续的 Phoronix 基准测试中呈现。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-MM</guid>
+      <pubDate>Wed, 19 Aug 2026 20:31:26 GMT</pubDate>
+    </item>
     <item>
       <title>Go 1.27 发布：引入泛型方法、SIMD 支持与标准库增强</title>
       <link>https://www.phoronix.com/news/Go-1.27</link>
@@ -735,20 +758,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Intel-XPU-Manager-2.1</guid>
       <pubDate>Thu, 13 Aug 2026 10:24:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Rsync 3.5 发布：修复 33 项安全漏洞的“非凡”更新</title>
-      <link>https://www.phoronix.com/news/Rsync-3.5</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题为 Rsync 3.5 软件发布，修复33个安全漏洞，符合用户high_interest的编程工具发布和开源项目配置</small></p><p>Rsync 是一款广泛使用的开源远程同步软件，用于跨网络同步文件和目录。近日，Rsync 3.5 正式发布，该版本被官方称为“非凡的发布（extraordinary release）”，主要因其修复了多达 33 项安全漏洞。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=rsync" alt="rsync logo" /></p>
-<p>此次安全更新源于对路径处理（path handling）和守护进程协议（daemon protocol）及相关代码的集中审计。修复的安全问题包括：利用符号链接（symlink）提供的输入文件进行任意文件读取或传输塑形，以及利用符号链接提供的输出路径进行任意文件写入或权限提升（privilege escalation）。此外，该版本还修复了多项高严重性（high CVE）漏洞。</p>
-<p>对于需要自行编译的用户，最新源码已发布在 <a href="https://www.samba.org/">Samba.org</a>。</p>
-<h3>你知道吗？</h3>
-<p>Rsync 的全称是 "Remote Sync"，最初由 Andrew Tridgell 开发，旨在提供比 rcp 更快的文件复制功能，并支持增量传输以节省带宽。由于其高效和安全性，它已成为 Linux/Unix 系统中备份和同步数据的标准工具。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rsync-3.5</guid>
-      <pubDate>Thu, 13 Aug 2026 01:26:03 GMT</pubDate>
     </item>
   </channel>
 </rss>

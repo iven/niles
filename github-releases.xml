@@ -3,7 +3,47 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 19 Aug 2026 19:35:13 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 20:43:11 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.236：新增默认模型、跨会话通知与 Auto 模式改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.236</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.236 发布，带来多项新功能和改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>默认模型设置</strong>：新增 <code>ANTHROPIC_DEFAULT_MODEL</code> 环境变量，可设置新会话的默认模型，<code>/model</code> 命令仍可覆盖并跨重启持久化（不同于 <code>ANTHROPIC_MODEL</code>）</li>
+<li><strong>跨会话通知</strong>：<code>SendMessage</code> 新增 <code>notify_when_idle</code> 选项，可请求本机其他 Claude Code 会话在空闲时发送一次性通知（macOS/Linux）</li>
+<li><strong>Auto 模式改进</strong>：Monitor 允许规则在 Auto 模式下被搁置，需像 Bash 命令一样接受审查；在 Bedrock、Vertex AI 和 Foundry 等平台使用与 Claude API 相同的分类器默认设置（含严重性评分分类）；git 状态检查不再被 <code>status.showUntrackedFiles=no</code> 欺骗</li>
+<li><strong><code>/goal</code> 自动 check-in</strong>：空闲会话若目标被长期后台工作阻塞，会在 30 分钟、1 小时、2 小时后自动 check-in，无需用户返回</li>
+<li><strong><code>/usage</code> 显示额度</strong>：为 Team/Enterprise 成员显示使用额度消费行，消费前显示 0% 封顶行</li>
+<li><strong>SIGTERM 处理优化</strong>：print/SDK 模式下退出前不再记录中断的 turn 或合成工具拒绝，运行中的命令仍会终止</li>
+<li><strong>命令错误提示</strong>：输入错误的斜杠命令或当前会话不可用的命令会报告错误，而非运行模糊匹配；前缀和别名仍正常运行</li>
+<li><strong>Remote Control 离线检测</strong>：CLI 退出或终端关闭时数秒内将会话标记为离线</li>
+<li><strong>消息流量控制</strong>：<code>SendMessage</code> 在突发消息超过会话收件箱容量时提前拒绝，而非报告已发送后被丢弃</li>
+<li><strong>[VSCode] 屏幕阅读器支持</strong>：对回复、权限请求、错误和状态变更提供实时播报，以及按回合的标题导航</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li>修复了会话目录被删除导致的剪贴板复制、后台维护、后台会话和本地 MCP 日志中断问题</li>
+<li>修复了全屏渲染器单次启动失败后永久失效的问题，现回退到经典渲染器</li>
+<li>修复了 <code>/model</code> 选择器超出终端高度的问题，改为适应窗口高度并支持滚动</li>
+<li>修复了 <code>SendMessage</code> 调用因格式错误的闭合标签被拒绝的问题</li>
+<li>修复了子进程启动失败时未处理的 promise 拒绝（如 WSL 上禁用 Windows 互操作时的 powershell.exe）</li>
+<li>修复了全屏模式下消息显示、提示区域空白条、窗格重绘等 UI 问题</li>
+<li>修复了 tmux 中终端标签页标题跳动的问题</li>
+<li>修复了托管设置审批提示、云环境列表错误、Fable 5 额度提示、spinner 提示等多项问题</li>
+<li>修复了 skills 热重载、自托管 runner 会话、Clawd 吉祥物渲染等问题</li>
+<li>会话 recap 文本限制为 400 字符，在单词边界截断，避免过长</li>
+<li>改进了启动性能，会话计数器改为后台写入</li>
+<li><code>/model</code> 选择器改为仅高亮最新模型名称，而非任意子集</li>
+<li>调整了会话标题 chip 和底部项目的对齐方式</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.236</guid>
+      <pubDate>Wed, 19 Aug 2026 20:02:05 GMT</pubDate>
+    </item>
     <item>
       <title>hapi v0.29.0：新增 codex 中途转向功能，修复 pi 模块上下文刷新与思考级别</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.29.0</link>
@@ -1100,33 +1140,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.1</guid>
       <pubDate>Sat, 18 Jul 2026 12:54:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.214 发布说明</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.214</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.214</h2>
-<p>Claude Code 发布 v2.1.214 版本，主要引入了会话控制、遥测增强及后台会话管理优化，并修复了多项 Bash 权限检查与流式传输相关的缺陷。</p>
-<h3>重要改动</h3>
-<ul>
-<li>新增 <code>EndConversation</code> 工具，允许 Claude 主动结束与高度滥用用户或越狱尝试的会话（详见 <a href="https://www.anthropic.com/research/end-subset-conversations">官方研究说明</a>）。</li>
-<li>新增长运行工具调用的周期性进度心跳，解决此前长时间运行时的静默问题。</li>
-<li>增强 OpenTelemetry 支持：日志事件新增 <code>message.uuid</code>、<code>client_request_id</code> 和 <code>tool_source</code> 属性，并新增 <code>CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH</code> 配置项以调整内容截断限制。</li>
-<li>新增 <code>subagentStatusLine</code> payload 中的 reasoning effort 字段，支持自定义代理行渲染模型与 effort。</li>
-<li>新增对携带 daemon-redirect 标志（如 <code>--url</code>、<code>--connection</code> 等）的 <code>docker</code> 命令的权限提示。</li>
-<li>调整 <code>file</code> 命令逻辑：使用 <code>-m</code>/<code>--magic-file</code> 或 <code>-f</code>/<code>--files-from</code> 时不再自动允许，需进行权限提示。</li>
-</ul>
-<h3>其他改动</h3>
-<ul>
-<li><strong>Bash 权限检查优化</strong>：修正长命令（&gt;10,000 字符）现强制提示；修复 <code>[[ ]]</code> 比较中 zsh 变量下标和修饰符的处理逻辑；不再自动批准部分 <code>help</code> 和 <code>man</code> 命令。</li>
-<li><strong>路径匹配规则调整</strong>：单段 <code>dir/**</code> 规则（如 <code>Edit(src/**)</code>）现仅匹配 <code>&lt;cwd&gt;/dir</code>，不再匹配树中任意位置的嵌套目录。</li>
-<li><strong>后台会话管理</strong>：修复后台会话闲置时守护进程无限期存活的问题；修复通过 <code>claude rm</code> 或代理视图删除后台会话的失败问题；修复从非 git 文件夹分派的后台会话无法删除及恢复时因不可读文件夹导致失败的问题。</li>
-<li><strong>稳定性与 Bug 修复</strong>：修复 GrowthBook 特性评估为 null 时的崩溃；修复 <code>--settings</code> 指向大文件时的无界内存增长（现限制 2 MiB）；修复流式传输退出时的数据截断；修复计划任务提示输入信任问题；修复插件加载回归及长运行会话中特性标志过期问题。</li>
-<li><strong>其他修复</strong>：修复 <code>claude update</code> 和 <code>claude doctor</code> 挂起问题；修复内存 frontmatter 值被静默截断；修复遥测重复计数；修复 MCP 瞬态错误清除斜杠命令的问题；调整 <code>SessionStart</code> 钩子源报告逻辑。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.214</guid>
-      <pubDate>Sat, 18 Jul 2026 01:20:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
