@@ -3,7 +3,20 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 19 Aug 2026 14:49:20 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 15:45:06 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Claude Code 推出 2026 年 5 月至 8 月周限额提升 50% 促销活动</title>
+      <link>https://news.ycombinator.com/item?id=49348751</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主题是 Claude Code 编程工具的周限额提升 50% 促销公告，属于编程工具相关动态，贴合编程工具分享与 AI 软件技术进展的兴趣，建议推荐阅读。</small></p><p>Anthropic 宣布为 Claude Code 推出限时促销活动，从 2026 年 5 月 13 日至 8 月 31 日，将 Pro、Max 和 Team 计划用户（以及 Enterprise 计划的 legacy seat-based 用户）的每周使用限额提升 50%。Free 计划和 consumption-based Enterprise 用户不参与此次活动。</p>
+
+<p>该促销自动生效，用户无需任何操作即可享受更高的周限额。需要注意的是，此次提升仅针对 Claude Code 的周使用限额，不影响 5 小时使用限制，也不涉及其他 Claude 产品（如 Claude 网页版、桌面端和移动端以及 Claude Cowork）。促销结束后，周限额将恢复至标准水平。</p>
+
+<p>社区对此反应不一。部分用户对 Claude 近期模型（如 Opus 5 和 Fable）的质量表示不满，认为其不如 OpenAI 的 GPT-5.6-Sol 和 Codex。有用户指出 Anthropic 似乎面临计算资源瓶颈，导致服务中断频发、高峰时段限制等问题。也有用户认为促销可能与暑期用户活跃度下降有关，或是为了应对用户向 Codex 等竞品迁移的趋势。不过，仍有用户认可 Claude Code 的价值，认为 Fable 在制定初始方案方面表现优异。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49348751</guid>
+      <pubDate>Tue, 18 Aug 2026 17:02:15 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 基于真实 FlyWire 连接组的 3D 果蝇桌面模拟器</title>
       <link>https://news.ycombinator.com/item?id=49353221</link>
@@ -902,44 +915,6 @@ HN 讨论：<a href="https://news.ycombinator.com/item?id=49289512">https://news
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49285244</guid>
       <pubDate>Thu, 13 Aug 2026 12:58:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ HTML over WebSockets：用极少量 JavaScript 构建实时单页应用</title>
-      <link>https://news.ycombinator.com/item?id=49275335</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了一种前端开发技术，旨在用极少 JavaScript 构建实时单页应用，属于编程工具与开发实践分享，符合 high_interest 配置。</small></p><img src="https://img.andros.dev/x97oO8U0xgXZa95meq19NwcyJcI=/800x0/filters:format(avif):quality(85)/https://andros.dev/media/thumbnails/kier-in-sight-archives-Sbxf5Dbyerk-unsplash.jpg" alt="文章配图" />
-<p>传统单页应用（SPA）开发通常涉及前端 JavaScript 框架、后端 JSON API 以及两套独立代码库的维护，架构复杂且耦合度高。本文介绍了一种替代方案：<b>HTML over WebSockets</b>（通过 WebSocket 传输 HTML）。该模式将渲染逻辑完全移至后端，后端直接生成已渲染的 HTML 片段，通过 WebSocket 发送给前端，前端仅负责接收并将其插入 DOM 中。</p>
-<p>该理念最早由 Elixir 框架 Phoenix 的创始人 Chris McCord 在 2019 年提出的 <a href="https://phoenixframework.org/liveview">Phoenix LiveView</a> 中普及。其核心工作流程如下：</p>
-<ul>
-  <li><b>传统 SPA</b>：浏览器发起 HTTP 请求 -> 后端查询数据库并返回 JSON -> 前端解析 JSON 并使用框架渲染 HTML。</li>
-  <li><b>HTML over WebSockets</b>：建立持久 WebSocket 连接 -> 前端发送页面请求 -> 后端查询数据库并直接渲染 HTML -> 返回 HTML 片段 -> 前端直接替换或插入对应 DOM 节点。后端还可主动推送实时更新。</li>
-</ul>
-<p><b>主要优势：</b></p>
-<ul>
-  <li><b>架构简化</b>：无需维护前后端分离的 API 契约，单一语言即可完成全栈开发。</li>
-  <li><b>实时性与广播</b>：持久连接支持低延迟的双向通信，服务端可轻松实现广播（如聊天室、实时仪表盘）。</li>
-  <li><b>状态管理集中</b>：应用状态保留在服务端，避免了复杂的客户端状态同步问题。</li>
-  <li><b>安全与 SEO</b>：服务端渲染首屏利于搜索引擎抓取；HTML 在服务端转义后传输，天然免疫 XSS 攻击。</li>
-  <li><b>网络开销低</b>：避免重复的 TCP 握手与 HTTP 头部传输，直接发送渲染好的内容。</li>
-</ul>
-<p><b>局限性与挑战：</b></p>
-<ul>
-  <li><b>服务端资源消耗</b>：需为每个连接维护状态，水平扩展时需借助 Redis 等中间件共享状态。</li>
-  <li><b>网络依赖</b>：不支持离线使用，断连需自行实现重连逻辑；高物理延迟会影响“实时”体验。</li>
-  <li><b>学习曲线</b>：需掌握 WebSocket 服务端编程及特定的组件生命周期模式。</li>
-</ul>
-<p><b>技术生态与传输协议选择：</b></p>
-<p>目前该模式已在多种语言中实现，如 <a href="https://phoenixframework.org/liveview">Phoenix LiveView</a>（Elixir）、<a href="https://www.django-liveview.com/">Django LiveView</a>（Python）、<a href="https://livewire.laravel.com/">Laravel Livewire</a>（PHP）以及 <a href="https://dotnet.microsoft.com/zh-cn/apps/aspnet/web-apps/blazor">Blazor Server</a>（C#）。文章指出，传输层的选择取决于业务需求：</p>
-<ul>
-  <li><b>WebSocket</b>：适合需要低延迟双向通信的场景（如聊天、协同编辑、游戏）。</li>
-  <li><b>SSE (Server-Sent Events)</b>：仅支持服务端向客户端单向推送，基础设施更简单，适合通知流、直播字幕等，且浏览器内置自动重连机制。</li>
-  <li><b>HTTP</b>：适合传统的请求-响应模式，如 <a href="https://htmx.org/">htmx</a>。</li>
-</ul>
-<p><b>社区反馈：</b></p>
-<p>在 Hacker News 讨论中，开发者普遍认为这是经典服务端渲染（如 DHTML、ASP.NET Ajax）思想的现代回归。部分观点指出，对于大多数仅需单向推送的应用，SSE 配合标准 Fetch API 往往比维护 WebSocket 连接更轻量且延迟相当。同时，也有开发者提醒在生产环境中需考虑企业级防火墙对 WebSocket 升级请求的拦截问题，以及服务端状态管理的复杂性。总体而言，该方案被视为简化现代 Web 开发、摆脱重型前端框架束缚的有效路径。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49275335</guid>
-      <pubDate>Wed, 12 Aug 2026 16:51:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
