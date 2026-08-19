@@ -3,7 +3,34 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 19 Aug 2026 09:48:18 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 10:50:22 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 调度器改进：提升游戏性能、优化混合 CPU、降低调度延迟</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-Scheduler</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux 7.3调度器改进，涉及游戏优化和混合CPU支持，属于Linux桌面技术和软件新功能，用户对此感兴趣</small></p><p>Linux 7.3 内核合并窗口迎来了令人兴奋的调度器更新。本次更新包含多项重要改进：</p>
+
+<h4>"Flatten the pick"补丁系列</h4>
+<p>由英特尔工程师 Peter Zijlstra 开发，旨在改善 cgroup 调度，提升老旧硬件上的游戏性能。在 Intel Sandy Bridge CPU 搭配 AMD Radeon RX 580 显卡的测试中表现显著。该补丁系列引入了多种 cgroup 权重分配方法（通过 cgroup_mode 参数：up、max、concur、tasks），默认使用最精确但开销最大的 "concur" 模式，并将 cgroup 调度改为单一运行队列。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=flatten_the_pick_benchmark" alt="benchmark result for flatten the pick patches" />
+
+<h4>降低调度延迟</h4>
+<p>Vincent Guittot 的改进显著降低了短时间片任务的调度延迟，cyclictest 测试结果令人印象深刻。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=short_latency" alt="latency benchmarks" />
+
+<h4>混合 CPU 集群调度修复</h4>
+<p>针对英特尔混合 CPU（异构 CPU）的集群负载均衡问题进行了重要修复。</p>
+
+<h4>NOHZ 平衡优化</h4>
+<p>现在优先选择完全空闲的核心进行负载均衡。</p>
+
+<p>此外，还包含其他各种代码更新。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Scheduler</guid>
+      <pubDate>Wed, 19 Aug 2026 10:20:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Modular 宣布 Mojo 系统编程语言全面开源，采用 Apache 2.0 协议</title>
       <link>https://www.phoronix.com/news/Modular-Mojo-Open-Source</link>
@@ -700,17 +727,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-2026-Patches-For-2018-MBP</guid>
       <pubDate>Wed, 12 Aug 2026 14:15:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2 因“公平”调度器回归问题回退至 FIFO 策略</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-Reverting-DRM-Fair</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Linux内核图形渲染调度策略调整，属于Linux底层技术更新，符合用户对Linux桌面/底层技术的兴趣配置，故推荐阅读。</small></p><p>Linux 7.2 内核原本计划将 Direct Rendering Manager (DRM) 的默认调度策略从先进先出（FIFO）切换为“公平（fair）”模式，旨在为 AMDGPU 等图形驱动提供更均衡的资源分配。然而，由于临近发布时收到了严重的性能回归报告，Igalia 的 Tvrtko Ursulin 决定在 Linux 7.2 中回退该更改，恢复使用 FIFO 策略。</p>
-<p>据用户 Luke Wildhardt 报告，启用“公平”调度器后，搭载 <img src="//www.phoronix.net/image.php?id=amd-radeon-rx9070-linux&image=amd_rx9070_6_med" alt="AMD Radeon RX 9070 XT" /> 的电脑在 GPU 满载运行游戏时会出现严重性能下降。具体表现为前台应用帧率骤降至约 10 fps 甚至完全冻结，KDE Plasma Wayland 会话可能彻底锁死，且不仅限于游戏场景，后台高负载任务同样会导致桌面环境无响应。</p>
-<p>鉴于 Linux 7.2 稳定版预计将于周日发布，距离正式推送不足一周，开发团队选择稳妥起见，已提交一组包含 20 个补丁的修复方案以回退该策略。这将为开发者留出充足时间调查根本原因并制定后续修复方案，相关补丁将作为 DRM 修复的一部分进入主线 Linux 内核代码库。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Reverting-DRM-Fair</guid>
-      <pubDate>Wed, 12 Aug 2026 10:31:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
