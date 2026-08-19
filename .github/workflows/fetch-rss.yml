@@ -22,7 +22,7 @@ jobs:
       sources: ${{ steps.read-config.outputs.sources }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Read config
         id: read-config
@@ -38,7 +38,7 @@ jobs:
         source: ${{ fromJson(needs.prepare.outputs.sources) }}
     steps:
       - name: Checkout main branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -58,7 +58,7 @@ jobs:
         run: bun install
 
       - name: Checkout gh-pages branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: gh-pages
           path: output
@@ -84,7 +84,7 @@ jobs:
             $DRY_RUN_FLAG
 
       - name: Upload RSS for commit
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: rss-${{ matrix.source.name }}
           path: |
@@ -100,12 +100,12 @@ jobs:
       contents: write
     steps:
       - name: Checkout gh-pages branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: gh-pages
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: rss-*
           merge-multiple: true
