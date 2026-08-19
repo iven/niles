@@ -3,7 +3,29 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 19 Aug 2026 13:54:04 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 14:50:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐ XWayland 26.1 RC1 发布，带来众多新特性</title>
+      <link>https://www.phoronix.com/news/XWayland-26.1-RC1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] XWayland 26.1 RC1发布带来新功能，属于Linux桌面技术和软件新功能，用户对此感兴趣</small></p><p>Red Hat 的 Olivier Fourdan 于 8 月 19 日宣布了 XWayland 26.1 的第一个候选发布版（RC1）。这是自 2024 年 XWayland 24.1 以来的首个特性版本，累积了两年多的数百项更改，为在 Wayland 环境下运行 X11 客户端带来了大量新功能和改进。</p>
+
+<p>主要新特性包括：</p>
+<ul>
+<li><strong>改进的 Rootful 实现</strong>：Rootful 模式新增剪贴板/主选择桥接功能（通过 <code>-clipboard</code> 参数启用），支持在 rootful Xwayland 与 Wayland 桌面其他部分之间进行复制/粘贴。</li>
+<li><strong>多席位支持（Xi2）</strong>：Wayland 席位及其输入设备被镜像到 XInput 2 层次结构中，实现多席位兼容。</li>
+<li><strong>Wayland fixes 协议支持</strong>：支持 <code>wl_fixes</code>，包括 <code>destroy_global</code> 和 <code>ack_global_remove</code>。</li>
+<li><strong>改进的 RandR 模拟</strong>：现在优先使用原生模式直至物理分辨率，模拟模式也已考虑屏幕旋转因素。</li>
+<li><strong>Rootful 全屏优化</strong>：默认使用实际输出分辨率，而非将 640x480 缩放填充。</li>
+<li><strong>XDG System Bell 协议支持</strong>：当合成器支持时，XWayland 可通过 Wayland 的系统响铃协议发出提示音。</li>
+<li><strong>移除 EGLStream 支持</strong>：鉴于 NVIDIA Linux 驱动栈已无需依赖 EGLStream 即可正常工作，该后端被彻底移除。</li>
+</ul>
+
+<p>目前尚无关于新版本 X.Org Server 特性发布的消息，本次更新仅针对独立的 XWayland。更多详情和下载方式可通过邮件列表公告获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/XWayland-26.1-RC1</guid>
+      <pubDate>Wed, 19 Aug 2026 14:11:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.3 调度器改进：提升游戏性能、优化混合 CPU、降低调度延迟</title>
       <link>https://www.phoronix.com/news/Linux-7.3-Scheduler</link>
@@ -712,21 +734,6 @@ Lemonade SDK 是 AMD 推出的开源软件开发工具包，旨在为开发者�
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Manjaro-Linux-26.1</guid>
       <pubDate>Wed, 12 Aug 2026 18:28:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 内核新增针对 2018~2019 款 MacBook Pro 的混合显卡优化补丁</title>
-      <link>https://www.phoronix.com/news/Linux-2026-Patches-For-2018-MBP</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讨论为2018~2019年款MacBook Pro提供Linux混合图形支持的补丁，高度匹配来源配置中的'苹果电脑Linux支持'（high_interest）。</small></p><p>近日，Linux 内核邮件列表发布了针对 2018~2019 款 MacBook Pro 的 <a href="https://www.phoronix.com/news/Linux-2026-Patches-For-2018-MBP">Apple GMUX 混合图形支持补丁</a>。该补丁旨在解决旧款机型在 Linux 系统下的显卡功耗与切换问题，显著提升续航与可用性。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=macbook_pro_2019" alt="MacBook Pro 15,1" />
-<p>长期以来，MacBookPro15,1 机型在启动 Linux 时默认将独立显卡（dGPU）作为主显卡，导致即使不运行图形密集型任务，也会产生约 12W 的额外空闲功耗（总空闲功耗约 24W）。虽然此前可通过手动选择集成显卡（iGPU）启动来规避此问题，但系统无法在需要时重新唤醒已关闭的 dGPU，导致混合显卡功能与挂起恢复功能失效。</p>
-<p>开发者 Andre Eikmeyer 提交的补丁补全了 <code>apple-gmux</code>、<code>amdgpu</code> 及 HDA 控制器的完整电源生命周期管理。启用该补丁后，系统可默认以 iGPU 启动以节省电量，并在运行游戏或高负载任务时通过 <code>DRI_PRIME</code> 动态切换至 dGPU。补丁还实现了 DynOff 与 DynPwr 状态的正确切换，并支持多种 Thunderbolt 和 USB-C 外接显示器。</p>
-<p>经过为期三周的严格测试，该补丁在 2018 和 2019 款 MacBookPro15,1 上成功验证了运行时/系统挂起与恢复、重复 GPU 唤醒等功能。目前补丁已公开接受审查，有望在未来 Linux 内核版本中正式合入。</p>
-<h3>你知道吗？</h3>
-<p><strong>Apple GMUX</strong> 是苹果 macOS 系统中用于管理混合显卡（集成显卡与独立显卡之间切换）的硬件与固件机制。在 Linux 环境下，由于缺乏原生的 macOS 驱动支持，开发者通过 <code>apple-gmux</code> 等开源驱动模拟这一机制，以实现类似 macOS 的显卡动态切换、电源管理以及外接显示器支持。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-2026-Patches-For-2018-MBP</guid>
-      <pubDate>Wed, 12 Aug 2026 14:15:36 GMT</pubDate>
     </item>
   </channel>
 </rss>
