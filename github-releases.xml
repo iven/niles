@@ -3,7 +3,43 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 20 Aug 2026 20:43:06 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 21:38:53 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.149.0：新增交互式 Agents 仪表盘、工作目录命令和队列功能</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.149.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>新功能</h3>
+<ul>
+<li><strong>交互式 Agents 仪表盘</strong>：新增 <code>codex agents</code> 命令，提供可搜索、可交互的任务仪表盘，支持启动、打开、重命名和停止任务，并支持可配置快捷键（#39094, #39112, #39114, #39142）。</li>
+<li><strong>工作目录管理命令</strong>：在 TUI 会话中新增 <code>/cd</code>、<code>/pwd</code> 和 <code>/cwd</code> 命令，方便管理当前工作目录（#38894）。</li>
+<li><strong>消息队列功能</strong>：新增 <code>codex queue</code> 命令，可向已有的本地或远程会话发送消息（#39092）。</li>
+<li><strong>Vim 编辑增强</strong>：扩展了 Vim 编辑模式，新增字符替换功能以及 <code>cw</code>、<code>c$</code>、<code>cc</code> 等变更动作（#39661）。</li>
+<li><strong>诊断工具升级</strong>：<code>codex doctor</code> 现在可诊断端点保护、网络/代理故障、桌面应用状态以及更新连接问题（#38827, #38918, #39060, #39074）。</li>
+<li><strong>SDK 增强</strong>：SDK 用户现在可以传递精确的 CLI 配置覆盖参数，并选择 <code>max</code> 或 <code>ultra</code> 推理力度（#38817, #39662）。</li>
+</ul>
+<h3>Bug 修复</h3>
+<ul>
+<li>队列消息现在能可靠地唤醒空闲会话，更合理地处理重复会话名称，并保留粘贴或延迟命令的语义（#39034, #39385, #39604）。</li>
+<li>恢复和分叉的线程现在会恢复其活跃的权限配置文件，而不是静默回退到当前默认值（#39153）。</li>
+<li>修复了子代理活动在 TUI 中重复显示的问题，并优化了子代理通知和审批的路由（#39049, #39088）。</li>
+<li>实时 WebRTC 边带连接在意外传输丢失后现在能自动重连，不会丢失待处理的输出（#39257）。</li>
+<li>内联 TUI 历史记录现在可在 Windows Terminal 回滚中保留（#39619）。</li>
+<li>非活跃 TUI 线程的回放缓冲区现在有大小限制，防止保留过多的流式输出（#39081）。</li>
+</ul>
+<h3>其他改进</h3>
+<ul>
+<li>TUI 审批中现在显示文件目标路径（#39285）。</li>
+<li>新增 cwd 相对路径的 turn diff 路径显示（#39625）。</li>
+<li>TUI 文本提示现在应用编辑器偏好设置（#39618）。</li>
+<li>在图形化 Linux 会话中会提示桌面应用（#39656）。</li>
+<li>废弃的 MCP 服务器启动时会发出警告（#39657）。</li>
+<li>在恢复或分叉会话前会提示先取消归档（#39640）。</li>
+<li>文档更新：明确了外部贡献应通过 issue 和设计讨论而非直接 PR 提交，并记录了安全开发容器的 DNS 泄露风险和信任限制（#39089, #39283）。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.149.0</guid>
+      <pubDate>Thu, 20 Aug 2026 21:04:55 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.238：新增 keybindingFlavor 与自托管运行器参数</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.238</link>
@@ -1153,23 +1189,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.215</guid>
       <pubDate>Sun, 19 Jul 2026 02:56:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.23.1 发布：新增 Codex 会话导入、Claude Code 离开摘要及多项 Web 与 CLI 优化</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.23.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.23.1 版本已发布。Hapi 是一款编码代理的桌面终端应用，允许同时运行多个 CLI 编码代理（如 <a href="https://github.com/tiann/hapi">Claude Code</a>），每个任务在独立的 <a href="https://git-scm.com/docs/git-worktree">git worktree</a> 中隔离。本次更新主要聚焦于 Web 界面优化、Claude Code 与 Codex 的功能增强，以及 CLI 稳定性的提升。</p>
-<h3>主要功能与改进</h3>
-<ul>
-<li><strong>Claude Code 集成优化</strong>：在本地模式聊天中新增显示 Claude Code 的离开摘要（away recap）功能，方便用户快速回顾中断前的任务状态；同时优化了会话转录内容的扫描方式，改为增量扫描以提升性能，并改进了标题显示逻辑，保留原生标题并增加远程回退机制。</li>
-<li><strong>Codex 会话管理</strong>：新增从运行器（runners）导入和恢复会话的功能，并修复了安全审批策略（safe-yolo approval policy）的兼容性问题。</li>
-<li><strong>Web 界面体验提升</strong>：支持按最后活动时间过滤会话列表；优化移动端体验，保持会话标题紧凑；确保机器名称始终可见，且健康状态提示支持触控操作。</li>
-<li><strong>CLI 稳定性修复</strong>：修复了远程启动失败时排队消息丢失的问题，提升了任务调用的可靠性。</li>
-</ul>
-<p>本次更新还包含多项底层修复与依赖更新，进一步增强了应用的稳定性与兼容性。完整更新日志可访问：<a href="https://github.com/tiann/hapi/compare/v0.23.0...v0.23.1">Full Changelog</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.23.1</guid>
-      <pubDate>Sun, 19 Jul 2026 06:22:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
