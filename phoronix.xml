@@ -3,7 +3,35 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 20 Aug 2026 16:48:31 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 17:42:35 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Rust 1.98 发布，引入类似 &quot;-ffast-math&quot; 的代数浮点方法</title>
+      <link>https://www.phoronix.com/news/Rust-1.98-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust 1.98 新版本发布，新增代数浮点方法，属于编程工具更新。来源配置中 Rust 为感兴趣，全局配置中编程工具发布为很感兴趣，综合评定为推荐阅读</small></p><p>Rust 1.98 正式发布，本次更新的核心亮点是为 <code>f32</code> 和 <code>f64</code> 浮点类型新增了代数方法（algebraic methods），包括加法、减法、乘法、除法和取余运算。这些方法允许编译器利用实数代数性质对浮点运算进行重新排序和优化，类似于其他语言和编译器中的 <code>-ffast-math</code> 选项。</p>
+
+<p>由于浮点运算不满足结合律等代数性质，传统上编译器必须严格按照代码中的顺序执行运算，这限制了向量化等优化手段。新的代数方法赋予编译器重新排列运算的自由度，例如将 <code>a + b + c + d</code> 重新组织为 <code>(a + b) + (c + d)</code> 以便并行计算，从而提升性能。不过，这些方法是非确定性的——相同的输入在不同编译优化下可能产生不同结果，但不会导致未定义行为。</p>
+
+<p>Rust 官方文档提醒开发者，由于编译器优化的不可预测性，同一程序运行中相同输入也可能产生不同结果，不安全的代码不得依赖返回值的任何属性来保证健全性。编译器实现会尽力在性能和精度之间做出合理权衡。</p>
+
+<p>这些代数方法的引入源于 2025 年的一份问题报告，指出在现代 x86_64 CPU 上，Rust 中简单点积运算的速度比 C++ 慢最多 8 倍，根本原因在于编译器无法重新排序浮点运算以实现更好的向量化。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=rust_algebraic" alt="Rust code example" />
+
+<p>此外，Rust 1.98 还带来了缓冲整数格式化（buffered integer formatting）等其他改进。更多详情可参阅 Rust 官方公告。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Rust-1.98-Released</guid>
+      <pubDate>Thu, 20 Aug 2026 17:29:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>KMSCON 10.0.2 发布：新增 asciicast 回放支持与多项修复</title>
+      <link>https://www.phoronix.com/news/KMSCON-10.0.2-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] KMSCON 是 Linux 控制台终端模拟器，本次为小版本更新增加 asciicast 回放支持。用户兴趣配置中无明确对应的高兴趣类别，兴趣不明确，故定为可选</small></p><p>KMSCON 10.0.2 于今日发布，这是这款面向 Linux 系统的领先用户空间终端模拟器的最新更新。KMSCON 基于 Linux 的 KMS/DRM 接口构建，是目前内核虚拟终端（VT）最具可行性的替代方案，已被 KDE Linux、GNOME OS 以及即将推出的 Fedora 45 等系统默认采用，用于取代内核内置的 VT 代码。</p><p>本次更新新增了 asciicast 回放支持。asciicast 是一种基于 JSON 的文件格式，用于保存由 asciicinema 命令行工具录制的终端会话。此外，KMSCON 10.0.2 还加入了闪烁（blink）配置选项、改进了原子 DRM 模式设置失败时的恢复能力、优化了 8x16 字体、修复了鼠标按键顺序问题，并包含一系列其他错误修复。</p><p><img src="//www.phoronix.net/image.php?id=2026&amp;image=kmscon_1002" alt="KMSCON 10.0.2" /></p><p>更多下载与发布详情可通过 GitHub 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KMSCON-10.0.2-Released</guid>
+      <pubDate>Thu, 20 Aug 2026 17:19:37 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ KDE 发布 KIO-Snapshot 1.0，实现 Btrfs 快照稳定集成</title>
       <link>https://www.phoronix.com/news/KDE-Btrfs-Snapshots</link>
@@ -773,38 +801,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Omarchy-4.0-Released</guid>
       <pubDate>Fri, 14 Aug 2026 18:10:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 内核新特性预览：Intel 混合架构优化、AMD Zen 6 支持及游戏外设改进</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Features-Preview</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 7.3 内核的新功能预览与硬件优化，属于 Linux 系统技术更新，符合用户对 Linux 技术发展的兴趣，故推荐。</small></p><p>随着 Linux 7.2 即将迎来稳定版发布，Linux 7.3 的合并窗口也即将开启。本文基于对 <code>-next</code> 开发分支的持续跟踪，梳理了 Linux 7.3 内核预计引入的主要新特性与改进，涵盖处理器调度优化、新一代硬件支持、图形驱动更新以及外设兼容性提升等多个方面。</p>
-
-<h3>CPU 调度与架构优化</h3>
-<p>在处理器层面，Linux 7.3 针对 AMD 和 Intel 平台进行了多项针对性改进。AMD Zen 6 架构将支持每 CPU 核心粒度的 P-State 动态 EPP（Energy Performance Preference），并新增对“低功耗”核心类型的识别。Intel 方面，混合架构（P/E 核）将获得更高效的集群负载均衡机制，同时旧款 Intel CPU 将受益于 KCFI（控制流完整性）优化以提升安全性。此外，CPU 调度器引入了“扁平化选择（flatten the pick）”策略，旨在改善游戏等负载下的调度表现。</p>
-
-<h3>图形驱动与显示支持</h3>
-<p>图形子系统迎来多项更新。Intel Nova Lake S 显卡驱动已趋于稳定，并新增对 Xe3 峰值带宽阈值（Peak Bandwidth Threshold）功能的支持。AMD 显卡驱动方面，DCN 6.0 架构获得初步支持，Valve 贡献了针对旧款 AMD GPU 的重置恢复优化，同时启用了 GFX11 APUs 的第二个图形管道。Apple M3 Pro / Max / Ultra 芯片也获得初步支持，目前仅支持启动至控制台环境。</p>
-
-<h3>游戏外设与硬件监控</h3>
-<p>Linux 7.3 在游戏外设兼容性上取得显著进展。Valve 等开发者为 MSI Claw 掌机添加了专用的游戏手柄配置驱动，支持按键映射与 RGB 灯光控制。同时，AMD Ryzen AI Halo 平台也将获得专用的 LED 驱动，支持灯光开关与 RGB 色彩控制。<img src="//www.phoronix.net/image.php?id=2026&image=ryzen_ai_halo_lighting_med" alt="AMD Ryzen AI Halo" /> 此外，内核将原生修复 Steam Controller 的长期驱动缺陷，并新增对 Logitech HID++ 2.0 可重编程按钮、HyperX 麦克风静音状态识别以及 SteelSeries 多款耳机的支持。硬件监控方面，更多 Lenovo 笔记本风扇传感器与 ASUS 台式机主板传感器将被纳入支持范围。</p>
-
-<h3>存储、网络与安全清理</h3>
-<p>存储与网络层面，<img src="//www.phoronix.net/image.php?id=2026&image=failfs_sml" alt="FailFS logo" /> FailFS 文件系统预期正式并入内核，作为 NullFS 的补充；同时针对 PCIe Gen5 NVMe SSD 的小 I/O 瓶颈问题进行了优化。网络方面新增 MCTP over USB v1.1 及 Realtek 网卡支持。安全方面，内核修复了 lockdown 模式下遗留的 I/O 与内存处理器漏洞，并简化了 Syscall User Dispatch 的禁用流程。为减轻维护负担，SGI 驱动、旧串口卡驱动以及 FreeVxFS 和 EFS 等老旧文件系统驱动将被移除。</p>
-
-<p>根据当前开发进度，Linux 7.3 预计将于 10 月下旬发布稳定版。若后续开发周期顺利，Linux 7.4 有望在年底发布并可能成为今年的长期支持（LTS）版本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Features-Preview</guid>
-      <pubDate>Fri, 14 Aug 2026 11:00:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux DRM 调度器“公平（fair）”策略回归问题已获修复</title>
-      <link>https://www.phoronix.com/news/Linux-Patches-Fix-DRM-Fair</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 聚焦Linux DRM图形调度器的策略修复补丁，属于Linux底层图形与桌面技术范畴，符合来源配置中“Linux桌面技术”的兴趣设定，故推荐阅读。</small></p><p>在 Linux 7.2 内核发布前夕，Direct Rendering Manager（DRM）子系统因最后一刻发现的回归问题，被迫将默认的调度策略从新引入的“公平（fair）”策略回退为 FIFO。目前，Igalia 工程师 Tvrtko Ursulin 已针对用户报告的 Radeon RX 9070 XT 性能下降问题发布了修复补丁。这两个补丁修改了不到一百行代码，成功解决了该回归问题。开发者计划在下个内核版本（预计 Linux 7.3）中重新将 fair 策略设为默认，并计划移除 FIFO 和 round-robin 策略以简化代码库。目前该策略在 Steam Deck 等设备上测试表现良好，将进一步提升 GPU 客户端的整体性能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Patches-Fix-DRM-Fair</guid>
-      <pubDate>Fri, 14 Aug 2026 10:04:16 GMT</pubDate>
     </item>
   </channel>
 </rss>

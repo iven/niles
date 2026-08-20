@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 20 Aug 2026 16:47:56 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 17:42:28 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 展示：训练125M参数Transformer模型，在设备上实时自动续写钢琴演奏</title>
+      <link>https://news.ycombinator.com/item?id=49373456</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及Transformer模型在音乐生成（钢琴MIDI自动续写）中的应用，属于AI软件技术进展，用户对此类主题感兴趣</small></p><p>开发者 Simon Edwards 训练了一个 125M 参数的 decoder-only Transformer 模型，能够在 iPhone 15 上以约 108 音符/秒的速度实时自动续写 MIDI 钢琴演奏。该项目名为 RollTab，思路类似 GitHub Copilot——用户弹奏几个音符作为提示（prompt），模型随即在设备端继续生成后续旋律。</p>
+
+<h3>核心挑战：如何将音乐转化为模型可读的序列</h3>
+<p>MIDI 文件不同于 MP3 等音频格式，它存储的是按键、释放、踏板等事件序列。将 MIDI 事件转化为离散 token 是首要难题。作者尝试了多种方案：</p>
+<ul>
+<li><strong>NOTE_ON/NOTE_OFF 表示法</strong>：模型容易"遗忘"发送 NOTE_OFF，导致音符悬留，不适合小规模实时模型。</li>
+<li><strong>带语法的多 token 流</strong>：每个音符拆分为 NOTE、PITCH、VELOCITY、DURATION 等多个 token，语法有效但速度慢，消耗上下文窗口快。</li>
+<li><strong>最终方案——单 token 表示</strong>：每个音符编码为一个完整的 token，包含五个字段（event_type, pitch, delta_onset, duration, velocity），每个字段有独立的词表。token 表示为各字段嵌入之和，模型为每个字段设置独立的输出头，但 Transformer 主干每音符只运行一次。这种设计将推理速度提升至 108 音符/秒。</li>
+</ul>
+<p>延音踏板（sustain pedal）的处理被融入音符时长：若踏板踩下时释放琴键，音符延长至踏板抬起；若同音被重新触发，则提前截断前一个音符。</p>
+
+<h3>数据集与训练</h3>
+<p>数据集经过严格筛选和清洗，最终包含数十万 MIDI 文件（约 3 亿音符事件）。作者发现，数据清洗和选择比单纯增加数据量更重要——将数据集扩大到约 5 倍后模型表现反而下降。</p>
+<p>训练采用交叉熵损失，对五个输出头分别计算后求和。数据增强包括全局移调、统一速度缩放、时长/力度抖动以及丢弃部分提示音符。</p>
+<p><strong>计划采样（Scheduled Sampling）</strong>：训练时逐步增加使用模型自身预测的 pitch 而非真实 pitch 的比例（从 0% 到 50%）。这虽然提高了验证损失，但显著改善了实际生成质量。</p>
+
+<h3>评估与 DPO 后训练</h3>
+<p>评估经历了从人工试听到自动指标再到 AI 辅助的演进。最终使用 <strong>Gemini 3.5 Flash</strong> 进行成对比较（pairwise evaluation），并分为两个维度：续写连贯性（continuation score）和独立音乐质量（sounds-good score）。</p>
+<p><strong>直接偏好优化（DPO）</strong> 是效果最显著的改进。对每个提示生成多个续写，用成对评估选出更好和更差的版本，训练模型增大好续写的概率。DPO 后，69% 以上的续写优于基础模型。β 值（控制偏离基础模型的惩罚强度）以 0.01–0.03 为佳，0.10 则过强导致效果下降。</p>
+
+<h3>部署与优化</h3>
+<p>模型从 PyTorch 导出到 Core ML，权重量化为 INT8。为支持长会话，当上下文接近 512 音符限制时，保留最近 384 个音符重建上下文并继续生成。使用旋转位置编码（RoPE），但由于 Core ML 不直接暴露 Q、K、V，无法实现更优雅的环形缓冲区方案。</p>
+
+<h3>社区反响</h3>
+<p>项目在 Hacker News 上获得 332 分和 79 条评论，反响热烈。用户赞赏其创意，同时提出改进方向：节奏感和曲式结构、多声部伴奏生成、以及通过"思维链"（CoT）或并行生成加自动选择来提升质量。作者回应称计划加入小节/拍号 token 来改善节奏，并探索并行生成多条续写后自动择优的方案。</p>
+<p>有评论提及历史上的类似项目，如 2003 年 François Pachet 的 Continuator（基于层次马尔可夫模型）和 2009 年的 Microsoft Songsmith，以及当前市场上的 Scaler 3 等工具。作者表示有意进一步优化推理速度，并探索让模型更像"另一位乐手实时反应"的方向。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49373456</guid>
+      <pubDate>Thu, 20 Aug 2026 12:04:38 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Turns 优于 Radians：更简单、更快、更精确的角度表示</title>
       <link>https://news.ycombinator.com/item?id=49369408</link>
@@ -964,22 +998,6 @@ Toast 1 代表了一种从传统 <strong>检索增强生成（RAG）</strong> �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49296627</guid>
       <pubDate>Fri, 14 Aug 2026 09:55:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qwen 3.8 27B 模型发布：消费级硬件上的性能与智能新标杆</title>
-      <link>https://news.ycombinator.com/item?id=49299605</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了Qwen 3.8大模型的发布，属于“新AI模型发布公告”，符合用户high_interest配置；同时涉及开源内容，也符合interest配置，故评定为critical。</small></p><p>阿里通义千问（Qwen）团队发布了 Qwen 3.8 27B 模型。该模型作为 270 亿参数（27B）的密集模型，在保持较高推理效率的同时，展现了卓越的性能表现。社区反馈指出，Qwen 3.8 27B 在 DeepSWE 等代码基准测试中表现优异，甚至超越了部分前沿模型（如 Claude 的 Opus 4.7 Max）。</p>
-<p>由于架构与 Qwen 3.5/3.6 保持一致，该模型能够无缝兼容现有的本地推理工具链（如 llama.cpp 和 vLLM）。Unsloth 已提供预量化的 GGUF 格式，方便用户在消费级硬件上部署：<a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">Unsloth Qwen3.8-27B-GGUF</a>。实测数据显示，在单张 RTX 4090 上，该模型量化运行可达到约 48 tokens/秒（tps）；若配合推测解码（Speculative Decoding）技术或升级至 RTX 5090，推理速度可轻松突破 100-200 tps，大幅超越商业模型 API 的响应速度。</p>
-<p>尽管性能强劲，部分用户也指出 Qwen 系列模型倾向于“过度思考（overthinking）”，导致生成冗长。社区建议可通过调整提示词模板或采用特定微调版本（如基于 Claude 推理轨迹的微调模型：<a href="https://huggingface.co/rico03/Qwen3.6-27B-Claude-Opus-Reasoning-Distilled">Qwen3.6-27B-Claude-Opus-Reasoning-Distilled</a>）来优化体验。此外，开发者们仍在期待更小参数但采用混合专家（MoE）架构的变体，以在显存占用、功耗和推理速度之间取得更优平衡。</p>
-<h3>你知道吗？</h3>
-<ul>
-  <li><strong>GGUF 与量化</strong>：GGUF 是一种专为本地大语言模型推理优化的文件格式，支持多种量化级别（如 q4km、q8_0 等）。量化能显著降低模型显存占用并提升推理速度，而 GGUF 格式使其能在 CPU、GPU 甚至移动端设备上高效运行。</li>
-  <li><strong>推测解码（Speculative Decoding）</strong>：一种加速大模型推理的技术，通过一个小模型快速生成多个候选 token，再由大模型并行验证和修正。该技术可在不牺牲质量的前提下，将推理速度提升数倍。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49299605</guid>
-      <pubDate>Fri, 14 Aug 2026 15:00:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
