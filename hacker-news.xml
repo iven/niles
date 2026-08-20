@@ -3,7 +3,54 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 20 Aug 2026 11:39:12 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 13:09:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Anthropic 被要求为 Claude Code 支持 AGENTS.md 开放标准，引发社区热议</title>
+      <link>https://news.ycombinator.com/item?id=49367350</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论AI编码工具Claude Code与AGENTS.md开放标准之争，属于编程工具和编程效率改进话题，用户对这两类兴趣为high_interest</small></p><p>Anthropic 的 Claude Code 仓库收到一项功能请求（<a href="https://github.com/anthropics/claude-code/issues/6235">Issue #6235</a>），要求支持 <strong>AGENTS.md</strong> 标准。Codex、Amp、Cursor 等主流编码代理工具已开始统一采用 AGENTS.md（<a href="https://agents.md/">agents.md</a>）——一个用于帮助编码代理理解代码库的统一 Markdown 文件。相比之下，Claude Code 目前使用专属的 CLAUDE.md 格式，与其他工具不兼容，不利于团队协作。</p>
+
+<p>该议题在 Hacker News 上引发激烈讨论（308 分，189 条评论），社区观点呈现明显分歧：</p>
+
+<ul>
+  <li><strong>支持开放标准</strong>：许多开发者认为 Anthropic 拒绝采纳社区推动的开放标准，是"傲慢"和"封闭"的表现。有评论指出，Anthropic 乐于创建 MCP、Skills 等自有标准，却不愿适配社区已有的规范。</li>
+  <li><strong>简单变通方案</strong>：部分用户提出可通过符号链接（symlink）将 AGENTS.md 指向 CLAUDE.md，或在 CLAUDE.md 中用一行指令引用 AGENTS.md 来解决兼容问题。</li>
+  <li><strong>营销动机质疑</strong>：多位评论者认为 Anthropic 坚持使用 CLAUDE.md 是一种品牌推广策略——类似"Sent from my iPhone"的签名效果，让每个仓库都留下 Claude Code 的痕迹，为潜在的 IPO 积累数据。</li>
+  <li><strong>对 Claude Code 的不满</strong>：一些用户表达了对 Claude Code 整体方向的不满，认为其界面越来越臃肿、响应越来越冗长，相比之下其他工具（如 Pi）体验更优。</li>
+</ul>
+
+<p>Anthropic 的 Boris Cherny（Claude Code 开发者）在议题中回复称"Generated with Claude Code"，这一做法也遭到部分用户批评，认为连回复都依赖 AI 生成显得不够真诚。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49367350</guid>
+      <pubDate>Wed, 19 Aug 2026 21:19:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Unsloth 发布 Dynamic 3.0 GGUF 量化方案：同等大小下精度提升超 10%</title>
+      <link>https://news.ycombinator.com/item?id=49365443</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Unsloth发布GGUF量化方案新版本，属于编程工具发布和AI软件技术进展，用户对编程工具发布为high_interest，AI进展为interest</small></p><p>Unsloth 正式发布了 <strong>Dynamic 3.0 GGUF</strong> 量化方案，这是其动态量化技术的重大升级。新版本首先应用于 Qwen3.8-27B 模型，在同等文件大小下，top-1% 准确率相比其他量化方案提升超过 10%，且兼容 llama.cpp 和 Unsloth Desktop 等主流推理引擎。</p>
+
+<h3>核心改进</h3>
+<p>Dynamic 3.0 采用了多项新技术：使用更高质量的 imatrix 校准数据集（涵盖编程对话、多语言等多种来源），改进了层选择策略，并引入了更多量化技术以最大限度保留模型质量。所有操作均通过训练后量化（Post-Training Quantization, PTQ）完成，未使用 QAT 或 QAD 方法。团队强调其方法不存在过拟合问题——校准数据集与测试数据集完全不同。</p>
+
+<p>在较小量化级别（低于 UD-Q2_K_XL，即 8.37GB 及以下）中，移除了多令牌预测（MTP）模块以节省约 500MB 磁盘空间，用户可按需使用独立的 Q4_0 MTP 模块。此外还推出了超低比特量化版本 UD-IQ1_S（6.2GB，不含 MTP），在缩小 89% 的同时保留了约 72% 的 top-1% 准确率。</p>
+
+<p><img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FHkiEb4BgU9IZ4t0pbMKs%252FUD-Q2_K_XL-Qwen.gif%3Falt%3Dmedia%26token%3D6b4cd6d5-0b70-4741-a72e-1f5e1974dbb0&width=768&dpr=3&quality=100&sign=28df58f2&sv=2" alt="2-bit Qwen3.8-27B GGUF 生成示例" width="720" height="405" /></p>
+
+<h3>基准测试与评估</h3>
+<p>Unsloth 引入了新的评估指标 <strong>Divergence-300 @32</strong>，使用 300 个保留样本（来自 Terminal-Bench 2.1、DeepSWE、Harbor、MathArena 等数据集，不包含在校准集中）进行 32 个令牌的贪婪解码，以衡量量化输出与 BF16 原始模型的一致性。KL 散度（KL Divergence）测试显示，在所有量化级别上，UD-3 量化方案在相同磁盘空间下可获得最高 +10% 的 top-1% 准确率提升。</p>
+
+<p><img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FySCIjoinQuhNqfGz3C4Q%252Fimage.png%3Falt%3Dmedia%26token%3Ddcc5a2be-3445-4a67-b1e2-0ca5e89fbcf6&width=768&dpr=3&quality=100&sign=15017a78&sv=2" alt="Divergence-300 @32 基准测试" width="3778" height="1979" /></p>
+
+<h3>过往成果与生态贡献</h3>
+<p>文章同时回顾了 Dynamic v2.0 的特性，包括重新设计的层选择策略、模型专属量化方案、以及对 Apple Silicon 的优化。Unsloth 团队还积极修复了多个主流模型在 llama.cpp 中的兼容性问题，包括 Llama 4 的 RoPE 缩放配置和 QK Norm epsilon 参数，并与 Qwen3、Meta、Mistral、Google、Microsoft 等团队直接合作。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论中，多位用户分享了实际使用体验。有用户表示在 4090 16GB 上使用 IQ4 量化效果良好；也有用户指出超低比特量化（1-bit、2-bit）在复杂任务中可能因误差累积导致输出偏离，建议在需要长输出序列的场景中谨慎使用。部分用户询问了在 Apple 设备上进行量化的可能性，以及多 GPU 配置下的运行方案。Unsloth 的 GGUF 量化因其持续的模型兼容性修复而受到社区广泛认可。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49365443</guid>
+      <pubDate>Wed, 19 Aug 2026 18:36:45 GMT</pubDate>
+    </item>
     <item>
       <title>别直接粘贴 AI 的回答：dontpastetheai.com 呼吁&quot;用 AI 起草，自己作答&quot;</title>
       <link>https://news.ycombinator.com/item?id=49371857</link>
@@ -918,26 +965,6 @@ Toast 1 代表了一种从传统 <strong>检索增强生成（RAG）</strong> �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49296740</guid>
       <pubDate>Fri, 14 Aug 2026 10:12:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ NP-hard 问题在实践中远非不可解：理论迷思与工程现实</title>
-      <link>https://news.ycombinator.com/item?id=49291268</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要探讨 NP-hard 问题在工程实践中的求解策略，直接关联算法优化与编程效率提升，高度匹配用户高兴趣配置，故列为必看。</small></p><p>许多人认为 <a href="https://gruhn.me/blog/2026-08-13/">NP-hard（NP难）问题</a> 虽然理论上可解，但在实践中极其昂贵且难以处理。这篇文章反驳了这一普遍迷思，指出尽管最坏情况确实存在，但在实际工程中，绝大多数相关输入都能被快速求解。</p>
-<p>文章列举了依赖解析（包管理器）、类型检查、调度、旅行商问题以及布尔可满足性问题（SAT）等经典 NP-hard 问题。作者指出，在实际场景中，这些问题的最坏情况极少发生。例如，Amazon 每天能轻松解决数十亿次 SMT（SAT 的扩展形式）问题。面对极端情况，工程上通常采用启发式算法、限制问题空间（如包管理器简化版本约束）、设置超时与回退机制等策略，而非盲目追求理论上的最优解。</p>
-<p>社区讨论进一步补充了工程实践中的应对策略：实际问题的规模 N 通常有界，使得时间复杂度在实际中接近常数级；现代硬件特性（如缓存局部性和向量化）也常使简单的线性扫描优于复杂的对数级算法。此外，许多工程系统通过主动简化问题定义（如放弃严格的版本唯一性约束）来规避理论上的计算爆炸。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49291268</guid>
-      <pubDate>Thu, 13 Aug 2026 20:14:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 智谱发布 GLM-5.3：凭借后训练技术实现前沿编码与网络安全能力</title>
-      <link>https://news.ycombinator.com/item?id=49294997</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍智谱发布GLM-5.3新AI模型及其在编码与网络安全方面的能力，直接匹配用户很感兴趣的新AI模型发布公告配置。</small></p><p>智谱AI（Zhipu AI）发布了新一代大语言模型 <strong>GLM-5.3</strong>，主打前沿编码（Coding）与新兴的网络安全（Cybersecurity）能力。该模型在 Z.ai Code Bench 内部基准测试中较前代 GLM-5.2 提升 50%，并在 Terminal Bench 3.0 和 Agents' Last Exam 等公开测试中创下开源模型最高分（SOTA）。</p><p>技术层面，GLM-5.3 采用了与 GLM-5.2 相同的基座模型（约 744B 参数），所有性能增益均来源于“后训练（Post-training）”阶段的优化。社区分析指出，这主要涉及基于验证的强化学习（RLVR），即通过可验证的编程与安全任务作为奖励信号来微调模型。尽管参数量仅为 Kimi K3（2.8T）或 DeepSeek v4 Pro（1.5T）的三分之一左右，GLM-5.3 在多项基准测试中实现了超越，显示出后训练技术与模型小型化趋势的重要性。</p><p>此外，该模型引发了关于大模型安全护栏（Guardrails）的广泛讨论。多位开发者反馈，OpenAI 和 Anthropic 的最新模型（如 Opus 和 Sol）因合规限制，严重削弱了对安全审计和网络攻防任务的支持。相比之下，GLM-5.3 在保留强大能力的同时，为开发者提供了更实用的网络安全工作流支持。智谱AI 宣布将在发布两周后，完成安全评估与加固工作，正式开源模型权重。详细技术细节可参考官方博客：<a href="https://z.ai/blog/glm-5.3">https://z.ai/blog/glm-5.3</a></p><h3>你知道吗？</h3><p><strong>后训练（Post-training）与 RLVR</strong>：在预训练（Pre-training）消耗了互联网上几乎所有可用文本数据后，大模型能力的进一步提升越来越依赖于后训练阶段。其中，基于验证的强化学习（RLVR, Reinforcement Learning with Verifiable Rewards）是近期编码与安全领域突破的关键。与传统的基于人类反馈的强化学习（RLHF）不同，RLVR 利用代码执行结果、漏洞扫描工具输出等客观、可自动验证的信号作为奖励，大幅提升了模型在逻辑推理和复杂任务中的表现。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49294997</guid>
-      <pubDate>Fri, 14 Aug 2026 05:19:59 GMT</pubDate>
     </item>
   </channel>
 </rss>
