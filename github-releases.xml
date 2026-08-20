@@ -3,7 +3,42 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 20 Aug 2026 19:40:50 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 20:43:06 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.238：新增 keybindingFlavor 与自托管运行器参数</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.238</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.238 发布，主要新增了 <code>keybindingFlavor</code> 设置、插件市场 <code>headersHelper</code> 支持以及自托管运行器的新参数，并修复了大量问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>keybindingFlavor 设置</strong>：新增 <code>keybindingFlavor</code> 配置项，设为 <code>"readline"</code> 可使 Ctrl+W 在提示符中删除到前一个空白字符（类似 Bash 行为），默认值 <code>"classic"</code> 保持不变。</li>
+<li><strong>插件市场 headersHelper</strong>：URL 市场和目录条目支持 <code>headersHelper</code>，可运行命令生成 HTTP 头（如短期令牌），用于目录和同源存档获取。目录条目的 <code>headersHelper</code> 仅在安装或更新该插件时运行。</li>
+<li><strong>自托管运行器新参数</strong>：<code>--defer-shutdown-max-min &lt;minutes&gt;</code> 可在收到 SIGTERM 后继续服务已附加的会话，超时后停放剩余会话再退出；<code>--proxy-authorization-command</code> 和 <code>--proxy-authorization-file</code> 用于需要每次连接都提供新 <code>Proxy-Authorization</code> 头的出口代理。</li>
+</ul>
+
+<h3>修复与改进</h3>
+<ul>
+<li><strong>内存与性能</strong>：修复了长交互会话中无限制的内存增长（子代理工具结果离开显示窗口后即释放）；改进了 macOS 启动速度；自动更新检查延迟到启动后约 10 秒运行，不再与启动竞争 CPU。</li>
+<li><strong>终端与 UI</strong>：修复了自定义/项目/插件输出风格在会话中漂移回默认声音的问题；修复了长按 Backspace 在慢速 SSH 连接上被忽略的问题；修复了权限提示 diff 中宽字符和制表符行被截断的问题；修复了挂起会话后终端留在 bracketed-paste 模式的问题。</li>
+<li><strong>MCP（Model Contract Protocol）</strong>：修复了提示对话框对超过 4096 字符的 URL 不显示内容的问题；修复了 stdio MCP 服务器在 <code>initialize</code> 前收到 <code>server/discover</code> 请求的问题；项目 <code>.mcp.json</code> 中的 <code>headersHelper</code> 及内联 MCP 服务器现在需要接受信任对话框，且不再继承凭证环境变量。</li>
+<li><strong>Remote Control</strong>：修复了连接因网络问题导致"登录过期"断开、消息在回复期间从转录消失、模型选择不更新终端显示、进程崩溃后不可用、继承启动 shell 环境变量、注销时错误报告重连失败等多项问题。</li>
+<li><strong>跨会话消息</strong>：拒绝入站消息的会话现在向发送者报告"已拒绝"而非静默成功；因速率限制或队列满而丢弃消息的会话现在通知发送会话。</li>
+<li><strong>其他修复</strong>：修复了 worktree-isolation Bash 拒绝误报、自托管运行器被服务器错误移除、代理拒绝连接被报告为通用网络错误、<code>/model</code> 和 <code>/effort</code> 缓存警告误触发、<code>CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION</code> 不生效、Bash 命令被杀死后遗留临时文件等问题。</li>
+</ul>
+
+<h3>行为变更</h3>
+<ul>
+<li>Ctrl+L 和 Cmd+K 在全屏模式下始终只重绘，移除了双击触发 <code>/clear</code> 的快捷键。</li>
+<li><code>claude mcp list</code> 和 <code>claude mcp get</code> 将禁用服务器显示为 <code>⊘ Disabled</code>，而非连接进行健康检查。</li>
+<li>更新了 bundled <code>claude-api</code> skill，适配 Managed Agents 8 月发布版。</li>
+<li>改进了 Bash 工具对 zsh 特定语法的权限检查。</li>
+<li>改进了 Remote Control 连接韧性，短暂 HTTP 403 拒绝可容忍最多 3 分钟，并指明拒绝方。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.238</guid>
+      <pubDate>Thu, 20 Aug 2026 20:33:51 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.237：新增简洁输出风格，修复提示缓存问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.237</link>
@@ -1135,15 +1170,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.23.1</guid>
       <pubDate>Sun, 19 Jul 2026 06:22:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenAI Codex 0.144.6 更新：修正 GPT-5.6 模型上下文窗口</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.144.6</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><div>OpenAI Codex 发布了 0.144.6 版本。此次更新主要修复了捆绑模型元数据的问题，具体包括刷新了 GPT-5.6 Sol、Terra 和 Luna 模型的内置指令，并修正了它们的上下文窗口大小至 272,000 tokens。</div>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.144.6</guid>
-      <pubDate>Sat, 18 Jul 2026 13:51:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
