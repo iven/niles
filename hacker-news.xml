@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 20 Aug 2026 13:56:42 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 14:51:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Air Theremin：通过摄像头手势或手机陀螺仪在浏览器中演奏特雷门琴</title>
+      <link>https://news.ycombinator.com/item?id=49359425</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是一个在浏览器中通过摄像头手势或手机陀螺仪演奏特雷门琴的创意工具，属于编程工具发布/分享，用户对此类内容很感兴趣</small></p><p>开发者 Pavel Gurov 发布了一款名为 <strong>Air Theremin</strong> 的浏览器应用，让你无需任何实体乐器，仅通过摄像头捕捉双手动作或手机陀螺仪倾斜，就能在空中演奏特雷门琴（Theremin）。项目地址：<a href="https://theremin.bizibah.com/">theremin.bizibah.com</a>，源代码以 MIT 许可发布在 <a href="https://github.com/gurov/theremin">GitHub</a>。</p>
+
+<h3>两种演奏模式</h3>
+<p><strong>双手模式（Hands）</strong>：通过笔记本或手机摄像头捕捉双手动作。双手分开控制音量，抬高控制音高，前后倾斜改变音色（低通滤波与混响），双手合拢则静音。双手之间的连线角度还可产生颤音（Vibrato）效果。</p>
+<p><strong>陀螺仪模式（Gyro）</strong>：在手机上左右倾斜控制音量，前后倾斜控制音高，将标记移出画面即可静音。两种模式均支持鼠标操作作为后备方案。</p>
+
+<h3>技术实现</h3>
+<p>手部追踪基于 Google MediaPipe 的 Hand Landmarker 模型，编译为 WASM 后在用户本地 GPU 上运行，所有视频数据不会离开用户设备。模型文件约 8 MB，从 CDN 加载一次后即可断网使用。</p>
+<p>开发者分享了几个有趣的技术挑战：</p>
+<ul>
+  <li><strong>手部消失问题</strong>：MediaPipe 通过手掌平面检测手部，当手腕侧转或光线不足时容易丢失追踪。最终方案是根据手部最后出现的位置动态调整保持时间——画面边缘处 400ms（真正移开），画面中央则长达 1 秒（检测器短暂闪烁），用户几乎听不到断音。</li>
+  <li><strong>低音补偿</strong>：手机扬声器无法有效播放 150 Hz 以下的低频。解决方案是将最低八度分离出来，温和饱和以产生泛音，再滤除基频，让耳朵"重建"出从未真实发出的音高。</li>
+  <li><strong>音高步进 Bug</strong>：测试者反映手机模式下低音区音高呈阶梯式跳跃。排查发现手机陀螺仪倾斜角量化精度约 1 度，而开发者将六个八度压缩在 80 度倾斜范围内——传感器每跳一格就是大半个半音。低音区尤其明显，因为激励器将 70 Hz 的基频通过泛音重现在 200-300 Hz 区域，恰好是人耳对音高分辨最灵敏的频段。最终通过缩小音域范围、扩大倾斜扫描区间以及按帧率而非事件频率读取传感器解决。</li>
+</ul>
+
+<h3>社区反响</h3>
+<p>该项目在 Hacker News 上获得 290 分和 96 条评论，多数用户对其创意和技术实现表示赞赏。有用户将其比作"空气吉他"的特雷门琴版本。部分讨论涉及 AI 生成 UI 的识别、摄像头权限的安全顾虑，以及将前后摄像头同时用于控制的设想。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49359425</guid>
+      <pubDate>Wed, 19 Aug 2026 10:15:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ fx：用 Zig 编写的小型开源编码代理，二进制仅 6MB</title>
       <link>https://news.ycombinator.com/item?id=49353339</link>
@@ -947,18 +972,6 @@ Toast 1 代表了一种从传统 <strong>检索增强生成（RAG）</strong> �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49299684</guid>
       <pubDate>Fri, 14 Aug 2026 15:03:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Choosing an AI model: one prompt, 11 models, different results</title>
-      <link>https://news.ycombinator.com/item?id=49285327</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了Netlify（编程工具）集成OpenRouter支持多种新AI模型（如Kimi K3, DeepSeek V4），并对比了它们在编程构建任务中的表现。涉及编程工具功能发布及新模型技术进展，符合用户high_interest配置。</small></p><p>Article URL: <a href="https://www.netlify.com/blog/one-prompt-11-models-very-different-results/">https://www.netlify.com/blog/one-prompt-11-models-very-different-results/</a></p>
-<p>Comments URL: <a href="https://news.ycombinator.com/item?id=49285327">https://news.ycombinator.com/item?id=49285327</a></p>
-<p>Points: 210</p>
-<p># Comments: 91</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49285327</guid>
-      <pubDate>Thu, 13 Aug 2026 13:05:29 GMT</pubDate>
     </item>
   </channel>
 </rss>
