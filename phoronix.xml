@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 21 Aug 2026 09:49:21 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 21 Aug 2026 10:46:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linus Torvalds 罕见亲自修复 Intel Xe 显卡驱动：&quot;地狱级调试&quot;获 AI 大力协助</title>
+      <link>https://www.phoronix.com/news/Linus-Torvalds-Debug-AI</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲借助 AI 完成一次极其困难的调试过程，属于编程效率改进经验，契合全局很感兴趣配置；同时也涉及 AI 技术应用，故判为必看。</small></p><p>Linux 创始人 Linus Torvalds 罕见地亲自撰写并提交了一个针对开源 Linux 图形驱动的补丁——Intel Xe 内核驱动改动。据其提交说明，这源于一次"地狱般的调试过程"（debug session from hell），而 AI 在其中提供了巨大帮助。</p><p><img src="//www.phoronix.net/image.php?id=intel-arc-b580-graphics-linux&amp;image=intel_arc_b580_4_med" alt="Intel Battlemage graphics card" />该补丁针对 Xe 内核驱动，改动内容为不再将扁平的 Compute Command Streamer（CCS）存储作为可用显存（vRAM）分配。在 Battlemage G21 显卡上，Torvalds 遇到了可用内存结束位置不匹配的场景，导致 GDM 显示管理器被无限重启。</p><p>Torvalds 在提交信息中写道："这是一次地狱般的调试过程，AI 做了大量基础工作，给了我巨大帮助。我想称它为不知疲倦的助手，但 AI 多次直截了当地表示这不可能、无法解决，建议我们直接写一份报告。我怀疑这些 AI 是被一些不像我这么固执的人训练的。不过，虽然 AI 几次准备放弃，但当我一再推动时，它确实持续添加调试代码并忠实地进行分析。功劳归功劳，我让 AI 写了上面的提交信息。这基本上是一行修复，把错误的 <code>round_up()</code> 改成 <code>round_down()</code>，但为此添加了 24 个补丁来逐步增加调试信息，并经历了 18 次内核启动才最终定位问题。"</p><p>该修复已合并到 Linux 7.3 Git 主线，并标记为回移植（back-port）到稳定内核分支。</p><h3>你知道吗？</h3><ul><li>CCS（Compute Command Streamer）是 Intel 显卡中负责计算任务的命令流处理器，其存储区域与显存的关系需要在驱动中精确管理，错误地将该区域暴露为可用显存会引发内存范围错乱。</li><li><code>round_up()</code> 与 <code>round_down()</code> 是内核中常用的对齐函数，分别将数值向上或向下取整；此处误用 <code>round_up()</code> 导致内存范围计算超出实际可用区域，从而触发驱动与显示管理器之间的状态冲突。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linus-Torvalds-Debug-AI</guid>
+      <pubDate>Fri, 21 Aug 2026 10:19:44 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Rust 1.98 发布，引入类似 &quot;-ffast-math&quot; 的代数浮点方法</title>
       <link>https://www.phoronix.com/news/Rust-1.98-Released</link>
@@ -789,18 +798,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Lemonade-SDK-11.6</guid>
       <pubDate>Fri, 14 Aug 2026 20:00:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Omarchy 4.0 发布：基于 Arch Linux 的发行版，桌面外壳全面改用 Quickshell 重写</title>
-      <link>https://www.phoronix.com/news/Omarchy-4.0-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍全新Linux发行版Omarchy 4.0的发布，契合来源配置中“新发行版”的高兴趣设定，故评为critical。</small></p><p>Omarchy 4.0 是 Basecamp 联合创始人 David Heinemeier Hansson（DHH）开发的 Arch Linux 发行版，近日发布了该发行版迄今为止最大的更新。此次更新的核心变化是桌面外壳（Desktop Shell）已全面使用 Quickshell 进行重写。Quickshell 是一个基于 Qt Quick 的工具包，提供“桌面构建块”，兼容 X11 和 Wayland 协议。</p>
-<p>新的外壳通过一个常驻进程统一管理任务栏、启动器、菜单和通知等组件，取代了此前分散在 Hyprland 合成器周围的独立组件，实现了更连贯的主题支持和 IPC 脚本控制。</p>
-<p>此外，Omarchy 4.0 还引入了多项改进：支持双启动安装，ISO 镜像体积进一步缩小，网络面板改用 NetworkManager，并包含一系列其他桌面端优化。完整的变更日志和 ISO 下载链接已发布于 GitHub。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=omarchy_4" alt="Omarchy 4" /></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Omarchy-4.0-Released</guid>
-      <pubDate>Fri, 14 Aug 2026 18:10:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
