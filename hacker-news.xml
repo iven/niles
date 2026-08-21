@@ -3,7 +3,73 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 21 Aug 2026 01:55:56 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 21 Aug 2026 03:14:19 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Bun 1.4 发布：从 Zig 重写为 Rust，性能大幅提升，新增多项内置 API</title>
+      <link>https://news.ycombinator.com/item?id=49374797</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Bun 是一款 JavaScript 运行时与工具链，属于编程工具；本文是其 1.4 版本的发布公告，直接匹配全局配置中「编程工具发布/分享」这一很感兴趣类别，故定为 critical。</small></p><h2>概述</h2>
+<p>Bun 团队正式发布了 <strong>Bun 1.4</strong>，这是自 Bun 1.0 以来最大的一次更新。本次版本的核心变化是将运行时从 <strong>Zig 重写为 Rust</strong>，同时带来了显著的性能提升、大量新增 API 以及更完善的 Node.js 兼容性。</p>
+
+<h2>Node.js 兼容性大幅提升</h2>
+<p>Bun 1.4 新增了 <strong>1,517 个来自 Node.js 测试套件的测试</strong>，目前累计通过 3,743 个测试。多个核心模块的通过率超过 97%，其中 <code>node:events</code>、<code>node:trace_events</code> 和 <code>node:sqlite</code> 达到 100%。Playwright、Next.js 16、vitest、OpenTelemetry 和 dd-trace 等主流工具和框架现已支持在 Bun 上运行。</p>
+
+<img src="/images/blog/bun-1.4/node-test-suite-progress.png" alt="Node.js 测试套件进度图表：从 v1.2.0 的 1,450 个测试增长到 v1.4.0 的 3,743 个" width="2400" height="1600" />
+
+<h2>性能改进</h2>
+<p>Bun 1.4 在多个维度上实现了显著的性能提升：</p>
+<ul>
+  <li><strong>CPU 使用率</strong>：对于 Claude Code 这类大型长期运行的应用，p99 CPU 使用率从 24% 降至 10%；小型应用的闲置 CPU 使用率降低 5 倍</li>
+  <li><strong>内存使用</strong>：HTTP 服务器应用的内存使用减少 13%–48%（Fastify 降低 48%，Express 降低 46%）</li>
+  <li><strong>启动速度</strong>：Linux 上启动速度提升 2 倍（5.1ms vs 10.9ms），Windows 上提升 2.5 倍（15.5ms vs 39.0ms）</li>
+  <li><strong>二进制体积</strong>：Linux 和 Windows 平台减小最多 17%</li>
+</ul>
+
+<img src="/images/blog/bun-1.4/tweets/cpu-usage-cc.jpeg" alt="Claude Code 生产环境 CPU 使用率对比：p99 从 24% 降至 10%，p50 从 5.8% 降至 2.5%" width="3200" height="1800" />
+
+<img src="/images/blog/bun-1.4/tweets/idle-cpu.png" alt="Hello World 服务器闲置 CPU 使用率：Bun 1.4 比 1.3 降低 5 倍" width="1712" height="1602" />
+
+<p>这些改进得益于将 JavaScriptCore 的内存分配器统一为 mimalloc、优化垃圾回收定时器策略、减少 futex 调用次数等底层优化。</p>
+
+<img src="/images/blog/bun-1.4/tweets/nextjs-ssr-fetch-leak.jpg" alt="Next.js App Router SSR 内存对比：4,000 页面后 Bun 1.4 稳定在 238 MB，Node 为 410 MB，Bun 1.3 无限制增长" width="3200" height="1800" />
+
+<h2>新增 API 与功能</h2>
+<p>Bun 1.4 引入了大量内置 API，进一步践行「一体化工具链」的理念：</p>
+<ul>
+  <li><strong>Bun.WebView</strong>：内置无头浏览器自动化，支持 headless 浏览器测试</li>
+  <li><strong>Bun.Image</strong>：图像处理 API，支持调整大小、旋转和重新编码</li>
+  <li><strong>Bun.markdown</strong>：Markdown 解析与渲染</li>
+  <li><strong>Bun.cron()</strong>：定时任务调度</li>
+  <li><strong>Bun.Terminal</strong>：终端交互 API</li>
+  <li><strong>JSON5 和 JSONL</strong>：新增格式解析支持</li>
+  <li><strong>Bun.YAML</strong>：支持循环引用解析</li>
+  <li><strong>Bun.stringWidth()</strong>：中日韩字符宽度计算速度提升 7–56 倍</li>
+</ul>
+
+<h2>新命令行工具</h2>
+<ul>
+  <li><code>bun run --parallel</code> 和 <code>bun test --parallel</code>：并行执行任务和测试</li>
+  <li><code>bun audit fix</code>：自动修复依赖安全漏洞</li>
+  <li><code>bun dedupe</code>：去重依赖</li>
+  <li><code>bun prune</code>：清理未使用的依赖</li>
+  <li>全局虚拟存储（opt-in）：安装速度提升最高 7 倍</li>
+</ul>
+
+<h2>可观测性增强</h2>
+<p>Bun 1.4 新增了多项可观测性工具：</p>
+<ul>
+  <li><code>bun --cpu-prof</code> 和 <code>bun --heap-prof</code>：支持以 <strong>Markdown 格式</strong>输出 CPU 和堆分析报告，便于在终端直接阅读、通过 SSH 查看或交给 LLM 分析</li>
+  <li><code>bun build --metafile-md</code>：以 Markdown 格式输出打包分析报告</li>
+  <li><code>process.on("memoryPressure")</code>：监听操作系统内存压力事件，在系统杀死进程前释放缓存、关闭空闲连接</li>
+  <li><code>node:inspector</code> 支持：可在应用运行时启动和停止 CPU 分析</li>
+</ul>
+
+<h2>社区反馈</h2>
+<p>此次发布在 Hacker News 上引发了热烈讨论（233 点赞，138 条评论）。部分开发者对 Bun 将越来越多功能内置到运行时中的策略表示担忧，认为这导致二进制体积膨胀且发布周期较长（1.3 到 1.4 间隔约 10 个月）。但也有不少开发者表示支持，认为这正是 JavaScript 生态长期以来所缺乏的「标准库」，可以减少对第三方包的依赖，降低供应链攻击风险。还有评论关注到 Bun 团队大量使用 AI 辅助开发（包括 Anthropic 的 Claude）来加速 Rust 重写过程，这在行业内引发了关于 AI 驱动开发效率的讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49374797</guid>
+      <pubDate>Thu, 20 Aug 2026 14:10:12 GMT</pubDate>
+    </item>
     <item>
       <title>用 RP2040 破解被锁定的 Cricut Maker 电子垃圾，恢复全部功能</title>
       <link>https://news.ycombinator.com/item?id=49365841</link>
@@ -1007,18 +1073,6 @@ Toast 1 代表了一种从传统 <strong>检索增强生成（RAG）</strong> �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49300759</guid>
       <pubDate>Fri, 14 Aug 2026 16:12:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Firefox 宣布继续支持 uBlock Origin，成为主流浏览器中的“最后堡垒”</title>
-      <link>https://news.ycombinator.com/item?id=49303202</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讨论 Firefox 继续支持开源插件 uBlock Origin 的浏览器生态动态，涉及软件技术进展与开源项目，符合用户兴趣配置，故推荐。</small></p><p>Firefox 官方近日通过 Bluesky 发布声明，确认将继续支持广告拦截扩展 <a href="https://www.pcworld.com/article/3212428/firefox-is-now-the-last-major-browser-that-still-supports-ublock-origin.html">uBlock Origin</a>。这一表态正值微软 Edge 等基于 Chromium 内核的浏览器逐步淘汰旧版扩展架构之际。</p>
-<p>随着 Microsoft Edge 转向 <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json">Manifest V3</a> 扩展标准，传统广告拦截插件将失去直接拦截网络请求的能力，导致其在识别和拦截网页及视频广告时效果大打折扣。由于 Edge 基于 Chromium 引擎，此举被视为跟随 Google 在 Chrome 中的标准迁移路线。</p>
-<p>目前，Firefox 已成为唯一主流支持完整 uBlock Origin 的非 Chromium 浏览器。其他非 Chromium 浏览器如 Safari 和 DuckDuckGo 均不支持该扩展。对于坚持使用 uBlock Origin 的用户而言，Firefox 提供了目前唯一无需妥协的选择；而在其他浏览器中，用户只能退而求其次，使用功能受限的 <a href="https://github.com/gorhill/uBlock/wiki/Install-uBlock-Origin#ublock-origin-lite">uBlock Origin Lite</a> 或依赖浏览器内置的广告拦截功能。</p>
-<p>社区对此反响热烈。部分用户指出，Firefox 会对包括 uBlock Origin 在内的推荐扩展进行严格的代码审查，以确保其安全性与隐私保护。同时，也有讨论涉及浏览器扩展生态系统的演变：Manifest V3 的推行旨在限制扩展读取网页数据的权限以提升安全性，但也被认为削弱了扩展的灵活性。此外，有用户分享通过 Vivaldi 等浏览器加载未打包扩展的变通方案，或利用 AI 工具定制单一扩展以替代多个旧插件。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49303202</guid>
-      <pubDate>Fri, 14 Aug 2026 19:03:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
