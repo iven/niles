@@ -3,7 +3,42 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 20 Aug 2026 23:36:22 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 21 Aug 2026 01:55:56 GMT</lastBuildDate>
+    <item>
+      <title>用 RP2040 破解被锁定的 Cricut Maker 电子垃圾，恢复全部功能</title>
+      <link>https://news.ycombinator.com/item?id=49365841</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章涉及使用RP2040芯片破解Cricut Maker设备，属于硬件破解主题，与用户配置中的兴趣类别无明显对应，故定为可选</small></p><p>一位硬件黑客在垃圾堆中发现了一台被丢弃的 Cricut Maker（一种电子切割机），虽然外观完好但滚轮已老化。她推测这就是被丢弃的原因，于是将其带回家研究。Cricut 公司对机器有着激进的锁定/禁用策略——当用户因保修更换或升级折扣而退回旧机器后，这些设备会被远程锁定，显示"Machine deactivated"（机器已停用）的提示。</p>
+
+<p>作者尝试了多种破解方案。首先拆解主板寻找 EEPROM 以重写序列号，但未能找到；随后尝试拦截网络通信，但由于应用层的证书锁定（certificate pinning）机制过于复杂而放弃。最终，她将目光转向了切割机与计算机之间的 USB 通信。</p>
+
+<p>通过 Wireshark 抓包分析，她发现 Cricut 使用 USB CDC（通信设备类）协议进行通信，且序列号数据包既无校验和也无加密。她借来一块树莓派 RP2040 微控制器，利用 TinyUSB Arduino 库编写了一个 USB 中间人代理程序——该设备同时扮演 USB 主机和 USB 客户端，在检测到包含序列号的特定长度数据包时，将其替换为另一个序列号。</p>
+
+<img src="/xssfox/images/photo_2026-07-01%2013.48.56.jpeg" alt="Cricut Maker 与带有两个 USB 连接的 RP2040 微控制器" />
+
+<p>值得注意的是，USB 主机功能需要将 RP2040 超频至 240MHz 才能正常工作。序列号似乎是顺序分配的，且可以在 Cricut 的官方状态页面上查询所有设备的状态。通过硬件级别的序列号重写，Cricut 软件完全无法察觉异常，设备成功显示在作者的账户中。</p>
+
+<img src="/xssfox/images/5895bfdd01f43fd07d95a51918bca303.png" alt="Cricut 软件显示机器已连接" />
+
+<p>在完成清洁、更换滚轮（提示：用热水软化新滚轮以便安装）并重新组装后，作者还为 RP2040 打印了一个外壳，这台 Cricut 得以像全新设备一样正常使用。</p>
+
+<img src="/xssfox/images/photo_2026-07-01%2013.48.54.jpeg" alt="用于 USB 重写微控制器的 3D 打印外壳" />
+<img src="/xssfox/images/photo_2026-07-01%2013.48.58.jpeg" alt="打印并切割出的一堆贴纸" />
+
+<p>作者还列举了其他可能的软件解决方案（如拦截网络流量、编写自定义驱动程序、利用固件更新流程等），但表示不会进一步研究，也不会公开序列号重写代码——因为根据澳大利亚版权法，这可能存在法律风险。</p>
+
+<p>社区评论中，许多用户对 Cricut 的商业模式表示不满，认为锁定可用硬件的行为"非常糟糕"。有用户指出 Cricut 的软件体验极差，强烈建议不要购买。相比之下，竞争对手 Silhouette（旗下品牌 Cameo）拥有更好的开源生态和社区支持，有用户分享了 <a href="https://github.com/fablabnbg/inkscape-silhouette">Inkscape 开源插件</a> 可直接驱动 Silhouette 切割机。也有评论者提到，Cricut 曾因计划限制云使用次数、强制用户订阅而引发争议，最终 CEO 被迫收回决定。</p>
+
+<h2>你知道吗？</h2>
+<ul>
+<li><strong>Cricut 争议史</strong>：Cricut 曾多次因反消费者行为引发争议，包括试图限制用户每月上传图片数量、强制订阅服务，以及通过远程锁定已售出的设备来阻止用户在二手市场交易或使用替代软件。详情可参考 <a href="https://en.wikipedia.org/wiki/Cricut#Controversies">Wikipedia 相关条目</a>。</li>
+<li><strong>USB 中间人攻击</strong>：本文使用的 RP2040 USB 代理技术是一种硬件级别的中间人（man-in-the-middle）攻击手法。由于 Cricut 的 USB 协议未对序列号数据包进行校验或加密，使得这种低成本破解成为可能。评论者指出，这种"无校验"的设计让代理变得"轻而易举"。</li>
+<li><strong>序列号可猜测风险</strong>：由于序列号是顺序分配的，且可在 Cricut 官网查询状态，这意味着攻击者可能批量枚举有效序列号，将他人的设备锁定或添加到自己的账户中，可能引发严重的安全和隐私问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49365841</guid>
+      <pubDate>Wed, 19 Aug 2026 19:06:16 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ HTML 原生动态功能大赏：popover、dialog、手风琴等无需 JavaScript 即可实现</title>
       <link>https://news.ycombinator.com/item?id=49362689</link>
@@ -984,25 +1019,6 @@ Toast 1 代表了一种从传统 <strong>检索增强生成（RAG）</strong> �
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49303202</guid>
       <pubDate>Fri, 14 Aug 2026 19:03:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google推出HEIR编译器，利用同态加密实现安全的私有AI推理</title>
-      <link>https://news.ycombinator.com/item?id=49300314</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍了Google发布的新开源编译器HEIR，属于编程工具的发布与分享，匹配用户high_interest配置</small></p><p>随着人工智能技术的普及，数据隐私与模型功能之间的平衡成为行业焦点。传统端到端加密虽能保护用户数据，但服务商无法利用明文数据进行垃圾邮件过滤或病毒检测等依赖数据的特征服务。医疗、金融等受监管行业同样面临数据共享限制，而本地处理方案则受限于设备算力及专有模型泄露风险。</p>
-<p>为解决这一矛盾，<a href="https://blog.google/security/how-google-is-making-private-ai-practical-with-homomorphic-encryption/">同态加密（Homomorphic Encryption, HE）</a>提供了一种密码学层面的解决方案。该技术允许服务器直接在加密数据（密文）上进行计算，并返回加密结果，全程无需暴露底层信息。尽管同态加密目前仍存在显著的计算开销，但其成本正随着技术成熟而快速下降。</p>
-<p>为降低同态加密的使用门槛，Google推出了开源编译器工具链 <a href="https://heir.dev/">HEIR（Homomorphic Encryption Intermediate Representation）</a>。HEIR能够将针对未加密数据训练的预训练AI模型，自动转换为支持加密输入的版本，旨在让非密码学专家也能轻松将加密推理集成到生产环境中。目前，HEIR已与Belfort、Niobium等硬件加速公司合作，并与多所顶尖高校开展学术研究，催生了多项同行评审成果。</p>
-<p>Google展示了HEIR在四个实际场景中的应用：</p>
-<ul>
-  <li><strong>深度学习推荐模型</strong>：联合Belfort Labs、LG和纽约大学开发，可在不获取用户特征的前提下提供个性化内容推荐。</li>
-  <li><strong>信用卡欺诈检测</strong>：与Niobium及hardshell.ai合作，实现加密环境下的交易异常识别。</li>
-  <li><strong>威胁入侵检测</strong>：基于Niobium的Kitsune系统，可在不暴露网络包内容的情况下检测加密流量中的异常。</li>
-  <li><strong>热词检测器</strong>：联合Belfort Labs开发，允许AI代理在保护音频录音隐私的同时识别唤醒词。</li>
-</ul>
-<p>在Hacker News社区讨论中，用户主要关注以下几点：一是全同态加密（FHE）的性能瓶颈，传统FHE计算开销可达明文计算的数千倍，尽管Google声称成本在下降，但实际商业可行性仍受质疑；二是信任问题，部分用户指出Google在端到端加密（E2EE）等隐私产品上表现保守，难以建立用户信任；三是安全性边界，FHE仅保证数据不可见，但无法防止计算逻辑被篡改，需结合数字签名或零知识证明（Zero-Knowledge Proofs）等机制保障计算完整性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49300314</guid>
-      <pubDate>Fri, 14 Aug 2026 15:43:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
