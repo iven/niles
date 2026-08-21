@@ -3,7 +3,80 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 21 Aug 2026 19:33:54 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 21 Aug 2026 20:37:33 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.239：新增 /claude-api upgrade 与全屏渲染器扩展，修复多项稳定性问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.239</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.239，带来若干新功能与大量稳定性修复。按用户关注点整理如下：</p>
+
+<h3>重要改动</h3>
+<ul>
+<li>成本估算（<code>/cost</code>、状态栏、<code>--max-budget-usd</code>）现在包含数据驻留工作区的 1.1× 美国专属推理溢价。</li>
+<li>在 Bedrock、Vertex、Foundry 等此前被排除的配置上新增一次性全屏渲染器提示，这些环境的新安装现在默认以全屏模式启动。</li>
+<li>新增 <code>/claude-api upgrade</code> 命令，用于将 Python 项目的 <code>anthropic</code> 0.x 迁移到 1.x，并更新了对应 skill 的 Python 参考（超时改用 <code>anthropic.Timeout</code> 而非 <code>httpx.Timeout</code>）。</li>
+<li>云会话：从 claude.ai 同步的插件现在显示为 <code>name@synced</code>，可通过 <code>claude plugin enable/disable &lt;name&gt;@synced</code> 管理，且不会覆盖你安装的同名本地插件。</li>
+<li>Alpine/musl 构建：原生图片粘贴、剪贴板和音频捕获插件现在可以正常加载（改用 musl 构建的二进制，此前被运行时拒绝的 glibc 版本已替换）。</li>
+<li>月度支出限额已用尽时显示的用量限制消息，现在还会说明会话或每周限额的重置时间。</li>
+<li><code>/goal</code> 改进：长时间后台工作的重复检查改为退避策略（30 分钟、1 小时、之后每 2 小时一次）；从 <code>claude --resume</code> 选择器恢复会话时会恢复其活动目标。</li>
+<li><code>ListAgents</code> 和 <code>/list-agents</code> 现在会列出你的在线队友（此前只显示子代理和其他会话，导致可联系的队友看起来缺失）。</li>
+<li>持久重试模式（<code>CLAUDE_CODE_RETRY_WATCHDOG</code>）在遇到组织支出限额和积分不足错误时立即失败，不再无限期等待重置。</li>
+<li>Claude in Chrome：<code>/clear</code> 现在会关闭会话的 Chrome 标签组，空标签组会在 <code>/resume</code> 和退出时关闭。</li>
+<li>远程会话：从移动端上传的图片现在包含其保存的文件路径，Claude 可将其复制到创建的文件中。</li>
+<li>Claude Code on the web：Bash 等工具对非 API 的 anthropic.com 主机（如 www、docs）的请求现在走会话的网络代理，使环境允许的域名生效。</li>
+<li><code>keybindingFlavor: "readline"</code> 现在也匹配 Bash 的词键行为（Alt+F 与 Ctrl/Option+→ 停在词尾、Alt+D 删除到词尾等）。</li>
+</ul>
+
+<h3>其他改动（修复与优化）</h3>
+<ul>
+<li>修复 Bedrock 在剥离响应 Content-Type 头的代理后流式传输失效的问题——此前每轮都会以非流式方式重跑，导致 API 调用计费翻倍。</li>
+<li>修复使用 Bedrock SSO 配置和 <code>awsAuthRefresh</code> 时在 HTTPS 代理后启动挂起的问题（凭据预检现在遵循 <code>HTTPS_PROXY</code>）。</li>
+<li>修复从已不存在的目录启动 Claude Code 时产生原始崩溃转储，现在会打印清晰提示。</li>
+<li>修复 JetBrains IDE 终端中连接插件时 Edit/Write 调用暂停约 5 秒的问题。</li>
+<li>修复有排队提示时按 Esc 的竞态，避免下一轮提前结束、会话闲置而 Claude 仍在工作。</li>
+<li>修复 WebFetch 在整个会话中保留过期页面内容（应为 15 分钟）。</li>
+<li>修复云会话在空闲 worker 重启后从计划模式之外恢复的问题。</li>
+<li>修复全屏模式下高于终端的 MCP 表单被裁剪：表单现在适配窗口，隐藏字段可滚动访问，Accept/Decline 始终可见。</li>
+<li>修复远程 MCP 服务器在会话中途重连遇到瞬时 5xx 后一直保持失败状态的问题。</li>
+<li>修复重命名后写入超过约 64 KB 对话时自定义会话标题从 <code>/resume</code> 消失的问题。</li>
+<li>修复 <code>claude -c</code>/resume 误拾取路径仅差 <code>_</code>、<code>-</code>、<code>.</code> 等字符的其他目录会话。</li>
+<li>修复 <code>/resume</code> 和代理视图仅因文件被触碰或重新打开就把会话显示为最近更改并重排的问题。</li>
+<li>修复 <code>/resume</code> 全项目模式提示进入已删除目录（如已移除的 worktree），此类会话现在在当前目录恢复。</li>
+<li>修复 <code>dark-ansi</code> 主题在全屏模式下展开工具结果时文字与背景同色的问题。</li>
+<li>修复全屏渲染器提示在无法回答时每次启动都出现，现在显示三次后停止。</li>
+<li>修复 <code>.worktreeinclude</code> 中以 <code>**/</code> 开头的模式在目标位于 gitignored 目录时静默不匹配的问题。</li>
+<li>修复以 UTF-8 BOM 开头的 agents、skills、commands 的 <code>.md</code> 文件被静默忽略的问题。</li>
+<li>修复 <code>/insights</code> 在某些模型上回显字面 <code>&lt;message&gt;</code> 标签的问题。</li>
+<li>修复 marketplace <code>metadata.pluginRoot</code> 不生效的问题。</li>
+<li>修复浏览器终端中鼠标报告跨写入拆分时向提示符插入 <code>"35;150;7M"</code> 之类文本的问题。</li>
+<li>修复 effort/ultracode 状态徽章的自定义主题覆盖被忽略的问题。</li>
+<li>修复 OpenTelemetry 跟踪碎片化：被 <code>PreToolUse</code> 钩子延迟的工具执行现在回到原轮次的跟踪中。</li>
+<li>修复代理视图 vim 模式：Escape 现在切换到 NORMAL 模式并保留文本，而非清空提示符。</li>
+<li>修复 <code>selection:copy</code> 键绑定静默丢弃用 Shift+方向键扩展的文本选择的问题。</li>
+<li>修复启用 <code>voice.enabled</code> 后 <code>/voice</code> 启动提示仍出现的问题。</li>
+<li>修复 shell 模式（<code>!</code>）Tab 补全丢失 <code>./script</code> 路径中 <code>./</code> 的问题。</li>
+<li>修复全屏模式下仅点击终端窗口以聚焦时误触发权限提示或按钮的问题。</li>
+<li>修复全屏模式下斜杠命令面板（如 <code>/config</code>、<code>/model</code>）遮挡最新消息，对话现在固定在面板上方。</li>
+<li>修复 Claude 仍在响应时打开 <code>/workflows</code> 详情对话框导致溢出终端、标题栏移出屏幕的问题。</li>
+<li>修复 Linux 沙箱使不存在的 <code>.git/config.worktree</code> 不可读，从而破坏设置了 <code>extensions.worktreeConfig</code> 的仓库中所有沙箱 git 命令的问题。</li>
+<li>修复会话工作目录被删除后钩子报 "posix_spawn ENOENT" 的问题，现在从项目根目录或主目录运行。</li>
+<li>修复 <code>claudeMdExcludes</code> 未排除符号链接的 <code>.claude/rules</code> 文件的问题。</li>
+<li>修复两个 Claude Code 进程共享一个后台任务状态时会话标题同步失控（2.1.232 回归），标题更新现在去重并限速。</li>
+<li>修复标题以 <code>/</code> 开头的会话无法被 <code>SendMessage</code> 寻址、在 <code>ListAgents</code> 中显示为 "(untitled)" 的问题。</li>
+<li>修复光标位于 <code>[Pasted text #N]</code> 占位符内时 Ctrl+W、Ctrl+U、Ctrl+K、Option+Backspace、Option+D 及 vim <code>df</code>/<code>dt</code> 留下损坏占位符的问题。</li>
+<li>修复 Ctrl+Backspace 在搜索框中只删除一个字符而非一个词的问题。</li>
+<li>修复被组织策略检查拒绝的请求在显示拒绝前被重新发送的问题。</li>
+<li>改进压缩后的提醒，避免 skill 的原始参数作为新请求被重新执行。</li>
+<li>工具使用行上的长文件路径现在从中间截断以保持单行显示。</li>
+<li>远程会话在长 <code>SessionStart</code> 或 <code>Setup</code> 钩子运行期间持续发送 keep-alive，避免容器在钩子执行中被闲置回收。</li>
+<li><code>ListAgents</code> 现在告知会话自己的名称（供其他会话发消息用），<code>SendMessage</code> 发给自己的名字时会明确说明。</li>
+<li>Remote Control 未启用时给出更清晰的提示和 <code>claude doctor</code> 措辞。</li>
+<li>[VSCode] 用量限制横幅中的 "View usage" 现在与警告文本同行内联显示。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.239</guid>
+      <pubDate>Fri, 21 Aug 2026 19:54:23 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.149.0：新增交互式 Agents 仪表盘、工作目录命令和队列功能</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.149.0</link>
@@ -1180,15 +1253,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.71.1</guid>
       <pubDate>Mon, 20 Jul 2026 20:11:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.215 更新：手动触发代码审查与验证技能</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.215</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布了 v2.1.215 版本。此次更新主要涉及交互行为的变更：Claude 不再自动运行 <code>/verify</code> 和 <code>/code-review</code> 技能。用户现在需要手动输入 <code>/verify</code> 或 <code>/code-review</code> 命令来显式触发这些功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.215</guid>
-      <pubDate>Sun, 19 Jul 2026 02:56:01 GMT</pubDate>
     </item>
   </channel>
 </rss>
