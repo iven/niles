@@ -3,7 +3,37 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 22 Aug 2026 16:37:01 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 17:34:15 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OTel 发展不顺：维护者过度集中与稳定性承诺拖慢新功能落地</title>
+      <link>https://news.ycombinator.com/item?id=49391553</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论开源可观测性项目 OpenTelemetry 的维护治理与功能落地问题，属于开源项目范畴，用户对开源项目感兴趣，故推荐阅读。</small></p><p>作者多年来推动团队从厂商专属 SDK 迁移到 OpenTelemetry（OTel）时，最常听到的抱怨是「为什么它看起来还没做完？」。厂商 SDK 开箱即用、仪表盘自动加载数据，而 OTel 充满「实验性」标签，同一任务往往有约六种实现方式。作者一直赞赏 OTel 坚持构建真正厂商中立的系统，但随着时间推移，语义约定（semantic conventions）仓库的讨论拖沓冗长、各语言支持进度差异巨大，让他开始担忧。</p>
+
+<p>OTel 项目按 Core（核心：API、SDK、OTLP 导出器，稳定且严格审查）与 Contrib（社区与厂商贡献的集成库）划分，覆盖数十种语言、数百个库和无数后端。新功能从 OTEP 提案进入规范，再到语义约定、各 SDK 实现，最终经 Collector 与 OTLP 协议交付给用户，链路漫长。</p>
+
+<img src="https://matduggan.com/content/images/2026/08/image-1.png" alt="OpenTelemetry 支持的语言与框架概览" width="1516" height="1256" />
+
+<p>为了用数据验证「OTel 出问题了」的直觉，作者对比了 OTel 各语言 SDK 与 Envoy、Prometheus 过去 24 个月的项目活动。结果显示，PHP、Ruby、C++、Kotlin、浏览器等 SDK 的合并（merge）工作高度集中在极少数维护者手中（Top-1 合并者占比 53%–86%），Go 和 .NET 则相对健康、分工更分散。语义约定仓库中确实存在耗时极长的 PR（如 Gen-AI MCP 语义约定耗时 277 天、GCE 实例标签耗时 258 天），但这种缓慢并未传导到 SDK 层，说明讨论被较好地隔离。</p>
+
+<img src="https://matduggan.com/content/images/2026/08/image.png" alt="Envoy 24 个月项目活动数据" width="2000" height="4041" />
+<img src="https://matduggan.com/content/images/2026/08/open-telemetry__opentelemetry-php.png" alt="OpenTelemetry PHP SDK 24 个月项目活动数据" width="2000" height="4017" />
+<img src="https://matduggan.com/content/images/2026/08/open-telemetry__opentelemetry-ruby.png" alt="OpenTelemetry Ruby SDK 24 个月项目活动数据" width="2000" height="3918" />
+<img src="https://matduggan.com/content/images/2026/08/open-telemetry__opentelemetry-go.png" alt="OpenTelemetry Go SDK 24 个月项目活动数据" width="2000" height="4060" />
+<img src="https://matduggan.com/content/images/2026/08/open-telemetry__opentelemetry-dotnet.png" alt="OpenTelemetry .NET SDK 24 个月项目活动数据" width="2000" height="4023" />
+
+<p>作者认为，OTel 的真正问题是三方面叠加：二进制稳定性门槛（一旦标记为 stable 就几乎无法更改）、维护者板凳深度不足，以及覆盖数十种语言和框架的巨大范围。这形成「完美风暴」——在功能锁定前争论潜在问题成为理性选择，而新功能从提案到交付给终端用户需要极长时间。作者建议引入有时间限制的 Beta 层级（Experimental → Beta → 12 个月 → 移除或转 Stable），让终端用户更容易接触新功能并提供可操作的反馈；同时指出当前 Beta 标签仅用于 SDK 而非组件，标签体系令人困惑。</p>
+
+<img src="https://matduggan.com/content/images/2026/08/image-2.png" alt="Experimental 到 Stable 的 Beta 层级示意图" width="800" height="1267" />
+
+<p>HN 社区对此反应不一。有用户批评 OTel 过度设计又欠设计：各厂商对 OTel 的支持长期停留在 alpha/beta、性能开销显著、serverless 冷启动代价高、实际使用中被迫同时运行 gateway 与 edge collector、超出 OTel 范围的部分仍需厂商专属埋点；也有用户辩护称 OTel 是避免厂商锁定的最佳方案，任何人都能基于开放规范编写 OTLP 数据源并接入数十种后端，语义约定的「实验性」标签并不致命。还有评论认为，文中数据并未显示项目陷入困境，只是部分语言资源较少，整体仍是健康的开源项目。</p>
+
+<h3>你知道吗？</h3>
+<p>OTel 的「稳定性承诺」（stability contract）意味着一旦某功能被标记为 stable，其 API 与语义约定就不能再做破坏性变更。这对一个被众多厂商和用户依赖的标准类项目至关重要，但也让维护者在将新功能「转正」时极为谨慎——因为锁定后几乎无法回头。这也是作者建议引入「有时间限制的 Beta 层」的原因：既让用户提前试用、收集反馈，又保留在 12 个月后移除或转正的选择权。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49391553</guid>
+      <pubDate>Fri, 21 Aug 2026 17:45:41 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 别再写 TUI 了：LLM 时代，作者呼吁转向原生 GUI</title>
       <link>https://news.ycombinator.com/item?id=49384210</link>
@@ -1156,21 +1186,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49319556</guid>
       <pubDate>Sun, 16 Aug 2026 12:48:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 学术文献中为何频现“肾脏失望”？同义词替换与AI改写的隐患</title>
-      <link>https://news.ycombinator.com/item?id=49319389</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 探讨 AI 改写在学术文献中带来的隐患，涉及 AI 软件技术的应用问题，符合 AI 软件技术进展的兴趣配置。</small></p><p>近期，有用户在Google Scholar等学术搜索引擎中发现，大量研究论文使用了“kidney disappointment”（肾脏失望）这一非标准表述，而非医学界通用的“kidney failure”（肾衰竭）。这一现象引发了学术社区的广泛关注与讨论。</p>
-<p>经过深入分析，评论者普遍认为这并非简单的翻译失误，而是作者为了规避查重系统（plagiarism detection）而进行的拙劣同义词替换（naive deplagiarization）。早在大型语言模型（LLM）普及之前，部分研究人员或内容农场就广泛使用“文章旋转器（article spinner）”等自动改写工具，通过机械替换词汇来“洗稿”以逃避抄袭检测。这种缺乏语境理解的替换往往会产生极其生硬甚至荒谬的表达。</p>
-<p>类似的现象在多个学科中均有发现。例如，政治学文献中出现的“average voter theorem”（应为average voter theory）、统计学中的“tendency score matching”（应为propensity score matching，即<a href="https://en.wikipedia.org/wiki/Propensity_score_matching" rel="nofollow">倾向得分匹配</a>），以及将“lactose intolerance”（乳糖不耐受）替换为“lactose bigotry”（乳糖偏见）等。这些被称为“扭曲短语（tortured phrases）”的表达，已被视为学术不端或低质量研究的明显标志。</p>
-<p>更令人担忧的是，依赖AI或自动工具进行文本改写可能带来严重的科学严谨性危机。曾有案例显示，AI改写工具将化学实验描述中的“最终溶液（the final solution）”错误替换为“对特定族群的大屠杀（the mass killing of an ethnic group）”，导致论文内容出现灾难性的伦理与事实错误。这一事件再次提醒学术界，在利用技术辅助写作时，必须严格把控内容的准确性与专业性。</p>
-<h3>你知道吗？</h3>
-<p><b>文章旋转器（Article Spinner）</b>：一种早期的自动文本改写工具，通过内置的同义词数据库将原文中的词汇替换为近义词，生成看似不同但实质相同的文本。它常被用于SEO垃圾内容生成或学术洗稿，但往往因忽略上下文语境而产生不通顺的语句。</p>
-<p><b>倾向得分匹配（Propensity Score Matching）</b>：统计学与流行病学中常用的一种因果推断方法，用于观察性研究中减少混杂偏倚。由于“propensity”（倾向）与“tendency”（趋势）含义相近，拙劣的机器替换常导致术语错误，进而影响研究的可信度。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49319389</guid>
-      <pubDate>Sun, 16 Aug 2026 12:22:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
