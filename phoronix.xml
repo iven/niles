@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 22 Aug 2026 11:33:17 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 12:58:38 GMT</lastBuildDate>
+    <item>
+      <title>NTFS3 驱动漏洞未修复：特制 NTFS 镜像可让本地用户获取 root 权限</title>
+      <link>https://www.phoronix.com/news/NTFS3-Vulnerability-For-Root</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讲的是 Linux NTFS3 文件系统驱动的安全漏洞（特制 NTFS 镜像可提权至 root），属于内核/文件系统安全新闻，未命中用户高兴趣领域（编程工具、AI、新发行版等），与 Linux 主题仅弱相关，兴趣不明确，故评为可选。</small></p><p>Linux 内核 NTFS3 文件系统驱动存在一个尚未修复的安全漏洞：攻击者可利用预先构造的 NTFS 镜像（例如插入的 USB 闪存盘）在运行 Linux 的系统上获取 root 权限。该漏洞由 Vova Tokarev 发现，两个月前私下报告后一直未得到解决，现已通过 NTFS3 邮件列表公开披露。</p><p>漏洞原理：攻击者在 NTFS 的主文件表（MFT）中预先写入 $LXUID=0、$LXGID=0、$LXMOD=0104755 等扩展属性（EA），卷一旦被挂载就会生成一个 setuid-root 二进制文件，整个过程无需调用 setxattr()——扩展属性直接存在于磁盘上。根因位于 <code>fs/ntfs3/xattr.c:1022</code> 的 <code>inode->i_mode = le32_to_cpu(value[2]);</code>，该行直接从不信任的磁盘数据加载 S_ISUID/S_ISGID 权限位。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=ntfs3_root_med" alt="USB flash drive connected" /><p>由于桌面环境的自动挂载器（udisks）默认以 suid 方式挂载 NTFS，插入特制 USB 设备即可让任何本地用户获得 euid=0。Tokarev 建议的一行修复方案为 <code>inode->i_mode = le32_to_cpu(value[2]) &amp; ~(S_ISUID | S_ISGID);</code>，并已提供完整的概念验证（PoC）和演示，详见<a href="https://lore.kernel.org/ntfs3/">邮件列表帖子</a>。</p><p>截至发文时，主线内核中的 NTFS3 驱动尚未修复该漏洞；该问题似乎不影响主线内核中另一款持续成熟的较新 NTFS 驱动。</p><h3>你知道吗？</h3><ul><li><strong>SUID（set-user-ID）</strong>：Unix/Linux 文件权限位之一。运行带有该位的程序时，进程会以文件属主的身份执行；若属主为 root，则进程获得 root 权限，因此从不可信来源加载 SUID 位是典型的提权风险。</li><li><strong>MFT（Master File Table，主文件表）</strong>：NTFS 文件系统的核心结构，记录卷上每个文件和目录的元数据（包括扩展属性），挂载时由驱动解析。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NTFS3-Vulnerability-For-Root</guid>
+      <pubDate>Sat, 22 Aug 2026 12:42:26 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ NVK Vulkan 视频支持已合并至 Mesa 26.3</title>
       <link>https://www.phoronix.com/news/NVK-Vulkan-Video-Mesa-26.3</link>
@@ -756,15 +765,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/RADV-ACO-19-More-Patches-Valve</guid>
       <pubDate>Sun, 16 Aug 2026 00:17:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME 51 Beta 发布：多项细节优化与功能改进</title>
-      <link>https://www.phoronix.com/news/GNOME-51-Beta</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 Linux 桌面环境 GNOME 51 Beta 的发布及更新内容，符合用户对 Linux 桌面技术的兴趣配置，故推荐阅读。</small></p><p>GNOME 51 Beta 版本现已面向公众开放测试。本开发周期主要聚焦于对庞大软件包集合中各项组件的广泛细节优化与功能改进。</p><p>主要更新内容包括：</p><ul><li><strong>GNOME Control Center</strong>（控制中心）：在用户设置区域新增了指纹管理界面。</li><li><strong>GNOME Shell</strong>：新增对“减少动态效果（reduced-motion）”系统设置的全面支持，并引入了与 KDE 兼容的 SVG 格式光标支持。</li><li><strong>Mutter</strong>（合成器）：在 Wayland 环境下支持背景模糊效果，并带来多项底层优化。</li><li><strong>GTK</strong>：支持 <code>ext-background-effect</code> Wayland 协议，重构了 <code>GDK frame-clock</code> 以提升渲染精度并减少掉帧现象。</li><li><strong>GNOME Web (Epiphany)</strong>：重新启用了 WebRTC 支持，并为历史记录和概览模型增加了 URL 固定功能。</li></ul><p>其他组件如 <strong>GNOME Software</strong>（图标加载性能提升）、<strong>GVFS</strong>（空闲后端自动卸载）、<strong>Nautilus</strong>（文件管理器细节打磨）以及图像加载库 <strong>Glycin</strong>（新增对 XMP 和 Radiance HDR 格式的支持）等也获得了相应更新。此外，该版本还修复了大量已知错误并更新了多语言翻译支持。</p><p><img src="//www.phoronix.net/image.php?id=2026&image=gnome_51_alpha_med" alt="GNOME 51 开发构建版截图" /></p><p>根据官方计划，GNOME 51 的候选版本（Release Candidate）预计将于 8 月底发布，而正式稳定版（GNOME 51.0）则定于 9 月 18 日正式推出。更多详细信息可访问 <a href="https://discourse.gnome.org" target="_blank" rel="noopener noreferrer">discourse.gnome.org</a> 查阅。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-51-Beta</guid>
-      <pubDate>Sat, 15 Aug 2026 17:12:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
