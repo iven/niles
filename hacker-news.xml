@@ -3,7 +3,47 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 22 Aug 2026 09:37:37 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 10:38:32 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Rust Glancer：以低于 100MB 内存为目标的开源 Rust LSP 替代实现</title>
+      <link>https://news.ycombinator.com/item?id=49393052</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源 Rust LSP 编程工具发布，重点关注内存效率改进，符合编程工具发布/分享及编程效率改进经验，属于用户很感兴趣的内容。</small></p><p>Rust Glancer 是开发者 popzxc 历时约 4 个月打造的一款 Rust 语言服务器（LSP）替代实现，核心目标是极低的内存占用。项目由 rust-analyzer 作者 matklad 在博客上介绍，并在 Hacker News 上引发讨论（223 分、49 条评论）。</p>
+
+<p>项目有两大特性：一是内存占用极低，对合理规模的项目目标控制在 100MB 以下（演示视频中全程低于 100MB）；二是支持即时索引恢复——项目完成索引后，重启编辑器无需重新索引。<img src="/assets/2026-08-19-hello-world/memory.png" alt="Rust Glancer memory usage remaining below 100 MB" /></p>
+
+<p>作者在 8GB 内存的旧款 MacBook Pro M1（2020）上测试效果良好。与 rust-analyzer 的对比（引擎可用/完整索引耗时）：M4 Max 上 Rust Glancer 为 5/8 秒，rust-analyzer 为 6/13 秒；M1 上分别为 6/9 秒与 7/14 秒。</p>
+
+<p>Rust Glancer 目前还不是完整的 LSP，缺少不少功能、存在已知 bug，但已具备完整的索引管线（含类型推断与基于 Chalk 的 trait 求解器），支持 goto definition、悬停提示、inlay hints、补全等常见 LSP 操作，并已提供 VS Code 扩展（也可从仓库自行构建 vsix）。</p>
+
+<h3>与 rust-analyzer 的架构差异</h3>
+<p>文章分析了 rust-analyzer 内存占用高的原因：Rust 工作区本身信息量巨大；rust-analyzer 使用 <a href="https://salsa-rs.github.io/salsa/">salsa</a> 增量查询数据库，天然与内存绑定，难以将数据移出内存；其语法树库 rowan 的树状表示会造成严重的内存碎片化。Rust Glancer 的核心思路是放弃增量：只保留一份"冻结"的分析结果，在保存时失效。分析结果可落盘，仅在查询需要时按需载入内存，因此重启后可直接复用。</p>
+
+<p>代价是冻结分析比惰性增量更慢（从磁盘加载反序列化数据比内存慢）。为缓解这一点，输入时 Rust Glancer 只对当前代码块做浅层分析并复用之前的完整索引，新引入的条目（导入、结构体、trait 等）要等保存文档后才会被索引，作者表示这很快就能适应。此外，项目针对 agentic 工作流做了优化：自定义文件监视器避免 inlay hints 错位，外部变更的服务器优先级较低，不会引发快速重索引。作者也坦言，Rust Glancer 不太可能"像 rust-analyzer 一样但更好"，rust-analyzer 仍将是追求完整性与按键级准确度的默认选择。</p>
+
+<h3>开发历程</h3>
+<p>作者有约 7 年 Rust 开发经验，曾为 rustc、clippy、rust-analyzer 做过贡献。由于双显示器双 IDE 的工作流导致内存占用翻倍（rust-analyzer 曾吃掉 16GB 内存），他最初只想做一个"智能 ctags"，但功能一步步叠加，最终演变成真正的 LSP。三大里程碑：声明宏展开、类型推断引擎、trait 求解引擎（最终集成 Chalk）。作者最自豪的是自建的性能分析栈，可测量性能与内存（原生与 jemalloc），并与 rust-analyzer 对比，还有运行在 CI 中的基准测试。</p>
+
+<h3>LLM 的使用</h3>
+<p>项目大量使用了 LLM 辅助开发，但并非"vibe coding"：作者会逐一审查每个 PR，确保代码质量（git 历史中可见相隔数天的大规模 PR）。他认为 LLM 只是工具，并请求不要将他贬低为"clanker"——代码是他的，若有问题请称之为"他的代码"而非"AI 的代码"。</p>
+
+<h3>路线图</h3>
+<p>后续计划包括：进一步性能优化、索引期内存优化、改进类型推断/语法支持、代码操作（实现缺失 trait 字段、自动导入等）、潜在的 proc macro 支持（采用不实际执行代码的方案）。不打算支持需要执行不可信代码的 build scripts / proc macro 调用，也不计划迁移到新的 trait 求解器。</p>
+
+<h3>社区反馈</h3>
+<p>HN 讨论中，matklad 澄清文章作者是 popzxc 而非自己，并分享了 rust-analyzer 历史上决定不用磁盘缓存的背景（受 2016 年一条 GitHub 评论影响，以及避免过早求"容易"方案的考虑）。多位用户抱怨 rust-analyzer 内存占用高（单实例可达 2GiB），对 Rust Glancer 的方向表示支持；也有用户询问与 JetBrains Rust Rover 的对比，作者表示尚未尝试。作者还回应了关于惰性加载、proc macro 的"Sorbet 式"插件方案等提问。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>LSP</strong>（Language Server Protocol，语言服务器协议）由 VS Code 推广，IDE 通过它调用语言服务器完成 lint、语法检查、跳转定义等功能。</li>
+<li><strong>salsa</strong> 是 rust-analyzer 使用的增量查询数据库框架，惰性计算所需数据，但数据常驻内存。</li>
+<li><strong>Chalk</strong> 是 Rust 的 trait 求解器库，负责类型系统中的 trait 解析。</li>
+<li>matklad 在评论中透露，rust-analyzer 最初不用磁盘缓存，部分源于一条影响深远的 GitHub 评论（"不要往磁盘存任何东西……不必要的复杂度会制造 bug"），以及希望以此倒逼分析速度足够快；他承认这带来了 RAM 占用问题，并认为正确的长期方案是设计紧凑的一等公民数据格式，让 rust-analyzer 对数据来源多态（当前工作区用惰性增量内存结构，依赖则用紧凑的磁盘索引）。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49393052</guid>
+      <pubDate>Fri, 21 Aug 2026 19:51:54 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AI 让性能优化成本骤降：Dan Luu 称软件没有理由再慢了</title>
       <link>https://news.ycombinator.com/item?id=49395628</link>
@@ -1107,21 +1147,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49313367</guid>
       <pubDate>Sat, 15 Aug 2026 19:12:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ LLM 仅学习小学五年级内容会发生什么？</title>
-      <link>https://news.ycombinator.com/item?id=49317760</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨大语言模型（LLM）在有限知识水平下的表现，属于AI能力与训练数据的实验研究，符合用户对AI技术进展的兴趣，推荐阅读。</small></p><p><a href="https://littlelearner-ll.github.io/">LittleLearner</a> 是一项旨在探索大语言模型（LLM）知识边界的新研究。该项目通过严格限制模型的训练数据，观察其在仅接触美国小学五年级（K-5）及以下课程内容时的表现与能力上限。</p>
-<p><strong>数据集与模型构建</strong><br>
-研究团队构建了名为 <a href="https://littlelearner-ll.github.io/">LittleCurriculum</a> 的数据集，包含 880 亿（88B）token 的文本。该数据集经过五阶段过滤管道处理，严格对齐美国 Common Core 标准，并明确排除了五年级以上的概念、事实和词汇。基于此，团队从头训练了 0.6B、1.3B 和 5B 三个规模的模型（LittleLearner），并设置了使用未过滤数据的对照组以便进行公平比较。</p>
-<p><strong>核心发现：能力上限由预训练数据决定</strong><br>
-实验结果表明，模型的预训练数据过滤直接设定了其有效能力的天花板。尽管模型缩放（Scaling）、监督微调结合强化学习（SFT+GRPO）以及上下文学习（In-context learning）等干预手段能显著提升模型在 K-5 范围内的表现，但它们均无法帮助模型掌握超纲知识。这意味着，如果模型在预训练阶段未接触过特定知识，后续训练或提示工程很难真正“习得”这些能力，而只能“诱发”（Elicitation）其已有的潜在模式。</p>
-<p><strong>社区反馈与延伸讨论</strong><br>
-在 Hacker News 的讨论中，用户通过实际测试发现，LittleLearner 在遇到超纲问题（如“量子纠缠”）时，并不会像人类儿童那样承认“不知道”，而是会基于有限的词汇和逻辑进行极其幼稚且错误的解释。这引发了关于大模型缺乏元认知（Metacognition）和知识边界意识的讨论。有用户指出，这种“永远自信地回答”的特性长期来看会损害用户对 AI 的信任。此外，研究团队也指出，这种可控的知识边界为未来的持续学习（Continual Learning）研究、强化学习探索以及机器与人类学习过程的对比提供了理想的实验沙盒。相关论文详见 <a href="https://arxiv.org/abs/2608.13545">arXiv:2608.13545</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49317760</guid>
-      <pubDate>Sun, 16 Aug 2026 07:37:53 GMT</pubDate>
     </item>
   </channel>
 </rss>
