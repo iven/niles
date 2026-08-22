@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 22 Aug 2026 19:32:21 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 20:36:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Redox OS 改用 EEVDF 调度器：吞吐量提升 2.6 倍，公平性提升 782 倍</title>
+      <link>https://www.phoronix.com/news/Redox-OS-Goes-EEVDF</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Rust 编写的开源操作系统 Redox OS 改用 EEVDF 调度器以提升吞吐量，属于开源软件项目/软件技术进展，涉及 Rust 兴趣点，并非硬件性能评测，故推荐阅读。</small></p><p>用 Rust 编写、从零开发的 Redox OS 操作系统已改用基于 EEVDF（最早合格虚拟截止时间优先，Earliest Eligible Virtual Deadline First）的调度器设计。据称这一改动带来了吞吐量 2.6 倍的增长和公平性 782 倍的改善。</p><p>Akshit Gaur 作为今年 Redox Summer of Code 项目的一部分，一直在为 Redox OS 开发 EEVDF 调度器。从赤字加权轮询（DWRR，Deficit Weighted Round Robin）调度器切换到 EEVDF 后，该平台取得了显著改进：公平性提升 782 倍，吞吐量提升 2.6 倍，上下文切换时间下降 82%。</p><img src="//www.phoronix.net/image.php?id=2026&image=redox_os_february" alt="Redox OS" /><p>鉴于这些成果，开发者 Akshit Gaur 在 Redox-OS.org 博客上总结道："EEVDF 是值得的！"现在，这款 Rust 操作系统在采用 EEVDF 调度器实现后，桌面体验更加流畅，整体性能也更出色。</p><h3>你知道吗？</h3><p>EEVDF 是一种基于虚拟截止时间的进程调度算法，最早由 Jon Stoos 和 Kevin Jeffay 于 1995 年提出。它通过为每个进程维护虚拟运行时间与虚拟截止时间，在保证公平性的同时兼顾延迟敏感型任务。Linux 内核也自 6.6 版本起用 EEVDF 取代了传统的 CFS 调度器。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Redox-OS-Goes-EEVDF</guid>
+      <pubDate>Sat, 22 Aug 2026 19:42:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.3 继续为 Apple HFS/HFS+ 文件系统带来修复</title>
       <link>https://www.phoronix.com/news/Apple-HFS-Linux-7.3</link>
@@ -744,21 +753,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-binfmt-misc</guid>
       <pubDate>Sun, 16 Aug 2026 10:37:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>全新 Linux 驱动实现华硕 ROG Astral 显卡 12VHPWR 供电接口监控</title>
-      <link>https://www.phoronix.com/news/ASUS-ROG-Astral-12VHPWR</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲述针对ASUS ROG Astral显卡的12VHPWR电源接口监控Linux驱动。虽然涉及Linux驱动更新，但聚焦于特定游戏品牌硬件，用户兴趣配置不明确（来源配置中AMD显卡为uninterested但此为NVIDIA平台，非主流硬件为avoid但ASUS为常见品牌），故定为optional。</small></p><p>针对近期备受关注的 12VHPWR 供电接口电流不平衡或电压波动问题，开发者 Krzysiek Sokolowski 为 Linux 系统推出了一款开源内核驱动 <code>astral-hwmon</code>。该驱动专为华硕 ROG Astral 系列显卡设计，能够将 12VHPWR 接口的六路独立电流与电压数据上报至 Linux 硬件监控（HWMON）子系统。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=asus_rog_astral_1" alt="ASUS ROG Astral RTX 5090" />
-<p>目前该驱动已在搭载 ITE IT8915FN 监控芯片的 ROG Astral RTX 5090 OC 上完成测试，并预计兼容 ROG Astral 系列的 RTX 5090D、Matrix、LC 及 RTX 5080 等多个衍生型号。通过集成 HWMON 标准接口，该驱动可无缝配合各类 Linux 用户态监控软件使用。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=asus_rog_astral_2" alt="ASUS ROG Astral HWMON driver monitoring output" />
-<p>除了内核驱动，开源仓库还附带了名为 <code>astral-guard</code> 的用户态程序。该程序借鉴了华硕 Windows 端 Power Detector+ 软件的检测逻辑，可在检测到异常或临界状态时提供警告提示。目前该驱动及工具已开源至 GitHub，供广大 Linux 用户下载使用。</p>
-<h3>你知道吗？</h3>
-<p>12VHPWR（12V High Power Connector）是 PCI-SIG 推出的新一代显卡供电标准，旨在为 RTX 40/50 系列等高性能显卡提供最高 600W 的电力。由于该接口采用单线承载大电流设计，早期曾因接触不良或负载分配不均引发过热风险。在 Linux 生态中，显卡硬件监控长期依赖 HWMON 子系统，但厂商驱动往往优先支持 Windows，导致 Linux 用户难以直接读取供电接口的实时电气参数。此开源驱动的推出填补了这一空白。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/ASUS-ROG-Astral-12VHPWR</guid>
-      <pubDate>Sun, 16 Aug 2026 10:19:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
