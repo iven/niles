@@ -3,7 +3,25 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 22 Aug 2026 20:36:31 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 21:34:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Nari Labs 将 Qwen3-TTS 首音频延迟优化至 50 毫秒以内</title>
+      <link>https://news.ycombinator.com/item?id=49389952</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是 Qwen3-TTS 推理服务的延迟优化实践，属于编程效率改进经验和 AI 软件技术进展，与高兴趣配置直接匹配，故评为必读。</small></p><p>Nari Labs 在博客中介绍了他们如何将开源文本转语音（TTS）模型 Qwen3-TTS 1.7B CustomVoice 的服务延迟优化到极低水平：在单张 NVIDIA H100 SXM 上实现每秒 10 个请求（RPS），p95 首音频时间（TTFA）低于 50 毫秒，同时保持实时播放不中断。相关实现与基准测试代码已在 <a href="https://github.com/nari-labs/nari-qwen3-tts">GitHub</a> 开源。</p>
+<img src="assets/image.png" alt="Benchmark chart comparing p95 audible TTFA across serving engines as RPS increases" />
+<p>团队将"实时 TTS 服务"定义为四个目标：低可闻 TTFA（从请求发出到首个可听样本的时间）、零欠载（播放开始后客户端不出现缓冲耗尽）、随 RPS 增长仍保持前两项指标、以及输出语音清晰可懂。所有基准在泊松开放回路流量下运行五分钟，以模拟真实负载。</p>
+<p>在对比的五种实现（Nari Labs 自研、vLLM-Omni、SGLang-Omni△、VoxServe、M*）中，默认配置下各引擎的 p95 可闻 TTFA 从 277 毫秒到 1160 毫秒不等，且普遍存在前导静音问题。经过前导静音裁剪与帧累积参数调优后，VoxServe 在 1 RPS 时达到 49.3 毫秒，其余引擎仍高于 50 毫秒；到 6 RPS 时所有引擎的 p95 TTFA 都升至约 100 毫秒或更高。Nari Labs 的实现是唯一在 10 RPS 下仍保持 p95 TTFA 低于 50 毫秒的方案，20 RPS 时仍低于 100 毫秒。</p>
+<img src="assets/tts-latency-terms.svg" alt="Diagram of TTS latency terms: time to first byte, leading silence, and audible TTFA" />
+<p>核心优化思路包括：将 Talker、Code Predictor、Codec 三个模块作为独立可调度任务放到统一调度器上（受 M* 论文启发）；调度时优先处理尚未产出首段音频的请求，并以"锚点请求 + 兼容工作填充"的方式兼顾批处理效率；利用 Code Predictor 固定 15 步/帧的结构预分配 KV 缓存并将整段生成循环捕获为单个 CUDA graph；为 Codec 实现基于缓存状态的增量解码，避免重复解码历史帧；此外还通过动态裁剪前导静音、按请求阶段调整音频块大小、避免不必要的 CPU-GPU 同步等方式进一步降低延迟。</p>
+<p>成本方面，按 1× H100 SXM 实例每小时 4.29 美元计算，满负载下约合每 100 万字符 2 美元，远低于 ElevenLabs V3（100 美元/100 万字符）和 Cartesia Sonic 3.5（49 美元/100 万字符）。</p>
+<p>HN 社区讨论中，作者回应了多个问题：RTX 4090 等消费级硬件经配置调整后也能在约 10 个并发请求下达到 50 毫秒 TTFA；输出质量与 Qwen 原版实现一致；支持输入流式模式，可将 LLM 输出直接流入语音模型，无需等待完整句子。也有用户指出，在智能体场景中端到端延迟仍受 LLM 推理主导，并讨论到人类约 200 毫秒的听觉处理延迟——过快的响应反而可能让对话显得突兀。</p>
+<h2>你知道吗？</h2>
+<p>人类在对话中的听觉处理延迟约为 200 毫秒（从听到声音到做出神经反应）。如果对方在 100 毫秒内就回应，我们往往会将其理解为"打断"而非"应答"——这解释了为什么语音 AI 并非越快越好，过低的延迟反而可能让对话显得不自然，这也是评论区讨论的焦点之一。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49389952</guid>
+      <pubDate>Fri, 21 Aug 2026 15:51:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Munder Difflin：用现有 CLI 智能体在本地运行&quot;克隆人办公室&quot;的开源工具</title>
       <link>https://news.ycombinator.com/item?id=49398152</link>
@@ -1193,18 +1211,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49324087</guid>
       <pubDate>Sun, 16 Aug 2026 21:53:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 模型为何“故意变笨”：用推理能力换取世界知识的架构转变</title>
-      <link>https://news.ycombinator.com/item?id=49322695</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨AI模型架构设计趋势，分析将世界知识剥离以增强推理能力的权衡，属于AI技术进展范畴，符合用户兴趣。</small></p><p>近期，人工智能领域出现了一个显著趋势：模型在数学和代码等推理基准测试上的表现大幅提升，但单 token 计算量（per-token compute）却显著下降。与此同时，这些模型在事实回忆任务（如 <a href="https://epoch.ai/benchmarks/simple-qa-verified">SimpleQA</a>）上的表现却大幅下滑，幻觉率居高不下。文章指出，这并非技术倒退，而是实验室在架构设计上做出的有意权衡（trade）。</p>
-<p>随着 <a href="https://w4g1.dev/blog/models-are-getting-dumber-on-purpose">GLM-5.2</a>、<a href="https://w4g1.dev/blog/models-are-getting-dumber-on-purpose">Qwen3.5</a> 和 <a href="https://w4g1.dev/blog/models-are-getting-dumber-on-purpose">DeepSeek V4-Flash</a> 等小参数模型在推理能力上的突破，业界发现模型正在经历一场“知识换推理”的重构。研究指出，知识容量（Knowledge capacity）极其消耗参数（约每参数仅存储 2 比特事实），且事实极易过时（Facts rot）。相比之下，推理过程（如分步拆解、状态追踪、自我检查）更易于压缩、蒸馏，且具有长期稳定性（Procedures don't rot）。</p>
-<p>在这种新范式下，模型被设计为“通才”（generalists），仅保留基础的世界概览以理解问题意图，而将深度知识外包给运行时的“工具链”（harness）。通过检索增强（retrieval）、工具调用（tool calls）和网页搜索，模型在运行时动态获取信息。这种架构带来了多重优势：首先，它彻底改变了幻觉问题的处理方式——存储在外部知识库中的错误事实可被追溯和修正，而不再像存储在模型权重中那样无法修复；其次，它解耦了昂贵的模型训练与快速变化的世界事实，大幅降低了模型对训练截止日期的依赖；最后，剥离庞大的专家层（MoE）后，200 亿至 400 亿激活参数（active parameters）的模型即可在消费级 GPU 上本地运行，实现低成本、高隐私的推理。</p>
-<p>社区对此架构的演进展开了热烈讨论。部分开发者指出，<a href="https://epoch.ai/benchmarks/simple-qa-verified">SimpleQA</a> 基准测试已于 2025 年 9 月停止更新，建议关注其验证版本以获取最新数据。关于实际应用场景，有人质疑当前 AI 是否真的被广泛用于“智能体”（agentic）工作，更多场景仍依赖人工干预（human in the loop）；但也有观点认为，编码和自动化复杂数字任务仍是当前 AI 消耗 token 和创造价值的核心。此外，评论中提出了“可插拔知识库”（pluggable knowledge bases）的构想，希望按需加载特定领域知识（如 SwiftUI 或 GIS），而非依赖臃肿的通用模型。同时，也有声音提醒，该架构高度依赖外部检索，若模型缺乏“知道自己不知道”的能力，或搜索引擎质量持续恶化，仍可能引发严重的幻觉与误导。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49322695</guid>
-      <pubDate>Sun, 16 Aug 2026 19:04:26 GMT</pubDate>
     </item>
   </channel>
 </rss>
