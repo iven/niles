@@ -3,7 +3,22 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 23 Aug 2026 03:12:50 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 03:59:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Anthropic 被曝在 Claude Code 中悄悄 A/B 测试降低推理努力等级</title>
+      <link>https://news.ycombinator.com/item?id=49401549</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Anthropic 对 Claude Code 推理努力等级进行服务端 A/B 测试调整，属于 AI 软件技术进展及编程工具行为变动，非单纯的行业公司新闻，用户会感兴趣，推荐阅读。</small></p><p>一位用户（@argofowl）在 X 上爆料称，Anthropic 正在对 Claude Code 进行 A/B 测试，悄悄缩小"努力等级"（effort level）的刻度。据称，约 5% 的 Claude Code 2.1.236+ 会话被纳入该实验，且这是服务端改动而非应用端改动，旧版本和 Opus 5 不受影响。</p>
+<p>爆料者指出，从 2.1.237 版本起，模型将"high"努力解读为 100 分制中的 10 分——这正是此前"low"的数值，而更新日志对此只字未提。他花了一整个下午怀疑自己的代码和应用出了问题，最后才发现自己处于实验组。</p>
+<img src="https://pbs.twimg.com/media/HQU9nN6a8AA2QTf?format=webp&name=medium" alt="" width="611" height="480" />
+<p>该帖在 Hacker News 引发热议（171 分、160 条评论）。部分用户怀疑 Anthropic 还在后端进行用量限制的"橡皮筋"优化和模型路由调整；也有人质疑模型如何得知自己的努力等级——有回复解释称，努力等级完全由系统提示词控制，因此这种验证方式可行。</p>
+<p>不少用户抱怨 Opus 5 烧 token：一个简单的配置文件更新任务竟耗时 43 分钟，包括拉取容器、运行沙箱、创建测试套件等远超任务范围的操作。有观点认为 AI 公司有烧更多 token 的财务动机，但也有用户表示改用 Low 推理模式后效果不错、成本大幅下降。还有用户借机吐槽 Anthropic 的 Cyber Verification Program 审批问题，并指出开源权重模型（如 DeepSeek）正在吸引更多用户迁移。</p>
+<h2>你知道吗？</h2>
+<p>"努力等级"（effort level）是 Anthropic 等模型用于控制推理投入的机制：等级越高，模型在输出前用于思考（reasoning）的 token 预算越多。该设置通常通过系统提示词传达给模型，因此模型本身可以"感知"到自己被设定的等级——这也是爆料者验证实验存在的方式。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49401549</guid>
+      <pubDate>Sat, 22 Aug 2026 16:58:49 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 为什么你的本地 LLM 感觉比实际更笨：推理实现差异的实验剖析</title>
       <link>https://news.ycombinator.com/item?id=49402232</link>
@@ -1215,36 +1230,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49322573</guid>
       <pubDate>Sun, 16 Aug 2026 18:48:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GIMP 2026年8月开发更新：新项目格式、非破坏性编辑与 UI 改进</title>
-      <link>https://news.ycombinator.com/item?id=49326156</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了知名开源图像处理软件 GIMP 的开发更新及新功能，符合用户对“开源项目”和“软件新功能”的兴趣。</small></p><div>
-  <p>GIMP 团队于 2026 年 8 月发布了最新的开发进度报告，详细介绍了即将在 <a href="https://www.gimp.org/news/2026/08/16/dev-update-august-2026/">GIMP 3.3.2</a> 开发版中推出的新功能与界面优化。以下是本次更新的核心内容：</p>
-  <h3>新项目文件格式</h3>
-  <p>开发重点之一是采用基于“压缩 XML”（Zipped XML）结构的新项目文件格式，以逐步替代自 1997 年沿用的二进制 XCF 格式。新格式支持增量保存以提升读写速度，并为自动保存及未来的多页/动画功能（计划于 GIMP 3.6 推出）奠定基础。官方强调，XCF 格式将继续保留向后兼容支持。</p>
-  <h3>核心功能增强</h3>
-  <p><b>非破坏性编辑（Non-Destructive Editing）：</b>大幅扩展了支持范围，现可应用于图层蒙版、渐变工具以及图层组、矢量图层等非光栅对象。用户可在同一界面管理图层与蒙版的滤镜堆栈。</p>
-  <img src="https://www.gimp.org/news/2026/08/16/dev-update-august-2026/gimp-nde-layer-mask.png" alt="User interface with a live Gradient filter on the layer, and a live filter on the layer mask" />
-  <p><b>MyPaint 画笔与光谱混合：</b>新增“光谱混合（Spectral Blending）”功能，模拟真实颜料混合效果（如黄加蓝生成绿色）。同时优化了画笔预览代码，解决了高分屏下的模糊问题。</p>
-  <p><b>PSD 支持改进：</b>大幅提升了与 Adobe Photoshop 文件的兼容性。新增 PSD 描述符（Descriptor）导入、可编辑文本图层、调整图层映射，以及 TIFF/JPEG 的元数据导出功能。</p>
-  <img src="https://www.gimp.org/news/2026/08/16/dev-update-august-2026/gimp-psd-text-editable.png" alt="Editable PSD text layers in GIMP" />
-  <h3>界面与体验优化</h3>
-  <p><b>原生文件选择器：</b>逐步将文件对话框移植至各操作系统的原生样式，提升跨平台一致性。</p>
-  <img src="https://www.gimp.org/news/2026/08/16/dev-update-august-2026/gimp-native-file-chooser-dialog.png" alt="Example of native file chooser on macOS, by Bruno Lopes" />
-  <p><b>图标与 UI 重构：</b>将 78 个光标图标转为 SVG 矢量格式以适配高分屏，并重新设计了搜索操作 UI、元数据编辑器交互，优化了图案面板与数值输入控件。</p>
-  <img src="https://www.gimp.org/news/2026/08/16/dev-update-august-2026/tool-airbrush.png" alt="Raster Airbrush Icon" />
-  <img src="https://www.gimp.org/news/2026/08/16/dev-update-august-2026/tool-airbrush.svg" alt="Vector Airbrush Icon" width="72px" height="72px" />
-  <p>此外，团队修复了画布旋转时的性能卡顿问题，并解决了 macOS 弹窗显示异常等跨平台 bug。</p>
-  <h3>社区反馈</h3>
-  <p>更新发布后引发广泛讨论。开发者对新文件格式采用“压缩 XML”结构受到部分用户调侃，有人建议采用 SQLite 等现代方案。同时，社区对 GIMP 长期存在的 UI/UX 问题（如界面杂乱、启动缓慢）表达了不满，认为其设计缺乏统一规范；但也有支持者指出，在有限资源下团队仍在持续改进，并批评了部分脱离实际的指责。</p>
-  <h3>你知道吗？</h3>
-  <p><b>关于 XCF 格式的发音争议：</b>由于 X 的发音以辅音 /ks/ 开头，按照英语语法规则应使用 "a XCF file"。但部分用户习惯按字母逐个念作 "X-C-F"，此时 X 发音为 /eks/（元音开头），故使用 "an XCF file"。这一细节在评论区引发了有趣的语言学讨论。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49326156</guid>
-      <pubDate>Mon, 17 Aug 2026 03:08:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
