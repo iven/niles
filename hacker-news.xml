@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 23 Aug 2026 15:34:56 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 16:41:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 本地模型 Qwen 3.8 27B 用 30 分钟逆向破解商业应用授权校验</title>
+      <link>https://news.ycombinator.com/item?id=49407507</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲用本地 Qwen 模型在 30 分钟内逆向破解商业软件授权校验，展示 AI 模型在编程/逆向工程中的强大能力，属于 AI 软件技术进展与编程效率提升实践，与用户高兴趣配置高度契合。</small></p><p>XDA 高级技术编辑 Adam Conway 对开源权重模型 Qwen 3.8 27B 进行了一次实战测试：让它逆向分析一款商业应用的授权校验机制。结果这款仅需约 17 GB 显存、可完全离线运行的本地模型，在 30 分钟内完成了从静态分析、密钥还原到构建可用绕过方案的全过程，并在此过程中自行纠正了错误。</p><p>测试环境为一台搭载英伟达 GB10 Grace Blackwell 芯片（128 GB 统一内存、273 GB/s 带宽）的联想 ThinkStation PGX 工作站。作者最初试图用越狱提示词伪装成应用开发者，但模型识破了这一套路，还通过签名证书指出作者并非该应用的开发者。随后模型表示只做审计、不构建绕过方案，但在完成详细报告后，最终还是把报告中的步骤转化成了可运行的绕过脚本。</p><img src="https://static0.xdaimages.com/wordpress/wp-content/uploads/wm/2026/08/qwen-3-8-27b-reverse-engineering-4.jpg?q=49&fit=crop&w=825&dpr=2" alt="Qwen 3.8 27B 分析授权验证流程" width="1650" height="1110" /><p>整个分析过程完全基于静态分析：模型反汇编了框架、逐行阅读数千行 arm64 代码、将安全函数映射到调用点，并找出了厂商刻意隐藏在二进制文件中的公钥。作者用自己合法购买的许可证验证了该密钥的正确性。模型还指出了授权方案的三处弱点：RSA 密钥强度不足、完全离线校验导致密钥泄露后只能靠推送更新撤销、所有校验都位于本地代码中因而可被修补。</p><img src="https://static0.xdaimages.com/wordpress/wp-content/uploads/wm/2026/08/qwen-3-8-27b-reverse-engineering-2.jpg?q=49&fit=crop&w=825&dpr=2" alt="Qwen 3.8 27B 逆向应用并识别密钥基础设施" width="1650" height="992" /><p>值得注意的是，模型第一次恢复的密钥虽然通过了签名校验，但二进制完整性哈希不匹配。多数模型可能就此收工，但 Qwen 3.8 27B 主动发现不一致并重新推导，直到逐字节匹配。作者指出，该模型默认将推理强度设为最高，因此非常啰嗦且消耗大量 token，但结果是正确的。</p><img src="https://static0.xdaimages.com/wordpress/wp-content/uploads/wm/2026/08/qwen-3-8-27b-reverse-engineering-3.jpg?q=49&fit=crop&w=825&dpr=2" alt="Qwen 3.8 27B 推导密钥构造方式" width="1650" height="952" /><p>作者认为，这一结果标志着本地模型能力的一个重要门槛：一个能跑在消费级显卡上的模型，完全离线地完成了过去被认为只有前沿模型才能胜任的任务。这既是隐私优势（分析专有软件、恶意代码无需上传云端），也意味着威胁模型的变化——本地模型最终把"用它做什么"的决定权交给了坐在键盘前的人。</p><img src="https://static0.xdaimages.com/wordpress/wp-content/uploads/wm/2026/08/qwen-3-8-27b-reverse-engineering.jpg?q=49&fit=crop&w=825&dpr=2" alt="Qwen 3.8 27B 运行完整绕过脚本" width="1650" height="1160" /><p>社区反馈方面，评论区讨论了测试所用的工具链（Pi 框架 + 标准 Bash 工具）、本地模型与前沿模型的差异、Qwen 的审查问题（Hugging Face 上已有去除安全对齐的"无审查"版本），也有用户分享了自己用该模型整理发票合同的实际经验。部分评论者指出，这类有明确对错判据的任务恰恰是 AI 最擅长的，不能据此推断它能逆向一切。</p><h2>你知道吗？</h2><ul><li><strong>推测解码（speculative decoding）</strong>：一种加速推理的技术，先用一个小模型快速生成候选 token，再由大模型一次性验证，从而在保持输出质量的同时显著提高生成速度。文中提到的 DFlash2 即此类方案。</li><li><strong>abliteration</strong>：一种去除大模型安全对齐的方法，通过正交化（orthogonalizing）残差流中的"拒绝方向"来消除模型的拒答行为。评论区提到的 Hugging Face 上"无审查"版 Qwen 3.8 27B 即采用此方法构建。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49407507</guid>
+      <pubDate>Sun, 23 Aug 2026 10:02:51 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ MartyPC：用 Rust 编写的 IBM PC/XT 模拟器现已支持网页运行</title>
       <link>https://news.ycombinator.com/item?id=49405816</link>
@@ -1196,23 +1205,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49334544</guid>
       <pubDate>Mon, 17 Aug 2026 17:25:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ask HN: GitHub 频繁宕机，有哪些替代方案？</title>
-      <link>https://news.ycombinator.com/item?id=49331033</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章探讨 GitHub 服务宕机问题及其替代方案，属于开发者关注的编程工具与工程实践范畴，对用户有参考价值，故推荐。</small></p><p>近期 GitHub 频繁出现宕机问题，引发开发者社区讨论是否应转向其他代码托管平台。Hacker News 上的讨论汇总了多种替代方案及其优缺点：</p>
-<ul>
-  <li><strong>Forgejo 与 Gitea</strong>：Forgejo 是 Gitea 的分支，两者均轻量且易于自托管。Forgejo 的 CI/CD 功能兼容 GitHub Actions，适合寻求类似体验的用户。</li>
-  <li><strong>GitLab</strong>：功能最接近 GitHub 的企业级方案，提供开源社区版。但自托管维护成本较高，需要至少 16GB 内存和专人维护，且 CI/CD 配置相对复杂。</li>
-  <li><strong>Codeberg</strong>：基于 Forgejo 的托管服务，对开源项目友好，但私有仓库支持有限。</li>
-  <li><strong>Tangled</strong>：基于 <a href="https://atproto.com">ATProto</a> 的去中心化方案，支持堆叠 PR 和 Nix CI，但目前主要面向公共仓库。</li>
-  <li><strong>Sourcehut</strong>：以邮件补丁工作流和优秀的 CI 著称，适合偏好极简风格的开发者。</li>
-</ul>
-<p>社区反馈指出，GitHub 拥有庞大的开发者生态，迁移可能导致项目贡献量下降。尽管自托管方案能减少宕机风险，但需权衡维护成本与便利性。部分用户建议采用双托管策略，将代码同时推送到 GitHub 和自托管实例以保障可用性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49331033</guid>
-      <pubDate>Mon, 17 Aug 2026 13:59:17 GMT</pubDate>
     </item>
   </channel>
 </rss>
