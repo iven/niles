@@ -3,7 +3,53 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 23 Aug 2026 18:48:14 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 19:32:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 什么是 Harness？从攀岩安全带读懂 AI 智能体套件</title>
+      <link>https://news.ycombinator.com/item?id=49409092</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲解 AI 智能体套件（agent harness）这一 AI 软件技术概念，属于用户感兴趣的 AI 软件技术进展，推荐阅读。</small></p><p>Earendil 团队（开源智能体套件 Pi 的开发者）发布了一篇面向普通读者的科普文章，用攀岩安全带的类比解释 AI 领域的热门概念——"Agent Harness"（智能体套件）。文章指出，Agent Harness 是让 AI 模型得以运行的软件环境，也是理解"AI 智能体"的关键。</p>
+
+<p>文章从攀岩安全带讲起：安全带通过绳索和卡扣保护攀岩者安全、控制节奏，还能挂载粉袋、岩塞等工具，并且可以随攀岩者适应不同地形。作者认为，Agent Harness 在结构与功能上都与之相似。</p>
+
+<img src="https://earendil.com/static/posts/what-is-a-harness/royal-robbins-el-capitan-climbing-05.png" alt="Royal Robbins on El Capitan, his harness racked with the tools of the ascent." width="1440" height="2182" />
+
+<p>Agent Harness 通常做四件事：</p>
+<ul>
+<li><strong>系统提示词（System Prompt）</strong>：一组注入到每次对话中的指令，约束模型在特定场景下的行为，类似新员工入职第一天收到的说明。</li>
+<li><strong>工具（Tools）</strong>：以代码形式提供的能力，如网页搜索、编写并执行代码、撰写邮件等。套件只负责描述和提供工具，由模型自行决定何时使用。</li>
+<li><strong>智能体循环（Agentic Loop）</strong>：模型根据自身评估反复调用工具、检查结果、再行动的工作框架。文章以"比较本地小学排名并给出建议"为例：模型先搜索数据，发现不足后自行再次搜索，再用代码工具制作电子表格，最后调用邮件工具发送带附件的总结。</li>
+<li><strong>翻译层（Translation Layer）</strong>：让同一套件可以对接 Anthropic、OpenAI 或开源权重模型，把选择权和控制权交还给终端用户。</li>
+</ul>
+
+<p>文章强调，与 AI 模型不同，用户能够真正"拥有"并改造自己的 Harness。Pi 就是这样一个极简、免费开源的套件，社区已共享超过 5,000 个扩展。作者还回顾了从首个流行的智能体套件 Claude Code 到 OpenClaw、OpenCode、Hermes 等开源项目的演变，认为中立、开源、可本地运行的 Harness 是增强个人自主权（agency）的工具。</p>
+
+<p>HN 社区反馈：多数评论者认为文章清晰易懂，适合分享给非技术朋友；有用户称赞 Pi 的扩展系统，将其比作"LLM 是电力，Harness 是电子设备"；也有用户询问从 Claude Desktop 迁移到 Pi 的配置技巧（有人推荐 Hermes Agent）；同时存在质疑声音，认为"Harness"只是 2026 年的 AI 炒作词，且部分号称"智能体"的产品其实是传统确定性软件。</p>
+
+<h3>你知道吗？</h3>
+<p>"Harness" 一词在软件工程中并非新概念：测试领域早有"测试套件（test harness）"的说法，指用于驱动和验证被测代码的框架。AI 领域的"Agent Harness"延续了这一含义——它本身不是模型，而是承载、驱动模型并为其提供工具与规则的"外壳"。此外，文中提到的"开源权重（open weight）模型"指权重公开可下载、可本地部署的模型（如 DeepSeek、Llama 等），用户无需通过厂商 API 即可运行，这也是 Harness 本地化使用的前提之一。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49409092</guid>
+      <pubDate>Sun, 23 Aug 2026 14:24:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 5 微秒级 JIT 编译：用 copy-and-patch 技术构建快速编译器</title>
+      <link>https://news.ycombinator.com/item?id=49406387</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍用 copy-and-patch 技术构建快速 JIT 编译器的具体方法与基准测试，属于编程效率改进经验，用户很感兴趣，必看。</small></p><p>作者在构建 Rust 数据库 <a href="https://malisper.me/jit-compiling-code-in-5-us/">pgrust</a> 时，实现了一个约 5 微秒即可完成编译的 JIT 编译器，从而可以对每一条 SQL 查询都进行 JIT 编译，而不是只覆盖其中一部分。作者认为，传统上快速 JIT 编译被视为"黑魔法"，需要深厚的汇编功底，因此目前几乎没有生产级数据库自带 JIT 编译器——它们要么依赖 LLVM，要么动态生成 C/C++ 代码，两者都有编译时间过长的缺点。而借助 AI 辅助，直接面向汇编编写 JIT 编译器变得容易得多。</p>
+<p>文章以构建一个简单的正则表达式引擎为例，讲解 copy-and-patch 编译方法。该引擎只支持字面量字符串和重复（*）两种特性，用三种节点（Literal、Concatenation、Repetition）表示。作者先实现了一个约 20 行的解释器版本，基准测试显示它比针对特定正则手写的代码慢 10–20 倍，这正是 JIT 编译要解决的问题。</p>
+<p>copy-and-patch 的核心思想是：为每种操作准备一段汇编模板（称为 stencil），在运行时根据具体操作对模板做小幅修改（"填空"），再把多个填充好的 stencil 拼接成完整程序。文章详细展示了为正则 b(an)* 生成的 ARM64 汇编，包括：初始化栈的 prologue、字符比较、带回溯的重复循环、匹配成功块和失败回退块。设计上使用回溯栈保存失败时的恢复地址和字符串位置，并约定待匹配字符串以 NUL 字节结尾，从而省去长度比较。</p>
+<p>随后文章给出各 stencil 的 Rust 实现（stencil_char、stencil_split、stencil_jmp、stencil_match、stencil_fail 等）以及用于填充指令字段的辅助函数（条件分支偏移、绝对地址拆分等），最后通过 Emitter 结构体递归遍历正则 AST，把生成的指令复制到可执行内存中，供 Rust 像普通函数一样调用。</p>
+<p>Hacker News 上的讨论围绕几个话题展开：pgrust 因改动过深难以合并回上游；JIT 编译与 <a href="https://en.wikipedia.org/wiki/W%5EX">W^X（写与执行互斥）</a>内存保护之间的安全权衡；其他快速 JIT 框架（如 Cranelift、GNU Lightning、sljit、asmjit）与手写 copy-and-patch 的对比；以及 AI 辅助编写汇编这类"难写代码"是否靠谱的争论。也有评论指出 copy-and-patch 是公认的 JIT 编译技术，并推荐了 <a href="https://swtch.com/~rsc/regexp/">Russ Cox 关于正则引擎实现的系列文章</a>。</p>
+<h3>你知道吗？</h3>
+<ul>
+<li>copy-and-patch 编译技术源于 2021 年的一篇论文（"Copy-and-patch compilation"），它通过预编译的模板和少量修补指令来大幅降低代码生成开销，是快速 JIT 的常用手段。</li>
+<li>JIT 编译需要在运行时生成并执行机器码，这与 W^X（Write XOR Execute）安全策略存在天然冲突：可写内存通常不可执行，反之亦然。数据库等场景需要在性能与安全之间做权衡。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49406387</guid>
+      <pubDate>Sun, 23 Aug 2026 06:04:51 GMT</pubDate>
+    </item>
     <item>
       <title>花 266 美元和四个 AI 模型，我终于真正拥有了自己的平板：GLM-5.3 一天完成越狱</title>
       <link>https://news.ycombinator.com/item?id=49409073</link>
@@ -1206,32 +1252,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49337602</guid>
       <pubDate>Mon, 17 Aug 2026 21:03:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Bluesky如何在截图中巧妙显示Logo的技术揭秘</title>
-      <link>https://news.ycombinator.com/item?id=49338459</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍了 Bluesky 软件截图功能的技术实现细节，属于软件技术进展，符合用户感兴趣的主题</small></p><p>许多用户在使用Bluesky应用时注意到一个有趣的现象：在截取帖子时，屏幕右上角会自动显示Bluesky的Logo，但在应用界面中该位置实际上是“Follow”（关注）按钮。作者通过查看Bluesky的开源代码，揭示了这一功能背后的技术实现原理。原文：<a href="https://timmarinin.net/2026/bluesky-screenshots/">https://timmarinin.net/2026/bluesky-screenshots/</a></p>
-<p><img src="./skeet.jpg" alt="A screenshot of Bluesky post by @eroston.bsky.social, the important part is that Bluesky logo is visible in the top right corner" width="50%" /></p>
-<p>经过对代码库的追踪，作者发现该功能由名为 <code>GrowthHack.tsx</code> 的文件实现，并依赖于第三方包 <code>expo-privacy-sensitive</code>。其核心技巧在于创建一个 <code>UITextField</code> 对象，并将其 <code>isSecureTextEntry</code>（安全文本输入）属性设置为 <code>true</code>。随后，应用将实际的“Follow”按钮渲染到该文本字段的图层（<code>.layer</code>）上。当iOS系统检测到截图操作时，出于隐私保护机制，会自动清空或隐藏标记为安全输入的文本字段，从而让预先放置在底层的Bluesky Logo显露出来。</p>
-<p><img src="./mid-switch.png" alt="Screenshot of zoomed out version of Bluesky app mid-switching, Follow button is visible" width="50%" /></p>
-<p>作者还解释了为何在切换应用的过程中截图无法触发此效果：iOS在用户开始滑动切换应用时，会立即截取当前屏幕快照，此时应用内已没有活跃的 <code>UITextField</code> 实例可供系统清空，因此只能显示原始的“Follow”按钮。此外，该技巧目前仅针对iOS平台，其他平台（如Android）则直接渲染内容，不进行隐藏处理。</p>
-<p>这一功能在Hacker News社区引发了广泛讨论。部分用户认为，应用通过技术手段劫持或修改系统截图行为，是将商业利益置于用户体验之上，属于对API的滥用。然而，也有观点指出，在截图上添加来源标识有助于品牌传播和内容溯源。事实上，Telegram、Signal、X（原Twitter）以及Reddit等主流应用也早已采用过类似或完全禁止截图的技术手段。由于该技巧巧妙地利用了iOS系统原有的隐私保护机制，作者认为Apple短期内不太可能对其进行修复或限制。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49338459</guid>
-      <pubDate>Mon, 17 Aug 2026 22:20:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI;DR：拒绝未经编辑的 AI 生成文本</title>
-      <link>https://news.ycombinator.com/item?id=49336573</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论关于拒绝未编辑 AI 生成文本的概念和社区规范，属于 AI 话题的泛讨论，并非具体的技术进展或模型发布，故评级为可选。</small></p><p>在人工智能（AI）辅助写作日益普及的今天，未经人工审查的 AI 生成文本正引发越来越多的反感。作者 Rick Manelius 提出了 <strong>AI;DR</strong>（AI; Didn't Read，即“AI 没读”）这一缩写，作为应对此类“AI 垃圾文本”（AI slop）的解决方案。</p>
-<p><img src="https://substackcdn.com/image/fetch/$s_!OCZa!,w_40,h_40,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fpbs.substack.com%2Fprofile_images%2F1731701454392496128%2FejYpw1_3.jpg" alt="X avatar for @seclilc" width="40" height="40" /></p>
-<p>尽管作者本人是 AI 的坚定支持者，但他表示，当收到同事或朋友发送的未经过滤和编辑的 AI 输出时，会产生强烈的生理不适。他制定了一项新政策：<strong>如果发送者没有花精力去审查和编辑内容，那么接收者也不会花时间去阅读。</strong> 他认为，虽然某些场景（如客户服务）可以接受 100% AI 生成的内容，但在人际交流、通讯软件（如 Slack）以及个人通讯中，保留人类的触感和编辑责任至关重要。</p>
-<p>作者将 <strong>TL;DR</strong>（Too Long; Didn't Read，即“太长不看”）视为应对社交媒体长文的方案，而将 <strong>AI;DR</strong> 视为应对 AI 生成文本泛滥的对策。这一观点在 Hacker News 社区引发了广泛共鸣，许多用户表示赞同，并衍生出了诸如 <strong>HW;DR</strong>（Human Written; Did Read，人类撰写，已阅读）和 <strong>TA;DU</strong>（Too Ambiguous; Didn't Understand，过于模糊，未理解）等类似缩写。同时，也有部分评论指出，AI 辅助写作类似于传统的编辑校对，不应一概排斥，但核心争议仍在于发送者是否对最终文本付出了应有的责任。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49336573</guid>
-      <pubDate>Mon, 17 Aug 2026 19:47:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
