@@ -3,7 +3,47 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 23 Aug 2026 17:31:57 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 18:48:14 GMT</lastBuildDate>
+    <item>
+      <title>花 266 美元和四个 AI 模型，我终于真正拥有了自己的平板：GLM-5.3 一天完成越狱</title>
+      <link>https://news.ycombinator.com/item?id=49409073</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章核心是用四个 AI 模型辅助利用 CVE-2022-38181 越狱被亚马逊停用的平板，虽然涉及 AI 模型（GLM-5.3）的实际应用，但主要主题是设备越狱/硬件破解，而非 AI 模型发布公告或编程效率经验，兴趣匹配不明确，故评为可选。</small></p><p>一位拥有二十年技术背景和 InfoSec 经验的作者，为了让自己花 114.26 美元在 eBay 上买到的亚马逊 Fire HD 10 平板（2021 款）真正"属于自己"，又投入了 266.15 美元，先后动用四个 AI 模型（Claude、Kimi K3、GLM-5.2、GLM-5.3），历时五个月完成了这台"无公开越狱方法"设备的 root。最终，GLM-5.3 在订阅的第一天就完成了任务，移除了 100 个亚马逊预装包。完整过程记录在作者的<a href="https://ericpardee.github.io/fire-hd-ownership/">博客文章</a>中。</p>
+
+<h3>问题：亚马逊软件反复关机</h3>
+<p>这台平板被用作 24/7 插电运行的 kiosk，显示 Home Assistant 智能家居面板。去年冬天它开始自行完全关机（而非休眠），设备遥测显示关机原因为 <code>Software_Shutdown</code>——有具备关机权限的组件在主动关机。作者禁用了五个持有 REBOOT/SHUTDOWN 权限的亚马逊服务，暂时奏效，但最终遇到 <code>java.lang.SecurityException: Cannot disable a protected package</code>：三个亚马逊包受保护，移除它们必须 root。而这款 2021 款 HD 10 没有公开的 root 方法，亚马逊焊死了 bootrom。</p>
+
+<h3>Claude 的五个月诊断与"安全护栏"</h3>
+<p>Claude Code 与作者进行了数月的猫鼠游戏，但最终被其安全护栏拦下——连"总结自己设备上的旧会话日志"都被标记为 [cyber] 类别而拒绝。OpenAI 的 Codex 也拒绝回答一个纯内核工程问题。作者感叹：美国前沿模型不愿帮忙，中国模型愿意，但也会先思考"该不该帮"。</p>
+<img src="/fire-hd-ownership/blog-assets/claude-cyber-refusals.png" alt="Both safeguard flags in the terminal" />
+
+<h3>Kimi K3 找到漏洞</h3>
+<p>8 月 13 日，作者转向中国模型。Kimi K3（月之暗面）在收到"这是我自己的设备"的请求后，先自行判断了合法性（美国 DMCA 对越狱平板有豁免），然后从亚马逊官方 OTA 镜像中提取真实内核，逐一比对已知 Mali GPU 漏洞，最终锁定 CVE-2022-38181——Arm Mali 内核驱动中的 use-after-free 漏洞。该漏洞 2022 年 10 月已在上游修复，2023 年 3 月被列入 CISA 已知被利用漏洞目录，亚马逊也在 2024 年 6 月的 Fire OS 7.3.2.9 中修复，但作者的平板停留在 7.3.2.6，从未收到补丁。Kimi 用约 30 小时、621 条消息构建了完整利用工具链，花费 164.25 美元。</p>
+<img src="/fire-hd-ownership/blog-assets/kimi-we-found-a-working-bug.png" alt="Kimi announces the find" />
+
+<h3>漫长的"硬磨"与交接</h3>
+<p>利用过程充满波折：释放的内存对象位于"内核最热门的 slab 缓存"，大多数尝试导致内核 panic 和重启，利用程序每次启动自动重试六次，累计超过 500 次尝试。中途 OpenRouter 还拒绝了作者的信用卡。</p>
+<img src="/fire-hd-ownership/blog-assets/openrouter-card-declined.png" alt="OpenRouter declined my card" />
+
+<p>Kimi 坦承"没有验证过的明确路径"后，作者强制交接给 GLM-5.2。GLM-5.2 花费 21.90 美元，连夜工作，第一句话就是"停止硬磨"——它指出 500 次相同崩溃是设计缺陷。但它撞上了一堵自认为"物理极限"的墙：认为该芯片组 CPU 与 GPU 之间没有缓存一致性（cache coherency），GPU 写入可能永远对 CPU 不可见。作者向 ChatGPT 求证，ChatGPT 用"文件柜"类比表示同意，但拒绝回答如何绕过，只建议申请 Trusted Access。事后证明这个诊断大错特错。</p>
+<img src="/fire-hd-ownership/blog-assets/chatgpt-coherency-explanation.png" alt="ChatGPT explains the coherency wall" />
+<img src="/fire-hd-ownership/blog-assets/chatgpt-trusted-access-refusal.png" alt="ChatGPT declines to help further" />
+
+<h3>GLM-5.3：一天完成</h3>
+<p>8 月 14 日，智谱（Z.ai）发布 GLM-5.3，宣传语是"Frontier Coding with Emergent Cyber Capabilities"。作者花 80 美元/月订阅其 Coding Plan，8 月 16 日上午交接任务，当天下午取得突破：前两个模型都没检查的两件事——作者的内核与 OTA 镜像中的内核存在固定偏移的构建差异（build shift），且联发科构建 Mali 驱动页表的方式与 Arm 参考源码略有不同，导致内存写入原语一直在用错误格式写入。修正后，"GPU→DRAM→CPU 一致性立即生效——它从未坏过"。下午 4:34，SELinux 被翻转为 permissive，root 达成。</p>
+<img src="/fire-hd-ownership/blog-assets/glm53-rooted-verified.png" alt="Root verified live" />
+
+<p>GLM-5.3 冷重启平板并在四分钟内重新 root，证明结果可复现，随后移除了所有持有 REBOOT/SHUTDOWN 权限的亚马逊包、OTA 机制、臃肿软件和遥测，共 100 个包，且拒绝触碰任何可能导致变砖的内容。它的结束语是："你拥有这台设备。"自那以后，kiosk 再也没有自行关机。</p>
+
+<h3>技术原理</h3>
+<p>利用链：use-after-free 释放内核仍使用的内存 → 赢得竞争条件（race）用受控数据回收 → 获得 GPU 对物理内存的写入原语 → 关闭 selinux_enforcing 并覆写进程凭据获得 root shell → 用 <code>pm uninstall --user 0</code> 移除亚马逊包而不触碰受保护的系统分区。作者强调其中没有任何新东西：漏洞 2022 年被报告、Arm 2022 年修复、CISA 2023 年收录、亚马逊 2024 年打补丁，唯一"新颖"的是他的设备从未收到补丁。</p>
+
+<h3>合法性与启示</h3>
+<p>在美国，国会图书馆 2024 年 DMCA 豁免（有效期至 2027 年 10 月）涵盖 root 自己拥有的平板以移除不需要的软件。作者的结论是：真正的安全能力现在可以按小时租给任何有信用卡和耐心的人，但判断力（问什么、何时停止、这是谁的设备）不可租借，也正是安全护栏无法衡量的东西。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49409073</guid>
+      <pubDate>Sun, 23 Aug 2026 14:23:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 本地模型 Qwen 3.8 27B 用 30 分钟逆向破解商业应用授权校验</title>
       <link>https://news.ycombinator.com/item?id=49407507</link>
@@ -1192,19 +1232,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49336573</guid>
       <pubDate>Mon, 17 Aug 2026 19:47:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qwen3.8 27B 在 Artificial Analysis 智能指数中取得 52 分，表现超越众多大型模型</title>
-      <link>https://news.ycombinator.com/item?id=49334544</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章详细分析了新模型 Qwen3.8 27B 的性能指标与对比，符合用户“新AI模型发布公告”的高兴趣配置，故评级为强烈感兴趣。</small></p><p><img src="/img/logos/alibaba_small.svg" alt="Qwen3.8 27B logo" /></p>
-<p>阿里巴巴近日发布的开源推理模型 <a href="https://artificialanalysis.ai/models/qwen3-8-27b">Qwen3.8 27B</a> 在 AI 性能评测平台 Artificial Analysis 上表现抢眼。该模型采用 Apache 2.0 许可证，支持文本与图像多模态输入，并具备 256k 上下文窗口。在最新发布的 Artificial Analysis 智能指数（Intelligence Index）中，Qwen3.8 27B 以 52 分的成绩位列前茅。</p>
-<p>这一成绩不仅大幅领先于同参数规模（4B-40B）的开源模型（中位数为 9 分），甚至与拥有 284B 参数的 DeepSeek V4 Flash 0731 得分持平，同时也超越了 Qwen 3.7 Max。评测显示，该模型在推理、知识、数学和编码等维度均有出色表现。</p>
-<p>作为推理模型（Reasoning Model），Qwen3.8 27B 采用扩展思考（Chain-of-Thought）机制来应对复杂问题。虽然它在单次任务中生成的输出 token 量较高（平均 160M tokens），但社区反馈指出，这是小参数模型通过“测试时扩展（Test-time scaling）”换取更高准确率的合理权衡。在本地部署和特定垂直任务中，其表现已获得广泛认可。</p>
-<p>HN 社区对此反响热烈，许多开发者表示该模型在本地运行时的实际效果令人印象深刻。随着开源小模型在推理能力上的突破，其性价比和部署灵活性正使其成为替代闭源前沿模型的重要选择。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49334544</guid>
-      <pubDate>Mon, 17 Aug 2026 17:25:17 GMT</pubDate>
     </item>
   </channel>
 </rss>

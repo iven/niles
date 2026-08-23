@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 23 Aug 2026 17:31:49 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 18:46:15 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.3 DRM 合并大量图形驱动改进：覆盖老 GPU 到下一代硬件</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-DRM</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲Linux内核图形驱动在旧GPU到新一代硬件上的改进，属于内核/驱动基础设施类新闻，与用户高兴趣主题（KDE、新发行版、编程工具等）关联不强，且涉及新一代硬件较为边缘，兴趣不明确，故定为可选。</small></p><p>Linux 7.3 合并窗口期间，直接渲染管理器（DRM）子系统的更新已合并。本周期包含大量 GPU 内核驱动改进，从老款 AMD Radeon 显卡的显著增强，到下一代 AMD 图形 IP 模块的支持，再到 Intel 侧默认启用 Nova Lake S 图形支持。</p><p>AMD 方面，Valve 的 Natalie Vock 主导的 DMEMCG 驱逐（eviction）工作旨在提升显存（vRAM）容量超限时的 Linux 游戏性能，初期对 AMDGPU 和 Intel 图形驱动均表现良好。Valve 的 Timur Kristóf 则为 GFX6 至 GFX8 时代的老款 AMD GPU 带来了 DRM 格式修饰符（format modifier）支持，这是其过去一年专注于提升原始 GCN 时代显卡在 Linux 上支持的一部分。此外，AMDGPU 还改进了老硬件的 GPU 重置恢复，启用了现代 AMD APU 的第二图形管线，修复 8K 显示问题，并新增 DCN 6.0 显示核心、DC CACP 等支持。</p><img src="//www.phoronix.net/image.php?id=hd3850-r9fury-perf&amp;image=12_amd_0_med" alt="Old graphics cards" /><p>Intel 方面，Xe3P Nova Lake 图形现被视为稳定并默认启用，不再需要 "force probe" 选项。Linux 7.3 的 DRM 还继续构建 Rust 驱动能力，新增了更多基础设施。基于 Rust 的 NVIDIA Nova 驱动也持续完善，包含 Blackwell 和 Hopper 修复、GSP 启动改进，并支持在启用 vGPU 的情况下启动 GSP。现有的 Nouveau 开源 NVIDIA 驱动新增了 NVDEC 支持，以启用 NVK Vulkan Video 支持。DRM 核心方面，TTM 内存管理现在更加激进。更多详情可查看已合并到 Git 的 <a href="https://www.phoronix.com/news/Linux-7.3-DRM">pull request</a>。</p><h3>你知道吗？</h3><ul><li>GCN（Graphics Core Next）是 AMD 于 2012 年推出的 GPU 微架构，GFX6 至 GFX8 对应 Radeon HD 7000 系列至 Radeon RX 400/500 系列时代的产品，是许多 Linux 玩家仍在使用的老显卡。</li><li>DMEMCG 驱逐机制类似于系统内存的回收机制：当显存容量不足时，将部分显存内容换出，从而避免游戏因显存溢出而崩溃或性能骤降，这对显存较小的显卡尤为重要。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-DRM</guid>
+      <pubDate>Sun, 23 Aug 2026 18:10:13 GMT</pubDate>
+    </item>
     <item>
       <title>ReactOS 合并 Job Objects 支持，向运行现代 Windows 应用迈出重要一步</title>
       <link>https://www.phoronix.com/news/ReactOS-Job-Objects</link>
@@ -724,24 +733,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Linux-Libre-7.2</guid>
       <pubDate>Mon, 17 Aug 2026 09:27:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 7.2 正式发布：I/O 性能提升、AMD/Intel 驱动改进及缓存感知调度</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讲述 Linux 7.2 内核版本发布及 I/O 性能改进，符合来源配置中“新软件项目”的 high_interest 偏好，且 Linux 相关主题也处于 interest 级别，综合判断为强烈感兴趣。</small></p><p>Linus Torvalds 已正式发布 <a href="https://www.phoronix.com/news/Linux-7.2-Released">Linux 7.2</a> 稳定版内核。尽管在 AI/LLM 时代背景下，内核开发周期因补丁和报告量的激增而变得异常繁忙，但 7.2 版仍按计划如期推出，并将成为 Ubuntu 26.10 等 upcoming 发行版的基础。</p>
-<p>Linux 7.2 带来了多项新特性与性能优化：</p>
-<ul>
-<li><strong>新特性</strong>：引入了缓存感知调度（Cache Aware Scheduling）以提升多核效率；Intel 开发的 USB4STREAM 协议；AMDGPU 支持 HDMI 2.1 FRL（Fixed Rate Link）；以及针对 Intel 和 AMD 硬件的多种驱动改进。</li>
-<li><strong>性能提升</strong>：显著优化了 AMD 和 Intel 平台的 I/O 性能，提升了 Intel Arc B390 显卡的性能，并加快了 poll 性能。</li>
-</ul>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=linux_72" alt="Linux 7.2 Git tag release" /></p>
-<p>在开发周期的最后一周，团队处理了声音设备 quirks 的添加，并将 DRM FIFO 调度器回退为默认的“公平”调度器（因新调度器引发回归问题）。此外，还合并了 <code>tlbi=ipi</code> 启动选项及大量驱动和网络相关的修复补丁。Linus Torvalds 在发布说明中表示，尽管最后一周的工作量超出预期，但考虑到当前的开发常态，按时发布是必要的。他同时也提到，Linux 7.3 的合并窗口将于明日开启，目前已有 40 个待处理的 Pull Requests。</p>
-<h3>你知道吗？</h3>
-<p>在 AI 和大型语言模型（LLM）时代，代码审查和补丁提交量呈指数级增长，这对 Linux 内核的维护者提出了巨大挑战。Linus Torvalds 提到的“新常态”正是指这种因 AI 辅助编码和自动化测试带来的补丁洪流，使得内核开发周期比以往更加紧凑和繁忙。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-Released</guid>
-      <pubDate>Sun, 16 Aug 2026 23:12:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
