@@ -3,7 +3,43 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 23 Aug 2026 10:36:13 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 11:33:13 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 为美光 FAMFS 文件系统上游化做准备</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-Preps-Toward-FAMFS</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍新的 FAMFS 文件系统准备合入 Linux 7.3，属于新软件项目/软件新功能，来源配置对其很感兴趣，故推荐。</small></p><p>Linux 7.3 开发周期的 NVDIMM 与直接访问（DAX）补丁已合并。本周期的大部分 DAX/NVDIMM 工作都在为美光（Micron）FAMFS 文件系统的即将提交做准备，包括大量修复、代码重构及其他改进。</p><p>FAMFS 是美光自 2024 年起持续开发的一款专用文件系统，面向结构附加内存（fabric-attached memory，FAM）设备。它并非通用文件系统，而是围绕基于文件、字节级访问的超大规模共享/分解内存应用而设计，常见规模约为 100TB 以上，对未来的 CXL 服务器至关重要。美光工程师曾尝试在用户空间移植到 FUSE，但最终认为独立的内核文件系统驱动是最佳方案，并承诺在有明确客户需求的前提下长期维护 FAMFS。</p><img src="//www.phoronix.net/image.php?id=2025&image=lpc2025_famfs_1" alt="FAMFS background slide" /><p>美光希望 FAMFS 能在 2026 年进入上游内核，目前该文件系统补丁已历经十三轮评审。不过 FAMFS 尚未正式提交，也没有迹象表明它会在 v7.3 合并窗口期间提交。感兴趣的开发者可以查看当前形态的 v13 补丁。</p><h3>你知道吗？</h3><p>结构附加内存（FAM）指通过网络结构（fabric）连接、可被多台主机共享访问的内存池，与 CXL 等互连技术密切相关。这类内存可被分解（disaggregated）出服务器本地，供多个节点按需使用，从而提升大规模数据中心的内存利用率与灵活性。DAX（直接访问）机制则允许应用绕过传统页缓存，直接以字节粒度访问持久内存设备。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Preps-Toward-FAMFS</guid>
+      <pubDate>Sun, 23 Aug 2026 11:20:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.3 引入全新 AES 加密库 API，为性能优化与代码精简铺路</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-New-Crypto-AES-APIs</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Linux 7.3 新增 AES 加密 API 以提升性能，属于开源软件的软件新功能进展，符合兴趣配置，故推荐。</small></p><p>谷歌工程师 Eric Biggers 继续推进 Linux 内核加密代码的改进工作。在 Linux 7.3 周期中，他提交了针对内核中使用的大部分 AES 加密模式（ECB、CBC、CBC-CTS、CTR、XCTR、XTS、GCM 和 CCM）的新库 API。</p><p>这些 AES 模式在内核中有大量使用者，目前普遍通过 crypto_skcipher 或 crypto_aead API 调用，而这两套现有 API 难以使用且效率低下。新 API 基于内核库中已有的单块 AES 支持实现，并配有完整文档。本次改动还将旧 AES-GCM 库 API 的唯一使用者迁移到新 API，随后移除了旧 API 及其实现。</p><p>新 API 通过新增 crypto_skcipher 和 crypto_aead 算法接入传统 crypto API，从而被传统 crypto API 的自测覆盖，并在没有架构优化代码的系统上得到实际应用。更重要的是，这是将架构优化代码（arch/*/crypto/aes*）迁移进库中的前提，按惯例将消除大量冗余的"胶水"代码。</p><p>Biggers 在拉取请求中说明，与 SHA-512 等已迁移到库中的算法不同，这些 AES 模式工作量较大，无法在一个周期内全部完成，且各模式之间相互耦合、彼此依赖，不宜逐个处理。因此，大部分收益（代码行数减少、性能提升等）将在后续周期中实现，届时架构优化代码迁入库中，crypto_skcipher 和 crypto_aead 的使用者也将改用新 API。</p><p>该工作已合并进下一个 Linux 内核版本（Linux 7.3），该版本可能同时成为今年的 LTS 长期支持内核版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-New-Crypto-AES-APIs</guid>
+      <pubDate>Sun, 23 Aug 2026 10:42:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.3 合并输入子系统更新：包含安全修复与多项改进</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-Input</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 属于 Linux 内核输入子系统的常规更新与安全修复，偏向基础设施，兴趣不明确，标题较为笼统，故评为可选。</small></p><p>本周早些时候，Linux 7.3 开发周期合并了大规模的输入子系统更新。这批更新包含各类改进以及错误与安全修复，其中部分修复源于 AI/LLM 生成的漏洞发现。</p>
+<p>主要更新内容包括：</p>
+<ul>
+<li>Synaptics RMI4 驱动更新：在平台数据可用时改用触摸屏尺寸信息，并为戴尔 Inspiron 3521 笔记本启用了 InterTouch SMBus 模式。</li>
+<li>新增 Imagis ISA1200 触觉马达驱动 IC 驱动，该芯片用于手机和平板等设备，如三星 Galaxy Tab 10.1。</li>
+</ul>
+<img src="//www.phoronix.net/image.php?id=asus_zenbook_ux301la&amp;image=asus_ux301la_ultrabook2_med" alt="Keyboard and touchpad" />
+<p>安全方面：Linux psmouse 驱动针对协议断开代码中潜在的释放后使用（use-after-free）漏洞进行了加固；FocalTech PS/2 驱动也修复了可能的下溢（underflow）问题。</p>
+<p>输入核心代码方面，改进了设备的打开、关闭和抑制（inhibit）流程，确保输入设备在传递事件前完全就绪。此外还有大量其他输入修复，已随输入子系统拉取请求（pull request）合并进入 Linux 7.3 窗口。</p>
+<p><strong>你知道吗？</strong>部分安全修复源于 AI/LLM 辅助的代码审计——这类工具可快速扫描大量内核代码并识别潜在的内存安全问题，正成为内核安全研究的新趋势。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Input</guid>
+      <pubDate>Sun, 23 Aug 2026 10:30:27 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Redox OS 改用 EEVDF 调度器：吞吐量提升 2.6 倍，公平性提升 782 倍</title>
       <link>https://www.phoronix.com/news/Redox-OS-Goes-EEVDF</link>
@@ -711,48 +747,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GIMP-New-File-Format-2026</guid>
       <pubDate>Sun, 16 Aug 2026 20:15:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.2 发布前紧急提交 `tlbi=` 启动选项，用于排查 AMD CPU 的 TLB 刷新问题</title>
-      <link>https://www.phoronix.com/news/Linux-7.2-x86-urgent-tlbi</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及 Linux 7.2 内核即将发布的底层引导选项（tlbi），属于 Linux 内核技术范畴，符合用户对 Linux 相关技术的关注</small></p><p>在 Linux 7.2 内核稳定版发布前夕，开发者紧急提交了一个 "x86/urgent" 拉取请求，引入了新的 <code>tlbi=</code> 启动选项。</p>
-<p>该选项用于控制转换后备缓冲器（Translation Lookaside Buffer, TLB）的无效化方法。目前仅支持 <code>tlbi=ipi</code> 参数。启用该参数后，系统将切换回基于处理器间中断（Inter-Processor Interrupt, IPI）的 TLB 刷新机制。</p>
-<p>这一改动是为了应对近期在 AMD CPU 上发现的 INVLPGB 和 TLBSYNC 指令相关的问题。这些指令在较新的内核版本中被用于广播 TLB 刷新。通过切换回旧的 IPI 方式，管理员可以排查用户空间崩溃是否由这些新指令引起。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=tlbi" alt="tlbi option" />
-<p>目前该选项主要作为调试手段，未来可能会扩展支持 <code>tlbi=broadcast</code>。该补丁预计将很快合入 Linux 主线。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.2-x86-urgent-tlbi</guid>
-      <pubDate>Sun, 16 Aug 2026 17:01:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>AVX-512 xor_gen 优化助力 Linux RAID 性能提升超 40%</title>
-      <link>https://www.phoronix.com/news/AVX-512-xor-gen-v4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讨论AVX-512指令集技术对Linux RAID的改进，属于芯片/指令集技术范畴。根据全局配置，芯片技术为uninterested，来源配置中无直接匹配项，综合判断为兴趣不明确，故定为optional。</small></p><p>Google 工程师 Eric Biggers 近期发布了针对 Linux RAID 的 AVX-512 优化补丁，在 AMD Ryzen 9 9950X (Zen 5) 处理器上实现了高达 43% 的性能提升。该优化针对的是 <code>xor_gen()</code> 函数，该函数负责生成和校验 Linux 软件 RAID 以及 Btrfs 等文件系统的原生 RAID 奇偶校验块。</p>
-<p><img src="//www.phoronix.net/image.php?id=amd-ryzen-9950x-9900x&image=amd_ryzen9900_3_med" alt="AMD Ryzen 9 9950X CPU" /></p>
-<p>Biggers 致力于通过 AVX-512 指令集提升现代 Intel 和 AMD 处理器的吞吐量。该实现支持 AMD Zen 4 及更新架构、Intel Xeon Sapphire Rapids 及更新处理器、Intel Raptor Lake 以及未来的 Intel Nova Lake 等。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=xor_gen_2_med" alt="xor_gen benchmark with AVX-512" /></p>
-<p>尽管该优化可能无法赶上 Linux v7.3 的合并窗口，但 Biggers 已于周末发布了 v4 补丁系列。新版本修复了缺失的 <code>VZEROUPPER</code> 指令，并增强了对 AVX/AVX-512 特性标志的处理。目前代码尚未合并至主线内核。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AVX-512-xor-gen-v4</guid>
-      <pubDate>Sun, 16 Aug 2026 10:54:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 扩展 binfmt_misc：支持 BPF 动态选择执行环境</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-binfmt-misc</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲述Linux 7.3版本中binfmt_misc功能的改进，允许BPF程序动态选择执行环境。这属于Linux系统技术进展，来源配置中Linux桌面技术为interest，全局配置中开源项目和软件新功能也为interest，故定为recommended。</small></p><p>Linux 内核的 <code>binfmt_misc</code> 功能允许系统直接运行非原生或自定义格式的文件（例如通过 Wine 运行 Windows EXE 文件，或通过 Java 运行时处理 JAR 文件）。在即将推出的 Linux 7.3 合并窗口中，该功能将迎来重大扩展，允许以编程方式匹配二进制类型，并在每次执行时动态确定解释器。此外，开发者还可以将 BPF（Berkeley Packet Filter）程序附加到 <code>binfmt_misc</code> 条目中，从而实现基于单个二进制文件的执行环境动态选择。</p>
-<p>Linux 内核开发者 Christian Brauner 在提交的文件系统（VFS）拉取请求中详细说明了这些改进。此次更新不仅修复了旧有缺陷并重构了锁机制，还扩展了格式注册表，使解释器或动态加载器能够根据二进制文件的位置以编程方式确定。这一特性特别有利于 NixOS 等平台实现可重定位二进制文件（relocatable binaries）。</p>
-<p>此次重构还引入了两种新的调度模式：</p>
-<ul>
-<li><strong>透明调度（Transparent Dispatch）</strong>：解释器通过 <code>AT_EXECFD</code> 加载二进制文件，保留调用者构建的参数向量，并将进程标识标记为实际二进制文件，解决了传统模式下解释器完全接管进程身份的问题。</li>
-<li><strong>加载器替换（Loader Substitution）</strong>：允许二进制文件以原生方式执行，仅替换其解释器。</li>
-</ul>
-<p>如果 Linus Torvalds 在合并窗口期间未提出异议，这些功能将正式纳入 Linux 7.3。未来，Linux 发行版和开发环境有望充分利用这一灵活的机制，探索更多创新的二进制执行方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-binfmt-misc</guid>
-      <pubDate>Sun, 16 Aug 2026 10:37:13 GMT</pubDate>
     </item>
   </channel>
 </rss>

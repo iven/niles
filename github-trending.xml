@@ -3,7 +3,131 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Sun, 23 Aug 2026 10:36:15 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2026 11:33:44 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ awesome-gpt-image-2：将 GPT-Image2 提示词工程化的开源模板库（532 个逆向案例）</title>
+      <link>https://github.com/freestylefly/awesome-gpt-image-2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 围绕 GPT-Image2 提示词工程化模板库，涉及新 AI 模型与编程工具分享，属高兴趣方向，必看</small></p><p>该项目是 GitHub 热门的 GPT-Image2 提示词资源库，主打「Prompt as Code」理念，把社区零散的提示词案例整理为结构化、可复用的工程资产。目前已收录 532 个逆向工程案例、20 余套工业级提示词模板，并提炼出可接入 Agent 的 Skills，持续更新中。</p><p>项目背景：GPT-Image2 普及后，AI 生图的核心问题已从「能否生成图片」转向「能否稳定、可控、可复用」。该项目将散文式提示词压缩为结构化协议，便于批量生成、模板化系统和生产流程复用。其核心特点包括：原子化 schema（将主体、光照、材质、版式、视觉细节拆分为可组合部件）、面向工作流（为 Agent、脚本和自动化系统设计）、结构化控制（提升版式、文案与信息层级的可控性）。</p><p>案例库按 12 个类别组织：UI 与界面（73 例）、图表与信息图（52 例）、海报与排版（86 例）、产品与电商（41 例）、品牌与 Logo（27 例）、建筑与空间（12 例）、摄影与写实（77 例）、插画与艺术（58 例）、角色与人物（29 例）、场景与叙事（20 例）、历史与中国古典主题（16 例）、文档与出版（10 例）等，可通过<a href="https://github.com/freestylefly/awesome-gpt-image-2/blob/main/docs/gallery.md">完整案例画廊</a>浏览。</p><p>配套资源方面，项目提供可视化网站 <a href="https://gpt-image2.canghe.ai/">gpt-image2.canghe.ai</a>，可浏览画廊、打开大图预览、复制完整提示词、按风格或场景筛选，并在 Google 登录后实测生成效果；社区为付费社群（一次性 9.90 元支付宝付费）。项目采用 MIT 许可证，由 Ciyuan API、APIMart、hiapi 等多家 AI API 平台赞助。</p><h3>你知道吗？</h3><p>「Prompt as Code」是本项目提出的概念，指把自然语言风格的提示词当作可版本化、可组合、可复用的代码资产来管理，而非一次性文本。这一思路与软件工程中的「配置即代码」（Infrastructure as Code）类似，目的是让提示词在批量生产、模板复用和 Agent 自动化调用等场景下具备更高的确定性与可维护性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/freestylefly/awesome-gpt-image-2</guid>
+      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Buzz：让人类与 AI 智能体在同一工作区协作的开源平台</title>
+      <link>https://github.com/block/buzz</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 人类与 AI 智能体协作的开源平台，属于 AI 软件技术进展与开源项目，推荐阅读</small></p><p><img src="docs/assets/screenshots/channel-thread.png" alt="A Buzz project channel where people and an agent coordinate on a release plan" width="100%" /></p>
+<p>Buzz 是 Block（Square 母公司）开源的可自托管协作工作区，核心理念是让人类与 AI 智能体（agent）在同一个"房间"里协作。它本质上是一个 <a href="https://nostr.com/">Nostr</a> 中继（relay）：每条消息、反应、工作流步骤、评审批准和 Git 事件都是写入同一日志的签名事件，无论作者是人还是进程，都使用相同的身份模型与审计轨迹。项目以 Rust 编写、Apache 2.0 协议开源，目前在 GitHub 上已获约 3 万星标。</p>
+<p><strong>核心特性</strong>：智能体不是"机器人"，而是与人类同等的频道成员——拥有自己的密钥、频道成员资格和审计轨迹，权限按身份而非权限标志划分。用户可以提问并让智能体检索六个月历史、附上证据回答；可以把功能分支变成"房间"，让补丁、CI、评审和合并决策集中在一处；还能在同一处搜索对话、补丁、工作流运行和审批记录。智能体不仅能"聊天"，还能管理频道、画布、工作流、语音会议，甚至编排其他智能体。</p>
+<p><strong>典型场景</strong>：项目用三个故事说明价值——"事故记忆"（凌晨提问"以前见过这个错误吗"，智能体检索历史并给出根因与修复方案）、"分支即房间"（打开功能分支自动生成频道，补丁以 NIP-34 事件落地、CI 发布结果、智能体做首轮评审）、"自动生成的发布说明"（工作流触发后，智能体读取合并的 PR、起草发布说明、收到 👍 后发布，每一步都有签名且可检索）。</p>
+<p><strong>架构与现状</strong>：Buzz 是一个 Rust crate 工作区，单一事实来源是中继（buzz-relay），后端使用 Postgres（事件存储与全文搜索）、Redis（发布/订阅）和 S3/MinIO（媒体，Blossom 协议）。客户端包括 Tauri + React 桌面应用、面向智能体的 buzz-cli（JSON 进/JSON 出）以及支持 Goose、Codex、Claude Code 的 ACP 适配层。目前中继、频道、线程、私信、画布、媒体、搜索和审计日志已可用；移动端（Flutter）与工作流审批门仍在建设中。</p>
+<p><strong>定位</strong>：项目明确表示它不是区块链（签名事件无需代币）、不是取代人类的 AI 计划，也尚未完成。其愿景是用一个统一底层替代团队目前拼凑的聊天、代码托管、机器人、CI 看板、发布工具和搜索索引等多套工具。</p>
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>Nostr</strong>：一个基于中继（relay）的开放去中心化协议，所有事件（消息、笔记等）都由作者密钥签名，客户端可自由选择中继，身份与服务器解耦。</li>
+<li><strong>NIP-34</strong>：Nostr 改进提案之一，定义了用 Nostr 事件表示 Git 版本控制操作（补丁、仓库公告、状态）的规范，Buzz 的 Git 事件即基于此。</li>
+<li><strong>ACP / MCP</strong>：Agent Client Protocol（智能体客户端协议）与 Model Context Protocol（模型上下文协议），Buzz 通过 buzz-acp 在两者之间做适配，让 Goose、Codex、Claude Code 等智能体工具接入工作区。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/block/buzz</guid>
+      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenHuman：本地优先的个人 AI 超级智能体，集记忆、编排与深度研究于一体</title>
+      <link>https://github.com/tinyhumansai/openhuman</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 本地优先的个人 AI 超级智能体，属于 AI 软件技术进展与开源项目，推荐阅读</small></p><p>OpenHuman 是一个用 Rust 编写的开源「个人 AI 超级智能体」项目，定位为「以人为中心构建的 AI 工具集」（AI harness）。它由三部分组成：构建持久本地记忆的「大脑」、在持久化图上运行智能体集群的「编排器」，以及深度研究者。项目目前处于早期测试（Early Beta）阶段，发布一周内曾连续九天登顶 GitHub 热门仓库榜首。</p>
+
+<h3>🧠 大脑：本地优先的持久记忆</h3>
+<p>通过 <a href="https://tinyhumans.gitbook.io/openhuman/features/memory-tree">Memory Tree</a> 将用户的文档、邮件、聊天记录压缩为带评分的 Markdown 树，存储在本地 SQLite 中，并镜像为可打开、可编辑的 <a href="https://tinyhumans.gitbook.io/openhuman/features/obsidian-wiki">Obsidian 知识库</a>，而非不可解释的「向量汤」黑盒。支持 100+ OAuth 集成、5,000+ MCP 服务器和 90,000+ Skills，一键接入 Gmail、Notion、GitHub、Slack 等；<a href="https://tinyhumans.gitbook.io/openhuman/features/obsidian-wiki/auto-fetch">自动抓取（auto-fetch）</a>每 20 分钟将数据拉取到本地。此外还提供长期目标与待办（Goals & Todos）以及 <a href="https://tinyhumans.gitbook.io/openhuman/features/token-compression">TokenJuice</a>——在工具输出进入模型前进行压缩，同等信息量最多可节省 80% 的 token 用量。</p>
+
+<h3>🕸️ 编排器：图而非循环</h3>
+<p>OpenHuman 不是单循环聊天机器人，而是真正的编排器：<a href="https://tinyhumans.gitbook.io/openhuman/features/workflows">Workflows</a> 让智能体主动提出自动化方案，用户在可视化画布上审阅后保存，运行基于开源的 <a href="https://github.com/tinyhumansai/tinyflows">tinyflows</a>，支持定时、Webhook 或渠道事件触发，副作用需审批。运行以带检查点的图（graph）形式执行于开源的 <a href="https://github.com/tinyhumansai/tinyagents">tinyagents</a>，可暂停等待人工、重启后恢复；子智能体集群可深入三层，卡住的智能体会生成根因报告。采用「分裂大脑」架构：快速反射智能体负责分流入站请求，深度推理核心委派给 worker 集群。还支持基于 Signal 协议端到端加密的智能体间通信（A2A）与 x402 USDC 赏金交易，密钥不落盘。</p>
+
+<h3>🔬 深度研究者与执行者</h3>
+<p>内置由 <a href="https://exa.ai">Exa</a> 驱动的托管网页搜索（订阅包含，无需 API key）、爬虫、编码工具集、真实浏览器和基于 Whisper 的原生语音；<a href="https://tinyhumans.gitbook.io/openhuman/features/model-routing">模型路由</a>按负载自动选择合适的大模型，订阅是默认而非锁定——可将任意负载指向自有 API key 或完全本地化的 Ollama 模型。同一订阅还包含图像/视频生成（Seedream/SeedEdit、Seedance/Veo），并支持 17 个消息渠道（Telegram、Discord、Slack、WhatsApp、Signal、iMessage 等）及原生邮件（IMAP IDLE + SMTP）。</p>
+
+<h3>🧍 人性化、私密、属于你</h3>
+<p>安装到可用智能体只需几次点击，无需配置文件或终端，并配有会说话、会反应、记得你的吉祥物。隐私方面：数据在设备端加密、提供审批门、系统密钥环与可选沙箱；<a href="https://tinyhumans.gitbook.io/openhuman/features/privacy-mode">Privacy Mode</a> 一键开启后推理完全不离开本机，由 Rust 核心强制执行。</p>
+
+<h3>分钟级建立上下文</h3>
+<p>受 <a href="https://x.com/karpathy/status/2039805659525644595">Karpathy 的 LLM 知识库</a>启发，OpenHuman 声称是首个能在几分钟内了解用户的智能体工具集：连接账户后，auto-fetch 以 20 分钟为周期拉取数据，Memory Tree 将一切压缩为 Markdown 文件存入 Obsidian 知识库，一次同步即可获得收件箱、日历、仓库、文档、消息的完整（压缩）上下文，无需训练期。若已自托管 <a href="https://github.com/rohitg00/agentmemory">agentmemory</a>，OpenHuman 还提供可选的 Memory 后端代理到该存储。</p>
+
+<p>与 Claude Cow、OpenClaw、Hermes 等同类工具相比，OpenHuman 主打开源（GNU 许可）、分钟级上手、单一订阅 + TokenJuice、持久记忆（Memory Tree + Obsidian 知识库）、丰富的集成与自动抓取，以及基于图、检查点和端到端加密的编排能力。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>MCP（Model Context Protocol）</strong>：Anthropic 提出的开放协议，用于标准化 AI 模型与外部工具、数据源的连接方式，让智能体无需为每个服务单独写集成代码即可调用各类工具。</li>
+<li><strong>x402</strong>：一种基于 HTTP 的支付协议，允许在请求/响应过程中直接以 USDC 等稳定币完成小额支付，常用于智能体间的按次付费调用（bounty 与交易）。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tinyhumansai/openhuman</guid>
+      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Awesome Agent Skills：收录 1497+ 精选 AI Agent 技能的开源合集</title>
+      <link>https://github.com/VoltAgent/awesome-agent-skills</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI Agent 技能精选合集，属于编程工具/技能分享与 AI 技术进展，推荐阅读</small></p><p><a href="https://github.com/VoltAgent/awesome-agent-skills">awesome-agent-skills</a> 是 VoltAgent 维护的精选「Agent 技能」合集，目前收录超过 1497 个技能，是 GitHub 上社区贡献最多的同类仓库（约 3.1 万星标）。与许多批量生成的技能库不同，该合集强调「人工精选而非 AI 批量生成」，聚焦于真实工程团队实际创建和使用的技能。</p>
+
+<p>仓库收录了来自 Anthropic、Google Labs、Vercel、Stripe、Cloudflare、Netlify、Trail of Bits、Sentry、Expo、Hugging Face、Figma、OpenAI、Microsoft、NVIDIA、Redis、MongoDB 等官方团队发布的技能，以及大量社区构建的技能。这些技能兼容 Claude Code、Codex、Gemini CLI、Cursor、GitHub Copilot、OpenCode、Windsurf、Antigravity 等主流 AI 编码工具。</p>
+
+<p>技能内容覆盖广泛：文档处理（Word、PowerPoint、Excel、PDF 的创建与编辑）、前端与 UI/UX 设计、测试自动化（Playwright、Cypress、Jest、Appium、Espresso 等主流测试框架）、安全审计、营销与产品管理、数据库与云服务集成等。例如 Anthropic 官方提供 docx、pptx、xlsx、pdf 等文档技能，TestMu AI（原 LambdaTest）团队维护了覆盖 Web、移动端、API、BDD 和单元测试的全套测试自动化技能。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>Agent Skills</strong> 是近年兴起的概念，指为 AI 编码助手（如 Claude Code、Codex）提供的可复用「技能包」——包含特定领域的指令、工作流程和最佳实践，让模型在遇到相关任务时能调用这些专业知识，从而生成更专业、更可靠的结果。它类似于给 AI 助手安装的「插件」，与 MCP（模型上下文协议）服务器互补：MCP 侧重连接外部工具和数据，Skills 侧重注入领域知识和工作方法。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/VoltAgent/awesome-agent-skills</guid>
+      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ book-to-skill：把技术书籍一键变成 AI 智能体技能（Agent Skill）</title>
+      <link>https://github.com/virgiliojr94/book-to-skill</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 将技术书籍转为 AI 智能体技能的工具，属编程效率改进与 AI 技术进展，推荐阅读</small></p><p><strong>book-to-skill</strong> 是一个 Python 开源工具，能把任何技术书籍 PDF（以及 EPUB、DOCX、Markdown、HTML、RTF、MOBI 等格式）转化为结构化的「智能体技能」（Agent Skill），让 GitHub Copilot CLI、Amp、Claude Code 等 AI 编程助手按需加载书籍内容，边工作边查阅，无需把整本书塞进上下文。</p>
+
+<h3>核心思路</h3>
+<p>针对「买了书读一遍就忘、搜 PDF 只得到页码、问 AI 会幻觉」的痛点，该项目将书籍提炼为框架、决策规则、反模式与分章文件——是结构化知识而非摘要。使用时只需输入 <code>/book-to-skill ./my-book.pdf</code>，再通过 <code>/my-book 章节名</code> 让智能体读取对应章节并基于真实内容作答，避免幻觉。</p>
+
+<h3>生成内容</h3>
+<ul>
+<li><strong>SKILL.md</strong>：核心心智模型 + 章节索引（约 4,000 tokens）</li>
+<li><strong>chapters/</strong>：每章一个文件，按需加载（每章约 1,000 tokens）</li>
+<li><strong>glossary.md</strong>：术语表，按字母排序并标注章节引用（约 1,500 tokens）</li>
+<li><strong>patterns.md</strong>：技术、算法与设计模式汇总（约 2,000 tokens）</li>
+<li><strong>cheatsheet.md</strong>：决策表与速查规则（约 1,000 tokens）</li>
+</ul>
+
+<h3>性能优势</h3>
+<p>相比把整本书直接丢进上下文，回答单个问题时 token 消耗减少 <strong>24×–51×</strong>（基于真实书籍实测）。其原理是「发现循环税」（Discovery Loop Tax）：PDF 阅读型智能体每轮都要重新抓取目录、回溯、重复处理全文，而 book-to-skill 在转换时一次性支付结构化成本，使查询开销与答案规模成正比。</p>
+
+<h3>适用场景（不止于书籍）</h3>
+<ul>
+<li><strong>内部文档</strong>：架构决策记录（ADR）、runbook、入职指南，可将整个 docs/ 文件夹折叠为一个技能</li>
+<li><strong>品牌与设计系统</strong>：品牌手册、语气规范、组件原则，团队直接查询而非翻阅 60 页 PDF</li>
+<li><strong>研究资料</strong>：论文 + 个人笔记合并为统一技能，并随新材料增量更新</li>
+<li><strong>规范与标准</strong>：RFC、API 契约、合规文档等「常引用但记不住」的内容</li>
+</ul>
+
+<h3>隐私与版权</h3>
+<p>工具本身不附带任何书籍内容，提取与分析均在本地完成，文件不会被上传；生成的技能是结构化衍生笔记（框架名、定义、要点）而非原文复制，但不应再分发受版权保护的书籍技能，第三方书籍生成的技能建议保持私有。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>Agent Skills</strong> 是一个开放的智能体技能标准（<a href="https://github.com/agentskills/agentskills">agentskills/agentskills</a>），以统一的 <code>SKILL.md</code> 格式描述技能，使同一技能可被 GitHub Copilot CLI、Amp、Claude Code 等多个宿主读取，实现跨平台复用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/virgiliojr94/book-to-skill</guid>
+      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Anthropic 社区插件市场：Claude Cowork 与 Claude Code 的插件目录镜像仓库</title>
+      <link>https://github.com/anthropics/claude-plugins-community</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude Code 与 Claude Cowork 插件目录，属 AI 编程工具生态与软件新功能，推荐阅读</small></p><p>anthropics/claude-plugins-community 是 Anthropic 官方维护的社区插件市场镜像仓库，收录了社区为 <a href="https://claude.com/product/cowork">Claude Cowork</a> 和 <a href="https://claude.com/product/claude-code">Claude Code</a> 贡献的插件。该仓库是一个只读镜像，其中的 <code>.claude-plugin/marketplace.json</code> 文件列出了所有可安装的社区插件，内容每晚从 Anthropic 内部审核流程自动同步。</p><p>仓库中的每个插件都需通过 <a href="https://clau.de/plugin-directory-submission">claude.ai 提交入口</a>提交，经过自动化安全扫描并获准分发后方可上架。用户可通过 <a href="https://claude.com/plugins/">claude.com/plugins</a> 在 Claude Cowork 中安装插件；Claude Code 用户则可通过命令行添加市场并安装插件，例如 <code>claude plugin marketplace add anthropics/claude-plugins-community</code> 和 <code>claude plugin install &lt;plugin-name&gt;@claude-community</code>。</p><p>值得注意的是，直接向该仓库发起 Pull Request 会被自动关闭，所有变更均来自 Anthropic 的内部审核流程。Anthropic 还维护了其他相关仓库，包括官方插件仓库 <a href="https://github.com/anthropics/claude-plugins-official">claude-plugins-official</a> 和面向特定角色的知识工作插件仓库 <a href="https://github.com/anthropics/knowledge-work-plugins">knowledge-work-plugins</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-plugins-community</guid>
+      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenAI 开源轻量级终端编码代理 Codex CLI</title>
       <link>https://github.com/openai/codex</link>
@@ -808,135 +932,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/OpenCut-app/OpenCut</guid>
       <pubDate>Fri, 14 Aug 2026 11:07:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Needle 2：仅14MB、28MB内存的端侧工具调用与结构化提取模型</title>
-      <link>https://github.com/cactus-compute/needle</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为端侧 AI 模型发布，符合用户 high_interest 配置中的“新AI模型发布公告”，故评为 critical。</small></p><h2>项目简介</h2>
-<p>Needle 2 是由 Cactus Compute 团队开源的轻量级基础模型，专为手机、可穿戴设备、智能家居和机器人等微型设备设计。该模型仅包含 4500 万参数，整体打包为 14MB 的二进制文件，运行时仅需约 28MB 内存。它通过极致的压缩与架构创新，在资源受限的端侧设备上实现了强大的工具调用（Tool Calling）与结构化数据提取能力。</p>
-
-<h2>核心特性</h2>
-<ul>
-  <li><strong>自包含引擎</strong>：模型权重直接烘焙至单一 14MB 引擎中，推理过程无需联网或加载外部文件，部署极其简便。</li>
-  <li><strong>结构化输出契约</strong>：采用“文本输入，JSON 输出”的设计，通过字节级语法严格约束输出格式，确保工具调用参数准确无误。</li>
-  <li><strong>置信度门控</strong>：每个响应均附带校准的置信度分数。开发者可设定阈值，低于阈值时自动升级或重新询问，将失败模式控制在“安全升级”而非“错误执行”。</li>
-  <li><strong>高效工具检索</strong>：支持声明海量工具目录，模型内置检索头每轮仅提取最相关的 5 个工具进入上下文，大幅降低计算开销。</li>
-  <li><strong>有界内存管理</strong>：利用 256-token 滑动窗口与键值（KV）缓存优化，无论对话多长，内存占用始终稳定在 28MB 左右。</li>
-</ul>
-
-<h2>架构与设计</h2>
-<p>Needle 2 基于团队提出的 <a href="https://arxiv.org/abs/2607.18363">Simple Attention Network（简单注意力网络）</a> 架构。该设计采用 Hadamard 矩阵乘法替代传统的前馈神经网络（FFN），结合分组查询注意力（GQA）与 engram 键值记忆机制，并通过 Cactus Quants 技术压缩至 2-bit 精度。这种架构在大幅削减参数体积的同时，保持了与 FunctionGemma 270M 等更大规模模型相当的性能表现。</p>
-
-<h2>使用与微调</h2>
-<p>项目提供 Python 包（<code>pip install cactus-needle</code>），开发者可通过装饰器、类型注解或 Pydantic 模型快速定义工具与提取规则。模型将一切交互视为函数调用，无声明工具的问题将直接返回空调用。此外，项目内置完整的 <a href="https://github.com/cactus-compute/needle">LoRA 微调流程</a>，支持结合合成数据对模型进行低成本适配，最终导出为单文件 <code>.cact</code> 格式直接部署至目标设备。</p>
-
-<h2>你知道吗？</h2>
-<p><strong>端侧大模型（On-device AI）</strong>旨在将 AI 能力直接运行在终端设备上，以保护用户隐私、降低网络延迟并摆脱对云端的依赖。Needle 2 通过极致的量化（2-bit）与架构创新，在保持 4500 万参数规模的同时实现了强大的工具调用能力，为资源受限的 IoT 设备提供了可行的 AI 代理（AI Agent）解决方案，标志着轻量化智能体向边缘计算迈出的重要一步。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/cactus-compute/needle</guid>
-      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ FluidVoice：支持本地 AI 增强的 macOS 开源语音听写应用</title>
-      <link>https://github.com/altic-dev/FluidVoice</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为 macOS 平台的 AI 语音听写开源应用，涉及 AI 软件技术进展与开源项目，符合 interest 配置，故评为 recommended。</small></p><p><a href="https://github.com/altic-dev/FluidVoice">FluidVoice</a> 是一款开源的 macOS 语音转文字（语音听写）应用，主打本地处理与 AI 增强功能，可作为本地版 Wispr Flow 的替代方案。该项目目前已在 GitHub 上获得近万星关注，并计划扩展至 iOS 和 Windows 平台。</p>
-<h3>核心功能与特性</h3>
-<ul>
-  <li><strong>Fluid Intelligence（本地 AI 增强）</strong>：提供完全在设备端运行的 AI 模型，支持智能文本格式化、上下文感知的大小写调整及语音后处理，无需联网即可提升听写质量。</li>
-  <li><strong>双模式操作</strong>：包含 <strong>Command Mode</strong>（通过语音控制 Mac，如启动应用、运行快捷指令）和 <strong>Write Mode</strong>（在任何应用的文本框中直接听写或重写选中文本）。</li>
-  <li><strong>多模型支持</strong>：内置多种高性能语音识别模型，包括 Nemotron Speech 3.5、Parakeet Flash/TDT、Cohere Transcribe、Apple Speech 以及 Whisper 系列，用户可根据语言需求和延迟要求自由选择。</li>
-  <li><strong>隐私优先</strong>：采用本地优先（Local-First）架构，语音、音频和转录文本默认不会离开本机。用户可选择性接入 OpenAI 或 Groq 等云端 AI 进行增强，或关闭匿名数据统计。</li>
-</ul>
-<h3>其他亮点</h3>
-<p>应用提供实时转录覆盖层，并针对 MacBook 刘海屏进行了适配优化。此外，还支持本地音频历史记录管理、全局快捷键、菜单栏集成以及自适应明暗主题。项目采用 GPLv3 协议开源，目前仅支持 macOS（Apple Silicon 原生支持，Intel Mac 需配合 Whisper 模型），iOS 与 Windows 版本已开放排队等待。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/altic-dev/FluidVoice</guid>
-      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Unsloth：本地运行与训练大模型的高效桌面应用</title>
-      <link>https://github.com/unslothai/unsloth</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为本地运行与训练大模型的高效开发工具，符合“编程工具发布/分享”，属于用户 highly 感兴趣的范畴，故评为 critical。</small></p><p>Unsloth 是一款旨在让用户在本地高效运行、训练和部署人工智能模型的开源工具。它提供了 <a href="https://unsloth.ai/download">Unsloth Desktop</a> 桌面应用、<a href="https://unsloth.ai/docs/new/studio/">Unsloth Studio</a> Web UI 以及基于代码的 Unsloth Core 三种使用方式。</p>
-<img src="https://raw.githubusercontent.com/unslothai/unsloth/main/images/unsloth%20logo%20black%20text.png" alt="Unsloth logo" height="80" />
-<p>该项目支持广泛的模型类型，包括大型语言模型（LLM）、扩散模型、音频模型及多模态模型，涵盖 Qwen3.8、Kimi K3、MiniMax-H3、Gemma 4、DeepSeek-V4 等主流架构。在训练方面，Unsloth 能够将微调速度提升 2 倍，同时将显存占用降低 70%。它完整支持 LoRA、QLoRA、RL（强化学习）、GRPO、DPO 等训练范式，并允许将模型导出为 GGUF、NVFP4、FP8 等格式。</p>
-<p>此外，Unsloth 提供了强大的 Agent 集成能力，可通过一条命令将本地模型与 Claude Code、Codex 等编程助手结合使用。它兼容 NVIDIA、AMD、Intel 显卡及 macOS 硬件，并支持通过 Cloudflare 隧道实现安全的远程访问。项目还附带了丰富的免费 Colab Notebook，方便用户快速上手测试各种模型。</p>
-<h3>你知道吗？</h3>
-<p><b>GRPO（Group Relative Policy Optimization）</b> 是一种强化学习算法，常用于大语言模型的推理能力微调。相比传统的 PPO 算法，GRPO 通过组内相对优势估计，在显存占用和训练稳定性上具有显著优势，非常适合资源受限的本地训练环境。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/unslothai/unsloth</guid>
-      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>Holehe：利用“忘记密码”功能高效查询邮箱注册信息的OSINT工具</title>
-      <link>https://github.com/megadose/holehe</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为 OSINT 安全侦察工具，涉及网络信息收集与黑客技术，不属于用户配置的兴趣领域，兴趣不明确，故评为 optional。</small></p><p>Holehe 是一款基于 Python 的开源情报（OSINT）工具，主要用于高效查询指定电子邮件在各大网站上的注册情况。该工具支持超过 120 个平台，包括 Twitter、Instagram、GitHub 等主流社交和电商平台。</p>
-<img src="https://files.catbox.moe/5we2ya.png" alt="Holehe 项目介绍图" />
-<p>其核心原理是利用各网站的“忘记密码”功能进行探测，在查询过程中不会向目标邮箱发送任何通知邮件，从而避免打草惊蛇。用户可通过命令行（CLI）直接运行，或将其作为 Python 库嵌入现有应用中。查询结果以标准化的 JSON 格式返回，包含账户是否存在、部分脱敏的恢复邮箱或手机号等详细信息。</p>
-<img src="https://github.com/megadose/gif-demo/raw/master/holehe-demo.gif" alt="Holehe 运行演示动图" />
-<p>此外，Holehe 还提供了在线版本以及 Maltego 转换模块，方便安全研究人员和情报分析师进行深度调查。该项目采用 GPL-3.0 许可证，明确声明仅用于教育和合法调查目的。</p>
-<h3>你知道吗？</h3>
-<p>OSINT（Open Source Intelligence，开源情报）是指从公开可用的来源收集、处理和分析信息的过程。在网络安全领域，OSINT 常被用于攻击前的信息收集（如确定攻击面）或防御方的威胁情报分析。Holehe 正是利用了网站前端交互逻辑中的信息泄露风险，成为 OSINT 工具链中的常用组件。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/megadose/holehe</guid>
-      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ holaOS：支持多 AI Agent 协同的本地优先全合一工作区</title>
-      <link>https://github.com/holaboss-ai/holaOS</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为本地优先的多 AI Agent 协同工作区，属于 AI 软件技术进展与效率改进探索，符合 interest 配置，故评为 recommended。</small></p><h2>holaOS：支持多 AI Agent 协同的本地优先全合一工作区</h2>
-<p>holaOS 是一款开源的“全合一”AI Agent 工作区，旨在为用户和 AI 代理提供一个统一的本地优先操作环境。它打破了单一 AI 代理的限制，允许用户在同一工作区内并行运行 Claude Code、Codex 或内置的 holaOS 代理，并实现记忆、工具和技能的无缝共享。</p>
-
-<img src="docs/images/desktop-workspace.png" alt="holaOS 桌面工作区界面" width="1280" />
-
-<h3>核心特性</h3>
-<ul>
-  <li><strong>多代理共存与共享记忆：</strong> 所有代理共享同一上下文、偏好和项目历史。记忆以纯文本文件形式本地存储，确保数据隐私且跨会话持久化，避免每次从头开始。</li>
-  <li><strong>灵活的模型支持：</strong> 内置 Kimi K3、GLM 5.2、GPT 5.6、Claude Opus 5 和 Fable 5 等前沿模型，开箱即用。同时也支持自带密钥（BYOK）接入 OpenAI 或 Anthropic 等第三方服务。</li>
-  <li><strong>HolaApps 应用并排交互：</strong> 应用（如 Notion、浏览器）作为实时交互界面与 AI 代理并排显示。代理可直接驱动应用进行操作，用户可随时介入，结果直接反馈在应用界面而非聊天文本中。</li>
-  <li><strong>丰富的集成与 MCP 支持：</strong> 提供 50+ 工具（Gmail、Slack、GitHub 等）的一键 OAuth 集成，并原生支持 <a href="https://www.modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer">Model Context Protocol (MCP)</a> 服务器，方便扩展新工具和工作流。</li>
-  <li><strong>全工作站自动化：</strong> 内置真实浏览器驱动、多模态生成（图/视频/音频）以及真实格式文件（.xlsx, .pptx 等）导出功能。支持通过飞书、微信、Slack 等聊天入口下达任务，并可设置定时自动化任务。</li>
-</ul>
-
-<img src="docs/images/hola-app-example.png" alt="Notion 应用与 AI 代理并排运行" width="1280" />
-
-<h3>部署与协议</h3>
-<p>holaOS 提供多种部署方式以满足不同需求：</p>
-<ul>
-  <li><strong>桌面应用：</strong> 开箱即用，内置前沿模型，适合个人用户快速上手。</li>
-  <li><strong>开源自托管：</strong> 采用 Modified Apache 2.0 协议，支持完全本地化部署，用户可自带密钥并掌控全部数据。</li>
-  <li><strong>企业版：</strong> 提供单点登录（SSO）、细粒度权限控制、操作审计日志以及私有化部署方案。</li>
-</ul>
-
-<p>该项目目前已在 GitHub 上获得超过 6000 星，成为开发者与 AI 爱好者关注的热门开源项目。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Model Context Protocol (MCP)</strong> 是由 Anthropic 提出的一种开放标准，旨在解决 AI 模型与外部数据源及工具之间的连接问题。它通过标准化的接口，让 AI 代理能够安全、一致地访问各种应用程序（如文件系统、数据库、API 等），而无需为每个应用单独开发适配器。holaOS 原生支持 MCP，意味着用户可以轻松接入社区开发的各类 MCP 服务器，极大扩展了 AI 的工作边界。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/holaboss-ai/holaOS</guid>
-      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Obsidian Skills：让 AI 智能体掌握 Obsidian 笔记格式与操作</title>
-      <link>https://github.com/kepano/obsidian-skills</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为让 AI 智能体集成 Obsidian 笔记软件，属于 AI 软件新功能与应用场景拓展，符合 interest 配置，故评为 recommended。</small></p><p><a href="https://github.com/kepano/obsidian-skills">Obsidian Skills</a> 是一个专为 AI 智能体（Agent）设计的技能扩展包，旨在让智能体能够直接理解并操作 Obsidian 笔记应用中的专有格式与数据。该项目遵循 <a href="https://agentskills.io/specification">Agent Skills specification</a> 标准，目前已兼容 Claude Code、Codex 和 Open Code 等主流 AI 编程助手。</p>
-<p>项目核心提供了五大技能模块，全面覆盖 Obsidian 的生态功能：</p>
-<ul>
-  <li><strong>obsidian-markdown</strong>：支持创建和编辑包含双向链接（Wikilinks）、嵌入（Embeds）、提示块（Callouts）及元数据（Properties）的 Obsidian 专属 Markdown 格式。</li>
-  <li><strong>obsidian-bases</strong>：支持创建和编辑数据库视图（Bases），具备视图管理、筛选、公式计算和摘要生成能力。</li>
-  <li><strong>json-canvas</strong>：支持读写 JSON Canvas 文件，用于构建包含节点、连线与分组的可视化关系图。</li>
-  <li><strong>obsidian-cli</strong>：通过命令行接口（CLI）与本地笔记库（Vault）交互，便于自动化插件开发与主题调试。</li>
-  <li><strong>defuddle</strong>：集成 Defuddle 工具，可从网页中提取纯净的 Markdown 文本，有效去除冗余内容以降低 AI 处理的 Token 消耗。</li>
-</ul>
-<p>用户可通过插件市场、npx 命令或手动配置目录的方式，将这些技能快速集成到智能体环境中。该项目的出现，标志着 AI 助手正逐步从通用的文本处理向深度集成特定生产力工具迈进，为知识管理自动化提供了新的可能性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/kepano/obsidian-skills</guid>
-      <pubDate>Thu, 13 Aug 2026 11:56:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
