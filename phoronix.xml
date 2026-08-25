@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 25 Aug 2026 15:55:58 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 16:52:56 GMT</lastBuildDate>
+    <item>
+      <title>⭐ AI/LLM 生成的 bug 报告泛滥，开源项目维护者遭遇&quot;拒绝服务攻击&quot;</title>
+      <link>https://www.phoronix.com/news/AI-DoS-Attack-Maintainers</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论 AI/LLM 生成的大量低质量贡献对开源项目维护者造成的负担，涉及开源项目与 AI 软件技术话题，用户对此感兴趣，推荐阅读</small></p><p>开源软件项目维护者正面临由 AI/LLM 智能体带来的日益沉重的负担，最新批评聚焦于大量低质量 bug 报告，这实际上构成了对项目维护者的"拒绝服务（DoS）攻击"。</p><p>Red Hat 虚拟化工程团队的 Linux 虚拟化软件工程师 Daniel Berrangé 提出了这一类比，指出 QEMU 项目正遭受此类问题。一名用户仅在几分钟内就向 QEMU 提交了 125 份以上的独立 bug 报告，内容均涉及未定义行为消毒器（UBSan）输出和断言，但没有任何真正紧迫的问题。这些报告未遵循 bug 模板，没有附带补丁或修复方案，属于典型的低质量提交。</p><img src="//www.phoronix.net/image.php?id=2026&image=qemu_bug_ai_med" alt="QEMU bug spam from AI/LLM agents problem" /><p>Berrangé 在 Mastodon 上表示："QEMU 在不到 10 分钟内被同一名报告者提交了超过 125 份 bug 报告，全部是 ubsan 报告。这些报告忽略了 bug 模板，没有任何人类对 ubsan 输出进行分析的迹象，也没有提出修复方案。"他最终得出结论："这实际上是对项目维护者的拒绝服务攻击。"</p><img src="//www.phoronix.net/image.php?id=2026&image=qemu_bug_spam_med" alt="QEMU bug spam" /><p>该用户（C4oy1zZ / anwardawa981）当天创建的 132 份 bug 报告已被举报至 GitLab，认定为滥用行为，其中许多报告仅相隔数秒创建。Berrangé 建议 GitLab 对非项目成员实施速率限制，限制单个报告者可以提交的 bug 报告数量。</p><h3>你知道吗？</h3><p>UBSan（Undefined Behavior Sanitizer，未定义行为消毒器）是编译器内置的运行时检测工具，用于发现 C/C++ 程序中的未定义行为（如整数溢出、数组越界、空指针解引用等），常与断言配合用于测试和调试。这类工具输出的警告通常需要开发者结合上下文人工分析，因此大量未经筛选的原始报告会给维护者带来沉重负担。AI 生成的 bug 报告泛滥已成为开源社区普遍关注的问题，多个项目正在讨论如何区分并处理这类低质量提交。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AI-DoS-Attack-Maintainers</guid>
+      <pubDate>Tue, 25 Aug 2026 16:20:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.3 现代 NTFS 驱动新增 Windows 系统压缩（WOF）读取支持</title>
       <link>https://www.phoronix.com/news/Linux-7.3-NTFS-Driver-WOF</link>
@@ -695,15 +704,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Firefox-154-Released</guid>
       <pubDate>Mon, 17 Aug 2026 13:01:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 电源管理更新：Intel 与 AMD 驱动优化及热控制改进</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Power-Management</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍Linux 7.3内核中针对Intel和AMD处理器的电源管理驱动改进。属于Linux底层技术更新，结合用户对Linux技术的兴趣配置，故给予推荐阅读。</small></p><p>在 Linux 7.3 合并窗口开启之际，Linux 电源管理子系统维护者 Rafael Wysocki 提交了所有电源管理、ACPI 和热控制代码。此次更新中，Intel 和 AMD 的驱动改进占据了主导地位。</p><p>Intel 的 P-State CPU 频率缩放驱动进行了多项优化，包括正确传递最大性能值、改进性能策略模式处理、清理频率值计算，并增强了对老款 Broadwell 处理器的硬件 P-State（HWP）支持。此外，Intel Idle 驱动在初始化阶段将避免进入深度空闲状态，以解决部分设备兼容性问题，同时新增了对 ACPI "_LPI" 低功耗空闲对象的支持。</p><img src="//www.phoronix.net/image.php?id=2026&image=linux_73_pm_med" alt="Intel and AMD CPUs" /><p>AMD 的 P-State 驱动则引入了支持每核心粒度的动态 EPP（能效偏好）功能，并根据 BIOS 的最小性能值设置最小限制频率，同时修复了若干初始化问题。</p><p>除了厂商驱动更新，电源管理代码中还包含了 Rust 绑定更新。ACPI 子系统通过消除 <code>acpi_driver</code> 结构体带来了数十项修复。热控制方面，Linux 7.3 增加了对 Intel CPU 定向包级热中断的支持，允许单个核心处理中断而非向所有核心广播，从而显著提升了系统效率。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Power-Management</guid>
-      <pubDate>Mon, 17 Aug 2026 12:11:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
