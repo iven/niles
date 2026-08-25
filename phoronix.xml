@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 25 Aug 2026 13:09:09 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 14:01:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 现代 NTFS 驱动新增 Windows 系统压缩（WOF）读取支持</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-NTFS-Driver-WOF</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲Linux内核NTFS驱动新增对Windows压缩（WOF）的读取支持，属于开源项目软件新功能，符合用户兴趣，推荐阅读。</small></p><p>Paragon Software 已为 Linux 7.3 内核周期提交了现有 NTFS3 内核驱动以及新的现代「NTFS」驱动的拉取请求。除了错误修复外，最引人注目的是现代 NTFS 驱动新增了对 Windows 系统压缩（WOF）的读取支持。</p><p>上周提交的 NTFS3 变更包括：对备用数据流（alternative data streams）的基础支持、验证改进、从 $MFT 扩展记录加载 ATTR_BITMAP run extents，以及大量错误修复，涵盖内存泄漏、整数溢出和越界读写等问题。自 2021 年合入 Linux 内核以来，NTFS3 驱动主要以错误修复为主。</p><p>今年早些时候合入内核的现代 NTFS 驱动由 Namjae Jeon 持续推动。其主要新特性是：当驱动以新的 <code>CONFIG_NTFS_FS_WOF_COMPRESSION</code> Kconfig 选项构建时，可通过 NTFS 页读取路径支持 WOF 压缩文件的读取，包括内核侧的 XPRESS 4K/8K/16K 和 LZX 32K 解压器。需要说明的是，目前仅支持读取压缩文件，Linux 7.3 中尚不支持 WOF 文件的写入。</p><img src="//www.phoronix.net/image.php?id=2026&image=ntfs_wof_compression" alt="CONFIG_NTFS_FS_WOF_COMPRESSION option" /><p>Windows 系统压缩是 Windows 10 引入的功能，可对文件和文件夹进行可选压缩，并对用户/应用程序透明解压。Linux 7.3 的 NTFS 驱动更新还包括针对畸形文件系统处理和错误路径的加固、改进的压缩文件 I/O 路径、验证改进及其他修复。</p><h3>你知道吗？</h3><p>WOF（Windows Overlay Filter）是 Windows 的过滤器驱动，负责在文件系统层面透明地压缩与解压数据。XPRESS 和 LZX 是微软使用的两种压缩算法：XPRESS 适合快速压缩/解压（块大小通常为 4K/8K/16K），而 LZX 压缩率更高但速度较慢（块大小为 32K），两者也被用于 Windows 的 WIM 镜像格式中。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-NTFS-Driver-WOF</guid>
+      <pubDate>Tue, 25 Aug 2026 13:19:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ KDE Plasma 6.8 强化远程桌面体验，缩小 X11 与 Wayland 差距</title>
       <link>https://www.phoronix.com/news/Plasma-68-Better-Remote-Desktop</link>
@@ -695,22 +704,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Power-Management</guid>
       <pubDate>Mon, 17 Aug 2026 12:11:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KTransformers 0.7 发布：扩展 AVX-512 支持以优化 AMD EPYC 服务器性能</title>
-      <link>https://www.phoronix.com/news/KTransformers-0.7</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要介绍 KTransformers 0.7 版本更新，属于来源配置中的“新软件项目”，用户对此类内容很感兴趣；虽然标题提及 AMD EPYC 服务器和 AVX-512，但主要是说明该软件对新硬件指令集的支持，主体仍为软件更新，因此判定为 critical。</small></p><h3>正文</h3>
-<p>KTransformers 是一个专注于异构大语言模型（LLM）推理与微调优化的开源框架，近日发布了 v0.7 版本。此次更新的核心亮点在于全面扩展了对 AVX-512 指令集的支持，旨在更好地服务于 AMD EPYC 服务器及旧款 Intel 处理器。</p>
-<p>在 v0.7 版本中，KTransformers 实现了对 LoRA（Low-Rank Adaptation，低秩自适应）微调的完整 AVX-512 支持，且不再强制依赖 Advanced Matrix Extensions (AMX)。这一改进具有显著的实际意义：<img src="//www.phoronix.net/image.php?id=amd-epyc-9005-pstate&image=amd_epyc_pstate1_med" alt="AMD EPYC 9005" /> 它特别利好于 AMD EPYC Zen 4、Zen 5 和 Zen 6 系列服务器（这些平台拥有优秀的 AVX-512 支持但缺乏 AMX 指令集），同时也兼容 Sapphire Rapids 架构之前支持 AVX-512 的旧款 Intel Xeon 处理器。</p>
-<p>此外，KTransformers 的运行时环境现在能够自动选择最合适的 CPU 实现方案，从而使得在更广泛的拥有大内存的服务器上运行 MoE（Mixture of Experts，混合专家模型）专家训练成为可能。除了核心的 AVX-512 优化外，v0.7 版本还引入了多项新功能，包括视觉语言模型（VLM）微调支持、原生 FP8 LoRA 支持、针对 DeepSeek V4 部署的改进，以及 CPU 激活重用（CPU activation reuse）机制。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>AVX-512 与 AMX 的区别：</strong> AVX-512 是 Intel 推出的一种高级矢量扩展指令集，能够显著提升浮点和整数运算性能。而 AMX（Advanced Matrix Extensions）是专门针对矩阵运算优化的指令集，通常用于加速 AI 推理和训练。KTransformers 0.7 的更新使得框架能够在没有 AMX 的情况下，仅通过 AVX-512 就能高效运行 LoRA 微调，从而扩大了其硬件兼容性。</p>
-<p><strong>LoRA 与 MoE：</strong> LoRA 是一种参数高效的微调技术，通过低秩分解来减少训练大模型所需的计算资源。MoE 则是一种模型架构，通过“专家”网络的路由机制，在推理时只激活部分参数，从而在保持模型规模的同时降低计算成本。KTransformers 对这两者的优化，使得在通用 CPU 服务器上高效运行和微调大型 AI 模型变得更加可行。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KTransformers-0.7</guid>
-      <pubDate>Mon, 17 Aug 2026 11:28:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
