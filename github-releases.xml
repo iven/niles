@@ -3,7 +3,53 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 25 Aug 2026 21:39:15 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 22:41:51 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.246：/permissions 新增 Auto 模式标签页，改进 /cd 与子代理结果</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.246</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.246，带来若干新功能与核心改进，并修复了大量影响日常使用的 bug。</p>
+
+<p><strong>重要改动</strong></p>
+<ul>
+<li><code>/permissions</code> 新增 Auto 模式标签页，可查看和编辑自动模式分类器规则</li>
+<li>回合结束的时长行新增完成时间显示，例如 <code>✻ Sautéed for 23s · done 6:05 PM</code></li>
+<li>Bash 允许规则若在子命令前使用通配符（如 <code>Bash(git * main)</code>）会显示启动警告，因为这类规则也会匹配插入在子命令前的选项</li>
+<li>改进 <code>/cd</code>：切换目录后，新目录的项目设置、hooks、<code>.mcp.json</code> 服务器（需审批）、skills 和 agents 立即生效，无需等到 <code>--resume</code></li>
+<li>改进子代理结果：达到 <code>maxTurns</code> 上限停止的子代理现在返回标记为部分（partial）的输出，并提示可通过 <code>SendMessage</code> 继续，而不是显示为已完成</li>
+<li>改进非交互会话（<code>-p</code>、SDK、云会话）：响应被服务器错误、连接中断或停滞截断时自动续接，而不是直接报错结束</li>
+<li><code>/code-review</code> 现在 Claude 也可在 Bedrock、Vertex AI 和 Foundry 上自主启动</li>
+<li><code>/goal</code>：空闲会话对长时间后台工作每个目标最多发起三次 check-in，下一条消息后可再获得三次</li>
+</ul>
+
+<p><strong>其他修复与优化</strong></p>
+<ul>
+<li>修复全屏模式多项问题：调整终端大小后显示空白转录、位于较早消息时滚动异常、点击终端窗口时焦点被指针下的控件抢走</li>
+<li>修复 diff 包含超长单行（如 base64 字符串）导致的严重转录卡顿，此类行现在截断显示并带标记</li>
+<li>修复后台会话在起始目录被删除、机器休眠或主机启动慢时 45 秒后无法打开的问题，以及 npm 包重装瞬间报 EACCES 的问题</li>
+<li>修复 markdown 渲染被错误禁用（前 500 字符无 markdown、<code>+</code>/<code>N)</code> 列表、setext 标题）</li>
+<li>修复 MCP 工具调用被中断时误报为「已完成无输出」、参数 schema 为空（<code>{}</code>）时参数被当作 JSON 字符串发送</li>
+<li>修复动态工作流中按 ← 或运行 <code>/background</code> 会重启已完成的子代理（现在会先询问并提示重启数量）</li>
+<li>修复 <code>claude agents</code> 重复列出后台会话（再次后台化同一会话会编号为 <code>my-session (2)</code>）、后台保留清理误删自建 git worktree</li>
+<li>修复大会话中 auto 模式工具调用被误判为「暂时不可用」（安全检查时限随提示规模缩放）</li>
+<li>插件相关多项修复：缓存创建重复 SHA 目录、技能前缀重复显示（<code>/plugin:plugin:skill</code>）、<code>plugin update</code> 裸名称失败、UTF-8 BOM 导致安装失败、<code>/reload-plugins</code> 报 0 技能、hook 错误消息显示未解析的 <code>${CLAUDE_PLUGIN_ROOT}</code></li>
+<li>修复 <code>/rename</code> 用默认青色覆盖主题提示边框颜色（含自定义主题的 <code>promptBorder</code>）、自定义主题 diff 颜色被忽略</li>
+<li>修复 <code>keybindings.json</code> 未知动作名导致按键静默失效（现在跳过并保留默认绑定）、<code>/stats</code> 热力图在 UTC 以东时区偏移一格</li>
+<li>修复 <code>/fork</code> 从已 fork 或后台会话开始时对话为空、<code>/--</code> 开头提示词被当作未知命令拒绝</li>
+<li>修复 <code>@</code> 文件选择器在输入不再匹配路径后仍保持打开、状态栏费用/时长在切换视图后重置、路径补全遇 null 字节失败</li>
+<li>修复第三方 Anthropic 兼容端点流式返回无 <code>id</code> 的 <code>tool_use</code> 块导致首次工具调用渲染错误、Write 工具覆盖超大文件后报「Out of memory」或长时间冻结</li>
+<li>修复 <code>plugin install</code> 在 marketplace 文件损坏时静默退出、恢复会话因历史中的工具块导致每回合 400 报错、plan 模式会话恢复时退出 plan 模式</li>
+<li>修复 Notification hook 在沙箱网络审批等待时不触发、<code>--strict-mcp-config</code> 会话提示审批永不加载的 <code>.mcp.json</code> 服务器</li>
+<li>修复全屏和 Ctrl+O 转录视图内存随会话长度增长（渲染行不再持有全转录工具查找副本）、<code>/ultrareview</code> 与云会话并发启动时带上其他启动的未提交更改</li>
+<li>修复后台云会话任务进度计数偶尔缺失、Remote Control 会话在 claude.ai 中一直保留占位名称、<code>requiresUserInteraction</code> 工具仍提供「不再询问」选项</li>
+<li>修复 self-hosted runner 在 work-poll 响应畸形（如代理返回 HTML 页）时结束会话，现在会重试轮询</li>
+<li>性能优化：Bash 工具延迟改进，快照函数重放不再逐函数使用 base64 子 shell</li>
+<li>其他：<code>claude install</code>/<code>update</code> 将托管设置同意提示推迟到下次交互会话、命令沙箱文件系统配置现在尊重 <code>--setting-sources</code></li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.246</guid>
+      <pubDate>Tue, 25 Aug 2026 22:31:52 GMT</pubDate>
+    </item>
     <item>
       <title>v2.1.245：修复 Linux 上 glibc 2.44 导致的启动崩溃</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.245</link>
@@ -1204,32 +1250,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.23.4</guid>
       <pubDate>Fri, 24 Jul 2026 03:07:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.218 更新总结</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.218</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
-<ul>
-  <li><strong>审查与研究工作后台化</strong>：<code>/code-review</code> 命令改为作为后台子代理运行，不再占用主对话空间，并支持堆叠斜杠命令作为审查目标。</li>
-  <li><strong>深度研究（Deep Research）手动触发</strong>：<code>/deep-research</code> 不再由 Claude 自动启动，改为仅在用户手动调用时执行。</li>
-  <li><strong>自动模式（Auto Mode）智能裁决</strong>：危险 <code>rm</code>、后台 <code>&amp;</code> 命令及可疑路径检查不再弹出权限对话框，改由自动模式分类器直接裁决；计划模式（Plan Mode）结合自动模式时，对静态分析器无法证明只读的 Bash 命令也采用相同逻辑。</li>
-  <li><strong>屏幕阅读器与无障碍支持增强</strong>：在屏幕阅读器模式（<code>--ax-screen-reader</code>）下，为单词和行删除操作添加了删除文本的语音公告；修复了插件和设置面板的终端光标跟随问题，便于屏幕阅读器与放大镜导航。</li>
-  <li><strong>技能（Skills）后台运行优化</strong>：带有 <code>context: fork</code> 属性的技能默认在后台运行，可通过 <code>background: false</code> 关闭。</li>
-  <li><strong>设置审批流程简化</strong>：服务器托管设置中，良性功能开关和成本开关不再触发设置审批提示。</li>
-</ul>
-
-<h3>Bug 修复与优化</h3>
-<ul>
-  <li><strong>会话与历史管理</strong>：修复了会话在创建或链接 PR 后立即退出时丢失事件的问题；修复了历史写入竞争或失败导致条目丢失或重复的问题；修复了恢复包含格式错误附件的会话时崩溃的问题。</li>
-  <li><strong>终端与交互体验</strong>：修复了左箭头键丢弃对话且无法撤销的问题，现编辑后按左箭头会提示确认，<code>Esc</code> 可返回后台对话；修复了多行粘贴在特定终端中被压缩为一行的问题；修复了引擎拆卸竞争条件导致的幽灵回合及输入被拒绝的问题。</li>
-  <li><strong>命令与工具修复</strong>：<code>/context</code> 修复了压缩后报告过时 token 使用情况的问题；<code>/ultrareview</code> 修复了描述性参数下失败的问题，现将其作为笔记应用到当前分支审查中，并改进了错误反馈；<code>/code-review ultra</code> 修复了非交互会话中静默运行本地审查的问题，现正确启动云审查。</li>
-  <li><strong>系统稳定性与计量</strong>：修复了长 IDE 选择截断时的乱码及工具执行器错误被静默丢弃的问题；修复了 Gateway 支出计量对 Bedrock 配置映射模型 ID 的定价问题；修复了系统时钟调整后回合持续时间测量异常的问题，改用单调时钟计时。</li>
-  <li><strong>其他细节</strong>：修复了 Bedrock 设置向导在分区 AWS 区域和仅代理网络上对 assume-role 配置文件的验证失败；修复了远程会话 worker 替换后持续发送心跳导致进程不断重试的问题；改进了沙盒命令限制用于 IDE 交互；添加了 <code>yes</code>/<code>no</code>/<code>on</code>/<code>off</code>/<code>1</code>/<code>0</code> 作为技能和插件 frontmatter 布尔值的接受值。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.218</guid>
-      <pubDate>Wed, 22 Jul 2026 21:24:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
