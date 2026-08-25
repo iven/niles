@@ -3,7 +3,37 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 25 Aug 2026 19:42:32 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 20:42:53 GMT</lastBuildDate>
+    <item>
+      <title>⭐ LLVM/Clang 23.1 发布：支持 AMD Zen 6 与 NVIDIA Rigel，部分实现 C++26</title>
+      <link>https://www.phoronix.com/news/LLVM-23.1-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 LLVM/Clang 23.1 编译器工具链发布，属于编程工具发布且是开源软件新版本，符合全局很感兴趣/感兴趣；虽包含 AMD Zen 6、NVIDIA 新芯片支持等芯片相关内容（来源配置对最新芯片相关想避开），但属发布内容的一部分，非主要主题，综合评为推荐阅读。</small></p><p>LLVM 23.1 于今日如期发布，作为 LLVM 23 系列的首个稳定版本，也是该开源编译器工具链 2026 年下半年的更新。本次发布带来了大量重要改进，包括 AMD Zen 6「znver6」支持、多项 C/C++ 语言增强以及其他多种变更。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=llvm_23_1" alt="LLVM 23.1.0 release tag" />
+
+<p>新版本的主要亮点包括：</p>
+<ul>
+<li>x86 轻量级故障隔离（Lightweight Fault Isolation，LFI）目标支持</li>
+<li>对 NVIDIA Rosa 处理器中 NVIDIA Rigel 核心的初步支持</li>
+<li>Arm C1-Ultra 调度模型</li>
+<li>新的 AMD HIP offload 驱动</li>
+<li>通过 <code>-std=c++2c</code> 部分支持 C++26，以及更多 C2Y 语言功能</li>
+<li>LLD 链接器改进与多项编译器诊断改进</li>
+<li>AMDGPU GFX1310 目标支持</li>
+<li>SpacemiT X100 RISC-V 目标支持</li>
+<li>多种较新 RISC-V 指令的实验性汇编器支持</li>
+<li>作为 AMD znver6 目标一部分的 AVX-512 BMM 支持（面向 Zen 6 处理器）</li>
+</ul>
+
+<p>LLVM 23.1.0 的下载可通过 <a href="https://github.com/llvm/llvm-project/releases">GitHub</a> 获取。源代码现已可用，预编译二进制文件也将很快发布，供不想自行构建的用户使用。</p>
+
+<h3>你知道吗？</h3>
+<p>轻量级故障隔离（LFI）是一种基于编译器的安全技术，通过在生成的代码中插入检查指令，将程序的内存访问限制在特定沙箱区域内，从而无需硬件支持即可实现类似软件故障隔离（SFI）的安全边界。该技术常用于浏览器等需要隔离不可信代码的场景，是 LLVM 23.1 新增的 x86 目标特性之一。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-23.1-Released</guid>
+      <pubDate>Tue, 25 Aug 2026 19:40:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ PorteuX 基准测试：Wayland 固有速度优于 X11，但效率未必更高</title>
       <link>https://www.phoronix.com/news/Wayland-X11-Performance-PorteuX</link>
@@ -662,33 +692,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-Offload-Rust-Performance</guid>
       <pubDate>Mon, 17 Aug 2026 19:30:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 内核 SMP 改进：降低延迟，提升实时性能</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-SMP</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 7.3 内核针对 SMP 的改进以降低延迟并提升实时性能。属于核心开源项目的重大功能更新，符合全局配置中 interest（开源项目、软件新功能）的兴趣范畴。</small></p><p>随着 Linux 7.3 合并窗口的开启，多项 SMP（对称多处理）改进代码被提交至主线内核。其中一项由字节跳动（Bytedance）工程师主导的优化，旨在解决多核环境下调度延迟激增的问题，从而显著提升实时 Linux 的性能表现。</p>
-
-<p>在多处理器系统中，当主 CPU 需要远程 CPU 执行特定任务时，通常会通过 IPI（处理器间中断）进行通信。然而，现有的内核机制要求在等待远程 CPU 完成 IPI 操作期间保持抢占禁用状态。随着远程 CPU 数量的增加，这种等待会导致调度延迟“急剧”上升。特别是在 x86_64 架构下，TLB（转换后备缓冲区）的刷新依赖于 IPI，进程退出或页面回收等操作可能引发大量的 IPI 等待，严重影响延迟敏感型工作负载（如 DPDK）的性能。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_73_smp_med" alt="SMP monitoring" />
-
-<p>为了解决这一问题，字节跳动工程师重新设计了内核 SMP 代码。他们允许内核在等待 IPI 完成期间进行抢占，从而避免了调度延迟的剧烈波动。内核维护者 Thomas Gleixner 对该优化进行了总结：通过为每个任务提供独立的 CPU 掩码来跟踪等待目标，使得等待信息变为任务本地化。这使得内核可以在等待远程 CPU 响应前重新启用抢占。尽管这一改动带来了适度的额外内存开销，但实测数据显示，高优先级任务的 SMP 函数调用诱导延迟从约 17ms 大幅降低至 1.5ms，降幅高达 90%。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_73_smp_benchmark_med" alt="SMP latency benchmark result" />
-
-<p>目前，该优化补丁已提交至 Linus Torvalds 处等待审查。若无重大代码问题，预计将在本周内正式合并入 Linux 7.3 内核。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-  <li><strong>SMP（Symmetric Multi-Processing）</strong>：对称多处理架构，指多个 CPU 共享内存、I/O 设备，并平等地处理任务的系统架构。Linux 内核广泛支持 SMP 以充分利用多核性能。</li>
-  <li><strong>IPI（Inter-Processor Interrupt）</strong>：处理器间中断，用于多核 CPU 之间发送信号或指令。在 Linux 中，常用于跨核内存管理（如 TLB 刷新）和调度同步。</li>
-  <li><strong>TLB（Translation Lookaside Buffer）</strong>：转换后备缓冲区，是 CPU 内部用于加速虚拟地址到物理地址转换的高速缓存。当内存页表发生变化时，必须通过 IPI 通知所有相关 CPU 刷新其 TLB，否则可能导致数据不一致。</li>
-  <li><strong>DPDK（Data Plane Development Kit）</strong>：数据平面开发套件，一套用于快速数据包处理的库和驱动，常用于网络数据包的高性能处理，对系统延迟极其敏感。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-SMP</guid>
-      <pubDate>Mon, 17 Aug 2026 14:09:01 GMT</pubDate>
     </item>
   </channel>
 </rss>
