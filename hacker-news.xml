@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 25 Aug 2026 16:51:48 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 17:42:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Qwen3.8-Flash-Next 明日发布：125B 总参数、每 token 仅激活 6B 的稀疏 MoE 模型</title>
+      <link>https://news.ycombinator.com/item?id=49432317</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 Qwen3.8-Flash-Next 新 AI 模型的发布公告，属于用户很感兴趣的新AI模型发布公告类别，且涉及开源模型进展，故为必看</small></p><p>阿里巴巴旗下通义千问（Qwen）团队宣布，新一代模型 <strong>Qwen3.8-Flash-Next</strong> 将于明日发布。该模型采用重新设计的多模态混合专家（MoE）架构，总参数量为 125B，但每个 token 仅激活 6B 参数（即 125B A6B）。</p><p>根据发布页面早期信息（后被移除）及社区保存的截图，该模型由 125B 主模型参数外加 51B 的 N-gram 嵌入组成，并引入了新的注意力机制（据称名为「Qwen Sparse Attention」）。官方宣称，凭借约 1/9 的训练成本，Qwen3.8-Flash-Next 即可达到与 Qwen3.7-Plus 相当的能力，且在编码与协作（cowork）方面表现更强。</p><p>模型页面已同步上线 <a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next">Hugging Face</a> 与 <a href="https://modelscope.cn/models/Qwen/Qwen3.8-Flash-Next">ModelScope</a>。</p><p>社区反应方面，不少本地模型爱好者原本期待 35B A3B 规格以便在消费级显卡上运行，对 125B 的规模略感失望；有用户指出该模型主要面向 Mac、Strix Halo 和 DGX Spark 等大内存设备。另有评论注意到，官方表示这些架构改进是「提前发布」，以便社区为即将到来的完整 Qwen4 模型家族做准备，暗示 Qwen4 系列可能包含 4B 等更小规格的模型。</p><h3>你知道吗？</h3><p>「125B A6B」表示模型总参数量为 1250 亿，但推理时每个 token 只激活其中 60 亿参数。这种稀疏激活的 MoE（混合专家）架构能大幅降低推理成本，是当前大模型在保持能力的同时控制算力开销的主流做法。N-gram 嵌入则是在常规词元嵌入之外，额外引入 n-gram 级别的统计特征，用于增强模型对短语和上下文模式的捕捉能力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49432317</guid>
+      <pubDate>Tue, 25 Aug 2026 11:49:43 GMT</pubDate>
+    </item>
     <item>
       <title>月亮（Moon）：交互式科普带你探索月球轨道、引力与潮汐</title>
       <link>https://news.ycombinator.com/item?id=49426466</link>
@@ -1161,33 +1170,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49367350</guid>
       <pubDate>Wed, 19 Aug 2026 21:19:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Unsloth 发布 Dynamic 3.0 GGUF 量化方案：同等大小下精度提升超 10%</title>
-      <link>https://news.ycombinator.com/item?id=49365443</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Unsloth发布GGUF量化方案新版本，属于编程工具发布和AI软件技术进展，用户对编程工具发布为high_interest，AI进展为interest</small></p><p>Unsloth 正式发布了 <strong>Dynamic 3.0 GGUF</strong> 量化方案，这是其动态量化技术的重大升级。新版本首先应用于 Qwen3.8-27B 模型，在同等文件大小下，top-1% 准确率相比其他量化方案提升超过 10%，且兼容 llama.cpp 和 Unsloth Desktop 等主流推理引擎。</p>
-
-<h3>核心改进</h3>
-<p>Dynamic 3.0 采用了多项新技术：使用更高质量的 imatrix 校准数据集（涵盖编程对话、多语言等多种来源），改进了层选择策略，并引入了更多量化技术以最大限度保留模型质量。所有操作均通过训练后量化（Post-Training Quantization, PTQ）完成，未使用 QAT 或 QAD 方法。团队强调其方法不存在过拟合问题——校准数据集与测试数据集完全不同。</p>
-
-<p>在较小量化级别（低于 UD-Q2_K_XL，即 8.37GB 及以下）中，移除了多令牌预测（MTP）模块以节省约 500MB 磁盘空间，用户可按需使用独立的 Q4_0 MTP 模块。此外还推出了超低比特量化版本 UD-IQ1_S（6.2GB，不含 MTP），在缩小 89% 的同时保留了约 72% 的 top-1% 准确率。</p>
-
-<p><img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FHkiEb4BgU9IZ4t0pbMKs%252FUD-Q2_K_XL-Qwen.gif%3Falt%3Dmedia%26token%3D6b4cd6d5-0b70-4741-a72e-1f5e1974dbb0&width=768&dpr=3&quality=100&sign=28df58f2&sv=2" alt="2-bit Qwen3.8-27B GGUF 生成示例" width="720" height="405" /></p>
-
-<h3>基准测试与评估</h3>
-<p>Unsloth 引入了新的评估指标 <strong>Divergence-300 @32</strong>，使用 300 个保留样本（来自 Terminal-Bench 2.1、DeepSWE、Harbor、MathArena 等数据集，不包含在校准集中）进行 32 个令牌的贪婪解码，以衡量量化输出与 BF16 原始模型的一致性。KL 散度（KL Divergence）测试显示，在所有量化级别上，UD-3 量化方案在相同磁盘空间下可获得最高 +10% 的 top-1% 准确率提升。</p>
-
-<p><img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FySCIjoinQuhNqfGz3C4Q%252Fimage.png%3Falt%3Dmedia%26token%3Ddcc5a2be-3445-4a67-b1e2-0ca5e89fbcf6&width=768&dpr=3&quality=100&sign=15017a78&sv=2" alt="Divergence-300 @32 基准测试" width="3778" height="1979" /></p>
-
-<h3>过往成果与生态贡献</h3>
-<p>文章同时回顾了 Dynamic v2.0 的特性，包括重新设计的层选择策略、模型专属量化方案、以及对 Apple Silicon 的优化。Unsloth 团队还积极修复了多个主流模型在 llama.cpp 中的兼容性问题，包括 Llama 4 的 RoPE 缩放配置和 QK Norm epsilon 参数，并与 Qwen3、Meta、Mistral、Google、Microsoft 等团队直接合作。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论中，多位用户分享了实际使用体验。有用户表示在 4090 16GB 上使用 IQ4 量化效果良好；也有用户指出超低比特量化（1-bit、2-bit）在复杂任务中可能因误差累积导致输出偏离，建议在需要长输出序列的场景中谨慎使用。部分用户询问了在 Apple 设备上进行量化的可能性，以及多 GPU 配置下的运行方案。Unsloth 的 GGUF 量化因其持续的模型兼容性修复而受到社区广泛认可。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49365443</guid>
-      <pubDate>Wed, 19 Aug 2026 18:36:45 GMT</pubDate>
     </item>
   </channel>
 </rss>
