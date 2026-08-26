@@ -3,7 +3,83 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 26 Aug 2026 14:59:49 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 16:35:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 智谱发布 GLM-5.3-Flash：320B 参数 MoE 模型，推理成本降至前代十分之一</title>
+      <link>https://news.ycombinator.com/item?id=49449507</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 智谱发布新AI模型GLM-5.3-Flash的公告，属新AI模型发布，命中很感兴趣</small></p><p>智谱 AI（Z.ai）正式发布 GLM-5.3-Flash，一款主打速度与性价比的混合专家（MoE）模型，总参数 320B、每次推理仅激活 18B 参数。官方称其在基准测试和真实工作负载上全面超越 GLM-5.2，而价格仅为前者的十分之一，编码与智能体（agentic）基准上已接近 Claude Opus 4.8。</p><p>API 定价为每百万 token 输入 $0.15、输出 $0.50、缓存输入 $0.03，比 DeepSeek 的错峰定价还低，社区认为这给 DeepSeek 带来了强劲竞争。模型权重已上传 <a href="https://huggingface.co/zai-org/GLM-5.3-Flash">Hugging Face</a>，供本地部署。</p><p>此次发布还揭晓了一个悬念：此前 OpenRouter 上神秘的隐身测试模型「Ox Alpha」正是 GLM-5.3-Flash，测试期结束后该入口已返回 404 并引导用户改用正式模型。更值得注意的是，该模型的大规模流量全部运行在中国国产 AI 芯片上，官方称相比初始基线实现了 3 倍的端到端推理性能提升，硬件效率与单 token 成本已接近主流英伟达 GPU，展示了国产芯片支撑前沿模型规模化推理的能力。</p><p>社区反馈方面，有用户指出 320B 总参数意味着本地部署门槛不低，Q4 量化约需 160–192GB 显存或统一内存；也有用户认为 GLM 的「flash」速度与 DeepSeek V4 Flash 相比仍有差距，但考虑到价格与性能，性价比依然突出。同日发布的还有 Qwen3.8-Flash-Next，开源模型的竞争进一步加剧。</p><h2>你知道吗？</h2><p>「Flash」类模型通常指在保持较强能力的同时，通过稀疏激活等手段大幅降低推理成本与延迟的轻量级模型。GLM-5.3-Flash 的 320B 总参数/18B 激活参数结构意味着每次推理只计算约 5.6% 的参数，这是其能以极低价格提供接近旗舰模型性能的关键。而「全部流量跑在国产芯片上」的背景是：在美国出口管制下，中国厂商加速了自研 AI 芯片（如华为昇腾）的适配与优化，此次 3 倍性能提升的成果被视为国产算力生态成熟的重要信号。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49449507</guid>
+      <pubDate>Wed, 26 Aug 2026 14:08:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Qwen3.8-Flash-Next：全新架构模型，训练成本仅为 Qwen3.7-Plus 的 1/9 且全面超越</title>
+      <link>https://news.ycombinator.com/item?id=49448210</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Qwen新系列模型发布公告，涉及全新架构与训练效率突破，属新AI模型发布，命中很感兴趣</small></p><p>阿里巴巴通义千问（Qwen）团队发布了 <strong>Qwen3.8-Flash-Next</strong>，这是一款采用全新架构的混合专家（MoE）模型，被视为下一代 Qwen 4 架构的预告。官方宣称该模型训练成本仅为 Qwen3.7-Plus 的 1/9，却在各项基准上全面超越后者。</p><p>社区反响总体积极。有用户指出，它干净利落地击败了 Qwen3.8 27B 模型；考虑到其较小的 MoE 规模，基准成绩相当亮眼。定价方面，官方表格显示 Qwen3.8-Flash 的 API 价格为每百万 token 0.16 美元（输入）/0.47 美元（输出），对比 DeepSeek 0723 的 0.03/0.075 美元；不过有评论指出 DeepSeek 高峰时段价格会上涨，也有用户认为 Qwen 在价格上更具竞争力，甚至"低于本就廉价得离谱的 DeepSeek Flash"。</p><p>新架构也带来了一些落地问题。由于模型采用全新架构（GGUF 中标识为 "qwen4exp"），主流的 llama.cpp 和 vLLM 尚不支持，用户暂时无法直接运行。llama.cpp 已有一个相关的 <a href="https://github.com/ggml-org/llama.cpp/pull/27742">pull request</a>，预计 1-3 天内获得支持；vLLM 也提供了专门的 <a href="https://recipes.vllm.ai/Qwen/Qwen3.8-Flash-Next">运行指引</a>。Unsloth 已发布 GGUF 量化版本（约 73GB，1-bit 量化），128GB 内存的 Mac 或 AMD Strix Halo 设备有望本地运行，不过有用户担心 4-bit 量化版本能否塞进 128GB 内存。</p><p>也有评论者对基准对比持保留态度，认为小模型虽然智能水平接近大模型，但缺乏大模型的世界知识；另有用户回应称，通过联网搜索并引用来源可以弥补这一不足。此外，部分用户对 Qwen 新闻几乎每天刷屏表示不满，但也有观点认为"线上空间没有短缺"。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49448210</guid>
+      <pubDate>Wed, 26 Aug 2026 12:52:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ RAG 比你想象的更简单：六种检索架构的选型指南</title>
+      <link>https://news.ycombinator.com/item?id=49445727</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] RAG检索架构选型指南，属AI软件技术进展，用户感兴趣</small></p><p>《RAG 比你想象的更简单》（RAG Is Simpler Than You Think）一文指出，大多数团队的 RAG（检索增强生成）系统都存在过度设计的问题：一上来就上向量嵌入（embeddings）、向量数据库和重排序流水线，而用户往往只是想找到"如何重置密码"这类文档。作者 Rafael Pierre 认为，检索系统也应遵循工程选型原则——"用对的工具解决对的问题"，并给出从最简到最复杂的六种方案，建议从最简单的开始，只有数据证明需要时才逐级升级。</p>
+
+<img src="https://substackcdn.com/image/fetch/$s_!yF7E!,w_2400,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F03ad851c-75b8-4afe-ae16-fd98c8e61836_1920x1280.jpeg" alt="" width="1200" height="800" />
+
+<p><strong>选型决策因素</strong>：文章提出五个关键考量——数据新鲜度需求（实时更新适合易重建索引的方案，稳定语料适合预嵌入）；语料特征（日变更超 10% 应避免全量预嵌入，90% 文档无人访问的长尾分布适合按需嵌入）；查询模式（关键词型查询用全文搜索，语义型用嵌入，混合型用混合方案）；规模与性能（每日查询量低于 1000 次用简单方案即可，超过 1 万次才值得全面优化）；团队能力（无 ML 经验就用全文搜索加查询改写）。</p>
+
+<p><strong>六种方案</strong>：</p>
+<ul>
+<li><strong>方案一：纯全文搜索（MVP）</strong>——BM25、Elasticsearch、Postgres 全文搜索。零 API 成本、延迟低于 10ms、易于调试，无需分块策略，也没有模型弃用风险；缺点是漏掉同义词、无法理解语义查询。作者强调"不要跳过这一步"。</li>
+<li><strong>方案二：智能体查询改写（Agentic Query Rewriting）</strong>——用 LLM 把杂乱的自然语言查询改写成干净的关键词查询，每次约 0.001 美元。核心观点是："大多数'语义搜索'问题其实是查询构造问题。"它还能通过系统提示词处理专有术语（如公司内部框架 "Atlas"），这是通用嵌入模型做不到的；还可做成多轮迭代的智能体循环。</li>
+<li><strong>方案三：混合搜索（稀疏 + 稠密重排序）</strong>——先用 BM25 取前 50-100 个候选，再用嵌入重排序取前 10。每次查询嵌入成本约 0.0005 美元（每日 1000 次约每月 15 美元），但会带来 200-500ms 的额外延迟，且分块问题会重新出现。</li>
+<li><strong>方案四：按需嵌入（On-The-Fly Embedding）</strong>——适合高频更新的数据，每次查询时实时嵌入候选文档，无需重建索引；换模型只需改一行代码。代价是延迟。</li>
+<li><strong>方案五：预嵌入 + 热/冷分层</strong>——利用帕累托分布（20% 文档承载 80% 流量），热文档预嵌入、冷文档按需嵌入，兼顾速度、新鲜度与成本，模型更新时只需重嵌入约 20% 的语料。</li>
+<li><strong>方案六：全量预嵌入（规模化方案）</strong>——适合每日超 1 万次查询、语料稳定（月变更低于 5%）、需要 50ms 以下延迟的场景。模型弃用时的重嵌入成本与停机风险是最大痛点，对大多数系统而言属于过度设计。</li>
+</ul>
+
+<p><strong>多意图查询问题</strong>：真实用户常问"如何读取 CSV、清洗缺失数据并绘图"这类包含多个意图的问题。文章借鉴 Perplexity 的做法：用查询理解智能体把查询拆解为多个子查询并并行路由——简单子查询用停用词过滤加 BM25（零成本），复杂子查询才用 LLM 改写和嵌入。对比显示，分解后单次成本从 0.03 美元降至 0.002 美元，便宜 15 倍且质量更好。</p>
+
+<p><strong>决策树</strong>：文章给出的实操建议是——先问"你现在有搜索吗？没有就先建 BM25"；运行 2-4 周收集用户反馈；若用户抱怨"找不到明明存在的文档"，先试查询改写（每次 0.001 美元、无需重建索引），做两周 A/B 测试再决定是否升级。</p>
+
+<p><strong>社区反馈</strong>：Hacker News 上该文获得 301 分、135 条评论。多数评论认同全文搜索被低估：有读者表示"全文搜索简单、可移植、可扩展，能走很远，80/20 法则适用"，并指出嵌入搜索最终往往要反复重嵌入、维护成本高；也有评论认为嵌入搜索实现起来同样简单、值得一试，Cursor 等产品就发现嵌入优于纯 grep。部分评论批评文章风格像"AI 生成内容"（短句堆砌、缺乏论证），还有人指出文章未拼写 RAG 缩写，并补充了 <a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation">RAG 的定义链接</a>。</p>
+
+<p><strong>你知道吗？</strong>RAG（Retrieval-Augmented Generation，检索增强生成）指在生成回答前先从外部知识库检索相关内容，再交给大语言模型生成答案，以缓解幻觉并引入私有知识。BM25 是一种经典的词频-逆文档频率（TF-IDF）类排序算法，广泛用于全文检索；混合搜索中常用倒数排名融合（Reciprocal Rank Fusion, RRF）将稀疏与稠密检索结果合并排序。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49445727</guid>
+      <pubDate>Wed, 26 Aug 2026 08:39:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 「可查询的可执行文件」：把程序本身做成 SQLite 数据库</title>
+      <link>https://news.ycombinator.com/item?id=49442589</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍把可执行文件做成SQLite数据库的程序格式概念，属编程工具分享/软件新功能，推荐阅读</small></p><p>本文是作者对先前文章《你的可执行文件是一个 SQLite 数据库》的续篇，介绍并演示了 SELF 格式：一种把程序本身做成 SQLite 数据库的可执行文件格式。借助 Linux 的 binfmt_misc 机制，内核可以触发自定义解释器，将数据库 segments 表中的行映射并跳转到入口点，从而让一整类二进制工具链"坍缩"为 SQL 操作。</p>
+
+<img src="/assets/images/sqlite_is_life.png" alt="meme of Danny from Ted Lasso saying sqlite is life" width="889" height="500" />
+
+<p>作者进一步提出：既然可执行文件是数据库，而数据库可写，那么运行中的程序能否把自身状态也存进同一个文件？答案是肯定的。概念验证项目 self-httpd 就是一个单文件 Web 服务器——同一个 SQLite 文件里同时包含程序本体、网站内容、路由表和全部访问日志，所有状态都以事务方式更新。演示站点 <a href="https://selfdb.exe.xyz">selfdb.exe.xyz</a> 上有一个按钮，每次点击都会向"正在运行的可执行文件"中插入一条记录。</p>
+
+<img src="/assets/images/derived/selfdb-exe-xyz-1404w.png" alt="Screenshot of selfdb.exe.xyz. The heading reads &quot;This page is a row in the executable that served it.&quot; Below it a console block shows `file server` reporting a SQLite database with application id 1397050438, and `xxd` showing the bytes &quot;....SELF&quot; at offset 68. Under the heading &quot;What is in it, right now&quot; is a grid of live counters read out of the file while it answered the request: 13 segments, 179 symbols, 105 relocations, 2 needed libraries, 3 routes, 12 tables, 103 visits recorded, 24 presses recorded." width="2560" height="2320" />
+
+<p>该想法受 Justine Tunney 的 redbean 启发——后者是单文件 Web 服务器，采用自解压 ZIP 归档的"真正可移植可执行文件"（Actually Portable Executable）。作者认为 SELF 更简洁：数据库本身就是容器，无需额外的归档格式；redbean 用 Lua 钩子操纵响应，而 SELF 只需在 handlers 表中插入一行。用作者的话说，如果 redbean 是"真正可移植的可执行文件"，那么 SELF 就是"真正可查询的可执行文件"。</p>
+
+<p>实现原理：当 binfmt_misc 匹配时，内核并不直接 execve 该文件，而是执行解释器并把文件路径通过 argv[0] 传给程序；解释器在跳转到入口点前释放自己的 SQLite 连接，程序即可打开自身文件并查询。由于文件格式就是 SQLite，程序还免费继承了大量现成能力：用 UPDATE 即可在运行中事务性地修改网站内容（ROLLBACK 可撤销）；用 sqldiff 审计两个版本之间的"部署差异"；用 FTS5 虚拟表为自身页面建立全文索引。部署也简化为"scp 一个文件"，升级可视为数据迁移——用两条 INSERT ... SELECT 把旧实例的访问日志迁入新文件。</p>
+
+<p>HN 社区反响热烈（282 分、77 条评论），多数评论者赞赏这一创意，但也提出了严肃的担忧：让面向互联网的服务二进制可自写，会把 SQL 注入的破坏力提升到新的高度（"SQL 注入到任意代码执行"的管线）；多用户场景下每个用户需要各自的副本；程序自变异后难以重置到已知良好状态。有评论将其与 IBM AS/400 的"万物皆对象"设计、Smalltalk 的"虚拟机+镜像单文件"等先例类比，也有人建议用自定义 SQLite VFS 配合 mprotect/mseal 实现 W^X 保护来缓解安全问题。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>binfmt_misc</strong>：Linux 内核提供的一种机制，允许通过文件格式魔数（magic number）注册自定义可执行格式及其解释器，从而让内核"认识"非标准格式的可执行文件。</li>
+<li><strong>真正可移植可执行文件（APE）</strong>：Justine Tunney 开发的单文件可移植二进制格式，同一文件可在多种操作系统和 CPU 架构上直接运行，是 redbean 的技术基础。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49442589</guid>
+      <pubDate>Wed, 26 Aug 2026 00:20:49 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Z.ai 确认 Ox Alpha 为 GLM 系列新模型，将发布权重</title>
       <link>https://news.ycombinator.com/item?id=49446422</link>
@@ -976,162 +1052,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49378768</guid>
       <pubDate>Thu, 20 Aug 2026 19:05:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Bun 1.4 发布：从 Zig 重写为 Rust，性能大幅提升，新增多项内置 API</title>
-      <link>https://news.ycombinator.com/item?id=49374797</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Bun 是一款 JavaScript 运行时与工具链，属于编程工具；本文是其 1.4 版本的发布公告，直接匹配全局配置中「编程工具发布/分享」这一很感兴趣类别，故定为 critical。</small></p><h2>概述</h2>
-<p>Bun 团队正式发布了 <strong>Bun 1.4</strong>，这是自 Bun 1.0 以来最大的一次更新。本次版本的核心变化是将运行时从 <strong>Zig 重写为 Rust</strong>，同时带来了显著的性能提升、大量新增 API 以及更完善的 Node.js 兼容性。</p>
-
-<h2>Node.js 兼容性大幅提升</h2>
-<p>Bun 1.4 新增了 <strong>1,517 个来自 Node.js 测试套件的测试</strong>，目前累计通过 3,743 个测试。多个核心模块的通过率超过 97%，其中 <code>node:events</code>、<code>node:trace_events</code> 和 <code>node:sqlite</code> 达到 100%。Playwright、Next.js 16、vitest、OpenTelemetry 和 dd-trace 等主流工具和框架现已支持在 Bun 上运行。</p>
-
-<img src="/images/blog/bun-1.4/node-test-suite-progress.png" alt="Node.js 测试套件进度图表：从 v1.2.0 的 1,450 个测试增长到 v1.4.0 的 3,743 个" width="2400" height="1600" />
-
-<h2>性能改进</h2>
-<p>Bun 1.4 在多个维度上实现了显著的性能提升：</p>
-<ul>
-  <li><strong>CPU 使用率</strong>：对于 Claude Code 这类大型长期运行的应用，p99 CPU 使用率从 24% 降至 10%；小型应用的闲置 CPU 使用率降低 5 倍</li>
-  <li><strong>内存使用</strong>：HTTP 服务器应用的内存使用减少 13%–48%（Fastify 降低 48%，Express 降低 46%）</li>
-  <li><strong>启动速度</strong>：Linux 上启动速度提升 2 倍（5.1ms vs 10.9ms），Windows 上提升 2.5 倍（15.5ms vs 39.0ms）</li>
-  <li><strong>二进制体积</strong>：Linux 和 Windows 平台减小最多 17%</li>
-</ul>
-
-<img src="/images/blog/bun-1.4/tweets/cpu-usage-cc.jpeg" alt="Claude Code 生产环境 CPU 使用率对比：p99 从 24% 降至 10%，p50 从 5.8% 降至 2.5%" width="3200" height="1800" />
-
-<img src="/images/blog/bun-1.4/tweets/idle-cpu.png" alt="Hello World 服务器闲置 CPU 使用率：Bun 1.4 比 1.3 降低 5 倍" width="1712" height="1602" />
-
-<p>这些改进得益于将 JavaScriptCore 的内存分配器统一为 mimalloc、优化垃圾回收定时器策略、减少 futex 调用次数等底层优化。</p>
-
-<img src="/images/blog/bun-1.4/tweets/nextjs-ssr-fetch-leak.jpg" alt="Next.js App Router SSR 内存对比：4,000 页面后 Bun 1.4 稳定在 238 MB，Node 为 410 MB，Bun 1.3 无限制增长" width="3200" height="1800" />
-
-<h2>新增 API 与功能</h2>
-<p>Bun 1.4 引入了大量内置 API，进一步践行「一体化工具链」的理念：</p>
-<ul>
-  <li><strong>Bun.WebView</strong>：内置无头浏览器自动化，支持 headless 浏览器测试</li>
-  <li><strong>Bun.Image</strong>：图像处理 API，支持调整大小、旋转和重新编码</li>
-  <li><strong>Bun.markdown</strong>：Markdown 解析与渲染</li>
-  <li><strong>Bun.cron()</strong>：定时任务调度</li>
-  <li><strong>Bun.Terminal</strong>：终端交互 API</li>
-  <li><strong>JSON5 和 JSONL</strong>：新增格式解析支持</li>
-  <li><strong>Bun.YAML</strong>：支持循环引用解析</li>
-  <li><strong>Bun.stringWidth()</strong>：中日韩字符宽度计算速度提升 7–56 倍</li>
-</ul>
-
-<h2>新命令行工具</h2>
-<ul>
-  <li><code>bun run --parallel</code> 和 <code>bun test --parallel</code>：并行执行任务和测试</li>
-  <li><code>bun audit fix</code>：自动修复依赖安全漏洞</li>
-  <li><code>bun dedupe</code>：去重依赖</li>
-  <li><code>bun prune</code>：清理未使用的依赖</li>
-  <li>全局虚拟存储（opt-in）：安装速度提升最高 7 倍</li>
-</ul>
-
-<h2>可观测性增强</h2>
-<p>Bun 1.4 新增了多项可观测性工具：</p>
-<ul>
-  <li><code>bun --cpu-prof</code> 和 <code>bun --heap-prof</code>：支持以 <strong>Markdown 格式</strong>输出 CPU 和堆分析报告，便于在终端直接阅读、通过 SSH 查看或交给 LLM 分析</li>
-  <li><code>bun build --metafile-md</code>：以 Markdown 格式输出打包分析报告</li>
-  <li><code>process.on("memoryPressure")</code>：监听操作系统内存压力事件，在系统杀死进程前释放缓存、关闭空闲连接</li>
-  <li><code>node:inspector</code> 支持：可在应用运行时启动和停止 CPU 分析</li>
-</ul>
-
-<h2>社区反馈</h2>
-<p>此次发布在 Hacker News 上引发了热烈讨论（233 点赞，138 条评论）。部分开发者对 Bun 将越来越多功能内置到运行时中的策略表示担忧，认为这导致二进制体积膨胀且发布周期较长（1.3 到 1.4 间隔约 10 个月）。但也有不少开发者表示支持，认为这正是 JavaScript 生态长期以来所缺乏的「标准库」，可以减少对第三方包的依赖，降低供应链攻击风险。还有评论关注到 Bun 团队大量使用 AI 辅助开发（包括 Anthropic 的 Claude）来加速 Rust 重写过程，这在行业内引发了关于 AI 驱动开发效率的讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49374797</guid>
-      <pubDate>Thu, 20 Aug 2026 14:10:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>用 RP2040 破解被锁定的 Cricut Maker 电子垃圾，恢复全部功能</title>
-      <link>https://news.ycombinator.com/item?id=49365841</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章涉及使用RP2040芯片破解Cricut Maker设备，属于硬件破解主题，与用户配置中的兴趣类别无明显对应，故定为可选</small></p><p>一位硬件黑客在垃圾堆中发现了一台被丢弃的 Cricut Maker（一种电子切割机），虽然外观完好但滚轮已老化。她推测这就是被丢弃的原因，于是将其带回家研究。Cricut 公司对机器有着激进的锁定/禁用策略——当用户因保修更换或升级折扣而退回旧机器后，这些设备会被远程锁定，显示"Machine deactivated"（机器已停用）的提示。</p>
-
-<p>作者尝试了多种破解方案。首先拆解主板寻找 EEPROM 以重写序列号，但未能找到；随后尝试拦截网络通信，但由于应用层的证书锁定（certificate pinning）机制过于复杂而放弃。最终，她将目光转向了切割机与计算机之间的 USB 通信。</p>
-
-<p>通过 Wireshark 抓包分析，她发现 Cricut 使用 USB CDC（通信设备类）协议进行通信，且序列号数据包既无校验和也无加密。她借来一块树莓派 RP2040 微控制器，利用 TinyUSB Arduino 库编写了一个 USB 中间人代理程序——该设备同时扮演 USB 主机和 USB 客户端，在检测到包含序列号的特定长度数据包时，将其替换为另一个序列号。</p>
-
-<img src="/xssfox/images/photo_2026-07-01%2013.48.56.jpeg" alt="Cricut Maker 与带有两个 USB 连接的 RP2040 微控制器" />
-
-<p>值得注意的是，USB 主机功能需要将 RP2040 超频至 240MHz 才能正常工作。序列号似乎是顺序分配的，且可以在 Cricut 的官方状态页面上查询所有设备的状态。通过硬件级别的序列号重写，Cricut 软件完全无法察觉异常，设备成功显示在作者的账户中。</p>
-
-<img src="/xssfox/images/5895bfdd01f43fd07d95a51918bca303.png" alt="Cricut 软件显示机器已连接" />
-
-<p>在完成清洁、更换滚轮（提示：用热水软化新滚轮以便安装）并重新组装后，作者还为 RP2040 打印了一个外壳，这台 Cricut 得以像全新设备一样正常使用。</p>
-
-<img src="/xssfox/images/photo_2026-07-01%2013.48.54.jpeg" alt="用于 USB 重写微控制器的 3D 打印外壳" />
-<img src="/xssfox/images/photo_2026-07-01%2013.48.58.jpeg" alt="打印并切割出的一堆贴纸" />
-
-<p>作者还列举了其他可能的软件解决方案（如拦截网络流量、编写自定义驱动程序、利用固件更新流程等），但表示不会进一步研究，也不会公开序列号重写代码——因为根据澳大利亚版权法，这可能存在法律风险。</p>
-
-<p>社区评论中，许多用户对 Cricut 的商业模式表示不满，认为锁定可用硬件的行为"非常糟糕"。有用户指出 Cricut 的软件体验极差，强烈建议不要购买。相比之下，竞争对手 Silhouette（旗下品牌 Cameo）拥有更好的开源生态和社区支持，有用户分享了 <a href="https://github.com/fablabnbg/inkscape-silhouette">Inkscape 开源插件</a> 可直接驱动 Silhouette 切割机。也有评论者提到，Cricut 曾因计划限制云使用次数、强制用户订阅而引发争议，最终 CEO 被迫收回决定。</p>
-
-<h2>你知道吗？</h2>
-<ul>
-<li><strong>Cricut 争议史</strong>：Cricut 曾多次因反消费者行为引发争议，包括试图限制用户每月上传图片数量、强制订阅服务，以及通过远程锁定已售出的设备来阻止用户在二手市场交易或使用替代软件。详情可参考 <a href="https://en.wikipedia.org/wiki/Cricut#Controversies">Wikipedia 相关条目</a>。</li>
-<li><strong>USB 中间人攻击</strong>：本文使用的 RP2040 USB 代理技术是一种硬件级别的中间人（man-in-the-middle）攻击手法。由于 Cricut 的 USB 协议未对序列号数据包进行校验或加密，使得这种低成本破解成为可能。评论者指出，这种"无校验"的设计让代理变得"轻而易举"。</li>
-<li><strong>序列号可猜测风险</strong>：由于序列号是顺序分配的，且可在 Cricut 官网查询状态，这意味着攻击者可能批量枚举有效序列号，将他人的设备锁定或添加到自己的账户中，可能引发严重的安全和隐私问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49365841</guid>
-      <pubDate>Wed, 19 Aug 2026 19:06:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ HTML 原生动态功能大赏：popover、dialog、手风琴等无需 JavaScript 即可实现</title>
-      <link>https://news.ycombinator.com/item?id=49362689</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍HTML新增的popover、dialog等原生动态功能，属于Web平台/软件新功能进展，与用户'软件新功能'兴趣匹配，推荐阅读。</small></p><p>Chris Burnell 在 HTML Day 2026 期间构建了一个页面，展示了多种可以用纯 HTML 实现的动态功能，无需编写 JavaScript。这些功能包括：</p>
-<ul>
-<li><strong>popover</strong>：使用 <code>popover</code> 和 <code>popovertarget</code> 属性实现弹出层，支持轻触关闭和 Esc 关闭，无需管理 z-index。</li>
-<li><strong>dialog</strong>：<code>&lt;dialog&gt;</code> 元素用于模态对话框，可结合 <code>popover</code> 属性使用。</li>
-<li><strong>分组 <code>&lt;details&gt;</code></strong>：通过共享 <code>name</code> 属性，使一组 <code>&lt;details&gt;</code> 元素成为独占式手风琴（accordion）。</li>
-<li><strong>command &amp; commandfor</strong>：使用 <code>command</code> 和 <code>commandfor</code> 属性让按钮控制弹出层，无需脚本。</li>
-<li><strong>loading="lazy"</strong>：图片延迟加载，直到接近视口才加载。</li>
-<li><strong>hidden until-found</strong>：隐藏内容直到通过浏览器搜索或片段链接找到时自动显示。</li>
-<li><strong>原生输入类型</strong>：颜色、日期、时间、范围等输入类型，内置浏览器选择器。</li>
-<li><strong>datalist</strong>：原生自动完成建议，无需下拉库。</li>
-</ul>
-<p>作者同时指出，这些功能的浏览器实现仍不完善，部分存在严重的可访问性问题，建议谨慎使用。例如 <code>datalist</code> 在不同输入类型上的支持参差不齐，<code>hidden="until-found"</code> 与屏幕阅读器搜索的兼容性不佳。</p>
-<p>Hacker News 社区对此展开了热烈讨论。多位开发者指出 <code>datalist</code> 无法替代功能完整的组合框（combobox），用户仍可输入任意内容，缺乏模糊过滤和拼写纠正，在需要严格约束的场景下仍需使用 JavaScript 库。关于 <code>hidden until-found</code> 的用例，评论者认为它适用于产品列表中的附加条款、图片预览等场景，但缺乏关闭机制。部分用户赞赏这些原生特性，认为它们有助于减少对 JavaScript 的依赖，尤其是对于仍在使用 NoScript 的用户；但也有观点认为交互功能本就应由 JavaScript 负责，HTML 应专注于描述内容结构，CSS 负责样式，JS 负责交互。还有开发者呼吁 HTML 原生支持可排序表格等常见需求。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49362689</guid>
-      <pubDate>Wed, 19 Aug 2026 15:11:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 展示：训练125M参数Transformer模型，在设备上实时自动续写钢琴演奏</title>
-      <link>https://news.ycombinator.com/item?id=49373456</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章涉及Transformer模型在音乐生成（钢琴MIDI自动续写）中的应用，属于AI软件技术进展，用户对此类主题感兴趣</small></p><p>开发者 Simon Edwards 训练了一个 125M 参数的 decoder-only Transformer 模型，能够在 iPhone 15 上以约 108 音符/秒的速度实时自动续写 MIDI 钢琴演奏。该项目名为 RollTab，思路类似 GitHub Copilot——用户弹奏几个音符作为提示（prompt），模型随即在设备端继续生成后续旋律。</p>
-
-<h3>核心挑战：如何将音乐转化为模型可读的序列</h3>
-<p>MIDI 文件不同于 MP3 等音频格式，它存储的是按键、释放、踏板等事件序列。将 MIDI 事件转化为离散 token 是首要难题。作者尝试了多种方案：</p>
-<ul>
-<li><strong>NOTE_ON/NOTE_OFF 表示法</strong>：模型容易"遗忘"发送 NOTE_OFF，导致音符悬留，不适合小规模实时模型。</li>
-<li><strong>带语法的多 token 流</strong>：每个音符拆分为 NOTE、PITCH、VELOCITY、DURATION 等多个 token，语法有效但速度慢，消耗上下文窗口快。</li>
-<li><strong>最终方案——单 token 表示</strong>：每个音符编码为一个完整的 token，包含五个字段（event_type, pitch, delta_onset, duration, velocity），每个字段有独立的词表。token 表示为各字段嵌入之和，模型为每个字段设置独立的输出头，但 Transformer 主干每音符只运行一次。这种设计将推理速度提升至 108 音符/秒。</li>
-</ul>
-<p>延音踏板（sustain pedal）的处理被融入音符时长：若踏板踩下时释放琴键，音符延长至踏板抬起；若同音被重新触发，则提前截断前一个音符。</p>
-
-<h3>数据集与训练</h3>
-<p>数据集经过严格筛选和清洗，最终包含数十万 MIDI 文件（约 3 亿音符事件）。作者发现，数据清洗和选择比单纯增加数据量更重要——将数据集扩大到约 5 倍后模型表现反而下降。</p>
-<p>训练采用交叉熵损失，对五个输出头分别计算后求和。数据增强包括全局移调、统一速度缩放、时长/力度抖动以及丢弃部分提示音符。</p>
-<p><strong>计划采样（Scheduled Sampling）</strong>：训练时逐步增加使用模型自身预测的 pitch 而非真实 pitch 的比例（从 0% 到 50%）。这虽然提高了验证损失，但显著改善了实际生成质量。</p>
-
-<h3>评估与 DPO 后训练</h3>
-<p>评估经历了从人工试听到自动指标再到 AI 辅助的演进。最终使用 <strong>Gemini 3.5 Flash</strong> 进行成对比较（pairwise evaluation），并分为两个维度：续写连贯性（continuation score）和独立音乐质量（sounds-good score）。</p>
-<p><strong>直接偏好优化（DPO）</strong> 是效果最显著的改进。对每个提示生成多个续写，用成对评估选出更好和更差的版本，训练模型增大好续写的概率。DPO 后，69% 以上的续写优于基础模型。β 值（控制偏离基础模型的惩罚强度）以 0.01–0.03 为佳，0.10 则过强导致效果下降。</p>
-
-<h3>部署与优化</h3>
-<p>模型从 PyTorch 导出到 Core ML，权重量化为 INT8。为支持长会话，当上下文接近 512 音符限制时，保留最近 384 个音符重建上下文并继续生成。使用旋转位置编码（RoPE），但由于 Core ML 不直接暴露 Q、K、V，无法实现更优雅的环形缓冲区方案。</p>
-
-<h3>社区反响</h3>
-<p>项目在 Hacker News 上获得 332 分和 79 条评论，反响热烈。用户赞赏其创意，同时提出改进方向：节奏感和曲式结构、多声部伴奏生成、以及通过"思维链"（CoT）或并行生成加自动选择来提升质量。作者回应称计划加入小节/拍号 token 来改善节奏，并探索并行生成多条续写后自动择优的方案。</p>
-<p>有评论提及历史上的类似项目，如 2003 年 François Pachet 的 Continuator（基于层次马尔可夫模型）和 2009 年的 Microsoft Songsmith，以及当前市场上的 Scaler 3 等工具。作者表示有意进一步优化推理速度，并探索让模型更像"另一位乐手实时反应"的方向。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49373456</guid>
-      <pubDate>Thu, 20 Aug 2026 12:04:38 GMT</pubDate>
     </item>
   </channel>
 </rss>

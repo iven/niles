@@ -3,7 +3,25 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 26 Aug 2026 15:00:02 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 16:34:12 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Haiku R1 Beta 6 发布：时隔两年的大版本更新，项目下周迎来 25 周年</title>
+      <link>https://www.phoronix.com/news/Haiku-R1-Beta-6</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Haiku是BeOS启发的开源操作系统项目，R1 Beta 6时隔两年发布，属于新软件项目与开源项目发布，符合兴趣，推荐阅读</small></p><p>开源操作系统 Haiku 于今日发布 R1 Beta 6，这是继 R1 Beta 5 之后时隔两年的重大更新。该版本发布恰逢项目 25 周年纪念日前一周——Haiku 是一个受 BeOS 启发的开源操作系统。</p><p>R1 Beta 6 带来了大量新特性，包括更多应用可正常运行，例如 Mozilla Firefox 浏览器，以及 Go 编程语言的移植版本等。该版本还加入了对 NetBSD 虚拟机监视器（NVMM）的支持，可通过 QEMU 实现硬件虚拟化。</p><p>过去两年间，项目还进行了大量性能优化、新增硬件驱动支持以及众多底层改进。此外，Haiku 的 ARM64 移植工作也在持续推进，不过目前成熟度尚不及 x86 平台。</p><p><img src="//www.phoronix.net/image.php?id=2026&amp;image=haiku_r1_beta6" alt="Haiku R1 Beta 6" /></p><p>感兴趣的用户可通过 <a href="https://www.haiku-os.org">Haiku-OS.org</a> 下载 Haiku R1/beta6 或了解更多详情。同日发布的还有 2026 年 7 月状态报告，概述了平台的最新改进。</p><h3>你知道吗？</h3><p>NVMM（NetBSD Virtual Machine Monitor）是 NetBSD 操作系统自带的虚拟机监视器，提供硬件加速虚拟化能力。Haiku 引入 NVMM 支持后，QEMU 等虚拟化工具可在 Haiku 上获得更好的虚拟化性能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Haiku-R1-Beta-6</guid>
+      <pubDate>Wed, 26 Aug 2026 15:40:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ AMD 为 LLVM 提出 -fenable-readonly-thp 选项，借助指令透明大页提升性能</title>
+      <link>https://www.phoronix.com/news/LLVM-fenable-readonly-thp</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要是AMD为LLVM编译器提出iTHP选项以提升性能，属于编程工具与编程效率改进，符合高兴趣，推荐阅读</small></p><p>AMD 编译器团队近日在 LLVM Discourse 上提出一项新提案：为 LLVM Clang 增加编译选项 <code>-fenable-readonly-thp</code>，用于在编译和链接阶段实现指令透明大页（instruction Transparent Huge Pages，iTHP），从而为大型可执行文件挤出更多性能。</p><p>该提案由 AMD 编译器技术团队的 Bhuvanendra Kumar N 于周二公布。其思路是：驱动在链接阶段安排 2 MiB（或更大）的段对齐，并链接一个小的启动对象；进程启动时对可执行文本范围调用 <code>madvise(MADV_COLLAPSE)</code>，让内核将默认的 4 KiB 页映射提升为巨大页（huge pages）。目前原型补丁已完成并经过测试。</p><p>性能方面，提案提到在 SPEC CPU 2026、Geekbench 以及 CPython、数据库/服务器负载、微架构测试等基准中均测得性能提升。收益与工作负载相关——对解释器、模拟器、编译器类等大型 .text 二进制效果最强，部分负载没有变化，测试中未观察到广泛回退。代价是二进制可能变大，且启动时有少量额外开销。</p><img src="//www.phoronix.net/image.php?id=2026&image=enable_readonly_thp" alt="-fenable-readonly-thp" /><p>该功能在 Linux 7.2 及更新版本上可完整工作，较旧的内核版本仅支持基于 TMPFS 存储的 iTHP。与 BOLT 二进制布局优化器相比，该选项不需要任何工作负载剖析（profiling）。Google 编译器工程师在回应中表示，他们已开发了一个实现类似方法的库；AMD 希望将该功能直接上游到 LLVM（并可能进入 GNU 工具链），而不是依赖系统上的另一个外部库。</p><h3>你知道吗？</h3><p>透明大页（THP）是 Linux 内核的一项特性，可将默认 4 KiB 内存页自动合并为 2 MiB 的巨大页，以减少页表开销和 TLB 未命中。iTHP 特指针对可执行指令文本（.text）区域的此类优化，可缓解大型二进制因 iTLB 压力导致的取指瓶颈。而 <code>MADV_COLLAPSE</code> 是内核提供的 <code>madvise</code> 提示之一，允许进程主动请求内核将指定地址范围内的页折叠（collapse）为巨大页。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-fenable-readonly-thp</guid>
+      <pubDate>Wed, 26 Aug 2026 14:49:36 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Fedora 44 的 Tuned-PPD 性能回退问题有望随新 Linux 内核修复</title>
       <link>https://www.phoronix.com/news/Fedora-Tuned-PPD-Perf-Fix</link>
@@ -652,30 +670,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-FAT</guid>
       <pubDate>Tue, 18 Aug 2026 12:53:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Fedora 推迟 x86-64-v3 优化包至 Fedora 46</title>
-      <link>https://www.phoronix.com/news/Fedora-x86-64-v3-Delayed-F46</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主要讨论Fedora新发行版的软件包优化进度调整，直接匹配用户来源配置中的“新发行版”高兴趣项，用户会强烈关注，故评为critical。</small></p><p>Fedora 工程与指导委员会（Fedora Engineering and Steering Committee, FESCo）近日决定，原计划引入的 x86-64-v3 优化包将推迟至 Fedora 46 版本。此前，社区曾提议在 Fedora 45 中引入 x86_64-v3 架构作为主要架构，同时保留对旧版 x86_64-v1 的支持。</p>
-<p>x86_64-v3 微架构涵盖了 Intel Haswell 及更新、AMD Excavator 及更新的处理器，支持 AVX/AVX2、FMA、BMI2 等较新的指令集架构（Instruction Set Architecture, ISA）特性。引入该架构旨在为过去十年左右的主流硬件提供显著的性能提升。目前，包括 RHEL 10 在内的部分 Linux 发行版已默认要求 x86_64-v3，微软基于 Fedora 构建的 Azure Linux 也对该基线表示兴趣。<img src="//www.phoronix.net/image.php?id=2025&image=linux_615_amd_intel_med" alt="Intel AMD CPUs" /></p>
-<p>经过数月的讨论与性能数据评估，FESCo 最终拒绝了该提案在 Fedora 45 中实施。委员会表示，允许在提供额外性能数据后于 Fedora 46 重新提交，并要求提案方详细说明在支持 x86_64-v3 的环境下如何处理安装介质。<img src="//www.phoronix.net/image.php?id=2026&image=fedora_delays_v3" alt="The change proposal for Fedora 45 rejected" />因此，Fedora 45 用户今年将无法体验到该优化，但社区仍期待在 Fedora 46 中实现这一目标。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-x86-64-v3-Delayed-F46</guid>
-      <pubDate>Tue, 18 Aug 2026 10:21:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>联想向 Linux 7.3 内核提交 ThinkEdge SE30/SE60 边缘计算设备看门狗驱动</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Watchdog</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要涉及Linux内核7.3中为联想边缘AI计算机新增Watchdog驱动，虽属Linux底层技术范畴，但偏向嵌入式硬件支持而非用户感兴趣的“Linux桌面技术”，兴趣匹配度一般，故评为optional。</small></p><p>在即将发布的 Linux 7.3 内核中，联想（Lenovo）贡献了一个新的看门狗驱动 <code>lenovo_se30g2_se60_wdt</code>，专门用于其即将推出的 ThinkEdge SE30 Gen2 和 SE60 边缘计算系统。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=thinkedge_se30g2" alt="Lenovo ThinkEdge SE30 Gen 2" /> 该驱动包含约 300 行 C 代码，旨在启用这些系统的看门狗定时器，并通过 Linux 看门狗框架实现系统挂起或崩溃时的自动重置功能。</p>
-<p>ThinkEdge SE30 Gen2 是一款面向 AI 边缘计算、数字标牌及工业任务的工业 PC，最高可选配 Intel Core 7 150U 处理器，预装 Windows 11 或 Ubuntu 24.04 LTS。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=thinkedge_se60" alt="Lenovo ThinkEdge SE60" /> 而 ThinkEdge SE60 则搭载了更新的 Arrow Lake 处理器，最高可达 Core Ultra 7 256H，同样支持 Windows 11 和 Ubuntu Linux，专为边缘 AI 计算及恶劣环境下的计算任务设计。</p>
-<p>随着 Linux 7.3 的发布，这两款 ThinkEdge 设备将正式获得看门狗支持，从而显著提升其在无头（headless）配置下运行 Linux 系统的稳定性和用户体验。相关补丁已通过拉取请求提交至 Linux 内核主线。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Watchdog</guid>
-      <pubDate>Tue, 18 Aug 2026 10:07:05 GMT</pubDate>
     </item>
   </channel>
 </rss>
