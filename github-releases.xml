@@ -3,7 +3,37 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 26 Aug 2026 07:55:49 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 08:59:21 GMT</lastBuildDate>
+    <item>
+      <title>fd 10.5.0 发布：新增 --exact 精确匹配与 --ignore-parent 选项，修复多项问题</title>
+      <link>https://github.com/sharkdp/fd/releases/tag/v10.5.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>命令行文件查找工具 fd 发布 v10.5.0 版本，带来两个新特性及多项 bug 修复，并迎来 20 位新贡献者。</p>
+
+<h3>新特性</h3>
+<ul>
+<li>新增 <code>--ignore-parent</code> 选项，用于覆盖 <code>--no-ignore-parent</code> 设置。</li>
+<li>新增 <code>--exact</code> 选项，可对整个文件名进行精确（字面、非子串）匹配。</li>
+</ul>
+
+<h3>Bug 修复</h3>
+<ul>
+<li>安全修复：当输出到终端时，对文件名中的控制字符和双向覆盖字符进行清理，防止终端转义序列注入攻击；同时拒绝将占位符用作 <code>--exec-batch</code> 的可执行文件（<code>--exec</code> 仍允许）。</li>
+<li>使用 <code>--full-path</code> 时优雅处理无效工作目录。</li>
+<li>对任何包含 <code>/</code> 的搜索模式触发「搜索模式包含路径分隔符」诊断，而不再仅限于恰好指向现有目录的模式；同时保留 Windows 上对原生 <code>\</code> 分隔符的旧行为。</li>
+<li>对 <code>--and</code> 模式同样触发该诊断（此前仅针对主位置参数模式），避免路径分隔符导致静默返回零结果。</li>
+<li>修复将 <code>-</code> 作为目录参数传入时未实际搜索该目录的问题。</li>
+<li>修复 <code>--changed-before</code>/<code>--changed-within</code> 收到超出范围的 <code>@</code> Unix 时间戳时崩溃的问题，现在会优雅拒绝该值。</li>
+</ul>
+
+<p>完整变更日志见 <a href="https://github.com/sharkdp/fd/compare/v10.4.2...v10.5.0">v10.4.2...v10.5.0</a>。</p>
+
+<h3>你知道吗？</h3>
+<p>终端转义序列注入是一种安全风险：文件名中若包含控制字符（如 ANSI 转义序列），当终端渲染输出时可能被解释为终端指令，从而篡改显示内容甚至执行恶意操作。fd 此次在输出到终端时清理这类字符，可有效防止此类攻击。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.5.0</guid>
+      <pubDate>Wed, 26 Aug 2026 07:59:09 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.246：/permissions 新增 Auto 模式标签页，改进 /cd 与子代理结果</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.246</link>
@@ -1221,35 +1251,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/kovidgoyal/kitty/releases/tag/v0.48.1</guid>
       <pubDate>Fri, 24 Jul 2026 10:04:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.23.4 发布：Web 端搜索与布局优化，Codex 集成增强</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.23.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><a href="https://github.com/tiann/hapi/releases/tag/v0.23.4">Hapi v0.23.4</a> 版本已发布。本次更新重点优化了 Web 端的交互体验与搜索功能，并增强了 Codex 代理的集成支持。</p>
-<h3>Web 端功能增强</h3>
-<ul>
-  <li>新增对话大纲搜索与文件搜索结果排序功能，提升长会话与多文件项目的检索效率。</li>
-  <li>编辑器工具栏布局支持自定义，会话侧边栏内容宽度已对齐，并新增日期选择器中的会话活动指示器。</li>
-  <li>支持记忆新建会话的模型与精力（effort）设置，右键菜单新增复制会话引用功能。</li>
-  <li>修复了 PWA 状态栏覆盖层、紧凑平板设备拆分断点、时间戳零填充及窄会话提示框等 UI 细节问题。</li>
-</ul>
-<h3>代理集成与 CLI 改进</h3>
-<ul>
-  <li>Codex 代理新增文件提及（file mentions）支持，并保留原生探索操作与工具标题。</li>
-  <li>CLI 支持将 <code>HAPI_SESSION_ID</code> 导出至包装代理环境，实现自我目标（self-targeting）调用。</li>
-  <li>修复了 Cursor ACP 远程会话恢复、Codex 会话导入合并、本地交接参数规范化以及 Pi 上下文报告等多项后端与集成问题。</li>
-</ul>
-<h3>其他更新</h3>
-<ul>
-  <li>移除文档中过时的 Gemini CLI 启动引用。</li>
-  <li>优化文件路径自动链接的交互体验。</li>
-  <li>修复 Mermaid 图表解析失败时的原因回退显示。</li>
-</ul>
-<p>本次更新由多位贡献者共同完成，完整更新日志可查阅：<a href="https://github.com/tiann/hapi/compare/v0.23.3...v0.23.4">Full Changelog</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.23.4</guid>
-      <pubDate>Fri, 24 Jul 2026 03:07:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
