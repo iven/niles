@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 25 Aug 2026 23:34:40 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 01:55:53 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 谷歌为 Chrome/Chromium 探索 Flatpak 打包方案</title>
+      <link>https://www.phoronix.com/news/Chrome-Chromium-Flatpak</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章主题为Chrome/Chromium的Flatpak打包实验，直接涉及来源配置中high_interest的Chrome，且属于软件打包发布与Linux桌面技术，用户很感兴趣</small></p><p>谷歌负责 Chrome/Chromium 浏览器的工程师正在 Linux 上试验 Flatpak 打包方案。目前谷歌尚未承诺官方支持 Flatpak 软件包，但至少已在探索这一选项。</p><p>谷歌浏览器团队的 Tom Anderson 于今日合并了用于测试的实验性 Flatpak 打包支持。合并说明指出，当前仅为测试目的，尚无正式支持 Flatpak 的明确计划：「在 chrome/installer/linux 中添加实验性 Flatpak 打包，以方便测试受限沙箱配置并扩展现有的 XDG portal 支持。这并不代表承诺官方支持 Flatpak 软件包。」</p><p>具体改动包括：新建 chrome/installer/linux/flatpak/ 目录，包含打包脚本以及元数据、AppStream metainfo 和启动器入口模板；新增 enable_flatpak GN 构建参数（默认关闭）；在 InstallerConfig 中加入 package_format，并在为 Flatpak 打包时省略主机桌面集成工件（系统桌面文件、/usr/bin 符号链接、AppStream appdata、GNOME 默认应用、man 手册页和 AppArmor 配置文件）；更新 common/installer.py，为 Chromium（org.chromium.Chromium*）和 Google Chrome（com.google.Chrome*）配置 Flatpak 及 App ID 映射；泛化 common/desktop.template 以同时支持 Flatpak 与系统级桌面执行命令；对非官方构建禁用 setuid 沙箱和 zlib 压缩；更新 BUILD.gn 以加入 Flatpak 打包目标和别名。</p><p>这对 Linux 应用沙箱与分发技术而言是一个令人兴奋的进展。若正式落地，将有助于改善 Google Chrome/Chromium 在 RPM 和 Debian 系发行版之外的安装体验，提供更干净整洁的打包方式。</p><img src="//www.phoronix.net/image.php?id=2026&image=chromium_flatpak" alt="Chromium Flatpak support merged" /><p>测试代码现已合并，希望最终能证明足够可靠，促使谷歌正式支持 Chrome 的 Flatpak 版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Chrome-Chromium-Flatpak</guid>
+      <pubDate>Wed, 26 Aug 2026 00:22:59 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ COSMIC Epoch 1.7 发布：浏览网络文件系统不再缓慢</title>
       <link>https://www.phoronix.com/news/COSMIC-Epoch-1.7</link>
@@ -671,18 +680,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Improving-vRAM-Mgmt</guid>
       <pubDate>Mon, 17 Aug 2026 21:15:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ FFmpeg 优化 H.265/HEVC Vulkan 编码性能，速度追平 H.264</title>
-      <link>https://www.phoronix.com/news/FFmpeg-Faster-HEVC-Encode</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍FFmpeg多媒体处理工具添加H.265 Vulkan编码性能优化，属于软件技术进展，用户感兴趣</small></p><p>多媒体处理库 <a href="https://www.phoronix.com/news/FFmpeg-Faster-HEVC-Encode">FFmpeg</a> 近日合并了一项针对 <abbr title="High Efficiency Video Coding">HEVC</abbr>（H.265）Vulkan 编码路径的性能优化补丁。此次更新旨在提升 HEVC 的编码速度，使其性能大致追平 H.264 编码。</p>
-<img src="//www.phoronix.net/image.php?id=2022&image=ffmpeg" alt="FFmpeg logo" />
-<p>该优化补丁主要借鉴了 <code>h264_vulkan</code> 的调优策略。此前，<code>hevc_vulkan</code> 在常见质量级别下会保持较重的编码配置（如强制使用 16x16 宏块且无 min-CU SPS 字段）。优化后，代码在 CTB（编码树块）大于等于 32 时，将 min CU 设置为 16x16，并修复了 <code>max_transform_hierarchy_depth_inter</code> 的赋值问题。此外，在应用 <code>GetEncoded</code> SPS 反馈时，系统现在会同步覆盖字段（如 extent/conf_win、min/diff CU 和 TB 尺寸、变换层级等），以解决部分实现重写 min CU 后导致的不可解码 HEVC 问题。</p>
-<p>根据提交者提供的 1080p 测试数据（testsrc2，质量 1，1000 帧），优化前 HEVC 编码速度约为 200–317 fps，明显低于 H.264；优化后 HEVC 速度提升至 289/325/358 fps，与 H.264 的 288/317/359 fps 达到持平水平。该补丁已合并至 FFmpeg Git 仓库。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/FFmpeg-Faster-HEVC-Encode</guid>
-      <pubDate>Mon, 17 Aug 2026 20:14:03 GMT</pubDate>
     </item>
   </channel>
 </rss>

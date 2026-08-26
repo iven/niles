@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 25 Aug 2026 23:34:45 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 01:57:01 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Firefox 157 将默认在所有平台启用 JPEG XL 解码</title>
+      <link>https://news.ycombinator.com/item?id=49437946</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章是 Firefox 浏览器默认启用 JPEG XL 解码的软件功能更新，属于软件新功能与开源项目进展，用户对此感兴趣，故推荐阅读</small></p><p>Mozilla 开发者 Timothy Nikkel 在 dev-platform 邮件组发布「Intent to ship」公告：Firefox 157 将在所有平台默认开启 JPEG XL 解码。该功能此前由 <code>image.jxl.enabled</code> 偏好控制，目前仅在 Nightly 默认开启，自 Firefox 152 起在 Firefox Labs 中提供开关。解码器采用 Rust 编写的 <a href="https://github.com/libjxl/jxl-rs">jxl-rs</a>，对应标准为 ISO/IEC 18181。</p><p>公告提到，Safari 已于 2023 年在 17.0 中支持 JPEG XL；Chrome 则通过 <code>#enable-jxl-image-format</code> 标志使用同一 Rust 库，尚未默认启用（帖中后续评论称 Chromium 已发出 intent to ship）。性能方面，jxl-rs 0.6.0 加入了多线程解码支持，作者在包含多线程补丁后对五种格式进行解码基准测试，其机器上略优于使用 C++ libjxl 的 Safari；与 Firefox 其他图像格式解码器相比，大图表现接近，小图差距较大。功能上与其他格式及 Blink 的 JXL 实现持平，包括动画和渐进式显示；HDR 图像按 SDR 显示，但色调映射优于其他格式。测试覆盖 wpt、约 30 个 gecko gtest（分块与增量解码、动画帧数、解码降采样、损坏文件等）、mochitest、reftest 以及模糊测试。</p><p>社区反馈方面，开发者 Sergey Davidoff 对无损 JPEG XL 的解码性能提出担忧：其测量显示无损 JXL 解码比无损 WebP 慢约 30 倍，仅换来约 10% 的体积缩减，建议 Firefox 157 仅默认启用有损 JPEG XL，并单独评估无损格式。HN 评论中，有用户指出 JXL 的核心优势是与旧 JPEG 的无损兼容转换（无需重新编码即可节省 20-30% 体积），也有用户讨论 jxl-rs 的来历——Mozilla 曾向 Google Research 的 JPEG XL 团队提出挑战，要求用 Rust 构建安全、高性能、紧凑且兼容的解码器，该挑战最终被实现。</p><h3>你知道吗？</h3><ul><li>JPEG XL 支持无损转封装（lossless transcoding）：可将传统 JPEG 的原始数据重新封装为 JXL 格式，无需重新编码即可获得约 20-30% 的体积缩减且不损失画质，这是它区别于 AVIF/WebP（需有损重编码）的关键特性。</li><li>目前 Firefox 与 Chrome 均采用 Google Research 开发的 jxl-rs（Rust）解码器；据开发者 Luca Versari 的性能对比面板，jxl-rs 约两个月前开始超越 C++ 参考实现 libjxl。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49437946</guid>
+      <pubDate>Tue, 25 Aug 2026 17:55:23 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 调查显示：HN 首页约半数头条与 AI 相关或由 AI 生成</title>
       <link>https://news.ycombinator.com/item?id=49435728</link>
@@ -1142,31 +1151,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49369408</guid>
       <pubDate>Thu, 20 Aug 2026 01:29:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Air Theremin：通过摄像头手势或手机陀螺仪在浏览器中演奏特雷门琴</title>
-      <link>https://news.ycombinator.com/item?id=49359425</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是一个在浏览器中通过摄像头手势或手机陀螺仪演奏特雷门琴的创意工具，属于编程工具发布/分享，用户对此类内容很感兴趣</small></p><p>开发者 Pavel Gurov 发布了一款名为 <strong>Air Theremin</strong> 的浏览器应用，让你无需任何实体乐器，仅通过摄像头捕捉双手动作或手机陀螺仪倾斜，就能在空中演奏特雷门琴（Theremin）。项目地址：<a href="https://theremin.bizibah.com/">theremin.bizibah.com</a>，源代码以 MIT 许可发布在 <a href="https://github.com/gurov/theremin">GitHub</a>。</p>
-
-<h3>两种演奏模式</h3>
-<p><strong>双手模式（Hands）</strong>：通过笔记本或手机摄像头捕捉双手动作。双手分开控制音量，抬高控制音高，前后倾斜改变音色（低通滤波与混响），双手合拢则静音。双手之间的连线角度还可产生颤音（Vibrato）效果。</p>
-<p><strong>陀螺仪模式（Gyro）</strong>：在手机上左右倾斜控制音量，前后倾斜控制音高，将标记移出画面即可静音。两种模式均支持鼠标操作作为后备方案。</p>
-
-<h3>技术实现</h3>
-<p>手部追踪基于 Google MediaPipe 的 Hand Landmarker 模型，编译为 WASM 后在用户本地 GPU 上运行，所有视频数据不会离开用户设备。模型文件约 8 MB，从 CDN 加载一次后即可断网使用。</p>
-<p>开发者分享了几个有趣的技术挑战：</p>
-<ul>
-  <li><strong>手部消失问题</strong>：MediaPipe 通过手掌平面检测手部，当手腕侧转或光线不足时容易丢失追踪。最终方案是根据手部最后出现的位置动态调整保持时间——画面边缘处 400ms（真正移开），画面中央则长达 1 秒（检测器短暂闪烁），用户几乎听不到断音。</li>
-  <li><strong>低音补偿</strong>：手机扬声器无法有效播放 150 Hz 以下的低频。解决方案是将最低八度分离出来，温和饱和以产生泛音，再滤除基频，让耳朵"重建"出从未真实发出的音高。</li>
-  <li><strong>音高步进 Bug</strong>：测试者反映手机模式下低音区音高呈阶梯式跳跃。排查发现手机陀螺仪倾斜角量化精度约 1 度，而开发者将六个八度压缩在 80 度倾斜范围内——传感器每跳一格就是大半个半音。低音区尤其明显，因为激励器将 70 Hz 的基频通过泛音重现在 200-300 Hz 区域，恰好是人耳对音高分辨最灵敏的频段。最终通过缩小音域范围、扩大倾斜扫描区间以及按帧率而非事件频率读取传感器解决。</li>
-</ul>
-
-<h3>社区反响</h3>
-<p>该项目在 Hacker News 上获得 290 分和 96 条评论，多数用户对其创意和技术实现表示赞赏。有用户将其比作"空气吉他"的特雷门琴版本。部分讨论涉及 AI 生成 UI 的识别、摄像头权限的安全顾虑，以及将前后摄像头同时用于控制的设想。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49359425</guid>
-      <pubDate>Wed, 19 Aug 2026 10:15:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
