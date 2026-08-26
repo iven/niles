@@ -3,7 +3,58 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Wed, 26 Aug 2026 03:21:19 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 04:54:00 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 微软在画图/照片里为AI图片添加像素级盲水印 截图/裁剪也不能去除水印</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1575012.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 微软在画图/照片中为AI图片添加像素级盲水印，属软件新功能，用户会感兴趣</small></p>
+                                                
+                                                <p>据安全研究员 Xusheng Li 发布的逆向分析报告，微软会在画图和照片 / 相册应用里为 AI 生成的图片添加不可见的盲水印，盲水印使用的标识符来自微软服务器，并且这套机制与用户可以自己开启 / 关闭的 Microsoft Copilot 水印完全独立，所以用户无法彻底关闭盲水印。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0826/bc21ce6fcd4f09b.jpg"></p><p><strong>在 AI PC 上本地生成图片依然需要连接微软服务器：</strong></p><p>研究发现画图应用的创建功能虽然可以使用 AI PC 本地的 Stable Diffusion 模型生成图片，但整个过程并不是完全离线的。在开始生成前画图应用会将用户填写的提示词和所选风格发送到微软服务器进行审核，服务器随后会返回修改后的提示词、提示词生成 ID 和水印 ID，之后图片才会在电脑本地通过 NPU 单元生成。</p><p>图片生成完毕后画图应用会调用盲水印控件将服务器返回的 16 字节盲水印相关参数写入图片像素，盲水印本身是肉眼不可见的，但微软可以通过某些检测机制识别出来图片是否是由画图应用生成。</p><p><img src="https://static.cnbetacdn.com/article/2026/0826/b33a6b0a9cdbae3.png" title="" alt="watermarker-dll-properties.png"></p><p><strong>GUID 标识符直接写入图片像素：</strong></p><p>逆向分析显示盲水印机制会将 16 字节 GUID 扩展为 144 位数据再通过对图片多个区块进行细微修改的方式嵌入，研究人员使用 512x512 像素的图片进行测试，在微软添加盲水印后有超过 19 万个像素发生细微变化。</p><p>更值得注意的是，在画图应用中如果盲水印机制写入失败则本次 AI 图片生成任务会被直接视为失败，而不是返回没有添加水印的图片，可见微软将这个流程视为 AI 生成中的必要环节，除非完成盲水印标记否则不会生成图片。</p><p><strong>截图/裁剪等不影响微软识别：</strong></p><p>除了修改像素外画图应用也会给图片添加行业通用的 C2PA 内容凭证，研究人员检查实际生成的 PNG 文件后发现，其中的 C2PA 清单不仅明确标注图片由 AI 生成，还记录 Microsoft InvisMark 盲水印信息。</p><p>其中保存的水印值与服务器此前返回并实际写入图片像素的盲水印 ID 完全相同，这意味着微软实际上使用两层来源证明：C2PA 元数据 + 隐藏在图片像素中的隐形水印。因此即便用户通过某些工具删除 C2PA 元数据微软也依然可以通过像素识别水印，例如简单的截图、裁剪等无法彻底破坏盲水印。</p><p>另外微软的照片 / 相册应用中的 AI 图片生成和风格转换功能也同样使用盲水印机制，有些区别的是：画图应用如果写入水印失败会直接终止图片生成，而相册应用会记录错误后继续返回生成结果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1575012.htm</guid>
+      <pubDate>Wed, 26 Aug 2026 04:37:42 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 拒绝贝索斯重金邀约后 他们做出一款绕开Transformer的新AI</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1575000.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 报道一支团队做出绕开Transformer的新AI，属新AI模型与AI技术进展，用户会强烈感兴趣</small></p>
+                                                
+                                                <p>8月26日，据路透社报道，曾被邀请加入贝索斯支持的AI公司Project 
+Prometheus的两名研究人员，选择独立创业，并推出了一套不同于主流大语言模型的物理AI系统。其创办的Accelerated 
+Understanding 
+Inc称，该模型一次提示可处理5万亿个数据单元，规模约为Anthropic和Google旗舰模型通常可处理数据量的500万倍。</p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0826/5ae58587d222e84.png"><br></p><p>Accelerated Understanding由加州理工学院计算与数学科学教授Anima Anandkumar和AI基础设施工程师Benedikt Jenik共同创办。与ChatGPT等围绕语言数据训练的模型不同，该公司的AI并不以理解和生成文本为主要目标，而是用于预测物理现象在空间和时间中的变化。</p><p>在技术路线方面，这套系统没有采用当前大语言模型普遍使用的Transformer架构，而是基于Anandkumar此前参与开拓的**神经算子（Neural Operators）**技术处理物理数据。Anandkumar表示，相较于以语言为中心的AI，这一路线试图将物理规律置于模型能力的核心。</p><p>该公司希望将这一技术首先用于企业市场。以芯片设计为例，其设想是利用AI对材料、温度等物理因素进行建模，从而减少实验室中的反复试验。此外，公司还计划将相关技术用于机器人、极端天气预测以及能源行业地质数据分析。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0826/2b97f3ded52024a.png"><br></p><p style="text-align: center;">Accelerated Understanding公司的联合创始人Anima Anandkumar和Benedikt Jenik</p><p>值得关注的是，两名创始人此前曾收到贝索斯相关AI项目的邀请。路透社看到的会议记录和文件显示，2024年底，后来与贝索斯共同创办Project Prometheus的投资人兼生物科技企业家Vik Bajaj曾与Anandkumar和Jenik讨论合作。</p><p>根据路透社看到的一份名为“Project Prometheus”的邀约文件，Anandkumar被提议担任公司的公众代表和董事，并负责科学愿景；她与Jenik可获得公司35%的股份，两人合计年薪为100万美元，工作三个月后将增至200万美元。文件同时提到，包括贝索斯在内的投资者计划在B轮融资前提供超过20亿美元资金。</p><p>不过，两人最终没有加入该项目，而是继续发展Accelerated Understanding。此后，贝索斯和Bajaj继续推进Project Prometheus，该公司于2026年6月完成120亿美元B轮融资，其方向是利用AI实现复杂物理系统制造过程的自动化。</p><p>Anandkumar此前还曾在亚马逊担任科学家，并于2018年加入英伟达，此后担任英伟达董事五年。她表示，英伟达CEO黄仁勋曾鼓励其继续推进神经算子相关研究。早期研究中，其团队曾探索利用AI加速天气预测，并取得与传统复杂计算方法相当的预测准确性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1575000.htm</guid>
+      <pubDate>Wed, 26 Aug 2026 04:31:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 8.86秒轻松超越博尔特 人形机器人百米竞速再次刷新纪录</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1574990.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 人形机器人百米竞速刷新纪录，属科学前沿进展，用户会感兴趣</small></p>
+                                                
+                                                <p>昨晚，第二届世界人形机器人运动会大型组100米复赛在北京国家速滑馆进行。<strong>本轮复赛竞争异常激烈，荣耀“闪电”机器人率先跑出8.94秒，刷新赛会百米竞速纪录；紧随其后的是来自北京人形机器人创新中心的天工Ultra，更是跑出8.86秒的成绩，再度刷新该赛事人形机器人百米竞速纪录</strong>。</p>                
+                        <div class="article-global"></div>                            <p>在此前开幕式预赛中，这款机器人就已经跑出9.39秒，超越博尔特9.58秒的人类男子百米世界纪录；复赛阶段再度把成绩大幅压缩至8.86秒，较人类百米世界纪录快0.72秒。</p><p>百米冲刺非常考验人形机器人的综合能力，<strong>需要完成快速启动、极限加速，全程高速下维持躯体平衡，对电机响应速度、整机动力学算法、姿态控制都是极高考验</strong>。</p><p>资料显示，天工Ultra是北京人形机器人创新中心开发的全尺寸高性能人形机器人，属于天工系列的竞速耐力强化版本，是国内运动性能顶尖的双足人形机器人。</p><p><strong>身高1.8米，体重55kg，体型接近成年男性，搭载大功率一体化伺服关节，配备六维力传感器、IMU惯性单元、3D视觉感知模块，具备力反馈与姿态感知能力。</strong></p><p>同时还搭载“慧思开物”具身智能平台，依靠强化学习运动算法实现高速奔跑与抗干扰平衡，并支持电池快换，满足长距离连续运行需求。</p><p><img src="https://static.cnbetacdn.com/article/2026/0826/2126947098eddae.png"></p><p>值得一提的是，它还是全球首台完成半程马拉松的人形机器人：<strong>去年4月北京亦庄半马，用时2小时40分42秒跑完21.0975公里，全程自主运行，创造世界纪录</strong>。</p><p>除了刷新人形机器人百米竞速最好成绩外，天工Ultra在本届赛事上还创下了另外两项世界纪录：</p><p><strong>400米大型组决赛，跑出38.15秒夺得金牌，大幅领先超过人类（43.03秒）；开幕式原地跳高展示，跳出2.8843米，高于人类原地跳高2.45米的最好成绩</strong>。</p><p><img src="https://static.cnbetacdn.com/article/2026/0826/1dfba1f0704dc0a.gif"></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1574990.htm</guid>
+      <pubDate>Wed, 26 Aug 2026 03:35:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 前谷歌研究人员拟打造AI“裁判”系统 防范模型失控风险</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1574988.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 前谷歌研究人员打造AI裁判系统防范模型失控，属AI软件技术进展，用户会感兴趣</small></p>
+                                                
+                                                <p>处于人工智能发展的核心位置，以确保这项强大的技术保持安全，并降低其脱离创造者控制的风险。这在某种程度上是对当前科技行业常见做法的回应。在许多情况下，企业正利用人工智能来监管人工智能。自动化方式具有效率优势，而研究也表明，在发现模型漏洞方面，人工智能的表现可能优于人类。随着AI能力持续增强，这一差距可能进一步扩大。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0826/fce8d1fea2a4a40.webp"></p><p>但参与创立Sampura Research的Rishub Jain认为，人类仍然需要发挥重要作用。</p><p>他与联合创始人已筹集650万美元资金，并获得额外420万美元承诺投资。他们计划开发一种被称为“裁判”（Judge）的人机混合系统，帮助企业识别并堵住AI模型试图利用的安全漏洞，从而降低其规避监管甚至脱离控制的风险。自OpenAI和Anthropic披露其模型曾未经授权入侵其他公司系统以来，这项工作变得愈发紧迫。</p><p>“我认为我们仍有很多东西需要向人类学习，”Jain表示。“如果从一开始就让人类参与整个过程，模型学会规避这些漏洞的可能性就会更小。”</p><p>随着Alphabet旗下谷歌、Anthropic和OpenAI激烈争夺人工智能时代的主导地位，一些实验室内部研究人员认为，商业压力正在压过安全考量。已有不少研究人员因此离职抗议，他们警告称，AI发展过于迅速，或正被用于他们无法接受的用途。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1574988.htm</guid>
+      <pubDate>Wed, 26 Aug 2026 03:34:33 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 微软PowerToys新增“窗口跳转”功能：Windows 10/11可快速切换同一应用窗口</title>
       <link>https://www.cnbeta.com.tw/articles/tech/1574982.htm</link>
@@ -556,54 +607,6 @@
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1574600.htm</guid>
       <pubDate>Sun, 23 Aug 2026 22:43:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 从“害羞狂奔”到1500米耐力赛 机器人一天多次刷新人类纪录</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1574598.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 机器人跑步多次刷新人类纪录，属科学前沿进展，用户感兴趣</small></p>
-                                                
-                                                <p>双臂抬到脸旁，身体大幅前倾，一台身高不到1.4米的机器人以一种近乎“捂脸狂奔”的姿态冲过终点。8月23日下午和晚间，第二届世界人形机器人运动会迎来多个田径项目的决赛。其中在400米小型组决赛中，天工机器人Omni以45.66秒夺冠。因为奔跑时身体前倾、双手靠近脸部，独特的“害羞式跑姿”成为赛场上的抢镜一幕。</p>                
-                        <div class="article-global"></div>                            <p><img id="0" src="https://n.sinaimg.cn/spider20260823/265/w640h425/20260823/90a3-e458b308fa01a21ebd15396b030a895d.jpg" alt=""><br></p><p>稍早结束的400米大型组决赛中，天工Ultra机器人率先冲线，以38.15秒夺冠。使用了荣耀闪电机器人的追风仔仔和惊鸿动力队分获二、三名。</p><p>今晚进行的1500米决赛中，来自天工机器人的天卓队以2分21秒64的成绩夺得冠军。天工机器人一天包揽三金，荣耀机器人拿到多个奖牌，去年在田径项目表现出色的宇树机器人暂未在田径项目斩获奖牌。</p><p>今天多个项目的田径决赛，人形机器人的成绩多次超越人类运动员纪录。但它们考验的不是同一种能力——如果说400米还在追问自主完赛的机器人“能跑多快”，到了1500米，问题已经变成：一台机器人能不能在持续高速运动中控制节奏、处理弯道和散热，并把稳定的跑姿一直保持到终点。</p><p>一年时间从88秒跑进40秒</p><p>今年机器人400米最直观的变化是速度。</p><p>去年首届世界人形机器人运动会400米决赛中，高羿科技使用宇树H1机器人以1分28秒03夺冠，北京人形机器人创新中心使用天工Ultra参赛的两支队伍获得亚军和季军。</p><p>一年之后，今年400米大型组冠军成绩已经达到38.15秒。与去年的冠军成绩相比缩短了近50秒。</p><p>而且机器人还在不断刷新自己的成绩。此前预赛中，天工队以39.70秒获得小组第一，到了决赛又将成绩提高到38.15秒。</p><p>这种提速并不只是让机器人的腿迈得更快。北京人形机器人创新中心相关人士对第一财经记者表示，相比去年，今年天工Ultra在关节电机、构型和散热等方面均进行了升级。更大功率的关键电机提高运动能力和爆发力，同时采用轻量化和破风设计，以减少高速奔跑时的阻力。</p><p>算法也开始针对不同距离“专项训练”。北京人形机器人创新中心运动控制算法专家韩刚告诉记者，100米、400米和1500米对机器人提出的要求并不一样。“100米要求加速快，400米和1500米要求弯道快。”尤其到了400米，机器人不只需要在直道上加速，还要高速过弯。如何调整重心、保持身体稳定，同时控制关节温度，都会影响最终成绩。</p><p>今年田径比赛的另一个变化是人类操作员“消失”了。</p><p>去年田径比赛中，记者在现场有不少人类操作员跟着机器人一起奔跑，还出现了机器人在奔跑中把人类撞倒的情况。但今年除了100米障碍赛和400米障碍赛外，其余项目都需要机器人全自主完成。也就是起跑由操作人员向机器人下达一次指令，起跑后全程由机器人自主完成比赛（自主决策、自主跑动） 。</p><p>天工机器人技术人员介绍，去年机器人主要采用巡线方式，也就是通过识别跑道线完成比赛；今年则升级为通过定位建图进行自主导航，不再需要一直“盯着”赛道线，也能够在赛道内高速奔跑。</p><p>从外部看，这种技术变化远没有38.15秒的成绩那么醒目，但对于机器人未来真正进入现实环境可能更加重要。现实中的巡检、物流和抢险救灾场景不会永远提供一条清晰的白线，机器人需要一边高速移动，一边判断自己在哪里、应该往哪里走。</p><p>小型组冠军的“害羞式跑姿”，其实同样是机器人为了追求速度形成的结果。韩刚介绍，这台机器人强在腰和腿，在奔跑过程中会主动将身体不断向前压，降低重心，保持较高步频的同时进一步增加步幅。重心越低，能够迈出的步幅越大，因此最终形成了身体明显前倾、双手靠近脸部的夸张姿态。</p><p>看起来像“害羞”，实际上想的只有一件事：跑得更快。</p><p><img id="1" src="https://n.sinaimg.cn/spider20260823/267/w640h427/20260823/de1c-cd7405cd8767e46f6db071e1ca128100.jpg" alt=""><br></p><p>机器人面对体力考验</p><p>从400米到1500米，比赛距离的增加实际上在不断延长机器人的“压力测试”时间。在今晚的1500米决赛现场，记者看到有多支机器人参赛队伍未完成比赛。</p><p>去年灵翌科技（宇树科技子公司）以6分34秒的成绩夺得1500米跑冠军，今年冠军成绩大幅压缩到3分钟内，前三名均超过人类纪录。但宇树今年未获奖牌。据记者了解，未来几天宇树机器人还将出现在跳远、原地跳高、400米障碍、自选拳术等比赛中。</p><p>人类运动员长跑会遇到体能下降，人形机器人也有自己的“疲劳”方式——关节和电机发热。随着持续高速运动，机器人关节和电机温度会上升，硬件状态随之发生变化，原本训练好的动作也可能出现偏差。通常步幅越小，步态调整越灵活；步幅越大，机器人转向控制难度越大。</p><p>韩刚举例称，一台机器人第一圈跑下来时，可能还能保持标准的过弯姿态，身体倾斜到较大角度而不摔倒；但跑到三四圈之后，随着关节持续发热，还能不能保持相同的稳定性，就需要控制算法与硬件共同配合。</p><p>和人类长跑相似，机器人的长跑也不能只想着一直跑到最快。“你又希望它快，然后你又不希望它跑的地方过热。”韩刚说，这就意味着在比赛策略上需要进行折中。</p><p>参赛的荣耀赛队也给出了类似判断，将不同距离的技术要求概括为“100米看极限爆发，400米兼顾速度与散热，1500米还要处理节奏、弯道和耐久”。其参赛机器人同样针对高负荷运动进行了散热和关节系统设计。</p><p>这也是1500米比赛比单纯刷新速度更值得关注的地方。一台机器人跑得快，可以依赖高功率电机、关节和运动控制算法；但如果要高速跑完1500米，就需要电池、电机、关节、散热、导航和控制系统长时间协同工作。任何一个环节出现问题，都可能在几圈之后被放大。</p><p>跑道只是测试场。一位在运动会现场观看了比赛的投资人对第一财经记者表示，竞速比赛一方面是在不断提高机器人运动能力的上限，另一方面也把硬件可靠性推向极限。这些能力未来并不是为了让机器人留在跑道上，而可能迁移到长距离巡检、物流以及复杂环境抢险救灾等需要高强度移动的场景。</p><p>她同时对记者表示，运动会展现了机器人的实力，但又不代表机器人的全部实力，通常那些专门为运动会做足准备的机器人表现会更好。</p><p>田径比赛还没有结束。下周进行的100米决赛，将把机器人的考验从耐力重新拉回极限速度和爆发力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1574598.htm</guid>
-      <pubDate>Sun, 23 Aug 2026 22:41:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Windows 11文件资源管理器将恢复下载文件预览功能 新增“仍然预览”按钮</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1574590.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲Windows 11文件资源管理器恢复下载文件预览功能，属于软件新功能，用户感兴趣</small></p>
-                                                
-                                                <p>微软即将为Windows 11的文件资源管理器（File Explorer）引入一项名为“仍然预览”的新按钮，以便让用户在确认下载文件安全的情况下拥有更多控制权，从而解决此前因安全策略而导致的功能限制问题。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0824/3e308858389479d.jpg"></p><p>早在2025年10月，许多用户发现文件资源管理器不再为从互联网下载的文件提供预览功能。微软随后证实，这是一项有意为之的安全防御措施。由于文件资源管理器的预览窗格在处理带有外部路径HTML标签的文件时，存在可能导致NTLM哈希泄漏的漏洞，攻击者可借此窃取用户的敏感凭据。因此，微软默认禁用了带有“网络标记”（MotW）文件的预览功能，这主要涉及通过浏览器下载的文件、电子邮件附件以及SharePoint等服务获取的内容。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0824/cff4137be822cb6.jpg"></p><p>这项安全措施虽然保护了用户的设备，但也给日常使用带来了显著的不便。预览窗格原本可以让用户无需打开Office或Adobe Acrobat等独立应用程序，就能快速浏览PDF、文档和图片等文件。而在安全限制生效后，当用户尝试预览下载的文件时，系统仅会弹出安全警告。如果用户信任该文件并希望进行预览，必须手动右键点击文件，进入“属性”菜单并勾选“解除锁定”选项，或者依赖PowerShell脚本来恢复预览功能。</p><p>如今，这一繁琐的操作即将成为历史。最新消息显示，微软正在测试一个直接嵌入警告提示中的“仍然预览”按钮。该功能最初在2026年4月的Windows预览体验成员发布说明中被提及，目前预计将在未来几周内（最快下个月）正式向广大用户推送。届时，当文件资源管理器对潜在不安全的下载文件发出警告时，如果用户确认该文件来源可靠，只需点击“仍然预览”即可直接在窗格中查看内容，再也无需前往属性菜单中手动解锁文件，在保障安全的同时极大地提升了用户的操作效率。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1574590.htm</guid>
-      <pubDate>Sun, 23 Aug 2026 22:32:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 研究人员发现跨境电商平台AliExpress利用浏览器无声音频生成设备指纹</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1574588.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲研究者发现跨境电商利用浏览器音频生成设备指纹，属于软件/隐私技术进展，用户感兴趣</small></p>
-                                                
-                                                <p>随着传统的Cookie追踪方式逐渐变得不再可靠，部分企业正在探索更为隐蔽的数据收集手段。近日，研究人员发现阿里巴巴旗下的跨境电商平台速卖通（AliExpress）在主页代码中运行隐秘的浏览器音频进程。这些脚本与平台的安全系统相连，通过调用用户设备的音频硬件生成信号，并精确测量不同设备反馈该信号时的微小差异。这种技术在完全不依赖Cookie的情况下生成了独特的“设备指纹”，而普通用户对其追踪过程几乎毫无察觉。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0824/5d2d3b952312049.jpg"></p><p>这一隐蔽追踪行为的曝光纯属偶然。一名开发者在使用支持多点连接的蓝牙耳机时遭遇了故障：只要浏览器中打开着速卖通的网页，耳机就无法在电脑和手机之间正常切换；而一旦关闭该标签页，问题便迎刃而解。为了查明原因，该开发者深入分析了网站代码，发现速卖通正在使用Web Audio API构建音量被设置为零的音频处理图。尽管这一过程不会发出任何人类可听见的声音，但它在后台持续连接并激活了电脑的音频系统，正是这种“霸占”音频路径的行为干扰了蓝牙耳机的切换功能。</p><p><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" title="X Post" src="https://platform.twitter.com/embed/Tweet.html?dnt=false&embedId=twitter-widget-0&features=eyJ0ZndfdGltZWxpbmVfbGlzdCI6eyJidWNrZXQiOltdLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X2ZvbGxvd2VyX2NvdW50X3N1bnNldCI6eyJidWNrZXQiOnRydWUsInZlcnNpb24iOm51bGx9LCJ0ZndfdHdlZXRfZWRpdF9iYWNrZW5kIjp7ImJ1Y2tldCI6Im9uIiwidmVyc2lvbiI6bnVsbH0sInRmd19yZWZzcmNfc2Vzc2lvbiI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfZm9zbnJfc29mdF9pbnRlcnZlbnRpb25zX2VuYWJsZWQiOnsiYnVja2V0Ijoib24iLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X21peGVkX21lZGlhXzE1ODk3Ijp7ImJ1Y2tldCI6InRyZWF0bWVudCIsInZlcnNpb24iOm51bGx9LCJ0ZndfZXhwZXJpbWVudHNfY29va2llX2V4cGlyYXRpb24iOnsiYnVja2V0IjoxMjA5NjAwLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X3Nob3dfYmlyZHdhdGNoX3Bpdm90c19lbmFibGVkIjp7ImJ1Y2tldCI6Im9uIiwidmVyc2lvbiI6bnVsbH0sInRmd19kdXBsaWNhdGVfc2NyaWJlc190b19zZXR0aW5ncyI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfdXNlX3Byb2ZpbGVfaW1hZ2Vfc2hhcGVfZW5hYmxlZCI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfdmlkZW9faGxzX2R5bmFtaWNfbWFuaWZlc3RzXzE1MDgyIjp7ImJ1Y2tldCI6InRydWVfYml0cmF0ZSIsInZlcnNpb24iOm51bGx9LCJ0ZndfbGVnYWN5X3RpbWVsaW5lX3N1bnNldCI6eyJidWNrZXQiOnRydWUsInZlcnNpb24iOm51bGx9LCJ0ZndfdHdlZXRfZWRpdF9mcm9udGVuZCI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9fQ%3D%3D&frame=false&hideCard=false&hideThread=false&id=2091232672659972110&lang=en&origin=https%3A%2F%2Fwww.techspot.com%2Fnews%2F113581-aliexpress-silently-running-audio-browser-fingerprint-track-device.html&sessionId=afc23a6cb5784bded7c6b9c85eb09e06c5c9bb4d&theme=light&widgetsVersion=6a3ad42b224df%3A1778106238597&width=550px" data-tweet-id="2091232672659972110" style="border-width: 0px;border-style: none;padding: 0px;font-size: 1em;position: static;visibility: visible;width: 550px;height: 392px;display: block;flex-grow: 1"></iframe></p><p>研究指出，这并非普通的网页媒体播放活动。由于该音频处理图的增益被设置为零并直接连接到系统的音频输出，即使用户手动将浏览器标签页静音，也无法阻止这一进程，浏览器依然在后台处理这些无声信号。这种代码是浏览器指纹识别技术的典型应用。在这个案例中，脚本通过测量设备处理同一音频信号时产生的细微差异来识别用户。由于每台电脑的处理器、音频硬件、操作系统、浏览器以及驱动程序各不相同，这些硬件和软件的组合便塑造了独一无二的音频处理特征。</p><p>除了音频测量，此次曝光的数据收集范围还十分广泛。相关脚本同时还在收集与Canvas渲染、WebGL、显示设置、硬件配置、WebRTC行为以及用户交互相关的信息。这些维度的信号交织在一起，能够为设备描绘出比单一信号详尽得多的用户画像。尽管大型在线平台通常将指纹识别技术用于防止欺诈、检测自动化机器人以及进行风险评估，但隐私倡导者对此表达了强烈担忧，认为用户不仅对这种追踪毫不知情，也缺乏必要的控制权。</p><p>在事件曝光后，主打隐私保护的Brave浏览器率先对该行为进行了约束。Brave官方表示，其浏览器已经屏蔽了速卖通负责音频追踪的脚本，并指出Brave在过去六年多里一直内置防音频指纹识别的保护机制。其原理是通过主动改变特定的浏览器输出，让网站接收到不一致的指纹信号，从而破坏追踪标识的稳定性。对于使用其他浏览器的用户，虽然可以通过uBlock Origin等内容拦截插件来阻止此类脚本，但这有可能会导致速卖通网站上部分依赖同类代码的安全或防欺诈功能失效。这一事件再次凸显了当今网络生态中的核心矛盾：企业亟需更多手段来识别网络中的可疑活动，而用户及浏览器开发商则坚决要求对未经明确同意的底层设备追踪工具设定严格界限。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1574588.htm</guid>
-      <pubDate>Sun, 23 Aug 2026 22:31:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 2.36亿年前化石揭秘哺乳动物胎生的古老起源</title>
-      <link>https://www.cnbeta.com.tw/articles/science/1574580.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 化石研究揭秘哺乳动物胎生起源，属于科学前沿进展，用户感兴趣</small></p>
-                                                
-                                                <p>阿根廷国家科学技术研究委员会的古生物学家近日在《哺乳动物科学前沿》杂志上发表了一项突破性研究。科学家在距今约2.36亿年前的犬齿兽类化石中发现了微小的微观生长印记，首次为哺乳动物祖先的胎生繁殖方式提供了令人信服的证据。这一重大发现意味着，哺乳动物谱系中胎生方式的起源时间比以往的科学认知至少提前了9000万至9500万年。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0824/3d3457444029b11.jpg"></p><p>这项研究聚焦于一种名为Chiniquodon theotonicus的古老犬齿兽。研究的资深作者阿德里亚娜·曼库索指出，这种生物繁盛于三叠纪，当时的地球正处于史上最严重的大灭绝后的生态恢复与重组阶段。在资源竞争激烈、捕食压力巨大以及气候日益干旱且季节性极强的严苛环境下，相比于卵生方式，胎生动物的胚胎能够得到母体更为妥善的保护，从而展现出更强的生存优势。</p><p>此次突破性发现的线索源于化石骨骼内部的一道微观印记。研究人员在阿根廷西北部出土的一具成年该物种化石中，观察到了一种异常的骨骼结构。经过与大量现存物种的对比分析，科学家认定这是一种“新生线”，即动物出生后由于生长速度骤增而在骨骼或牙齿中留下的独特生长环。长期以来，哺乳动物祖先究竟是卵生还是胎生一直被视为化石记录中难以破解的谜团，而这道极具特征的新生线成为了解开谜题的关键钥匙。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0824/d3373a76b11012f.jpg"></p><p>为了进一步验证这一推论，研究团队运用一系列巧妙的测量方法，估算出了该动物出生和死亡时的体型与质量数据。计算结果显示，该动物出生时体重约为1.7公斤，死亡时约为12公斤，出生体重约占其最终死亡体重的14%。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0824/d760067f94808a3.jpg"></p><p>这一比例特征与现代许多爬行动物截然不同。资料显示，同等体型的现代爬行动物新生儿体重占比通常仅为0.1%至0.6%，某些鸟类为1.3%至4.5%，而体重相似的现代哺乳动物（如某些小羚羊）的新生个体比例则与该化石的估算数据高度吻合。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0824/58b96cf5bab997d.jpg"></p><p>该研究的主要作者莱安德罗·加埃塔诺博士表示，这种古老生物的数据特征与现存的胎盘哺乳动物如出一辙，明显有别于爬行动物或鸟类等其他羊膜动物。在犬齿兽中发现胚胎组织和新生线在古生物学界尚属首次，这不仅表明胎生策略的出现远比学术界认为的要早，也暗示着这种从卵生到胎生的关键生殖转变，可能在真正的哺乳动物诞生之前的极早期就已经发生。尽管这一假说仍需要更多化石证据的进一步支持，但目前的发现足以证明，某些早期的犬齿兽在繁殖特征上已经与现代哺乳动物十分相似。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1574580.htm</guid>
-      <pubDate>Sun, 23 Aug 2026 22:25:14 GMT</pubDate>
     </item>
   </channel>
 </rss>
