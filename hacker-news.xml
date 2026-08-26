@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 26 Aug 2026 14:01:35 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 14:59:49 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Z.ai 确认 Ox Alpha 为 GLM 系列新模型，将发布权重</title>
+      <link>https://news.ycombinator.com/item?id=49446422</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是新AI模型（GLM系列新模型Ox Alpha）的发布公告，并确认将发布权重，属于用户很感兴趣的新AI模型发布类别，故判为必看。</small></p><p>据彭博社报道，中国 AI 公司 Z.ai（智谱）周三确认，此前以"隐形"方式发布的 Ox Alpha 模型是其 GLM 系列的新迭代版本，并表示将于当晚发布模型权重。这一表态回应了外界关于 Ox Alpha 与 DeepSeek 竞争关系的猜测。</p><p>Ox Alpha 发布后在开发者社区引发热议。有 HN 用户反馈，使用该模型配合智能体将 Mindustry 游戏从 Java 移植到 C#，持续运行约 50 小时，效果"远超"DeepSeek Flash 和 GPT Luna，但略逊于 GPT Sol 或 Opus。也有用户猜测其参数量在 2000 亿至 3000 亿之间，或为 GLM 5.3 的蒸馏版本。</p><p>不过，关于模型真实能力的基准测试结果存在分歧：<a href="https://livebench.ai/">LiveBench</a> 显示其表现低于 GPT-5.4 Nano，而另一非官方网站则显示其显著优于 Fable 模型。有评论指出，样本量过小导致这些对比难以得出可靠结论；也有用户观察到该模型在公开测试期间表现有所提升，可能涉及新检查点（checkpoint）的部署。</p><p>社区还围绕开源策略展开讨论：有观点认为中国实验室发布权重是常见的品牌营销手段，用于建立知名度；也有用户认为这是与 DeepSeek 在开源侧竞争的正确举措。值得注意的是，GLM 5.3 的权重目前尚未在 Hugging Face 上发布，有评论担忧新模型可能像 Moonshot AI 的 Kimi-K3 一样附带限制性许可。</p><h3>你知道吗？</h3><p>Z.ai（智谱 AI）源自清华大学计算机系的技术成果转化，GLM（General Language Model）系列是其自研的大语言模型产品线，此前发布的 GLM 5.3 在社区中获得了不错评价。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49446422</guid>
+      <pubDate>Wed, 26 Aug 2026 10:04:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Firefox 157 将默认在所有平台启用 JPEG XL 解码</title>
       <link>https://news.ycombinator.com/item?id=49437946</link>
@@ -1123,34 +1132,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49373456</guid>
       <pubDate>Thu, 20 Aug 2026 12:04:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Turns 优于 Radians：更简单、更快、更精确的角度表示</title>
-      <link>https://news.ycombinator.com/item?id=49369408</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论使用Turns替代Radians作为角度表示，属于编程效率改进经验，用户对此类内容很感兴趣</small></p><p>本文作者 <a href="https://www.computerenhance.com/p/turns-are-better-than-radians">Casey Muratori</a> 提出，在编程中使用"圈（turns）"而非弧度（radians）作为角度单位，可以消除大量不必要的 π 或 τ（tau）乘法运算，使代码更简洁、运行更快且数值更精确。</p>
-
-<p>作者通过分析实际代码发现，典型场景中开发者常将 [0,1] 范围的值乘以 τ（2π）后传入三角函数，而三角函数库内部实现又会立即将输入乘以 4/π 进行范围缩减——这意味着调用方乘以 π 的操作被库内部立即"除回"，造成了计算浪费和精度损失。若直接使用 turns（一圈 = 1.0），调用方无需乘以 τ，库内部也无需除以 π，双方代码都更简单。</p>
-
-<img src="https://substackcdn.com/image/fetch/$s_!mvXW!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F20e598bd-cac0-4b10-8222-b432167c9159_5616x3744.jpeg" alt="角度单位示意图" width="1456" height="971" />
-
-<p>此外，turns 在浮点数表示上具有优势：90°（0.25 圈）、180°（0.5 圈）等常见角度在 turns 下可精确表示为浮点数（0.25、0.5、0.75 等），而弧度制下这些角度永远无法精确表示。</p>
-
-<p>作者强调，数学上并不要求三角函数必须使用弧度参数——turns 是一个合法的数学概念，一圈对应数值 1.0。切换到 turns 只需修改库中的常数即可，一些平台（如 CUDA 的 <code>sincospi</code>）已提供基于半圈（half-turns）的三角函数，可直接使用。</p>
-
-<p>社区讨论中，部分开发者支持在存储角度时使用 turns，认为 quarter-turns 可精确表示的优势很实用。但也有评论指出，弧度在微积分中具有不可替代的优势——使用 turns 时导数会引入 2π 因子（d/dx sin(2πx) = 2π cos(2πx)），而弧度制下 sin 和 cos 的导数形式最为简洁。因此，turns 更适合数值计算和编程实现，而弧度在理论分析和微积分中仍是自然选择。有评论者引用 Michael Spivak 在《Calculus》中的观点，认为角度单位是函数的属性而非数值的属性。</p>
-
-<h2>你知道吗？</h2>
-<ul>
-<li>角度单位在量纲上都是无量纲的（长度之比），但弧度在微积分中具有特殊地位：当角度以弧度表示时，sin(x) 在 x→0 时近似于 x，且 d/dx sin(x) = cos(x) 这一简洁形式仅在弧度制下成立。若使用 turns，这些公式中会反复出现 2π 因子。</li>
-<li>一些数学库（如 CUDA、glibc）已提供 <code>sinpi</code>/<code>cospi</code> 函数，它们接受以半圈（half-turns）为单位的参数，即输入乘以 π 后的结果。这实际上就是作者提倡的 turn-based 三角函数的一种形式。</li>
-<li>"Turn"（圈）作为角度单位有正式定义：1 turn = 360° = 2π rad，在数学和工程中均有使用，尤其在描述旋转和周期现象时非常自然。详见 <a href="https://en.wikipedia.org/wiki/Turn_(angle)">Wikipedia</a>。</li>
-</ul>
-
-<p>原文：<a href="https://www.computerenhance.com/p/turns-are-better-than-radians">https://www.computerenhance.com/p/turns-are-better-than-radians</a> | 讨论：<a href="https://news.ycombinator.com/item?id=49369408">Hacker News</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49369408</guid>
-      <pubDate>Thu, 20 Aug 2026 01:29:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
