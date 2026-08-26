@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 26 Aug 2026 19:16:52 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 23:28:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 内核 Zstd 补丁修复 BMI2 探测低效：解压速度提升 71%</title>
+      <link>https://www.phoronix.com/news/In-Kernel-Zstd-BMI2-Probing</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述 Linux 内核中 Zstd 压缩性能的低效问题及优化补丁，属于编程效率改进经验，与全局配置的很高兴趣相符，故推荐阅读。</small></p><p>Linux 开发者 Usama Arif 向内核邮件列表提交了三项补丁，通过修复现有代码中一个非常不幸的疏漏，显著提升了内核内 Zstd 压缩与解压缩的效率。</p><p>问题在于：内核中的 Zstd 代码在每次创建压缩或解压上下文时，都会在运行时探测 CPU 是否支持 BMI2（位操作指令集，Intel Haswell 及更新、AMD Excavator 及更新的处理器均支持）。虽然运行时探测本身是为了让旧 CPU 回退到通用代码路径，但每次创建上下文都重复探测显然是冗余的——系统启动后 CPU 特性不会改变，除非出现某些极端 CPU 缺陷。</p><p>更糟糕的是，这种探测恰好处于非常热门的代码路径上：SquashFS 每解压一个块就会调用一次，而 EROFS、Btrfs、F2FS 以及 crypto/zstd 代码每次操作都会初始化一个上下文。因此每次操作都要执行两条带无条件 VM 退出的串行化 CPUID 指令，开销巨大。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=zstd_bmi2_benchmark" alt="Zstd patch benchmark impact" /><p>Usama Arif 发现，通过这三项补丁将 BMI2 CPU 支持探测改为只执行一次，crypto_acomp 基准测试中的解压时间降低了 71%，压缩时间降低了 18%。目前这些补丁已提交至 Linux 内核邮件列表供审查。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/In-Kernel-Zstd-BMI2-Probing</guid>
+      <pubDate>Wed, 26 Aug 2026 19:55:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Haiku R1 Beta 6 发布：时隔两年的大版本更新，项目下周迎来 25 周年</title>
       <link>https://www.phoronix.com/news/Haiku-R1-Beta-6</link>
@@ -658,18 +667,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Rust-For-Linux-7.3</guid>
       <pubDate>Tue, 18 Aug 2026 13:21:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 修复 FAT 文件系统驱动文件名过长导致的错误行为</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-FAT</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章报道 Linux 7.3 内核更新中针对 FAT 文件系统驱动的修复，属于 Linux 核心系统与底层技术改进，符合 Linux 社区关注的核心更新内容，故推荐阅读。</small></p><p>在即将发布的 Linux 7.3 内核中，针对 FAT12/FAT16/FAT32 格式的驱动程序迎来了一项重要修复。该修复解决了驱动在处理超长文件名时缺乏上限检查（upper-bounds check）的问题。</p>
-<p>此前，Linux 的 FAT 驱动在遇到超过系统限制 <code>NAME_MAX</code>（255字节）的文件名时，会静默截断多余部分并返回成功。华为工程师 Zizhi Wo 指出，这一缺陷会导致严重的匹配错误：例如，一个 300 字节的全 'A' 文件名会被截断为 8.3 格式的 11 字节，进而错误匹配到磁盘上任何具有相同短文件名的条目。在文件打开（<code>open()</code>）过程中，这种异常还会触发内核警告（<code>WARN_ON_ONCE()</code>），并向用户空间报告空名称。值得注意的是，<code>vfat</code> 驱动不受此影响，因其创建流程会通过 <code>xlate_to_uni()</code> 拒绝超长名称。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=fat_too_long_sml" alt="New FAT check added" /></p>
-<p>修复方案在 <code>msdos_format_name()</code> 函数入口添加了长度检查，确保文件名长度不超过 <code>NAME_MAX</code>。该补丁已合并至 Linux 7.3，并计划向后移植至稳定版内核。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-FAT</guid>
-      <pubDate>Tue, 18 Aug 2026 12:53:57 GMT</pubDate>
     </item>
   </channel>
 </rss>

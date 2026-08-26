@@ -3,7 +3,76 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 26 Aug 2026 19:16:38 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 23:28:51 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.150.0 发布：新增任务 @ 提及、/copy 选择器、自动标题与 Interrupt 钩子</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.150.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 0.150.0 版本，主要围绕终端交互体验带来多项新功能，并修复了一批稳定性问题。</p>
+
+<p><strong>新功能</strong></p>
+<ul>
+<li>支持在对话中用 <code>@</code> 提及其他 Codex 任务，并可从终端让代理读取、创建或向任务发送消息（#40308、#40315）。</li>
+<li><code>/copy</code> 新增目标选择器，可复制完整回复、单个代码块或引用块（#39997）。</li>
+<li>未命名的终端任务会自动获得描述性标题；<code>/rename</code> 会根据对话内容建议可编辑的标题（#40492、#40495）。</li>
+<li>Markdown 链接在支持的终端中显示为可点击标签，其他终端仍保留可见 URL（#40471）。</li>
+<li>可绑定快捷键循环切换权限模式；Vim 模式下可用 <code>.</code> 重复上一次编辑（#39873、#40521）。</li>
+<li>新增 <code>Interrupt</code> 钩子，可在活动顶层回合被中断时运行命令或 MCP 处理器（#40511）。</li>
+</ul>
+
+<p><strong>Bug 修复</strong></p>
+<ul>
+<li>不受信任的项目不再提供项目级 <code>AGENTS.md</code> 指令；权限变更后托管 deny-read 规则仍保持生效（#39837、#40004）。</li>
+<li>改进 app-server 诊断日志中的凭据脱敏，涵盖 provider、认证刷新和 attestation 字段（#39993）。</li>
+<li>修复远程 MCP bearer-token 查找与必需服务器启动问题，同时保持与旧版 executor 的兼容（#39926、#39952、#39979）。</li>
+<li>修复 Windows 提权沙箱设置以及 Unicode 用户路径下的启动别名问题（#39971、#40570）。</li>
+<li>防止 Unix 下因分离进程持有终端或完整终端输出缓冲区导致的关机挂起（#40460）。</li>
+<li>修复 Amazon Bedrock 模型的对话压缩与多代理兼容性问题（#39804、#39825）。</li>
+</ul>
+
+<p>完整变更日志见 <a href="https://github.com/openai/codex/compare/rust-v0.149.0...rust-v0.150.0">rust-v0.149.0...rust-v0.150.0</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.150.0</guid>
+      <pubDate>Wed, 26 Aug 2026 19:37:28 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.247：新增 SendFeedback 与 /claude-api cost-optimize，修复多项交互与后台会话问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.247</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.247，主要新增了反馈草拟工具与 API 成本优化命令，并修复了大量交互、后台会话与云会话相关的问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增 SendFeedback 工具</strong>：会话出现问题时，Claude 可草拟一份反馈报告供用户审阅，并可通过 <code>/feedback</code> 发送（可用 <code>feedbackDrafts</code> 设置关闭）。</li>
+<li><strong>新增 <code>/claude-api cost-optimize</code></strong>：分析现有项目的 Claude API 支出，并逐步通过缓存、token 卫生、批处理、effort、模型选择等成本杠杆进行可量化的优化。</li>
+<li><strong><code>/claude-api</code> 技能扩展</strong>：新增 Admin API 覆盖，包括组织成员、邀请、工作区、API 密钥、速率限制报告、工作负载身份联合（workload identity federation）与 CMEK。</li>
+<li><strong>组织自定义提示</strong>：<code>spinnerTipsOverride</code> 新增 <code>{id, text, cooldownSessions, priority}</code> 条目、<code>tipsFile</code> 与 <code>label</code>，组织可轮换自有提示；Bash 权限提示新增指向自动模式的一键「Yes, and switch to auto mode」选项。</li>
+<li><strong>MCP 连接失败提示</strong>：Bedrock、Vertex、Foundry 等会话中，配置的 MCP 服务器连接失败时 Claude 会被告知，而不再误判为工具不存在。</li>
+<li><strong>Sonnet 5 自动压缩窗口</strong>：默认改为完整 1M 上下文，1M 窗口会话约在 967K tokens 时自动压缩（此前约 934K）。</li>
+<li><strong>跨会话消息折叠</strong>：peer 消息默认折叠为一行预览，Ctrl+O 展开全文。</li>
+</ul>
+
+<h3>其他改动（修复与调整）</h3>
+<ul>
+<li>修复历史搜索、<code>/config</code>、<code>/mcp</code>、<code>/skills</code>、后台任务、<code>/model</code> 中快速方向键+Enter 作用于上一行的问题。</li>
+<li>修复子代理首次调用模型 404 时崩溃的问题，现改用会话的 fallback 模型链，并向父进程返回包含错误类型、状态、请求 ID 与模型的错误。</li>
+<li>修复 hook 或后台代理输出大量错误导致会话卡在「Prompt is too long」的问题。</li>
+<li>修复 kitty 协议终端中非拉丁键盘布局（如西里尔文）下 Ctrl 快捷键不触发、鼠标报告拆分导致文本被插入提示的问题。</li>
+<li>修复 Bash 沙箱清理误删 dotfile 管理（nix/home-manager、stow）的 <code>~/.claude/settings.json</code> 符号链接。</li>
+<li>修复 <code>/terminal-setup</code> 覆盖整个 Zed <code>keymap.json</code> 而非合并键绑定。</li>
+<li>修复 <code>/rename</code> 在会话注册表更新失败时静默确认的问题。</li>
+<li>修复 <code>--agent</code> 会话中 <code>/compact</code> 与「Summarize from here」使用默认系统提示词而非会话自身提示词的问题。</li>
+<li>修复后台会话在终端宿主进程死亡后一直显示「opening…」的问题，现会在数秒内显示失败原因，Enter 可重启。</li>
+<li>修复输出文件无法写入时内存无限增长、前台 shell 命令在后台会话中显示误导性 <code>[exited with code -1]</code> 的问题。</li>
+<li>修复 <code>/install-github-app</code> 在 SSH 下的复制提示与实际不符的问题。</li>
+<li>修复 <code>/remote-control</code> 会话不向客户端报告工作树 diff、自托管 runner 会话在 Claude Code 启动前就报告 <code>running</code> 的问题。</li>
+<li>修复首次运行设置因无法连接 Anthropic 服务而退出、云会话切换权限模式后显示旧模式、云会话容器重启后静默等问题。</li>
+<li>终端超链接指向网络/自动挂载路径、含控制字符或不可见字符时改为纯文本渲染；提示栏 PR 徽章在最近检查不足一分钟时跳过重新检查。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.247</guid>
+      <pubDate>Wed, 26 Aug 2026 23:06:39 GMT</pubDate>
+    </item>
     <item>
       <title>fd 10.5.0 发布：新增 --exact 精确匹配与 --ignore-parent 选项，修复多项问题</title>
       <link>https://github.com/sharkdp/fd/releases/tag/v10.5.0</link>
@@ -1219,38 +1288,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.220</guid>
       <pubDate>Sat, 25 Jul 2026 01:35:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.219 发布：引入 Claude Opus 5 模型与沙盒网络白名单</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.219</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.219">v2.1.219</a> 版本已发布，本次更新引入了新的 Claude Opus 5 模型，并增强了沙盒网络控制与子代理嵌套能力。</p>
-<h3>重要改动</h3>
-<ul>
-  <li><strong>新增 Claude Opus 5 模型</strong>：作为默认的 Opus 模型，支持 1M 上下文窗口，快速模式定价为 $10/$50 per Mtok。Opus 4.7 已移除快速模式支持。</li>
-  <li><strong>沙盒网络严格白名单</strong>：新增 <code>sandbox.network.strictAllowlist</code> 设置，允许在沙盒命令中直接拒绝未列入白名单的主机，无需额外提示。</li>
-  <li><strong>嵌套子代理支持</strong>：子代理嵌套深度默认提升至 3 层（原为 1 层），并支持在 stream-json 中转发嵌套子代理文本。</li>
-  <li><strong>动态工作流调整</strong>：动态工作流默认大小指南调整为 medium（建议少于 15 个代理），并可通过 <code>/config</code> 修改。</li>
-</ul>
-<h3>其他改进与修复</h3>
-<ul>
-  <li>修复了 API 错误导致文本丢失、权限在重启时丢失、Fable 模型缓存显示错误等问题。</li>
-  <li>优化了 Vim 模式、屏幕阅读器模式以及 GNU screen 下的复制功能。</li>
-  <li>改进了远程控制、Teleport 功能及 MCP 服务器连接失败的错误提示。</li>
-  <li>更新了 claude-api skill 默认模型为 Claude Opus 5。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.219</guid>
-      <pubDate>Fri, 24 Jul 2026 17:14:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>kitty 0.48.1 版本发布</title>
-      <link>https://github.com/kovidgoyal/kitty/releases/tag/v0.48.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>kitty 是一款高性能的跨平台终端模拟器。此次发布的 0.48.1 版本为最新稳定版。详细的更新日志和变更内容可参考官方文档：<a href="https://sw.kovidgoyal.net/kitty/changelog/#detailed-list-of-changes">详细更新日志</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/kovidgoyal/kitty/releases/tag/v0.48.1</guid>
-      <pubDate>Fri, 24 Jul 2026 10:04:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
