@@ -3,7 +3,79 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 27 Aug 2026 09:38:20 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 20:24:02 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.3 合入 MGLRU 优化补丁：可执行代码更易驻留内存，提升性能</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-MGLRU-Executable-Mem</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux 7.3内核内存管理(MGLRU)改进，使可执行代码更久驻留内存以提升性能，属软件新功能，推荐阅读</small></p><p>随着 Linux 7.3 合并窗口接近尾声，本周又有一批内存管理（MM）代码更新被提交并合并。除大量小型修复外，其中几项优化补丁尤为引人注目。</p><p>最受关注的是阿里巴巴工程师 Baolin Wang 提交的补丁系列：在首次使用后提升映射可执行 folio 在 MGLRU（Multi-Generational LRU，多代最近最少使用）中的优先级。传统 LRU 算法会保护映射的可执行文件 folio，使其更有可能驻留在系统内存中，从而避免 I/O 抖动并提升工作负载性能；而 MGLRU 此前在这方面表现"不太可靠"，可执行 folio 比传统 LRU 更容易被回收。</p><p>Baolin Wang 在一台 32 核 Arm 服务器上量化了该问题：将内存限制设为 2GB（内存极度受限），同时运行 32 个 Linux 内核构建任务制造大量内存争用。结果显示，默认情况下系统时间为 9248 秒，而应用这些补丁更好地提升可执行 folio 的驻留优先级后，系统时间降至 7861 秒。</p><img src="//www.phoronix.net/image.php?id=2026&image=mglru_exec_73_med" alt="MGLRU benchmark impact" /><p>虽然现实世界中很少出现 32 核争抢 2GB 内存的情况，但在当前内存受限的市场环境以及其他过度订阅（over-subscribed）场景下，这一改动最终应能带来帮助。这些补丁已随今日的合并请求与其他多项小型 MM 优化补丁一同合入。</p><h3>你知道吗？</h3><p>MGLRU（Multi-Generational LRU）是 Linux 内核中较新的页面回收机制，通过将页面按访问时间划分为多个"代"（generation）来更高效地识别冷热页，相比传统 LRU 能显著降低回收开销，但早期版本在保护可执行文件映射方面不如传统 LRU 可靠。folio 是内核自 5.16 起引入的内存页抽象，将物理页与逻辑页统一管理，便于更高效地处理大页等场景。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-MGLRU-Executable-Mem</guid>
+      <pubDate>Thu, 27 Aug 2026 18:20:28 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ AMD 将 ROCm 版本从 7.14 直接跃升至 10.0，主打 ROCm.AI</title>
+      <link>https://www.phoronix.com/news/AMD-ROCm-10.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲AMD ROCm.AI计算/AI软件栈的大版本跳跃，属AI软件技术进展，推荐阅读</small></p><p>AMD 宣布 ROCm 10.0 正式发布，作为其开源 Radeon/Instinct GPU 计算栈的最新主要版本，取代 ROCm 7.x 系列。这一大版本跳跃旨在理清此前混乱的版本号体系：7 月发布的 ROCm 7.14 基于 TheRock 构建系统并引入 Ryzen AI 400 系列支持，但当时稳定版仍是 ROCm 7.2，7.9 及以后版本被标记为「技术预览」，而 7.14 又被宣布为稳定版。</p><p>ROCm 10.0 最显著的新特性是面向 AI 驱动开发的 ROCm.AI：<img src="//www.phoronix.net/image.php?id=amd-rocm-ai&image=rocm_ai_2_med" alt="ROCm.AI" /></p><p>同时引入了 ROCm CLI（命令行工具）：<img src="//www.phoronix.net/image.php?id=amd-rocm-ai&image=rocm_ai_4_med" alt="ROCm CLI" /></p><p>这是 AMD 转向六周发布周期后的首个 ROCm 版本。ROCm 10.0 还包含上月 AMD Advancing AI 活动上公布的 Hyperloom，并在 Linux 包整合、面向 vLLM 的生产级容器与 Python wheels、Ryzen AI Max 本地大语言模型（LLM）微调等方面有所改进。</p><p>Windows 方面，AMD 退役了 HIP SDK 包，改用 ROCm Core SDK，且 Windows 将遵循与 Linux 相同的发布节奏。目前 Windows 版 ROCm Core SDK 仍是简单的静态包，AMD 计划在今年晚些时候提供原生 Windows 安装程序支持。</p><p>更多详情可参阅 AMD 官方公告（<a href="https://rocm.blogs.amd.com/">rocm.blogs.amd.com</a>）。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-ROCm-10.0</guid>
+      <pubDate>Thu, 27 Aug 2026 15:26:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.3 为块设备引入 RWF_DONTCACHE 支持，IO_uring 增强零拷贝接收</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-Block</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linux 7.3为块设备新增RWF_DONTCACHE支持，属内核存储层新特性，介于软件新功能与基础设施之间，兴趣一般，可选</small></p><p>Linux 7.3 已合并块子系统和 IO_uring 的全部功能变更。在 IO_uring 方面，改动主要围绕增强零拷贝接收（ZCRX），其中引入了动态区域供应（dynamic area provisioning），允许内存区域按需分配和供应，而无需预先静态分配，此外还包含各种错误修复和其他增强。</p><p>块子系统方面，最值得关注的是 <b>RWF_DONTCACHE</b> 标志现已支持块设备。该标志用于无缓存缓冲 I/O（uncached buffered I/O），在操作完成后立即从页缓存（page cache）中清除相关页面，从而减轻缓存压力，有助于应对高强度的 I/O 工作负载。这一支持对直接运行在裸块设备上的数据库以及其他与底层块设备直接交互的用户空间分配场景尤为有用。</p><p>由启用该支持的 Tal Zussman 在虚拟机中的单个块设备上进行的测试显示，读写性能均获得了非常可观的提升：</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=dontcache_block" alt="RWF_DONTCACHE for block device benchmark" /><p>Linux 7.3 的其他块子系统变更还包括：NVMe 主机驱动支持 Clang 上下文分析、并行化 NVMe RDMA I/O 队列的分配与启动、Apple NVMe 修复，以及多项 MD RAID 增强。</p><h3>你知道吗？</h3><p>RWF_DONTCACHE 是 Linux 的 <code>pwritev2()</code>/<code>preadv2()</code> 系统调用所支持的标志之一。普通缓冲 I/O 会把数据留在页缓存中以加速后续访问，但在数据库等场景下，这类数据往往是一次性使用，缓存反而会挤占其他热数据的空间。RWF_DONTCACHE 让内核在 I/O 完成后立即回收这些页面，实现"用完即弃"的缓存策略，在保持缓冲 I/O 便利性的同时降低缓存污染。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Block</guid>
+      <pubDate>Thu, 27 Aug 2026 14:15:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ AMD Lemonade 11.8 让 DeepSeek V4 Flash 在 Strix Halo 上轻松运行</title>
+      <link>https://www.phoronix.com/news/AMD-Lemonade-11.8</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲Lemonade新软件项目让DeepSeek V4 Flash易于在AMD Strix Halo上运行，同时命中新软件项目与新AI模型，很感兴趣，必看</small></p><p>AMD 开发者发布了 <strong>Lemonade 11.8</strong>，让近期发布的 <strong>DeepSeek V4 Flash</strong> 模型能够非常轻松地在 AMD Ryzen AI+ Max「Strix Halo」平台上运行。</p><p>此前，DeepSeek V4 Flash 已可通过 DwarfStar 原生推理引擎在 Strix Halo 上运行；而新版 Lemonade 11.8 软件新增了实验性的 DwarfStar「ds4」后端，进一步简化了部署流程。对于拥有 Framework Desktop 或 Ryzen AI Halo 等 Strix Halo 设备的用户来说，安装 Lemonade 11.8 即可顺畅运行 DeepSeek V4 Flash。</p><img src="//www.phoronix.net/image.php?id=2026&image=ryzen_ai_halo_lighting_med" alt="Ryzen AI Halo" /><p>此外，Lemonade 11.8 还为其易部署模型目录新增了 RPG-HaloTales-V2 聊天模型、Flux-2-Klein-4B/9B 图像模型，以及新的 OpenMOSS 语音设计与音效语音模型。同时新增了 <code>lemonade update-models</code> 命令，方便用户更新模型，并包含其他多项改进（详见 GitHub 发布公告）。</p><img src="//www.phoronix.net/image.php?id=2026&image=lemonade_118_med" alt="Lemonade 11.8 on Ubuntu Linux with DS4 back-end" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-Lemonade-11.8</guid>
+      <pubDate>Thu, 27 Aug 2026 13:19:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Libgcrypt 1.12.3 发布：新增 Intel SM3/SM4/SHA512 性能优化</title>
+      <link>https://www.phoronix.com/news/libgcrypt-1.12.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源加密库libgcrypt新版本带来Intel SM3/SM4/SHA512优化，属开源项目与软件新功能，推荐阅读</small></p><p>GnuPG 项目旗下的加密库 Libgcrypt 于今日发布 1.12.3 版本，包含多项错误修复，更引人关注的是其性能改进，尤其是在 Arrow Lake、Lunar Lake 等新一代 Intel CPU 上的表现。</p><p>本次更新为 Libgcrypt 新增了基于 Intel 扩展指令的 SM3 与 SHA512 实现（两者均受 Arrow Lake、Lunar Lake 及更新处理器支持），并加入了基于 AVX2 和 AVX-512 的 SM4 加速实现。其他性能优化还包括：在 RISC-V 架构上尽可能使用非对齐向量内存访问、加速 sntrup761、允许内部用户跳过密码与哈希的快速随机轮询等。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=gnupg" alt="GnuPG logo" /><p>更多修复与优化细节可参阅<a href="https://lists.gnupg.org/pipermail/gnupg-announce/">邮件列表公告</a>。遗憾的是，项目官网 dev.gnupg.org 仍在遭受拒绝服务（DoS）攻击，可能影响用户访问其服务器上的资源。</p><h3>你知道吗？</h3><ul><li>SM3 与 SM4 是中国国家密码管理局发布的国家商用密码算法标准，分别用于哈希与分组加密，现已逐步被主流开源加密库支持。</li><li>sntrup761 是一种基于格的后量子密钥封装机制（KEM），用于在量子计算时代保障密钥交换安全。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/libgcrypt-1.12.3</guid>
+      <pubDate>Thu, 27 Aug 2026 12:21:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>Intel ANV 驱动修复 Vulkan Video H.265 解码规范合规问题，Mesa 26.3 引入 HuC 固件支持</title>
+      <link>https://www.phoronix.com/news/Intel-ANV-HuC-H265-Vulkan-Video</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲Intel ANV显卡驱动改进Vulkan视频H.265解码，主题较窄且兴趣不明显，可选</small></p><p>Intel 的 ANV Vulkan 驱动早在 2023 年就合并了 H.265 解码的 Vulkan Video 支持，但此前一直与 Vulkan 规范略有出入。随着 Mesa 26.3 的最新代码引入 HuC 固件参与，这一问题现已修复。</p><p>Igalia 的 Hyunjun Ko 一直主导 Intel ANV Vulkan Video 支持的相关工作，而 Intel 工程师则主要专注于面向客户视频加速需求的视频加速 API（VA-API）。Ko 近期完成了 DG2/Alchemist 的 H.265 10-bit 编码和 AV1 编码支持，现在又回头改进了 H.265 解码。</p><p>此前，驱动在记录（record）阶段于 CPU 上解析比特流，这违反了 Vulkan 规范——因为规范允许应用程序在记录之后填充缓冲区。为修复此问题，驱动现在发出 HuC 的 S2L（short-to-long）序列：S2L 固件内核在执行阶段于 GPU 上从比特流缓冲区解析 HEVC 切片头，并将相应的 HCP 切片命令写入二级批处理缓冲区。同时，驱动通过 I915_PARAM_HUC_STATUS 探测确认 HuC 是否已加载，以决定启用或禁用 H.265 解码。</p><p>大多数用户的系统都会随 GuC 一同加载 HuC 固件，因此实际使用中不会增加额外负担，同时还能确保 Vulkan Video H.265 解码符合规范。HuC 用于媒体处理卸载，最早可追溯至 Gen9 图形架构。</p><img src="//www.phoronix.net/image.php?id=2026&image=vulkan_video_huc_h265" alt="Vulkan Video H.265 HuC decode mertged" /><p>该代码已于今日合并，将进入下一季度发布的 Mesa 26.3 功能版本。</p><h3>你知道吗？</h3><p>HuC 是 Intel 图形硬件中的专用固件微控制器，用于媒体编解码处理卸载，与负责 GPU 调度等任务的 GuC 固件协同工作。HuC 自 Gen9（Skylake 时代）起引入，可将媒体处理负担从 CPU 卸载到 GPU 侧。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-ANV-HuC-H265-Vulkan-Video</guid>
+      <pubDate>Thu, 27 Aug 2026 10:32:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.3 的 AppArmor 新增用户空间压缩策略支持</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-AppArmor</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux 7.3中AppArmor新增用户态压缩策略支持，属内核安全软件新功能，推荐阅读</small></p><p>AppArmor 的改进已合并进 Linux 7.3。该内核安全模块为每个程序提供针对系统资源的访问控制。本周期最引人注目的变化是支持加载用户空间压缩的策略。</p><p>此前，AppArmor 策略由内核模块在加载后进行压缩；现在 Linux 7.3+ 可以加载在用户空间压缩后提交给内核的策略。用户空间压缩策略的好处是加载时间更快。该功能由 Canonical 的 Maxime Bélair 实现，他表示对于拥有"大型配置文件"的系统，系统时间最多可改善 30%。用户空间压缩的配置文件还可以选择比内核默认 Zstd 级别更高的压缩级别，以节省更多空间。</p><img src="https://www.phoronix.net/image.php?id=2023&image=apparmor" alt="AppArmor logo" /><p>用户空间压缩策略对嵌入式 Linux 系统也更有益，这些平台通常内存容量非常有限，只需存储压缩策略即可。</p><p>AppArmor 还新增了用于静默某些消息的审计模式、重构网络调解以使用新模式，以及各种代码清理和错误修复。Linux 7.3 合并窗口将于本周末随着 v7.3-rc1 发布而结束。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-AppArmor</guid>
+      <pubDate>Thu, 27 Aug 2026 10:18:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ LLVM 改进 Zen 1/Zen 2 支持，应对&quot;臭名昭著&quot;的 PDEP/PEXT 指令</title>
+      <link>https://www.phoronix.com/news/LLVM-Improve-AMD-PDEP-PEXT</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] LLVM编译器改进Zen 1/Zen 2的PDEP/PEXT指令支持，属编程工具/编译器改进，推荐阅读</small></p><p>LLVM/Clang 编译器工具链近日合并了针对近十年前发布的 AMD Zen 1 处理器的改进支持，同时也有助于 Zen+ 和 Zen 2 处理器。这项来自开源社区的最新工作，旨在围绕 PDEP 和 PEXT 指令提供更明智的指令调度——这两条指令在最初的 Zen 处理器上执行成本相当高昂。</p><p>编译器工程师 Simon Pilgrim 着手改进了 Zen 1 / Zen+ / Zen 2 处理器上 PDEP 和 PEXT 标量指令的调度，原因是这些处理器上这两条指令的实现"臭名昭著地糟糕"。两条指令都属于位操作 BMI2 扩展，其中 PEXT 是并行位提取（Parallel Bits Extract），PDEP 是并行位填充（Parallel Bits Deposit），可用于数据库、密码学以及国际象棋、数独等游戏场景。</p><img src="//www.phoronix.net/image.php?id=ryzen-3700x-3900x-linux&image=amd_zen2_2_med" alt="AMD Zen 2 Ryzen 3000 processors" /><p>由于 LLVM 正准备开始生成 PDEP/PEXT 内建函数（intrinsics），Simon 基于对其高成本的剖析，改进了这些旧款 AMD Ryzen 和 EPYC 处理器的 PDEP/PEXT 指令调度，使 znver1/znver2 目标的指令调度器能够做出更明智的选择。他在提交说明中写道："znver1/znver2 上 PDEP/PEXT 标量指令的实现臭名昭著地糟糕，仅使用 WriteMicrocoded 标记没有用处，因为它无法反映对 ALU 流水线或 uops 洪泛（尤其是 rm 折叠变体）的可怕影响。uops.info/Agner 上的测量结果差异很大（且高度依赖输入数据），因此我取了最坏情况的平均值，至少给调度器一些可用的依据。我们此前一直忽略这些，但现在我们即将生成 llvm.pdep/pext 内建函数（并标量化向量实现）。"</p><p>该代码现已合并到 LLVM Git，供希望充分利用 znver1/znver2 编译器优化的用户使用。</p><h3>你知道吗？</h3><p>PDEP/PEXT 在 Zen 1/Zen 2 上之所以执行缓慢，是因为这些处理器通过微码（microcode）模拟执行这两条指令，会占用大量微操作（uops）并阻塞 ALU 流水线；而在 Zen 3 及更新的 AMD 处理器上，这两条指令已改为硬件原生实现，速度大幅提升。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-Improve-AMD-PDEP-PEXT</guid>
+      <pubDate>Thu, 27 Aug 2026 10:05:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Asahi Linux 即将发布支持 Apple M3 设备的版本</title>
       <link>https://www.phoronix.com/news/Asahi-Linux-M3-Release-Soon</link>
@@ -512,157 +584,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-MM</guid>
       <pubDate>Wed, 19 Aug 2026 20:31:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>Go 1.27 发布：引入泛型方法、SIMD 支持与标准库增强</title>
-      <link>https://www.phoronix.com/news/Go-1.27</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主题为Go语言1.27版本发布，属于编程工具发布，全局配置对此很感兴趣，但来源配置将Go列为不太感兴趣且权重更高，综合评定为可选</small></p><p>Go 1.27 正式发布，这是 Google Go 团队推出的该编程语言的最新版本。本次更新带来了多项语言增强，包括<strong>泛型方法</strong>（generic methods）、结构体字面量中键允许使用任何有效的字段选择器，以及函数类型推断已推广到所有赋值上下文。</p>
-
-<p>在泛型方法方面，Go 1.27 允许在泛型类型上定义方法，进一步提升了泛型编程的灵活性。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=go_generic_methods" alt="Go generic methods example" />
-
-<p>Go 1.27 还引入了多项工具改进，以及大小专用的内存分配优化，可将小对象分配成本降低高达 30%。标准库方面新增了多个重要包：<code>encoding/json/v2</code> 提供高级 JSON 处理功能，包含新选项和更严格的默认值；<code>crypto/mldsa</code> 支持后量子 ML-DSA 签名；<code>uuid</code> 包用于生成和解析 UUID。</p>
-
-<p>此外，Go 1.27 带来了一个实验性的 SIMD 包，提供可移植且与向量大小无关的 SIMD 支持。其中 <code>simd/archsimd</code> 用于架构特定的 SIMD 操作，修订了 AMD64 API，并新增了对 Arm Neon 128-bit SIMD 和 WebAssembly 128-bit SIMD 的支持。</p>
-
-<p>更多详情可访问 Go 官方网站 <a href="https://go.dev">go.dev</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Go-1.27</guid>
-      <pubDate>Wed, 19 Aug 2026 18:23:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>Btrfs 为 Linux 7.3 带来更多性能改进：部分场景性能提升 3 到 5 倍</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Btrfs</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主题为Btrfs文件系统在Linux内核中的性能改进，涉及开源项目和新功能（感兴趣），但属于基础设施范畴（不太感兴趣），兴趣不明确</small></p><p>SUSE 的 David Sterba 已向 Linux 7.3 合并窗口提交了 Btrfs 文件系统的特性更新，带来了多项性能改进。其中一些改进使特定工作负载的性能提升了约 3 到 5 倍。</p>
-
-<p>主要改进包括：</p>
-<ul>
-<li><strong>直接 I/O 优化</strong>：Btrfs 现在使用 IOmap 反弹缓冲区（IOmap bounce buffer）进行直接 I/O，而非回退到缓冲 I/O。这使得性能从理论最大值的约 50% 提升至约 95%，有效翻倍。</li>
-<li><strong>受抑制 extent 缓冲区跟踪优化</strong>：用本地 LRU 列表替换了 XArray，性能提升约 3 倍。</li>
-<li><strong>非 SSD 模式延迟优化</strong>：移除了不必要的 jiffy 延迟，在多个日志任务场景下，延迟降低，吞吐量提升约 5 倍。</li>
-<li><strong>fsync 优化</strong>：在完整 fsync 期间跳过空洞检测逻辑，对于无空洞但包含大量 extents 的文件，性能提升约 5 倍。</li>
-<li><strong>其他改进</strong>：包括锁定优化等。此外，Btrfs 现在默认禁用空闲空间 v1（free-space v1），转而使用已默认多年的空闲空间 v2（free-space v2）。</li>
-</ul>
-
-<p>此外，该更新还包含大量错误修复和其他代码改进。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Btrfs</guid>
-      <pubDate>Wed, 19 Aug 2026 17:50:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ XWayland 26.1 RC1 发布，带来众多新特性</title>
-      <link>https://www.phoronix.com/news/XWayland-26.1-RC1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] XWayland 26.1 RC1发布带来新功能，属于Linux桌面技术和软件新功能，用户对此感兴趣</small></p><p>Red Hat 的 Olivier Fourdan 于 8 月 19 日宣布了 XWayland 26.1 的第一个候选发布版（RC1）。这是自 2024 年 XWayland 24.1 以来的首个特性版本，累积了两年多的数百项更改，为在 Wayland 环境下运行 X11 客户端带来了大量新功能和改进。</p>
-
-<p>主要新特性包括：</p>
-<ul>
-<li><strong>改进的 Rootful 实现</strong>：Rootful 模式新增剪贴板/主选择桥接功能（通过 <code>-clipboard</code> 参数启用），支持在 rootful Xwayland 与 Wayland 桌面其他部分之间进行复制/粘贴。</li>
-<li><strong>多席位支持（Xi2）</strong>：Wayland 席位及其输入设备被镜像到 XInput 2 层次结构中，实现多席位兼容。</li>
-<li><strong>Wayland fixes 协议支持</strong>：支持 <code>wl_fixes</code>，包括 <code>destroy_global</code> 和 <code>ack_global_remove</code>。</li>
-<li><strong>改进的 RandR 模拟</strong>：现在优先使用原生模式直至物理分辨率，模拟模式也已考虑屏幕旋转因素。</li>
-<li><strong>Rootful 全屏优化</strong>：默认使用实际输出分辨率，而非将 640x480 缩放填充。</li>
-<li><strong>XDG System Bell 协议支持</strong>：当合成器支持时，XWayland 可通过 Wayland 的系统响铃协议发出提示音。</li>
-<li><strong>移除 EGLStream 支持</strong>：鉴于 NVIDIA Linux 驱动栈已无需依赖 EGLStream 即可正常工作，该后端被彻底移除。</li>
-</ul>
-
-<p>目前尚无关于新版本 X.Org Server 特性发布的消息，本次更新仅针对独立的 XWayland。更多详情和下载方式可通过邮件列表公告获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/XWayland-26.1-RC1</guid>
-      <pubDate>Wed, 19 Aug 2026 14:11:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 调度器改进：提升游戏性能、优化混合 CPU、降低调度延迟</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Scheduler</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux 7.3调度器改进，涉及游戏优化和混合CPU支持，属于Linux桌面技术和软件新功能，用户对此感兴趣</small></p><p>Linux 7.3 内核合并窗口迎来了令人兴奋的调度器更新。本次更新包含多项重要改进：</p>
-
-<h4>"Flatten the pick"补丁系列</h4>
-<p>由英特尔工程师 Peter Zijlstra 开发，旨在改善 cgroup 调度，提升老旧硬件上的游戏性能。在 Intel Sandy Bridge CPU 搭配 AMD Radeon RX 580 显卡的测试中表现显著。该补丁系列引入了多种 cgroup 权重分配方法（通过 cgroup_mode 参数：up、max、concur、tasks），默认使用最精确但开销最大的 "concur" 模式，并将 cgroup 调度改为单一运行队列。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=flatten_the_pick_benchmark" alt="benchmark result for flatten the pick patches" />
-
-<h4>降低调度延迟</h4>
-<p>Vincent Guittot 的改进显著降低了短时间片任务的调度延迟，cyclictest 测试结果令人印象深刻。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=short_latency" alt="latency benchmarks" />
-
-<h4>混合 CPU 集群调度修复</h4>
-<p>针对英特尔混合 CPU（异构 CPU）的集群负载均衡问题进行了重要修复。</p>
-
-<h4>NOHZ 平衡优化</h4>
-<p>现在优先选择完全空闲的核心进行负载均衡。</p>
-
-<p>此外，还包含其他各种代码更新。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Scheduler</guid>
-      <pubDate>Wed, 19 Aug 2026 10:20:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Modular 宣布 Mojo 系统编程语言全面开源，采用 Apache 2.0 协议</title>
-      <link>https://www.phoronix.com/news/Modular-Mojo-Open-Source</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲述Mojo编程语言转为开源，契合用户对开源项目及编程工具的感兴趣配置，故推荐。</small></p><p>由 LLVM 和 Swift 创始人 Chris Lattner 创立的 AI 初创公司 Modular 宣布，其系统编程语言 Mojo 现已完全开源。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mojo" alt="Mojo logo" />
-
-<p>此次开源发生在 Modular 被高通 (Qualcomm) 收购之后。随着 Mojo 1.0 版本的发布，该语言已达到生产就绪状态，整个代码库现采用 <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> 许可协议。</p>
-
-<p>Mojo 旨在为 AI 驱动的世界提供高性能基础，支持包括 CPU、GPU 和 AI 加速器在内的多样化硬件。目前该语言已支持 macOS 和 Linux，Windows 版本正在开发中。</p>
-
-<p>在语言特性方面，Mojo 的设计灵感部分来源于 Rust 等现代编程语言，并支持 Python 互操作性，允许在 Mojo 中调用 Python 代码，反之亦然。以下是一个 Mojo GPU 内核的示例：</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mojo_kern" alt="Mojo code example" />
-
-<p>Modular 此前已开源了 Mojo 标准库，此次将语言本身完全开源，标志着其在生态系统建设上的重大进展。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Modular-Mojo-Open-Source</guid>
-      <pubDate>Wed, 19 Aug 2026 00:33:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ COSMIC Epoch 1.6 发布：新增按应用音量控制与远程桌面准备</title>
-      <link>https://www.phoronix.com/news/COSMIC-Epoch-1.6</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍COSMIC桌面环境新版本更新，契合用户对Linux桌面技术与软件新功能的兴趣，故推荐。</small></p><p>System76 主导开发的开源 Rust 桌面环境 <a href="https://www.system76.com/cosmic">COSMIC</a> 发布了 Epoch 1.6 版本。作为 Pop!_OS Linux 发行版的核心组件，此次更新带来了多项底层协议支持及用户体验改进。</p>
-<p>在 Wayland 协议支持方面，COSMIC Epoch 1.6 新增了对 <code>wl-dmabuf-v6</code> 协议的支持，实现了全屏表面（fullscreen surfaces）的展示反馈（presentation feedback），并引入了 EI（Emulated Input，模拟输入）协议。虽然目前版本尚未完全支持远程桌面功能，但 EI 协议的加入为未来的远程桌面支持奠定了基础。</p>
-<p>用户界面与组件方面，新版本新增了按应用（per-app）的音量和输出控制功能。COSMIC Terminal 在分割终端周围添加了边框，COSMIC Edit 进行了性能优化，而 COSMIC Greeter 则增加了对 JPEG-XL 和 AVIF 图像格式的支持，并能在运行时检测 logind 的存在。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=cosmic_16" alt="COSMIC 1.6" /></p>
-<p>System76 CEO Carl Richell 分享了 v1.6 的运行截图，展示了该 Rust 桌面环境的演进。用户可通过 GitHub 获取下载及更多详情。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/COSMIC-Epoch-1.6</guid>
-      <pubDate>Wed, 19 Aug 2026 00:20:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 引入 bpf_sock_read_xattr 功能，增强 systemd 与 BPF 程序交互</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-bpf_sock_read_xattr</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍 Linux 7.3 内核新增的 BPF 功能特性，属于 Linux 开源技术与系统底层开发范畴，契合用户对 Linux 技术及新功能的兴趣配置，故推荐</small></p><p>Linux 7.3 内核引入了新的 <code>bpf_sock_read_xattr()</code> 函数，旨在解决此前 BPF 程序无法高效读取 socket 扩展属性（extended attributes）的问题。这一功能此前已在 Linux 7.1 中为 socket 支持扩展属性，主要服务于 GNOME 和 systemd 等组件的 Varlink IPC 需求。</p>
-
-<p>该功能由 Christian Brauner 实现，允许 BPF 程序无锁（locklessly）读取 socket 的 <code>sockfs</code> inode 上的 <code>user.*</code> 扩展属性。systemd 利用这些属性实现 socket 速率限制和标记（例如 varlink registry）。新函数使得在 <code>bind/connect</code> 阶段读取监听 socket 的属性成为可能，从而对连接的 socket 实施策略。这允许非特权用户管理器（如 <code>systemd --user</code>）从用户空间标记 socket 并进行重新发现或策略实施。</p>
-
-<p>技术实现上，该 kfunc 注册为 <code>KF_RCU</code>，仅适用于 BPF LSM 程序。读取操作不休眠且不获取锁，通过 RCU 保护的 rhashtable 查找实现高效访问。需要注意的是，该功能排除了嵌入在 sockfs 之外的 socket（如 tun/tap），仅处理由 LSM socket hook 交出的 socket。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>BPF（Berkeley Packet Filter）</strong> 最初用于网络包过滤，现已演变为一种强大的内核技术，广泛用于性能分析、监控和安全策略实施。它允许用户空间程序在内核中运行沙箱化的代码。</p>
-<p><strong>LSM（Linux Security Modules）</strong> 是 Linux 内核的安全框架，提供了一组钩子（hooks），允许安全模块（如 SELinux、AppArmor）在内核的关键路径上实施访问控制策略。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-bpf_sock_read_xattr</guid>
-      <pubDate>Tue, 18 Aug 2026 19:38:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 内核 IOmap 框架优化，显著提升 EXT4 与 XFS 性能</title>
-      <link>https://www.phoronix.com/news/IOmap-Linux-7.3-Faster</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要介绍 Linux 7.3 内核中 IOmap 的技术改进及其对 EXT4 和 XFS 文件系统性能的提升，属于 Linux 技术范畴，符合用户对 Linux 技术的兴趣。</small></p><p>Linux 7.3 开发内核近期合并了虚拟文件系统（VFS）的更新，其中包含对 IOmap 框架的重大改进。IOmap 是多种 Linux 文件系统用于将逻辑文件字节偏移量映射到存储设备物理位置的核心块映射框架。此次更新将 IOmap 彻底转换为迭代器模型，并统一使用单一的 <code>iomap_next()</code> 回调函数。这一架构调整使得编译器能够将原本的间接调用优化为直接调用并支持内联，从而有效消除了小 I/O 操作在 PCIe Gen5 NVMe SSD 存储上的性能瓶颈。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_73_iomap_med" alt="PCIe Gen5 NVMe SSDs" />
-<p>对于终端用户而言，性能提升尤为明显。在针对 EXT4 和 XFS 文件系统的测试中，改进后的 IOmap 框架带来了显著的性能增益。在单核 io_uring poll 模式工作负载下，针对 PCIe Gen5 NVMe 的 4K 随机读取性能，EXT4 的 IOPS（每秒输入/输出操作数）从原来的约 192 万提升至约 219 万。fio 基准测试进一步显示，在 libaio 队列深度 64 及以上时性能提升约 4%，io_uring 模式提升约 5%，而在 io_uring poll 模式深度 256 时，EXT4 和 XFS 的性能提升幅度甚至可达 10%。</p>
-<p>除了 EXT4 和 XFS，此次 IOmap 的迭代器模型更新也已同步适配至 Btrfs、EXT2、EROFS、F2FS、GFS2、HPFS、FUSE、exFAT、ZoneFS、NTFS 及 NTFS3 等多种文件系统。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/IOmap-Linux-7.3-Faster</guid>
-      <pubDate>Tue, 18 Aug 2026 17:25:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
