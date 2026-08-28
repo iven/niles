@@ -3,7 +3,75 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 28 Aug 2026 05:23:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2026 18:38:35 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.251：新增模型切换钩子、子代理实时流式传输与用量/缓存统计</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.251</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.251，带来多项新功能与大量修复，重点包括模型切换钩子、子代理工具调用实时流式传输、用量与提示词缓存统计等。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li>新增 <code>PreModelSwitch</code> 与 <code>PostModelSwitch</code> 钩子事件，可拦截、确认或标注模型切换；<code>SessionStart</code> 恢复钩子现在还能获取会话陈旧度与预估的重新缓存成本。</li>
+<li>前台子代理的工具调用与结果现在可实时流式传输给 Remote Control 客户端（后台子代理仍只显示状态）。</li>
+<li><code>/usage</code> 新增花费上限（Spend limit）进度条，状态栏新增 <code>rate_limits.spend_limit</code> 字段，面向使用 Claude apps gateway 且设有花费上限的开发者。</li>
+<li><code>/cost</code> 新增每会话提示词缓存统计行（命中率、未命中、重新缓存的 token 数、冷/热缓存），并新增对应的 <code>prompt_cache</code> 对象供状态栏脚本使用。</li>
+<li><code>claude --help</code> 新增 <code>attach</code>、<code>logs</code>、<code>stop</code>、<code>respawn</code>、<code>rm</code> 命令；对运行中后台会话的 <code>--resume</code> 提示现在会给出确切的 <code>claude attach &lt;id&gt;</code> 命令。</li>
+<li>修复 Opus 5 在关闭 thinking 且 effort 为 xhigh/max 时请求失败的问题，此时 effort 会自动降为 <code>high</code> 发送。</li>
+<li>修复大量并行子代理时 TUI 卡顿：每秒进度刻度改为替换前一条而非在记录中堆积。</li>
+<li>修复 agent teams 中队友的最终答复无法送达团队负责人的问题，现在会出现在空闲通知中。</li>
+<li>修复后台子代理无法回复来自未命名兄弟/父代理的消息（此前把代理类型当作地址）。</li>
+<li>修复 managed-settings 的 <code>disableAutoMode</code> 在会话中途到达时，已运行的 auto 模式会话不切回 default 模式的问题。</li>
+<li>修复当前 Opus 模型已具备 1M 上下文窗口时仍出现"切换到 Opus 1M 获得 5 倍上下文"提示的问题。</li>
+<li>修复 Claude apps gateway 会话把存储的 Anthropic 配置文件（如 Console 登录）当作活跃配置的问题。</li>
+<li>修复云会话在主机仅设置会话初始模型时误报"模型已更改"的问题。</li>
+<li>修复组织策略禁用 Remote Control 时误报失败，现在只显示一条安静的通知。</li>
+<li>修复 <code>--input-format stream-json</code> 中无消息 id 的客户端注入工具调用被合并进第一条导致结果丢失的问题。</li>
+<li>修复目录变更将会话迁移到已存在的同名记录上时，会话记录被静默覆盖的问题。</li>
+<li>修复后台会话及其子代理无法编辑自己通过 <code>git worktree add</code> 创建的工作树内文件的问题。</li>
+<li>修复后台会话偶尔在另一进程刷新插件市场时启动后没有任何插件技能的问题。</li>
+<li>修复 SDK/云会话在 SDK MCP 服务器握手确认丢失时无限挂起的问题，现在 70 秒后超时并仅标记该服务器失败。</li>
+<li>修复 self-hosted runner 强制停止会话后遗留 Bash 工具进程的问题。</li>
+<li>修复 <code>--worktree --tmux</code> 配合 GitLab merge request 时先尝试注定失败的 GitHub 式 fetch 的问题。</li>
+<li>修复后台会话中 Ctrl+G 对打开 <code>/dev/tty</code> 的编辑器（如 <code>emacs -nw</code>、<code>micro</code>）报"Emacs quit unexpectedly"的问题。</li>
+<li>修复 <code>additionalDirectories</code> 条目含空字节导致启动崩溃或破坏 <code>/add-dir</code> 的问题。</li>
+<li>修复 GNU screen 及使用 screen 终端类型的 tmux 会话中斜体文本渲染为高亮块的问题。</li>
+<li>修复 <code>claude ultrareview</code> / <code>/ultrareview</code> 在云会话启动失败时仍等待满 30 分钟的问题。</li>
+<li>修复后台会话（<code>←</code>、<code>/background</code>、<code>--bg</code>）丢失 shell 中导出的 Vertex/Bedrock 网关配置导致所有请求失败的问题。</li>
+<li>修复 Max 套餐中 <code>claude --bg --model fable</code> 在交互会话仍有 Fable 额度时却停止询问使用额度的问题。</li>
+<li>修复无人值守会话（如 agent-team 队友面板）中出现"将 auto 模式设为默认"一次性弹窗的问题。</li>
+<li>修复被禁用的 <code>/bug</code> 和 <code>/share</code> 误报 <code>/feedback</code> 被禁用的问题。</li>
+<li>修复云会话创建时在瞬时 GitHub 连接失败后建议进行 GitHub 设置的问题，现在提示重试。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>改进交互会话期间的 CPU 占用：削减冗余 UI 重渲染。</li>
+<li>安装体积减小：原生二进制约小 5 MB；同时移除六种少用语言的语法高亮（1c、gml、isbl、mathematica、maxima、sqf），二进制再小 2.5 MB。</li>
+<li>改进云会话中网络代理在 Bash 命令期间断开时的错误信息，现在会指明主机与原因。</li>
+<li>改进 <code>/schedule</code>：说明 Claude Code 中配置的 MCP 服务器无法附加到云例程，而非只显示"无 MCP 连接器"。</li>
+<li>改进来自自己子代理消息的表述：Claude 被告知发送者是本会话内的工作者，而非无关的 Claude 会话。</li>
+<li>改进提示占位符：在子代理面板或 <code>/tasks</code> 打开后台子代理/分支记录时显示"Message @name…"。</li>
+<li>改进错误消息、菜单和命令结果中 MCP 服务器名称的清理。</li>
+<li>改进 Amazon Bedrock 会话启动：在 <code>CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST</code> 下，给定 Bedrock 模型 ID 或 ARN 的会话不再等待推理配置文件发现。</li>
+<li>改进 managed settings 审批对话框：只列出自上次批准以来变更的设置。</li>
+<li>改进模型工具调用格式错误时的重试：损坏的输出会从重试上下文中丢弃（含 Bedrock、Vertex、Foundry）。</li>
+<li><code>/radio</code> 现在在 Bedrock、Vertex AI、Foundry、AWS 上的 Claude Platform 以及禁用遥测时也可用。</li>
+<li>Claude in Chrome 的浏览器操作现在始终经过 Claude Code 的权限检查（包括禁用遥测的会话）。</li>
+<li><code>CLAUDE_CODE_SUBAGENT_MODEL</code> 改为设置默认子代理模型而非覆盖一切：代理定义中的 <code>model:</code> 和显式按次指定模型现在优先。</li>
+<li>当活跃模型不是受认可的 Claude 模型（如自定义 <code>ANTHROPIC_BASE_URL</code> 后的第三方模型）时，默认提交 trailer 改为 <code>Co-Authored-By: Claude Code</code>。</li>
+<li>基于 seat 的 Enterprise 订阅默认模型改为 Opus 5，与其他高级套餐一致。</li>
+<li><code>/effort</code> 现在按模型保存默认 effort 级别，切换模型时各自保留设置。</li>
+<li>调整遥测行为：不再仅因 managed settings 强制 gateway 登录就在登录前关闭遥测。</li>
+<li>Bedrock、Vertex、Foundry 及关闭遥测时，footer 的 PR 徽章改为直接调用 GitHub API（<code>gh auth token</code>、<code>GH_TOKEN</code> 或 <code>GITHUB_TOKEN</code>），不再依赖 <code>gh pr view</code>。</li>
+<li>插件/LSP 安装建议和 auto 模式默认弹窗会等到输入发送或清除后再出现，避免回车误答。</li>
+<li>[VSCode] 修复登录界面"Bedrock、Foundry 或 Vertex"按钮打开文档顶部而非第三方提供商设置章节的问题。</li>
+<li>[VSCode] Remote Control 横幅改为底部胶囊（footer pill），开启或失败时显示，点击可在 claude.ai/code 打开会话，用 <code>/remote-control</code> 开关。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.251</guid>
+      <pubDate>Fri, 28 Aug 2026 18:19:32 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.250 发布：错误修复与可靠性改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.250</link>
@@ -1264,30 +1332,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/kovidgoyal/kitty/releases/tag/v0.48.2</guid>
       <pubDate>Thu, 30 Jul 2026 11:58:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenAI Codex (Rust) v0.146.0 发布说明</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.146.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex (Rust) v0.146.0 版本正式发布，本次更新聚焦于会话管理流程优化、插件生态扩展以及终端交互体验的提升。</p>
-<h3>核心功能更新</h3>
-<ul>
-  <li><strong>会话与线程管理</strong>：支持使用 <code>/new</code> 或 <code>/clear</code> 命令为会话命名；新增线程固定功能，并允许在不关闭当前会话的情况下切换侧边对话。线程分叉功能现已支持分页历史加载，包含临时分叉选项。</li>
-  <li><strong>插件与市场扩展</strong>：正式支持 Agent Plugins manifests 和工作区插件发布，同时为 Amazon Bedrock 和 Claude Code 接入更多插件市场。</li>
-  <li><strong>远程连接与搜索</strong>：通过 WebSocket 协议实现 app-server 与远程 Code Mode 主机的连接；兼容的自定义模型提供商可启用独立网页搜索功能。</li>
-  <li><strong>技能系统优化</strong>：支持发现并安全读取执行器提供的技能资源。在上下文预算紧张时，系统会自动优化技能目录展示并提示截断警告。</li>
-</ul>
-<h3>体验改进与 Bug 修复</h3>
-<ul>
-  <li><strong>终端交互增强</strong>：大幅提升终端响应速度与渲染效率，优化了非阻塞中断处理、键盘事件响应、窄屏布局适配及超链接显示。</li>
-  <li><strong>代理与连接稳定性</strong>：全面统一了代理配置在认证、插件下载、MCP 授权、远程执行及 WebSocket 等场景下的行为。MCP 连接现在能在配置或认证变更时自动刷新，无需重启健康连接。</li>
-  <li><strong>数据一致性保障</strong>：确保提交的消息、审批设置、时间戳及错误状态在会话中断、重放、导入或分叉时完整保留。</li>
-  <li><strong>平台修复</strong>：解决了 Windows 平台的导航键响应问题，改进了沙箱进程树的终止逻辑，并修复了安全审查期间代理设置丢失的问题。</li>
-</ul>
-<p>完整更新日志：<a href="https://github.com/openai/codex/compare/rust-v0.145.0...rust-v0.146.0">查看完整 Changelog</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.146.0</guid>
-      <pubDate>Wed, 29 Jul 2026 01:42:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
