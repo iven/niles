@@ -3,7 +3,67 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 27 Aug 2026 20:22:37 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2026 05:23:00 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.250 发布：错误修复与可靠性改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.250</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.250 版本。本次更新未包含新功能，主要聚焦于错误修复和可靠性改进，旨在提升工具的稳定性和使用体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.250</guid>
+      <pubDate>Fri, 28 Aug 2026 00:49:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.248 发布：新增跨会话消息与缓存 TTL 配置，修复多项会话与缓存问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.248</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><strong>重要改动</strong></p>
+<ul>
+<li>新增跨会话消息传递（<code>SendMessage</code> / <code>ListAgents</code>）：同一台机器上的会话之间可以互相通信，适用于 Bedrock、Vertex、Foundry 以及关闭遥测的场景</li>
+<li>新增 <code>experimental.cacheTtl</code>（<code>"5m"</code> 或 <code>"1h"</code>）agent frontmatter 配置，在未配置子代理 TTL 时设置每个代理的提示缓存 TTL</li>
+<li>新增 <code>claude self-hosted-runner --client-label &lt;label&gt;</code>（或 <code>SELF_HOSTED_RUNNER_CLIENT_LABEL</code>），用于覆盖 runner 注册时使用的标签（默认为主机名）</li>
+<li>新增服务器托管设置诊断：设置加载失败时显示启动警告，<code>/doctor</code> 和 <code>/status</code> 会说明加载失败原因或未获取原因</li>
+<li><code>/web-setup</code> 新增警告：当 GitHub CLI token 缺少 <code>workflow</code> scope 时提示，因为推送超大仓库可能被拒绝</li>
+<li>新增 <code>/usage-credits</code> 命令，供通过 AWS Marketplace 计费的 Enterprise 组织、自助 Enterprise 及 Enterprise 试用用户向管理员申请更高用量上限</li>
+<li>改进 Workflow 工具的提示占用：描述从约 5.7k tokens 降至约 1k tokens，脚本编写参考移入内置的 <code>workflow-authoring</code> skill</li>
+<li><code>/loop</code> 的 self-paced 动态模式和无提示自主默认现在始终可用（包括 Bedrock/Vertex/Foundry）</li>
+<li><code>/ultrareview &lt;PR#&gt;</code> 在启动前检查关联的 GitHub 账号能否访问仓库，并说明修复方法，避免 cloud 会话启动后才失败</li>
+<li>agent view 中 shift+enter 改为插入换行（与提示一致），ctrl+enter 发送并附加</li>
+</ul>
+<p><strong>其他修复与改进</strong></p>
+<ul>
+<li>修复长会话中约每小时一次的提示缓存未命中（丢失 extended-thinking 上下文），原因是 OAuth token 刷新后工具定义被重新渲染</li>
+<li>修复 <code>ScheduleWakeup</code> 工具定义在会话与 <code>--resume</code> 之间变化，导致恢复会话首轮完全缓存未命中</li>
+<li>修复 Claude Desktop 和 Cowork 会话 30 天后消失：转录清理现在保留应用内桌面写入的会话，新增 <code>desktopSessionCleanupPeriodDays</code> 设置限制豁免期</li>
+<li>修复 token 过期时因其他 Claude Code 进程持有刷新锁而被送到登录页的问题，现在返回可重试错误</li>
+<li>修复 <code>/login</code> 推荐 Console 登录在不可用机器上先报 OAuth 错误的问题，现在回退到 API key 登录</li>
+<li>修复 <code>/model</code> 和快速模式提示中模型名未按代码渲染的问题，后缀如 <code>[1m]</code> 现在按字面显示</li>
+<li>修复 <code>claude agents</code> 多项问题：设置 <code>CI</code> 环境变量时跳过工作区信任提示、PR 状态缓存损坏时启动崩溃、机器关机后复活数周前的后台会话、新会话时打开旧对话并丢失已输入内容、在另一终端已恢复的会话上重复启动进程等</li>
+<li>修复 <code>claude agents</code> / <code>claude rm</code> 无法删除 worktree 分支已合并到默认分支但尚未推送的会话</li>
+<li>修复后台会话在 hook 输出无效答案时静默等待的问题，现在会标明 hook 名称和 schema 错误</li>
+<li>修复 hooks 将非 JSON 的 <code>{…}</code> 输出当作纯文本静默处理的问题，现在会报告为 hook 错误并附解析信息</li>
+<li>修复 <code>/mcp</code> 将项目 <code>.mcp.json</code> 中 claude.ai connector 类型条目列在错误的 "claude.ai" 标题下，现在按真实 scope 显示</li>
+<li>修复 MCP 服务器 <code>headersHelper</code> 提供 <code>Authorization</code> 头时 401 后进入 OAuth 发现流程而非按文档重试的问题</li>
+<li>修复 <code>claude logs</code> 退出后终端残留鼠标跟踪、bracketed paste 和备用屏幕状态</li>
+<li>修复 @-mention 无法匹配通过 IME 输入的非拉丁字符（如韩文）会话名</li>
+<li>修复后台 worktree 会话丢失 checkout 的问题，现在后台会话运行期间持有 worktree 锁</li>
+<li>修复 Remote Control 会话在 CLI 静默重连后不显示权限提示或最新消息</li>
+<li>修复 cloud 会话在容器会话凭据不可读时启动失败</li>
+<li>修复 <code>claude remote-control</code> 在全局标志或包装注入选项之后拒绝自身标志（如 <code>--spawn</code>、<code>--name</code>）的问题</li>
+<li>修复启动警告（如 "N MCP servers need authentication"）渲染偏移一列的问题</li>
+<li>修复无效 <code>crossSessionInbound</code> 值被静默忽略的问题，现在会警告并暂存（用户设置）或拒绝（托管设置）跨会话消息</li>
+<li>修复速率限制、用量和快速模式消息在组织不可用 <code>/usage-credits</code> 时仍提示运行该命令</li>
+<li>[VSCode] 修复聊天标签页在会话从未保存时卡在 "No conversation found"，现在会开启新对话</li>
+<li>改进提示底部 PR badge：PR 未变化时减少 GitHub 检查频率，推送或 <code>gh pr</code> 命令仍会立即刷新</li>
+<li>改进 managed settings：客户端超时、MCP 启动模式、stream-watchdog 环境变量不再触发设置审批提示</li>
+<li>改进跨会话消息：默认目录不可用时回退到私有 per-user <code>/tmp</code> 目录，并在通知和 <code>/status</code> 中说明需修复的目录</li>
+<li>Anthropic 遥测导出失败改为 debug 级别日志（<code>[Anthropic telemetry]</code>），避免被误认为 OTel collector 故障</li>
+<li><code>SendMessage</code> 从子代理发送到其他会话时，结果会注明回复将送达父会话对话而非子代理</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.248</guid>
+      <pubDate>Thu, 27 Aug 2026 22:12:20 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.150.1 发布：修复远程压缩中保留图像的令牌预算计算</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.150.1</link>
@@ -1228,68 +1288,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.146.0</guid>
       <pubDate>Wed, 29 Jul 2026 01:42:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.25.0 发布：Scratchlist v2、原生推送通道与对话分享功能增强</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.25.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.25.0 版本发布，带来了多项桌面端交互优化与核心功能扩展。</p>
-<h3>重要改动</h3>
-<ul>
-  <li><strong>Scratchlist v2 升级</strong>：通过类型化表实现 Hub 同步，并支持会话更新附加传输，提升了多任务管理的稳定性与效率。<a href="https://github.com/tiann/hapi/pull/896">[PR #896]</a></li>
-  <li><strong>原生推送与设备管理</strong>：新增基于 FCM (Firebase Cloud Messaging) 的原生伴侣推送通道，支持设备注册与配对二维码功能，改善了多设备协同体验。<a href="https://github.com/tiann/hapi/pull/803">[PR #803]</a></li>
-  <li><strong>对话分享与预览增强</strong>：支持将对话轮次直接分享为图片，新增图片预览导航功能，并在对话大纲中显示时间戳，方便回顾与分享。<a href="https://github.com/tiann/hapi/pull/1047">[PR #1047]</a><a href="https://github.com/tiann/hapi/pull/1100">[PR #1100]</a><a href="https://github.com/tiann/hapi/pull/1111">[PR #1111]</a></li>
-  <li><strong>代码视图优化</strong>：为代码和 Diff 视图添加了全局换行（Word-wrap）切换开关，提升长代码阅读体验。<a href="https://github.com/tiann/hapi/pull/985">[PR #985]</a></li>
-  <li><strong>CLI 对等通信</strong>：新增 <code>ping-peer</code> CLI 命令及 MCP <code>ping_peer</code> 功能，支持 CLI 层面的对等消息传递。<a href="https://github.com/tiann/hapi/pull/1195">[PR #1195]</a></li>
-</ul>
-<h3>其他改动</h3>
-<ul>
-  <li>修复了 Scratchlist 模式在成功推送到队列后未能退出的问题。<a href="https://github.com/tiann/hapi/pull/960">[PR #960]</a></li>
-  <li>优化了会话列表的对齐与滚动稳定性，修复了触摸点击导致会话导航重复触发的问题。<a href="https://github.com/tiann/hapi/pull/1196">[PR #1196]</a><a href="https://github.com/tiann/hapi/pull/1185">[PR #1185]</a></li>
-  <li>改进了 Codex 模型的查询方式（改为通过机器 RPC 而非会话 cwd），并正确暴露 Codex Fast 和 Plan 标识。<a href="https://github.com/tiann/hapi/pull/1186">[PR #1186]</a><a href="https://github.com/tiann/hapi/pull/1007">[PR #1007]</a><a href="https://github.com/tiann/hapi/pull/1017">[PR #1017]</a></li>
-  <li>修复了 CLI 重连时忽略来源提示的问题，以及 <code>CreatePlan</code> 任务继续执行的逻辑。<a href="https://github.com/tiann/hapi/pull/1192">[PR #1192]</a><a href="https://github.com/tiann/hapi/pull/1097">[PR #1097]</a></li>
-  <li>终端卡片现在使用简洁的命令名称进行标签化，会话预览在搜索时保持折叠状态。<a href="https://github.com/tiann/hapi/pull/1201">[PR #1201]</a><a href="https://github.com/tiann/hapi/pull/1183">[PR #1183]</a></li>
-  <li>优先使用实时 Hub 连接状态而非导航器状态，并恢复 Codex 恢复 ID 的存储消息。<a href="https://github.com/tiann/hapi/pull/1051">[PR #1051]</a><a href="https://github.com/tiann/hapi/pull/1180">[PR #1180]</a></li>
-  <li>修复了主包发布流程的依赖检查问题，以及 Scratchlist 活动图标的居中显示。<a href="https://github.com/tiann/hapi/pull/1187">[PR #1187]</a><a href="https://github.com/tiann/hapi/pull/1105">[PR #1105]</a></li>
-</ul>
-<h3>你知道吗？</h3>
-<p>Hapi 的 <strong>Scratchlist</strong> 机制允许用户快速暂存和切换不同的编码任务上下文。v0.25.0 引入的 v2 版本通过底层同步机制的重构，解决了旧版在多设备或网络波动时可能出现的上下文不同步问题，进一步提升了并行编码工作的流畅度。此外，新增的 FCM 推送通道使得桌面端应用能够在后台接收即时任务通知，无需保持应用常驻前台，显著降低了系统资源占用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.25.0</guid>
-      <pubDate>Tue, 28 Jul 2026 04:30:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.24.0 发布：支持 Codex 主动模式与工具执行耗时显示</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.24.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Hapi v0.24.0 发布：支持 Codex 主动模式与工具执行耗时显示</h3>
-<p>Hapi 发布了 v0.24.0 版本，主要引入了对 Codex 主动 <code>/agent</code> 模式的支持，并在 Web 界面新增了工具执行耗时显示功能。此外，该版本还包含多项 CLI 交互优化、UI 细节修复以及会话管理改进。</p>
-<h4>核心功能与特性</h4>
-<ul>
-  <li><strong>Codex 主动模式支持</strong>：新增对 Codex 主动 <code>/agent</code> 模式的支持，提升自动化工作流效率 <a href="https://github.com/tiann/hapi/pull/1172">(#1172)</a>。</li>
-  <li><strong>工具执行耗时显示</strong>：Web 端现在可以直观展示工具执行耗时，帮助开发者更好地追踪任务进度与性能瓶颈 <a href="https://github.com/tiann/hapi/pull/1140">(#1140)</a>。</li>
-</ul>
-<h4>交互与 UI 优化</h4>
-<ul>
-  <li>修复了会话侧边栏在选择后不稳定的问题，并优化了设置界面的视觉层次与标签间距 <a href="https://github.com/tiann/hapi/pull/1173">(#1173)</a> <a href="https://github.com/tiann/hapi/pull/1177">(#1177)</a>。</li>
-  <li>改进了语音后端检测逻辑，避免误触发错误横幅；同时对齐了会话代理图标与文本 <a href="https://github.com/tiann/hapi/pull/1164">(#1164)</a> <a href="https://github.com/tiann/hapi/pull/1159">(#1159)</a>。</li>
-  <li>修复了历史消息加载时时间戳不稳定的问题，并完善了圆形操作图标的箭头连接 <a href="https://github.com/tiann/hapi/pull/1152">(#1152)</a> <a href="https://github.com/tiann/hapi/pull/1154">(#1154)</a>。</li>
-</ul>
-<h4>CLI 与代理管理改进</h4>
-<ul>
-  <li>修复了 CLI 中内部代理事件泄露为原始 JSON 到聊天窗口的问题 <a href="https://github.com/tiann/hapi/pull/1165">(#1165)</a>。</li>
-  <li>优化了本地交接（local handoff）时活跃 Claude 模型的保留逻辑 <a href="https://github.com/tiann/hapi/pull/1168">(#1168)</a>。</li>
-  <li>改进了孤儿子代理追踪的分组逻辑，现按 <code>parent_tool_use_id</code> 进行归类 <a href="https://github.com/tiann/hapi/pull/1175">(#1175)</a>。</li>
-</ul>
-<h4>其他修复</h4>
-<ul>
-  <li>Hub 模块现在可以自动归档具有过期元数据的活跃会话 <a href="https://github.com/tiann/hapi/pull/1170">(#1170)</a>。</li>
-  <li>Codex 模块清除了已完成的安全审查提示，并默认显示目录中的 Fast 层级 <a href="https://github.com/tiann/hapi/pull/1156">(#1156)</a> <a href="https://github.com/tiann/hapi/pull/1179">(#1179)</a>。</li>
-</ul>
-<p>完整更新日志与代码变更：<a href="https://github.com/tiann/hapi/compare/v0.23.4...v0.24.0">v0.23.4...v0.24.0</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.24.0</guid>
-      <pubDate>Mon, 27 Jul 2026 02:24:23 GMT</pubDate>
     </item>
   </channel>
 </rss>
