@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 29 Aug 2026 09:01:29 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 29 Aug 2026 14:26:56 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 开源维护者呼吁：请停止用 AI 生成的“垃圾贡献”刷简历</title>
+      <link>https://news.ycombinator.com/item?id=49474143</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论开源贡献被当作简历货币、AI生成低质量贡献刷简历的现象，属于开源项目及AI软件技术相关话题，符合用户兴趣，推荐阅读。</small></p><p>开源软件维护者 Neil Alexander 在博客发文，呼吁人们停止用 AI 生成的大量低质量贡献（"AI slop"）来美化自己的 GitHub 简历。他指出，成功的开源贡献在 GitHub 上已成为一种"社交货币"：贡献者头像、活动流和每日贡献图都会被招聘人员留意，因此有人开始利用大语言模型批量制造贡献，营造"关心项目、发现问题、投入时间修复"的假象。</p><p>作者观察到，过去一年外部贡献的模式明显改变：收到的 PR 多于 issue；issue 常附带 AI 生成的分析；安全漏洞报告激增，且往往附带 AI 生成的修复方案。他举了一个具体例子：一位从 2018 年底到几周前几乎没有任何 GitHub 贡献、也从未与项目互动过的用户，一口气提交了三个修正注释中拼写和语法错误的 PR——Claude 完成了修改、撰写了 PR 描述、代用户签署提交，并在提交信息中加入了 co-author 标记。作者认为这些贡献与项目本身无关，最终未加评论地关闭了全部三个 PR。</p><p>作者解释，他不愿接受这些"对项目毫无实质改进"的 PR，也不想让贡献者名单成为"让机器人改错别字"的奖励。同样的模式也出现在安全漏洞报告上：CVE 传统上会记在报告者名下，但近期收到的报告明显由 AI 生成。维护团队因此对报告严重性评估更加谨慎，有时会拒绝为低严重性问题发布 CVE。作者总结道：开源建立在信任之上，真正重要的不是你能让大语言模型产出多少个 PR、积累多少个 CVE，而是能否让项目变得更好。</p><p>这篇帖子在 Hacker News 引发 141 条评论的讨论。有维护者表示深有同感，认为这类 PR 消耗了大量审查时间；也有人质疑作者仅凭"意图"就拒绝有效贡献是否合理。评论中，维护者 Gunnar Morling 分享了自己项目的应对规则：关闭疑似机器人账户的 PR、关闭对随机仓库大量提交的用户的 PR、允许使用 AI 但贡献者必须能解释自己的 PR（见其<a href="https://github.com/hardwood-hq/hardwood/blob/main/CONTRIBUTING.md#a-note-on-ai-assisted-contributions">贡献指南</a>）。还有人提到 2020 年 Hacktoberfest 因参与者为拿 T 恤刷 PR 而被迫修改规则的先例，以及"要求贡献者提供测试证据"等应对手段。</p><h3>你知道吗？</h3><p>GitHub 的"贡献图"（activity graph）会在个人主页以绿色方块显示每日贡献数量，常被招聘者当作筛选信号。早在 AI 时代之前，就有人为获取 Hacktoberfest 的 T 恤等奖励而批量提交低质量 PR——2020 年 DigitalOcean 就因 PR 泛滥被迫调整活动规则，如今 AI 只是把这种"刷贡献"行为的成本降得更低。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49474143</guid>
+      <pubDate>Fri, 28 Aug 2026 03:49:33 GMT</pubDate>
+    </item>
     <item>
       <title>十二要素应用（Twelve-Factor App）方法论：2025 年再引热议</title>
       <link>https://news.ycombinator.com/item?id=49472216</link>
@@ -920,43 +929,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49401549</guid>
       <pubDate>Sat, 22 Aug 2026 16:58:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 为什么你的本地 LLM 感觉比实际更笨：推理实现差异的实验剖析</title>
-      <link>https://news.ycombinator.com/item?id=49402232</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要分析本地 LLM 推理实现差异（量化等）导致的性能感受偏差，属于 AI 软件技术进展，符合用户兴趣，推荐阅读。</small></p><p>Level1Techs 论坛用户 thr3e 发布了一篇技术性实验文章，系统性地展示本地 LLM 推理中「实现差异」对输出质量的影响。作者指出，人们常因网上好评下载某个模型（往往是量化版本），却感觉「这模型真笨」——问题往往不在模型本身，而在于运行它的硬件与软件栈：不同代际 GPU 的指令集、不同的推理引擎、不同的 CUDA 内核，都会让同一份权重算出略有差异的结果。</p>
-
-<h3>核心概念</h3>
-<p>模型输出的 logits（每个候选 token 的得分）经归一化、采样器处理后生成下一个 token。作者提醒：模型卡（如 Hugging Face 上的说明）通常会指定正确的采样器设置（如 temp 1.0、top-p 0.95），使用错误设置（例如温度过低）会导致模型陷入循环。文中还介绍了 KL 散度（KLD），用于衡量输出概率分布相对基线的偏移程度，并警告不要轻信量化模型卡上「低到不可思议」的 KLD 数值——除非作者披露完整的评测环境、校准数据与方法。</p>
-
-<p>作者还拆解了推理引擎（vLLM）内部庞大的软件栈——一个 nightly 容器镜像就包含 734 个软件包，每个包都有自己的 bug 和未文档化的行为，你的实现所走的代码路径是独一无二的。</p>
-
-<img src="https://level1techs.us-east-1.linodeobjects.com/original/4X/d/8/7/d87c01532439840126d90ea94abfdfcf6501f42f.png" alt="wtf is vllm doing" width="594" height="550" />
-
-<h3>实验一：注意力后端精度对比</h3>
-<p>在 Qwen3.6-27B（BF16 权重、RTX PRO 6000 Blackwell GPU、vLLM）上，仅切换 prefill 阶段的注意力后端（FlashAttention 2、Flash Inference、Triton Attention），在约 10 万 token 的真实工作负载（含多次工具调用的实际 agent 任务）中，不同后端在长上下文的后期开始产生 top-1 token 分歧——即贪心解码会选择不同的下一个 token。分歧呈聚集状出现，与提示内容相关，而非随上下文长度平滑增长。同一后端重复运行时 logits 逐位一致，说明分歧完全来自不同 CUDA 内核的矩阵运算差异。</p>
-
-<img src="https://level1techs.us-east-1.linodeobjects.com/optimized/4X/a/4/d/a4d538b794d00fe1abc50f51653fee907e333b84_2_720x287.png" alt="triton-baseline-top1-disagreement-lines-8k-prompt2-96k" width="720" height="287" />
-
-<h3>实验二：KV 缓存量化</h3>
-<p>仅将 KV 缓存从 BF16 量化为 int8/int4，就足以引发明显分歧。实验中还复现了一次完全可复现的工具调用错误：BF16 与 int8 最终都能恢复，而 int4 未能正确完成工具调用。</p>
-
-<img src="https://level1techs.us-east-1.linodeobjects.com/optimized/4X/7/e/d/7edad1deabc1963085623d010cce68e8a521f05b_2_720x297.png" alt="triton-bf16-baseline-kv-cache-top1-lines-8k-prompt2-96k" width="720" height="297" />
-
-<h3>实验三：权重量化对比</h3>
-<p>作者对比了 BF16 参考版、官方 FP8、INT8（W8A16）、NVIDIA NVFP4 与 AWQ W4A16 五种权重格式。结果显示 INT8（W8A16）表现最佳，甚至优于官方 FP8；NVIDIA 的 NVFP4 排名垫底，到 88k 上下文时约 50% 的采样位置发生 token 翻转。NVFP4 与 AWQ W4A16 均未能正确完成工具调用（把正确的 Cisco 命令 'show arp' 执行成了 'show run'），而 FP8 与 INT8 能正确完成。</p>
-
-<img src="https://level1techs.us-east-1.linodeobjects.com/optimized/4X/5/4/2/542aeb8664c76d71c20f7762c5db83301a6e66e8_2_720x409.png" alt="five-way-quant-bakeoff-top1-8k-prompt2-96k" width="720" height="409" />
-
-<h3>社区反馈</h3>
-<p>评论区围绕「本地模型变笨」的其他常见原因展开讨论：有用户指出很多 GGUF 文件丢失了聊天模板（chat template）元数据，运行时静默回退到 ChatML，导致模型明显变笨；也有人提到 Ollama 默认使用 Q4 量化，用户往往不清楚自己实际运行的权重格式，从而误判模型本身的能力。还有用户分享经验：不要量化 KV 缓存、量化级别不要低于 Q8。另有用户报告在 MacBook Pro 上运行 Qwen 3.8 27B（MLX）效果不错，以及用 Q4_K_P 量化版在 4090 上挑战 CrackMe CTF 的实战结果。</p>
-
-<h3>你知道吗？</h3>
-<p>不同注意力后端产生不同 logits 的根源在于浮点运算的不可结合性：矩阵乘法的求和顺序不同，结果就会有微小差异。这些差异在短上下文中通常无足轻重，但在长上下文、工具调用等对精度敏感的场景中可能被放大，最终导致完全不同的输出路径——这正是「同一模型、不同实现、结果不同」的数学根源。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49402232</guid>
-      <pubDate>Sat, 22 Aug 2026 18:14:16 GMT</pubDate>
     </item>
   </channel>
 </rss>
