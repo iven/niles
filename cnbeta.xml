@@ -3,7 +3,31 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Sat, 29 Aug 2026 18:25:29 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 29 Aug 2026 21:42:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Cloudflare通过五项Rust代码优化释放约100TB内存 未增一台服务器</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1575522.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 核心是Rust代码优化释放内存、提升效率的经验分享，属于编程效率改进经验，用户很感兴趣</small></p>
+                                                
+                                                <p>Cloudflare近日大幅降低了旗下1.1.1.1公共DNS解析器所使用的缓存内存，整个网络因此释放出约100TB内存。此次优化并未涉及更换服务器硬件或拆除内存模块，而是通过改进缓存DNS数据的软件存储方式实现。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0830/cee0b60a48c4326.jpg"></p><p>这项工作主要围绕Big Pineapple展开。Big Pineapple是Cloudflare用于支撑1.1.1.1解析器、DNS防火墙以及其他多项DNS服务的缓存平台。Cloudflare系统工程师Sebastiaan Neuteboom在一篇技术博客中介绍了对Rust代码库进行的五项调整，使单条典型DNS缓存记录的占用空间从953字节降至420字节。</p><p>优化后的系统运行速度也有所提升。Cloudflare表示，缓存插入吞吐量从每秒625000条提高到893000条，查询延迟则从828纳秒降至670纳秒。在5月中旬至7月初的部署过程中，每个实例的第99百分位内存使用量从9.3GB降至5.3GB。</p><p>Cloudflare称，Big Pineapple始终缓存超过2500亿条DNS记录。在如此庞大的规模下，即使每条记录只浪费极少内存，累积起来也相当可观。公司估算，缓存条目中每多占用一个不必要的字节，整个服务器集群就会额外消耗超过250GB内存。</p><p>其中一项重要改动涉及Rust中的Vec和String类型。这些容器被设计为能够动态扩容，因此除了实际数据之外，还会保存容量等额外信息。但DNS记录进入缓存后并不需要继续扩展。Cloudflare于是用固定大小的盒装切片替代了这些结构，删除不再有用的元数据。据公司介绍，仅这一项调整就节省了超过15TB内存。</p><p>工程师还重新设计了DNS响应在内存中的排列方式。此前，Big Pineapple会为每个响应分别保存三组记录列表；新设计则将所有记录放进同一个缓冲区，再通过两个字节的偏移量标识各条记录的位置。</p><p>当所有者名称只是重复被查询的域名时，缓存现在也不再保留这些名称，而是在返回响应时重新构建。此外，系统还改为使用带长度前缀的原始DNS线路格式字节来保存记录数据，从而解决早期设计中的空间浪费问题。此前，一条仅占4字节的IPv4 A记录，与Cloudflare缓存的最大DNS记录类型——相对少见的NAPTR记录一样，都会占用144字节。改用可变长度的原始数据格式后，较短记录无需再为最长记录预留同样的空间。</p><p>Cloudflare在整个服务器集群中收回的100TB内存，大致相当于130台第13代服务器的内存容量。这些服务器每台搭载768GB DDR5-6400内存。Cloudflare曾考虑为该代服务器采用1152GB内存配置，但在评估高容量内存的成本后最终放弃。</p><p>有了这部分内存空间，Cloudflare计划扩大DNS缓存规模。将更多记录保存在本地，有望提高缓存命中率，并减少向权威DNS服务器发起的请求流量。</p><p>这并不是Cloudflare首次开展大规模内存效率优化。去年，公司还曾将负责处理请求的FL2层重写为Rust代码。在服务器内存价格不断上涨的情况下，通过软件优化释放现有基础设施的潜力，可能比单纯增加硬件更具成本效益。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1575522.htm</guid>
+      <pubDate>Sat, 29 Aug 2026 18:55:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Asahi Linux即将发布支持M3的版本 M4与M5适配工作仍在推进</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1575516.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于Asahi Linux开源项目新版本发布与适配进展，属于开源项目/软件新功能主题，用户感兴趣</small></p>
+                                                
+                                                <p>Asahi Linux项目距离正式推出支持苹果M3系列芯片的版本已经非常接近，不过M4和M5芯片的适配工作目前仍处于开发阶段。该项目旨在让Linux原生运行于苹果基于ARM架构的Apple Silicon芯片上。尽管该项目整体进展较为缓慢，但目前正接近一个重要里程碑。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0830/7fc84df5838a653.jpg"></p><p>项目团队在8月26日发布的博客文章中表示，M3系列Apple Silicon的支持工作已经经历了多次调整。相关功能早在今年1月就已能够运行，但当时仍处于半可用状态，如今整体完成度已经明显提升。团队称，M3支持版本几乎已经可以“正式发布”，并将在未来几周公布更多信息。</p><p>在M3适配过程中，团队发现其网络摄像头图像信号处理器与M2版本相比变化不大，主要工作集中在让其正常运行。不过，M3 Max持续出现一条导致初始化被跳过的提示信息，影响了功能启用，团队随后通过新的驱动程序解决了这一问题。</p><p>M3内置麦克风的工作方式也发生了变化。由于系统采用了新的“高频”抽取器，需要配置新的系数，并处理另一条初始化提示信息，相关问题同样已经得到修复。</p><p>此外，负责通过USB-C接口处理USB 3、DisplayPort和雷雳连接的ATCPHY硬件模块，也被发现存在细微变化。</p><p>USB接口控制器方面，基础版M3及更早一代芯片使用的是苹果定制的德州仪器ACE2芯片，而M3 Pro和M3 Max则改用了ACE3。为支持后者，开发团队完成了必要的逆向工程工作。</p><p>另一个较为预期的变化是GPU和显示控制器的固件应用程序二进制接口。两者的固件与特定版本的macOS系统绑定，因此也需要针对不同系统版本进行适配。</p><p>在M3支持即将完成之际，Asahi Linux团队并未停下脚步。团队此前已意识到，M4和M5将带来更大的挑战，并曾在2025年4月暗示，其中一些问题可能会影响后续开发。</p><p>根据最新更新，M4的适配工作仍在推进，团队甚至已经创建了早期M5版本。M4目前面临的问题包括WFI指令相关故障，以及苹果在macOS 15.x固件版本中对NVMe控制器固件应用程序二进制接口做出的“破坏性更改”。部分开发人员已经设法缓解这些变化，使针对不同芯片世代的系统构建版本能够运行。</p><p>与此同时，团队还修复了PCIe支持问题，使Linux能够枚举总线上的设备；另外也解决了一个导致Linux在启动后不久崩溃的错误，该错误会在启用多个CPU核心时出现。</p><p>不过，尽管M4和M5的适配工作正在持续进行，Asahi Linux团队目前还没有准备好让普通用户尝试这两个版本。</p><p>了解更多：</p><p><a href="https://asahilinux.org/2026/08/progress-report-7-2/" _src="https://asahilinux.org/2026/08/progress-report-7-2/" target="_blank">https://asahilinux.org/2026/08/progress-report-7-2/</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1575516.htm</guid>
+      <pubDate>Sat, 29 Aug 2026 18:49:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 韩国拟向全民免费开放生成式AI服务 不设词元使用上限</title>
       <link>https://www.cnbeta.com.tw/articles/tech/1575512.htm</link>
@@ -582,30 +606,6 @@ Microduck 的预购。一只 25 厘米高、不到 800 克重的双足机器鸭�
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1575064.htm</guid>
       <pubDate>Wed, 26 Aug 2026 11:56:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 智谱确认神秘“牛来”模型为GLM系列新版本：将发布权重</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1575056.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 智谱确认GLM系列新模型并发布权重，属新AI模型发布公告且涉及开源，用户很感兴趣，必看</small></p>
-                                                
-                                                <p>据彭博社报道，<strong>一款凭借免费、高性能登顶在线使用排行榜的神秘新AI模型，现在确认是由中国智谱公司开发的</strong>。智谱周三在回应彭博社询问时证实，外界猜测的Ox Alpha模型是其GLM系列的新版本，并表示将于今晚发布其权重。</p>                
-                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0826/ca2bc738fffd403.png"></p><p>智谱称，该模型的代号灵感来源于最近在中国上映的一部热门电影《牛来》。</p><p>目前，<strong>Ox Alpha仍可免费使用</strong>，它在AI模型平台OpenRouter的排行榜上飙升至首位，使用量是DeepSeek的两倍多。该公司计划公开其权重，这将允许开发者在模型之上构建其他产品。权重是AI系统中用于指导模型进行决策的参数。</p><p>上周末，Ox Alpha以匿名方式出现在OpenRouter平台上。这是该平台历史上规模最大的一次模型发布，并迅速吸引了好奇的观察者和用户。据其介绍，Ox Alpha是一款专为编程和智能体任务设计的推理模型，可以处理文本、图像和视频输入。正在收购OpenRouter的Stripe公司CEO帕特里克·科里森(Patrick Collison)称，这次秘密发布“令人印象深刻”。</p><p><strong>Ox Alpha是中国公司今夏推出的一系列强大模型之一</strong>，这些模型以远低于美国竞争对手的成本实现了领先的基准测试性能，加剧了全球两大经济体之间的AI竞赛。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1575056.htm</guid>
-      <pubDate>Wed, 26 Aug 2026 11:45:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 逆向工程师拆解Windows 11性能服务：能力强大 但并非“间谍软件”</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1575034.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 逆向分析Windows 11性能服务的软件技术内容，符合软件技术类兴趣，推荐阅读</small></p>
-                                                
-                                                <p>近期，Windows 11 的性能表现持续受到用户批评，而一个名为“Windows Health and Optimized Experiences”的后台服务也因此引发关注。此前有说法称，该服务会监控处理器、温度和电池信息，并每隔 15 分钟向微软发送数据。对此，逆向工程师 Xusheng Li 对其核心服务 whesvc 展开分析，结论是：该服务确实拥有相当广泛的系统权限，但现有脚本主要用于性能诊断，并未发现自动上传用户数据或进行屏幕监控的迹象。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/0826/df7ce7c972798f4.webp"></p><p>微软工程师 Scott Hanselman 此前曾解释，该服务的定位是在 Windows 检测到运行卡顿或响应迟缓时，收集针对性的性能诊断数据。相关追踪信息会先保存在本地，用户可通过“反馈中心”自行选择是否提交。Xusheng Li 的逆向分析基本印证了这一说法，但也显示其底层实现远比普通性能诊断服务更复杂。</p><p>分析显示，whesvc 服务本体的体积并不大，关键功能主要位于 windiag.dll。该动态链接库内嵌 Lua 5.4.7 脚本语言，微软还随系统提供了 whesvc_assets.dll，其中包含 84 个已编译的 Lua 脚本，分别负责不同的诊断场景。</p><p>Xusheng Li 发现，该脚本引擎向脚本开放了 79 项原生函数，可调用的能力范围相当广泛。其中包括读取和修改 Windows 注册表、执行文件操作、创建及控制进程、查询 WMI（Windows 管理规范）、采集 ETW（Windows 事件追踪）数据、检查安全令牌、获取电源与温度信息、下载符号文件、生成 .cab 压缩包，以及发起 HTTP 请求等。</p><p>此外，这套机制还包含通用的外部函数接口（FFI），允许脚本与原生 DLL 及不同的 Windows 句柄交互。单从能力层面看，这一底层引擎的权限确实远超普通性能诊断所需的范围，也因此容易引发用户对隐私和系统控制权的担忧。</p><p>不过，功能强大并不等同于被用于不当行为。逆向结果显示，微软随系统提供的脚本大多只将这些能力用于常规诊断任务。例如，注册表相关功能主要用于在服务重启后保存自身计数器；一个驱动信息模块可修改 Windows Driver Verifier 设置，但该功能需特定环境变量触发，并服务于内存监控流程。研究者认为，这可能是 whesvc 在实际使用中最具侵入性的操作之一。</p><p>部分脚本还会调用微软自家的工具。例如，有脚本会启动 powercfg.exe 生成 Sleep Study 睡眠报告，另一路径则会调用 wpr.exe，对 Windows Performance Recorder 生成的性能追踪记录进行合并处理。</p><p>在实际诊断能力方面，whesvc 可以在应用程序无响应时收集追踪信息，监测输入延迟和显示异常，识别启动缓慢的应用，并检测长期停留在等待状态的系统服务。其电源模块则可用于排查异常耗电、分析阻止电脑进入睡眠状态的因素，以及响应持续性的功耗问题。</p><p>以 memory_handle_leak 模块为例，该模块专门用于排查内存泄漏。它会在多个时间间隔内追踪内存和句柄数量，并结合连续增长情况及线性回归斜率，尝试区分潜在内存泄漏与正常的资源增长。</p><p>争议较大的“每 15 分钟上传数据”说法，也在此次分析中得到澄清。system_summary 模块确实会生成时长为 900 秒、即 15 分钟的 JSON 系统摘要，但这些数据默认保存在本地。尽管服务具备网络通信能力，研究者并未发现任何会随意发起 HTTP 请求的脚本场景；在全部 84 个脚本中，唯一被识别出的 URL 指向微软公开符号服务器，而这一功能据称在普通零售版 Windows 安装中处于禁用状态。</p><p>因此，Xusheng Li 表示，自己曾专门寻找可能存在的可疑行为，但没有发现证据表明该服务会秘密录制屏幕，也没有发现诊断追踪数据会在未经用户操作的情况下自动上传至微软。此前在网络上传播的“Windows 11 借此服务暗中监控用户”的说法，缺乏相应技术依据。</p><p>整体来看，微软为 Windows 11 构建的是一套以 SYSTEM 权限运行的通用系统诊断引擎，能够处理注册表、文件、进程以及原生代码执行等任务。其底层能力显然比性能排障本身所需的功能更为强大，但当前随系统提供的脚本仍被限制在性能诊断范围内。换言之，whesvc 的权限设计或许值得继续关注，但现有分析并不支持将其直接定性为“间谍软件”。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1575034.htm</guid>
-      <pubDate>Wed, 26 Aug 2026 07:30:53 GMT</pubDate>
     </item>
   </channel>
 </rss>
