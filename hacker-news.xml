@@ -3,7 +3,52 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 29 Aug 2026 14:26:56 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 29 Aug 2026 18:26:43 GMT</lastBuildDate>
+    <item>
+      <title>Debian 投票通过「负责任使用生成式 AI」决议：不禁止也不背书，贡献者仍需对成果负责</title>
+      <link>https://news.ycombinator.com/item?id=49489982</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是 Debian 社区对生成式 AI 使用的政策决议投票，属于社区治理与政策类新闻，不涉及模型发布或编程工具，与用户核心兴趣无强匹配，故评为可选。</small></p><p>Debian 项目公布了关于大型语言模型（LLM）使用问题的一般决议（General Resolution）投票结果，最终胜出的是第 5 号方案「负责任地使用生成式 AI」（Responsible Use of Generative AI）。该决议既不支持也不禁止在 Debian 的软件开发、维护和文档编写中使用生成式 AI 工具，同时强调：无论使用何种工具，所有提交给 Debian 的贡献都必须满足相同的质量、正确性、可维护性和法律合规标准；AI 辅助输出不能减轻贡献者对其提交工作的责任，贡献者应在将其纳入 Debian 之前理解、审查、测试并酌情修改 AI 辅助产出。</p><p>值得注意的是，两个全面反对 AI 的方案（第 1 号修改社会契约、第 3 号修改行为准则）均未能在投票中击败「以上皆非」（None of the Above）选项，被彻底否决。有评论者指出，这两个方案隐含「猎巫」意图，若通过可能对不遵守模糊反 AI 立场的贡献者进行惩罚甚至驱逐，其失败被视为理性立场的胜利。不过也有评论指出，约 30% 的投票者更倾向于完全禁止 AI 的方案，结果本质上只是维持了现状（投票结果图表见 <a href="https://people.debian.org/~lucas/gr-2026-002/results.png">这里</a>）。</p><p>社区讨论中出现了多种观点。支持者认为这是务实的选择——Debian 规模太大，无法有效执行更严格的禁令；反对者则担心缺乏披露要求会导致「狂野西部」式的现状延续，并可能在将来引发维护性和稳定性问题。关于维护者是否有权拒绝 AI 生成的补丁，多位 Debian 开发者表示维护者通常拥有广泛的裁量权，除非涉及技术委员会（Technical Committee）的裁决或 Debian 政策要求。还有人质疑如何确保 LLM 生成代码的法律合规性，并呼吁增加针对「AI 代理骚扰维护者」的条款。</p><p>知名 Debian 开发者 Joey Hess 对结果表示不满，认为 LLM 会消除清理样板代码和改革繁琐流程的激励，使 Debian 更加固化、更少探索变革的可能（见其博客文章 <a href="https://joeyh.name/blog/entry/Debian_and_the_sirens/">Debian and the sirens</a>）。HN 讨论中也有用户担忧版权问题——完全由 AI 生成的代码在多大程度上可受版权保护，以及公司可能因法律顾虑而转向闭源、停止向自由软件项目贡献。原文见 <a href="https://lwn.net/Articles/1091231/">LWN.net</a>。</p><h3>你知道吗？</h3><p>Debian 的一般决议采用 Condorcet 投票法（具体为 Schulze 方法），投票者可以对多个选项排序表达偏好，而非简单多数决。「以上皆非」（NOTA）是 Debian 投票中的特殊选项，若某个提案未能击败 NOTA，即意味着该提案被明确否决——这正是本次两个反 AI 方案的下场。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49489982</guid>
+      <pubDate>Sat, 29 Aug 2026 14:02:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 我意外地把 LLM 记忆变成了程序分析：Lemmalog 与 Datalog 引擎</title>
+      <link>https://news.ycombinator.com/item?id=49485416</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要分享作者构建的 Datalog 引擎 Lemmalog，用以改进 LLM 智能体记忆并做程序分析，属于编程工具分享与 AI 软件技术进展，符合高兴趣，必看。</small></p><p>本文作者 Jordy Zomer 在利用 LLM 智能体进行漏洞研究时发现，随着调查持续数小时，模型会逐渐丢失已确认的事实：它可能重新提出已被排除的思路，忘记某个假设已被证伪，或继续基于失效的观察进行推理。作者由此意识到，这本质上是一个程序分析问题——与其让 LLM 反复从对话记录中重建状态，不如像静态分析引擎那样主动维护「当前已知信息」。</p><p>为此作者构建了 <strong>Lemmalog</strong>：一个面向 LLM 智能体的 Datalog 引擎。系统将问题一分为二——LLM 负责「模糊」部分（理解自然语言、源码、调试器输出并抽取为结构化事实），Lemmalog 负责「确定性」部分（通过规则推导新事实、维护状态）。当某个观察被推翻时，引擎能自动使依赖它的结论失效（retraction），并支持增量求值、事实溯源（provenance，可回答「为什么相信某结论」）、带有效时间区间的事实（temporal facts）等能力。</p><p>作者还解释了为何不直接用向量数据库：向量检索擅长回答「哪些历史信息与当前问题相关」，但无法表达「基于目前所知，什么为真」——它不知道某条陈述两小时后已被证伪，也不知道有多少结论依赖它。</p><p>在 LongMemEval 基准（102 个问题，运行 3 次）上，Lemmalog 的 F1 为 0.463 ± 0.010，准确率 0.575 ± 0.004，高于 OpenClaw（0.244）、Full Context（0.222）以及作者自测的 GPT-4.1 全上下文（0.197），但低于 PropMem（0.550）和 SimpleMem（0.480）。值得注意的是，回答模型接收的上下文约为全上下文的 1/38（约 2,700 tokens vs 约 104,000 tokens/问题）。在作者最关心的 Knowledge Update（知识更新）类别上，Lemmalog 以 0.579 领先 PropMem（0.528）和全上下文（0.202）。目前明显的短板是多会话推理（0.211），诊断发现失败原因通常是信息根本没有被抽取出来，而非连接错误。</p><p>HN 社区讨论中，多位用户将 Lemmalog 与 CodeQL、Graph RAG、Cyc 等既有系统类比，也有人指出这接近非单调逻辑，并推荐关注 answer set programming（ASP）；还有用户分享了类似经历——LLM 在长研究中会顽固保留已被证伪的「事实」。</p><h3>你知道吗？</h3><ul><li><strong>Datalog</strong> 是一种声明式逻辑编程语言，源自 Prolog 的子集，常用于程序分析（如 GitHub 的 CodeQL 就用 Datalog 变体从代码库中提取并查询漏洞模式）。它天然支持增量求值，适合维护不断变化的事实集合。</li><li>评论区提到的 <strong>Answer Set Programming（ASP）</strong> 是 Datalog 的扩展，支持非单调推理——即允许「默认相信某事，直到被反例推翻」，这与本文中「事实被证伪后自动撤销相关结论」的需求高度契合。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49485416</guid>
+      <pubDate>Fri, 28 Aug 2026 23:27:45 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI Python SDK 迁移至 HTTPX2：迁移指南与社区讨论</title>
+      <link>https://news.ycombinator.com/item?id=49477212</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 OpenAI Python SDK 迁移至 HTTPX2 的更新与迁移指南，属于开源项目与 AI 软件技术进展，用户会感兴趣，推荐阅读。</small></p><p>OpenAI 官方 Python SDK 现已改用 <strong>HTTPX2</strong> 作为其同步与异步 HTTP 客户端。HTTPX2 会随 <code>openai</code> 包自动安装，而旧版 <code>httpx</code> 不再作为依赖被安装。官方发布了一份<a href="https://github.com/openai/openai-python/blob/main/httpx2.md">迁移指南</a>，说明对使用 SDK HTTP 层的应用会产生哪些影响。</p>
+
+<p>对于使用 SDK 默认 HTTP 客户端的用户，现有 API 调用、解析后的响应模型、流式 API、认证、重试和数值超时等行为均保持不变，无需额外安装 HTTPX2。但如果应用此前仅因 SDK 的间接依赖而引入了 httpx，则需要自行添加 httpx 依赖，或将相关导入迁移到 httpx2。</p>
+
+<p>主要变化包括：</p>
+<ul>
+<li><strong>TLS 信任库</strong>：HTTPX2 改用操作系统信任库，而非 certifi 提供的 CA 包，SDK 也不再安装 certifi。这可能在缺少系统 CA 证书的最小容器镜像、使用企业 TLS 检查代理的环境，以及依赖自定义或修改版 certifi 包的部署中导致证书验证失败。可通过 <code>SSL_CERT_FILE</code> / <code>SSL_CERT_DIR</code> 环境变量，或向自定义客户端显式传入 <code>ssl.SSLContext</code> 解决。</li>
+<li><strong>自定义 HTTP 客户端</strong>：应改用 <code>httpx2.Client</code>、<code>httpx2.AsyncClient</code> 及对应的配置对象（Timeout、URL、Limits、HTTPTransport、MockTransport 等）。SDK 提供 <code>DefaultHttpx2Client</code> 和 <code>DefaultAsyncHttpx2Client</code> 辅助类，以保留推荐的超时、连接池和重定向默认值；旧名称 <code>DefaultHttpxClient</code> 仍可用，但构造的已是 HTTPX2 客户端。</li>
+<li><strong>认证与事件钩子</strong>：认证处理器和钩子接收的是 HTTPX2 的请求/响应对象，第三方插桩、追踪中间件和认证集成需显式支持 HTTPX2。</li>
+<li><strong>原始响应与异常</strong>：使用原生 HTTPX2 客户端时，<code>with_raw_response</code> 返回的 <code>http_response</code> 为 <code>httpx2.Response</code>，异常底层原因也是 HTTPX2 异常；应用代码仍应优先捕获 SDK 级异常（如 <code>openai.APITimeoutError</code>）。</li>
+<li><strong>aiohttp</strong>：<code>openai[aiohttp]</code> 使用 HTTPX2 原生传输，不再安装旧版 httpx 或 httpx-aiohttp 适配器。</li>
+<li><strong>测试与模拟</strong>：Mock 需拦截 HTTPX2 请求并返回 HTTPX2 响应；RESPX 需更新到兼容 HTTPX2 的版本，仅修补旧版 HTTPX 的 RESPX 无法拦截 SDK 默认的 HTTPX2 客户端。</li>
+<li><strong>临时逃生通道</strong>：依赖仅支持 HTTPX 的传输、集成或模拟库的应用，可显式安装 httpx 并注入旧版客户端（需用 <code>cast(Any, ...)</code> 绕过静态类型检查）。官方表示该兼容路径仅作为迁移辅助，未来可能移除。</li>
+</ul>
+
+<p>社区讨论中，多位开发者指出 TLS 信任库的变更可能对企业网络环境造成破坏性影响，也有人询问此次迁移的动机。Simon Willison 在评论中解释，httpx 正在向 1.0 版本推进且将包含大量破坏性变更，而 httpx2 是承诺不破坏现有 API 的分叉，作为依赖更稳定；Anthropic 的 Python SDK 也在 OpenAI 之后数周做了同样的切换。httpx2 由 Pydantic 赞助，并有 Starlette 新维护者参与。另有评论对比了 niquests 等替代方案，并分享了一份<a href="https://gist.github.com/jtbaker/61061d27949ef48ac31e85ff28c24eb6">基准测试</a>，显示 niquests 在集群内部通信场景下吞吐量约为 httpx2 的 1.3 倍。</p>
+
+<h3>你知道吗？</h3>
+<p>HTTPX2 的诞生源于 httpx 项目维护停滞：社区先后出现 HTTPXYZ 与 httpx2 两个分叉，HTTPXYZ 团队在 README 中表示决定支持 HTTPX2 并将其视为「正统」分叉，把修复向上游合并。另外需注意，HTTPX2 是 Python HTTP 客户端库的名称，与 HTTP/2 或 HTTP/3 协议无关，目前也不支持 HTTP/3。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49477212</guid>
+      <pubDate>Fri, 28 Aug 2026 11:51:20 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 开源维护者呼吁：请停止用 AI 生成的“垃圾贡献”刷简历</title>
       <link>https://news.ycombinator.com/item?id=49474143</link>
@@ -896,39 +941,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49405816</guid>
       <pubDate>Sun, 23 Aug 2026 03:13:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Bruce Eckel 发布《Thinking in Python》：免费在线阅读的 Python 编程新书</title>
-      <link>https://news.ycombinator.com/item?id=49402202</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是关于 Python 编程新书发布的内容，属于编程学习资源，与用户对编程领域的兴趣相符，值得推荐阅读。</small></p><p>《Thinking in Java》与《Thinking in C++》作者 Bruce Eckel 的新书《Thinking in Python》现已上线，可<a href="https://thinkinginpython.com/">免费在线阅读</a>。全书共 47 章，分为五大部分：基础（Foundations）、技巧（Techniques）、模式（Patterns）、函数式编程（Functional Programming）与效果（Effects），涵盖容器、控制流、函数、类与静态类型、测试、数据类、模式匹配、装饰器、上下文管理器、推导式、元编程、性能、并发、经典设计模式（单例、工厂、观察者、访问者等）以及生成器与无状态编程等主题。</p><p>本书以 CC BY-NC-ND 4.0 许可发布，免费在线阅读，但禁止未经许可转载；示例代码与练习解答托管在 <a href="https://github.com/BruceEckel/ThinkingInPython">GitHub</a> 上。作者在<a href="https://thinkinginpython.com/01_Introduction.html">引言</a>中说明，本书借助 Claude（AI）辅助写作，并明确表示"没有 AI 这本书就不会存在"。本书目标读者面向 Python 3.15 及以上版本。</p><p>社区讨论中，有评论指出 Python 3.15 尚未正式发布（目前处于预发布阶段），但作者对 Python 的演进有长期把握；也有读者怀念 Eckel 的"Thinking in"系列如何塑造了一代程序员的学习方式。围绕 AI 辅助写作，评论者就"AI 生成内容"与"AI 垃圾内容（AI slop）"的界限展开讨论，多数人认为关键在于内容是否经过编辑与验证，而非是否由 AI 生成。另有读者表示，克隆 GitHub 仓库并运行 <code>make epub</code> 即可生成 EPUB 文件，方便在 Kindle 上阅读。</p><h3>你知道吗？</h3><p>Bruce Eckel 的"Thinking in"系列始于 1995 年的《Thinking in C++》，随后 1998 年的《Thinking in Java》成为一代 Java 开发者的经典入门读物。该系列以"思维模型而非语法参考"著称，帮助读者建立对语言设计哲学的理解，而非仅仅罗列 API。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49402202</guid>
-      <pubDate>Sat, 22 Aug 2026 18:10:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 用 Codex 替代 Claude 一周后的十条印象：一个&quot;按令行事&quot;，一个&quot;主动越界&quot;</title>
-      <link>https://news.ycombinator.com/item?id=49393051</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 内容为使用 Codex 与 Claude 两款 AI 编程工具一周后的对比体验与印象，属于编程效率改进经验和 AI 软件工具使用分享，非常契合用户高兴趣主题，故评为 critical。</small></p><p>Ruby/Rails 开发者 Lucian Ghinda 在 <a href="https://allaboutcoding.ghinda.com/a-week-of-using-codex-more-than-claude/">《A week of using Codex more than Claude》</a> 中分享了他用一周时间更多使用 OpenAI Codex（而非 Anthropic Claude）进行编程的十条印象。文章的核心观察是：Claude 倾向于超出被要求的内容，猜测你可能想要什么并直接去做；而 Codex 更像一个"只做你交代的事"的伙伴，在可能完成时就停下来，不会过度发挥。</p><p>作者还提到，Codex 在 Ruby/Rails 代码中生成的注释更少，这一点他很喜欢，并计划分享相关实验。此外，Codex 在代码架构上倾向于给出更简单的方案。</p><p>这篇帖子在 Hacker News 上引发了 200 条讨论，社区反馈呈现明显分歧。围绕"注释更少是否更好"，有用户认为 Claude 近期模型的注释过于冗长、令人厌倦；也有人指出注释能为后续修改提供上下文，而 Claude 的注释有时更适合放在 PR 评论里而非代码中。关于两个工具的实际表现，意见同样两极：一些用户抱怨 Codex 倾向于过度工程化、过于谨慎（例如为简单的抓取任务设计来源共识、枚举和门控逻辑），而另一些用户则认为 Codex 在范围明确的高难度技术问题（如性能优化、数学证明）上表现更好，且响应更快、输出更简洁。也有用户持相反观点，认为 Codex 反而会把简单问题复杂化，Claude 更务实。多数评论者认同"不同模型有不同性格"，需要学习如何针对性地给出指令。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49393051</guid>
-      <pubDate>Fri, 21 Aug 2026 19:51:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Anthropic 被曝在 Claude Code 中悄悄 A/B 测试降低推理努力等级</title>
-      <link>https://news.ycombinator.com/item?id=49401549</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Anthropic 对 Claude Code 推理努力等级进行服务端 A/B 测试调整，属于 AI 软件技术进展及编程工具行为变动，非单纯的行业公司新闻，用户会感兴趣，推荐阅读。</small></p><p>一位用户（@argofowl）在 X 上爆料称，Anthropic 正在对 Claude Code 进行 A/B 测试，悄悄缩小"努力等级"（effort level）的刻度。据称，约 5% 的 Claude Code 2.1.236+ 会话被纳入该实验，且这是服务端改动而非应用端改动，旧版本和 Opus 5 不受影响。</p>
-<p>爆料者指出，从 2.1.237 版本起，模型将"high"努力解读为 100 分制中的 10 分——这正是此前"low"的数值，而更新日志对此只字未提。他花了一整个下午怀疑自己的代码和应用出了问题，最后才发现自己处于实验组。</p>
-<img src="https://pbs.twimg.com/media/HQU9nN6a8AA2QTf?format=webp&name=medium" alt="" width="611" height="480" />
-<p>该帖在 Hacker News 引发热议（171 分、160 条评论）。部分用户怀疑 Anthropic 还在后端进行用量限制的"橡皮筋"优化和模型路由调整；也有人质疑模型如何得知自己的努力等级——有回复解释称，努力等级完全由系统提示词控制，因此这种验证方式可行。</p>
-<p>不少用户抱怨 Opus 5 烧 token：一个简单的配置文件更新任务竟耗时 43 分钟，包括拉取容器、运行沙箱、创建测试套件等远超任务范围的操作。有观点认为 AI 公司有烧更多 token 的财务动机，但也有用户表示改用 Low 推理模式后效果不错、成本大幅下降。还有用户借机吐槽 Anthropic 的 Cyber Verification Program 审批问题，并指出开源权重模型（如 DeepSeek）正在吸引更多用户迁移。</p>
-<h2>你知道吗？</h2>
-<p>"努力等级"（effort level）是 Anthropic 等模型用于控制推理投入的机制：等级越高，模型在输出前用于思考（reasoning）的 token 预算越多。该设置通常通过系统提示词传达给模型，因此模型本身可以"感知"到自己被设定的等级——这也是爆料者验证实验存在的方式。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49401549</guid>
-      <pubDate>Sat, 22 Aug 2026 16:58:49 GMT</pubDate>
     </item>
   </channel>
 </rss>

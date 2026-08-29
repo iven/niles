@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 29 Aug 2026 14:28:26 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 29 Aug 2026 18:25:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ KDE Plasma 6.8 提升全屏内容性能与能效，多项改进落地</title>
+      <link>https://www.phoronix.com/news/Plasma-6.8-Full-Screen-Perf</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是KDE Plasma 6.8对全屏内容的性能与效率改进，KDE在来源配置中为很感兴趣，属于必看内容</small></p><p>继本周 Union QtWidgets 首个版本发布后，KDE Plasma 6.8 在过去几天又迎来多项改进，涉及性能、能效与稳定性。</p><p>在性能方面，Plasma 6.8 针对使用 Intel 或 NVIDIA GPU、并启用 HDR、ICC 配置文件或夜间灯光（night light）效果的全屏内容，优化了性能与功耗。其 KWin 改动将单平面 OETF（光电转换函数）卸载到 CRTC 后混合 gamma LUT，使更多场景可直接扫描输出（direct scan-out），而非回退到着色器合成，从而减少色带（color banding），并提升对 DRM/KMS 硬件色彩管线的利用率。</p><p>另一项 Plasma 6.8 增强针对 KPipeWire，将 Plasma 与 KWin 的屏幕投射（screen-casting）延迟降低了一帧。回收站小组件（Trash widget）的资源占用也明显下降：它弃用了 DirModel，改用开销更低的 KCoreDirLister 来统计回收站中的项目数量，并且在计数完成前不再更新显示的数字。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=kde_trash_sml" alt="KDE Trash" /><p>在稳定性方面，Plasma 6.8 修复了 Plasma 桌面第二常见的崩溃——该崩溃发生在用户注销时，根源是 QConcatenateTablesProxyModel 析构过程中的问题。此外，Plasma 6.8 内置的 RDP 服务器现在会根据网络可用带宽自动调整质量级别。与此同时，Plasma 6.7.5 也在改进使用 ICC 显示配置文件时 HDR 内容的显示效果。更多细节可参阅最新一期的 <a href="https://pointieststick.com/">This Week in Plasma</a>。</p><h3>你知道吗？</h3><p>「直接扫描输出」（direct scan-out）指合成器将画面直接交给显示硬件输出，而不经过 GPU 着色器合成，可降低功耗与延迟。将 OETF 等色彩转换交给显示控制器（CRTC）的 gamma LUT 硬件完成，正是为了让更多场景满足直接扫描输出的条件，从而更充分地利用 DRM/KMS 硬件色彩管线。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Plasma-6.8-Full-Screen-Perf</guid>
+      <pubDate>Sat, 29 Aug 2026 14:48:28 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ ReactOS 0.4.16 发布：全新图形化安装程序与更好的硬件支持</title>
       <link>https://www.phoronix.com/news/ReactOS-0.4.16-Released</link>
@@ -486,15 +495,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Nginx-Dark-Mode-Mystery</guid>
       <pubDate>Fri, 21 Aug 2026 15:25:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.3 内核清理栈随机化代码，确保在入口处尽早执行以增强安全性</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Stack-Randomization</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 属于 Linux 内核栈随机化安全机制的技术改进，既非 Linux 桌面技术也非开源应用类新功能，与配置中的高兴趣项关联不明显，兴趣不明确。</small></p><p>本周合并进 Linux 7.3 内核的补丁对栈随机化（stack randomization）代码进行了大规模清理，旨在提升 Linux 系统的安全性，并统一各架构特有的相关代码。这项工作由 Intel 的 Thomas Gleixner 主导，涉及通用代码以及 PowerPC、LoongArch、RISC-V、s390 和 x86/x86_64 等架构。</p><p>此次重构整合了大量栈随机化代码，并确保其在尽可能早的阶段执行。Gleixner 在拉取请求中解释称，此前栈随机化分散在架构特有的底层入口代码中，有时还在错误的时机执行（例如在建立状态之前），违反了该代码段不可插桩（non-instrumentable）的约束。通过将栈随机化整合进通用入口代码辅助函数，使其在建立状态后立即、尽可能早地被调用，从而解决了这一问题。</p><p>此外，该拉取请求还让系统调用用户分派（Syscall User Dispatch，SUD）变得更加可配置，例如在出于安全考虑时将其禁用。新增的 CONFIG_SYSCALL_USER_DISPATCH Kconfig 选项可在构建时禁用，而 kernel.syscall_user_dispatch 内核参数则可在运行时控制系统调用用户分派功能。</p><h3>你知道吗？</h3><ul><li>栈随机化是地址空间布局随机化（ASLR）的一部分，通过在每次进程启动时随机化栈的起始地址，增加攻击者利用缓冲区溢出等漏洞实施攻击的难度。</li><li>系统调用用户分派（Syscall User Dispatch）允许应用程序将部分系统调用交由用户空间处理，常用于兼容层或安全沙箱等场景。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Stack-Randomization</guid>
-      <pubDate>Fri, 21 Aug 2026 12:29:09 GMT</pubDate>
     </item>
   </channel>
 </rss>
