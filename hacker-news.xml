@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 30 Aug 2026 17:32:17 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 30 Aug 2026 21:01:57 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Haiku R1/beta6 发布：时隔两年迎来新测试版</title>
+      <link>https://news.ycombinator.com/item?id=49499867</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章报道开源操作系统 Haiku 时隔两年发布新测试版 R1/beta6，属于开源项目与软件新版本发布，符合感兴趣类别</small></p><p>Haiku 操作系统于 2026 年 8 月 26 日正式发布 R1/beta6 版本。这是自上一个测试版发布约两年后的又一次重要更新，时间上恰逢 Haiku 项目 25 周年纪念一周之后。官方在<a href="https://www.haiku-os.org/news/2026-08-26_haiku_r1_beta6">发布公告</a>中提供了完整的发布说明（Release Notes），用户可以直接下载新版本，或从现有安装升级。</p><p>社区对此次发布反响热烈，HN 讨论帖获得 179 分和 50 条评论。多位用户向 Haiku 团队表示祝贺，有评论称赞 Haiku 是"视觉上最美丽的操作系统"，认为其图标、应用与设计风格独树一帜，是少数仍保持"工具"本质、而非充斥着注册、遥测和通知的现代操作系统。</p><p>不过也有用户报告了 beta6 中的回归问题：例如 ThinkPad X1（Yoga 3rd Gen）在启动时挂起，需在安全模式中禁用 ACPI 才能通过；连接 Focusrite Scarlett 音频接口时会导致内核崩溃（关闭设备可避免）。</p><p>评论还围绕 Haiku 禁止 AI 生成代码的规则展开讨论：有观点认为该规则值得重新考虑，AI 可以在低开发速度的项目中发挥很大作用；也有人支持现有立场，指出 AI 生成代码的质量参差以及审查带宽是现实问题。此外，有用户希望 Haiku 未来能在音乐制作领域找到定位（低延迟音频、紧凑的 MIDI 时序），但评论指出这需要一款有说服力的 DAW（数字音频工作站）才能实现。</p><h3>你知道吗？</h3><p>Haiku 是一个免费开源的桌面操作系统，延续了 BeOS 的设计理念。BeOS 于 2001 年被母公司放弃后，社区于同年启动 Haiku 项目进行重写，至今已走过 25 年。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49499867</guid>
+      <pubDate>Sun, 30 Aug 2026 16:01:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 「无 AI 星期五」：HTMX 创始人倡议软件团队每周一天脱离 AI 编程助手</title>
       <link>https://news.ycombinator.com/item?id=49498095</link>
@@ -914,52 +923,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49420902</guid>
       <pubDate>Mon, 24 Aug 2026 15:10:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 可执行文件即 SQLite 数据库：SELF 格式的探索</title>
-      <link>https://news.ycombinator.com/item?id=49415271</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 探索以SQLite替代ELF作为可执行文件格式的编程创新实验，属编程技术探索</small></p><p>作者 Farid Zakaria 在本文中介绍了他长期探索的一个激进想法：用 SQLite 数据库取代 ELF 作为可执行文件格式。他此前在博士论文期间研究过这一方向，但反馈不佳；如今借助 LLM 的进展重新审视，并发布了名为 <strong>SELF</strong>（Structured Executable &amp; Linkable Format）的完整原型，代码托管在 <a href="https://github.com/">GitHub</a> 上。此前他还开发过 <strong>sqlelf</strong>，用 SQL 虚拟表查询 ELF 文件（相关论文见 <a href="https://arxiv.org/abs/2405.03883">arXiv:2405.03883</a>）。</p>
-
-<img src="/assets/images/get-better-material-sqlite.png" alt="四格漫画：乌鸦在麦克风前说「Nix 很棒」，观众喝倒彩喊「换点新段子」，乌鸦最后亮出提示卡：「SQLite 可以是一种目标文件格式」" width="900" height="904" />
-
-<h3>ELF 本身就是数据库</h3>
-<p>作者指出，ELF 格式其实已经实现了大量数据库原语：.strtab/.dynstr 是字符串驻留（string interning），.hash/.gnu.hash 是符号查找索引（甚至手写了布隆过滤器），section header table 相当于 sqlite_schema，st_name 是手写的外键，sh_offset/sh_size 对应 b-tree 页的记录布局。但 ELF 没有自描述 schema，格式紧凑到难以修改，且每个工具（内核、ld.so、binutils、readelf 等）都在重复实现同一套解析器。SQLite 则相反：自描述、极其稳定、易于扩展。</p>
-
-<h3>SELF 格式：两张表即可运行</h3>
-<p>一个 SELF 文件只需两张表即可运行：<code>self_meta</code>（ELF 头部的键值对）和 <code>segments</code>（每个 program header 一行，段字节存为 BLOB）。符号表用一张带索引的表替代了 ELF 的多个 section 和 .gnu.hash 索引，符号版本号成为普通列，.dynstr 也不再需要。工具操作随之简化为 SQL 查询：</p>
-<ul>
-<li>ldd → <code>SELECT soname FROM ldd</code></li>
-<li>nm -D → <code>SELECT name,version FROM imports</code></li>
-<li>readelf -l → <code>SELECT type,vaddr,memsz,r,w,x FROM segments</code></li>
-<li>strip → <code>DELETE FROM sections; DELETE FROM notes; VACUUM;</code>（一次事务，程序仍可运行）</li>
-</ul>
-
-<h3>工作原理</h3>
-<p>SQLite 在头部偏移 68 处预留了 4 字节的 application_id，作者将其标记为 "SELF"。借助 Linux 内核的 <strong>binfmt_misc</strong> 子系统注册魔数，由一个小型 C 解释器 <code>self-exec</code>（链接 libsqlite3）负责加载：从数据库读取段和符号表，映射到内存、重定位并跳转到入口点，行为类似 ld.so。目前通过 <code>elf2self</code> 工具把 ELF 转换为 SELF，可作为 NixOS 的 postFixup hook 按包启用。</p>
-
-<h3>动态链接</h3>
-<p>作者探索了两种动态链接方案：一是保留 ld.so，通过 glibc 的 rtld-audit 接口用 SQL 查询拦截共享库查找（库文件可完全不存在于磁盘）；二是用 SQL 完整实现动态链接器 <code>self-ld</code>（概念验证），重定位查询形如 <code>SELECT s.value + o.load_bias FROM relocations ...</code>。</p>
-
-<h3>成本与基准</h3>
-<p>大小方面，SELF 因 SQLite b-tree 开销约为 ELF 的两倍，但剥离可选表后（如 coreutils）差距缩小到 1% 以内。延迟方面，有约 5ms 的固定开销（打开 SQLite 并启动解释器），加上与镜像大小成比例的拷贝——由于 b-tree 页无法直接 mmap，两个进程运行同一 SELF 二进制无法像 ELF 那样共享文本页，这是评论区公认的主要短板。</p>
-
-<h3>系统即闭包</h3>
-<p>SQLite 数据库不必只是一个可执行文件，它可以是一个闭包（closure）：单个文件包含程序及其全部传递依赖，依赖解析从"猜测"变成外键，ldd 变成 JOIN。更进一步，作者把系统 PATH 上全部 723 个可执行文件、400 个共享库、1,123 个对象、346,386 个符号打包进一个 SQLite 文件，得到 611.9 MiB 的数据库——比原始 ELF 文件的总和（644.4 MiB）还小，库和符号的天然去重让 b-tree 开销摊薄到约 6%。</p>
-
-<img src="/assets/images/inception-one-file-one-userland.png" alt="五格盗梦空间梗图：柯布说「你的可执行文件是 SQLite 数据库」，费舍问「它链接的库呢？」柯布答「也是 SQLite，整个用户态都是，一个文件」，费舍问「这能深入到哪里？」柯布眨眼说「你现在就在其中一个里面」" width="760" height="2095" />
-
-<h3>社区反馈</h3>
-<p>Hacker News 讨论热烈（397 分、81 条评论）。多数评论者认为想法有趣且实现令人印象深刻，尤其是 SQLite 动态链接与 ELF 动态链接的兼容性；也有人指出"拷贝而非映射"的内存模型是唯一阻碍，并提到 Windows 的 PE/COFF 与 .NET 程序集本质上也是关系型数据库；还有评论建议在 BLOB 内压缩段内容、利用 SQLite 触发器实现插件系统，以及 ELF→SELF→修改→ELF 的往返工作流。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>binfmt_misc</strong>：Linux 内核的一个子系统，允许通过魔数匹配把任意文件格式交给指定解释器执行，是 SELF 无需修改内核即可运行的关键。</li>
-<li><strong>Nix 闭包（closure）</strong>：Nix 包管理中的概念，指一个程序及其所有依赖的完整集合，每个依赖都指向 store 中的具体路径，消除了 soname 解析的歧义——SELF 用外键实现了同样的效果。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49415271</guid>
-      <pubDate>Mon, 24 Aug 2026 04:48:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
