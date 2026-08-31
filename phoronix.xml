@@ -3,7 +3,43 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 31 Aug 2026 05:27:17 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 13:42:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linux 内核补丁提交审查：Apple M1/M2/M3 将获 USB4/Thunderbolt 支持</title>
+      <link>https://www.phoronix.com/news/Linux-USB4-Apple-Silicon</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 内容是为 Apple M1/M2/M3 芯片启用 USB4/Thunderbolt 的 Linux 内核补丁，直接属于来源配置中高兴趣的「苹果电脑Linux支持」主题，必看。</small></p><p>一组共 19 个补丁已提交至 Linux 内核邮件列表（LKML）供审查，有望让主线 Linux 内核在 Apple Silicon M1 / M2 / M3 芯片上正式支持 USB4/Thunderbolt。此前，这些启用补丁一直由下游的 Asahi Linux 项目维护，如今正逐步向上游内核推进。</p><img src="//www.phoronix.net/image.php?id=2026&image=apple_usb4_med" alt="Apple USB4 USB-C ports on MacBooks" /><p>该补丁系列由知名 Apple Silicon Linux 开发者 Sven Peter 发布。由于硬件设计复杂，这一支持花了相当长时间才得以实现：每个支持 USB4 的 Type-C 端口都带有一个 ACIO（Apple Converged I/O）模块，其中包含 Cortex-M3 协处理器以及实现 USB4 路由器的硬件，NHI 和 DART IOMMU 也属于该模块。主 SoC 总线无法直接访问这些设备，只能在协处理器运行时获得一个 16 MiB 的窗口来访问 ACIO 的 MMIO 空间。</p><p>目前该支持仍存在一些限制：仅支持 XDomain 连接和 USB3-via-USB4 隧道，PCIe 与 DisplayPort 隧道尚未实现，仍需进一步逆向工程；同时暂不支持挂起（suspend），在有活动连接时必须阻止系统挂起，否则恢复时会触发 SError 错误。补丁系列的最后三个补丁为 M1 和 M2 添加了设备树节点，M3 的节点将在其余代码上游化后跟进，不过当前代码已在 M3 上成功测试。</p><h3>你知道吗？</h3><ul><li><strong>NHI</strong>（Native Host Interface）是 Thunderbolt/USB4 控制器的主机接口，负责主机与 USB4 路由器之间的通信。</li><li><strong>DART</strong>（Device Address Resolution Table）是 Apple Silicon 上的 IOMMU（输入输出内存管理单元），用于设备 DMA 地址转换与隔离。</li><li><strong>XDomain</strong>（Cross-Domain）连接指通过 Thunderbolt/USB4 线缆在两台主机等独立域之间建立的连接，常用于高速数据传输。</li><li><strong>SError</strong> 是 ARM 架构中的异步系统错误，通常表示硬件层面的严重故障。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-USB4-Apple-Silicon</guid>
+      <pubDate>Mon, 31 Aug 2026 12:55:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Servo 0.5 发布：DuckDuckGo 正确渲染，文本渲染速度最高提升 10 倍</title>
+      <link>https://www.phoronix.com/news/Servo-0.5-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Servo 0.5 是开源浏览器引擎（Rust 编写）的重大版本发布，既属于来源高兴趣的「新软件项目」，也符合全局「编程工具发布/分享」与「开源项目」兴趣，强烈推荐。</small></p><p>开源、基于 Rust 的浏览器引擎 Servo 发布了 0.5 版本，这是该项目最新的月度更新，为使用 Servoshell 示例浏览器或考虑将 Servo 用于嵌入式场景的用户带来了多项显著改进。</p><p>在功能方面，Servo 0.5 新增了多种 CSS 特性，DOM 文本选区现在可见，并引入了若干新的 DOM API。修复 SVG 图片预加载 bug 后，DuckDuckGo 首页现已能正确渲染：<img src="//www.phoronix.net/image.php?id=2026&image=servo_05_med" alt="Servo 0.5 correctly rendering DuckDuckGo landing page" />，其他真实网站也开始能够正确显示。</p><p>性能方面，Servo 0.5 为 2D 画布引入了多线程渲染，大幅提升了帧率；文本渲染速度最高提升达 10 倍。此外，本次更新还升级了依赖以修复多项安全问题，其中包括采用来自 Firefox 140 ESR 的更新版 ANGLE，以获得"大量安全修复"。</p><p>为强化 Servo 作为 Chromium Embedded Framework（CEF）替代方案的嵌入式应用前景，0.5 版本提供了更完善的 Servo Rust crate 使用文档。Servoshell 现在也支持 Android 10 及以上系统（此前仅支持 Android 13+）。同时，项目开始发布 Linux AArch64 二进制，与原有的 x86_64 构建互补。</p><p>更多改进细节可参阅 <a href="https://servo.org">Servo.org 博客</a>，源码与发布二进制可在 <a href="https://github.com/servo/servo">GitHub</a> 获取。</p><h3>你知道吗？</h3><ul><li><strong>Servoshell</strong>：Servo 项目提供的示例浏览器外壳，用于演示引擎功能，也是开发者测试 Servo 渲染能力的主要入口。</li><li><strong>ANGLE</strong>：一个将 OpenGL ES 图形 API 转换为其他底层图形 API（如 Vulkan、Direct3D）的抽象层，浏览器常用它来统一不同平台上的图形渲染路径。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Servo-0.5-Released</guid>
+      <pubDate>Mon, 31 Aug 2026 10:36:28 GMT</pubDate>
+    </item>
+    <item>
+      <title>Mesa 26.3 Vulkan 驱动引入更快的归并排序，优化光线追踪 BVH 构建</title>
+      <link>https://www.phoronix.com/news/Mesa-Vulkan-Faster-Sorting</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 内容是 Mesa Vulkan 驱动的排序算法优化以提升光线追踪性能，属于开源软件改进但偏图形驱动/游戏渲染领域，兴趣不明确，故列为可选。</small></p><p>Valve Linux 图形团队工程师 Natalie Vock 为 Mesa Vulkan 驱动带来了一项新优化：针对 Morton 码键（Morton code keys）的排序实现更快、更节省显存（vRAM）的归并排序（merge sort）。Morton 码键是将三维点的二进制坐标交错后得到的一维整数值，用于把空间数据映射到单一维度，对快速 BVH（包围体层次结构）构建和更高的 GPU 并行度至关重要。</p><p>Radeon RADV、Intel ANV、Turnip Adreno 和 Lavapipe 等 Mesa Vulkan 驱动此前都依赖同一个排序函数处理这些键。Natalie Vock 发现现有排序代码存在一些低效之处，于是编写了一个自定义归并排序，在较小数据集上表现更佳，同时更节省显存。她在三个月前提交的合并请求中解释：自定义归并排序在较大问题上会稍逊一筹，但在极小问题上"绝对碾压"基数排序（radix sort）。该归并排序在单次 dispatch 内完成，无需中间屏障，并与加速结构（AS）构建代码更紧密地耦合，省去了写出并读回未排序键的显存往返。对于足够小的问题（RADV 上子组大小为 64 时少于 512 个元素），所有键都可以在共享内存中生成并立即排序，完全不触碰显存（仅需写出排序后的数据）。</p><p>这项新排序在小型 BVH 上尤其更快，并因减少显存往返而提升了效率。经过三个月的测试、审查和 bug 修复，该代码已于上周合并进 Mesa 26.3，惠及所有开源 Vulkan 驱动。技术细节可查看<a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests">合并请求</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Vulkan-Faster-Sorting</guid>
+      <pubDate>Mon, 31 Aug 2026 10:07:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ NVIDIA VA-API 驱动 0.0.18 发布：修复 HEVC 解码问题，Chrome/Chromium 直连后端解码可用</title>
+      <link>https://www.phoronix.com/news/NVIDIA-VA-API-Driver-0.0.18</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] NVIDIA VA-API 驱动新版带来 Chrome/Chromium 解码支持，Chrome 是来源高兴趣主题，同时属于开源项目软件更新，推荐阅读。</small></p><p>第三方开源项目 NVIDIA VA-API Driver 今日发布 v0.0.18 版本。该项目基于 NVIDIA 的 NVDEC 接口实现视频加速 API（VA-API），为使用 NVIDIA 显卡的 Linux 用户提供 Firefox 等仅支持 VA-API 应用的 GPU 视频解码能力。</p><p>此前，NVIDIA 官方 Linux 驱动一直不支持 VA-API，而 Firefox 近期开始支持 Vulkan Video 解码，为官方驱动栈带来补充。v0.0.18 版本修复了 HEVC 解码伪影问题，并让 Chrome/Chromium 在直连后端（direct back-end）上的硬件视频解码正常工作，这对 Wayland 和基于 Vulkan 的 ANGLE 使用场景尤为重要。</p><img src="//www.phoronix.net/image.php?id=2026&image=nv_vaapi_codecs" alt="NVIDIA VA-API codecs support" /><p>该版本的部分工作由 Claude Fable 5 负责漏洞排查，Opus 协助实现。此外，项目还处于草案阶段的拉取请求正在为 VA-API 添加 NVENC 编码支持，值得期待。感兴趣的读者可在 <a href="https://github.com">GitHub</a> 上获取 v0.0.18 版本。</p><h3>你知道吗？</h3><p>VA-API（Video Acceleration API）是 Linux 上广泛使用的视频硬件加速接口，而 NVDEC 是 NVIDIA 的专用视频解码硬件单元。由于 NVIDIA 官方驱动未提供 VA-API 支持，第三方项目通过将 VA-API 调用映射到 NVDEC 来实现兼容。Vulkan Video 则是 Vulkan 图形 API 的视频扩展，Firefox 近期开始支持它，为 NVIDIA 用户提供了另一条硬件解码路径。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-VA-API-Driver-0.0.18</guid>
+      <pubDate>Mon, 31 Aug 2026 09:48:13 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.3-rc1 代码量逼近 4100 万行，AMD 内核图形驱动达 650 万行</title>
       <link>https://www.phoronix.com/news/Linux-7.3-rc1-Code-Stats</link>
@@ -447,42 +483,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Apple-HFS-Linux-7.3</guid>
       <pubDate>Sat, 22 Aug 2026 19:01:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>NTFS3 驱动漏洞未修复：特制 NTFS 镜像可让本地用户获取 root 权限</title>
-      <link>https://www.phoronix.com/news/NTFS3-Vulnerability-For-Root</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讲的是 Linux NTFS3 文件系统驱动的安全漏洞（特制 NTFS 镜像可提权至 root），属于内核/文件系统安全新闻，未命中用户高兴趣领域（编程工具、AI、新发行版等），与 Linux 主题仅弱相关，兴趣不明确，故评为可选。</small></p><p>Linux 内核 NTFS3 文件系统驱动存在一个尚未修复的安全漏洞：攻击者可利用预先构造的 NTFS 镜像（例如插入的 USB 闪存盘）在运行 Linux 的系统上获取 root 权限。该漏洞由 Vova Tokarev 发现，两个月前私下报告后一直未得到解决，现已通过 NTFS3 邮件列表公开披露。</p><p>漏洞原理：攻击者在 NTFS 的主文件表（MFT）中预先写入 $LXUID=0、$LXGID=0、$LXMOD=0104755 等扩展属性（EA），卷一旦被挂载就会生成一个 setuid-root 二进制文件，整个过程无需调用 setxattr()——扩展属性直接存在于磁盘上。根因位于 <code>fs/ntfs3/xattr.c:1022</code> 的 <code>inode->i_mode = le32_to_cpu(value[2]);</code>，该行直接从不信任的磁盘数据加载 S_ISUID/S_ISGID 权限位。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=ntfs3_root_med" alt="USB flash drive connected" /><p>由于桌面环境的自动挂载器（udisks）默认以 suid 方式挂载 NTFS，插入特制 USB 设备即可让任何本地用户获得 euid=0。Tokarev 建议的一行修复方案为 <code>inode->i_mode = le32_to_cpu(value[2]) &amp; ~(S_ISUID | S_ISGID);</code>，并已提供完整的概念验证（PoC）和演示，详见<a href="https://lore.kernel.org/ntfs3/">邮件列表帖子</a>。</p><p>截至发文时，主线内核中的 NTFS3 驱动尚未修复该漏洞；该问题似乎不影响主线内核中另一款持续成熟的较新 NTFS 驱动。</p><h3>你知道吗？</h3><ul><li><strong>SUID（set-user-ID）</strong>：Unix/Linux 文件权限位之一。运行带有该位的程序时，进程会以文件属主的身份执行；若属主为 root，则进程获得 root 权限，因此从不可信来源加载 SUID 位是典型的提权风险。</li><li><strong>MFT（Master File Table，主文件表）</strong>：NTFS 文件系统的核心结构，记录卷上每个文件和目录的元数据（包括扩展属性），挂载时由驱动解析。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NTFS3-Vulnerability-For-Root</guid>
-      <pubDate>Sat, 22 Aug 2026 12:42:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NVK Vulkan 视频支持已合并至 Mesa 26.3</title>
-      <link>https://www.phoronix.com/news/NVK-Vulkan-Video-Mesa-26.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲开源驱动 NVK 的 Vulkan Video 功能合并进 Mesa，属于开源项目与软件新功能进展，用户感兴趣，推荐阅读。</small></p><p>Mesa 开源 NVIDIA「NVK」Vulkan 驱动迎来又一项重大功能：Vulkan Video 支持。该支持已于昨夜合并至 Mesa 26.3-devel，目前支持 H.264 视频解码。</p><p>NVK 的 Vulkan Video 支持之所以耗时较长，是因为需要对 NVIDIA 的视频加速处理机制进行逆向工程。此外，部分实现采用 Rust 编程语言编写，需要等待相关 Rust 驱动基础设施成熟，也造成了一定延迟。</p><p>目前 H.265 视频解码的开发工作也在进行中，但当前代码会导致 NVIDIA GPU 系统处理器（GSP）卡死，因此现阶段仅 H.264 解码可用。由于依赖 NVIDIA GSP，只有 Turing 及更新架构的 GPU 才能获得 NVK 的 Vulkan Video 支持。</p><p>该支持已合并至 Mesa 26.3，预计将于第四季度（11 月）随 Mesa 26.3 稳定版发布。这一用户空间驱动代码还依赖已合并至 Linux 7.3 的 Nouveau 补丁，作为该开源驱动栈支持 NVIDIA Vulkan Video 的内核要求。</p><img src="//www.phoronix.net/image.php?id=2026&image=nvk_h264_decode" alt="NVK H.264 Vulkan Video merged" /><p>合并请求中包含了为感兴趣者提供的使用 NVK Vulkan Video 支持构建 Mesa 的详细说明。经过多年不同阶段的开发，这一功能终于落地 Mesa 26.3，发布时间大约与 Linux 7.3 稳定版同期。</p><h3>你知道吗？</h3><ul><li>Vulkan Video 是 Vulkan 图形 API 的视频扩展，提供跨厂商统一的视频解码/编码接口，与 VA-API、VDPAU 等传统方案定位类似。</li><li>GSP（GPU System Processor）是 Turing 及更新架构 NVIDIA GPU 上搭载的专用处理器，负责固件加载、上下文管理等 GPU 管理任务，NVK 驱动依赖它来处理视频加速。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVK-Vulkan-Video-Mesa-26.3</guid>
-      <pubDate>Sat, 22 Aug 2026 10:55:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Red Hat 发布 Tuned 2.28：改善 Fedora 开箱即用的 WiFi 省电表现</title>
-      <link>https://www.phoronix.com/news/Red-Hat-Tuned-2.28</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Tuned 2.28 是系统调优工具的新版本更新，改善 Fedora 的 WiFi 省电，属于软件新功能范畴，用户有一定兴趣，但并非核心高兴趣主题。</small></p><p>Red Hat 于本周六发布了 Tuned 2.28，这是其面向 Linux 的调优配置文件分发机制的最新版本。Tuned 在 Fedora Linux 上被默认用于系统监控与自适应调优。</p><p>本次版本最值得关注的改进是开箱即用的 WiFi 省电表现。自去年起，社区就有一个关于 Tuned 默认使用 iwpriv 启用 WiFi 省电的 bug 报告：由于 Fedora 已不再包含 iwpriv 软件包，导致默认配置下无法获得 WiFi 省电效果。Tuned 2.28 将 WiFi 电源管理处理切换到仅使用 iw，并使其成为 Tuned 的 RPM 构建依赖；iwpriv 支持仅为兼容旧系统而保留。这一改动将确保 Fedora 等现代系统默认即可享受 WiFi 省电。</p><img src="//www.phoronix.net/image.php?id=2026&image=tuned" alt="tuned systemd service" /><p>另一项改动是将 network-latency 配置文件的 AVC 缓存阈值调整为 8192。在 RHEL9 和 RHEL10 上，默认值为 512，已被观察到会导致网络工作负载出现延迟尖峰。此外，Tuned 2.28 还改进了错误提示信息、补充了构建文档、调整了 systemd 集成，并新增了更多网络合并（coalescing）选项等。感兴趣的读者可通过 <a href="https://github.com/redhat-performance/tuned">GitHub</a> 获取新版本或从源码构建 Tuned 2.28。</p><p><strong>你知道吗？</strong>iwpriv 是旧版 wireless-tools 套件中的命令，用于设置无线驱动的私有参数；而 iw 是基于现代 nl80211 内核接口的无线配置工具。AVC（Access Vector Cache）是 SELinux 的访问向量缓存，用于缓存权限检查结果以提升性能，其阈值设置会影响缓存失效与重建的频率。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Red-Hat-Tuned-2.28</guid>
-      <pubDate>Sat, 22 Aug 2026 10:18:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 开源 Etnaviv 驱动现已支持运行 YOLOX 目标检测</title>
-      <link>https://www.phoronix.com/news/Etnaviv-YOLOX</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 Etnaviv 驱动现已能运行 YOLOX 目标检测模型，属于开源项目与 AI 软件技术进展，符合用户兴趣。</small></p><p>开源、逆向工程的 Etnaviv 驱动栈最初旨在为 Vivante GPU IP 提供加速图形支持，后来扩展至支持 Vivante NPU（神经网络处理器），如今已能够运行 YOLOX 目标检测模型。</p><p>开源开发者 Tomeu Vizoso 一直主导 Etnaviv 的 AI/NPU 支持工作以及 Mesa 的 Teflon 框架等成果，现已将 YOLOX 带到 Vivante VIP 系列 NPU 上，例如 NXP i.MX8M Plus 中所搭载的 NPU。相比此前 Etnaviv 代码所支持的 SSDLite MobileDet 模型，YOLOX 能力更强。随着 Etnaviv 驱动中各种附加运算及其他改动就位，该逆向工程驱动栈已足以成功运行 YOLOX 作为其旗舰模型。</p><img src="//www.phoronix.net/image.php?id=2023&image=vivante_npu" alt="Vivante NPU IP" /><p>想了解更多关于 Etnaviv 上 YOLOX 的细节，可参阅 Tomeu 的博客。</p><h3>你知道吗？</h3><ul><li><strong>YOLOX</strong>：一种高性能的单阶段目标检测模型，采用无锚框（anchor-free）设计，在检测精度与推理速度之间取得了良好平衡，常被用于边缘设备上的实时目标检测。</li><li><strong>Etnaviv</strong>：一个通过逆向工程开发的 Mesa 开源驱动，最初用于 Vivante GPU，现已扩展至 Vivante NPU，使相关硬件无需厂商闭源驱动即可获得加速支持。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Etnaviv-YOLOX</guid>
-      <pubDate>Sat, 22 Aug 2026 10:06:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
