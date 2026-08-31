@@ -3,7 +3,64 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 31 Aug 2026 13:41:48 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 20:02:52 GMT</lastBuildDate>
+    <item>
+      <title>用 BirdNet-Go 把安防摄像头改造成自动鸟类识别系统</title>
+      <link>https://news.ycombinator.com/item?id=49511856</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲用 BirdNet-Go 把安防摄像头改造成鸟类自动识别系统的个人 DIY 项目，偏向业余兴趣项目，与编程工具、AI 进展等主题关联不强，兴趣不明确</small></p><p>作者 Jason Tucker 在博客中分享了如何利用 BirdNet-Go 将三台安防摄像头改造成自动鸟类识别系统，让夫妻俩能够实时追踪院子里出现的每一种鸟类。这套方案基于<b>音频识别</b>而非视觉识别——摄像头持续"聆听"环境声音，BirdNet-Go 对声音进行分类，从而识别出鸟种（评论区有用户表示原本以为会是视觉识别方案，结果发现是音频识别，颇感意外）。</p><p>作者强调这套系统的核心优势：无需等待、无需手动录制，不依赖云服务、无 API 调用、无订阅费用，也不会因服务条款变更或公司关停服务而失效。评论区有用户指出，这类 DIY 方案的价值在于提供了开放替代品，并推荐了 <a href="https://www.birdweather.com/">BirdWeather</a> 等现成设备作为省时省力的选择。</p><p>社区反响热烈，多位用户分享了类似项目：有用户用 UniFi 门铃摄像头配合 BirdNet-Go 实现相同功能（UniFi 暴露 RTSP 流，工具可直接"监听"）；有 BirdNET-GO 项目贡献者展示了自己结合实时鸟类警报、天气雷达和延时摄影的 24/7 天气电视频道；还有人计划用 e-ink 显示屏和 ESP32 制作展示最新检测结果的相框，或参考 <a href="https://theodore.net/projects/AvianVisitors/">AvianVisitors</a> 等视觉识别方案作为补充。也有用户提到自己用 UniFi 摄像头搭建的类似系统（<a href="https://github.com/dewey/birdhomie">birdhomie</a>）物种识别准确度尚不理想，计划继续改进。</p><h3>你知道吗？</h3><p>BirdNet 是由康奈尔大学鸟类学实验室（Cornell Lab of Ornithology）开发的基于深度学习的鸟类鸣声识别工具，BirdNet-Go 是其 Go 语言实现，可在本地离线运行，适合自托管场景。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49511856</guid>
+      <pubDate>Mon, 31 Aug 2026 16:47:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ uv 为 wheel 缓存引入文件级去重：按 BLAKE3 哈希存储，节省约 10% 缓存空间</title>
+      <link>https://news.ycombinator.com/item?id=49506142</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] uv 是 Rust 编写的高性能 Python 包管理器，为其 wheel 缓存引入文件级去重，属于编程工具发布与编程效率改进，符合高兴趣</small></p><p>Hacker News 上热门的这条帖子讨论的是 uv（用 Rust 编写的极速 Python 包管理器）的 <a href="https://github.com/astral-sh/uv/pull/21327">PR #21327「Deduplicate all files in the wheel cache」</a>，该 PR 已合并进 main 分支。</p>
+
+<p><strong>改动内容</strong>：此前 uv 的缓存是内容寻址的（content-addressed），但只到 wheel 级别——同一 wheel 从不同来源下载会共享缓存条目，而 wheel 内部或跨 wheel 的文件并不去重。这个 PR 把去重下沉到文件级别：每个文件按 BLAKE3 哈希存储在 files-v0 桶中，再通过硬链接（hardlink）放回 archive-v0 中的原始位置，因此安装步骤完全不变，只是缓存内部去重；缓存清理时，当某个文件对象的硬链接计数降到 1 时即被删除。</p>
+
+<p><strong>收益与代价</strong>：作者在本地机器上测得节省 545.2 MiB，约占缓存的 10%。代价是冷安装约 4% 以内的减速，热安装基本无影响。基准测试（AnyIO、SymPy、NumPy、PyTorch）显示冷安装中位数约慢 3%–4%，热安装与之前持平。作者还尝试了其他方案（把所有文件存为非可执行、预取 zip 中央目录以提前判断可执行性等），但都更慢；结合配套的 <a href="https://github.com/astral-sh/uv/pull/21340">#21340</a>（跨文件复用哈希缓冲区）后，整体甚至比改动前更快。</p>
+
+<p><strong>社区反馈</strong>：评论区的讨论相当热烈。pip 维护者 notatallshaw 指出 uv 缓存长期有两个问题——无法像 <code>pip download</code> 那样复现精确的分发、多环境场景下缓存增长明显大于 pip，并关注此改动能否改善后者。pip 贡献者 user5994461 则警告硬链接去重的危险性：空文件或内容重复的小文件一旦被用户编辑，所有链接的文件会同时被修改，可能破坏所有已创建的虚拟环境，因此建议只对二进制文件（.dll/.so）去重。uv 团队成员 zanie 回应称，uv 创建环境时默认使用 reflink 或写时复制（copy-on-write）语义来规避这类问题，并反驳了「uv 唯一优势只是并行异步解压」的说法。另有用户质疑「10% 缓存节省换 4% 减速」是否值得，也有用户表示磁盘空间紧张、这类优化很有意义。评论中还顺带讨论了 BLAKE3 哈希在文件去重与完整性校验中的用途。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+<li>BLAKE3 是一种极快的加密哈希函数，输出至少 224 位（默认 256 位），比 SHA-256 快得多，常用于内容寻址存储、去重和完整性校验场景。</li>
+<li>硬链接去重让多个路径共享同一份数据（inode），能显著节省磁盘，但代价是修改任一链接都会影响所有链接，因此需要配合写时复制或 reflink 语义使用。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49506142</guid>
+      <pubDate>Mon, 31 Aug 2026 06:03:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Wirewiki：为 2.4 亿域名实现 P99 0ms 自动补全</title>
+      <link>https://news.ycombinator.com/item?id=49505219</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍 Wirewiki 为海量域名实现 P99 0ms 自动补全的技术实现，属于软件新功能与高性能技术进展，会感兴趣</small></p><p>Wirewiki 创始人 Ruurtjan 撰文介绍其域名基础设施查询网站如何为 2.4 亿个域名实现近乎零感知延迟的自动补全。自动补全是该网站的主要导航方式，作者的目标是让建议在「下一帧」内渲染出来。</p>
+
+<h3>核心思路：keyDown 预取、keyUp 渲染</h3>
+<p>方案的关键在于利用按键事件的时间差：在 keyDown（用户按下按键）时，预先请求「已输入字符 + 下一个字符」的建议；在 keyUp（松开按键）时渲染结果。这样 API 拥有「两次按键时长 + 按键间隔」的时间预算。作者实测快速输入 100 个域名后，p99 预算约为 121 ms，而 60 Hz 屏幕每帧约 16.7 ms。</p>
+
+<h3>API 架构：Tranco「头部」+ CZDS「尾部」</h3>
+<p>API 采用两级数据源：先用 Tranco 榜单（前 100 万热门域名）构建内存中的字符前缀树（trie），为每个前缀预计算前 8 条建议；若命中不足，再查询 CZDS（gTLD 区域文件）构建的 SSD 内存映射块索引——2.4 亿域名经排序和增量压缩后约占 2.5 GB 磁盘空间。两种结构的最坏时间复杂度均近似 O(1)。</p>
+
+<h3>性能测试与局限</h3>
+<p>作者用 LLM 生成 72 万次按键查询进行压测：API 单独响应大多在 2 ms 内，即使 1.6k req/s 下经 nginx 的 p99 也仅 15 ms。不过网络延迟才是主导因素——目前仅有一台位于欧洲的服务器，来自美国的流量会额外增加 100–200 ms，超出预算。作者表示可通过多服务器地理负载均衡达成目标，但认为该产品过于小众，暂不打算商业化。</p>
+
+<h3>社区反馈</h3>
+<p>HN 讨论中，多位用户质疑「P99 0 ms」的定义：感知延迟应从 keyDown 而非 keyUp 起算，用 keyUp 渲染反而引入了额外延迟；也有人指出该方法不适用于移动端、粘贴、IME 输入法或语音输入等场景。另有用户反馈该自动补全会建议不存在的域名，以及澳大利亚等远端地区体验不佳。不过也有评论认可工具本身的价值，并提出了用 CDN（如 Cloudflare R2）存储 trie 节点以进一步降低网络延迟的思路。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>CZDS</strong>（Centralized Zone Data Service，集中式区域数据服务）是 ICANN 提供的服务，允许授权方下载 .com、.net 等通用顶级域（gTLD）的完整区域文件，其中包含所有已注册域名。ccTLD（如 .uk、.de）的区域文件通常不公开，这也是作者用 Tranco 榜单补充的原因。</li>
+<li><strong>Tranco</strong> 是一个基于多来源（如 Alexa、Umbrella 等）综合排序的全球热门网站榜单，常用于学术与工程研究，比单一来源的排名更稳定。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49505219</guid>
+      <pubDate>Mon, 31 Aug 2026 03:20:33 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ OpenShot 4.0 发布：新增专业调色、屏幕录制与本地 AI 遮罩功能</title>
       <link>https://news.ycombinator.com/item?id=49507822</link>
@@ -904,60 +961,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49437283</guid>
       <pubDate>Tue, 25 Aug 2026 17:08:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qwen3.8-Flash-Next 明日发布：125B 总参数、每 token 仅激活 6B 的稀疏 MoE 模型</title>
-      <link>https://news.ycombinator.com/item?id=49432317</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 Qwen3.8-Flash-Next 新 AI 模型的发布公告，属于用户很感兴趣的新AI模型发布公告类别，且涉及开源模型进展，故为必看</small></p><p>阿里巴巴旗下通义千问（Qwen）团队宣布，新一代模型 <strong>Qwen3.8-Flash-Next</strong> 将于明日发布。该模型采用重新设计的多模态混合专家（MoE）架构，总参数量为 125B，但每个 token 仅激活 6B 参数（即 125B A6B）。</p><p>根据发布页面早期信息（后被移除）及社区保存的截图，该模型由 125B 主模型参数外加 51B 的 N-gram 嵌入组成，并引入了新的注意力机制（据称名为「Qwen Sparse Attention」）。官方宣称，凭借约 1/9 的训练成本，Qwen3.8-Flash-Next 即可达到与 Qwen3.7-Plus 相当的能力，且在编码与协作（cowork）方面表现更强。</p><p>模型页面已同步上线 <a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next">Hugging Face</a> 与 <a href="https://modelscope.cn/models/Qwen/Qwen3.8-Flash-Next">ModelScope</a>。</p><p>社区反应方面，不少本地模型爱好者原本期待 35B A3B 规格以便在消费级显卡上运行，对 125B 的规模略感失望；有用户指出该模型主要面向 Mac、Strix Halo 和 DGX Spark 等大内存设备。另有评论注意到，官方表示这些架构改进是「提前发布」，以便社区为即将到来的完整 Qwen4 模型家族做准备，暗示 Qwen4 系列可能包含 4B 等更小规格的模型。</p><h3>你知道吗？</h3><p>「125B A6B」表示模型总参数量为 1250 亿，但推理时每个 token 只激活其中 60 亿参数。这种稀疏激活的 MoE（混合专家）架构能大幅降低推理成本，是当前大模型在保持能力的同时控制算力开销的主流做法。N-gram 嵌入则是在常规词元嵌入之外，额外引入 n-gram 级别的统计特征，用于增强模型对短语和上下文模式的捕捉能力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49432317</guid>
-      <pubDate>Tue, 25 Aug 2026 11:49:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>月亮（Moon）：交互式科普带你探索月球轨道、引力与潮汐</title>
-      <link>https://news.ycombinator.com/item?id=49426466</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 这是一篇关于月球轨道、引力与潮汐的交互式科普文章，既不属于用户高兴趣的编程工具/新AI模型，也不属于前沿科学进展，同时未被列入回避类别，兴趣不明确，故评为可选</small></p><p>Bartosz Ciechanowski 在其交互式科普网站 <a href="https://ciechanow.ski/moon/">ciechanow.ski</a> 上发布了新文章《月亮（Moon）》，用大量可拖拽、可调节参数的交互式可视化，深入浅出地讲解月球及其绕地球运行背后的物理原理。</p><p>文章从太空中观察月球开始，展示了月球在天空中的运行轨迹、盈亏变化以及天平动（libration）现象——正是这种轻微的摆动让地球上的观测者偶尔能看到月球"边缘"隐藏的部分，但月球始终只以同一面朝向地球。明暗交界线（terminator）扫过月面，揭示出月球表面的细节。虽然月球是球体，但满月看起来却更像一个扁平的圆盘，这与所谓的"冲日效应"（opposition effect）有关：<img src="/images/moon/opposition.jpg" alt="Opposition effect on the Moon" width="500" /></p><p>随后文章进入天体运动的核心内容——引力。作者构建了一个"宇宙沙盒"，让读者自由调整两个天体的质量、位置和初速度，直观感受万有引力公式 F = G·m1·m2/r² 的作用：引力与质量成正比、与距离平方成反比，且加速度取决于对方的质量。文章还介绍了质心（barycenter）的概念：两个天体绕共同的质心运动，当一方质量远大于另一方时，质心甚至可能落在大天体内部。<img src="/images/moon/earthrise.jpg" alt="Earthrise" /></p><p>在轨道运动部分，文章解释了椭圆轨道的偏心率（eccentricity）、半长轴、远点（apoapsis）与近点（periapsis）等概念，并展示了天体在轨道上运动速度不均匀的现象——靠近时更快、远离时更慢。根据文章引言，后续内容还将涵盖海洋潮汐与日食月食。整篇文章延续了 Ciechanowski 一贯的高水准交互设计，读者可以拖动滑块控制日期时间、切换视角，甚至将"小人"放到地球上任意位置观察当地天空。<img src="/images/moon/footprint.jpg" alt="Buzz Aldrin's footprint" width="500" /></p><p>该文章在 Hacker News 上引发热议（239 分、38 条评论）。多位用户称赞 Ciechanowski 的交互式可视化开创了网页内容的新范式；也有用户讨论其 Patreon 商业模式（约 520 位付费订阅者，月收入约 5000 美元）。评论区还讨论了月球质量仅为地球 1% 却拥有 1/6 表面重力这一看似矛盾的事实，以及"平月亮"阴谋论等话题。</p><h3>你知道吗？</h3><ul><li>月球质量约为地球的 1%（7.35×10²² kg 对 5.97×10²⁴ kg），但由于月球半径只有地球的约 1/4，表面重力反而达到地球的约 1/6——引力与距离平方成反比，更小的半径"放大"了引力。</li><li>月球天平动（libration）使地球上的观测者累计能看到约 59% 的月球表面，业余天文学家也常利用这一现象观测平时不可见的区域。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49426466</guid>
-      <pubDate>Mon, 24 Aug 2026 22:06:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Emacs 31.1 发布：unexec 转储器正式退役，tree-sitter 语法自动安装等多项改进</title>
-      <link>https://news.ycombinator.com/item?id=49419252</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 Emacs 31.1 编辑器新版本发布，属于编程工具发布，符合很感兴趣（high_interest）配置，应必读。</small></p><p>Emacs 31.1 正式发布。与以往版本不同，本次没有单一的重大特性，而是包含大量提升使用体验的小改进，以及一项标志着一个时代结束的弃用变更。原计划纳入的新垃圾回收器已推迟到 Emacs 32。</p>
-
-<p><strong>unexec 转储器退役（一个时代的终结）</strong>：文章详细回顾了 Emacs 长期依赖的 unexec 内存转储机制。Emacs 编译后得到的是精简的 temacs，启动时需要加载标准库，过程缓慢且耗费 CPU 和内存。传统解决方案是把加载后的内存段（text/data/bss 等）直接"倾倒"成新二进制文件，但这依赖 glibc 中的若干特殊函数。glibc 团队停止支持后，Daniel Colascione 构建了可移植转储器（portable dumper），将 Emacs 内部结构标准化序列化，而非 1:1 的内存转储。该方案约十年前引入并成为默认，如今旧的 unexec 转储器终于被彻底移除。</p>
-
-<p><strong>用户 Lisp 目录（User Lisp Directory）</strong>：在配置目录中放置 <code>user-lisp/</code> 子目录，其中的 Lisp 文件会被递归字节编译、扫描 autoload 标记并加入 <code>load-path</code>，无需手动配置。作者表示自己 23 年来一直在复制粘贴相关代码片段，如今终于内置解决。</p>
-
-<p><strong>Tree-sitter 语法自动安装</strong>：Emacs 现在可以主动为已知的 TS 模式安装正确的语言语法，解决了长期以来（尤其在 Windows 上）手动匹配 tree-sitter 库 ABI 版本和各语言语法版本的痛点。作者借此推荐了自己的 <a href="https://github.com/mickeynp/combobulate">Combobulate</a> 结构化编辑包。</p>
-
-<p><strong>其他值得注意的改进</strong>：</p>
-<ul>
-<li>窗口布局旋转命令（<code>window-layout-rotate-clockwise</code> 等）</li>
-<li><code>C-x C-x</code> 交换 point 和 mark 时可选择不激活区域</li>
-<li>终端（TTY）帧支持子帧（child frames），Posframe、Corfu 等包可在终端中使用，并新增 <code>tty-tip-mode</code> 实现终端 tooltip</li>
-<li><code>xterm-mouse-mode</code> 在兼容终端默认开启，鼠标开箱即用</li>
-<li><code>site-start.el</code> 现在在 <code>early-init.el</code> 之前加载，便于站点管理员自定义</li>
-<li>daemon 启动时的警告现在会在首个客户端帧显示 <code>*Warnings*</code> 缓冲区</li>
-<li><code>line-spacing</code> 支持指定行上方间距，可实现文本垂直居中</li>
-<li>新增 <code>margin</code> 面用于窗口边距显示</li>
-<li>font-lock 系列同名变量被弃用，应直接使用对应 face（如 <code>font-lock-string-face</code>）</li>
-<li>新增 <code>prettify-special-glyphs-mode</code> 美化截断/续行符号</li>
-<li>内置 ctags 程序不再构建安装，建议改用 <a href="https://ctags.io/">Universal Ctags</a></li>
-<li>新增 <code>--with-systemduserunitdir</code> 配置选项，可安装 systemd 服务运行 Emacs server</li>
-</ul>
-
-<p><strong>社区反馈</strong>：HN 评论中，有用户表示 tree-sitter 与 eglot（LSP）的组合让 Emacs 几乎不再缺少其他编辑器的功能；多位用户对 user-lisp 目录功能表示期待。用户 pkal 批评文章"Packages"部分未充分测试，作者（mickeyp）回应称自己常跑 master 分支并提交 bug 报告，但无法测试 NEWS 中的每一项。关于 Zaretskii 是否因可移植转储器辞职的疑问，有评论指出他仍在 MAINTAINERS 文件中，且是 2016–2026 年间提交最多的维护者。作者还建议新手从内置教程开始，专注单一用途（如写 Go、用 Org 记笔记）逐步迁移，不必追求一步到位。</p>
-
-<h3>你知道吗？</h3>
-<p>Tree-sitter 是一个增量解析库，能为编辑器提供精确的语法树，支持比传统正则表达式高亮更准确的语法高亮，以及按语法单元移动、选择等结构化编辑操作。其语法（grammar）需要与 tree-sitter 库的 ABI 版本严格匹配，不同语言语法也各有版本，这正是此前手动安装困难的原因——Emacs 31.1 的自动安装功能正是针对这一痛点。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49419252</guid>
-      <pubDate>Mon, 24 Aug 2026 13:07:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
