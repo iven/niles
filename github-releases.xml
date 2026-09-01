@@ -3,7 +3,93 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 01 Sep 2026 14:49:49 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 01 Sep 2026 21:45:17 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.257：新增 Fable 5.1 默认模型、时间格式设置与大量修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.257</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.257，新增 Fable 5.1 模型、时间格式设置等新功能，并修复了大量会话管理、子代理、输入输出方面的问题，同时改进了渲染性能。</p>
+
+<h3>新功能与核心改动</h3>
+<ul>
+<li>新增 Claude Fable 5.1（<code>claude-fable-5-1</code>）并设为默认 Fable 模型：支持 1M 上下文，定价 $10/$50 每百万 token，缓存读取 $0.25/百万 token</li>
+<li>新增时间格式（<code>timeFormat</code>）与时区（<code>timeZone</code>）设置，控制回合结束时钟和会话记录时间戳的显示（12 小时制、24 小时制、24 小时 UTC 或 strftime 格式）</li>
+<li>新增 <code>CLAUDE_CODE_SUBAGENT_MODEL_FORCE</code> 环境变量，可对所有子代理强制应用 <code>CLAUDE_CODE_SUBAGENT_MODEL</code>（或主模型），忽略每次生成和代理定义中的模型覆盖</li>
+<li><code>/effort</code> 新增 <code>s</code> 参数，仅对当前会话生效（与 <code>/model</code> 一致）</li>
+<li><code>/doctor</code> 新增对残留沙箱掩码文件的警告</li>
+<li>支持网关在 <code>/model</code> 选择器中提供模型描述（需 <code>CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY</code>）</li>
+<li>VSCode 扩展：会话列表面板新增可折叠的 ACCOUNT &amp; USAGE 和 SESSION MANAGER 分区标题；输入栏底部新增模型徽章（显示当前模型并可打开模型选择器）；命令菜单新增输出风格选择；"Delete session" 改为 "Archive session"，归档会话移至底部可折叠分组并可取消归档</li>
+</ul>
+
+<h3>会话与后台任务修复</h3>
+<ul>
+<li>修复启动后新建的 <code>.claude/</code> 目录中的设置需重启才能生效的问题</li>
+<li>修复 <code>claude agents</code> 中 Ctrl+G 键位绑定被忽略的问题，Ctrl+S/Ctrl+T 现在可通过新的 <code>Agents</code> 上下文重新绑定</li>
+<li>修复后台会话在 macOS npm 安装自更新期间无法启动的问题</li>
+<li>修复 <code>claude --bg</code> 在目录刚被删除时误报"已后台化"的问题</li>
+<li>修复 <code>--resume</code> 重复列出后台会话、<code>--continue</code> 重新打开其停滞副本的问题；<code>--continue</code> 现在也会打开已结束的后台会话</li>
+<li>修复自动更新后旧版二进制后台会话堆积的问题</li>
+<li>修复脱离 shell 的后台命令在任务停止后仍然存活、停止后台子代理后其 Monitor 仍在运行的问题</li>
+<li>修复 <code>claude agents</code> 未提示后台会话正等待其他会话消息审批的问题</li>
+<li>修复后台会话中 Ctrl+S 暂存的提示词在会话闲置或停止后丢失的问题</li>
+<li>修复另一个 Claude Code 进程下载 npm 更新时后台会话无法启动的问题</li>
+<li>修复中断的后台守护进程启动残留 <code>cc-daemon-*</code> 文件夹的问题</li>
+<li>修复 <code>/schedule</code> 例行任务因提示词缺少消息角色而空转的问题</li>
+</ul>
+
+<h3>子代理与会话记录修复</h3>
+<ul>
+<li>修复子代理在响应被中断（电脑休眠、连接断开、服务器错误）后自动继续而非以不完整响应结束的问题</li>
+<li>修复恢复超过 5 MB 的会话记录失败的问题</li>
+<li>修复切换子代理会话记录后 token 计数器冻结或缓慢的问题</li>
+<li>修复设置顾问模型的会话在后台请求中丢失提示缓存的问题</li>
+<li>修复恢复已停止的子代理时主代理未被通知的问题</li>
+<li>修复后台化回合时子代理工具被误判为拒绝的问题</li>
+</ul>
+
+<h3>输入输出与渲染修复</h3>
+<ul>
+<li>修复全屏模式下无法点击展开 <code>!</code> shell 命令输出的问题</li>
+<li>修复粘贴 ANSI 彩色文本（如 CI 日志）到对话框时崩溃的问题</li>
+<li>修复 Edit 权限提示的 diff 视图渲染 emoji 宽度错误的问题</li>
+<li>修复 <code>/model</code> 和 <code>/effort</code> 在回退到空对话后显示提示缓存警告的问题</li>
+<li>修复长截图会话中图片超过单请求大小上限后每回合提示缓存未命中的问题</li>
+<li>改进渲染性能：长对话每回合重渲染更少，流式输出不再随回复增长变慢，后台代理更新不再重渲染整个屏幕；提示输入响应速度也得到提升</li>
+</ul>
+
+<h3>其他修复与改进</h3>
+<ul>
+<li>修复远程控制会话中途连接时重发 Bash 工具定义导致提示缓存未命中的问题</li>
+<li>修复 <code>/add-dir</code> 拒绝当前工作目录内目录的问题</li>
+<li>修复 worktree 隔离会话拒绝不涉及 git 的 Bash 循环、<code>$VAR</code> 读取等命令的问题</li>
+<li>修复链接 worktree 中沙箱 git 命令在 <code>cd</code> 到子目录后失去写入权限的问题</li>
+<li>修复 <code>.mcp.json</code> 为 FIFO 或设备文件符号链接时 <code>claude mcp add/remove</code> 挂起或耗尽内存的问题</li>
+<li>修复非 JSONL 数据管道输入 <code>claude -p --input-format stream-json</code> 时内存无限增长的问题</li>
+<li>修复 WebSocket MCP 服务器连接失败日志显示 "[object ErrorEvent]" 的问题</li>
+<li>修复 Bedrock 长隐藏思考阶段请求静默导致空闲超时断连的问题</li>
+<li>修复 Claude apps 网关会话过期后启动报网络错误而非提示登录的问题</li>
+<li>修复云会话网络代理启动失败后丢失 git/GitHub 凭据的问题</li>
+<li>修复代理团队队友在 tmux/iTerm2 面板中确认关闭后仍保持打开的问题</li>
+<li>修复无密钥 Console 登录未应用组织服务器管理设置的问题</li>
+<li>改进 <code>/code-review --comment</code> 支持通过 <code>glab mr note</code> 在 GitLab 合并请求上发布评论</li>
+<li>改进 <code>/fork</code> 保留原对话的提示缓存；改进 emoji 自动补全支持更多 GitHub/Slack 短代码别名</li>
+<li>修改 <code>--effort</code> 行为：仅提升新模型默认努力值的会话级限制；修改 <code>/btw</code> 历史浏览键位为 <code>Shift+←</code>/<code>Shift+→</code>（或 <code>[</code>/<code>]</code>）</li>
+<li>修改 <code>--add-dir</code>、<code>/add-dir</code> 和 <code>additionalDirectories</code> 拒绝网络路径（UNC 共享、<code>/net/&lt;host&gt;</code> 自动挂载）</li>
+<li>移除 Bash 和 PowerShell 权限提示上的 Ctrl+E 命令说明</li>
+</ul>
+
+<h3>VSCode 扩展修复</h3>
+<ul>
+<li>修复第三方提供商部署仍显示 claude.ai 专属功能的问题</li>
+<li>修复会话列表面板用量表空白的问题</li>
+<li>修复"为所有会话启用远程控制"开关不适用于已打开会话的问题</li>
+<li>修复屏幕阅读器朗读问题（围栏/标题前的控制字符不再丢失可见行）</li>
+<li>命令菜单改为可筛选的 "Slash commands" 对话框，MCP 服务器对话框也新增筛选框</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.257</guid>
+      <pubDate>Tue, 01 Sep 2026 17:53:52 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.152.0：Vim 搜索、速率限制横幅与 MCP 工具增强</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.152.0</link>
@@ -1323,37 +1409,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.25.4</guid>
       <pubDate>Mon, 03 Aug 2026 03:15:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>Chezmoi v2.72.0 发布：新增模板函数与多项安全修复</title>
-      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.72.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Chezmoi v2.72.0 版本已发布，本次更新主要包含新的模板函数支持以及多项针对路径遍历和权限控制的安全修复。</p>
-
-<h3>新功能</h3>
-<ul>
-  <li>新增 <code>shellQuote</code> 和 <code>shellQuoteList</code> 模板函数，用于处理 Shell 引号。</li>
-  <li>新增 <code>gopassCat</code> 模板函数，支持 gopass 集成。</li>
-  <li>新增 <code>debugf</code> 模板函数，用于调试输出。</li>
-</ul>
-
-<h3>安全与修复</h3>
-<p>本次版本重点修复了多个潜在的安全漏洞，主要由 secur0.com 报告：</p>
-<ul>
-  <li><strong>路径遍历防护</strong>：禁止在 ignore/remove 模式、mackup 文件、<code>.chezmoiroot</code> 以及归档文件（tar/rar）中使用 <code>..</code> 路径，防止目录逃逸。同时禁止解析为 <code>.</code> 的文件名。</li>
-  <li><strong>权限收紧</strong>：收紧临时文件权限，确保 HTTP 缓存目录和持久状态目录默认私有。</li>
-  <li><strong>密钥处理</strong>：确保 <code>secret keyring get</code> 和 <code>age-keygen</code> 命令生成的密钥文件始终为私有权限。</li>
-  <li><strong>其他修复</strong>：改进对不受信任相对路径的处理，拒绝负数的 <code>format-indent-width</code> 模板指令。</li>
-</ul>
-
-<h3>文档更新</h3>
-<ul>
-  <li>示例代码中使用了更健壮的引用函数。</li>
-  <li>添加了相关文章链接。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.72.0</guid>
-      <pubDate>Sun, 02 Aug 2026 18:51:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
