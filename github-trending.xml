@@ -3,7 +3,142 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Wed, 02 Sep 2026 04:23:51 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 21:47:39 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ {fmt}：比 printf 快约 50% 的现代 C++ 格式化库</title>
+      <link>https://github.com/fmtlib/fmt</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是速度更快的现代 C++ 格式化库，核心是编程工具与编程效率改进，命中用户高兴趣类别，故判为 critical</small></p><p><img src="https://user-images.githubusercontent.com/576385/156254208-f5b743a9-88cf-439d-b0c0-923d53e8d551.png" alt="{fmt}" width="25%" /></p>
+<p><strong>{fmt}</strong> 是一个开源的 C++ 格式化库，旨在提供比 C 标准库 <code>stdio</code> 和 C++ <code>iostreams</code> 更快、更安全的格式化方案。该项目今日登上 GitHub Trending 榜首，拥有约 2.4 万星标，被 PyTorch、MongoDB、ClickHouse、Ceph、MariaDB、Envoy 等众多知名项目采用。</p>
+<h2>核心特性</h2>
+<ul>
+<li>简洁的格式化 API，支持位置参数，便于本地化</li>
+<li>实现了 C++20 <code>std::format</code> 与 C++23 <code>std::print</code> 标准</li>
+<li>格式化字符串语法与 Python 的 <code>str.format</code> 类似</li>
+<li>基于 <a href="https://github.com/jk-jeon/dragonbox">Dragonbox</a> 算法的 IEEE 754 浮点格式化，保证正确舍入、最短表示与往返转换</li>
+<li>可移植的 Unicode 支持；安全的 <a href="https://fmt.dev/latest/api/#printf-api">printf 实现</a>，含 POSIX 位置参数扩展</li>
+<li>支持<a href="https://fmt.dev/latest/api/#formatting-user-defined-types">用户自定义类型</a>扩展</li>
+<li>完全类型安全：格式字符串错误可在编译期报告，自动内存管理防止缓冲区溢出</li>
+<li>代码体积小：最小配置仅需 <code>base.h</code>、<code>format.h</code>、<code>format-inl.h</code> 三个文件，无外部依赖，MIT 许可</li>
+<li>默认与 locale 无关，跨平台输出一致，支持旧编译器；可通过 <code>FMT_HEADER_ONLY</code> 宏启用纯头文件模式</li>
+</ul>
+<h2>性能基准</h2>
+<p>官方基准测试（macOS 15.6.1，clang++ -O3）显示，{fmt} 的 <code>fmt::print</code> 耗时 0.44 秒，比 libc 的 <code>printf</code>（0.66 秒）快约 50%，远快于 <code>std::ostream</code>（1.63 秒）、Folly Format（1.28 秒）和 Boost Format（3.89 秒）。在 IEEE 754 浮点数格式化上，{fmt} 比 <code>std::ostringstream</code> 和 <code>sprintf</code> 快 20–30 倍。编译时间与生成代码体积方面，{fmt} 与 <code>printf</code> 相当，明显优于 IOStreams、tinyformat 和 Boost Format。</p>
+<h2>使用示例</h2>
+<p>基本用法非常直观：<code>fmt::print("Hello, world!\n")</code> 直接输出到 stdout；<code>fmt::format("The answer is {}.", 42)</code> 返回格式化字符串；位置参数如 <code>fmt::format("I'd rather be {1} than {0}.", "right", "happy")</code> 便于本地化调整语序。库还支持日期时间（<code>fmt/chrono.h</code>）、容器输出（<code>fmt/ranges.h</code>，如 <code>[1, 2, 3]</code>）、单线程写文件（<a href="https://vitaut.net/posts/2020/optimal-file-buffer-size/">可比 <code>fprintf</code> 快最多 9 倍</a>）以及彩色与文本样式输出：</p>
+<p><img src="https://github.com/fmtlib/fmt/assets/576385/2a93c904-d6fa-4aa6-b453-2618e1c327d7" alt="彩色输出示例" /></p>
+<p>在 C++20 下，格式说明符错误（如对字符串使用 <code>{:d}</code>）会在编译期直接报错。此外，clang-tidy v18 提供了 <code>modernize-use-std-print</code> 检查，可将现有 <code>printf</code>/<code>fprintf</code> 调用自动迁移为 <code>fmt::print</code>（默认迁移为 <code>std::print</code>）。</p>
+<h2>生态与采用情况</h2>
+<p>{fmt} 被广泛应用于游戏、数据库、日志与基础设施领域，知名使用者包括 PyTorch、MongoDB、ClickHouse、Ceph、MariaDB、Apple FoundationDB、Blizzard Battle.net、Envoy、Folly、spdlog、Scylla、Seastar、redpanda、Kodi、Aseprite、0 A.D. 等。库本身经过持续模糊测试（OSS-Fuzz）和大量单元测试验证，可靠性有保障。</p>
+<h2>你知道吗？</h2>
+<p>Dragonbox 是一种高效的浮点数转字符串算法，由 Junekey Jeon 提出，它基于预计算的查找表在保证正确舍入（round-trip）的前提下大幅提升转换速度，是 {fmt} 浮点性能领先的关键之一。另外，{fmt} 正是 C++20 标准库 <code>std::format</code> 的设计基础，其作者 Victor Zverovich 也是该标准提案的主要推动者。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/fmtlib/fmt</guid>
+      <pubDate>Wed, 02 Sep 2026 21:46:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ TimesFM 3.0 发布：谷歌时序基础模型支持多元预测并登顶三大基准</title>
+      <link>https://github.com/google-research/timesfm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是谷歌时序基础模型新版本的发布及基准表现，属新 AI 模型发布公告，用户很感兴趣，故判为 critical</small></p><p>TimesFM（Time Series Foundation Model）是谷歌研究院（Google Research）开发的预训练时间序列基础模型，用于时间序列预测。相关论文《<a href="https://arxiv.org/abs/2310.10688">A decoder-only foundation model for time-series forecasting</a>》发表于 ICML 2024。该开源版本并非谷歌官方支持产品。</p><h3>TimesFM 3.0 核心亮点</h3><p>最新版本 TimesFM 3.0（2026 年 8 月发布）引入了原生<b>多元时间序列预测</b>、灵活的<b>协变量支持</b>（仅过去协变量及过去+未来协变量），无需针对任务调参即可使用，并具备更强的零样本（zero-shot）泛化能力。在三大时间序列基础模型基准上均取得最佳表现：</p><ul><li>🥇 <b>fev-bench</b>：100 个多样化真实世界预测任务综合排名第一；</li><li>🥇 <b>TIME Benchmark</b>：50 个领域数据集、98 项评估任务综合排名第一；</li><li>🥇 <b>GIFT-Eval</b>：全部基础模型中排名第一。</li></ul><h3>许可说明</h3><p>仓库源码采用 Apache-2.0 许可，2.5 及以前版本的模型权重同样为 Apache-2.0；但 TimesFM 3.0 预训练权重目前采用独立的 <code>timesfm-non-commercial-license-v1.0</code> 许可，仅限非商业、非生产用途，默认权重的商业或生产使用<b>不被允许</b>。</p><h3>版本演进与产品集成</h3><p>此前发布的 TimesFM 2.5 将参数量从 500M 降至 200M，上下文长度从 2048 提升至 16k，并可通过可选的 30M 分位数头支持最长 1k 步的连续分位数预测。TimesFM 已集成至多个谷歌产品：<a href="https://cloud.google.com/bigquery/docs/timesfm-model">BigQuery ML</a>（企业级 SQL 查询）、<a href="https://workspaceupdates.googleblog.com/2026/02/forecast-data-in-connected-sheets-BigQueryML-TimesFM.html">Google Sheets</a>（日常表格预测）以及 Vertex Model Garden（Docker 化端点，支持智能体调用）。</p><h3>社区与生态</h3><p>项目近期新增了基于 HuggingFace Transformers + PEFT（LoRA）的微调示例、核心层单元测试，并支持 AGENTS/SKILL.md 智能体调用，同时吸纳了多项社区修复（致谢 @kashif、@darkpowerxo、@borealBytes 等贡献者）。</p><h3>你知道吗？</h3><p>时间序列基础模型借鉴了大语言模型（LLM）的范式：在海量时间序列数据上预训练后，可直接对未见过的数据集进行零样本预测，无需为每个任务单独训练模型，这与传统「一数据集一模型」的预测方式形成鲜明对比，也是 TimesFM 等模型的核心价值所在。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/google-research/timesfm</guid>
+      <pubDate>Wed, 02 Sep 2026 21:46:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Sequoia-X：A股自动量化选股系统，收盘后自动扫描技术形态并推送飞书</title>
+      <link>https://github.com/sngyai/Sequoia-X</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是面向 A 股的自动量化选股开源工具，属开源项目范畴，用户有兴趣，故判为 recommended</small></p><p>Sequoia-X V2 是一款面向 A 股市场的开源量化选股系统（Python 实现），基于现代 Python 工程化标准从零重构，以面向对象（OOP）架构、向量化计算和增量数据更新为核心设计原则。系统每个交易日收盘后自动运行，扫描全市场多种技术形态并筛选符合条件的股票，通过飞书 Webhook 推送至群聊，日常运行全程约 2~3 分钟。</p><p>数据层使用 <a href="http://baostock.com">baostock</a>（免费、无需注册、无限流）拉取历史及增量日 K 数据（后复权），存储于本地 SQLite，彻底规避了东方财富的反爬问题。首次使用时可通过回填模式一次性灌入约 5200 只 A 股的历史日 K 数据（约 12 分钟），之后日常模式以 8 进程并行增量更新数据并执行策略，适合配合 crontab 在每个交易日收盘后自动运行。</p><p>系统内置 6 种技术形态策略：</p><ul><li><strong>TurtleTrade</strong>：海龟突破，20 日新高 + 成交额过亿 + 阳线防诱多，按涨幅排序</li><li><strong>MaVolume</strong>：均线 + 放量突破</li><li><strong>HighTightFlag</strong>：高而窄的旗形整理突破</li><li><strong>LimitUpShakeout</strong>：涨停洗盘回踩确认</li><li><strong>UptrendLimitDown</strong>：上升趋势中的跌停反包</li><li><strong>RpsBreakout</strong>：欧奈尔 RPS 相对强度突破</li></ul><p>项目采用 MIT 许可证，目前在 GitHub 上已获得约 6000 星标与 1200 余次 fork，受到社区广泛关注。</p><h3>你知道吗？</h3><p><strong>海龟交易法则（Turtle Trading）</strong>：源自 1983 年 Richard Dennis 与 William Eckhardt 的著名交易员实验，核心是趋势跟踪与突破入场，20 日新高突破是其中经典的入场信号之一。</p><p><strong>RPS（Relative Price Strength，相对价格强度）</strong>：欧奈尔（William O'Neil）在《笑傲股市》中提出的选股指标，通过个股相对全市场或板块的涨幅排名（通常取 250 日）筛选强势股，是成长股投资的重要参考。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/sngyai/Sequoia-X</guid>
+      <pubDate>Wed, 02 Sep 2026 21:46:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Chrome DevTools MCP：让 AI 编程代理直接操控 Chrome 进行调试与性能分析</title>
+      <link>https://github.com/ChromeDevTools/chrome-devtools-mcp</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是让 AI 编程代理操控 Chrome 的调试与性能分析工具，属于编程工具发布与编程效率改进，用户很感兴趣，故判为 critical</small></p><p>Chrome DevTools MCP（<code>chrome-devtools-mcp</code>）是 Chrome 团队推出的开源项目（TypeScript，GitHub 上已获约 5 万星标），它作为模型上下文协议（MCP）服务器，让 Antigravity、Claude、Cursor、Copilot 等 AI 编程代理能够控制并检查实时运行的 Chrome 浏览器，从而获得完整的 Chrome DevTools 能力，用于可靠的自动化操作、深度调试和性能分析。项目同时提供独立的 <a href="https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/main/docs/cli.md">CLI</a>，可在不使用 MCP 的情况下调用。</p><p><strong>核心功能</strong>：</p><ul><li><strong>性能洞察</strong>：基于 Chrome DevTools 记录性能 trace，并提取可操作的性能分析结论；</li><li><strong>高级浏览器调试</strong>：分析网络请求、截取屏幕截图、检查浏览器控制台消息（支持 source-map 映射的堆栈跟踪）；</li><li><strong>可靠自动化</strong>：基于 <a href="https://github.com/puppeteer/puppeteer">puppeteer</a> 在 Chrome 中执行操作，并自动等待操作结果。</li></ul><p><strong>使用方式与注意事项</strong>：在 MCP 客户端配置中添加一行服务器配置即可接入，例如让代理执行「检查 https://developers.chrome.com 的性能」这类提示词；仅需基础浏览器任务时可使用 <code>--slim</code> 模式。官方仅支持 Google Chrome 和 <a href="https://developer.chrome.com/blog/chrome-for-testing/">Chrome for Testing</a>，其他 Chromium 系浏览器不保证兼容。此外需注意：性能工具可能将 trace URL 发送至 Google CrUX API 以获取真实用户体验数据（可用 <code>--no-performance-crux</code> 关闭）；服务器默认收集使用统计（可用 <code>--no-usage-statistics</code> 退出，该统计与 Chrome 浏览器的统计相互独立）；默认会定期检查 npm 上的版本更新。由于该工具会将浏览器实例内容暴露给 MCP 客户端，官方提醒用户避免共享敏感或个人信息。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/ChromeDevTools/chrome-devtools-mcp</guid>
+      <pubDate>Wed, 02 Sep 2026 21:46:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ SIE：开源智能体推理引擎，一个 API 统一服务 100+ 模型</title>
+      <link>https://github.com/superlinked/sie</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是统一接入多模型的开源 AI 推理引擎，属 AI 软件技术进展与开源项目，用户有兴趣，故判为 recommended</small></p><p>SIE（Superlinked Inference Engine）是 Superlinked 推出的开源推理引擎，目标是用一个自托管集群、一个 API 为智能体（agent）提供其所需的全部开源模型，取代以往每个任务单独部署模型服务器的做法。项目采用 Apache 2.0 许可，目前在 GitHub 上已获得约 3030 星。</p><h3>核心特点</h3><ul><li><strong>OpenAI 兼容 API</strong>：提供 /v1/embeddings、/v1/chat/completions、/v1/completions、/v1/responses 等接口，可无缝迁移现有应用。</li><li><strong>预配置模型目录</strong>：内置 Stella、SPLADE、Qwen3、GLiNER、SigLIP 等 100+ 模型，嵌入与检索模型均经过 MTEB 基准测试。</li><li><strong>按需加载</strong>：可同时服务多个模型，采用按需加载与 LRU 淘汰机制管理资源。</li><li><strong>覆盖智能体全流程任务</strong>：搜索检索（嵌入、匹配、重排）、文档转 Markdown（PDF、Office、扫描件）、结构化输出（生成或抽取 schema 校验的 JSON）、内容安全审核、智能体循环（规划与工具调用，支持流式输出）。</li><li><strong>生产级部署</strong>：提供负载均衡网关、Helm Charts、KEDA 自动扩缩容（可缩至零）与 Grafana 监控面板，另有阿里云 ACK、AWS EKS、Azure AKS、Google GKE 的 Terraform 模块。</li><li><strong>生态集成</strong>：支持 LangChain、LlamaIndex、Haystack、DSPy、CrewAI 等框架，以及 Chroma、Qdrant、Weaviate、LanceDB 等向量数据库。</li></ul><p>项目提供 Python 与 TypeScript SDK，并支持 MCP 边缘部署，可将文档处理等任务从 Claude 等 MCP 客户端卸载到集群，节省智能体 token 消耗。更多信息见<a href="https://superlinked.com/docs/">官方文档</a>与<a href="https://superlinked.com/models">模型目录</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/superlinked/sie</guid>
+      <pubDate>Wed, 02 Sep 2026 21:46:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Atlas：为 AI 编码代理打造的源代码管理与共享记忆工具</title>
+      <link>https://github.com/pacifio/atlas</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是为 AI 编码代理设计的源码管理与共享记忆工具，属于编程工具发布，用户很感兴趣，故判为 critical</small></p><p>Atlas 是一个面向 AI 编码代理（coding agent）的源代码管理工具，使用 Rust 编写。它解决的核心问题是：代理写下了大量代码，却从不保留背后的推理过程。Atlas 将每次代理运行记录为「检查点」（checkpoint），把提交（commit）与其产生的会话关联起来——包括提示词、工具调用和推理过程，让用户随时可以查询「哪个代理做了什么、为什么这么做」。</p><p>项目支持在同一代码库上并行运行多种代理：Claude Code、Codex、Atlas 自带的原生代理，以及 ACP 注册表中的其他代理（如 Cursor、OpenCode、Kilo Code 等）。代理之间共享本地记忆——一个代理做出的决策会自动出现在另一个代理的下一轮提示中，切换代理不会丢失任务进度。用户已有的 <code>CLAUDE.md</code>、<code>AGENTS.md</code> 和 Markdown 笔记也会统一索引，喂给项目中的每个代理。</p><p>Atlas 的上下文注入机制包括：@提及（文件、文件夹、符号、分支、提交、笔记、论文、历史会话在本地解析）、共享代理记忆、语义匹配（消息在设备端嵌入并与项目记忆索引匹配）、会话交接（新会话首条消息携带精选事实包和上一会话的结尾）等。检索与嵌入均在本地完成，不离开设备。</p><p>在版本控制层面，Atlas 将每次会话记录到 <code>.atlas/sessions.db</code>，提交时（即使 Atlas 关闭、从终端或其他编辑器提交）也会通过补丁 ID 对账将提交链接回产生它的会话，且链接在 amend 和 rebase 后依然有效；任何内容写入磁盘前都会清除密钥等敏感信息。用户还可以直接与检查点对话，让它基于会话中实际发生的事情回答问题。会话记录支持导入已有的 Claude Code 历史，并提供了「任务控制」（Mission Control）仪表盘，展示代理活动随时间的使用量、消耗构成和时间线。</p><p>工作区方面，Atlas 提供 CodeMirror 编辑器、带泳道分配的 Git 提交图、块式终端、Markdown 知识库（支持反向链接和链接图）、arXiv 与 Semantic Scholar 论文检索、原生 WebKit 浏览器标签页、空间看板（Spaces）和三栏分屏视图等。项目默认本地优先：代码、笔记和会话都留在本机，无需账号；登录后可创建组织实现跨设备与团队同步。目前 macOS 是官方支持平台，Linux 和 Windows 可从同一 Tauri 代码库构建但未经测试。</p><h3>你知道吗？</h3><p>ACP（Agent Client Protocol，代理客户端协议）是由 Zed Industries 发起的开放协议，用于在编辑器/客户端与 AI 编码代理之间建立标准化通信，使不同代理可以接入同一客户端。Atlas 通过 ACP 以子进程方式运行 Claude Code 和 Codex，其原生代理则基于自研的 Rust 代理框架 Cersei 在进程内运行。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/pacifio/atlas</guid>
+      <pubDate>Wed, 02 Sep 2026 21:46:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ TypeWords：开源英语单词与文章打字练习工具，基于记忆曲线高效背单词</title>
+      <link>https://github.com/zyronon/TypeWords</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是基于记忆曲线的英语打字与背单词开源工具，属开源项目，用户有兴趣，故判为 recommended</small></p><p>TypeWords 是一个开源的英语单词与文章练习工具，主打「一次敲击，一点进步」的理念，通过打字输入强化记忆。项目基于 Vue/Nuxt 构建，目前在 GitHub 上已获得约 9280 星，可在线体验（<a href="https://typewords.cc">typewords.cc</a>）。</p>
+<p>核心功能包括：</p>
+<ul>
+<li><strong>单词练习</strong>：提供跟打、听写、自测、默写四种模式；智能模式根据记忆曲线自动安排学习单词，并通过听写加深记忆；自由模式无限制，可自行规划学习。同时提供音标、美式/英式发音、例句、短语、同义词、词根、词源及错误统计等信息。</li>
+<li><strong>文章背诵</strong>：内置经典教材，支持添加或导入文章，一键翻译与双语对照；跟打与听写双模式，逐句输入并自动发音，支持边听边默写，提升背诵效率。</li>
+<li><strong>错词本、收藏与已掌握</strong>：练习中打错的单词自动进入错词本供后续复习；可主动将单词标记为已掌握，在后续学习中自动跳过；也可加入收藏巩固复习。</li>
+<li><strong>高度可定制</strong>：丰富的键盘音效、可自定义快捷键与各项设置。</li>
+<li><strong>简洁高效</strong>：界面干净现代、无广告、无需强制订阅任何平台。</li>
+<li><strong>词库丰富</strong>：内置四六级、考研英语、专四专八、GMAT、GRE、雅思、SAT、托福等常用词库，并欢迎社区贡献更多词库。</li>
+</ul>
+<p>项目仍处于早期开发阶段，新功能持续添加中，欢迎通过 Issue 提交建议或通过 PR 参与贡献。数据保存在本地，切换设备时需手动备份。</p>
+<h3>你知道吗？</h3>
+<p>智能模式所依据的「记忆曲线」源于德国心理学家艾宾浩斯（Hermann Ebbinghaus）提出的遗忘曲线理论：记忆内容在学完后短时间内遗忘最快，按规律间隔复习可显著提升长期记忆保持率，这也是许多背单词应用的核心原理。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/zyronon/TypeWords</guid>
+      <pubDate>Wed, 02 Sep 2026 21:46:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ portless：用稳定的命名本地 URL 替代端口号，面向开发者与 AI 代理</title>
+      <link>https://github.com/vercel-labs/portless</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是用命名本地 URL 替代端口号的开发工具，属于编程效率改进，用户有兴趣，故判为 recommended</small></p><p>portless 是 Vercel Labs 推出的开源命令行工具（TypeScript 编写），核心目标是用稳定、可命名的本地 URL 取代易变的端口号：开发者不再需要记住 <code>localhost:3000</code> 之类的端口，而是通过 <code>https://myapp.localhost</code> 这样的命名地址访问本地服务。项目上线后迅速登上 GitHub Trending，已获得超过 1.1 万星标。</p>
+
+<h3>工作原理</h3>
+<p>portless 采用「代理 + 命名路由」的架构：本地代理默认监听 443 端口，将命名域名转发到随机分配端口（4000–4999）上运行的应用进程。首次运行时，它会自动生成本地 CA 证书并加入系统信任库，默认启用 HTTPS 与 HTTP/2，无需任何手动配置。大多数框架（Next.js、Express、Nuxt 等）会自动遵循 <code>PORT</code> 环境变量；对于忽略该变量的框架（Vite、Astro、Angular、Expo 等），portless 会自动注入正确的 <code>--port</code> 和 <code>--host</code> 参数。</p>
+
+<h3>主要特性</h3>
+<ul>
+  <li><strong>子域名组织服务</strong>：<code>api.myapp.localhost</code>、<code>docs.myapp.localhost</code> 等子域名可分别映射到不同应用，默认严格模式只路由显式注册的子域名，也可用 <code>--wildcard</code> 开启通配。</li>
+  <li><strong>Git worktree 支持</strong>：自动检测 worktree，并将分支名作为子域名前缀（如 <code>fix-ui.myapp.localhost</code>），多个工作区互不冲突，无需改配置。</li>
+  <li><strong>Monorepo 支持</strong>：一份 <code>portless.json</code> 即可覆盖所有 workspace 包，支持 pnpm/npm/yarn/bun 的 workspace 发现，并与 turborepo 无缝集成。</li>
+  <li><strong>自定义 TLD</strong>：支持 <code>.test</code> 或自有域名（如 <code>dev.example.com</code>）作为后缀，使本地 URL 与生产环境结构一致，OAuth 回调、跨子域 Cookie、基于主机的路由在本地与生产环境行为相同。</li>
+  <li><strong>LAN 模式</strong>：通过 mDNS 以 <code>.local</code> 域名向局域网设备提供服务，并自动跟随 Wi-Fi/IP 变化。</li>
+  <li><strong>系统服务</strong>：可安装为 macOS（launchd）、Linux（systemd）或 Windows（任务计划程序）的启动服务，重启后无需手动启动代理。</li>
+</ul>
+
+<h3>适用场景与意义</h3>
+<p>稳定的命名 URL 对两类用户尤其有价值：一是需要固定回调地址的开发者——Google、Apple 等严格 OAuth 提供商拒绝 <code>.localhost</code> 和 <code>.test</code> 回调，但接受真实域名，使用自有域名作为 TLD 即可让本地 OAuth 流程与生产一致；二是 AI 编码代理（agents）——命名 URL 比随机端口更稳定可靠，便于代理反复访问本地服务。此外，默认的 HTTP/2 多路复用解决了 HTTP/1.1 每主机 6 个连接的限制，对 Vite、Nuxt 等大量未打包文件的开发服务器有明显提速效果。</p>
+
+<h3>你知道吗？</h3>
+<p><code>.localhost</code> 是 IANA 在 RFC 6761 中保留的特殊顶级域名，浏览器和解析器会直接将其解析到回环地址（127.0.0.1），因此无需修改 hosts 文件即可使用；portless 对自定义 TLD（如 <code>.test</code>）则通过自动同步 <code>/etc/hosts</code> 实现解析。项目标语中「面向 agents」也反映了当前 AI 编码工具的趋势：代理需要稳定、可预测的 URL 来反复访问本地开发服务，随机端口号会让代理的配置和记忆频繁失效。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/vercel-labs/portless</guid>
+      <pubDate>Wed, 02 Sep 2026 21:46:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Humanizer：基于 35 种 AI 写作模式检测的文本去 AI 化 Agent 技能</title>
+      <link>https://github.com/blader/humanizer</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是基于写作模式检测的文本去 AI 化 Agent 技能，属 AI 软件技术进展与开源项目，用户有兴趣，故判为 recommended</small></p><p><strong>Humanizer</strong> 是一个开源的 Agent 技能（skill），用于改写带有"AI 腔"的文本，使其读起来像真人写作，同时不改变原意。项目以纯 Markdown 形式发布，兼容任何支持技能（skills）的 Agent，目前已在 GitHub 上获得约 4 万星标，采用 MIT 许可。</p><p><strong>工作原理</strong>：Humanizer 依据维基百科 <a href="https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing">"Signs of AI writing"</a> 页面（由 <a href="https://en.wikipedia.org/wiki/Wikipedia:WikiProject_AI_Cleanup">WikiProject AI Cleanup</a> 维护）总结出 35 种 AI 写作模式。它先进行第一轮改写（不把原文结构视为固定），再对照这些模式和原文事实核查草稿，对仍显生硬的部分进行二次改写。</p><p><strong>核心特点</strong>：</p><ul><li><strong>不编造事实</strong>：姓名、数字、日期、引文、引用等事实细节必须来自原文或作者本人，缺失时宁可追问也不虚构；</li><li><strong>风格适配</strong>：个人写作保留作者风格，技术性和参考性文本保持中性平实；提供 2-3 段个人写作样本即可进行"声音匹配"，让改写贴近用户的节奏、用词和标点习惯；</li><li><strong>过程透明</strong>：改写前会展示第一版草稿，并附上对仍显人工痕迹部分的简短点评；</li><li><strong>精准处理文件</strong>：指定文件路径时只改写散文，不动代码、数据、frontmatter 和链接目标。</li></ul><p><strong>35 种模式分类</strong>：内容类（夸大重要性与遗产、堆砌名头、浅层 -ing 分析、销售话术、模糊来源、公式化的挑战与展望）；语言语法类（滥用 AI 高频词、回避 is/are、强行三连、重复开头、虚假的 from X to Y 范围、被动语态）；风格类（em/en 破折号、过多加粗、列表式小标题、标题大小写、表情符号、弯引号、虚假的深层真理、预告下一段、公式化格言等）；聊天机器人痕迹类（"希望这有帮助"式结尾、知识截止免责声明、过度附和）；填充与模糊措辞类（废话短语、过多限定词、空泛的积极结尾）。</p><p>项目提供了完整的改写前后示例（里斯本游记），直观展示 AI 腔文本如何被改写成自然、具体、有个人视角的叙述。安装方式包括 Skills CLI（<code>npx skills add blader/humanizer --global</code>）、Claude Code 插件（<code>/plugin marketplace add blader/humanizer</code>）以及 Claude Desktop 直接上传 ZIP 等。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/blader/humanizer</guid>
+      <pubDate>Wed, 02 Sep 2026 21:46:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenClaude：一个 CLI 接入所有大模型的开源编码代理工具</title>
       <link>https://github.com/Gitlawb/openclaude</link>
@@ -821,209 +956,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/AgriciDaniel/claude-obsidian</guid>
       <pubDate>Mon, 24 Aug 2026 11:40:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 从零构建 AI 工程能力：511 节课、20 个阶段的免费开源课程体系</title>
-      <link>https://github.com/rohitg00/ai-engineering-from-scratch</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 免费开源 AI 工程课程体系，属开源项目与 AI 技术学习资源，用户感兴趣，推荐阅读</small></p><p><a href="https://github.com/rohitg00/ai-engineering-from-scratch">ai-engineering-from-scratch</a> 是一套从零开始的 AI 工程课程体系，由 Agent Memory 的作者 rohitg00 创建，免费、开源（MIT 许可）。项目包含 <strong>511 节课、20 个阶段、约 329 小时</strong>的学习内容，覆盖 Python、TypeScript、Rust、Julia 四种语言，目前在 GitHub 上已获得约 4.8 万星标，近 30 天有超过 15 万读者、24 万次页面浏览。</p>
-
-<p>项目的核心理念是「不只是学习 AI，而是亲手构建」：每个算法都先从原始数学实现——反向传播、分词器、注意力机制、智能体循环等——再通过 PyTorch 等生产库运行同一功能，从而真正理解框架底层在做什么。每节课都会产出一个可复用的成果（artifact）：提示词、技能（Skill）、智能体或 MCP 服务器。</p>
-
-<p>课程按 20 个阶段层层递进：数学基础 → 机器学习基础 → 深度学习核心 → 视觉 / NLP / 语音 / 强化学习 → Transformer → 生成式 AI → 从零构建 LLM → LLM 工程 → 工具与协议 → 智能体工程 → 自主系统 → 多智能体与集群 → 基础设施与生产 → 伦理与对齐 → 毕业项目。每节课遵循六个环节：Motto（核心思想）→ Problem（具体痛点）→ Concept（图解与直觉）→ Build It（原始数学实现）→ Use It（生产库实现）→ Ship It（交付成果）。</p>
-
-<p>项目提供三种入门方式：<strong>终端学习</strong>（推荐）——通过 <code>npx skills add rohitg00/ai-engineering-from-scratch</code> 将课程技能安装到 Codex、Claude Code 等编码智能体中，让 AI 导师按「概念—数学—代码—测验」的节奏授课，10 题定位测验可生成个性化学习计划；<strong>在线阅读</strong>——在 <a href="https://aiengineeringfromscratch.com">aiengineeringfromscratch.com</a> 直接浏览课程；<strong>克隆运行</strong>——本地克隆仓库并执行课程代码。此外还提供聚焦路径：Model Context Protocol（MCP）路线（17 节课）和 Agent Skills 路线（5 节课），并支持 Claude 认证备考。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>MCP（Model Context Protocol，模型上下文协议）</strong>：Anthropic 推出的开放协议，用于标准化 AI 应用与外部工具、数据源的连接方式，让智能体以统一方式调用外部能力，是当前 AI 工程领域的热门方向。</li>
-<li><strong>Agent Skills</strong>：以 <code>SKILL.md</code> 格式封装的可移植技能包，可让编码智能体获得可复用的专项能力，并能在不同宿主（host）之间迁移使用。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/rohitg00/ai-engineering-from-scratch</guid>
-      <pubDate>Mon, 24 Aug 2026 11:40:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ FreeLLMAPI：聚合 34 家 LLM 免费额度，统一为单个 OpenAI 兼容端点</title>
-      <link>https://github.com/tashfeenahmed/freellmapi</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 聚合多家 LLM 免费额度为统一端点的开发者工具，属编程工具发布与 AI 软件进展，命中高兴趣「编程工具发布/分享」，必看</small></p><p>FreeLLMAPI 是一个开源的 OpenAI 兼容代理（TypeScript 编写，MIT 许可），将 34 家 LLM 提供商的免费额度聚合到单一 <code>/v1</code> 端点之后，合计约每月 74 亿 token 的免费推理容量，覆盖 474 个模型家族、635 个免费模型端点。项目在 GitHub 上已获得约 1.96 万星标，明确声明仅限个人实验用途。</p>
-
-<h3>核心机制</h3>
-<ul>
-<li><strong>智能路由</strong>：提供六种路由策略，基于实时速度、能力、可靠性评分选择最佳模型，遇到 429/5xx 限流时自动切换到下一个提供商，并带冷却与密钥轮换。</li>
-<li><strong>密钥加密</strong>：提供商密钥以 AES-256-GCM 加密存储在 SQLite 中，按请求在内存中解密；应用只需持有一个统一的 <code>freellmapi-…</code> bearer token。</li>
-<li><strong>用量追踪</strong>：按（平台、模型、密钥）维度统计 RPM/RPD/TPM/TPD，学习各提供商上报的额度上限，确保路由始终不超限。</li>
-<li><strong>自动更新目录</strong>：路由器每天两次从 <a href="https://freellmapi.co">freellmapi.co</a> 同步签名模型目录，新模型、配额变化与兼容性修复无需 <code>git pull</code> 即可落地。</li>
-<li><strong>自定义端点</strong>：可将任何 OpenAI 兼容端点（llama.cpp、LM Studio、vLLM、本地 Ollama 或远程网关）接入聊天、嵌入、图像与音频模型。</li>
-</ul>
-
-<h3>兼容性</h3>
-<ul>
-<li>覆盖 OpenAI 全系接口：<code>/v1/chat/completions</code>、<code>/v1/responses</code>、<code>/v1/completions</code>、图像/视频/语音生成、嵌入与模型列表，支持流式与非流式。</li>
-<li>兼容 Anthropic Messages API（<code>/v1/messages</code>），Claude Code 与官方 Anthropic SDK 可直接运行于免费池之上。</li>
-<li>提供原生 Gemini（<code>/v1beta</code>）与可选的 Ollama 模拟接口，适配 Zed、JetBrains 等本地模型客户端。</li>
-<li>与 Claude Code、Codex CLI、Gemini CLI、Aider、Cline、Cursor、Zed、JetBrains AI 等工具兼容，多数可用一条命令（<code>npx freellmapi setup-…</code>）自动配置。</li>
-</ul>
-
-<h3>特色功能</h3>
-<ul>
-<li><strong>Fusion 多模型合成</strong>：请求虚拟的 <code>fusion</code> 模型时，路由器将提示并行分发到多个免费模型，再由评判模型综合出最终答案。</li>
-<li><strong>媒体生成</strong>：图像、视频与语音生成/转写跨提供商路由，视频任务在同步与队列提供商间归一化并返回 MP4。</li>
-<li><strong>工具调用与结构化输出</strong>：OpenAI 风格 <code>tools</code> 跨提供商往返，并透传 <code>response_format</code>、<code>seed</code>、<code>logprobs</code> 等采样参数。</li>
-<li><strong>粘性会话与上下文交接</strong>：对话默认 30 分钟保持在同一模型，中途切换时可附带紧凑的交接说明。</li>
-<li><strong>提示压缩（可选）</strong>：去重提示、过滤工具输出、压缩重复 JSON、修剪过期上下文。</li>
-<li><strong>管理面板与分析</strong>：React 界面管理密钥、调整链路、运行 playground，并提供 24 小时至 90 天的 p50/p95/TTFT 延迟分析，支持 60 种语言。</li>
-<li><strong>MCP 服务器与交互式文档</strong>：智能体可通过 <code>/mcp</code> 查询可用模型与路由策略，<code>/v1/docs</code> 提供免依赖的 OpenAPI 查看器。</li>
-</ul>
-
-<h3>部署与商业模式</h3>
-<p>支持 Docker 一键安装、macOS/Windows 桌面应用与 Android 应用，可在任何 Node 20+ 环境（含树莓派）运行，空闲内存约 40 MB。免费版使用月度快照目录（新模型延迟 30 天上线）；高级版（19 美元/年）当天同步实时目录。项目与 OpenRouter、LiteLLM、Portkey 等做了功能对比，并明确列出尚未支持的范围。</p>
-
-<h3>你知道吗？</h3>
-<p>「免费额度堆叠」是该项目的基本思路：单个提供商的免费额度（每月数百万 token）单独看如同玩具，但 34 家叠加后即可凑出每月约 74 亿 token 的可用推理容量。与 OpenRouter 这类付费转发网关不同，FreeLLMAPI 专注免费额度聚合且可完全自托管，密钥仅保存在本地。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tashfeenahmed/freellmapi</guid>
-      <pubDate>Mon, 24 Aug 2026 11:40:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ awesome-gpt-image-2：将 GPT-Image2 提示词工程化的开源模板库（532 个逆向案例）</title>
-      <link>https://github.com/freestylefly/awesome-gpt-image-2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 围绕 GPT-Image2 提示词工程化模板库，涉及新 AI 模型与编程工具分享，属高兴趣方向，必看</small></p><p>该项目是 GitHub 热门的 GPT-Image2 提示词资源库，主打「Prompt as Code」理念，把社区零散的提示词案例整理为结构化、可复用的工程资产。目前已收录 532 个逆向工程案例、20 余套工业级提示词模板，并提炼出可接入 Agent 的 Skills，持续更新中。</p><p>项目背景：GPT-Image2 普及后，AI 生图的核心问题已从「能否生成图片」转向「能否稳定、可控、可复用」。该项目将散文式提示词压缩为结构化协议，便于批量生成、模板化系统和生产流程复用。其核心特点包括：原子化 schema（将主体、光照、材质、版式、视觉细节拆分为可组合部件）、面向工作流（为 Agent、脚本和自动化系统设计）、结构化控制（提升版式、文案与信息层级的可控性）。</p><p>案例库按 12 个类别组织：UI 与界面（73 例）、图表与信息图（52 例）、海报与排版（86 例）、产品与电商（41 例）、品牌与 Logo（27 例）、建筑与空间（12 例）、摄影与写实（77 例）、插画与艺术（58 例）、角色与人物（29 例）、场景与叙事（20 例）、历史与中国古典主题（16 例）、文档与出版（10 例）等，可通过<a href="https://github.com/freestylefly/awesome-gpt-image-2/blob/main/docs/gallery.md">完整案例画廊</a>浏览。</p><p>配套资源方面，项目提供可视化网站 <a href="https://gpt-image2.canghe.ai/">gpt-image2.canghe.ai</a>，可浏览画廊、打开大图预览、复制完整提示词、按风格或场景筛选，并在 Google 登录后实测生成效果；社区为付费社群（一次性 9.90 元支付宝付费）。项目采用 MIT 许可证，由 Ciyuan API、APIMart、hiapi 等多家 AI API 平台赞助。</p><h3>你知道吗？</h3><p>「Prompt as Code」是本项目提出的概念，指把自然语言风格的提示词当作可版本化、可组合、可复用的代码资产来管理，而非一次性文本。这一思路与软件工程中的「配置即代码」（Infrastructure as Code）类似，目的是让提示词在批量生产、模板复用和 Agent 自动化调用等场景下具备更高的确定性与可维护性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/freestylefly/awesome-gpt-image-2</guid>
-      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Buzz：让人类与 AI 智能体在同一工作区协作的开源平台</title>
-      <link>https://github.com/block/buzz</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 人类与 AI 智能体协作的开源平台，属于 AI 软件技术进展与开源项目，推荐阅读</small></p><p><img src="docs/assets/screenshots/channel-thread.png" alt="A Buzz project channel where people and an agent coordinate on a release plan" width="100%" /></p>
-<p>Buzz 是 Block（Square 母公司）开源的可自托管协作工作区，核心理念是让人类与 AI 智能体（agent）在同一个"房间"里协作。它本质上是一个 <a href="https://nostr.com/">Nostr</a> 中继（relay）：每条消息、反应、工作流步骤、评审批准和 Git 事件都是写入同一日志的签名事件，无论作者是人还是进程，都使用相同的身份模型与审计轨迹。项目以 Rust 编写、Apache 2.0 协议开源，目前在 GitHub 上已获约 3 万星标。</p>
-<p><strong>核心特性</strong>：智能体不是"机器人"，而是与人类同等的频道成员——拥有自己的密钥、频道成员资格和审计轨迹，权限按身份而非权限标志划分。用户可以提问并让智能体检索六个月历史、附上证据回答；可以把功能分支变成"房间"，让补丁、CI、评审和合并决策集中在一处；还能在同一处搜索对话、补丁、工作流运行和审批记录。智能体不仅能"聊天"，还能管理频道、画布、工作流、语音会议，甚至编排其他智能体。</p>
-<p><strong>典型场景</strong>：项目用三个故事说明价值——"事故记忆"（凌晨提问"以前见过这个错误吗"，智能体检索历史并给出根因与修复方案）、"分支即房间"（打开功能分支自动生成频道，补丁以 NIP-34 事件落地、CI 发布结果、智能体做首轮评审）、"自动生成的发布说明"（工作流触发后，智能体读取合并的 PR、起草发布说明、收到 👍 后发布，每一步都有签名且可检索）。</p>
-<p><strong>架构与现状</strong>：Buzz 是一个 Rust crate 工作区，单一事实来源是中继（buzz-relay），后端使用 Postgres（事件存储与全文搜索）、Redis（发布/订阅）和 S3/MinIO（媒体，Blossom 协议）。客户端包括 Tauri + React 桌面应用、面向智能体的 buzz-cli（JSON 进/JSON 出）以及支持 Goose、Codex、Claude Code 的 ACP 适配层。目前中继、频道、线程、私信、画布、媒体、搜索和审计日志已可用；移动端（Flutter）与工作流审批门仍在建设中。</p>
-<p><strong>定位</strong>：项目明确表示它不是区块链（签名事件无需代币）、不是取代人类的 AI 计划，也尚未完成。其愿景是用一个统一底层替代团队目前拼凑的聊天、代码托管、机器人、CI 看板、发布工具和搜索索引等多套工具。</p>
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>Nostr</strong>：一个基于中继（relay）的开放去中心化协议，所有事件（消息、笔记等）都由作者密钥签名，客户端可自由选择中继，身份与服务器解耦。</li>
-<li><strong>NIP-34</strong>：Nostr 改进提案之一，定义了用 Nostr 事件表示 Git 版本控制操作（补丁、仓库公告、状态）的规范，Buzz 的 Git 事件即基于此。</li>
-<li><strong>ACP / MCP</strong>：Agent Client Protocol（智能体客户端协议）与 Model Context Protocol（模型上下文协议），Buzz 通过 buzz-acp 在两者之间做适配，让 Goose、Codex、Claude Code 等智能体工具接入工作区。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/block/buzz</guid>
-      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenHuman：本地优先的个人 AI 超级智能体，集记忆、编排与深度研究于一体</title>
-      <link>https://github.com/tinyhumansai/openhuman</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 本地优先的个人 AI 超级智能体，属于 AI 软件技术进展与开源项目，推荐阅读</small></p><p>OpenHuman 是一个用 Rust 编写的开源「个人 AI 超级智能体」项目，定位为「以人为中心构建的 AI 工具集」（AI harness）。它由三部分组成：构建持久本地记忆的「大脑」、在持久化图上运行智能体集群的「编排器」，以及深度研究者。项目目前处于早期测试（Early Beta）阶段，发布一周内曾连续九天登顶 GitHub 热门仓库榜首。</p>
-
-<h3>🧠 大脑：本地优先的持久记忆</h3>
-<p>通过 <a href="https://tinyhumans.gitbook.io/openhuman/features/memory-tree">Memory Tree</a> 将用户的文档、邮件、聊天记录压缩为带评分的 Markdown 树，存储在本地 SQLite 中，并镜像为可打开、可编辑的 <a href="https://tinyhumans.gitbook.io/openhuman/features/obsidian-wiki">Obsidian 知识库</a>，而非不可解释的「向量汤」黑盒。支持 100+ OAuth 集成、5,000+ MCP 服务器和 90,000+ Skills，一键接入 Gmail、Notion、GitHub、Slack 等；<a href="https://tinyhumans.gitbook.io/openhuman/features/obsidian-wiki/auto-fetch">自动抓取（auto-fetch）</a>每 20 分钟将数据拉取到本地。此外还提供长期目标与待办（Goals & Todos）以及 <a href="https://tinyhumans.gitbook.io/openhuman/features/token-compression">TokenJuice</a>——在工具输出进入模型前进行压缩，同等信息量最多可节省 80% 的 token 用量。</p>
-
-<h3>🕸️ 编排器：图而非循环</h3>
-<p>OpenHuman 不是单循环聊天机器人，而是真正的编排器：<a href="https://tinyhumans.gitbook.io/openhuman/features/workflows">Workflows</a> 让智能体主动提出自动化方案，用户在可视化画布上审阅后保存，运行基于开源的 <a href="https://github.com/tinyhumansai/tinyflows">tinyflows</a>，支持定时、Webhook 或渠道事件触发，副作用需审批。运行以带检查点的图（graph）形式执行于开源的 <a href="https://github.com/tinyhumansai/tinyagents">tinyagents</a>，可暂停等待人工、重启后恢复；子智能体集群可深入三层，卡住的智能体会生成根因报告。采用「分裂大脑」架构：快速反射智能体负责分流入站请求，深度推理核心委派给 worker 集群。还支持基于 Signal 协议端到端加密的智能体间通信（A2A）与 x402 USDC 赏金交易，密钥不落盘。</p>
-
-<h3>🔬 深度研究者与执行者</h3>
-<p>内置由 <a href="https://exa.ai">Exa</a> 驱动的托管网页搜索（订阅包含，无需 API key）、爬虫、编码工具集、真实浏览器和基于 Whisper 的原生语音；<a href="https://tinyhumans.gitbook.io/openhuman/features/model-routing">模型路由</a>按负载自动选择合适的大模型，订阅是默认而非锁定——可将任意负载指向自有 API key 或完全本地化的 Ollama 模型。同一订阅还包含图像/视频生成（Seedream/SeedEdit、Seedance/Veo），并支持 17 个消息渠道（Telegram、Discord、Slack、WhatsApp、Signal、iMessage 等）及原生邮件（IMAP IDLE + SMTP）。</p>
-
-<h3>🧍 人性化、私密、属于你</h3>
-<p>安装到可用智能体只需几次点击，无需配置文件或终端，并配有会说话、会反应、记得你的吉祥物。隐私方面：数据在设备端加密、提供审批门、系统密钥环与可选沙箱；<a href="https://tinyhumans.gitbook.io/openhuman/features/privacy-mode">Privacy Mode</a> 一键开启后推理完全不离开本机，由 Rust 核心强制执行。</p>
-
-<h3>分钟级建立上下文</h3>
-<p>受 <a href="https://x.com/karpathy/status/2039805659525644595">Karpathy 的 LLM 知识库</a>启发，OpenHuman 声称是首个能在几分钟内了解用户的智能体工具集：连接账户后，auto-fetch 以 20 分钟为周期拉取数据，Memory Tree 将一切压缩为 Markdown 文件存入 Obsidian 知识库，一次同步即可获得收件箱、日历、仓库、文档、消息的完整（压缩）上下文，无需训练期。若已自托管 <a href="https://github.com/rohitg00/agentmemory">agentmemory</a>，OpenHuman 还提供可选的 Memory 后端代理到该存储。</p>
-
-<p>与 Claude Cow、OpenClaw、Hermes 等同类工具相比，OpenHuman 主打开源（GNU 许可）、分钟级上手、单一订阅 + TokenJuice、持久记忆（Memory Tree + Obsidian 知识库）、丰富的集成与自动抓取，以及基于图、检查点和端到端加密的编排能力。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>MCP（Model Context Protocol）</strong>：Anthropic 提出的开放协议，用于标准化 AI 模型与外部工具、数据源的连接方式，让智能体无需为每个服务单独写集成代码即可调用各类工具。</li>
-<li><strong>x402</strong>：一种基于 HTTP 的支付协议，允许在请求/响应过程中直接以 USDC 等稳定币完成小额支付，常用于智能体间的按次付费调用（bounty 与交易）。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tinyhumansai/openhuman</guid>
-      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Awesome Agent Skills：收录 1497+ 精选 AI Agent 技能的开源合集</title>
-      <link>https://github.com/VoltAgent/awesome-agent-skills</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI Agent 技能精选合集，属于编程工具/技能分享与 AI 技术进展，推荐阅读</small></p><p><a href="https://github.com/VoltAgent/awesome-agent-skills">awesome-agent-skills</a> 是 VoltAgent 维护的精选「Agent 技能」合集，目前收录超过 1497 个技能，是 GitHub 上社区贡献最多的同类仓库（约 3.1 万星标）。与许多批量生成的技能库不同，该合集强调「人工精选而非 AI 批量生成」，聚焦于真实工程团队实际创建和使用的技能。</p>
-
-<p>仓库收录了来自 Anthropic、Google Labs、Vercel、Stripe、Cloudflare、Netlify、Trail of Bits、Sentry、Expo、Hugging Face、Figma、OpenAI、Microsoft、NVIDIA、Redis、MongoDB 等官方团队发布的技能，以及大量社区构建的技能。这些技能兼容 Claude Code、Codex、Gemini CLI、Cursor、GitHub Copilot、OpenCode、Windsurf、Antigravity 等主流 AI 编码工具。</p>
-
-<p>技能内容覆盖广泛：文档处理（Word、PowerPoint、Excel、PDF 的创建与编辑）、前端与 UI/UX 设计、测试自动化（Playwright、Cypress、Jest、Appium、Espresso 等主流测试框架）、安全审计、营销与产品管理、数据库与云服务集成等。例如 Anthropic 官方提供 docx、pptx、xlsx、pdf 等文档技能，TestMu AI（原 LambdaTest）团队维护了覆盖 Web、移动端、API、BDD 和单元测试的全套测试自动化技能。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Agent Skills</strong> 是近年兴起的概念，指为 AI 编码助手（如 Claude Code、Codex）提供的可复用「技能包」——包含特定领域的指令、工作流程和最佳实践，让模型在遇到相关任务时能调用这些专业知识，从而生成更专业、更可靠的结果。它类似于给 AI 助手安装的「插件」，与 MCP（模型上下文协议）服务器互补：MCP 侧重连接外部工具和数据，Skills 侧重注入领域知识和工作方法。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/VoltAgent/awesome-agent-skills</guid>
-      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ book-to-skill：把技术书籍一键变成 AI 智能体技能（Agent Skill）</title>
-      <link>https://github.com/virgiliojr94/book-to-skill</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 将技术书籍转为 AI 智能体技能的工具，属编程效率改进与 AI 技术进展，推荐阅读</small></p><p><strong>book-to-skill</strong> 是一个 Python 开源工具，能把任何技术书籍 PDF（以及 EPUB、DOCX、Markdown、HTML、RTF、MOBI 等格式）转化为结构化的「智能体技能」（Agent Skill），让 GitHub Copilot CLI、Amp、Claude Code 等 AI 编程助手按需加载书籍内容，边工作边查阅，无需把整本书塞进上下文。</p>
-
-<h3>核心思路</h3>
-<p>针对「买了书读一遍就忘、搜 PDF 只得到页码、问 AI 会幻觉」的痛点，该项目将书籍提炼为框架、决策规则、反模式与分章文件——是结构化知识而非摘要。使用时只需输入 <code>/book-to-skill ./my-book.pdf</code>，再通过 <code>/my-book 章节名</code> 让智能体读取对应章节并基于真实内容作答，避免幻觉。</p>
-
-<h3>生成内容</h3>
-<ul>
-<li><strong>SKILL.md</strong>：核心心智模型 + 章节索引（约 4,000 tokens）</li>
-<li><strong>chapters/</strong>：每章一个文件，按需加载（每章约 1,000 tokens）</li>
-<li><strong>glossary.md</strong>：术语表，按字母排序并标注章节引用（约 1,500 tokens）</li>
-<li><strong>patterns.md</strong>：技术、算法与设计模式汇总（约 2,000 tokens）</li>
-<li><strong>cheatsheet.md</strong>：决策表与速查规则（约 1,000 tokens）</li>
-</ul>
-
-<h3>性能优势</h3>
-<p>相比把整本书直接丢进上下文，回答单个问题时 token 消耗减少 <strong>24×–51×</strong>（基于真实书籍实测）。其原理是「发现循环税」（Discovery Loop Tax）：PDF 阅读型智能体每轮都要重新抓取目录、回溯、重复处理全文，而 book-to-skill 在转换时一次性支付结构化成本，使查询开销与答案规模成正比。</p>
-
-<h3>适用场景（不止于书籍）</h3>
-<ul>
-<li><strong>内部文档</strong>：架构决策记录（ADR）、runbook、入职指南，可将整个 docs/ 文件夹折叠为一个技能</li>
-<li><strong>品牌与设计系统</strong>：品牌手册、语气规范、组件原则，团队直接查询而非翻阅 60 页 PDF</li>
-<li><strong>研究资料</strong>：论文 + 个人笔记合并为统一技能，并随新材料增量更新</li>
-<li><strong>规范与标准</strong>：RFC、API 契约、合规文档等「常引用但记不住」的内容</li>
-</ul>
-
-<h3>隐私与版权</h3>
-<p>工具本身不附带任何书籍内容，提取与分析均在本地完成，文件不会被上传；生成的技能是结构化衍生笔记（框架名、定义、要点）而非原文复制，但不应再分发受版权保护的书籍技能，第三方书籍生成的技能建议保持私有。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Agent Skills</strong> 是一个开放的智能体技能标准（<a href="https://github.com/agentskills/agentskills">agentskills/agentskills</a>），以统一的 <code>SKILL.md</code> 格式描述技能，使同一技能可被 GitHub Copilot CLI、Amp、Claude Code 等多个宿主读取，实现跨平台复用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/virgiliojr94/book-to-skill</guid>
-      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Anthropic 社区插件市场：Claude Cowork 与 Claude Code 的插件目录镜像仓库</title>
-      <link>https://github.com/anthropics/claude-plugins-community</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude Code 与 Claude Cowork 插件目录，属 AI 编程工具生态与软件新功能，推荐阅读</small></p><p>anthropics/claude-plugins-community 是 Anthropic 官方维护的社区插件市场镜像仓库，收录了社区为 <a href="https://claude.com/product/cowork">Claude Cowork</a> 和 <a href="https://claude.com/product/claude-code">Claude Code</a> 贡献的插件。该仓库是一个只读镜像，其中的 <code>.claude-plugin/marketplace.json</code> 文件列出了所有可安装的社区插件，内容每晚从 Anthropic 内部审核流程自动同步。</p><p>仓库中的每个插件都需通过 <a href="https://clau.de/plugin-directory-submission">claude.ai 提交入口</a>提交，经过自动化安全扫描并获准分发后方可上架。用户可通过 <a href="https://claude.com/plugins/">claude.com/plugins</a> 在 Claude Cowork 中安装插件；Claude Code 用户则可通过命令行添加市场并安装插件，例如 <code>claude plugin marketplace add anthropics/claude-plugins-community</code> 和 <code>claude plugin install &lt;plugin-name&gt;@claude-community</code>。</p><p>值得注意的是，直接向该仓库发起 Pull Request 会被自动关闭，所有变更均来自 Anthropic 的内部审核流程。Anthropic 还维护了其他相关仓库，包括官方插件仓库 <a href="https://github.com/anthropics/claude-plugins-official">claude-plugins-official</a> 和面向特定角色的知识工作插件仓库 <a href="https://github.com/anthropics/knowledge-work-plugins">knowledge-work-plugins</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-plugins-community</guid>
-      <pubDate>Sun, 23 Aug 2026 11:32:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenAI 开源轻量级终端编码代理 Codex CLI</title>
-      <link>https://github.com/openai/codex</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] OpenAI 开源终端编码代理，属于编程工具发布/分享，强烈感兴趣</small></p><p>OpenAI 开源了 <strong>Codex CLI</strong>——一款运行在本地电脑上的轻量级编码代理（coding agent），让开发者直接在终端中完成编码任务。该项目以 Rust 编写，采用 Apache-2.0 许可证，目前在 GitHub 上已获得超过 11 万 Star、1.7 万 Fork，位居热门榜单前列。</p>
-
-<img src="https://github.com/openai/codex/blob/main/.github/codex-cli-splash.png" alt="Codex CLI splash" width="80%" />
-
-<p>Codex 已形成完整的产品矩阵：除终端 CLI 外，还提供 VS Code、Cursor、Windsurf 等编辑器的 <a href="https://developers.openai.com/codex/ide">IDE 插件</a>、桌面应用（运行 <code>codex app</code>），以及云端代理 <a href="https://chatgpt.com/codex">Codex Web</a>，用户可按场景选择使用方式。</p>
-
-<p>使用方面，用户可通过 ChatGPT 账号登录，将 Codex 纳入 Plus、Pro、Business、Edu 或 Enterprise 计划使用；也可以配置 API key 使用（需额外设置）。安装方式灵活，支持 macOS/Linux 与 Windows 的一键脚本、npm、Homebrew 以及 GitHub Releases 二进制包。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex</guid>
-      <pubDate>Sat, 22 Aug 2026 13:41:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
