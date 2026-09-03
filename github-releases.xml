@@ -3,7 +3,57 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 02 Sep 2026 21:46:55 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 00:10:49 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.259：新增托管 MCP 服务器与无头模式权限选项，修复多项会话问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.259</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.259，带来多项新功能与大量会话稳定性修复，涵盖托管 MCP 服务器配置、无头主机权限控制、GitLab MR 识别、VSCode 会话筛选等。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li>新增 <code>managedMcpServers</code> 托管设置：组织可为所有用户提供 HTTP/SSE 类型的 MCP 服务器（条目格式与 <code>.mcp.json</code> 相同），指定运行命令的条目会被跳过</li>
+<li>新增 <code>--permission-prompts none</code> 选项，适用于无人值守的无头主机：任何需要提示的操作会被自动拒绝，同时活动权限模式（包括自动模式）继续生效</li>
+<li>识别 <code>glab mr create/merge/close/reopen/note/update</code> 命令，GitLab 合并请求会在折叠的工具摘要中显示为 <code>MR !N</code>，并刷新底部 MR 徽章</li>
+<li><code>claude plugin validate</code> 新增 <code>--json</code> 参数，输出机器可读的校验报告</li>
+<li>修复并发会话互相回退 <code>~/.claude.json</code> 修改的问题：工作区信任不再重置，MCP/项目状态不再丢失</li>
+<li>修复全屏模式下长时间对话（数百次工具调用）后显示空白会话的问题</li>
+<li>修复自动模式在命令或技能 frontmatter 指定了不支持的 <code>model:</code> 时运行在错误模型上的问题，现在会保持会话模型</li>
+<li>修复 <code>--resume</code> 失败（及 <code>--continue</code> 打开空会话）的问题，当保存的会话包含无 payload 的附件条目时</li>
+<li>修复自定义命令和技能 frontmatter 中的 <code>model:</code> 在交互式会话中被忽略的问题</li>
+<li>修复远程控制会话中 Stop 无法真正停止后台代理和工作流的问题：被终止的任务现在保持可见且可再次停止，直到进程退出</li>
+<li>修复工作树隔离会话拒绝常见 Bash 循环、xargs 管道和启动器包装命令的问题</li>
+<li>改进终端尺寸调整和长响应的首屏渲染性能（复用文本测量）</li>
+<li>改进 <code>/workflows</code> 代理详情：JSON 结果以语法高亮和真实换行美化显示，长结果可折叠展开</li>
+<li>改进无头/SDK 会话启动：MCP 服务器连接完成后，首个回合最多提前 50ms 开始</li>
+<li>改进嵌套后台子代理结果的保存：现在保存在父子代理的转录中，恢复的子代理可保留、共享转录可展示交付内容</li>
+<li>变更 <code>allowedMcpServers</code> 行为：现在只管理用户自行添加的服务器，字面 <code>managed-mcp.json</code> 服务器不再被该白名单过滤</li>
+<li>[VSCode] 会话列表侧边栏新增 Active 快速筛选器和状态筛选菜单（Needs input、Working、Completed）</li>
+</ul>
+
+<h3>其他修复与改进</h3>
+<ul>
+<li>修复被拒绝过一次思考的对话在后续每个回合都被再次拒绝的问题</li>
+<li>修复禁用遥测的会话中 OAuth 令牌刷新导致提示缓存失效的问题</li>
+<li>修复 <code>CLAUDE_CODE_MAX_CONTEXT_TOKENS</code> 对 Vertex 风格模型 ID（<code>@YYYYMMDD</code> 后缀）被忽略的问题</li>
+<li>修复运行中 shell 命令的实时输出预览在较早行换行时隐藏最新行的问题</li>
+<li>修复 claude.ai 用户每次启动都进行的后台 GitHub 连接检查，结果现在跨启动记忆</li>
+<li>修复从旧版本继续的对话中 Artifact 发布报 "unexpected parameter `note`" 错误的问题</li>
+<li>修复工作树隔离在 <code>git rev-parse</code> 以非 "not a git repository" 消息失败时拒绝钩子创建工作树的问题</li>
+<li>修复云会话的 OpenTelemetry 指标和事件缺少 <code>user.email</code>、<code>organization.id</code>、<code>user.account_uuid</code> 属性的问题</li>
+<li>修复启动时列出工具的 MCP 服务器断开后显示为已连接但无工具的问题</li>
+<li>修复文件编辑权限对话框有时显示被截断的变更行的问题</li>
+<li>修复仓库检测在瞬时 git 探测失败后丢失已知仓库身份的问题</li>
+<li>修复 github.com 上带尾斜杠或悬空 <code>?</code>/<code>#</code> 的 marketplace 仓库 URL 生成不可用 <code>.git</code> 克隆地址的问题</li>
+<li>修复阻塞式 Stop 钩子导致后续回合丢失模型推理（部分模型还错过提示缓存）的问题</li>
+<li>修复浏览器托管的 MCP 服务器页面消失后，远程（claude.ai）会话启动回合需 60 秒的问题</li>
+<li>改进 <code>/install-github-app</code>：在 GitLab 仓库中运行时说明其仅适用于 GitHub 并指向 GitLab CI/CD 文档</li>
+<li>修复暂停期间批准连接器工具权限提示后，远程和定时会话无动作的问题</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.259</guid>
+      <pubDate>Wed, 02 Sep 2026 22:33:51 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.152.1 发布：修复 Guardian 审批对 Node REPL 策略的处理</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.152.1</link>
@@ -1356,31 +1406,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.222</guid>
       <pubDate>Tue, 04 Aug 2026 22:39:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.221 更新总结</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.221</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要特性与核心功能改进</h3>
-<ul>
-  <li><strong>Focus View 模式</strong>：在 VSCode 中新增 Focus view，可通过 <code>Ctrl+Alt+F</code> 或命令切换。该功能隐藏工具活动详情，改为显示可展开的每轮摘要，并带有实时运行工具指示器，有助于减少界面干扰。</li>
-  <li><strong>沙箱凭据文件支持 <code>mode: "mask"</code></strong>：在 Linux 和 WSL 环境中，沙箱命令现在可以读取凭据文件的副本或指定片段，代理会在出口处替换真实值，增强凭据管理灵活性。</li>
-  <li><strong>提示词审计工具</strong>：新增 <code>prompt-audit</code> 子命令，可帮助开发者审计提示词和工具描述，识别针对旧版模型编写的模式并进行优化。</li>
-  <li><strong>后台会话工作流优化</strong>：后台会话现在会自动提交并推送代码以保留工作进度，仅在任务明确要求时创建草稿 PR，并严格遵循 <code>CLAUDE.md</code> 中的 Git 指令，最终报告工作位置。</li>
-  <li><strong>会话分支独立化</strong>：使用 <code>/fork</code> 命令分叉的会话现在会创建独立的工作树（worktree），避免与原始会话的签出目录冲突。</li>
-  <li><strong>快速模式积分耗尽提示</strong>：当快速模式会话中途积分用完时，系统会在流中明确报告，而非静默失败。</li>
-</ul>
-<h3>其他改进与修复</h3>
-<ul>
-  <li><strong>性能与缓存优化</strong>：改进了自动模式下的权限检查缓存效率，通过复用对话前缀减少提示缓存成本；Stats 面板现已统计缓存 token 总量，并按输入、输出、缓存读取和写入分类展示。</li>
-  <li><strong>MCP 与工具交互修复</strong>：修复了 print mode 下 MCP 服务器未连接导致模型输出工具调用为文本的问题；解决了 SDK MCP 工具命名冲突引发的崩溃；修复了 WebSearch 在禁用思考模式时的 400 错误。</li>
-  <li><strong>Vim 模式与交互优化</strong>：修复了 Vim 模式下 yank 寄存器在对话框和历史搜索中被清空的问题，以及撤销至空提示时的行为；改进了表情符号自动补全，支持更多常用别名。</li>
-  <li><strong>会话管理与通知优化</strong>：修复了按 Esc 撤回提示词后重新提交时 @-提及文件丢失的问题；修复了会话重命名在不同客户端间不同步的问题；优化了插件安装后的即时激活逻辑及通知清除机制。</li>
-  <li><strong>其他修复</strong>：修复了 Bedrock 认证在特定环境下的失败问题；解决了休眠唤醒后 OAuth 令牌刷新竞态条件；改进了 <code>/ultrareview</code> 和 Monitor 命令的错误提示；移除了审批提示中重复的权限模式变更通知。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.221</guid>
-      <pubDate>Tue, 04 Aug 2026 00:14:23 GMT</pubDate>
     </item>
   </channel>
 </rss>
