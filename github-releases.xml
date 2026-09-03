@@ -3,7 +3,40 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 03 Sep 2026 00:10:49 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 04:17:47 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.153.0 发布：Vim 模式支持撤销/重做，插件 CLI 支持远程市场</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.153.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 0.153.0 版本，主要带来 TUI（终端界面）交互改进、插件管理增强和多项稳定性修复。</p>
+
+<h3>新功能</h3>
+<ul>
+<li><strong>Vim 模式撤销/重做</strong>：TUI 编辑器现在支持用 <code>u</code> 撤销、<code>Ctrl+R</code> 重做，可完整保留草稿内容（包括粘贴内容和附件）。</li>
+<li><strong>远程插件市场</strong>：插件 CLI 现在可以从远程市场列出、安装和移除插件。</li>
+<li><strong>禁用自动 recap</strong>：新增 <code>tui.auto_recap = false</code> 设置，可关闭自动 recap，同时保留手动 <code>/recap</code> 命令。</li>
+<li><strong>更丰富的 TUI 历史</strong>：历史记录现在显示完整补丁、发送到后台终端的输入，以及单个已完成的命令。</li>
+<li><strong>提前额度警告</strong>：Plus 和 Team 用户在约五小时使用窗口内剩余额度不足一半时，会收到更早的警告。</li>
+</ul>
+
+<h3>Bug 修复</h3>
+<ul>
+<li><strong>TUI 自动重连</strong>：外部 app-server 连接断开后，TUI 会话会自动重连，保留草稿和记录，不确定或排队中的提交会暂停等待审查。</li>
+<li><strong>Guardian 审查优化</strong>：Full Access 模式对仅确认类操作跳过 Guardian 审查；User approval 模式跳过后台 Guardian 评分和预热。Guardian 审查历史在压缩、重启和用户创建的 fork 后均能保留。</li>
+<li><strong>MCP 相关修复</strong>：记住的 MCP 工具批准按所选应用账户范围化；macOS 上相对 MCP 可执行路径的启动更可靠。</li>
+<li><strong>Rollout 处理</strong>：压缩包含共享历史，<code>codex exec resume</code> 支持按工作目录选择压缩的 rollout，线程 fork 支持符号链接的会话根目录。</li>
+</ul>
+
+<h3>配置与 API 更新</h3>
+<ul>
+<li>app-server 线程元数据新增可空的 <code>model</code> 和 <code>reasoningEffort</code> 字段；模型目录启用时支持通过 <code>request_user_input_async</code> 发起结构化异步问题。</li>
+<li><code>tui.disable_paste_burst</code> 取代顶层同名设置（原设置仍作为回退保留）。</li>
+<li>新增默认关闭的 <code>features.context_management.experimental_mode</code> 配置：对符合条件的 ChatGPT Plus、Pro 或 Pro Lite 会话（使用 Codex 后端）启用 token 预算上下文、历史笔记和 <code>new_context</code> 工具；API 密钥会话、自定义提供商和临时结构化线程不适用。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.153.0</guid>
+      <pubDate>Thu, 03 Sep 2026 01:37:38 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.259：新增托管 MCP 服务器与无头模式权限选项，修复多项会话问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.259</link>
@@ -1370,42 +1403,6 @@ Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.27.0</guid>
       <pubDate>Wed, 05 Aug 2026 11:28:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.222 更新说明</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.222</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Claude Code v2.1.222 更新说明</h2>
-<p>本次更新主要聚焦于安全性增强、工作树隔离机制的完善以及多项交互与稳定性修复。以下是核心改动与其他更新详情：</p>
-<h3>核心功能与安全改进</h3>
-<ul>
-  <li><strong>强化工作树隔离：</strong>修复了工作树隔离会话及其子代理能够针对主签出运行破坏性 Git 命令的问题。现在，隔离机制已全面覆盖所有会话类型的文件编辑与 Bash 操作。</li>
-  <li><strong>提升自动模式安全性：</strong>通过 <code>SendMessage</code> 发送给其他代理会话的消息，在分发前将经过权限分类器评估，防止越权操作。</li>
-  <li><strong>优化 Diff 视图渲染：</strong><code>/diff</code> 视图、Remote Control 工作区差异及 Web 会话中的文件编辑差异现在直接使用原始 Git Blob 内容，忽略工作区配置的差异驱动（diff drivers）和 textconv，确保显示一致性。</li>
-  <li><strong>调整 Remote Control 启动逻辑：</strong>仓库本地设置（<code>.claude/settings.json</code> 或 <code>.claude/settings.local.json</code>）已无法开启 Remote Control 自动启动功能（仅保留关闭权限）。如需启用，请通过 <code>/config</code> 在用户级别进行配置。</li>
-  <li><strong>改进技能调用拒绝策略：</strong>当 Claude 尝试调用带有 <code>disable-model-invocation</code> 标记的技能时，系统会提示用户手动运行该技能，而非尝试自行复制其工作流。</li>
-  <li><strong>移除 Ultraplan 功能：</strong>该功能已从客户端中移除。</li>
-</ul>
-<h3>其他修复与优化</h3>
-<ul>
-  <li>修复了 PreToolUse 自动允许钩子绕过后台代理任务（如摘要生成、上下文压缩、重命名）中工具限制的问题。</li>
-  <li>修复了 Team 和 Enterprise 用户在执行 <code>/usage-credits</code> 命令时，因历史请求被忽略而错误提示“已发送请求”导致无法重新申请的问题。</li>
-  <li>修复了启动时的连接检查在 HTTPS 代理环境下挂起并失败的问题，现采用与 API 请求相同的代理感知传输层，并提供清晰的超时提示。</li>
-  <li>修复了 <code>/usage</code> 命令对 MCP 服务器使用量统计不准确的问题，现仅统计实际消耗其工具结果的请求。</li>
-  <li>修复了会话无法自动链接到推送到分支后创建的拉取请求（包括通过 GitHub REST API 创建）的问题。</li>
-  <li>修复了组织限制下 <code>model: opus</code> 风格子代理和队友别名降级逻辑错误的问题，现会正确降级至组织允许的最新模型。</li>
-  <li>修复了自定义 <code>ANTHROPIC_BASE_URL</code> 网关上流空闲超时误触发的问题。</li>
-  <li>修复了 claude.ai 连接器在会话令牌无效时被错误标记为需要授权的问题，现会正确提示 <code>/login</code>。</li>
-  <li>修复了本地工具不可用（如移除 MCP 服务器后）时不显示错误信息的问题。</li>
-  <li>修复了 <code>SendMessage</code> 因摘要过长而拒绝发送的问题，现会自动截断。</li>
-  <li>修复了子代理转录视图中努力（effort）标签显示会话级别而非子代理自身设置的问题。</li>
-  <li>修复了文件监视器在遇到文件系统错误或拆卸时可能引发的罕见崩溃。</li>
-  <li>修复了无障碍模式（<code>--ax-screen-reader</code>）下屏幕阅读器在每次退格时重新读取整个输入行的问题，现仅回显删除的字符。</li>
-  <li>修复了主机模型选择键在设置 <code>CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST</code> 时未优先于本地过期配置的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.222</guid>
-      <pubDate>Tue, 04 Aug 2026 22:39:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
