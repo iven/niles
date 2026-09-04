@@ -3,7 +3,31 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Fri, 04 Sep 2026 00:02:52 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2026 04:24:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 英伟达推出开源个人AI路由器PAIR 让家中多台电脑协同运行本地AI</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1576332.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲英伟达开源的PAIR个人AI路由器，属于开源项目与AI软件技术进展，符合兴趣配置，推荐阅读</small></p>
+                                                
+                                                <p>英伟达近日在IFA 2026期间正式推出Personal AI Router（PAIR）测试版。这是一款免费的开源软件，并非传统意义上的网络硬件路由器，而是面向本地AI推理的“虚拟路由器”，能够自动发现同一局域网中的兼容电脑，将多台设备的闲置计算能力组织起来，为AI代理和本地大模型任务提供更加充足的推理资源。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://redirect.viglink.com/?format=go&jsonp=vglnk_178849547248010&key=62dc9475db2e811f00ac38bafaa57c07&libId=mtmg05uh0103xta3000UL1oujmssdr8q3o&loc=https%3A%2F%2Fwww.neowin.net%2Fnews%2Fnvidia-launches-open-source-personal-ai-router-beta-pair%2F&v=1&out=https%3A%2F%2Fcdn.neowin.com%2Fnews%2Fimages%2Fuploaded%2F2026%2F09%2F1788494171_nvidia-pair-virtual-inference-router-1536x864.webp&title=Nvidia%20launches%20open-source%20Personal%20AI%20Router%20beta%20%22PAIR%22%20-%20Neowin&txt="></p><p>随着AI代理开始同时执行越来越多的子任务，单台电脑上的GPU很容易成为性能瓶颈。一个复杂任务往往会被AI代理拆分成多个可以并行处理的工作，但如果所有请求都集中到同一块GPU上，任务就不得不排队等待。PAIR的核心作用，就是把这些彼此独立的推理请求分配给局域网中当前有可用计算能力的设备，从而缓解多代理和多子任务同时运行时的资源拥堵。</p><p>PAIR可以与用户已经熟悉的本地AI推理后端配合使用，目前支持Ollama和LM Studio。它本身并不会把多台电脑合并成一块虚拟GPU，也不会把不同设备上的显存简单“拼接”起来运行一个更大的模型，而是让各个设备分别承担独立的推理请求，再将结果返回给最初发起任务的应用。因此，用户无需修改现有AI代理的工作方式，也不需要重新设计代理框架，就可以利用网络中其他机器的闲置算力。</p><p>英伟达表示，PAIR能够动态适应设备状态。当新的电脑加入网络或者已有设备离开时，系统可以自动调整；路由过程会综合考虑节点是否准备就绪、推理引擎状态、模型是否已经存在以及GPU利用率等因素，然后选择合适的机器处理请求。整个过程并不要求搭建传统意义上的服务器集群，也不需要专用线缆、机架或复杂的集群配置。</p><p>在安全方面，加入PAIR集群的设备首先需要通过六位数字配对码完成配对，之后设备之间通过双向TLS（mTLS）建立加密通信通道，以确保参与设备之间的连接受到保护。英伟达强调，PAIR的设计目标之一就是让本地AI工作流保持在用户自己的网络中，提示词、文件以及AI代理上下文无需发送至云端推理服务。</p><p>目前PAIR测试版支持Windows、macOS和Linux。硬件方面，兼容范围包括NVIDIA GeForce RTX 20系列及更新型号、基于Turing架构及更新架构的NVIDIA RTX PRO工作站GPU、NVIDIA DGX Spark，以及搭载Apple M4或更新芯片的Mac设备。英伟达给出的系统要求还包括至少8GB内存，并建议准备20GB或以上磁盘空间；软件运行本身不要求互联网连接，但下载模型时仍然需要联网。</p><p>英伟达给出的演示显示，PAIR尤其适合多代理工作流。例如，用户可以要求Hermes Agent制定一个“周日重置”计划，对杂乱的邮箱进行整理，判断哪些邮件需要立即处理、哪些可以稍后处理以及哪些可以直接跳过。代理可以将任务拆分给多个子代理，而PAIR则把这些子代理产生的独立推理请求分散到家中不同电脑上，而不是让所有任务争抢同一块GPU。这样一来，多项任务可以并行进行，主电脑也可以在游戏、创作或者其他工作期间，将部分AI计算转移到其他设备。</p><p style="text-align: center;"><iframe width="864" height="486" src="//www.youtube.com/embed/GjGM-ZKQMa0" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p><p>英伟达公布的一项五子代理演示也体现了这种方式的效果。在使用Hermes Desktop和Ollama的情况下，一个由三台设备组成的PAIR集群完成任务耗时8分48秒，而单台RTX Spark笔记本则需要18分钟。英伟达认为，这说明将家庭网络中多个设备的空闲计算能力利用起来，可以明显提升本地多任务AI的吞吐能力。</p><p>PAIR背后的一个重要判断是，家庭用户往往已经拥有多台具备一定计算能力的电脑，只是这些设备的大部分时间处于闲置状态。英伟达援引的数据指出，美国超过一半的家庭拥有两台或更多电脑，因此大量GPU和其他计算资源在一天中的相当一部分时间里并没有被充分利用。对于拥有游戏电脑、笔记本电脑以及其他高性能设备的家庭来说，PAIR试图把这些原本相互独立的设备转变为一个能够共同服务本地AI的计算资源池。</p><p>英伟达技术团队甚至估算，在一个极端情况下，一户家庭内部可能存在约165 TFLOPS的闲置计算能力。相关负责人将这些尚未被充分利用的本地算力形容为“家中闲置的免费Token资源”。不过，英伟达预计真正适合PAIR的典型用户并不需要拥有如此夸张的设备规模，更现实的配置可能是一台MacBook或Windows笔记本，再加上一台游戏PC。</p><p>除了PAIR之外，英伟达此次还宣布进一步简化本地AI代理的部署体验，包括Perplexity Portable Computer、Hermes Agent和OpenClaw在内的三款AI代理软件都将针对NVIDIA GPU提供更加简单的本地配置方式。过去，用户往往需要自行选择模型、寻找兼容的推理服务器、调整量化参数并完成各种配置，而新的方案希望将这一过程压缩为几次点击。</p><p>其中，Perplexity Portable Computer此前已经可以在配备至少24GB显存的NVIDIA RTX GPU以及Linux系统上的DGX Spark上运行，Windows版本也正在推进。它允许用户将更多工作流保留在本地，并在需要额外搜索或更强推理能力时再选择使用云端模型；在将内容交给云端之前，系统会征得用户同意。</p><p>Hermes Agent由Nous Research开发，是一款通用型AI代理。Windows版本的本地配置将支持一键完成模型部署，软件可以自动识别NVIDIA GPU，并根据硬件选择合适的模型和配置，通过集成了NVIDIA优化的llama.cpp运行。Linux支持则将在后续推出。Hermes运行后可以调用工具、跨任务保持上下文、记忆不同会话的信息，并随着使用积累可复用的技能。</p><p>OpenClaw同样获得了针对Windows的简化部署方案。英伟达称，OpenClaw已经成为开放式AI代理生态中的重要项目，GitHub上的项目规模已经超过38万颗Star。新的Windows应用将降低本地模型配置门槛，使拥有至少24GB显存NVIDIA RTX GPU的用户更容易启动本地AI助手。</p><p>为了进一步提升本地AI代理的响应速度，英伟达还同步公布了针对llama.cpp和vLLM的推理优化。基于新的内核优化、更先进的投机解码以及更快的prefill处理，llama.cpp在GeForce RTX 5090上的吞吐量最高可提升至原来的1.9倍；vLLM在RTX PRO 6000 Blackwell Workstation Edition上的性能提升可达1.2倍，在两台DGX Spark组成的集群上最高可达1.4倍。这些优化已经可以通过相应推理后端使用，同时也能够在LM Studio和Ollama中获得。</p><p>英伟达此次还透露，搭载RTX Spark平台的新型Windows小型AI电脑预计将在10月陆续上市。随着这些面向本地AI的硬件、推理软件以及AI代理工具逐渐成熟，英伟达显然正在推动一种不同于传统云端AI的使用方式：用户无需把所有任务提交给远程数据中心，而是可以直接利用家中的GPU和其他设备构建属于自己的本地AI计算环境。</p><p>PAIR目前仍处于Beta阶段，项目已经以开源形式发布，开发者可以查看源代码、提交问题并参与改进。英伟达希望通过PAIR让本地AI从“单台高性能电脑运行一个模型”逐渐走向“多台家庭设备共同承担AI工作负载”，而这也可能成为本地AI代理进一步普及之后的一种新型计算模式。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1576332.htm</guid>
+      <pubDate>Fri, 04 Sep 2026 04:18:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Codex接下来将在每天向付费订阅用户赠送1个重置卡 直到GPT-6 Astra可用</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1576330.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲Codex向付费用户赠送重置卡的编程工具动态，属于编程工具发布/分享，符合高兴趣配置，必看内容</small></p>
+                                                
+                                                <p>昨天夜里 OpenAI 推出最新模型 GPT-6 Astra，在拉丁语中 Astra 的意思星星 / 群星 / 星辰，在 OpenAI 模型里天体等级越高也意味着模型越先进，目前排序是 Astra (星辰) &gt; Sol (太阳) &gt; Terra (地球) &gt; Luna (月亮)。</p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0904/38b40e5fe1df15b.png" title="" alt="126683.png"></p><p><strong>每天向付费订阅用户赠送 1 张重置卡：</strong></p><p>坏消息是目前 GPT-6 Astra 仅面向部分机构用户开放，OpenAI 计划接下来几天陆续向 ChatGPT Pro、ChatGPT Team、ChatGPT Enterprise、ChatGPT Plus 用户开放该模型，这种发布后无法立即使用的做法也引起用户抱怨。</p><p>作为补偿措施，OpenAI 已经决定在延迟上线时间里为所有订阅用户赠送重置卡，延迟几天就赠送几张重置卡，例如 ChatGPT Plus 用户可能还需要 4~5 天才能使用 GPT-6 Astra，那用户将获得 4~5 张重置卡。</p><p>重置卡可以积累且有效期为 1 个月，这样后面用户也可以随时通过重置卡来恢复订阅配额以便继续使用 GPT-6 Astra，只不过 Plus 用户恢复 5 小时限额后使用非常不方便，所以这波福利对 ChatGPT Pro 用户来说可能是最好的。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1576330.htm</guid>
+      <pubDate>Fri, 04 Sep 2026 04:12:41 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 剑桥科学家开发新技术捕捉黑洞碰撞后的微弱“泛音”</title>
       <link>https://www.cnbeta.com.tw/articles/science/1576328.htm</link>
@@ -583,30 +607,6 @@ Telescope），已于昨日从佛罗里达州肯尼迪航天中心发射升空�
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1575854.htm</guid>
       <pubDate>Tue, 01 Sep 2026 04:55:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>宇树四足消防机器人家族亮相：能背水炮、耐高温</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1575852.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 消防机器人硬件产品发布，属机器人产品新闻，兴趣不够明确</small></p>
-                                                
-                                                <p>9月1日，宇树科技昨日晚间晒出一段视频，展示了其四足机器人消防应急解决方案。从视频可以看到，宇树展示了A2-W背负机器狗、B2智能水炮机器狗、A2-W侦测机器狗、B2侦测机器狗、As2云台侦查机器狗、B2卫星侦查机器狗、A2-W建模机器狗等产品，还有不怕火烧的B2耐高温机器狗。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><iframe width="640" height="480" src="//video19.ifeng.com/video09/2026/09/01/p7500382589140602949-102-104401.mp4?reqtype=tsl" frameborder="0"></iframe></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/a4e60c946c64757.png"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/62c26681b979e80.png"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/803e49191360c8a.png"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/749ce3099281e51.png"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/42ed2a0fba9c8f6.png"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/e057c00ae7b2b1d.png"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/8d830cbf305c03a.png"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/befb840f644fcb3.png"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/d6bc7eb9ebde33e.png"><br></p><p><img src="https://static.cnbetacdn.com/article/2026/0901/f3b0d9937650c35.png"><br></p><p>消防员可通过机器狗与被困人员进行双向语音对讲。</p><p><img src="https://static.cnbetacdn.com/article/2026/0901/9f47c5cdb9319bb.png"><br></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1575852.htm</guid>
-      <pubDate>Tue, 01 Sep 2026 04:55:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>南大教授：没有token的CS学生 应该立即退学</title>
-      <link>https://www.cnbeta.com.tw/articles/science/1575850.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及CS教育与AI算力话题，主体为教授观点，处于兴趣边缘</small></p>
-                                                
-                                                <p>2026年秋季开学季，南京大学计算机学院一堂课程因一句“硬核开场白”引爆网络。<strong>该院副教授、博导蒋炎岩在新课《生成式软件工程》第一课亮出醒目观点——“没有token的CS学生应该立即退学”，该句被标红放在课件首页，极具冲击力，在技术圈和社交平台刷屏。</strong></p>                
-                        <div class="article-global"></div>                            <p>据了解，蒋炎岩在国内计算机学界口碑扎实、专业认可度极高。其开设的《生成式软件工程》为2026年秋季全新课程，最大亮点是引入Token自费实训机制，彻底颠覆传统计算机课堂的免费工具使用模式。</p><p>按照课程规则，本学期所有实训、作业将全程基于deepseek-v4-flash大模型完成，学生需要自行付费购买Token支撑实验与开发任务。</p><p><strong>蒋炎岩在课堂中解释，此举的核心目的是打破学生长期使用免费AI工具形成的“零成本思维”，真正建立工程开发中至关重要的成本、质量、延迟三大核心意识。</strong></p><p>在这门新课的教学体系中，Token被正式定义为AI时代计算机专业的实验耗材，等同于化学专业的试剂、物理专业的实验器材，是现代软件工程实践不可或缺的基础资源。</p><p><strong>与此同时，课程明确禁止“tokenmaxxing”现象，严厉杜绝无意义、重复性的算力浪费，要求学生精准、高效使用大模型能力，用有限Token解决真正有价值的工程问题。</strong></p><p>针对“没Token就退学”的争议说法，外界普遍认为这是典型的夸张式教学警示，并非真实的退学处罚规定。</p><p>熟悉蒋炎岩教学风格的人士表示，其授课向来直言不讳、直击痛点，此番言论本质是犀利提醒：当下AI已全面渗透软件工程全流程，计算机学生如果依旧固守传统手写代码、刷题应试的旧模式，拒绝拥抱大模型工具，将彻底跟不上产业迭代速度，仅凭熬夜努力也无法抹平与行业前沿的差距。</p><p>值得一提的是，本次自费实训模式能够顺利落地，关键在于选用模型的高性价比。</p><p><strong>据悉，deepseek-v4-flash 价格仅为GPT系列的几十分之一，学生个人购买Token的开销极低，不会造成经济压力，也让“自费练手”具备了现实可行性，避免了高价算力带来的变相劝退问题。</strong></p><p>实际上这场网络热度背后，也折射出国内高校计算机教育的转型趋势：大模型使用、AI工程落地能力，已经从加分技能，升级为计算机专业学生的核心必备素养。对此你怎么看？</p><p><img src="https://static.cnbetacdn.com/article/2026/0901/8671a7bafc33440.jpg"><br></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1575850.htm</guid>
-      <pubDate>Tue, 01 Sep 2026 04:54:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
