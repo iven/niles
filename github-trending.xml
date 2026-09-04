@@ -3,7 +3,84 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Fri, 04 Sep 2026 04:24:06 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2026 18:21:23 GMT</lastBuildDate>
+    <item>
+      <title>bikini/exploitarium：公开漏洞 PoC 与安全研究合集仓库</title>
+      <link>https://github.com/bikini/exploitarium</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 公开漏洞PoC与安全研究合集仓库，属开源项目但主题与用户兴趣贴合度一般，无明确对应高兴趣类别</small></p><p>GitHub Trending 上榜项目 <b>exploitarium</b>（作者 bikini）是一个集中的公开概念验证（PoC）漏洞利用与漏洞研究文档归档仓库，已获约 4461 星和 1239 fork。作者整理并归并了自己此前分散的漏洞研究仓库，大多数文件夹保留原来自独立仓库的 README 与跟踪文件，新增研究以自包含文件夹形式直接收录于此。</p>
+
+<h3>核心内容</h3>
+<p>仓库涵盖数十个漏洞类别，包括远程代码执行（RCE）、任意代码执行（ACE）、本地提权（LPE）、越界写入（OOB write）、CRLF 注入、CSRF、预认证绕过等，涉及 Firefox、QEMU、OpenSSH、OpenVPN、Redis、PostgreSQL、Next.js、Gitea、Gogs、Nextcloud、Docker、FFmpeg、ImageMagick、libssh2、c-ares、curl、Wireshark 类工具等众多主流软件与开源项目。</p>
+
+<h3>项目特点</h3>
+<ul>
+<li><b>完整性校验</b>：作者在删除旧独立仓库前，通过 Git 树数据（blob ID、mode、路径）逐一比对，验证 12 个仓库、96 条记录的归档完全一致，确保文件字节级无差异。</li>
+<li><b>AI 使用声明</b>：作者澄清其模糊测试（fuzzing）流程由 AI（GPT-5.3）自动化执行，但强调自己具备该领域学位并发表过多篇相关论文，所有 PoC 均手工编写而非"vibe-coding"，仅在 RustDesk 项目上因语言不熟使用了 AI 辅助，README 则由 AI 排版并经人工审核。</li>
+<li><b>致谢他人</b>：作者指出 objdump 相关发现已有人抢先完成且 PoC 更优，并给出链接引导社区将功劳归于原作者。</li>
+</ul>
+
+<h3>社区与协作</h3>
+<p>作者在文档中强调这些漏洞在发布时均未被公开报告过，鼓励研究者自行上报并获取 CVE 编号；同时明确声明此仓库为善意、开放披露的安全研究，<b>严禁恶意使用</b>。作者也欢迎通过 Telegram 联系协作，并表示传播该仓库会激励他持续更新研究成果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/bikini/exploitarium</guid>
+      <pubDate>Fri, 04 Sep 2026 18:21:07 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Miles：面向企业的强化学习框架，用于大规模模型的后训练</title>
+      <link>https://github.com/radixark/miles</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向企业的强化学习框架，用于大规模模型后训练，涉及AI软件技术进展，符合兴趣</small></p><p><strong>Miles</strong> 是一个高性能、面向企业的强化学习框架，专为大规模模型的后训练（post-training）而设计。它从清华大学开源的 <a href="https://github.com/THUDM/slime">slime</a> 分叉而来并与之共同演进，将 <a href="https://github.com/sgl-project/sglang">SGLang</a>（高吞吐 rollout）与 <a href="https://github.com/NVIDIA/Megatron-LM">Megatron-LM</a>（可扩展训练）相结合，为万亿参数规模下的强化学习运行提供所需的精度、稳定性和可观测性。同时提供 PyTorch FSDP2 后端，可直接按 HuggingFace 实现训练。</p>
+
+<h3>核心性能特性</h3>
+<ul>
+<li><strong>完全异步强化学习</strong>：rollout 与训练 worker 解耦，支持可配置的 on-policy / off-policy 调度，以及自定义异步 rollout 和 eval 模式。</li>
+<li><strong>快速智能体 rollout</strong>：基于 SGLang 生成，由路由器在引擎间分发请求、保留每请求元数据并监控整体健康状态，针对多轮智能体工作负载进行了优化。</li>
+<li><strong>快速权重更新</strong>：即使在 Kimi-K2.6 这类万亿参数模型上，新权重也能在数秒内到达引擎，并支持 <a href="https://miles.radixark.com/docs/advanced/p2p-weight-transfer">P2P RDMA</a> 作为解耦式部署的快速路径。</li>
+<li><strong>低精度训练</strong>：支持 <a href="https://miles.radixark.com/docs/advanced/low-precision">MXFP8 和 NVFP4</a> 训练，采用数值稳定、可降低精度引发发散问题的强化学习方案，同时支持 FP8、<a href="https://miles.radixark.com/docs/advanced/int4-qat">INT4 QAT</a>、BF16 和 FP16。</li>
+<li><strong>LoRA 和多 LoRA</strong>：<a href="https://miles.radixark.com/docs/advanced/lora">低秩适配器</a> 可在更少 GPU 上训练前沿规模模型，且同一适配器可直接加载进 SGLang 用于 rollout。</li>
+</ul>
+
+<h3>正确性与韧性</h3>
+<ul>
+<li><strong>Token-in-token-out（TITO）</strong>：对所有模型和所有黑盒 harness 均支持，消除 rollout 与训练之间的去令牌化/重新令牌化往返。</li>
+<li><strong>Rollout Routing Replay（R3）</strong>：在训练器前向传播中重放 rollout 期间记录的专家路由，消除 MoE 路由不匹配，并通过计算与通信重叠降低开销。</li>
+<li><strong>容错</strong>：当 SGLang 引擎故障时，Miles 可原地恢复并继续运行，无需重启或暂停。</li>
+</ul>
+
+<h3>支持的模型与场景</h3>
+<ul>
+<li><strong>Day-0 模型支持</strong>：DeepSeek-V4、Kimi-K3、GLM-5.2、Inkling、Nemotron 均在发布日即获支持，几乎所有前沿模型（含 Kimi-K2.6、Qwen3.5）都可运行。</li>
+<li><strong>广泛硬件支持</strong>：覆盖 NVIDIA GB300/GB200/B300/B200/H200/H100/A100 及 AMD MI300X/MI325/MI350/MI355X（经 ROCm）。</li>
+<li><strong>丰富算法支持</strong>：GRPO、GSPO、PPO、REINFORCE++，外加 SFT 和 <a href="https://miles.radixark.com/docs/advanced/on-policy-distillation">on-policy 蒸馏</a>。</li>
+<li><strong>智能体环境</strong>：通过 Harbor、HUD、NeMo Gym、OpenEnv、Verifiers 等连接器训练编码和计算机使用智能体，任务沙箱支持 AgentENV、Daytona、E2B 或 Modal。</li>
+<li><strong>扩散模型</strong>：通过 <a href="https://github.com/radixark/miles_diffusion">Miles-diffusion</a> 支持 Flow-GRPO、DiffusionNFT 及基于 sglang-diffusion 的 SFT。</li>
+</ul>
+
+<p>项目集成 <a href="https://github.com/sgl-project/sglang">SGLang</a>、<a href="https://github.com/NVIDIA/Megatron-LM">Megatron-LM</a> 与 torch_memory_saver，并由硬件、云、模型实验室、智能体基础设施及学术界等多方团队共同塑造。近期更新包括 v0.1 正式发布、面向 Blackwell 原生的 8-bit/4-bit 强化学习（MXFP8/NVFP4）、对 Kimi K3 与 Inkling 的 day-0 支持、on-policy 蒸馏以及超大模型下的 P2P 权重转移等。</p>
+
+<div class="know-more"><h3>你知道吗？</h3><p><strong>on-policy 与 off-policy</strong>：on-policy 强化学习使用当前策略产生的数据进行训练，而 off-policy 则可利用历史策略收集的数据。Miles 允许在同一框架内灵活配置并解耦这两种调度，这对大规模、成本敏感的后训练场景尤为关键——可复用旧 rollout 数据以降低整体采样开销。</p><p><strong>MoE（混合专家）路由不匹配</strong>：在使用 Mixture-of-Experts 架构的大型模型训练中，rollout 阶段与训练前向传播阶段若使用不同的专家路由结果，会导致损失不稳定。Miles 的 R3 机制通过在训练时重放 rollout 时的路由记录来消除这种不一致，从而稳定大规模训练。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/radixark/miles</guid>
+      <pubDate>Fri, 04 Sep 2026 18:21:07 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ OpenCode：开源 AI 编程智能体（TypeScript）</title>
+      <link>https://github.com/anomalyco/opencode</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源AI编程智能体，属于编程工具发布并提升编程效率，符合高兴趣类别</small></p><p><b>OpenCode</b>（anomalyco/opencode）是一款开源的 AI 编程智能体（coding agent），用 TypeScript 编写，当前在 GitHub Trending 上排名第 15，已获得约 20.4 万颗星、2.66 万次 fork。</p>
+<p>项目内置了两种可通过 <code>Tab</code> 键切换的智能体：</p>
+<ul>
+  <li><b>build</b>（默认）：具备完整权限的开发型智能体，用于日常开发工作。</li>
+  <li><b>plan</b>：只读型智能体，用于代码分析与探索，默认拒绝文件修改、执行 bash 命令前需请求授权，适合浏览不熟悉的代码库或规划变更。</li>
+</ul>
+<p>此外还内置一个 <b>general</b> 子智能体，用于复杂搜索和多步骤任务，可在消息中使用 <code>@general</code> 调用。</p>
+<p>OpenCode 不仅提供命令行工具，还推出了桌面应用（BETA），支持 macOS（Apple Silicon / Intel）、Windows 和 Linux（.deb / .rpm / .AppImage），可从 <a href="https://github.com/anomalyco/opencode/releases">releases 页面</a>或 <a href="https://opencode.ai/download">opencode.ai/download</a> 下载。</p>
+<p>安装方式多样，支持官方一键脚本、npm/bun/pnpm/yarn、Homebrew、Scoop、Chocolatey、Arch Linux 包管理器、mise 及 nix 等。更详细的配置说明见<a href="https://opencode.ai/docs">官方文档</a>。项目也欢迎社区贡献，并提醒以「opencode」命名的第三方项目需在 README 中声明与官方团队无关。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anomalyco/opencode</guid>
+      <pubDate>Fri, 04 Sep 2026 18:21:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ System Design 101：用图解与通俗语言讲解系统设计的开源学习仓库</title>
       <link>https://github.com/ByteByteGoHq/system-design-101</link>
@@ -890,41 +967,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/DietrichGebert/ponytail</guid>
       <pubDate>Tue, 25 Aug 2026 11:38:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Anthropic 官方 Claude Code 插件目录：高质量插件市场</title>
-      <link>https://github.com/anthropics/claude-plugins-official</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 官方 Claude Code 插件目录，属编程工具生态分享，符合编程工具相关兴趣，推荐阅读</small></p><p>该仓库是 Anthropic 官方维护的 Claude Code 插件目录（marketplace），收录经过筛选的高质量插件，供用户在 Claude Code 中直接发现和安装。</p><p>目录分为两部分：<code>/plugins</code> 存放由 Anthropic 团队内部开发维护的插件；<code>/external_plugins</code> 收录合作伙伴与社区提交的第三方插件，后者需通过质量和安全标准审核后方可上架。用户可通过 <code>/plugin install {插件名}@claude-plugins-official</code> 直接安装，或在 <code>/plugin &gt; Discover</code> 中浏览查找。</p><p>每个插件遵循统一的标准结构：<code>.claude-plugin/plugin.json</code>（必需的元数据文件）、可选的 <code>.mcp.json</code>（MCP 服务器配置）、<code>commands/</code>（斜杠命令）、<code>agents/</code>（代理定义）、<code>skills/</code>（技能定义）以及 <code>README.md</code> 文档。仓库还明确了两个重要约定：一是插件名称是不可变的 slug，重命名会破坏已安装用户的配置，如需调整界面显示名称应使用 <code>displayName</code>，确需改名时则通过顶层 <code>renames</code> 映射实现自动迁移；二是对于源码仓库直接附带 skills（<code>SKILL.md</code>）但缺少 <code>plugin.json</code> 清单的插件，市场条目可通过 <code>strict: false</code> 加显式 <code>skills</code> 数组直接声明技能，每个技能在 Claude Code 中注册为 <code>&lt;插件名&gt;:&lt;技能名&gt;</code>。</p><p>值得注意的安全提示：Anthropic 不控制插件中包含的 MCP 服务器、文件或其他软件，也无法验证其行为是否符合预期或不会发生变化，因此用户在安装、更新或使用任何插件前，应自行确认对该插件的信任。</p><h3>你知道吗？</h3><p>MCP（Model Context Protocol，模型上下文协议）是 Anthropic 提出的开放协议，用于标准化 AI 助手与外部数据源、工具之间的连接方式。Claude Code 插件生态中的 <code>.mcp.json</code> 正是基于该协议配置外部服务，这也是插件能够扩展 Claude 能力（如访问数据库、调用 API、操作文件系统等）的关键机制。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-plugins-official</guid>
-      <pubDate>Tue, 25 Aug 2026 11:38:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ AI 求职框架 ai-job-search：基于 Claude Code 的自动化求职助手（33k Stars）</title>
-      <link>https://github.com/MadsLorentzen/ai-job-search</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 基于 Claude Code 的自动化求职框架，属于典型的编程/AI 工具发布，命中高兴趣「编程工具发布/分享」，必看</small></p><p>ai-job-search 是一个基于 <a href="https://claude.com/claude-code">Claude Code</a> 构建的 AI 求职申请框架，在本地机器上运行完整求职流程：评估职位匹配度、定制简历（CV）、撰写求职信并准备面试。该项目是独立开源项目，与 Anthropic 无关联，并明确声明没有任何关联加密货币或付费赞助项目。</p>
-
-<p>作者 Mads Lorentzen 是地球物理学家出身，2025 年底岗位被裁后亲手构建了这套框架用于自己的求职：69 份定制申请、20 次首轮面试，最终于 2026 年 6 月以 AI 工程师身份入职。他坦言对每位雇主都如实说明使用了这套流程，结果非但没有减分，反而常引发有深度的技术对话。这一实战验证让项目在 GitHub 上收获 33k+ stars、11.7k forks。</p>
-
-<p>核心工作流由三个命令组成：<code>/setup</code> 通过文档导入、CV 粘贴或访谈三种方式建立个人档案；<code>/scrape</code> 在多个职位门户搜索匹配岗位并去重、按匹配度排序；<code>/apply</code> 对目标职位执行完整流程——评估匹配度、起草定制 CV 与求职信（LaTeX 生成）、由第二个智能体审阅并修订后输出最终结果。</p>
-
-<p>框架还提供十余个扩展命令：<code>/interview</code> 按面试阶段生成准备包并进行模拟面试；<code>/rank</code> 批量评分新抓取的职位并给出排序短名单；<code>/outcome</code> 记录申请结果并归档材料；<code>/upskill</code> 分析技能差距并生成学习计划；<code>/html-report</code> 生成离线 HTML 仪表盘；另有 <code>/notion-sync</code>、<code>/gmail-sync</code>、<code>/add-template</code>、<code>/add-portal</code> 等命令。</p>
-
-<p>核心流程与语言、国家无关；职位门户搜索技能目前面向丹麦市场（Jobindex、Jobnet 等），但设计上可替换为本地招聘网站。除 Claude Code 外，也可通过 AGENTS.md 适配 Codex、Gemini CLI 等其他智能体工具。安全方面，职位发布内容被视为不可信输入，工作流不会执行其中嵌入的指令。另需注意：GitHub 不允许公开仓库的私有 fork，而 <code>/setup</code> 会把个人数据写入被跟踪文件，因此用于个人求职时官方建议以私有仓库配合 upstream 方式使用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/MadsLorentzen/ai-job-search</guid>
-      <pubDate>Mon, 24 Aug 2026 11:40:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Hermes Agent：Nous Research 推出的自我进化 AI 智能体</title>
-      <link>https://github.com/NousResearch/hermes-agent</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 自我进化 AI 智能体的新发布，属于新 AI 模型/智能体公告与 AI 软件技术进展，命中高兴趣「新AI模型发布公告」，必看</small></p><p>Hermes Agent 是 AI 研究机构 <a href="https://nousresearch.com">Nous Research</a> 开源的智能体项目（Python 编写，MIT 许可），定位为「与你一同成长的智能体」。其核心卖点是内置学习闭环：智能体会从经验中自动创建技能（skill）、在使用中持续改进技能、主动提醒自己沉淀知识、检索过往对话，并在多次会话间构建不断加深的用户画像模型，实现跨会话的记忆与成长。</p><p>项目强调部署灵活性与平台无关性：既可在 5 美元的 VPS 或 GPU 集群上运行，也支持 Modal、Daytona 等无服务器基础设施（空闲时休眠、按需唤醒，会话间隙几乎零成本）；通过单一网关进程可接入 Telegram、Discord、Slack、WhatsApp、Signal 及 CLI，支持语音备忘录转写与跨平台会话延续。模型层面不锁定任何厂商，可随时切换 Nous Portal、OpenRouter、OpenAI 或自建端点，无需改动代码。</p><p>主要功能还包括：完整的 TUI 终端界面（多行编辑、斜杠命令自动补全、会话历史、流式工具输出）、内置 cron 定时自动化（日报、夜间备份、周审计等自然语言任务，无人值守运行）、可派生子智能体并行处理工作流、支持本地/Docker/SSH/Singularity/Modal/Daytona/Vercel Sandbox 七种终端后端，以及面向研究的批量轨迹生成与轨迹压缩能力（可用于训练下一代工具调用模型）。记忆系统兼容 <a href="https://agentskills.io">agentskills.io</a> 开放标准，并集成 <a href="https://github.com/plastic-labs/honcho">Honcho</a> 进行辩证式用户建模。</p><p>此外，Nous Research 提供 Nous Portal 一站式订阅，覆盖 300+ 模型及工具网关（网页搜索、图像生成、语音合成、云端浏览器），免去分别申请多个 API key 的麻烦；项目还支持从 OpenClaw 一键迁移设置、记忆、技能与 API 密钥。该仓库在 GitHub 上已获得约 23.5 万星标，位居 Trending 榜单前列。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/NousResearch/hermes-agent</guid>
-      <pubDate>Mon, 24 Aug 2026 11:40:19 GMT</pubDate>
     </item>
   </channel>
 </rss>
