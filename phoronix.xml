@@ -3,7 +3,43 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 03 Sep 2026 14:31:06 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2026 00:03:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Amazon Linux 2027 公开预览发布：默认 Linux 7.1 内核，全面启用 LTO 与 x86-64-v3 优化</title>
+      <link>https://www.phoronix.com/news/Amazon-Linux-2027-Preview</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍 Amazon Linux 2027 预览版，属于新发行版/新软件项目，符合来源高兴趣配置</small></p><p>AWS 今日宣布 Amazon Linux 2027 公开预览版正式上线。作为 Amazon Linux 2023 的继任版本，Amazon Linux 2027 带来了大量软件更新，并针对 AWS 云工作负载进行了诸多性能优化与调优。</p><p>主要技术变化包括：</p><ul><li>默认使用 Linux 7.1 内核；</li><li>默认启用 SELinux 强制（enforcing）模式；</li><li>新增加速器驱动程序；</li><li>所有软件包以 -O2 优化级别构建，并启用链接时优化（LTO）；</li><li>x86-64 软件包目标升级为 x86-64-v3（要求支持 AVX/AVX2 指令集）；</li><li>软件包构建默认启用自动向量化；</li><li>针对 AArch64 Graviton 实例，默认启用 malloc 堆区域的透明大页（THP）；</li><li>默认编译器升级为 GCC 16.1，同时提供 LLVM/Clang 22 以及更新版本的 Rust 和 Go；</li><li>包管理器采用 DNF5；</li><li>部分基于 Fedora 44 和 Fedora 45。</li></ul><p>更多细节可参阅 AWS 官方博客与 Amazon Linux 2027 发布说明。Phoronix 作者表示将很快对 Amazon Linux 2027 进行基准测试。</p><h3>你知道吗？</h3><p>x86-64-v3 是 x86-64 微架构级别之一，要求 CPU 支持 AVX、AVX2 等指令集，相比旧基线可带来明显性能提升，但需要较新的处理器。链接时优化（LTO）则在链接阶段跨编译单元进行优化，有助于改善代码内联与整体运行性能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Amazon-Linux-2027-Preview</guid>
+      <pubDate>Thu, 03 Sep 2026 21:13:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 英特尔改进 CMRR 功能：Linux 7.4 将默认启用内容匹配刷新率</title>
+      <link>https://www.phoronix.com/news/Intel-Graphics-CMRR-Linux-7.4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲 Intel 显卡驱动在 Linux 7.4 中改进 CMRR 刷新率特性，属于 Linux 桌面/图形技术，符合兴趣配置</small></p><p>英特尔正在改进其「内容匹配刷新率」（Content Match Refresh Rate，CMRR）功能，该功能随 Xe2 Lunar Lake 图形硬件引入，相比传统可变刷新率（VRR）/自适应同步（Adaptive-Sync）能更精确地匹配视频或内容的帧率，尤其针对视频播放，旨在消除卡顿和掉帧。</p><p>早在 2023 年，Phoronix 就率先报道了英特尔为开源图形驱动开发 CMRR 功能的消息。尽管 Lunar Lake 以及后来的 Panther Lake、Wildcat Lake 均已上市，CMRR 补丁也已存在近两年，但该功能在 Linux 下尚未被充分利用。直到现在，相关补丁才被排入 DRM-Next，为 Linux 7.4 做准备。</p><p>英特尔工程师 Mitul Golani 在即将合入 Linux 7.4 的补丁系列中指出，此前的 CMRR 分数时序（fractional-timing）代码被永久禁用、仅支持嵌入式 DisplayPort（eDP），并且依赖启发式算法猜测何时需要分数时序路径。新补丁解决了这些不足，并新增了基于 DebugFS 的功能接口，作为未来用户空间 API 推出前的过渡方案。</p><p>在 Linux 7.4 中，CMRR 将在「VRR 时序由默认时序生成器生成」的情况下默认启用，目前仅适用于英特尔显示 IP 版本 30 及以上（即 Xe3 / Panther Lake 及更新产品）。新的 DebugFS 控制是每个 CRTC 一个的 DebugFS 文件，允许用户空间指定 CMRR 目标刷新率（以毫赫兹为单位）和视频模式要求（包括视频时序的分母）。未来预计会提供完善的用户空间 API，目前则是英特尔驱动专属的 DebugFS 接口。</p><img src="//www.phoronix.net/image.php?id=2026&image=intel_cmrr_enable_med" alt="Intel CMRR enable" /><p>该补丁系列包含最新的 CMRR 启用工作，并通过今天的 drm-intel-next 拉取请求提交，该请求还包含 DG2 多协议 PLL 代码改用 DPLL 框架、DP-HDMI PCON 显示流压缩（DSC）修复以及其他代码清理和修复。距离 Linux 7.4 合并窗口（10 月底）还有数周时间，更多英特尔图形驱动功能仍有望陆续合入 DRM-Next。</p><h3>你知道吗？</h3><p>CMRR 与 VRR 的区别在于：VRR 让显示器刷新率跟随内容帧率动态变化，但刷新率通常只能以整数步进（如 48/60/120Hz）调整；而 CMRR 通过分数时序（fractional timing）让刷新率更精细地匹配内容帧率，例如 23.976fps 的电影帧率，从而避免视频播放时的抖动（judder）和重复帧。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Graphics-CMRR-Linux-7.4</guid>
+      <pubDate>Thu, 03 Sep 2026 17:57:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Mir 2.29 发布：新增多种 Wayland 协议支持</title>
+      <link>https://www.phoronix.com/news/Mir-2.29-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Mir 2.29 发布并新增 Wayland 协议支持，属于 Linux 桌面技术及开源软件更新，符合兴趣配置</small></p><p>Canonical 的 Mir 合成器（compositor）推出 2.29 版本，面向使用 Mir 构建基于 Wayland 外壳的开发者，带来多项改进和新 Wayland 协议覆盖。</p><p>Mir 2.29 新增了对 <strong>xdg-dialog-v1</strong> 协议的支持，该协议允许应用程序告知窗口管理器某个窗口是否为对话框。这一协议已获得其他主流 Wayland 合成器的支持。此外，新版本还支持 <strong>ext_foreign_toplevel_image_capture_source_manager_v1</strong> 协议，允许客户端为特定顶层应用窗口创建图像捕获源，用于屏幕录制等类似用途。</p><p>本次更新还增加了对单个表面（surface）截图的支持，其 wl_region 实现现可处理 add 和 subtract 操作，并新增触控模拟器，可将鼠标点击和拖拽映射为触控事件。其他变化包括：将代码库迁移至 C++26、移除 EGLStream 支持、以 DMA-BUF 取代 wl-drm 支持，以及移除其他已弃用的 API。此外还有大量 bug 修复。</p><p>Mir 2.29 的下载及更多细节可在 GitHub 上获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mir-2.29-Released</guid>
+      <pubDate>Thu, 03 Sep 2026 17:18:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ LLVM 开发者就是否引入 AGENTS.md 引导 AI 代理展开讨论</title>
+      <link>https://www.phoronix.com/news/LLVM-Debates-AGENTS-MD</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论引入 AGENTS.md 以帮助 AI 智能体提升编码效率，涉及编程效率改进与 AI 软件进展，符合高兴趣/兴趣配置</small></p><p>LLVM 开发者近日在 LLVM Discourse 论坛上就是否在项目 Git 仓库中引入 AGENTS.md（以及 CLAUDE.md）文件展开讨论。这类文件旨在为 AI 代理（AI agent）提供贡献指南，帮助其参与补丁提交等开源贡献工作。资深 LLVM 开发者 Nick Desaulniers 于昨日发起该讨论，目前各方反应不一。</p><p>支持者认为引入此类文件有助于引导 AI 代理更规范地参与开发；反对者则担心这类文件反而会增加噪音、未必真正有效，也有人认为这与 LLVM 一贯"不塑造开发者个人工作流程"的原则相悖。此外，部分开发者已经在自己的私有仓库中使用自定义的 AGENTS.md 内容。考虑到 LLVM 旗下子项目众多、各自范围不同，制定统一指南也存在顾虑。</p><p>Desaulniers 已提交了一份草案拉取请求（pull request），提议为 LLVM 添加一个精简版 AGENTS.md，其中要求 AI 代理查阅 LLVM 关于 AI 工具贡献政策的文档以及编码规范。LLVM 最终将如何抉择，仍有待观察。</p><h3>你知道吗？</h3><p>AGENTS.md 是近年来兴起的一种仓库级约定文件，类似 README 但面向 AI 编程代理，用于说明项目的构建方式、代码规范、测试命令等，帮助 AI 工具更准确地理解项目上下文并参与开发。Claude Code、Cursor 等 AI 编码工具会优先读取这类文件来获取项目指引。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-Debates-AGENTS-MD</guid>
+      <pubDate>Thu, 03 Sep 2026 15:45:12 GMT</pubDate>
+    </item>
     <item>
       <title>Linux 7.3 默认配置将禁用 RandStruct 安全特性以支持 Rust</title>
       <link>https://www.phoronix.com/news/Linux-7.3-RandStruct-Rust</link>
@@ -482,42 +518,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Intel-ANV-HuC-H265-Vulkan-Video</guid>
       <pubDate>Thu, 27 Aug 2026 10:32:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3 的 AppArmor 新增用户空间压缩策略支持</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-AppArmor</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux 7.3中AppArmor新增用户态压缩策略支持，属内核安全软件新功能，推荐阅读</small></p><p>AppArmor 的改进已合并进 Linux 7.3。该内核安全模块为每个程序提供针对系统资源的访问控制。本周期最引人注目的变化是支持加载用户空间压缩的策略。</p><p>此前，AppArmor 策略由内核模块在加载后进行压缩；现在 Linux 7.3+ 可以加载在用户空间压缩后提交给内核的策略。用户空间压缩策略的好处是加载时间更快。该功能由 Canonical 的 Maxime Bélair 实现，他表示对于拥有"大型配置文件"的系统，系统时间最多可改善 30%。用户空间压缩的配置文件还可以选择比内核默认 Zstd 级别更高的压缩级别，以节省更多空间。</p><img src="https://www.phoronix.net/image.php?id=2023&image=apparmor" alt="AppArmor logo" /><p>用户空间压缩策略对嵌入式 Linux 系统也更有益，这些平台通常内存容量非常有限，只需存储压缩策略即可。</p><p>AppArmor 还新增了用于静默某些消息的审计模式、重构网络调解以使用新模式，以及各种代码清理和错误修复。Linux 7.3 合并窗口将于本周末随着 v7.3-rc1 发布而结束。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-AppArmor</guid>
-      <pubDate>Thu, 27 Aug 2026 10:18:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ LLVM 改进 Zen 1/Zen 2 支持，应对&quot;臭名昭著&quot;的 PDEP/PEXT 指令</title>
-      <link>https://www.phoronix.com/news/LLVM-Improve-AMD-PDEP-PEXT</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] LLVM编译器改进Zen 1/Zen 2的PDEP/PEXT指令支持，属编程工具/编译器改进，推荐阅读</small></p><p>LLVM/Clang 编译器工具链近日合并了针对近十年前发布的 AMD Zen 1 处理器的改进支持，同时也有助于 Zen+ 和 Zen 2 处理器。这项来自开源社区的最新工作，旨在围绕 PDEP 和 PEXT 指令提供更明智的指令调度——这两条指令在最初的 Zen 处理器上执行成本相当高昂。</p><p>编译器工程师 Simon Pilgrim 着手改进了 Zen 1 / Zen+ / Zen 2 处理器上 PDEP 和 PEXT 标量指令的调度，原因是这些处理器上这两条指令的实现"臭名昭著地糟糕"。两条指令都属于位操作 BMI2 扩展，其中 PEXT 是并行位提取（Parallel Bits Extract），PDEP 是并行位填充（Parallel Bits Deposit），可用于数据库、密码学以及国际象棋、数独等游戏场景。</p><img src="//www.phoronix.net/image.php?id=ryzen-3700x-3900x-linux&image=amd_zen2_2_med" alt="AMD Zen 2 Ryzen 3000 processors" /><p>由于 LLVM 正准备开始生成 PDEP/PEXT 内建函数（intrinsics），Simon 基于对其高成本的剖析，改进了这些旧款 AMD Ryzen 和 EPYC 处理器的 PDEP/PEXT 指令调度，使 znver1/znver2 目标的指令调度器能够做出更明智的选择。他在提交说明中写道："znver1/znver2 上 PDEP/PEXT 标量指令的实现臭名昭著地糟糕，仅使用 WriteMicrocoded 标记没有用处，因为它无法反映对 ALU 流水线或 uops 洪泛（尤其是 rm 折叠变体）的可怕影响。uops.info/Agner 上的测量结果差异很大（且高度依赖输入数据），因此我取了最坏情况的平均值，至少给调度器一些可用的依据。我们此前一直忽略这些，但现在我们即将生成 llvm.pdep/pext 内建函数（并标量化向量实现）。"</p><p>该代码现已合并到 LLVM Git，供希望充分利用 znver1/znver2 编译器优化的用户使用。</p><h3>你知道吗？</h3><p>PDEP/PEXT 在 Zen 1/Zen 2 上之所以执行缓慢，是因为这些处理器通过微码（microcode）模拟执行这两条指令，会占用大量微操作（uops）并阻塞 ALU 流水线；而在 Zen 3 及更新的 AMD 处理器上，这两条指令已改为硬件原生实现，速度大幅提升。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-Improve-AMD-PDEP-PEXT</guid>
-      <pubDate>Thu, 27 Aug 2026 10:05:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Asahi Linux 即将发布支持 Apple M3 设备的版本</title>
-      <link>https://www.phoronix.com/news/Asahi-Linux-M3-Release-Soon</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 Asahi Linux 计划发布支持 Apple M3 设备的版本，属于苹果电脑Linux支持与新发行版方向，来源配置为 high_interest，用户会强烈关注。</small></p><p>Asahi Linux 团队近日发布了新的项目进展报告，重点介绍了 Apple M3 系列设备的适配进展，以及 Apple M4/M5 的部分成果。该团队致力于将 Linux 移植到 Apple Silicon 硬件上。</p><p>在电源管理方面，由于上游内核要求 ARM64 设备使用电源状态协调接口（PSCI）进行电源管理，而当前 Apple Silicon 与 Asahi 驱动的设计无法很好地满足这些约束，目前只有下游 Asahi Linux 代码支持"深度"等待中断（WFI）指令。团队正在开发一种基于 UEFI 运行时服务的 PSCI 通道，以适配 Apple Silicon/Asahi 的需求。</p><p>Apple M3 系列设备的适配取得多项进展：麦克风处理有所调整，网络摄像头支持已通过新补丁在 M3 设备上正常工作；M3 的 USB 端口控制器变化带来了更多逆向工程工作，但最新的下游代码已实现 USB 3.0 和 Thunderbolt 支持。Asahi Linux 开发者已接近完成一个支持 Apple M3 的下游版本，预计未来几周将公布更多细节，但相关代码完全合入主线 Linux 内核仍需更长时间。</p><img src="//www.phoronix.net/image.php?id=2023&image=apple_m3_med" alt="Apple M3 SoCs" /><p>Apple M4 和 M5 的适配工作也在继续推进，但仍有大量工作待完成。报告还提到了 M4 适配中因 Apple 设计选择和安全特性带来的各种挑战。此外，团队还在推进 GPU 直接扫描输出（direct scan-out）支持，这是另一项重要改进，但距离向用户发布仍需更多工作。</p><p>更多详情可参阅 <a href="https://asahilinux.org">AsahiLinux.org 博客</a>。</p><h3>你知道吗？</h3><p>PSCI（Power State Coordination Interface）是 ARM 平台用于管理 CPU 电源状态（如开机、关机、挂起）的标准固件接口，Linux 内核要求 ARM64 设备通过它进行电源管理。WFI（Wait For Interrupt）指令则让 CPU 进入低功耗等待状态，直到中断到来才唤醒，是移动设备省电的关键机制之一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Asahi-Linux-M3-Release-Soon</guid>
-      <pubDate>Thu, 27 Aug 2026 00:25:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核 Zstd 补丁修复 BMI2 探测低效：解压速度提升 71%</title>
-      <link>https://www.phoronix.com/news/In-Kernel-Zstd-BMI2-Probing</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述 Linux 内核中 Zstd 压缩性能的低效问题及优化补丁，属于编程效率改进经验，与全局配置的很高兴趣相符，故推荐阅读。</small></p><p>Linux 开发者 Usama Arif 向内核邮件列表提交了三项补丁，通过修复现有代码中一个非常不幸的疏漏，显著提升了内核内 Zstd 压缩与解压缩的效率。</p><p>问题在于：内核中的 Zstd 代码在每次创建压缩或解压上下文时，都会在运行时探测 CPU 是否支持 BMI2（位操作指令集，Intel Haswell 及更新、AMD Excavator 及更新的处理器均支持）。虽然运行时探测本身是为了让旧 CPU 回退到通用代码路径，但每次创建上下文都重复探测显然是冗余的——系统启动后 CPU 特性不会改变，除非出现某些极端 CPU 缺陷。</p><p>更糟糕的是，这种探测恰好处于非常热门的代码路径上：SquashFS 每解压一个块就会调用一次，而 EROFS、Btrfs、F2FS 以及 crypto/zstd 代码每次操作都会初始化一个上下文。因此每次操作都要执行两条带无条件 VM 退出的串行化 CPUID 指令，开销巨大。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=zstd_bmi2_benchmark" alt="Zstd patch benchmark impact" /><p>Usama Arif 发现，通过这三项补丁将 BMI2 CPU 支持探测改为只执行一次，crypto_acomp 基准测试中的解压时间降低了 71%，压缩时间降低了 18%。目前这些补丁已提交至 Linux 内核邮件列表供审查。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/In-Kernel-Zstd-BMI2-Probing</guid>
-      <pubDate>Wed, 26 Aug 2026 19:55:10 GMT</pubDate>
     </item>
   </channel>
 </rss>

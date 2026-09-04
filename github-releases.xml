@@ -3,7 +3,106 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 03 Sep 2026 14:29:50 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2026 00:02:17 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.153.2 发布：修正 GPT-6-Astra Fast 层级描述</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.153.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex（rust 版）发布 0.153.2 版本，这是一个小型修复版本，仅包含一处文本修正。</p><p>本次修复将 GPT-6-Astra Fast 层级的描述从「1.5 倍速」更正为「2 倍速、更高用量」（2x speed, increased usage）。该改动仅影响界面显示文本，不会改变请求的实际运行方式。</p><p>完整变更日志见 <a href="https://github.com/openai/codex/compare/rust-v0.153.1...rust-v0.153.2">GitHub 对比页面</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.153.2</guid>
+      <pubDate>Thu, 03 Sep 2026 23:53:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>Codex 0.153.1 发布：支持通过 API 配置 GPT-6-Astra 模型</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.153.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 0.153.1 版本，本次更新包含一项新功能：支持通过 API 配置 GPT-6-Astra 模型，无需更改默认模型，也不会在模型选择器中显示该模型（#42605）。该改动是将 GPT-6-Astra 模型目录回溯移植（backport）到 0.153 版本。</p><p>完整变更记录见 <a href="https://github.com/openai/codex/compare/rust-v0.153.0...rust-v0.153.1">Changelog</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.153.1</guid>
+      <pubDate>Thu, 03 Sep 2026 21:02:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.260：新增全屏 diff 面板与文本版 /advisor</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.260</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><strong>新功能</strong></p>
+<ul>
+<li>全屏模式下新增 diff 面板，可并排显示 Claude 编辑时的未提交更改，通过 <code>/diff</code> 切换</li>
+<li><code>/cost</code> 与状态栏的 <code>prompt_cache</code> 字段现在会提示缓存未命中的可能原因（如工具定义或系统提示变更、超过 TTL 空闲）</li>
+<li><code>/reload-plugins</code> 现可用于 headless 会话（Claude Code Desktop、SDK 命令列表）</li>
+<li><code>/advisor</code> 新增文本形式（<code>/advisor</code>、<code>/advisor &lt;model&gt;</code>、<code>/advisor off</code>），适用于桌面应用、Remote Control 及其他无头（<code>-p</code>/Agent SDK）会话</li>
+</ul>
+<p><strong>修复</strong></p>
+<ul>
+<li>修复 <code>/rewind</code> 在检查点备份文件缺失时误报成功、以及回退后残留文件读取跟踪导致「File unchanged since last read」误判的问题</li>
+<li>修复终端中旗帜符号、组合 emoji 和重音字母在换行时被拆分、以及落在最后两列时残留旧文本的问题（现显示为 <code>…</code>）</li>
+<li>修复模型切换在插件钩子加载失败或组织托管插件市场无法加载后被整场会话锁死的问题</li>
+<li>修复 SDK 提供的 MCP 服务器（如 Desktop 连接器）首回合缺失、下一回合才出现的问题</li>
+<li>修复 GitLab 嵌套子组仓库检测，以及 <code>owner/repo#123</code> issue 引用在 GitLab 仓库中错误链接到 GitHub 的问题</li>
+<li>回滚 2.1.259 中将 <code>Read()</code> 拒绝规则应用于 Bash 参数的改动（该改动导致 <code>npm run build</code> 在 <code>Read(./**/build/**)</code> 规则下被拒绝、<code>cd … &amp;&amp; grep</code> 在自动模式下也要求确认）</li>
+<li>修复全屏模式下 Ctrl+Z 后 shell 残留在备用屏幕、覆盖暂停界面的问题</li>
+<li>修复后台会话在 ListAgents 中出现两次（幻影「interactive」孪生）并收到 SendMessage 投递的问题</li>
+<li>修复 Fable 5.1 相关：<code>/model</code> 选择器不显示 Fable 5.1、工具结果后附加的上下文未纳入提示缓存、<code>model: fable</code> 代理忽略 <code>[1m]</code> 标签等问题</li>
+<li>修复 <code>-p --resume</code>/<code>--continue</code>（桌面应用使用）在会话工作树丢失 git 元数据后每次重试都失败的问题</li>
+</ul>
+<p><strong>改进</strong></p>
+<ul>
+<li>1M 上下文模型（Opus、Fable）的自动压缩时机提前至接近 1M token 上限，超大上下文的恢复压缩不再 10 分钟超时</li>
+<li><code>/ultrareview</code> 等待云端长时审查的时间从 30 分钟延长至 45 分钟</li>
+<li>非交互（<code>-p</code>/SDK）会话空闲 CPU 占用降低</li>
+<li>子代理启动的后台命令取消 1 小时时限，改为运行至退出或被停止，与主会话一致</li>
+<li>结构化输出改进：Workflow <code>agent({schema})</code> 提前拒绝永远无法满足的 JSON Schema，可重试错误包含最后校验失败原因</li>
+<li>全屏模式下 <code>ctrl+l</code>/<code>cmd+k</code> 现在像终端 <code>clear</code> 一样清空对话视图（上滑可查看历史消息）</li>
+<li>Fable 5.1 上 <code>/effort</code> 中途调整不再使提示缓存失效</li>
+<li>删除含未推送提交的工作树的后台会话时，提示信息会标明分支与提交数</li>
+</ul>
+<p><strong>VSCode 扩展</strong></p>
+<ul>
+<li>底部模型胶囊新增当前 effort 级别显示，修复切换模型后 effort 级别残留，并恢复胶囊的紧凑尺寸</li>
+<li>会话列表状态筛选菜单新增 Open 和 Closed 选项</li>
+<li>修复 Remote Control 自动开启时欢迎页消失、会话历史选择器重复加载已打开会话、重命名无响应、重试后残留半截消息/空工具卡片等问题</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.260</guid>
+      <pubDate>Thu, 03 Sep 2026 23:48:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>fish 4.9.0 发布：修复 Konsole 终端兼容问题，带来多项交互与脚本改进</title>
+      <link>https://github.com/fish-shell/fish-shell/releases/tag/4.9.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fish shell 发布 4.9.0 版本，本次发布的主要目的是解决 Konsole 终端中 <code>shift-pageup</code> 失效的问题。自 4.8.1 以来共有 151 个新提交，由 26 位作者贡献，其中 18 位是首次参与的新贡献者。</p>
+
+<h3>交互改进</h3>
+<ul>
+<li>为规避 Konsole v26.07.80 中 kitty 键盘协议实现的问题，fish 不再在该终端上请求此协议；可通过开启 <code>omit-term-workarounds</code> <a href="https://fishshell.com/docs/4.9/language.html#featureflags">功能标志</a>在 Konsole 上重新启用该协议（<a href="https://github.com/fish-shell/fish-shell/issues/12948">#12948</a>）。</li>
+<li>在 kitty 等终端上，<code>shift</code>-<code>space</code> 和 <code>space</code> 等按键现在可以独立映射（<a href="https://github.com/fish-shell/fish-shell/issues/12898">#12898</a>）。</li>
+<li>修复了包含解析缓慢的符号链接（如指向网络挂载文件的链接）的目录中 Tab 补全缓慢的问题（<a href="https://github.com/fish-shell/fish-shell/issues/12905">#12905</a>）。</li>
+<li>缩写（abbreviation）现在可以添加描述，并会显示在补全分页器中（<a href="https://github.com/fish-shell/fish-shell/issues/11291">#11291</a>）。</li>
+<li>Vi 模式命令如 <code>cF</code> 和 <code>cT</code> 现在可以正常工作（<a href="https://github.com/fish-shell/fish-shell/issues/12947">#12947</a>）。</li>
+</ul>
+
+<h3>脚本改进</h3>
+<ul>
+<li>列表索引在更多情况下支持嵌套，例如 <code>$foo[$bar[1] 2]</code> 现在被允许（<a href="https://github.com/fish-shell/fish-shell/issues/12903">#12903</a>）。</li>
+<li>转义的方括号（如表示 <code>[</code> 的 <code>\133</code>）不再被视为切片运算符（<a href="https://github.com/fish-shell/fish-shell/issues/7969">#7969</a>）。</li>
+<li>包含右方括号的变量用于索引另一个变量时，不再提前关闭切片（<a href="https://github.com/fish-shell/fish-shell/issues/12819">#12819</a>）。</li>
+<li>内置帮助页面现在会尊重对 <code>man</code> 函数的覆盖（<a href="https://github.com/fish-shell/fish-shell/issues/12886">#12886</a>）。</li>
+<li>像 <code>status=123 echo $status</code> 这样的命令现在会抛出错误，而不是静默忽略变量覆盖（<a href="https://github.com/fish-shell/fish-shell/issues/7790">#7790</a>）。</li>
+</ul>
+
+<h3>回归修复</h3>
+<ul>
+<li>修复了 C 库错误消息的中文和日文翻译损坏的问题（自 4.6.0 起，<a href="https://github.com/fish-shell/fish-shell/issues/12895">#12895</a>）。</li>
+<li>修复了 <code>set --erase</code> 意外允许删除只读变量的问题（自 4.3.2 起）。</li>
+<li>修复了内置 <code>fg</code> 在 NetBSD 上不工作的问题（自 4.0.0 起，<a href="https://github.com/fish-shell/fish-shell/issues/12929">#12929</a>）。</li>
+</ul>
+
+<p>此外，发布说明还列出了 18 位新提交者与 8 位回归贡献者，并提供了 GPG 签名及面向不同 Linux CPU 架构的独立二进制文件下载。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/fish-shell/fish-shell/releases/tag/4.9.0</guid>
+      <pubDate>Thu, 03 Sep 2026 16:51:16 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.153.0 发布：Vim 模式支持撤销/重做，插件 CLI 支持远程市场</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.153.0</link>
@@ -1320,89 +1419,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.224</guid>
       <pubDate>Fri, 07 Aug 2026 04:00:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.223 更新：会话压缩优化、命令别名调整及多项 Bug 修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.223</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>核心功能与交互改进</h3>
-<ul>
-<li><strong>会话上下文自动压缩优化</strong>：更新了 <code>CLAUDE_CODE_DISABLE_1M_CONTEXT</code> 环境变量的行为，现在会将所有原生支持 1M 窗口的 Claude 模型自动压缩至 200K 上下文，并在启动时提供警告提示。同时，自动压缩逻辑已扩展至未识别的模型 ID，防止上下文超出假设窗口大小（可通过设置 <code>CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_ENFORCEMENT=1</code> 恢复旧行为）。</li>
-<li><strong>命令别名与审查功能调整</strong>：<code>/review</code> 命令现作为 <code>/code-review</code> 的别名，支持审查当前差异或 PR。若未指定审查级别，将复用上次使用的级别；输入 <code>/code-review ultra</code> 可触发深度云审查。</li>
-<li><strong>会话恢复与子代理提示</strong>：在云端会话中新增 <code>/teleport</code> 提示，指导用户如何通过 <code>claude --teleport &lt;session id&gt;</code> 在本地继续会话。当工作流代理、Fork 技能或后台代理请求的子代理模型受限时，系统将发出警告并自动切换至父代理模型运行。</li>
-</ul>
-<h3>配置与管理设置优化</h3>
-<ul>
-<li><strong>市场仓库通配符支持</strong>：在 <code>strictKnownMarketplaces</code> 和 <code>blockedMarketplaces</code> 管理设置中新增了对 <code>"owner/*"</code> 通配符的支持，便于批量管理特定 GitHub 组织下的所有市场仓库。</li>
-<li><strong>网关模型发现修复</strong>：修正了网关模型发现功能，现在能够正确识别并显示以 <code>vertex_ai/claude-*</code> 或 <code>bedrock/anthropic.claude-*</code> 等 provider-prefixed IDs 注册的 Claude 模型。</li>
-<li><strong>管理设置合并逻辑修正</strong>：修复了服务器下发的设置会覆盖本地 <code>managed-settings.json</code> 或 MDM 配置中 <code>env</code> 块的问题，现改为按键合并管理设置。</li>
-</ul>
-<h3>Bug 修复与稳定性提升</h3>
-<ul>
-<li><strong>权限与安全机制修复</strong>：解决了 Bash 权限绕过漏洞、权限提示中通过制表符或不可见 Unicode 隐藏命令的问题，以及工作流脚本利用动态 <code>import()</code> 绕过沙箱执行的漏洞。同时修复了代理定义中 <code>bypassPermissions</code> 模式忽略组织禁用策略的问题。</li>
-<li><strong>会话恢复与代理状态修复</strong>：修复了会话在 <code>/cd</code> 命令后恢复为空、Fork 后台代理因父提示重建失败而卡住、以及历史包含畸形诊断附件导致会话持续失败或界面无响应的问题。</li>
-<li><strong>平台兼容性与解析优化</strong>：修正了 Linux 环境下因 <code>sandbox.filesystem.denyWrite</code> 覆盖工作目录导致沙盒命令无法启动的问题，以及解析异常 <code>git push</code> 输出时可能发生的罕见挂起现象。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.223</guid>
-      <pubDate>Thu, 06 Aug 2026 00:52:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>0.146.1</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.146.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>## Bug Fixes
-
-- Apply safer automatic-review defaults for cyber-capable models and explain permission changes in the terminal interface. (#37057)
-
-## Changelog
-
-Full Changelog: https://github.com/openai/codex/compare/rust-v0.146.0...rust-v0.146.1
-
-- #37057 [0.146] Backport safer cyber-model auto-review defaults @anp-oai]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.146.1</guid>
-      <pubDate>Wed, 05 Aug 2026 15:55:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.27.1 更新：新增 MCP 对等发现与 CLI 命令，优化 Web 端会话与推理显示设置</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.27.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi 桌面终端应用发布 v0.27.1 版本更新，主要聚焦于 CLI 功能增强、Web 端界面优化以及底层连接能力的修复。</p>
-<ul>
-  <li><strong>CLI 端增强</strong>：新增 <code>list_peers</code> 命令，支持通过 MCP（模型上下文协议）列出对等节点，并引入 runner hub 认证机制以改进对等发现流程。</li>
-  <li><strong>Web 端优化</strong>：新增设置选项，允许用户默认折叠推理过程（reasoning）的显示，提升界面整洁度；同时修复了会话日期过滤器无法直接访问的问题。</li>
-  <li><strong>底层修复</strong>：修正了 runner 在注册和连接时未能正确通告自身能力的问题，确保连接稳定性。</li>
-</ul>
-<p>完整更新日志：<a href="https://github.com/tiann/hapi/compare/v0.27.0...v0.27.1">v0.27.0 至 v0.27.1 变更对比</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.27.1</guid>
-      <pubDate>Wed, 05 Aug 2026 15:08:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.27.0 发布：新增 Antigravity 代理支持，优化 Cursor 与 Web 端交互体验</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.27.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Hapi v0.27.0 发布：新增 Antigravity 代理支持，优化 Cursor 与 Web 端交互体验</h2>
-<p>Hapi v0.27.0 版本现已发布，本次更新重点增强了多代理交互能力与 Web 端用户体验。主要改动包括新增对 Antigravity 交互式 PTY 代理的支持，完善 PI 模块的 RPC 与历史控制功能，并针对 Cursor 工作区、Codex 终端状态及 Web 端界面进行了多项修复与性能优化。</p>
-<h3>核心功能更新</h3>
-<ul>
-  <li><strong>新增 Antigravity 代理支持</strong>：引入 Antigravity 作为交互式 PTY 代理，扩展了终端代理的兼容性与交互方式 <a href="https://github.com/tiann/hapi/pull/1320">[PR #1320]</a>。</li>
-  <li><strong>PI 模块功能完善</strong>：完成 RPC 对等通信、原生转向（native steer）及历史控制功能，并新增本地会话导入与协调机制 <a href="https://github.com/tiann/hapi/pull/1353">[PR #1353]</a> <a href="https://github.com/tiann/hapi/pull/1365">[PR #1365]</a>。</li>
-  <li><strong>A2A 会话引用优化</strong>：新增 A2A 功能，支持将会话引用转向至 <code>inspect_peer</code> 进行审查 <a href="https://github.com/tiann/hapi/pull/1373">[PR #1373]</a>。</li>
-  <li><strong>Web 端交互增强</strong>：在 Composer 中新增 FUE 提示及会话 <code>@-mentions</code> 支持，提升协作效率 <a href="https://github.com/tiann/hapi/pull/1274">[PR #1274]</a>。</li>
-</ul>
-<h3>其他改进与修复</h3>
-<ul>
-  <li><strong>Cursor 与终端体验</strong>：修复 Cursor worktree 横幅显示问题，解决嵌套 <code>--worktree</code> 导致的挂起现象；修复 Cursor 模型选择器在特定 ACP IDs 下为空的问题 <a href="https://github.com/tiann/hapi/pull/1087">[PR #1087]</a> <a href="https://github.com/tiann/hapi/pull/947">[PR #947]</a>。</li>
-  <li><strong>状态恢复与错误处理</strong>：修复 Codex 在陈旧终端事件后无法恢复就绪状态的问题；优化 OpenCode 停滞错误提示及思考旋转图标的清除逻辑 <a href="https://github.com/tiann/hapi/pull/997">[PR #997]</a> <a href="https://github.com/tiann/hapi/pull/869">[PR #869]</a>。</li>
-  <li><strong>Web 端界面与性能</strong>：优化 Hub 与 Web 端会话状态写入机制，采用结构化补丁提升性能；移除会话列表中的 Idle 状态徽章，修复初始加载时的滚动行为及 React 状态快照问题 <a href="https://github.com/tiann/hapi/pull/897">[PR #897]</a> <a href="https://github.com/tiann/hapi/pull/1366">[PR #1366]</a> <a href="https://github.com/tiann/hapi/pull/1377">[PR #1377]</a> <a href="https://github.com/tiann/hapi/pull/1381">[PR #1381]</a>。</li>
-  <li><strong>其他修复</strong>：支持 macOS Codex Desktop 重启；修复多在线机器导入时的机器 ID 解析失败问题；确保会话开始时对话发现的确定性 <a href="https://github.com/tiann/hapi/pull/912">[PR #912]</a> <a href="https://github.com/tiann/hapi/pull/1147">[PR #1147]</a> <a href="https://github.com/tiann/hapi/pull/1369">[PR #1369]</a>。</li>
-</ul>
-<p>完整变更日志：<a href="https://github.com/tiann/hapi/compare/v0.26.0...v0.27.0">v0.26.0...v0.27.0</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.27.0</guid>
-      <pubDate>Wed, 05 Aug 2026 11:28:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
