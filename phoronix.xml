@@ -3,7 +3,33 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 06 Sep 2026 10:50:58 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 06 Sep 2026 14:08:04 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.3-rc2 调度器修复：解决混合 CPU 上缓存感知负载调度的错配问题</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-rc2-Scheduler-Fixes</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲 Linux 内核调度器针对混合 CPU 的修复，偏向内核底层与芯片技术，虽涉及 Linux 但非桌面技术，兴趣不明确，故为可选。</small></p><p>在 Linux 7.3-rc2 内核正式发布前，本周的测试版本内核收到了一批调度器修复补丁。其中最引人注目的是针对缓存感知负载调度（Cache-Aware Load Scheduling）在混合 CPU（如 Intel Core (Ultra) 处理器）上可能出现的错配（misfit）问题的修复。</p>
+
+<p>缓存感知调度（Cache Aware Scheduling）是 Linux 内核的一项优秀特性，它将相关的任务分组到能够共享同一最后一级缓存（LLC）的 CPU 核心上，从而提升缓存局部性、降低延迟并避免缓存乒乓（cache bouncing）带来的开销。但在配备大小核的混合 CPU 上，如果被分组的任务全部堆积到 E 核（小核）上，可能会出现权衡取舍的问题。</p>
+
+<img src="//www.phoronix.net/image.php?id=intel-core-ultra-7-270k-plus&image=intel_270k_plus_2_med" alt="Intel Core Ultra hybrid CPUs" />
+
+<p>英特尔工程师 Tim Chen 针对混合处理器上缓存感知调度的错配问题提出了修复方案。他在补丁说明中解释道：缓存感知负载均衡会使任务偏向其首选的 LLC。但在非对称 CPU 能力的系统（如 big.LITTLE）上，目标 LLC 可能包含对于该任务而言太小的 CPU。将任务拉取过去会使其变成错配任务，用缓存局部性的增益换来了对性能更有害的容量损失。该补丁针对两个缓存感知迁移入口点进行了防护：<code>can_migrate_llc_task()</code> 在任务适配源 CPU 但不适配目标 CPU 时禁止 LLC 迁移；<code>alb_break_llc()</code> 在相同条件下否决主动平衡（active balance），以避免可运行任务被推送到无法容纳它的 CPU 上。</p>
+
+<p>这两项检查均以混合处理器作为门控条件，因此对称系统不受影响。已经不适配源 CPU 的任务则保留在原 LLC 策略下，因为迁移不会使它们的适配状况变得更糟（这也保留了将错配任务向上迁移到更大 CPU 的能力）。此外，如果在负载均衡分类阶段发现错配任务，则优先进行错配任务迁移，而非在非对称系统上进行 LLC 负载聚合——因为更适配的 CPU 比更好的缓存局部性更能提升性能。该补丁作为今天调度器拉取请求的一部分，有助于提升整体系统性能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-rc2-Scheduler-Fixes</guid>
+      <pubDate>Sun, 06 Sep 2026 13:32:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Asahi Linux 正式支持 Apple M3 Macs，但仍有功能限制</title>
+      <link>https://www.phoronix.com/news/Asahi-Linux-Official-M3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Asahi Linux 正式支持苹果 M3 电脑，属于苹果电脑 Linux 支持的高兴趣主题，用户会强烈关注。</small></p><p>Asahi Linux 开发者今日宣布，该 Linux 发行版现在正式支持搭载 Apple M3 系列芯片的 Mac。除 Mac Studio M3 Ultra 外，其他 M3 / M3 Pro / M3 Max 设备均可使用最新版 Asahi Linux 构建运行，但存在部分功能限制。</p><img src="//www.phoronix.net/image.php?id=2026&image=m3_macs" alt="M3 Macs" /><p>开发者表示，Apple M3 系列 SoC 已进入「几乎所有功能」都已得到支持的状态，与较早期的 M1、M2 硬件支持水平相当。不过，最大的例外是 GPU 支持——目前 3D 加速的性能和功耗效率尚未令人满意，开发者希望在接下来几个月内取得更多 GPU 进展。</p><p>此外，由于缺乏 DCP 支持，Asahi Linux 在 Apple M3 上目前无法提供睡眠（sleep）功能，HDMI 端口也因此无法使用。官方详细支持信息可在 AsahiLinux.org 查阅。</p><p>将全部 M3 支持上游化至主线 Linux 内核的工作仍在进行中。主线内核已包含用于基本启动的初始 M3 支持，但还有多项补丁需在上游化到 Linux 7.4+ 之后，才能达到与 Asahi Linux 本身相似的支持水平。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Asahi-Linux-Official-M3</guid>
+      <pubDate>Sun, 06 Sep 2026 10:53:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ LLVM 开发者讨论默认构建 ClangIR（基于 MLIR 的新中间表示）</title>
       <link>https://www.phoronix.com/news/ClangIR-Build-Default-Maybe</link>
@@ -573,24 +599,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/OpenShot-4.0</guid>
       <pubDate>Sun, 30 Aug 2026 19:55:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NVIDIA Vulkan 帧率上转换（FRUC）已合并至 FFmpeg</title>
-      <link>https://www.phoronix.com/news/FFmpeg-NVIDIA-RTX-FRUC</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] FFmpeg（开源多媒体/编程工具）合并 NVIDIA Vulkan FRUC 新功能，属于软件新功能与开源项目进展，符合全局兴趣</small></p><p>本周末，FFmpeg 多媒体驱动代码已上游合并对帧率上转换（Frame Rate Up-Conversion，FRUC）的支持，该功能利用 NVIDIA Vulkan 光流扩展（VK_NV_optical_flow）实现。FRUC 通过插入插值帧，从低帧率视频内容生成更高帧率的视频，从而提升感知视觉质量。NVIDIA 的光流硬件加速功能可追溯到 Ada 代 GPU，如今 FFmpeg 上游开始支持基于 Vulkan 版本的 NVIDIA 光流 FRUC。</p><img src="//www.phoronix.net/image.php?id=2026&image=nvidia_fruc" alt="NVIDIA FRUC illustration" /><p>该支持依赖于底层 Vulkan API 驱动对 VK_NV_optical_flow 扩展的支持，相关代码于周六以一系列 "fruc_vulkan" 提交合并到 FFmpeg Git。与此同时，作者还注意到 FFmpeg RSS 中 NVIDIA RTX Video Filters 分支的合并提交，该分支本将添加 NVIDIA RTX Dynamic Vibrance（基于 CUDA 的 DeepDVC 网络）、使用 DLPP 超分辨率网络的视频放大、NVIDIA NGX 图像超分辨率网络放大、NVIDIA Smooth Motion 帧生成、RTX TrueHDR 以及 RTX Video Super Resolution 等滤镜，但截至今天上午，该合并似乎已被回退，最新 FFmpeg Git 活动中已不再可见。</p><h3>你知道吗？</h3><p>光流（Optical Flow）是计算机视觉中用于描述视频帧间像素运动的技术。FRUC 正是利用光流估计出运动轨迹，再在相邻帧之间合成中间帧，从而实现帧率提升，常用于视频补帧、慢动作生成和运动模糊消除等场景。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/FFmpeg-NVIDIA-RTX-FRUC</guid>
-      <pubDate>Sun, 30 Aug 2026 11:00:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.8 提升全屏内容性能与能效，多项改进落地</title>
-      <link>https://www.phoronix.com/news/Plasma-6.8-Full-Screen-Perf</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是KDE Plasma 6.8对全屏内容的性能与效率改进，KDE在来源配置中为很感兴趣，属于必看内容</small></p><p>继本周 Union QtWidgets 首个版本发布后，KDE Plasma 6.8 在过去几天又迎来多项改进，涉及性能、能效与稳定性。</p><p>在性能方面，Plasma 6.8 针对使用 Intel 或 NVIDIA GPU、并启用 HDR、ICC 配置文件或夜间灯光（night light）效果的全屏内容，优化了性能与功耗。其 KWin 改动将单平面 OETF（光电转换函数）卸载到 CRTC 后混合 gamma LUT，使更多场景可直接扫描输出（direct scan-out），而非回退到着色器合成，从而减少色带（color banding），并提升对 DRM/KMS 硬件色彩管线的利用率。</p><p>另一项 Plasma 6.8 增强针对 KPipeWire，将 Plasma 与 KWin 的屏幕投射（screen-casting）延迟降低了一帧。回收站小组件（Trash widget）的资源占用也明显下降：它弃用了 DirModel，改用开销更低的 KCoreDirLister 来统计回收站中的项目数量，并且在计数完成前不再更新显示的数字。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=kde_trash_sml" alt="KDE Trash" /><p>在稳定性方面，Plasma 6.8 修复了 Plasma 桌面第二常见的崩溃——该崩溃发生在用户注销时，根源是 QConcatenateTablesProxyModel 析构过程中的问题。此外，Plasma 6.8 内置的 RDP 服务器现在会根据网络可用带宽自动调整质量级别。与此同时，Plasma 6.7.5 也在改进使用 ICC 显示配置文件时 HDR 内容的显示效果。更多细节可参阅最新一期的 <a href="https://pointieststick.com/">This Week in Plasma</a>。</p><h3>你知道吗？</h3><p>「直接扫描输出」（direct scan-out）指合成器将画面直接交给显示硬件输出，而不经过 GPU 着色器合成，可降低功耗与延迟。将 OETF 等色彩转换交给显示控制器（CRTC）的 gamma LUT 硬件完成，正是为了让更多场景满足直接扫描输出的条件，从而更充分地利用 DRM/KMS 硬件色彩管线。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Plasma-6.8-Full-Screen-Perf</guid>
-      <pubDate>Sat, 29 Aug 2026 14:48:28 GMT</pubDate>
     </item>
   </channel>
 </rss>
