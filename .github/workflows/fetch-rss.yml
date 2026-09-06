@@ -33,6 +33,8 @@ jobs:
     name: ${{ matrix.source.name }}
     needs: prepare
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     strategy:
       fail-fast: false
       matrix:
@@ -65,6 +67,7 @@ jobs:
           path: output
 
       - name: Process RSS feed
+        id: process
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -84,7 +87,25 @@ jobs:
             --config config.json \
             $DRY_RUN_FLAG
 
+      - name: Report source status
+        if: always() && github.event.inputs.dry-run != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          STATUS="failure"
+          if [ "${{ steps.process.outcome }}" = "success" ]; then
+            STATUS="success"
+          fi
+
+          bun bin/notify.ts \
+            --source "${{ matrix.source.name }}" \
+            --status "$STATUS" \
+            --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --failures "output/${{ matrix.source.name }}-failures.json"
+
       - name: Upload RSS for commit
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: rss-${{ matrix.source.name }}
@@ -92,6 +113,7 @@ jobs:
             output/${{ matrix.source.name }}.xml
             output/${{ matrix.source.name }}-processed.json
             output/${{ matrix.source.name }}-pending.json
+            output/${{ matrix.source.name }}-failures.json
           retention-days: 1
 
   commit:
@@ -117,7 +139,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add *.xml *-processed.json *-pending.json
+          git add *.xml *-processed.json *-pending.json *-failures.json
 
           echo "Changes to be committed:"
           git diff --cached --stat

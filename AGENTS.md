@@ -68,6 +68,7 @@ collect-rss → deduplicate → limit-items → clean-text
 推送到 gh-pages 分支：
 - `{source-name}.xml` — RSS 文件（由 `builtin/reporter-rss` 插件生成）
 - `{source-name}-processed.json` — GUID 历史记录（由 `builtin/deduplicate` 插件维护）
+- `{source-name}-failures.json` — 连续失败计数（由 workflow 的 `Report source status` 步骤维护，达到阈值时评论失败通知 Issue）
 
 ### 核心组件
 
