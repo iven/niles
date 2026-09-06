@@ -34,6 +34,7 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         source: ${{ fromJson(needs.prepare.outputs.sources) }}
     steps:
@@ -95,6 +96,7 @@ jobs:
 
   commit:
     needs: fetch
+    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
