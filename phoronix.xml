@@ -3,7 +3,41 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 06 Sep 2026 05:53:29 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 06 Sep 2026 10:50:58 GMT</lastBuildDate>
+    <item>
+      <title>⭐ LLVM 开发者讨论默认构建 ClangIR（基于 MLIR 的新中间表示）</title>
+      <link>https://www.phoronix.com/news/ClangIR-Build-Default-Maybe</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及 LLVM/Clang 编译器的 ClangIR 构建技术讨论，属于编译工具软件进展，与编程工具/AI软件技术兴趣相关，但非具体发布，故推荐阅读。</small></p><p>LLVM 社区正在讨论是否将 ClangIR（基于 MLIR 的新中间表示）纳入默认构建配置。ClangIR 已经开发多年，它比 LLVM IR 层次更高，能够保留更多 C/C++ 源代码语义，从而带来更好的诊断信息、代码/静态分析能力以及更优的性能优化效果，而非将 AST 直接降级（lowering）到 LLVM IR。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=clangir_build_proposal" alt="ClangIR build by default PR" />
+
+<p>目前提议仅在源码树中默认构建 ClangIR，而非默认启用其使用，因此默认情况下并不会改变代码生成。用户仍可通过 <code>-fclangir</code> 编译选项来启用 ClangIR。相关讨论已出现在 LLVM Discourse 线程中，并有一份 <a href="https://github.com/llvm/llvm-project/pull/...">RFC 拉取请求</a>提议在编译 Clang 时默认构建 ClangIR。</p>
+
+<p>不过，默认构建方案也存在诸多顾虑：一旦构建 ClangIR，MLIR 将成为 Clang 的默认依赖；ClangIR+MLIR 会显著增加编译 Clang 本身的构建时间，有估算认为构建时间可能翻倍以上；ClangIR 目前缺少面向 Windows 的 "Microsoft" 目标；持续集成（CI）测试也会因 ClangIR 测试而变得更长。</p>
+
+<p>此外，基于 MLIR 的 ClangIR 也为未来 GPU/设备卸载（offload）打开了更多可能性，能够更优地将代码降级到 SPIR-V/Vulkan 等目标，并享受 MLIR 的多种设备优势。这次关于默认构建的讨论最终将走向何方，值得继续关注。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/ClangIR-Build-Default-Maybe</guid>
+      <pubDate>Sun, 06 Sep 2026 10:43:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Slackware 16 发布首个 Alpha 版本，升级 GCC 16.2、Glibc 2.44 与 Binutils 2.47</title>
+      <link>https://www.phoronix.com/news/Slackware-16-Alpha</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Slackware 16 Alpha 发行版发布，符合来源配置中高兴趣的「新发行版」类别，用户会强烈关注，故必看。</small></p><p>距 Slackware 15 发布四年半之后，Slackware 16 正在逐步走向正式发布。近日，Slackware 创始人 Patrick Volkerding 发布了 Slackware current 分支的最新更新，将其称为 <strong>Slackware 16 Alpha 1</strong>。此前，该项目已将 GNU 工具链升级至 GCC 16.2、Binutils 2.47 和 GNU C 库（Glibc）2.44。</p>
+
+<img src="//www.phoronix.net/image.php?id=2022&image=slackware" alt="Slackware logo" />
+
+<p>Patrick 在 Slackware64-current 的更新日志中简要写道："升级至 binutils-2.47、gcc-16.2.0 和 glibc-2.44，并已用它们编译了所有软件包。隧道尽头或许有光了，祝周末愉快。"所有软件包均已重新构建，Slackware 16 Alpha 1 采用 Linux 6.18 LTS 内核，而 LILO 引导程序仍然保留在 Slackware 世界中。</p>
+
+<p>此外，Mozilla Firefox、Thunderbird 和 libxml2 等软件包也在本次更新中获得了安全与缺陷修复。这一里程碑发布紧跟在 Slackware 数月前终于引入 KDE Plasma 6 桌面软件包之后。</p>
+
+<p>从发布节奏来看，考虑到 Slackware 14 于 2012 年发布，Slackware 16 有望比 Slackware 15 的发行耗时更短，正逐步走向正式版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Slackware-16-Alpha</guid>
+      <pubDate>Sun, 06 Sep 2026 10:16:15 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 基于 Slackware 的 Zenwalk 发布新 Current 里程碑快照：集成 Linux 7.1、Flatpak 与 Xfce 4.20</title>
       <link>https://www.phoronix.com/news/Zenwalk-2026-Current</link>
@@ -557,24 +591,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Plasma-6.8-Full-Screen-Perf</guid>
       <pubDate>Sat, 29 Aug 2026 14:48:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ ReactOS 0.4.16 发布：全新图形化安装程序与更好的硬件支持</title>
-      <link>https://www.phoronix.com/news/ReactOS-0.4.16-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源操作系统项目发布新版本，属开源项目与软件新功能范畴，符合兴趣，推荐阅读。</small></p><p>ReactOS 0.4.16 于今日发布，这是这个"开源 Windows"项目的最新重大更新。该项目旨在提供一个与 Windows 驱动和应用程序兼容的开源操作系统。对最终用户来说，最明显的变化是 ReactOS 0.4.16 引入了全新的图形化安装程序，并且该安装程序现在也出现在合并的启动 CD 和 Live CD 环境中。这意味着用户可以从同一个镜像中直接测试并安装 ReactOS，类似于多年来 Linux 发行版提供的 live 体验。</p><img src="//www.phoronix.net/image.php?id=2026&image=reactos_0416_1" alt="ReactOS 0.4.16 GUI installer" /><p>ReactOS 0.4.16 还引入了新的 ReactOS Server Core 安装类型，类似于自 Windows Server 2008 以来的 Windows Server Core。使用 ReactOS Server Core 时，图形化的资源管理器外壳（explorer shell）将被禁用。</p><img src="//www.phoronix.net/image.php?id=2026&image=reactos_0416_2" alt="ReactOS 0.4.16 Server Core" /><p>此外，ReactOS 0.4.16 还包含多显示器支持方面的基础设施工作、各种图形驱动改进、更好的音频驱动支持、众多存储增强、更好的网络支持、更新的第三方代码以及其他多项改进。下载和更多详情请访问 <a href="https://www.reactos.org">ReactOS.org</a>。</p><h3>你知道吗？</h3><p>ReactOS 是一个始于 1996 年的开源操作系统项目，目标是从零开始实现与微软 Windows NT 架构二进制兼容的操作系统，使 Windows 驱动程序和应用程序无需使用微软授权代码即可运行。该项目目前仍处于 alpha 阶段，主要面向开发者和爱好者进行测试与贡献。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/ReactOS-0.4.16-Released</guid>
-      <pubDate>Sat, 29 Aug 2026 12:56:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME 迎来繁忙一周：Mutter GPU 重置恢复基本完成、Flatpak 获 50 万欧元投资</title>
-      <link>https://www.phoronix.com/news/GNOME-Very-Exciting-Week</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 GNOME 桌面环境一周动态（Flatpak 资助、恢复功能等），属 Linux 桌面技术且为开源项目进展，感兴趣，推荐阅读。</small></p><p>本周 GNOME 生态迎来多项重要进展。首先，GNOME Mutter 的 GPU 重置恢复（GPU reset recovery）工作已基本完成，并已提交合并请求（merge request）以便进行代码审查。同时，德国主权技术署（Sovereign Tech Agency）宣布向 Flatpak 投资 50 万欧元。</p><p>应用方面也有不少新动态：Test Center 现已上架 Flathub，这是管理 Flatpak 应用和系统组件实验版本的新工具，功能上类似苹果的 Test Flight。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=gnome_aug_1_med" alt="GNOME Test Center" /><p>另一款名为 Bazaar 的新应用商店被接纳进 GNOME Circle，专注于从 Flatpak 远程仓库发现和安装应用。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=gnome_aug_2_med" alt="GNOME Circle Bazaar" /><p>此外，面向 GNOME 的 AI 助手 Newelle 发布了 v1.5，改进了终端工具、文本生成动画等特性；基于 Rust 的 Glycin 图像加载库也发布了 2.2 测试版，修复了 gtk-rs 代码中的内存泄漏问题。更多细节可参阅本周的 This Week in GNOME 周报。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Very-Exciting-Week</guid>
-      <pubDate>Sat, 29 Aug 2026 11:02:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
