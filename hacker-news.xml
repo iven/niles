@@ -3,7 +3,19 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 07 Sep 2026 04:30:37 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 10:12:13 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Anubis 历时一年为反爬虫工作量证明校验引入 WebAssembly</title>
+      <link>https://news.ycombinator.com/item?id=49590611</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍开源项目 Anubis 使用 WebAssembly 实现反爬虫工作量证明校验，属开源项目与软件技术进展，符合兴趣</small></p><p><strong>正文</strong>：Anubis 的作者 Xe（Christine Dodrill）发文回顾了为该项目引入 WebAssembly（WASM）工作量证明（Proof-of-Work）校验所经历的一年艰难过程：数百次提交、五代拉取请求、数十次测试、将 Anubis 部分代码用 Rust 重写、职业生涯中遇到的第一个编译器 bug，以及至少三次导致自托管服务器内存耗尽的经历。最终，Anubis 的下一版本将提供基于 WebAssembly 的工作量证明校验，管理员可在阈值或机器人规则中启用。</p>
+<p>Anubis 是一种妥协方案，它借鉴了 <a href="https://en.wikipedia.org/wiki/Hashcash">Hashcash</a> 这类用于减少垃圾邮件的 PoW 机制：在个人访问规模下额外负载可忽略不计，但面对大规模抓取时成本会累积，使 AI 公司等机构大规模爬取网站变得代价高昂。作者坦承这只是一个过渡方案，未来希望能通过指纹识别和识别无头浏览器（例如通过字体渲染方式）来减少向合法用户展示挑战页面的频率。</p>
+<p>挑战页面提示访问者必须启用现代 JavaScript 特性（部分插件如 JShelter 会将其禁用），因为 AI 公司已改变了网站托管的"社会契约"，无 JS 的解决方案仍在开发中。</p>
+<p><strong>社区讨论亮点</strong>：HN 评论区围绕 PoW 方案的可行性与局限性展开热烈讨论。有人质疑这类"工作量"是浪费的算力循环（不同于加密货币还有可出售的代币）；也有观点认为可通过类似 x402 的微支付或提前预挖代币让普通用户免于等待。针对"绕过挑战的 CUDA 求解器"威胁，作者使用 <a href="https://en.wikipedia.org/wiki/Argon2">Argon2</a> 哈希算法来削弱 GPU 加速优势，但有评论者指出 Argon2 本身也已支持 GPU 加速。关于长期效果，有评论认为大多数爬虫会被拦住，但资金充足的 AI 机构几乎不受影响；也有实测数据表明，作者展示的上限难度在高端 VPS 上仅需 9 毫秒即可完成，而在手机上则需数分钟。作者还回应了 robots.txt 的建议，称标准库规则已默认包含 robots.txt 放行选项，但无法控制部署者是否启用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49590611</guid>
+      <pubDate>Sun, 06 Sep 2026 20:32:38 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GrapheneOS 重构默认应用与安全剪贴板，消息应用改用 Compose 全新界面</title>
       <link>https://news.ycombinator.com/item?id=49590512</link>
@@ -767,39 +779,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49519939</guid>
       <pubDate>Tue, 01 Sep 2026 09:52:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Memoryfields：把 Agent 记忆做成文件格式，而非流程管道</title>
-      <link>https://news.ycombinator.com/item?id=49508317</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 将 Agent 记忆实现为文件格式的简化方案，属于 AI 软件技术进展与编程效率改进经验，用户感兴趣</small></p><p>Cal Paterson 在《Agent memory as a file format》一文中提出名为 <strong>Memoryfields</strong> 的智能体（Agent）记忆文件格式，核心主张是：记忆对模型而言最好被表示为<strong>数据</strong>，而不是多阶段处理流程。一个 memoryfield 是一个 zip 压缩包，内含若干 Markdown「页面」（可带 YAML frontmatter）和一个可选的 SQLite 向量索引，用于语义搜索。</p>
-
-<img src="https://calpaterson.com/images/photo/kungfu.jpeg" alt="《黑客帝国》中尼奥学习功夫的画面" width="800" height="333" />
-
-<p>作者用《黑客帝国》中尼奥瞬间「下载」功夫的画面类比理想中的 Agent 记忆：真实 Agent 不应从空白上下文窗口开始，而应带着尽可能多的相关信息启动。然而现有三类主流记忆系统各有问题：一是绑定特定厂商 harness 的系统，通常从对话历史中挖掘信息，记忆内容大多关于用户而非世界；二是过度复杂的系统（例如需要 pgvector、Neo4j 图数据库外加一个专用 LLM 来决定什么值得记住），既难维护又会「混淆」模型；三是「高度现代主义」式的系统，把信息抽象成图与逻辑命题，剥离上下文后对 Agent 毫无用处。它们的共同点是把记忆当作流程，而记忆更应该是一种数据格式。</p>
-
-<p>文章给出四个设计决策：</p>
-<ul>
-<li><strong>用散文而非分块或「事实」</strong>：记忆形成时直接由 Agent 用 Markdown 书写，无需分块、富化或二次摘要；每页软限制约 8KB（约 2000 token），需要更多细节就再写一页。</li>
-<li><strong>语义跳跃而非图遍历</strong>：Karpathy 式 wiki 的知识图谱遍历既慢（每步都要串行工具调用）又不可靠（只能靠链接文字判断相关性），还会把无关信息灌进上下文；语义搜索可直接跳到所有相关页面并并行读取，最多只需 2 次工具调用。</li>
-<li><strong>更多模型、更少机制</strong>：低机制系统让 Agent 自由发明访问模式（如用 perl 全局替换、把内联 CSV 放进记忆再用 SQLite 查询），并随模型能力进步自然扩展。</li>
-<li><strong>开放格式、可互换、传输无关</strong>：提供 RFC 风格规范，归档格式为 zip，可从本地文件、S3、GitHub 或 HTTP 提供。</li>
-</ul>
-
-<img src="https://calpaterson.com/images/screenshots/obsidian-graph.png" alt="Obsidian 知识图谱截图" width="1324" height="960" />
-
-<p>上手方式：用 ollama 拉取 nomic-embed-text 嵌入模型，通过 uv 安装 CLI 工具，用 npx 安装 skill；作者还提供了演示用的 soapstones.memoryfield.zip。针对常见质疑，作者回应：「这不就是 RAG 吗？」——广义上算，但没有分块、重排序、混合检索，而且记忆由 Agent 自己书写，不只是读取；nomic-embed-text-v1.5 虽已两年多，但仍是体积与能力平衡良好的默认嵌入模型；无关记忆不会被语义搜索暴露，可放心大量写入；安全方面，zip 格式便于人工审查并用 sha256sum 固定来源，但不要与不信任方共享上下文窗口。</p>
-
-<p>HN 社区讨论热烈（189 分、93 条评论）。不少评论者认为文章「说了很多其实就是在说用 Markdown/文本」；也有用户分享类似实践，如用 Markdown wiki 加简单查询作为记忆系统、Agent 实际更像 grep 整个仓库而非按目录钻取；还有人提到 OpenAI 的 IM1（HuggingFace）规范把 Agent 记忆做成文件名，以及 OpenViking 等相近方案。批评意见包括：文章缺乏证据支撑「混淆模型」等论断、记忆不只是检索问题（还要知道何时检索什么）、以及「重新发明信息检索」之嫌。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li>文首引用的「Show me your flowcharts and conceal your tables...」出自 Fred Brooks 的《人月神话》（The Mythical Man-Month），强调数据结构比流程图更能揭示系统本质。</li>
-<li>「Karpathy wikis」指 Andrej Karpathy 提出的让 LLM 以超链接 Markdown 文件组织知识的做法，受 Roam 与 Obsidian 启发。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49508317</guid>
-      <pubDate>Mon, 31 Aug 2026 11:17:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
