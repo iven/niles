@@ -3,7 +3,31 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 07 Sep 2026 15:49:45 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 19:54:43 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ bzip3：BZip2 的现代化继任者，压缩率与性能皆优</title>
+      <link>https://news.ycombinator.com/item?id=49598291</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] bzip3 是现代化压缩工具/编程库的发布分享，属于编程工具发布/分享（高兴趣），用户会强烈感兴趣</small></p><p>本文介绍了 <a href="https://github.com/iczelia/bzip3">bzip3</a>，一个比 BZip2「更好、更快、更强」的精神继任压缩工具。它通过结合 order-0 上下文混合熵编码器、基于后缀数组的快速 Burrows-Wheeler 变换（BWT），以及基于 LZ77 字符串匹配和 PPM 风格上下文建模的 RLE + Lempel Ziv+Prediction 通道，实现了更高的压缩率和更好的性能。与 BZip2 一样，bzip3 特别擅长压缩文本和代码。项目已通过 Homebrew 等包管理器提供安装，并支持 x86、ARM、AArch64、PPC64LE 等多种架构。</p>
+<p>项目作者用全部 Perl5 历史版本源码（262 个版本组成约 2GB 的 tar 包）做了基准测试。结果显示，bzip3 在最大块大小（-b 511）下将数据压缩到约 546MB，显著优于 LZMA（xz，约 2.06GB）、bzip2（约 3.44GB）和 Zstandard（约 3.08GB）。在结合 lrzip 进行长距离去重后，lrzip + bzip3 的组合也取得了最小体积（约 60.7MB）。并行解压时间约为 4 分 06 秒，与 Zstandard 接近。</p>
+<p>不过，HN 评论区对这份基准测试提出较多质疑。用户「ot」指出，测试并不公平：bzip3 的块大小被设置为 512MB，而 zstd 的窗口大小保持默认（高层级下约 8MB），在这种由大量相同 Perl 版本源码拼成的语料上，zstd 无法匹配跨文件的重复。他实测发现，若将 zstd 窗口调大（<code>--long=29</code>），可将压缩体积降至约 196MB，为 bzip3 的两倍还小，同时 CPU 时间减半。另一位用户 myrmidon 和 adrian_b 也提到，bzip3 的表现高度依赖输入数据，部分文件上优于 zstd，部分则劣于，结果难以预测。此外还有评论指出，测试用并行 bzip3 对比单线程 bzip2 略显不公平，且项目最近一次发布已是一年前、构建目前失败。</p>
+<p>作者在「免责声明」中强调，压缩算法存在极低概率的潜在缺陷风险，建议不要用它压缩无法承受丢失的数据。项目整体以 LGPLv3 授权，其中 BWT 和 LZP 部分基于 Ilya Grebnov 的 Apache 2.0 代码。</p>
+<p>图片：<img src="https://github.com/iczelia/bzip3/actions/workflows/build.yml/badge.svg" alt="Build" /><img src="https://camo.githubusercontent.com/e60efbfdc1e69aaf158f5c64e16ac70b7c91025d7831c69832c32a1cb499f657/68747470733a2f2f7265706f6c6f67792e6f72672f62616467652f766572746963616c2d616c6c7265706f732f627a6970332e7376673f636f6c756d6e733d33" alt="Packaging status" /><img src="/iczelia/bzip3/raw/master/etc/benchmark.png" alt="visualisation of the benchmarks" /></p>
+<h3>你知道吗？</h3>
+<p>Burrows-Wheeler 变换（BWT）是一种将字符串重排以便于后续压缩的前处理技术，bzip2 与 bzip3 都使用它，但 bzip3 在 BWT 之后使用了更强大的上下文混合熵编码与 LZP 建模，这是其压缩率提升的关键。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49598291</guid>
+      <pubDate>Mon, 07 Sep 2026 13:35:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI 内部视角：编码智能体如何加速 AI 研究</title>
+      <link>https://news.ycombinator.com/item?id=49587217</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲述 OpenAI 内部编码智能体加速 AI 研究，属于 AI 软件技术进展（感兴趣），推荐阅读</small></p><p>OpenAI 发布博客文章《研究加速：OpenAI 内部视角》（<a href="https://openai.com/index/research-acceleration-view-inside-openai">Research acceleration: The view inside OpenAI</a>），首次公开分享了其研究人员在日常工作中使用编码智能体（coding agents）进行 AI 研究的早期数据，覆盖智能体使用率、实验速度、任务复杂度与研究加速等维度。</p><p>文章核心观点是：编码智能体正在重塑 OpenAI 内部的研究流程，使研究人员能够并行推进更多实验、更快验证假设并处理更复杂的任务。数据显示，到 8 月中旬，中位数研究人员已将智能体整合进日常工作，按 API 价格计算的每日推理支出超过 600 美元。Hacker News 评论中还提到，部分研究人员日均推理成本高达约 8000 美元。</p><p>OpenAI 在文中将这类工作与对齐（alignment）目标联系起来，声称自动化研究也能服务于安全与对齐研究，帮助构建针对日益强大 AI 的防御措施。不过社区对这一表述存在分歧，有评论将其概括为"必须推进 AI 来防御 AI"的循环论证。</p><p><b>社区反馈要点</b>：多数评论认可文章描写 OpenAI 自身工具使用情况的部分最有价值，但也提出若干批评——文章使用了缩写 RSI（递归自我改进）却未加定义；有读者认为全部指标都在表明"用了更多 AI"，而非真正体现研究产出的影响；还有人质疑智能体任务的成功率由"同一屋檐下"的智能体分类器（agentic classifier）打分，存在自我评价偏倚。另有评论将其与《AI 2027》的预测对照，认为现状正朝着预测方向发展。</p><p><b>你知道吗？</b>RSI 指"递归自我改进"（Recursive Self-Improvement），即 AI 系统借助自身能力改进自身（或下一代系统）的能力。这一概念是讨论 AI 加速发展、乃至潜在失控风险的核心议题之一。在本文语境中，OpenAI 正通过训练能辅助研究的智能体，间接推动这种递归迭代的研发链条。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49587217</guid>
+      <pubDate>Sun, 06 Sep 2026 15:08:44 GMT</pubDate>
+    </item>
     <item>
       <title>「去脑腐」假期：一位软件工程师用乡村生活与数学物理自学对抗认知衰退</title>
       <link>https://news.ycombinator.com/item?id=49597907</link>
@@ -786,24 +810,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49523387</guid>
       <pubDate>Tue, 01 Sep 2026 15:35:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 守住 Firefox：浏览器引擎多样性的最后希望</title>
-      <link>https://news.ycombinator.com/item?id=49527748</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 Firefox 浏览器及引擎多样性对生态的意义，属于开源项目/软件生态话题，符合用户兴趣</small></p><p><img src="/images/dishwater.png" alt="与「别把孩子连同洗澡水一起倒掉」谚语相关的插图" />《Hang on to Your Firefox》一文呼吁用户不要因 Firefox 的种种缺点而放弃它，借用德国谚语「别把孩子连同洗澡水一起倒掉」提醒人们：在急于摆脱小烦恼时，不应丢掉真正宝贵的东西。</p><p>文章起因是一位高产博主因 Firefox 入驻 X（推特）而转投 Vivaldi，但作者指出 Vivaldi 同样活跃于 X，还关联 Meta 的 Threads、Facebook、Instagram 以及 Google 的 YouTube，这种「双标」令人费解。作者认为，Firefox 是浏览器引擎多样性与竞争的最后希望——若失去它，互联网将被 Google Chrome 及其衍生品（包括 Vivaldi）垄断，唯一例外是仅因 iPhone 强制默认而存续的苹果 Safari。Firefox 入驻 X 是为了接触新用户，鉴于其全球市场份额不断萎缩，作者呼吁用户伸出援手，并附上相关文章《Competition, Innovation, and the Future of the Web – Why Independent Browser Engines Matter》供延伸阅读。</p><p>Hacker News 上的讨论（93 条评论）呈现两极。支持者认为，Firefox 用户群的存在本身就是公众关心的证明，且 uBlock Origin（完整版）目前仅在 Firefox 上可用，是极具分量的卖点；也有人分享在旧 Thinkpad 上开 50 甚至 300 多个标签页仍流畅的体验。批评者则抱怨 Firefox 内存占用高、空闲时 CPU 持续运转，移动端缺少强制阅读模式按钮、新标签页满是 AI 选项，并指 Mozilla 领导层的决策（如 AI 功能、Pocket 整合）令人失望，「问题在 Mozilla，而非 Firefox」。还有人提到从零构建的独立引擎 <a href="https://ladybird.org/">Ladybird</a> 计划今年发布 alpha 版本，但短期内难以成为实用替代品；另有评论指出 Mozilla 由 Google 资助，与其宣称的立场存在深层矛盾。</p><p><strong>你知道吗？</strong>Chrome 自 Manifest V3 起限制了扩展的拦截能力，功能完整的 uBlock Origin 无法在 Chromium 系浏览器上运行，只能使用受限的 uBlock Origin Lite；Firefox 仍支持 Manifest V2，因此成为完整版广告拦截器的「最后阵地」，这也是评论中 Firefox 被视作广告拦截唯一优质选择的原因。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49527748</guid>
-      <pubDate>Tue, 01 Sep 2026 20:30:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI Codex/ChatGPT 桌面应用捆绑完整 LibreOffice，缓存占用达 1.7GB</title>
-      <link>https://news.ycombinator.com/item?id=49527396</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 OpenAI Codex/ChatGPT 桌面应用的缓存与捆绑行为，属于 AI 软件技术进展和软件新功能，符合用户兴趣</small></p><p>Simon Willison 在使用 OmniDiskSweeper 检查自己的 <code>~/.cache/</code> 目录时发现，OpenAI 的 Codex 桌面应用（现已更名为 ChatGPT）在该目录下占用了约 1.7GB 空间，位于 <code>codex-primary-runtime</code> 文件夹中。其中包含完整的 Python 安装、完整的 Node.js 安装，以及 Poppler、git 和开源办公套件 LibreOffice（2010 年从 OpenOffice.org 分叉而来）的原生二进制文件。</p><img src="https://static.simonwillison.net/static/2026/codex-primay-runtime.webp" alt="macOS 磁盘占用工具截图：codex-runtimes 目录下包含 native（771.0 MB）、node（446.4 MB）、python（440.6 MB），其中 native 包含 libreoffice-headless（429.7 MB）、poppler（187.9 MB）、git（148.1 MB）等" /><p>在 <code>~/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime/plugins/documents</code> 文件夹中，包含一些「技能」（skills）文件，用于指导 Codex 如何查找和使用这些二进制文件。</p><p>Hacker News 上的讨论（104 条评论）围绕几个话题展开：</p><ul><li>有用户猜测这正是 Codex 用来渲染和操作 Microsoft Office 文档的方式，并解释了为什么某些文件渲染效果不佳；也有用户表示自己在处理 docx/xlsx 文件时，Codex 的推理过程确实会提到 LibreOffice</li><li>有用户建议使用 Apache POI 等替代方案，但也有人指出 LibreOffice 是读取旧版 xls 等格式时最可靠、开箱即用的选择</li><li>有用户指出截图中显示的是 <code>libreoffice-headless</code>（无图形界面版本），认为标题中的「完整副本」略有误导，建议改为「Codex Bundles Headless LibreOffice」</li><li>有用户提到 OpenAI 的 <code>@oai/walnut</code>（.NET 与 OpenXML 后端），认为 Codex 捆绑各类运行时并不令人意外</li><li>有用户担心这为 ChatGPT 引入了巨大的攻击面；也有人认为从 OpenAI 的角度看，用户电脑上的资源是「免费」的，浪费无关紧要</li><li>一位用户当天新安装 ChatGPT 应用后确认，该目录在首次安装时就已存在，并非按需下载</li><li>Simon Willison 本人回应称：「我不觉得这有什么问题，只是觉得有趣。」</li></ul><h3>你知道吗？</h3><p><strong>Headless 模式</strong>：LibreOffice 的 headless（无图形界面）版本可在命令行下运行，常用于服务器端文档转换（如将 docx/xlsx 转为 PDF），是许多应用处理 Office 文件格式的常见选择。</p><p><strong>为何捆绑而非按需下载</strong>：有评论者指出，将资源预留集中在安装/初始化阶段，可以把资源不足的错误集中到安装时处理，避免运行期间出现磁盘耗尽等问题；但也有观点认为，与按需下载哈希锁定的组件相比，捆绑并无安全上的额外收益。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49527396</guid>
-      <pubDate>Tue, 01 Sep 2026 20:07:57 GMT</pubDate>
     </item>
   </channel>
 </rss>
