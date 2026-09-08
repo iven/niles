@@ -3,7 +3,27 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 08 Sep 2026 05:55:47 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2026 11:12:02 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ TALA：面向软件架构图的自动布局算法现已开源</title>
+      <link>https://news.ycombinator.com/item?id=49604150</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是软件架构图自动布局算法开源发布，属于编程工具发布/分享，用户很感兴趣</small></p><p>Terrastruct 宣布其自动布局算法 <strong>TALA</strong>（Terrastruct's AutoLayout Algorithm）已正式开源，采用与 D2 相同的 MPL-2.0 许可证。TALA 是为软件架构图量身设计的全新自动布局引擎，以正交布局为核心，更接近在白板上绘制架构图的效果，而非那些沿单一方向生长的 DAG 布局算法。它融合了多篇图绘制研究论文的理念（源码中已标注引用）与原创技术，综合考虑多项「美观」目标，包括对称性、中位距离、流向、同类节点的聚类等。</p>
+<p>文章通过三组示例进行了展示：</p>
+<ul>
+<li><strong>对比批次</strong>：将 TALA 与 D2 自带的另外两种布局算法 Dagre 和 ELK 对比，使用 GitHub 上公开的七个真实项目图（如 Fulcro RAD、Mocha 安全飞地 SoC、Jupyter on AWS EKS 等）渲染，非人工挑选。</li>
+<li><strong>自定义定位批次</strong>：展示 TALA 的独特能力——节点位置和尺寸可自定义（如锁定坐标），特别适合代理式（agentic）应用场景，模型擅长在二维空间中绘制，但路径路由仍由 TALA 处理，这恰是模型所不擅长的。</li>
+<li><strong>部分定位批次</strong>：演示节点坐标混合指定——部分节点锁定坐标、其余交给布局引擎，例如固定 CMYK 印刷工位保持机械对齐。</li>
+</ul>
+<p>文章也坦承 TALA 存在权衡：算法带有随机性，默认使用 3 个随机种子并选择评分最优者（相同种子与输入可复现，但新增节点后布局可能完全不同）；处理长流程 DAG 图不如 Dagre 或 ELK；大图运行时性能呈非线性增长（基准见 <a href="https://github.com/d2lang/d2-benchmarks">d2-benchmarks</a>）。TALA 已捆绑进 D2 v0.9.0，安装后使用 <code>--layout=tala</code> 即可体验，也可在 <a href="https://play.d2lang.com">play.d2lang.com</a>（纯客户端运行）试用。</p>
+<p>作者感谢 Gavin Nishizawa 和 Júlio César Batista 在 TALA 及层级算法方面的贡献，并期待开源后社区带来的改进。</p>
+<p><img src="/blog/tala-layouts/fulcro_rad/tala.svg" alt="Fulcro RAD architecture rendered with TALA" /></p>
+<h3>社区反馈</h3>
+<p>HN 评论区整体反响积极。多位用户称赞 TALA 比 ELK、默认布局更整洁（尤其对架构图），但也指出对于长流程 DAG 图，TALA 可能反而使布局显得复杂（如 Go Queue 示例），作者在文中也承认这一点。有用户提到此前因 TALA 需付费且价格超出「娱乐开销」而未购买，如今开源令人期待；也有用户计划将其集成到自己的工具中。另有用户对 d2lang 网站本身在 iOS Safari 上的兼容性提出了批评。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49604150</guid>
+      <pubDate>Mon, 07 Sep 2026 23:37:42 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Jellyfin 12.0 发布：改版命名、新数据库性能优化与书籍漫画支持</title>
       <link>https://news.ycombinator.com/item?id=49604861</link>
@@ -828,15 +848,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49525160</guid>
       <pubDate>Tue, 01 Sep 2026 17:36:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>Movie Scene Map：免费交互地图，收录 15,716 个真实拍摄地点</title>
-      <link>https://news.ycombinator.com/item?id=49524320</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 电影拍摄地点交互地图类网站，与用户主要兴趣（编程/AI/新闻/科学）关联较弱，兴趣不明确</small></p><p>Movie Scene Map 是一个免费的交互式地图，收录了 166 个国家共 15,716 个真实拍摄地点，覆盖 9,295 部电影与剧集、2,153 款电子游戏、407 部动漫和 365 部漫画。用户既可以按作品名搜索其拍摄地，也可以按地点查看当地拍摄过的作品。</p><p>项目完全基于开放数据构建：核心数据来自 <a href="https://www.wikidata.org/">Wikidata</a> 上的拍摄地点声明，并与各地点的坐标、维基共享资源中的照片及维基百科条目关联；此外，作品维基百科文章中提及的地点也会被收录，但会明确标注 "per Wikipedia"，因为句子的证据强度弱于结构化声明，两类数据从不混用。电子游戏、动漫和漫画并非实拍作品，因此按叙事地点（故事发生地）标注，相关页面写的是 "set in" 而非 "filmed in"。</p><p>网站提供多种浏览方式：按作品类型（电影与剧集、游戏、动漫、漫画、系列 IP）、按地点类型（制片厂、城堡、地标、街道、自然景观、城市、国家、虚构地点）以及按国家浏览。还设有拍摄地最多的城市与地区排名（加州以 1,751 部作品居首，洛杉矶 1,073 部）、150 个最著名的外景拍摄场景，以及《权力的游戏》《阿甘正传》《泰坦尼克号》等热门作品页面。全部数据可免费下载（GeoJSON/CSV，CC0 协议），并提供只读 MCP 端点供 AI 助手实时查询。用户若发现缺失的作品，可通过在 Wikidata 上为对应条目添加带来源的拍摄地点声明来补充，数据会在下次重建时更新。</p><p>在 Hacker News 的讨论中，社区普遍称赞地图界面流畅、设计精美。作者（Flightmussy）回应称网站将始终免费，并强调项目刻意只依赖维基百科数据、避免与 AI 项目挂钩。有用户指出部分地点仅精确到国家级别，也有解析不完整的实例（如电影《1942》缺少塞班岛和中途岛）；技术栈为 Tailwind、React 和 MapLibre。功能建议包括：将剧照与实地照片对比、用真实电影画面做 "FilmGuessr" 猜地点游戏、以及为作品提供直达页面链接等。</p><h2>你知道吗？</h2><ul><li><strong>MCP（Model Context Protocol）</strong>：一种开放协议，用于让 AI 助手以标准方式连接外部数据源并实时查询，相当于 AI 应用的"USB 接口"。Movie Scene Map 通过只读 MCP 端点允许 AI 助手直接回答"某部电影在哪里拍摄"之类的问题。</li><li><strong>Wikidata 声明（statement）</strong>：Wikidata 采用结构化数据模型，每条声明由属性（如"拍摄地点"）、值（如"巴黎"）和来源构成，可被机器直接读取和聚合，比维基百科正文中的自然语言句子更适合作为数据底座。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49524320</guid>
-      <pubDate>Tue, 01 Sep 2026 16:34:45 GMT</pubDate>
     </item>
   </channel>
 </rss>
