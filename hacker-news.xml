@@ -3,7 +3,43 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 08 Sep 2026 01:09:39 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2026 05:55:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Jellyfin 12.0 发布：改版命名、新数据库性能优化与书籍漫画支持</title>
+      <link>https://news.ycombinator.com/item?id=49604861</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Jellyfin 是开源媒体服务器，12.0 版本的发布涉及软件新功能与数据库性能优化，属于用户感兴趣的开源项目与软件新功能类别。</small></p><p>开源媒体服务器 <strong>Jellyfin</strong> 发布了新的稳定版本 <strong>12.0</strong>，延续了 10.11 版本开启的数据库重建工作，将其转化为实际的性能提升，并终于为书籍和漫画提供了期待已久的支持。</p>
+
+<h3>版本命名变更</h3>
+<p>本版本最显著的变化在于命名方案：Jellyfin 放弃了主版本号中的"10"，原本应称为 10.12.0 的版本现在直接称为 <strong>12.0</strong>。官方解释称，10.11.0 实际上是一次重大发布（重写了库数据库），但版本号却将其呈现为次要更新，容易误导用户的升级预期。新的命名让首个数字在大版本发布时真正体现其分量。任何解析 Jellyfin 版本字符串的客户端、监控脚本或部署工具都需要关注这一变更。</p>
+
+<h3>新数据库性能优化</h3>
+<p>本版本对播放列表和合集（Collections）的存储方式进行了重大调整：此前整个播放列表作为单一列表存储，数据库无法深入查看；现在播放列表中的每个项目都拥有独立的数据行，可以快速计数、分页、单条增删。此外还优化了批量删除、继续观看（Continue Watching）、艺术家查询、文件夹观看计数等操作的性能，重型数据库维护不再与库扫描争夺资源。</p>
+
+<h3>书籍与漫画支持</h3>
+<p>本版本将原本 Bookshelf 插件的大部分功能迁移到了服务器端：可直接从 OPF、ComicInfo 或 ComicBookInfo 文件中读取书籍元数据，为 EPUB 和各种漫画压缩格式生成封面，支持有声书章节提取。Web 客户端新增了现代书籍库布局和相关标签页，阅读界面在各个书籍类型间实现了统一。Bookshelf 插件已弃用，其功能被拆分到 ComicVine 和 GoogleBooks 提供器中，并新增了 OpenLibrary 插件。</p>
+
+<h3>更好的推荐与可扩展搜索</h3>
+<p>"更多类似内容"和推荐行的数据来源现在可逐库配置（与元数据提供器设置同一处）。服务器内置了 <strong>ListenBrainz</strong> 作为推荐源，音乐库可基于真实收听数据生成相似艺术家推荐。搜索功能也可由插件扩展。</p>
+
+<h3>Modern 布局成为默认</h3>
+<p>此前标记为"实验性"的布局现正式成为 <strong>Modern 布局</strong>，在桌面和移动端成为默认布局；旧布局更名为 Legacy 仍可使用。电视设备继续使用 TV 布局。所有主题均基于共享的 CSS 变量基础主题派生。</p>
+
+<h3>升级注意事项</h3>
+<p>官方强调升级前必须阅读 TL;DR 部分：本版本会更改数据库结构并在首次启动时重写数据，升级前需备份；必须从 10.10.7 或任意 10.11.x 版本升级；用户名现在大小写不敏感，存在仅大小写不同的账户时迁移会失败；升级后必须执行完整库扫描（首次扫描耗时较长且部分影片会显示为新添加）；升级前应移除第三方插件（10.11 的插件无法在 12.0 加载）；旧的 /emby/ 和 /mediabrowser/ 地址支持已移除，多年未更新的旧客户端将停止工作。</p>
+
+<h3>安全修复</h3>
+<p>本版本包含多项安全修复，涵盖服务器和 Web 客户端，包括封堵构造请求越权访问目录以外文件、拒绝不安全命名的插件包、修复 Web 客户端跨站脚本（XSS）问题等。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 用户普遍对升级体验表示满意，许多用户从 Plex 转向 Jellyfin。多名用户反馈迁移过程顺利（约 10 分钟），重新扫描约 30 分钟，并称赞 12.0 的性能优于 10.10 和 10.11。也有用户提出痛点，如部分客户端（Android→Chromecast）的字幕问题、库扫描日志难以解读，以及关于直接暴露到互联网的安全讨论——维护方建议使用 VPN，用户在个人信任环境中运行。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>ListenBrainz</strong> 是一个开源的音乐收听历史数据库，由 MetaBrainz 基金会维护，可根据真实收听行为提供相似艺术家推荐，而非仅依赖标签数据。Jellyfin 将其作为可选的推荐数据源内置，用于改善音乐库的发现体验。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49604861</guid>
+      <pubDate>Tue, 08 Sep 2026 01:56:35 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ bzip3：BZip2 的现代化继任者，压缩率与性能皆优</title>
       <link>https://news.ycombinator.com/item?id=49598291</link>
@@ -801,15 +837,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49524320</guid>
       <pubDate>Tue, 01 Sep 2026 16:34:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Ambient CSS v3：用 box-shadow 还原 Blender 光线追踪的拟物化 CSS 框架</title>
-      <link>https://news.ycombinator.com/item?id=49523387</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍 Ambient CSS v3 这一拟物化 CSS 框架的发布，属于编程工具发布/分享，且为开源项目，符合用户高兴趣配置</small></p><p>Ambient CSS v3 是一个基于纯 CSS 的拟物化（skeuomorphic）UI 框架：只需定义一个光源，页面中所有阴影、高光和表面渐变都会随之自动生成。项目以 <a href="https://www.blender.org/">Blender</a> 的光线追踪渲染为校准基准，最终效果完全用 box-shadow 实现，无需图片或 JavaScript。</p><p>该项目在 Hacker News 上获得 218 分、69 条评论，讨论相当热烈。支持者认为它唤起了 2000 年代中期 LiteStep 主题和 VST/AUv3 插件界面的质感，让人怀念「有触感」的界面，而非操作系统多年强推的扁平化设计。作者 kikkupico 也在评论区回应了技术质疑：项目刻意采用正交投影（orthographic projection），因此元素高度变化不会改变其大小、只影响阴影，这样页面滚动时无需动态调整视角，<a href="https://kikkupico.github.io/ambientcss/guide/concept/#how-it-works">文档中还有用 three.js 3D 场景演示光照与相机设置的页面</a>。</p><p>不过批评声音同样不少：</p><ul><li>可读性差，难以判断按钮是否被按下、哪个选项被选中；</li><li>旋钮控件在桌面和移动端都难以操作（仅响应点击与垂直拖动，且抓取手柄位置错误），有评论者直言圆形旋钮在鼠标/触控板下「永远不是正确选择」；</li><li>有评论认为这不过是几年前<a href="https://neumorphism.io/">新拟物（neumorphism）设计</a>的翻版，也有人指出实际阴影比例与 3D 模型不一致，「相机与光照设置」并未真正转化到样式中；</li><li>页面强制停顿的分页式滚动行为被多名用户吐槽，甚至有人因此中途关闭页面；</li><li>还有人担忧这类风格会被 AI 生成工具滥用，变成缺乏真实信息密度的「UI 装饰」（<a href="https://en.wikipedia.org/wiki/Greeble">greebling</a>）。</li></ul><h3>你知道吗？</h3><ul><li>正交投影与透视投影的区别：透视投影下物体离相机越远看起来越小，符合人眼直觉；正交投影则保持物体大小不变，常用于工程制图与 2.5D 界面，代价是缺乏近大远小的纵深感。</li><li>新拟物（neumorphism）是 2020 年前后流行一时的设计风格，用同色系阴影与高光营造「从背景中凸起」的柔和立体感；Ambient CSS 可视为将其系统化，并锚定于真实物理光照模型的延伸。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49523387</guid>
-      <pubDate>Tue, 01 Sep 2026 15:35:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
