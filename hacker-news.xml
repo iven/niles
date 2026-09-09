@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 09 Sep 2026 00:10:09 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 04:35:35 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Meta 发布个人 AI 代理 Muse，引发隐私与商业化争议</title>
+      <link>https://news.ycombinator.com/item?id=49615537</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Meta 发布个人 AI 代理 Muse，属于 AI 软件技术进展和新产品发布，虽涉及公司及隐私争议，但核心是 AI 产品动态，值得阅读</small></p><p>Meta 推出的个人 AI 代理 <strong>Muse</strong> 在 Hacker News 上引发热议（获 362 分、380 条评论）。据官方页面介绍，Muse 可协助处理订票、价格监控、管理提醒、创建文档、生成图片和研究话题等日常任务，并配备自己的浏览器。演示视频中最先强调的功能是「通过其商店前端引导用户购买更多商品」，这一点尤为引人注目。</p>
+
+<p>评论区的讨论集中在几个方面：</p>
+<ul>
+<li><strong>隐私担忧</strong>是最大的争议点。许多用户表示不愿将个人生活信息交给 Meta（Meta），甚至有人评价「喜欢这个想法和打磨程度，但讨厌它背后的公司」。也有用户指出普通大众对此并不在意，老年用户可能乐于让 AI 替自己做决策，因为「感知到的收益大于感知到的成本」。</li>
+<li><strong>强烈的消费导向</strong>被多次批评。有体验过的用户称，AI 会主动询问设置购物功能，并持续诱导花钱——一有研究旅行的结果就提示开始订酒店等。有评论以「AI 研究者的首要关切永远是订餐厅座位」的调侃讽刺这种聚焦消费场景的倾向。</li>
+<li><strong>历史的呼应</strong>：有用户提到 2015 年 Facebook（尚未更名为 Meta）曾在 Messenger 中推出名为「M」的私人助理，早期主要由后端人类团队运作，后在 2018 年关闭，如今看来颇具前瞻性却也很短视。</li>
+<li><strong>功能想象力的质疑</strong>：有评论认为这些用例并未因 AI 代理而真正改善，反而意味着「让你的自主权被不为你利益考虑的公司所支配」；也有人举出实际未能解决的家庭日历同步等场景，批评现有助手连最基本的任务都做不好。</li>
+</ul>
+
+<p>总体上，社区对 Muse 在功能打磨上的努力部分认可，但对其数据收集、商业化倾向和背后公司的信任问题普遍持怀疑态度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49615537</guid>
+      <pubDate>Tue, 08 Sep 2026 19:25:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenAI 发布 ChatGPT Images 2.5：更清晰细节、更快生成与更精确编辑</title>
       <link>https://news.ycombinator.com/item?id=49614720</link>
@@ -799,30 +818,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49541458</guid>
       <pubDate>Wed, 02 Sep 2026 19:49:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 自己动手写文本编辑器：从 Canvas 到 textarea 的浏览器实验</title>
-      <link>https://news.ycombinator.com/item?id=49524863</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主题是作者在浏览器中自建文本编辑器的编程实验（从 Canvas 到 textarea），属于编程工具相关分享，符合编程工具发布/分享的兴趣；但内容更像是半途而废的随笔实验而非完整工具发布，故评为推荐阅读</small></p><p>作者 David Bushell 受此前一篇《They don't make 'em like Sublime Text anymore》的启发，决定自己动手在浏览器中构建一个文本编辑器，并记录了三种技术路线的实验过程与取舍。</p>
-<img src="/assets/images/ai-policy.svg" alt="No AI - Made by Human" width="70" height="38" />
-<h3>Canvas 方案：功能缺失且不可访问</h3>
-<p>第一个实验把所有文本渲染在 <code>&lt;canvas&gt;</code> 元素上，以 60–120 fps 持续重绘。作者实现了光标定位、方向键移动、当前行高亮、输入与光标动画等"最小可行"功能，但 canvas 无法免费获得文本选择、撤销/重做、多行粘贴和溢出滚动等能力。滚动问题可以用原生滚动容器配合计算渲染偏移来"作弊"解决，但 canvas 从根本上缺乏无障碍（accessibility）支持，作者认为这是无法绕过的硬伤。</p>
-<h3>contenteditable 方案：免费获得可访问性</h3>
-<p>第二个实验改用带 <code>plaintext-only</code> 值的 <code>contenteditable</code> 属性，让浏览器原生提供文本选择、撤销历史和大量无障碍能力，配合 Selection API 继续渲染自定义光标。作者特别提醒，必须禁用 <code>spellcheck</code> 等属性以避免输入延迟（他花了数天才发现这个修复）。但文本超过一定长度后出现性能问题：Chromium 表现比 WebKit 差，且行为难以预测。</p>
-<h3>textarea 方案：长文本性能最佳</h3>
-<p>最终实验发现 <code>&lt;textarea&gt;</code> 对长文本的性能远优于 contenteditable。由于 textarea 无法使用 CSS 的 ::highlight，作者额外加了一层"div soup"来为可见行应用 MicroLighter 语法高亮。文中还提到，新的 OpaqueRange API 可为 textarea 解锁自定义高亮，EditContext API 则可改善 canvas 的输入体验。</p>
-<p>作者指出，过多 CSS 高亮同样是性能瓶颈，更稳健的方案是用 Tree-sitter 生成语法树、只为可见行生成高亮，并可用 inverse sticky 技术改进虚拟滚动。文章最后提醒：JavaScript 字符串基于 UTF-16 编码单元，容易在不知不觉中引入 bug，并给出示例——<code>"🍋🟩".length</code> 为 5，展开为数组后为 3，而用 <code>Intl.Segmenter</code> 按字素（grapheme）分割则为 1。</p>
-<h3>社区反响</h3>
-<p>HN 讨论（233 条评论）围绕"文本编辑是否已是解决过的问题"展开：有人坚持 Sublime Text 依然出色，有人为 VS Code 辩护（同技术栈、易配置、生态成熟），也有人推崇 Emacs/Vim；还有评论者分享用 LLM"vibe coding"快速封装出个人编辑器（如基于 KTextEditor 的 Rust 封装）。多数评论认可作者对无障碍问题的认真考虑，也有评论调侃"每次有人想自己写编辑器，都会发现文本编辑很难"。</p>
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>Tree-sitter</strong>：一种增量解析器生成工具，可在编辑过程中高效维护代码语法树，常用于编辑器语法高亮、代码折叠与结构化编辑。</li>
-<li><strong>inverse sticky</strong>：一种基于 CSS sticky 定位的虚拟滚动技巧，让行在滚动时自动"粘住"并衔接，从而无需为每个可见行单独计算渲染偏移。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49524863</guid>
-      <pubDate>Tue, 01 Sep 2026 17:12:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
