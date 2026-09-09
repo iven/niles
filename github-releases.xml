@@ -3,7 +3,72 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 09 Sep 2026 18:32:13 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 21:40:02 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.267 发布：新增 maxEffortLevel 设置、系统提示快照开关及多项修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.267</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>新功能与核心改动</h3>
+<ul>
+<li>新增 <code>maxEffortLevel</code> 设置（全局或按模型置于 <code>modelSettings</code> 下）：可对所有提供方（含 Bedrock、Vertex 和 Foundry）的 effort 级别设上限，用户仍可选择更低级别</li>
+<li>新增 <code>--system-prompt-snapshot off</code>：每次请求重新渲染系统提示，而非复用会话中记录的提示（便于迭代提示文本）</li>
+<li>Bash 工具的描述指引改进：让 Claude 用平实语言描述命令用途，而非直接复述命令</li>
+<li>沙箱指引改进：当 <code>pbcopy</code> 等剪贴板命令在沙箱内失败时，提示 Claude 建议使用 <code>/copy</code></li>
+<li>改进 <code>--resume</code> 会话（含大量 Bash 调用）的首次渲染速度</li>
+<li>提升提示输入响应速度，按键不再偶发落后于 spinner 或流式刷新</li>
+<li>提升提示缓存稳定性：子代理及使用 <code>--system-prompt</code>/<code>--append-system-prompt</code> 启动的会话改为一次性记录系统提示和工具定义，而非反复渲染</li>
+</ul>
+
+<h3>修复与其他改动</h3>
+<ul>
+<li>修复需沙箱化托管设置的组织中，云端 Cowork 定时任务启动失败的问题</li>
+<li>修复 <code>/context</code> 等本地命令在移动端渲染空白的问题</li>
+<li>修复在代理视图内重连 tmux 或 ssh 会话后 shift+enter 与 option+backspace 失效</li>
+<li>修复全屏模式滚动时对话顶部暗淡的最后提示头未显示的问题</li>
+<li>修复 Workflow 中 <code>agent()</code> 调用含大型输出 schema 时在自动模式下被拒绝（应交给安全分类器检查）的问题</li>
+<li>修复到期 AWS/Google Cloud 凭据在 Claude Desktop 等宿主应用下重复重试十次并报「请求失败」后才出现重新认证错误的问题</li>
+<li>修复 <code>/compact</code> 等斜杠命令经 <code>-p --resume</code> 执行后恢复会话时误插入额外一轮的问题</li>
+<li>修复恢复大型会话（转录超 5 MB）时并行工具调用及其 hook 输出丢失的问题</li>
+<li>修复被管理的 <code>allowedHttpHookUrls</code>、<code>httpHookAllowedEnvVars</code>、<code>allowedChannelPlugins</code> 不可读时错误放行全部而非拒绝全部的问题</li>
+<li>修复需 Claude apps gateway 登录的机器上 <code>/login</code> 的 Esc 无效的问题</li>
+<li>修复上传中断的 artifact 发布被截断的问题：现可在确认未完成时重试一次，而非报告未知结果</li>
+<li>修复自定义命令、技能和子代理中 <code>effort:</code> frontmatter 在默认 effort 仍被固定的模型（Opus 4.7、Opus 4.8、Fable 5）上被忽略的问题</li>
+<li>修复页面文件非有效 UTF-8 或含替换字符（U+FFFD）时 artifact 发布报错信息无帮助的问题，现会指出需修正的行与列</li>
+<li>修复 <code>claude agents</code> 的 <code>@</code> 目录菜单未列出会话启动后新建存储库的问题</li>
+<li>修复加入 Claude Desktop 或 VS Code 会话的远程控制客户端显示过时权限模式的问题</li>
+<li>修复 <code>claude remote-control</code> 在服务器凭据过期（启动约 30 天后）时退出并断开所有附加会话的问题，宿主现会重新注册并继续运行</li>
+<li>修复会话期间不同模型或模式报告不同限额窗口时用量上限警告闪烁的问题</li>
+<li>修复当 MCP 服务重新发送或内置工具重新渲染模型已加载的工具时，早期推理被丢弃的问题</li>
+<li>修复会话中途来自断开 MCP 服务或升级的工具消失后重写工具列表并丢弃先前思考的问题</li>
+<li>修复从会话 fork 的后台 worker 中途向工具块添加 EnterWorktree 破坏提示缓存复用的问题</li>
+<li>修复无 ToolSearch 会话中中途添加 MCP/插件工具破坏提示缓存复用的问题，受支持模型现以延迟定义接收</li>
+<li>修复 <code>/model</code> 切换模型时重发所有工具定义（提示缓存未命中）的问题，commit 与 PR 署名文本现以会话注记形式随模型变化更新</li>
+<li>修复恢复的会话在 MCP 连接器不同时间重连时重写内联工具集的问题</li>
+<li>修复恢复会话在首轮运行工具时重新渲染工具描述而非回放已记录描述的问题</li>
+<li>修复 claude.ai 连接器工具在会话与恢复间变化时导致提示缓存未命中及扩展思考丢失的问题</li>
+<li>修复恢复会话在连接器重连前重写早期 MCP 工具公告（并丢弃扩展思考）的问题</li>
+<li>修复打印模式（<code>-p</code>）会话被交互式恢复时的提示缓存中断问题</li>
+<li>改进 <code>/diff</code> 面板：不再先闪烁「0 files changed」和 spinner，空状态在面板居中</li>
+<li>改进 Artifact 工具发布错误提示：被拒绝时说明原因及解决办法</li>
+<li>自托管 runner：将 <code>--use-anthropic-git-proxy</code> 于注册时上报服务器，并对仍经旧版 git 代理克隆的每个会话打印警告</li>
+<li>Gateway：<code>forward_user_identity</code> 上游现将其邮箱被转发的开发者的 429 原样返回，而非切换到下一上游，以保持代理按用户限额生效</li>
+<li>[VSCode] 修复会话转录含循环父链接时 fork、编辑早期消息或回退导致扩展宿主 100% CPU 挂起的问题</li>
+<li>[VSCode] 修复聊天 diff 块总是使用深色编辑器主题渲染的问题，现跟随当前配色（含高对比度）</li>
+<li>[VSCode] 修复混合从右到左与英文文本在输入时顺序错误的问题</li>
+<li>[VSCode] 修复 @-提及丢失路径含空格文件的问题</li>
+<li>[VSCode] 修复 Remote-SSH 下工作区文件夹仅存在于远程主机时会话列表无法加载的问题</li>
+<li>[VSCode] 修复查看大型或含大量符号链接工作区文件时 ripgrep 进程失控的问题</li>
+<li>[Claude Code on the web] 修复 GitHub Enterprise Server 会话令牌过期后 GitHub 账户显示断开的问题，PR 与 issue 操作现自动刷新</li>
+<li>[Claude Code on the web] 修复无 Claude GitHub App 组织中的 <code>gh</code> 与 GitHub API 调用失败，现使用已连接 GitHub 账户并在未连接时说明</li>
+<li>[Claude Tag] 管理设置预设连接表单新增「使用自定义连接器」链接，可不必从头开始切换</li>
+<li>[Claude Tag] 修复组织用量额度耗尽时 Claude 笼统回复「API 拒绝请求」的问题，现会说明原因及充值方法</li>
+<li>[Claude Tag] 修复对频道顶层消息的编辑/删除线程请求被以更正答复而非送达原会话的问题</li>
+<li>[Claude Tag] 修复管理设置 > 审核请求下工具访问请求的 Connect 报「授权失败」或显示请求包已删除的问题</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.267</guid>
+      <pubDate>Wed, 09 Sep 2026 19:58:14 GMT</pubDate>
+    </item>
     <item>
       <title>hapi v0.29.1 发布：新增 Codex/Cursor 中途转向、DeepSeek Harness 集成及多项 Web UI 改进</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.29.1</link>
@@ -1380,39 +1445,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.233</guid>
       <pubDate>Fri, 14 Aug 2026 22:20:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.232 更新：Subagent 默认分叉、跨会话通信与 GitLab 支持</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.232</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Claude Code v2.1.232 更新：Subagent 默认分叉、跨会话通信与 GitLab 支持</h3>
-<p>Claude Code 发布 v2.1.232 版本，重点引入了 Subagent 分叉默认开启、跨会话直接通信、GitLab 插件市场支持，并修复了多项安全权限绕过与远程会话恢复问题。</p>
-<h4>核心功能与交互改进</h4>
-<ul>
-  <li><strong>Subagent 分叉默认开启</strong>：<code>subagent_type: "fork"</code> 类型的子代理现在默认继承完整对话与提示缓存（prompt cache）。非队友代理在交互会话中默认在后台运行。</li>
-  <li><strong>跨会话通信</strong>：在提示符输入 <code>@</code> 可按名称提及另一个 Claude 会话，通过 <code>SendMessage</code> 直接通信。该功能现在直接投递到精确匹配名称的活跃会话，无需额外确认。</li>
-  <li><strong>会话命名唯一性</strong>：同一台机器上的交互会话保持唯一名称，冲突时自动添加 <code>name-word-word</code> 后缀。</li>
-  <li><strong>GitLab 支持</strong>：插件市场现支持 GitLab，裸 <code>gitlab.com</code> 仓库 URL 的克隆行为与 GitHub 一致，克隆认证失败提示会显示实际的 Git 主机。</li>
-  <li><strong>配置与企业策略</strong>：新增 <code>/config</code> 行用于管理“对话过期”和“跨会话入站消息”。Gateway 的 <code>desktop:</code> 覆盖层现接受所有桌面设置，空策略匹配组或格式错误的 <code>email_domain</code> 将在启动时直接报错。</li>
-</ul>
-<h4>安全与权限加固</h4>
-<ul>
-  <li>修复了 PowerShell 权限绕过漏洞（变量写入参数可能覆盖 <code>$PSDefaultParameterValues</code>）。</li>
-  <li>修复了 Windows 上 Git Bash 跟随 Cygwin 风格符号链接导致的权限绕过问题。</li>
-  <li>修复了嵌套 Git 仓库错误继承父目录信任的问题，现要求每个仓库独立确认信任。</li>
-  <li>加固了跨会话消息 Socket 目录及 Linux 文件系统沙箱，防止受保护路径绕过。</li>
-  <li>限制了 <code>sandbox.ripgrep</code> 配置仅从用户、管理及 <code>--settings</code> 设置中生效，项目设置无法覆盖。</li>
-</ul>
-<h4>稳定性与体验优化</h4>
-<ul>
-  <li><strong>远程会话（Remote Control）</strong>：修复了会话恢复、重新连接及历史加载问题。网络中断后重连时间延长至约 30 分钟，终端现能明确显示会话被接管或结束的状态。</li>
-  <li><strong>连接与证书</strong>：修复了 MCP 连接超时挂起、mTLS 客户端证书轮换需重启的问题（现支持自动重载）。</li>
-  <li><strong>UI 与交互</strong>：全屏流式传输响应性提升；粘贴/剪贴板图片读取不再阻塞事件循环；<code>/code-review</code> 高/超高/最大努力级别改为后台运行；插件安装市场现自动刷新。</li>
-  <li><strong>其他修复</strong>：修复了语音模式卡住、区域值格式错误回退、流空闲超时恢复及启动竞争条件等问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.232</guid>
-      <pubDate>Thu, 13 Aug 2026 23:29:59 GMT</pubDate>
     </item>
   </channel>
 </rss>
