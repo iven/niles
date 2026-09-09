@@ -3,7 +3,25 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 09 Sep 2026 04:35:35 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 09:40:02 GMT</lastBuildDate>
+    <item>
+      <title>把电子墨水阅读器改造成打印机：为 Xteink X3 实现 IPP 协议</title>
+      <link>https://news.ycombinator.com/item?id=49617255</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 属于DIY硬件改造编程项目（为电子墨水屏阅读器实现打印协议），涉及小众创作，不在明确兴趣配置中，兴趣不确定</small></p><p>一位开发者本打算为自己的 Xteink X3 电子墨水阅读器（e-ink reader）制作显示应用，却在查阅规格时发现该设备完全可编程。他认为"如果它看起来像纸，就应该像纸一样工作"，于是决定把它变成一台真正的打印机——让 MacBook 上按下"打印"就能直接输出到电子墨水屏上。</p>
+
+<p>作者通过深入研究 <strong>互联网打印协议（IPP）</strong>，让电脑能够查询打印机能力、提交文档并追踪打印任务。他将设备命名为"penguin"，通过 Bonjour 通告 <code>_ipp._tcp</code> 服务，支持 Apple raster 和 PWG raster 格式，并声明 A5 和 Letter 纸张、单面单色 300 dpi 输出。</p>
+
+<p>文章的核心挑战在于内存：一张 Letter 页面在 300 dpi 下约需 8.4 MB 未压缩数据，而 X3 仅有 400 KB RAM（其中 16 KB 预留给缓存）。作者放弃了在内存中组装完整页面再拷贝的思路，改为把传入的页面通过解码、缩放、抖动（dithering）流水线逐行直接写入显示屏已有的屏幕图像缓冲区，从而把图像缓冲占用从约 113 KB 降至约 62 KB，为网络协议栈腾出空间。</p>
+
+<p>最终成果是：第一次打印（一张《无职转生》漫画页面）约一秒内显示在 Xteink 上，并会保存在 SD 卡中，可在阅读器上浏览——"我的打印机毕竟也有出纸托盘，它是个文件夹"。代码已开源在作者的 CrossPoint 分支中。</p>
+
+<h3>社区反馈</h3>
+<p>评论区反响热烈，多位用户称赞这一想法"实在太正确了"，甚至联想到《星际迷航》中的 PADD。作者回应称该实现"边角还很粗糙，欢迎提交 PR"。有用户询问为何不与 PDF 直接加载，作者解释渲染 PDF 对 400 KB RAM 的设备负担过重。资深开发者 <strong>ValdikSS</strong> 还给出了专业改进建议：在 <code>media-size-supported</code> 中声明屏幕精确尺寸，采用 1-bit-per-pixel 模式（数据量可缩减为原来的八分之一），并调整抖动选项，作者表示会采纳。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49617255</guid>
+      <pubDate>Tue, 08 Sep 2026 21:22:11 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Meta 发布个人 AI 代理 Muse，引发隐私与商业化争议</title>
       <link>https://news.ycombinator.com/item?id=49615537</link>
@@ -809,15 +827,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49546753</guid>
       <pubDate>Thu, 03 Sep 2026 06:59:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Fable 5.1 智能体群自动重建真实地点：开源 3D 世界项目 fable51-worlds 发布</title>
-      <link>https://news.ycombinator.com/item?id=49541458</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 3D 世界项目，涉及智能体群（AI 软件技术进展）与开源项目发布，属感兴趣范畴，推荐阅读</small></p><p>PhiloLabs 在 GitHub 上开源了 <a href="https://github.com/PhiloLabs/fable51-worlds">fable51-worlds</a> 仓库，展示"通过代码构建世界"（worlds via code）的成果：由自主运行的 Claude Fable 5.1 智能体群端到端完成研究、建模与质量检查，将真实地点重建为可在浏览器中探索的 3D 应用，并以纯 Three.js 应用形式交付（<code>npm run dev</code> 即可运行）。项目不使用游戏引擎，也不依赖专有 3D 瓦片——每一栋建筑、店面、招牌、树木和红绿灯都由仓库中的代码基于开放数据和公开参考影像生成。</p><h3>旧金山联合广场</h3><img src="/PhiloLabs/fable51-worlds/raw/main/union-square-sf/media/preview.gif" alt="Union Square walkthrough: aerial sweep, Dewey Monument, Nintendo SAN FRANCISCO, Apple Union Square" width="100%" /><p>联合广场及其周边街区（Powell、Geary、Post、Stockton）建立在真实地形和真实街道网格之上，包含 129 个已识别的店面、可工作的红绿灯和缆车，支持白天/日落/夜晚三种光照，并有两个可探索的室内空间：Apple Union Square（300 Post St）和 Nintendo SAN FRANCISCO（331 Powell St）。数据规模包括 453 个 OSM 建筑轮廓、75 个手工立面、220 名行人（运行在 1,398 节点的导航图上）、109 辆车（含 Powell 街缆车）以及 23 个室内交互对象。验证环节将 34 个相机匹配视点与真实照片对比，生成 147 张对比表，并由 9 份独立评审报告把关。</p><h3>京都东山</h3><img src="/PhiloLabs/fable51-worlds/raw/main/kyoto-higashiyama/media/preview.gif" alt="Higashiyama walkthrough: the Yasaka Pagoda revealed at the end of Yasaka-dori" width="100%" /><p>京都南东山步行路线（祇园→花见小路→八坂神社→宁宁之道→八坂塔→二年坂→三年坂→清水坂→清水寺）全长 2.3 公里、连续可步行，从花见小路的茶屋到清水寺舞台累计爬升 76 米。该世界以手绘动漫背景风格渲染（cel 材质、色相偏移的阴影带、基于深度二阶差分的屏幕空间墨线、分色调），且没有任何二进制资产——所有招牌、暖帘、灯笼、屋顶瓦片和铺路石都在启动时用 Canvas2D 绘制。规模包括 266 栋建筑、471 家店铺、15 个区域的 19 个地标、1,938 棵树（11 个树种）、3,076 个道具（60 种）和 142 个交互。值得注意的是，实地调查推翻了六个广为流传的数据：八坂塔实际高 38.79 米（而非 46 米）且呈凸锥形收分；清水寺舞台甲板海拔为 115.5 米（而非 240 米）；舞台实际为 21.8×9.6 米、由 168 根直径 0.64 米的立柱支撑（而非 18×10 米、139 根直径 2 米的立柱）。</p><h3>制作管线</h3><p>每个世界都遵循同一套可复现的流程：<strong>侦察</strong>——并行研究智能体拉取 OpenStreetMap 几何、USGS 高程、公交与街道规格，并做带来源和置信度的店面普查；<strong>离线资产生成</strong>——以 Blender-as-library（bpy）脚本输出优化的 GLB 套件（立面模块、街道设施、车辆、植被、零售陈设、行人部件）；<strong>运行时</strong>——纯 Three.js 应用根据 JSON 规格组装地形、街道、立面、道具、人群和交通；<strong>相机匹配 QA</strong>——Playwright 驱动真实应用截图固定视点，与同机位拍摄的自由许可照片做差异对比，再由建筑师、地理学家、技术美术、交互等独立评审智能体提交报告驱动下一轮修复。</p><p>许可方面：代码和生成资产为 MIT；几何数据源自 OpenStreetMap（ODbL）和 USGS 3DEP（公有领域）；参考照片不在仓库中重新分发，其来源记录在各世界的 <code>refs/*/SOURCES.md</code> 中。</p><h3>社区反馈</h3><p>该项目在 Hacker News 上获得 292 分和 84 条评论。作者 surreal_ 透露，联合广场世界是"一次性"（one-shot）结果：配合一份超长提示词（见 <a href="https://github.com/PhiloLabs/fable51-worlds/blob/main/union-square-sf/PROMPT.md">PROMPT.md</a>），明确指导使用子智能体和自 QA 循环，耗时约 2 小时、消耗约 800 万 token，API 成本约 33 美元。评论中讨论的焦点包括：对"世界模型"（world model）一词的术语争议（有评论认为这与 LeCun 所指的预测性世界模型并非同一领域）；行人/车辆是否"按轨道运行"的逻辑问题（作者贴出了 <a href="https://github.com/PhiloLabs/fable51-worlds/blob/main/union-square-sf/src/life/Pedestrians.ts">Pedestrians.ts</a> 和 <a href="https://github.com/PhiloLabs/fable51-worlds/blob/main/union-square-sf/src/life/Traffic.ts">Traffic.ts</a> 源码）；以及生成资产的质量问题——有开发者指出模型生成的 3D 模型多边形数偏高、拓扑混乱、贴图困难，并建议用低多边形轮廓加烘焙贴图的方案。也有评论认为此类规模的工作传统上需要数千人工时，AI 生成对业余爱好者意义重大。作者表示正在推进基于该技术的开放世界 RPG 游戏，并计划撰写关于"通过代码进行世界建模"的综述论文。</p><h2>你知道吗？</h2><p>"世界模型"（world model）在 AI 领域通常指能够预测环境状态演化的内部模型，例如 Yann LeCun 提出的架构或自动驾驶中的场景预测模型；而本项目中的"world modeling"更接近"用代码重建世界"——即让大模型智能体把开放地理数据转换成可交互的 3D 场景。两者共享"模拟世界"的目标，但技术路线完全不同，这也是 HN 评论中争论的焦点。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49541458</guid>
-      <pubDate>Wed, 02 Sep 2026 19:49:01 GMT</pubDate>
     </item>
   </channel>
 </rss>
