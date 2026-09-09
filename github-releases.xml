@@ -3,7 +3,16 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 08 Sep 2026 21:49:12 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 00:09:52 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.266：修复 LLM 网关与代理配置回归问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.266</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.266，修复了 2.1.265 版本引入的一个回归问题，该问题影响 LLM 网关（LLM-gateway）和代理（proxy）配置。</p><p>具体来说，未记录的 <code>CLAUDE_CODE_USE_GATEWAY</code> 环境变量在 2.1.265 中开始单独强制触发 Cloud 网关登录，而此前它只有在同时设置了 <code>ANTHROPIC_BASE_URL</code> 和 <code>ANTHROPIC_AUTH_TOKEN</code> 时才会生效。这导致那些将该变量与 API key、<code>apiKeyHelper</code> 或自定义认证请求头配合使用的配置，每次请求都会因「未登录 Cloud 网关」（Not signed in to the Cloud gateway）而失败。此版本已恢复该变量单独设置时被忽略的行为，无需更改任何配置。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.266</guid>
+      <pubDate>Tue, 08 Sep 2026 23:55:14 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.265 发布：插件目录支持、工具结果上限 1GB 及多项修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.265</link>
@@ -1379,32 +1388,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.231</guid>
       <pubDate>Thu, 13 Aug 2026 08:38:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.229 更新：修复崩溃与 UI 卡顿，增强插件市场与远程会话支持</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.229</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
-<ul>
-  <li><strong>远程会话与 Hook 支持</strong>：新增 <code>claude remote-control --continue</code> 文档，支持恢复最近的远程会话；新增服务器提供的 Claude Code hook 支持，匹配托管环境行为。</li>
-  <li><strong>连接稳定性</strong>：增加 SSE keepalive pings，防止在 Vertex 和 Bedrock 上游的长思考暂停期间断开连接。</li>
-  <li><strong>插件市场增强</strong>：新增 <code>command</code> 源，支持本地命令（如 IDE）打印插件目录，无需重启即可应用。</li>
-  <li><strong>会话管理</strong>：<code>ListAgents</code> 现在标记断开的远程会话为 <code>offline</code>，并将云会话标记为 <code>cloud</code>。</li>
-  <li><strong>工作流优化</strong>：改进工作流扇出，交错相同前缀的兄弟代理，避免重复支付提示符前缀；改进“提示词过长”错误信息，解释自动压缩失败的原因。</li>
-  <li><strong>沙盒与安全</strong>：沙盒中 IPv6 字面量现在加括号，模糊拼写强制执行 fail-closed 并由 <code>/doctor</code> 标记；更改 <code>/commit-push-pr</code>，不再自动批准带有危险标志（如 <code>--force</code>）的 git/gh 命令。</li>
-  <li><strong>VSCode 扩展</strong>：新增侧边栏会话组功能，支持右键创建、重命名、删除，以及多选移动会话；调整 <code>/btw</code> 侧边问题面板大小。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-  <li><strong>崩溃修复</strong>：修复流式传输时长响应部分消失并打印两次的问题；修复工具调用中非字符串 <code>glob</code>、<code>file_path</code> 或 <code>command</code> 值导致的崩溃；修复终端窗口过窄时进度条或 Markdown 表格渲染导致的 <code>RangeError</code> 崩溃；修复 Windows 上工具调用或消息引用扩展长度（<code>\\?\</code>）或 UNC 路径时的崩溃。</li>
-  <li><strong>功能修复</strong>：修复 <code>auto</code> 模式下禁用属性头时所有工具调用失败的问题；修复 <code>/model</code> 拒绝 Sonnet/Opus 1M 的问题（针对使用自定义网关的 claude.ai 订阅用户）；修复 MCP OAuth 与严格授权服务器的问题，将重定向 URI 中的 <code>localhost</code> 改为 <code>127.0.0.1</code>；修复远程控制客户端在终端输入斜杠命令后显示卡住的加载动画的问题；修复 Claude Code Review 工作流在完成时未发布评论的问题。</li>
-  <li><strong>性能与稳定性</strong>：修复连接 IDE 扩展时编辑包含数千个诊断信息的文件导致的 UI 卡顿；修复一次性 <code>claude plugin</code> 命令遗留的 liveness 文件导致插件版本清理失败的问题；修复 CPU 受限容器中动态工作流使用主机核心数而非容器限制的问题；修复原子文件替换后的文件监视器句柄泄漏，以及 Windows 上网络或虚拟文件系统上的计划任务监视器未捕获错误；修复 SDK 和 <code>--input-format stream-json</code> 会话在提交仅包含空白的消息时出现 400 API 错误的问题；修复消息超过 API 32 MB 限制时重试压缩失败的问题，现在会明确报错；修复 OpenTelemetry 导出被桌面管理网关拒绝的问题；修复自托管运行器在部署 <code>managed-mcp.json</code> 时启动退出的问题，现在跳过这些服务器并警告；修复自托管运行器 Windows 启动时因 Git 凭据管理器提示而挂起的问题，现在凭据缺失时快速失败。</li>
-  <li><strong>其他</strong>：更新 <code>/login</code> 在成功登录后重复 <code>CLAUDE_CODE_OAUTH_TOKEN</code> 覆盖警告；更改自托管运行器 Windows 启动要求显式 <code>--base-dir</code>，Windows 上无默认签出目录；[VSCode] “报告问题”和 <code>/bug</code> 现在打开内置反馈对话框。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.229</guid>
-      <pubDate>Wed, 12 Aug 2026 20:56:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
