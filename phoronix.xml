@@ -3,7 +3,61 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 09 Sep 2026 09:39:33 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 14:33:24 GMT</lastBuildDate>
+    <item>
+      <title>NVIDIA 发布 615.71.09 Linux 驱动，带来多项 Vulkan 改进</title>
+      <link>https://www.phoronix.com/news/NVIDIA-615.71.09-Linux-Driver</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] NVIDIA显卡闭源驱动发布，属于软件新版本，但非高兴趣主题，兴趣一般</small></p><p>NVIDIA 今日发布了 615.71.09 Linux 驱动，包含多项改进，尤其是从 Vulkan API 角度来看。</p>
+
+<p>该版本主要亮点包括：新增 <code>VK_NV_low_latency</code> 修订版 2 支持，可为基于 Vulkan 的原生游戏开箱即用地提供 Proton 下的 NVIDIA Reflex 支持，使用来源于 Windows 的 NVIDIA 低延迟 Vulkan 库。此外还新增了对 <code>VK_EXT_cluster_acceleration_structure</code> Vulkan 扩展的支持，并包含多项其他 Vulkan 驱动修复。</p>
+
+<p>NVIDIA R615 Linux 驱动还修复了在使用 NVIDIA Smooth Motion 时出现的启动及切换窗口（alt-tab）挂起问题，修复了 Wayland 下加载 PRAGMATA 时出现的 Xid 错误，并新增了一个 <code>RmDisableDisplayGlitchPerfLimit</code> 内核驱动选项，可在某些多显示器配置下帮助降低待机功耗。同样值得注意的是，该版本终于为其开放内核驱动加入了基于 cgroups 的内存分区支持。除上述主要亮点外，本次驱动发布还包含多项新的缺陷修复。</p>
+
+<p>本次驱动的下载链接及更多详情可在 NVIDIA 官网获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-615.71.09-Linux-Driver</guid>
+      <pubDate>Wed, 09 Sep 2026 14:02:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Btrfs Zstd 解压提速补丁即将进入 Linux 7.4 内核</title>
+      <link>https://www.phoronix.com/news/Btrfs-Zstd-Faster-Decompress</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Btrfs文件系统开源改进，提升Zstd解压性能，属于开源项目与技术改进</small></p><p>Btrfs 文件系统驱动又迎来一项性能优化，本次聚焦于 Zstd 透明文件系统压缩的解压代码路径。该补丁已被合入 Btrfs 的 "for-next" Git 分支，预计将在 10 月开启的 Linux 7.4 内核周期中正式落地。</p><p>Linux 开发者 Usama Arif 发现，在 Btrfs 的 Zstd 解压路径中，每个字节当前都被写入了两次：<code>zstd_decompress_bio()</code> 为 Zstd 提供一个 sectorsize 大小的临时缓冲区，随后 <code>btrfs_decompress_buf2page()</code> 再将与读取 bio 重叠的部分复制到目标 folios 中。为此，他改为按流式调用选择输出缓冲区，让 <code>zstd_map_dest()</code> 直接映射读取 bio 的当前页面边界段，使 Zstd 直接写入页缓存，临时缓冲区仅保留用于无目标输出（如压缩区段内部起始位置之前的前缀、以及已在页缓存中的 folios 留下的空隙）。</p><p>这一改动带来可观收益：Usama 指出，在 4K 扇区大小下顺序读取时间减少 7.8%，16K 扇区减少 3.6%，64K 扇区减少 6.8%；随机 4K 读取在启用 Btrfs Zstd 压缩时也有约 3% 的提升。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=btrfs_faster_zstd_decomp" alt="Btrfs Zstd decompression benchmark" /><p>该补丁已排队进入 for-next 分支，可望随 Linux 7.4 内核周期发布。此外，内核中其他待定的 Zstd 优化也有望一同进入 Linux 7.4。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Btrfs-Zstd-Faster-Decompress</guid>
+      <pubDate>Wed, 09 Sep 2026 12:52:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ AMD 发布新的 GCC 编译器补丁，优化扩展加载（Extended Load）</title>
+      <link>https://www.phoronix.com/news/AMD-GCC-Extended-Load-Opt</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GCC编译器补丁优化，属于编程工具与效率改进，值得关注</small></p><p>AMD 的编译器团队近日发布了一款新的 GNU 编译器套件（GCC）补丁，这是一项针对 x86_64 编译器的通用优化，而非仅针对其 Zen 处理器。该「扩展加载优化」（Extended Load Optimization）旨在提升那些涉及「较窄类型加载后接着进行更宽类型算术运算」的代码性能。</p><p>此前，AMD Zen "znverX" 的编译器支持工作往往在处理器发布后才完成，且常交由 AMD 的合作伙伴 SUSE 负责。如今 AMD 不仅更早地上游化了新的 Zen 编译器目标支持（例如 znver6 于 2025 年底开始出现），涵盖 GCC 与 LLVM/Clang，也开始在更多通用编译器优化活动中加大投入。</p><p>AMD 编译器团队的 Sridevi 发布了这一最新优化补丁，并解释其原理：当代码涉及较窄类型的加载、随后以更宽类型进行算术运算时，GCC 生成的代码使用了 vextract 指令；而实际上可以借助 ZMM 寄存器的扩展加载来获得更好的性能。该补丁在 SLP 树中识别「加载 + 转换」的模式，并在目标支持融合式加载与扩展（fused load-and-extend）的情况下，将加载向量类型缩小为较窄的向量类型。相关函数 <code>vect_optimize_slp_widening_loads</code> 在 SLP 运算分析之前运行于 tree-vect-loop.cc 中。该实现不影响成本核算（不基于旧的宽加载类型计算向量化成本），且由于仅在加载于 SLP 图中仅被引用一次（即仅被其后的转换引用）时才应用缩小，因此预计不会产生意外副作用——SLP 树结构与 GIMPLE 中间表示均未被修改，仅更新了一个 SLP 分析字段。</p><p><img src="//www.phoronix.net/image.php?id=2023&image=gcc13_more_znver4" alt="" />该补丁不依赖任何 Zen 特有的目标特性，只要 x86_64 路径上出现「较窄类型加载 + 更宽类型算术」的模式即可受益。目前补丁正在审核中，有望纳入 GCC 17。公开补丁未附带性能数据以供量化优化影响，但总体而言，AMD 如今在通用 GCC 优化上投入更多是一大积极信号。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-GCC-Extended-Load-Opt</guid>
+      <pubDate>Wed, 09 Sep 2026 10:26:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ YSERVER 1.5 发布：新增 Reverse PRIME 支持等特性</title>
+      <link>https://www.phoronix.com/news/YSERVER-1.5</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] YSERVER新版本增加Reverse PRIME等新功能，属于Linux桌面技术，符合兴趣</small></p><p>几个月前公布的 YSERVER——一个用 Rust 编程语言从零编写的现代 X11 服务器——今日迎来 1.5 版本发布。由于 X11 规模庞大，该项目初期主要借助 Claude Code 进行"vibe coding"快速起步，如今持续发展并吸引了更多用户贡献代码。YSERVER 已能运行诸多真实桌面环境和窗口管理器，包括 Cinnamon、MATE、Xfce、Compiz、Openbox、IceWM、Enlightenment 等。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&amp;image=yserver_15" alt="YSERVER demo" /></p>
+<p>本次 1.5 版本中最值得关注的特性当属 <strong>Reverse PRIME</strong> 多 GPU 支持：使用主 GPU 进行渲染，再将画面传递给副 GPU。经过数周的反复调试并成功通过硬件测试、修复若干 bug 后，Reverse PRIME 已合入 YSERVER，同时新增了将 DRM 设备映射到 Vulkan GPU、暴露 RandR 提供方拓扑等相关底层管道能力。</p>
+<p>YSERVER 1.5 还新增了以下内容：</p>
+<ul>
+<li>支持 Mesa OML MSC 速率查询，用于解决部分使用 ANGLE 的 Flatpak 应用报错；</li>
+<li>应用桌面 accel-profile 设置；</li>
+<li>通过 DRM 提供 DRI3 1.4 同步对象；</li>
+<li>支持 X11 服务器端窗口边框；</li>
+<li>多项修复。</li>
+</ul>
+<p>值得一提的还有：YSERVER 现在不再对 vsync-off 客户端设上限，并加入延迟执行与同目标超级会话处理。这主要是为了修复与上游 X.org Server 相比的回归问题。在测试中，非垂直同步的完整游戏（如《Counter-Strike 2》）在 YSERVER 上测得 180–200 fps，而 Xorg 约为 400 fps。分析指出现有与 NVIDIA WSI 相关的 buffer 释放节流机制限制了性能，而 Mesa WSI 在关闭垂直同步时会无条件设置 PresentOptionAsync 绕过该限制；残余的性能差距涉及 flip-path 等更深层集成，超出本次范围。更多 YSERVER 1.5 细节可在其 GitHub 仓库查看。</p>
+<h3>你知道吗？</h3><p><strong>Reverse PRIME</strong> 是 X.Org 生态中用于混合显卡（如笔记本上的集成显卡与独立显卡）的显示技术：允许渲染任务在性能更强的 GPU（如独立显卡）上完成，再由集成显卡输出画面，从而兼顾性能与功耗。该名称源于它是对早期 PRIME（混合显卡渲染卸载）机制的"反向"应用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/YSERVER-1.5</guid>
+      <pubDate>Wed, 09 Sep 2026 10:03:31 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ ARM 工程师借助 AI 大幅加速 Linux 内核编译：全量构建提速约 36%</title>
       <link>https://www.phoronix.com/news/AI-To-Faster-Linux-Kernel-Comp</link>
@@ -541,99 +595,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/WinBtrfs-1.10</guid>
       <pubDate>Tue, 01 Sep 2026 21:57:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ systemd 262-rc1 发布：集成 Live Update Orchestrator 并带来多项改进</title>
-      <link>https://www.phoronix.com/news/systemd-262-rc1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 systemd 新版本发布及新增功能集成，属开源软件新版本/新功能，符合“软件新功能”“开源项目”兴趣，推荐阅读</small></p><p>systemd 262-rc1 于今日发布，这是这一 Linux 初始化系统与服务管理器下一个大版本的首个测试版。该版本在众多组件上带来了一系列改进，主要亮点包括：</p>
-<ul>
-<li>systemd 管理器现在内置一组基础单元文件（unit files），当无法从磁盘加载单元文件或容器环境未安装单元文件时，可作为内存中的回退方案，涵盖 reboot、shutdown 目标、systemd-poweroff 服务及 multi-user 目标。</li>
-<li>systemd 现在可以构建为单个静态链接的 PID 1/执行器（executor）二进制文件，适用于非常小的容器。</li>
-<li>NUMAPolicy= 选项新增支持 preferred-map 和 weighted-interleave 取值。</li>
-<li>服务单元新增 LUOSession= 选项，让 systemd 创建 Live Update Orchestrator（LUO）会话，并围绕 LUO 进行了其他集成改进。</li>
-<li>systemd-firstboot 支持 systemd.firstboot=headless，以非交互式自动配置处理无人值守安装。</li>
-<li>systemd-coredump 支持 Linux 6.17 引入的内核 coredump socket 协议。</li>
-<li>基于 FSCRYPT 的 systemd-homed 主目录现在默认采用 FSCRYPT v2 策略。</li>
-<li>systemd-cryptenroll 新增首次启动（first-boot）注册向导。</li>
-<li>systemd-vmspawn 的 "--coco=" 选项在原有 AMD SEV-SNP 之外，新增对 Intel TDX 机密计算的支持。</li>
-<li>新增 dm-clone 启动集成。</li>
-</ul>
-<img src="//www.phoronix.net/image.php?id=2026&amp;image=systemd_262_rc1" alt="systemd 262-rc1 released" />
-<p>完整的 systemd 262-rc1 变更列表可在 <a href="https://github.com/systemd/systemd">GitHub</a> 上查看。</p>
-<h3>你知道吗？</h3>
-<p><strong>Live Update Orchestrator（LUO）</strong>：一种用于编排内核实时更新（live patching）的框架，可在不重启系统的情况下应用内核安全补丁，systemd 通过 LUOSession= 为其提供会话管理支持。</p>
-<p><strong>dm-clone</strong>：Linux device-mapper 的一个目标，可将数据从源设备克隆到本地设备，允许系统在后台复制数据的同时直接从克隆设备启动。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/systemd-262-rc1</guid>
-      <pubDate>Tue, 01 Sep 2026 12:07:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Intel Xe 驱动为 Linux 7.4 引入冷重置恢复，并支持 Panther Lake IBC v3</title>
-      <link>https://www.phoronix.com/news/Intel-Xe-Linux-7.4-First-PR</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Linux 内核 Intel 显卡驱动的功能更新（冷复位恢复、Panther Lake 支持），属开源项目/驱动软件的技术进展，符合“软件新功能”“开源项目”兴趣，推荐阅读</small></p><p>在 Linux 7.3 合并窗口刚于上周末结束之际，Intel 已于周一提交了面向 Linux 7.4 的首个 Xe 内核显卡驱动功能拉取请求（pull request）。该请求已提交至 DRM-Next，为定于 10 月底开启的 Linux 7.4 合并窗口排队。</p><img src="//www.phoronix.net/image.php?id=2026&image=intel_cold_reset" alt="Intel Cold Reset" /><p>本次拉取的一大亮点是引入<b>冷重置恢复（cold reset recovery）</b>支持，用于处理需要完全断电重启设备才能恢复的错误。在某些 Intel 显卡硬件错误场景下，GPU 可能进入"持久硬件错误状态"，仅执行 PCIe 重置或重新加载内核驱动都无法恢复硬件。为此，Linux 7.4 将引入 <code>DRM_WEDGE_RECOVERY_COLD_RESET</code>，配合用户空间对 Intel 显卡设备执行完全断电循环的冷重置恢复。</p><p>Linux 7.4 还为 Panther Lake Xe3 集成显卡带来改进，启用<b>智能偏置控制 v3（Intelligent Bias Control v3，IBC v3）</b>。该算法基于新版 GuC 固件，包含针对 Panther Lake 的特定优化，有望在游戏及类似负载下改善集成显卡的电源管理。</p><p>其他新特性还包括：DRM_RAS Netlink 错误事件支持、多队列 VF 迁移、并行页错误处理、DRM_RAS 错误阈值，以及 PCI 错误调试方面的改进。更多详情可参见提交至 DRM-Next 的<a href="https://www.phoronix.com/news/Intel-Xe-Linux-7.4-First-PR">拉取请求</a>。</p><h3>你知道吗？</h3><p><b>冷重置恢复</b>指通过完全切断并恢复设备供电来重置硬件，与热重置（仅复位逻辑电路）或软件重置不同，它适用于硬件陷入无法通过常规手段恢复的错误状态时。而 <b>GuC 固件</b>是 Intel 显卡中负责调度、电源管理等任务的微控制器固件，IBC v3 正是借助其新增能力实现对 Panther Lake 平台更精细的功耗调控。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Xe-Linux-7.4-First-PR</guid>
-      <pubDate>Tue, 01 Sep 2026 10:15:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核遭遇 AI 补丁洪流、Linux 7.2 发布——Phoronix 八月要闻回顾</title>
-      <link>https://www.phoronix.com/news/August-2026-Highlights</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要回顾 Linux 7.2 发布与内核中 AI 相关进展等月度要闻，属开源项目与软件新进展类新闻，符合“开源项目”“软件新功能”兴趣，推荐阅读</small></p><p>2026 年 8 月对 Linux 世界而言异常繁忙：内核开发者持续被 AI/LLM 生成的补丁和缺陷报告淹没，Debian 项目就 AI 使用通过了决议，Linux 7.2 稳定版发布并开启 7.3 合并窗口。Phoronix 当月共发布 313 篇原创新闻和 18 篇硬件评测/多页基准测试文章。</p>
-
-<h3>内核与 AI 时代</h3>
-<ul>
-<li><strong>Linux 7.2 稳定版发布</strong>：带来更快的 I/O、新的 AMD 与 Intel 驱动改进，将支撑 Ubuntu 26.10 等发行版。</li>
-<li><strong>Linux 7.3 合并窗口</strong>：网络子系统功能已合并，但维护者坦言被 AI/LLM 产生的补丁"完全淹没"；预计 7.3 将上游化 FailFS 文件系统。</li>
-<li><strong>CIFS/SMB3 维护者更替</strong>：长期维护者、微软员工 Steve French 因健康原因卸任。</li>
-<li><strong>Linus Torvalds 的"地狱级调试"</strong>：他亲自为 Intel Xe 图形驱动提交补丁，并称 AI 在修复困扰已久的缺陷时"极大地帮助"了他。</li>
-<li><strong>CVE 数量激增</strong>：由于 AI/LLM 模型分析内核代码库，每个内核版本的 CVE 修复数从约 500 个逼近 2,000 个。</li>
-<li><strong>staging 区域拒绝 LLM 补丁</strong>：Greg Kroah-Hartman 宣布不再接受 AI 生成的 staging 补丁（真正有效的安全修复除外）。</li>
-</ul>
-
-<h3>发行版与开源项目</h3>
-<ul>
-<li><strong>Debian 通过决议</strong>：允许"负责任地使用生成式 AI"。</li>
-<li><strong>GNOME 51 Beta</strong> 发布，包含大量小幅改进；GNOME 设计师也分享了 GNOME Shell 的长期规划。</li>
-<li><strong>Arch Linux 资深开发者 Morten Linderud（Foxboron）</strong>在任职 10 年后宣布辞职。</li>
-<li><strong>ReactOS 0.4.16</strong> 发布，带来全新图形安装程序与更好的硬件支持。</li>
-<li><strong>Cloudflare OS</strong> 开源，定位为面向智能体（agent）与应用的 AI"操作系统"。</li>
-<li><strong>FFmpeg 9.0</strong> 发布，新增更多 Vulkan 加速、动画 WebP 与 AMD AMF 支持。</li>
-<li><strong>OpenAI 推出 Linux 版 ChatGPT 桌面应用</strong>（预览版）。</li>
-<li><strong>Steam 在 Linux 上的使用率</strong> 7 月回升至 4% 以上；GNOME Boxes 也在准备大幅改进虚拟化体验。</li>
-</ul>
-
-<h3>安全与政策</h3>
-<ul>
-<li><strong>NTFS3 驱动漏洞</strong>：精心构造的 NTFS 镜像可通过 U 盘等介质让攻击者获得 root 权限，该漏洞自今夏上报后一直未修复。</li>
-<li><strong>加州 AB-1856 法案通过</strong>：为开源项目提供年龄验证相关的豁免。</li>
-</ul>
-
-<h3>热门评测与基准测试</h3>
-<ul>
-<li>Framework Laptop 13 Pro（Intel Panther Lake）上六款 Linux 发行版对比测试，以及 Fedora 性能偏慢的原因分析。</li>
-<li>Btrfs 在 Linux 7.3 上的显著性能提升（部分场景约 3~5 倍），以及 Btrfs/EXT4/F2FS/XFS 的 7.2 vs 7.3 对比。</li>
-<li>约 4.6 万美元的 HP Z4 G6i 工作站（Xeon 678X）上 CachyOS 等系统性能对比。</li>
-<li>AMD EPYC 9655 双路配置下 4 至 24 条 DDR5 RDIMM 的内存扩展性能影响（250+ 项基准）。</li>
-<li>Intel Xeon 678X 的超线程（HT/SMT）性能影响。</li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p><strong>Linux 内核的 staging 区域</strong>：这是内核中用于存放尚未达到生产质量标准的驱动和代码的过渡区域，常被当作新手参与内核开发的入门之地。正因如此，维护者不希望这里被大量 AI 生成的补丁淹没。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/August-2026-Highlights</guid>
-      <pubDate>Tue, 01 Sep 2026 10:01:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Linux 为所有用户文件启用自动 Btrfs 快照</title>
-      <link>https://www.phoronix.com/news/KDE-Linux-August-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是 KDE 为所有用户文件提供自动 Btrfs 快照的新功能，属于来源配置中很感兴趣的 KDE 及新软件功能，用户会强烈关注。</small></p><p>KDE Linux 项目发布了 8 月份的月度状态报告，其中最引人注目的改进是数据安全方面：现已为所有用户文件启用自动 Btrfs 快照，用户主目录被设置为 Btrfs 子卷。这一改动配置了 Snapper 与 KIO-Snapshot 配合，提供更友好的主目录快照体验，用户可将文件恢复到较早状态，但官方提醒这并不能替代将数据备份到独立设备的常规备份方案。</p><img src="//www.phoronix.net/image.php?id=2026&image=kde_btrfs" alt="KIO Snapshots with Dolphin" /><p>KDE Linux 还集成了 KIO-Snapshot 的最新成果，实现了与 Dolphin 文件管理器等组件的良好整合，围绕 Btrfs 快照提供类似「撤销」的功能。除快照功能外，KDE Linux 在 8 月还决定默认启用 CJKV 输入支持，为中文、日文、韩文和越南文的文本输入提供良好体验。本月还推进了更多质量保证与测试工作、安全改进以及各类错误修复。更多详情可参阅 <a href="https://kde.org">KDE.org</a> 博客上的完整报告。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Linux-August-2026</guid>
-      <pubDate>Tue, 01 Sep 2026 00:49:02 GMT</pubDate>
     </item>
   </channel>
 </rss>

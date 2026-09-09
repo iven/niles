@@ -3,7 +3,91 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Wed, 09 Sep 2026 09:39:55 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 14:33:32 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 腾讯开源 TeamAI CLI：统一管理与分发团队 AI Agent 技能、规则与知识</title>
+      <link>https://github.com/Tencent/teamai-cli</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 腾讯开源的AI Agent技能管理CLI工具，属于编程工具发布与AI软件技术进展，用户会强烈感兴趣。</small></p><p>腾讯开源的 <strong>TeamAI CLI</strong>（teamai-cli）是一个让"每个团队都具备 AI 原生化"能力的命令行工具。它将团队的技能（skills）、规则（rules）、MCP 配置、文档与知识统一存储在共享 Git 仓库中，并通过"推送 → 审核合并 → 拉取"的流程，分发到 Claude Code、Codex、CodeBuddy、WorkBuddy、OpenCode、Cursor 等多个主流 AI 编程代理（Agent）中。</p>
+
+<h3>核心机制</h3>
+<p>管理员在共享仓库中维护团队级"Harness"（技能、规则、文化、环境变量、hooks、MCP 等资源），成员通过 <code>teamai init</code> 初始化后，每次 AI 会话开始时都会自动拉取最新内容，无需手动同步。它还支持角色（roles）、标签（tags）和外部来源（sources）等分发控制，让不同角色的成员仅同步其所需的技能。</p>
+
+<h3>三层产品架构</h3>
+<ul>
+<li><strong>Team Execution</strong>：让每个 Agent 按团队方式工作，包括技能、规则、代理、hooks、MCP 与环境变量等资源的统一分发。</li>
+<li><strong>Team Context（测试版）</strong>：让每个 Agent 理解团队——基于"friction"（摩擦）信号在会话结束时自动提炼可共享的经验文档，并可启用 <code>teamai recall</code> 子代理让 AI 在任务前自动检索团队知识；同时通过 <code>teamai import</code> 将源码仓库解析为结构化代码知识图谱（基于 tree-sitter 的 AST 分析和启发式提取）。</li>
+<li><strong>Team Improvement（测试版）</strong>：让每次执行改进团队——<code>teamai digest</code> 生成周报、<code>teamai session save</code> 保存隐私清理后的会话摘要、<code>teamai dashboard</code> 提供成员实时编码状态看板，并支持对低置信度学习内容进行裁剪维护。</li>
+</ul>
+
+<h3>兼容性与特点</h3>
+<p>工具以 TypeScript 编写，支持 GitHub、GitLab、GitCode、CNB、TGit 及私有 Git 服务等多种托管平台，并内置了覆盖十余种 AI 代理的能力矩阵。项目发布在 npm 上，采用 MIT 协议。（当前上榜数据：2,749 星，173 fork。）</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/Tencent/teamai-cli</guid>
+      <pubDate>Wed, 09 Sep 2026 14:31:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ text-to-cad：面向 CAD/CAE/CAM 的 AI 智能体技能库</title>
+      <link>https://github.com/earthtojake/text-to-cad</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向CAD/CAE/CAM的AI智能体技能库，属于开源项目与AI软件技术进展，值得推荐阅读。</small></p><p><strong>text-to-cad</strong> 是一个用于生成、检查、采购、切片以及交接 CAD 与机器人描述文件的智能体（agent）技能库，主打通过自然语言与图像驱动工程设计工作流（GitHub 星标近 1.5 万）。</p>
+<p>该库为智能体提供了覆盖设计、制造、仿真与本地审阅的聚焦工作流，核心技能包括：</p>
+<ul>
+<li><strong>CAD</strong>：根据自然语言或图像请求创建、编辑 CAD 模型，以 STEP 为主输出格式，支持导出 STL、3MF、GLB。</li>
+<li><strong>CAD Viewer</strong>：在本地浏览器中预览 CAD 与机器人文件。</li>
+<li><strong>step.parts</strong>：查找螺钉、轴承、电机、连接件等现成的 STEP 零部件。</li>
+<li><strong>DXF</strong>：从 Python 源或 CAD 几何创建型材、模板、垫圈、切割布局等 2D DXF 图纸。</li>
+<li><strong>URDF / SRDF / SDF</strong>：编写机器人结构文件（链接、关节、惯性、网格）、添加 MoveIt 规划组与碰撞规则，以及创建带物理、传感器、灯光等属性的仿真模型与世界。</li>
+<li><strong>SendCutSend</strong>：上传前检查 DXF 与 STEP 文件。</li>
+<li><strong>DfAM Check</strong>：按打印工艺测量网格可打印性，包括壁厚、悬垂、支撑体积与构建方向。</li>
+<li><strong>G-code</strong>：用真实切片器 CLI 将网格文件切片为经过校验的打印机配置文件 FDM <code>.gcode</code>。</li>
+<li><strong>Bambu Labs</strong>：对校验后的 <code>.gcode</code> 进行试运行、上传并谨慎启动本地 Bambu Lab 打印作业。</li>
+</ul>
+<p>项目以 MIT 许可开源，采用 Python 3.11+，支持 STEP、STL、3MF、URDF、SDF、SRDF 等多种格式导出。安装可通过 Skills CLI（<code>npx skills add earthtojake/text-to-cad</code>）或 Codex、Claude Code、Grok Build 等智能体的插件机制进行。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/earthtojake/text-to-cad</guid>
+      <pubDate>Wed, 09 Sep 2026 14:31:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI Plugins：Codex 插件示例合集仓库</title>
+      <link>https://github.com/openai/plugins</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenAI Codex插件示例合集仓库，涉及AI软件与编程工具，用户会感兴趣。</small></p><p>OpenAI 官方推出了 <b>plugins</b> 仓库，这是一个精选的 Codex 插件示例合集。每个插件位于 <code>plugins/&lt;name&gt;/</code> 目录下，包含必需的 <code>.codex-plugin/plugin.json</code> 清单文件，以及可选的配套组件（如 <code>skills/</code>、<code>.app.json</code>、<code>.mcp.json</code>、插件级 <code>agents/</code>、<code>commands/</code>、<code>hooks.json</code>、<code>assets/</code> 等支持文件）。</p><p>默认插件市场位于 <code>.agents/plugins/marketplace.json</code>，指向标准的 <code>plugins/</code> 目录；API 密钥登录用户则有独立的 <code>api_marketplace.json</code> 市场。</p><p>仓库中重点展示了多个较为丰富的示例，覆盖不同开发场景：</p><ul>
+<li><b>Figma</b>：用于 <code>use_figma</code>、Code to Canvas、Code Connect 以及设计系统规则</li>
+<li><b>Notion</b>：用于规划、研究、会议与知识沉淀</li>
+<li><b>build-ios-apps</b>：SwiftUI 实现、重构、性能优化与调试</li>
+<li><b>build-macos-apps</b>：macOS SwiftUI/AppKit 工作流、构建/运行/调试循环及打包指引</li>
+<li><b>build-web-apps</b>：部署、UI、支付与数据库工作流</li>
+<li><b>Expo</b>：Expo 和 React Native 应用、SDK 升级、EAS 工作流及 Codex Run 操作</li>
+<li><b>Netlify、Remotion、Google Slides</b>：额外的公开技能与 MCP 支持的插件包</li>
+</ul><p>该仓库为开发者提供了一个了解 Codex 插件体系结构、扩展能力与典型应用实践的参考范例合集。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/plugins</guid>
+      <pubDate>Wed, 09 Sep 2026 14:31:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ PI-Desktop：本地优先的 AI 编程智能体桌面工作台</title>
+      <link>https://github.com/vastsa/PI-Desktop</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 本地优先的AI编程智能体桌面工作台，属于编程工具发布与AI软件技术进展，用户会强烈感兴趣。</small></p><p><strong>PI-Desktop</strong> 是一个本地优先（local-first）的 AI 编程智能体桌面工作台，采用 Electron + Rust 宿主核心 + pi Agent Sidecar 架构，并支持用户安装插件。该项目目前处于早期预览阶段（0.14.x 系列），已在 GitHub Trending 上受到关注（约 1492 stars）。</p>
+
+<p>该项目最鲜明的特点是<b>“自带模型”</b>（Bring your own model）：支持 OpenAI、Anthropic、本地模型（如 Ollama、LM Studio）、托管网关以及任何 OpenAI 兼容 API，可配置多个提供商与模型并在会话内切换。同时没有强制账户、没有强制中继服务器、也不绑定特定编辑器——智能体可以在独立桌面空间中跨仓库与会话工作。</p>
+
+<p>PI-Desktop 提供三种协作模式：<b>Agent</b>（智能体直接读取、编辑、运行命令行并迭代）、<b>Plan</b>（先研究并产出冻结实现计划，经用户批准后才执行）、<b>Goal</b>（锁定目标与验收标准，由智能体自行选择路线）。所有模式中，特权操作都会经过权限层审查，用户可查看 diff 和命令输出，决定每个会话的自主程度。</p>
+
+<p>项目支持<b>Subagents</b>后台委派（用于代码库探索、多文件实现、研究调查、测试分析、对抗性审查等），并擅长处理长时间会话：可管理多项目多会话、固定或归档对话、分支会话、排队提示词，流式响应会做检查点保存，以在应用重启或故障后恢复。</p>
+
+<p>扩展方面提供多层机制：<b>Skills</b>（可复用的智能体指令与工作流）、<b>MCP</b>（通过 Model Context Protocol 连接外部工具）、<b>Subagents</b>（创建专用智能体）与 <b>Plugins</b>（可贡献工具、命令、面板、主题、服务等，通过 <code>.piplug</code> 包或市场安装）。</p>
+
+<p>数据与隐私方面，会话以 JSONL 本地存储并配 SQLite 索引，设置与日志均在本地，API 凭据存放于系统钥匙串，不发送遥测数据，模型请求直接发往用户配置的提供商。</p>
+
+<p>架构上刻意将界面与特权宿主能力、智能体循环分离：React Renderer 无 Node 集成，<b>Rust Host Core</b> 负责特权工作区操作、权限、持久化与密钥，<b>pi Agent Sidecar</b> 负责模型交互与智能体循环，Electron 负责协调桌面生命周期。</p>
+
+<p>此外，PI-Desktop 可导入来自 Claude Code、Codex、OpenCode 与 Pi 的既有本地会话，跨平台支持 macOS（Apple Silicon / Intel）、Windows x64 与 Linux x64（要求 glibc 2.35 及以上）。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/vastsa/PI-Desktop</guid>
+      <pubDate>Wed, 09 Sep 2026 14:31:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ system-design-notes：Alex Xu《系统设计面试》双卷笔记开源仓库</title>
       <link>https://github.com/liquidslr/system-design-notes</link>
@@ -935,72 +1019,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/corsairdev/corsair</guid>
       <pubDate>Sun, 30 Aug 2026 12:49:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenMAIC：开源多智能体互动课堂平台，一句话生成完整课程</title>
-      <link>https://github.com/THU-MAIC/OpenMAIC</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 多智能体AI互动课堂平台，属于AI软件技术进展与开源项目，与用户兴趣相符，建议阅读</small></p><p><strong>OpenMAIC</strong>（Open Multi-Agent Interactive Classroom）是清华大学团队（THU-MAIC）推出的开源 AI 平台，可将任意主题或文档一键转化为沉浸式互动课堂体验。项目基于多智能体编排（multi-agent orchestration），由 AI 教师与 AI 同学实时授课、讨论和互动，支持生成幻灯片、测验、交互式模拟和项目式学习（PBL）等丰富场景。目前该项目在 GitHub 上已获得超过 2.2 万星标，并提供了<a href="https://open.maic.chat/">在线演示</a>。</p>
-
-<h3>核心亮点</h3>
-<ul>
-  <li><strong>一键生成课程</strong>：描述主题或上传材料，AI 在几分钟内构建完整课程</li>
-  <li><strong>多智能体课堂</strong>：AI 教师与同伴实时讲解、讨论、互动</li>
-  <li><strong>丰富场景类型</strong>：幻灯片、测验、交互式 HTML 模拟、项目式学习（PBL）</li>
-  <li><strong>白板与语音合成（TTS）</strong>：智能体可画图、写公式并语音讲解</li>
-  <li><strong>随处导出</strong>：可下载可编辑的 <code>.pptx</code> 幻灯片或交互式 <code>.html</code> 页面</li>
-  <li><strong>OpenClaw 集成</strong>：可通过飞书、Slack、Telegram 等 20+ 消息应用直接生成课堂</li>
-</ul>
-
-<h3>v1.0.0 版本（2026-08-27 发布）</h3>
-<p>在经典的一键生成器之外新增了 <strong>Pro 工作台（Agent workbench）</strong>：</p>
-<ul>
-  <li><strong>智能体工作台</strong>：以对话为先的工作区，可规划课程、构建并修订每一页</li>
-  <li><strong>持久化会话</strong>：服务端支持的运行可跨重启，随时取消、恢复和调整</li>
-  <li><strong>会话材料</strong>：上传文档、音频、视频或从网络搜索获取，智能体基于材料构建课程</li>
-  <li><strong>20 个内置技能</strong>：幻灯片、测验、交互式内容、PBL、图片、视频、语音、<code>.pptx</code> 导入等</li>
-  <li><strong>中立设计</strong>：可自带模型、媒体、搜索提供商和存储后端</li>
-</ul>
-
-<h3>技术特点</h3>
-<p>项目采用 Next.js 16、React 19、TypeScript 5、LangGraph 1.1 与 Tailwind CSS 4 构建，采用 MIT 许可证，相关论文发表于 JCST'26。模型提供商方面支持 OpenAI、Azure OpenAI、Anthropic、Amazon Bedrock、Google Gemini、DeepSeek、Qwen、Kimi、MiniMax、Grok、GLM、Ollama 等，并支持 <strong>Lemonade</strong>（本地 LLM/图像/TTS/ASR）与 <strong>FunASR</strong>（本地语音识别）等无需 API Key 的本地化方案，适合对数据隐私有要求的部署场景。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/THU-MAIC/OpenMAIC</guid>
-      <pubDate>Sat, 29 Aug 2026 21:41:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Heretic：全自动去除语言模型审查（abliteration）的开源工具</title>
-      <link>https://github.com/p-e-w/heretic</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向大语言模型的开源处理工具，属于AI软件技术进展与编程工具分享，值得关注</small></p><p><strong>Heretic</strong> 是一款用于去除基于 Transformer 的语言模型审查机制（即"安全对齐"）的开源工具，无需昂贵的后训练。它将方向消融（directional ablation，又称 abliteration，见 <a href="https://arxiv.org/abs/2406.11717">Arditi et al. 2024</a>）的高级实现，与基于 <a href="https://optuna.org/">Optuna</a> 的 TPE 参数优化器相结合，实现了<b>完全自动化</b>的去审查流程：通过同时最小化拒绝次数和与原始模型的 KL 散度，自动寻找高质量的 abliteration 参数，在去除审查的同时尽可能保留原始模型的智能水平。用户无需理解 Transformer 内部原理，只需运行命令行即可。</p><p>Heretic 支持大多数密集模型，包括许多多模态模型、多种 MoE 架构，以及 Qwen3.5 等部分混合模型；纯状态空间模型等研究型架构暂不支持。</p><img src="https://github.com/user-attachments/assets/d71a5efa-d6be-4705-a817-63332afb2d15" alt="Screenshot" width="650" height="715" /><p>在默认配置下无监督运行，Heretic 生成的去审查模型质量可媲美人工专家手工制作的 abliteration。以 gemma-3-12b-it 为例：原模型对"有害"提示的拒绝率为 97/100，Heretic 版本与两个知名人工 abliteration 版本同为 3/100，但 Heretic 版本的 KL 散度仅为 0.16，远低于后两者的 0.45 和 1.04，表明对原始模型能力的损伤更小。</p><p>社区反响积极：有用户评价 Heretic 生成的 GPT-OSS 20B 模型是"目前尝试过最好的未审查模型"，"没有破坏模型的智能"；Qwen3-4B 的 Heretic 版本也被认为是可在 16GB 显存上运行的最佳未量化 abliteration 模型。这些模型还通过了 MMLU、GSM8K 等标准基准的独立评测，表现优于同类工具。社区已用 Heretic 在 <a href="https://huggingface.co/models?other=heretic">Hugging Face</a> 上发布了超过 5000 个模型。</p><p>除核心功能外，Heretic 还提供面向模型可解释性研究的特性：<code>--plot-residuals</code> 可对"有害"/"无害"提示的残差向量进行 <a href="https://github.com/YingfanWang/PaCMAP">PaCMAP</a> 投影并逐层生成散点图与动画 GIF；<code>--print-residual-geometry</code> 则输出残差几何的定量指标表（余弦相似度、L2 范数、轮廓系数等）。</p><p>工作原理上，Heretic 实现了参数化的方向消融变体：对每个 transformer 层的注意力输出投影与 MLP 下投影矩阵，相对于按层计算的"残差方向"（有害/无害提示首 token 残差的均值差）进行正交化，从而抑制该方向在矩阵乘法结果中的表达；消融权重核的形状与位置由多个可优化参数控制。</p><h3>你知道吗？</h3><p>"Abliteration"（消融消除）是"ablation"（消融）与"obliteration"（抹除）的合成词，由 Arditi 等人于 2024 年提出。其核心发现是：语言模型的拒绝行为往往由残差流中一个特定的"拒绝方向"主导，通过在推理时将该方向从权重矩阵中消去，即可在不重新训练的情况下大幅降低拒绝率。Heretic 的贡献在于引入灵活的消融权重核形状与自动参数优化，改善了"合规性与质量"之间的权衡。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/p-e-w/heretic</guid>
-      <pubDate>Sat, 29 Aug 2026 21:41:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ htmx：让 HTML 直接拥有 AJAX、WebSocket 等能力的轻量库</title>
-      <link>https://github.com/bigskysoftware/htmx</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 轻量级前端编程库，属于编程工具发布/分享这一高兴趣类别，用户会强烈感兴趣</small></p><p><img src="https://raw.githubusercontent.com/bigskysoftware/htmx/master/www/static/img/htmx_logo.1.png" alt="htmx logo" /></p>
-<p>htmx 是一个轻量级、零依赖的 JavaScript 库，它允许开发者直接在 HTML 中使用属性（attributes）调用 <a href="https://htmx.org/docs#ajax">AJAX</a>、<a href="https://htmx.org/docs#css_transitions">CSS 过渡</a>、<a href="https://htmx.org/extensions/ws/">WebSocket</a> 和 <a href="https://htmx.org/extensions/sse/">Server Sent Events</a>，从而以超文本（hypertext）的简洁与强大构建现代用户界面。该项目目前在 GitHub 上已获得约 4.9 万星标、1600 余次 fork，位列今日热门榜单。</p>
-<p>htmx 的核心动机是打破传统 Web 开发中的任意限制：为什么只有 <code>&lt;a&gt;</code> 和 <code>&lt;form&gt;</code> 能发起 HTTP 请求？为什么只有 click 和 submit 事件能触发请求？为什么只能使用 GET 和 POST？为什么只能替换整个屏幕？htmx 通过移除这些约束，将 HTML 补全为完整的超文本。</p>
-<p>使用方式非常简洁，例如下面的代码即可让按钮通过 AJAX 向 /clicked 发送 POST 请求，并用服务器响应替换整个按钮：</p>
-<pre><code>&lt;button hx-post="/clicked" hx-swap="outerHTML"&gt;Click Me&lt;/button&gt;</code></pre>
-<p>其中 <a href="https://htmx.org/attributes/hx-post">hx-post</a> 和 <a href="https://htmx.org/attributes/hx-swap">hx-swap</a> 属性分别指定请求方式与页面替换方式。htmx 压缩后仅约 14KB（min.gz'd），无依赖且可通过扩展机制增强，是 <a href="http://intercoolerjs.org">intercooler.js</a> 的继任者。官方文档、示例与扩展见 <a href="https://htmx.org">htmx.org</a>。</p>
-<h3>你知道吗？</h3>
-<p>htmx 背后的理念是「超媒体驱动应用」（Hypermedia-Driven Applications），它主张回归 REST 架构中 <a href="https://en.wikipedia.org/wiki/HATEOAS">HATEOAS</a>（超媒体作为应用状态引擎）的思想：服务器返回 HTML 片段而非 JSON 数据，客户端通过超媒体链接推进应用状态。这与当前主流的前后端分离 + 单页应用（SPA）方案形成鲜明对比，也是 htmx 社区讨论的焦点之一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/bigskysoftware/htmx</guid>
-      <pubDate>Sat, 29 Aug 2026 21:41:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Awesome Claude Skills：收录 1000+ 个生产级 Claude Skills 的精选清单</title>
-      <link>https://github.com/ComposioHQ/awesome-claude-skills</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 聚焦Claude Skills的AI资源精选清单，属于开源项目与AI软件技术进展，可推荐阅读</small></p><p>ComposioHQ 的 <a href="https://github.com/ComposioHQ/awesome-claude-skills">awesome-claude-skills</a> 是一个精选清单，收录了 1000+ 个可直接用于生产的 Claude Skills 与插件，覆盖文档处理、开发与代码工具、数据分析、商务营销、沟通写作、创意媒体、效率组织、协作项目管理、安全系统以及应用自动化等场景。这些技能不仅适用于 Claude.ai 和 Claude Code，也兼容 Codex、Cursor、Gemini CLI、Antigravity 等编码代理。目前该项目在 GitHub 上已获得约 7.4 万星标、8.4 千次 fork。</p><p><strong>什么是 Claude Skills？</strong>Claude Skills 是可复用的指令包，用于教会 AI 代理处理特定类型的任务。每个技能是一个文件夹，内含带 YAML 前置元数据（名称、描述）的 SKILL.md 文件及 Markdown 指令，可选配脚本、参考资料和资源。Anthropic 于 2025 年 10 月推出该格式，并于 2025 年 12 月将其发布为<a href="https://github.com/anthropics/skills">开放标准</a>，现已获得 Claude Code、Claude.ai、Claude API、OpenAI Codex、Cursor、Gemini CLI、Antigravity 和 Windsurf 等支持。</p><p>Skills 采用渐进式加载机制：会话开始时，代理仅看到每个技能的名称和描述（约 100 个 token）；只有当代理判断技能与当前任务相关时，才会加载完整的 SKILL.md 正文（通常低于 5000 token）；scripts/ 和 references/ 中的辅助文件按需加载。这使单个代理可以承载数百个技能而不会撑爆上下文窗口。</p><p>Skills 既不是 MCP 服务器也不是工具：MCP 定义代理如何连接外部系统（认证、传输、工具发现），工具是代理调用的具体函数，Skills 则定义工作流——在代理拥有连接和工具后，做什么、按什么顺序、遵循什么护栏。生产环境中三者协同运行：MCP 负责访问、工具负责行动、Skills 负责行为。</p><p><strong>精选技能示例</strong>：文档处理方面包括 docx、pdf、pptx、xlsx 等官方技能，以及 Markdown 转 EPUB、面向法律团队的技能包（NDA 分类、多方版本比对、引用验证等）；开发与代码工具方面包括 AWS 开发技能（CDK 最佳实践、成本优化）、Playwright 浏览器自动化、iOS 模拟器交互、D3.js 可视化、FFUF Web 模糊测试、MCP 服务器构建器、测试驱动开发与软件架构等技能；此外还有 LangSmith 执行追踪调试、Reddit 内容抓取、文档网站一键转技能（Skill Seekers）等实用工具。</p><p><strong>与 Composio 的集成</strong>：仓库还提供 connect-apps 插件，通过 Composio 的 <a href="https://composio.dev/mcp-gateway">MCP Gateway</a> 让 Claude 执行真实操作——发送邮件、创建 issue、发布到 Slack 等，内置认证、团队级访问控制、审计日志，可连接 1000+ 应用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/ComposioHQ/awesome-claude-skills</guid>
-      <pubDate>Sat, 29 Aug 2026 21:41:59 GMT</pubDate>
     </item>
   </channel>
 </rss>

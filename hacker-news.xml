@@ -3,7 +3,63 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 09 Sep 2026 09:40:02 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 14:33:57 GMT</lastBuildDate>
+    <item>
+      <title>GrapheneOS 发文主张废除版权引发热议：版权是弊大于利还是需要改革？</title>
+      <link>https://news.ycombinator.com/item?id=49622042</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讨论版权制度利弊与改革的政策/法律争议，不属于配置中的兴趣主题，也不属于明确避开类别，兴趣不明确</small></p><p>GrapheneOS 在 Mastodon 上发布观点称「版权弊大于利，应当被废除」，该帖在 Hacker News 上引发了 275 分、257 条评论的热烈讨论。</p><p>帖子核心观点包括：版权在实际中并不能保护个人和小企业的生计，反而成为大公司维护垄断的武器；版权被滥用来下架并未侵权的作品，并限制人们使用、维修、修改和备份属于自己的财产；大型企业从中获得特殊豁免并非始于大型语言模型（LLM）。</p><p>评论区观点分歧明显，主要围绕以下几点：</p><ul>
+<li><b>反对废除版权</b>：许多评论者认为正确的做法是「修复版权制度中的不对称」而非整体废除，反驳者常以言论自由作类比，指出富人和大公司也能更充分运用权利，但这不足以成为废除个人权利的理由。</li>
+<li><b>版权与专利之辨</b>：有评论指出该帖可能混淆了版权与专利，软件版权是 GPL 等自由软件许可证的根基，废除版权反而会伤害自由软件运动；专利才是真正有问题的制度。</li>
+<li><b>指向 DMCA 而非版权</b>：部分评论认为问题的根源是《数字千年版权法》（DMCA）允许单方面、无审核的即时下架机制，应对虚假索赔施以高额处罚而非废除版权本身。</li>
+<li><b>主张改革而非废除</b>：常见建议是缩短版权期限（如与专利一致的 20 年）、要求注册与续期、费用递增、使孤儿作品回归公有领域等。</li>
+<li><b>阴谋论解读</b>：部分评论者质疑这是大科技公司的「宣传」，意在无偿使用所有人的数据以规避版权诉讼；但亦有回应指出反对者同样可能来自利益相关方。</li>
+</ul><p>此外，有开发者现身说法，称自己的个人网站被冒充正规下架公司的骗子通过 DMCA 下架，且谷歌等平台无视反通知，凸显了现行机制被滥用的现实。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49622042</guid>
+      <pubDate>Wed, 09 Sep 2026 06:31:28 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Kimi K3（2.8T MoE）在 MacBook Pro 上从四块 SSD 流式运行，达到约 1 token/s</title>
+      <link>https://news.ycombinator.com/item?id=49616257</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新AI模型Kimi K3在本地SSD流式运行，既有新AI模型发布又涉及AI软件技术进展，与高兴趣主题高度契合</small></p><p>一项颇具实验性的工程成果：在一个配备 128GB 内存的 M5 Max MacBook Pro 上，通过从四块 SSD 流式读取专家权重，成功完整运行了 2.8 万亿参数（约 1.45 TB 专家权重）的 Kimi K3 混合专家模型（MoE），实现约 1 token/s 的稳定解码速度。该项目名为 ARGODRIVE Deltafin，是 <a href="https://github.com/gavamedia/deltafin">gavamedia/deltafin</a>（MIT 许可）的分支，并发布了 <a href="https://github.com/argonautlabsai/deltafin">公开基准与日志</a>。</p>
+<h4>核心数字</h4>
+<ul>
+<li>512 token 回答的稳定解码：1.00 token/s；128 token 为 1.13 token/s；17 token 提示的中位数为 0.96 token/s（对比上游报告的 0.684）。</li>
+<li>512 token 提示的首 token 延迟约 6.3 分钟——这是当前最大的瓶颈，因为 prefill 阶段每层专家被重复读取 8 次（读放大 6.2 倍），作者已找到原因并计划修复。</li>
+<li>驱动器数量阶梯：一块盘约达四盘速度的 52%，两块约 73%，三块约 90%。MoE 每层需要 16 次专家读取，层耗时由最慢的一次读取决定，而非总带宽，因此 RAID-0 条带化反而会拖慢速度。</li>
+</ul>
+<h4>方法与发现</h4>
+<p>模型专家权重保留 Moonshot 发布的原始 MXFP4 精度；驻留的注意力主干使用 int8。作者坦诚并不声称与 BF16 位级完全一致，但保证在基准提示上输出 token 与自身参照一致。作者强调，最有价值的是通过仪器（10ms 级读取监视器、逐读屏障追踪等）发现了一批读取路径缺陷并加以修复，总计带来约 14%、10%、11% 和 8% 的性能提升。仓库中还收录了约一千次未成功的计时实验（包括 RAM 专家缓存、条带化、从 SSD 流式注意力主干等），作者认为这份"失败目录"对他人最有参考价值。</p>
+<h4>社区反馈</h4>
+<p>作者在评论中说明，该方案不适合交互式聊天（首 token 慢），但对无人值守的批量任务有用——例如他每天花费 30–40 分钟自动生成报告，且数据始终不离开本机。社区讨论涉及速度实用性、Thunderbolt 5 外接盘配置、Optane 等更快 SSD 的作用（作者认为收益有限，因为瓶颈是吞吐而非延迟），以及 RAID-0 无效的原因。作者也公开征求两方面帮助：MoE 专家的 prefill 调度（将读放大降至约 1 倍）以及在其他硬件上复现驱动器阶梯结果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49616257</guid>
+      <pubDate>Tue, 08 Sep 2026 20:07:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 基准测试 Qwen3.8 27B 量化：4-bit 保持性能，1-bit 崩溃</title>
+      <link>https://news.ycombinator.com/item?id=49611128</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 对Qwen3模型进行量化与基准测试，属于AI软件技术进展与模型应用实践，用户会感兴趣</small></p><p>一名开发者使用 llama.cpp 对 Unsloth 提供的 Qwen3.8 27B 各档 GGUF 量化版本（Q8_0、Q4_K_M、UD-Q2_K_XL、UD-IQ1_S）在 GPQA Diamond（研究生级科学）、IFBench（指令遵循）和 Terminal-Bench 2.1（智能体编程）三个基准上进行了实测，重点回答"在本地运行 Qwen3.8 27B 究竟需要多少显存，而又不牺牲多少质量"。</p>
+
+<img src="/_astro/hf_unsloth_qwen38_27b_choices.OSlYkgGR_2lHFg.webp" alt="Qwen3.8 27B GGUF quantizations available from Unsloth on Hugging Face" width="1170" height="776" />
+
+<h4>核心结论</h4>
+<p>完整的 BF16 模型约 55 GB，超出多数消费级硬件的承载能力。但关键发现是：仅 17 GB 的 <strong>Q4_K_M</strong> 在 Terminal-Bench 2.1 上与完整模型表现持平，且能装进 24 GB 显存的显卡（如 RTX 4090），还能留出约 64k token 的上下文空间。作者在多个基准上都成功复现了 Qwen 官方公布的结果。</p>
+<p>量化造成的性能损失是非线性的：在 4-bit 之前几乎没有可测差异，2-bit 略有下降但仍可用，而在 <strong>1-bit（UD-IQ1_S）时性能断崖式崩溃</strong>——在 GPQA Diamond 上跌至随机猜测水平，且推理越久（xhigh 努力度）反而更差，因为模型更容易耗尽 token 预算后返回空答案。作者指出，尽管 Unsloth 宣称 1-bit 模型仍保有约 72% 的 top-1 准确率，但剩下的这 28% 在实际任务中影响很大。</p>
+<p>在 Terminal-Bench 2.1 上，2-bit 的 UD-Q2_K_XL 相比 BF16 需要约多写四分之一的 token，但回合数基本相当。作者的建议是：本地运行时优先选择能连同所需上下文一起装进显存的最高质量模型——多数任务 Q4_K_M 已足够，一些更简单的任务 UD-Q2_K_XL 也完全够用。</p>
+
+<h4>成本与细节</h4>
+<p>作者在 Modal 上租用 GPU（L40S、H100、H200）运行基准，总计花费约 3,000 美元。其中 Terminal-Bench 2.1 一项约 2,308 美元。文中还比较了各量化档位在租用 GPU 上的推理速度与每百万输出 token 的成本。</p>
+
+<h4>社区讨论</h4>
+<p>HN 评论区的关注点集中在几个方面：多位用户在 16 GB 以下显卡（如 RTX 5060 Ti）上运行 Q3 量化版本并获得良好体验；一些评论指出文章存在统计表述问题（将置信区间与运行间波动混为一谈）；还有用户就 Qwen3.8 27B 在本地的实用性展开辩论——支持者认为其能在约 40 token/s 的速度下胜任外科手术式的代码修改和缺陷排查，反对者则认为在复杂的任务上仍不及前沿云端模型。另有评论提示，这些量化并非均匀量化，4-bit 结论未必适用于其他公司以不同方式实现的量化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49611128</guid>
+      <pubDate>Tue, 08 Sep 2026 14:49:19 GMT</pubDate>
+    </item>
     <item>
       <title>把电子墨水阅读器改造成打印机：为 Xteink X3 实现 IPP 协议</title>
       <link>https://news.ycombinator.com/item?id=49617255</link>
@@ -761,72 +817,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49551096</guid>
       <pubDate>Thu, 03 Sep 2026 15:07:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>Google Antigravity 服务条款：第三方使用（如 OpenClaw）可能导致整个 Google 账号被封禁</title>
-      <link>https://news.ycombinator.com/item?id=49548452</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Google Antigravity服务条款的警告说明，涉及AI服务使用政策，兴趣模糊</small></p><p>工程师 Gergely Orosz 在 X（Twitter）上发文指出，Google 的 Antigravity 服务条款明确表明：如果 Google 认定用户以「疑似第三方使用」的方式（例如通过 OpenClaw 等第三方工具）使用 Antigravity，那么 Google 可以据此封禁用户的<b>整个 Google 账号</b>。他因此明确表示「不冒这个风险」，不建议使用 Antigravity。<a href="https://twitter.com/GergelyOrosz/status/2095453567955968398">原帖链接</a></p>
-
-<p>Theo（t3.gg）进一步补充道：人们可能没有意识到，在 Google 官方界面之外使用其 Gemini 订阅有多么冒险——一旦被认为违规，可能招致<b>整个 Google 账号被永久封禁</b>。相比 OpenAI 或 Anthropic 封号只是「烦人」，Google 账号封禁则「真正毁掉生活」，因为 Gmail 等与大量关键服务深度绑定。</p>
-
-<h4>社区讨论要点</h4>
-<ul>
-<li>多位用户表示，因担心「AI 分类器误判」导致账号被锁且申诉无门，宁愿不使用 Google 的模型/AI 产品，甚至因此减少对 Gmail 的依赖。</li>
-<li>关于「什么算第三方使用」存在大量争议：有人指出，只要 OAuth 令牌仅在 Google 官方客户端内使用即合规；若自行注册新的 OAuth 客户端调用 API 则合规，但通过第三方 harness（如 OpenClaw、自建 harness）调用则可能违规。</li>
-<li>有用户批评该政策「自相矛盾」：既然提供 CLI 和 OAuth 接口，却又在服务条款中惩罚非官方使用。</li>
-<li>有批评者直指 Google 员工在社交媒体上用「DARVO」式攻击为产品辩护、指责用户传播「不实信息」，尽管用户只是直接引用服务条款原文；并提到 Google 风控部门执行政策如同「秘密警察」，规则故意模糊化以抑制用户「触碰边缘」行为。</li>
-<li>也有声音认为，问题的根源在于「账号即人质」：邮箱等关键身份与单一平台深度耦合，呼吁政府层面介入，将电子邮件视为类似邮政的公共服务/公用事业来监管与保护。</li>
-</ul>
-
-<p>该讨论在 Hacker News 上引发 180 条评论，观点大致分为「避坑派」（坚决不用、降低对 Google 依赖）与「技术合规派」（厘清 OAuth/API 使用边界）两类。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49548452</guid>
-      <pubDate>Thu, 03 Sep 2026 11:01:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Audacity 4.0 发布：基于 Qt 重构界面，引入全新剪辑编辑模型</title>
-      <link>https://news.ycombinator.com/item?id=49548395</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源音频编辑器 Audacity 的大版本发布，涉及开源项目与软件新功能（Qt 重构、新剪辑模型），属感兴趣范畴，推荐阅读</small></p><p>开源音频编辑器 Audacity 于 9 月 3 日发布 4.0 正式版（Audacity-4.0.0）。这一版本将应用界面全面重建于 Qt 之上，并引入多项易用性改进，其中最重要的是全新的剪辑编辑模型。大多数 Audacity 3 的工作流程仍然可用，但部分控件的位置和操作方式有所变化。</p>
-
-<p><img src="https://camo.githubusercontent.com/c2404d7ca0207c847dfbe52e2c7a71951a053f695c5fc55713138740c919d503/68747470733a2f2f696d672e796f75747562652e636f6d2f76692f425451796d69644c59494d2f6d617872657364656661756c742e6a7067" alt="Audacity 4.0 发布视频" width="600" /></p>
-
-<h3>剪辑编辑</h3>
-<p>剪辑现在可以直接选中：点击剪辑头部即可选中，Shift 点击可多选，移动、修剪和时间伸缩可同时作用于多个剪辑。剪辑支持分组，分组后移动、复制、粘贴或复制时保持在一起。剪辑的放置更加自由，可在单声道与立体声轨道之间移动，移动时重叠部分会替换原内容而非阻止移动。拆分有了专用工具（按住 S 再点击波形或剪辑头部），并提供拆分、拆分剪切、拆分删除、静音处拆分及拆分到新轨道等命令。粘贴能自动处理更多情况，包括按需创建轨道、适配兼容的声道布局以及从系统剪贴板粘贴音频文件。对齐参考线、采样边界吸附和按项目设置的吸附选项也已新增或扩展。</p>
-
-<h3>界面与工具</h3>
-<p>界面基于 Qt 重建，支持原生高 DPI 渲染。工具栏和面板可移动、停靠、浮动、显示或隐藏，UI 布局可保存为工作区（Workspace），内置 Modern、Classic 和 Music 三种工作区。提供浅色、深色和高对比度主题，以及强调色、轨道颜色和多种剪辑样式。新的主屏幕显示最近项目及预览缩略图。原先独立的 Select、Envelope、Draw 和 Multi-tool 模式已被移除，其功能改为上下文相关：音量包络在 Clip gain 模式下显示，波形放大到单个采样级别时可用采样绘制，按住 S 即可拆分。轨道和效果参数使用一致的旋钮控件，支持微调与双击重置。Sync-Lock 已被移除，删除、剪切和粘贴现在有明确的变体，可选择留出空隙或移动后续素材以保持时间对齐。</p>
-
-<h3>播放与录音</h3>
-<p>播放头在导航时保持可见且可拖拽到新位置，播放中可跳转到其他位置而无需停止。录音可从时间线任意位置开始并在该处创建剪辑。循环边界以及播放、选区与循环之间的交互已重新设计。Punch and Roll、前导录音、延迟补偿、软件监听和逐轨输入监听均针对新界面重建。Audio Setup 现在包含系统默认设备、可刷新的设备列表和自定义声道映射，并能自动跟随操作系统设备变化。官方 Windows 版本支持 ASIO 播放与录音。</p>
-
-<h3>轨道、仪表与效果</h3>
-<p>轨道头部现在包含实时播放和录音电平表。内置、破坏性与实时效果之间的预设处理保持一致，内置效果、生成器和分析器已针对 Qt 界面重建。支持的插件格式包括 VST3、Nyquist、Linux 上的 LV2 和 macOS 上的 Audio Units；当插件自身界面不可用时，Audacity 可显示生成的控件。频谱图经过重新设计，标尺和参考线更清晰，渲染更快。</p>
-
-<h3>项目、导入与导出</h3>
-<p>Audacity 4 使用新的 .aup4 项目格式。.aup3 项目可打开并转换为 .aup4，且不修改原文件，但转换后的项目无法保存回 .aup3；更早的 .aup 项目也可导入。项目文件会存储预览缩略图以及 Audacity 4 新增的剪辑和外观数据。此外，官方还更换了 Audacity 的 Logo。</p>
-
-<h3>兼容性说明</h3>
-<p>以下 Audacity 3 功能在 4.0 中暂不可用，官方表示将在后续版本中补回：Time Tracks、Note/MIDI 轨道、Mixer、Macro Manager 与脚本管道、VAMP 和 LADSPA 插件托管、Play-at-speed。此外，4.0 还缺少部分导出/渲染功能、分析器和效果。</p>
-
-<h3>社区反馈</h3>
-<p>该发布在 Hacker News 上获得 342 分和 79 条评论，讨论热烈。多数评论对发布视频和全新界面表示赞赏，认为视频简洁精炼、新 UI「看起来很棒」，且不只是换皮，而是有实质性的可用性改进。也有用户称赞其安装包体积（低于 50MB）在 Electron 应用泛滥的时代显得清爽。部分用户对改用 Qt 表示疑虑，认为 wxWidgets 更贴近原生体验；还有人担心母公司 Muse Group 的商业化倾向（如 audio.com 相关功能），并提及唯一仍在活跃维护的分支 <a href="https://tenacityaudio.org/">Tenacity</a>。另有评论推荐了 Muse 软件部门负责人关于 Audacity 4.0 开发历程的<a href="https://www.youtube.com/watch?v=QYM3TWf_G38">访谈视频</a>。</p>
-
-<h3>你知道吗？</h3>
-<p>Audacity 于 2021 年被 MuseScore 的母公司 Muse Group 收购。收购后曾因加入遥测功能引发用户强烈反弹，一夜之间催生了多个分支项目，其中 Tenacity 是至今仍在活跃维护的一个。Muse Group 的商业化策略与 MuseScore 类似，主要通过插件、音频素材和可选的云服务变现，而非直接向核心编辑器收费。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49548395</guid>
-      <pubDate>Thu, 03 Sep 2026 10:53:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Polars 2.0 预发布：流式引擎成为默认，全面强化严格性与错误提示</title>
-      <link>https://news.ycombinator.com/item?id=49546753</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Polars 2.0 预发布属于编程工具发布/分享，且流式引擎成为默认、强化错误提示属于编程效率改进经验，符合高兴趣，必看</small></p><p>Polars 官方发布了 2.0 的首个候选版本（RC1），正式版将在数周内落地。作者 Ritchie Vink 明确表示，这次主版本升级并非为了推出大量新功能，而是为了移除过去阻碍发展的历史设计决策，并将默认行为调整为更合理的设置——他们希望这次升级对用户来说「平淡无奇」。</p><h3>流式引擎成为默认</h3><p>2.0 最大的变化是：所有 LazyFrame 查询在调用 <code>collect()</code> 时默认使用流式引擎，预计在多数查询上带来约 5 倍的性能提升和大幅的内存占用下降。之所以需要主版本号升级，是因为流式引擎在 join、group_by、unpivot 等操作上默认不再保证行序。需要可观察行序的用户可设置 <code>maintain_order=True</code>，或通过 <code>pl.Config.set_engine_affinity("in-memory")</code> 全局、<code>collect(engine="in-memory")</code> 按查询恢复旧的内存引擎。</p><h3>更严格的 Polars</h3><p>Polars 坚持「快速失败」理念，错误应尽早暴露而非在管道运行 20 分钟后才出现。作者指出，在 AI 驱动的开发兴起后，这种严格性更有价值——智能体可通过 <code>collect_schema()</code> 在不物化数据的情况下提前校验查询结构。本次升级的严格化示例包括：</p><ul><li><strong>is_in 无损类型转换</strong>：对不同数据类型的 <code>is_in</code> 检查不再静默强制转换。例如用户 ID 9007199254740993 超过 float64 可精确表示的 2^53 上限，旧版本会静默舍入导致误报，2.0 直接抛出 <code>InvalidOperationError</code>，要求用户显式处理有损转换。</li><li><strong>严格拼接</strong>：水平拼接（horizontal concat）现在检查长度一致性，不再用 null 静默填充，需要填充时须显式使用 <code>how="horizontal_extend"</code>。</li><li><strong>移除模糊 cast</strong>：整数与 Enum/Categorical 之间的转换、字符串到日期类型的转换不再通过 <code>cast()</code> 完成，改用 <code>.cat.to()</code>、<code>.cat.physical()</code>、<code>.str.to_date()</code> 等专用方法，使解析方式唯一且可控。</li></ul><h3>更友好的错误提示</h3><p>新增两个类型化异常 <code>AttributeRemovedError</code> 和 <code>ArgumentRemovedError</code>，用于处理被移除的属性/方法和参数，错误信息会直接指向新 API（如 <code>melt</code> 改为 <code>unpivot</code>、<code>join_nulls</code> 改名为 <code>nulls_equal</code>）。</p><h3>未来规划</h3><p>作者透露了 2.x 系列在途的工作：流式引擎真正的 out-of-core 支持、新的 IO 插件设计、号称最快的 S3 读取器、大幅提升的 SQL 覆盖、基于成本的规划器、join 重排，以及移除 mmap 使管道端到端完全异步。</p><h3>社区反馈</h3><p>Hacker News 讨论中，不少用户赞赏 Polars 认真对待语义化版本（semver）的态度，认为版本升级应聚焦于清理废弃功能而非堆砌新特性。但也有用户指出 Polars 几乎每个小版本都会弃用、移除或更改功能，需要频繁阅读更新日志。关于 <code>maintain_order=False</code> 的默认值，有科学计算背景的用户担忧非确定性行为可能静默引入 bug；另有评论者认为这与 SQL 语义一致，排序应由查询显式指定。Polars 核心开发者 orlp 在评论中澄清：所谓「流式引擎」并非在线流处理，而是节点间以内存缓存批次（morsel）通信的图执行模型，命名源于早期原型并沿用至今。</p><p>用户可通过 <code>pip install polars==2.0rc1</code> 试用候选版本，完整迁移指南见官方博客。</p><h3>你知道吗？</h3><p>「流式引擎」的命名容易让人联想到逐行在线处理，实际上 Polars 的流式执行模型是 morsel-driven 的：查询计划被构建为计算图，节点之间以固定大小的数据批次（morsel）流水线式传递，从而避免将整个数据集驻留内存。这与数据库领域经典的 morsel-driven parallelism 思想一脉相承，也是其能兼顾并行性与内存效率的原因。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49546753</guid>
-      <pubDate>Thu, 03 Sep 2026 06:59:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
