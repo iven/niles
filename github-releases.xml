@@ -3,7 +3,74 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 10 Sep 2026 18:23:21 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2026 21:35:30 GMT</lastBuildDate>
+    <item>
+      <title>Python SDK 0.154.0 发布：新增 max/ultra 推理等级、ExternalMessage 外部内容支持</title>
+      <link>https://github.com/openai/codex/releases/tag/python-v0.154.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex Python SDK 发布 0.154.0 版本，可通过 <code>pip install --upgrade openai-codex==0.154.0</code> 安装（要求 Python 3.10 或更高），并配套 openai-codex-cli-bin==0.154.0 运行时。本次更新带来以下主要改动：</p>
+<ul>
+<li><strong>新增 max 与 ultra 推理等级</strong>（reasoning-effort 取值），提供更强的推理能力。<a href="https://github.com/openai/codex/pull/39662">#39662</a></li>
+<li><strong>支持 ExternalMessage</strong>：同步和异步的 <code>run()</code> 与 <code>turn()</code> 调用均可接受外部内容，外部内容可开启一轮对话或加入当前常规轮次，并具备工具级权限（不授予用户授权），消费方收到独立的事件流。<a href="https://github.com/openai/codex/pull/44086">#44086</a></li>
+<li><strong>历史与轮次选项增强</strong>：resume/fork 时新增 <code>include_turns</code>，新增 <code>turn_service_tier</code>（用于一个新开启的轮次）及 <code>source</code> 元数据。历史选择改变返回值而非模型上下文，选项省略时保留原有默认值。<a href="https://github.com/openai/codex/pull/44084">#44084</a></li>
+<li><strong>协议与通知刷新</strong>：重新生成协议模型和通知，并保留在轮次开始响应之前到达的完成事件。<a href="https://github.com/openai/codex/pull/44032">#44032</a>、<a href="https://github.com/openai/codex/pull/44400">#44400</a></li>
+</ul>
+<h3>升级迁移注意事项</h3>
+<ul>
+<li><code>HookMetadata</code> 的 handler 被包裹在 <code>.root</code> 中，需将 <code>hook.command</code> 改为 <code>hook.root.command</code>，并在读取 handler 专属字段前先检查 <code>hook.root.handler_type</code>。</li>
+<li>部分此前未知的通知现在拥有类型化载荷（typed payload），应读取命名字段而非 <code>.params</code>；未知或无效载荷仍会使用 <code>UnknownNotification</code>。</li>
+<li>手动构造或延迟加入的 turn 句柄会从附加点接收事件，较早的输出不会重放，因此收集结果可能不完整；完成后再附加可能抛出 <code>TransportClosedError</code>。保存历史请使用 <code>thread.read(include_turns=True)</code>，由 <code>thread.turn(...)</code> 直接返回的句柄则会保留从请求发出起的完整事件。</li>
+<li>自定义 <code>codex_bin</code> 覆盖需要 CLI 0.151.0 或更高版本，才能支持 ExternalMessage 及新的历史/每轮选项。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/python-v0.154.0</guid>
+      <pubDate>Thu, 10 Sep 2026 19:51:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.268：新增网关功能、插件与 WebFetch 改进，修复大量问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.268</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.268 版本，带来多项新功能并修复了自 2.1.265 以来的大批问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>Claude apps 网关功能</strong>：在 <code>gateway.yaml</code> 中设置 <code>pricing:</code> 后，登录的 Claude Code 客户端可通过托管设置获得相同费率，使 <code>/cost</code> 与遥测数据与计价表匹配；新增 <code>gatewayInternalNetworks</code> 托管设置，允许管理员在组织自有公网 IPv4 段上开放 <code>/login</code>。</li>
+<li><strong>新增命令与 JSON 输出</strong>：<code>claude self-hosted-runner --remove-session-state</code>（默认关闭）可在会话结束时删除各会话目录；<code>configDirectory</code> 加入 <code>claude auth status --json</code>；<code>claude plugin install/uninstall/update/enable/disable</code> 支持 <code>--json</code>。</li>
+<li><strong>第三方端点兼容修复</strong>：修复了 2.1.265 以来在第三方 Anthropic 兼容端点（<code>ANTHROPIC_BASE_URL</code>）上每轮都报 HTTP 400 的问题（Artifact 工具输入模式中的正则被这些端点拒绝）。</li>
+<li><strong>WebFetch 超时</strong>：服务器持续打开响应而不结束时，抓取将在 300 秒后失败（可用 <code>CLAUDE_CODE_WEBFETCH_DEADLINE_MS</code> 覆盖，0 为关闭）。</li>
+<li><strong>性能改进</strong>：修复空闲长会话中忙循环占用 CPU 核心、会话 recap 期间持续高 CPU 的问题；工具密集型轮次中不再为重绘隐藏提示而重绘整个记录；启动时列出 <code>.claude/workflows/</code> 脚本不再逐个解析，加快启动。</li>
+<li><strong>任务追踪工具限制</strong>：TaskCreate/Get/Update/List 与 TodoWrite 仅在 Claude 3.x、Opus 4.0–4.7、Sonnet 4.0–4.6、Haiku 4.5 上提供，其他环境需设置 <code>CLAUDE_CODE_ENABLE_TODO_TOOLS=1</code>。</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li>全屏模式提升绘制速度；<code>--continue</code>/<code>--resume</code> 会话即时出现，首条消息不再整篇重读；<code>/plugin</code> 的安装/启用/禁用关闭菜单后即生效，无需再 <code>/reload-plugins</code>。</li>
+<li>WebFetch 的 deny/ask 规则不再作用于 Artifact 工具的读取和更新（改用 Artifact 规则）；本地 Cowork 会话跳过所有审批时，Artifact 工具将拒绝会话文件夹外或符号链接背后的本地文件。</li>
+<li>修复了提示缓存与扩展思考在 SDK 会话（<code>excludeDynamicSections</code>）中途失效、<code>/compact</code> 总结破坏含 <code>$</code> 序列的文本、恢复 <code>/compact</code> 结束的会话时恢复文件顺序不一致等问题。</li>
+<li>修复了权限检查相关问题：符号链接目录（macOS 的 <code>/etc</code>/<code>/tmp</code>/<code>/var</code>、Linux 的 <code>/bin</code>）上的 deny/ask 规则未生效、<code>env -C</code>/<code>eval</code> 同行的 Read/Edit deny 规则失效等。</li>
+<li>修复了插件与市场错误信息泄露 git 源 URL 的令牌或密码、MCP 错误显示从 <code>${VAR}</code> 占位符解析的密钥等问题。</li>
+<li>修复了有权用户重启后或在 Desktop Code 标签被误报模型受限、会话中途被静默切换为组织默认模型、Fable 模型长上下文 429 显示错误提示等问题。</li>
+<li>修复 MCP 服务器 OAuth 登录“无可绑定端口”失败、Slack 会话在 MCP 白名单设置下丢失工具、Chrome 中导航 URL 主机无法解析时报“host https”请求、<code>/resume</code> 列出 <code>/fork</code> 后台会话名称错误、<code>/bug</code>/<code>/feedback</code> 描述框无光标等。</li>
+<li>修复 PermissionRequest 钩子在 <code>--print</code> 模式不触发、headless 运行不打印 policy-helper 警告、<code>CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS</code> 对无 per-hook timeout 的 SessionEnd 钩子不生效等问题。</li>
+</ul>
+
+<h3>VSCode 扩展</h3>
+<ul>
+<li>修复 <code>CLAUDE_CONFIG_DIR</code> 设置时会话列表、设置开关、聊天标签失效；模型选择器空白；模型名被项目/本地设置覆盖时 Auto 从模式选择消失；会话名恢复错误等。</li>
+<li>新增左右方向键调整 always-allow 权限规则保存位置、以及“Claude Code: Focus last message”命令（聚焦最新消息），方便键盘与屏幕阅读器用户。</li>
+<li>Manage plugins 对话框对打开的会话即时应用安装/启停/卸载，无需重启。</li>
+</ul>
+
+<h3>其他平台</h3>
+<ul>
+<li><strong>Claude Code on the web</strong>：修复运行超过六小时的云会话丢失持久化会话文件夹文件的问题（现在保存可持续近一天）；改进从对话创建 routine 时的提示。</li>
+<li><strong>Claude Tag（Slack）</strong>：修复管理员设置页加载挂起；Slack Enterprise Grid 频道移动后丢失设置；改进被阻止动作的解释与回复速度；公共频道现在各自保留自己的记忆笔记，不再跨频道调用。</li>
+<li><strong>Code Review</strong>：修复验证 agent 中途失败导致评审不完整、push 触发评审在 PR 转草稿后仍发布、忽略目录 CLAUDE.md 约定等问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.268</guid>
+      <pubDate>Thu, 10 Sep 2026 20:30:54 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.154.0 发布：新增 GPT-6-Astra 与实验性 worktree 支持</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.154.0</link>
@@ -1416,42 +1483,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.3</guid>
       <pubDate>Mon, 17 Aug 2026 03:10:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.28.0 发布：新增 AI 会话标题建议与 Composer 快捷按钮，优化搜索与代理配置</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.28.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi v0.28.0 版本已发布，本次更新重点增强了会话管理、搜索功能以及 Composer 交互体验，同时优化了底层代理配置与连接稳定性。</p>
-
-<h3>主要功能更新</h3>
-<ul>
-  <li><strong>会话与搜索增强</strong>：新增按需 AI 会话标题建议功能，提升会话管理效率；会话搜索支持跨字段的通配符模式，并优化了搜索 UI 与清空操作体验。</li>
-  <li><strong>Composer 交互优化</strong>：在 Composer 中新增模型选择与努力值（effort）快捷按钮，并提供专属权限控制。</li>
-  <li><strong>代理配置统一</strong>：引入统一的代理配置描述符，整合了分散的会话配置，简化了代理管理流程。</li>
-  <li><strong>Web 端 Pi 命令支持</strong>：支持在 HAPI Web 端直接使用 Pi 斜杠命令（如 compact、session、model、help 等）。</li>
-</ul>
-
-<h3>修复与优化</h3>
-<ul>
-  <li><strong>Cursor 集成改进</strong>：修复了 Cursor 独占代理租约问题，并增加了 ACP 连接瞬态错误的重试机制。</li>
-  <li><strong>连接与状态管理</strong>：优化了 SSE 连接静默断开后的快速恢复机制，防止生成过程中的 Banner 噪音；修复了重放历史助手输出的问题。</li>
-  <li><strong>UI 细节调整</strong>：调整了上下文使用警告阈值，优化了 Codex 同步标签显示；恢复并修复了 Ctrl+A 全选功能及会话侧边栏滚动稳定性。</li>
-  <li><strong>其他改进</strong>：新增 ServerChan 后台通知回退机制；CLI 状态摘要现在支持跟随对话语言；替换 Agy 代理的 PTY/TUI 包装器为更稳定的无头 print-mode 传输。</li>
-</ul>
-
-<p>完整更新日志：<a href="https://github.com/tiann/hapi/compare/v0.27.3...v0.28.0">Full Changelog</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.28.0</guid>
-      <pubDate>Mon, 17 Aug 2026 02:04:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>Devbox 0.18.0 发布：移除 Jetify Cloud 功能并修复构建问题</title>
-      <link>https://github.com/jetify-com/devbox/releases/tag/0.18.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 0.18.0 版本正式发布，主要变动是移除了 Jetify Cloud 相关功能。由于该服务即将下线，此次更新带来了多项破坏性变更（Breaking Changes）：</p><ul><li>移除了 <code>devbox cache</code> 命令树及相关 Nix 缓存功能，包查找现在仅查询公共 Nix 缓存。</li><li>移除了 <code>devbox secrets</code> 和 <code>devbox auth</code> 相关命令及 OAuth 流程，项目若仍配置了相关环境变量，Devbox 将发出警告并跳过。</li><li><code>devbox global push</code> 和 <code>pull</code> 命令现在必须提供参数，不再支持无参同步到 Jetify 托管存储。</li><li>遥测（Telemetry）数据不再读取磁盘上的令牌，<code>user_id</code> 仅基于 <code>GITHUB_USER_NAME</code> 哈希生成。</li></ul><p>此外，该版本还包含以下改进：</p><ul><li><strong>Bug 修复</strong>：修复了 macOS 上 zig 示例的构建失败问题，将 zig 版本锁定在 0.16.0 并迁移了 API。</li><li><strong>维护更新</strong>：清理了不再使用的依赖项（如 AWS SDK v2、oauth2 等），并优化了发布流程脚本，修复了之前的发布笔记生成和 Docker 构建问题。</li></ul><p>完整更新日志：<a href="https://github.com/jetify-com/devbox/compare/0.17.5...0.18.0">查看完整变更</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.0</guid>
-      <pubDate>Sun, 16 Aug 2026 19:43:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
