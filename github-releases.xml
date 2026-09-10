@@ -3,7 +3,38 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 09 Sep 2026 21:40:02 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2026 00:09:54 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.154.0 发布：新增 GPT-6-Astra 与实验性 worktree 支持</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.154.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI 发布了 Codex 0.154.0（rust-v0.154.0），主要带来新模型支持、实验性工作树（worktree）功能、内联问答等多项改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增 GPT-6-Astra 模型</strong>：现已加入模型选择器和 Amazon Bedrock 目录，并同步更新了 OpenAI Docs 技能中的迁移、兼容性及提示词指南。</li>
+<li><strong>实验性 worktree 支持</strong>：可通过 <code>--worktree</code> 或 <code>/worktree</code> 为新建或 fork 的会话创建隔离的 git 检出分支，并在 TUI 中浏览、恢复这些会话。</li>
+<li><strong>内联回答问题</strong>：在 Codex 继续工作的同时，可使用推荐选项或自定义文字回答提问，不影响主草稿。</li>
+<li><strong>Windows 会话共享后台服务器</strong>：支持守护进程生命周期命令与管理化更新（managed updates）。</li>
+<li><strong>Vim 编辑增强</strong>：新增 <code>R</code> 替换模式，支持撤销与点重复，并在传统终端中改进了 Escape 键处理。</li>
+<li><strong>复制功能改进</strong>：复制响应在富文本应用中保留格式，<code>/copy</code> 可复制状态输出或单个会话字段。</li>
+</ul>
+
+<h3>Bug 修复与细节</h3>
+<ul>
+<li>外部插件升级或回滚后，既有会话可立即加载新安装的插件工具并刷新技能与钩子。</li>
+<li>MCP 连接协调 OAuth 令牌刷新，刷新失败时会提示登录挑战，而不会自动重放被拒绝的工具调用。</li>
+<li>启动时在建立信任前避免运行工作区控制的辅助程序；macOS 沙箱阻止终端输入注入。</li>
+<li>恢复或 fork 远程任务时保留已保存的权限；全新会话与 fork 默认遵循服务器模型设置。</li>
+<li>在其他应用中打开、正在编写的会话被恢复时，以只读方式显示对话记录并提供重试选项，同时保留草稿。</li>
+<li>自动批准审查在上下文压缩后更好地保留授权上下文，并拒绝被新用户指令或回答失效的批准。</li>
+<li>弃用的 <code>codex mcp-server</code> 入口点已移除。</li>
+<li>大量守护进程、沙箱（Windows/macOS）与语音运行时的后端基础设施改动。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.154.0</guid>
+      <pubDate>Wed, 09 Sep 2026 22:35:38 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.267 发布：新增 maxEffortLevel 设置、系统提示快照开关及多项修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.267</link>
@@ -1421,30 +1452,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.0</guid>
       <pubDate>Sun, 16 Aug 2026 19:43:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.233 发布说明：支持 GitLab MR、内存限制与安全修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.233</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Claude Code v2.1.233 发布说明：支持 GitLab MR、内存限制与安全修复</h3>
-<p>Claude Code v2.1.233 版本发布，带来了一系列新功能、改进和安全修复。</p>
-<h4>主要更新</h4>
-<ul>
-  <li><strong>GitLab 支持增强</strong>：<code>--worktree</code> 标志和 <code>claude agents</code> 视图现在支持 GitLab merge request URL，MR 在视图中显示为 <code>!N</code> 格式。</li>
-  <li><strong>内存限制（Linux）</strong>：新增 <code>CLAUDE_CODE_TOOL_MEMORY_LIMIT</code> 环境变量，支持 Bash 工具的内存 cgroup 限制，防止失控的构建进程卡住会话。</li>
-  <li><strong>用户身份转发</strong>：Anthropic upstreams 新增 <code>forward_user_identity</code> 设置，可将已登录用户的身份信息作为 headers 发送，便于代理统计用户支出。</li>
-  <li><strong>WebFetch 缓存配置</strong>：新增 <code>CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS</code> 环境变量，允许配置 WebFetch 会话 URL 缓存的 TTL（默认保持 15 分钟）。</li>
-  <li><strong>新模型工具限制</strong>：在 Opus 4.8、Sonnet 5、Fable 5、Mythos 5 及更新模型上，Todo/task-tracking 工具（如 <code>TaskCreate</code>、<code>TodoWrite</code>）默认不再可用，可通过设置 <code>CLAUDE_CODE_ENABLE_TODO_TOOLS=1</code> 重新启用。</li>
-</ul>
-<h4>安全与修复</h4>
-<ul>
-  <li><strong>安全修复</strong>：修复了 Windows 路径中 NT <code>\??\</code> 设备前缀绕过 UNC 路径验证的问题，消除了潜在的 NTLM 凭证泄露风险。</li>
-  <li><strong>性能与稳定性</strong>：改进了 <code>claude self-hosted-runner</code> 的会话启动时间，无需重写工作树即可创建会话分支；修复了 MCP v2 连接在特定服务器（如 Serverless 主机）上无限重连订阅流的问题；修复了沙箱模式下 Linux 空闲会话偶尔占用 100% CPU 的问题；修复了 Windows Bash 命令自动模式下反复请求手动批准的回归问题。</li>
-  <li><strong>其他修复</strong>：修复了通知钩子在 Claude Desktop 或 VS Code 下运行权限提示时未触发的问题；修复了 bundled skill 别名在 <code>-p</code> 模式下报错的问题；改进了屏幕阅读器模式的 <code>/effort</code> 选择器渲染。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.233</guid>
-      <pubDate>Fri, 14 Aug 2026 22:20:57 GMT</pubDate>
     </item>
   </channel>
 </rss>
