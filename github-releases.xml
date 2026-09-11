@@ -3,7 +3,49 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 11 Sep 2026 18:26:35 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 11 Sep 2026 21:43:32 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.269：新增 plugin eval、输出风格切换，修复大量终端与远程会话问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.269</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Claude Code v2.1.269 更新要点</h3>
+<p>本版本主要面向编码代理终端应用，包含多项新功能、终端体验改进以及大量 bug 修复。</p>
+
+<h4>重要改动（新功能）</h4>
+<ul>
+<li><b>新增 <code>claude plugin eval</code></b>：可对插件运行其 eval 测试套件，获得可复现的评分结果（JSON + HTML 报告），详见 <code>claude plugin eval --help</code>。</li>
+<li><b>新增 <code>/output-style [name]</code></b>：可用于切换并列出输出风格，包括在 Remote Control、云端及其它无头会话中。</li>
+<li><b>Bash 编辑差异展示</b>：当 Bash 工具处理文件编辑时（设置 <code>bashEditDiffEnabled</code>），会在工具结果中显示其修改文件的差异。</li>
+<li><b>新增若干环境变量</b>：<code>OTEL_METRICS_INCLUDE_REPOSITORY</code>（为 OpenTelemetry 指标打标签）、<code>CLAUDE_CODE_GATEWAY_MODEL_DISCOVERY_TIMEOUT_MS</code>（网关模型发现超时）、<code>CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS</code>（1–256，提高 Workflow 工具并发代理上限）。</li>
+<li><b>新增 spinner 提示</b>：建议使用 <code>/focus</code> 获得仅含提示、一行工作摘要与回复的简洁视图。</li>
+<li><b>[VSCode] 新增代理地图</b>：底部"N agents"胶囊可打开会话子代理地图，含每个代理的卡片、停止代理及只读转录。</li>
+<li><b>[VSCode] 新增 Hooks 与权限规则对话框</b>：可在用户/项目/本地设置中查看与增删 hooks 和权限规则（受管、插件、会话及启动项规则保持只读）。</li>
+<li><b>[VSCode] 新增 Focus 视图子代理实时进度行</b>、Switch account 界面的取消按钮。</li>
+</ul>
+
+<h4>其它改动（修复与优化）</h4>
+<ul>
+<li>修复输出 token 上限截断后自动恢复导致的提示缓存部分失效；修复打断 Claude 思考后恢复会话影响上下文重发与缓存复用的问题。</li>
+<li>修复多个终端兼容性问题：kitty-protocol 终端的 F1/F2/F4、st 中的 Delete、rxvt-unicode 的 Alt+方向键、WezTerm 的 Shift+标点（2.1.247 回归）等。</li>
+<li>修复后台代理仍在运行时远程/无头会话误报"等待输入"；以及终端启动时能力查询回复出现杂散文本、全屏调整大小后转录顶部/底部行空白等问题。</li>
+<li>修复 Git 状态在压缩后向 Claude 报告的是会话开始时的而非当前状态；修正权限规则的 <code>!</code> 否定来源作用域。</li>
+<li>修复 CMYK JPEG 附不上、断点续传会话丢失回复、/goal 在 API 错误/网络中断/限额后静默卡住等多项稳定性问题。</li>
+<li>修复日语、中文、泰语等无空格书写语言中提示建议被丢弃，并改进中日韩文建议过滤。</li>
+<li>改进 SSH 与未识别终端（foot、Alacritty 0.16+）的键盘支持、长会话响应速度、/diff 面板一次加载完成。</li>
+<li><code>/ultrareview --post</code> 现在直接在结果到达时发布 PR 评论并打印链接，而非另起第二个云端会话。</li>
+<li>Windows：修复 Claude Code 退出时后台 PowerShell 工具命令停止的问题。</li>
+<li>Session 相关：修复会话永久卡在"Prompt is too long"、<code>/btw</code> 回答包含虚构工具调用、组织插件在无头会话/Claude Desktop 不加载、插件归档权限暴露给其他本地用户等问题。</li>
+</ul>
+
+<h4>[Claude Code on the web] 与 [Claude Tag]</h4>
+<ul>
+<li>云端会话支持在 Claude 读取前取回排队消息、修复子文件夹文件链接打开 GitHub 404、Free 计划用户打开升级路径等。</li>
+<li>Claude Tag（Slack）：新增 GitHub 安装的确认对话框、修复线程静默、表格以纯管道文本发布、<code>@Claude !restart</code> 误导会话、定时例程改为在现有线程中回复、进度时间戳显示本地时间等。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.269</guid>
+      <pubDate>Fri, 11 Sep 2026 19:17:55 GMT</pubDate>
+    </item>
     <item>
       <title>Python SDK 0.154.0 发布：新增 max/ultra 推理等级、ExternalMessage 外部内容支持</title>
       <link>https://github.com/openai/codex/releases/tag/python-v0.154.0</link>
@@ -1466,23 +1508,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.234</guid>
       <pubDate>Mon, 17 Aug 2026 20:20:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>fzf v0.74.3 发布：非 ASCII 输入性能大幅提升及多项 Bug 修复</title>
-      <link>https://github.com/junegunn/fzf/releases/tag/v0.74.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fzf v0.74.3 版本已发布，本次更新主要聚焦于非 ASCII 输入的性能优化以及多项关键 Bug 修复。</p>
-<p>在性能方面，该版本对非 ASCII 输入处理进行了深度优化。ASCII 查询速度最高提升 16 倍，非 ASCII 查询速度最高提升 12 倍。此外，带重音的拉丁字符读取速度提升 37%，CJK（中日韩）输入内存占用降低最高 29%，且 ASCII 输入性能保持原有水平不受影响。</p>
-<p>在功能修复方面，主要解决了以下问题：</p>
-<ul>
-  <li>修复了预览命令生成的图像在行由 IND 而非换行符分隔时（如 tmux 下使用 <code>chafa</code>）被撕裂的问题。</li>
-  <li>修复了 <code>replace-query</code> 命令在后续编辑查询时损坏项目文本的问题。</li>
-  <li>修复了退出时错误关闭已开启的括号粘贴模式（bracketed paste mode）的问题，解决了从行编辑器小部件运行 fzf 的 shell 中粘贴失效的缺陷。</li>
-  <li>修复了在 FreeBSD 虚拟终端等不响应转义序列的终端上启动阻塞的问题，避免了等待回复时丢弃按键的情况。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.3</guid>
-      <pubDate>Mon, 17 Aug 2026 03:10:34 GMT</pubDate>
     </item>
   </channel>
 </rss>

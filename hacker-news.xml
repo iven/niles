@@ -3,7 +3,58 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 11 Sep 2026 18:27:22 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 11 Sep 2026 21:43:51 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 25位菲尔兹奖得主联合声明：AI在数学领域的严重错位</title>
+      <link>https://news.ycombinator.com/item?id=49662371</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为菲尔兹奖得主对AI在数学领域的声明，属于科学前沿与AI相关进展，用户感兴趣</small></p><p>近期，一篇由陶哲轩（Terence Tao）等<strong>25位菲尔兹奖得主</strong>联合签署的声明引发广泛讨论，指出AI公司在数学领域的应用目标与数学界的核心目标存在严重错位。该声明认为，尽管大型语言模型（LLM）在过去数月已能解决许多领域的重大未解难题，但AI公司仅将解题作为基准测试的做法，对数学科学和数学社区有害。</p>
+
+<p>声明强调，研究数学的根本目标在于理解形状、数字和自然现象的基本结构，解题只是实现概念性理解与洞见的工具和代理。AI公司以越来越快速度批量生产的"真/假"命题，可能摧毁学术沃土而非催生新思想；这些成果常常仓促发布，没有规范的写作、没有对新方法和思想的提炼、也未能引用他人的相关工作，这引发了严重的署名与抄袭问题。此外，若没有愿意将这些AI构想融入数学正典的数学家，这些想法将难以真正活跃起来，数学家之间关键的人类传承链条也会断裂。</p>
+
+<p>签署者包括阿图尔·阿维拉、曼朱尔·巴尔加瓦、皮埃尔·德利涅、西蒙·唐纳森、马丁·海尔、彼得·舒尔策及陶哲轩等历代菲尔兹奖得主。声明认为，数学界面临的这些问题与其它科学和创意职业所面临的相似，也预示整个人类社会可能遭遇的挑战——当AI改变工作方式时，如何确保不迷失这些工作最初的宗旨。</p>
+
+<h3>社区热议</h3>
+<p>Hacker News的讨论（372分，437条评论）呈现出多元观点。部分评论者认为声明将责任推给了AI公司，应提供具体的替代机制；有人甚至质疑"将解题作为衡量标准的做法被摧毁是否真是悲剧"。也有人将矛头指向学术界的奖励机制本身，认为问题在于"谁率先解决问题"的评判方式。还有声音将此事类比为开源开发者被科技巨头利用的历史，称数学家现在的处境与当年的开源社区相似。亦有评论者引用声明中"解题只是达成概念理解这一首要目标的工具"一句，认为AI对大多数智识学科的影响都值得忧虑。</p>
+
+<p>陶哲轩在声明中承认："我们没有时间进行更充分的咨询程序……但我们判断局势的紧迫性需要尽快发表声明。"有评论者指出，陶哲轩此前在国际数学家大会（ICM）的报告（<a href="https://teorth.github.io/tao-web/slides/age-of-ai-icm-2026.pdf">幻灯片46-51</a>）中已提出过一些具体建议。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49662371</guid>
+      <pubDate>Fri, 11 Sep 2026 17:45:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ PlanetScale 推出 Neki：原生 Postgres 分片数据库，现已开放平台预览</title>
+      <link>https://news.ycombinator.com/item?id=49645686</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为PlanetScale推出分片Postgres数据库产品，属于软件新功能与开源项目，用户感兴趣</small></p><p>知名数据库托管平台 PlanetScale 宣布推出 <strong>Neki</strong>——其基于 Postgres 的分片数据库产品，现已进入平台预览阶段（platform preview）。Neki 的核心理念是在每个分片上运行真正的 Postgres，让用户能够将单个 Postgres 数据库水平扩展到多台机器，同时保留原生 Postgres 的体验。</p>
+
+<p><strong>背景与动机</strong>：PlanetScale 凭借八年运营全球最大规模分片 MySQL 集群的经验，意识到许多团队在单台机器上运行 Postgres 时会触达性能天花板。加大硬件投入只能暂缓问题——表过大导致无法在无影响的情况下 vacuum 或建索引、备份耗时数小时、连接数受限、schema 变更需维护窗口、事务回卷（transaction wraparound）等问题最终无法通过增加核心数和 IOPS 线性解决。而现有的替代方案各有取舍：应用层分片把路由逻辑推给代码；Postgres「兼容」分布式数据库则隐藏分片键、剥夺扩展能力、引入难以调试的复杂性和延迟。Neki 的原则是「坚持 Postgres，不绕过、不伪造、不背离它」。</p>
+
+<p><strong>工作原理</strong>：Neki 有四大组成部分——</p>
+<ul>
+<li><strong>Neki 路由器（routers）</strong>：应用通过标准 Postgres 线协议连接路由器，现有驱动、ORM 和连接串均可继续使用。路由器内置完整 Postgres 查询解析器、分布式查询规划器与查询缓冲，解析查询、决定应执行的分片、分发任务并合并结果流，可纵向和横向扩展，避免成为瓶颈。</li>
+<li><strong>分片与分片组（sharding and shard groups）</strong>：每个分片都是真正的 Postgres（1 主 + 至少 2 副本，跨 3 个可用区），无自定义存储引擎，扩展、SQL 支持和性能行为与原生 Postgres 一致。分片可组织成分片组，让不同表或工作负载落在不同的分片集合上。</li>
+<li><strong>连接池（connection pooling）</strong>：每个 Postgres 实例旁的 sidecar 因同时掌控路由端与 Postgres 端，能按各实例实际可承载的大小配置连接池，优于在数据库前简单堆一个 PgBouncer。</li>
+<li><strong>控制平面（control plane）</strong>：跟踪各节点健康、执行计划内切换与计划外故障转移、协调数据重新分片、schema 变更与版本升级等工作流。</li>
+</ul>
+<p>数据拓扑（data topology）是一份 JSON 配置，将逻辑表映射到物理分片，指定路由列及其哈希方式、分片组包含的分片数量与类型。原本需要安排维护窗口的各项工作（schema 变更、版本升级、故障转移、导入、重新分片）在 Neki 中均以内置的全程在线工作流运行，通过应用所用的 psql 连接即可完成。Neki 还包含 Insights、schema 建议、分支（branching）、MCP 等 PlanetScale 既有功能。用户也可以先以单主加副本的方式运行 Neki，待超出单机能力后再针对现有集群执行重新分片工作流。</p>
+
+<p><strong>社区反馈</strong>：Hacker News 评论（152 条）对产品本身反应积极，但几度批评博客文章「前几段只说问题、迟迟未解释 Neki 是什么」，作者随后快速补充了「What is Neki」章节；也有评论指出 Neki 的营销页 <a href="https://neki.dev/">neki.dev</a> 信息更简洁有用。讨论中还涉及几点疑问：文档与页面均未提及跨分片一致性（consistency）处理方式、跨分片外键未提及、跨分片原子 2PC 事务尚在开发中（cross-shard transactions 已支持但非原子）、以及产品暂不开源（官方表示「目前未定」）。另有 Vitess/MySQL 重度用户担忧 PlanetScale 拆分精力，官方回应称仍会持续支持 Vitess，且两个产品可以互相借鉴经验。</p>
+
+<p>值得注意：Neki 目前处于<strong>平台预览</strong>阶段，不应在预览期间承载生产工作负载，产品仍在演进且部分变更可能具有破坏性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49645686</guid>
+      <pubDate>Thu, 10 Sep 2026 15:43:49 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 又一位研究者指控 OpenAI 在对话数据上训练后宣称突破</title>
+      <link>https://news.ycombinator.com/item?id=49643112</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为研究者指控OpenAI在对话数据训练上的声明，属于AI软件技术进展相关新闻，用户感兴趣</small></p><p>一条 Bluesky 帖子引发讨论：又一位研究者指控 OpenAI 在用户对话数据上进行训练，随后却宣称取得突破。该帖子由用户 tim（timkellogg.me）发布，内容简短，配文即为"又一位研究者指控 OpenAI 基于对话训练后宣称突破"。</p><p>帖中所指事件最早源自 Mastodon（联邦宇宙）上的原始帖子（<a href="https://mathstodon.xyz/@andreasthom/117240535270608201">mathstodon.xyz</a>）。有评论指出，本条内容实际上经历了多次截图转述——Bluesky 上的帖子截取了 Twitter 的截图，而 Twitter 的截图又来自联邦宇宙上的原始来源，全程未附原文链接，信息链路已严重失真。</p><p>该条目在 Hacker News 上被标记为重复内容（dupe），管理者已将其评论合并至包含原始来源的另一条讨论（<a href="https://news.ycombinator.com/item?id=49639408">点击查看</a>）。部分评论也提醒，如今伪造截图门槛极低，应尽量追溯并核实原始来源。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49643112</guid>
+      <pubDate>Thu, 10 Sep 2026 13:07:14 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ HN社区热议：能否限制AI新闻洪流？</title>
       <link>https://news.ycombinator.com/item?id=49657850</link>
@@ -757,42 +808,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49582000</guid>
       <pubDate>Sun, 06 Sep 2026 00:03:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 读者的反抗：LLM 撰写的内容正在失去读者的信任</title>
-      <link>https://news.ycombinator.com/item?id=49580939</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论LLM生成内容失去读者信任的现象，与AI相关，用户对AI软件技术进展感兴趣</small></p><p>Bryan Cantrill 在博客中发文，以读者角度强烈批评日益泛滥的 LLM（大语言模型）撰写内容。他指出，广泛阅读的读者几乎能一眼识别出 AI 代笔文章，其结构性的"套路"如同作者"智力拉链没拉上"，令人难以忍受甚至触发读者的自我保护性"弃读"。</p>
-<p>文章引用了 Cynthia Dunlop 的调查数据：在 668 名受访开发者中，78% 在检测到 LLM 痕迹时会"立即停止阅读"，71% 会"未来回避该作者"；更有 98% 的受访者更偏好作者亲笔（哪怕不够完美）而非 LLM 润饰的版本。作者强调，这些活跃读者恰恰是网络文章舆论的"早期采用者与品味引领者"，不应被轻视。</p>
-<p>Cantrill 认为，使用 LLM 代笔写作违背了作者与读者之间的社会契约——读者不应被迫去理解作者本人都不曾费心创作的句子。他以电子邮件的垃圾信息（spam）治理历程作类比：当 spam 过滤技术进步、贴标签的后果日益严重后，垃圾邮件经济被击垮。他认为 LLM 写作同样可以被有效识别，而像<b>Pangram</b>这样的检测工具正扮演类似角色。</p>
-<p>作者特别推荐了 Pangram Labs 的 Pangram 3 与 Pangram 4 模型，称其误报率极低、准确性很高，并将自己的 RFD 576 政策扩展，明确要求 Oxide 的公开写作须通过 Pangram 验证为"人类书写"。他还公开点名并鼓励 Rust Foundation 等机构采用类似政策，并在 Oxide and Friends 节目中与 Pangram CEO Max Spero 进行了相关讨论。</p>
-<p>文章在 Hacker News 引发热议（85 条评论，227 分）。许多评论者认同"LLM 废物内容"的困扰：有人提议用浏览器扩展自动标注 HN 热门帖子的 Pangram 结果；有人提到工作中同事用 AI 写规格文档和设计提案令人反感；也有人质疑自动识别 AI 内容的可靠性，反驳称人类对 AI 文本的误判同样常见。Cantrill 本人也在评论中透露，此文正是被 Rust Foundation 一篇明显由 LLM 代笔的客座博客刺激而写。</p>
-<p>作者最后向写作者提出忠告：读者正在"起义"，你的写作应被默认接受 Pangram 检测；若坚持用 LLM 代笔，不如直接交出你的 prompt，或将其仅作为骨架参考、亲自完成写作。他同时肯定 LLM 作为"出色编辑"的辅助价值，只是不应让其替你完成整篇文字。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49580939</guid>
-      <pubDate>Sat, 05 Sep 2026 21:37:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ arXiv 论文：将大语言模型传播类比为&quot;认知病毒&quot;</title>
-      <link>https://news.ycombinator.com/item?id=49580164</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] arXiv论文将大语言模型传播类比为认知病毒，属于科学前沿进展且涉及AI，符合用户兴趣</small></p><p>一篇发表在 arXiv 上的论文《大语言模型作为认知病毒》（Large-Language Models as a Cognitive Virus，physics.soc-ph，2026年9月）提出，大语言模型（LLM）的扩散可以用病毒类比来理解：LLM 的使用在人群间传播，并逐渐嵌入认知与文化实践。作者包括 Ricard Solé、Giulio Ruffini、Francesca Castaldo、Michael Levin 等多位来自欧洲、美国和日本机构的学者。</p>
-<p>论文建立了一个传播模型，将用户划分为三种状态：<strong>未耦合（uncoupled）</strong>、<strong>耦合（coupled）</strong>以及<strong>持续依赖（persistently dependent）</strong>。模型显示，社会传播、恢复与集体强化之间的相互作用，可能产生临界点（tipping points）与<strong>技术锁定（technological lock-in）</strong>。一个核心推论是<strong>失控动力学（runaway dynamics）</strong>：一旦越过临界阈值，采纳率的微小增长就可能触发人群向持续依赖状态的快速转变，并伴随认知能力的骤降与丧失。不过，同样框架也指出了<strong>认知免疫（cognitive immunization）</strong>的条件——通过降低传播和促进可逆性来实现。研究强调，LLM 的普及可能涉及非线性集体转变，对认知自主性有重要影响。</p>
-<p>Hacker News 社区围绕"病毒"这一类比展开了热烈讨论（181条评论，232分）。有评论指出，作者并非贬义地使用"病毒"一词，而是意在区分 LLM 的社会机制与简单的"迷因（meme）"；有人认为"传染（contagion）"是更准确的说法。也有观点提出，LLM 训练于人类生成的内容、以及相关大型科技公司的能源与水消耗，构成了寄生性的另一面。部分用户质疑类比本身——"汽车、烹饪食物、牙刷是否也是病毒？"反对者则回应称，正因我们已对汽车等产生依赖并给地球带来负担，促进可逆性恰恰有其必要。另有用户将讨论引向"认知债务（cognitive debt）"的量化，也有回应者指出该主题其实可归入进化迷因学（evolutionary memetics）等既有研究领域。</p>
-<h4>你知道吗？</h4>
-<p><strong>技术锁定（Technological lock-in）</strong>指一项技术尽管未必是最优选择，却因惯性、网络效应和沉没成本而被社会长期固化采用，典型例子如 QWERTY 键盘布局。当集体依赖达到临界规模时，个体即使想脱离也往往难以独善其身，这正是论文担忧 LLM 可能引发的"锁定"风险。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49580164</guid>
-      <pubDate>Sat, 05 Sep 2026 20:02:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI 处理事故让工程师与系统&quot;脱节&quot;：自动化悖论下的隐忧</title>
-      <link>https://news.ycombinator.com/item?id=49574167</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是AI在事故响应自动化中的作用及对工程师的影响，属AI软件技术进展，用户感兴趣</small></p><p>前 LinkedIn 站点可靠性工程师（SRE）、现 Rootly 公司 AI Lab 负责人 Sylvain Kalache 撰文指出，AI 辅助事故响应工具虽然能显著降低常规事故的平均修复时间（MTTR），但也带来了一个隐患：工程师正在失去对自己系统的直觉与掌控。</p><p>作者在文中回顾了人因学家 Lisanne Bainbridge 于 1983 年发表的著名论文《自动化的讽刺》（The Ironies of Automation）：自动化减少了操作人员练习日常工作的机会，却仍要他们为新的异常状况负责，因此操作者反而需要更高超的技能和更多训练。他预测，未来多数事故的 MTTR 会因 AI 而下降，但面对自动化无法解决的复杂事故，响应时间将大幅上升——因为工程师已失去了排查经验。</p><p>文章借鉴了航空业的做法：飞机自动化承担大部分飞行，但飞行员仍须定期在模拟器中演练罕见的引擎失效等紧急状况。作者因此倡议软件行业建立"事故模拟器"——Rootly 已与 Uptime Labs 合作，让工程师在模拟电商中断场景中担任事故指挥官，使用可观测性工具并协调由大语言模型（LLM）驱动的利益相关方。他强调亲身实践远比观看 AI 解释更有效，并警告工程团队正积累"理解债务"（comprehension debt），建议将事故模拟纳入值班（on-call）准备流程，以避免在 AI 越发成功时，人类在它失灵的那一刻毫无准备。</p><p>Hacker News 上引发了 300 多条讨论。多数评论者认同文章主旨：有工程师分享同事过度依赖 AI 后理解力明显退化的经历；也有人认为，若 AI 的能力持续提升，即便有练习，人类也未必能解决 AI 解决不了的难题；还有人将大语言模型比作"新的编译器"，认为整个领域终将被其吸收。不少评论引用并推荐《自动化的讽刺》一文，并补充提到"控制权交接不畅"（the bumpy transfer of control）等相关概念。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49574167</guid>
-      <pubDate>Sat, 05 Sep 2026 07:52:50 GMT</pubDate>
     </item>
   </channel>
 </rss>
