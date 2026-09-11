@@ -3,7 +3,40 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 11 Sep 2026 14:24:08 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 11 Sep 2026 18:27:07 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 内核缓存感知调度（Cache Aware Scheduling）发布新一轮修复补丁</title>
+      <link>https://www.phoronix.com/news/Cache-Aware-Scheduling-4-Patch</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核调度器缓存感知改进补丁，属Linux内核/桌面技术进展，与用户兴趣相符</small></p><p>Linux 内核的缓存感知调度（Cache Aware Scheduling）自 7.2 周期合并以来，随着用户在不同处理器和系统配置上进行测试，仍在持续修复问题。继上周针对英特尔混合架构 CPU 的修复之后，本周又推出了更多可供测试的新补丁。</p><p>缓存感知调度是 Linux 内核的一项特性，用于将相关联的任务分组到共享同一末级缓存（Last Level Cache，LLC）的 CPU 核心上。通过避免潜在的缓存颠簸（cache bouncing）开销，该特性可以带来更好的缓存局部性和更低的延迟。</p><p>本次修复主要针对任务可能被"搁置"在首选末级缓存之外、或被"拽离"其偏好末级缓存的问题，同时还包括一个针对调度代码的内存释放后使用（use-after-free）漏洞修复。</p><img src="//www.phoronix.net/image.php?id=2023&image=intel_microcode_valentine_med" alt="Intel CPUs" /><p>这批补丁由主导该内核特性的英特尔工程师 Tim Chen 发送。不过，该补丁系列并未涉及缓存感知调度与英特尔睿频加速最大技术（Intel Turbo Boost Max Technology，ITMT）相互干扰的已知问题，但希望相关的改进能很快出现。</p></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Cache-Aware-Scheduling-4-Patch</guid>
+      <pubDate>Fri, 11 Sep 2026 18:00:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux IO_uring 迎来一批&quot;疯狂&quot;补丁，带来显著性能提升</title>
+      <link>https://www.phoronix.com/news/Linux-IO-uring-Crazy-Friday</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux IO_uring异步I/O机制的大幅改进补丁，属Linux内核技术进展，推荐阅读</small></p><p>Linux 块子系统维护者及 IO_uring 主要开发者 Jens Axboe 又发布了一批"疯狂"（crazy）补丁，为这一出色的异步 I/O 框架带来显著的性能提升。Axboe 本周的最新工作聚焦于改进内核的阻塞（blocking）行为。</p>
+<p>按照 Axboe 在今天 RFC 补丁系列中的描述，io_uring 会以 <code>IO_URING_F_NONBLOCK</code> 内联方式发起请求，并在无法内联时将其转交（punt）给 io-wq。但对 fsync、statx、openat、*at 系列、xattr、fadvise、splice 等一批操作码而言，由于内核中没有对应的非阻塞路径，它们会被无条件转交，而每次转交都要付出一次线程唤醒、一次上下文切换和一次 task_work 完成的往返开销。同时 io_uring 必须谨慎行事，以避免在内核中意外阻塞，即使这些操作绝大多数时候都不会阻塞。</p>
+<p>Axboe 的这套补丁改为以阻塞模式内联发起这些请求，并且仅在请求真正阻塞时才付出转交的代价。不过一旦阻塞发生，提交者已带着请求深入内核并处于调用栈之上，无法将工作转移到其他线程；能转移的是"身份"（identity）。如果提交任务发生阻塞，一个空闲的 io-wq 工作线程会接管其用户可见的身份（tid、信号状态、凭据、调度属性、cgroup、用户寄存器状态），完成 io_uring_enter() 调用并以提交者的身份返回用户空间，而原任务则以 io-wq 工作线程的身份完成请求并加入线程池。从用户空间的角度看毫无区别——系统调用返回的是同一个 tid，只是底层换成了不同的 task_struct。Axboe 还提到，大约 20 年前曾有过类似的尝试。</p>
+<p>Axboe 在 X（推特）上分享了这些"疯狂补丁"以及 IO_uring 的"美味结果"（tasty results）图形，对于不太关心内部技术实现的用户来说尤其振奋：</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=axboe_crazy_iouring_1" alt="IO_uring benchmark results" />
+<img src="//www.phoronix.net/image.php?id=2026&image=axboe_crazy_iouring_2" alt="IO_uring benchmark results" />
+<p>目前尚不清楚这项工作最终会走向何方，以及是否能在 Linux v7.4 周期内合并到主线内核。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-IO-uring-Crazy-Friday</guid>
+      <pubDate>Fri, 11 Sep 2026 16:21:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 英特尔 Wildcat Lake 低端硬件上的 CachyOS vs. Windows 11 vs. Ubuntu 26.04 LTS 基准测试</title>
+      <link>https://www.phoronix.com/review/wildcat-lake-windows-linux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] CachyOS、Windows 11与Ubuntu在Intel Wildcat Lake平台的Linux发行版对比，虽涉及基准评测但主要围绕新发行版与Linux桌面体验，符合高兴趣</small></p><p>Phoronix 近日在 CHUWI UniBook 这款售价 449 美元的笔记本上，对三款操作系统进行了性能对比测试。与通常选用旗舰级硬件不同，这次评测瞄准了性能谱系的另一端——低端入门平台。</p><img src="//www.phoronix.net/image.php?id=wildcat-lake-windows-linux&image=wildcat_lake_windows_linux_4_med" alt="CHUWI UniBook with CachyOS" /><p>该笔记本搭载英特尔 Core 3 304 "Wildcat Lake" 处理器（由 1 个 P 核与 4 个 LPE 核组成），配备 8GB LPDDR5-6400 内存和 256GB NVMe 固态硬盘，与通常用于高端 Linux 性能测试的硬件截然不同。</p><p>由于评测样品预装微软 Windows 11 Pro，作者决定将更新后的 Windows 11 环境与两款备受欢迎的 Linux 发行版——滚动更新的 CachyOS 以及 Ubuntu 26.04 LTS——进行对比。所有操作系统在测试期间均保持更新并使用默认设置。</p><img src="//www.phoronix.net/image.php?id=wildcat-lake-windows-linux&image=wildcat_lake_windows_linux_2_med" alt="CHUWI UniBook with Windows 11" /><img src="//phoronix.com/benchmark/result/windows-11-vs-cachyos-vs-ubuntu-wildcat-lake/result.svgz" alt="Windows 11 vs. CachyOS vs. Ubuntu Wildcat Lake" width="100%" height="auto" /><p>评测内容分为多个部分，涵盖图形基准测试（两页）及 CPU 基准测试（三页），全面比较了三款系统在这款低端笔记本上的实际表现。社区对该测试已有 8 条评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/review/wildcat-lake-windows-linux</guid>
+      <pubDate>Fri, 11 Sep 2026 15:08:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mold 高速链接器正用 Rust 重写，目标成为 Linux 系统默认链接器</title>
       <link>https://www.phoronix.com/news/Mold-Linker-In-Rust-Coming</link>
@@ -623,33 +656,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Vulkan-1.4.362</guid>
       <pubDate>Fri, 04 Sep 2026 09:56:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Ubuntu 26.10「Stonking Stingray」快照 3 月度 ISO 发布，供社区测试</title>
-      <link>https://www.phoronix.com/news/Ubuntu-26.10-Snapshot-3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Ubuntu 26.10 月度快照测试镜像发布，属于新发行版发布，符合高兴趣配置</small></p><p>Ubuntu 26.10「Stonking Stingray」快照 3（Snapshot 3）月度 ISO 已发布，这是面向 Ubuntu Linux 社区的最新月度测试候选镜像。Ubuntu 26.10 正在稳步推进，预计于 10 月正式发布，而这些月度「快照」版本旨在帮助测试发布自动化流程，并配合每日 ISO 快照让社区进行更广泛的测试，以便尽早发现 Bug。</p><p>需要说明的是，Ubuntu 26.10 快照 3 并非生产就绪版本，仅适用于一次性（throw-away）测试环境。该版本汇集了 Ubuntu 26.10 当前最新的软件包，可体验最新的系统状态。详细信息和下载地址已发布在 ubuntu-devel 邮件列表中。</p><p>文章还列出了 Ubuntu 26.10 接下来的关键里程碑：UI 冻结将于下周到来；内核特性冻结定于 9 月 17 日（该版本基于 Linux 7.2 内核）；Beta 冻结定于 9 月 21 日；Beta 版计划于 9 月 24 日发布；而 Ubuntu 26.10 正式版预计于 10 月 15 日推出。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.10-Snapshot-3</guid>
-      <pubDate>Fri, 04 Sep 2026 00:15:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Amazon Linux 2027 公开预览发布：默认 Linux 7.1 内核，全面启用 LTO 与 x86-64-v3 优化</title>
-      <link>https://www.phoronix.com/news/Amazon-Linux-2027-Preview</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍 Amazon Linux 2027 预览版，属于新发行版/新软件项目，符合来源高兴趣配置</small></p><p>AWS 今日宣布 Amazon Linux 2027 公开预览版正式上线。作为 Amazon Linux 2023 的继任版本，Amazon Linux 2027 带来了大量软件更新，并针对 AWS 云工作负载进行了诸多性能优化与调优。</p><p>主要技术变化包括：</p><ul><li>默认使用 Linux 7.1 内核；</li><li>默认启用 SELinux 强制（enforcing）模式；</li><li>新增加速器驱动程序；</li><li>所有软件包以 -O2 优化级别构建，并启用链接时优化（LTO）；</li><li>x86-64 软件包目标升级为 x86-64-v3（要求支持 AVX/AVX2 指令集）；</li><li>软件包构建默认启用自动向量化；</li><li>针对 AArch64 Graviton 实例，默认启用 malloc 堆区域的透明大页（THP）；</li><li>默认编译器升级为 GCC 16.1，同时提供 LLVM/Clang 22 以及更新版本的 Rust 和 Go；</li><li>包管理器采用 DNF5；</li><li>部分基于 Fedora 44 和 Fedora 45。</li></ul><p>更多细节可参阅 AWS 官方博客与 Amazon Linux 2027 发布说明。Phoronix 作者表示将很快对 Amazon Linux 2027 进行基准测试。</p><h3>你知道吗？</h3><p>x86-64-v3 是 x86-64 微架构级别之一，要求 CPU 支持 AVX、AVX2 等指令集，相比旧基线可带来明显性能提升，但需要较新的处理器。链接时优化（LTO）则在链接阶段跨编译单元进行优化，有助于改善代码内联与整体运行性能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Amazon-Linux-2027-Preview</guid>
-      <pubDate>Thu, 03 Sep 2026 21:13:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 英特尔改进 CMRR 功能：Linux 7.4 将默认启用内容匹配刷新率</title>
-      <link>https://www.phoronix.com/news/Intel-Graphics-CMRR-Linux-7.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲 Intel 显卡驱动在 Linux 7.4 中改进 CMRR 刷新率特性，属于 Linux 桌面/图形技术，符合兴趣配置</small></p><p>英特尔正在改进其「内容匹配刷新率」（Content Match Refresh Rate，CMRR）功能，该功能随 Xe2 Lunar Lake 图形硬件引入，相比传统可变刷新率（VRR）/自适应同步（Adaptive-Sync）能更精确地匹配视频或内容的帧率，尤其针对视频播放，旨在消除卡顿和掉帧。</p><p>早在 2023 年，Phoronix 就率先报道了英特尔为开源图形驱动开发 CMRR 功能的消息。尽管 Lunar Lake 以及后来的 Panther Lake、Wildcat Lake 均已上市，CMRR 补丁也已存在近两年，但该功能在 Linux 下尚未被充分利用。直到现在，相关补丁才被排入 DRM-Next，为 Linux 7.4 做准备。</p><p>英特尔工程师 Mitul Golani 在即将合入 Linux 7.4 的补丁系列中指出，此前的 CMRR 分数时序（fractional-timing）代码被永久禁用、仅支持嵌入式 DisplayPort（eDP），并且依赖启发式算法猜测何时需要分数时序路径。新补丁解决了这些不足，并新增了基于 DebugFS 的功能接口，作为未来用户空间 API 推出前的过渡方案。</p><p>在 Linux 7.4 中，CMRR 将在「VRR 时序由默认时序生成器生成」的情况下默认启用，目前仅适用于英特尔显示 IP 版本 30 及以上（即 Xe3 / Panther Lake 及更新产品）。新的 DebugFS 控制是每个 CRTC 一个的 DebugFS 文件，允许用户空间指定 CMRR 目标刷新率（以毫赫兹为单位）和视频模式要求（包括视频时序的分母）。未来预计会提供完善的用户空间 API，目前则是英特尔驱动专属的 DebugFS 接口。</p><img src="//www.phoronix.net/image.php?id=2026&image=intel_cmrr_enable_med" alt="Intel CMRR enable" /><p>该补丁系列包含最新的 CMRR 启用工作，并通过今天的 drm-intel-next 拉取请求提交，该请求还包含 DG2 多协议 PLL 代码改用 DPLL 框架、DP-HDMI PCON 显示流压缩（DSC）修复以及其他代码清理和修复。距离 Linux 7.4 合并窗口（10 月底）还有数周时间，更多英特尔图形驱动功能仍有望陆续合入 DRM-Next。</p><h3>你知道吗？</h3><p>CMRR 与 VRR 的区别在于：VRR 让显示器刷新率跟随内容帧率动态变化，但刷新率通常只能以整数步进（如 48/60/120Hz）调整；而 CMRR 通过分数时序（fractional timing）让刷新率更精细地匹配内容帧率，例如 23.976fps 的电影帧率，从而避免视频播放时的抖动（judder）和重复帧。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Graphics-CMRR-Linux-7.4</guid>
-      <pubDate>Thu, 03 Sep 2026 17:57:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
