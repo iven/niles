@@ -3,7 +3,29 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 11 Sep 2026 04:32:20 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 11 Sep 2026 09:36:38 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 阿明·罗纳赫谈 Astra 编码体验：惊人的模型，但生成的是难以阅读的代码</title>
+      <link>https://news.ycombinator.com/item?id=49654229</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题涉及新AI编码模型的使用体验和代码质量讨论，属于AI软件技术进展与编程效率改进范畴，用户会感兴趣</small></p><p>CPython 核心开发者阿明·罗纳赫（Armin Ronacher）在其博客中分享了他对 OpenAI GPT-6 Astra 用于实际软件工程时的观察与困惑。文章开篇用「内卷」（Neijuan，源自《农业的内卷化》 Agricultural Involution）来形容当前的 AI 工程状态：投入了越来越大的努力和竞争，但产出并没有相应提升。</p>
+
+<p>罗纳赫在周末运行了一个「软件工厂」（slop factory）实验，让模型完全自主决定工作流程、自行管理上下文，并派生子代理（subagent）协作，目标是构想「带虚拟线程和词法作用域（lexical scoping）的 Python」。结果他烧掉了约 40 亿 token 的额度、耗时 35 小时，却「完全没有交付任何有价值的东西」。但他收集到了大量可供研究的代码，并总结出 Astra 的几个特征性问题：</p>
+
+<ul>
+<li><strong>过度使用 Python 做工具调用：</strong>Astra 频繁用 Python 字符串拼接来直接编辑 C 代码，而不是使用补丁（patch）工具；用极简压缩的 Python 代码在 Unix 套接字上测试文件描述符传递（socket codegolf）；通过 Python 再调用 Node.js、甚至进一步调用 PowerShell 来执行操作。</li>
+<li><strong>代码可读性极差：</strong>绕开工具后，修改几乎无法实时可视化，人类很难跟进其逻辑；部分单测甚至完全无视缩进和空白。</li>
+<li><strong>疑似训练过程偏向：</strong>作者怀疑模型因在长时程（long-horizon）任务上成功而获得大量奖励，但对「糟糕代码」几乎没有惩罚，导致其追求完成度而忽视代码质量。</li>
+</ul>
+
+<p>作者强调这并非软件工厂实验的偶然现象，他在常规编程中（包括 TypeScript 项目 Pi）也遇到了同样的问题。不过他承认 Astra 在三维内容生成、逆向工程等方面表现令人印象深刻，是「绝对出色」的模型。</p>
+
+<h3>社区反馈</h3>
+<p>HN 评论区有大量共鸣，多位用户表示在新模型（如 Astra、Claude Code 的 Fable 与 Opus）中观察到同样的现象：偏好运行几乎不可读的 bash/Python 脚本、滥用各种命令行参数，给代码审查带来困难。有人指出 Claude Code 的 auto 模式似乎会在提示词中鼓励用 bash 而非标准读写工具。也有用户持相反观点，认为这类似「编译器争论」——只要最终达成目标、大幅提升速度，过程代码可读与否并非重点；还有人认为新模型产出更差的代码但速度显著更快，当前仍处于研发阶段，不应过早下结论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49654229</guid>
+      <pubDate>Fri, 11 Sep 2026 06:23:06 GMT</pubDate>
+    </item>
     <item>
       <title>别让任何人拿走你的&quot;大电缆箱&quot;：一个关于保留旧线缆的趣味提醒</title>
       <link>https://news.ycombinator.com/item?id=49645393</link>
@@ -792,22 +814,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49570545</guid>
       <pubDate>Fri, 04 Sep 2026 21:39:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Statichost.eu：由欧洲公司全程运营的纯欧洲静态网站托管服务</title>
-      <link>https://news.ycombinator.com/item?id=49569896</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向前端开发者的纯欧洲静态托管服务，属软件新功能/编程工具，用户感兴趣</small></p><p>Statichost.eu 是一款主打"100% 欧洲"的静态网站托管服务。其核心卖点是：不仅是服务器位于欧洲，而是从部署到 CDN 的每一层基础设施都由欧洲公司拥有和运营，明确声明不依赖 AWS、Cloudflare 等美国云服务。创始人 Eric Selin 来自瑞典斯德哥尔摩，他表示自己厌倦了那些"名义上在欧洲、实则跑在美国云上"的托管方案，认为互联网变得过于复杂，太多信任被悄然交给了美国公司。</p>
-
-<img src="/eric.jpg" alt="Eric on stage at Nordic.js" width="480" height="360" />
-
-<p>该服务提供现代静态主机应有的功能：可直接从 Git 仓库部署、支持任意静态站点生成器（Hugo、Jekyll、Astro、Next.js、Gatsby、Eleventy 等）、基于 Webhook 在 Git 推送或 CMS 更新后自动重建、自定义域名并自动签发免费 SSL 证书、即时回滚，以及面向分支和拉取请求的预览链接（即将推出）。另外还有处于内测阶段的全球 CDN，在保证隐私和 GDPR 合规的同时，让用户的访问始终就近。其早期客户包括 Plural 设计工作室、Tech Transparency Project（技术透明项目）、开源缝纫纸样项目 FreeSewing 以及测试框架 JUnit。</p>
-
-<h3>社区反馈</h3>
-<p>该帖子在 Hacker News 上获得了大量讨论（441 分、201 条评论）。有用户（为母亲的网站使用该服务）唯一的抱怨是它默认以 Git 仓库进行版本管理，不如 sftp/rsync 方便，但可通过上传压缩包绕过，文档中还提供了 <a href="https://www.statichost.eu/docs/direct-upload/">direct-upload</a> 脚本辅助；也有人询问是否支持 WebDAV。价格方面，有评论认为 9 欧元/月的定价偏高，这个价位已可租到配置不错的欧洲 VPS 或完整的共享主机套餐。评论区还比较了 OVH 与 Hetzner 的体验，并讨论了"身处欧洲"这一卖点本身是否真有价值——Neocities 创始人 kyledrake 指出，真正的约束在于各国法规（如年龄验证、Cookie 提示）而非公司所在地，并质疑将"总部设在欧洲"视为解决方案是否现实。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49569896</guid>
-      <pubDate>Fri, 04 Sep 2026 20:34:49 GMT</pubDate>
     </item>
   </channel>
 </rss>
