@@ -3,7 +3,40 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 12 Sep 2026 04:33:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 12 Sep 2026 09:15:23 GMT</lastBuildDate>
+    <item>
+      <title>谷歌搜索结果改用 google.com/goto 重定向链接，旨在反爬虫</title>
+      <link>https://news.ycombinator.com/item?id=49668386</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲谷歌搜索结果改用重定向链接以反爬虫的变动，属于搜索技术/基础设施类新闻，不明确匹配用户的高兴趣或感兴趣主题，兴趣不明确，故判为可选。</small></p><p>谷歌（Google）正在搜索结果页（SERP）上推行一项新的反爬虫措施：将自然搜索结果链接改写为 <code>google.com/goto?url=...</code> 重定向形式，而不再在 HTML 中直接暴露目标网址。用户点击结果时，谷歌会先跳转再进入真正的页面。</p><p>这一新格式与此前使用的 <code>google.com/url?q=[URL编码的目标地址]</code> 不同。旧格式的目标链接可直接在查询字符串中读取，而新的 <code>goto</code> 格式采用了谷歌特有的自定义编码，无法离线解码，仿佛是对谷歌索引中该页面记录的一个不透明引用。真实地址只能通过请求 <code>/goto</code> 并在 <code>Location</code> 响应头中获取。</p><p>截至 2026 年 8 月底，在未登录或隐私模式下，该格式已稳定出现在大量搜索结果中。文章分析认为，这契合谷歌打击自动化 SERP 抓取的总体布局（尤其是针对 AI 爬虫和 SEO 爬虫）。明文链接让爬虫可以从 HTML 中批量解析数千个 URL，而 <code>goto</code> 格式要求每条结果都向谷歌发起一次请求才能得知目的地，速度更慢、噪音更大，也让谷歌能清楚识别同一客户端连续解析大量链接的行为。这与此前移除 <code>&amp;num=100</code>、收紧 BotGuard/SearchGuard 等措施一脉相承，目的在于持续抬高朴素 SERP 抓取的成本。</p><p>文章作者所在的 Autom 公司已更新其 Google 搜索 API 管道，通过读取 Location 头（不跟随跳转）来解析 <code>goto</code> 链接，并在 API 响应中返回最终目标地址，用户无需改动集成即可继续使用。</p><p>在 HN 社区讨论中，不少用户表达了不满。有用户指出新链接的 base64 数据内含基本 protobuf 结构，且有时加载需花费可感知的时间。多款原本用于去除谷歌重定向追踪的浏览器扩展（如 ClearURLs）在此新格式下失效。许多用户担心谷歌借此追踪点击行为，并纷纷表示已转向 <a href="https://kagi.com">Kagi</a>、Brave 等替代搜索引擎。也有用户认为这在很大程度上是对谷歌“围墙花园化”和体验恶化的又一次印证。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49668386</guid>
+      <pubDate>Sat, 12 Sep 2026 03:14:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 测量代码的&quot;邋遢度&quot;：为什么正确代码仍会侵蚀代码库</title>
+      <link>https://news.ycombinator.com/item?id=49658311</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是衡量代码质量与邋遢度、谈正确代码如何侵蚀代码库及人为品味的重要性，属于编程效率改进经验范畴，符合高兴趣，推荐阅读。</small></p><p>Earendil 公司的 Sebastian 撰文探讨了如何量化测量 AI 生成代码的质量问题。作者指出，LLM 在生成"正式正确"的代码方面已近乎完美，但这并不意味着代码没有引入不必要的抽象、重复或糟糕的决策——这就是所谓的代码"邋遢"（slop）。作者批评当前行业对代码质量的评估过于"凭感觉"（vibes based），并提出了几种测量方法：</p>
+
+<ul>
+<li><strong>AI 充当裁判</strong>：最常见的做法（让模型给代码打分，或在方案 A/B 间做选择）往往效果不佳，模型甚至会在重命名方案后改变偏好，不能替代真正的人工评估。</li>
+<li><strong>人工评审 AI</strong>：理论上最佳，但因工程师水平参差且无法规模化而不现实。</li>
+<li><strong>LOC 变化量</strong>：最简单有效，但讽刺的是一旦针对它优化，指标就会失效。</li>
+<li><strong>Verbosity（冗长度）</strong>：基于 <a href="https://github.com/gabeorlanski/scb-check">AST-Grep</a> 启发式规则，测量重复和不必要的冗长行占比。</li>
+<li><strong>Erosion（侵蚀度）</strong>：测量代码库质量是否集中在少数大而复杂的函数中，基于圈复杂度（cyclomatic complexity）大于 10 的函数所占比重。</li>
+</ul>
+
+<p>作者引用 <a href="https://earendil.com/posts/measuring-code-sloppiness/">SlopCodeBench</a> 的数据显示：在平均冗长度上，既有仓库为 0.15±0.06，而智能体生成的代码为 0.33±0.10；侵蚀度上仓库为 0.31±0.17，智能体代码为 0.68±0.20——Agent 生成的代码平均比人类代码"邋遢"约两倍。作者本人"vibe coding"的项目冗长度高达 0.4、侵蚀度高达 0.75，说明这不是评估的偶然产物。</p>
+
+<p>关于为何 Agent 自身也无法处理邋遢代码：SlopCodeBench 采用多轮指令与测试迭代，并在检查点之间清除模型上下文，模拟真实的迭代使用方式，结果是错误决策随时间累积，即便最先进模型在严格通过率上也达到 0%。作者认为，真正衡量代码质量仍隐含或明确依赖人类的直觉与品味，并计划继续探索函数耦合度、代码翻动（churn）、内聚性等方向。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上获得 261 分和 227 条评论，讨论热烈。多数评论者认同代码质量缺乏可靠评估机制，并认为这正是一个待填补的"奖励函数"缺口；也有人指出人类代码本身（尤其是企业级代码）历史上就大量存在低质量，与 AI 的比较并不公平。部分评论聚焦于"代码是否已解决"的争论，有评论精辟总结："编码已解决，但软件工程还没解决。"还有评论认为代码质量可能本质上不可判定（如同停机问题），难以形式化衡量。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49658311</guid>
+      <pubDate>Fri, 11 Sep 2026 13:42:28 GMT</pubDate>
+    </item>
     <item>
       <title>花了220美元投谷歌应用广告，六成安装其实来自机器人</title>
       <link>https://news.ycombinator.com/item?id=49662990</link>
@@ -773,44 +806,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49585644</guid>
       <pubDate>Sun, 06 Sep 2026 11:56:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 机器人操控对比：OpenAI GPT-6 Astra 在积木入碗任务上显著优于 Claude Fable</title>
-      <link>https://news.ycombinator.com/item?id=49582582</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为 AI 模型在机器人操控任务上的对比评测，属于AI技术进展与新模型能力展示，符合用户高兴趣和一般兴趣范围。</small></p><p>Robocurve 团队发布了一篇后续对比报告，测试 OpenAI 的 GPT-6 Astra 在相同机器人操控任务上相对于 Anthropic 的 Claude Fable 5 与 Fable 5.1 的表现。两者均使用相同的 Inspect Robots 智能体策略（中等推理强度、20 次 LLM 调用预算、25% 速度上限）控制一对 I2RT YAM 机械臂。</p>
-
-<p>报告包含两项任务：<b>「积木入碗」</b>（从桌面拾取红色积木放入碗中）与<b>「拼图入槽」</b>（抓住蓝色圆形拼图件中心的旋钮，放入棋盘上对应的圆形凹槽）。每项测试每个模型进行 20 次试验，由人工评分员按最高达成的阶段（0 无接近 / 1 接触物体 / 2 举起物体 / 3 定位至投放点 / 4 放入最终位置）打分。</p>
-
-<p><b>积木入碗任务</b>中，Astra 在 20 次试验中成功放入 19 次（95%），远超 Fable 5.1 的 8/20（40%）和 Fable 5 的 1/20（5%）。且 Astra 每轮仅耗时约 2.5 分钟、单次运行成本约 0.94 美元，而 Fable 5.1 需 6.8 分钟、成本约 2.12 美元——Astra 完成率高出 2.4 倍，成本低约 2.3 倍，输出 token 量也减少了约 80%。</p>
-
-<p><b>拼图入槽任务</b>则呈现另一番景象：Astra 与 Fable 5.1 均仅完成 2/20（10%）。Astra 能够到达凹槽附近，但在与 Fable 相同的最后一步停滞。不过 Astra 成本仍较低（约 1.36 美元 vs 2.18 美元），耗时更短（3.4 分钟 vs 5.9 分钟）。</p>
-
-<p>作者同时列出了关键局限：Astra 的试验在 Fable 试验两天后进行且未交错穿插；拼图任务在同一实验台（rig-4）上对比，但积木任务中 Fable 使用的 rig-3 不可用，Astra 改用 rig-1；评分由知晓模型身份的操作员判定，可能存在无意识偏差；费用按标价计算，OpenAI 自动缓存了 Astra 约五分之一的输入并未计入折扣，因此 Astra 成本被高估。这些声明获得了 Hacker News 社区的赞许，称其为「真正客观的研究」。</p>
-
-<p><b>「你知道吗？」</b></p>
-<ul>
-<li>测试中使用的是 wire-level（线级）请求与响应 token，而非计费 token；三个模型均按标准价 $10 / $50（每百万输入/输出 token）计算成本。</li>
-<li>报告采用「双机械臂 + 并行爪」的 YAM 双臂设定，每臂 6 自由度，以绝对末端执行器姿态控制，由机器人的逆运动学（IK）将姿态转换为关节角度。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49582582</guid>
-      <pubDate>Sun, 06 Sep 2026 01:52:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 《用 OCaml 学习编程》：一本免费开放授权的编程入门书</title>
-      <link>https://news.ycombinator.com/item?id=49578280</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为用 OCaml 学习编程的免费开放授权入门书，属于编程学习与开源分享范畴，符合编程相关兴趣。</small></p><p>Hacker News 上讨论了一本名为《Learn Programming with OCaml》（用 OCaml 学习编程）的书籍，由 Sylvain Conchon 和 Jean-Christophe Filliâtre 撰写，Urmila Nair 将其从法语翻译成英文，翻译工作由 The OCaml Software Foundation 资助。该书采用 CC BY-SA 4.0 开放许可，可免费下载 PDF（1.9MB）和 EPUB（2.3MB）格式，代码也一并提供，读者可在网站上报错。</p>
-
-<p>评论区引发了关于「是否应学习 OCaml」的广泛讨论。有用户提出在 LLM 已能完成大量编程的背景下是否还有必要主动学习新技术的疑问，多位回复者认为学习本身可以出于乐趣和好奇，不应过度功利化；也有人类比「如果电脑能更好解数独，是否还要学数独」来支持学习。</p>
-
-<p>有评论指出，OCaml 目前堪称 LLM 的「秘密武器」——由于 OCaml 更受约束的类型系统和全局推断，模型能更快得到反馈、更不容易在类型层面出错。对比之下，Rust 和 Haskell 都迫使模型过度思考类型，其中 Haskell 的类型系统过于强大，反而容易成为模型出错和陷入困境的地方。一位评论者表示自己曾为相关论文贡献代码。</p>
-
-<p>关于本书的难度，有用户认为该书标题有些误导——它更适合作为「算法」课程的教材，而非真正的零基础入门书；但也有在法国教育体系中最初就以类似书籍学习 OCaml 的评论者分享积极体验，称掌握核心概念后学习过程相当顺利，并认为这让自己成为了更好的程序员。还有评论者主张「ML 语言应该作为计算机科学家的第一语言」，同时认为 C 仍是理解计算机如何运行程序的最佳语言。此外，讨论还涉及 EPUB 与 PDF 体积差异的原因、OCaml 的 GUI 框架推荐（如 macOS 的 Camlkit-gui）以及推荐的其他学习资源（如 Cornell 的 CS 3110 教材）等话题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49578280</guid>
-      <pubDate>Sat, 05 Sep 2026 16:45:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
