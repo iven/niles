@@ -3,7 +3,30 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 13 Sep 2026 10:11:16 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 13 Sep 2026 14:20:29 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.4 将引入 Zstd 补丁，避免冗余初始化以提升压缩/解压性能</title>
+      <link>https://www.phoronix.com/news/Zstd-Linux-7.4-Avoid-Redundant</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及压缩工具Zstd的优化改进，属于编程效率改进经验范畴，可推荐阅读</small></p><p>在 Usama Arif 近期提交关于解决 Linux 内核 Zstd 压缩代码中重大低效问题的补丁之后，他又提交了另一组面向 Linux 7.4 的独立补丁系列，通过避免冗余初始化来进一步提升 Zstd 压缩/解压缩性能。</p><p>Usama 近期发布了避免冗余 cstream 和 dstream 初始化的补丁。他发现存在一次多余的初始化过程——首次初始化在未处理任何数据的情况下就被丢弃。通过新补丁，流初始化被推迟到首次遍历迭代时执行。</p><p>根据补丁封面说明，这两项补丁在 4KB crypto_acomp 基准测试中带来了显著改进：Zstd 压缩速度有单位数百分比的提升，而解压速度在裸机上提升了 13%，在虚拟机（VM）内则提升了 35%。</p><img src="//www.phoronix.net/image.php?id=2026&image=zstd_redundant_init" alt="Zstd benchmark of patches" /><p>这两项补丁本周已被合并到 cryptodev Git 分支。由于补丁现已进入密码学子系统（cryptography subsystem）的开发分支，它们预计将在即将到来的 Linux 7.4 合并窗口期间被提交。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Zstd-Linux-7.4-Avoid-Redundant</guid>
+      <pubDate>Sun, 13 Sep 2026 14:04:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GNOME Shotwell 33 照片管理器发布，完成 GTK4 移植</title>
+      <link>https://www.phoronix.com/news/GNOME-Shotwell-33</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GNOME照片管理器新版本发布，属于新软件项目及Linux桌面技术，符合兴趣</small></p><p>沉寂已久的 GNOME 照片管理器 Shotwell 项目今日发布重大版本更新 Shotwell 33，其中最引人注目的变化是完成了从 GTK3 到 GTK4 的移植。上一版本 0.32 于 2023 年 4 月发布，此后仅推出少量点版本，本次 33 版是一次规模较大的重要升级。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=shotwell_33_1_med" alt="Shotwell 33" /></p>
+<p>除 UI 全面转向 GTK4 外，Shotwell 33 还新增了在查看器中打开 URI 的支持，并重新设计了打印功能，同时着力修复了多项内存泄漏和潜在崩溃问题，并进行了诸多其他细微改进与大量 Bug 修复。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=shotwell_33_2_med" alt="Shotwell 33 Flatpak" /></p>
+<p>Shotwell 33 的发布恰逢下周 GNOME 51 桌面版推出之前。对用户而言，Shotwell 33.0 照片管理器现已可在 <a href="https://gitlab.gnome.org/GNOME/shotwell">GNOME GitLab</a> 获取。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=shotwell_33_3_med" alt="Shotwell 33 on Ubuntu Linux" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Shotwell-33</guid>
+      <pubDate>Sun, 13 Sep 2026 10:40:50 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Debian 13.7 发布，包含大量 Bug 与安全修复</title>
       <link>https://www.phoronix.com/news/Debian-13.7-Released</link>
@@ -624,33 +647,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-RFC-Process-Discussion</guid>
       <pubDate>Sat, 05 Sep 2026 10:31:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.8 新增类 Windows 自动滚动功能，并降低 Breeze 主题显存占用</title>
-      <link>https://www.phoronix.com/news/KDE-Plasma-6.8-Autoscroll</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 KDE Plasma 6.8 新功能，来源配置对 KDE 为很高兴趣，且属于新软件项目发布，必看。</small></p><p>KDE Plasma 开发者正为定于 10 月中旬发布的 Plasma 6.8 持续落地一系列最后关头的改进。本周新增的功能包括：</p>
-<ul>
-<li><strong>类 Windows 自动滚动（Autoscroll）</strong>：用户按下鼠标中键即可进入专用的滚动模式，通过移动指针进行滚动。此前 Plasma 仅支持按住中键时滚动，现在新增了按下中键即切换该模式的选项。</li>
-<li><strong>远程桌面“独占模式”</strong>：连接时锁定远程电脑的物理屏幕，同时向连接者展示一个新创建的虚拟屏幕。</li>
-<li><strong>联合样式（Union styles）</strong>：将显示在 KDE 系统设置的“应用程序样式”页面中。</li>
-<li><strong>更高质量的屏幕录制</strong>：Spectacle 及其他使用 KPipeWire 的应用程序将获得更高画质的录制效果。</li>
-<li><strong>降低显存占用</strong>：Breeze 主题通过优化部分 SVG 素材，减少了显存（vRAM）的消耗，对显存容量有限的用户尤其有利。</li>
-</ul>
-<p>此外，本周 Plasma 6.8 还新增了对 Wayland 下驻留点击器（dwell clicker）的支持，弥补了相比 X11 会话中 KMouseTool 的无障碍功能缺口。更多细节可参阅 <a href="https://pointieststick.com/">This Week in Plasma</a>。</p>
-<p>Plasma 6.8 计划于 10 月 14 日稳定发布，当天也是 KDE 项目成立 30 周年纪念日。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8-Autoscroll</guid>
-      <pubDate>Fri, 04 Sep 2026 21:00:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Wine 11.17 发布：首次支持显示模式模拟（Display Mode Emulation）</title>
-      <link>https://www.phoronix.com/news/Wine-11.17-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Wine 11.17 新版本发布，属于软件新版本，涉及 Linux 桌面运行 Windows 应用技术，用户应会感兴趣。</small></p><p>Wine 11.17 于今日发布，这是该软件（用于让 Windows 游戏和应用在 Linux 上运行）最新的一期双周功能开发版本。</p><p>本期最引人注目的更新是首次实现显示模式模拟（Display Mode Emulation）支持。该工作由 Rémi Bernon 主导，允许根据模拟分辨率进行 OpenGL 缩放，也被描述为 OpenGL 渲染虚拟化：渲染会先在预期的虚拟尺寸下完成，随后再输出到实际物理尺寸的主机窗口。</p><p>此外，Wine 11.17 还引入了新的 <a href="https://www.phoronix.com/news/VKD3D-2.1-Released">VKD3D 2.1</a> 版本，用于在 Vulkan 之上实现 Direct3D 12；并进一步改善了对首选 UI 语言的支持。本期共修复了 44 个已知 bug，修复范围涵盖多款新旧游戏及大量应用问题。完整的 Wine 11.17 变更列表可参见 <a href="https://www.winehq.org/">WineHQ.org</a> 上的发布公告。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Wine-11.17-Released</guid>
-      <pubDate>Fri, 04 Sep 2026 20:11:12 GMT</pubDate>
     </item>
   </channel>
 </rss>

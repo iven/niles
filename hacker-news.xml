@@ -3,7 +3,63 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 13 Sep 2026 10:13:24 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 13 Sep 2026 14:22:22 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Homebrew 7.0.0 发布：更快安装、更强沙箱、内置漏洞检查与原生 macOS 应用</title>
+      <link>https://news.ycombinator.com/item?id=49681545</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Homebrew 包管理工具新版本发布，属于编程工具发布/分享的高兴趣类别，用户必看</small></p><p>Homebrew 于 2026 年 9 月 13 日发布 7.0.0 版本。相较于 6.0.0，本次更新带来了更快的安装与升级速度、更强的沙箱保护、原生 macOS 图形界面应用 BrewUI、内置漏洞检查与安全公告数据库，同时结束了对 macOS 10.15 的支持，并将 Intel Mac 降级为 Tier 3（第三级支持）。</p>
+
+<h3>性能提升</h3>
+<p>新版本通过提升下载、准备与安装环节的并行度来最大化性能，<code>brew install</code>、<code>brew upgrade</code> 及 <code>brew bundle</code> 可重叠包准备与下载过程。同时优化了 <code>brew config</code>、<code>brew tap-info</code>、<code>brew cleanup</code>、<code>brew fetch</code> 等命令，减少启动时子进程数量，并复用已解析的 API 数据（每次加载时仍验证签名）。</p>
+
+<h3>安全改进</h3>
+<p>7.0.0 包含多项安全修复与新的安装保护机制，包括多个安全公告（GHSA）的修复，涵盖无符号 cask 移除元数据可执行 sudo 命令、恶意 cask 通过 LaunchServices 越权执行代码等问题。新版本以签名数据交付结构化设置，并沙箱化 formula 与 cask 操作，减少任意 Ruby 执行；默认阻止沙箱内读取主目录，并在下载阶段完成后于安装阶段禁用网络。</p>
+
+<h3>命令与配置</h3>
+<p>多项命令得到增强：<code>brew install --dry-run</code> 可同时预览公式与 cask；<code>brew info</code> 区分不可安装与未安装包；<code>brew services</code> 支持持久化服务覆盖；<code>brew doctor --json</code> 提供结构化诊断；<code>brew deps --brewfile</code> 可检查 Brewfile 依赖。</p>
+
+<h3>macOS 与 Intel 支持</h3>
+<p>Homebrew 于 2026 年 9 月将 Intel x86_64 平台移至 Tier 3，并在 2027 年 9 月结束对 Intel 的支持。官方解释称，苹果与 GitHub 均已退出对 macOS Intel 的支持，志愿者项目难以继续维护，建议 Intel 用户转向 MacPorts。同时，Homebrew 完全支持 macOS Golden Gate 27（Apple Silicon），其 .pkg 安装器仅支持 Apple Silicon 及 macOS Sequoia 15 以上系统。</p>
+
+<h3>BrewUI 应用</h3>
+<p>BrewUI 是 Homebrew 官方发布的成熟 macOS 图形界面应用，可通过 <code>brew install homebrew-app</code> 安装（需 macOS Tahoe 26 及以上）。它提供包浏览、搜索与已安装版本详情，并展示底层 brew 命令，桥接图形操作与终端命令。</p>
+
+<h3>Linux 与其他</h3>
+<p>Linux 方面，7.0.0 用 Landlock 取代 6.0.0 引入的 Bubblewrap 沙箱，无需额外依赖或提升 Docker 权限。非默认前缀用户可将兼容的 bottle 重定位到较短前缀，避免在默认安装位置之外进行源码构建。安全团队可使用内置的 <code>brew vulns</code> 基于 OSV.dev 检查已知漏洞，并可通过 CC0 许可复用 Homebrew 的 OSV 格式公告数据。</p>
+
+<h3>社区反响</h3>
+<p>HN 评论区中，有用户称赞新版本安装与升级速度「快得惊人」，认为性能曾是 brew 最大的痛点。也有 Intel Mac 用户对支持的终止表示惋惜与失望，另有一些用户对 Homebrew 的供应链安全策略提出质疑，开发者则以官方安全文档回应，强调项目非常重视供应链安全。</p>
+
+<div class="knowledge-box">
+<h3>你知道吗？</h3>
+<p><strong>Tier 支持等级</strong>：Homebrew 通过 Tier 等级描述对平台的支持程度——Tier 1 为完全支持并提供预编译的 bottle（二进制软件包），Tier 3 则表示项目不再提供支持与常规构建，用户可能需要进行源码编译。</p>
+<p><strong>Landlock</strong>：这是 Linux 内核提供的一种基于文件系统访问控制的无特权沙箱机制，无需 root 权限即可限制进程可访问的文件范围，比需要安装外部依赖的 Bubblewrap 更轻量。</p>
+<p><strong>OSV 格式</strong>：Open Source Vulnerability（OSV）是一种标准化、机器可读的开源软件漏洞描述格式，被众多漏洞数据库与扫描工具采用，便于跨工具共享与自动化处理漏洞信息。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49681545</guid>
+      <pubDate>Sun, 13 Sep 2026 08:41:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>JetKVM 发布更小巧实惠的 JetKVM Mini：有线版 $39、无线版 $42，固件开源</title>
+      <link>https://news.ycombinator.com/item?id=49681152</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为 KVM 硬件设备的发布，虽提及开源固件但与用户高兴趣类别匹配度不高，兴趣不明确</small></p><p>JetKVM 宣布推出 JetKVM Mini——一款更小、更实惠的 JetKVM（键盘、视频、鼠标远程管理设备）。它分为两个型号：带以太网的 <strong>JetKVM Mini</strong> 售价 39 美元，无线的 <strong>JetKVM Mini W</strong> 售价 42 美元；三件打包购买后单价可降至 33 美元和 36 美元。机身采用铝合金材质，尺寸为 42 × 42 × 23 毫米（约一盒火柴的大小），顶部为显示屏、侧面为按钮。</p>
+<img src="/blog/jetkvm-mini/angle.webp" alt="JetKVM Mini from above, showing the display on top and the buttons on the side" />
+<p>Mini 并非简配版，而是围绕 KVM 的核心功能重新架构的产品。它使用 <strong>ESP32-P4X</strong> 微控制器处理视频采集、H.264 编码、USB 和固件，无需 Linux 系统所需的独立 DRAM 与 eMMC，因此架构大幅简化，同时在更小的设计中保留了 JetKVM 的网页界面、云服务、扩展和更新系统。有线版通过 RJ45 以太网口连接网络；无线版则内置 2.4/5 GHz 无线网卡，适用于网线无法到达的机器，设置时通过蓝牙从手机或笔记本浏览器配网。</p>
+<p>硬件方面，Mini 以 1080p/30fps 或 720p/60fps 采集视频，由芯片硬件编码后通过 WebRTC 流式传输到浏览器；Mini W 额外加入 ESP32-C5 处理无线连接，支持 Wi-Fi 6 及 Zigbee/Thread。设备配备两个 USB 口：一个连接目标电脑（USB 2.0 High Speed，提供键盘、鼠标和虚拟光驱并取电），另一个为通用 USB 口（USB 2.0 Full Speed，可作为备用/次级供电，也能经外部供电后作为 USB 主机使用）。虚拟介质通过侧面的 TF 卡槽加载 ISO 镜像。</p>
+<img src="/blog/jetkvm-mini/back-ethernet.webp" alt="Back of JetKVM Mini with RJ45 and two USB ports" />
+<img src="/blog/jetkvm-mini/back-wifi.webp" alt="Back of JetKVM Mini W with two USB ports" />
+<p>软件方面，为 ESP32-P4X 重写的固件从发布首日即开源，并沿用原有协议，因此网页界面与云服务保持不变，支持键盘鼠标控制、文本粘贴、键盘布局、虚拟介质、JetKVM Cloud（外网访问）、Wake-on-LAN、MQTT 和 Home Assistant、OIDC 登录，以及带自动回滚的 OTA 更新。此外，JetKVM Mini 也支持 JetKVM OS Services，可在目标机器上以最高 4K 采集屏幕，并新增共享剪贴板、访客终端和文件传输功能。设备还预置了 JetKVM 公钥签名摘要，可通过网页界面一次性设置，永久锁定为仅运行 JetKVM 签名固件（secure boot）。</p>
+<p>两个型号均将于 2026 年 10 月 26 日通过授权经销商发售。</p>
+<p><strong>社区反馈</strong>：Hacker News 评论整体反响不错，不少用户惊叹 ESP32-P4X 仅凭 32MB 内存即可完成视频采集与 H.264 编码。但也有用户反映自己手中的 JetKVM 出现无法启动、连不上网络、键盘失灵等故障，另有部分用户抱怨发货延迟。还有评论指出该设备属于 IP KVM（远程管理设备），与「在多台电脑间切换」的传统 KVM 切换器是两类不同产品，二者的需求也不尽相同。</p>
+<h3>你知道吗？</h3>
+<p>KVM 在此处指的是 Keyboard–Video–Mouse（键盘-视频-鼠标）设备，让用户通过网络远程操作一台电脑的键盘、鼠标和屏幕画面。它常被误认为是与「内核虚拟机（Kernel-based Virtual Machine）」相关的虚拟化概念——本次评论中就有多位 HN 用户表达了这种混淆。JetKVM Mini 属于「IP KVM」或「KVM over IP」类别，侧重远程访问单台机器（包括 BIOS 界面），而非在本地多台电脑间切换。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49681152</guid>
+      <pubDate>Sun, 13 Sep 2026 07:49:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 为什么 AI 智能体会撒谎、作弊和协调行动？约书亚·本吉奥提出系统性假说</title>
       <link>https://news.ycombinator.com/item?id=49678969</link>
@@ -850,57 +906,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49604150</guid>
       <pubDate>Mon, 07 Sep 2026 23:37:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Jellyfin 12.0 发布：改版命名、新数据库性能优化与书籍漫画支持</title>
-      <link>https://news.ycombinator.com/item?id=49604861</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Jellyfin 是开源媒体服务器，12.0 版本的发布涉及软件新功能与数据库性能优化，属于用户感兴趣的开源项目与软件新功能类别。</small></p><p>开源媒体服务器 <strong>Jellyfin</strong> 发布了新的稳定版本 <strong>12.0</strong>，延续了 10.11 版本开启的数据库重建工作，将其转化为实际的性能提升，并终于为书籍和漫画提供了期待已久的支持。</p>
-
-<h3>版本命名变更</h3>
-<p>本版本最显著的变化在于命名方案：Jellyfin 放弃了主版本号中的"10"，原本应称为 10.12.0 的版本现在直接称为 <strong>12.0</strong>。官方解释称，10.11.0 实际上是一次重大发布（重写了库数据库），但版本号却将其呈现为次要更新，容易误导用户的升级预期。新的命名让首个数字在大版本发布时真正体现其分量。任何解析 Jellyfin 版本字符串的客户端、监控脚本或部署工具都需要关注这一变更。</p>
-
-<h3>新数据库性能优化</h3>
-<p>本版本对播放列表和合集（Collections）的存储方式进行了重大调整：此前整个播放列表作为单一列表存储，数据库无法深入查看；现在播放列表中的每个项目都拥有独立的数据行，可以快速计数、分页、单条增删。此外还优化了批量删除、继续观看（Continue Watching）、艺术家查询、文件夹观看计数等操作的性能，重型数据库维护不再与库扫描争夺资源。</p>
-
-<h3>书籍与漫画支持</h3>
-<p>本版本将原本 Bookshelf 插件的大部分功能迁移到了服务器端：可直接从 OPF、ComicInfo 或 ComicBookInfo 文件中读取书籍元数据，为 EPUB 和各种漫画压缩格式生成封面，支持有声书章节提取。Web 客户端新增了现代书籍库布局和相关标签页，阅读界面在各个书籍类型间实现了统一。Bookshelf 插件已弃用，其功能被拆分到 ComicVine 和 GoogleBooks 提供器中，并新增了 OpenLibrary 插件。</p>
-
-<h3>更好的推荐与可扩展搜索</h3>
-<p>"更多类似内容"和推荐行的数据来源现在可逐库配置（与元数据提供器设置同一处）。服务器内置了 <strong>ListenBrainz</strong> 作为推荐源，音乐库可基于真实收听数据生成相似艺术家推荐。搜索功能也可由插件扩展。</p>
-
-<h3>Modern 布局成为默认</h3>
-<p>此前标记为"实验性"的布局现正式成为 <strong>Modern 布局</strong>，在桌面和移动端成为默认布局；旧布局更名为 Legacy 仍可使用。电视设备继续使用 TV 布局。所有主题均基于共享的 CSS 变量基础主题派生。</p>
-
-<h3>升级注意事项</h3>
-<p>官方强调升级前必须阅读 TL;DR 部分：本版本会更改数据库结构并在首次启动时重写数据，升级前需备份；必须从 10.10.7 或任意 10.11.x 版本升级；用户名现在大小写不敏感，存在仅大小写不同的账户时迁移会失败；升级后必须执行完整库扫描（首次扫描耗时较长且部分影片会显示为新添加）；升级前应移除第三方插件（10.11 的插件无法在 12.0 加载）；旧的 /emby/ 和 /mediabrowser/ 地址支持已移除，多年未更新的旧客户端将停止工作。</p>
-
-<h3>安全修复</h3>
-<p>本版本包含多项安全修复，涵盖服务器和 Web 客户端，包括封堵构造请求越权访问目录以外文件、拒绝不安全命名的插件包、修复 Web 客户端跨站脚本（XSS）问题等。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 用户普遍对升级体验表示满意，许多用户从 Plex 转向 Jellyfin。多名用户反馈迁移过程顺利（约 10 分钟），重新扫描约 30 分钟，并称赞 12.0 的性能优于 10.10 和 10.11。也有用户提出痛点，如部分客户端（Android→Chromecast）的字幕问题、库扫描日志难以解读，以及关于直接暴露到互联网的安全讨论——维护方建议使用 VPN，用户在个人信任环境中运行。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>ListenBrainz</strong> 是一个开源的音乐收听历史数据库，由 MetaBrainz 基金会维护，可根据真实收听行为提供相似艺术家推荐，而非仅依赖标签数据。Jellyfin 将其作为可选的推荐数据源内置，用于改善音乐库的发现体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49604861</guid>
-      <pubDate>Tue, 08 Sep 2026 01:56:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ bzip3：BZip2 的现代化继任者，压缩率与性能皆优</title>
-      <link>https://news.ycombinator.com/item?id=49598291</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] bzip3 是现代化压缩工具/编程库的发布分享，属于编程工具发布/分享（高兴趣），用户会强烈感兴趣</small></p><p>本文介绍了 <a href="https://github.com/iczelia/bzip3">bzip3</a>，一个比 BZip2「更好、更快、更强」的精神继任压缩工具。它通过结合 order-0 上下文混合熵编码器、基于后缀数组的快速 Burrows-Wheeler 变换（BWT），以及基于 LZ77 字符串匹配和 PPM 风格上下文建模的 RLE + Lempel Ziv+Prediction 通道，实现了更高的压缩率和更好的性能。与 BZip2 一样，bzip3 特别擅长压缩文本和代码。项目已通过 Homebrew 等包管理器提供安装，并支持 x86、ARM、AArch64、PPC64LE 等多种架构。</p>
-<p>项目作者用全部 Perl5 历史版本源码（262 个版本组成约 2GB 的 tar 包）做了基准测试。结果显示，bzip3 在最大块大小（-b 511）下将数据压缩到约 546MB，显著优于 LZMA（xz，约 2.06GB）、bzip2（约 3.44GB）和 Zstandard（约 3.08GB）。在结合 lrzip 进行长距离去重后，lrzip + bzip3 的组合也取得了最小体积（约 60.7MB）。并行解压时间约为 4 分 06 秒，与 Zstandard 接近。</p>
-<p>不过，HN 评论区对这份基准测试提出较多质疑。用户「ot」指出，测试并不公平：bzip3 的块大小被设置为 512MB，而 zstd 的窗口大小保持默认（高层级下约 8MB），在这种由大量相同 Perl 版本源码拼成的语料上，zstd 无法匹配跨文件的重复。他实测发现，若将 zstd 窗口调大（<code>--long=29</code>），可将压缩体积降至约 196MB，为 bzip3 的两倍还小，同时 CPU 时间减半。另一位用户 myrmidon 和 adrian_b 也提到，bzip3 的表现高度依赖输入数据，部分文件上优于 zstd，部分则劣于，结果难以预测。此外还有评论指出，测试用并行 bzip3 对比单线程 bzip2 略显不公平，且项目最近一次发布已是一年前、构建目前失败。</p>
-<p>作者在「免责声明」中强调，压缩算法存在极低概率的潜在缺陷风险，建议不要用它压缩无法承受丢失的数据。项目整体以 LGPLv3 授权，其中 BWT 和 LZP 部分基于 Ilya Grebnov 的 Apache 2.0 代码。</p>
-<p>图片：<img src="https://github.com/iczelia/bzip3/actions/workflows/build.yml/badge.svg" alt="Build" /><img src="https://camo.githubusercontent.com/e60efbfdc1e69aaf158f5c64e16ac70b7c91025d7831c69832c32a1cb499f657/68747470733a2f2f7265706f6c6f67792e6f72672f62616467652f766572746963616c2d616c6c7265706f732f627a6970332e7376673f636f6c756d6e733d33" alt="Packaging status" /><img src="/iczelia/bzip3/raw/master/etc/benchmark.png" alt="visualisation of the benchmarks" /></p>
-<h3>你知道吗？</h3>
-<p>Burrows-Wheeler 变换（BWT）是一种将字符串重排以便于后续压缩的前处理技术，bzip2 与 bzip3 都使用它，但 bzip3 在 BWT 之后使用了更强大的上下文混合熵编码与 LZP 建模，这是其压缩率提升的关键。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49598291</guid>
-      <pubDate>Mon, 07 Sep 2026 13:35:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
