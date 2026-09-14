@@ -3,7 +3,82 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 14 Sep 2026 12:39:38 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2026 18:35:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 如何撰写有效的软件设计文档（Software Design Document）</title>
+      <link>https://news.ycombinator.com/item?id=49696125</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是关于编写软件设计文档的实用经验，属于软件开发效率提升内容，符合编程效率改进经验兴趣，推荐阅读。</small></p><p>软件工程师 Michael Lynch 在 Refactoring English 上发表了一篇关于如何撰写有效的软件设计文档（Software Design Document）的深度指南。作者曾在 Google 和 Microsoft 担任开发者并撰写过多份设计文档，文章基于自身经验总结了一套可操作的方法论，并附带一份他从零撰写的示例设计文档（"Little Moments Design Doc"），供读者参考。</p>
+
+<h3>何时需要撰写设计文档</h3>
+<p>项目越复杂或风险越高，设计文档的价值就越大。作者给出了几个判断问题：是否有多人协同实现？是否需超过三个月的全职开发时间？是否会长期在生产环境运行数十年？是否涉及跨团队协作？目标与需求是否模糊？是否存在可在设计阶段预防的灾难性风险（如安全漏洞、法律风险）？只要回答一个"是"就值得写，两个以上则几乎必然值得。</p>
+
+<h3>投入多少精力</h3>
+<p>设计文档可以是一页纸，也可以是需五个团队签字的 50 页文档。没有普适规则，正确投入取决于团队目标、风险、期限和文化，有时正确投入甚至为零。</p>
+
+<h3>什么内容应写入文档</h3>
+<p>判断一个决策是否该写入设计文档的原则是："决策错误的代价有多大？"有些选择（如编程语言）一旦做出就几乎不可逆，必须审慎对待；而另一些如"加载更多"按钮是"分页显示 25 条还是 100 条"这样的细节不属设计层面，可日后快速调整，不必浪费评审周期争论。</p>
+
+<h3>设计文档的常见组成部分</h3>
+<p>作者列出了若干常用章节，并强调无需每份文档都包含全部：</p>
+<ul>
+<li><strong>标题</strong>：简短、独特、有描述性，例如缓存层项目可命名为 "RecencyBank"，而非"Project Flying Silver Horse"。</li>
+<li><strong>元数据</strong>：作者、创建时间、权威 URL、批准人及日期。</li>
+<li><strong>目标（Objective）</strong>：一句话说明项目目的，用任何利益相关者都能理解的白话。</li>
+<li><strong>背景（Background）</strong>：项目动机、解决的问题、之前的尝试。要确保文档脱离上下文也能读懂。</li>
+<li><strong>相关文档（Related Documents）</strong>：链接到测试计划、相关系统及先前迭代的设计文档。</li>
+<li><strong>目标（Goals）与反目标（Non-goals）</strong>：目标应按影响而非实现细节来设定（如"减少部署新版本导致的停机"而非"给基础设施加 Kubernetes"）；反目标则明确划清范围边界。</li>
+<li><strong>场景（Scenarios）</strong>：用具体故事描绘系统完成后的实际工作方式。</li>
+<li><strong>图表（Diagrams）</strong>：帮助评审者快速形成架构心智模型。建议使用可编辑的工具（Excalidraw、draw.io、Google Drawings，或 Mermaid、D2、Graphviz 等代码化工具），并链接到源文件以便复现。</li>
+<li><strong>术语表（Glossary）</strong>：定义内部工具或系统名称，最好直接用读者可识别的术语。</li>
+<li><strong>约束（Constraints）</strong>：预算、客户、基础设施或依赖带来的限制。</li>
+<li><strong>服务级别目标（SLOs）</strong>：用具体的、可度量的指标（可用性、延迟、规模）取代模糊的"要在移动端表现良好"，避免歧义。</li>
+<li><strong>监控/告警（Monitoring/Alerting）</strong>：定义如何度量 SLO 及触发告警的事件。</li>
+<li><strong>时间线（Timeline）</strong>：将项目划分为里程碑，尽早向利益相关者交付有用成果（如先展示假数据的 UI）。作者还推荐了 Joel Spolsky 的"Painless Software Schedules"一文。</li>
+<li>此外还包括接口（Interfaces）、依赖/基础设施（Dependencies/Infrastructure）、安全、隐私、法律、日志（Logging）、开放/已解决问题、备选方案（Alternatives considered）等章节。</li>
+</ul>
+
+<h3>社区反馈</h3>
+<p>该文在 Hacker News 上获得 248 分和 105 条评论，讨论相当热烈。作者本人也参与回应，并解释了他关于推动团队采纳良好工程实践的观点：最有效的做法是先积累"社交资本"——自己先在文档上投入并获得成果，让队友看到价值，再推动全员写作，同时要注意争取管理层支持。</p>
+<p>多位评论者提出了有价值的补充与批评：</p>
+<ul>
+<li>有评论指出设计文档应随项目和公司规模伸缩——50 人的创业公司不必写需要多人签字的完整文档，但即使 5 人团队写一页纸也有帮助；同时认为不该在文档中放入实际代码，否则就陷入了过低的细节层级。</li>
+<li>有人引入 AWS 文化中的"单行道/双行道"决策概念：多数日常决策都是可逆的"双行道"，过度委员会审批只会造成决策瘫痪。</li>
+<li>关于"从零重写不可行"的论断，有评论认为在 LLM 时代情况可能改变（LLM 擅长语言间翻译，Bun 项目已展示跨语言移植大型成熟项目的可能性），作者回应称 Joel 的观点至今仍正确，但 Bun 属于对 LLM 最友好条件的特例，结果尚待观察。</li>
+<li>有人批评 AI 生成的设计文档质量低下（"slop"），建议拒绝看不懂的内容并要求作者当面讲解。</li>
+<li>也有不同观点认为设计文档有时是"Big Design Upfront"（大型预先设计），提倡敏捷式小步迭代，以实际执行中获得的信息优于设计时的臆测。</li>
+<li>另有评论建议使用 C4 模型按抽象层级拆分文档，并讨论了文档的受众定位问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49696125</guid>
+      <pubDate>Mon, 14 Sep 2026 13:00:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>反对 JPEG XL：压缩工程师论证其不适合网页平台</title>
+      <link>https://news.ycombinator.com/item?id=49690554</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是图像编解码格式在网络平台的技术争论，偏向行业技术讨论，兴趣不明确，可选择阅读。</small></p><p>一位有视频压缩背景、曾参与 AV1 编码器研发出身的压缩工程师（原文作者）撰写长文，以实证方式论证为何 JPEG XL 不应进入网页浏览器。文章开篇承认 JPEG XL 是技术上令人印象深刻、优于传统 JPEG 且比 WebP 更灵活的编码格式，但作者认为网络的现实需求并不需要它。</p>
+
+<p><b>主要论点</b>：</p>
+<ul>
+<li><b>无损优势被夸大</b>：普通网络用户需要的是有损编码而非无损。JPEG XL 的无损优势在实际中仅比无损 WebP 小约 11.9%，且测试数据集（157 MP 照片、10 MP 插图、27 MP 书籍）对网页场景并不现实。</li>
+<li><b>有损压缩效率失去优势</b>：AV1 参考编码器（libaom）和 SVT-AV1 经过受控主观人眼测试的专项感知调优，在速度与每比特保真度上现已超越 libjxl。CVVDP、MS-SSIM、SSIMULACRA2 等感知指标对 JPEG XL 呈现不利图景。</li>
+<li><b>编码工具结构劣势</b>：JPEG XL 缺少方向性预测模式（dir-pred）和去块循环滤波（DLF），其 XYB 色彩空间基于大量直觉且依赖激进量化 B 通道导致色彩保留不佳；对非照片图像表现差，其补丁方案比 AV1 的 Intra Block Copy 更难使用，图层与混合等额外概念开销高昂。</li>
+<li><b>解码速度不具竞争力</b>：JPEG 重压缩虽声称节省约 20% 体积，但代价是解码时间增加约 33%。实测中 WebP 虽大 90KB 以上，解码仍比 jxl-rs 快 10 倍以上。</li>
+<li><b>渐进式渲染</b>：作者指出 AVIF（libavif）现已实现渐进解码，并展示 AVIF 在仅加载全图 2-3% 时就呈现可用图像，优于 JXL。</li>
+<li><b>安全隐忧</b>：JPEG XL 的灵活性可被滥用，例如一张仅 1,918 字节、通过解码计算素数而需 17.43 秒解码时间的图像，可能成为轻松瘫痪低端设备的 "JXL 炸弹"。</li>
+</ul>
+
+<p><b>结论</b>：作者认为网页编码格式应针对网络需求专门、高效、窄范围地设计。AVIF（基于 AV1）生态成熟且天然适配网页，而 JPEG XL 无所不包的设计使其既不适合网页，又增加下载与跨平台使用的兼容性负担。作者判断，如今支持 JPEG XL 的多数理由源于希望网页上有更多开发者选择自由，而非技术上的优越性；但 JPEG XL 仍可在网页之外（专业图像工具、相机厂商等）继续发挥价值。</p>
+
+<p>文章引发讨论，部分评论者指出 AVIF 所谓的"渐进式解码"实际是嵌入缩略图分层的做法，而非 JXL 真正的渐进式解码；同时有人强调 JPEG XL 作为格式的天花板高于 libjxl 当前表现，其灵活性（如支持 4096 通道）对专业用途极具吸引力。</p>
+
+<h3>你知道吗？</h3>
+<p>JPEG XL 在 2023 年曾被 Chrome 官方拒绝支持，因其免专利费、灵活且压缩高效，这一决定在当时引发广泛争议。近期一个 Rust 编写的 JPEG XL 解码器已进入 Firefox 和 Chrome，部分原因是 2023 年 WebP 曾出现过严重漏洞，新解码器被视为规避重蹈覆辙的手段。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49690554</guid>
+      <pubDate>Mon, 14 Sep 2026 01:02:37 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Ask HN：你最近在做什么项目？（2026年9月）</title>
       <link>https://news.ycombinator.com/item?id=49686380</link>
@@ -847,43 +922,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49611128</guid>
       <pubDate>Tue, 08 Sep 2026 14:49:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>把电子墨水阅读器改造成打印机：为 Xteink X3 实现 IPP 协议</title>
-      <link>https://news.ycombinator.com/item?id=49617255</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 属于DIY硬件改造编程项目（为电子墨水屏阅读器实现打印协议），涉及小众创作，不在明确兴趣配置中，兴趣不确定</small></p><p>一位开发者本打算为自己的 Xteink X3 电子墨水阅读器（e-ink reader）制作显示应用，却在查阅规格时发现该设备完全可编程。他认为"如果它看起来像纸，就应该像纸一样工作"，于是决定把它变成一台真正的打印机——让 MacBook 上按下"打印"就能直接输出到电子墨水屏上。</p>
-
-<p>作者通过深入研究 <strong>互联网打印协议（IPP）</strong>，让电脑能够查询打印机能力、提交文档并追踪打印任务。他将设备命名为"penguin"，通过 Bonjour 通告 <code>_ipp._tcp</code> 服务，支持 Apple raster 和 PWG raster 格式，并声明 A5 和 Letter 纸张、单面单色 300 dpi 输出。</p>
-
-<p>文章的核心挑战在于内存：一张 Letter 页面在 300 dpi 下约需 8.4 MB 未压缩数据，而 X3 仅有 400 KB RAM（其中 16 KB 预留给缓存）。作者放弃了在内存中组装完整页面再拷贝的思路，改为把传入的页面通过解码、缩放、抖动（dithering）流水线逐行直接写入显示屏已有的屏幕图像缓冲区，从而把图像缓冲占用从约 113 KB 降至约 62 KB，为网络协议栈腾出空间。</p>
-
-<p>最终成果是：第一次打印（一张《无职转生》漫画页面）约一秒内显示在 Xteink 上，并会保存在 SD 卡中，可在阅读器上浏览——"我的打印机毕竟也有出纸托盘，它是个文件夹"。代码已开源在作者的 CrossPoint 分支中。</p>
-
-<h3>社区反馈</h3>
-<p>评论区反响热烈，多位用户称赞这一想法"实在太正确了"，甚至联想到《星际迷航》中的 PADD。作者回应称该实现"边角还很粗糙，欢迎提交 PR"。有用户询问为何不与 PDF 直接加载，作者解释渲染 PDF 对 400 KB RAM 的设备负担过重。资深开发者 <strong>ValdikSS</strong> 还给出了专业改进建议：在 <code>media-size-supported</code> 中声明屏幕精确尺寸，采用 1-bit-per-pixel 模式（数据量可缩减为原来的八分之一），并调整抖动选项，作者表示会采纳。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49617255</guid>
-      <pubDate>Tue, 08 Sep 2026 21:22:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Meta 发布个人 AI 代理 Muse，引发隐私与商业化争议</title>
-      <link>https://news.ycombinator.com/item?id=49615537</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Meta 发布个人 AI 代理 Muse，属于 AI 软件技术进展和新产品发布，虽涉及公司及隐私争议，但核心是 AI 产品动态，值得阅读</small></p><p>Meta 推出的个人 AI 代理 <strong>Muse</strong> 在 Hacker News 上引发热议（获 362 分、380 条评论）。据官方页面介绍，Muse 可协助处理订票、价格监控、管理提醒、创建文档、生成图片和研究话题等日常任务，并配备自己的浏览器。演示视频中最先强调的功能是「通过其商店前端引导用户购买更多商品」，这一点尤为引人注目。</p>
-
-<p>评论区的讨论集中在几个方面：</p>
-<ul>
-<li><strong>隐私担忧</strong>是最大的争议点。许多用户表示不愿将个人生活信息交给 Meta（Meta），甚至有人评价「喜欢这个想法和打磨程度，但讨厌它背后的公司」。也有用户指出普通大众对此并不在意，老年用户可能乐于让 AI 替自己做决策，因为「感知到的收益大于感知到的成本」。</li>
-<li><strong>强烈的消费导向</strong>被多次批评。有体验过的用户称，AI 会主动询问设置购物功能，并持续诱导花钱——一有研究旅行的结果就提示开始订酒店等。有评论以「AI 研究者的首要关切永远是订餐厅座位」的调侃讽刺这种聚焦消费场景的倾向。</li>
-<li><strong>历史的呼应</strong>：有用户提到 2015 年 Facebook（尚未更名为 Meta）曾在 Messenger 中推出名为「M」的私人助理，早期主要由后端人类团队运作，后在 2018 年关闭，如今看来颇具前瞻性却也很短视。</li>
-<li><strong>功能想象力的质疑</strong>：有评论认为这些用例并未因 AI 代理而真正改善，反而意味着「让你的自主权被不为你利益考虑的公司所支配」；也有人举出实际未能解决的家庭日历同步等场景，批评现有助手连最基本的任务都做不好。</li>
-</ul>
-
-<p>总体上，社区对 Muse 在功能打磨上的努力部分认可，但对其数据收集、商业化倾向和背后公司的信任问题普遍持怀疑态度。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49615537</guid>
-      <pubDate>Tue, 08 Sep 2026 19:25:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

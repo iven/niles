@@ -3,7 +3,50 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 14 Sep 2026 12:39:30 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2026 18:35:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐ GNU Coreutils 9.12 发布：性能优化与新 uname 选项</title>
+      <link>https://www.phoronix.com/news/GNU-Coreutils-9.12</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GNU Coreutils 新版本发布，属于新软件项目与开源软件进展，用户较感兴趣</small></p><p>GNU Coreutils 9.12 于近日正式发布，这款广泛应用于系统的核心工具集带来了多项修复、新选项以及性能优化。</p>
+<p>本次更新首先修复了一个长期存在的 bug：当 chcon、chgrp、chmod、chown、du 和 ls 使用"-R"递归选项遍历目录层级，且文件被并行删除时，这些命令不再会失败。此外，stat 和 tail 命令现已支持新的 FailFS 与 NULLFS 文件系统类型。uname 命令新增了"-A"和"--all-labeled"选项，可用于标注全部输出并以每行一项的形式显示。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=uname_all_labeled" alt="uname new option example" />
+<p>在性能方面，"cut -w" 在典型输入下吞吐量最高可提升至原来的 4 倍；"uniq -c" 在启用解锁 stdio 函数的系统上运行速度最高提升 2.5 倍。sort 命令在读取管道等未知大小输入时，能够更好地利用可用内存和并行操作。cp、install 和 mv 命令现在会在"--reflink=auto"因各类错误（如在 XFS 上克隆耗尽分配组中的元数据空间）失败时，自动回退到标准复制方式。mv 命令在当前文件系统不支持扩展属性而复制失败时，也会给出提示。</p>
+<p>此外还有其他修复，例如避免 factor 可能出现的缓冲区过度读取（buffer over-read）、修复多个 Solaris 相关的 bug 等。GNU Coreutils 9.12 现已可在 GNU.org 下载。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Coreutils-9.12</guid>
+      <pubDate>Mon, 14 Sep 2026 17:45:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Rustls 0.23.45 发布，修复近两年的 TLS 1.3 安全漏洞</title>
+      <link>https://www.phoronix.com/news/Rustls-0.23.45-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust 语言 TLS 库的安全修复版本发布，涉及 Rust 及软件安全进展，用户较感兴趣</small></p><p>现代的 TLS 库 Rustls 今日发布了 0.23.45 版本，用于修复一个自 2024 年引入的安全问题。尽管 Rustls 以内存安全为核心，使用 Rust 编程语言编写，但与其他 Rust 项目重实现一样，新实现也可能带来自身的安全缺陷。</p>
+<p>本次修复的漏洞涉及 TLS 1.3 握手消息在加密级别边界上的错误处理。Rustls 接受了在错误加密级别发送的 TLS 1.3 握手消息——当这些消息在同一记录中跟随密钥变更消息时。公告指出，这一不规范的处理（Rustls 的 TLS 1.3 实现与 RFC 8446 规范不符）可能导致路径上的攻击者注入被 Rustls 接受的明文消息。</p>
+<p>不过，由于握手记录仍然经过认证，网络位置的攻击者无法利用此漏洞篡改或完成握手；实际影响是，对端可以发送本应加密的握手消息为明文，而 Rustls 不会拒绝该连接。该问题与今年 1 月披露的一处 Go 漏洞类似。OpenSSL、BoringSSL 等其它 TLS 实现不受影响。</p>
+<p>该问题已在昨日修复，现通过 v0.23.45 版本提供。此漏洞自 2024 年 9 月发布的 Rustls v0.23.13 起一直存在，至今已近两年。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Rustls-0.23.45-Released</guid>
+      <pubDate>Mon, 14 Sep 2026 15:35:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Firefox 156 发布：内置 PDF 查看器启动速度最高提升 45%</title>
+      <link>https://www.phoronix.com/news/Firefox-156</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Firefox 新版本发布且 PDF 查看器性能提升，属于 Firefox 重点兴趣领域，推荐阅读</small></p><p>Mozilla 今日发布了 Firefox 156.0 正式版二进制文件，比官方周二正式公告提前发布。本次更新的一大亮点是内置 PDF 查看器，其启动速度最高可提升 45%。</p><p>在性能方面，Firefox 156 还改进了内存与 CPU 占用，当网页显示被缩放以适应页面的大尺寸 JPEG 图片时，资源消耗得到了优化。</p><p>此外，本次更新包含多项修复，例如解决了部分网站上高采样率 FLAC 音频在 MP4 中播放失败的问题，并修复了各类平台相关的缺陷及其他小问题。</p><p>值得关注的是，Firefox 156 的 nightly 构建版本曾启用了针对较新 NVIDIA 显卡和近期 NVIDIA 驱动版本的 Vulkan Video 解码功能，但遗憾的是该功能未能随 156 正式版推出，目前仍仅限于 nightly 版本中使用。</p><p>对于 Linux 用户而言，这并非近年来最令人兴奋的更新。如需获取最新版本，可立即通过 ftp.mozilla.org 下载 Firefox 156。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Firefox-156</guid>
+      <pubDate>Mon, 14 Sep 2026 15:09:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>移除过时 ARM 平台驱动：Linux 内核可精简约 24.7 万行代码</title>
+      <link>https://www.phoronix.com/news/Branch-Remove-Old-ARM-Drivers</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及移除过时 ARM 平台驱动的内核清理，主题与用户兴趣关联不明确，可选</small></p><p>Linux 内核将移除一批近期被标记为弃用的 32 位 ARM 平台。继 Linux 7.3 版本将这些平台标记为弃用之后，移除这些旧 ARM 平台本身可精简约 5.5 万行代码。而进一步删除仅与这些平台相关的、现已无用的驱动程序，则可从内核源码树中移除约 25 万行代码。</p><p>这一清理工作有助于减轻内核维护负担、改善代码库的可维护性，并减少对过时硬件的兼容支持开销。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Branch-Remove-Old-ARM-Drivers</guid>
+      <pubDate>Mon, 14 Sep 2026 13:32:47 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 借助 AI 优化，Linux 内核构建提速约 36%，增量构建约 70%</title>
       <link>https://www.phoronix.com/news/Faster-Kernel-Builds-AI-v2</link>
@@ -591,56 +634,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/ClangIR-Build-Default-Maybe</guid>
       <pubDate>Sun, 06 Sep 2026 10:43:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Slackware 16 发布首个 Alpha 版本，升级 GCC 16.2、Glibc 2.44 与 Binutils 2.47</title>
-      <link>https://www.phoronix.com/news/Slackware-16-Alpha</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Slackware 16 Alpha 发行版发布，符合来源配置中高兴趣的「新发行版」类别，用户会强烈关注，故必看。</small></p><p>距 Slackware 15 发布四年半之后，Slackware 16 正在逐步走向正式发布。近日，Slackware 创始人 Patrick Volkerding 发布了 Slackware current 分支的最新更新，将其称为 <strong>Slackware 16 Alpha 1</strong>。此前，该项目已将 GNU 工具链升级至 GCC 16.2、Binutils 2.47 和 GNU C 库（Glibc）2.44。</p>
-
-<img src="//www.phoronix.net/image.php?id=2022&image=slackware" alt="Slackware logo" />
-
-<p>Patrick 在 Slackware64-current 的更新日志中简要写道："升级至 binutils-2.47、gcc-16.2.0 和 glibc-2.44，并已用它们编译了所有软件包。隧道尽头或许有光了，祝周末愉快。"所有软件包均已重新构建，Slackware 16 Alpha 1 采用 Linux 6.18 LTS 内核，而 LILO 引导程序仍然保留在 Slackware 世界中。</p>
-
-<p>此外，Mozilla Firefox、Thunderbird 和 libxml2 等软件包也在本次更新中获得了安全与缺陷修复。这一里程碑发布紧跟在 Slackware 数月前终于引入 KDE Plasma 6 桌面软件包之后。</p>
-
-<p>从发布节奏来看，考虑到 Slackware 14 于 2012 年发布，Slackware 16 有望比 Slackware 15 的发行耗时更短，正逐步走向正式版本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Slackware-16-Alpha</guid>
-      <pubDate>Sun, 06 Sep 2026 10:16:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 基于 Slackware 的 Zenwalk 发布新 Current 里程碑快照：集成 Linux 7.1、Flatpak 与 Xfce 4.20</title>
-      <link>https://www.phoronix.com/news/Zenwalk-2026-Current</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新发行版更新发布，集成Flatpak与Xfce 4.20，符合来源高兴趣的新发行版/新软件项目</small></p><p>基于 Slackware 的老牌 Linux 发行版 Zenwalk 于今日发布了全新的 Current Milestone 快照，距离其 Zenwalk 15.0 正式版发布已过去四年多。这一新版本面向测试用户推出，带来了多项更新。</p><p>该快照在最新的 Slackware 上游基础上，融合了 Zenwalk 自身的系统改进与桌面增强。主要亮点包括：<a href="https://flatpak.org/">Flatpak</a> 包支持已完全集成进发行版；默认采用 Linux 7.1 内核，并搭载了 <a href="https://github.com/firelzrd/bore-scheduler">BORE 调度器</a>（上月他们曾尝试利用该调度器进行低延迟桌面优化）；默认桌面环境升级为 Xfce 4.20。此外，Zenwalk 还新增了一个图形化系统工具箱，改进了多媒体支持，并包含其他多项变更。</p><img src="//www.phoronix.net/image.php?id=2026&image=zenwalk_2026" alt="Zenwalk Current Milestone" /><p>下载及更多详情可访问 <a href="https://zenwalk.org">Zenwalk.org</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Zenwalk-2026-Current</guid>
-      <pubDate>Sat, 05 Sep 2026 22:27:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ikey Doherty 计划展示&quot;正确&quot;构建现代 Linux 发行版的方法</title>
-      <link>https://www.phoronix.com/news/Ikey-Doherty-Plans-Linux-Build</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及现代Linux发行版构建方法，契合新发行版高兴趣，虽以人物计划为主但仍具参考价值</small></p><p>Linux 发行版界老将 Ikey Doherty 重返 Linux 领域。他曾创办 Solus Linux 发行版以及 Serpent OS（现更名为 AerynOS），并曾就职于英特尔的 Clear Linux 团队。此次他表示"并非再次制作一个发行版"，而是打算公开演示他所认为的现代 Linux 发行版应有的构建方式。</p>
-
-<p>Doherty 表示自己已"向整个行业宣战"，这次不会长期维护新发行版，而只是公开展示正确的做法。他设想这将是"Clear Linux 与 Serpent 的结合体"。作为全职旅行者和内容创作者，他计划通过 <a href="https://www.linkedin.com/in/ikeydoherty">LinkedIn</a> 和 YouTube 持续发布相关进展。</p>
-
-<p>在今天公开的首个视频中，他概述了名为 <strong>Barney</strong> 的发行版规划：基于源代码构建、全面优化、易于更新、不可变（immutable），并尽可能利用 Rust 编程语言。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=barney" alt="Barney Linux distro" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ikey-Doherty-Plans-Linux-Build</guid>
-      <pubDate>Sat, 05 Sep 2026 18:35:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>NVIDIA 为开源 Nova 内核驱动发布 vGPU 管理器与 VFIO 变体驱动</title>
-      <link>https://www.phoronix.com/news/NVIDIA-Nova-vGPU-Manager</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 开源GPU驱动相关新闻，属开源项目但非明确高兴趣主题</small></p><p>NVIDIA 继续为开源、上游的 Linux 内核 Nova 图形驱动扩展功能。本周末，NVIDIA 向邮件列表提交了由 13 个补丁组成的补丁集，用于引入一种 NVIDIA vGPU 管理器和 VFIO 变体驱动。</p><p>这些补丁旨在启用 vGPU 管理功能，并支持使用 QEMU 的 VFIO 用户，可服务 Linux 或 Windows 客户机，且全部基于上游 Nova 内核驱动运行。NVIDIA 一直在为 Nova 驱动栈投入大量资源，作者今年早些时候访问 NVIDIA 总部时，曾听到关于 Nova 未来在 Linux 上发展的非常乐观的言论。</p><img src="//www.phoronix.net/image.php?id=2026&image=nvidia_vgpu_manager" alt="NVIDIA diagram" /><p><a href="https://www.phoronix.com/news/NVIDIA-Nova-vGPU-Manager">文中分享的示意图</a>展示了该 NVIDIA vGPU 管理器与 VFIO 变体驱动所启用的控制路径。需要提醒的是，并非所有 GPU 都会受益于此功能——NVIDIA 物理 GPU 很可能仅支持其工作站和数据中心产品，而非消费级 GeForce 显卡。感兴趣的读者可通过<a href="https://www.phoronix.com/news/NVIDIA-Nova-vGPU-Manager">此补丁系列</a>了解更多信息。NVIDIA Nova 驱动仍在稳步推进，其在主线内核上最终面向终端用户就绪的时间点值得关注。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Nova-vGPU-Manager</guid>
-      <pubDate>Sat, 05 Sep 2026 15:02:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
