@@ -3,7 +3,28 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 14 Sep 2026 06:12:15 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2026 12:39:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 借助 AI 优化，Linux 内核构建提速约 36%，增量构建约 70%</title>
+      <link>https://www.phoronix.com/news/Faster-Kernel-Builds-AI-v2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是借助AI大幅提升内核编译速度（构建约快36%、增量构建约快70%），直接属于编程效率改进经验这一很感兴趣主题</small></p><p>据 Phoronix 报道，早前发布到 Linux 内核邮件列表的一组补丁已更新到第二版，有望在 Linux 7.4 中被合入主线。这批补丁借助 AI 的辅助定位并修复了内核中大量"糟糕代码"所导致的单线程瓶颈，从而显著加速了内核编译速度。</p><img src="//www.phoronix.net/image.php?id=2026&image=faster_kernel_bulds_2" alt="faster kernel build benchmark results" /><p>测试结果显示，包含全部模块的 <code>allmodconfig</code> 内核构建速度提升了约 36%，而增量构建的速度提升更是达到约 70%。该工作由 ARM 的 Lorenzo Stoakes 主导，并于今日提交了第二版补丁。其中两个原始补丁已被采纳并合并，其余补丁则经过修复、基于最新上游 Linux Git 代码重新整理，并将 Rust 编译器并行前端改为可选启用，此外还有一些较小的改动。</p><p>Stoakes 表示，由于这些改动基本无可争议，预计有很大希望能在下一个内核周期（Linux 7.4）中完成合并。这对内核构建时间而言是两位数的百分比提升，可谓一大胜利。感兴趣的读者可在内核邮件列表中查看 v2 补丁。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Faster-Kernel-Builds-AI-v2</guid>
+      <pubDate>Mon, 14 Sep 2026 10:31:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 修复自 2023 年以来存在的静默用户态数据丢失漏洞</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-Fix-Silent-Data-Loss</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是Linux针对2023年以来存在的静默数据丢失bug的补丁修复，属于开源项目/软件技术进展，用户感兴趣</small></p><p>在昨日 Linux 7.3-rc3 发布之后，内核合并了一个重要修复，用于解决一个已存在三年的静默用户态数据丢失漏洞。该漏洞于本月月初被报告，并附带一个小型 C 程序用于复现问题。</p>
+<p>如果内核在启用透明大页（THP）且处于 cgroup 限制环境下运行，执行 <code>MADV_FREE</code> 调用之后的写入操作可能会被完全丢失。这一漏洞并非假设性问题，已在生产环境中出现，至少有 Polars 数据分析库的用户因此遭遇了生产数据丢失。</p>
+<p>触发该漏洞需要同时满足透明大页使用、<code>MADV_FREE</code> 调用以及强烈内存回收压力的特定条件。该修复补丁极为简洁，仅修改了一行代码，并作为本周 x86/urgent 合并的一部分被合入。</p>
+<p>该补丁同时被标记为向后移植到当前受支持的稳定内核系列。漏洞最初于 2023 年 7 月引入，影响自 Linux 6.6 起的各内核版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Fix-Silent-Data-Loss</guid>
+      <pubDate>Mon, 14 Sep 2026 10:13:45 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.3-rc3 发布：又是一个相当庞大的 RC 版本</title>
       <link>https://www.phoronix.com/news/Linux-7.3-rc3-Released</link>
@@ -620,37 +641,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Nova-vGPU-Manager</guid>
       <pubDate>Sat, 05 Sep 2026 15:02:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 内核发布补丁，初步支持苹果 A18 Pro 与 MacBook Neo</title>
-      <link>https://www.phoronix.com/news/Apple-A18-Pro-MacBook-Neo-Patch</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 苹果电脑的Linux初始支持补丁，高度契合来源高兴趣的苹果电脑Linux支持</small></p><p>苹果硅（Apple Silicon）的 Linux 开发者除了忙于为 M3 及更新 SoC 在内核下提供功能支持外，也有开发者着手为苹果新款平价笔记本 MacBook Neo 所搭载的 A18 Pro SoC 提供支持。本周已发布了用于 A18 Pro 和 MacBook Neo 设备树（Device Tree）的初步启用补丁。</p>
-
-<p>开源开发者 Yureka Lilian 于周五发布了首批 Linux 补丁，为苹果 A18 Pro SoC 和最近推出的低成本笔记本 MacBook Neo 铺设设备树与绑定（bindings）。不过与当前苹果 M3 的 Linux 支持类似，现阶段支持仍相当有限。事实上，目前 A18 Pro 的支持更为受限，仅能在单个 CPU 核心上成功运行。这一单核限制源于 WFI 与 WFIT 指令。这只是让 MacBook Neo 最终能在 Linux 上良好运行的漫长过程的开端。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=macbook_neo_1_med" alt="Apple MacBook Neo" />
-
-<p>除了让 MacBook Neo 能启动的 Linux 内核改动之外，还需要对 Asahi Linux 项目的 m1n1 引导加载程序进行修改。补丁说明写道：“为 MacBook Neo 添加了设备树，该机型使用与 iPhone 16 Pro 相同的 t8140 SoC（A18 Pro）。该设备树仅包含最精简的设备，限于 CPU 核心、中断控制器、看门狗、串口和帧缓冲。”也许还要等上好几个月，MacBook Neo 才能借助 GPU 加速和现代日常笔记型电脑应有的全部功能，在 Linux 上良好运行，但这是目前已经迈出的第一步。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=macbook_neo_2_med" alt="Apple MacBook Neo top view" />
-
-<p>这些首批补丁目前已在 Linux 内核邮件列表上提交审阅。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-A18-Pro-MacBook-Neo-Patch</guid>
-      <pubDate>Sat, 05 Sep 2026 11:11:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AMD 组建&quot;精英&quot;团队，推进 Rust 语言深入 GPU 软件栈</title>
-      <link>https://www.phoronix.com/news/AMD-Rust-Deep-Into-GPU-Stack</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AMD用Rust深入GPU技术栈，契合来源对Rust的兴趣及全局编程效率改进</small></p><p>AMD 正在组建一支被其称为"精英"的开发者团队，致力于推动 Rust 代码"深入 GPU 软件栈"，覆盖从固件到驱动程序、着色器编译器及 GPU 软件等各个层面。</p>
-<p>AMD 高级院士（Senior Fellow）Harsh Menon 本周在 LinkedIn 上发布了这一新举措，写道："我们正在 AMD 组建一支小而精的团队，将 Rust 深入应用到 GPU 软件栈中，涵盖编译器、运行时、固件、GPU 架构以及硬件/软件协同设计。"</p>
-<p>AMD 目前正在招聘一名软件研发工程师从事 Rust 相关开发。该职位的描述颇具看点："我们正在使用 Rust 作为核心技术方向，为 AMD GPU 构建下一代系统软件。工作范围涵盖编译器、运行时、底层 GPU 软件、固件、开发者工具，以及提升复杂硬件-软件系统安全性与正确性的方法。Rust 在这一角色中并非附带选项——你将助力确立 Rust 在 GPU 栈中性能敏感和高信任区域的使用方式，包括编译器与工具链支持、系统接口、工程实践及生产部署所需的验证方法。你将有机会影响近期实现以及 AMD 当前和未来平台长期使用 Rust 的架构布局。"</p>
-<p>AMD 的这一 Rust 新举措值得关注。AMD 并非孤例，英伟达（NVIDIA）也一直在其 GPU 软件中推行类似的基于 Rust 的计划，包括开发用 Rust 编写的 Nova Linux 内核驱动程序。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-Rust-Deep-Into-GPU-Stack</guid>
-      <pubDate>Sat, 05 Sep 2026 10:48:48 GMT</pubDate>
     </item>
   </channel>
 </rss>
