@@ -3,7 +3,34 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 15 Sep 2026 07:40:07 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2026 13:29:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ dbt 开源 dbt Charts：面向聊天代理的可审计仪表盘声明式语言</title>
+      <link>https://news.ycombinator.com/item?id=49704246</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] dbt开源新的仪表盘声明式语言工具，属于编程工具发布与开源项目，用户很感兴趣</small></p><p>dbt Labs 宣布开源 <strong>dbt Charts</strong>，一种用于声明和渲染仪表盘的 YAML 方言与工具，目标是让「与 AI 聊天生成仪表盘」这种方式也能纳入标准化治理。创始人 Dave Fowler（ChatIO 创始）称，希望这类语言结合 AI 让 BI 领域更开放，使仪表盘成为简洁、可审计的代码。</p>
+
+<p><strong>背景：BI 的第二次去捆绑（Unbundling）</strong><br>文章援引 dbt 联合创始人 Tristan Handy 的观点：过去 BI 工具是"全家桶"，集成了数据摄取、转换、计算、语义、可视化与身份认证。约 2015–2022 年，基础设施层被逐一拆出成为独立组件（计算、摄取、转换各自独立），BI 工具只剩可视化、交互分析接口等功能，而图表是其中最大的部分。如今随着 AI 代理成为前端与使用者，相比在别人家的 UI 里点按，代理更擅长代码、SQL 和 Git，因此图表需要迁移到代码之中。</p>
+
+<p><strong>dbt Charts 的核心设计</strong><br>它把图表从 BI 工具中取出并放进代码——用 SQL 声明「想看什么数据」，用 YAML 包装来声明「想怎么看」。一个交互式仪表盘可在一个易于审计的 YAML 文件中完整声明。一个小例子（一个变量、一条查询、一个图表）即可构成整块仪表盘板，CLI 可将其渲染为 SVG、HTML、PNG、PDF 甚至终端输出，并可将一个目录作为站点托管。</p>
+
+<img src="/assets/img/blog/documents-growth.svg" alt="一个面积图示例，由上面的 YAML 板渲染而成" width="672" height="564" />
+
+<p>该语言至今已有 1100 多个配置选项、十六种图表类型及组合图表。样式采用级联机制（图表继承自看板，看板继承自主题），主题一行即可切换，看板也可继承其他看板，便于统一风格与标准报告。</p>
+
+<p><strong>与 dbt 深度集成</strong><br>charts/ 目录与 models/ 放在同一 Git 仓库中，模型与其图表的改动可同分支、同一次 CI 上线，在进入生产前就能发现断裂。查询通过 <code>ref()</code> 从 manifest 解析引用模型，重命名模型或缺失列都会让对应的拉取请求失败。对 dbt Semantic Layer 的支持也在规划中。</p>
+
+<p><strong>为聊天而构建</strong><br>dbt Charts 为代理提供严格的 YAML 与 SQL 校验，以及大量可视化检查，能在任何人看到看板之前就标记出问题（如条带过窄、表格列溢出等）。看板还由数据图形设计师、作者兼历史学者 RJ Andrews 设计，力求超越常见仪表盘网格，形成统一且更具匠心的图表系统。</p>
+
+<p><strong>配套托管平台</strong><br>同日上线的 <a href="https://dbtCharts.com">dbtCharts.com</a> 公开测试版，承载图表语言之外的其余部分：托管、访问控制与可视化编辑器，并内置一流的会话式分析能力（权限化的只读仓库访问）。无论通过聊天、可视化编辑器还是代码做出的改动，最终都落在同一份 Git 仓库中的 YAML 里，不锁定任何工作流。</p>
+
+<p>dbt Charts 采用 Apache 2.0 许可，可本地安装并渲染看板，无需注册账户。代码见 <a href="https://github.com/dbt-labs/dbt-charts">github.com/dbt-labs/dbt-charts</a>，文档见 <a href="https://docs.dbtCharts.com">docs.dbtCharts.com</a>。</p></p>
+
+<p><strong>你知道吗？</strong><br>评论区提到，dbt Charts 底层使用了 <a href="https://github.com/vega/vega-lite">Vega-Lite</a> 作为图表组装工具库。Vega-Lite 是一套基于静态数据的声明式图表定义语言，而 dbt Charts 在其之上增加了可复用的 SQL 查询、仪表盘层以及鲜明风格化设定。有用户也将其与 GGSQL、微软 Fabric 的技能文件等同类方案对比，并提及「统一的图表规范」仍是社区期待但尚未实现的理想目标。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49704246</guid>
+      <pubDate>Mon, 14 Sep 2026 21:22:54 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Andon Labs 开源 Pion：可让 AI 自主运营公司的智能体平台</title>
       <link>https://news.ycombinator.com/item?id=49700477</link>
@@ -902,25 +929,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49622042</guid>
       <pubDate>Wed, 09 Sep 2026 06:31:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Kimi K3（2.8T MoE）在 MacBook Pro 上从四块 SSD 流式运行，达到约 1 token/s</title>
-      <link>https://news.ycombinator.com/item?id=49616257</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新AI模型Kimi K3在本地SSD流式运行，既有新AI模型发布又涉及AI软件技术进展，与高兴趣主题高度契合</small></p><p>一项颇具实验性的工程成果：在一个配备 128GB 内存的 M5 Max MacBook Pro 上，通过从四块 SSD 流式读取专家权重，成功完整运行了 2.8 万亿参数（约 1.45 TB 专家权重）的 Kimi K3 混合专家模型（MoE），实现约 1 token/s 的稳定解码速度。该项目名为 ARGODRIVE Deltafin，是 <a href="https://github.com/gavamedia/deltafin">gavamedia/deltafin</a>（MIT 许可）的分支，并发布了 <a href="https://github.com/argonautlabsai/deltafin">公开基准与日志</a>。</p>
-<h4>核心数字</h4>
-<ul>
-<li>512 token 回答的稳定解码：1.00 token/s；128 token 为 1.13 token/s；17 token 提示的中位数为 0.96 token/s（对比上游报告的 0.684）。</li>
-<li>512 token 提示的首 token 延迟约 6.3 分钟——这是当前最大的瓶颈，因为 prefill 阶段每层专家被重复读取 8 次（读放大 6.2 倍），作者已找到原因并计划修复。</li>
-<li>驱动器数量阶梯：一块盘约达四盘速度的 52%，两块约 73%，三块约 90%。MoE 每层需要 16 次专家读取，层耗时由最慢的一次读取决定，而非总带宽，因此 RAID-0 条带化反而会拖慢速度。</li>
-</ul>
-<h4>方法与发现</h4>
-<p>模型专家权重保留 Moonshot 发布的原始 MXFP4 精度；驻留的注意力主干使用 int8。作者坦诚并不声称与 BF16 位级完全一致，但保证在基准提示上输出 token 与自身参照一致。作者强调，最有价值的是通过仪器（10ms 级读取监视器、逐读屏障追踪等）发现了一批读取路径缺陷并加以修复，总计带来约 14%、10%、11% 和 8% 的性能提升。仓库中还收录了约一千次未成功的计时实验（包括 RAM 专家缓存、条带化、从 SSD 流式注意力主干等），作者认为这份"失败目录"对他人最有参考价值。</p>
-<h4>社区反馈</h4>
-<p>作者在评论中说明，该方案不适合交互式聊天（首 token 慢），但对无人值守的批量任务有用——例如他每天花费 30–40 分钟自动生成报告，且数据始终不离开本机。社区讨论涉及速度实用性、Thunderbolt 5 外接盘配置、Optane 等更快 SSD 的作用（作者认为收益有限，因为瓶颈是吞吐而非延迟），以及 RAID-0 无效的原因。作者也公开征求两方面帮助：MoE 专家的 prefill 调度（将读放大降至约 1 倍）以及在其他硬件上复现驱动器阶梯结果。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49616257</guid>
-      <pubDate>Tue, 08 Sep 2026 20:07:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
