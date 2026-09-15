@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 15 Sep 2026 13:29:52 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2026 18:10:20 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Ubuntu 26.10 完成基于 Rust 的 coreutils 迁移</title>
+      <link>https://news.ycombinator.com/item?id=49696697</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Ubuntu发行版将核心工具迁移到Rust，属于用户感兴趣的开源项目与软件技术进展</small></p><p>Ubuntu 26.10「Stonking Stingray」将完成发行版向基于 Rust 的核心工具（coreutils）的迁移。此前在 Ubuntu 26.04 LTS 中，cp、mv 和 rm 等命令因 uutils 版本存在一批<a href="https://www.omgubuntu.co.uk/2026/09/ubuntu-2610-rust-coreutils-complete">TOCTOU（time-of-check to time-of-use）安全缺陷</a>而被保留在 GNU 版本上；随着这些问题在上游得到修复，26.10 将补齐剩余的迁移，让 ls、cat、chmod、du 等常用命令行工具全部采用 Rust 实现。</p><p>Canonical 自 2025 年起开始「氧化」（oxidising）发行版，用 Rust 替代基础软件，理由是 Rust 能在编译期捕获内存错误，而 C 编译器则不能。Ubuntu 25.10 是首个内置 Rust 工具并默认采用基于 Rust 的 sudo 的版本。迁移过程并非一帆风顺，但 Canonical 较为谨慎：在 26.04 发布前委托对 uutils 进行了安全审计，正是这次审计发现了导致三款命令推迟迁移的问题。</p><p>Canonical 还是 Trifecta Tech Foundation 的黄金赞助商，每年向其捐赠 4 万欧元以资助 Rust 软件研发。该非营利基金会正在开展网络时间协议（NTP）的 Rust 重写，Ubuntu 计划在 27.10 之前将其设为默认的时间同步客户端。</p><p>对终端用户而言，此次 coreutils 迁移不会带来功能差异——基于 Rust 的 uutils 以与 GNU 版本实现无差异的「即插即用」兼容为目标，任何偏差都被视为缺陷。这次迁移的核心目的纯粹是提升安全性。Ubuntu 26.10 测试版将于本月晚些时候发布，稳定版计划于 2026 年 10 月 15 日推出。</p><h3>社区反响</h3><p>Hacker News 评论区讨论热烈，观点分歧明显。有用户展示了一个 bug：uutils 的 <code>rm</code> 在面对包含数万个深层目录条目时会出现段错误（segmentation fault），质疑迁移是否过于仓促；也有用户指出这只是非 LTS 的中间版本，且该问题已作为上游缺陷报告。另有多名用户对迁移的动机存疑：有人认为是出于许可（GNU 为 copyleft，Rust 版本采用宽松许可）或意识形态考量，而非技术原因；也有人批评 uutils 的代码质量与性能仍有不足。同时，部分用户提到可通过 <code>coreutils-from-gnu</code> 包继续使用 GNU 版本，但 build-essential 依赖关系的限制使其难以共存，引发了对 Canonical 路线的不满。</p><h3>你知道吗？</h3><p>TOCTOU（time-of-check to time-of-use）是一类经典的竞态条件（race condition）漏洞：程序在「检查」某个状态（如文件是否可写）与实际「使用」该状态之间存在时间窗口，攻击者可在这一窗口内篡改条件，从而绕过安全检查、导致权限提升。文件系统操作是实现此类攻击的典型场景，这正是 cp、mv、rm 等核心工具需要格外关注的原因。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49696697</guid>
+      <pubDate>Mon, 14 Sep 2026 13:38:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ dbt 开源 dbt Charts：面向聊天代理的可审计仪表盘声明式语言</title>
       <link>https://news.ycombinator.com/item?id=49704246</link>
@@ -914,21 +923,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49623754</guid>
       <pubDate>Wed, 09 Sep 2026 09:39:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>GrapheneOS 发文主张废除版权引发热议：版权是弊大于利还是需要改革？</title>
-      <link>https://news.ycombinator.com/item?id=49622042</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讨论版权制度利弊与改革的政策/法律争议，不属于配置中的兴趣主题，也不属于明确避开类别，兴趣不明确</small></p><p>GrapheneOS 在 Mastodon 上发布观点称「版权弊大于利，应当被废除」，该帖在 Hacker News 上引发了 275 分、257 条评论的热烈讨论。</p><p>帖子核心观点包括：版权在实际中并不能保护个人和小企业的生计，反而成为大公司维护垄断的武器；版权被滥用来下架并未侵权的作品，并限制人们使用、维修、修改和备份属于自己的财产；大型企业从中获得特殊豁免并非始于大型语言模型（LLM）。</p><p>评论区观点分歧明显，主要围绕以下几点：</p><ul>
-<li><b>反对废除版权</b>：许多评论者认为正确的做法是「修复版权制度中的不对称」而非整体废除，反驳者常以言论自由作类比，指出富人和大公司也能更充分运用权利，但这不足以成为废除个人权利的理由。</li>
-<li><b>版权与专利之辨</b>：有评论指出该帖可能混淆了版权与专利，软件版权是 GPL 等自由软件许可证的根基，废除版权反而会伤害自由软件运动；专利才是真正有问题的制度。</li>
-<li><b>指向 DMCA 而非版权</b>：部分评论认为问题的根源是《数字千年版权法》（DMCA）允许单方面、无审核的即时下架机制，应对虚假索赔施以高额处罚而非废除版权本身。</li>
-<li><b>主张改革而非废除</b>：常见建议是缩短版权期限（如与专利一致的 20 年）、要求注册与续期、费用递增、使孤儿作品回归公有领域等。</li>
-<li><b>阴谋论解读</b>：部分评论者质疑这是大科技公司的「宣传」，意在无偿使用所有人的数据以规避版权诉讼；但亦有回应指出反对者同样可能来自利益相关方。</li>
-</ul><p>此外，有开发者现身说法，称自己的个人网站被冒充正规下架公司的骗子通过 DMCA 下架，且谷歌等平台无视反通知，凸显了现行机制被滥用的现实。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49622042</guid>
-      <pubDate>Wed, 09 Sep 2026 06:31:28 GMT</pubDate>
     </item>
   </channel>
 </rss>
