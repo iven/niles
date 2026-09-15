@@ -3,7 +3,95 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 15 Sep 2026 18:09:16 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2026 21:16:43 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.273：新增 MCP 断线通知、远程控制会话分叉等改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.273</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.273 版本，包含多项新功能与大量修复。本次更新主要围绕 LLM 网关集成、MCP 服务器管理、远程控制会话以及各类交互体验的改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>LLM 网关请求头</strong>：新增 <code>x-claude-code-request-class</code>、<code>x-claude-code-agent-type</code>、<code>x-claude-code-prev-tool-durations</code>、<code>x-claude-code-compaction</code> 和 <code>x-claude-code-context-compacted</code> 等请求头，供 LLM 网关使用；通过 <code>CLAUDE_CODE_GATEWAY_HINT_HEADERS=1</code> 开启。</li>
+<li><strong>MCP 断线通知</strong>：当 MCP 服务器在会话中途断开且自动重连放弃时，会弹出通知并指向 <code>/mcp</code>。</li>
+<li><strong>远程控制会话分叉</strong>：支持从 Claude 应用中分叉一个以 <code>claude --remote-control</code> 或 <code>/remote-control</code> 启动的会话，分叉后在本地以后台会话运行。</li>
+<li><strong>平台 auto 模式默认改用本地分类器</strong>：Bedrock、Vertex 与 Foundry 上默认使用本地分类器，可通过 <code>CLAUDE_CODE_AUTO_MODE_SERVER=1</code> 切换回平台的服务器端分类器。</li>
+</ul>
+
+<h3>其他修复与改进</h3>
+<ul>
+<li>修复组织关闭 Skills 后，从 claude.ai 同步的 skills 仍可用的问题，现改为移入可恢复的回收站。</li>
+<li>修复通过 MDM 或 <code>managed-settings.json</code> 设置的部分配置（如 <code>allowManagedMcpServersOnly</code>）在存在服务器托管设置时被忽略的问题。</li>
+<li>修复 Bedrock、Vertex、Foundry 及 Claude apps 网关的 401/403 报错提示不明确的问题，现会指出需要刷新的凭据或指向网关管理员。</li>
+<li>修复 <code>/login</code>、<code>/upgrade</code>、<code>/extra-usage</code> 丢弃对话中早期思考内容的问题，避免下次请求触发完整 prompt-cache 重写。</li>
+<li>修复在 cloud/Remote Control 会话中上传附件时 auto 模式因 Artifact 工具而暂停等待审批的问题。</li>
+<li>修复仓库 <code>.git</code> 目录被移除后长会话重建 stub <code>.git/info/exclude</code> 的问题。</li>
+<li>修复在 shell 模式开头输入 <code>!</code> 被主 prompt 丢弃的问题，使 <code>! grep …</code> 等取反命令可以正常输入。</li>
+<li>修复 macOS 上 Read 拒绝拖入的截图（或其他系统以第二路径报告的文件）并报「symlink resolution changed」的问题。</li>
+<li>修复子代理与后台代理在最终流式回复缺少 token 用量或模型 id 时被误报为失败、结果从未交付的问题。</li>
+<li>修复上下文计量器将 advisor 工具轮次按约两倍实际大小计入，导致自动压缩提前约一半触发的问题。</li>
+<li>修复 <code>/tui</code> 因已完成任务且不再显示的 agent-team 队友而无法重启的问题。</li>
+<li>修复 <code>.claude/scheduled_tasks.json</code> 被复制到其他文件夹（如新 worktree）后，已保存的定时任务在错误会话中运行的问题。</li>
+<li>修复 SDK 与 <code>--output-format stream-json</code> 输出在子代理中途转入后台时丢失其剩余消息与最终报告的问题。</li>
+<li>修复 <code>/install-github-app</code> 将 SAML 单点登录拦截误报为「需要管理员权限」的问题。</li>
+<li>修复连接到 Claude Desktop、VS Code 或 JetBrains 会话的 Remote Control 客户端被拒绝获取会话上下文窗口使用量的问题。</li>
+<li>修复压缩状态行（如 "Running PreCompact hooks…"）上 spinner 显示重复省略号的问题；移除了误导性的提示。</li>
+<li>回滚 2.1.268 中针对权限检查器无法分析的 Bash 行（如 <code>eval</code>、<code>env -C</code>）检查 Read/Edit 拒绝规则的变化，<code>time -p make build</code> 等命令恢复弹窗提示。</li>
+<li><strong>长会话响应性提升</strong>：hook 进度与子代理活动不再每次更新都重新处理整个对话。</li>
+<li>改进 Artifact 工具的报错信息、页面读取能力说明、数据库写入（更新可只删除单个字段）及发布时的断线重发安全性。</li>
+<li>改进 <code>/autofix-pr</code> 与 <code>/web-setup</code> 的错误提示（GitHub 登录、SAML、限流、代理/证书等）。</li>
+<li>改进 SSL 证书与代理连接错误提示，给出错误码与修复方法（如不可信企业 CA 使用 <code>NODE_EXTRA_CA_CERTS</code>）。</li>
+<li>改进 cloud 会话因 Claude 登录过期/被撤销而无法创建，以及 MCP 服务器登录中途过期时的错误提示。</li>
+<li>其他调整：<code>OTEL_LOG_TOOL_DETAILS=1</code> 在成本/token 指标中纳入真实 agent、skill、plugin 与 MCP 服务器名称；用 Claude 账号登录也会请求 claude.ai 插件访问权限；<code>/bug</code>、<code>/feedback</code> 报告仅包含模型行为参数。</li>
+</ul>
+
+<h3>其他平台（VSCode / Web / Claude Tag / Code Review）</h3>
+<ul>
+<li>[VSCode] 修复组织禁用产品反馈后 "Report a problem" 仍显示问题。</li>
+<li>[Claude Code on the web] 修复例行任务在管理员移除并重新添加组织连接器后失去访问的问题；新增「丢弃未保存更改？」确认提示；优化例行任务详情页布局。</li>
+<li>[Claude Tag] 修复 Slack 相关多个问题（定时任务静默不发布、较旧线程回复重启任务、AWS 无 region 端点签名等），并改进 AWS 连接失败提示。</li>
+<li>[Code Review] 修复因 @提及、跨行代码 span 等导致整个 REVIEW.md 被忽略的问题；改进建议修复与评论措辞；修复 <code>/ultrareview --post</code> 重试发布评论次数的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.273</guid>
+      <pubDate>Tue, 15 Sep 2026 20:23:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>Devbox 0.18.2 发布：服务文档生成与多项 bug 修复</title>
+      <link>https://github.com/jetify-com/devbox/releases/tag/0.18.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 发布 0.18.2 版本，主要带来一项新功能及多项针对服务、shell 环境、Nix 检测等方面的改进。</p>
+
+<h3>✨ 新功能</h3>
+<ul>
+<li><strong>README 生成现在包含服务文档</strong>：<code>devbox generate readme</code> 会新增 Services 章节，列出项目包含的服务及如何启动它们（<a href="https://github.com/jetify-com/devbox/pull/2934">#2934</a>）</li>
+</ul>
+
+<h3>🐛 Bug 修复</h3>
+<ul>
+<li><strong>修复带空格路径的项目无法使用服务</strong>：插件服务命令会为路径环境变量加引号，<code>~/My Projects/app</code> 这类目录不再导致 <code>devbox services up</code> 失败（<a href="https://github.com/jetify-com/devbox/pull/2960">#2960</a>）</li>
+<li><strong>服务正确重新调用 devbox</strong>：服务定义通过可执行文件路径回调 devbox，而非硬编码的 <code>devbox</code> 名称，因此二进制被重命名、从构建目录运行或不在 <code>PATH</code> 中时也能正常工作（<a href="https://github.com/jetify-com/devbox/issues/1321">#1321</a>）</li>
+<li><strong>包提供的 shell 补全开箱即用</strong>：将 Devbox 配置文件的 <code>share</code> 目录加入 <code>XDG_DATA_DIRS</code>，使已安装包（如 <code>kubectl &lt;TAB&gt;</code>）自带的补全可被 bash-completion 识别（<a href="https://github.com/jetify-com/devbox/issues/2776">#2776</a>）</li>
+<li><strong>多行环境变量值不再破坏 <code>shellenv</code></strong>：修复 <code>eval "$(devbox global shellenv)"</code> 在 shell 含多行 <code>PROMPT_COMMAND</code>（如通过 bash-preexec）时出现 <code>ambiguous redirect</code> 的错误，导出的字面换行现在会被保留（<a href="https://github.com/jetify-com/devbox/issues/2814">#2814</a>）</li>
+<li><strong><code>SOURCE_DATE_EPOCH</code> 不再泄漏进 shell</strong>：nixpkgs 固定的 1980 构建时间戳此前会导出到每个 devbox shell，导致其中构建的 Docker 镜像显示为"45 年前创建"、<code>tar</code>/<code>gzip</code> 输出带过时时间戳（<a href="https://github.com/jetify-com/devbox/issues/2597">#2597</a>）</li>
+<li><strong>缺失的 <code>env_from</code> 文件改为警告而非失败</strong>：引用的环境文件尚不存在（如被 gitignore 的 <code>.env</code>）时不再阻止 shell 启动（<a href="https://github.com/jetify-com/devbox/pull/2901">#2901</a>）</li>
+<li><strong>同一 git 仓库子目录的 flake 保持区分</strong>：两个指向同一仓库不同 <code>?dir=</code> 路径的包不再被合并为单个输入（<a href="https://github.com/jetify-com/devbox/issues/2704">#2704</a>）</li>
+<li><strong><code>devbox update --no-install</code> 不再调用 Nix</strong>：该命令仅更新锁文件（<a href="https://github.com/jetify-com/devbox/issues/2585">#2585</a>）</li>
+<li><strong>Nix 检测改进</strong>：无补丁版本号的 Nix（如 <code>2.30</code>）现在能正确解析；容器中新建挂载、仅含 <code>lost+found</code> 的 <code>/nix</code> 卷不再被误报为损坏安装，会按预期安装 Nix（<a href="https://github.com/jetify-com/devbox/pull/2939">#2939</a>）</li>
+<li><strong>Node.js 插件在缺少 Corepack 时给出警告</strong>：对不内置 Corepack 的 Node 包（如 <code>nodejs-slim</code>、Node 25+）设置 <code>DEVBOX_COREPACK_ENABLED</code> 时，会提示指向 <code>corepack</code> 包的警告，而非后续出现晦涩的 <code>yarn: command not found</code>（<a href="https://github.com/jetify-com/devbox/issues/2791">#2791</a>）</li>
+<li><strong><code>devbox generate</code> 修复</strong>：生成的 dev Dockerfile 不再运行 <code>nix-store --optimise</code>（在 Docker overlay2 驱动上会因 <code>cannot rename: Stale file handle</code> 失败导致镜像无法直接构建）；生成的 README 对环境变量使用相对路径而非作者机器上的绝对路径（<a href="https://github.com/jetify-com/devbox/pull/2933">#2933</a>）</li>
+<li><strong>插件文档更新</strong>：记录项目根占位符并修正 <code>DevboxDirRoot</code> 文档（<a href="https://github.com/jetify-com/devbox/pull/2895">#2895</a>）</li>
+</ul>
+
+<h3>🧹 维护</h3>
+<ul>
+<li>文档更新：<code>devbox run</code> 脚本与命令从项目根目录运行；Go 示例文档记录 <code>GOPATH</code>/<code>GOROOT</code> 并提醒不要使用 <code>GOPATH=$PWD</code></li>
+<li>发布工具更新：将 <code>flake.nix</code> 升级到 0.18.2、新增 <code>claude</code> skills 符号链接，并让发布脚本在 flake 升级后干净地恢复、不再被进行中的 <code>cli-tests</code> 运行阻塞</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.2</guid>
+      <pubDate>Tue, 15 Sep 2026 19:15:41 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.272：Bug 修复与可靠性改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.272</link>
@@ -1326,75 +1414,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.245</guid>
       <pubDate>Tue, 25 Aug 2026 05:13:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.243：新增 /usage 循环统计、可自定义 /model 选择器、无密钥登录等多项改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.243</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.243，带来多项新功能、大量 bug 修复以及启动速度和安装体积的显著改进。</p>
-
-<h3>新功能与重要改动</h3>
-<ul>
-<li><code>/usage</code> 新增 Loops 分解统计：显示每个 <code>/loop</code> 任务的运行次数、总 token 数、每次运行 token 数及最后运行时间，便于发现失控或话痨的循环任务</li>
-<li>新增 <code>modelPicker</code> 设置：可用有序、带标签的模型列表定制 <code>/model</code> 选择器（支持任意 ID 拼写，包括 Vertex/Bedrock ID），可追加或替换内置列表</li>
-<li>新增 <code>promptCacheTtl</code> 和 <code>subagentPromptCacheTtl</code> 设置：API 密钥和云服务商用户可为主对话保留 1 小时提示缓存，子代理保持 5 分钟</li>
-<li>新增 <code>modelPricing</code> 托管设置：组织的签约模型费率与折扣倍数将用于 <code>/cost</code>、状态栏和遥测成本数据，而非标价</li>
-<li><code>/login</code> → Anthropic Console 新增无密钥登录方式「Sign in with your Console account」（推荐），适用于不允许 API 密钥的组织</li>
-<li><code>/status</code> 新增 <code>Skipped sources</code> 行，列出因更高优先级托管源生效而未应用的托管设置来源；<code>/mcp</code> 和 <code>/plugins</code> 中由组织托管认证的 claude.ai 连接器新增 <code>managed</code> 标记</li>
-<li>为未连接 GitHub 的 claude.ai 用户新增指向 <code>/web-setup</code> 的提示，<code>/status</code> 也新增对应连接状态行</li>
-<li><code>/tasks</code> 及代理详情对话框新增显示每个子代理使用的模型（及 effort 级别）</li>
-</ul>
-
-<h3>问题修复</h3>
-<ul>
-<li>修复非交互（<code>-p</code>）和 SDK 会话中远程 MCP 服务器断连后无法恢复的问题，现在会自动重连或报告失败</li>
-<li>修复从桌面应用启动 MCP 服务器登录时，在支持 client ID 元数据文档的服务器（如 Linear）上报「Invalid redirect URI」的问题</li>
-<li>修复自动模式在启动时因缓存的临时禁用状态而不可用，以及 API 短暂过载要求重试时工具调用约一分钟后被拒绝为「暂时不可用」的问题</li>
-<li>修复 <code>/model</code> 选择器静默忽略 Ultracode 选择的问题；修复 <code>/resume</code> 只列出最近 50 个会话的问题，现在滚动时会加载更多</li>
-<li>修复云会话在回合中途重启后，待处理的 hook 或后台任务通知被当作提示词重发的问题</li>
-<li>修复背景子代理在其最后一个后台 Bash 任务完成时不唤醒的问题</li>
-<li>修复 Anthropic API 一直不开始响应时会话静默 10 分钟以上的问题：现在约 3 分钟超时、重试一次，然后显示 <code>API Error: No response from API</code></li>
-<li>修复认证、模型可用性等客户端错误信息被渲染成模型输出而非错误行的问题</li>
-<li>修复 CI 中的 workload identity federation：同一作业内的进程共享交换的 token，被拒绝的交换会快速失败并显示服务器消息</li>
-<li>修复 hook <code>if</code> 条件（如 <code>Bash(cat *)</code>）在命令包含 <code>$()</code> 或反引号命令替换后跟更多参数时误触发的问题</li>
-<li>修复通过 <code>--plugin-dir</code> 同时加载两个插件时，带 <code>marketplace</code> 字段的插件依赖无法解析的问题；修复 <code>/reload-plugins</code> 在最后一个 LSP 插件禁用后仍保留 LSP 工具的问题</li>
-<li>修复 <code>--agents</code> 静默忽略无效 JSON 或无效代理定义的问题，现在会像 <code>--mcp-config</code> 一样报错退出</li>
-<li>修复 <code>~/.claude.json</code> 含无效 MCP 服务器条目时 <code>/status</code> 显示无文件名的错误信息；修复 <code>/clear</code> 从提示栏移除 <code>/rename</code> 会话名的问题</li>
-<li>修复 Ctrl+R 历史搜索和上箭头历史在 <code>history.jsonl</code> 含畸形条目时失效的问题；修复本地 IDE 连接在 <code>NO_PROXY</code> 大小写不一致时被错误路由到 <code>HTTPS_PROXY</code> 的问题</li>
-<li>修复被阻止命令仍以 0 退出时（如 curl 打印代理 403 页）沙箱网络违规详情被丢弃的问题</li>
-<li>修复 <code>claude --teleport &lt;session&gt;</code> 在有未提交更改时直接退出而非提供 stash 选项的问题；修复 Claude in Chrome 在自动更新清理其依赖版本后失去与 Claude Code 连接的问题</li>
-<li>[VSCode] 修复功能标志首次获取前启动的会话以默认权限模式打开的问题；修复 Focus 视图展开部分在子代理工具活动时自行折叠的问题</li>
-</ul>
-
-<h3>性能与体验改进</h3>
-<ul>
-<li>改进启动时间：沙箱和 MCP 启动不再阻塞首帧，裸启动跳过子命令注册</li>
-<li>原生安装与自动更新下载体积大幅减小：二进制改用 zstd 压缩（Linux x64 上约 75 MB，原 340 MB）</li>
-<li>原生构建内存占用降低：代码按需加载，每会话约减少 40–70 MB；长会话峰值内存也有改进</li>
-<li>改进 <code>/login</code> 在 SSH 下的体验：登录 URL 立即显示，<code>c</code> 键报告实际复制方式</li>
-<li>改进 <code>/loop</code>：连续无操作唤醒折叠为终端中的单行；改进 effort <code>xhigh</code>/<code>max</code> 与关闭思考时的错误提示</li>
-</ul>
-
-<h3>其他调整</h3>
-<ul>
-<li>沙箱 Bash 工具提示不再列出允许的网络主机，Claude 会尝试请求（由你批准新主机）</li>
-<li><code>/model</code> 选择器和内置 <code>claude-api</code> skill 更新 Sonnet 5 定价为 $2/$10 每 Mtok 标准价</li>
-<li>macOS 上点击桌面、Dock 或 Finder 窗口现在需要通过访问对话框授予 Finder 权限</li>
-<li><code>/model</code>、<code>/fast</code>、<code>/effort</code> 在 Bedrock、Vertex、Foundry 及禁用遥测时也会立即执行而非排队到回合结束</li>
-<li>修复 <code>claude remote-control</code> 在服务器中途丢弃环境时退出并搁置已附加会话的问题；跨会话消息收件箱 socket 改为 30 秒内未发送完整行即关闭连接</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.243</guid>
-      <pubDate>Mon, 24 Aug 2026 23:40:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>Neovim v0.12.5 发布：修复与功能更新</title>
-      <link>https://github.com/neovim/neovim/releases/tag/v0.12.5</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Neovim 发布了 v0.12.5 版本（Release 构建，基于 LuaJIT 2.1.1774638290）。本次更新包含多项修复与新功能，完整变更记录见 <a href="https://github.com/neovim/neovim/commit/5885a30e1e1225349079e7a1c4a3848aa8e43e42">Changelog</a>，也可在 Nvim 中通过 <code>:help news</code> 查看更新说明。</p><p>安装方面，官方提供 Windows（zip/MSI）、macOS（x86_64/arm64）、Linux（x86_64/arm64，AppImage/tarball）等平台的预编译包，也可通过各发行版<a href="https://github.com/neovim/neovim/blob/master/INSTALL.md#install-from-package">包管理器</a>安装。Windows Server 用户可能需要额外安装 <code>vcruntime*.dll</code>；Linux 上若系统 glibc 版本过旧，可尝试<a href="https://github.com/neovim/neovim-releases">旧 glibc 构建</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/neovim/neovim/releases/tag/v0.12.5</guid>
-      <pubDate>Sun, 23 Aug 2026 18:27:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
