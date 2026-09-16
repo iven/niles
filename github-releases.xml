@@ -3,7 +3,39 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 16 Sep 2026 14:55:08 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 18:51:58 GMT</lastBuildDate>
+    <item>
+      <title>Devbox 0.18.3 发布：新增 Reopen in Devbox 初始化钩子，多项 Bug 修复</title>
+      <link>https://github.com/jetify-com/devbox/releases/tag/0.18.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 发布 0.18.3 版本，主要包含一项新功能与多项 Bug 修复。</p>
+
+<h3>✨ 新功能</h3>
+<ul>
+<li><strong>「Reopen in Devbox」支持初始化钩子</strong>：<code>devbox integrate vscode</code> 新增 <code>--run-init-hook</code> 标志，可在重新打开编辑器前加载项目的 <code>init_hook</code>，使其中导出的环境变量在重新打开的窗口中生效（此前仅 <code>devbox shell</code> 会加载它们）。VS Code 扩展（0.1.9）将其暴露为可选的 <code>devbox.runInitHookOnReopen</code> 设置；关闭该设置即可保持旧版 CLI 行为不变。</li>
+</ul>
+
+<h3>🐛 Bug 修复</h3>
+<ul>
+<li><strong><code>devbox shellenv</code> 不再重新导出整个环境</strong>：仅输出 Devbox 新增或改动的变量，使 <code>eval "$(devbox global shellenv)"</code> 在具有只读 shell 变量的发行版（如 openSUSE 的 <code>PROFILEREAD</code>）上不再失败。</li>
+<li><strong>Nix 不在 <code>$PATH</code> 中也能被检测</strong>：修复 NixOS 及 fish 用户遇到的「nix binary is not in your PATH」错误，检测逻辑改为使用 Devbox 已有的 Nix 查找方式。</li>
+<li><strong>对 Lix ≥ 2.95 提供清晰错误提示</strong>：Lix 移除了 Devbox 二进制缓存安装所需的 <code>builtins.fetchClosure</code>，现在 Devbox 会明确提示不兼容并指向上游 Nix，而非抛出模糊的 <code>attribute 'fetchClosure' missing</code>。</li>
+<li><strong>慢速或不可达的 <code>cache.nixos.org</code> 不再直接导致失败</strong>：narinfo 查找错误被视为缓存未命中，Nix 会按常规方式构建或替换软件包。</li>
+<li><strong><code>devbox services ls</code></strong> 现在能列出通过 <code>--process-compose-file</code> 启动的服务，而非报告「No services found」。</li>
+<li>本地插件的 <code>create_files</code> 所引用文件被编辑后，下次 <code>devbox shell</code> 时会重新生成（插件哈希现在包含文件内容，而非仅 <code>plugin.json</code>）。</li>
+<li><code>devbox generate readme</code> 现在按脚本在 <code>devbox.json</code> 中的顺序列出，而非按字母顺序。</li>
+<li><strong>插件修复</strong>：Poetry 插件现在会在 shell 中激活项目内 .venv，使 <code>poetry install</code> 安装的控制台脚本重新进入 <code>PATH</code>；PHP 插件显式引用 flake 的 <code>php</code> 输出，使其能与 <code>composer</code> 一起解析；Nginx 插件在 <code>nginx.conf</code> 旁创建 <code>mime.types</code>，使 <code>include</code> 能正确解析并启动。</li>
+</ul>
+
+<h3>🧹 维护</h3>
+<ul>
+<li>依赖安全更新：Go 模块、VS Code 扩展、示例项目。</li>
+<li>各项目 Devbox 软件包刷新、golangci-lint 升级至 v2.13.2、release 与 stale 工作流补充显式权限。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.3</guid>
+      <pubDate>Wed, 16 Sep 2026 17:19:23 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.273：新增 MCP 断线通知、远程控制会话分叉等改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.273</link>
@@ -1405,15 +1437,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.246</guid>
       <pubDate>Tue, 25 Aug 2026 22:31:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>v2.1.245：修复 Linux 上 glibc 2.44 导致的启动崩溃</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.245</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.245 发布，本次更新修复了一个启动崩溃问题：在搭载 glibc 2.44 的 Linux 发行版（如 Arch Linux、CachyOS 和 Fedora Rawhide）上，应用启动时会崩溃，现已修复。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.245</guid>
-      <pubDate>Tue, 25 Aug 2026 05:13:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
