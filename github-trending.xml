@@ -3,7 +3,162 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Wed, 16 Sep 2026 09:53:07 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 14:55:58 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Cloudflare 开源 security-audit-skill：将编码代理变为多阶段安全审计员</title>
+      <link>https://github.com/cloudflare/security-audit-skill</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 属于编程工具发布/分享，将编码代理变为安全审计员，提升开发效率，用户很感兴趣。</small></p><p>Cloudflare 开源了 <code>security-audit-skill</code>，一个能将编码代理（coding agent）转化为安全审计员的技能包。该项目是 Cloudflare 漏洞发现工具链（vulnerability harness）的起点，该工具链在其博客文章 <a href="https://blog.cloudflare.com/build-your-own-vulnerability-harness">Build your own vulnerability harness</a> 中有详细介绍，现已从单一仓库演化为多阶段、全舰队级的系统。</p>
+<p>该技能通过六个阶段运行结构化的审计流程：</p>
+<ol>
+<li><b>侦察（Reconnaissance）</b>——在 <code>architecture.md</code> 和 <code>coverage-ledger.json</code> 中映射架构、信任边界、输入面、既有证据和确定性覆盖。</li>
+<li><b>基于覆盖的搜寻（Coverage-led hunting）</b>——依据台账单元分配相互隔离的搜寻代理，记录检查结果，并由覆盖评审者找出漏洞。</li>
+<li><b>候选验证（Candidate validation）</b>——将每个唯一候选交给全新的验证代理，尝试推翻它。</li>
+<li><b>结构化输出（Structured output）</b>——将 <code>confirmed</code>、<code>needs_validation</code> 和 <code>rejected</code> 记录写入 <code>findings.json</code>，并依据 <code>report-schema.json</code> 校验。</li>
+<li><b>独立记录验证（Independent record verification）</b>——全新代理验证最终的源码声明，关键替换会再交给另一独立验证者。</li>
+<li><b>目标中立报告（Target-neutral reporting）</b>——从已验证的记录和覆盖台账生成 <code>REPORT.md</code>、<code>FINDINGS-DETAIL.md</code> 和 <code>NEEDS-VALIDATION.md</code>。</li>
+</ol>
+<p>三种判定的语义相互区分：<code>confirmed</code> 具备完整的源码追踪和受约束的观测结果；<code>needs_validation</code> 含明确未解决的事实且无严重性等级；<code>rejected</code> 记录被推翻的候选。同一仓库的多次运行是累加式的，会利用先前的台账查找缺口、重新验证变更的源码，并沿用当前源码的证据。</p>
+<p>仓库附带大量面向不同目标的攻击类别文件，涵盖内存安全与二进制（<code>MEMORY-SAFETY-AND-BINARY.md</code>）、AI 与 LLM（<code>AI-AND-LLM.md</code>）、Web 协议与认证（<code>WEB-PROTOCOL-AND-AUTH.md</code>）、客户端（<code>CLIENT-SIDE.md</code>）、供应链与发布（<code>SUPPLY-CHAIN-AND-RELEASE.md</code>）、云与部署（<code>CLOUD-AND-DEPLOYMENT.md</code>）、资源耗尽与可用性等类别，并包含两个零依赖校验器（<code>validate-findings.cjs</code> 和 <code>validate-coverage-ledger.cjs</code>）。</p>
+<p>核心设计原则包括：只确认已建立的边界故障（否则保持为 <code>needs_validation</code>）、对抗式验证（检查漏洞的代理绝非发现它的代理）、严重性取决于影响而非偏离清单、纵深防御的缺口不算漏洞，以及多次运行能显著提升覆盖率（测试中单次运行仅发现重复运行总计漏洞数的一半左右）。项目采用 MIT 许可证。</p>
+<p><b>你知道吗？</b>这个项目体现了"AI 代理协作安全审计"的新范式：通过隔离多个代理并交叉验证，缓解单个 LLM 可能出现的"确认偏差"和幻觉问题——发现者与验证者分离，加上结构化的机器可读输出（JSON Schema 校验），使审计结果既可复核又可集成到自动化流水线中。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/cloudflare/security-audit-skill</guid>
+      <pubDate>Wed, 16 Sep 2026 14:54:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Tinycast：轻量级原生 macOS 启动器，支持 Raycast 扩展与剪贴板历史</title>
+      <link>https://github.com/abue-ammar/tinycast</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向开发者的轻量级 macOS 启动器开源项目，涉及编程效率改进，推荐阅读。</small></p><p>Tinycast 是一款完全原生、占用极小的 macOS 启动器，仅需一个热键即可随时唤起，内存占用低于 100 MB。项目采用 SwiftUI 和 AppKit 构建，零第三方依赖、无 Electron、无遥测，并基于 AGPL-3.0 协议免费开源。</p>
+<p>该项目的核心亮点在于<b>能够原生运行真实的 Raycast 扩展</b>，并以原生 SwiftUI 渲染呈现。功能覆盖广泛，包括：</p>
+<ul>
+<li><b>应用启动器</b>：模糊搜索启动应用、固定收藏、查看运行状态、一键退出单个或全部应用</li>
+<li><b>全局热键</b>及<b>按应用热键</b>：一键唤起面板或切换/隐藏应用</li>
+<li><b>文件搜索</b>：通过 Spotlight 打开所选文件夹内的文件（不建立自有索引）</li>
+<li><b>剪贴板历史</b>：文本与图片均可搜索，并粘贴回正在使用的应用</li>
+<li><b>内置计算器</b>：支持数学运算、单位换算、实时汇率与加密货币换算</li>
+<li><b>快捷链接（Quicklinks）</b>：将 URL、搜索、文件或深度链接转为命令，支持输入、剪贴板或日期占位符</li>
+<li><b>Apple 快捷指令</b>、<b>文本片段（Snippets）</b>、<b>自定义 Shell 命令</b></li>
+<li><b>窗口管理</b>：34 种 Rectangle 风格操作，涵盖半屏、四分之一、三分屏、调整尺寸、移动、全屏与 Spaces</li>
+<li><b>系统操作</b>：锁定、休眠、重启、清空废纸篓、切换外观、蓝牙、静音、隐藏文件等</li>
+<li><b>日历与会议</b>、<b>记事本</b>（不限量的 Markdown 文件）、<b>表情选择器</b></li>
+<li><b>AI 聊天</b>与<b>快捷操作</b>：使用自有密钥或已安装的 AI 账户，可纠正语法、改写、翻译或总结任意应用中的选中文本（AI 功能默认关闭）</li>
+<li><b>备份与导入</b>：可导出设置，或从 Raycast 导入现有配置</li>
+</ul>
+<p>安装需通过 Homebrew 第三方 tap（<code>brew tap abue-ammar/tinycast</code>），分 Apple 芯片、Intel 与 macOS 15 Sequoia 等不同版本。Tinycast 采用自签名，需手动清除 macOS 隔离属性；使用文本粘贴或展开等功能时需授予辅助功能（Accessibility）权限，且按键匹配均在本地进行，绝不存储或外发。</p>
+<p>项目在 GitHub Trending 上获得约 5300 星，用 Swift 编写，社区可通过 Discord 交流。<b>你知道吗？</b>这一章略——项目本身功能描述清晰，无需额外专业概念补充。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/abue-ammar/tinycast</guid>
+      <pubDate>Wed, 16 Sep 2026 14:54:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Voicebox：本地优先的开源 AI 语音工作室，克隆、听写、创作一站式</title>
+      <link>https://github.com/jamiepine/voicebox</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 本地优先的 AI 语音工作室开源项目，属于 AI 软件技术进展，用户感兴趣。</small></p><p><strong>Voicebox</strong> 是一个本地优先（local-first）的开源 AI 语音工作室，旨在成为 <strong>ElevenLabs</strong>（语音输出）和 <strong>WisprFlow</strong>（语音输入）两款云服务的开源替代方案：既能克隆声音、生成语音，也能通过全局快捷键在任何应用中听写，还能让支持 MCP 的 AI 代理用你所拥有的声音说话。项目由 Tauri（Rust）构建而非 Electron，模型、语音数据与录音全部在本机运行，保证完全隐私。</p>
+
+<h3>核心功能</h3>
+<ul>
+<li><strong>多引擎语音克隆：</strong>内置 7 个 TTS 引擎（Qwen3-TTS、Qwen CustomVoice、LuxTTS、Chatterbox Multilingual/Turbo、HumeAI TADA、Kokoro），支持从几秒音频零样本克隆声音，或使用 50+ 精选预设声音，覆盖 23 种语言（英语、阿拉伯语、日语、印地语、斯瓦希里语等）。</li>
+<li><strong>音效后期处理：</strong>基于 Spotify 的 pedalboard 库提供 8 种效果（音高偏移、混响、延迟、合唱/镶边、压缩、增益、高低通滤波），内置机器人、电台、回声室、低沉嗓音等预设。</li>
+<li><strong>无限时长生成：</strong>自动按句边界分块并用交叉淡入淡出拼接，最长支持 50,000 字符，适用于脚本、文章和章节。</li>
+<li><strong>Stories 编辑器：</strong>多轨时间线，可创作对话、播客和叙事，支持拖拽、音频裁剪与同步播放。</li>
+<li><strong>全局听写：</strong>macOS 上按住热键说话即可自动粘贴到聚焦的文本字段，支持按住说话（push-to-talk）与点按切换模式，兼容 Tauri 的访问性注入；转录基于 OpenAI Whisper 模型。</li>
+<li><strong>代理语音输出：</strong>通过一次工具调用（<code>voicebox.speak</code>），Claude Code、Cursor、Cline 等 MCP 感知代理即可用你克隆的声音说话，支持 HTTP 与 stdio 传输。</li>
+<li><strong>语音人格（Personalities）：</strong>可为每个语音档案附加自由格式人格描述，由内置 Qwen3 LLM 在本机完成「创作（Compose）/复述（Rewrite）/应答（Respond）」等模式。</li>
+<li><strong>API-first：</strong>提供 REST API 与内置 MCP 服务器，方便集成到自有应用和代理中。</li>
+</ul>
+
+<h3>运行平台</h3>
+<p>支持 macOS（MLX/Metal）、Windows（CUDA）、Linux、AMD ROCm、Intel Arc 及 Docker。Windows 与 macOS 可直接下载安装包，Linux 需从源码构建，预编译二进制尚未提供。</p>
+
+<p>项目在 GitHub 上已获得约 5.4 万星标、6700+ fork，热度很高。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jamiepine/voicebox</guid>
+      <pubDate>Wed, 16 Sep 2026 14:54:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Anthropic 开源&quot;知识工作插件&quot;仓库：让 Claude 成为各岗位专职助手</title>
+      <link>https://github.com/anthropics/knowledge-work-plugins</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Anthropic 开源的 AI 插件仓库，让 Claude 成为专职助手，属于 AI 软件技术进展，感兴趣。</small></p><p>Anthropic 开源了 <strong>knowledge-work-plugins</strong> 仓库，提供一系列插件，将 Claude 转化为针对特定角色、团队和公司的"专职专家"。插件专为 <a href="https://claude.com/product/cowork">Claude Cowork</a> 构建，同时也兼容 <a href="https://claude.com/product/claude-code">Claude Code</a>。</p>
+
+<h2>插件的作用</h2>
+<p>在 Cowork 中，用户可以设定目标而由 Claude 交付成品工作；插件则更进一步——告诉 Claude 你偏好的工作方式、应调用的工具与数据、如何处理关键工作流，以及需要暴露哪些斜杠命令（例如 <code>/sales:call-prep</code>、<code>/data:write-query</code>），从而让团队获得更一致、更优质的产出。每个插件都捆绑了特定岗位所需的技能（Skills）、连接器（Connectors）、斜杠命令和子代理。</p>
+
+<h2>开源插件清单</h2>
+<p>Anthropic 开源了 11 个插件，覆盖多个职能：</p>
+<ul>
+<li><strong>productivity</strong>：管理任务、日历与日常工作流，连接 Slack、Notion、Asana、Linear、Jira、Monday、ClickUp、Microsoft 365 等。</li>
+<li><strong>sales</strong>：调研潜在客户、备会、审阅销售漏斗、起草外联与竞品 battlecard。</li>
+<li><strong>customer-support</strong>：工单分流、起草回复、整理升级、将已解决问题转化为知识库文章。</li>
+<li><strong>product-management</strong>：编写规格、规划路线图、综合用户研究、跟踪竞争态势。</li>
+<li><strong>marketing</strong>：起草内容、规划营销活动、执行品牌语气与跨渠道绩效报告。</li>
+<li><strong>legal</strong>：合同审查、NDA 分流、合规导航、风险评估与模板化回复起草。</li>
+<li><strong>finance</strong>：准备会计分录、对账、生成财务报表、差异分析、结账与审计支持。</li>
+<li><strong>data</strong>：编写 SQL、运行统计分析、构建仪表盘并验证数据结果。</li>
+<li><strong>enterprise-search</strong>：跨邮件、聊天、文档与 wiki 的一次查询检索。</li>
+<li><strong>bio-research</strong>：连接临床前研究工具与数据库（文献检索、基因组分析、靶点优先级排序），加速早期生命科学研发，覆盖 PubMed、BioRender、bioRxiv 等。</li>
+<li><strong>cowork-plugin-management</strong>：为组织创建或定制插件工具与工作流。</li>
+</ul>
+
+<h2>插件结构</h2>
+<p>每个插件遵循统一结构，全部基于文件（Markdown 与 JSON），无需代码、基础设施或构建步骤：</p>
+<ul>
+<li><strong>Skills</strong>：编码领域知识与最佳实践，Claude 会在相关时自动调用。</li>
+<li><strong>Commands</strong>：用户显式触发的动作（如 <code>/finance:reconciliation</code>）。</li>
+<li><strong>Connectors</strong>：通过 <a href="https://modelcontextprotocol.io/">MCP 服务器</a>将 Claude 连到 CRM、项目管理、数据仓库、设计工具等外部系统。</li>
+</ul>
+
+<h2>定制化</h2>
+<p>开源插件是通用起点，可通过替换连接器、加入公司术语与组织结构、调整工作流步骤使其更贴合实际。团队构建并共享插件后，Claude 会成为跨职能专家，让领导和管理者少花时间执行流程、多花时间改进流程。插件可直接从 Cowork 安装，也可在 GitHub 浏览或自行构建。</p>
+
+<p>该仓库当前在 GitHub 上获得约 2.4 万星标，语言为 Python，热度位列当日榜单前端，反映出企业对"将 AI 深度嵌入具体工作流"的高度关注。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/knowledge-work-plugins</guid>
+      <pubDate>Wed, 16 Sep 2026 14:54:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Anki：开源智能间隔重复记忆闪卡程序</title>
+      <link>https://github.com/ankitects/anki</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源间隔重复记忆闪卡程序，属于开源项目，虽有价值但与编程工具热点相关性中等，推荐阅读。</small></p><p>Anki 是一款基于<a href="https://apps.ankiweb.net">间隔重复</a>算法的智能闪卡（flashcard）记忆程序，是广受欢迎的助记工具。该仓库保存了 Anki 桌面/电脑版本的源代码（主要使用 Rust 编写），项目在 GitHub 上拥有超过 3 万星标。</p>
+<p>Anki 通过科学的间隔重复机制，帮助用户在最佳时间点复习卡片，显著提升长期记忆效率。除了电脑版，Anki 还提供移动端等多种平台版本。</p>
+<p>仓库还提供了面向开发者的贡献指南与开发文档，支持社区参与共建；对于希望体验新功能但不想自行编译的用户，官方提供了公开测试版（beta）渠道。项目采用开源许可（详见 LICENSE 文件）。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/ankitects/anki</guid>
+      <pubDate>Wed, 16 Sep 2026 14:54:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Supabase：基于 PostgreSQL 的开源 Firebase 替代方案</title>
+      <link>https://github.com/supabase/supabase</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 基于 PostgreSQL 的开源 Firebase 替代方案，属于编程/后端工具发布分享，用户强烈感兴趣。</small></p><p><a href="https://supabase.com">Supabase</a> 是一个基于 PostgreSQL 的开源开发平台，致力于使用企业级开源工具构建 Firebase 的各项功能，为 Web、移动端和 AI 应用提供专用数据库。项目以 TypeScript 编写，目前在 GitHub 上拥有超过 10.9 万星标，位列 Trending 榜单。</p>
+
+<h3>核心功能</h3>
+<ul>
+<li><strong>托管 PostgreSQL 数据库</strong>：提供可靠的云端数据库服务</li>
+<li><strong>身份认证与授权</strong>：简化用户注册、登录和会话管理</li>
+<li><strong>自动生成的 API</strong>：包括 REST、GraphQL 以及基于 WebSocket 的实时订阅</li>
+<li><strong>函数支持</strong>：涵盖数据库函数与边缘函数（Edge Functions）</li>
+<li><strong>文件存储</strong>：管理 S3 中的文件，并由 Postgres 处理权限</li>
+<li><strong>AI 与向量/嵌入工具包</strong>：支持 AI 相关的数据能力</li>
+<li><strong>可视化控制台</strong>：提供 Dashboard 进行管理</li>
+</ul>
+
+<h3>架构与工作原理</h3>
+<p>Supabase 并非 Firebase 的一对一映射，而是通过组合多个开源工具实现 Firebase 体验。其架构基于 Postgres，并整合了多个组件：<a href="https://github.com/supabase/realtime">Realtime</a>（基于 Elixir 的服务器，利用 WebSocket 监听数据库变更）、PostgREST（将数据库直接转化为 RESTful API）、GoTrue（基于 JWT 的认证 API）、Storage（管理 S3 文件的 RESTful API）、pg_graphql（提供 GraphQL API 的 Postgres 扩展）以及 postgres-meta（用于管理 Postgres 的 RESTful API）。平台既支持托管服务，也支持<a href="https://supabase.com/docs/guides/hosting/overview">自托管</a>和<a href="https://supabase.com/docs/guides/local-development">本地开发</a>。</p>
+
+<h3>客户端库生态</h3>
+<p>Supabase 的客户端库采用模块化设计，每个子库针对单一外部系统独立实现，支持 JavaScript/TypeScript、Flutter、Swift、Python 等官方客户端，以及 C#、Go、Java、Kotlin、Ruby、Rust、Godot 等社区客户端，覆盖广泛的开发语言与平台。</p>
+
+<h3>社区与文档</h3>
+<p>完整文档可在 <a href="https://supabase.com/docs">supabase.com/docs</a> 获取。项目提供社区论坛、GitHub Issues、邮件支持和 Discord 等多种社区支持渠道，并支持多种语言的 README 翻译版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/supabase/supabase</guid>
+      <pubDate>Wed, 16 Sep 2026 14:54:59 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Homebrew 官方 macOS 图形界面 BrewUI：让软件包管理不再依赖终端</title>
       <link>https://github.com/Homebrew/BrewUI</link>
@@ -1076,101 +1231,6 @@ wt switch -x claude -c feature-c -- 'Write tests for the API'</code></pre>
       </description>
       <guid isPermaLink="false">https://github.com/openai/skills</guid>
       <pubDate>Sun, 06 Sep 2026 14:07:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>LLVM 编译器基础设施：模块化可复用的编译与工具链技术</title>
-      <link>https://github.com/llvm/llvm-project</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] LLVM 是成熟稳定的编译器基础设施，非新发布工具，与核心兴趣关联不明确</small></p><p>LLVM 项目是一个用于构建高度优化编译器、优化器和运行时环境的工具箱，包含多个模块化且可复用的编译与工具链技术。项目核心本身称为「LLVM」，囊括处理中间表示（IR）并将其转换为目标文件所需的全部工具、库和头文件，其中包括汇编器、反汇编器、位码（bitcode）分析器和位码优化器等工具。</p><p>针对 C 系列语言，项目提供 <a href="https://clang.llvm.org/">Clang</a> 前端组件，可将 C、C++、Objective-C 和 Objective-C++ 代码编译为 LLVM 位码，进而借助 LLVM 转换为目标文件。其他重要组件还包括 <a href="https://libcxx.llvm.org">libc++ C++ 标准库</a>、<a href="https://lld.llvm.org">LLD 链接器</a>等。</p><p>该项目在 GitHub 上拥有约 4 万个 Star 和 1.9 万个 Fork，是编译技术领域的核心基础设施。项目社区通过 <a href="https://discourse.llvm.org/">Discourse 论坛</a>、Discord 聊天、Office Hours 及定期同步会议保持活跃沟通，并制定了参与各沟通渠道的行为准则（code of conduct）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/llvm/llvm-project</guid>
-      <pubDate>Sun, 06 Sep 2026 14:07:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>Marketing Skills：面向 AI 智能体的营销技能库，覆盖 CRO、文案、SEO、数据分析与增长工程</title>
-      <link>https://github.com/coreyhaines31/marketingskills</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要面向 AI 智能体的营销技能库，主题偏营销而非编程效率，兴趣不明确</small></p><p>该仓库由 AI 营销专家 <a href="https://corey.co">Corey Haines</a> 打造，是一套专门为 AI 编程智能体设计的营销技能集合（Marketing Skills），适用于 Claude Code、OpenAI Codex、Cursor、Windsurf 等支持 <a href="https://agentskills.io">Agent Skills 规范</a> 的智能体。项目面向技术型营销人员与创始人，旨在让 AI 编码智能体协助完成转化率优化（CRO）、文案写作、SEO、数据分析与增长工程等营销任务。</p><p>「技能」本质上是 Markdown 文件，为 AI 智能体提供特定任务的专门知识与工作流程。各技能之间通过共享上下文相互引用，其中以 <code>product-marketing</code> 技能为基础——其他技能在执行任务前都会先读取它，以理解产品、受众与定位。</p><p>仓库目前包含 50 余项技能，按领域分为几大类别：</p><ul><li><strong>SEO 与内容</strong>：seo-audit、ai-seo（面向 AI 搜索引擎与 LLM 引用的优化）、site-architecture、schema 结构化数据、programmatic-seo、content-strategy、ASO（应用商店优化）等。</li><li><strong>转化率优化（CRO）</strong>：cro、signup、onboarding、popups、paywalls、ab-testing 实验等。</li><li><strong>内容与文案</strong>：copywriting、copy-editing、cold-email 冷邮件、emails、social 社交媒体、video、image 等。</li><li><strong>付费与测量</strong>：ads 付费广告、ad-creative 广告创意、analytics、attribution 归因等。</li><li><strong>增长与留存</strong>：referrals、free-tools、churn-prevention 防流失、community-marketing、lead-magnets 等。</li><li><strong>销售与 GTM</strong>：revops 营收运营、sales-enablement、launch、pricing、competitors 竞品、prospecting、directory-submissions 等。</li><li><strong>战略</strong>：mktg-ideas、marketing-psychology、customer-research、marketing-plan、marketing-council（模拟营销顾问团）等。</li></ul><p>该项目采用 MIT 开源许可，免费使用，由「Verified Partners（已认证合作伙伴）」赞助支持开发。用户可通过 npx CLI、Claude Code 插件或直接克隆仓库三种方式安装技能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/coreyhaines31/marketingskills</guid>
-      <pubDate>Sun, 06 Sep 2026 14:07:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AIPOCH Open Science：开源、本地优先的跨平台 AI 科研工作台</title>
-      <link>https://github.com/aipoch/open-science</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源、本地优先的 AI 科研工作台，同时贴合开源项目、AI 软件技术进展与科学前沿兴趣</small></p><p>AIPOCH 开源的 <strong>Open Science</strong> 是一款本地优先、模型无关（model-agnostic）的 AI 科研工作台，支持 macOS、Windows 与 Linux 三大平台，旨在为科学家和研究者提供可复现、可审查的研究流程。它通过科学智能体（agent）读取文件、搜索网页、运行代码、查询科学数据库，并在同一工作区内生成带有可追溯溯源（provenance）的报告、表格和图表。</p>
-<p>该工具覆盖机器学习、统计学、生命科学、化学、材料科学、物理和环境科学等学科，支持从文献调研、假设提出，到代码执行、数据分析、模拟、可视化直至产出可溯源成果的完整科研过程。项目采用 Apache 2.0 许可，最新版本为 v0.25.1（维护版），修复了 Windows 笔记本内核启动、文件导出原子发布、图片预览恢复等问题。</p>
-<p><strong>核心特性</strong>：</p>
-<ul>
-  <li><strong>项目与会话管理</strong>：将所有结果与产生的证据关联，每个生成的人工产物以不可变、带校验和的版本存储，并提供 Provenance 视图展示可验证的证据，缺失证据会明确标注为不可用而非猜测。</li>
-  <li><strong>会话分支</strong>：编辑已完成的用户消息可重新发送修改后的提示，系统创建新的分支而不会删除原对话，便于探索不同方向且不模糊原始记录。</li>
-  <li><strong>科学技能</strong>：内置 22 个精选技能，包括 AlphaFold2、Boltz、DiffDock、ESM-2、ESMFold2、Evo 2、OpenFold3、ProteinMPNN、scGPT、scvi-tools、文献综述、图像生成等，以及面向远程 HPC 集群的 SSH 远程计算。</li>
-  <li><strong>数据连接器</strong>：内置 24 个科研数据连接器，覆盖 PubMed、bioRxiv、基因组、变异、蛋白质注释、化学（ChEMBL、ZINC）、临床试验、药物监管、癌症模型等数据库。</li>
-  <li><strong>权限系统</strong>：内置与自定义连接器均受权限控制，每个工具可设「始终允许」「每次询问」「阻止」。</li>
-  <li><strong>多语言界面</strong>：支持德语、西班牙语、简体/繁体中文、日语、韩语、法语和俄语，并提供深色模式。</li>
-</ul>
-<p>在基准测试中，Open Science 凭借 gpt-5.6-sol 模型在 <a href="https://huggingface.co/datasets/phylobio/BiomniBench-DA">BiomniBench-DA Public 50</a> 榜单上以 79.05 分位列第一。数据与权限方面，所有证据默认保存在本地，安全凭据存储受保护，人工产物以带校验和的不可变版本存储，缺失证据会被明确标记为不可用。</p>
-<p>该项目获得社区较高关注（GitHub 约 3700 星），并开放社区讨论渠道和多种语言文档。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/aipoch/open-science</guid>
-      <pubDate>Sun, 06 Sep 2026 14:07:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenWhispr：主打隐私的跨平台语音转文字听写应用，开源替代 WisprFlow 与 Granola</title>
-      <link>https://github.com/OpenWhispr/openwhispr</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源语音转文字应用，属于开源项目与软件新功能，符合用户兴趣</small></p><p>OpenWhispr 是一款开源、免费的跨平台语音转文字听写应用，被视为 WisprFlow 和 Granola 的开源替代方案。它支持 macOS、Windows 与 Linux，通过快捷键即可将语音转为文字并自动粘贴到光标处，同时覆盖 AI 智能体、会议转录与笔记等场景。</p>
-<p>应用主打「隐私优先」，提供两种处理模式：完全离线的本地转录（基于 Whisper 与 NVIDIA Parakeet 等本地语音引擎，音频不出设备），以及追求速度的云端处理。项目宣称不收集数据、不含遥测，完全开源。</p>
-<p>核心功能包括：全局快捷键语音听写与多语言翻译、与 GPT/Claude/Gemini/Groq 等模型对话的 AI 助手、自动识别 Zoom/Teams/FaceTime 的会议转录（支持说话人分离与声纹识别）、可组织的笔记系统（支持语义搜索与云同步）、团队空间与网页分享，以及音视频文件导入转录。所有核心能力都支持本地或云端模型，并配备面向企业的 SSO、SCIM 与集中管理的 Bedrock/Azure OpenAI 访问。</p>
-<p>项目提供公开 API 与 MCP 服务器以便程序化管理和接入 AI 助手。其技术栈包括 React 19、TypeScript、Electron 41、whisper.cpp、sherpa-onnx 等，采用 MIT 许可。需注意，Intel 版 Mac 上部分依赖 ONNX Runtime 的功能（如实时说话人识别与声纹指纹）不可用，但会议转录与笔记搜索回退功能仍正常。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/OpenWhispr/openwhispr</guid>
-      <pubDate>Sun, 06 Sep 2026 14:07:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ humanlayer/skills：为 Claude Code 打造的一站式高效技能合集</title>
-      <link>https://github.com/humanlayer/skills</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Claude Code 编程工具技能合集，属于编程工具发布分享与编程效率改进经验，高度契合用户兴趣</small></p><p>humanlayer/skills 是 <a href="https://humanlayer.dev">HumanLayer</a> 推出的 Claude Code 技能（Skills）合集仓库，目前在 GitHub Trending 上位列第 10，已获得约 2700 颗星。该项目通过 <code>npx skills add humanlayer/skills --skill SKILLNAME</code> 一行命令即可将所需技能注入项目，让 Claude Code 拥有更强的针对性与工程化能力。</p>
-
-<p>仓库目前提供 5 个技能：</p>
-<ul>
-<li><b>improve-claude-md</b>：使用 <code>&lt;important if&gt;</code> 块重写项目的 CLAUDE.md，提高指令遵循度，可通过 <code>/improve-claude-md</code> 调用。</li>
-<li><b>narrow-react-prop-types</b>：将 React 组件的 props 类型收缩到与真实代码路径匹配，避免被 Storybook、测试或 mock 状态影响，通过 <code>/narrow-react-prop-types</b> 调用。</li>
-<li><b>build-iterated-agentic-loop</b>：在仓库内构建本地技能，并生成迭代式编码智能体（coding-agent）的 GitHub Actions 工作流、提示词、记忆文件及参考模板。</li>
-<li><b>design-control-loop</b>：通过访谈引导你为代码库设计智能体控制回路（传感器、控制器、执行器与扰动），并将其构建为可在本地运行组件及定时编码智能体工作流。</li>
-<li><b>show-me</b>：用简洁的图解、代码形态草图和聚焦的 HTML 产物解释当前话题，通过 <code>/show-me</code> 调用。</li>
-</ul>
-
-<p>该项目聚焦于提升 Claude Code 在实际工程中的落地质量，涵盖指令管理、类型安全、智能体工作流设计与可视化讲解等场景。</p>
-
-<div class="know-more"><h3>你知道吗？</h3><p><b>Claude Code Skills</b> 是 Anthropic 推出的 Claude Code 扩展机制，允许通过 Markdown 形式向 Claude 注入专门技能，从而针对特定任务优化其行为。而 <b>智能体控制回路（agentic control loop）</b> 借鉴自控制理论，将「感知-决策-执行-反馈」抽象为传感器（sensor）、控制器（controller）、执行器（actuator）和扰动（disturbances）四要素，用于设计更可靠、可迭代的自主编码系统。</p></div>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/humanlayer/skills</guid>
-      <pubDate>Sun, 06 Sep 2026 00:52:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NoSignups（原 FckSignups）：免注册开源在线工具精选目录</title>
-      <link>https://github.com/BraveOPotato/FckSignups</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 免注册在线工具精选目录，属于开源项目与实用工具分享，用户会感兴趣</small></p><p><strong>NoSignups</strong>（原 FckSignups）是一个精心策划的开源在线工具目录，收录了超过 200 款可在浏览器中即时使用、无需注册账号的工具。项目核心理念是「开源工具，零废话」——无需账号、无需邮箱、无需追踪，打开即用。</p>
-
-<p>该项目由 React + TypeScript 构建，采用 <strong>GPL-3.0</strong> 许可。工具按多个类别组织，包括生产力（Productivity）、设计与图形（Design & Graphics）、开发（Development）、写作与文档（Writing & Docs）、隐私（Privacy）、实用工具（Utilities）、数据与分析（Data & Analytics）、媒体（Media）和教育（Education）等。</p>
-
-<h3>核心理念</h3>
-<ul>
-  <li><strong>信奉：</strong>工具应即开即用、数据归用户所有、开源为默认、简单优于复杂</li>
-  <li><strong>拒绝：</strong>强制注册墙、数据收集与追踪、专有黑盒、臃肿与不必要的复杂性</li>
-</ul>
-
-<h3>特色与社区</h3>
-<p>由于同类工具众多，项目会挑选「独特」的工具进行置顶展示（Featured），这取决于工具的质量或创意独特性。项目欢迎社区通过 <a href="https://www.reddit.com/r/fucksignups/">Reddit r/fucksignups</a> 和 <a href="https://discord.gg/hbDDqdmcm">Discord</a> 提交意见与批评。用户可通过「SUBMIT A TOOL」按钮或 GitHub Issue 提交新工具，但前提是工具必须能在<b>不创建账号</b>的情况下使用。</p>
-
-<p>项目声明：目录代码采用 GPL-3.0 许可，目录中列出的个别工具保留各自的许可证，第三方项目所有权均归其原作者。正如项目所述——「无 Cookie、无分析、无废话」。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/BraveOPotato/FckSignups</guid>
-      <pubDate>Sun, 06 Sep 2026 00:52:26 GMT</pubDate>
     </item>
   </channel>
 </rss>
