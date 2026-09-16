@@ -3,7 +3,38 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 16 Sep 2026 18:52:24 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 22:07:00 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 小而高杠杆的编程技巧清单</title>
+      <link>https://news.ycombinator.com/item?id=49729000</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是编程效率技巧的分享，属于编程效率改进经验，与用户高兴趣高度契合</small></p><p>作者 Will Keleher 在文章中提出，大量工程生产力其实来源于一些"小而高杠杆的知识碎片"（small nuggets of knowledge）：知道某个语言特性存在、意识到莫名的 TCP 延迟可能与 <code>TCP_NO_DELAY</code> 设置和 Nagle 算法有关、记住正确的 git 命令来脱困，或掌握某个 sed 技巧来改写文件。这些知识往往不需要大量的配套思维基础设施，却能显著提升工作效率。</p>
+
+<p>文章列举了一批实用技巧：</p>
+<ul>
+<li><strong>终端历史搜索</strong>：除 <code>ctrl+r</code> 之外，可安装 <a href="https://github.com/junegunn/fzf">fzf</a> 实现模糊搜索；<a href="https://github.com/atuinsh/atuin">atuin</a> 用 SQLite 数据库替代 shell 历史；per-directory-history 可按目录搜索命令。</li>
+<li><strong>SQL</strong>：可以 <code>SELECT</code> 而无 <code>FROM</code>，用于测试函数行为；PostgreSQL 与 MySQL 均支持 <code>explain analyze</code>，会实际执行查询并给出更详尽的性能信息。</li>
+<li><strong>正则</strong>：词边界断言 <code>\b</code> 便于查找词的起始或结束。</li>
+<li><strong>指标</strong>：用对数（如 <code>Math.log10</code>）将数值分桶，以了解字段值的分布。</li>
+<li><strong>现代 JS</strong>：支持 <code>Array.flatMap</code>、<code>Object.entries</code> 与 <code>Promise.withResolvers</code>。</li>
+<li><strong>NodeJS</strong>：创建 <code>https.Agent</code> 并传入 HTTP 请求，可复用连接、显著降低延迟。</li>
+<li><strong>Git</strong>：<code>git log -S pattern</code>（"git pickaxe"）可找出所有新增或删除某字符串的提交，对旧代码库尤其有用；<code>git checkout -</code> 可切回上一个 HEAD。</li>
+<li><strong>文件操作</strong>：多数 <code>find</code> 命令可被 <code>**/*.md</code> 等 glob 替代（bash 需 <code>shopt -s globstar</code>）；更推荐用 <a href="https://github.com/BurntSushi/ripgrep">rg（ripgrep）</a> 替代 grep、ack、ag。</li>
+<li><strong>zsh</strong>：高级自动补全默认未开启，需要手动加载 compinit。</li>
+</ul>
+
+<p>作者还强调，在公司环境中这类"小而高杠杆"的知识更多：例如"调试 $PROBLEM 用 $DATA_SOURCE""$PERSON 对 $AREA 了如指掌""滚动重启服务跑 $THIS_COMMAND"等。他曾在前一家公司每天在 Slack 上向工程团队分享一个技巧，既有技术性的也有公司特有的，即使大家已经知道其中 9/10，那第 10 个文档或方法也可能省下不少时间，且每天一个的量级不会让人不堪重负，还能偶尔引发有价值的讨论。他建议资深工程师也可以考虑类似做法，并提及这一思路最早见于 Julia Evans 的博客。</p>
+
+<p>在 Hacker News 评论区，讨论引发了多个方向的回应。有人指出此文更像"bash/zsh CLI 技巧"而非编程技巧；有学者感慨如今学术界"几乎没人再手写代码"，转向 LLM 编排任务，但同时也有人（如 dgacmu、huurtehoog）表示分析工作仍须亲手完成。关于"避免分支"（branchless programming）是否值得推广也出现了争论，有评论认为它常让代码更难懂。对于"每天在 Slack 分享一个技巧"的做法，有人赞许（如 CableNinja 认为帮助团队成长是好事），也有人（NegativeLatency、rootlocus）觉得可能显得像变相自我营销或博取关注，更偏向于建立独立的共享频道或知识库。还有用户分享了 macOS 终端的撤销快捷键（Ctrl+Option+-）等额外小技巧。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>Nagle 算法</strong>：一种通过合并小数据包来减少网络上小报文数量的拥塞控制算法，与 <code>TCP_NODELAY</code> 选项互斥。当二者同时启用时，往往会出现莫名的数据发送延迟——这正是作者提到的典型"小而重要"知识。</p>
+<p><strong>git pickaxe（<code>-S</code> 与 <code>-G</code>）</strong>：<code>git log -S</code> 只匹配新增或删除某字符串的提交，而 <code>-G</code> 按正则匹配内容的增删，即使该行只是被移动也会显示。二者对深入考古大型或老旧代码库非常有价值。</p>
+<p><strong>branchless programming（无分支编程）</strong>：通过位运算、查表或算法重构等方式消除 if 分支，以提升 CPU 分支预测命中率。在性能敏感的热路径中可能带来提升（如评论中引用的 <a href="https://www.greyblake.com/blog/branchless-rust/">branchless Rust 示例</a>），但在可读性上存在争议。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49729000</guid>
+      <pubDate>Wed, 16 Sep 2026 15:56:47 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mistral 与 Mozilla 合作：为 Firefox 带来开放、私密且多语言的 AI 浏览体验</title>
       <link>https://news.ycombinator.com/item?id=49723408</link>
@@ -938,24 +969,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49638353</guid>
       <pubDate>Thu, 10 Sep 2026 04:19:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ DeepSeek 发布 V4.1-Flash：新架构、原生视觉能力与高推理效率</title>
-      <link>https://news.ycombinator.com/item?id=49639090</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型发布公告，符合很感兴趣配置且来源权重无更高影响</small></p><p>DeepSeek 正式发布 <strong>DeepSeek-V4.1-Flash</strong>，这是其全新架构家族中最小的一款模型，也是 Flash 系列首次原生支持视觉理解能力。官方称该模型在设计上兼顾更强的性能、更快的推理速度、更高的吞吐量，并具备扩展到更大模型的潜力。模型已同步上架 Hugging Face。</p>
-
-<p>技术报告显示，V4.1-Flash 采用了全新的<strong>因果编码器-解码器（CED）架构</strong>：一个 40 层的 Transformer，由 20 层因果编码器和 20 层解码器组成。解码器的全局 KV 缓存由编码器最终隐藏状态投影而来，而非每个解码器层的隐藏状态，从而在预填充阶段每 token 仅激活 8B 参数，解码阶段激活 16B 参数，显著降低了输入密集型智能体（agentic）工作负载的成本。该设计还将全局 KV 缓存占用降至每 token 890 字节，约为 V4-Flash 的四分之一，约 1MB 即可支持 100 万 token 的上下文。此外，模型支持 1–100 的连续可调推理努力（reasoning effort）参数，可在推理成本与准确性之间权衡。</p>
-
-<p>模型总参数量为 <strong>552B</strong>（骨干参数），另有 <strong>196B</strong> 的 Engram 参数，后者可存放于 SSD 而非 RAM 中。相较于此前的 V4-Flash（284B、FP4 量化、约 160GB），新版模型规模大幅增加，体积约为此前的两倍（FP8 下约 510GB），引发了部分用户对本地部署难度的讨论。Hacker News 评论指出，要在本地流畅运行该模型，约需 384GB 内存，普通消费级设备难以满足。</p>
-
-<p>社区对 V4.1-Flash 的初期评价普遍积极。有用户认为这是目前开源权重模型中的"最强王者"，称其在自动化 bug 分诊、代码审查等任务上表现出色；也有用户指出，相比美国厂商的模型，DeepSeek 系列模型更少拒绝执行用户请求（如在合法前提下下载 ROM、审查代码安全漏洞等）。有评论者称赞 DeepSeek 技术报告内容详实、聚焦技术细节，与之对比，部分竞争对手的系统卡片大量篇幅在谈"安全"。值得留意的是，V4 Pro 已被官方停用，现有流量将转向 Flash V4.1。</p>
-
-<h3>你知道吗？</h3>
-<p>「Engram 参数」是 DeepSeek V4.1 中引入的一种记忆机制设计：这部分权重不参与每 token 的前向计算激活（即不占用活跃参数量），而是可以卸载到 SSD 等慢速存储上，按需加载。此举在不增大活跃计算开支的前提下扩充了模型的记忆容量，是其在参数量大幅增长的同时仍能维持高推理效率的关键之一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49639090</guid>
-      <pubDate>Thu, 10 Sep 2026 06:11:05 GMT</pubDate>
     </item>
   </channel>
 </rss>
