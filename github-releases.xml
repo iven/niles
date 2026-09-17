@@ -3,7 +3,62 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 16 Sep 2026 22:06:24 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 00:26:49 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.274 发布：新增内存告警、MCP 连接超时控制与多项修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.274</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>
+<p>Claude Code 发布了 <strong>v2.1.274</strong>，本次更新以稳定性修复为主，同时带来若干新功能与服务端（Claude apps gateway）改进。</p>
+
+<h3>新功能与核心改动</h3>
+<ul>
+<li><strong>内存告警</strong>：当内存使用达到临界水平时显示可见警告，并提示释放内存或安全重启的步骤。</li>
+<li><strong>MCP 启动等待控制</strong>：新增 <code>CLAUDE_CODE_MCP_STARTUP_WAIT_MS</code>，用于限定首个非交互式回合等待 MCP 服务器连接的最长时间（设为 <code>0</code> 表示不等待）。</li>
+<li><strong>全屏可展开消息</strong>：在全屏模式下，折叠的队友与代理消息现支持点击展开。</li>
+<li><strong>遥测增强</strong>：为 <code>claude_code.llm_request</code> 追踪 span 新增 <code>effort</code> 属性；新增 <code>claude_code.managed_settings_resolved</code> OTel 事件。</li>
+<li><strong>网关改进</strong>：Claude apps gateway 新增 <code>store.connect_timeout_seconds</code> 以延长 Postgres 连接超时（默认 5 秒）；数据库不可达时的启动错误信息会指向 <code>store.postgres_url</code> 及配置的超时值；启动时最多重试 3 次首次 Postgres 连接；SIGTERM 退出时现会等待进行中的请求最多 25 秒（<code>CLAUDE_GATEWAY_DRAIN_TIMEOUT_MS</code>）；高负载下的支出限额检查由四次数据库往返减为一次。</li>
+</ul>
+
+<h3>其他修复</h3>
+<ul>
+<li>会话不再因 "unexpected tool_use_id" 400 错误而陷入无限重试：损坏的 transcript 现可自我修复，否则给出带 <code>/rewind</code> 提示的明确错误。</li>
+<li>修复多项目流式 HTTP MCP 工具调用超时问题；修复 MCP 服务器发送 list-changed 通知但未声明 <code>listChanged</code> 时提示与资源不刷新的问题；修复 MCP 403 权限不足被误报为登录过期等。</li>
+<li>修复钩子驱动会话（如活跃的 <code>/goal</code>）在积极响应压缩后再次溢出上下文时报 "Prompt is too long" 而非自动压缩的问题；修复 resume 后丢失活跃 <code>/goal</code> 的问题。</li>
+<li>修复 <code>claude agents</code> 自动更新重启后丢失 <code>--model</code>、<code>--effort</code>、<code>--permission-mode</code> 等参数的问题。</li>
+<li>修复语言服务器为数千文件发布工程级诊断时的每回合性能下降。</li>
+<li>修复子代理在 Bedrock、Vertex、Foundry 上使用 <code>model: "opus"</code> 时退出会话模型的问题。</li>
+<li>修复本地文件路径的可点击链接在 VS Code 等需 <code>file://</code> URI 的终端中无效的问题。</li>
+<li>修复 transcript 重编号打乱你自己消息中列表序号（输入 "3. 2. 1." 显示为 "3. 4. 5."）的问题。</li>
+<li>修复 <code>/schedule</code>、<code>/status</code>、<code>/fast on</code> 等的若干展示与逻辑问题；修复 Stop 提示钩子反复重发整段提示的问题。</li>
+<li>修复 Wayland 下在 Cursor 或 VS Code 终端运行时启动出现多余空编辑器窗口的问题；修复 BASH 权限检查、worktree 隔离会话对某些嵌套 shell 扩展的校验。</li>
+<li>修复后台命令在轻度内存压力下闲置 30 分钟后被停止的问题（现仅在内存严重不足时停止）；修复插件/市场克隆对 Git LFS 文件的行为（现保留指针，需 <code>git lfs pull</code> 获取）。</li>
+<li>改动：仅 SDK 宿主应用可注册进程内服务器，<code>"type": "sdk"</code> 的 MCP 条目将被跳过并给出警告；本地会话中他处发布的新工件版本不再启动新回合；<code>/code-review</code> 对无自身调优设置的模型改用更精简的内联审查提示。</li>
+</ul>
+
+<h3>VS Code 扩展</h3>
+<ul>
+<li>新增窗口重载中断步骤的延续功能，可在聊天中标注，并提供 <code>Claude Code: Continue After Reload</code> 设置关闭；</li>
+<li>Customize 菜单新增 Memory（自动记忆开关、已存记忆与记忆文件夹）与 Instructions（编辑 CLAUDE.md）条目；</li>
+<li>新增 <code>claudeCode.lockEditorGroups</code> 设置，用于阻止 Claude 锁定其打开的编辑器组；</li>
+<li>修复编辑 diff 在部分面板宽度下底部被截断、高对比度主题下内联代码/代码块不可读、会话重开导致编辑器布局分屏等问题。</li>
+</ul>
+
+<h3>Claude Code on the web</h3>
+<ul>
+<li>云会话的 diff 视图新增 "Compare against" 分支选择器；</li>
+<li>修复 GitHub 令牌续期短暂报错导致 git 操作失败、编辑 routine 被触发两次、提交签名错误、routines 在订阅暂停时的行为等多处问题。</li>
+</ul>
+
+<h3>Claude Tag（Slack 集成）与 Code Review</h3>
+<ul>
+<li>Claude Tag：管理员设置新增 Guests 选项；修复其他应用 @提及 Claude 无响应、频道内单频道搜索失败、某应用紧跟 @Claude 消息丢失等问题。</li>
+<li>Code Review：改进发现项的措辞（简洁说明影响对象、代码错误处与修复）；修复偶发 "Code review encountered an error"、复审遗留已修复 thread 等问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.274</guid>
+      <pubDate>Thu, 17 Sep 2026 00:12:02 GMT</pubDate>
+    </item>
     <item>
       <title>Devbox 0.18.3 发布：新增 Reopen in Devbox 初始化钩子，多项 Bug 修复</title>
       <link>https://github.com/jetify-com/devbox/releases/tag/0.18.3</link>
@@ -1391,52 +1446,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.5.0</guid>
       <pubDate>Wed, 26 Aug 2026 07:59:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.246：/permissions 新增 Auto 模式标签页，改进 /cd 与子代理结果</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.246</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.246，带来若干新功能与核心改进，并修复了大量影响日常使用的 bug。</p>
-
-<p><strong>重要改动</strong></p>
-<ul>
-<li><code>/permissions</code> 新增 Auto 模式标签页，可查看和编辑自动模式分类器规则</li>
-<li>回合结束的时长行新增完成时间显示，例如 <code>✻ Sautéed for 23s · done 6:05 PM</code></li>
-<li>Bash 允许规则若在子命令前使用通配符（如 <code>Bash(git * main)</code>）会显示启动警告，因为这类规则也会匹配插入在子命令前的选项</li>
-<li>改进 <code>/cd</code>：切换目录后，新目录的项目设置、hooks、<code>.mcp.json</code> 服务器（需审批）、skills 和 agents 立即生效，无需等到 <code>--resume</code></li>
-<li>改进子代理结果：达到 <code>maxTurns</code> 上限停止的子代理现在返回标记为部分（partial）的输出，并提示可通过 <code>SendMessage</code> 继续，而不是显示为已完成</li>
-<li>改进非交互会话（<code>-p</code>、SDK、云会话）：响应被服务器错误、连接中断或停滞截断时自动续接，而不是直接报错结束</li>
-<li><code>/code-review</code> 现在 Claude 也可在 Bedrock、Vertex AI 和 Foundry 上自主启动</li>
-<li><code>/goal</code>：空闲会话对长时间后台工作每个目标最多发起三次 check-in，下一条消息后可再获得三次</li>
-</ul>
-
-<p><strong>其他修复与优化</strong></p>
-<ul>
-<li>修复全屏模式多项问题：调整终端大小后显示空白转录、位于较早消息时滚动异常、点击终端窗口时焦点被指针下的控件抢走</li>
-<li>修复 diff 包含超长单行（如 base64 字符串）导致的严重转录卡顿，此类行现在截断显示并带标记</li>
-<li>修复后台会话在起始目录被删除、机器休眠或主机启动慢时 45 秒后无法打开的问题，以及 npm 包重装瞬间报 EACCES 的问题</li>
-<li>修复 markdown 渲染被错误禁用（前 500 字符无 markdown、<code>+</code>/<code>N)</code> 列表、setext 标题）</li>
-<li>修复 MCP 工具调用被中断时误报为「已完成无输出」、参数 schema 为空（<code>{}</code>）时参数被当作 JSON 字符串发送</li>
-<li>修复动态工作流中按 ← 或运行 <code>/background</code> 会重启已完成的子代理（现在会先询问并提示重启数量）</li>
-<li>修复 <code>claude agents</code> 重复列出后台会话（再次后台化同一会话会编号为 <code>my-session (2)</code>）、后台保留清理误删自建 git worktree</li>
-<li>修复大会话中 auto 模式工具调用被误判为「暂时不可用」（安全检查时限随提示规模缩放）</li>
-<li>插件相关多项修复：缓存创建重复 SHA 目录、技能前缀重复显示（<code>/plugin:plugin:skill</code>）、<code>plugin update</code> 裸名称失败、UTF-8 BOM 导致安装失败、<code>/reload-plugins</code> 报 0 技能、hook 错误消息显示未解析的 <code>${CLAUDE_PLUGIN_ROOT}</code></li>
-<li>修复 <code>/rename</code> 用默认青色覆盖主题提示边框颜色（含自定义主题的 <code>promptBorder</code>）、自定义主题 diff 颜色被忽略</li>
-<li>修复 <code>keybindings.json</code> 未知动作名导致按键静默失效（现在跳过并保留默认绑定）、<code>/stats</code> 热力图在 UTC 以东时区偏移一格</li>
-<li>修复 <code>/fork</code> 从已 fork 或后台会话开始时对话为空、<code>/--</code> 开头提示词被当作未知命令拒绝</li>
-<li>修复 <code>@</code> 文件选择器在输入不再匹配路径后仍保持打开、状态栏费用/时长在切换视图后重置、路径补全遇 null 字节失败</li>
-<li>修复第三方 Anthropic 兼容端点流式返回无 <code>id</code> 的 <code>tool_use</code> 块导致首次工具调用渲染错误、Write 工具覆盖超大文件后报「Out of memory」或长时间冻结</li>
-<li>修复 <code>plugin install</code> 在 marketplace 文件损坏时静默退出、恢复会话因历史中的工具块导致每回合 400 报错、plan 模式会话恢复时退出 plan 模式</li>
-<li>修复 Notification hook 在沙箱网络审批等待时不触发、<code>--strict-mcp-config</code> 会话提示审批永不加载的 <code>.mcp.json</code> 服务器</li>
-<li>修复全屏和 Ctrl+O 转录视图内存随会话长度增长（渲染行不再持有全转录工具查找副本）、<code>/ultrareview</code> 与云会话并发启动时带上其他启动的未提交更改</li>
-<li>修复后台云会话任务进度计数偶尔缺失、Remote Control 会话在 claude.ai 中一直保留占位名称、<code>requiresUserInteraction</code> 工具仍提供「不再询问」选项</li>
-<li>修复 self-hosted runner 在 work-poll 响应畸形（如代理返回 HTML 页）时结束会话，现在会重试轮询</li>
-<li>性能优化：Bash 工具延迟改进，快照函数重放不再逐函数使用 base64 子 shell</li>
-<li>其他：<code>claude install</code>/<code>update</code> 将托管设置同意提示推迟到下次交互会话、命令沙箱文件系统配置现在尊重 <code>--setting-sources</code></li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.246</guid>
-      <pubDate>Tue, 25 Aug 2026 22:31:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
