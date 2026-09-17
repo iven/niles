@@ -3,7 +3,59 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 17 Sep 2026 11:35:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 16:56:18 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Servo 项目回顾：赞助制开发者岗位运作一周年</title>
+      <link>https://news.ycombinator.com/item?id=49737849</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是开源浏览器引擎 Servo 项目的赞助开发岗位周年回顾，符合感兴趣的开源项目类别，推荐阅读</small></p><p>Servo 项目发文回顾了其首个由捐赠资助的开发者岗位运行一年的情况。自去年九月起，资深维护者 Josh Bowman-Matthews（@jdm）在 OpenCollective 和 GitHub 上每月捐赠的支持下，兼职投入改善 Servo 的贡献者体验。</p><p>在过去一年中，Bowman-Matthews 完成的主要工作包括：提名了 8 位新维护者、审阅了 1150 个拉取请求、针对新贡献者提交了 114 个问题（其中 92% 已修复），并撰写了关于借用风险（borrow hazards）、实验性功能、AI 政策、寻找可贡献事项及修复稳定与间歇性测试失败等主题的新文档。</p><p>此间几项突出成果：他支持了 Servo JS 引擎集成的大规模重写以解决与垃圾回收相关的间歇性 panic——不仅审阅大量拉取请求，还通过提交多个问题将相关工作分派给众多贡献者；协助排查测试失败、揭示并修复了项目中断的 window.open 行为，使大量不稳定测试趋于稳定；还支持了另一位贡献者的项目资助提案并获批准。</p><p>Bowman-Matthews 表示，这一岗位让他找到了兼顾家庭与项目贡献的健康平衡，并得以投入大量时间思考如何让项目对其他人更易参与。他对所有捐赠者表达了感谢，称每一笔月度捐赠都意义重大。</p><p>社区评论中，有用户关心 Servo 当前的实用场景，指出它虽尚未成熟到可作为完整浏览器引擎，但在嵌入式浏览器、桌面应用（如 Tauri 集成）和 headless 浏览器等场景中已有应用价值，并可作为验证 Web 标准与 WPT 测试定义的又一参考实现。另有评论讨论其开发者薪资资助模式及 NLnet 等其他机构的赞助。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49737849</guid>
+      <pubDate>Thu, 17 Sep 2026 08:13:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>备份并不简单：从家庭照片灾难到企业级备份方案的演进之路</title>
+      <link>https://news.ycombinator.com/item?id=49732513</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为备份方案的演进，属于较泛的软件技术内容，兴趣程度不明确，定为可选</small></p><p>作者 Aleksandar Filipovski 从自身一次家庭数据丢失经历出发，深入探讨了「备份并不简单」这一主题，逐步揭开备份系统背后复杂的设计考量。</p>
+
+<h3>家庭照片的教训</h3>
+<p>作者小时候将全家照片集中存放在一块外置硬盘上，后来父亲因电视盒子提示而格式化该硬盘，导致文件索引被删除。虽然最终照片得以恢复，但这次经历让他意识到：重要数据绝不能只存放在一个地方。随后他系统性地拆解了构建一套可靠备份方案所要面对的层层难题。</p>
+
+<h3>备份设计的层层演进</h3>
+<ul>
+<li><strong>基本备份</strong>：只需在别处保存一份副本，应对硬盘损坏、被盗、位腐坏（bit rot）等风险。</li>
+<li><strong>快照与恢复点目标（RPO）</strong>：备份不能只是镜像（如 RAID 1），还需能回退到过去的时间点。恢复点目标（RPO）从关键金融机构的 30 秒以内到小型企业的 24 小时不等。</li>
+<li><strong>轮转策略</strong>：采用 GFS（祖父-父亲-儿子）轮转——近期快照更频繁，越久远越稀疏。</li>
+<li><strong>去重与增量备份</strong>：借鉴视频压缩思路，文件变更呈肥尾分布，可用硬链接引用已有文件，仅存储相邻快照间的变化（增量备份），节省存储与带宽。</li>
+<li><strong>现实挑战</strong>：Docker 容器常创建 root 属主文件导致 cron 备份失败；数据库缓存落盘方式可能造成恢复时数据损坏，需额外转储数据库。</li>
+<li><strong>3-2-1 原则</strong>：3 份副本、2 种不同介质、1 份异地备份，以防范硬件特定故障、电涌、火灾等风险。</li>
+<li><strong>云对象存储的权衡</strong>：上传到 S3 会丢失文件元数据，且大量小文件收费高昂，因此需打包成 tarball 并合理分块。</li>
+</ul>
+
+<h3>结论：交棒给成熟工具</h3>
+<p>作者承认，随着复杂度攀升，自己动手（DIY）搭建备份已不划算，转而推荐使用成熟工具如 <a href="https://restic.net/">Restic</a> 或 Borg，它们已封装了加密、块级去重、校验和等大量复杂性。他强调定期测试恢复（restore）比备份本身更重要，并引用社区补充——建议每 6 个月实际演练一次恢复。</p>
+
+<h3>评论区要点</h3>
+<ul>
+<li>多位用户强调「备份不是功能，恢复才是」，呼应 Veritas 从业者的名言「我们做的是恢复业务而非备份业务」。</li>
+<li>有用户反映 Borg 在特定场景下出现静默数据损坏问题（<a href="https://github.com/borgbackup/borg/issues/7672">GitHub issue 7672</a>），也有用户因 Backrest 以明文存储 vault 密码而转向，提醒选择工具时需关注安全细节。</li>
+<li>社区普遍推荐 <a href="https://restic.net/">Restic</a> + <a href="https://garethgeorge.github.io/backrest/">Backrest</a>，并建议利用生产数据定期刷新测试环境来验证恢复流程。</li>
+<li>作者在文末补充了夏令时期间勿在凌晨 2-3 点运行 cron、以及 ZFS 快照、一致性组、ACL、稀疏文件支持等进阶注意事项。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49732513</guid>
+      <pubDate>Wed, 16 Sep 2026 20:27:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 在 LLM 时代学习编程：Mark Seemann 对读者来信的公开回应</title>
+      <link>https://news.ycombinator.com/item?id=49723873</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 LLM 时代如何学习编程，结合 AI 与编程教育，符合 AI 软件技术及编程相关兴趣，推荐阅读</small></p><p>作家兼软件工程师 Mark Seemann 在其博客上以公开信的方式，回答了一位读者关于「在 LLM（大语言模型）时代如何学习编程」的长篇提问。</p><p>这位读者没有正式计算机科学背景，过去一年借助 LLM 构建了一个涉及 API、PostgreSQL、LLM 管线和多模型工作流的较大型 TypeScript/JavaScript 系统。然而在将其转化为正式产品时，他发现自己不断修复一个又一个错误，最终意识到「自己可能构建了一个超出自身理解水平的系统」——当一切正常运转时这个差距几乎不可见，一旦出错就非常真实。</p><p>Seemann 坦诚地说明了自己的立场：他倾向于不喜欢 AI，尽管深知它可能无法阻挡。他提到自己有经济学背景，担心如果知识工作者出现 30%–40% 的大规模失业，可能会对经济和社会产生深远影响。他质疑「新技术总会创造新岗位」的说法，指出历史上新岗位往往并不属于那些失业的人。</p><p>针对读者的问题，Seemann 表示很庆幸自己在 LLM 出现前学过编程。如果今天重新起步，他或许会考虑木工、金属加工等需要手眼协调的技能。他认为衡量软件开发能力的一个准则是：理解你工作层次正下方和正上方的那一层抽象，这足以排查大多数问题。</p><p>他还指出，人类学习的瓶颈并非教材或教师，而是人脑吸收新知识的速度本身；LLM 提供可验证答案的问题（如「这段 Haskell 表达式能否更简洁」）值得使用，而那些无法验证答案的开放问题（如「接下来该学什么」）则应避免询问。他强调 LLM 不是「幻觉」而是「胡扯」（bullshit），因此他倾向于提出可证伪的问题。</p><p>他在 HN 社区的评论中引发了广泛讨论：有人认为应询问正在用 LLM 学习的人而非三十年前入行的人；有人将用 LLM 写代码比作雇人举铁，无法真正锻炼自己；也有人认为 LLM 能加快建立知识联系，但需要有意识地补足理解，像计算器一样在掌握基础后再依靠它处理大规模工作。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49723873</guid>
+      <pubDate>Wed, 16 Sep 2026 09:12:34 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 小米发布 MiMo 2.6 实时强化学习训练看板，展现罕见开放姿态</title>
       <link>https://news.ycombinator.com/item?id=49732270</link>
@@ -946,57 +998,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49654229</guid>
       <pubDate>Fri, 11 Sep 2026 06:23:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>别让任何人拿走你的&quot;大电缆箱&quot;：一个关于保留旧线缆的趣味提醒</title>
-      <link>https://news.ycombinator.com/item?id=49645393</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 这是一篇以保留旧线缆为切入点、调侃网站开发混乱状态的趣味随笔，主题偏向个人感悟而非具体编程工具或效率改进经验，兴趣不明确，故列为可选</small></p><p>Jim Nielsen 在博客中分享了一则关于保留旧线缆的趣味感悟。他在网上看到 Tyler Gaw 发布的一则帖文：对方为了找两根需要用的线缆，翻到了自家"大电缆箱"的最底部——这些线缆已经存放了 10 多年。帖文写道："所以，'你什么时候才会用上这些？'答案就是今天。别让任何人拿走你的大电缆箱。"</p>
-
-<p>Jim 深有共鸣，于是将这条帖文截图打印出来，贴在自家那个被妻子温情地贴上"FAMILY TECHNO BOX"（家庭科技箱）标签的线缆箱上，作为永久提醒。每当他往箱子里再添一根线缆（他称之为"YAC"，即"又一根线缆"）时，就会想起保留这箱东西的意义，并希望将来孩子们在阁楼里发现这个箱子时，能记住箱子上这个真诚的建议。</p>
-
-<img src="https://cdn.jim-nielsen.com/blog/2026/cables.jpg" alt="一个装着线缆的纸箱照片，上面有用马克笔写着'FAMILY TECHNO BOX'，还有一张打印的帖文贴在上面" width="800" height="800" />
-
-<h3>社区讨论</h3>
-<p>这篇文章在 Hacker News 上引发了热烈讨论，获得了 367 分和 274 条评论。许多用户分享了各自的"线缆管理哲学"：</p>
-<ul>
-<li>多位用户表示将线缆按类别分箱，如视频线、音频线、网线和 USB 线，还有人用可堆叠的工具箱或带标签的拉链袋进行整理。</li>
-<li>不少用户把线缆箱视为"备用保险"——老旧的线缆和零件多次帮朋友、客户甚至是祖父辈的维修工作解了燃眉之急。有人感慨这是"准时制（JIT）库存和离岸制造夺走的东西"。</li>
-<li>也有用户理性地主张适度断舍离，认为多年未碰的箱子其实没那么值得留恋；还有人在德国把 10 公斤家用线缆卖给废金属回收商，换来了 30 欧元。</li>
-<li>关于罕见的"双头 USB-A 线"，有用户提到它曾用于给自行车头灯或便携充电宝充电，还有用户指出它随某款充气太阳能露营灯附带。</li>
-<li>作者本人在评论中调侃道："有一部后启示录小说等着被写出来——当文明崩溃时，线缆囤积者将坐拥王座。"</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49645393</guid>
-      <pubDate>Thu, 10 Sep 2026 15:27:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>软件是否令人疯狂？技术行业失衡比例与耐心的现象剖析</title>
-      <link>https://news.ycombinator.com/item?id=49646181</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是软件行业文化现象与心理观察，非编程效率改进或工具分享，兴趣不明确</small></p><p>一位资深技术从业者提出一个「小理论」：软件正在让人们失去分寸感。文章指出，软件行业将速度快、金钱、复杂度、抽象概念以及「几乎无限的自由去改变主意」这五要素组合在一起，从而促使原本正常的人产生怪异行为——把枯燥的工作演变成一场「二流反派」式的闹剧。</p><p>作者的核心论点是：与建造房屋不同，软件中的改动几乎没有「天然摩擦」。移动厨房在实体世界中显然代价高昂，而软件里的类似改动却因为成本隐藏在人的头脑和难以推理的系统内部，看起来像「简单修复」，代价则在后台悄然累积。更麻烦的是，软件改动有时确实很便宜，这种「能」与「代价」之间的模糊界限，让每个「酷主意」都有机会进入路线图，并逐渐从「能」变成「应该」，再变成「为何还没完成」。</p><p>文章进一步剖析了几个放大问题的心智机制：因为一切都能快速推进，所以一切显得紧迫；因为理论收益巨大，每个决策都显得充满战略意义；因为解法众多，每个技术选择都变得意识形态化。更重要的是，软件缺乏自然的「完成」定义——木匠放下锤子是因为柜子存在了，而软件总是可以继续优化、扩展、转型。加上资本的存在，原本平凡的工作被赋予了数百万美元的期许，人们甚至会为一个按钮争论一小时。</p><p>作者提醒，大多数软件本质上仍是「华丽一点的电子表格」，复杂度会制造任务、带来重要感与地位，从而形成自我强化的循环。而软件给予的「高度可控感」也助长了这种倾向，人们开始像调试软件一样去不断「重构」公司本身：改漏斗、改产品、改流程、改工具、重组架构、甚至转型。</p><p>文末的答案是「比例感」：并非每个问题都是生死攸关，并非每个想法都该上路线图，并非每个抽象都值得存在，并非每个减速都需要干预，并非每家公司都要追求「统治世界」。作者强调「放任事物自生自灭」是被低估的工程技能——数据库不必总被替换，框架常常没问题，产品也不需要每次都重新设计。对耐心的敌意让行业不断制造活动，直到原始问题被层层掩盖；相比之下，构建让生活更轻松的工具本身就已足够。</p><p>「你知道吗？」：文中提到的「地图—领地关系（Map–territory relation）」是一个哲学与语义学概念，指「对事物的描述或模型」与「事物本身」之间的区别。当管理者把业务模型的抽象表示误当作现实本身时，就容易出现「征服了领域」的错觉——例如把做了一个会议日程应用，误认为「引领了商业地产与未来办公」。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49646181</guid>
-      <pubDate>Thu, 10 Sep 2026 16:13:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cognition 发布新一代编程模型 SWE-2，逼近顶级前沿模型且成本更低</title>
-      <link>https://news.ycombinator.com/item?id=49645443</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新一代编程模型SWE-2发布公告，属于新AI模型发布，且为编程工具模型，强烈相关</small></p><p>Cognition 今日正式发布其最先进的编程模型 SWE-2，宣称该模型在能力与成本之间取得了极具竞争力的平衡：在 FrontierCode 1.1 Main 基准上达到 50.0%，与 Fable 5.1（50.9%）仅相差约一个百分点，但成本便宜 64%。</p>
-
-<p>SWE-2 基于月之暗面（Moonshot）的 Kimi K3（2.8T 参数模型）进行后训练，并首次将强化学习（RL）扩展到多万亿参数规模。其核心创新是一个能在单次训练中对所有推理努力等级（effort level）进行训练的 RL 算法，从而整体推动"成本—性能"帕累托前沿（Pareto frontier）的提升。</p>
-
-<p>在多个编码基准上，SWE-2 均优于 SWE-1.7 和 Grok 4.6，在分数与成本两方面都更有优势；价格远低于 GPT-5.6 Sol 和 Fable 5/5.1，且能以四分之一成本逼近 GPT-6 Astra 的得分。主要成绩包括：FrontierCode 1.1 Main 50.0%、DeepSWE 1.1 73.0%、Terminal-Bench 2.1 92.8%、Terminal-Bench 4 27.3%。</p>
-
-<p>文章还介绍了若干技术细节：采用帕累托信息化的线性成本惩罚（根据基础模型前沿的局部斜率调整奖励函数 R = S − λₑC）；使用自 SWE-1.6 以来的长度加权奖励基线以稳定训练；针对 RL 推理服务优化调度与在线草稿模型（DSpark 推测解码与 SpecForge），配合 NVFP4/FP8 内核与量化感知训练以降低内存和训练—推理偏差；并将 RL 环境数量增加三倍，借助之前 SWE-2 检查点构建数据飞轮。SWE-2 即日起在 Devin Desktop 和 CLI 中可用，并将推广到 Devin Web 与 Fusion。</p>
-
-<p>在<a href="https://news.ycombinator.com/item?id=49645443">HN 社区讨论</a>中，网友反应较为复杂。不少人质疑模型"刷基准"（benchmark gaming），尤其指出 Terminal-Bench 2.1（92.8%）与较新的 Terminal-Bench 4（27.3%）之间巨大的得分落差，可能反映模型对新问题泛化能力有限。也有用户质疑 Cognition 自建 FrontierCode 基准的可信度。同时，社区将 SWE-2（闭源权重）与同日发布的开放权重模型 DeepSeek 4.1 Flash 进行比较，部分人认为闭源模型前景堪忧。当然，也有用户称赞模型行为改进（如更快进入实现阶段、更强的测试覆盖），并认可 Cognition 在效率提升上的成果。</p>
-
-<div class="你知道吗"><h3>你知道吗？</h3><p>帕累托前沿（Pareto frontier）源自经济学中的帕累托效率概念（1906 年维尔弗雷多·帕累托提出），指在多个相互权衡的目标（此处为"成本"与"性能"）中，无法在不损害一个目标的前提下改善另一个目标的一组最优解。它在计算机科学中常用于描述数据结构（如读写速度权衡）等问题，如今也被 AI 实验室广泛用来展示模型在成本与能力间的权衡曲线。强化学习奖励中的"成本惩罚"即是通过让目标前沿与奖励等值线相切，来推动模型沿着帕累托前沿整体向上提升。</p></div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49645443</guid>
-      <pubDate>Thu, 10 Sep 2026 15:29:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
