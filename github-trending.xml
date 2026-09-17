@@ -3,7 +3,85 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Thu, 17 Sep 2026 06:06:51 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 11:36:03 GMT</lastBuildDate>
+    <item>
+      <title>⭐ BrowserSkill：让 AI 智能体复用你已登录的真实浏览器，不打断日常工作</title>
+      <link>https://github.com/Tencent/BrowserSkill</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是开源项目，涉及AI软件技术进展（让AI智能体复用真实浏览器），符合感兴趣类别的开源项目与AI技术进展。</small></p><p>腾讯开源的 <strong>BrowserSkill</strong> 是一个连接 AI 智能体与用户真实浏览器的工具，支持 Cursor、Claude Code、Codex、OpenClaw、CodeBuddy、WorkBuddy、Pi、Hermes Agent、DeepSeek Harness 等各类智能体框架。项目在 GitHub 上已获得约 3564 星标，使用 TypeScript 编写。</p>
+
+<h3>核心优势</h3>
+<ul>
+<li><strong>复用真实登录状态</strong>：智能体可以直接操作你已登录的网站，无需单独准备测试账号。</li>
+<li><strong>不打断日常工作</strong>：浏览器任务在独立的可见 Agent Window 中运行，你可以继续使用自己的浏览器。</li>
+<li><strong>支持任意智能体</strong>：任何能调用 shell 的智能体都可以通过 <code>bsk</code> CLI 使用 BrowserSkill，不绑定特定模型或框架。</li>
+<li><strong>内置人工介入机制</strong>：当任务遇到验证码、登录、确认对话框等需要人工处理的步骤时，智能体可以请求用户接管，完成后继续执行。</li>
+</ul>
+
+<h3>工作原理</h3>
+<p>BrowserSkill 由两部分本地运行时组成：<code>bsk</code> CLI/守护进程和浏览器扩展。智能体需要借用某个已打开的标签页时，必须显式请求，任务完成后归还，不会干扰浏览器中的其他内容。支持 macOS（Apple Silicon 和 Intel）、Linux（x64 和 ARM64）及 Windows x64，浏览器方面支持 Chrome 和 Microsoft Edge，其他基于 Chromium 的浏览器预计也可工作，Firefox 支持在规划中。</p>
+
+<h3>自动化设置</h3>
+<p>扩展弹窗提供两个独立的自动化开关（默认均开启）：<strong>借用标签页前确认</strong>和<strong>允许请求人工帮助</strong>。用户保存的浏览器设置对所有会话具有权威性。旧版命令行参数（如 <code>--unattended</code>、<code>tab borrow --no-confirm</code>、<code>BSK_REQUEST_HELP=off</code>）仍被接受但已弃用，无法覆盖浏览器设置。</p>
+
+<h3>其他功能</h3>
+<p>支持通过 <strong>Quick actions → Full-page screenshot</strong> 或 <code>bsk screenshot --full-page</code> 命令捕获长截图。还支持远程连接，可将运行在服务器上的智能体与本地浏览器配对使用，内置认证服务。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/Tencent/BrowserSkill</guid>
+      <pubDate>Thu, 17 Sep 2026 11:34:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 腾讯开源 WeKnora：将文档转化为可查询、可推理、可持续演进的智能知识库</title>
+      <link>https://github.com/Tencent/WeKnora</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是开源项目，涉及AI软件技术进展（文档转智能知识库），符合感兴趣类别的开源项目与AI技术进展。</small></p><p>腾讯开源的 <strong>WeKnora</strong> 是一款基于大语言模型（LLM）的企业级开源知识平台，专注文档理解、语义检索与自主推理。其核心理念是"将文档转化为活知识"，围绕三大核心能力构建：面向日常检索的 <strong>RAG 快速问答</strong>、可自主编排检索与工具调用的 <strong>ReAct Agent</strong>，以及全新的 <strong>Wiki 模式</strong>——由 Agent 将原始文档提炼为可自我维护、互相链接的 Markdown 知识库，并配有交互式知识图谱、人工编辑、修订历史与一键回滚功能。</p>
+
+<h3>核心特性</h3>
+<ul>
+  <li><strong>多源数据接入</strong>：支持从飞书（含 Wiki 与 Drive）、GitLab、腾讯 IMA、Notion、语雀、钉钉文档、RSS 等自动同步知识；兼容 PDF、Word、图片、Excel、XMind 等 10 余种文档格式。办公文件可用内置 <strong>anydoc</strong> 进程内解析。</li>
+  <li><strong>LLM 与向量库解耦</strong>：兼容 OpenAI、DeepSeek、Qwen、智谱、混元、Gemini、MiniMax、NVIDIA、LiteLLM、Ollama 等 20+ 模型提供商，可灵活替换向量数据库与存储后端，支持本地及私有云部署，保障数据主权。</li>
+  <li><strong>Agent 与工具箱</strong>：支持 MCP 工具、租户技能目录、会话持久化的 Docker / E2B / Cube 沙箱、跨会话长期记忆（记住用户身份与持续关注的问题）、Web 搜索等，处理复杂多步任务。</li>
+  <li><strong>知识精炼能力</strong>：树状文件夹视图保留上传目录结构；检索分块可编辑并带修订历史（diff 与回滚）；支持文档自动打标签。</li>
+  <li><strong>企业级安全与治理</strong>：多工作区四层角色 RBAC（Owner / Admin / Contributor / Viewer）、细粒度作用域 API 密钥、每工作区审计日志、完整自托管模块化架构；集成 <strong>Langfuse</strong> 实现 Agent 推理、token 用量与链路追踪的可观测性。</li>
+  <li><strong>多渠道分发</strong>：可直接通过企微、飞书、Slack、Telegram 等 IM 渠道提供问答；支持网站嵌入组件将 Agent 发布至外部站点。</li>
+</ul>
+
+<h3>近期版本亮点</h3>
+<ul>
+  <li><strong>v0.8.0</strong>：新增技能沙箱运行时、租户技能目录、跨会话长期记忆、进程内 anydoc 解析、官方 DeepSeek Harness 插件、GitLab / 腾讯 IMA 数据源、LiteLLM、XMind 解析、上下文压缩等。</li>
+  <li><strong>v0.7.2</strong>：发布官方产品文档站点、知识库文件夹树、分块编辑与修订历史、Wiki 页面修订历史、Feishu Drive 数据源、MCP Server 1.1.x。</li>
+  <li><strong>v0.7.0 / v0.6.x</strong>：细粒度作用域 API 密钥、运行时任务队列可观测仪表盘、多实例存储后端、多个 IM 渠道集成、RSS 数据源等。</li>
+</ul>
+
+<p>项目目前已在 GitHub 获得约 2.6 万星标与 3500+ fork，采用 MIT 许可证，由 Go 语言实现。其整体定位是把散落的文档转化为可查询、可推理、可持续演进的统一知识资产。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/Tencent/WeKnora</guid>
+      <pubDate>Thu, 17 Sep 2026 11:34:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Cilium：基于 eBPF 的云原生网络、安全与可观测性解决方案</title>
+      <link>https://github.com/cilium/cilium</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是开源项目，涉及云原生网络与安全，属于开源项目及软件技术进展，符合感兴趣类别。</small></p><p>Cilium 是一个基于 <strong>eBPF</strong> 数据面构建的网络、安全与可观测性解决方案，是云原生计算基金会（CNCF）毕业项目。它提供简单的扁平三层网络，支持跨多个集群的原生路由或 overlay 模式，并具备 L7 协议感知能力，可在 L3-L7 层实施基于身份（而非 IP 地址）的安全策略。</p>
+
+<img src="https://cdn.jsdelivr.net/gh/cilium/cilium@main/Documentation/images/logo-dark.png" width="350" alt="Cilium Logo" />
+
+<h2>核心功能</h2>
+<ul>
+<li><strong>CNI 插件</strong>：为 Kubernetes 集群提供快速、可扩展、安全的网络层。支持 overlay 网络（VXLAN、Geneve 封装）、原生路由模式以及灵活的自动路由学习（L2 邻居发现、BGP 跨三层路由）。</li>
+<li><strong>负载均衡</strong>：在 eBPF 中使用高效哈希表实现分布式负载均衡，可在 socket 层重写服务连接，从而完全<strong>取代 kube-proxy</strong>；南北向负载均衡支持 XDP 高吞吐场景、Direct Server Return（DSR）及 Maglev 一致性哈希。</li>
+<li><strong>Cluster Mesh</strong>：实现跨多个 Kubernetes 集群的安全无缝连接，支持全局服务发现与跨集群故障转移，以及跨集群的统一身份安全模型，适用于混合云/多云环境。</li>
+<li><strong>网络策略</strong>：提供身份感知的 L3-L7 策略执行，包括基于标签/协议/端口的 L3/L4 策略、DNS 域名策略，以及按 HTTP 方法、URL 路径、gRPC 调用过滤的 L7 感知策略。</li>
+<li><strong>服务网格</strong>：提供基于 IPSec 或 WireGuard 的自动身份加密、L7 策略执行，并深度集成 Kubernetes Gateway API。</li>
+<li><strong>Hubble 可观测性</strong>：内置一体化可观测平台，提供实时服务拓扑、带身份与标签元数据的流量可见性、DNS 过滤与协议级洞察，并集成 Prometheus、Grafana，给出流量丢弃原因与审计追踪。</li>
+</ul>
+
+<h2>版本与发布</h2>
+<p>目前活跃维护 v1.18、v1.19、v1.20 三个次要稳定版本分支，最早的 v1.18 之前版本已停止维护（EOL）。所有镜像包含 SPDX 格式的软件物料清单（SBOM），并支持 AMD64 与 AArch64 架构。此外社区还发布主分支每日构建的开发快照与预发布候选版本（如 v1.21.0-pre.2），仅供测试使用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/cilium/cilium</guid>
+      <pubDate>Thu, 17 Sep 2026 11:34:50 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Cloudflare 开源 security-audit-skill：将编码代理变为多阶段安全审计员</title>
       <link>https://github.com/cloudflare/security-audit-skill</link>
@@ -1173,64 +1251,6 @@ wt switch -x claude -c feature-c -- 'Write tests for the API'</code></pre>
       </description>
       <guid isPermaLink="false">https://github.com/bytedance/deer-flow</guid>
       <pubDate>Mon, 07 Sep 2026 15:49:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Lightpanda：用 Zig 从零构建的无头浏览器，专为 AI 与自动化设计</title>
-      <link>https://github.com/lightpanda-io/browser</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 用 Zig 构建的无头浏览器，专为 AI 与自动化设计，属开源项目与 AI 工具，符合兴趣</small></p><p><strong>Lightpanda</strong> 是一个从头构建的无头浏览器，专为 AI 智能体和自动化场景设计。它并非 Chromium 的分支或 WebKit 的补丁，而是一个用 <strong>Zig</strong> 语言编写的新浏览器，目前已在 GitHub 上获得超过 3.4 万星标。</p>
-
-<p><strong>核心优势：极致的性能与低资源占用。</strong>根据官方在 AWS EC2 m5.large 实例上抓取 933 个真实网页的基准测试，Lightpanda 的峰值内存约为 123MB，而 Headless Chrome 达 2GB（相差约 16 倍）；在执行时间上，处理 100 个页面 Lightpanda 仅需 5 秒，而 Headless Chrome 需 46 秒（快约 9 倍）。</p>
-
-<p><strong>功能现状：</strong>目前已支持 CORS、HTTP 加载（Libcurl）、HTML 解析（html5ever）、DOM 树、JavaScript（v8 引擎）、DOM API、Ajax（XHR 与 Fetch）、Cookies、自定义请求头、代理、网络拦截、robots.txt 遵循、广告拦截，以及 CDP 与 WebDriver Bidi 协议支持。</p>
-
-<p><strong>主要使用场景：</strong></p>
-<ul>
-  <li><strong>抓取与转储：</strong>可直接将网页转储为 HTML、Markdown、PNG 或 PDF，并支持多种等待策略。</li>
-  <li><strong>CDP 服务：</strong>启动后可作为 Chrome DevTools Protocol 服务端，供 Puppeteer、Playwright 等现有自动化客户端连接使用。</li>
-  <li><strong>Agent 模式：</strong>提供 <code>lightpanda agent</code>，可用自然语言或斜杠命令驱动浏览器完成导航、点击、填表、提取结构化数据等操作。该模式支持 Anthropic、OpenAI、Gemini、Google Vertex AI、Mistral、Hugging Face、Vercel AI Gateway 以及任何兼容 OpenAI 的端点（含 Ollama、llama.cpp 本地模型），也可在无 LLM 下以 REPL 模式运行。<strong>会话输出为 PandaScript</strong>（内置原生浏览器原语的 JavaScript），脚本确定性强且无需 token，可先在 LLM 中原型验证，再无缝用于生产。</li>
-  <li><strong>原生 MCP 支持：</strong>内置 MCP 服务器（支持 stdio 与 HTTP 传输），HTTP 模式下每个连接路由到独立浏览会话，实现页面、Cookie 与内存隔离，多个智能体可共享或隔离同一浏览上下文。</li>
-</ul>
-
-<p><strong>技术架构：</strong>基于 Zig 0.15.2 构建，依赖 v8 引擎、Libcurl 与 html5ever，并针对 Web Platform Tests（WPT）标准持续测试。安装方式包括 Homebrew、Arch Linux AUR、夜间构建二进制、Docker 镜像以及源码编译。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/lightpanda-io/browser</guid>
-      <pubDate>Mon, 07 Sep 2026 15:49:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>Pascal Editor：基于 WebGPU 的开源 3D 建筑设计编辑器</title>
-      <link>https://github.com/pascalorg/editor</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 基于 WebGPU 的开源 3D 建筑设计编辑器，属开源软件但非用户核心兴趣主题</small></p><p>Pascal Editor 是一个开源（MIT 协议）的 3D 建筑设计编辑器，基于 React Three Fiber 与 WebGPU 构建，支持创建和分享三维建筑项目。该项目采用 TypeScript 编写，在 GitHub 上已获得约 2.2 万星标。</p>
-
-<h3>核心功能与架构</h3>
-<p>项目以 Turborepo 单体仓库（monorepo）形式组织，将功能拆分为多个可复用 npm 包：<strong>core</strong>（节点定义、场景状态与注册表契约）、<strong>viewer</strong>（3D 渲染运行时）、<strong>editor</strong>（编辑工具与 UI）、<strong>nodes</strong>（内置节点定义）、<strong>cli</strong>（本地安装器与进程管理）、<strong>mcp</strong>（模型上下文协议服务）等。这种关注点分离的设计使渲染与编辑功能相对独立。</p>
-
-<h3>场景数据模型</h3>
-<p>场景由节点（Nodes）构成，层级结构为：场地（Site）→ 建筑（Building）→ 楼层（Level）→ 墙、楼板、天花板、屋顶、区域等构件。节点以扁平字典存储，通过 parentId 关联父子关系。场景状态使用 Zustand 管理，支持持久化到 IndexedDB，并通过 Zundo 实现 50 步撤销/重做。</p>
-
-<h3>渲染与几何系统</h3>
-<p>项目采用「脏节点」机制：节点变化时被标记为 dirty，系统在渲染循环中仅对脏节点重新计算几何。核心系统包括墙体生成（含斜接与门洞窗洞的 CSG 布尔切割）、楼板、天花板、屋顶生成、构件定位等，并配有空间网格管理器用于碰撞检测与放置校验。</p>
-
-<h3>可扩展性</h3>
-<p>编辑器支持通过插件机制扩展新节点类型与侧边栏面板，插件与内置功能共用同一套 Plugin 契约，无需内部专属 API。官方提供了一个示例插件 pascalorg/plugin-trees（程序化生成树木、花草等）。</p>
-
-<h3>技术栈</h3>
-<p>涉及 React 19、Next.js 16、Three.js（WebGPU 渲染器）、React Three Fiber、Zustand、Zod、Zundo、three-bvh-csg（布尔几何运算）以及 Bun 包管理器。用户可通过 CLI（<code>npx @pascal-app/cli editor</code>）在本地快速启动编辑器，无需克隆仓库。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/pascalorg/editor</guid>
-      <pubDate>Mon, 07 Sep 2026 15:49:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI Skills 仓库已弃用：Codex 技能目录迁移至 Plugins 仓库</title>
-      <link>https://github.com/openai/skills</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及 OpenAI Codex 技能目录迁移，属于 AI 编程工具的动态，贴近编程工具分享与 AI 软件技术进展</small></p><p>OpenAI 的 <a href="https://github.com/openai/skills">skills</a> 仓库是其智能体技能（Agent Skills）目录。Agent Skills 是包含指令、脚本和资源的文件夹，供 AI 智能体发现并用于在特定任务上表现出色，实现"一次编写，处处可用"。Codex 使用这些技能来封装团队和个人可重复完成特定任务的能力，该仓库即为这些技能的编目与分发之处。</p>
-<p><strong>重要提示：</strong>该仓库已被标记为<strong>弃用（deprecated）</strong>。如需获取当前 Codex 技能和插件示例，应改用 <a href="https://github.com/openai/plugins">OpenAI Plugins 仓库</a>。若想向 Codex 添加自己的技能，可参考 <a href="https://developers.openai.com/codex/plugins/build">Build plugins 指南</a>，其中包含创建纯技能插件的说明。</p>
-<p>仓库中的技能分为三类：<code>.system</code> 目录中的技能会自动安装到最新版 Codex；<code>.curated</code> 精选技能和 <code>.experimental</code> 实验技能可通过 Codex 内置的 <code>$skill-installer</code> 安装，可按名称、文件夹或 GitHub 目录 URL 安装。安装完成后需重启 Codex 以加载新技能。每个技能目录内的 <code>LICENSE.txt</code> 文件注明其各自的许可证。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/skills</guid>
-      <pubDate>Sun, 06 Sep 2026 14:07:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
