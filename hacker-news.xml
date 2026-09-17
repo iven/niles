@@ -3,7 +3,56 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 17 Sep 2026 20:18:02 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 23:32:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 研究评测：编码智能体框架（Harness）的成本与价值——你的 Claude 模型或许不需要 Claude Code</title>
+      <link>https://news.ycombinator.com/item?id=49733726</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 评测编码智能体框架（harness）成本与价值，涉及编程效率与AI软件技术进展，用户较感兴趣</small></p><p>一篇题为《HarnessTax：编码智能体框架到底有多重要》的研究，系统考察了编码智能体「框架」（harness，即包装模型、调用工具、管理上下文的脚手架层）究竟带来了什么、付出了什么代价。研究在 SWE-bench Lite 和 Terminal-Bench 2.0 两个基准上评测了 21 组「模型—框架」组合，覆盖 7 个模型与 3 种框架——Claude Code、Codex CLI 和 Pi。</p><p>核心发现是：模型的效果与所用框架并非严格绑定，「特定提供方优化过的官方框架并不一定是最佳搭配」。例如，使用 Anthropic 的 Claude 模型时，未必一定要搭配官方的 Claude Code，选择更轻量的框架（如 Pi）反而能显著降低成本与 token 消耗。这被称为「框架税」（harness tax）——即 Claude Code 和 Codex 等框架因携带庞大、一揽子式的系统提示词（包含大量安全指令等内容）而带来的额外开销。</p><p>文章的 Hacker News 讨论区引发了多角度的争论与补充：</p><ul>
+<li>有评论指出，Claude Code 与 Codex 的额外「重量」很大程度用于安全与对齐，而 Pi 为追求速度与简洁刻意省略了护栏与沙箱，所谓「税」其实是把不安全性转嫁成了外部成本；有人则反驳说，用工具钩子（tool hooks）或外部容器即可低成本地为 Pi 补充沙箱能力。</li>
+<li>多位用户反馈，改用 Pi 或轻量封装后体验更流畅、成本更低；也有人说框架越大，越能帮小模型分担上下文管理，但对大模型来说只需一个终端工具即可。</li>
+<li>有评论者认为「harness」一词在此被过度引申为「agent」，并指出并行执行、子代理等策略对成本与性能的影响远大于单一框架的差异，单框架分析显得片面。</li>
+<li>关于如何信任智能体产出的工作，有观点认为应依靠良好的测试覆盖来「购买信任」，并通过记录与审查用户意图来纠正意图偏差。</li>
+<li>还有用户提到，模型越聪明，需要告诉它的就越少；并呼吁建立更可靠、覆盖更多开源模型与框架组合的基准评测体系。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49733726</guid>
+      <pubDate>Wed, 16 Sep 2026 22:10:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 突破三元大模型 1.58 比特存储下限：BITCOS 压缩布局降至 1.485 比特/权重</title>
+      <link>https://news.ycombinator.com/item?id=49732931</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 研究突破三元大模型压缩存储下限，属AI模型技术与科学前沿进展，用户较感兴趣</small></p><p>一篇新论文提出了一种名为 <strong>BITCOS</strong> 的自适应存储布局，利用三元大语言模型（Ternary LLM）中权重分布的统计特性，突破了三元模型传统上每权重约 1.585 比特（log₂3）的信息论存储下限。</p>
+<p>三元大模型将每个权重存储为 $\{-1,0,+1\}$ 三种符号之一。目前主流的部署格式（five-trit packing）将五个权重打包进一个字节，因实践中采用的 2 的幂次分组大小，实际会向上取整到每权重 1.625 比特。这种有效位宽假定三种符号等概率出现。</p>
+<p>研究人员实际测量了 29 个三元 LLM 模型的符号分布，发现零值的占比最高可达 51.5%。受此启发，BITCOS 采用「稠密存在位图 + 紧凑符号向量」的布局，在给定零密度 z 时每权重只需 $2 - z$ 比特。在测试的 29 个模型中，BITCOS 有 26 个比传统的 five-trit 打包更紧凑，在最稀疏的模型上达到每权重 1.485 比特。</p>
+<p>BITCOS 易于在现代处理器和 GPU 上高效解包，论文为 AVX-512、AVX2 和 Intel Xe2 GPU 提供了优化的解包序列。与业界先进的生产级三元矩阵-向量乘法内核相比，在真实三元模型的零密度下，新布局的实际收益最高达 1.28 倍。端到端推理实验在 5 种平台（客户端与服务端 CPU、集成与独立 Xe2 GPU）上验证了解码吞吐量在 CPU 上提升最高 1.18 倍、GPU 上提升最高 1.27 倍。</p>
+<p>论文作者为 Evangelos Georganas、Alexander Heinecke 和 Pradeep Dubey，投稿于 arXiv（编号 2609.16338）。</p>
+<p><strong>社区反馈</strong>：Hacker News 用户普遍认为这一工作「聪明」且实际可用。有用户指出利用零值密度压缩是合理思路，并推测若三元模型被固化到定制芯片（如已被 AMD 收购的 Taalas 的 Jimmy 芯片），效率将极为惊人。也有用户讨论了与其他量化方法的对比：有人认为三元量化在低比特训练感知量化（QAT）场景更有意义，而向量量化等方法更适合事后量化（PTQ）；还有人建议可用算术编码进一步压缩几厘比特，论文对 128 个连续权重块的处理方式使其具备进一步优化的空间。多名从事边缘计算和受限内存部署的用户表示，这项研究对其实际工作具有直接参考价值。</p>
+<p>论文链接：<a href="https://arxiv.org/abs/2609.16338">https://arxiv.org/abs/2609.16338</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49732931</guid>
+      <pubDate>Wed, 16 Sep 2026 20:59:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Anthropic 将 Claude Cowork 与聊天合并为统一的 Claude，并新增 Docs、Slides 与内嵌 Design</title>
+      <link>https://news.ycombinator.com/item?id=49729412</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Anthropic合并Claude产品并新增Docs/Slides等功能，属AI软件新功能发布，用户较感兴趣</small></p><p>Anthropic 于 9 月 16 日宣布，将 Claude Cowork 与聊天功能合并为一个统一的 Claude。用户无需再判断任务应该交给哪个界面——无论是快速提问，还是交付中午截止的报告，Claude 都能接手处理，甚至在用户合上笔记本电脑后继续工作。该功能正在 Pro 和 Max 套餐上于未来几周内逐步推出，更多套餐也将陆续跟进。</p>
+
+<p><b>新增产品与能力</b>：除合并外，Claude 今日还推出了 Claude Docs 和 Claude Slides 两个新工具，同时 Claude Design 现在也能直接在对话中使用。用户可以要求 Claude 生成文档并共同撰写，或让其起草演示文稿，并能直接在 Claude 中编辑、展示，或下载为 PowerPoint 或 PDF。这三项功能均处于测试阶段，适用于付费套餐，企业管理员可自行决定何时启用。</p>
+
+<p><b>统一背后的考量</b>：此前的 Cowork 被设计为承担较大型工作、Design 负责视觉创作，但用户反馈称最困扰的是"判断任务归属"，且在一个界面开始的工作无法无缝延续到另一个界面。现在 Claude 可以自主判断任务需求，使得 Cowork 与 Design 的能力在任何对话中都能调用，并复用已有的上下文、技能与连接器。</p>
+
+<p><b>应用场景</b>：官方举例说明——用户在下班前让 Claude 分析上周流程变动，并要求"按老方式撰写报告、标出遗漏、并为领导会议做五页要点"。如有疑问 Claude 会主动询问，用户可在路上用手机查看进度，到工位时报告与幻灯片均已就绪，且来自同一会话所以幻灯片与报告内容匹配。用户还可直接修改某一行、在幻灯片上留评论，并安排每周一自动启动报告。</p>
+
+<p><b>隐私与权限控制</b>：用户可选择 Claude 与自己的对接方式。默认情况下 Claude 在执行操作前会先询问；若希望它持续工作、仅在需要深入审查时才来确认，也可以开启该选项。"最终决定权始终在你手中"。</p>
+
+<p><b>社区反馈</b>：Hacker News 上的讨论反应不一。多数用户认可合并降低了界面的复杂度，但也有不少人担忧。主要顾虑包括：聊天与代码能力的记忆、上下文被混在一起；有人刻意关闭聊天记忆功能，担心跨会话调用的记忆会干扰决策；还有用户质疑多家 AI 实验室热衷于合并聊天与代理（如 Codex）的做法，认为"思考/研究型"问题在纯聊天产品中的推演能力远优于代理式界面，合并可能导致"先思考后行动"的 AI 交互方式退步。另有用户认为 Claude 目前的桌面端界面过于割裂（聊天、Cowork、Claude Code 各自独立），对非技术用户极不友好，本次合并是改善；也有用户因 Claude 性价比下滑而转向 OpenAI 或其他本地模型。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49729412</guid>
+      <pubDate>Wed, 16 Sep 2026 16:26:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Hister：一款为你访问过的网页与本地文件打造的私人搜索引擎</title>
       <link>https://news.ycombinator.com/item?id=49743097</link>
@@ -973,36 +1022,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49645686</guid>
       <pubDate>Thu, 10 Sep 2026 15:43:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 又一位研究者指控 OpenAI 在对话数据上训练后宣称突破</title>
-      <link>https://news.ycombinator.com/item?id=49643112</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为研究者指控OpenAI在对话数据训练上的声明，属于AI软件技术进展相关新闻，用户感兴趣</small></p><p>一条 Bluesky 帖子引发讨论：又一位研究者指控 OpenAI 在用户对话数据上进行训练，随后却宣称取得突破。该帖子由用户 tim（timkellogg.me）发布，内容简短，配文即为"又一位研究者指控 OpenAI 基于对话训练后宣称突破"。</p><p>帖中所指事件最早源自 Mastodon（联邦宇宙）上的原始帖子（<a href="https://mathstodon.xyz/@andreasthom/117240535270608201">mathstodon.xyz</a>）。有评论指出，本条内容实际上经历了多次截图转述——Bluesky 上的帖子截取了 Twitter 的截图，而 Twitter 的截图又来自联邦宇宙上的原始来源，全程未附原文链接，信息链路已严重失真。</p><p>该条目在 Hacker News 上被标记为重复内容（dupe），管理者已将其评论合并至包含原始来源的另一条讨论（<a href="https://news.ycombinator.com/item?id=49639408">点击查看</a>）。部分评论也提醒，如今伪造截图门槛极低，应尽量追溯并核实原始来源。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49643112</guid>
-      <pubDate>Thu, 10 Sep 2026 13:07:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ HN社区热议：能否限制AI新闻洪流？</title>
-      <link>https://news.ycombinator.com/item?id=49657850</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论AI新闻泛滥及如何管控，涉及AI领域资讯，与用户对AI进展的兴趣相关</small></p><p>一位 Hacker News（HN）用户发帖指出，近几个月以来 HN 首页几乎被 AI 或与 AI 相关的新闻所占据，而那些真正属于广泛「黑客」范畴的内容被排挤在外。该用户表示，自己发布的一些真正感兴趣的内容如今几乎得不到任何关注，而这些内容在一年前往往能引发讨论。他并不在意自己的帖子被忽视，而是担心一个恶性循环：若这些内容得不到曝光，他也就看不到社区中其他人发布的类似有价值的内容。</p>
-<p>帖主举了两个例子：联想（Lenovo）展示的采用固态空气冷却（solid-state air cooling）技术的机型，以及 Brax Industries 推出的开源创新型设备（特别是与 Home Assistant 兼容的墙面显示屏）。他建议 Y Combinator（YC）对内容进行人工策展以提升这些易被埋没的帖子的曝光度，或至少引入简单的标签系统以便用户过滤。</p>
-<p>该帖子获得约 689 分、338 条评论，引发广泛讨论。部分用户提供了第三方 AI 过滤工具作为权宜之计，如 <a href="https://elijahpotter.dev/hnsansai">hnsansai</a> 和 <a href="https://unslop.news">unslop.news</a>，后者专门移除 AI 相关帖子。也有用户提出替代平台，包括 lobste.rs、Tildes、Mastodon 和 Lemmy 等。评论区观点分歧：有人认为 HN 只是行业热潮周期的反映，AI 正处于炒作顶峰，不必过分担忧；也有人指出 HN 首页 30 条帖子中约半数与 AI 相关，比例确实不低。</p>
-<p>针对帖主举的两个例子，也有评论提出质疑：有观点认为联想产品属于「vaporware」（期货式宣传）且其 7.5W 功耗仅能冷却 30W 并不高效；还有人指称 Braxman 是众所周知的骗局人物。不过也有用户对这些内容表示认可，认为它们确实有价值。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49657850</guid>
-      <pubDate>Fri, 11 Sep 2026 13:11:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 「Waymo效应」：AI 如何悄然让科研协作减少</title>
-      <link>https://news.ycombinator.com/item?id=49656496</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 探讨AI技术对科研协作的影响，属于AI软件技术与科学前沿交叉话题，切合兴趣</small></p><p>一篇名为《The Waymo effect: how AI is quietly making research less collaborative》的评论文章提出一个概念：「Waymo 效应」，即当技术消除了与人打交道的不便（摩擦）时，我们会把这当作纯粹的收益——因为摩擦的成本显而易见，而其益处却难以察觉。作者以自己乘坐 Waymo 无人驾驶汽车的体验切入：车内无需与司机寒暄，是一种舒适的独处空间，但也因此错过了与陌生人「非选择性的对话」——那是打破信息茧房、获得意外观点的难得机会。</p><p>作者把大语言模型（LLM）比作「知识生活中的 Waymo」：协作伙伴偶尔有空、有自己的议程、会挑战你的核心假设；而 LLM 随时可用、没有自己的议程、只会按你要求的力度挑战你——不多一分。作者指出，协作者的「不便」并不是协作的缺陷，而在很大程度上正是协作本身；另一颗头脑的价值恰在于它拒绝成为你思维的延伸。研究不仅是把想法转化为论文的生产函数，更是一个实践社群，建立在争论、师徒制、会议闲谈等摩擦之上。作者用「去协作化（decollaboration）」一词描述这一过程在规模上发生时的情况。</p><p>文章进一步批评了激励体系的扭曲：合作成本高昂（差旅、信任构建、署名谈判），而「不发表就灭亡」的压力、经费紧缩（砍掉差旅、工作坊等「不可测量但真实有价值」的预算）、对产出速度的崇拜，以及 LLM 从不争署名——这几点叠加，使得「去协作化」成为理性的选择。作者引用了团队科学文献：小团队更易颠覆、跨领域非典型组合更易产生新颖工作；而生成式 AI 的早期证据显示个人效率上升的同时思想多样性收窄，人们沿着越来越相似的路径加速前进。作者将此称为一场「用偶然性交换吞吐量」的失控全球实验。</p><p>作者还强调「写作即思考」：写作时间来自思考时间，二者不可分割。心理学的「合意困难（desirable difficulties）」表明某些摩擦（费力提取、延迟反馈、用自己的话写下想法）正是持久理解的机制。把写作外包出去等于跳过思考而非加速思考。作者以 PT 对称量子系统作比：研究文化可在所有可见指标上健康，而支撑它的不可见之物却在悄然跌破阈值。</p><p>文章并不主张禁用工具，而是援引 <a href="https://www.nature.com/">Nature</a> 上 Dashun Wang 的评论：AI 智能体是「心灵的飞机」（把计算机比作「心灵的自行车」的延伸），更强更快但也更难控制、坠毁代价更高。Wang 倡导「飞行员指挥式科学（pilot-in-command science）」，并告诫 AI 提升个人表现的同时可能降低集体多样性。作者也谈及 1983 年 Lisanne Bainbridge 提出的「自动化的反讽」：系统越可靠地自主运行，人类监管者能得到的练习就越少，能力因此悄然侵蚀。作者最终的呼吁是「为摩擦提供资金」：资助者与机构应把协作视为基础设施而非可有可无之物，评估贡献而非速度，并认真对待「你和谁一起思考」这个问题。文章的结论是：输出正在变得廉价，而「一起思考」正变得珍贵；我们的激励体系正在把研究者训练成「舒适乘客」而非「指挥飞行员」。</p><h3>社区反馈</h3><p>Hacker News 上的 270 条评论（309 分）展开了激烈讨论。有评论者注意到文章本身疑似由 LLM 撰写（反复使用 "quietly" 一词被视为「安静的标志」）。多位读者在评论区调侃自己已用 LLM 总结这篇文章。关于核心论点，观点分歧明显：有人认为这是不必要的悲观——自动化（如电梯操作员消失）也有成功的先例；有人则赞同「人们成为孤岛」的危险性。不少从业者反映，现实中的同事越来越把 LLM 当成「真理来源」，以自信的语气在自身领域之外发表确信的论断，却无法提出正确的问题或评估回答的细微差别，被形容为「假肢化的达克效应（prosthetic Dunning-Kruger）」。也有开发者指出这是开源社区早已出现的模式：软件数量爆炸，但社区部分并未同步增长。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49656496</guid>
-      <pubDate>Fri, 11 Sep 2026 11:17:50 GMT</pubDate>
     </item>
   </channel>
 </rss>

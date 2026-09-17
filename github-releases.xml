@@ -3,7 +3,69 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 17 Sep 2026 20:17:18 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 23:32:18 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.155.0 发布：新增实验性语音对话、实时推理摘要与代理任务管理</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.155.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI 发布了 Codex CLI 版本 0.155.0，带来多项面向交互体验的新特性及一批稳定性修复。</p>
+
+<h3>新功能</h3>
+<ul>
+<li>新增实验性 <code>/voice</code> 语音对话，支持实时转录与麦克风控制，需通过 <code>/experimental</code> 启用。</li>
+<li>TUI 界面现在会在状态行显示实时推理摘要，并在每轮成功结束后展示完成时间戳。</li>
+<li>代理总览（agents overview）新增任务隐藏、归档与删除功能，并显示 worktree 归属详情、支持确认删除干净的托管 worktree。</li>
+<li>受支持的 Mac 上，本地 TUI 会话中的 MCP 请求新增 Touch ID 验证。</li>
+<li>守护进程（daemon）更新计划可配置，新增 <code>codex app-server daemon update</code> 命令；守护进程重启后可恢复已保存的线程与活动目标。</li>
+<li>Amazon Bedrock 现可从配置的命令中获取 AWS 凭证，支持缓存、按过期时间刷新与身份验证恢复。</li>
+</ul>
+
+<h3>Bug 修复</h3>
+<ul>
+<li>即使在回合开始前压缩失败，已接受的提示词也会被保存。</li>
+<li>修复了 tmux 尺寸变化的漏检、转录视口恢复，以及切换线程后出现陈旧历史的问题。</li>
+<li>MCP 服务器现在能准确报告 OAuth 凭证过期，并在令牌刷新失败时提供重连指引。</li>
+<li>自动审批审查更可靠地保留完整操作与授权证据，重试临时故障，并区分审查失败与不安全操作。</li>
+<li>切换账户后会失效上一身份下的远程控制会话、缓存的 WebSocket 状态与模型目录。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>Python SDK 与运行时发布与稳定版 CLI 保持一致，采用匹配版本并在 SDK 发布前校验运行时资产。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.155.0</guid>
+      <pubDate>Thu, 17 Sep 2026 23:14:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.275 发布：新增「立即发送」快捷键、网关登录账户确认、claude.ai 技能/插件同步等</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.275</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 桌面/终端版本发布 v2.1.275，带来多项新功能与大量稳定性修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><b>新增「立即发送」快捷键</b>（Ctrl+Enter，或 Ctrl+X Ctrl+S）：可打断当前回合，一次性发送所有排队消息；已发送和排队中的消息在模型接收前以灰色显示。</li>
+<li><b>Claude apps gateway 登录显示已登录账户</b>：网关点名时会先确认再保存凭据，<code>/status</code> 中也会显示。</li>
+<li><b>同步 claude.ai 账户启用的 skills 与 plugins</b> 到登录的终端会话；可通过 <code>syncClaudeAiSkills: false</code> 或 <code>syncClaudeAiPlugins: false</code> 关闭。</li>
+<li><b>新增 <code>/plugin install &lt;plugin&gt; --marketplace &lt;source&gt;</code></b> 命令：安装前会提示先添加 marketplace。</li>
+<li>配置的 <code>otelHeadersHelper</code> 失败时新增启动警告，避免会话静默无遥测导出而不自知。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>多项修复：恢复会话中的记忆文件、<code>--forward-subagent-text</code> 流式输出、@-mention 文件建议位置、vim 模式光标错位、全屏模式卡顿/冻结、resume/恢复时畸形 transcript 导致的崩溃、Grep/Glob/@-file 搜索在 20MB 输出上限下的卡顿或内存溢出、<code>/rewind</code> 恢复零填充文件、stdin 命令在文件描述符耗尽时崩溃等。</li>
+<li>沙箱化 Bash 命令在 Linux 上对 zsh 失败命令的退出码误报为 0、无法写入名为 <code>hooks/</code> 或 <code>config/</code> 的项目目录等问题已修复。</li>
+<li><code>/logout</code> 对网关登录会同时终止声明支持 token 撤销的网关会话；托管会话在容器重启后保留未答复的权限提示。</li>
+<li>从 npm 源安装的插件改用 <code>npm pack --ignore-scripts</code> 并校验完整性，不再运行包的安装脚本。</li>
+<li>终端较慢或暂停时输出不再持续落后；<code>/desktop</code> 错误信息更清晰；<code>/update-config</code> 修正权限规则写法。</li>
+<li>VSCode 扩展：可在 Memory 对话框中查看/编辑/删除记忆、无需输入文字直接发送图片、MCP 服务器加载失败时提供 Retry 链接、提供逐条接受/拒绝变更的 diff 标签页，以及多项界面与交互修复（滚动到底、代理地图、会话列表、远程控制开关等）。</li>
+<li>Claude Code on the web、Claude Tag（Slack 集成）及 Code Review 模块也有多项小改进与修复。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.275</guid>
+      <pubDate>Thu, 17 Sep 2026 22:33:17 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.274 发布：新增内存告警、MCP 连接超时控制与多项修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.274</link>
@@ -1378,74 +1440,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.150.0</guid>
       <pubDate>Wed, 26 Aug 2026 19:37:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.247：新增 SendFeedback 与 /claude-api cost-optimize，修复多项交互与后台会话问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.247</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.247，主要新增了反馈草拟工具与 API 成本优化命令，并修复了大量交互、后台会话与云会话相关的问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增 SendFeedback 工具</strong>：会话出现问题时，Claude 可草拟一份反馈报告供用户审阅，并可通过 <code>/feedback</code> 发送（可用 <code>feedbackDrafts</code> 设置关闭）。</li>
-<li><strong>新增 <code>/claude-api cost-optimize</code></strong>：分析现有项目的 Claude API 支出，并逐步通过缓存、token 卫生、批处理、effort、模型选择等成本杠杆进行可量化的优化。</li>
-<li><strong><code>/claude-api</code> 技能扩展</strong>：新增 Admin API 覆盖，包括组织成员、邀请、工作区、API 密钥、速率限制报告、工作负载身份联合（workload identity federation）与 CMEK。</li>
-<li><strong>组织自定义提示</strong>：<code>spinnerTipsOverride</code> 新增 <code>{id, text, cooldownSessions, priority}</code> 条目、<code>tipsFile</code> 与 <code>label</code>，组织可轮换自有提示；Bash 权限提示新增指向自动模式的一键「Yes, and switch to auto mode」选项。</li>
-<li><strong>MCP 连接失败提示</strong>：Bedrock、Vertex、Foundry 等会话中，配置的 MCP 服务器连接失败时 Claude 会被告知，而不再误判为工具不存在。</li>
-<li><strong>Sonnet 5 自动压缩窗口</strong>：默认改为完整 1M 上下文，1M 窗口会话约在 967K tokens 时自动压缩（此前约 934K）。</li>
-<li><strong>跨会话消息折叠</strong>：peer 消息默认折叠为一行预览，Ctrl+O 展开全文。</li>
-</ul>
-
-<h3>其他改动（修复与调整）</h3>
-<ul>
-<li>修复历史搜索、<code>/config</code>、<code>/mcp</code>、<code>/skills</code>、后台任务、<code>/model</code> 中快速方向键+Enter 作用于上一行的问题。</li>
-<li>修复子代理首次调用模型 404 时崩溃的问题，现改用会话的 fallback 模型链，并向父进程返回包含错误类型、状态、请求 ID 与模型的错误。</li>
-<li>修复 hook 或后台代理输出大量错误导致会话卡在「Prompt is too long」的问题。</li>
-<li>修复 kitty 协议终端中非拉丁键盘布局（如西里尔文）下 Ctrl 快捷键不触发、鼠标报告拆分导致文本被插入提示的问题。</li>
-<li>修复 Bash 沙箱清理误删 dotfile 管理（nix/home-manager、stow）的 <code>~/.claude/settings.json</code> 符号链接。</li>
-<li>修复 <code>/terminal-setup</code> 覆盖整个 Zed <code>keymap.json</code> 而非合并键绑定。</li>
-<li>修复 <code>/rename</code> 在会话注册表更新失败时静默确认的问题。</li>
-<li>修复 <code>--agent</code> 会话中 <code>/compact</code> 与「Summarize from here」使用默认系统提示词而非会话自身提示词的问题。</li>
-<li>修复后台会话在终端宿主进程死亡后一直显示「opening…」的问题，现会在数秒内显示失败原因，Enter 可重启。</li>
-<li>修复输出文件无法写入时内存无限增长、前台 shell 命令在后台会话中显示误导性 <code>[exited with code -1]</code> 的问题。</li>
-<li>修复 <code>/install-github-app</code> 在 SSH 下的复制提示与实际不符的问题。</li>
-<li>修复 <code>/remote-control</code> 会话不向客户端报告工作树 diff、自托管 runner 会话在 Claude Code 启动前就报告 <code>running</code> 的问题。</li>
-<li>修复首次运行设置因无法连接 Anthropic 服务而退出、云会话切换权限模式后显示旧模式、云会话容器重启后静默等问题。</li>
-<li>终端超链接指向网络/自动挂载路径、含控制字符或不可见字符时改为纯文本渲染；提示栏 PR 徽章在最近检查不足一分钟时跳过重新检查。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.247</guid>
-      <pubDate>Wed, 26 Aug 2026 23:06:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>fd 10.5.0 发布：新增 --exact 精确匹配与 --ignore-parent 选项，修复多项问题</title>
-      <link>https://github.com/sharkdp/fd/releases/tag/v10.5.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>命令行文件查找工具 fd 发布 v10.5.0 版本，带来两个新特性及多项 bug 修复，并迎来 20 位新贡献者。</p>
-
-<h3>新特性</h3>
-<ul>
-<li>新增 <code>--ignore-parent</code> 选项，用于覆盖 <code>--no-ignore-parent</code> 设置。</li>
-<li>新增 <code>--exact</code> 选项，可对整个文件名进行精确（字面、非子串）匹配。</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-<li>安全修复：当输出到终端时，对文件名中的控制字符和双向覆盖字符进行清理，防止终端转义序列注入攻击；同时拒绝将占位符用作 <code>--exec-batch</code> 的可执行文件（<code>--exec</code> 仍允许）。</li>
-<li>使用 <code>--full-path</code> 时优雅处理无效工作目录。</li>
-<li>对任何包含 <code>/</code> 的搜索模式触发「搜索模式包含路径分隔符」诊断，而不再仅限于恰好指向现有目录的模式；同时保留 Windows 上对原生 <code>\</code> 分隔符的旧行为。</li>
-<li>对 <code>--and</code> 模式同样触发该诊断（此前仅针对主位置参数模式），避免路径分隔符导致静默返回零结果。</li>
-<li>修复将 <code>-</code> 作为目录参数传入时未实际搜索该目录的问题。</li>
-<li>修复 <code>--changed-before</code>/<code>--changed-within</code> 收到超出范围的 <code>@</code> Unix 时间戳时崩溃的问题，现在会优雅拒绝该值。</li>
-</ul>
-
-<p>完整变更日志见 <a href="https://github.com/sharkdp/fd/compare/v10.4.2...v10.5.0">v10.4.2...v10.5.0</a>。</p>
-
-<h3>你知道吗？</h3>
-<p>终端转义序列注入是一种安全风险：文件名中若包含控制字符（如 ANSI 转义序列），当终端渲染输出时可能被解释为终端指令，从而篡改显示内容甚至执行恶意操作。fd 此次在输出到终端时清理这类字符，可有效防止此类攻击。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.5.0</guid>
-      <pubDate>Wed, 26 Aug 2026 07:59:09 GMT</pubDate>
     </item>
   </channel>
 </rss>
