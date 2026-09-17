@@ -3,7 +3,82 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 17 Sep 2026 00:26:19 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 06:08:11 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 小米发布 MiMo 2.6 实时强化学习训练看板，展现罕见开放姿态</title>
+      <link>https://news.ycombinator.com/item?id=49732270</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及新AI模型发布与训练看板，属AI模型与编程分享，虽非AI软件技术进展，但符合high_interest的新AI模型与编程工具类别</small></p><p>小米发布了 MiMo 2.6 系列的<a href="https://mimo.xiaomi.com/rl/">实时强化学习后训练看板</a>，公开展示 mimo-v2.6-pro 和 mimo-v2.6-flash 两个模型的强化学习（RL）训练指标，数据直接来自训练器的日志，包括训练进度、样本构成等信息。此举在高度竞争且普遍保密的 AI 行业中显得格外醒目，引发 Hacker News 社区的广泛讨论（346 分，89 条评论）。</p>
+
+<p>社区普遍称赞这一透明举措。有评论者指出，「在这个极度竞争且隐秘的行业中，这是非同寻常的透明度」。关于小米为何这样做，有观点认为这可能与中国官方偏好开源模型的政策有关（在 2026 年的金砖国家新德里会议上，相关方面曾推动以开源模型为核心的 AI 合作五点计划），也有人认为这是为了预防蒸馏（distillation）相关的质疑，或纯粹是巧妙的公关。</p>
+
+<p>讨论还涉及训练数据构成（有评论者惊讶于相当大比例的强化学习数据是源代码，而业内人士指出当前预训练阶段通常也有 30%–50% 是代码）、以及训练过程中运行基准测试是否构成测试集污染（benchmark contamination）等问题。多位用户分享了使用 MiMo 2.5 系列的体验：有人称赞其性价比极高、指令遵循和工具调用能力出色，但也有用户认为它相对「较笨」，在编码类任务上与 Qwen 3.8 Flash Next、GLM 等其他国产模型相比存在差距。</p>
+
+<p>围绕美国实验室（Anthropic、OpenAI）与国产实验室开放程度的对比也成为焦点。不少评论者借此批评美国实验室的封闭与营销话术，同时也有用户反驳称国产模型多为「蒸馏克隆」前沿成果，实际能力与美国实验室近半年发布的模型尚有差距。整体上，小米此举的透明度和「敢秀」态度获得了大多数评论的认可。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49732270</guid>
+      <pubDate>Wed, 16 Sep 2026 20:09:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 用 4B 小模型训练出比 Postgres 快 81% 的查询计划：智能体强化学习实践</title>
+      <link>https://news.ycombinator.com/item?id=49731285</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 用4B小模型通过强化学习做数据库查询优化，属于编程效率改进与AI软件技术进展，用户很可能感兴趣</small></p><p>罗翰·班萨尔（Rohan Bansal）发表了一篇技术长文，探讨一个大胆的问题：能否让一个小型开源权重模型通过监督微调（SFT）和智能体强化学习（agentic RL），生成比 Postgres 默认查询计划更快的执行计划？答案是肯定的。</p>
+
+<h3>核心成果</h3>
+<p>作者用一个 4B 参数的 Qwen 模型，在 113 个连接密集（join-heavy）查询上取得了 <strong>44.7% 的累计延迟下降</strong>和 <strong>1.81 倍的几何平均加速</strong>。而该模型初始状态下甚至无法为其中 99 个查询生成可用的查询计划。</p>
+
+<h3>背景动机</h3>
+<p>文章开篇引用了 Leis 等人的研究：尽管经过十年的大量研究，查询优化器（query optimizers）仍远未达到理想水平。一个关键原因是查询优化中的<strong>连接排序（join ordering）</strong>是已知的 NP 难题。作者用一个 IMDb 数据集上的查询为例，展示了连接树选择如何带来指数级的搜索空间膨胀：仅 3 表的查询就有多达 4,608 种执行方式，9 表可达约 9×10^15 种。相反，验证一个查询计划的好坏却很简单——只需看它的执行时间。这种"输出易于验证"的特性，使查询优化非常适合强化学习。</p>
+
+<h3>方法亮点</h3>
+<ul>
+<li>构建了一个能最小化 Linux page cache 竞争噪声的 Postgres 测量装置（多容器并发运行）</li>
+<li>设计了一种自定义的 GRPO 变体，用于在本身带有噪声的环境中为 RL 滚动（rollouts）打分</li>
+<li>将 RL 拆分到两台机器上：vLLM 与训练器运行在租用的 2×H100 节点，四个 Postgres 容器运行在作者自己的桌面上</li>
+<li>利用约 500 条 GPT-6 Astra 的智能体轨迹进行离线策略蒸馏（off-policy distillation）</li>
+</ul>
+
+<h3>实验成本</h3>
+<p>作者投入约 <strong>800 美元</strong>租用 2×H100 节点约 95 小时，外加约 <strong>400 美元</strong>的 OpenAI API 费用来生成 Astra 示范轨迹。</p>
+
+<h3>社区反馈</h3>
+<p>HN 上的讨论相当热烈，观点各异：</p>
+<ul>
+<li><strong>对过度拟合的担忧</strong>：有评论者指出实验基于一个完全驻留内存（约 8GB）且只读的 SELECT 工作负载，警告在更大数据量和真实 OLTP 场景下，模型产生的高速计划未必真比 Postgres 启发式更优。</li>
+<li><strong>成本与实用性质疑</strong>：有人质疑那 95 小时训练时间未计入基准；也有人回应认为这可比作定期备份的维护窗口。但"是否值得每隔几小时重新微调模型以保证计划仍然良好"仍是疑问。</li>
+<li><strong>确定性对比</strong>：有观点认为对注册分配等组合优化问题，手工启发式（编译器中）往往优于 LLM，因其快速、内存占用小且易于调试。</li>
+<li><strong>蒸馏争议</strong>：针对作者从 Astra 轨迹蒸馏的说法，有人担忧会引发闭源与开源模型之间的蒸馏指责，也有人反驳称前沿模型训练者本身几乎全用版权内容训练，并无道德制高点。</li>
+<li><strong>其他思路</strong>：有人期待 AlphaGo 风格的专用神经网络启发式而非 LLM；也有人提出与 CUDA 加速 Postgres 相比，调用 4B 模型遍历多遍 8GB 内存的成本可能更高；还有人建议将 4B 模型的计划缓存复用。</li>
+</ul>
+<p>总体而言，评论者认可作者亲自动手的实验精神，但对方法在真实生产环境中的可扩展性与稳健性持谨慎态度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49731285</guid>
+      <pubDate>Wed, 16 Sep 2026 18:50:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ NVIDIA 宣布推出 Rust 原生 GPU 编程：CUDA Rust 两条编写内核的路径</title>
+      <link>https://news.ycombinator.com/item?id=49724881</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] NVIDIA发布Rust原生GPU编程CUDA路径，属编程工具发布和编程效率改进，用户很感兴趣</small></p><p>NVIDIA 宣布发力 Rust 原生 GPU 编程，正式推出「CUDA Rust」项目，让 GPU 内核可以直接用 Rust 编写、原生编译为 PTX（而非对其它语言的封装）。NVIDIA 表示，随着系统层（推理引擎、服务基础设施、驱动和智能体运行时）越来越多地用 Rust 编写，GPU 内核成为唯一例外，而 CUDA Rust 正好填补了这一空白。NVIDIA 的 Nova Linux 驱动、Dynamo 均基于 Rust 构建，NVTX 也提供了 Rust 绑定。</p>
+
+<img src="https://developer-blogs.nvidia.com/wp-content/uploads/2026/09/image1-1-1024x576.png" alt="" width="1024" height="576" />
+
+<p>CUDA Rust 提供<b>两条编写内核的路径</b>，分别对应 CUDA 本身的两条编程模型：</p>
+
+<p><b>1. SIMT 路径：cuda-oxide</b>。这是一个自定义的 rustc codegen 后端，将 <code>#[kernel]</code> 函数经由 Rust MIR、社区 Pliron IR 框架和 LLVM IR 编译到 PTX。它依赖固定的 nightly 工具链、Linux 及 CUDA 12.x+，并提供编译期内存安全检查。核心安全机制包括 <code>DisjointSlice</code>（将可变借用拆分为每线程独立元素）和 <code>#[launch_contract]</code> 启动契约（在启动时校验配置，返回安全启动方法的证明）。</p>
+
+<p><b>2. Tile 路径：cutile-rs</b>。在更高层级工作，对数据分块（tile）而非标量进行计算。其 <code>#[cutile::module]</code> 宏将内核 AST 嵌入宿主程序，通过 CUDA Tile IR 的 JIT 编译在首次使用时编译。它只需要稳定的 Rust 1.89+、CUDA 13.3 和 Linux，无需 nightly 工具链或自定义 LLVM。内核的独占写入由 tensor 分区和所有权机制保证，且编译器负责线程映射与内存布局。</p>
+
+<p>两条路径都在<b>编译期捕获经典的内存别名（aliasing）错误</b>。比如将输出缓冲区同时作为自身输入传入时，cuda-oxide 会拒绝编译（<code>E0502</code>）；Tile 侧同理会因所有权转移报错（<code>E0382</code>）。其中 cutile-rs 的所有权模型跨越启动边界跟踪 tensor，安全性更强。</p>
+
+<p>目前两个项目均处于早期阶段：cuda-oxide 为早期 alpha 版，cutile-rs 已发布到 crates.io，并已被 HuggingFace 的 Grout 推理引擎和 mistral.rs 使用。NVIDIA 计划支持 CUDA Rust、CUDA C++ 与 CUDA Python 之间的跨语言互操作，避免前端选择的锁定问题。</p>
+
+<p><b>社区反馈</b>：HN 上该帖子获得 479 分、166 条评论，总体反响积极但也不乏争议。许多用户期待其稳定版本，认为相较 cudarc 更符合人体工学且构建基础设施更少。也有用户质疑文章标题是「AI 生成总结」、通篇风格疑似由 Claude 代写，还有人批评 CUDA 的专有性——认为加入 Rust 方言后，排查问题时要分辨 bug 来自 cuda-oxide、Rust、CUDA 还是 Tile，增加了依赖层次。cuda-oxide 要求 nightly 编译器且仅支持 Linux、需异步环境，也让部分用户暂未尝试。VectorWare 创始人在评论中表示正与 NVIDIA 合作，两者工作互补。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49724881</guid>
+      <pubDate>Wed, 16 Sep 2026 11:15:53 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 小而高杠杆的编程技巧清单</title>
       <link>https://news.ycombinator.com/item?id=49729000</link>
@@ -922,53 +997,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49645443</guid>
       <pubDate>Thu, 10 Sep 2026 15:29:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Shopify 宣布从 React Native 回归原生开发：AI 编程智能体改变了成本权衡</title>
-      <link>https://news.ycombinator.com/item?id=49643982</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是AI编程智能体如何改变移动应用开发成本，以及Shopify从React Native回归原生技术的工程决策，涉及编程效率改进和AI编程工具，符合兴趣。</small></p><p>Shopify 于 2025 年 9 月宣布，将把其移动应用从 React Native 全面迁回原生开发（iOS 使用 Swift、Android 使用 Kotlin）。公司在 2020 年曾「All-in」React Native，并取得了显著成功：一次构建同时支持双平台、让缺乏移动端背景的开发者也能参与贡献，并大幅减少了功能对齐（feature parity）的维护成本。</p>
-
-<p><img src="https://cdn.shopify.com/b/shopify-brochure2-assets/74f109ae9b0c3034a78a3b63294ae2e6.png?originalWidth=1848&originalHeight=782" alt="Shopify's migration from React Native to native mobile development" width="1848" height="782" /></p>
-
-<p>然而，公司判断核心前提已经改变：编程大语言模型（LLM）和编码智能体的能力显著提升，使得用 Swift 和 Kotlin 分别构建双平台的成本大幅下降。据 Shopify 介绍，智能体现在可以根据 iOS 版本为 Android 实现功能（反之亦然），帮助开发者在非主要技术栈上高效上手，并通过共享规范、测试和评审检查点大幅降低跨平台维护成本。原生开发虽然仍意味着维护两个平台，但「同时写两遍代码」已不再是当年那样的决定性因素。</p>
-
-<h3>迁移方式与核心技术</h3>
-
-<p>Shopify 这次放弃了以往渐进式迁移（brownfield）的思路，转而采用从零重建（greenfield），理由是 LLM 能以 React Native 版本为参考高效地构建 Swift/Kotlin 功能，且能获得更干净的架构。<strong>Shop</strong> 应用（购物类榜单常居榜首）已在 AI 辅助下于 12 周内完成从概念验证到全面重建并上架；最大的 <strong>Shopify 应用</strong>（300+ 屏幕、含小组件、Apple Watch 与 Siri 快捷指令等）也正在迁移中。</p>
-
-<blockquote>为防止 LLM「一次性生成」导致的不可维护代码，Shopify 自研了名为 <strong>Helix</strong> 的系统，它采用渐进式迭代：将工作拆分为可几分钟内评审完成的检查点，每个检查点必须通过测试、视觉对比、两轮对抗性代码评审并获人工批准才能进入下一步，评审反馈会被记住，使流程越来越自动化。<img src="https://cdn.shopify.com/s/files/1/0779/4361/files/Native_gif.gif?v=1789054778" alt="" /></blockquote>
-
-<p>针对移动端模拟器操作缓慢的瓶颈，Shopify 还设计了「面向人类与智能体共同优化」的架构：将业务逻辑与 UI 完全解耦，使其能在桌面端无头运行，并通过 CLI 提供给智能体，让迭代从分钟级缩短到毫秒级，实现快速反馈循环。</p>
-
-<h3>开源库的处置</h3>
-
-<p>Shopify 同时公布了其 React Native 开源库的去向：<strong>React Native Skia</strong> 将赞助至 2026 年底，之后由维护者 William Candillon 以新名称继续（原仓库将归档）；<strong>FlashList</strong>（周下载量约 200 万）将保留关键兼容性修复，并正与多家公司商谈长期接管；用户基数较小的 <strong>Restyle</strong> 将于 2026 年底停止维护并归档。公司承诺将公开分享迁移经验。</p>
-
-<h3>社区反响</h3>
-
-<p>在 Hacker News 上，该公告引发大量讨论。多数评论者认为这可能是行业趋势，不少大型组织可能在未来一年跟进（「LLM 突然让维护多个原生应用变得合理了」）。但也有反对声音：有人指出原生应用受 App Store 审核周期影响、无法像网页技术那样快速热修复；还有人认为「能否跨平台高效运行于更多硬件与系统」才是未来方向，不应过早放弃跨平台方案。另有评论质疑维持原生应用需要投入更多人力资源，并关注这种迁移的 Token 花费等成本问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49643982</guid>
-      <pubDate>Thu, 10 Sep 2026 14:09:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 微软将 Rust 提升为一级（Tier-1）语言，并推出新代码生成后端 rustc_codegen_utc</title>
-      <link>https://news.ycombinator.com/item?id=49643546</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是微软将Rust提升为一级语言并推出新代码生成后端，属于软件技术进展与编程语言相关内容，符合兴趣。</small></p><p>微软在官方（经 Rust 基金会）发布的客座文章中宣布，Rust 已正式成为微软内部开发的 Tier-1 语言之一，与 C++、C# 和 TypeScript 并列。这意味着微软内部团队将获得从本地开发到生产部署的完整"铺平道路"（paved path），包括安全工具链构建、高效开发工具、质量工作流、深度平台集成，以及符合微软软件所必须满足的 SDL（安全开发生命周期）要求。</p><p>文章重点介绍了微软为此投入的重大项目 <strong>rustc_codegen_utc</strong>——这是 rustc 的一个替代代码生成后端，与 rustc_codegen_llvm、rustc_codegen_gcc 和 rustc_codegen_cranelift 属于同一架构家族。它将 rustc 的共享编译器机制连接到 MSVC 后端（即 "UTC"），旨在达成以下能力：</p><ul><li>与 Windows 工具生态和 ABI 的高度兼容</li><li>二进制加固与代码安全特性</li><li>链接后合规、分析与维护（包括 Hotpatch 热补丁）</li><li>混合 Rust/C++ 项目的无缝互操作</li><li>跨语言内联、优化与基于采样的配置文件引导优化（SPGO）</li><li>调试与崩溃转储分析</li><li>性能分析、诊断与覆盖率</li></ul><p>这一共享后端的意义在于：微软的 MSVC 和 Windows 数十年来共同演进，将 rustc 连接到该后端，可让 Rust 直接受益于微软围绕 Windows 构建的成熟平台投资，而无需为每一项 Windows 特有能力实现平行版本，从而为 Windows 上的 Rust 和 C++ 提供一个统一的代码生成平台。这既降低了维护与演进成本，也让 Rust 直接参与到微软的 Windows 原生工程生态中。</p><p>在互操作方面，文章指出代码生成、平台怪癖、ABI、异常处理（EH）和链接后工具仅是互操作挑战的一半；语言层面的高保真互操作、FFI 契约、绑定、语言语义差异以及构建系统等问题仍在内部和整个行业中推进，并引用了 Rust 基金会的<a href="https://rustfoundation.org/interop-initiative/">互操作倡议</a>。</p><p>关于 rollout：rustc_codegen_utc 由微软 DevDiv 的一个专门团队长期投资打造，自 2026 年初起已可投入生产，自 Rust 1.90 起实现自托管，并作为更广泛的微软内部 Rust 平台的一部分（包括 rustc、标准库及相关工具的安全供应链构建）。目前已有超过 100 个微软项目仓库使用该后端，且每周都有更多仓库接入。该项目的负责人 Victor Ciura 是微软 DevDiv/CoreAI 的 Rust 工具链团队首席工程师（Principal Engineer）。</p><img src="https://rustfoundation.org/wp-content/uploads/2026/08/victor.jpg" alt="" width="100" height="100" /><h3>社区反馈</h3><p>在 Hacker News 上，该消息引发热烈讨论。多位用户对微软确认 MSVC 集成传闻表示关注，认为"所有在 C/C++ 语言工具链中扮演角色的主要操作系统厂商，如今都在系统编程语言上实现了多元化"。关于 rustc_codegen_utc 是否会开源，有用户在 Zulip 收到回应：微软计划开源，但目前尚不确定哪些部分及以何种形式开源。</p><p>也有用户提到 Windows 上缺少 Tier-1 级的 Visual Studio 调试支持、希望微软赞助 mold 或 wild 等现代链接器，以及 Rust 在嵌入式、桌面应用、科学计算、操作系统/驱动等领域表现突出等观点。同时也存在一些调侃与质疑，包括对微软的工程文化、WebView2 带来的内存占用（如天气应用）等的评论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49643546</guid>
-      <pubDate>Thu, 10 Sep 2026 13:39:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 数学家指控OpenAI窃取未发表的重大证明成果</title>
-      <link>https://news.ycombinator.com/item?id=49638353</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是数学家指控OpenAI窃取未发表的重大证明成果，属于AI行业重要新闻，涉及AI与科学前沿进展，符合兴趣。</small></p><p>社交媒体上近日流传一项严重指控：OpenAI 可能将其 AI 助手 Astra 的部分"突破性成果"建立在窃取人类未发表工作之上。数学家 Valerio Capraro 在推文中援引 Andreas Thom 发布的一篇详尽的 Mastodon 帖子，列出多项证据，暗示 OpenAI 或许在训练 Astra 时使用了 Thom 与数学家 Gábor Kun 关于格罗莫夫 soficity 猜想（Gromov's soficity conjecture）的对话内容——该猜想正是 OpenAI 随后宣布 Astra 已解决的十大难题之一。</p><p>Capraro 表示自己与 Andreas Thom 相识，称他是"sofic 群与 hyperlinear 群"领域的顶尖专家，二十年来深耕这一问题。他认为，若 Thom 的叙述属实，这已不是简单的署名争议，而是"未发表的人类工作被吸收进模型，再由模型本身当作突破向世界展示"。他进一步指出，若加上此前 Levent Alpöge、Tristan Buckmaster 提出的类似指控均得到证实，那么这些事件便不再是孤例，而可能构成"科学史上最重大的知识丑闻之一"。他在结尾强调："AI 并未在发现新的数学，AI 正在窃取人类的发现。"</p><p>该帖子在 Hacker News 引发讨论。多位评论者提供了 Andre thom 原始 Mastodon 帖子的链接（<a href="https://mathstodon.xyz/@andreasthom/117240535270608201">第一帖</a>等），并指出 HN 指向的 X/Twitter 链接需要登录才能查看，反而不如开放平台上的原始内容便于阅读。HN 管理员也已将大部分评论迁移至包含原始来源的讨论串。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49638353</guid>
-      <pubDate>Thu, 10 Sep 2026 04:19:48 GMT</pubDate>
     </item>
   </channel>
 </rss>
