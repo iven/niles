@@ -3,7 +3,88 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 18 Sep 2026 09:40:53 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 14:29:58 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OpenJev：用开源模型与 WebGPU 在本地复现 Jev 式“选项评分”推理</title>
+      <link>https://news.ycombinator.com/item?id=49752041</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲用开源模型结合WebGPU在本地实现特定推理功能，属于开源项目和AI软件技术进展，用户感兴趣。</small></p><p><a href="https://openjev.com/">OpenJev</a> 是一个在浏览器本地运行的推理工具，旨在复现新兴 AI 推理引擎 <a href="https://news.ycombinator.com/item?id=49752041">Jev</a> 的核心思路：不再让模型一次一字地“解码”生成文本，而是通过开源小模型（如 Qwen3 0.6B 和 MiniCPM5 2B）直接读取选项的 logits，仅在你提供的候选答案之间做归一化打分，从而在典型生成（解码）之前就能给出“选择概率”。该项目借助 WebGPU 加速，无需云端 API 即可在本地完成推理。</p>
+
+<p>这种方法把大语言模型当作一个“分类器/评分器”而非生成器：用户必须明确指定想要什么、有哪些候选选项，模型只做“先填充”（prefill）并测量各选项得分，跳过整个解码阶段，因此响应速度远快于常规的对话式生成。评论中有开发者指出，这种做法本质上是“仅做 prefill、跳过 decode”，因此在具备高 prefill 速度的硬件（如 DGX Spark）上表现最佳，已有<a href="https://github.com/rdaum/eider/">类似的定制推理引擎</a>被复现。</p>
+
+<p>社区反馈较为热烈，但也存在明显争议。多位用户强调，这类“编码器式分类”思路并非全新（如 GLiNER2 已用于解析），OpenJev 的价值更多在于带来思维方式的转变，把一类问题的子类单列出来，而非技术上的开创。也有用户质疑其命名：OpenJev 并非 Jev 官方团队作品，只是模拟 Jev 行为，可能带来法律与误导风险；在小模型（Qwen3 0.6B）上，在 M2 Max 上仍需半秒到两秒，速度“不算特别快”。另有用户测试发现其在某些场景（如为“顾客沟通训练需求”选择恰当的培训方向）会给出与常识相悖的 80% 置信度结果，提示评分质量仍有提升空间。</p>
+
+<p>有评论联想到 Jev 名称背后的“杰文斯悖论（Jevons Paradox）”，并指出<a href="https://news.ycombinator.com/item?id=49752041">Jev</a> 本身以 100% 合成数据训练，认为这将催生大量新的应用场景与工作岗位。</p>
+
+<h3>你知道吗？</h3>
+<p><b>杰文斯悖论（Jevons Paradox）：</b>又称“杰文斯效应”，指技术进步提升了某种资源的使用效率后，反而可能导致该资源的总消耗上升而非下降。此处借用来形容：让 AI 推理变快、变便宜后，反而会催生更多应用与使用量。</p>
+<p><b>logits：</b>模型在输出最终概率前，对每个候选分词（token）给出的未归一化原始分数；通常经 softmax 归一化后转成概率。OpenJev 的技巧正是只在你提供的少量选项中做归一化，避开对数十万词表的完整解码。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49752041</guid>
+      <pubDate>Fri, 18 Sep 2026 09:42:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ jemalloc 发布 5.4.0：超 160 项提交，聚焦技术债务清理与可移植性改进</title>
+      <link>https://news.ycombinator.com/item?id=49750152</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] jemalloc内存分配器新版本发布，属于开源项目进展，用户对开源项目感兴趣。</small></p><p>jemalloc 内存分配器发布了 <strong>5.4.0</strong> 版本，这是自 2022 年以来首次正式打标签的发布。该版本包含超过 160 项提交，重点聚焦于技术债务清理，涵盖重构、缺陷修复、测试覆盖改进和选项清理，同时根据上游问题报告进行了可移植性改进。</p>
+
+<h3>新特性</h3>
+<ul>
+<li>新增 <code>EXTENT_ALLOC_FLAG_PINNED</code>，使自定义 extent 分配钩子可以标记不可回收的内存映射（如 HugeTLB 页），以便在 decay 和 purge 管线之外优先复用。</li>
+<li>新增多个 mallctl 接口（如 <code>stats.pinned</code>、<code>stats.arenas.&lt;i&gt;.pinned</code> 等），用于报告固定内存使用量和互斥锁统计。</li>
+<li>支持通过 <code>thread.arena</code> 恢复每 CPU arena 选择。</li>
+<li>更好地对齐人类可读与 JSON 格式的 malloc 统计输出。</li>
+<li>将运行时 <code>experimental_infallible_new</code> 选项替换为编译期 <code>--enable-cxx-infallible-new</code> 选项，实现编译器级优化，并修复 <code>new(std::nothrow)</code> 契约。</li>
+</ul>
+
+<h3>不兼容变更</h3>
+<p>tcache 填充和保留目标改为根据 GC 事件间观察到的需求自适应调整，取代了原先固定的 refill/flush 策略。同时移除了七个遗留的非实验性控制选项（如 <code>lg_tcache_nslots_mul</code>、<code>tcache_nslots_small_min</code> 等），对应的 <code>malloc_conf</code> 设置将被静默忽略。</p>
+
+<h3>关键缺陷修复</h3>
+<ul>
+<li>在 <code>free</code>、<code>free_sized</code>、<code>free_aligned_sized</code> 及基于 <code>process_madvise</code> 的页面清理过程中保留 errno。</li>
+<li>修复 size class 中的数值溢出检查。</li>
+<li>在 <code>free_sized()</code> 和 <code>free_aligned_sized()</code> 中接受 NULL（C23 正确性）。</li>
+<li>修复 TSD 生命周期边界情况，防止重入引导分配使用未初始化状态。</li>
+<li>修复 <code>arena_reset</code> 期间可能出现的死锁。</li>
+</ul>
+
+<h3>重构与可移植性</h3>
+<p>本次发布对 jemalloc 前端进行了模块化重构，将 arena 管理、初始化、fork 编排和分配分发从 <code>jemalloc.c</code> 中分离；引入 OS 抽象层，将平台相关的文件/进程 I/O、时间、同步、CPU、虚拟内存等操作移出分配器核心代码。可移植性方面包括修复 macOS 上的 <code>malloc_getcpu</code>、使用 <code>CLOCK_MONOTONIC</code> 防止后台线程因时钟回拨而停滞、修复 MinGW 构建的线程退出 TSD 清理等。</p>
+
+<h3>社区讨论</h3>
+<p>HN 社区对此次发布反响热烈。有用户指出，jemalloc 的开发从未停止，只是多年未打标签发布。多位评论者提到了此前关于 jemalloc 在 Facebook/Meta 手中遭遇困境的<a href="https://news.ycombinator.com/item?id=44264958">事后剖析（postmortem）</a>，认为大公司对开源项目的兴趣未必是长期利好。也有用户分享了实际使用体验：一位开发者表示在 Sidekiq 队列上切换到 jemalloc 后，内存占用从 8GiB 降至 1GiB 以下。</p>
+
+<p>此外，评论区还讨论了 jemalloc 名称的由来——它实际上是实现者 Jason Evans 名字的缩写（Jason Evans malloc），而非法语表达。</p>
+
+<h3>你知道吗？</h3>
+<p>jemalloc 最初由 Jason Evans 在 2005 年为 FreeBSD 开发，后被 Facebook（现 Meta）广泛采用并持续维护。它也是 Redis、Rust 等众多知名项目和语言的默认或推荐内存分配器。本次 5.4.0 发布距离上一版本 5.3.0（2022 年）已时隔约三年。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49750152</guid>
+      <pubDate>Fri, 18 Sep 2026 04:20:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Qwen 3.8 Omni Flash 发布：多模态能力对标 Gemini 3.8 Flash，价格优势显著</title>
+      <link>https://news.ycombinator.com/item?id=49747925</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Qwen新多模态模型发布，属于新AI模型发布公告，用户高度感兴趣。</small></p><p>阿里巴巴旗下 Qwen 团队发布了 <strong>Qwen 3.8 Omni Flash</strong>，这是一款多模态模型，据称在音视频表现上接近 Gemini 3.8 Flash，整体音频性能甚至超越后者。Qwen Studio 提供全面的功能，涵盖聊天、图像与视频理解、图像生成、文档处理、网络搜索集成、工具调用和工件（artifacts）等。</p>
+
+<h3>社区讨论要点</h3>
+
+<p><strong>价格优势</strong>：有用户对比了两款模型的 API 定价，Gemini 输入/输出价格为 $1.5/$9.0，而 Qwen 3.8 仅为 $0.15/$0.47，成本差距巨大。不过也有评论指出，不能只看单 token 成本，还需考虑完成任务所需的平均 token 数以及缓存读写成本。</p>
+
+<p><strong>开源发布节奏</strong>：多位用户对 Qwen 是否发布开源权重表示疑虑。有评论指出，Qwen 过去未开源 Omni 系列模型，且近期开源节奏似乎在放缓——上一款开源 Omni 模型是 Qwen3-Omni-30B-A3B，而 Qwen4 系列可能不会发布，目前仅发布了 Qwen3.8 27B 和一个被认为"基本不可用"的 125B 版本。</p>
+
+<p><strong>模型命名困惑</strong>：有用户抱怨 Flash、Pro、Ultra、Omni 等命名令人困惑。其他用户解释：Flash 侧重速度，Ultra/Pro/Omni 进行更慢的深度推理以获得更好智能，Lite 侧重成本，Omni 表示多模态（支持文本、图像、音频等多种输入输出）。</p>
+
+<p><strong>模型质量反馈</strong>：有用户称赞 Qwen 3.8 Flash Next 在数百轮对话中表现稳定可靠；也有用户认为 3.8 Max 是最"接地气"的模型，但速度慢且仅通过阿里云提供。部分用户报告 Flash-Next 的推理行为出现异常，包括工具调用间出现奇怪的内部对话、偶尔需要数分钟才返回简单答案等。</p>
+
+<p><strong>其他讨论</strong>：评论中还涉及中国与欧洲在 AI 模型开发上的差距、模型选择工具的需求等话题。有用户指出，博客页面本身存在技术问题，如 Firefox 滚动卡顿、控制台警告过多、图片过小无法缩放等。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49747925</guid>
+      <pubDate>Thu, 17 Sep 2026 23:05:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ PrismML 发布 Bonsai 2 27B：三值压缩模型以 1/9 体积保留 98.2% 能力</title>
       <link>https://news.ycombinator.com/item?id=49746618</link>
@@ -952,52 +1033,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49671329</guid>
       <pubDate>Sat, 12 Sep 2026 11:42:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Rune 宣告开源：基于 Go 的原生键盘驱动 IDE 采用 GPLv3 许可</title>
-      <link>https://news.ycombinator.com/item?id=49660149</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Rune作为基于Go的键盘驱动IDE宣布开源，属于编程工具发布/分享与开源项目，与很感兴趣主题高度契合</small></p><p>Rune 宣布正式开源，采用 <b>GPLv3</b> 许可证。这是一款主要用 Go 语言编写的原生、键盘驱动的 IDE，现已向开发者开放源码，可供检查、修改并参与共建。</p>
-<p>据作者介绍，文章阐述了使用 Go 作为构建 IDE 主要语言的细节。Rune 同时也是一个终端多路复用器（terminal multiplexer），旨在充当自动编程与手动编程之间的桥梁——用户可在聊天界面中模糊搜索符号和文件，无需复制粘贴；当 AI 智能体工作时，会使用 Rune 的符号索引和 IDE 级工具集，而非简单地 grep 代码库。</p>
-<p>编辑器支持 vim、emacs 和 standard 三种键位模式，不仅适用于打开文件，也贯穿于整个界面。网络层面，Rune 内嵌了 tsnet（Tailscale），并使用 headscale 作为协调服务器，未来还计划增加 iOS、Android 客户端。</p>
-<p>颇具创新的是其<b>贡献者收益分成计划</b>：将把 Unstable Build 的部分收益在参与开发的贡献者之间分配，而非要求贡献者签署贡献者许可协议（CLA）将权利让渡给公司。作者表示，相关法律细节仍在敲定中，预计数周内将最终确定。</p>
-<p><b>社区反馈：</b>不少用户赞赏其使用 GPLv3 且无 CLA 的姿态。也有开发者询问远程工作能力、Fedora 打包、light 主题显示效果，以及希望主页提供演示视频。作者回应称，Rune 的网络并无特殊之处，也可通过 SSH 或 Tailscale 工作；light 主题效果尚不理想（作者偏好深色主题）；并确认正在推动进入 Fedora 包仓库的流程。部分评论者对「财务激励促成贡献」的模式表示疑虑，认为这可能招致类似 Hacktoberfest 或 AI 刷 PR 的滥用；另一些人则表达了「以终端为中心的 IDE 未来存疑」的审慎观点。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49660149</guid>
-      <pubDate>Fri, 11 Sep 2026 15:31:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>谷歌搜索结果改用 google.com/goto 重定向链接，旨在反爬虫</title>
-      <link>https://news.ycombinator.com/item?id=49668386</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲谷歌搜索结果改用重定向链接以反爬虫的变动，属于搜索技术/基础设施类新闻，不明确匹配用户的高兴趣或感兴趣主题，兴趣不明确，故判为可选。</small></p><p>谷歌（Google）正在搜索结果页（SERP）上推行一项新的反爬虫措施：将自然搜索结果链接改写为 <code>google.com/goto?url=...</code> 重定向形式，而不再在 HTML 中直接暴露目标网址。用户点击结果时，谷歌会先跳转再进入真正的页面。</p><p>这一新格式与此前使用的 <code>google.com/url?q=[URL编码的目标地址]</code> 不同。旧格式的目标链接可直接在查询字符串中读取，而新的 <code>goto</code> 格式采用了谷歌特有的自定义编码，无法离线解码，仿佛是对谷歌索引中该页面记录的一个不透明引用。真实地址只能通过请求 <code>/goto</code> 并在 <code>Location</code> 响应头中获取。</p><p>截至 2026 年 8 月底，在未登录或隐私模式下，该格式已稳定出现在大量搜索结果中。文章分析认为，这契合谷歌打击自动化 SERP 抓取的总体布局（尤其是针对 AI 爬虫和 SEO 爬虫）。明文链接让爬虫可以从 HTML 中批量解析数千个 URL，而 <code>goto</code> 格式要求每条结果都向谷歌发起一次请求才能得知目的地，速度更慢、噪音更大，也让谷歌能清楚识别同一客户端连续解析大量链接的行为。这与此前移除 <code>&amp;num=100</code>、收紧 BotGuard/SearchGuard 等措施一脉相承，目的在于持续抬高朴素 SERP 抓取的成本。</p><p>文章作者所在的 Autom 公司已更新其 Google 搜索 API 管道，通过读取 Location 头（不跟随跳转）来解析 <code>goto</code> 链接，并在 API 响应中返回最终目标地址，用户无需改动集成即可继续使用。</p><p>在 HN 社区讨论中，不少用户表达了不满。有用户指出新链接的 base64 数据内含基本 protobuf 结构，且有时加载需花费可感知的时间。多款原本用于去除谷歌重定向追踪的浏览器扩展（如 ClearURLs）在此新格式下失效。许多用户担心谷歌借此追踪点击行为，并纷纷表示已转向 <a href="https://kagi.com">Kagi</a>、Brave 等替代搜索引擎。也有用户认为这在很大程度上是对谷歌“围墙花园化”和体验恶化的又一次印证。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49668386</guid>
-      <pubDate>Sat, 12 Sep 2026 03:14:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 测量代码的&quot;邋遢度&quot;：为什么正确代码仍会侵蚀代码库</title>
-      <link>https://news.ycombinator.com/item?id=49658311</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是衡量代码质量与邋遢度、谈正确代码如何侵蚀代码库及人为品味的重要性，属于编程效率改进经验范畴，符合高兴趣，推荐阅读。</small></p><p>Earendil 公司的 Sebastian 撰文探讨了如何量化测量 AI 生成代码的质量问题。作者指出，LLM 在生成"正式正确"的代码方面已近乎完美，但这并不意味着代码没有引入不必要的抽象、重复或糟糕的决策——这就是所谓的代码"邋遢"（slop）。作者批评当前行业对代码质量的评估过于"凭感觉"（vibes based），并提出了几种测量方法：</p>
-
-<ul>
-<li><strong>AI 充当裁判</strong>：最常见的做法（让模型给代码打分，或在方案 A/B 间做选择）往往效果不佳，模型甚至会在重命名方案后改变偏好，不能替代真正的人工评估。</li>
-<li><strong>人工评审 AI</strong>：理论上最佳，但因工程师水平参差且无法规模化而不现实。</li>
-<li><strong>LOC 变化量</strong>：最简单有效，但讽刺的是一旦针对它优化，指标就会失效。</li>
-<li><strong>Verbosity（冗长度）</strong>：基于 <a href="https://github.com/gabeorlanski/scb-check">AST-Grep</a> 启发式规则，测量重复和不必要的冗长行占比。</li>
-<li><strong>Erosion（侵蚀度）</strong>：测量代码库质量是否集中在少数大而复杂的函数中，基于圈复杂度（cyclomatic complexity）大于 10 的函数所占比重。</li>
-</ul>
-
-<p>作者引用 <a href="https://earendil.com/posts/measuring-code-sloppiness/">SlopCodeBench</a> 的数据显示：在平均冗长度上，既有仓库为 0.15±0.06，而智能体生成的代码为 0.33±0.10；侵蚀度上仓库为 0.31±0.17，智能体代码为 0.68±0.20——Agent 生成的代码平均比人类代码"邋遢"约两倍。作者本人"vibe coding"的项目冗长度高达 0.4、侵蚀度高达 0.75，说明这不是评估的偶然产物。</p>
-
-<p>关于为何 Agent 自身也无法处理邋遢代码：SlopCodeBench 采用多轮指令与测试迭代，并在检查点之间清除模型上下文，模拟真实的迭代使用方式，结果是错误决策随时间累积，即便最先进模型在严格通过率上也达到 0%。作者认为，真正衡量代码质量仍隐含或明确依赖人类的直觉与品味，并计划继续探索函数耦合度、代码翻动（churn）、内聚性等方向。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上获得 261 分和 227 条评论，讨论热烈。多数评论者认同代码质量缺乏可靠评估机制，并认为这正是一个待填补的"奖励函数"缺口；也有人指出人类代码本身（尤其是企业级代码）历史上就大量存在低质量，与 AI 的比较并不公平。部分评论聚焦于"代码是否已解决"的争论，有评论精辟总结："编码已解决，但软件工程还没解决。"还有评论认为代码质量可能本质上不可判定（如同停机问题），难以形式化衡量。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49658311</guid>
-      <pubDate>Fri, 11 Sep 2026 13:42:28 GMT</pubDate>
     </item>
   </channel>
 </rss>
