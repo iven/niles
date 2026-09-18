@@ -3,7 +3,43 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 17 Sep 2026 23:32:34 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 04:36:54 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ PrismML 发布 Bonsai 2 27B：三值压缩模型以 1/9 体积保留 98.2% 能力</title>
+      <link>https://news.ycombinator.com/item?id=49746618</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 发布新AI模型Bonsai 2 27B，属于新AI模型发布公告，且涉及模型压缩技术进展，很感兴趣</small></p><p>PrismML 宣布推出新一代旗舰模型 Ternary Bonsai 2 27B，基于 Qwen3.8 27B 训练，通过三值（ternary）压缩将模型总体占用缩小至 5.9GB，相比全精度模型体积缩小超过 9 倍，同时保留了 98.2% 的综合基准性能。</p><p>该模型采用 {−1, 0, +1} 三值权重配合 FP16 分组缩放，等效每个权重仅 1.76 比特，整个语言模型端到端应用低比特表示，支持 262K token 上下文窗口、图文多模态输入，并以 Apache 2.0 许可证发布。相较上一代 Bonsai 27B（保留率 95%），新一代将保留差距提升至 98% 以上，在推理、编码、视觉和长时程智能体（agentic）任务上均有所增强。</p><p>在综合基准上，Ternary Bonsai 2 27B 得分 83.9，与 Qwen3.8 27B 的 85.4 及 Qwen3.6 27B 的 83.6 相当。文章特别强调编码智能体、工具调用、多模态工作流等对模型退化敏感的场景中，该模型在极小内存占用下仍保留了大部分全精度模型的能力，实现了更高的"智能密度"（每 GB 智能量）。</p><p>在运行时表现上，该模型在 NVIDIA GeForce RTX 5090 上可达 143 tokens/秒，在 M5 Max 上为 46.8 tokens/秒；在 RTX 4090 上每 token 仅消耗 0.714 mWh，比全精度 8B 模型节能约 40%。模型支持 NVIDIA CUDA 和 Apple 设备（Mac、iPhone、iPad）的 MLX 平台。PrismML 由加州理工学院（Caltech）研究人员创立，获 Khosla Ventures、Cerberus、Google 及 Samsung 支持。</p>
+<p>社区讨论中，用户对该模型在 16GB 显存设备上的可运行性表示期待，但也指出 Prism 的 llama.cpp 分支目前缺少 SYCL 内核，导致部分 Intel 平台无法使用；另有用户演示了在浏览器（WebGPU）中运行该模型。部分评论质疑"9 倍更小（9x smaller）"的表述在语言学与数学上的严谨性，还有用户对比了 Unsloth 等低比特量化方案，认为 Bonsai 采用更复杂的量化训练（QAT）方法使其在低比特下性能优于朴素量化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49746618</guid>
+      <pubDate>Thu, 17 Sep 2026 21:13:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Bend：用形式化证明阻止 AI 犯错、可运行于 CPU 和 GPU 的新语言</title>
+      <link>https://news.ycombinator.com/item?id=49746163</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 发布新的编程语言Bend，通过形式化证明防止AI错误，属于编程工具发布，很感兴趣</small></p><p>本期 Hacker News 讨论的是编程语言 <a href="https://bend-lang.com/">Bend</a> 的 2.0 发布。这是一种号称兼具「C 语言速度、CUDA 并行能力、Lean 风格证明、Python 语法」的新语言，其核心卖点是用形式化证明来「阻止 AI 犯错」。</p><p><b>语言定位与机制</b></p><p>在作者看来，后 AGI 时代人类将不再亲自编写与阅读代码，但仍需要一种无歧义的方式向构建周围世界的 AI 表达意图。Bend 的答案是「法则（laws）」——比自然语言更精确——以及「证明（proofs）」——用以验证 AI 实现的提示词是否正确。语言采用仿射依赖类型论（affine dependent type theory）作为核心，其类型检查器同时就是证明检查器。</p><p>典型工作流程是：在 <code>LAWS.bend</code> 中声明不可破坏的规则，例如「任何走子序列都无法导致胜利」；AI 每改动代码后，运行 <code>bend PROOF.bend</code> 以数学方式验证法则仍然成立，若不成立则让 AI 重试，直至构造出满足法则的代码。作者声称这样「合并 bug 在数学上是不可能的——它是一条定理」。</p><p>性能方面，Bend 编译为原生代码，单核速度接近 C，同一二进制可在十六核或多达几千个 GPU 核心上并行运行。其编译器、运行时和内核由人类设计，作者强调关键部分（分配器、垃圾回收、闭包求值器、函数求值器）已在 GPU 上完整实现。</p><p><b>社区反应</b></p><p>讨论热度很高（360 分、182 条评论），但反应两极分化。多个用户质疑仓库被压缩为单次提交，历史被「抹平」；也有人在回应作者时指出，将代码交给 AI 编写、由 AI 写法则意味着「法则本身也可能出错」。还有观点认为形式化验证难以扩展到 Facebook 这类真实复杂程序，对此有用户举出 AWS Nitro 管理程序、Apple 加密库、微软 SymCrypt 等已应用形式化验证的现实案例反驳。</p><p>作者（网名 LightMachine）亲自下场回应质疑：他承认项目大量使用了 AI 辅助编码（「AI slop」），但强调编译、运行时等关键部分是人类设计并经过审计；他解释放弃策略（tactics）与编译期搜索，让检查速度快，代价是代码更冗长，但「AI 写证明的时间很便宜，bug 消耗的人类时间才昂贵」。他恳请社区礼貌批评，并说明后续版本计划引入余数类型来处理非终止递归等特性。</p></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49746163</guid>
+      <pubDate>Thu, 17 Sep 2026 20:36:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI 推出面向法律行业的 Astra for Law</title>
+      <link>https://news.ycombinator.com/item?id=49745940</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenAI推出面向法律行业的专用AI产品，属于AI软件技术进展，但偏行业垂直应用，推荐阅读</small></p><p>OpenAI 发布了面向法律领域的专用产品 <strong>Astra for Law</strong>。根据产品介绍，该工具可借助法律检索索引，在超过 2.3 亿个 URL 的语料库中搜索美国判例法、法规、行政决定及法院规则等，并与非营利组织 Free Law Project（CourtListener 的运营方）合作，将其覆盖逾 99.9% 已发布美国先例性判例法的判例库纳入该研究体验。Astra 还通过 API 面向 Harvey、Legora 等法律领域客户开放，使其能够将这一能力集成到自有产品与工作流程中。</p>
+<p>社区讨论围绕多个焦点展开。<a href="https://news.ycombinator.com/item?id=49745940">HN 评论</a>中较受关注的话题包括：</p>
+<ul>
+<li><strong>幻觉问题</strong>：多位网友质疑博文未提及模型幻觉率。有评论引用 benchmark 指出 GPT-6 Astra 在已测试模型中幻觉率最低，但也有人认为在法律这类高风险领域，只要不是 0% 就该明确披露。</li>
+<li><strong>法律责任</strong>：有人询问「用它生成合同出错时该起诉谁」，多数回应认为责任在使用者自身，不应从「词计算器」获取法律建议。</li>
+<li><strong>行业冲击与竞争</strong>：部分评论担忧 AI 将取代法律、医疗、财务等知识型工作，导致财富进一步集中于少数人；也有观点认为这反而降低了普通人提起诉讼的门槛。</li>
+<li><strong>与法律 AI 客户的关系</strong>：有评论敏锐指出，OpenAI 在发布文中点名 Harvey 与 Legora 是刻意安抚，意在撇清「吃自己孩子」的意图，避免被视为与最大的法律 AI 客户直接竞争。</li>
+<li><strong>商业策略</strong>：部分用户批评 OpenAI 的商业策略是「广撒网」（spray and pray），担心其在应用层与垂直厂商的竞争中陷入尴尬境地；另有人则赞同其利用充足算力多线尝试。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49745940</guid>
+      <pubDate>Thu, 17 Sep 2026 20:17:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 研究评测：编码智能体框架（Harness）的成本与价值——你的 Claude 模型或许不需要 Claude Code</title>
       <link>https://news.ycombinator.com/item?id=49733726</link>
@@ -962,66 +998,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49658311</guid>
       <pubDate>Fri, 11 Sep 2026 13:42:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>花了220美元投谷歌应用广告，六成安装其实来自机器人</title>
-      <link>https://news.ycombinator.com/item?id=49662990</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讲的是谷歌应用广告投放中发现大量安装来自机器人，属于广告欺诈/营销数据分析话题。虽涉及技术分析，但既非编程工具发布、也非AI模型或软件技术进展，与用户兴趣配置匹配度不高，故定为可选。</small></p><p>独立开发者尼克·阿贝（Nick Abe）运营一款名为 Dayzle 的网页益智小游戏应用。他记录了自己投放 Google Ads 的经历：以每天 40 加元、目标为"安装"的预算投放 Android 应用广告。由于谷歌在每安装 1.5 美元的目标价格下找不到流量，他取消目标价后广告费立刻翻倍（80 加元/天），谷歌报告当天有 21 次安装，然而他后台管理面板只显示 1 次。</p>
-
-<p>深入排查后他发现：当天确实有 21 台新安卓设备，但其中 20 台运行的旧版本应用早已被 Play Store 停止分发——这些设备不可能从官方商店获得该版本，却都标注"由 Google Play 安装"。这些设备仅打开应用一次、在任何页面停留 0 秒，之后再未回来；20 台设备横跨 19 个州、28 种机型，行为高度雷同。两周总共产生 56 次计费安装，其中 33 次符合这种机器人特征，另有 7 次来自未定向的国家，真正的人工用户只有 13 人（他们合计完成了 92 局游戏）。</p>
-
-<p>作者断定这背后是"机器人农场"（bot farm）：该农场观看最短的广告视频但不点击，再从保存的安装文件安装应用以绕过商店检测。由于谷歌将"观看广告后安装"计为转化，安装越多在算法看来效果越好，于是把更多广告费用输送给该农场，形成浪费广告费的恶性循环。</p>
-
-<p>作者目前的应对：已向谷歌提交无效流量（invalid-traffic）申诉等待退款；将广告目标从"打开应用"改为"完成一局谜题"，因为编写脚本破解数独远比模拟打开应用费力，借此抬高被刷成本，对小型应用而言是一种比较实际的防护。他呼吁依赖谷歌安装统计做广告决策的人务必深挖数据——机器人都能找到他这点微薄预算，同样也能找到你的。</p>
-
-<p><b>你知道吗？</b></p>
-<p>本文所揭露的是在线广告生态中的"机器人农场"牟利链：农场运营方既充当广告展示方，向谷歌赚取展示费，又模拟广告主想要的转化行为。广告主为"安装"付费，谷歌把高转化率误判为效果优良、从而投放更多广告给该农场，农场随之获得更多展示分成，最终买单的是广告主。评论区还补充了相关对策，例如在 Google Ads 后台的 IP 排除功能中屏蔽数据中心网段、只使用精确匹配关键词并关闭各类自动优化等。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49662990</guid>
-      <pubDate>Fri, 11 Sep 2026 18:24:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 25位菲尔兹奖得主联合声明：AI在数学领域的严重错位</title>
-      <link>https://news.ycombinator.com/item?id=49662371</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为菲尔兹奖得主对AI在数学领域的声明，属于科学前沿与AI相关进展，用户感兴趣</small></p><p>近期，一篇由陶哲轩（Terence Tao）等<strong>25位菲尔兹奖得主</strong>联合签署的声明引发广泛讨论，指出AI公司在数学领域的应用目标与数学界的核心目标存在严重错位。该声明认为，尽管大型语言模型（LLM）在过去数月已能解决许多领域的重大未解难题，但AI公司仅将解题作为基准测试的做法，对数学科学和数学社区有害。</p>
-
-<p>声明强调，研究数学的根本目标在于理解形状、数字和自然现象的基本结构，解题只是实现概念性理解与洞见的工具和代理。AI公司以越来越快速度批量生产的"真/假"命题，可能摧毁学术沃土而非催生新思想；这些成果常常仓促发布，没有规范的写作、没有对新方法和思想的提炼、也未能引用他人的相关工作，这引发了严重的署名与抄袭问题。此外，若没有愿意将这些AI构想融入数学正典的数学家，这些想法将难以真正活跃起来，数学家之间关键的人类传承链条也会断裂。</p>
-
-<p>签署者包括阿图尔·阿维拉、曼朱尔·巴尔加瓦、皮埃尔·德利涅、西蒙·唐纳森、马丁·海尔、彼得·舒尔策及陶哲轩等历代菲尔兹奖得主。声明认为，数学界面临的这些问题与其它科学和创意职业所面临的相似，也预示整个人类社会可能遭遇的挑战——当AI改变工作方式时，如何确保不迷失这些工作最初的宗旨。</p>
-
-<h3>社区热议</h3>
-<p>Hacker News的讨论（372分，437条评论）呈现出多元观点。部分评论者认为声明将责任推给了AI公司，应提供具体的替代机制；有人甚至质疑"将解题作为衡量标准的做法被摧毁是否真是悲剧"。也有人将矛头指向学术界的奖励机制本身，认为问题在于"谁率先解决问题"的评判方式。还有声音将此事类比为开源开发者被科技巨头利用的历史，称数学家现在的处境与当年的开源社区相似。亦有评论者引用声明中"解题只是达成概念理解这一首要目标的工具"一句，认为AI对大多数智识学科的影响都值得忧虑。</p>
-
-<p>陶哲轩在声明中承认："我们没有时间进行更充分的咨询程序……但我们判断局势的紧迫性需要尽快发表声明。"有评论者指出，陶哲轩此前在国际数学家大会（ICM）的报告（<a href="https://teorth.github.io/tao-web/slides/age-of-ai-icm-2026.pdf">幻灯片46-51</a>）中已提出过一些具体建议。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49662371</guid>
-      <pubDate>Fri, 11 Sep 2026 17:45:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ PlanetScale 推出 Neki：原生 Postgres 分片数据库，现已开放平台预览</title>
-      <link>https://news.ycombinator.com/item?id=49645686</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为PlanetScale推出分片Postgres数据库产品，属于软件新功能与开源项目，用户感兴趣</small></p><p>知名数据库托管平台 PlanetScale 宣布推出 <strong>Neki</strong>——其基于 Postgres 的分片数据库产品，现已进入平台预览阶段（platform preview）。Neki 的核心理念是在每个分片上运行真正的 Postgres，让用户能够将单个 Postgres 数据库水平扩展到多台机器，同时保留原生 Postgres 的体验。</p>
-
-<p><strong>背景与动机</strong>：PlanetScale 凭借八年运营全球最大规模分片 MySQL 集群的经验，意识到许多团队在单台机器上运行 Postgres 时会触达性能天花板。加大硬件投入只能暂缓问题——表过大导致无法在无影响的情况下 vacuum 或建索引、备份耗时数小时、连接数受限、schema 变更需维护窗口、事务回卷（transaction wraparound）等问题最终无法通过增加核心数和 IOPS 线性解决。而现有的替代方案各有取舍：应用层分片把路由逻辑推给代码；Postgres「兼容」分布式数据库则隐藏分片键、剥夺扩展能力、引入难以调试的复杂性和延迟。Neki 的原则是「坚持 Postgres，不绕过、不伪造、不背离它」。</p>
-
-<p><strong>工作原理</strong>：Neki 有四大组成部分——</p>
-<ul>
-<li><strong>Neki 路由器（routers）</strong>：应用通过标准 Postgres 线协议连接路由器，现有驱动、ORM 和连接串均可继续使用。路由器内置完整 Postgres 查询解析器、分布式查询规划器与查询缓冲，解析查询、决定应执行的分片、分发任务并合并结果流，可纵向和横向扩展，避免成为瓶颈。</li>
-<li><strong>分片与分片组（sharding and shard groups）</strong>：每个分片都是真正的 Postgres（1 主 + 至少 2 副本，跨 3 个可用区），无自定义存储引擎，扩展、SQL 支持和性能行为与原生 Postgres 一致。分片可组织成分片组，让不同表或工作负载落在不同的分片集合上。</li>
-<li><strong>连接池（connection pooling）</strong>：每个 Postgres 实例旁的 sidecar 因同时掌控路由端与 Postgres 端，能按各实例实际可承载的大小配置连接池，优于在数据库前简单堆一个 PgBouncer。</li>
-<li><strong>控制平面（control plane）</strong>：跟踪各节点健康、执行计划内切换与计划外故障转移、协调数据重新分片、schema 变更与版本升级等工作流。</li>
-</ul>
-<p>数据拓扑（data topology）是一份 JSON 配置，将逻辑表映射到物理分片，指定路由列及其哈希方式、分片组包含的分片数量与类型。原本需要安排维护窗口的各项工作（schema 变更、版本升级、故障转移、导入、重新分片）在 Neki 中均以内置的全程在线工作流运行，通过应用所用的 psql 连接即可完成。Neki 还包含 Insights、schema 建议、分支（branching）、MCP 等 PlanetScale 既有功能。用户也可以先以单主加副本的方式运行 Neki，待超出单机能力后再针对现有集群执行重新分片工作流。</p>
-
-<p><strong>社区反馈</strong>：Hacker News 评论（152 条）对产品本身反应积极，但几度批评博客文章「前几段只说问题、迟迟未解释 Neki 是什么」，作者随后快速补充了「What is Neki」章节；也有评论指出 Neki 的营销页 <a href="https://neki.dev/">neki.dev</a> 信息更简洁有用。讨论中还涉及几点疑问：文档与页面均未提及跨分片一致性（consistency）处理方式、跨分片外键未提及、跨分片原子 2PC 事务尚在开发中（cross-shard transactions 已支持但非原子）、以及产品暂不开源（官方表示「目前未定」）。另有 Vitess/MySQL 重度用户担忧 PlanetScale 拆分精力，官方回应称仍会持续支持 Vitess，且两个产品可以互相借鉴经验。</p>
-
-<p>值得注意：Neki 目前处于<strong>平台预览</strong>阶段，不应在预览期间承载生产工作负载，产品仍在演进且部分变更可能具有破坏性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49645686</guid>
-      <pubDate>Thu, 10 Sep 2026 15:43:49 GMT</pubDate>
     </item>
   </channel>
 </rss>
