@@ -3,7 +3,25 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 18 Sep 2026 14:28:17 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 18:24:20 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Google 移除「难以维护」的 C 语言 Binder 驱动，全面转向 Rust 实现</title>
+      <link>https://www.phoronix.com/news/Google-Binder-C-Goodbye</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Linux内核驱动开发及Rust语言在内核中的采用，符合Rust兴趣配置，属推荐的Linux桌面技术进展</small></p><p>Google 的 Binder 驱动一直是主线内核的一部分，作为 Android 上使用的进程间通信（IPC）机制。过去几年，该驱动被用 Rust 语言重写，成为内核中最早的「真正的」Rust 驱动之一。Rust 版 Binder 驱动已在 Linux 6.18 中合并上游，而针对即将到来的 Linux 7.4 内核周期，旧的 C 语言版 Binder 驱动将被正式退役。</p><p>由于 Rust 版 Binder 驱动已足够成熟，并在易维护性和新功能扩展性上证明了其价值，旧有的约 11000 行 C 代码将被移除。同时，Rust 版驱动在性能上也已被证明能与原驱动竞争，甚至更快。</p><img src="//www.phoronix.net/image.php?id=2026&image=binder_c_remove" alt="Binder C removal" /><p>Google 工程师 Carlos Llamas 在移除补丁中写道：「这一天终于到来了。我们将放弃 legacy 的 C 语言版 Binder IPC 驱动实现，改用其 Rust 版本。15 多年来，C 版驱动变得越来越复杂，维护极为痛苦，并且很难在避免踩到漏洞的同时落地新功能。Rust 实现缓解了这些问题中的大部分，因此是时候做出改变了。Alice Ryhl 在过去几年里为 Rust Binder 付出了大量努力，不仅实现了完整的功能对等，还证明了其性能能够匹敌甚至经常超越 C 版本。该驱动已在 Android 设备上成功运行了一段时间，我们不能再称之为『实验』。是时候继续前进，移除 C 代码，将所有新功能和优化聚焦到 Rust 驱动上。Rust Binder 新王万岁！」</p><p>Greg Kroah-Hartman 已将此移除补丁合入 char-misc-next Git 分支。随着他将该代码并入「-next」的字符/杂项代码中，补丁将提交用于 Linux 7.4 合并窗口。</p><h3>你知道吗？</h3><p>Binder 是 Android 系统中实现进程间通信的核心机制，支持服务发现、数据传递与内存共享等功能。它是 Linux 内核中最先被大规模用 Rust 重写的驱动之一（另一早期示例包括内存管理相关的 Rust 组件）。Rust 语言凭借内存安全特性被认为能显著减少驱动中常见的内存崩溃、缓冲区溢出等安全漏洞，这正是 Google 推动在内核中使用 Rust 的主要动因。Linux 内核自 6.1 起正式支持 Rust，并持续推动更多子系统采用这种语言。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Google-Binder-C-Goodbye</guid>
+      <pubDate>Fri, 18 Sep 2026 16:26:32 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 苹果视频解码（AVD）驱动程序提交上游 Linux 内核审查</title>
+      <link>https://www.phoronix.com/news/Apple-Video-Decode-AVD-Linux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 报道苹果视频解码驱动进入Linux内核审查，直接对应苹果电脑Linux支持这一很感兴趣主题，推荐阅读</small></p><p>Asahi Linux 项目正将其最新的 Apple Silicon 支持代码——AVD（Apple Video Decoder）驱动程序——推向上游 Linux 内核。该驱动程序用于在 Apple M1/M2/M3 芯片上实现硬件加速视频播放。</p><p>Sofus Forstreuter 今日向 Linux 内核邮件列表提交了一组 14 个补丁，供审查引入 AVD 驱动程序。这款逆向工程的开源驱动程序使 Apple M1、M2 和 M3 Mac 能够实现硬件视频解码，支持 H.264、H.265 和 VP9 编码格式；Apple M3 及更新芯片还支持 AV1 解码。</p><img src="//www.phoronix.net/image.php?id=2023&image=apple_m3_med" alt="Apple M3 SoCs" /><p>预计 AVD Linux 驱动程序未来还将扩展到 M4、M5、M6 及 Neo SoC，针对新版硬件的固件开发工作已在进行中。Asahi Linux 已在其<a href="https://github.com/">仓库</a>中托管了其开发的 AVD 固件。这款 AVD Linux 驱动程序历经数年开发，包括大量逆向工程工作，其实现了 Video4Linux 2（V4L2）M2M（memory-to-memory）无状态解码器 API。</p><p>关于 Apple 视频解码器的硬件设计，Forstreuter 在补丁系列封面信中说明：AVD 作为一款视频解码器及 Apple Silicon SoC 上的 IP 模块都颇为独特，它并非采用常规的"每个参数一个寄存器"方式，而是通过单个寄存器进行编程。这意味着写入顺序至关重要，同时还需确保写入速度不超过硬件处理速度。为此，驱动程序将"指令"写入一组"段"（segments）列表，再由共享函数提交给硬件，并在硬件落后时等待。该模块还包含一个接受无符号代码的 Cortex-M3 协处理器。CM3 并非必需，但它是获取解码状态中断（IRQ）的唯一途径。目前 CM3 仅处理可调解码配置并将所有 IRQ 转发给应用处理器（AP）[1]。未来将扩展到处理指令提交，这有望降低功耗，初步测试甚至表明解码时间可略有缩短。</p><p>AVD 补丁现已在内核邮件列表上公开审查，未来有望经由媒体子系统被纳入后续内核版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-Video-Decode-AVD-Linux</guid>
+      <pubDate>Fri, 18 Sep 2026 15:52:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Ubuntu 26.10 调整内存压力下的 OOM 默认行为，保护关键桌面服务</title>
       <link>https://www.phoronix.com/news/Ubuntu-26.10-OOM-Adjustments</link>
@@ -601,39 +619,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GIMP-3.2.6-Released</guid>
       <pubDate>Thu, 10 Sep 2026 22:12:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Ubuntu 24.04.5 LTS 发布：搭载 Linux 7.0 HWE 内核栈</title>
-      <link>https://www.phoronix.com/news/Ubuntu-24.04.5-LTS</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Ubuntu 新发行版发布，属于来源配置中的很感兴趣类别（新发行版K），用户会强烈关注</small></p><p>Ubuntu 24.04.5 LTS 已作为 24.04 长期支持（LTS）系列的最新点版本正式发布。该版本整合了过去几个月内的所有稳定版更新，使新用户在安装时可减少需要下载的软件包更新，从而加快初始部署速度。</p>
-<p><img src="//www.phoronix.net/image.php?id=ubuntu-2404-tr7980x&image=ubuntu_2404_system76_med" alt="Ubuntu 24.04 LTS" /></p>
-<p>24.04.5 继续推出新的硬件优化（HWE）栈，本次采用的关键软件包来自 Ubuntu 26.04，提供 <strong>Linux 7.0 内核</strong>和 <strong>Mesa 26.0 图形驱动</strong>以及其他相关软件包更新。对于游戏玩家、发烧友和运行新硬件的用户而言，升级后的 GPU 驱动通常能带来更出色的性能和更丰富的功能体验。</p>
-<p>除官方 Ubuntu 版本外，Kubuntu、Ubuntu Budgie、Ubuntu MATE、Lubuntu、Ubuntu Kylin、Ubuntu Studio、Xubuntu、Edubuntu、Ubuntu Cinnamon 及 Ubuntu Unity 等 24.04.5 LTS 官方衍生版本也于同日发布配套的发行媒介。官方公告已发布于 <a href="https://lists.ubuntu.com/">Ubuntu 邮件列表</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-24.04.5-LTS</guid>
-      <pubDate>Thu, 10 Sep 2026 17:49:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.8 Beta 发布：带来多项重大改进并集成 Kup 备份调度器</title>
-      <link>https://www.phoronix.com/news/KDE-Plasma-6.8-Beta</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] KDE Plasma 新版本发布，属于来源配置中的很感兴趣类别（KDE），用户会强烈关注</small></p><p>KDE 于今日发布了 Plasma 6.8 的测试版，为计划于 10 月 14 日推出的稳定版（恰逢 KDE 项目成立 30 周年）做准备。此次 Beta 版本带来了众多令人兴奋的改进，包括：</p>
-<ul>
-<li><strong>显存（vRAM）使用优化</strong></li>
-<li><strong>Wayland 下的驻留点击器（dwell clicker）支持</strong></li>
-<li><strong>面向 KWin 的 Wayland 提交时序（commit-timing）协议支持</strong></li>
-<li>Union 主题引擎的改进</li>
-<li>更完善的远程桌面支持</li>
-<li>多 GPU 处理改进</li>
-<li>新增 kscreenctl 工具</li>
-<li>服务端阴影（drop shadow）支持</li>
-<li>多显示器改进及大量其他细节打磨</li>
-</ul>
-<p><img src="//www.phoronix.net/image.php?id=plasma-67-wayland-cachyos&amp;image=kde_plasma_wayland_4_med" alt="KDE Plasma desktop" />值得一提的是，Wayland 方面在 Plasma 6.8 中得到了大量的打磨与微调优化。此外，Plasma 6.8 还内置了 Kup 作为 Plasma 桌面的备份调度器。更多下载及详情可访问 <a href="https://kde.org">KDE.org</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8-Beta</guid>
-      <pubDate>Thu, 10 Sep 2026 16:39:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
