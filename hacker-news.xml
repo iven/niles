@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 19 Sep 2026 00:16:39 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2026 05:49:19 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Cloudflare 通过数学优化再节省 100TB 内存</title>
+      <link>https://news.ycombinator.com/item?id=49758580</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲述通过数学优化和统计方法降低服务内存使用，属于编程效率改进经验，符合用户很感兴趣的主题</small></p><p>Cloudflare 发布博客文章，介绍其如何通过对一致性哈希算法的数学与结构优化，将基于 Pingora 的后端路由器（PBR）服务的内存占用大幅降低，从而在全球范围内回收超过 100TB 内存——这在此前 DNS 团队已节省 100TB 内存的基础上再次取得可观成果。</p><p>文章从一致性哈希（consistent hashing）的原理讲起：它将服务器与任务映射到同一个哈希值数轴上，任务被分配给其左侧最近的服务器。但单个哈希点会让服务器负载区间大小相差悬殊。通过引入统计学中的变异系数（coefficient of variation），作者定量说明：在 100 台服务器的场景下，单一哈希点的负载偏差可高达约 99%。为解决负载不均，每个服务器可分配多个哈希点（NGINX 与 Pingora 默认 160 个），变异系数可降至约 8%。</p><p>随后文章介绍了 ketama 算法——通过为每台服务器按权重（如磁盘空间）成比例分配哈希点，使请求量与存储能力匹配。作者还推导了多哈希点下标准差的精确公式，CV 图表显示误差每下降一步几乎需要一个数量级的额外哈希，收益递减；并且当哈希数过高时，32 位哈希的碰撞概率会显著上升，引入额外误差（生日悖论）。据此他们判断，可将每台服务器的哈希点数量削减 90%，而不会造成可察觉的负载误差。</p><p>在存储层面，工程师 Zaidoon 发现将存储哈希的结构中指向服务器的 32 位索引改为 16 位（因为 PBR 几乎不会同时协调超过约 65k 台服务器），并使用原始字节数组 + getter 的方式规避 Rust 的对齐规则，可将一致性哈希的内存占用再减少 25%。</p><p>文章最后预告，由于改变哈希环会影响可缓存请求的分布，团队还需在不"熔毁"源站的前提下平滑迁移，这部分内容留待后文。</p><p>该文引发了关于大规模软件工程、资源稀缺时代优化价值以及 AI 影响的广泛讨论。评论区普遍赞赏其行文风格与数学推导的深度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49758580</guid>
+      <pubDate>Fri, 18 Sep 2026 18:51:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Code 新增 AGENTS.md 支持：无 CLAUDE.md 时自动读取</title>
       <link>https://news.ycombinator.com/item?id=49760187</link>
@@ -992,19 +1001,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49676820</guid>
       <pubDate>Sat, 12 Sep 2026 20:25:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 新手教程：15分钟为 OpenStreetMap 贡献首个网站标签</title>
-      <link>https://news.ycombinator.com/item?id=49674050</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章是新手教程，教用户为OpenStreetMap贡献网站标签，属于开源项目及效率经验类内容，用户对此类感兴趣</small></p><p>一篇面向 OpenStreetMap（OSM）新手的快速入门教程，指导读者在 15 分钟内完成一次有意义的贡献——为附近店铺或服务设施添加官方网站（website）标签。教程指出，一旦 OSM 中的地点有了网站标签，就更容易推断该地的电话、营业时间、邮箱等其他信息，因此这是新手入门的理想起点。</p>
-<p>教程步骤包括：创建免费的 OSM 账户；下载并运行 Java 编辑器 <strong>JOSM</strong>（约 365 MB）；下载关注区域（AOI）的数据；使用过滤器仅显示缺少网站标签的店铺和服务设施；安装 <strong>WebsiteWizard</strong> 插件；通过 DuckDuckGo 搜索并核实地点的官方网站；最后上传更改集（changeset）。作者强调，不要使用社交媒体主页、点评网站或聚合网站的搜索结果作为官方网站，如有疑问就不要采用。</p>
-<p><img src="/josm-plugin-website-wizard/assets/images/blog-post/download-panel.png" alt="JOSM's Download panel with an area of interest selected" /></p>
-<p>作者以自己在西雅图 Wallingford 社区的改动为例，一次为 66 个地点添加了网站标签。教程还鼓励读者继续扩展，例如为已有网站但缺少电话标签的地点补充电话信息。全文强调这一贡献将很快被数十种基于 OSM 的服务所采纳，帮助全世界的人们。</p>
-<p><strong>社区反馈</strong>：讨论区的反响较为热烈（275 分，69 条评论），但不少资深贡献者认为，对于真正的首次编辑，推荐使用 OSM 网站内嵌的更简单的 <strong>iD 编辑器</strong>，而非 JOSM。有用户反馈 JOSM 下载区域过大时错误提示不明确、界面 UX 不佳。作者回应称选择 JOSM 是因为其强大的过滤器功能，并愿意探讨如何在 iD 中实现类似过滤。也有用户推荐更轻量的移动应用 <strong>Every Door</strong>（<a href="https://github.com">GitHub</a> 开源），用于步行采集附近店铺信息。另有用户分享了通过步行记录 GPX 轨迹来绘制新步道的亲身经历，并指出 Google 和 Apple 会忽略其编辑建议而 OSM 不会。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49674050</guid>
-      <pubDate>Sat, 12 Sep 2026 16:25:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
