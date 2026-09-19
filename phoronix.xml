@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 19 Sep 2026 14:27:51 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2026 17:59:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.4 简单优化可使文件只读打开速度提升约 39%</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-Faster-Do-Open</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲的是Linux内核7.4的一项简单优化，使文件打开读取速度提升约39%。属于软件性能效率改进，符合编程效率改进的兴趣，推荐阅读。</small></p><p>经过两年多的酝酿，Linux 7.4 内核有望引入一项简单的优化补丁，通过避免不必要的重复工作，使文件只读打开性能提升约 39%。</p>
+
+<p>开源开发者 Mateusz Guzik 一直致力于优化 Linux 内核中用于路径名查找打开文件的 <code>do_open()</code> VFS 函数。目前，在文件打开过程中存在一个重复的目录项（dentry）用于将路径组件转换为磁盘 inode，Guzik 的补丁旨在消除这一重复的 dentry 操作。</p>
+
+<p>Guzik 在补丁说明中解释：<em>"打开文件时，<code>__legitimize_path()</code> 会获取终端 dentry 的一个引用，随后 <code>do_dentry_open()</code> 又获取另一个引用，最后 <code>terminate_walk()</code> 释放初始引用。这两个修改其实是不必要的——<code>do_dentry_open()</code> 可以直接消费已经持有的引用。"</em></p>
+
+<p>该补丁在过去两年间经历了五次修订。在 20 核虚拟机上进行 will-it-scale 基准测试（以只读模式反复打开同一文件）时，每秒操作数提升了 39%。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=faster_open_file_med" alt="faster open file benchmark result" />
+
+<p>令人意外的是，如此"唾手可得"的优化竟在内核中长期未被发现。这段约三十多行的补丁已进入 VFS.git 的 <code>vfs-7.4.lookup</code> Git 分支，预计将在即将到来的 Linux 7.4 合并窗口中被提交，并有望在 2026 年底前进入稳定内核。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Faster-Do-Open</guid>
+      <pubDate>Sat, 19 Sep 2026 16:28:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Wine-Staging 11.18 发布：新增补丁进一步改进 WoW64 支持</title>
       <link>https://www.phoronix.com/news/Wine-Staging-11.18</link>
@@ -605,15 +624,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-IO-uring-Crazy-Friday</guid>
       <pubDate>Fri, 11 Sep 2026 16:21:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 英特尔 Wildcat Lake 低端硬件上的 CachyOS vs. Windows 11 vs. Ubuntu 26.04 LTS 基准测试</title>
-      <link>https://www.phoronix.com/review/wildcat-lake-windows-linux</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] CachyOS、Windows 11与Ubuntu在Intel Wildcat Lake平台的Linux发行版对比，虽涉及基准评测但主要围绕新发行版与Linux桌面体验，符合高兴趣</small></p><p>Phoronix 近日在 CHUWI UniBook 这款售价 449 美元的笔记本上，对三款操作系统进行了性能对比测试。与通常选用旗舰级硬件不同，这次评测瞄准了性能谱系的另一端——低端入门平台。</p><img src="//www.phoronix.net/image.php?id=wildcat-lake-windows-linux&image=wildcat_lake_windows_linux_4_med" alt="CHUWI UniBook with CachyOS" /><p>该笔记本搭载英特尔 Core 3 304 "Wildcat Lake" 处理器（由 1 个 P 核与 4 个 LPE 核组成），配备 8GB LPDDR5-6400 内存和 256GB NVMe 固态硬盘，与通常用于高端 Linux 性能测试的硬件截然不同。</p><p>由于评测样品预装微软 Windows 11 Pro，作者决定将更新后的 Windows 11 环境与两款备受欢迎的 Linux 发行版——滚动更新的 CachyOS 以及 Ubuntu 26.04 LTS——进行对比。所有操作系统在测试期间均保持更新并使用默认设置。</p><img src="//www.phoronix.net/image.php?id=wildcat-lake-windows-linux&image=wildcat_lake_windows_linux_2_med" alt="CHUWI UniBook with Windows 11" /><img src="//phoronix.com/benchmark/result/windows-11-vs-cachyos-vs-ubuntu-wildcat-lake/result.svgz" alt="Windows 11 vs. CachyOS vs. Ubuntu Wildcat Lake" width="100%" height="auto" /><p>评测内容分为多个部分，涵盖图形基准测试（两页）及 CPU 基准测试（三页），全面比较了三款系统在这款低端笔记本上的实际表现。社区对该测试已有 8 条评论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/review/wildcat-lake-windows-linux</guid>
-      <pubDate>Fri, 11 Sep 2026 15:08:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
