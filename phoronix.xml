@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 19 Sep 2026 10:52:38 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2026 14:27:51 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Wine-Staging 11.18 发布：新增补丁进一步改进 WoW64 支持</title>
+      <link>https://www.phoronix.com/news/Wine-Staging-11.18</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是Wine开源项目的新版本发布，通过新补丁进一步改进WoW64以提升32位应用支持，属于Linux桌面相关的软件技术更新，符合软件发布和开源项目的兴趣。</small></p><p>在 Wine 11.18 双周开发版发布一天后，Wine-Staging 11.18 也随之推出。这一实验性版本在 Wine 上游 Git 状态基础上额外携带了 273 个补丁，其中包括若干用于增强 WoW64 支持的新补丁。</p>
+
+<p>Wine-Staging 11.18 新增的 WoW64 补丁包括：在设置 WoW64 入口前检查二进制文件，以及不对 64 位二进制写入 WoW64 配置。WoW64 是 Wine 在纯 64 位环境中运行 32 位 Windows 应用程序的机制。这些新补丁修复了 <a href="https://bugs.winehq.org/show_bug.cgi?id=47389">2019 年以来的一个内核服务代码 bug</a>，以及 <a href="https://bugs.winehq.org/show_bug.cgi?id=49075">2020 年报告的另一个 WoW64 服务代码问题</a>。</p>
+
+<p>此外，Wine-Staging 11.18 还包含将 YV12 转换为 RGB 渲染的 Quartz 代码新补丁，用于修复《Worms Forts: Under Siege》（GOG.com 版）在播放开场动画时崩溃的问题。该版本还同步了最新的 VKD3D Git 代码。</p>
+
+<p>Wine-Staging 11.18 和 Wine 11.18 均可在 <a href="https://winehq.org">WineHQ.org</a> 下载。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Staging-11.18</guid>
+      <pubDate>Sat, 19 Sep 2026 13:22:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GNOME OS 采用 Zswap 应对内存不足问题，Geary 邮件客户端分支 Convey 上线</title>
       <link>https://www.phoronix.com/news/GNOME-OS-Goes-Zswap</link>
@@ -599,23 +614,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/review/wildcat-lake-windows-linux</guid>
       <pubDate>Fri, 11 Sep 2026 15:08:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Mold 高速链接器正用 Rust 重写，目标成为 Linux 系统默认链接器</title>
-      <link>https://www.phoronix.com/news/Mold-Linker-In-Rust-Coming</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Mold高速链接器用Rust重写并希望成为Linux默认链接器，属编程工具且涉及Rust，均为用户很感兴趣的内容</small></p><p>高性能开源链接器 Mold 于今日发布了 2.42.1 补丁版本，但更令人关注的是其后续版本的宏大计划。Mold 项目正从 C++ 全面重写为 <strong>Rust</strong> 语言，主开发者 Rui Ueyama（也是 lld 的原创作者）计划在 Mold 3.0 中实现这一转变，并期望借此推动 Mold 成为 Linux 系统默认链接器。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mold_rust_sml" alt="Mold 链接器徽标加入了 Rust 元素" />
-
-<p>Rui 认为，Rust 语言历经多年发展已经足够成熟，其强大的安全性保证等特性极具吸引力。此前另一款高性能链接器 Wild 也已采用 Rust 编写。Rui 希望 Rust 重写的 Mold 3.0 能保持与 Mold 2.xx 相当的高速链接表现。</p>
-
-<p>关于成为 Linux 默认链接器的目标，Rui 在公告中表示：过去 20 年间出现了 gold、lld、mold 等多个快速链接器，但大多数 Linux 发行版的系统链接器 <code>/usr/bin/ld</code> 仍是 GNU ld。Mold 仅需几百毫秒即可完成的链接任务，使用默认链接器可能要花上几秒、几十秒甚至几分钟。作为 lld 与 mold 的共同作者，他自认对这一局面负有部分责任——此前主要精力放在了加快链接速度上，而在让快速链接器可无缝替代系统链接器的兼容性工作上投入不足。Mold 3.x 系列的核心目标之一，就是让 Mold 能被 Linux 发行版采纳为 <code>/usr/bin/ld</code>：首先要实现缺失的链接脚本（linker script）特性，使 Mold 不仅能链接用户态程序，还能链接内核与固件；随后将进行广泛的兼容性测试，并与 Linux 发行版开发者密切合作，推动实际落地。</p>
-
-<p>此外，Mold 也首次考虑支持增量链接（incremental linking）。公告称，若能找到在保持 Mold 简洁性与可靠性前提下实现增量链接的简单方式，他们将乐于引入，因为该特性可能显著改善部分工作负载。Rui 表示目前正在探索相关的设计方案。更多细节可参阅 <a href="https://www.phoronix.com/news/Mold-Linker-In-Rust-Coming">Mold 2.42.1 发布公告</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mold-Linker-In-Rust-Coming</guid>
-      <pubDate>Fri, 11 Sep 2026 13:21:42 GMT</pubDate>
     </item>
   </channel>
 </rss>
