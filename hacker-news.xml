@@ -3,7 +3,46 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 19 Sep 2026 22:57:53 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2026 01:04:13 GMT</lastBuildDate>
+    <item>
+      <title>作者主张：几乎不应该用 AI 来写作</title>
+      <link>https://news.ycombinator.com/item?id=49767937</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讨论是否应使用AI写作的观点性文章，不属于编程工具、AI模型发布等明确兴趣主题，兴趣不明确</small></p><p>这篇由 Erich Grunewald 撰写的文章提出一个颇具争议的观点：几乎不应使用 AI 写作。其核心理由有三点：其一，写作过程本身就是思考过程的重要组成部分；其二，AI 生成的文字往往在难以察觉的细微之处出现模糊和错误；其三，用 AI 写作而不加标注，对读者而言既粗鲁又具误导性。</p><p>文章还援引了 Eric Schwitzgebel 的观点，强调「阅读时点头认同」与「真正主动地生成文本」之间存在巨大的认知差异。文本一旦落纸，人容易被动地让「大致恰当的词语」蒙混过关，而不会像从零开始创作时那样对措辞进行费力、主动的推敲；即便人类专家也未必能清楚意识到塑造措辞的所有因素。</p><p>这篇帖子在 Hacker News 上引发了 117 条评论，讨论相当激烈。社区反馈大致分为几派：</p><ul>
+<li><strong>支持派</strong>：有用户（atdt）表示 LLM 让自己成为了更好的技术报告作者——它能提供庞大的语料和无限耐心，帮助人反复打磨句子，最终结果虽多出于 AI 之手，但声音仍能保持自己的风格。也有用户（bko）认为，把 AI 当作「编辑」来精简文字、节省读者时间是负责任的做法，不用反而失礼。</li>
+<li><strong>质疑派</strong>：有用户（alas44、D-Machine）指出 AI 在处理模糊量词、逻辑否定等细微之处时经常出错，会用学术化的形式化表述偷换原本精心选择的措辞，导致大量无关的争论。有人（bluefirebrand）直言自己「想当艺术家，而不是编辑」。</li>
+<li><strong>折中观点</strong>：有用户（polotics）提出更广泛的规则——「只应使用 AI 让自己更努力、更广泛地思考」。还有人（jameshart、AnimalMuppet）建议：让 AI 写给你自己读的东西（如资料总结），而不要让它写给别人消费的内容。</li>
+<li><strong>编辑与创作之别</strong>：有评论（patrickmay、michaelchisari）认为，用 AI 创作后人工审校，价值远不如从零手写——「写作即思考」，许多写作场景真正需要的其实是思考本身。</li>
+</ul><p>另有一位用户（calebkaiser）提出更有深度的看法：问题不在于 LLM 写得「差」，而在于它实在太强大，让人能信心满满地一步跨到略超出自身经验之外的成品，却因缺乏长期写作积累的「品味」而无法识别其中的不精确与难读之处。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49767937</guid>
+      <pubDate>Sat, 19 Sep 2026 16:35:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 编码智能体「约束框架（Harness）」设计实证研究：四组件拆解揭示模型与预算匹配策略</title>
+      <link>https://news.ycombinator.com/item?id=49753878</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 针对编码智能体约束框架设计的实证研究，紧密关联编程效率改进与AI软件技术进展，符合高兴趣主题</small></p><p>一篇刊登于 arXiv 的论文《编码智能体约束框架设计的实证研究》（An Empirical Study of Harness Design for Coding Agents）试图回答一个长期被忽视的问题：将大模型能力转化为真实软件工程表现的关键，究竟在于模型本身，还是在于连接二者的「约束框架」（harness）？以往研究多把 harness 视为一个整体黑箱，而该研究采用轻量级 harness，固定其执行循环，仅对三个组件——规划（planning）、动作空间（action space）与上下文管理（context management）——进行单独变化，从而在组件层面进行对比。</p>
+<p>研究在四个模型上、依托 SWE-Bench Verified 与 Terminal-Bench 2.1 两个基准，共评估了 176 组匹配设定，涵盖五种上下文管理策略、四种上下文窗口预算，以及对规划和动作空间的目标性消融。核心发现包括：</p>
+<ul>
+<li><strong>上下文管理在预算紧张时价值凸显</strong>：随着上下文窗口预算收紧，其收益越大，主要作用在于防止「上下文溢出」（context-overflow）导致的失败。</li>
+<li><strong>先规则删减、后 LLM 摘要的效率最优</strong>：在总结类策略之前先进行基于规则的删减（elision）能带来最强整体效率，而让被删减内容可恢复的机制徒增复杂度，模型很少使用且无准确率增益。</li>
+<li><strong>规划角色随模型强弱转变</strong>：对较弱模型，规划是提升准确率的「脚手架」；对较强模型，则主要成为成本节约器，准确率变化很小。</li>
+<li><strong>动作空间取决于模型的 shell 熟练度</strong>：预定义工具（predefined tools）能提升 bash 能力较弱模型的性能；而擅长 bash 的模型仅用 bash 接口即可高效运作，尤其在命令行密集型任务上成本大幅降低。</li>
+</ul>
+<p>轨迹层面的分析解释了上述效应：上下文管理是在不显著改变行为的前提下延长执行轨迹；规划改变的是轨迹在何处停止；动作空间则改变代码书写的粒度。研究者据此提出：harness 设计是一个「条件式系统问题」，各组件应根据目标模型、任务类型与资源预算来选择，而非采用统一的默认配置。</p>
+<h3>社区讨论焦点</h3>
+<p>Hacker News 上的评论整体认可该研究的价值，但引发了数轮争论。</p>
+<ul>
+<li><strong>结论是否「显而易见」</strong>：有评论者认为「bash 熟练模型配 bash 接口更好」等结论近乎「废话」，但更多人指出，对「显然」之事进行实证检验仍是宝贵科学——它缩小了假设空间，为后续构建打下更稳固的基础。</li>
+<li><strong>模型时效性问题</strong>：多位用户批评所用模型为去年发布的 Nemotron 系列与 Mistral-Medium，落后当前前沿两个世代（如今 Claude/GPT 乃至本地 Qwen 27B 已远超之），因此结论未必适用于当下模型。反对方则认为 harness 的有效性体现在与模型底层的交互方式上，基础原理具有迁移性，并指出「模型不同所以结论作废」的观点缺乏证据支持。</li>
+<li><strong>与业界实践相互印证</strong>：有用户提到 Anthropic 已在新模型上默认移除了会话内规划工具（todo/task 工具），与论文「规划对较强模型主要是成本节约器」的结论一致；另有用户分享其长期做法——在上下文用掉约四分之一到三成时进行 checkpoint 并重启会话，与论文「上下文管理在预算紧张时价值最大」的发现相呼应，这也与 Cursor 的官方建议一致。</li>
+<li><strong>对「bash 能力」定义的质疑</strong>：有评论者指出论文从未明确定义何谓「bash capable」，并呼吁为各模型建立一份「能力清单/配方手册」，以便按模型匹配 harness。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49753878</guid>
+      <pubDate>Fri, 18 Sep 2026 13:06:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 时隔一年，作者开源非自回归决策模型 Laya，直指 TypeSafe Jev 并非首创</title>
       <link>https://news.ycombinator.com/item?id=49765348</link>
@@ -919,62 +958,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49679643</guid>
       <pubDate>Sun, 13 Sep 2026 03:17:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Homebrew 7.0.0 发布：更快安装、更强沙箱、内置漏洞检查与原生 macOS 应用</title>
-      <link>https://news.ycombinator.com/item?id=49681545</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Homebrew 包管理工具新版本发布，属于编程工具发布/分享的高兴趣类别，用户必看</small></p><p>Homebrew 于 2026 年 9 月 13 日发布 7.0.0 版本。相较于 6.0.0，本次更新带来了更快的安装与升级速度、更强的沙箱保护、原生 macOS 图形界面应用 BrewUI、内置漏洞检查与安全公告数据库，同时结束了对 macOS 10.15 的支持，并将 Intel Mac 降级为 Tier 3（第三级支持）。</p>
-
-<h3>性能提升</h3>
-<p>新版本通过提升下载、准备与安装环节的并行度来最大化性能，<code>brew install</code>、<code>brew upgrade</code> 及 <code>brew bundle</code> 可重叠包准备与下载过程。同时优化了 <code>brew config</code>、<code>brew tap-info</code>、<code>brew cleanup</code>、<code>brew fetch</code> 等命令，减少启动时子进程数量，并复用已解析的 API 数据（每次加载时仍验证签名）。</p>
-
-<h3>安全改进</h3>
-<p>7.0.0 包含多项安全修复与新的安装保护机制，包括多个安全公告（GHSA）的修复，涵盖无符号 cask 移除元数据可执行 sudo 命令、恶意 cask 通过 LaunchServices 越权执行代码等问题。新版本以签名数据交付结构化设置，并沙箱化 formula 与 cask 操作，减少任意 Ruby 执行；默认阻止沙箱内读取主目录，并在下载阶段完成后于安装阶段禁用网络。</p>
-
-<h3>命令与配置</h3>
-<p>多项命令得到增强：<code>brew install --dry-run</code> 可同时预览公式与 cask；<code>brew info</code> 区分不可安装与未安装包；<code>brew services</code> 支持持久化服务覆盖；<code>brew doctor --json</code> 提供结构化诊断；<code>brew deps --brewfile</code> 可检查 Brewfile 依赖。</p>
-
-<h3>macOS 与 Intel 支持</h3>
-<p>Homebrew 于 2026 年 9 月将 Intel x86_64 平台移至 Tier 3，并在 2027 年 9 月结束对 Intel 的支持。官方解释称，苹果与 GitHub 均已退出对 macOS Intel 的支持，志愿者项目难以继续维护，建议 Intel 用户转向 MacPorts。同时，Homebrew 完全支持 macOS Golden Gate 27（Apple Silicon），其 .pkg 安装器仅支持 Apple Silicon 及 macOS Sequoia 15 以上系统。</p>
-
-<h3>BrewUI 应用</h3>
-<p>BrewUI 是 Homebrew 官方发布的成熟 macOS 图形界面应用，可通过 <code>brew install homebrew-app</code> 安装（需 macOS Tahoe 26 及以上）。它提供包浏览、搜索与已安装版本详情，并展示底层 brew 命令，桥接图形操作与终端命令。</p>
-
-<h3>Linux 与其他</h3>
-<p>Linux 方面，7.0.0 用 Landlock 取代 6.0.0 引入的 Bubblewrap 沙箱，无需额外依赖或提升 Docker 权限。非默认前缀用户可将兼容的 bottle 重定位到较短前缀，避免在默认安装位置之外进行源码构建。安全团队可使用内置的 <code>brew vulns</code> 基于 OSV.dev 检查已知漏洞，并可通过 CC0 许可复用 Homebrew 的 OSV 格式公告数据。</p>
-
-<h3>社区反响</h3>
-<p>HN 评论区中，有用户称赞新版本安装与升级速度「快得惊人」，认为性能曾是 brew 最大的痛点。也有 Intel Mac 用户对支持的终止表示惋惜与失望，另有一些用户对 Homebrew 的供应链安全策略提出质疑，开发者则以官方安全文档回应，强调项目非常重视供应链安全。</p>
-
-<div class="knowledge-box">
-<h3>你知道吗？</h3>
-<p><strong>Tier 支持等级</strong>：Homebrew 通过 Tier 等级描述对平台的支持程度——Tier 1 为完全支持并提供预编译的 bottle（二进制软件包），Tier 3 则表示项目不再提供支持与常规构建，用户可能需要进行源码编译。</p>
-<p><strong>Landlock</strong>：这是 Linux 内核提供的一种基于文件系统访问控制的无特权沙箱机制，无需 root 权限即可限制进程可访问的文件范围，比需要安装外部依赖的 Bubblewrap 更轻量。</p>
-<p><strong>OSV 格式</strong>：Open Source Vulnerability（OSV）是一种标准化、机器可读的开源软件漏洞描述格式，被众多漏洞数据库与扫描工具采用，便于跨工具共享与自动化处理漏洞信息。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49681545</guid>
-      <pubDate>Sun, 13 Sep 2026 08:41:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>JetKVM 发布更小巧实惠的 JetKVM Mini：有线版 $39、无线版 $42，固件开源</title>
-      <link>https://news.ycombinator.com/item?id=49681152</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为 KVM 硬件设备的发布，虽提及开源固件但与用户高兴趣类别匹配度不高，兴趣不明确</small></p><p>JetKVM 宣布推出 JetKVM Mini——一款更小、更实惠的 JetKVM（键盘、视频、鼠标远程管理设备）。它分为两个型号：带以太网的 <strong>JetKVM Mini</strong> 售价 39 美元，无线的 <strong>JetKVM Mini W</strong> 售价 42 美元；三件打包购买后单价可降至 33 美元和 36 美元。机身采用铝合金材质，尺寸为 42 × 42 × 23 毫米（约一盒火柴的大小），顶部为显示屏、侧面为按钮。</p>
-<img src="/blog/jetkvm-mini/angle.webp" alt="JetKVM Mini from above, showing the display on top and the buttons on the side" />
-<p>Mini 并非简配版，而是围绕 KVM 的核心功能重新架构的产品。它使用 <strong>ESP32-P4X</strong> 微控制器处理视频采集、H.264 编码、USB 和固件，无需 Linux 系统所需的独立 DRAM 与 eMMC，因此架构大幅简化，同时在更小的设计中保留了 JetKVM 的网页界面、云服务、扩展和更新系统。有线版通过 RJ45 以太网口连接网络；无线版则内置 2.4/5 GHz 无线网卡，适用于网线无法到达的机器，设置时通过蓝牙从手机或笔记本浏览器配网。</p>
-<p>硬件方面，Mini 以 1080p/30fps 或 720p/60fps 采集视频，由芯片硬件编码后通过 WebRTC 流式传输到浏览器；Mini W 额外加入 ESP32-C5 处理无线连接，支持 Wi-Fi 6 及 Zigbee/Thread。设备配备两个 USB 口：一个连接目标电脑（USB 2.0 High Speed，提供键盘、鼠标和虚拟光驱并取电），另一个为通用 USB 口（USB 2.0 Full Speed，可作为备用/次级供电，也能经外部供电后作为 USB 主机使用）。虚拟介质通过侧面的 TF 卡槽加载 ISO 镜像。</p>
-<img src="/blog/jetkvm-mini/back-ethernet.webp" alt="Back of JetKVM Mini with RJ45 and two USB ports" />
-<img src="/blog/jetkvm-mini/back-wifi.webp" alt="Back of JetKVM Mini W with two USB ports" />
-<p>软件方面，为 ESP32-P4X 重写的固件从发布首日即开源，并沿用原有协议，因此网页界面与云服务保持不变，支持键盘鼠标控制、文本粘贴、键盘布局、虚拟介质、JetKVM Cloud（外网访问）、Wake-on-LAN、MQTT 和 Home Assistant、OIDC 登录，以及带自动回滚的 OTA 更新。此外，JetKVM Mini 也支持 JetKVM OS Services，可在目标机器上以最高 4K 采集屏幕，并新增共享剪贴板、访客终端和文件传输功能。设备还预置了 JetKVM 公钥签名摘要，可通过网页界面一次性设置，永久锁定为仅运行 JetKVM 签名固件（secure boot）。</p>
-<p>两个型号均将于 2026 年 10 月 26 日通过授权经销商发售。</p>
-<p><strong>社区反馈</strong>：Hacker News 评论整体反响不错，不少用户惊叹 ESP32-P4X 仅凭 32MB 内存即可完成视频采集与 H.264 编码。但也有用户反映自己手中的 JetKVM 出现无法启动、连不上网络、键盘失灵等故障，另有部分用户抱怨发货延迟。还有评论指出该设备属于 IP KVM（远程管理设备），与「在多台电脑间切换」的传统 KVM 切换器是两类不同产品，二者的需求也不尽相同。</p>
-<h3>你知道吗？</h3>
-<p>KVM 在此处指的是 Keyboard–Video–Mouse（键盘-视频-鼠标）设备，让用户通过网络远程操作一台电脑的键盘、鼠标和屏幕画面。它常被误认为是与「内核虚拟机（Kernel-based Virtual Machine）」相关的虚拟化概念——本次评论中就有多位 HN 用户表达了这种混淆。JetKVM Mini 属于「IP KVM」或「KVM over IP」类别，侧重远程访问单台机器（包括 BIOS 界面），而非在本地多台电脑间切换。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49681152</guid>
-      <pubDate>Sun, 13 Sep 2026 07:49:46 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 19 Sep 2026 22:57:50 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2026 01:03:37 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.3-rc4 修复两个严重的 Btrfs 文件系统 Bug</title>
+      <link>https://www.phoronix.com/news/Btrfs-Fixes-For-Linux-7.3-rc4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讲的是Linux内核7.3-rc4对Btrfs文件系统两个bug的修复，属于内核/文件系统维护类内容，未命中用户明确的高兴趣主题，兴趣不明确，故为可选。</small></p><p>本周面向 Linux 7.3-rc4 内核的 Btrfs 文件系统修复集已合并，其中包含两个值得关注的 Bug 修复。</p>
+
+<p>第一个是自 Linux 7.2-rc1 引入并一直存在的回归问题，源于 <code>fs_fsid</code> 标识符的派生方式发生了变化。这一改动破坏了向后兼容性，包括对用户空间应用程序的影响：由于 <code>f_fsid</code> 会在内核更新后改变并在重启之间漂移，依赖稳定 ID 的程序因此受到影响。例如，依赖 FSID 来加密/解密 VPN 密钥文件的 NetworkManager OpenConnect，在 Btrfs 用户升级到 Linux 7.2 后便失去了 VPN 访问能力。为此，Linux 7.3-rc4 将 FSID 恢复为从文件系统 UUID 派生。</p>
+
+<p>第二个重大修复涉及 Linux 7.3 开发周期内引入的问题：它破坏了 <code>/dev/root</code> 的检测，影响了使用 GRUB2 启动无 initramfs（initramdisk）系统的场景。在 Linux 7.3 中，使用 Btrfs 根文件系统且无 initramfs 时，GRUB2 一直无法检测根文件系统设备。</p>
+
+<p>上述修复连同其他一些常规的 Btrfs 文件系统修复，已于本周合并，赶在周日 Linux 7.3-rc4 发布之前完成。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Btrfs-Fixes-For-Linux-7.3-rc4</guid>
+      <pubDate>Sun, 20 Sep 2026 00:26:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.4 简单优化可使文件只读打开速度提升约 39%</title>
       <link>https://www.phoronix.com/news/Linux-7.4-Faster-Do-Open</link>
@@ -609,21 +624,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Cache-Aware-Scheduling-4-Patch</guid>
       <pubDate>Fri, 11 Sep 2026 18:00:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux IO_uring 迎来一批&quot;疯狂&quot;补丁，带来显著性能提升</title>
-      <link>https://www.phoronix.com/news/Linux-IO-uring-Crazy-Friday</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux IO_uring异步I/O机制的大幅改进补丁，属Linux内核技术进展，推荐阅读</small></p><p>Linux 块子系统维护者及 IO_uring 主要开发者 Jens Axboe 又发布了一批"疯狂"（crazy）补丁，为这一出色的异步 I/O 框架带来显著的性能提升。Axboe 本周的最新工作聚焦于改进内核的阻塞（blocking）行为。</p>
-<p>按照 Axboe 在今天 RFC 补丁系列中的描述，io_uring 会以 <code>IO_URING_F_NONBLOCK</code> 内联方式发起请求，并在无法内联时将其转交（punt）给 io-wq。但对 fsync、statx、openat、*at 系列、xattr、fadvise、splice 等一批操作码而言，由于内核中没有对应的非阻塞路径，它们会被无条件转交，而每次转交都要付出一次线程唤醒、一次上下文切换和一次 task_work 完成的往返开销。同时 io_uring 必须谨慎行事，以避免在内核中意外阻塞，即使这些操作绝大多数时候都不会阻塞。</p>
-<p>Axboe 的这套补丁改为以阻塞模式内联发起这些请求，并且仅在请求真正阻塞时才付出转交的代价。不过一旦阻塞发生，提交者已带着请求深入内核并处于调用栈之上，无法将工作转移到其他线程；能转移的是"身份"（identity）。如果提交任务发生阻塞，一个空闲的 io-wq 工作线程会接管其用户可见的身份（tid、信号状态、凭据、调度属性、cgroup、用户寄存器状态），完成 io_uring_enter() 调用并以提交者的身份返回用户空间，而原任务则以 io-wq 工作线程的身份完成请求并加入线程池。从用户空间的角度看毫无区别——系统调用返回的是同一个 tid，只是底层换成了不同的 task_struct。Axboe 还提到，大约 20 年前曾有过类似的尝试。</p>
-<p>Axboe 在 X（推特）上分享了这些"疯狂补丁"以及 IO_uring 的"美味结果"（tasty results）图形，对于不太关心内部技术实现的用户来说尤其振奋：</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=axboe_crazy_iouring_1" alt="IO_uring benchmark results" />
-<img src="//www.phoronix.net/image.php?id=2026&image=axboe_crazy_iouring_2" alt="IO_uring benchmark results" />
-<p>目前尚不清楚这项工作最终会走向何方，以及是否能在 Linux v7.4 周期内合并到主线内核。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-IO-uring-Crazy-Friday</guid>
-      <pubDate>Fri, 11 Sep 2026 16:21:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
