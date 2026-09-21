@@ -3,7 +3,97 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 21 Sep 2026 10:38:47 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 17:02:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Kev：基于 Qwen3.5 的可本地训练与运行的小型决策模型家族</title>
+      <link>https://news.ycombinator.com/item?id=49783999</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 基于 Qwen3.5 的可本地训练运行的小型决策模型，属新 AI 模型发布且涉及开源项目，符合高兴趣与感兴趣配置</small></p><p>Jared Palmer 发布了 <a href="https://github.com/jaredpalmer/kev/tree/main">Kev</a>，一个基于 Qwen3.5 构建的小型决策模型家族，其架构源自 Jev 的 "Architecture Unmasked" 论文。Kev 提供 0.8B、4B 和 9B 三种规模的预训练权重，同时开放训练代码和评估数据，用户可以在自己的硬件上训练和运行这些模型。</p>
+
+<p>Kev 的核心能力是在同一次请求中处理三类问题：是非判断（noul）、多项选择（choice）和评分（score）。所有问题共享输入文本，但彼此隔离、互不可见。API 与 TypeSafe 的 System One 兼容，可直接将 TypeSafe 的 Python SDK 指向本地服务器使用。模型支持 CUDA 和 Apple Silicon，其中 4B 和 9B 版本可在 32GB 内存的 Mac 上以 bf16 精度运行。</p>
+
+<p>在性能方面，Kev-9B 在新来源数据集上的准确率达到 0.852（测试集），Brier 分数为 0.237，与托管服务 Jev 的差距约为 3.5 个点。模型默认启用概率校准，每个检查点内置了拟合的温度参数（约 2.1–2.4），可将校准误差从 0.106 降至 0.042。此外，可选的 <code>KEV_DATE_FACTS=1</code> 设置能帮助模型处理日期计算，在截止日期类问题上将准确率从 0.80 提升至 0.90。</p>
+
+<p>项目还包含一个网页 playground，支持测试输入文本、对比不同选项顺序对答案的影响，以及一个国际象棋演示（棋盘作为输入，合法走法作为选项）。所有权重均发布在 GitHub Release 和 Hugging Face 上，附带 SHA-256 校验和。</p>
+
+<h3>社区反馈</h3>
+<p>HN 讨论中，多位用户对开源 Jev 类模型表示欢迎。有评论者将其类比为"智能 if 语句"，适合在代码中需要一定智能判断的场景。也有用户指出，这类模型在编码代理中可用于强制执行前端样式规则和组件创建规范，避免 UI/UX 漂移问题。不过也有声音认为，相比现有的工具调用（tool-calling）方案，这类模型带来的实际增量价值有限，需要结合具体基准来判断。另有用户提到决策模型缺乏工具调用能力，知识截止日期可能成为长期使用的瓶颈。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49783999</guid>
+      <pubDate>Mon, 21 Sep 2026 07:11:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ MCP 从开始就是个坏主意？一位开发者的反思激起热议</title>
+      <link>https://news.ycombinator.com/item?id=49779329</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开发者对 MCP 协议的反思热议，属 AI 软件技术进展范畴，用户感兴趣</small></p><p>一位开发者在博客中直言《MCP 从开始就是个坏主意》（Why MCP was always a bad idea），认为模型上下文协议（Model Context Protocol, MCP）是为「还不够聪明」的 LLM 时代设计的协议，如今已被更好的模型超越，应该被淘汰。<img src="/_astro/im-tired.76t17z_Q_Z2kioeJ.webp" alt="Let me get this straight, you think MCP is a bad idea? I do, and I'm tired of pretending it's not." width="500" height="524" /></p>
+
+<p>文章回顾了 MCP 的历史：它由 Anthropic 于 2024 年 11 月发布，用于帮助代理连接外部服务与数据源，并于 2025 年被捐赠给 Linux 基金会旗下的 Agentic AI Foundation。随着采用率暴增，用户添加大量 MCP 服务器后遭遇了「上下文膨胀」（context bloat）问题——每个服务器都带多个带 schema 的工具，挤占了模型的上下文窗口，催生了各类代理编排平台来缓解问题。</p>
+
+<p>作者的核心论点是：这些围绕 MCP 搭建的整套体系，恰恰忽略了「模型在变强」这一事实。如今的 LLM 已经能编写并运行脚本、直接调用 API、组合多种服务，甚至通过 <code>--help</code> 命令自行发现和驾驭命令行工具（CLI）。因此，多数远程服务型 MCP 服务器本质上只是「包装了本就存在的 API」，现已变得多余。</p>
+
+<p>作者的建议是：删除大多数 MCP 服务器，让具备终端访问权限的代理直接驱动 CLIs。尽管 CLI 返回机器可读数据（JSON/XML 等）可能冗长耗 token，但可通过标准化方式解决。文章提出，应开始标准化代理直接使用 HTTP API：例如代理客户端可在请求头中标识自身身份，服务器则自动返回 Markdown 或纯文本而非 HTML 或冗长 JSON。</p>
+
+<p>文章列举了一些「现实例证」：越来越多的站点（尤其是文档站）开始支持 <code>Accept: text/markdown</code> 请求头；Vercel 工程师呼吁在 <code>Accept-Language</code> 头中传递偏好编程语言，以便文档站返回对应 SDK 示例，Shopify 创始人 Tobi Lutke 已表示将在 Shopify 文档中支持该做法。</p>
+
+<p>该文在 <a href="https://news.ycombinator.com/item?id=49779329">Hacker News</a> 上引发热烈讨论（约 260 条评论）。支持者认为，代理已能很好地驾驭 CLI 和 API，且 MCP 的凭证认证并不比直接暴露环境变量更安全；但不少评论者也提出反驳：许多企业级生产应用仍需成本敏感的模型辅助，MCP 在限制代理权限、提供受控查询与防护转换方面仍有价值，且并非所有场景都适合把 shell 访问权限交给 LLM。还有评论指出，用 <code>Accept-Language</code> 传递编程语言是对既有标准头语义的误用，争议颇大。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49779329</guid>
+      <pubDate>Sun, 20 Sep 2026 19:44:40 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 「我经常犯错」：一位 AI 时代产品人的迭代式问题解决框架</title>
+      <link>https://news.ycombinator.com/item?id=49777467</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI 时代产品人迭代式问题解决框架，涉及 AI 软件技术进展与效率改进经验，符合用户兴趣</small></p><p>Boris Cherny 在博客中分享了他写给团队的一则笔记，阐述自己在 AI 时代构建产品时采用的一套迭代式问题解决框架。他坦言自己「经常犯错」，并认为这正是高效解决问题的关键。</p>
+
+<p>他的方法包含六个步骤：理解现有信息、收集缺失信息、定义问题、定义清晰简单的解决方案、定义目标、以紧迫感行动。在整个过程中，新信息的出现会促使他不断回到第 3-5 步重新定义，形成迭代循环。他认为，对于复杂问题，这种看似「反复折腾」（thrashy）的过程其实是健康的，因为只有根据新数据调整先验假设，才能真正解决问题。</p>
+
+<p>作者特别指出，最常见的失败模式是第 3 步（未能清晰定义问题）和第 4 步（未能定义清晰简单的方案），这会导致计划复杂、成功标准模糊。他强调实时反馈的重要性，并欢迎他人对自己的框架提出批评。</p>
+
+<p>这篇文章在 Hacker News 上引发了热烈讨论（303 分，207 条评论），观点呈现明显分歧：</p>
+
+<ul>
+<li><strong>支持者</strong>认为这与亚马逊的文档决策流程和 OODA 循环（观察-定向-决策-行动）高度一致，是经过验证的有效方法。有评论者表示，在做出承诺前充分知情并迭代决策文档，优于职业生涯中见过的所有替代方案。</li>
+<li><strong>批评者</strong>则质疑将个人框架强加于团队的做法，认为「反馈」一词在权力不对等的关系中可能沦为控制工具。有人指出「紧迫感」作为默认流程可能导致团队倦怠，还有人讽刺这是「招募应声虫」的方式。</li>
+<li><strong>作者回应</strong>：作者澄清自己并非管理者而是独立贡献者（IC），强调框架并非唯一正确的方法，并解释「反馈」在健康文化中应是诚实、无指责的沟通方式。他也回应了关于 Agents.md 的评论，表示两者无关，只是恰好在同一周发生。</li>
+</ul>
+
+<p>有评论者精辟总结：这套框架的前五步不过是「先搞清楚状况再行动」的正式化表述，第六步则是「然后快速行动」。也有观点指出，问题解决的最大难点往往在于识别正确的问题本身——OODA 循环最初源于空战场景，那里问题定义是清晰的，而现实中的问题往往模糊得多。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49777467</guid>
+      <pubDate>Sun, 20 Sep 2026 16:41:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>高级工程师的&quot;死亡螺旋&quot;：如何避免在新岗位中陷入自我证明的恶性循环</title>
+      <link>https://news.ycombinator.com/item?id=49776130</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于工程师职业发展与自我证明的软技能话题，标题含义模糊，与配置兴趣关联不明确</small></p><p>Sunil Pai 在文章《The senior engineer death spiral》中，以第一人称口吻向一位刚获得高级职位、感到冒名顶替综合征（imposter syndrome）的朋友分享了自己的观察和建议。</p>
+
+<h3>什么是"死亡螺旋"</h3>
+<p>文章指出，当工程师进入新公司、获得晋升或接手大型项目时，常会陷入一种常见的失败模式：他们试图"扮演"比自己实际水平更高级的工程师，设计过于宏大的方案，然后开始长时间"消失"——连续两三周没有产出，只在站会上给出"一切顺利"的积极更新。实际上他们什么都没交付，内心开始恐慌，告诉自己"只要再努力一点就能赶上"，于是开始失眠、错过饭点、情绪低落，工作与个人关系都受到影响。最坏的情况下，他们会精疲力竭、被列入绩效改进计划（PIP）、被解雇或主动辞职。</p>
+
+<h3>作者的处方</h3>
+<p>作者强调，由于远程办公、AI 编码工具等变化，工程师现在拥有更多自主权，但也更容易被孤立。他建议的解决方案有些反直觉：<strong>不要试图表现得更高阶，而是"降一级"</strong>，暂时成为团队最好的队友——主动承担 bug、杂务、文档等没人愿意做的琐事。</p>
+
+<p>核心逻辑是：从"结果导向"转向"动量导向"（momentum-based）。通过建立日常节奏、修复与同事的关系来积累耐力和信任，因为大型项目不是靠一次大爆发完成的，而是靠每天一点一滴的持续积累。作者总结道："你从事的是建立声誉的生意，软件只是它的下游产物。"</p>
+
+<img src="/_astro/senior-engineer-death-spiral.BObau-Zy_1oRjvd.webp" alt="A hand-drawn grid spiraling into a dense knot, with one loose line escaping to the edge." width="1536" height="1024" />
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论（222 分，133 条评论）反应热烈但观点分歧：</p>
+<ul>
+<li>多位用户认同这一现象，表示自己或同事曾经历过类似情况。有用户指出，面试过多位优秀的高级工程师候选人，却在入职 6 个月内看着他们陷入这种循环而离开。</li>
+<li>有评论认为这并非高级工程师特有的问题，更像是一种 ADHD 式的时间与兴趣管理问题。</li>
+<li>部分用户批评文章的"意识流"写作风格和大量使用"bro"等口语表达，认为缺乏深度；但也有用户为作者辩护，认为内容本身有价值。</li>
+<li>有资深工程师表示"做好工作、与人为善，其余自然水到渠成"，但另一些用户反驳称，自 2023 年以来晋升通道已大幅收窄，"做好工作"的回报可能只是"不被裁员"。</li>
+<li>有评论建议，与其在现有公司争取晋升，不如在保持现有职位的同时去其他公司寻找更好的机会。</li>
+<li>还有用户建议，管理者应主动关注那些"陷得太深"的同事，及时进行友好沟通，因为他们可能自己都意识不到问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49776130</guid>
+      <pubDate>Sun, 20 Sep 2026 14:16:14 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ AX——Google 开源的智能体编排器（Agentic Orchestrator）</title>
       <link>https://news.ycombinator.com/item?id=49780797</link>
@@ -925,101 +1015,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49716176</guid>
       <pubDate>Tue, 15 Sep 2026 17:52:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google 发布 Gemini 3.8 Live 与 3.8 Live Extended Thinking：新一代实时语音对话模型</title>
-      <link>https://news.ycombinator.com/item?id=49715947</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Google 发布新 AI 语音对话模型，属于新AI模型发布公告及AI软件进展，高度契合兴趣</small></p><p>Google 正式推出两款新的实时语音对话模型：<strong>Gemini 3.8 Live</strong> 和 <strong>Gemini 3.8 Live Extended Thinking</strong>，宣称是其迄今为止最先进的实时对话模型，旨在让语音交互更自然、流畅且智能。</p>
-
-<p><img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini_3-8_live___keyword__blog-h.width-200.format-webp.webp" alt="Gemini 3.8 Live" /></p>
-
-<p><strong>两款模型的定位</strong>：Gemini 3.8 Live 主打规模化与成本效率，结合对话智能、流畅对话与视觉锚定（visual grounding），适合广泛的日常语音交互；Gemini 3.8 Live Extended Thinking 则面向高复杂度任务，具备更强的智能和多步推理能力，可在对话中「边推理边说话」，通过「让我查一下……」等早期语音提示自然回应，并在后台执行多步任务时实时播报进度。</p>
-
-<p><strong>核心能力</strong>：3.8 Live 支持近实时处理视觉输入，可在对话中自动检测并在 97 种支持的语言之间切换；同时可在对话进行时于后台执行工具和 API 调用，让模型一边回应用户请求、一边完成后台任务。</p>
-
-<p><strong>基准测试表现</strong>：3.8 Live Extended Thinking 在 <a href="https://artificialanalysis.ai/">Artificial Analysis</a> 的语音到语音质量指数（Speech to Speech Quality Index 82.6）中排名第一，在智能体任务完成基准上取得 68.6%（τ-Voice）和 35.1%（Sierra 的 τ-Voice-banking），并在 Big Bench Audio 上取得 97.7% 的分数；3.8 Live 则在 Speech Agent Arena 中位列第二。在 ServiceNow 的 EVA-Bench 上，两款模型在复杂工作流的准确性与对话质量间取得了良好平衡。</p>
-
-<p><img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini-3-8-audio__evals__S2S-inde.width-100.format-webp_VVJ0h6W.webp" alt="Speech to Speech Index 图表" /></p>
-
-<p><strong>生态与应用</strong>：开发者可通过 Gemini Live API 使用这些模型，Agora、Fishjam、LangChain、LiveKit、Pipecat、Vercel 和 Vision Agents 等平台已支持构建高性能语音界面。Salesforce、Genspark 和 Lumeris 等合作伙伴对其延迟、流畅度和工具调用能力表示认可。模型还内置 <strong>SynthID 音频水印</strong>，用于帮助检测 AI 生成内容、防止误导信息。</p>
-
-<p><strong>可用范围</strong>：3.8 Live 面向开发者（Gemini API、Google AI Studio）、企业（Gemini Enterprise 私有预览）和大众（Search Live）推出；3.8 Live Extended Thinking 则面向开发者、企业及 Gemini Live、Google AI Pro/Ultra 用户在 Workspace 的 Docs，以及所有 Google AI 用户在 Gmail 和 Keep 推出。</p>
-
-<h3>HN 社区反馈</h3>
-<p>讨论区反应较为多元。有用户称赞 Gemini Live 模式「感觉像在和真人交谈」，比 GPT Voice 更自然，但也有批评指出演示视频中模型在下棋时输给了最常见的将杀模式，给人观感不佳。部分用户抱怨 Google 尚未向 Google AI Plus 用户开放 3.8 版本，也有用户询问 Vertex 平台的可用性。还有讨论围绕 Google 相对其他厂商（Claude、GPT、Grok 等）在智能上的竞争地位展开，有人对 Google 的追赶速度表示质疑，也有人认为 Google 凭借广告与云业务拥有充足资源，最终可能成为赢家。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>SynthID</strong>：这是 Google DeepMind 开发的内容水印技术。与视觉水印不同，SynthID 将不可感知的信号直接嵌入音频波形中，人耳难以察觉，但可通过专门工具检测，从而判断音频是否由 AI 生成，用于溯源与防伪。</p>
-<p><strong>Speech to Speech（S2S）质量指数</strong>：由 Artificial Analysis 推出的评估体系，从多个维度综合衡量语音模型在端到端对话（接收语音、理解、推理并生成语音应答）中的整体表现，而非仅考察单点能力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49715947</guid>
-      <pubDate>Tue, 15 Sep 2026 17:38:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Show HN：Capsule——把网页应用及其数据打包进单个 SQLite 文件</title>
-      <link>https://news.ycombinator.com/item?id=49712278</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 展示将网页应用打包进单个文件的编程工具，属于编程工具发布分享，高度契合兴趣</small></p><p>一位开发者（HN 用户 bashtian）在 Hacker News 上发布了 Capsule，这是一款用 Rust 和 Tauri 2.0 构建的应用，可将 HTML 应用及其所有数据打包成一个便携的 <code>.capsule</code> 单文件。核心理念是让「应用」变得像文档一样——无需云端、无需账号，通过 WhatsApp、AirDrop 或邮件即可像 PDF 一样分享，接收方点击文件即可直接运行并加载全部数据。</p>
-
-<p>具体而言，HTML 文件和相关资源直接嵌入在 SQLite 数据库中；用户数据既可以保存为 localStorage 键值存储，也可以通过类似 MongoDB 的 collections API 以文档形式存入文件中的表里，还能把 PDF、图片等资产一并存入库中，并支持导出为 CSV 或 JSON。</p>
-
-<p>隐私和安全性是该项目的重要考量：文档默认无法访问文件系统，访问互联网需要额外授权。作者表示权限模型仍在改进中。此外，Capsule 文档还可调用本地或远程 AI 模型，实现面向特定文档的 AI 功能。</p>
-
-<p>一个已知的局限是：多人协作会产生不同的文件副本。为便于合并，每条数据都带有唯一的 UUID 和时间戳。作者计划在 1.0 版本时开放文件格式规范，以便其他应用读写 Capsule 文件。目前可在 <a href="https://withcapsule.app/preview" rel="nofollow">withcapsule.app/preview</a> 的网页预览中试用预置模板，也可以借助任何 AI 提供商按提示词（<a href="https://withcapsule.app/prompt.txt" rel="nofollow">prompt.txt</a>）生成自定义应用。桌面端支持 macOS、Windows 和 Linux，iOS 与 Android 支持即将推出。</p>
-
-<p>社区反响总体积极（该帖获 261 分、114 条评论），但讨论中也提出了不少质疑。多位用户将其类比为「MS Access 的现代版」「Lotus Notes 的再现」「用 LLM 和网页技术重做 Visual Basic」。主要争议点包括：运行 .capsule 文件仍需安装宿主应用，这类似 Java 运行时，构成分发门槛；且浏览器本身已限制了本地 HTML 文件的能力，为何不直接用 HTML/CSS 分发。作者回应称，HTML 文件无法在本地自我更新保存数据，而 Capsule 的价值在于「个人文档式应用」——同一文件既保存 UI 又保存数据。另有评论指出，Chromium 的 File System API 加 PWA 可近似实现此效果，而作者认为将数据 schema 化会增加迁移复杂度，保持无 schema 更便于合并和导入 CSV。也有人担心这种「查看器/宿主应用」模式带来的厂商锁定问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49712278</guid>
-      <pubDate>Tue, 15 Sep 2026 13:31:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ TypeSafe AI 发布首个&quot;系统一模型&quot;Jev：放弃文本生成，专攻高速结构化决策</title>
-      <link>https://news.ycombinator.com/item?id=49717558</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍新AI模型'系统一模型'Jev的发布，属于新AI模型发布公告，用户很感兴趣</small></p><p>TypeSafe AI（该公司由曾参与 ChatGPT 研究的前 OpenAI 成员 Diogo Almeida 创立）宣布推出其首个"系统一模型"（System One Model）Jev，并开放早期访问。这是一类全新的前沿模型，目标是为软件自动化提供可直接使用的快速、结构化决策能力，而非生成对话文本。</p>
-
-<p>该公司称，Jev 在"系统一任务"上的智能水平与现有大语言模型（LLM）相当，但速度快了两个数量级、效率更高。与 LLM 不同，Jev 放弃了字符串生成，转而输出类型安全的、预先定义结构的值，并始终附带校准过的概率与置信度分数。它"不会产生幻觉"，也"永远不会出现类型错误"。</p>
-
-<p><img src="https://framerusercontent.com/images/GJQ5GxP1M9gB8CwqrvtTA9fAMA.png?width=1230&height=1008" width="1230" height="1008" /></p>
-
-<p><strong>技术路线</strong>：TypeSafe 构建了全新的技术栈——新的模型架构、用于最大化效率的并行采样器，以及名为"用于校准决策的强化学习"（Reinforcement Learning for Calibrated Decisions, RLCD）的训练方法。相比之下，现有 LLM 多使用 RLHF/RLVR 优化，侧重于人类偏好的文本与可程序化验证的输出。</p>
-
-<p><strong>关键差异</strong>：</p>
-<ul>
-<li>输入侧强调结构化程序状态，而非连续消息；</li>
-<li>输出为类型安全的结构化值，答案附带校准概率；</li>
-<li>采样方式为并行（单次查询输出全部结果），而非逐 token 生成；</li>
-<li>输入约 $0.042/MTok，输出 token 免费；</li>
-<li>端到端响应时间为 70ms–500ms，比前沿模型的 3–329 秒快 40–200 倍；</li>
-<li>始终给出置信度，且校准可靠（高置信度=高准确率）。</li>
-</ul>
-
-<p><strong>适用场景</strong>：AI 驱动的工作流（如智能 if 语句：分类、路由、评分、抽取、分支）、实时应用、大规模数据特征化、以及校验/守卫 LLM 的提示词、推理链路与输出。</p>
-
-<p><strong>证据与演示</strong>：文章提供了速度、成本、类型安全等结果的说明，并承认部分数据存在偏倚（如西海岸笔记本上运行、基准参考模型偏向 OpenAI/Anthropic 等）。团队展示了两个有趣的演示——一个用 Jev 实时游玩 Doom 的机器人，以及一个"维基竞速"（Wikiracing）演示。</p>
-
-<p><img src="https://framerusercontent.com/images/z4Uu1YpJeEZPBSMTCMI0CN2PX0.png" width="836" height="459" /></p>
-<p><img src="https://framerusercontent.com/images/ih1bFwZGYJxlnijbTuXx3f9NeM.png" width="1024" height="352" /></p>
-<p><img src="https://framerusercontent.com/images/KEoJ6ZaJkOZG6mcjBsOlB3NCqek.png" width="1024" height="316" /></p>
-
-<h3>社区反应</h3>
-<p>Hacker News 评论区的反应褒贬不一。有人对 Doom 演示表示赞叹，但也有不少人质疑文章"声称严谨却缺乏实质性证据"——评论者指出除了一些演示视频外，缺乏可验证的硬数据，并呼吁提供实时演示。也有用户提出 Jev 若能接收抽象语法树（AST）或许可用于编码任务。部分评论提到最初曾误以为这是一篇讽刺文章或 AI 生成内容。</p>
-
-<h3>你知道吗？</h3>
-<p>"系统一模型"的名称源自诺贝尔经济学奖得主丹尼尔·卡尼曼（Daniel Kahneman）在《思考，快与慢》中提出的系统一（直觉、快速）与系统二（审慎、缓慢）思维之分。而模型名"Jev"致敬经济学家威廉·斯坦利·杰文斯（William Stanley Jevons）——"杰文斯悖论"指出提升效率反而可能增加资源的总消耗；TypeSafe 借此表达：智能成本每下降一个数量级，将解锁更多数量级的新用例。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49717558</guid>
-      <pubDate>Tue, 15 Sep 2026 19:25:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 26.10 完成基于 Rust 的 coreutils 迁移</title>
-      <link>https://news.ycombinator.com/item?id=49696697</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Ubuntu发行版将核心工具迁移到Rust，属于用户感兴趣的开源项目与软件技术进展</small></p><p>Ubuntu 26.10「Stonking Stingray」将完成发行版向基于 Rust 的核心工具（coreutils）的迁移。此前在 Ubuntu 26.04 LTS 中，cp、mv 和 rm 等命令因 uutils 版本存在一批<a href="https://www.omgubuntu.co.uk/2026/09/ubuntu-2610-rust-coreutils-complete">TOCTOU（time-of-check to time-of-use）安全缺陷</a>而被保留在 GNU 版本上；随着这些问题在上游得到修复，26.10 将补齐剩余的迁移，让 ls、cat、chmod、du 等常用命令行工具全部采用 Rust 实现。</p><p>Canonical 自 2025 年起开始「氧化」（oxidising）发行版，用 Rust 替代基础软件，理由是 Rust 能在编译期捕获内存错误，而 C 编译器则不能。Ubuntu 25.10 是首个内置 Rust 工具并默认采用基于 Rust 的 sudo 的版本。迁移过程并非一帆风顺，但 Canonical 较为谨慎：在 26.04 发布前委托对 uutils 进行了安全审计，正是这次审计发现了导致三款命令推迟迁移的问题。</p><p>Canonical 还是 Trifecta Tech Foundation 的黄金赞助商，每年向其捐赠 4 万欧元以资助 Rust 软件研发。该非营利基金会正在开展网络时间协议（NTP）的 Rust 重写，Ubuntu 计划在 27.10 之前将其设为默认的时间同步客户端。</p><p>对终端用户而言，此次 coreutils 迁移不会带来功能差异——基于 Rust 的 uutils 以与 GNU 版本实现无差异的「即插即用」兼容为目标，任何偏差都被视为缺陷。这次迁移的核心目的纯粹是提升安全性。Ubuntu 26.10 测试版将于本月晚些时候发布，稳定版计划于 2026 年 10 月 15 日推出。</p><h3>社区反响</h3><p>Hacker News 评论区讨论热烈，观点分歧明显。有用户展示了一个 bug：uutils 的 <code>rm</code> 在面对包含数万个深层目录条目时会出现段错误（segmentation fault），质疑迁移是否过于仓促；也有用户指出这只是非 LTS 的中间版本，且该问题已作为上游缺陷报告。另有多名用户对迁移的动机存疑：有人认为是出于许可（GNU 为 copyleft，Rust 版本采用宽松许可）或意识形态考量，而非技术原因；也有人批评 uutils 的代码质量与性能仍有不足。同时，部分用户提到可通过 <code>coreutils-from-gnu</code> 包继续使用 GNU 版本，但 build-essential 依赖关系的限制使其难以共存，引发了对 Canonical 路线的不满。</p><h3>你知道吗？</h3><p>TOCTOU（time-of-check to time-of-use）是一类经典的竞态条件（race condition）漏洞：程序在「检查」某个状态（如文件是否可写）与实际「使用」该状态之间存在时间窗口，攻击者可在这一窗口内篡改条件，从而绕过安全检查、导致权限提升。文件系统操作是实现此类攻击的典型场景，这正是 cp、mv、rm 等核心工具需要格外关注的原因。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49696697</guid>
-      <pubDate>Mon, 14 Sep 2026 13:38:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
