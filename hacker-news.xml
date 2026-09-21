@@ -3,7 +3,40 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 21 Sep 2026 00:12:54 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 21 Sep 2026 04:53:56 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ AX——Google 开源的智能体编排器（Agentic Orchestrator）</title>
+      <link>https://news.ycombinator.com/item?id=49780797</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Google 开源的智能体编排器，属于编程工具发布/分享及开源项目，用户很感兴趣，必看。</small></p><p>Google 发布了 AX，一个开源的智能体（Agentic）编排平台，宣称可以让开发者用 YAML 声明式地定义智能体任务，并以集群规模运行数十亿个此类任务。项目托管在 <a href="https://github.com/google/ax">GitHub 的 google 组织下</a>，采用 Apache 2.0 许可。</p>
+
+<p>AX 的核心理念是：智能体是一种全新的工作负载——既不是微服务，也不是批处理任务。它们会累积状态、需要严格隔离、需要调用模型 API 和工具服务器，如果无人监督还可能在循环中烧钱。为此，AX 提供了四个声明式基本原语：</p>
+<ul>
+<li><strong>Task（任务）</strong>：在带 CPU 和内存限制的沙箱中运行不受信任的智能体代码，创建、挂起、丢弃都很廉价。</li>
+<li><strong>Workspace（工作区）</strong>：列出智能体需要的 Git 仓库、MCP 服务器和技能，或仅用自然语言描述目标，AX 会在任务启动前自动完成搭建。</li>
+<li><strong>Gateway（网关）</strong>：定义并快速管理网络策略，将流量锁定到明确的主机与端口白名单，并向传入请求注入凭据。</li>
+<li><strong>Model（模型）</strong>：在一个地方统一配置模型、参数与密钥，一次 apply 即可轮换密钥或锁定新模型版本。</li>
+</ul>
+
+<img src="./axolotl.svg" alt="AX's pink axolotl mascot" width="210" height="140" />
+
+<p>AX 运行在 Google 自研的 Agent Substrate 计算运行时之上，宣称具备三大优势：每个任务作为轻量级 actor 运行，可扩展到每集群数十亿并发会话；等待模型响应、外部工具调用或人工响应期间的空闲智能体会被检查点保存、挂起，并在不到一秒内恢复（无冷启动延迟）；数十个任务共享 worker 资源，将空闲等待时间转化为额外计算能力，让用户只为智能体实际思考与运行代码的时间付费。平台还整合了生成式 AI 能力，例如仅用自然语言描述即可自动准备工作环境。</p>
+
+<p>AX 源于 Google 在智能体运行时系统方面的研究，结合了 Google DeepMind 的智能体运行时研究成果与大规模隔离、恢复和调度经验，目标是为开发者与研究者打造最友好的智能体运行基础设施。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论（326 分、126 条评论）呈现出明显的分歧与观望态度：</p>
+<ul>
+<li>多位用户对 Google 的产品策略持怀疑态度，一是认为 Google 倾向于「高调发布——短暂维护——慢慢弃用」开源项目，有人举例 Google Workspace CLI 仅维护了一个月即被搁置；也有人提及 Google 曾分叉自己的项目修补安全漏洞却从未上游合入。部分评论认为不应在标题中冠以「Google 的」之名，因为多数 Google 高管可能从未听说过此项目，尽管它确实位于 google 官方 GitHub 组织下。</li>
+<li>有用户对 Gemini 与 Sheets/Docs 的集成体验大加批评，称其「无能到完全无用」，连带削弱了对 Google 该新项目的信任。</li>
+<li>关于技术路线，评论者 jauntywundrkind 对比了 Google 的 <a href="https://github.com/googlecloudplatform/scion">Scion</a> 项目，认为 Scion 能更好地与现有工具（Claude、Code、OpenCode 等）协同，而 AX/Agent Substrate 更偏向全新独立的庞大技术栈；也有人指出要自建 Kubernetes 集群等前置依赖较为繁琐。</li>
+<li>有评论称 AX 本质上是「面向 Kubernetes 的虚拟线程」，也有人将其类比为「AI 的 K8s 化」。此外有用户提醒，这与现有的另一款名为 <a href="https://axllm.dev/">Ax</a> 的智能体开发工具会产生命名混淆。</li>
+<li>还有评论呼吁建立智能体框架的基准评测，以避免各家「王婆卖瓜」式的宣传。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49780797</guid>
+      <pubDate>Sun, 20 Sep 2026 22:32:43 GMT</pubDate>
+    </item>
     <item>
       <title>用灵媒骗术类比：聊天式大语言模型复制了「冷读术」的机制</title>
       <link>https://news.ycombinator.com/item?id=49775104</link>
@@ -987,33 +1020,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49696697</guid>
       <pubDate>Mon, 14 Sep 2026 13:38:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ dbt 开源 dbt Charts：面向聊天代理的可审计仪表盘声明式语言</title>
-      <link>https://news.ycombinator.com/item?id=49704246</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] dbt开源新的仪表盘声明式语言工具，属于编程工具发布与开源项目，用户很感兴趣</small></p><p>dbt Labs 宣布开源 <strong>dbt Charts</strong>，一种用于声明和渲染仪表盘的 YAML 方言与工具，目标是让「与 AI 聊天生成仪表盘」这种方式也能纳入标准化治理。创始人 Dave Fowler（ChatIO 创始）称，希望这类语言结合 AI 让 BI 领域更开放，使仪表盘成为简洁、可审计的代码。</p>
-
-<p><strong>背景：BI 的第二次去捆绑（Unbundling）</strong><br>文章援引 dbt 联合创始人 Tristan Handy 的观点：过去 BI 工具是"全家桶"，集成了数据摄取、转换、计算、语义、可视化与身份认证。约 2015–2022 年，基础设施层被逐一拆出成为独立组件（计算、摄取、转换各自独立），BI 工具只剩可视化、交互分析接口等功能，而图表是其中最大的部分。如今随着 AI 代理成为前端与使用者，相比在别人家的 UI 里点按，代理更擅长代码、SQL 和 Git，因此图表需要迁移到代码之中。</p>
-
-<p><strong>dbt Charts 的核心设计</strong><br>它把图表从 BI 工具中取出并放进代码——用 SQL 声明「想看什么数据」，用 YAML 包装来声明「想怎么看」。一个交互式仪表盘可在一个易于审计的 YAML 文件中完整声明。一个小例子（一个变量、一条查询、一个图表）即可构成整块仪表盘板，CLI 可将其渲染为 SVG、HTML、PNG、PDF 甚至终端输出，并可将一个目录作为站点托管。</p>
-
-<img src="/assets/img/blog/documents-growth.svg" alt="一个面积图示例，由上面的 YAML 板渲染而成" width="672" height="564" />
-
-<p>该语言至今已有 1100 多个配置选项、十六种图表类型及组合图表。样式采用级联机制（图表继承自看板，看板继承自主题），主题一行即可切换，看板也可继承其他看板，便于统一风格与标准报告。</p>
-
-<p><strong>与 dbt 深度集成</strong><br>charts/ 目录与 models/ 放在同一 Git 仓库中，模型与其图表的改动可同分支、同一次 CI 上线，在进入生产前就能发现断裂。查询通过 <code>ref()</code> 从 manifest 解析引用模型，重命名模型或缺失列都会让对应的拉取请求失败。对 dbt Semantic Layer 的支持也在规划中。</p>
-
-<p><strong>为聊天而构建</strong><br>dbt Charts 为代理提供严格的 YAML 与 SQL 校验，以及大量可视化检查，能在任何人看到看板之前就标记出问题（如条带过窄、表格列溢出等）。看板还由数据图形设计师、作者兼历史学者 RJ Andrews 设计，力求超越常见仪表盘网格，形成统一且更具匠心的图表系统。</p>
-
-<p><strong>配套托管平台</strong><br>同日上线的 <a href="https://dbtCharts.com">dbtCharts.com</a> 公开测试版，承载图表语言之外的其余部分：托管、访问控制与可视化编辑器，并内置一流的会话式分析能力（权限化的只读仓库访问）。无论通过聊天、可视化编辑器还是代码做出的改动，最终都落在同一份 Git 仓库中的 YAML 里，不锁定任何工作流。</p>
-
-<p>dbt Charts 采用 Apache 2.0 许可，可本地安装并渲染看板，无需注册账户。代码见 <a href="https://github.com/dbt-labs/dbt-charts">github.com/dbt-labs/dbt-charts</a>，文档见 <a href="https://docs.dbtCharts.com">docs.dbtCharts.com</a>。</p></p>
-
-<p><strong>你知道吗？</strong><br>评论区提到，dbt Charts 底层使用了 <a href="https://github.com/vega/vega-lite">Vega-Lite</a> 作为图表组装工具库。Vega-Lite 是一套基于静态数据的声明式图表定义语言，而 dbt Charts 在其之上增加了可复用的 SQL 查询、仪表盘层以及鲜明风格化设定。有用户也将其与 GGSQL、微软 Fabric 的技能文件等同类方案对比，并提及「统一的图表规范」仍是社区期待但尚未实现的理想目标。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49704246</guid>
-      <pubDate>Mon, 14 Sep 2026 21:22:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
