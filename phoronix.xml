@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 22 Sep 2026 14:49:01 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 18:50:06 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 图形驱动拟引入可变刷新率（VRR）目标限速器用户空间 API</title>
+      <link>https://www.phoronix.com/news/VRR-Target-Rate-Limiter-uAPI</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Linux图形驱动的可变刷新率(VRR)目标限制器提案，属于Linux桌面技术进展，用户感兴趣</small></p><p>一项新提案正在讨论中：为 Linux 桌面引入一个用户空间 API，用于指定可变刷新率（VRR）处理的帧率目标。Collabora 的 Nicolas Frattaroli 撰写了一份提案及一组 25 个补丁，寻求社区反馈。</p>
+
+<p>该 VRR 目标限速器接口可让游戏、应用程序和合成器（compositor）向驱动传达 VRR 应聚焦的受限范围或固定目标，并新增了面向「快速媒体切换」（QMS）的目标。Frattaroli 介绍该功能的目的：「此系列定义了一个新的用户空间 API，用于为可变刷新率（VRR）机制指定帧率目标，包括指定 VRR 应工作的受限范围以及固定目标，并新增一个面向 QMS 的连接器属性。之所以需要这样的用户空间 API，主要是为了规避现实世界的不完美。通过将 VRR 限制在有限范围内或完全锁定在固定点，我们可以在预期帧率范围内获得无抖动（judder-free）或低延迟呈现的好处，同时避免掉入会导致明显亮度闪烁的范围。QMS 的加入还允许连接器在媒体播放场景中提前预告即将到来的帧率变化，使电视等设备中的高级处理算法无需为了应对无预告的全速率呈现而被迫禁用。」</p>
+
+<p><img src="//www.phoronix.net/image.php?id=2026&image=vrr_limiter_uapi" alt="VRR Limiter UAPI" /></p>
+
+<p>这些补丁为 HDMI 状态辅助模块（state helpers）实现了「游戏模式」（Game Mode）VRR，并同样为 Rockchip RK3588 驱动实现了该功能。该主题也在今年的 Display Next Hackfest 上被讨论过。RFC 内核补丁可在 dri-devel 邮件列表中找到，此外还有一个 vrr-limiter Git 分支，其中包含针对 Wayland 参考合成器 Weston 的 VRR 限速器补丁。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/VRR-Target-Rate-Limiter-uAPI</guid>
+      <pubDate>Tue, 22 Sep 2026 15:29:30 GMT</pubDate>
+    </item>
     <item>
       <title>SPEC 发布适用于 Linux 的 SPECviewperf 15.0.1 工作站图形基准测试</title>
       <link>https://www.phoronix.com/news/SPECviewperf-15.0.1-Linux</link>
@@ -676,25 +691,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-45-Beta</guid>
       <pubDate>Tue, 15 Sep 2026 14:30:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>Sound Open Firmware 2.15 发布：新增 AMD ACP 7.x 支持与英特尔 UAOL</title>
-      <link>https://www.phoronix.com/news/Sound-Open-Firmware-2.15</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 介绍固件新版本，属底层基础设施范畴，兴趣不明确</small></p><p>开源、厂商无关的音频 DSP 固件栈与驱动框架 Sound Open Firmware（SOF）近日发布了 2.15 版本，带来多项新特性与硬件支持。</p>
-
-<p>本次更新引入了用户空间、内存保护的模块执行支持，并围绕 MMU 保护与整体安全性进行了强化，使运行异常或存在缺陷的模块无法再破坏内核内存或其他模块的内存。SOF 开发团队正朝着能够运行不受信任的厂商 DSP 模块这一最终目标迈进。</p>
-
-<p>在硬件支持方面，SOF 2.15 新增了对 AMD ACP 7.x 以及 NXP i.MX8MP Cortex-M7 的支持。AMD ACP 7.x 预计将用于基于 Zen 6 的桌面／笔记本设计，该音频协处理器被描述为提供「SoundWire DMA/DAI、TDM DAI 类型，以及针对 ACP 调校的 500µs 低延迟定时器」。这与近期 Linux 内核针对 AMD ACP 7.x IP 的驱动活动相呼应。</p>
-
-<p><img src="//www.phoronix.net/image.php?id=2026&image=sof" alt="Sound Open Firmware logo" /></p>
-
-<p>此外，本次发布还带来了英特尔 USB Audio Offload Link（UAOL）支持，可将 USB 音频从主机 CPU 卸载，由 DSP 直接处理 USB 音频。为改进 SOF 代码的测试，新增了 QEMU Xtensa 目标，以及用于安全加固的 POSIX 和 libFuzzer 模糊测试平台。SOF 2.15 还纳入了多项安全修复和额外的代码加固工作，并新增了 Phase Vocoder、STFT Process、IPC4 Tone generator、FFT 和 Selector 等音频处理模块。</p>
-
-<p>关于 SOF 2.15 的更多变更细节，可在项目 <a href="https://github.com/thesofproject/sof">GitHub</a> 页面查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Sound-Open-Firmware-2.15</guid>
-      <pubDate>Tue, 15 Sep 2026 13:04:40 GMT</pubDate>
     </item>
   </channel>
 </rss>
