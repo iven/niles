@@ -3,7 +3,33 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 22 Sep 2026 09:53:48 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 14:48:58 GMT</lastBuildDate>
+    <item>
+      <title>⭐ gzip 能当语言模型用吗？探索压缩与预测的等价性</title>
+      <link>https://news.ycombinator.com/item?id=49797323</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 探索gzip压缩与语言建模预测的等价性，属于AI技术/科学前沿的理论性探讨，符合用户兴趣。</small></p><p>一位开发者尝试用 gzip 压缩器作为语言模型来生成文本，探索了「压缩即预测」这一信息论核心思想。作者此前曾用无界 n-gram 模型（无权重、无训练、仅计数）生成莎士比亚文本，在看到论文《Language Modeling is Compression》后，受到「每个预测模型本质上都是压缩器，所有压缩算法也都是预测模型」这一等价性的启发，提出了一个有趣的问题：能否直接用 gzip 做语言建模？</p>
+
+<p><strong>核心原理</strong>：压缩器对「预期」的数据花费更少的字节，对「非预期」的数据花费更多字节。根据信息论，编码一个符号所需的比特数是 $-\log_2 p$（$p$ 为模型赋予该符号的概率），因此任何压缩器内部都隐藏着一个概率模型。gzip 使用 DEFLATE 算法，通过在 32 KiB 滑动窗口中查找与近期文本的匹配来压缩后续字节——如果续写内容呼应了窗口中的文本，就会被编码为廉价的回引（back-reference）。</p>
+
+<p><strong>生成方法</strong>：作者开发了名为 <strong>gzipt</strong> 的工具，采用束搜索（beam search）生成文本。由于 gzip 只返回整数字节长度（无小数），单字节预测的信号常被量化噪声淹没，因此需要向前看整个片段再提交。具体流程为：以语料库窗口加提示词/生成文本的近期尾部作为上下文，尝试所有在语料库中出现过的字节，按压缩后长度评分，保留最可压缩的若干候选，重复至指定步长后提交最优片段。作者强调，只有生成输出的尾部字节应留在评分上下文中，否则 gzip 会陷入逐字复制自身输出的循环。</p>
+
+<p>实际输出示例（以莎士比亚微型语料库为语料）显示，gzip 生成的文本虽不连贯，但明显「知道」一些关于文本的信息，远超作者的预期。整个实现是纯标准库 Python（仅用 zlib），代码已开源在 GitHub。</p>
+
+<p><strong>社区讨论</strong>：HN 评论区的讨论相当热烈。有用户指出，束搜索可能远未找到全局最优解——通过简单的 <code>rfind</code> 方法（在上下文中搜索提示词并复制后续文本）反而能得到比束搜索更优的压缩目标值，但这种方式对生成模型毫无用处。另有评论认为，gzip 与 LLM 是「截然不同的动物」：gzip 是线性扩展、运行在单核 CPU 上，而 LLM 的搜索空间随输入规模近似二次方增长。多位用户提到反向问题——LLM 作为压缩器的表现，并引用了 Fabrice Bellard 的 <a href="https://bellard.org/ts_zip/">ts_zip</a> 项目（用 LLM 压缩文本，击败 xz）以及 Hutter Prize 竞赛。还有用户分享了用 LZO 做垃圾邮件分类器、以及用 zstd 做文本分类的类似实践。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49797323</guid>
+      <pubDate>Tue, 22 Sep 2026 06:08:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ AI 编程让 CI 成为瓶颈，Linear 如何重构其持续集成系统来跟上节奏</title>
+      <link>https://news.ycombinator.com/item?id=49792067</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 围绕AI编程带来的CI瓶颈，重构持续集成系统提升效率，正是用户高度感兴趣的编程效率改进经验。</small></p><p>随着 AI 编程代理大幅提升代码交付速度，代码验证环节（持续集成，CI）逐渐成为瓶颈。Linear 团队在本文中详细分享了他们如何将 CI 视为一个系统进行整体重构，尽管测试套件规模自年初以来增长了近四倍，仍将拉取请求（PR）的等待时间从 6 分多钟缩短至 5 分钟出头，同时将每个测试的机器运行时间削减了近一半。</p><img src="https://webassets.linear.app/images/ornj730p/production/ecfd20aa38173e85e7abd6202c318a7b079beba9-3904x1600.png?q=95&auto=format&dpr=2" alt="CI 性能优化示意动画" width="3904" height="1600" /><p>改进主要围绕四个方面展开：</p><p><strong>升级基础设施与工具链</strong>：将工作负载从 GitHub Actions 迁移到采用更快 CPU、更高性能存储和更好缓存基础设施的第三方运行器，任务平均提速 34%；改用原生 TypeScript 编译器 tsgo 后，类型检查中位数耗时下降 73%。团队还重写了依赖类型信息的自定义 lint 规则，改用基于抽象语法树的静态分析，使 ESLint 不再依赖 TypeScript，API lint 时间降低 68%。</p><img src="https://webassets.linear.app/images/ornj730p/production/eda443b89372237b999b27ca5e953b82dfc33f9d-3904x2574.png?q=95&auto=format&dpr=2" alt="测试覆盖率上升（蓝线）与机器时间下降（白线）的对比图" width="3904" height="2574" /><p><strong>优化把关（gate）工作</strong>：针对位于关键路径上的变更检测等工作，限制拉取（fetch）深度并将最慢的门槛从 94 秒降至 20 秒，完全移除不需要工作目录的任务中的 checkout（从 27 秒降至 7 秒）。由于第三方运行器位于 GitHub 网络之外，团队用自研的重试复合操作替代 actions/checkout，并设置超时参数以避免网络不稳导致挂起。此外将本不该位于关键路径的缓存写入移到不把关任何工作的任务中，为每次 API PR 合并路径节省 42 秒。</p><img src="https://webassets.linear.app/images/ornj730p/production/5c8801fa44f16dc10d015ee843c7ce9d06a329f8-3904x1992.png?q=95&auto=format&dpr=2" alt="变更检测任务耗时分布优化前后对比直方图" width="3904" height="1992" /><p><strong>减少重复设置</strong>：在 CI 镜像中预装共享依赖；将 pnpm 安装限制为仅安装所需包，使其从 44~73 秒降至 16~18 秒；发现重建比缓存更快后放弃缓存 node_modules；用生成的 schema 快照替代重放完整数据库迁移历史；将七个各自启动运行器的小检查合并为两个任务并发执行，每月节省约 87,000 运行器分钟（占 CI 总用量的 11.8%）。这些改动使每分片（shard）的设置时间下降约 44%。</p><img src="https://webassets.linear.app/images/ornj730p/production/255f6d675d3c4fc66527d057e07583e4d7a965eaf-3904x2427.png?q=95&auto=format&dpr=2" alt="GitHub Actions 工作流步骤耗时对比" width="3904" height="2427" /><p><strong>提升测试执行效率</strong>：Vitest 按文件而非按测试时长分发工作，团队拆分大型测试文件并将分片数从 4 个增至 8 个，关键任务提速约 19%。引入 opt-in 的 <code>isolate: false</code> 项目，让安全文件在 worker 内共享模块注册表，这是最大的单项性能改进（月节省约 17%），最慢分片从约 300~379 秒降至约 195 秒。团队也更新了 agent 技能，使生成的测试默认遵循这些限制约束。</p><img src="https://webassets.linear.app/images/ornj730p/production/a138adde6e657ae99f1855219262a0d381617c89-3904x1801.png?q=95&auto=format&dpr=2" alt="模块状态共享优化示意" width="3904" height="1801" /><p>文章强调这些改进具有系统性复利效应：若年初未做努力，如今的测试套件可能需约 11 分钟，接近当前等待时间的两倍。Linear 目前仍以每周约 2,000 个测试的速度增长，团队将持续用这套方法论应对新瓶颈。</p><img src="https://webassets.linear.app/images/ornj730p/production/2446b3f3252a7dc866815ef107980a27f7f0fdab-3904x2784.png?q=95&auto=format&dpr=2" alt="CI 各阶段性能提升的百分比明细" width="3904" height="2784" /><p>该文在 Hacker News 引发广泛讨论（281 分、336 条评论），围绕几个主题：有读者提到 Bazel 等构建工具能以较低设置成本获得更快的构建时间；也有人建议 Vitest 按测试时长而非按文件进行负载均衡（Linear 作者回应称尝试过但收益不足以抵消复杂性）；还有评论围绕 agent 化开发使 CI 压力陡增、第三方运行器优势、以及 GitHub Actions 本身在 Azure 上的性能与可靠性问题展开。多位工程师分享了自己迁移到 blacksmith.sh 等第三方运行器的正面体验。</p><p><strong>你知道吗？</strong></p><p>「测试分片（test shard）」指将大型测试套件拆分为若干并行执行的分组，以缩短总运行时间。但分片数量并非越多越好——每个分片都有固定的启动、安装依赖等设置开销，因此分片带来的并行收益会受设置成本制约，这正是文中强调「设置优化使改用 8 个分片变得可行」的原因。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49792067</guid>
+      <pubDate>Mon, 21 Sep 2026 19:23:33 GMT</pubDate>
+    </item>
     <item>
       <title>「我不想读你没写过的东西」：AI 写作泛滥下的阅读困境与写作价值</title>
       <link>https://news.ycombinator.com/item?id=49794330</link>
@@ -1000,30 +1026,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49732513</guid>
       <pubDate>Wed, 16 Sep 2026 20:27:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 在 LLM 时代学习编程：Mark Seemann 对读者来信的公开回应</title>
-      <link>https://news.ycombinator.com/item?id=49723873</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 LLM 时代如何学习编程，结合 AI 与编程教育，符合 AI 软件技术及编程相关兴趣，推荐阅读</small></p><p>作家兼软件工程师 Mark Seemann 在其博客上以公开信的方式，回答了一位读者关于「在 LLM（大语言模型）时代如何学习编程」的长篇提问。</p><p>这位读者没有正式计算机科学背景，过去一年借助 LLM 构建了一个涉及 API、PostgreSQL、LLM 管线和多模型工作流的较大型 TypeScript/JavaScript 系统。然而在将其转化为正式产品时，他发现自己不断修复一个又一个错误，最终意识到「自己可能构建了一个超出自身理解水平的系统」——当一切正常运转时这个差距几乎不可见，一旦出错就非常真实。</p><p>Seemann 坦诚地说明了自己的立场：他倾向于不喜欢 AI，尽管深知它可能无法阻挡。他提到自己有经济学背景，担心如果知识工作者出现 30%–40% 的大规模失业，可能会对经济和社会产生深远影响。他质疑「新技术总会创造新岗位」的说法，指出历史上新岗位往往并不属于那些失业的人。</p><p>针对读者的问题，Seemann 表示很庆幸自己在 LLM 出现前学过编程。如果今天重新起步，他或许会考虑木工、金属加工等需要手眼协调的技能。他认为衡量软件开发能力的一个准则是：理解你工作层次正下方和正上方的那一层抽象，这足以排查大多数问题。</p><p>他还指出，人类学习的瓶颈并非教材或教师，而是人脑吸收新知识的速度本身；LLM 提供可验证答案的问题（如「这段 Haskell 表达式能否更简洁」）值得使用，而那些无法验证答案的开放问题（如「接下来该学什么」）则应避免询问。他强调 LLM 不是「幻觉」而是「胡扯」（bullshit），因此他倾向于提出可证伪的问题。</p><p>他在 HN 社区的评论中引发了广泛讨论：有人认为应询问正在用 LLM 学习的人而非三十年前入行的人；有人将用 LLM 写代码比作雇人举铁，无法真正锻炼自己；也有人认为 LLM 能加快建立知识联系，但需要有意识地补足理解，像计算器一样在掌握基础后再依靠它处理大规模工作。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49723873</guid>
-      <pubDate>Wed, 16 Sep 2026 09:12:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 小米发布 MiMo 2.6 实时强化学习训练看板，展现罕见开放姿态</title>
-      <link>https://news.ycombinator.com/item?id=49732270</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及新AI模型发布与训练看板，属AI模型与编程分享，虽非AI软件技术进展，但符合high_interest的新AI模型与编程工具类别</small></p><p>小米发布了 MiMo 2.6 系列的<a href="https://mimo.xiaomi.com/rl/">实时强化学习后训练看板</a>，公开展示 mimo-v2.6-pro 和 mimo-v2.6-flash 两个模型的强化学习（RL）训练指标，数据直接来自训练器的日志，包括训练进度、样本构成等信息。此举在高度竞争且普遍保密的 AI 行业中显得格外醒目，引发 Hacker News 社区的广泛讨论（346 分，89 条评论）。</p>
-
-<p>社区普遍称赞这一透明举措。有评论者指出，「在这个极度竞争且隐秘的行业中，这是非同寻常的透明度」。关于小米为何这样做，有观点认为这可能与中国官方偏好开源模型的政策有关（在 2026 年的金砖国家新德里会议上，相关方面曾推动以开源模型为核心的 AI 合作五点计划），也有人认为这是为了预防蒸馏（distillation）相关的质疑，或纯粹是巧妙的公关。</p>
-
-<p>讨论还涉及训练数据构成（有评论者惊讶于相当大比例的强化学习数据是源代码，而业内人士指出当前预训练阶段通常也有 30%–50% 是代码）、以及训练过程中运行基准测试是否构成测试集污染（benchmark contamination）等问题。多位用户分享了使用 MiMo 2.5 系列的体验：有人称赞其性价比极高、指令遵循和工具调用能力出色，但也有用户认为它相对「较笨」，在编码类任务上与 Qwen 3.8 Flash Next、GLM 等其他国产模型相比存在差距。</p>
-
-<p>围绕美国实验室（Anthropic、OpenAI）与国产实验室开放程度的对比也成为焦点。不少评论者借此批评美国实验室的封闭与营销话术，同时也有用户反驳称国产模型多为「蒸馏克隆」前沿成果，实际能力与美国实验室近半年发布的模型尚有差距。整体上，小米此举的透明度和「敢秀」态度获得了大多数评论的认可。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49732270</guid>
-      <pubDate>Wed, 16 Sep 2026 20:09:18 GMT</pubDate>
     </item>
   </channel>
 </rss>
