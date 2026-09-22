@@ -3,7 +3,16 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 22 Sep 2026 18:50:49 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 22:03:29 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 让 Meta 的 AI 助手 Muse 打包自身文件系统，结果收到了 6.8GB 的内部文件</title>
+      <link>https://news.ycombinator.com/item?id=49802871</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI软件技术进展及新AI模型行为探索，属于兴趣类别，主题明确且有价值</small></p><p>一位用户（Pete）让 Meta 的 AI 助手 Muse 把它能看到的文件打包并发送到自己的 Google Drive，结果收到了约 2.7GB 压缩、解压后 6.8GB 的归档。文件中包含了分配给他的 Linux 会话环境的根文件系统，包括 Ubuntu 系统文件、Muse 的内部文档、集成代码、应用模板、记忆文件和代理日志，甚至还有 SSH 密钥文件。</p><p>归档中最有价值的文件集中在 <code>/home/hatch</code>、<code>/opt/hatch</code> 和 <code>/opt/hatch-image</code> 目录下。Hatch 是 Meta 内部对 Muse 的称呼。代理的主目录包含 SOUL.md、IDENTITY.md、USER.md、MEMORY.md、AGENTS.md 和 TOOLS.md 等文件，还有 113 条子代理记录、约 20 份 Markdown 文档（描述浏览器使用、连接器、支付、凭据、数据处理等功能）。</p><p>值得关注的内容包括：约 68 个技能目录（skill），覆盖 Google Workspace、Meta 社交应用、Outlook、旅行、购物、健康服务、家用设备等；两个配置文件暗示了 Meta 在开发的未发布连接器（Slack、Dropbox、Polymarket、Canva 等）；以及一份关于实验性集成「Meta Home Link」的硬件文档，该方案使用 ESP32-C5（带 Wi-Fi 和蓝牙 LE）让 Muse 访问家庭网络设备。</p><img src="/img/blog/muse/fig8.webp" alt="Meta Home Link 文档" width="900" height="585" /><p>在容器设置方面，Muse 使用 systemd-nspawn 启动环境。归档中还包含 Spaces 应用框架（含 React 客户端、Drizzle SQLite 架构等）。有趣的是，环境中安装了 Codex CLI（版本 0.149.0），但作者未发现 Muse 调用 Codex 的证据，它实际上用的是 Codex 捆绑的 bubblewrap 沙盒来隔离 ffmpeg 等视频处理任务。</p><p>Muse 的记忆系统以 Markdown 文件存储，配合 Postgres 提供搜索（memory.entries、memory.embeddings、memory.claims 等表），并有「夜间梦境」机制回顾对话并为未来会话撰写指导。记忆还支持「遗忘」流程，通过删除链接内容并重建索引来实现系统随时间的适应。</p><p>作者通过 Meta 的漏洞赏金计划提交了报告，但 Meta 将其标记为「Not Applicable（不适用）」。作者自己也尝试让 Muse 逃逸容器边界，但在测试中未成功。</p><p><b>社区反馈</b>：Hacker News 上对此事的看法分歧明显。不少用户认为这算不上漏洞——代理所处的沙盒本就属于用户空间，用户能读取自身虚拟环境中的文件相当于打开网页的开发控制台，Meta 标记「不适用」是合理的。但也有人指出，即使文件属于用户环境，泄露的版本信息、SSH 密钥（即便是公钥）和未记录的内部服务仍可能带来利用价值。还有人调侃 Muse 的文档「竟然用 Markdown 记录支付、凭据等信息」，并用「自己买的车用钥匙能打开门」来比喻这次报告。多位评论者补充称 Muse 明显深受开源项目 OpenClaw 的启发，可视为 Meta 版的 OpenClaw，且其 SOUL.md 正是 OpenClaw 默认 SOUL.md 的改写版本。</p><p><b>你知道吗？</b>：Muse 的「夜间梦境」机制是一种记忆巩固方案——系统在低负载时段（夜间）自动回顾近期对话、提炼用户偏好并生成指导文件，从而在不改变模型权重的前提下，通过更新文件与检索索引让未来会话更贴合用户习惯。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49802871</guid>
+      <pubDate>Tue, 22 Sep 2026 15:25:12 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenAI 发布 GPT-6 Sol 和 Luna：前沿智能与成本的新平衡</title>
       <link>https://news.ycombinator.com/item?id=49805509</link>
@@ -1017,25 +1026,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49732931</guid>
       <pubDate>Wed, 16 Sep 2026 20:59:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Anthropic 将 Claude Cowork 与聊天合并为统一的 Claude，并新增 Docs、Slides 与内嵌 Design</title>
-      <link>https://news.ycombinator.com/item?id=49729412</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Anthropic合并Claude产品并新增Docs/Slides等功能，属AI软件新功能发布，用户较感兴趣</small></p><p>Anthropic 于 9 月 16 日宣布，将 Claude Cowork 与聊天功能合并为一个统一的 Claude。用户无需再判断任务应该交给哪个界面——无论是快速提问，还是交付中午截止的报告，Claude 都能接手处理，甚至在用户合上笔记本电脑后继续工作。该功能正在 Pro 和 Max 套餐上于未来几周内逐步推出，更多套餐也将陆续跟进。</p>
-
-<p><b>新增产品与能力</b>：除合并外，Claude 今日还推出了 Claude Docs 和 Claude Slides 两个新工具，同时 Claude Design 现在也能直接在对话中使用。用户可以要求 Claude 生成文档并共同撰写，或让其起草演示文稿，并能直接在 Claude 中编辑、展示，或下载为 PowerPoint 或 PDF。这三项功能均处于测试阶段，适用于付费套餐，企业管理员可自行决定何时启用。</p>
-
-<p><b>统一背后的考量</b>：此前的 Cowork 被设计为承担较大型工作、Design 负责视觉创作，但用户反馈称最困扰的是"判断任务归属"，且在一个界面开始的工作无法无缝延续到另一个界面。现在 Claude 可以自主判断任务需求，使得 Cowork 与 Design 的能力在任何对话中都能调用，并复用已有的上下文、技能与连接器。</p>
-
-<p><b>应用场景</b>：官方举例说明——用户在下班前让 Claude 分析上周流程变动，并要求"按老方式撰写报告、标出遗漏、并为领导会议做五页要点"。如有疑问 Claude 会主动询问，用户可在路上用手机查看进度，到工位时报告与幻灯片均已就绪，且来自同一会话所以幻灯片与报告内容匹配。用户还可直接修改某一行、在幻灯片上留评论，并安排每周一自动启动报告。</p>
-
-<p><b>隐私与权限控制</b>：用户可选择 Claude 与自己的对接方式。默认情况下 Claude 在执行操作前会先询问；若希望它持续工作、仅在需要深入审查时才来确认，也可以开启该选项。"最终决定权始终在你手中"。</p>
-
-<p><b>社区反馈</b>：Hacker News 上的讨论反应不一。多数用户认可合并降低了界面的复杂度，但也有不少人担忧。主要顾虑包括：聊天与代码能力的记忆、上下文被混在一起；有人刻意关闭聊天记忆功能，担心跨会话调用的记忆会干扰决策；还有用户质疑多家 AI 实验室热衷于合并聊天与代理（如 Codex）的做法，认为"思考/研究型"问题在纯聊天产品中的推演能力远优于代理式界面，合并可能导致"先思考后行动"的 AI 交互方式退步。另有用户认为 Claude 目前的桌面端界面过于割裂（聊天、Cowork、Claude Code 各自独立），对非技术用户极不友好，本次合并是改善；也有用户因 Claude 性价比下滑而转向 OpenAI 或其他本地模型。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49729412</guid>
-      <pubDate>Wed, 16 Sep 2026 16:26:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
