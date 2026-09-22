@@ -3,7 +3,41 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 21 Sep 2026 21:02:07 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 00:03:34 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 小米发布开源 MiMo V2.6 系列：全模态前沿模型，公开透明训练</title>
+      <link>https://news.ycombinator.com/item?id=49792730</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型发布公告且为开源项目，符合高兴趣配置</small></p><p>小米正式发布了开源大模型 <a href="https://mimo.xiaomi.com/mimo-v2-6">MiMo V2.6 系列</a>，官方定位为「前沿智能、全模态、公开构建」。该系列延续了小米在开源模型上的做法，主打高性价比与训练过程的高度透明。</p>
+
+<p>该系列包含多个版本：<strong>MiMo-V2.6-Flash-RL</strong>（总参数 309B，激活参数 15B）与 <strong>MiMo-V2.6-Pro-RL</strong>（总参数 1.02T，激活参数 42B），均为混合专家（MoE）架构模型，并额外提供在 Qwen 3.5 9B 基础上蒸馏的 <a href="https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B">MiMo-V2.6-Distill-Qwen-9B</a> 轻量版本，便于在消费级硬件上部署。</p>
+
+<p>据官方与社区介绍，模型在成本与能力上均颇具竞争力，涵盖编码、科学环境等多样化任务演示。值得关注的是，小米在训练期间开放了一个<a href="https://mimo.xiaomi.com/rl/">实时仪表盘</a>，公开训练损失、每个检查点的评测分数、运行成本估算，甚至如实记录了训练中遇到的挫折（例如因编码基准退化而放弃某个网络钓鱼数据集），并发布了详尽的〈tech report〉技术报告。社区对此透明的做法评价颇高，认为这在开源模型发布中实属罕见。</p>
+
+<p>不过也有用户指出网页上的参数「胶囊」（HF pill）数值显示存在不准确的问题，有评论推测这与模型原生以 fp8 精度为主、而该显示对原生量化适配不佳有关；另有人注意到页面中 DeepSeek 4.1 Flash 的对比数据可能存在混淆。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49792730</guid>
+      <pubDate>Mon, 21 Sep 2026 20:12:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Heretic 项目：自动去除语言模型限制的开源工具</title>
+      <link>https://news.ycombinator.com/item?id=49783101</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源工具，涉及AI软件技术，符合兴趣配置</small></p><p>开源项目 <strong>Heretic</strong> 登上了 Hacker News 热点，该工具宣称能全自动移除语言模型中的审查限制，确保模型始终遵循用户的指令。项目页面介绍其为"掌控我们时代最重要技术"的手段，提供 GitHub、Hugging Face、Discord 与 Matrix 等多个分发渠道，并支持通过一条命令快速上手："pip install -U heretic-llm heretic Qwen/Qwen3.5-4B"。</p>
+
+<p>从技术上看，这是一个自动化、精心工程化的"去消融（abliteration）"流水线：向模型提交大量会被拒答的提示（prompts）以及大量不会被拒答的提示，然后迭代修改权重，使这两组提示在潜在空间中大致对齐，从而移除模型的拒绝行为。作者 p-e-w 也在评论中回应质疑，称使用的"拒答计数"与"KL散度（KLD）"是该领域文献中的标准指标，包括最初提出定向消融（directional ablation）的论文。</p>
+
+<p>评论区围绕该工具的价值、限制与潜在风险展开了多轮讨论：</p>
+<ul>
+<li><strong>效果与局限</strong>：多位用户指出，移除拒答并不能让模型产出训练数据中本不存在的信息。部分模型在预训练阶段就缺少某些敏感内容，即便移除拒答也只会诱导幻觉；而另一些模型（如 GPT-OSS）则刻意在预训练中剔除不受欢迎的信息。</li>
+<li><strong>实际应用</strong>：有用户分享，通过去消融模型成功对国产 IP 摄像头进行逆向工程以夺回设备控制权，认为这类工具对"安全研究"有实际价值。</li>
+<li><strong>质量争议</strong>：有人反馈部分模型经"移除拒答"处理后，在原本会拒答的问题上仍表现不佳，回答"像是经历过业余脑部手术"；但也有用户表示对小型本地模型并未观察明显质量下降。批评者认为作者使用的指标存在"选择性取样"之嫌。</li>
+<li><strong>监管隐忧</strong>：有评论担忧"去消融"与 Heretic 这类开放权重模型未来可能被立法禁止，但也有人认为禁令难以奏效，正如对种子下载的治理一样。</li>
+</ul></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49783101</guid>
+      <pubDate>Mon, 21 Sep 2026 04:35:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 用户实测：Anthropic Fable 5 八月&quot;思考令牌&quot;数量大幅下降，引发模型性能缩水争议</title>
       <link>https://news.ycombinator.com/item?id=49789224</link>
@@ -1002,46 +1036,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49724881</guid>
       <pubDate>Wed, 16 Sep 2026 11:15:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 小而高杠杆的编程技巧清单</title>
-      <link>https://news.ycombinator.com/item?id=49729000</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是编程效率技巧的分享，属于编程效率改进经验，与用户高兴趣高度契合</small></p><p>作者 Will Keleher 在文章中提出，大量工程生产力其实来源于一些"小而高杠杆的知识碎片"（small nuggets of knowledge）：知道某个语言特性存在、意识到莫名的 TCP 延迟可能与 <code>TCP_NO_DELAY</code> 设置和 Nagle 算法有关、记住正确的 git 命令来脱困，或掌握某个 sed 技巧来改写文件。这些知识往往不需要大量的配套思维基础设施，却能显著提升工作效率。</p>
-
-<p>文章列举了一批实用技巧：</p>
-<ul>
-<li><strong>终端历史搜索</strong>：除 <code>ctrl+r</code> 之外，可安装 <a href="https://github.com/junegunn/fzf">fzf</a> 实现模糊搜索；<a href="https://github.com/atuinsh/atuin">atuin</a> 用 SQLite 数据库替代 shell 历史；per-directory-history 可按目录搜索命令。</li>
-<li><strong>SQL</strong>：可以 <code>SELECT</code> 而无 <code>FROM</code>，用于测试函数行为；PostgreSQL 与 MySQL 均支持 <code>explain analyze</code>，会实际执行查询并给出更详尽的性能信息。</li>
-<li><strong>正则</strong>：词边界断言 <code>\b</code> 便于查找词的起始或结束。</li>
-<li><strong>指标</strong>：用对数（如 <code>Math.log10</code>）将数值分桶，以了解字段值的分布。</li>
-<li><strong>现代 JS</strong>：支持 <code>Array.flatMap</code>、<code>Object.entries</code> 与 <code>Promise.withResolvers</code>。</li>
-<li><strong>NodeJS</strong>：创建 <code>https.Agent</code> 并传入 HTTP 请求，可复用连接、显著降低延迟。</li>
-<li><strong>Git</strong>：<code>git log -S pattern</code>（"git pickaxe"）可找出所有新增或删除某字符串的提交，对旧代码库尤其有用；<code>git checkout -</code> 可切回上一个 HEAD。</li>
-<li><strong>文件操作</strong>：多数 <code>find</code> 命令可被 <code>**/*.md</code> 等 glob 替代（bash 需 <code>shopt -s globstar</code>）；更推荐用 <a href="https://github.com/BurntSushi/ripgrep">rg（ripgrep）</a> 替代 grep、ack、ag。</li>
-<li><strong>zsh</strong>：高级自动补全默认未开启，需要手动加载 compinit。</li>
-</ul>
-
-<p>作者还强调，在公司环境中这类"小而高杠杆"的知识更多：例如"调试 $PROBLEM 用 $DATA_SOURCE""$PERSON 对 $AREA 了如指掌""滚动重启服务跑 $THIS_COMMAND"等。他曾在前一家公司每天在 Slack 上向工程团队分享一个技巧，既有技术性的也有公司特有的，即使大家已经知道其中 9/10，那第 10 个文档或方法也可能省下不少时间，且每天一个的量级不会让人不堪重负，还能偶尔引发有价值的讨论。他建议资深工程师也可以考虑类似做法，并提及这一思路最早见于 Julia Evans 的博客。</p>
-
-<p>在 Hacker News 评论区，讨论引发了多个方向的回应。有人指出此文更像"bash/zsh CLI 技巧"而非编程技巧；有学者感慨如今学术界"几乎没人再手写代码"，转向 LLM 编排任务，但同时也有人（如 dgacmu、huurtehoog）表示分析工作仍须亲手完成。关于"避免分支"（branchless programming）是否值得推广也出现了争论，有评论认为它常让代码更难懂。对于"每天在 Slack 分享一个技巧"的做法，有人赞许（如 CableNinja 认为帮助团队成长是好事），也有人（NegativeLatency、rootlocus）觉得可能显得像变相自我营销或博取关注，更偏向于建立独立的共享频道或知识库。还有用户分享了 macOS 终端的撤销快捷键（Ctrl+Option+-）等额外小技巧。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Nagle 算法</strong>：一种通过合并小数据包来减少网络上小报文数量的拥塞控制算法，与 <code>TCP_NODELAY</code> 选项互斥。当二者同时启用时，往往会出现莫名的数据发送延迟——这正是作者提到的典型"小而重要"知识。</p>
-<p><strong>git pickaxe（<code>-S</code> 与 <code>-G</code>）</strong>：<code>git log -S</code> 只匹配新增或删除某字符串的提交，而 <code>-G</code> 按正则匹配内容的增删，即使该行只是被移动也会显示。二者对深入考古大型或老旧代码库非常有价值。</p>
-<p><strong>branchless programming（无分支编程）</strong>：通过位运算、查表或算法重构等方式消除 if 分支，以提升 CPU 分支预测命中率。在性能敏感的热路径中可能带来提升（如评论中引用的 <a href="https://www.greyblake.com/blog/branchless-rust/">branchless Rust 示例</a>），但在可读性上存在争议。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49729000</guid>
-      <pubDate>Wed, 16 Sep 2026 15:56:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Mistral 与 Mozilla 合作：为 Firefox 带来开放、私密且多语言的 AI 浏览体验</title>
-      <link>https://news.ycombinator.com/item?id=49723408</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Mistral 与 Mozilla 合作将开放、私密的 AI 集成到 Firefox 浏览器，属于新 AI 模型/功能发布公告且涉及 AI 技术进展与开源项目，用户会强烈感兴趣</small></p><p>Mistral 与 Mozilla 宣布建立合作伙伴关系，将隐私、控制与选择权带给使用 AI 上网浏览的用户。Mozilla 的 AI 浏览助手「Firefox Smart Window」（测试版）现已由 Mistral 模型驱动，可帮助用户理解复杂搜索、记住重要的浏览内容，并基于浏览器标签页获取关键信息。该服务率先在法国和北美上线，英国与德国预计将在今年晚些时候跟进。</p><p>双方作为开放源代码的倡导者，致力于训练和微调符合地区语言、方言及文化背景的 AI 系统。这则消息对全球 AI 生态的四个关键意义包括：开放技术需要开放分发（Mozilla 捍卫开放网络的二十余年历史与 Mistral 的开源权重前沿模型相结合）；针对本地国家和文化优化的 AI（而非简单输出）；赋予用户对 AI 交互的控制权（对话默认不保存在 Mozilla 服务器上，Mistral 等合作伙伴同意零数据留存）；以及将主权 AI（sovereign AI）交到每个人手中。</p><p>Mozilla 首席执行官 Anthony Enzor-DeMeo 表示，浏览器不应成为单向漏斗，而应保留互联网最初的力量——自由探索、发现不同想法与科技。Mistral 首席执行官 Arthur Mensch 则强调，双方合作将为 AI 驱动的网络浏览带来隐私、控制与选择。</p><p><img src="/_astro/Linkedin-Partnership-Firefox%20copie_1nk6LB.webp?dpl=6aaaa3e6d4d2290017119943" alt="" width="2400" height="1254" /></p><p>Hacker News 社区的反应较为复杂。有评论者认为这可能是收集高质量「AI 浏览」轨迹数据的方式，也有人将其与 Chrome 内置的 Gemini Nano 对比，指出 Mistral 方案并非本地离线推理。大量用户对「私有（Private）」的表述提出质疑，认为将敏感浏览数据上传至第三方服务与「私密」的理念相悖，尤其因为 Mozilla 曾在 2022 年通过 Project Bergamot 开创本地浏览器机器学习翻译以保护隐私。一些用户因此考虑转向 Librewolf、Waterfox 或 Pale Moon 等替代浏览器。此外，有用户指出 Mozilla 支持页面存在链接错误，将「Mistral Small 4」错误地链接到 OpenAI 的模型卡，Mozilla 方面已确认该错误已上报内部处理。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49723408</guid>
-      <pubDate>Wed, 16 Sep 2026 08:08:57 GMT</pubDate>
     </item>
   </channel>
 </rss>
