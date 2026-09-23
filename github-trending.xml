@@ -3,7 +3,143 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Wed, 23 Sep 2026 05:55:18 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 11:29:20 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Strands Agents：模型驱动的开源 AI Agent 构建 SDK（Python 与 TypeScript）</title>
+      <link>https://github.com/strands-agents/harness-sdk</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 模型驱动的开源AI Agent构建SDK，属于编程工具发布与AI软件技术进展，符合高兴趣配置</small></p><p>Strands Agents 是一个开源的 AI Agent 构建与运行 SDK，支持 Python 和 TypeScript 两种语言，采用模型驱动的方式让开发者仅用几行代码即可构建生产级 AI 智能体。该项目在 GitHub 上已获得约 7600 星标。</p>
+
+<h3>核心定位</h3>
+<p>Strands 面向那些原本需要自行编写 agent 循环（agent loop）的开发者，它在你自己的进程中运行，无需托管控制平面（control plane），并覆盖了手写循环会逐渐演化出的各类功能。一个 SDK 内集成了：</p>
+<ul>
+  <li><strong>生命周期控制</strong>：回合限制、token 预算、取消操作、停止原因</li>
+  <li><strong>工具与结构化输出</strong>：内置工具系统及结构化输出支持</li>
+  <li><strong>MCP 支持</strong>：Model Context Protocol 工具集成</li>
+  <li><strong>多智能体模式</strong>：支持多 Agent 协作模式</li>
+  <li><strong>记忆与会话管理</strong>：内置记忆系统和会话管理</li>
+  <li><strong>模型可移植性</strong>：支持 Amazon Bedrock、Anthropic、OpenAI、Gemini 等多种模型提供商</li>
+  <li><strong>流式输出、护栏（guardrails）、追踪与评估</strong>：涵盖可观测性和评测能力</li>
+</ul>
+
+<h3>设计理念</h3>
+<p>项目强调「构建你的 agent 并端到端控制它」：</p>
+<ul>
+  <li><strong>任意模型、任意云</strong>：上下文管理、执行限制和可观测性在写配置之前就已内置，扩展时切换后端而代码不变</li>
+  <li><strong>保持控制</strong>：agent 循环默认追踪每个决策，Hooks 允许拦截任何步骤进行记录、验证或重定向</li>
+  <li><strong>交付可靠结果</strong>：护栏在错误执行前拦截，转向处理器（steering handlers）让 agent 自我纠正而非静默失败</li>
+</ul>
+
+<h3>快速上手</h3>
+<p>最便捷的入门方式是使用 <strong>Strands harness</strong>，通过一次 <code>create_harness()</code>（Python）或 <code>createHarness()</code>（TypeScript）调用即可获得一个经过基准测试优化的完整 agent，包含模型、工具、记忆、会话和上下文管理的默认配置。例如：</p>
+<pre><code>from strands_harness import create_harness
+agent = create_harness()
+agent("Find the slowest test in this repo and explain why it's slow")</code></pre>
+
+<p>对于需要更深度定制的场景，SDK 允许开发者自行掌控 agent 循环、工具、模型提供商、记忆、会话和 hooks 的每一个环节。</p>
+
+<h3>仓库结构</h3>
+<p>该 monorepo 包含 Python 与 TypeScript 的 harness 和 SDK、CLI 工具、文档站点（基于 Astro/Starlight）以及治理文档。项目采用 Apache License 2.0 许可。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/strands-agents/harness-sdk</guid>
+      <pubDate>Wed, 23 Sep 2026 11:28:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Impeccable：为 AI 编程代理提供设计指导的开源技能库</title>
+      <link>https://github.com/pbakaus/impeccable</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 为AI编程代理提供设计指导的开源技能库，属于编程效率改进与开源项目，符合高兴趣配置</small></p><p><strong>Impeccable</strong> 是一个面向 AI 编程代理（coding agents）的设计指导技能库，旨在解决 AI 生成前端界面时千篇一律的问题。项目提供 1 个技能、24 条命令、实时浏览器迭代能力，以及 61 条确定性检测规则，帮助 AI 生成更高质量、更具个性的前端设计。</p>
+
+<h3>背景与动机</h3>
+<p>项目源于 Anthropic 的 <a href="https://github.com/anthropics/skills/tree/main/skills/frontend-design">frontend-design</a> 技能。作者指出，由于大量模型基于相同的 SaaS 模板训练，跳过设计指导时，AI 生成的项目往往带有明显的"模板痕迹"：一律使用 Inter 字体、紫蓝渐变、卡片套卡片、彩色背景上的灰字、标题上方圆角方形图标等。Impeccable 正是针对这些痛点而生。</p>
+
+<h3>核心特性</h3>
+<ul>
+  <li><strong>一键初始化</strong>：<code>/impeccable init</code> 将产品的持久性事实（受众、目的、约束、语气等）记录到 <code>PRODUCT.md</code>，与表面视觉方向区分开。</li>
+  <li><strong>24 条命令</strong>：包括 <code>polish</code>（打磨）、<code>audit</code>（审计）、<code>critique</code>（评审）、<code>distill</code>（精简）、<code>animate</code>（动效）、<code>bolder</code>/<code>quieter</code>（调节设计强度）等，构成与 AI 共享的设计词汇表。</li>
+  <li><strong>61 条确定性检测规则</strong>：CLI 和浏览器扩展可无需 LLM 和 API 密钥运行这些规则，另有 LLM 专属的评审检查。</li>
+  <li><strong>实时浏览器迭代</strong>：<code>/impeccable live</code> 和 <code>generate</code> 命令支持在浏览器中直接迭代和生成元素变体。</li>
+</ul>
+
+<h3>反模式指导</h3>
+<p>技能内置了明确的设计禁忌清单，包括：避免使用过度使用的字体（Arial、Inter、系统默认）、避免彩色背景上使用灰字、避免纯黑/纯灰（应始终加色调）、避免将所有内容包裹在卡片中或卡片嵌套、避免使用弹跳/弹性缓动（显得过时）。</p>
+
+<h3>安装与兼容性</h3>
+<p>项目支持多种安装方式：CLI 安装器（<code>npx impeccable install</code>）、Git 子模块、插件安装（VS Code 扩展、Claude Code、Grok Build）、网站下载 ZIP 及从仓库直接复制。兼容 Cursor、Claude Code、Gemini CLI、Codex CLI、GitHub Copilot、Grok Build、Hermes Agent、Veto 等主流 AI 编程工具。</p>
+
+<p>项目在 GitHub 上已获得约 7 万星标，可通过 <a href="https://impeccable.style">impeccable.style</a> 查看完整文档及 <a href="https://impeccable.style/cases/neo-mirai">Neo Mirai 案例研究</a>，了解真实项目改造前后的对比效果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/pbakaus/impeccable</guid>
+      <pubDate>Wed, 23 Sep 2026 11:28:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ codebase-memory-mcp：毫秒级代码智能 MCP 服务器，将代码库索引为持久知识图谱</title>
+      <link>https://github.com/DeusData/codebase-memory-mcp</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 毫秒级代码智能MCP服务器，属于编程效率工具与AI软件技术进展，符合高兴趣配置</small></p><p><strong>DeusData/codebase-memory-mcp</strong> 是一个高性能的代码智能 MCP（Model Context Protocol）服务器，专为 AI 编码代理设计。它以纯 C 语言编写，无需语言运行时、托管服务或 API 密钥，以单个静态二进制文件分发，支持 macOS、Linux 和 Windows 三大平台。</p>
+
+<h3>核心能力</h3>
+<ul>
+<li><strong>极速索引</strong>：平均仓库毫秒级完成全量索引，Linux 内核（2800 万行代码、7.5 万个文件）仅需 3 分钟。采用 RAM 优先流水线，结合 LZ4 压缩、内存 SQLite 和 Aho-Corasick 模式匹配。</li>
+<li><strong>162 种语言支持</strong>：通过内置的 tree-sitter 语法解析器（AST 分析）覆盖全部语言，并针对 Python、TypeScript/JavaScript、PHP、C#、Go、C/C++、Java、Kotlin、Rust 和 Perl 等 12 种语言提供 <strong>Hybrid LSP</strong> 语义类型解析增强。</li>
+<li><strong>持久知识图谱</strong>：将函数、类、调用链、HTTP 路由及跨服务链接构建为可查询的知识图谱，结构化查询响应时间低于 1 毫秒。</li>
+<li><strong>Token 消耗大幅降低</strong>：5 个结构化查询约消耗 3,400 个 token，而逐文件搜索需要约 41.2 万个 token，节省约 120 倍。</li>
+<li><strong>17 个 MCP 工具</strong>：涵盖搜索、追踪、架构分析、影响分析、Cypher 查询、死代码检测、跨服务 HTTP 链接、ADR 管理等。</li>
+</ul>
+
+<h3>即插即用与多代理支持</h3>
+<p>项目提供一键安装脚本，自动检测已安装的编码代理（如 Claude Code、Codex、OpenCode 等）并配置 MCP 条目，支持 45 种自动/条件客户端接入面。内置的会话协调守护进程（Session Coordination Daemon）可在多个代理间共享索引工作，避免重复计算。</p>
+
+<h3>内置可视化</h3>
+<p>二进制内置 3D 交互式图谱可视化界面，运行后可在 <code>localhost:9749</code> 浏览器中浏览知识图谱。</p>
+
+<h3>基础设施即代码索引</h3>
+<p>支持将 Dockerfile、Kubernetes 清单和 Kustomize 覆盖层索引为图谱节点并建立交叉引用，便于基础设施代码的智能分析。</p>
+
+<h3>安全与信任</h3>
+<p>所有处理均在本地完成，代码不会离开用户机器。每个发布版本均提交 VirusTotal 扫描，遵循 SLSA 3 供应链安全标准。项目论文《Codebase-Memory: Tree-Sitter-Based Knowledge Graphs for LLM Code Exploration via MCP》（arXiv:2603.27277）在 31 个真实仓库上评估，达到 83% 的回答质量、10 倍 token 节省和 2.1 倍工具调用减少。</p>
+
+<h3>社区反馈</h3>
+<p>该项目在 GitHub 上已获得约 4.4 万星标和 3,600 余次 fork，位居 Trending 榜单前列，反映出开发者社区对高效代码智能工具的高度关注。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/DeusData/codebase-memory-mcp</guid>
+      <pubDate>Wed, 23 Sep 2026 11:28:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>Spirula Studio：跨厂商 GPU 的 3D 高斯泼溅训练工具，从视频到网格一站式完成</title>
+      <link>https://github.com/harry7557558/spirula-studio</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 3D高斯泼溅训练与网格生成工具，属于开源项目但主题偏向专业图形渲染，兴趣不够明确</small></p><p><strong>Spirula Studio</strong> 是一个开源的 3D 高斯泼溅（3D Gaussian Splatting）训练工具，采用 GPLv3 许可证，支持 Windows、Linux 和 macOS 平台。该项目由一人独立开发维护，目前已在 GitHub 上获得 620 颗星。</p>
+
+<h3>核心特点</h3>
+<ul>
+<li><strong>跨厂商 GPU 支持</strong>：通过 Vulkan 计算后端，可在 NVIDIA、AMD、Intel 和 Apple Silicon GPU 上运行，无需依赖特定厂商。</li>
+<li><strong>一站式工作流</strong>：从原始照片/视频到泼溅模型再到带纹理网格，全部在一个自包含二进制文件中完成，无需 Python/PyTorch，也无需单独安装 COLMAP。</li>
+<li><strong>极高显存效率</strong>：通过量化训练，可在 8GB 显存中训练多达 1000 万个全球谐（full-SH）高斯。</li>
+<li><strong>原生 360° 相机支持</strong>：支持等距柱状投影（equirectangular）和鱼眼相机，无需去畸变处理。</li>
+<li><strong>内置快速 SfM 与 AI 遮罩</strong>：内置运动恢复结构（SfM）、AI 遮罩和视频帧提取功能，无需等待 COLMAP 或运行额外脚本。</li>
+<li><strong>曝光/白平衡校正</strong>：采用改进的双边网格（Bilateral grid）和 PPISP 技术，提升质量而不引入色偏或变暗。</li>
+</ul>
+
+<h3>技术架构</h3>
+<p>项目提供两种后端：<strong>Vulkan</strong>（推荐，跨平台跨厂商，支持 SfM、视频帧提取和 AI 遮罩等额外功能）和 <strong>CUDA</strong>（面向 NVIDIA GPU 的旧版后端）。两者提供相同的训练和网格化功能，性能差异通常在几个百分点以内。</p>
+
+<h3>近期更新</h3>
+<ul>
+<li><strong>2026 年 9 月</strong>：利用视频和图像中的遥测元数据恢复公制尺度和方向，解决重建结果过大/过小或倾斜的问题；SfM 模块新增对 <a href="https://github.com/davnords/LoMa">LoMa</a> 特征检测与匹配的支持。</li>
+<li><strong>2026 年 8 月</strong>：正式支持 macOS/Apple Silicon 训练；新增多语言支持（含简体中文、日语、韩语等 13 种语言）；实现端到端工作流（视频帧提取、AI 遮罩、原生 SfM、网格化、批处理）。</li>
+<li><strong>2026 年 7 月</strong>：新增 Vulkan 后端，实现跨厂商 GPU 支持。</li>
+</ul>
+
+<h3>社区与生态</h3>
+<p>用户训练的高质量泼溅模型可在 <a href="https://library.getmegascapes.com/">Megascapes Library</a> 和 <a href="https://superspl.at/explore/software/spirula-studio">SuperSplat</a> 页面查看。项目还提供 <a href="https://harry7557558.github.io/spirula-studio/viewer/">Web 查看器</a>，方便在浏览器中预览训练结果。</p>
+
+<h3>你知道吗？</h3>
+<p>项目名称源自已停更的前身项目 <a href="https://github.com/harry7557558/spirulae">spirulae</a>，而 spirulae 得名于一种深海头足类软体动物——<a href="https://en.wikipedia.org/wiki/Spirula">旋壳乌贼（Spirula）</a>。此外，项目内置的 GPU 视频解码功能涉及 AVC/HEVC 专利问题，需用户自行确保符合当地专利法规。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/harry7557558/spirula-studio</guid>
+      <pubDate>Wed, 23 Sep 2026 11:28:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Univer：面向 AI 代理的开源 Office SDK，一套运行时支持表格、文档、演示与 PDF</title>
       <link>https://github.com/dream-num/univer</link>
@@ -1184,123 +1320,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/multimodal-art-projection/YuE</guid>
       <pubDate>Sat, 12 Sep 2026 12:50:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Worktrunk：为并行 AI Agent 工作流打造的 Git Worktree 管理 CLI</title>
-      <link>https://github.com/max-sixty/worktrunk</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 面向并行AI Agent工作流的Git管理CLI，属于编程工具发布与编程效率改进，用户很感兴趣，必看内容。</small></p><p><strong>Worktrunk</strong> 是一个用 Rust 编写的命令行工具，用于简化 <strong>Git worktree（工作树）</strong>管理，专为并行运行多个 AI 编码代理（如 Claude Code、Codex）而设计。该项目自 2026 年初发布后迅速成为最流行的 Git worktree 管理器，在 GitHub 上已获得 7000+ Star，并以「易于使用、无冗余代码」著称。</p>
-
-<h2>核心价值</h2>
-<p>AI 代理可以长时间无需监督地处理任务，因此可以并行管理 5–10 个甚至更多。Git 原生的 worktree 功能为每个代理提供独立的工作目录，避免相互干扰，但其交互体验较差——例如新建一个 worktree 需要多次输入分支名。Worktrunk 的口号是「让 worktree 像分支一样简单」：worktree 以分支名寻址，路径由可配置的模板计算得出。</p>
-
-<h2>核心命令对比</h2>
-<table>
-  <thead><tr><th>任务</th><th>Worktrunk</th><th>原生 Git</th></tr></thead>
-  <tbody>
-    <tr><td>切换 worktree</td><td><code>wt switch feat</code></td><td><code>cd ../repo.feat</code></td></tr>
-    <tr><td>创建并启动 Claude</td><td><code>wt switch -c -x claude feat</code></td><td>多条命令组合</td></tr>
-    <tr><td>清理</td><td><code>wt remove</code></td><td>多条命令组合</td></tr>
-    <tr><td>带状态列出</td><td><code>wt list</code></td><td><code>git worktree list</code>（仅路径）</td></tr>
-  </tbody>
-</table>
-
-<h2>高级功能</h2>
-<ul>
-  <li><strong>Hooks（钩子）</strong>：在创建、合并前/后等时机自动执行命令，实现本地工作流自动化</li>
-  <li><a href="https://worktrunk.dev/llm-commits/">LLM 提交信息</a>：根据差异（diff）自动生成提交信息</li>
-  <li><a href="https://worktrunk.dev/merge/">合并工作流</a>：一条命令完成 squash、rebase、merge 和清理</li>
-  <li><strong>交互式选择器</strong>：带实时 diff 和日志预览浏览 worktree</li>
-  <li><strong>共享构建缓存</strong>：在 APFS、btrfs、XFS 上共享 <code>target/</code>、<code>node_modules/</code> 等，无需重新构建</li>
-  <li><strong>PR 检出</strong>：<code>wt switch pr:123</code> 直接跳转到某个 PR 的分支</li>
-  <li><strong>每 worktree 独立开发服务器</strong>：通过 <code>hash_port</code> 模板过滤器为各 worktree 分配唯一端口</li>
-  <li><strong>别名与分支级变量</strong>：自定义 <code>wt &lt;name&gt;</code> 命令及分支作用域状态</li>
-</ul>
-
-<h2>典型用法</h2>
-<p>为并行代理创建多个 worktree 并逐一启动代理：</p>
-<pre><code>wt switch -x claude -c feature-a -- 'Add user authentication'
-wt switch -x claude -c feature-b -- 'Fix the pagination bug'
-wt switch -x claude -c feature-c -- 'Write tests for the API'</code></pre>
-<p>收尾时既可选择 PR 工作流（commit、push、开 PR、合并后清理），也可用 <code>wt merge main</code> 在本地完成 squash、rebase、fast-forward 合并并自动清理 worktree。</p>
-
-<h2>安装与生态</h2>
-<p>支持 Homebrew、Cargo、Winget（Windows 下以 <code>git-wt</code> 命令安装以避免与 Windows Terminal 冲突）、Arch Linux（pacman）及 Conda/Pixi（社区维护的 conda-forge 源）。完整文档见 <a href="https://worktrunk.dev">worktrunk.dev</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/max-sixty/worktrunk</guid>
-      <pubDate>Sat, 12 Sep 2026 12:50:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ DeskcommCRM：开源自托管 AI 销售操作系统，为 WhatsApp 而生</title>
-      <link>https://github.com/melgarafael/DeskcommCRM</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源自托管的 AI 销售系统，属于 AI 软件技术进展与开源项目，符合兴趣</small></p><p><strong>DeskcommCRM</strong> 是一个开源的 AI 销售操作系统（Sales OS），将 CRM 与原生 AI 智能体、WhatsApp 深度集成，可作为 Kommo、Octadesk 和 Intercom 的开源替代方案，面向任何通过聊天完成销售的企业。项目采用 TypeScript 编写，基于 Next.js 16、Supabase（Postgres+Auth+Storage）构建，MIT 许可，支持自托管与多租户（multi-tenant），并内置 LGPD（巴西数据保护法）合规设计。</p>
-
-<h3>核心特色</h3>
-<ul>
-<li><strong>AI 智能体真正操作 CRM</strong>：按租户进行 RAG 检索，智能体在客服过程中自主执行 skills，具备运营记忆、情感分析，支持带审计的 AI→人工交接，AI 可作为"一级 assignee"，并设有每组织预算上限。它不是装饰性聊天机器人——能接待、筛选线索并推动漏斗。</li>
-<li><strong>自动跟进不冷场</strong>：对冷却对话自动续聊（自适应时间与漏斗阶段触发），监控濒临失联的风险线索，并提供需人工决策的提醒中心。</li>
-<li><strong>智能体自我进化</strong>：已解决的对话转为新知识，AI 进化界面展示改进情况、错误点与待教授内容；Proposals 是 AI 为自身提出的改进建议，可作新版本应用，始终有人工把关（gate humano）。</li>
-<li><strong>多行业设计</strong>：按渠道自定义词汇——lead 可称"客户/患者/买家"，won 可称"已付/已约/已成交"。同一核心服务电商（原生集成 Nuvemshop）、诊所、房产、信息产品等。</li>
-<li><strong>双通道 WhatsApp</strong>：通过 QR 码（WAHA，多号码，含防封号措施：限速+抖动+时段窗口）或 Meta 官方 Cloud API（含已批准模板）。</li>
-<li><strong>灵活选择 AI 提供商</strong>：OpenRouter、Anthropic 或 OpenAI，可在安装时或后续按系统部分切换。</li>
-<li><strong>服务治理</strong>：真正的服务端 RBAC、带审计的分配/转移、轮询队列、按意图自动路由。</li>
-<li><strong>多租户 + LGPD 设计</strong>：全表租户感知的 RLS（行级安全），隔离测试作为 CI 门禁；匿名化优先于删除；仅追加审计留存 5 年。</li>
-<li><strong>真正自托管</strong>：数据存于自有 VPS，一条命令（或一键）安装与升级，无付费版本、无功能锁定。</li>
-</ul>
-
-<h3>Webhooks 与自动化</h3>
-<p>每个租户可创建"捕获来源"（captação）：一个公开地址接收来自落地页、自有表单或 Zapier/n8n 等工具的 POST 线索，直接进入所选漏斗/阶段，无需代码。在此基础上可构建 QUANDO/SE/ENTÃO（当/若/则）规则的自动化，触发加标签、移动线索、指派、发 WhatsApp 消息或调用外部 webhook 等动作。事件写入 <code>event_log</code> 队列，由每分钟执行的 cron 任务驱动。</p>
-
-<h3>运营界面</h3>
-<p>涵盖服务台（WhatsApp Inbox、雷达、快捷回复）、CRM（Kanban、联系人、漏斗）、AI 智能体中心（Agents、Follow-ups、路由器、知识库 RAG、记忆、Skills、Proposals、用量与预算）、渠道（连接、Nuvemshop、Webhooks）以及分析（绩效）等模块。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/melgarafael/DeskcommCRM</guid>
-      <pubDate>Fri, 11 Sep 2026 14:23:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>Sonarr：面向 Usenet 和 BitTorrent 用户的智能 PVR 追剧工具</title>
-      <link>https://github.com/Sonarr/Sonarr</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 面向 Usenet/BitTorrent 的追剧 PVR 工具，主题与用户兴趣关联不明确</small></p><p>Sonarr 是一款专为 Usenet（新闻组）和 BitTorrent 用户打造的智能 PVR（个人视频录像机）工具。它能够持续监控多个 RSS 订阅源，自动抓取你喜爱的剧集新集数，并对下载的文件进行整理和重命名，实现追剧流程的自动化管理。</p><p>该项目支持 Windows、Linux、macOS、Raspberry Pi 等主流平台，核心功能包括：自动侦测新剧集、扫描现有媒体库并补齐缺失集数、在出现更高质量版本（如从 DVD 升级到蓝光）时自动升级已下载文件的画质、下载失败时自动尝试其他发布源，以及提供手动搜索以了解某集未被自动下载的原因。此外，它支持完全可配置的剧集重命名，并与 SABnzbd、NZBGet 等下载工具，以及 Kodi、Plex（通知、媒体库更新、元数据）等媒体中心深度集成，同时完整支持特辑和多集合并的发布格式，并拥有美观易用的界面。</p><p>Sonarr 采用 C# 开发，遵循 GNU GPL v3 开源协议，在 GitHub 上已获得超过 1.5 万星标。开发者可通过论坛、Discord、Reddit、IRC 及 Wiki 获取支持，项目还接受赞助和捐赠以维持持续开发。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/Sonarr/Sonarr</guid>
-      <pubDate>Fri, 11 Sep 2026 14:23:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ MathModelAgent：专为数学建模设计的开源 AI Agent，自动生成可提交的建模论文</title>
-      <link>https://github.com/jihe520/MathModelAgent</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 AI Agent 用于数学建模与论文生成，属 AI 技术进展与开源项目，符合兴趣</small></p><p><strong>MathModelAgent</strong> 是一个专为数学建模设计、完全开源免费的开源 AI Agent 项目（Python），旨在实现「端到端自动化」：从问题分析、数学建模、编写代码、纠正错误到撰写论文排版，通过一条命令自动完成，直接生成一份排版精良、可提交的完整建模论文。项目愿景是将 3 天的比赛时间压缩到 1 小时。</p>
-
-<h3>核心功能特性</h3>
-<ul>
-<li><strong>多智能体协作（multi-agents）</strong>：内置「建模手、代码手、论文手」等不同角色分工协作。</li>
-<li><strong>多模型支持（multi-llms）</strong>：每个 Agent 可配置不同的合适模型，通过 <a href="https://docs.litellm.ai/docs/providers">litellm</a> 支持所有主流模型。</li>
-<li><strong>代码解释器（Code Interpreter）</strong>：基于 Jupyter 的本地解释器（代码保存为 notebook 便于再编辑），也支持 <a href="https://e2b.dev/">E2B</a>、<a href="https://app.daytona.io/">Daytona</a> 等云端解释器。</li>
-<li><strong>17 套 Typst 论文模板</strong>：内置国内外主流赛事模板（国赛、华数杯、华为杯、MCM/ICM 等），自动匹配赛事类型生成可直接提交的 PDF 论文。</li>
-<li><strong>内置建模知识库</strong>：包含建模规范、模型选择决策树（AHP、TOPSIS、ARIMA、GA 等）和 MCM/ICM 评分标准，降低模型幻觉。</li>
-<li><strong>9 步自动验收</strong>：文本泄漏检测、数值一致性校验、Typst 编译、PDF 可视化检查等，确保论文零低级错误。</li>
-<li><strong>可组合可扩展</strong>：每个阶段是独立 Skill，可单独调用；支持自定义提示词模板（prompt inject）与 Web 搜索（Tavily API）。</li>
-<li><strong>低成本架构</strong>：采用 workflow agentless 思路，不依赖繁琐的 Agent 框架。</li>
-</ul>
-
-<h3>使用方式</h3>
-<p>项目提供桌面版（内置 Claude Code 与全套 SKILLS，开箱即用，支持 macOS 与 Windows），也提供 Docker、本地部署和社区自动脚本三种部署方案，并托管了在线版本（<a href="https://mathmodel.top/home">mathmodel.top</a>）供便捷体验。项目目前处于实验探索迭代阶段，作者提示仍存在 Bug，欢迎社区贡献 PR 和 issue。</p>
-
-<h3>社区反馈与现状</h3>
-<p>该项目在 GitHub 上已获约 4769 星、386 fork，登上今日热门榜单。作者表示此次迭代将项目「蒸馏成完全由 SKILLS 驱动」，可与 Claude Code、Codex 等 Harness 无缝结合。姊妹项目 <a href="https://github.com/jihe520/sci-box">sci-box</a> 提供科研图表（SHAP / ROC / Taylor 等）与流程图（draw.io）模板。作者也坦诚说明：AI 生成内容仅供参考，按当前水平直接参加国赛获奖尚不可能，但相信项目和 AI 的未来成长空间。</p>
-
-<details>
-<summary><strong>你知道吗？</strong></summary>
-<ul>
-<li><strong>Typst</strong>：一种新兴的排版系统，用简洁的标记语言编写，可编译为 PDF，常被视为 LaTeX 的现代替代品，编译速度更快、语法更易上手。</li>
-<li><strong>Agent / Harness / SKILLS 架构</strong>：该项目顺应了今年 AI Agent 领域的新趋势——不再自行实现一套 Agent 框架，而是直接基于现成的 Harness（如 Claude Code、Codex）配合可组合的 SKILL 模块来构建应用。</li>
-</ul>
-</details>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jihe520/MathModelAgent</guid>
-      <pubDate>Fri, 11 Sep 2026 14:23:23 GMT</pubDate>
     </item>
   </channel>
 </rss>
