@@ -3,7 +3,64 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 23 Sep 2026 00:26:31 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 05:56:18 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Opus 5.5 智能、性能与价格分析：智能领先但成本偏高</title>
+      <link>https://news.ycombinator.com/item?id=49804316</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍Anthropic新AI模型Claude Opus 5.5的发布与性能分析，属于新AI模型发布公告和AI软件技术进展，用户高度感兴趣</small></p><p>Artificial Analysis 发布了 Anthropic 旗下 <strong>Claude Opus 5.5</strong>（自适应推理、最大努力、默认回退）的详细评测报告。该模型于 2026 年 9 月 22 日发布，支持文本和图像输入、文本输出，拥有 100 万 token 的上下文窗口。</p>
+
+<h3>核心评测数据</h3>
+<ul>
+<li><strong>智能指数</strong>：在 Artificial Analysis Intelligence Index 上得分 58，在同类模型中排名第 1（共 212 个模型），远高于同类中位数 25。</li>
+<li><strong>价格</strong>：输入 $4.00/百万 token，输出 $20.00/百万 token，均高于同类中位数（$2.00 和 $10.00）。缓存折扣达 95%。</li>
+<li><strong>冗长度</strong>：在智能指数评测中生成 2.6 亿输出 token，远高于中位数 8800 万，属于非常冗长的模型。</li>
+<li><strong>评测成本</strong>：运行完整智能指数评测共花费 $8,708.20。</li>
+</ul>
+
+<h3>社区反馈与讨论</h3>
+<p>Hacker News 上的讨论呈现多个视角。有用户指出，与 Opus 5 相比，Opus 5.5 在"高努力"模式下每任务成本降低了一半，认为这是显著改进。但也有用户对"最大努力"（max）模式提出质疑：开发者 Simon Willison 分享了他两次尝试让模型生成"骑自行车的鹈鹕 SVG"均失败的经历——模型在推理过程中耗尽了 128,000 token 的预算，未能给出最终回答。他怀疑"max"模式可能因过度思考而几乎无法实际使用。</p>
+<p>另有评论者质疑 Artificial Analysis 智能指数的可信度，认为该指数将 Opus 5（被批评为 2026 年最差发布之一）排在 Astra 之前，指数数值上升未必反映实际使用体验的改善。也有用户指出，模型评测应在发布数周后重新运行，以检测性能是否出现回退。</p>
+<p>部分用户认为"高"（high）努力模式是更实用的选择，多个基准测试在该模式下表现良好，且优于 Fable 模型。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49804316</guid>
+      <pubDate>Tue, 22 Sep 2026 16:51:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI 能否快速跟进并复制 Jev 的分类能力？</title>
+      <link>https://news.ycombinator.com/item?id=49802161</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论TypeSafe的Jev这一AI分类技术突破及OpenAI可能跟进，属于AI软件技术进展，用户感兴趣</small></p><p>一篇来自 Arcturus Labs 博客的分析文章探讨了 TypeSafe 公司推出的 Jev 模型——一种以校准概率而非生成文本进行快速判断的新型大语言模型应用。据 Vercel 称，"Jev 在 AI Gateway 历史上被采用的速度超过了任何其他模型"。但作者担忧，OpenAI 完全有能力快速跟进，不仅复制 Jev 的核心产品，还能将其能力内嵌到自家模型中。</p>
+
+<img src="../../../../assets/will-openai-eat-jevs-lunch/hero.jpg" alt="A bulky OpenAI robot licks its lips and reaches toward the enormous sandwich a skinny TypeSafe robot is happily eating." width="100%" />
+
+<h3>Jev 的工作原理</h3>
+<p>作者假设 Jev 基于传统大语言模型构建。其核心机制是：给定状态和问题集，Jev 的 LLM 生成单个 token 的概率分布，然后将 logprobs 转化为所需格式。对于布尔问题，它只看 true 和 false 两个 token 并归一化其概率；对于选择题，则比较各选项 token 的相对概率。作者早在 2025 年就曾在博客中探讨过类似思路（"Supercharging LLM Classifications with Logprobs"）。</p>
+
+<h3>OpenAI 早已在使用"微分类器"</h3>
+<p>作者指出，OpenAI 自引入工具调用（tool calling）以来，就一直隐式地将 LLM 用作专用分类器。例如，模型预测的第一个 token 决定是否调用工具（<code>to=function.</code>），后续 token 决定调用哪个工具，<code>&lt;im_end&gt;</code> token 则判断消息是否结束。这些"微分类器"是专用而非通用的，但 LLM 本质上就是一个极其通用的分类器，不断为每个后续 token 分配概率分布。</p>
+
+<img src="../../../../assets/will-openai-eat-jevs-lunch/token_render.png" alt="A ChatML transcript with each token highlighted in a different color to show token boundaries, ending in a tool call to get_temperature for Berlin." width="100%" />
+
+<h3>TypeSafe 是否有护城河？</h3>
+<p>作者认为架构层面几乎没有护城河——Jev 很可能使用传统 LLM。真正的护城河可能在训练数据上：TypeSafe 联合创始人 Diogo Almeida 表示"我们把自己视为数据研究实验室"，其数据 100% 为合成数据，研究重点在于制造真正通用的数据（类似"认知核心"）。作者推测理想训练数据应包含大量结果已知的案例（如工单路由、简历录用、产品评分等），以训练跨领域的泛化分类能力。强化学习部分可能也藏着"秘方"，但作者已发现 Jev 的概率在某些领域并不成立，准确性仍需时间检验。</p>
+
+<h3>OpenAI 的可能动作</h3>
+<p>作者提出 OpenAI 可以做的比单纯复制 Jev 更有趣的事：将分类能力直接内嵌到传统 LLM 中。具体设想是引入新的特殊语法标签 <code>&lt;prediction&gt;</code>，让模型在自身推理过程中随时调用内置分类器——无需离开 GPU、无需外部工具交接。模型在特定位置读取 true/false 的 logits 并归一化，将概率写回序列继续解码。这类似于约束输出库在推理时所做的引导解码，只是应用于概率而非语法。</p>
+
+<p>这种内置分类能力的潜在收益包括：推理过程中检查是否完成或下一步任务、工具调用前的安全检测（如识别明文 API 密钥）、提示注入扫描、模型路由（判断任务需要更大还是更小的模型）等。</p>
+
+<h3>社区反馈</h3>
+<p>HN 评论区的讨论呈现多元观点。部分评论者认为 Jev 技术本身不难复制，开源社区（如 vLLM 的 PR 和开源项目 Kev）可能更快"吃掉 Jev 的午餐"；也有人质疑 OpenAI 是否会投入精力——Jev 类模型追求快速低成本，与 OpenAI 主攻的推理模型路线相反。还有评论者认为 OpenAI 或 Anthropic 更可能直接高价收购 Jev，主要为了人才和公关效应。另有观点指出，未来更令人兴奋的是 DeepSeek、Qwen、GLM 等开源模型集成分类器的进展。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>logprobs（对数概率）</strong>：LLM 在生成每个 token 时，会为词汇表中每个可能的 token 计算一个 logit 分数，经 softmax 归一化后得到概率分布。logprobs 即这些概率的对数值，可直接用于读取模型对特定 token 的置信度，是 Jev 这类分类应用的技术基础。</p>
+
+<p><strong>混合专家模型（Mixture of Experts, MoE）</strong>：一种模型架构，将网络划分为多个"专家"子网络，每次推理只激活其中一部分。作者推测可通过微调在 MoE 中"雕刻"出一个专门负责校准判断的专家，而其余部分保持原有能力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49802161</guid>
+      <pubDate>Tue, 22 Sep 2026 14:42:59 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 让 Meta 的 AI 助手 Muse 打包自身文件系统，结果收到了 6.8GB 的内部文件</title>
       <link>https://news.ycombinator.com/item?id=49802871</link>
@@ -996,36 +1053,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49745940</guid>
       <pubDate>Thu, 17 Sep 2026 20:17:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 研究评测：编码智能体框架（Harness）的成本与价值——你的 Claude 模型或许不需要 Claude Code</title>
-      <link>https://news.ycombinator.com/item?id=49733726</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 评测编码智能体框架（harness）成本与价值，涉及编程效率与AI软件技术进展，用户较感兴趣</small></p><p>一篇题为《HarnessTax：编码智能体框架到底有多重要》的研究，系统考察了编码智能体「框架」（harness，即包装模型、调用工具、管理上下文的脚手架层）究竟带来了什么、付出了什么代价。研究在 SWE-bench Lite 和 Terminal-Bench 2.0 两个基准上评测了 21 组「模型—框架」组合，覆盖 7 个模型与 3 种框架——Claude Code、Codex CLI 和 Pi。</p><p>核心发现是：模型的效果与所用框架并非严格绑定，「特定提供方优化过的官方框架并不一定是最佳搭配」。例如，使用 Anthropic 的 Claude 模型时，未必一定要搭配官方的 Claude Code，选择更轻量的框架（如 Pi）反而能显著降低成本与 token 消耗。这被称为「框架税」（harness tax）——即 Claude Code 和 Codex 等框架因携带庞大、一揽子式的系统提示词（包含大量安全指令等内容）而带来的额外开销。</p><p>文章的 Hacker News 讨论区引发了多角度的争论与补充：</p><ul>
-<li>有评论指出，Claude Code 与 Codex 的额外「重量」很大程度用于安全与对齐，而 Pi 为追求速度与简洁刻意省略了护栏与沙箱，所谓「税」其实是把不安全性转嫁成了外部成本；有人则反驳说，用工具钩子（tool hooks）或外部容器即可低成本地为 Pi 补充沙箱能力。</li>
-<li>多位用户反馈，改用 Pi 或轻量封装后体验更流畅、成本更低；也有人说框架越大，越能帮小模型分担上下文管理，但对大模型来说只需一个终端工具即可。</li>
-<li>有评论者认为「harness」一词在此被过度引申为「agent」，并指出并行执行、子代理等策略对成本与性能的影响远大于单一框架的差异，单框架分析显得片面。</li>
-<li>关于如何信任智能体产出的工作，有观点认为应依靠良好的测试覆盖来「购买信任」，并通过记录与审查用户意图来纠正意图偏差。</li>
-<li>还有用户提到，模型越聪明，需要告诉它的就越少；并呼吁建立更可靠、覆盖更多开源模型与框架组合的基准评测体系。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49733726</guid>
-      <pubDate>Wed, 16 Sep 2026 22:10:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 突破三元大模型 1.58 比特存储下限：BITCOS 压缩布局降至 1.485 比特/权重</title>
-      <link>https://news.ycombinator.com/item?id=49732931</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 研究突破三元大模型压缩存储下限，属AI模型技术与科学前沿进展，用户较感兴趣</small></p><p>一篇新论文提出了一种名为 <strong>BITCOS</strong> 的自适应存储布局，利用三元大语言模型（Ternary LLM）中权重分布的统计特性，突破了三元模型传统上每权重约 1.585 比特（log₂3）的信息论存储下限。</p>
-<p>三元大模型将每个权重存储为 $\{-1,0,+1\}$ 三种符号之一。目前主流的部署格式（five-trit packing）将五个权重打包进一个字节，因实践中采用的 2 的幂次分组大小，实际会向上取整到每权重 1.625 比特。这种有效位宽假定三种符号等概率出现。</p>
-<p>研究人员实际测量了 29 个三元 LLM 模型的符号分布，发现零值的占比最高可达 51.5%。受此启发，BITCOS 采用「稠密存在位图 + 紧凑符号向量」的布局，在给定零密度 z 时每权重只需 $2 - z$ 比特。在测试的 29 个模型中，BITCOS 有 26 个比传统的 five-trit 打包更紧凑，在最稀疏的模型上达到每权重 1.485 比特。</p>
-<p>BITCOS 易于在现代处理器和 GPU 上高效解包，论文为 AVX-512、AVX2 和 Intel Xe2 GPU 提供了优化的解包序列。与业界先进的生产级三元矩阵-向量乘法内核相比，在真实三元模型的零密度下，新布局的实际收益最高达 1.28 倍。端到端推理实验在 5 种平台（客户端与服务端 CPU、集成与独立 Xe2 GPU）上验证了解码吞吐量在 CPU 上提升最高 1.18 倍、GPU 上提升最高 1.27 倍。</p>
-<p>论文作者为 Evangelos Georganas、Alexander Heinecke 和 Pradeep Dubey，投稿于 arXiv（编号 2609.16338）。</p>
-<p><strong>社区反馈</strong>：Hacker News 用户普遍认为这一工作「聪明」且实际可用。有用户指出利用零值密度压缩是合理思路，并推测若三元模型被固化到定制芯片（如已被 AMD 收购的 Taalas 的 Jimmy 芯片），效率将极为惊人。也有用户讨论了与其他量化方法的对比：有人认为三元量化在低比特训练感知量化（QAT）场景更有意义，而向量量化等方法更适合事后量化（PTQ）；还有人建议可用算术编码进一步压缩几厘比特，论文对 128 个连续权重块的处理方式使其具备进一步优化的空间。多名从事边缘计算和受限内存部署的用户表示，这项研究对其实际工作具有直接参考价值。</p>
-<p>论文链接：<a href="https://arxiv.org/abs/2609.16338">https://arxiv.org/abs/2609.16338</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49732931</guid>
-      <pubDate>Wed, 16 Sep 2026 20:59:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
