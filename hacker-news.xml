@@ -3,7 +3,48 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 23 Sep 2026 11:28:15 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 16:52:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude Code 的 AGENTS.md 支持仅在遥测开启时生效：远程功能开关引发的隐私与可用性争议</title>
+      <link>https://news.ycombinator.com/item?id=49814947</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于 Claude Code 编程工具的功能开关与隐私争议，属于编程工具发布及效率改进经验，用户很感兴趣</small></p><p>一位开发者发现，Anthropic 的 Claude Code 2.1.277 版本宣布支持 <code>AGENTS.md</code> 文件，但该功能的加载器实际上被一个远程功能开关（feature flag）所控制，且默认关闭。当用户关闭遥测或非必要流量时，本地的 <code>AGENTS.md</code> 会被静默跳过，不产生任何警告。</p>
+
+<h3>问题根源</h3>
+<p>该功能以内置插件 <code>agents-md</code> 的形式发布，其可用性依赖于远程功能开关 <code>tengu_agents_md_mod</code>。当 Claude Code 无法获取该开关状态时（例如遥测被关闭），插件不可用，本地文件永远不会被读取。作者指出，读取工作目录中的 markdown 文件本不需要任何网络请求，却受制于服务端开关。</p>
+
+<h3>实测结果</h3>
+<p>作者通过金丝雀词（canary word）测试验证了以下行为：</p>
+<ul>
+<li><code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1</code> 会阻止该功能</li>
+<li><code>DISABLE_TELEMETRY=1</code> 同样会阻止该功能</li>
+<li>将任一变量设为 <code>0</code> 也无法解除阻止</li>
+<li>项目级 <code>.claude/settings.json</code> 中的环境变量清除无效</li>
+<li>会话级覆盖（<code>--settings</code>）从第二次会话起才生效</li>
+<li>所有情况下均无任何警告提示</li>
+</ul>
+
+<h3>临时解决方案</h3>
+<p>作者发现 <code>CLAUDE.md</code> 支持 <code>@path</code> 导入，且不依赖该功能开关。只需在项目根目录创建一行内容的 <code>CLAUDE.md</code>：<code>@AGENTS.md</code>，即可在遥测关闭的情况下正常加载 <code>AGENTS.md</code>。代价是每个仓库多一个文件——而这正是 AGENTS.md 支持本应消除的麻烦。</p>
+
+<h3>作者观点</h3>
+<p>作者认为这一设计不可接受：隐私设置不应静默关闭无关的本地行为。远程功能开关适用于需要与服务器通信的功能，但读取本地文件完全不需要网络。此外，最关心 AGENTS.md 的用户（多代理指令管理、注重隐私的团队）恰恰是最可能关闭遥测的人群。静默失败会让用户误以为模型忽略了他们的指令，浪费大量时间调试提示词。</p>
+
+<h3>社区反馈</h3>
+<p>HN 评论区对此反应热烈（337 分，183 条评论）。有用户指出 Anthropic 长期以来习惯将新功能置于需要遥测的功能开关之后，直到功能"晋升"为默认开启；也有用户质疑这是否为有意设计还是 bug。部分用户提到 Claude Code 的 GitHub 仓库仅包含插件和脚本源码，并非完整的开源代码。还有用户报告在最新版本（2.1.280）中已能正常读取 AGENTS.md，暗示问题可能已修复。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49814947</guid>
+      <pubDate>Wed, 23 Sep 2026 12:15:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 用25行Python实现Jev？一篇讽刺炒作的热门博文</title>
+      <link>https://news.ycombinator.com/item?id=49812769</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 用25行Python实现Jev的讽刺博文，涉及编程与开源，属于用户感兴趣范畴</small></p><p>这篇博客以讽刺口吻宣称，近期在社交媒体上被热议的「Jev」——一个声称代表大语言模型与AI范式前沿的本地分类决策模型——实际上只需25行Python即可实现。文章展示了完整代码：通过 <code>llama-cpp-python</code> 加载开源量化模型 <a href="https://huggingface.co/Qwen/Qwen3-0.6B-GGUF">Qwen3-0.6B-GGUF</a>，构造「垃圾邮件/钓鱼/正常」等选项的提示词，读取模型对每个选项 token 的 logits，再借助 logsumexp 归一化为概率并输出（示例中「钓鱼」概率达 0.885）。</p><p>作者不认同围绕 Jev 的炒作，强调这种方式同样快速、完全本地运行、数据不外传。不过文章结尾明确标注这是<b>戏仿（parody）</b>，并附上更完整的开源实现链接：<a href="#">OpenJev</a>、openjev-sglang 及 OpenJev on DiffusionGemma。</p><p><b>社区反馈（HN 热门，456 分、138 条评论）</b>：讨论相当热烈且观点分化。不少评论者指出文章缺少与 Jev 的延迟和算力对比，也没有错误率基准，难以服众。有技术评论（如 sigmoid10）指出直接用聊天模型读单 token 概率的隐患——模型本意可能是输出整段解释，导致「A/B/C」选项的概率被稀释，建议改用结构化输出或多 token 序列方案。也有评论认为这类「XX行代码」的口号有误导性，因为真正的 Jev 还需大量调优、训练与基准测试；但另一派评论（如 program_whiz）认为在核心逻辑层面这样的演示有助于破除神秘感，正如「回归估计校验器」本质上就是一行 <a href="#">pytorch.nn.Linear</a>。还有人调侃这好比「用 SFTP 一句话实现 OneDrive」——技术上沾边但并非同一回事。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49812769</guid>
+      <pubDate>Wed, 23 Sep 2026 07:26:23 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Claude Opus 5.5 智能、性能与价格分析：智能领先但成本偏高</title>
       <link>https://news.ycombinator.com/item?id=49804316</link>
@@ -1027,32 +1068,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49746618</guid>
       <pubDate>Thu, 17 Sep 2026 21:13:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Bend：用形式化证明阻止 AI 犯错、可运行于 CPU 和 GPU 的新语言</title>
-      <link>https://news.ycombinator.com/item?id=49746163</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 发布新的编程语言Bend，通过形式化证明防止AI错误，属于编程工具发布，很感兴趣</small></p><p>本期 Hacker News 讨论的是编程语言 <a href="https://bend-lang.com/">Bend</a> 的 2.0 发布。这是一种号称兼具「C 语言速度、CUDA 并行能力、Lean 风格证明、Python 语法」的新语言，其核心卖点是用形式化证明来「阻止 AI 犯错」。</p><p><b>语言定位与机制</b></p><p>在作者看来，后 AGI 时代人类将不再亲自编写与阅读代码，但仍需要一种无歧义的方式向构建周围世界的 AI 表达意图。Bend 的答案是「法则（laws）」——比自然语言更精确——以及「证明（proofs）」——用以验证 AI 实现的提示词是否正确。语言采用仿射依赖类型论（affine dependent type theory）作为核心，其类型检查器同时就是证明检查器。</p><p>典型工作流程是：在 <code>LAWS.bend</code> 中声明不可破坏的规则，例如「任何走子序列都无法导致胜利」；AI 每改动代码后，运行 <code>bend PROOF.bend</code> 以数学方式验证法则仍然成立，若不成立则让 AI 重试，直至构造出满足法则的代码。作者声称这样「合并 bug 在数学上是不可能的——它是一条定理」。</p><p>性能方面，Bend 编译为原生代码，单核速度接近 C，同一二进制可在十六核或多达几千个 GPU 核心上并行运行。其编译器、运行时和内核由人类设计，作者强调关键部分（分配器、垃圾回收、闭包求值器、函数求值器）已在 GPU 上完整实现。</p><p><b>社区反应</b></p><p>讨论热度很高（360 分、182 条评论），但反应两极分化。多个用户质疑仓库被压缩为单次提交，历史被「抹平」；也有人在回应作者时指出，将代码交给 AI 编写、由 AI 写法则意味着「法则本身也可能出错」。还有观点认为形式化验证难以扩展到 Facebook 这类真实复杂程序，对此有用户举出 AWS Nitro 管理程序、Apple 加密库、微软 SymCrypt 等已应用形式化验证的现实案例反驳。</p><p>作者（网名 LightMachine）亲自下场回应质疑：他承认项目大量使用了 AI 辅助编码（「AI slop」），但强调编译、运行时等关键部分是人类设计并经过审计；他解释放弃策略（tactics）与编译期搜索，让检查速度快，代价是代码更冗长，但「AI 写证明的时间很便宜，bug 消耗的人类时间才昂贵」。他恳请社区礼貌批评，并说明后续版本计划引入余数类型来处理非终止递归等特性。</p></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49746163</guid>
-      <pubDate>Thu, 17 Sep 2026 20:36:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI 推出面向法律行业的 Astra for Law</title>
-      <link>https://news.ycombinator.com/item?id=49745940</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenAI推出面向法律行业的专用AI产品，属于AI软件技术进展，但偏行业垂直应用，推荐阅读</small></p><p>OpenAI 发布了面向法律领域的专用产品 <strong>Astra for Law</strong>。根据产品介绍，该工具可借助法律检索索引，在超过 2.3 亿个 URL 的语料库中搜索美国判例法、法规、行政决定及法院规则等，并与非营利组织 Free Law Project（CourtListener 的运营方）合作，将其覆盖逾 99.9% 已发布美国先例性判例法的判例库纳入该研究体验。Astra 还通过 API 面向 Harvey、Legora 等法律领域客户开放，使其能够将这一能力集成到自有产品与工作流程中。</p>
-<p>社区讨论围绕多个焦点展开。<a href="https://news.ycombinator.com/item?id=49745940">HN 评论</a>中较受关注的话题包括：</p>
-<ul>
-<li><strong>幻觉问题</strong>：多位网友质疑博文未提及模型幻觉率。有评论引用 benchmark 指出 GPT-6 Astra 在已测试模型中幻觉率最低，但也有人认为在法律这类高风险领域，只要不是 0% 就该明确披露。</li>
-<li><strong>法律责任</strong>：有人询问「用它生成合同出错时该起诉谁」，多数回应认为责任在使用者自身，不应从「词计算器」获取法律建议。</li>
-<li><strong>行业冲击与竞争</strong>：部分评论担忧 AI 将取代法律、医疗、财务等知识型工作，导致财富进一步集中于少数人；也有观点认为这反而降低了普通人提起诉讼的门槛。</li>
-<li><strong>与法律 AI 客户的关系</strong>：有评论敏锐指出，OpenAI 在发布文中点名 Harvey 与 Legora 是刻意安抚，意在撇清「吃自己孩子」的意图，避免被视为与最大的法律 AI 客户直接竞争。</li>
-<li><strong>商业策略</strong>：部分用户批评 OpenAI 的商业策略是「广撒网」（spray and pray），担心其在应用层与垂直厂商的竞争中陷入尴尬境地；另有人则赞同其利用充足算力多线尝试。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49745940</guid>
-      <pubDate>Thu, 17 Sep 2026 20:17:48 GMT</pubDate>
     </item>
   </channel>
 </rss>
