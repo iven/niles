@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 23 Sep 2026 16:52:12 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2026 20:17:51 GMT</lastBuildDate>
+    <item>
+      <title>Lemonade 修复 AMD APU 模型流式支持，因性能慢约 40 倍移除 OpenMOSS ROCm 后端</title>
+      <link>https://www.phoronix.com/news/Lemonade-2026.40-RC</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲Lemonade（一个开源项目/新软件）修复了AMD APU相关功能，并放弃OpenMOSS ROCm。虽然涉及编程/AI软件及新软件项目，但核心是AMD硬件相关技术细节及性能对比，兴趣配置中AMD显卡和性能评测均为不太感兴趣/避开，主题不够明确契合用户高兴趣领域，故定为可选。</small></p><p>AMD 支持的本地 AI 服务器开源项目 Lemonade 今日发布了 2026.39.1 稳定版，同时推出了 2026.40 的候选版本（RC）。除了采用新的版本命名方案外，本次 SDK 更新还带来几项值得关注的变更。</p>
+
+<p>2026.40 RC 版本现在支持在 AMD 集成显卡（APU）上流式运行模型，方法是根据 APU 的 GTT 内存池进行容量评估，而非使用固定的 vRAM 预留窗口。此前，一些流式模型（如 DeepSeek-V4-Flash-IQ2XXS-DS4）在 AMD Ryzen AI Max（Strix Halo）上无法运行——尽管系统有足够的 RAM，Lemonade 却一直按照较小的预留窗口而非可寻址的 GTT 进行检查。此次修复将改善 AMD iGPU/APU 上的流式模型支持。</p>
+
+<p>另一个重要变化是，OpenMOSS 的 ROCm 后端在 Windows 和 Linux 平台上被移除。OpenMOSS 是来自中国的 AI 研究倡议和模型生态系统。OpenMOSS 的 ROCm 后端被禁用，因为其在相同硬件上运行速度比 Vulkan 后端慢约 40 倍。据分析，AMD ROCm 代码路径中至少存在部分 CPU 回退，这是导致巨大性能差距的主要原因。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=openmoss_rocm_benchmark" alt="OpenMOSS ROCm benchmark" />
+
+<p>该合并请求移除了 OpenMOSS ROCm 支持，直到其能被妥善修复，并公开了 OpenMOSS ROCm 糟糕的性能数据。此外，2026.40 RC 还新增了针对 JetBrains Junie 的启动代理，以及其他在 GitHub 上列出的增强功能。</p>
+
+<p>今日发布的 2026.39.1 稳定版带来了可配置的 vRAM 自动驱逐（auto-eviction）功能及其他较小的改动。这是新版本命名体系（基于年份和周数）下的首个稳定版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Lemonade-2026.40-RC</guid>
+      <pubDate>Wed, 23 Sep 2026 19:41:24 GMT</pubDate>
+    </item>
     <item>
       <title>NTFS-3G 发布 2026.9.18 更新，修复多项安全漏洞</title>
       <link>https://www.phoronix.com/news/NTFS-3G-2026.9.18</link>
@@ -675,24 +694,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Completes-Rust-Coreutils</guid>
       <pubDate>Wed, 16 Sep 2026 12:26:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux YogaFan 驱动为更多新款联想笔记本准备支持</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-Yogafan-More-Laptops</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 小众联想笔记本风扇驱动更新，主题较窄且不属于明确兴趣类别</small></p><p>Linux 的 YogaFan 硬件监控（HWMON）驱动正准备在 Linux 7.4 内核周期中增加对更多联想笔记本电脑风扇转速监控的支持。该驱动最早在 Linux 7.1 中引入，用于在各类联想 Yoga、Legion、Flex、Slim 和 IdeaPad 笔记本上监控风扇转速，此后各内核版本持续扩展其支持范围。</p>
-<p>已排进 Linux 7.4 合并队列的补丁新增了以下机型支持：</p>
-<ul>
-<li>联想 Yoga Pro 9 16IMH9</li>
-<li>联想 Yoga 740-15IML</li>
-<li>联想 IdeaPad 3 15ALC6 Ub</li>
-<li>联想 Yoga 14cACN 2021</li>
-</ul>
-<p><img src="//www.phoronix.net/image.php?id=5500u-windows10-ubuntu&image=5500u_windows_1_med" alt="Lenovo laptop Linux testing" /></p>
-<p>这些最新的 YogaFan 补丁已排队进入 hwmon-next Git 分支，为预计于 10 月底启动的 Linux 7.4 合并窗口做准备。如需了解当前受 YogaFan 驱动支持的联想设备清单或该开源驱动的更多细节，可参阅主线 <a href="https://www.phoronix.com">YogaFan 驱动文档</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Yogafan-More-Laptops</guid>
-      <pubDate>Wed, 16 Sep 2026 10:29:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
