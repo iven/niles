@@ -3,7 +3,55 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 25 Sep 2026 07:42:47 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 13:41:58 GMT</lastBuildDate>
+    <item>
+      <title>Linux 内核补丁发布：为所有 Apple M3 芯片启用 NVMe 存储支持</title>
+      <link>https://www.phoronix.com/news/NVMe-Apple-M3-Linux-Patches</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及苹果芯片Linux驱动支持，属于Linux桌面技术相关，但具体是Apple M3 SoC的NVMe补丁，偏向硬件驱动细节，兴趣不够明确</small></p><p>Linux 内核主线对 Apple M3 系列硬件的支持仍在持续推进中。虽然 Linux 7.2 已带来初步的 M3 支持，Linux 7.3 也加入了 M3 Pro / Max / Ultra 的支持，但 M3 系列硬件在内核中的支持仍处于非常基础的阶段，尚不适合日常使用。</p>
+
+<p>近日，开发者 Janne Grunau 发布了由七个补丁组成的补丁系列，旨在为所有 M3 及 M3 Pro / Max / Ultra 设备启用 NVMe 存储支持。M3 系列的 NVMe 工作方式与此前的 Apple M2 Pro / Max / Ultra 设备相同，但由于设备树（Device Tree）的原因，需要额外约 140 行的 YAML 和设备树（DT）添加才能让兼容的 Apple M3 系列获得 NVMe 支持。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=apple_m3_nvme_sml" alt="Apple + NVMe" />
+
+<p>考虑到这些补丁仅为设备树添加，且时间上可能赶上 10 月的 Linux 7.4 合并窗口，这些改动有望及时进入主线内核。目前补丁已在 Linux 内核邮件列表上接受审查。</p>
+
+<p>对于当前希望在使用 Apple M3 硬件的设备上运行 Linux 的用户，文章建议使用最新的下游 <a href="https://asahilinux.org/">Asahi Linux</a> 发行版，其 Apple M3 支持能够更早地承载这些最新工作，远早于它们进入官方内核树。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NVMe-Apple-M3-Linux-Patches</guid>
+      <pubDate>Fri, 25 Sep 2026 10:27:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>AMD 发布新 Linux 补丁，进一步提升 HDMI 2.1 可靠性</title>
+      <link>https://www.phoronix.com/news/AMDGPU-HDMI-2.1-Reliability</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Linux显卡驱动改进，属于Linux桌面技术但偏向AMD显卡硬件驱动细节，兴趣不够强烈</small></p><p>AMD 于周四发布了最新一轮 AMDGPU Display Core（DC）补丁，旨在进一步提升 HDMI 2.1 的可靠性。这些改进发生在 Linux 7.4 内核发布之前——该版本将成为 AMD 显卡驱动默认启用 HDMI 2.1 的重要里程碑，届时将支持 HDMI FreeSync、VRR（可变刷新率）和 ALLM（自动低延迟模式）等功能。</p>
+
+<p>本次补丁包含以下几项关键修复：</p>
+<ul>
+<li><strong>跳过 FRL 状态轮询</strong>：当链路断开（如热插拔操作期间）时，跳过 HDMI FRL（固定速率链路）状态轮询，避免显示器无法点亮的潜在问题。</li>
+<li><strong>LT 超时修复</strong>：调整 HDMI 2.1 LT（链路训练）超时设置，使其更好地符合 HDMI 规范，提供更一致的体验。</li>
+<li><strong>序列化轮询</strong>：将 HDMI FRL 状态轮询与链路检测进行序列化，避免并发冲突。</li>
+</ul>
+
+<p>虽然这些改动相对较小，但表明 AMD 正在 Linux 7.4 于 10 月的大合并窗口到来之前积极完善 HDMI 2.1 的可靠性。此外，本周的 DC 补丁还涉及新的 DCN 4.2 和 DCN 6.0 支持，根据补丁时间线推测，DCN 6 将随下一代 RDNA5 GPU 一同推出。</p>
+
+<p>同日，AMD 还向 DRM-Next 提交了面向 Linux 7.4 的最新 AMDGPU 和 AMDKFD 拉取请求，其中包含大量修复工作，重点围绕 AMD GFX12.1 IP 以及 DCN 6 显示模块。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=hdmi_21_reliability" alt="HDMI 2.1 reliability" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMDGPU-HDMI-2.1-Reliability</guid>
+      <pubDate>Fri, 25 Sep 2026 10:12:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>Samba 4.25 发布：引入实验性 SMB3 持久句柄支持</title>
+      <link>https://www.phoronix.com/news/Samba-4.25-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及开源软件新版本发布，但Samba属于网络文件服务，与兴趣配置无明显匹配，兴趣不明确</small></p><p>开源软件 Samba 4.25 已作为最新稳定版本发布。Samba 用于在 Linux 服务器与 Windows 系统之间实现文件和打印服务共享。本次新版本最大的亮点是引入了对 SMB3 持久句柄（Persistent Handles）的实验性支持。</p><img src="//www.phoronix.net/image.php?id=2026&image=samba" alt="Samba logo" /><p>持久句柄功能是迈向透明故障转移（transparent failover）能力的一部分。借助持久句柄，SMB 客户端可在服务器重启或宕机后重新连接，同时保留其先前持有的有效文件句柄，从而实现不中断的文件访问。不过，SMB3 持久句柄也有明显代价——由于每次打开/更新/租约/关闭操作都需要双重存储，会带来"显著"的性能开销。</p><p>Samba 4.25 还引入了新的 Ceph RGW VFS 模块，可将 Ceph 对象网关（Object Gateway）的存储桶作为 SMB 共享导出。此外，该版本还改进了 JSON 审计日志记录，并将域加密类型默认改为 AES，同时包含其他多项更新。Samba 4.25 可从 Samba.org 下载，并附有 v4.25 版本发布说明。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Samba-4.25-Released</guid>
+      <pubDate>Fri, 25 Sep 2026 09:38:43 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 内核开发者考虑引入 AGENTS.md 以引导 AI/LLM 代理</title>
       <link>https://www.phoronix.com/news/Linux-Considers-AGENTS-MD</link>
@@ -700,41 +748,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Apple-Video-Decode-AVD-Linux</guid>
       <pubDate>Fri, 18 Sep 2026 15:52:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 26.10 调整内存压力下的 OOM 默认行为，保护关键桌面服务</title>
-      <link>https://www.phoronix.com/news/Ubuntu-26.10-OOM-Adjustments</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲Ubuntu桌面在内存压力下的行为调整，属于新发行版与Linux桌面技术，符合高兴趣和感兴趣范畴</small></p><p>Ubuntu 26.10 桌面版正在调整默认的 OOM（内存耗尽）守护进程行为，以更好地应对系统内存压力下的进程终止决策。Canonical Ubuntu 桌面团队的 Jean Baptiste Lallement 概述了 Ubuntu 26.10 的默认变更，目的是解决当前 GNOME Shell、D-Bus 或其他关键程序在 OOM 压力下可能被意外终止、进而导致系统无法正常运作的问题。</p><p>新的策略赋予关键桌面服务更多保护：关键桌面服务使用更低的 OOM 评分，使其更不容易被内核 OOM killer 选中；应用程序和后台服务保持较高默认评分，因而更可能被优先终止。同时，系统自动禁用了针对整个用户会话的 systemd-oomd 内存压力终止机制——systemd-oomd 不使用与内核相同的 OOM 优先评分，可能仅凭内存压力就终止某个关键桌面服务。</p><p>当然，这并不能阻止系统内存耗尽时应用程序被终止，也不能让 Ubuntu 对 OOM 状况完全免疫。其目标只在于尽可能保留桌面会话，在终止应用之前优先保留维持会话运行所需的服务。除了下个月发布的 Ubuntu 26.10 之外，Ubuntu Linux 在 OOM 行为方面预计还会有进一步的改进。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.10-OOM-Adjustments</guid>
-      <pubDate>Fri, 18 Sep 2026 10:40:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linux 内核构建速度大幅提升：最新补丁可将增量构建时间缩短约 70%</title>
-      <link>https://www.phoronix.com/news/Linux-Kbuild-Faster-v3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲Linux内核编译时间显著缩短的补丁，属于编程效率改进经验，符合很高兴趣</small></p><p>过去几周，Linux 内核社区一直在关注一组内核补丁系列，此前 AI 发现了 Linux 内核构建代码中的一些重大瓶颈。借助 AI 的帮助来解决这些瓶颈后，Linux 内核的构建时间得到大幅缩短。这些优化有望赶在 Linux 7.4 中落地，可将增量内核构建时间缩短多达约 70%。</p>
-
-<p>本周，Arm 工程师 Lorenzo Stoakes 发布了该补丁系列的第三版（v3），共包含 20 个补丁，用于显著加快内核构建速度。这组补丁已基于最新的上游 Linux Git 重新变基（rebase），处理了 Sashiko 报告的警告，并进行了一些其他次要改动。这些补丁针对 AMD EPYC 与 Threadripper 平台展现出非常令人兴奋的提速效果，同时 Apple Silicon（M2 SoC）在 Linux 上的表现也相当积极，对 Linux 内核整体而言是一大胜利。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=faster_kbuild" alt="faster kernel build time benchmark" />
-
-<p>在 Apple M2 的 Linux 测试中：使用 Clang 进行完整内核构建约快 10%；使用 Clang 的增量构建快 55%，使用 GCC 则快 45%；而无操作构建（对已编译内核树执行 make）快 74%～76%。这些数字与 AMD x86_64 平台的测试结果处于相近的水平。</p>
-
-<p>感兴趣的读者可以在 <a href="https://lkml.org/">LKML（Linux 内核邮件列表）</a>上找到 v3 补丁。对于从源码编译 Linux 内核的用户来说，这些节省的时间意义重大。希望这些效率提升仍能按计划赶上在 Linux 7.4 中落地。过去编译 Linux 内核所需的时间足够让人去倒一杯咖啡或喝点饮料，而在今天的处理器上这些构建时间已大大降低，Lorenzo Stoakes 正在推动的 Kbuild 改进则进一步缩短了这一"咖啡时间"窗口。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Kbuild-Faster-v3</guid>
-      <pubDate>Fri, 18 Sep 2026 10:26:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenCL 3.1.2 规范发布，cl_khr_command_buffer 扩展转正</title>
-      <link>https://www.phoronix.com/news/OpenCL-3.1.2-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为 OpenCL 3.1.2 软件版本发布，属于软件新功能/技术进展，但为小版本更新且主题兴趣不明确，故列为可选</small></p><p>Khronos 集团于今日发布了 OpenCL 规范的最新修订版 OpenCL 3.1.2，其中包含一系列变更。最值得注意的是，<code>cl_khr_command_buffer</code> 扩展已完成定稿，不再是实验性状态。</p><p>借助 <code>cl_khr_command_buffer</code>，开发者可以记录并重放 OpenCL 命令缓冲区，其目的在于降低多次排队相同工作负载时的开销。该扩展由 NVIDIA、Intel、Google、Codeplay、Qualcomm 等多家厂商共同推进。此次顺利转正意味着它已跨越实验阶段。</p><img src="//www.phoronix.net/image.php?id=2026&image=opencl_31" alt="OpenCL 3.1" /><p>此外，OpenCL 3.1.2 还改进了内存对象 API 的错误代码文档一致性，并带来若干澄清说明。新版规范可通过 GitHub 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/OpenCL-3.1.2-Released</guid>
-      <pubDate>Fri, 18 Sep 2026 00:33:22 GMT</pubDate>
     </item>
   </channel>
 </rss>

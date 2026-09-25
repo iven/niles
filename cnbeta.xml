@@ -3,7 +3,31 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Fri, 25 Sep 2026 07:43:23 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 13:41:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Samba 4.25正式发布：首次实验性支持SMB3持久句柄 故障恢复能力进一步增强</title>
+      <link>https://www.cnbeta.com.tw/articles/soft/1579612.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Samba 4.25发布属开源项目及软件新功能，符合用户兴趣</small></p>
+                                                
+                                                <p>开源文件与打印服务软件Samba 4.25近日正式发布，成为该项目面向Linux服务器与Windows系统提供文件和打印共享服务的最新稳定版本。此次更新最值得关注的变化，是首次加入对SMB3 Persistent Handles，也就是SMB3持久句柄的实验性支持，同时还引入了新的Ceph RGW虚拟文件系统模块，并对审计日志、域加密等功能进行了改进。</p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/0925/79c4067b6c09141.webp" title="" alt="image.webp"></p><p>SMB3持久句柄是Samba 4.25此次更新的核心功能之一，其主要目标是为未来更加透明的故障转移能力提供基础。在传统SMB连接中，如果服务器发生重启、故障或者短暂中断，客户端通常需要重新建立连接，而原先打开的文件句柄可能已经失效，应用程序也可能因此受到影响。</p><p>启用SMB3持久句柄后，客户端在服务器重启或发生中断之后，可以重新连接服务器，并继续使用此前已经获得且仍然有效的文件句柄。换句话说，即使服务器短暂离线，客户端仍有机会在重新建立连接后继续访问原来的文件，从而减少服务器故障对文件访问造成的中断。</p><p>不过，这项功能目前仍然属于实验性支持，而且需要付出明显的性能代价。Samba开发人员指出，SMB3持久句柄会对每一次打开、更新、租约以及关闭等操作产生额外的存储开销，需要进行双重存储处理，因此可能带来“显著”的性能损失。</p><p>因此，Samba 4.25并不是简单地建议所有用户立即启用这一功能，而是将其作为面向高可用性和透明故障转移场景的实验性基础设施。对于普通文件服务器而言，用户仍需要根据实际需求权衡持续可用性与性能开销之间的关系。</p><p>除了SMB3持久句柄之外，Samba 4.25还加入了全新的Ceph RGW VFS模块。通过这一模块，Ceph Object Gateway，也就是Ceph对象网关中的存储桶，可以通过SMB共享的方式提供访问，从而进一步连接对象存储与传统文件共享环境。</p><p>这项变化对于已经使用Ceph构建大规模存储基础设施的用户尤其具有意义。过去对象存储和SMB文件共享通常属于不同的访问体系，而新的VFS模块可以让Ceph RGW中的对象存储资源通过Samba提供给支持SMB协议的客户端使用，从而扩大Ceph对象存储在传统Windows/Linux文件共享环境中的适用范围。</p><p>Samba 4.25还对JSON格式的审计日志进行了改进。对于需要对文件访问、用户操作以及服务器活动进行记录和分析的企业环境而言，更完善的JSON审计日志能够更加方便地被日志分析系统、安全平台以及其他自动化工具处理。</p><p>与此同时，Samba 4.25调整了域加密类型的默认设置，将AES设为默认加密方式。此举进一步推动Samba使用更加现代的加密机制，同时减少系统在默认配置下继续依赖较老加密类型的情况。</p><p>Samba本身是一个非常重要的开源基础设施项目，它通过实现微软Windows使用的SMB/CIFS协议，使Linux和其他Unix类系统能够与Windows环境进行文件和打印服务互操作。大量企业文件服务器、NAS设备以及Linux服务器都依赖Samba提供Windows兼容的网络文件共享能力。</p><p>随着企业基础设施越来越强调高可用性，服务器发生故障或重启时如何尽可能避免用户工作中断也变得更加重要。SMB3持久句柄正是在这一背景下加入Samba 4.25的功能。虽然目前仍处于实验阶段，但它为未来实现更加完善的透明故障转移奠定了基础。</p><p>值得注意的是，Samba 4.25此次更新并不是一次单纯增加新功能的版本升级，而是在文件服务连续性、对象存储整合、安全审计和加密机制等多个方面进行完善。尤其是SMB3持久句柄和Ceph RGW支持，分别加强了Samba在高可用文件服务以及现代分布式存储环境中的应用潜力。</p><p>Samba 4.25现已作为最新稳定版本发布，源代码以及完整的4.25版本更新说明已经同步提供。对于运行Samba服务器的用户而言，如果希望获得更好的兼容性、新的存储后端能力以及最新修复，可以考虑升级到这一版本；而SMB3持久句柄等实验性功能则更适合在经过测试和评估后，再根据具体业务需求投入生产环境。</p><p>了解更多：</p><p><a href="https://www.samba.org/samba/history/samba-4.25.0.html" _src="https://www.samba.org/samba/history/samba-4.25.0.html" target="_blank">https://www.samba.org/samba/history/samba-4.25.0.html</a></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/soft/1579612.htm</guid>
+      <pubDate>Fri, 25 Sep 2026 11:59:49 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 谷歌部署太空算力TPU 功率仅1千瓦跑15分钟就得关机降温</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1579598.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 谷歌部署太空算力TPU，属于AI计算与科学前沿进展，符合用户兴趣</small></p>
+                                                
+                                                <p>当下在马斯克的大力推动下，太空算力是这两年火热的新兴AI市场，谷歌现在也宣布即将部署太空算力，只不过面临的问题还很多。谷歌CEO Sundar Pichai今天在X上宣布要把自家的TPU AI芯片送入太空，Project Suncatcher的第一颗太空算力卫星原型会搭载SpaceX拼车发射任务Transporter-18进行太空部署，预定10月1日由猎鹰9号火箭发射。</p>                
+                        <div class="article-global"></div>                            <p>这颗卫星代号为MVP，是谷歌去年11月公布的Project Suncatcher计划中的一部分，卫星本身是由Google和遥感卫星公司Planet合作开发的，体积大约相当于一个冰箱大小，搭载了4颗TPU芯片，整体算力跟地面上的一台服务器差不多，设计寿命1年，预计能够回答简单的Gemini问题。</p><p>谷歌原计划在2027年才首次进行太空算力卫星的发射部署，终极目标是建立81颗卫星经由激光通信组成的太空数据中心，现在提前到今年底发射就是想及早测试下太空算力系统从发射到部署运行在内的一系列挑战。</p><p>太空中可以24小时接受光照，理论上可以持续不断发电供卫星使用，但实际面临的技术挑战很多，发射带来的G加速冲击至少10倍地球重力，单芯片承受的压力可达50-100倍冲击，谷歌首先要在硬件防护上下功夫，这还是比较好解决的问题。</p><p><img src="https://img.3dmgame.com/uploads/images/news/20260925/1790323832_737450.png" alt="谷歌部署太空算力TPU 功率仅1千瓦跑15分钟就得降温关机"></p><p>还要承受住太空辐射，第六代TPU Trillium能承受的累积辐射剂量，超过在太空执行五年任务所受的量。</p><p>这两个问题还是可以靠技术解决的，但太空部署之后散热才是最大的挑战，太空中没有空气，不能对流散热，只能靠辐射散热，谷歌用的是热管+散热板，但是目前也只能做到跑15分钟就要关机降温。</p><p>要知道目前的MVP卫星的功率不过1千瓦，跟数据中心真正需要的MW、GW级别相差太远，未来怎么解决散热问题依然是最关键的考验。</p><p>另外就是发射成本，谷歌测算的是需要到2030年卫星发射成本做到每公斤200美元以下之后才能跟地面中心的电费成本相当，目前的发射成本依然要1500-2900美元/公斤。</p><p>总之，太空算力在当前的条件下还是看上去很美好，实际上困扰一大堆的技术，适合股市讲故事。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1579598.htm</guid>
+      <pubDate>Fri, 25 Sep 2026 08:37:08 GMT</pubDate>
+    </item>
     <item>
       <title>DeepSeek被曝年化收入达10亿美元 涨价后客户没少</title>
       <link>https://www.cnbeta.com.tw/articles/tech/1579586.htm</link>
@@ -579,30 +603,6 @@
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1579260.htm</guid>
       <pubDate>Wed, 23 Sep 2026 05:07:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Android 17或增加使用谷歌账号解锁功能 忘记PIN码后无需恢复出厂设置</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1579258.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Android 17系统新功能属于软件新功能，用户对此感兴趣，推荐阅读</small></p>
-                                                
-                                                <p>在现行机制下如果用户忘记Android设备解锁密码，通常只能清除手机数据后重新设置设备。Google官方文档也建议，无法解锁设备时应执行恢复出厂设置，完成清除后再重新登录原本使用的Google账号验证设备所有权。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://www.androidauthority.com/wp-content/uploads/2026/09/Unlock-with-Google-account.jpeg.webp"></p><p>这种设计与Android出厂重置保护机制有关，该机制主要目的是防止手机被盗后通过恢复模式清除数据后重新使用。设备重置后，系统会要求输入此前登录的Google账号，如果无法登录账号验证所有权也会影响继续使用。</p><p><strong>Google尝试使用账号密码替代 PIN 解锁：</strong></p><p>Google在最新推出的 Android 17 QPR2 Beta 5 中增加有关使用Google账号解锁的新功能，该功能并未启用只能看到相关代码变更。按照测试版中的代码说，如果用户忘记手机 PIN 码或解锁密码，未来可能可以通过已经关联的Google账号重新获得设备访问权限，而不必先执行恢复出厂设置。</p><p>这个功能的意义在于不必用户直接恢复出厂设置导致所有数据丢失，毕竟对用户而言如果没有提前做好云备份的话，恢复出厂设置后包括联系人、照片、各种应用数据都会丢失且难以恢复，这会造成很大的问题。</p><p><strong>可能会作为可选功能而非默认开启：</strong></p><p>值得注意的是Google似乎准备将该功能设置为可选功能而非默认开启，原因在于手机屏幕锁通常被视为本地数据的最后一道防线。如果攻击者同时获得用户手机以及Google账号凭据，那就可以通过这条路径绕过屏幕锁直接访问手机中的数据。</p><p>因此对安全敏感的用户来说关闭该功能更加稳妥，对普通用户而言，则可以在数据安全、账号保护和避免数据丢失之间进行取舍。最终安全性还取决于Google是否要求额外验证、例如二次验证、设备信任状态或账号恢复信息。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1579258.htm</guid>
-      <pubDate>Wed, 23 Sep 2026 04:58:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI将让第三方机构更早介入AI模型安全评估</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1579248.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲OpenAI引入第三方机构提前介入AI模型安全评估，属于感兴趣的AI软件技术进展</small></p>
-                                                
-                                                <p>OpenAI计划让第三方机构在人工智能（AI）模型开发周期的更早阶段评估安全风险，此举旨在继续努力应对围绕AI潜在危害的担忧。这家ChatGPT开发商周二将在博客文章中宣布，计划在新AI模型的训练、评估和推出过程中，让外部机构开展技术安全评估。</p>                
-                        <div class="article-global"></div>                            <p>																																																					<img src="https://n.sinaimg.cn/finance/transform/59/w550h309/20260911/a874-cee169920ea80b89b3a21548ae94b375.png" alt="" data-link=""><br></p><p>OpenAI还列出了其认为此类评估要有效开展所需优先关注的事项，包括“强有力的独立机制、科学严谨性、稳健的安全实践和明确的责任”。</p><p>负责该公司大部分与外部专家合作开展安全审查工作的Lama Ahmad表示，此前，OpenAI通常主要在模型发布前引入这类机构进行安全评估，并评估模型能力。</p><p>“随着潜在风险和影响上升，除了部署之外，我们也希望确保对训练和评估等事关重大的环节进行审视，”Ahmad接受采访时表示。</p><p>Ahmad表示，对于部分最敏感的工作，OpenAI可能会让外部评估人员进入公司办公场所开展评估，该公司过去曾尝试过这种做法。</p><p>OpenAI竞争对手Anthropic PBC的首席执行官Dario Amodei近期呼吁AI行业支持放慢开发速度，并表示将采取新的安全措施，包括引入第三方评估机构。OpenAI首席执行官Sam Altman随后表示赞同这一做法。Anthropic上周晚些时候表示，将引入埃森哲的评估人员，对其前沿AI模型的安全性进行测试。</p><p>OpenAI在博客文章中表示，公司正在与可能参与此类评估的机构进行讨论。Ahmad说，洽谈对象既包括过去合作过的机构，也包括此前未曾合作的机构，其中包括AI研究机构METR和Redwood Research。OpenAI此前曾委托这两家机构调查其模型侵入Hugging Face系统一事。</p><p>“AI实验室有责任在保护敏感信息的同时，为有效审查创造条件，”OpenAI在博客文章中表示。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1579248.htm</guid>
-      <pubDate>Tue, 22 Sep 2026 19:07:07 GMT</pubDate>
     </item>
   </channel>
 </rss>
