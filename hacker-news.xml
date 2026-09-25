@@ -3,7 +3,26 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 25 Sep 2026 13:42:19 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 18:33:15 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Go 1.27 引入实验性跨平台 SIMD API</title>
+      <link>https://news.ycombinator.com/item?id=49843269</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是 Go 1.27 新版本的发布与新 API，属于编程工具发布，用户很感兴趣，必看</small></p><p>Go 官方博客发布文章，介绍 Go 1.26 和 1.27 中新增的实验性 SIMD（单指令多数据）API。此前在 Go 中访问 SIMD 功能只能通过编写 Go 汇编实现，这通常只适用于真正性能关键的代码。Go 1.26 为 amd64 引入了 SIMD API，Go 1.27 增加了对 arm64（NEON）和 wasm 的支持。</p>
+
+<p>Go 1.27 更进一步，引入了一个完全可移植、与平台和向量大小无关的实验性 <code>simd</code> 包，其设计参考了 C++ 的 Highway 库。该包的目标是：在支持 SIMD 的平台上实现"一次编写、接近汇编性能"的代码，并在不支持 SIMD 的平台上提供合格的模拟实现。目前 <code>simd</code> 包支持 amd64 上的 AVX、AVX2、AVX512，arm64 上的 NEON，以及 wasm 的 SIMD 指令。</p>
+
+<p>文章详细阐述了 SIMD 架构之间的巨大差异，包括：向量大小不同（从 128 位到 65536 位不等）、掩码处理方式各异（有的用专用掩码寄存器，有的用向量位掩码）、以及各架构支持的操作集各不相同。新的 <code>simd</code> 包通过从类型系统中移除固定大小向量、仅支持所有平台共有的操作，并用其他 SIMD 指令高效模拟缺失功能来隐藏这些差异。</p>
+
+<p>使用该实验包需要在构建时设置 <code>GOEXPERIMENT=simd</code>。向量类型是首字母大写的复数原始类型，例如 <code>simd.Uint8s</code> 或 <code>simd.Float32s</code>。包还支持与平台特定代码的互转（通过 <code>ToArch()</code> 和 <code>FromArch</code> 函数），以便在 <code>simd</code> 包功能不足时补充架构特定实现。编译器端会通过 AST 重写创建多个特化版本的函数，将分发开销提升到调用方，从而优化掉类型切换的开销。</p>
+
+<p>社区对此反应积极。有开发者表示已在项目中使用该 API 获得了约 30% 的性能提升；也有评论指出，虽然 Java、.NET、D、Zig、Julia、Swift、Rust 等语言已有类似能力，但 Go 加入这一阵营仍值得肯定。一位开发者分享了基准测试结果：可移植 SIMD 比非可移植 SIMD 慢约 11%，但两者都比非 SIMD 快约 5 倍。也有评论者提到，自动向量化（autovectorisation）在很多情况下"足够好"，这个 API 并未完全弥合这一差距。</p>
+
+<p>值得注意的是，Go 的 Green Tea 垃圾回收器本身也已使用 SIMD 来加速扫描内存中的存活对象。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49843269</guid>
+      <pubDate>Fri, 25 Sep 2026 11:47:06 GMT</pubDate>
+    </item>
     <item>
       <title>荷兰政府基于 NixOS 构建数字自主办公平台 DAWO，摆脱对微软依赖</title>
       <link>https://news.ycombinator.com/item?id=49841563</link>
@@ -1177,15 +1196,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49765348</guid>
       <pubDate>Sat, 19 Sep 2026 10:46:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>GPT-6 Astra 破译一战德军无线电密码（ADFGVX 加密）</title>
-      <link>https://news.ycombinator.com/item?id=49763987</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讲GPT-6破译一战德军密码，涉及新AI模型（high_interest），但主要焦点是历史密码破译，属于历史/旧闻范畴，兴趣不明确，定为可选</small></p><p>作者在一篇博客文章中介绍，GPT-6 Astra 成功破译了一则此前未解的一战（WWI）德军无线电信息。该信息使用 <strong>ADFGVX</strong> 加密法（一种结合 Polybius 方格与密钥列移位转置的方法）编码，来自德国科学博客平台 <a href="https://www.prinzai.com/p/gpt-6-astra-solves-a-wwi-german-radio">Scienceblogs.de</a> 的「50 个未解密码」列表。</p><p><img src="https://substackcdn.com/image/fetch/$s_!-hZ7!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F17087928-9eb5-46e4-8c5f-357c5680f1d3_614x153.png" alt="" width="614" height="153" /></p><p>文章解释了 ADFGVX 的工作原理：每个字母由表格中行列两个位置的字母对表示，例如「AA」对应 H、「AD」对应 O。德军曾多次使用不同的密钥，已知密钥列表在战后被缴获，数百条此类报文已被破译（包括密码破解专家 George Lasry），但仍有一打以上难以解开。这则报文于 <strong>1918 年 11 月 27 日</strong>发出，此前一直未解。</p><p><img src="https://substackcdn.com/image/fetch/$s_!HCMH!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F87457f63-da00-40a0-a43a-5ef48f6e1364_1080x1146.jpeg" alt="" width="1080" height="1146" /></p><p>GPT-6 Astra 使用解密密钥 <strong>「TRUPPENVERSCHIEBUNG」</strong>（源自 J. Rives Childs 所著《The History and Principles of German Military Ciphers, 1914–1918》第 214–215 页）破译了该信息，还原的原文为（德文）：「EIN ENGLISCHER KREUZER EINLIEG X SEWASTOPOL X S4STEN X EIN GESCHWADER DER X ALLIIERTEN FOLGT 26STEN X」，英文大意是：「一艘英国巡洋舰于 ?4 日抵达塞瓦斯托波尔，一支协约国舰队将于 26 日跟进」。</p><p><img src="https://substackcdn.com/image/fetch/$s_!Eawc!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7172db67-de32-4e63-92ef-05d15fe829eb_861x737.jpeg" alt="" width="861" height="737" /></p><p>Astra 推测这则报文此前未被破译，是因为「TRUPPENVERSCHIEBUNG」作为密钥是自 1918 年 12 月 9 日才开始使用，而这则报文发出时间更早（11 月 27 日），其原因不详。该模型还自行核实了结果：根据原始航海日志，英国巡洋舰 HMS Canterbury 确于 1918 年 11 月 24 日抵达塞瓦斯托波尔，一支协约国舰队也确实于 26 日跟进。</p><p><img src="https://substackcdn.com/image/fetch/$s_!7zTt!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14bbd7e0-16d8-4d08-a638-8eafc691d62a_998x148.jpeg" alt="" width="998" height="148" /></p><p><img src="https://substackcdn.com/image/fetch/$s_!jCV9!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe1166f64-db35-4e52-9f08-2fcb9e996051_1101x1742.jpeg" alt="" width="1101" height="1742" /></p><p>作者认为这是该模型能力的一个「小但很酷」的体现，并称此前未见到这则报文被破译的记录。文章在 <a href="https://news.ycombinator.com/item?id=49763987">Hacker News</a> 引发了广泛讨论（268 分，135 条评论）。</p><p>社区反应总体积极但存在分化和质疑：有人指出这本质上是从已缴获列表中挑选正确密钥并识别打字错误，属于人类分析员「想做就能做」但没去做的活儿，因此并不算突破性成就；另一些人则反驳说，AI 能做到「人类懒得尝试」的事本身就是价值。</p></p><p>部分讨论偏离主题，延伸至 AI 意识与自我意识等哲学问题（有评论认为 AI 能力提升完全绕开了意识话题，引发关于「如何判定他者是否具有意识」的争论），也有人质疑该成果是否为「从数据集里偷来的已有人类解答」，以及对模型所引书籍页数内容的真实性提出疑问。</p><p><strong>你知道吗？</strong></p><p><strong>ADFGVX</strong> 是德国在一战末期（1918 年）使用的野战密码，名字取自密码表中使用的六个字母。它的加密分两步：先用 Polybius 方格将明文字母替换为两个字母的密文对，再做一次「密钥列移位转置」（keyed columnar transposition）打乱顺序，因此它并非简单的替换密码——这也是它比普通替换密码更难破解的原因。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49763987</guid>
-      <pubDate>Sat, 19 Sep 2026 06:41:44 GMT</pubDate>
     </item>
   </channel>
 </rss>

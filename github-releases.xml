@@ -3,7 +3,32 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 25 Sep 2026 13:41:32 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 18:32:46 GMT</lastBuildDate>
+    <item>
+      <title>Devbox 0.18.4 发布：支持 devbox.jsonc 配置文件名，包搜索默认切换到 nixsearch.com</title>
+      <link>https://github.com/jetify-com/devbox/releases/tag/0.18.4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 发布 0.18.4 版本，主要带来两项新功能和一些修复。</p>
+
+<h3>新功能</h3>
+<ul>
+<li><strong>支持 <code>devbox.jsonc</code> 配置文件</strong>：<code>devbox.json</code> 一直允许注释，但编辑器和 GitHub diff 会将其标记为语法错误。现在可将配置命名为 <code>devbox.jsonc</code>，标准工具链即可正确高亮，且 <code>devbox add</code>/<code>rm</code> 会写回该文件而非创建多余的 <code>devbox.json</code>。若目录中同时存在两者，<code>devbox.json</code> 仍优先。</li>
+<li><strong>包搜索默认改用 www.nixsearch.com</strong>：<code>devbox search</code>、<code>add</code> 和 <code>update</code> 现在默认通过 <code>www.nixsearch.com</code> 解析包，替代原先的 <code>search.devbox.sh</code>。固定版本仍解析到相同的 commit 和 store 路径；<code>@latest</code> 则基于更新的 nixpkgs 索引。可通过 <code>DEVBOX_SEARCH_HOST</code> 环境变量覆盖。</li>
+</ul>
+
+<h3>Bug 修复</h3>
+<ul>
+<li>修复了指向旧 <code>jetify.com/devbox/docs/...</code> 文档链接（现已 404）的问题，包括 <code>devbox generate direnv</code> 生成的 <code>.envrc</code> 注释及 VS Code 扩展的 WSL 警告中的链接。</li>
+</ul>
+
+<h3>维护</h3>
+<ul>
+<li>将 Jekyll 示例的 <code>ruby@3.1</code> 固定回 3.1.4，以修复夜间测试中 macOS 构建失败的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.4</guid>
+      <pubDate>Fri, 25 Sep 2026 18:11:02 GMT</pubDate>
+    </item>
     <item>
       <title>OpenAI Codex 0.157.0：新增 GPT-6 Sol/Luna 模型，优化终端与交互体验</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.157.0</link>
@@ -1359,56 +1384,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.153.0</guid>
       <pubDate>Thu, 03 Sep 2026 01:37:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.259：新增托管 MCP 服务器与无头模式权限选项，修复多项会话问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.259</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.259，带来多项新功能与大量会话稳定性修复，涵盖托管 MCP 服务器配置、无头主机权限控制、GitLab MR 识别、VSCode 会话筛选等。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li>新增 <code>managedMcpServers</code> 托管设置：组织可为所有用户提供 HTTP/SSE 类型的 MCP 服务器（条目格式与 <code>.mcp.json</code> 相同），指定运行命令的条目会被跳过</li>
-<li>新增 <code>--permission-prompts none</code> 选项，适用于无人值守的无头主机：任何需要提示的操作会被自动拒绝，同时活动权限模式（包括自动模式）继续生效</li>
-<li>识别 <code>glab mr create/merge/close/reopen/note/update</code> 命令，GitLab 合并请求会在折叠的工具摘要中显示为 <code>MR !N</code>，并刷新底部 MR 徽章</li>
-<li><code>claude plugin validate</code> 新增 <code>--json</code> 参数，输出机器可读的校验报告</li>
-<li>修复并发会话互相回退 <code>~/.claude.json</code> 修改的问题：工作区信任不再重置，MCP/项目状态不再丢失</li>
-<li>修复全屏模式下长时间对话（数百次工具调用）后显示空白会话的问题</li>
-<li>修复自动模式在命令或技能 frontmatter 指定了不支持的 <code>model:</code> 时运行在错误模型上的问题，现在会保持会话模型</li>
-<li>修复 <code>--resume</code> 失败（及 <code>--continue</code> 打开空会话）的问题，当保存的会话包含无 payload 的附件条目时</li>
-<li>修复自定义命令和技能 frontmatter 中的 <code>model:</code> 在交互式会话中被忽略的问题</li>
-<li>修复远程控制会话中 Stop 无法真正停止后台代理和工作流的问题：被终止的任务现在保持可见且可再次停止，直到进程退出</li>
-<li>修复工作树隔离会话拒绝常见 Bash 循环、xargs 管道和启动器包装命令的问题</li>
-<li>改进终端尺寸调整和长响应的首屏渲染性能（复用文本测量）</li>
-<li>改进 <code>/workflows</code> 代理详情：JSON 结果以语法高亮和真实换行美化显示，长结果可折叠展开</li>
-<li>改进无头/SDK 会话启动：MCP 服务器连接完成后，首个回合最多提前 50ms 开始</li>
-<li>改进嵌套后台子代理结果的保存：现在保存在父子代理的转录中，恢复的子代理可保留、共享转录可展示交付内容</li>
-<li>变更 <code>allowedMcpServers</code> 行为：现在只管理用户自行添加的服务器，字面 <code>managed-mcp.json</code> 服务器不再被该白名单过滤</li>
-<li>[VSCode] 会话列表侧边栏新增 Active 快速筛选器和状态筛选菜单（Needs input、Working、Completed）</li>
-</ul>
-
-<h3>其他修复与改进</h3>
-<ul>
-<li>修复被拒绝过一次思考的对话在后续每个回合都被再次拒绝的问题</li>
-<li>修复禁用遥测的会话中 OAuth 令牌刷新导致提示缓存失效的问题</li>
-<li>修复 <code>CLAUDE_CODE_MAX_CONTEXT_TOKENS</code> 对 Vertex 风格模型 ID（<code>@YYYYMMDD</code> 后缀）被忽略的问题</li>
-<li>修复运行中 shell 命令的实时输出预览在较早行换行时隐藏最新行的问题</li>
-<li>修复 claude.ai 用户每次启动都进行的后台 GitHub 连接检查，结果现在跨启动记忆</li>
-<li>修复从旧版本继续的对话中 Artifact 发布报 "unexpected parameter `note`" 错误的问题</li>
-<li>修复工作树隔离在 <code>git rev-parse</code> 以非 "not a git repository" 消息失败时拒绝钩子创建工作树的问题</li>
-<li>修复云会话的 OpenTelemetry 指标和事件缺少 <code>user.email</code>、<code>organization.id</code>、<code>user.account_uuid</code> 属性的问题</li>
-<li>修复启动时列出工具的 MCP 服务器断开后显示为已连接但无工具的问题</li>
-<li>修复文件编辑权限对话框有时显示被截断的变更行的问题</li>
-<li>修复仓库检测在瞬时 git 探测失败后丢失已知仓库身份的问题</li>
-<li>修复 github.com 上带尾斜杠或悬空 <code>?</code>/<code>#</code> 的 marketplace 仓库 URL 生成不可用 <code>.git</code> 克隆地址的问题</li>
-<li>修复阻塞式 Stop 钩子导致后续回合丢失模型推理（部分模型还错过提示缓存）的问题</li>
-<li>修复浏览器托管的 MCP 服务器页面消失后，远程（claude.ai）会话启动回合需 60 秒的问题</li>
-<li>改进 <code>/install-github-app</code>：在 GitLab 仓库中运行时说明其仅适用于 GitHub 并指向 GitLab CI/CD 文档</li>
-<li>修复暂停期间批准连接器工具权限提示后，远程和定时会话无动作的问题</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.259</guid>
-      <pubDate>Wed, 02 Sep 2026 22:33:51 GMT</pubDate>
     </item>
   </channel>
 </rss>

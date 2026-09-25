@@ -3,7 +3,42 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 25 Sep 2026 13:41:58 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 18:32:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Redox OS 八月更新：引入类 io_uring API、初步支持 NUMA，并成功运行 QEMU</title>
+      <link>https://www.phoronix.com/news/Redox-OS-August-2026</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Redox OS是一个用Rust编写的开源操作系统，涉及新软件项目，属于high_interest范围。</small></p><p>基于 Rust 的开源操作系统 Redox OS 在 8 月迎来了多项显著进展，官方发布了最新月度状态更新。本月最具代表性的改进是实现了类似 Linux <strong>io_uring</strong> 的环形缓冲区通信 API，可为 NVMe 存储等受支持驱动带来更佳的性能表现。</p>
+<p>Redox OS 本月还初步引入了对 <strong>NUMA</strong>（非统一内存访问）架构的支持，并成功运行了 <strong>QEMU</strong> 模拟器——不过目前尚缺少类似 KVM 的虚拟机加速能力，因此运行速度会比较缓慢。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=redoxos_qemu" alt="RedoxOS QEMU usage" />
+<p>其他值得关注的更新包括：Redox OS 现已支持从 Linux 进行<b>双系统安装</b>；在 ARM64（AArch64）平台上初步实现了多核 CPU 支持。此外，本月还降低了进程间通信（IPC）约 5% 的开销、缩减了内核二进制体积，并进行了多项驱动改进。更多细节可参阅 <a href="https://www.redox-os.org">Redox-OS.org 博客</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Redox-OS-August-2026</guid>
+      <pubDate>Fri, 25 Sep 2026 15:51:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 内核编译迈向 10 秒大关：Kbuild 优化加速编译速度</title>
+      <link>https://www.phoronix.com/review/near-10-sec-kernel-build</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 提到10秒Linux内核构建，属于编程效率改进经验，符合high_interest。</small></p><p>Phoronix 撰文指出，Linux 内核的编译时间正在逼近一个令人惊叹的里程碑——在主流 x86_64 平台上，全新默认配置（defconfig）的内核构建即将进入 10 秒级别。过去多年来，编译庞大的 Linux 内核一直是开发者享用咖啡或用餐的经典间隙，而如今这份"咖啡窗口"正在关闭。</p>
+
+<p>文章回顾了内核编译时间的历史演进：随着 AMD EPYC Milan 时代打破 30 秒大关，如今在当前硬件与最新软件创新的配合下，构建最新 Linux 内核已可缩短至约 15 秒，作者预计下一代处理器有望实现 10 秒内完成。即便针对启用全部内核模块的 allmodconfig 构建，单次编译也已降至两分钟以内。考虑到 Linux 内核源码树规模已接近 4100 万行，这一速度提升尤为惊人。</p>
+
+<p><img src="//www.phoronix.net/image.php?id=near-10-sec-kernel-build&image=fast_linux_kernel_1_med" alt="Linux kernel coffee build" /></p>
+
+<p>驱动这一跨越式进展的关键在于软件层面的优化。Linux MM 开发者 Lorenzo Stoakes 在 AI/LLM 辅助下，发布了一系列针对 Kbuild 代码瓶颈的补丁，这些瓶颈限制了内核编译过程的并行潜力。该补丁系列（v4 版本，目前包含 22 个补丁）预计可能随 Linux 7.4 落地，据称可实现内核构建提速约 36%，增量构建提速约 70%。作者已持续跟踪这一进展一个月之久。</p>
+
+<p><img src="//www.phoronix.net/image.php?id=2026&image=faster_kbuild" alt="Lorenzo benchmarks of Kbuild improvement speed-up" /></p>
+
+<p>在硬件方面，AMD EPYC 9575F（每路 64 核 / 128 线程，最高 5.0GHz 睿频，256MB L3 缓存）在 x86_64 defconfig 内核编译基准测试中持续位居榜首，双路配置通常在 20 秒左右完成编译。作者在一套 Ubuntu 26.04 LTS 环境下搭配双路 EPYC 9575F 对 Lorenzo 的 v4 补丁进行了实测。文中还提到即将推出的 AMD EPYC 9686F（96 核 / 192 线程，最高 5.0GHz，384MB L3 缓存，搭配 MRDIMM-12800 内存）备受期待。</p>
+
+<p><img src="//www.phoronix.net/image.php?id=near-10-sec-kernel-build&image=fast_linux_kernel_2_med" alt="AMD EPYC 9575F" /></p>
+
+<p>文章也理性指出，在编译器实现单个源文件并行编译之前，最顶级的核心数量未必最适合构建服务器。作者表示，编译 Linux 内核的时间一直是其 22 年来最喜欢的基准测试之一，每一代新 CPU 发布都能看到这一时间持续下降，令人倍感兴奋。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/review/near-10-sec-kernel-build</guid>
+      <pubDate>Fri, 25 Sep 2026 14:46:26 GMT</pubDate>
+    </item>
     <item>
       <title>Linux 内核补丁发布：为所有 Apple M3 芯片启用 NVMe 存储支持</title>
       <link>https://www.phoronix.com/news/NVMe-Apple-M3-Linux-Patches</link>
@@ -730,24 +765,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Steam-Frame-Uses-Zink</guid>
       <pubDate>Fri, 18 Sep 2026 20:13:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Google 移除「难以维护」的 C 语言 Binder 驱动，全面转向 Rust 实现</title>
-      <link>https://www.phoronix.com/news/Google-Binder-C-Goodbye</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Linux内核驱动开发及Rust语言在内核中的采用，符合Rust兴趣配置，属推荐的Linux桌面技术进展</small></p><p>Google 的 Binder 驱动一直是主线内核的一部分，作为 Android 上使用的进程间通信（IPC）机制。过去几年，该驱动被用 Rust 语言重写，成为内核中最早的「真正的」Rust 驱动之一。Rust 版 Binder 驱动已在 Linux 6.18 中合并上游，而针对即将到来的 Linux 7.4 内核周期，旧的 C 语言版 Binder 驱动将被正式退役。</p><p>由于 Rust 版 Binder 驱动已足够成熟，并在易维护性和新功能扩展性上证明了其价值，旧有的约 11000 行 C 代码将被移除。同时，Rust 版驱动在性能上也已被证明能与原驱动竞争，甚至更快。</p><img src="//www.phoronix.net/image.php?id=2026&image=binder_c_remove" alt="Binder C removal" /><p>Google 工程师 Carlos Llamas 在移除补丁中写道：「这一天终于到来了。我们将放弃 legacy 的 C 语言版 Binder IPC 驱动实现，改用其 Rust 版本。15 多年来，C 版驱动变得越来越复杂，维护极为痛苦，并且很难在避免踩到漏洞的同时落地新功能。Rust 实现缓解了这些问题中的大部分，因此是时候做出改变了。Alice Ryhl 在过去几年里为 Rust Binder 付出了大量努力，不仅实现了完整的功能对等，还证明了其性能能够匹敌甚至经常超越 C 版本。该驱动已在 Android 设备上成功运行了一段时间，我们不能再称之为『实验』。是时候继续前进，移除 C 代码，将所有新功能和优化聚焦到 Rust 驱动上。Rust Binder 新王万岁！」</p><p>Greg Kroah-Hartman 已将此移除补丁合入 char-misc-next Git 分支。随着他将该代码并入「-next」的字符/杂项代码中，补丁将提交用于 Linux 7.4 合并窗口。</p><h3>你知道吗？</h3><p>Binder 是 Android 系统中实现进程间通信的核心机制，支持服务发现、数据传递与内存共享等功能。它是 Linux 内核中最先被大规模用 Rust 重写的驱动之一（另一早期示例包括内存管理相关的 Rust 组件）。Rust 语言凭借内存安全特性被认为能显著减少驱动中常见的内存崩溃、缓冲区溢出等安全漏洞，这正是 Google 推动在内核中使用 Rust 的主要动因。Linux 内核自 6.1 起正式支持 Rust，并持续推动更多子系统采用这种语言。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Google-Binder-C-Goodbye</guid>
-      <pubDate>Fri, 18 Sep 2026 16:26:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 苹果视频解码（AVD）驱动程序提交上游 Linux 内核审查</title>
-      <link>https://www.phoronix.com/news/Apple-Video-Decode-AVD-Linux</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 报道苹果视频解码驱动进入Linux内核审查，直接对应苹果电脑Linux支持这一很感兴趣主题，推荐阅读</small></p><p>Asahi Linux 项目正将其最新的 Apple Silicon 支持代码——AVD（Apple Video Decoder）驱动程序——推向上游 Linux 内核。该驱动程序用于在 Apple M1/M2/M3 芯片上实现硬件加速视频播放。</p><p>Sofus Forstreuter 今日向 Linux 内核邮件列表提交了一组 14 个补丁，供审查引入 AVD 驱动程序。这款逆向工程的开源驱动程序使 Apple M1、M2 和 M3 Mac 能够实现硬件视频解码，支持 H.264、H.265 和 VP9 编码格式；Apple M3 及更新芯片还支持 AV1 解码。</p><img src="//www.phoronix.net/image.php?id=2023&image=apple_m3_med" alt="Apple M3 SoCs" /><p>预计 AVD Linux 驱动程序未来还将扩展到 M4、M5、M6 及 Neo SoC，针对新版硬件的固件开发工作已在进行中。Asahi Linux 已在其<a href="https://github.com/">仓库</a>中托管了其开发的 AVD 固件。这款 AVD Linux 驱动程序历经数年开发，包括大量逆向工程工作，其实现了 Video4Linux 2（V4L2）M2M（memory-to-memory）无状态解码器 API。</p><p>关于 Apple 视频解码器的硬件设计，Forstreuter 在补丁系列封面信中说明：AVD 作为一款视频解码器及 Apple Silicon SoC 上的 IP 模块都颇为独特，它并非采用常规的"每个参数一个寄存器"方式，而是通过单个寄存器进行编程。这意味着写入顺序至关重要，同时还需确保写入速度不超过硬件处理速度。为此，驱动程序将"指令"写入一组"段"（segments）列表，再由共享函数提交给硬件，并在硬件落后时等待。该模块还包含一个接受无符号代码的 Cortex-M3 协处理器。CM3 并非必需，但它是获取解码状态中断（IRQ）的唯一途径。目前 CM3 仅处理可调解码配置并将所有 IRQ 转发给应用处理器（AP）[1]。未来将扩展到处理指令提交，这有望降低功耗，初步测试甚至表明解码时间可略有缩短。</p><p>AVD 补丁现已在内核邮件列表上公开审查，未来有望经由媒体子系统被纳入后续内核版本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-Video-Decode-AVD-Linux</guid>
-      <pubDate>Fri, 18 Sep 2026 15:52:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
