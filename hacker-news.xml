@@ -3,7 +3,110 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 25 Sep 2026 22:16:29 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 26 Sep 2026 01:31:04 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Ollaya：在本地运行开源 Jev 式决策模型的开源工具</title>
+      <link>https://news.ycombinator.com/item?id=49848269</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 本地运行开源决策模型的编程工具，属编程工具分享及开源项目，符合兴趣</small></p><p>Ollaya 是一个开源工具，让用户可以在自己的机器上本地下载和运行 Jev 式的决策模型（decision models）。它被定位为「决策模型领域的 Ollama」，提供与 TypeSafe 的 Jev 兼容的 API，支持在 CPU 或 NVIDIA GPU 上运行，延迟低至毫秒级。</p>
+
+<h3>核心特性</h3>
+<ul>
+<li><strong>极速响应</strong>：决策模型通过单次前向传播（single forward pass）给出答案，无需逐 token 生成。在 RTX 4090 上，五问题的请求端到端延迟约 8–10ms。</li>
+<li><strong>API 兼容</strong>：Ollaya 提供与 TypeSafe 的 <code>/v1/systemone</code> 和 <code>/v1/models</code> 端点兼容的接口，官方 TypeSafe Python SDK 0.7.1 可直接使用，无需修改代码。</li>
+<li><strong>隐私优先</strong>：默认监听 127.0.0.1，数据在本地处理；权重来自作者 Hugging Face 仓库，固定提交并校验 sha256，运行时采用 Apache-2.0 许可。</li>
+<li><strong>无按 token 计费</strong>：本地运行，无计量、无 API 账单。</li>
+<li><strong>校准概率</strong>：每个模型自带校准，可通过 Modelfile 在自有标注数据上重新拟合。</li>
+</ul>
+
+<h3>支持的模型</h3>
+<p>Ollaya 提供多种开源决策模型，包括：<strong>laya</strong>（最快，支持 100+ 语言）、<strong>decider</strong>（基于 Qwen3.5，最准确）、<strong>nli</strong>（零样本分类器）、<strong>gliclass</strong>（指令跟随零样本分类器）、<strong>qwen3guard</strong>（安全审查）、<strong>kev</strong> 和 <strong>von</strong>（支持 8k token 上下文）等。</p>
+
+<h3>平台支持</h3>
+<p>提供 macOS（Apple Silicon）、Windows（x64）、Linux（x86-64 和 ARM64）的桌面应用和命令行工具，以及 Docker 镜像。NVIDIA GPU 需要驱动 R580 或更新版本。</p>
+
+<h3>社区反馈</h3>
+<p>HN 讨论中，开发者 <strong>cobanov</strong>（Ollaya 作者）回应了多个问题：</p>
+<ul>
+<li>关于决策质量：承认当前支持的小模型在复杂查询上明显弱于 Jev，但适合简单、定义明确的问题；正在添加更接近 Jev 的更大开源模型。</li>
+<li>关于与 Ollama 的关系：表示如果 Ollama 未来支持决策模型，自己会很高兴，且 Ollaya 使用与 Jev 相同的 API，代码不会绑定在特定工具上。</li>
+<li>有用户指出示例本质上是文本分类而非决策，作者承认并计划修改示例。</li>
+<li>部分用户认为 Jev 泛化能力更强（因其训练语料庞大），但也有用户指出在 LLM 时代生成数据微调 laya 很容易且便宜，质疑付费使用 Jev 的必要性。</li>
+<li>有评论提到 vLLM 即将支持此类模型，GoModel 网关也已支持 Jev 端点。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49848269</guid>
+      <pubDate>Fri, 25 Sep 2026 18:33:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>第一性原理思维：在智能体时代重新审视问题</title>
+      <link>https://news.ycombinator.com/item?id=49844736</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为第一性原理思维与智能体时代思考方法论，兴趣指向不够明确，可作选读</small></p><p>这篇文章探讨了第一性原理思维（First Principles Thinking）在软件工程中的价值，特别是在向智能体（agent）驱动的开发模式转型的背景下。作者从 Sunil Pai 的《高级工程师死亡螺旋》一文出发，反思了经验丰富的高级工程师为何容易陷入思维僵局。</p>
+
+<img src="/static/first-principles-thinking.svg" alt="Hand-drawn diagram connecting asking why, putting experience in a box, first principles, and small learning loops that build momentum." width="1600" height="900" />
+
+<p><strong>核心观点</strong></p>
+<p>作者认为，优秀的高级工程师往往具备从第一性原理思考的习惯：他们会追问"我们为什么要构建这个东西"以及"它能为使用者带来什么"，能够将代码库中的变化与外部世界联系起来。这种理解帮助他们保持简单，也是建立 Pai 所描述的"动量"（momentum）的另一种方式——先做最简单可行的事，往往就够了。</p>
+
+<p><strong>智能体时代的转型</strong></p>
+<p>作者指出，在向智能体驱动开发转型的过程中，那些适应良好的人通常已经具备这种思维方式。这是作者经历的第一次重大"模拟切换"（simulation switch-up），需要坦然接受自己有很多不知道的东西。与智能体协作的工程师愿意暂时把已知的东西"放进盒子里"，在假设旧约束仍然适用之前先尝试新方法。</p>
+
+<p><strong>"放进盒子"的实践</strong></p>
+<p>这是作者认为最难的部分：把经验、所学和当前相信为真的事情暂时搁置，重新审视眼前的问题。当退一步问"我们到底想做什么、为什么重要、各部分如何连接"时，往往会发现比预期更多的前进方向。作者认为，用新鲜的眼光看待 AI 的可能性，有很多值得欣赏和重新思考的地方。从第一性原理出发意味着从"我们要做什么"开始，再问 AI 能如何帮助，而不是先被技术兴奋冲昏头脑。</p>
+
+<p><strong>社区讨论</strong></p>
+<p>HN 评论区围绕几个话题展开了激烈讨论：</p>
+<ul>
+<li><strong>第一性原理的实践难度</strong>：多位用户指出，真正践行第一性原理思维需要与真实问题搏斗，而非仅仅口头谈论。有评论认为学术界和公众常常将其与记忆或权威背书混为一谈。</li>
+<li><strong>智能体与架构决策</strong>：有用户（trwhite）表示难以让智能体参与架构决策，担心它会接管所有思考，导致工程师失去独立推理能力。另一用户（ripvanwinkle）分享使用 Codex 的经验，发现需要自己投入大量高层设计工作，智能体更多是审查和头脑风暴的角色，而非独立设计者。</li>
+<li><strong>第一性原理的局限</strong>：用户 bob1029 认为高阶思维（higher order thinking）更重要也更稀缺，激进的第一性原理方法可能导致意识形态死胡同——选择错误的原则可能陷入局部最优。用户 ModernMech 用"登月"的比喻说明：如果原则选错（如贪心地最小化距离），可能永远无法到达目标。</li>
+<li><strong>简单 vs. 雄心</strong>：有评论（flowerlad）批评"设计更雄心勃勃的东西"的倾向，认为最好的工程师追求最简单的设计，并引用了关于"没有人因简单而晋升"的讨论。</li>
+</ul>
+
+<p><strong>结语</strong></p>
+<p>作者总结道，第一性原理思维让与智能体协作的工作方式显得自然：当你真正理解要完成的目标时，更容易迈出小步、从中学习并继续前进。与智能体协作可以加速这种来回反馈，形成更快的学习循环和更多动量——这在他看来就是新的"心流状态"（flow state）。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49844736</guid>
+      <pubDate>Fri, 25 Sep 2026 13:55:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>
+        <![CDATA[Ink & Switch 推出十周年互动主页「Tenfold」，庆祝研究实验室成立十年]]>
+      </title>
+      <link>https://news.ycombinator.com/item?id=49842270</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为研究实验室十周年纪念与工具未来探索，偏向机构纪念性质，兴趣不明确，可作选读</small></p><p>独立研究实验室 <a href="https://www.inkandswitch.com/">Ink & Switch</a> 今年迎来成立十周年，为此推出了一款名为「Tenfold」（十字母、十年）的互动艺术主页。主页上「点击/拖拽任意位置」即可与页面互动，每个字母都经过精心设计并归功于实验室成员，有些字母还内置了小游戏（例如字母"0"中的弹幕射击游戏）。该互动系统基于实验室自身的研究技术构建，并发布了<a href="https://tenfold.inkandswitch.com/">可编辑版本</a>（同时也是 Patchwork 项目）。项目还推出了相关的 T 恤、海报等周边产品。</p>
+
+<h3>实验室研究方向</h3>
+<p>实验室聚焦四大研究主题：</p>
+<ul>
+<li><b>本地优先软件（Local-first Software）</b>：探索将数据归还用户并支持协作的软件架构。</li>
+<li><b>可塑软件（Malleable Software）</b>：设计可按需即时自定义工具的环境。</li>
+<li><b>可编程墨迹（Programmable Ink）</b>：探索像在纸上画墨迹一样自然地添加行为与交互的动态素描媒介。</li>
+<li><b>通用版本控制（Universal Version Control）</b>：构建帮助人们探索替代方案、追踪历史并更好地跨媒介协作的工具。</li>
+</ul>
+
+<h3>精选成果</h3>
+<p>主页展示了多项热门研究与文章，包括：</p>
+<ul>
+<li><b>Malleable Software</b>（2025 年论文）：关于在锁定应用中恢复用户自主权。</li>
+<li><b>Ambsheets</b>：探索可能性空间与决策的新型电子表格。</li>
+<li><b>Keyhive</b>：具备能力委托与端到端加密的本地优先访问控制系统。</li>
+<li><b>Patchwork</b>：面向创造性工作的动态环境研究项目。</li>
+<li><b>Livelymerge</b>：多用户共享整个对象内存的协作编程内核。</li>
+<li><b>Embark</b>（2023 年论文）：动态文档如何逐步丰富非正式旅行规划。</li>
+<li><b>Inkbase</b>（2022 年论文）：手绘草图如同电子表格般可编程的可能性。</li>
+<li><b>Local-first software</b>（2019 年经典论文）：关于数据所有权本地优先的协作软件。</li>
+</ul>
+<p>实验室已有多项成果成长为成熟工具，例如数字工作区 <b>Allume</b>（原名 Muse）以及基于无冲突复制数据类型（CRDT）的协作库 <b>Automerge</b>。研究由个人、企业赞助商及全球机构资助支持，成员也常在行业与学术会议上演讲（如 Local-First Conf、GodotCon 等）。</p>
+
+<h3>社区反馈</h3>
+<p>评论区反响总体积极，但用户体验存在分歧。有用户称赞主页「可玩」很符合实验室品牌风格，并感慨「每次看到 Ink & Switch 的东西都让人想重建点什么」；也有人指出互动方式不一致——「点击、拖拽、甚至什么都不做，效果各不相同」，从最初的惊喜快速转为恼火。实验室成员 spiralganglion 回应称，这是刻意在可玩性与作者意图间寻求平衡的结果，但承认确实存在不一致、且因时间不足未充分打磨。另一部分用户则认为这种「非预期交互的发现感」恰恰是其魅力所在，让人想起用 Processing 创作的艺术小品。有用户还补充了本地优先技术及 Allume 订阅制（本地软件为何收费）等讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49842270</guid>
+      <pubDate>Fri, 25 Sep 2026 09:50:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ git-bug：完全嵌入 Git 的分布式、离线优先缺陷追踪器</title>
       <link>https://news.ycombinator.com/item?id=49843174</link>
@@ -1101,78 +1204,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49770293</guid>
       <pubDate>Sat, 19 Sep 2026 21:30:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 从 Rust 转向 Zig：一位七年 Rust 开发者的真实体验</title>
-      <link>https://news.ycombinator.com/item?id=49766637</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 资深 Rust 开发者分享转用 Zig 的编程体验，与编程效率及开发经验类兴趣契合，主题明确，推荐阅读。</small></p><p>一位有七年 Rust 开发经验的作者（主要参与开源项目）决定重新体验 Zig，通过将已有的 Rust 项目 JSONPath（RFC 9535 规范的 JSON 查询语言）移植到 Zig（项目名为 zig-jsonpath），来对比两种语言的实际开发感受。以下是他的核心观察。</p>
-
-<h3>IDE 支持：返璞归真</h3>
-<p>最令人意外的是 Zig 几乎缺乏 IDE 支持，仅提供语法高亮和基础自动补全。这迫使作者回归命令行工作流，并最终搭建起一套用 <code>zig build</code> 驱动的测试体系（支持过滤单条测试、调试输出、合规套件等）。作者坦言这反而促使其从完整 IDE 转向 helix + alacritty + zellij 的极简设置。</p>
-
-<h3>扁平结构：少用文件夹</h3>
-<p>与 Rust 默认的深目录结构不同，Zig 并不鼓励嵌套文件夹。对比可见 Rust 项目（src/）拥有 parser/、query/ 等多层目录，而 Zig 版本仅用 root.zig、parser.zig、model.zig、model_query.zig、query.zig 五个文件。作者发现折叠到大文件配合按节导航反而更易读、更易维护，且在他这个项目中始终不需要真正的层级结构。这一对比也促使他反思在其他语言中是否习惯性地过度拆分文件。</p>
-
-<h3>测试：摩擦更多</h3>
-<p>作者认为在 Zig 中编写和管理测试比 Rust 更麻烦。Zig 支持将测试直接内嵌文件，但由于扁平化结构，无论采用独立测试文件还是内联测试都会造成杂乱。大部分额外摩擦源于 Zig 的手动内存管理，而非测试基础设施本身。</p>
-
-<h3>无函数式范式：命令式主导</h3>
-<p>作者倾向于函数式风格，但 Zig 将其推向原地可变与命令式模式。文中用大量代码对比展示差异：Rust 用 monad 转换（flat_map、reduce、combinator），Zig 则改用直接原地改写的循环与 fork 深拷贝。两者最接近的是和类型（sum types）。在可读性上，作者主观认为 Rust 版本更胜一筹——这反映了两语言各自的设计目标与目标领域。</p>
-
-<h3>分配器：无处不在的负担</h3>
-<p>分配器（allocator）几乎贯穿每个函数与结构体。虽然显式且一旦接受规则就相对好懂，但过程繁琐：需严格遵循 init/deinit 约定，调用栈一经拉长就容易出错。作者详细列举了四类典型的 Zig 内存错误及修复方式：</p>
-<ul>
-<li><strong>内存泄漏（忘记 deinit）</strong>——由 <code>std.testing.allocator</code> 检测；Rust 中 Drop 自动运行使此类问题基本不存在。</li>
-<li><strong>错误路径跳过 deinit</strong>——需用 <code>errdefer</code> 修复；Rust 的 Drop 无条件触发，彻底消除此类问题。</li>
-<li><strong>双重释放（跨函数所有权错误）</strong>——需明确单一所有权层级；Rust 中 move 语义使该形态根本无法编译。</li>
-<li><strong>结构体转移时孤悬分配</strong>——需在移动后加 errdefer；Rust 的 Vec::push 保证正确性。</li>
-</ul>
-
-<h3>结论与讨论</h3>
-<p>作者认为 Zig 直接、现代且极快，有潜力成为 C 的真正继任者，但语言仍显年轻、形态尚未定型。文章在 Hacker News 上引发广泛讨论，涵盖：分配器是否应成为语言的"头号特性"、竞技场分配（arena allocation）的实践价值、Zig 的编译期（comptime）与 Rust const 的差异、以及 C 使用场景的边界等话题。也有评论指出文章部分段落具有明显的 AI 生成痕迹。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49766637</guid>
-      <pubDate>Sat, 19 Sep 2026 13:55:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>作者主张：几乎不应该用 AI 来写作</title>
-      <link>https://news.ycombinator.com/item?id=49767937</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讨论是否应使用AI写作的观点性文章，不属于编程工具、AI模型发布等明确兴趣主题，兴趣不明确</small></p><p>这篇由 Erich Grunewald 撰写的文章提出一个颇具争议的观点：几乎不应使用 AI 写作。其核心理由有三点：其一，写作过程本身就是思考过程的重要组成部分；其二，AI 生成的文字往往在难以察觉的细微之处出现模糊和错误；其三，用 AI 写作而不加标注，对读者而言既粗鲁又具误导性。</p><p>文章还援引了 Eric Schwitzgebel 的观点，强调「阅读时点头认同」与「真正主动地生成文本」之间存在巨大的认知差异。文本一旦落纸，人容易被动地让「大致恰当的词语」蒙混过关，而不会像从零开始创作时那样对措辞进行费力、主动的推敲；即便人类专家也未必能清楚意识到塑造措辞的所有因素。</p><p>这篇帖子在 Hacker News 上引发了 117 条评论，讨论相当激烈。社区反馈大致分为几派：</p><ul>
-<li><strong>支持派</strong>：有用户（atdt）表示 LLM 让自己成为了更好的技术报告作者——它能提供庞大的语料和无限耐心，帮助人反复打磨句子，最终结果虽多出于 AI 之手，但声音仍能保持自己的风格。也有用户（bko）认为，把 AI 当作「编辑」来精简文字、节省读者时间是负责任的做法，不用反而失礼。</li>
-<li><strong>质疑派</strong>：有用户（alas44、D-Machine）指出 AI 在处理模糊量词、逻辑否定等细微之处时经常出错，会用学术化的形式化表述偷换原本精心选择的措辞，导致大量无关的争论。有人（bluefirebrand）直言自己「想当艺术家，而不是编辑」。</li>
-<li><strong>折中观点</strong>：有用户（polotics）提出更广泛的规则——「只应使用 AI 让自己更努力、更广泛地思考」。还有人（jameshart、AnimalMuppet）建议：让 AI 写给你自己读的东西（如资料总结），而不要让它写给别人消费的内容。</li>
-<li><strong>编辑与创作之别</strong>：有评论（patrickmay、michaelchisari）认为，用 AI 创作后人工审校，价值远不如从零手写——「写作即思考」，许多写作场景真正需要的其实是思考本身。</li>
-</ul><p>另有一位用户（calebkaiser）提出更有深度的看法：问题不在于 LLM 写得「差」，而在于它实在太强大，让人能信心满满地一步跨到略超出自身经验之外的成品，却因缺乏长期写作积累的「品味」而无法识别其中的不精确与难读之处。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49767937</guid>
-      <pubDate>Sat, 19 Sep 2026 16:35:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 编码智能体「约束框架（Harness）」设计实证研究：四组件拆解揭示模型与预算匹配策略</title>
-      <link>https://news.ycombinator.com/item?id=49753878</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 针对编码智能体约束框架设计的实证研究，紧密关联编程效率改进与AI软件技术进展，符合高兴趣主题</small></p><p>一篇刊登于 arXiv 的论文《编码智能体约束框架设计的实证研究》（An Empirical Study of Harness Design for Coding Agents）试图回答一个长期被忽视的问题：将大模型能力转化为真实软件工程表现的关键，究竟在于模型本身，还是在于连接二者的「约束框架」（harness）？以往研究多把 harness 视为一个整体黑箱，而该研究采用轻量级 harness，固定其执行循环，仅对三个组件——规划（planning）、动作空间（action space）与上下文管理（context management）——进行单独变化，从而在组件层面进行对比。</p>
-<p>研究在四个模型上、依托 SWE-Bench Verified 与 Terminal-Bench 2.1 两个基准，共评估了 176 组匹配设定，涵盖五种上下文管理策略、四种上下文窗口预算，以及对规划和动作空间的目标性消融。核心发现包括：</p>
-<ul>
-<li><strong>上下文管理在预算紧张时价值凸显</strong>：随着上下文窗口预算收紧，其收益越大，主要作用在于防止「上下文溢出」（context-overflow）导致的失败。</li>
-<li><strong>先规则删减、后 LLM 摘要的效率最优</strong>：在总结类策略之前先进行基于规则的删减（elision）能带来最强整体效率，而让被删减内容可恢复的机制徒增复杂度，模型很少使用且无准确率增益。</li>
-<li><strong>规划角色随模型强弱转变</strong>：对较弱模型，规划是提升准确率的「脚手架」；对较强模型，则主要成为成本节约器，准确率变化很小。</li>
-<li><strong>动作空间取决于模型的 shell 熟练度</strong>：预定义工具（predefined tools）能提升 bash 能力较弱模型的性能；而擅长 bash 的模型仅用 bash 接口即可高效运作，尤其在命令行密集型任务上成本大幅降低。</li>
-</ul>
-<p>轨迹层面的分析解释了上述效应：上下文管理是在不显著改变行为的前提下延长执行轨迹；规划改变的是轨迹在何处停止；动作空间则改变代码书写的粒度。研究者据此提出：harness 设计是一个「条件式系统问题」，各组件应根据目标模型、任务类型与资源预算来选择，而非采用统一的默认配置。</p>
-<h3>社区讨论焦点</h3>
-<p>Hacker News 上的评论整体认可该研究的价值，但引发了数轮争论。</p>
-<ul>
-<li><strong>结论是否「显而易见」</strong>：有评论者认为「bash 熟练模型配 bash 接口更好」等结论近乎「废话」，但更多人指出，对「显然」之事进行实证检验仍是宝贵科学——它缩小了假设空间，为后续构建打下更稳固的基础。</li>
-<li><strong>模型时效性问题</strong>：多位用户批评所用模型为去年发布的 Nemotron 系列与 Mistral-Medium，落后当前前沿两个世代（如今 Claude/GPT 乃至本地 Qwen 27B 已远超之），因此结论未必适用于当下模型。反对方则认为 harness 的有效性体现在与模型底层的交互方式上，基础原理具有迁移性，并指出「模型不同所以结论作废」的观点缺乏证据支持。</li>
-<li><strong>与业界实践相互印证</strong>：有用户提到 Anthropic 已在新模型上默认移除了会话内规划工具（todo/task 工具），与论文「规划对较强模型主要是成本节约器」的结论一致；另有用户分享其长期做法——在上下文用掉约四分之一到三成时进行 checkpoint 并重启会话，与论文「上下文管理在预算紧张时价值最大」的发现相呼应，这也与 Cursor 的官方建议一致。</li>
-<li><strong>对「bash 能力」定义的质疑</strong>：有评论者指出论文从未明确定义何谓「bash capable」，并呼吁为各模型建立一份「能力清单/配方手册」，以便按模型匹配 harness。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49753878</guid>
-      <pubDate>Fri, 18 Sep 2026 13:06:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
