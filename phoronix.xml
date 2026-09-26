@@ -3,7 +3,25 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 26 Sep 2026 13:01:55 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 26 Sep 2026 17:07:06 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ GNOME OS 开发者提出 &quot;Toolpak&quot; 方案，类似 Flatpak 但面向开发工具</title>
+      <link>https://www.phoronix.com/news/Toolpak</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于GNOME OS开发者开发类似Flatpak的工具打包新项目，属于新软件项目类别，是来源高兴趣配置，应判为很感兴趣</small></p><p>GNOME 开发者 Jordan Petridis 近日发布博客文章，介绍了 GNOME OS 的 <strong>Toolpak</strong> 计划。虽然 Flatpak 在桌面 Linux 应用和容器化软件方面表现出色，但对于现代操作系统栈的开发者而言，许多开发工具目前难以实现沙箱隔离。GNOME OS 开发者正将 Toolpak 作为现代替代方案进行探索。</p><p>Toolpak 的设计理念认为 QEMU、strace 等开发工具应独立于宿主操作系统，且无需修改即可开箱即用。其技术方案包括：</p><ul><li>采用 UAPL3 可发现磁盘镜像作为镜像格式</li><li>为二进制文件使用挂载命名空间</li><li>工具可不受限制地访问系统其他资源</li><li>工具被前置添加到 <code>$PATH</code> 环境变量</li><li>工具拥有对系统的完全任意访问权限</li><li>可使用 Flatpak 打包的应用将被排除在 Toolpak 这一更宽松的概念之外</li></ul><img src="//www.phoronix.net/image.php?id=2026&image=toolpak" alt="Toolpak" /><p>此外，Toolpak 还致力于实现默认可复现构建、处理许可和软件物料清单（SBOM）要求、简化构建编排等现代开发需求。GNOME OS 开发者目前正在推进 Toolpak 的原型开发，并计划在未来数周内分享更多细节。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Toolpak</guid>
+      <pubDate>Sat, 26 Sep 2026 16:50:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.4 内存管理改动：&quot;谷仓&quot;补给机制带来巨大性能提升</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-Refill-Sheaves-Barn</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linux 7.4内核内存管理变更带来的性能指标改进，涉及Linux内核技术进展但非直接对应明确兴趣类别，标题含义模糊，判为可选</small></p><p>本周，为迎接下个月的 Linux 7.4 合并窗口，slab/for-next Git 分支中加入了针对内存管理的一项改动，用于从"谷仓"（barn）补充预先填充的"sheaf"（束，Linux 内核内存分配器中基于每 CPU 的数组缓存层）。该改动在某些特定的合成基准测试中带来了惊人的性能提升。</p><p>自去年引入内核以来，sheaf 已经经历了大量优化工作，而 Linux 7.4 还将为其带来更多优化。开发者 Hao Li 解释了这项从谷仓补充预填 sheaf 的内存管理代码改动：目前，当预填充 API 补充一个不满的 sheaf 时，它从部分 slab 中获取对象，而从不从谷仓中的满载 sheaf 取用，因此一旦谷仓的满列表饱和，它就会一直保持饱和。对于通过 kfree_rcu() 释放的对象，每个 RCU sheaf 都必须刷新到 slab，因为谷仓的满列表没有空间。为修复这一问题，本次改动让 sheaf 首先从谷仓补充，并在谷仓中引入一个保存剩余对象的"部分 sheaf"。只有预填充路径需要部分 sheaf，而通用分配路径（__pcs_replace_empty_main()）会用空 sheaf 与谷仓中的满载 sheaf 交换，因此不会留下剩余对象。</p><p>基准测试显示，该补丁使 will-it-scale 的 mmap1 测试整体提升了 24%。其中 barn_get 性能提升了 +22904539.81%，barn_put 提升了 +21422544.07%，其余指标相对基线也普遍有两位数的百分比提升。该补丁仅由 81 行新代码组成，却带来如此可观的影响。改动预计在 10 月底的 Linux 7.4 合并窗口中被合入。</p><img src="//www.phoronix.net/image.php?id=2026&image=sheaves_go_wow" alt="benchmark results" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Refill-Sheaves-Barn</guid>
+      <pubDate>Sat, 26 Sep 2026 15:07:42 GMT</pubDate>
+    </item>
     <item>
       <title>Linux 7.3-rc5 DRM 修复：AI 辅助修复、Crescent Island 功率制动与 Nouveau 驱动修复</title>
       <link>https://www.phoronix.com/news/Linux-7.3-rc5-DRM</link>
@@ -747,32 +765,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Staging-11.18</guid>
       <pubDate>Sat, 19 Sep 2026 13:22:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME OS 采用 Zswap 应对内存不足问题，Geary 邮件客户端分支 Convey 上线</title>
-      <link>https://www.phoronix.com/news/GNOME-OS-Goes-Zswap</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲GNOME OS系统及OOM处理改进，属于新软件项目及Linux桌面技术，用户较感兴趣</small></p><p>本周除 GNOME 51 正式发布外，GNOME 桌面生态还有多项值得关注的进展。</p>
-
-<p><strong>GNOME OS 改进</strong>：GNOME OS 现已推出官方文档网站，提供指南和相关信息，帮助用户尝试安装 GNOME OS 并完成相关配置。同时，GNOME OS 默认启用 <strong>Zswap</strong>，以在内存有限的情况下保持系统快速响应，解决部分用户遇到的内存不足（OOM）问题。该功能通过一个基于 Rust 的 <code>zswap-generator</code> 脚本生成相应的 systemd 配置，并支持通过内核命令行参数 <code>zswap.enabled=0</code> 禁用该功能。</p>
-
-<p><strong>Geary 邮件客户端分支 Convey 上线</strong>：第三方 GNOME 应用方面，<strong>Convey</strong> 已登陆 Flathub，它是 Geary 邮件客户端的一个分支。Convey 在 Geary 基础上新增了 Microsoft 365 支持，移植到 GTK4 工具包，并带来了其他修复和界面/用户体验改进。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=convey" alt="Convey" />
-
-<p>更多详情可参阅本周的 <a href="https://thisweek.gnome.org/">This Week in GNOME</a> 周报。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-OS-Goes-Zswap</guid>
-      <pubDate>Sat, 19 Sep 2026 10:38:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.8 持续打磨修复，Plasma 6.9 早期开发启动</title>
-      <link>https://www.phoronix.com/news/Plasma-6.8-Post-Beta-Fixes</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲KDE Plasma桌面版本的打磨与修复，KDE为来源配置中很感兴趣的内容</small></p><p>继上周 KDE Plasma 6.8 发布测试版（beta）之后，KDE 桌面开发团队本周主要专注于 Bug 修复，同时也开始了对 Plasma 6.9 的一些早期改动。</p><p>Plasma 6.8 测试版在测试中表现良好，目前的回归问题（regression）列表仅剩五个 Bug，涉及注销屏幕失去焦点、通知显示错位、多显示器设置下注销/重启/关机覆盖层错位，以及「切换用户」（Switch User）行为等问题。</p><p>本周的部分改动包括：Plasma 6.8 引入的全新备份方案 Kup 现在会显示已用时间，平均速度信息也更加准确；KDE 桌面门户（portal）对话框经过进一步打磨；等离子不再于每次显示通知时写入缓存文件。针对 Plasma 6.7.6，修复了使用 Alt+Tab 返回游戏时 KWin 偶尔崩溃的问题；针对 Plasma 6.8，修复了以特定方式与标题栏按钮交互时 KWin 崩溃的问题。</p><img src="//www.phoronix.net/image.php?id=2026&image=kde_file_warning_med" alt="KDE file warning" /><p>与此同时，Plasma 6.9 中，在桌面重命名文件或文件夹时，现在会在必要时显示所有标准警告与确认信息，例如隐藏文件/文件夹警告或更改文件类型/扩展名等情形。更多细节可参阅《This Week in Plasma》。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Plasma-6.8-Post-Beta-Fixes</guid>
-      <pubDate>Sat, 19 Sep 2026 10:10:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
