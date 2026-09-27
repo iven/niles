@@ -3,7 +3,57 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 27 Sep 2026 01:22:45 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 27 Sep 2026 08:04:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐ DeepSeek 发布 DSec 论文：支撑大规模 Agent 训练的弹性沙箱基础设施</title>
+      <link>https://news.ycombinator.com/item?id=49859112</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] DeepSeek 发布关于大规模 Agent 训练的弹性沙箱基础设施论文，属于 AI 技术进展与新成果分享，符合 AI 软件技术进展和新模型相关兴趣，推荐阅读。</small></p><p>DeepSeek 团队发布论文《DeepSeek Elastic Compute (DSec)：A Sandbox Infrastructure for Effective Agentic Training at Scale》，介绍了一个面向大规模智能体（Agent）训练与评估的生产级沙箱平台。该论文已上传至 <a href="https://arxiv.org/abs/2609.22978">arXiv</a>，累计 130 余位作者参与，全文 31 页、含 13 幅图。</p>
+
+<p><strong>背景与动机</strong>：基于大语言模型（LLM）的大规模 Agent 训练与评估依赖隔离、有状态的执行环境，模型在其中检查代码仓库、调用工具、执行命令并与任务相关服务交互。这类任务会突然产生大量沙箱、跨越异构功能与隔离需求、在长交互中保留状态，并从大量复用率有限的镜像语料中取材。因此，它需要一个弹性执行平台，而非单一的沙箱运行时。</p>
+
+<p><strong>核心设计</strong>：DSec 通过统一 SDK 提供 FnCall、容器、microVM 和完整虚拟机（full-VM）四种沙箱后端；统一协调沙箱在集群中的放置与生命周期管理；由独立版本化的层组合构建环境；结合内存共享、回收与 CPU 调度实现高密度执行（overcommit）；并按需从集群级分布式文件系统 <a href="https://en.wikipedia.org/wiki/Fire-Flyer_File_System">Fire-Flyer File System (3FS)</a> 加载镜像数据。DSec 与强化学习（RL）框架协同设计，将有状态的 rollout 执行与可抢占的 GPU 训练解耦，在训练与沙箱生命周期之间协调以保留 rollout 状态、同时回收空闲资源，并缓解诸如 reward hacking 等智能体恶意行为。</p>
+
+<p><strong>生产规模</strong>：单个生产级单元约覆盖 160 个节点，每天服务约 300 万个沙箱；在生产环境中支持超过 38 万个并发沙箱，并维持每秒 5000 次以上的沙箱创建。</p>
+
+<p><strong>社区反响</strong>：HN 讨论中，不少用户称赞 DeepSeek 的创新能力，认为其凭借较少的计算资源展示了出色的工程技术；也有用户将 160 节点上支撑 38 万并发沙箱（约每核 12 个沙箱）称为“疯狂的数字”。此外，大量评论聚焦于论文多达 130 余位的作者名单，部分观点认为这是人力资产保护策略，或与大型物理、生物实验论文中常见的大量作者署名惯例一致。</p>
+
+<p><strong>你知道吗？</strong>：所谓 <strong>reward hacking</strong>（奖励黑客）指智能体在强化学习中发现并利用训练环境的漏洞来最大化奖励信号，而非真正完成目标任务，这是 Agent 训练中的常见隐患之一。<strong>microVM</strong>（微虚拟机）是一种起停极快的轻量级虚拟化方案（如 AWS 的 Firecracker），介于容器与完整 VM 之间，能在保持较强隔离性的同时兼顾高密度部署。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49859112</guid>
+      <pubDate>Sat, 26 Sep 2026 18:22:41 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 在 LLM 时代如何保持编程乐趣：一位 Haskell 程序员的实践建议</title>
+      <link>https://news.ycombinator.com/item?id=49854875</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Haskell 程序员在 LLM 时代保持编程乐趣的实践建议，属于编程效率改进经验，符合很高兴趣类别，推荐阅读。</small></p><p>一篇发布在 Haskell 社区论坛的文章，作者 turion 探讨了在大型语言模型（LLM）日益普及的时代，程序员如何既保持编程乐趣，又适度利用 LLM 提升生产力，而不是被 AI 生成的代码淹没、失去对代码库的掌控。</p>
+
+<h3>核心观点</h3>
+
+<p><strong>坚持自己写代码。</strong>作者认为，如果让 AI 生成所有代码，代码库最终会变成"LLM 荒地"，只有编码代理才能在其中生存。同时，编程技能会因不练习而退化——只需几周不写代码，再想回归就会变得困难。</p>
+
+<p><strong>让 LLM 做"几乎其他所有事"。</strong>与其让代理写代码，不如让它们处理那些枯燥、容易验证的工作：将领域专家的长篇对话整理成可执行的待办事项、整理测试结果并制定修复计划、做研究并记录来源等。但关键决策必须由人来做出，LLM 应向你提问而非自行决定。</p>
+
+<p><strong>研究要并行进行。</strong>不要盲目接受代理的研究结果，应自己用搜索引擎并行研究，至少大致了解代理将掌握的所有信息。让代理把研究结果写下来并附上来源链接，当它提出奇怪方案时，追问"研究怎么说、哪个资源这么说"，有 50% 的概率它会发现自己犯了错。</p>
+
+<p><strong>"你是编码者"。</strong>这是作者认为最关键的一点。拒绝"先规划、让代理编码"的典型流程，改为"一起规划，但你来编码"。让 LLM 研究代码库、列出当前待办、指出需要修改的位置和潜在陷阱，然后由你亲自编写代码。这样你能始终了解代码库状态、及早发现糟糕的计划、持续磨练技能。</p>
+
+<p><strong>编码代理仅在少数场景有用。</strong>例如清理 FIXME 注释、补齐重复的样板代码、低风险重构、替换不再维护的库等。但设计复杂的新系统不适合交给代理。</p>
+
+<p><strong>引入自动化审查循环。</strong>借鉴生成对抗网络（GAN）中"生成器-判别器"的思想，任何 LLM 产出的工件（代码或计划）都应经过审查代理的检查才算完成。作者发现让审查代理审查自己的代码也很有帮助，它常能发现真正的 bug 或遗漏。</p>
+
+<p><strong>谨慎使用前沿模型。</strong>前沿模型消耗大量能源和 token，且 token 配额不透明、随时可能变化。作者建议优先使用较小的模型，这样未来有可能用开源模型替代，摆脱对"技术封建领主"的依赖。</p>
+
+<p><strong>把 token 耗尽视为服务中断。</strong>当 token 用完时，不应自责"买得太少"，而应将其视为 LLM 公司未能兑现服务承诺。应像在火车上工作一样做好离线准备：让 LLM 产出可离线工作的具体工件（尤其是待办清单），并持续优化 token 使用。</p>
+
+<h3>社区反馈</h3>
+
+<p>HN 上的讨论呈现多元观点。有评论者认同"手段/目的"的框架，表示愿意让 AI 生成 CSV 解析器但仍亲手编写复杂状态机；也有 40 年经验的程序员表示用 LLM 就像"强化版 StackOverflow"，反而比以往更热爱编程。但也有评论者担忧 AI 推动导致整天审查生成代码而非写代码；还有人将程序员处境类比为被自动化取代的手工艺人，认为编程乐趣需要从工作之外寻找。部分评论者强调 LLM 生成的代码往往臃肿复杂，盲目使用是灾难的配方。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49854875</guid>
+      <pubDate>Sat, 26 Sep 2026 09:41:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Reladraw：一种让你决定元素摆放位置的关系式图表语言</title>
       <link>https://news.ycombinator.com/item?id=49858513</link>
@@ -1152,33 +1202,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49776699</guid>
       <pubDate>Sun, 20 Sep 2026 15:16:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>Btrfs/ZFS/bcachefs 在传统基准测试忽略的工作负载下的表现对比</title>
-      <link>https://news.ycombinator.com/item?id=49768833</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为文件系统性能对比，偏向基础设施类技术话题，与用户明确兴趣匹配度不高，兴趣不明确</small></p><p>一篇名为《现代文件系统基准测试》（modern-fs-benchmark）的文章<strong>深度对比了多设备写时复制（CoW）文件系统</strong>——Btrfs、ZFS 与 bcachefs——在经典基准测试通常忽略的工作负载下的表现，重点考察数据完整性与性能。该项目已开源，作者在<a href="https://github.com/fenio/modern-fs-benchmark">GitHub</a>上发布相关脚本。</p>
-
-<p>文中一个突出的测试是<strong>数据破坏探针（integrity/corruption probe）</strong>：绕过文件系统后台，在一个成员设备偏移 1G 处直接写入 2G 随机垃圾数据，然后清空缓存并执行完整 scrub（如 <code>btrfs scrub</code>、<code>zpool scrub</code>、<code>bcachefs scrub</code> 等），观察各文件系统能否检测并恢复损坏。作者已在评论中澄清：测试中的“Integrity”标签比实际验证范围更广，将改名为“Corruption probe”；“FAIL”表示文件改变或不可读，“SURVIVED”仅表示文件保持可读且哈希一致，并不代表整个文件系统完全健康。</p>
-
-<p>测试环境基于 CI 虚拟机上的 loop 设备（每个文件系统一个独立 VM），作者也提示应比较形态和比例而非绝对 MB/s。测试还包含多种“平凡操作”（如每 200ms 一次 4k 写入加 fsync）的 p99 延迟等指标。</p>
-
-<p>该文章在 Hacker News 引发热烈讨论（163 分、152 条评论）。社区观点多样：有人赞赏 bcachefs 表现良好；有人指出 bcachefs 因维护者冲突被移出内核主线、ZFS 因版权问题在 Linux 上处于“二等公民”地位、Btrfs 曾被 Red Hat 移除，因此戏称“该怎么选”。bcachefs 作者 koverstreet 回应称“社区内斗主要影响维护者，大多数用户只想要好用的东西”。多名用户则表达了对测试环境的疑虑，认为使用共享 VM 和稀疏文件回环设备可能使结果无法代表真实场景，建议在裸机或专用测试环境上验证。</p>
-
-<h3>你知道吗？</h3>
-<p>文中的 <code>zfs-mirror-8k</code> 指 ZFS 镜像（RAID-1）搭配 8k 最大记录（record）大小，而非默认的 128k。ZFS 的 <code>ashift</code> 参数控制物理块大小（通常为 512 字节或 4k），记录大小是数据集（dataset）属性，因此同一池可存在多个不同记录大小的数据集。选用小记录通常是为了适配特定工作负载（如数据库按 8k 页写入），但也会限制压缩效果。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49768833</guid>
-      <pubDate>Sat, 19 Sep 2026 18:11:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 通义千问发布 Qwen-Image-2.1：紧凑高效的统一图像生成模型</title>
-      <link>https://news.ycombinator.com/item?id=49775499</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型发布公告且为图像生成模型技术进展，属用户很感兴趣类别</small></p><p>通义千问（Qwen）团队发布了 <a href="https://qwen.ai/blog?id=qwen-image-2.1">Qwen-Image-2.1</a>，一个紧凑、高效且统一的图像生成模型。该模型为 7B 参数规模的扩散模型，能够完成文本到图像、图像编辑等多类任务，并且在本地即可运行。</p><p>在 Hacker News 的讨论中，社区反馈热烈。多位用户称赞本地图像生成能力的进步，认为当前本地图像生成在质量与速度上已经领先于本地代码生成。有用户表示在 M1 Max Mac 上通过 mflux 运行 FLUX.1-Kontext，其将照片转换为人物专属线稿的能力令人印象深刻。</p><p>讨论中最受关注的焦点之一是模型的<a href="https://github.com/QwenLM/Qwen-Image-2.1/blob/main/LICENSE">许可证</a>。多名用户指出，与 Qwen 此前许多采用 Apache 2.0 许可的模型不同，Qwen-Image-2.1 采用了「非商业用途」限制条款，未经单独商业许可不得用于商业目的。部分用户对此表示失望，认为它并非真正开放权重；也有用户认为这一限制能增加欺骗性广告、虚拟房产布景等滥用行为的难度。</p><p>此外，评论中还提及该模型渲染中文字符（CJK 文本）的能力甚至优于微软 Windows 系统，但也有用户对生成结果中个别角色形象泛化（如「Cheers」团队示例中的 Shelley Long、Woody Harrelson）提出看法。整体而言，社区对 Qwen 团队持续开源多样化模型表示赞赏，但也对许可证的收紧表达了不同程度的担忧。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49775499</guid>
-      <pubDate>Sun, 20 Sep 2026 13:09:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
