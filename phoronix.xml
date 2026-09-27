@@ -3,7 +3,35 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 27 Sep 2026 08:03:45 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 27 Sep 2026 13:54:41 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 内核 LZ4 压缩代码重新同步，带来更高性能与代码整洁度</title>
+      <link>https://www.phoronix.com/news/Linux-LZ4-Clean-Resync</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲述Linux内核LZ4压缩代码为性能与整洁性而重同步，属于内核开源项目与软件改进，推荐阅读。</small></p><p>除了改进 Linux 内核的 Zstd 压缩代码外，内核树中的 LZ4 压缩代码也在进行一系列独立的增强。三星的 Michal Wilczynski 于周五提交了一组补丁，用于彻底整改内核中的 LZ4 代码。</p><p>目前内核中的 LZ4 代码实际上是上游代码的一个分支（fork），自 2017~2018 年以来就未再更新。此后，LZ4 上游代码已进行了多项错误修复和性能优化。Wilczynski 的补丁系列让 LZ4 代码不再需要为内核单独维护分支，而是可以将上游源码直接、未经修改地复制进 Linux 内核树。这使得 LZ4 代码在内核中得到了恰当的供应商化（vendored）管理，未来可以直接拉取最新的 LZ4 压缩/解压代码。</p><p>此次清理与重新同步带来的 LZ4 性能收益相当显著：只读文件系统 EROFS 搭配 LZ4 时，4K 簇的吞吐量提升约 11%，64K 簇的读取吞吐量最高提升 14%。其他内核内 LZ4 基准测试显示最高有 21% 的性能提升。</p><img src="//www.phoronix.net/image.php?id=2026&image=linux_faster_lz4" alt="Linux faster LZ4" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-LZ4-Clean-Resync</guid>
+      <pubDate>Sun, 27 Sep 2026 13:16:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>新 Linux 补丁为联想 ThinkPad X1 Carbon Gen 14 启用第二颗 MIPI 摄像头</title>
+      <link>https://www.phoronix.com/news/Linux-X1-Carbon-G14-MIPI-Cam</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲述ThinkPad X1 Carbon笔记本第二摄像头的内核支持补丁，涉及具体笔记本电脑硬件且非苹果，兴趣不明确，判为可选。</small></p><p>联想最新发布的 ThinkPad X1 Carbon Gen 14 笔记本搭载 Intel Core Ultra Series 3「Panther Lake」处理器，其主 RGB 摄像头在 Linux 下已可正常工作，但用于 Windows Hello 的第二颗 MIPI IR 摄像头此前一直无法使用。近日，开发者 Ruslan Koreev 提交的补丁系列有望解决这一问题。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=x1_carbon_g14_med" alt="ThinkPad X1 Carbon Gen 14" />
+
+<p>该补丁系列针对的是 X1 Carbon Gen 14 上的第二颗 MIPI 摄像头：ST VD55G1 单色全局快门传感器，由 ACPI 枚举为 TBE20A1，采用单条 CSI-2 通道，通过 INT3472 离散设备供电，该设备提供电源使能 GPIO、复位 GPIO、隐私 LED 和 19.2 MHz 时钟。同机型的 RGB 摄像头（Sony IMX471，TBE20A0）已获支持。</p>
+
+<p>补丁共分四部分：前三部分在 ACPI 层面完成传感器接线，包括 INT3472 供电映射、ipu-bridge 条目以及 vd55g1 驱动中的 ACPI 匹配（驱动需在桥接端点挂载前延迟探测）；第四部分为 IPU7 ISYS 添加单色像素格式支持——该子系统此前仅支持 Bayer、YUV 和 RGB 格式，无法让单色传感器正常输出，同时还需避免 CSI-2 裁剪路径对单色编码的误报警告。</p>
+
+<p>开发者已在 Fedora 44（内核 7.2.5，以树外模块方式携带这些改动）上完成测试：传感器可正常探测，libcamera 可协商 Y8 格式并以 58 fps 输出 804x704 分辨率画面，Y10 和 Y10P 格式可通过纯 V4L2 方式工作，配合红外补光灯后画面质量足以支持 howdy 进行人脸认证。</p>
+
+<p>目前补丁已提交审查。若审查顺利且进度较快，该工作有望赶在即将到来的 Linux v7.4 开发周期内合并。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-X1-Carbon-G14-MIPI-Cam</guid>
+      <pubDate>Sun, 27 Sep 2026 10:33:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ GNOME OS 开发者提出 &quot;Toolpak&quot; 方案，类似 Flatpak 但面向开发工具</title>
       <link>https://www.phoronix.com/news/Toolpak</link>
@@ -731,40 +759,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Btrfs-Fixes-For-Linux-7.3-rc4</guid>
       <pubDate>Sun, 20 Sep 2026 00:26:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.4 简单优化可使文件只读打开速度提升约 39%</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-Faster-Do-Open</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲的是Linux内核7.4的一项简单优化，使文件打开读取速度提升约39%。属于软件性能效率改进，符合编程效率改进的兴趣，推荐阅读。</small></p><p>经过两年多的酝酿，Linux 7.4 内核有望引入一项简单的优化补丁，通过避免不必要的重复工作，使文件只读打开性能提升约 39%。</p>
-
-<p>开源开发者 Mateusz Guzik 一直致力于优化 Linux 内核中用于路径名查找打开文件的 <code>do_open()</code> VFS 函数。目前，在文件打开过程中存在一个重复的目录项（dentry）用于将路径组件转换为磁盘 inode，Guzik 的补丁旨在消除这一重复的 dentry 操作。</p>
-
-<p>Guzik 在补丁说明中解释：<em>"打开文件时，<code>__legitimize_path()</code> 会获取终端 dentry 的一个引用，随后 <code>do_dentry_open()</code> 又获取另一个引用，最后 <code>terminate_walk()</code> 释放初始引用。这两个修改其实是不必要的——<code>do_dentry_open()</code> 可以直接消费已经持有的引用。"</em></p>
-
-<p>该补丁在过去两年间经历了五次修订。在 20 核虚拟机上进行 will-it-scale 基准测试（以只读模式反复打开同一文件）时，每秒操作数提升了 39%。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=faster_open_file_med" alt="faster open file benchmark result" />
-
-<p>令人意外的是，如此"唾手可得"的优化竟在内核中长期未被发现。这段约三十多行的补丁已进入 VFS.git 的 <code>vfs-7.4.lookup</code> Git 分支，预计将在即将到来的 Linux 7.4 合并窗口中被提交，并有望在 2026 年底前进入稳定内核。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Faster-Do-Open</guid>
-      <pubDate>Sat, 19 Sep 2026 16:28:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Wine-Staging 11.18 发布：新增补丁进一步改进 WoW64 支持</title>
-      <link>https://www.phoronix.com/news/Wine-Staging-11.18</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是Wine开源项目的新版本发布，通过新补丁进一步改进WoW64以提升32位应用支持，属于Linux桌面相关的软件技术更新，符合软件发布和开源项目的兴趣。</small></p><p>在 Wine 11.18 双周开发版发布一天后，Wine-Staging 11.18 也随之推出。这一实验性版本在 Wine 上游 Git 状态基础上额外携带了 273 个补丁，其中包括若干用于增强 WoW64 支持的新补丁。</p>
-
-<p>Wine-Staging 11.18 新增的 WoW64 补丁包括：在设置 WoW64 入口前检查二进制文件，以及不对 64 位二进制写入 WoW64 配置。WoW64 是 Wine 在纯 64 位环境中运行 32 位 Windows 应用程序的机制。这些新补丁修复了 <a href="https://bugs.winehq.org/show_bug.cgi?id=47389">2019 年以来的一个内核服务代码 bug</a>，以及 <a href="https://bugs.winehq.org/show_bug.cgi?id=49075">2020 年报告的另一个 WoW64 服务代码问题</a>。</p>
-
-<p>此外，Wine-Staging 11.18 还包含将 YV12 转换为 RGB 渲染的 Quartz 代码新补丁，用于修复《Worms Forts: Under Siege》（GOG.com 版）在播放开场动画时崩溃的问题。该版本还同步了最新的 VKD3D Git 代码。</p>
-
-<p>Wine-Staging 11.18 和 Wine 11.18 均可在 <a href="https://winehq.org">WineHQ.org</a> 下载。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Wine-Staging-11.18</guid>
-      <pubDate>Sat, 19 Sep 2026 13:22:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
