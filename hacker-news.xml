@@ -3,7 +3,24 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 26 Sep 2026 22:44:19 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 27 Sep 2026 01:22:45 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Reladraw：一种让你决定元素摆放位置的关系式图表语言</title>
+      <link>https://news.ycombinator.com/item?id=49858513</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是一款开源的图表绘制工具/编程语言，属于编程工具相关项目，同时是开源项目，符合很感兴趣和感兴趣的兴趣配置，推荐阅读。</small></p><p>作者在 Hacker News 上发布了开源项目 <strong>Reladraw</strong>（v0.6.0），这是一种介于自动布局与绝对定位之间的图表语言。它以文本形式表达图表，但所有元素的位置都用"相对关系"声明（如"位于某节点右侧""与某节点对齐"），整个文件中不出现任何坐标。作者希望它既能像 Mermaid 那样用文字定义图，又能像 Draw.io 那样保留对最终外观的高度控制，并且对人类和 AI 智能体都友好。</p>
+<img src="https://raw.githubusercontent.com/reladraw/reladraw/main/examples/reference/arch.png" alt="The reference diagram, drawn by hand" />
+<img src="https://raw.githubusercontent.com/reladraw/reladraw/main/docs/arch-render.png" alt="The same diagram, rendered from reladraw source" />
+<p>其核心设计亮点包括：间距作为"最小距离"约束参与求解，而非精确数值；解析器通过最长路径算法求解整个系统，从而保证节点默认不重叠、可确定性和可预测性。作者指出，这对 AI 智能体尤其重要——智能体修改的是"描述位置的句子"而非像素坐标，且能直接重读自己写出的文件来确认布局意图。项目还附带一个 agent skill，可通过 <code>npx skills add reladraw/reladraw -g</code> 安装给 Claude Code、Codex、Cursor、Copilot 等使用。</p>
+<h3>现状与路线图</h3>
+<p>目前已完成解析器、确定性求解器、静态 SVG 渲染器和命令行工具（<code>reladraw diagram.reladraw -o diagram.svg</code>）。尚未实现的部分包括：诊断报告、边缘绕障路由、更多图标与形状。作者将图形边缘的直角拐弯路由列为下一步优先事项，并强调该语言仍不稳定，语法可能会变化。项目采用 Apache-2.0 许可证（不授予商标使用权）。</p>
+<h3>社区反馈</h3>
+<p>该项目获得了 Hacker News 社区的良好反响（172 分、52 条评论）。多位用户表示深受 Mermaid 自动布局的限制困扰，赞赏 Reladraw 的思路。作者在评论中回应了若干提问：解析器目前不会自动绕障路由，但同侧出边的边缘会自动分离避让，也可手动指定"穿过某两节点之间"；对于相互冲突的语句会明确报错而非静默取舍，作者明确表示"绝不改变这一点"。有用户发现了一个边缘箭头弯曲的 bug，作者已修复。也有用户将其与 Pikchr、tikz 的 positioning 库、Graphviz 等进行对比，作者分别说明了差异与取舍。</p>
+<p><strong>你知道吗？</strong>本文提到的自动布局（auto-layout）是图可视化中的常见方式，由算法（如 Graphviz 的引擎）决定节点位置，优点是不需要人工指定坐标，但结果难以从源码预测。与之相对，"海龟图形"（turtle graphics，Pikchr 采用的方式）用一个可移动光标逐步绘制形状，是把图视为一连串笔画的序列，而非一组可随成员增删自动重排的相对关系。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49858513</guid>
+      <pubDate>Sat, 26 Sep 2026 17:10:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 与 Google Play 决裂：开源即时通讯应用 Conversations 宣布免费</title>
       <link>https://news.ycombinator.com/item?id=49855315</link>
@@ -1162,28 +1179,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49775499</guid>
       <pubDate>Sun, 20 Sep 2026 13:09:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI 正在摧毁知识共享：从开放精神到数字黑暗时代</title>
-      <link>https://news.ycombinator.com/item?id=49774329</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论AI对开放知识共享的影响，涉及AI技术与开源生态，符合用户兴趣</small></p><p>作者 Chester Wisniewski 撰文指出，生成式 AI 大语言模型（LLM）正在破坏过去 40 年建立起来的软件开放与版权保护的平衡。文章回顾了从共享软件（shareware）、免费软件（freeware）到 GPL、MPL、CC-SA 等"反版权"（copyleft）许可协议的发展历程，认为正是这种开放性催生了现代互联网和云计算。</p>
-
-<p>作者认为，LLM 在训练过程中不加区分地消费网络上的所有内容，无视版权和许可协议，打破了创作者与使用者之间的社会契约。这导致创作者失去了分享的动力：开源代码更容易被 AI 发现漏洞并滥用；公开代码会招来大量 AI 生成的垃圾 pull request；自己的作品被吸收进"庞然大物"后，原有的道德和伦理准则也随之消失。</p>
-
-<p>作者警告，开放从"赠予世界的礼物"变成了"作者的负担"，我们正在进入一个"数字黑暗时代"，呼吁创作者、程序员、技术专家和艺术家联合起来，开启一场新的"数字文艺复兴"。</p>
-
-<h3>社区讨论</h3>
-<p>该文在 Hacker News 上引发了 220 条评论的激烈讨论，观点呈现明显分歧：</p>
-
-<p><strong>支持文章观点的声音</strong>认为，技术行业一直以"颠覆"为名打破社会契约，从出租车、住宿到如今的内容创作，AI 只是最新一例。有评论者指出，互联网带来的并非全是正面影响——社交媒体对青少年的伤害、虚假信息传播、隐私丧失、技术寡头垄断等问题早已存在，所谓"数字黑暗时代"对很多人来说二十年前就已开始。</p>
-
-<p><strong>反对或持不同意见的声音</strong>则提出：开源代码的漏洞风险、供应链问题在 LLM 出现之前就存在；许可协议仍然可以在法庭上执行；AI 带来的收益（如帮助解决重大医疗问题）远超其负面影响。有评论者尖锐地指出，那些因 AI 训练了自己的代码而愤怒的人，可能从一开始就不是真正为了"造福他人"而开源，而是为了个人声誉和利益——LLM 只是照出了这一点。也有评论认为，如果创建软件变得更容易，反而会有更多酷的东西被创造出来，这在某种程度上实现了 Stallman 的梦想。</p>
-
-<p>还有评论者提醒，应区分"AI 技术本身"与"利用 AI 巩固财富和权力的公司"，技术不应被归咎，责任在人。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49774329</guid>
-      <pubDate>Sun, 20 Sep 2026 10:07:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
