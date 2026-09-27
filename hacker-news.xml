@@ -3,7 +3,173 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 27 Sep 2026 13:54:38 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 27 Sep 2026 18:20:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 「无法解释的故障」正在被正常化：软件工程为何越来越难以追根溯源</title>
+      <link>https://news.ycombinator.com/item?id=49867486</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论软件工程中难以追根溯源的故障问题，属于编程/软件技术经验讨论，用户对编程效率改进经验感兴趣</small></p><p>一篇题为《无法解释的故障的正常化》（The Normalization of Inexplicable Failures）的文章指出，随着软件（尤其是基于概率、非确定性的 AI/LLM 系统）日益复杂，那些无法解释、无法根因分析的故障正逐渐被社会「正常化」接受。作者认为，这种「不确定性」虽然带来了灵活性，却也牺牲了可预测性——传统确定性工程恰恰由于这种可预测性而成为人类的首选。</p>
+
+<p>这种趋势导致软件「工程」正进一步偏离传统工程：故障模式分析、根因分析（root cause analysis）等传统手段逐渐被「跟这个魔法盒子对话」取代。作者推测，许多用户面对故障的实际感受只是「愚蠢的东西真糟糕」，软件愈发显得任性善变。</p>
+
+<h3>社区反馈摘要</h3>
+<p>该文在 Hacker News 引发热烈讨论（150 分、41 条评论），多位读者结合自身经历佐证了「不可解释故障正常化」的现象：</p>
+<ul>
+<li><strong>开发者同样受影响</strong>：有评论指出，不仅普通用户，开发者面对 GitHub 返回 5xx、AWS 服务失灵、邮件未送达等云服务故障时也束手无策，只能归结为「愚蠢的东西真糟糕」。</li>
+<li><strong>「bug 不可避免」是一种选择</strong>：有评论认为，bug 并非软件的自然属性，而是企业出于成本考量后做出的选择，就像工程师不会接受「桥梁坍塌不可避免」一样。</li>
+<li><strong>电动汽车也难逃此劫</strong>：一位刚购买电动车不久的车主提到，车辆偶尔弹出「检查 EV 系统」的警告，但到店时故障已消失，技术人员只能说「估计它就偶尔这样」；而保修条款恰好明确不覆盖软件/固件故障。另一位 Kia Niro EV 车主也描述了点火被随机锁定 15 分钟、厂商「耸耸肩」的情况。</li>
+<li><strong>并非新鲜事</strong>：有读者反驳称，「重启试试」「换一台机器」这类不可解释的失败早在软件行业诞生之初就已存在，只是如今借由「快速行动、打破常规」的互联网文化而加剧。</li>
+<li><strong>对 AI 驱动开发的担忧</strong>：有评论担忧，若把「大多数时候能用就行」的逻辑延伸到编译器、基础设施和库，整个技术栈将陷入不可靠的泥潭，拖慢所有人。</li>
+<li><strong>安全攸关领域的对照</strong>：有声音认为，银行/金融、航空等安全攸关领域仍坚持完美的可重复处理，并呼吁所有程序员早年应有在「高要求行业」历练的经历。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>评论中提到一个相关概念：<a href="https://en.wikipedia.org/wiki/Normal_Accidents" rel="nofollow">「常态事故」（Normal Accidents）</a>。该理论由社会学家 Charles Perrow 提出，认为在极其复杂的系统中，多个相互作用的失效几乎不可避免——重大事故往往始于微不足道的开端，再不可预测地级联放大。这种系统层面的固有脆弱性，与文章讨论的「不可解释故障正常化」互为表里。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49867486</guid>
+      <pubDate>Sun, 27 Sep 2026 15:26:40 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ NeoVim 曾删除 Vim 的持久撤销文件，引发关于软件对用户数据责任的讨论</title>
+      <link>https://news.ycombinator.com/item?id=49867067</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论 NeoVim 与用户数据责任的软件工程话题，属于开源软件及软件技术讨论，用户对开源项目感兴趣</small></p><p>一篇博客文章引用计算机科学家 David Chisnall 在 Mastodon 上的帖子，讲述了他尝试 NeoVim 时遭遇的问题：NeoVim 改变了持久撤销（persistent undo）文件的格式，不仅没有升级旧文件或使用不同的文件名，而是直接删除了 Vim 原有的撤销文件（丢失其中所有数据），并替换为 Vim 无法读取的新格式文件。当他提出 issue 时，得到的回应是"持久撤销格式不稳定，用户不应依赖该功能中的数据保存"，这让他彻底放弃了 NeoVim。</p>
+
+<p>文章借此引出了 Jef Raskin 在 2000 年著作《The Humane Interface》中提出的"拉斯金第一定律"：<em>程序不得损害用户的数据，也不得因不作为而允许用户的数据受到损害</em>。作者认为 NeoVim 开发者缺乏对用户的"照护责任"（duty of care）。</p>
+
+<p>这篇文章在 Hacker News 上引发了 236 条评论的激烈讨论，观点大致分为几派：</p>
+
+<ul>
+<li><strong>批评 NeoVim 的行为</strong>：多位用户认为"仅仅尝试 NeoVim 就可能丢失 Vim 的撤销文件"是问题的核心，即使切回 Vim 也无法恢复。有用户表示"静默清除数据如此敌视用户，令人难以理解"。</li>
+<li><strong>为 NeoVim 辩护</strong>：有评论指出旧撤销文件格式存在根本性缺陷，格式变更是有版本号的，且 NeoVim 会返回版本不兼容错误；也有人认为开源开发者"没有义务"向后兼容，用户拥有源代码可以自行修复。</li>
+<li><strong>关于"照护责任"的哲学讨论</strong>：有评论类比"即使免费赠送食物也不能下毒"，反驳"开源无责任"论；也有人认为软件开发者对用户的承诺应当明确而非默认假设。</li>
+<li><strong>关于持久撤销功能本身</strong>：有用户质疑其价值，但更多人给出了实际使用场景（如系统崩溃恢复、误删内容找回），并指出 Vim 中该功能默认关闭、需在 vimrc 中启用。</li>
+</ul>
+
+<p>还有评论者提到，NeoVim 的这次格式变更与 GitHub 上的一起争议（<a href="https://github.com/neovim/neovim.github.io/issues/501">neovim.github.io issue #501</a>）相关，原作者对 NeoVim 社区可能存在其他不满。另有用户反思"现代软件正从'对用户有益'转向'对开发者有益'"的趋势，认为这反映了软件行业价值观的整体转变。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49867067</guid>
+      <pubDate>Sun, 27 Sep 2026 14:45:07 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 「Slop UI」的十个特征：如何识别 AI 生成的廉价界面</title>
+      <link>https://news.ycombinator.com/item?id=49867038</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论 AI 生成界面（slop UI）的识别特征，属于 AI 软件技术进展相关话题，用户对其感兴趣</small></p><p>一篇博客文章列举了 AI 生成界面（作者称之为「Slop UI」）的十个典型特征。作者以自己大学 App 的「小 UI 改进」更新为例，认为这次更新是典型的 AI 生成界面——虽然旧界面笨拙，但远比 AI 产出的「垃圾界面」要好。</p>
+
+<p>作者将 Slop UI 定义为「AI 生成的、看起来不对劲、不该出现、没有用途或过于通用的界面」，常见于缺乏愿景的 vibe-coding（随性编码）项目中。文章列举的十个特征包括：</p>
+
+<ul>
+<li><strong>无处不在的渐变（Gradients）</strong>：按钮、背景到处塞渐变，且 AI 尤其偏爱紫色。</li>
+<li><strong>彩虹色滥用（Rainbow Vomit）</strong>：使用大量毫无意义、互不协调的颜色，不遵循 70-30-10 配色法则。</li>
+<li><strong>脉冲徽章（Pulsing Badges）</strong>：在界面上到处添加闪烁的「活跃」徽章，但这些信息往往是冗余的——例如大学 App 的数字 ID 界面，如果「不活跃」应用就会直接登出，徽章毫无意义。</li>
+<li><strong>「指甲」卡片（Finger Nail Cards）</strong>：一种被所有 LLM 过度使用的卡片样式，作者认为没有人会主动设计出这种「指甲」形状。</li>
+<li><strong>表情符号滥用（Emoji Slop）</strong>：AI 在界面中大量使用 emoji。</li>
+<li><strong>元素错位（Misaligned Stuff）</strong>：SVG、ASCII 艺术等非盒装元素几乎总是对不齐。</li>
+<li><strong>字体选择单一</strong>：通常只用 Inter 或 JetBrains Mono，且一提到技术相关内容就添加 <code>//</code> 注释符号。</li>
+<li><strong>因聊天上下文产生的冗余文本</strong>：例如在网站页脚写「Built with Hugo. Written from Neovim」这类无关紧要的实现细节，或「one campus. one app」这类能「闻到提示词味道」的口号。</li>
+<li><strong>玻璃拟态（Glassmorphism）</strong>：AI 偏爱玻璃拟态设计语言，而所谓的「粗野主义」（brutalism）风格则千篇一律。</li>
+<li><strong>通用标语与不必要的炒作</strong>：痴迷于「Elevate」「Seamless」「Next-Generation」「Supercharge」等词汇，每个页面都像落地页而非功能性工具。</li>
+</ul>
+
+<p>作者强调自己并不反对 vibe-coding（本文网站本身也是 vibe-coded），只是批评那些不投入任何努力让界面「看起来稍微好一点」的做法。</p>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上的讨论（251 分、177 条评论）呈现多元观点。有评论指出这些模式其实人类设计师也长期使用，不应简单归咎于 AI；也有人认为「Slop」只是低质量作品的代名词，与创作者是人是机无关。部分评论者建议通过更好的提示词（如指定配色方案、将用户可见文本放入翻译文件）来规避这些问题。还有人从商业角度分析，认为当实现者不直接对最终用户负责时，质量自然会被牺牲。也有评论者反讽作者自己的网站同样带有「slop 气息」。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49867038</guid>
+      <pubDate>Sun, 27 Sep 2026 14:41:26 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Drawgent：将编码智能体接入实时 Excalidraw 白板</title>
+      <link>https://news.ycombinator.com/item?id=49857729</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍将编码智能体接入白板的工具 Drawgent，属于编程工具发布/效率改进，用户对此很感兴趣</small></p><p>Drawgent 是一个开源工具，将你自己的编码智能体（Claude Code、Codex 或 opencode）连接到实时 Excalidraw 白板画布上。用户可以在聊天面板中请求生成图表，或在画布上以 <code>AGENT: …</code> 开头书写指令，智能体会查看画布（截图 + 场景）、实时编辑、检查结果并标记为 DONE。</p>
+
+<img src="/yanndegat.tngl.sh/drawgent/raw/main/docs/overview.png" alt="drawgent architecture: the browser, the drawgent server, your coding agent and its MCP canvas tools" />
+
+<h3>核心特性</h3>
+<ul>
+<li><strong>图表与代码关联</strong>：图形可以指向其对应的代码（文件、行范围、符号），支持从图表跳转到代码，并自动检测链接状态（正常、移动、过期、缺失）。<code>drawgent check</code> 可在 CI 中验证链接完整性。</li>
+<li><strong>指向代码</strong>：通过激光笔（laser）在画布上圈选文件、文件夹或代码行，将其加入上下文篮子（context basket），随下一条聊天消息发送给智能体。</li>
+<li><strong>构建我画的</strong>：修改图表后，智能体可自动修改代码以匹配图表。智能体接收的是语义变化（新增/删除/重连形状和箭头），而非像素，并在画布上标记进度（📝 计划 → 🔧 进行中 → ✅ 完成）。</li>
+<li><strong>多白板支持</strong>：一个工作区可容纳多个白板，支持移动/复制选区、按框架拆分等操作。</li>
+<li><strong>图表入库</strong>：通过 <code>--diagram</code> 参数将图表保存为标准 <code>.excalidraw</code> 文件，可提交到 git，支持 git pull 后的外部变更合并。</li>
+<li><strong>excalidraw.com 房间</strong>：支持加入加密的 excalidraw.com 房间，人类可在网页端协作，智能体编辑实时同步。</li>
+</ul>
+
+<h3>技术实现</h3>
+<p>Drawgent 通过 ACP（Agent Client Protocol）桥接连接智能体，使用 Headless Chrome 渲染画布，提供 MCP 工具集（包括布局检查、自动布局、撤销更改等）。智能体始终运行在用户自己的环境中，不会被捆绑。支持 Docker 部署，可从源码构建（Rust + npm）。</p>
+
+<h3>社区反馈</h3>
+<p>HN 讨论中，多位用户分享了类似探索。有用户提到 <a href="https://whiteboard-mcp.com">whiteboard-mcp.com</a> 在架构图创建方面效果不错；也有人指出 Excalidraw 官方提供了开源的 <a href="https://github.com/excalidraw/excalidraw-mcp">excalidraw-mcp</a>，但似乎已数月未更新。部分评论者认为画图的价值在于思考过程本身，而非最终产物；还有人分享了类似的 jsoncanvas 渲染方案。有用户建议项目应提供演示视频或 GIF 以便快速了解价值。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49857729</guid>
+      <pubDate>Sat, 26 Sep 2026 15:56:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 一位开发者戒断 AI 编程一个月的反思：从&quot;AI 牧羊人&quot;回归真正的工程师</title>
+      <link>https://news.ycombinator.com/item?id=49855018</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开发者分享戒断 AI 编程一个月的反思与经验，属于编程效率改进经验，用户对此高度感兴趣</small></p><p>一位开源项目 LibreWeddingPlanner 的维护者在博客中分享了自己停止使用 AI 编程一个月后的深刻反思。他坦承，此前在工作中重度依赖 AI 编程代理，最终意识到自己"正在变得愚蠢、懒惰，成为一个更差的开发者"。</p>
+
+<h3>失控的过程</h3>
+<p>作者描述了从最初使用 AI 自动补全，到后来将整个 Jira 工单粘贴给 AI 代理、同时运行多个代理并行处理任务（他称之为"tokenmaxxing"）的失控过程。他发现自己已经数月没有亲手写过一行代码，甚至提交（commit）也由 AI 代劳。更令人担忧的是，他承认自己"不知道推送到生产环境的代码中 20% 在做什么"。</p>
+
+<p>AI 生成的代码看似专业，却常常需要大量返工。作者举例说，一个本可 20 分钟完成的任务，AI 代理 5 分钟生成代码，他却要花两天审查——因为同时有太多代理在运行，上下文切换让他精疲力竭。他坦言"几乎没有一次 AI 生成的任务能直接合并"，而且 AI 代理经常卡住 30 分钟无响应，却花费了 30 美元的 token 费用。</p>
+
+<h3>转折点</h3>
+<p>真正的转折发生在一次代码评审中：同事指出他（实为 AI 生成）的测试并没有真正覆盖所修改的场景。作为有 10 年以上 TDD（测试驱动开发）经验的开发者，这让他感到羞辱，也让他意识到"AI 最终会说服你，让你再次变得自满"。</p>
+
+<p>于是他决定彻底停止使用 AI，即使可能因此丢掉工作。回归后，他重新找回了 TDD 工作流、简洁的 PR 描述、对代码的完全理解，以及"部署时的信心"。他重新享受人类代码评审，并开始主动向同事请教架构决策。</p>
+
+<h3>给同行的建议</h3>
+<p>作者将 AI 依赖比作"毒品"，呼吁开发者"醒来，勇敢，重新夺回控制权"。他认为，工程师的真正价值在于解决困难问题的能力，而"关闭大脑、放松地照看 AI"只会让自身价值不断贬值。他同时指出，AI 公司可能像当年的 Google 一样降低服务质量以增加用户使用次数，因此不应盲目信任。</p>
+
+<h3>社区反响</h3>
+<p>该文在 Hacker News 上引发热烈讨论（178 分，223 条评论）。观点大致分两派：</p>
+<ul>
+<li><strong>支持者</strong>：有评论者表示"重度使用 AI 编码的人哪怕尝试一小时不用 AI，都会被自己技能萎缩的程度震惊"；也有人将 AI 比作"浴盐"，形容看到他人陷入 AI 幻觉时的可怕景象。</li>
+<li><strong>反对者/折中派</strong>：部分开发者认为 AI 只是工具，关键在于正确使用——例如用于调试生产问题、生成测试数据、辅助研究等场景，而非完全替代思考。也有人指出"从商业角度看，没有 LLM 代理协助很难保持同等生产力"，建议像飞行员手动飞行保持技能一样，定期脱离 AI 练习。</li>
+</ul>
+<p>还有评论者批评 AI 生成的 PR 描述冗长却无人阅读，呼吁开发者"如果无法用简洁的语言向他人描述自己的变更，就应该撤回请求"。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49855018</guid>
+      <pubDate>Sat, 26 Sep 2026 10:08:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>从硬件驱动到机电艺术：在 Flip-Dot 显示屏上运行 FLIP 流体模拟</title>
+      <link>https://news.ycombinator.com/item?id=49854219</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 在 Flip-Dot 显示屏上运行流体模拟，属于硬件+编程的趣味项目，主题与用户配置的兴趣交集不明确，偏创意硬件展示</small></p><p>电子工程师兼艺术家 mitxela 发布了一篇详尽的技术博客，讲述了他如何把 <strong>FLIP 流体模拟</strong>（Fluid Implicit Particle，一种无网格流体模拟方法）搬到一块 <strong>flip-dot（翻板点阵）机电显示屏</strong>上，并为此在 EMF2026 黑客营搭建了互动装置。做这件事的首要动机，正是「Flip Fluid on Flip Dots」这个文字游戏。</p>
+
+<p><img src="/img/uploads/2026/flipdots/flipdots-art.jpg" alt="flipdot display example" width="1200" height="800" /></p>
+
+<p>作者多年来一直在做各种流体模拟，但基于 LED 的显示是无声的。他想到机电式 flip-dot 显示屏在翻动时天然会发出「哗啦」的声响，正好可以弥补这一缺憾。然而 flip-dot 显示屏极其昂贵——目前全球仅剩一家厂商，且只与少数艺术工作室合作（如著名的 <a href="https://youtu.be/2fRx64OTAeI?si=FJDW3OGYLRK0rYox&amp;t=681">Breakfast Studio</a>，低于 5 万美元预算根本不谈）。作者甚至在一次合同工作中提出放弃薪水以换取在对方公司的 flip-dot 屏上跑流体模拟，却被拒绝，于是决定自己从零动手。</p>
+
+<p>他通过黑客营交流，最终从「Look Mum No Computer」（Sam James Bartle）的博物馆获得了一批报废/库存的旧 flip-dot 面板。这批面板多为 2007 年生产，分辨率 13×28，电路板边缘凸出导致无法无缝平铺，且原始驱动电路刷新约需 1 秒。文章随后进入核心硬件攻关：</p>
+
+<ul>
+<li><strong>矩阵扫描提速</strong>：点阵翻转约需 60ms，但只需约 1ms 的脉冲即可极化磁芯。通过高电压短脉冲并同时驱动整列，理论上可在约 56ms 内更新全部 28 列，但面临瞬时 13A 级别的电流需求和矩阵刷新产生的视觉伪影（棋盘格效应）问题。</li>
+<li><strong>放弃拆解重装</strong>：作者考察了拆下所有翻板重焊新板的方法，但因翻板内含极细的磁力线和易熔的软塑料、成本过高而放弃。</li>
+<li><strong>驱动方案探索</strong>：借鉴 Mike（mikeselectricstuff）的原型设计，作者比较了 H 桥芯片、串联电容半桥方案、栅极驱动器等。最终采用非常廉价的 <strong>MX6208 等 H 桥电机驱动芯片</strong>，以「单端」方式（AIN 接高电平，信号接 BIN）配合 595 移位寄存器逐点驱动，并经原型测试验证可行。</li>
+</ul>
+
+<p><img src="/img/uploads/2026/flipdots/mikes-board.jpg" alt="Mike's PCB on the back of a flipdot panel" width="1200" height="800" /></p>
+
+<div class="knowledge-section">
+<p><strong>你知道吗？</strong>文中评论区补充了若干值得注意的工程细节：作者通过 Dremel 切割、黄铜螺柱安装、解码板、电源（含散热与热像仪检测）、以及用于调节重力的「重力控制」摇杆逐步搭建出完整装置。关于单端 H 桥驱动，有评论者指出其实用「负电源轨」只需两个晶体管即可切换线圈电流方向；而串联电容驱动还有一个安全优势——即使控制引脚异常持续导通，电容充电后也不会再向线圈持续输送电流，从而避免烧毁极细的磁力线（类似家用锅炉燃气阀的电容驱动原理，或气囊/液压悬架中用 PWM 脉冲保持电磁阀的经典做法）。</p>
+</div>
+
+<p>最终作者将两块乃至更多面板组装成大型互动装置，配上激光切割框架、Logo 与摇杆，亮相于 EMF2026 展会的休息帐篷中。文末附有以下活动期间的实拍与演示视频，读者可直接观看完整运作效果。</p>
+
+<p><img src="/img/uploads/2026/flipdots/final1.jpg" alt="Finished view of installation in lounge, in use" width="1200" height="788" /></p>
+
+<p>评论区除技术讨论外，也有用户反馈其网站上的视频返回的是 Git LFS 元数据而非真实视频内容，作者方面可能需要补充 <code>git lfs pull</code> 步骤。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49854219</guid>
+      <pubDate>Sat, 26 Sep 2026 07:50:24 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Go 并发知识精要：交互式微型手册</title>
       <link>https://news.ycombinator.com/item?id=49856988</link>
@@ -1019,159 +1185,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49788838</guid>
       <pubDate>Mon, 21 Sep 2026 15:50:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Mini-AGI：在8GB显存上从零训练的持续学习模型</title>
-      <link>https://news.ycombinator.com/item?id=49783133</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI模型训练相关技术进展，涉及持续学习模型从零训练，属于AI软件技术进展和新AI模型发布范围，用户对此感兴趣。</small></p><p>一位开发者（HN 用户 volotat）在 Hacker News 上展示了名为 <strong>Mini-AGI</strong> 的开源项目。这是一个字节级语言模型（byte-level language model），能够在一块仅有 8GB 显存的消费级 GPU（RTX 3070 Laptop）上从头训练，并持续从所阅读的数据中不断学习。</p>
-
-<p><strong>核心设计理念</strong>：作者认为市面上所有个人能「拥有」的语言模型都是他人训练后冻结的产物，用户只能在边缘做微调，一旦继续训练便会发生灾难性遗忘（catastrophic forgetting）。Mini-AGI 的目标是让训练永不停止——模型把权重以普通文件形式存放在磁盘上，按需分页（paging）到显存中，因此参数量只受磁盘空间限制而非显存限制。它没有分词器（tokenizer），字母表就是 256 种字节值，可直接读取任意文件。</p>
-
-<p><strong>架构特点</strong>（[IMAGE_1][IMAGE_2] 展示了模型自组装与生成文本的动态过程）：</p>
-<ul>
-<li><strong>专家混合（MoE）</strong>：字符不经过固定层栈，而是先经过两个密集前奏块，再通过一个循环块重复最多 24 次，每次应用从共享专家池中自行选择 top-8 专家。专家池可随训练动态增长与剪枝，只保留被持续请求的专家，删除无人问津的专家。</li>
-<li><strong>自适应深度（PonderNet 方案）</strong>：一个「停止头」对每个字符逐行打分，字符在答案不再变化时停止计算——简单字符只消耗一行，困难字符消耗多行。</li>
-<li><strong>批量大小为 1</strong>：一次只读取单个连续数据流中的一个 32K 字符块并更新一次梯度，从而大幅降低显存需求。</li>
-</ul>
-
-<p><strong>防止遗忘的关键发现</strong>：训练模型读 52.4 万字符的棋类数据并观察其余 7 个主题的遗忘情况（[IMAGE_3][IMAGE_4]）。实验显示，真正防止遗忘的不是专家池本身，而是「主干（trunk）学习率」——主干承载 97.6% 的梯度范数，将其设为专家学习率的 0.1 倍后，遗忘从 +2.23 nats 降至 +0.0067 nats（保留 99.84% 的进度）。作者还发现一个反直觉结论：专家门控值（gate）对剪枝具有反预测性，最小值门控反而属于最忙碌的专家，因此剪枝依据的是专家被请求的时间间隔而非门控值。</p>
-
-<p><strong>当前状态</strong>：模型已完成前 2.43 亿字符的训练，仍然能延续一个关于樱桃树的故事并产生语法正确的文本，但作者承认「这仍是玩具级的小模型」，性能远不及 GPT-2。权重尚未发布，训练仍在继续，预计还需约两周完成对 78 亿字符语料库的第一轮阅读。</p>
-
-<p><strong>社区反响（51 条评论）</strong>：评论总体好奇且鼓励，称 8GB 显存上训练是「一股清新空气」「原型 AGI」；但也有人持保留态度，认为目前「离智能还很远」，且尚无证据表明解决了灾难性遗忘。多位评论者探讨了持续学习与人类大脑记忆机制（优雅退化）的相似性。作者回应称当前模型太小、训练不足，无法做泛化能力方面的断言，计划待完整阅读语料后测试一些简单基准任务。</p>
-
-<p>项目地址：<a href="https://github.com/volotat/mini-AGI">github.com/volotat/mini-AGI</a>。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>灾难性遗忘</strong>：指神经网络在学习新任务时，会快速丧失已学旧任务知识的现象，是持续学习领域最核心的挑战之一。本文的核心创新正是用「主干低学习率 + 专家池路由隔离更新」的组合来应对这一问题——通过路由让每次更新只触及模型中与当前文本相关的少数专家，从而在结构上把新知识的写入限定在局部。</p>
-<p><strong>PonderNet</strong>：一种允许网络为不同输入自适应决定计算步数的架构（自适应计算时间），在训练时对每个深度按其停止概率加权，从而让停止头学会决定「何时该停止思考」。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49783133</guid>
-      <pubDate>Mon, 21 Sep 2026 04:42:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Kev：基于 Qwen3.5 的可本地训练与运行的小型决策模型家族</title>
-      <link>https://news.ycombinator.com/item?id=49783999</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 基于 Qwen3.5 的可本地训练运行的小型决策模型，属新 AI 模型发布且涉及开源项目，符合高兴趣与感兴趣配置</small></p><p>Jared Palmer 发布了 <a href="https://github.com/jaredpalmer/kev/tree/main">Kev</a>，一个基于 Qwen3.5 构建的小型决策模型家族，其架构源自 Jev 的 "Architecture Unmasked" 论文。Kev 提供 0.8B、4B 和 9B 三种规模的预训练权重，同时开放训练代码和评估数据，用户可以在自己的硬件上训练和运行这些模型。</p>
-
-<p>Kev 的核心能力是在同一次请求中处理三类问题：是非判断（noul）、多项选择（choice）和评分（score）。所有问题共享输入文本，但彼此隔离、互不可见。API 与 TypeSafe 的 System One 兼容，可直接将 TypeSafe 的 Python SDK 指向本地服务器使用。模型支持 CUDA 和 Apple Silicon，其中 4B 和 9B 版本可在 32GB 内存的 Mac 上以 bf16 精度运行。</p>
-
-<p>在性能方面，Kev-9B 在新来源数据集上的准确率达到 0.852（测试集），Brier 分数为 0.237，与托管服务 Jev 的差距约为 3.5 个点。模型默认启用概率校准，每个检查点内置了拟合的温度参数（约 2.1–2.4），可将校准误差从 0.106 降至 0.042。此外，可选的 <code>KEV_DATE_FACTS=1</code> 设置能帮助模型处理日期计算，在截止日期类问题上将准确率从 0.80 提升至 0.90。</p>
-
-<p>项目还包含一个网页 playground，支持测试输入文本、对比不同选项顺序对答案的影响，以及一个国际象棋演示（棋盘作为输入，合法走法作为选项）。所有权重均发布在 GitHub Release 和 Hugging Face 上，附带 SHA-256 校验和。</p>
-
-<h3>社区反馈</h3>
-<p>HN 讨论中，多位用户对开源 Jev 类模型表示欢迎。有评论者将其类比为"智能 if 语句"，适合在代码中需要一定智能判断的场景。也有用户指出，这类模型在编码代理中可用于强制执行前端样式规则和组件创建规范，避免 UI/UX 漂移问题。不过也有声音认为，相比现有的工具调用（tool-calling）方案，这类模型带来的实际增量价值有限，需要结合具体基准来判断。另有用户提到决策模型缺乏工具调用能力，知识截止日期可能成为长期使用的瓶颈。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49783999</guid>
-      <pubDate>Mon, 21 Sep 2026 07:11:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ MCP 从开始就是个坏主意？一位开发者的反思激起热议</title>
-      <link>https://news.ycombinator.com/item?id=49779329</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开发者对 MCP 协议的反思热议，属 AI 软件技术进展范畴，用户感兴趣</small></p><p>一位开发者在博客中直言《MCP 从开始就是个坏主意》（Why MCP was always a bad idea），认为模型上下文协议（Model Context Protocol, MCP）是为「还不够聪明」的 LLM 时代设计的协议，如今已被更好的模型超越，应该被淘汰。<img src="/_astro/im-tired.76t17z_Q_Z2kioeJ.webp" alt="Let me get this straight, you think MCP is a bad idea? I do, and I'm tired of pretending it's not." width="500" height="524" /></p>
-
-<p>文章回顾了 MCP 的历史：它由 Anthropic 于 2024 年 11 月发布，用于帮助代理连接外部服务与数据源，并于 2025 年被捐赠给 Linux 基金会旗下的 Agentic AI Foundation。随着采用率暴增，用户添加大量 MCP 服务器后遭遇了「上下文膨胀」（context bloat）问题——每个服务器都带多个带 schema 的工具，挤占了模型的上下文窗口，催生了各类代理编排平台来缓解问题。</p>
-
-<p>作者的核心论点是：这些围绕 MCP 搭建的整套体系，恰恰忽略了「模型在变强」这一事实。如今的 LLM 已经能编写并运行脚本、直接调用 API、组合多种服务，甚至通过 <code>--help</code> 命令自行发现和驾驭命令行工具（CLI）。因此，多数远程服务型 MCP 服务器本质上只是「包装了本就存在的 API」，现已变得多余。</p>
-
-<p>作者的建议是：删除大多数 MCP 服务器，让具备终端访问权限的代理直接驱动 CLIs。尽管 CLI 返回机器可读数据（JSON/XML 等）可能冗长耗 token，但可通过标准化方式解决。文章提出，应开始标准化代理直接使用 HTTP API：例如代理客户端可在请求头中标识自身身份，服务器则自动返回 Markdown 或纯文本而非 HTML 或冗长 JSON。</p>
-
-<p>文章列举了一些「现实例证」：越来越多的站点（尤其是文档站）开始支持 <code>Accept: text/markdown</code> 请求头；Vercel 工程师呼吁在 <code>Accept-Language</code> 头中传递偏好编程语言，以便文档站返回对应 SDK 示例，Shopify 创始人 Tobi Lutke 已表示将在 Shopify 文档中支持该做法。</p>
-
-<p>该文在 <a href="https://news.ycombinator.com/item?id=49779329">Hacker News</a> 上引发热烈讨论（约 260 条评论）。支持者认为，代理已能很好地驾驭 CLI 和 API，且 MCP 的凭证认证并不比直接暴露环境变量更安全；但不少评论者也提出反驳：许多企业级生产应用仍需成本敏感的模型辅助，MCP 在限制代理权限、提供受控查询与防护转换方面仍有价值，且并非所有场景都适合把 shell 访问权限交给 LLM。还有评论指出，用 <code>Accept-Language</code> 传递编程语言是对既有标准头语义的误用，争议颇大。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49779329</guid>
-      <pubDate>Sun, 20 Sep 2026 19:44:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 「我经常犯错」：一位 AI 时代产品人的迭代式问题解决框架</title>
-      <link>https://news.ycombinator.com/item?id=49777467</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI 时代产品人迭代式问题解决框架，涉及 AI 软件技术进展与效率改进经验，符合用户兴趣</small></p><p>Boris Cherny 在博客中分享了他写给团队的一则笔记，阐述自己在 AI 时代构建产品时采用的一套迭代式问题解决框架。他坦言自己「经常犯错」，并认为这正是高效解决问题的关键。</p>
-
-<p>他的方法包含六个步骤：理解现有信息、收集缺失信息、定义问题、定义清晰简单的解决方案、定义目标、以紧迫感行动。在整个过程中，新信息的出现会促使他不断回到第 3-5 步重新定义，形成迭代循环。他认为，对于复杂问题，这种看似「反复折腾」（thrashy）的过程其实是健康的，因为只有根据新数据调整先验假设，才能真正解决问题。</p>
-
-<p>作者特别指出，最常见的失败模式是第 3 步（未能清晰定义问题）和第 4 步（未能定义清晰简单的方案），这会导致计划复杂、成功标准模糊。他强调实时反馈的重要性，并欢迎他人对自己的框架提出批评。</p>
-
-<p>这篇文章在 Hacker News 上引发了热烈讨论（303 分，207 条评论），观点呈现明显分歧：</p>
-
-<ul>
-<li><strong>支持者</strong>认为这与亚马逊的文档决策流程和 OODA 循环（观察-定向-决策-行动）高度一致，是经过验证的有效方法。有评论者表示，在做出承诺前充分知情并迭代决策文档，优于职业生涯中见过的所有替代方案。</li>
-<li><strong>批评者</strong>则质疑将个人框架强加于团队的做法，认为「反馈」一词在权力不对等的关系中可能沦为控制工具。有人指出「紧迫感」作为默认流程可能导致团队倦怠，还有人讽刺这是「招募应声虫」的方式。</li>
-<li><strong>作者回应</strong>：作者澄清自己并非管理者而是独立贡献者（IC），强调框架并非唯一正确的方法，并解释「反馈」在健康文化中应是诚实、无指责的沟通方式。他也回应了关于 Agents.md 的评论，表示两者无关，只是恰好在同一周发生。</li>
-</ul>
-
-<p>有评论者精辟总结：这套框架的前五步不过是「先搞清楚状况再行动」的正式化表述，第六步则是「然后快速行动」。也有观点指出，问题解决的最大难点往往在于识别正确的问题本身——OODA 循环最初源于空战场景，那里问题定义是清晰的，而现实中的问题往往模糊得多。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49777467</guid>
-      <pubDate>Sun, 20 Sep 2026 16:41:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>高级工程师的&quot;死亡螺旋&quot;：如何避免在新岗位中陷入自我证明的恶性循环</title>
-      <link>https://news.ycombinator.com/item?id=49776130</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于工程师职业发展与自我证明的软技能话题，标题含义模糊，与配置兴趣关联不明确</small></p><p>Sunil Pai 在文章《The senior engineer death spiral》中，以第一人称口吻向一位刚获得高级职位、感到冒名顶替综合征（imposter syndrome）的朋友分享了自己的观察和建议。</p>
-
-<h3>什么是"死亡螺旋"</h3>
-<p>文章指出，当工程师进入新公司、获得晋升或接手大型项目时，常会陷入一种常见的失败模式：他们试图"扮演"比自己实际水平更高级的工程师，设计过于宏大的方案，然后开始长时间"消失"——连续两三周没有产出，只在站会上给出"一切顺利"的积极更新。实际上他们什么都没交付，内心开始恐慌，告诉自己"只要再努力一点就能赶上"，于是开始失眠、错过饭点、情绪低落，工作与个人关系都受到影响。最坏的情况下，他们会精疲力竭、被列入绩效改进计划（PIP）、被解雇或主动辞职。</p>
-
-<h3>作者的处方</h3>
-<p>作者强调，由于远程办公、AI 编码工具等变化，工程师现在拥有更多自主权，但也更容易被孤立。他建议的解决方案有些反直觉：<strong>不要试图表现得更高阶，而是"降一级"</strong>，暂时成为团队最好的队友——主动承担 bug、杂务、文档等没人愿意做的琐事。</p>
-
-<p>核心逻辑是：从"结果导向"转向"动量导向"（momentum-based）。通过建立日常节奏、修复与同事的关系来积累耐力和信任，因为大型项目不是靠一次大爆发完成的，而是靠每天一点一滴的持续积累。作者总结道："你从事的是建立声誉的生意，软件只是它的下游产物。"</p>
-
-<img src="/_astro/senior-engineer-death-spiral.BObau-Zy_1oRjvd.webp" alt="A hand-drawn grid spiraling into a dense knot, with one loose line escaping to the edge." width="1536" height="1024" />
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论（222 分，133 条评论）反应热烈但观点分歧：</p>
-<ul>
-<li>多位用户认同这一现象，表示自己或同事曾经历过类似情况。有用户指出，面试过多位优秀的高级工程师候选人，却在入职 6 个月内看着他们陷入这种循环而离开。</li>
-<li>有评论认为这并非高级工程师特有的问题，更像是一种 ADHD 式的时间与兴趣管理问题。</li>
-<li>部分用户批评文章的"意识流"写作风格和大量使用"bro"等口语表达，认为缺乏深度；但也有用户为作者辩护，认为内容本身有价值。</li>
-<li>有资深工程师表示"做好工作、与人为善，其余自然水到渠成"，但另一些用户反驳称，自 2023 年以来晋升通道已大幅收窄，"做好工作"的回报可能只是"不被裁员"。</li>
-<li>有评论建议，与其在现有公司争取晋升，不如在保持现有职位的同时去其他公司寻找更好的机会。</li>
-<li>还有用户建议，管理者应主动关注那些"陷得太深"的同事，及时进行友好沟通，因为他们可能自己都意识不到问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49776130</guid>
-      <pubDate>Sun, 20 Sep 2026 14:16:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ AX——Google 开源的智能体编排器（Agentic Orchestrator）</title>
-      <link>https://news.ycombinator.com/item?id=49780797</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Google 开源的智能体编排器，属于编程工具发布/分享及开源项目，用户很感兴趣，必看。</small></p><p>Google 发布了 AX，一个开源的智能体（Agentic）编排平台，宣称可以让开发者用 YAML 声明式地定义智能体任务，并以集群规模运行数十亿个此类任务。项目托管在 <a href="https://github.com/google/ax">GitHub 的 google 组织下</a>，采用 Apache 2.0 许可。</p>
-
-<p>AX 的核心理念是：智能体是一种全新的工作负载——既不是微服务，也不是批处理任务。它们会累积状态、需要严格隔离、需要调用模型 API 和工具服务器，如果无人监督还可能在循环中烧钱。为此，AX 提供了四个声明式基本原语：</p>
-<ul>
-<li><strong>Task（任务）</strong>：在带 CPU 和内存限制的沙箱中运行不受信任的智能体代码，创建、挂起、丢弃都很廉价。</li>
-<li><strong>Workspace（工作区）</strong>：列出智能体需要的 Git 仓库、MCP 服务器和技能，或仅用自然语言描述目标，AX 会在任务启动前自动完成搭建。</li>
-<li><strong>Gateway（网关）</strong>：定义并快速管理网络策略，将流量锁定到明确的主机与端口白名单，并向传入请求注入凭据。</li>
-<li><strong>Model（模型）</strong>：在一个地方统一配置模型、参数与密钥，一次 apply 即可轮换密钥或锁定新模型版本。</li>
-</ul>
-
-<img src="./axolotl.svg" alt="AX's pink axolotl mascot" width="210" height="140" />
-
-<p>AX 运行在 Google 自研的 Agent Substrate 计算运行时之上，宣称具备三大优势：每个任务作为轻量级 actor 运行，可扩展到每集群数十亿并发会话；等待模型响应、外部工具调用或人工响应期间的空闲智能体会被检查点保存、挂起，并在不到一秒内恢复（无冷启动延迟）；数十个任务共享 worker 资源，将空闲等待时间转化为额外计算能力，让用户只为智能体实际思考与运行代码的时间付费。平台还整合了生成式 AI 能力，例如仅用自然语言描述即可自动准备工作环境。</p>
-
-<p>AX 源于 Google 在智能体运行时系统方面的研究，结合了 Google DeepMind 的智能体运行时研究成果与大规模隔离、恢复和调度经验，目标是为开发者与研究者打造最友好的智能体运行基础设施。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论（326 分、126 条评论）呈现出明显的分歧与观望态度：</p>
-<ul>
-<li>多位用户对 Google 的产品策略持怀疑态度，一是认为 Google 倾向于「高调发布——短暂维护——慢慢弃用」开源项目，有人举例 Google Workspace CLI 仅维护了一个月即被搁置；也有人提及 Google 曾分叉自己的项目修补安全漏洞却从未上游合入。部分评论认为不应在标题中冠以「Google 的」之名，因为多数 Google 高管可能从未听说过此项目，尽管它确实位于 google 官方 GitHub 组织下。</li>
-<li>有用户对 Gemini 与 Sheets/Docs 的集成体验大加批评，称其「无能到完全无用」，连带削弱了对 Google 该新项目的信任。</li>
-<li>关于技术路线，评论者 jauntywundrkind 对比了 Google 的 <a href="https://github.com/googlecloudplatform/scion">Scion</a> 项目，认为 Scion 能更好地与现有工具（Claude、Code、OpenCode 等）协同，而 AX/Agent Substrate 更偏向全新独立的庞大技术栈；也有人指出要自建 Kubernetes 集群等前置依赖较为繁琐。</li>
-<li>有评论称 AX 本质上是「面向 Kubernetes 的虚拟线程」，也有人将其类比为「AI 的 K8s 化」。此外有用户提醒，这与现有的另一款名为 <a href="https://axllm.dev/">Ax</a> 的智能体开发工具会产生命名混淆。</li>
-<li>还有评论呼吁建立智能体框架的基准评测，以避免各家「王婆卖瓜」式的宣传。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49780797</guid>
-      <pubDate>Sun, 20 Sep 2026 22:32:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
