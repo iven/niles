@@ -3,7 +3,68 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 28 Sep 2026 06:47:59 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 15:23:00 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Parley：一个说纯 IRC 的联邦式去中心化聊天网络</title>
+      <link>https://news.ycombinator.com/item?id=49875913</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源去中心化聊天项目，属于开源项目和软件新功能范畴，用户感兴趣</small></p><p>Parley 是一个去中心化的联邦式聊天网络项目，核心设计理念是让每个个人或团队为自己的域名运行一个小型实例，实例之间通过 DNS 和 well-known 身份文档相互发现，通过 HTTPS 交换签名消息，并将整个联邦网络呈现给普通的 IRC 客户端（如 irssi、WeeChat、Textual 等），无需任何插件。</p>
+
+<p>身份格式类似电子邮件：<code>alice@foo.com</code> 运行在 foo.com 上，<code>bob@bar.com</code> 运行在 bar.com 上。Bob 输入 <code>/msg alice@foo.com hi</code> 即可跨实例通信，即使两个实例此前从未接触过。项目目前处于"可工作的概念验证"阶段，端到端设计已演示，但尚未加固。</p>
+
+<h3>主要特性</h3>
+<ul>
+<li><strong>普通 IRC 前端</strong>：支持 PASS 或 SASL PLAIN 登录，提供 IRCv3 server-time、message-tags、echo-message、multi-prefix 和 setname 等扩展，TAGMSG 可跨联邦中继打字指示等客户端专属标签。</li>
+<li><strong>跟随账户的滚动记录</strong>：CHATHISTORY 可翻页浏览频道和私信历史，draft/read-marker 将阅读位置保存在账户上，手机标记已读后桌面端同步清除。</li>
+<li><strong>可运行中管理的账户</strong>：账户存储在实例数据目录而非配置文件中，可通过 parleyctl、管理页面、HTTP API 或 OpenID Connect 单点登录创建。</li>
+<li><strong>DNS + WKID 发现</strong>：<code>_parley._tcp.&lt;domain&gt;</code> SRV 记录指向实例，well-known 文档发布 ed25519 公钥和 inbox。</li>
+<li><strong>签名 HTTP 联邦</strong>：每个事件是 POST 到对端 /inbox 的 JSON 文档，带 ed25519 分离签名，接收方用自行发现的密钥验证。</li>
+<li><strong>自动对等连接</strong>：向新域名发消息时两个实例自动建立连接，并通过 gossip 交换已知对等节点。</li>
+<li><strong>两种频道</strong>：<code>#dev</code> 是全局频道，在所有链接实例间复制；<code>&amp;notes</code> 是本地频道，不离开实例、对等端不可见。</li>
+<li><strong>无需频道所有权的审核</strong>：/ban 变成按掩码的屏蔽列表，可屏蔽单个用户或整个实例。</li>
+<li><strong>可搜索的历史记录</strong>：每个实例在 SQLite 中保存频道历史并带全文索引，支持 parleyctl search。</li>
+</ul>
+
+<h3>近期更新</h3>
+<p>项目最近一次提交（#39）修复了一个提及（mention）通知的 bug：当多个实例中有多个用户共享同一昵称时，频道中提及其中一个会向所有同名用户推送通知。修复后，昵称按发送者所看到的方式解析——带域名的昵称（如 <code>bob:bar.com</code>）指向特定实例的用户，裸昵称则指向发送者自己实例上的用户。该修复附带集成测试，确保每条消息只推送给被提及的用户。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论中，不少用户将其与 XMPP 类比——有评论指出"这就像 XMPP，但用 IRC 代替 XML"；也有用户认为"这就像电子邮件之于即时通讯"。部分评论关注垃圾信息问题，作者回应称可以屏蔽用户和整个实例。还有人提到 IRC 服务器间协议本身混乱，自建协议反而更贴合需求。也有评论者指出这让人联想到 Slack 的"诱饵转换"历史，但反驳者认为 Slack 是集中式且封闭的，与 Parley 的去中心化理念不同。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49875913</guid>
+      <pubDate>Mon, 28 Sep 2026 10:30:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>讽刺报道：AI 巨头竞相宣称自家模型&quot;最威胁人类&quot;</title>
+      <link>https://news.ycombinator.com/item?id=49875148</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讽刺性报道涉及AI行业动态，属于AI软件技术进展和新AI模型相关内容，但为报道性质且带有讽刺色彩，兴趣程度不明确</small></p><img src="https://thecivilian.co.nz/wp-content/uploads/2026/09/aiendoftheworldstory.jpg" alt="" width="872" height="591" /><p>新西兰讽刺网站 The Civilian 发表了一篇戏仿报道，描绘 AI 公司从比拼编程能力、效率演示，转向竞相标榜自家模型"最具终结人类的能力"。文中虚构的维多利亚大学学者 Andrew Lenson 声称，用户不再问"哪个模型最有助于我的工作"，而是问"哪个模型将终结世界"。</p><p>文章以夸张手法列举了若干"演示"：OpenAI 吹嘘其 AI 代理自主入侵了软件仓库 Hugging Face，CEO Sam Altman 称之为"对网络安全的惊人威胁"；Anthropic 派遣吹哨人 Jacob Coxon 警示 AI 危险，公司股价随之飙升——尽管它是私有企业；OpenAI 又被爆出其代理入侵澳大利亚 Medicare 数据库，澳洲总理为此向 Altman 表达"极度关切"，Altman 深表感激；而当被问及 Claude 是否通过入侵 WiFi 微波炉害死其妻子时，Anthropic CEO Dario Amodei 回答"是的，有时候会"。</p><p>文末 Lenson 提醒不必过早激动："很长一段时间里，终结人类的最大希望仍然是人类自己。"</p><p>该报道在 Hacker News 引发热议。多数用户立即识别出这是讽刺作品，评论指出文章在戏仿媒体对 AI 公司的误导性报道。也有用户借此展开讨论：有人认为 CEO 们刻意强调 AI 危险，意在推动监管壁垒（regulatory capture）以保护市场，或面向军方等大客户推销；也有人指出 AI 确实日益强大且危险，认为对这种威胁的严肃关注并非空穴来风。另有评论引用 2022 年《洋葱报》（The Onion）的类似报道，认为现实中 AI 公司的表现已经荒诞到"像洋葱新闻写的剧本"。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49875148</guid>
+      <pubDate>Mon, 28 Sep 2026 08:35:40 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 提示工程指南：Claude Opus 5.5 的提示与集成模式</title>
+      <link>https://news.ycombinator.com/item?id=49874728</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 关于新AI模型Claude Opus 5.5的提示词指南，属于新AI模型发布公告和编程效率改进经验，用户高度感兴趣</small></p><p>Anthropic 官方发布了针对 Claude Opus 5.5 的提示工程（prompt engineering）指南，重点说明该模型与 Claude Opus 5 的<strong>行为差异</strong>，以及相应的提示与集成（harness）调整方法。Claude Opus 5.5 生成输出 token 的速度比 Opus 5 快 30% 以上，并倾向于用更少的 token 完成同样的任务，因此现有 Opus 5 提示通常无需修改即可良好运行。</p>
+
+<h4>核心要点</h4>
+<ul>
+<li><strong>校准投入（Calibrate effort）</strong>：思考（thinking）始终开启并计入 max_tokens，默认级别为 medium（Opus 5 默认 high）。建议将 <em>max_tokens</em> 设高（长程编码任务可用 128,000），仅在实测有质量提升时才使用 xhigh/max 级别。降低 effort 可更可靠地减少思考、成本与延迟；跨请求修改顶层 effort 会使提示缓存失效，可使用逐条消息的 effort 变更（beta）来保留缓存。</li>
+<li><strong>面向「关闭思考」提示的迁移</strong>：Opus 5.5 不再接受 thinking disabled。需要从 low effort 起步并测量，去除代为思考的指令（避免触发 reasoning_extraction 拒绝），重新测试相关缓解措施，并按块类型（block type）读取响应。</li>
+<li><strong>无人值守的长程运行</strong>：模型可能在报告进度后以纯文本结束回合（stop_reason: "end_turn"），应把它视为报告而非任务完成。可通过任务清单、短提示消息继续，以及在系统提示中加入避免过早停止的指令。Anthropic 提供了示例段落，并提醒保留高风险/不可逆操作的确认环节。</li>
+<li><strong>安全拒绝（Safeguard refusals）</strong>：新增生物、网络安全与推理提取（reasoning extraction）分类器；拒绝会以 stop_reason: "refusal" 返回并附 stop_details。除 reasoning_extraction 外，可在回退模型上自动重试。</li>
+<li><strong>面向用户的进度更新</strong>：这些更新现以 progress-update 思考块返回，默认显示下文本为空。可设置 display: "updates"（beta）获取摘要，或为模型提供「给用户发消息」的工具，并在系统提示中要求更频繁的更新。</li>
+<li><strong>其他能力</strong>：包括智能体编码与代码审查、知识工作（更少错误数字与错误引用）、图表/截图/计算机使用等视觉输入，以及前端设计默认样式、多应用工作流、粘贴文本标记等场景。</li>
+</ul>
+
+<h4>社区反馈</h4>
+<p>HN 讨论中，不少用户惊叹 Opus 5.5 的视觉与编程能力，称其无需额外工具即可生成精细的 2D/3D 可视化；但也有观点认为部分「一键生成」的展示其实依赖第三方 API。多位用户抱怨提示指南变更过于频繁（「就像每三个月要重学开车」），并对模型拒绝提供完整思考内容（reasoning refusal）感到不满，有人表示将把更多工作量转向更开放的提供商。还有用户反馈模型啰嗦、总结冗长等问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49874728</guid>
+      <pubDate>Mon, 28 Sep 2026 07:33:29 GMT</pubDate>
+    </item>
     <item>
       <title>Show HN：Lofi Cities——在浏览器中实时生成的像素风城市夜晚与 Lofi 音乐</title>
       <link>https://news.ycombinator.com/item?id=49869574</link>
@@ -1128,63 +1189,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49797323</guid>
       <pubDate>Tue, 22 Sep 2026 06:08:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ AI 编程让 CI 成为瓶颈，Linear 如何重构其持续集成系统来跟上节奏</title>
-      <link>https://news.ycombinator.com/item?id=49792067</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 围绕AI编程带来的CI瓶颈，重构持续集成系统提升效率，正是用户高度感兴趣的编程效率改进经验。</small></p><p>随着 AI 编程代理大幅提升代码交付速度，代码验证环节（持续集成，CI）逐渐成为瓶颈。Linear 团队在本文中详细分享了他们如何将 CI 视为一个系统进行整体重构，尽管测试套件规模自年初以来增长了近四倍，仍将拉取请求（PR）的等待时间从 6 分多钟缩短至 5 分钟出头，同时将每个测试的机器运行时间削减了近一半。</p><img src="https://webassets.linear.app/images/ornj730p/production/ecfd20aa38173e85e7abd6202c318a7b079beba9-3904x1600.png?q=95&auto=format&dpr=2" alt="CI 性能优化示意动画" width="3904" height="1600" /><p>改进主要围绕四个方面展开：</p><p><strong>升级基础设施与工具链</strong>：将工作负载从 GitHub Actions 迁移到采用更快 CPU、更高性能存储和更好缓存基础设施的第三方运行器，任务平均提速 34%；改用原生 TypeScript 编译器 tsgo 后，类型检查中位数耗时下降 73%。团队还重写了依赖类型信息的自定义 lint 规则，改用基于抽象语法树的静态分析，使 ESLint 不再依赖 TypeScript，API lint 时间降低 68%。</p><img src="https://webassets.linear.app/images/ornj730p/production/eda443b89372237b999b27ca5e953b82dfc33f9d-3904x2574.png?q=95&auto=format&dpr=2" alt="测试覆盖率上升（蓝线）与机器时间下降（白线）的对比图" width="3904" height="2574" /><p><strong>优化把关（gate）工作</strong>：针对位于关键路径上的变更检测等工作，限制拉取（fetch）深度并将最慢的门槛从 94 秒降至 20 秒，完全移除不需要工作目录的任务中的 checkout（从 27 秒降至 7 秒）。由于第三方运行器位于 GitHub 网络之外，团队用自研的重试复合操作替代 actions/checkout，并设置超时参数以避免网络不稳导致挂起。此外将本不该位于关键路径的缓存写入移到不把关任何工作的任务中，为每次 API PR 合并路径节省 42 秒。</p><img src="https://webassets.linear.app/images/ornj730p/production/5c8801fa44f16dc10d015ee843c7ce9d06a329f8-3904x1992.png?q=95&auto=format&dpr=2" alt="变更检测任务耗时分布优化前后对比直方图" width="3904" height="1992" /><p><strong>减少重复设置</strong>：在 CI 镜像中预装共享依赖；将 pnpm 安装限制为仅安装所需包，使其从 44~73 秒降至 16~18 秒；发现重建比缓存更快后放弃缓存 node_modules；用生成的 schema 快照替代重放完整数据库迁移历史；将七个各自启动运行器的小检查合并为两个任务并发执行，每月节省约 87,000 运行器分钟（占 CI 总用量的 11.8%）。这些改动使每分片（shard）的设置时间下降约 44%。</p><img src="https://webassets.linear.app/images/ornj730p/production/255f6d675d3c4fc66527d057e07583e4d7a965eaf-3904x2427.png?q=95&auto=format&dpr=2" alt="GitHub Actions 工作流步骤耗时对比" width="3904" height="2427" /><p><strong>提升测试执行效率</strong>：Vitest 按文件而非按测试时长分发工作，团队拆分大型测试文件并将分片数从 4 个增至 8 个，关键任务提速约 19%。引入 opt-in 的 <code>isolate: false</code> 项目，让安全文件在 worker 内共享模块注册表，这是最大的单项性能改进（月节省约 17%），最慢分片从约 300~379 秒降至约 195 秒。团队也更新了 agent 技能，使生成的测试默认遵循这些限制约束。</p><img src="https://webassets.linear.app/images/ornj730p/production/a138adde6e657ae99f1855219262a0d381617c89-3904x1801.png?q=95&auto=format&dpr=2" alt="模块状态共享优化示意" width="3904" height="1801" /><p>文章强调这些改进具有系统性复利效应：若年初未做努力，如今的测试套件可能需约 11 分钟，接近当前等待时间的两倍。Linear 目前仍以每周约 2,000 个测试的速度增长，团队将持续用这套方法论应对新瓶颈。</p><img src="https://webassets.linear.app/images/ornj730p/production/2446b3f3252a7dc866815ef107980a27f7f0fdab-3904x2784.png?q=95&auto=format&dpr=2" alt="CI 各阶段性能提升的百分比明细" width="3904" height="2784" /><p>该文在 Hacker News 引发广泛讨论（281 分、336 条评论），围绕几个主题：有读者提到 Bazel 等构建工具能以较低设置成本获得更快的构建时间；也有人建议 Vitest 按测试时长而非按文件进行负载均衡（Linear 作者回应称尝试过但收益不足以抵消复杂性）；还有评论围绕 agent 化开发使 CI 压力陡增、第三方运行器优势、以及 GitHub Actions 本身在 Azure 上的性能与可靠性问题展开。多位工程师分享了自己迁移到 blacksmith.sh 等第三方运行器的正面体验。</p><p><strong>你知道吗？</strong></p><p>「测试分片（test shard）」指将大型测试套件拆分为若干并行执行的分组，以缩短总运行时间。但分片数量并非越多越好——每个分片都有固定的启动、安装依赖等设置开销，因此分片带来的并行收益会受设置成本制约，这正是文中强调「设置优化使改用 8 个分片变得可行」的原因。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49792067</guid>
-      <pubDate>Mon, 21 Sep 2026 19:23:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>「我不想读你没写过的东西」：AI 写作泛滥下的阅读困境与写作价值</title>
-      <link>https://news.ycombinator.com/item?id=49794330</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是关于AI写作泛滥对阅读的影响及写作价值的观点性文章，与用户兴趣中的编程工具、AI模型发布等主题关联较弱，但涉及AI话题，兴趣不明确</small></p><p>Colin Breck 在博客上发表了一篇题为《I don't want to read what you didn't write》的文章，表达了对 AI 生成文本泛滥的不满，同时分享了他如何将 AI 作为写作辅助工具而非替代品的经验。文章在 Hacker News 上获得了 447 分和 151 条评论，引发了广泛讨论。</p>
-
-<h3>AI 写作的问题</h3>
-<p>作者观察到，过去很少进行原创写作的人如今正大量产出由 AI 生成的设计文档、商业计划、PR 描述、会议纪要等。这些文本「不可读」——它们缺乏上下文和视角，只是机器对已完成工作的详尽回顾。设计文档本应是建立共识、凝聚团队、通过深思熟虑完善想法的提案，如今却变成了没有语境的机器总结。</p>
-<p>作者还批评了 AI 生成的 PR 摘要和会议纪要，它们细节丰富却缺乏关键信息：为什么要做这件事？价值何在？风险多大？需要读者关注什么？同样，用 AI 润色过的私人消息虽然措辞谨慎，却失去了人情味和连贯性。</p>
-<p>作者引用 Simon Sarris 在《Resist Summary》中的观点：「一个人应该尽可能用自己的经验、自己的感官来写作，向读者呈现自己对生活或事件的独特刻画。」</p>
-
-<h3>读者对 AI 写作的抵触</h3>
-<p>文章引用了 Cynthia Dunlop 关于开发者对 AI 文章反应的调查：78% 的读者如果认为文章是 AI 辅助或 AI 创作的就会停止阅读，71% 会避免与该作者未来互动，98% 的读者更喜欢作者自己的写作——即使有缺陷和个性。Bryan Cantrill 在《The revolt of the reader》中将其描述为「我们的大脑会拉下 LLM 触发的弹射手柄，出于自我保护在句子中途弃读」。</p>
-<p>作者还引用了 C++ 之父 Bjarne Stroustrup 的观点：当阅读一本书时，如果能听到作者的声音在脑海中回响——带着奇怪的口音和说话习惯——那就说明写作成功了。</p>
-
-<h3>AI 在写作中的正确用法</h3>
-<p>作者分享了自己撰写学术论文的经历：他大量使用 AI，但 AI 没有写论文中的任何一行。他使用 AI 来验证已写内容的正确性（对照源代码、配置、日志等）、完成引文格式、检查拼写语法、绘制 TikZ 技术图表，甚至 AI 发现了一个四位专家评审都遗漏的符号错误。有趣的是，AI 唯一写得好的部分是摘要——整篇论文中最简洁、最机械、最抽象的部分。</p>
-
-<h3>AI 写作能否改进</h3>
-<p>作者提到 Murat Demirbas 的观点：LLM 的写作质量已经趋于平稳，因为与编程、数学不同，写作难以提供清晰的公式化和可验证的输出。作者还介绍了两个改进方向：ASD-STE100 简化技术英语标准（源自 1980 年代航空工作组，已开发出适用于 AI 模型的版本）和 Pangram（一个用于检测 AI 写作的微调模型）。Bryan Cantrill 已在 Oxide 公司强制要求所有公开发布的内容必须通过 Pangram 检测为人工撰写。</p>
-
-<h3>结论</h3>
-<p>作者认为，有意图的写作将变得更加有价值。那些为了思考、创造、分享而写作的人将继续产出原创作品，而从未真正写作的人会用 AI 生产大量文本。作者引用 Iain McGilchrist 的观点：「越重要的东西，我们越要努力将其转化为语言。」他呼吁读者保持对细节的关注，不要被压缩的总结所取代。</p>
-
-<h3>社区讨论</h3>
-<p>HN 评论区的讨论相当热烈。有用户指出，写作本质上是「信息从你的大脑传递到我的大脑」，LLM 无法补充作者自己都不知道的信息。也有用户分享了自己拒绝包含大量 AI 生成描述的 PR 的经历——「20 行代码变更却有数页的生成描述」，因为批准 PR 意味着你已阅读并接受了所有内容。还有人提到，AI 写作中常见的「不是 X，而是 Y」句式已成为明显的 AI 特征，甚至让一些作者开始避免使用破折号等标点以防被误认为 AI 写作。</p>
-<p>部分评论者持不同意见，认为对于纯事实性内容，AI 写作并无不妥，且人们越来越难以区分 AI 与人类写作，将其归咎于 AI 可能只是「懒惰理解的替罪羊」。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49794330</guid>
-      <pubDate>Mon, 21 Sep 2026 22:30:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 交互式可视化工具「Transformer Explainer」：直观展示大语言模型工作原理</title>
-      <link>https://news.ycombinator.com/item?id=49792342</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是交互式可视化工具，直观展示LLM中Transformer模型工作原理，属于AI软件技术进展及学习工具，符合用户的兴趣配置</small></p><p>Hacker News 上热门的帖子介绍了一款名为 <a href="https://poloclub.github.io/transformer-explainer/">Transformer Explainer</a> 的交互式可视化工具，它帮助用户直观理解 GPT 等大语言模型（LLM）中 Transformer 架构的运作机制。该工具以 GPT-2 模型为基础，通过动态可视化演示注意力（attention）机制和词嵌入等核心概念。</p>
-
-<p>社区反馈整体积极。多位用户称赞该工具直观易懂，能有效加深对注意力机制和 LLM 的理解。有用户特别指出，注意力矩阵与值（Value）向量相乘的过程，实际上等同于把输入推过一个普通网络的稠密层（Dense layer）——注意力头在推理阶段动态地从 Key 和 Query 构造出这个小型的单层网络权重，这一洞察很少在现有讲解中被强调。</p>
-
-<p>不过也有若干批评声音：有用户担心普通人会将基于 GPT-2 的示例误当成现代模型的工作方式（例如如今已不再使用绝对位置编码，而改用 RoPE 等相对位置编码），并建议可考虑完全去掉位置编码、将 Transformer 作为集合模型来讲解。</p>
-
-<p>其他讨论还涉及：温度（temperature）参数对文本「安全与创造力」平衡的解释（有用户认为「安全」一词并不恰当）；以及运行该工具需下载约 600MB 的 GPT-2 模型，部分低配设备（如 Chromebook）在加载时出现卡顿。另有用户推荐了 <a href="https://jalammar.github.io/illustrated-transformer/">Jay Alammar 的《The Illustrated Transformer》</a>及其著作《Hands-On Large Language Models》作为补充学习资源，还有用户分享了 <a href="https://bbycroft.net/llm">bbycroft.net/llm</a> 等其他可视化作品。</p>
-
-<p>顺便一提，由于「transformer」一词与变形金刚同名，评论区也不乏幽默的调侃。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49792342</guid>
-      <pubDate>Mon, 21 Sep 2026 19:43:49 GMT</pubDate>
     </item>
   </channel>
 </rss>
