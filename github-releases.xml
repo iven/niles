@@ -3,7 +3,136 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 28 Sep 2026 15:21:56 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 21:56:59 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.284：新增 Claude Sonnet 5.5 默认模型，多项交互与修复改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.284</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.284 版本，主要新增了 Claude Sonnet 5.5 模型并设为 Anthropic API 的默认 Sonnet 模型（支持 1M 上下文，$2/$10 每百万 token，缓存读取 $0.20/Mtok），同时带来多项功能与修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增 Claude Sonnet 5.5</strong>（<code>claude-sonnet-5-5</code>），现为 Anthropic API 默认 Sonnet 模型，支持 1M 上下文</li>
+<li><strong>自动模式新增「是，但下次再问」选项</strong>：在工作目录外读取前可允许单次读取，后续仍会继续询问</li>
+<li><strong>新增可重绑定的按键动作</strong>：<code>effortSlider:decreaseEffort</code>、<code>increaseEffort</code> 和 <code>toggleUltracode</code>，可在 <code>keybindings.json</code> 中重映射 <code>/effort</code> 滑块的箭头和 Tab 键</li>
+<li><strong>新增 <code>/mcp reconnect all</code></strong>：在交互终端中一次性重试所有连接失败或需要认证的 MCP 服务器</li>
+<li><strong>Ultracode 独立开关</strong>：在 <code>/effort</code> 中成为独立切换项（Tab 或 <code>/effort ultracode [on|off]</code>），不再强制 xhigh 努力级别，可在任意级别保持开启</li>
+<li><strong>默认自动模式</strong>：交互终端和 VS Code 会话在未配置权限模式时默认以自动模式启动（<code>permissions.defaultMode</code> 仍可覆盖）</li>
+<li><strong>VS Code 新增消息时间戳</strong>：可在每条提示和响应上方显示时间（Claude Code: Show Message Timestamps 设置，默认关闭）</li>
+<li><strong>VS Code 新增 Ultracode 开关</strong>：位于 Effort 滑块下方，模型标签在任意努力级别显示「· Ultracode」</li>
+</ul>
+
+<h3>其他修复与改进</h3>
+<ul>
+<li>修复了损坏的响应流显示原始错误（如「JSON Parse error」）或写入「undefined」的问题，现改为重试或报告为中断响应</li>
+<li>修复了压缩后仍提示「Prompt is too long」的问题，现会再次压缩并保留更少的近期对话</li>
+<li>修复了恢复会话中 MCP 工具调用在服务器仍在连接时失败的问题，现最多等待 10 秒</li>
+<li>修复了 vim 模式下 <code>.</code> 无法重复快速输入文本的问题</li>
+<li>修复了 <code>/plugin</code> 配置界面：布尔选项改为 true/false 选择，数字选项拒绝无效输入</li>
+<li>修复了 Bash 工具在 Windows 上启用多个插件时失败的问题</li>
+<li>修复了全屏渲染擦除终端上方输出的问题（macOS 和 Linux）</li>
+<li>修复了工作区信任对话框在切换渲染器或更新后重复出现的问题</li>
+<li>修复了插件市场克隆空目录并替换本地副本的问题（旧版 git）</li>
+<li>修复了 <code>/usage</code> 等端点被限流后反复请求的问题，现改为退避等待</li>
+<li>改进了使用限制等待界面：限制状态和倒计时合并为一个区块显示</li>
+<li>改进了启动时间和内存使用：仅构建设置文件中实际使用的 schema 部分</li>
+<li>改进了自动记忆加载：中和 <code>MEMORY.md</code> 中模仿 Claude Code 标记的不可见字符和标签</li>
+<li>修复了 <code>/recap</code> 从聊天线程中继到达时被拒绝的问题</li>
+<li>修复了 Explore 子代理在会话运行无法识别的模型 ID 时切换到 Opus 的问题，现改为继承该模型</li>
+<li>修复了 <code>/loop</code> 在自定步调模式下状态更新不显示的问题</li>
+<li>修复了 <code>/ultrareview</code> 从 git worktree 启动时上传失败的问题（macOS 和 Linux）</li>
+<li>修复了沙箱 Bash 命令在写拒绝且含读拒绝目录的工作目录中无法启动的问题（Linux）</li>
+<li>修复了 Claude apps gateway 对包含大量组的身份提供者返回 431 错误的问题，现接受最大 256 KiB 的请求头</li>
+<li>修复了 <code>claude mcp add</code> 在托管设置限制 MCP 服务器为插件时仍报告成功的问题</li>
+<li>修复了 <code>/keybindings</code> 为无操作页脚动作写入 Backspace 和 Delete 绑定</li>
+<li>修复了 vim 模式在最后一行 <code>dd</code> 或提示末尾 <code>yy</code> 后光标停留在图片占位符开括号上的问题</li>
+<li>修复了规则符号链接到 <code>.claude/rules</code> 时跳过外部导入审批提示的问题</li>
+<li>修复了插件通过 <code>allowed-tools</code> 在托管 <code>allowManagedPermissionRulesOnly</code> 下预批准自身工具的问题</li>
+<li>修复了首次 <code>claude plugin install</code> 失败时插件仍被启用和记录的问题</li>
+<li>修复了调试日志丢失失败钩子 stderr 的问题，现也记录状态码</li>
+<li>修复了 Elicitation 钩子返回 <code>{"decision":"block"}</code> 被忽略的问题</li>
+<li>修复了未启用 <code>SendMessage</code> 工具的会话仍被告知向其他会话发送消息的问题</li>
+<li>修复了从 Claude 应用通过远程控制发送的照片在编辑时丢失的问题</li>
+<li>修复了使用限制警告向已是最高 Max 计划的用户建议 <code>/upgrade</code> 的问题，现指向 <code>/usage-credits</code></li>
+<li>修复了工件数据库写入结果错误告知 Claude 所有查看者都能看到写入的问题，新增 <code>as_level</code> 的「view」级别</li>
+<li>改进了 <code>/claude-api</code>：<code>hillclimb</code> 不再在过小的提示改写上花费轮次</li>
+<li>改进了 <code>claude plugin marketplace add</code> 在替换同名不同源市场时给出提示和撤销方法</li>
+<li>改进了启动拒绝提示：当托管设置要求登录但配置了 API 密钥时，明确指出使用的凭据、设置位置及移除方法</li>
+<li>改进了 <code>claude remote-control</code>：在未信任的文件夹中改为在终端询问工作区信任而非退出</li>
+<li>改进了工件页面：Claude 将设计计划写入页面而非回复中</li>
+<li>改进了 Artifact 工具：给定 claude.ai 聊天或项目链接时，会请求正确的链接或内容而非停止</li>
+<li>改进了连接中断后的重试：与请求的其余重试共享同一预算，失败请求更快放弃</li>
+<li>改进了 Sonnet 模型安全防护标记消息时的提示，解释原因并提供编辑和重试选项</li>
+<li>改进了固定 Opus 模型会话中的安全相关模型切换逻辑</li>
+<li>改进了非交互首轮：即使 <code>CLAUDE_CODE_MCP_STARTUP_WAIT_MS</code> 为 0，仍等待最多 2 秒连接 <code>--allowedTools</code> 或 <code>mcp_tool</code> 钩子指定的 MCP 服务器</li>
+<li>改进了 <code>/artifacts</code> 的筛选标签显示（All、Mine、Shared）</li>
+<li>工件发布拒绝网络共享路径上的文件，除非位于通过 <code>--add-dir</code> 添加的映射网络驱动器上</li>
+</ul>
+
+<h3>VS Code 扩展</h3>
+<ul>
+<li>新增插件加载错误和提示显示在 Manage plugins 行中，带禁用、卸载或复制错误的弹窗</li>
+<li>修复了 Memory 对话框中的 Reload Claude 在编辑文件保存前重启的问题</li>
+<li>修复了恢复的标签页打开另一个 Claude 进程仍打开的对话的问题，现会先询问</li>
+<li>修复了 Focus 视图展开的区块在子代理工作时自动关闭的问题</li>
+<li>修复了输入 <code>/model</code> 并按 Enter 将使用文本打印到聊天而非打开模型选择器的问题</li>
+<li>修复了 Vertex、Bedrock 和 Foundry 上 <code>/feedback</code> 在按发送后被拒绝的问题</li>
+<li>修复了窗口重载后登录等待 Python 扩展最多一分钟的问题</li>
+<li>修复了 Restart Extensions 后 Claude Code 标签页停止响应的问题</li>
+<li>修复了无发送者记录的其他代理消息显示为原始 XML 的问题</li>
+<li>修复了重载后其他代理、会话或渠道的消息消失的问题</li>
+<li>修复了用户自己的 <code>/mcp</code>、<code>/config</code> 或 <code>/settings</code> 命令被扩展对话框遮蔽的问题</li>
+<li>修复了无回合运行时 Escape 停止所有后台代理的问题</li>
+<li>修复了插件安装链接替换同名已有市场的问题</li>
+<li>修复了附加大文本文件后压缩仍出现「Prompt is too long」错误的问题</li>
+<li>修复了路径含非 ASCII 字符、空格或方括号的聊天文件链接无法打开的问题</li>
+<li><code>CLAUDE_CONFIG_DIR</code> 环境变量设置仅在接受绝对路径时生效</li>
+</ul>
+
+<h3>Claude Tag（Slack 集成）</h3>
+<ul>
+<li>新增模型族选择（如「Opus (latest)」），自动跟随该族最新模型</li>
+<li>新增组织级限额消费显示在分析支出预测图表中</li>
+<li>修复了 GitHub Enterprise 主机名含下划线时进度卡片和链接预览省略仓库和 Create PR 按钮的问题</li>
+<li>修复了环境拒绝启动时 Claude 保持沉默的问题，现发布一条通知并可在 @提及时重试</li>
+<li>改为在每次未连接账户的 @提及时发布私人登录通知</li>
+<li>改进了「立即通知成员」：一次按键可触达 Enterprise Grid 中组织声明的所有工作区</li>
+<li>改进了自托管环境按需运行器的等待通知，说明运行器是否正在启动、将重试或无运行器启动</li>
+<li>改进了添加频道管理器失败时的错误提示</li>
+<li>改进了管理员设置中频道的访问列表，显示自动加入模式附加的连接器、仓库和插件及来源</li>
+<li>改进了添加仓库作为频道管理器时 GitHub 登录确认流程</li>
+</ul>
+
+<h3>Code Review</h3>
+<ul>
+<li>修复了 GitHub App 下有未提交的审查时 Code Review 放弃发布完成审查的问题，现会先重试发布</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.284</guid>
+      <pubDate>Mon, 28 Sep 2026 18:02:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>chezmoi v2.73.0 发布：新增 push 命令及安装脚本改进</title>
+      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.73.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>chezmoi 发布了 v2.73.0 版本，主要包含以下更新：</p>
+
+<h3>新功能</h3>
+<ul>
+<li><strong>新增 push 命令</strong>：用于将本地更改推送到远程仓库，方便用户同步配置。</li>
+<li><strong>安装脚本改进</strong>：如果 chezmoi 不在用户的 PATH 中，安装脚本会发出通知提醒用户。</li>
+</ul>
+
+<h3>文档更新</h3>
+<ul>
+<li>将 push 命令添加到日常操作文档中。</li>
+<li>对齐文档与源代码内容，确保一致性。</li>
+<li>添加了相关文章的链接。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.73.0</guid>
+      <pubDate>Mon, 28 Sep 2026 19:52:37 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.158.0 发布：TUI 复制粘贴增强、MCP OAuth 支持、图像透明背景等新功能</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.158.0</link>
@@ -1358,24 +1487,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/fish-shell/fish-shell/releases/tag/4.9.1</guid>
       <pubDate>Fri, 04 Sep 2026 11:42:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.153.2 发布：修正 GPT-6-Astra Fast 层级描述</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.153.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex（rust 版）发布 0.153.2 版本，这是一个小型修复版本，仅包含一处文本修正。</p><p>本次修复将 GPT-6-Astra Fast 层级的描述从「1.5 倍速」更正为「2 倍速、更高用量」（2x speed, increased usage）。该改动仅影响界面显示文本，不会改变请求的实际运行方式。</p><p>完整变更日志见 <a href="https://github.com/openai/codex/compare/rust-v0.153.1...rust-v0.153.2">GitHub 对比页面</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.153.2</guid>
-      <pubDate>Thu, 03 Sep 2026 23:53:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.153.1 发布：支持通过 API 配置 GPT-6-Astra 模型</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.153.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 0.153.1 版本，本次更新包含一项新功能：支持通过 API 配置 GPT-6-Astra 模型，无需更改默认模型，也不会在模型选择器中显示该模型（#42605）。该改动是将 GPT-6-Astra 模型目录回溯移植（backport）到 0.153 版本。</p><p>完整变更记录见 <a href="https://github.com/openai/codex/compare/rust-v0.153.0...rust-v0.153.1">Changelog</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.153.1</guid>
-      <pubDate>Thu, 03 Sep 2026 21:02:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
