@@ -3,7 +3,85 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 29 Sep 2026 15:44:47 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 29 Sep 2026 20:43:41 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.159.1 发布：新增 GPT-6.1 Sol 作为默认模型</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.159.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex（openai/codex）发布 rust-v0.159.1 版本。本次更新主要新增了 GPT-6.1 Sol 作为默认模型，并将其加入内置目录以及 Amazon Bedrock Mantle 和 Runtime 目录。</p>
+<p>变更内容：</p>
+<ul>
+<li>新增 GPT-6.1 Sol 作为内置目录的默认模型（#49323）</li>
+<li>将 GPT-6.1 Sol 回溯补丁加入 Amazon Bedrock 目录（#49342）</li>
+</ul>
+<p>完整变更日志见 <a href="https://github.com/openai/codex/compare/rust-v0.159.0...rust-v0.159.1">rust-v0.159.0...rust-v0.159.1</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.159.1</guid>
+      <pubDate>Tue, 29 Sep 2026 20:32:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.285：新增桌面应用启动、插件配置等多项功能与大量修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.285</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.285 版本，包含多项新功能、改进和大量 bug 修复。</p>
+
+<h3>新功能</h3>
+<ul>
+<li>新增 <code>CLAUDE_CODE_DISABLE_WEB_FETCH</code> 环境变量，可关闭 WebFetch 工具</li>
+<li>新增 <code>claude --desktop</code> 命令，可在当前目录打开 Claude 桌面应用，或通过 <code>--continue</code> / <code>--resume &lt;id&gt;</code> 恢复会话</li>
+<li>新增 <code>claude plugin configure &lt;plugin&gt;</code> 命令，可查看插件选项及未设置项，或通过 <code>--values-stdin</code> 从标准输入保存新值</li>
+<li>支持在 <code>claude plugin install --config</code> 中设置 <code>&lt;server&gt;.&lt;key&gt;=&lt;value&gt;</code>，使捆绑的 <code>.mcpb</code> MCP 服务器可在安装时配置并直接启动</li>
+<li>新增 <code>allowedProviders</code> 托管设置，可限制机器可使用的 API 提供商（Anthropic API、自定义端点、Bedrock、Mantle、Vertex AI、Foundry、Claude Platform on AWS 或 Cloud 网关）</li>
+<li>新增 <code>CLAUDE_CODE_NONSTREAMING_TIMEOUT_RETRIES</code> 环境变量，限制非流式回退请求超时后的重发次数</li>
+</ul>
+
+<h3>重要改进</h3>
+<ul>
+<li>Claude in Chrome 的原生宿主现在会报告计算机名称，连接的浏览器可按计算机标注，而非"Browser 1"/"Browser 2"</li>
+<li>Bedrock 和 Vertex AI 会话在管理员移除默认模型访问权限时，会自动切换到同层级较旧的可用模型，而非直接失败</li>
+<li>后台 Bash 和 PowerShell 命令现在会在超时后停止（<code>run_in_background</code> 默认 30 分钟，最长 2 小时），Claude 会收到通知</li>
+<li>自定义 <code>ANTHROPIC_BASE_URL</code> 的会话现在可使用模型的 1M 上下文窗口（Opus 4.7+、Sonnet 5+、Fable）</li>
+<li><code>/resume</code> 和 <code>claude --resume</code> 现在可打开正在后台运行的会话，而非拒绝</li>
+<li>Artifact 工具结果现在建议在写入或编辑页面的同一步骤中发布，可节省一次往返</li>
+<li>子代理在自动模式下将报告交回调用方后立即结束运行，不再进行多余轮次</li>
+<li>非流式回退请求期间 SDK 存活检测改进：每 30 秒发送一次 <code>ping</code> 流事件</li>
+<li>MCP 服务器名称 <code>widgets</code> 在云会话和自托管运行器上被保留，类似拼写（如 <code>widgets_</code>）不再加载</li>
+<li><code>/tasks</code> 现在将 Claude Code 自身运行的内部工作折叠到一行"System tasks"下</li>
+<li>配置了多条权限拒绝规则和 MCP 工具时，每轮性能得到改善</li>
+</ul>
+
+<h3>VSCode 扩展</h3>
+<ul>
+<li>新增插件选项表单：安装带选项的插件时会询问未设置的选项，行上的齿轮可稍后修改</li>
+<li>新增按需诊断工具，面板中的 Claude 可随时读取 Problems 面板的当前错误和警告</li>
+<li>修复了多个问题：斜杠命令后按 Enter 触发错误菜单项、长会话中代理转录丢失新消息、引用标签的消息丢失其余文本、会话重新打开后消息消失、账户切换后 Web 标签页显示旧账户会话等</li>
+</ul>
+
+<h3>其他修复亮点</h3>
+<ul>
+<li>修复了 <code>claude -p</code> 配合 <code>CLAUDE_CODE_FORK_SUBAGENT=1</code> 时子代理 Agent 调用不在前台运行的问题</li>
+<li>修复了 SSH 插件和市场安装忽略 <code>GIT_SSH</code> 或 <code>core.sshCommand</code> 设置的问题</li>
+<li>修复了操作系统拒绝读取托管设置文件时 Claude Code 拒绝启动的问题，现在会警告并继续运行</li>
+<li>修复了远程控制中消息下载失败后附件丢失的问题，现在会重试最多两次</li>
+<li>修复了会话中途切换模型后新模型停留在内置输出 token 限制和自动压缩窗口的问题</li>
+<li>修复了沙箱自动允许对包含 <code>=</code> 的内联脚本（如 <code>python3 -c</code>、<code>node -e</code>）每次运行都要求批准的问题</li>
+<li>修复了 fork 子代理不保持会话的计划模式或 <code>dontAsk</code> 模式的问题</li>
+<li>修复了 API 输出内容过滤器阻止的响应被反复重发数分钟的问题，现在会立即显示过滤器错误</li>
+<li>修复了 <code>&nbsp;</code> 在终端中显示为字面文本的问题</li>
+<li>修复了长会话中（非全屏模式）短暂冻结的问题</li>
+<li>修复了失败 API 请求在流式持续失败时被重试最多 21 次的问题，非流式回退现在共享请求的重试预算</li>
+</ul>
+
+<h3>Cloud 会话与 Code Review</h3>
+<ul>
+<li>修复了 routine 的 Run now 在运行被拒绝时显示内部错误文本的问题</li>
+<li>Code Review 的"Add a repository"对话框中组织菜单现在可随滚动加载更多 GitHub 组织</li>
+<li>Code Review 检查运行现在会说明何时未应用 REVIEW.md（如超大 PR 或 REVIEW.md 为符号链接时）</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.285</guid>
+      <pubDate>Tue, 29 Sep 2026 19:27:30 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.159.0：新增即时打断、全新欢迎界面与 Mermaid 流程图增强</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.159.0</link>
@@ -1444,71 +1522,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.153.4</guid>
       <pubDate>Fri, 04 Sep 2026 23:25:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.153.3：新增 GPT-6-Astra 模型并修复提示指导</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.153.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 0.153.3 版本，这是一次小版本更新，主要内容如下：</p>
-<h3>新特性</h3>
-<ul>
-<li>在 Amazon Bedrock 模型选择器中新增了 <strong>GPT-6-Astra</strong> 模型，适用于 Mantle 和 Runtime 的全球/美国路线。（#42805）</li>
-</ul>
-<h3>Bug 修复</h3>
-<ul>
-<li>修正了 GPT-6-Astra 在异步澄清问题方面的指导，使其使用受支持的工具，并明确该模型仅接受文本输入。（#42809）</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.153.3</guid>
-      <pubDate>Fri, 04 Sep 2026 19:01:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.261 发布：新增技能诊断、输出容量与子代理提示设置</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.261</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.261，带来多项新功能、体验改进与大量 Bug 修复。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li>新增 `/skill-doctor` 命令，可查看哪些已加载技能实际未被使用、以及它们占用的上下文空间，方便清理冗余技能。</li>
-<li>新增 `bashOutputMaxChars` 和 `taskOutputMaxChars` 设置，可将命令与后台任务输出内联传给 Claude 的字符上限提高到 128,000 字符，超出部分才保存到文件。</li>
-<li>新增 `--append-subagent-system-prompt-file` 参数，可从文件读取子代理系统提示，适用于提示内容过长无法在命令行传入的场景。</li>
-<li>`/status` 与 `claude doctor` 新增「Organization policy」一行，说明组织策略无法加载的原因（如代理未放行该端点）。</li>
-<li>改进 `/model` 选择器与 VS Code 模型胶囊，当 Claude Code 识别出模型时，显示模型名称而非原始的 Bedrock、Vertex AI 或 LLM 网关 ID。</li>
-<li>改进流式渲染性能：已渲染的内容块不再在每次更新时被布局反复检查。</li>
-<li>改进了危险的 `rm` 安全提示，可拦截位置参数及双引号 `sh -c` 脚本中的 `rm -rf`。</li>
-</ul>
-
-<h3>VS Code 扩展</h3>
-<ul>
-<li>Output 样式菜单新增「Build a custom style」引导，可编写自定义输出样式文件并立即列出。</li>
-<li>MCP 服务器对话框中新增 Add server 表单与 Remove 操作，无需离开 IDE 即可增删服务器。</li>
-<li>会话列表为终端、其他窗口或 Claude Desktop 中打开的会话显示空心圆环标记，不再误以为已关闭。</li>
-<li>权限与提问提示新增折叠按钮，可无需关闭即可查看其后的对话内容。</li>
-<li>会话列表右键菜单新增「Archive session」，Unarchive 获得专属图标。</li>
-<li>模型选择器改为所有模型的单一扁平列表，旧拼写模型分行放在末尾。</li>
-</ul>
-
-<h3>其他修复与调整</h3>
-<ul>
-<li>修复快速输入或按键连按时，键入/粘贴字符偶尔乱序或丢失的问题。</li>
-<li>修复工作目录位于 `/net` automount 时 `/add-dir` 误报「couldn't be resolved」。</li>
-<li>修复 Bedrock 设置向导在 AWS 凭据助手无响应时挂起（现会超时并给出明确错误）。</li>
-<li>修复恢复会话时并行工具调用周围丢失钩子输出等上下文的问题。</li>
-<li>修复远程控制（Remote Control）显示过期的权限模式、停止回合后仍显示进行中（卡在 spinner 与 Stop 按钮）等问题。</li>
-<li>修复会话列表、使用量面板在刷新后显示过期状态、以及断网后端到端连接修复等多项问题。</li>
-<li>修复 `SendMessage` 向离线远程会话发送时误报为已送达（现表明稍后投递）。</li>
-<li>修复 `/usage` 与 VS Code 用量面板在用量端点被限流时丢失特定模型的周限额行。</li>
-<li>修复 `claude -p --resume` 采用转录中记录的畸形会话 ID 的问题。</li>
-<li>修复后台代理无法恢复时高 CPU 占用、会话进度指示器误显示会话已完成等问题。</li>
-<li>改进 `GOOGLE_APPLICATION_CREDENTIALS` 设置下的 Vertex AI 启动，减少多余的云端项目发现与 `gcloud` 进程。</li>
-<li>改进 API 不返回响应头时的重试等待时长，并提示可调整项。</li>
-<li>将提示词编辑快捷键对齐 Bash（Ctrl+W、Alt+F、Alt+D），`keybindingFlavor` 不再生效。</li>
-<li>API 不可用时 `/context` 改用本地估算令牌数。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.261</guid>
-      <pubDate>Fri, 04 Sep 2026 19:58:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
