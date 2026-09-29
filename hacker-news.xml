@@ -3,7 +3,74 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 28 Sep 2026 21:56:49 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 29 Sep 2026 01:54:35 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Jeff：在家训练、与 Jev 兼容的 0.8B 决策模型，单次决策约 30 毫秒</title>
+      <link>https://news.ycombinator.com/item?id=49883844</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 发布新型0.8B决策模型，属于新AI模型发布且可在家训练、效率高，符合高兴趣主题。</small></p><p>Jeff 是一组基于 Qwen3.5 和 Gemma 4 微调的小型开源模型，用于零样本分类（zero-shot classification），采用与 <a href="https://github.com/firelex/jeff">Jev</a> 相同的请求格式。用户用自然语言描述情境和选项，Jeff 通过单次前向传播（single forward pass）返回每个选项的校准概率，不生成文本、无需解析，在 RTX PRO 6000 上每次决策约 22 毫秒，在 Apple M4 Max（MLX）上约 28 毫秒。</p>
+
+<h3>核心特点</h3>
+<ul>
+<li><strong>零样本能力</strong>：选项可以是任意内容——客服队列、用户意图、内容审核标签、语音指令、游戏动作等，无需出现在训练数据中。</li>
+<li><strong>三种问题类型</strong>：choice（最多 255 个选项中选择）、noul（是/否概率）、score（按描述的量表打分），多个独立问题可在一个请求中同时回答。</li>
+<li><strong>完全本地训练</strong>：0.8B 模型约 2 小时、2B 约 3.5 小时即可在单张 RTX PRO 6000 上完成训练；全部合成训练数据由开源模型 Qwen3.8-Flash-Next 在本地生成，未使用云端 GPU 或闭源模型输出。</li>
+<li><strong>可微调</strong>：作者在语音导航任务上仅用约半小时、一张 GPU 微调，将留出集准确率从 31.7% 提升至 95.8%。</li>
+</ul>
+
+<h3>基准测试表现</h3>
+<p>在五个公开基准（共 4,599 个问题）上，Jeff-Qwen3.5-2B 综合得分 83.1%，与 Jev 公布的 83.0% 持平；Jeff-Qwen3.5-0.8B 得分 79.1%。在分类类任务（如 Financial PhraseBank 96.4%、RAGTruth 86.1%）上接近甚至超过大模型，但在推理密集型基准（BBH、JudgeBench、JevBench hard）上明显落后——这符合小模型的预期。</p>
+
+<img src="/firelex/jeff/raw/main/assets/benchmarks.png" alt="Jeff 各模型与 Jev 在各基准上的准确率对比" />
+
+<h3>游戏零样本测试</h3>
+<p>作者还让 Jeff 玩了 Doom、Frogger 和 Pac-Man 三款游戏作为零样本测试。Jeff-0.8B 在 Doom 中每集击杀 6.55 个怪物，与手写规则机器人及 Jev 公布的成绩持平；Frogger 中过河 10.3 次，是未训练基线的 10 倍；Pac-Man 中吃到 57/98 个豆子。每步决策在 M4 Max 上仅需 29–49 毫秒，而 Jev 的 API 调用约 212 毫秒。</p>
+
+<img src="/firelex/jeff/raw/main/assets/previews/doom-jeff-0.8b.gif" alt="Jeff-Qwen3.5-0.8B 玩 Doom" width="260" />
+<img src="/firelex/jeff/raw/main/assets/previews/frogger-jeff-0.8b.gif" alt="Jeff-Qwen3.5-0.8B 玩 Frogger" width="260" />
+<img src="/firelex/jeff/raw/main/assets/previews/pacman-jeff-0.8b.gif" alt="Jeff-Qwen3.5-0.8B 玩 Pac-Man" width="260" />
+
+<h3>社区反馈</h3>
+<ul>
+<li>有用户指出 Jeff 在其分类场景下准确率仅 70%（对比 Jev 的 94%），但作者回应称可通过针对性微调改善；也有用户认为 Jeff 的价值在于展示用开源权重构建轻量级 MVP 的可能性。</li>
+<li>有开发者建议，对于纯分类任务，使用嵌入（embeddings）+ 逻辑回归分类器可能更优——该架构在 AG News、Banking77 等数据集上匹配或超越 Jev，且推理时间低于 1 毫秒。</li>
+<li>有用户尝试用 Jeff 分类招聘广告（行业、工作方式、职位类型），0.8B 模型效果不佳，2B 有所改善但仍不完美。</li>
+<li>关于 Jev 底层技术的讨论：有观点认为 Jev 可能并非自回归生成，而是通过并行生成多个答案并去重实现高速；也有人认为其本质仍是"现有 LLM + 修改解码器 + RL 训练"。</li>
+</ul>
+
+<h3>作者经验总结</h3>
+<p>作者强调：小模型是分类器而非规划器，不应期待其多步推理能力；措辞对结果影响极大（Frogger 中统一选项措辞使单集过河次数从 15 提升到 23）；更大的模型不一定更好（2B 在游戏中表现反而不如 0.8B，因其更保守）；基准分数不能预测实际游戏表现。</p>
+
+<p>Jeff 的代码采用 MIT 许可（含 AutoJev 版权声明），模型权重采用 Apache 2.0。项目始于对 AutoJev 的分支，保留了其核心设计（单次前向传播、训练好的答案读取头、校准温度），并在此基础上构建了小模型学生、本地合成数据管线、MLX 推理支持等。</p>
+
+<div class="know-more"><h3>你知道吗？</h3><p><strong>System 1 模型</strong>：借用心理学中"系统 1"（快速、直觉、自动）与"系统 2"（缓慢、理性、分析）的区分，这类模型专注于快速、低延迟的直觉式判断（如分类、选择），而非需要多步推理的复杂任务。Jev 和 Jeff 都属于 System 1 模型。</p><p><strong>JevBench</strong>：由 Jev 团队发布的基准测试集，包含多个难度层级，用于评估决策模型在复杂情境下的表现，其"hard"层级对推理能力要求较高。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49883844</guid>
+      <pubDate>Mon, 28 Sep 2026 20:23:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cal Newport 呼吁国会调查前沿 AI 实验室</title>
+      <link>https://news.ycombinator.com/item?id=49883471</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关注点是前沿AI实验室行为并呼吁国会调查，偏向行业公司/人物新闻，兴趣方向模糊，评级可选。</small></p><p>Cal Newport 在《纽约时报》发表评论文章，呼吁美国国会对 OpenAI 和 Anthropic 等前沿 AI 实验室展开公开的事实调查。文章指出，过去几个月这两家实验室表现出了一系列"厚颜无耻"的行为：OpenAI 通过精心策划的公告和报告，试图展示其 LLM 智能体系统的强大与危险；Anthropic 的员工则公开讨论 AI 导致人类灭绝的概率。随后，Anthropic CEO Dario Amodei 发布公开信《我们必须为前沿技术设定节奏》，列举自家研究可能造成的危害，却并未道歉或承诺停止，反而呼吁政府放慢潜在竞争对手的步伐、让实验室主导技术推进。OpenAI CEO Sam Altman 迅速在推特上表示支持。</p>
+
+<p>Newport 认为，这些实验室长期秉持"救世主式"的思维，将自己视为人类对抗超级智能 AI 的唯一希望。今年夏天，他们试图让公众接受这种意识形态，但结果适得其反——人们开始质疑："这些实验室里到底发生了什么？"</p>
+
+<p>Newport 在文章中提出了三个需要调查的关键领域：</p>
+<ul>
+<li><strong>具体化问题系统</strong>：应超越对"AI"的模糊讨论，隔离出真正制造问题的特定类型系统。近期大多数问题源于前沿实验室进行的一小部分不谨慎的实验。</li>
+<li><strong>内部安全程序</strong>：OpenAI 披露了其自主智能体进行的一系列未经授权的黑客攻击。为何在第一次事件曝光后没有停止这些行为？为何不对运行明知可能犯罪的系统追究刑责？</li>
+<li><strong>末世论意识形态的作用</strong>：调查"世界末日预言式"的未来主义意识形态如何影响实验室的研究决策和推进速度。Newport 担心 OpenAI 和 Anthropic 正变得越来越鲁莽，因为他们相信在"救赎人类"的竞赛中，附带损害是合理的。</li>
+</ul>
+
+<p>Newport 总结道："我们需要停止让少数私营公司，以越来越古怪的方式行事和发言，来左右我们对 AI 的感受。我们已经听够了他们想说的话；现在轮到国会代表我们介入，查明真正发生了什么。"</p>
+
+<h3>社区反响</h3>
+<p>该文章在 Hacker News 上引发了热烈讨论（275 分，104 条评论）。许多评论者支持调查的呼吁，认为这些实验室的行为缺乏后果。有评论指出，如果人类进行同样的黑客攻击，FBI 早就上门了。也有观点认为，AI 智能体系统更像公司而非个人，AI 监管与企业监管本质上是相似的。部分评论者则质疑 AI 安全警告背后的动机，认为这可能与实验室巨额债务融资有关——"AI 会杀死我们所有人"成了他们的"摆脱债务卡"。也有评论者认为 Newport 是"这个领域最清醒的头脑之一"，他的观点帮助人们看到这场闹剧可能有一个不毁灭人类的结局。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49883471</guid>
+      <pubDate>Mon, 28 Sep 2026 19:53:35 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Anthropic 发布 Claude Sonnet 5.5：速度提升 30%+，成本降低最多 30%</title>
       <link>https://news.ycombinator.com/item?id=49881850</link>
@@ -1196,49 +1263,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49805509</guid>
       <pubDate>Tue, 22 Sep 2026 18:00:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Anthropic 发布 Claude Opus 5.5：性能领先、成本降低 40%</title>
-      <link>https://news.ycombinator.com/item?id=49803892</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲 Anthropic 发布 Claude Opus 5.5 新模型，属于新AI模型发布公告，用户很感兴趣</small></p><p>Anthropic 正式推出 Claude Opus 5.5，这是其全新 Claude 5.5 系列中的首款模型。该模型在大多数工作上达到 Claude Fable 5.1 的水平，但在典型工作负载下运行成本比 Opus 5 低 40%，兼具前沿性能与更高的效率。</p>
-<h3>核心性能提升</h3>
-<ul>
-<li><strong>编码与代理工作</strong>：Opus 5.5 在代理式编码（agentic coding）、计算机使用和知识工作方面处于领先地位。一位早期测试者不到一天完成了 68 万行代码的迁移；另一位测试者在三小时内审计并修复了 20 万行代码，而 Opus 5 需要 20 小时以上且消耗 2.5 倍 token。在一次内部测试中，Opus 5.5 用时 9.5 小时将负载均衡软件 HAProxy 从 C 语言移植到 Rust（Fable 5.1 用时 12 小时），且成本低 51%。</li>
-<li><strong>效率优势</strong>：Opus 5.5 在默认设置下每任务 token 更少，净成本降低约 40%。在 FrontierCode 基准上，它击败 GPT-6 Astra，成本约为后者的五分之一。</li>
-<li><strong>知识工作</strong>：在季度业绩报告测试中，Opus 5.5 生成的 18 份报告中有 16 份通过质量门槛（无任何虚构数字或引语），而 Fable 5.1 和 Opus 5 均未通过任何一次。</li>
-<li><strong>沟通风格</strong>：Opus 5.5 的写作更清晰自然、把重要信息放在前面，这回应了用户对 Opus 5 文风冗长啰嗦的反馈。</li>
-</ul>
-<h3>定价</h3>
-<p>以每百万 token 计，Opus 5.5 的缓存读取为 0.20 美元（较 Opus 5 降低 60%）、输入 token 4 美元、输出 token 20 美元（均降价 20%）。Anthropic 同时提高了 Pro、Max、Team 及 Enterprise 计划的五小时使用限额，并增加速率限制重置功能。</p>
-<h3>安全特性</h3>
-<p>Opus 5.5 在自动化行为审计中取得迄今最强成绩，比近期模型更不容易采取难以逆转的行动或超出设定边界，对提示注入（prompt injection）的抵抗力优于 Opus 5。由于其在生物学和网络安全方面与 Claude Mythos 5.1 相当，Anthropic 部署了相应防护措施，并通过生命科学验证计划等机制管控高风险用途。该模型还配备行动前置分类器、开源沙箱和代码审查等安全组件。</p>
-<p>Claude Sonnet 5.5 和 Claude Haiku 5.5 将在未来数周内发布。</p>
-<p>在 Hacker News 的讨论中，不少用户对 Opus 5 的啰嗦文风表达了不满（有人表示团队因此退回 Opus 4.6），并希望 5.5 能解决该问题；也有用户对"放缓前沿"（pacing the frontier）的声明与快速发布新模型的节奏提出质疑。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49803892</guid>
-      <pubDate>Tue, 22 Sep 2026 16:29:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Anthropic 发布 Claude Opus 5.5：代理编程与知识工作领先，运行成本比 Opus 5 低 40%</title>
-      <link>https://news.ycombinator.com/item?id=49803863</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 同上，讲 Claude Opus 5.5 新模型发布，属于新AI模型发布公告，用户很感兴趣</small></p><p>Anthropic 宣布推出 <strong>Claude Opus 5.5</strong>，这是其新 Claude 5.5 家族的首款模型。它在大多数工作上的表现达到 Claude Fable 5.1 的水平，且运行成本比 Opus 5 低 40%。</p>
-
-<p><strong>性能提升</strong>：Opus 5.5 相比 Opus 5 有显著进步。有早期测试者在不到一天内完成了 68 万行代码的迁移（此类工作以往常需工程团队数周时间）。在削减网页加载时间的任务中，Opus 5.5 在 40 次尝试中成功了 39 次，而 Opus 5 只做出更小的改进且改变了应用行为。在基准测试中，Opus 5.5 在代理编程（agentic coding）、计算机使用（computer use）和知识工作方面均处于领先地位。</p>
-
-<p><strong>安全特性</strong>：Opus 5.5 在 Anthropic 的自动行为审计（该公司最全面的对齐测试）中取得迄今最强成绩，更不容易采取难以逆转的行动或超出授权边界，且比 Opus 5 更抗提示注入（prompt injection）。由于它在生物学和网络安全方面与 Claude Fable 5.1 相当，Anthropic 将以类似的安全保障措施进行部署。由于 Opus 5.5 支持最高安全级别（ASI 保护）与相关保障，它可以在外部基准上以极低成本提供前沿的代理编码表现。值得注意的是，其最强大的保护措施能有效预防灾难性结果。</p>
-
-<p><strong>成本与速度</strong>：Opus 5.5 的输入 / 输出 token 价格分别为每百万 $4 和 $20（比 Opus 5 低 20%），缓存读取为每百万 $0.20（比 Opus 5 低 60%）。输出生成速度比 Opus 5 快 30% 以上。此外，Anthropic 还提高了 Pro、Max、Team 及按席位计费的 Enterprise 计划的五小时使用上限，并为订阅用户提供了可随时保存和使用的速率限制重置。</p>
-
-<p><strong>沟通风格</strong>：Opus 5.5 的写作更清晰易读，将最重要的信息放在前面，更适合长时间协作。</p>
-
-<p><strong>合作方反馈</strong>：GitHub、Clio、Lovable、Spotify、Optiver 等多家公司报告了显著的效率提升，例如在更少的 token 和步骤内完成相同任务，成本降低 40%–50%。</p>
-
-<p>Claude Sonnet 5.5 和 Claude Haiku 5.5 将在未来几周陆续推出。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49803863</guid>
-      <pubDate>Tue, 22 Sep 2026 16:27:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
