@@ -3,7 +3,60 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 30 Sep 2026 13:38:06 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 30 Sep 2026 19:14:09 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.286 发布：修复多项权限、远程控制与会话问题，新增 VS Code 书签功能</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.286</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code v2.1.286 发布，包含大量修复与改进，涵盖权限提示、远程控制（Remote Control）、会话恢复、MCP 服务器、子代理（subagent）以及 VS Code 扩展等多个方面。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>权限提示改进</strong>：当多个权限请求堆叠时，提示中会显示计数（如 "2 of 5"）；全屏模式下列表的 "N more" 行支持鼠标点击跳转，并带有悬停和按下状态。</li>
+<li><strong>VS Code 新增书签功能</strong>：可保存 Claude 的回复并在 Bookmarks 侧边面板中持续查看；对话中新增 Questions 行，展示 Claude 提出的问题及你的回答；问题卡片增加选项预览。</li>
+<li><strong>VS Code 其他改进</strong>：消息下方新增可展开的行，显示终端输出、浏览器标签页、浏览器指令及随消息发送的选中代码；Stop 和 Escape 现在只结束当前回合，后台代理继续运行并可逐个停止。</li>
+<li><strong>模型回退改进</strong>：当 Anthropic API 拒绝默认模型或别名解析到的模型时，Claude Code 会以同层级的前一个模型重试一次；回退模型运行速度慢的问题也已修复，现在以标准速度运行。</li>
+<li><strong>提交指导改进</strong>：当项目或用户技能中包含名为 <code>verify</code> 的技能时，Claude 会在提交前运行它（仅文档和仅测试的提交除外）。</li>
+<li><strong>外部编辑器改进</strong>：接受行号的编辑器现在会在提示符中光标所在行打开。</li>
+<li><strong><code>--bare</code> 模式变更</strong>：现在只连接命令行中指定的 MCP 服务器，不发送系统提醒，不启动后台任务；shell 命令超时后停止而非转入后台。</li>
+<li><strong>插件安装限制</strong>：拒绝将 git 仓库或文件夹作为 npm 源，插件依赖仅从 registry 包安装。</li>
+<li><strong>主题选择器改进</strong>：改为可滚动列表以适应终端大小，不再将预览推出屏幕。</li>
+</ul>
+
+<h3>其他修复与改进</h3>
+<ul>
+<li>修复 <code>claude --resume</code> 和 <code>--continue</code> 在并行工具调用后丢失对话回合的问题。</li>
+<li>修复工具或 hook 返回对象、数字或布尔值而非文本时导致的 API 400 错误。</li>
+<li>修复云会话（cloud sessions）历史记录过大时容器在转录加载期间被停止而无法唤醒的问题。</li>
+<li>修复 macOS 上存在残留 <code>~/.claude/.credentials.json</code> 时，其他窗口 <code>/login</code> 成功后仍显示 "Not logged in" 的问题。</li>
+<li>修复组织策略关闭 Remote Control 后会话仍保持连接的问题，现在会断开并显示通知。</li>
+<li>修复 MCP 错误消息中泄露凭据值、Bearer 令牌部分遮蔽等问题。</li>
+<li>修复 <code>/usage</code> 未计入 MCP 服务器刚连接时的工具调用。</li>
+<li>修复子代理在 worktree 隔离下首次读取文件时重复加载项目 CLAUDE.md 的问题。</li>
+<li>修复 <code>/compact</code>、<code>/clear</code>、<code>/rewind</code> 在查看后台代理或队友转录时静默作用于主对话的问题，现在会弹出对话框确认目标。</li>
+<li>修复后台任务在等待批准时显示为已完成的问题。</li>
+<li>修复全屏模式下列表滚动条随 "N more" 行出现/消失而偏移的问题，并新增 ↑/↓ 箭头支持点击或长按滚动。</li>
+<li>改进斜杠命令建议的响应速度，命令描述按单词前缀匹配。</li>
+<li>改进输出样式选择器，打开时显示当前样式而非默认样式。</li>
+<li>修复 API 请求重试逻辑：一个限制覆盖整个模型调用，默认重试设置下失败的调用最多发送 14 个请求。</li>
+<li>修复日志和转录中泄露包含特殊字符（如 <code>)</code>、引号、<code>&amp;</code>、第二个 <code>@</code> 等）的 URL 密码部分。</li>
+<li>修复 <code>/feedback</code> 保存的 zip 中会话转录在机密遮蔽后包含无效 JSON 行的问题。</li>
+<li>修复 MCP 连接器在其服务器丢弃旧版 MCP 握手后长达一天不列出工具的问题。</li>
+<li>修复 claude.ai 上启用的插件在瞬时服务器错误后偶尔从 Claude Code 会话中消失的问题。</li>
+<li>修复子代理交回消息在未注册名称时显示原始任务 ID 而非代理名称的问题。</li>
+<li>修复 Workflow 工具子代理在响应中途连接停滞几分钟后被从原始提示重启的问题。</li>
+<li>修复全屏模式下点击折叠行（如 "Thought for 4s"）字词间空白处时高亮行但不展开的问题。</li>
+<li>修复超长文件名附加到云会话时无法送达的问题。</li>
+<li>改进 <code>/hooks</code>：现在打开一个按事件分组的已配置 hooks 列表，查看一个 hook 只需一次 Enter。</li>
+<li>改进 <code>/exit</code> 的 Remove worktree 在 Windows 上先停止服务器和 shell 再删除文件夹。</li>
+<li>Windows：修复 <code>claude --bg</code> 和 agents 视图因信任记录大小写不同而拒绝已信任文件夹的问题。</li>
+<li>云会话：修复空闲后回答的问题卡片或已批准的工具调用得不到回复的问题；修复例行运行中云会话从未启动却显示为 Succeeded 的问题（现在显示 Failed）；修复点击云会话 Outputs 卡片中的音视频文件打开空文件搜索而非播放的问题。</li>
+<li>Claude Tag：为 Slack 渠道的支出限制页面新增 Add channel 按钮；修复记忆召回在无法使用默认 Sonnet 模型的组织中找不到内容的问题；修复 Slack 线程中 Claude 在新机器上重新开始而丢失未推送工作的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.286</guid>
+      <pubDate>Wed, 30 Sep 2026 19:10:13 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.159.2：修复 Windows 控制台窗口闪烁问题</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.159.2</link>
@@ -1508,15 +1561,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.263</guid>
       <pubDate>Sun, 06 Sep 2026 02:54:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>fish 4.9.2 发布：修正 macOS 终端修复</title>
-      <link>https://github.com/fish-shell/fish-shell/releases/tag/4.9.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fish shell 发布 4.9.2 版本，这是针对上一版本 4.9.1 的修正性发布，用于纠正在 macOS 终端上的修复（相关 issue：<a href="https://github.com/fish-shell/fish-shell/issues/12973">#12973</a>）。</p><p>此版本的 <code>fish-4.9.2.tar.xz</code> 提供了使用 <a href="https://github.com/krobelus.gpg">指定密钥</a> 签署的 GPG 签名文件（<code>fish-4.9.2.tar.xz.asc</code>）。此外，名为 <code>fish-4.9.2-linux-*.tar.xz</code> 的文件包含适用于指定 CPU 架构的 Linux 的<a href="https://github.com/fish-shell/fish-shell/?tab=readme-ov-file#building-fish-with-cargo">独立 fish 二进制文件</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/fish-shell/fish-shell/releases/tag/4.9.2</guid>
-      <pubDate>Sat, 05 Sep 2026 11:15:05 GMT</pubDate>
     </item>
   </channel>
 </rss>

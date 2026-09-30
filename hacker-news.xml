@@ -3,7 +3,85 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 30 Sep 2026 13:38:47 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 30 Sep 2026 19:17:00 GMT</lastBuildDate>
+    <item>
+      <title>⭐ AI竞赛迎来尴尬时刻：西方实验室悄然采用中国实验室的开源突破</title>
+      <link>https://news.ycombinator.com/item?id=49910553</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI模型技术进展与开源项目，西方实验室采用中国开源突破属于新AI模型发布相关领域，符合高兴趣与兴趣配置</small></p><p>一篇来自 insufferable.dev 的文章指出，西方 AI 实验室的处境正变得有些尴尬：它们一边反复公开批评中国实验室"蒸馏"（distillation）其模型，一边却又在悄悄采用中国实验室公开分享的技术突破，并因此大幅降低了推理成本。</p>
+
+<p><strong>蒸馏之争的转变</strong>：文章认为，Anthropic 每周都在发布关于中国实验室蒸馏其模型、威胁人类安全的文章，这种叙事有利于日后对这些模型进行法律与监管上的约束。但作者指出，盲目蒸馏的时代已经过去，新玩法其实是"采纳"（adoption）中国实验室的进展——之所以说"采纳"而非西方常用的"窃取"（stealing），是因为中国实验室几乎是免费公开了他们的方案。</p>
+
+<p><strong>关键突破</strong>：最典型的例子是 DeepSeek 慷慨分享的 KV 缓存优化技术。相比 DeepSeek-V1，这一突破将长会话上下文场景（如编码）下的 KV 缓存内存占用降低了约 <strong>437 倍</strong>——从每百万 token 的 389.12 GB 降至 890 MB。DeepSeek 首先发布了将缓存压缩约 15 倍的 MLA 架构，随后又推出"压缩稀疏注意力"和"重度压缩注意力"等后续技术。最新的 DeepSeek-V4.1-Flash 通过 CSA2、跨层缓存复用、因果编码器-解码器架构和 FP4 缓存等，将全局 KV 缓存进一步压至每 token 890 字节。由于长上下文模型服务成本中很大一部分来自 GPU 显存（VRAM），这项优化意义重大。</p>
+
+<p><strong>价格数据</strong>：这些优化让西方实验室的推理利润率大幅提升。作者对比了两个月前的定价（均为每百万 token）：Anthropic 的 Opus 5.5 将缓存读取定价较 Opus 5 下调了 <strong>60%</strong>（0.50 美元降至 0.20 美元），OpenAI 的 GPT-6.1 Sol 则将缓存读取定价较 GPT-5.6 Sol 下调了 <strong>80%</strong>（0.50 美元降至 0.10 美元）。两者均证实了技术的实际采用。</p>
+
+<img src="/images/kv-cache-compression.svg" alt="KV 缓存每百万 token 内存：DeepSeek-V1 为 389.12 GB，V3.2 为 48.07 GB，V4-Flash 为 3.51 GB，V4.1-Flash 为 890 MB。最新缓存比 V1 小 437.2 倍。" width="840" height="380" />
+<img src="/images/model-pricing-comparison.svg" alt="每百万 token 定价对比（前后）：Anthropic Opus 5 至 5.5 缓存读取降价 60%；OpenAI GPT-5.6 Sol 至 GPT-6.1 Sol 缓存读取降价 80%。" width="840" height="460" />
+
+<p><strong>低调的感谢</strong>：由于 Copyleft 般的公开分享方式，西方公司似乎对"抄袭"感到有些难为情，因此 Anthropic 的 Claude Opus 5.5 和 OpenAI 的 GPT-6.1 Sol 都以几乎无预热的沉默方式发布。用户评价却很热烈，质量与其旗舰模型（Claude Fable 5.1 和 GPT-6 Astra）差距不大。作者总结道，GPU 供应受限逼得中国实验室将性能优化作为头号目标，而他们却把这些突破免费送出，给持续亏损的西方实验室抛出了救命稻草，其原因令人费解。</p>
+
+<p><strong>社区讨论</strong>：评论区观点纷呈。有人猜测中国实验室因国内"内卷"和出口需求而公开成果；有人质疑仅凭缓存降价并不能证明采用了 DeepSeek 技术；也有用户指出，这些优化还让本地大模型运行变得更经济，可能挤压 ChatGPT 和 Claude 的订阅收入；还有评论认为，中国 AI 生态中众多小型初创公司的开放共享，对比美国两家臃肿亏损的巨头，正显示出竞争结构的差异。</p>
+
+<h3>你知道吗？</h3><p><strong>KV 缓存</strong>（Key-Value cache）是 Transformer 类大模型推理时保存已计算中间状态的内存结构，用于避免重复计算。对于长上下文（如编码、对话）场景，KV 缓存会占用大量 GPU 显存，因此压缩 KV 缓存是降低推理成本的核心方向之一。<strong>蒸馏</strong>（distillation）是指用大模型（教师模型）的输出训练出行为相近的小模型（学生模型），可大幅降低训练与部署成本，但也常引发知识产权争议。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49910553</guid>
+      <pubDate>Wed, 30 Sep 2026 15:50:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Pi 从拒绝到拥抱 MCP：Earendil 解释态度转变与 Codemode 的引入</title>
+      <link>https://news.ycombinator.com/item?id=49906637</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍Pi引入MCP支持及Code模式的变化，属于AI软件技术进展和软件新功能范畴，用户会感兴趣</small></p><p>Earendil 工程团队发布了一篇题为《You Said No MCP!》的博文，解释了其终端 AI 助手 Pi 为何从公开宣称"不支持 MCP"转变为将 MCP（Model Context Protocol）纳入核心功能。</p>
+
+<h3>态度转变的原因</h3>
+<p>作者指出，过去一年 MCP 协议本身发生了显著变化，但仅凭这一点不足以将其纳入核心。真正的原因是，支持 MCP 所需的底层改动（如工具元数据、延迟加载等）具有普遍价值，例如也让 Jev 模型在 Pi 中的使用变得更加容易。团队认为，MCP 应该更接近 <strong>OpenAPI 加智能工具发现</strong>的模式——工具应返回结构化数据，并可通过文档和描述被发现。</p>
+
+<h3>什么是 Codemode</h3>
+<p>Codemode 是 Pi 中引入的一个新机制，本质上是一个运行在 harness 侧的 JavaScript 沙箱，用于编排和协调工具调用。它允许代理以更灵活的顺序执行工具调用，并用 JavaScript 将它们组合起来。与在 bash 中执行工具不同，Codemode 运行在 harness 环境中，其状态保存在会话记录中而非文件系统中。JavaScript 之所以被选中，是因为其小型版本可以编译为 WASM 二进制文件，提供合理的保护级别。</p>
+
+<p>文章展示了一个实际用例：通过 Codemode 结合 Linear MCP 和 Jev 分类模型，自动分析问题追踪器中 167 个未解决问题中用户情绪最沮丧的评论者，最终标记出 11 个"轻度沮丧"的问题，无需浪费上下文即可完成分析。</p>
+
+<h3>社区反馈</h3>
+<p>HN 上的讨论呈现出多元观点。有评论者认可"有总比没有好"的实用主义态度，类比 USB-C、NVMe 等"不完美但广泛兼容"的技术标准；也有人质疑 Codemode 的必要性，认为 LLM 已有 bash 等完美的工具组合手段；还有人担心 Pi 正在偏离其"极简"的原始定位。作者（the_mitsuhiko）在评论中回应称，如果解释不够清晰，团队会做得更好。</p></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49906637</guid>
+      <pubDate>Wed, 30 Sep 2026 09:55:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Tcl/Tk 9.1 发布：新增 Unicode 规范化、无障碍支持与 RTL 文本</title>
+      <link>https://news.ycombinator.com/item?id=49896712</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Tcl/Tk 9.1发布属于开源项目新版本发布及软件新功能，符合兴趣配置</small></p><p>Tcl/Tk 9.1.0 已发布，这是 Tcl 和 Tk 在 9.0 基础上的开发版本，目标是在 2026 年 9 月推出稳定版。此次更新为 Tcl 和 Tk 带来了多项新特性与接口改进。</p>
+
+<h3>Tcl 9.1 主要亮点</h3>
+<ul>
+<li>新增 <code>unicode</code> 命令及 <code>Tcl_UtfToNormalized*</code> C 例程，支持 Unicode 规范化</li>
+<li>新增 <code>timer</code> 命令，提供单调时钟和微秒级分辨率</li>
+<li>新增 <code>lfilter</code> 命令用于列表筛选，<code>interp set</code> 支持子解释器变量访问</li>
+<li><code>subst</code> 新增 <code>-backslashes</code>、<code>-commands</code>、<code>-variables</code> 选项；<code>switch</code> 新增 <code>-integer</code> 选项</li>
+<li>大量 C99 数学例程现可作为 <code>expr</code> 函数使用</li>
+<li>改进列表内部实现，提升大列表的内存效率；扩展 64 位尺寸支持</li>
+<li>macOS 上支持大小写不敏感的文件系统路径；Windows 上改进了 <code>auto_execok</code> 和 <code>exec</code> 搜索</li>
+</ul>
+
+<h3>Tk 9.1 主要亮点</h3>
+<ul>
+<li>新增无障碍屏幕阅读器支持</li>
+<li>初步支持双向文本 / RTL（从右到左）语言</li>
+<li>新增 <code>ttk::toggleswitch</code> 控件和 <code>tk attribtable</code> 命令</li>
+<li>标签支持旋转文本；改进 <code>ttk::treeview</code> 和 <code>ttk::notebook</code> 的状态</li>
+<li>消息框和对话框限制在物理屏幕宽度内；移除对 Windows XP 外观的过时支持</li>
+</ul>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论反响热烈。多位用户称赞 Tk 新增的无障碍支持，一位用户表示自己因视网膜撕裂正逐渐失明，对 Tk 在无障碍方面的进展感到欣慰。也有用户指出，Wayland 支持仍在开发中，预计在 Tk 9.2 中发布。</p>
+<p>不少开发者回忆起 Tcl/Tk 的辉煌历史，包括在 AOLServer、Vignette Story Server 等早期 Web 应用服务器中的使用经历。有用户提到，Tcl/Tk 是最容易上手的 GUI 系统，简单的东西几乎不费力气就能做出来。还有人指出，现代 LLM（如 Claude）已经能够熟练编写 Tcl/Tk 应用，包括使用 tcltest 编写测试。</p>
+<p>多位用户向 Tcl 创始人 John Ousterhout 致敬，提到他除了 Tcl/Tk 之外，还贡献了日志结构文件系统（LFS）、RAFT 共识协议等著名成果。不过也有用户表示，在 VLSI CAD 工具中使用 Tcl 的体验并不愉快。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49896712</guid>
+      <pubDate>Tue, 29 Sep 2026 17:13:38 GMT</pubDate>
+    </item>
     <item>
       <title>Show HN：实时太阳系可视化，包含 52.6 万颗小行星和全部在轨卫星</title>
       <link>https://news.ycombinator.com/item?id=49898778</link>
@@ -1182,103 +1260,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49822555</guid>
       <pubDate>Wed, 23 Sep 2026 21:01:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>为什么 Hacker News 会变成这样？——对 HN 政治偏见与审核机制的深度剖析</title>
-      <link>https://news.ycombinator.com/item?id=49817280</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论Hacker News平台的政治偏见与审核机制，属于行业/平台分析类主题，既不算高兴趣范畴也非明确的避开主题，兴趣度不明确，故评为可选。</small></p><p>Drew DeVault 在博客中发表长文，深入剖析了 Hacker News（HN）为何呈现出日益明显的右倾政治偏见，以及其背后的审核机制与 Y Combinator（YC）文化根源。</p>
-
-<h3>HN 的政治偏见</h3>
-<p>作者指出，HN 作为 Y Combinator 孵化的链接聚合社区，长期以来默认接受资本主义和自由意志主义视角，反工会情绪普遍，公开倡导左翼经济观点会遭到排斥。进步派用户已基本离开，而右翼声音持续存在。作者以 Grok 发布帖为例，指出批评 Elon Musk 的评论几乎全部被用户"标记"（flag）而消失，包括指责其纳粹礼、资助仇恨言论等言论。</p>
-
-<h3>审核机制</h3>
-<p>HN 有两名正式版主（dang 和 tomhow），均受雇于 Y Combinator。平台采用多种审核工具：帖子排名升降、删除或"杀死"帖子、降权评论树、影子封禁等。此外还有自动化审核系统，通过启发式算法对"争议性"话题施加降权压力——而作者认为，被判定为"争议"的往往是进步派政治内容。</p>
-<p>拥有一定 karma 的用户可以"标记"帖子，少量标记即可隐藏内容。作者认为这一机制被系统性用于压制进步派观点，且被标记的内容很难通过"担保"（vouch）恢复。</p>
-
-<h3>Y Combinator 的文化根源</h3>
-<p>作者将 HN 的现状归因于 YC 及其创始人。YC 投资组合中包括 Coinbase（向偏右翼政治组织捐款）、军事和警务应用公司（如 Flock Safety、Optifye.ai 等），以及 Airbnb 等"快速行动、打破法律"思维的公司。</p>
-<p>作者引用 Paul Graham 的多篇博文，认为其观点塑造了 HN 的底色，包括对"x-ist"标签的批评、将当代"不宽容"归咎于左翼等。作者还提及 Sam Altman 与 Peter Thiel 的关系，以及 Altman 向特朗普就职典礼捐款、公开支持其"亲 AI"议程等事实。</p>
-
-<h3>社区反馈</h3>
-<p>该帖在 HN 上获得 282 分和 142 条评论，讨论激烈。版主 dang 回应称帖子被用户标记但未被版主处罚，并标记帖子使其免于被过度标记杀死。评论者观点两极分化：有人赞同作者的分析，认为 HN 存在系统性偏见；也有人批评文章本身是"极端左翼"的夸张指控，认为被删除的评论本就应被移除。还有评论者从相反角度指出 HN 对保守派同样不友好，认为平台应减少政治讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49817280</guid>
-      <pubDate>Wed, 23 Sep 2026 15:05:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ &quot;代币便宜到无需计量&quot;：AI 推理成本正以每年数个数量级的速度下降</title>
-      <link>https://news.ycombinator.com/item?id=49813482</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论AI推理成本大幅下降，属于AI软件技术进展和新AI模型相关领域，符合兴趣配置，推荐阅读。</small></p><p>文章作者 jyn.dev 提出一个核心论点：使用机器学习智能的价格正以每年多个数量级的速度下降，并且没有任何放缓迹象。作者据此预测，未来一两年内大语言模型（LLM）将成为计算基础设施的一部分而不仅是产品；3-6 年内，前沿质量的模型将能在普通消费级硬件上本地运行；而质量与访问权限将成为 AI 使用的限制因素，而非原始 token（词元）数量。</p>
-<h3>成本下降的多个驱动因素</h3>
-<p><strong>对全部 AI 的改进：</strong></p>
-<ul>
-<li><strong>GPU</strong>：每代 GPU 的能效呈指数级增长（对数约 1.3，即约每两年翻倍），速度堪比 1960 年代的摩尔定律。<img src="/assets/epoch-ml-hardware.png" alt="" /></li>
-<li><strong>模型</strong>：虽然单个 token 的价格并非持续下降，但"完成单个任务的成本"在大幅下降。对比 2025 年初、年中、年末以及 2026 年的帕累托前沿图，可以清楚看到模型在一年内"变聪明且更便宜"：同样的质量所需成本下降约两个数量级。<img src="/assets/2026-pareto-frontier.png" alt="" /><img src="/assets/pareto-frontier-2024-2025.png" alt="" /></li>
-<li><strong>推理引擎（Inference Engine）</strong>：vLLM 等开源推理引擎效率逐年提升 10%-50%。以 vLLM 为例，从 0.5.4 到 0.11.1（相隔 15 个月）提升了约 40% 的效率；NVIDIA 的 MLPerf 栈在 2.0 到 2.1 之间能效提升高达 50%；Intel 仅通过改进软件就在 MLPerf 6.0 到 6.1 之间获得 2.4 倍吞吐量提升。<img src="/assets/llama-energy-per-token-dark.svg" alt="" /><img src="/assets/h100-performance-data-center-1.png" alt="" /></li>
-</ul>
-<p><strong>对托管 AI 的改进：</strong>混合专家（Mixture-of-Experts, MoE）架构可以在保持同质量输出时大幅减少计算量——一个模型可以做到参数规模小 7 倍（6B → 0.8B）而基准性能相同。不过这会让"每 token 的能效"基本持平，因为人们会用省下的算力追求更高的输出质量，即"每焦耳质量"在快速上升。<img src="/assets/4a-scaling-efficiency-leverage.png" alt="" /></p>
-<p><strong>对本地 AI 的改进：</strong>改用 Mamba 等架构后，模型可在相同的显存中装下 5 倍甚至更多的 token。例如 Nemotron-H-47B 在量化后可在 32GB 显存中容纳超过一百万个 token，而同等质量的 Llama-3.1 60B 则需约 120GB。</p>
-<p><strong>对特定用例的改进：</strong>用于"是/否"回答等专门场景的模型（如 TypeSafe AI 的 Jev 及开源可本地的 Laya）可将成本再降低 1-2 个数量级。Jev 的输入价格低至每十亿 token 42 美元（输出 token 免费），约 3 美分即可"读完"五本书，比电费还便宜。文中给出了将 Jev 用作文本过滤管道的 jgrep 工具示例，以及用于 PR 分诊的 Jev triage。</p>
-<h3>合起来看与未来走向</h3>
-<p>综合以上因素，过去一年中 token 成本总体下降了约 2.5 个数量级：模型按任务计约便宜 100 倍，硬件每 token 能效约提升 1.3 倍，引擎每 token 能效约提升 1.4 倍。作者认为这些技术仍不成熟，远未达到收益递减点。</p>
-<p>作者进一步推演：当模型调用比工具调用更便宜时（例如一次模型"工具调用"约 0.33 美分，而 grep 一次仅需 0.0000007 美分），模型就会被嵌入到更多底层工具中，比如自适应的构建调度器。同时作者用<b>杰文斯悖论（Jevons Paradox）</b>解释供给端：效率提升反而刺激了更多算力建设与需求。</p>
-<p>关于商业模式，作者认为 token 便宜并不意味着推理提供商不赚钱；OpenAI、Anthropic 等前沿实验室在质量上仍遥遥领先，最困难的任务仍会购买前沿算力，而"普通任务"将由开源权重或补贴计划承载。开源是否追平前沿实验室仍是开放问题。</p>
-<h3>HN 社区反馈</h3>
-<p>该文在 Hacker News 上获得 294 分、200 条评论，讨论热烈。主要争议点包括：</p>
-<ul>
-<li>多位用户质疑"3-6 年内消费级硬件可跑前沿模型"的预测，认为当前消费级内存/显存价格与供应难以支撑（也有用户反驳称内存价格历史上呈"锯齿轮状"波动，长期看仍会回落）。</li>
-<li>有人指出文中 2025 与 2026 成本图表存在口径差异（前者是整套测试成本、后者是单任务加权平均成本），认为成本下降没这么快。</li>
-<li>关于数据中心是否为泡沫存在分歧：一方认为硬件和模型改进会跑赢需求从而留下大量"孤儿数据中心"；另一方援引杰文斯悖论认为更便宜会刺激更大需求。</li>
-<li>多位评论者认为作者对商业模式可行性分析不足：每年为上万亿美元基建投入需产生持续千亿美元以上的自由现金流，文章缺乏硬数据支撑。</li>
-<li>有观点认为 GPU 能效图的趋势线主观性较强，数据点本身噪声大。</li>
-<li>也有读者引用施泰因定律（Stein's Law："如果一件事无法永远持续，它就会停止"），认为模型调用成本会渐进趋近 grep 等成熟软件的下限，而非无限指数下降。</li>
-</ul>
-<h3>你知道吗？</h3>
-<p><strong>杰文斯悖论（Jevons Paradox）</strong>：由英国经济学家 William Stanley Jevons 于 1865 年提出，指提高一种资源的利用效率，反而会导致该资源的总消耗量增加——因为效率提升降低了使用成本，从而诱发更大需求（称为"引致需求"，常讨论于交通网络等领域）。</p>
-<p><strong>混合专家（MoE）架构</strong>：一种神经网络架构，将模型拆分为多个专门的"专家"子网络，输入在不同任务时只激活其中一部分，从而以更少的计算量获得相近的输出质量，近年被广泛用于降低大模型推理成本。</p>
-<p><strong>施泰因定律（Stein's Law）</strong>：经济学家 Herbert Stein 的名言"如果某件事不能永远持续下去，它就会停止"，常被引用来质疑指数式趋势能否无限延续。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49813482</guid>
-      <pubDate>Wed, 23 Sep 2026 09:21:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 谷歌发布 Gemini 3.8 Flash TTS 与 Flash-Lite TTS：从预设语音到可定制语音创作工作室</title>
-      <link>https://news.ycombinator.com/item?id=49817615</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是谷歌发布新AI语音模型（Gemini 3.8 Flash TTS系列）的公告，属于'新AI模型发布公告'，用户很感兴趣，必看内容。</small></p><p>谷歌宣布推出两款新的文本转语音（TTS）模型——<strong>Gemini 3.8 Flash TTS</strong> 和 <strong>Gemini 3.8 Flash-Lite TTS</strong>，将语音生成从静态预设转变为动态创作工作室。这两款模型已上线 Google AI Studio、Gemini API、Gemini Enterprise、Gemini Notebook 和 Google Vids 等平台。</p>
-
-<h3>核心能力</h3>
-<p><strong>Gemini 3.8 Flash TTS</strong> 面向深度创作指导和角色设计，支持通过自然语言提示从零创建全新声音，覆盖 100 多种语言和方言，并可逐行控制表演——包括表演提示、节奏、方言转换和回音（backchanneling）。<strong>Gemini 3.8 Flash-Lite TTS</strong> 则面向高吞吐量、成本高效的规模化场景，适用于批量配音、音频内容创作和表达型语音代理。</p>
-
-<p>主要功能亮点包括：</p>
-<ul>
-<li><strong>生成式语音设计</strong>：通过自然语言提示定制角色、口音和声音特征，例如"墨尔本高能量 DJ 声"或"日本龙"等。</li>
-<li><strong>庞大语音库</strong>：提供 2,000+ 个生产级语音，涵盖墨西哥西班牙语、魁北克法语、苏格兰英语等地区变体。</li>
-<li><strong>语音复制</strong>：仅需 30 秒音频样本即可复制声音，内置同意验证、SynthID 水印和 C2PA 凭证保护。</li>
-<li><strong>逐行导演控制</strong>：支持编写舞台指示、长文生成（数小时连续音频保持低漂移）、原生双说话人场景编排，以及脚本化发声（如 <code>&lt;laughs&gt;</code>、<code>&lt;sigh&gt;</code>）和主动倾听插话（如 <code>|mhm|</code>）。</li>
-</ul>
-
-<h3>性能表现</h3>
-<p>据谷歌介绍，Gemini 3.8 Flash TTS 在 Hume AI 的 Voice Design Benchmark 上以 71.4 分位居第一，口音建模（60.8 分）同样领先。两款模型在 Hume AI 的 Overall Quality Index 上分别占据第一和第二名。在 Voice Arena 的盲测中，两款模型在日语、巴西葡萄牙语、越南语、现代标准阿拉伯语、墨西哥西班牙语和印地语等关键语言中均位居前列。</p>
-
-<h3>安全与信任</h3>
-<p>语音复制功能要求用户提供语音所有者的口头同意录音，且所有生成的音频均带有 SynthID 不可感知水印，以确保 AI 生成语音可被检测，防止虚假信息传播。</p>
-
-<h3>定价与可用性</h3>
-<p>据社区用户整理，定价约为：3.8 Flash TTS 标准 $0.81/小时、批量 $0.41/小时；Flash-Lite TTS 标准 $0.54/小时、批量 $0.27/小时。有用户估算，生成一本 25 万词的有声书（约 150 万字符）成本约 $15，而 ElevenLabs 约为 $75。</p>
-
-<h3>社区反馈</h3>
-<p>HN 讨论中，多位用户指出本地开源方案（如 Qwen3-TTS、Kokoro 等）已能实现相当出色的语音克隆效果，认为"猫已经跑出袋子了"。也有用户对示例音频与提示词的匹配度提出质疑，认为"一旦你克服了这是计算机生成的震撼感，就会发现结果并非真正想要的"。部分用户希望谷歌能将此技术应用到 Google Play Books 的朗读功能中。</p>
-
-<p>合作伙伴包括 Figma、HeyGen、Linguana、Wondercraft、Agora、LiveKit、Pipecat、Vercel 等，正在集成这些 TTS 模型以加速全球配音、本地化媒体和对话式语音代理。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>SynthID</strong> 是谷歌 DeepMind 开发的 AI 内容水印工具，将不可感知的数字水印直接嵌入音频或图像输出中，即使经过压缩、降噪等处理仍可被检测，用于帮助识别 AI 生成内容。而 <strong>C2PA</strong>（Coalition for Content Provenance and Authenticity）是一个开放标准，用于记录数字内容的来源和编辑历史，帮助验证内容的真实性与出处。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49817615</guid>
-      <pubDate>Wed, 23 Sep 2026 15:29:23 GMT</pubDate>
     </item>
   </channel>
 </rss>
