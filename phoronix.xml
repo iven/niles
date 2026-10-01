@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 30 Sep 2026 22:59:45 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2026 02:05:01 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ OpenMandriva ROME 26.09 发布：新增更多 AI 应用、支持 Snap 包并引入 PGO 与 LTO 优化</title>
+      <link>https://www.phoronix.com/news/OpenMandriva-ROME-26.09</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲新发行版 OpenMandriva ROME 26.09 发布，属于来源配置中很感兴趣的新发行版和编程工具/新软件项目分类</small></p><p>OpenMandriva 团队于 9 月底发布了 OpenMandriva ROME 26.09，这是继 24.12 之后的一次重大版本更新。该版本因各种技术问题以及一次针对其平台的蓄意破坏企图而长期延期。</p>
+
+<p>本次更新将 LLVM Clang 23 设为默认编译器，同时提供 GCC 16.2，包管理由 RPM 6.1 负责。OpenMandriva ROME 26.09 在 RPM SPEC 文件中新增了 <code>%pgo</code> 段，使对受益显著的软件包应用配置文件引导优化（PGO）变得更加简便快捷。此外，几乎所有软件包都采用链接时优化（LTO）构建，以进一步提升性能。</p>
+
+<p>其他软件升级包括 Qt 6.11.2、GTK 4.22.5 以及 AMD ROCm 10.0。本次版本还新增了更多人工智能应用。值得注意的是，OpenMandriva ROME 26.09 在原有 Flatpak、AppImage 和原生 RPM 支持的基础上，新增了对 Canonical Snap 软件包的支持。RISC-V 和 LoongArch 64 位 CPU 架构也在此版本中获得了持续改进。此外，开源 NVIDIA 内核模块现已作为 OpenMandriva 官方内核的一部分进行分发。</p>
+
+<p>更多下载信息与发布详情可访问 <a href="https://www.openmandriva.org">OpenMandriva.org</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/OpenMandriva-ROME-26.09</guid>
+      <pubDate>Thu, 01 Oct 2026 01:36:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Phoronix 2026年第三季度回顾：开源AI浪潮、CachyOS、Ryzen AI Halo 与 Framework 笔记本成焦点</title>
       <link>https://www.phoronix.com/news/Q3-2026-Highlights</link>
@@ -700,25 +715,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Debian-Inference-Portal</guid>
       <pubDate>Wed, 23 Sep 2026 21:08:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>Lemonade 修复 AMD APU 模型流式支持，因性能慢约 40 倍移除 OpenMOSS ROCm 后端</title>
-      <link>https://www.phoronix.com/news/Lemonade-2026.40-RC</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主要讲Lemonade（一个开源项目/新软件）修复了AMD APU相关功能，并放弃OpenMOSS ROCm。虽然涉及编程/AI软件及新软件项目，但核心是AMD硬件相关技术细节及性能对比，兴趣配置中AMD显卡和性能评测均为不太感兴趣/避开，主题不够明确契合用户高兴趣领域，故定为可选。</small></p><p>AMD 支持的本地 AI 服务器开源项目 Lemonade 今日发布了 2026.39.1 稳定版，同时推出了 2026.40 的候选版本（RC）。除了采用新的版本命名方案外，本次 SDK 更新还带来几项值得关注的变更。</p>
-
-<p>2026.40 RC 版本现在支持在 AMD 集成显卡（APU）上流式运行模型，方法是根据 APU 的 GTT 内存池进行容量评估，而非使用固定的 vRAM 预留窗口。此前，一些流式模型（如 DeepSeek-V4-Flash-IQ2XXS-DS4）在 AMD Ryzen AI Max（Strix Halo）上无法运行——尽管系统有足够的 RAM，Lemonade 却一直按照较小的预留窗口而非可寻址的 GTT 进行检查。此次修复将改善 AMD iGPU/APU 上的流式模型支持。</p>
-
-<p>另一个重要变化是，OpenMOSS 的 ROCm 后端在 Windows 和 Linux 平台上被移除。OpenMOSS 是来自中国的 AI 研究倡议和模型生态系统。OpenMOSS 的 ROCm 后端被禁用，因为其在相同硬件上运行速度比 Vulkan 后端慢约 40 倍。据分析，AMD ROCm 代码路径中至少存在部分 CPU 回退，这是导致巨大性能差距的主要原因。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=openmoss_rocm_benchmark" alt="OpenMOSS ROCm benchmark" />
-
-<p>该合并请求移除了 OpenMOSS ROCm 支持，直到其能被妥善修复，并公开了 OpenMOSS ROCm 糟糕的性能数据。此外，2026.40 RC 还新增了针对 JetBrains Junie 的启动代理，以及其他在 GitHub 上列出的增强功能。</p>
-
-<p>今日发布的 2026.39.1 稳定版带来了可配置的 vRAM 自动驱逐（auto-eviction）功能及其他较小的改动。这是新版本命名体系（基于年份和周数）下的首个稳定版本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Lemonade-2026.40-RC</guid>
-      <pubDate>Wed, 23 Sep 2026 19:41:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
