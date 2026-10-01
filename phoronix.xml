@@ -3,7 +3,95 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 01 Oct 2026 16:22:38 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2026 21:48:04 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Fedora 45 Beta 性能基准测试：波澜不惊但令人满意</title>
+      <link>https://www.phoronix.com/review/fedora-45-beta-benchmarks</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 新发行版Fedora 45的性能评测基准，属于新发行版和相关评测，虽涉及性能评测但主要讲新发行版，用户对新发行版很感兴趣</small></p><p>Phoronix 对 Fedora 45 Beta 进行了性能基准测试。此前一段时间已有多项 Ubuntu 26.10 开发版本基准测试，有读者询问为何缺少 Fedora 45 的早期测试，作者回应称这是因为其结果"很大程度上波澜不惊"，但仍提供了部分测试数据加以说明。</p>
+
+<p>文章指出，由于 Fedora 会在现有版本上通过稳定更新推送新内核版本，以及将 Mesa 升级至新功能版本等，各 Fedora 版本之间的性能差异远不如 Ubuntu 那样引人注目。Ubuntu 每六个月有较大的版本跳跃，而 Fedora 春季版本会快速采用当年最新的 GCC 功能版本，这使得秋季版本相对平淡（仅切换到新的 GCC 点版本）。</p>
+
+<p>当然也存在一些例外，例如 Python 的重大版本更新通常发生在秋季，因此 Fedora 45 搭载的是 Python 3.15-rc2，而 Fedora 44 为 Python 3.14.7。在某些版本上，Fedora 还会针对编译器优化等工作，从而影响系统整体性能，但总的来说，由于 Fedora 对新内核和 Mesa 版本采取较宽松的稳定更新策略，其版本之间的性能变化通常较小。</p>
+
+<img src="//www.phoronix.net/image.php?id=fedora-45-beta-benchmarks&image=fedora45_beta_benchmark_1_med" alt="Fedora Workstation 45 Beta" />
+<img src="//www.phoronix.net/image.php?id=fedora-45-beta-benchmarks&image=fedora45_beta_benchmark_2_med" alt="Fedora Workstation 45" />
+<img src="//www.phoronix.net/image.php?id=fedora-45-beta-benchmarks&image=fedora45_beta_benchmark_3_med" alt="Fedora 45" />
+
+<p>本次测试对比了截至 9 月 23 日具备全部更新的 Fedora Workstation 44 与 Fedora Workstation 45 Beta。所有测试均在同一台 System76 Thelio Major 工作站上进行，配备 AMD Ryzen Threadripper 9980X 64 核处理器、4×32GB DDR5-5600 内存、1TB NVMe SSD 以及 AMD Radeon AI PRO R9700 显卡。</p>
+
+<p>Fedora 44 与 Fedora 45 Beta 均运行于 Linux 7.2 内核，采用 Btrfs 文件系统、Mesa 26.2 与 GCC 16.2.1。区别在于 Fedora 45 Beta 默认使用 GNOME 51（而非 GNOME 50），并搭载 Python 3.15-rc2（Fedora 44 为 Python 3.14.7）。测试涵盖 I/O 与图形、HPC 与工作站、OpenSSL 与 Python、PHP 与 Mozilla Firefox 等多个维度。</p>
+
+<p>测试结果显示，由于内核与 Mesa 版本保持一致，此次基准测试确实"波澜不惊"，印证了 Fedora 宽松更新策略下各版本间性能变化较小的特点。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/review/fedora-45-beta-benchmarks</guid>
+      <pubDate>Thu, 01 Oct 2026 20:57:58 GMT</pubDate>
+    </item>
+    <item>
+      <title>Mesa 移除维护不善且极少使用的 Direct3D 10 用户模式驱动</title>
+      <link>https://www.phoronix.com/news/Mesa-Drops-Direct3D-10-UMD</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Mesa图形驱动移除Direct3D 10驱动，涉及开源软件和Linux桌面技术，但内容较具体且影响有限，兴趣不够明确</small></p><p>Mesa 代码库中移除了一项维护不善且极少使用的 Direct3D 10 用户模式驱动（User-Mode Driver，简称 d3d10umd）。该驱动于 2021 年作为新的 Gallium3D 状态跟踪器引入，用作 Windows WDDM 的 UMD 驱动，类似 Windows 的 WARP 光栅化器，但借用 Mesa 的 LLVMpipe 来获得更佳性能。如今五年过去，这段约 1.27 万行、维护不善的代码从 Mesa 代码库中被移除，并随即将于本季度发布的 Mesa 26.3 版本一同生效。</p>
+<p>该 d3d10umd 代码由 VMware 作为其在 Microsoft Windows 平台上的虚拟化交付成果的一部分而开发，无法在 Wine 下运行，其唯一较明显的用途出现在 Windows 上的某些 VirGL VM 场景中。将其从 Mesa 中移除的动机在于：它是少数仍在使用 TGSI（原始 Gallium3D 中间表示 IR）而非更受青睐的 NIR 格式的遗留用户之一。即便在 2021 年合并时，该驱动仍以旧版 TGSI 为目标，这是其已知的实现缺陷。随着 Mesa 开发者致力于从整个技术栈中消除 TGSI，而该驱动既不支持 NIR，也无相关计划，故被移除。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Drops-Direct3D-10-UMD</guid>
+      <pubDate>Thu, 01 Oct 2026 20:00:08 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Ubuntu 26.10 测试版发布：搭载 Linux 7.3 内核与 GNOME 51 桌面</title>
+      <link>https://www.phoronix.com/news/Ubuntu-26.10-Beta-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Ubuntu新版本Beta发布，属于新发行版类别，用户配置为新发行版为很感兴趣，同时涉及Linux桌面技术，核心兴趣内容</small></p><p>Ubuntu 26.10「Stonking Stingray」测试版现已发布，供官方 Ubuntu 各版本及多种社区衍生版本（flavors）下载使用。正式版预计将于两周后的 10 月 15 日推出。</p><p>Ubuntu 26.10 采用了 Linux 7.3 候选版内核，Ubuntu 桌面使用 GNOME 51 组件，配备 Mesa 26.2 开源显卡驱动，并包含大量其他软件包更新和改进。正如先前报道，Ubuntu 26.10 还完整完成了 Rust Coreutils（核心工具集）的移植过渡。</p><p>此外，Ubuntu Concept 构建版本也在持续改进 Snapdragon X1/X2 笔记本在 Ubuntu 26.10 上的使用体验。</p><img src="//www.phoronix.net/image.php?id=ubuntu-2610-panther-lake&image=ubuntu_2610_ptl_2_med" alt="Ubuntu 26.10 development snapshot" /><p>有关各 Ubuntu 26.10 测试版 ISO 镜像的下载方式及其他衍生版本的更多细节，可通过 Ubuntu 邮件列表获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.10-Beta-Released</guid>
+      <pubDate>Thu, 01 Oct 2026 19:26:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>Phoronix 九月回顾：Linux 内核构建逼近 10 秒、Xeon 600 工作站评测等精彩内容</title>
+      <link>https://www.phoronix.com/news/September-2026-Highlights</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Phoronix月度内容汇总，涉及内核编译、Xeon等多种内容，主题混杂不够聚焦，难以明确匹配单一兴趣类别</small></p><p>Phoronix 网站发布了 2026 年 9 月的月度回顾。在过去一个月中，该网站共发布了 284 篇原创新闻文章和 19 篇精选 Linux 硬件评测/多页基准测试文章。10 月预计同样精彩，将迎来 Ubuntu 26.10 和 Fedora 45 的发布。</p>
+
+<h3>九月最热门新闻</h3>
+<ul>
+<li><strong>Debian 推理门户上线</strong>：由 Scaleway 资助的新项目，为 Debian 开发者提供免费的 AI/LLM 推理服务。</li>
+<li><strong>CERN 转向 Debian</strong>：欧洲核子研究组织（CERN）作为长期 RHEL/CentOS 用户，正式将工业加速器控制计算机迁移至 Debian Linux，这一决定令人意外。</li>
+<li><strong>Asahi Linux 正式支持 Apple M3 Mac</strong>：除 Mac Studio M3 Ultra 外，M3/M3 Pro/M3 Max 设备现已支持，但仍存在部分功能限制。</li>
+<li><strong>Void Linux 维护者因 AI 政策争议弃养 100+ 软件包</strong>：一位维护者因项目对 LLM 生成文本的 AI 政策分歧而放弃其维护的软件包。</li>
+<li><strong>Fedora 讨论以 Collabora Office 替代 LibreOffice</strong>：社区讨论是否将默认办公套件替换为下游的 Collabora Office。</li>
+<li><strong>Intel 撤销取消开源字体项目的决定</strong>：该项目本周被归档，两天后 Intel 改变主意。</li>
+<li><strong>Valve 推出 Pyrowave 视频编解码器测试版</strong>：用于高带宽、低延迟视频流传输的实验性编解码器。</li>
+<li><strong>Apple A18 Pro + MacBook Neo 的 Linux 初步支持补丁</strong>：Linux 开发者开始为 A18 Pro 芯片和 MacBook Neo 笔记本提供初始支持。</li>
+<li><strong>Linux 7.4 文件读取优化</strong>：一项历时两年多的简单优化可使文件打开读取速度提升约 39%。</li>
+<li><strong>DLSS5VKLayer 项目</strong>：为原生 Linux 游戏和 Steam Play 提供 NVIDIA DLSS 5 支持的 Vulkan 层。</li>
+<li><strong>神秘 x86 CPU 实现</strong>：一家非 AMD/Intel 的公司展示了超越 Intel 的 AMX、APX、FRED 乃至 x86S 等先进特性。</li>
+<li><strong>KDE KWin 合并 Wayland 提交时序协议支持</strong>：有利于视频播放和 Adaptive-Sync/FreeSync 游戏体验。</li>
+<li><strong>Google Binder C 驱动退役</strong>：Rust 重写的 Binder 驱动已在 Linux 6.18 上游化，旧版 C 驱动将在 Linux 7.4 中被移除。</li>
+<li><strong>Linux 修复自 2023 年以来的静默用户空间数据丢失 bug</strong>。</li>
+<li><strong>NetworkManager 用"金丝雀"诱捕 AI 生成补丁</strong>：项目采用 AI 编码政策后，通过特殊标记检测绕过政策的 AI 代理。</li>
+<li><strong>AI 辅助加速 Linux 内核编译</strong>：一位 ARM Linux 工程师利用 LLM 发现了内核构建中任务并行化的重大优化机会，尽管 AI 生成了大量"丑陋"代码。</li>
+<li><strong>AMDGPU HDMI 2.1 默认启用</strong>：Linux 7.4 将默认启用 AMDGPU 驱动的 HDMI 2.1 支持，包含 FreeSync、VRR 和 ALLM。</li>
+<li><strong>GNOME Mutter 51.rc 新增跨 GPU 缓冲扫描输出支持</strong>。</li>
+<li><strong>AMD 组建"精英"团队推动 Rust 深入 GPU 软件栈</strong>：从固件到驱动、着色器编译器全面采用 Rust。</li>
+</ul>
+
+<h3>九月最热门硬件评测</h3>
+<ul>
+<li><strong>CachyOS vs. Windows 11 vs. Ubuntu 26.04 LTS（Intel Wildcat Lake + 8GB 内存）</strong>：在 449 美元的 CHUWI UniBook 笔记本上对比三款操作系统在低端硬件上的性能。</li>
+<li><strong>Intel Xeon 600 vs. AMD Threadripper 9000 工作站性能</strong>：近 400 项基准测试，涵盖功耗和频率对比。</li>
+<li><strong>Ubuntu 26.10 amd64v3 对低端硬件的性能提升</strong>：即使对预算级硬件，amd64v3 优化也能带来可观增益。</li>
+<li><strong>JDK 8 至 OpenJDK 27 的 Java 性能基准测试</strong>。</li>
+<li><strong>AMD openSIL + Coreboot 在首款 Ryzen AM5 主板上的运行</strong>：3mdeb 固件咨询公司将开源固件方案带到桌面 Ryzen 平台。</li>
+<li><strong>Linux 内核构建逼近 10 秒大关</strong>：x86_64 平台上干净默认内核构建时间即将进入 10 秒时代。</li>
+<li><strong>AMD 提升 Radeon 集成显卡 AI/LLM 性能 18~23%</strong>：Linux 7.4 引入的 PerfOpt 功能带来显著提升。</li>
+<li><strong>CHUWI UniBook（Intel Wildcat Lake）449 美元 Linux 友好笔记本评测</strong>。</li>
+<li><strong>AMD Strix Halo 在 Ubuntu 26.10 上的性能提升</strong>，尤其在使用 amd64v3 版本时。</li>
+<li><strong>Intel Granite Rapids WS vs. AMD Threadripper Zen 5 SMT 性能对比</strong>：探讨超线程/SMT 对工作站性能的影响。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/September-2026-Highlights</guid>
+      <pubDate>Thu, 01 Oct 2026 17:07:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Qt Creator 21 IDE 测试版发布：默认启用更多 AI 功能</title>
       <link>https://www.phoronix.com/news/Qt-Creator-21-Beta</link>
@@ -669,68 +757,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8-Beta-2</guid>
       <pubDate>Thu, 24 Sep 2026 13:27:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AlmaLinux 推出新版软硬件认证门户及自认证应用</title>
-      <link>https://www.phoronix.com/news/AlmaLinux-New-Certification</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及 AlmaLinux 发行版推出软硬件认证门户，属于发行版及新软件项目相关，符合兴趣。</small></p><p>AlmaLinux 在两年前推出硬件认证计划（作为其认证特别兴趣小组 Certification SIG 的一部分）后，现已将该计划扩展至第三方软件认证，并发布了一款新的自认证应用。</p>
-<p>用户可通过 <code>sudo dnf install alma-certify</code> 安装这款全新重写的应用，在本地系统上运行认证测试，整个认证流程预计可在十分钟内完成。与此同时，AlmaLinux 还上线了全新的认证门户网站 <a href="https://catalog.almalinux.org">catalog.almalinux.org</a>，供用户查询已知兼容的硬件与软件信息。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=almalinux_catalog_med" alt="AlmaLinux Catalog" />
-<p>该目录收录了经验证可正常工作的硬件信息，并附带部分合成基准测试数据。同时，目录还区分了 AlmaLinux 官方验证的硬件与社区及厂商验证的硬件。更多关于 AlmaLinux 认证计划的详情可参阅其官方博客文章。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AlmaLinux-New-Certification</guid>
-      <pubDate>Thu, 24 Sep 2026 13:02:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 内核引入新污染标记 TAINT_FORCED_BIND 以应对模糊测试机器人的无效缺陷报告</title>
-      <link>https://www.phoronix.com/news/Linux-Taint-Forced-Bind</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于内核因模糊测试引入新 taint 的开发机制新闻，兴趣不够明确，属可选内容。</small></p><p>Linux 内核将引入一个新的污染（taint）标记「TAINT_FORCED_BIND」，用于应对 Syzbot 等模糊测试（fuzzing）机器人滥用 sysfs 的 bind/unbind 功能、生成与真实硬件/驱动组合毫不相干的缺陷报告所造成的问题。</p>
-<p>Linux 的 bind 和 unbind sysfs 属性允许在运行时将设备从某个内核驱动上解绑，也可根据总线 ID 将任意设备绑定到指定驱动程序。这一机制在硬件复位、将设备直通（passthrough）给虚拟机等场景中有实际用途。但如今 sysfs 的 bind 功能允许将任意设备绑定到不同的内核驱动，导致来自模糊测试工具/机器人的缺陷报告与任何实际用例都不相关。</p>
-<p>Greg Kroah-Hartman 因此推出了 TAINT_FORCED_BIND：一旦某个驱动的 bind/unbind sysfs 文件被写入，就让正在运行的 Linux 内核被污染。这样在收到任何缺陷报告时，就能明确判断是使用了 bind/unbind，而非正常的操作流程。</p>
-<p>Greg 确认了引入该标记的动机正是源于模糊测试机器人造成的问题性和不切实际的报告混乱：</p>
-<blockquote>「通过 sysfs 的"bind"和"unbind"文件向驱动添加或移除设备的能力，是数十年前为了加快内核开发者迭代而创建的，也为用户提供了一种调试方式，让他们无需重建内核就能尝试为新设备接入驱动。多年来这个 API 一直被滥用，近期更遭到了通过 syzbot 等工具发起的严重模糊测试"攻击"，它们会随机地将任何驱动绑定到任何类型的设备上，导致产生大量无用的错误，并让缺乏经验的新开发者生成无意义的补丁。」</blockquote>
-<p>此外，工具还可利用 panic_on_taint 功能，一旦内核因此类操作被污染就立即触发内核崩溃（panic），从而停止继续无意义的测试组合。引入 TAINT_FORCED_BIND 的补丁已进入 Greg 的 driver-core-next Git 分支，预计将提交到即将到来的 Linux 7.4 内核周期中。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=random_mobos_sml" alt="Random motherboard mess" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Taint-Forced-Bind</guid>
-      <pubDate>Thu, 24 Sep 2026 12:08:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Canonical 发布 Mir 2.30：强制要求 Rust 编译器并公布公开路线图</title>
-      <link>https://www.phoronix.com/news/Mir-2.30-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Mir 显示服务器新版本发布且要求 Rust，符合新软件项目与 Rust 兴趣。</small></p><p>Canonical 今日发布了 Wayland 合成器库 Mir 2.30，这是该库的最新版本，用于构建各类 shell 和功能，从智能镜子到其他消费设备。</p>
-
-<img src="//www.phoronix.net/image.php?id=2021&image=ubuntu_mirrors_2_med" alt="Mir on mirrors" />
-
-<p><strong>Rust 成为强制要求</strong>：Mir 2.30 现在明确要求构建时必须具备 Rust 编译器，而此前 Rust 仅是可选依赖。Mir 现已采用基于 Rust 的 evdev 输入平台代码。另一个原因是 Mir 现在严格以 Ubuntu 26.04 LTS 为目标系统，而该版本中 Rust 已被规定为强制要求。得益于将 OS 目标聚焦到 Ubuntu 26.04 及更新版本，Rust 可以安全地始终假定存在于 Mir 构建环境中。此前的 "<code>MIR_ENABLE_RUST</code>" 构建选项已被移除，构建 Mir 时 Rust 必须始终存在。</p>
-
-<p><strong>其他改进</strong>：Mir 2.30 还新增了对 Wayland <code>wl_fixes</code> 协议的支持，修复了若干 bug，并带来多项文档改进。Mir 2.30 可从 GitHub 下载。</p>
-
-<p><strong>公开路线图</strong>：随着本次发布，Mir 2.30 文档中加入了公开路线图。规划内容主要包括：使用硬件平面（hardware plane）实现视频播放、支持完全以 Rust 构建基于 Mir 的合成器、稳定 mir-shell Wayland 扩展、设计长期化的 Mir 渲染管线、Mir shell 与 systemd 集成，以及安全改进等。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mir-2.30-Released</guid>
-      <pubDate>Thu, 24 Sep 2026 11:51:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>Fwupd 2.1.8 发布：新增华硕、联想等多款硬件支持与大量修复</title>
-      <link>https://www.phoronix.com/news/Fwupd-2.1.8-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 固件更新工具新版本主要新增硬件支持，涉及硬件但非核心兴趣，兴趣不明确。</small></p><p>Red Hat 的 LVFS/Fwupd 首席开发者 Richard Hughes 于今日发布了 Fwupd 2.1.8，这是这项面向 Linux 系统的开源固件更新解决方案的最新功能版本。Fwupd 2.1.8 带来了对多款新设备的支持，并包含大量错误修复。</p><p>在功能方面，Fwupd 2.1.8 引入了一个新的插件，用于在 EFI 系统分区（ESP）发生变化时通知 bootupd；新增了对联想（Lenovo）硬件 RSA-3072 签名验证的支持；并修复了多项问题，从内存泄漏、缓冲区溢出到支持更大的 Redfish 固件数据块。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=new_fwupdmgr_med" alt="fwupdmgr update" /><p>Fwupd 2.1.8 新增的硬件支持包括：</p><ul>
-<li>ASUS GX5407（针对 ILITEK 触控控制器固件的 quirk 支持）</li>
-<li>Elan PID 0CB6</li>
-<li>FocalTech MOC 指纹传感器</li>
-<li>Lenovo ThinkPad Thunderbolt 4 Dock Gen 2 7000</li>
-<li>MaxLinear MxL862xx</li>
-<li>MediaTek MT9700 FCTE 和 MT9701 KSMU</li>
-<li>Pixart PID 4F01、4F02、4F0D 和 4F0E</li>
-<li>Rolling RW101</li>
-</ul><p>其中，对华硕 ProArt P16 GX5407 的支持是针对其 ILITEK 触控控制器固件的一个特殊适配。联想、MaxLinear、MediaTek 和 PixArt 设备的固件更新支持持续扩展，颇受关注。</p><p>下载链接及 Fwupd 2.1.8 的完整更改清单可通过 <a href="https://github.com/fwupd/fwupd">GitHub</a> 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Fwupd-2.1.8-Released</guid>
-      <pubDate>Thu, 24 Sep 2026 10:23:18 GMT</pubDate>
     </item>
   </channel>
 </rss>

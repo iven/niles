@@ -3,7 +3,76 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 01 Oct 2026 16:22:07 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2026 21:48:00 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.160.0 发布：新增历史任务浏览、X11 中键粘贴等特性</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.160.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 0.160.0 版本，带来多项新功能与修复。</p>
+
+<h3>新功能</h3>
+<ul>
+<li>在 agent 命令中心支持通过键盘可访问的「Show more」操作浏览更早的历史任务。</li>
+<li>在支持的本地 Linux X11 终端上，全屏模式下支持选择转录文本并通过中键粘贴。</li>
+<li>在策略允许时，可在项目外以工作区默认设置启动会话，并在恢复时还原已保存的权限。</li>
+<li>新增可选的 Guardian 审查能力，可检索更早的用户指令并纳入 agent 交接（handoff）上下文。</li>
+</ul>
+
+<h3>Bug 修复</h3>
+<ul>
+<li>修复重连后未发送的排队消息恢复问题，避免重复发送。</li>
+<li>终端 UI 现在保留服务器 provider、reasoning-summary 和 verbosity 设置，并在恢复和 fork 历史中显示正确的会话。</li>
+<li>修复 Windows 沙箱 PowerShell 回退和长路径权限修复，并抑制后台辅助进程弹出不必要的控制台窗口。</li>
+<li>子代理现在保留仍在启动中的环境，并正确接收其配置或准备失败信息。</li>
+<li>防止连接建立和日志记录期间的 SQLite 停滞，并将初始化错误显式呈现而非掩盖为超时。</li>
+<li>显式 provider 模型目录不再包含不支持的捆绑模型，刷新失败后也不会复用过时条目。</li>
+</ul>
+
+<h3>文档与维护</h3>
+<ul>
+<li>澄清了 provider 凭据如何使用配置的存储后端，以及 <code>env_key</code> 如何标识 API 密钥环境变量。</li>
+<li>通过缓存解析后的插件清单和复用 HTTP 连接来减少重复的插件加载工作。</li>
+<li>新增后台回收未使用的日志数据库空间，以降低磁盘占用。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.160.0</guid>
+      <pubDate>Thu, 01 Oct 2026 20:19:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.287：新增 Claude Mods 插件系统、代理视图过滤等多项改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.287</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.287 版本，带来多项新功能与大量修复改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增 Claude Mods</strong>：插件现在可以修改更深层的行为。内置了 "You should know" 模组，由一个侧翼代理监视并标记你可能遗漏的事项，可通过 <code>/plugin enable cc-plugin-you-should-know@builtin</code> 启用。</li>
+<li><strong>代理视图新增 <code>n:&lt;text&gt;</code> 过滤器</strong>：可匹配会话名称和任务，折叠区域显示匹配项，按 Enter 打开第一个匹配结果。</li>
+<li><strong>MCP 服务器 URL 提示</strong>：支持 2025-11-25 协议中的 URL 提示（如登录）。若服务器更新后无法连接，需在其 MCP 配置中添加 <code>"bareElicitationCapability": true</code>。</li>
+<li><strong>自托管 runner 内置 <code>gh api</code></strong>：适用于未安装 GitHub CLI 的 macOS 和 Linux 机器上使用 Anthropic 托管 git 的会话（仅 REST）。</li>
+<li><strong>OpenTelemetry 新增 <code>prompt_text</code></strong>：添加到 <code>user_prompt</code> 事件中，为使用嵌套点键的后端提供 <code>prompt</code> 的副本。</li>
+<li><strong>Windows 启动警告</strong>：当拒绝 Bash 工具同时关闭 PowerShell 工具、导致 Claude 没有 shell 工具时显示警告。</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li>修复远程会话中 fast mode 保持关闭、Remote Control 消息延迟接收、hooks 反复唤醒 Claude 等问题。</li>
+<li>修复 Bedrock/Vertex 启动模型检查忽略 <code>availableModels</code> 列表、Fable 模型默认保存、Opus 5.5 与 Sonnet 5.5 切换重写 MCP 工具声明等问题。</li>
+<li>修复危险的 <code>rm</code> 命令（如对 <code>/</code> 或主目录）在重定向输出到 <code>~</code> 或通配符路径时丢失 always-ask 保护的问题。</li>
+<li>修复屏幕阅读器模式的多项问题，包括光标位置、Enter 键、箭头键提示、diff 行缺失等。</li>
+<li>修复 <code>claude -p</code> 和 SDK 会话模型回退重复、CLAUDE.md 重复附加、后台会话无法重新打开等问题。</li>
+<li>改进 <code>/config</code> 设置循环显示、插件市场错误提示、大 MCP 结果的内存处理、远程会话大文件流式传输等。</li>
+<li>Opus 4.7+ 和 Fable 在 Bedrock、Vertex、Foundry 及 Claude apps 网关上默认使用 1M 上下文窗口。</li>
+<li>改进 Bash 工具在 Windows 上的速度（移除每次命令前的子 shell）。</li>
+<li>[VSCode] 新增"Run in background"功能、后台 shell 和 Monitors 输出显示、多项修复与改进。</li>
+<li>[Cloud sessions] 修复 GitHub 令牌短暂拒绝时的拉取/推送失败。</li>
+<li>[Claude Tag] 修复 Slack 线程中失败警告的发布、支出限制页面频道遗漏等问题。</li>
+<li>[Code Review] 修复评论截断、跳过 PR 审查、锁定对话的失败卡片提示等。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.287</guid>
+      <pubDate>Thu, 01 Oct 2026 18:00:22 GMT</pubDate>
+    </item>
     <item>
       <title>kitty 终端模拟器发布 0.49.2 版本</title>
       <link>https://github.com/kovidgoyal/kitty/releases/tag/v0.49.2</link>
@@ -1488,79 +1557,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.29.1</guid>
       <pubDate>Wed, 09 Sep 2026 01:46:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.266：修复 LLM 网关与代理配置回归问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.266</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.266，修复了 2.1.265 版本引入的一个回归问题，该问题影响 LLM 网关（LLM-gateway）和代理（proxy）配置。</p><p>具体来说，未记录的 <code>CLAUDE_CODE_USE_GATEWAY</code> 环境变量在 2.1.265 中开始单独强制触发 Cloud 网关登录，而此前它只有在同时设置了 <code>ANTHROPIC_BASE_URL</code> 和 <code>ANTHROPIC_AUTH_TOKEN</code> 时才会生效。这导致那些将该变量与 API key、<code>apiKeyHelper</code> 或自定义认证请求头配合使用的配置，每次请求都会因「未登录 Cloud 网关」（Not signed in to the Cloud gateway）而失败。此版本已恢复该变量单独设置时被忽略的行为，无需更改任何配置。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.266</guid>
-      <pubDate>Tue, 08 Sep 2026 23:55:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.265 发布：插件目录支持、工具结果上限 1GB 及多项修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.265</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.265 版本，带来多项新功能、改进与修复。用户主要关注实际使用体验相关的改动，以下是核心内容总结。</p>
-
-<h3>新功能与核心改进</h3>
-<ul>
-<li><b>插件目录支持</b>：新增支持将 <code>--plugin-dir</code> 指向一个插件文件夹，其中每个含 manifest 的子文件夹都会被加载，运行期间新增或移除的子文件夹也会被动态识别。</li>
-<li><b>工具结果上限</b>：保存到磁盘的工具结果新增 1GB 大小上限，会话内预览会提示保存文件何时被截断。</li>
-<li><b>提示缓存修复</b>：修复了恢复前台派生子代理导致工具列表和系统提示前缀变化、以及代理队友和恢复的子代理将 SubagentStart hook 上下文和预加载技能移出提示前缀等问题，这些改动此前会破坏提示缓存复用。</li>
-<li><b>恢复流程修复</b>：修复了在工具运行期间前一个进程崩溃后的恢复——最后一次提示不再被重写，被中断的工具调用被保留并标记为中断状态。</li>
-<li><b>非交互会话工作目录</b>：修复了 <code>-p</code> 流式 JSON 输入、Agent SDK 及云会话等非交互会话在每条新用户消息时重置 shell 工作目录的问题，<code>cd</code> 现在可跨轮次持久生效。</li>
-<li><b>MCP 兼容</b>：修复了配置为 http 但仅支持旧式 HTTP+SSE 传输的 MCP 服务器始终无法连接的问题，现在会按 MCP 规范回退到 SSE。</li>
-</ul>
-
-<h3>用户体验与小改动</h3>
-<ul>
-<li>修复全屏转录在斜杠命令或 @-文件建议列表打开/关闭时跳动一行的问题。</li>
-<li>修复双键快捷键在第二键延迟超过一秒（如 tmux 内）时静默失效的问题，现改为等待 3 秒并在超时后显示提示。</li>
-<li>修复 <code>/model opusplan[1m]</code> 被误报「Model not found」的问题。</li>
-<li>修复权限提示和消息中的语法高亮代码在 Ruby <code>?</code>、Erlang <code>$</code>、Perl <code>$</code> 符号后偶尔少一个字符的问题。</li>
-<li>修复插件路径含反斜杠时绕过 macOS/Linux 符号链接包含检查、以及插件目录名为双点开头被误拒的问题。</li>
-<li>修复 VS Code 和 SDK 会话在刷新令牌时关闭会话偶尔需要重新登录的问题。</li>
-<li>修复 Remote Control 会话在回复最后一条消息前发送结束信号，导致 Claude 应用中回复提前显示完成的问题。</li>
-<li>修复后台（<code>--bg</code>）会话在空闲超时前消息恰巧到达时偶尔中途被终止的问题。</li>
-<li>修复 Claude Code 自身的 git 状态和 diff 探测运行工作树内嵌套仓库配置的 clean filter 的问题。</li>
-<li>修复工件发布接受连接器未暴露的工具名的问题，现在无声明工具时会拒绝发布，仅部分缺失时会发出警告。</li>
-<li>修复 <code>/add-dir</code> 子目录在 managed settings 仅锁定 skills 时拒绝加载子目录代理等问题。</li>
-<li>修复 fork 技能（<code>context: fork</code>）与 <code>--forward-subagent-text</code> 不将文本轮次作为流式 JSON 进度事件的问题。</li>
-<li>修复默认组件文件夹无法被 OS 检查（如符号链接循环）时被静默跳过的问题，现会在 <code>/plugin</code> 中连同错误码报告。</li>
-<li>修复 OTLP 遥测中继在拒绝少量格式错误或过大的 payload 后暂停所有转发 30 秒的问题。</li>
-<li>修复 <code>/plugin</code> 和 <code>claude plugin list</code> 不显示元数据仅存于 plugin.json 中的 marketplace 插件描述的问题。</li>
-<li>修复 <code>/model</code> 在设置文件无法写入时仍声称「已保存为默认」的问题，现会说明保存失败及原因。</li>
-<li>修复 Remote Control 的 <code>/clear</code> 等待 SessionStart hooks 和开放终端对话框的问题。</li>
-<li>修复容器重启后恢复工作流运行失败时缺少清晰错误、转而重跑所有代理的问题；恢复时缺少运行日志现会明确报错。</li>
-<li>修复 <code>claude-api</code> 技能的错误码参考（模型访问失败返回 404、不可用的 beta 头返回 400，而非 403）。</li>
-<li>修复远程会话等待连接器批准或登录链接时保持沙箱容器存活的问题。</li>
-<li>修复恢复会话在「后台任务未完成」通知中显示冗长恢复指令而非短状态行的问题。</li>
-<li>Windows：修复在 AppContainer 或受限令牌沙箱内运行时隔空 Read、Write、Edit 拒绝所有文件的问题。</li>
-<li>图片处理改用运行时内建图片支持，不再向临时目录解压原生图片模块。</li>
-<li>改进 oversize 图片无法解码时的错误提示，现会说明原因和修复方法。</li>
-<li>改进 Artifact 工具读取他人写的工件时的摘要，将页面视为不可信内容并标记嵌入指令。</li>
-<li>改进大仓库的 <code>--worktree</code> 启动，新 worktree 现并行检出（需 git 2.32+）。</li>
-<li>改进 <code>/workflows</code> 代理详情：工具调用标记为运行/失败/完成，显示子代理任务列表，Enter 展开调用输入与结果。</li>
-<li>改进提示中途输入斜杠命令的匹配显示：以列表呈现而非单个建议，插件技能可按裸名称找到。</li>
-<li>改进需要登录的远程 MCP 服务器：实际认证前不再注册 OAuth 客户端。</li>
-<li>改进恢复读取大量文件的长会话的耗时。</li>
-<li>更新 <code>.claude</code> 文件夹权限选项说明，明确其实际允许编辑项目或 <code>~/.claude</code> 文件夹中的会话文件。</li>
-<li>managed settings 设 <code>forceLoginGatewayUrl</code> 的机器现在从启动起即为 Claude apps gateway 会话，不再使用遗留的 claude.ai 登录或 API key。</li>
-<li>插件展示元数据在 Installed 标签页和 <code>claude plugin details</code> 中优先使用 marketplace 条目。</li>
-<li>Claude apps gateway 会话现直接通过 managed settings 指定的 <code>OTEL_EXPORTER_OTLP_ENDPOINT</code> 导出 OpenTelemetry，而非经中继。</li>
-</ul>
-
-<h3>VS Code 扩展</h3>
-<ul>
-<li>新增自动归档指定时长（默认 14 天）无活动会话的设置。</li>
-<li>修复会话打开超过 10 分钟后 Reload Window 或重启导致侧边栏聊天变空白的问题。</li>
-<li>修复「Remote Control is active」消息上的时间轴圆点位置偏下的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.265</guid>
-      <pubDate>Tue, 08 Sep 2026 20:37:31 GMT</pubDate>
     </item>
   </channel>
 </rss>
