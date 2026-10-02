@@ -3,7 +3,33 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 01 Oct 2026 21:49:59 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2026 01:39:55 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Pi Durable：Earendil 发布面向长期运行、持久化智能体的实验性框架</title>
+      <link>https://news.ycombinator.com/item?id=49925969</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍面向长期运行、持久化智能体的新框架，属于AI智能体与编程工具发布分享，符合很感兴趣类别，值得关注</small></p><p>Earendil 工程团队在发布 Pi 1.0 的同时，推出了一个名为 <strong>Pi Durable</strong> 的实验性新包。这是一个专门为长期运行、持久化（durable）且可塑（malleable）的智能体（agent）设计的框架，旨在让智能体可以在任何地方运行。</p>
+
+<h3>核心概念：什么是 Harness？</h3>
+<p>Pi Durable 的核心是一个「harness」——即存储加上运行一个或多个与大型语言模型并行对话所需的机制。它提供模型调用的工具以及工具运行的执行环境。对话是用户与智能体之间的交互，记录为转录文本（transcript）。整个源代码（不含测试）约 15,000 行，约合 GPT 的 150,000 个 token 或 Claude 的 250,000 个 token。</p>
+
+<h3>主要特性</h3>
+<ul>
+<li><strong>随处长期运行</strong>：harness 基于存储后端（storage backend）打开，支持内存、SQLite 和 JSONL 存储，并提供一致性测试套件和基准测试。SQLite 和 JSONL 存储代码不使用 Node API，可通过小型适配器在 Bun 或 Cloudflare Durable Object 上运行。执行环境接口同样小巧，可让 harness 在一台机器上运行而工具在另一台机器上执行。</li>
+<li><strong>崩溃恢复</strong>：运行的每一步都是一个任务（task），在继续之前存储检查点。进程死亡后，新进程打开同一存储，找到未完成的任务并从最后检查点继续。模型请求被截断会重新发送；工具调用若安全则重新执行，否则告知模型已被中断。requestId 确保提交恰好执行一次（exactly-once）。</li>
+<li><strong>多对话并发</strong>：一个 harness 可同时运行任意数量的对话，互不阻塞。对话可以从头开始，也可以在转录文本的任意点分叉（fork）另一个对话，无需复制父级历史。这类似于 Slack 频道中智能体回答提及，然后有人开启线程的场景。</li>
+<li><strong>可插拔扩展</strong>：扩展（extension）是系统提示词片段、工具、钩子（hooks）和任务的命名捆绑包。每个对话选择使用哪些扩展和工具，仅存储其名称。系统提示词在每次请求前重建，支持工具替换和包装（wrap）装饰。工具调用作为独立的持久化任务运行，意图在执行前存储。</li>
+</ul>
+
+<h3>社区反馈</h3>
+<p>该发布在 Hacker News 上获得了积极反响（205 分，23 条评论）。社区成员指出，Pi Durable 与 LangChain Deep Agents、Vercel Eve、OpenAI Agents API、Anthropic Managed Agents 等产品处于同一创新领域。多位开发者表示已开始将其用于实际项目，包括构建 Slack 支持频道 harness、远程控制工具等。也有用户建议增加策略引擎集成（如 NVIDIA OpenShell）以及更完善的 outbox 模式支持。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>Durable Agent（持久化智能体）</strong> 是指能够在进程崩溃、重启或部署迁移后保持状态并从中断处继续运行的 AI 智能体。与传统的一次性 API 调用不同，这类智能体将对话状态、任务进度持久化到存储中，使得长时间无人值守运行、故障恢复和多用户协作成为可能。这一领域正成为各大 AI 公司（OpenAI、Anthropic、Vercel 等）竞相布局的方向。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49925969</guid>
+      <pubDate>Thu, 01 Oct 2026 19:24:08 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Pi 1.0 正式发布：极简可扩展的 Agent 工作框架，并推出试验性的 Pi Durable</title>
       <link>https://news.ycombinator.com/item?id=49926069</link>
@@ -1204,43 +1230,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49844736</guid>
       <pubDate>Fri, 25 Sep 2026 13:55:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>
-        <![CDATA[Ink & Switch 推出十周年互动主页「Tenfold」，庆祝研究实验室成立十年]]>
-      </title>
-      <link>https://news.ycombinator.com/item?id=49842270</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为研究实验室十周年纪念与工具未来探索，偏向机构纪念性质，兴趣不明确，可作选读</small></p><p>独立研究实验室 <a href="https://www.inkandswitch.com/">Ink & Switch</a> 今年迎来成立十周年，为此推出了一款名为「Tenfold」（十字母、十年）的互动艺术主页。主页上「点击/拖拽任意位置」即可与页面互动，每个字母都经过精心设计并归功于实验室成员，有些字母还内置了小游戏（例如字母"0"中的弹幕射击游戏）。该互动系统基于实验室自身的研究技术构建，并发布了<a href="https://tenfold.inkandswitch.com/">可编辑版本</a>（同时也是 Patchwork 项目）。项目还推出了相关的 T 恤、海报等周边产品。</p>
-
-<h3>实验室研究方向</h3>
-<p>实验室聚焦四大研究主题：</p>
-<ul>
-<li><b>本地优先软件（Local-first Software）</b>：探索将数据归还用户并支持协作的软件架构。</li>
-<li><b>可塑软件（Malleable Software）</b>：设计可按需即时自定义工具的环境。</li>
-<li><b>可编程墨迹（Programmable Ink）</b>：探索像在纸上画墨迹一样自然地添加行为与交互的动态素描媒介。</li>
-<li><b>通用版本控制（Universal Version Control）</b>：构建帮助人们探索替代方案、追踪历史并更好地跨媒介协作的工具。</li>
-</ul>
-
-<h3>精选成果</h3>
-<p>主页展示了多项热门研究与文章，包括：</p>
-<ul>
-<li><b>Malleable Software</b>（2025 年论文）：关于在锁定应用中恢复用户自主权。</li>
-<li><b>Ambsheets</b>：探索可能性空间与决策的新型电子表格。</li>
-<li><b>Keyhive</b>：具备能力委托与端到端加密的本地优先访问控制系统。</li>
-<li><b>Patchwork</b>：面向创造性工作的动态环境研究项目。</li>
-<li><b>Livelymerge</b>：多用户共享整个对象内存的协作编程内核。</li>
-<li><b>Embark</b>（2023 年论文）：动态文档如何逐步丰富非正式旅行规划。</li>
-<li><b>Inkbase</b>（2022 年论文）：手绘草图如同电子表格般可编程的可能性。</li>
-<li><b>Local-first software</b>（2019 年经典论文）：关于数据所有权本地优先的协作软件。</li>
-</ul>
-<p>实验室已有多项成果成长为成熟工具，例如数字工作区 <b>Allume</b>（原名 Muse）以及基于无冲突复制数据类型（CRDT）的协作库 <b>Automerge</b>。研究由个人、企业赞助商及全球机构资助支持，成员也常在行业与学术会议上演讲（如 Local-First Conf、GodotCon 等）。</p>
-
-<h3>社区反馈</h3>
-<p>评论区反响总体积极，但用户体验存在分歧。有用户称赞主页「可玩」很符合实验室品牌风格，并感慨「每次看到 Ink & Switch 的东西都让人想重建点什么」；也有人指出互动方式不一致——「点击、拖拽、甚至什么都不做，效果各不相同」，从最初的惊喜快速转为恼火。实验室成员 spiralganglion 回应称，这是刻意在可玩性与作者意图间寻求平衡的结果，但承认确实存在不一致、且因时间不足未充分打磨。另一部分用户则认为这种「非预期交互的发现感」恰恰是其魅力所在，让人想起用 Processing 创作的艺术小品。有用户还补充了本地优先技术及 Allume 订阅制（本地软件为何收费）等讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49842270</guid>
-      <pubDate>Fri, 25 Sep 2026 09:50:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
