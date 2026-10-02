@@ -3,7 +3,63 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 02 Oct 2026 15:44:47 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2026 20:41:03 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.288 发布：新增 mods 选择获取、Ctrl+F 会话搜索、代码审查数量控制等多项改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.288</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.288 版本，包含多项新功能与大量修复。</p>
+
+<h3>新功能与改进</h3>
+<ul>
+<li><strong>mods 新增 <code>$.ui.selection()</code></strong>：可返回全屏模式下最后选中的文本，若选区位于某条 transcript 行内，还可返回该行。</li>
+<li><strong>内置 <code>gh api</code></strong>：为未安装 GitHub CLI 的云会话提供内置支持，并修复了文件名、jq 过滤器或 GitHub 错误中的控制字符被发送到终端的问题。</li>
+<li><strong>Ctrl+C 清除提示恢复</strong>：在空提示上按 Up 键可恢复被清除的草稿，包括粘贴的文本和图片。</li>
+<li><strong>MCP 服务器 OAuth 重新认证提示</strong>：当 MCP 服务器在工具调用期间请求更多 OAuth 权限时，会提示重新认证。</li>
+<li><strong><code>/code-review</code> 新增 <code>--max-findings</code></strong>：可控制报告更多或更少的发现数量，选择会保留直到传入 <code>--max-findings default</code>。</li>
+<li><strong>agents 视图新增 Ctrl+F 和 Alt+↑/↓</strong>：Ctrl+F 按名称查找会话，Alt+↑/↓ 在分组间跳转，均可在 keybindings.json 中重新绑定。</li>
+<li><strong>屏幕阅读器模式改进</strong>：批准计划时播报新的权限模式；短通知（如删除单词）会保留到下次按键；问题对话框中的已答问题会标注"answered"。</li>
+<li><strong>自动模式改进</strong>：当对话过长超出客户端安全分类器审查能力时，现在会压缩而非提示或失败每次工具调用。</li>
+<li><strong>后台命令时间限制调整</strong>：仅适用于无人值守会话（<code>-p</code>、Agent SDK、CI、云），终端、桌面应用和 VS Code 会话无限制。</li>
+<li><strong><code>claude project purge</code> 更名为 <code>claude purge</code></strong>：旧名称仍可用并会打印提示。</li>
+<li><strong><code>/autocompact</code> 按模型保存设置</strong>：每个模型保留自己的自动压缩窗口。</li>
+</ul>
+
+<h3>重要修复</h3>
+<ul>
+<li>修复响应中途 API 超时导致回合失败的问题：非交互会话和子代理现在从部分响应继续，仅思考的响应会重试。</li>
+<li>修复长对话因"Prompt is too long"失败而非自动压缩的问题（当最后回复报告零 token 用量时）。</li>
+<li>修复 <code>--resume</code> 有时丢失文件和其他上下文的问题。</li>
+<li>修复恢复 2.1.286 或更早版本开始的对话时丢失模型早期思考的问题。</li>
+<li>修复会话标题、记忆召回和提示钩子在 Mantle 或拒绝结构化输出的网关后失败的问题；新增 <code>CLAUDE_CODE_DISABLE_STRUCTURED_OUTPUTS</code> 环境变量可关闭结构化输出。</li>
+<li>修复自动模式拒绝时错误指向 Bash 权限规则的问题（当被阻止的工具不是 Bash 时）。</li>
+<li>修复插件 LSP 服务器收到字面 <code>${user_config.*}</code> 和 <code>${CLAUDE_PLUGIN_ROOT}</code> 占位符而非替换值的问题。</li>
+<li>修复 <code>git-subdir</code> 插件在旧版 git（2.39 之前，如 Ubuntu 22.04 的 2.34）上安装失败或缓存不完整插件的问题。</li>
+<li>修复 <code>bash -c</code> 或 <code>sh -c</code> 脚本中危险 <code>rm</code>（如删除 <code>/</code> 或主目录）在 bypassPermissions 模式或 shell 允许规则下无提示执行的问题。</li>
+<li>修复 LSP 工具调用在语言服务器使用动态能力注册或停止响应时无限挂起的问题；请求现在 60 秒超时（可按服务器设置 <code>requestTimeout</code>）。</li>
+<li>修复 <code>idle_prompt</code> 通知钩子在后台代理仍在运行时触发的问题。</li>
+<li>修复 Windows 上 Claude Code 重启自身后键盘不工作的问题。</li>
+<li>修复 Claude 3 Opus 和 Claude 3 Sonnet 会话在整份 PDF 进入对话后每回合失败的问题。</li>
+<li>修复 npm 自动更新器在平台原生二进制下载失败时仍报告成功的问题。</li>
+<li>修复 <code>claude plugin install</code> 在没有 GitHub SSH 密钥的 macOS 和 Linux 机器上安装 GitHub 源插件失败的问题（现在回退到 HTTPS）。</li>
+<li>修复 <code>/login</code> 在凭据无法保存到安全存储时仍报告"Login successful"的问题。</li>
+<li>修复 MCP 工具调用在远程服务器结果超过 16 MB 或无法解析时有时执行两次的问题。</li>
+<li>修复 <code>claude mcp serve</code> 中 Agent 工具总是报告无可用代理并拒绝所有 subagent_type 的问题。</li>
+</ul>
+
+<h3>VS Code 与云会话</h3>
+<ul>
+<li>[VSCode] 修复 claude.ai 连接器授权后仍显示"Needs authentication"的问题，MCP 服务器对话框现提供 Check connection。</li>
+<li>[VSCode] 修复 New Conversation 快捷键（Cmd/Ctrl+N）在每个可见 Claude 视图中都启动对话的问题。</li>
+<li>[VSCode] 修复聊天视图归档当前会话后恢复下一个已保存会话的问题，现在改为开始新对话。</li>
+<li>[Cloud sessions] 修复管理设置中 Cloud sessions 开关因无关安全设置加载失败而保持锁定关闭的问题。</li>
+<li>[Cloud sessions] 修复自托管运行器仍在启动时按 Stop 无法取消排队消息的问题。</li>
+<li>[Claude Tag] 修复自动创建设置的信道中"Remove this scope"选项总是失败的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.288</guid>
+      <pubDate>Fri, 02 Oct 2026 20:19:57 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.160.0 发布：新增历史任务浏览、X11 中键粘贴等特性</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.160.0</link>
@@ -1522,41 +1578,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.267</guid>
       <pubDate>Wed, 09 Sep 2026 19:58:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.29.1 发布：新增 Codex/Cursor 中途转向、DeepSeek Harness 集成及多项 Web UI 改进</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.29.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布 v0.29.1 版本，带来多项新功能、模型支持与大量 Web 界面改进，涉及 Codex、Cursor、Claude、Pi、opencode 等多个编码代理后端。</p>
-
-<h3>重要新功能</h3>
-<ul>
-<li><strong>中途转向（Steer）</strong>：为 Codex（通过 app-server turn/steer）和 Cursor（通过并发 ACP session/prompt）新增任务中途转向能力。</li>
-<li><strong>DeepSeek Harness（dsh）集成</strong>：通过 ACP 协议接入 DeepSeek Harness。</li>
-<li><strong>远程会话增强</strong>：Codex 支持用户配置的 MCP 服务器、后端授权的 Luna Reserve 回退，并保留远程会话中的上下文配置。</li>
-<li><strong>模型支持</strong>：Pi 会话支持模型准确的思考层级、并可通过内置 hapi_change_title 扩展自动命名；agy 模型列表显示 Gemini 3.7 Flash；opencode 暴露模型专属的推理努力选项。</li>
-<li><strong>权限模式</strong>：创建会话时可由 Claude 选择权限模式（适配 Web/iOS/Android）。</li>
-</ul>
-
-<h3>Web 界面改进</h3>
-<ul>
-<li>新增标记未读会话、批量全部已读、滚动到底部按钮等操作。</li>
-<li>合成器附件支持拖拽重新排序，设置面板锚定到所点击的值按钮。</li>
-<li>新增可选的 PWA 任务栏未读徽标、文件来源预览的自动换行，并支持大对话导出仅警告。</li>
-<li>多处 UI 细节修复：统一消息操作按钮样式、保留侧边栏视图与聊天窗口、记忆文件浏览器标签偏好、居中会话提示文本等。</li>
-</ul>
-
-<h3>其他修复与优化</h3>
-<ul>
-<li>各处 bug 修复：Codex 断开时忽略迟到的 app-server 写入、歧义 Web Rewind 边界时关闭失败；CLI 保留生成媒体下载的源扩展名；Claude 接受首个 fork 子提示；Hub 为分叉会话生成摘要并保留歧义取消状态等。</li>
-<li>性能优化：Hub 心跳重放不再扫描会话历史。</li>
-<li>文档补充：macOS launchd runner 文件限制、远程会话执行主机休眠说明等。</li>
-</ul>
-
-<p>完整变更记录见 <a href="https://github.com/tiann/hapi/compare/v0.28.0...v0.29.1">v0.28.0...v0.29.1</a>。本版本还迎来了 ZJUFangzh、hu9029、welfvh、HongChenGG、matyasrathonyi 五位新贡献者。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.29.1</guid>
-      <pubDate>Wed, 09 Sep 2026 01:46:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
