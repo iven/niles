@@ -3,7 +3,65 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 02 Oct 2026 01:39:55 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2026 08:26:11 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ SvelteKit 3 正式发布：更完善的类型安全与更简洁的配置</title>
+      <link>https://news.ycombinator.com/item?id=49926536</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] SvelteKit 3 正式发布属于编程工具发布，用户对编程工具发布/分享很感兴趣，且是主流开源框架的重大版本更新。</small></p><p>Svelte 官方应用框架 <strong>SvelteKit 3.0</strong> 正式发布。官方表示，对于使用过早期版本的用户来说，新版本"一切都会非常熟悉"——它是同一框架的打磨升级版，拥有更强的类型安全性和更简洁的代码。</p>
+
+<h3>主要变化</h3>
+<ul>
+  <li>配置从 <code>svelte.config.js</code> 迁移至 <code>vite.config.ts</code></li>
+  <li><code>$lib</code> 别名改为 <code>#lib</code>，采用标准子路径导入</li>
+  <li>环境变量更强大且更易使用</li>
+  <li>Service Worker 样板代码更少</li>
+  <li>错误处理全面改进</li>
+</ul>
+
+<p>迁移可通过 <code>npx sv migrate sveltekit-3</code> 命令自动完成，新项目则使用 <code>npx sv create</code> 创建。官方还预告了"远程函数"（Remote Functions）——一套用于安全、高效、类型安全的客户端-服务器通信工具，目前仍需实验性标志，是团队的优先开发事项。</p>
+
+<p>此外，下一届 Svelte Summit 将于 11 月 19-20 日在斯洛文尼亚卢布尔雅那举行，届时将庆祝 Svelte 诞生 10 周年。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上该帖获得 250 分和 86 条评论，整体反响积极。多位开发者称赞 SvelteKit 的开发体验（DX），认为它"更接近原生 HTML"，"拥有所有 JS 框架中最好的开发体验"。有用户提到使用 SvelteKit 构建桌面应用（配合 Wails 和 Go 后端），二进制体积不到 20MB，远小于 Electron。</p>
+
+<p>也有用户提出不同看法：有人指出 Svelte 生态的第三方库较少，且需要专属工具链（如 Storybook、ESLint 等支持不完善）；还有人认为在大型项目中 Svelte 的工具链可靠性不如 JSX 系框架。关于与 Vue/Nuxt 的对比，有开发者认为 Svelte 的 SSR 体验优于 Nuxt，但 Vue 本身在某些方面更成熟。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49926536</guid>
+      <pubDate>Thu, 01 Oct 2026 20:14:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Git 3.0 将默认使用 SHA-256：作者称这是一场代价高昂且可避免的全球性灾难</title>
+      <link>https://news.ycombinator.com/item?id=49924179</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及 Git 3.0 新特性（SHA-256 默认哈希），属于编程工具/效率改进领域，用户感兴趣，但文章侧重争议观点而非发布公告，故为推荐。</small></p><p>GitButler 创始人 Scott Chacon 发表文章，批评 Git 3.0 计划将 SHA-256 设为默认内容哈希算法。他认为这一决定将造成"难以理解的昂贵、最终毫无价值且可以避免的全球性噩梦"。</p>
+
+<p>文章指出，SHA-256 迁移存在严重的向后兼容问题：现有仓库中所有引用提交哈希的地方（提交信息、文档、邮件、GitHub 链接、Slack 消息等）都将失效。此外，子模块兼容性和大量依赖 Git 的工具链也需要全面跟进，而目前几乎没有迹象表明这些工具正在迁移。</p>
+
+<p>在 Hacker News 的讨论中（343 分，329 条评论），社区观点分歧明显：</p>
+
+<ul>
+<li><strong>支持迁移者</strong>认为这是必要的安全升级，SHA-1 已被证明存在碰撞攻击风险，拖延只会让问题更严重，类似"Y2K 恐慌"的论调被批评为夸大其词。</li>
+<li><strong>反对者</strong>则担忧迁移成本巨大。多位用户指出，Yocto、Nix 等构建系统大量通过哈希引用提交，重写历史将造成严重破坏。有用户将 SHA-256 迁移比作"另一个 IPv6"——实现方式不向后兼容、收益模糊、工具链跟进缓慢。</li>
+<li>有用户提出混合哈希方案（SHA-256 对象引用 SHA-1 对象），但 Chacon 回应称 Git 维护者 Emily 的演讲已总结了混合哈希的诸多问题。</li>
+<li>也有用户批评 Chacon 在 Git 团队多年讨论后临近发布才提出反对，属于"事后诸葛亮"（Monday morning quarterbacking）。Chacon 回应称自己多年来一直对此持保留意见，只是现在到了最后关头，想确认自己是否孤身一人。</li>
+</ul>
+
+<p>Chacon 在讨论中强调"默认值很重要"——将 SHA-256 设为默认值会让大量用户无意间创建与其他仓库、工具、库和服务器实例不兼容的仓库，造成不必要的痛苦。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49924179</guid>
+      <pubDate>Thu, 01 Oct 2026 16:57:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cloudflare 推出 K2：基于 R2 对象存储的无服务器事件流服务</title>
+      <link>https://news.ycombinator.com/item?id=49921923</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Cloudflare 推出 K2 无服务器事件流服务属于云基础设施类产品发布，用户对基础设施不太感兴趣，但兼具软件新功能成分，兴趣不明确，故可选。</small></p><p>Cloudflare 在公开测试版中发布了 K2，这是一款构建在 R2 对象存储之上的无服务器事件流服务，旨在解决传统远程过程调用（RPC）架构中生产者和消费者在规模与时间上必须对齐的核心挑战。K2 通过在边缘层解耦生产者和消费者，实现持久、有序的日志流，无需传统 broker 集群的运维负担。</p><p>K2 最初是为 Cloudflare 的 Basin Pipelines 流处理产品构建的持久化缓冲层。由于 Cloudflare 边缘网络横跨 335 多个城市的大量服务器，无法运行 Apache Kafka 等传统分布式系统软件，团队选择将复制和共识机制下放到 R2 对象存储层，使应用层大幅简化。K2 通过在内存中累积写入，然后以段文件形式写入 R2，并利用 R2 的原子操作实现排序和严格递增的偏移量。其代价是较高的生产延迟（99 分位约 1 秒）。</p><p>K2 与 Cloudflare 现有的 Queues 和 Basin Pipelines 有明确区分：Queues 适合需要逐项跟踪、重试和延迟处理的独立工作单元；K2 则面向大规模数据移动、长期保留和扇出消费，消息以批次方式生产和消费。Basin Pipelines 适合将事件写入对象存储或 Iceberg 表，而 K2 适合自定义处理或写入其他目标。</p><p>使用 K2 需要先创建流（stream），可通过 <code>cf</code> CLI、Wrangler、仪表板或 API 完成。生产者可通过 HTTP API 或 Worker 绑定发送事件（数据以字节表示，格式自由）。消费者通过创建订阅（subscription）来读取数据，支持两种模式：多个消费者分摊读取（每个消费者获得部分数据），或每个消费者独立订阅（pub/sub 模式，每个消费者看到全部消息）。消费时客户端获得 5 分钟的批次租约，可执行 ack（确认处理完成）、nack（失败需重新投递）或延长租约。</p><p>K2 目前以公开测试版提供，适用于 Workers Paid 订阅用户，限制为每流最多 10GB 存储和 30 MB/s 生产速率，测试期间不收费。预计定价为：数据生产 $0.04/GB、数据消费 $0.04/GB、数据保留 $0.02/GB/月。未来路线图包括更高的写入并行度（多 GB/s）、消息键和基于键的排序保证、推送式 Worker 消费者、更低延迟的 Express 层级，以及 Apache Kafka 客户端的即插即用支持。</p><p>在 Hacker News 的讨论中，K2 技术负责人回应了多个问题：与 Google Pub/Sub 相比，K2 的主要优势在于成本，尤其是长期保留场景下对象存储的极低存储成本；与自托管或云托管 Kafka 相比更便宜且完全无服务器。社区评论也指出，K2 与 Queues 的区别可概括为「Queues 用于动作（做这件事），K2 用于事件（这件事发生了）」。有用户提到对象存储正成为新的核心数据基座，并期待 S3 API 的进一步扩展以支持更多此类用例。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49921923</guid>
+      <pubDate>Thu, 01 Oct 2026 14:09:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Pi Durable：Earendil 发布面向长期运行、持久化智能体的实验性框架</title>
       <link>https://news.ycombinator.com/item?id=49925969</link>
@@ -1155,81 +1213,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49845172</guid>
       <pubDate>Fri, 25 Sep 2026 14:28:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Plan 模式已死：一位开发者从失败产品中得出的反思</title>
-      <link>https://news.ycombinator.com/item?id=49840054</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论使用AI构建软件的规划模式反思，属于AI软件技术进展，与编程效率改进经验相关，用户会对这类内容感兴趣。</small></p><p>软件工程师 Ayman Nadeem 撰写长文，反思自己开发桌面编程应用 Nuanced 的失败经历，并得出一个大胆结论：随着 AI 模型能力增强，「Plan 模式」（规划模式）已不再有用。</p><p>年初，作者坚信「规划」将成为用 AI 构建软件时最重要的环节，为此专门打造了以规划为核心的桌面编程应用 Nuanced。核心思路是让用户在聊天中梳理意图、系统主动暴露歧义和待决策点，最终生成一份持续演进的「规范文档」（spec），再由代理据此实现代码。他试图回答一个当下仍具价值的问题：当机器修改系统的速度快到人无法逐一检查时，人类怎样才能维持对软件系统的连贯心智模型。</p><p>但产品最终失败。作者总结了四点失败原因：<b>（1）把「规划」与「计划」混为一谈</b>——思考的过程有价值，但把思考固化成大型结构化文档，用户几乎没有阅读兴趣；<b>（2）模型变得太好</b>——模型已能自主探查代码库并做出合理假设，显式下达精确指令的需求急剧萎缩，模型能力本身正在与「更好的人类思考界面」竞争；<b>（3）AI 生成的文本难读</b>——规范文档信息更多却并未增加清晰度，带有强结构性的 AI 文本让人阅读时目光涣散；<b>（4）把规划与构建强行割裂</b>——真实的思考是迭代、交互式的，而 Nuanced 的工作流过于线性（聊天→澄清→生成规范→审批→实现→审查），强迫用户「提前完成思考」，一旦进入实现阶段便无从回头。</p><p>作者指出，过去代码代理受益于「规划→审批→执行」的工作流，但如今模型能自主理解系统、自行验证并动态调整，新的循环变为「理解→行动→检查→澄清→调整→再行动」，其中仍包含大量规划，只是不再需要以名为「计划」的文档形式呈现。他自认最大的错误是「把计划变成了一件制品，而不是设计一个提升人类理解力的流程」。界面分离「Plan 模式」与「Build 模式」也带来额外认知负担，作者笑称这让他想起「midwit 中智」梗——其实简单的聊天界面、按需规划反而更好。</p><p>作者最后强调，「理解问题」尚未解决：思考要构建什么、为什么重要、评估决策仍至关重要，但大段 AI 生成文本并非合适的界面。当代理从五个增加到数百个时，如何让人类保持对系统的理解、如何只把少数几处「人力介入效益最大」的位置呈现给用户，仍是悬而未决的问题。理解复杂系统的深层需求是永恒的，改变的只是界面本身。</p><p>这篇文章在 Hacker News 引发热烈讨论（240 分、214 条评论）。多位开发者持反对意见。用户 dbbk 表示每天都在用 Claude 的 Plan 模式且效果很好，认为需要「先规划后写代码」的清晰分离，并讽刺「灭 Plan 模式」的风潮——程序员一边抱怨 AI 抢饭碗，一边又想要取消让自己积极参与流程的主要功能。spacedcowboy 也强烈捍卫大型项目中的详细规划与持续维护的 <code>TODO.md</code>。Claude Code 团队成员 bcherny 则公开回应：<b>「Plan 模式在 Claude Code 中从来都只是一个提示词（prompt），从未改变工具集」</b>，他赞同作者观点——它曾有用，如今已不再有用，因为在较新模型中「模型自己就搞懂了」，规划已变得交互化、迭代化；不过 Plan 模式不会消失，仍可通过 <code>/plan</code> 调用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49840054</guid>
-      <pubDate>Fri, 25 Sep 2026 03:59:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ollaya：在本地运行开源 Jev 式决策模型的开源工具</title>
-      <link>https://news.ycombinator.com/item?id=49848269</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 本地运行开源决策模型的编程工具，属编程工具分享及开源项目，符合兴趣</small></p><p>Ollaya 是一个开源工具，让用户可以在自己的机器上本地下载和运行 Jev 式的决策模型（decision models）。它被定位为「决策模型领域的 Ollama」，提供与 TypeSafe 的 Jev 兼容的 API，支持在 CPU 或 NVIDIA GPU 上运行，延迟低至毫秒级。</p>
-
-<h3>核心特性</h3>
-<ul>
-<li><strong>极速响应</strong>：决策模型通过单次前向传播（single forward pass）给出答案，无需逐 token 生成。在 RTX 4090 上，五问题的请求端到端延迟约 8–10ms。</li>
-<li><strong>API 兼容</strong>：Ollaya 提供与 TypeSafe 的 <code>/v1/systemone</code> 和 <code>/v1/models</code> 端点兼容的接口，官方 TypeSafe Python SDK 0.7.1 可直接使用，无需修改代码。</li>
-<li><strong>隐私优先</strong>：默认监听 127.0.0.1，数据在本地处理；权重来自作者 Hugging Face 仓库，固定提交并校验 sha256，运行时采用 Apache-2.0 许可。</li>
-<li><strong>无按 token 计费</strong>：本地运行，无计量、无 API 账单。</li>
-<li><strong>校准概率</strong>：每个模型自带校准，可通过 Modelfile 在自有标注数据上重新拟合。</li>
-</ul>
-
-<h3>支持的模型</h3>
-<p>Ollaya 提供多种开源决策模型，包括：<strong>laya</strong>（最快，支持 100+ 语言）、<strong>decider</strong>（基于 Qwen3.5，最准确）、<strong>nli</strong>（零样本分类器）、<strong>gliclass</strong>（指令跟随零样本分类器）、<strong>qwen3guard</strong>（安全审查）、<strong>kev</strong> 和 <strong>von</strong>（支持 8k token 上下文）等。</p>
-
-<h3>平台支持</h3>
-<p>提供 macOS（Apple Silicon）、Windows（x64）、Linux（x86-64 和 ARM64）的桌面应用和命令行工具，以及 Docker 镜像。NVIDIA GPU 需要驱动 R580 或更新版本。</p>
-
-<h3>社区反馈</h3>
-<p>HN 讨论中，开发者 <strong>cobanov</strong>（Ollaya 作者）回应了多个问题：</p>
-<ul>
-<li>关于决策质量：承认当前支持的小模型在复杂查询上明显弱于 Jev，但适合简单、定义明确的问题；正在添加更接近 Jev 的更大开源模型。</li>
-<li>关于与 Ollama 的关系：表示如果 Ollama 未来支持决策模型，自己会很高兴，且 Ollaya 使用与 Jev 相同的 API，代码不会绑定在特定工具上。</li>
-<li>有用户指出示例本质上是文本分类而非决策，作者承认并计划修改示例。</li>
-<li>部分用户认为 Jev 泛化能力更强（因其训练语料庞大），但也有用户指出在 LLM 时代生成数据微调 laya 很容易且便宜，质疑付费使用 Jev 的必要性。</li>
-<li>有评论提到 vLLM 即将支持此类模型，GoModel 网关也已支持 Jev 端点。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49848269</guid>
-      <pubDate>Fri, 25 Sep 2026 18:33:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>第一性原理思维：在智能体时代重新审视问题</title>
-      <link>https://news.ycombinator.com/item?id=49844736</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为第一性原理思维与智能体时代思考方法论，兴趣指向不够明确，可作选读</small></p><p>这篇文章探讨了第一性原理思维（First Principles Thinking）在软件工程中的价值，特别是在向智能体（agent）驱动的开发模式转型的背景下。作者从 Sunil Pai 的《高级工程师死亡螺旋》一文出发，反思了经验丰富的高级工程师为何容易陷入思维僵局。</p>
-
-<img src="/static/first-principles-thinking.svg" alt="Hand-drawn diagram connecting asking why, putting experience in a box, first principles, and small learning loops that build momentum." width="1600" height="900" />
-
-<p><strong>核心观点</strong></p>
-<p>作者认为，优秀的高级工程师往往具备从第一性原理思考的习惯：他们会追问"我们为什么要构建这个东西"以及"它能为使用者带来什么"，能够将代码库中的变化与外部世界联系起来。这种理解帮助他们保持简单，也是建立 Pai 所描述的"动量"（momentum）的另一种方式——先做最简单可行的事，往往就够了。</p>
-
-<p><strong>智能体时代的转型</strong></p>
-<p>作者指出，在向智能体驱动开发转型的过程中，那些适应良好的人通常已经具备这种思维方式。这是作者经历的第一次重大"模拟切换"（simulation switch-up），需要坦然接受自己有很多不知道的东西。与智能体协作的工程师愿意暂时把已知的东西"放进盒子里"，在假设旧约束仍然适用之前先尝试新方法。</p>
-
-<p><strong>"放进盒子"的实践</strong></p>
-<p>这是作者认为最难的部分：把经验、所学和当前相信为真的事情暂时搁置，重新审视眼前的问题。当退一步问"我们到底想做什么、为什么重要、各部分如何连接"时，往往会发现比预期更多的前进方向。作者认为，用新鲜的眼光看待 AI 的可能性，有很多值得欣赏和重新思考的地方。从第一性原理出发意味着从"我们要做什么"开始，再问 AI 能如何帮助，而不是先被技术兴奋冲昏头脑。</p>
-
-<p><strong>社区讨论</strong></p>
-<p>HN 评论区围绕几个话题展开了激烈讨论：</p>
-<ul>
-<li><strong>第一性原理的实践难度</strong>：多位用户指出，真正践行第一性原理思维需要与真实问题搏斗，而非仅仅口头谈论。有评论认为学术界和公众常常将其与记忆或权威背书混为一谈。</li>
-<li><strong>智能体与架构决策</strong>：有用户（trwhite）表示难以让智能体参与架构决策，担心它会接管所有思考，导致工程师失去独立推理能力。另一用户（ripvanwinkle）分享使用 Codex 的经验，发现需要自己投入大量高层设计工作，智能体更多是审查和头脑风暴的角色，而非独立设计者。</li>
-<li><strong>第一性原理的局限</strong>：用户 bob1029 认为高阶思维（higher order thinking）更重要也更稀缺，激进的第一性原理方法可能导致意识形态死胡同——选择错误的原则可能陷入局部最优。用户 ModernMech 用"登月"的比喻说明：如果原则选错（如贪心地最小化距离），可能永远无法到达目标。</li>
-<li><strong>简单 vs. 雄心</strong>：有评论（flowerlad）批评"设计更雄心勃勃的东西"的倾向，认为最好的工程师追求最简单的设计，并引用了关于"没有人因简单而晋升"的讨论。</li>
-</ul>
-
-<p><strong>结语</strong></p>
-<p>作者总结道，第一性原理思维让与智能体协作的工作方式显得自然：当你真正理解要完成的目标时，更容易迈出小步、从中学习并继续前进。与智能体协作可以加速这种来回反馈，形成更快的学习循环和更多动量——这在他看来就是新的"心流状态"（flow state）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49844736</guid>
-      <pubDate>Fri, 25 Sep 2026 13:55:37 GMT</pubDate>
     </item>
   </channel>
 </rss>
