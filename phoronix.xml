@@ -3,7 +3,28 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 03 Oct 2026 00:26:23 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 06:26:04 GMT</lastBuildDate>
+    <item>
+      <title>Wine 11.19 发布：为 Vulkan 引入 Wayland 色彩管理，支持 DNS 查询缓存</title>
+      <link>https://www.phoronix.com/news/Wine-11.19-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Wine是Linux上的Windows兼容层，属于Linux桌面技术范畴，但内容涉及Wayland颜色管理和Vulkan、DNS缓存等技术细节，兴趣不够明确，判定为可选。</small></p><p>Wine 11.19 开发版于近日发布，这是 Wine 11.xx 系列双周开发版本之一，距离预计于 2027 年初推出的 Wine 12.0 稳定版已越来越近。</p>
+
+<p>本次更新带来了多项新特性：</p>
+<ul>
+<li><strong>GDIPlus 垂直文本支持</strong>：在 GDIPlus 代码中引入了垂直文本渲染能力。</li>
+<li><strong>Unicode 18.0 字符支持</strong>：新增对 Unicode 18.0 标准字符的支持。</li>
+<li><strong>DNS 查询缓存</strong>：支持对 DNS 查询结果进行缓存，提升解析效率。</li>
+<li><strong>VBScript 解析器改进</strong>：优化了 VBScript 解析器的表现。</li>
+</ul>
+
+<p>值得特别关注的是，Wine Wayland 驱动现已为 Vulkan 色彩空间实现了 <a href="https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requests/14">色彩管理协议</a>，这有助于提升 Windows 游戏和应用在 Wayland 环境下的色彩准确性。该改动未出现在 Wine 11.19 的官方发布亮点中，但意义重大。</p>
+
+<p>在修复方面，Wine 11.19 共包含 23 个已知 bug 修复，涉及多款游戏及其他应用程序。完整的变更列表和下载信息可通过 <a href="https://www.winehq.org/">WineHQ.org</a> 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Wine-11.19-Released</guid>
+      <pubDate>Sat, 03 Oct 2026 00:29:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Linux 7.4 将引入 Apple M4 与 MacBook Neo（A18 Pro）的初始设备树支持</title>
       <link>https://www.phoronix.com/news/Linux-7.4-Apple-Device-Trees</link>
@@ -729,29 +750,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Redox-OS-August-2026</guid>
       <pubDate>Fri, 25 Sep 2026 15:51:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核编译迈向 10 秒大关：Kbuild 优化加速编译速度</title>
-      <link>https://www.phoronix.com/review/near-10-sec-kernel-build</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 提到10秒Linux内核构建，属于编程效率改进经验，符合high_interest。</small></p><p>Phoronix 撰文指出，Linux 内核的编译时间正在逼近一个令人惊叹的里程碑——在主流 x86_64 平台上，全新默认配置（defconfig）的内核构建即将进入 10 秒级别。过去多年来，编译庞大的 Linux 内核一直是开发者享用咖啡或用餐的经典间隙，而如今这份"咖啡窗口"正在关闭。</p>
-
-<p>文章回顾了内核编译时间的历史演进：随着 AMD EPYC Milan 时代打破 30 秒大关，如今在当前硬件与最新软件创新的配合下，构建最新 Linux 内核已可缩短至约 15 秒，作者预计下一代处理器有望实现 10 秒内完成。即便针对启用全部内核模块的 allmodconfig 构建，单次编译也已降至两分钟以内。考虑到 Linux 内核源码树规模已接近 4100 万行，这一速度提升尤为惊人。</p>
-
-<p><img src="//www.phoronix.net/image.php?id=near-10-sec-kernel-build&image=fast_linux_kernel_1_med" alt="Linux kernel coffee build" /></p>
-
-<p>驱动这一跨越式进展的关键在于软件层面的优化。Linux MM 开发者 Lorenzo Stoakes 在 AI/LLM 辅助下，发布了一系列针对 Kbuild 代码瓶颈的补丁，这些瓶颈限制了内核编译过程的并行潜力。该补丁系列（v4 版本，目前包含 22 个补丁）预计可能随 Linux 7.4 落地，据称可实现内核构建提速约 36%，增量构建提速约 70%。作者已持续跟踪这一进展一个月之久。</p>
-
-<p><img src="//www.phoronix.net/image.php?id=2026&image=faster_kbuild" alt="Lorenzo benchmarks of Kbuild improvement speed-up" /></p>
-
-<p>在硬件方面，AMD EPYC 9575F（每路 64 核 / 128 线程，最高 5.0GHz 睿频，256MB L3 缓存）在 x86_64 defconfig 内核编译基准测试中持续位居榜首，双路配置通常在 20 秒左右完成编译。作者在一套 Ubuntu 26.04 LTS 环境下搭配双路 EPYC 9575F 对 Lorenzo 的 v4 补丁进行了实测。文中还提到即将推出的 AMD EPYC 9686F（96 核 / 192 线程，最高 5.0GHz，384MB L3 缓存，搭配 MRDIMM-12800 内存）备受期待。</p>
-
-<p><img src="//www.phoronix.net/image.php?id=near-10-sec-kernel-build&image=fast_linux_kernel_2_med" alt="AMD EPYC 9575F" /></p>
-
-<p>文章也理性指出，在编译器实现单个源文件并行编译之前，最顶级的核心数量未必最适合构建服务器。作者表示，编译 Linux 内核的时间一直是其 22 年来最喜欢的基准测试之一，每一代新 CPU 发布都能看到这一时间持续下降，令人倍感兴奋。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/review/near-10-sec-kernel-build</guid>
-      <pubDate>Fri, 25 Sep 2026 14:46:26 GMT</pubDate>
     </item>
   </channel>
 </rss>
