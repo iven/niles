@@ -3,7 +3,88 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 03 Oct 2026 12:29:24 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 17:16:22 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Kolibri：Aleph Alpha 推出的开源权重德英双语大语言模型</title>
+      <link>https://news.ycombinator.com/item?id=49943034</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源权重德英双语大语言模型发布，属于新AI模型发布且为开源项目，用户很感兴趣和感兴趣</small></p><p>Aleph Alpha 于 2026 年 10 月 3 日发布了开源权重大语言模型 Kolibri（德语意为"蜂鸟"），采用 Apache 2.0 许可证，权重托管在 Hugging Face 上，并在德国和芬兰的基础设施上从零训练。该模型专为德语和英语设计，是一个混合专家（MoE）模型，总参数 780 亿，但每个 token 仅激活约 34.6 亿参数（4.4%）。</p>
+
+<h3>核心设计</h3>
+<p>Kolibri 由六项关键技术构成：</p>
+<ul>
+<li><strong>混合专家架构</strong>：50 层，每层 384 个专家加 1 个共享专家，路由器为每个 token 选择 6 个专家。</li>
+<li><strong>UniBPE 分词器</strong>：128,000 个 token，专为德语长复合词优化。作者实测在德国《基本法》文本上比 GPT-5 的分词器少用 15% 的 token，英语则持平。</li>
+<li><strong>滑动窗口注意力</strong>：40 层仅关注前 512 个 token，每 5 层做一次全局注意力，原生支持 262,144 token 上下文，实测可扩展至 1,048,576。</li>
+<li><strong>德语推理</strong>：模型在德语提示下用德语思考。Aleph Alpha 发现少量德语推理数据反而有害（德语数学分数从 70.2 降至 48.3），需要大量数据才能恢复。</li>
+<li><strong>Merlin-Arthur 协议</strong>：训练模型在证据不足时主动说"不知道"，而非编造答案。</li>
+<li><strong>可调推理强度</strong>：支持 none、low、medium、high 四档 reasoning_effort。</li>
+</ul>
+
+<h3>优势与短板</h3>
+<p>在 Aleph Alpha 的评估中，Kolibri 在英语和德语综合得分、AIME 数学竞赛（英语 96.9、德语 87.5）、长上下文（100 万 token 下 RULER 得分 63.2）等方面领先同规模开源模型。但它的短板也很明显：闭卷知识记忆最差（12 个模型中垫底）、多轮工具调用较弱（39.8 对 GLM-4.7 Flash 的 58.2）、编码能力不突出，且需要约 78 GB 显存（至少两块 A100/H100 或单块 H200/B200/B300）。</p>
+
+<h3>适用场景</h3>
+<p>作者指出，Kolibri 最适合需要德语处理且数据必须留在本地的机构——政府部门、银行、制造商、航空航天供应商等。对长德语文档（法律、合同、手册）的检索增强生成（RAG）场景尤其契合。作者正与柏林夏里特医院神经科主任合作，利用该模型构建患者问诊系统。</p>
+
+<h3>社区反馈</h3>
+<p>HN 评论区讨论热烈。有用户实测在 RTX Pro 6000 上以 FP8 精度运行，速度约 170 token/秒，但认为模型在简单问题上"过度思考"消耗过多 token。也有用户对 Aleph Alpha 持批评态度，认为其"从未赶上其他实验室"。不过支持者认为，主权模型（sovereign model）的长期价值在于欧洲自主可控，而非短期性能对比。还有用户指出，27B 稠密模型（如 Qwen3.8 27B）虽然总参数更少，但每个 token 激活全部参数，因此"更大"。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49943034</guid>
+      <pubDate>Sat, 03 Oct 2026 10:43:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Zig 0.17.0 发布：构建系统重构、ELF 链接器增强与语言稳定性推进</title>
+      <link>https://news.ycombinator.com/item?id=49938521</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Zig编程语言新版本发布，属于编程工具发布/分享，用户很感兴趣</small></p><p>Zig 编程语言发布了 <a href="https://ziglang.org/download/0.17.0/release-notes.html">0.17.0 版本</a>，这是历经 5 个月、由 206 位贡献者提交 925 次提交的成果。本次发布的核心亮点包括构建系统全面重构、引入构建服务器协议（Build Server Protocol）、ELF 链接器大幅增强（预计 x86_64-linux 上的增量编译将对所有人可用），以及向 1.0 路线图迈出的重要语言稳定性进展。</p>
+
+<h3>语言稳定性进展</h3>
+<p>自 0.16.0 以来，Zig 团队在语言设计决策上取得重大进展：接受了约 25 项语言提案，拒绝了约 125 项。目前 Codeberg 上仍有 23 项待定提案，GitHub 遗留追踪器上还有 61 项。此外，<code>@bitCast</code> 内置函数的语义发生了变化，涉及数组和向量类型的转换行为与旧版不同，可能在不触发编译错误的情况下破坏现有代码，升级时需审查相关用法。</p>
+
+<h3>目标平台支持扩展</h3>
+<p>本次发布新增了对 loongarch32-linux、64 位 SPARC（尤其是 sparc64-linux）的可用支持，并为 aarch64-switch、arm-gba、mipsel-psx、powerpc-wiiu 等游戏主机添加了目标信息。aarch64-openbsd 现已纳入 CI 原生测试。同时，Zig 放弃了对 powerpc64-linux-gnu 及 powerpc-linux-gnueabi[hf] 的支持，原因是 glibc 在这些目标上不支持 ELFv2 或 IEEE long double 格式。</p>
+
+<h3>构建系统与工具链</h3>
+<p>构建系统经历了重大重构，包括将 Maker 进程与 Configurer 进程分离、缓存系统重做、引入配置缓存中毒（Configure Cache Poisoning）概念，以及新增构建服务器协议。编译器方面，增量编译、SPIR-V 后端、aarch64 后端、loongarch 后端和 WebAssembly 后端均有改进。值得注意的是，由于 LLVM 22 的回归问题，循环向量化（loop vectorization）仍被禁用，且该修复无法回溯到 LLVM 22（因改变了库 ABI），团队计划在后续版本升级到 LLVM 23。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论围绕多个话题展开。有用户称赞 Zig 的目标平台支持广度，认为它可能是唯一能与 C 语言在这方面竞争的现代语言。也有用户对 Zig 的 AI 政策表示关注——Zig 核心团队此前对在官方 Zig 空间中滥用 LLM 持强硬立场，但项目负责人 Andrew Kelley 近期在演讲中表示正考虑将 LLM 作为发现 bug 的工具（受 SQLite 项目成果启发）。</p>
+<p>一位用户（vikrantrathore）详细描述了因在 GitHub 上使用 LLM 编写 Zig 项目而被 Zig 仓库封禁的经历，称社区对待人类贡献者态度恶劣，已决定转向 Odin 语言。Zig 核心成员 alexrp 回应称，团队不会仅因 LLM 相关项目而封禁用户，规则执行仅涉及官方 Zig 空间内的 LLM 使用，并承认可能存在误封情况，建议通过邮件联系解除。</p>
+<p>此外，有用户对 Zig 的发布节奏提出质疑，认为 5 个月的周期对于此类工作而言偏长；也有人指出 Zig 正在"C++ 化"（语言特性日益复杂），转而关注 C3 和 Odin 等替代语言。总体而言，多数评论者认可 Zig 的设计质量，但对其社区文化和稳定性仍有顾虑。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49938521</guid>
+      <pubDate>Fri, 02 Oct 2026 20:56:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ AI 攻克信息隐藏博弈游戏 Stratego：Ataraxos 以 15:1 击败世界冠军</title>
+      <link>https://news.ycombinator.com/item?id=49933740</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI在新场景取得突破性成果，属于AI软件技术进展，用户感兴趣</small></p><p>一款长期难倒人工智能的经典棋盘游戏 Stratego 终于被攻克。由卡内基梅隆大学、麻省理工学院、纽约大学和斯坦福大学的研究团队开发的 AI「Ataraxos」，以 15 胜 1 负 4 平的战绩击败了公认的史上最强 Stratego 玩家 Pim Niemeijer，且训练成本仅需 16 块 GPU 和数千美元。</p>
+
+<h3>Stratego 为何如此困难</h3>
+<p>Stratego 是一款不完全信息博弈（imperfect-information game）：每位玩家拥有 40 枚代表不同军衔的棋子，对手知道棋子位置但不知道其身份，只有发生碰撞时才会揭示。与德州扑克仅 1326 种可能手牌不同，Stratego 的初始布局超过 10<sup>30</sup>（一千万亿亿亿）种可能，且一局游戏可长达 2000 步。此外，游戏充满虚张声势（bluffing）——玩家可能用弱棋伪装成元帅来吓退对手，这种心理博弈让此前包括 DeepMind 2022 年推出的 DeepNash 在内的 AI 都难以匹敌。</p>
+
+<h3>两大关键创新</h3>
+<p>Ataraxos 同样通过自我对弈学习（共 1.63 亿局），但有两项关键改进：其一，训练早期采用大幅策略调整、后期采用小幅微调，避免隐藏信息导致的学习循环；其二，引入第二个神经网络——信念模型（belief model），根据对手的移动方式猜测其隐藏棋子的身份，从而在行动前进行前瞻搜索，而非遍历所有可能的布局。这正是 DeepMind 未能实现的部分。</p>
+
+<h3>冷静的棋风与低成本</h3>
+<p>Ataraxos 的名字源自古希腊语「平静」之意。它不会像人类那样在劣势时冒险豪赌，而是缓慢而有条不紊地扳回局面。研究团队观察到它甚至能从 2% 的胜率中「虚张声势」地逆转。在 2025 年 Stratego 世界锦标赛上，挑战者面对 Ataraxos 的战绩为 38 胜 2 负。该 AI 还改变了玩家的元游戏（metagame），例如它频繁将旗帜藏在仅由两颗炸弹守护的角落，这一罕见布局令人类玩家惊讶。</p>
+
+<p>相比之下，DeepNash 曾在 1024 块 Google 专用芯片上训练两到三个月，成本估计高达 300 万至 450 万美元；而 Ataraxos 仅用 16 块 GPU 训练一周，外加 4 块 GPU 训练信念模型四天，且训练局数比 DeepNash 少约 34 倍，棋力却更强。同一架构还成功应用于 Barrage Stratego、合作卡牌游戏 Hanabi 和斗地主等游戏。</p>
+
+<p>研究团队表示，虽然现实世界问题（如谈判、金融市场、军事冲突）比棋盘游戏复杂得多，但任何现实问题的解决都始于构建简化模型，Ataraxos 的技术可用于推演强对手的可能反应。团队下一步目标是让 AI 的策略更具可解释性。</p>
+
+<p>该研究发表于 <em>Nature</em>（DOI: 10.1038/s41586-026-11036-y），预印本见 <a href="https://arxiv.org/abs/2511.07312">arXiv</a>。</p>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上有用户指出，2022 年 DeepMind 的「Mastering the Game of Stratego」论文声称已「掌握」该游戏，但四年后新方法才真正超越人类水平。也有用户提到「静默防御」（silent defense）变体规则下不确定性更高，以及电子版 Stratego 中不揭示双方棋子强度的玩法更有趣。还有用户讨论了对集换式卡牌游戏（如万智牌）中元游戏动态变化对 AI 训练带来的挑战。</p>
+
+<p><img src="https://cdn.arstechnica.net/wp-content/uploads/2024/03/jacek_krywko.jpg" alt="Photo of Jacek Krywko" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49933740</guid>
+      <pubDate>Fri, 02 Oct 2026 14:11:24 GMT</pubDate>
+    </item>
     <item>
       <title>「Extra Big Ass Intelligence」：一个讽刺AI热潮的恶搞网站引发热议</title>
       <link>https://news.ycombinator.com/item?id=49941114</link>
@@ -1144,96 +1225,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49867038</guid>
       <pubDate>Sun, 27 Sep 2026 14:41:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Drawgent：将编码智能体接入实时 Excalidraw 白板</title>
-      <link>https://news.ycombinator.com/item?id=49857729</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍将编码智能体接入白板的工具 Drawgent，属于编程工具发布/效率改进，用户对此很感兴趣</small></p><p>Drawgent 是一个开源工具，将你自己的编码智能体（Claude Code、Codex 或 opencode）连接到实时 Excalidraw 白板画布上。用户可以在聊天面板中请求生成图表，或在画布上以 <code>AGENT: …</code> 开头书写指令，智能体会查看画布（截图 + 场景）、实时编辑、检查结果并标记为 DONE。</p>
-
-<img src="/yanndegat.tngl.sh/drawgent/raw/main/docs/overview.png" alt="drawgent architecture: the browser, the drawgent server, your coding agent and its MCP canvas tools" />
-
-<h3>核心特性</h3>
-<ul>
-<li><strong>图表与代码关联</strong>：图形可以指向其对应的代码（文件、行范围、符号），支持从图表跳转到代码，并自动检测链接状态（正常、移动、过期、缺失）。<code>drawgent check</code> 可在 CI 中验证链接完整性。</li>
-<li><strong>指向代码</strong>：通过激光笔（laser）在画布上圈选文件、文件夹或代码行，将其加入上下文篮子（context basket），随下一条聊天消息发送给智能体。</li>
-<li><strong>构建我画的</strong>：修改图表后，智能体可自动修改代码以匹配图表。智能体接收的是语义变化（新增/删除/重连形状和箭头），而非像素，并在画布上标记进度（📝 计划 → 🔧 进行中 → ✅ 完成）。</li>
-<li><strong>多白板支持</strong>：一个工作区可容纳多个白板，支持移动/复制选区、按框架拆分等操作。</li>
-<li><strong>图表入库</strong>：通过 <code>--diagram</code> 参数将图表保存为标准 <code>.excalidraw</code> 文件，可提交到 git，支持 git pull 后的外部变更合并。</li>
-<li><strong>excalidraw.com 房间</strong>：支持加入加密的 excalidraw.com 房间，人类可在网页端协作，智能体编辑实时同步。</li>
-</ul>
-
-<h3>技术实现</h3>
-<p>Drawgent 通过 ACP（Agent Client Protocol）桥接连接智能体，使用 Headless Chrome 渲染画布，提供 MCP 工具集（包括布局检查、自动布局、撤销更改等）。智能体始终运行在用户自己的环境中，不会被捆绑。支持 Docker 部署，可从源码构建（Rust + npm）。</p>
-
-<h3>社区反馈</h3>
-<p>HN 讨论中，多位用户分享了类似探索。有用户提到 <a href="https://whiteboard-mcp.com">whiteboard-mcp.com</a> 在架构图创建方面效果不错；也有人指出 Excalidraw 官方提供了开源的 <a href="https://github.com/excalidraw/excalidraw-mcp">excalidraw-mcp</a>，但似乎已数月未更新。部分评论者认为画图的价值在于思考过程本身，而非最终产物；还有人分享了类似的 jsoncanvas 渲染方案。有用户建议项目应提供演示视频或 GIF 以便快速了解价值。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49857729</guid>
-      <pubDate>Sat, 26 Sep 2026 15:56:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 一位开发者戒断 AI 编程一个月的反思：从&quot;AI 牧羊人&quot;回归真正的工程师</title>
-      <link>https://news.ycombinator.com/item?id=49855018</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开发者分享戒断 AI 编程一个月的反思与经验，属于编程效率改进经验，用户对此高度感兴趣</small></p><p>一位开源项目 LibreWeddingPlanner 的维护者在博客中分享了自己停止使用 AI 编程一个月后的深刻反思。他坦承，此前在工作中重度依赖 AI 编程代理，最终意识到自己"正在变得愚蠢、懒惰，成为一个更差的开发者"。</p>
-
-<h3>失控的过程</h3>
-<p>作者描述了从最初使用 AI 自动补全，到后来将整个 Jira 工单粘贴给 AI 代理、同时运行多个代理并行处理任务（他称之为"tokenmaxxing"）的失控过程。他发现自己已经数月没有亲手写过一行代码，甚至提交（commit）也由 AI 代劳。更令人担忧的是，他承认自己"不知道推送到生产环境的代码中 20% 在做什么"。</p>
-
-<p>AI 生成的代码看似专业，却常常需要大量返工。作者举例说，一个本可 20 分钟完成的任务，AI 代理 5 分钟生成代码，他却要花两天审查——因为同时有太多代理在运行，上下文切换让他精疲力竭。他坦言"几乎没有一次 AI 生成的任务能直接合并"，而且 AI 代理经常卡住 30 分钟无响应，却花费了 30 美元的 token 费用。</p>
-
-<h3>转折点</h3>
-<p>真正的转折发生在一次代码评审中：同事指出他（实为 AI 生成）的测试并没有真正覆盖所修改的场景。作为有 10 年以上 TDD（测试驱动开发）经验的开发者，这让他感到羞辱，也让他意识到"AI 最终会说服你，让你再次变得自满"。</p>
-
-<p>于是他决定彻底停止使用 AI，即使可能因此丢掉工作。回归后，他重新找回了 TDD 工作流、简洁的 PR 描述、对代码的完全理解，以及"部署时的信心"。他重新享受人类代码评审，并开始主动向同事请教架构决策。</p>
-
-<h3>给同行的建议</h3>
-<p>作者将 AI 依赖比作"毒品"，呼吁开发者"醒来，勇敢，重新夺回控制权"。他认为，工程师的真正价值在于解决困难问题的能力，而"关闭大脑、放松地照看 AI"只会让自身价值不断贬值。他同时指出，AI 公司可能像当年的 Google 一样降低服务质量以增加用户使用次数，因此不应盲目信任。</p>
-
-<h3>社区反响</h3>
-<p>该文在 Hacker News 上引发热烈讨论（178 分，223 条评论）。观点大致分两派：</p>
-<ul>
-<li><strong>支持者</strong>：有评论者表示"重度使用 AI 编码的人哪怕尝试一小时不用 AI，都会被自己技能萎缩的程度震惊"；也有人将 AI 比作"浴盐"，形容看到他人陷入 AI 幻觉时的可怕景象。</li>
-<li><strong>反对者/折中派</strong>：部分开发者认为 AI 只是工具，关键在于正确使用——例如用于调试生产问题、生成测试数据、辅助研究等场景，而非完全替代思考。也有人指出"从商业角度看，没有 LLM 代理协助很难保持同等生产力"，建议像飞行员手动飞行保持技能一样，定期脱离 AI 练习。</li>
-</ul>
-<p>还有评论者批评 AI 生成的 PR 描述冗长却无人阅读，呼吁开发者"如果无法用简洁的语言向他人描述自己的变更，就应该撤回请求"。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49855018</guid>
-      <pubDate>Sat, 26 Sep 2026 10:08:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>从硬件驱动到机电艺术：在 Flip-Dot 显示屏上运行 FLIP 流体模拟</title>
-      <link>https://news.ycombinator.com/item?id=49854219</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 在 Flip-Dot 显示屏上运行流体模拟，属于硬件+编程的趣味项目，主题与用户配置的兴趣交集不明确，偏创意硬件展示</small></p><p>电子工程师兼艺术家 mitxela 发布了一篇详尽的技术博客，讲述了他如何把 <strong>FLIP 流体模拟</strong>（Fluid Implicit Particle，一种无网格流体模拟方法）搬到一块 <strong>flip-dot（翻板点阵）机电显示屏</strong>上，并为此在 EMF2026 黑客营搭建了互动装置。做这件事的首要动机，正是「Flip Fluid on Flip Dots」这个文字游戏。</p>
-
-<p><img src="/img/uploads/2026/flipdots/flipdots-art.jpg" alt="flipdot display example" width="1200" height="800" /></p>
-
-<p>作者多年来一直在做各种流体模拟，但基于 LED 的显示是无声的。他想到机电式 flip-dot 显示屏在翻动时天然会发出「哗啦」的声响，正好可以弥补这一缺憾。然而 flip-dot 显示屏极其昂贵——目前全球仅剩一家厂商，且只与少数艺术工作室合作（如著名的 <a href="https://youtu.be/2fRx64OTAeI?si=FJDW3OGYLRK0rYox&amp;t=681">Breakfast Studio</a>，低于 5 万美元预算根本不谈）。作者甚至在一次合同工作中提出放弃薪水以换取在对方公司的 flip-dot 屏上跑流体模拟，却被拒绝，于是决定自己从零动手。</p>
-
-<p>他通过黑客营交流，最终从「Look Mum No Computer」（Sam James Bartle）的博物馆获得了一批报废/库存的旧 flip-dot 面板。这批面板多为 2007 年生产，分辨率 13×28，电路板边缘凸出导致无法无缝平铺，且原始驱动电路刷新约需 1 秒。文章随后进入核心硬件攻关：</p>
-
-<ul>
-<li><strong>矩阵扫描提速</strong>：点阵翻转约需 60ms，但只需约 1ms 的脉冲即可极化磁芯。通过高电压短脉冲并同时驱动整列，理论上可在约 56ms 内更新全部 28 列，但面临瞬时 13A 级别的电流需求和矩阵刷新产生的视觉伪影（棋盘格效应）问题。</li>
-<li><strong>放弃拆解重装</strong>：作者考察了拆下所有翻板重焊新板的方法，但因翻板内含极细的磁力线和易熔的软塑料、成本过高而放弃。</li>
-<li><strong>驱动方案探索</strong>：借鉴 Mike（mikeselectricstuff）的原型设计，作者比较了 H 桥芯片、串联电容半桥方案、栅极驱动器等。最终采用非常廉价的 <strong>MX6208 等 H 桥电机驱动芯片</strong>，以「单端」方式（AIN 接高电平，信号接 BIN）配合 595 移位寄存器逐点驱动，并经原型测试验证可行。</li>
-</ul>
-
-<p><img src="/img/uploads/2026/flipdots/mikes-board.jpg" alt="Mike's PCB on the back of a flipdot panel" width="1200" height="800" /></p>
-
-<div class="knowledge-section">
-<p><strong>你知道吗？</strong>文中评论区补充了若干值得注意的工程细节：作者通过 Dremel 切割、黄铜螺柱安装、解码板、电源（含散热与热像仪检测）、以及用于调节重力的「重力控制」摇杆逐步搭建出完整装置。关于单端 H 桥驱动，有评论者指出其实用「负电源轨」只需两个晶体管即可切换线圈电流方向；而串联电容驱动还有一个安全优势——即使控制引脚异常持续导通，电容充电后也不会再向线圈持续输送电流，从而避免烧毁极细的磁力线（类似家用锅炉燃气阀的电容驱动原理，或气囊/液压悬架中用 PWM 脉冲保持电磁阀的经典做法）。</p>
-</div>
-
-<p>最终作者将两块乃至更多面板组装成大型互动装置，配上激光切割框架、Logo 与摇杆，亮相于 EMF2026 展会的休息帐篷中。文末附有以下活动期间的实拍与演示视频，读者可直接观看完整运作效果。</p>
-
-<p><img src="/img/uploads/2026/flipdots/final1.jpg" alt="Finished view of installation in lounge, in use" width="1200" height="788" /></p>
-
-<p>评论区除技术讨论外，也有用户反馈其网站上的视频返回的是 Git LFS 元数据而非真实视频内容，作者方面可能需要补充 <code>git lfs pull</code> 步骤。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49854219</guid>
-      <pubDate>Sat, 26 Sep 2026 07:50:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
