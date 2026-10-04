@@ -3,7 +3,16 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 04 Oct 2026 19:34:03 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 23:03:25 GMT</lastBuildDate>
+    <item>
+      <title>delta 0.20.1 补丁发布，修复 issue #2270</title>
+      <link>https://github.com/dandavison/delta/releases/tag/0.20.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>delta 发布了 0.20.1 补丁版本，主要修复了 <a href="https://github.com/dandavison/delta/issues/2270">issue #2270</a> 中报告的问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/dandavison/delta/releases/tag/0.20.1</guid>
+      <pubDate>Sun, 04 Oct 2026 19:38:10 GMT</pubDate>
+    </item>
     <item>
       <title>delta 0.20.0 发布：支持 OSC-1717 元数据规范</title>
       <link>https://github.com/dandavison/delta/releases/tag/0.20.0</link>
@@ -1483,51 +1492,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/python-v0.154.0</guid>
       <pubDate>Thu, 10 Sep 2026 19:51:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.268：新增网关功能、插件与 WebFetch 改进，修复大量问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.268</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.268 版本，带来多项新功能并修复了自 2.1.265 以来的大批问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>Claude apps 网关功能</strong>：在 <code>gateway.yaml</code> 中设置 <code>pricing:</code> 后，登录的 Claude Code 客户端可通过托管设置获得相同费率，使 <code>/cost</code> 与遥测数据与计价表匹配；新增 <code>gatewayInternalNetworks</code> 托管设置，允许管理员在组织自有公网 IPv4 段上开放 <code>/login</code>。</li>
-<li><strong>新增命令与 JSON 输出</strong>：<code>claude self-hosted-runner --remove-session-state</code>（默认关闭）可在会话结束时删除各会话目录；<code>configDirectory</code> 加入 <code>claude auth status --json</code>；<code>claude plugin install/uninstall/update/enable/disable</code> 支持 <code>--json</code>。</li>
-<li><strong>第三方端点兼容修复</strong>：修复了 2.1.265 以来在第三方 Anthropic 兼容端点（<code>ANTHROPIC_BASE_URL</code>）上每轮都报 HTTP 400 的问题（Artifact 工具输入模式中的正则被这些端点拒绝）。</li>
-<li><strong>WebFetch 超时</strong>：服务器持续打开响应而不结束时，抓取将在 300 秒后失败（可用 <code>CLAUDE_CODE_WEBFETCH_DEADLINE_MS</code> 覆盖，0 为关闭）。</li>
-<li><strong>性能改进</strong>：修复空闲长会话中忙循环占用 CPU 核心、会话 recap 期间持续高 CPU 的问题；工具密集型轮次中不再为重绘隐藏提示而重绘整个记录；启动时列出 <code>.claude/workflows/</code> 脚本不再逐个解析，加快启动。</li>
-<li><strong>任务追踪工具限制</strong>：TaskCreate/Get/Update/List 与 TodoWrite 仅在 Claude 3.x、Opus 4.0–4.7、Sonnet 4.0–4.6、Haiku 4.5 上提供，其他环境需设置 <code>CLAUDE_CODE_ENABLE_TODO_TOOLS=1</code>。</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>全屏模式提升绘制速度；<code>--continue</code>/<code>--resume</code> 会话即时出现，首条消息不再整篇重读；<code>/plugin</code> 的安装/启用/禁用关闭菜单后即生效，无需再 <code>/reload-plugins</code>。</li>
-<li>WebFetch 的 deny/ask 规则不再作用于 Artifact 工具的读取和更新（改用 Artifact 规则）；本地 Cowork 会话跳过所有审批时，Artifact 工具将拒绝会话文件夹外或符号链接背后的本地文件。</li>
-<li>修复了提示缓存与扩展思考在 SDK 会话（<code>excludeDynamicSections</code>）中途失效、<code>/compact</code> 总结破坏含 <code>$</code> 序列的文本、恢复 <code>/compact</code> 结束的会话时恢复文件顺序不一致等问题。</li>
-<li>修复了权限检查相关问题：符号链接目录（macOS 的 <code>/etc</code>/<code>/tmp</code>/<code>/var</code>、Linux 的 <code>/bin</code>）上的 deny/ask 规则未生效、<code>env -C</code>/<code>eval</code> 同行的 Read/Edit deny 规则失效等。</li>
-<li>修复了插件与市场错误信息泄露 git 源 URL 的令牌或密码、MCP 错误显示从 <code>${VAR}</code> 占位符解析的密钥等问题。</li>
-<li>修复了有权用户重启后或在 Desktop Code 标签被误报模型受限、会话中途被静默切换为组织默认模型、Fable 模型长上下文 429 显示错误提示等问题。</li>
-<li>修复 MCP 服务器 OAuth 登录“无可绑定端口”失败、Slack 会话在 MCP 白名单设置下丢失工具、Chrome 中导航 URL 主机无法解析时报“host https”请求、<code>/resume</code> 列出 <code>/fork</code> 后台会话名称错误、<code>/bug</code>/<code>/feedback</code> 描述框无光标等。</li>
-<li>修复 PermissionRequest 钩子在 <code>--print</code> 模式不触发、headless 运行不打印 policy-helper 警告、<code>CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS</code> 对无 per-hook timeout 的 SessionEnd 钩子不生效等问题。</li>
-</ul>
-
-<h3>VSCode 扩展</h3>
-<ul>
-<li>修复 <code>CLAUDE_CONFIG_DIR</code> 设置时会话列表、设置开关、聊天标签失效；模型选择器空白；模型名被项目/本地设置覆盖时 Auto 从模式选择消失；会话名恢复错误等。</li>
-<li>新增左右方向键调整 always-allow 权限规则保存位置、以及“Claude Code: Focus last message”命令（聚焦最新消息），方便键盘与屏幕阅读器用户。</li>
-<li>Manage plugins 对话框对打开的会话即时应用安装/启停/卸载，无需重启。</li>
-</ul>
-
-<h3>其他平台</h3>
-<ul>
-<li><strong>Claude Code on the web</strong>：修复运行超过六小时的云会话丢失持久化会话文件夹文件的问题（现在保存可持续近一天）；改进从对话创建 routine 时的提示。</li>
-<li><strong>Claude Tag（Slack）</strong>：修复管理员设置页加载挂起；Slack Enterprise Grid 频道移动后丢失设置；改进被阻止动作的解释与回复速度；公共频道现在各自保留自己的记忆笔记，不再跨频道调用。</li>
-<li><strong>Code Review</strong>：修复验证 agent 中途失败导致评审不完整、push 触发评审在 PR 转草稿后仍发布、忽略目录 CLAUDE.md 约定等问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.268</guid>
-      <pubDate>Thu, 10 Sep 2026 20:30:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
