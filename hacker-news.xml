@@ -3,7 +3,61 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 04 Oct 2026 15:20:48 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 19:34:35 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Strata 推理引擎：让 1250 亿参数的 Qwen3.8-Flash-Next 在消费级显卡上以 100+ tokens/s 运行</title>
+      <link>https://news.ycombinator.com/item?id=49953495</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍让大模型在消费级显卡上高效运行的推理引擎，属于新AI模型/编程工具发布，用户很感兴趣</small></p><p>开源项目 <a href="https://github.com/Niko1221/Strata">Strata</a> 推出了一款推理引擎，让 1250 亿参数的 Qwen3.8-Flash-Next 模型能够在普通消费级 PC 上运行，无需服务器。该项目支持 NVIDIA 和 AMD 显卡（需 12GB 以上显存）、Windows 和 Linux 系统，完全免费开源（MIT 许可），所有数据均在本机处理。</p>
+
+<p><img src="/Niko1221/Strata/raw/main/docs/media/pagoda-preview.webp" alt="A voxel pagoda garden that Strata's model wrote, running in the browser" width="720" /></p>
+
+<p><strong>性能表现</strong>：在 RTX 5070（12GB）上，Q2_0 量化版本可达到 94 tokens/s 的生成速度和 2,650 tokens/s 的提示词处理速度；在 RX 9070 XT（16GB）上分别约为 60 tokens/s 和 1,160 tokens/s。据项目说明，配备 RTX 3090（24GB）的机器预计可达 100-140 tokens/s。有用户在 Hacker News 评论中报告，在 RTX 4090 + 128GB DDR5 + Ryzen 7950x3d 配置上实测达到 124 tokens/s。</p>
+
+<p><strong>工作原理</strong>：Strata 采用混合卸载策略——模型由 24,576 个小型专家组成（MoE 架构），每个词仅需其中 10 个。显卡缓存最常用的专家，RAM 存放全部专家，SSD 存储大型查找表。此外还采用"猜测-验证"（guess-and-check）加速机制，由小型辅助模型预测后续词，再由大模型批量验证，可将生成速度提升 1.6-1.8 倍。</p>
+
+<p><strong>模型选择</strong>：提供多种量化版本（Q2_0、IQ2_XS、IQ3_XXS、IQ3_S 等）以及专为编码优化的 Coder 版本（移除一半专家，保留全模型 91% 的 SWE-bench Verified 得分，仅需 32GB RAM）。安装程序会根据用户硬件自动推荐合适版本。</p>
+
+<p><strong>安装与使用</strong>：支持一键安装（Windows 双击 START-HERE.bat，Linux 运行 setup.sh），也可让 AI 编码助手（如 Claude Code、Cursor）自动完成安装配置。模型约 70GB 下载量。运行后提供本地 OpenAI/Anthropic 兼容 API（http://127.0.0.1:8080），可接入各类应用和编码代理，支持图片输入、多 GPU 共享、多请求并行等特性。</p>
+
+<p><strong>社区反馈</strong>：该项目在 Hacker News 上获得 407 分和 218 条评论，讨论热烈。多位用户实测效果良好——有用户称在 3090 上"飞快"且能胜任 PHP 代码安全审计；有用户表示在 3-bit 量化下与 Opus 4.7 和 Sonnet 5 在 DeepSWE 基准上不相上下。但也有批评声音指出，2-bit 量化会带来显著质量损失，4-bit 才是可用下限；另有用户质疑项目宣称的速度建立在重度量化之上。部分用户还提到类似的替代方案，如 <a href="https://github.com/FlashML-org/FreeToken">FreeToken</a> 推理引擎。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>MoE（混合专家）架构</strong>：Qwen3.8-Flash-Next 采用混合专家架构，模型由数千个小型"专家"子网络组成，每个 token 仅激活其中一小部分。这种设计大幅降低了推理计算量，使大模型在消费级硬件上运行成为可能。Strata 正是利用这一特性，将专家分布在显卡、内存和 SSD 之间协同工作。</p>
+<p><strong>量化（Quantization）</strong>：将模型权重从高精度（如 bf16）压缩到低精度（如 2-bit、3-bit、4-bit）以减小体积和加速推理。社区讨论指出，4-bit 量化通常能保持性能，而 2-bit 往往导致明显质量下降。Strata 提供多种量化级别供用户权衡速度与质量。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49953495</guid>
+      <pubDate>Sun, 04 Oct 2026 12:51:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Cloudflare 发起竞赛：用 Workers 和 Artifacts 构建下一代 Git 平台</title>
+      <link>https://news.ycombinator.com/item?id=49947051</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Cloudflare 举办构建下一代 Git 平台的竞赛，属于编程工具与开源项目相关，用户感兴趣</small></p><p>Cloudflare 宣布举办一场竞赛，邀请开发者使用其 <strong>Workers</strong> 和 <strong>Artifacts</strong> 服务构建面向 AI 代理（agent）时代的下一代 Git 平台。文章认为，GitHub 是为人类编写代码的时代设计的，而新一代软件将由大量 AI 代理协同编写，需要全新的协作基础设施。</p>
+
+<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01M3VGDDQQHKX35297BEXJZ5H0.01M3VGDEMW20N9CFDP5TEPV5EJ.png&w=1999&h=1125&f=webp&fit=cover&position=center" alt="" width="1999" height="1125" />
+
+<h3>Artifacts 开放公测</h3>
+<p>Artifacts 是 Cloudflare 推出的版本化文件系统，兼容 Git 协议，可扩展至数百万个仓库。它被设计为一组可编程原语，支持以编程方式创建和分叉仓库、存储代码与代理上下文，并提供代理熟悉的 Git 操作。自推出以来，开发者已将其用于 vibe-coding 平台、持久化代理会话代码，以及创建隔离仓库供多个代理安全协作。</p>
+
+<h3>新增能力</h3>
+<ul>
+<li><strong>部署到 Workers</strong>：通过 Workers Builds 将 Artifacts 仓库连接到 Worker，推送代码后自动构建并部署，其他分支自动创建 Workers Previews。</li>
+<li><strong>Workers 直接管理</strong>：通过 Artifacts binding 在 Worker 中创建/分叉仓库、读取文件和提交、签发仓库级 Git 令牌，使 Git 工作流完全可编程化。</li>
+<li><strong>事件订阅</strong>：仓库创建、导入、分叉、删除、推送、克隆等操作均发布事件，可触发 CI、代码审查代理或部署流程。</li>
+<li><strong>数据管辖权</strong>：可选择美国或欧盟辖区存储和处理仓库数据。</li>
+<li><strong>指标监控</strong>：在 Cloudflare 控制台查看仓库操作数、拉取/推送次数、错误率等指标。</li>
+</ul>
+
+<h3>竞赛详情</h3>
+<p>参赛者需提交 5-10 分钟演示视频、采用宽松开源许可（MIT、Apache、BSD）的源码及运行说明。截止日期为 2026 年 10 月 14 日。前三名团队将受邀前往旧金山参加 Cloudflare Connect，第一名将获得 25,000 美元 Cloudflare 积分及 VIP 晚宴邀请。Artifacts 定价基于仓库操作和数据存储量，将于 2026 年 10 月 15 日开始计费。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论反应较为复杂。部分用户质疑竞赛的动机，认为这实质上是 Artifacts 产品的广告，且 25,000 美元积分奖励对一家市值 1250 亿美元的公司而言显得吝啬。有用户指出参赛资格仅限美国和加拿大居民，与 Cloudflare 的国际化形象不符。还有开发者对"成百上千个代理同时协作"的前提提出质疑，认为实际生产中质量代码更多来自人类与 1-3 个代理的结对编程，而非大规模代理工厂。也有评论者将这一方向与 Google Wave 的实时协作理念相类比，认为实时协作与智能冲突解决技术（如 CRDT）可能为 Git 演进带来启发。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49947051</guid>
+      <pubDate>Sat, 03 Oct 2026 19:33:16 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 为什么开发者不「使用平台」？—— 从平台怀疑论者的视角看 Web 开发生态</title>
       <link>https://news.ycombinator.com/item?id=49950554</link>
@@ -1190,75 +1244,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49883471</guid>
       <pubDate>Mon, 28 Sep 2026 19:53:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Anthropic 发布 Claude Sonnet 5.5：速度提升 30%+，成本降低最多 30%</title>
-      <link>https://news.ycombinator.com/item?id=49881850</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 属于新AI模型发布公告，用户很感兴趣，必看内容</small></p><p>Anthropic 正式发布 <strong>Claude Sonnet 5.5</strong>，这是 Claude 5.5 家族的第二款模型，定位为 Opus 5.5 的更快、更低成本的补充。Sonnet 5.5 在运行速度上比 Sonnet 5 快 30% 以上，且大多数任务成本降低最多 30%。</p>
-
-<h3>核心性能提升</h3>
-<p>Sonnet 5.5 在多个基准测试上表现亮眼：</p>
-<ul>
-<li><strong>Agentic 编码</strong>：Terminal-Bench 4.0 得分 70.6%，远超 Sonnet 5 的 10.3%；FrontierCode 1.1 得分 52.1%（xHigh 档），接近 Opus 5.5 的 54.4%；CursorBench 4.0 得分 55.5%，与 Opus 5.5 的 57.8% 差距极小。</li>
-<li><strong>知识工作</strong>：GDPval-AA 得分 1844，与 Opus 5.5 的 1846 几乎持平，比 Sonnet 5 高出约 400 分。</li>
-<li><strong>图像理解</strong>：成为首个仅凭截图就能通关《宝可梦 红》的 Sonnet 系列模型。</li>
-<li><strong>计算机使用</strong>：OSWorld 2.1 得分 80.1%（部分），明显优于 Sonnet 5 的 57.0%。</li>
-</ul>
-
-<h3>定价与效率</h3>
-<p>Sonnet 5.5 定价与 Sonnet 5 相同：输入 $2/百万 tokens，输出 $10/百万 tokens，缓存读取 $0.20/百万 tokens。但由于完成任务所需的 tokens 大幅减少，实际每任务成本最高可降低 30%。在多个基准上，Sonnet 5.5 在 Low 或 Medium 档位的表现即可超越 Sonnet 5 的最佳成绩，而每任务成本仅为后者的约十分之一。</p>
-
-<h3>合作方反馈</h3>
-<p>多家企业给出了积极评价：</p>
-<ul>
-<li><strong>Epic Games</strong>：Sonnet 5.5 在系统设计审计和数据流审查中达到了更高层级模型的质量标准，能处理数万行代码。</li>
-<li><strong>Slack</strong>：在不修改任何提示词的情况下，Sonnet 5.5 在几乎所有离线评测中优于 Sonnet 5，且输出 tokens 减少约 14%。</li>
-<li><strong>Zendesk</strong>：工单处理速度提升 20%，错误决策更少。</li>
-<li><strong>Base44</strong>：在 118 个真实应用构建中，Sonnet 5.5 平均 3.6 次迭代即可达到 Opus 5 的水平（Opus 5 需要 7.7 次），且工具调用失败次数最少。</li>
-<li><strong>Unity</strong>：在 Unity Editor 和编码的多步骤基准测试中完成了 90% 的任务。</li>
-</ul>
-
-<h3>安全与对齐</h3>
-<p>由于 Sonnet 5.5 的网络安全能力大幅提升（与 Opus 5 相当），Anthropic 为其部署了与最强大模型类似的网络安全防护措施，高风险网络安全任务将自动回退到 Sonnet 5。生物学防护措施与 Sonnet 5 相同。常规软件开发不受影响。</p>
-
-<h3>社区讨论</h3>
-<p>Hacker News 社区反应热烈。多位用户指出 Sonnet 5.5 在 agentic 编码基准上几乎与 Opus 5.5 持平甚至超越，认为 Anthropic 在 5.5 家族上实现了性能与成本的双重突破。也有用户对 Anthropic 的网络安全防护措施表示不满，称即使通过 Cyber Verification Program 认证，授权赏金工作仍会被标记为 "Cyber" 而受限。部分用户认为开源模型（如 GLM-5.3 Flash）在性价比上已极具竞争力，Anthropic 与 OpenAI 的领先优势正在缩小。</p>
-
-<p>Sonnet 5.5 现已可通过 Claude 应用和 Claude Code 使用，Claude 平台默认使用 High 档位，应用默认 Medium 档位。Claude Haiku 5.5 预计将在未来数周内加入 5.5 家族。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49881850</guid>
-      <pubDate>Mon, 28 Sep 2026 17:58:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 真正的问题不是 AI 生成的代码，而是没人再了解系统架构与设计意图</title>
-      <link>https://news.ycombinator.com/item?id=49880312</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论AI生成代码与系统架构理解等编程技术话题，符合AI软件技术进展兴趣</small></p><p>Simon Späti 撰文指出，在 AI 大规模生成代码的当下，真正的危机并非代码质量本身，而是「没有人再了解系统架构，也没有人知道当初为何做出某些选择」。作者认为 AI 写出的代码大致处于平均水平——若原有代码库低于平均水准，AI 能轻松将其提升到平均水平，因此问题的核心不在 AI 代码，而在于「没人真正理解系统，大家都只去问 Claude」，最终导致毫无整体规划可言。</p>
-
-<h3>初创公司与大企业的现状</h3>
-<p>文章引用了一位（自称）在大公司工作者的吐槽：规格、代码、测试、PRD、工单及其解决方案、报告——「一切都是由 Claude Code 生成的」。团队成员并不喜欢这种状态，却被管理层强制要求尽可能多地交付。管理层认为「推动代码不再是瓶颈」，于是人们每天工作 12 至 13 小时只为「按下回车」。从 L1 到 L7 的工程师都在做同一件事——与 Claude 对话，「没有任何人在思考，一切都被 LLM 完成」，既没有胜利感，也没有人在真正解决问题。</p>
-
-<h3>数据工程是否有所不同？</h3>
-<p>作者援引 Hoyt Emerson 的观点，认为数据工程师「从第一天起就不得不了解产品和业务的方方面面，AI 只是为我们消除了摩擦」。作者同意，前 AI 时代的资深数据人员需要掌握大量知识（或引入领域专家），而如今 AI 让这种知识似乎变得不再必要——这正是新手（包括今天的作者本人）缺失知识的原因。</p>
-
-<h3>产品经理能构建一切了吗？</h3>
-<p>Sean Behan 指出，「知道自己想要什么」向来是最难的部分。一个优秀的产品经理现在或许能构建任何想要的东西、找到市场并做出漂亮的产品，但如果你不会编程，仍可能为产品打下糟糕的、难以维护的基础——尤其是一开始就选错语言或错误的心智模型。因此，无论对程序设计、产品设计，还是对理解系统与架构的 PM 而言，掌握基本原理仍大有裨益。</p>
-
-<h3>最终的考验仍是可维护性</h3>
-<p>作者强调，以系统、架构、意图和设计的视角思考，会让人成为更好的软件工程师。手写代码或许已死，但它仍有帮助；而「拥有品味（借助 AI）」比以往更重要。但最终的考验始终是可维护性——生成快速流水线、应用或 BI 仪表盘越容易，需要维护的东西就越多；如果没人了解系统，维护就会变得极其困难。</p>
-
-<h3>AI 无法自我驱动</h3>
-<p>作者认为 AI 无法自我提示，这正说明人类仍需要去指导和编排它，因此意图、品味、设计和架构在今天都是「杀手级能力」。但这些一旦缺失乃至从根本上流失，将非常危险。作者提到有人称这是「自找的问题」——如果我们仍雇佣初级工程师，问题就不会发生，但现实并没那么简单。</p>
-
-<h3>社区讨论要点</h3>
-<p>HN 讨论区（329 分、218 条评论）围绕文章展开了激烈辩论。simonw 认为，如果你不理解自己所维护的系统，你对其未来工作的决策能力会迅速下降——你无需逐行审查代码，但必须能够描述系统如何运作及其高层结构，担任过技术负责人（tech lead）或工程经理的经验在此极有帮助。有评论反驳称，工程经理常与系统脱节而无法准确推理。也有人质疑「AI 已解决编程」的说法，认为编程是一门艺术，若所有人都改用 AI 开发，软件创新将会停滞。还有人指出「没人解决问题」的说法很奇怪，因为编码代理恰恰擅长解决缺陷，问题更多在于对编码代理的错误使用方式。</p>
-
-<h3>你知道吗？</h3>
-<p>「代码即错误的抽象」：「代码是错误抽象」这一观点认为，LLM 解决了「写代码」这一表达层，却未解决系统、协作与维护层面的问题——真正的难点在于持续理解复杂系统如何演化，而不在于单行语句的书写成本。这也是作者认为技术负责人经验（而非逐行读码）在 AI 时代愈发关键的原因。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49880312</guid>
-      <pubDate>Mon, 28 Sep 2026 16:11:42 GMT</pubDate>
     </item>
   </channel>
 </rss>

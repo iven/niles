@@ -3,7 +3,16 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 04 Oct 2026 15:19:43 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 19:34:03 GMT</lastBuildDate>
+    <item>
+      <title>delta 0.20.0 发布：支持 OSC-1717 元数据规范</title>
+      <link>https://github.com/dandavison/delta/releases/tag/0.20.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>delta（git 差异高亮分页器）发布 0.20.0 版本。本版本最引人注目的改动是支持 <a href="https://github.com/stefanhaller/diff-line-metadata-spec">OSC-1717 diff-line 元数据规范</a>。这项改动意义重大，它允许 <a href="https://github.com/jesseduffield/lazygit">lazygit</a> 等 TUI（文本界面）应用借助 delta 在带有暂存/取消暂存等快捷键的界面中渲染 diff，且 delta 渲染可任意使用并排模式（side-by-side）和装饰等特性。</p><p>此外，本版本也标志着 delta 开始引入 AI 辅助生成的代码——本次发布中的多数 PR 都有大量 AI 代理辅助参与（如 <a href="https://github.com/dandavison/delta/pull/2181">#2181</a>、<a href="https://github.com/dandavison/delta/pull/2261">#2261</a>、<a href="https://github.com/dandavison/delta/pull/2266">#2266</a>、<a href="https://github.com/dandavison/delta/pull/2199">#2199</a>、<a href="https://github.com/dandavison/delta/pull/2240">#2240</a>），其中一个 PR 疑似由 AI 代理直接贡献。</p><p><strong>主要改动</strong>：</p><ul><li>支持 OSC-1717 元数据（#2181），并发出自定义的 OSC-1717 commit C 记录（#2266）</li><li>修复装饰宽于终端宽度的问题（#2261）</li><li>当设置了 $COLUMNS 时从该环境变量获取终端宽度（#2240）</li></ul><p><strong>其他改动</strong>：</p><ul><li>修复 git grep -h 输出被误解析为 path=code 的问题（#2194）</li><li>文档改进：修正 DELTA_FEATURES 链接与语法（#2199）、添加实时浏览器演示链接（#2229）</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/dandavison/delta/releases/tag/0.20.0</guid>
+      <pubDate>Sun, 04 Oct 2026 15:36:47 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.289 发布：修复终端冻结、插件与规则执行多项问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.289</link>
@@ -1519,37 +1528,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.268</guid>
       <pubDate>Thu, 10 Sep 2026 20:30:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.154.0 发布：新增 GPT-6-Astra 与实验性 worktree 支持</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.154.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI 发布了 Codex 0.154.0（rust-v0.154.0），主要带来新模型支持、实验性工作树（worktree）功能、内联问答等多项改进。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增 GPT-6-Astra 模型</strong>：现已加入模型选择器和 Amazon Bedrock 目录，并同步更新了 OpenAI Docs 技能中的迁移、兼容性及提示词指南。</li>
-<li><strong>实验性 worktree 支持</strong>：可通过 <code>--worktree</code> 或 <code>/worktree</code> 为新建或 fork 的会话创建隔离的 git 检出分支，并在 TUI 中浏览、恢复这些会话。</li>
-<li><strong>内联回答问题</strong>：在 Codex 继续工作的同时，可使用推荐选项或自定义文字回答提问，不影响主草稿。</li>
-<li><strong>Windows 会话共享后台服务器</strong>：支持守护进程生命周期命令与管理化更新（managed updates）。</li>
-<li><strong>Vim 编辑增强</strong>：新增 <code>R</code> 替换模式，支持撤销与点重复，并在传统终端中改进了 Escape 键处理。</li>
-<li><strong>复制功能改进</strong>：复制响应在富文本应用中保留格式，<code>/copy</code> 可复制状态输出或单个会话字段。</li>
-</ul>
-
-<h3>Bug 修复与细节</h3>
-<ul>
-<li>外部插件升级或回滚后，既有会话可立即加载新安装的插件工具并刷新技能与钩子。</li>
-<li>MCP 连接协调 OAuth 令牌刷新，刷新失败时会提示登录挑战，而不会自动重放被拒绝的工具调用。</li>
-<li>启动时在建立信任前避免运行工作区控制的辅助程序；macOS 沙箱阻止终端输入注入。</li>
-<li>恢复或 fork 远程任务时保留已保存的权限；全新会话与 fork 默认遵循服务器模型设置。</li>
-<li>在其他应用中打开、正在编写的会话被恢复时，以只读方式显示对话记录并提供重试选项，同时保留草稿。</li>
-<li>自动批准审查在上下文压缩后更好地保留授权上下文，并拒绝被新用户指令或回答失效的批准。</li>
-<li>弃用的 <code>codex mcp-server</code> 入口点已移除。</li>
-<li>大量守护进程、沙箱（Windows/macOS）与语音运行时的后端基础设施改动。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.154.0</guid>
-      <pubDate>Wed, 09 Sep 2026 22:35:38 GMT</pubDate>
     </item>
   </channel>
 </rss>

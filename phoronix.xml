@@ -3,7 +3,47 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 04 Oct 2026 15:20:09 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 19:34:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OpenCourant：Rocky Linux 开发者创建 OpenRadioss 社区分支</title>
+      <link>https://www.phoronix.com/news/OpenRadioss-OpenCourant</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 属于新软件项目（开源项目的社区分支），符合新软件项目和开源项目的兴趣配置</small></p><p>本周，西门子（Siemens）做出了令人意外且遗憾的决定，关闭了 OpenRadioss 项目。该项目由 Altair Engineering 于四年前发起，基于其著名的 Radioss 有限元求解器开源而成。西门子不仅终止了项目，还关闭了托管开源代码的 GitHub 仓库，并移除了围绕该项目构建的其他资源。</p>
+
+<p>所幸，OpenRadioss 有了新的社区分支——OpenCourant。Rocky Linux 创始人兼副总裁、Rocky Enterprise Software Foundation（RESF）成员 Brian Clemens 发起了这一项目。OpenCourant 基于西门子关闭项目并移除 Git 仓库访问权限之前最后一个公开的 OpenRadioss 开源快照。</p>
+
+<p>在其新建的 OpenCourant.org 项目页面上，OpenCourant 将自身描述为 OpenRadioss 的社区延续：「OpenCourant 是一款面向碰撞、冲击及高度非线性动力学仿真的开源有限元求解器——在 GNU AGPL 许可下公开延续 OpenRadioss 代码库，秉持其应有的开放精神。」OpenCourant 延续了 OpenRadioss 的 GNU AGPLv3 许可，并将作为 Rocky Enterprise Software Foundation 的一部分运行。</p>
+
+<p>不过，他们遇到了一个小问题：OpenRadioss 的一部分由二进制依赖组成，且由于西门子删除仓库，他们未能获得最新的版本。相关讨论细节已在讨论串中发布，欢迎任何持有近期 OpenRadioss 二进制文件的人士提供帮助。作者期待 OpenCourant 能够起飞，在 OpenRadioss 止步之处继续取得成功，并将在未来的基准测试文章中使用 OpenCourant。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/OpenRadioss-OpenCourant</guid>
+      <pubDate>Sun, 04 Oct 2026 17:51:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 内核 MGLRU-FG 补丁带来 10%~40% 性能提升</title>
+      <link>https://www.phoronix.com/news/Linux-MGLRU-FG-Patches</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲述Linux内存管理（MGLRU）的性能改进，带来10~40%提升，符合Linux技术及优化类兴趣</small></p><p>Linux 开发者 Kairui Song 于本周末发布了 MGLRU-FG（频率引导提升，frequency-guided promotion）的最新补丁系列。MGLRU（Multi-Gen LRU，多代最近最少使用）此前已通过优化页面回收（page reclaim）为 Linux 在内存压力下带来显著的性能改善，而 MGLRU-FG 旨在进一步挖掘潜力。</p>
+
+<p>该补丁的核心思路是：在 MGLRU 原有的逐出时 tier-PID 保护机制基础上，引入基于访问频率的主动提升机制。每个 folio（页帧单元）的访问都会递增其引用计数（refs），该计数存储在 folio 标志位中，并映射到对数分级（logarithmic tier）。补丁引入了几个特殊阈值：<code>LRU_REFS_REFERENCED (1)</code>、<code>LRU_REFS_WORKINGSET (2)</code>、<code>LRU_REFS_PROTECTED (3)</code> 和 <code>LRU_REFS_MAX (7)</code>。当引用计数达到阈值时，folio 会被主动提升，而无需等待 PID 控制器介入。同时，该补丁简化了 <code>PG_workingset</code> 和 <code>PG_referenced</code> 的使用方式，将页面标志位占用减少 1 位，并使引用计数更加精确。</p>
+
+<p>根据开发者公布的测试结果，MGLRU-FG 在多种工作负载下带来了 10%~40% 的性能提升或更低的 refault（回读失效）率，部分工作负载的运行时间显著缩短。具体测试数据包括：</p>
+<ul>
+  <li>Linux 内核编译测试：在 96 个并行任务（增加内存回收压力）下，编译时间缩短约 1 秒至近 10 秒</li>
+  <li>MongoDB：性能提升 13.5%</li>
+  <li>Chromium 和 Node.js（使用 zRAM 作为交换空间）：性能提升 76%</li>
+  <li>FIO：吞吐量最高提升 11%</li>
+</ul>
+
+<p>该补丁已在多种架构的服务器、桌面系统以及 Android 设备上进行了测试，均表现出良好结果。与 V2 版本相比，V3 在匿名页过度回收（anon over-reclaim）方面受影响更大，但整体效果更优，开发者表示该问题将在后续单独修复。Song 认为该补丁已"非常可用、稳定且性能良好"，但由于这是对 LRU 的重大改动（包括对 Active/Inactive 读取方式的改变），仍将其标记为 RFC（请求评论）状态。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=mglru_fg" alt="MGLRU-FG benchmark" />
+
+<p>更多详细信息可参阅 <a href="https://www.phoronix.com/news/Linux-MGLRU-FG-Patches">LKML 补丁系列</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-MGLRU-FG-Patches</guid>
+      <pubDate>Sun, 04 Oct 2026 15:16:26 GMT</pubDate>
+    </item>
     <item>
       <title>NVIDIA 在 XDC 2026 公布 Wayland 与 X.Org 延迟对比测试结果</title>
       <link>https://www.phoronix.com/news/NVIDIA-Wayland-Xorg-Latency</link>
@@ -752,29 +792,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-rc5-Released</guid>
       <pubDate>Sun, 27 Sep 2026 21:17:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Budgie 10.10.3 发布：菜单新增收藏功能，改进 Labwc 桥接</title>
-      <link>https://www.phoronix.com/news/Budgie-10.10.3-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是Budgie桌面环境的新版本发布，属于Linux桌面技术范畴，用户对Linux桌面技术感兴趣（interest），且来源配置中将Linux桌面技术列为感兴趣，故推荐阅读。</small></p><p>Budgie 桌面环境发布了 10.10.3 版本，作为这一开源桌面项目的最新点更新。本次更新带来了多项值得注意的改进。</p>
-<p>最显著的变化是 Budgie 菜单（Budgie Menu）终于支持了"收藏"（Favorites）功能，用户现在可以将应用程序添加到菜单的收藏区域中。</p>
-<p>该版本还改进了与 <a href="https://labwc.github.io/">Labwc</a> 的桥接层——Labwc 是官方推荐与 Budgie 10.10 配合使用的 Wayland 合成器。Labwc 桥接此次获得了按键绑定（keybinding）改进、多媒体/启动器按键处理优化以及可靠性提升。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=budgie_10103" alt="Budgie 10.10.3" />
-<p>此外，新版本还新增了指定主显示器（primary monitor）的功能，并允许用户将桌面图标放置在桌面的任意位置。最后，Budgie 10.10.3 还加入了 oo7 Secret Service 支持，以与该新的密钥服务提供方保持一致。</p>
-<p>更多关于本次发布的细节可通过 <a href="https://buddiesofbudgie.org">Buddies of Budgie</a> 官方渠道获取，Budgie 10.10.3 也可从 <a href="https://github.com/BuddiesOfBudgie">GitHub</a> 下载。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Budgie-10.10.3-Released</guid>
-      <pubDate>Sun, 27 Sep 2026 17:37:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核 LZ4 压缩代码重新同步，带来更高性能与代码整洁度</title>
-      <link>https://www.phoronix.com/news/Linux-LZ4-Clean-Resync</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲述Linux内核LZ4压缩代码为性能与整洁性而重同步，属于内核开源项目与软件改进，推荐阅读。</small></p><p>除了改进 Linux 内核的 Zstd 压缩代码外，内核树中的 LZ4 压缩代码也在进行一系列独立的增强。三星的 Michal Wilczynski 于周五提交了一组补丁，用于彻底整改内核中的 LZ4 代码。</p><p>目前内核中的 LZ4 代码实际上是上游代码的一个分支（fork），自 2017~2018 年以来就未再更新。此后，LZ4 上游代码已进行了多项错误修复和性能优化。Wilczynski 的补丁系列让 LZ4 代码不再需要为内核单独维护分支，而是可以将上游源码直接、未经修改地复制进 Linux 内核树。这使得 LZ4 代码在内核中得到了恰当的供应商化（vendored）管理，未来可以直接拉取最新的 LZ4 压缩/解压代码。</p><p>此次清理与重新同步带来的 LZ4 性能收益相当显著：只读文件系统 EROFS 搭配 LZ4 时，4K 簇的吞吐量提升约 11%，64K 簇的读取吞吐量最高提升 14%。其他内核内 LZ4 基准测试显示最高有 21% 的性能提升。</p><img src="//www.phoronix.net/image.php?id=2026&image=linux_faster_lz4" alt="Linux faster LZ4" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-LZ4-Clean-Resync</guid>
-      <pubDate>Sun, 27 Sep 2026 13:16:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
