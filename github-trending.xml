@@ -3,7 +3,86 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Sun, 04 Oct 2026 09:41:18 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 15:20:10 GMT</lastBuildDate>
+    <item>
+      <title>⭐ e2e：TesterArmy 开源的 AI 端到端测试框架</title>
+      <link>https://github.com/tester-army/e2e</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI端到端测试框架，属于新的AI软件技术进展和开源项目，用户对此感兴趣</small></p><p>GitHub Trending 榜首项目 <a href="https://tester.army/e2e">e2e</a> 是 TesterArmy 推出的新一代开源 AI 端到端（e2e，end-to-end）测试框架，适用于 Web 和移动应用，使用 TypeScript 编写，采用 Apache-2.0 许可证。</p>
+
+<p>e2e 的核心创新在于让测试以自然语言描述目标，由 AI 代理（agent）驱动应用达成该目标，并在同一测试中通过 locator 和断言校验结果。例如可用 <code>agent.act('upgrade the workspace to the Pro plan')</code> 这样的语句指挥代理操作界面。代理执行的步骤会被记录下来，后续断言验证后，下一次运行时可在应用未变化的情况下直接回放，无需调用模型；不包含代理步骤的纯测试则完全不需要模型。用户可自行提供订阅、API key 或本地模型。</p>
+
+<p>项目采用模块化架构，提供多组配套包：核心 SDK/运行器/CLI（<code>e2e</code>）、基于 Playwright 的浏览器引擎（Chromium/Firefox/WebKit）、iOS 与 Android 移动引擎、以 PR 评论形式发布结果的 GitHub reporter、托管的浏览器内核、托管的 iOS 模拟器与 Android 模拟器，以及用于界定语义动作和断言的决策模型执行器。</p>
+
+<p>快速上手只需运行 <code>npx e2e init</code>，按提示选择引擎（Web 或移动端）与模型提供商即可生成配置和示例测试。文档已随包内置，可在 <code>node_modules/e2e/docs</code> 离线阅读。CLI 会发送匿名使用数据（如运行命令和引擎、失败位置），但不包含测试内容、应用内容或凭据，可通过命令关闭遥测。项目正处于积极开发阶段，API 与配置在 1.0 之前仍可能变化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tester-army/e2e</guid>
+      <pubDate>Sun, 04 Oct 2026 15:19:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>Caddy：默认自动 HTTPS 的高扩展性多平台 Web 服务器</title>
+      <link>https://github.com/caddyserver/caddy</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Web服务器属于基础设施范畴，用户对此不太感兴趣，但作为知名开源项目有一定参考价值，兴趣不明确</small></p><p><strong>Caddy</strong> 是一款用 Go 编写的快速、可扩展、多平台的 Web 服务器，支持 HTTP/1.1、HTTP/2 和 HTTP/3，并以默认开启自动 HTTPS 而著称。该项目是 ZeroSSL 旗下的开源项目，已在生产环境中服务超过数万亿次请求、管理数百万张 TLS 证书，可扩展到数十万个站点。</p>
+
+<h3>核心特性</h3>
+<ul>
+<li><strong>自动 HTTPS</strong>：默认启用，为公网域名使用 ZeroSSL 和 Let's Encrypt 签发证书；为内部域名和 IP 提供全托管本地 CA；支持集群内多实例协调、多签发源故障回退以及加密 ClientHello（ECH）。</li>
+<li><strong>多种配置方式</strong>：支持简单易用的 Caddyfile、功能强大的原生 JSON 配置，以及通过 JSON API 进行动态配置；还可通过配置适配器将 YAML、TOML、NGINX 配置等任意格式转换为 JSON。</li>
+<li><strong>高可用性</strong>：即使其他服务器因 TLS、OCSP 或证书相关问题宕机，Caddy 仍能保持稳定运行。</li>
+<li><strong>高度可扩展</strong>：采用模块化架构，通过强大的插件系统实现各类功能，同时避免臃肿。</li>
+<li><strong>随处运行</strong>：无外部依赖（甚至不依赖 libc），可跨平台部署。</li>
+<li><strong>内存安全</strong>：使用 Go 编写，相比其他服务器拥有更高的内存安全保证。</li>
+</ul>
+
+<h3>架构与使用场景</h3>
+<p>Caddy 首先是一个运行 Go 应用的平台，其「应用」本质上是实现为 Caddy 模块的 Go 程序。标准发行版内置 <code>tls</code> 和 <code>http</code> 两个应用。几乎所有配置都集中在一个配置文档中，而非分散在命令行参数、环境变量和配置文件中，这使得服务器配置管理更加直观，减少了隐藏变量。</p>
+
+<p>Caddy 主要用于 HTTPS 服务器场景，也可作为任何长期运行的 Go 程序的承载平台。其主要配置方式是 API，同时也支持命令行界面和配置文件方式。用户可先阅读官方「Getting Started」指南快速上手。</p>
+
+<h3>项目背景</h3>
+<p>该项目由 Matthew Holt 于 2014 年在杨百翰大学学习计算机科学期间开始开发，成为首个默认自动使用 HTTPS 的 Web 服务器。"Caddy" 是 Stack Holdings GmbH 的注册商标，该项目现为 ZeroSSL（HID Global 旗下公司）的项目，拥有数百名贡献者。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/caddyserver/caddy</guid>
+      <pubDate>Sun, 04 Oct 2026 15:19:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ gstack：YC 总裁 Garry Tan 开源的 Claude Code 虚拟工程团队工具集</title>
+      <link>https://github.com/garrytan/gstack</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 基于Claude Code的工具集，属于新的AI软件技术进展和编程工具分享，虽是行业人物发起但核心是AI工具，用户会感兴趣</small></p><p><strong>gstack</strong> 是 Y Combinator 总裁 <a href="https://x.com/garrytan">Garry Tan</a> 开源的一套 Claude Code 技能集（skill 集合），将 AI 编码助手转化为一个「虚拟工程团队」。项目包含 23 个专业角色工具和 8 个强力工具，全部以斜杠命令形式提供，基于 Markdown，采用 MIT 许可证，完全免费。</p>
+
+<h3>核心背景</h3>
+<p>Garry Tan 在文中引用 OpenAI 联合创始人 <a href="https://fortune.com/2026/03/21/andrej-karpathy-openai-cofounder-ai-agents-coding-state-of-psychosis-openclaw/">Andrej Karpathy</a> 的说法——「自去年 12 月以来我大概没写过一行代码」。Tan 以此引出观点：借助合适的 AI 工具，单个开发者可以拥有传统团队的生产力。他本人声称在过去 60 天内，在兼职运营 YC 的同时交付了 3 个生产服务和 40+ 个功能，并给出了详细的代码产出量对比数据（2026 年逻辑代码变更速度约为 2013 年的 810 倍）。</p>
+
+<h3>核心功能</h3>
+<p>gstack 将 Claude Code 扩展为一支虚拟团队，涵盖以下角色：</p>
+<ul>
+<li><strong>CEO</strong>（<code>/office-hours</code>、<code>/plan-ceo-review</code>）：产品方向与战略挑战</li>
+<li><strong>工程经理</strong>（<code>/plan-eng-review</code>）：锁定架构设计</li>
+<li><strong>设计师</strong>（<code>/design-review</code>、<code>/design-consultation</code>）：识别 AI 生成的劣质设计</li>
+<li><strong>代码审查员</strong>（<code>/review</code>）：发现生产环境 bug</li>
+<li><strong>QA 负责人</strong>（<code>/qa</code>）：打开真实浏览器进行测试</li>
+<li><strong>安全官</strong>（<code>/cso</code>）：运行 OWASP + STRIDE 安全审计</li>
+<li><strong>发布工程师</strong>（<code>/ship</code>、<code>/land-and-deploy</code>、<code>/canary</code>）：合并 PR 并部署</li>
+</ul>
+
+<h3>多智能体支持</h3>
+<p>除 Claude Code 外，gstack 还支持 OpenAI Codex CLI、OpenCode、Cursor、GitHub Copilot CLI、OpenClaw 等多个 AI 编码工具，分为 <strong>full</strong>（完整认证）、<strong>experimental</strong>（实验性）和 <strong>instruction-only</strong>（仅指令）三个层级。项目还提供原生 OpenClaw 技能（通过 ClawHub 安装）和面向任意规则读取型智能体的轻量 digest 文件。</p>
+
+<h3>安装与使用</h3>
+<p>安装约需 30 秒，依赖 Claude Code、Git、Bun 和 Node.js。支持「团队模式」（<code>--team</code>），可将 gstack 自动同步到共享仓库，让团队成员自动获得该工具集。项目在 GitHub 上已获得约 13.5 万星标。</p>
+
+<h3>目标用户</h3>
+<ul>
+<li>仍希望亲自交付产品的创始人/CEO</li>
+<li>初次使用 Claude Code 的用户（提供结构化角色而非空白提示词）</li>
+<li>希望在每个 PR 上获得严格审查、QA 和发布自动化的技术负责人与资深工程师</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/garrytan/gstack</guid>
+      <pubDate>Sun, 04 Oct 2026 15:19:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Effect：用 TypeScript 构建生产级应用的函数式库</title>
       <link>https://github.com/Effect-TS/effect</link>
@@ -1231,73 +1310,6 @@ agent("Find the slowest test in this repo and explain why it's slow")</code></pr
       </description>
       <guid isPermaLink="false">https://github.com/vercel-labs/json-render</guid>
       <pubDate>Sun, 20 Sep 2026 11:15:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cua：为 AI 智能体提供可操作电脑的开源工具套件（跨平台桌面自动化、云桌面与评测基准）</title>
-      <link>https://github.com/trycua/cua</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 为AI智能体提供可操作电脑的开源工具，涉及桌面自动化与新AI技术进展，与用户对AI进展和编程工具的强兴趣高度契合。</small></p><p><strong>Cua</strong> 是一个开源项目，核心理念是「给 AI 智能体（agent）提供它们可以使用的电脑」，用于规模化落地 <strong>Computer-Use 2.0</strong>——即智能体在同一任务中自由穿梭于代码、API 与图形界面之间的自动化范式。该项目在 GitHub 上已获得约 2.38 万星标，目前以 MIT 协议开源。</p>
-
-<p>项目由四个核心模块组成，用户自备智能体与模型，Cua 负责提供电脑与自动化工具：</p>
-
-<ul>
-  <li><strong>Cua Fleets</strong>：提供隔离的云桌面（cloud desktops）。用户可在 <a href="https://run.cua.ai">run.cua.ai</a> 预置沙箱容量池，代码从池中领取桌面，通过 Sandbox SDK 执行命令、截取屏幕并操作其中应用。支持本地与云端两种沙箱环境。</li>
-  <li><strong>Cua Driver</strong>：为智能体提供在 macOS、Windows、Linux 上检查与操作原生桌面应用和浏览器的工具，可通过 CLI、MCP 或类型化 SDK 接入。支持的背景交付模式可让智能体在不占用鼠标指针或夺取焦点的前提下工作（具体边界见平台支持文档），并兼容 Claude Code、Codex、Cursor、OpenClaw 等多种智能体。</li>
-  <li><strong>Lume</strong>：基于 Apple 的 Virtualization.Framework，在 Apple Silicon 上创建和管理本地 macOS 及 Linux 虚拟机（如创建 Tahoe VM 并通过 SSH 连接）。</li>
-  <li><strong>Cua Bench</strong>：用于构建计算机操作任务、评测智能体，并导出轨迹（trajectories）以供训练。从无需 VM、Docker 或模型 API 密钥的模拟任务即可入门。</li>
-</ul>
-
-<p>每个模块都配有一步步的入门教程，例如通过 Fleets 配置 Linux 桌面、用 Driver 操作计算器并验证结果、用 Lume 创建 VM、或用 Bench 构建并验证一个奖励值为 1.0 的模拟任务。所有文档、示例与 API 参考均可在 <a href="https://cua.ai/docs">cua.ai/docs</a> 查阅，社区支持则通过 Discord 进行。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/trycua/cua</guid>
-      <pubDate>Sat, 19 Sep 2026 10:52:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenStock：开源免费的股票市场追踪平台，实时行情与个性化提醒</title>
-      <link>https://github.com/Open-Dev-Society/OpenStock</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 开源股票追踪平台，属于开源项目但主题为股票金融，与用户兴趣关联度不高，兴趣不明确。</small></p><p><b>OpenStock</b> 是一个由 Open Dev Society 社区构建的开源股票市场应用，旨在替代昂贵的商业市场平台。项目基于 Next.js 15（App Router）、TypeScript、Tailwind CSS v4 和 shadcn/ui 构建，采用 MongoDB 持久化存储，通过 Finnhub 获取市场数据，并使用 TradingView 组件呈现图表与市场视图。</p>
-
-<p>核心功能包括：</p>
-<ul>
-  <li><b>实时行情追踪</b>：支持股票搜索、K 线图、技术指标、公司概况与财务数据展示</li>
-  <li><b>个性化提醒</b>：用户可设置自选股（Watchlist）并接收每日新闻摘要邮件，邮件内容基于用户自选股个性化生成</li>
-  <li><b>市场总览</b>：提供热力图、报价和头条新闻等 TradingView 组件</li>
-  <li><b>AI 增强</b>：通过 Gemini 生成个性化欢迎邮件，并支持跨来源（Reddit、X.com、新闻、Polymarket）的股票情绪洞察</li>
-  <li><b>完善的认证与体验</b>：Better Auth 邮箱密码登录、Cmd/Ctrl+K 全局搜索命令面板、个性化引导流程（收集国家、投资目标、风险偏好等）</li>
-</ul>
-
-<p>项目采用 AGPL-3.0 许可证，强调"永远免费、开放"的理念。技术栈还包括 Inngest（事件与定时任务）、Nodemailer（邮件发送）等。项目目前获得约 1.57 万 Star，语言构成以 TypeScript（约 93.4%）为主。</p>
-
-<p>需要说明的是，OpenStock 是社区构建的项目，并非券商平台，市场数据可能因提供商规则而延迟，且不构成任何投资建议。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/Open-Dev-Society/OpenStock</guid>
-      <pubDate>Sat, 19 Sep 2026 10:52:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Higgsfield：面向万亿参数模型的开源 GPU 编排与机器学习框架</title>
-      <link>https://github.com/higgsfield-ai/higgsfield</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向万亿参数模型的开源GPU编排与ML框架，属于AI软件技术进展，符合用户兴趣。</small></p><p>Higgsfield 是一个开源的、容错性强、高度可扩展的 GPU 编排与机器学习框架，专为训练拥有数十亿至数万亿参数的大语言模型（LLM）而设计。该项目在 GitHub 上已获得约 4,653 颗星，目前处于早期阶段（PyPI 版本 0.0.3）。</p>
-
-<p>Higgsfield 的核心定位是「多节点训练不再令人头疼」，它兼具 GPU 工作负载管理和机器学习框架两大角色，提供五项主要功能：</p>
-
-<ul>
-  <li><strong>资源分配</strong>：为用户训练任务分配独占或非独占的计算节点访问权限。</li>
-  <li><strong>高效分片</strong>：支持 ZeRO-3 DeepSpeed API 和 PyTorch 的全分片数据并行（FSDP）API，实现万亿参数模型的高效分片。</li>
-  <li><strong>训练编排</strong>：提供在已分配节点上启动、执行和监控大型神经网络训练的框架。</li>
-  <li><strong>资源竞争管理</strong>：通过维护实验队列来管理资源争用。</li>
-  <li><strong>CI/CD 集成</strong>：与 GitHub 和 GitHub Actions 无缝集成，实现机器学习开发的持续集成。</li>
-</ul>
-
-<p>项目的设计理念是遵循标准 PyTorch 工作流，用户可自由搭配 DeepSpeed、Accelerate 或自定义 PyTorch 分片方案。它旨在解决两大痛点：<strong>环境混乱</strong>（不再需要手动管理不同版本的 PyTorch、NVIDIA 驱动和数据处理库）和<strong>配置混乱</strong>（无需定义数百个实验参数或编写复杂的 YAML 配置）。</p>
-
-<p>在部署流程上，Higgsfield 会自动在服务器上安装所需工具（Docker、部署密钥、higgsfield 二进制文件），生成部署与运行工作流，代码推送到 GitHub 后自动部署到节点，用户可通过 GitHub 访问实验运行界面并保存检查点。目前已在 Azure、LambdaLabs 和 FluidStack 等云平台上完成测试，要求节点运行 Ubuntu 并具备 SSH 访问权限。</p>
-
-<p>项目提供了快速入门指南和教程，涵盖分布式模型训练、数据准备、参数优化、模型保存、训练稳定性技术及监控等常见 LLM 训练任务。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/higgsfield-ai/higgsfield</guid>
-      <pubDate>Sat, 19 Sep 2026 10:52:15 GMT</pubDate>
     </item>
   </channel>
 </rss>

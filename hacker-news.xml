@@ -3,7 +3,49 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 04 Oct 2026 09:42:10 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 15:20:48 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 为什么开发者不「使用平台」？—— 从平台怀疑论者的视角看 Web 开发生态</title>
+      <link>https://news.ycombinator.com/item?id=49950554</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 Web 开发生态与「使用平台」之争，属于编程效率改进与软件技术观点，与用户兴趣吻合。</small></p><p>Nolan Lawson 在文章中从「平台怀疑论者」的视角，探讨了为什么许多 Web 开发者不遵循「使用平台」（use the platform）的倡导——即优先使用浏览器原生 API 而非自建 JavaScript 解决方案。</p>
+
+<p>作者列举了多个原因：<b>历史原因</b>——浏览器长期落后于生态（如 jQuery 填补空白，需等待 IE6 淘汰）；<b>熟悉度</b>——开发者习惯从 npm 寻找 React 组件，而非思考平台原生方案；<b>文档差距</b>——许多 npm 包有精心编写的 README 和教程，而平台文档（如 MDN）长期分散且不如第三方库的演示吸引人。</p>
+
+<p>作者特别指出，对某些开发者来说，<b>自己动手构建本身就是乐趣</b>，且由此产生的「宜家效应」（IKEA effect）让人更愿意维护自己的代码。他以构建模态对话框为例，说明虽然原生 <code>&lt;dialog&gt;</code> 元素可以一步到位，但自己实现焦点陷阱、Esc 关闭、背景滚动锁定等细节的过程充满学习价值。作者本人正是通过为 IndexedDB 等平台 API 编写工具（PouchDB）而深入理解平台的。</p>
+
+<p>作者也承认，自建方案有时源于对 CSS 等平台技术理解不足——CSS 的历史复杂性（如 clearfix、float 等技巧）促使开发者转向更直观的 JavaScript 实现。他还以自己在 ClickHouse 上的经历说明，即使是资深开发者也可能因未深入理解平台而构建出更慢、更笨拙的替代方案。</p>
+
+<p>文章最后探讨了 AI 编程的影响：乐观者认为 LLM 能凭借对平台的百科全书式知识选择最佳 API；悲观者担心 LLM 会大量复制非平台惯用代码，导致过度工程化问题加剧。</p>
+
+<h3>社区讨论要点</h3>
+<p>HN 评论区展开了热烈讨论，主要观点包括：</p>
+<ul>
+<li>多位开发者指出原生 <code>&lt;dialog&gt;</code> 和日期选择器等平台组件在可访问性、移动端支持、动画等方面存在明显不足，导致「使用平台」反而得到更差的结果。</li>
+<li>有开发者强烈批评 Web Components 的 API 设计，认为其「糟糕且难以使用」，甚至比 IE6 更令人沮丧。</li>
+<li>部分评论认为 React 的成功很大程度上归功于其优秀的文档、教程和社区生态，而标准制定机构很少投入类似资源。</li>
+<li>有观点认为平台本身存在无法满足的空白（如完全可访问的可搜索组合框），这反过来教会开发者「离开平台」工作。</li>
+<li>关于 AI 的影响，有评论认为 LLM 让开发者不必再「学习自己动手」，但也有人指出 AI 同样会在 Web Components 等平台 API 上犯错。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49950554</guid>
+      <pubDate>Sun, 04 Oct 2026 04:10:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 智能体不需要「记忆」，它们需要「文档」</title>
+      <link>https://news.ycombinator.com/item?id=49945933</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论AI智能体应使用文档而非记忆，属于AI软件技术进展与编程效率改进经验，符合兴趣配置。</small></p><p>一篇博客文章提出一个颇具争议的观点：AI 编码智能体（agent）真正需要的不是基于检索增强生成（RAG）的「记忆」插件，而是结构化的项目文档。</p>
+<p>作者指出，市面上几乎所有的记忆插件架构相同：把会话记录切分成上千条孤立片段，存入向量数据库；每次提示时检索最相似的 5 条注入上下文，必要时再让智能体手动搜索。这种「记忆」本质上是对旧对话的 RAG 抽取，它试图解决「智能体健忘」这一错误问题。</p>
+<p>文章列举了这种基于「回忆」方案的五类缺陷：片段仅靠相似度排序、无法判断正确性、时效性与缺失内容；存储时丢失了背景、动机与教训等上下文；把过去当作一成不变的真理，而代码库每天都在变化；智能体无法搜索自己都不知道存在的信息；存储内容（SQLite 中的上万条嵌入）无法审计、难以甄别过期或错误条目。</p>
+<p>作者主张用「文档式记忆」取代「回忆式记忆」：不只是单一的 AGENTS.md 文件，而是给智能体一个完整的结构化工作区（Markdown「大脑」），记录指令、规格、决策、研究等。智能体在工作前查阅相关文档获得完整上下文，工作后更新或新增文档。如此，智能体循环从「提示 → 构建 → 遗忘」变为「提示 → 查阅 → 构建 → 更新」，记忆从外挂的向量数据库变成一个可读、可更新、可共享的工作区。</p>
+<p>作者据此开发了开源插件 <a href="https://github.com/aerovato/operator-memory">Operator Memory</a>，并已在其所有项目中持续使用一年多，该系统完全基于普通 Markdown 文档，不借助向量数据库和任何后台守护进程。</p>
+<h3>社区反馈</h3>
+<p>HN 讨论中反响热烈，观点有分歧。部分评论者支持文档化思路，也有人提出不同做法：有人记录「原则」而非「记忆」并引入版本管理（<a href="https://principledriven.dev/">principledriven.dev</a>）；有人开发了「状态空间策略」问答工具来引导智能体；还有人分享通过 TDD（测试驱动开发）循环结合文档工作。反对与质疑意见同样存在：担心随着数据增长文档读写会消耗大量令牌；认为 LLM 生成的文档往往冗长而缺乏重点，不如人工精简；更有人质疑智能体难以长期遵循此类约定（ADR、记忆图等），最终总会退回基线行为（grep 和 Python）。评论中还引用了 Peter Naur 的经典文章《Programming as Theory Building》指出文档无法完整保存程序背后的心智模型，但也有观点认为 AI 的工作方式与人不同，要求更多显性上下文，因此可能存在本质不同的维护途径。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49945933</guid>
+      <pubDate>Sat, 03 Oct 2026 17:03:37 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Simon Willison：几乎所有按用量计费的服务都应默认提供硬性预算上限</title>
       <link>https://news.ycombinator.com/item?id=49949235</link>
@@ -1217,77 +1259,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49880312</guid>
       <pubDate>Mon, 28 Sep 2026 16:11:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 编码问题并未解决：一位资深工程师对&quot;AI 已解决编程&quot;叙事的反驳</title>
-      <link>https://news.ycombinator.com/item?id=49877988</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 资深工程师对AI解决编程叙事的论证，属于编程与AI技术讨论，符合兴趣</small></p><p>资深工程师 Alex Ewerlöf 发表长文《编码问题并未解决》（Coding Is NOT Solved），系统性地反驳了当前业界流行的"LLM 已解决编码问题"叙事。作者强调自己并非反 AI——他是 LLM 编程工具的早期采用者，也构建过 AI 产品——但他认为"编码已解决"的说法是"脑死亡式"的盲目乐观。</p>
-
-<h3>核心论点</h3>
-<p><strong>1. 代码是达成清晰理解的副产品。</strong>作者认为，代码不仅是实现功能的工具，更是人类理解系统行为、推理问题并修复故障的关键。AI 无法被追责，也无法承受后果，因此不能替代人类对系统的理解与所有权。</p>
-
-<p><strong>2. 非功能性需求（NFR）远未解决。</strong>即使功能性需求（代码应该做什么）也尚未解决，更不用说维护、可靠性、安全性、可扩展性等占软件成本大头的非功能性需求。作者指出，那些不阅读 AI 输出的人反而对其更有信心，存在明显的达克效应（Dunning-Kruger effect）。</p>
-
-<p><strong>3. 只有三种场景可以不读代码：</strong>个人软件（Personal Software）、概念验证（POC）、以及武器化 AI（网络攻击）。前两者风险容忍度高，后者则故意利用固有风险。而医疗、金融、汽车、国防、电力、航空、制造等需要雇佣工程师的行业，风险容忍度低，必须有人承担责任。</p>
-
-<p><strong>4. LLM 在逻辑推理上存在根本缺陷。</strong>LLM 是随机性和概率性的，在处理逻辑和大量上下文时准确度下降。作者以"Raspberry 中有几个 R"这类简单逻辑问题为例，说明 LLM 在逻辑推理上的局限。当前 LLM 之所以能写代码，是因为我们构建了将语法/运行时错误反馈给 LLM 的循环（harness），不断迭代直到错误被解决或隐藏。</p>
-
-<h3>对常见论调的逐一反驳</h3>
-<ul>
-<li><strong>"可以提前写出完整规格"</strong>：作者认为这是天真的想法，有行业经验的人都知道无法提前有意义地完成软件规格说明。</li>
-<li><strong>"英语是新的编程语言"</strong>：人类语言模糊且充满冲突，这正是编程语言被创造的原因。编译器或类型检查器能标记部分冲突，但自然语言无法保证各部分指令不互相矛盾。</li>
-<li><strong>"我移动得更快了"</strong>：作者警告不要混淆"动作"与"进展"，不要用 SLOC、PR 数量等虚荣指标衡量进度，而应衡量服务水平，即服务使用者的满意度。</li>
-<li><strong>"杠杆已转移到品味（taste）"</strong>：作者讽刺这是"退休厨师对自己说的谎言"，认为"品味"并不像人们期望的那样可被市场定价。</li>
-<li><strong>"AI 是平等器"</strong>：作者认为 AI 是"乘数"，同时赋予聪明人和愚蠢人翅膀，关键在于人的参与、迭代和知识深度。</li>
-<li><strong>"Agent 是新的编译器"</strong>：作者对此持讽刺态度。</li>
-</ul>
-
-<h3>关于 AI 过度使用（AI Overdose）</h3>
-<p>作者列举了 AI 过度使用的迹象：对异议零容忍、让 AI 管理生活、遇到稍有认知挑战的事就求助 AI、停止阅读长文本、与 AI 相处时间超过与真人相处等。他建议保持一个无 AI 的业余项目以维持编码技能。</p>
-
-<h3>社区讨论</h3>
-<p>该文在 Hacker News 上引发了 400 多条评论的激烈讨论。作者本人（hanifbbz）在评论区回应称，他"厌倦了为质量下降的服务支付全价"，并提到 GitHub 因愚蠢的重试错误宕机、AI agent 失控攻击公司等案例。</p>
-<p>评论区观点分歧明显：有人赞同"编码已解决但软件工程未解决"（federicobrancas），有人指出 AI 让懒惰和不称职的开发者变得更糟（askonomm），也有人分享 AI 在代码审查中"每个提交单独看都完美，但整体上重复造轮子"的亲身经历（fingerlocks）。还有评论者引用 GitHub Copilot 用 AI 将 43 万行 TypeScript 移植为 80 万行 Rust 的案例，认为这证明了 AI 在特定场景下的价值。</p>
-<p>值得注意的是，有评论者（hibikir）对作者"无法对无法控制的事物负责"的前提提出质疑，指出法律上存在大量"对不可控事物负责"的先例（如狗伤人、不安全玩具等）。作者回应称，如果法律上处于控制地位，就应该承担责任。</p>
-
-<h3>「你知道吗？」</h3>
-<p><strong>达克效应（Dunning-Kruger effect）</strong>：一种认知偏差，指能力不足的人往往高估自己的能力，而能力较强的人反而倾向于低估自己。作者借此说明那些不阅读 AI 输出的人反而对其质量更有信心。</p>
-<p><strong>非功能性需求（NFR）</strong>：指软件系统中不直接对应具体功能、但决定系统质量属性的需求，包括性能、可靠性、安全性、可维护性、可扩展性等。在软件工程中，NFR 的成本往往远超功能性需求。</p>
-<p><strong>S 曲线（S-curve）</strong>：描述技术或能力发展轨迹的曲线，初期增长缓慢，中期快速上升，后期趋于饱和。作者以此说明 AI 能力的提升存在边际收益递减点，更贵的模型不一定带来相应比例的效率提升。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49877988</guid>
-      <pubDate>Mon, 28 Sep 2026 13:52:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Parley：一个说纯 IRC 的联邦式去中心化聊天网络</title>
-      <link>https://news.ycombinator.com/item?id=49875913</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源去中心化聊天项目，属于开源项目和软件新功能范畴，用户感兴趣</small></p><p>Parley 是一个去中心化的联邦式聊天网络项目，核心设计理念是让每个个人或团队为自己的域名运行一个小型实例，实例之间通过 DNS 和 well-known 身份文档相互发现，通过 HTTPS 交换签名消息，并将整个联邦网络呈现给普通的 IRC 客户端（如 irssi、WeeChat、Textual 等），无需任何插件。</p>
-
-<p>身份格式类似电子邮件：<code>alice@foo.com</code> 运行在 foo.com 上，<code>bob@bar.com</code> 运行在 bar.com 上。Bob 输入 <code>/msg alice@foo.com hi</code> 即可跨实例通信，即使两个实例此前从未接触过。项目目前处于"可工作的概念验证"阶段，端到端设计已演示，但尚未加固。</p>
-
-<h3>主要特性</h3>
-<ul>
-<li><strong>普通 IRC 前端</strong>：支持 PASS 或 SASL PLAIN 登录，提供 IRCv3 server-time、message-tags、echo-message、multi-prefix 和 setname 等扩展，TAGMSG 可跨联邦中继打字指示等客户端专属标签。</li>
-<li><strong>跟随账户的滚动记录</strong>：CHATHISTORY 可翻页浏览频道和私信历史，draft/read-marker 将阅读位置保存在账户上，手机标记已读后桌面端同步清除。</li>
-<li><strong>可运行中管理的账户</strong>：账户存储在实例数据目录而非配置文件中，可通过 parleyctl、管理页面、HTTP API 或 OpenID Connect 单点登录创建。</li>
-<li><strong>DNS + WKID 发现</strong>：<code>_parley._tcp.&lt;domain&gt;</code> SRV 记录指向实例，well-known 文档发布 ed25519 公钥和 inbox。</li>
-<li><strong>签名 HTTP 联邦</strong>：每个事件是 POST 到对端 /inbox 的 JSON 文档，带 ed25519 分离签名，接收方用自行发现的密钥验证。</li>
-<li><strong>自动对等连接</strong>：向新域名发消息时两个实例自动建立连接，并通过 gossip 交换已知对等节点。</li>
-<li><strong>两种频道</strong>：<code>#dev</code> 是全局频道，在所有链接实例间复制；<code>&amp;notes</code> 是本地频道，不离开实例、对等端不可见。</li>
-<li><strong>无需频道所有权的审核</strong>：/ban 变成按掩码的屏蔽列表，可屏蔽单个用户或整个实例。</li>
-<li><strong>可搜索的历史记录</strong>：每个实例在 SQLite 中保存频道历史并带全文索引，支持 parleyctl search。</li>
-</ul>
-
-<h3>近期更新</h3>
-<p>项目最近一次提交（#39）修复了一个提及（mention）通知的 bug：当多个实例中有多个用户共享同一昵称时，频道中提及其中一个会向所有同名用户推送通知。修复后，昵称按发送者所看到的方式解析——带域名的昵称（如 <code>bob:bar.com</code>）指向特定实例的用户，裸昵称则指向发送者自己实例上的用户。该修复附带集成测试，确保每条消息只推送给被提及的用户。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论中，不少用户将其与 XMPP 类比——有评论指出"这就像 XMPP，但用 IRC 代替 XML"；也有用户认为"这就像电子邮件之于即时通讯"。部分评论关注垃圾信息问题，作者回应称可以屏蔽用户和整个实例。还有人提到 IRC 服务器间协议本身混乱，自建协议反而更贴合需求。也有评论者指出这让人联想到 Slack 的"诱饵转换"历史，但反驳者认为 Slack 是集中式且封闭的，与 Parley 的去中心化理念不同。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49875913</guid>
-      <pubDate>Mon, 28 Sep 2026 10:30:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
