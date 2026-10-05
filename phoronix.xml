@@ -3,7 +3,67 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 05 Oct 2026 08:54:59 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 18:22:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Auto-CPUFreq 3.2 发布：新增可配置 HWP 动态加速与平台配置文件报告</title>
+      <link>https://www.phoronix.com/news/Auto-CPUFreq-3.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Auto-CPUFreq是Linux桌面下的CPU频率管理工具，属于Linux桌面技术及软件更新，与用户兴趣匹配</small></p><p>开源工具 Auto-CPUFreq 发布了 3.2 版本，继续致力于提升 Linux 笔记本电脑的电池续航能力。该工具用于主动系统监控和电源优化。</p>
+
+<p>Auto-CPUFreq 3.2 新增了可配置的英特尔硬件 P 状态（HWP）动态加速支持。此外，在交流电源供电（而非电池供电）时，英特尔 HWP 动态加速现已默认启用。</p>
+
+<p>本次更新还引入了 ACPI 平台配置文件（Platform Profile）报告功能，相比此前版本提供的基础报告更为稳健。Auto-CPUFreq 3.2 同时统一了系统报告与 GTK 运行时状态，以确保视图的一致性。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=autocpufreq_32" alt="AutoCPUFreq 3.2" />
+
+<p>更多下载信息与发布详情可参见 <a href="https://github.com/AdnanHodzic/auto-cpufreq">GitHub 上的 Auto-CPUFreq 3.2 发布页面</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Auto-CPUFreq-3.2</guid>
+      <pubDate>Mon, 05 Oct 2026 15:36:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>Mesa 开发者考虑建立正式治理模式，拟设立理事会解决冲突</title>
+      <link>https://www.phoronix.com/news/Mesa-Governance-Model</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Mesa开源图形驱动项目治理模式讨论，主题与用户兴趣配置匹配度不明确</small></p><p>Mesa 3D 驱动栈多年来一直依靠非正式的共识机制来管理重大变更，没有正式的治理模式。然而，这种非正式处理方式在某些情况下并不理想，上游 Mesa 开发者现在正考虑建立正式的治理模式。</p><p>由于开发者倦怠以及部分开发者缺乏精力去反对不合理的变更提案，Mesa 社区正在考虑设立一个理事会来管理开发工作。该理事会主要专注于<strong>冲突解决</strong>，而非主动推动决策。</p><img src="//www.phoronix.net/image.php?id=2026&image=mesa_council_1" alt="Mesa council presentation" /><p>Mesa 的开发实践将基本保持不变，仍以共识为基础，只有在无法达成共识或出现其他问题时才会召集理事会介入。可能交由理事会处理的话题包括：新增/移除新驱动、遗留软件支持、旧驱动的移除，以及其他有争议的功能。</p><img src="//www.phoronix.net/image.php?id=2026&image=mesa_council_2" alt="Mesa council conclusion" /><p>目前尚未提交关于该理事会的具体提案，这一想法是在上周于多伦多举行的 <a href="https://www.phoronix.com/news/Mesa-Governance-Model">XDC 2026</a> 会议上首次提出的。感兴趣的读者可以查看相关的<a href="https://www.phoronix.com/news/Mesa-Governance-Model">幻灯片</a>以及 XDC 演讲视频了解更多细节。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Governance-Model</guid>
+      <pubDate>Mon, 05 Oct 2026 13:04:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux ZRAM 重构：实现更大内存节省与更优性能</title>
+      <link>https://www.phoronix.com/news/Linux-ZRAM-Rework-Savings</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核ZRAM内存压缩机制改进，提升性能与内存效率，属Linux桌面技术</small></p><p>在当前内存价格高企的背景下，Linux ZRAM（内存中的压缩块设备）代码迎来了一次重大重构，旨在实现更大的内存节省。谷歌 Chrome/Chromium 团队的 Sergey Senozhatsky 近日发布了这批 ZRAM 补丁，重点优化内存使用，单个上下文/每 CPU 可节省「数十 KB 到数百 KB」内存，在多个上下文和 CPU 核心上累加效果显著。</p>
+
+<p>此次重构的核心是 zcomp 模块的重新设计。旧设计将读取（Read）和写入（Write）上下文一同保存在每 CPU 压缩流中，在可抢占的 ZRAM 下会产生优先级反转问题：高优先级的读取方可能抢占持有流锁的写入方，由于压缩流被被抢占的写入方锁定，读取方会被阻塞在同一个流锁上。但实际上解压缩（Read）与压缩（Write）路径完全独立，互不触碰对方缓冲区，因此 Patch 系列将压缩流拆分为独立的每 CPU 读取流和每 CPU 写入流，使读写不再相互阻塞。该思路由 Barry Song 提出，解耦读写后在合成测试中带来了明显的性能提升。</p>
+
+<p>系列补丁的最后一篇在解耦读写流的基础上重构了次级流的处理方式。次级压缩流仅在重压缩时使用，而重压缩由设备锁串行化（即单线程），但此前仍按每 CPU 分配次级流（以允许对重压缩对象并发读取）。现在有了专用的读写流，可以分配单例压缩上下文（用于重压缩），同时仍保留每 CPU 的解压缩上下文，从而在 zstd、deflate、lz4hc 等后端与配置下节省可观内存。</p>
+
+<p><img src="//www.phoronix.net/image.php?id=2026&amp;image=zram_streams" alt="ZRAM streams benchmark" /></p>
+
+<p>除每上下文/每 CPU 的内存节省外，将 Zcomp 后端代码拆分为独立的读写流还展现出带来显著性能提升的潜力。目前这些补丁已发布到 Linux 内核邮件列表进行评审。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-ZRAM-Rework-Savings</guid>
+      <pubDate>Mon, 05 Oct 2026 12:44:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Mold 3.0 发布：Rust 重写后的高速链接器首个大版本</title>
+      <link>https://www.phoronix.com/news/Mold-3.0-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Mold高速链接器3.0发布且经Rust重写，属编程工具发布及编程效率改进，用户很感兴趣</small></p><p>Mold 高速链接器于今日发布 3.0 版本，这是其从 C++ 重写为 Rust 后的首个大版本。Mold 作为 GNU Gold/LD 和 LLVM LLD 的替代方案，一直以高速著称，其长期目标是成为 Linux 系统上的默认链接器。</p>
+
+<p>Mold 3.0 被定位为先前稳定版 2.42.1 的直接替代品（drop-in replacement），但底层已从 C++ 全面迁移至 Rust 编程语言。据官方发布说明，2.42.1 是 C++ 版本的最后一个发行版。</p>
+
+<p>Mold 3.x 的主要目标是缩小与 GNU ld 之间剩余的功能差距，特别是在<a href="https://www.phoronix.com/news/Mold-3.0-Released">链接脚本（linker script）支持</a>方面，为 Mold 被 Linux 发行版采纳为默认链接器铺平道路。官方表示："mold 3.x 的目标是弥合与 GNU ld 的剩余兼容性差距，尤其是在链接脚本支持方面，并为 mold 成为 Linux 发行版默认链接器铺平道路。"</p>
+
+<p>采用 Rust 语言后，Mold 3.0 在处理损坏的输入文件时被认为更加安全。技术层面，该版本依赖 Rust 1.95 或更高版本，不再依赖 Intel oneTBB，并改用 Rust 的 Cargo 构建系统替代了此前的 CMake。在重写过程中，官方称修复了大量 bug。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=mold_30" alt="Mold 3.0" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mold-3.0-Released</guid>
+      <pubDate>Mon, 05 Oct 2026 10:29:15 GMT</pubDate>
+    </item>
     <item>
       <title>Linux 7.3-rc6 发布：回归&quot;AI 新常态&quot;下的正常开发节奏</title>
       <link>https://www.phoronix.com/news/Linux-7.3-rc6-Released</link>
@@ -763,45 +823,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/SIMDjson-5.0</guid>
       <pubDate>Mon, 28 Sep 2026 19:01:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>Fedora 45 将带来更流畅的 Snapdragon X1 笔记本体验</title>
-      <link>https://www.phoronix.com/news/Fedora-45-Snapdragon-X1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Fedora 45对Snapdragon X1笔记本的支持改进，属于新发行版范畴但主体围绕骁龙芯片平台，配置中芯片技术不太感兴趣，且未明确是否为苹果电脑，综合评定为可选。</small></p><p>高通去年从红帽（Red Hat）挖走了顶级 x86_64 Linux 笔记本专家 Hans de Goede，这一举措正在为 Fedora Linux 对高通骁龙 X（Snapdragon X）平台硬件的支持带来积极影响。Hans 今年早些时候已参与改进了 Fedora 44 下的骁龙 X1 体验，而随着计划于 10 月发布的 Fedora 45 到来，骁龙 X1 的体验将更加成熟完善。</p><p><img src="//www.phoronix.net/image.php?id=snapdragon-x-elite-linux-benchmarks&image=snapdragon_x_elite_11_med" alt="Snapdragon X1 laptop" /></p><p>得益于更多高通骁龙 X 支持进入主线内核，以及由 Hans 负责的各类发行版层面的增强，对于想在新版 Fedora 45 AArch64 镜像上尝试骁龙 X1 笔记本的用户而言，这应当会是一次"更加顺畅的体验"。不过他也指出，部分硬件可能仍需要一些变通处理。</p><p>Hans 在今天发布的博客中还提到，虽然骁龙 X2 的支持已开始进入主线内核，但 Fedora 45 默认采用 Linux 7.2 内核，因此当前的成熟支持仍集中在 X1 Plus/Elite 笔记本上，X2 的支持将更多体现在未来的内核版本中。作者表示，如果在他的 Acer Swift 14 AI 笔记本（SF14-11T-X3RZ）测试硬件上运行良好，他将很快进行一些骁龙 X1 的 Fedora 45 基准测试，并与 Ubuntu AArch64 镜像进行对比。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-45-Snapdragon-X1</guid>
-      <pubDate>Mon, 28 Sep 2026 16:07:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Firefox 157 正式发布：全新 Nova 界面、WebRTC 硬件 AV1 解码</title>
-      <link>https://www.phoronix.com/news/Firefox-157-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Firefox新版本发布，属于来源配置high_interest的Firefox主题，值得强烈关注</small></p><p>按照 Mozilla 每两周一次的发布节奏，开源网络浏览器 <strong>Firefox 157</strong> 现已正式发布。本次版本最引人注目的是其 <strong>Nova UI</strong>，被 Mozilla 称为"多年来最大的一次视觉刷新"。该界面旨在对浏览器窗口外壳（chrome）、侧边栏和菜单进行全面现代化改造。</p><img src="//www.phoronix.net/image.php?id=2026&image=firefox_157_1_med" alt="Firefox 157" /><p>Firefox 157 还新增了在受支持的设备上使用 <strong>硬件 AV1 解码</strong>进行 WebRTC 视频通话的能力。此前，Firefox 在 WebRTC 场景中始终依赖软件解码来处理 AV1 视频。</p><img src="//www.phoronix.net/image.php?id=2026&image=firefox_157_2_med" alt="Firefox 157 on Linux" /><p>此外，本次更新还包括 HDR 视频修复、调整视频播放速度时改进的音视频同步，以及移除 Amazon 作为内置搜索引擎。</p><p>Firefox 157 的二进制文件可从 ftp.mozilla.org 下载。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Firefox-157-Released</guid>
-      <pubDate>Mon, 28 Sep 2026 14:46:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Flatpak 1.18.4 发布，包含多项重要安全修复</title>
-      <link>https://www.phoronix.com/news/Flatpak-1.18.4-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Flatpak发布安全修复版本，属于新软件项目/软件更新类，来源配置high_interest的新软件项目及interest的开源项目，推荐阅读</small></p><p>Flatpak 1.18.4 于今日发布，为这款应用沙箱与分发技术带来多项重要的安全修复。新版本修复了一个安全问题，可防止恶意应用利用空文件或指向 <code>/run/host/monitor/resolv.conf</code> 的符号链接对任意文件进行特权覆盖；同时修复了另一个安全问题，以防恶意应用特权删除任意文件。</p>
-<p><img src="//www.phoronix.net/image.php?id=2024&amp;image=flatpak_sml" alt="Flatpak logo" /></p>
-<p>此外，Flatpak 1.18.4 在从带有身份验证的 OCI 仓库下载应用或运行时期间，修复了身份验证令牌可能被其他用户看到的问题。新版本还针对 <code>.desktop</code> 和 D-Bus <code>.service</code> 文件增加了基于允许列表的字段过滤，以防潜在的服务拒绝攻击及与主机服务的意外交互。另一个已解决的拒绝服务问题，是防止应用向包含应用外部父进程的进程组发送信号——此前这可能通过终止桌面环境造成拒绝服务。</p>
-<p>上述安全修复已全部整合进 Flatpak 1.18.4。同一天还发布了最新开发版 Flatpak 1.19.2，其中也加入了这些安全修复。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Flatpak-1.18.4-Released</guid>
-      <pubDate>Mon, 28 Sep 2026 13:20:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ openSUSE Leap 16.1 发布候选版：引入全新不可变模式</title>
-      <link>https://www.phoronix.com/news/openSUSE-Leap-16.1-RC</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] openSUSE新发行版发布，属于来源配置high_interest的新发行版主题，强烈推荐</small></p><p>openSUSE Leap 16.1 的发布候选（RC）阶段已正式开启，该版本与 SUSE Linux Enterprise Server 16.1 保持同步。本次发布最值得关注的亮点是引入了全新的<b>不可变模式（Immutable Mode）</b>，这也是 Leap 系列首次提供此类功能。</p><p>不可变模式下，系统采用只读根文件系统，并实现事务性更新（transactional updating）。这一模式旨在取代现有的 Leap Micro 构建版本，未来 openSUSE Leap 16.1+ 的不可变模式将主要面向容器主机和虚拟机（VM）主机场景。用户可通过操作系统安装程序选择启用不可变模式。</p><img src="//www.phoronix.net/image.php?id=2026&image=opensuse_leap_161_immutable" alt="openSUSE Leap 16.1 Immutable Mode option" /><p>在图形桌面环境方面，Leap 16.1 RC 包含 KDE Plasma 6.6，而 GNOME 桌面则保持在 GNOME 48 版本；LXQt 也由 v2.2 升级至 v2.4。更多下载信息与测试细节可参见 <a href="https://news.opensuse.org">news.opensuse.org</a> 官方网站。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/openSUSE-Leap-16.1-RC</guid>
-      <pubDate>Mon, 28 Sep 2026 10:20:22 GMT</pubDate>
     </item>
   </channel>
 </rss>

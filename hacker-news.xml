@@ -3,7 +3,100 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 05 Oct 2026 08:55:51 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 18:22:49 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Cloudflare 推出 Web Search API 测试版：让 AI 代理通过 AI Gateway 搜索实时网络</title>
+      <link>https://news.ycombinator.com/item?id=49963171</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 AI 代理通过 Cloudflare API 搜索实时网络，属于编程工具发布与 AI 软件技术进展，符合高兴趣</small></p><p>Cloudflare 于 2026 年 10 月 2 日宣布推出 <strong>Web Search API</strong>（测试版），该 API 通过 AI Gateway 让 AI 代理和应用能够搜索互联网，并以实时信息为基础生成回答，避免依赖模型训练截止日期或猜测 URL。</p>
+
+<h3>核心特性</h3>
+<ul>
+<li><strong>三家搜索提供商</strong>：发布时支持 Ceramic.ai、Exa 和 Linkup 三家提供商，均支持零数据保留（Zero Data Retention），并承诺遵守 Cloudflare 的已验证爬虫标准。</li>
+<li><strong>统一计费与日志</strong>：搜索请求通过 AI Gateway 运行，会出现在网关日志中，按各提供商的列表 API 价格计费，无额外加价；也支持自带提供商 API 密钥。</li>
+<li><strong>调用方式</strong>：可通过 REST API 或 Worker 中的 AI binding 调用，示例包括查询盐湖城秋季活动等。</li>
+</ul>
+
+<h3>社区反馈与讨论</h3>
+<p>该消息在 Hacker News 上引发热烈讨论（294 分，148 条评论），主要关注点包括：</p>
+<ul>
+<li><strong>中间层价值质疑</strong>：有用户质疑为何不直接使用提供商，Cloudflare 是否"什么都想插一脚"。支持者认为统一集成、计费、故障转移和信任是优势，且部分组织偏好单一云服务商。</li>
+<li><strong>搜索质量担忧</strong>：有用户实测 Ceramic.ai（默认提供商）的搜索质量，发现对特定查询返回 0 结果或完全无关的结果，甚至搜索 "ceramic.ai" 自身网站都无法返回正确链接，引发对搜索索引质量的质疑。</li>
+<li><strong>提供商选择讨论</strong>：有用户好奇为何未包含 Brave Search API（被认为体验优于 Exa），而 Perplexity 的缺席则被归因于 Cloudflare 与 Perplexity 之间关于"隐蔽爬取"的公开争执。</li>
+<li><strong>零数据保留的疑问</strong>：有评论指出，虽然三家提供商承诺零数据保留，但 Cloudflare 自身是否承诺零数据保留才是关键。</li>
+<li><strong>成本对比</strong>：有开发者提到 Google Gemini Flash Lite 2.5 提供每日 1000 次免费搜索，相比之下搜索 API 的成本并不低。</li>
+</ul>
+
+<p>总体而言，该 API 为 AI 应用提供了一种统一、可观测的实时搜索方案，但其搜索质量、提供商选择以及"中间层"的价值定位仍是社区讨论的焦点。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49963171</guid>
+      <pubDate>Mon, 05 Oct 2026 10:47:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 用 OpenSSH 和 Nginx 自建 HTTP 隧道：无需额外软件即可分享本地服务</title>
+      <link>https://news.ycombinator.com/item?id=49958569</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 自建 HTTP 隧道分享本地服务，属于编程效率改进与工具分享技巧，符合高兴趣</small></p><p>本文介绍了一种仅使用 OpenSSH 和 Nginx 两个已有组件实现自托管 HTTP 隧道的方法，用于将本地服务（如 localhost:8080 上的博客预览）安全地分享给他人，无需安装 ngrok、frp 等第三方工具。</p>
+
+<h3>核心方案</h3>
+<p>作者 Vincent Bernat 的方案分为几个步骤：</p>
+<ul>
+<li><strong>SSH 远程转发</strong>：通过 <code>ssh -N -R 0:localhost:8080</code> 将远程服务器上的一个临时端口转发到本地服务，OpenSSH 会自动分配空闲端口。</li>
+<li><strong>Nginx 反向代理</strong>：配置 Nginx 将形如 <code>https://p41535.ssh.luffy.cx</code> 的请求代理到对应的本地端口，配合通配符证书（Let's Encrypt DNS-01 验证）实现 HTTPS 访问。</li>
+<li><strong>访问控制</strong>：利用 <code>ngx_http_secure_link_module</code> 模块，在 URL 中嵌入基于 MD5 哈希的令牌和过期时间戳，防止端口被枚举扫描。令牌以 HTTP Basic Auth 的用户名形式传递，过期后返回 410 状态码。</li>
+</ul>
+<h3>辅助脚本</h3>
+<p>作者还提供了一个辅助脚本 <code>http-over-ssh</code>，通过查找 <code>sshd-session</code> 进程来发现 OpenSSH 分配的临时端口，自动生成带令牌的分享 URL，并保持会话开启。配合 <code>~/.ssh/config</code> 中的 <code>RemoteCommand</code> 配置，一条命令即可完成整个流程。</p>
+
+<h3>社区讨论</h3>
+<p>HN 上的讨论主要围绕几个方面：</p>
+<ul>
+<li><strong>安全担忧</strong>：有用户指出最初的 Nginx 配置允许攻击者将流量导向 localhost 上的任意端口，作者回应称文章第二部分已通过 secure_link 模块解决了该问题。也有评论者认为方案"过于复杂且有风险"，建议直接使用 sish 或 ngrok。</li>
+<li><strong>替代方案</strong>：多位用户提到了其他自托管方案，包括 <a href="https://github.com/antoniomika/sish">sish</a>（专为隧道设计的 SSH 服务器，支持自动 TLS 和 Web 控制台）、基于 <a href="https://github.com/aflin/iroh-webproxy">iroh</a> 的 P2P 方案（无需公网 IP 和端口转发）等。</li>
+<li><strong>简单性之争</strong>：有用户认为直接在家用 IPv4 上托管普通服务器更简单，但也有用户指出 ISP 服务条款和隐私问题可能成为障碍。</li>
+<li><strong>企业视角</strong>：一位 IT 管理员表示这类"暴露笔记本到公网"的工具给企业安全带来困扰，难以全面阻止。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49958569</guid>
+      <pubDate>Sun, 04 Oct 2026 22:25:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>将 1993 年原版《毁灭战士》移植到 SQL 中运行</title>
+      <link>https://news.ycombinator.com/item?id=49948300</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 将 1993 年旧游戏移植到 SQL 数据库运行，属技术炫技但涉及旧作游戏，与兴趣主题关联模糊</small></p><p>CedarDB 团队发布了一项令人惊叹的技术演示：他们将 1993 年原版《毁灭战士》（Doom）的完整游戏逻辑和渲染器移植到了 SQL 中，并成功在数据库内部运行。游戏循环以原版 35 FPS 运行，渲染器可在笔记本上以最高 60 Hz 的频率生成完整的 320×200 帧缓冲区。Python 仅负责处理计时、读取键盘输入和显示位图，多人对战模式也已实现。</p>
+
+<img src="vanilla_vs_sqldoom.png" alt="One of these is the 1993 binary. The other is a SQL query. Can you figure out which is which?" />
+
+<h3>架构设计</h3>
+<p>整个项目遵循几条核心规则：渲染必须完全基于 SQL，唯一允许的 SQL 输出是表格或编码了每个像素精确 RGB 值的位图；游戏循环也必须纯 SQL 实现（允许在数据库内使用用户自定义函数）；客户端可以用其他语言编写，但只能负责解析输入、驱动游戏 tic 和渲染输出位图。</p>
+
+<p>架构上，游戏逻辑和渲染器被刻意分离：游戏逻辑以固定 35 Hz 循环运行，而渲染器是游戏状态表的纯函数，客户端可随时请求新帧。游戏逻辑用约 5900 行 SQL 实现，比原版 C 源码（约 9000 行）更精简。作者指出，用 SQL 表达复杂游戏逻辑出人意料地容易——不需要逐个迭代敌人，只需写一条 <code>UPDATE ... WHERE</code> 语句，让数据库自动并行处理。</p>
+
+<h3>游戏数据加载</h3>
+<p>Doom 的 .wad 文件格式本身具有高度关系型结构：两个 VERTEXES 由 LINEDEF 连接，LINEDEF 有两个 SIDEDEF，SIDEDEF 绑定 SECTOR，SECTOR 中可放置 THINGS。将整个 WAD 转换为数据库大约需要 1000 行 Python 代码，导入全部《毁灭战士 1》数据约需 18 秒。</p>
+
+<h3>渲染管线</h3>
+<p>每一帧都是一个巨大的视图（view），读取关卡几何、游戏状态和玩家位置，返回完整帧缓冲区。渲染管线约 1300 行 SQL，分布在 89 个 CTE（公共表表达式）中。作者强调，尽管看起来疯狂，但这条管线实际上非常接近原版 Doom 的做法——原版 linux_doom 的渲染引擎约 3300 行代码，是 SQLDoom 的约 2.5 倍。</p>
+
+<img src="cte_dag.png" alt="All 89 CTEs of a single rendered frame" />
+
+<p>渲染的核心是 BSP 树遍历。由于 1993 年没有 GPU 硬件 Z-buffer，Doom 必须通过正确的绘制顺序实现遮挡。SQLDoom 在加载时预计算 BSP 树的所有路径，将每个决策编码为 bigint 并按字典序排序，从而直接获得正确的从前到后渲染顺序。</p>
+
+<h3>性能表现</h3>
+<p>作者找到的最慢游戏 tic 出现在 E4M1 关卡，46 个苏醒的怪物同时冲向玩家，耗时 10.45 毫秒，约占可用 tic 预算的 37%。更典型的场景（6 个怪物苏醒）平均耗时 2.15 毫秒，仅占预算的 8%，留有大量余量。</p>
+
+<img src="tic_waterfall_worst.png" alt="A game tic" />
+
+<h3>社区反响</h3>
+<p>该项目在 Hacker News 上引发热烈讨论，获得 263 分和 41 条评论。有用户称赞这是"巅峰工程恶作剧"（peak engineering malpractice），用比原版 C 更少的代码行数同时滥用查询规划作为状态机。也有用户指出这是 CedarDB 数据库的巧妙广告——在竞争激烈的 SQL 数据库市场中成功吸引了眼球。作者还设置了欧盟和美国的多人在线服务器，供玩家直接体验。</p>
+
+<h3>你知道吗？</h3>
+<p>实体组件系统（ECS）是一种游戏架构模式，将实体（如玩家、怪物）拆分为多个组件（位置、精灵、属性），由系统（如怪物 AI、移动、伤害计算）决定具有特定属性组合的实体如何交互。作者表示，这个项目让他真正理解了 ECS 模式——在 SQL 中，每个组件成为一张表，每个系统成为一条连接相关表的 UPDATE 或 INSERT 语句，天然契合数据密集型处理。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49948300</guid>
+      <pubDate>Sat, 03 Oct 2026 22:14:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 浏览器原生运行的经典 Visual Basic 6 IDE 项目</title>
       <link>https://news.ycombinator.com/item?id=49956681</link>
@@ -1157,87 +1250,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49896604</guid>
       <pubDate>Tue, 29 Sep 2026 17:07:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenAI 发布 GPT-6.1 Sol：以约五分之一成本提供接近 Astra 级别的智能</title>
-      <link>https://news.ycombinator.com/item?id=49896586</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] OpenAI 发布新 AI 模型 GPT-6.1 Sol，属新 AI 模型发布公告，用户很感兴趣，必看。</small></p><p>OpenAI 正式推出新一代模型 <strong>GPT-6.1 Sol</strong>，官方宣称该模型在性能上可匹配旗舰级 GPT-6.1 Astra，但推理成本约为后者的五分之一，同时相较此前发布的 GPT-6 Sol 有显著提升。这一发布迅速在 Hacker News 引发热议，帖子获得 540 分和 445 条评论。</p>
-
-<p>评论区的讨论焦点集中在多个方面。首先，有用户指出此前关于"出于安全考虑暂不发布"的传闻实际上针对的是另一款模型 GPT-6.1 Astra，而非本次发布的 Sol。多位开发者反馈，上一代 GPT-6 Sol 实际表现不佳，甚至不如更早的 5.6 Sol，因此此次 6.1 Sol 能否真正修复问题备受关注。</p>
-
-<p>价格竞争成为社区讨论的核心话题。有观点认为"token 单价正在成为主战场"，这对行业和投资者都颇具警示意味，也可能是 Anthropic 选择今年 IPO 的原因之一。部分用户指出，虽然 API 价格下调明显，但订阅版额度同时被削减了一半，对于 Codex 等重度用户而言实际优惠程度有限；另有评论认为该定价已与 Claude Sonnet 5.5 的 API 价格相当，而 Claude Code 的订阅额度则更为慷慨。</p>
-
-<p>此外，不少用户对模型发布节奏的加快表示困惑——上一代 6 版才发布不久，便被迅速更迭的 6.1 Sol 取代。评论中亦不乏调侃式观点，有人将其形容为"数字越大越好"的军备竞赛。本次发布被普遍视为对竞争对手 Opus 5.5 的直接回应，对消费者而言则是利好消息。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49896586</guid>
-      <pubDate>Tue, 29 Sep 2026 17:06:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ MicroLLM Lab：在浏览器中直接运行并对比 7 款微型语言模型</title>
-      <link>https://news.ycombinator.com/item?id=49882781</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍在浏览器中运行并对比多款微型语言模型的工具，涉及AI模型应用和编程工具，符合高兴趣配置，属必看内容。</small></p><p>MicroLLM Lab 是一个实验性项目，允许用户完全在浏览器中利用 WebGPU 运行量化（Q4）的小型语言模型（SLM），无需后端服务器。用户可以直接在页面上与 <strong>PetitGPT、SmolLM2</strong> 等共 7 款模型聊天、进行基准测试并横向对比它们在本地设备上的表现。该项目在 Hacker News 上获得了 220 分，引发 81 条讨论，关注度颇高。</p>
-
-<p>社区反馈主要集中在这几点：</p>
-<ul>
-<li><strong>模型能力边界</strong>：多位用户指出，微型模型不宜作为通用助手使用。它们知识储备有限、普遍缺乏推理能力，更适用于情感分析、文本分类、实体抽取等特定任务。作者本人也明确将这些称为「SLM」，而非完整的多模态大模型。</li>
-<li><strong>输出质量问题</strong>：有用户展示了 PetitGPT research-v1 在回答「2+2」时的怪异输出（「2 + 2 = 4 + 2」），而其他用户测试「去除所有皇后后一副牌有几张」时，模型仍回答 52 张，暴露出逻辑与事实性上的缺陷。不过也有用户表示同一模型给出了正确结果，也有评论提醒「LLM 生成的是语义正确的句子，而非事实正确的陈述」。</li>
-<li><strong>UI 争议</strong>：批评集中在页面文本过小、信息过于密集，且被指为「vibe-coded」（AI 生成的代码）产物。作者（logicallee）回应称全页仅 600 词、文字小便于跳过，并强调页面已在 HN 首页停留数小时，说明网友大体认可现状。另一位用户则深入剖析了「AI 工具反而让 UI 普遍变差」的现象，并表达了对其设计语言的个人反感。</li>
-<li><strong>同类项目交流</strong>：讨论中出现了多个类似项目，包括基于 ThreeJS Three-Shading-Language 的 <a href="https://three-llm.ben3d.ca/">three-llm</a>、<a href="https://sonistellar.com/lab/">sonistellar.com/lab</a> 等。有用户建议作者加入 MiniCPM5-1B 模型，并反馈在 Pixel 9 上 CPU 可达 33 tokens/s。</li>
-</ul>
-
-<p>整体而言，MicroLLM Lab 是对端侧小型语言模型生态的一次直观演示，验证了「零后端、纯浏览器推理」的可行性，同时也侧面反映出当前微型模型在常识与推理上的明显局限。</p>
-
-<h3>你知道吗？</h3>
-<p>「SLM（Small Language Model，小型语言模型）」指参数规模远小于主流大模型（如数十亿甚至上千亿参数）的语言模型，通常可量化后在本地设备（手机、浏览器、边缘硬件）上运行，牺牲一定智能以换取离线、隐私与低延迟。正如本文评论区所强调，它们更适合聚焦的窄场景任务，而非通用的聊天助手。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49882781</guid>
-      <pubDate>Mon, 28 Sep 2026 18:58:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Jeff：在家训练、与 Jev 兼容的 0.8B 决策模型，单次决策约 30 毫秒</title>
-      <link>https://news.ycombinator.com/item?id=49883844</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 发布新型0.8B决策模型，属于新AI模型发布且可在家训练、效率高，符合高兴趣主题。</small></p><p>Jeff 是一组基于 Qwen3.5 和 Gemma 4 微调的小型开源模型，用于零样本分类（zero-shot classification），采用与 <a href="https://github.com/firelex/jeff">Jev</a> 相同的请求格式。用户用自然语言描述情境和选项，Jeff 通过单次前向传播（single forward pass）返回每个选项的校准概率，不生成文本、无需解析，在 RTX PRO 6000 上每次决策约 22 毫秒，在 Apple M4 Max（MLX）上约 28 毫秒。</p>
-
-<h3>核心特点</h3>
-<ul>
-<li><strong>零样本能力</strong>：选项可以是任意内容——客服队列、用户意图、内容审核标签、语音指令、游戏动作等，无需出现在训练数据中。</li>
-<li><strong>三种问题类型</strong>：choice（最多 255 个选项中选择）、noul（是/否概率）、score（按描述的量表打分），多个独立问题可在一个请求中同时回答。</li>
-<li><strong>完全本地训练</strong>：0.8B 模型约 2 小时、2B 约 3.5 小时即可在单张 RTX PRO 6000 上完成训练；全部合成训练数据由开源模型 Qwen3.8-Flash-Next 在本地生成，未使用云端 GPU 或闭源模型输出。</li>
-<li><strong>可微调</strong>：作者在语音导航任务上仅用约半小时、一张 GPU 微调，将留出集准确率从 31.7% 提升至 95.8%。</li>
-</ul>
-
-<h3>基准测试表现</h3>
-<p>在五个公开基准（共 4,599 个问题）上，Jeff-Qwen3.5-2B 综合得分 83.1%，与 Jev 公布的 83.0% 持平；Jeff-Qwen3.5-0.8B 得分 79.1%。在分类类任务（如 Financial PhraseBank 96.4%、RAGTruth 86.1%）上接近甚至超过大模型，但在推理密集型基准（BBH、JudgeBench、JevBench hard）上明显落后——这符合小模型的预期。</p>
-
-<img src="/firelex/jeff/raw/main/assets/benchmarks.png" alt="Jeff 各模型与 Jev 在各基准上的准确率对比" />
-
-<h3>游戏零样本测试</h3>
-<p>作者还让 Jeff 玩了 Doom、Frogger 和 Pac-Man 三款游戏作为零样本测试。Jeff-0.8B 在 Doom 中每集击杀 6.55 个怪物，与手写规则机器人及 Jev 公布的成绩持平；Frogger 中过河 10.3 次，是未训练基线的 10 倍；Pac-Man 中吃到 57/98 个豆子。每步决策在 M4 Max 上仅需 29–49 毫秒，而 Jev 的 API 调用约 212 毫秒。</p>
-
-<img src="/firelex/jeff/raw/main/assets/previews/doom-jeff-0.8b.gif" alt="Jeff-Qwen3.5-0.8B 玩 Doom" width="260" />
-<img src="/firelex/jeff/raw/main/assets/previews/frogger-jeff-0.8b.gif" alt="Jeff-Qwen3.5-0.8B 玩 Frogger" width="260" />
-<img src="/firelex/jeff/raw/main/assets/previews/pacman-jeff-0.8b.gif" alt="Jeff-Qwen3.5-0.8B 玩 Pac-Man" width="260" />
-
-<h3>社区反馈</h3>
-<ul>
-<li>有用户指出 Jeff 在其分类场景下准确率仅 70%（对比 Jev 的 94%），但作者回应称可通过针对性微调改善；也有用户认为 Jeff 的价值在于展示用开源权重构建轻量级 MVP 的可能性。</li>
-<li>有开发者建议，对于纯分类任务，使用嵌入（embeddings）+ 逻辑回归分类器可能更优——该架构在 AG News、Banking77 等数据集上匹配或超越 Jev，且推理时间低于 1 毫秒。</li>
-<li>有用户尝试用 Jeff 分类招聘广告（行业、工作方式、职位类型），0.8B 模型效果不佳，2B 有所改善但仍不完美。</li>
-<li>关于 Jev 底层技术的讨论：有观点认为 Jev 可能并非自回归生成，而是通过并行生成多个答案并去重实现高速；也有人认为其本质仍是"现有 LLM + 修改解码器 + RL 训练"。</li>
-</ul>
-
-<h3>作者经验总结</h3>
-<p>作者强调：小模型是分类器而非规划器，不应期待其多步推理能力；措辞对结果影响极大（Frogger 中统一选项措辞使单集过河次数从 15 提升到 23）；更大的模型不一定更好（2B 在游戏中表现反而不如 0.8B，因其更保守）；基准分数不能预测实际游戏表现。</p>
-
-<p>Jeff 的代码采用 MIT 许可（含 AutoJev 版权声明），模型权重采用 Apache 2.0。项目始于对 AutoJev 的分支，保留了其核心设计（单次前向传播、训练好的答案读取头、校准温度），并在此基础上构建了小模型学生、本地合成数据管线、MLX 推理支持等。</p>
-
-<div class="know-more"><h3>你知道吗？</h3><p><strong>System 1 模型</strong>：借用心理学中"系统 1"（快速、直觉、自动）与"系统 2"（缓慢、理性、分析）的区分，这类模型专注于快速、低延迟的直觉式判断（如分类、选择），而非需要多步推理的复杂任务。Jev 和 Jeff 都属于 System 1 模型。</p><p><strong>JevBench</strong>：由 Jev 团队发布的基准测试集，包含多个难度层级，用于评估决策模型在复杂情境下的表现，其"hard"层级对推理能力要求较高。</p></div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49883844</guid>
-      <pubDate>Mon, 28 Sep 2026 20:23:36 GMT</pubDate>
     </item>
   </channel>
 </rss>

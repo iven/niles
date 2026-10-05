@@ -3,7 +3,38 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 05 Oct 2026 08:55:13 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2026 18:22:02 GMT</lastBuildDate>
+    <item>
+      <title>fx 40.0.0 发布：交互式查询、四种新输入格式与 Vim 风格命令</title>
+      <link>https://github.com/antonmedv/fx/releases/tag/40.0.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fx 发布了迄今最大的版本 40.0.0。本次更新引入了交互式查询、四种新的输入格式、Vim 风格命令，并迁移至 Bubble Tea v2 框架。</p>
+
+<h2>⚡ 交互式查询</h2>
+<p>在查看器中按 <kbd>.</kbd> 即可开始输入查询，支持实时预览结果、Tab 键自动补全（包括数组和 lambda 内部）、JS 语法高亮、查询历史记录（↑/↓ 切换），Esc 取消查询。流式数据和慢查询也能正常工作。</p>
+
+<h2>📄 新输入格式</h2>
+<p>新增 XML、HTML、EDN、MAML 四种输入格式支持。XML 中属性映射为 <code>@attr</code>，文本为 <code>#text</code>；HTML 按完整 HTML5 树解析；EDN 关键字去掉冒号；MAML 保留键顺序和精确数字文本。</p>
+
+<h2>⌨️ Vim 风格命令</h2>
+<p>按 <kbd>:</kbd> 打开命令行，支持 <code>:w</code> 写入文件、<code>:wq</code> 写入并退出、<code>:w !cmd</code> 将 JSON 管道传给 shell 命令（如 <code>:w !less</code>）、<code>:q</code> 退出、<code>:&lt;n&gt;</code> 跳转到指定行。</p>
+
+<h2>🫧 Bubble Tea v2 及其他改进</h2>
+<p>基于 Bubble Tea v2 重构，支持通过 SSH 复制（OSC 52）、终端窗口标题显示文件名、查询和搜索输入支持粘贴。查看器新增括号跳转（<kbd>%</kbd>）、文件重载（<kbd>r</kbd>）、逐行滚动、预览窗格搜索、对象/数组大小显示等功能。新增 <code>sortKeys</code>、<code>del(key)</code>、<code>exit(code)</code> 函数，并大幅提升稳定性。</p>
+
+<h2>⚠️ 破坏性变更</h2>
+<ul>
+<li><kbd>Esc</kbd> 不再退出程序，改用 <kbd>q</kbd> 或 <kbd>Ctrl-C</kbd></li>
+<li>移除 <kbd>v</kbd> 键（编辑器打开），改用 <code>:w !vim -</code></li>
+<li>移除 <code>dig</code> 功能和 Game of Life，由交互式查询和隐藏的 roguelike 地牢替代</li>
+<li>空输入时以非零状态码退出；非 JSON 输入文件禁止保存覆盖</li>
+</ul>
+
+<p>完整文档见 <a href="https://fx.wtf">fx.wtf</a>，完整变更日志见 <a href="https://github.com/antonmedv/fx/compare/39.2.0...40.0.0">GitHub</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/antonmedv/fx/releases/tag/40.0.0</guid>
+      <pubDate>Mon, 05 Oct 2026 16:01:34 GMT</pubDate>
+    </item>
     <item>
       <title>delta 0.20.1 补丁发布，修复 issue #2270</title>
       <link>https://github.com/dandavison/delta/releases/tag/0.20.1</link>
@@ -1470,28 +1501,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.269</guid>
       <pubDate>Fri, 11 Sep 2026 19:17:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>Python SDK 0.154.0 发布：新增 max/ultra 推理等级、ExternalMessage 外部内容支持</title>
-      <link>https://github.com/openai/codex/releases/tag/python-v0.154.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex Python SDK 发布 0.154.0 版本，可通过 <code>pip install --upgrade openai-codex==0.154.0</code> 安装（要求 Python 3.10 或更高），并配套 openai-codex-cli-bin==0.154.0 运行时。本次更新带来以下主要改动：</p>
-<ul>
-<li><strong>新增 max 与 ultra 推理等级</strong>（reasoning-effort 取值），提供更强的推理能力。<a href="https://github.com/openai/codex/pull/39662">#39662</a></li>
-<li><strong>支持 ExternalMessage</strong>：同步和异步的 <code>run()</code> 与 <code>turn()</code> 调用均可接受外部内容，外部内容可开启一轮对话或加入当前常规轮次，并具备工具级权限（不授予用户授权），消费方收到独立的事件流。<a href="https://github.com/openai/codex/pull/44086">#44086</a></li>
-<li><strong>历史与轮次选项增强</strong>：resume/fork 时新增 <code>include_turns</code>，新增 <code>turn_service_tier</code>（用于一个新开启的轮次）及 <code>source</code> 元数据。历史选择改变返回值而非模型上下文，选项省略时保留原有默认值。<a href="https://github.com/openai/codex/pull/44084">#44084</a></li>
-<li><strong>协议与通知刷新</strong>：重新生成协议模型和通知，并保留在轮次开始响应之前到达的完成事件。<a href="https://github.com/openai/codex/pull/44032">#44032</a>、<a href="https://github.com/openai/codex/pull/44400">#44400</a></li>
-</ul>
-<h3>升级迁移注意事项</h3>
-<ul>
-<li><code>HookMetadata</code> 的 handler 被包裹在 <code>.root</code> 中，需将 <code>hook.command</code> 改为 <code>hook.root.command</code>，并在读取 handler 专属字段前先检查 <code>hook.root.handler_type</code>。</li>
-<li>部分此前未知的通知现在拥有类型化载荷（typed payload），应读取命名字段而非 <code>.params</code>；未知或无效载荷仍会使用 <code>UnknownNotification</code>。</li>
-<li>手动构造或延迟加入的 turn 句柄会从附加点接收事件，较早的输出不会重放，因此收集结果可能不完整；完成后再附加可能抛出 <code>TransportClosedError</code>。保存历史请使用 <code>thread.read(include_turns=True)</code>，由 <code>thread.turn(...)</code> 直接返回的句柄则会保留从请求发出起的完整事件。</li>
-<li>自定义 <code>codex_bin</code> 覆盖需要 CLI 0.151.0 或更高版本，才能支持 ExternalMessage 及新的历史/每轮选项。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/python-v0.154.0</guid>
-      <pubDate>Thu, 10 Sep 2026 19:51:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
