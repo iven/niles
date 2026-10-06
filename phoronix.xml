@@ -3,7 +3,70 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 06 Oct 2026 07:30:40 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 15:05:27 GMT</lastBuildDate>
+    <item>
+      <title>Blender 6.0 可能移除 OpenGL 支持，全面转向 Vulkan</title>
+      <link>https://www.phoronix.com/news/Blender-6.0-May-Remove-OpenGL</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Blender软件对OpenGL支持的变化，Blender属于不太感兴趣但标题含义尚有模糊之处，判定为可选</small></p><p>随着 Blender 5.0 的 Vulkan API 支持日趋成熟，Blender 开发者正在考虑在 Blender 6.0 中移除 OpenGL 支持。目前尚未做出最终决定，但开发者已在讨论弃用 OpenGL API 并在 Blender 6.0 版本中将其移除的计划。</p>
+
+<p>据昨日 EEVEE 和 Viewport 模块会议记录确认，OpenGL 的弃用与移除正在考虑之中。会议记录指出：「内部提案是在 Blender 6.0（2027 年 11 月）中移除 OpenGL 支持，但尚未决定，因为虚拟纹理（virtual texturing）将是这一计划的阻碍。」虚拟纹理技术目前是移除 OpenGL 支持的主要障碍。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=blender_opengl_med" alt="Blender OpenGL and Vulkan option" />
+
+<p>由于 Blender 5.5 是长期支持（LTS）版本，这将是仍在使用老旧 OpenGL-only 平台的用户继续使用这款开源软件的最后机会。不过，到 2027 年底，任何不支持 Vulkan API 的系统都已相当老旧。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Blender-6.0-May-Remove-OpenGL</guid>
+      <pubDate>Tue, 06 Oct 2026 12:11:41 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Meta 开发 Linux 压缩内存 &quot;CRAM&quot;：性能优于 ZRAM 与 Zswap</title>
+      <link>https://www.phoronix.com/news/Linux-CRAM-Compressed-RAM</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Linux内核内存压缩技术新进展，属于Linux桌面/开源技术范畴，用户感兴趣</small></p><p>面对当前内存短缺、价格高企以及内存容量需求不断增长的现状，Meta 工程师正在为 Linux 开发一种名为"压缩内存"（Compressed RAM，简称 CRAM）的新方案。该方案采用硬件卸载压缩技术，同时仍支持对压缩内存进行缓存行/字节级访问，相比现有的 ZRAM 和 Zswap 实现更为优越。</p>
+
+<p>Meta 的 Gregory Price 日前在布拉格举行的 Linux Plumbers Conference 上介绍了这一项目。目前支持 CRAM 所需的大部分独立组件已合入主线内核。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=cram_1_med" alt="CRAM read performance" />
+<p>在读取性能方面，CRAM 对只读数据的访问速度已接近原始 DRAM 的性能水平。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=cram_2_med" alt="CRAM wrote performance" />
+<p>在内存写入方面，CRAM 的速度也远快于 ZRAM、Zswap 或普通 swap。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=cram_3_med" alt="Compressed RAM" />
+
+<p>对于已经依赖 Zswap 或 ZRAM 的终端用户而言，CRAM 提供了接近原生 DRAM 的速度，这一结果相当令人瞩目，尤其是在当前最大化 Linux 内存容量的需求十分迫切的背景下。该项目的后续进展值得关注，相关代码有望在不久的将来全部合入上游内核。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-CRAM-Compressed-RAM</guid>
+      <pubDate>Tue, 06 Oct 2026 10:23:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>微软发布 WSL 3.0.2：支持大型服务器与实验性稀疏 VHD 存储</title>
+      <link>https://www.phoronix.com/news/Microsoft-WSL-3.0.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及WSL在大型服务器上运行，虽涉及Linux但偏向大型服务器场景，兴趣不明确</small></p><p>微软于昨日发布了 Windows 子系统 Linux（WSL）3.0.2 版本，这是继上周 WSL 3 正式发布（其中 "WSLC" 将 Windows 上的 Linux 容器推向全面可用）之后的又一次更新。</p><p>本次更新的主要亮点包括：</p><ul>
+<li><strong>自动虚拟 NUMA 支持</strong>：WSL 3.0.2 为大型 WSL 虚拟机引入了自动虚拟 NUMA（vNUMA）处理能力。此前有英特尔工程师提交 bug 报告指出，在拥有超过 256 线程的主机上 WSL 无法启动。借助这一改进，WSL 现在可以在多路服务器上顺畅运行。</li>
+<li><strong>实验性稀疏 VHD 支持</strong>：新增实验性的稀疏虚拟硬盘（VHD）创建功能，磁盘空间仅在写入数据时才被实际占用，有助于节省存储资源。</li>
+</ul><img src="//www.phoronix.net/image.php?id=windows-11-wsl2-2025&image=windows_wsl2_3_med" alt="WSL on Windows 11" /><p>此外，WSL 3.0.2 还修复了 IPv4 转发问题，包含多项容器修复，并在 WSLC 事件中新增了容器健康状态通知。更多发布详情可参阅 <a href="https://github.com/microsoft/WSL">微软 GitHub 仓库</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Microsoft-WSL-3.0.2</guid>
+      <pubDate>Tue, 06 Oct 2026 10:05:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ YSERVER 1.7 发布：Rust 编写的 X11 服务器大幅缩小与 X.Org 的内存差距</title>
+      <link>https://www.phoronix.com/news/YSERVER-1.7</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust编写的X11服务器新版本，涉及Rust和Linux桌面技术，用户均感兴趣</small></p><p>YSERVER 1.7 版本正式发布。这是一个使用 Rust 编程语言编写的 X11 服务器，其代码在很大程度上由 Claude Code 辅助生成（即"vibe coding"）。该项目持续活跃，已有大量应用和桌面环境能够在其上正常运行，开发团队也在不断补齐更多 X11 功能。</p>
+
+<p>本次更新的核心亮点是显著降低了显存（vRAM）占用。此前在 4K 桌面环境下，YSERVER 通常消耗 2~4GB 显存，而 X.Org Server 在类似配置下仅占用约 0.9GB。YSERVER 1.7 将这一数字降至约 1.2GB，主要改进在于不再为当前不可见的窗口保留显存，同时修复了部分 GLX 内存泄漏问题。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=yserver_med" alt="YSERVER" />
+
+<p>此外，得益于字体查找缓存等优化，YSERVER 在运行 CDE 和 Motif 应用时的启动速度现已与 X.Org 相当。YSERVER 1.7 还带来了 Vulkan 正确性修复，并支持 16MB 的 X11 BIG-REQUESTS，以与 X.Org Server 保持一致。更多详情可查看 <a href="https://github.com/yserver/yserver">GitHub 上的 YSERVER 项目</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/YSERVER-1.7</guid>
+      <pubDate>Tue, 06 Oct 2026 09:39:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ TrueNAS 27 RC.1 发布：基于 Linux 6.18 LTS 内核与 OpenZFS 2.4</title>
       <link>https://www.phoronix.com/news/TrueNAS-27-RC.1-Release</link>
@@ -778,68 +841,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-BPF-Panel-Drivers</guid>
       <pubDate>Tue, 29 Sep 2026 12:10:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>D7VK 2.3 发布：项目走向成熟，基于 Vulkan 实现对老旧 Direct3D API 的支持</title>
-      <link>https://www.phoronix.com/news/D7VK-2.3-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Direct3D/Vulkan兼容层项目，属于开源项目但偏向游戏图形相关，兴趣不明确</small></p><p>面向 Linux/Wine（Steam Play）环境的 D7VK 发布了 2.3 版本。该项目的本质是基于 Vulkan 实现对微软 Direct3D 7/6/5/3 等老旧 API 的兼容支持，开发者认为这一版本标志着项目已相当成熟。</p>
-
-<p>D7VK 2.3 带来了"或许是最后一次"的性能优化，主要围绕阴影表面的内存布局进行改进。以《帝国时代》（Imperial Age）为例，帧率从此前的 80 FPS 提升至 137 FPS，相较 D7VK 2.0 时代的 62 FPS 也有显著进步。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=d7vk_23" alt="D7VK 2.3 benchmark" />
-
-<p>此外，D7VK 2.3 重新基于 <a href="https://github.com/doitsujin/dxvk">DXVK</a> 3.1.1 构建，改进了 Vulkan 侧的检查，并包含多项其他修复和代码改进。随着代码库趋于成熟且预计不再有重大新功能加入，D7VK 从此进入维护模式。相关下载与更多细节可在 <a href="https://github.com">GitHub</a> 上查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/D7VK-2.3-Released</guid>
-      <pubDate>Tue, 29 Sep 2026 11:43:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.4 内核将为 FUSE 启用大页（Large Folios），带来显著性能提升</title>
-      <link>https://www.phoronix.com/news/FUSE-Large-Folios</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Linux内核FUSE性能改进，属于Linux技术方向但较为底层基础设施，兴趣不明确</small></p><p>继 Linux 7.3 对用户空间文件系统（FUSE）的改进之后，即将发布的 Linux 7.4 内核预计将启用大页（large folios）功能，为 FUSE 带来显著的性能提升。</p>
-
-<p>大页（large folios）是将多个连续的物理页合并为单个 folio，以降低开销并提升性能。FUSE 正在准备在非内存压力情况下启用该功能。相关补丁已进入 FUSE 的 for-next Git 分支，预计将合入 Linux 7.4 内核。</p>
-
-<p>针对该补丁的基准测试显示，使用 libfuse 的 passthrough_hp 配合缓冲 FIO 时，无论是基于 TMPFS 还是基于 NVMe 上的 XFS 作为后端存储，冷 I/O 场景下均获得了非常可观的性能提升：</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=fuse_large_folio" alt="FUSE large folio benchmarks" />
-
-<p>这一改进叠加近几个月来 FUSE 的其他多项优化，使得 Linux 7.4 内核备受期待。此外，如果 Linux 7.3 未被指定为长期支持（LTS）版本，Linux 7.4 有望成为今年的 LTS 内核版本，具体取决于 2026 年剩余时间内核发布周期的安排。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/FUSE-Large-Folios</guid>
-      <pubDate>Tue, 29 Sep 2026 10:30:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Mesa 正在开发 &quot;Shiva&quot; 框架，为 Vulkan 驱动提供类似 Gallium3D 的抽象层</title>
-      <link>https://www.phoronix.com/news/Mesa-Shiva-For-Vulkan</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章介绍Mesa Vulkan驱动新框架Shiva的开发，属于开源项目和软件技术进展，涉及Linux图形技术，符合interest配置</small></p><p>在 2026 年多伦多举行的 XDC（X.Org 开发者大会）上，Collabora 的 Faith Ekstrand 提出了为 Mesa Vulkan 驱动开发新框架 "Shiva" 的构想。该框架旨在为 Vulkan 驱动提供类似 Gallium3D 之于 OpenGL 驱动的抽象层，以应对日益增长的 Vulkan API 复杂性和驱动开发碎片化问题。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mesa_shiva_1_med" alt="Mesa Shiva" />
-
-<p>Ekstrand 指出，随着 Vulkan API 的不断演进，现状已难以为继。Mesa Vulkan 驱动之间存在越来越多的碎片化现象，各种转换和辅助代码不断增加，硬件驱动开发复杂度持续上升。他直言："2016 年的 Vulkan 实现起来有趣且容易……而 2026 年的 Vulkan 充满了向后兼容的历史包袱。"更令人担忧的是，他预测随着 Vulkan 的持续演进，实现难度只会进一步加大。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mesa_shiva_2_med" alt="Shiva outlook" />
-
-<p>Shiva 将作为 Vulkan API 的抽象层，Mesa Vulkan 驱动将面向 Shiva API 而非直接面向 Vulkan API 进行开发，以处理各种抽象逻辑。该框架也具有前瞻性，考虑到了未来 Rust 驱动的支持。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mesa_shiva_3_med" alt="Mesa Shiva plans" />
-
-<p>计划将在近期启动 Shiva 的开发工作，初期将先适配 Nouveau 和 Arm Mali Panfrost 驱动。不过，预计大约需要两年时间才能为用户带来实际成果。感兴趣的读者可以查看 XDC 上发布的 PDF 幻灯片和视频录像了解更多细节。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Shiva-For-Vulkan</guid>
-      <pubDate>Tue, 29 Sep 2026 00:32:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NVIDIA 开发「Display Config Server」以改善 Linux/Wayland 在复杂显示墙上的表现</title>
-      <link>https://www.phoronix.com/news/NVIDIA-Display-Config-Server</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及NVIDIA为Linux/Wayland开发显示配置服务器，属于Linux桌面技术范畴，且涉及显示墙（多显示器）配置改进，符合兴趣。虽然不是新软件项目本身发布，但属于Linux桌面技术进展，评为推荐。</small></p><p>NVIDIA 正在开发一项名为「Display Config Server」的新解决方案，旨在改善 Linux 在复杂显示墙（display walls）上的支持能力。这是 NVIDIA 在 AI 领域之外改善 Linux 生态系统的举措之一。</p><p>NVIDIA 工程师 Austin Shafer 在 2026 年多伦多 XDC 大会上介绍了这一项目。复杂显示墙常见于电视制作、剧院等场景，目前这类视频/媒体墙大多运行在 Microsoft Windows 上，NVIDIA 希望提升 Linux 在此类场景中的使用率。</p><p>目前运行 Linux 的显示墙通常仍基于 X.Org Server，并使用 NVIDIA 的 Mosaic 显示功能。由于不同合成器（compositor）及其他复杂性，直接在 Wayland 上实现显示墙较为困难。不过，通过 Vulkan Direct 2 Display（D2D）配合 <code>VK_KHR_display</code> 扩展，可以让 Vulkan 交换链（swapchain）在没有窗口系统的情况下直接驱动物理显示器，这为显示墙提供了一条可行路径。</p><img src="//www.phoronix.net/image.php?id=2026&image=nvidia_display_wall_1" alt="NVIDIA Display Config Server" /><p>NVIDIA 决定开发 Display Config Server 来改进 Vulkan 直接显示（direct-to-display）模型：由该服务「拥有」显示器，再将其租借给 Vulkan 客户端，从而避免每个应用程序都自行处理显示校准和配置逻辑。Display Config Server 实现了集中式配置、客户端之间的无缝切换，并降低了应用程序的实现难度。</p><img src="//www.phoronix.net/image.php?id=2026&image=nvidia_display_wall_2" alt="NVIDIA Display Config Server overview" /><p>XDC 2026 演讲还透露，NVIDIA 正在支持 Display Config Server 与 Wayland 合成器嵌套运行，同时也在改进 Vulkan 直接显示 API 在显示墙上的呈现方式。</p><p>Display Config Server 的代码将通过 <a href="https://github.com">GitHub 仓库</a>开源，但截至发稿时尚未公开。感兴趣的读者可查看 <a href="https://www.phoronix.com/news/NVIDIA-Display-Config-Server">PDF 幻灯片</a>及文中所嵌入的视频了解更多详情。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Display-Config-Server</guid>
-      <pubDate>Mon, 28 Sep 2026 19:22:08 GMT</pubDate>
     </item>
   </channel>
 </rss>

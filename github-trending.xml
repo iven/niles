@@ -3,7 +3,66 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Tue, 06 Oct 2026 07:30:36 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 15:05:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐ REA：用 AI 智能体逆向工程一切，从应用行为到原生二进制</title>
+      <link>https://github.com/morluto/rea</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是一款用 AI 智能体进行逆向工程的工具，属于开源项目，涉及 AI 软件技术进展和编程工具，用户会感兴趣</small></p><p><strong>REA（Reverse Engineer Anything）</strong> 是一个基于 MCP（模型上下文协议）的逆向工程工具，让 AI 智能体能够深入分析应用行为、原生二进制、JavaScript/Electron 应用、.NET 程序集和网站，无需源代码即可理解其工作原理。</p>
+
+<h3>核心能力</h3>
+<p>REA 采用「反编译 → 理解 → 重建」的调查模型：先恢复可读代码和线索，再追踪代码逻辑解释功能如何运作，最后将所学转化为用户自己产品中的功能。分析在本地运行，结论附带证据和局限性说明，不会上传应用到托管服务。</p>
+
+<h3>主要特点</h3>
+<ul>
+<li><strong>面向智能体设计</strong>：直接向智能体提问「这个功能如何工作」，由它代为调查而非猜测</li>
+<li><strong>CLI 与 MCP 双模式</strong>：既可在终端使用，也可接入智能体工作流</li>
+<li><strong>本地优先</strong>：分析完全在本地主机执行，不上传数据</li>
+<li><strong>上下文保持</strong>：可连续调查多个应用而无需每次重新开始</li>
+<li><strong>从洞察到代码</strong>：理解功能后可在同一编码会话中构建自己的版本</li>
+</ul>
+
+<h3>支持的平台与工具</h3>
+<p>原生二进制分析支持 <a href="https://www.hopperapp.com/">Hopper</a> 或 Ghidra（需 Ghidra 12.1.4 与 JDK 21）；静态 JavaScript 分析无需额外引擎；支持 APK 静态分析（JADX）和固件分析（Binwalk/Unblob）。兼容 Claude Code、Claude Desktop、Codex、Cursor、Gemini CLI、Windsurf、Devin、OpenCode、GitHub Copilot CLI 等多种智能体客户端。支持 macOS 12+、Ubuntu 24.04+、Fedora 41+ 及 Arch Linux，需 Node.js 22.19+。</p>
+
+<h3>快速上手</h3>
+<p>运行 <code>npx rea-agents setup</code> 即可完成引导式配置，将 REA 注册到智能体并安装匹配的工作流指令。也可通过 <code>npx rea-agents@latest analyze-javascript-application &lt;路径&gt; --json</code> 直接从终端分析 JavaScript/Electron 应用。项目提供 <code>doctor</code> 命令用于诊断环境问题。</p>
+
+<p>REA 明确声明不会声称恢复原始源代码或自动克隆应用，而是提供基于证据的分析结论，帮助开发者理解并重建所需功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/morluto/rea</guid>
+      <pubDate>Tue, 06 Oct 2026 15:05:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ DeepGEMM：DeepSeek 开源的高性能张量核心内核库，统一支持 FP8/FP4 GEMM 与 Mega MoE</title>
+      <link>https://github.com/deepseek-ai/DeepGEMM</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] DeepSeek 开源的高性能张量核心内核库，属于开源项目、AI 软件技术进展和编程工具，用户会感兴趣</small></p><p>DeepGEMM 是 DeepSeek 开源的一个统一、高性能的张量核心（tensor core）内核库，将现代大语言模型的关键计算原语整合到单一、内聚的 CUDA 代码库中，包括 FP8/FP4/BF16 的 GEMM、融合通信的 Mega MoE、用于 lightning indexer 的 MQA scoring 以及 HyperConnection（HC）等。</p>
+
+<h3>核心特点</h3>
+<ul>
+<li><strong>轻量简洁</strong>：借鉴了 <a href="https://github.com/nvidia/cutlass">CUTLASS</a> 和 CuTe 的部分概念，但避免了对其模板和代数的重度依赖，仅保留有限数量的核心内核函数，是学习 NVIDIA GPU 内核优化技术的清晰资源。</li>
+<li><strong>运行时编译（DeepJIT）</strong>：所有内核通过 DeepJIT 在运行时编译，安装时无需 CUDA 编译。</li>
+<li><strong>性能卓越</strong>：尽管设计轻量，DeepGEMM 在各种矩阵形状上的性能达到或超越专家调优的库。在 H800 上可实现高达 <strong>1550 TFLOPS</strong> 的算力。</li>
+<li><strong>架构支持</strong>：支持 NVIDIA SM90 与 SM100 架构，要求 CUDA Toolkit 12.9+、PyTorch 2.3+。</li>
+</ul>
+
+<h3>主要功能模块</h3>
+<ul>
+<li><strong>常规稠密 GEMM</strong>：支持 NT、NN、TN、TT 多种内存布局（SM100 全支持，SM90 仅 NT）。</li>
+<li><strong>分组 GEMM</strong>：提供 M 轴分组（contiguous 与 masked 两种布局）和 K 轴分组 API，专为 MoE 模型中专家共享形状、token 数量不定的场景设计。</li>
+<li><strong>V3.2 MQA 内核</strong>：为 DeepSeek v3.2 的 lightning indexer 提供加权 ReLU MQA logits 计算，包含非分页（prefilling）和分页（decoding）两个版本。</li>
+<li><strong>Mega MoE</strong>：将 EP 分发、两层线性变换（FP8xFP4 或 FP8xFP8）、SwiGLU 和 EP 合并融合为单个 mega-kernel，重叠 NVLink 通信与张量核心计算，需要多进程启动和对称内存。</li>
+</ul>
+
+<h3>近期更新</h3>
+<p>项目持续迭代：2026 年 9 月新增 <a href="https://github.com/deepseek-ai/DeepGEMM-Ascend/">DeepGEMM-Ascend</a> 版本及 locality domain 优化；2026 年 4 月引入 Mega MoE、FP8xFP4 GEMM、FP4 Indexer 与更快的 JIT 编译；2025 年 9 月支持 DeepSeek v3.2 的 scoring 内核；2025 年 7 月完成全面重构并支持 SM90/SM100。</p>
+
+<p>项目采用 MIT 许可证，在 GitHub 上已获得约 8600 星标。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/deepseek-ai/DeepGEMM</guid>
+      <pubDate>Tue, 06 Oct 2026 15:05:19 GMT</pubDate>
+    </item>
     <item>
       <title>esp32-c3-adblock：在 2 美元的 ESP32-C3 上实现 Pi-hole 级 DNS 广告拦截</title>
       <link>https://github.com/M-Abozaid/esp32-c3-adblock</link>
@@ -1273,70 +1332,6 @@ agent("Find the slowest test in this repo and explain why it's slow")</code></pr
       </description>
       <guid isPermaLink="false">https://github.com/zhouxiaoka/autoclip</guid>
       <pubDate>Mon, 21 Sep 2026 17:00:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>Project NOMAD：主打离线优先的知识与教育服务器</title>
-      <link>https://github.com/Crosstalk-Solutions/project-nomad</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 面向离线优先的知识与教育服务器，属于开源项目但主题方向较为小众，兴趣程度不够明确，故列为可选</small></p><p><strong>Project NOMAD</strong> 是一款自包含、离线优先的知识与教育服务器，将维基百科、数千本书籍、课程、地图以及可选的本地 AI 集成在一个硬件设备上，无需联网即可运行。项目以「Knowledge That Never Goes Offline」为理念，旨在让你随时随地获取关键知识和工具。</p>
-
-<p>NOMAD 本质上是一个管理界面（「Command Center」）和 API，通过 <a href="https://www.docker.com/">Docker</a> 编排一组容器化的工具与资源，自动处理安装、配置和更新，用户无需手动干预。它支持基于 Debian 的系统（推荐 Ubuntu 26.04 LTS，也兼容 24.04 LTS 与 Debian 12），全部通过浏览器访问，无需桌面环境。</p>
-
-<p>项目内置的核心能力包括：</p>
-<ul>
-<li><strong>AI 知识库聊天</strong>——由 <a href="https://ollama.com/">Ollama</a> 或 OpenAI API 兼容软件（如 LM Studio、llama.cpp）驱动的本地 AI，支持文档上传与语义搜索（基于 <a href="https://qdrant.tech/">Qdrant</a> 的 RAG 检索增强生成）</li>
-<li><strong>信息图书馆</strong>——通过 <a href="https://kiwix.org/">Kiwix</a> 提供离线维基百科、医学参考资料、电子书等</li>
-<li><strong>教育平台</strong>——通过 <a href="https://learningequality.org/kolibri/">Kolibri</a> 接入 Khan Academy 课程，并支持进度追踪与多用户</li>
-<li><strong>离线地图</strong>——通过 <a href="https://protomaps.com">ProtoMaps</a> 下载区域地图离线查看</li>
-<li><strong>数据工具</strong>——通过 <a href="https://gchq.github.io/CyberChef/">CyberChef</a> 提供加密、编码与数据分析</li>
-<li><strong>笔记</strong>——基于 <a href="https://github.com/dullage/flatnotes">FlatNotes</a> 的本地笔记</li>
-<li><strong>系统基准测试</strong>——硬件评分及<a href="https://benchmark.projectnomad.us">社区排行榜</a></li>
-<li><strong>Supply Depot</strong>——一键应用目录（PDF 工具、文件浏览器、电子书库、密码管理器等），并支持运行自定义 Docker 容器</li>
-<li><strong>自动更新</strong>——可按你控制的计划进行核心软件、应用与离线内容的自动更新</li>
-<li><strong>设置向导</strong>——提供带精选内容集合的引导式首次配置</li>
-</ul>
-
-<p>在设计上，NOMAD 的最小硬件要求不高（双核 2GHz 处理器、4GB 内存、5GB 存储），但若要运行 LLM 等 AI 工具，则强烈建议配备性能强劲的 GPU 设备（如 32GB 内存、RTX 3060 或同级显卡、至少 250GB SSD）。AI 模型也可部署在独立主机上，通过 Ollama 或 OpenAI 兼容 API 接入。</p>
-
-<p>NOMAD 主打离线使用，仅在初始安装和按需下载额外资源时才需要联网，且<strong>内置零遥测</strong>。项目目前不包含认证机制，不建议直接暴露到公网，未来可能考虑加入可选的多用户认证层（支持家长控制、教室管理账号等场景）。项目采用 <a href="https://github.com/Crosstalk-Solutions/project-nomad/blob/main/LICENSE">Apache License 2.0</a> 开源许可，社区资源包括官网、Discord 群组和基准测试排行榜。</p></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/Crosstalk-Solutions/project-nomad</guid>
-      <pubDate>Mon, 21 Sep 2026 17:00:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Agent-Native：为智能体构建专属 UI 的开源 TypeScript 框架</title>
-      <link>https://github.com/BuilderIO/agent-native</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 智能体专属 UI 的开源 TypeScript 框架，属于编程工具发布与开源项目，用户很感兴趣</small></p><p><strong>Agent-Native</strong> 是一个开源的 TypeScript 框架，用于构建将自主智能体（agent）与专用用户界面（UI）相结合的应用程序。其核心理念是：每个能力只需定义一次为「action」，智能体将其作为工具调用，UI 则通过代码直接调用同一函数，两条路径共享相同的验证、权限和实现逻辑。</p>
-
-<h3>为什么需要带 UI 的智能体？</h3>
-<p>编码智能体的工作环境远不止一个文本框——它拥有上下文、工具、文件、测试和预览，使能力和结果可见。知识工作同样需要这样的环境：UI 能展示智能体可以做什么，并让用户以熟悉的方式检查、编辑、批准和分享其工作成果。</p>
-
-<h3>核心机制</h3>
-<ul>
-  <li><strong>共享 actions：</strong>智能体将每个能力作为工具调用，UI 从代码中调用同一函数，两者使用相同的验证、权限和实现。</li>
-  <li><strong>共享数据：</strong>智能体完成的工作会出现在 UI 中，UI 中的操作也可供智能体使用。</li>
-  <li><strong>共享应用状态：</strong>智能体可获取相关 UI 状态，如当前页面、选中记录或活动视图。</li>
-</ul>
-<p>值得注意的是，智能体并非通过点击 UI 来操作，而是通过与 UI 相同的 action 层工作。</p>
-
-<h3>内置功能</h3>
-<ul>
-  <li><strong>智能体聊天：</strong>让用户在 UI 中委派工作、提问并查看结果。</li>
-  <li><strong>认证与权限：</strong>控制谁能访问和修改共享工作。</li>
-  <li><strong>技能与记忆：</strong>为智能体提供可复用的专业知识和持久上下文。</li>
-  <li><strong>自动化：</strong>按计划或事件触发智能体工作。</li>
-  <li><strong>智能体团队：</strong>在同一工作区或跨连接智能体间委派任务给专业智能体。</li>
-  <li><strong>PostgreSQL 后端：</strong>生产环境使用 PostgreSQL，本地开发使用 PGlite，兼容任何 Nitro 主机。</li>
-</ul>
-
-<h3>开源示例应用</h3>
-<p>项目提供了多个开箱即用的示例应用，包括：<strong>Clips</strong>（录制并理解会议、屏幕和语音笔记）、<strong>Design</strong>（生成和优化交互设计）、<strong>Slides</strong>（创建和编辑品牌演示文稿）、<strong>Analytics</strong>（数据问答与仪表盘构建）、<strong>Calendar</strong>（日程安排与管理）、<strong>Mail</strong>（邮件优先级排序与回复草拟）、<strong>Assets</strong>（品牌媒体创建与整理）、<strong>Content</strong>（内容起草与发布）以及 <strong>Plans</strong>（带图表、线框和原型的可视化计划）。</p>
-
-<p>框架采用 MIT 许可证，允许用户自带 LLM、SQL 数据库、工具和基础设施，所有构建成果归用户所有。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/BuilderIO/agent-native</guid>
-      <pubDate>Sun, 20 Sep 2026 11:15:50 GMT</pubDate>
     </item>
   </channel>
 </rss>
