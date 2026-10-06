@@ -3,7 +3,38 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Mon, 05 Oct 2026 18:22:16 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 00:46:39 GMT</lastBuildDate>
+    <item>
+      <title>esp32-c3-adblock：在 2 美元的 ESP32-C3 上实现 Pi-hole 级 DNS 广告拦截</title>
+      <link>https://github.com/M-Abozaid/esp32-c3-adblock</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 这是关于ESP32-C3开发板实现DNS广告拦截的项目，涉及开发板（avoid类配置），但也涉及开源项目和软件功能实现。虽然开发板被归类为想要避开，但该项目的核心价值在于DNS广告拦截功能的实现和低成本的实用方案，与编程工具分享有一定关联，判断为可选。</small></p><p>一个名为 <strong>esp32-c3-adblock</strong> 的开源项目，在仅 2 美元的 ESP32-C3 芯片（无需 PSRAM）上实现了 Pi-hole 风格的 DNS 广告拦截器。该项目已被 <a href="https://www.tomshardware.com/networking/clever-hacker-fits-537-000-domains-in-a-tiny-usd5-esp32-ad-blocking-dongle-firmware-uses-only-around-50kb-of-ram-and-can-answer-blocked-lookups-in-10-milliseconds">Tom's Hardware</a>、<a href="https://www.xda-developers.com/this-tiny-esp32-powered-gadget-blocks-537000-domains-only-uses-50kb-of-ram/">XDA Developers</a> 和 <a href="https://korben.info/en/half-million-ad-blocking-domains-50kb-ram-esp32.html">Korben</a> 等媒体报道。</p>
+
+<h3>核心创新：哈希存 Flash，而非字符串存 RAM</h3>
+<p>大多数 ESP32 DNS 拦截器将域名（字符串）加载到 RAM 中，因此需要 PSRAM。该项目采用不同思路：将域名存储为<strong>排序的 40 位 FNV-1a 哈希</strong>放入 Flash，通过二分查找匹配。14 万个域名仅占用约 0.7 MB Flash，匹配耗时约 10 毫秒，RAM 占用仅约 50 KB。</p>
+<p>对比传统方案：字符串存 RAM 需要 ESP32 + PSRAM（约 8 美元），而本方案只需 ESP32-C3（约 2 美元）。141k 域名时哈希碰撞为 0，537k 域名时约 1 个（即一个域名被误拦截）。40 位哈希是 Flash 预算下的最佳平衡点——32 位省 20% Flash 但碰撞增多，64 位浪费空间解决不存在的问题。</p>
+
+<h3>功能特性</h3>
+<ul>
+<li><strong>Web 仪表盘</strong>：按客户端统计拦截/放行计数、封禁客户端、添加自定义域名</li>
+<li><strong>OTA 更新</strong>：固件和拦截列表均可通过 WiFi 更新，支持定时远程拉取最新列表（GitHub Actions 每周一自动重建默认列表）</li>
+<li><strong>Captive Portal 配网</strong>：无需硬编码凭据，手机连接开放热点即可配置 WiFi</li>
+<li><strong>mDNS 发现</strong>：通过 <code>c3adblock.local</code> 访问</li>
+<li><strong>自定义拦截列表</strong>：支持 hosts 文件、纯域名列表、AdGuard/Adblock 规则格式</li>
+</ul>
+
+<h3>安全设计</h3>
+<p>仪表盘所有状态变更端点（<code>/ban</code>、<code>/addblock</code>、<code>/upload</code> 等）均要求 HTTP Basic Auth，并额外要求自定义 <code>X-Requested-With</code> 头以防止 CSRF 攻击（浏览器自动附加缓存的 Basic Auth 凭据可被恶意网页利用）。自定义域名在渲染前经过 HTML 转义，封堵了存储型 XSS 路径。作者也明确指出：Basic Auth 是 LAN 信任边界控制而非加密，芯片没有足够资源运行 TLS 服务器。</p>
+
+<h3>使用方式</h3>
+<p>将设备的 DNS 指向 C3 的 IP，或作为主 DNS 后的辅助解析器。测试：<code>dig @&lt;c3-ip&gt; doubleclick.net</code> 返回 0.0.0.0（被拦截），<code>dig @&lt;c3-ip&gt; github.com</code> 返回真实 IP（正常转发）。</p>
+
+<h3>已知限制</h3>
+<p>4 MB Flash 下，固件 OTA 需要双应用槽位，留给拦截列表约 1.3 MB（最多约 25 万域名）；激进的 537k "ultimate" 列表仅适用于单应用分区表（无固件 OTA）。项目还计划未来实现分桶前缀索引（将每次查找的 Flash 读取从 ~18 次降至 1–2 次）以及内置 DHCP 服务器功能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/M-Abozaid/esp32-c3-adblock</guid>
+      <pubDate>Tue, 06 Oct 2026 00:46:14 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ openGym：自托管健身房与体重追踪应用，数据完全由你掌控</title>
       <link>https://github.com/DuarteSantos8/openGym</link>
@@ -1305,30 +1336,6 @@ agent("Find the slowest test in this repo and explain why it's slow")</code></pr
 <p>框架采用 MIT 许可证，允许用户自带 LLM、SQL 数据库、工具和基础设施，所有构建成果归用户所有。</p>]]>
       </description>
       <guid isPermaLink="false">https://github.com/BuilderIO/agent-native</guid>
-      <pubDate>Sun, 20 Sep 2026 11:15:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Anthropic 开源金融服务业 Claude 智能体仓库：投行、股权研究、私募与财富管理全流程</title>
-      <link>https://github.com/anthropics/financial-services</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Anthropic 开源 Claude 智能体仓库，涉及 AI 软件技术进展与开源，虽面向金融场景但核心是 AI 应用，推荐阅读</small></p><p>Anthropic 官方开源了 <strong>Claude for Financial Services</strong> 仓库，收录了面向金融机构最常用工作流的参考智能体（Agents）、技能（Skills）和数据连接器（Data Connectors），覆盖投资银行、股权研究、私募股权与财富管理等领域。该项目目前在 GitHub 上已获约 3.5 万星标。</p>
-
-<h3>核心内容</h3>
-<p>仓库提供 <strong>两种部署方式</strong>，均来自同一套系统提示与技能：可作为 <a href="https://claude.com/product/cowork">Claude Cowork</a> 插件安装，也可通过 <a href="https://docs.claude.com/en/api/managed-agents">Claude Managed Agents API</a> 部署到自有工作流引擎之后。</p>
-<p>内置 <strong>命名智能体</strong>，每个智能体自包含所需技能，开箱即用：</p>
-<ul>
-<li><strong>覆盖与顾问</strong>：Pitch Agent（可比公司、先例、LBO 直至品牌化演示文稿）、Meeting Prep Agent（客户会前简报）</li>
-<li><strong>研究与建模</strong>：Market Researcher（行业概览、竞争格局、可比公司）、Earnings Reviewer（财报电话会到模型更新）、Model Builder（DCF、LBO、三表模型、可比公司，实时运行于 Excel）</li>
-<li><strong>基金行政与财务运营</strong>：Valuation Reviewer、GL Reconciler（对账差异追溯）、Month-End Closer、Statement Auditor</li>
-<li><strong>运营与开户</strong>：KYC Screener（解析开户文档、运行规则引擎、标记缺口）</li>
-</ul>
-<p>此外还有按垂直领域打包的 <strong>插件</strong>，包括核心的 financial-analysis（附全部 11 个数据连接器）、投行、股权研究、私募股权、基金行政、运营，以及来自 LSEG、S&P Global 等合作伙伴的插件。所有连接器均为 MCP 服务器，可接入 Daloopa、Morningstar、S&P Global、FactSet、Moody's、PitchBook、LSEG 等数据源（可能需要相应订阅或 API 密钥）。</p>
-<p>仓库还包含 <a href="./claude-for-msft-365-install">Claude for Microsoft 365 安装工具</a>，供企业在自有云（Vertex AI、Bedrock 或内部 LLM 网关）环境下为 Excel、PowerPoint、Word 和 Outlook 中的 Claude 插件做管理端配置。</p>
-
-<h3>要点说明</h3>
-<p>仓库明确声明：其中内容不构成投资、法律、税务或会计建议。这些智能体所起草的分析师工作成果（模型、备忘录、研究笔记、对账等）均需由合格专业人士复核，不做投资推荐、不执行交易、不约束风险、不登记账目，所有输出都留给人工签字确认。所有文件均为 Markdown 与 JSON 格式，无构建步骤，支持企业按自身术语、流程与模板自由定制。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/financial-services</guid>
       <pubDate>Sun, 20 Sep 2026 11:15:50 GMT</pubDate>
     </item>
   </channel>

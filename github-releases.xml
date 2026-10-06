@@ -3,7 +3,83 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 05 Oct 2026 18:22:02 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 00:46:38 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.160.1：修复远程 MCP 服务器环境变量保留问题</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.160.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex 发布 0.160.1 补丁版本，修复了一个与远程 stdio MCP 服务器相关的 bug。</p><p>该修复确保在启动配置了显式远程环境变量的远程 stdio MCP 服务器时，能够保留 <code>SYSTEMROOT</code>、<code>TEMP</code> 和 <code>TMP</code> 等系统环境变量，使 Unix 主机可以保留 Windows 执行器的启动环境。</p><p>此修复通过 <a href="https://github.com/openai/codex/pull/51121">PR #51121</a> 回溯移植到 0.160 分支。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.160.1</guid>
+      <pubDate>Mon, 05 Oct 2026 18:29:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.290：新增插件钩子增强、会话管理改进及大量修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.290</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.290 版本，包含大量功能增强与 bug 修复。以下是主要更新内容：</p>
+
+<h3>插件与钩子（Hooks）增强</h3>
+<ul>
+<li>为插件的 <code>turn.step</code> 钩子新增 <code>serverToolUses</code> 字段，列出 API 自身运行的工具调用（含 id、名称、输入、起止时间）</li>
+<li>为插件钩子的 <code>tool.check</code> 事件新增 <code>agentId</code>，可区分子代理与主会话的权限检查</li>
+<li>为 <code>tool.check</code> 钩子新增 <code>ceiling</code> 字段，标明组织对工具要求的审批级别</li>
+<li>插件钩子类型新增 <code>ThemeKey</code> 和 <code>Color</code> 类型</li>
+<li><code>claude plugin validate</code> 现在会列出每个钩子是否带有 <code>.catch</code> 处理</li>
+</ul>
+
+<h3>新功能与改进</h3>
+<ul>
+<li>Claude apps 网关的登录审批页新增 Deny（拒绝）按钮，可立即终止待处理的登录</li>
+<li>新增 <code>claude attach &lt;name&gt;</code> 和 <code>claude logs &lt;name&gt;</code>，会话名称的一部分可替代 ID 使用</li>
+<li>新增 <code>/claude-api managed-agents-onboard</code> 命令，用于设置 Managed Agents 模式及构建 Console 快速启动模板</li>
+<li>WebFetch 不再静默丢弃超过 100,000 字符的页面文本，会提示未读量并支持 <code>offset</code> 参数继续读取</li>
+<li>WebSearch 预算改为随时间补充（100 次/小时），而非 200 次后结束</li>
+<li>交互式会话的 / 和 @ 建议列表选中行新增 ❯ 指针标记</li>
+<li>恢复大型会话时的响应性提升，转录加载期间计时器、输入和渲染保持运行</li>
+</ul>
+
+<h3>重要修复</h3>
+<ul>
+<li>修复了数百张图片的长会话卡在"Request rejected as unprocessable"错误的问题</li>
+<li>修复了代理和网关拒绝 beta 头导致请求失败的问题</li>
+<li>修复了恢复的子代理和队友在运行中收到消息后丢失早期思考和提示缓存的问题</li>
+<li>修复了计划模式中自动模式分类器可能批准非只读连接器工具的问题</li>
+<li>修复了 <code>/rewind</code> 不列出 Claude 仍在工作时发送的提示的问题</li>
+<li>修复了定时任务（<code>/loop</code>、提醒）在会话压缩后恢复时不返回的问题</li>
+<li>修复了 <code>/ultrareview</code> 在 Windows 上 <code>git stash create</code> 失败时静默丢弃未提交更改的问题</li>
+<li>修复了超长消息导致的冻结、非 ASCII 字符导致的渲染变慢等问题</li>
+<li>修复了 macOS 和 Windows 上通过中途替换链接读取未批准文件的安全问题</li>
+<li>修复了 <code>CLAUDE_CODE_USER_DIALOG_TIMEOUT_MS=5m</code> 被误读为 5 毫秒的问题</li>
+<li>修复了沙盒化命令中 heredoc 管道（<code>cat &lt;&lt;EOF | python3</code>）每次运行都要求审批的问题</li>
+<li>修复了 Bash 权限检查自动批准某些只读命令（如 <code>rg</code>、<code>git grep</code>）但 shell 仍会展开通配符的问题</li>
+</ul>
+
+<h3>VS Code 扩展</h3>
+<ul>
+<li>新增屏幕阅读器播报"Message queued."</li>
+<li>可从 Manage plugins 对话框审查并运行插件市场的安装/更新命令</li>
+<li>消息时间戳默认显示（可通过设置关闭）</li>
+<li>修复了多个对话框、权限提示和代理地图显示问题</li>
+</ul>
+
+<h3>Claude Tag（Slack 集成）</h3>
+<ul>
+<li>新增快速模式：用 <code>!fast</code> 将线程切换为快速模式（必要时移至 Opus），<code>!fast off</code> 切回</li>
+<li>自定义连接新增可选 Path prefixes 字段</li>
+<li>频道指令限制从字节数改为字符数（8,192 字符），非英文文本获得同等空间</li>
+</ul>
+
+<h3>其他</h3>
+<ul>
+<li>Claude apps 网关最低支持的 PostgreSQL 版本从 14 降至 11</li>
+<li>自托管 runner 的 <code>claude --environment</code> 改为通过当前 Sessions API 创建会话</li>
+<li>多项针对云会话、Remote Control、代码审查的修复与改进</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.290</guid>
+      <pubDate>Mon, 05 Oct 2026 23:33:17 GMT</pubDate>
+    </item>
     <item>
       <title>fx 40.0.0 发布：交互式查询、四种新输入格式与 Vim 风格命令</title>
       <link>https://github.com/antonmedv/fx/releases/tag/40.0.0</link>
@@ -1420,87 +1496,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.30.2</guid>
       <pubDate>Sat, 12 Sep 2026 11:46:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>fzf v0.74.4 发布：Vim 插件非阻塞运行、tmux 浮动窗格默认布局及多项修复</title>
-      <link>https://github.com/junegunn/fzf/releases/tag/v0.74.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fzf（命令行模糊查找器）发布了 v0.74.4 版本。本次更新重点围绕 Vim 插件体验和一系列 bug 修复展开。</p>
-
-<h3>Vim 插件改进</h3>
-<ul>
-  <li><strong>非阻塞运行</strong>：fzf 不再阻塞编辑器，打开 fzf 时实时预览（live preview）仍可继续工作。异步运行时 <code>fzf#run</code> 返回空列表，需通过 <code>sink</code>、<code>sinklist</code> 或 <code>exit</code> 获取结果。</li>
-  <li><strong>默认浮动窗格布局</strong>：fzf 默认在 tmux 或 Zellij 浮动窗格中打开，启动它的窗口保持可见，可在 fzf 运行期间继续使用（需 tmux 3.7+ 或 Zellij 0.44+），可通过 <code>g:fzf_layout</code> 选择其他布局。</li>
-  <li>为 <code>tmux</code> 布局键新增了 <code>popup</code> 同义词。</li>
-  <li>弹出布局（popup layout）现可在 Zellij 下正常工作。</li>
-</ul>
-
-<h3>修复项</h3>
-<ul>
-  <li>修复了跨读取拆分转义序列被解析为片段、导致其余内容泄露到查询中的问题（#4899）。</li>
-  <li>修复了 <code>--tiebreak=pathname</code> 在行内包含非 ASCII 字符时无法检测最后一个路径分隔符的问题（#4902）。</li>
-  <li>修复了 <code>--listen</code> 状态负载中 <code>progress</code> 在新搜索进行期间一直停留在 100 的问题（#4903），现搜索开始时重置、最终结果到达 100。</li>
-  <li>修复了自适应高度未为内联头部/尾部边框的分隔线预留一行，导致列表各行少一行的错误（#4904）。</li>
-  <li>修复了 fzf 退出时擦除提示符所在行、导致 fish、bash 和 nushell 中提示符最后一行闪烁的问题（#4913）。</li>
-  <li>修复了使用 <code>--listen</code> 期间 100+ 个信号中断等待时，fzf 以状态 2 退出的问题（#4917）。</li>
-</ul>
-
-<h3>fish</h3>
-<ul>
-  <li>修复了自定义 CTRL-T 命令在某些情况下未使用带前缀目标目录的问题（#4498）。</li>
-  <li>优化了补全项描述的对齐（#4910）。</li>
-</ul>
-
-<h3>nushell</h3>
-<ul>
-  <li>为 nushell 0.115.0 及以上版本新增了 Helix 编辑模式按键绑定（#4914）。</li>
-  <li>修复了 CTRL-T 插入未加引号的所选路径的问题，该安全漏洞由 p4p3r 报告并提出修复建议。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.4</guid>
-      <pubDate>Sat, 12 Sep 2026 00:24:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.269：新增 plugin eval、输出风格切换，修复大量终端与远程会话问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.269</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Claude Code v2.1.269 更新要点</h3>
-<p>本版本主要面向编码代理终端应用，包含多项新功能、终端体验改进以及大量 bug 修复。</p>
-
-<h4>重要改动（新功能）</h4>
-<ul>
-<li><b>新增 <code>claude plugin eval</code></b>：可对插件运行其 eval 测试套件，获得可复现的评分结果（JSON + HTML 报告），详见 <code>claude plugin eval --help</code>。</li>
-<li><b>新增 <code>/output-style [name]</code></b>：可用于切换并列出输出风格，包括在 Remote Control、云端及其它无头会话中。</li>
-<li><b>Bash 编辑差异展示</b>：当 Bash 工具处理文件编辑时（设置 <code>bashEditDiffEnabled</code>），会在工具结果中显示其修改文件的差异。</li>
-<li><b>新增若干环境变量</b>：<code>OTEL_METRICS_INCLUDE_REPOSITORY</code>（为 OpenTelemetry 指标打标签）、<code>CLAUDE_CODE_GATEWAY_MODEL_DISCOVERY_TIMEOUT_MS</code>（网关模型发现超时）、<code>CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS</code>（1–256，提高 Workflow 工具并发代理上限）。</li>
-<li><b>新增 spinner 提示</b>：建议使用 <code>/focus</code> 获得仅含提示、一行工作摘要与回复的简洁视图。</li>
-<li><b>[VSCode] 新增代理地图</b>：底部"N agents"胶囊可打开会话子代理地图，含每个代理的卡片、停止代理及只读转录。</li>
-<li><b>[VSCode] 新增 Hooks 与权限规则对话框</b>：可在用户/项目/本地设置中查看与增删 hooks 和权限规则（受管、插件、会话及启动项规则保持只读）。</li>
-<li><b>[VSCode] 新增 Focus 视图子代理实时进度行</b>、Switch account 界面的取消按钮。</li>
-</ul>
-
-<h4>其它改动（修复与优化）</h4>
-<ul>
-<li>修复输出 token 上限截断后自动恢复导致的提示缓存部分失效；修复打断 Claude 思考后恢复会话影响上下文重发与缓存复用的问题。</li>
-<li>修复多个终端兼容性问题：kitty-protocol 终端的 F1/F2/F4、st 中的 Delete、rxvt-unicode 的 Alt+方向键、WezTerm 的 Shift+标点（2.1.247 回归）等。</li>
-<li>修复后台代理仍在运行时远程/无头会话误报"等待输入"；以及终端启动时能力查询回复出现杂散文本、全屏调整大小后转录顶部/底部行空白等问题。</li>
-<li>修复 Git 状态在压缩后向 Claude 报告的是会话开始时的而非当前状态；修正权限规则的 <code>!</code> 否定来源作用域。</li>
-<li>修复 CMYK JPEG 附不上、断点续传会话丢失回复、/goal 在 API 错误/网络中断/限额后静默卡住等多项稳定性问题。</li>
-<li>修复日语、中文、泰语等无空格书写语言中提示建议被丢弃，并改进中日韩文建议过滤。</li>
-<li>改进 SSH 与未识别终端（foot、Alacritty 0.16+）的键盘支持、长会话响应速度、/diff 面板一次加载完成。</li>
-<li><code>/ultrareview --post</code> 现在直接在结果到达时发布 PR 评论并打印链接，而非另起第二个云端会话。</li>
-<li>Windows：修复 Claude Code 退出时后台 PowerShell 工具命令停止的问题。</li>
-<li>Session 相关：修复会话永久卡在"Prompt is too long"、<code>/btw</code> 回答包含虚构工具调用、组织插件在无头会话/Claude Desktop 不加载、插件归档权限暴露给其他本地用户等问题。</li>
-</ul>
-
-<h4>[Claude Code on the web] 与 [Claude Tag]</h4>
-<ul>
-<li>云端会话支持在 Claude 读取前取回排队消息、修复子文件夹文件链接打开 GitHub 404、Free 计划用户打开升级路径等。</li>
-<li>Claude Tag（Slack）：新增 GitHub 安装的确认对话框、修复线程静默、表格以纯管道文本发布、<code>@Claude !restart</code> 误导会话、定时例程改为在现有线程中回复、进度时间戳显示本地时间等。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.269</guid>
-      <pubDate>Fri, 11 Sep 2026 19:17:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
