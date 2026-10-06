@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 06 Oct 2026 15:06:02 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 20:13:58 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Polars 2.0 正式发布：默认流式引擎、外核支持、SQL 一等公民</title>
+      <link>https://news.ycombinator.com/item?id=49977177</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍 Polars 2.0 正式发布（数据框库，含流式引擎、外核支持、SQL 一等公民），属于用户很感兴趣的编程工具发布/分享，故判为必看。</small></p><p>Polars 团队于 2026 年 10 月 6 日正式发布 <strong>Polars 2.0</strong>。尽管团队最初并未计划将其作为重大功能版本，但此次发布仍包含多项重磅更新。</p>
+
+<h3>核心亮点</h3>
+<ul>
+<li><strong>SQL 一等公民支持</strong>：Polars 2.0 将 SQL 视为一等公民，大幅扩展了 SQL 覆盖范围，并配合优化器改进（连接重排、公共子计划消除、动态谓词/布隆过滤器）提升了整体性能。</li>
+<li><strong>流式引擎与外部核（Out-of-Core）默认启用</strong>：调用 <code>collect</code> 时默认使用流式引擎，大幅改善内存和性能。外部核支持（spill-to-disk）默认开启，在内存使用约 80% 时开始溢出到磁盘，默认磁盘预算为 64GB。当前支持 sort、窗口函数等操作，join 和 group-by 的外核支持已在路线图中。</li>
+<li><strong>新增 Map 数据类型</strong>：Polars 现在直接支持 Arrow MapType，可将其视为 Python 字典，提供键查找、迭代等专用表达式。</li>
+<li><strong>更严格的类型检查</strong>：Polars 坚持"快速失败"原则，通过 <code>collect_schema()</code> 可在不物化数据的情况下提前捕获 schema 级错误，对 AI 驱动的开发尤其有价值。</li>
+</ul>
+
+<h3>基准测试表现</h3>
+<p>在 TPC-H 和 TPC-DS1 基准测试中，Polars 在大多数查询中均快于 DuckDB 1.5.6、DuckDB 2.0 alpha 和 DataFusion 54.0.0。不过，Polars 在扩展到 192 线程时存在恒定开销，影响小数据量查询的性能；限制在 32 核时则具有竞争力甚至全面领先。团队已定位该问题，预计下个版本修复。基准测试代码已开源在 <a href="https://github.com/pola-rs/polars-2.0-benchmark">GitHub 仓库</a>。</p>
+
+<h3>社区反馈</h3>
+<p>HN 社区对此次发布反应积极。多位用户表示正在使用 Polars 处理量化交易、天气评分计算等大规模数据工作负载。有用户指出 Polars 与 DuckDB 几乎同时发布 2.0 版本，Polars 核心开发者 orlp 回应称 2.0 分支早在 6 月就已开始合并 PR，并非刻意同步。关于 Polars 与 Pandas 的对比，多数评论认为 Polars 在绝大多数场景下已可完全替代 Pandas，主要例外是地理空间数据处理（GeoPolars 仍在开发中）。也有用户提到 Polars 与 DataFusion 的关系问题，Polars 并未基于 DataFusion 构建。</p>
+
+<p>团队表示，未来几个月将改进外部核支持、大 CPU 数下的扩展性，并推进 GeoPolars 和 Polars Cloud 分布式引擎的开发。官方已发布<a href="https://pola.rs/posts/release-polars-2/">迁移指南</a>帮助用户升级。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49977177</guid>
+      <pubDate>Tue, 06 Oct 2026 11:59:01 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mistral 发布 Mistral Large 4（&quot;Le Chonk&quot;）：1 万亿参数开源权重多模态模型</title>
       <link>https://news.ycombinator.com/item?id=49978116</link>
@@ -1211,42 +1236,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49913192</guid>
       <pubDate>Wed, 30 Sep 2026 19:26:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ TLA+ 能验证什么、不能验证什么——冷静看待&quot;形式验证救 AI&quot;的叙事</title>
-      <link>https://news.ycombinator.com/item?id=49909056</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论TLA+形式验证能力及与AI的关系，属于软件技术进展和科学前沿相关，符合用户的兴趣方向</small></p><p>本文是 TLA+ 长期教育者 Hillel Wayne 撰写的专栏文章。起因是 Claude Code 发明者 Boris Cherny 提到 Opus 能用 TLA+ 发现代码中的竞态条件，引发网上对形式验证的热议。作者一方面对此感到兴奋，另一方面担心"形式方法将一劳永逸地解决智能体软件开发问题"的说法纯属夸大。文章聚焦于一个常被忽视的局限：要验证某个性质，首先得能把它表达出来。那么，有哪些性质是 TLA+ 根本无法表达的？</p>
-
-<h3>TLA+ 能验证什么</h3>
-<p>TLA+ 把系统划分为一组"行为"（behavior），每个行为是状态序列。借助三个时序算子可表达多种性质：<code>[]P</code>（"总是 P"）、<code>P'</code>（"下一状态 P"）、<code>&lt;&gt;P</code>（"最终 P"）。据此可检查不变量（invariant）、动作性质（action property）以及活性（liveness）性质，如 <code>[]&lt;&gt;P</code>（最终总会再满足 P）、<code>&lt;&gt;[]P</code>（从某刻起永久成立）、<code>P ~&gt; Q</code>（P 最终导致 Q）。此外还有精化（refinement）检查。</p>
-
-<h3>TLA+ 不能验证什么</h3>
-<p>作者列出几类难以或无法表达的性质：</p>
-<ul>
-<li><strong>无法公式化的性质</strong>：如果你无法把人类对事物的直觉转化为逻辑公式（例如"识别鸟"），任何形式方法都帮不上忙。</li>
-<li><strong>跨多步或特定层面的性质</strong>：安全性质只作用于单状态（不变量）或单步（动作性质），无法原生定义"按删除再按撤销回到原状态"这类两步性质，也无法定义浮点运算或真实时间（只有逻辑时间）上的性质。</li>
-<li><strong>可达性（reachability）</strong>：所有性质都隐式地对全部行为量化，无法表达"存在某个行为满足 P"，例如"这个游戏能通关"。</li>
-<li><strong>超性质（hyperproperty）</strong>：无法描述跨多个行为的性质，例如"节能模式总比普通模式耗电少"，这类性质涵盖大量安全属性和统计属性（如"95% 响应时间为 5ms"）。</li>
-<li><strong>元性质（metaproperty）</strong>：无法描述状态空间整体属性，例如"从状态 X 到 Y 只有一条路径"。</li>
-</ul>
-
-<h3>"能"做到的取巧手段</h3>
-<p>作者强调，上述局限是指规格直接对应系统时无法原生表达，但仍可通过辅助变量模拟两步性质、用自组合（self-composition）模拟部分超性质，TLC 模型检查器也新增了 <code>REACHABLE</code> 关键字。但这些都只是"取巧"（hacks），需要大量聪明才智且伴随严重缺点：辅助变量会破坏精化、自组合会指数级扩大状态空间，还会让模型显得杂乱、与真实系统脱节。也可以用其他工具，如 CTL 处理可达性、PRISM 处理概率性质，但在 TLA+ 擅长的领域上较差。</p>
-
-<p>文章结论：TLA+ 擅长摘取大量"低垂的果实"——不变量和活性覆盖了许多我们关心的性质，且表达与检查能力不错；但也有很多东西它连表达都做不到，更遑论验证。</p>
-
-<h3>延伸</h3>
-<ul>
-<li>原文链接：<a href="https://buttondown.com/hillelwayne/archive/what-tla-can-and-cant-check/">What TLA+ can and can't check</a></li>
-<li>HN 上相关的另一篇热帖：<a href="https://news.ycombinator.com/item?id=49863600">The internet discovers TLA+. Now what?</a></li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p>评论区还讨论了一个精妙问题：模型检查器找反例，本质上间接证明了"存在某个行为使性质为假"——这看似能表达可达性，但作者澄清，<code>![](!won)</code> 表达的是"<em>每个</em>行为中都能赢"（即"最终必然赢"），而不是"<em>某个</em>行为可能赢"，前者是活性、后者是可达性，二者截然不同。相关论文《"Sometime" is sometimes "not never"》深入分析了这一区别。另有评论指出，TLA+ 也难以为非顺序一致性（weak-memory）语义建模，PlusCal 默认按顺序一致性执行，需要自行实现 x86-TSO 之类的存储缓冲模型。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49909056</guid>
-      <pubDate>Wed, 30 Sep 2026 13:57:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
