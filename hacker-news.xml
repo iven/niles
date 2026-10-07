@@ -3,7 +3,34 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 07 Oct 2026 13:16:23 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 07 Oct 2026 19:20:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Chrome 155 正式支持 JPEG XL 图像格式，采用 Rust 重写解码器</title>
+      <link>https://news.ycombinator.com/item?id=49991227</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Chrome 新支持 JPEG XL 图像格式，且解码器采用 Rust 重写，属于软件新功能和编程技术进展，符合兴趣配置</small></p><p>Chrome 官方博客宣布，从 Chrome 155 开始正式支持 JPEG XL（.jxl）图像格式的解码。JPEG XL 是新一代图像格式，相比 JPEG 提供 30-50% 的压缩率提升，同时支持无损压缩、内置 HDR 支持以及 JPEG 无损转码等特性。Chrome 团队建议开发者同时尝试 AVIF 和 JPEG XL 以获得最佳效果，并认为 JPEG XL 在高保真或无损压缩场景（尤其是摄影图片或需要细粒度渐进式解码的场景）中最为有用。</p>
+
+<p><strong>安全优先：用 Rust 重写解码器（jxl-rs）</strong></p>
+<p>图像解码器是浏览器中最关键且最易受攻击的攻击面之一，因为它们直接处理来自网络的复杂、不可信的二进制数据。传统上用 C++ 等内存不安全语言编写的解码器容易出现越界读取、堆溢出和释放后使用等漏洞。为此，Chrome 集成了 <strong>jxl-rs</strong>——一个纯 Rust 实现的 JPEG XL 解码器，从源头消除这些安全风险。</p>
+
+<p><strong>性能与安全并重</strong></p>
+<p>为了在不牺牲性能的前提下保证内存安全，团队推动了 <code>target_feature_11</code> Rust 特性的稳定化，使 SIMD 指令可以在无需 unsafe 代码的情况下使用。他们还构建了受 C++ Highway 库启发的 SIMD 抽象层（jxl_simd），将 unsafe 操作限制在少数经过严格审查的位置。团队通过模糊测试和 AI 代码审查等多种技术验证了 jxl-rs 的实现，在整个实现历史中未发现任何内存安全漏洞。</p>
+
+<p><strong>开发者反馈与互操作性</strong></p>
+<p>Chrome 团队表示，这一决定基于来自网络开发者的持续反馈和请求，尤其是通过 Interop 项目体现的需求。JPEG XL 在 2026 年及此前数年都是 Interop 流程中的热门提案。团队参与了 Interop 2026 JPEG XL 调查，确保浏览器对 JPEG XL 所有功能都有测试覆盖。</p>
+
+<h3>社区讨论要点</h3>
+<ul>
+<li>有用户指出 JPEG XL 是开放标准，不像 JPEG 2000 那样存在专利/许可问题，但也有评论提到阅读规范需支付 200 美元。</li>
+<li>关于 JPEG XL 与 AVIF 的对比存在不同观点：有人认为 AVIF 在极低码率（每像素 1 bit 以下）表现更好，但也有用户表示在压缩会议论文集缩略图时 JPEG XL 远优于 AVIF。</li>
+<li>多位用户回顾了 Chrome 此前移除 JPEG XL 支持的历程，猜测重新支持的原因包括 PDF 协会选择 JXL 作为下一代 PDF 图像格式，以及 Apple 在 iOS 中提供 JPEG-XL 保存选项等。</li>
+<li>Firefox 158 也将默认启用 JPEG XL 支持，届时所有主流浏览器都将支持该格式。</li>
+<li>部分用户对格式碎片化表示担忧，提到 Telegram 对 WebP 支持不佳、Windows 处理 HEIC 不便等兼容性问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49991227</guid>
+      <pubDate>Wed, 07 Oct 2026 11:25:02 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Strands 发布开源决策模型 Strands Decider 2B：面向智能体工作流的小型快速决策工具</title>
       <link>https://news.ycombinator.com/item?id=49987076</link>
@@ -1239,32 +1266,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49921923</guid>
       <pubDate>Thu, 01 Oct 2026 14:09:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Pi Durable：Earendil 发布面向长期运行、持久化智能体的实验性框架</title>
-      <link>https://news.ycombinator.com/item?id=49925969</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍面向长期运行、持久化智能体的新框架，属于AI智能体与编程工具发布分享，符合很感兴趣类别，值得关注</small></p><p>Earendil 工程团队在发布 Pi 1.0 的同时，推出了一个名为 <strong>Pi Durable</strong> 的实验性新包。这是一个专门为长期运行、持久化（durable）且可塑（malleable）的智能体（agent）设计的框架，旨在让智能体可以在任何地方运行。</p>
-
-<h3>核心概念：什么是 Harness？</h3>
-<p>Pi Durable 的核心是一个「harness」——即存储加上运行一个或多个与大型语言模型并行对话所需的机制。它提供模型调用的工具以及工具运行的执行环境。对话是用户与智能体之间的交互，记录为转录文本（transcript）。整个源代码（不含测试）约 15,000 行，约合 GPT 的 150,000 个 token 或 Claude 的 250,000 个 token。</p>
-
-<h3>主要特性</h3>
-<ul>
-<li><strong>随处长期运行</strong>：harness 基于存储后端（storage backend）打开，支持内存、SQLite 和 JSONL 存储，并提供一致性测试套件和基准测试。SQLite 和 JSONL 存储代码不使用 Node API，可通过小型适配器在 Bun 或 Cloudflare Durable Object 上运行。执行环境接口同样小巧，可让 harness 在一台机器上运行而工具在另一台机器上执行。</li>
-<li><strong>崩溃恢复</strong>：运行的每一步都是一个任务（task），在继续之前存储检查点。进程死亡后，新进程打开同一存储，找到未完成的任务并从最后检查点继续。模型请求被截断会重新发送；工具调用若安全则重新执行，否则告知模型已被中断。requestId 确保提交恰好执行一次（exactly-once）。</li>
-<li><strong>多对话并发</strong>：一个 harness 可同时运行任意数量的对话，互不阻塞。对话可以从头开始，也可以在转录文本的任意点分叉（fork）另一个对话，无需复制父级历史。这类似于 Slack 频道中智能体回答提及，然后有人开启线程的场景。</li>
-<li><strong>可插拔扩展</strong>：扩展（extension）是系统提示词片段、工具、钩子（hooks）和任务的命名捆绑包。每个对话选择使用哪些扩展和工具，仅存储其名称。系统提示词在每次请求前重建，支持工具替换和包装（wrap）装饰。工具调用作为独立的持久化任务运行，意图在执行前存储。</li>
-</ul>
-
-<h3>社区反馈</h3>
-<p>该发布在 Hacker News 上获得了积极反响（205 分，23 条评论）。社区成员指出，Pi Durable 与 LangChain Deep Agents、Vercel Eve、OpenAI Agents API、Anthropic Managed Agents 等产品处于同一创新领域。多位开发者表示已开始将其用于实际项目，包括构建 Slack 支持频道 harness、远程控制工具等。也有用户建议增加策略引擎集成（如 NVIDIA OpenShell）以及更完善的 outbox 模式支持。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Durable Agent（持久化智能体）</strong> 是指能够在进程崩溃、重启或部署迁移后保持状态并从中断处继续运行的 AI 智能体。与传统的一次性 API 调用不同，这类智能体将对话状态、任务进度持久化到存储中，使得长时间无人值守运行、故障恢复和多用户协作成为可能。这一领域正成为各大 AI 公司（OpenAI、Anthropic、Vercel 等）竞相布局的方向。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49925969</guid>
-      <pubDate>Thu, 01 Oct 2026 19:24:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
