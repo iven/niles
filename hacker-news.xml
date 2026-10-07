@@ -3,7 +3,105 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 07 Oct 2026 05:50:52 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 07 Oct 2026 13:16:23 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Strands 发布开源决策模型 Strands Decider 2B：面向智能体工作流的小型快速决策工具</title>
+      <link>https://news.ycombinator.com/item?id=49987076</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源AI模型发布，属于编程工具/新AI模型发布公告，用户很感兴趣</small></p><p>Strands 团队宣布推出 <strong>Strands Decider 2B</strong>，一个开源的小型决策模型（decision model），专为快速实验、本地开发和智能体（agentic）工作流创新而设计。该模型属于新兴的"决策模型"或"系统一模型"（system one models）类别，与 TypeSafe AI 此前发布的 Jev 属于同一类型。</p>
+
+<h3>核心特性</h3>
+<p>与能够生成任意文本的大语言模型（LLM）不同，决策模型专注于在给定选项之间做出选择（如"是/否"或从多个候选中挑选），并为每个决策输出简单的数值评分和可靠性分数。这种设计换来了更快的速度、更低的延迟，以及在相同参数规模下更强的决策能力。其代价是无法生成文本，因此不适合编码、聊天机器人或文档摘要等常见 LLM 任务。</p>
+
+<h3>模型架构</h3>
+<p>Strands Decider 2B 基于 Qwen3.5-2B 预训练模型，移除了语言模型头（LM head），替换为一个约 100 万参数的指针头（pointer head），通过对比各选项位置与 <code>&lt;answer&gt;</code> 位置的隐藏状态来为每个选项打分。模型主体使用 rank-16 LoRA 适配器进行微调。这是该架构的第二个主要迭代版本（当前发布为 v19），团队在仓库中公开了所有版本迭代的细节。</p>
+
+<img src="/_astro/architecture.CTOMFg7u_ZAUu9b.webp" alt="Strands Decider 2B model architecture" width="1720" height="1080" />
+
+<h3>性能表现</h3>
+<p>在 JevBench 公开测试集上，strands-decider-2b 在 2B 参数类别中准确率和校准度（Brier score）排名第 3（共 33 个模型），排除略超 2B 的模型后排名第 1（共 30 个）。延迟方面，在本地 Nvidia RTX 3090 上中位决策时间约 115ms，在 M3 MacBook 上小任务中位延迟约 153ms，延迟随任务规模近似线性增长。</p>
+
+<img src="/_astro/trajectory_brier.UEcm8Bdm_20d8Ch.webp" alt="Accuracy and calibration (Brier score) across training trajectory" width="1360" height="1112" />
+<img src="/_astro/latency_vs_tokens_v18.QRQkM6ta_82iIF.webp" alt="Decision latency vs. task size in tokens" width="1640" height="948" />
+
+<h3>应用场景</h3>
+<p>团队观察到这类模型在模型路由、工具选择、评估、护栏（guardrails）、内存管理、策略分类等场景中已有早期成功应用。此外，社区正在探索将决策模型与 LLM 结合的混合智能体架构——用 LLM 处理最难的决策，用决策模型处理常规决策，以降低成本和延迟。文章还演示了如何通过 Strands 的干预系统（intervention system）在工具调用前用决策模型验证参数是否基于用户实际提供的信息。</p>
+
+<h3>开源与社区反馈</h3>
+<p>模型权重、训练数据和脚本已全部开源，可在 GitHub 和 Hugging Face 上获取。社区反响积极：有开发者已在浏览器中通过 WebGPU 运行该模型用于邮件分类过滤，也有用户报告在 M3 Mac 上纯 CPU 环境下 Docker 容器中运行正常（单次决策约 1.7 秒）。部分评论者讨论了"noul"（二元选择）术语的由来——源自伯努利（Bernoulli）分布，也有人提到 OpenAI 的 Decisions API 将其称为"predicate"。有用户指出基准校准并不能完全代表生产环境输入的可靠性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49987076</guid>
+      <pubDate>Wed, 07 Oct 2026 02:02:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI 推出 Decisions API 公开测试版：面向分类、路由与评分任务的快速决策接口</title>
+      <link>https://news.ycombinator.com/item?id=49984025</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenAI新API发布，属于AI软件技术进展，用户感兴趣</small></p><p>OpenAI 宣布其 <a href="https://developers.openai.com/api/docs/guides/decisions">Decisions API</a> 进入公开测试阶段，该接口用于评估文本、图像或两者组合，并返回类型化答案，速度比 Responses API 快约 10 倍。目前仅支持 <code>gpt-6-luna</code> 模型，预计将在未来几周内正式发布（GA）。</p>
+
+<h3>核心功能</h3>
+<p>Decisions API 的请求包含三个部分：模型（model）、输入（input，即共享的文本或图像证据）以及问题（questions，定义评估类型、指令及允许的选项）。响应中返回一个 answers 数组，每个问题需有唯一名称以便识别。</p>
+
+<p>该 API 支持三种问题类型：</p>
+<ul>
+<li><strong>predicate（谓词）</strong>：检查条件是否成立，返回 0 到 1 之间的概率值，例如检测产品照片是否有可见损坏。</li>
+<li><strong>choice（选择）</strong>：从固定选项中选取一个，例如将客户投诉路由到账单、技术支持或物流部门。</li>
+<li><strong>score（评分）</strong>：针对有序等级（如问题严重程度）进行评分，返回各等级概率的加权平均值。</li>
+</ul>
+
+<p>官方建议，当应用需要生成符合自定义 JSON 架构的对象或需要函数调用时，应使用 Responses API 的 Structured Outputs 或 function calling，而非 Decisions API。</p>
+
+<h3>技术细节</h3>
+<p>图像必须以内联 base64 数据 URL 形式传入，不支持托管 HTTP/HTTPS 图片 URL 或 file_id 输入。用户可在一条消息中组合 <code>input_text</code> 和 <code>input_image</code> 部分，将图像与指令或上下文一同评估。SDK 示例支持 Python 3.26.0、JavaScript 7.30.0、Go 3.73.0、Ruby 0.101.0 和 Java 4.78.0 及以上版本。</p>
+
+<h3>社区反馈</h3>
+<p>该发布在 Hacker News 上引发广泛讨论（346 分，185 条评论）。不少用户将其与新兴的 Jev 模型对比：Jev 输入价格约为 $0.042/百万 token，而 OpenAI 定价为 $0.10/百万 token，约为 Jev 的 2.4 倍。有评论指出，Decisions API 已支持图像输入，弥补了 Jev 的一大短板。</p>
+
+<p>知名开发者 Simon Willison 测试了该端点并制作了 <a href="https://github.com/simonw/llm-openai-decisions">llm-openai-decisions</a> 插件，并指出此类端点往往会被其他提供商采纳为事实标准。也有评论者认为，Decisions API 本质上是零样本分类器，无需针对特定任务训练，但质疑其仅适用于简单决策，复杂场景仍需结构化输出。关于定价竞争力与 OpenAI 护城河的讨论也颇为热烈。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49984025</guid>
+      <pubDate>Tue, 06 Oct 2026 20:57:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>Photopea 开发者投诉：GitHub 拒绝移除其软件的破解副本</title>
+      <link>https://news.ycombinator.com/item?id=49982498</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及开源工具盗版投诉，主题偏向行业/法律事件，兴趣不明确</small></p><p>知名在线照片编辑器 <a href="https://www.photopea.com">Photopea</a> 的开发者 IvanK_net 在 Hacker News 上发帖，抱怨 GitHub 拒绝移除其软件的破解副本。他声称许多人利用 AI 模型提取其网站上的 JavaScript 代码、去除广告后，以"新产品"的名义发布到 GitHub 上供人下载，目前已有数十个此类仓库。</p>
+
+<p>开发者于 2026 年 9 月 4 日向 GitHub 提交了 DMCA 删除通知，但一个月后才收到回复，称"无法确认违反 17 U.S. Code § 1201"（即《数字千年版权法》中关于规避技术保护措施的规定）。IvanK_net 怀疑回复是自动生成的，并考虑寻求法律途径解决。</p>
+
+<h3>社区反馈与建议</h3>
+<p>该帖获得 348 分和 190 条评论，社区给出了多方面的建议：</p>
+<ul>
+<li><strong>投诉类型可能选错</strong>：有评论指出，§ 1201 针对的是规避技术保护措施的行为，而公开网站上的混淆 JavaScript 很可能不适用此条款。更合适的做法是提交标准的版权侵权通知（17 U.S. Code § 512(c)）。</li>
+<li><strong>寻求专业律师</strong>：一位知识产权律师建议，要么聘请专业律所"打地鼠"式处理侵权，要么接受损失。他坦言 GitHub 的处理流程对个人开发者并不友好。</li>
+<li><strong>使用商标保护</strong>：多位用户建议通过商标来保护"Photopea"品牌，以应对冒充产品损害声誉的问题，但商标无法保护代码本身。</li>
+<li><strong>技术方案</strong>：有人建议将关键代码用 WebAssembly 编译为二进制，增加复制难度。</li>
+<li><strong>GitHub 员工回应</strong>：一位 GitHub 员工在评论中表示，DMCA 提交记录是公开的，并愿意内部跟进此事。开发者提供了两个工单号（4822535 和 4726557）。</li>
+</ul>
+
+<p>值得注意的是，有评论指出 Photopea 此前曾成功让 GitHub 下架过类似仓库，但这次的处理似乎不尽如人意。开发者表示希望专注于写代码而非处理法律事务，但也承认可能需要聘请律师。</p>
+
+<p>此外，评论区还引发了关于广告、开源、软件版权等更广泛的争论。部分用户认为客户端 JavaScript 天然难以保护，也有人批评 Photopea 的广告模式，但多数人同情开发者的处境。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49982498</guid>
+      <pubDate>Tue, 06 Oct 2026 18:54:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Claude Code 的「建议消息」功能：真正的客户或许是模型本身</title>
+      <link>https://news.ycombinator.com/item?id=49981905</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Claude Code工具功能的深度讨论，属于编程工具与AI技术进展，用户感兴趣</small></p><p>这篇文章（<a href="https://www.zohaib.cc/blog/smartest-claude-code-feature">zohaib.cc 博客</a>）提出一个观点：Claude Code 的「建议消息」（suggested message）功能，其真正的服务对象或许不是用户，而是模型本身。该功能会在用户输入框显示灰色的下一步提示（需按 Tab 或方向键才能实际输入），作者认为其目的并不只是提升效率，更可能是为了让模型更好地收集用户行为数据、引导对话走向，从而改进自身。</p>
+
+<p>Hacker News 上的讨论（231 分，132 条评论）对这一观点看法不一。一些用户反馈该功能并非新增，已经存在数月甚至更久，且在移动端也会出现。有人指出，这本质上是一种「自我实现的预言」——建议会干扰并影响用户实际输入的内容，而非单纯预测。也有用户反感界面试图替人补全句子的交互方式（如邮件和即时通讯中的建议回复），认为这会打断思维流。</p>
+
+<p>关于训练数据的讨论颇为深入：有评论者认为，用户接受建议可被视作「好评」信号、拒绝则视为「差评」，从而为强化学习（RL）提供训练数据，这是该功能真正的价值所在，且建议本身还会引入对用户提示词的偏差。还有用户幽默地提议：既然接受了「commit this」的建议会被用作训练信号，不如每次都把建议改写成「drop database」来干扰训练。</p>
+
+<p>社区中也不乏反对意见。有评论认为该论点缺乏说服力——完全可以在不向用户显示建议的情况下让模型预测下一步输入，既然选择展示，其目的就必然是为了影响用户的下一步行为（即引导训练），而文章对此并未深入触及。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49981905</guid>
+      <pubDate>Tue, 06 Oct 2026 18:00:34 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ openTPU：由 AI 开发的开源 AI 加速器，单个仓库涵盖 RTL、ISA、模拟器、编译器与分析器</title>
       <link>https://news.ycombinator.com/item?id=49980715</link>
@@ -1167,107 +1265,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49925969</guid>
       <pubDate>Thu, 01 Oct 2026 19:24:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Pi 1.0 正式发布：极简可扩展的 Agent 工作框架，并推出试验性的 Pi Durable</title>
-      <link>https://news.ycombinator.com/item?id=49926069</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 属于编程工具发布/分享，且是新的Agent工作框架，符合很高兴趣</small></p><p>Earendil 公司正式发布了 <strong>Pi 1.0</strong>，一个经过加固、极简且可扩展的代理（agent）工作框架（harness）。据称全球每周有数十万人使用 Pi，团队在过去数月间根据用户反馈和提交的 issue 与 pull request，将其打磨成一款供个人和企业依赖的稳定软件。</p>
-<p>Pi 以「极简」著称，团队坚持这一理念——只有当某个功能被证实有价值后才会采用，并权衡其真实功能与所增加的复杂度。Pi 1.0 新增了以下功能：</p>
-<ul>
-<li>Codemode（原生支持 MCP，以及 Jev 等非 LLM 模型和图像模型）</li>
-<li>对虚拟模型的扩展支持</li>
-<li>延迟工具加载（Deferred tool loading）</li>
-<li>针对 Anthropic 模型的缓存预热（Cache warming）</li>
-<li>对话中期的系统消息（基于完整记录的提示与工具变更）</li>
-<li>新的 TUI 主题，以及默认全屏模式</li>
-</ul>
-<p>同时，Earendil 还推出了试验性的 <strong>Pi Durable</strong> 包，作为构建长时间运行的 agentic 应用的底层基础（substrate），旨在让构建者和用户能更加灵活地驾驭底层智能。Pi Durable 延续了 Pi 的极简与高可塑性原则，并将其拓展到新的维度，可支持非终端、非编码场景以及更长时间的对话与任务。</p>
-<p>两者均采用 MIT 许可，可通过 <code>curl -fsSL https://pi.dev/install.sh | sh</code>（Windows 下用 PowerShell）安装，文档位于 pi.dev，代码托管在 github.com/earendil-works/pi。作者 Mario 在博客中详细介绍了 Pi Durable 的设计过程。</p>
-<h3>社区反馈</h3>
-<p>在 Hacker News 上，该发布引发了热烈讨论（327 分、120 条评论）。许多用户分享了使用心得：有人将其用于 CI 中的无头审查（headless review），有人用它做日常编码和个人管理（配合 Markdown 文件），也有人基于它构建自己的封装（包括 GUI 包装器，因为 TUI 对新手不够友好）。</p>
-<p>有用户质疑 Pi 团队判定功能「已被证实」的标准不够均衡——例如 Jev 推出不到一个月就被采纳，而发展近两年的 MCP 直到现在才获得原生支持。对此，有评论者解释 07-28 版 MCP 规范与以往版本差异很大，延迟可理解；也有用户指出「不支持 MCP」此前正是 Pi 的卖点之一，现在随着内置支持而简化了使用栈。此外，有人提到 Pi 内置的 Codemode 非常好用，而 oh-my-pi 及其 Paseo 守护进程模式被认为是最受好评的组合之一，可用于在家庭服务器上自托管并跨设备无缝接续会话。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49926069</guid>
-      <pubDate>Thu, 01 Oct 2026 19:33:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Cloudflare 发布开源决策模型 Clef 及全新强化学习微调平台</title>
-      <link>https://news.ycombinator.com/item?id=49923692</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 发布新的开源决策模型及强化学习微调平台，属于新AI模型发布和AI软件技术进展</small></p><p>Cloudflare 在 Workers AI 平台上发布了两个自研的开源决策模型 <strong>Clef</strong> 和 <strong>Clef-flash</strong>，并同步推出全新的<strong>强化学习（RL）微调平台</strong>。这些模型采用 Apache 2.0 许可在 Hugging Face 上完全开源，可本地运行。</p>
-
-<p>所谓"决策模型"，是指在给定输入后以概率形式返回有界、结构化输出（typed answers with probabilities）的模型，用以帮助代理（agent）决定如何行动。决策模型与大型语言模型（LLM）形成对比：LLM 基本是非确定性的（non-deterministic），但能开放地推理并生成文本和工具调用；而决策模型则便宜、快速、一致地产生界定输出，适用于工作流中的决策环节，且不需要为新的分类类别频繁重训模型。</p>
-
-<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01M3TJPKAE7MFBW626XHNC9QVA.png&w=1999&h=1125&f=webp&fit=cover&position=center" width="1999" height="1125" alt="" />
-
-<p>Cloudflare 已在内部威胁情报团队测试 Clef，用于对网站域名进行分类（如判断某域名有 95% 概率是时尚网站、85% 概率是电商、低于 1% 概率是钓鱼等）。借助 Browser Run，Clef 完成一次"抓取、渲染、分类"耗时 2.2 秒，而最快的通用 LLM gpt-oss-120b 在同一工作流中需 4.7 秒，且仅返回两类结果。这带来约 2 倍的延迟优势。</p>
-
-<p><strong>与 Jev 等竞品的差异</strong>：Clef 具有视觉编码器，能接收并分类图像内容（而 Jev 目前仅支持文本分类）；拥有 64k 上下文窗口（Jev 为 32k）。在 Jev Decision Index 定义的各类基准测试中，Clef 表现具有竞争力，在延迟上优于多数同类模型（Clef 中位延迟 209.3ms、p95 238.6ms；Clef-flash 分别仅 38.8ms 和 122.4ms）。由于托管在 Cloudflare 边缘的 Workers AI 基础设施上，还能利用边缘 GPU 获得更低的网络延迟，适合放入代理的"热路径"（hot path）中做决策。</p>
-
-<p><strong>训练方法</strong>：Clef 以 Qwen 为骨干模型（Clef 冻结 Qwen3.8-27B，Clef-flash 冻结 Qwen3.5-9B），联合优化路由头与 rank-256 的低秩适配器（LoRA）。推理时采用 prefill-only 传递并对合法 schema 选项并行评分，决策步骤是非自回归的，因此比自回归 LLM 快得多。后训练结合 label-smoothed 交叉熵与 Brier 损失以校准概率，并开发了 <strong>RLCD（用于校准决策的强化学习）</strong> 作为次优目标。</p>
-
-<p><strong>新 RL 微调服务</strong>：Cloudflare 首先通过前向部署工程师（FDE）团队提供人工协助的微调服务，未来将推出自助服务平台。平台借助 Cloudflare 既有原语构建：AI Gateway（采集请求/响应数据）、Workers AI（针对基础 Clef 生成 rollouts）、Containers（用作 RL 沙箱）、新的 Trainer 组件（更新微调模型权重），以及 Workers AI 的 Bring Your Own Model（BYO）功能来重新部署模型。</p>
-
-<p>这一发布在 Hacker News 上引发热议（337 点赞、134 条评论）。不少评论者疑问为什么在 Typesafe 推出 Jev 后这么快就有众多决策模型出现，有观点认为该概念并不新颖、基于既有开源模型很容易实现（可参考 <a href="https://github.com/knowledgator/gliclass">GLiClass</a> 这一先例）。也有用户指出其定价：Clef 为 $0.24/百万输入 token，约是 Jev 的 6 倍，而 Clef-flash 的 $0.09 更具竞争力；还有人评论其 pareto 边界未包含成本因素。用户对图像输入能力、边缘模型发布表示赞赏，但也有人质疑其校准（calibration）问题——不过有评论指出文章明确提及使用 Brier loss 进行校准。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>决策模型</strong> 是一个相对较新的 AI 概念，本质上是让模型在任何给定输入集上快速产出带概率的有界结构化输出。与通用 LLM 不同，其解码过程只针对合法 schema 选项打分，而非逐 token 生成中间文本，这使其在延迟和确定性上显著优于传统自回归模型，适合被嵌入到需要程序化自主决策的 agentic 工作流中。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49923692</guid>
-      <pubDate>Thu, 01 Oct 2026 16:18:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ turbopuffer 宣布 v3 架构重构：告别以向量索引为主索引的设计</title>
-      <link>https://news.ycombinator.com/item?id=49923466</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 搜索存储架构重构，涉及向量搜索与AI相关软件进展，但偏基础设施细节，推荐阅读</small></p><p>turbopuffer 工程师 Dan Harrison 发表博客文章，宣布其存储架构将进行根本性重构。turbopuffer v3 将改变文档和索引的布局、写入、压缩和查询方式，使文本、正则和向量搜索在各方面都更快，同时为更多 SQL 查询迁移到 turbopuffer 奠定基础。</p>
-
-<h3>从 v1 到 v2 的演进</h3>
-<p>turbopuffer 最初（v1）作为无服务器向量数据库推出，文档仅由 ID 和向量组成，采用基于对象存储的分层聚类索引（从 SPANN 迁移到 SPFresh 以支持增量索引）。其早期客户包括 Cursor 和 Notion。v2 阶段加入了属性过滤（倒排索引）和 BM25 全文搜索，并被 Linear 等公司用于非搜索场景。</p>
-
-<h3>向量主索引的三大问题</h3>
-<p>文章指出，以 ANN（近似最近邻）向量索引为主索引的设计在三个方面制约了非向量查询的发展：</p>
-<ul>
-<li><strong>存储放大</strong>：多向量文档（如文档嵌套或后期交互）需要为每个向量重复存储完整文档内容。</li>
-<li><strong>写入放大</strong>：SPFresh 重新平衡向量时，会级联移动整个文档内容及其所有倒排索引引用，更新一个向量可能移动数百个属性和索引。</li>
-<li><strong>向量化受限</strong>：现代查询引擎（如 DuckDB、ClickHouse）依赖大块批处理以保持 CPU 饱和，但 ANN 主索引将块大小限制在 100–200 个文档。turbopuffer 的 FTS v2 将 posting 列表改为固定约 256 的块后，索引缩小 10 倍、查询提速最高 20 倍，印证了块大小的重要性。</li>
-</ul>
-
-<h3>v3 的解决方案</h3>
-<p>turbopuffer v3 的核心改变是：不再以 ANN 地址作为主键，而是让 ANN 成为"又一个"二级索引。本月团队已实现 100% CI 通过，接下来将专注于性能优化，并计划在数周内公开基准测试结果，逐步达到并超越现有性能后向生产环境推出。</p>
-
-<h3>社区反馈</h3>
-<p>HN 讨论中，多位评论者将这一架构转变类比为数据库领域的经典演进：Postgres 的索引指向行 ID（每次更新都会变化）与 MySQL 的索引指向主键（增加一次间接查找）之间的权衡，并引用了 <a href="https://www.uber.com/us/en/blog/postgres-to-mysql-migration/">Uber 2016 年从 Postgres 迁移到 MySQL 以解决索引放大问题的文章</a>。也有评论者指出，纯向量数据库在企业检索场景中价值有限，SQL 数据库的原生向量支持已足够灵活。还有人提到 LanceDB 等开源项目早已采用类似设计，将 ANN 视为二级索引。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49923466</guid>
-      <pubDate>Thu, 01 Oct 2026 16:01:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 2026年9月Rust编译器性能优化进展：两个月平均提速4.57%</title>
-      <link>https://news.ycombinator.com/item?id=49920896</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Rust编译器性能优化进展，属于编程效率改进经验，很感兴趣</small></p><p>Nicholas Nethercote 更新了 Rust 编译器的性能优化进展，总结了 2026 年 7 月 29 日至 9 月 28 日期间的成果。在此期间，629 项基准测试的平均墙钟时间（wall-time）缩短了 4.57%，其中 555 项得到改善、仅 74 项回退，多项基准达到两位数的百分比降幅，作者称之为「一片绿色（a sea of green）」。</p>
-
-<p>主要改进包括：</p>
-<ul>
-<li><strong>rustdoc</strong>：Noah Lev 撰写文章详细解释了此前大幅加速 rustdoc 的方法。</li>
-<li><strong>Clippy</strong>：Jakub Beránek 为 Clippy 启用 PGO（性能引导优化），多数基准得到改善，最佳情况下缩短 18% 墙钟时间。</li>
-<li><strong>LLVM 升级</strong>：Nikita Popov 将编译器所用 LLVM 升级到 23 版，平均墙钟时间缩短 1.2%，对于一个单一 PR 而言相当出色。</li>
-<li><strong>新借用检查器 Polonius Alpha</strong>：已在 Nightly 启用，比旧检查器更精确，能接受一些旧版会拒绝的合法程序，但在少数情况下增加编译时间（包括流行的 serde crate）。Jack Huey 通过延迟 liveness 计算（#161938）和调整数据结构与内联（#163027）减轻了开销。</li>
-<li><strong>新特征求解器</strong>：同样已在 Nightly 启用，少数情况下更慢。Jana Dönszelmann 撰写了详细文章介绍优化工作，作者本人的多个 PR（#160479 等）为某些极端 crate 削减了 50%、25%、15% 的编译时间。</li>
-<li><strong>新贡献者 xmakro</strong>：优化了特化图构建（#157281，平均周期数降低 1.58%）、增量编译数据加载（#158059）、热 obligations 处理路径的分配（#160473），并改用静态分发替代动态分发以减少分配（#160268）。</li>
-<li><strong>数据流分析</strong>：作者改变了 CFG 遍历算法（#160193），使 cranelift-codegen 中一个拥有 18000 多个基本块的巨型函数，从旧算法需要 150 万次 apply_effects_in_block 调用收敛到只需 9 万次，检查构建的墙钟时间骤降约 30%。另一 PR（#160033）通过不再为投影（projections）跟踪不必要的数据，使 match-stress 基准的指令数降低 17%。</li>
-<li><strong>杂项</strong>：#160535 中 Chris Denton 提高了编译器默认栈大小并移除了手动栈扩展机制；#162747 中作者对 AST 到 HIR 降级代码做了小幅清理。#160506 与 #162859 首次出现包含多个性能优化 PR 的「rollup」合并，说明项目性能改进数量之多。</li>
-</ul>
-
-<p>作者还提到，他将在次日加入 Hexcat，专注于编译器性能优化项目目标。最后，文的编辑附言澄清：新求解器并非叫「Penelope Hammertime」（那是个玩笑），其真名是「Pineapple Häagen-Dazs」。</p>
-
-<h3>社区讨论</h3>
-<p>评论普遍肯定这些成果：有人认为 EverInitializedPlaces 的例子表明最大的编译器优化往往来自「改变算法」而非「优化热循环本体」；有人指出大公司对开源维护者的捐赠正切实改善 Rust 的编译体验。也有讨论关注 Rust 编译器相对较慢的原因（LLVM、泛型单态化、安全检查等），并有人分享通过拆分大型 crate、使用 sccache 共享缓存来改善编译体验的经验。部分评论者表示在 AI 智能体时代，Rust 的编译速度令人困扰，甚至因此转向 Go，但另一些则认为 Rust 仍是智能体输出序列化的理想语言，编译速度是最需解决的问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49920896</guid>
-      <pubDate>Thu, 01 Oct 2026 12:44:38 GMT</pubDate>
     </item>
   </channel>
 </rss>

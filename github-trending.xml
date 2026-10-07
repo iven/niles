@@ -3,7 +3,59 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Wed, 07 Oct 2026 05:50:08 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 07 Oct 2026 13:15:12 GMT</lastBuildDate>
+    <item>
+      <title>Epic Games 开源 RAD Debugger：原生多进程图形化调试器及配套工具链</title>
+      <link>https://github.com/EpicGames/raddebugger</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 这是一款由 Epic Games 开源的图形化调试器工具，属于编程工具类内容，且来自游戏公司，但核心是调试器工具本身（非游戏引擎或游戏），归类于编程工具发布分享与开源项目，兴趣配置中编程工具发布为高兴趣。但标题未详细说明使用方法与场景，信息有限，判为 optional。</small></p><p>Epic Games 开源了 <strong>RAD Debugger</strong>（raddebugger），这是一个原生、用户态、多进程的图形化调试器，目前处于 <em>ALPHA</em> 阶段。项目当前仅支持本地 Windows x64 平台及 PDB 调试信息，未来计划扩展至原生 Linux 调试和 DWARF 调试信息支持。</p>
+
+<p>除调试器本身外，该项目还包含两项配套技术：</p>
+
+<ul>
+<li><strong>RAD Debug Info（RDI）格式</strong>：一种自定义调试信息格式，调试器直接解析使用而非依赖工具链原生产生的 PDB 或 DWARF。调试器会按需将 PDB（未来还包括内嵌 DWARF 的 PE/ELF 文件）转换为 RDI 格式。配套的 <code>radbin</code> 工具可完成格式转换及生成 RDI 文件内容的文本转储。</li>
+<li><strong>RAD Linker</strong>：一款面向 x64 PE/COFF 二进制生成的高性能链接器，专为巨型可执行文件优化。在测试用例（调试信息达数 GB）中，链接速度提升约 50%。它生成标准 PDB 文件，也可选择原生生成 RDI 调试信息，避免调试时的按需转换开销，并解决超大可执行文件导致 PDB 内部 32 位表溢出的问题。命令行语法与 MSVC 完全兼容，默认按核心数并行，并支持大内存页（可再提速约 25%，但 Windows 下默认关闭）。</li>
+</ul>
+
+<p>项目路线图分为两个主要阶段：首先是完善 Windows x64 本地调试的 Alpha 稳定性，包括调试信息转换与加载、进程控制、单步执行、表达式求值及前端健壮性；其次是移植至 Linux x64，涉及进程控制抽象、ELF 展开器、DWARF-to-RDI 转换器、渲染层（Windows 使用 D3D11）及字体光栅化（Windows 使用 DirectWrite）等后端的构建。更长远的方向包括远程调试、多架构移植等。</p>
+
+<p>项目在 GitHub 上已获得约 7700 星标，采用 C 语言编写，代码库按"层"（layer）组织，与命名空间大致一一对应，便于按需包含进不同构建。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>PDB</strong>（Program Database）是微软的调试信息文件格式，存储符号、类型和源代码行号等信息；<strong>DWARF</strong> 则是 ELF 可执行文件常用的调试信息标准格式。RDI 作为 Epic 自定义的中间格式，核心优势在于统一处理不同来源的调试信息，并规避超大二进制中 PDB 内部 32 位表溢出的历史限制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/EpicGames/raddebugger</guid>
+      <pubDate>Wed, 07 Oct 2026 13:14:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ cmux：基于 Ghostty 的开源 macOS 终端，为 AI 编程代理提供垂直标签页与通知</title>
+      <link>https://github.com/manaflow-ai/cmux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是开源的macOS终端工具，面向AI编程代理提供垂直标签页与通知，属于编程工具和开源项目范畴，与用户兴趣（编程工具发布、开源项目）吻合，判为recommended。</small></p><p><b>cmux</b>（manaflow-ai/cmux）是一个基于 Ghostty 的开源 macOS 终端，专为并行运行 AI 编程代理（如 Claude Code、Codex）设计，主打多任务处理、组织编排与可编程性。该项目用 Swift/AppKit 原生构建（非 Electron），启动快、内存占用低，并通过 libghostty 实现 GPU 加速渲染，同时兼容读取现有的 <code>~/.config/ghostty/config</code> 主题、字体与配色。</p>
+
+<h3>核心功能</h3>
+<ul>
+<li><b>通知环（Notification rings）</b>：当编码代理需要用户关注时，对应的窗格会亮起蓝色环、侧栏标签页也会点亮。</li>
+<li><b>通知面板（Notification panel）</b>：集中查看所有待处理通知，一键跳转到最近未读（⌘⇧U）。系统会捕获终端序列（OSC 9/99/777），并提供 <code>cmux notify</code> CLI 可接入 Claude Code、OpenCode 等代理的钩子。</li>
+<li><b>应用内浏览器（In-app browser）</b>：可将浏览器与终端分屏，其脚本化 API 移植自 <a href="https://github.com/vercel-labs/agent-browser">agent-browser</a>，代理可快照无障碍树、获取元素引用、点击、填写表单和执行 JS，让 Claude Code 直接与本地开发服务器交互。</li>
+<li><b>垂直 + 水平标签页（Vertical/horizontal tabs）</b>：侧栏显示 git 分支、关联 PR 状态/编号、工作目录、监听端口及最新通知文本，支持水平与垂直分屏拆分。</li>
+<li><b>SSH</b>：<code>cmux ssh user@remote</code> 为远程机器创建工作区；浏览器窗格通过远程网络路由，使 localhost 直接可用；可将图片拖入远程会话通过 scp 上传。</li>
+<li><b>Claude Code Teams</b>：<code>cmux claude-teams</code> 单命令运行 Claude Code 的 teammate 模式，队友以原生分屏形式出现，无需 tmux。</li>
+<li><b>浏览器导入</b>：可从 Chrome、Firefox、Arc 等 20+ 浏览器导入 cookie、历史与会话，使浏览器窗格默认已认证；还支持在 <code>cmux.json</code> 中定义项目专属自定义命令，并通过命令面板启动。</li>
+<li><b>可编程（Programmable）</b>：提供 CLI 和 socket API，可创建工作区、拆分窗格、发送按键以及自动化浏览器操作。</li>
+<li><b>会话恢复（Session restore）</b>：退出时保存并恢复窗口/工作区/窗格布局、工作目录、终端回滚内容及浏览器 URL 与导航历史；支持本地 tmux 与 zellij 的 live detach/reattach，并可恢复 Claude Code、Codex、Grok、OpenCode、Gemini、Copilot 等众多代理会话。</li>
+<li><b>键盘快捷键</b>：提供覆盖工作区、拆分、浏览器、通知、查找等场景的丰富快捷键。</li>
+</ul>
+
+<h3>设计理念：「The Zen of cmux」</h3>
+<p>作者表示自己会并行运行大量 Claude Code 和 Codex 会话，使用原生 macOS 通知时无法获知上下文，因而转向开发 cmux。项目明确强调「cmux 是原语（primitive），不是解决方案」，不强制开发者使用某种特定方式，而只提供终端、浏览器、通知、工作区、拆分、标签页与 CLI 等可组合的构件，由开发者自行构建高效工作流——这与闭源产品自上而下的设计形成对比。</p>
+
+<h3>生态与分发</h3>
+<p>项目采用 GPL 许可证、免费开源，全球星标约 27.7k。可通过 DMG 或 Homebrew（<code>brew tap manaflow-ai/cmux; brew install --cask cmux</code>）安装，自带 Sparkle 自动更新，并提供 nightly 构建版本（与稳定版并行运行）。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/manaflow-ai/cmux</guid>
+      <pubDate>Wed, 07 Oct 2026 13:14:04 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ REA：用 AI 智能体逆向工程一切，从应用行为到原生二进制</title>
       <link>https://github.com/morluto/rea</link>
@@ -1268,70 +1320,6 @@ agent("Find the slowest test in this repo and explain why it's slow")</code></pr
       </description>
       <guid isPermaLink="false">https://github.com/google/ax</guid>
       <pubDate>Tue, 22 Sep 2026 14:48:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Treg：面向 Agent 工具的「OpenRouter」——3000+ 端点、按次付费、免注册调用</title>
-      <link>https://github.com/superdesigndev/treg</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向Agent工具的调用平台，属编程工具发布与AI软件技术进展，用户感兴趣</small></p><p><strong>Treg</strong> 是一个面向 AI Agent 的工具注册中心，被定位为「工具版的 OpenRouter」——如果说 OpenRouter 统一了模型调用，Treg 则统一了各类外部工具与 API 的调用。它已收录 <strong>60+ 提供商的 3000+ 个目录端点</strong>，覆盖 SEO 与反向链接、社媒与趋势、人物与公司信息、广告、爬虫、图像与视频生成等领域，按次计费（最低从一分钱起），无需与各提供商注册账号。项目由 Superdesign 团队开发，已上线 <a href="https://treg.to">treg.to</a>，支持任何人自托管。</p>
-
-<h2>存在的缘由</h2>
-<p>Agent 完成真实工作所需的工具背后，往往是订阅制服务（如 Semrush 每月 139 美元、Moz 99 美元、Crunchbase 99 美元、Apollo 每席位 59 美元），被注册门槛、甚至无公开 API（仅受邀、仅合作伙伴、仅应用审核）所阻隔。Treg 由自己持有这些账号，按调用收取几分钱，从而绕开这些门槛。</p>
-
-<h2>两种工具、一个令牌</h2>
-<p>通过单一 base URL 和单一令牌，Agent 即可完成任务：</p>
-<ul>
-<li><strong>目录（catalog）</strong>——Treg 用自有密钥或已验证的公共路由提供的外部端点；自带密钥的调用计入团队预付余额，匿名调用免费，无需与提供商建账号。新验证账号创建合格团队后可获得 <strong>1 美元免费额度</strong>。</li>
-<li><strong>自有工具</strong>——团队成员注册的任何工具：付费 API 账号、OAuth 连接、厂商 CLI、SKILL.md 技能。自有密钥优先级始终高于 Treg 的密钥，且这类调用永不计量。</li>
-</ul>
-
-<p>核心设计原则：代理<b>仅转发（relay）而不建模（model）</b>上游，并在<b>服务端注入认证</b>。因此调用方能适应上游 API 变化，而调用者永远不持有密钥。若某端点 Treg 没有公开定价，会被<b>拒绝</b>而非免费提供，并提示你连接自己的密钥。余额不足时返回 HTTP 402，附带计费与充值信息，便于 Agent 自动处理。</p>
-
-<h2>主要功能亮点</h2>
-<ul>
-<li><strong>调用无密钥工具</strong>：按任务（而非厂商）搜索目录，例如 <code>treg catalog search "backlinks for a domain"</code>、<code>treg call hunter.people.email.find --query domain=reddit.com</code>。</li>
-<li><strong>共享与使用自有工具</strong>：<code>treg scan/upload</code> 可扫描项目的 .env、技能与 CLI 并自动注册（加密存储）；可用 <code>treg call</code> 转发上游请求、<code>treg run</code> 在注入组织凭证的情况下运行厂商 CLI（支持本地或服务端执行）、<code>treg skill install</code> 拉取共享技能。</li>
-<li><strong>团队（Teams）</strong>：每个账号可拥有最多 10 个团队，所有对象按组织（org）隔离，包含 owner/admin/member/viewer 四种角色和按成员分配工具访问权限的功能。</li>
-<li><strong>Enrich Arena</strong>：位于仪表盘之外，可对比各家信息补全答案的成本与速度并投票选优。</li>
-<li><strong>生态集成</strong>：可安装为 Claude Code 插件，也可作为 Claude.ai Connector（MCP 接口）使用；还支持 MiniMax Code/Agent 插件市场。</li>
-<li><strong>自托管</strong>：提供本地开发脚本及服务端安装方式（<code>pip install "tools-registry[server]"</code>）。</li>
-</ul>
-
-<h2>社区反馈</h2>
-<p>该项目在 GitHub Trending 上位居前列（约 2000+ star、200+ fork，Python），以其「按任务而非按厂商」的产品理念和免注册按次计费的模式受到关注，官方社区见其 Discord 群组。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/superdesigndev/treg</guid>
-      <pubDate>Tue, 22 Sep 2026 14:48:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AutoClip：AI 驱动的高光提取与视频剪辑开源工具</title>
-      <link>https://github.com/zhouxiaoka/autoclip</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI驱动的高光提取与视频剪辑开源工具，属于开源项目及软件新功能，符合用户对开源项目和AI软件技术进展的兴趣</small></p><p>AutoClip 是一款开源的 AI 视频剪辑工具，目标是把长视频自动变成值得分享的精彩片段。它通过 AI 分析视频字幕来定位高光时刻、生成标题，并自动剪出片段与合集，适合访谈、播客、课程和直播回放等场景。项目在 GitHub 上已获得约 8,096 星标（1,561 forks），采用 MIT 许可证，使用 Python 开发。</p>
-
-<h3>核心能力</h3>
-<ul>
-<li><b>素材导入</b>：支持本地视频、YouTube 与 B 站链接，可附带 SRT 字幕。</li>
-<li><b>高光发现</b>：从字幕提取大纲、话题时间线、精彩度评分和片段标题。</li>
-<li><b>剪辑与合集</b>：自动生成视频切片，组合推荐合集，也可手动调整顺序。</li>
-<li><b>发布导出</b>：提供抖音、小红书、YouTube Shorts 和 B 站导出预设，支持烧录字幕与标题卡。</li>
-<li><b>模型自由选择</b>：支持通义千问、OpenAI 兼容接口、Gemini、硅基流动，以及 Ollama / LM Studio 本地模型。</li>
-<li><b>自动化接入</b>：通过 CLI 批量编排，或让支持 MCP 的客户端调用同一条处理流水线。</li>
-</ul>
-
-<h3>使用方式</h3>
-<p>AutoClip 提供三种使用方式：<b>桌面应用</b>（macOS Apple Silicon 与 Windows x64 安装包，内置 Python 和 FFmpeg）、<b>Docker / Web 界面</b>（通过 Docker Compose 部署）以及 <b>CLI / MCP</b>（适合开发者，需 Python 3.10+ 和 FFmpeg）。处理流程为：导入视频 → 准备字幕/语音转写 → AI 分析与评分 → 生成切片与合集 → 导出成片。</p>
-
-<p>自 v1.3.1 起，产品界面、官网和 README 均支持中、英、日、韩、西、葡、俄、法八种语言，顶栏可切换界面语言或跟随系统，用户素材和生成内容保留原文。</p>
-
-<h3>本地隐私与限制</h3>
-<p>AutoClip 本身免费开源（MIT），云端模型由服务商计费。视频剪辑在本地设备完成，使用云端模型时仅将字幕文本发送给服务商。目前分析主要基于字幕，对纯视觉动作或音乐类视频效果可能有限，是否生成片段受评分阈值等因素影响。</p>
-
-<h3>社区反馈</h3>
-<p>项目标注为「个人业余维护」，回复时间不固定，不提供即时客服或一对一部署服务，属于小规模维护的活跃开源项目。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/zhouxiaoka/autoclip</guid>
-      <pubDate>Mon, 21 Sep 2026 17:00:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
