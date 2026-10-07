@@ -3,7 +3,75 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 06 Oct 2026 23:47:57 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 07 Oct 2026 05:50:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐ openTPU：由 AI 开发的开源 AI 加速器，单个仓库涵盖 RTL、ISA、模拟器、编译器与分析器</title>
+      <link>https://news.ycombinator.com/item?id=49980715</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源AI加速器项目，涉及开源项目、AI软件技术进展和编程工具发布，符合多个兴趣点</small></p><p>openTPU 是一个<b>由 AI 开发的开源 AI 加速器</b>项目，它尝试回答两个问题：AI 智能体在硬件设计上能走多远，以及它们能否构建出运行自身推理的芯片。整个加速器集中在一个小型单体仓库（monorepo）中，可从端到端通读，包含用 SystemVerilog 编写的硬件设计、指令集、比特级精确的模拟器、内核语言及其编译器，以及驱动真实 PCIe 卡的宿主软件。</p>
+<p>该项目既是一个真实可用的硬件，也被设计为一个学习项目——如果想理解 AI 加速器如何从 Python 中的矩阵乘法一路工作到底层线路级别，这是一个很好的起点。</p>
+
+<p><b>运行结果</b></p>
+<p>该设计在一块浪潮 YPCB-00338 板卡（赛灵思 Kintex-7 xc7k480t，两条 DDR3 通道）上以真实权重运行十种现代模型，且板卡与模拟器逐比特输出相同的 token。例如：LFM2.5-230M（int8）解码约 59 tok/s、预填充约 295 tok/s；Qwen3-0.6B 解码约 21.6 tok/s；Qwen3.5-0.8B 解码约 17.6 tok/s。解码速度受 DRAM 带宽限制，峰值利用率可达 94%。</p>
+<p>4-bit 量化（FP4 值配合两级块缩放，每权重 4.25 比特，LM 头部保持 int8）可将每 token 字节数削减约三分之一，并把解码速度提升 40%（Qwen3.5）至 45%（Qwen3、LFM2）。混合专家（MoE）模型（如 LFM2.5-8B-A1B、Qwen3.5-35B-A3B）可通过从宿主存储流式加载专家权重运行，并与模拟器逐比特匹配。</p>
+
+<p><img src="/FeSens/openTPU/raw/main/docs/img/card-chat-smi.gif" alt="otpu-chat 在 LFM2.5-230M 上运行，otpu-smi 监控板卡" /></p>
+<p><b>工作原理</b></p>
+<p>机器设计得刻意简洁：一个定序器每周期向若干单元发出一指令——DMA 搬运数据、矩阵单元乘算从 DRAM 流式加载的 int8 权重、向量单元做 fp32 运算、量化单元把结果转回 int8。没有缓存，也没有隐藏调度：每一次数据移动都是一条指令，因此跟踪文件能精确显示周期去向。内核用 <code>@ol.jit</code> 装饰器编写，例如简化的 MLP 层代码。Lens 分析器可从 RTL、模拟器或板卡记录一次运行并在浏览器中打开，提供屋顶线图、时间线和逐指令表格。</p>
+
+<p><img src="/FeSens/openTPU/raw/main/docs/img/lens-floorplan.gif" alt="Lens 在布局上回放 Qwen3 解码步骤" /></p>
+<p><b>上手体验</b></p>
+<p>除板卡外的所有内容都可在笔记本上运行：安装依赖后执行 <code>python3 -m pytest -q</code>，再用 <code>otpu-chat --backend isa</code> 即可在模拟器上聊天；有板卡时可构建比特流，用 JTAG 加载后以 <code>--backend board</code> 运行。附带 <code>otpu-smi</code>（监控温度、功耗、DRAM 带宽与单元利用率）、<code>otpu-lens</code>（分析器）等工具。</p>
+<p><b>下一步计划</b>包括挖掘 DRAM 效率的最后几个百分点、改善时序裕量（当前 133.33 MHz 时序裕量仅 WNS +0.032 ns）以及加快预填充。项目欢迎贡献，采用 Apache License 2.0。</p>
+
+<p><b>社区讨论</b></p>
+<p>HN 讨论围绕「递归自我改进」（recursive self-improvement）展开：开发者 fsbonetto 表示，同一套用 AI 开发 RISC-V CPU 核的技术被用于开发 openTPU，通过递归自我改进循环，小模型从每秒几个 token 提升到了 80+ tok/s。有评论比较它与现有 TPU 的差异，指出这是典型 AI ASIC 的最小计算单元，还缺少周边子系统（PCIe、以太网及多芯片互联等）。还有人讨论 AI 设计专用 FPGA 类似物的前景，以及这对软件开发者和人类专家角色的长远影响。项目采用的 LiteDRAM 路径可实现 DDR3 峰值约 82–85% 的读取效率。</p>
+
+<p><b>你知道吗？</b></p>
+<p>「systolic matrix unit」（脉动矩阵单元）是一种将大量乘加运算组织成流水化阵列布局的硬件结构，数据在相邻处理单元间同步流动，是 Google TPU 早期设计中的标志性架构选择，尤其适合密集矩阵乘法这类规则运算。openTPU 的生产镜像中使用了四列脉动矩阵单元。此外，该项目宣称与模拟器「逐比特一致」（bit-for-bit），意味着硬件、模拟器与真实板卡在相同输入下产生完全相同的输出，这极大简化了验证与调试。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49980715</guid>
+      <pubDate>Tue, 06 Oct 2026 16:23:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Google 发布 EmbeddingGemma 2：开源轻量级多模态嵌入模型</title>
+      <link>https://news.ycombinator.com/item?id=49980487</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Google发布开源多模态嵌入模型，属于新AI模型发布且为开源项目，强烈符合用户兴趣</small></p><p>Google DeepMind 正式发布 <strong>EmbeddingGemma 2</strong>，这是其上一代文本嵌入模型的重大升级，将能力从纯文本扩展到代码、图像、视频和音频的统一嵌入空间。该模型基于 Gemma 4 架构构建，拥有 7.4 亿参数，采用 Apache 2.0 商业许可协议开源，专为端侧（on-device）推理优化。</p>
+
+<img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/embeddinggemma2-banner_169.width-200.format-webp.webp" alt="EmbeddingGemma 2" />
+
+<h3>核心特性</h3>
+<ul>
+<li><strong>同类最佳性能</strong>：在 MTEB Code 和 MAEB 等基准测试中，取得 sub-1B 多模态嵌入模型中的领先分数，并在文本、视觉和音频任务上匹配或超越许多更大的模型。</li>
+<li><strong>模块化设计</strong>：纯文本工作负载仅需 2.7 亿参数，可选配视觉（1.7 亿）和音频（3 亿）编码器实现完整多模态支持。</li>
+<li><strong>存储高效</strong>：通过 Matryoshka 表示学习（MRL），可将输出向量从 768 维动态截断至 512、256 或 128 维，为本地向量数据库节省高达 6 倍的存储空间。</li>
+<li><strong>端侧性能优化</strong>：在 Google Pixel 11 Pro 上，量化后纯文本权重仅需约 191MB 活跃内存，完整多模态模型约 567MB。</li>
+<li><strong>扩展上下文</strong>：8K token 上下文窗口（比上一代大 4 倍），可处理约 5.5 分钟音频、29 张图像、58 帧视频或交错组合。</li>
+</ul>
+
+<h3>性能提升</h3>
+<p>与 EmbeddingGemma 相比，代码性能在 MTEB Code 基准上提升了 9.92 分（从 68.76 提升至 78.68），适合本地代码库索引、语义代码搜索和编码代理检索。在图像、视频、文档和音频任务上，其质量-参数比在 sub-1B 模型中树立了新标准，甚至超越了一些体积两倍以上的专业模型。</p>
+
+<img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Massive_Text_Embedding_Benchmark_.width-100.format-webp.webp" alt="Massive Text Embedding Benchmark (Code)" />
+<img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Massive_Image_Embedding_Benchmark.width-100.format-webp.webp" alt="Massive Image Embedding Benchmark (Lite)" />
+<img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Massive_Audio_Embedding_Benchmark.width-100.format-webp.webp" alt="Massive Audio Embedding Benchmark" />
+
+<h3>应用场景</h3>
+<p>EmbeddingGemma 2 支持完全离线的跨模态语义搜索、路由和检索。与 Gemma 4 生成模型搭配时，可在端侧构建理解复杂多模态数据的 RAG 流水线。Google 提供了多个演示应用，包括媒体库语义搜索（Instant Media Search）、视频时刻定位（Video Moments Finder）以及基于 MediaPipe Decision Task API 的实时决策引擎。</p>
+
+<h3>可用性与生态</h3>
+<p>模型权重已上线 Hugging Face 和 Kaggle，支持 transformers、sentence-transformers、MLX、vLLM、llama.cpp、SGLang、Ollama、LMStudio 等主流工具，向量存储可与 Qdrant 集成，并提供了 Unsloth 微调指南。</p>
+
+<h3>社区反馈</h3>
+<p>开发者社区反应积极。知名开发者 Simon Willison 特别赞赏其 Apache 2.0 许可，指出对于嵌入模型而言，闭源托管模型存在供应商停止服务后需重新计算数百万向量的风险，开源权重提供了长期保障。有开发者报告了本地运行实测数据：在 M3 Pro 上文本嵌入约 78 个/秒、图像约 4 个/秒、音频约 6 个/秒（30 秒片段）。也有用户指出，该模型使用 MRL 而非 MatFormers 训练，无法在降低嵌入维度的同时缩小模型权重。另有用户测试发现，其官方示例中的金融分类任务在本地运行时出现误判，准确率不如 Laya 模型。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>Matryoshka 表示学习（MRL）</strong>是一种让模型输出的嵌入向量具有"嵌套"结构的训练方法——向量的前 128 维本身就是一个可用的低维嵌入，前 256 维又是一个更好的嵌入，依此类推。这允许开发者根据存储和精度需求灵活截断向量维度，而无需重新训练或重新嵌入数据。相比之下，MatFormers 则通过架构设计在降低维度时同时压缩模型权重，但目前在多模态领域尚缺乏成熟研究。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49980487</guid>
+      <pubDate>Tue, 06 Oct 2026 16:03:49 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Polars 2.0 正式发布：默认流式引擎、外核支持、SQL 一等公民</title>
       <link>https://news.ycombinator.com/item?id=49977177</link>
@@ -1200,42 +1268,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49920896</guid>
       <pubDate>Thu, 01 Oct 2026 12:44:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ StreetComplete iOS 版进入公开测试阶段</title>
-      <link>https://news.ycombinator.com/item?id=49920160</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及iOS应用开源项目开发进展，属于开源项目类别，且为iOS平台相关，在兴趣配置中iOS为不太感兴趣、开源项目为感兴趣，综合判断为推荐阅读</small></p><p>开源 OpenStreetMap（OSM）编辑应用 <strong>StreetComplete</strong> 的 iOS 移植版现已进入公开测试阶段。该项目在 GitHub 上的主追踪 issue（#5421）详细介绍了移植工作的技术路线和当前进展。</p>
-
-<h3>技术方案</h3>
-<p>StreetComplete 的代码库 100% 使用 Kotlin 编写。团队选择采用 <strong>Kotlin Multiplatform</strong> 和 <strong>Compose Multiplatform</strong> 框架进行 iOS 移植，这样可以在 Android 和 iOS 之间共享绝大部分代码，仅保留最少的平台相关代码。相比使用 Flutter（如 Every Door 应用的做法），此方案无需将代码重写为 Dart，能显著降低后续维护成本。</p>
-
-<h3>当前进展</h3>
-<p>移植工作于 2023 年 12 月启动，截至 2024 年上半年已完成约 50%。开发者在 2024 年 SotM Europe 大会上分享了相关进展。据估算，完整的 iOS 移植大约需要一人一年的工作量，目前主要依靠社区贡献推进。测试版可通过 <a href="https://testflight.apple.com/join/K1u3eUU5">TestFlight</a> 加入。</p>
-
-<h3>社区反馈</h3>
-<p>HN 社区对此次发布反响热烈。多位用户称赞 StreetComplete 极大降低了 OSM 编辑门槛——它通过简单问答的形式（如"这条路叫什么名字？"）让没有 OSM 标记知识的人也能轻松贡献地图数据。有用户表示，通过该应用为 OSM 添加了公共厕所和道路信息，且这些改动很快被 Google Maps 等平台采用。</p>
-<p>开发者 westnordost 在评论中分享了 Kotlin Multiplatform 的使用体验，称整体"相当顺畅"，平台特定代码量很少。也有测试者反馈了一些已知问题，例如表单取消操作不够直观，只能通过屏幕边缘右滑的手势来完成。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49920160</guid>
-      <pubDate>Thu, 01 Oct 2026 10:59:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ EDG C++ 前端开源：编译器界的重要里程碑</title>
-      <link>https://news.ycombinator.com/item?id=49913192</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] EDG C++前端开源是编译器和编程工具领域的重大事件，属于编程工具发布/分享且为开源项目，符合用户高兴趣</small></p><p>2026年9月30日，<a href="https://github.com/edgcpp/compiler">EDG（Edison Design Group）的 C++ 编译器前端正式开源</a>，由 C++ Alliance 作为其非营利托管机构。EDG 是 C++ 编译器领域四大前端之一（另外三个是 GCC、Clang 和 MSVC），自 1980 年代起开发，长期被众多商业 C/C++ 编译器、静态分析器、linter 和 IDE 代码补全工具所采用。</p>
-
-<p>EDG 前端以其卓越的解析兼容性和 bug 模拟能力著称，确保使用 Clang、GCC 和 MSVC 编译的源码也能在 EDG 下编译。项目还包含 C 生成后端（可将 C++ 程序转换为 C 代码）、C++ 生成后端（用于源码到源码转换）、预链接器（处理自动模板实例化）、名称反修饰器等工具。许可证为 <a href="https://spdx.org/licenses/Apache-2.0.html">Apache-2.0</a> 附带 <a href="https://spdx.org/licenses/LLVM-exception.html">LLVM 例外条款</a>。</p>
-
-<p>EDG 前端目前基本支持 C++23（模块支持仍滞后），并已包含部分 C++26 特性。其代码库历史可追溯至 1990 年，这在开源项目中极为罕见。EDG 对 C++ 标准的发展有重大影响——它曾是实现旧版 C++ 模板 <code>export</code> 关键字的唯一实现，其实现经验直接促成了该特性的废弃；C++26 的静态反射也曾在 EDG 中先行原型验证。</p>
-
-<p>社区反响热烈。多位开发者指出 EDG 在 C++ 生态中的独特地位：Visual C++ 的 Intellisense 使用的正是 EDG 前端而非 MSVC 自身的前端。EDG 源码仍以 C 语言为主（不使用 C++ 标准库），编译速度极快（约 10 秒内完成），远快于 Clang。也有评论提到 EDG 公司规模极小——从创始时的两人，到如今仅约六人，创始人 Steve Adamczyk 曾表示创建公司是为了享受工作而非追求扩张。</p>
-
-<p>值得注意的是，开源公告也伴随着 EDG 公司关闭的消息。部分评论者对此表示惋惜，但也有观点认为开源是 EDG 遗产的最佳归宿，将长期惠及 C++ 社区。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49913192</guid>
-      <pubDate>Wed, 30 Sep 2026 19:26:37 GMT</pubDate>
     </item>
   </channel>
 </rss>
