@@ -3,7 +3,100 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 08 Oct 2026 13:20:47 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2026 19:54:18 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.162.0 发布：新增托管 Git worktree 工具、任务固定与可点击 URL 支持</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.162.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex 发布了 0.162.0 版本，带来多项新功能与改进。</p>
+
+<h3>新功能</h3>
+<ul>
+<li><strong>托管 Git worktree 工具</strong>：新增从受信任本地项目创建和列出托管 Git worktree 的工具（需启用 worktrees 功能）。</li>
+<li><strong>任务固定</strong>：在 Agent Command Center 中可通过 <code>p</code> 键固定任务，并在服务器支持时将其保留在共享的 Pinned 分组中，且分组状态可在启动间记忆。</li>
+<li><strong>转录块导航与复制</strong>：支持通过 <code>/copy</code> 导航和复制转录块，使用 <code>Ctrl+Insert</code> 复制选中内容，并可通过 <code>tui.mouse_scroll_speed</code> 调节鼠标滚轮滚动速度。</li>
+<li><strong>可点击 URL</strong>：审批标题、问题、MCP 提示、警告、横幅和验证提示中的 URL 现在可点击，包括跨行换行的链接。</li>
+<li><strong>自定义模型提供商配置</strong>：可为兼容 Responses 的自定义模型提供商配置实时网络访问和远程压缩能力。</li>
+<li><strong>JavaScript 辅助功能</strong>：新增流式 promise 结果辅助函数，以及 Code Mode 中可选的排序工具搜索。</li>
+</ul>
+
+<h3>Bug 修复</h3>
+<ul>
+<li>新 TUI 线程尊重服务器模型和推理摘要默认值，同时保留显式启动覆盖。</li>
+<li><code>apply_patch</code> 更新无条件保留现有 CRLF 行尾。</li>
+<li>修复 Linux 沙箱在多个被拒绝文件时的启动问题，拒绝可写的沙箱构造可执行文件，并防止 ripgrep 配置削弱 deny-glob 掩码。</li>
+<li>恢复 Windows 10 上普通盘符文件访问，并使 Windows 沙箱临时权限与子进程环境匹配。</li>
+<li>尊重服务器对可重试 Responses 和 WebSocket 失败的 <code>Retry-After</code> 建议。</li>
+<li>修复通过 Windows PowerShell 安装时（存在 PowerShell 7 模块路径）的归档校验和验证问题。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>随 Windows 版本发布签名的 PowerShell 安装程序。</li>
+<li>防止旧稳定版和预发布版替换较新的稳定下载目标或安装程序别名。</li>
+<li>转录查找结果支持 Enter 接受、Escape 取消。</li>
+<li>任务详情顶部显示模型和推理努力程度。</li>
+<li>支持在回合进行中执行 <code>/archive</code>。</li>
+<li>GNU Screen 下使用可打印 ASCII 终端标题。</li>
+<li>解码 Windows Terminal 映射的 Shift+Enter 序列。</li>
+<li>多项 Guardian、MCP、沙箱和遥测相关的内部改进与依赖升级。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.162.0</guid>
+      <pubDate>Thu, 08 Oct 2026 18:55:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.295 发布：新增 onFailure 阻断、OSC 7501 状态协议等多项改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.295</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.295 版本，包含大量新特性与修复。以下为主要改动。</p>
+
+<h3>重要新特性与核心功能改动</h3>
+<ul>
+<li>为命令和 HTTP hooks 新增 <code>onFailure: "block"</code>：无法启动、超时或以意外退出码结束的 hook 会阻断该操作，而非放行。</li>
+<li>新增程序状态协议（OSC 7501）支持：支持该协议的终端可显示 Claude Code 处于工作中、等待用户或已完成等状态。</li>
+<li>为 <code>claude -p</code> 运行持续开启的状态提示增加说明。</li>
+<li>为 Claude apps gateway 新增 <code>timeouts.upstream_ttfb_ms</code>、可选的 <code>models</code> 列表（支持 <code>*</code> 通配符）、<code>forceLoginMethod: "gateway"</code> 以及 <code>upstream_request_id</code> 审计事件等多项支持。</li>
+<li>新增 <code>CLAUDE_CODE_RETRY_WATCHDOG_MAX_WAIT_MS</code>，限制无值守重试模式等待 429/529 错误的时间。</li>
+<li>为 mods 新增 <code>$.ui.notify</code>（原生通知）及 <code>Button</code> 子元素支持。</li>
+<li><code>/copy</code> 选择器现支持带引用的文本（移除 <code>&gt;</code> 标记）。</li>
+<li>插件安装/开关及 marketplace 添加时，若设置文件无法加载会发出警告。</li>
+</ul>
+
+<h3>主要修复</h3>
+<ul>
+<li>修复在 gateway、Bedrock、Vertex 或 Foundry 拒绝 context-1m beta 时，<code>[1m]</code> 模型请求全部失败的问题，现会去掉 beta 重发。</li>
+<li>修复 <code>claude -p</code> 文本输出在后台工作开启新回合时丢失较早回复的问题。</li>
+<li>修复远程 MCP 服务器在超过 15 秒的中断后保持断开、或对反复断开的服务器密集重连的问题（现退避至 30 秒）。</li>
+<li>修复 MCP 工具返回的 CSS、JS 和 XML 文件被保存为 <code>.bin</code> 导致 Read 工具拒绝的问题。</li>
+<li>修复 Bash 工具在模型传 <code>command_description</code> 而非 <code>description</code> 时失败的问题。</li>
+<li>修复终端在响应达到数万行时冻结、Ctrl+C 失效的问题；以及嵌套引用导致终端冻结并占用大量内存的问题。</li>
+<li>修复语法高亮超长行、长空白行或未闭合字符串/heredoc 时终端冻结数秒至数分钟的问题。</li>
+<li>修复 <code>/tui</code> 在无法重新启动时无提示退出或报原始系统错误的问题。</li>
+<li>修复 vim 模式下 <code>~</code> 光标越过行尾的问题，以及从 macOS 粘贴带重音文本时光标位置偏移的问题。</li>
+<li>修复通过 <code>--plugin-dir</code> 插件目录在 <code>-p</code> 和 SDK 会话中写入生成类型文件的问题。</li>
+<li>多项 Windows 平台修复：项目作用域插件加载（驱动器字母大小写，anthropics/claude-code#74612）、插件安装/卸载记录缺失或重复等。</li>
+<li>修复 <code>/model</code> 将 Max effort 误报为默认设置的问题（Max 仅作用于当前会话）。</li>
+<li>修复若干 mod 热重载、hook 处理、后台会话、远程会话发送文件上限（256 个以上被拒）等各类问题。</li>
+</ul>
+
+<h3>其他改进与调整</h3>
+<ul>
+<li>工具搜索加载的 MCP 工具描述截断长度由 2,048 字符提高到 16,384 字符。</li>
+<li>子代理从 <code>skills</code> 字段预加载至多 32 个技能，每个一次。</li>
+<li>WebSocket MCP 服务器消息超过 16 MiB 不再解析并关闭连接（与其他传输方式一致）。</li>
+<li>改进 Grep 输入处理：带 <code>-l</code>、<code>-c</code> 或 <code>-r</code> 标志的搜索可正常运行。</li>
+<li>Claude apps gateway 的上下文 token 计数改用 AWS CountTokens API（需授予 <code>bedrock:CountTokens</code>）；PostgreSQL 数据库只读时每 30 秒记录警告。</li>
+<li>后台请求在 gateway 后改用 Haiku 4.5 而非会话模型，网关不提供时回退到会话模型。</li>
+<li>[VSCode] 新增文件消息行（点击文件名在编辑器中打开）；修复对话恢复、键盘焦点跳转及快捷键误触发权限模式等问题。</li>
+<li>[Claude Tag] Slack 设置确认卡片停留时间由 10 分钟改为 30 分钟；修复分叉线程、Working 状态、@Claude 无人应答等多项问题。</li>
+<li>[Code Review] 修复重复评审误报无问题、以及 PR 编辑大 CLAUDE.md 时跳过其规则的问题。</li>
+<li>[Cloud sessions] 修复取消归档后消息可能无回复、旧例行程序未给 Claude 保存的提示词等问题，并改进断线后恢复速度与设置脚本框。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.295</guid>
+      <pubDate>Thu, 08 Oct 2026 19:48:38 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.294：修复指令式 prompt/agent hooks 判断问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.294</link>
@@ -1572,38 +1665,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.271</guid>
       <pubDate>Mon, 14 Sep 2026 22:12:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.30.6 发布：优化会话搜索排序与 Markdown 渲染</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.30.6</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布 v0.30.6 版本，主要包含网页端几项功能改进：</p>
-<ul>
-<li><strong>会话列表搜索排序优化</strong>：根据字段权重和 IDF（逆文档频率）对搜索结果进行排序，提升搜索相关性（PR #1842）；并保持搜索相关性排序下的置顶分隔线一致性（PR #1848）。</li>
-<li><strong>冷会话渲染优化</strong>：改进冷会话（cold sessions）的渲染方式，从较小的初始页面开始加载（PR #1809）。</li>
-<li><strong>Markdown 与分享导出改进</strong>：支持在 Markdown 和分享导出中使用括号分隔的 LaTeX 公式（PR #1846）。</li>
-</ul>
-<p>完整变更日志：<a href="https://github.com/tiann/hapi/compare/v0.30.4...v0.30.6">v0.30.4...v0.30.6</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.30.6</guid>
-      <pubDate>Mon, 14 Sep 2026 07:07:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>Devbox 0.18.1 发布：新增全局信息命令、服务依赖就绪探针与 PHP 会话路径改进</title>
-      <link>https://github.com/jetify-com/devbox/releases/tag/0.18.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox（devbox）发布了 <strong>0.18.1</strong> 版本，主要带来以下新功能与改进：</p>
-<ul>
-<li><strong>新增 <code>devbox global info</code> 命令</strong>（#2959）：用于查看全局配置信息。</li>
-<li><strong>为所有服务插件添加 <code>readiness_probe</code></strong>（#2917）：该就绪探针使得服务之间可以定义依赖关系，一个服务只有在就绪后才启动其依赖服务。</li>
-<li><strong>PHP 插件将默认 <code>session.save_path</code> 设置为 devbox 的 sessions 目录</strong>（#2963）。</li>
-<li><strong>发布流程改进</strong>（#2956）：自动打开 flake 升级的 Pull Request，并修复预检顺序。</li>
-<li><strong>依赖更新</strong>（#2916）：将 process-compose 从 v1.110.0 升级到 v1.116.0，同时示例中的远程 flakes 也升级到 v1.122.0（#2967）。</li>
-</ul>
-<p>此外还有若干修复与调整：包括修复按输出检查二进制缓存状态的问题（#2922）、移除冗余注释（#2966）、新增 Claude Code GitHub Workflow（#2968）、修复 goreleaser 为同一 tag 创建重复草稿的问题（#2957），以及 CI 针对 Nix 2.35.2 的测试（#2955）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.1</guid>
-      <pubDate>Sun, 13 Sep 2026 23:36:48 GMT</pubDate>
     </item>
   </channel>
 </rss>

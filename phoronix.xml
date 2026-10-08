@@ -3,7 +3,63 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 08 Oct 2026 13:21:17 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2026 19:54:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐ EXT4 文件系统弃用 data=journal 日志模式，计划 2028 年移除</title>
+      <link>https://www.phoronix.com/news/EXT4-Deprecates-Journal-Mode</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux文件系统（EXT4）功能变更，属Linux桌面技术范畴，用户感兴趣</small></p><p>EXT4 文件系统于今日正式弃用其 <code>data=journal</code> 挂载选项的日志模式。根据 Linux 7.3 的 Git 合并，该功能已被标记为弃用，并计划在 2027 年 Linux LTS 内核版本之后、即 2028 年初移除相关支持。</p>
+
+<p><code>data=journal</code> 模式会将所有文件数据和元数据先写入文件系统日志，再提交到主文件系统。在发生崩溃或断电时，可以通过重放日志来恢复数据。该模式非常适合对数据完整性和安全性要求极高的用户，但相比默认的 ordered（<code>data=ordered</code>）模式或 <code>data=writeback</code> 模式，会带来显著的写入性能损失。此外，使用日志模式还会禁用延迟分配（delayed allocation）和直接 I/O（Direct I/O）支持。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=ext4_journal_deprecated_med" alt="EXT4 journal deprecated" />
+
+<p>这一决定意味着 EXT4 将逐步淘汰这一相对小众但注重数据安全的挂载选项，未来用户如需类似的数据保护能力，可能需要考虑其他方案或文件系统。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/EXT4-Deprecates-Journal-Mode</guid>
+      <pubDate>Thu, 08 Oct 2026 17:04:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ COSMIC Epoch 1.10 发布：启动器改用GPU加速渲染</title>
+      <link>https://www.phoronix.com/news/COSMIC-Epoch-1.10</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] COSMIC桌面环境新版本发布，属于新软件项目与Linux桌面技术，符合高兴趣</small></p><p>System76 今日发布了 COSMIC Epoch 1.10，这是与 Pop!_OS Linux 发行版协同开发的 Rust 桌面环境的最新增量更新。</p><p>本次更新最显著的变化是：COSMIC 启动器默认启用基于 WGPU 的 GPU 渲染路径。此前，部分系统在软件渲染模式下运行极为缓慢，导致体验迟钝。该问题源于近期一份题为「Cosmic Launcher still the slowest launcher in existence」的 Bug 报告，用户反映在 Intel、AMD、Nvidia 三种平台上，搜索输入和列表滚动均出现约 1fps 的卡顿，且输入越多文字响应越慢。如今这一缓慢问题有望通过 GPU 渲染得到解决。</p><p>COSMIC Epoch 1.10 还支持将绘图板映射到指定的显示器，修复了 COSMIC 合成器（Compositor）的多项问题，并让 COSMIC 初始设置仅在存在无线网卡时才显示 WiFi 页面，此外还有一系列其他修复。相关下载和更多详情可参见 GitHub。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/COSMIC-Epoch-1.10</guid>
+      <pubDate>Thu, 08 Oct 2026 16:43:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Ubuntu 官网及下载服务遭受持续 DDoS 攻击，Canonical 正在积极应对</title>
+      <link>https://www.phoronix.com/news/Ubuntu-DDoS-October-2026</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Ubuntu发行版遭遇DDoS攻击的科技新闻，属于国内外必读新闻范畴</small></p><p>Ubuntu 官方网站、ISO 镜像下载及其他相关资源目前无法正常访问，经确认，这是一起正在进行的分布式拒绝服务（DDoS）攻击所致。这并非 Ubuntu 首次遭遇此类问题，Canonical 的 IT 团队目前正努力缓解攻击的影响。</p><p><img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_down" alt="Ubuntu down" /></p><p>目前，<a href="https://status.canonical.com/">Canonical 状态页面</a>正在跟踪此次事件，攻击的确认信息也已发布到 <a href="https://discourse.ubuntu.com/">Ubuntu Discourse</a> 论坛上。社区用户正持续关注事态进展，截至目前共有 24 条评论参与讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-DDoS-October-2026</guid>
+      <pubDate>Thu, 08 Oct 2026 15:41:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Nova 驱动持续进展，长期目标为替代 NVIDIA 官方 Linux 内核模块</title>
+      <link>https://www.phoronix.com/news/Nova-Driver-LPC-2026</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust编写的开源NVIDIA Linux驱动开发进展，涉及Rust与开源项目，符合兴趣</small></p><p>在本周于布拉格举行的 LPC2026 大会上，NVIDIA 工程师 John Hubbard 与 Red Hat 的 Danilo Krummrich 共同介绍了开源上游 Nova 驱动栈的最新进展。Nova 是一款基于 Rust 语言编写的开源 NVIDIA Linux 内核驱动，长期目标是成为 NVIDIA 官方 Linux 驱动栈的核心组件。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=nova_lpc_1" alt="Nova introduction" />
+
+<p>据会上介绍，Nova 驱动的长远定位是"替代 Open RM"（Open RM 即 NVIDIA 过去几年使用的开源但位于内核树之外的"资源管理器"内核模块）。NVIDIA 的最终计划是让 Linux 驱动栈采用上游的 Nova 内核驱动代码，取代其树外开源内核模块。不过，Nova 并非现有树外驱动接口的直接替代品（drop-in replacement），NVIDIA 用户态驱动组件需要进行相应适配。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=nova_lpc_3" alt="Nova 2026 status" />
+
+<p>目前 Nova 的进展是：已能在 Turing 至 Blackwell 架构的硬件上通过固件启动 GPU 系统处理器（GSP），基础功能逐步上线，但尚未达到可供终端用户使用的状态。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=nova_lpc_4" alt="Nova features coming" />
+
+<p>接下来的工作重点包括：支持 Linux 和 Windows 虚拟机中的 guest 运行、其他虚拟化功能、让 Vulkan Compute 和 CUDA 应用在 Nova 上运行，以及更多图形与显示功能。Nova 完全使用 Rust 语言编写，其开发过程也在推动 Linux DRM 子系统的 Rust 基础设施建设。</p>
+
+<p>NVIDIA 正逐步增加对 Nova 的公开表态。作者今年早些时候访问 NVIDIA 总部时，对方在谈及 Nova 时给出了更多方向性评论，但尚未提供可供公开发表的官方声明或明确的时间表。更多 LPC 2026 演讲资料可在 <a href="https://lpc.events">lpc.events</a> 查看。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Nova-Driver-LPC-2026</guid>
+      <pubDate>Thu, 08 Oct 2026 13:29:37 GMT</pubDate>
+    </item>
     <item>
       <title>Linux 开发者再次推进移除 x32 ABI，新补丁将其标记为 BROKEN</title>
       <link>https://www.phoronix.com/news/Patches-Removing-Linux-x32-ABI</link>
@@ -819,74 +875,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Q3-2026-Highlights</guid>
       <pubDate>Wed, 30 Sep 2026 18:57:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ EDG C/C++ 前端编译器正式开源，Apache 2.0 许可</title>
-      <link>https://www.phoronix.com/news/EDG-CPP-Open-Sourced</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] EDG C/C++ 编译器前端开源，属编程工具与开源项目，值得关注</small></p><p>Edison Design Group 宣布将其著名的 EDG C/C++ 前端编译器开源。该前端在商业领域以广泛的方言支持和丰富的特性而闻名，曾被 Intel C++ Compiler classic、NVIDIA CUDA NVCC 以及 Microsoft Visual Studio 的 IntelliSense 等广泛采用。</p>
-
-<p>此次开源由 C++ Alliance 作为非营利组织承接管理，代码采用 Apache 2.0 许可证发布，并接受社区贡献。EDG C++ 前端在历经 30 多年的闭源发展后终于走向开源，相关代码已托管于 <a href="https://github.com">GitHub</a>，更多信息可访问 <a href="https://edgcpp.org">edgcpp.org</a> 了解。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=edgcpp_med" alt="edgcpp GitHub" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/EDG-CPP-Open-Sourced</guid>
-      <pubDate>Wed, 30 Sep 2026 17:53:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Qt 6.12 LTS 正式发布：支持 QML 热重载，StyleKit 以实验形态亮相</title>
-      <link>https://www.phoronix.com/news/Qt-6.12-LTS-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Qt 6.12 LTS 发布，属于软件新版本发布，涉及编程工具/软件开发框架，符合 high_interest 的编程工具发布，应推荐</small></p><p>Qt 6.12 已正式发布，作为 Qt6 工具包的最新版本，同时也是长期支持（LTS）版本。此次更新将 Qt Canvas Painter 模块从技术预览状态提升为完全维护和支持的正式 Qt 模块，可用于配合 Qt Graphs 模块渲染 2D 图形。</p>
-
-<p>Qt 6.12 在核心代码方面有多项改进，包括：Qt GRPC 的客户端请求压缩、QRhi 的间接渲染支持、QRhi 的 Vulkan VK_EXT_device_fault 支持等。针对 AR/VR 应用场景，Qt Quick 3D XR 模块现已支持单目视图配置，使 Qt Quick 3D XR 应用能够在 2D XR 设备（如增强现实眼镜）上运行。</p>
-
-<p>此外，Qt 6.12 新增了对 HarmonyOS 平台的支持，该平台在中国广泛用于物联网、汽车、PC 和平板等场景。其他值得关注的变化包括 QML 热重载（hot-reloading）支持，以及 StyleKit 以 Qt Labs 新模块的形式亮相——这是一个基于 QML 的样式 API，可从单一来源同时为 Widgets 和 Qt Quick 应用提供样式。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=qt_stylekit" alt="Qt 6.12 StyleKit" />
-
-<p>更多关于 Qt StyleKit 的详细信息可参阅官方文档。Qt 6.12 的下载、预览视频及更多发布信息可在 <a href="https://www.qt.io/">Qt.io</a> 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Qt-6.12-LTS-Released</guid>
-      <pubDate>Wed, 30 Sep 2026 13:20:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Rusticl 在 2026 年取得重大进展：支持 OpenCL 3.1，新增多个 GPU 驱动</title>
-      <link>https://www.phoronix.com/news/Rusticl-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rusticl 是 Mesa 中 Rust 实现的 OpenCL 项目，涉及 Rust 和开源技术进展，均属感兴趣类别</small></p><p>在加拿大多伦多举行的 XDC 2026 大会上，Rusticl 首席开发者 Karol Herbst 汇报了这款基于 Rust 的 Mesa OpenCL 驱动在过去一年中的进展。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=karol_rusticl_2026_med" alt="Karol Herbst presenting on Rusticl" />
-
-<p>在硬件驱动支持方面，Rusticl 取得了多项突破：Arm Mali 的 Panfrost 驱动已通过 OpenCL 一致性测试，并默认启用 Rusticl；面向 Qualcomm Adreno 硬件的 Freedreno 驱动也默认启用了 Rusticl 支持。</p>
-
-<p>在功能层面，Rusticl 现已支持 OpenCL 3.1，以及一系列较新的 OpenCL 扩展，如 <code>cl_ext_float_atomics</code> 和各种 <code>cl_khr_subgroup*</code> 扩展。值得一提的是，Rusticl 在 Asahi Linux 上为 Apple M1/M2 芯片提供了符合规范的 OpenCL 3.1 支持。</p>
-
-<p>性能优化方面也有显著改进，包括通过 GPU 上的队列分析（queue profiling）提升性能、优化工作组（workgroup）大小选择等。此外，Karol 还在基于 NVIDIA 官方 Linux 驱动栈开发 NOCL（用于 Rusticl 的 NVIDIA 后端），同时 Qualcomm QAIC 加速器的 Gallium3D 驱动支持也在开发中。</p>
-
-<p>更多详细信息可观看 Karol 在 XDC 大会上的完整演讲视频。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rusticl-2026</guid>
-      <pubDate>Wed, 30 Sep 2026 13:03:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>谷歌工程师提议让 ARM64 Linux 在启动时动态调整内核栈大小以降低内存占用</title>
-      <link>https://www.phoronix.com/news/ARM64-Linux-Stack-Size-Boot</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及 ARM64 内核栈大小优化以减少内存消耗，属于内核技术细节，兴趣不明确，可作可选阅读</small></p><p>本周，一位谷歌工程师向 Linux 内核邮件列表提交了一份提议，旨在让 ARM64 Linux 更容易调整内核栈大小，从而在启动时进行配置以降低系统内存占用。</p>
-
-<p>谷歌的 Mostafa Saleh 在 Linux 内核邮件列表上发布了一份征求评论（RFC）请求，包含一组 15 个补丁，允许通过命令行可选地设置内核栈大小。这样无需重新编译内核即可轻松调整栈大小。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=ram_phone_med" alt="RAM phone" />
-
-<p>通过更便捷地调整内核栈大小，可以避免内存浪费，尤其在 Android 等环境中。该提案指出：「在某些系统（尤其是 Android）上，这提供了一种减少内核内存消耗的机制，因为默认的 16kB 内核栈大小（配合 4kB 页面）即便大多数线程远未用尽分配，仍可能导致约 100MB 的内存被分配。」</p>
-
-<p>作为这项工作的一部分，该提案还允许设置 12kB 的栈大小，以满足需要超过 8kB 但又低于 16kB 默认值的场景。另一个可能值得推进的想法是允许按任务设置栈大小，从而根据不同任务进一步减少内存使用。</p>
-
-<p>借助这些补丁，可通过 <code>kernel_stack_pages=</code> 启动选项来调整栈大小。目前这仅是一个针对 ARM64 的提案。相关话题将在此后于 Linux Plumbers 会议上进一步讨论。感兴趣的读者可以查看这份 <a href="https://www.phoronix.com/news/ARM64-Linux-Stack-Size-Boot">RFC 补丁系列</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/ARM64-Linux-Stack-Size-Boot</guid>
-      <pubDate>Wed, 30 Sep 2026 10:27:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
