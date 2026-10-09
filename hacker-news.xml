@@ -3,7 +3,31 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 08 Oct 2026 19:54:47 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2026 00:19:04 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Whistle：仅 16.9 MB 的端侧语音识别模型，支持七种语言</title>
+      <link>https://news.ycombinator.com/item?id=50008427</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 端侧语音识别模型，属于新AI模型发布/开源项目，且提到编程工具引擎（CPU engine同Needle），符合用户high_interest的编程工具发布和新AI模型发布类别</small></p><p>Cactus Compute 发布了 Whistle，一个面向移动设备、可穿戴设备、机器人、智能家居、汽车和微控制器的开源语音识别模型。整个模型仅为一个 16.9 MB 的文件，完全在 CPU 上运行、无任何依赖，并加载到与 Needle 相同的 C++ 引擎中。</p>
+
+<h3>核心能力</h3>
+<p>Whistle 在设备端完成三项任务：<strong>转写</strong>（支持英语、德语、法语、西班牙语、意大利语、荷兰语和波兰语，16 kHz 单声道音频，单次最长 30 秒，自动检测语言）、<strong>词级时间戳</strong>（每个词附带起止时间和概率）、以及<strong>语音嵌入</strong>（编码器输出，每 80 ms 帧一行）。</p>
+
+<h3>架构设计</h3>
+<p>模型采用编码器-解码器结构。前端将 16 kHz 音频以 25 ms 窗口、10 ms 步长转换为 80 个 log-mel 频段，经卷积主干降采样后每 80 ms 一帧。编码器由 8 个 Simple Attention 块组成（与 Needle 共享），注意力非因果，可跨帧关注。解码器为 8 层 Laddered Simple Attention 块，每层通过门控交叉注意力读取编码器输出，K/V 投影在音频到达时只计算一次，五个 beam 因此只需五个短转录缓存而非五次遍历音频。</p>
+
+<h3>性能基准</h3>
+<p>在 Apple M4 Pro CPU 上，Whistle 的首 token 延迟为 11.1 ms（Whisper base 为 73.2 ms，Moonshine tiny v2 为 22.8 ms），解码速度达 1,319 token/秒。在 LibriSpeech、SPGISpeech、Earnings-22 和 FLEURS 等基准上，Whistle 的词错误率（WER）优于 Whisper base 和 Moonshine tiny v2，而体积仅为 Whisper base（145.3 MB）的约九分之一。</p>
+
+<h3>部署与使用</h3>
+<p>引擎预构建支持 17 个目标平台，包括 macOS、Linux、Android、iOS、watchOS、Windows on ARM、RISC-V、MIPS、浏览器和 WASI 组件。权重托管在 Hugging Face，源码在 GitHub 上开源。通过 <code>pip install cactus-needle</code> 即可开始使用，支持关键词偏置（keyword biasing）和强制指定语言等功能。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 用户普遍对模型在如此小的体积下达到的性能表示惊叹。有用户反馈英语识别非常准确，即使带有口音也能良好工作；但也有用户指出西班牙语（特别是墨西哥和委内瑞拉口音）识别不够理想，在自然对话节奏下容易混淆词语。部分用户将其与 iPhone 的语音转文字、FUTO 键盘、Gemini 3.5 Transcribe 等方案进行了对比讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50008427</guid>
+      <pubDate>Thu, 08 Oct 2026 16:59:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 用 Claude Opus 5.5 一个提示词、六小时可视化《看不见的城市》</title>
       <link>https://news.ycombinator.com/item?id=50004790</link>
@@ -1250,21 +1274,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49933740</guid>
       <pubDate>Fri, 02 Oct 2026 14:11:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>「Extra Big Ass Intelligence」：一个讽刺AI热潮的恶搞网站引发热议</title>
-      <link>https://news.ycombinator.com/item?id=49941114</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 这是讽刺AI热潮的恶搞网站，并非实际的AI技术进展或新模型发布，主题偏向讽刺评论，兴趣不明确</small></p><p>Hacker News 上出现了一个名为「Extra Big Ass Intelligence」的恶搞网站，其标语宣称「100% 无人工！纯无铅超级智能（SI），依据行政命令」。该网站以夸张、荒诞的方式讽刺当前 AI 行业的产品命名和营销话术，在 HN 上获得了 320 分和 72 条评论。</p>
-
-<p>评论区反应热烈，多位用户将其与电影《蠢蛋进化论》（Idiocracy）相提并论。有用户指出，电影中的总统 Camacho 至少还关心国家福祉并寻求专家建议，而现实中的某些趋势反而更令人担忧。一位用户引用了一段评论：「对我们来说，今天的《蠢蛋进化论》可能就像《白宫风云》一样理想化。」</p>
-
-<p>也有用户从技术角度吐槽：有人认为这个页面「明显是由 LLM 生成的」，讽刺意味十足；还有人指出网站使用了 Tailwind CSS 框架，而「这种简单页面根本不需要 CSS 框架，大概 30 条 CSS 规则就够了」，认为「LLM 确实是臃肿之王」。</p>
-
-<p>评论区还出现了不少有趣的梗和调侃，包括「OW! My balls!」的恶搞、关于「泰勒·斯威夫特资助机器人起义」的虚构新闻标题，以及「Ultra Pro Max Intelligence 2.7」等对 AI 产品命名方式的戏仿。也有用户认为这个网站「看起来不像垃圾内容」，反而比当下网络上泛滥的 AI 生成内容更有品味。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49941114</guid>
-      <pubDate>Sat, 03 Oct 2026 03:19:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
