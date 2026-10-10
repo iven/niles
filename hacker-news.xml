@@ -3,7 +3,42 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 10 Oct 2026 17:49:15 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 10 Oct 2026 21:37:51 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Talorys：在 Cloudflare 免费套餐上自托管的个人 AI 代理</title>
+      <link>https://news.ycombinator.com/item?id=50031614</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍自托管的个人AI代理工具，涉及AI软件技术进展和开源项目，用户对此感兴趣</small></p><p>Talorys 是一个开源的个人 AI 助手，完全运行在用户自己的 Cloudflare 账户内，无需开发者运营任何服务器、数据库或账户。该项目在 Hacker News 上获得了 208 分和 106 条评论。</p>
+
+<h3>核心功能</h3>
+<ul>
+<li><strong>AI 聊天</strong>：支持流式响应、Markdown 和工具活动指示器</li>
+<li><strong>持久记忆</strong>：可查看、编辑和删除的个人事实与偏好，每轮对话仅发送最相关的记忆给模型</li>
+<li><strong>任务、笔记和项目管理</strong>：支持完整 CRUD 操作，也可通过聊天创建</li>
+<li><strong>自动化</strong>：一次性及周期性提醒、每日任务摘要和可选的 AI 例行程序，通过 Durable Object alarms 运行，无需保持在线</li>
+<li><strong>单用户设计</strong>：无需注册，安装时设置所有者密码</li>
+<li><strong>无 AI 也能工作</strong>：即使 Workers AI 不可用或免费配额耗尽，任务、笔记、记忆和提醒仍可正常使用</li>
+</ul>
+
+<h3>技术架构</h3>
+<p>浏览器仅与用户的 <code>*.pages.dev</code> 站点通信，<code>/api/*</code> 请求通过 Pages Function 经 service binding 转发到私有 Worker（无公开 URL）。数据存储在 SQLite 支持的 Durable Object 中，AI 推理使用 Cloudflare Workers AI 的 <code>@cf/zai-org/glm-4.7-flash</code> 模型。聊天响应通过 Server-Sent Events 端到端流式传输。</p>
+
+<h3>部署与使用</h3>
+<p>一条命令即可部署：<code>npx create-talorys@latest</code>。安装器会检查 Node.js 环境、验证 Cloudflare 登录、生成唯一资源名称、部署私有 Worker 和 Pages 项目，并验证部署健康状态。支持非交互式安装和密码重置。</p>
+
+<h3>数据与隐私</h3>
+<p>所有数据存储在用户 Cloudflare 账户内的单个 SQLite Durable Object 中。项目无遥测、分析、跟踪或广告代码，不向开发者发送任何数据。用户可下载备份（<code>talorys-backup.json</code>），包含对话、记忆、任务、笔记、项目、设置和自动化（不含会话或凭据）。</p>
+
+<h3>免费与成本</h3>
+<p>Talorys 设计为适配 Cloudflare Workers 免费套餐，不主动启用付费功能。免费套餐有账户级配额（请求数、Durable Object 用量、每日 Workers AI Neuron 分配）。内置防护措施包括：最大输出 token、最大上下文 token、最大工具调用次数、每日最大 AI 请求数和每日最大计划 AI 运行数。简单提醒和任务摘要不使用 AI。</p>
+
+<h3>社区反馈</h3>
+<p>HN 社区讨论主要集中在「自托管」一词的定义上。多位评论者指出，完全依赖 Cloudflare 的服务（Workers、Durable Objects、Workers AI、Pages）与「自托管」的传统定义（运行在自己的硬件上）不符，建议使用「自管理」（self-managed）或「自配置」等更准确的表述。作者回应称，其意图是强调无需依赖第三方托管服务，数据完全在用户自己的 Cloudflare 账户控制之下。</p>
+<p>此外，有用户对 Cloudflare 免费 AI 层级的计费问题提出担忧，称曾因 Neuron 用量被意外收费且客服未回应；也有人指出 Workers AI 对交互式使用场景响应较慢，更适合后台任务。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50031614</guid>
+      <pubDate>Sat, 10 Oct 2026 10:52:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ REA：让 AI 编程代理帮你逆向工程任何软件</title>
       <link>https://news.ycombinator.com/item?id=50028275</link>
@@ -1217,32 +1252,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49946567</guid>
       <pubDate>Sat, 03 Oct 2026 18:29:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Kagi 宣布停止开发 Orion 浏览器 Linux 和 Windows 版本，并将开源代码</title>
-      <link>https://news.ycombinator.com/item?id=49941447</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Kagi 宣布开源 Orion 浏览器代码并停止部分平台开发，属于开源项目与软件发布消息，用户对开源项目感兴趣，故推荐。</small></p><p><img src="https://storage.googleapis.com/prod-kagi-lab-kagi-cms/Orion-1.svg" alt="Orion" /></p>
-<p>Kagi 公司发布公告，宣布正式结束 Orion 浏览器在 Linux 和 Windows 平台上的开发，并将这两个平台的源代码开源，交由社区继续维护。Kagi 团队将把全部精力集中在 Orion 的 macOS 和 iOS 版本上，使其更快、更稳定、功能更强大。</p>
-
-<h3>停止跨平台开发的原因</h3>
-<p>Orion 由一支规模极小的团队开发（仅数名开发者），完全由 Kagi 用户资助。Kagi 选择了一条艰难的道路——不基于 Chromium 分叉，而是独立构建浏览器。公司认为，网络世界需要不止一个浏览器引擎，也不应只有一家公司决定浏览器应该是什么样。然而，跨平台浏览器的开发通常需要风险投资支持或大型开源社区，Kagi 两者都不是。与其将小团队分散在三个平台上，不如集中精力在能做出最佳成果的地方。</p>
-
-<h3>开源与后续安排</h3>
-<p>Kagi 将在未来 30 天内发布 Orion for Linux 和 Orion for Windows 的源代码，并已联系开源基金会和组织探讨长期托管事宜。但 Kagi 明确表示不会担任核心维护者，这些项目需要真正愿意接手的人。有兴趣的开发者、维护者或组织可通过 support@kagi.com 联系。</p>
-
-<h3>对现有用户的影响</h3>
-<ul>
-<li><strong>Linux：</strong>当前 Linux Beta 版仍可继续使用，但 Kagi 将在 2026 年 10 月 2 日后停止更新，官方不建议将其作为主力浏览器。</li>
-<li><strong>Windows：</strong>原计划于 2026 年底推出的 Windows 版本将不会由 Kagi 发布，代码将开放供社区构建。</li>
-<li><strong>macOS/iOS：</strong>不受影响，团队将集中资源持续改进。</li>
-</ul>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论呈现出多元观点。部分用户对 Kagi 开源代码的决定表示赞赏，认为这是负责任的举措；也有用户质疑 Kagi 当初为何要涉足跨平台浏览器开发。一些用户希望 Kagi 将全部精力放在搜索业务上，而非浏览器。还有用户指出，开源 Linux 和 Windows 版本却不开源 macOS 版本，可能导致各平台版本与核心 WebKit 实现之间产生漂移。也有用户分享了自己在 macOS 和 iOS 上使用 Orion 的体验，认为其稳定性正在逐步改善，但桌面版在扩展兼容性方面仍有不足。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49941447</guid>
-      <pubDate>Sat, 03 Oct 2026 04:53:57 GMT</pubDate>
     </item>
   </channel>
 </rss>
