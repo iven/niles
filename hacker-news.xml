@@ -3,7 +3,31 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 11 Oct 2026 07:08:01 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 11 Oct 2026 13:58:57 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ DuckDB 2.0 为何更快：异步 I/O、递归 CTE 与 VARIANT 三大改进实测</title>
+      <link>https://news.ycombinator.com/item?id=50035530</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 DuckDB 2.0 性能改进（异步 I/O、递归 CTE、VARIANT），属于编程效率改进经验与软件新功能，与用户高兴趣主题高度契合</small></p><p>MotherDuck 工程师 Mehdi Ouazza 发布文章，通过在个人笔记本上对 DuckDB 2.0 alpha 与 1.5.5 进行实测，剖析了新版性能提升的三个关键特性，并给出了具体数据。</p>
+
+<h3>异步 I/O：S3 查询大幅提速</h3>
+<p>2.0 采用独立的下载线程池，可提前获取多个行组并放入缓冲区，工作线程只负责解码，让网络与 CPU 同时繁忙。相比 1.5.5 中每个工作线程依次「下载、等待、解码」的低效模式，查询无需任何改动即可提速 2 至 3 倍。实测读取单一 2.2 GB Parquet 文件由 18.8 秒降至 7.7 秒；读取 23 个 Parquet 文件（13.6 GB）由 11.8 秒降至 3.9 秒。该功能默认开启（<code>read_ahead_depth = -1</code>），设为 0 可恢复旧行为。但成千上万个约 1 MB 的小文件仍无明显改进——提前读取无法消除逐文件往返开销。</p>
+
+<h3>递归 CTE：深层次父子数据链路大幅加速</h3>
+<p>旧版每轮递归都会重读整张表，深度越大开销越高；2.0 只读取一次表并建立父列查找索引，每轮仅查询刚找到的少数行。对 20,000 个提交的 git 历史进行祖先回溯，查询时间由 1.8 至 16 秒（不稳定）降至稳定 0.10 秒。组织架构、目录树、物料清单、回复线程、数据血缘等深层次父子数据都能受益；层次浅的场景提升不明显。官方声称图可达性最高可提速 40 倍。</p>
+
+<h3>VARIANT：比 JSON 更小更快</h3>
+<p>VARIANT 成为一等公民数据类型，关键机制是「shredding」：写入行组时将多数行中类型一致的字段拆出为真实子列，仅将稀有的、类型多变的字段留在二进制余项中。实测 500 万条事件数据中，VARIANT 占磁盘 85 MB，仅为 JSON 字符串（224 MB）的三分之一，字段过滤与求和查询比解析 JSON 约快 6 倍，且接近为每个字段建真实列的性能。但列表（list）查询仍是短板——将 VARIANT 列表转换为 <code>VARCHAR[]</code> 耗时约两秒。作者建议将高频查询字段提升为真实列，长尾字段保留在 VARIANT 中。</p>
+
+<h3>其他亮点</h3>
+<p>文章还简要提及 2.0 新增的触发器（Triggers）功能：表内行变化时可自动运行的 SQL，例如通过「转迁表」（transition tables）将每次价格修改的前后状态写入历史表，免去外部工具手动记录的责任。</p>
+
+<h4>你知道吗？</h4>
+<p>评论区的读者指出，DuckDB 已推出面向图数据查询的扩展 DuckPGQ，可将原本为关系数据库所难的图类查询（如本文章节的递归遍历）优雅地处理。另有评论讨论数据库任务化（task-based）并行设计与异步 I/O 对齐现代多核与高速网络的挑战。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50035530</guid>
+      <pubDate>Sat, 10 Oct 2026 18:08:49 GMT</pubDate>
+    </item>
     <item>
       <title>Show HN：WallHop——一个免费付费墙绕过工具，12ft.io 的替代品</title>
       <link>https://news.ycombinator.com/item?id=50038634</link>
@@ -1207,33 +1231,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49947051</guid>
       <pubDate>Sat, 03 Oct 2026 19:33:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 为什么开发者不「使用平台」？—— 从平台怀疑论者的视角看 Web 开发生态</title>
-      <link>https://news.ycombinator.com/item?id=49950554</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 Web 开发生态与「使用平台」之争，属于编程效率改进与软件技术观点，与用户兴趣吻合。</small></p><p>Nolan Lawson 在文章中从「平台怀疑论者」的视角，探讨了为什么许多 Web 开发者不遵循「使用平台」（use the platform）的倡导——即优先使用浏览器原生 API 而非自建 JavaScript 解决方案。</p>
-
-<p>作者列举了多个原因：<b>历史原因</b>——浏览器长期落后于生态（如 jQuery 填补空白，需等待 IE6 淘汰）；<b>熟悉度</b>——开发者习惯从 npm 寻找 React 组件，而非思考平台原生方案；<b>文档差距</b>——许多 npm 包有精心编写的 README 和教程，而平台文档（如 MDN）长期分散且不如第三方库的演示吸引人。</p>
-
-<p>作者特别指出，对某些开发者来说，<b>自己动手构建本身就是乐趣</b>，且由此产生的「宜家效应」（IKEA effect）让人更愿意维护自己的代码。他以构建模态对话框为例，说明虽然原生 <code>&lt;dialog&gt;</code> 元素可以一步到位，但自己实现焦点陷阱、Esc 关闭、背景滚动锁定等细节的过程充满学习价值。作者本人正是通过为 IndexedDB 等平台 API 编写工具（PouchDB）而深入理解平台的。</p>
-
-<p>作者也承认，自建方案有时源于对 CSS 等平台技术理解不足——CSS 的历史复杂性（如 clearfix、float 等技巧）促使开发者转向更直观的 JavaScript 实现。他还以自己在 ClickHouse 上的经历说明，即使是资深开发者也可能因未深入理解平台而构建出更慢、更笨拙的替代方案。</p>
-
-<p>文章最后探讨了 AI 编程的影响：乐观者认为 LLM 能凭借对平台的百科全书式知识选择最佳 API；悲观者担心 LLM 会大量复制非平台惯用代码，导致过度工程化问题加剧。</p>
-
-<h3>社区讨论要点</h3>
-<p>HN 评论区展开了热烈讨论，主要观点包括：</p>
-<ul>
-<li>多位开发者指出原生 <code>&lt;dialog&gt;</code> 和日期选择器等平台组件在可访问性、移动端支持、动画等方面存在明显不足，导致「使用平台」反而得到更差的结果。</li>
-<li>有开发者强烈批评 Web Components 的 API 设计，认为其「糟糕且难以使用」，甚至比 IE6 更令人沮丧。</li>
-<li>部分评论认为 React 的成功很大程度上归功于其优秀的文档、教程和社区生态，而标准制定机构很少投入类似资源。</li>
-<li>有观点认为平台本身存在无法满足的空白（如完全可访问的可搜索组合框），这反过来教会开发者「离开平台」工作。</li>
-<li>关于 AI 的影响，有评论认为 LLM 让开发者不必再「学习自己动手」，但也有人指出 AI 同样会在 Web Components 等平台 API 上犯错。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49950554</guid>
-      <pubDate>Sun, 04 Oct 2026 04:10:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
