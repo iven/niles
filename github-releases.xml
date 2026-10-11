@@ -3,7 +3,32 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sun, 11 Oct 2026 00:57:13 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 11 Oct 2026 07:07:36 GMT</lastBuildDate>
+    <item>
+      <title>fzf v0.74.5 发布：修复 tmux popup 缩放、焦点事件及多项安全问题</title>
+      <link>https://github.com/junegunn/fzf/releases/tag/v0.74.5</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fzf 发布 v0.74.5 版本，主要包含以下几类修复：</p>
+
+<h3>核心功能修复</h3>
+<ul>
+<li><b>tmux popup 缩放</b>：修复在 tmux 3.8 及以上版本中，当 popup 窗口覆盖缩放后的窗格时，`--popup` 会取消窗口缩放的问题（#4927、junegunn/fzf.vim#1625，@jereviikari）。在 tmux 3.7 上窗口仍会取消缩放，因为在缩放窗口上创建浮动窗格会导致 tmux 3.7b 崩溃。</li>
+<li><b>grapheme 簇切割</b>：修复 `--gap-line` 在填充行末单元格时切断一个 graphene 簇的问题（#4920）。</li>
+<li><b>转义序列解析</b>：修复 fzf 无法识别的转义序列被部分消费后，剩余部分泄漏到查询中的问题（#4926）。</li>
+<li><b>按键丢失</b>：修复按键与转义序列在同一读取中到达时按键丢失的问题。</li>
+<li><b>焦点事件</b>：修复 `reload` 后新项目位于与之前相同位置时 `focus` 事件未触发的问题（#4930）。使用 `--id-nth` 时，若焦点直接从一项移动到具有相同键的另一项，事件不会触发；除非设置了 `--id-nth` 且键未变化，否则现在执行 `reload` 的 `focus` 绑定会在每次 reload 后再次触发自身。</li>
+</ul>
+
+<h3>安全修复</h3>
+<ul>
+<li>fzf-tmux 不再通过 bash 算术求值附加的布局尺寸（如 `-l50`），该问题可能执行命令或注入 tmux 标志（GHSA-w6x2-f5m4-xw82）。</li>
+<li>zsh 补全现在在私有的 `mktemp -d` 目录中创建其 FIFO，而非可预测的 `/tmp` 路径（GHSA-7rj6-7pqx-v7rm）。</li>
+<li>以上问题由 Innspark Solutions 的研究人员 Sai Sreewathsa Kovalluri、Shon Babu 和 Kannan K 报告。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.5</guid>
+      <pubDate>Sun, 11 Oct 2026 02:39:32 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.162.1：修复 TUI 崩溃与启动失败</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.162.1</link>
@@ -1616,42 +1641,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.273</guid>
       <pubDate>Tue, 15 Sep 2026 20:23:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>Devbox 0.18.2 发布：服务文档生成与多项 bug 修复</title>
-      <link>https://github.com/jetify-com/devbox/releases/tag/0.18.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 发布 0.18.2 版本，主要带来一项新功能及多项针对服务、shell 环境、Nix 检测等方面的改进。</p>
-
-<h3>✨ 新功能</h3>
-<ul>
-<li><strong>README 生成现在包含服务文档</strong>：<code>devbox generate readme</code> 会新增 Services 章节，列出项目包含的服务及如何启动它们（<a href="https://github.com/jetify-com/devbox/pull/2934">#2934</a>）</li>
-</ul>
-
-<h3>🐛 Bug 修复</h3>
-<ul>
-<li><strong>修复带空格路径的项目无法使用服务</strong>：插件服务命令会为路径环境变量加引号，<code>~/My Projects/app</code> 这类目录不再导致 <code>devbox services up</code> 失败（<a href="https://github.com/jetify-com/devbox/pull/2960">#2960</a>）</li>
-<li><strong>服务正确重新调用 devbox</strong>：服务定义通过可执行文件路径回调 devbox，而非硬编码的 <code>devbox</code> 名称，因此二进制被重命名、从构建目录运行或不在 <code>PATH</code> 中时也能正常工作（<a href="https://github.com/jetify-com/devbox/issues/1321">#1321</a>）</li>
-<li><strong>包提供的 shell 补全开箱即用</strong>：将 Devbox 配置文件的 <code>share</code> 目录加入 <code>XDG_DATA_DIRS</code>，使已安装包（如 <code>kubectl &lt;TAB&gt;</code>）自带的补全可被 bash-completion 识别（<a href="https://github.com/jetify-com/devbox/issues/2776">#2776</a>）</li>
-<li><strong>多行环境变量值不再破坏 <code>shellenv</code></strong>：修复 <code>eval "$(devbox global shellenv)"</code> 在 shell 含多行 <code>PROMPT_COMMAND</code>（如通过 bash-preexec）时出现 <code>ambiguous redirect</code> 的错误，导出的字面换行现在会被保留（<a href="https://github.com/jetify-com/devbox/issues/2814">#2814</a>）</li>
-<li><strong><code>SOURCE_DATE_EPOCH</code> 不再泄漏进 shell</strong>：nixpkgs 固定的 1980 构建时间戳此前会导出到每个 devbox shell，导致其中构建的 Docker 镜像显示为"45 年前创建"、<code>tar</code>/<code>gzip</code> 输出带过时时间戳（<a href="https://github.com/jetify-com/devbox/issues/2597">#2597</a>）</li>
-<li><strong>缺失的 <code>env_from</code> 文件改为警告而非失败</strong>：引用的环境文件尚不存在（如被 gitignore 的 <code>.env</code>）时不再阻止 shell 启动（<a href="https://github.com/jetify-com/devbox/pull/2901">#2901</a>）</li>
-<li><strong>同一 git 仓库子目录的 flake 保持区分</strong>：两个指向同一仓库不同 <code>?dir=</code> 路径的包不再被合并为单个输入（<a href="https://github.com/jetify-com/devbox/issues/2704">#2704</a>）</li>
-<li><strong><code>devbox update --no-install</code> 不再调用 Nix</strong>：该命令仅更新锁文件（<a href="https://github.com/jetify-com/devbox/issues/2585">#2585</a>）</li>
-<li><strong>Nix 检测改进</strong>：无补丁版本号的 Nix（如 <code>2.30</code>）现在能正确解析；容器中新建挂载、仅含 <code>lost+found</code> 的 <code>/nix</code> 卷不再被误报为损坏安装，会按预期安装 Nix（<a href="https://github.com/jetify-com/devbox/pull/2939">#2939</a>）</li>
-<li><strong>Node.js 插件在缺少 Corepack 时给出警告</strong>：对不内置 Corepack 的 Node 包（如 <code>nodejs-slim</code>、Node 25+）设置 <code>DEVBOX_COREPACK_ENABLED</code> 时，会提示指向 <code>corepack</code> 包的警告，而非后续出现晦涩的 <code>yarn: command not found</code>（<a href="https://github.com/jetify-com/devbox/issues/2791">#2791</a>）</li>
-<li><strong><code>devbox generate</code> 修复</strong>：生成的 dev Dockerfile 不再运行 <code>nix-store --optimise</code>（在 Docker overlay2 驱动上会因 <code>cannot rename: Stale file handle</code> 失败导致镜像无法直接构建）；生成的 README 对环境变量使用相对路径而非作者机器上的绝对路径（<a href="https://github.com/jetify-com/devbox/pull/2933">#2933</a>）</li>
-<li><strong>插件文档更新</strong>：记录项目根占位符并修正 <code>DevboxDirRoot</code> 文档（<a href="https://github.com/jetify-com/devbox/pull/2895">#2895</a>）</li>
-</ul>
-
-<h3>🧹 维护</h3>
-<ul>
-<li>文档更新：<code>devbox run</code> 脚本与命令从项目根目录运行；Go 示例文档记录 <code>GOPATH</code>/<code>GOROOT</code> 并提醒不要使用 <code>GOPATH=$PWD</code></li>
-<li>发布工具更新：将 <code>flake.nix</code> 升级到 0.18.2、新增 <code>claude</code> skills 符号链接，并让发布脚本在 flake 升级后干净地恢复、不再被进行中的 <code>cli-tests</code> 运行阻塞</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.2</guid>
-      <pubDate>Tue, 15 Sep 2026 19:15:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
