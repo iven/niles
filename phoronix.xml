@@ -3,7 +3,32 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 11 Oct 2026 22:50:03 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 12 Oct 2026 02:19:48 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Linus Torvalds 借助 Claude Code 开发 Linux 内核重大改进</title>
+      <link>https://www.phoronix.com/news/Linus-Torvalds-Claude-Code</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是Linus Torvalds使用Claude Code（AI编程工具）进行Linux内核开发的重大改进，同时涉及新AI模型工具使用和编程效率改进经验，符合全局配置的high_interest（编程工具发布/分享、编程效率改进经验、新AI模型发布公告），且涉及Linux内核开发，用户强烈感兴趣。</small></p><p>Linux 创始人 Linus Torvalds 一直被视为 AI 工具的支持者，此前他曾使用 AI 辅助内核调试，并在内核树之外使用 Google 的 Antigravity 进行"vibe coding"。如今，他更进一步，正在使用 Anthropic 的 Claude Code 开发新的 Linux 内核功能。</p>
+
+<p>在等待 Linux 7.3-rc7 发布并刷新 torvalds/linux.git 仓库时，人们发现 Torvalds 的主仓库中出现了一个新分支 <strong>noref-filemap-read-with-llm</strong>。正如名称中的"LLM"后缀所示，这是他在 AI/LLM 辅助下进行的内核改进工作。</p>
+
+<img src="https://www.phoronix.net/image.php?id=2026&image=linux_llm_branch" alt="noref-filemap-read-with-llm Git branch" />
+
+<p>该分支的代码致力于改造内存管理代码，使其能够在不使用 folio 引用的情况下从页缓存（page cache）读取数据。这一改动旨在解决 Linux 中一个已知问题：当多个线程对同一文件进行小规模读取时，会在 folio 引用计数上产生竞争（contention），导致性能瓶颈。</p>
+
+<p>在补丁提交信息中，Torvalds 明确确认了 AI 在此项工作中的作用：<em>"代码、测试程序、上述列表背后的审查以及本文本的初稿，都是在我的指导下由 LLM 编码助手（Claude Code）完成的。测量结果在我的机器上运行。"</em></p>
+
+<p>针对多线程小读取瓶颈问题，该补丁系列带来的性能提升十分显著：</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=linus_llm_performance" alt="performance results of Linus Torvalds AI code" />
+
+<p>目前这些补丁位于 Torvalds 的 noref-filemap-read-with-llm Git 分支上。该分支是否会被合并到即将到来的 Linux 7.4 合并窗口中，值得关注。</p>
+
+<div class="know-more"><h3>你知道吗？</h3><p><strong>Folio</strong> 是 Linux 内核内存管理中的一个概念，它是对页（page）的抽象封装，可以包含一个或多个连续的物理页。Folio 引用计数用于跟踪内核中对该内存区域的引用次数，当多个线程并发访问同一 folio 时，原子操作的开销会成为性能瓶颈。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linus-Torvalds-Claude-Code</guid>
+      <pubDate>Mon, 12 Oct 2026 00:16:25 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Meta 发布 Drgn 0.3：可编程调试器带来新特性与安全加固</title>
       <link>https://www.phoronix.com/news/Drgn-0.3-Released</link>
@@ -816,15 +841,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Coreboot-26.09-Released</guid>
       <pubDate>Fri, 02 Oct 2026 10:06:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Linux 接近决定是否采用 BuildStream 构建系统</title>
-      <link>https://www.phoronix.com/news/BuildStream-Based-KDE-Linux</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及KDE相关新发行版决策，符合KDE和新发行版高兴趣配置，用户必看</small></p><p>KDE Linux 开发者一直在实验基于 BuildStream 构建的发行版本，目标是以 OS 镜像形式交付，而非依赖 Arch Linux 软件包。据 KDE 开发者 Nate Graham 发布的 9 月进度报告，该项目已接近"是否正式整合"的决策点。</p><p>BuildStream 方案的核心优势在于 KDE Linux 基于镜像而非软件包，如果采用，系统行为应保持一致，用户甚至不会察觉变化。文章同时探讨了为何要自行重做本可从 Arch 免费获得的成果：Arch 是滚动发行版，而 KDE Linux 计划采用离散的定时版本（用户版和稳定版）。如果继续依赖 Arch，分支新版本时要么接受 Arch 当前的软件状态（可能包含被遗漏的回归问题），要么花费时间对 Arch 进行分叉打磨（仍需自行做大量打包工作）。</p><p>采用 BuildStream 可以获得对软件版本的完全控制，并更方便添加 Arch 尚未打包的新软件。该项目并非完全从零开始——它基于 FreeDesktop Flatpak SDK，与 GNOME OS 相同，维护工作将由三个项目的贡献者共同分担。该项目过去数月耗费了大量时间，团队预计在 10 月继续推进，届时有望做出最终决定。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/BuildStream-Based-KDE-Linux</guid>
-      <pubDate>Fri, 02 Oct 2026 09:54:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
