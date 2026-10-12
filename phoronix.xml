@@ -3,7 +3,37 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 12 Oct 2026 02:19:48 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 12 Oct 2026 10:40:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 林纳斯·托瓦兹「说到做到」：用AI/LLM解读内核代码，发现更多隐藏数年的Bug</title>
+      <link>https://www.phoronix.com/news/Linus-Torvalds-Assoc-Array</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是利用AI辅助编程来提升代码可读性并发现更多bug，属于编程效率改进经验（很感兴趣）</small></p><p>Linux 创始人林纳斯·托瓦兹（Linus Torvalds）继此前使用 Claude Code 起草代码、实现 Linux 内核根本性的 I/O 改进之后，本周末继续使用人工智能，并积极推介其益处。除生成初始补丁和测试程序外，他还谈论了如何利用 AI/LLM 让补丁更易于理解，过程中 AI 还发现了 Linux 内核中更多长期存在的 Bug。</p><p>在推迟发布的 Linux 7.3-rc7 之外，托瓦兹源码树中除了此前出现的「noref-filemap-read-with-llm」Git 分支外，周日还出现了一个「assoc-array-fixes」Git 标签。托瓦兹在该标签的说明消息中写道，他「说到做到」，使用了现代 LLM 工具来理解那些对他来说难以理解的补丁。LLM 不仅确认了原始 Bug，还发现了代码中另外三个存在已超过十年的问题。</p><img src="//www.phoronix.net/image.php?id=2026&image=assoc_array_fixes_msg" alt="Linus Torvalds Git message" /><p>托瓦兹在 assoc-array-fixes 标签中写道：「Nils Ollrogge 报告了 assoc_array 库中的一个 Bug，并附带了修复补丁，但那段代码对我来说太晦涩难懂了，所以我做到了我宣传的事情：使用现代 LLM 工具来帮助理解这一切。因此这是一个 LLM 辅助的分支，通过拆分一些较大且难以阅读的函数，使代码更易读。随后代码在用户空间通过一个测试框架运行，不仅确认了 Nils 报告的 Bug，还发现了另外三个 Bug——它们都可以追溯到 2013 年该库首次被添加时的提交。」</p><p>Linux 的 assoc_array 代码用于内核的关联数组（associative array）实现。这些补丁尚未合并到主分支，但预计将在即将到来的 Linux 7.4 合并窗口中被提交。托瓦兹正越来越公开地谈论他对 AI/LLM 的使用，并宣传其作为 Linux 内核开发工具的优势。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linus-Torvalds-Assoc-Array</guid>
+      <pubDate>Mon, 12 Oct 2026 10:03:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ EXT4 将在 Linux 7.4 引入 IOmap 缓冲 I/O 路径，带来部分性能提升</title>
+      <link>https://www.phoronix.com/news/EXT4-iomap-Buffered-IO</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是EXT4文件系统引入iomap缓冲IO路径带来的性能改进，属于开源项目/软件技术进展</small></p><p>EXT4 文件系统有望在即将到来的 Linux 7.4 内核中引入可选的 IOmap 缓冲 I/O 支持，以替代传统的 <code>buffer_head</code> 实现。IOmap 是 Linux 中用于将文件偏移映射到设备块的现代框架，相比更老的 buffer_head 方案，IOmap 效率更高、与 Linux 的 folio 机制集成更好，且避免了 buffer_head 带来的高内存开销。</p>
+<p>华为的 Zhang Yi 一直在致力于将 EXT4 缓冲 I/O 路径迁移到 IOmap 上。这一切换展示出令人印象深刻的性能提升，同时也伴随一些性能回退。其 v6 补丁系列的封面信中包含了多种配置下 EXT4 采用 IOmap 与使用 buffer_head 基线的详细基准测试数据。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=ext4_iomap_1" alt="EXT4 IOmap benchmarks" /><p>由于 IOmap 缓冲 I/O 代码路径尚未实现 EXT4 的全部现有特性，因此默认并未启用。该代码新增了一个 <code>buffered_iomap</code> 挂载选项，供用户选择以新 IOmap 代码路径使用 EXT4。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=ext4_iomap_2" alt="EXT4 IOmap patches queued" /><p>Ted Ts'o 上周已将所有这些 IOmap 缓冲 I/O 补丁合并进入 EXT4 的开发分支（dev branch）。随着这些补丁进入 dev 分支，它们看起来将被提交到即将到来的 Linux 7.4 合并窗口。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/EXT4-iomap-Buffered-IO</guid>
+      <pubDate>Mon, 12 Oct 2026 09:27:52 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.3-rc7 发布，正式版有望下周末推出</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-rc7-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是Linux 7.3内核新版本发布消息，属于开源项目与Linux技术进展</small></p><p>Linux 创始人 Linus Torvalds 已发布 Linux 7.3 的第七个候选版本（7.3-rc7），这很可能是在 7.3 正式版于下周日发布前的最后一个候选版本。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=linux_73_rc7" alt="Linux 7.3-rc7 Git tag" /><p>本周期继续延续"新常态"：由于 AI 参与的补丁增多，内核周期晚期的补丁活动显著增加。本周的晚期变更包括：内核中加入了 AMD 的 TLBI（Translation Lookaside Buffer Invalidate）勘误表规避措施、大量网络修复，以及为 XPad 驱动程序新增两款游戏控制器，此外还有来自 AI 编码工具提交的大量零散小修复。</p><p>Torvalds 在公告中调侃道，本次 rc 发布比原定时间晚了六小时，并非遇到问题，而纯粹是因为"能力不足"——他自认为时差影响，误把周日当成周六，直到晚餐时才意识到错误。他表示尽管补丁集中某些部分略显异常（rc7 中约一半补丁为 selftests，主要源于多个挂载相关 bug 修复及其配套 selftest），但整体来看并没有任何会导致正式版延期的问题，因此 7.3 稳定版仍定于下周末（10 月 18 日周日）发布，除非出现新的意外。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-rc7-Released</guid>
+      <pubDate>Mon, 12 Oct 2026 08:44:15 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Linus Torvalds 借助 Claude Code 开发 Linux 内核重大改进</title>
       <link>https://www.phoronix.com/news/Linus-Torvalds-Claude-Code</link>
@@ -782,65 +812,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/systemd-appd</guid>
       <pubDate>Fri, 02 Oct 2026 13:29:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Intel Iris 开源驱动现已支持高效 64 位寻址模式</title>
-      <link>https://www.phoronix.com/news/Intel-Iris-Efficient-64-bit</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Intel Iris开源驱动的64位寻址改进，属于特定硬件驱动的技术细节，兴趣不明确</small></p><p>继一个月前报道英特尔 Nova Lake P 显卡引入全新 64 位 GPU 模式之后，英特尔 Iris Gallium3D OpenGL 驱动的驱动端启用工作也已正式落地，开始支持高效 64 位寻址（efficient 64-bit addressing）。</p><p>上个月，英特尔 ANV Vulkan 驱动已率先适配了这一随 Nova Lake P 首度亮相的"高效 64 位"GPU 模式。如今，支持 Iris Gallium3D 代码高效 64 位寻址模式的大型补丁系列已于昨日合并。英特尔工程师 José Roberto de Souza 在合并请求中说明："本 MR 为 Iris 添加了高效 64 位寻址模式支持，采用与 ANV 和 blorp 相同的方法……仍有改进空间，我计划在后续 MR 中解决。"</p><p>此次合并涵盖 45 个补丁，并通过 DriConf 支持开关 Nova Lake P 带来的高效 64 位模式。该代码已合并入预计于 11 月发布的 Mesa 26.3。</p><img src="//www.phoronix.net/image.php?id=2026&image=intel_efficient_64bit" alt="Intel efficient 64-bit mode" /></p><p>未来几个月内，我们将了解更多关于英特尔 Nova Lake 各产品线的一系列变化。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-Iris-Efficient-64-bit</guid>
-      <pubDate>Fri, 02 Oct 2026 11:46:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 26.10 引入 Sequoia PGP，未来或取代 OpenPGP 成为默认工具链</title>
-      <link>https://www.phoronix.com/news/Ubuntu-Rust-Sequoia-PGP</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲Ubuntu用Rust实现Sequoia PGP替换OpenPGP，涉及Rust软件技术进展，符合兴趣</small></p><p>Canonical 工程师 Richard Scott McNew 发布了一份关于 Ubuntu 26.10（代号 "Stonking Stingray"）中 Rust 编程语言相关工作的状态更新。其中一项重要进展是，Sequoia PGP 已进入 Ubuntu 软件仓库，并有望在未来的版本中取代 OpenPGP 成为默认工具链。</p>
-
-<p>Sequoia PGP 是一个用 Rust 编写的现代内存安全（memory-safe）OpenPGP 实现，提供 <code>sq</code> 和 <code>sqv</code> 命令，分别对应 GNU Privacy Guard（GPG）的 <code>gpg</code> 和 <code>gpgv</code> 命令。根据 Ubuntu Discourse 上的说明，Sequoia PGP 未来"可能"成为 Ubuntu 的默认 OpenPGP 工具链，在保持 OpenPGP 互操作性的同时，转向现代内存安全的实现。</p>
-
-<p>在 Ubuntu 26.10 中，OpenPGP 仍是默认工具，但 Canonical 正在为未来的 Ubuntu 版本评估 Sequoia PGP。此外，Ubuntu 26.10 还实现了 Rust Coreutils 的 100% 过渡，<code>cp</code>、<code>mv</code> 和 <code>rm</code> 等命令已改用 Rust Coreutils 而非 GNU Coreutils。上游新发布的 Rust Coreutils 0.12 版本也带来了多项改进。</p>
-
-<img src="//www.phoronix.net/image.php?id=ubuntu-2610-panther-lake&image=ubuntu_2610_ptl_1_med" alt="Ubuntu 26.10 on Framework Laptop 13 Pro" />
-
-<p>更多详情可参阅 <a href="https://discourse.ubuntu.com/">Ubuntu Discourse</a> 上的完整更新。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Rust-Sequoia-PGP</guid>
-      <pubDate>Fri, 02 Oct 2026 10:27:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Coreboot 26.09 发布：新增 Framework Laptop 12 支持与 AI 代码审查政策</title>
-      <link>https://www.phoronix.com/news/Coreboot-26.09-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Coreboot 26.09发布属开源项目更新，涉及软件新功能，符合兴趣</small></p><p>Coreboot 26.09 于近日发布，这是这款开源固件项目的季度功能更新。Coreboot 旨在替代专有 BIOS 和系统固件，支持越来越多的设备。</p>
-<p>本次版本带来了多项底层技术清理与改进，包括：固件现已采用 C23 编程语言构建；大量 Google Chromebook 相关更新；以及与 AMD openSIL 合作推进的 AMD EPYC Turin（EPYC 9005 / Zen 5）适配工作。作为 EPYC Turin 上游支持的一部分，还新增了 GIGABYTE MZ33-AR1 主板移植，这是 3mdeb 咨询公司将其 Dasharo 下游固件在 AMD openSIL + Coreboot 上运行成果的上游化。</p>
-<img src="//www.phoronix.net/image.php?id=gigabyte-mz33-ar1&image=gigabyte_mz33ar1_1_med" alt="Gigabyte MZ33" />
-<p>另一个值得关注的新增主板支持是搭载英特尔第 13 代酷睿处理器的原始 Framework Laptop 12 型号。</p>
-<img src="//www.phoronix.net/image.php?id=framework-laptop-12&image=framework_12_1_med" alt="Framework Laptop 12" />
-<p>Coreboot 还引入了 AI 政策：在代码审查中，AI 代理只能生成审查评论，不得提出顶级问题；所有 AI 评论必须以「[AI-generated]」为前缀，并遵循 Coreboot 的编码风格等要求。</p>
-<p>此外，本次版本还启用了其他多个主板移植，包括 NVIDIA Jetson Nano 和旧款 Apple iMac，具体新增支持列表如下：</p>
-<ul>
-<li>Acer TravelMate P633-M / P633-V</li>
-<li>Apple iMac4,1</li>
-<li>ASRock Fatal1ty Z97X Killer / Z97 Anniversary</li>
-<li>ASUS B85M-E / Maximus VI GENE / Maximus VII GENE / Maximus VII HERO</li>
-<li>Framework Laptop 12（第 13 代英特尔酷睿）</li>
-<li>GIGABYTE MZ33-AR1</li>
-<li>Google Aneto / Annite / Hekla / Meru / Pic</li>
-<li>Intel NUC D33217GKE</li>
-<li>LattePanda Mu（DFR1141 全功能与 DFR1142 精简载板）</li>
-<li>Lenovo ThinkPad X380 Yoga / ThinkStation P320</li>
-<li>MSI PRO B760-P WIFI DDR4（MS-7D98）</li>
-<li>NVIDIA Porg（Jetson Nano）</li>
-<li>Qotom Q535G6</li>
-<li>Sapphire Rave2（Faegan）</li>
-<li>Siemens FA ASL</li>
-</ul>
-<p>更多详情可访问 <a href="https://www.coreboot.org">Coreboot.org</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Coreboot-26.09-Released</guid>
-      <pubDate>Fri, 02 Oct 2026 10:06:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
