@@ -3,7 +3,87 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 13 Oct 2026 17:34:38 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2026 22:40:19 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Google 发布 Gemini 4 Argon：新一代前沿智能模型</title>
+      <link>https://news.ycombinator.com/item?id=50073879</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型发布公告，属于高度感兴趣类别，必看内容</small></p><p>Google 发布了其新一代前沿 AI 模型 <strong>Gemini 4 Argon</strong>，定位为"前沿智能的下一个时代"（Our next era of frontier intelligence）。该模型面向 Ultra 和 Pro 订阅用户开放，但不同地区和账户的可用性存在差异。</p>
+
+<p>据官方介绍，Argon 已帮助 Chrome 团队将核心网页处理逻辑与 Chromium 约 4000 万行代码库中一个约 600 万行的遗留浏览器功能目录分离。通过同时管道化多个干净的代码变更，Argon 帮助团队在数百个文件中完成了架构重构，将原本需要数月的工作缩短至数周完成。对于 Chrome 的数十亿全球用户而言，这将使实时网页能够在标签页、侧边面板和浮动窗口之间流畅移动而无需重新加载，并消除一整类浏览器崩溃问题。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论热度很高（797 分，641 条评论），主要围绕以下几点：</p>
+<ul>
+<li><strong>可用性问题</strong>：多位用户反映模型在部分地区（如欧盟）或部分账户（如 Pro 用户）中尚不可用，引发"经典 Google 式发布"的吐槽。也有用户确认在美国地区的 Ultra 账户中已能看到该模型。</li>
+<li><strong>模型能力竞争</strong>：有评论认为 Gemini 3.8 已落后于 Opus 和 Sol，期待 Argon 能缩小差距。也有用户指出模型能力仍在快速提升，认为"能力放缓"的说法不成立。</li>
+<li><strong>对 AI 发展速度的担忧</strong>：部分评论者认为多家公司都能突破各类基准测试，表明 AI 构建路径已无歧义，只是时间问题，并担忧这会吞噬所有人类任务。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50073879</guid>
+      <pubDate>Tue, 13 Oct 2026 16:03:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Anthropic 自研版本控制系统 Scion：为智能体规模重新设计源码控制</title>
+      <link>https://news.ycombinator.com/item?id=50073633</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲述自研版本控制系统以解决开发瓶颈，属于编程工具分享与编程效率改进经验，高度感兴趣</small></p><p>Anthropic 在官方工程博客上分享了其自研版本控制系统 <strong>Scion</strong> 的设计思路与迁移经验。随着 Claude 自主编码能力的提升，Anthropic 的代码合并量从 2026 年 5 月的日均约 2,500 次激增至 9 月的日均超过 30,000 次，源码控制成为最大的开发瓶颈。</p>
+
+<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F1e2a750dba61db4a76b72eec5b0cf50b8a7f878c-3840x2160.png&w=3840&q=75" alt="" width="3840" height="2160" />
+
+<h3>Git 的规模困境</h3>
+<p>Anthropic 的 monorepo 主分支历史接近 100 GB，压缩工作副本超过 25 GB。每天约执行 2,500 万次代码检出（checkout），若以传统方式获取，将产生超过 600 PB 的 git 流量。公司曾运营数百个内部 git 镜像来应对负载，但随着合并速率持续攀升，这些变通方案越来越难以维护。</p>
+
+<h3>Scion 的核心设计原则</h3>
+<p>Scion 的设计借鉴了 Google Piper 和 Meta Sapling 的经验，围绕五个核心原则构建：</p>
+<ul>
+<li><strong>客户端始终在线</strong>：与 git 假设客户端离线工作不同，Scion 假设客户端始终可访问服务器，按需获取数据。</li>
+<li><strong>客户端-服务器不对称</strong>：服务器负责历史查询、blame、创建提交、合并和 rebase 等操作；客户端仅维护有界本地对象缓存。</li>
+<li><strong>全面的源码控制服务</strong>：所有客户端查询均通过 API 暴露，许多 CI 任务无需本地仓库即可完成。</li>
+<li><strong>一切水平可扩展</strong>：仓库数据分布式存储，每个组件可独立扩展，不存在完全物化的仓库副本。</li>
+<li><strong>提交必须廉价、增量且无锁</strong>：所有提交、rebase、合并都在服务器端完成，成本与变更规模成正比而非仓库整体大小。</li>
+</ul>
+
+<h3>技术实现</h3>
+<p>Scion 以"变更集"（changeset）为工作单元，存储在预写日志中，记录相对父提交的文件变更列表及内容寻址的 blob 指针。系统通过通用机制计算"派生数据"（如文件 blame、路径历史、提交图跳表），支持按需计算和灵活优化。</p>
+
+<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fff019752973f6d83d2f6ba3bf56636aced3ea82c-3840x1238.png&w=3840&q=75" alt="" width="3840" height="1238" />
+
+<p>架构采用三层结构：<code>scion-daemon</code>（节点级守护进程）→ <code>scion-cache</code>（区域缓存服务器）→ <code>scion-server</code>（权威服务器，从 Spanner 或云存储读取）。每层缓存命中率超过 99%，基础设施的 CPU 和内存占用比此前的 git 镜像架构缩小了 200 倍，CI 检出速度提升两个数量级（从分钟级降至秒级），CI 单独获得 25% 的 CPU 容量提升。</p>
+
+<h3>Claude 的自我加速</h3>
+<p>一个引人注目的案例：Anthropic 团队此前手写了 git 到 Scion 的摄取管道原型，后来让 Claude Mythos Preview 重写整个管道，在无额外指令的情况下，新版本内存消耗降低 20 倍、速度提升 4 倍，同时保留了所有隐式不变量。7 人团队在 5 个月内完成了 Scion 和代码审查工具 Antique 的构建及全面迁移。</p>
+
+<h3>社区讨论</h3>
+<p>HN 社区对此反应热烈。有评论者指出 Scion 的设计与 SVN 或 Perforce 有相似之处；也有人质疑如此巨大的代码量是否合理。Anthropic 工程师 nickg-anthropic 回应称，公司通常不允许智能体将源码控制用于协调目的，代码量的真实增长源于实际软件和代码的编写。另有评论者关注到拥有顶级模型的公司（如 Anthropic）在开发效率上的巨大优势，以及 LLM 编码的可复现性问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50073633</guid>
+      <pubDate>Tue, 13 Oct 2026 15:49:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Firefox 大文件下载断点续传问题的排查与解决</title>
+      <link>https://news.ycombinator.com/item?id=50061791</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Firefox下载断点续传问题的排查解决，属于编程效率改进经验，推荐阅读</small></p><p>一位开发者（Olivia）在博客中分享了她对 Firefox 大文件下载无法断点续传问题的排查结果。她发现 Firefox 28 及更新版本（即 2014 年后的所有现代版本）默认将 <code>network.http.response.timeout</code> 设置为 300 秒，这一设置似乎干扰了大文件下载的断点续传功能及整体稳定性。</p>
+
+<p>通过在 <code>about:config</code> 中将 <code>network.http.response.timeout</code> 设置为 0（或一个非常大的值），大文件下载变得可以续传且更加稳定。作者坦言她并不完全理解其原理，但实验测试支持这一结论。她推测 Firefox 的续传下载可能依赖连接超时机制而非其下载的 <code>.part</code> 文件——没有该设置时，Firefox 会忽略已存在的 <code>.part</code> 文件。</p>
+
+<p>作者指出，Firefox 的断点续传功能整体上相当不稳定，这一问题至少可追溯到 2005 年。她还提到存在一种手动操作 <code>.part</code> 文件的变通方法，但认为过于繁琐。作为非 Firefox 的替代方案，使用 <code>wget -c -O "$filename" "$url"</code> 也能实现续传，且 wget 整体表现相当稳定。作者还怀疑 Firefox 在判定下载失败前会进行一些隐藏的重试，这与 <code>network.http.response.timeout</code> 的设置部分相关。</p>
+
+<p>需要注意的是，此方案假设服务器支持断点续传；如果服务器不支持，任何浏览器设置都无法解决问题。</p>
+
+<h3>社区讨论要点</h3>
+<ul>
+<li>多位用户提到 Firefox 的下载续传问题长期存在，并引用了相关的 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=230870">Bugzilla 问题（#230870）</a>。</li>
+<li>有用户分享了手动续传的 <code>.part</code> 文件操作技巧，但也有用户指出此方法存在风险——如果服务器返回了不同的文件版本，Firefox 会无提示地将新旧数据拼接，导致文件损坏。</li>
+<li>多位用户推荐使用 <a href="https://aria2.github.io/">aria2</a> 或 <a href="https://www.getright.com/">GetRight</a> 等外部下载工具作为替代方案，它们支持多协议、多连接和断点续传。</li>
+<li>有用户推测 Firefox 无法区分网络 EOF（连接结束）和逻辑/请求级别的 EOF，这可能是问题的根源。</li>
+<li>部分评论讨论了在弱网环境（如跨境连接、农村网络）下软件容错能力不足的问题，认为开发者往往在理想网络条件下测试，忽视了真实世界中的网络不稳定情况。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50061791</guid>
+      <pubDate>Mon, 12 Oct 2026 19:36:02 GMT</pubDate>
+    </item>
     <item>
       <title>Mozilla 推出 Firefox Enterprise 企业版浏览器</title>
       <link>https://news.ycombinator.com/item?id=50070302</link>
@@ -1052,75 +1132,6 @@ fn main() {
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49987076</guid>
       <pubDate>Wed, 07 Oct 2026 02:02:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI 推出 Decisions API 公开测试版：面向分类、路由与评分任务的快速决策接口</title>
-      <link>https://news.ycombinator.com/item?id=49984025</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenAI新API发布，属于AI软件技术进展，用户感兴趣</small></p><p>OpenAI 宣布其 <a href="https://developers.openai.com/api/docs/guides/decisions">Decisions API</a> 进入公开测试阶段，该接口用于评估文本、图像或两者组合，并返回类型化答案，速度比 Responses API 快约 10 倍。目前仅支持 <code>gpt-6-luna</code> 模型，预计将在未来几周内正式发布（GA）。</p>
-
-<h3>核心功能</h3>
-<p>Decisions API 的请求包含三个部分：模型（model）、输入（input，即共享的文本或图像证据）以及问题（questions，定义评估类型、指令及允许的选项）。响应中返回一个 answers 数组，每个问题需有唯一名称以便识别。</p>
-
-<p>该 API 支持三种问题类型：</p>
-<ul>
-<li><strong>predicate（谓词）</strong>：检查条件是否成立，返回 0 到 1 之间的概率值，例如检测产品照片是否有可见损坏。</li>
-<li><strong>choice（选择）</strong>：从固定选项中选取一个，例如将客户投诉路由到账单、技术支持或物流部门。</li>
-<li><strong>score（评分）</strong>：针对有序等级（如问题严重程度）进行评分，返回各等级概率的加权平均值。</li>
-</ul>
-
-<p>官方建议，当应用需要生成符合自定义 JSON 架构的对象或需要函数调用时，应使用 Responses API 的 Structured Outputs 或 function calling，而非 Decisions API。</p>
-
-<h3>技术细节</h3>
-<p>图像必须以内联 base64 数据 URL 形式传入，不支持托管 HTTP/HTTPS 图片 URL 或 file_id 输入。用户可在一条消息中组合 <code>input_text</code> 和 <code>input_image</code> 部分，将图像与指令或上下文一同评估。SDK 示例支持 Python 3.26.0、JavaScript 7.30.0、Go 3.73.0、Ruby 0.101.0 和 Java 4.78.0 及以上版本。</p>
-
-<h3>社区反馈</h3>
-<p>该发布在 Hacker News 上引发广泛讨论（346 分，185 条评论）。不少用户将其与新兴的 Jev 模型对比：Jev 输入价格约为 $0.042/百万 token，而 OpenAI 定价为 $0.10/百万 token，约为 Jev 的 2.4 倍。有评论指出，Decisions API 已支持图像输入，弥补了 Jev 的一大短板。</p>
-
-<p>知名开发者 Simon Willison 测试了该端点并制作了 <a href="https://github.com/simonw/llm-openai-decisions">llm-openai-decisions</a> 插件，并指出此类端点往往会被其他提供商采纳为事实标准。也有评论者认为，Decisions API 本质上是零样本分类器，无需针对特定任务训练，但质疑其仅适用于简单决策，复杂场景仍需结构化输出。关于定价竞争力与 OpenAI 护城河的讨论也颇为热烈。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49984025</guid>
-      <pubDate>Tue, 06 Oct 2026 20:57:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>Photopea 开发者投诉：GitHub 拒绝移除其软件的破解副本</title>
-      <link>https://news.ycombinator.com/item?id=49982498</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及开源工具盗版投诉，主题偏向行业/法律事件，兴趣不明确</small></p><p>知名在线照片编辑器 <a href="https://www.photopea.com">Photopea</a> 的开发者 IvanK_net 在 Hacker News 上发帖，抱怨 GitHub 拒绝移除其软件的破解副本。他声称许多人利用 AI 模型提取其网站上的 JavaScript 代码、去除广告后，以"新产品"的名义发布到 GitHub 上供人下载，目前已有数十个此类仓库。</p>
-
-<p>开发者于 2026 年 9 月 4 日向 GitHub 提交了 DMCA 删除通知，但一个月后才收到回复，称"无法确认违反 17 U.S. Code § 1201"（即《数字千年版权法》中关于规避技术保护措施的规定）。IvanK_net 怀疑回复是自动生成的，并考虑寻求法律途径解决。</p>
-
-<h3>社区反馈与建议</h3>
-<p>该帖获得 348 分和 190 条评论，社区给出了多方面的建议：</p>
-<ul>
-<li><strong>投诉类型可能选错</strong>：有评论指出，§ 1201 针对的是规避技术保护措施的行为，而公开网站上的混淆 JavaScript 很可能不适用此条款。更合适的做法是提交标准的版权侵权通知（17 U.S. Code § 512(c)）。</li>
-<li><strong>寻求专业律师</strong>：一位知识产权律师建议，要么聘请专业律所"打地鼠"式处理侵权，要么接受损失。他坦言 GitHub 的处理流程对个人开发者并不友好。</li>
-<li><strong>使用商标保护</strong>：多位用户建议通过商标来保护"Photopea"品牌，以应对冒充产品损害声誉的问题，但商标无法保护代码本身。</li>
-<li><strong>技术方案</strong>：有人建议将关键代码用 WebAssembly 编译为二进制，增加复制难度。</li>
-<li><strong>GitHub 员工回应</strong>：一位 GitHub 员工在评论中表示，DMCA 提交记录是公开的，并愿意内部跟进此事。开发者提供了两个工单号（4822535 和 4726557）。</li>
-</ul>
-
-<p>值得注意的是，有评论指出 Photopea 此前曾成功让 GitHub 下架过类似仓库，但这次的处理似乎不尽如人意。开发者表示希望专注于写代码而非处理法律事务，但也承认可能需要聘请律师。</p>
-
-<p>此外，评论区还引发了关于广告、开源、软件版权等更广泛的争论。部分用户认为客户端 JavaScript 天然难以保护，也有人批评 Photopea 的广告模式，但多数人同情开发者的处境。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49982498</guid>
-      <pubDate>Tue, 06 Oct 2026 18:54:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code 的「建议消息」功能：真正的客户或许是模型本身</title>
-      <link>https://news.ycombinator.com/item?id=49981905</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Claude Code工具功能的深度讨论，属于编程工具与AI技术进展，用户感兴趣</small></p><p>这篇文章（<a href="https://www.zohaib.cc/blog/smartest-claude-code-feature">zohaib.cc 博客</a>）提出一个观点：Claude Code 的「建议消息」（suggested message）功能，其真正的服务对象或许不是用户，而是模型本身。该功能会在用户输入框显示灰色的下一步提示（需按 Tab 或方向键才能实际输入），作者认为其目的并不只是提升效率，更可能是为了让模型更好地收集用户行为数据、引导对话走向，从而改进自身。</p>
-
-<p>Hacker News 上的讨论（231 分，132 条评论）对这一观点看法不一。一些用户反馈该功能并非新增，已经存在数月甚至更久，且在移动端也会出现。有人指出，这本质上是一种「自我实现的预言」——建议会干扰并影响用户实际输入的内容，而非单纯预测。也有用户反感界面试图替人补全句子的交互方式（如邮件和即时通讯中的建议回复），认为这会打断思维流。</p>
-
-<p>关于训练数据的讨论颇为深入：有评论者认为，用户接受建议可被视作「好评」信号、拒绝则视为「差评」，从而为强化学习（RL）提供训练数据，这是该功能真正的价值所在，且建议本身还会引入对用户提示词的偏差。还有用户幽默地提议：既然接受了「commit this」的建议会被用作训练信号，不如每次都把建议改写成「drop database」来干扰训练。</p>
-
-<p>社区中也不乏反对意见。有评论认为该论点缺乏说服力——完全可以在不向用户显示建议的情况下让模型预测下一步输入，既然选择展示，其目的就必然是为了影响用户的下一步行为（即引导训练），而文章对此并未深入触及。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49981905</guid>
-      <pubDate>Tue, 06 Oct 2026 18:00:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
