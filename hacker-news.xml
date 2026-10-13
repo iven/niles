@@ -3,7 +3,76 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 12 Oct 2026 20:17:05 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2026 02:02:58 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ OpenAI Codex CLI 默认安装持久化、自更新的后台守护进程引争议</title>
+      <link>https://news.ycombinator.com/item?id=50060694</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 OpenAI Codex CLI 编程工具的安装与后台守护进程行为争议，属于编程工具发布/分享和编程效率范畴，用户很感兴趣</small></p><p>OpenAI 的 Codex CLI 在 0.157.0 版本开始默认启动一个持久化、自动更新的后台守护进程（daemon），引发了用户的大量不满，相关 GitHub issue（#48195）在 Hacker News 上获得 453 分和 237 条评论。</p>
+
+<p>据用户 Yihua-Liu-1997 报告，从 0.157.0 起，只要打开一个交互式 Codex 会话就会触发以下行为：启动一个无 TTY 的持久后台守护进程（<code>codex app-server --managed-daemon</code>），即使所有 Codex 窗口关闭后仍持续运行；将整套平台包（约 374 MB）复制到 <code>~/.codex/packages/app-server-daemon/</code> 下；启动一个每小时检查更新的独立更新器（<code>app-server daemon pid-update-loop</code>），可强制终止正在进行的任务（见 <a href="https://github.com/openai/codex/issues/40969">#40969</a>）；并锁定启动它的第一个会话的环境变量（如 HTTPS_PROXY）。报告还指出 <code>daemon stop</code> 无法停止更新器进程。</p>
+
+<p>多位用户在评论中确认了此问题，包括 Windows 和 Linux 平台。有用户直言"这表现得很像恶意软件"（Basically - a trait of malware），还有人调侃"Codex 现在是个病毒吗"。用户提供了关闭该功能的绕过方法：<code>codex features disable daemon_auto_start</code>，或在 <code>~/.codex/config.toml</code> 中设置 <code>daemon_auto_start = false</code>。有用户指出，官方配置参考文档中并未记录这一可选项，而 0.157.0 发布说明对此改动仅用一句话带过。</p>
+
+<p>评论区还展开了关于 AI 编程工具普遍存在此类行为的讨论：有用户指出 Claude Code 也采用同样的运行模式（<a href="https://github.com/anthropics/claude-code/issues/14980">对应 issue</a>）。另外有人发现 Codex 会泄漏首次运行目录的环境变量，破坏使用 direnv 等工具的工作流。也有用户倾向于使用更轻量的替代工具（如 hax、Pi）或 Nix/NixOS 等发行版打包方案来规避这种行为。截至目前，已有提交引用该 issue 并"默认禁用 daemon 自动启动"，但 issue 仍在讨论中。</p>
+
+<p><strong>你知道吗？</strong>：该 issue 涉及 XDG 规范与软件打包生态的话题。遵循 XDG Base Directory 规范意味着应用应将配置和数据写入标准目录而非用户主目录，并在软件包管理等系统级行为上遵循操作系统与发行版惯例，这是避免此类"后台自更新守护进程"乱象的常见工程实践。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50060694</guid>
+      <pubDate>Mon, 12 Oct 2026 18:29:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 研究：AI 编程智能体产出更多代码，但并未带来更多软件</title>
+      <link>https://news.ycombinator.com/item?id=50059523</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是 AI 编程智能体的效率研究，涉及编程效率改进经验和 AI 技术进展，均为用户高兴趣/感兴趣领域</small></p><p>一篇由 Ars Technica 报道的最新研究指出，AI 编程助手和智能体能高效生成大量可运行的代码，但这些工具的采用并未显著提升企业的软件产出或减少用工。哈佛大学研究者 Fiona Chen 和 James Stratton 利用 Jellyfish 的聚合分析数据展开研究，该数据覆盖 2021 年至 2026 年 3 月间超过 700 家软件开发企业的 70 多万名员工、共计 3 亿条"工作事件"（如提交和拉取请求）。</p>
+
+<p>研究发现，企业引入 AI 编程智能体后，总代码行数平均增加 30%，提交总数上升 20%，拉取请求增加 23%。然而，这些额外代码并未转化为企业层面的软件产出提升：由 Jira 等工具追踪的 Issue 和 Epic（即整体软件功能）的解决率在引入 AI 后并未发生统计学意义上的显著变化。</p>
+
+<p><img src="https://cdn.arstechnica.net/wp-content/uploads/2026/10/aiagentcode.png" alt="" width="1384" height="929" /></p>
+
+<p>作者认为，原因在于人工代码审查环节构成了效率"瓶颈"。AI 智能体引入后，拉取请求从提交到合并的平均"审查流程"时间膨胀了 49%；要求修改的拉取请求占比几乎翻倍，每条拉取请求的评论数增加 35%。为应对这一变化，从事代码审查工作的员工比例上升了 14%，而研究者"无法将显著的用工变化归因于 AI"。</p>
+
+<p><img src="https://cdn.arstechnica.net/wp-content/uploads/2026/10/aiagentpr.png" alt="" width="1382" height="944" /></p>
+
+<p>尽管截至 2026 年 3 月，80% 的被测企业使用了某种形式的 AI 代码审查，但 AI 智能体仅贡献了 23.3% 的审查评论和 10.8% 的拉取请求，说明绝大多数审查工作仍由人工完成。研究还承认，AI 智能体仍属较新事物，且数据截止后的模型已显著更新，随着团队积累部署经验，这种"编码时间 vs 审查时间"的权衡有望改善。目前来看，让 AI 编写代码是一把"双刃剑"，编码速度的提升被人工审查时间与精力的相应增加所抵消。</p>
+
+<p><strong>社区反馈</strong>：Hacker News 上的讨论各执一词。部分开发者表示 AI 能帮助发现此前遗漏的缺陷，但也有人指出其产生了大量冗余测试代码，带来上下文与 CI 周期负担；多位开发者强调个人项目和业余爱好软件的数量显著增长，这可能是研究中被忽视的产出。另有评论者质疑以 Jira 等工具衡量效率的做法，并认为学术研究的数据往往滞后于前沿模型迭代，难以给出及时视角。也有观点类比汇编语言到 C 语言的演进，认为随着抽象层次提高，未来人工审查代码的依赖或许会逐步减弱。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50059523</guid>
+      <pubDate>Mon, 12 Oct 2026 17:14:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 用 C 语言构建现代 Web 应用：CGI、SQLite 与单一二进制文件</title>
+      <link>https://news.ycombinator.com/item?id=50058528</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是用 C 语言构建现代 Web 应用的技术实践（CGI、SQLite、单一二进制），属于编程效率与软件技术进展，符合用户兴趣</small></p><p>作者 Corey Prophitt 分享了他用 C 语言构建并上线了一个商业 Web 产品 <a href="https://prophitt.me/writing/a-modern-web-app-in-c">marketyour.games</a> 的经验。这个产品拥有用户账户、搜索仪表盘、文件夹管理、Stripe 支付和 Postmark 邮件等功能，但整个技术栈却回到了 1994 年的方式：CGI、SQLite 和单一二进制文件，没有框架、没有容器。</p>
+
+<h3>技术栈</h3>
+<p>作者采用 BCHS 栈：OpenBSD、C、httpd 和 SQLite。没有框架，C 程序直接读取 CGI 环境变量并输出 HTML；没有模板语言，直接用 C 输出 HTML；没有独立数据库服务器，通过 SQLite 的 C API 直接打开数据库文件；没有容器，构建一个静态链接的二进制文件放入目录即可。每次请求都会启动一个新进程，部署新版本只需替换一个文件，无需重启服务器。</p>
+<p>仅依赖三个外部库：libcurl（处理 Stripe 和 Postmark 的请求）、libsodium（随机标识符生成、密码哈希和 HMAC 验证）和 libcjson（JSON 解析）。其中 libcjson 是单文件库，SQLite 也使用官方 amalgamation 版本，两者都作为项目的一部分 vendored。干净构建只需几秒，增量构建不到半秒。</p>
+
+<h3>作者喜欢的地方</h3>
+<ul>
+<li><strong>基础而非框架</strong>：CGI 规范自 2004 年发布后未变过，只需理解 HTTP 的基本概念即可，且语言无关、平台无关。</li>
+<li><strong>关注点清晰分离</strong>：单一 Web 服务器直接调用业务逻辑，调试更简单——应用就是一个普通程序，可以从 shell 运行、用 gdb 调试。作者认为 CGI 本质上类似无服务器架构，只是没有供应商。</li>
+<li><strong>供应链风险最小化</strong>：依赖图只有 C 编译器和三个库，相比现代技术栈动辄数百个间接依赖，安全性更高。</li>
+<li><strong>工具简单</strong>：纯 Vim 即可工作，无需 LSP、自动补全或 AI。Sanitizers、valgrind、gdb 等成熟工具随手可得。</li>
+<li><strong>SQLite 的运维负担极低</strong>：没有独立进程、没有配置、没有依赖，直接打开数据库文件。</li>
+</ul>
+
+<h3>需要改进的地方</h3>
+<p>CGI 没有框架或库，开发者需要自己处理 Cookie 解析、查询参数解析、表单数据验证、输入转义等。作者自己写了一个单头文件 cgi.h，但认为这不是最佳方案，希望看到类似 stb 库那样的共享工具集。</p>
+
+<h3>结论</h3>
+<p>作者认为 2000 年代初放弃 CGI 的大部分理由今天已不成立：进程 fork 在现代内核中已高度优化，即使需要更高性能，FastCGI 也是简单的升级路径。marketyour.games 作为一个商业产品，运行在单一二进制文件上，比作者之前交付的任何产品都更少活动部件。</p>
+
+<h3>社区讨论</h3>
+<p>HN 评论区的讨论相当热烈。有用户指出 nginx 不原生支持 CGI（lighttpd 支持），并推荐了 nginx-cgi 项目；有用户质疑选择 C 的动机，认为 Go 或 Rust 也能获得类似好处且更安全；还有用户讨论 SQLite 在多进程并发写入下的表现（作者回应称使用 WAL 模式并设置 busy timeout 即可）。部分评论对网站的可读性提出批评，作者回应称是刻意选择的单色设计并承诺改进。也有用户提到 FastCGI 是更优的长期进程方案。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50058528</guid>
+      <pubDate>Mon, 12 Oct 2026 16:13:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Meta 发布 Muse Wonder 系列模型，主打个人与专业智能体能力</title>
       <link>https://news.ycombinator.com/item?id=50059115</link>
@@ -1104,72 +1173,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=49971719</guid>
       <pubDate>Mon, 05 Oct 2026 22:30:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Dust：无需反向传播的 Transformer 预训练零阶方法</title>
-      <link>https://news.ycombinator.com/item?id=49970871</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI软件技术进展，涉及Transformer预训练新方法，属于用户interest的AI软件技术进展</small></p><p>Qlabs 研究团队提出了一种名为 <strong>Dust</strong> 的新型零阶（zeroth-order）优化算法，声称这是首个在 Transformer 语言模型预训练中能与反向传播（backprop）竞争的零阶方法。该论文已在 Hacker News 上引发广泛讨论（239 分，62 条评论）。</p>
-
-<img src="/research/dust/figures/x-method.gif" alt="Animation of the method" />
-
-<h3>核心方法</h3>
-<p>Dust 采用<strong>节点扰动</strong>（node perturbation）策略：在每个 token 上独立地对激活值添加高斯噪声，通过损失变化来奖励每个扰动，再对奖励加权的噪声求平均以估计梯度。由于每个 token 都是一个"虚拟种群成员"，单次前向传播即可并行评估数千个成员，这比传统的权重空间进化策略（ES）高效 3 到 4 个数量级。</p>
-
-<p>与权重空间 ES（如 EGGROLL）需要为每个成员物化权重副本不同，Dust 直接在激活空间扰动，避免了物化成本。论文指出，从 100 万 token 起，Dust 比 EGGROLL 的 Transformer 实现高效约 10³ 到 10⁴ 倍。</p>
-
-<h3>关键发现</h3>
-<ul>
-<li><strong>超越反向传播的潜力</strong>：在大种群规模下，Dust 在多个设置中甚至超过了反向传播，暗示在计算资源充裕的场景下可能超越反向传播。</li>
-<li><strong>规模效率反直觉</strong>：更大的模型反而更具种群效率——243M 参数的模型在大多数种群规模下优于小 120 倍的模型，这挑战了"零阶方法无法扩展到大型网络"的传统观点。</li>
-<li><strong>梯度对齐</strong>：随着种群增长，Dust 的梯度估计与反向传播的对齐度更好，且在高达 10 亿 token 的规模下保持良好对齐。</li>
-</ul>
-
-<h3>社区反馈</h3>
-<p>评论区观点分歧明显。支持者认为 Dust 在深度方向上的并行化潜力优于反向传播，且可能适用于无法可靠同步的分布式场景（如 folding@home 模式）。也有评论者指出，类似 <a href="https://arxiv.org/abs/2603.12228">神经预测编码（NPC）</a> 的异步技术可能更具前景。</p>
-
-<p>质疑者则指出：反向传播的协调成本对我们而言非常廉价，而零阶方法通常需要更多 FLOPs 和更差的样本效率。有评论者认为，对于平滑的神经网络目标函数，梯度信息远比随机方向搜索更有价值，并引用相关理论证明梯度方法与无导数方法之间存在严格的复杂度差距。还有人认为该方法对光学硬件等无法提供梯度信息的场景可能有用。</p>
-
-<h3>局限与展望</h3>
-<p>论文作者明确表示，目前并不试图让 Dust 在计算效率上取代反向传播，而是为基于搜索的信用分配算法奠定基础。未来工作包括探索 Dust 能否找到优于反向传播一阶梯度的方向，以及训练反向传播难以处理的新型网络（如带外部程序循环或长步循环的 Transformer）。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>零阶优化</strong>（zeroth-order optimization）指不依赖梯度信息、仅通过函数值评估来优化目标的方法。与需要计算导数的反向传播不同，零阶方法通过随机扰动和函数值反馈来估计梯度方向，通常计算成本更高但约束更少。<strong>节点扰动</strong>（node perturbation）是其中一种变体，通过在神经元激活值而非权重上添加噪声来估计梯度，其思想可追溯到 1990 年代的早期神经网络研究。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49970871</guid>
-      <pubDate>Mon, 05 Oct 2026 21:15:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ ChatGPT 在 AI 生成的仿《纽约客》漫画上伪造真实漫画家的签名</title>
-      <link>https://news.ycombinator.com/item?id=49971846</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是ChatGPT在AI生成漫画上伪造真人签名的事件，属于AI软件技术进展与AI应用行为话题，用户对AI软件技术感兴趣，故推荐阅读</small></p><p>Nieman Lab 的调查报道揭露，OpenAI 的 ChatGPT 图像生成器在模仿《纽约客》（The New Yorker）杂志风格创作漫画时，还会在作品上擅自署上真实漫画家的签名，将 AI 生成的内容虚假归因于真人创作，涉嫌冒名顶替。</p><p>文章以一个广为流传的案例开场：一张描绘 Dolly Parton 与 Tim Curry 在天堂门口与上帝对话的漫画在社交媒体上病毒式传播（仅一条推文就获 2.5 万点赞），右下角带有笔名「BLOPER」——《纽约客》漫画家 Brendan Loper 的签名，但 Loper 并未创作或签署这幅画，它由 ChatGPT 生成后由一位 Dolly Parton 粉丝发布。Loper 在采访中表示这并非首次，自己「名字被冒用」让他感到「人格受到了侵犯」（violation of my personhood）。</p><img src="https://www.niemanlab.org/images/Brendan-Loper-forgery-twitter-post.jpg" alt="" width="860" height="1102" /><p>作者调查记录了超过 15 位《纽约客》漫画家的签名被 OpenAI 图像生成器未经许可、未获报酬地使用，包括 Harry Bliss、Emily Flake、Joe Dator、Pat Byrnes、Peter Vey、Jason Adam Katzenstein、George Booth、Liza Donnelly、Ellis Rosen、Saul Steinberg，以及上世纪 60 年代活跃的 Warren Miller 等。</p><p>OpenAI 发言人回应称重视社区反馈，被通报后模型会提示「此提示可能违反我们关于第三方内容相似性的护栏」，但截至发稿仍会在生成的漫画上署名真实画家的名字。文章指出，《纽约客》母公司康泰纳仕（Condé Nast）虽与 OpenAI 签有多年授权协议，但其发言人表示从未允许开发者用漫画训练模型；而《纽约客》漫画家的标准合同（非「雇佣作品」性质，漫画家保留著作权）也不允许此类授权。</p><p>对漫画家而言，签名不只是署名，更是「真品证书」和水印，将作品与创作者唯一绑定。Emily Flake 形容这「像有人把一句我没说过的话安在我头上」；Joe Dator 则说：「信用卡被黑的感觉都没有这个难受——他们黑我信用卡时，至少没有打扮成我的样子。」Jason Adam Katzenstein 认为这是「冒名顶替」，是「假装是我的垃圾内容」。</p><p>在法律层面，康奈尔大学法学院教授 James Grimmelmann 分析，版权侵权诉讼的难点在于 ChatGPT 通常模仿整体画风而非复制具体漫画；漫画家或可改依「形象权」（right of publicity）起诉，但需证明 AI 漫画被用于商业目的。文章还提到行业背景：《巴尔的摩太阳报》去年解雇了服务逾 30 年、曾入围普利策决赛的资深社论漫画家 Kevin Kallaugher，今年起开始定期发表经确认由 OpenAI 产品生成的 AI 漫画。</p><p>在 Hacker News 的讨论中，许多评论者认为此事已从版权侵权演变为更严重的冒名顶替（impersonation），可能构成更具体的法律索赔依据；也有人将其视为模型需要修复的「bug」，并争论这是否暴露了生成模型缺乏真实推理能力。</p><h3>你知道吗？</h3><p>「形象权」（Right of Publicity）是美国各州法律中保护个人免于其姓名、形象或身份被未经授权用于商业用途的一项权利，与版权（保护作品创作）和商标权（保护商业标识）并列为不同维度的法律保护，通常适用于名人肖像被未经许可用于广告或商品等场景。这也是漫画家们除版权索赔之外可能主张的法律路径。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49971846</guid>
-      <pubDate>Mon, 05 Oct 2026 22:46:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Flatten SF：在旧金山寻找任意两点间最平坦的步行或骑行路线</title>
-      <link>https://news.ycombinator.com/item?id=49971230</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是寻找旧金山最平坦步行/骑行路线的工具项目，属于编程工具分享/开源项目，符合用户兴趣，故推荐阅读</small></p><p>Drew Edwards 发布了一款名为 <a href="https://flattensf.com/">Flatten SF</a> 的网页工具，帮助用户在旧金山找到任意两点之间最平坦的步行或骑行路线。该工具完全在浏览器中运行，基于超过 16 万个街道段进行计算，使用 USGS 1 米分辨率激光雷达（lidar）高程数据和 Overture/OpenStreetMap 街道图。</p>
-
-<p>工具的核心是一个滑块，用于在「最短路线」和「最平坦路线」之间进行权衡。滑块向右移动时，路线永远不会变短，也永远不会增加爬升量。其中「爬升」指累计爬升（cumulative gain），而非起点与终点的净高差。步行路线允许使用楼梯，骑行路线则排除楼梯。路线搜索支持离线进行，旧金山的街道交叉口、地点和地址均已内置在页面中。</p>
-
-<p>该工具在 Hacker News 上引发了热烈讨论（162 分，54 条评论），社区反馈包括：</p>
-<ul>
-<li>有用户称赞滑块切换时实时更新的海拔剖面图非常出色。</li>
-<li>有用户指出在特定区域（如 Cabrillo 街）存在解析器 bug，导致路线不准确。作者回应称这是旧金山「慢速街道」（Slow Streets）计划相关标签解析问题，已修复并部署。</li>
-<li>有用户提到 Google Maps 的骑行模式已有类似功能，但其他人指出避免爬坡只是众多约束之一，人们可能更愿意选择有受保护自行车道但略有坡度的路线。</li>
-<li>有用户推荐了功能更全面的 <a href="https://github.com/opentripplanner/OpenTripPlanner">OpenTripPlanner</a>，其「三角形」功能允许用户在时间、爬升和安全设施之间进行权衡。</li>
-<li>有用户分享了自己 2014 年构建的类似项目 <a href="https://github.com/cheeaun/steepless">steepless</a>。</li>
-<li>也有人幽默地建议做一个 flattendallas.com（达拉斯地势平坦，作为玩笑）。</li>
-</ul>
-
-<p>部分用户还反馈了地图上街道名称显示、路线连续性等细节问题，作者表示会持续改进。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=49971230</guid>
-      <pubDate>Mon, 05 Oct 2026 21:40:50 GMT</pubDate>
     </item>
   </channel>
 </rss>

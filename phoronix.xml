@@ -3,7 +3,24 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 12 Oct 2026 20:15:45 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2026 02:00:54 GMT</lastBuildDate>
+    <item>
+      <title>⭐ FreeType 2.15 发布：新增 Apple HVF 驱动与 ISO Open Font Format 第 5 版支持</title>
+      <link>https://www.phoronix.com/news/FreeType-2.15-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] FreeType 作为 Linux 桌面及相关软件广泛使用的字体库，其新版本发布属于软件新功能/开源项目进展，用户较感兴趣</small></p><p>广泛应用于各大操作系统和软件应用的字体渲染库 FreeType 2.15 现已正式发布。</p>
+
+<p>本次版本最重大的变化是支持 <strong>ISO Open Font Format 第 5 版</strong>（于 2026 年 7 月发布）。新版 Open Font Format 引入了新的 "VARC" 表，可使 CJK 可变字体体积最多缩小 90%；支持 OpenType 字体中超过 65,536 个字形；并新增用于混合三次与二次曲线段的 "GLYF" 表。不过，该部分的实现方式可能会让部分用户不满——该工作由 Behdad Esfahbod 贡献，他使用多种 <strong>LLM（大语言模型）</strong>从 HarfBuzz 及其他实现中推导出基础代码，随后进行手动微调（主要针对速度优化）。</p>
+
+<p>FreeType 2.15 还新增了一个由 Apple 贡献的实验性 <strong>HVF 驱动</strong>，目前仅在 macOS 上可用。该驱动针对 Apple 新版 iOS 和 macOS 中的 Hierarchical Variable Font（层次化可变字体），用于将复杂字形组织成嵌套树状结构。</p>
+
+<p>此外，FreeType 2.15 的反锯齿栅格化器改用动态堆内存处理大型字形，在超过 40 ppem 的尺寸下可提升性能。TrueType v40 解释器也在 ClearType 渲染方面获得了多项改进。用户可从项目位于 FreeDesktop.org 的 GitLab 下载 FreeType 2.15。</p>
+
+<figure><img src="//www.phoronix.net/image.php?id=2023&image=freetype_213" alt="FreeType demo program" /><figcaption>FreeType 演示程序</figcaption></figure>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/FreeType-2.15-Released</guid>
+      <pubDate>Tue, 13 Oct 2026 00:24:04 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Ubuntu 语音转文字工具 Myna 现已推出技术预览版</title>
       <link>https://www.phoronix.com/news/Ubuntu-Myna-Tech-Preview</link>
@@ -783,27 +800,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Apple-Device-Trees</guid>
       <pubDate>Fri, 02 Oct 2026 20:32:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>英特尔为 Linux 7.4 准备重大改进：Battlemage 显卡性能显著提升</title>
-      <link>https://www.phoronix.com/news/Intel-CPU-Binds-ULLS-Migration</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Intel芯片和Linux内核性能优化，芯片技术属于不太感兴趣，但Linux桌面/系统技术有兴趣，两者权重相当，且标题含义不够明确</small></p><p>英特尔于周四发布了针对即将到来的 Linux 7.4 内核周期的最后一轮 Intel Xe 内核驱动改进。其中一项重大改进将显著惠及英特尔独立显卡，尤其是 Battlemage（BMG）系列。</p>
-
-<p>本轮 Xe 驱动的核心新增功能是在迁移队列（migration queue）上实现 CPU 绑定（CPU binds）和超低延迟调度（ULLS，Ultra Low Latency Scheduling）。虽然听起来并不起眼，但这一改动带来了相当可观的性能收益。</p>
-
-<p>英特尔工程师 Matthew Brost 在补丁系列封面信中解释道：在 BMG 上，当 GPU 持续处理页面错误（pagefault）时，启用 ULLS 后复制任务比传统 GuC 提交（配合 SLPC）快约 30–40µs（视测试用例而定）。冷启动 GPU 时的加速效果更为显著。用户态计算基准测试也一致显示，启用 ULLS 后页面错误基准测试有多个 GB/s 的吞吐量提升。</p>
-
-<p>不过 ULLS 也有代价：由于分页引擎上持续运行的批处理任务，功耗会有所增加（尚未实测）。为缓解功耗问题，ULLS 会在一段时间内未处理任何错误后自动退出。</p>
-
-<p>CPU 绑定是 ULLS 正常工作的前提，因为迁移队列需要对分页硬件引擎的独占访问。除作为 ULLS 的必需条件外，CPU 绑定还能带来多项额外收益：降低 VM 绑定延迟、提供更清晰的多瓦片（multi-tile）和 TLB 失效分层、在错误风暴期间绕过 GuC 以减轻其压力，以及将内核绑定与无关的复制/清除任务解耦——尤其在并行处理错误时效果显著。在并行错误测试用例中，平均绑定时间减少了约 15µs。</p>
-
-<img src="//www.phoronix.net/image.php?id=intel-arc-pro-b70-four&image=arc_pro_b70_2_med" alt="Intel Arc Pro B70 Battlemage" />
-
-<p>此外，本次 Xe 拉取请求还包含对 Crescent Island 的 ULLS 修复，以及一个新的 Panther Lake 设备 ID（0xB0A1）。该补丁已提交至 DRM-Next，将在 10 月下旬的 Linux 7.4 合并窗口前排队。Linux 7.4 稳定版预计于 12 月底发布。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-CPU-Binds-ULLS-Migration</guid>
-      <pubDate>Fri, 02 Oct 2026 18:34:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
