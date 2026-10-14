@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 14 Oct 2026 18:33:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 14 Oct 2026 22:15:48 GMT</lastBuildDate>
+    <item>
+      <title>苹果向 LLVM Clang 贡献 SSAF 驱动，实现全程序分析与源码转换</title>
+      <link>https://www.phoronix.com/news/Apple-Clang-SSAF-Driver</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Apple向LLVM Clang贡献SSAF驱动，虽涉及开源编程工具但Apple相关且主题专业具体，兴趣不够明确</small></p><p>苹果编译器工程师近日向上游 LLVM/Clang 贡献了一个可扩展静态分析框架（Scalable Static Analysis Framework，SSAF）驱动，用于执行基于全程序（whole-program）的分析以及源码到源码（source-to-source）的代码转换。</p><p>该驱动名为 clang-ssaf-driver，已合并至 LLVM Git。它在项目构建过程中对整个项目执行源码转换，并呈现转换结果，最终可生成一份补丁（patch）以及转换报告。SSAF 支持添加额外的转换规则，其首批规则之一是 cpp-bounded-buffers，用于将需要边界的 C++ 原始指针和数组改写为 bounded_ptr 与 bounded_array。</p><img src="//www.phoronix.net/image.php?id=2026&image=clang_ssaf_driver" alt="Clang SSAF driver merged on GitHub" /><p>苹果工程师 Jan Korous 在已合并的拉取请求中解释：该工具在项目构建时运行源码转换并呈现结果，能够识别每次转换所需的摘要（summaries）和全程序分析，因此用户只需指定转换名称和构建命令，cpp-bounded-buffers 即是首个此类转换。它通过 clang-ssaf-orchestrator-make 驱动使用 make 构建的项目。驱动会将链接单元的源码修改以补丁形式写出，并以编译器输出诊断信息的方式打印转换报告，同时将其写为 SARIF 格式。合并操作仅解决其自身输入之间的冲突，因此与已报告冲突重叠的编辑会被排除在补丁之外。使用 --apply 选项时，驱动还会在构建前查找 clang-apply-replacements 并应用这些编辑，同时检查源码最终状态与补丁所示相符。这是此前提议工具 clang-reforge 的泛化版本，其目标是构建一个与具体细节解耦的通用分析与转换驱动。</p><p>clang-ssaf-driver 预计将随明年春季发布的 LLVM 24 一同推出。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Apple-Clang-SSAF-Driver</guid>
+      <pubDate>Wed, 14 Oct 2026 18:45:29 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ BeOS 启发项目 Haiku 九月迎来多项硬件改进与新变化</title>
       <link>https://www.phoronix.com/news/Haiku-September-2026</link>
@@ -774,23 +783,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-ZRAM-Rework-Savings</guid>
       <pubDate>Mon, 05 Oct 2026 12:44:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Mold 3.0 发布：Rust 重写后的高速链接器首个大版本</title>
-      <link>https://www.phoronix.com/news/Mold-3.0-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Mold高速链接器3.0发布且经Rust重写，属编程工具发布及编程效率改进，用户很感兴趣</small></p><p>Mold 高速链接器于今日发布 3.0 版本，这是其从 C++ 重写为 Rust 后的首个大版本。Mold 作为 GNU Gold/LD 和 LLVM LLD 的替代方案，一直以高速著称，其长期目标是成为 Linux 系统上的默认链接器。</p>
-
-<p>Mold 3.0 被定位为先前稳定版 2.42.1 的直接替代品（drop-in replacement），但底层已从 C++ 全面迁移至 Rust 编程语言。据官方发布说明，2.42.1 是 C++ 版本的最后一个发行版。</p>
-
-<p>Mold 3.x 的主要目标是缩小与 GNU ld 之间剩余的功能差距，特别是在<a href="https://www.phoronix.com/news/Mold-3.0-Released">链接脚本（linker script）支持</a>方面，为 Mold 被 Linux 发行版采纳为默认链接器铺平道路。官方表示："mold 3.x 的目标是弥合与 GNU ld 的剩余兼容性差距，尤其是在链接脚本支持方面，并为 mold 成为 Linux 发行版默认链接器铺平道路。"</p>
-
-<p>采用 Rust 语言后，Mold 3.0 在处理损坏的输入文件时被认为更加安全。技术层面，该版本依赖 Rust 1.95 或更高版本，不再依赖 Intel oneTBB，并改用 Rust 的 Cargo 构建系统替代了此前的 CMake。在重写过程中，官方称修复了大量 bug。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mold_30" alt="Mold 3.0" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mold-3.0-Released</guid>
-      <pubDate>Mon, 05 Oct 2026 10:29:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
