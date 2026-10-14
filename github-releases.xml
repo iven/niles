@@ -3,7 +3,39 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 14 Oct 2026 01:51:03 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 14 Oct 2026 07:31:35 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.299：新增文件提及禁用、空闲压缩、安全模式提示等多项功能与大量修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.299</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.299 更新，包含一批新功能、交互改进以及数量庞大的 bug 修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><b>新增 <code>CLAUDE_CODE_DISABLE_FILE_MENTIONS</code> 环境变量</b>：开启后，Claude 通过其文件工具获取 <code>@</code> 提及文件的路径，而非文件内容。</li>
+<li><b>终端内新增空闲压缩（idle compaction）</b>：20 万 token 以上的对话闲置约 54 分钟后，会在其一小时提示缓存过期前被压缩，避免下次消息重复处理。可用 <code>CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS</code> 调整 20 万 token 下限，或用 <code>"idleCompaction": false</code> 关闭（需 v2.1.290 及以上）。</li>
+<li><b>模组（mod）能力增强</b>：新增 <code>$.prompt.media</code>（读取附带的图片/文档字节）、<code>$.session.identity()</code>（会话登录方式及组织/邮箱）、<code>Text</code> 新增 <code>size</code>/<code>weight</code>/<code>mono</code>/<code>tabular</code>、<code>Box</code> 新增命名间距步进（<code>xs</code> 至 <code>xl</code>），<code>bold</code> 弃用；<code>skill.prompt</code> 钩子现可接收技能 frontmatter、来源、插件名与文件路径。</li>
+<li><b>Agent 视图新增 <code>/effort</code> 与 <code>/fast</code></b> 用于设置新会话的起始配置，裸敲 <code>/model</code>、<code>/effort</code> 或 <code>/fast</code> 会打开选择器；后台会话的 peek 面板新增「安全模式」提示行。</li>
+<li><b>归因块（attribution block）可关闭</b>：通过 Claude apps gateway 的 <code>code</code> 策略 <code>env</code> 中设置 <code>CLAUDE_CODE_ATTRIBUTION_HEADER=0</code>。</li>
+<li><b><code>self-hosted-runner orchestrator</code> 新增 <code>--shutdown-drain-sec</code></b>。</li>
+<li><b>新增 <code>--disallow-tools</code></b> 及 <code>disallowed_tools</code> 判断字段，用于 <code>claude plugin eval</code> 将内置工具排除在 eval 运行之外。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li><b>终端与 UI</b>：修复全屏模式下双击展开行文字意外折叠、<code>/btw</code> 在滚动位置被跳至底部、CJK/emoji 与拉丁混排时的换行丢失或空白行问题、深色主题下 <code>dimColor</code> 文字不可区分、长粘贴因不可见控制字符丢失文本等。</li>
+<li><b>MCP</b>：修复名为 <code>constructor</code>/<code>prototype</code>/<code>toString</code> 的服务器无法连接或权限异常、HTTP 通知响应永不结束导致挂起 30 秒、默认协商 MCP 协议版本 2026-07-28、allow 规则仅作用于指定服务器等。</li>
+<li><b>云端/远程控制会话</b>：修复大事件批量无法上传导致界面冻结、内存尖峰崩溃、恢复后内存占用过高、子代理结果重复发送、文件（含 30–35 MiB）无法送达等。</li>
+<li><b>沙箱（sandbox）</b>：修复符号链接绕过拒绝路径、allowRead/allowWrite glob 校验不一致、WSL2 下 <code>bwrap</code> 报错等（注：Windows 相关改动按你的偏好已归入此处供参考）。</li>
+<li><b>模组/钩子</b>：修复热重载、深层嵌套值被整体拒绝（改为仅拒绝单个键）、<code>__proto__</code> 键被静默移除、<code>turn.start</code> 钩子现在也监听子代理回合等。</li>
+<li><b>性能与内存</b>：修复重度调试日志下的内存增长与退出挂起、PDF @提及不再在会话转录中保留字节、工件监控上限从 10 提升至 25 个。</li>
+<li><b>会话与恢复</b>：修复 2.1.296 回归的批准工具调用重复执行、计划模式被 <code>PreToolUse</code>/<code>tool.check</code> 放行后仍执行写入、resume 命令按 ID 而非名称打印等。</li>
+<li><b>其他</b>：<code>/config</code> 推送通知开关发送旧设置、调度任务报错分钟数、夏令时结束时段任务重复/提前触发、<code>plugin_loaded</code> 遥测误报等。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.299</guid>
+      <pubDate>Wed, 14 Oct 2026 02:49:42 GMT</pubDate>
+    </item>
     <item>
       <title>chezmoi v2.73.1 发布：修复多个 panic 与 shellQuote 转义问题</title>
       <link>https://github.com/twpayne/chezmoi/releases/tag/v2.73.1</link>
@@ -1582,38 +1614,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.274</guid>
       <pubDate>Thu, 17 Sep 2026 00:12:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>Devbox 0.18.3 发布：新增 Reopen in Devbox 初始化钩子，多项 Bug 修复</title>
-      <link>https://github.com/jetify-com/devbox/releases/tag/0.18.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 发布 0.18.3 版本，主要包含一项新功能与多项 Bug 修复。</p>
-
-<h3>✨ 新功能</h3>
-<ul>
-<li><strong>「Reopen in Devbox」支持初始化钩子</strong>：<code>devbox integrate vscode</code> 新增 <code>--run-init-hook</code> 标志，可在重新打开编辑器前加载项目的 <code>init_hook</code>，使其中导出的环境变量在重新打开的窗口中生效（此前仅 <code>devbox shell</code> 会加载它们）。VS Code 扩展（0.1.9）将其暴露为可选的 <code>devbox.runInitHookOnReopen</code> 设置；关闭该设置即可保持旧版 CLI 行为不变。</li>
-</ul>
-
-<h3>🐛 Bug 修复</h3>
-<ul>
-<li><strong><code>devbox shellenv</code> 不再重新导出整个环境</strong>：仅输出 Devbox 新增或改动的变量，使 <code>eval "$(devbox global shellenv)"</code> 在具有只读 shell 变量的发行版（如 openSUSE 的 <code>PROFILEREAD</code>）上不再失败。</li>
-<li><strong>Nix 不在 <code>$PATH</code> 中也能被检测</strong>：修复 NixOS 及 fish 用户遇到的「nix binary is not in your PATH」错误，检测逻辑改为使用 Devbox 已有的 Nix 查找方式。</li>
-<li><strong>对 Lix ≥ 2.95 提供清晰错误提示</strong>：Lix 移除了 Devbox 二进制缓存安装所需的 <code>builtins.fetchClosure</code>，现在 Devbox 会明确提示不兼容并指向上游 Nix，而非抛出模糊的 <code>attribute 'fetchClosure' missing</code>。</li>
-<li><strong>慢速或不可达的 <code>cache.nixos.org</code> 不再直接导致失败</strong>：narinfo 查找错误被视为缓存未命中，Nix 会按常规方式构建或替换软件包。</li>
-<li><strong><code>devbox services ls</code></strong> 现在能列出通过 <code>--process-compose-file</code> 启动的服务，而非报告「No services found」。</li>
-<li>本地插件的 <code>create_files</code> 所引用文件被编辑后，下次 <code>devbox shell</code> 时会重新生成（插件哈希现在包含文件内容，而非仅 <code>plugin.json</code>）。</li>
-<li><code>devbox generate readme</code> 现在按脚本在 <code>devbox.json</code> 中的顺序列出，而非按字母顺序。</li>
-<li><strong>插件修复</strong>：Poetry 插件现在会在 shell 中激活项目内 .venv，使 <code>poetry install</code> 安装的控制台脚本重新进入 <code>PATH</code>；PHP 插件显式引用 flake 的 <code>php</code> 输出，使其能与 <code>composer</code> 一起解析；Nginx 插件在 <code>nginx.conf</code> 旁创建 <code>mime.types</code>，使 <code>include</code> 能正确解析并启动。</li>
-</ul>
-
-<h3>🧹 维护</h3>
-<ul>
-<li>依赖安全更新：Go 模块、VS Code 扩展、示例项目。</li>
-<li>各项目 Devbox 软件包刷新、golangci-lint 升级至 v2.13.2、release 与 stale 工作流补充显式权限。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.3</guid>
-      <pubDate>Wed, 16 Sep 2026 17:19:23 GMT</pubDate>
     </item>
   </channel>
 </rss>
