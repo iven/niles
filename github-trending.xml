@@ -3,7 +3,45 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Thu, 15 Oct 2026 07:21:30 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 15 Oct 2026 13:22:57 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ TokenSpeed：面向智能体工作负载的光速级开源大模型推理引擎</title>
+      <link>https://github.com/lightseekorg/tokenspeed</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源大模型推理引擎发布，属于新AI模型/引擎发布与AI软件技术进展，且直接涉及编程工具与效率，符合高兴趣。</small></p><p>TokenSpeed 是一个面向<b>智能体（agentic）工作负载</b>的开源大语言模型（LLM）推理引擎，由非营利组织 LightSeek 基金会支持，目标是兼具 TensorRT-LLM 级别的性能和 vLLM 级别的可用性，成为生产环境下智能体场景最高效的推理引擎。项目目前在 GitHub 上已获得约 2300 星标。</p>
+
+<p>它在架构上与现有推理引擎有根本性不同，PyTorch 基金会在将其纳入 PyTorch Ecosystem Landscape 时特别强调了这些差异化设计：</p>
+
+<ul>
+<li><b>控制面与执行面分离</b>：控制面用 C++ 实现，将请求生命周期、KV 缓存所有权与重叠时序编码为有限状态机（FSM），在编译期通过类型系统强制保证安全的资源管理；执行面用 Python 实现，便于快速迭代并降低研究与工程门槛。</li>
+<li><b>内核作为一等模块</b>：通过可移植的公共 API、集中式注册表与选择模型将内核与核心引擎解耦，支持可扩展的插件机制以适配异构加速器，并包含针对智能体工作负载优化的、业界最快的 MLA（多头潜在注意力）实现之一。</li>
+</ul>
+
+<p>据介绍，TokenSpeed 被称为开源推理引擎领域的"瑞士"——因其由非营利基金会背书而保持中立，同时获得 NVIDIA、AMD 等厂商的严肃硬件与工程支持。</p>
+
+<p>项目在性能上取得了多项成果，包括：在 NVIDIA GB300 上以每用户 685 tokens/s 的速度服务 Qwen3.8-Flash-Next；在 Qwen3.5-397B-A17B 的智能体工作负载上达到 580 TPS；并实现对 Kimi K3、GLM 5.3 Flash、Qwen3.8、TML Inkling 等前沿模型的首日（Day 0）支持。</p>
+
+<p>该项目还提供了与 TensorRT-LLM 在 Kimi K2.5、B200 上的性能 Pareto 曲线对比（见下图），展示其在智能体工作负载上的性能优势。</p>
+
+<p><img src="https://raw.githubusercontent.com/lightseekorg/tokenspeed/main/assets/perf/tokenspeed-kimi-k2.5-performance.png" alt="TokenSpeed vs. TensorRT-LLM Pareto curves on agentic workloads (Kimi K2.5, B200)" width="800" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/lightseekorg/tokenspeed</guid>
+      <pubDate>Thu, 15 Oct 2026 13:21:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ XERJ：用 40 倍更少 Token 为 AI 建立本地数据索引的 Rust 搜索引擎</title>
+      <link>https://github.com/xerj-org/xerj</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向AI场景的Rust开源搜索引擎，属于开源项目与AI软件技术进展，用户会感兴趣。</small></p><p>XERJ 是一个社区可信的本地 AI 搜索工具（Rust 实现），能自动索引任意文件夹，让编程智能体（agent）不再逐个读取文件浪费 Token，而是直接检索所需的精确代码片段。其核心价值在于「参考编码」（reference coding）：让智能体针对某个任务，下载最接近的开源仓库、建立索引，并在自己写代码前复用他人解决问题的思路。</p>
+<p>项目提供一份受控研究数据：在相同 16/16 解题率下，将编码智能体的输出 Token 削减了 2.7 倍（对比 grep），比纯靠记忆少 26 倍，成本从 $3.27 降至 $1.58；用户在实际工作中反馈约可节省 5 倍 Token。其价值受限于模型的记忆范围——在私有、内部、小众或训练截止日期之后的代码上优势显著，而对模型已熟知的流行公共库则影响甚微。</p>
+<p>除参考编码外，XERJ 还支持代码库问答与 RAG、安全审计（检索危险调用与密钥模式）、日志与事故分析、以及智能体长期记忆（<code>/_memory</code> 命名空间）等场景。一条 <code>xerj autoindex</code> 命令即可索引代码、文档、日志、PDF、SQLite、CSV、Jupyter 笔记本、Unity 工程等各类文件，无需编写 schema 或配置 pipeline。代码经 tree-sitter 处理，带有符号与行号而非纯文本。</p>
+<p>XERJ 兼容 <a href="https://xerj.org/docs/queries.html">Elasticsearch API</a>，现有客户端与仪表盘可直接使用；搜索支持 BM25、kNN 与混合检索。它以单个静态二进制分发（无 JVM、无依赖），提供 <a href="https://xerj.org/llms.txt">llms.txt</a> 供智能体按序操作。项目为 Apache-2.0 许可证，社区参与方式独特：运行后提交一份简短的实战反馈报告（PR）即可作为「会员卡」。</p>
+<p>安全方面，<code>--insecure</code> 标志代表信任边界——关闭 TLS 与 API 密钥认证，所有能访问端口的调用者都成为可读写全部索引（含 <code>/_memory</code>）的超级用户，仅适用于单用户开发机；新节点默认只绑定 <code>127.0.0.1</code>，他接口上的明文绑定须显式允许才可启动。</p>
+<p>【你知道吗？】「参考编码」是让 AI 在动手写代码前先检索相似的成熟开源项目、借鉴其解决方案，从而避免模型凭记忆反复尝试或整文读取来恢复上下文；结合工具（tool-use）智能体通过调用外部搜索引擎获取精确片段，可显著压缩上下文中的 Token 消耗。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/xerj-org/xerj</guid>
+      <pubDate>Thu, 15 Oct 2026 13:21:43 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ iFixAi：120 秒内独立审计 AI 智能体行为是否符合业务目标的开源工具</title>
       <link>https://github.com/ifixai-ai/iFixAi</link>
@@ -1194,45 +1232,6 @@
 <p><b>Model Context Protocol（MCP）</b> 是一个开放协议，用于标准化应用与外部数据源、工具之间的连接方式，让 AI 模型能安全地访问和操作外部资源，是智能体扩展能力的重要基础设施。</p>]]>
       </description>
       <guid isPermaLink="false">https://github.com/androoAGI/starnet</guid>
-      <pubDate>Fri, 25 Sep 2026 13:41:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>Kubernetes The Hard Way：手把手从零引导 Kubernetes 集群的经典教程</title>
-      <link>https://github.com/kelseyhightower/kubernetes-the-hard-way</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Kubernetes开源教程项目，属于开源项目感兴趣范畴，但更多偏向基础设施教程，兴趣不够明确</small></p><p>《Kubernetes The Hard Way》是 Kelsey Hightower 发布的经典教程，旨在通过"最艰难的方式"引导读者从零搭建一个 Kubernetes 集群，全程不使用任何自动化脚本。该项目在 GitHub 上拥有超过 5 万颗星，是学习 Kubernetes 底层原理的知名资源。</p>
-
-<p>该教程的核心定位是<b>学习而非生产部署</b>。它刻意选择"绕远路"的方式，让学习者深入理解引导一个 Kubernetes 集群所需的每一个步骤，包括控制平面组件、工作节点、网络、证书等各环节的协作关系。教程明确声明，其产出结果不应被视为生产就绪，社区支持也有限，但这不妨碍它成为理解 Kubernetes 内部机制的最佳入门路径之一。</p>
-
-<p>教程目标受众是希望理解 Kubernetes 基础原理及核心组件如何协同工作的开发者。它引导读者搭建一个包含<b>单节点控制平面和两个工作节点</b>的基础集群，足以覆盖核心概念的学习。使用的组件版本包括 Kubernetes v1.32.x、containerd v2.1.x、CNI v1.6.x 和 etcd v3.6.x。</p>
-
-<p>整个教程分为 13 个实验步骤，涵盖从环境准备、跳板机设置、计算资源供给、CA 与 TLS 证书生成、认证配置文件、数据加密配置、etcd 集群引导、控制平面与工作节点引导、kubectl 远程访问配置、Pod 网络路由、冒烟测试到清理的全流程。教程需要 4 台基于 ARM64 或 AMD64 架构、处于同一网络的虚拟机或物理机。</p>
-
-<p>该项目采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a> 许可协议发布。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/kelseyhightower/kubernetes-the-hard-way</guid>
-      <pubDate>Fri, 25 Sep 2026 13:41:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>TSP：自托管、零运维的 A 股「选股 + 监控 + 回测」开源量化工作台</title>
-      <link>https://github.com/shy3130/tick-stock-panel</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] A股量化选股开源项目，涉及开源和软件新功能范畴，但A股量化属于较具体领域，兴趣程度不明确</small></p><p><strong>TSP（Tick Stock Panel）</strong> 是一款个人开源的 A 股智能量化工作台，主打「自托管、零运维」，将选股、监控、回测整合为一体。项目采用 MIT 协议，以 Python（FastAPI）为后端、React 18 为前端，通过 Docker 单容器部署，数据全部落在本地 Parquet，无需依赖付费云端终端。</p>
-<h3>核心功能</h3>
-<ul>
-<li><strong>能力路由</strong>：6 类数据集按源能力独立路由（支持 TickFlow、同花顺 fuyao、插件化自定义源等），换源不换口径；</li>
-<li><strong>选股引擎</strong>：内置 25 个策略 + 自定义信号 + AI 生成，基于 Polars 毫秒级扫描全 A 股；</li>
-<li><strong>指标流水线</strong>：68 列指标与信号，统一落盘为 enriched Parquet；</li>
-<li><strong>回测研究</strong>：因子/策略/分钟级回测，支持 T+1、手续费、滑点，以及因子归因、参数敏感性、滚动样本外验证；</li>
-<li><strong>异动监控</strong>：竞价/盘中/偏移三类异动一页覆盖，实时弹窗、语音播报、飞书推送；</li>
-<li><strong>AI 对话助手</strong>：18 个只读工具，一句话问出全站数据，取数过程逐条可展开核对；</li>
-<li>此外还包含因子平台与挖掘、市场环境（情绪周期 6 阶段）、连板梯队、个股与财务 AI 四维分析、持仓提醒、盘后自动复盘等模块。</li>
-</ul>
-<h3>架构特点</h3>
-<p>项目采用分层、完全解耦的扩展机制：数据源插件化、后端 <code>app/custom/</code> 包启动时自动发现并注册独立路由、前端扩展模块构建时自动挂载到插槽，删除目录即可整体卸载，零核心文件修改。技术栈包括 Polars（计算）、DuckDB（查询）、Parquet（存储），支持 OpenAI 兼容的各大模型接口。</p>
-<p>作者明确表示，该项目定位于本地量化的解决思路与方案，不作为投资软件或看盘软件，不内置 AI 荐股与涨停预测，仅供学习研究使用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/shy3130/tick-stock-panel</guid>
       <pubDate>Fri, 25 Sep 2026 13:41:32 GMT</pubDate>
     </item>
   </channel>

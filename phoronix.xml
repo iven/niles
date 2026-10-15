@@ -3,7 +3,43 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 15 Oct 2026 07:21:31 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 15 Oct 2026 13:22:01 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Ubuntu 26.10 正式发布：搭载 Linux 7.3 内核与 GNOME 51，Rust Coreutils 迁移全面完成</title>
+      <link>https://www.phoronix.com/news/Ubuntu-26.10-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新发行版发布，且包含 Rust 相关进展，符合来源 high_interest 的新发行版与全局 high_interest 的编程工具/新软件，必看</small></p><p>Ubuntu 26.10「Stonking Stingray」现已正式发布，这是 Ubuntu Linux 最新的半年期非长期支持（non-LTS）版本更新。作为 Ubuntu 26.04 LTS 于四月发布后的后续版本，26.10 带来了大量软件包更新。</p><p>主要亮点包括：接近最终状态的 Linux 7.3 内核、GNOME 51 桌面及其他更新的桌面选项、现已全面完成的基于 Rust 的 Coreutils 迁移、改进的 TPM 支持的全盘加密功能、增强的企业级身份验证，以及 Mesa 26.2 显卡驱动等众多更新版本。</p><img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_stonking_0_med" alt="Ubuntu 26.10" /><p>此外，Ubuntu 26.10 还提供了一项新技术预览——Myna 语音转文字功能，这是 Canonical 开发上下文感知桌面相关努力的一部分。该版本还首次推出了 RISC-V 桌面镜像、优化的 amd64v3 安装镜像等。</p><img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_stonking_1_med" alt="Ubuntu 26.10 desktop" /><p>得益于更新的内核和其他组件，Ubuntu 26.10 在作者基准测试中相比 Ubuntu 26.04 LTS 展现出了不错的性能提升。与此同时，Edubuntu、Kubuntu、Lubuntu、Ubuntu Budgie、Ubuntu Cinnamon、Ubuntu Kylin、Ubuntu MATE、Ubuntu Studio、Ubuntu Unity 和 Xubuntu 等官方风味版本也于今日同步发布了 26.10 版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.10-Released</guid>
+      <pubDate>Thu, 15 Oct 2026 11:19:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>华为提议在 ACPI CPPC Linux 驱动中默认启用 CPU 加速模式</title>
+      <link>https://www.phoronix.com/news/Huawei-Proposes-Boost-Default</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Linux内核驱动的CPU性能开关，属于硬件性能话题，兴趣点模糊，可选</small></p><p>华为日前提交了一组补丁，提议在 Linux 的 ACPI 协作处理器性能控制（Collaborative Processor Performance Control，CPPC）CPUFreq 驱动中，默认启用 CPU 的"加速（boost）"模式。</p><p>对于使用通用 ACPI CPPC 驱动的平台（例如众多 ARM64 Linux 服务器平台），若 CPU 支持加速模式，默认情况下它是被禁用的，需要用户通过 sysfs 手动设置"boost"选项。华为认为，尤其在 Linux 服务器平台上，这种默认关闭的做法并不理想——服务器场景通常希望发挥峰值性能。此次补丁即旨在默认启用加速模式，免去用户态手动配置的麻烦。</p><p>不过，该提案引发了一些技术讨论。Arm 工程师、Linux 开发者 Christian Loehle 在回应中指出，现代芯片的功耗与热设计包络已经十分复杂，加速模式的实际意义有限，无法保证不降频或一定能获得所请求的性能。他建议有经验（了解硬件特性）的用户可通过 <code>scaling_max_freq</code> 按平台、工作负载和环境单独设置性能上限。此外，他也对华为之前引入的 commit 54e74df5d76d 的实际使用情况表示好奇，并认为在 Linux 上存在"标称性能（NOMINAL_PERF）与最高性能（HIGHEST_PERF）不一致"的平台，目前只会带来额外麻烦。</p><p>该补丁的最终去向，以及 Linux ACPI CPPC 代码在未来针对现代 ARM64 服务器的清理方式，仍有待观察。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Huawei-Proposes-Boost-Default</guid>
+      <pubDate>Thu, 15 Oct 2026 10:24:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GNOME Mutter 改进次级 GPU 复制缓冲区的损坏跟踪</title>
+      <link>https://www.phoronix.com/news/Mutter-2nd-GPU-Damage-Track</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GNOME Mutter 桌面合成器技术改进，属于Linux桌面技术，符合来源 interest 配置，推荐阅读</small></p><p>随 GNOME 52 一同推出的一个早期 Mutter 改进（更新：该功能将率先出现在 GNOME 51.2 中），合成器现在会对次级 GPU 复制缓冲区进行损坏跟踪（damage tracking）。这一改进将改善多 GPU 配置（例如某些混合架构笔记本电脑）下的使用体验。</p><p>红帽（Red Hat）的 Ray Strode 编写了这项支持，用于在显示器连接到不同 GPU 时跟踪次级 GPU 复制缓冲区的损坏情况。他在合并请求中解释说：当显示器连接到不同 GPU 时，原生后端需要复制渲染帧。根据所选的复制模式，它会使用两个 GPU 缓冲区或三个 CPU 可访问缓冲区作为目标。当前这些路径使用的损坏区域仅描述了最新帧的变化，而主 GPU 复制会在三个目标缓冲区之间循环，复用缓冲区可能已有数帧之旧，仅复制最新的损坏区域会遗留旧像素。串行化的次级 GPU 复制虽然假设有效的两帧关系，但一旦复制失败，其损坏历史就会与缓冲区内容不一致。</p><p>为解决这些问题，该合并请求新增了 <code>MetaSecondaryGpuCopyState</code>，它记录每个目标缓冲区中上一次成功拷贝的源帧，并保留最近帧的损坏信息。原生复制路径据此包含所选缓冲区所需的全部变化；对于未知或过旧的缓冲区，以及包含超过 16 个矩形区域的区域，则复制整个帧。缓冲区选择仅在成功复制后才推进，而成功的零拷贝导入会使回退状态失效。</p><p>该代码已于昨日通过<a href="https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4409">合并请求</a>合入 Mutter Git。代码写于一个月前，但最初因部分提交说明被担心是 AI/LLM 生成的内容而搁置。Strode 的这一损坏跟踪改进是其 castkms 项目（一个用于虚拟显示器的实验性 Linux DRM/KMS 驱动）工作的一部分，与之相关的还有他将谷歌 Cast 设备转变为受管 Linux 桌面显示器的 Pronk 项目。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mutter-2nd-GPU-Damage-Track</guid>
+      <pubDate>Thu, 15 Oct 2026 10:12:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>微软推出面向 Linux 桌面端的 Microsoft Defender</title>
+      <link>https://www.phoronix.com/news/Microsoft-Defender-For-Linux-D</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 微软发布的Linux桌面安全软件，涉及微软产品且不属于高兴趣类别，兴趣不明确，可选</small></p><p>微软发布了面向 Linux 桌面端的新软件产品——Microsoft Defender for the Linux desktop。微软将 Defender 移植到 Linux 桌面，旨在「保护 Linux 桌面端」，并承认「越来越多的开发者开始使用 Linux 桌面」。此举是对其此前 Linux 服务器端支持的有力补充。</p><p><img src="//www.phoronix.net/image.php?id=2026&image=ms_defender_linux_desktop_med" alt="Microsoft Defender for the Linux desktop" /></p><p>Microsoft Defender for Linux desktop 面向购买了 Microsoft Defender for Endpoint Plan 2 或 Microsoft 365 E5、E7 的用户开放。感兴趣的组织可以在 <a href="https://techcommunity.microsoft.com/">Microsoft Tech Community 博客</a>了解更多信息。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Microsoft-Defender-For-Linux-D</guid>
+      <pubDate>Thu, 15 Oct 2026 09:52:45 GMT</pubDate>
+    </item>
     <item>
       <title>苹果向 LLVM Clang 贡献 SSAF 驱动，实现全程序分析与源码转换</title>
       <link>https://www.phoronix.com/news/Apple-Clang-SSAF-Driver</link>
@@ -714,75 +750,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/YSERVER-1.7</guid>
       <pubDate>Tue, 06 Oct 2026 09:39:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ TrueNAS 27 RC.1 发布：基于 Linux 6.18 LTS 内核与 OpenZFS 2.4</title>
-      <link>https://www.phoronix.com/news/TrueNAS-27-RC.1-Release</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] TrueNAS 27 发布候选版，涉及存储系统新版本，属于软件新功能和开源项目领域，且基于 Linux 6.18，符合兴趣配置</small></p><p>iXsystems 于近日发布了 TrueNAS 27 的首个候选版本（RC.1），标志着这一基于 Linux 的存储/NAS 操作系统向下一大版本迈进。</p>
-
-<p>值得注意的是，该版本原计划命名为 TrueNAS 26，但开发团队决定将版本号调整为 TrueNAS 27。据官方博客解释，这一调整是因为大多数用户预计将在 2027 年而非 2026 年实际部署该版本，正式稳定版预计于 12 月发布，因此版本号反映了用户实际部署的年份而非发布年份。</p>
-
-<p>TrueNAS 27 基于 <strong>Linux 6.18 LTS 内核</strong>构建，并集成了 <strong>OpenZFS 2.4</strong> 文件系统支持。除核心系统组件升级外，TrueNAS 27 还引入了多项新功能：</p>
-
-<ul>
-<li><strong>TrueSearch</strong> 与 <strong>WebShare</strong>：改进服务器端搜索能力</li>
-<li><strong>Fusion Pools 2.0</strong>：融合存储池的升级版本</li>
-<li><strong>有状态 SMB 故障转移</strong>（stateful SMB fail-over）支持</li>
-<li><strong>TrueNAS Object Interface</strong>（早期访问）：为 ZFS 数据集提供原生 S3 访问能力</li>
-</ul>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=truenas_webshare_1" alt="TrueNAS WebShare" />
-
-<p>借助 Linux 6.18 LTS 内核与 OpenZFS 2.4 的升级，TrueNAS 27.0 旨在提供比以往版本更出色的性能。新的 OpenZFS 更新带来了更多高级矢量扩展（AVX2）优化，新内核则具备更好的性能表现和更完善的硬件支持，此外还有一系列其他改进。</p>
-
-<p>更多关于 TrueNAS 27 及今日发布的 RC.1 候选版本的详细信息，可访问 <a href="https://www.truenas.com">TrueNAS.com</a> 查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/TrueNAS-27-RC.1-Release</guid>
-      <pubDate>Tue, 06 Oct 2026 00:25:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Auto-CPUFreq 3.2 发布：新增可配置 HWP 动态加速与平台配置文件报告</title>
-      <link>https://www.phoronix.com/news/Auto-CPUFreq-3.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Auto-CPUFreq是Linux桌面下的CPU频率管理工具，属于Linux桌面技术及软件更新，与用户兴趣匹配</small></p><p>开源工具 Auto-CPUFreq 发布了 3.2 版本，继续致力于提升 Linux 笔记本电脑的电池续航能力。该工具用于主动系统监控和电源优化。</p>
-
-<p>Auto-CPUFreq 3.2 新增了可配置的英特尔硬件 P 状态（HWP）动态加速支持。此外，在交流电源供电（而非电池供电）时，英特尔 HWP 动态加速现已默认启用。</p>
-
-<p>本次更新还引入了 ACPI 平台配置文件（Platform Profile）报告功能，相比此前版本提供的基础报告更为稳健。Auto-CPUFreq 3.2 同时统一了系统报告与 GTK 运行时状态，以确保视图的一致性。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=autocpufreq_32" alt="AutoCPUFreq 3.2" />
-
-<p>更多下载信息与发布详情可参见 <a href="https://github.com/AdnanHodzic/auto-cpufreq">GitHub 上的 Auto-CPUFreq 3.2 发布页面</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Auto-CPUFreq-3.2</guid>
-      <pubDate>Mon, 05 Oct 2026 15:36:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>Mesa 开发者考虑建立正式治理模式，拟设立理事会解决冲突</title>
-      <link>https://www.phoronix.com/news/Mesa-Governance-Model</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Mesa开源图形驱动项目治理模式讨论，主题与用户兴趣配置匹配度不明确</small></p><p>Mesa 3D 驱动栈多年来一直依靠非正式的共识机制来管理重大变更，没有正式的治理模式。然而，这种非正式处理方式在某些情况下并不理想，上游 Mesa 开发者现在正考虑建立正式的治理模式。</p><p>由于开发者倦怠以及部分开发者缺乏精力去反对不合理的变更提案，Mesa 社区正在考虑设立一个理事会来管理开发工作。该理事会主要专注于<strong>冲突解决</strong>，而非主动推动决策。</p><img src="//www.phoronix.net/image.php?id=2026&image=mesa_council_1" alt="Mesa council presentation" /><p>Mesa 的开发实践将基本保持不变，仍以共识为基础，只有在无法达成共识或出现其他问题时才会召集理事会介入。可能交由理事会处理的话题包括：新增/移除新驱动、遗留软件支持、旧驱动的移除，以及其他有争议的功能。</p><img src="//www.phoronix.net/image.php?id=2026&image=mesa_council_2" alt="Mesa council conclusion" /><p>目前尚未提交关于该理事会的具体提案，这一想法是在上周于多伦多举行的 <a href="https://www.phoronix.com/news/Mesa-Governance-Model">XDC 2026</a> 会议上首次提出的。感兴趣的读者可以查看相关的<a href="https://www.phoronix.com/news/Mesa-Governance-Model">幻灯片</a>以及 XDC 演讲视频了解更多细节。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Governance-Model</guid>
-      <pubDate>Mon, 05 Oct 2026 13:04:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux ZRAM 重构：实现更大内存节省与更优性能</title>
-      <link>https://www.phoronix.com/news/Linux-ZRAM-Rework-Savings</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核ZRAM内存压缩机制改进，提升性能与内存效率，属Linux桌面技术</small></p><p>在当前内存价格高企的背景下，Linux ZRAM（内存中的压缩块设备）代码迎来了一次重大重构，旨在实现更大的内存节省。谷歌 Chrome/Chromium 团队的 Sergey Senozhatsky 近日发布了这批 ZRAM 补丁，重点优化内存使用，单个上下文/每 CPU 可节省「数十 KB 到数百 KB」内存，在多个上下文和 CPU 核心上累加效果显著。</p>
-
-<p>此次重构的核心是 zcomp 模块的重新设计。旧设计将读取（Read）和写入（Write）上下文一同保存在每 CPU 压缩流中，在可抢占的 ZRAM 下会产生优先级反转问题：高优先级的读取方可能抢占持有流锁的写入方，由于压缩流被被抢占的写入方锁定，读取方会被阻塞在同一个流锁上。但实际上解压缩（Read）与压缩（Write）路径完全独立，互不触碰对方缓冲区，因此 Patch 系列将压缩流拆分为独立的每 CPU 读取流和每 CPU 写入流，使读写不再相互阻塞。该思路由 Barry Song 提出，解耦读写后在合成测试中带来了明显的性能提升。</p>
-
-<p>系列补丁的最后一篇在解耦读写流的基础上重构了次级流的处理方式。次级压缩流仅在重压缩时使用，而重压缩由设备锁串行化（即单线程），但此前仍按每 CPU 分配次级流（以允许对重压缩对象并发读取）。现在有了专用的读写流，可以分配单例压缩上下文（用于重压缩），同时仍保留每 CPU 的解压缩上下文，从而在 zstd、deflate、lz4hc 等后端与配置下节省可观内存。</p>
-
-<p><img src="//www.phoronix.net/image.php?id=2026&amp;image=zram_streams" alt="ZRAM streams benchmark" /></p>
-
-<p>除每上下文/每 CPU 的内存节省外，将 Zcomp 后端代码拆分为独立的读写流还展现出带来显著性能提升的潜力。目前这些补丁已发布到 Linux 内核邮件列表进行评审。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-ZRAM-Rework-Savings</guid>
-      <pubDate>Mon, 05 Oct 2026 12:44:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
