@@ -3,7 +3,38 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 15 Oct 2026 18:14:12 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 15 Oct 2026 21:21:29 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.301 发布：新增 vim 括号跳转、多行输入、LaTeX 渲染等</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.301</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.301 版本，带来多项新功能与大量修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>vim 模式新动作</strong>：新增 <code>%</code> 动作，可跳转到匹配的括号，支持单独使用或配合 d/c/y 命令。</li>
+<li><strong>mod 输入新增多行字段</strong>：为 mod 的 <code>Input</code> 增加 <code>rows</code> 属性，可在终端提供多行文本输入框，Enter 提交，Shift+Enter 或反斜杠加 Enter 换行。</li>
+<li><strong>OpenTelemetry 增强</strong>：补充了 <code>claude-api</code> skill 的追踪配置指引（含使用 <code>ant</code> CLI 设置追踪目标）；为 <code>tool_decision</code> 事件新增 <code>classifier_verdict</code>、<code>permission_mode</code> 字段以区分自动模式判定与权限规则，并在 <code>OTEL_LOG_TOOL_DETAILS=1</code> 时新增 <code>classifier_category</code> 字段。</li>
+<li><strong>切换小上下文模型更智能</strong>：切换模型前会先用原模型总结过长对话；新增 <code>CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS</code> 环境变量，让无人值守重试模式在用量上限过远时直接结束请求而不再干等。</li>
+<li><strong>Fable 模型兼容</strong>：当最新 Fable 模型不可用时，自动回退重试上一个 Fable 模型。</li>
+<li><strong>[VSCode] LaTeX 数学渲染</strong>：在 Claude 回复中支持 <code>$$</code>、多行 <code>\[ … \]</code> 以及行内 <code>$…$</code>、<code>\(…\)</code> 数学公式渲染。</li>
+<li><strong>[VSCode] 用量超限提示</strong>：在 Pro/Max 套餐的用量提示条中新增 "Get more usage" 链接（VS Code 与 JetBrains 面板）。</li>
+</ul>
+
+<h3>其他改进与修复</h3>
+<ul>
+<li><strong>性能优化</strong>：长任务 subagent 运行时的进度轨迹改为增量更新，提升渲染性能；修复技能/命令/钩子在大参数时占用大量内存及调用卡顿的问题（现在仅填充前 64 个名称、每个最长 64 字符）；修复对话和自动压缩在重建转写时短暂卡住 UI。</li>
+<li><strong>vim 模式修复</strong>：修复慢速机器上 Escape 后仍停留在 INSERT、Escape 丢弃已输入的 AskUserQuestion 答案等问题（自由文本字段现支持 vim NORMAL 模式）。</li>
+<li><strong>工具与文件处理</strong>：修复 Read 工具将 .xlsm、.parquet、.epub、.heic 等二进制文件当作文本读取的问题；修复 Grep/Glob 在搜索程序意外失败时误报无匹配。</li>
+<li><strong>会话与模型</strong>：修复后台命令在令牌刷新中途退出导致登录刷新超时或意外登出；修复会话被 LLM 网关背后未选择的模型反复压缩。</li>
+<li><strong>终端与显示</strong>：修复旧版 VTE 终端（如 RHEL 8 的 MATE Terminal）中的乱码字符覆盖提示、iTerm2 启动时的乱码，以及暗色主题、16 色终端下的文字暗淡问题。</li>
+<li><strong>其他修复</strong>：修复退出时未询问即删除可能含未推送提交的 worktree、/rewind 后技能不再列入模型、插件/技能钩子权限提示不显示来源、冲突 cherry-pick 的 /diff 识别等问题；mod 的 <code>$.env.set</code> 现解析为 <code>{}</code> 或 <code>{ deny }</code>；mod 钩子 <code>.catch</code> 仅在钩子抛错或超时时执行。</li>
+<li><strong>[VSCode]</strong>：修复崩溃/冻结的面板在每次重载时被重新打开、长思考期间面板变慢、诊断中语言服务器显示 "[object Object]" 等问题，并修复在不提供听写功能的场景下加载原生听写音频模块检查麦克风权限的行为。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.301</guid>
+      <pubDate>Thu, 15 Oct 2026 19:22:06 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.300：新增 advisor 命令、多项 mod 钩子增强及大量修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.300</link>
@@ -1572,35 +1603,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.155.0</guid>
       <pubDate>Thu, 17 Sep 2026 23:14:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.275 发布：新增「立即发送」快捷键、网关登录账户确认、claude.ai 技能/插件同步等</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.275</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 桌面/终端版本发布 v2.1.275，带来多项新功能与大量稳定性修复。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><b>新增「立即发送」快捷键</b>（Ctrl+Enter，或 Ctrl+X Ctrl+S）：可打断当前回合，一次性发送所有排队消息；已发送和排队中的消息在模型接收前以灰色显示。</li>
-<li><b>Claude apps gateway 登录显示已登录账户</b>：网关点名时会先确认再保存凭据，<code>/status</code> 中也会显示。</li>
-<li><b>同步 claude.ai 账户启用的 skills 与 plugins</b> 到登录的终端会话；可通过 <code>syncClaudeAiSkills: false</code> 或 <code>syncClaudeAiPlugins: false</code> 关闭。</li>
-<li><b>新增 <code>/plugin install &lt;plugin&gt; --marketplace &lt;source&gt;</code></b> 命令：安装前会提示先添加 marketplace。</li>
-<li>配置的 <code>otelHeadersHelper</code> 失败时新增启动警告，避免会话静默无遥测导出而不自知。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li>多项修复：恢复会话中的记忆文件、<code>--forward-subagent-text</code> 流式输出、@-mention 文件建议位置、vim 模式光标错位、全屏模式卡顿/冻结、resume/恢复时畸形 transcript 导致的崩溃、Grep/Glob/@-file 搜索在 20MB 输出上限下的卡顿或内存溢出、<code>/rewind</code> 恢复零填充文件、stdin 命令在文件描述符耗尽时崩溃等。</li>
-<li>沙箱化 Bash 命令在 Linux 上对 zsh 失败命令的退出码误报为 0、无法写入名为 <code>hooks/</code> 或 <code>config/</code> 的项目目录等问题已修复。</li>
-<li><code>/logout</code> 对网关登录会同时终止声明支持 token 撤销的网关会话；托管会话在容器重启后保留未答复的权限提示。</li>
-<li>从 npm 源安装的插件改用 <code>npm pack --ignore-scripts</code> 并校验完整性，不再运行包的安装脚本。</li>
-<li>终端较慢或暂停时输出不再持续落后；<code>/desktop</code> 错误信息更清晰；<code>/update-config</code> 修正权限规则写法。</li>
-<li>VSCode 扩展：可在 Memory 对话框中查看/编辑/删除记忆、无需输入文字直接发送图片、MCP 服务器加载失败时提供 Retry 链接、提供逐条接受/拒绝变更的 diff 标签页，以及多项界面与交互修复（滚动到底、代理地图、会话列表、远程控制开关等）。</li>
-<li>Claude Code on the web、Claude Tag（Slack 集成）及 Code Review 模块也有多项小改进与修复。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.275</guid>
-      <pubDate>Thu, 17 Sep 2026 22:33:17 GMT</pubDate>
     </item>
   </channel>
 </rss>
