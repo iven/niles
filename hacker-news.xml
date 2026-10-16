@@ -3,7 +3,44 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 16 Oct 2026 19:34:54 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 16 Oct 2026 22:48:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 研究显示：美国90%的工作时间花在AI基准测试未覆盖的任务上</title>
+      <link>https://news.ycombinator.com/item?id=50121179</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI基准测试与经济劳动力覆盖的研究，属于AI软件技术进展与科学前沿领域，用户感兴趣，虽有新闻属性但非必看，故推荐</small></p><p>Mercor 发布了一项名为「美国基准地图」（US Benchmark Map）的研究，旨在衡量现有 AI 基准测试对美国经济中实际工作的覆盖程度。研究团队利用美国劳工部的 O*NET 职业分类体系，将美国劳动力划分为 923 个职业、18,797 项具体任务，并对照 29 个公开、未饱和、面向智能体（agentic）的 AI 基准测试进行分析。</p>
+
+<h3>核心发现</h3>
+<ul>
+<li><strong>覆盖率极低</strong>：在 923 个职业中，仅有 208 个职业拥有至少 5 条基准提示词覆盖的任务；22 个职业族中有 6 个完全没有此类覆盖。研究估计，<strong>90% 的美国工作时间花在现有基准测试很少或完全没有覆盖的任务上</strong>。</li>
+<li><strong>覆盖存在系统性偏差</strong>：基准测试并非随机分布。被标记为「高 AI 暴露」的任务被覆盖的可能性约为「低暴露」任务的 6 倍；工资总额更高的职业中的任务被显著过度代表；O*NET 重要性评分更高的任务被覆盖的可能性是低重要性任务的 6–10 倍。</li>
+<li><strong>「长尾」工作被忽视</strong>：例如，AI 暴露程度相似的律师任务被大量覆盖，但法律秘书或法院书记员的任务几乎未被覆盖。中等收入的知识型「长尾」工作明显覆盖不足。</li>
+</ul>
+
+<h3>方法论</h3>
+<p>研究团队通过 LLM 裁判将每个基准提示词映射到对应的 O*NET 任务，并用人类专家标注进行验证。基准选择标准包括：公开可用性（至少 25 个公开任务）、面向智能体任务、经济现实性、经济多样性（限制每个职业族的基准数量）以及难度平衡（未饱和）。</p>
+
+<h3>尝试 O*NET 加权评分</h3>
+<p>作为初步尝试，团队对投资银行、法律、会计和软件工程四个职业，将模型在 APEX 基准上的表现按 O*NET 任务加权后与简单平均进行比较。结果显示两者差异不大，但只有不到三分之一的与这些职业相关的 O*NET 任务拥有足够的基准覆盖以纳入加权评分。团队承认，即使纳入更多基准，仍面临统计功效不足、任务难度与保真度差异等障碍。</p>
+
+<h3>局限性与展望</h3>
+<p>研究团队强调，这些结果是初步的，基于他们选择的 29 个基准列表，不完整列表必然低估经济覆盖范围。他们计划持续扩展基准列表并更新地图，以帮助填补对模型经济能力的认知空白。</p>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上的讨论热烈（293 条评论）。多位开发者指出，实际工作中的大量时间花在利益相关者协调、办公室政治等难以基准化的任务上。有评论者认为，AI 基准偏向高薪白领工作并非阴谋，而是因为可验证的数字任务更容易被 AI 优化。也有观点指出，AI 在软件开发中的成本节省主要源于劳动力效率低下，而非技术本身。关于机器人送餐等话题也引发了关于自动化实际经济效益的争论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50121179</guid>
+      <pubDate>Fri, 16 Oct 2026 17:08:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Sill：将 Mac 任意窗口实时串流到 iPhone 和 iPad 的开源应用</title>
+      <link>https://news.ycombinator.com/item?id=50112739</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍一款开源应用工具（将Mac窗口串流到iPhone/iPad），属于开源项目与编程工具分享范畴，虽有iOS生态背景，但主导主题是开源工具，故推荐</small></p><p>Sill 是一款开源应用，可将 Mac 上的任意窗口或整个桌面实时串流到 iPhone 和 iPad 上，并支持通过触控、触控板、键盘或 Apple Pencil 进行远程操作。该应用在 Hacker News 上获得 243 分和 74 条评论。</p><p>工作原理上，Sill for Mac 位于菜单栏中，当设备选中某个窗口或桌面时，它通过 ScreenCaptureKit 捕获画面，并利用 VideoToolbox 在 Mac 硬件视频编码器上将其编码为 HEVC 视频（编码器繁忙时回退到软件编码）。画面通过加密的 TLS 1.3 连接直接传输到 iPhone/iPad 上的 Sill 应用进行解码显示。当编码器或链路落后时，Sill 会丢弃帧而非排队，以保证画面实时性。用户的触摸、点击、滚动、按键输入会通过同样路径回传给 Mac，并由 Sill for Mac 转换为鼠标和键盘事件。</p><p>连接方式多样：Mac 和设备可处于同一网络、通过 USB 线连接、使用 Direct Wireless Connection（类似 AirDrop 的对等 Wi-Fi）在无共享网络时直连，或通过自己的 VPN（如 Tailscale）实现远程访问。应用无需账号，也不依赖中间服务器。配对机制：每个 iPhone/iPad 与 Mac 只需配对一次（扫描或输入 12 位代码），此后所有连接都锚定到双方密钥，保证加密安全。</p><p><img src="https://github.com/Saffsanity/sill/raw/main/design/screenshots/ipad-2.jpg" alt="Laptop mode：iPad 竖持，上方为 Mac 的时钟应用，下方为 Sill 的命令栏、键盘行和触控板" /></p><p>主要特性包括：iPad 上带有菜单栏支持（iPadOS 26 及以上）；iPhone 竖持时画面在上、按钮/键盘/触控板在下；虚拟显示（利用私有 macOS API）让被遮挡的窗口持续更新；双向剪贴板共享（仅文本，最多 256 KB，密码管理器标记为隐藏的内容不会流出）；三指手势（Mission Control、App Exposé、Spaces 等）通过键盘快捷键支持；在 iPhone Duo 上可跟随铰链状态适配布局；文本大小可随 Aa 调节。</p><p>要求方面：Mac 需为 Apple 芯片并运行 macOS 14 或更高版本；设备需 iOS 17/iPadOS 17 或更高。Mac 端需要屏幕录制和辅助功能权限（macOS 15+ 还需本地网络权限）。应用免费、无广告、无追踪、无订阅，可从 getsill.app 下载或通过 Homebrew 安装，iPhone/iPad 版在 App Store 免费提供，也支持从源码构建。项目以 Apache License 2.0 授权，作者欢迎提交 issue 和 pull request。</p><p><b>社区反馈</b>：评论中有用户称赞其比 VNC 更快速、更流畅，"已帮我今天两次忙"；也有用户提到相比需要大量调校的 Sunshine + Moonlight 方案，Sill 体验明显更好，并已通过 GitHub Sponsors 打赏。有用户好奇其与苹果 Sidecar 的区别，指出 Sidecar 不支持单个窗口且此前缺乏触控支持（评论引述称触控支持今年已加入）。还有用户询问是否计划支持 Windows。另有评论指出项目中的 CLAUDE.md 文件过长（6,108 行、464 KB）。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50112739</guid>
+      <pubDate>Fri, 16 Oct 2026 01:43:17 GMT</pubDate>
+    </item>
     <item>
       <title>国际计量大会决议：2027年起停止向UTC插入闰秒</title>
       <link>https://news.ycombinator.com/item?id=50105777</link>
@@ -1003,80 +1040,6 @@ fn main() {
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50025935</guid>
       <pubDate>Fri, 09 Oct 2026 20:04:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Python 3.15 正式发布：新增 sentinel、frozendict 类型，JIT 性能显著提升</title>
-      <link>https://news.ycombinator.com/item?id=50021127</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Python 新版本正式发布，涉及新类型与 JIT 性能提升，属编程工具发布，符合高兴趣</small></p><p>Python 官方于 2026 年 10 月 9 日发布了 <strong>Python 3.15.0</strong> 稳定版，这是 Python 语言的最新主要版本，相比 3.14 包含了大量新特性和优化，共涉及 1,012 位贡献者的 5,643 次提交。</p>
-
-<img src="https://hugovk.dev/python-3.15.png" alt="Python 3.15 logo" width="600" height="600" />
-
-<h3>解释器核心改进</h3>
-<ul>
-<li><strong>PEP 661</strong>：新增 <code>sentinel</code> 内置类型，用于创建哨兵值</li>
-<li><strong>PEP 686</strong>：Python 默认编码改为 UTF-8</li>
-<li><strong>PEP 798</strong>：推导式中支持解包</li>
-<li><strong>PEP 810</strong>：显式惰性导入（lazy imports），加快启动速度</li>
-<li><strong>PEP 814</strong>：新增 <code>frozendict</code> 内置类型</li>
-<li><strong>PEP 829</strong>：包启动配置文件</li>
-</ul>
-
-<p>实验性 JIT 编译器获得显著升级：在 x86-64 Linux 上相比标准解释器有 7-8% 的几何平均性能提升，在 AArch64 macOS 上相比尾调用解释器有 11-12% 的加速。错误提示信息也得到改进。</p>
-
-<h3>标准库与类型系统</h3>
-<p>标准库方面，新增了专门的性能分析（profiling）包（PEP 799），包括高频统计采样分析器 Tachyon。类型系统新增 TypedDict 类型化额外项（PEP 728）、TypeForm 类型形式标注（PEP 747）以及类型系统中的不相交基类（PEP 800）。C API 方面新增了 PyBytesWriter API（PEP 782）和终结化保护（PEP 788），并为自由线程（free-threaded）构建提供稳定 ABI（PEP 803、820、793）。</p>
-
-<h3>构建与发布变化</h3>
-<p>帧指针（frame pointers）默认启用以改善系统级可观测性（PEP 831）。官方 Windows 64 位二进制改用尾调用解释器，macOS 二进制默认安装自由线程支持。</p>
-
-<h3>注意事项</h3>
-<p>在 macOS 27.0 上使用 IDLE 或其他 tkinter 应用时，打开对话框的命令可能导致应用挂起（出现旋转沙滩球，需强制退出）。这是 macOS 27.0 操作系统行为变化所致，影响所有当前版本的 Tk 图形工具包。依赖 Tk 应用的用户可考虑暂缓升级 macOS 27.0。</p>
-
-<h3>社区反响</h3>
-<p>Hacker News 社区对此次发布反应积极。多位开发者对惰性导入（PEP 810）和 JIT 性能提升表示期待。Python 库维护者 Simon Willison 指出，3.15 的发布意味着 Python 3.10 停止支持，其维护的库终于可以开始采用 Python 3.11 的特性。自由线程构建的稳定 ABI（abi3t）也获得关注，cryptography 项目已开始为每个平台发布单一的 abi3t wheel，使 GIL 启用和自由线程构建可共用同一 wheel。</p>
-
-<p>此外，Barry Warsaw 制作了一款名为 "whatsnewt" 的 TUI 文字冒险游戏，通过 18 个真实谜题引导用户探索 Python 3.15 的新特性，可通过 <code>uvx --python 3.15 whatsnewt</code> 运行。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>稳定 ABI（abi3）</strong> 是 Python 提供的一种二进制接口保证，使扩展模块编译一次即可在多个 Python 版本上运行，无需针对每个版本重新编译。Python 3.15 新增的 <strong>abi3t</strong> 扩展了这一机制到自由线程（free-threaded，即无 GIL）构建，允许库开发者发布一个同时适用于 GIL 启用和自由线程构建的 wheel 包，大幅简化了分发流程。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50021127</guid>
-      <pubDate>Fri, 09 Oct 2026 14:35:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Show HN：让 AI 智能体在屏幕上绘制醒目的箭头、方框与文字</title>
-      <link>https://news.ycombinator.com/item?id=50018817</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 CLI 工具让 AI 智能体在屏幕上绘制图形，配合 Claude Code 使用，属编程工具与 AI 软件进展，推荐阅读</small></p><p>开发者 franzenzenhofer 发布了 <strong>big-arrow-on-the-screen（bigarrow）</strong>——一个 macOS 命令行工具，搭配面向 Claude Code 和 Codex 的技能包，可以在屏幕最上层绘制箭头和标识来指向某个元素。当 AI 智能体遇到「只允许人类操作」的步骤（如权限弹窗、OAuth 授权、2FA 验证等）时，它无法或不应代为点击，但可以让箭头清晰地指出目标按钮。项目以 MIT 协议开源，发布两天内已获得 360+ 星标。</p>
-
-<img src="/franzenzenhofer/big-arrow-on-the-screen/raw/main/docs/images/hero-hn.png" alt="一个真实的 macOS 桌面，Chrome 中的 Hacker News，九个不同颜色、来自各个方向的 bigarrow 箭头" />
-
-<h3>核心特性</h3>
-<ul>
-<li><strong>零权限绘制</strong>：箭头绘制不需要任何 macOS 权限，是一个纯 Swift 编译的单一二进制，无守护进程、无菜单栏图标、无账号、无遥测。</li>
-<li><strong>可点击穿透</strong>：鼠标点击可直接穿透箭头到达目标应用，不会抢走键盘焦点；点击标识或箭头柄处可移除箭头。</li>
-<li><strong>箭头自动消失</strong>：支持时间限制（<code>--duration</code>）、跟随窗口（<code>--follow</code>）、点击后结束（<code>--until-click</code>）、以及随启动它的智能体进程退出而消失。</li>
-<li><strong>丰富的外观定制</strong>：提供 <code>--shape</code>（bend/straight/zigzag/spiral）、<code>--style</code>（arrow/ring/box）、尺寸 S/M/L、多种颜色及边框样式。</li>
-<li><strong>精确目标定位</strong>：可按坐标、标签元素、窗口/标签页（如 Chrome 的 <code>--app "App:tab title"</code>）指定目标，还支持读入 Peekaboo 的 JSON 作为目标来源。</li>
-<li><strong>语音播报</strong>：<code>--say</code> 可朗读标识文字。</li>
-</ul>
-
-<h3>典型用途</h3>
-<p>作者列举了多种真实场景：引导用户完成系统权限设置（如「允许屏幕录制」）、在 Keynote 等应用中进行分步教学、帮助长辈保存 PDF、从 14 个标签页中指明正确那一个，以及用 <code>--png</code> 直接渲染成图片用于截图或文档。项目的定位是「程序从 shell 指向屏幕上的东西」——它从不点击、不输入、不截图，只负责指路。</p>
-
-<h3>可靠性验证</h3>
-<p>项目包含 91 个自动化测试（几何、放置、箭头柄、黄金图像、真实窗口服务器等），并在 macOS 15/26/27 上通过；另有 17 项在干净 CI 环境上的行为检查。一位全新的智能体仅凭技能说明即可按标签找到 Chrome 的 Reload 按钮并构造正确命令（还顺带发现了一个 bug，现已转为测试用例）。绘制箭头仅需约 1.4% 的 CPU（由 Core Animation 在渲染服务器中完成）。</p>
-
-<h3>社区反馈</h3>
-<p>HN 上的讨论既有肯定也有调侃。有评论者认为「引导型智能体」比「执行型智能体」更有价值，例如可用于 Blender 等复杂软件的教学；也有人指出它非常适合制作文档截图——传统的截图常让人仍需在界面里反复寻找按钮。部分评论者提出幽默的「增强」建议（如彩虹箭头、Airhorn 音效），还有人质疑为画一个箭头是否要用到 Swift、Shell、Python、Objective-C 四种语言。也有观点指出：如果人类只剩为机器人点击确认按钮的角色，那还不如直接授予 root 权限。</p>
-
-<p>项目参考了 Peekaboo 与 Nameplate（均出自 Peter Steinberger）的浮层方案与技能打包思路，但它们是「人类在屏幕上作画」，而 bigarrow 是「程序以退出码从 shell 指向目标」。</p>
-
-<p>项目地址：<a href="https://github.com/franzenzenhofer/big-arrow-on-the-screen">github.com/franzenzenhofer/big-arrow-on-the-screen</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50018817</guid>
-      <pubDate>Fri, 09 Oct 2026 11:03:48 GMT</pubDate>
     </item>
   </channel>
 </rss>

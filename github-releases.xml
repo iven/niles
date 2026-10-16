@@ -3,7 +3,93 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 16 Oct 2026 19:31:52 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 16 Oct 2026 22:48:18 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.302 发布：新增自动模式模型选择、空闲压缩开关，修复多项问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.302</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.302 版本，带来多项新功能与大量修复。</p>
+
+<h3>新功能与核心改动</h3>
+<ul>
+<li>新增环境变量 <code>CLAUDE_CODE_AUTO_MODE_MODEL</code>，用于选择客户端自动模式分类器使用的模型（不影响服务端自动模式的模型）。</li>
+<li><code>/config</code> 中新增「Idle compaction」选项，可关闭或重新开启空闲压缩；空闲压缩后的提示现在会说明如何关闭它。</li>
+<li><code>/design-sync</code> 和 <code>/design-login</code> 新增提示：独立版 Claude Design（claude.ai/design）将于 2026 年 12 月 14 日关闭。</li>
+<li>fork 子代理（<code>subagent_type: "fork"</code>）现已在 <code>claude -p</code>、Agent SDK、桌面应用和 VS Code 中默认启用（终端此前已默认启用）；可通过 <code>CLAUDE_CODE_FORK_SUBAGENT=0</code> 关闭。</li>
+<li>桌面应用和 VS Code 现在始终在后台运行主对话的子代理（与终端行为一致）；子代理自身的 Agent 调用则默认在前台运行。</li>
+<li>无权限模式的 <code>claude -p</code> 和 Agent SDK 会话在第三方提供商上默认以 <code>default</code> 模式启动。</li>
+<li>提示词和代理钩子同一事件最多同时运行 12 个，其余排队等待。</li>
+<li>启用大量插件时启动速度提升：插件命令和代理文件的文件系统调用大幅减少，Windows 上效果最明显。</li>
+<li>服务端分类器的自动模式改进：对话过长无法通过安全检查时现在会先压缩，而不是拒绝每个被检查的工具调用。</li>
+</ul>
+
+<h3>其他修复与改进</h3>
+<ul>
+<li>修复停止回合时对话正在压缩导致的「Prompt is too long」错误。</li>
+<li>修复会话中途切换到 Vertex 或 Bedrock 后请求报「diagnostics: Extra inputs are not permitted」的问题。</li>
+<li>修复 Read 工具将任意大小的图片文件或类似图片的管道/设备完全加载到内存的问题；超过 128 MB 的图片来源现在会被拒绝。</li>
+<li>修复网关以前缀命名 Opus 4/4.1 时 <code>/autocompact</code> 和 <code>/effort</code> 保存到错误模型的问题。</li>
+<li>修复会话中途添加的工具通过 ToolSearch 或压缩后重新加载时提示缓存未命中的问题。</li>
+<li>修复 <code>claude plugin</code> 等子命令在排队的设置/配置写入完成前退出，导致更改丢失或遗留 <code>.tmp</code> 文件的问题。</li>
+<li>修复 git 默认使用 reftable 格式时插件市场每次刷新都重新克隆、新安装的 git 插件显示版本「unknown」的问题。</li>
+<li>修复 PowerShell 工具找不到插件 <code>bin/</code> 文件夹中的命令，以及搜索无结果（rg、grep、findstr、git grep）通过管道传给 <code>Select-Object</code> 等格式化 cmdlet 时报错的问题。</li>
+<li>修复桌面应用中 Claude 在不可用场景下引导用户到 claude.ai 设置或 <code>/mcp</code> 授权/重连 MCP 服务器的问题。</li>
+<li>修复 MCP 服务器协商协议版本 2026-07-28 但省略 <code>resultType</code>、<code>ttlMs</code> 或 <code>cacheScope</code> 时显示无工具或每次工具调用失败的问题。</li>
+<li>修复提示建议在按积分计费的模型上消耗使用额度的问题（按积分计费回复后跳过）。</li>
+<li>修复反引号中换行的 URL 只有第一行可点击的问题。</li>
+<li>修复 worktree 隔离在 git 2.56+ 下因指向不存在目录的 <code>.git</code> 文件而拒绝创建/恢复 worktree 的问题。</li>
+<li>修复云会话在新进程中恢复后成本和使用量从零重新开始的问题。</li>
+<li>修复 PowerShell 工具在 exFAT/FAT32 驱动器上（包括 <code>--plugin-dir</code> 会话）每次文件写入被拒绝或询问的问题。</li>
+<li>修复代理视图中长列表下移或折叠部分后行保持空白的问题。</li>
+<li>修复 <code>claude remote-control --help</code> 未登录时不打印用法并退出的问题。</li>
+<li>修复 <code>/design consent</code> 和 <code>/design revoke</code> 在云会话失败时建议不可用的 <code>/design-login</code> 的问题。</li>
+</ul>
+
+<h3>VS Code 扩展</h3>
+<ul>
+<li>修复流式回复期间列表中未闭合代码块后的文本显示为纯文本、结束后才变成代码的问题。</li>
+<li>修复 MCP 服务器 URL 含查询字符串时从面板登录打开损坏的授权页的问题。</li>
+<li>修复无法连接带 Claude 扩展的浏览器时 <code>@browser</code> 横幅仍显示「Browser connected」的问题。</li>
+</ul>
+
+<h3>云会话（Cloud sessions）</h3>
+<ul>
+<li>例行任务页面新增横幅，说明上次运行未启动的原因（如组织达到并发云会话上限）。</li>
+<li>修复云会话中除最新消息外「Rewind to here」全部失败的问题（自托管运行器需 Claude Code v2.1.246+）。</li>
+<li>修复 GitHub 重新检查时带合并冲突的 PR 状态栏被翻回 ready 的问题。</li>
+<li>修复例行任务在云会话意外停止后显示为 Completed、归档前显示为 Cancelled 而非失败的问题。</li>
+<li>修复仓库重命名或移动后云会话 diff 视图缺失更改或加载失败的问题。</li>
+<li>修复定时例行任务部分失败后一小时以上被从头重跑、可能重复工作（如重复发布报告）的问题。</li>
+<li>修复云会话启动失败时的错误提示，现显示「Connection lost」或「Server error」而非「Something went wrong」。</li>
+</ul>
+
+<h3>Remote Control 与 Claude Tag（Slack）</h3>
+<ul>
+<li>修复 Remote Control 会话中电脑离线后子代理面板无限旋转的问题，现显示已断开连接。</li>
+<li>修复 Slack 中 Claude 编辑早期消息后「is thinking…」仍停留在提及下的问题。</li>
+<li>修复 Slack 回复中编号/项目符号步骤下代码块内 URL 被尖括号包裹、破坏复制命令的问题。</li>
+<li>修复 Slack 中附加的 HEIC、SVG、TIFF 和 BMP 图片无法到达 Claude 的问题，现作为工作文件传入。</li>
+<li>修复按角色限制 Claude Tag 的组织中新增频道管理员失去 Claude 访问权限的问题。</li>
+<li>修复共享同一主机的自定义连接器的 MCP 服务器在管理设置中显示为单个连接器的问题。</li>
+<li>修复 Slack 查找停滞时 Claude 回复「DMs are temporarily unavailable」并丢弃消息的问题，现会先重试。</li>
+<li>修复 Slack Enterprise Grid 上直接消息忽略工作区下拉选择的问题。</li>
+<li>修复频道月度支出上限通知错误地称频道管理员可提高上限的问题，现指向组织所有者并链接使用页面。</li>
+<li>修复 Slack 回复中链接吸收紧随其后的闭合粗体/斜体标记或全角标点的问题。</li>
+<li>管理设置中仓库搜索现支持最多 100 个连接的 GitHub 账户，并可找到 GitHub App 安装前 5,000 个之后的私有仓库。</li>
+<li>管理设置中「Add place」现可立即列出输入/粘贴的频道，无需等待完整频道列表加载。</li>
+<li>管理设置中「Add &gt; Domain」现可在页面加载后立即使用。</li>
+<li>管理设置现按四个标签页组织 Claude 的访问权限：Bundles、Connectors、Skills 和 plugins、Channels。</li>
+<li>组织设置的 Roles 页面将 Claude Tag 频道管理员角色分组到折叠区域。</li>
+</ul>
+
+<h3>Code Review</h3>
+<ul>
+<li>修复离开连接 GitHub 后 Code Review 设置无法恢复的问题，返回管理设置时现会重新打开到仓库选择器。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.302</guid>
+      <pubDate>Fri, 16 Oct 2026 20:53:06 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.163.0：新增可搜索 /config 偏好面板、即时打断响应、并行只读工具等多项功能</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.163.0</link>
@@ -1598,15 +1684,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.277</guid>
       <pubDate>Fri, 18 Sep 2026 18:06:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.276：修复代理/网关下的请求 400 错误</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.276</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.276 版本，本次更新仅包含一个修复：当 <code>ANTHROPIC_BASE_URL</code> 指向代理或网关时，所有请求均会因 <code>400 … Input tag 'advisor_20260301'</code> 错误而失败，此问题为 v2.1.275 引入的回归，现已修复。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.276</guid>
-      <pubDate>Fri, 18 Sep 2026 02:12:26 GMT</pubDate>
     </item>
   </channel>
 </rss>
