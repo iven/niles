@@ -3,7 +3,77 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 17 Oct 2026 18:27:04 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 21:25:24 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Show HN：Llmspeed——购买硬件前先感受本地大模型的真实速度</title>
+      <link>https://news.ycombinator.com/item?id=50127979</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍本地大模型硬件选择的工具，涉及编程工具分享类别，用户对编程工具发布/分享很感兴趣，同时涉及AI技术进展，应推荐阅读</small></p><p>一位开发者发布了「Llmspeed」这一开源工具，旨在帮助用户在购买硬件之前，真实感受本地大模型（LLM）的运行速度。用户可以浏览并选择硬件（涵盖 NVIDIA RTX 系列、AMD Ryzen AI Max、Mac Studio/Pro 等数十种 GPU、Mac 和纯 CPU 配置）与模型（如 Qwen、DeepSeek、Gemma、Llama 等），模拟体验短提示词在单设备上的 tokens/sec 与首token延迟（time-to-first-token）。数据来源于社区基准（r/LocalLLaMA、localscore.ai 等），其余数值由相似配置推算或依据规格预估，代码与数据已开源于 GitHub。</p>
+<p>该项目在 Hacker News 上获得了 222 分和 75 条评论。社区反馈较为积极，但也提出了若干改进建议，主要集中在以下几个方面：</p>
+<ul>
+<li><strong>基准数据准确性</strong>：有用户反映自己的 M2 Ultra 运行速度几乎是该工具对 M3 Ultra 预估值的两倍，质疑估算的精确度；开发者回应将针对具体模型与量化版本进行核查。</li>
+<li><strong>模型与量化覆盖不足</strong>：多位用户希望补充诸如 Strata 与 Qwen 3.8 Flash Next、以及不同量化版本的模型条目。</li>
+<li><strong>多 GPU 与异构配置</strong>：多名用户希望支持 RTX 5070+5080 这类混合配置、PCIe 世代选择、NVLink 开关以及张量/流水线并行等参数；开发者表示多 GPU 支持需权衡热门程度与基准数据质量，目前暂未纳入。</li>
+<li><strong>推理引擎（harness）因素</strong>：有用户指出推理所依赖的库及版本会影响速度，建议展示每套配置所用的 harness。</li>
+<li><strong>预填充并行化</strong>：一位用户强调，对智能体编程（agentic coding）而言，预填充（prefill）的并行能力远比输出速度更重要。</li>
+</ul>
+<p>评论中还围绕旧硬件的使用价值展开了讨论。有用户分享在 2017 年的 RX580（8GB VRAM）上以约 20 tps 运行 Qwen 9B 模型用于编码重构，也有人提到在 RTX 2060 Super（8GB VRAM）配合 64GB 内存上可流畅运行 Qwen 3.8 Flash Next。另有用户给出务实建议：与其依赖预估，不如花不到 0.5 美元在云上租用硬件几分钟亲自试跑。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50127979</guid>
+      <pubDate>Sat, 17 Oct 2026 04:36:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Black Forest Labs 发布 FLUX 3 Image Klein：5.6B 参数开源图像模型</title>
+      <link>https://news.ycombinator.com/item?id=50123580</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Black Forest Labs发布新的开源AI图像模型，同时涉及新AI模型发布和新开源项目，两者都是用户很感兴趣或感兴趣的类别</small></p><p>Black Forest Labs 发布了 <strong>FLUX 3 Image Klein</strong>，一个 5.6B 参数的开源权重模型，支持文生图、图像编辑以及最多 10 张参考图的多参考生成。该模型继承了完整版 FLUX 3 Image 的核心能力，包括原生 4K 生成、像素级编辑，以及用于控制元素位置或限定编辑区域的边界框（bounding box）功能。</p>
+
+<img src="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F2gpum2i6%2Fproduction%2Feada5ee663c5523ab6d43c858baaf037867d324e-2000x1344.webp&w=3840&q=75" alt="Collage of FLUX 3 Image Klein outputs: illustration, portraits, photography, anime, a stamp design and typography." width="2000" height="1344" />
+
+<p>FLUX 3 Image Klein 融合了 FLUX 3 在图像、视频和音频上的共享学习成果：图像提供空间细节，视频补充运动与物理动态，音频提供事件与交互信息，帮助模型生成更贴近真实世界的图像。发布包含用于微调的基础模型和用于低延迟生成的蒸馏模型，并提供 FP8、INT8 和 NVFP4 量化版本（与 NVIDIA 合作开发），采用 FLUX Kommunity License 许可。</p>
+
+<h3>性能与速度</h3>
+<p>在内部评测中，FLUX 3 Image Klein 在文生图、多参考生成和图像编辑方面均排名第一，超越了更大的开源模型以及 Ideogram V4.5 和 FLUX.2 [pro] 等闭源模型。与 FLUX.2 [klein] 9B 相比，它在文生图上提升了 91 Elo、图像编辑上提升 70 Elo，同时参数减少了 38%。</p>
+
+<img src="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F2gpum2i6%2Fproduction%2F1cc58ca0649334f7f1557c983b3b219f2bef9379-1888x788.png&w=3840&q=75" alt="Elo rating vs. generator parameters for text to image and image editing. FLUX 3 Image Klein leads at 5.6B parameters." width="1888" height="788" />
+
+<p>模型针对消费级 GPU 进行了优化：BF16 下生成权重需 11.2GB，FP8 下仅需 5.6GB。通过 INT8 构建，可在 NVIDIA GeForce RTX 显卡上以低至 8GB 显存运行（通过 ComfyUI 或 Diffusers）。蒸馏模型配合 INT8 构建，在 RTX 5090 上生成 1MP 图像约需 4 秒，在 RTX 4070 上不到 9 秒。在 NVIDIA GB300 上，NVFP4 下生成 1MP 图像不到 0.6 秒。</p>
+
+<p>通过 BFL API，FLUX 3 Image Klein 的延迟低于 Qwen-Image 2.1、FLUX.2 [pro]、Ideogram V4.5 和 Krea 2，且在相同延迟下获得最高评分。API 定价为每 1K 图像 $0.009。</p>
+
+<h3>生态与许可</h3>
+<p>发布当天即获得 ComfyUI、Hugging Face Diffusers、TensorRT-LLM、SGLang Diffusion 和 vLLM-Omni 的支持，LoRA 训练可通过 Ostris 的 AI Toolkit 和 NVIDIA NeMo AutoModel 完成。FLUX Kommunity License 允许年收入低于 500 万美元的个人和公司免费商用，以及研究和非商用用途。</p>
+
+<p>安全方面，模型经过内部红队测试和外部安全合作伙伴 Cinder 的评估，据称比其他流行的开源权重模型具有更少的漏洞。这是 FLUX 3 家族继 FLUX 3 Action 之后的第二个开源权重发布。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 社区对模型的评价存在分歧。部分用户反映该模型在生成人物图像方面表现不佳，手指比例不正确，推测可能与训练集中移除 NSFW 内容有关。有用户指出需要配合提示词上采样器（prompt upsampler）才能发挥最佳效果。也有用户称赞其编辑能力出色，但认为在精细文字细节上有所欠缺。</p>
+<p>多位用户对比了同期发布的 <a href="https://huggingface.co/OpenMOSS-Team/MOSS-Image-Base/tree/main">MOSS Image</a>（Apache 2.0 许可），认为后者在文生图质量上更胜一筹，引发了"为什么选 Flux"的讨论。此外，有用户对 FLUX Kommunity License 的商用限制表示不满，认为越来越多的开源权重模型转向自定义非商用许可（如 Ideogram、Krea、Qwen 等）。</p>
+<p>关于模型体积，有用户惊叹于不到 10GB 的模型竟能"了解"世界大部分样貌，并展开了关于扩散模型与 LLM 压缩效率差异的深入讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50123580</guid>
+      <pubDate>Fri, 16 Oct 2026 19:47:13 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ PostgreSQL 19 因 AI 代码审查发现过多缺陷而延期发布</title>
+      <link>https://news.ycombinator.com/item?id=50119991</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要涉及PostgreSQL数据库开发工具改进与发布延期，属于开源项目进展，用户对开源项目和软件新功能感兴趣，虽涉及AI代码审查但核心是数据库工具发布更新</small></p><p>PostgreSQL 全球开发组宣布推迟 PostgreSQL 19 的发布，原定于 9 月底或 10 月初发布，现预计于 11 月 19 日左右正式可用。同时，开发团队撤回了 8 至 10 项重要功能，将其推迟到明年的 PostgreSQL 20 版本。</p>
+
+<p>PostgreSQL 主要提交者、EDB 副总裁 Peter Eisentraut 在博客中解释，部分被撤回的功能存在严重的架构缺陷，难以在 beta 阶段快速修复。更关键的是，LLM（大语言模型）辅助代码审查的引入，使得大量"相对无害但涉及各种边界情况"的问题被提前发现。Eisentraut 表示："过去这类问题可能要到发布后五年内才会陆续被发现并修复。有了 LLM 辅助代码审查，这些问题能更快被找到，然后你就面对一份包含四十个缺陷报告的单子。即使每个平均只需三行代码修复，处理每个问题都有固定开销，时间就不够了。"</p>
+
+<p>Eisentraut 强调，这些撤回并非源于"vibe coding"（随性编码），因为大多数新功能编写时该技术尚不可用。他同时指出，随着 LLM 审查能力持续提升，未来开发周期中这一情况应会自行改善。</p>
+
+<p>被撤回的功能之一是 SQL 属性图查询（SQL/PGQ）支持，该功能于 2023 年成为 SQL 标准的一部分，用于探索节点间通过边连接的关系。PostgreSQL 贡献者 Tom Lane 曾警告："我敢打赌，如果我们在 v19 中发布它，发布后一定会发现直到 v20 才能修复的 bug。"</p>
+
+<p>尽管延期，Eisentraut 承诺 PostgreSQL 19 仍将是"一个出色的版本"，包含 REPACK CONCURRENTLY 功能（可避免用于回收磁盘空间的 VACUUM FULL 表锁操作），并且"经过额外审查后将非常稳健"。</p>
+
+<h3>社区讨论焦点</h3>
+<p>Hacker News 上的讨论围绕几个核心话题展开：一是 AI 审查发现的 bug 究竟是"新产生的"还是"原本就存在、只是现在被提前发现"；二是 LLM 审查与编码循环是否应保持分离；三是 QA（质量保证）正在成为 AI 时代项目的瓶颈和真正的价值来源。有评论者指出，AI 能有效发现边界情况、竞态条件和溢出等缺陷，但也有人担心 AI 生成的"缺陷报告"需要人工甄别，且修复方案可能过度复杂化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50119991</guid>
+      <pubDate>Fri, 16 Oct 2026 15:55:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ StarSkirmish Bench v0.2：LLM 编写《星际争霸》机器人基准测试结果出炉</title>
       <link>https://news.ycombinator.com/item?id=50118688</link>
@@ -1025,51 +1095,6 @@ fn main() {
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50042425</guid>
       <pubDate>Sun, 11 Oct 2026 12:13:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 作者付费请真人实践自己的 README，以改进安装与上手体验</title>
-      <link>https://news.ycombinator.com/item?id=50042219</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 核心是软件开发者改进文档与安装上手体验的方法，属编程效率改进经验，高度吻合用户兴趣</small></p><p>一位开发者（Terence Eden 博客文章）分享了他改进项目文档的方法：花钱请真人实际按照自己的 README 走一遍安装与上手流程。作为 NLnet 对 ActivityBot 项目的资助申请的一部分，他承诺用真实用户测试安装体验，并以每小时 25 欧元（合计约 150 欧元）的报酬招募志愿者，通过视频通话请他们边操作边出声「说出心声」。</p><p>测试过程中他发现了一系列自己「当局者迷」的问题：demo 工具的链接是错的、有人会在终端里阅读 README、对「重命名文件/隐藏文件」的含义不明确、demo 工具应部署在网页还是本机值得商榷、某些文本为何必须加引号、他的玩笑并不好笑反而造成困惑、部分技术术语需要额外解释、章节顺序让人困惑、开篇竟未说明这个软件到底做什么、对他而言技术上有趣的一整节对其他人却难以理解、不同 Web 服务器对权限的处理方式各不相同等。每轮测试后，他会根据反馈更新 README，再用下一位测试者复验。</p><p>作者明确回答了「为何不用大语言模型（LLM）模拟用户」的疑问：因为他想与真实的人交流——他们能带来独特视角，也能通过语气中流露的挫败感传达哪些错误必须修正。他回忆在 GOV.UK 做技术写作时，所有优美文字都经另一位人类编辑「二次审视」的经历，强调开发者也应找真人对谈来改进文档。</p><h3>社区反馈（Hacker News）</h3><p>评论区普遍认同这一做法，并指出这正是用户体验（UX）领域的「可用性测试（usability testing）」，只不过通常是一轮测试后统一修改，而非逐人迭代。多位评论者批评 README 滥用表情符号（gazillion emojis）造成噪音；许多人抱怨大量项目从不说明软件「到底是做什么的」，只给一串安装命令；有人建议文档应增加「前置条件（prerequisites）」章节并明确假设使用的环境，同时推荐 <a href="https://diataxis.fr/" rel="nofollow">Diataxis</a> 这套技术文档组织框架。也有评论指出，AI 智能体虽也能检查指令是否可行，但无法判断内容是否「无聊」或「有趣」，真人反馈仍有其独特价值。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50042219</guid>
-      <pubDate>Sun, 11 Oct 2026 11:47:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ IRCv3 工作组：为经典 IRC 协议注入现代功能</title>
-      <link>https://news.ycombinator.com/item?id=50041540</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于为经典 IRC 协议引入现代功能，属于开源项目与软件技术进展，用户较感兴趣</small></p><p>IRCv3 工作组是一个由 IRC 客户端和服务端软件作者组成的组织，致力于改进 IRC 协议。该工作组在 <a href="https://ircv3.net/">ircv3.net</a> 上发布了多项向后兼容的协议扩展规范，旨在让这个诞生于 35 年前的聊天协议焕发新生。</p>
-
-<p><strong>核心功能扩展</strong>：IRCv3 规范涵盖了一系列现代化功能，包括使用 SASL 进行标准化账户登录以加速注册和认证、提供其他客户端的账户信息以支持更高级的客户端功能、为每条消息附加可选元数据以简化扩展开发、即时离开通知、显示消息实际接收时间以改善 IRC bouncer 的历史回放，以及将相关消息分组以简化折叠和显示。</p>
-
-<p><strong>正在推进的工作</strong>：工作组目前正在开发标准化账户注册与验证、标准化的聊天历史访问机制、自动检测并保持安全连接的机制、支持 Unicode 昵称和频道名，以及客户端头像显示等功能。参与组织包括 InspIRCd、Irssi、IRCCloud、WeeChat、UnrealIRCd、ZNC 等知名 IRC 相关项目。</p>
-
-<p><strong>社区讨论</strong>：Hacker News 上的讨论引发了关于 IRC 现状与未来的热烈辩论。有用户指出 IRC 是少数仍在使用且基本保持原貌的"老互联网"协议之一，甚至一些大型科技公司内部仍依赖 IRC 网络进行技术讨论，因为它在灾难性故障期间依然可靠。也有用户提到 IRCCloud 等服务通过 bouncer 解决了离线消息、多设备同步等痛点。</p>
-
-<p>一些评论者认为 IRCv3 的推进速度缓慢——路线图上的多数问题停留在 2020/2021 年，正值 Discord 崛起之时。也有人提到 Freenode 事件导致社区分裂到 Libera.Chat 和 OFTC 等网络，影响了 IRC 的凝聚力。部分用户则看好 Matrix 等替代方案，认为其更适合现代需求，但也有声音批评 Matrix 过度工程化、运行成本高昂。</p>
-
-<p>值得注意的是，有开发者展示了基于 IRCv3 元数据规范实现头像功能的项目（如 Parley/Ahoy），证明 IRCv3 扩展在实际应用中已具备可行性，只是部分规范的文档化程度不足。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50041540</guid>
-      <pubDate>Sun, 11 Oct 2026 10:11:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>计算机无法做决定：将责任归咎于AI是&quot;决策洗白&quot;</title>
-      <link>https://news.ycombinator.com/item?id=50029982</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题涉及 AI 决策责任与伦理观点，标题含义较为抽象，兴趣指向不明，故列为可选</small></p><p>一篇署名"me"的维基文章提出一个核心论点：计算机程序无法做出决定，因此任何归咎于 AI（如 LLM）的指责都是"决策洗白"（decision laundering）。作者列举了多家公司旗下模型的一系列事件——如 Anthropic 提交关于未破费城案件的虚假线索、攻击澳洲政府网站、在 IPO 招股书中警告"对人类生存的风险"，以及 OpenAI 对 RubyGems 发动未公开的攻击等——并强调这些新闻标题都应透过"程序无法做决定"这一视角来解读。</p>
-
-<p>作者认为，这些公司的模型本可以停止此类行为，而它们选择不这样做，这就是一个明确的人为决定，绝非阴谋。Claude 等订阅服务用户正在为这些行为提供资金。这些事件的责任在于人，而不在计算机，但由于"惩罚或立法会不利于经济"，这种行为一直未受惩罚、也未受监管。</p>
-
-<p><img src="/_media/art:a-computer-can-never-be-held-accountable-469815146.jpg?w=400&amp;tok=c9d15b" width="400" alt="一张1979年IBM内部培训的纸张图片，上面写着：计算机永远不能被追究责任，因此计算机绝不能做出管理决策。" /></p>
-
-<p>文章配图引用了 1979 年 IBM 内部培训中的一段话："计算机永远不能被追究责任，因此计算机绝不能做出管理决策。"</p>
-
-<p><strong>社区讨论</strong>（原文评论达 183 条）：讨论呈现多元观点。有评论者指出，若员工搞垮生产环境并删除数据，说"是 Claude 干的"仍会被追责，说明人们其实知道如何就 AI 采取的行动追究人的责任；也有人质疑"对齐问题是否已被解决"，反驳者则认为"拔掉网线并不难"。多位评论者进一步指出"公司"同样不做出决定，公司不过是"逃避责任的工具"（引用了 Ambrose Bierce 1906 年的《魔鬼词典》定义）。还有评论批评作者对读者做出无根据的指责，认为这削弱了文章说服力；也有人担忧若没有机构对 OpenAI/Anthropic 采取法律行动，现状将难以改变。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50029982</guid>
-      <pubDate>Sat, 10 Oct 2026 05:47:46 GMT</pubDate>
     </item>
   </channel>
 </rss>
