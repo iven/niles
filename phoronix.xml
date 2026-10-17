@@ -3,7 +3,86 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 17 Oct 2026 06:52:32 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 11:34:02 GMT</lastBuildDate>
+    <item>
+      <title>Linux 修复自 2024 年以来影响 SMP 系统的罕见启动挂起问题</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-KThreads-NBCON</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 属于Linux内核SMP启动挂起的修复，偏底层基础设施类，用户兴趣不高但非反感主题，故可选</small></p><p>在 Linux 7.3 稳定版内核预计于明日发布之前，一批最后一刻的补丁活动中包含了一项针对启动时罕见挂起问题的修复。该问题影响自 2024 年以来的多个内核版本。</p>
+
+<p>多个针对常见 SMP（对称多处理）系统启动挂起的 bug 报告最终被追溯到非阻塞控制台（NBCON）代码。为避免这些启动挂起，将 NBCON 控制台打印 KThreads 的启动推迟到引导过程后期，可避免这些潜在的系统挂起。</p>
+
+<p>Linutronix 工程师 John Ogness 在已合并的修复中解释了推迟 KThread 启动的原因：<em>"有多个与 SMP 系统启动挂起相关的 bug 报告。报告各不相同，但在 SMP 设置期间错过 IPI（处理器间中断）方面似乎存在重叠。报告还表明，回退 NBCON 控制台使用可使 bug 消失。NBCON 用于控制台打印的 kthreads 在引导早期通过 early_initcall() 启动。由于这些 kthreads 在早期引导期间异步启用/禁用中断，它们可能在某些硬件平台上干扰早期的 SMP 设置。将控制台打印 kthreads 的启动推迟到更晚时间，已被证明可以避免此前可复现该问题的系统出现挂起。将 kthread 启动推迟到所有架构 initcalls 完成之后。"</em></p>
+
+<p>该修复针对的是自 2024 年 9 月起引入的内核代码，当时打印 KThreads 首次被引入 printk() 代码中。预计该修复将在未来几天内从 Linux 7.3 反向移植到其他当前受支持的内核分支。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-KThreads-NBCON</guid>
+      <pubDate>Sat, 17 Oct 2026 10:54:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GNOME 的本地/云端 AI 聊天应用 Moose 0.6 发布，新增多项功能</title>
+      <link>https://www.phoronix.com/news/GNOME-Moose-0.6-AI</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GNOME本地/云端AI聊天应用新增功能，属AI软件技术进展与软件新功能，用户会感兴趣</small></p><p>GNOME 生态的 AI 聊天应用 <strong>Moose</strong> 迎来了最新功能版本 0.6 与后续修复版本 0.6.1。这款应用基于 GTK4 和 libadwaita 构建，最初为 GNOME 桌面设计的本地 AI 聊天工具，现已扩展支持云端 AI 服务。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=moose_06_1" alt="Moose 0.6" />
+
+<p>Moose 0.6 的主要新特性包括：为使用云端 AI 平台的用户提供安全的云端连接与受保护的凭据存储；新增<strong>仅本地模式（Local-Only）</strong>，可通过 Moose 自行管理 Ollama 在本地设备上运行；权限处理现在可按对话单独设置，或跨同一提供商的对话记忆保留。</p>
+
+<p>此外，更新后的应用新增了 GNOME 文件浏览器，便于用户浏览系统文件并将其附加到 AI 对话中。本地模型目录也得到扩充，涵盖聊天、视觉、推理及编码等不同用途。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=moose_06_2" alt="Moose 0.6 设置界面" />
+
+<p>随后的 Moose 0.6.1 还加入了连接到 Mistral AI 和 DeepSeek 的支持。用户可通过 GitHub 下载 Moose，也可以在 Flathub 上获取其 Flatpak 版本。更多关于新版本及其他 GNOME 应用更新的详情，可参考 <a href="https://www.phoronix.com/news/GNOME-Moose-0.6-AI">This Week in GNOME</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Moose-0.6-AI</guid>
+      <pubDate>Sat, 17 Oct 2026 10:39:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.3 内核发布前紧急修复三星 990 PRO 与 990 EVO Plus 固态硬盘问题</title>
+      <link>https://www.phoronix.com/news/Linux-7.3-Samsung-990-Immediate</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及三星特定型号SSD的内核兼容修复，属硬件相关且较细分，兴趣不明确，故可选</small></p><p>在 Linux 7.3 稳定版内核（预计明日发布）之前，开发者通过 PCI 修复分支紧急合并了对三星 990 PRO 和 990 EVO Plus NVMe 固态硬盘的规避方案。</p>
+
+<p>该修复让 Linux 内核忽略三星 990 PRO 和 990 EVO Plus 固态硬盘对「即时就绪」（Immediate Readiness）功能的宣传。PCIe 4.0 引入了这项比特位指示，用于表明设备在复位后可立即处理配置请求，从而缩短操作系统在重启后与固态硬盘交互的时间。</p>
+
+<p>尽管「即时就绪」是一个不错的特性，但事实证明，三星 990 PRO 和 990 EVO Plus 的部分固件版本在并未真正支持该功能的情况下进行了宣传，这不仅给 Linux 带来了麻烦，还破坏了这些硬盘的 VFIO 直通（passthrough）能力。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=samsung_990_pro_med" alt="Samsung 990 PRO" />
+
+<p>本次合并进 Linux 7.3 Git 的修复说明指出：「三星 990 PRO [144d:a80c] 宣传支持即时就绪，因此 pcie_flr() 在 FLR 后不再等待，但该硬盘会返回 ~0 长达 7 毫秒。自提交 10baa9b4df40（"PCI: Drop unnecessary retries when restoring BARs"）之后，FLR 后的配置恢复丢失，从而破坏了硬盘的 VFIO 直通。固件 8B2QJXD7 在 FLR 后能立即响应，但较旧的固件（如 1B2QJXD7）不能，而此处无法看到固件版本。[/bhelgaas 注：配备 2B2QKXG7 固件的三星 990 EVO Plus [144d:a80d] 似乎也存在相同问题。]」</p>
+
+<p>凭借连夜完成的这次 PCI 合并，该问题在 Linux 7.3 稳定版发布前得以解决。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Samsung-990-Immediate</guid>
+      <pubDate>Sat, 17 Oct 2026 10:15:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ KDE Plasma 6.9 将推出全新天气小组件与屏幕键盘</title>
+      <link>https://www.phoronix.com/news/KDE-Plasma-6.9-Weather-Keyboard</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] KDE Plasma 6.9新增天气组件与屏幕键盘，KDE属高兴趣配置，推荐阅读</small></p><p>KDE Plasma 6.8 已于本周早些时候发布，KDE 开发者随即开始着手为 Plasma 6.9 增加更多功能。本周的新亮点之一是经过全面改造的天气小组件。新版 Plasma 天气小组件采用了改进的布局，并通过 Open-Meteo 提供更丰富的天气预报信息，整体设计相较旧版天气小组件有了明显提升。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=plasma_69_weather" alt="Plasma 6.9's new weather widget" />
+<p>Plasma 6.9 的另一项重大内容是重新设计的屏幕键盘。新的 Plasma 屏幕键盘支持全尺寸键盘、日文片假名（flick）键盘，并提供不受系统区域设置限制的多种独立布局。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=plasma_69_keyboard" alt="Plasma 6.9's new on-screen keyboard" />
+<p>此外，Plasma 6.9 还包含大量错误修复和其他改进，同时团队也在为 Plasma 6.8.1 缺陷修复版本做准备。更多详情可参阅本周的「This Week in Plasma」栏目。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.9-Weather-Keyboard</guid>
+      <pubDate>Sat, 17 Oct 2026 10:01:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Ubuntu Touch 24.04-2.1 发布：新增多款硬件支持并修复重要安全漏洞</title>
+      <link>https://www.phoronix.com/news/Ubuntu-Touch-24.04-2.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Ubuntu Touch发行版更新带来新硬件支持与安全修复，属新发行版范畴，用户会感兴趣</small></p><p>Ubuntu Touch 24.04-2.1 于周五发布，这是社区维护的平板/智能手机 Ubuntu Linux 平台的最新更新。与此同时，针对上一系列版本还发布了维护更新 Ubuntu Touch 24.04-1.5。</p>
+<p><img src="//www.phoronix.net/image.php?id=2024&image=ubuntu_touch_4" alt="Ubuntu Touch demo" /></p>
+<p>这两个 Ubuntu Touch 版本都包含了一个安全修复，解决了允许不受限制（unconfined）的应用无需密码即可获得管理员权限的漏洞。该问题源于任何不受限制的应用都可以通过 D-Bus 与系统级的 lomiri-download-manager 和 lomiri-upload-manager 通信，从而以 root 权限执行任意命令或读取设备上的任何文件。</p>
+<p>Ubuntu Touch 24.04-2.1 在扩展支持的设备列表方面尤为令人兴奋。新增支持的硬件包括：Nothing Phone (1)、OnePlus Nord N10、OnePlus Nord N100、Volla Tablet、小米 Redmi Note 9 Pro（全球版）、小米 Redmi Note 9S/9 Pro（印度版）、小米 Redmi Note 9 Pro Max 以及小米 Poco M2 Pro。</p>
+<p>此外，Ubuntu Touch 还将其 Morph 浏览器引擎更新至更新的 QtWebEngine 构建版本，并带来了其他多项修复和小改进。更多关于 Ubuntu Touch 24.04 基础版本更新的细节，请参阅 <a href="https://ubports.com">UBports.com</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Touch-24.04-2.1</guid>
+      <pubDate>Sat, 17 Oct 2026 09:49:26 GMT</pubDate>
+    </item>
     <item>
       <title>Wine 11.20 发布：CD-ROM 支持迁移至 Mount Manager</title>
       <link>https://www.phoronix.com/news/Wine-11.20-Released</link>
@@ -664,88 +743,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/EXT4-Deprecates-Journal-Mode</guid>
       <pubDate>Thu, 08 Oct 2026 17:04:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ COSMIC Epoch 1.10 发布：启动器改用GPU加速渲染</title>
-      <link>https://www.phoronix.com/news/COSMIC-Epoch-1.10</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] COSMIC桌面环境新版本发布，属于新软件项目与Linux桌面技术，符合高兴趣</small></p><p>System76 今日发布了 COSMIC Epoch 1.10，这是与 Pop!_OS Linux 发行版协同开发的 Rust 桌面环境的最新增量更新。</p><p>本次更新最显著的变化是：COSMIC 启动器默认启用基于 WGPU 的 GPU 渲染路径。此前，部分系统在软件渲染模式下运行极为缓慢，导致体验迟钝。该问题源于近期一份题为「Cosmic Launcher still the slowest launcher in existence」的 Bug 报告，用户反映在 Intel、AMD、Nvidia 三种平台上，搜索输入和列表滚动均出现约 1fps 的卡顿，且输入越多文字响应越慢。如今这一缓慢问题有望通过 GPU 渲染得到解决。</p><p>COSMIC Epoch 1.10 还支持将绘图板映射到指定的显示器，修复了 COSMIC 合成器（Compositor）的多项问题，并让 COSMIC 初始设置仅在存在无线网卡时才显示 WiFi 页面，此外还有一系列其他修复。相关下载和更多详情可参见 GitHub。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/COSMIC-Epoch-1.10</guid>
-      <pubDate>Thu, 08 Oct 2026 16:43:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 官网及下载服务遭受持续 DDoS 攻击，Canonical 正在积极应对</title>
-      <link>https://www.phoronix.com/news/Ubuntu-DDoS-October-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Ubuntu发行版遭遇DDoS攻击的科技新闻，属于国内外必读新闻范畴</small></p><p>Ubuntu 官方网站、ISO 镜像下载及其他相关资源目前无法正常访问，经确认，这是一起正在进行的分布式拒绝服务（DDoS）攻击所致。这并非 Ubuntu 首次遭遇此类问题，Canonical 的 IT 团队目前正努力缓解攻击的影响。</p><p><img src="//www.phoronix.net/image.php?id=2026&image=ubuntu_down" alt="Ubuntu down" /></p><p>目前，<a href="https://status.canonical.com/">Canonical 状态页面</a>正在跟踪此次事件，攻击的确认信息也已发布到 <a href="https://discourse.ubuntu.com/">Ubuntu Discourse</a> 论坛上。社区用户正持续关注事态进展，截至目前共有 24 条评论参与讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-DDoS-October-2026</guid>
-      <pubDate>Thu, 08 Oct 2026 15:41:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Nova 驱动持续进展，长期目标为替代 NVIDIA 官方 Linux 内核模块</title>
-      <link>https://www.phoronix.com/news/Nova-Driver-LPC-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust编写的开源NVIDIA Linux驱动开发进展，涉及Rust与开源项目，符合兴趣</small></p><p>在本周于布拉格举行的 LPC2026 大会上，NVIDIA 工程师 John Hubbard 与 Red Hat 的 Danilo Krummrich 共同介绍了开源上游 Nova 驱动栈的最新进展。Nova 是一款基于 Rust 语言编写的开源 NVIDIA Linux 内核驱动，长期目标是成为 NVIDIA 官方 Linux 驱动栈的核心组件。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=nova_lpc_1" alt="Nova introduction" />
-
-<p>据会上介绍，Nova 驱动的长远定位是"替代 Open RM"（Open RM 即 NVIDIA 过去几年使用的开源但位于内核树之外的"资源管理器"内核模块）。NVIDIA 的最终计划是让 Linux 驱动栈采用上游的 Nova 内核驱动代码，取代其树外开源内核模块。不过，Nova 并非现有树外驱动接口的直接替代品（drop-in replacement），NVIDIA 用户态驱动组件需要进行相应适配。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=nova_lpc_3" alt="Nova 2026 status" />
-
-<p>目前 Nova 的进展是：已能在 Turing 至 Blackwell 架构的硬件上通过固件启动 GPU 系统处理器（GSP），基础功能逐步上线，但尚未达到可供终端用户使用的状态。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=nova_lpc_4" alt="Nova features coming" />
-
-<p>接下来的工作重点包括：支持 Linux 和 Windows 虚拟机中的 guest 运行、其他虚拟化功能、让 Vulkan Compute 和 CUDA 应用在 Nova 上运行，以及更多图形与显示功能。Nova 完全使用 Rust 语言编写，其开发过程也在推动 Linux DRM 子系统的 Rust 基础设施建设。</p>
-
-<p>NVIDIA 正逐步增加对 Nova 的公开表态。作者今年早些时候访问 NVIDIA 总部时，对方在谈及 Nova 时给出了更多方向性评论，但尚未提供可供公开发表的官方声明或明确的时间表。更多 LPC 2026 演讲资料可在 <a href="https://lpc.events">lpc.events</a> 查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Nova-Driver-LPC-2026</guid>
-      <pubDate>Thu, 08 Oct 2026 13:29:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 开发者再次推进移除 x32 ABI，新补丁将其标记为 BROKEN</title>
-      <link>https://www.phoronix.com/news/Patches-Removing-Linux-x32-ABI</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linux内核相关技术改动，涉及x32 ABI移除，属于内核开发主题，与用户兴趣不直接匹配，标题含义较为技术化。</small></p><p>Linux 内核开发者再次推进移除 x32 ABI（Application Binary Interface，应用二进制接口）。与 i386 ABI 不同，Linux x32 ABI 是一种在 Intel/AMD CPU 上使用 32 位整数、长整型和指针，但利用 x86_64 更丰富的寄存器和其它优势的模型。然而这一架构采用率极低，业界兴趣寥寥。</p>
-
-<p>随着 x86_64 架构运行良好，内核开发者一直在逐步淘汰 x32 ABI。来自 Linutronix 的工程师 Sebastian Andrzej Siewior 今年一直在主导推动 x32 ABI 的退役工作。随着 2026 年底临近，Linux 7.3 或 7.4 将成为今年的 LTS（长期支持）内核版本，x32 退役的话题再次在内核邮件列表上引发讨论。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=start_removing_x32_med" alt="start removing x32" />
-
-<p>Sebastian 今日发布了一组新补丁，开始移除 x32 ABI。他在补丁中提议先将 x32 标记为 <code>BROKEN</code> Kconfig 选项，使其无法默认启用。他在补丁说明中指出：</p>
-
-<ul>
-<li>x32 ABI 于 v3.4 引入，旨在利用 x86_64 上比 i386 更多的寄存器，同时保留更小的 32 位指针，但并未获得广泛采用。</li>
-<li>Debian 已引入补丁默认禁用 x32（需在启动时通过命令行启用），担心其增加攻击面；Fedora 也已禁用 x32。</li>
-<li>x32 使用的 >512 系统调用号无法复用，因为早期内核（v5.4 之前）无法区分该调用是 x86-64 未实现还是针对 x32。</li>
-<li>可以移除因对齐差异导致的特殊 compat 处理代码。</li>
-</ul>
-
-<p>Sebastian 表示，由于 x32 实际上几乎没有真实用途，先将其标记为 <code>BROKEN</code> 以禁止默认启用，它将在今年的最后一个 LTS 内核中保留，随后将被彻底移除。社区将关注这些补丁是否开始落地，以及 x32 在 Linux 2026 LTS 内核版本宣布后的最终去留。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Patches-Removing-Linux-x32-ABI</guid>
-      <pubDate>Thu, 08 Oct 2026 12:09:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 谷歌 Sashiko AI 完成 19.1 万次补丁审查，近 500 个内核 CVE 引用其成果</title>
-      <link>https://www.phoronix.com/news/Sashiko-Linux-AI-Metrics</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Google AI在Linux内核审查方面的应用，属于AI软件技术进展，符合用户对AI技术进展的兴趣。</small></p><p>谷歌工程师为 Linux 内核代码变更构建的智能体式 AI 审查工具 Sashiko，在运行不到一年内取得了显著成果。谷歌工程师 Roman Gushchin 在本周的 Linux Plumbers Conference 上提供了 Sashiko 的最新状态更新。</p>
-
-<p>这款基于谷歌 Gemini 及其他大语言模型（LLM）的开源工具，已在 99 个不同的邮件列表中完成了超过 <strong>19.1 万次补丁审查</strong>，并在审查过程中执行了超过 <strong>1900 万次自主 Git 查询</strong>。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=sashiko_191" alt="Sashiko 191k" />
-
-<p>Sashiko 还收到了来自 <strong>1100 多名内核开发者</strong>的超过 7600 条回复。今年，上游 Linux 内核中已有超过 <strong>1277 个提交</strong>引用了 Sashiko，linux-next 中另有 1567 个提交引用。此外，今年迄今已有 <strong>463 个</strong>与 Linux 内核相关的 CVE（通用漏洞披露）引用了 Sashiko。</p>
-
-<p>展望未来，谷歌工程师正在为 Sashiko 开发本地/终端审查模式、持久化 Bug 数据库，甚至尝试让 Sashiko 自我审查（dog-feeding），作为自审流程。更多详情可通过 LPC 2026 演讲材料获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Sashiko-Linux-AI-Metrics</guid>
-      <pubDate>Thu, 08 Oct 2026 11:18:03 GMT</pubDate>
     </item>
   </channel>
 </rss>
