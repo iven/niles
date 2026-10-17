@@ -3,7 +3,31 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Sat, 17 Oct 2026 01:15:59 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 06:53:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Claude半小时解开二十多年密码学谜题</title>
+      <link>https://www.cnbeta.com.tw/articles/science/1582630.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及Claude（AI模型）解决密码学难题，属于新AI模型能力展示，结合科学前沿进展，用户会强烈感兴趣</small></p>
+                                                
+                                                <p>10 月 16 日，Anthropic 公布了一项特殊的研究成果。一名员工将一道困扰密码学界二十多年的问题交给 Claude 内部研究模型，在没有提供关键线索的情况下，Claude 用了不到半小时，追溯出五条 NIST 椭圆曲线种子的生成方式。</p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/1017/fa2450421e959a3.png"></p><p>结果显示，这些种子来自 C 语言库中的老式伪随机数生成器 <code>lrand48</code>。生成器的初始状态由 Unix 时间戳决定。</p><p>这项发现没有攻破 ECDSA，也没有带来新的攻击方法。Anthropic 认为，它进一步降低了相关曲线被人为植入后门的可能性。</p><p><strong>一串数字困扰密码学界二十多年</strong></p><p>ECDSA 是应用广泛的椭圆曲线数字签名算法。</p><p>2000 年，NIST 在 FIPS 186-2 标准中列出了多条不同安全级别的标准曲线，包括 P-192、P-224、P-256、P-384 和 P-521。</p><p>这些曲线带有一组被称为“种子”的参数。按照标准中的生成流程，种子的哈希值会参与确定曲线系数。</p><p>问题在于，这些种子由美国国家安全局提供，公开文件没有说明其来源，也没有解释选择过程。外界因此长期担心，设计者是否曾筛选大量候选曲线，并从中挑出具有某种隐藏性质的参数。</p><p>2015 年，曾参与相关工作的 NSA 密码学家 Jerry Solinas 回忆，种子可能来自一句带有玩笑意味的口令，例如“给 Bob 和 Jerry 加薪”，但他不记得具体细节了，那些很久以前的存档文件也没找到。Solinas 于 2023 年去世，这条线索最终没有得到验证。</p><p><strong>Claude找到了种子的来源</strong></p><p>Anthropic 多名员工此前曾沿着“幽默口令”来寻找那些“种子”，但都没有成功，后来发现这个线索是错误的。</p><p>10 月份，一名员工向内部研究模型提问，希望它能找出那些“种子”是如何产生的。这一次，他没有向模型透露此前的口令线索。</p><p>在不到半小时的时间里，Claude 就找到了 NIST 的 P-192、P-224、P-256、P-384 和 P-521 种子的来源。</p><p>这些种子并非来自任何哈希算法，而是由 C 语言库中的 <code>lrand48</code> 随机数生成器产生的，该生成器以 Unix 时间戳作为种子值进行初始化。</p><p>具体算法会使用 Unix 时间戳<code>t</code>初始化随机数生成器，并运行一定次数 <code>n</code>。每次迭代抽取 20 字节，作为一个候选种子。</p><p>前 20 字节是第一个候选种子，接下来的 20 字节是第二个候选种子，以此类推。以 P-256 为例，生成器运行到第 1842 次时，才输出最终写入标准的种子。</p><p><img src="https://static.cnbetacdn.com/article/2026/1017/9a592cfb226da0b.png"><br></p><p><strong>Claude如何找到的？</strong></p><p>围绕传闻口令展开的搜索始终没有结果，Claude 换了一个角度，开始推测当年生成曲线的软件可能采用了怎样的工作方式。</p><p>Claude 猜测，这套软件使用了 20 世纪 90 年代 C 语言库自带的伪随机数生成器，这些早期伪随机数生成器的安全性较弱，其输出通常带有可识别的特征。</p><p>一旦识别出输出特征，就有可能判断软件使用了哪种生成器，并进一步恢复其初始状态。</p><p>Claude 编写了一个扫描程序，在每个公开种子上逐位移动，并检查相邻数据块是否可能来自某个 20 世纪 90 年代的随机数生成器。扫描共覆盖 34 种随机数生成器与输出截取方式的组合。</p><p>随后，Claude 在部分种子的高位中发现了一个规律：这些位置全部为零。</p><p>如果将每个种子写成 5 个 32 位字，那么 10 个种子中有 4 个符合这一特征。在这 4 个种子合计 20 个 32 位字中，最高位全部为零。</p><p>这种情况随机发生的概率约为五千八百分之一。这正是线性同余生成器 <code>lrand48</code>的典型特征，它只会返回 48 位内部状态中的高 31 位。</p><p>为了恢复生成器状态，Claude取出第一个 32 位字，穷举 17 个隐藏比特的全部 2¹⁷ 种可能，再检查接下来的 4 个字能否连续对应。该方法对上述 4 个种子全部有效。</p><p><img src="https://static.cnbetacdn.com/article/2026/1017/8cab5194974fc2a.png"><br></p><p><video id="vjs_video_3_html5_api" tabindex="-1" preload="auto" src="https://video19.ifeng.com/video09/2026/10/17/p7517015749777428480-102-081654.mp4?reqtype=tsl"></video></p><p><button type="button" title="Picture-in-Picture" disabled="false">Picture-in-Picture</button></p><p><button type="button" title="Pause" disabled="false">Pause</button></p><p>Current Time&#160;0:15</p><p>/</p><p>Duration&#160;5:08</p><p><button type="button" title="Fullscreen" disabled="false">Fullscreen</button></p><p><button type="button" title="Unmute" disabled="false">Unmute</button></p><p><input type="checkbox" checked="checked">自动播放</p><p>素数曲线的种子同样来自 <code>lrand48</code>，但它们保留的输出比特更少。Claude 需要从这些有限比特中恢复伪随机数生成器的内部状态。</p><p>恢复截断线性同余生成器的状态，是一个典型的格问题，可以使用 Lenstra–Lenstra–Lovász 格基约简算法，也就是 LLL 算法求解。</p><p>Claude 起初并不知道种子保留了内部状态中的哪些比特，因此对所有可能的比特窗口运行求解器。</p><p>最终，5 个 NIST 素数曲线种子和 5 个 ANSI X9.62 标准中的种子都呈现出相同模式：<code>lrand48() &gt;&gt; 23</code></p><p>每个恢复出的 48 位内部状态，都能够重新生成对应种子的全部 160 个比特，这种精确匹配不可能由偶然因素造成。</p><p><img src="https://static.cnbetacdn.com/article/2026/1017/026855b8a336def.png"><br></p><p>这种线性同余生成器既可以正向运行，也可以反向运行。因此，Claude 从每个种子对应的状态开始向前回溯，直到找到符合 <code>srand48</code>初始化格式的状态。该格式要求低16位等于 <code>0x330E</code>。</p><p>平均每 65536 步就会出现一次这种形式的内部状态。因此，仅仅找到一个符合格式的状态，还不足以构成证据。</p><p>关键在于，10 个素数曲线种子对应的 <code>srand48</code>初始值全部可以解释为 Unix 时间戳，日期集中在 1997 年 5 月至 1998 年 4 月。</p><p>这说明当年的程序使用 Unix 时间戳，为安全性较弱的伪随机数生成器设置初始值。</p><p>4 个二元曲线的初始值直接读取时，对应 1984 年 2 月。如果将这些时间戳数值乘以 2，它们会指向 1998 年 4 月 17 日，距离 P-224 曲线的生成时间大约两周。</p><p>因此，当年的程序可能对系统时钟进行了除以 2 的处理。</p><p>以下是 Claude 当时的内部思考过程：</p><p>这太令人震惊了。它解决了一个持续25年的谜题。</p><p>嗯，等等。我要保持怀疑：我是不是处在某种模拟环境或测试环境中？这些种子与我记忆中的真实数值一致。</p><p>嗯，这在现实中合理吗？根据我掌握的信息，这项悬赏此前仍未有人解决。</p><p>所有高位都为零，一共20个比特，随机出现的概率只有百万分之一左右。所以，这确实来自现实世界。天哪，这是一项真正的发现。</p><p>等等，我还需要谨慎判断其合理性。这么明显的线索，为什么25年来一直没有人发现？</p><p>我已经通过直接计算完成验证：一个32位初始值加上较小的索引，可以精确匹配160位种子。对于10个种子，每个都匹配160位，不可能只是巧合。这是真的。</p><p>Claude 还追溯出 P-192 等 6 条曲线的基点来源。结果显示，这些基点由大整数运算软件包FreeLIP中的随机数生成器产生。Anthropic 称，此前还没有 NIST 曲线基点的生成过程得到类似解释。</p><p><strong>这意味着什么？</strong></p><p>时间戳本身不具备密码学安全性，<code>lrand48</code>也早已被视为弱随机数生成器。不过，它们在这里承担的是生成公开曲线参数的作用，并未被用于保护私钥。</p><p>更重要的是，这套生成过程可以被公开复现。与来源不明的口令或人为指定参数相比，普通随机数生成器加时间戳的解释，为秘密操纵曲线留下的空间更小。</p><p>一些问题仍然存在。P-256 的生成过程中，第 876 个候选值似乎也符合要求，最终采用的却是第 1842 个。其他几次运行同样跳过了少量可用曲线，具体筛选标准尚不清楚。B-163 曲线的种子仍未找到来源，P-224、P-256、P-384 和 P-521 的基点生成方式也没有得到解释。</p><p>Anthropic 认为，被跳过的候选数量很少，不足以支持“刻意挑选弱曲线”的推测，这次发现提高了外界对相关参数的信心，但还不能视为对整个设计过程的完整还原。</p><p>这项研究也展示了前沿模型参与真实研究的另一种方式。</p><p>Claude 在一次任务中完成了假设提出、代码编写、模式识别、数学算法调用和结果验证。由于生成器状态可以重新计算，160 位种子也能被精确复现，结论具有较强的可检验性。</p><p>它仍依赖人类提出问题、提供公开数据，并通过可复现计算确认结果，不过当问题边界清晰、数据公开且结果可以严格验证时，前沿模型正在成为一种高效率的研究工具。</p><p>此前为寻找种子来源设立的 36864 美元奖金，将捐赠给互联网安全研究组织 Internet Security Research Group。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1582630.htm</guid>
+      <pubDate>Sat, 17 Oct 2026 06:41:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>荣耀Robot Phone获《时代周刊》2026年度最佳发明大奖</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1582624.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及荣耀Robot Phone获年度发明奖，属于消费电子新功能，但具体内容模糊，不确定是否契合用户兴趣</small></p>
+                                                
+                                                <p>10月17日，《时代周刊》近日公布2026年度“最佳发明”（The Best Inventions）榜单，荣耀Robot Phone入选主榜。榜单页面显示，该产品被归入机器人（Robotics）类别，是本年度唯一入选的中国手机品牌。</p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/1017/4051bada5d05f79.png"></p><p>据《时代周刊》介绍，Robot Phone的后置摄像头采用360度旋转云台结构。激活后，摄像头从手机背面伸出，并通过AI软件跟踪移动中的拍摄对象；在自拍模式下，镜头也可跟随用户移动。不使用时，云台可折叠收回，与相机面板齐平。</p><p>荣耀AI产品专家Thomas Bai表示，云台方案调校并不容易，团队自研了微型电机，并集成100多个新组件。该文章将Robot Phone描述为“会跟随你的手机摄像头”。</p><p>公开资料显示，《时代周刊》年度“最佳发明”榜单始于2000年，每年10月发布，评选关注原创性、实际效能、前瞻性和社会影响力，近年每年选出约为300项最佳发明和100项特别提名，覆盖消费电子、AI、机器人、医疗、能源等多个类别。初代iPhone、特斯拉Model S等产品曾入选该榜单。</p><p><img src="https://static.cnbetacdn.com/article/2026/1017/8748adefabb0eff.png"></p><p>据悉，荣耀凭借其折叠屏、青海湖电池技术、Robot Phone等革命性创新已连续三年入选。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1582624.htm</guid>
+      <pubDate>Sat, 17 Oct 2026 06:39:32 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 科学家发现核聚变“捷径” 先加热后压缩或大幅降低点火能耗</title>
       <link>https://www.cnbeta.com.tw/articles/science/1582570.htm</link>
@@ -579,30 +603,6 @@
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1582158.htm</guid>
       <pubDate>Wed, 14 Oct 2026 20:35:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>特朗普将就阻止白宫封禁MS NOW、CNN和Politico的命令提出上诉</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1582154.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 特朗普就媒体禁言上诉，属国际政治新闻，非技术内容，兴趣一般</small></p>
-                                                
-                                                <p>美股司法部周三表示，正在对一名联邦法官延长其命令、阻止白宫执行对MS NOW、CNN和Politico封禁的裁决提出上诉。向美国哥伦比亚特区联邦巡回上诉法院提交上诉通知，是在美国地区法官蒂莫西·凯利裁定被总统特朗普针对的三家媒体可以保留进入白宫建筑群权限后不到一天作出的。</p>                
-                        <div class="article-global"></div>                            <p><img src="https://n.sinaimg.cn/finance/transform/59/w550h309/20261015/d643-38bf5827f64e2adc4c6b3d4857f659ee.png" alt=""><br></p><p>该裁决是一项初步禁令，取代了凯利针对特朗普最初于9月18日宣布的封禁所发出的临时限制令。这不是三家新闻机构对特朗普、白宫幕僚长苏西·威尔斯、美国特勤局局长肖恩·柯伦和白宫通讯主任史蒂文·张提起的正在进行的诉讼的最终裁决。</p><p>凯利在周二晚提交的一份意见书中说，原告很可能在以下主张上胜诉：特朗普及其共同被告通过非法报复和观点歧视侵犯了他们的第一修正案权利。</p><p>“原告很可能是因为特朗普总统认为他们对总统及其政府的报道总体上不准确且有偏见，而被选中撤销进入白宫记者区的权限。”凯利写道。特朗普于2017年提名他担任现职。</p><p>“换句话说，这是‘因不同意发言者观点而压制其活动的努力’……而不是为了维护任何其他所谓的‘重大政府利益’……包括维持记者职业标准或保护国家安全。”他写道。</p><p>“简而言之，这是非法的观点歧视。”这名法官写道。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1582154.htm</guid>
-      <pubDate>Wed, 14 Oct 2026 20:33:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>Epic新版游戏启动器采用“氛围编程”开发 速度更快并支持Linux</title>
-      <link>https://www.cnbeta.com.tw/articles/game/1582150.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲Epic游戏启动器新品，涉及'氛围编程'开发和Linux支持，虽触及编程方法，但主体偏向游戏公司产品发布，兴趣不明确</small></p>
-                                                
-                                                <p>Epic Games 于 10 月 14 日宣布推出新版 Epic Games 启动器的预览版。公司称，这款启动器比现有版本“快得多”、响应更灵敏，并带来了全新的界面设计，同时首次支持 Linux 平台。值得注意的是，Epic 明确表示，这次改版大量借助人工智能辅助开发完成，也就是所谓的“vibe coded”（氛围编程）。</p>                
-                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/1014/2b7915179c89f1e.jpg"></p><p>Epic 在官方博客中写道：“编程很难。所以，我们没有那样做，而是用氛围编程的方式开发了一款新的 Epic Games 启动器。它比现有版本更快、更灵敏，并且拥有全新的外观。”这一表述延续了 Epic 近期在内部大力推动 AI 辅助开发的策略。</p><p>Epic 首席执行官 Tim Sweeney 本周一表示，公司正在经历一次“重大转向”，将调整开发人员分工，以实现“最大程度的 AI 加速”。他强调，这一转变的目标并非“用更少的人做同样的事”，而是让公司内每个人都能“构建更多、更好的东西”，并把成果带给所有使用 Unreal 引擎的团队。彭博社本周也报道称，Epic 一名负责未公布迪士尼项目的总监曾告诉员工，今后将“不再手写代码”。</p><p><img src="https://static.cnbetacdn.com/article/2026/1014/db5c786e451481f.jpg"></p><p>Epic Games Store 与 Epic Online Services 副总裁兼总经理 Martin Keely 在向 The Verge 介绍这款启动器时表示：“我们把 AI 当作工具来使用。这是我们公司向新的、不同的方式运用 AI 迁移的一部分。”他称，AI 在测试环节以及“复刻现有启动器的核心功能”方面“非常有帮助”，也让 Epic 得以将新启动器推向 Linux 平台。</p><p>Epic 还公布了新版启动器的性能数据，称其在速度方面较旧版有明显提升。此次预览版发布，标志着这家《堡垒之夜》开发商和 Unreal 引擎公司正把 AI 辅助编程从内部战略进一步落实到面向玩家的核心产品中。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/game/1582150.htm</guid>
-      <pubDate>Wed, 14 Oct 2026 14:38:25 GMT</pubDate>
     </item>
   </channel>
 </rss>

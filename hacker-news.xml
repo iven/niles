@@ -3,7 +3,47 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 17 Oct 2026 01:16:25 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 06:57:02 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Claude Code 团队如何应对 AI 生成的代码评审：从人工逐行审核转向分层自动化审查</title>
+      <link>https://news.ycombinator.com/item?id=50122951</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲的是Claude Code团队的代码评审自动化实践，属于编程效率改进经验，用户对此很感兴趣，故推荐阅读。</small></p><p>Anthropic 的 Claude Code 团队（作者 Addy Osmani、Morgan Westlee Lunt 和 Qing Wang）在官方博客中分享了他们在 AI 大规模编写代码时代重新设计的代码评审流程。文章指出，Claude 编写了 Claude Code 自身约 90% 的代码。从 6 月到 9 月，合并进代码库的 Pull Request（PR）数量翻了一倍多，而需要回滚（revert）的比例却下降了 40% 以上。团队并未取消评审，而是把大部分阅读工作交给机器，专注于优化人类的时间和注意力，并大力投资让纠错变得快速简单。</p>
+
+<h3>重新思考评审的目的</h3>
+<p>当代理（agent）编写代码时，变更数量急剧上升：Anthropic 的 monorepo 中每日落地变更从 5 月的约 2,500 个增至 9 月的超过 30,000 个。在这种速度下手动逐行评审几乎不可能。团队认为，代码评审承担两项工作：一是上线前发现并修复问题，二是建立团队共享的上下文与代码库理解。他们认为「人类是否读过代码」是「这次变更可能出什么错、哪种检查（自动化还是人工）最适合发现它」的不精确替代指标。评审不再是流程末端的关卡，而是持续进行、更像边写边拼写检查；大多数变更在人类介入前已被 Claude 至少评审和修复过一次。</p>
+
+<h3>稀缺资源：人类时间与注意力</h3>
+<p>团队的目标是让大多数 PR 最多只有一个人介入（可以是作者本人），同时不增加回滚和事故。为衡量人类时间，他们追踪每个 PR 的人工审批数、人工评论数以及 PR 等待人的时长。回滚率和事故率是护栏——如果它们上升，说明并没有节省人类时间，只是转移了成本。</p>
+
+<h3>一次变更的生命周期</h3>
+<p>一次典型变更会经过多层检查，全程大幅自动化，人的注意力只投向风险最高的环节：</p>
+<ul>
+<li><strong>PR 之前</strong>：Claude 自行运行测试、构建和 linter，并由一个子代理在全新上下文中评审差异。作者通常还会运行若干内部技能（如寻找 bug、简化差异、端到端检查行为）。Claude Code 的创造者 Boris Cherny 认为，给 Claude 一种验证自身工作的方法，是获得好结果的最关键因素，可让最终结果好 2–3 倍。</li>
+<li><strong>每个 PR 上的 AI 评审</strong>：Claude 会对照整个代码库和 PR 的意图阅读差异，判断变更是否解决问题、是否适配系统或破坏其他部分。发现结果会先由其他代理验证，并由一组代理投票表决后才发布。评论按严重程度标记为 Important、Nit 或 Pre-existing，每一条都必须被回应（修复或以理由关闭）。内部 PR 获得实质评审评论的比例从 16% 升至 54%。</li>
+<li><strong>可阻止合并的安全评审</strong>：安全评审作为独立流程，任何未解决的发现都会阻止合并。</li>
+<li><strong>可阻止合并的自动化检查</strong>：lint、类型检查、各平台测试和构建；典型的 CLI PR 在有人过目之前可能运行数十项检查。</li>
+<li><strong>按风险分级的人工审批</strong>：一个分类器为变更设定风险层级（低风险文档/内部功能无需人工，中等常规产品变更需一人，高风险及敏感路径需两人）。代理的审批不能算作人的审批；指示代理写代码的人被视为所需评审者之一。</li>
+<li><strong>合并队列与灰度发布</strong>：合并队列在最新 main 上重新运行全部检查，防止两条单独通过的 PR 合并后导致 main 损坏。新行为通常先在公司内部、旗帜（flag）后发布，公共发布先走最新渠道。</li>
+<li><strong>快速发现与快速回滚</strong>：旗帜无需部署即可关闭，配合每周值班轮换和事故复盘。团队尚无在回滚数字上升时收紧审批的熔断机制，工程师希望在更多代码转向零人工合并之前加上这一层。</li>
+</ul>
+
+<h3>如何让评审者变得更好</h3>
+<p>团队建立了一个持续改进的闭环：将所有事故变成 eval 评估集。他们收集曾引发事故的 PR（连同修复和回滚），由熟悉这块代码的工程师确认每个 bug 及其位置，评审者每日针对该集合运行。任何对评审者的改动（提示词、工具或模型）都依据全部案例评分，分数上升才保留。团队还通过观察人们对评论的回应来衡量「噪音」——真正 bug 的优先级高于削减评审轮次，因为当作者也是代理时，噪音（如 nit 评论）会导致代理去修复，进而产生新提交和新一轮评审，评审可能迟迟无法收敛（曾有一个 CLI PR 一夜之间经过五十多轮评审修复）。</p>
+
+<p>在文章结尾，团队回应了评审的第二项工作——建立共享理解。当机器承担大部分阅读时，人们通过向 Claude 提问具体模块来按需理解代码，Claude 可以写出讲解（explainer）或构建可视化的小工具，比逐行阅读普通的差异更高效地学习。</p>
+
+<img src="/media/d4fafcbf3d2137bc64eb7f0707ba91809ff1ed4d098785e36d7422b3b07f6c40.png" alt="如果机器承担大部分阅读，人们如何学习代码？" width="3200" height="1800" />
+
+<h3>社区反馈（Hacker News）</h3>
+<p>讨论区内，多位用户对如此高的变更量表示质疑，认为「每天合并的变更数」和「代码行数」一样是无效指标，并援引古德哈特定律，指出更快的产出并不等于成功。有人批评 GitHub 仓库堆积了约 5,000 个 issue、其中约三分之一是此前行为的随机回归，也有人抱怨桌面应用 UI 频繁变动。还有评论指出，官方 security review 工具的 README 明确声明「未针对提示注入攻击加固」，这是一个显著局限；另有讨论围绕「Claude 写了 90% 的代码」这一数字展开，质疑其余 10% 由谁（人还是其他模型）编写。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>prompt injection（提示注入）</strong>：这是一种针对 AI 系统的攻击，攻击者把恶意指令嵌入正文内容（如代码注释、文档），使模型忽略原始指令并执行攻击者意图。对于自动化 AI 安全审查这类控制措施，若未对提示注入加固，攻击者可能借由被评审的代码内容干扰评审结果，从而降低其作为安全关卡的有效性。这正是评论中对该工具局限性的担忧所在。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50122951</guid>
+      <pubDate>Fri, 16 Oct 2026 19:04:47 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Apple MLX 分布式推理：在 Mac Studio 集群上运行近万亿参数模型</title>
       <link>https://news.ycombinator.com/item?id=50118320</link>
@@ -1029,21 +1069,6 @@ fn main() {
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50028275</guid>
       <pubDate>Sat, 10 Oct 2026 00:37:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Show HN：Quake 被移植到安全 Rust 并可在浏览器中游玩</title>
-      <link>https://news.ycombinator.com/item?id=50016312</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及开源项目与Rust/WebAssembly编程技术，属于开源项目与软件新功能，虽然与游戏相关但非3A游戏，符合兴趣</small></p><p>一位开发者将 1996 年的经典射击游戏《雷神之锤》（Quake）忠实移植到无依赖的安全 Rust 语言，并编译为 WebAssembly（WASM），使其可以直接在浏览器中游玩共享软件章节（shareware episode）。项目名为 <strong>QUAKE·SRP</strong>（SRP 意为 "slop rust port"），源代码托管在 <a href="https://github.com/terrapapagalli1516/quake-srp">GitHub</a> 上，在线试玩地址为 <a href="https://quake-srp.pages.dev/">quake-srp.pages.dev</a>。</p>
-
-<p>该项目在 Hacker News 上获得了 229 分和 176 条评论，引发了广泛讨论。值得注意的是，这次从 C 到 Rust 的移植据称完全由大语言模型（LLM）完成，作者还提供了一个"视觉差异"（visual diff）测试工具，用于验证移植后的游戏与原版在像素级别上完全一致。</p>
-
-<p>社区反馈整体积极。有用户称赞在手机上无需额外操作即可流畅运行；也有用户指出，虽然 Rust 移植本身可能并非必要（可直接从 C 编译到 WASM），但这一项目展示了浏览器渲染、WASM、Rust 和 LLM 技术交汇的成果。有评论者认为，这与其说是 AI 能力的展示，不如说是过去几十年人类工程积累的集中体现——LLM 只是在最后一步完成了从 C 到 Rust 的转换。</p>
-
-<p>评论区还提到，如今越来越多的经典游戏可以直接在浏览器中游玩，例如《半条命》（Half-Life）也可一键在线运行，这标志着桌面应用向 Web 平台迁移的趋势正在加速。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50016312</guid>
-      <pubDate>Fri, 09 Oct 2026 05:22:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
