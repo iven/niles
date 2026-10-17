@@ -3,7 +3,30 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 16 Oct 2026 22:48:08 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 01:16:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Apple MLX 分布式推理：在 Mac Studio 集群上运行近万亿参数模型</title>
+      <link>https://news.ycombinator.com/item?id=50118320</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲 MLX 分布式推理在 Mac Studio 集群上运行大模型的技术进展，属于 AI 软件技术进展范畴，符合用户兴趣</small></p><p>苹果机器学习研究团队发布了一篇技术文章，介绍如何利用最新版 MLX 框架，在 Mac Studio 上本地运行前沿级大语言模型（LLM），包括近万亿参数的 Muse Spark Open（816B 参数，MoE 架构）。文章展示了从单台 Mac Studio 到多台机器通过 Thunderbolt RDMA 扩展的完整方案。</p>
+
+<h3>单机推理性能</h3>
+<p>文章对比了 M5 Ultra 与上一代 M3 Ultra 在运行 Qwen 3.8（27B）和 Mistral Medium 3.5（128B）时的表现。M5 Ultra 的 GPU 神经加速器（GPU Neural Accelerator）在计算密集型任务（如首 token 延迟 TTFT）上带来最高 4.6 倍的加速；而在受内存带宽限制的解码速度上，M5 Ultra 凭借 1.2 TB/s 的统一内存带宽（M3 Ultra 为 819 GB/s）实现了 1.6 倍的提升。峰值功耗方面，M3 Ultra 约 200W、M5 Ultra 约 300W，远低于传统 GPU 服务器。</p>
+
+<h3>分布式推理方案</h3>
+<p>由于 Muse Spark Open 在原生 BF16 精度下需要超过 1.6TB 内存，即使 4-bit 量化（NVFP4）后仍需约 493GB，单机无法容纳。MLX 提供了两种跨机并行方案：</p>
+<ul>
+<li><strong>流水线并行（Pipeline Parallelization）</strong>：按模型深度切分，两台 Mac Studio 各执行一半层。实现简单，解码速度与单机相当，但在超大上下文（65,536 tokens）下预填充（prefill）可提速约 1.8 倍。</li>
+<li><strong>张量并行（Tensor Parallelization）</strong>：按模型宽度切分，每台机器持有每层的一部分。计算并行度更高，但通信开销大，依赖低延迟的 Thunderbolt RDMA 驱动（macOS 26.2 引入，MLX 通过 jaccl 通信集合支持）。</li>
+</ul>
+<p>在四台 M5 Ultra 的集群上，Muse Spark Open 的解码速度达到每秒 36.73 tokens，超过人类平均阅读速度。双 Thunderbolt 线缆连接可进一步降低预填充延迟（65,536 token 上下文下 TTFT 从约 50.5 秒降至 40.6 秒）。</p>
+
+<h3>社区反馈</h3>
+<p>HN 讨论区反应热烈但观点分化。不少用户质疑成本：256GB 版 Mac Studio 起价 9,499 美元，四台集群约 4 万美元，远高于云端 API 调用费用。有评论认为苹果的策略是"卖铲子"——不关心哪个模型胜出，因为模型最终会走向边缘设备，而苹果拥有大量边缘硬件。也有用户指出文章以 Meta 的 Muse Spark Open 为主角却几乎不提及 Meta，引发对苹果与 Meta 合作关系的讨论。部分评论认为 Muse Spark Open 在 4-bit 精度下与 Qwen 原生精度对比有失公允，且该模型性能并非顶尖。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50118320</guid>
+      <pubDate>Fri, 16 Oct 2026 13:43:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 研究显示：美国90%的工作时间花在AI基准测试未覆盖的任务上</title>
       <link>https://news.ycombinator.com/item?id=50121179</link>
@@ -1021,25 +1044,6 @@ fn main() {
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50016312</guid>
       <pubDate>Fri, 09 Oct 2026 05:22:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>没有人是一座孤岛：AI如何瓦解知识共同体并摧毁智力活动</title>
-      <link>https://news.ycombinator.com/item?id=50025935</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章是关于AI对社会知识共同体和智力活动的社会性批判评论，并非AI模型发布或编程效率类内容，与用户兴趣关联不明确。</small></p><p>这篇长文认为，个体的智力活动只有在由其他人类组成的知识共同体中才能持续，而人工智能正在瓦解这些共同体，进而使私人智力活动变得愈发罕见。作者以软件工程和数学为例展开论述。</p>
-
-<p>作者最初设想，AI 接管编码后自己可以转向管理 AI 代理，并在业余时间继续享受编程带来的智力乐趣。但实际结果并非如此。首先，软件工程的"话语"（discourse）变得更糟：人们不再谈论编译器、类型系统、逻辑，而是谈论"提示词"（prompts）、"工具链"（harnesses）、"循环"（loops），讨论变得更窄、更浅、更重复。其次，与建立人力资本（human capital）有关的维度崩溃了——"提示"并非真正的技能，严谨系统的思考训练正在消失。第三，为软件工程"公共资源"做贡献越来越没有意义：写博客、开发开源库、设计新编程语言、撰写教程，谁还会读？谁还在乎？下一轮 AI 训练会吞噬这些内容，人类读者和用户已然消失。</p>
-
-<p>作者由此提炼出关于智力实践的一般洞见：智力活动并非纯粹的私人孤独行为，它需要两个无法在孤立中获得的外部输入——可供继承的"共享知识体"（shared body of work）和"动机"（motivation）。动机分为内在动机（为学习而学习）和外在动机（为他人服务、获得同道认可）。内在动机是短暂易逝的"情绪"，因此需要外在动机填补灵感闪现之间的空档。私人智力活动靠外部共同体提供燃料（共享知识体）和氧化剂（外在动机），而这些私人活动反过来又滋养共同体：发表论文、代码、教科书，引用他人成果、认可能够确认其工作有价值。</p>
-
-<p>作者认为，AI 之后，智力贡献变得多余或冗余：AI 能写代码、证明定理、写论文、辅导学生，甚至未来会写出更好的教科书，那么人类写论文、写教科书还有什么意义？如果智力活动不再有后果、没有可贡献的共同体，它就不会发生。未来可能出现个别仍构建新库、新语言、研究数学的人，但软件工程和数学的"活的共同体文化"将不复存在。</p>
-
-<p>文章还回应了一种乐观观点——有人认为 AI 会筛掉追逐名利的功利者，留下纯粹出于内在动机的"超人"（übermenschen）。作者批评这种看法不切实际：人类是社会性动物，只能在他人社会中繁荣；把外在动机视为低等、内在动机视为高等，是一种误导。人们关心、也应该关心对世界的贡献，如果技术使这种贡献变得多余，剩下的又是什么？</p>
-
-<p>文章致谢了 Luke Drago 与 Andy Matuschak 的反馈与讨论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50025935</guid>
-      <pubDate>Fri, 09 Oct 2026 20:04:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
