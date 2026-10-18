@@ -3,7 +3,22 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 18 Oct 2026 04:23:31 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 18 Oct 2026 09:31:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 爱沙尼亚在线投票系统（IVXV）源代码公开供审查</title>
+      <link>https://news.ycombinator.com/item?id=50127586</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 爱沙尼亚在线投票系统IVXV为开源项目，源代码公开供审查，符合用户对开源项目的兴趣，推荐阅读。</small></p><p>爱沙尼亚在线投票系统（IVXV）的源代码已在 GitHub 上公开发布，供公众审查。据仓库说明，该仓库并非用于活跃开发，但会持续更新，使其始终与选举实际使用的代码保持一致。由于具有法律约束力的选举投票系统必须严格遵守立法，爱沙尼亚 I-voting 投票系统及 I-vote 验证应用程序的实际开发由爱沙尼亚国家选举办公室（State Electoral Office of Estonia）监督，更多信息可参阅 <a href="https://www.valimised.ee">www.valimised.ee</a>。</p>
+
+<p>该项目在 Hacker News 上引发了热烈讨论（209 分、185 条评论），核心话题是电子投票的安全性与信任问题。有用户注意到仓库近一年没有更新，但也有人指出 README 已明确说明这是一个供审查的镜像仓库而非开发仓库。</p>
+
+<p>讨论中出现多种观点：部分评论者认为，无论软件或硬件结合，都无法仅凭技术手段确保选举安全，建议采用纸质选票加人工抽查审计（风险限制审计）的方式；另有评论者主张可通过密码学解决可验证问题，如用身份证私钥签名投票、发布哈希等。也有爱沙尼亚本地用户指出，电子投票在该国已自 2001 年起使用、2007 年起大规模应用于议会选举，开源早已为 IT 社区所知并广受认可。还有人引用《爱沙尼亚电子投票》维基词条，指出该系统在国际上仍存在不少质疑，并援引 <a href="https://electionguard.vote/">ElectionGuard</a> 等已在真实选举中应用的系统作为参考。</p>
+
+<p>讨论中还有用户表达了对政府信任依赖的担忧，认为一旦信任瓦解，纸质与电子计票的实际区别可能不大；但也有观点强调，纸质选票的可审计性与去中心化特性使其更容易在舞弊后恢复安全。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50127586</guid>
+      <pubDate>Sat, 17 Oct 2026 03:18:39 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Pele：将 Mermaid 图表渲染为可主题化 SVG 的轻量级开源库</title>
       <link>https://news.ycombinator.com/item?id=50132193</link>
@@ -1093,15 +1108,6 @@ fn main() {
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50045946</guid>
       <pubDate>Sun, 11 Oct 2026 18:01:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ &quot;抱歉，你还是得动脑子&quot;：从 AI 重写 Rails 应用看编程中难以替代的思考</title>
-      <link>https://news.ycombinator.com/item?id=50043689</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 核心主题是AI在编程中的应用与编程效率思考，涉及编程效率和AI技术，符合多个兴趣点，推荐阅读</small></p><p>DHH（Ruby on Rails 框架作者）让 AI 代理将他旗下的 Campfire 应用从 Ruby on Rails 重写为 Rust，随后又重写为 Elixir 和 Go 等多个版本，而他自己并不阅读也不编写这些 Rust 代码。作者 Piotr Sarnacki 以此为切入点，剖析了「完全不看代码地使用 AI 重写程序」会带来的种种问题。</p><p>文章指出，当提示词不够具体时，许多决策就如同抛硬币一般随机。例如是否保持向后兼容、更看重延迟还是吞吐量、系统在高负载下的内存上限、崩溃后是否允许丢失新内容通知等。这些没有唯一正确答案的取舍，会在 LLM 实现时被隐式地确定下来。Rust 版本放弃了 100% 向后兼容（如移除 CSRF token 以简化缓存、用进程内队列取代 Redis），而 Elixir 版本则更接近 Rails 原版，这使得语言间的对比本身失去意义。</p><p>作者进一步分析了重写代码中的具体缺陷：Elixir 版本用单进程串行处理所有 SQL 查询，连本可并行的读取也被串行化；Rust 版本则存在部分数据库操作与锁未使用异步实现的问题，在协作式调度下会阻塞同一工作线程上的其他任务。更关键的是，Zach Daniels 测得 Rust 版本在高负载下新帖子通知投递成功率仅为 1%，但作者提醒：这类闭环基准测试只反映一种系统属性。他以自身复测为例说明，当改用恒定到达率测试时，Rust 在 100 POST/秒下投递约 14% 的事件但无 HTTP 错误，Elixir 投递约 60% 却超时约 23% 的请求。</p><p>作者深挖了投递率差异的根源：Rust 版本使用容量上限为 256 的 <code>tokio::sync::broadcast</code> 通道，接收方处理不过来时会丢失事件；Elixir 的 GenServer 邮箱则默认无上限。仅将容量提升到 16384，投递率便从约 14% 升至约 90%，但极端延迟也从 11 秒恶化至超过 130 秒。作者判断这种「极慢处理」反而比「快速失败并强制重连」更差——被断开的浏览器客户端会在后台重连并拉取最新消息，而等待 3 分钟才收到新消息通知的体验显然更糟。同时，Elixir 版本在 100 请求/秒的压力下内存占用达到 1.8GB，如果不自行设置边界，就会撞上外部限制。</p><p>作者得出的结论是：无论使用哪种语言，编程中都要权衡利弊、思考失败模式；不应仅凭单一指标仓促下结论；想构建可靠系统就要知道何时该快速失败；基准测试本身也很难设计。AI 并未「解决」编程问题，人们仍然需要知道自己到底在干什么。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50043689</guid>
-      <pubDate>Sun, 11 Oct 2026 14:29:07 GMT</pubDate>
     </item>
   </channel>
 </rss>
