@@ -3,7 +3,44 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 18 Oct 2026 00:00:39 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 18 Oct 2026 04:23:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Pele：将 Mermaid 图表渲染为可主题化 SVG 的轻量级开源库</title>
+      <link>https://news.ycombinator.com/item?id=50132193</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源编程工具发布，属于用户很感兴趣的编程工具发布/分享类别，推荐阅读</small></p><p>Pele 是一个轻量级开源库，可将 <a href="https://mermaid.js.org/">Mermaid</a> 语法渲染为 SVG 图表，并通过 CSS 变量进行主题化设置。该项目由 Obsidian 团队开发，源码托管在 <a href="https://github.com/obsidianmd/pele">GitHub</a> 上。</p>
+
+<img src="/pele-home.svg" alt="Pele 首页示例图" width="449" height="336" />
+
+<p>Pele 的核心特性包括：</p>
+<ul>
+<li><strong>极小的体积</strong>：gzip 后仅约 230 kB，而 Mermaid.js 高达 1.6 MB</li>
+<li><strong>极快的渲染速度</strong>：渲染时间仅 0.05–0.3 毫秒，远快于 Mermaid.js 的 6–82 毫秒</li>
+<li><strong>零直接依赖</strong>：无需任何第三方依赖</li>
+<li><strong>CSS 变量主题化</strong>：通过 CSS 变量设置颜色和字体，颜色变更无需重新渲染</li>
+<li><strong>自适应小屏幕</strong>：可自适应布局而非简单缩放图表</li>
+</ul>
+
+<p>使用方式非常简洁，通过 <code>render()</code> 函数传入 Mermaid 语法，即可获得 SVG 字符串并插入页面：</p>
+
+<pre><code>import { render } from 'pele';
+const { svg } = render(`flowchart LR
+A[Mermaid text] --> B[SVG]`);
+document.querySelector('#diagram').innerHTML = svg;</code></pre>
+
+<h3>社区反馈</h3>
+<p>在 Hacker News 上，该项目的讨论获得了 296 分和 27 条评论。开发者 <strong>kepano</strong>（Obsidian 联合创始人）回应了关于布局质量的质疑，表示 Pele 只遵循 Mermaid 的语法而非其布局算法，并在 <a href="https://pele.run/examples">示例页面</a> 和 <a href="https://pele.run/playground">Playground</a> 中提供了对比模式。</p>
+
+<p>多位用户对 Pele 的布局质量表示赞赏，特别是子图（subgraph）能保持自身方向性的特性。有用户指出，Pele 无需浏览器环境即可渲染 SVG，这对在 CI/CD 或文档生成流程中嵌入图表非常有价值。也有用户提到，这类工具与 AI 结合效果极佳——AI 可以直接编辑和绘制图表并保存到单个 Markdown 文件中，便于版本控制。</p>
+
+<p>部分用户反馈了 Playground 的 Mermaid 预览在某些浏览器中存在显示问题，以及示例页面在深色模式下不够友好等小瑕疵。</p>
+
+<h3>你知道吗？</h3>
+<p>Mermaid 是一个基于 JavaScript 的图表绘制工具，广泛用于 Markdown 文档中绘制流程图、时序图、甘特图等。传统的 Mermaid.js 渲染依赖浏览器环境进行布局计算，而 Pele 通过自研的布局引擎实现了纯服务端渲染，这也是其体积小、速度快的关键原因。此外，Pele 的名字在拉脱维亚语中意为"老鼠"，在葡萄牙语中意为"皮肤"，同时也是巴西传奇足球运动员贝利的名字。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50132193</guid>
+      <pubDate>Sat, 17 Oct 2026 15:55:09 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Show HN：Llmspeed——购买硬件前先感受本地大模型的真实速度</title>
       <link>https://news.ycombinator.com/item?id=50127979</link>
@@ -1065,36 +1102,6 @@ fn main() {
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50043689</guid>
       <pubDate>Sun, 11 Oct 2026 14:29:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ PATH 中的波浪号（~）可能不会展开为你的主目录</title>
-      <link>https://news.ycombinator.com/item?id=50042425</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是shell/PATH细节技术问题，属于编程技术相关内容，涉及编程工具使用经验，用户会感兴趣</small></p><p>作者在玩 nono 代理沙箱工具时收到一条警告，提示沙箱可写入的 PATH 条目为 <code>~/.local/bin/</code>，这看起来可疑。深入调查后发现，在 <code>~/.bashrc</code> 或 <code>~/.zshrc</code> 中写 <code>export PATH="$PATH:~/.local/bin/"</code> 时，波浪号（~）并不会被展开为家目录路径。</p>
-
-<p>根据 Bash 文档，波浪号展开只发生在未加引号的输入中。当 PATH 变量被双引号包裹时，<code>~</code> 会被当作字面字符处理，最终 PATH 中实际加入的是 <code>./~/.local/bin/</code>（相对于当前工作目录），而非 <code>/home/&lt;user&gt;/.local/bin/</code>。</p>
-
-<p>作者通过一个演示验证了这一点：在 <code>./~/.local/bin/</code> 下编译并放置一个可执行文件后，设置 <code>PATH="~/.local/bin/"</code> 并运行该命令，程序确实从当前目录下的 <code>~</code> 目录中被找到并执行，家目录从未参与其中。</p>
-
-<p><strong>正确做法</strong>是使用 <code>$HOME</code> 替代 <code>~</code>：</p>
-
-<pre><code>export PATH="$PATH:$HOME/.local/bin/"</code></pre>
-
-<p>值得注意的是，不加引号的版本 <code>export PATH=$PATH:~/.local/bin</code> 在 Bash 和 Zsh 中是可以正常工作的，因为波浪号展开也会在变量赋值中 <code>=</code> 之后和每个 <code>:</code> 之后执行。但依赖这种写法是脆弱的——例如空白字符就会破坏变量赋值。</p>
-
-<p>读者可以通过 <code>echo "$PATH" | grep -- '~'</code> 快速检查自己的 PATH 是否存在此问题。</p>
-
-<h3>社区讨论要点</h3>
-<ul>
-<li>有评论指出这是 Bash 的经典"脚枪"（footgun）之一，且 Zsh 等其他 shell 也存在同样问题。</li>
-<li>多位用户建议 PATH 中应优先使用 <code>$HOME</code> 而非 <code>~</code>，并讨论了将用户路径放在 PATH 前面还是后面的安全考量——放在前面可覆盖系统命令，但放在后面可防止恶意脚本劫持 <code>sudo</code> 等命令。</li>
-<li>有用户提到 <code>/bin/sh</code> 在很多系统上并非 Bash（如 Debian 上是 dash），依赖 Bash 特有行为时需注意可移植性。</li>
-<li>有评论建议在路径中仅允许 <code>[A-Za-z0-9._-]</code> 字符以避免此类问题，但也有人指出这对非英语用户不友好。</li>
-<li>有用户分享了在大型组织中排查 bashrc 多层导入导致环境变量来源不明的经历，并推荐了 Stack Exchange 上的排查方法。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50042425</guid>
-      <pubDate>Sun, 11 Oct 2026 12:13:13 GMT</pubDate>
     </item>
   </channel>
 </rss>
