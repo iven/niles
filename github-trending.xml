@@ -3,7 +3,70 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Sun, 18 Oct 2026 09:30:58 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 18 Oct 2026 13:58:39 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ LLM Course：通往大语言模型世界的免费学习路线图与实战笔记本</title>
+      <link>https://github.com/mlabonne/llm-course</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是一个大语言模型（LLM）学习路线图与实战笔记本，涉及新AI模型技术及AI软件技术进展，用户对此类AI技术内容非常感兴趣，属必看内容。</small></p><p><strong>LLM Course</strong> 是由机器学习工程师 Maxime Labonne 维护的开源学习项目，旨在帮助开发者系统性地进入大语言模型（LLM）领域。该项目在 GitHub 上已获得超过 8.3 万星标，是目前最受欢迎的 LLM 学习资源之一。</p>
+
+<p>课程分为三个部分：</p>
+<ul>
+  <li><strong>🧩 LLM 基础（LLM Fundamentals）</strong>：可选部分，涵盖数学、Python 和神经网络的基础知识，包括线性代数、微积分、概率统计、数据科学库（NumPy、Pandas 等）以及神经网络的结构与训练原理。</li>
+  <li><strong>🧑‍🔬 LLM 科学家（The LLM Scientist）</strong>：聚焦如何使用最新技术构建最优的 LLM，涉及微调、量化、模型合并等高级主题。</li>
+  <li><strong>👷 LLM 工程师（The LLM Engineer）</strong>：专注于创建基于 LLM 的应用并进行部署。</li>
+</ul>
+
+<p>项目提供了大量可直接在 Google Colab 中运行的实战笔记本（Notebook），覆盖多个关键领域：</p>
+<ul>
+  <li><strong>微调（Fine-tuning）</strong>：包括使用 Unsloth 微调 Llama 3.1、使用 ORPO 微调 Llama 3、使用 DPO 和 QLoRA 微调 Mistral-7b 等教程。</li>
+  <li><strong>量化（Quantization）</strong>：涵盖 8-bit 量化入门、GPTQ 4-bit 量化、GGUF/llama.cpp 量化以及 ExLlamaV2 等主流量化方案。</li>
+  <li><strong>工具（Tools）</strong>：包括 LLM 自动评估（AutoEval）、模型合并（MergeKit）、模型去审查（abliteration）、数据集去重等实用工具。</li>
+  <li><strong>其他</strong>：包括使用 MergeKit 合并模型、创建混合专家模型（MoE）、用知识图谱增强 ChatGPT 回答、解码策略指南等。</li>
+</ul>
+
+<p>作者还基于该课程与人合著了《<a href="https://packt.link/a/9781836200079">LLM Engineer's Handbook</a>》一书，覆盖从设计到部署的端到端 LLM 应用开发。课程本身始终保持免费，购买书籍可支持作者工作。此外，项目还提供了更全面的 <a href="https://deepwiki.com/mlabonne/llm-course/">DeepWiki 版本</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/mlabonne/llm-course</guid>
+      <pubDate>Sun, 18 Oct 2026 13:58:07 GMT</pubDate>
+    </item>
+    <item>
+      <title>Jasna：开源视频/图片马赛克修复工具，支持 GPU 加速</title>
+      <link>https://github.com/Kruk2/jasna</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 这是一个视频/图片马赛克修复开源工具，属于开源项目范畴，用户对其感兴趣，但主题与用户配置的高兴趣领域（AI模型、编程工具）关联较弱，兴趣程度不十分明确。</small></p><p><strong>Jasna</strong> 是一款免费开源的视频和图片马赛克修复工具，可在 GPU 上运行，提供图形界面和命令行两种使用方式。项目在 GitHub 上已获得 2254 星标，使用 Python 编写。</p>
+
+<h3>核心功能</h3>
+<ul>
+<li><strong>精准修复</strong>：自动检测视频中的马赛克区域并仅修复该部分，画面其余部分不受影响。</li>
+<li><strong>两种修复模型</strong>：免费的 <strong>BasicVSR++</strong>（速度快）和面向支持者的 <strong>LTX</strong>（速度慢但细节更丰富，仅支持 NVIDIA）。</li>
+<li><strong>Segment Editor</strong>：可选择只修复视频的特定部分，并支持预览。</li>
+<li><strong>VR180 支持</strong>：可处理 VR180 格式视频，以及静态图片（SD 1.5 模型，面向支持者）。</li>
+<li><strong>实时预览</strong>：Video Player 可实时观看修复效果，无需生成文件。</li>
+</ul>
+
+<h3>工作原理</h3>
+<p>Jasna 的整个处理流程几乎全部在 GPU 上完成：GPU 解码视频 → 检测每帧的马赛克（默认模型 <code>rfdetr-v6</code>）→ 跨帧追踪马赛克并分组为片段 → 使用 BasicVSR++ 以 256x256 分辨率修复每个片段 → 可选二次修复（UNet 4x 等）提升清晰度 → 将修复结果混合回原始帧 → GPU 编码输出。片段在场景切换处自动分割，避免不同镜头被混合处理。</p>
+
+<h3>硬件要求</h3>
+<ul>
+<li><strong>NVIDIA</strong>：GTX 16 系列 / RTX 20 系列或更新（计算能力 7.5+），Windows 驱动 610+、Linux 驱动 580+。</li>
+<li><strong>AMD</strong>：Radeon RX 7000/9000（实验性支持）。</li>
+<li>LTX 模型需要 NVIDIA RTX GPU、至少 8GB 显存和 16GB 内存。</li>
+</ul>
+
+<h3>性能表现</h3>
+<p>根据基准测试，在 RTX 5090 上修复一段 3 分 22 秒的视频，Jasna 相比同类工具 <a href="https://codeberg.org/ladaapp/lada">Lada</a> 快 3.4–4.7 倍（720p 仅需 32 秒，1080p 34 秒，2160p 1 分 03 秒），且显存占用更低。</p>
+
+<h3>商业模式</h3>
+<p>Jasna 本身免费，通过支持者计划获取额外模型。支持 $15 美元可获得 UNet 4x 和 SD 1.5 模型，$25 美元可额外获得 LTX 模型。许可证码仅通过 <a href="https://buymeacoffee.com/kruk2">Buy Me a Coffee</a>、<a href="https://app.unifans.io/c/kruk2">Unifans</a> 及中国闲鱼渠道发售，项目方明确警告其他渠道均为诈骗。一个许可证码可在 3 台 PC 或云工作区使用。</p>
+
+<h3>许可与致谢</h3>
+<p>应用源码采用 AGPL-3.0 许可。项目受 <a href="https://codeberg.org/ladaapp/lada">Lada</a> 启发并在部分代码基础上开发，其使用的 <code>mosaic_restoration_1.2</code> 模型由 Lada 作者训练。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/Kruk2/jasna</guid>
+      <pubDate>Sun, 18 Oct 2026 13:58:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ android/skills：面向 AI 代理的 Android 开发技能库</title>
       <link>https://github.com/android/skills</link>
@@ -1157,48 +1220,6 @@
 <p>项目采用 Go 语言开发，通过 <code>bao</code> 二进制文件运行，仓库同时维护官方网站、文档页面及 Web UI 应用。该项目在 GitHub 上拥有约 7890 颗星、588 个 fork，并已获得 OpenSSF Scorecard 与最佳实践徽章认证。项目还发布了两个可被其他项目引用的库：<code>github.com/openbao/openbao/api/v2</code> 和 <code>github.com/openbao/openbao/sdk/v2</code>。</p>]]>
       </description>
       <guid isPermaLink="false">https://github.com/openbao/openbao</guid>
-      <pubDate>Sat, 26 Sep 2026 13:01:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Visual Studio Code 开源仓库（Code - OSS）：微软与社区共同开发的跨平台代码编辑器</title>
-      <link>https://github.com/microsoft/vscode</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 跨平台代码编辑器，属于编程工具分享、软件新功能和开源项目，用户会感兴趣</small></p><p>本仓库是微软（Microsoft）与社区共同开发 <a href="https://code.visualstudio.com">Visual Studio Code</a> 产品的开源代码库（代号 "Code - OSS"），采用标准 <a href="https://github.com/microsoft/vscode/blob/main/LICENSE.txt">MIT 许可证</a> 向所有人开放。微软在此仓库中不仅维护代码和问题跟踪，还发布<a href="https://github.com/microsoft/vscode/wiki/Roadmap">路线图</a>、<a href="https://github.com/microsoft/vscode/wiki/Iteration-Plans">月度迭代计划</a>和<a href="https://github.com/microsoft/vscode/wiki/Running-the-Endgame">收尾计划</a>。</p>
-
-<p><a href="https://code.visualstudio.com">Visual Studio Code</a> 是 Code - OSS 仓库的一个发行版本，包含微软特有的定制化功能，并在传统微软产品许可证下发布。它将代码编辑器的简洁性与开发者核心的"编辑-构建-调试"循环所需能力相结合，提供全面的代码编辑、导航和理解支持，以及轻量级调试、丰富的扩展模型和与现有工具的轻量集成。</p>
-
-<p>VS Code 每月更新一次，带来新功能和错误修复，支持 Windows、macOS 和 Linux 平台。用户可通过 <a href="https://code.visualstudio.com/Download">官网</a> 下载，或安装 <a href="https://code.visualstudio.com/insiders">Insiders 版本</a> 获取每日最新构建。</p>
-
-<p>仓库还包含一系列内置扩展（位于 <a href="https://github.com/microsoft/vscode/tree/main/extensions">extensions</a> 文件夹），涵盖多种语言的语法高亮和代码片段。提供丰富语言支持（如内联建议、跳转到定义）的扩展带有 <code>language-features</code> 后缀，例如 <code>json</code> 扩展提供 JSON 着色，而 <code>json-language-features</code> 扩展提供 JSON 的丰富语言支持。</p>
-
-<p>该项目欢迎社区以多种方式参与，包括提交 bug 和功能请求、审查源代码变更、完善文档等。仓库还提供了开发容器（Dev Containers / GitHub Codespaces）配置，方便开发者快速搭建构建环境（建议至少 4 核 CPU 和 6GB 内存）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/microsoft/vscode</guid>
-      <pubDate>Sat, 26 Sep 2026 13:01:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Claude Code Action：为 GitHub PR 与 Issue 提供智能代码助手与自动化</title>
-      <link>https://github.com/anthropics/claude-code-action</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 为GitHub PR/Issue提供AI代码助手的工具，AI软件技术进展且可提升编程效率，符合多个高兴趣主题</small></p><p><a href="https://claude.ai/code">Claude Code</a>（Anthropic 的编程助手）的通用 GitHub Action，可应用于 GitHub 的 Pull Request 与 Issue 场景，既能回答问题，也能直接实现代码变更。该项目能根据工作流上下文智能判断执行时机，例如响应 @claude 提及、Issue 指派或带显式提示词的自动化任务，无需额外配置。</p>
-<p>该 Action 支持多种身份认证方式，包括 Anthropic 直连 API（API key 或 workload identity federation）、Amazon Bedrock、Google Vertex AI 以及 Microsoft Foundry。</p>
-<p><strong>核心特性：</strong></p>
-<ul>
-<li>🎯 <strong>智能模式检测</strong>：根据工作流上下文自动选择执行模式，无需配置</li>
-<li>🤖 <strong>交互式代码助手</strong>：回答代码、架构与编程相关问题</li>
-<li>🔍 <strong>代码审查</strong>：分析 PR 变更并提出改进建议</li>
-<li>✨ <strong>代码实现</strong>：可完成简单修复、重构乃至新功能开发</li>
-<li>💬 <strong>PR/Issue 集成</strong>：无缝配合 GitHub 评论与 PR 评审</li>
-<li>🛠️ <strong>灵活工具访问</strong>：可访问 GitHub API 与文件操作（可通过配置启用额外工具）</li>
-<li>📋 <strong>进度追踪</strong>：以勾选框形式展示可视化进度，随任务完成动态更新</li>
-<li>📊 <strong>结构化输出</strong>：返回经验证的 JSON 结果，自动转为 GitHub Action 输出以支持复杂自动化</li>
-<li>🏃 <strong>运行于自有基础设施</strong>：Action 完全在用户自己的 GitHub runner 上执行，API 调用指向所选服务商</li>
-</ul>
-<p>项目提供丰富的即用型自动化方案，涵盖自动 PR 代码审查、按路径触发的针对性审查、外部贡献者评审、自定义审查清单、定时维护、Issue 分类标注、文档同步、面向安全的 OWASP 对齐审查以及自动化模式下的 DIY 进度追踪等场景。</p>
-<p>快速上手可通过终端中的 Claude Code 运行 <code>/install-github-app</code> 安装 GitHub app 与所需密钥（需仓库管理员权限，且仅限直连 Anthropic API 用户；贝德rock、Vertex AI 与 Foundry 用户需参考云服务商文档）。</p>
-<p>项目采用 MIT 许可证，v0.x 用户可通过迁移指南升级至 v1.0。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code-action</guid>
       <pubDate>Sat, 26 Sep 2026 13:01:23 GMT</pubDate>
     </item>
   </channel>

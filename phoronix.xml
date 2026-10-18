@@ -3,7 +3,35 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 18 Oct 2026 09:30:53 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 18 Oct 2026 13:58:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Omarchy 4.0.5 通过绕过 XDG 开销实现更快的浏览器启动</title>
+      <link>https://www.phoronix.com/news/Omarchy-Faster-Web-Browser</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍浏览器通过规避XDG开销加快启动速度，属软件效率改进与浏览器相关话题，符合兴趣</small></p><p>基于 Arch Linux、围绕 Hyprland 桌面构建的发行版 Omarchy 于本周末发布了 4.0.5 版本。该版本引入了最新的 Linux 7.2 稳定内核（含 BORE 调度器）、Qt 6.12 工具包更新，以及一系列小改进。</p><p>其中最引人注目的优化是针对默认浏览器启动的毫秒级调优。开发者在分析浏览器启动过程时发现，每次调用 <code>xdg-settings get default-web-browser</code> 大约需要 72 毫秒，原因是其涉及多个纠缠的 POSIX shell 脚本。David Heinemeier Hansson 借助 Claude Code 编写了一个新的替代辅助工具，可将相同操作缩短至约 10 毫秒。</p><img src="https://www.phoronix.net/image.php?id=2026&image=omarchy_4_med" alt="Omarchy 4" /><p>DHH 在合并该替代工具的拉取请求中解释道：新工具 <code>omarchy-cmd-default-browser</code> 是一个隐藏辅助程序，它按照 xdg-mime 的方式从 config-dir 的 mimeapps.list 文件中读取 x-scheme-handler/http 默认值，并优先检查桌面专用的 hyprland-mimeapps.list。它会选取第一个已安装的条目，若 Exec 命令仍可解析则采用之，从而跳过已卸载浏览器遗留的条目。当 config-dir 中未设置任何内容时，则回退到 xdg-settings，再回退到 xdg-mime 处理 https 协议。<code>omarchy-launch-browser</code> 和 <code>omarchy-launch-webapp</code> 现已使用该工具。</p><img src="//www.phoronix.net/image.php?id=2026&image=omarchy_web_med" alt="Omarchy web browser launch benchmark" /><p>此外，Omarchy 还进行了另一项独立优化，将 Omarchy shell 的栏性能从约 20 秒提升至约 15 秒（针对配备多个小部件的六显示器设置）。更多关于 Omarchy 4.0.5 的变更详情和下载信息可通过 <a href="https://github.com/omarchy/omarchy">GitHub</a> 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Omarchy-Faster-Web-Browser</guid>
+      <pubDate>Sun, 18 Oct 2026 10:23:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Servo 浏览器引擎 8 月进展：CSS Grid 支持落地，Threadboost 使 Speedometer 提升 50%</title>
+      <link>https://www.phoronix.com/news/Servo-0.6-Changes</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍Rust编写的开源浏览器引擎Servo新增CSS Grid及性能提升，符合Rust与开源新项目兴趣</small></p><p>开源 Rust 浏览器引擎 Servo 的 8 月状态报告终于发布，概述了该项目取得的进展，紧随其后的是 Servo 0.6 版本的发布，其中包括 Servoshell 演示浏览器。</p>
+
+<p>近期 Servo 最值得关注的特性之一是 CSS Grid 支持落地，这使得更多网站现在能够在 Servo 上正确渲染。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=servo_06_med" alt="Servo 0.6 CSS grid example" />
+
+<p>Servo 还新增了其他特性，如 CSS color-scheme、animation-composition、full-width、text-transform 等。一批新的 DOM API 也已就位。在 JavaScript 方面，Servo 引入了 <a href="https://spidermonkey.dev/">SpiderMonkey</a> 153，用于安全性和崩溃修复。Servo 现在还提供可选的磁盘缓存 HTTP 缓存，但目前尚无法清空该缓存。</p>
+
+<p>此外，Servo 在可访问性方面开展了更多工作，并为 AudioWorklet 进行了准备工作。性能改进也在持续推进：一项实验性的 "Threadboost" 功能将 <a href="https://browserbench.org/Speedometer/">Speedometer</a> 基准测试成绩提升了 50%。</p>
+
+<p>这些近期改进的更多详情可参见 <a href="https://servo.org">Servo.org 博客</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Servo-0.6-Changes</guid>
+      <pubDate>Sun, 18 Oct 2026 10:05:40 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ ReactOS NTFS 驱动成熟：现已支持安装与使用操作系统</title>
       <link>https://www.phoronix.com/news/ReactOS-NTFS-Driver</link>
@@ -712,36 +740,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.10-GCC-15-Default</guid>
       <pubDate>Fri, 09 Oct 2026 13:38:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Boro：NVIDIA 开源的 AI 辅助 Linux 内核开发工具</title>
-      <link>https://www.phoronix.com/news/NVIDIA-Boro-Linux-Kernel-AI</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] NVIDIA开源AI辅助内核开发项目，属于AI软件技术进展与开源项目，用户会感兴趣</small></p><p>过去几个月，NVIDIA 一直在开发 Boro，一款用 Rust 编写的 AI 辅助内核开发命令行工具（CLI），聚焦于本地 AI 以提升内核开发效率。该项目由 NVIDIA 的 Andrea Righi 主导，灵感来源于 Google 成功的 <a href="https://www.phoronix.com/news/NVIDIA-Boro-Linux-Kernel-AI">Sashiko</a> AI 工具——后者已在邮件列表中出色地提供了代码审查服务。Righi 在本周于布拉格举行的 Linux Plumbers Conference（LPC 2026）上展示了 Boro。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=nvidia_boro_1" alt="NVIDIA Boro" />
-<p>Boro 专注于使用本地 AI 驱动的补丁验证，涵盖将补丁回溯移植（backporting）到旧内核、补丁的构建/启动/测试，并计划检测可能的外树模块（out-of-tree module）破坏。对于缺乏本地 AI 计算能力的用户，Boro 也支持使用远程 OpenAI 兼容服务器，否则还有 Claude、OpenCode 和 Codex 等本地后端可供选择。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=nvidia_boro_2" alt="NVIDIA Boro overview" />
-<p>目前 Boro 已可独立运行，内核开发者今天就能使用它。不过 Righi 在 LPC 2026 上表达了兴趣，可能将部分功能引入 Sashiko 本身。Boro 采用 Apache 2.0 许可证开源，感兴趣的开发者可以在 GitHub 上的 NVIDIA/boro 仓库找到它，Righi 的 LPC 2026 演讲资料则可在 LPC.events 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Boro-Linux-Kernel-AI</guid>
-      <pubDate>Fri, 09 Oct 2026 10:06:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核拟引入 AI 代理资源基础设施，首个技能用于自动添加 &quot;Fixes:&quot; 标签</title>
-      <link>https://www.phoronix.com/news/Linux-AI-Agent-Resources</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主题是为Linux内核引入新的AI Agent资源及AI技能以帮助开发者，契合全局对AI软件技术进展及编程效率改进经验的兴趣，故推荐。</small></p><p>Linux 内核社区近日收到一项新提案，旨在为上游内核引入 AI 代理资源（AI agent resources）基础设施。该提案由 NVIDIA 的 Sasha Levin 提出，他此前还参与过其他 Linux 内核 AI 相关倡议，包括提出 AGENTS.md、AI 驱动的合并冲突解决，以及利用 AI 判断补丁应回溯到哪些旧版本内核等。</p>
-
-<p>根据提案，AI 代理资源将作为一个新目录存在——目前建议放在内核源码树根目录下的 <code>agents/</code> 目录中，也可能移至现有的文档目录内。该目录将被 Linux 内核现有的 AI/生成内容文档所引用，用于引导 AI 代理访问这些资源。其目的是为编码助手持续收集技能（skills）、提示词（prompts）及其他资源。</p>
-
-<p>首个提议的技能是利用大语言模型（LLM）为补丁自动确定并添加 <code>Fixes:</code> 标签，用于标注该补丁所修复的内核提交，从而自动指出某个补丁修复的第一个有问题的 Git 提交。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linux_ai_resources" alt="Linux AI resources" />
-
-<p>目前该提案已收到 1 条评论，社区反响尚待观察。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-AI-Agent-Resources</guid>
-      <pubDate>Fri, 09 Oct 2026 00:41:17 GMT</pubDate>
     </item>
   </channel>
 </rss>
