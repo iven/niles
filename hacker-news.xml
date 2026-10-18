@@ -3,7 +3,65 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 18 Oct 2026 17:19:02 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 18 Oct 2026 20:36:46 GMT</lastBuildDate>
+    <item>
+      <title>⭐ μRepRap：用常见材料实现微米级3D打印的开源项目</title>
+      <link>https://news.ycombinator.com/item?id=50141076</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源项目，涉及3D打印技术探索，属于感兴趣的开源技术内容</small></p><p>μRepRap（RepRapMicron）是一个开源3D打印项目，目标是使用常见且易获取的材料，实现微米（1µm）及亚微米级别的制造能力。该项目由 Vik Olliver 发起，灵感源自 <a href="https://github.com/VikOlliver/RepRapMicron/wiki">OpenFlexure Project</a> 开发的3D打印显微镜平台。</p>
+
+<img src="https://private-user-images.githubusercontent.com/4644768/436892773-59e6d080-767b-4553-bd26-09339e65fa82.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3OTIzNTYwMjUsIm5iZiI6MTc5MjM1NTcyNSwicGF0aCI6Ii80NjQ0NzY4LzQzNjg5Mjc3My01OWU2ZDA4MC03NjdiLTQ1NTMtYmQyNi0wOTMzOWU2NWZhODIucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MTAxOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjEwMThUMjAzNTI1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZWE4NGQyOTAwZTI2MzIxMjVhMGM0OTM3YmM3NTY2NTM5ZTg0YWNiNjdiNTFkMmRmNGQ4NDhmZjM3NmYwOTU1OSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.2iq9UjKbSMBqxE1twKtSegQb7g0MypiMejdqATIZUco" alt="μRepRap Logo" width="100" />
+
+<p>项目目前有两个主要硬件版本：<strong>PIKA V0.02</strong>（当前推荐版本）可在约8mm立方体积内实现约1µm的重复定位精度和10µm或更好的可靠性精度，已能沉积小至4µm的UV树脂液滴，并固化出9µm的树脂线条；<strong>MAUS 版本</strong>（已弃用）作为柔性铰链组件的测试平台，曾在4mm见方区域实现约5µm的最佳定位精度。</p>
+
+<img src="https://private-user-images.githubusercontent.com/4644768/604790176-f85252d6-99b2-4fa2-a942-6779b82f343e.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3OTIzNTYwMjUsIm5iZiI6MTc5MjM1NTcyNSwicGF0aCI6Ii80NjQ0NzY4LzYwNDc5MDE3Ni1mODUyNTJkNi05OWIyLTRmYTItYTk0Mi02Nzc5YjgyZjM0M2UucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MTAxOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjEwMThUMjAzNTI1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9NDk0MzA1NDAwMmUwYTA5MWUyZTE4ZjZkOTQ4NWVmZWE2OTYzYjVjN2Y5OGFkNWU3ODAzYTY2Nzk3NWU1ZWE4MiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltYWdlJTJGcG5nIn0.iTk2H-i4mAGNgulSHV8Srhcapu_C8TZkyK0Mo7usz-s" alt="PIKA V0.02 完整版" width="439" height="439" />
+
+<h3>技术原理</h3>
+<p>μRepRap 本质上是一台高精度的紧凑型 CNC 机器，其核心组件包括：</p>
+<ul>
+<li><strong>三轴定位系统</strong>：由400步 NEMA17 步进电机驱动（200步电机也能接近1µm精度），配合 Arduino GRBL 固件和 GCODE 串口控制。</li>
+<li><strong>探针打印头</strong>：探针同时充当 Z 轴触觉传感器、雕刻工具和沉积头。可用0.5mm皮下注射针或0.25mm针灸针制作，精细沉积则使用电化学蚀刻的金属丝尖端。PIKA 版本甚至能够蚀刻自己的探针。</li>
+<li><strong>增材制造</strong>：通过探针的毛细作用转移微量"Top Coat"UV 指甲凝胶树脂，可沉积小于15µm的液滴。UV LED 由硬件控制器操作以固化树脂。</li>
+<li><strong>光学系统</strong>：使用两台 USB 显微镜分别观察 Z 轴探针高度和 XY 定位，另需100x-200x 常规台式显微镜检查输出。也可将光纤附着为探针，通过投射 UV 光源固化树脂。</li>
+</ul>
+
+<img src="https://private-user-images.githubusercontent.com/4644768/659394589-3ec4efc2-0162-48ca-8936-6c8da4a4ccd7.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3OTIzNTYwMjUsIm5iZiI6MTc5MjM1NTcyNSwicGF0aCI6Ii80NjQ0NzY4LzY1OTM5NDU4OS0zZWM0ZWZjMi0wMTYyLTQ4Y2EtODkzNi02YzhkYTRhNGNjZDcucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI2MTAxOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNjEwMThUMjAzNTI1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZTVmMjk3MjFhNjQzOTAxOTRlYTYwYmI3MDNlMDFiMDAzM2YwOTQ1NjQwZGViNTgxYjM0NzQzMzFmMTYwN2Y1MCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmcmVzcG9uc2UtY29udGVudC10eXBlPWltaWdlJTJGcG5nIn0.TKNQ9LYXUbGAyo4MXHTlcqJ_fD53Yb6Y2m7z3pZ0_PE" alt="Hello World 和 100μm 方形树脂" width="564" height="651" />
+
+<h3>项目愿景</h3>
+<p>正如 RepRap 将开源3D打印带给大众，μRepRap 的目标是在微米尺度上实现同样的能力。项目希望推动微电子和微机电系统（MEMS）领域摆脱对硅基平台的依赖，让独立社区能够在微米尺度上发展。生物学和医学领域也将受益于廉价、快速演进的设备。项目还设想未来技术能够在更小的尺度上自我复制。</p>
+
+<h3>社区反馈</h3>
+<p>该项目在 Hacker News 上获得282分和41条评论，讨论热烈。社区成员对使用普通零件实现如此高精度表示惊讶，并探讨了潜在应用，包括打印 MEMS 器件（加速度计、陀螺仪、微型扬声器）、DIY 喷墨打印机、微型螺丝零件，甚至导电树脂打印芯片设计。也有评论者指出，虽然定位系统精度令人印象深刻，但受限于8mm立方体积，且树脂打印难以等比缩小三个数量级。关于"自我复制"的 RepRap 概念，有评论者指出所有 RepRap 打印机仍需电机、控制器等不可打印部件，且物理定律（如平方立方定律）意味着不同尺度的机构行为并不相同。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50141076</guid>
+      <pubDate>Sun, 18 Oct 2026 13:48:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 解析器组合子（Parser Combinators）：介于正则与重型解析器之间的优雅方案</title>
+      <link>https://news.ycombinator.com/item?id=50139067</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 解析器组合子属于编程技术改进方法，契合编程效率改进兴趣</small></p><p>这篇由 t3.at 发布的文章介绍了「解析器组合子」（Parser Combinators）这一解析技术。文章指出，解析（parsing）是将文本等结构较弱的输入转换为对象等结构化数据的过程。许多开发者习惯用正则表达式（regex）解析文本，也有人使用 tree-sitter 这样的重型解析库（它驱动了代码编辑器中的语法高亮）。</p><p>然而，正则表达式在复杂任务上会变得混乱难维护，而 tree-sitter 往往又显得大材小用——解析器组合子恰好填补了这一片中间地带，并且知道这种技术的人并不多。文章以视觉化的幻灯片方式展示了组合子的构建方法，宣称它「优于正则表达式」。</p><p>该帖在 Hacker News 上获得了 198 分和 74 条评论。社区反馈颇为热烈：有评论者提到组合子帮助自己弥合了学术语法理论与实际开发工作之间的鸿沟；也有人指出正则表达式有局限性（NFA「不会计数」，难以匹配无限数量的平衡括号），而组合子、PEG、解析器生成器（如 lex/yacc、ANTLR）大多易用，追求速度时人们仍会手写解析器。讨论还深入到解析器的类型签名与「部分解析器」（partial parser）的定义等技术细节。</p><p>一些用户对文章的幻灯片式排版提出意见，认为它不易回看和搜索，但也有用户喜欢这种将每个片段隔离展示的阅读体验。文章作者 schindlabua 回应称网站正在重新设计中，会考虑改进。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50139067</guid>
+      <pubDate>Sun, 18 Oct 2026 08:19:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Show HN：Sphinx——一个在代码上线前测验你是否理解 AI 所写代码的 Git 钩子</title>
+      <link>https://news.ycombinator.com/item?id=50137950</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Git钩子工具发布，属编程工具分享且涉及AI代码，高度契合兴趣</small></p><p>Sphinx 是一个开源的 Git 钩子（Git hook），面向 AI 辅助开发场景。它的核心理念是：你可以外包思考，但不能外包理解。每当开发者（或其 AI 代理）向受保护分支推送代码时，Sphinx 会暂停推送，根据本次 diff 生成一个关于代码行为的问题，要求开发者回答。答对了推送继续；答错了则会解释原因并给出新的场景供再次尝试。</p>
+
+<p>项目以「最小 token 消耗」为设计目标，可接入 Codex、Claude Code、Cursor、OpenCode、Pi 等主流编码代理，或任何兼容 OpenAI 接口的端点。开发者的回答不会回传给编码代理，.env 文件和密钥也不会被读取。如果赶时间，可以使用 <code>sphinx yolo</code> 命令跳过测验，但每次跳过都会被记录。</p>
+
+<p>安装方式简单：通过 npm 全局安装 <code>sphinx-understand</code> 后运行 <code>sphinx install</code> 即可完成配置，支持 Node 22.19+，适用于 macOS、Linux 或 WSL。</p>
+
+<p><img src="/demo.gif" alt="A git push waits while the Sphinx questionnaire asks what the change does, the answer passes, and the push continues." width="960" height="576" /></p>
+
+<p>该项目在 Hacker News 上获得了 227 分和 76 条评论，社区反响两极分化。支持者认为，在 AI 生成代码日益泛滥的背景下，这类工具能帮助开发者（尤其是经验不足者）避免「不理解就上线」的危险做法，类似于过去「不要复制你不理解的 Stack Overflow 代码」的告诫。质疑者则指出：真正关心代码质量的人不需要这种强制测验，不关心的人也不会因此改变；还有人担心这会导致「确认疲劳」（Confirmation Fatigue），最终出现「AI 代理替开发者回答 Sphinx 测验」的荒诞循环。此外，有评论者指出「Sphinx」这一名称与已有的 <a href="https://www.sphinx-doc.org/">Sphinx 文档生成工具</a> 重名。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50137950</guid>
+      <pubDate>Sun, 18 Oct 2026 04:33:49 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ DeepSeek 推出搜索与抓取 API：每千次成功请求仅 0.75 美元</title>
       <link>https://news.ycombinator.com/item?id=50138531</link>
@@ -1044,71 +1102,6 @@ fn main() {
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50059115</guid>
       <pubDate>Mon, 12 Oct 2026 16:48:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 智谱发布 GLM-Legal：面向法律领域的专用大模型引发热议</title>
-      <link>https://news.ycombinator.com/item?id=50058507</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 智谱发布面向法律领域的专用大模型，属于新AI模型发布公告及AI技术进展，虽然领域具体但仍是AI模型发布，用户会感兴趣。</small></p><p>智谱AI（Z.ai）发布了面向法律领域的专用大模型 <strong>GLM-Legal</strong>，该模型针对法律场景进行了专门优化。这一消息在 Hacker News 上引发了广泛讨论（290 分，162 条评论），社区围绕 AI 在法律行业的应用前景、责任归属、模型开放性等话题展开了激烈辩论。</p>
-
-<h3>核心讨论点</h3>
-
-<p><strong>1. 律师使用 AI 的责任与披露问题</strong><br />
-多位评论者关注律师使用 AI 时的责任归属。有观点认为，应当立法要求律师披露其使用 AI 的情况，因为律师犯错可以被制裁、吊销执照或起诉，而 AI 无法承担后果。也有评论指出，法律行业早已通过 Westlaw 和 LexisNexis 等工具使用技术辅助工作数十年，关键在于人类律师是否对 AI 输出进行充分审查。</p>
-
-<p><strong>2. AI 幻觉风险</strong><br />
-有评论者指出，GLM-Legal 的演示似乎依赖修订追踪和人工审查，但并未充分解决大语言模型常见的<strong>幻觉问题</strong>——即模型凭空编造不存在的判例或法律结论。如果人类律师在审查时未能发现这些问题，可能面临法官的制裁。</p>
-
-<p><strong>3. 模型开放性争议</strong><br />
-部分评论者注意到 GLM-Legal 并非开源模型，对此表示失望，认为法律和医疗领域的模型尤其应该开放，训练数据也应可请求获取以便第三方验证。不过也有观点认为，只要在自有硬件上部署，模型是否开源并不重要。</p>
-
-<p><strong>4. 法律行业的未来</strong><br />
-一些评论者预测，律师将因 LLM 承担繁重工作而获得更轻松的高薪职业；也有人认为 AI 将让普通民众获得更平等、廉价的法律服务，打破律师作为"法律守门人"的垄断地位。还有评论者展望了更多垂直领域专用模型的出现，如税务法、特定行业法规等细分方向的模型。</p>
-
-<p><strong>5. 其他观察</strong><br />
-有评论者提到，GLM-Legal 的示例似乎主要聚焦于普通法系国家（如美国和英国），并好奇在其他法律体系中的适用效果。还有人注意到该模型的发布时机与 Harvey（法律 AI 公司）被美国实验室挤压利润空间的报道可能存在关联。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50058507</guid>
-      <pubDate>Mon, 12 Oct 2026 16:11:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ QGIS 提出 QEP428：禁止 AI 参与的贡献，从&quot;人类在环&quot;转向严格禁止</title>
-      <link>https://news.ycombinator.com/item?id=50054751</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及开源项目QGIS的管理决策，讨论AI参与贡献的规则变化，既涉及开源项目也涉及AI与开发流程的关系，属于感兴趣类别。</small></p><p>开源地理信息系统项目 <strong>QGIS</strong> 提交了一份新的增强提案（QEP428），将人工智能贡献政策从原有的"人类在环"（Human in the loop）正式收紧为严格的<strong>"不允许"</strong>（NOT ALLOWED）政策。该提案在 GitHub 上引发了激烈讨论，其中点赞 84 次、点踩 23 次。</p>
-<p>提案发起人 nyalldawson 解释了为何要超越此前较为宽松的政策：<strong>外部贡献者使用 AI 给维护者带来了"巨大且难以承受的压力"</strong>。AI 生成的贡献数量远超人工评审所能认真处理的范围，导致两种后果——要么未评审的 PR 堆积成山，要么代码在未被充分评审的情况下合并，带来质量问题。这两者都是项目不希望看到的。</p>
-<p>维护者 haubourg 强调，自由软件社区建立在人类网络之上，QGIS 之所以被组织信任，是因为他们知道自己可以回馈社区、可以雇佣贡献者来获得支持、培训和功能开发。作为社区项目，他们希望保护这一点，并保持足够的带宽来欢迎人类贡献。</p>
-<p>曾使用 AI 提交两个回归修复 PR 的贡献者 Amalvir 也公开支持这项政策。他坦承，自己利用 LLM 修复 bug 的做法"打破了评审者与贡献者之间的信任契约"，并指出当贡献者因 AI 便利而很少真正学到东西时，项目技能不会积累，社区也会停滞。</p>
-<p>不过，也有贡献者（如 kannes）对措辞的宽泛提出了担忧，认为"辅助"和"使用"这样的词过于宽泛，可能连用于代码审查、审计和安全目的的 LLM 用途也被一并禁止，"把孩子和洗澡水一起倒掉"。对此，核心开发者 rouault-on-strike 回应：<strong>"是的，我们意识到可能把孩子和洗澡水一起倒掉，但那个孩子可能无法存活"</strong>。他表示这是一项"权宜之计"（stop-gap measure），两年前没有 AI 的世界运转得也很好，他们需要等 AI 泡沫破裂后才能理解什么是公平的 AI 使用。</p>
-<p>nyalldawson 也澄清：这份政策并非"刻在石头上永远不变"，而是"先关上门，然后再在安全且经过充分讨论的情况下，有选择地打开一条缝"。未来可针对"AI 用于 IDE 自动补全""AI 用于语言翻译"等场景逐案讨论。</p>
-<p>该提案已度过讨论阶段，进入投票阶段。Hacker News 上 380 条评论中，讨论焦点包括"什么是 AI 辅助贡献"这一模糊界定、如何验证代码是否由 AI 生成，以及政策对开源社区贡献文化的影响。一些评论者认为这是维护者资源分配问题的合理应对，另一些人则批评其"目光短浅的象征性姿态"（myopic virtue signalling），还有人讽刺地建议用 AI 从头克隆整个项目。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50054751</guid>
-      <pubDate>Mon, 12 Oct 2026 11:22:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Karpathy：对 LLM 能力的认知鸿沟正在急剧扩大</title>
-      <link>https://news.ycombinator.com/item?id=50047422</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论LLM能力认知鸿沟扩大的现象，涉及AI能力进展与大众普及现状，符合AI软件技术进展的兴趣方向，虽提及Karpathy但主线为AI能力认知，故推荐阅读。</small></p><p>Andrej Karpathy（安德烈·卡帕西）再度翻出数月前的一条推文，指出公众对大型语言模型（LLM）能力的认知鸿沟不仅没有弥合，反而在急剧扩大——如今已不再是"两个群体各说各话"，而是变成一个"漏斗"。</p>
-
-<p>他用一组"粗略估算"勾勒了这个漏斗的各层级：</p>
-<ul>
-<li><strong>约 60 亿人（约 75% 的人口）</strong>几乎完全没有接触过 LLM。</li>
-<li><strong>约 10–20 亿人（约 20%）</strong>是免费版 ChatGPT 一类产品的偶尔使用者，多将其当作"更好的 Google 搜索"或写作辅助工具，不少非技术人士觉得用处不大。</li>
-<li><strong>约 2000 万人（0.2%）</strong>是数学与代码领域的专业用户，亲眼见证原本需数周或数月的大项目如今可由智能体通过一条提示词完成；Karpathy 坦言，不到一年前他还在逐字符手工编写代码。</li>
-<li><strong>约 5000 人（0.00006%）</strong>能接触前沿级内部系统，外界只能看到预览：数千智能体协同数周攻克巨型软件项目、以机器速度进行网络攻防、发现新科学、推进数学前沿，人类评审与理解已开始落后。</li>
-</ul>
-
-<p>Karpathy 认为漏斗由三方面因素驱动：<strong>1）影响随野心、问题规模与时间跨度放大</strong>，简单问答几乎无法给系统施压；<strong>2）能力的"锯齿状"分布</strong>，在可数字化、可验证、经济价值高的领域（如数学与代码）表现最强；<strong>3）访问权限</strong>（免费、付费、内部）。正因为这些影响同时叠加，普通公众、多数专业人士与少数前沿使用者之间的体验落差变得异常刺眼。</p>
-
-<p>在 Hacker News 的 375 条评论中，讨论十分热烈。有用户指出真正的"墙"可能不是模型能力，而是<strong>人类验证输出的能力</strong>，担心业界会全然放弃人工评审，带来质量下滑与责任风险。也有多位评论者对 Karpathy 的"2000 万人靠一条提示词完成大型项目"说法表示质疑，认为这只是"去掉细微差别"的戏剧化说法，并强调可验证性才是关键。还有人认为模型的免费层已"饱和"了多数人能够欣赏的程度，另一些评论则聚焦于开源模型与智能体群的实际效果。</p>
-
-<h3>你知道吗？</h3>
-<p>Karpathy 提到的"锯齿状能力"（jagged capability frontier）指的是 LLM 的能力并非均匀分布：在某些可数字化、可验证且经济价值高的任务上表现惊人，而在开放式的日常信息问答等任务上却并不可靠。这一现象源于 LLM 的强化学习依赖可验证的奖励信号与精选环境，因此能力峰值集中出现在容易自动评估的领域。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50047422</guid>
-      <pubDate>Sun, 11 Oct 2026 20:20:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
