@@ -3,7 +3,71 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 19 Oct 2026 13:01:07 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2026 19:16:33 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.4 的 Btrfs 带来更多性能优化：Zstd 解压加速、锁竞争降低与 reflink 提速</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-Btrfs</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲Linux内核中Btrfs文件系统的性能改进，属于Linux桌面/内核技术进展，与source配置的Linux桌面技术（interest）相关</small></p><p>Linux 7.3 已经为 Btrfs 带来了不错的性能改进，而正在开发中的 Linux 7.4 内核将进一步为这一写时复制（copy-on-write）文件系统带来多项性能优化。</p><p>对于使用 Btrfs 的 Zstd 压缩透明压缩文件系统的用户，Linux 7.4 将提供略微更快的 Zstd 解压速度，约提升 +8MB/s。</p><img src="//www.phoronix.net/image.php?id=btrfs-zstd-compress&image=btrfs_zstd_2_med" alt="Btrfs with Zstd compression" /><p>更新后的 Btrfs 代码还降低了 inode extent map 锁的竞争程度，从而改善相关场景——例如当 Btrfs 的 shrinker 处理没有 extent map 的 inode 时，时间预计可减少 10-20%。</p><p>另一个性能改进是 reflink 的提速，通过重新排序锁定与刷新操作，针对更常见的场景进行了优化。此外，Linux 7.4 中的 Btrfs 还带来了错误处理修复、多项代码清理、一系列 bug 修复及其他改进。更多关于这些 Btrfs 特性/改动的细节可参见<a href="https://www.phoronix.com/news/Linux-7.4-Btrfs">该 pull request</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Btrfs</guid>
+      <pubDate>Mon, 19 Oct 2026 18:17:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linus Torvalds 的 AI 代码经 Meta 工程师重写后性能大幅提升</title>
+      <link>https://www.phoronix.com/news/Reading-Page-Cache-WO-Folio-Ref</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲Linus Torvalds改进Linux页面缓存代码带来性能提升，属于Linux内核技术进展和编程效率改进经验（high_interest）</small></p><p>上周报道了 Linus Torvalds 利用 Claude Code（AI 工具）为 Linux 内核提出的一项重大改进，该代码旨在无需 folio 引用即可从页缓存（page cache）读取数据，以优化多 CPU 线程对单个文件进行小规模读取的工作负载。</p>
+
+<p>Meta 工程师 Kiryl Shutsemau 基于 Torvalds 的代码进行了重写，并公布了令人瞩目的性能测试结果。他在补丁封面信中解释：多个 CPU 对同一文件进行小读取时，都会对同一个 folio 获取并释放引用，导致其引用计数在各 CPU 之间频繁跳动。该补丁系列让 <code>filemap_read()</code> 和 shmem 无需获取引用即可从页缓存复制数据，被读取的 folio 仅在 RCU 宽限期（RCU grace period）结束后才会被释放。</p>
+
+<p>测试覆盖了 EXT4、TMPFS、XFS 文件系统以及原始块设备，使用 AMD Ryzen Threadripper CPU 的 64 线程环境，并分别在有/无默认 CPU 安全缓解措施（CPU security mitigations）的情况下进行了验证。结果显示性能提升非常显著：</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=linus_ai_improved" alt="benchmark results" />
+
+<p>目前该补丁仍处于请求评论（RFC）阶段，部分设计细节尚待讨论，但社区期望相关问题能尽快解决，并有望在不久的将来合入内核主线。补丁已发布在 Linux 内核邮件列表中。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Reading-Page-Cache-WO-Folio-Ref</guid>
+      <pubDate>Mon, 19 Oct 2026 16:32:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Canonical 发布 Multipass 1.17：新增非 Ubuntu 发行版直接支持</title>
+      <link>https://www.phoronix.com/news/Multipass-1.17</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲Canonical Multipass 1.17新增支持非Ubuntu发行版，属于新软件项目及虚拟化技术的结合，新软件项目为high_interest，虽涉及虚拟化（uninterested）但主要内容是新功能发布</small></p><p>Canonical 于近日发布了 <strong>Multipass 1.17</strong>，这是一款用于在 Windows、macOS 和 Linux 平台上通过单条命令编排 Ubuntu 虚拟实例的工具。本次更新最引人注目的变化是新增了对非 Ubuntu Linux 发行版的直接支持。</p>
+
+<p>Multipass 1.17 最初内置了对 <strong>Debian</strong> 和 <strong>Ubuntu</strong> 的支持，同时开放了其他 Linux 发行版的部署通道，并欢迎用户反馈希望加入的其他发行版。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=multipass_117_1_med" alt="Multipass 1.17" />
+
+<p>新版本还引入了<strong>可用区（availability zones）</strong>功能，允许将虚拟机组织到预定义的区域中，配备隔离的子网和其他云环境特性，从而更好地在本地模拟云环境。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=multipass_117_2_med" alt="Multipass 1.17" />
+
+<p>其他值得关注的改进包括：</p>
+<ul>
+  <li>Multipass GUI 中重新设计的镜像目录</li>
+  <li>Windows 平台新增 <strong>Host Compute System（HCS）</strong>驱动，比此前的 Hyper-V 集成路径更稳健</li>
+  <li>macOS 新增 <strong>Apple 虚拟化框架</strong>后端，支持更快的启动速度和 macOS 26 上的原生 ASIF 磁盘镜像支持</li>
+  <li>新增 <strong>POWER PPC64EL</strong> 和 <strong>IBM s390x / IBM Z</strong> 架构支持</li>
+  <li>GUI 默认镜像更新为 Ubuntu 26.04 LTS</li>
+  <li>包含多项错误修复和其他增强</li>
+</ul>
+
+<p>更多下载和详细信息可参阅 <a href="https://github.com/canonical/multipass">GitHub</a> 和 <a href="https://discourse.ubuntu.com">Ubuntu Discourse</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Multipass-1.17</guid>
+      <pubDate>Mon, 19 Oct 2026 13:17:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>GNU Linux-libre 7.3-gnu 发布，进一步移除固件二进制文件</title>
+      <link>https://www.phoronix.com/news/GNU-Linux-Libre-7.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲GNU Linux-libre移除固件blob，属于Linux发行版相关但主题较专业小众，兴趣不十分明确</small></p><p>继昨日 Linux 7.3 内核发布之后，GNU Linux-libre 7.3-gnu 现已释出。作为 GNU 的下游内核项目，Linux-libre 继续剔除那些依赖固件二进制文件（firmware blobs）或其他被认为与自由软件理念不符的专有元素的驱动程序与硬件支持。</p><p>本次 v7.3 版本的发布公告将相关改动总结为：清除了众多新驱动中的二进制文件名称，包括 Tyr Mali GPU、Morse Micro mm81x WiFi、NXP WiFi 及 Realtek PHY；同时清理了 nova-core、amdgpu、adreno、tegra、iris 视频解码器、rtw89 与 mt76 WiFi、remoteproc 文档、Qualcomm Q6V5 PAS、qla2xxx SCSI、aw88399 音频编解码器以及众多 Qualcomm 设备树文件中的新二进制文件名称。</p><p>与以往每个内核周期一样，GNU Linux-libre 开发者也发布了独特的艺术海报。</p><img src="//www.phoronix.net/image.php?id=2026&image=linux_libre_73" alt="GNU Linux-libre 7.3 release artwork" /><p>GNU Linux-libre 7.3-gnu 内核可从 FSFLA.org 下载。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Linux-Libre-7.3</guid>
+      <pubDate>Mon, 19 Oct 2026 12:57:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GNOME Mutter 合并补丁，降低节能模式下的 GPU 功耗</title>
       <link>https://www.phoronix.com/news/GNOME-Power-Savings-GPU</link>
@@ -664,62 +728,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/EXT4-iomap-Buffered-IO</guid>
       <pubDate>Mon, 12 Oct 2026 09:27:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.3-rc7 发布，正式版有望下周末推出</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-rc7-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是Linux 7.3内核新版本发布消息，属于开源项目与Linux技术进展</small></p><p>Linux 创始人 Linus Torvalds 已发布 Linux 7.3 的第七个候选版本（7.3-rc7），这很可能是在 7.3 正式版于下周日发布前的最后一个候选版本。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=linux_73_rc7" alt="Linux 7.3-rc7 Git tag" /><p>本周期继续延续"新常态"：由于 AI 参与的补丁增多，内核周期晚期的补丁活动显著增加。本周的晚期变更包括：内核中加入了 AMD 的 TLBI（Translation Lookaside Buffer Invalidate）勘误表规避措施、大量网络修复，以及为 XPad 驱动程序新增两款游戏控制器，此外还有来自 AI 编码工具提交的大量零散小修复。</p><p>Torvalds 在公告中调侃道，本次 rc 发布比原定时间晚了六小时，并非遇到问题，而纯粹是因为"能力不足"——他自认为时差影响，误把周日当成周六，直到晚餐时才意识到错误。他表示尽管补丁集中某些部分略显异常（rc7 中约一半补丁为 selftests，主要源于多个挂载相关 bug 修复及其配套 selftest），但整体来看并没有任何会导致正式版延期的问题，因此 7.3 稳定版仍定于下周末（10 月 18 日周日）发布，除非出现新的意外。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-rc7-Released</guid>
-      <pubDate>Mon, 12 Oct 2026 08:44:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Linus Torvalds 借助 Claude Code 开发 Linux 内核重大改进</title>
-      <link>https://www.phoronix.com/news/Linus-Torvalds-Claude-Code</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是Linus Torvalds使用Claude Code（AI编程工具）进行Linux内核开发的重大改进，同时涉及新AI模型工具使用和编程效率改进经验，符合全局配置的high_interest（编程工具发布/分享、编程效率改进经验、新AI模型发布公告），且涉及Linux内核开发，用户强烈感兴趣。</small></p><p>Linux 创始人 Linus Torvalds 一直被视为 AI 工具的支持者，此前他曾使用 AI 辅助内核调试，并在内核树之外使用 Google 的 Antigravity 进行"vibe coding"。如今，他更进一步，正在使用 Anthropic 的 Claude Code 开发新的 Linux 内核功能。</p>
-
-<p>在等待 Linux 7.3-rc7 发布并刷新 torvalds/linux.git 仓库时，人们发现 Torvalds 的主仓库中出现了一个新分支 <strong>noref-filemap-read-with-llm</strong>。正如名称中的"LLM"后缀所示，这是他在 AI/LLM 辅助下进行的内核改进工作。</p>
-
-<img src="https://www.phoronix.net/image.php?id=2026&image=linux_llm_branch" alt="noref-filemap-read-with-llm Git branch" />
-
-<p>该分支的代码致力于改造内存管理代码，使其能够在不使用 folio 引用的情况下从页缓存（page cache）读取数据。这一改动旨在解决 Linux 中一个已知问题：当多个线程对同一文件进行小规模读取时，会在 folio 引用计数上产生竞争（contention），导致性能瓶颈。</p>
-
-<p>在补丁提交信息中，Torvalds 明确确认了 AI 在此项工作中的作用：<em>"代码、测试程序、上述列表背后的审查以及本文本的初稿，都是在我的指导下由 LLM 编码助手（Claude Code）完成的。测量结果在我的机器上运行。"</em></p>
-
-<p>针对多线程小读取瓶颈问题，该补丁系列带来的性能提升十分显著：</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linus_llm_performance" alt="performance results of Linus Torvalds AI code" />
-
-<p>目前这些补丁位于 Torvalds 的 noref-filemap-read-with-llm Git 分支上。该分支是否会被合并到即将到来的 Linux 7.4 合并窗口中，值得关注。</p>
-
-<div class="know-more"><h3>你知道吗？</h3><p><strong>Folio</strong> 是 Linux 内核内存管理中的一个概念，它是对页（page）的抽象封装，可以包含一个或多个连续的物理页。Folio 引用计数用于跟踪内核中对该内存区域的引用次数，当多个线程并发访问同一 folio 时，原子操作的开销会成为性能瓶颈。</p></div>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linus-Torvalds-Claude-Code</guid>
-      <pubDate>Mon, 12 Oct 2026 00:16:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Meta 发布 Drgn 0.3：可编程调试器带来新特性与安全加固</title>
-      <link>https://www.phoronix.com/news/Drgn-0.3-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Meta发布的Drgn可编程调试器新版发布，属于编程工具发布，符合全局很感兴趣，故为必读</small></p><p>Meta 的开源项目 Drgn 于本周末发布了 0.3 版本。Drgn 是一款高度灵活的可编程调试器，其目标在于"让脚本写起来尽可能自然，使调试感觉就像在写代码"。Linux 内核开发者 Omar Sandoval 在 Meta 持续主导该项目开发，新版本在增加更多功能的同时，也针对不受信任的调试信息（un-trusted debugging information）和核心转储（core dumps）加固了代码库。</p>
-<p>Drgn 0.3 的主要改进包括：优化了对 QEMU 客户机（guest）VM 的调试，在可能的情况下直接从 QEMU 进程中读取内存；引入了若干新函数以辅助调试，例如轻松读取系统上 IRQ 数量、新增崩溃 BPF 命令选项、部分实现 crash net 命令，并支持新的 Linux 7.2 与 Linux 7.3 内核特性。此外，LoongArch64 架构现在也能被 Drgn 0.3 正确识别。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&amp;image=drgn_example" alt="drgn script example" /></p>
-<p>该版本还包含数十项修复以及部分文档改进。用户可通过 GitHub 查看下载链接和更多详情。</p>
-<p>来源：<a href="https://www.phoronix.com/news/Drgn-0.3-Released">Phoronix</a>，社区已有 1 条评论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Drgn-0.3-Released</guid>
-      <pubDate>Sun, 11 Oct 2026 10:07:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux Plumbers Conference 热议：GenAI 时代滚动发布发行版是否优于 LTS 发行版</title>
-      <link>https://www.phoronix.com/news/Rolling-Releases-GenAI-Era</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讨论 Linux 发行版的滚动发布与 LTS 模式对比，涉及用户很感兴趣的新发行版主题</small></p><p>本周在布拉格举行的 Linux Plumbers Conference（LPC）上，高通工程师 Khem Raj 发表观点，质疑了在生成式人工智能（GenAI）时代 Linux 长期支持（LTS）发行版的相关性，引发了周末论坛的热烈讨论。</p><img src="//www.phoronix.net/image.php?id=2026&image=lts_woes_1_med" alt="Linux LTS challenges" /><p>Khem Raj 认为，随着 AI 编码代理不断提升 Linux 内核及周边开源项目的补丁流动速度，这不仅给开源维护者带来巨大负担，也让需要在各自内核树中反向移植补丁的发行版厂商面临重重压力。从 CI/CD 到发布管理，这一补丁负担正形成一系列瓶颈。</p><img src="//www.phoronix.net/image.php?id=2026&image=lts_woes_2_med" alt="Linux LTS maintenance burden" /><p>他主张滚动发布（rolling release）发行版更具优势：对上游的分歧更小、反向移植补丁的需求更少、安全修复更快等。不过他也承认，滚动发布模式在认证与资格审核等方面仍存在挑战。</p><img src="//www.phoronix.net/image.php?id=2026&image=lts_woes_3_med" alt="Linux LTS vs. rolling release distros" /><p>该演讲确实指出了一些合理的观点，即在下游承担持续增加的补丁反向移植与测试负担时，维护 LTS 版本的发行版厂商压力加大。未来 LTS 发行版将如何演进、滚动发布模式是否会逐渐被大型企业组织所接受，值得拭目以待。相关资料可参见 <a href="https://www.phoronix.com/news/Rolling-Releases-GenAI-Era">LPC 演讲页面</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rolling-Releases-GenAI-Era</guid>
-      <pubDate>Sat, 10 Oct 2026 15:27:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
