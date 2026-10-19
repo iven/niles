@@ -3,7 +3,20 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Mon, 19 Oct 2026 06:07:30 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2026 13:00:56 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Headroom：面向 AI 智能体的上下文压缩层，平均节省数十个百分点 token</title>
+      <link>https://github.com/headroomlabs-ai/headroom</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 属于 AI 软件技术进展和编程工具类项目，面向 AI 智能体做上下文压缩以节省 token，符合用户兴趣，推荐阅读</small></p><p><strong>Headroom</strong> 是一个为 AI 智能体设计的「上下文压缩层」，在内容到达大语言模型（LLM）之前，对工具输出、日志、RAG 检索块、文件以及对话历史进行压缩，声称在保持相同答案质量的同时大幅减少 token 消耗。</p>
+<p>该项目由 <a href="https://pypi.org/project/headroom-ai/">PyPI</a>、<a href="https://www.npmjs.com/package/headroom-ai">npm</a> 与 Hugging Face 分发，核心基准数据来自官方宣称的离线可复现评测（<code>benchmarks/index_proof_table.py</code>）。据其介绍，四个真实场景的 token 节省分别为：SRE 事故调试 57%、代码库探索 42%、GitHub issue 分类 30%、代码搜索 21%；重复性较高的 JSON 数组与日志行可节省超过 90%。在准确率方面，GSM8K、TruthfulQA 等基准测试显示压缩前后无显著差异，SQuAD v2 在 19% 压缩率下仍保持 97% 的问答水平，BFCL 工具调用在 32% 压缩率下仍达 97%。压缩延迟极低，10K token 的 JSON 结果 p50 仅 0.21 毫秒。</p>
+<p><strong>工作原理</strong>：压缩完全在本机运行，任何提示词或文件内容都不会被发送出去压缩。核心链路由 CacheAligner、ContentRouter 和 CCR 组成，其中 <strong>ContentRouter</strong> 按内容类型分派压缩器——<strong>SmartCrusher</strong>（JSON）、<strong>CodeCompressor</strong>（基于 AST 的源代码）和 <strong>Kompress-v2-base</strong>（自然语言）。<strong>CCR</strong> 将原始内容缓存在本地，供模型按需调用 <code>headroom_retrieve</code> 取回完整文本，因此压缩是可逆的。</p>
+<p><strong>交付形态</strong>：提供库（Python/TypeScript 的 <code>compress()</code>）、零代码改动的代理（<code>headroom proxy</code>）、MCP 服务器以及一条命令即可包裹/解除包裹的智能体封装（<code>headroom wrap</code>，支持 Claude Code、Codex、Grok、Copilot、Cursor、Aider、Cline、OpenHands 等十余种工具）。此外还提供跨智能体共享记忆、<code>headroom learn</code>（从失败会话中提取经验写入本地指南文件）等功能。</p>
+<p><strong>输出 token 缩减</strong>：除压缩发送给模型的提示词外，Headroom 还通过<strong>冗长程度引导</strong>（在系统提示词末尾追加简洁指令）和<strong>思考力度路由</strong>（在简单恢复性回合降低模型推理开销）来削减模型「写回」的输出 token，当前默认关闭，需通过 <code>HEADROOM_OUTPUT_SHAPER=1</code> 启用。</p><p>该项目近期登上 GitHub Trending（今日排名第 7，约 7.6 万星标），社区关注度很高，其「本地压缩、数据不出本机」的设计也切合当前 AI 应用对成本和隐私的关注。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/headroomlabs-ai/headroom</guid>
+      <pubDate>Mon, 19 Oct 2026 13:00:29 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ LLM Course：通往大语言模型世界的免费学习路线图与实战笔记本</title>
       <link>https://github.com/mlabonne/llm-course</link>
@@ -1200,26 +1213,6 @@
 <｜DSML｜parameter name="rejected" string="false">false]]>
       </description>
       <guid isPermaLink="false">https://github.com/tensorflow/tensorflow</guid>
-      <pubDate>Sat, 26 Sep 2026 13:01:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenBao：开源密钥与敏感数据管理解决方案</title>
-      <link>https://github.com/openbao/openbao</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 开源密钥管理项目，属于开源项目但主题偏向安全基础设施，兴趣不明确</small></p><p><a href="https://github.com/openbao/openbao">OpenBao</a> 是一款用于管理、存储和分发敏感数据（包括密钥、证书和密匙）的软件解决方案，托管于 OpenSSF（开源安全基金会），社区遵循开放式治理原则，并采用 OSI 批准的许可证。其目标是解决现代系统对多种秘密访问的复杂需求——包括数据库凭据、外部服务 API 密钥及面向服务架构的通信凭据等。</p>
-
-<p>OpenBao 的五大核心特性包括：</p>
-<ul>
-<li><strong>安全秘密存储</strong>：可存储任意键值型秘密，并在写入持久化存储前进行加密，因此即使获得原始存储也无法访问秘密。支持写入磁盘、PostgreSQL 等。</li>
-<li><strong>动态秘密</strong>：可按需为某些系统（如 AWS 或 SQL 数据库）生成秘密。例如应用需要访问 S3 存储桶时，OpenBao 会按需生成具有有效权限的 AWS 密钥对，并在租约到期后自动撤销。</li>
-<li><strong>数据加密</strong>：可在不存储数据的情况下进行加密与解密，使安全团队能够定义加密参数，开发者则可将加密数据存入 SQL 数据库等位置，无需自行设计加密方法。</li>
-<li><strong>租约与续期</strong>：所有秘密都关联一个租约（lease），租约到期后 OpenBao 会自动撤销该秘密，客户端可通过内置的续期 API 延长租期。</li>
-<li><strong>撤销</strong>：内置秘密撤销支持，不仅能撤销单个秘密，还能撤销整个秘密树——例如某个特定用户读取的全部秘密，或某种类型的全部秘密，有助于密钥轮换及在遭受入侵时锁定系统。</li>
-</ul>
-
-<p>项目采用 Go 语言开发，通过 <code>bao</code> 二进制文件运行，仓库同时维护官方网站、文档页面及 Web UI 应用。该项目在 GitHub 上拥有约 7890 颗星、588 个 fork，并已获得 OpenSSF Scorecard 与最佳实践徽章认证。项目还发布了两个可被其他项目引用的库：<code>github.com/openbao/openbao/api/v2</code> 和 <code>github.com/openbao/openbao/sdk/v2</code>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openbao/openbao</guid>
       <pubDate>Sat, 26 Sep 2026 13:01:23 GMT</pubDate>
     </item>
   </channel>

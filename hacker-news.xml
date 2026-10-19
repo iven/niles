@@ -3,7 +3,23 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 19 Oct 2026 06:07:47 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2026 13:01:04 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 如果你不自己运行 LLM 代理，怎么知道到底发生了什么？</title>
+      <link>https://news.ycombinator.com/item?id=50145507</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为自行运行 LLM 代理来理解其内部机制，属于 AI 软件技术进展，用户感兴趣，推荐阅读。</small></p><p>作者认为，无论你是个人开发者还是运营价值数十亿美元的 SaaS 应用，只要在使用大语言模型（LLM）服务，都应该自己运行一个 LLM 代理（proxy），以便真正掌握底层状况。文章批评了主流提供商提供的所谓「分析面板」——它们显示的并不是面向工程师的时间序列 token 用量统计数据，而只是一些分散注意力的界面，无法据此做出任何技术判断。</p><p>作者列出了为什么应该自建 LLM 代理的六大理由：</p><ul>
+<li>在单个可控端点，整合多家提供商、多种模型；</li>
+<li>记录哪个 API 密钥、在什么时间、用什么客户端调用了哪个模型及其状态；</li>
+<li>使用虚拟 API 密钥，避免在工作、智能体（agents）和工具链中散落泄露你的主密钥；</li>
+<li>这是你完全掌控的基础设施；</li>
+<li>可以极其快速地切换模型和提供商，无需反复重建整套配置；</li>
+<li>代理可自由修改，作者就为自己的需求定制了更好的洞察、自定义 MCP 服务器端点和额外功能。</li>
+</ul><p>作者强调，应自己运行代理并把数据可视化，从而在遇到缓存未命中（cache miss）时能迅速定位原因。他提出「拥有自己的基础设施、应用可见性、数据路径和存储」的理念——在家中做此事出于乐趣，在工作中则是履行职责，确保推理服务被正确监测（instrumented）。</p><h2>你知道吗？</h2><p>文中所说的「LLM 代理」指的是位于客户端与模型提供商之间的中间层服务，可以统一路由请求、记录日志、管理多密钥与多模型。社区讨论中提到的开源方案包括 LiteLLM 和 GoModel 等项目，可将代理部署在自有服务器上，例如通过 homelab 运行，以获得完整可观测性并避免主 API 密钥暴露。有评论者指出，订阅服务实际是高度补贴的获客工具，长远看仍需建立自有的 API 成本与用量管理机制，这也正是自建 LLM 代理的价值所在。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50145507</guid>
+      <pubDate>Sun, 18 Oct 2026 21:09:12 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 混合推理智能体：在隐空间思考、通过文本行动的 LLM 代理</title>
       <link>https://news.ycombinator.com/item?id=50145337</link>
@@ -1053,37 +1069,6 @@ fn main() {
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50059523</guid>
       <pubDate>Mon, 12 Oct 2026 17:14:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 用 C 语言构建现代 Web 应用：CGI、SQLite 与单一二进制文件</title>
-      <link>https://news.ycombinator.com/item?id=50058528</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是用 C 语言构建现代 Web 应用的技术实践（CGI、SQLite、单一二进制），属于编程效率与软件技术进展，符合用户兴趣</small></p><p>作者 Corey Prophitt 分享了他用 C 语言构建并上线了一个商业 Web 产品 <a href="https://prophitt.me/writing/a-modern-web-app-in-c">marketyour.games</a> 的经验。这个产品拥有用户账户、搜索仪表盘、文件夹管理、Stripe 支付和 Postmark 邮件等功能，但整个技术栈却回到了 1994 年的方式：CGI、SQLite 和单一二进制文件，没有框架、没有容器。</p>
-
-<h3>技术栈</h3>
-<p>作者采用 BCHS 栈：OpenBSD、C、httpd 和 SQLite。没有框架，C 程序直接读取 CGI 环境变量并输出 HTML；没有模板语言，直接用 C 输出 HTML；没有独立数据库服务器，通过 SQLite 的 C API 直接打开数据库文件；没有容器，构建一个静态链接的二进制文件放入目录即可。每次请求都会启动一个新进程，部署新版本只需替换一个文件，无需重启服务器。</p>
-<p>仅依赖三个外部库：libcurl（处理 Stripe 和 Postmark 的请求）、libsodium（随机标识符生成、密码哈希和 HMAC 验证）和 libcjson（JSON 解析）。其中 libcjson 是单文件库，SQLite 也使用官方 amalgamation 版本，两者都作为项目的一部分 vendored。干净构建只需几秒，增量构建不到半秒。</p>
-
-<h3>作者喜欢的地方</h3>
-<ul>
-<li><strong>基础而非框架</strong>：CGI 规范自 2004 年发布后未变过，只需理解 HTTP 的基本概念即可，且语言无关、平台无关。</li>
-<li><strong>关注点清晰分离</strong>：单一 Web 服务器直接调用业务逻辑，调试更简单——应用就是一个普通程序，可以从 shell 运行、用 gdb 调试。作者认为 CGI 本质上类似无服务器架构，只是没有供应商。</li>
-<li><strong>供应链风险最小化</strong>：依赖图只有 C 编译器和三个库，相比现代技术栈动辄数百个间接依赖，安全性更高。</li>
-<li><strong>工具简单</strong>：纯 Vim 即可工作，无需 LSP、自动补全或 AI。Sanitizers、valgrind、gdb 等成熟工具随手可得。</li>
-<li><strong>SQLite 的运维负担极低</strong>：没有独立进程、没有配置、没有依赖，直接打开数据库文件。</li>
-</ul>
-
-<h3>需要改进的地方</h3>
-<p>CGI 没有框架或库，开发者需要自己处理 Cookie 解析、查询参数解析、表单数据验证、输入转义等。作者自己写了一个单头文件 cgi.h，但认为这不是最佳方案，希望看到类似 stb 库那样的共享工具集。</p>
-
-<h3>结论</h3>
-<p>作者认为 2000 年代初放弃 CGI 的大部分理由今天已不成立：进程 fork 在现代内核中已高度优化，即使需要更高性能，FastCGI 也是简单的升级路径。marketyour.games 作为一个商业产品，运行在单一二进制文件上，比作者之前交付的任何产品都更少活动部件。</p>
-
-<h3>社区讨论</h3>
-<p>HN 评论区的讨论相当热烈。有用户指出 nginx 不原生支持 CGI（lighttpd 支持），并推荐了 nginx-cgi 项目；有用户质疑选择 C 的动机，认为 Go 或 Rust 也能获得类似好处且更安全；还有用户讨论 SQLite 在多进程并发写入下的表现（作者回应称使用 WAL 模式并设置 busy timeout 即可）。部分评论对网站的可读性提出批评，作者回应称是刻意选择的单色设计并承诺改进。也有用户提到 FastCGI 是更优的长期进程方案。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50058528</guid>
-      <pubDate>Mon, 12 Oct 2026 16:13:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
