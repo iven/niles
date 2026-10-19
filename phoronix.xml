@@ -3,7 +3,30 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 19 Oct 2026 19:16:33 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2026 23:35:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.4 逐步淘汰老旧 EDAC 驱动：AI 生成的修复补丁造成困扰</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-EDAC</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲的是Linux内核移除旧EDAC驱动的开发动态，涉及开源项目与Linux技术进展，与AI生成修复热潮相关，符合兴趣配置，推荐阅读。</small></p><p>Linux 7.4 内核的「错误检测与纠正」（Error Detection And Correction, EDAC）子系统除了引入新的 Intel BFF 驱动外，正在淘汰一批老旧硬件驱动，原因是针对这些可能已几乎无人使用的驱动，AI/LLM 生成的 bug 修复补丁带来了大量噪音。</p>
+
+<p>这与今年早些时候 Linux 网络子系统因 AI 驱动的大量 bug 报告而开始移除老旧网络驱动的情况类似。EDAC 驱动维护者同样面临越来越多针对老旧 EDAC 驱动的 bug 报告和补丁，而这些驱动很可能没有实际应用——至少对于生产环境中仍使用最新主线内核版本的用户而言。为避免这些实质上的 AI 垃圾信息，维护者将这些驱动标记为孤儿（orphaning），随后将在下一个内核版本中予以移除。</p>
+
+<p>EDAC 维护者、AMD 的 Borislav Petkov 在今天（19 日）的拉取请求中解释：<em>「将多个 EDAC 驱动孤儿化：i82975x、x38、xgene、i3200。这些驱动只收到一些顺手（drive-by）更新，实际上没有人真正使用它们，至少在邮件列表上没有任何使用痕迹。随着 AI 生成修复补丁狂潮的到来，且由于没人能真正测试针对这些驱动的修复，是时候让它们退休，送它们去永恒的快乐狩猎场了。」</em></p>
+
+<p>具体涉及的老旧硬件包括：</p>
+<ul>
+<li><strong>i82975x</strong>：对应当年的 Intel 975X Express 芯片组。作者 Michael Larabel 提到他仍保留有约二十年前的 Intel 975X 硬件（并回忆了 975X 与 Abit 主板时代）。<img src="//www.phoronix.net/image.php?id=583&image=abit_aw9d_mobo_med" alt="Abit AW9D" /><img src="//www.phoronix.net/image.php?id=583&image=abit_aw9d_cpu_med" alt="Abit motherboard with i975X" /></li>
+<li><strong>x38</strong>：对应 Intel X38 内存控制器（MCH）。</li>
+<li><strong>xgene</strong>：对应前 AppliedMicro 的 X-Gene 片上系统（SoC），其中 X-Gene 3 在被 Ampere Computing 收购后用于 Ampere eMAG。<img src="//www.phoronix.net/image.php?id=ampere-emag-osprey&image=ampere_osprey_5_med" alt="Ampere eMAG" /></li>
+<li><strong>i3200</strong>：对应 Intel 3200/3210 芯片组。</li>
+</ul>
+
+<p>Linux 7.4 中 EDAC 代码的新增内容还包括：一个用于在虚拟机内测试 EDAC 核心代码的「虚拟」（dummy）EDAC 驱动，以及用于处理老化硅片和卡位（stuck bits）的 Intel BFF（Bit Fix Filter）驱动。此外，其余 EDAC 代码也收到大量 AI 驱动的修复。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-EDAC</guid>
+      <pubDate>Mon, 19 Oct 2026 21:38:28 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.4 的 Btrfs 带来更多性能优化：Zstd 解压加速、锁竞争降低与 reflink 提速</title>
       <link>https://www.phoronix.com/news/Linux-7.4-Btrfs</link>
@@ -716,18 +739,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linus-Torvalds-Assoc-Array</guid>
       <pubDate>Mon, 12 Oct 2026 10:03:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ EXT4 将在 Linux 7.4 引入 IOmap 缓冲 I/O 路径，带来部分性能提升</title>
-      <link>https://www.phoronix.com/news/EXT4-iomap-Buffered-IO</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是EXT4文件系统引入iomap缓冲IO路径带来的性能改进，属于开源项目/软件技术进展</small></p><p>EXT4 文件系统有望在即将到来的 Linux 7.4 内核中引入可选的 IOmap 缓冲 I/O 支持，以替代传统的 <code>buffer_head</code> 实现。IOmap 是 Linux 中用于将文件偏移映射到设备块的现代框架，相比更老的 buffer_head 方案，IOmap 效率更高、与 Linux 的 folio 机制集成更好，且避免了 buffer_head 带来的高内存开销。</p>
-<p>华为的 Zhang Yi 一直在致力于将 EXT4 缓冲 I/O 路径迁移到 IOmap 上。这一切换展示出令人印象深刻的性能提升，同时也伴随一些性能回退。其 v6 补丁系列的封面信中包含了多种配置下 EXT4 采用 IOmap 与使用 buffer_head 基线的详细基准测试数据。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=ext4_iomap_1" alt="EXT4 IOmap benchmarks" /><p>由于 IOmap 缓冲 I/O 代码路径尚未实现 EXT4 的全部现有特性，因此默认并未启用。该代码新增了一个 <code>buffered_iomap</code> 挂载选项，供用户选择以新 IOmap 代码路径使用 EXT4。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=ext4_iomap_2" alt="EXT4 IOmap patches queued" /><p>Ted Ts'o 上周已将所有这些 IOmap 缓冲 I/O 补丁合并进入 EXT4 的开发分支（dev branch）。随着这些补丁进入 dev 分支，它们看起来将被提交到即将到来的 Linux 7.4 合并窗口。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/EXT4-iomap-Buffered-IO</guid>
-      <pubDate>Mon, 12 Oct 2026 09:27:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
