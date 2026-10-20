@@ -3,7 +3,62 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 20 Oct 2026 19:10:52 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 22:15:30 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.305：新增嵌套用户命名空间支持，修复多项回归问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.305</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.305，新增两项配置并修复了大量 bug（含多个回归问题）。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li>新增 <code>sandbox.allowNestedUserNamespaces</code>，允许 Linux 上的沙箱命令创建用户命名空间（适用于 Chromium、rootless podman），从而绕过沙箱的文件保护。</li>
+<li>新增 <code>CLAUDE_CODE_RETRY_WATCHDOG_USAGE_LIMIT_RECHECK_MS</code>，使无人值守重试模式（<code>CLAUDE_CODE_RETRY_WATCHDOG</code>）在重置前能感知到已被解除的使用限制。</li>
+<li><code>allowedMcpServers</code> 改为不再过滤仅在 <code>env</code> 中使用 <code>${VAR}</code> 的 <code>managed-mcp.json</code> stdio 服务器——升级后先前被排除的服务器会加载；如需禁用请改用 <code>deniedMcpServers</code>。</li>
+<li>改进 <code>/usage</code>：每条警告现在是一行可执行的修复建议并标明来源，按 <code>f</code> 即可应用修复；相同修复也出现在 VS Code 和 <code>/doctor</code> 中。</li>
+<li>改进 MCP 授权确认弹窗，降低误将针对提示词的 Enter 键当作 Accept 的概率。</li>
+</ul>
+
+<h3>其他修复与改进</h3>
+<ul>
+<li>修复 2.1.304 回归：当端点或网关拒绝工具搜索、或网关未启用 ToolSearch / 未列入 <code>--tools</code> 时，Vertex、Bedrock 等提供商的每个请求都会失败——现在会自动重试。</li>
+<li>修复当模型名称与 <code>modelOverrides</code> 值存在大小写差异或带 <code>[1m]</code> 标记时，<code>/effort</code> 和 <code>/autocompact</code> 设置不生效的问题。</li>
+<li>修复裸仓库中新建 worktree 偶尔从本地 HEAD 而非默认分支开始，以及未更改的子代理 worktree 有时未被清理的问题。</li>
+<li>修复磁盘满载时 Bash 命令报出原始 <code>ENOSPC</code> 路径错误的问题——现明确提示磁盘已满且未执行任何操作。</li>
+<li>修复云会话或 SDK <code>setMcpServers</code> 传入的 MCP 服务器稍后被同名本地配置覆盖的问题。</li>
+<li>修复子代理切换到备用模型后 Claude 对子代理任务命名错误模型的问题。</li>
+<li>修复云会话和协作者在压缩必须省略最旧消息以适应限制时，未告知 Claude 的问题。</li>
+<li>修复更多 Cowork 云会话因 WebFetch 需要 URL 审批而无人响应、每个子代理等待五分钟的调度场景。</li>
+<li>修复 Workflow 恢复时重新运行已完成的 <code>pipeline()</code> 和 <code>parallel()</code> 代理而未从日志读取结果的问题。</li>
+<li>修复 Remote Control 在 <code>/resume</code> 切换会话后遗留空白 <code>(session)</code> 条目的问题。</li>
+<li>修复窄终端中 <code>/usage</code> 行被截断的问题。</li>
+<li>启动警告不再以原始文本打印在 logo 上方，转而进入调试日志；不限制任何内容的权限规则以警告行显示在横幅下方。</li>
+<li>改进屏幕阅读器模式：搜索框现在读出 "Search:" 而非 VoiceOver 误读为 "telephone recorder" 的符号；高亮提示文本（如 Ctrl+R 搜索匹配和 "ultrathink"）的单词内不再有空格。</li>
+<li>自托管运行器：修复只与运行器或编排器共享 stdout 的启动脚本在设置 <code>TERM</code> 时因 <code>Resource temporarily unavailable</code> 失败（2.1.300 回归）的问题。</li>
+<li>自托管运行器：修复自 2.1.296 起当 git 凭据助手或 askpass 程序通过 <code>GIT_CONFIG</code> 读取设置时仓库访问失败的问题。</li>
+<li>自托管运行器：修复编排器在后台启动的运行器保持输出打开时，误报 spawn-runner 钩子超时的问题。</li>
+<li>改进 mod 的 <code>Image</code>：在 iTerm2 3.5 及更高版本中以全屏渲染绘制图片，此前只显示 <code>alt</code> 文本。</li>
+<li>Remote Control：改进 spawn 模式消息，按 <code>w</code> 会提示新模式已保存至该文件夹，后续使用已保存模式的 <code>claude remote-control</code> 启动会说明模式来源。</li>
+<li>按路径挂载的插件在组织托管设置启用 <code>allowManagedPermissionRulesOnly</code> 后，不再保留其 <code>allowed-tools</code>。</li>
+<li><code>/artifacts</code> 删除确认改为按 1 或 Enter 保留、2 删除、Esc 取消；<code>y</code>/<code>n</code> 不再响应。</li>
+<li>mod 停靠面板现保持在终端宽度的 45% 以内（包括从更宽终端保留的宽度）。</li>
+<li>[VSCode] 在运行 SessionStart 或 Setup 钩子时新增「Running start-up hooks」转圈状态及屏幕阅读器播报。</li>
+<li>[VSCode] 修复 <code>spinnerVerbs</code> 用短动词替换内置动词时导致「Compacting...」被截断的问题。</li>
+<li>[VSCode] 会话未及时启动且无钩子运行时，提示信息改为先展示输出日志并列出原因，而非首先指向登录和网络。</li>
+<li>[Cloud sessions] 修复云环境管理页因「installs packages」错误而错误拒绝保存现有环境的问题。</li>
+<li>[Cloud sessions] 改进删除自托管环境的对话框与错误提示，说明阻止删除的因素及其影响。</li>
+<li>[Claude Tag] 将 Claude 尚未加入的 Slack 公共频道加入管理后台 Add 位置搜索，便于管理员直接设置。</li>
+<li>[Claude Tag] 修复访问捆绑包让已迁移到其他 GitHub 账号的仓库可再次添加的问题。</li>
+<li>[Claude Tag] 修复 Slack DM 线程中的例行任务在恢复会话后不再发布的问题。</li>
+<li>[Claude Tag] 修复 Slack 线程中会话结束后例行任务误报成功却不发布的问题；此类运行现被跳过并通知创建者。</li>
+<li>[Claude Tag] 改进大型组织的管理后台，频道列表加载期间可正常编辑插件、技能和捆绑包。</li>
+<li>[Code Review] 修复拉取请求审查期间多次推送时，有时未审查最新提交的问题。</li>
+<li>[Code Review] 更改重新审查行为：存在未关闭的先行阻塞发现时，不再以 LGTM 开启。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.305</guid>
+      <pubDate>Tue, 20 Oct 2026 20:46:50 GMT</pubDate>
+    </item>
     <item>
       <title>chezmoi v2.73.3 发布：使用 Go 1.27.3 构建以修复重要安全问题</title>
       <link>https://github.com/twpayne/chezmoi/releases/tag/v2.73.3</link>
@@ -1627,41 +1682,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.156.1</guid>
       <pubDate>Wed, 23 Sep 2026 02:41:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.156.0：新增全屏 TUI、默认启用语音对话、/usage 分析仪表盘</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.156.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 0.156.0 版本，带来多项重要的终端界面（TUI）和交互功能改进。</p>
-
-<h3>新功能</h3>
-<ul>
-<li><strong>全屏 TUI 模式</strong>：可通过 <code>/tui</code> 命令为下次启动选择可选的终端全屏界面，支持转录搜索、鼠标选择和右键复制。</li>
-<li><strong>语音对话默认启用</strong>：提供 F8 快捷键切换、<code>/voice settings</code> 语音选择器，并为 Linux 和 Windows 捆绑了音频运行时。</li>
-<li><strong>/usage 分析仪表盘</strong>：可查看账户使用量、Token 总数以及插件和技能活动情况。</li>
-<li><strong>任务筛选与 worktree 会话</strong>：代理命令中心支持按状态筛选任务，并可从代理概览创建 worktree 会话；worktree 支持现已默认启用。</li>
-<li><strong>终端主题与内容渲染</strong>：新增六种终端主题，支持在响应中直接渲染 Mermaid 图表和数学公式。</li>
-<li><strong>/daemon 命令</strong>：可更新本地后台服务器，或通过 <code>--no-daemon</code> 绕过。</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-<li>修复了回合失败、中断或收到子代理完成事件时流式回答和计划丢失的问题。</li>
-<li>修复了 tmux 和 SSH 会话中的剪贴板转发，以及终端以单个按键发送粘贴文本时制表符缩进丢失的问题。</li>
-<li>恢复会话时还原 Plan 模式，编辑较早提示时保留线程身份和设置。</li>
-<li>通过系统代理恢复登录，并在 OAuth 发现返回 503 错误时刷新 MCP 凭据。</li>
-<li>修复播放暂停或音频突发期间语音丢失的问题。</li>
-<li>关闭了涉及 Windows 入站连接、特权 Linux/macOS 套接字以及通过只读 macOS 文件句柄写入的沙箱隔离漏洞。</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>文档澄清了已弃用的 <code>friendly</code> 和 <code>pragmatic</code> 个性设置不再选择响应风格，以及网络代理允许/拒绝模式中 <code>?</code> 通配符的用法。</li>
-<li>更新了捆绑的 TLS 依赖，包括 Linux musl 构建的 OpenSSL 3.6.4。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.156.0</guid>
-      <pubDate>Tue, 22 Sep 2026 19:51:01 GMT</pubDate>
     </item>
   </channel>
 </rss>

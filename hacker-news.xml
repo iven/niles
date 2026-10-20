@@ -3,7 +3,44 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 20 Oct 2026 19:11:31 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 22:15:37 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Cloudflare 与 VoidZero 合作推出 tsrs：TypeScript 的 Rust 移植版，性能提升 8 倍</title>
+      <link>https://news.ycombinator.com/item?id=50165953</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 属于编程工具发布/分享，TS的Rust移植版性能大幅提升，用户对此类内容很感兴趣</small></p><p>Cloudflare 与 VoidZero 正在与 Owner.com 的 Max Schwenk 合作开发 <strong>tsrs</strong>——一个用 Rust 语言移植的 TypeScript 编译器。该项目作为 <a href="https://oxc-project.github.io/">Oxc</a> JavaScript 编译器工具链的一部分进行孵化，并与 TypeScript 官方团队保持紧密协作。tsrs 可以安装自 npm 包（<code>npm install tsrs</code>）。</p>
+
+<p>团队强调，这<strong>不是对 TypeScript 的分叉</strong>。他们认为 TypeScript 团队应继续完全掌控语言的设计与方向，而 Rust 移植版必须严格遵循官方实现的决定，否则终将出现不兼容并走向崩溃。官方 TypeScript 团队仍将是语言定义的唯一决策者。</p>
+
+<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01M5C82VPWPDDZ7P6P0G4H7KB3.png&w=1999&h=1127&f=webp&fit=cover&position=center" alt="" width="1999" height="1127" />
+
+<p><strong>性能与内存改进</strong>：早期基准测试显示，在相同数量的类型检查工作线程下，tsrs 相比 TypeScript 7.0 快达 <strong>8 倍</strong>，内存占用减少约 <strong>70%</strong>。即将发布的 TypeScript 7.1 beta 本身就已比 7.0 快 2.5 倍，其中部分优化正是源自 tsrs 的上游回馈。团队还与 TypeScript 官方合作，确保基准测试采用相同配置（而非像一些其他移植项目那样使用更大的机器类型或不同选项）。默认情况下 tsrs 提供自适应配置，可根据机器类型在更大内存占用下获得更快速度。</p>
+
+<img src="/_image?href=https%3A%2F%2Fblog.cloudflare.com%2F_emdash%2Fapi%2Fmedia%2Ffile%2F01M5C82YQFJQJ7YJ8JZPCKSP6EG.png&w=715&h=390&f=webp&fit=cover&position=center" alt="" width="715" height="390" />
+
+<p><strong>为何现在与为何选 Rust</strong>：作者观察到，近年来虽有多起将 TypeScript 移植到其他语言的尝试，但此前唯二成功的只有官方 TypeScript 团队从 JavaScript 到 Go 的移植。如今前沿 AI 模型已能在大约几天内近乎独立地完成大规模移植，出现了 Rust 或 C++ 的各种版本（包括低质量“slopfork”、忠实移植和完全重构版本），市场对更快 TypeScript 的需求十分明显。</p>
+
+<p>选 Rust 的关键原因在于 WebAssembly 支持：Rust 的内存管理模型使 Wasm 客户端与宿主机之间的内存交互简单直接，而 Go 程序编译到 Wasm 时需连垃圾收集器一并编译。Cloudflare Workers 早已支持 Wasm，近日还宣布通过 wasm-bindgen 的 Emscripten 目标在 Workers 中原生支持 Rust。这让完整封装的开发系统可以在浏览器、嵌入式设备或 IoT 应用中安全运行，也为 AI Agent 沙盒化运行端到端开发工具链带来新可能。</p>
+
+<p><strong>维护方式</strong>：团队正与 Theo Browne 合作，将 tsc-rs 与 tsrs 合并为支持全部 TypeScript 特性（包括语言服务器协议 LSP 与内容映射器）的单一包。他们沿用维护 Vinext（Next.js 的同步移植版）的成功模式：每天早上由 Agent 审查变更、抓取 diff，为可能影响兼容性的改动开追踪 issue；每晚重新生成兼容性矩阵并运行官方测试套件。发现的性能改进会回馈给 TypeScript 的 Go 代码库。目前与上游仍有些许差异（如诊断输出顺序），团队计划在稳定版发布前将其降到最低。</p>
+
+<p><strong>下一步</strong>：Cloudflare 已是 Vite、Rolldown、Oxlint、Oxfmt 等众多开源 Rust 工具的根据地，有意探索 tsrs 在其栈中的更深整合，例如为 Oxlint 提供类型感知的 lint 规则。Oxc 团队已开始重构代码库以提升速度、降低内存并保持可维护性。</p>
+
+<h3>社区反馈</h3>
+<p>HN 讨论中，有用户指出目前已有三个 Rust 移植版（tsrs、tsgo-rs、bun check），而博文提到正与 Theo Browne 合并 tsgo-rs，这被视为好消息。多位用户赞赏更快反馈循环的价值，尤其对 AI 工作流和大型代码库意义重大（有开发者称自己大型代码库的本地类型检查过慢）。也有质疑声音：有人担忧这是从精心手写的移植转向完全由 AI 生成的移植（博文提到“我写了零行代码”），担心 AI 代码可能在无人预料之处出错，不过也有人认为只要具备充分集成测试框架，理论上黑盒替换同样可行。部分用户提醒，Cloudflare 的需求（大规模运行数百万实例以节省成本）与普通 Web 开发者不同，不必急于切换。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50165953</guid>
+      <pubDate>Tue, 20 Oct 2026 13:18:07 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 造假数据骗过AI搜索：50,000条虚构统计被ChatGPT持续引用近7个月</title>
+      <link>https://news.ycombinator.com/item?id=50165801</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI技术进展与AI行业新闻，讨论ChatGPT被虚假数据影响，用户对AI软件技术进展较感兴趣</small></p><p>一位GEO（生成式引擎优化）研究员Metehan Yesilyurt公布了一项引人关注的实验：他花约50美元搭建了一个名为stateglobe.com的网站，一天之内用GPT-4.1生成了50,000条统计页面，其中每一个数字都是凭空捏造的。</p><p>结果令人震惊。尽管Google几乎立即对网站进行了降权处理并几乎不再索引这些页面，ChatGPT却始终没有停止引用它。发布7个月以来，该网站已带来超过10,000次来自ChatGPT的AI会话（GA4数据），并在过去30天收到超过60万次机器人请求，其中约7.2万次来自ChatGPT-User——这是ChatGPT在实时回答用户问题时抓取页面的代理。与此同时，超过330个外部域名（包括Shopify、DHL、Bluehost等知名品牌）链接到了该网站。</p><p>更令人不安的是，这些虚构数字还进入了现实世界的严肃场景：被学术论文引用、被卡塔尔最大金融集团用于投资研究、被印度经济类出版物引用，并被加拿大某网红社区的研究报告作为资料来源。作者指出，这还只是反向链接到该网站的引用，实际使用数据但未链接的情况可能更多。</p><p>实验揭示了一个被他称为「引用洗白」（citation laundering）的机制：一个全新域名上的随机假数字原本毫无权威，但一旦被学术论文、银行等严肃机构引用，它看起来就越来越可信。每增加一次引用，就多一分被下一篇文章或下一个模型当作「有来源的事实」采用的可能。作者担心，经过大量检索和引用后，这些页面会进入网络爬取数据，进而进入训练数据集，使一个GPT-4.1的猜测成为下一代模型「已知的事实」。</p><p>作者强调，这一实验作为研究而非「造假指南」公开。他的核心发现是：<strong>在Google上排名靠前与被大语言模型检索是两个完全不同的问题</strong>。ChatGPT搜索时会改写用户的提示词成为多个子查询（fanout queries），并在检索后打开若干页面来进行事实支撑（grounding）。统计数字因其具体、可引用、带年份（如「2026年远程办公统计」）等特点，特别容易被模型当作填补知识空白的「证据」选用，而整个过程缺乏真正的事实核查。</p><p>文章随后给出了利用这一机制构建统计页面的合规方法（例如每条数据独立成句、标注来源与年份、标题匹配模型的子查询、显示并更新日期、用服务端渲染便于抓取等），以及追踪AI机器人活动的方法。作者明确指出，绝不应发布虚假内容，这一策略也不应成为组织整个GEO战略的基础，且未来未必持续有效。</p><p>社区讨论中，多数评论者认同这一实验暴露的严重问题：LLM会不加甄别地引用任何看起来权威的来源，从而在「dead internet」效应下放大虚假信息。有人将此与Google此前面临的SEO垃圾内容问题类比，指出AI搜索引擎正面临同样的困境；也有评论引用Cory Doctorow的观点「作弊是有回报的」，认为面向AI代理的语义网络构想难以实现。</p><h3>你知道吗？</h3><p><strong>引用洗白（citation laundering）</strong>：指虚假或低可信度的信息通过被权威机构引用而逐渐获得表面可信度的过程。在传统学术与媒体环境中同样存在，但AI模型的速度和规模使这一过程被极大加速。</p><p><strong>Fanout查询</strong>：ChatGPT在搜索时将用户原始提示词改写为多个更具体的子查询，以在多个角度寻找资料，例如写「远程办公」相关文章时会搜索「远程办公统计2026」。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50165801</guid>
+      <pubDate>Tue, 20 Oct 2026 13:06:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mistral 发布 Voxtral 3：实时语音智能体 SDK 与新一代语音模型</title>
       <link>https://news.ycombinator.com/item?id=50168396</link>
@@ -1035,43 +1072,6 @@ document.querySelector('#diagram').innerHTML = svg;</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50094694</guid>
       <pubDate>Wed, 14 Oct 2026 20:30:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>为什么理性主义者的博客文章总是过分冗长？</title>
-      <link>https://news.ycombinator.com/item?id=50083028</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是关于理性主义博客写作风格的思考，与用户兴趣配置均无明确对应，兴趣不明确。</small></p><p>作家 Alex Wennerberg 在一篇随笔中尖锐批评理性主义者（rationalist）社区的博客写作风格——文章普遍冗长且令人乏味。他以亲身经历为例：为撰写关于天主教神迹护教学的短文，他浏览（更准确地说，是略读）了 Scott Alexander 一篇 2.5 万字的博文，而自己的文章最终只有 2,700 字，且是在删减了约 70% 初稿后的结果。他认为理性主义博主普遍缺少这种删减的冲动。</p>
-<p>文章指出，Eliezer Yudkowsky 的「序列」（sequences）总字数超过一百万；即便在该生态系统中篇幅较短的文章，也往往「痛苦地长且极其乏味」。作者认为，这些博主把时间花在了错误的事情上——不断堆砌细节与细微差别，而不是审视自己开篇的那一两个假设，也不愿拓宽其哲学背景。</p>
-<p>作者的核心论点是：在这一社区中，「冗长」被当作「透彻」的替代品——人们默认，一个人若就某事写了大量文字，就必然有值得说的东西。他以 Gwern 用 9,000 字、超过 100 条参考论证「尼古丁其实不具成瘾性、只要不抽就对身体好」为例，指出这实际上是错的。作者认为，这种无休止的啰嗦文体所缺失的，是「智慧」（wisdom）——即对哪些想法值得认真追求、哪些话该说或不该说的直觉判断力。理性主义者社区普遍不重视这一特质，反而偏向反传统、反主流的「异端」观点，并把为此耗费的笔墨本身当作这些观点值得认真对待的证据。</p>
-<p>该文章在讨论区引发广泛讨论：有评论者认为冗长是为了「把读者淹没在雪崩般的论证里」以达成修辞优势，也有人指出长文作者常陷入自造的假设而不自知，还有人认为写作应如《经济学人》般尊重读者时间、快速切入主题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50083028</guid>
-      <pubDate>Wed, 14 Oct 2026 06:02:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenCode 2.0 发布：重大重构，引入后台服务、全新 API、代码模式与插件体系</title>
-      <link>https://news.ycombinator.com/item?id=50094994</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是编程工具 OpenCode 的重大版本发布，属于『编程工具发布/分享』类，用户会很感兴趣，必看内容。</small></p><p>OpenCode 2.0 发布，这是一次重大重构，基于数百万日活跃用户的使用经验打造，旨在让系统灵活适配智能体（agent）的各种需求。</p>
-
-<p><strong>服务（Service）模型</strong>：OpenCode 从一开始就采用客户端/服务器架构，但在 2.0 之前默认未被充分利用，主要被高级用户使用。2.0 中该服务现在会在你的机器上自动作为一个后台进程运行。当你打开 TUI、网页界面或桌面应用时，它们都连接到同一个中央进程。使用编程客户端 <code>@opencode/client</code> 的脚本会自动发现本地服务（对定时任务尤其有用），也可通过 CLI 的 <code>opencode api</code> 命令调用，还能通过 <code>/pair</code> 或 <code>opencode pair</code> 暴露给其他主机。</p>
-
-<p><strong>全新 API</strong>：旧 API 因团队和业界共同摸索智能体形态而变得杂乱，现已彻底重写。OpenCode 现在也感知自己的 API，会调用它完成诸如在新工作开始时将会话移入 git worktree 等有用操作，还发布了包含 vanilla JavaScript 和 Effect 客户端的新包 <code>@opencode/client</code>。</p>
-
-<p><strong>代码模式（Code Mode）</strong>：OpenCode 2.0 在 <code>@opencode/codemode</code> 包中构建了一个极简 JavaScript 解释器。该包可摄取 MCP 服务器或 OpenAPI 端点，将其转换为智能体可在脚本中调用的函数，并无需 Node.js 虚拟机或 QuickJS 等复杂方案即可原生运行。这使智能体能够编写脚本一次性完成「调用工具、遍历结果、再调用工具」的流程（单次往返而非逐一调用）。2.0 中所有 MCP 服务器默认启用代码模式。<p>
-
-<p><strong>后台任务</strong>：新增了后台子智能体（background subagents），主智能体可将部分工作交给另一个子智能体继续执行，也可手动触发（甚至使用不同模型）。同时新增后台 shell 命令，可异步调用以实现长时间运行的工作不阻塞主智能体。若前台命令或子智能体耗时过长，可按热键将其移至后台。</p>
-
-<p><strong>插件体系</strong>：1.0 虽有插件系统但未获足够关注。2.0 中团队强制将几乎所有功能作为内部插件实现，现有 80 多个插件，保证了 Plugin API 的良好维护。TUI 插件从实验性升级为稳定，由 OpenTUI 驱动。2.0 中几乎所有内容都支持热重载，智能体可在会话中途为自己编写插件并立即使用。</p>
-
-<p><strong>SDK</strong>：OpenCode 现在可通过 <code>@opencode/sdk</code> 作为库使用，与驱动 CLI 的代码完全相同。可精简后运行在服务器或 Durable Objects 等专用环境中，并通过标准 OpenCode 服务器协议从任何客户端连接。</p>
-
-<p><strong>升级注意事项</strong>：存在一些破坏性变更 —— 1.0 插件在 2.0 中无法工作、服务器 API 完全不同、tui.json 配置迁移至 json。可通过 <code>opencode upgrade --major</code> 升级。</p>
-
-<p><strong>社区反馈</strong>：多数用户肯定这是明显改进，但也有一些值得注意的担忧。有用户指出升级后因所有工具调用都需经过后台进程，原本用于包裹 TUI 进程的沙箱变得失效，导致本应被阻止的网页抓取等操作得以成功；还有评论认为 v2 初始版本存在至少 3 处安全回归（配置加载、插件热重载、后台进程沙箱），建议使用 <code>--standalone</code> 才能正确沙箱化。另有用户对比表示它尚不足以取代 Codex 或 Claude Code，但仍值得一试。部分评论也提到文章页面本身渲染性能不佳。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50094994</guid>
-      <pubDate>Wed, 14 Oct 2026 20:48:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
