@@ -3,7 +3,82 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 20 Oct 2026 09:59:12 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 15:01:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 基金会研究：约 25% 的新开源软件拉取请求为低质量 AI 生成内容</title>
+      <link>https://www.phoronix.com/news/Linux-Foundation-25p-AI-Slop</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Linux基金会关于AI生成代码的统计，属于开源项目和科技新闻类，用户对开源项目和科学前沿感兴趣</small></p><p>Linux 基金会今日发布了一项关于生成式 AI 对开源软件开发影响的新研究。研究的关键发现之一是，约 25% 的新开源软件拉取请求（pull requests）属于低质量的人工智能生成内容（即所谓的 "AI slop"）。</p><p>该研究发现，生成式 AI 有潜力将开源编码时间缩短一半，从而显著提升生产力。研究还显示，59% 的项目维护者注意到基于 GenAI 的贡献在不断增加。这一 50% 的生产力提升在所有类型的开源软件开发任务中均有体现。此外，71% 的开源软件维护者认同 GenAI 降低了进入门槛。</p><img src="//www.phoronix.net/image.php?id=2026&image=25p_ai_slop" alt="25% AI slop graphic from the Linux Foundation" /><p>令人担忧的是，研究估算开源项目中约 25% 的传入拉取请求为低质量 AI 生成内容。随着越来越多的新用户和开发者借助 AI/大语言模型（LLM）代为编写补丁，这一比例预计还将继续上升。完整报告可在 Linux 基金会官网（LinuxFoundation.org）查阅。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Foundation-25p-AI-Slop</guid>
+      <pubDate>Tue, 20 Oct 2026 13:18:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.4 为套接字 Coredump 引入稀疏支持，体积可缩小至 1%</title>
+      <link>https://www.phoronix.com/news/Linux-Coredump-Sockets-Sparse</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核网络套接字coredump稀疏支持的新功能，属于Linux桌面/内核技术进展，用户对Linux桌面技术感兴趣</small></p><p>去年 Linux 内核新增了通过 Unix 域套接字（Unix domain sockets）进行 Coredump 的功能，作为基于管道（pipe）方案的替代。如今，随着代码合并进 Linux 7.4，通过套接字进行核心转储的体积有望大幅缩小，这得益于新增的稀疏（sparse）支持。在极端情况下，转储体积可缩小至无稀疏支持时的 1%。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=sparse_coredump" alt="Sparse coredump on socket impact" />
+
+<p>本次合并进 Linux 7.4 的 VFS 拉取请求中，包含两项关键改进：一是套接字上的稀疏 Coredump 支持；二是新增的 <code>COREDUMP_MEMORY_TYPES</code> 能力，允许服务器按请求选择要转储的内存，而非依赖静态的 coredump 过滤器。借助稀疏支持，当映射（mapping）中存在空洞时，零数据将不再通过 Coredump 套接字传输，这大幅提升了效率，避免了大量无谓的工作。</p>
+
+<p>稀疏支持补丁系列展示了这一能力的巨大潜力。来自补丁 11 中自测（selftest）的数据显示：</p>
+<ul>
+  <li>一个拥有 128 个线程的进程：套接字上传输 1,740,014 字节，对应 1,075,150,848 字节的 Coredump；</li>
+  <li>一个 256MB 映射仅触碰一页：套接字上传输 170,542 字节，对应 268,890,112 字节的 Coredump；</li>
+  <li>同一 256MB 映射仅使用 <code>COREDUMP_HEADER</code>：套接字上传输 270,993,024 字节，说明帧开销本身不到 1%。</li>
+</ul>
+
+<p>其中第一个案例尤为典型——几乎所有体积都来自线程栈。每个栈都是 8MB 的预留空间，几乎全是空洞，且这些空洞位于转储中间而非末尾。稀疏支持可通过 <code>COREDUMP_SPARSE</code> 选项在套接字协议中启用。这些 Coredump 改进已通过拉取请求合并至 Linux 7.4。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Coredump-Sockets-Sparse</guid>
+      <pubDate>Tue, 20 Oct 2026 13:11:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.4 移除旧 UnixWare 文件系统 BFS</title>
+      <link>https://www.phoronix.com/news/BFS-Removed-With-Linux-7.4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲述旧UnixWare文件系统BFS被移除的历史性变更，偏历史/旧闻，兴趣不明确</small></p><p>Linus Torvalds 在夜间开始处理 Linux 7.4 内核的新代码合并请求（pull request），同时也在移除旧代码。BFS 成为最新一个从主线内核中删除的过时文件系统。</p>
+
+<p>BFS 是 UnixWare 用于引导分区的旧文件系统，随着 Linux 7.4 的发布正式退出内核。这是继今年早些时候移除 FreeVxFS 和 EFS 之后，Linux 内核再次清理老旧且无人维护的文件系统。这些旧文件系统没有已知的活跃用户，也没有人主动维护相关代码，近期针对它们的补丁仅来自 AI/LLM 生成的代码和模糊测试（fuzzing）产生的 bug 报告噪音。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=bfs_removed" alt="BFS removed" />
+
+<p>Christian Brauner 在移除 BFS 的补丁中解释道：「此补丁移除了 bfs，即 UnixWare 用于引导分区的文件系统。它仅支持连续文件且没有子目录。此类分区上唯一的数据是内核和引导加载程序设置，因此不再需要从 Linux 访问它。uapi 头文件予以保留。」</p>
+
+<p>BFS 文件系统驱动被移除，涉及约 1200 行代码——这些代码来自文件系统远比今天简单的时代。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/BFS-Removed-With-Linux-7.4</guid>
+      <pubDate>Tue, 20 Oct 2026 12:13:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ KDE Plasma 6.8.1 发布：包含数十项修复</title>
+      <link>https://www.phoronix.com/news/KDE-Plasma-6.8.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] KDE Plasma 6.8.1发布，用户对KDE很感兴趣，且属于新软件项目发布</small></p><p>KDE 团队于今日发布了 Plasma 6.8.1，这是继上周 Plasma 6.8 正式版之后的首次点版本更新，作为十月份的 bug 修复版本，带来了数十项问题修复。</p><p>本次更新主要包括：修复 KWin 的 QPA 代码中可能导致崩溃的问题；多项 Wayland 修复，其中包括新增的 <code>KWIN_WAYLAND_SUPPORT_COMMIT_TIMING_V1</code> 环境变量，用于切换提交时序（commit timing）支持；针对 NVIDIA GPU 的 KWin 多 GPU 交换链（swapchain）变通方案；以及多项 Plasma 桌面和工作区修复，其余多为小型 bug 修复。</p><img src="//www.phoronix.net/image.php?id=2026&image=union_qtwidgets_med" alt="KDE Plasma 6.8" /><p>完整的修复列表可通过官方公告查看，下载可从 <a href="https://kde.org">KDE.org</a> 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8.1</guid>
+      <pubDate>Tue, 20 Oct 2026 12:04:44 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.4 新增两字节 cmpxchg 模拟函数，部分老旧 CPU 架构或将被淘汰</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-Two-Byte-CMPXCHG</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linux 7.4新增模拟功能及旧CPU可能被淘汰，涉及旧CPU历史话题，兴趣不明确</small></p><p>Linux 7.4 内核正在新增一个模拟函数，用于支持两字节的 cmpxchg()（比较并交换）操作。该改动由资深 Linux 开发者 Paul E. McKenney 提交，新增的 <code>cmpxchg_emu_u16()</code> 函数能够以四字节 cmpxchg() 为基础，为不具备原生两字节指令的架构模拟两字节的 cmpxchg() 操作。</p><p>这一函数将被用于 SH、ARC、CSKY 和 Xtensa 等 CPU 架构。其目的在于让两字节 cmpxchg() 可以在 Linux 通用内核代码中放心使用，因为可以假定所有受支持的架构均已具备相应能力。</p><p>不过，提交说明也指出，由于部分仍受 Linux 支持的体系架构并不具备原生两字节存储指令，因此并非所有依赖两字节原子操作的算法都能轻松实现。提交中最后一句引发关注：「有理由相信这些系统很快将不再受 Linux 支持」，暗示主线内核可能即将淘汰这些旧 CPU 系统。</p><img src="//www.phoronix.net/image.php?id=2018&image=linux_c_sky_med" alt="C-SKY image" /><p>值得一提的还有 C-SKY 架构——这一中国的 32 位 CPU 架构于 2018 年加入 Linux 内核，当时被视作可能是最后一个新增的 CPU 架构。Linux 内核开发者当时曾表示，随着 RISC-V 的持续趋同，C-SKY 的加入或许是内核最后一次引入全新的 CPU 移植/架构。</p><p>该新闻引发 3 条社区评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Two-Byte-CMPXCHG</guid>
+      <pubDate>Tue, 20 Oct 2026 10:32:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 约1.7万行新Rust内核代码将进入Linux 7.4</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-Rust</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Linux内核新增17000行Rust代码，用户对Rust很感兴趣（来源配置high_interest），且属于编程效率和Linux内核技术进展</small></p><p>Miguel Ojeda 提交了计划引入 Linux 7.4 的新 Rust 内核代码拉取请求（pull request）。本轮代码量较大，主要原因是更新了 vendored 的 Zerocopy 库以及其他 Rust crate。</p><p>Zerocopy crate 此次更新幅度很大，直接跨越了八个版本。该库提供 traits 和宏，用于在原始字节序列与结构化类型之间进行安全转换。Rust for Linux 7.4 还包含其他工具链和基础设施更新，例如启用了不稳定的 <code>proc_macro_span</code> 特性，以改善所有过程宏的诊断信息。</p><img src="//www.phoronix.net/image.php?id=2021&image=rust_linux_v2" alt="Rust for Linux" /><p>内核的 Rust crate 新增了 <code>mem</code> 和 <code>ratelimit</code> 两个模块，同时改进了部分现有模块。pin-init crate 新增了对元组结构体（tuple structs）的支持，并允许安全地创建自引用。此外，诊断信息也得到了大幅改善。</p><p>除核心 Rust 代码外，Linux 7.4 还会通过各个子系统各自的拉取请求带来更多 Rust 代码，例如 NVIDIA Nova 驱动在 Linux 7.4 的改进，以及随之而来的其他 Rust DRM 基础设施工作。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Rust</guid>
+      <pubDate>Tue, 20 Oct 2026 10:04:57 GMT</pubDate>
+    </item>
     <item>
       <title>OpenBSD 8.0 正式发布：新增 Intel Arc A 系列显卡支持及多项硬件改进</title>
       <link>https://www.phoronix.com/news/OpenBSD-8.0-Released</link>
@@ -673,99 +748,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Mint-27-Many-Features</guid>
       <pubDate>Tue, 13 Oct 2026 11:58:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ ONLYOFFICE 10.0 发布：引入 AI 功能，修复 1000+ 个 Bug</title>
-      <link>https://www.phoronix.com/news/ONLYOFFICE-10.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] ONLYOFFICE新版本发布，带来新功能与AI特性，属于软件新功能及AI技术进展。</small></p><p>开源办公套件 ONLYOFFICE 10.0 正式发布。作为 LibreOffice 等开源办公软件的替代方案，本次版本最突出的亮点是在每个编辑器中直接集成了 AI 功能。</p>
-
-<p>AI 功能支持完整的文档工作流，涵盖内容创作、格式排版以及上下文编辑等环节。此外，AI 还支持集成文本翻译、PDF 摘要生成、电子表格操作、为演示文稿生成演讲者备注和视觉创意等功能。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=onlyoffice_10" alt="ONLYOFFICE 10 AI features" />
-
-<p>除了 AI 功能外，ONLYOFFICE 10.0 还修复了 1000 多个 Bug，并解决了 35 个安全漏洞。虽然 AI 是本次更新的核心亮点，但这一跨平台办公套件版本还包含其他多项细节改进。用户可通过 <a href="https://github.com/ONLYOFFICE">GitHub</a> 获取 ONLYOFFICE 10.0 的下载及更多详细信息。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/ONLYOFFICE-10.0</guid>
-      <pubDate>Tue, 13 Oct 2026 11:43:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NVIDIA Nova 驱动继续引领 Linux 内核 Rust GPU 驱动开发，Linux 7.4 将引入多项新特性</title>
-      <link>https://www.phoronix.com/news/NVIDIA-Nova-Linux-7.4-Changes</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍Linux下Rust GPU驱动Nova的进展，涉及Rust与Linux桌面技术，均属感兴趣主题。</small></p><p>面向 Linux 7.4 合并窗口的 DRM Rust 变更已提交至 DRM-Next，等待下周开启的合并周期。NVIDIA 的 Nova 驱动继续引领内核 Rust GPU 驱动的开发，同时也在持续构建 Rust 直接渲染管理器（DRM）基础设施。</p><p>Linux 7.4 的 DRM Rust 变更主要由 Nova 驱动的改动及其新特性所需的基础设施工作构成，此外还包含对实验性 Arm Mali 硬件 Rust 驱动 Tyr 的一些修复。</p><p>Nova 驱动在 Linux 7.4 中将引入多项新功能：</p><ul><li>面向子驱动使用的「NovaCoreApi」</li><li>新增信息上报 ioctl，用于向用户空间指示 GPU 架构、芯片 ID、vRAM 详情等信息</li><li>VRAM buddy 分配、TLB 刷新、MMU v2/v3 页表类型等内存管理工作</li><li>通过 BAR1 实现对映射 vRAM 的 CPU 访问</li><li>错误报告改进、新的自测试、固件处理更新及其他底层改动</li></ul><img src="//www.phoronix.net/image.php?id=2026&image=nova_lpc_2_med" alt="Nova architecture" /><p>如需了解这些 Linux 7.4 Rust DRM 变更的更多细节，可查看相关的<a href="https://www.phoronix.com/news/NVIDIA-Nova-Linux-7.4-Changes">补丁拉取请求</a>。此外，上周在布拉格举行的 LPC 2026 大会上，有一场关于这一未来 NVIDIA Linux 驱动的精彩 Nova 演讲。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Nova-Linux-7.4-Changes</guid>
-      <pubDate>Tue, 13 Oct 2026 10:28:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Asterinas 0.19 发布：引入 X.Org 支持及其他改进的 Rust 编写操作系统</title>
-      <link>https://www.phoronix.com/news/Asterinas-0.19-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust编写的操作系统新版本发布，涉及新软件项目与Rust技术，符合感兴趣主题。</small></p><p>Asterinas 是一个开源项目，致力于开发基于 Rust 语言、内存安全的 Linux 替代操作系统，同时力求实现 Linux 软件兼容性。近日，该项目发布了 0.19 版本，继续推进其发展目标。</p><p>本次 0.19 版本带来了多项重要更新：</p><ul>
-<li><strong>DRM 子系统与 X.Org 支持</strong>：引入了初步的直接渲染管理器（DRM）子系统，并成功在 modesetting 驱动上运行 X.Org，配合 Mesa 的 LLVMpipe OpenGL 驱动，相比此前基于传统帧缓冲的体验有了显著提升。</li>
-<li><strong>AArch64 架构支持</strong>：新增了对 AArch64 架构的初步支持，与此前已有的 x86_64、RISC-V 和 LoongArch64 目标架构形成互补。</li>
-<li><strong>安全容器增强</strong>：持续改进安全容器支持能力。</li>
-<li><strong>Rust 原生设备模型</strong>：为驱动程序开发提供 Rust 原生设备模型。</li>
-<li><strong>自托管能力</strong>：推进 Asterinas 自举构建，即用 Asterinas 构建 Asterinas。</li>
-<li><strong>AI 代码审查模式</strong>：引入了 AI 辅助代码审查功能。</li>
-</ul><img src="//www.phoronix.net/image.php?id=2026&image=asterinas_019" alt="Asterinas 0.19" /><p>如需了解更多关于这一基于 Rust 的操作系统的信息，可访问 <a href="https://asterinas.org">Asterinas 官方博客</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Asterinas-0.19-Released</guid>
-      <pubDate>Tue, 13 Oct 2026 10:14:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ IREE 3.12 发布：重写 Vulkan 驱动，新增实验性 AMD HSA HAL</title>
-      <link>https://www.phoronix.com/news/IREE-3.12-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI/ML编译器IREE新版本发布，带来软件新功能，属于AI软件技术进展与开源项目。</small></p><p>IREE 3.12 版本于上周发布。IREE（Intermediate Representation Execution Environment）是一个基于 MLIR 的端到端编译器与运行时，用于将机器学习模型降级为统一中间表示（IR），并支持在不同硬件和驱动栈上运行。</p>
-
-<p>本次版本最引人注目的更新是 <strong>Vulkan 驱动的重写</strong>。AMD 工程师 Ben Vanik 重写了 IREE 的 Vulkan HAL（硬件抽象层），相比旧版驱动有显著改进。新版 Vulkan 代码面向 Vulkan 1.3，支持原生队列路径（native queue paths）、推送描述符（push descriptors）以及无描述符的缓冲区设备地址分发 ABI。借助这一新代码路径，IREE 新增了对以下硬件的支持：</p>
-<ul>
-  <li>树莓派使用的 Broadcom VideoCore VII GPU</li>
-  <li>Arm Mali 第 5 代 GPU</li>
-  <li>LLVMpipe（软件渲染）</li>
-</ul>
-
-<p>在 AMD 方面，IREE 3.12 还引入了一个<strong>实验性且需手动启用的原生 HSA HAL 驱动</strong>，这是一个直接基于 HSA/ROCR 的后端，使用 HSA 队列和 AQL 数据包。更多细节可查看相关的 <a href="https://github.com/iree-org/iree/pull/...">pull request</a>。</p>
-
-<p>此外，IREE 3.12 还包含以下更新：</p>
-<ul>
-  <li>CPU 后端执行路径的重写</li>
-  <li>NVIDIA Ada 和 Blackwell 编译器目标支持</li>
-  <li>编译器代码中新增 AMD CDNA5/MI455X 和 RDNA3 芯片细节</li>
-</ul>
-
-<p>关于 IREE 3.12 大版本发布的更多详情，可参阅 <a href="https://github.com/iree-org/iree/releases">GitHub 发布说明</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/IREE-3.12-Released</guid>
-      <pubDate>Tue, 13 Oct 2026 10:00:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ FreeType 2.15 发布：新增 Apple HVF 驱动与 ISO Open Font Format 第 5 版支持</title>
-      <link>https://www.phoronix.com/news/FreeType-2.15-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] FreeType 作为 Linux 桌面及相关软件广泛使用的字体库，其新版本发布属于软件新功能/开源项目进展，用户较感兴趣</small></p><p>广泛应用于各大操作系统和软件应用的字体渲染库 FreeType 2.15 现已正式发布。</p>
-
-<p>本次版本最重大的变化是支持 <strong>ISO Open Font Format 第 5 版</strong>（于 2026 年 7 月发布）。新版 Open Font Format 引入了新的 "VARC" 表，可使 CJK 可变字体体积最多缩小 90%；支持 OpenType 字体中超过 65,536 个字形；并新增用于混合三次与二次曲线段的 "GLYF" 表。不过，该部分的实现方式可能会让部分用户不满——该工作由 Behdad Esfahbod 贡献，他使用多种 <strong>LLM（大语言模型）</strong>从 HarfBuzz 及其他实现中推导出基础代码，随后进行手动微调（主要针对速度优化）。</p>
-
-<p>FreeType 2.15 还新增了一个由 Apple 贡献的实验性 <strong>HVF 驱动</strong>，目前仅在 macOS 上可用。该驱动针对 Apple 新版 iOS 和 macOS 中的 Hierarchical Variable Font（层次化可变字体），用于将复杂字形组织成嵌套树状结构。</p>
-
-<p>此外，FreeType 2.15 的反锯齿栅格化器改用动态堆内存处理大型字形，在超过 40 ppem 的尺寸下可提升性能。TrueType v40 解释器也在 ClearType 渲染方面获得了多项改进。用户可从项目位于 FreeDesktop.org 的 GitLab 下载 FreeType 2.15。</p>
-
-<figure><img src="//www.phoronix.net/image.php?id=2023&image=freetype_213" alt="FreeType demo program" /><figcaption>FreeType 演示程序</figcaption></figure>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/FreeType-2.15-Released</guid>
-      <pubDate>Tue, 13 Oct 2026 00:24:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 语音转文字工具 Myna 现已推出技术预览版</title>
-      <link>https://www.phoronix.com/news/Ubuntu-Myna-Tech-Preview</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Ubuntu语音转文本功能的技术预览，属于开源项目及软件新功能，且涉及Linux桌面技术，符合兴趣配置</small></p><p>几个月前，Canonical 宣布将 Myna 作为 Ubuntu 26.10 的语音转文字（speech-to-text）解决方案，这是其构建情境感知桌面（context-aware desktop）计划的一部分。自即日起，Myna 以"技术预览"（tech preview）形式推出，不仅适用于 Ubuntu 26.10，也适用于 LTS 版本。</p><p>在 Ubuntu 26.10 于 10 月 15 日正式发布之前，Myna 现已提供技术预览版。该工具在 Ubuntu 26.10 上为可选组件，也可通过 Snap 安装到 Ubuntu 24.04 LTS 和 Ubuntu 26.04 LTS 上。不过需要注意的是，Myna 仍处于开发早期阶段，官方表示："Myna 仍在积极开发中，因此你可能会遇到一些不尽完善之处。核心体验已经具备：按下快捷键、说话，Myna 便会直接在你正在使用的应用中完成转录。"</p><p>Myna 在本地运行语音转文字模型，除首次下载模型外无需联网。其后端支持 Parakeet、Whisper 和 FunASR 等模型。欲了解更多详情，可参阅 Ubuntu 官方博客。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Myna-Tech-Preview</guid>
-      <pubDate>Mon, 12 Oct 2026 17:31:59 GMT</pubDate>
     </item>
   </channel>
 </rss>

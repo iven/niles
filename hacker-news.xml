@@ -3,7 +3,38 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 20 Oct 2026 10:00:17 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 15:01:03 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ DeepSeek 开源其高性能推理引擎 DeepInfer</title>
+      <link>https://news.ycombinator.com/item?id=50163277</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] DeepSeek 开源高性能 AI 推理引擎，属于新 AI 模型发布与开源项目类，符合高兴趣</small></p><p>DeepSeek 宣布开源其生产级推理框架 <a href="https://github.com/deepseek-ai/DeepInfer">DeepInfer</a>，这是驱动 DeepSeek 大规模生产服务的核心推理引擎。此次开源发布提供了离线推理能力，包含大规模服务所需的核心特性。</p>
+
+<p><strong>主要特性</strong>：DeepInfer 支持 DeepSeek-V4.1-Flash 模型，包含优化的内核（FlashMLA、DeepGEMM、DeepEP、TileKernels 等）、DSpark 置信度调度验证、SWA 有界重放、异步调度（零开销批处理调度器）、批处理不变推理、确定性采样以及结构化输出（支持正则、JSON Schema 和 EBNF 语法约束）。</p>
+
+<p><strong>支持的硬件</strong>：NVIDIA SM100 GPU 和华为昇腾 950 NPU。值得注意的是，本次发布未包含完整推理服务所需的 KV 缓存系统、VE/Prefill/Decode 分离以及跨数据并行副本的负载均衡。</p>
+
+<p><strong>性能数据</strong>：据 DeepSeek 官方披露，基于该框架，单集群服务吞吐量达到每天 155 万亿 tokens，非高峰时段每张卡每小时收入为 38 美元。基准测试在 4 块 SM100 GPU（prefill）和 64 块（decode）上测得。</p>
+
+<p><strong>社区反响</strong>：该消息在 Hacker News 上引发热烈讨论（1125 分，389 条评论）。有评论者称这是"核弹级"发布，认为开源推理引擎将大幅压缩美国前沿实验室的利润空间。也有观点指出，DeepSeek 开源的核心动机可能是受 GPU 算力限制——由于芯片禁令，中国实验室缺乏足够的算力来大规模托管推理服务，因此选择开源让第三方部署。另有评论关注到 DeepSeek 的 KV 缓存系统（支持超过 72 小时缓存保留）未包含在本次开源中，这仍是其护城河的一部分。</p>
+
+<p><strong>许可</strong>：DeepInfer 以 Apache License 2.0 发布，最初主要基于 vLLM 构建，并借鉴了 SGLang 和 TensorRT-LLM 的设计。</p>
+
+<img src="/deepseek-ai/DeepInfer/raw/main/doc/images/prefill_pareto.png" alt="Prefill: non-cached input throughput vs. latency" />
+<img src="/deepseek-ai/DeepInfer/raw/main/doc/images/decode_pareto.png" alt="Decode: output throughput vs. per-user speed" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50163277</guid>
+      <pubDate>Tue, 20 Oct 2026 09:08:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>打造无广告的 Android TV：更换启动器、替换 YouTube 并重映射遥控器</title>
+      <link>https://news.ycombinator.com/item?id=50158942</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲 Android TV 去广告的改造教程，与核心兴趣无直接强匹配，属技术类技巧内容，兴趣不明确</small></p><p>作者喜欢 Android TV 的生态，但厌恶其默认界面 Google TV 中无处不在的广告——即使开启「仅应用模式」（Apps only mode），主页顶部的推广横幅依然存在，且无法通过设置更换启动器；YouTube 官方应用也自带广告。作者在部署了多台设备后，总结出一套完全无广告且界面更美观的配置方案。</p><p><img src="/_astro/projectivy-home.D2EMBr48_Z2eo58t.webp" alt="Projectivy Launcher 主页" width="1920" height="1080" /></p><p><b>核心组件</b></p><ul><li><b>Projectivy Launcher</b>：替换默认主页，仅显示应用列表，高度可定制。</li><li><b>SmartTube</b>：替换 YouTube 官方应用，无广告、界面更佳，并内置 SponsorBlock。作者仍订阅 YouTube Premium 以支持创作者，但更喜欢 SmartTube。</li><li><b>Wholphin</b>：作者偏好的 Jellyfin 客户端，界面与定制性更优。</li><li><b>Button Mapper</b>：重映射遥控器，让 YouTube 按键直接打开 SmartTube。</li></ul><p><b>配置步骤</b></p><ul><li><b>ADB 连接</b>：开启开发者选项，启用无线调试（Wi-Fi 环境）或 USB 调试（如 Hisense 电视），通过 adb 配对和连接。</li><li><b>更换启动器</b>：禁用系统默认启动器及其恢复包，并将 Projectivy 设为默认主页应用。作者提醒，电视上默认启动器可能同时负责 HDMI 输入切换，需确认其仍能正常工作。</li><li><b>替换 YouTube</b>：卸载官方应用，若内置在固件中则改用针对用户的卸载命令。</li><li><b>重映射遥控器</b>：为 Button Mapper 和 Projectivy 启用无障碍服务（需先查看当前列表并保留其他服务），授予 Button Mapper <code>WRITE_SECURE_SETTINGS</code> 权限并豁免电池优化，然后将 YouTube 按键映射到 SmartTube。</li><li><b>清理优化</b>：加速系统动画，禁用部分不常用的 Google 应用。所有操作均可通过 <code>adb shell pm enable</code> 撤销。</li></ul><p><img src="/_astro/smarttube-home.CRiRm660_uq8du.webp" alt="SmartTube 主界面" width="1920" height="1080" /></p><p>作者在两台 Chromecast with Google TV 和一台 Hisense 电视上完成了该配置，并称其在大多数 Android TV 设备上均可适用。</p><p>文末的 Hacker News 评论中，读者分享了 FlLauncher、ATV Launcher Pro 等替代方案及 Netguard 网络控制、Moonfin 等其他 Jellyfin 客户端的使用经验，也有读者借此讨论「硬件所有权」、智能电视广告商业模式等问题。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50158942</guid>
+      <pubDate>Mon, 19 Oct 2026 22:32:37 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ OpenBSD 8.0 正式发布：扩展地址空间、支持休眠与更多新硬件</title>
       <link>https://news.ycombinator.com/item?id=50160494</link>
@@ -1038,34 +1069,6 @@ document.querySelector('#diagram').innerHTML = svg;</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50084240</guid>
       <pubDate>Wed, 14 Oct 2026 08:27:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>发布到 HN 后，我的网站被 AI 机器人流量淹没</title>
-      <link>https://news.ycombinator.com/item?id=50073221</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章主题是关于发布到HN后网站被AI机器人流量淹没的经历分享，涉及编程相关的流量/网站运营经验，但主题偏向个人经历分享，与AI软件技术进展和编程效率改进经验有一定关联但不够明确，分级为optional。</small></p><p>博主 Sammy Straus 在 Hacker News 上分享了他发布自己的可定制化阅读器 <a href="https://www.sammystraus.com/">sprinklz.io</a> 后遭遇 AI 机器人流量冲击的经历。该帖子获得了约一百个赞，但随后他的网站变得异常缓慢，且持续恶化。</p><p>通过添加端点级日志和检查 NGINX 日志，他发现近一半的流量来自一个特定的用户——一个自称"监听网站变化并总结成 AI 垃圾简报"的服务，该服务每分钟查询网站多次。此外还有 Claude bot、OpenAI bot、Google 索引器等已知爬虫，以及若干漏洞扫描器（例如尝试访问不存在的 WordPress 路径）。</p><p>作者采取了多项措施：添加 robots.txt 以阻止大多数 AI 扫描器但保留搜索引擎流量、设置合理的速率限制，并利用 Claude 模拟扫描器检查漏洞。更重要的是，他借此机会对底层基础设施进行了多项性能优化，以提升应对高负载的能力。</p><p>评论区中，多位用户分享了类似经历。有用户指出，在 Mastodon 上发布病毒式内容也会导致大量服务器请求；还有人提到已封禁 AWS、Google Cloud、Azure 等云服务商的 ASN 以应对滥用。也有用户认为，每分钟多次请求并不算高，问题更多在于网站本身的性能瓶颈。另有评论者建议使用 Cloudflare Turnstile 等方案来应对机器人。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50073221</guid>
-      <pubDate>Tue, 13 Oct 2026 15:25:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google 发布 Gemini 4 Argon：新一代前沿智能模型</title>
-      <link>https://news.ycombinator.com/item?id=50073879</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型发布公告，属于高度感兴趣类别，必看内容</small></p><p>Google 发布了其新一代前沿 AI 模型 <strong>Gemini 4 Argon</strong>，定位为"前沿智能的下一个时代"（Our next era of frontier intelligence）。该模型面向 Ultra 和 Pro 订阅用户开放，但不同地区和账户的可用性存在差异。</p>
-
-<p>据官方介绍，Argon 已帮助 Chrome 团队将核心网页处理逻辑与 Chromium 约 4000 万行代码库中一个约 600 万行的遗留浏览器功能目录分离。通过同时管道化多个干净的代码变更，Argon 帮助团队在数百个文件中完成了架构重构，将原本需要数月的工作缩短至数周完成。对于 Chrome 的数十亿全球用户而言，这将使实时网页能够在标签页、侧边面板和浮动窗口之间流畅移动而无需重新加载，并消除一整类浏览器崩溃问题。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论热度很高（797 分，641 条评论），主要围绕以下几点：</p>
-<ul>
-<li><strong>可用性问题</strong>：多位用户反映模型在部分地区（如欧盟）或部分账户（如 Pro 用户）中尚不可用，引发"经典 Google 式发布"的吐槽。也有用户确认在美国地区的 Ultra 账户中已能看到该模型。</li>
-<li><strong>模型能力竞争</strong>：有评论认为 Gemini 3.8 已落后于 Opus 和 Sol，期待 Argon 能缩小差距。也有用户指出模型能力仍在快速提升，认为"能力放缓"的说法不成立。</li>
-<li><strong>对 AI 发展速度的担忧</strong>：部分评论者认为多家公司都能突破各类基准测试，表明 AI 构建路径已无歧义，只是时间问题，并担忧这会吞噬所有人类任务。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50073879</guid>
-      <pubDate>Tue, 13 Oct 2026 16:03:16 GMT</pubDate>
     </item>
   </channel>
 </rss>

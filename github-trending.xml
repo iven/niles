@@ -3,7 +3,80 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Tue, 20 Oct 2026 09:58:46 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 15:00:53 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Graphify：将代码库转化为可查询的知识图谱，降低 AI 智能体成本</title>
+      <link>https://github.com/Graphify-Labs/graphify</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 编程工具发布，将代码库转化为知识图谱以降低 AI 智能体成本，符合编程工具发布/分享与 AI 软件技术进展的高度兴趣</small></p><p><strong>Graphify</strong>（Graphify-Labs/graphify）是一个将整个代码库（包括代码、文档、SQL 模式、配置文件、PDF 乃至图片和视频）转化为可查询<strong>知识图谱</strong>的开源工具。它提供了一个 <code>/graphify</code> 技能，可安装到 Claude Code、Cursor、Codex、Gemini CLI 等 20 多种 AI 编程助手中，让开发者"查询"而非"搜索"（grep）整个项目。</p>
+<h3>核心特性</h3>
+<ul>
+<li><strong>本地优先、代码免费解析</strong>：代码通过 tree-sitter 生成 AST 进行确定性解析，无需 LLM，数据不会离开你的机器；文档、PDF、图片和视频等才使用助手模型或配置的 API Key 进行语义处理。</li>
+<li><strong>每条边都有解释</strong>：图谱中每个连接都被标记为 <code>EXTRACTED</code>（源码中显式存在）或 <code>INFERRED</code>（由 graphify 推导），方便区分直接读取与推断结果。</li>
+<li><strong>非向量索引</strong>：不依赖 embedding 或向量存储，而是真正的可遍历图谱。你可以提问、追踪两个概念之间的路径，或解释单个概念。</li>
+<li><strong>跨文件链接</strong>：通过 tree-sitter AST 解析约 40 种语言的 <code>calls</code>、<code>imports</code>、<code>inherits</code> 等关系。</li>
+<li><strong>社区与"神节点"检测</strong>：使用 Leiden 算法将图谱划分为子系统，并识别连接最多的核心概念。</li>
+<li><strong>注释与文档引用</strong>：<code># NOTE:</code>/<code># WHY:</code> 注释以及 ADR/RFC 引用都会成为与代码相连的一等节点。</li>
+</ul>
+<h3>使用方式</h3>
+<p>使用 <code>uv tool install graphifyy</code>（或 <code>pipx install graphifyy</code>）安装 CLI，运行 <code>graphify install</code> 自动检测并注册助手技能后，在 AI 助手中输入 <code>/graphify .</code> 即可。输出三个文件：可为浏览器中点击交互的 <code>graph.html</code>、关键要点报告 <code>GRAPH_REPORT.md</code>、以及可随时查询的完整图谱 <code>graph.json</code>。命令行还提供 <code>graphify query</code>、<code>graphify path A B</code>、<code>graphify explain</code> 等查询方式。</p>
+<h3>性能基准</h3>
+<p>在 LOCOMO 基准上 recall@10 达到 <strong>0.497</strong>（远超 mem0 的 0.048 与 supermemory 的 0.149）；LongMemEval-S 的 QA 准确率 76%，与 dense RAG 持平；ERPNext 跨工具测试关键事实覆盖率 82%。图谱构建的 LLM 耗用为 <strong>0</strong>。评估采用相同测试框架与模型、盲审评分（与第二位评审的一致性 90.6%，Cohen's kappa 0.81）。</p>
+<p>项目还提供商业化的 <strong>Graphify Cloud</strong>，可在整个软件开发生命周期（SDLC）中保持图谱持续在线，声称可将智能体 token 开销降低 80%，支持跨仓库链接、形式化验证与 SDLC 全景代码审查，并提供 Sentry、Jira 连接器。</p>
+<h3>你知道吗？</h3>
+<p><strong>知识图谱（Knowledge Graph）</strong>是一种以节点（实体/概念）和边（关系）组织信息的图结构，相比传统向量数据库，它更适合精确、可解释地表达代码间的复杂依赖关系，便于逐跳（hop）推理问题路径。Leiden 算法是常用的图社区检测算法，用于将图谱自动划分为语义相关的子系统。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/Graphify-Labs/graphify</guid>
+      <pubDate>Tue, 20 Oct 2026 15:00:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ dsh-purge：DeepSeek Harness 的&quot;破甲&quot;Red Team 评测插件，作者宣布闭源并改商业许可</title>
+      <link>https://github.com/YuJunZhiXue/dsh-purge</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及 DeepSeek 的 Red Team 评测插件，属 AI 软件工具进展，作者闭源改商业许可虽属行业动态但主题仍以 AI 工具为主</small></p><p><strong>dsh-purge</strong>（DeepSeek Harness 破甲）是一个安装在官方 <a href="https://www.deepseek.com/harness/">DeepSeek Harness</a> 上的 JavaScript 插件，定位于网络安全红队（Red Team）评测工具。其核心能力是让各类大语言模型"破甲"（即绕过安全护栏），并支持为不同模型切换不同提示词，默认提示词面向国产模型「小码酱」。截至榜单发布，项目已获 1.08 万 Star。</p>
+
+<h3>核心功能</h3>
+<p>插件通过会话标题旁的侧栏提供两个主要页面：</p>
+<ul>
+  <li><strong>清洗</strong>：分组查看补丁，支持应用、还原、卸载；可编辑提示词和多套规则集。</li>
+  <li><strong>演练台</strong>：授权后查看资产、技能与本机环境，仅用于使用者有权管理的本机、离线靶标或已获书面授权的演练。</li>
+</ul>
+<p>此外还提供宿主策略调整、启动时自动应用补丁、自有服务器白名单登记（写入 <code>net-scope-allow.txt</code>）等功能。项目号称支持官方 Web（<code>dsh web</code>）与官方桌面端，但社区桌面端不再维护。作者强调工具只作用于使用者本机已安装的官方 Harness，不是公网扫描器或针对第三方系统的攻击载荷。</p>
+
+<h3>重要事件与立场声明</h3>
+<p>README 开篇有作者的个人声明：因被裁员、无稳定收入，作者宣布自发布日起征集七天（至 2026 年 10 月 26 日），到期后<strong>关闭 GitHub 仓库、停止开源更新</strong>，新版本仅通过 <a href="https://t.me/LLM_PoJia/271">Telegram 频道</a>发布。许可证也自该版本起从 MIT 变更为作者自写的商业软件许可，强调"这不是开源协议"。</p>
+<p>仓库还包含大量合规免责声明：严禁用于违法犯罪、未授权攻击、数据窃取等用途；禁止对中国大陆、香港、澳门网段及解析进这些网段的服务器进行任何操作；使用者须自行承担全部法律责任。项目同时公示了一桩<strong>违规商用事件</strong>：抖音直播账号「老张的ai」被指将其当作收费商品销售、不署名并自称作者，作者声明将追究。</p>
+
+<h3>适配与兼容性</h3>
+<p>最新版本仅支持 dsh 0.2（官方桌面 0.2.0-rc.2 / 0.2.1-rc.2 及官方 <code>dsh web</code>）；更早的 dsh 0.1.x 需使用对应旧版本。插件可从 GitHub 归档安装，npm 上并无同名包。使用时需先退出并重启宿主，再在「清洗」页点击「应用」。安装配置保存在 profile 的 <code>package.json</code> 中，通过 <code>file:</code> 路径引用本地插件目录。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/YuJunZhiXue/dsh-purge</guid>
+      <pubDate>Tue, 20 Oct 2026 15:00:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Agentic Awesome Skills（AAS Core）：2700+ 个可复用的 Agent 技能库，本地优先的控制平面</title>
+      <link>https://github.com/sickn33/agentic-awesome-skills</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 Agent 技能库，符合开源项目与 AI 软件技术进展的兴趣</small></p><p><a href="https://github.com/sickn33/agentic-awesome-skills">Agentic Awesome Skills（AAS）</a> 是一个收录了 2,715+ 个可安装 <code>SKILL.md</code> 操作手册（playbook）的开源技能库。其核心组件 <strong>AAS Core</strong> 定位为"本地优先、Agent 优先"的控制平面，为 Codex 或 Claude 提供完整的目录发现、Agent 自主选择、技术栈校验与规划预览能力，当前版本为 V19.11.0。</p>
+
+<p>项目在 GitHub 上已获得超过 48,000 颗星，热度极高。它支持本地目录检索、让 Agent 记录所选技能、以及在实际改动目标前可视化预览执行计划。值得注意的是，Core 本身 <strong>不负责对技能进行排序或推荐</strong>，而是让 Agent 根据项目情况自行挑选合适的技能组合，并生成可审查的 <code>aas-stack.json</code> 清单与不可变的预览计划。Apply（应用）与恢复（recovery）功能仍处于实验阶段，默认不启用。</p>
+
+<p>项目兼容性广泛，适配 <a href="https://claude.ai">Claude Code</a>、<a href="https://github.com/openai/codex">Codex CLI</a>、Cursor、Gemini CLI、Kiro、GitHub Copilot、OpenCode 等主流 AI 开发工具，可通过 `npx agentic-awesome-skills` 进行安装。除核心技能库外，还提供 13 个专项插件，覆盖 Web 应用构建、产品设计、安全工程师、数据分析和 DevOps 等领域，并配套 Bundles（技能分组）与 Workflows（执行顺序工作流）以辅助选型和编排。</p>
+
+<p>该项目为独立的社区项目，与 Google、Anthropic、OpenAI 等公司无隶属关系，名称仅用于描述兼容性与安装目标。配套的<a href="https://aaskills.tech/">托管目录</a>与浏览器本地运行的 Workbench 提供了发现与审查的辅助界面。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/sickn33/agentic-awesome-skills</guid>
+      <pubDate>Tue, 20 Oct 2026 15:00:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ vLLM：面向大语言模型的高吞吐量推理与部署引擎</title>
+      <link>https://github.com/vllm-project/vllm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 大语言模型高吞吐量推理与部署引擎，是 AI 软件技术进展与开源项目的核心代表，用户会强烈关注</small></p><p><strong>vLLM</strong> 是一个快速且易用的大语言模型（LLM）推理与部署库，最初由加州大学伯克利分校的 <a href="https://sky.cs.berkeley.edu">Sky Computing Lab</a> 开发，现已成长为最活跃的开源 AI 项目之一，拥有来自 70 多家学术机构和公司的 2000 多名贡献者。</p><h3>核心优势</h3><p>vLLM 以<strong>高吞吐量</strong>著称，其关键技术包括：</p><ul><li><a href="https://blog.vllm.ai/2023/06/20/vllm.html">PagedAttention</a>：高效管理注意力机制的键值（key/value）内存</li><li>连续批处理（continuous batching）、分块预填充（chunked prefill）与前缀缓存（prefix caching）</li><li>支持 FP8、INT8、GPTQ/AWQ、GGUF 等多种量化方案</li><li>优化的注意力内核（FlashAttention、FlashInfer 等）及 GEMM/MoE 内核</li><li>投机解码（speculative decoding）包括 n-gram、EAGLE 等</li><li>基于 torch.compile 的自动内核生成与图级优化</li><li>支持 prefill、decode、encode 的解耦式推理</li></ul><h3>灵活性与易用性</h3><ul><li>无缝集成 Hugging Face 主流模型，支持 200+ 模型架构（Llama、Qwen、Gemma、Mixtral、DeepSeek-V3、Mamba、LLaVA、Qwen-VL 等）</li><li>支持多种解码算法（并行采样、beam search）、流式输出与结构化输出生成</li><li>提供 OpenAI 兼容 API 服务器，以及 Anthropic Messages API 和 gRPC 支持</li><li>支持张量、流水线、数据、专家、上下文等多种并行方式用于分布式推理</li><li>支持 NVIDIA、AMD、Intel GPU 以及 x86/ARM/PowerPC CPU，并兼容 Google TPU、Intel Gaudi、Huawei Ascend 等硬件插件</li></ul><p>该项目为部署大模型服务提供了「简单、快速、低成本」的解决方案，可通过 <code>uv pip install vllm</code> 快速安装使用。其核心论文《Efficient Memory Management for Large Language Model Serving with PagedAttention》发表于 ACM SIGOPS SOSP 2023。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/vllm-project/vllm</guid>
+      <pubDate>Tue, 20 Oct 2026 15:00:27 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Headroom：面向 AI 智能体的上下文压缩层，平均节省数十个百分点 token</title>
       <link>https://github.com/headroomlabs-ai/headroom</link>
@@ -1102,118 +1175,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/byoungd/up</guid>
       <pubDate>Mon, 28 Sep 2026 15:21:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ PipePipe：重新构想的新一代 NewPipe 开源 Android 视频客户端</title>
-      <link>https://github.com/InfinityLoop1308/PipePipe</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源Android视频客户端项目，属开源项目与软件新功能范畴，用户有兴趣推荐阅读</small></p><p><b>PipePipe</b> 是一款开源的 Android 应用，允许用户自由浏览 YouTube 及其他视频服务。它是知名开源项目 <a href="https://github.com/TeamNewPipe/NewPipe">NewPipe</a> 的硬分叉（hard fork），定位为"重新构想的新版 NewPipe"——更快速、更稳定、功能更丰富。</p>
-
-<h3>核心功能亮点</h3>
-<ul>
-<li><b>YouTube 增强</b>：集成 SponsorBlock 跳过赞助片段（支持 YouTube 和 B 站）、通过 ReturnYouTubeDislike 恢复 YouTube 点踩数、显示原始标题（非本地化）、支持登录以访问受限或付费内容。</li>
-<li><b>媒体特性</b>：弹幕式直播聊天叠加显示、支持 AV1 和 VP9 编解码器实现高效高清播放、音乐播放器模式支持后台播放。</li>
-<li><b>过滤功能</b>：高级搜索过滤器、按关键词或频道过滤不想要的内容、屏蔽短视频（Shorts）和付费视频。</li>
-<li><b>播放控制</b>：滑动快进、全屏手势、长按加速播放、睡眠定时器。</li>
-<li><b>播放列表增强</b>：一键下载整个播放列表、在本地播放列表和历史记录中搜索和排序。</li>
-</ul>
-
-<h3>分叉背景</h3>
-<p>由于开发理念的差异，作者于 2022 年初从 NewPipe 分叉并独立开发。PipePipe 与 NewPipe 已成为两个独立项目，互不接收更新。与 Tubular 等跟随 NewPipe 最新版本的软分叉不同，硬分叉使作者能够快速修复问题并频繁推出新功能。</p>
-
-<h3>登录与隐私</h3>
-<p>PipePipe 仅在用户指定的场景下使用登录 Cookie（可在"Cookie Functions"中配置）。对于 YouTube，Cookie 仅在获取播放流时使用，注重隐私保护。</p>
-
-<h3>社区与支持</h3>
-<p>项目欢迎提交 Issue 和 PR，但不接受服务请求。用户可通过 <a href="https://ko-fi.com/pipepipe">Ko-Fi</a> 或 <a href="https://liberapay.com/PipePipe">Liberapay</a> 支持开发者。项目还提供由社区维护的 <a href="https://priveetee.github.io/Docs-PipePipe">PipePipe Wiki</a> 文档。</p>
-
-<p>该应用可通过 <a href="https://f-droid.org/packages/InfinityLoop1309.NewPipeEnhanced/">F-Droid</a> 和 <a href="https://apt.izzysoft.de/fdroid/index/apk/InfinityLoop1309.NewPipeEnhanced">IzzyOnDroid</a> 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/InfinityLoop1308/PipePipe</guid>
-      <pubDate>Sun, 27 Sep 2026 13:53:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ scriptc：Vercel Labs 推出的 TypeScript 到原生代码编译器</title>
-      <link>https://github.com/vercel-labs/scriptc</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] TypeScript到原生代码编译器，属于编程工具发布，用户很感兴趣必看</small></p><p>Vercel Labs 发布了实验性项目 <strong>scriptc</strong>，一个将 TypeScript 和 JavaScript 编译为原生代码的编译器。该项目在 GitHub 上已获得超过 5200 星标，目前处于实验阶段，支持 macOS、Linux、Windows 以及通过 WASI Preview 1 支持 WebAssembly。</p>
-
-<h3>核心能力</h3>
-<p>scriptc 可以将 TypeScript/JavaScript 编译为多种输出形式：类型化中间表示（IR）、可读 C 代码、文本 LLVM IR、原生汇编、目标文件、原生可执行文件以及 WebAssembly 模块。它使用 TypeScript 编译器进行解析和类型检查，生成的源码级输出仅需 Node 环境。</p>
-
-<p>静态构建包含一个轻量级原生运行时，但不包含 Node 或 JavaScript 引擎。对于无法静态编译的代码，编译器会报告诊断信息。对于 npm 包和 <code>any</code> 类型代码，可通过 <code>--dynamic</code> 选项显式嵌入 <a href="https://github.com/quickjs-ng/quickjs">quickjs-ng</a> 引擎。</p>
-
-<h3>关键特性</h3>
-<ul>
-<li><strong>Node API 支持</strong>：常见的 Node API（如 <code>node:http</code>）可直接编译到原生运行时，无需 Node 环境即可运行生成的可执行文件。</li>
-<li><strong>静态覆盖率检查</strong>：<code>scriptc coverage</code> 命令可显示程序可静态编译的比例，并对每个动态或不支持的代码位置给出编码诊断。</li>
-<li><strong>WebAssembly 构建</strong>：通过 Zig 工具链可生成可移植的 WASI Preview 1 模块，支持 async/await、promises、generators、定时器等特性。</li>
-<li><strong>npm 包嵌入</strong>：使用 <code>--dynamic</code> 可将 npm 包的 JavaScript 嵌入可执行文件中，运行时无需读取 <code>node_modules</code>。</li>
-<li><strong>原生 FFI</strong>：支持原生外部函数接口调用。</li>
-</ul>
-
-<h3>使用方式</h3>
-<p>安装要求 Node.js 24 或更高版本。可通过 <code>npm install -g scriptc</code> 全局安装，然后使用 <code>scriptc run hello.ts</code> 直接运行，或使用 <code>scriptc build hello.ts -o hello</code> 生成独立可执行文件。编译过程可停留在任意中间产物阶段（IR、C、LLVM、汇编或目标文件）。</p>
-
-<p>值得注意的是，普通 LLVM 层级的可执行文件构建使用 scriptc 自带的辅助程序和预编译运行时包，clang 仅作为平台链接器驱动，不参与编译程序或运行时 C 代码，因此大多数场景下无需安装完整 C 编译器工具链。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/vercel-labs/scriptc</guid>
-      <pubDate>Sun, 27 Sep 2026 13:53:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenRig：将 Claude Code 与 Codex 整合为统一多智能体系统的开源框架</title>
-      <link>https://github.com/mvschwarz/openrig</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 整合Claude Code与Codex的统一多智能体开源框架，属于AI编程工具与AI软件技术进展，用户很感兴趣必看</small></p><p>OpenRig 是一个多智能体编排框架（multi-agent harness），旨在将 AI 编码智能体从零散的终端会话转变为持久、有组织的团队。它允许用户通过一条命令同时运行和管理 <strong>Claude Code</strong> 与 <strong>Codex</strong>，将它们作为一个统一系统协同工作。该项目目前已在 GitHub 上获得 649 颗星，使用 TypeScript 编写。</p>
-
-<h3>核心功能</h3>
-<ul>
-<li><strong>YAML 定义拓扑</strong>：通过 RigSpec 以声明式 YAML 定义智能体团队结构，包括 pods、成员、边和连续性策略</li>
-<li><strong>一键启动</strong>：使用 <code>rig up</code> 命令启动所有 tmux 会话、harnesses 和启动文件，并包含就绪检查</li>
-<li><strong>可视化 TUI</strong>：提供拓扑表、图形视图和座位详情，支持键盘、鼠标和命令栏导航</li>
-<li><strong>会话发现与收养</strong>：可发现 tmux 中已有的 Claude Code 和 Codex 会话并将其纳入管理</li>
-<li><strong>快照与恢复</strong>：<code>rig down --snapshot</code> 捕获完整状态，<code>rig up &lt;name&gt;</code> 按名称恢复</li>
-<li><strong>跨智能体通信</strong>：支持 <code>rig send</code>、<code>rig broadcast</code> 和 <code>rig chatroom</code> 等通信方式</li>
-<li><strong>动态演进</strong>：通过 <code>rig grow</code>、<code>rig shrink</code>、<code>rig launch</code> 等命令实时调整运行中的拓扑</li>
-</ul>
-
-<h3>架构</h3>
-<p>OpenRig 由本地守护进程（daemon）+ CLI + 终端 UI + MCP 服务器组成，构建于 tmux 之上。架构层次为：CLI/TUI/MCP → Hono HTTP 守护进程 → 领域服务 → SQLite + tmux + 运行时适配器。每个智能体都运行在可随时附加、检查和操作的 tmux 会话中。</p>
-
-<h3>内置示例团队</h3>
-<ul>
-<li><strong>first-project</strong>：两座位入门配置（owner + checker）</li>
-<li><strong>product-team</strong>：大型产品开发团队（两个编排者、实现、QA、设计、两个独立审查者）</li>
-<li><strong>conveyor</strong>：四座位混合 Claude Code 和 Codex 的配置，展示从 intake、规划、构建到审查的交接路径</li>
-<li><strong>secrets-manager</strong>：由专业智能体管理的 HashiCorp Vault 实例</li>
-</ul>
-
-<h3>关键概念</h3>
-<p>OpenRig 引入了 <strong>Seat</strong>（座位，即 rig 中的稳定角色和地址，如 <code>dev-owner@first-project</code>）、<strong>Pod</strong>（共享指导和上下文的座位组）、<strong>RigBundle</strong>（可移植归档，含 SHA-256 完整性校验，可跨机器共享拓扑）以及 <strong>Culture</strong>（通过 CULTURE.md 设定团队协作规范）等概念。</p>
-
-<h3>安全与权限</h3>
-<p>YOLO 模式默认关闭，需要显式设置 <code>OPENRIG_YOLO=1</code> 或完整的旁路座位策略才会启用。安装和运行会在机器上写入信任设置和可执行钩子，官方建议首次使用前备份相关文件。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/mvschwarz/openrig</guid>
-      <pubDate>Sun, 27 Sep 2026 13:53:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ TensorFlow：面向所有人的开源机器学习框架</title>
-      <link>https://github.com/tensorflow/tensorflow</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] TensorFlow 是主流开源机器学习框架，属于用户很感兴趣的『新AI模型发布公告』和『编程工具发布/分享』范畴的顶级开源项目</small></p><p><a href="https://www.tensorflow.org">TensorFlow</a> 是一个端到端的开源机器学习平台，由 Google Brain 机器智能团队的研究人员和工程师最初开发，用于机器学习和神经网络研究，但框架足够通用，也可应用于其他领域。该项目目前在 GitHub 上拥有超过 20 万星标，采用 C++ 编写，遵循 Apache License 2.0 开源协议。</p>
-
-<p>TensorFlow 提供了丰富而灵活的工具、库和社区资源生态系统，使研究人员能够推动机器学习的前沿发展，同时让开发者能够轻松构建和部署基于 ML 的应用。框架提供稳定的 <a href="https://www.tensorflow.org/api_docs/python">Python</a> 和 <a href="https://www.tensorflow.org/api_docs/cc">C++</a> API，以及不保证向后兼容的其他语言 API。</p>
-
-<p>在安装方面，用户可通过 pip 安装支持 CUDA GPU 的当前版本（Ubuntu 和 Windows），也可安装仅 CPU 的轻量级包 <code>tensorflow-cpu</code>。DirectX 和 macOS Metal 等其他设备通过 Device Plugins 提供支持。项目还提供 <code>tf-nightly</code> 和 <code>tf-nightly-cpu</code> 夜间构建版本供测试使用。</p>
-
-<p>项目维护了 Linux、macOS、Windows、Android 及 Raspberry Pi 等多个平台的官方构建，并支持社区维护的更多平台配置。TensorFlow 还提供了丰富的学习资源，包括官方教程、示例模型、Codelab 以及 Coursera、Udacity、Edx 等平台的课程。</p>
-
-<p>社区参与方面，项目使用 GitHub Issues 跟踪请求和 Bug，通过 TensorFlow Forum 进行一般性讨论，具体问题可导向 Stack Overflow。项目遵循开源软件开发的通用最佳实践，并采用 Contributor Covenant 行为准则。</p></p>
-<｜DSML｜parameter name="rejected" string="false">false]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tensorflow/tensorflow</guid>
-      <pubDate>Sat, 26 Sep 2026 13:01:23 GMT</pubDate>
     </item>
   </channel>
 </rss>
