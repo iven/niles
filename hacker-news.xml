@@ -3,7 +3,76 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 20 Oct 2026 04:43:46 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 10:00:17 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OpenBSD 8.0 正式发布：扩展地址空间、支持休眠与更多新硬件</title>
+      <link>https://news.ycombinator.com/item?id=50160494</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源操作系统发布，属于开源项目和软件新功能，推荐阅读</small></p><p>OpenBSD 8.0 于 2026 年 10 月 20 日正式发布，这是 OpenBSD 的第 61 个版本。本次发布以《The Simps on AI》为主题歌曲，封面插画由 yvaneht nioj 和 clanker 创作。</p>
+
+<h3>平台方面的主要改进</h3>
+<ul>
+<li><strong>amd64</strong>：将内核虚拟地址空间从 4G 提升至 512G，可使用 AES CPU 指令加速交换分区加密。</li>
+<li><strong>arm64</strong>：新增休眠（hibernate）支持，并实现了 bounce buffers。</li>
+<li><strong>riscv64</strong>：检测 CPU 扩展并通过 <code>elf_aux_info</code> 向用户态通告，新增对 'V' 向量扩展、RISC-V 高级中断架构（imsic/aplic 驱动）以及 Sstc 定时器扩展的内核支持。</li>
+<li><strong>sparc64</strong>：切换到 LLVM 工具链，并改进内存对齐。</li>
+<li><strong>其他架构</strong>：正式退役 loongson 架构支持（无法配合 Clang 22 工作）。</li>
+</ul>
+
+<p>内核层面包含多项改进，例如修复 <code>open_wmemstream</code> 内存计算、改进分页守护进程的非活动页队列启发式算法、新增 <code>getexecpath(3)</code> 等。休眠/挂起支持也在多个平台（Samsung Galaxy Book4 Edge、HONOR MagicBook Art 14、多款联想 IdeaPad 等）得到完善。</p>
+
+<h3>图形与虚拟化</h3>
+<p>drm(4) 已更新至 Linux 6.18.53，inteldrm(4) 新增对 Intel Arc A-Series（DG2/Alchemist）显卡的支持。虚拟化方面，vmm/vmd 新增每客户机最多 64 个 vCPU 的 SMP 支持、x2apic 模式、MSI/MSI-X virtio 设备中断支持，并添加了 802.11n、40MHz 信道等无线网络驱动（qwx/qwz）的大量改进。</p>
+
+<h3>安全与稳定性</h3>
+<p>本次发布包含大量安全修复：修复 <code>pledge(2)</code>、加强 ipsec(4) AES GMAC 加密、加固 <code>iked</code>/<code>isakmpd</code> 的报文处理、修复 dhcpd/dhcpd 的内存耗尽风险、更新 libexpat 和 perl 等多个组件以修补已知 CVE。同时增强了 <code>unveil(2)</code>、<code>syspatch</code>、<code>pax(1)</code> 等机制的安全性。</p>
+
+<h3>硬件支持扩充</h3>
+<p>新增了多个驱动，包括 Samsung Advanced BIOS Interface（samsabi(4)）、三星笔记本电池监控（sambat(4)）、Rockchip OTP 内存（rkotp(4)），并增加了一批 PCIe/以太网/无线设备的支持。安装器与包管理工具（pkg_add、fw_update、syspatch、sysupgrade）也做了多项可靠性改进。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上讨论热烈（280 分，84 条评论）。多数用户对封面插画褒贬不一：有人认为其有意以"AI 生成"风格作为讽刺，也有人表示不欣赏。另有用户指出 8.0 版本号并不代表更大规模的更新，只是 7.9 之后的自然递增。多位长期用户称赞其跨版本升级（7.6→8.0）的稳定性，但也有人质疑"现代文件系统"与"现代笔记本即插即用体验"是否到位。</p>
+
+<p><img src="images/blowfishonbike-s.gif" alt="Blowfish on a Bike" width="200" height="300" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50160494</guid>
+      <pubDate>Tue, 20 Oct 2026 02:06:40 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 为了不用微软账号，我把Arch Linux装进了RTX Spark笔记本</title>
+      <link>https://news.ycombinator.com/item?id=50158100</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源Linux安装实践与本地AI推理，属开源项目与效率经验，推荐阅读</small></p><p>一位 Arch Linux 打包维护者 Josie 出于对 Windows 的抵触（安装时的隐私让步、任务栏位置限制、广告等），为配备 NVIDIA N1X 芯片的华硕 ProArt P16（128GB 统一内存配置）搭建了可启动的 Arch Linux ARM 系统，并公开了完整构建脚本与补丁。</p><img src="/blog/images/n1x-arch-linux.jpg" alt="Fastfetch 显示 ASUS ProArt P16 上运行的 Arch Linux ARM 与 NVIDIA N1X GPU" /><p>她以 Ubuntu 版 NVIDIA 内核工作为起点，修复了 ACPI override 分配与显存映射以获取控制台，并为键盘（hid-asus）和音频编写了补丁。构建过程从笔记本自身的 ACPI 表中提取 override，并支持从华硕驱动包本地提取扬声器固件；硬件相关包用她的 Arch 维护者密钥签名，且构建输入固定了哈希。系统通过扩展上游 Archinstall 4.5 安装，运行时使用 NetworkManager、PipeWire 与无根的 Podman（配合 NVIDIA CDI），显示屏在 120Hz 下运行 3840×2400 分辨率。</p><p><strong>性能对比</strong>：CPU 测试使用原生 ARM64 7-Zip 26.04。与 StorageReview 在同款 20 核 N1X 的 HP OmniBook（Windows）上对比：单线程压缩/解压基本持平（相差约 1%），20 线程时她的 Linux 配置在压缩上领先约 5%、解压领先约 3%。与 ComputerBase 的 Windows 测试相比，其分数也落在她三次运行的中位范围内。</p><p><strong>内存分配</strong>：值得强调的是，Linux 将 116.0 GiB 同时报告为系统内存和 CUDA 总内存，来自同一物理池；而 Windows 将内存划分为专用 GPU、共享与仅 CPU 三个区域，CPU 无法使用专用 GPU 区。与 Frandroid 在 Windows 上（91 GiB 专用预留）报告的 109.7 GiB CUDA 总量相比，Linux 多出约 6.3 GiB，且无需调整预留滑块和重启即可让大内存池同时供 CPU 使用。</p><p><strong>本地运行 Qwen</strong>：她通过 vLLM（B12X CUDA 内核、FP8 KV 缓存、原生 ARM64 容器）运行 NVIDIA 的 Qwen3.8-Flash-Next-FP4-Local。模型加载与编译约需 16 分钟，模型和 KV 缓存合计占用近 90 GiB。在代码审查、日志故障定位（近 1 万 token 输入）与支付信息提取三类任务上均通过了校验；生成速度约 30 token/s，与 Frandroid 的 Windows 配置相近。她还进行了 10 分钟连续推理（150 次请求）和批量任务测试，所有响应均通过检查。</p><p>HN 评论区围绕「是否必须用微软账号」展开讨论：多数人认为厂商过于强势，但指出 Windows Pro 版仍可通过「加入域」路径创建本地账户，Home 版则日益受限；也有人列举微软登录页面的糟糕体验、Office 授权问题等。另有讨论对约 6000 美元的此类笔记本性价比提出质疑，比较了 AMD Strix Halo 迷你主机与 RTX Spark 在功耗和电池续航上的差异。</p><p>你知道吗？「统一内存」让 CPU 与 GPU 共享同一物理内存池，无需显式拷贝数据，这对大语言模型的本地推理尤其有利。相较之下，传统独立 GPU 的显存容量受限，而 RTX Spark 的 N1X 芯片将超过 100 GiB 内存统一供 CPU 与 CUDA 使用，使其能在笔记本上直接运行大模型。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50158100</guid>
+      <pubDate>Mon, 19 Oct 2026 21:08:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ PostgreSQL 19 分支异常多的功能回退：原因分析与反思</title>
+      <link>https://news.ycombinator.com/item?id=50156206</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] PostgreSQL开源数据库开发分析，属开源项目与软件技术进展，推荐阅读</small></p><p>PostgreSQL 开发者 Peter Eisentraut 撰文反思了 PostgreSQL 19 分支在 beta 阶段出现异常多功能回退（revert）的现象。通常每个开发周期只会有约一个功能被回退，但这次大约有 8 到 10 个重要功能被回退，其中一些发生在 beta 后期。</p>
+
+<p>作者作为部分被回退功能的开发者或提交者，分析了可能的原因组合：</p>
+
+<ul>
+<li><strong>代码质量不足</strong>：部分功能确实存在架构性缺陷，难以在 beta 期间快速修复。</li>
+<li><strong>LLM 辅助代码审查提高了质量门槛</strong>：被回退的功能大多是在 LLM 辅助审查还不成熟时编写的。如今 LLM 辅助模糊测试能快速发现大量边缘案例问题，导致开发者面对数十个缺陷报告，即使每个只需小修，处理开销也会耗尽时间。作者强调这并非"vibe coding"（随意编码）所致，因为这些代码写于该概念出现之前。</li>
+<li><strong>Vulnpocalypse 分散了资深开发者精力</strong>：从 4 月（PostgreSQL 19 功能冻结开始）到 8 月（最近一次安全发布），许多资深开发者忙于修复安全漏洞，导致 beta 期间的额外审查和测试减少，问题在 beta 后期集中爆发。</li>
+<li><strong>系统复杂性</strong>：PostgreSQL "一切与一切协同工作"的设计理念意味着每个功能都要在各种组合场景下正确工作（如域类型、复合类型、分区表、触发器、安全定义函数等），人工几乎无法穷举测试这些组合，而 LLM 辅助模糊测试可以快速发现问题。</li>
+</ul>
+
+<p>作者还提到社区曾考虑以"实验性"状态提交功能并在主分支中逐步成熟，但尚未找到具体实施方案，这也是未来需要推进的方向。</p>
+
+<p>展望未来，作者相信许多被回退的功能会很快回归。PostgreSQL 19 仍将是一个出色的版本，包括 REPACK CONCURRENTLY、序列的逻辑复制（本身也是此前被回退过的功能）以及 pg_plan_advice 规划器提示等亮点功能，并且经过额外审查后将更加稳健。</p>
+
+<h3>社区反馈</h3>
+
+<p>Hacker News 上的讨论整体持积极态度。多位评论者认为，在 PostgreSQL 这样基础性的数据库上，宁可多回退也不应带着缺陷发布，这体现了团队将稳定性置于功能之上的负责任态度。有评论者指出，LLM 代码审查确实能发现过去需要数年才能暴露的边缘案例问题，但也带来了新的挑战——开发者需要重新权衡质量与开发速度。也有评论者对文章标题提出异议，认为"回退将持续到士气改善"这一说法带有讽刺意味，不太适合描述这一情况。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50156206</guid>
+      <pubDate>Mon, 19 Oct 2026 18:42:32 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Inception 发布 Mercury 3：扩散式大语言模型规模化验证，速度与智能兼得</title>
       <link>https://news.ycombinator.com/item?id=50155245</link>
@@ -997,76 +1066,6 @@ document.querySelector('#diagram').innerHTML = svg;</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50073879</guid>
       <pubDate>Tue, 13 Oct 2026 16:03:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Anthropic 自研版本控制系统 Scion：为智能体规模重新设计源码控制</title>
-      <link>https://news.ycombinator.com/item?id=50073633</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲述自研版本控制系统以解决开发瓶颈，属于编程工具分享与编程效率改进经验，高度感兴趣</small></p><p>Anthropic 在官方工程博客上分享了其自研版本控制系统 <strong>Scion</strong> 的设计思路与迁移经验。随着 Claude 自主编码能力的提升，Anthropic 的代码合并量从 2026 年 5 月的日均约 2,500 次激增至 9 月的日均超过 30,000 次，源码控制成为最大的开发瓶颈。</p>
-
-<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F1e2a750dba61db4a76b72eec5b0cf50b8a7f878c-3840x2160.png&w=3840&q=75" alt="" width="3840" height="2160" />
-
-<h3>Git 的规模困境</h3>
-<p>Anthropic 的 monorepo 主分支历史接近 100 GB，压缩工作副本超过 25 GB。每天约执行 2,500 万次代码检出（checkout），若以传统方式获取，将产生超过 600 PB 的 git 流量。公司曾运营数百个内部 git 镜像来应对负载，但随着合并速率持续攀升，这些变通方案越来越难以维护。</p>
-
-<h3>Scion 的核心设计原则</h3>
-<p>Scion 的设计借鉴了 Google Piper 和 Meta Sapling 的经验，围绕五个核心原则构建：</p>
-<ul>
-<li><strong>客户端始终在线</strong>：与 git 假设客户端离线工作不同，Scion 假设客户端始终可访问服务器，按需获取数据。</li>
-<li><strong>客户端-服务器不对称</strong>：服务器负责历史查询、blame、创建提交、合并和 rebase 等操作；客户端仅维护有界本地对象缓存。</li>
-<li><strong>全面的源码控制服务</strong>：所有客户端查询均通过 API 暴露，许多 CI 任务无需本地仓库即可完成。</li>
-<li><strong>一切水平可扩展</strong>：仓库数据分布式存储，每个组件可独立扩展，不存在完全物化的仓库副本。</li>
-<li><strong>提交必须廉价、增量且无锁</strong>：所有提交、rebase、合并都在服务器端完成，成本与变更规模成正比而非仓库整体大小。</li>
-</ul>
-
-<h3>技术实现</h3>
-<p>Scion 以"变更集"（changeset）为工作单元，存储在预写日志中，记录相对父提交的文件变更列表及内容寻址的 blob 指针。系统通过通用机制计算"派生数据"（如文件 blame、路径历史、提交图跳表），支持按需计算和灵活优化。</p>
-
-<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fff019752973f6d83d2f6ba3bf56636aced3ea82c-3840x1238.png&w=3840&q=75" alt="" width="3840" height="1238" />
-
-<p>架构采用三层结构：<code>scion-daemon</code>（节点级守护进程）→ <code>scion-cache</code>（区域缓存服务器）→ <code>scion-server</code>（权威服务器，从 Spanner 或云存储读取）。每层缓存命中率超过 99%，基础设施的 CPU 和内存占用比此前的 git 镜像架构缩小了 200 倍，CI 检出速度提升两个数量级（从分钟级降至秒级），CI 单独获得 25% 的 CPU 容量提升。</p>
-
-<h3>Claude 的自我加速</h3>
-<p>一个引人注目的案例：Anthropic 团队此前手写了 git 到 Scion 的摄取管道原型，后来让 Claude Mythos Preview 重写整个管道，在无额外指令的情况下，新版本内存消耗降低 20 倍、速度提升 4 倍，同时保留了所有隐式不变量。7 人团队在 5 个月内完成了 Scion 和代码审查工具 Antique 的构建及全面迁移。</p>
-
-<h3>社区讨论</h3>
-<p>HN 社区对此反应热烈。有评论者指出 Scion 的设计与 SVN 或 Perforce 有相似之处；也有人质疑如此巨大的代码量是否合理。Anthropic 工程师 nickg-anthropic 回应称，公司通常不允许智能体将源码控制用于协调目的，代码量的真实增长源于实际软件和代码的编写。另有评论者关注到拥有顶级模型的公司（如 Anthropic）在开发效率上的巨大优势，以及 LLM 编码的可复现性问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50073633</guid>
-      <pubDate>Tue, 13 Oct 2026 15:49:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Firefox 大文件下载断点续传问题的排查与解决</title>
-      <link>https://news.ycombinator.com/item?id=50061791</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Firefox下载断点续传问题的排查解决，属于编程效率改进经验，推荐阅读</small></p><p>一位开发者（Olivia）在博客中分享了她对 Firefox 大文件下载无法断点续传问题的排查结果。她发现 Firefox 28 及更新版本（即 2014 年后的所有现代版本）默认将 <code>network.http.response.timeout</code> 设置为 300 秒，这一设置似乎干扰了大文件下载的断点续传功能及整体稳定性。</p>
-
-<p>通过在 <code>about:config</code> 中将 <code>network.http.response.timeout</code> 设置为 0（或一个非常大的值），大文件下载变得可以续传且更加稳定。作者坦言她并不完全理解其原理，但实验测试支持这一结论。她推测 Firefox 的续传下载可能依赖连接超时机制而非其下载的 <code>.part</code> 文件——没有该设置时，Firefox 会忽略已存在的 <code>.part</code> 文件。</p>
-
-<p>作者指出，Firefox 的断点续传功能整体上相当不稳定，这一问题至少可追溯到 2005 年。她还提到存在一种手动操作 <code>.part</code> 文件的变通方法，但认为过于繁琐。作为非 Firefox 的替代方案，使用 <code>wget -c -O "$filename" "$url"</code> 也能实现续传，且 wget 整体表现相当稳定。作者还怀疑 Firefox 在判定下载失败前会进行一些隐藏的重试，这与 <code>network.http.response.timeout</code> 的设置部分相关。</p>
-
-<p>需要注意的是，此方案假设服务器支持断点续传；如果服务器不支持，任何浏览器设置都无法解决问题。</p>
-
-<h3>社区讨论要点</h3>
-<ul>
-<li>多位用户提到 Firefox 的下载续传问题长期存在，并引用了相关的 <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=230870">Bugzilla 问题（#230870）</a>。</li>
-<li>有用户分享了手动续传的 <code>.part</code> 文件操作技巧，但也有用户指出此方法存在风险——如果服务器返回了不同的文件版本，Firefox 会无提示地将新旧数据拼接，导致文件损坏。</li>
-<li>多位用户推荐使用 <a href="https://aria2.github.io/">aria2</a> 或 <a href="https://www.getright.com/">GetRight</a> 等外部下载工具作为替代方案，它们支持多协议、多连接和断点续传。</li>
-<li>有用户推测 Firefox 无法区分网络 EOF（连接结束）和逻辑/请求级别的 EOF，这可能是问题的根源。</li>
-<li>部分评论讨论了在弱网环境（如跨境连接、农村网络）下软件容错能力不足的问题，认为开发者往往在理想网络条件下测试，忽视了真实世界中的网络不稳定情况。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50061791</guid>
-      <pubDate>Mon, 12 Oct 2026 19:36:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>Mozilla 推出 Firefox Enterprise 企业版浏览器</title>
-      <link>https://news.ycombinator.com/item?id=50070302</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于Mozilla推出Firefox企业版浏览器，属于软件新功能/开源项目相关，但企业版浏览器偏行业产品发布，兴趣程度一般。</small></p><p>Mozilla 宣布推出 <a href="https://www.firefox.com/en-US/enterprise/">Firefox Enterprise</a>——面向企业的浏览器版本，主打「主权」（Sovereignty）理念，将部署和数据控制权交还给企业自身。企业可以将 Firefox Enterprise 部署在自己的本地基础设施（on-premises）中，自主定义并审计数据、策略与管理存放的位置。</p><img src="https://www.firefox.com/media/cms/images/Homepage_-_Sovereignty.width-200.webp" alt="" width="700" height="700" /><p>该版本重点强调客户隐私、独立性与控制权，并列出多项管理功能，其中包括 AI 控制（允许、限制或禁用 AI 工具）。这被视为 Mozilla 探索一条面向企业客户的盈利与营收路径，同时为政府机构、医院等对安全与数字主权有较高要求、且不愿依赖微软或谷歌（Microsoft/Google）的机构提供替代方案。</p><p>在 <a href="https://news.ycombinator.com/item?id=50070302">Hacker News 社区</a>（350 分、160 条评论）中，反应呈现两极分化：支持者认为这是 Mozilla 值得肯定的方向，不仅有望带来收入，还能增加企业市场份额，从而推动各类网站更好地支持 Firefox，惠及所有用户；批评者则质疑该功能（如 AI 控制）为何仅在企业版提供而非普通版，并指出页面未公开价格信息，也有人担忧 Mozilla「将原本是 Firefox 优势的隐私与控制权放到了付费墙之后」。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50070302</guid>
-      <pubDate>Tue, 13 Oct 2026 12:00:42 GMT</pubDate>
     </item>
   </channel>
 </rss>
