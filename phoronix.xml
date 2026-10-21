@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 21 Oct 2026 20:35:35 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 23:59:23 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linus Torvalds 在 Linux 7.4 中移除不安全的 __get_user() 与 __put_user() 函数</title>
+      <link>https://www.phoronix.com/news/Linus-Kills-Get-Put-User-Linux</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲Linux内核移除不安全的__get_user/__put_user函数，属于开源软件技术进展，用户感兴趣但非强烈必看。</small></p><p>Linus Torvalds 近日合并了移除 Linux 内核中历史遗留且不安全的 <code>__get_user()</code> 和 <code>__put_user()</code> 函数的代码分支。这两个函数是 <code>get_user()</code> 和 <code>put_user()</code> 的更快但安全性较差的版本，由于缺乏指针验证检查而存在安全隐患。</p><p><code>__get_user()</code> / <code>get_user()</code> 用于将单个简单变量从用户空间复制到内核空间，而 <code>__put_user()</code> / <code>put_user()</code> 则用于将单个变量从内核空间写入用户空间。被移除的版本缺少地址范围检查，使其不安全。</p><p>Torvalds 在 Git 合并说明中表示："这是早就该做的事：<code>__get_user()</code> 和 <code>__put_user()</code> 函数完全是历史遗留，绝不再是正确选择。而且当被误用（实际上每个用例都是误用）时，它们不仅比正确做法更慢，还因为不检查用户地址范围而不安全。大多数使用点早已完成转换，但仍有各种遗留。"他特别提到 Thomas 去年实现的 <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e497310b4ffb">scoped user access region 辅助函数</a>（提交 e497310b4ffb），使现代接口特别易于使用，"消除了旧式恐怖代码的任何借口"。</p><img src="//www.phoronix.net/image.php?id=2026&image=get_put_user" alt="code adaptation" /><p>这些函数已从所有通用 Linux 内核代码中移除，并完成了 x86/x86_64 架构上该接口的最终清除。其他一些 CPU 架构移植中仍有残留，原因包括一些非平凡的情况，或如 ARM64 那样其函数已直接映射到 <code>get_user()</code> 和 <code>put_user()</code>。</p><p>值得注意的是，此次移除工作也涉及 AI 辅助。Torvalds 在邮件列表中表示，他使用 Claude 作为"一种花哨的 Coccinelle 脚本"——Coccinelle 是用于静态分析和源代码到源代码转换的工具。这延续了他近期使用 Claude Code 辅助内核开发工作的趋势。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linus-Kills-Get-Put-User-Linux</guid>
+      <pubDate>Wed, 21 Oct 2026 21:11:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ PHP 发布紧急更新，修复两个可致远程代码执行的关键漏洞</title>
       <link>https://www.phoronix.com/news/PHP-New-Critical-CVEs-October</link>
@@ -721,25 +730,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Haiku-September-2026</guid>
       <pubDate>Wed, 14 Oct 2026 11:34:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Rustls 0.23.46 发布：修复四个安全漏洞</title>
-      <link>https://www.phoronix.com/news/Rustls-0.23.46-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust 生态的 TLS 库更新，符合来源配置中感兴趣的 Rust，且属于新软件进展</small></p><p>以内存安全为设计重点、用 Rust 语言编写的现代 TLS 库 <a href="https://github.com/rustls/rustls">Rustls</a> 于今日发布 v0.23.46 版本，此次更新包含四项新的安全修复。</p>
-
-<p>本次修复的四个安全问题包括：</p>
-<ul>
-<li><strong>Brotli 证书解压</strong>：该功能内置但默认禁用，在鉴权发生前可能分配受攻击者控制的、高达 1GB 的内存。</li>
-<li><strong>会话调试格式</strong>：会泄露 TLS 主密钥（master secret）以及会话恢复用的预共享密钥（PSK，pre-shared key），这些重要密钥可能通过日志文件被披露。</li>
-<li><strong>未经认证的 ServerHello</strong>：会污染按名称（per-name）的密钥交换提示，导致后续 ClientHello 仅携带传统的 X25519 密钥交换共享数据。</li>
-<li><strong>应用数据缓冲问题</strong>：客户端在握手完成前缓冲的应用数据，即使服务器拒绝加密客户端问候（ECH，Encrypted Client Hello），仍会被发送至服务器。</li>
-</ul>
-
-<p>除上述四项安全修复外，Rustls 0.23.46 还整合了多项其他 bug 修复。其中本次修复的 13 个 bug 由 OpenAI 发现并报告，包括其中两项安全问题。更多下载及细节可参见 <a href="https://github.com/rustls/rustls">GitHub</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rustls-0.23.46-Released</guid>
-      <pubDate>Wed, 14 Oct 2026 10:05:34 GMT</pubDate>
     </item>
   </channel>
 </rss>
