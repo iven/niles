@@ -3,7 +3,35 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 20 Oct 2026 22:15:13 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 00:37:37 GMT</lastBuildDate>
+    <item>
+      <title>动态 PAMT 已合入 Linux 7.4：帮助英特尔服务器节省宝贵内存</title>
+      <link>https://www.phoronix.com/news/Linux-74-Intel-TDX-Dynamic-PAMT</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Linux内核更新以及Intel服务器内存管理技术，属于基础设施和硬件相关主题，用户兴趣不高但配置中也未明确指向避开。</small></p><p>动态物理地址元数据表（Dynamic PAMT）已成功合入 Linux 7.4 内核，这是一项旨在降低英特尔 TDX 服务器内存开销的新特性。在内存价格高企且供应紧张的当下，该功能为现代英特尔至强（Xeon）服务器带来了可观的内存开销削减。</p>
+
+<p>Dynamic PAMT 是英特尔信任域扩展（TDX）的新特性，用于减少预先分配的元数据内存。其效果在并未被机密计算虚拟机（CoCo VM）过度占用的至强服务器上尤为明显。此前，物理地址元数据表（PAMT）会静态预留约占系统总内存 0.4% 的空间；现在它会根据实际需要动态增长，而非为可能并未充分使用的虚拟机预先划分固定空间。对于配备大量内存的高端至强服务器而言，如果活跃虚拟机不多，这约 0.4% 的默认预留会浪费大量实际上用不到的 RAM。</p>
+
+<img src="//www.phoronix.net/image.php?id=intel-xeon-6780e-6766e&image=intel_xeon_6766e_6780e_1_med" alt="Intel Xeon Linux server" />
+
+<p>英特尔 Linux 工程师 Dave Hansen 在 Linux 7.4 的 TDX 拉取请求中解释了两项改进：其一，TDX 主机系统目前会为自身内存元数据消耗约 0.4% 的物理内存，这是「全有或全无」的模式（要么承担这 0.4% 开销，要么无法使用 TDX）。新的 TDX 模块特性 Dynamic PAMT 允许该元数据以每次 2MB 主机内存为单位进行分配，当主机上 TDX 利用率较低时，可节省宝贵的 DRAM。其二，TDX ABI 在证明（attestation）操作期间会传递固定大小的「quotes」（引文），这些 128k 的缓冲区在后量子密码学（post-quantum cryptography）时代明显过小（quotes 会大幅增长）。新的 TDX 模块能够枚举 quote 缓冲区的大小，该大小枚举能力现已接入内核。</p>
+
+<p>该拉取请求已被采纳，现已成为 Linux 7.4 Git 仓库的一部分。</p>
+
+<p>社区反响方面，本文条目下目前尚无用户评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-74-Intel-TDX-Dynamic-PAMT</guid>
+      <pubDate>Wed, 21 Oct 2026 00:26:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ COSMIC Epoch 1.11 发布：支持 Wayland xdg-dialog-v1 协议，改进多 GPU 处理</title>
+      <link>https://www.phoronix.com/news/COSMIC-Epoch-1.11</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及COSMIC桌面环境新版本发布，属于新软件项目/软件新功能，且涉及Linux桌面技术及Wayland，符合用户兴趣配置。</small></p><p>System76 开发者发布了 COSMIC Epoch 1.11，这是其用 Rust 编写的开源桌面环境的最新点版本更新，服务于自家的 Pop!_OS Linux 发行版。</p><p>本次更新为 COSMIC 合成器（compositor）带来了 <strong>xdg-dialog-v1</strong> Wayland 协议支持，用于改进模态对话框（modal dialogs）的呈现方式，同时包含多项合成器代码修复。此外，COSMIC Epoch 1.11 还带来了大量翻译更新、修复了 libcosmic 中的滚动条内边距问题、混合图形（hybrid graphics）修复以确保使用正确的 GPU、在 COSMIC 文本编辑器中为 JSON 文件建立了 MIME 类型关联等。</p><p>在多 GPU / 混合图形处理方面，COSMIC 应用库现在将确保视频游戏使用正确的 GPU，<a href="https://github.com/pop-os/pop-launcher">pop-launcher</a> 代码也确保混合系统使用正确的 GPU。</p><img src="//www.phoronix.net/image.php?id=popos-2404-beta&image=popos_2404_5_med" alt="COSMIC desktop" /><p>关于 COSMIC Epoch 1.11 桌面版的下载及更多详情，可通过 GitHub 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/COSMIC-Epoch-1.11</guid>
+      <pubDate>Tue, 20 Oct 2026 22:32:12 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 英特尔与AMD在PyTorch/oneDNN软件优化上展开合作</title>
       <link>https://www.phoronix.com/news/Intel-AMD-oneDNN-Optimize</link>
@@ -719,37 +747,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Intel-ISPC-1.32-Released</guid>
       <pubDate>Tue, 13 Oct 2026 20:57:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核开发者计划取消 AI/LLM 辅助补丁的 &quot;Assisted-by&quot; 标签要求</title>
-      <link>https://www.phoronix.com/news/Linux-Dropping-Assisted-By-Req</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于Linux内核开源项目引入AI/LLM使用规则调整，属于开源软件与AI技术相关进展。</small></p><p>Linux 内核开发者正在考虑取消一项政策要求：此前规定，凡使用 AI 工具辅助创建的补丁，需要在提交时添加 "Assisted-by:" 标签，以明确标注 AI 在补丁创作中的参与。随着 AI/LLM 在内核开发中的广泛使用，这一要求正面临被废除的提议。</p>
-
-<p>近日，一封移除 "Assisted-by" 要求的补丁已被发布到 Linux 内核邮件列表（LKML）。在上周于布拉格举行的 Linux 维护者峰会上，与会者据报已就该要求的废弃达成共识，因此该补丁旨在删除相关文档中关于 assisted-by 标签的规定。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=assisted_by_sml" alt="Assisted-by LLM tag" />
-
-<p>不过，并非所有人都赞同这一决定。在 Linux 内核邮件列表上，部分开发者希望移除该标签要求，而另一些人则希望保留对补丁是否由 AI/LLM 辅助的明确标注。LKML 上的讨论因此呈现出分歧意见。但由于关键维护者已在峰会上达成一致，该变更预计将在近期按计划推进。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=dropping_assisted_by" alt="Dropping Assisted-by LLM tag requirement" />
-
-<p>这一归属标注话题在今年夏天也曾被讨论过，相关背景可参见此前报道《<a href="https://www.phoronix.com/news/Linux-Kernel-Developers-AI-Agent-Attribution">Linux Kernel Developers Again Discussing AI Agent Attribution - Potentially Dropping It</a>》。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Dropping-Assisted-By-Req</guid>
-      <pubDate>Tue, 13 Oct 2026 13:28:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Firefox 159 Beta 发布：修复 Wayland 下标签页分离问题</title>
-      <link>https://www.phoronix.com/news/Firefox-159-Beta</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Firefox新版本发布并修复Wayland桌面问题，涉及Firefox与Linux桌面技术，均属高兴趣/感兴趣。</small></p><p>Mozilla 在 Firefox 158 正式发布后，现已推出 Firefox 159 的 Beta 版本，预计两周后正式发布。本次更新为 Linux 用户带来了一项重要的 Wayland 修复：解决了在 Wayland 环境下点击标签页时，标签页有时会意外分离成新窗口的问题。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=firefox_159_beta_med" alt="Firefox 159 beta on Linux" />
-<p>此外，Firefox 159 Beta 还默认在侧边栏（sidebay）中提供已保存的密码功能，无需额外添加密码工具。该版本还包含多项 Windows 和 macOS 的修复，例如修复了在关闭视频动画效果时，Windows 和 Linux 上菜单和面板淡入显示异常的问题，以及其他杂项修复。</p>
-<p>用户可通过 Firefox 官网下载 Firefox 159 Beta 版本并查看详细更新内容。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Firefox-159-Beta</guid>
-      <pubDate>Tue, 13 Oct 2026 13:14:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
