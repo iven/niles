@@ -3,7 +3,43 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 21 Oct 2026 11:41:13 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 17:06:55 GMT</lastBuildDate>
+    <item>
+      <title>⭐ PHP 发布紧急更新，修复两个可致远程代码执行的关键漏洞</title>
+      <link>https://www.phoronix.com/news/PHP-New-Critical-CVEs-October</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] PHP发布关键代码执行漏洞的安全修复更新，属于编程工具相关的重要安全进展，符合编程工具与开源软件的兴趣</small></p><p>PHP 官方发布了 <strong>PHP 8.5.12、8.4.27、8.3.36 和 8.2.35</strong> 四个版本的安全更新，修复了两个可导致未经身份验证的远程代码执行（RCE）的关键漏洞。服务器管理员被强烈建议立即升级。</p>
+
+<p>第一个漏洞与内存不足（OOM）处理相关：内存耗尽时可能中断 PHP 执行，导致 OOM 内存损坏，进而被利用实现远程代码执行。第二个远程代码执行漏洞源于过期的全局状态在其底层内存被释放后仍然存活，形成释放后使用（use-after-free）类问题。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=php_critical" alt="PHP critical vulnerabilities" />
+
+<p>这两个远程代码执行漏洞的严重性评级均为 <strong>9.2/10（关键级）</strong>。更多安全漏洞详情及更新版本信息可参阅 <a href="https://www.php.net">PHP.net</a> 官方公告。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/PHP-New-Critical-CVEs-October</guid>
+      <pubDate>Wed, 21 Oct 2026 13:43:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.4 将同步关闭文件：close_range、exec 与 exit 调用延迟大幅降低</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-Sync-Close-Files</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核7.4新增同步关闭文件的功能，属于开源项目与Linux桌面技术的新进展，符合用户兴趣</small></p><p>在即将合并进 Linux 7.4 内核的多项 VFS 变更中，最引人关注的是针对 <code>close_range</code>、<code>exec</code> 和 <code>exit</code> 调用的文件同步关闭机制。这一改动在需要关闭大量文件描述符（FD）时，能够带来远低于现状的延迟。</p>
+
+<p>该改动源于各种关于在生成核心转储（coredump）之前退出文件的提案。Christian Brauner 一直在研究在生成核心转储之前同步关闭文件描述符的方法，最终方案是在 <code>close_range</code>、<code>exec</code> 和 <code>exit</code> 调用中同步关闭文件。</p>
+
+<p>Brauner 在 VFS 拉取请求中解释称：自 <code>fput()</code> 切换到任务工作（task work）后，退出任务的每个最终 <code>__fput()</code> 都会被排队到任务工作中，并从 <code>exit_task_work()</code> 运行，<code>exec</code> 和 <code>close_range</code> 同理。对于拥有大型描述符表的任务，每个文件都需要进行一次 cmpxchg() 和 TIF_NOTIFY_RESUME 测试设置，外加一个供后续 <code>task_work_cancel()</code> 在 pi_lock 下搜索的列表条目，随后还要对每个已不在缓存热区内的 struct file 进行第二次遍历。Oleg 和 Neil 多年来一直指出这一问题。如今 <code>close_files()</code>、<code>close_range()</code> 和 close-on-exec 都像 <code>close(2)</code> 一样内联地刷新并释放每个文件，内核线程不受影响。</p>
+
+<p>在一台搭载 AMD EPYC 服务器、拥有 64 个 vCPU 的 KVM 客户机上，将不同数量的文件描述符随机散布在 FD 表中进行测试，这些补丁在关闭文件所需时间上带来了显著的降低：</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=exec_close_sync" alt="同步关闭 FD 的基准测试结果" />
+
+<p>Brauner 补充称，关闭每个文件的时间降低了 16–21%，即每个文件 40–150 纳秒，其中在 100 万个描述符时降幅最大。当八个进程同时各自拆解 65536 个描述符时，降幅仍保持在 16–21%，因为当 CPU 竞争缓存时，对 16 MB struct file 进行第二次扫描才是成本高昂的部分。而当进程数增至 32 或 64 个时，两个内核都受限于将数百万个文件推送经过 slab 和 rcu 的过程，差距缩小到 4–8%。对于其自身 release 函数占主导的文件，收益较小：eventfds 为 13%，管道（pipes）为 11%，AF_UNIX 套接字为 6%。<code>close(2)</code> 未受影响，will-it-scale 测试结果差距在 2% 以内。</p>
+
+<p>这是正在开发中的 Linux 7.4 内核众多改进中的一项。Linux 7.4 稳定版预计将于 12 月底左右发布。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Sync-Close-Files</guid>
+      <pubDate>Wed, 21 Oct 2026 11:55:42 GMT</pubDate>
+    </item>
     <item>
       <title>Fwupd 积极推进对 Android 的正式集成支持</title>
       <link>https://www.phoronix.com/news/Fwupd-To-Android-Integration</link>
@@ -704,49 +740,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Rustls-0.23.46-Released</guid>
       <pubDate>Wed, 14 Oct 2026 10:05:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ KDE Plasma 6.8 发布，恰逢 KDE 项目成立 30 周年</title>
-      <link>https://www.phoronix.com/news/KDE-Plasma-6.8-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] KDE 新版本发布，符合来源配置中很感兴趣的 KDE，属必看更新</small></p><p>KDE 项目于 2026 年 10 月 14 日正式发布 Plasma 6.8 桌面环境，这一版本功能丰富且打磨精细，更特别的是，它恰逢 KDE 项目成立 30 周年。</p>
-
-<p>Plasma 6.8 带来了多项重要改进，包括：</p>
-<ul>
-<li><strong>显存（vRAM）使用优化</strong>：提升资源利用效率</li>
-<li><strong>Wayland 下新增 dwell clicker 支持</strong>：改善无障碍操作体验</li>
-<li><strong>KWin 支持 Wayland commit-timing 协议</strong>：提升合成器与显示时序的协调性</li>
-<li><strong>Union 主题引擎改进</strong>：增强主题渲染能力</li>
-<li><strong>更好的远程桌面支持</strong></li>
-<li><strong>多 GPU 处理改进</strong></li>
-<li><strong>新增 kscreenctl 工具</strong>：用于屏幕控制</li>
-<li><strong>服务器端投影阴影支持</strong></li>
-<li><strong>多显示器改进</strong></li>
-</ul>
-
-<p>尤其在 Wayland 方面，Plasma 6.8 进行了大量打磨和微调。更多详细信息和截图可参阅 <a href="https://kde.org">KDE.org 上的官方发布公告</a>。</p>
-
-<p>社区对此版本反响积极，文章下有 17 条评论参与讨论。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=union_qtwidgets" alt="Qt Widgets Union" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8-Released</guid>
-      <pubDate>Wed, 14 Oct 2026 09:15:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Mesa 扩展 NPU 能力：通过 Torx 支持 YOLOX 与 PyTorch</title>
-      <link>https://www.phoronix.com/news/Mesa-Torx-YOLOX-PyTorch</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Mesa 开源图形栈扩展 NPU 计算能力以支持 YOLOX/PyTorch 推理，属于 AI 软件技术进展及开源软件新功能，用户会感兴趣。</small></p><p>开源开发者 Tomeu Vizoso 持续推动 Mesa 驱动栈中的 NPU（神经网络处理单元）能力建设。近日，他合并了在 Mesa 的 Torx 代码中支持 YOLOX 的补丁。Torx 是 Mesa 中的硬件后端，为 PyTorch ExecuTorch 提供机器学习模型的编译与执行路径。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=torx_yolox" alt="TORX YOLOX" />
-
-<p>随着代码合并，用户现在可以通过 Mesa 中的 NPU 驱动使用 PyTorch 运行 YOLOX 模型。目前该功能已在 Arm EthosU NPU 上完成测试，测试平台为 NXP i.MX93 SoC。此外，面向 Vivante NPU 的 Etnaviv 驱动已支持全部所需操作，但仍缺乏与 Torx 配合使用所需的基础设施工作。</p>
-
-<p>该 YOLOX 支持已纳入 Mesa 26.3 版本，相关合并请求可供感兴趣的开发者进一步了解。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-Torx-YOLOX-PyTorch</guid>
-      <pubDate>Wed, 14 Oct 2026 00:54:50 GMT</pubDate>
     </item>
   </channel>
 </rss>

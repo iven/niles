@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 21 Oct 2026 11:41:37 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 17:07:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐ PHP 发布 8.2.35 安全更新，修复两个可导致未认证远程代码执行的关键漏洞</title>
+      <link>https://news.ycombinator.com/item?id=50180873</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] PHP 作为主流开源编程语言发布安全更新并修复关键漏洞，属于编程工具发布与开源项目范畴，符合用户兴趣</small></p><p>PHP 开发团队发布了 <strong>PHP 8.2.35</strong> 安全更新版本，修复了两个关键漏洞（<strong>CVE-2026-109618</strong> 和 <strong>CVE-2026-109619</strong>），这两个漏洞可允许未认证的远程代码执行（RCE）。官方强烈建议所有 PHP 8.2 用户立即升级，并指出"没有完整的缓解措施，更新是唯一安全的选择"。</p>
+
+<p>值得注意的是，PHP 8.2 将于 <strong>2026 年 12 月 31 日</strong> 到达生命周期终点（EOL），此后将不再接收安全修复，官方建议用户规划升级到受支持的版本。本次更新同时发布了 8.3.36、8.4.27 和 8.5.12 等多个分支的安全版本。</p>
+
+<h3>漏洞详情与影响范围</h3>
+
+<p>根据社区讨论，两个漏洞的安全公告（<a href="https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w">GHSA-w8hw</a> 和 <a href="https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp">GHSA-6wmf</a>）已公开。所有提供 Web 服务的 PHP 安装均受影响，包括 PHP-FPM、Apache mod_php、php-cgi、FrankenPHP 和 LiteSpeed 等所有平台。</p>
+
+<p>社区用户 <strong>bombcar</strong> 分享了在等待发行版软件包时的临时缓解措施：禁用 <code>session.upload_progress.enabled</code>、在 Web 服务器层面拒绝 multipart 请求体、检查 SAPI 配置、设置 <code>pm.max_requests = 1</code> 以及降低 <code>max_input_nesting_level</code> 和 <code>post_max_size</code> 等。不过这些措施会破坏浏览器上传功能，且并非完整修复。</p>
+
+<h3>社区反馈与发行版更新进展</h3>
+
+<p>修复代码已在 php-src 仓库中推送，主要是在代码库各处添加了内存分配失败（OOM）检查。有开发者评论称，这体现了 PHP 使用 <code>longjmp()</code> 而非异常机制的错误处理方式带来的维护负担。</p>
+
+<p>各主流发行版正在快速跟进：Debian trixie 和 bookworm 的安全更新已在构建中，Ondřej Surý 的 <a href="https://codeberg.org/oerdnj/deb.sury.org/issues/145">deb.sury.org</a> 仓库也已开始构建新包，部分用户确认已成功安装更新。</p>
+
+<p>该发布在 Hacker News 上获得了 550 分和 227 条评论，讨论热度较高。部分用户对 GitHub 上标签与提交的关联显示方式提出了疑问，但多数讨论集中在漏洞的严重性和升级策略上。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50180873</guid>
+      <pubDate>Wed, 21 Oct 2026 13:45:33 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ CSS 的未来：Interop 2027 候选特性深度解析</title>
       <link>https://news.ycombinator.com/item?id=50175070</link>
@@ -1062,15 +1087,6 @@ document.querySelector('#diagram').innerHTML = svg;</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50097369</guid>
       <pubDate>Wed, 14 Oct 2026 23:59:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Go 1.27 改进 HTTP/1 连接复用，大幅提升顺序请求性能</title>
-      <link>https://news.ycombinator.com/item?id=50090369</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 编程效率改进经验，Go语言HTTP性能优化，属于编程效率改进的经验分享，符合用户high_interest</small></p><p>Go 团队发布了关于 Go 1.27 中 HTTP 客户端改进的博客文章。本次更新为 <code>net/http.Transport</code> 引入了自动异步排空（drain）未读 HTTP/1 响应体的机制，使得发送大量顺序 HTTP/1 请求的程序性能显著提升。</p><p>文章以获取 HTTP 状态码的示例代码为切入点：在 Go 1.26 上向 index.golang.org 调用 100 次该函数约需 710 毫秒，而在 Go 1.27 上仅需约 150 毫秒，速度接近原来的 5 倍。</p><p><strong>性能瓶颈的根源</strong></p><p>建立新的 HTTP 连接开销巨大。通过 TCP 连接每发出一次请求，通常需要经过 TCP 握手的 1 次往返（RTT）和 TLS 握手的 2 次 RTT（共 3 RTT）。在跨区域通信中，单向延迟可达 50 毫秒以上，若每次请求都新建连接，仅连接建立就要付出数百毫秒的成本——远超请求本身的传输耗时。</p><p><strong>连接复用失败的原因</strong></p><p>HTTP/1 的响应在同一连接上按顺序（back-to-back）传输。当调用方关闭响应体时，如果还有未读完的响应体数据，<code>net/http</code> 判断无法复用连接，便会放弃现有连接并为后续请求重新建立新连接，从而反复承担连接建立的开销。相比之下，HTTP/2 通过多路复用（multiplexing）机制，未读取的响应体不会阻塞其他请求共享连接，因此不存在此问题。</p><p>文章指出，即使读取了响应体的程序也可能遇到此情况——例如 <code>encoding/json.Decoder</code> 在读到 JSON 对象的右花括号后就停止读取，若服务器发送的响应以换行符结尾，导致连接仅差一个字节无法复用而被白白放弃。此外，返回未被使用但内容更详细的响应体（如 <code>{"success": true, ...}</code>）也会导致复用失败。</p><p><strong>过往的手动解决方案与 Go 1.27 的改进</strong></p><p>开发者曾长期依赖各种手动排空响应体的变通方法（drain），从简单排空、限制排空字节数（如 256 KB）、限制排空耗时（如 50 ms）到异步后台排空等。这些方案既繁琐又容易出错，还引发了一些误解（如对 HTTP/2 连接进行不必要的排空）。</p><p>从 Go 1.27 开始，<code>net/http.Transport</code> 会自动在后台异步排空未读的 HTTP/1 响应体，上限为 50 毫秒或 256 KB，并包含额外优化（例如检测到 <code>Connection: close</code> 头时跳过排空，因为此时排空必然是徒劳）。官方现在推荐用户仅在不再需要响应体时简单调用 <code>Close</code> 即可，将复杂度交由 <code>net/http</code> 处理。</p><p><strong>社区反响</strong></p><p>Hacker News 上的讨论热烈，多位开发者表示终于可以移除自己复制多年的排空辅助代码。也有评论指出该特性可能改变过去"关闭响应体即可跳过下载剩余部分"的行为，但多数认可其在网络瓶颈下的权衡。部分声音讨论了此改动更可能主要服务于微服务间（常使用未加密 HTTP/1）的内部通信场景。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50090369</guid>
-      <pubDate>Wed, 14 Oct 2026 16:29:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
