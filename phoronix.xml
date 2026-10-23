@@ -3,7 +3,33 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 23 Oct 2026 13:23:46 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 18:16:17 GMT</lastBuildDate>
+    <item>
+      <title>Borealis：Asahi Linux 苹果芯片 Mesa Vulkan 驱动被分支用于 AI 编程开发</title>
+      <link>https://www.phoronix.com/news/Borealis-Vulkan-Driver</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是Asahi Linux在苹果芯片上的Vulkan驱动分支，涉及苹果芯片Linux支持和GPU驱动，来源配置中有苹果电脑Linux支持（high_interest）和非主流硬件/最新芯片（avoid）的冲突，主题定位模糊。</small></p><p>Phoronix 发现了一个名为 "Borealis" 的新 Vulkan 驱动分支，注册了新的驱动 ID "VK_DRIVER_ID_AURORA_BOREALIS"。该驱动是 Asahi Linux 项目为苹果芯片（Apple Silicon）硬件开发的 HoneyKrisp Mesa 驱动的分支，由 Aurora Silicon 项目维护。</p><p>据 Borealis 在 Vulkan 合并请求中描述，该驱动基于 Asahi Linux 的 Honeykrisp，支持 M1 至 M5 芯片及 A18 Pro，运行在 Aurora Silicon 自己的 Mesa 分支中，而非上游 Mesa。合并前它会报告 VK_DRIVER_ID_MESA_HONEYKRISP 作为驱动 ID。</p><p>Aurora Silicon 项目自述其目标是"在苹果芯片上提供完整且精致的 Linux 体验，从安装到日常使用"，工作涵盖内核、图形驱动及相关工具，同时也在尝试将 Windows 移植到苹果芯片。该项目刚起步，似乎是 Asahi Linux 代码的一个分支。</p><img src="//www.phoronix.net/image.php?id=2026&image=borealis" alt="Borealis driver" /><p>文章推测在 Mesa 主体之外分支并开发此 Vulkan 驱动的动机，可能与"vibe coding"（AI 辅助编程）冒险有关。Borealis 驱动在 GitHub 上的分支目前只是移除了 Mesa 的 AI 代理文档/政策，替换为其自身的 AI 代理/助手政策（允许 AI 贡献），该变更还由 Claude Opus 5.5 共同创作。</p><p>文章作者表示，将拭目以待这个 Borealis 驱动及更广泛的 Aurora Silicon 项目在 AI 驱动的开发下会带来什么样的成果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Borealis-Vulkan-Driver</guid>
+      <pubDate>Fri, 23 Oct 2026 16:00:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ oneDNN 3.14 发布：支持 ACE 指令，引入 AMD Zen 初步优化</title>
+      <link>https://www.phoronix.com/news/oneDNN-3.14-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲的是oneDNN新版本发布，属于软件新功能/开源项目，但涉及AMD Zen优化，来源配置中AMD显卡为uninterested，全局配置对软件新功能为interest，综合评定推荐阅读。</small></p><p>UXL 基金会于近日发布了深度学习库 oneDNN 3.14 版本。该库为 PyTorch、TensorFlow、OpenVINO 等软件提供优化的深度学习运算支持。尽管 oneDNN 最初是英特尔（Intel）的软件项目，但本版本的一大亮点是开始引入针对 AMD Zen CPU 的优化。</p>
+
+<p>此前，AMD 长期维护着自己的分支 ZenDNN，而本周早些时候英特尔与 AMD 宣布在 PyTorch 的 oneDNN 软件优化方面展开合作。如今 AMD 开始向 oneDNN 上游贡献代码。在 oneDNN 3.14 中，AMD Zen 处理器上的 MATMUL 和内积（inner-product）原语性能得到改善。这些优化为可选功能，需要在构建 oneDNN 时启用 <code>ONEDNN_X64_USE_ZEN=ON</code> 的 CMake 构建选项。目前该 AMD Zen 相关代码仍需依赖 oneDNN 代码树中的 ZenDNN 代码，用户可手动添加，也可使用 <code>ONEDNN_ZENDNN_FETCH=ON</code> 选项在构建过程中自动下载 ZenDNN。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=onednn_zendnn_optin" alt="oneDNN ZenDNN opt-in" />
+
+<p>oneDNN 3.14 的另一项重要更新是初步支持未来 AMD 和英特尔处理器将采用的 AI 计算扩展（ACE）指令。该版本还提升了即将推出的 Xeon Diamond Rapids 处理器在 AVX10.2 和 AMX 方面的性能，并包含其他多项针对 Diamond Rapids 的优化。</p>
+
+<p>在 GPU 方面，oneDNN 3.14 提升了即将推出的英特尔 GPU D 系列（Crescent Island）的性能，同时改善了搭载 Nova Lake P 处理器的 Xe3P-LPG 图形核心的表现。更多下载信息与发布详情可参见 <a href="https://github.com/oneapi-src/oneDNN">GitHub</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/oneDNN-3.14-Released</guid>
+      <pubDate>Fri, 23 Oct 2026 14:12:33 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ OpenSSL 4.1 发布：新增 AVX-512 优化、DTLS 1.3 支持并退役 Windows Itanium/CE</title>
       <link>https://www.phoronix.com/news/OpenSSL-4.1-Released</link>
@@ -695,33 +721,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Wine-11.20-Released</guid>
       <pubDate>Sat, 17 Oct 2026 00:44:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>X.Org 客户端库再曝 17 个安全漏洞，涉及 libX11、libXi 等多个库</title>
-      <link>https://www.phoronix.com/news/17-Vulnerabilities-Xorg-Libs</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲X.Org库的安全漏洞公告，与用户核心兴趣关联度不高，标题含义偏技术通报，可选阅读。</small></p><p>距 X.Org Server 和 XWayland 公布一批安全漏洞不到两周，X.Org 客户端库又于今日公开了 17 个安全漏洞。这些漏洞影响多个 X.Org 客户端库，包括：</p>
-<ul>
-<li><strong>libX11</strong>（X11 库）</li>
-<li><strong>libXi</strong>（X Input 扩展）</li>
-<li><strong>libXpm</strong>（X Pixmap 格式支持）</li>
-<li><strong>libXrender</strong>（X RENDER 扩展）</li>
-<li><strong>libXtst</strong>（X TEST 扩展）</li>
-</ul>
-<p>这些漏洞由不同研究人员发现，主要类型为越界读取（out-of-bounds reads）和越界写入（out-of-bounds writes），此外还包括一些堆缓冲区溢出（heap buffer overflows）及可能的拒绝服务（denial of service）问题。</p>
-<p>修复版本已发布，包括 libX11 1.8.14、libXi 1.8.4、libXpm 3.5.20、libXrender 0.9.13 和 libXtst 1.2.6。更多披露细节可参阅 <a href="https://lists.x.org/">X.Org 邮件列表</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/17-Vulnerabilities-Xorg-Libs</guid>
-      <pubDate>Fri, 16 Oct 2026 19:20:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME OS 推出 Preview 版本，踏上迈向稳定版的道路</title>
-      <link>https://www.phoronix.com/news/GNOME-OS-Preview</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及GNOME OS新发行版的发布预告，属于Linux桌面技术与新软件项目方向，符合很感兴趣配置，推荐阅读。</small></p><p>GNOME 团队于 2026 年 10 月 16 日宣布推出 <strong>GNOME OS Preview</strong> 版本，这标志着 GNOME OS 正向稳定版迈进的关键一步。此前，GNOME OS 一直以 Nightly 形态存在，仅用于追踪 GNOME 最新的日常开发包；而 Preview 版本则采用最新的 GNOME 稳定版本，而非 nightly 形态。</p><img src="//www.phoronix.net/image.php?id=2026&image=gnome_os_preview_1_med" alt="GNOME OS Preview" /><p>GNOME 开发者正致力于将 GNOME OS 打造成面向终端用户的通用操作系统，而不仅仅是 nightly 测试产物。尤其是随着 GNOME OS 在 <a href="https://systemd.io/">systemd-homed</a>、systemd-sysupdate 等现代化技术特性方面的持续增强，将其提供给更广泛受众的吸引力日益增加。</p><img src="//www.phoronix.net/image.php?id=2026&image=gnome_os_preview_2_med" alt="GNOME OS Preview desktop" /><p>最初的 GNOME OS Preview 版本跟踪的是最新的 GNOME 51.1 组件。作者在初步的简要测试中，发现 GNOME OS Preview 运行良好。GNOME OS Preview 与 Nightly 版本的 ISO 镜像均可从 <a href="https://os.gnome.org/">os.gnome.org</a> 下载。更多详细信息可参阅<a href="https://blogs.gnome.org/">官方博客文章</a>。</p><img src="//www.phoronix.net/image.php?id=2026&image=gnome_os_preview_3_med" alt="GNOME OS Preview apps" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-OS-Preview</guid>
-      <pubDate>Fri, 16 Oct 2026 18:37:11 GMT</pubDate>
     </item>
   </channel>
 </rss>
