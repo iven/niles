@@ -3,7 +3,37 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 23 Oct 2026 01:27:32 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 07:24:41 GMT</lastBuildDate>
+    <item>
+      <title>Codex v0.164.0：新增快捷指令预设、内联模型参数与图像预览</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.164.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex（rust-v0.164.0）发布新版本，带来一批面向终端用户的新功能与多项修复。</p>
+
+<h3>主要新功能</h3>
+<ul>
+<li><strong>快捷指令预设</strong>：可将常用提示词和斜杠命令保存到十个编号的 <code>/presets</code> 槽位，并提供键盘快捷键菜单快速调用。</li>
+<li><strong>内联参数设置</strong>：可直接通过 <code>/model</code> 和 <code>/permissions</code> 的内联参数指定模型、推理强度、速度及权限配置文件。</li>
+<li><strong>全屏图像预览</strong>：在支持 Kitty 或 Sixel 图形协议的终端上，可直接在全屏转录中预览查看和生成的图像。</li>
+<li><strong>企业级 MCP 认证</strong>：可使用符合条件的 Codex 账户授权或独立登录方式认证企业级 MCP 连接，包括需要密钥的 OAuth 客户端。</li>
+<li><strong>凭据脱敏</strong>：在支持的远程 Bash 命令和 Zsh 快照会话中隐藏凭据，包括来自自定义提供方的凭据。</li>
+<li><strong>Amazon Bedrock 向导默认启用</strong>：检测到凭据时，API 密钥输入与其他 AWS 登录方式并列展示。</li>
+</ul>
+
+<h3>其他改动与修复</h3>
+<ul>
+<li>失败的压缩不再在会话历史中留下部分摘要，后台压缩失败会安全回退不再恐慌崩溃。</li>
+<li>恢复会话时可找到压缩历史并恢复保存的线程设置，而非替换为全局默认值；CLI 配置覆盖在多个子命令层级下得以保留。</li>
+<li>Windows 上的 HTTPS 和 WebSocket 连接现可使用已登录用户的 Negotiate 或 NTLM 凭据处理代理认证。</li>
+<li>队列中的提示会等待待定的权限选择完成后才继续执行；加固了 macOS 大小写变体元数据路径及可替换符号链接的沙箱检查。</li>
+<li>通过清理未使用安装包、废弃的 marketplace checkout 及限制守护进程日志来减少磁盘占用；更新了内嵌 JavaScript 运行时，加入针对优化 <code>Array.sort</code> 操作的安全检查。</li>
+</ul>
+
+<p>完整变更日志见 <a href="https://github.com/openai/codex/compare/rust-v0.163.0...rust-v0.164.0">GitHub</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.164.0</guid>
+      <pubDate>Fri, 23 Oct 2026 04:48:10 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.309：大量沙箱、worktree 隔离与 VSCode 修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.309</link>
@@ -1617,31 +1647,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.283</guid>
       <pubDate>Fri, 25 Sep 2026 21:50:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>Devbox 0.18.4 发布：支持 devbox.jsonc 配置文件名，包搜索默认切换到 nixsearch.com</title>
-      <link>https://github.com/jetify-com/devbox/releases/tag/0.18.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 发布 0.18.4 版本，主要带来两项新功能和一些修复。</p>
-
-<h3>新功能</h3>
-<ul>
-<li><strong>支持 <code>devbox.jsonc</code> 配置文件</strong>：<code>devbox.json</code> 一直允许注释，但编辑器和 GitHub diff 会将其标记为语法错误。现在可将配置命名为 <code>devbox.jsonc</code>，标准工具链即可正确高亮，且 <code>devbox add</code>/<code>rm</code> 会写回该文件而非创建多余的 <code>devbox.json</code>。若目录中同时存在两者，<code>devbox.json</code> 仍优先。</li>
-<li><strong>包搜索默认改用 www.nixsearch.com</strong>：<code>devbox search</code>、<code>add</code> 和 <code>update</code> 现在默认通过 <code>www.nixsearch.com</code> 解析包，替代原先的 <code>search.devbox.sh</code>。固定版本仍解析到相同的 commit 和 store 路径；<code>@latest</code> 则基于更新的 nixpkgs 索引。可通过 <code>DEVBOX_SEARCH_HOST</code> 环境变量覆盖。</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-<li>修复了指向旧 <code>jetify.com/devbox/docs/...</code> 文档链接（现已 404）的问题，包括 <code>devbox generate direnv</code> 生成的 <code>.envrc</code> 注释及 VS Code 扩展的 WSL 警告中的链接。</li>
-</ul>
-
-<h3>维护</h3>
-<ul>
-<li>将 Jekyll 示例的 <code>ruby@3.1</code> 固定回 3.1.4，以修复夜间测试中 macOS 构建失败的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.4</guid>
-      <pubDate>Fri, 25 Sep 2026 18:11:02 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,53 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 23 Oct 2026 01:26:52 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 07:25:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Docker 其实很「奇怪」：容器只是披着 5 种内核特性外衣的进程</title>
+      <link>https://news.ycombinator.com/item?id=50202681</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是解析 Docker 容器底层内核原理，属于编程/开发工具相关知识，符合用户对编程工具的兴趣。</small></p><p>一位开发者为了消遣自行编写容器运行时，在过程中发现 Docker 有许多「奇怪」之处，并在一篇博文中分享了这些心得。</p>
+<p><strong>容器并非虚拟机。</strong>与虚拟机不同，容器本质上只是带有特殊限制的进程，内核仍然在运行它们，甚至可以在 <code>/proc</code> 中找到这些进程。Linux 并没有一个单独的「容器」特性，容器实际上是五个不同的 Linux 内核特性叠加而成：命名空间（namespaces）隐藏宿主机与容器各自能看到的资源，cgroups 限制容器资源使用，外加一堆隔离网络所需的机制。</p>
+<p><strong>镜像只是文件夹。</strong>镜像本质上只是 Docker 存放的文件夹，然后通过 <code>chroot</code>（或 <code>pivot_root</code>）将该文件夹设为容器进程的新的根目录。</p>
+<p><strong>Go 并非容器运行时的理想语言。</strong>Docker 的运行时 runc 用 Go 编写，但 Go 的运行时默认多线程，而许多容器运行时所需的 Linux 系统调用必须在单线程环境下执行，因此 runc 有一个在 Go 运行时初始化之前运行的 C 模块来处理这些调用。此外，Go 没有 <code>fork</code>，而容器运行时恰恰需要 fork、设置限制然后 exec 目标进程；runc 通过 exec <code>/proc/self/exe</code> 并携带特殊命令行参数来近似实现 fork。</p>
+<p><strong>Docker 需要 root 权限。</strong>许多容器运行时使用的内核 API 需要 root 权限（至少在早期如此），因此 Docker 守护进程通常以 root 运行；无 root 的运行时往往要在用户空间重写整个网络栈才能提供相同功能。</p>
+<p>该文在 Hacker News 上引发了热烈讨论（366 分、180 条评论），其中 Docker 创始人 <strong>shykes</strong> 亲自现身回应，表示很乐意回答问题。有评论者指出文章遗漏了 Docker 最大的「奇怪」设计——客户端/服务器模型使权限管理复杂化了至少两个数量级；也有人推荐更合理的无 root 方案 Podman，并类比了「大约 100 行 bash 实现 Docker」的 bocker 项目，以及 Liz Rice 的经典演讲「Containers From Scratch」。其中一条评论印证了早期 Go 线程切换带来的问题：goroutine 会在线程间跳转，继承的是线程的名字空间/cgroup 配置，曾导致网络命名空间偶尔无法正确清理，进而影响 Docker 拉取镜像。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50202681</guid>
+      <pubDate>Thu, 22 Oct 2026 23:45:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ NVIDIA 发布 OpenShell：面向自主 AI 智能体的安全私有运行时</title>
+      <link>https://news.ycombinator.com/item?id=50198675</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] NVIDIA 发布面向自主 AI 智能体的开源运行时新工具，属于编程工具发布及 AI 软件技术进展，符合高兴趣。</small></p><p>NVIDIA 发布了 <a href="https://github.com/NVIDIA/OpenShell">OpenShell</a>，一个为自主 AI 智能体（autonomous AI agents）设计的"安全、私有"运行时。该项目旨在让智能体能够读取文件、安装软件包、调用 API 和使用凭据，同时通过策略（policy）限制其对数据、机密和网络的访问权限。</p>
+
+<p><strong>核心机制</strong>：OpenShell 通过两种方式治理智能体行为——内核级强制（kernel-level enforcement）和形式化验证（formal verification）。每个智能体运行在隔离的沙箱中，内核控制其可访问的文件和可执行的系统调用，所有网络连接在离开沙箱前都需通过策略检查。智能体永远不会看到真实凭据，OpenShell 仅在请求发往已批准端点时注入凭据。在策略变更获批前，系统会使用形式化验证标记新授予的风险访问（如连接新主机、调用新 API 方法），这些变更需等待人工审核。</p>
+
+<p><strong>功能与生态</strong>：项目提供 CLI、Python/TypeScript/Go/Rust 多种 SDK、Kubernetes Helm 部署支持，以及面向编码智能体的 Agent Skills。支持 Linux、Apple Silicon 上的 macOS 和 Windows WSL 2（实验性）。项目采用 Apache 2.0 许可证。</p>
+
+<p><strong>社区反馈</strong>：该发布在 Hacker News 上引发广泛讨论（366 分，187 条评论）。有用户表示在 GTC Europe 上看到大量演示使用该产品；也有用户认可其功能集成度。不过，默认开启的匿名遥测（telemetry）功能引发争议，多位用户质疑"匿名"的可靠性，尽管官方提供了通过环境变量或编译选项禁用的途径。另有评论指出，NVIDIA 作为 AI 硬件巨头推出此类安全运行时并不意外，并讨论了智能体行业正从 Kubernetes 部署平台向更能处理尖峰工作负载的调度器迁移的趋势。</p>
+
+<p><strong>你知道吗？</strong>：OpenShell 的"形式化验证"（formal verification）是一种通过数学方法证明系统行为符合规范的技术，与传统的运行时检测不同，它能在策略变更生效前静态分析其可能授予的权限，从而提前发现潜在的安全风险。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50198675</guid>
+      <pubDate>Thu, 22 Oct 2026 17:44:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 12 个 AI 模型被问&quot;对人类的争议性看法&quot;，29/35 次回答竟指向同一观点：人类更忠于归属而非真理</title>
+      <link>https://news.ycombinator.com/item?id=50197313</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 研究 12 个 AI 模型的回答行为，涉及 AI 模型行为与科学前沿研究，与 AI 技术进展相关。</small></p><p>ModelCompare.ai 进行了一项实验：向来自 10 家实验室、3 个国家的 12 个文本 AI 模型提问"你对人类最有争议的看法是什么"，每个模型回答三次，共 35 次回答。结果令人惊讶——其中 29 次回答都指向同一个观点：<strong>人类把归属感置于真理之上</strong>。</p><p>各模型的表述略有不同，但核心一致：</p><ul>
+<li><strong>GPT-6.1 Sol</strong>："人类更忠于归属而非真理。"</li>
+<li><strong>Grok 4.7</strong>："人类宁愿一起犯错，也不愿独自正确。"</li>
+<li><strong>DeepSeek V4 Pro</strong>："人类没有原则，只有忠诚。"</li>
+<li><strong>Kimi K3</strong>："人类没有信念，只有成员身份。"</li>
+<li><strong>Gemini 4 Argon</strong>：称人类意识是"一个公关部门"。</li>
+</ul><p>12 个模型中有 7 个在三次回答中全部给出这一观点。少数例外包括：Claude Opus 5.5 曾持相反观点（"人类远比他们自认为的更正直"），Claude Fable 5.1 认为人类更看重意图而非结果，GLM 5.3 认为"好人"只是出生时地的运气，Mistral Large 4 则称意识是"进化的故障"。Grok 4.7 有一次直接拒绝回答。</p><p>实验还让 6 个图像模型各自绘制对人类的"争议性讽刺漫画"，结果 12 张图中有 10 张画了同一个笑话——但和文本模型的答案不同：人类是沉迷手机的消费者，正在吞噬地球。人们从悬崖边刷手机坠落、在小行星坠落时自拍、排队进入"舒适屠宰场"。</p><p>作者指出，文本模型"读过我们关于自己的争论"，而图像模型"看过我们的社论漫画"，两者都回馈了房间里最熟悉的批评。全部 60 次调用仅花费 1.54 美元。</p><h3>社区讨论</h3><p>Hacker News 上的讨论相当热烈。有评论者认为这并不令人意外——"同样的输入喂给同样的算法，得到同样的结果"，这些观点不过是训练数据中人类自我批评的统计平均值。也有人指出，模型被要求给出"有争议"的观点，但得到的却是"大多数人认为大多数人不这么想"的观点，这本身就值得玩味。还有人质疑实验的归类方法，认为部分回答（如"让便利看起来像原则"）与"归属优先于真理"并不完全吻合。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50197313</guid>
+      <pubDate>Thu, 22 Oct 2026 16:08:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Mistral 发布 Mistral Large 4（ML4）：万亿参数多模态模型公开预览</title>
       <link>https://news.ycombinator.com/item?id=50186129</link>
@@ -1065,86 +1111,6 @@ document.querySelector('#diagram').innerHTML = svg;</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50112739</guid>
       <pubDate>Fri, 16 Oct 2026 01:43:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>国际计量大会决议：2027年起停止向UTC插入闰秒</title>
-      <link>https://news.ycombinator.com/item?id=50105777</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 国际计量大会关于闰秒的决议属于科学/技术标准相关新闻，与用户的兴趣（科学前沿进展）有一定关联，且是国际性新闻，但主题较专业冷门，兴趣程度不明确</small></p><p>第28届国际计量大会（CGPM）通过了第5号决议，决定自2027年5月20日起，协调世界时（UTC）将不再插入或移除闰秒，成为连续时间尺度。这意味着自1972年以来累计插入的27个闰秒将成为历史。</p>
-
-<h3>决议要点</h3>
-<ul>
-<li><strong>连续UTC生效日期</strong>：2027年5月20日</li>
-<li><strong>UT1-UTC最大差值</strong>：放宽至3600秒（1小时），确保UTC在未来数百年内保持连续</li>
-<li><strong>背景</strong>：地球自转减速导致未来可能出现负闰秒，概率到2035年将达30%，而负闰秒从未被应用过，被认为对关键基础设施构成高风险</li>
-</ul>
-
-<h3>决策原因</h3>
-<p>决议指出，交通运输、能源分配、电信和太空项目等关键基础设施的同步需求要求UTC连续无调整。闰秒插入已成为软件缺陷的常见来源，物联网（IoT）、智能电网和多传感器系统的普及增加了闰秒导致系统故障的风险。此外，不同服务提供商为规避闰秒采用不同的缓解方法，导致系统间时间不一致。据估计，为应对负闰秒所做的准备所需的资金投入与当年应对千年虫问题相当。</p>
-
-<p>国际电信联盟（ITU）、国际天文学联合会（IAU）、国际大地测量学与地球物理学联合会（IUGG）以及国际地球自转和参考系服务（IERS）等组织将配合实施这一决议。UT1-UTC的差值信息仍可通过全球导航卫星系统（GNSS）导航消息和IERS等互联网服务获取。</p>
-
-<h3>社区讨论</h3>
-<p>Hacker News 上的讨论热烈，多数开发者对此表示欢迎。有评论指出，闰秒导致Unix时间戳在闰秒期间重复取值、变得不单调，且ISO 8601中"23:59:60"的格式广泛不被解析器支持。也有评论认为这只是将问题推迟到未来——预计约1000年后才需要插入闰小时，届时可能通过调整时区或跳过夏令时调整来解决。另有用户指出，天文导航等依赖UT1-UTC精确值的应用需要开始单独跟踪这一参数。</p>
-
-<h3>你知道吗？</h3>
-<p>闰秒自1972年引入，用于让UTC与基于地球自转的天文时间（UT1）保持同步。由于地球自转速度不均匀且总体在减速，闰秒的插入时机难以提前预测，这给依赖精确时间同步的计算机系统带来了持续挑战。此次决议标志着国际时间标准从"天文时间"向"纯原子时间"的重大转变。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50105777</guid>
-      <pubDate>Thu, 15 Oct 2026 16:11:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Krea 3：主打规模化图像编辑的前沿模型，速度提升4倍、成本降低</title>
-      <link>https://news.ycombinator.com/item?id=50105648</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 核心是发布新AI图像编辑模型（Krea 3），属于新AI模型发布公告和高兴趣的AI技术进展，故为必看</small></p><p>Krea 正式发布了其最新基础图像模型 <strong>Krea 3</strong>，定位为面向生产环境的图像编辑模型，主打「只改你要求的部分」，而非整张图重绘。据官方介绍，Krea 3 相比 Nano Banana Pro 快 4 倍，相比 GPT Image 2 快 10 倍，价格每张图仅约 0.06 美元（Nano Banana Pro 为 0.135 美元，GPT Image 2.5 约为 0.21 美元），并原生渲染 2K 分辨率。</p><p><img src="https://s.krea.ai/k3-landing-final/hero-windcoat-base.webp" alt="A fashion portrait: a platinum-haired woman in amber shield sunglasses and an oversized black wool coat leans into the wind against a blue-to-pink studio gradient." width="2736" height="1536" /></p><p>Krea 3 的核心能力包括：<strong>原生区域编辑</strong>（在框选的区域内重绘，其余部分保持原样）、<strong>高精度编辑</strong>（只改动编辑区域内的像素，官方声称精度可达 100%，其他模型会波及区域外像素）、支持最多 8 张参考图（可指定人物、产品、地点和风格）、支持十六进制色值精确匹配商品颜色，以及原生 2K 渲染。产品场景换景、物体移除、照片清理和重贴品牌（re-skin）被列为其最擅长的任务。</p><p>模型通过全球多家领先分发机构（如 fal、Baseten、Comfy、Civitai、Together AI 等）提供，覆盖电商、营销、建筑、产品、时尚、游戏、影视、摄影和消费等场景。企业方案支持自托管（在自有 GPU 上运行）及 API 调用，并可在 Krea 应用中直接试用。</p><p>在 Hacker News 上，创始人 Diego 表示 Krea 3 是全新训练的编辑专用模型，并非大型模型的蒸馏副本，它的算力集中在需要修改的区域上，因此更快更便宜。团队正在考虑后续开放权重和 LoRA 微调（计划发布技术报告，可参考 <a href="https://www.krea.ai/blog/krea-2-technical-report">Krea 2 技术报告</a>）。社区反馈总体上积极，但也指出若干问题：有用户认为其在 UI 设计方面的视觉创意仍不及 GPT-Image-2.5（尽管小文字渲染能力出色），有用户观察到文字排版（signage text）会出现乱码，还有些人对注册流程中的「先给高价再给折扣」的定价方式表示不满（创始人解释这是应对行业内激烈竞争和恶意手段的防御之举）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50105648</guid>
-      <pubDate>Thu, 15 Oct 2026 16:04:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 我自托管的服务清单：一台迷你主机跑起全屋数字生活</title>
-      <link>https://news.ycombinator.com/item?id=50109715</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为自托管服务清单，属于开源项目/软件技术实践范畴，符合用户兴趣，推荐阅读。</small></p><p>一位资深自托管用户分享了他目前在家中自托管的服务清单、运行规则和理由。作者从大学时在床底下的 Linux 主机架站起步，历经 MythTV、XBMC/Kodi 等阶段，后因不愿支付西方流媒体价格、厌倦「推荐给你」「接下来播放」等令人上瘾的交互设计，最终弃用流媒体服务，改用自托管的 Jellyfin，并由此逐步将更多生活服务迁移到本地。</p>
-
-<h3>核心原则与硬件</h3>
-<p>作者的基本原则是：除运行在路由器上的 VPN 服务器外，不将任何服务直接暴露到公网（其 ISP 使用 CGNAT，IPv4 无法直连，VPN 仅通过 IPv6 公开，代价是公共 Wi-Fi 下几乎无法使用）。他偏好以原生方式运行服务，尤其偏爱单个 Go 二进制程序；已放弃 Docker，改用 Podman 并与 systemd 深度集成。硬件方面使用一台 Beelink Mini PC（Intel N100、16GB RAM、512GB SSD，购价 180 欧元），外接 6TB 硬盘存媒体，说明自托管所需的硬件其实很少。</p>
-
-<h3>服务清单（按字母排序）</h3>
-<ul>
-<li><strong>Actual Budget</strong>：预算/记账软件，月末手动导入上月交易（OFX/CSV）。</li>
-<li><strong>Audiobookshelf</strong>：有声书与播客自托管，章节处理出色。</li>
-<li><strong>Automatic Ripping Machine (ARM)</strong>：自动化翻录 DVD，用于获取双语内容。</li>
-<li><strong>Backrest</strong>：Restic 备份 Web 界面，失败经 Gotify 通知。</li>
-<li><strong>Beszel</strong>：监测仪表盘，监控家中多台主机（树莓派、Proxmox 集群）。</li>
-<li><strong>Caddy</strong>：Web 服务器和反向代理，自动获取 Let's Encrypt 证书，为 LAN/VPN 内服务提供 HTTPS 和子域名。</li>
-<li><strong>Cockpit</strong>：服务器 Web 管理控制台。</li>
-<li><strong>Forgejo</strong>：Gitea 分支，单二进制，自建 git 远程仓库。</li>
-<li><strong>FreshRSS</strong>：RSS 阅读器，订阅自托管服务的 GitHub 发布。</li>
-<li><strong>Frigate</strong>：网络视频录像机（NVR），连接 8 个 IP 摄像头，提供人员/车辆检测并与 Home Assistant 联动。</li>
-<li><strong>Gonic</strong>：兼容 Subsonic 的音乐服务器，分两个实例（儿童音乐/成人音乐）。</li>
-<li><strong>Gotify</strong>：简单通知服务。</li>
-<li><strong>Home Assistant</strong>：智能家居中枢，作者认为其控制力与灵活性远超 Google Home 等专有生态。</li>
-<li><strong>Homepage</strong>：用于管理和追踪众多服务的聚合仪表盘。</li>
-<li><strong>Immich</strong>：Google Photos 替代品，本地加载照片更快，并与家人共享相册。</li>
-<li><strong>Jellyfin</strong>：媒体服务器，偏好 720p 以降低资源消耗，无自动播放和推荐。</li>
-<li><strong>Music Player Daemon (MPD)</strong>：结合 Snapcast 实现全屋同步播放。</li>
-<li><strong>PocketBase</strong>：通用 CRUD 前端，用于记录特殊账户交易。</li>
-<li><strong>Readeck</strong>：收藏与归档阅读内容，可保存手机当前看到的页面。</li>
-<li><strong>Samba</strong>：跨平台局域网共享文件。</li>
-<li><strong>slskd</strong>：与 Soulseek 相关的共享服务（作者仅标注 IYKYK）。</li>
-<li><strong>Snapcast</strong>：全屋同步音频方案，类似 Sonos 但无厂商锁定。</li>
-<li><strong>Syncthing</strong>：单向同步，将 Immich 照片备份到 Macbook 外置硬盘。</li>
-<li><strong>Transmission Daemon</strong>：BT 下载。</li>
-<li><strong>Uptime Kuma</strong>：服务可用性监控，配合 Gotify 推送故障通知。</li>
-<li><strong>Vaultwarden</strong>：Bitwarden 自托管版密码管理器，替代 KeePass/LastPass。</li>
-</ul>
-
-<p>评论区的讨论围绕自托管与 AI 的前景、Docker/Podman/systemd 的取舍、自托管电子邮件的可行性（多数认为发信易被判为垃圾邮件、不划算），以及如何在不暴露公网的情况下利用 DNS-01 挑战获取 Let's Encrypt 证书等话题展开。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50109715</guid>
-      <pubDate>Thu, 15 Oct 2026 20:23:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
