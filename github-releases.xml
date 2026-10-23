@@ -3,7 +3,55 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 22 Oct 2026 22:16:44 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 01:27:32 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.309：大量沙箱、worktree 隔离与 VSCode 修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.309</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.309 版本，包含大量针对沙箱、worktree 隔离、权限检查、VSCode 扩展及 Claude Tag 等功能的修复与改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>沙箱修复</strong>：修复 macOS/Linux 上沙箱化 Bash 命令在每次执行前于沙箱外运行 shell 启动文件的问题；修复 macOS 沙箱 <code>denyWrite</code> 通配符在通过符号链接访问路径时未生效的问题；修复沙箱命令和自动接受的编辑可修改通过 <code>--mcp-config</code> 传入的 MCP 配置文件的问题。</li>
+<li><strong>worktree 隔离强化</strong>：修复隔离会话接受某些带 locale 前缀命令和 zsh 算术命令的问题；修复 Claude Code 创建的 worktree 和分支检出忽略 git replace refs 的问题。</li>
+<li><strong>权限检查修复</strong>：修复 Bash 权限检查信任由重定向可能失败的变量设置的问题；修复某些包含子 shell 的命令中 <code>Edit(path)</code> 拒绝规则未阻止 Bash 重定向的问题；修复 PowerShell 权限检查自动批准某些指向当前目录的 <code>Set-Location</code>/<code>cd</code> 命令的问题。</li>
+<li><strong>会话与消息修复</strong>：修复 ctrl+enter（立即发送）在响应开始前仅排队消息的问题；修复 ctrl+o 不显示其他代理和会话中等待投递消息的问题；修复长工具输出预览在 emoji 处被截断导致 <code>jq</code> 无法解析会话记录的问题。</li>
+<li><strong>VSCode 改进</strong>：修复 Claude 面板在编辑器缓存不完整副本后保持空白的问题；修复每次开始新会话时 Session 历史填充空 "Untitled" 会话的问题；修复长斜杠命令消息（如 <code>/goal</code>）填满聊天面板的问题，现折叠在 "Show more" 后；将聊天面板中 Edit 和 Write 的速度提升，等待新问题的时间从 1-1.5 秒降至 0.75 秒。</li>
+<li><strong>其他功能调整</strong>：<code>sed -i</code> 现在获得标准 Bash 提示并按原样运行，不再显示模拟的文件编辑预览；<code>claude ultrareview</code> 现在要求 workspace 信任；改进了磁盘满时的错误提示，明确指出需释放空间的文件夹。</li>
+</ul>
+
+<h3>其他修复</h3>
+<ul>
+<li>修复 <code>/rewind</code> 列表对通过 <code>/code-review --fix</code>、子代理或 shell 命令修改检查点文件的回合显示 "No code changes" 的问题。</li>
+<li>修复 <code>/privacy-settings</code> 显示过时的 "Help improve our AI models" 值的问题。</li>
+<li>修复 <code>--add-dir</code> 文件夹中的技能因名称冲突不可达的问题，现以 <code>&lt;folder&gt;:&lt;name&gt;</code> 形式提供。</li>
+<li>修复 <code>/verify</code> 和 <code>/code-review</code> 无法找到嵌套包自身技能的问题。</li>
+<li>修复插件和从 claude.ai 同步的技能在磁盘读取错误后被移除的问题。</li>
+<li>修复对话压缩后 Claude 在回合剩余时间内对每次 artifact 更新都请求权限的问题。</li>
+<li>修复 Claude 在 PR、issue 和评论中通过写入角色名和占位符作为提及来通知无关 GitHub 用户的问题。</li>
+<li>修复 macOS 上无 Xcode 或命令行工具时每次启动都弹出 "Install Command Line Developer Tools" 对话框的问题。</li>
+<li>修复 <code>--startup-timeout-min</code> 停止仍在子代理中工作的首个提示（如 <code>/code-review</code>）的会话的问题。</li>
+<li>改进 Windows 上 git 命令速度，且所有平台上的 git 错误现在以英文显示。</li>
+<li>修复 hooks 模块嵌套过深时的错误提示，现显示文件名而非裸的栈溢出消息。</li>
+<li>修复 Claude Desktop 托管会话在连接刷新时消息偶尔丢失的问题；修复终端登录不同账户/组织时桌面应用中功能缺失的问题。</li>
+<li>修复 <code>claude remote-control</code> 状态行对非 git 仓库文件夹显示 <code>HEAD</code> 作为分支的问题。</li>
+<li>修复 split-pane 代理队友未继承 leader 命令行上的工具拒绝和 <code>--tools</code> 规则的问题。</li>
+<li>修复 <code>/rename</code> 重命名的会话在 VS Code 窗口重载或非交互 <code>--resume</code> 后以生成名称显示的问题。</li>
+<li>修复 <code>/claude-api</code> 技能中多项文档描述不准确的问题（C# 追踪、AWS 平台追踪、OpenTelemetry 等）。</li>
+<li>修复 PowerShell 中 hooks 在程序以代码 2 退出时不阻塞的问题。</li>
+<li>修复按别名（如 <code>haiku</code>）命名模型的 <code>turn.step</code> hook 每次请求都报模型错误的问题。</li>
+<li>修复 Amazon Bedrock 上细粒度工具流在设置默认 <code>bedrock-runtime</code> 端点时保持关闭的问题。</li>
+<li>修复仅发送 keepalive ping 的网关后 "Waiting for API response" 提示闪烁的问题，现等待 45 秒。</li>
+<li>修复 Linux 上后台命令存活超过会话时沙箱写拒绝被解除的问题。</li>
+<li>修复 <code>/feedback</code> 报告过大时失败而非去除记录重发的问题。</li>
+<li>修复 Claude Tag（Slack 集成）中多项问题：误将批准的草稿发到 DM、会话停止后 Allow/Deny 无响应、工作区迁移后忽略未标记消息、线程回复顺序错误等。</li>
+<li>修复 Code Review 中已完成审查未显示检查标记、<code>@claude review stop</code> 后排队推送仍启动审查的问题。</li>
+<li>修复 Cloud sessions 中连接器列表加载、环境变量编辑、文档工具行显示转义 JSON 等问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.309</guid>
+      <pubDate>Thu, 22 Oct 2026 22:18:57 GMT</pubDate>
+    </item>
     <item>
       <title>fx 40.0.1 发布：修复 Unicode 字符渲染问题</title>
       <link>https://github.com/antonmedv/fx/releases/tag/40.0.1</link>
@@ -1594,36 +1642,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.4</guid>
       <pubDate>Fri, 25 Sep 2026 18:11:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenAI Codex 0.157.0：新增 GPT-6 Sol/Luna 模型，优化终端与交互体验</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.157.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 <strong>0.157.0</strong> 版本，重点引入新一代模型、改进 TUI（终端界面）交互，并修复了多项会话与网络相关的缺陷。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增模型</strong>：加入 <strong>GPT-6 Sol 和 Luna</strong>，涵盖 Amazon Bedrock 支持，并为旧模型提供迁移提示（#47332、#47347）。</li>
-<li><strong>全屏转录默认开启</strong>：全屏 transcript 现默认启用，并支持 <strong>Shift-点击</strong> 扩展文本选择（#47178、#47414）。</li>
-<li><strong>后台服务器自动启动</strong>：符合条件的交互会话默认自动启动后台服务器，配置不兼容时提供恢复选项（#47179、#47318）。</li>
-<li><strong>快捷分叉会话</strong>：新增 <code>f</code> 快捷键，可分叉在其他应用中打开的对谈，保留草稿与排队提示（#47185）。</li>
-<li><strong>/import 扩展可用</strong>：远程会话及本地后台服务器会话现可使用 <code>/import</code>（#47317）。</li>
-<li><strong>终端渲染改进</strong>：支持 Unicode 圆形符号、复选框、对齐方程式及优化符号（#47191、#47322）。</li>
-</ul>
-
-<h3>其他改动与修复</h3>
-<ul>
-<li>切换线程时保留活跃的语音会话；回合结束时将未发送的问题答案恢复至编辑器（#47381、#47422）。</li>
-<li>在自动屏幕模式下，遵守 tmux 鼠标设置，并恢复 Terminal.app 通过 SSH 的原生回滚（#47399、#47417）。</li>
-<li>修复代理路由：支持实时连接与独立网页搜索的配置代理及重定向（#47101、#47142、#47204）。</li>
-<li>为临时文件上传失败添加重试，并将上传超时延长至五分钟（#47122、#47393）。</li>
-<li>在网络政策变更撤销访问权限时，跨重定向及持续 HTTP/WebSocket 流量执行网络限制与取消（#47389、#47407）。</li>
-</ul>
-
-<p>完整变更日志见 <a href="https://github.com/openai/codex/compare/rust-v0.156.0...rust-v0.157.0">rust-v0.156.0...rust-v0.157.0</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.157.0</guid>
-      <pubDate>Fri, 25 Sep 2026 02:31:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
