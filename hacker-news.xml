@@ -3,7 +3,45 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 23 Oct 2026 07:25:16 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 13:23:46 GMT</lastBuildDate>
+    <item>
+      <title>「本地维基百科」：只收录半小时步行范围内的百科条目</title>
+      <link>https://news.ycombinator.com/item?id=50202285</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 这是一个基于维基百科的趣味创意小项目，主题与地理/本地生活相关，虽可能涉及开源分享但主题不明确，兴趣一般</small></p><p>开发者 Ed Jefferson 推出了一款名为「本地维基百科」（Local Wikipedia）的工具，它只展示你步行半小时可达范围内、与周边事物相关的维基百科条目。由于维基百科几乎所有条目都带有地理坐标，该项目利用这一数据自动圈定附近的文章，让用户探索居住地周边的历史、建筑与逸闻。</p>
+<p>该项目在 Hacker News 上获得了 569 分和 127 条评论，整体反响热烈。许多用户表示发现了当地此前不为人知的历史故事，例如有人找到了巴伐利亚西部附近一座自己从未听说过的修道院，还有人发现了帕洛阿尔托可能是首家书店咖啡馆的所在地（<a href="https://en.wikipedia.org/wiki/Printers_Inc._Bookstore">Printer's Inc. Bookstore</a>），但也感慨这些曾存在的事物如今多已消失。</p>
+<p>不过，多位评论者指出，维基百科本身其实早已内置了类似功能——<a href="https://en.wikipedia.org/wiki/Special:Nearby">Special:Nearby</a>，并可通过修改 URL 中的经纬度坐标手动指定位置、通过改写语言前缀（如 fr.、es.）切换语言版本。基于此，社区提出了多项改进建议：允许自定义步行距离、支持公制单位、选择不同语言的维基百科、增加按主题（教堂、桥梁、博物馆等）筛选的功能，以及允许通过邮编或城镇名手动输入位置。</p>
+<p>此外也有用户反馈了当前版本的一些不足：许多条目虽然就在附近却因缺少地理标签未被收录，图片点击后也无法放大查看。</p>
+<div class="know-more"><h3>你知道吗？</h3><p>维基百科的「Special:Nearby」功能是「本地维基百科」的官方同类替代品，支持多语言，并可通过 URL 中的 <code>#/coord/纬度,经度</code> 参数手动指定任意地点。它正是借助了维基百科条目普遍携带的地理坐标（geotag）来实现定位。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50202285</guid>
+      <pubDate>Thu, 22 Oct 2026 23:01:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Anthropic 用 Claude 大规模完成正式软件验证，并发现多年未察觉的漏洞</title>
+      <link>https://news.ycombinator.com/item?id=50202217</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是AI（Claude）用于大规模软件形式化验证并发现多年漏洞，属于AI软件技术进展及编程工具应用，与用户兴趣高度契合</small></p><p>Anthropic 与 Theorem 合作发布研究，展示了大型语言模型（LLM）如何让正式软件验证（formal software verification）在更大规模上变得可行。传统上，正式验证需要专家多年努力，例如验证 seL4 操作系统内核耗时约 20 人年，因此仅限于空客航电等关键任务场景。而在此次项目中，Claude 在超过 100 个真实开源库的汇编代码（RISC-V）层面证明了安全属性，据称这是首次以如此大规模将 AI 用于生产软件的汇编级正式验证。</p>
+
+<p>方法论上，团队将 Google OSS-Fuzz 项目中现成的模糊测试（fuzz test）转换为正式规范——即证明「该模糊测试在任意小于 64 MB 的输入下都不会崩溃」（涵盖内存安全和断言失败）。Claude 编写证明，由 Rocq（原 Coq）证明检查器负责核对。最终，Claude 在 123 个 OSS-Fuzz 库的 239 个入口点成功补上发现的漏洞并证明无崩溃，这些证明共约 1.8 亿行 Rocq 代码，单个典型证明约 60 万行，覆盖中位数 18,000 条 RISC-V 指令。由于证明由 Rocq 检查器自动校验，开发人员只需信任 RISC-V 与 Linux 进程的正式语义模型、定理陈述本身及 Rocq 检查器。</p>
+
+<p>过程中 Claude 发现了大量多年未察觉的 bug，其中包括：解压器中的计数器下溢导致越界写入（仅在约 20 MB 且布局罕见时触发）、图像解码器需要 64 MB 输入和超过 2 GB 内存的越界读取、重新发现了 libexpat 中的 CVE-2026-56132，以及一些从不会崩溃的逻辑错误。团队还探索了其他验证路径，例如为 zlib 压缩格式撰写 RFC 1950 的形式化规范、验证 Linux 内核中的 zlib 实现，以及证明用 Rust 编写的 Python 解释器的行为等价性。</p>
+
+<p><img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F02207cbc6f46e272fe9a0fa7929cb8ec29578e74-1920x980.png&w=3840&q=75" alt="不同模型完成验证任务所需 token 的折线图，Opus 5.5 用最少 token 完成证明" width="1920" height="980" /></p>
+
+<p>Anthropic 承认这些库并非完全没有 bug，剩余风险集中在可信组件（Rocq、RISC-V 和 Linux 语义）或证明范围之外。他们发布了部分证明、可信组件及一个 Claude skill，供独立验证与开发者复用，Theorem 也面向其他开源项目提供相同流程。</p>
+
+<h3>社区讨论</h3>
+<p>HN 上有 226 条评论，讨论围绕几个主题。一些评论者引用论文附录指出，虽然证明本身有效，但 LLM 采用的「冗长证明风格」可能难以扩展到复杂程序，agent 或在抽象与模块化上遭遇「复杂性之墙」，这与数学家观察到的「LLM 数学能力可能止步于人类数学凸包之外」的假设一致。有观点认为证明即编程（Curry-Howard 同构），提高「写好模块化证明」的能力同样能提升通用编程水平。</p>
+
+<p>另一部分评论质疑验证的意义：正式验证的规范（spec）是否真能捕捉程序意图？有评论指出，本方法本质上是「把有 bug 的软件 A 变成有 bug 的软件 B」，但用于大规模重构时可确保不新增或移除 bug。也有开发者分享正面经验，例如用 LLM 辅助将 Rust/C 代码翻译为 Lean 证明其行为等价，以及用 ESBMC 对 JavaCard 虚拟机做静态验证。还有评论认为未来会转向确定性声明式语言而非逐行验证命令式代码，但反对者认为这「只是把问题向上移了一层」，软件终究是人类期望的表示，无法被正式验证。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>Rocq</strong>（原 Coq）是一种交互式定理证明器，采用依赖类型理论，证明可由机器自动校验，无需人工逐一阅读，这是本方法得以大规模推广的关键。文中「把模糊测试转化为规范」的做法与「针对完整规范的完整正确性证明」不同，前者只覆盖开发者编写的测试所表达的性质（如压缩-解压往返、幂等性、与参考实现等价等），但相比传统上需将整个程序翻译进证明器的方法，其门槛大幅降低。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50202217</guid>
+      <pubDate>Thu, 22 Oct 2026 22:54:43 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Docker 其实很「奇怪」：容器只是披着 5 种内核特性外衣的进程</title>
       <link>https://news.ycombinator.com/item?id=50202681</link>
@@ -1074,43 +1112,6 @@ document.querySelector('#diagram').innerHTML = svg;</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50118320</guid>
       <pubDate>Fri, 16 Oct 2026 13:43:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 研究显示：美国90%的工作时间花在AI基准测试未覆盖的任务上</title>
-      <link>https://news.ycombinator.com/item?id=50121179</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI基准测试与经济劳动力覆盖的研究，属于AI软件技术进展与科学前沿领域，用户感兴趣，虽有新闻属性但非必看，故推荐</small></p><p>Mercor 发布了一项名为「美国基准地图」（US Benchmark Map）的研究，旨在衡量现有 AI 基准测试对美国经济中实际工作的覆盖程度。研究团队利用美国劳工部的 O*NET 职业分类体系，将美国劳动力划分为 923 个职业、18,797 项具体任务，并对照 29 个公开、未饱和、面向智能体（agentic）的 AI 基准测试进行分析。</p>
-
-<h3>核心发现</h3>
-<ul>
-<li><strong>覆盖率极低</strong>：在 923 个职业中，仅有 208 个职业拥有至少 5 条基准提示词覆盖的任务；22 个职业族中有 6 个完全没有此类覆盖。研究估计，<strong>90% 的美国工作时间花在现有基准测试很少或完全没有覆盖的任务上</strong>。</li>
-<li><strong>覆盖存在系统性偏差</strong>：基准测试并非随机分布。被标记为「高 AI 暴露」的任务被覆盖的可能性约为「低暴露」任务的 6 倍；工资总额更高的职业中的任务被显著过度代表；O*NET 重要性评分更高的任务被覆盖的可能性是低重要性任务的 6–10 倍。</li>
-<li><strong>「长尾」工作被忽视</strong>：例如，AI 暴露程度相似的律师任务被大量覆盖，但法律秘书或法院书记员的任务几乎未被覆盖。中等收入的知识型「长尾」工作明显覆盖不足。</li>
-</ul>
-
-<h3>方法论</h3>
-<p>研究团队通过 LLM 裁判将每个基准提示词映射到对应的 O*NET 任务，并用人类专家标注进行验证。基准选择标准包括：公开可用性（至少 25 个公开任务）、面向智能体任务、经济现实性、经济多样性（限制每个职业族的基准数量）以及难度平衡（未饱和）。</p>
-
-<h3>尝试 O*NET 加权评分</h3>
-<p>作为初步尝试，团队对投资银行、法律、会计和软件工程四个职业，将模型在 APEX 基准上的表现按 O*NET 任务加权后与简单平均进行比较。结果显示两者差异不大，但只有不到三分之一的与这些职业相关的 O*NET 任务拥有足够的基准覆盖以纳入加权评分。团队承认，即使纳入更多基准，仍面临统计功效不足、任务难度与保真度差异等障碍。</p>
-
-<h3>局限性与展望</h3>
-<p>研究团队强调，这些结果是初步的，基于他们选择的 29 个基准列表，不完整列表必然低估经济覆盖范围。他们计划持续扩展基准列表并更新地图，以帮助填补对模型经济能力的认知空白。</p>
-
-<h3>社区讨论</h3>
-<p>Hacker News 上的讨论热烈（293 条评论）。多位开发者指出，实际工作中的大量时间花在利益相关者协调、办公室政治等难以基准化的任务上。有评论者认为，AI 基准偏向高薪白领工作并非阴谋，而是因为可验证的数字任务更容易被 AI 优化。也有观点指出，AI 在软件开发中的成本节省主要源于劳动力效率低下，而非技术本身。关于机器人送餐等话题也引发了关于自动化实际经济效益的争论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50121179</guid>
-      <pubDate>Fri, 16 Oct 2026 17:08:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Sill：将 Mac 任意窗口实时串流到 iPhone 和 iPad 的开源应用</title>
-      <link>https://news.ycombinator.com/item?id=50112739</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要介绍一款开源应用工具（将Mac窗口串流到iPhone/iPad），属于开源项目与编程工具分享范畴，虽有iOS生态背景，但主导主题是开源工具，故推荐</small></p><p>Sill 是一款开源应用，可将 Mac 上的任意窗口或整个桌面实时串流到 iPhone 和 iPad 上，并支持通过触控、触控板、键盘或 Apple Pencil 进行远程操作。该应用在 Hacker News 上获得 243 分和 74 条评论。</p><p>工作原理上，Sill for Mac 位于菜单栏中，当设备选中某个窗口或桌面时，它通过 ScreenCaptureKit 捕获画面，并利用 VideoToolbox 在 Mac 硬件视频编码器上将其编码为 HEVC 视频（编码器繁忙时回退到软件编码）。画面通过加密的 TLS 1.3 连接直接传输到 iPhone/iPad 上的 Sill 应用进行解码显示。当编码器或链路落后时，Sill 会丢弃帧而非排队，以保证画面实时性。用户的触摸、点击、滚动、按键输入会通过同样路径回传给 Mac，并由 Sill for Mac 转换为鼠标和键盘事件。</p><p>连接方式多样：Mac 和设备可处于同一网络、通过 USB 线连接、使用 Direct Wireless Connection（类似 AirDrop 的对等 Wi-Fi）在无共享网络时直连，或通过自己的 VPN（如 Tailscale）实现远程访问。应用无需账号，也不依赖中间服务器。配对机制：每个 iPhone/iPad 与 Mac 只需配对一次（扫描或输入 12 位代码），此后所有连接都锚定到双方密钥，保证加密安全。</p><p><img src="https://github.com/Saffsanity/sill/raw/main/design/screenshots/ipad-2.jpg" alt="Laptop mode：iPad 竖持，上方为 Mac 的时钟应用，下方为 Sill 的命令栏、键盘行和触控板" /></p><p>主要特性包括：iPad 上带有菜单栏支持（iPadOS 26 及以上）；iPhone 竖持时画面在上、按钮/键盘/触控板在下；虚拟显示（利用私有 macOS API）让被遮挡的窗口持续更新；双向剪贴板共享（仅文本，最多 256 KB，密码管理器标记为隐藏的内容不会流出）；三指手势（Mission Control、App Exposé、Spaces 等）通过键盘快捷键支持；在 iPhone Duo 上可跟随铰链状态适配布局；文本大小可随 Aa 调节。</p><p>要求方面：Mac 需为 Apple 芯片并运行 macOS 14 或更高版本；设备需 iOS 17/iPadOS 17 或更高。Mac 端需要屏幕录制和辅助功能权限（macOS 15+ 还需本地网络权限）。应用免费、无广告、无追踪、无订阅，可从 getsill.app 下载或通过 Homebrew 安装，iPhone/iPad 版在 App Store 免费提供，也支持从源码构建。项目以 Apache License 2.0 授权，作者欢迎提交 issue 和 pull request。</p><p><b>社区反馈</b>：评论中有用户称赞其比 VNC 更快速、更流畅，"已帮我今天两次忙"；也有用户提到相比需要大量调校的 Sunshine + Moonlight 方案，Sill 体验明显更好，并已通过 GitHub Sponsors 打赏。有用户好奇其与苹果 Sidecar 的区别，指出 Sidecar 不支持单个窗口且此前缺乏触控支持（评论引述称触控支持今年已加入）。还有用户询问是否计划支持 Windows。另有评论指出项目中的 CLAUDE.md 文件过长（6,108 行、464 KB）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50112739</guid>
-      <pubDate>Fri, 16 Oct 2026 01:43:17 GMT</pubDate>
     </item>
   </channel>
 </rss>
