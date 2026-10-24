@@ -3,7 +3,44 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 24 Oct 2026 14:28:35 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2026 18:06:02 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OBS Studio 33.0 发布：更新 CEF 框架、重构插件加载机制、支持 Arm64 平台 NVENC</title>
+      <link>https://news.ycombinator.com/item?id=50218430</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源软件 OBS Studio 发布新版本，涉及软件新功能和编程工具更新，符合用户兴趣</small></p><p>开源直播与录屏软件 <strong>OBS Studio</strong> 发布了 33.0.0 版本，带来多项重要更新。该版本在 Hacker News 上获得 360 分，引发 121 条讨论。</p>
+
+<h3>主要新特性</h3>
+<ul>
+<li><strong>CEF 框架大幅升级</strong>：将浏览器源（browser sources）和面板（docks）所依赖的底层框架从 2024 年 7 月的版本更新至 2026 年 9 月的版本（127/6533 → 150/7871）。此更新为纯后端改动，对用户透明，但开发者提醒用户留意浏览器源可能出现的新问题。</li>
+<li><strong>插件加载机制全面重构</strong>：第一方插件移至新的 <code>core</code> 文件夹，第三方插件采用新的安装位置和目录结构。旧位置插件仍可加载，直到 34.0 版本为止。</li>
+<li><strong>预览中的源对齐（snapping）改进</strong>：新增视觉指示器，源现在可沿整个轴对齐而非仅直接接触时，且不再对齐隐藏源。</li>
+<li><strong>数字输入框（spinbox）行为优化</strong>：修复了输入被意外阻止、数字被截断等问题，数值仅在按 Enter 后更新。</li>
+<li><strong>Arm64 平台启用 NVENC 硬件编码</strong>。</li>
+</ul>
+
+<h3>其他变化与修复</h3>
+<p>新增了对最新 NVIDIA Broadcast SDK 的支持、源音频监听的快捷键、Safe Mode 下不再启动 WebSocket 服务器等。修复了 Studio Mode 中分组源移动时的闪烁问题、macOS 27.2 启动崩溃、Linux 上 USB 麦克风拔出导致的潜在崩溃、AMF 编码中 B 帧偏移计算错误导致的断流等多项缺陷。同时移除了对 Ubuntu 24.04 的支持。</p>
+
+<h3>开发者相关</h3>
+<p>构建工具链要求提升：Windows 构建改用 Visual Studio 2026 和 SDK 26100，clang-format 版本更新至 22.1.3，移除了对 FFmpeg 6.x/7.x 和 Qt 6.4-6.9 的支持，并新增了若干前端事件和 API。</p>
+
+<h3>社区反馈</h3>
+<p>讨论中，多位用户对 CEF 升级表示欢迎——此前 OBS 使用的 CEF 版本已过时两年，且曾因浏览器源漏洞导致远程代码执行（RCE）风险被媒体关注。OBS 开发者 WizardCM 回应称该漏洞需要用户使用未正确过滤输入的网页聊天覆盖层才会触发，并解释了升级耗时较长的原因。</p>
+<p>部分用户反映录制时遇到存储空间不足导致录制意外中断的问题，开发者建议提供日志并提交 bug 报告。也有用户提到外接显示器切换时需手动更新 OBS 配置的痛点，以及 macOS 上 Metal 着色器支持不足的困扰。整体而言，社区对插件加载重构和源对齐改进表示认可。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50218430</guid>
+      <pubDate>Sat, 24 Oct 2026 04:49:58 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 纯函数式编程能多接近C的性能？Roc实现DEFLATE压缩逼近libdeflate</title>
+      <link>https://news.ycombinator.com/item?id=50218195</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 探讨纯函数式编程性能逼近C语言，属于编程效率改进经验，用户很感兴趣</small></p><p>本文探讨了纯函数式编程（FP）语言在运行性能上能多接近C语言编写的极致优化实现。文章起因于一篇题为《为什么Lean比Rust更快》的报道：一个用Lean 4（函数式语言兼定理证明器）编写的DEFLATE压缩库lean-zip，超越了下载量超10亿的Rust包miniz_oxide，但在与C语言编写、经架构特定SIMD深度调优的libdeflate对比时仍被大幅拉开差距。</p><p>作者因此转向Roc——一门以运行性能为核心目标、口号为"快速、友好、功能"的函数式语言（非定理证明器）。作者对Roc包<strong>roc-deflate</strong>做了大量性能优化，并采用经典的西里西亚（Silesia）语料库，用M1 MacBook Pro和AMD Ryzen 9 3900X两台机器分别进行基准测试，并验证输出结果完全一致。</p><p><strong>结果亮点：</strong>在144项基准测试中，roc-deflate平均慢于libdeflate，中位数上Ryzen 3900X慢8.9%，M1 MacBook Pro慢2.6%。换言之，一个尚未发布首个正式版本（0.1.0）、包生态几乎未做优化的函数式语言，其非流式API（尚未实现流式处理）已做到比C语言金牌实现仅慢不足10%。</p><p>作者表示，虽未能在所有维度超越libdeflate，但这一结果展示了纯函数式语言在性能上向C看齐的可行性。</p><p><strong>社区讨论</strong>也相当热烈，主要围绕几个话题：</p><ul><li><strong>复制省略（copy elision）</strong>：多位评论者指出，C/C++可直接原地修改远端状态、实现极致复制省略，这是其可优化性优势的关键，而内存带宽往往是性能主要瓶颈；但这也通常以可维护性和安全性为代价。有人也提到"计算机本质上是面向位置的（place-oriented）"，而FP的闭包、惰性求值等抽象会带来间接性，损害空间/时间局部性。</li><li><strong>对比基准的选择</strong>：有评论认为miniz_oxide是刻意简单的实现，更公平的对手是新出的zlib-rs（下载约2亿次，速度远超zlib-ng）。也有人质疑"下载量"作为衡量指标的合理性。</li><li><strong>Roc的语言现状</strong>：Roc尚未达0.1.0，熟悉者称其自7月以来已可用于编写真实软件，目前大约有6名重度使用者。</li><li><strong>JS性能对照经验</strong>：有开发者分享，通过"折磨"V8（Node 25.8.1 + clang 21），JS代码有时也能逼近优化C代码约10%以内，并讨论了JIT逃逸分析/内联的优势。</li><li><strong>关于Haskell与Rust的争论</strong>：讨论涉及Haskell尾递归与循环实现，以及Rust能否在高性能计算领域取代C/C++等话题，观点分歧较大。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50218195</guid>
+      <pubDate>Sat, 24 Oct 2026 03:43:54 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Block 发布 Dessa：仅用人类语音训练的全双工对话模型</title>
       <link>https://news.ycombinator.com/item?id=50213925</link>
@@ -1027,64 +1064,6 @@ document.querySelector('#diagram').innerHTML = svg;</code></pre>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50129045</guid>
       <pubDate>Sat, 17 Oct 2026 08:21:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 从记忆存储的视角理解 Transformer：线性层、MLP 与自注意力的容量演进</title>
-      <link>https://news.ycombinator.com/item?id=50122878</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 从记忆存储视角分析 Transformer 内部结构，属于 AI 技术研究进展，符合用户对 AI 技术进展的兴趣，建议阅读</small></p><p>Alex Wang 发表了一篇深度技术文章，提出了一种理解 Transformer 架构的直观框架：将线性层、MLP 和自注意力分别视为不同类型的「记忆存储」（memory store）。文章的核心观点是，每一层网络本质上都是一个联想记忆（associative memory）系统，通过键值对（key-value pair）存储和检索信息。</p>
-
-<h3>核心内容</h3>
-
-<p><strong>记忆存储的基本模型</strong>：一个记忆存储函数 <code>f</code> 持有 M 个记忆，每个记忆是一个键值对。查询时通过相似度匹配键来检索对应的值。文章引入了一个关键度量——「干扰-信号比」（interference-to-signal ratio），衡量检索时其他记忆对目标记忆的干扰程度。当干扰等于信号时，存储达到容量上限。</p>
-
-<p><strong>外积记忆存储（线性层）</strong>：最基础的记忆存储通过外积累积记忆（<code>W = Σ vᵢkᵢᵀ</code>）。其容量约为键维度 d_k，即存储超过 d_k 个记忆后，干扰会淹没信号。文章还指出，梯度下降的权重更新步骤本质上就是在写入一条新记忆。</p>
-
-<p><strong>最优线性记忆存储</strong>：通过最小二乘回归（加入白化项 <code>(KᵀK)⁻¹</code>）可以消除键之间的协方差影响，将容量提升至约 2d_k。当 M ≤ d_k 时可以实现零干扰的完美检索。</p>
-
-<p><strong>MLP 作为非线性记忆存储</strong>：对相似度施加非线性门控函数（如 ReLU）可以抑制低相似度键的干扰，从而进一步提升容量。文章指出，两层 MLP 的第一层权重矩阵行是键、第二层列是值，这与 Geva 等人发现的训练后 Transformer 前馈层的工作方式一致。</p>
-
-<p><strong>自注意力</strong>：通过 softmax 等非线性函数实现选择性检索，具有极好的召回能力，可以存储潜在无上限数量的记忆。文章给出的数据是：在 64 维键空间中，容量从线性层的约 64 个记忆，提升到 MLP 的约 2,700 个，再到自注意力的超过一百万个。</p>
-
-<h3>社区反馈</h3>
-
-<p>Hacker News 上的讨论（315 分、73 条评论）整体反响积极。有用户称赞文章从线性代数出发建立直觉的正确性，也有人提到文章与 3Blue1Brown 近期「压缩即智能」系列视频的关联。部分读者认为数学符号对程序员不够友好，希望看到伪代码和具体示例；另一些读者则回应称文章面向的受众并不限于软件开发者。还有评论者指出，文章将 Transformer 视为 Hopfield 网络的观点很有趣——Transformer 只需一步就能找到合适的记忆，而传统 Hopfield 网络需要多步迭代。</p>
-
-<h3>你知道吗？</h3>
-
-<p>「联想记忆」（associative memory）的概念最早可追溯到 1970 年代的 Hopfield 网络，它通过能量函数和迭代动力学实现模式回忆。现代 Transformer 的自注意力机制在数学上可以被视为一种单步收敛的 Hopfield 网络更新，这一联系由 Ramsauer 等人（2020）在论文 <em>Hopfield Networks is All You Need</em> 中系统阐述。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50122878</guid>
-      <pubDate>Fri, 16 Oct 2026 19:01:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>JPEG XL 与 AVIF 网页使用场景深入对比：AVIF 总体占优</title>
-      <link>https://news.ycombinator.com/item?id=50120224</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] JPEG XL 与 AVIF 图片格式的对比，属于较为小众的图像技术话题，与用户主要兴趣领域关联度不高，可看可不看</small></p><p>Jake Archibald 在 JPEG XL 已登陆所有主流浏览器后，撰写了这篇针对网页使用场景的 JPEG XL 与 AVIF 全面对比评测。他使用多种编码器（avifenc、libjxl、jixel、cwebp）对 F1 赛车、人物肖像、截图、插画等多类图像进行基准测试，并以 SSIMULACRA2 和 ColorVideoVDP 两种感知质量指标衡量结果。</p>
-
-<h3>主要结论</h3>
-<ul>
-<li><strong>有损照片：AVIF 几乎总是胜出。</strong>默认参数下最好的 JPEG XL 版本通常比等效 AVIF 大 15–25%；最大化参数下差距缩小至 6–20%。但存在 JPEG XL 接近甚至反超 AVIF 的离群案例，追求最佳效果时值得两者都试。</li>
-<li><strong>编码器差异巨大。</strong>较新的 JPEG XL 编码器 jixel 通常比 libjxl 生成的文件更小（除非图像有精细的透明区域）。</li>
-<li><strong>截图和插画：AVIF 明显更优。</strong>等效 JPEG XL 在默认参数下大 30–90%，最大化参数下大 20–70%。</li>
-<li><strong>透明图像：AVIF 远胜 JPEG XL。</strong>libjxl 版本默认参数大 31–44%，最大化参数大 61–70%；jixel 始终无损编码透明通道，文件大小达 AVIF 的 2–3 倍。</li>
-<li><strong>编码与解码性能：</strong>计及文件大小时，AVIF 编码更快、内存占用更少、解码也更快——JPEG XL 中高品质解码通常耗时 2–3 倍，只在极高质量时差距缩小。</li>
-<li><strong>更高 effort 值得用于 AVIF 和 jixel，但对 libjxl 无益</strong>（更慢、更耗内存、提升甚微甚至产生更大文件）。</li>
-<li><strong>AVIF 的 4:2:0（半色度分辨率）模式不宜作默认选择</strong>，它很少减小文件却更难达到高质量。建议默认使用 4:4:4。</li>
-<li><strong>渐进式渲染：</strong>jixel 在高 effort 下渐进式 JPEG XL 基本「免费」；Firefox 和 Chrome 支持，Safari 不支持。AVIF 也支持渐进式渲染，目前仅 Chrome，但给预览更多控制、文件通常更小、解码更快。</li>
-<li><strong>HDR：JPEG XL 缺乏 gain map（增益图）</strong>，浏览器解码器不支持，与 AVIF 相比是显著局限。</li>
-<li><strong>JPEG 转码：</strong>JPEG XL 可让现有 JPEG 无损再压缩 9–20%，解码同样快或更快（小图除外）。</li>
-<li><strong>无损：JPEG XL 明显胜出。</strong>无损 WebP 对照片大 9–17%，无损 AVIF 大 30–120%。但无损图像在网页上几乎从不必要。</li>
-</ul>
-
-<p>作者给出的最终建议是：目前网页默认用 <strong>AVIF 4:4:4</strong>，加上尽可能高的 effort 等级；若觉得 AVIF 文件异常偏大，再用 jixel 尝试 JPEG XL 对比。他强调两种格式及其编码器近期都有巨大改进，推荐可能随时间变化，并提醒这类话题存在大量错误信息，最好用自己的图片实测。</p>
-
-<h3>社区讨论要点</h3>
-<p>评论区围绕技术细节展开：有观点认为 AVIF 基于容器（container）架构，未来推出 AV2、AV3 时无需重走艰难的网站采用阶段；但 pornel 反驳称容器用处不大，因为解码新编码仍需浏览器具备相应编解码器，且 ISO-BMFF 容器本身臃肿复杂。作者回应称 JPEG XL 的声明「历来夸张」，并澄清互联网浏览器（IE）从未支持 AVIF。另有读者讨论动画 AVIF 的帧类型（并不限于关键帧），以及 JXL 对既有 JPEG 的无损转码这一实用特性（类似 Dropbox 的 Lepton 方案，但更快更好）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50120224</guid>
-      <pubDate>Fri, 16 Oct 2026 16:12:02 GMT</pubDate>
     </item>
   </channel>
 </rss>
