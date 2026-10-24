@@ -3,7 +3,56 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 23 Oct 2026 22:04:13 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2026 00:37:32 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.310 发布：新增 Monitor 工具拦截长前台睡眠，多项稳定性与云端会话改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.310</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.310，带来了若干新特性、稳定性修复以及面向云端会话（Cloud sessions）、Claude Tag 和代码审查（Code Review）的改进。</p>
+
+<p><strong>主要变更</strong></p>
+<ul>
+<li>新增 <strong>Monitor 工具</strong>及插件监控，现已支持 Bedrock、Vertex 和 Foundry，并在关闭遥测或非必要流量时同样生效；这些场景下长前台睡眠现也被阻止。</li>
+<li>修复了部分网关与兼容服务器因拒绝 <code>effort-2025-11-24</code> beta 值或会话中系统消息而导致的请求失败问题，Claude Code 现在会移除这些内容后重试。</li>
+<li>改进了自动模式（auto mode）在工作目录外首次读取前的提示，明确说明阻止这类读取会使 shell 命令请求权限。</li>
+<li>压缩（compaction）得到改进：在「Prompt is too long」错误后，不再于含密集文本（如 base64、SVG）的对话中保留过多内容，避免下一条请求再次失败。</li>
+<li>提升了非交互式会话（<code>-p</code>、Agent SDK）在转录文件很大时进行压缩的内存使用效率。</li>
+<li>修复了后台清理在 <code>cleanupPeriodDays</code> 设为极大值时误删近期文件（如粘贴的图片）的问题。</li>
+<li>修复了符号链接指向处的文件读取权限提示不显示的问题。</li>
+<li>修复了外部编辑器长时间编辑关闭后，某个问题的自动继续超时立即触发的问题。</li>
+<li>改进了 mod 的 <code>Image</code> 在 tmux（开启 <code>allow-passthrough</code> 和 <code>focus-events</code>）、kitty、Ghostty 及 iTerm2 3.5+ 全屏渲染下的绘制，此前这些环境只显示其 <code>alt</code> 文本。</li>
+<li>非交互式会话中 MCP 工具调用超时且服务器征询未回应时，错误提示现会告知 Claude 未收到回答，不要重复调用。</li>
+</ul>
+
+<p><strong>VSCode 扩展</strong></p>
+<ul>
+<li>修复了在计划审查卡片上按「Send feedback and keep planning」按钮的 Enter 键会批准计划而非发送评论的问题。</li>
+<li>修复了从会话历史的 Web 标签页打开云会话执行「Switch branch &amp; continue」后，面板显示「Something went wrong」的问题。</li>
+</ul>
+
+<p><strong>云端会话（Cloud sessions）</strong></p>
+<ul>
+<li>为 Enterprise 自定义角色新增了 Claude Code 云端会话与 Remote Control 权限，Owner 可按角色控制访问。</li>
+<li>新增「Choose file」按钮，可从文件加载云环境的设置脚本。</li>
+<li>修复了云环境编辑对话框中保存和归档失败时对话框内不显示错误的问题。</li>
+<li>修复了例行（routine）API 令牌操作失败仅显示 toast 的问题，错误现会显示在例行编辑对话框中。</li>
+<li>改进了会话开始检查清单，将云环境设置脚本输出显示在可滚动框中。</li>
+<li>管理设置中开启云端会话或 Remote Control 现会要求确认，并列出拥有该权限的自定义角色。</li>
+<li>云环境对话框改为从行中打开网络访问、设置脚本和环境变量，不再一次性列出所有编辑器。</li>
+</ul>
+
+<p><strong>Claude Tag 与代码审查</strong></p>
+<ul>
+<li>修复了 Claude Tag 将以粗体、斜体或删除线格式发送的 <code>!</code> 命令（如 <code>!restart</code>、<code>!help</code>）当作普通消息的问题。</li>
+<li>修复了 Claude Tag 管理频道和工作区页面在后台刷新包列表失败时被加载错误替换的问题；支出限制页面在频道名称仍加载时误报「无频道匹配过滤器」的问题。</li>
+<li>修复了代码审查管理区在仓库列表刷新失败后隐藏仓库和开关的问题；改进为首次加载失败自动重试，若仍失败则显示一个「Try again」横幅。</li>
+</ul>
+
+<p>此外还修复了 Linux 下沙盒启动警告以指出 Ubuntu 对用户命名空间的 AppArmor 限制及解除方法。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.310</guid>
+      <pubDate>Fri, 23 Oct 2026 23:39:00 GMT</pubDate>
+    </item>
     <item>
       <title>Codex v0.164.0：新增快捷指令预设、内联模型参数与图像预览</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.164.0</link>
@@ -1587,66 +1636,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.157.1</guid>
       <pubDate>Sat, 26 Sep 2026 01:02:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.283 发布：新增模型管理设置、MCP 工具改进及大量修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.283</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.283 版本，带来多项新功能与大量修复。</p>
-
-<h3>新功能与核心改动</h3>
-<ul>
-<li><strong>模型管理设置</strong>：新增 <code>availableModelsMatch</code> 托管设置，设为 <code>"exact"</code> 时仅允许指定模型版本；新增 <code>deniedModels</code> 设置可屏蔽特定模型。</li>
-<li><strong>提示审计命令</strong>：新增 <code>/doctor prompt-audit</code>（别名 <code>/checkup prompt-audit</code>），用于审计 CLAUDE.md 文件、技能、代理和命令中针对旧模型编写的提示模式。</li>
-<li><strong>网关提示头</strong>：新增 <code>x-claude-code-prompt-id</code> 请求头，便于 LLM 网关对同一用户提示的请求分组，通过 <code>CLAUDE_CODE_GATEWAY_HINT_HEADERS=1</code> 启用。</li>
-<li><strong>负载测试支持</strong>：网关配置新增可选的 <code>load_test_mode</code> 块，请求被构建和签名但不发送上游，客户端收到预设回复。</li>
-<li><strong>新增 Mantle 上游提供商</strong>：为 Amazon Bedrock 的 Mantle 端点添加支持。</li>
-<li><strong>MCP 工具改进</strong>：<code>/mcp</code> 工具列表显示更多工具、支持翻页键和鼠标滚动，被组织屏蔽的工具显示警告图标；MCP 工具返回的图片现在也会保存到文件，便于 Bash、Read 等工具打开。</li>
-<li><strong>/tasks 界面改进</strong>：行显示状态图标、名称和完整事实，标题和关键提示在任务多时保持可见，支持翻页键、鼠标滚轮和点击。</li>
-<li><strong>启动性能优化</strong>：<code>claude -p</code> 和 Claude Code Remote 不再加载交互式 UI；自动模式分类器规则和 Artifact 工具改为首次使用时加载。</li>
-<li><strong>首回复延迟改进</strong>：模式编译步骤改为在回复流式传输时运行，并复用预连接的 API 连接。</li>
-</ul>
-
-<h3>其他修复与调整</h3>
-<ul>
-<li>修复 SDK 会话在回合提前结束时丢失延迟工具调用或结果、worker 重启后审批提示被挂起等问题。</li>
-<li>修复 MCP 进度通知在长时间工具调用转入后台后被丢弃的问题。</li>
-<li>修复 stdio MCP 服务器在会话结束时仍在启动却被遗留运行的问题。</li>
-<li>修复无状态远程 MCP 服务器短暂 404 后整个会话不可用但仍显示已连接的问题。</li>
-<li>修复 <code>/model</code> 选择器在 <code>ANTHROPIC_DEFAULT_HAIKU_MODEL</code> 固定不同模型时显示硬编码 Haiku 版本和价格的问题。</li>
-<li>修复 <code>DISABLE_PROMPT_CACHING_HAIKU</code> 在 Haiku 为主模型时无效的问题。</li>
-<li>多项 <code>claude plugin</code> 相关修复：验证、详情显示、卸载、marketplace 移除等。</li>
-<li>修复 vim 模式中 <code>.</code> 丢失 Shift+Enter 换行、<code>J</code> 合并行间距与 Vim 不一致、光标位置错误等问题。</li>
-<li>修复 <code>/context</code> 不统计 MCP 服务器指令的问题。</li>
-<li>修复 Warp 终端中 markdown 链接渲染为纯文本的问题。</li>
-<li>修复 <code>keybindings.json</code> 静默接受拼写错误的修饰键（如 <code>ctl+k</code>）的问题。</li>
-<li>修复快速连续按键（type-ahead、按键重复、ssh/tmux 突发输入）偶尔基于过期状态处理的问题。</li>
-<li>修复沙箱化 <code>git</code> 要求凭据助手存储沙箱代理登录信息的问题。</li>
-<li>修复 Claude Code 在 git 仓库子目录启动时，其自动记忆笔记编辑被当作敏感文件写入而阻止的问题。</li>
-<li>修复关闭遥测后付费计划上 Remote Control 不可用的问题。</li>
-<li>修复 <code>installed_plugins.json</code> 在包含无效插件 ID 记录时显示无插件、以及被重写丢失记录的问题。</li>
-<li>修复压缩（compaction）旋转指示器：计时器在压缩开始时启动并流式计数摘要 token，取代百分比条。</li>
-<li>第三方提供商或关闭遥测的交互式会话在未配置权限模式时默认以自动模式启动。</li>
-<li>回滚 2.1.282 对 <code>claude-ai</code> 名称的保留，相关技能、命令、工作流和 MCP 服务器再次正常加载。</li>
-<li>Windows：修复 PowerShell 工具允许 <code>cmd /c rd</code>、<code>rmdir</code>、<code>del</code> 或 <code>erase</code> 删除驱动器根目录、主文件夹等 <code>Remove-Item</code> 拒绝删除的目录。</li>
-</ul>
-
-<h3>VS Code 扩展</h3>
-<ul>
-<li>修复权限模式指示器在自动切换失败后仍显示 Default 的问题。</li>
-<li>修复从 Web 传送的会话丢失 Claude 工作期间发送的消息。</li>
-<li>修复重新打开的会话在 Claude 中途收到的消息处拆分回合、显示已回退的回合或压缩前的行等问题。</li>
-</ul>
-
-<h3>云会话与 Claude Tag</h3>
-<ul>
-<li>云会话：改进向运行中会话添加仓库（可读但不可推送的私有仓库现在可附加为只读）；修复服务器重启恢复后偶尔重做已完成步骤的问题。</li>
-<li>Claude Tag：新增"Channels Claude can search"管理设置，限制 Claude 的 Slack 搜索范围；新增 Back to Slack 按钮；修复重复回复、旧私有频道例程停止运行等问题。</li>
-<li>Code Review：修复 GitHub 未返回 PR 时 <code>@claude review</code> 请求静默失败的问题（重试一次并附说明）；修复超时且未验证内容的审查计费问题（显示为未完成、不收费并重试一次）。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.283</guid>
-      <pubDate>Fri, 25 Sep 2026 21:50:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
