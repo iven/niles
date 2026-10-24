@@ -3,7 +3,33 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 24 Oct 2026 10:51:40 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2026 14:28:40 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.4 内核早期物理内存分配器提速：约268秒缩短至约50毫秒</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-memblock</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Linux内核底层启动内存分配器优化，属于低层基础设施改进，虽有益但主题不在用户明确兴趣范围，兴趣不明确</small></p><p>Linux 7.4 内核今日提交了一批 memblock 改进，其中最引人注目的是 mm/memblock.c 中的一项性能优化。memblock 是内核在完整页分配器启动之前，用于早期启动阶段物理内存分配的机制。</p>
+
+<p>该优化由 Google 工程师 Tarun Sahu 提出。他发现 mm/memblock.c 在 memblock_add_range() 和 memblock_isolate_range() 函数中查找候选区域时使用的是线性搜索，而非二分搜索（binary search）。在内存高度碎片化的情况下——例如使用内核交接（Kernel Handover, KHO）功能（该功能又被 Live Update Orchestrator 等使用）时伴随着大量不连续的 folio——线性搜索的扫描过程会耗费极长的时间。</p>
+
+<p>补丁说明指出，改用二分搜索可将最坏情况复杂度降至 O(N log N)（顺序追加时为 O(N)），从而将 KHO 内存检索时间从约 268 秒骤降至约 50 毫秒。这一惊人的性能飞跃也让不少人好奇为何线性搜索能在内核代码中保留如此之久——不过这也侧面说明它影响的仅仅是早期启动阶段的内存分配器。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=linux_74_memblock" alt="Linux 7.4 memblock benchmark improvement" />
+
+<p>该优化已于今日作为 Linux 7.4 内核的 memblock 拉取请求（pull request）的一部分提交。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-memblock</guid>
+      <pubDate>Sat, 24 Oct 2026 13:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.4 合并窗口吸收 539 个内存管理补丁，涵盖优化与更多 DAMON 改进</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-MM</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲述内核内存管理补丁合并公告，属内核开发技术细节，未明确命中用户高兴趣或感兴趣主题，兴趣不明确</small></p><p>Andrew Morton 为 Linux 7.4 合并窗口提交了大规模的内存管理（MM）相关补丁。本周期共包含 539 个补丁，其中 76% 经过了评审。与大多数周期一样，这些 MM 补丁涵盖范围广泛，包括性能优化、folio 转换，以及围绕数据访问监控（DAMON）的持续工作。</p><p>DAMON 在每个内核周期都持续获得大量开发投入。本次变更包括支持对 HugeTLB 后端内存的访问监控，以及新增一种用于折叠大页的自动调优机制。读取 <code>/proc/PID/smaps_rollup</code> 现在在可行情况下使用 per-VMA 锁，"大幅"降低当另一线程正忙于更改其映射时的延迟。</p><p>本轮 MM 优化还包括加速 zone-device 结构页的初始化，通过避免冗余工作来提升效率。Multi-Gen LRU（MGLRU）代码也进行了性能改进。Linux 交换（swap）代码获得了一些修复和代码清理。内核中继续推进向 folio 的转换，在 swap I/O 及其他元素中也进行了部分 page 到 folio 的转换。</p><p>有关 Linux 7.4 中众多 MM 变更的更多细节，可通过已合并至 Linux Git 的拉取请求（pull request）查看。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-MM</guid>
+      <pubDate>Sat, 24 Oct 2026 11:05:56 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ systemd 合并对 Rust 程序的支持</title>
       <link>https://www.phoronix.com/news/systemd-Merges-Rust-Programs</link>
@@ -672,40 +698,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/ReactOS-NTFS-Driver</guid>
       <pubDate>Sat, 17 Oct 2026 22:01:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 修复自 2024 年以来影响 SMP 系统的罕见启动挂起问题</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-KThreads-NBCON</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 属于Linux内核SMP启动挂起的修复，偏底层基础设施类，用户兴趣不高但非反感主题，故可选</small></p><p>在 Linux 7.3 稳定版内核预计于明日发布之前，一批最后一刻的补丁活动中包含了一项针对启动时罕见挂起问题的修复。该问题影响自 2024 年以来的多个内核版本。</p>
-
-<p>多个针对常见 SMP（对称多处理）系统启动挂起的 bug 报告最终被追溯到非阻塞控制台（NBCON）代码。为避免这些启动挂起，将 NBCON 控制台打印 KThreads 的启动推迟到引导过程后期，可避免这些潜在的系统挂起。</p>
-
-<p>Linutronix 工程师 John Ogness 在已合并的修复中解释了推迟 KThread 启动的原因：<em>"有多个与 SMP 系统启动挂起相关的 bug 报告。报告各不相同，但在 SMP 设置期间错过 IPI（处理器间中断）方面似乎存在重叠。报告还表明，回退 NBCON 控制台使用可使 bug 消失。NBCON 用于控制台打印的 kthreads 在引导早期通过 early_initcall() 启动。由于这些 kthreads 在早期引导期间异步启用/禁用中断，它们可能在某些硬件平台上干扰早期的 SMP 设置。将控制台打印 kthreads 的启动推迟到更晚时间，已被证明可以避免此前可复现该问题的系统出现挂起。将 kthread 启动推迟到所有架构 initcalls 完成之后。"</em></p>
-
-<p>该修复针对的是自 2024 年 9 月起引入的内核代码，当时打印 KThreads 首次被引入 printk() 代码中。预计该修复将在未来几天内从 Linux 7.3 反向移植到其他当前受支持的内核分支。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-KThreads-NBCON</guid>
-      <pubDate>Sat, 17 Oct 2026 10:54:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME 的本地/云端 AI 聊天应用 Moose 0.6 发布，新增多项功能</title>
-      <link>https://www.phoronix.com/news/GNOME-Moose-0.6-AI</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GNOME本地/云端AI聊天应用新增功能，属AI软件技术进展与软件新功能，用户会感兴趣</small></p><p>GNOME 生态的 AI 聊天应用 <strong>Moose</strong> 迎来了最新功能版本 0.6 与后续修复版本 0.6.1。这款应用基于 GTK4 和 libadwaita 构建，最初为 GNOME 桌面设计的本地 AI 聊天工具，现已扩展支持云端 AI 服务。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=moose_06_1" alt="Moose 0.6" />
-
-<p>Moose 0.6 的主要新特性包括：为使用云端 AI 平台的用户提供安全的云端连接与受保护的凭据存储；新增<strong>仅本地模式（Local-Only）</strong>，可通过 Moose 自行管理 Ollama 在本地设备上运行；权限处理现在可按对话单独设置，或跨同一提供商的对话记忆保留。</p>
-
-<p>此外，更新后的应用新增了 GNOME 文件浏览器，便于用户浏览系统文件并将其附加到 AI 对话中。本地模型目录也得到扩充，涵盖聊天、视觉、推理及编码等不同用途。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=moose_06_2" alt="Moose 0.6 设置界面" />
-
-<p>随后的 Moose 0.6.1 还加入了连接到 Mistral AI 和 DeepSeek 的支持。用户可通过 GitHub 下载 Moose，也可以在 Flathub 上获取其 Flatpak 版本。更多关于新版本及其他 GNOME 应用更新的详情，可参考 <a href="https://www.phoronix.com/news/GNOME-Moose-0.6-AI">This Week in GNOME</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Moose-0.6-AI</guid>
-      <pubDate>Sat, 17 Oct 2026 10:39:25 GMT</pubDate>
     </item>
   </channel>
 </rss>
