@@ -3,7 +3,30 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 24 Oct 2026 05:46:22 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2026 10:51:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ systemd 合并对 Rust 程序的支持</title>
+      <link>https://www.phoronix.com/news/systemd-Merges-Rust-Programs</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] systemd合并Rust程序支持，涉及编程工具/新技术进展和Linux桌面技术，用户对Rust和编程效率感兴趣</small></p><p>systemd 开发团队近日在 systemd Git 中合并了对 Rust 编程语言的支持，允许 systemd 程序用 Rust 编写，作为 C 语言的替代方案。<img src="//www.phoronix.net/image.php?id=2026&image=systemd_rust_programs" alt="systemd Rust support merged" /></p>
+<p>需要注意的是，核心 systemd 代码（例如 systemd 库）尚不支持 Rust 代码，目前的支持仅限于各类 systemd 程序和叶子组件，且采用无 Cargo 的方式构建。要在核心代码中使用 Rust，仍需先解决若干阻碍问题。</p>
+<p>这项 Rust 支持始于一个新组件 systemd-keyring-setup，该组件用 Rust 编写，用于在启动过程中对内核的 dm-verity / fs-verity / BPF keyring 进行密钥环配置，并登记 X.509 证书，之后处理相关事务。虽然该组件尚未合并，但预计在此次 Rust 基础设施落地后很快会纳入。最初这一切都包含在一个大型提交中，后来被拆分为 Rust 启用、systemd-keyring-setup 以及其他准备工作。</p>
+<p>systemd 开发人员并不打算将现有 C 代码移植到 Rust；所有 Rust 代码均通过 Meson 构建、不使用 Cargo，并且只强制使用 C 链接。Rust 组件体积略大于 C，例如一个测试程序用 Rust 编译为 32KB，而其 C 对应版本为 20KB。目前 systemd 的 Rust 支持是可选的，可通过 Meson 的 <code>-Drust=</code> 选项开关，默认状态为自动（auto）。</p>
+<p>有关 systemd 中 Rust 程序支持的更多细节，可参见已合并的 <a href="https://www.phoronix.com/news/systemd-Merges-Rust-Programs">pull request</a>，该改动将进入未来的 systemd 263 版本。</p>
+<p>社区已有两条评论，但对具体反馈内容未作详细描述。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/systemd-Merges-Rust-Programs</guid>
+      <pubDate>Sat, 24 Oct 2026 10:20:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Wild 0.11 链接器发布：默认支持 WASM，可链接 Linux 内核模块</title>
+      <link>https://www.phoronix.com/news/Wild-0.11-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Wild链接器新版本发布，属于新软件项目/编程工具发布，用户对编程工具和开源项目感兴趣</small></p><p>Wild 0.11 正式发布，这是这款主打 Linux 平台、聚焦迭代开发的极速链接器的最新功能版本。</p><p>Wild 0.11 的几项重大变化中，最引人注目的是现在<b>默认支持链接 WebAssembly（WASM）</b>。此外，对 GNU 链接器脚本（linker scripts）的支持也得到扩展，已经足以开始链接 Linux 内核模块，并且已接近能够链接 Linux 内核本身。</p><p>虽然 Linux 仍是 Wild 链接器的首要目标，但它的 macOS 移植版本也在持续取得进展，不过目前尚未默认启用。</p><img src="//www.phoronix.net/image.php?id=2026&image=wild_011" alt="Wild 0.11" /><p>Wild 0.11 版本还继续带来了更多性能修复及其他增强。完整的改进列表及下载可通过 <a href="https://github.com">GitHub</a> 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Wild-0.11-Released</guid>
+      <pubDate>Sat, 24 Oct 2026 10:12:15 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ KDE Plasma 6.9 将 KWin 的 Wayland 画中画支持设为稳定并默认启用</title>
       <link>https://www.phoronix.com/news/KDE-Plasma-6.9-Wayland-PiP</link>
@@ -683,38 +706,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Moose-0.6-AI</guid>
       <pubDate>Sat, 17 Oct 2026 10:39:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.3 内核发布前紧急修复三星 990 PRO 与 990 EVO Plus 固态硬盘问题</title>
-      <link>https://www.phoronix.com/news/Linux-7.3-Samsung-990-Immediate</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及三星特定型号SSD的内核兼容修复，属硬件相关且较细分，兴趣不明确，故可选</small></p><p>在 Linux 7.3 稳定版内核（预计明日发布）之前，开发者通过 PCI 修复分支紧急合并了对三星 990 PRO 和 990 EVO Plus NVMe 固态硬盘的规避方案。</p>
-
-<p>该修复让 Linux 内核忽略三星 990 PRO 和 990 EVO Plus 固态硬盘对「即时就绪」（Immediate Readiness）功能的宣传。PCIe 4.0 引入了这项比特位指示，用于表明设备在复位后可立即处理配置请求，从而缩短操作系统在重启后与固态硬盘交互的时间。</p>
-
-<p>尽管「即时就绪」是一个不错的特性，但事实证明，三星 990 PRO 和 990 EVO Plus 的部分固件版本在并未真正支持该功能的情况下进行了宣传，这不仅给 Linux 带来了麻烦，还破坏了这些硬盘的 VFIO 直通（passthrough）能力。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=samsung_990_pro_med" alt="Samsung 990 PRO" />
-
-<p>本次合并进 Linux 7.3 Git 的修复说明指出：「三星 990 PRO [144d:a80c] 宣传支持即时就绪，因此 pcie_flr() 在 FLR 后不再等待，但该硬盘会返回 ~0 长达 7 毫秒。自提交 10baa9b4df40（"PCI: Drop unnecessary retries when restoring BARs"）之后，FLR 后的配置恢复丢失，从而破坏了硬盘的 VFIO 直通。固件 8B2QJXD7 在 FLR 后能立即响应，但较旧的固件（如 1B2QJXD7）不能，而此处无法看到固件版本。[/bhelgaas 注：配备 2B2QKXG7 固件的三星 990 EVO Plus [144d:a80d] 似乎也存在相同问题。]」</p>
-
-<p>凭借连夜完成的这次 PCI 合并，该问题在 Linux 7.3 稳定版发布前得以解决。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.3-Samsung-990-Immediate</guid>
-      <pubDate>Sat, 17 Oct 2026 10:15:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ KDE Plasma 6.9 将推出全新天气小组件与屏幕键盘</title>
-      <link>https://www.phoronix.com/news/KDE-Plasma-6.9-Weather-Keyboard</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] KDE Plasma 6.9新增天气组件与屏幕键盘，KDE属高兴趣配置，推荐阅读</small></p><p>KDE Plasma 6.8 已于本周早些时候发布，KDE 开发者随即开始着手为 Plasma 6.9 增加更多功能。本周的新亮点之一是经过全面改造的天气小组件。新版 Plasma 天气小组件采用了改进的布局，并通过 Open-Meteo 提供更丰富的天气预报信息，整体设计相较旧版天气小组件有了明显提升。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=plasma_69_weather" alt="Plasma 6.9's new weather widget" />
-<p>Plasma 6.9 的另一项重大内容是重新设计的屏幕键盘。新的 Plasma 屏幕键盘支持全尺寸键盘、日文片假名（flick）键盘，并提供不受系统区域设置限制的多种独立布局。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=plasma_69_keyboard" alt="Plasma 6.9's new on-screen keyboard" />
-<p>此外，Plasma 6.9 还包含大量错误修复和其他改进，同时团队也在为 Plasma 6.8.1 缺陷修复版本做准备。更多详情可参阅本周的「This Week in Plasma」栏目。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.9-Weather-Keyboard</guid>
-      <pubDate>Sat, 17 Oct 2026 10:01:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
