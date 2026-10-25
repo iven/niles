@@ -3,7 +3,42 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 25 Oct 2026 11:17:45 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 25 Oct 2026 16:07:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Cerebras 详解如何在晶圆级芯片上部署万亿参数级 AI 模型</title>
+      <link>https://news.ycombinator.com/item?id=50227356</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI模型部署与芯片技术，同时涵盖AI软件技术进展（interest）和芯片技术（uninterested），综合判断为推荐阅读</small></p><p>Cerebras 近日发布技术博客，详细解释了如何将参数规模高达万亿级的前沿大模型部署在其晶圆级芯片（WSE-3T）上，并以开源模型 Kimi K3（约 3 万亿参数）为例进行拆解。</p>
+
+<p><strong>核心挑战</strong>：单块 WSE-3T 晶圆只有 44GB 的片上存储，而万亿参数模型的权重本身就需要数 TB 空间。Cerebras 的思路是把模型切分并跨多块晶圆部署，以流水线方式运行，从而实现每秒 1000–2000+ token 的推理速度。</p>
+
+<p><strong>部署要点</strong>：
+<ul>
+<li><strong>逐层计算</strong>：Kimi K3 拥有 69 个线性注意力层（linear-attention layers）和 24 个稠密层（dense layers），共 93 层。按 4-bit 权重量化，每层约占 16GB。</li>
+<li><strong>晶圆分配</strong>：稠密层需要额外空间存放键值缓存（KV cache），因此每块晶放一层稠密层；线性注意力层只需每请求维护固定大小状态，每块晶圆可放两层。合计需要 59 块晶圆（35 + 24）。</li>
+<li><strong>晶圆互联</strong>：各晶圆通过以太网上的 RDMA 相连，每个跳步约 2 微秒。由于每层仅 16GB、可整层放在晶圆上，权重通常无需移动，只有激活值（activations）在晶圆间流动。</li>
+<li><strong>并发处理</strong>：模型被切成流水线各阶段后，每块晶圆可同时处理不同请求（微批次），而非串行等待，从而避免"批大小为 1"的低效局面。</li>
+<li><strong>请求上限</strong>：并发请求上限由分配给稠密层 KV cache 的片上内存决定。</li>
+</ul></p>
+
+<p>作者强调，评估推理效率时更有意义的指标是单位功耗下的总 token 吞吐（如每秒每兆瓦的 token 数），而非单纯的并发数或批大小。这一方案也能进一步扩展到超过 3T 参数的更大模型。</p>
+
+<p><strong>社区反馈</strong>：Hacker News 评论区对部署方案的讨论颇为热烈。有用户关注 59 块晶圆流水线的故障域问题——模型整体作为一"机架"运行，一块晶圆故障可能拖垮整个系统，也不便于滚动升级；有用户据此估算了功耗成本（约 1.18MW，约 4.1 焦耳/token）；还有用户探讨了 Cerebras 芯片的 2D 核心网格布局与流水线并行原理，并引用相关视频作为参考。此外，讨论也延伸至超高速推理对"超级智能"形态的潜在影响。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50227356</guid>
+      <pubDate>Sun, 25 Oct 2026 01:33:49 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ SpeedCrunch 1.1 发布：开源高精度科学计算器时隔十年迎来更新</title>
+      <link>https://news.ycombinator.com/item?id=50224210</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源软件新版本发布，属于开源项目和软件新功能（均interest），虽有十年间隔但主要讲软件更新，推荐阅读</small></p><p>SpeedCrunch 1.1 正式发布。这是一款免费、开源的<a href="https://www.speedcrunch.org/" rel="nofollow">高精度科学计算器</a>，支持 Windows、macOS 和 Linux 平台，面向 STEM 专业人士、学生和教师设计。新版提供最高 50 位有效数字精度、复数计算支持、140+ 函数以及大量单位和常量；支持用户自定义变量、函数和单位，提供向量与矩阵支持、历史重写及每项结果设置、键盘预设与可自定义布局、多会话标签页/分栏/窗口模式、超过 40 种语言翻译以及 40 多种配色方案。</p>
+<p>本次 1.0 与 1.1 版本是该项目时隔约十年的首次更新。据评论区指出，新版本（可能也包括更早的版本）修复了一个长期未发布的小型运算优先级（order of operations）缺陷：例如 <code>1/2(-9.8)</code> 现在正确等于 -4.9，而非之前的 -0.05102040816326530612，且表达式会以乘法符号（1 / 2 × (−9.8)）清晰渲染以明确含义。不过也有用户认为此类表达式本身就存在歧义，甚至应被视为错误。</p>
+<p>社区反馈整体积极。多位用户表示多年来一直将 SpeedCrunch 固定在任务栏作为日常数学草稿本使用（<a href="https://news.ycombinator.com/item?id=29661485">此前相关讨论见 2021 年 12 月议题</a>）。有用户指出位操作与进制换算功能非常实用。但也有用户对 UI 改动持保留态度（如输入框尺寸和输入延迟问题），甚至选择回退到旧版本；另有人提到项目在响应 GitHub issue 时使用了疑似 AI 辅助的回复，还有人分享了用 AI 生成科学计算器的经验，不过有评论强调科学计算器其实很难做对，SpeedCrunch 自身就修复了多处计算错误。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50224210</guid>
+      <pubDate>Sat, 24 Oct 2026 19:19:43 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 研究揭示：为何AI生成的文本如此难以理解</title>
       <link>https://news.ycombinator.com/item?id=50223647</link>
@@ -985,58 +1020,6 @@ Anchor Positioning API 的 Level 2 版本，新增了一种容器查询类型，
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50138531</guid>
       <pubDate>Sun, 18 Oct 2026 06:50:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 爱沙尼亚在线投票系统（IVXV）源代码公开供审查</title>
-      <link>https://news.ycombinator.com/item?id=50127586</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 爱沙尼亚在线投票系统IVXV为开源项目，源代码公开供审查，符合用户对开源项目的兴趣，推荐阅读。</small></p><p>爱沙尼亚在线投票系统（IVXV）的源代码已在 GitHub 上公开发布，供公众审查。据仓库说明，该仓库并非用于活跃开发，但会持续更新，使其始终与选举实际使用的代码保持一致。由于具有法律约束力的选举投票系统必须严格遵守立法，爱沙尼亚 I-voting 投票系统及 I-vote 验证应用程序的实际开发由爱沙尼亚国家选举办公室（State Electoral Office of Estonia）监督，更多信息可参阅 <a href="https://www.valimised.ee">www.valimised.ee</a>。</p>
-
-<p>该项目在 Hacker News 上引发了热烈讨论（209 分、185 条评论），核心话题是电子投票的安全性与信任问题。有用户注意到仓库近一年没有更新，但也有人指出 README 已明确说明这是一个供审查的镜像仓库而非开发仓库。</p>
-
-<p>讨论中出现多种观点：部分评论者认为，无论软件或硬件结合，都无法仅凭技术手段确保选举安全，建议采用纸质选票加人工抽查审计（风险限制审计）的方式；另有评论者主张可通过密码学解决可验证问题，如用身份证私钥签名投票、发布哈希等。也有爱沙尼亚本地用户指出，电子投票在该国已自 2001 年起使用、2007 年起大规模应用于议会选举，开源早已为 IT 社区所知并广受认可。还有人引用《爱沙尼亚电子投票》维基词条，指出该系统在国际上仍存在不少质疑，并援引 <a href="https://electionguard.vote/">ElectionGuard</a> 等已在真实选举中应用的系统作为参考。</p>
-
-<p>讨论中还有用户表达了对政府信任依赖的担忧，认为一旦信任瓦解，纸质与电子计票的实际区别可能不大；但也有观点强调，纸质选票的可审计性与去中心化特性使其更容易在舞弊后恢复安全。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50127586</guid>
-      <pubDate>Sat, 17 Oct 2026 03:18:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Pele：将 Mermaid 图表渲染为可主题化 SVG 的轻量级开源库</title>
-      <link>https://news.ycombinator.com/item?id=50132193</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源编程工具发布，属于用户很感兴趣的编程工具发布/分享类别，推荐阅读</small></p><p>Pele 是一个轻量级开源库，可将 <a href="https://mermaid.js.org/">Mermaid</a> 语法渲染为 SVG 图表，并通过 CSS 变量进行主题化设置。该项目由 Obsidian 团队开发，源码托管在 <a href="https://github.com/obsidianmd/pele">GitHub</a> 上。</p>
-
-<img src="/pele-home.svg" alt="Pele 首页示例图" width="449" height="336" />
-
-<p>Pele 的核心特性包括：</p>
-<ul>
-<li><strong>极小的体积</strong>：gzip 后仅约 230 kB，而 Mermaid.js 高达 1.6 MB</li>
-<li><strong>极快的渲染速度</strong>：渲染时间仅 0.05–0.3 毫秒，远快于 Mermaid.js 的 6–82 毫秒</li>
-<li><strong>零直接依赖</strong>：无需任何第三方依赖</li>
-<li><strong>CSS 变量主题化</strong>：通过 CSS 变量设置颜色和字体，颜色变更无需重新渲染</li>
-<li><strong>自适应小屏幕</strong>：可自适应布局而非简单缩放图表</li>
-</ul>
-
-<p>使用方式非常简洁，通过 <code>render()</code> 函数传入 Mermaid 语法，即可获得 SVG 字符串并插入页面：</p>
-
-<pre><code>import { render } from 'pele';
-const { svg } = render(`flowchart LR
-A[Mermaid text] --> B[SVG]`);
-document.querySelector('#diagram').innerHTML = svg;</code></pre>
-
-<h3>社区反馈</h3>
-<p>在 Hacker News 上，该项目的讨论获得了 296 分和 27 条评论。开发者 <strong>kepano</strong>（Obsidian 联合创始人）回应了关于布局质量的质疑，表示 Pele 只遵循 Mermaid 的语法而非其布局算法，并在 <a href="https://pele.run/examples">示例页面</a> 和 <a href="https://pele.run/playground">Playground</a> 中提供了对比模式。</p>
-
-<p>多位用户对 Pele 的布局质量表示赞赏，特别是子图（subgraph）能保持自身方向性的特性。有用户指出，Pele 无需浏览器环境即可渲染 SVG，这对在 CI/CD 或文档生成流程中嵌入图表非常有价值。也有用户提到，这类工具与 AI 结合效果极佳——AI 可以直接编辑和绘制图表并保存到单个 Markdown 文件中，便于版本控制。</p>
-
-<p>部分用户反馈了 Playground 的 Mermaid 预览在某些浏览器中存在显示问题，以及示例页面在深色模式下不够友好等小瑕疵。</p>
-
-<h3>你知道吗？</h3>
-<p>Mermaid 是一个基于 JavaScript 的图表绘制工具，广泛用于 Markdown 文档中绘制流程图、时序图、甘特图等。传统的 Mermaid.js 渲染依赖浏览器环境进行布局计算，而 Pele 通过自研的布局引擎实现了纯服务端渲染，这也是其体积小、速度快的关键原因。此外，Pele 的名字在拉脱维亚语中意为"老鼠"，在葡萄牙语中意为"皮肤"，同时也是巴西传奇足球运动员贝利的名字。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50132193</guid>
-      <pubDate>Sat, 17 Oct 2026 15:55:09 GMT</pubDate>
     </item>
   </channel>
 </rss>

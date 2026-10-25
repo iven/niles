@@ -3,7 +3,31 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 25 Oct 2026 11:17:41 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 25 Oct 2026 16:07:42 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Wayland 提出新协议 ext-transient-output，助力 VNC/远程桌面软件</title>
+      <link>https://www.phoronix.com/news/Wayland-ext-transient-output</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Wayland新协议提案，用于VNC/远程软件，属于Linux桌面技术，符合来源配置的兴趣范围</small></p><p>知名 Wayland 开发者 Simon Ser 近日提交了一个合并请求，提议引入新的 <strong>ext-transient-output</strong> 协议，旨在帮助 VNC 服务器等远程控制软件在 Wayland 环境下更好地工作。</p>
+
+<p>该协议与已有的 <strong>ext-transient-seat</strong> 协议类似，但针对的是 Wayland 输出（wl_output）。ext-transient-seat 允许特权客户端动态创建独立的 seat（会话席位），配合虚拟键盘/指针输入协议，可用于远程桌面或 VNC 场景；而 ext-transient-output 则为特权客户端提供动态输出支持。虚拟输出可通过 <strong>ext-image-copy-capture</strong> 协议捕获，并显示在远程客户端上。</p>
+
+<p>协议提案的摘要指出：「瞬态输出协议可供特权客户端创建独立的虚拟输出，当客户端销毁该对象时，输出将从合成器中移除。该协议旨在与输出捕获协议（如 ext_output_image_capture_source_manager_v1）配合使用，适用于远程控制场景。由此协议创建的 wl_output 全局对象不绑定特定硬件设备。」</p>
+
+<p>目前，wlroots 合成器库已有一个实验性的 ext-transient-output 实现，相关草案合并请求也已提交。该提案获得了社区 5 条评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Wayland-ext-transient-output</guid>
+      <pubDate>Sun, 25 Oct 2026 15:05:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.4 声音子系统合并大量改动：「AI 洪流仍在继续」</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-Sound</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要内容是Linux内核声音子系统的更新合并，虽提及AI但非AI模型发布或AI技术进展的主体，兴趣不明确</small></p><p>SUSE 的 Linux 声音子系统维护者 Takashi Iwai 在开启 Linux 7.4 的声音子系统拉取请求时指出「AI 洪流仍在继续」，即由 AI/LLM 智能体生成的补丁以及由此发现的新内核 bug 仍在持续带来大量新补丁。</p><p>Takashi 解释称，这又是一个忙碌的周期，声音子系统包含大量核心代码加固，以及新平台和编解码器（codec）支持。核心 ALSA 代码针对一些竞态条件进行了加固，压缩卸载（compression offload）代码修复了缓冲区泄漏，JACK 代码有竞态修复，此外还有其他竞态条件和常见的 C 语言 bug 修复。OSS 音序器模拟代码也已在 Linux 7.4 中被标记为弃用（deprecated）。</p><p>在硬件方面，Linux 7.4 的声音更新包括：支持在 SOF IPC4 上、面向 Intel Tigerlake 及更新平台的压缩音频播放；新增 AMD ACP 7.0/7.F 声音 IP 支持，涵盖 SoundWire 和 PDM 控制器，该新 IP 似乎为即将推出的 Ryzen Zen 6 平台准备；还为联想、华硕、惠普、宏碁、荣耀、MSI 等众多 Intel/AMD 笔记本电脑加入了 quirks。</p><p>新的编解码器驱动包括 ESS ES9039Q2M、Nuvoton NAU83G60 放大器、Senary SN624x SoundWire SDCA 编解码器。此外还新增了用于高通（Qualcomm）Shikra 平台的 QAIF 驱动。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Sound</guid>
+      <pubDate>Sun, 25 Oct 2026 14:01:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AV2 视频编解码器获行业力推，英特尔开发 SVT-AV2 编码器</title>
       <link>https://www.phoronix.com/news/AV2-Adoption-Plus-SVT-AV2</link>
@@ -670,32 +694,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Power-Savings-GPU</guid>
       <pubDate>Mon, 19 Oct 2026 12:20:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ BeamFS 成为 Linux 内核最新文件系统提案：基于 Reed-Solomon 纠错</title>
-      <link>https://www.phoronix.com/news/Linux-BeamFS</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍Linux新文件系统提案BeamFS，属于新软件项目和开源项目，符合很感兴趣和感兴趣类别</small></p><p>Linux 内核又迎来一个新的文件系统提案。本周早些时候，开发者提交了 BeamFS 的初始请求评论（RFC）补丁系列。BeamFS 是一个基于 Reed-Solomon 纠错码保护的文件系统，源自今年早些时候停滞的 FTRFS（Fault-Tolerant Radiation-Robust Filesystem，容错抗辐射文件系统）提案。</p><p>根据 RFC 补丁系列的描述，BeamFS 是一个块设备文件系统，能够在单个设备上就地纠正损坏的字节，无需第二份副本用于修复。每个数据块是一个由 16 个交织的 RS(255,239) 码字组成的"胶囊"，构建于 <code>lib/reed_solomon</code> 之上；每次读取都会进行解码，如果解码器无法验证读取内容，则返回 <code>-EIO</code> 错误，而不是返回错误字节。目录块、inode、分配位图和超级块同样携带 Reed-Solomon 奇偶校验，间接块也有自己的奇偶校验区域。在默认布局下，每 4096 字节中有 288 字节（约 7%）为开销。</p><p>BeamFS 的设计目标是数据存储在单个存储设备上且处于辐射多发环境中的系统。FTRFS 的开发初衷是面向卫星机载计算机以及放疗室中的系统。BeamFS 吸收了最初 FTRFS 提案的反馈意见，希望设计能更易被上游 Linux 内核接受。</p><img src="//www.phoronix.net/image.php?id=chernobyl_2010&image=chernobyl_ct_01_med" alt="Radiation site from Phoronix tour of Chernobyl" /><p>值得注意的是，今年早些时候，由于 FTRFS 及其他新文件系统提案的出现，Linux 内核开发者制定了关于允许新文件系统进入内核的新指导方针。BeamFS 最终能否作为面向辐射环境 Linux 文件系统被接纳，仍有待观察。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-BeamFS</guid>
-      <pubDate>Mon, 19 Oct 2026 10:16:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.4 移除 ARM64 大端序支持代码</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-Removes-ARM64-BE</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Linux内核移除非主流ARM64代码，属于基础设施/内核底层改动，兴趣度不明确，可选</small></p><p>Linux 7.4 的 ARM64（AArch64）架构更新已提交至合并窗口，其中最引人注目的变化并非新增功能，而是移除对 ARM64 大端序（big-endian）内核构建的支持。</p>
-
-<p>ARM64 大端序支持被移除的原因在于其使用场景极为罕见，且相关代码缺乏维护、早已被标记为损坏状态。自 2025 年 9 月起，Linux ARM64 代码已将 <code>CPU_BIG_ENDIAN</code> Kconfig 选项标记为 "BROKEN"，因为此类配置"极其罕见"，且缺乏开发者兴趣和测试支持。</p>
-
-<p>ARM64 大端序的少数已知用户之一是华为，多年前曾在电信硬件中使用。但华为也未能为相关代码提供持续维护支持。此次移除的 ARM64 大端序代码不足 500 行，但将简化未来 ARM64 架构补丁的开发流程，减少一条代码路径和测试组合。</p>
-
-<p>此外，本次 ARM64 更新还开始加入对 NVIDIA Rigel CPU 的支持，包括添加 CPU 类型，并为该 NVIDIA Vera 的继任者启用 BBML2 no-abort（BBML3）能力。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=arm64_be_removal" alt="ARM64 big-endian removal" />]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Removes-ARM64-BE</guid>
-      <pubDate>Mon, 19 Oct 2026 10:01:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
