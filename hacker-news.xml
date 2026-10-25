@@ -3,7 +3,32 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 25 Oct 2026 16:07:40 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 25 Oct 2026 18:58:54 GMT</lastBuildDate>
+    <item>
+      <title>⭐ GVS5H框架：五个Qwen 3.8-27B模型协作在LiveCodeBench上匹敌Claude Fable 5</title>
+      <link>https://news.ycombinator.com/item?id=50228167</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲五个Qwen模型协作在编程基准测试上匹敌Claude模型，涉及AI软件技术进展和新AI模型相关，用户对AI软件技术进展感兴趣，故推荐阅读。</small></p><p>一个名为 <a href="https://github.com/slee-persis/GVS5H">GVS5H</a> 的开源项目声称，通过一种无需训练的方法，可以让五个开源的 Qwen 3.8-27B 模型实例协作编程，在 LiveCodeBench Hard 基准上的表现匹敌甚至略超闭源的旗舰模型 Claude Fable 5，而成本仅为后者的约九分之一，且可在单张 GPU 上本地运行。</p>
+
+<p><img src="/slee-persis/GVS5H/raw/master/assets/gvs5h-mark-humans.png" alt="五个男孩叠肩而立，与旁边一只大猩猩一般高" width="300" /></p>
+
+<p>该方法名为「基于账本的零样本自我编排」（ledger-based zero-shot self-orchestration）：同一个模型被反复以全新上下文调用，扮演管理者（manager）和工作者（worker）角色，通过共享文件系统协调——包括问题陈述（task.md）、总体计划（plan.md）、任务列表（tasks.json）、笔记（notes.md）和当前解决方案（solution.py），实现问题的分解与持续上下文管理。</p>
+
+<p>项目方给出的主要结果：在 100 道最新的 LiveCodeBench 难题上，跨 11 个开放与闭源模型测试，该方法在固定后端上最高带来 25.6 个百分点的提升；编排后的 Qwen3.8 Flash Next 达到 93.0% pass@1，对比如 Fable 5 的 90.4%，成本仅为后者的 9%；本地运行的开放权重 Qwen3.8-27B 则从 66.8% 提升至 92.4%。文章也坦承收益并非普遍存在，部分模型无变化甚至变差。</p>
+
+<p><img src="/slee-persis/GVS5H/raw/master/assets/benchmark_livecodebench.png" alt="LiveCodeBench 上单次调用与管理器协作的准确率对比" /></p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 讨论区（177 分、64 条评论）对此反应分化。不少人对成本与本地部署价值表示认可，但也有大量质疑：有评论指出该基准源自 2025 年初、已过时且存在数据污染风险，并批评未与其他前沿模型（如 Astra、Fable 5.1、Opus 5.5）的编排版本对比；还有人认为规则是「先忽略基准规则、增加代理循环再取胜」，并非规范的基准测试方式。部分用户则分享了在 Strix Halo、RX 7900 XTX 等本地硬件上运行 Qwen 3.8 系列模型的实际经验。</p>
+
+<p><img src="/slee-persis/GVS5H/raw/master/assets/price_and_performance.png" alt="单任务平均成本与准确率对比" /></p>
+
+<h3>你知道吗？</h3>
+<p>「上下文压缩」（context compaction）是此类协作式代理（agentic）工作流的关键——在长对话中将旧消息总结以腾出空间，这让模型无需频繁重置上下文也能持续工作。此外，LiveCodeBench 是一个专注于代码生成与执行验证的基准，其「Hard」子集专选难题，常被用于衡量推理与编程能力，但也因发布时间较早而容易被后来的模型「数据泄露」污染，影响评测可信度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50228167</guid>
+      <pubDate>Sun, 25 Oct 2026 03:56:01 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Cerebras 详解如何在晶圆级芯片上部署万亿参数级 AI 模型</title>
       <link>https://news.ycombinator.com/item?id=50227356</link>
@@ -1005,21 +1030,6 @@ Anchor Positioning API 的 Level 2 版本，新增了一种容器查询类型，
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50137950</guid>
       <pubDate>Sun, 18 Oct 2026 04:33:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ DeepSeek 推出搜索与抓取 API：每千次成功请求仅 0.75 美元</title>
-      <link>https://news.ycombinator.com/item?id=50138531</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] DeepSeek 推出新的搜索与抓取 API，属于新AI模型/服务发布公告，且是AI软件技术进展，用户配置中这两项均为高兴趣或感兴趣，应判定为critical。</small></p><p>DeepSeek 发布了全新的 <strong>Search API 和 Fetch API</strong>，为智能体（agents）和检索增强生成（RAG）应用提供实时网络内容的访问能力。两个接口均为原始 JSON API，与 DeepSeek 主 API 共用同一套 Bearer 认证方式，基础地址为 <code>https://api.deepseek.com</code>。</p>
-<p><strong>Search API</strong> 由 DeepSeek 自研搜索引擎驱动，可根据查询返回结构化结果。请求支持 <code>query</code>（必填）、<code>count</code>（结果数量 1–50）、<code>ori_question</code>（触发搜索的原始问题，帮助理解查询意图）、<code>localization</code>（用于本地化结果的 IP 地址）以及 <code>need_content</code>（是否返回页面正文）。查询语法自带 <code>site:</code>、<code>-site:</code>、<code>lang:</code>、<code>after:</code>、<code>before:</code> 等运算符。每个结果包含 <code>rerank_score</code>（相关性评分）、<code>title</code>、<code>url</code>、<code>snippet</code>（短摘要）、<code>summary</code>（长摘要）、<code>content</code>、<code>authority</code>（权威等级）等字段。</p>
-<p><strong>Fetch API</strong> 用于抓取单个网页并以 Markdown 格式返回其内容，请求字段仅需 <code>url</code>（最长 8192 字符）。抓取行为受目标站点可用性及访问策略约束。</p>
-<p><strong>计费方式</strong>：两个接口均按成功请求数计费而非按 token 或结果数，价格为 <strong>每 1000 次成功请求 0.75 美元</strong>。仅当请求返回 HTTP 200 且确实产生结果时才会计费（Search 需返回非空结果数组，Fetch 需返回页面内容），失败请求、空搜索结果和超时均不收费。<code>count</code> 只影响返回数量，不影响单价。值得注意的是，通过 DeepSeek Harness、Claude Code 或 Codex 使用此 API 时，服务端工具调用目前免费，将从北京时间 2026 年 11 月 1 日零时起开始计费。</p>
-<p><strong>速率限制</strong>：Search 和 Fetch 的 QPS 上限均为 5，按账户级别独立计算（不叠加），并独立于模型并发限制；Fetch 另有按域名统计的 QPS 限制。超出限制会收到 HTTP 429 错误。</p>
-<p>Hacker News 社区围绕该定价展开了热烈讨论，普遍认为价格极具竞争力：网友对比指出 Exa 为 4 美元/千次、Brave Search 为 5 美元/千次、Kagi 为 12 美元/千次，而 <a href="https://news.ycombinator.com/user?id=wmchen">Ceramic.ai</a> 低至 0.25 美元/千次。也有开发者探讨了抓取工具应对 Cloudflare、Google reCAPTCHA 等反机器人防护的难度，以及通过第三方抓取服务自建 MCP 工具的成本优势。部分评论还比较了 DeepSeek 模型（如 DeepSeek Flash）与 Anthropic Opus 5.5 在编码等场景中的表现，认为在成本调整后颇具竞争力。</p>
-<p><strong>你知道吗？</strong></p><ul><li>「检索增强生成（RAG，Retrieval-Augmented Generation）」是一种将外部知识检索与生成模型结合的架构，让模型在生成回答前先查询外部数据源（如搜索引擎、文档库），以提高准确性和时效性。</li><li>「QPS」即每秒查询数（Queries Per Second），是衡量 API 接口吞吐能力的常用指标，此处与模型并发限制相互独立。</li><li>「MCP（Model Context Protocol）」是一种为 AI 模型提供标准化工具调用接口的开放协议，社区开发者常据此为智能体封装搜索、抓取等外部服务。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50138531</guid>
-      <pubDate>Sun, 18 Oct 2026 06:50:36 GMT</pubDate>
     </item>
   </channel>
 </rss>
