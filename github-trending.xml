@@ -3,7 +3,115 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Mon, 26 Oct 2026 06:05:45 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2026 12:51:37 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ NVIDIA 开源 SkillSpector：AI 智能体技能安全扫描器</title>
+      <link>https://github.com/NVIDIA/SkillSpector</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] NVIDIA 开源 AI 智能体安全扫描器，属于新AI模型/工具发布（编程工具、AI软件技术进展），符合多个高兴趣配置</small></p><p>NVIDIA 开源了 <strong>SkillSpector</strong>，一个面向 AI 智能体技能（agent skills）的安全扫描工具，用于在安装前检测漏洞、恶意模式和安全隐患，帮助回答「这个技能安装是否安全？」的问题。</p>
+
+<p>该项目源于一项令人警醒的研究发现：在分析过的 31,132 个技能子集中，<strong>26.1% 的技能含有漏洞</strong>，<strong>5.2% 显示存在可能的恶意意图</strong>。由于 Claude Code、Codex CLI、Gemini CLI 等工具使用的 AI 技能以「隐含信任」的方式执行且缺乏审查，风险尤为突出。SkillSpector 是 <a href="https://docs.nvidia.com/skills/">NVIDIA Verified Skills 流水线</a>的一部分，通过扫描的技能会发布到 <a href="https://github.com/NVIDIA/skills">NVIDIA skills 目录</a>。</p>
+
+<h3>核心功能</h3>
+<ul>
+<li><strong>多格式输入</strong>：可扫描 Git 仓库、URL、zip 文件、目录或单个文件</li>
+<li><strong>丰富的漏洞检测</strong>：覆盖 17 个类别的 71 种漏洞模式，包括提示注入（prompt injection）、数据外泄（data exfiltration）、权限提升、供应链风险、过度授权（excessive agency）、系统提示泄露、记忆投毒（memory poisoning）等</li>
+<li><strong>两阶段分析</strong>：快速静态分析 + 可选的大模型（LLM）语义评估</li>
+<li><strong>实时 CVE 查询</strong>：通过 OSV.dev 获取实时漏洞数据，并支持离线回退</li>
+<li><strong>风险评分</strong>：0–100 分，附带严重级别标签和明确建议</li>
+<li><strong>多种输出格式</strong>：终端、JSON、Markdown 和 SARIF（便于 CI/CD 集成）</li>
+<li><strong>误报抑制</strong>：通过基线（baseline）机制接受已知发现，使再次扫描只呈现新问题</li>
+</ul>
+
+<p>项目支持 Python 3.12+，可用 uv、pip 或 Docker 方式部署（Docker 无需安装 Python）。也可作为 Pi 工具或 OpenCode 扩展安装，以在智能体会话内部直接扫描技能，并支持批量扫描（含中文/日文/韩文等多语言检测）以及 MCP 注册表快照对比。</p>
+
+<p>在 LLM 分析方面，SkillSpector 支持 OpenAI、Anthropic、Bedrock、Gemini、Ollama、Azure OpenAI 等多种 OpenAI 兼容提供商，也可对接本地推理服务器。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/NVIDIA/SkillSpector</guid>
+      <pubDate>Mon, 26 Oct 2026 12:51:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenBot：本地优先的桌面 AI 智能体协作工作区</title>
+      <link>https://github.com/nightly-labs/openbot</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 AI 智能体协作工作区，属于开源项目和 AI 软件技术进展，符合兴趣配置</small></p><p>OpenBot 是一个本地优先（local-first）的桌面工作区，用于运行持久化的 AI 智能体（agent）团队。它支持本地 <a href="https://learn.chatgpt.com/docs/app-server">Codex App Server</a>、<a href="https://code.claude.com/docs/en/overview">Claude Code</a>、<a href="https://docs.x.ai/build/overview">Grok CLI</a>，并通过 ACP 协议支持 OpenCode、Gemini、<a href="https://cursor.com/cli">Cursor CLI</a> 和 <a href="https://cline.bot/cli">Cline CLI</a>。每个智能体拥有独立的工作区和对话，并提供本地队列、文件传输、嵌入式浏览器以及智能体间消息通信。</p>
+<p><strong>核心功能</strong>：</p>
+<ul>
+<li><strong>持久化智能体</strong>：由独立的 Codex、Claude、Grok、OpenCode、Gemini、Cursor 或 Cline 会话及本地工作区支撑，支持桌面和移动端创建与编辑智能体。</li>
+<li><strong>上下文管理</strong>：按智能体监控上下文，在长线程耗尽模型窗口前自动压缩。</li>
+<li><strong>任务队列</strong>：FIFO 消息队列，支持暂停、恢复、取消和崩溃安全持久化。</li>
+<li><strong>智能体协作</strong>：支持智能体间消息、回复、反应、图片及受管理的文件传输；共享桌面频道支持任务所有者、显式委派和共享历史。</li>
+<li><strong>嵌入式浏览器</strong>：智能体可打开、检查和控制的持久化浏览器。</li>
+<li><strong>Computer Use</strong>：通过 <code>cua-driver</code> 二进制在 macOS、Windows 和 Linux 上提供可选的计算机操作能力。</li>
+<li><strong>自定义端点</strong>：支持自定义 OpenAI 兼容端点和自定义 ACP 智能体，可自动检测本地模型服务器（Ollama、LM Studio）。</li>
+</ul>
+<p><strong>重要提示</strong>：OpenBot 目前为开发预览版，智能体以 <code>danger-full-access</code> 和 <code>approvalPolicy: never</code> 模式运行，首次启动同意后即可读写文件、执行命令、使用网络和控制浏览器，无需逐操作确认。官方建议只运行可信的智能体和任务，并做好备份。</p>
+<p>OpenBot 是"本地优先"而非"纯离线"：Codex 连接 OpenAI、Claude 连接 Anthropic、Grok 连接 xAI 等，各提供商的服务仍需网络连接。项目采用 PolyForm 非商业 1.0.0 许可证，支持 macOS 13+、Windows 10+ 和 Linux（AppImage），也可通过 Docker、Nix 或自托管服务器方式部署。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/nightly-labs/openbot</guid>
+      <pubDate>Mon, 26 Oct 2026 12:51:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Postiz：开源 AI 驱动的社交媒体管理与定时发布平台</title>
+      <link>https://github.com/gitroomhq/postiz-app</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 AI 社交媒体管理与定时发布平台，属于开源项目和软件新功能，符合兴趣配置</small></p><p><strong>Postiz</strong> 是一款开源的社交媒体管理平台，专注于内容的定时发布、自动化调度与数据分析。项目以 TypeScript 编写，采用 AGPL-3.0 许可证，目前在 GitHub 上已获得超过 3.7 万星标。</p>
+
+<h3>核心功能</h3>
+<ul>
+  <li><strong>多平台发布</strong>：支持 Instagram、YouTube、LinkedIn、TikTok、Facebook、Reddit、X（Twitter）、Pinterest、Threads、Slack、Discord、Mastodon、Bluesky 等主流社交平台。</li>
+  <li><strong>AI 集成</strong>：可与 ChatGPT、Claude、Codex、Cursor、Grok 等主流 AI 智能体（Agent）配合使用，提供 AI 文案生成、AI 图片/视频生成、AI 视频剪辑、智能助手（Smart Agent）等能力。</li>
+  <li><strong>团队协作</strong>：支持邀请团队成员共同协作、评论、交换或购买帖子。</li>
+  <li><strong>数据分析</strong>：提供内容表现分析功能，帮助衡量工作成果。</li>
+  <li><strong>自动化能力</strong>：提供公开 API 和 Webhooks，可无缝对接 N8N、Make.com、Zapier 等自动化平台，并支持 MCP（模型上下文协议）服务器、NodeJS SDK 等扩展方式。</li>
+  <li><strong>高级调度</strong>：包含日历视图、跨平台同步发布、重复帖子、评论与延迟、帖子签名等丰富功能。</li>
+</ul>
+
+<h3>技术栈</h3>
+<p>项目采用 Pnpm Monorepo 架构，基于 NextJS（React）前端、NestJS 后端、Prisma（默认 PostgreSQL）、Temporal 工作流引擎，并使用 Resend 发送邮件通知。</p>
+
+<h3>云服务与自托管</h3>
+<p>Postiz 提供两种使用方式：<strong>Postiz Cloud</strong>（全托管 SaaS 服务，提供 7 天免费试用）和<strong>开源自托管版本</strong>（免费，可通过 Docker、Coolify、Railway 或任意 VPS 部署）。两者核心功能一致，不设功能门槛。主要区别在于：云服务由官方预审批各平台应用、托管基础设施并自动更新；自托管则需自行在各社交平台创建开发者应用并通过审核（Meta、YouTube、TikTok 审核可能耗时数周），但数据完全掌握在自己手中，支持无限渠道和无限团队成员。</p>
+
+<h3>合规与隐私</h3>
+<p>Postiz 强调合规性：托管服务使用平台官方批准的 OAuth 流程，不自动抓取社交媒体内容，不收集或代理用户的 API 密钥，用户始终直接向社交平台进行身份验证。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/gitroomhq/postiz-app</guid>
+      <pubDate>Mon, 26 Oct 2026 12:51:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Huashu Design 3.0：一句话生成可交付设计的 AI 设计 Skill，已完全开源</title>
+      <link>https://github.com/alchaincyf/huashu-design</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 AI 设计工具，一句话生成可交付设计，属于开源项目、AI 软件技术进展及编程/设计工具发布，符合兴趣配置</small></p><p><strong>Huashu Design</strong> 是一个面向 AI 编程代理（Claude Code、Codex、Cursor 等）的 HTML-native 设计 skill，用户只需输入一句话需求，即可在 3 到 30 分钟内获得可交付的设计成果，包括网页、可点击的 App 原型、可编辑的 PPTX、产品发布动画和信息图。该项目已获得超过 2.6 万星标，并于 2026 年 5 月 14 日起改为 <strong>MIT 协议</strong>完全开源，个人和商用均免费。</p>
+
+<h3>核心能力</h3>
+<ul>
+<li><strong>交互原型</strong>：单文件 HTML，带真实 iPhone 机身、可点击、Playwright 验证，10–15 分钟完成</li>
+<li><strong>演讲幻灯片</strong>：HTML deck 浏览器演讲 + 可编辑 PPTX（保留真文本框），15–25 分钟</li>
+<li><strong>时间轴动画</strong>：MP4（25/60fps 插帧）+ GIF + BGM，8–12 分钟</li>
+<li><strong>信息图/可视化</strong>：印刷级排版，可导出 PDF/PNG/SVG</li>
+<li><strong>5 维度专家评审</strong>：雷达图 + Keep/Fix/Quick Wins 修复清单</li>
+</ul>
+
+<h3>3.0 版本亮点</h3>
+<p>3.0 对设计方向顾问流程做了重构：先输出六张缩略图，再由用户从中挑选三版做成完整稿；风格库从原有规模扩充至 <strong>84 种 HTML 原生风格</strong>（网页 20 + PPT 20 + 信息图 20 + App 12 + 中文与东亚 12），全部纯 CSS 实现、无需生图，每种风格均配有样张。新增的「外观账本」会记录每次交付的视觉特征，避免多个项目之间「长得像」；「设计体检」则只核查可量化的事实（图片是否裂开、对比度、控制台报错等），不做主观打分。</p>
+
+<h3>反 AI slop 机制</h3>
+<p>项目内置了避免「一眼 AI」的规则，规避紫渐变、emoji 图标、圆角加左 border accent 等视觉最大公约数，同时不编造数据、评价和 logo 墙。品牌资产协议采用 5 步硬流程（问→搜→下载→grep 色值→固化 spec），强调从已有设计上下文出发而非从白纸开始。</p>
+
+<h3>与 Claude Design 的关系</h3>
+<p>作者坦承品牌资产协议的哲学借鉴自 Claude Design 流传的提示词。定位差异在于：Claude Design 是网页图形工具（GUI 操作、订阅配额），而 huashu-design 是 skill（对话式、API 消耗、跨 agent 通用），目标是「让图形工具这层消失」。</p>
+
+<h3>安全与数据流</h3>
+<p>核心设计→渲染→导出链路 100% 本地运行，零网络零 key；云能力（TTS 配音、AI 评审）完全可选且需显式确认。品味经验与外观账本仅存于本机 <code>~/.huashu-design/</code>，不上传，删除文件夹即全部遗忘。</p>
+
+<h3>局限</h3>
+<p>不支持图层级可编辑的 PPTX 到 Figma；Framer Motion 级别的复杂动画（3D、物理模拟、粒子系统）超出边界；完全空白的品牌从零设计质量会降至 60–65 分。作者自评这是一个「80 分的 skill」，但对不愿打开图形界面的用户而言，比 100 分的产品更好用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/alchaincyf/huashu-design</guid>
+      <pubDate>Mon, 26 Oct 2026 12:51:05 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ JetBrains 发布 ThinkRail：围绕 pi 编码代理构建的轻量级智能 IDE</title>
       <link>https://github.com/JetBrains/thinkrail</link>
@@ -1082,107 +1190,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/Stremio/stremio-web</guid>
       <pubDate>Mon, 05 Oct 2026 18:21:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ pstack-claude：将 Cursor 的 pstack 技能栈移植到 Claude Code、Codex 等 Agent 框架</title>
-      <link>https://github.com/michael-denyer/pstack-claude</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 属于编程工具发布/分享类，将Cursur的pstack技能栈移植到Claude Code、Codex等Agent框架，契合用户很感兴趣的编程工具与效率主题</small></p><p><strong>michael-denyer/pstack-claude</strong> 是 Lauren Tan 开发的 <a href="https://github.com/cursor/plugins/tree/main/pstack">pstack</a>（一套注重工程态度的 Cursor 技能栈）的移植版本，为 Claude Code、Codex、Pi、OpenCode、Gemini 和 Prime Agent 等不同 Agent 框架提供严谨的工作流。项目已获得超过 1100 个 star，持续跟踪上游并托管各类命名策略分支（定义于 <code>tools/forks.json</code>）。</p>
-
-<p>核心功能是通过 <code>poteto-mode</code> 技能，根据用户设定的目标自动调用相应工作流。例如针对 bug，它会先复现故障，用 <code>how</code> 和 <code>why</code> 进行排查，委托修复后在跨函数边界时引入 <code>architect</code> 角色，最终返回修复方案以及失败/通过的证据。项目还提供规划、功能开发、重构、性能问题、调查、原型、PR 维护、发布及长期项目等其他剧本（playbook）。</p>
-
-<p>安装方面，Claude Code 和 Codex 可通过插件市场安装，Pi 通过 <code>pi install</code> 安装，并可运行 <code>setup-pstack</code> 为各角色配置模型默认值和推理强度（如为不同角色设定 <code>opus @xhigh</code>、<code>fable @max</code> 等），或关闭自动路由。Pi 版本额外提供子代理、提问、唤醒工具以及 <code>/loop</code> 和路由指令，技能通过 <code>/skill:&lt;name&gt;</code> 调用。</p>
-
-<p>在数据隐私方面，pstack 没有任何服务器或遥测功能，技能读取的内容（包括会话记录）直接交给用户所选的模型提供商，脚本在本地运行，PR 工具使用用户自己的 GitHub CLI 登录。整个移植项目采用 MIT 协议。</p>
-
-<p><img src="assets/pstack-overview.png" alt="poteto-mode 在 Claude Code、Codex 和 Pi 上把请求转化为经过验证的工作" /></p>
-
-<p>对于测试难以覆盖的并发 bug 和不变量，作者还提供了独立的 <a href="https://github.com/michael-denyer/agent-formal-verify">agent-formal-verify</a> 插件，引入 TLA+ 模型检查与 Lean 形式化证明。</p>
-
-<h3>你知道吗？</h3>
-<p>TLA+ 是一种用于设计和验证并发与分布式系统的高层形式化规范语言，由图灵奖得主 Leslie Lamport 提出，通过模型检查在系统实现前发现潜在时序与并发缺陷；Lean 则是一款交互式定理证明器，可对程序性质给出机器可验证的数学证明。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/michael-denyer/pstack-claude</guid>
-      <pubDate>Mon, 05 Oct 2026 01:55:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ e2e：TesterArmy 开源的 AI 端到端测试框架</title>
-      <link>https://github.com/tester-army/e2e</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI端到端测试框架，属于新的AI软件技术进展和开源项目，用户对此感兴趣</small></p><p>GitHub Trending 榜首项目 <a href="https://tester.army/e2e">e2e</a> 是 TesterArmy 推出的新一代开源 AI 端到端（e2e，end-to-end）测试框架，适用于 Web 和移动应用，使用 TypeScript 编写，采用 Apache-2.0 许可证。</p>
-
-<p>e2e 的核心创新在于让测试以自然语言描述目标，由 AI 代理（agent）驱动应用达成该目标，并在同一测试中通过 locator 和断言校验结果。例如可用 <code>agent.act('upgrade the workspace to the Pro plan')</code> 这样的语句指挥代理操作界面。代理执行的步骤会被记录下来，后续断言验证后，下一次运行时可在应用未变化的情况下直接回放，无需调用模型；不包含代理步骤的纯测试则完全不需要模型。用户可自行提供订阅、API key 或本地模型。</p>
-
-<p>项目采用模块化架构，提供多组配套包：核心 SDK/运行器/CLI（<code>e2e</code>）、基于 Playwright 的浏览器引擎（Chromium/Firefox/WebKit）、iOS 与 Android 移动引擎、以 PR 评论形式发布结果的 GitHub reporter、托管的浏览器内核、托管的 iOS 模拟器与 Android 模拟器，以及用于界定语义动作和断言的决策模型执行器。</p>
-
-<p>快速上手只需运行 <code>npx e2e init</code>，按提示选择引擎（Web 或移动端）与模型提供商即可生成配置和示例测试。文档已随包内置，可在 <code>node_modules/e2e/docs</code> 离线阅读。CLI 会发送匿名使用数据（如运行命令和引擎、失败位置），但不包含测试内容、应用内容或凭据，可通过命令关闭遥测。项目正处于积极开发阶段，API 与配置在 1.0 之前仍可能变化。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tester-army/e2e</guid>
-      <pubDate>Sun, 04 Oct 2026 15:19:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>Caddy：默认自动 HTTPS 的高扩展性多平台 Web 服务器</title>
-      <link>https://github.com/caddyserver/caddy</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Web服务器属于基础设施范畴，用户对此不太感兴趣，但作为知名开源项目有一定参考价值，兴趣不明确</small></p><p><strong>Caddy</strong> 是一款用 Go 编写的快速、可扩展、多平台的 Web 服务器，支持 HTTP/1.1、HTTP/2 和 HTTP/3，并以默认开启自动 HTTPS 而著称。该项目是 ZeroSSL 旗下的开源项目，已在生产环境中服务超过数万亿次请求、管理数百万张 TLS 证书，可扩展到数十万个站点。</p>
-
-<h3>核心特性</h3>
-<ul>
-<li><strong>自动 HTTPS</strong>：默认启用，为公网域名使用 ZeroSSL 和 Let's Encrypt 签发证书；为内部域名和 IP 提供全托管本地 CA；支持集群内多实例协调、多签发源故障回退以及加密 ClientHello（ECH）。</li>
-<li><strong>多种配置方式</strong>：支持简单易用的 Caddyfile、功能强大的原生 JSON 配置，以及通过 JSON API 进行动态配置；还可通过配置适配器将 YAML、TOML、NGINX 配置等任意格式转换为 JSON。</li>
-<li><strong>高可用性</strong>：即使其他服务器因 TLS、OCSP 或证书相关问题宕机，Caddy 仍能保持稳定运行。</li>
-<li><strong>高度可扩展</strong>：采用模块化架构，通过强大的插件系统实现各类功能，同时避免臃肿。</li>
-<li><strong>随处运行</strong>：无外部依赖（甚至不依赖 libc），可跨平台部署。</li>
-<li><strong>内存安全</strong>：使用 Go 编写，相比其他服务器拥有更高的内存安全保证。</li>
-</ul>
-
-<h3>架构与使用场景</h3>
-<p>Caddy 首先是一个运行 Go 应用的平台，其「应用」本质上是实现为 Caddy 模块的 Go 程序。标准发行版内置 <code>tls</code> 和 <code>http</code> 两个应用。几乎所有配置都集中在一个配置文档中，而非分散在命令行参数、环境变量和配置文件中，这使得服务器配置管理更加直观，减少了隐藏变量。</p>
-
-<p>Caddy 主要用于 HTTPS 服务器场景，也可作为任何长期运行的 Go 程序的承载平台。其主要配置方式是 API，同时也支持命令行界面和配置文件方式。用户可先阅读官方「Getting Started」指南快速上手。</p>
-
-<h3>项目背景</h3>
-<p>该项目由 Matthew Holt 于 2014 年在杨百翰大学学习计算机科学期间开始开发，成为首个默认自动使用 HTTPS 的 Web 服务器。"Caddy" 是 Stack Holdings GmbH 的注册商标，该项目现为 ZeroSSL（HID Global 旗下公司）的项目，拥有数百名贡献者。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/caddyserver/caddy</guid>
-      <pubDate>Sun, 04 Oct 2026 15:19:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ gstack：YC 总裁 Garry Tan 开源的 Claude Code 虚拟工程团队工具集</title>
-      <link>https://github.com/garrytan/gstack</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 基于Claude Code的工具集，属于新的AI软件技术进展和编程工具分享，虽是行业人物发起但核心是AI工具，用户会感兴趣</small></p><p><strong>gstack</strong> 是 Y Combinator 总裁 <a href="https://x.com/garrytan">Garry Tan</a> 开源的一套 Claude Code 技能集（skill 集合），将 AI 编码助手转化为一个「虚拟工程团队」。项目包含 23 个专业角色工具和 8 个强力工具，全部以斜杠命令形式提供，基于 Markdown，采用 MIT 许可证，完全免费。</p>
-
-<h3>核心背景</h3>
-<p>Garry Tan 在文中引用 OpenAI 联合创始人 <a href="https://fortune.com/2026/03/21/andrej-karpathy-openai-cofounder-ai-agents-coding-state-of-psychosis-openclaw/">Andrej Karpathy</a> 的说法——「自去年 12 月以来我大概没写过一行代码」。Tan 以此引出观点：借助合适的 AI 工具，单个开发者可以拥有传统团队的生产力。他本人声称在过去 60 天内，在兼职运营 YC 的同时交付了 3 个生产服务和 40+ 个功能，并给出了详细的代码产出量对比数据（2026 年逻辑代码变更速度约为 2013 年的 810 倍）。</p>
-
-<h3>核心功能</h3>
-<p>gstack 将 Claude Code 扩展为一支虚拟团队，涵盖以下角色：</p>
-<ul>
-<li><strong>CEO</strong>（<code>/office-hours</code>、<code>/plan-ceo-review</code>）：产品方向与战略挑战</li>
-<li><strong>工程经理</strong>（<code>/plan-eng-review</code>）：锁定架构设计</li>
-<li><strong>设计师</strong>（<code>/design-review</code>、<code>/design-consultation</code>）：识别 AI 生成的劣质设计</li>
-<li><strong>代码审查员</strong>（<code>/review</code>）：发现生产环境 bug</li>
-<li><strong>QA 负责人</strong>（<code>/qa</code>）：打开真实浏览器进行测试</li>
-<li><strong>安全官</strong>（<code>/cso</code>）：运行 OWASP + STRIDE 安全审计</li>
-<li><strong>发布工程师</strong>（<code>/ship</code>、<code>/land-and-deploy</code>、<code>/canary</code>）：合并 PR 并部署</li>
-</ul>
-
-<h3>多智能体支持</h3>
-<p>除 Claude Code 外，gstack 还支持 OpenAI Codex CLI、OpenCode、Cursor、GitHub Copilot CLI、OpenClaw 等多个 AI 编码工具，分为 <strong>full</strong>（完整认证）、<strong>experimental</strong>（实验性）和 <strong>instruction-only</strong>（仅指令）三个层级。项目还提供原生 OpenClaw 技能（通过 ClawHub 安装）和面向任意规则读取型智能体的轻量 digest 文件。</p>
-
-<h3>安装与使用</h3>
-<p>安装约需 30 秒，依赖 Claude Code、Git、Bun 和 Node.js。支持「团队模式」（<code>--team</code>），可将 gstack 自动同步到共享仓库，让团队成员自动获得该工具集。项目在 GitHub 上已获得约 13.5 万星标。</p>
-
-<h3>目标用户</h3>
-<ul>
-<li>仍希望亲自交付产品的创始人/CEO</li>
-<li>初次使用 Claude Code 的用户（提供结构化角色而非空白提示词）</li>
-<li>希望在每个 PR 上获得严格审查、QA 和发布自动化的技术负责人与资深工程师</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/garrytan/gstack</guid>
-      <pubDate>Sun, 04 Oct 2026 15:19:39 GMT</pubDate>
     </item>
   </channel>
 </rss>

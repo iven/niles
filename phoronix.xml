@@ -3,7 +3,68 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 26 Oct 2026 06:06:39 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2026 12:51:49 GMT</lastBuildDate>
+    <item>
+      <title>Nouveau-DKMS 项目旨在改善旧款 NVIDIA Fermi 显卡的开源驱动体验</title>
+      <link>https://www.phoronix.com/news/Nouveau-DKMS</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于NVIDIA旧GPU的开源驱动(Nouveau)改进，虽涉及Linux开源体验但与旧硬件相关，兴趣不明确</small></p><p>开源 NVIDIA「Nouveau」驱动的树外分支 Nouveau-DKMS 正在开发中，专注于为 NVIDIA GeForce 400/500「Fermi」系列显卡提供更好的支持，未来也可能覆盖 Turing 之前的其他显卡世代。</p>
+
+<p>目前，使用约 16 年前的 Fermi 显卡配合上游 Linux 内核运行 Nouveau 驱动的用户体验较差，主要原因是重时钟（re-clocking）问题，且开源开发者大多将精力集中在更新的 NVIDIA GPU 世代上。Nouveau 目前主要支持 GTX 1600 / RTX 20 Turing 及更新显卡，这些显卡借助 GPU 系统处理器（GSP）使驱动支持更为容易；同样，NVIDIA 正在开发的 Nova Rust 驱动也仅聚焦于 Turing 及更新世代。官方 NVIDIA Linux 驱动也早已将 Fermi 归入「legacy」分支，让仍在使用这些老显卡的用户处境尴尬。</p>
+
+<img src="//www.phoronix.net/image.php?id=nvidia_gtx_550ti&image=nvidia_550ti_box_med" alt="GeForce GTX 550 Ti Fermi" />
+
+<p>Nouveau-DKMS 树外驱动致力于改进 Fermi 支持，包括完整的 Core、Shader、Voltage、PCIe Gen1/Gen2 以及双向 DDR3 内存重时钟功能。此外，该驱动还在支持上游 Nouveau 驱动所不具备的各种新特性。</p>
+
+<img src="//www.phoronix.net/image.php?id=nvidia_geforce_gt520&image=nvidia_gt520_card1_med" alt="" />
+
+<p>相关开发活动可通过 <a href="https://github.com">GitHub 仓库</a>查看，同时还有配套的用户空间工具用于管理动态重时钟。</p>
+
+<img src="//www.phoronix.net/image.php?id=nvidia_geforce_gtx460&image=nvidia_gtx460_pkg_med" alt="GeForce GTX 460 Fermi" />
+
+<p>虽然 Fermi 目前是主要关注点，但项目路线图也规划了改进 Kepler、Maxwell 和 Pascal 显卡支持的愿景，以覆盖 Turing 之前的全部世代。不过这些工作目前都在树外进行，尚不清楚其中部分内核驱动工作能否最终进入主线的 Nouveau 驱动。这一工作部分动机似乎与 AliveOS 的开发相关——这是一个基于 Arch 的极简新 Linux 发行版，预计于 2027 年初发布，将配备自定义 Cinnamon 桌面、XLibre 显示服务器、Btrfs 快照等现代桌面特性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Nouveau-DKMS</guid>
+      <pubDate>Mon, 26 Oct 2026 12:24:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.4 开始采用新的 &quot;Core MM&quot; 内核内存管理树</title>
+      <link>https://www.phoronix.com/news/Linux-Core-MM-Tree</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux 7.4内核采用新的Core MM内存管理树，属于Linux技术进展，推荐阅读</small></p><p>Linux 内核的内存管理（MM）补丁传统上通过 Andrew Morton 的 "MM" 分支合入主线，该分支同时承载了包括 DAMON/DAMOS 在内的各类广泛内存管理相关补丁。内核维护者现已同意设立一个新的 "Core MM" 树，作为未来所有核心内存管理变更的归属地。</p>
+
+<p>在今年的 Linux 维护者峰会上，与会者同意推进新的 Core MM 树，以减轻 Andrew Morton 的 MM 树负担。来自 Arm 的 David Hildenbrand 发出了 Linux 7.4 的 Core MM 代码首次拉取请求（pull request）。</p>
+
+<p>Hildenbrand 在拉取请求中解释：<em>"正如维护者峰会上讨论的，这是来自新 Core MM 树的第一个拉取请求。由于旅行原因我稍微迟了一些。这个周期主要用于建立 Core MM 树、将一些较小的 MM 组件移入其中，并建立 linux-next 的 MM 集成工作流程。对于 7.4，MM 更新将通过 slab、memblock、Andrew 的 MM 以及我的 Core MM 树到达您手中。对于下一个周期（7.5），我们计划减少通过 Andrew 树路由的补丁数量，并开始将 MM 组件树（memblock、slab、core）合并到新的 MM 集成树中以供上游合并。在后续周期中，我们将逐步将更多组件从 Andrew 的 MM 树移入现有或新的 MM 组件树，最终目标是建立一个单一的 MM 集成树供您拉取。"</em></p>
+
+<p>该拉取请求开始布局新的 Core MM 工作流程，同时带来了一些围绕 Get User-Pages 和内存热插拔（Memory Hotplug）代码的初始补丁。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Core-MM-Tree</guid>
+      <pubDate>Mon, 26 Oct 2026 11:42:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Moxnox 1.0：一款基于 Btrfs 的类 NT、兼容 POSIX 的自托管业余操作系统</title>
+      <link>https://www.phoronix.com/news/Moxnox-OS</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍一个轻量级hobby OS新软件项目，符合新软件项目兴趣，推荐阅读</small></p><p>开源开发者 Mark Harmstone（以开发 Windows 版 Btrfs 文件系统驱动而闻名）经过数年开发，正式发布了其业余操作系统 Moxnox 1.0。这是一款类 NT、兼容 POSIX 的操作系统，运行在 Btrfs 文件系统之上——考虑到其作者与 Btrfs 的深厚渊源，这并不令人意外。</p><img src="//www.phoronix.net/image.php?id=2026&image=moxnox" alt="Moxnox" /><p>Moxnox 1.0 已具备自托管能力，其系统调用借鉴了 Windows NT 的设计，同时也能运行面向类 Unix 系统编写的软件。整个项目约有 13 万行 C++ 代码，目标硬件平台为 AMD64 与 AArch64。目前 Moxnox 针对 x86_64-v3 架构，由于硬件与驱动支持有限，现阶段在 QEMU 虚拟机内测试最为方便。</p><p>已移植到 Moxnox 的软件包括 Bash 及其他常见 GNU 工具、GCC 编译器、CMake、Zstd、Git 以及多种库。此次 v1.0 版本尚不支持图形界面（GUI），尽管系统调用仿照 Windows NT 设计，但目前也还无法运行 Windows 的 EXE 程序。</p><p>针对 2026 年人工智能生成代码的流行趋势，Harmstone 特别澄清：Moxnox 中没有任何"实质性代码"由 AI 编写，AI 仅用于辅助部分机械性工作（如移植和翻译）。感兴趣的读者可通过项目的 <a href="https://github.com/">GitHub</a> 仓库了解更多信息。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Moxnox-OS</guid>
+      <pubDate>Mon, 26 Oct 2026 10:04:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.4 的 EXT4 引入可选的缓冲 IOmap 支持，大幅提升大文件写入性能</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-EXT4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] EXT4引入可选buffered IOmap带来大写入性能提升，属软件新功能与性能改进，推荐阅读</small></p><p>在 Linux 7.4 合并窗口期间，EXT4 文件系统的变更已于周日晚合并。该新内核版本的一大亮点特性是引入了对缓冲 IOmap（buffered IOmap）的可选支持，可为大文件写入带来"显著"的性能提升。</p>
+<p>此前就有报道提到 EXT4 的缓冲 IOmap 支持即将到来，其通过用 IOmap 框架取代文件系统驱动中的 buffer head 机制，具备相当大的性能潜力。对于大文件写入，性能提升非常可观；而读取性能的提升则相对有限。</p>
+<p>EXT4 维护者 Ted Ts'o 在拉取请求中写道：「在 ext4 中加入缓冲 iomap 支持。该功能默认未启用，需要通过挂载选项 buffered_iomap 开启，因为此模式不支持在线碎片整理、inline data、fsverify、fscrypt、非 extent inode 以及 data=journal 模式。若启用 buffered_iomap，ext4 会在必要时自动回退到原有的 I/O 代码路径。启用缓冲 iomap 后，大文件写入显示出显著的性能提升。此外还有多项杂项错误修复与改进，包括 fast commit，以及处理损坏文件系统边界情况时避免死锁和越界读取。」</p>
+<p>这项缓冲 IOmap 支持由华为的张毅（Zhang Yi）主导开发，并展示了其带来的巨大性能收益：</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=ext4_buf_iomap" alt="EXT4 缓冲 IOmap 基准测试结果" />
+<p>因此，当升级到 Linux 7.4 时，可以留意 EXT4 的 "buffered_iomap" 挂载选项。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-EXT4</guid>
+      <pubDate>Mon, 26 Oct 2026 09:53:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Redox OS 九月迎来多项性能优化：IPC 延迟大幅降低</title>
       <link>https://www.phoronix.com/news/Redox-OS-September-2026</link>
@@ -636,70 +697,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-EDAC</guid>
       <pubDate>Mon, 19 Oct 2026 21:38:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.4 的 Btrfs 带来更多性能优化：Zstd 解压加速、锁竞争降低与 reflink 提速</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-Btrfs</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲Linux内核中Btrfs文件系统的性能改进，属于Linux桌面/内核技术进展，与source配置的Linux桌面技术（interest）相关</small></p><p>Linux 7.3 已经为 Btrfs 带来了不错的性能改进，而正在开发中的 Linux 7.4 内核将进一步为这一写时复制（copy-on-write）文件系统带来多项性能优化。</p><p>对于使用 Btrfs 的 Zstd 压缩透明压缩文件系统的用户，Linux 7.4 将提供略微更快的 Zstd 解压速度，约提升 +8MB/s。</p><img src="//www.phoronix.net/image.php?id=btrfs-zstd-compress&image=btrfs_zstd_2_med" alt="Btrfs with Zstd compression" /><p>更新后的 Btrfs 代码还降低了 inode extent map 锁的竞争程度，从而改善相关场景——例如当 Btrfs 的 shrinker 处理没有 extent map 的 inode 时，时间预计可减少 10-20%。</p><p>另一个性能改进是 reflink 的提速，通过重新排序锁定与刷新操作，针对更常见的场景进行了优化。此外，Linux 7.4 中的 Btrfs 还带来了错误处理修复、多项代码清理、一系列 bug 修复及其他改进。更多关于这些 Btrfs 特性/改动的细节可参见<a href="https://www.phoronix.com/news/Linux-7.4-Btrfs">该 pull request</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Btrfs</guid>
-      <pubDate>Mon, 19 Oct 2026 18:17:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linus Torvalds 的 AI 代码经 Meta 工程师重写后性能大幅提升</title>
-      <link>https://www.phoronix.com/news/Reading-Page-Cache-WO-Folio-Ref</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲Linus Torvalds改进Linux页面缓存代码带来性能提升，属于Linux内核技术进展和编程效率改进经验（high_interest）</small></p><p>上周报道了 Linus Torvalds 利用 Claude Code（AI 工具）为 Linux 内核提出的一项重大改进，该代码旨在无需 folio 引用即可从页缓存（page cache）读取数据，以优化多 CPU 线程对单个文件进行小规模读取的工作负载。</p>
-
-<p>Meta 工程师 Kiryl Shutsemau 基于 Torvalds 的代码进行了重写，并公布了令人瞩目的性能测试结果。他在补丁封面信中解释：多个 CPU 对同一文件进行小读取时，都会对同一个 folio 获取并释放引用，导致其引用计数在各 CPU 之间频繁跳动。该补丁系列让 <code>filemap_read()</code> 和 shmem 无需获取引用即可从页缓存复制数据，被读取的 folio 仅在 RCU 宽限期（RCU grace period）结束后才会被释放。</p>
-
-<p>测试覆盖了 EXT4、TMPFS、XFS 文件系统以及原始块设备，使用 AMD Ryzen Threadripper CPU 的 64 线程环境，并分别在有/无默认 CPU 安全缓解措施（CPU security mitigations）的情况下进行了验证。结果显示性能提升非常显著：</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=linus_ai_improved" alt="benchmark results" />
-
-<p>目前该补丁仍处于请求评论（RFC）阶段，部分设计细节尚待讨论，但社区期望相关问题能尽快解决，并有望在不久的将来合入内核主线。补丁已发布在 Linux 内核邮件列表中。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Reading-Page-Cache-WO-Folio-Ref</guid>
-      <pubDate>Mon, 19 Oct 2026 16:32:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Canonical 发布 Multipass 1.17：新增非 Ubuntu 发行版直接支持</title>
-      <link>https://www.phoronix.com/news/Multipass-1.17</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲Canonical Multipass 1.17新增支持非Ubuntu发行版，属于新软件项目及虚拟化技术的结合，新软件项目为high_interest，虽涉及虚拟化（uninterested）但主要内容是新功能发布</small></p><p>Canonical 于近日发布了 <strong>Multipass 1.17</strong>，这是一款用于在 Windows、macOS 和 Linux 平台上通过单条命令编排 Ubuntu 虚拟实例的工具。本次更新最引人注目的变化是新增了对非 Ubuntu Linux 发行版的直接支持。</p>
-
-<p>Multipass 1.17 最初内置了对 <strong>Debian</strong> 和 <strong>Ubuntu</strong> 的支持，同时开放了其他 Linux 发行版的部署通道，并欢迎用户反馈希望加入的其他发行版。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=multipass_117_1_med" alt="Multipass 1.17" />
-
-<p>新版本还引入了<strong>可用区（availability zones）</strong>功能，允许将虚拟机组织到预定义的区域中，配备隔离的子网和其他云环境特性，从而更好地在本地模拟云环境。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=multipass_117_2_med" alt="Multipass 1.17" />
-
-<p>其他值得关注的改进包括：</p>
-<ul>
-  <li>Multipass GUI 中重新设计的镜像目录</li>
-  <li>Windows 平台新增 <strong>Host Compute System（HCS）</strong>驱动，比此前的 Hyper-V 集成路径更稳健</li>
-  <li>macOS 新增 <strong>Apple 虚拟化框架</strong>后端，支持更快的启动速度和 macOS 26 上的原生 ASIF 磁盘镜像支持</li>
-  <li>新增 <strong>POWER PPC64EL</strong> 和 <strong>IBM s390x / IBM Z</strong> 架构支持</li>
-  <li>GUI 默认镜像更新为 Ubuntu 26.04 LTS</li>
-  <li>包含多项错误修复和其他增强</li>
-</ul>
-
-<p>更多下载和详细信息可参阅 <a href="https://github.com/canonical/multipass">GitHub</a> 和 <a href="https://discourse.ubuntu.com">Ubuntu Discourse</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Multipass-1.17</guid>
-      <pubDate>Mon, 19 Oct 2026 13:17:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>GNU Linux-libre 7.3-gnu 发布，进一步移除固件二进制文件</title>
-      <link>https://www.phoronix.com/news/GNU-Linux-Libre-7.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲GNU Linux-libre移除固件blob，属于Linux发行版相关但主题较专业小众，兴趣不十分明确</small></p><p>继昨日 Linux 7.3 内核发布之后，GNU Linux-libre 7.3-gnu 现已释出。作为 GNU 的下游内核项目，Linux-libre 继续剔除那些依赖固件二进制文件（firmware blobs）或其他被认为与自由软件理念不符的专有元素的驱动程序与硬件支持。</p><p>本次 v7.3 版本的发布公告将相关改动总结为：清除了众多新驱动中的二进制文件名称，包括 Tyr Mali GPU、Morse Micro mm81x WiFi、NXP WiFi 及 Realtek PHY；同时清理了 nova-core、amdgpu、adreno、tegra、iris 视频解码器、rtw89 与 mt76 WiFi、remoteproc 文档、Qualcomm Q6V5 PAS、qla2xxx SCSI、aw88399 音频编解码器以及众多 Qualcomm 设备树文件中的新二进制文件名称。</p><p>与以往每个内核周期一样，GNU Linux-libre 开发者也发布了独特的艺术海报。</p><img src="//www.phoronix.net/image.php?id=2026&image=linux_libre_73" alt="GNU Linux-libre 7.3 release artwork" /><p>GNU Linux-libre 7.3-gnu 内核可从 FSFLA.org 下载。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Linux-Libre-7.3</guid>
-      <pubDate>Mon, 19 Oct 2026 12:57:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
