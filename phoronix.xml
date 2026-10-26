@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 26 Oct 2026 00:16:36 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2026 06:06:39 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Redox OS 九月迎来多项性能优化：IPC 延迟大幅降低</title>
+      <link>https://www.phoronix.com/news/Redox-OS-September-2026</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Redox OS（基于 Rust 的开源操作系统）的性能改进更新，属于 Rust 和开源项目范畴，符合感兴趣级别</small></p><p>基于 Rust 的开源操作系统 Redox OS 在 2026 年 9 月取得了多项重要进展，其中一系列性能优化尤为引人注目。</p>
+
+<p>Redox OS 现在支持<strong>直接上下文切换</strong>（direct context switching），允许应用程序在调用系统服务时绕过调度器。此前调度器使用开销较大的 BTreeMap 数据结构进行上下文切换，避免这一用法后，IPC 延迟降低了约 24%，小缓冲区 I/O 性能提升了约 5%。此外，内核 TLB 使用量的减少带来了多方面收益，TLB 未命中率降低了 75%。避免不必要的 AVX 寄存器保存/恢复操作，使 IPC 延迟再降低 14%。SDL2 性能也得到了改善。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=redoxos_qemu_med" alt="Redox OS" />
+
+<p>其他近期工作包括：Intel Tiger Lake GPU 的外部显示器热插拔支持、启动修复、升级至 Rust uutils 0.11，以及在 Redox 构建系统中加入 LLVM Clang 支持以实现交叉编译。此外还有多项内核和驱动程序改进。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Redox-OS-September-2026</guid>
+      <pubDate>Mon, 26 Oct 2026 00:24:45 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Wayland 提出新协议 ext-transient-output，助力 VNC/远程桌面软件</title>
       <link>https://www.phoronix.com/news/Wayland-ext-transient-output</link>
@@ -685,15 +700,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Linux-Libre-7.3</guid>
       <pubDate>Mon, 19 Oct 2026 12:57:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GNOME Mutter 合并补丁，降低节能模式下的 GPU 功耗</title>
-      <link>https://www.phoronix.com/news/GNOME-Power-Savings-GPU</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及GNOME桌面图形管理改进和GPU功耗优化，属于Linux桌面技术（感兴趣），且与编程效率/省电相关，推荐阅读</small></p><p>针对一个月前关于 GNOME 51 在显示器休眠时 GPU 占用过高的问题报告，一组共 17 个补丁已于今日被合并。该问题源于客户端在显示器休眠期间仍持续渲染，导致 GPU 占用偏高。</p><p>问题被追溯至 CRTC 后端阶段视图（stage views）即使在节能模式下仍不受节流地重绘。<img src="//www.phoronix.net/image.php?id=2026&image=gnome_51_gears_med" alt="GNOME 51 with glxgears" /></p><p>此次合并的代码通过在节能状态下无需重绘即可处理前进进度来解决该问题。修复作者、来自 Red Hat 的 Jonas Ådahl 解释了两处变更：其一，主动决定在节能时不在绘制有 CRTC 目标的阶段视图时进行绘制渲染，从而解决最初报告的问题——vkgears、glxgears、es2gears 在节能状态下均报告约 60 fps，且无需帧时钟（frame clock）了解节能状态；其二，处理被丢弃帧的呈现反馈迁移，使 vkgears 在节能状态下能正确接收 .discarded 事件。</p><p>该代码已合并至 Mutter，预计将包含在 GNOME 51.2 版本中。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Power-Savings-GPU</guid>
-      <pubDate>Mon, 19 Oct 2026 12:20:09 GMT</pubDate>
     </item>
   </channel>
 </rss>
