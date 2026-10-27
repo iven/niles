@@ -3,7 +3,22 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 27 Oct 2026 14:23:37 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 27 Oct 2026 20:01:30 GMT</lastBuildDate>
+    <item>
+      <title>⭐ KDE 将修复 15 年历史 Bug：复制文件到 USB 设备的完成通知不准确</title>
+      <link>https://www.phoronix.com/news/KDE-Fixes-15-Year-Old-Bugs</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲述KDE修复文件复制到USB时通知不准确的多年旧Bug，属于KDE桌面相关技术进展，符合很高兴趣，推荐阅读。</small></p><p>KDE 计划在将于下月发布的 KDE Frameworks 6.32 版本中解决一个存在了 15 年的老 Bug。该 Bug 于 2011 年被报告，涉及 KDE 桌面在向可移动 USB 闪存盘复制文件时发出不准确的通知：完成进度和"复制完成"通知只反映了数据写入本地缓存的情况，而非数据真正写入可移动存储介质。因此，KDE 可能会提示文件"已经复制到 USB 闪存盘"，但实际数据可能尚未真正落盘。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=kde_copy_1" alt="KDE file copy dialog" />
+<p>KDE 开发者 Méven Car 今日在博客上撰文回顾了这一 15 年老 Bug 的漫长修复历程。该问题报告收到了 77 条以上评论，并产生了 17 条以上的重复报告。即使在当前的 KDE Plasma 稳定版中，这类"复制到可移动存储完成"的通知仍然不够准确。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=kde_copy_2" alt="KDE file copy dialog complete" />
+<p>找到准确传达文件复制到 USB 存储真正完成的方案，对 KDE 而言是一个非常漫长且复杂的过程。早在报告提交两天后，Christoph Feck 就询问是否存在一种"不会造成任何同步调用那样大规模性能下降"的方式来判断数据真正写入磁盘。两周后，报告者转述了 Alan Stern 的答案 <code>sync_file_range()</code>，Christoph 回复称这"正是我们所需要的"——那是 2011 年 9 月，也正是 KIO 如今所使用的系统调用。之后多年进展缓慢，仅有用户不断确认该问题以及 17 条重复报告。2021 年，Nate Graham 将其提升至最高优先级，因为"移动"操作会在复制仍处于内存中时就删除源文件。2022 年，他修改了"磁盘与设备"小程序，使弹出设备时会提示设备仍在写入。2024 年，Christoph 测试了 Linux 6.5 的 <code>cachestat()</code> 调用，该调用可报告文件在内存中仍有多少脏数据，但一次只能针对单个文件。</p>
+<p>Méven Car 将这一 Bug 形容为他的"白鲸"（white whale）。他自 2018 年起参与 KIO 贡献，仍持续学习其背后的 Linux 存储栈行为。他在 2024 年两次尝试修复，但均未能正确使用 <code>sync_file_range()</code>：在 MR 1718 中该调用路径被注释掉；在 KIO MR 1764 和 Dolphin MR 862 中，工作进程等待的是"刚刚写入的区块"的写回，而该写回尚未开始，因此实际上从未真正等待。关键在于等待"前一个"窗口的写回。直到有另一位贡献者提出在 MR 2162 中关闭复制缓存（该提案被关闭）。</p>
+<p>随着 KDE Frameworks 6.32 的发布，完成对话框将借助 <code>sync_file_range()</code> 调用，准确反映数据是否真正写入 USB 存储。对这一 15 年 Bug 漫长修复历程的完整技术细节，可参阅 KDE.org 博客。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Fixes-15-Year-Old-Bugs</guid>
+      <pubDate>Tue, 27 Oct 2026 16:50:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Ikey Doherty 宣布新桌面发行版 Pavee OS，构建于 Barney 工具链之上</title>
       <link>https://www.phoronix.com/news/Pavee-OS</link>
@@ -656,15 +671,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8.1</guid>
       <pubDate>Tue, 20 Oct 2026 12:04:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.4 新增两字节 cmpxchg 模拟函数，部分老旧 CPU 架构或将被淘汰</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-Two-Byte-CMPXCHG</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linux 7.4新增模拟功能及旧CPU可能被淘汰，涉及旧CPU历史话题，兴趣不明确</small></p><p>Linux 7.4 内核正在新增一个模拟函数，用于支持两字节的 cmpxchg()（比较并交换）操作。该改动由资深 Linux 开发者 Paul E. McKenney 提交，新增的 <code>cmpxchg_emu_u16()</code> 函数能够以四字节 cmpxchg() 为基础，为不具备原生两字节指令的架构模拟两字节的 cmpxchg() 操作。</p><p>这一函数将被用于 SH、ARC、CSKY 和 Xtensa 等 CPU 架构。其目的在于让两字节 cmpxchg() 可以在 Linux 通用内核代码中放心使用，因为可以假定所有受支持的架构均已具备相应能力。</p><p>不过，提交说明也指出，由于部分仍受 Linux 支持的体系架构并不具备原生两字节存储指令，因此并非所有依赖两字节原子操作的算法都能轻松实现。提交中最后一句引发关注：「有理由相信这些系统很快将不再受 Linux 支持」，暗示主线内核可能即将淘汰这些旧 CPU 系统。</p><img src="//www.phoronix.net/image.php?id=2018&image=linux_c_sky_med" alt="C-SKY image" /><p>值得一提的还有 C-SKY 架构——这一中国的 32 位 CPU 架构于 2018 年加入 Linux 内核，当时被视作可能是最后一个新增的 CPU 架构。Linux 内核开发者当时曾表示，随着 RISC-V 的持续趋同，C-SKY 的加入或许是内核最后一次引入全新的 CPU 移植/架构。</p><p>该新闻引发 3 条社区评论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Two-Byte-CMPXCHG</guid>
-      <pubDate>Tue, 20 Oct 2026 10:32:23 GMT</pubDate>
     </item>
   </channel>
 </rss>
