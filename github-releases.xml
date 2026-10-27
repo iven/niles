@@ -3,7 +3,91 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 27 Oct 2026 20:01:18 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 27 Oct 2026 23:44:19 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.165.0：新增 Google Cloud Vertex AI 提供商与 GPT-6.1 Terra 模型支持</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.165.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex 发布 0.165.0 版本，带来多项新功能与 bug 修复。</p>
+
+<h3>新功能</h3>
+<ul>
+<li>新增内置 <strong>Google Cloud Vertex AI</strong> 提供商，可通过 <code>model_provider = "gcp"</code> 配置使用。</li>
+<li>模型目录新增 <strong>GPT-6.1 Terra</strong> 模型支持。</li>
+<li>会话选择器新增<strong>仓库过滤器</strong>，代理命令中心新增<strong>目录分组</strong>，便于在关联的 worktree 间导航会话。</li>
+<li>app-server API 新增实验性的<strong>附加线程分叉（attached thread forks）</strong>功能。</li>
+<li>默认启用对话过程中<strong>推理强度（reasoning effort）调整</strong>功能（针对支持的模型）。</li>
+<li>新配置文件默认启用 <strong>memory v2</strong>，并支持将外部代理的记忆导入其中。</li>
+</ul>
+
+<h3>Bug 修复</h3>
+<ul>
+<li>修复全新 TUI 会话未遵循服务器默认审批审查者的问题。</li>
+<li>执行设置无效时，TUI 偏好设置仍保持可编辑并即时生效。</li>
+<li>本地响应 future 被丢弃时，取消远程 MCP 工具请求。</li>
+<li>防止中断或切换到 Plan 模式后，排队中的代理消息重新启动工作。</li>
+<li>提供商报告模型不存在时停止重试，并保留其错误信息。</li>
+<li>修复 marketplace URL 校验漏洞，防止 Git 连接到与允许模式检查不一致的主机。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.165.0</guid>
+      <pubDate>Tue, 27 Oct 2026 20:09:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.312：新增点击发送、修复大文件覆盖与技能查找等问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.312</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.312 更新，带来几项新功能并修复多个问题。</p>
+
+<h3>新功能与核心改动</h3>
+<ul>
+<li><b>点击直接发送</b>：全屏界面下，点击排队消息下方的"立即发送"提示即可直接发出消息。</li>
+<li><b>大型文件编辑安全</b>：修复 Claude 在只看到大文件开头后就覆盖整个 CLAUDE.md、规则文件或 @-包含文件的问题；Write 现在会要求 Claude 先读取全文或就地编辑。</li>
+<li><b>简单系统提示调整</b>：Bedrock、Vertex、Foundry 和 Mantle 对 Claude Code 无法识别的模型名（如自定义部署名、推理配置 ARN 等）改用更短的系统提示，即使这些模型底层是 Sonnet 或 Haiku；可通过 <code>CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0</code> 恢复完整提示。</li>
+<li><b>自动模型切换扩展</b>：标记消息后的自动模型切换现在也覆盖无法识别的模型名（如自定义部署名），可用 <code>CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1</code> 关闭。</li>
+<li><b>术语调整</b>：将 5 小时窗口的用量限制提示由"会话限制（session limit）"改为"5 小时限制（5-hour limit）"。</li>
+</ul>
+
+<h3>其他修复与改进</h3>
+<ul>
+<li>修复从 VS Code 扩展登录后，本次会话其余时间无法获取托管设置和组织策略的问题。</li>
+<li>修复 Bash <code>cd</code> 深入 git 仓库后，按目录和 <code>paths:</code> 技能无法找到的问题。</li>
+<li>修复终端恢复会话后首条回复可能丢失的罕见问题。</li>
+<li>修复非法命令名导致所有命令无法加载、可能使 <code>claude -p</code> 无输出的问题。</li>
+<li>修复 Read 工具在清理旧会话文件与读取 PDF 页同时进行时偶尔报"pdftoppm failed"的问题。</li>
+<li>修复任务中 spinner、OpenTelemetry <code>effort</code> 值与 transcripts 在模型生效前就命名新选择的 effort 级别的问题，现改为显示当前生效级别。</li>
+<li>修复 <code>/model</code> 和 <code>/effort</code> 缓存警告及 vim 模式的若干小问题。</li>
+<li>改进提示中 effort 指示器在任务中途变化的显示。</li>
+<li>改进云会话中的 WebFetch 错误提示（无法解析的主机可能超出允许的网络域）。</li>
+<li>将提示和代理钩子的并发上限调整为每会话最多 24 个（含子代理），额外最多 12 个超过事件超时的钩子。</li>
+<li>修复子代理 <code>autoCompactWindow</code> 现在可降低 <code>CLAUDE_CODE_AUTO_COMPACT_WINDOW</code> 设定的窗口（之前无效）。</li>
+<li>OpenTelemetry 的 <code>mcp_server.name</code> 现在报告官方 Anthropic 市场插件声明固定 URL 远程 MCP 服务器的真实名称，而非 <code>custom</code>；并停止发送 <code>claude_code.safety_event</code> 事件。</li>
+</ul>
+
+<h3>VS Code 扩展</h3>
+<ul>
+<li>修复组织设置无法加载或被拒绝时会话以裸退出码结束的问题，标签页现在会说明原因并提供重试或重新登录。</li>
+<li>用量限制重置现显示时钟时间（如"Resets at 3:10 PM"）并使用"5-hour limit"表述。</li>
+</ul>
+
+<h3>云会话（Cloud sessions）</h3>
+<ul>
+<li>创建或编辑云端例行任务时，模型选择器新增 effort 级别选项。</li>
+<li>云环境设置脚本框新增带配色、行号和复制按钮的 Bash 编辑器。</li>
+<li>Claude 向云会话添加仓库时，打开步骤改为显示简明结果表而非原始 JSON。</li>
+<li>修复若干发送、环境创建报错及例行任务编辑对话框相关的问题。</li>
+</ul>
+
+<h3>远程控制 / Claude Tag / Code Review</h3>
+<ul>
+<li>远程控制（Remote Control）：修复取消归档的会话在电脑重连前一直显示"工作中"的问题，现显示为空闲。</li>
+<li>Claude Tag：改进 Slack 中的重试提示（可点名当前模型或说明触发速率限制），修复频道开关/代理设置回退、无网络访问环境的回复及回复错帖等问题。</li>
+<li>Code Review：修复 GitHub 推送事件延迟到达时审查过时提交的问题，现改为审查 PR 当前提交。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.312</guid>
+      <pubDate>Tue, 27 Oct 2026 20:24:20 GMT</pubDate>
+    </item>
     <item>
       <title>Devbox 0.18.5 发布：新增 devbox_version 版本锁定与自动切换功能</title>
       <link>https://github.com/jetify-com/devbox/releases/tag/0.18.5</link>
@@ -1500,135 +1584,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.159.0</guid>
       <pubDate>Tue, 29 Sep 2026 08:05:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.284：新增 Claude Sonnet 5.5 默认模型，多项交互与修复改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.284</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.284 版本，主要新增了 Claude Sonnet 5.5 模型并设为 Anthropic API 的默认 Sonnet 模型（支持 1M 上下文，$2/$10 每百万 token，缓存读取 $0.20/Mtok），同时带来多项功能与修复。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增 Claude Sonnet 5.5</strong>（<code>claude-sonnet-5-5</code>），现为 Anthropic API 默认 Sonnet 模型，支持 1M 上下文</li>
-<li><strong>自动模式新增「是，但下次再问」选项</strong>：在工作目录外读取前可允许单次读取，后续仍会继续询问</li>
-<li><strong>新增可重绑定的按键动作</strong>：<code>effortSlider:decreaseEffort</code>、<code>increaseEffort</code> 和 <code>toggleUltracode</code>，可在 <code>keybindings.json</code> 中重映射 <code>/effort</code> 滑块的箭头和 Tab 键</li>
-<li><strong>新增 <code>/mcp reconnect all</code></strong>：在交互终端中一次性重试所有连接失败或需要认证的 MCP 服务器</li>
-<li><strong>Ultracode 独立开关</strong>：在 <code>/effort</code> 中成为独立切换项（Tab 或 <code>/effort ultracode [on|off]</code>），不再强制 xhigh 努力级别，可在任意级别保持开启</li>
-<li><strong>默认自动模式</strong>：交互终端和 VS Code 会话在未配置权限模式时默认以自动模式启动（<code>permissions.defaultMode</code> 仍可覆盖）</li>
-<li><strong>VS Code 新增消息时间戳</strong>：可在每条提示和响应上方显示时间（Claude Code: Show Message Timestamps 设置，默认关闭）</li>
-<li><strong>VS Code 新增 Ultracode 开关</strong>：位于 Effort 滑块下方，模型标签在任意努力级别显示「· Ultracode」</li>
-</ul>
-
-<h3>其他修复与改进</h3>
-<ul>
-<li>修复了损坏的响应流显示原始错误（如「JSON Parse error」）或写入「undefined」的问题，现改为重试或报告为中断响应</li>
-<li>修复了压缩后仍提示「Prompt is too long」的问题，现会再次压缩并保留更少的近期对话</li>
-<li>修复了恢复会话中 MCP 工具调用在服务器仍在连接时失败的问题，现最多等待 10 秒</li>
-<li>修复了 vim 模式下 <code>.</code> 无法重复快速输入文本的问题</li>
-<li>修复了 <code>/plugin</code> 配置界面：布尔选项改为 true/false 选择，数字选项拒绝无效输入</li>
-<li>修复了 Bash 工具在 Windows 上启用多个插件时失败的问题</li>
-<li>修复了全屏渲染擦除终端上方输出的问题（macOS 和 Linux）</li>
-<li>修复了工作区信任对话框在切换渲染器或更新后重复出现的问题</li>
-<li>修复了插件市场克隆空目录并替换本地副本的问题（旧版 git）</li>
-<li>修复了 <code>/usage</code> 等端点被限流后反复请求的问题，现改为退避等待</li>
-<li>改进了使用限制等待界面：限制状态和倒计时合并为一个区块显示</li>
-<li>改进了启动时间和内存使用：仅构建设置文件中实际使用的 schema 部分</li>
-<li>改进了自动记忆加载：中和 <code>MEMORY.md</code> 中模仿 Claude Code 标记的不可见字符和标签</li>
-<li>修复了 <code>/recap</code> 从聊天线程中继到达时被拒绝的问题</li>
-<li>修复了 Explore 子代理在会话运行无法识别的模型 ID 时切换到 Opus 的问题，现改为继承该模型</li>
-<li>修复了 <code>/loop</code> 在自定步调模式下状态更新不显示的问题</li>
-<li>修复了 <code>/ultrareview</code> 从 git worktree 启动时上传失败的问题（macOS 和 Linux）</li>
-<li>修复了沙箱 Bash 命令在写拒绝且含读拒绝目录的工作目录中无法启动的问题（Linux）</li>
-<li>修复了 Claude apps gateway 对包含大量组的身份提供者返回 431 错误的问题，现接受最大 256 KiB 的请求头</li>
-<li>修复了 <code>claude mcp add</code> 在托管设置限制 MCP 服务器为插件时仍报告成功的问题</li>
-<li>修复了 <code>/keybindings</code> 为无操作页脚动作写入 Backspace 和 Delete 绑定</li>
-<li>修复了 vim 模式在最后一行 <code>dd</code> 或提示末尾 <code>yy</code> 后光标停留在图片占位符开括号上的问题</li>
-<li>修复了规则符号链接到 <code>.claude/rules</code> 时跳过外部导入审批提示的问题</li>
-<li>修复了插件通过 <code>allowed-tools</code> 在托管 <code>allowManagedPermissionRulesOnly</code> 下预批准自身工具的问题</li>
-<li>修复了首次 <code>claude plugin install</code> 失败时插件仍被启用和记录的问题</li>
-<li>修复了调试日志丢失失败钩子 stderr 的问题，现也记录状态码</li>
-<li>修复了 Elicitation 钩子返回 <code>{"decision":"block"}</code> 被忽略的问题</li>
-<li>修复了未启用 <code>SendMessage</code> 工具的会话仍被告知向其他会话发送消息的问题</li>
-<li>修复了从 Claude 应用通过远程控制发送的照片在编辑时丢失的问题</li>
-<li>修复了使用限制警告向已是最高 Max 计划的用户建议 <code>/upgrade</code> 的问题，现指向 <code>/usage-credits</code></li>
-<li>修复了工件数据库写入结果错误告知 Claude 所有查看者都能看到写入的问题，新增 <code>as_level</code> 的「view」级别</li>
-<li>改进了 <code>/claude-api</code>：<code>hillclimb</code> 不再在过小的提示改写上花费轮次</li>
-<li>改进了 <code>claude plugin marketplace add</code> 在替换同名不同源市场时给出提示和撤销方法</li>
-<li>改进了启动拒绝提示：当托管设置要求登录但配置了 API 密钥时，明确指出使用的凭据、设置位置及移除方法</li>
-<li>改进了 <code>claude remote-control</code>：在未信任的文件夹中改为在终端询问工作区信任而非退出</li>
-<li>改进了工件页面：Claude 将设计计划写入页面而非回复中</li>
-<li>改进了 Artifact 工具：给定 claude.ai 聊天或项目链接时，会请求正确的链接或内容而非停止</li>
-<li>改进了连接中断后的重试：与请求的其余重试共享同一预算，失败请求更快放弃</li>
-<li>改进了 Sonnet 模型安全防护标记消息时的提示，解释原因并提供编辑和重试选项</li>
-<li>改进了固定 Opus 模型会话中的安全相关模型切换逻辑</li>
-<li>改进了非交互首轮：即使 <code>CLAUDE_CODE_MCP_STARTUP_WAIT_MS</code> 为 0，仍等待最多 2 秒连接 <code>--allowedTools</code> 或 <code>mcp_tool</code> 钩子指定的 MCP 服务器</li>
-<li>改进了 <code>/artifacts</code> 的筛选标签显示（All、Mine、Shared）</li>
-<li>工件发布拒绝网络共享路径上的文件，除非位于通过 <code>--add-dir</code> 添加的映射网络驱动器上</li>
-</ul>
-
-<h3>VS Code 扩展</h3>
-<ul>
-<li>新增插件加载错误和提示显示在 Manage plugins 行中，带禁用、卸载或复制错误的弹窗</li>
-<li>修复了 Memory 对话框中的 Reload Claude 在编辑文件保存前重启的问题</li>
-<li>修复了恢复的标签页打开另一个 Claude 进程仍打开的对话的问题，现会先询问</li>
-<li>修复了 Focus 视图展开的区块在子代理工作时自动关闭的问题</li>
-<li>修复了输入 <code>/model</code> 并按 Enter 将使用文本打印到聊天而非打开模型选择器的问题</li>
-<li>修复了 Vertex、Bedrock 和 Foundry 上 <code>/feedback</code> 在按发送后被拒绝的问题</li>
-<li>修复了窗口重载后登录等待 Python 扩展最多一分钟的问题</li>
-<li>修复了 Restart Extensions 后 Claude Code 标签页停止响应的问题</li>
-<li>修复了无发送者记录的其他代理消息显示为原始 XML 的问题</li>
-<li>修复了重载后其他代理、会话或渠道的消息消失的问题</li>
-<li>修复了用户自己的 <code>/mcp</code>、<code>/config</code> 或 <code>/settings</code> 命令被扩展对话框遮蔽的问题</li>
-<li>修复了无回合运行时 Escape 停止所有后台代理的问题</li>
-<li>修复了插件安装链接替换同名已有市场的问题</li>
-<li>修复了附加大文本文件后压缩仍出现「Prompt is too long」错误的问题</li>
-<li>修复了路径含非 ASCII 字符、空格或方括号的聊天文件链接无法打开的问题</li>
-<li><code>CLAUDE_CONFIG_DIR</code> 环境变量设置仅在接受绝对路径时生效</li>
-</ul>
-
-<h3>Claude Tag（Slack 集成）</h3>
-<ul>
-<li>新增模型族选择（如「Opus (latest)」），自动跟随该族最新模型</li>
-<li>新增组织级限额消费显示在分析支出预测图表中</li>
-<li>修复了 GitHub Enterprise 主机名含下划线时进度卡片和链接预览省略仓库和 Create PR 按钮的问题</li>
-<li>修复了环境拒绝启动时 Claude 保持沉默的问题，现发布一条通知并可在 @提及时重试</li>
-<li>改为在每次未连接账户的 @提及时发布私人登录通知</li>
-<li>改进了「立即通知成员」：一次按键可触达 Enterprise Grid 中组织声明的所有工作区</li>
-<li>改进了自托管环境按需运行器的等待通知，说明运行器是否正在启动、将重试或无运行器启动</li>
-<li>改进了添加频道管理器失败时的错误提示</li>
-<li>改进了管理员设置中频道的访问列表，显示自动加入模式附加的连接器、仓库和插件及来源</li>
-<li>改进了添加仓库作为频道管理器时 GitHub 登录确认流程</li>
-</ul>
-
-<h3>Code Review</h3>
-<ul>
-<li>修复了 GitHub App 下有未提交的审查时 Code Review 放弃发布完成审查的问题，现会先重试发布</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.284</guid>
-      <pubDate>Mon, 28 Sep 2026 18:02:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>chezmoi v2.73.0 发布：新增 push 命令及安装脚本改进</title>
-      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.73.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>chezmoi 发布了 v2.73.0 版本，主要包含以下更新：</p>
-
-<h3>新功能</h3>
-<ul>
-<li><strong>新增 push 命令</strong>：用于将本地更改推送到远程仓库，方便用户同步配置。</li>
-<li><strong>安装脚本改进</strong>：如果 chezmoi 不在用户的 PATH 中，安装脚本会发出通知提醒用户。</li>
-</ul>
-
-<h3>文档更新</h3>
-<ul>
-<li>将 push 命令添加到日常操作文档中。</li>
-<li>对齐文档与源代码内容，确保一致性。</li>
-<li>添加了相关文章的链接。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.73.0</guid>
-      <pubDate>Mon, 28 Sep 2026 19:52:37 GMT</pubDate>
     </item>
   </channel>
 </rss>
