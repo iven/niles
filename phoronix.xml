@@ -3,7 +3,52 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 27 Oct 2026 07:44:27 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 27 Oct 2026 14:23:37 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Ikey Doherty 宣布新桌面发行版 Pavee OS，构建于 Barney 工具链之上</title>
+      <link>https://www.phoronix.com/news/Pavee-OS</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新发行版桌面发行版，属来源级高兴趣（新发行版/新软件项目），必看</small></p><p>Solus Linux 与 Serpent OS 的创始人、前 Intel Clear Linux 开发者 Ikey Doherty 于 9 月公布了名为 <strong>Barney</strong> 的项目，将其定位为在 2026 年及以后"正确"构建现代 Linux 发行版的展示样板。近日他发布了关于这一发行版工具链进展的更新，同时宣布推出 <strong>Pavee OS</strong>，作为他基于 Barney 打造的"有主见的日常桌面（daily-driver desktop）"发行版。</p><img src="//www.phoronix.net/image.php?id=2026&image=pavee_os" alt="Pavee OS" /><p>Doherty 阐述了他对 Pavee OS 的意图：<em>"长期以来我一直以错误的方式构建发行版。现在是时候扭转这种关系了：构建一个可复用、现代化的生态系统，让其他人能够共享，而不必在每个项目上强行套用某一特定发行版的设计决策。Pavee OS 让我有机会在实践中展示这套工厂（factory），同时将我个人的偏好与共享基础设施分离开来。"</em></p><p>这篇博客文章同时公布了 Pavee OS 的诞生，并提供了 Barney 工具链本身的进展更新。对 Pavee OS 感兴趣的读者可以通过其 <a href="https://github.com/">GitHub 仓库</a>跟踪代码开发进度。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Pavee-OS</guid>
+      <pubDate>Tue, 27 Oct 2026 13:11:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ KDE Plasma 6.8.2 发布：带来数十项额外错误修复</title>
+      <link>https://www.phoronix.com/news/KDE-Plasma-6.8.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] KDE 桌面环境版本更新，属来源级高兴趣，必看</small></p><p>KDE 项目在成立 30 周年之际发布了 Plasma 6.8 桌面环境，两周后迎来了 6.8.1 版本，本周又推出了 Plasma 6.8.2，继续带来数十项错误修复。</p>
+
+<p>Plasma 6.8 整体状态良好，但各类小问题仍在持续积累修复。6.8.2 版本包含的修复包括：KWin 的 Wayland 相关修复、平铺壁纸代码修复了动画图像不再播放的回归问题、KPipeWire 现在将流的帧率传递给 libx264、对 Plasma Big Screen 的行和磁贴进行了重构、修复桌面图标消失的问题、大量 Plasma Workspace 修复，以及 Union 主题引擎的更新。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=cachyos_plasma_68_med" alt="CachyOS Plasma 6.8" />
+
+<p>完整的修复列表可在 <a href="https://kde.org/announcements/plasma/6/6.8.2/">Plasma 6.8.2 变更日志</a> 中查看，更多详情请参见 <a href="https://kde.org/">KDE.org</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.8.2</guid>
+      <pubDate>Tue, 27 Oct 2026 13:02:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 现代 NTFS 驱动在 7.4 内核中支持备用数据流（ADS）</title>
+      <link>https://www.phoronix.com/news/NTFS-Linux-7.4-Improvements</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核文件系统新功能，属开源项目与软件新功能范畴，可推荐</small></p><p>Linux 的现代 NTFS 内核驱动在 Linux 7.1 中合并引入，用于更好地支持微软的 NTFS 文件系统。此后该驱动持续获得新功能与改进，Linux 7.4 内核也带来了多项值得关注的更新。</p>
+<p>本次更新中最重要的变化是支持 NTFS 的备用数据流（Alternate Data Streams，ADS）功能。NTFS 支持每个文件存储多个数据流，这本质上是文件中的隐藏数据，可通过命名流访问，常用于存放额外元数据、安全标志等信息。ADS 也曾被用于类似 Apple HFS 的支持场景，以及备份软件携带文件的多个修订版本。不过，NTFS ADS 也被用于在 Windows 系统上隐藏恶意软件等恶意用途。</p>
+<p>在 Linux 7.4 中，NTFS 驱动新增了 ADS 支持，并引入了新的 ioctl 接口，使 Linux 用户空间能够访问这些流/多个 $DATA 属性。新接口支持对 NTFS 文件的流进行枚举、读取、写入和删除。当以新的 <code>streams_interface=windows</code> 挂载选项挂载 NTFS 文件系统时，还能通过 Windows 语法 <code>[文件]:[流名]</code> 读写流。</p>
+<p>除了 ADS 支持外，该驱动还新增了通过 <code>FS_IOC_GETFLAGS</code> 和 <code>FS_IOC_SETFLAGS</code> 标志进行的文件属性查询与更新，通过 <code>FS_IOC_GETFSUUID</code> 暴露 NTFS 卷序列号，以及验证与兼容性增强、支持挂载休眠卷和多项修复。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NTFS-Linux-7.4-Improvements</guid>
+      <pubDate>Tue, 27 Oct 2026 10:11:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Firefox 159 发布：修复 AMD Linux 显卡内存占用过高问题</title>
+      <link>https://www.phoronix.com/news/Firefox-159-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Firefox 版本更新，属来源级高兴趣，必看</small></p><p>Mozilla 于 2026 年 10 月 27 日发布了 Firefox 159，这是其最新一期双周功能更新版本。</p><p>对于在 Linux 上使用 AMD 显卡的用户，此次更新修复了一个重要 bug：此前在查看 ChatGPT 等网站的搜索结果或地图位置时,Firefox 可能出现过高的内存占用。在 AMD 显卡的 Linux 系统上遇到 Firefox 内存飙升问题的用户，可升级到 Firefox 159 以获取该项重要修复。另一个重要的 Linux 相关改动是修复了 Wayland 下的标签页问题。</p><p>此外，Firefox 159 还改进了自身的 AI 集成功能，默认在侧边栏提供已保存密码，并包含多项 bug 修复。面向 Web 开发者，Firefox 159 默认启用了滚动驱动动画（scroll-driven animations）等变更。Firefox 159 现已可从 ftp.mozilla.org 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Firefox-159-Released</guid>
+      <pubDate>Tue, 27 Oct 2026 09:35:49 GMT</pubDate>
+    </item>
     <item>
       <title>Nouveau-DKMS 项目旨在改善旧款 NVIDIA Fermi 显卡的开源驱动体验</title>
       <link>https://www.phoronix.com/news/Nouveau-DKMS</link>
@@ -620,83 +665,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Two-Byte-CMPXCHG</guid>
       <pubDate>Tue, 20 Oct 2026 10:32:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 约1.7万行新Rust内核代码将进入Linux 7.4</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-Rust</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Linux内核新增17000行Rust代码，用户对Rust很感兴趣（来源配置high_interest），且属于编程效率和Linux内核技术进展</small></p><p>Miguel Ojeda 提交了计划引入 Linux 7.4 的新 Rust 内核代码拉取请求（pull request）。本轮代码量较大，主要原因是更新了 vendored 的 Zerocopy 库以及其他 Rust crate。</p><p>Zerocopy crate 此次更新幅度很大，直接跨越了八个版本。该库提供 traits 和宏，用于在原始字节序列与结构化类型之间进行安全转换。Rust for Linux 7.4 还包含其他工具链和基础设施更新，例如启用了不稳定的 <code>proc_macro_span</code> 特性，以改善所有过程宏的诊断信息。</p><img src="//www.phoronix.net/image.php?id=2021&image=rust_linux_v2" alt="Rust for Linux" /><p>内核的 Rust crate 新增了 <code>mem</code> 和 <code>ratelimit</code> 两个模块，同时改进了部分现有模块。pin-init crate 新增了对元组结构体（tuple structs）的支持，并允许安全地创建自引用。此外，诊断信息也得到了大幅改善。</p><p>除核心 Rust 代码外，Linux 7.4 还会通过各个子系统各自的拉取请求带来更多 Rust 代码，例如 NVIDIA Nova 驱动在 Linux 7.4 的改进，以及随之而来的其他 Rust DRM 基础设施工作。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Rust</guid>
-      <pubDate>Tue, 20 Oct 2026 10:04:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenBSD 8.0 正式发布：新增 Intel Arc A 系列显卡支持及多项硬件改进</title>
-      <link>https://www.phoronix.com/news/OpenBSD-8.0-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章是关于OpenBSD 8.0系统新版本发布，涉及Intel Arc显卡等硬件改进。属于BSD系统发布消息，不在用户高兴趣或兴趣主题范围内；虽然包含新软件/新版本元素，但BSD被列为不太感兴趣类别，且涉及硬件改进（硬件安全/非主流硬件相关），综合判断为可选。</small></p><p>Theo de Raadt 于今日发布了 OpenBSD 8.0，这是这款 BSD 操作系统的第 61 个版本。OpenBSD 8.0 带来了大量变更，尤其是在硬件支持改进和安全性增强方面表现突出，同时在 x86_64、ARM64 和 RISC-V 平台上有持续的硬件支持活动，并包含丰富的软件包更新。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=openbsd_80" alt="OpenBSD 8.0" />
-
-<p>OpenBSD 8.0 的主要亮点包括：</p>
-<ul>
-<li>AMD64 内核的虚拟地址空间从 4G 提升至 512G。</li>
-<li>利用 AES CPU 指令实现更快的交换分区加密。</li>
-<li>ARM64 平台支持休眠（Hibernate）功能。</li>
-<li>RISC-V 平台支持「V」向量扩展及新的 CPU ISA 能力。</li>
-<li>SPARC64 平台转向使用 LLVM/Clang 工具链。</li>
-<li>由于无法在 LLVM Clang 22 上正常工作，OpenBSD 移除了对 Loongson（龙芯）架构的支持。</li>
-<li>DRM 内核图形驱动已同步至 Linux 6.18 内核状态，OpenBSD 8.0 首次初步支持 Intel Arc A 系列（Alchemist）显卡。</li>
-<li>大量硬件设备 ID 及其他硬件支持改进，包括众多新的有线和无线网络驱动支持。</li>
-<li>多项安全改进。</li>
-<li>OpenBSD 8.0 提供的软件包包括 GCC 16.1、GNOME 49、KDE Plasma 6.7.5、LLVM Clang 22、Python 3.14.7、Rust 1.98.1、Wayland 1.26、Xfce 4.20 等。</li>
-</ul>
-
-<p>有关下载及 OpenBSD 8.0 的更多详细信息，请访问 <a href="https://www.openbsd.org">OpenBSD.org</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/OpenBSD-8.0-Released</guid>
-      <pubDate>Tue, 20 Oct 2026 09:44:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ AMD GAIA 0.25 发布：为 Ryzen AI 本地 AI 智能体带来多项改进</title>
-      <link>https://www.phoronix.com/news/AMD-GAIA-0.25-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 AMD 本地 AI 代理软件 GAIA 0.25 的新版本发布，属于新软件项目发布及 AI 软件技术进展，符合高兴趣配置。</small></p><p>AMD 本周发布了 GAIA 0.25，这是这一开源项目的最新功能版本。该项目最初名为「Generative AI Is Awesome」，如今以「AMD 的开源智能体工厂」为口号，用于在 AMD Ryzen AI 硬件上构建和使用本地 AI 智能体。</p>
-<p>GAIA 0.25 带来了多项可用性增强与其他改进，旨在提升用户体验。主要变化包括：</p>
-<ul>
-<li>运行 <strong>gaia chat</strong> 现在默认使用旗舰版 GAIA 智能体，而非已退役的 ChatAgent。</li>
-<li><strong>gaia talk</strong> 子命令现在借助 AMD 的 Lemonade 本地 AI 服务器项目进行转写和语音输出，后端使用 Whisper 和 kokoro-v1。</li>
-<li>安装包大幅缩小：通过移除不必要的依赖，Windows 上的 Python 环境体积从约 0.9GB 降至约 0.1GB。</li>
-<li>解决了长期存在的内存问题：此前在配备 16GB 内存的系统上，应用首次启动时会因内存不足而运行失败，再次启动则恢复正常。现在 GAIA 会在加载模型前检查可用空闲内存，并缩小上下文窗口以适配内存容量。这一改进源于近期一个合并请求，起因是应用在 16GB 内存的 Linux 笔记本上首次启动时崩溃，并被内核因内存溢出（out-of-memory）而终止。</li>
-</ul>
-<img src="//www.phoronix.net/image.php?id=2026&image=amd_gaia_0175_2_med" alt="AMD GAIA On Linux" />
-<p>此外，GAIA 0.25 还带来了众多智能体与模型方面的改进、Windows 安装/执行方面的优化、针对 AMD Strix Halo 的多种优化等。完整的 GAIA 0.25 变更列表可在 <a href="https://github.com">GitHub</a> 上查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-GAIA-0.25-Released</guid>
-      <pubDate>Tue, 20 Oct 2026 00:25:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.4 逐步淘汰老旧 EDAC 驱动：AI 生成的修复补丁造成困扰</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-EDAC</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲的是Linux内核移除旧EDAC驱动的开发动态，涉及开源项目与Linux技术进展，与AI生成修复热潮相关，符合兴趣配置，推荐阅读。</small></p><p>Linux 7.4 内核的「错误检测与纠正」（Error Detection And Correction, EDAC）子系统除了引入新的 Intel BFF 驱动外，正在淘汰一批老旧硬件驱动，原因是针对这些可能已几乎无人使用的驱动，AI/LLM 生成的 bug 修复补丁带来了大量噪音。</p>
-
-<p>这与今年早些时候 Linux 网络子系统因 AI 驱动的大量 bug 报告而开始移除老旧网络驱动的情况类似。EDAC 驱动维护者同样面临越来越多针对老旧 EDAC 驱动的 bug 报告和补丁，而这些驱动很可能没有实际应用——至少对于生产环境中仍使用最新主线内核版本的用户而言。为避免这些实质上的 AI 垃圾信息，维护者将这些驱动标记为孤儿（orphaning），随后将在下一个内核版本中予以移除。</p>
-
-<p>EDAC 维护者、AMD 的 Borislav Petkov 在今天（19 日）的拉取请求中解释：<em>「将多个 EDAC 驱动孤儿化：i82975x、x38、xgene、i3200。这些驱动只收到一些顺手（drive-by）更新，实际上没有人真正使用它们，至少在邮件列表上没有任何使用痕迹。随着 AI 生成修复补丁狂潮的到来，且由于没人能真正测试针对这些驱动的修复，是时候让它们退休，送它们去永恒的快乐狩猎场了。」</em></p>
-
-<p>具体涉及的老旧硬件包括：</p>
-<ul>
-<li><strong>i82975x</strong>：对应当年的 Intel 975X Express 芯片组。作者 Michael Larabel 提到他仍保留有约二十年前的 Intel 975X 硬件（并回忆了 975X 与 Abit 主板时代）。<img src="//www.phoronix.net/image.php?id=583&image=abit_aw9d_mobo_med" alt="Abit AW9D" /><img src="//www.phoronix.net/image.php?id=583&image=abit_aw9d_cpu_med" alt="Abit motherboard with i975X" /></li>
-<li><strong>x38</strong>：对应 Intel X38 内存控制器（MCH）。</li>
-<li><strong>xgene</strong>：对应前 AppliedMicro 的 X-Gene 片上系统（SoC），其中 X-Gene 3 在被 Ampere Computing 收购后用于 Ampere eMAG。<img src="//www.phoronix.net/image.php?id=ampere-emag-osprey&image=ampere_osprey_5_med" alt="Ampere eMAG" /></li>
-<li><strong>i3200</strong>：对应 Intel 3200/3210 芯片组。</li>
-</ul>
-
-<p>Linux 7.4 中 EDAC 代码的新增内容还包括：一个用于在虚拟机内测试 EDAC 核心代码的「虚拟」（dummy）EDAC 驱动，以及用于处理老化硅片和卡位（stuck bits）的 Intel BFF（Bit Fix Filter）驱动。此外，其余 EDAC 代码也收到大量 AI 驱动的修复。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-EDAC</guid>
-      <pubDate>Mon, 19 Oct 2026 21:38:28 GMT</pubDate>
     </item>
   </channel>
 </rss>
