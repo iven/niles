@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 28 Oct 2026 18:49:33 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 23:09:04 GMT</lastBuildDate>
+    <item>
+      <title>Linux 内核开发者考虑移除 KGDB 调试功能</title>
+      <link>https://www.phoronix.com/news/Linux-Considers-Dropping--KGDB</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章讨论Linux内核开发者考虑移除KGDB调试功能，属于Linux内核技术进展。虽然不直接匹配用户的核心兴趣类别，但与Linux桌面技术相关，可能涉及技术讨论，但具体内容有限，兴趣程度不明确，评为可选。</small></p><p>Linux 内核开发者正考虑完全移除 KGDB 调试功能。KGDB 于 2008 年在 Linux 2.6.26 中合并进内核，用于配合 GNU 调试器（GDB）以类似用户空间调试的方式调试内核。它通常需要借助串口或网络线缆连接的第二台计算机。</p><p>由于近年 KGDB 使用并不广泛，资深 Intel Linux 开发者 Peter Zijlstra 近日提交了一个补丁，提议将该功能整体从内核中移除。Peter 在补丁信息中表示："KGDB 会做一些糟糕的事情，而在如今人人都能使用虚拟化的时代，确实没有理由再用它替代 QEMU 的 gdb-server。"通过 QEMU gdb-server 在虚拟机中调试的确是比准备 null modem 线缆和第二台电脑更干净的方式。</p><p>在回应相关评论时，Peter 进一步阐述了 KGDB 代码存在的问题："（针对此前评论：如果调试依赖于特定硬件怎么办？）可以使用设备透传、模拟设备或 printk() 调试。使用 KGDB 会引发大量问题，它几乎会一直卡在 NMI 上下文中，这可能彻底破坏时钟（timekeeping）代码，还可能触发看门狗（watchdog），并在代码补丁与断点方面带来无尽麻烦。为了在 KGDB 面前让断点代码不那么糟糕，人们一直在试图'修复'它，但这一切都非常糟糕，实在不值得。到目前为止最明智的选择就是按提议直接删除 KGDB。另外，你上次用 KGDB 是什么时候？我想我约 20 年前试过一次，之后就再没用过——它就是这么'好'。"</p><p>有建议提出可以先用 Kconfig 选项默认禁用 KGDB，等几个内核版本后再将其移除。最终结果尚待观察，但目前已有推动从 Linux 内核中禁用乃至移除 KGDB 支持的动向。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Considers-Dropping--KGDB</guid>
+      <pubDate>Wed, 28 Oct 2026 19:15:07 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Canonical 重启不可变 Ubuntu Core Desktop 计划，瞄准三大使用场景</title>
       <link>https://www.phoronix.com/news/Ubuntu-Core-Desktop-2026</link>
@@ -651,19 +660,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/COSMIC-Epoch-1.11</guid>
       <pubDate>Tue, 20 Oct 2026 22:32:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 英特尔与AMD在PyTorch/oneDNN软件优化上展开合作</title>
-      <link>https://www.phoronix.com/news/Intel-AMD-oneDNN-Optimize</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 内容是Intel与AMD在PyTorch/oneDNN上的软件优化合作，属于AI软件技术进展，符合用户感兴趣的方向</small></p><p>英特尔（Intel）长期致力于为其硬件调优神经网络库 oneDNN，该库已被 PyTorch 及其他 AI 框架广泛采用。而 AMD 一直维护着下游分支 ZenDNN，其 API 与 oneDNN 兼容，同时针对自家的 Zen 处理器设计进行优化。如今出现了一个有趣的转折：AMD 与英特尔于当日联合宣布，将在 oneDNN for PyTorch 方面开展合作，并将 AMD 针对 Zen 的改进提交回 oneDNN。</p>
-<p>这两家竞争对手表示，将把各自针对 x86 CPU 的 PyTorch 优化工作合并到 oneDNN 中。这一合作也延续了双方此前在指令集（ISA）层面通过 x86 生态系统咨询小组（x86 Ecosystem Advisory Group）的合作。</p>
-<p>双方将聚焦于 oneDNN，使其成为 PyTorch 中 x86 加速的默认开源库，AMD 的 ZenDNN 优化将并入 oneDNN。此外，AMD 还将以指导委员会成员的身份加入 UXL 基金会。UXL 基金会成立于 2023 年，许多原 oneAPI 软件项目在其旗下由英特尔、三星、高通（Qualcomm）、Arm 等厂商组成的联盟共同推进。AMD 此番加入，意味着其将以贡献者的身份参与 oneDNN 的开发。</p>
-<p><img src="//www.phoronix.net/image.php?id=2025&image=onednn" alt="older oneDNN slide" /></p>
-<p>作者评论称，这是一个非常值得关注的发展动向，AMD 选择向 oneDNN 贡献代码并不在预期之中。更多细节可参阅 AMD 新闻中心（AMD Newsroom）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-AMD-oneDNN-Optimize</guid>
-      <pubDate>Tue, 20 Oct 2026 16:50:52 GMT</pubDate>
     </item>
   </channel>
 </rss>
