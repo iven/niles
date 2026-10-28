@@ -3,7 +3,52 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 28 Oct 2026 05:33:55 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 12:44:04 GMT</lastBuildDate>
+    <item>
+      <title>为美国法典建立&quot;Git&quot;式版本历史：逐条回放每一次修法</title>
+      <link>https://news.ycombinator.com/item?id=50268380</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是为美国法典建立Git式版本历史、逐条回放修法过程，属于法律文本工程类项目，并非编程工具或AI相关，兴趣不明确。</small></p><p>一个名为 Lexifina 的项目试图把程序员熟悉的版本控制理念带到法律领域，为美国法典（US Code）的九个标题建立了完整的修改历史，让律师可以像程序员查询代码那样，查看任何日期生效的法条文本，并追溯每个短语由哪一部法律写入。这一技术博客文章在 Hacker News 上引发了广泛讨论（301 分，145 条评论）。</p>
+
+<h3>背景与动机</h3>
+<p>文章指出，程序员可以指向任意一行代码，查看其作者、编写时间以及任意历史版本的全文；但律师阅读联邦法规时通常做不到这一点，往往需要花大量时间翻查章节脚注中的注释。在当下大量法律检索经由大语言模型完成的情况下，这一缺陷尤为突出——模型往往无法利用法律正确的谱系（lineage），从而限制了其解释能力。</p>
+
+<h3>核心难点</h3>
+<p>美国法典中，除国会以"正面法律"（positive law）制定的标题外，其余部分对法律仅构成表面证据（prima facie evidence），当其与《国会法令汇编》（Statutes at Large）不一致时，以汇编为准。法律修订办公室（OLRC）以一系列"发布点"（release points）发布法典，每个发布点对应一部指定的公法；一部法条由哪部公法写入记录在修订注释（amendment notes）中，而生效日期往往记录在单独的生效日期注释中，若国会未作规定，默认法律在其制定当日生效。</p>
+<p>文章以 11 USC § 1182(1) 中"小企业债务人"的定义为例，展示这些时点的复杂性：该定义于 2019 年设立，2020 年《CARES 法案》把限额临时提高至 750 万美元并多次延期；该提高于 2022 年 3 月 27 日失效，国会又于 6 月恢复两年并追溯覆盖此前的空档……最终经 2025 年 4 月的三年期调整，现为 3,424,000 美元。对律师有用的历史必须同时携带文本、每处变更的生效日期，以及任何具有追溯力的法律的范围。</p>
+
+<h3>LLM 的法律时间性问题</h3>
+<p>文章引用了慕尼黑工业大学的一项研究：该研究发现模型在回答德国法规问题时存在两类失败——应用了训练截点之后已被取代的规则，以及在旧规则仍适用时偏好更新的条款。一个模型独立回答 24% 的截点后问题正确，检索到相关法定文本后升至 87%。作者认为时态有效性（temporal validity）必须作为硬约束处理。另一项研究则训练搜索代理尊重问题涉及的日期，一致性获得大幅提升。</p>
+<p>不过，仅让模型"产出旧文本"并不解决问题：同一研究团队让模型应用德国修法时，输出与官方文本表面相似度达 93–99%，但只有一半的单一修订和五分之一的修订链条完全一致，专家在近似结果中还发现了具有法律意义的错误。因此，历史必须是可核查的（checkable）。</p>
+
+<h3>项目实现</h3>
+<p>对 2017 年以来每对相邻发布点，该项目取出其间颁布的公法，按日期顺序对旧文本执行其修订指令，并与新版本对比。在九个标题的 365 处变更中，361 处精确复现了下一个发布点，其余 4 处以标签说明可确认程度。每处变更都附带法律及生效日期：其中 261 处默认在制定时生效，72 处通过生效日期注释，29 处通过修订本身的日期确定。</p>
+<p>借助这份记录，读者可以回答律师常问的问题：选定日期即可获得当日有效的文本，并以标记突出今日读来不同措辞的单词；每个短语按写入它的法案着色；对定义性术语的变更会列出所有使用它的条款；还能追踪某一条款自上次访问以来的变化。</p>
+
+<h3>已知局限</h3>
+<p>项目目前尚未展示较新法律对更早日期（其覆盖期间）的追溯力；生效日期注释通过模式识别读取，非常规措辞会回退到制定日期；每处变更均链接到法律原文，关键事项仍需阅读原始文本。作者表示仍在思考该项目应有的产品形态。</p>
+
+<div class="extended"><h3>你知道吗？</h3>
+<p>将法律版本化并非全新想法。评论者提到法国的 <a href="https://www.lafabriquedelaloi.fr/">The Law Factory</a> 项目（将法国法案以 Git 形式版本化并可视化）和波兰官方的 ISAP 系统——波兰法案本身就以类似补丁的形式写成（如"在第 X 条第 5 款中，将'如此这般'替换为'这般如此'"），通过后合并为统一版本发布。比利时等欧洲国家也有类似做法。</p>
+<p>这并非无偿劳动：诸如 LexisNexis 和 Thomson Reuters 等公司向律师收费提供类似服务，因为许多法律问题不仅需要知道法律现在如何规定，还要知道事件发生时法律如何规定；且各立法机构的发布格式差异巨大，往往依赖大量手工核对。在美国，法规文本通常可免费获取，但判例法往往需要付费订阅，这也引发了对 AI 时代法律信息应否免费开放的讨论。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50268380</guid>
+      <pubDate>Wed, 28 Oct 2026 01:47:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Survival LLM：完全离线运行的免费 AI 应急助手与求生知识库</title>
+      <link>https://news.ycombinator.com/item?id=50264853</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 属于开源、可离线运行的AI助手与知识库项目，符合开源项目与AI软件技术进展的兴趣。</small></p><p>开源项目 <strong>Survival LLM</strong> 是一款完全运行在本地电脑上的免费 AI 助手和应急知识库（急救、生存指南），即使在断网状态下也能正常工作。它的核心卖点是：AI 模型与资料库都存储在本地，用户的问题不会离开电脑；每次回答都会列出所依据的文章来源，点击即可查看原文并高亮对应段落；无需账号、无跟踪，设置完成后即可在断网环境下使用。</p>
+<p><img src="/survival-llm/screenshot.png" alt="Survival LLM 回答冰箱食品安全问题，旁边打开引用的 Ready.gov 文章" /></p>
+<p>该应用内置了约 93 万篇维基百科高阅读量文章，以及 WikiMed、MedlinePlus、英国药品 A 到 Z、WikEM、Ready.gov（美国联邦应急管理署 FEMA）、CDC 旅行健康、美军医学与生存手册、以及用于估算微死亡（micromort）的风险参考资料、wikiHow、iFixit 维修指南、Appropedia 和 Stack Exchange 问答等内容。用户还可以把自己的 PDF、Word、电子书和笔记（如发电机手册、家庭应急计划）加入其中让 AI 一并检索。</p>
+<p>应用会根据电脑内存自动选择匹配的 AI 模型：128 GB 以上内存使用 NVIDIA Nemotron 3.5 Super（测试中 22 题答对 21 题）；32–96 GB 使用 Qwen3.8 27B；32 GB 以上 Windows 使用 Nemotron 3.5 Lightning；16–31 GB 使用 IBM Granite 4.2 8B（22 题答对 14 题）。测试针对停电与急救问题盲评，小模型错误更多，因此应用始终显示来源供用户核对。完整资料库下载约 9 GB（安装后 19 GB），不含维基百科与 iFixit 时为 1.3 GB（安装后 3 GB）。设置过程约需 20 分钟到 2.5 小时，其中手动点击只需约 5 分钟。支持 Apple Silicon Mac（macOS 14 及以上）与 64 位 Windows 10/11。在 MacBook Pro 上回答问题时功耗约 100 W，满电电池可回答约 100 至 300 个问题，小型发电机或移动电源即可供电。</p>
+<p>该项目在 Hacker News 上获得约 384 分和 147 条评论。社区讨论中，多位用户认可"LLM+本地知识库"的检索与综合回答模式，但也质疑用小型 LLM 处理生死攸关的求生信息的可靠性——即便是小概率的幻觉也可能导致用户误食有毒蘑菇等严重后果。不少人提出更简单的替代方案，如用传统搜索引擎式界面或 <a href="https://github.com/tobi/qmd">qmd</a> 做语义检索，或直接离线搜索（如 <a href="https://github.com/mozilla-ia/llamafile">llamafile</a>、Kiwix），认为这样体量更小且更可靠。也有人指出，可在低 token 速率下从磁盘流式读取更大的模型（如 qwen 3.8-flash-next）而无需全部载入内存。有用户分享了类似经验：2018 年曾在树莓派上构建离线维基百科检索设备，如今可进一步加入小型 LLM 与语音模型，做成更小巧的自包含 AI 知识助手。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50264853</guid>
+      <pubDate>Tue, 27 Oct 2026 19:55:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Ghostty 1.4.0 发布：完整 Kitty 图形协议支持、大幅性能与内存优化</title>
       <link>https://news.ycombinator.com/item?id=50261998</link>
@@ -1018,41 +1063,6 @@ Anchor Positioning API 的 Level 2 版本，新增了一种容器查询类型，
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50160494</guid>
       <pubDate>Tue, 20 Oct 2026 02:06:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 为了不用微软账号，我把Arch Linux装进了RTX Spark笔记本</title>
-      <link>https://news.ycombinator.com/item?id=50158100</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源Linux安装实践与本地AI推理，属开源项目与效率经验，推荐阅读</small></p><p>一位 Arch Linux 打包维护者 Josie 出于对 Windows 的抵触（安装时的隐私让步、任务栏位置限制、广告等），为配备 NVIDIA N1X 芯片的华硕 ProArt P16（128GB 统一内存配置）搭建了可启动的 Arch Linux ARM 系统，并公开了完整构建脚本与补丁。</p><img src="/blog/images/n1x-arch-linux.jpg" alt="Fastfetch 显示 ASUS ProArt P16 上运行的 Arch Linux ARM 与 NVIDIA N1X GPU" /><p>她以 Ubuntu 版 NVIDIA 内核工作为起点，修复了 ACPI override 分配与显存映射以获取控制台，并为键盘（hid-asus）和音频编写了补丁。构建过程从笔记本自身的 ACPI 表中提取 override，并支持从华硕驱动包本地提取扬声器固件；硬件相关包用她的 Arch 维护者密钥签名，且构建输入固定了哈希。系统通过扩展上游 Archinstall 4.5 安装，运行时使用 NetworkManager、PipeWire 与无根的 Podman（配合 NVIDIA CDI），显示屏在 120Hz 下运行 3840×2400 分辨率。</p><p><strong>性能对比</strong>：CPU 测试使用原生 ARM64 7-Zip 26.04。与 StorageReview 在同款 20 核 N1X 的 HP OmniBook（Windows）上对比：单线程压缩/解压基本持平（相差约 1%），20 线程时她的 Linux 配置在压缩上领先约 5%、解压领先约 3%。与 ComputerBase 的 Windows 测试相比，其分数也落在她三次运行的中位范围内。</p><p><strong>内存分配</strong>：值得强调的是，Linux 将 116.0 GiB 同时报告为系统内存和 CUDA 总内存，来自同一物理池；而 Windows 将内存划分为专用 GPU、共享与仅 CPU 三个区域，CPU 无法使用专用 GPU 区。与 Frandroid 在 Windows 上（91 GiB 专用预留）报告的 109.7 GiB CUDA 总量相比，Linux 多出约 6.3 GiB，且无需调整预留滑块和重启即可让大内存池同时供 CPU 使用。</p><p><strong>本地运行 Qwen</strong>：她通过 vLLM（B12X CUDA 内核、FP8 KV 缓存、原生 ARM64 容器）运行 NVIDIA 的 Qwen3.8-Flash-Next-FP4-Local。模型加载与编译约需 16 分钟，模型和 KV 缓存合计占用近 90 GiB。在代码审查、日志故障定位（近 1 万 token 输入）与支付信息提取三类任务上均通过了校验；生成速度约 30 token/s，与 Frandroid 的 Windows 配置相近。她还进行了 10 分钟连续推理（150 次请求）和批量任务测试，所有响应均通过检查。</p><p>HN 评论区围绕「是否必须用微软账号」展开讨论：多数人认为厂商过于强势，但指出 Windows Pro 版仍可通过「加入域」路径创建本地账户，Home 版则日益受限；也有人列举微软登录页面的糟糕体验、Office 授权问题等。另有讨论对约 6000 美元的此类笔记本性价比提出质疑，比较了 AMD Strix Halo 迷你主机与 RTX Spark 在功耗和电池续航上的差异。</p><p>你知道吗？「统一内存」让 CPU 与 GPU 共享同一物理内存池，无需显式拷贝数据，这对大语言模型的本地推理尤其有利。相较之下，传统独立 GPU 的显存容量受限，而 RTX Spark 的 N1X 芯片将超过 100 GiB 内存统一供 CPU 与 CUDA 使用，使其能在笔记本上直接运行大模型。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50158100</guid>
-      <pubDate>Mon, 19 Oct 2026 21:08:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ PostgreSQL 19 分支异常多的功能回退：原因分析与反思</title>
-      <link>https://news.ycombinator.com/item?id=50156206</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] PostgreSQL开源数据库开发分析，属开源项目与软件技术进展，推荐阅读</small></p><p>PostgreSQL 开发者 Peter Eisentraut 撰文反思了 PostgreSQL 19 分支在 beta 阶段出现异常多功能回退（revert）的现象。通常每个开发周期只会有约一个功能被回退，但这次大约有 8 到 10 个重要功能被回退，其中一些发生在 beta 后期。</p>
-
-<p>作者作为部分被回退功能的开发者或提交者，分析了可能的原因组合：</p>
-
-<ul>
-<li><strong>代码质量不足</strong>：部分功能确实存在架构性缺陷，难以在 beta 期间快速修复。</li>
-<li><strong>LLM 辅助代码审查提高了质量门槛</strong>：被回退的功能大多是在 LLM 辅助审查还不成熟时编写的。如今 LLM 辅助模糊测试能快速发现大量边缘案例问题，导致开发者面对数十个缺陷报告，即使每个只需小修，处理开销也会耗尽时间。作者强调这并非"vibe coding"（随意编码）所致，因为这些代码写于该概念出现之前。</li>
-<li><strong>Vulnpocalypse 分散了资深开发者精力</strong>：从 4 月（PostgreSQL 19 功能冻结开始）到 8 月（最近一次安全发布），许多资深开发者忙于修复安全漏洞，导致 beta 期间的额外审查和测试减少，问题在 beta 后期集中爆发。</li>
-<li><strong>系统复杂性</strong>：PostgreSQL "一切与一切协同工作"的设计理念意味着每个功能都要在各种组合场景下正确工作（如域类型、复合类型、分区表、触发器、安全定义函数等），人工几乎无法穷举测试这些组合，而 LLM 辅助模糊测试可以快速发现问题。</li>
-</ul>
-
-<p>作者还提到社区曾考虑以"实验性"状态提交功能并在主分支中逐步成熟，但尚未找到具体实施方案，这也是未来需要推进的方向。</p>
-
-<p>展望未来，作者相信许多被回退的功能会很快回归。PostgreSQL 19 仍将是一个出色的版本，包括 REPACK CONCURRENTLY、序列的逻辑复制（本身也是此前被回退过的功能）以及 pg_plan_advice 规划器提示等亮点功能，并且经过额外审查后将更加稳健。</p>
-
-<h3>社区反馈</h3>
-
-<p>Hacker News 上的讨论整体持积极态度。多位评论者认为，在 PostgreSQL 这样基础性的数据库上，宁可多回退也不应带着缺陷发布，这体现了团队将稳定性置于功能之上的负责任态度。有评论者指出，LLM 代码审查确实能发现过去需要数年才能暴露的边缘案例问题，但也带来了新的挑战——开发者需要重新权衡质量与开发速度。也有评论者对文章标题提出异议，认为"回退将持续到士气改善"这一说法带有讽刺意味，不太适合描述这一情况。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50156206</guid>
-      <pubDate>Mon, 19 Oct 2026 18:42:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
