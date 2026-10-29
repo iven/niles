@@ -3,7 +3,72 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 29 Oct 2026 02:23:11 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 29 Oct 2026 09:54:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Claude Code 悄悄消耗约 15–20% 的 token 用于生成后台代理的三字状态摘要</title>
+      <link>https://news.ycombinator.com/item?id=50284255</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Claude Code 的 token 消耗优化问题，属于编程工具使用经验分享，符合 high_interest 的编程效率改进经验。</small></p><p>开发者 Flamerix AI 发布了一份技术分析，指出 <a href="https://gist.github.com/flamerix-ai/c3905705cc4205e5de3011fa2e74efce">Claude Code 存在一个显著的 token 浪费问题</a>：大约每 30 秒，每个后台代理都会将其完整对话记录发送给自身的模型（通常是 Opus），并要求其用 3–5 个词描述最近的动作。这个回答仅用于更新代理面板中的状态行，既不会进入对话，也不会影响模型输出。</p>
+<p>该问题由 DRIM 系统在 Claude Code 的 OpenTelemetry 导出中被发现。按 query_source 分组后发现，<code>agent_summary</code> 在一个测量周内占全部 token 支出的 16.4%（主对话本身为 15.7%），占所有 API 请求的 19.7%（约五分之一），其中 96% 消耗在 Opus 上，输入 token 与输出 token 之比约 9000:1。从 2.1.232 版本（2026 年 8 月）起该功能默认开启，且没有任何设置可以单独关闭它。另外还有 4 项独立测量得出 18–26% 的相似比例。</p>
+<p>作者提供了一个名为 <code>no-agent-summary.js</code> 的修复方案：一个约 80 行的 Bun preload 脚本，通过包装 <code>setTimeout</code>/<code>setInterval</code>，当回调源码包含摘要器锚点时返回一个「惰性句柄」而非真正启动计时器，从而抑制这些摘要请求，且不影响其他计时器和其他后台代理功能。安装方式包括设置全局 <code>BUN_OPTIONS</code> 环境变量或使用包装脚本。作者强调，该方案依赖实现细节，Claude Code 更新后可能需要重新验证；macOS 和 Windows 未测试。</p>
+<p>文章还解释了为何没有官方开关：文档中的开关只能开启该功能；间隔由服务器端按模型家族设定，被限制在 30–240 秒且默认即最小值；<code>DISABLE_NON_ESSENTIAL_MODEL_CALLS</code> 等环境变量并未生效。虽然约 98% 的请求命中提示缓存（Prompt Cache），但反复读取大型缓存对话仍有成本。</p>
+<p>在 Hacker News 的讨论中，评论者就此展开争论。有人质疑既然大多命中缓存成本应该不高，也有人指出即使命中缓存，反复读取完整上下文依然产生不小开销。有用户反馈其 5 小时窗口内使用率从 25% 降至 13%，疑似为 A/B 测试。还有人推测该行为与「压缩」（compaction）机制有关。有评论批评 Claude Code 臃肿（bloatware），也有人问及该问题是否影响 Claude Desktop 或企业订阅，并讨论 <code>disableAgentView</code> 设置能否阻止该调用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50284255</guid>
+      <pubDate>Thu, 29 Oct 2026 03:33:42 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Qwenputer：在 Qwen3.5 权重内编译出可运行、确定性 RISC-V CPU</title>
+      <link>https://news.ycombinator.com/item?id=50282838</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲在 Qwen 模型中编译 RISC-V CPU，涉及新AI模型技术进展与开源项目，符合 interest 的 AI 软件技术进展。</small></p><p>一位研究者通过直接编译（无需训练）的方式，在预训练大模型 Qwen 3.5 4B 的权重内嵌入了一个完整的 32 位 RISC-V CPU（RV32IM 指令集，外加 Zba 扩展和一个小型大数运算单元），并将该模型命名为「Qwenputer」。这个 CPU 完全在模型的前向传播过程中运行，可执行算术运算、C 代码和 MicroPython，无需任何外部运行时或工具调用——它不是插件、工具或沙箱。</p>
+
+<p>实现的关键在于利用 Qwen3.5/3-Next 中 4 个注意力层里有 3 个使用 Gated DeltaNet（线性 RNN）这一特性。通过把门控设为 1、写入强度（beta）设为 1，并使用 one-hot 键编码，每次写入都会精确覆盖状态矩阵中的一行，每次查询也能精确读回某个值，从而使 GDN 层能够充当精确、可寻址、成本低于传统注意力 KV 缓存的 RAM。作者指出，用 delta 规则作为联想记忆（「快速权重」）的思路早有先例（Schlag 等人 2021 年的论文），此处的新意在于让其精确、可寻址地运行在生产级模型内部，可靠到足以承载整个 CPU。</p>
+
+<p>这个 CPU 占据 Qwen 32 层之前的 11 层。其指令执行会作为模型解码时生成的 token（ADDR/VAL/STEP）形成执行轨迹。它通过了官方 riscv-tests，程序与 qemu 匹配，并已无参考机校正地自主运行了 1800 万条指令而无错误。</p>
+
+<p>在效果方面，实测数据如下：DeepMind 除法大数任务 Qwenputer 得分 97.5%（基础版 72.5%，带 Python 工具版 95%）；大数乘法 97.5%（工具版 100%，基础 55%）；多步乘除 100%；加减 97.5%。NUPA 长整数算术从基础版的 48.6% 提升到 100%。作者还对约 23 万个输出位置与参考机做了重放核对，零失配；同时模型正常文本输出与基础 Qwen 的差异很小（KL 6e-4，噪声底 5e-4）。</p>
+
+<p>项目还附带一个实验性的模型内文件系统（基于 GDN 状态中的目录槽，最多 512 个文件、约 5.3 万 token 文本），状态可在对话间持久保存。</p>
+
+<p>限制方面：检查点约 18.8 GB（约为基础版两倍，大部分是零填充），需要一个小驱动器 RvChat 来引导固件，无法直接用普通 generate() 调用，且速度较慢（每次指令消耗数个解码 token，单条大计算需数秒而非毫秒）。作者下一步计划让 Qwen 通过内部 python() 工具在其权重内运行 MicroPython，并加速 CPU。该项目也作为 AI 安全研究的测试台，作者另撰写了关于模型如何在 RNN 状态中隐藏推理以规避思维链监控的后续文章。模型开源在 Hugging Face 和 ModelScope，代码在 GitHub。</p>
+
+<p><strong>社区反馈</strong>：HN 评论大多表示赞叹。有人称赞它有力反驳了「LLM 本质非确定性」的常见误解（也有人反对，认为真实生产环境仍非确定）；有人类比 C++ 模板元编程或 TypeScript 类型系统里跑 DOOM 的「图灵完备炫技」；也有人讨论基于此神经电路从头训练的模型、持续学习会覆盖既有权重等问题。</p>
+
+<p><img src="/qwenputer/benchmarks.png" alt="Accuracy of base Qwen3.5-4B, Qwenputer and base Qwen with a Python tool on NUPA and DeepMind arithmetic sets" /></p>
+
+<h3>你知道吗？</h3>
+<p><strong>Gated DeltaNet</strong>：一种线性 RNN 注意力机制。与标准注意力不同，它维护一个固定大小的状态矩阵，通过一个 0~1 之间的门控值在每个 token 上按比例衰减旧状态（实现「遗忘」），并用 delta 规则（写入强度 beta）来更新状态。因为状态大小不随对话长度增长，其推理成本远低于注意力 KV 缓存。</p>
+<p><strong>「快速权重」/ 联想记忆</strong>：指线性注意力配合 delta 规则时，可以像联想记忆那样存储和检索信息，这一理论早在 2021 年的论文「Linear Transformers Are Secretly Fast Weight Programmers」中就有阐述。Qwenputer 的新意在于把它变成精确、可寻址并可承载完整 CPU 的「内存」。</p>
+<p><strong>图灵完备与嵌入计算</strong>：评论中有人指出，模型内部自带可循环的指令集，加上其权重（可视为状态），几乎等价于一台图灵机。这类「在计算系统中再嵌入计算系统」的做法，与 C++ 模板元编程、TypeScript 类型系统里运行程序等「元编程炫技」在精神上一脉相承。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50282838</guid>
+      <pubDate>Thu, 29 Oct 2026 00:25:45 GMT</pubDate>
+    </item>
+    <item>
+      <title>Stack Overflow 每月新问题数跌破 1000，社区衰落引发热议</title>
+      <link>https://news.ycombinator.com/item?id=50282454</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为 Stack Overflow 社区衰落，涉及行业/社区动态，偏向行业公司/人物类别，兴趣程度不高但标题含义有些模糊。</small></p><p>根据 <a href="https://data.stackexchange.com/stackoverflow/query/1926661#graph?t=1">Stack Exchange 数据浏览器</a> 的统计，Stack Overflow 每月新增问题数量已跌破 1000 个。这一数据在 Hacker News 上引发了 343 条评论的激烈讨论，用户普遍认为这是 AI 编程助手崛起和平台自身管理问题共同作用的结果。</p>
+
+<p>有用户指出，Stack Overflow 过去一年的新增问题总数甚至低于 2024 年单月的平均水平，下滑幅度极为陡峭。评论区中有人调侃「居然还有这么多」，也有人表示「不意外」。</p>
+
+<h3>衰落原因的多方观点</h3>
+<p>关于 Stack Overflow 衰落的原因，评论呈现多种视角：</p>
+<ul>
+<li><strong>AI 的冲击</strong>：多数评论者认为，ChatGPT 等 AI 编程工具的普及是主因。新一代模型通过工具调用可以直接获取文档和源代码，不再依赖 Stack Overflow 的问答作为知识来源。有评论尖锐地指出：「Stack Overflow 帮助构建了取代它的 LLM。」</li>
+<li><strong>平台自身问题</strong>：部分用户认为，即使没有 AI，Stack Overflow 在更换所有权后也变得「充满敌意」，社区氛围恶化加速了用户流失。不过也有评论反驳称，所有 Stack Exchange 站点都出现了类似的下滑，与各站点的审核政策无关。</li>
+<li><strong>数据训练困境</strong>：有用户指出，由于新问题减少，AI 可从中获取的训练数据也在枯竭，形成恶性循环。但也有观点认为，AI 现在直接训练于全球代码库，对 Stack Overflow 的依赖已大大降低。</li>
+</ul>
+
+<h3>其他 Stack Exchange 社区仍受好评</h3>
+<p>值得注意的是，多位评论者表示，虽然 Stack Overflow 本身「多年来已没什么用」，但 Stack Exchange 旗下的其他社区（如科幻奇幻、世界构建等）依然质量很高、内容有趣，值得关注。有用户甚至表示会定期浏览这些非技术板块作为娱乐。</p>
+
+<p>还有评论者担忧，如果整个互联网的论坛和博客都像 Stack Overflow 一样衰落，人类之间的真实对话消失，那才是比失去技术问答库更大的灾难——因为 AI 将失去判断「哪个方案是主流选择」的参考依据。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50282454</guid>
+      <pubDate>Wed, 28 Oct 2026 23:35:02 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Google 发布 Gemini 4 Carbon：最强前沿模型，主打网络安全与长程任务能力</title>
       <link>https://news.ycombinator.com/item?id=50276792</link>
@@ -1022,66 +1087,6 @@ Anchor Positioning API 的 Level 2 版本，新增了一种容器查询类型，
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50165953</guid>
       <pubDate>Tue, 20 Oct 2026 13:18:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 造假数据骗过AI搜索：50,000条虚构统计被ChatGPT持续引用近7个月</title>
-      <link>https://news.ycombinator.com/item?id=50165801</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI技术进展与AI行业新闻，讨论ChatGPT被虚假数据影响，用户对AI软件技术进展较感兴趣</small></p><p>一位GEO（生成式引擎优化）研究员Metehan Yesilyurt公布了一项引人关注的实验：他花约50美元搭建了一个名为stateglobe.com的网站，一天之内用GPT-4.1生成了50,000条统计页面，其中每一个数字都是凭空捏造的。</p><p>结果令人震惊。尽管Google几乎立即对网站进行了降权处理并几乎不再索引这些页面，ChatGPT却始终没有停止引用它。发布7个月以来，该网站已带来超过10,000次来自ChatGPT的AI会话（GA4数据），并在过去30天收到超过60万次机器人请求，其中约7.2万次来自ChatGPT-User——这是ChatGPT在实时回答用户问题时抓取页面的代理。与此同时，超过330个外部域名（包括Shopify、DHL、Bluehost等知名品牌）链接到了该网站。</p><p>更令人不安的是，这些虚构数字还进入了现实世界的严肃场景：被学术论文引用、被卡塔尔最大金融集团用于投资研究、被印度经济类出版物引用，并被加拿大某网红社区的研究报告作为资料来源。作者指出，这还只是反向链接到该网站的引用，实际使用数据但未链接的情况可能更多。</p><p>实验揭示了一个被他称为「引用洗白」（citation laundering）的机制：一个全新域名上的随机假数字原本毫无权威，但一旦被学术论文、银行等严肃机构引用，它看起来就越来越可信。每增加一次引用，就多一分被下一篇文章或下一个模型当作「有来源的事实」采用的可能。作者担心，经过大量检索和引用后，这些页面会进入网络爬取数据，进而进入训练数据集，使一个GPT-4.1的猜测成为下一代模型「已知的事实」。</p><p>作者强调，这一实验作为研究而非「造假指南」公开。他的核心发现是：<strong>在Google上排名靠前与被大语言模型检索是两个完全不同的问题</strong>。ChatGPT搜索时会改写用户的提示词成为多个子查询（fanout queries），并在检索后打开若干页面来进行事实支撑（grounding）。统计数字因其具体、可引用、带年份（如「2026年远程办公统计」）等特点，特别容易被模型当作填补知识空白的「证据」选用，而整个过程缺乏真正的事实核查。</p><p>文章随后给出了利用这一机制构建统计页面的合规方法（例如每条数据独立成句、标注来源与年份、标题匹配模型的子查询、显示并更新日期、用服务端渲染便于抓取等），以及追踪AI机器人活动的方法。作者明确指出，绝不应发布虚假内容，这一策略也不应成为组织整个GEO战略的基础，且未来未必持续有效。</p><p>社区讨论中，多数评论者认同这一实验暴露的严重问题：LLM会不加甄别地引用任何看起来权威的来源，从而在「dead internet」效应下放大虚假信息。有人将此与Google此前面临的SEO垃圾内容问题类比，指出AI搜索引擎正面临同样的困境；也有评论引用Cory Doctorow的观点「作弊是有回报的」，认为面向AI代理的语义网络构想难以实现。</p><h3>你知道吗？</h3><p><strong>引用洗白（citation laundering）</strong>：指虚假或低可信度的信息通过被权威机构引用而逐渐获得表面可信度的过程。在传统学术与媒体环境中同样存在，但AI模型的速度和规模使这一过程被极大加速。</p><p><strong>Fanout查询</strong>：ChatGPT在搜索时将用户原始提示词改写为多个更具体的子查询，以在多个角度寻找资料，例如写「远程办公」相关文章时会搜索「远程办公统计2026」。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50165801</guid>
-      <pubDate>Tue, 20 Oct 2026 13:06:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Mistral 发布 Voxtral 3：实时语音智能体 SDK 与新一代语音模型</title>
-      <link>https://news.ycombinator.com/item?id=50168396</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Mistral 发布新语音模型与实时语音智能体 SDK，属于新AI模型发布公告和AI技术进展，用户很感兴趣。</small></p><p>Mistral AI 发布了 <strong>Voxtral 3</strong>，这是一套全新的语音智能体 SDK 及语音转文本（STT）/文本转语音（TTS）模型系列，旨在实现跨 50 多种语言的实时、多步骤对话。该产品将「聆听、思考、工具调用、说话」整合进单一实时流式处理管线，适用于联络中心、虚拟助手和免提副驾驶等场景。</p>
-
-<h3>核心亮点</h3>
-<ul>
-<li><strong>高精度多语言转写</strong>：Voxtral Small Transcribe 3 在 FLEURS 45 基准上以 4.1% 的词错误率（WER）领先，超越 Whisper、Scribe v2 和 Gemini 3.5 Transcribe；支持说话人分离（diarization）和上下文偏置（context biasing），可针对领域词汇提升识别准确率。</li>
-<li><strong>自然且富有情感的语音合成</strong>：Voxtral Mini TTS 3 支持 35+ 语言和 50+ 方言，能根据对话上下文自动调整情绪、节奏和重音，无需额外指令。定价为每 100 万字符 13 美元，低于 OpenAI TTS-1、Deepgram、ElevenLabs 等竞品。</li>
-<li><strong>实时低延迟</strong>：Voxtral Realtime Transcribe 3 在 35+ 语言中实现亚 500 毫秒延迟的实时转写，并原生支持「结束说话检测」（end-of-turn detection），避免过早打断用户。</li>
-<li><strong>Pro Voice 语音适配</strong>：仅需 30 分钟音频即可复现说话者的独特音色、情绪范围和说话风格，并跨语言保持一致性。</li>
-<li><strong>主权部署</strong>：可通过 Mistral 的欧盟托管 API 使用，或自行部署到自有基础设施，确保音频处理位置和数据留存由组织掌控。</li>
-</ul>
-
-<h3>演示场景</h3>
-<p>官方演示展示了一位用户 Béatrice 用英语请求智能体处理一封法语转诊信，智能体通过工具调用查询预约时段、确认预约，并以英语回复细节，展示了跨语言理解、工具集成和多步骤任务执行能力。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上讨论热烈（281 分、74 条评论），主要关注点包括：</p>
-<ul>
-<li><strong>闭源争议</strong>：多位用户（如 drum55、satvikpendem、scosman）对 Voxtral 3 为闭源模型表示失望，认为本地部署仍需联系销售获取模型，未提供开放权重。</li>
-<li><strong>实时性疑问</strong>：有用户质疑演示中对话的零延迟表现，官方回应称目标延迟低于 1 秒。</li>
-<li><strong>正面评价</strong>：arjie 表示 Voxtral 系列转写和说话人分离表现良好，且不会在无语音时产生幻觉文本；sarkarghya 赞赏原生上下文偏置能力。</li>
-<li><strong>本地部署期待</strong>：部分用户希望未来推出可本地运行的小型模型，避免语音数据外传。</li>
-</ul>
-
-<p>Voxtral 3 现已可通过 Mistral 的欧盟托管 API 或自部署方式使用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50168396</guid>
-      <pubDate>Tue, 20 Oct 2026 16:02:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ microG：以自由软件重新实现谷歌专有 Android 用户空间</title>
-      <link>https://news.ycombinator.com/item?id=50162177</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] microG 以自由软件重新实现谷歌 Play 服务，属于开源项目，用户感兴趣。</small></p><p>microG 是一个谷歌 Play Services（Google Play 服务）的自由软件重新实现项目，旨在让调用谷歌专有 API 的应用能够在基于 AOSP 的 ROM（如 LineageOS）上运行，作为非自由、专有的 Google Play Services（有时泛指为"GApps"）的免费替代品。该项目被认为是在享受 Android 核心功能的同时重新夺回隐私与自由的强大工具，但需注意，使用该服务的应用仍可能与 microG 通信时使用专有库，这与其同真正的 Google Play Services 通信时的情况一致。</p>
-
-<p><img src="https://camo.githubusercontent.com/fe0dd09b8fc41bda067ec9f93da8c0dad9308538b788f752a1db621562315ed3/687474703a2f2f692e696d6775722e636f6d2f685859346c63432e706e67" alt="microg logo" height="45px" /></p>
-
-<p><strong>主要特性</strong>包括：可选择性启用 Google 服务并扩展应用支持、在线/离线定位服务、对电池/内存/CPU 友好、无臃肿软件、可在真实设备/测试模拟器/虚拟移动基础设施上运行，并以 Apache 2.0 许可开源发布。</p>
-
-<p><strong>系统要求</strong>：需要 Android 系统支持签名欺骗（signature spoofing），以便 GmsCore 在调用 Google API 的应用面前伪装成官方 Play Services 存在。完整可用的 microG 还需安装 Play Store 替代应用（如 microG Companion）。其核心模块 UnifiedNlp 负责处理应用对谷歌网络定位服务的调用。</p>
-
-<p><strong>项目状态</strong>：已实现 API 的当前状态记录在 wiki 页面中，欢迎提交贡献和反馈，也接受捐赠支持。本项目在 Hacker News 上获得 325 分并引发 52 条讨论，社区普遍认为其在 LineageOS 上"运行良好"。</p>
-
-<p><strong>社区讨论要点</strong>：有评论指出应用依赖 Google Play 功能的背后原因，即 Play Services 是一组 Google 未包含在 AOSP 中公开的额外 API/服务；也有讨论围绕签名欺骗在安全模型上的风险展开，评论认为给予第三方特权访问与 microG 的隐私定位相矛盾。此外，有评论对比了 GrapheneOS 的沙箱化 Google Play 方案：后者认为在沙箱中运行官方签名的 Google 代码比依赖签名欺骗的开源替代方案更安全，且能保证更好的应用兼容性。另有用户提醒注意 MindTheGapps 相关 .com 域名疑似 SEO 抢注，应使用官方 GitHub 源以避免下载被替换为恶意软件的风险。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50162177</guid>
-      <pubDate>Tue, 20 Oct 2026 06:37:07 GMT</pubDate>
     </item>
   </channel>
 </rss>
