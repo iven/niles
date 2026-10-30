@@ -3,7 +3,31 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 29 Oct 2026 21:46:38 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 30 Oct 2026 01:55:54 GMT</lastBuildDate>
+    <item>
+      <title>深入浅出：H.264 视频压缩的魔法（2016）</title>
+      <link>https://news.ycombinator.com/item?id=50291054</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 文章介绍H.264视频压缩技术基础，属于技术科普内容。虽然不是用户明确配置的兴趣类别，但涉及视频编码技术，与AI软件技术进展有一定关联，且文章标注为2016年的旧内容，兴趣度不高，故定为可选。</small></p><p>这篇 2016 年的文章以通俗易懂的方式，科普了以 H.264 为代表的视频压缩（codec）技术背后的核心原理。作者指出，H.264 几乎无处不在——网络视频、蓝光、手机、安防摄像头、无人机都依赖它；其目标是 30 多年来不断降低全动态视频传输所需的带宽。</p>
+<h4>为什么要压缩？</h4>
+<p>未经压缩的视频文件是一个三维字节数组（两个空间维度 + 一个时间维度），每个像素需 3 字节存储 RGB 数据。1080p@60Hz 的视频原始数据约为 370MB/秒，一张 50GB 蓝光碟只能存放约 2 分钟。作者以「赛车减重」作比喻，说明 H.264 属于<strong>有损压缩（lossy）</strong>——丢弃次要信息只保留关键信息，而 PNG 则是无损压缩。</p>
+<p>作为对比，作者截取 Apple 主页一屏画面：PNG 截图（单帧）为 1015KB，而同样画面 300 帧（5 秒 60fps）的 H.264 视频仅 175KB，看似达到约 1500 倍的效率。</p>
+<h4>核心压缩技巧</h4>
+<ul>
+<li><strong>信息熵与量化（Quantization）</strong>：利用信息论中的信息熵概念减少数据冗余。图像内容可变换到频率域（freqX/freqY），精细纹理对应高频分量、平滑渐变对应低频分量。通过掩膜丢弃高频细节后再变换回空间域，可大幅压缩体积，文章示例仅保留约 2% 的信息量肉眼都难以察觉差异。</li>
+<li><strong>色度子采样（Chroma Subsampling）</strong>：人眼对颜色细节的分辨能力弱于亮度细节。视频从 RGB 转为 Y（亮度）+Cb/Cr（色度）后，亮度以全分辨率编码而色度仅以四分之一分辨率编码，即可将总带宽减半，且几乎看不出视觉差异。</li>
+<li><strong>运动补偿（Motion Compensation）</strong>：针对跨越时间的帧进行压缩。画面被切分为 16x16 的宏块，一帧完整存储（I 帧/Intra frame），后续帧只编码相对于前帧的位移矢量，分为 P 帧（前向预测）和 B 帧（双向预测）。这也是为何拖动 YouTube 进度条时会短暂暂停——解码器需从最近的 I 帧重新累加所有运动矢量。</li>
+<li><strong>熵编码（Entropy Coder）</strong>：在有损步骤之后，再叠加一层通用的无损熵编码器，进一步消除 I 帧的冗余信息以及 P/B 帧中相同的运动矢量取值。</li>
+</ul>
+<p>综合以上手段，文章示例中 1.2GB 的原始视频被压缩到 175KB，对应「3000 磅的赛车」最终仅剩约 6.5 盎司（0.4 磅）。</p>
+<h4>社区反馈</h4>
+<p>HN 社区（331 分、124 条评论）普遍认为这仍是讲解视频压缩的经典入门文章，不少人表示「每年都会重读一遍」。讨论主要围绕几方面：一是认为作者用有损（H.264）与无损（PNG）做对比并不算公平的科普引入方式；二是关于 PNG 的低效，有读者给出 WebP、JPEG XL 在无损模式下的对比数据；三是关于编码器选择的实际建议——H.264 更适合 1080p 及以下，H.265 适合 2160p，且要考虑分享/播放端兼容性（如 iMessage、WhatsApp 对 H.265 支持不佳）。</p>
+<h4>你知道吗？</h4>
+<p>评论区多次提到新一代编码标准 <strong>AV1</strong> 与 <strong>AV2</strong>。AV1 已是主流：即使老设备无需硬件解码也能流畅播放，在同等质量下尺寸更小或同等尺寸下画质更好（如 YouTube 在 H.264/VP9/AV1 间选择时，AV1 优势明显）。有读者还联系到 3Blue1Brown 的视频《压缩即智能（Compression is Intelligence）》、Hutter 奖以及 LLM 在数据压缩领域的潜力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50291054</guid>
+      <pubDate>Thu, 29 Oct 2026 15:53:03 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Martin Fowler 谈「LLM 腔」：AI 写作的恐怖谷效应</title>
       <link>https://news.ycombinator.com/item?id=50290177</link>
@@ -1055,47 +1079,6 @@ CLI 能检测到由 Claude Code、Codex、Cursor 等编码代理驱动时自动�
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50180873</guid>
       <pubDate>Wed, 21 Oct 2026 13:45:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ CSS 的未来：Interop 2027 候选特性深度解析</title>
-      <link>https://news.ycombinator.com/item?id=50175070</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍浏览器厂商在Interop项目中协作推进的未来CSS/HTML/JS新特性，属于软件新功能/前端技术进展，用户会有兴趣，推荐阅读。</small></p><p>Josh W. Comeau 发布了一篇关于 CSS 未来发展的深度文章，探讨了浏览器厂商通过 <a href="https://www.joshwcomeau.com/css/interop-2027/">Interop 项目</a>协作推进 Web 技术标准化的情况。Interop 是 Google、Apple、Microsoft、Mozilla 等主要浏览器厂商（以及 Igalia 和 Bocoup）共同参与的项目，旨在提升 Web 技术在各浏览器中的统一支持。作者介绍了自己投票支持的 10 个最期待的 CSS 新特性。</p>
-
-<p><strong>1. CSS 函数（@function）</strong><br />
-允许开发者用 <code>@function</code> 定义自定义函数，并通过 <code>result</code> 指定返回值。作者特别感兴趣的是在极坐标和笛卡尔坐标之间转换的能力，例如通过三角函数实现按角度移动元素。该特性已在 Chromium 浏览器中实现。</p>
-
-<p><strong>2. corner-shape 属性</strong><br />
-提供 squircle（超椭圆圆角）、bevel（斜切角）、notch（缺口角）和 scoop（内凹角）等新的圆角方案。与 clip-path 或 mask 不同，corner-shape 会真正改变元素的 border-box 形状，使边框、轮廓和阴影都能正确跟随新的角形状。作者表示自己大量使用 <code>corner-shape: bevel</code> 来创建游戏/科幻风格的 UI。</p>
-
-<p><strong>3. border-shape 属性</strong><br />
-一个更底层的属性，允许使用直线、圆弧和贝塞尔曲线绘制任意边框形状，同样会改变元素的实际 border box，且支持在不同形状之间进行动画过渡。</p>
-
-<p><strong>4. 锚定容器查询（Anchored Container Queries）</strong><br />
-Anchor Positioning API 的 Level 2 版本，新增了一种容器查询类型，允许检查目标元素是否使用了回退位置。这对 tooltip 等浮动元素的定位至关重要，例如判断 tooltip 是否翻转以决定箭头的指向。</p>
-
-<p><strong>5. CSS inherit() 函数</strong><br />
-一个非常初步的提案，允许获取继承值并通过 <code>calc()</code> 进行修改。例如 <code>border-radius: calc(inherit() - 4px)</code> 可以解决嵌套圆角需要递减的问题。目前尚未在任何浏览器中实现。</p>
-
-<p><strong>6. 滚动触发动画（Scroll-triggered animations）</strong><br />
-与滚动驱动动画（scroll-driven animations，已在 Interop 2026 中实现）不同，滚动触发动画是在用户滚动到特定位置时触发一次动画，类似接近传感器。目前可通过 JavaScript 的 IntersectionObserver 实现，但用纯 CSS 实现将更加简洁。</p>
-
-<p><strong>7. reading-flow 和 reading-order 属性</strong><br />
-解决响应式布局中 tab 顺序始终基于 DOM 顺序而非视觉顺序的问题。允许指定 tab 顺序跟随网格或弹性布局的视觉顺序，reading-order 则提供自定义顺序的能力，类似 HTML 的 tabIndex。该特性由 Rachel Andrew 推动。</p>
-
-<p><strong>8. interpolate-size 和 calc-size()</strong><br />
-解决长期以来无法在 <code>auto</code> 等关键字值之间进行动画的问题，最常见的用例是在 <code>height: 0</code> 和 <code>height: auto</code> 之间动画，用于创建可折叠的手风琴式 UI。</p>
-
-<p>文章还提到，Interop 2027 目前正在规划中，Mozilla 团队创建了一个<a href="https://www.joshwcomeau.com/css/interop-2027/">排名系统</a>供开发者投票选择最期待的特性。</p>
-
-<h3>社区反馈</h3>
-<p>HN 社区对该文章展开了热烈讨论（406 分，166 条评论）。部分开发者对 CSS 新特性持积极态度，认为现代 CSS（如嵌套、@layer、:has() 选择器等）大幅改善了开发体验，并越来越多地用 CSS 替代 JavaScript。但也有评论者担忧 CSS 正变得过于复杂，越来越像 JavaScript，尤其是函数特性被认为"打开了潘多拉魔盒"。还有用户指出，文章中提到的多数特性目前仅 Chrome 支持，质疑 Interop 项目是否已被 Chrome 主导。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Squircle（超椭圆圆角）</strong>是一种基于超椭圆方程生成的圆角算法，相比普通圆弧圆角，它产生的过渡更加平滑柔和。Apple 多年来一直在 iOS 和 macOS 的图标设计中采用 squircle 圆角，这也是为什么苹果设备的图标看起来比 Android 的圆角矩形更"自然"的原因。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50175070</guid>
-      <pubDate>Wed, 21 Oct 2026 01:47:28 GMT</pubDate>
     </item>
   </channel>
 </rss>

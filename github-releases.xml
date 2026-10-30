@@ -3,7 +3,71 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 29 Oct 2026 21:46:01 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 30 Oct 2026 01:55:17 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.314 发布：新增工作目录外写入限制、空闲会话压缩等多项改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.314</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.314 版本，包含多项新功能、修复与改进。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增 <code>permissions.blockWritesOutsideWorkingDirectories</code> 配置</strong>：可在所有权限模式下，让 Write、Edit 和 NotebookEdit 工具拒绝访问工作目录之外的路径。</li>
+<li><strong>新增空闲压缩（idle compaction）</strong>：VS Code 和 Claude Desktop 的 Code 标签页中，闲置的超过 20 万 token 的对话会被自动总结，若提示缓存（prompt cache）已过期，下次消息将使用该总结。</li>
+<li><strong>Claude apps gateway 新增上游 <code>groups</code> 列表</strong>：仅将列出的 IdP 用户组中的开发者路由到对应上游（故障转移时同样适用）；新增 <code>guardrail_trace</code>，用于记录 Bedrock 上游中哪个 Amazon Bedrock 护栏过滤了请求（不包含匹配文本）。</li>
+<li><strong>修复组织管理员限制模型 effort 时会话连续失败</strong>：当模型被上限限制时，Claude Code 现在会降低 effort 并重试，同时提示当前使用的级别。</li>
+<li><strong>修复 <code>claude -p</code> 启动失败仍以退出码 0 退出且无输出的问题</strong>：现在会打印错误并以退出码 1 退出。</li>
+</ul>
+
+<h3>其他修复与改进</h3>
+<ul>
+<li>修复 Bedrock 会话图片过多时每轮与 <code>/compact</code> 报 "400 Input is too long." 的问题（现在会移除旧图并压缩）。</li>
+<li>修复 Microsoft Foundry 资源缺少默认模型部署时会话失败的问题（现回退到同系列的旧模型）。</li>
+<li>修复不支持工具搜索 <code>tool_reference</code> 块的网关后重复拒绝请求的问题。</li>
+<li>修复因系统证书库持有交叉签名的续期根证书导致的 TLS 连接 <code>UNABLE_TO_GET_ISSUER_CERT</code> 失败。</li>
+<li>修复无需登录也能工作的 MCP 服务器在存储的登录失效后被误报"需要认证"的问题。</li>
+<li>修复 <code>claude mcp logout</code> 在 macOS 钥匙串锁定时仍报告成功的问题。</li>
+<li>修复 <code>claude ultrareview</code> 与 <code>claude remote-control</code> 在带终端的 CI 任务中询问工作区信任的问题（设置 <code>CI</code> 时会直接拒绝不受信任的文件夹）。</li>
+<li>修复 <code>/resume</code> 选择器在会话仅运行斜杠命令时把 CLAUDE.md 文本当作标题的问题。</li>
+<li>修复远程控制中超过 8 秒的模型切换报"仍在等待"的问题。</li>
+<li>修复 <code>claude -p --resume</code>/<code>--continue</code> 进入的 worktree 未应用沙箱保护的问题。</li>
+<li>修复 <code>--resume</code> 后的 <code>/upgrade</code> 对通过 App Store 或 Google Play 计费的计划误开启浏览器登录（现提示修改计划位置）。</li>
+<li>修复 LLM 网关后带点号的模型 ID（如 <code>claude-opus-4.8</code>）被当作上下文窗口、输出限制等配置错误的旧模型的问题。</li>
+<li>修复流式输出时半输入状态的行使 Markdown 表格在网格和堆叠布局间跳动的问题。</li>
+<li>修复 <code>sandbox.excludedCommands</code> 设置描述误导的问题。</li>
+<li>修复经 SSH 向 Linux 机器粘贴图片无反应的问题（现提示复制文件并粘贴路径）。</li>
+<li>修复 vim 模式下多条命令越过行尾、<code>aw</code>/<code>iw</code> 取行尾换行、<code>p</code> 忽略整行拖拽等编辑问题，并让 <code>w</code>/<code>W</code> 在空行停止。</li>
+<li>修复粘贴文本与拖入文件在 Claude 提问对话框中被丢失的问题。</li>
+<li>修复 <code>~/.claude/skills/.trash</code> 与 <code>~/.claude/plugins/.trash</code> 无上限增长的问题（现各保留约 1024 条）。</li>
+<li>修复 CRLF 文件在 git 行尾转换下被重新保存后 Bash 编辑 diff 显示整文件变更的问题。</li>
+<li>自托管运行器：修复闲置会话在暂停请求连接丢失时切换到另一个运行器而非暂停的问题。</li>
+</ul>
+
+<h3>体验与性能改进</h3>
+<ul>
+<li>改善长时间 headless 和 SDK 轮次中运行大量子代理时的内存占用。</li>
+<li>Ctrl+R 提示历史现在可匹配折叠的 <code>[Pasted text]</code> 胶囊内文本。</li>
+<li><code>/permissions</code> 审核标签页更名为 Recently blocked，并对无法完整读取的调用拒绝批准。</li>
+<li>auto mode 的被阻止调用现在会指明命令、提示可重试，并指向 <code>/permissions</code> 复查。</li>
+<li>会话自动标题改进：以技能或基于提示的命令（如 <code>/security-review</code>）开头的会话将获得相应标题。</li>
+<li>改善 <code>--resume</code> 在损坏 transcript 上的速度与内存使用；改善含上万个 MCP 工具的会话中 <code>/context</code> 的速度。</li>
+<li>改变 Bash 工具外壳以清除继承的 <code>which</code> 别名/函数，使 <code>which</code> 使用系统命令或 zsh 内建。</li>
+<li>更改 flagged 请求：当仅剩旧版 Opus 模型或无模型可用时，改为在另一模型上重试而非直接拒绝。</li>
+<li>空闲压缩现在也对关闭遥测的订阅用户，以及启用了一小时提示缓存的 Bedrock、Vertex、Foundry 与 LLM 网关生效。</li>
+<li>变更 <code>FORCE_HYPERLINK=false</code>（含 <code>no</code>、<code>off</code>）改为关闭超链接而非开启。</li>
+</ul>
+
+<h3>VS Code / 云会话 / 远程控制 / Claude Tag</h3>
+<ul>
+<li>[VSCode] 修复 Cmd+F/Ctrl+F 未在计划预览标签页打开查找控件、非拉丁键盘布局下语音听写快捷键无效等问题。</li>
+<li>[Cloud sessions] 新增 Scheduled tasks 页面的 Include completed 按钮；改善自助托管环境的详情对话框滚动；云会话与远程控制的权限模式选择器现在显示实际生效的模式。</li>
+<li>[Remote Control] 修复权限模式按钮在输入前显示错误模式的问题。</li>
+<li>[Claude Tag] 修复 Slack 集成中 <code>@Claude !restart</code>、重复确认、自助运行器等待提示等多个问题；为 Enterprise 组织新增 Claude Tag API 文档的可关闭链接。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.314</guid>
+      <pubDate>Fri, 30 Oct 2026 01:06:26 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.166.0：新增键盘驱动终端选择、GPT-6.1 Terra 及多项修复</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.166.0</link>
@@ -1533,15 +1597,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.287</guid>
       <pubDate>Thu, 01 Oct 2026 18:00:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>kitty 终端模拟器发布 0.49.2 版本</title>
-      <link>https://github.com/kovidgoyal/kitty/releases/tag/v0.49.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>kitty 终端模拟器发布了 <strong>v0.49.2</strong> 版本。这是继 0.49 之后的维护性补丁版本，主要包含若干 bug 修复与稳定性改进。</p><p>详细的变更日志（changelog）可在官方文档查看：<a href="https://sw.kovidgoyal.net/kitty/changelog/#detailed-list-of-changes">kitty 详细变更列表</a>。</p><p>该版本用于签名源码包（tarball）的 GPG 密钥为 <a href="https://calibre-ebook.com/signatures/kovid.gpg">kovid.gpg</a>，用户可通过该密钥验证下载文件的完整性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/kovidgoyal/kitty/releases/tag/v0.49.2</guid>
-      <pubDate>Thu, 01 Oct 2026 02:57:33 GMT</pubDate>
     </item>
   </channel>
 </rss>
