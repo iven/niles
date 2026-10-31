@@ -3,7 +3,34 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 31 Oct 2026 13:41:04 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 31 Oct 2026 18:31:25 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 展示 HN：将 NES 红白机 CPU 编译进约 1GB 的 Qwen 权重中</title>
+      <link>https://news.ycombinator.com/item?id=50306442</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 将 NES CPU 编译进 Qwen 模型权重的技术实验，涉及 AI 软件技术、编程与开源项目，符合兴趣</small></p><p>开发者 dbreunig 发布了 <a href="https://github.com/dbreunig/nesformer">nesformer</a> 项目，将一个完整的 NES（任天堂红白机）系统编译进了标准的 Qwen3.5 语言模型权重中。这不是通过训练得到的——模型中的所有权重都由一个编译器计算得出，没有任何人训练过这些权重。运行游戏时，模型逐 token 预测 CPU 的执行日志，一个宿主机程序负责绘制画面、读取手柄输入并触发垂直空白（vblank）中断。</p>
+
+<p>nesformer 构建在 Divyansh Agrawal 的 Qwenputer 项目之上（后者曾将 CHIP-8 和 RISC-V CPU 编译进模型）。其核心技巧是：利用模型 Gated DeltaNet 的状态作为机器的内存。每个 DeltaNet 头维护一个 128×128 的状态矩阵，通过控制门和 one-hot 键值，每一行都能作为一个内存单元，于是卡带、RAM 和寄存器都存放在这些行中。</p>
+
+<p><img src="/dbreunig/nesformer/raw/main/examples/demo.gif" alt="Super Mario Bros., played by the weights" /></p>
+
+<p>权重中包含 6502 CPU 内核（全部 151 个官方操作码，所有寻址模式、标志、栈、BRK 和 NMI 入口）、2 KB 工作 RAM 和 32 KB 程序 ROM（存储两份：一份用于指令取指，一份用于数据读取）。宿主机一侧处理 PPU（逐扫描线渲染器和调色板）、控制器、APU 寄存器写入以及 NMI 时序。权重是普通的 Hugging Face checkpoint，可用标准 <code>Qwen3_5ForCausalLM.from_pretrained</code> 加载，无需自定义代码。模型参数 466.6M（bf16，约 933 MB），但其中仅 9.3M 为非零，因此权重可压缩到约 3.3 MB。</p>
+
+<p><img src="/dbreunig/nesformer/raw/main/examples/full_game.gif" alt="Full Game, played by the weights" /></p>
+
+<p>项目中捆绑了三个免费授权的测试 ROM（nestest、Thwaite 和 Full Game），用户也可以放入自己的 NROM（iNES mapper 0）卡带，如《超级马里奥兄弟》《大金刚》或《Excitebike》。主机每秒约 60 帧，实际运行速度比真机慢 150–290 倍（空闲循环跳过优化可减少约 2.6–4.2 倍的 token 数）。目前仅支持 NROM 卡带，不支持带换页芯片（mapper）的游戏，也不支持非官方操作码（遇到会触发 HALT）。</p>
+
+<p>验证方面：参考 CPU 与 nestest 的黄金日志（3,348 条指令）以及 py65 模拟器（570 万条指令）完全一致；电路在与 Qwenputer 评估器（带 bf16 精确度检查）中预测了所有参考 token，多个测试运行均与参考 CPU 的 trace 和画面完全匹配。</p>
+
+<p>Hacker News 评论区对这一项目的意义展开了讨论。有用户（jacquesm）欣赏这类 hack，但指出从效率角度看它令人震惊，并借此感慨确定性程序比 AI 高效得多。作者 dbreunig 回应了关于"如何确认它在工作"的疑问，指出模拟社区维护着超过 3000 条黄金指令的符合性测试。一些评论把项目比作"在 Minecraft 里做 Minecraft"式的炫技证明；armcat 则畅想可借此在 LLM 权重内编译一个小型 VM，从而直接在模型内部执行 Python 解释器、shell 和工具，而无需外部工具调用。</p>
+
+<div><h3>你知道吗？</h3>
+<p>NES 的 2A03 芯片核心是一颗 6502 微处理器，这是 20 世纪 70–80 年代广泛使用的经典 8 位 CPU 架构。NES 游戏卡带常见的"mapper"（如 MMC1、MMC3）是负责银行切换（bank switching）的芯片，它让 CPU 能访问超过自身寻址范围（32 KB 程序 ROM）的更大游戏内容；nesformer 目前只支持无需 mapper 的 NROM 电路板。</p>
+</div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50306442</guid>
+      <pubDate>Fri, 30 Oct 2026 16:40:22 GMT</pubDate>
+    </item>
     <item>
       <title>Florilegium：用 Lua 在 LaTeX 中程序化生成花卉页边装饰</title>
       <link>https://news.ycombinator.com/item?id=50305637</link>
@@ -1038,47 +1065,6 @@ width="760" height="469" /></p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50197313</guid>
       <pubDate>Thu, 22 Oct 2026 16:08:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Mistral 发布 Mistral Large 4（ML4）：万亿参数多模态模型公开预览</title>
-      <link>https://news.ycombinator.com/item?id=50186129</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Mistral Large 4 是新AI模型发布公告，属于很感兴趣类别，用户会强烈关注。</small></p><p>Mistral AI 正式发布了新一代旗舰开源模型 <strong>Mistral Large 4</strong>（ML4，绰号 "le Chonk"）的公开预览。ML4 是一个拥有 <strong>1 万亿参数</strong>、<strong>520 亿活跃参数</strong>的原生多模态模型（MoE 架构），是该公司迄今最大、最强大的模型，重量级权重将在本月底发布。</p>
-
-<img src="/images/heros/hero-ml4@2x.jpg" alt="Mistral Large 4" />
-
-<h3>核心性能亮点</h3>
-<p>据 Mistral 介绍，ML4 在多个关键领域表现出色，在开源权重模型中处于领先地位，部分领域（如视觉定位）甚至超越封闭式前沿模型：</p>
-<ul>
-<li><strong>编程</strong>：DeepSWE v1.1 得分 61.7%，Terminal-Bench 4 得 28.3%，综合 Coding Agent Index 得分 49.8%，领先于 DeepSeek V4 Pro 0813 和 Qwen3.8 Max。</li>
-<li><strong>网络安全</strong>：在 Artificial Analysis Cyber Index 位列全球前五，并大幅领先欧美以外的开源模型；在"复现真实漏洞并打补丁"的测试中得分 82%，为所有模型中最高，远超多家拒绝执行该任务的封闭模型（如 Claude Opus 5.5、GPT-6 Astra）。</li>
-<li><strong>智能体工作流</strong>：AutomationBench 得分 59.9%，在自动化办公、长时程知识工作上表现突出。</li>
-<li><strong>多模态</strong>：可分析复杂文档、图表、自然图像及巨幅卫星影像，视觉定位能力超越 GPT-6-Astra（Dense 200 得分 42% vs 41%）。</li>
-<li><strong>科学与数学</strong>：在 SciCode-Verified 上达到开源模型最优，可一次生成完整的 Hartree–Fock 化学模拟。</li>
-<li><strong>知识工作</strong>：在第三方评估（vals.ai）的金融与法律任务上均超过 GPT-6-Astra。</li>
-</ul>
-
-<h3>欧洲主权与安全定位</h3>
-<p>ML4 使用 3,800 块 NVIDIA Grace Blackwell GPU 在 Mistral 位于欧洲的自有数据中心从零训练，并被定位为"AI 主权"（AI sovereignty）产品——支持自部署、私有云或本地运行，以满足欧洲数据隐私法规（如 GDPR）要求。模型可在全球多个地区部署，其中欧洲部署由 Mistral 端到端运营。</p>
-
-<h3>规模化强化学习（RL）</h3>
-<p>文章详细介绍了 Mistral 的 RL 训练体系：一套共享、可组合的环境接口，可在一个训练运行中整合单轮对话、复杂科学问题求解、安全对齐、事实性与长时程工具使用等任务。在 3,000 块 GPU 规模下，单次训练运行每天可产生约 330 亿 token。ML4 在安全方面也表现良好，对间接提示注入的鲁棒性、以及 KORA 基准（衡量负责任拒答）上均为团队历史最佳。</p>
-
-<h3>未来规划</h3>
-<p>ML4 是 Mistral 由 <strong>30 亿欧元 Series D 融资</strong>（欧洲科技公司史上最大股权融资）支撑的路线图首个里程碑。公司正在扩大欧洲自建算力，并预期训练规模提升将带来快速进步。权重、架构细节、更多基准与后训练方法细节将在月底随权重发布一同公开。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上讨论热烈，主要观点包括：</p>
-<ul>
-<li>多位用户质疑其相对于 DeepSeek 的性价比——OpenRouter 上 ML4 定价约为 DeepSeek 的 10 倍，个人用户或欧洲数据合规企业之外的优势不明显。</li>
-<li>一些用户指出该条目与两周前发布的公告重复（已有 <a href="https://news.ycombinator.com/item?id=49977979">此前的讨论</a>），本次为预览发布后的再推送。</li>
-<li>部分用户称赞其受 GDPR 覆盖、训练可选择退出、以及欧洲本地部署等主权优势。</li>
-<li>有用户反映模型在德语对话中偶尔混入中文字符，被其他评论者解释为各模型普遍存在的典型失效模式，与训练语料中中文占比无关。</li>
-<li>也有评论认可其训练效率："以 SOTA 十分之一的资源就达到接近 SOTA 的水平"。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50186129</guid>
-      <pubDate>Wed, 21 Oct 2026 19:20:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
