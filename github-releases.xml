@@ -3,7 +3,62 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sat, 31 Oct 2026 00:42:33 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 31 Oct 2026 06:57:04 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.316 发布：新增多项环境变量与网关功能，修复大量 Bug</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.316</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.316 版本，新增多项环境变量和网关功能，并修复了大量问题。</p>
+
+<h3>新增功能</h3>
+<ul>
+<li>新增 <code>CLAUDE_CODE_DISABLE_ULTRATHINK</code> 环境变量，可关闭 <code>ultrathink</code> 关键字</li>
+<li>新增 <code>CLAUDE_CODE_SUBAGENT_EFFORT</code>，用于设置子代理（subagent）的运行努力级别，不再默认继承会话设置</li>
+<li>Claude apps 网关新增 <strong>池化组预算</strong>（pooled group budgets）：组成员共享一个月度预算，叠加在个人限额之上，通过 spend limits 管理 API 的 <code>pooled_budget</code> 设置</li>
+<li>网关新增 <code>managed.policy_mode: layered</code> 模式：匹配开发者的所有策略均生效，逐层合并，而非仅应用第一条</li>
+<li>网关 Bedrock 上游新增 <code>guardrail.input_tagging</code>，为 Amazon Bedrock 防护栏的提示攻击过滤器包装输入标签</li>
+<li>新增 <code>CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP</code>，保留相互认证的循环系统交叉证书，适用于需要私有 CA 的服务器</li>
+<li>[VSCode] 聊天面板新增 Claude apps 网关登录入口，无需终端</li>
+<li>[云端会话] 新增表单卡片，可填写或拒绝 MCP 服务器请求的表单，不再被静默取消</li>
+<li>[云端会话] 切换回云端或 Remote Control 会话时显示「Catching up…」加载提示</li>
+<li>[代码审查] 分析页面新增按严重程度分类的发现卡片，含每日堆叠图表</li>
+</ul>
+
+<h3>重要变更</h3>
+<ul>
+<li>Opus 4.8 的快速模式自 2026 年 10 月 30 日起弃用，2026 年 11 月 30 日移除；移除后快速模式请求将报错且不会回退到标准 Opus 4.8，建议迁移至 Opus 5.5</li>
+<li>Team 和 Enterprise 登录的服务器托管设置变更：从 Anthropic API 获取的设置直接生效，不再弹出审批提示；无法验证的本地副本将被拒绝</li>
+<li>[VSCode] <code>ultrathink</code> 现在以 <code>xhigh</code> 努力级别运行，并在聊天框中以彩虹色显示</li>
+<li>[Claude Tag] Slack 频道的「自动回复」开关改为「Claude 参与方式」选项</li>
+<li>[云端会话] 企业成员现在可以在自己的云端环境中添加和删除网络密钥（此前仅可查看）</li>
+</ul>
+
+<h3>Bug 修复与改进</h3>
+<ul>
+<li>修复 macOS 和 Linux 上 Claude Code 自行退出时（如凭据被拒或云端会话归档）shell 命令残留运行的问题</li>
+<li>修复 Bash 工具中带换行的别名和以破折号开头的函数名被破坏或丢失的问题</li>
+<li>修复 <code>SHELLOPTS</code> 导出时 Bash 脚本在第一条命令后停止的问题</li>
+<li>修复压缩响应被截断或损坏时部分网络请求挂起的问题</li>
+<li>修复 Vertex AI 和 Amazon Bedrock 上 <code>sonnet</code>、<code>opus</code>、<code>haiku</code> 在新模型不可用时显示错误而非自动切换到旧模型的问题</li>
+<li>修复包含不可见字符的提示需要按两次回车才能发送的问题</li>
+<li>修复 <code>claude auth login</code> 在需要 Claude apps 网关的托管设置下拒绝运行的问题</li>
+<li>修复 <code>--restricted</code> 会话在 Read 允许规则覆盖时上传工作目录外文件的问题</li>
+<li>修复 Grep 和 Glob 在 Windows 上搜索进程被终止但不退出时永不返回的问题</li>
+<li>修复恢复对话时未恢复计划（plan）的罕见情况</li>
+<li>修复 <code>/model &lt;id&gt;</code> 在模型不被识别时未警告且自动压缩假设 200K 上下文窗口的问题</li>
+<li>改进 <code>/diff</code> 在大型仓库上的性能：每次刷新通常少执行一次全仓库 git 命令</li>
+<li>改进 SSL 证书错误提示，指出可能原因（如服务器缺少中间证书）及对应修复方法</li>
+<li>改进 <code>/code-review</code> 在 Claude Desktop 或网页 Code 标签页中的显示：云端和 <code>claude remote-control</code> 会话现在显示发现卡片而非纯文本列表</li>
+<li>[VSCode] 修复模型设置带 <code>[1m]</code> 标签（如 <code>opus[1m]</code>）时缺少 Effort 滑块、Ultracode 开关和模型名的问题</li>
+<li>[VSCode] 修复设置文件有错误时保存的 <code>/btw</code> 侧问题历史被过早删除的问题</li>
+<li>[云端会话] 修复文件搜索在 Claude 切换目录后显示 <code>../..</code> 路径的问题</li>
+<li>[Claude Tag] 修复画布同时分享到其他频道或 DM 后 Claude 拒绝编辑或追加的问题</li>
+<li>[Claude Tag] 修复 Slack Connect 线程中未标记回复无人应答的问题</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.316</guid>
+      <pubDate>Sat, 31 Oct 2026 01:01:35 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.314 发布：新增工作目录外写入限制、空闲会话压缩等多项改进</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.314</link>
@@ -1562,41 +1617,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.160.0</guid>
       <pubDate>Thu, 01 Oct 2026 20:19:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.287：新增 Claude Mods 插件系统、代理视图过滤等多项改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.287</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.287 版本，带来多项新功能与大量修复改进。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增 Claude Mods</strong>：插件现在可以修改更深层的行为。内置了 "You should know" 模组，由一个侧翼代理监视并标记你可能遗漏的事项，可通过 <code>/plugin enable cc-plugin-you-should-know@builtin</code> 启用。</li>
-<li><strong>代理视图新增 <code>n:&lt;text&gt;</code> 过滤器</strong>：可匹配会话名称和任务，折叠区域显示匹配项，按 Enter 打开第一个匹配结果。</li>
-<li><strong>MCP 服务器 URL 提示</strong>：支持 2025-11-25 协议中的 URL 提示（如登录）。若服务器更新后无法连接，需在其 MCP 配置中添加 <code>"bareElicitationCapability": true</code>。</li>
-<li><strong>自托管 runner 内置 <code>gh api</code></strong>：适用于未安装 GitHub CLI 的 macOS 和 Linux 机器上使用 Anthropic 托管 git 的会话（仅 REST）。</li>
-<li><strong>OpenTelemetry 新增 <code>prompt_text</code></strong>：添加到 <code>user_prompt</code> 事件中，为使用嵌套点键的后端提供 <code>prompt</code> 的副本。</li>
-<li><strong>Windows 启动警告</strong>：当拒绝 Bash 工具同时关闭 PowerShell 工具、导致 Claude 没有 shell 工具时显示警告。</li>
-</ul>
-
-<h3>其他改进与修复</h3>
-<ul>
-<li>修复远程会话中 fast mode 保持关闭、Remote Control 消息延迟接收、hooks 反复唤醒 Claude 等问题。</li>
-<li>修复 Bedrock/Vertex 启动模型检查忽略 <code>availableModels</code> 列表、Fable 模型默认保存、Opus 5.5 与 Sonnet 5.5 切换重写 MCP 工具声明等问题。</li>
-<li>修复危险的 <code>rm</code> 命令（如对 <code>/</code> 或主目录）在重定向输出到 <code>~</code> 或通配符路径时丢失 always-ask 保护的问题。</li>
-<li>修复屏幕阅读器模式的多项问题，包括光标位置、Enter 键、箭头键提示、diff 行缺失等。</li>
-<li>修复 <code>claude -p</code> 和 SDK 会话模型回退重复、CLAUDE.md 重复附加、后台会话无法重新打开等问题。</li>
-<li>改进 <code>/config</code> 设置循环显示、插件市场错误提示、大 MCP 结果的内存处理、远程会话大文件流式传输等。</li>
-<li>Opus 4.7+ 和 Fable 在 Bedrock、Vertex、Foundry 及 Claude apps 网关上默认使用 1M 上下文窗口。</li>
-<li>改进 Bash 工具在 Windows 上的速度（移除每次命令前的子 shell）。</li>
-<li>[VSCode] 新增"Run in background"功能、后台 shell 和 Monitors 输出显示、多项修复与改进。</li>
-<li>[Cloud sessions] 修复 GitHub 令牌短暂拒绝时的拉取/推送失败。</li>
-<li>[Claude Tag] 修复 Slack 线程中失败警告的发布、支出限制页面频道遗漏等问题。</li>
-<li>[Code Review] 修复评论截断、跳过 PR 审查、锁定对话的失败卡片提示等。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.287</guid>
-      <pubDate>Thu, 01 Oct 2026 18:00:22 GMT</pubDate>
     </item>
   </channel>
 </rss>
