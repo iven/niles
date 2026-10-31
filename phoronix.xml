@@ -3,7 +3,85 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 31 Oct 2026 06:56:31 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 31 Oct 2026 13:40:17 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.4 新增的&quot;减少 AI 噪音&quot;特性因 VFIO 子系统&quot;疯狂野兽&quot;问题已被回退</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-Drops-Taint-Bind</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linux内核的AI噪声相关特性被回滚的技术新闻，属于一般内核软件动态，兴趣不明确</small></p><p>上周合并进 Linux 7.4 的一项旨在减少 AI/LLM 生成无效测试噪音的新特性，因 VFIO 子系统的"疯狂野兽"（crazy beast）问题已被回退。</p>
+
+<p>Greg Kroah-Hartman 于 9 月提出了 <strong>TAINT_FORCED_BIND</strong> 选项，用于在 Linux 的 bind/unbind sysfs 接口被使用时对运行中的内核进行标记（taint）。该接口允许将硬件任意绑定/解绑到某个驱动程序。在 AI/LLM 时代，这一接口被 Syzbot 等模糊测试工具滥用，尝试将硬件绑定到与其无关的驱动上，导致产生大量与合法内核用例不符的无关 bug 报告噪音。</p>
+
+<p>通过 TAINT_FORCED_BIND，内核开发者可以在 bug 报告中快速识别 sysfs bind/unbind 是否被使用，从而判断该报告是否为合法 bug。该特性上周被合并进 Linux 7.4，Greg KH 将其描述为针对内核的一次大规模模糊测试"攻击"的应对措施。</p>
+
+<p>然而，在合并之后才发现 VFIO 代码在合法实践中依赖 bind/unbind 行为。VFIO 依赖 bind/unbind 将 PCIe 设备从 Linux 主机驱动中分离，并挂载到 vfio-pci 以供虚拟机使用。在回退补丁中，Greg 将 VFIO 描述为"疯狂野兽"：人们一直"依赖"bind/unbind 调试功能来处理设备直通到客户机实例的问题。他引用了 <a href="https://xkcd.com/1172/">xkcd 1172</a>，并决定暂时回退该特性，直到找到更合适的方案，使正常的工作流程不会污染内核。</p>
+
+<p>Greg 表示，Uwe Kleine-König 在 <a href="https://lore.kernel.org/lkml/">内核邮件列表</a> 上提出的方案可能是最佳前进方向，即仅在 driver_override 使用场景中启用 TAINT_DRIVER_OVERRIDE，并默认禁用 driver_override，同时允许驱动自行选择是否参与。该方案可能在 Linux v7.5 中被采纳，但已来不及进入 v7.4——合并窗口预计将于明天关闭。回退补丁已于周五晚间合并。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Drops-Taint-Bind</guid>
+      <pubDate>Sat, 31 Oct 2026 12:15:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ KDE Plasma 6.9 引入多项性能优化 缩放效果与配置清理显著加速</title>
+      <link>https://www.phoronix.com/news/KDE-Plasma-6.9-More-Performance</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 直接关于KDE Plasma 6.9的性能优化，KDE为很感兴趣主题，必看</small></p><p>KDE Plasma 6.9 的开发正在加速推进，本周带来了多项性能优化。根据最新一期的《This Week in Plasma》报道，主要改进包括：</p>
+
+<ul>
+<li><strong>KWin 缩放效果性能提升</strong>：Plasma 6.9 的缩放插件将跳过低对比度像素（例如平坦和实色区域）的处理，从而带来显著的加速效果。</li>
+<li><strong>清理配置文件中过期的桌面文件和文件夹位置条目</strong>：这解决了自 2023 年以来的一个 bug 报告——屏幕映射条目在配置文件中无限增长，导致 Plasma 外壳变慢甚至崩溃的问题。清理后 Plasma 整体运行将更加流畅。</li>
+<li><strong>Discover 软件中心新功能</strong>：现可复制和分享本地安装 Flatpak 软件包的 <code>appstream://</code> 链接。</li>
+</ul>
+
+<p><img src="//www.phoronix.net/image.php?id=2026&amp;image=plasma_69_more_perf" alt="Plasma zoom speed-up" /></p>
+
+<p>本周发布的 <strong>Plasma 6.8.2</strong> 还带来了一系列崩溃修复和其他回归处理，其中修复了一个可能降低游戏性能的 KWin 回归问题——即在不支持 DRM 色彩管线的情况下禁用后混合（post-blend）卸载。Plasma 6.8.3 计划于 11 月带来更多崩溃与回归修复。</p>
+
+<p>在修复方面，KDE Frameworks 还修复了一个长达 15 年之久、关于向 USB 存储设备完成文件传输的 bug。更多详情可参阅《This Week in Plasma》。社区对这批改动反响积极，相关报道收到 6 条评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Plasma-6.9-More-Performance</guid>
+      <pubDate>Sat, 31 Oct 2026 10:51:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GNOME 正式建立 RFC 流程，GNOME OS 持续改进</title>
+      <link>https://www.phoronix.com/news/GNOME-Establishes-RFC</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GNOME作为Linux桌面技术属于感兴趣主题，介绍其RFC流程与GNOME OS进展，推荐阅读</small></p><p>GNOME 项目近期正式确立了「请求评论（RFC）」流程，用于解决重大技术问题和项目变更的讨论。此前项目一直采用临时（ad-hoc）讨论机制，而在 Sophie Herold 的牵头下，GNOME 利益相关者已就该 RFC 流程达成共识。这一举措将有助于规范并简化未来涉及重大项目问题/变更的讨论。完整的 RFC 流程可在 GNOME 官方 RFCs 仓库中查阅。</p><p>本周 GNOME 项目还带来了多项改进：文件管理器 Nautilus「Files」获得增强；GNOME Software 在图标处理及远端资源加载方面效率更高；GNOME Calendar 持续优化。在底层方面，GLib 新增了对 XDG Intents（意图）的支持，可让应用程序注册自身以支持在终端中打开命令及处理特定 URI 方案。</p><p>GNOME OS 方面，其 PipeWire 构建现已启用 LDAC 编解码器，Zswap 相关修复已合并，扩展编解码器（extra-codecs）功能现默认开启。同时还有多项 NVIDIA 改进，使 NVIDIA 显卡能够配合 Snap 应用正常工作，并为其固件适配了 NVIDIA R615 驱动程序。更多详情可参阅「This Week in GNOME」。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-Establishes-RFC</guid>
+      <pubDate>Sat, 31 Oct 2026 10:10:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ CUDA Oxide 0.3 大幅改进 Rust 对 NVIDIA CUDA 编程的支持</title>
+      <link>https://www.phoronix.com/news/CUDA-Oxide-0.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] CUDA Oxide大幅改进Rust对NVIDIA CUDA编程的支持，涉及Rust与编程工具，均属感兴趣主题</small></p><p>NVIDIA 软件工程师在十月末发布了 CUDA Oxide 0.3，这是其实验性 Rust 转 CUDA 编译器的最新版本，近几个月来该项目一直保持着活跃的研发节奏。</p>
+
+<p>CUDA Oxide 0.3 的几项关键改进包括：</p>
+<ul>
+<li><strong>支持稳定版 Rust</strong>：cuda-oxide 现在使用官方稳定版 Rust（当前为 Rust 1.99.1），而此前版本需要依赖 nightly 构建版。</li>
+<li><strong>统一主机运行时</strong>：在 cuda-rust 单体仓库（monorepo）中将主机运行时与 cutile-rs 进行了统一。</li>
+<li><strong>推出 cute-rs 实验版</strong>：提供 CUTLASS CuTe 的 Rust 实现。借助 cute-rs，可以在端到端运行 Qwen3-8B（BF16 + NVFP4 精度）以及 Qwen3-TTS 模型，这些模型正在 NVIDIA Blackwell GPU 上进行测试。</li>
+<li><strong>改进调试体验</strong>：支持完整的 cuda-gdb DWARF 调试，新增内核内事件追踪（in-kernel event tracing）、寄存器与溢出诊断（spill diagnostics），并改进了测试。</li>
+<li><strong>性能优化</strong>：针对 Blackwell 和 Hopper GPU 带来了性能和编译器优化。</li>
+</ul>
+
+<p>更多下载与详情可通过 GitHub 获取 CUDA Oxide 0.3。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=cuda_oxide_03" alt="CUDA Oxide 0.3" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/CUDA-Oxide-0.3</guid>
+      <pubDate>Sat, 31 Oct 2026 09:50:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Sculpt OS 26.10 发布：改用 Genode 自研微内核</title>
+      <link>https://www.phoronix.com/news/Sculpt-OS-26.10</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Sculpt OS新版本发布，属于新发行版/新软件项目，为很感兴趣主题，推荐阅读</small></p><p>Sculpt OS 26.10 于本周五正式发布。作为源自 Genode 项目的通用操作系统，这一版本最大的变化在于不再依赖第三方微内核，而是改用 Genode 团队从零设计的自研微内核。</p><p>据官方介绍，该内核专为 Genode 和 Sculpt OS 的需求而设计，不仅比 Genode 所支持的其他任何微内核都更加"微"，还解决了长期存在的 CPU 调度和内核内存管理方面的缺陷。官方表示："Sculpt OS 终于站在了 Genode 自己的地基上！"</p><p><img src="//www.phoronix.net/image.php?id=2026&image=sculptos_2610" alt="Sculpt OS 26.10" /></p><p>除内核变更外，Sculpt OS 26.10 还带来了多项改进：将虚拟机组件从 VirtualBox 6 升级至 VirtualBox 7，改善了网络摄像头处理能力，新增对英国键盘布局的支持，以及其他若干优化。更多下载信息与详情可访问 <a href="https://genode.org">Genode.org</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Sculpt-OS-26.10</guid>
+      <pubDate>Sat, 31 Oct 2026 09:37:22 GMT</pubDate>
+    </item>
     <item>
       <title>Wine 11.21 发布：改进 WoW64 OpenGL 性能</title>
       <link>https://www.phoronix.com/news/Wine-11.21-Released</link>
@@ -590,88 +668,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/LibreSSL-4.4-Released</guid>
       <pubDate>Fri, 23 Oct 2026 09:55:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.4 工作队列优化：大型系统刷新速度提升 10 至 100 倍</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-Workqueue</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linux内核的workqueue优化，属于系统底层技术改进，不在明确的兴趣配置范围内，兴趣不明确</small></p><p>Linux 7.4 内核合并了一项重要的工作队列（workqueue）优化，为大型系统（如高核心数的 Intel Xeon 和 AMD EPYC 服务器）带来显著的性能提升。该优化由资深 Linux 开发者 Tejun Heo 提交，核心思路是：刷新工作队列时仅访问自上次刷新以来使用过的队列，而非逐一检查每个可能的 CPU 队列。</p>
-
-<p>这一改动使空闲状态下的工作队列刷新在大型机器上提速 10 至 100 倍。XFS 文件系统在每次日志强制写入（log force）时都会触发此类刷新，因此受益尤为明显。</p>
-
-<p>提交信息中提供了具体的性能数据：华为工程师 Yao Kai 报告称，在 128 核机器上，XFS CIL 工作队列每次刷新在遍历上耗时高达 64 微秒。优化后，在 192 核双节点机器上，空闲 per-cpu 工作队列的刷新速度从每秒 4 万次提升至 420 万次，空闲 unbound 工作队列则从每秒 45 万次提升至 430 万次。16 个线程并发排队并刷新的场景下，per-cpu 工作队列从每秒 3 万次提升至 11 万次，unbound 队列从 6 万次提升至 18 万次。密集刷新（所有 pwq 均活跃）时 per-cpu 队列性能不变，unbound 队列仅慢 15–20%，入队路径则完全不受影响。</p>
-
-<p><img src="//www.phoronix.net/image.php?id=amd-epyc-9965-ampereone&image=ampereone_turin_1_med" alt="AMD EPYC large system" /></p>
-
-<p>该优化源于 Yao Kai 于 9 月初提交的关于 unbound 工作队列开销的报告，是本次合并的 Linux 7.4 工作队列改动中最引人注目的部分。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Workqueue</guid>
-      <pubDate>Fri, 23 Oct 2026 00:38:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Fedora 45 遭遇第二次 NO-GO，延期至 11 月发布</title>
-      <link>https://www.phoronix.com/news/Fedora-45-Second-NO-GO</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲Fedora 45发行版延迟发布的消息，属于新发行版相关，且涉及Linux桌面技术，用户较感兴趣</small></p><p>Fedora 45 本周未能按理想的早期目标发布，原因是上周 Go/No-Go 会议时没有及时准备好候选发布版（release candidate）。在今天的 Go/No-Go 会议上，由于存在未解决的阻断性缺陷（blocker bugs），Fedora 45 再次被推迟至少一周。</p>
-
-<p>目前 Fedora 45 已接受的阻断缺陷包括：为缓解 eMudhra 相关问题所需的更新、Fedora Server 45 AArch64 镜像超过最大尺寸、在基于 LUKS 备份的 PV 配置上升级到 Fedora 45 后 LVM 自动激活失败，以及 KDE Plasma Discover 从 Fedora 44 仓库安装过时的原生 RPM 软件包的问题。此外还有三个提议中的发布阻断项正在评估：安装期间通过 <code>ip=</code> 内核参数未配置网络接口、Stratis 加密池无法启动、以及加密的 Stratis 根分区在未应答口令提示后落入紧急模式。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=fedora_45_no_med" alt="Fedora Workstation 45" />
-
-<p>此外还有若干获批的冻结例外（freeze exceptions）。当前 Fedora 45 的阻断缺陷列表可在 <a href="https://qa.fedoraproject.org">qa.fedoraproject.org</a> 查看。因此 Fedora 45 下周不会发布，目前新的计划发布日期为 11 月 3 日，具体能否实现将取决于这些阻断缺陷是否能在下周四前得到解决。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-45-Second-NO-GO</guid>
-      <pubDate>Thu, 22 Oct 2026 21:20:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Modular 全面公开 MAX 源代码，采用新的 MAX 许可证</title>
-      <link>https://www.phoronix.com/news/Modular-MAX-Complete-Open</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] MAX 编程工具源码完全开源，属于来源配置中的新软件项目（high_interest），同时符合全局的编程工具发布/分享兴趣</small></p><p>继今年 8 月 Modular 的编程语言 Mojo 被开源之后（当时该公司被 Chris Lattner 创办的公司被 Qualcomm 收购），Modular 如今又宣布其 MAX 软件已全面开放，整个源代码树均可公开获取。</p><p>Modular 的 MAX 图编译器（graph compiler）、MAX 运行时（runtime）以及设备扩展钩子现已完全向公众开放源代码。公司将其定位为「source available」（源代码开放）而非传统的「open-source」（开源），因为它附带了一项新的 MAX 许可证。</p><p>该许可证允许用户无需支付任何费用或版税即可构建和分发基于 MAX 的商业产品，但对源代码的使用有一些限制：不允许对 MAX 进行 AI 辅助的重新实现、不允许围绕 MAX 提供商业托管推理服务，也不允许发布和分发修改后的源代码。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=modular_max" alt="Modular MAX" /><p>Modular 在今天的公告中为这些源代码限制辩护称：「我们的意图是鼓励实验和创新，同时确保 MAX 继续作为统一的软件基础不断演进。开发者可以自由修改和试验 MAX，我们希望尽可能降低向项目回馈改进的门槛。许可证的分发限制旨在防止 MAX 分裂成不兼容的版本，而非阻止个人开发者探索新想法。我们认识到，存在许多不适合直接上游贡献的合理修改实验，我们将继续与社区合作，确保我们的开发和贡献流程能够支持这种创新。」</p><p>Modular 的 MAX 是一款高性能推理服务器，为 LLM 提供与 OpenAI 兼容的端点。对 MAX 尚不熟悉的读者可以在 max.modular.com 了解更多。</p><p>全面开放 MAX 其余源代码的举措，与随 MAX 26.7 版本一同发布。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Modular-MAX-Complete-Open</guid>
-      <pubDate>Thu, 22 Oct 2026 18:32:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.4 调度器更新：改善短时隙任务延迟，支持 NVIDIA Vera SMT 偏好</title>
-      <link>https://www.phoronix.com/news/Linux-7.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux 内核改进调度延迟与 NVIDIA Vera SMT 偏好，涉及 Linux 技术进展，符合 Linux 桌面技术兴趣，虽含芯片信息但主体是 Linux 内核改进</small></p><p>Linux 7.4 内核的调度器更新已合并，带来多项调度增强。Linaro 工程师 Vincent Guittot 针对短时隙（short-slice）任务的调度延迟进行了优化，实测延迟最高可降低 55%。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=bench_short_slice_tasks" alt="short slice task benchmarks" />
-
-<p>这延续了 Vincent 在 Linux 7.3 内核中已有的短时隙任务调度改进工作。Linux 7.4 在调度领域还引入了以下新特性：</p>
-
-<ul>
-  <li><strong>steal governor</strong>：基于 steal time 进行动态 vCPU 管理，用于降低虚拟机 vCPU 抢占成本，增强 Linux 虚拟机性能。</li>
-  <li><strong>NVIDIA Olympus 核心增强</strong>：针对 Vera CPU 优先选择 SMT 兄弟核心以提升性能，相关优化在 Vera CPU 上可带来 3%~6% 的性能提升。</li>
-  <li><strong>随机选择空闲核心</strong>：在同等浅睡眠（equally-shallow）的空闲 CPU 核心中随机挑选，以提升高核心数服务器/工作站的性能。</li>
-  <li><strong>缓存感知调度修复</strong>：修复了避免发布部分最后一级缓存（LLC）利用率数据的问题。</li>
-</ul>
-
-<p>更多调度改进细节可参见<a href="https://www.phoronix.com/news/Linux-7.4">相关 pull request</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4</guid>
-      <pubDate>Thu, 22 Oct 2026 15:42:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 内核影子栈（Shadow Stacks）开发启动，强化控制流保护</title>
-      <link>https://www.phoronix.com/news/Linux-Kernel-Shadow-Stacks</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Linux内核控制流保护安全特性开发，属于开源/软件技术进展，用户感兴趣</small></p><p>Linux 用户空间多年来一直支持基于硬件的影子栈（Shadow Stacks）控制流强制执行，用于抵御面向返回编程（ROP）攻击。英特尔 Tigerlake 及更新的 CPU，或 AMD Zen 3 及更新的 CPU 都具备所需的硬件影子栈支持，而这一机制在用户空间防护 ROP 攻击方面成效显著。如今，社区正着手为 Linux 的内核空间引入影子栈支持。</p>
-
-<p>英特尔工程师 Dave Hansen 于周三以请求评论（RFC）形式发布了补丁系列，介绍 x86 内核影子栈功能。他在说明中写道：「影子栈是一种处理器安全特性，提供一条并行、独立的受保护栈来存放返回地址（多数情况下）。目前可在运行用户空间时使用，但运行内核时却不行。影子栈是非常强大的控制流保护机制，或许是 Linux 尚未使用的、硅片中最关键的内核缓解措施。」</p>
-
-<img src="//www.phoronix.net/image.php?id=2023&image=shadow_stack_1_med" alt="Intel Shadow Stack slide" />
-
-<p>该系列目前属于概念验证，部分内容有望按现有形式合并，其余部分则需彻底重做。Dave Hansen 表示，发布此系列的目的在于开启关于初步合并可能形态的讨论，例如如果不支持 eBPF，或仅能在 mitigation=off 情况下使用内核影子栈，这样的限制是否可接受。</p>
-
-<p>当前的内核影子栈 RFC 代码还以灵活返回事件传递（Flexible Return Event Delivery，FRED）为前提，这将使支持范围限缩至英特尔 Panther Lake 及更新的 CPU，或 AMD Zen 6 及以后的平台。同时，目前有多项 Linux 特性与内核影子栈不兼容，包括 Retpoline 等 CPU 缓解措施、函数图跟踪（function graph tracing）、BPF 蹦床（trampolines）、Kexec、EFI 混合模式、KVM、Xen PV 等。Dave Hansen 也坦承，这份列出初步限制的补丁「是百分之百 vibe-coded 的一堆垃圾」。目前内核影子栈支持已在英特尔 Panther Lake 平台上完成初步测试。</p>
-
-<h3>你知道吗？</h3><p>影子栈（Shadow Stack）是控制流完整性（CFI）硬件实现的一种形式。处理器维护一条独立于普通调用栈的影子栈，只存储返回地址且只能由特定指令写入，攻击者即使通过缓冲区溢出篡改主栈返回地址，也无法同步修改影子栈中的对应条目，从而有效阻断 ROP 类漏洞利用链。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Kernel-Shadow-Stacks</guid>
-      <pubDate>Thu, 22 Oct 2026 13:22:56 GMT</pubDate>
     </item>
   </channel>
 </rss>
