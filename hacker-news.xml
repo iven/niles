@@ -3,7 +3,49 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 01 Nov 2026 02:08:23 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Nov 2026 09:08:56 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 研究人员称因涉及模型训练被 Anthropic 封禁并降级订阅</title>
+      <link>https://news.ycombinator.com/item?id=50319358</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI模型训练与Anthropic平台政策争议，属于AI软件领域动态，用户对AI技术进展感兴趣</small></p><p>一篇在 X（推特）上引发热议的帖子指责 Anthropic 对涉及模型训练的付费用户进行封禁。发帖人 Jiahao Shao 自称从未蒸馏 Claude——他的训练数据来自一个强开源模型，Claude 只是在提交任务和运行分析时提供帮助，却仍被标记为"训练竞争对手"。此后任何涉及强化微调（RFT）、监督微调（SFT）或训练更大模型的操作都会导致账号被封锁、Opus 5.5 被降级为 Opus 5，或会话直接中断。</p><p>帖子批评 Anthropic"用全世界的公开数据构建模型，却把做研究自动化的付费用户当作敌人"，并直接点名 CEO Dario Amodei。该帖获得约 20.9 万次浏览。</p><p>在 Hacker News 的讨论中，反应两极分化。有用户指出这并非真正的封禁，而只是 Opus 5.5 的安全防护（safeguard）模型有时会误触发分类器，换个表述重试即可；也有人指出发帖人位于香港（Anthropic 在该地区受地域封锁），经 VPN 访问并从事模型训练工作，很容易被分类器识别为可疑信号。不过，有美国/欧盟用户表示自己也遇到类似情况，认为问题与地理位置无关。</p><p>评论还引发了对版权和"蒸馏"伦理的争论：有人批评 Anthropic 一方面大量使用网络公开数据训练、寻求版权豁免，另一方面却限制用户使用其模型辅助训练；也有人为 Anthropic 辩护，认为用模型生成或标注训练数据、构建竞品与单纯做小规模研究有本质区别，后者通常不会触发防护。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50319358</guid>
+      <pubDate>Sat, 31 Oct 2026 19:39:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Jepsen 报告：ParticleDB 1.1.4 存在 96 个问题，事务一致性严重缺陷</title>
+      <link>https://news.ycombinator.com/item?id=50316100</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Jepsen数据库一致性技术报告，涉及软件工程质量与开源数据库，用户对软件技术进展感兴趣</small></p><p>Jepsen 发布了针对 ParticleDB 1.1.4 的分布式系统一致性测试报告。ParticleDB 是由 Orkes 公司为支持其工作流编排平台 Conductor 而用 Rust 从零编写的数据库，宣称提供事务性 SQL、键值存储、向量搜索、实时分析等功能，并声称"比 Postgres 快几个数量级"且具备相同安全性。</p>
+
+<h3>主要发现</h3>
+<p>Jepsen 在 ParticleDB 1.1.4 至 1.1.18.11.rc-22 版本中发现了 <strong>96 个问题</strong>，其中除三个外均发生在健康、单节点的实例上。问题涵盖崩溃、死锁、数据丢失、部分不可见行、无法删除的行、被丢弃的表以扭曲形式重现、列混淆、字符串变成整数等严重缺陷。</p>
+
+<h3>事务一致性问题</h3>
+<p>报告指出 ParticleDB 在几乎所有可测量的方面都表现出频繁且严重的事务异常，包括：已提交写入的丢失、内部一致性违规、G1a（中止读）、G1b（中间读）和 P4（丢失更新）。测试推断出包括 G0、G1c、G-Single 和 G2-item 在内的各种循环异常。这些问题在<strong>单服务器、无故障</strong>的情况下即出现，影响了所有测试的事务模式、接口和 WAL 同步模式。</p>
+
+<h3>性能与稳定性</h3>
+<ul>
+<li><strong>性能极差</strong>：table-2pl 模式下事务通常需要 10 到 30 秒才能完成，然后失败</li>
+<li><strong>神秘崩溃</strong>：节点运行数百到数千秒后无提示退出，无错误信息</li>
+<li><strong>死锁</strong>：仅提交两个并发事务即可导致死锁，某些版本运行不到 45 秒即锁死</li>
+</ul>
+
+<h3>功能缺陷</h3>
+<p>ParticleDB 声称支持 Postgres 协议，但缺少大量 Postgres 功能，包括 CASE 表达式中的聚合函数、幂运算符（^）、预编译语句的正确响应等。</p>
+
+<h3>文档与宣传问题</h3>
+<p>ParticleDB 官网宣称"形式化验证"（TLA+ 证明），但测试期间并无 TLA+ 规范可用。其事务隔离级别文档混乱且相互矛盾，部分隔离级别设置被静默忽略。Orkes 声称此前运行过 Jepsen 的 Postgres 测试套件和 SQLancer 测试，但该测试套件在 ParticleDB 1.1.4 上立即失败，且几乎所有测试功能都出现明显错误。</p>
+
+<h3>社区反应</h3>
+<p>Hacker News 社区反应强烈，多位用户将 ParticleDB 称为"vibe-coded"（由 AI 生成的）数据库。有评论指出其官网曾宣称"用 Rust 编写 · 形式化验证 · PostgreSQL 兼容"，但在测试结果公布后已修改。Orkes 方面回应称测试针对的是预发布版本和实验性并发模式，引擎已重新设计并修复了所有问题，但社区普遍对此持怀疑态度，期待 Jepsen 对新版本进行二次测试。</p>
+
+<div class="know-more"><h3>你知道吗？</h3><p><strong>Jepsen</strong> 是由 Kyle Kingsbury（aphyr）开发的分布式系统一致性测试框架，通过注入网络分区、进程崩溃等故障来验证系统是否满足其宣称的一致性保证，是业界公认的数据库可靠性测试标杆。其测试结果对数据库产品的市场信誉有重大影响。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50316100</guid>
+      <pubDate>Sat, 31 Oct 2026 13:39:52 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ HackerTube：用 HN 推荐视频构建的 YouTube 克隆</title>
       <link>https://news.ycombinator.com/item?id=50319510</link>
@@ -1040,37 +1082,6 @@ width="760" height="469" /></p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50202217</guid>
       <pubDate>Thu, 22 Oct 2026 22:54:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Docker 其实很「奇怪」：容器只是披着 5 种内核特性外衣的进程</title>
-      <link>https://news.ycombinator.com/item?id=50202681</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是解析 Docker 容器底层内核原理，属于编程/开发工具相关知识，符合用户对编程工具的兴趣。</small></p><p>一位开发者为了消遣自行编写容器运行时，在过程中发现 Docker 有许多「奇怪」之处，并在一篇博文中分享了这些心得。</p>
-<p><strong>容器并非虚拟机。</strong>与虚拟机不同，容器本质上只是带有特殊限制的进程，内核仍然在运行它们，甚至可以在 <code>/proc</code> 中找到这些进程。Linux 并没有一个单独的「容器」特性，容器实际上是五个不同的 Linux 内核特性叠加而成：命名空间（namespaces）隐藏宿主机与容器各自能看到的资源，cgroups 限制容器资源使用，外加一堆隔离网络所需的机制。</p>
-<p><strong>镜像只是文件夹。</strong>镜像本质上只是 Docker 存放的文件夹，然后通过 <code>chroot</code>（或 <code>pivot_root</code>）将该文件夹设为容器进程的新的根目录。</p>
-<p><strong>Go 并非容器运行时的理想语言。</strong>Docker 的运行时 runc 用 Go 编写，但 Go 的运行时默认多线程，而许多容器运行时所需的 Linux 系统调用必须在单线程环境下执行，因此 runc 有一个在 Go 运行时初始化之前运行的 C 模块来处理这些调用。此外，Go 没有 <code>fork</code>，而容器运行时恰恰需要 fork、设置限制然后 exec 目标进程；runc 通过 exec <code>/proc/self/exe</code> 并携带特殊命令行参数来近似实现 fork。</p>
-<p><strong>Docker 需要 root 权限。</strong>许多容器运行时使用的内核 API 需要 root 权限（至少在早期如此），因此 Docker 守护进程通常以 root 运行；无 root 的运行时往往要在用户空间重写整个网络栈才能提供相同功能。</p>
-<p>该文在 Hacker News 上引发了热烈讨论（366 分、180 条评论），其中 Docker 创始人 <strong>shykes</strong> 亲自现身回应，表示很乐意回答问题。有评论者指出文章遗漏了 Docker 最大的「奇怪」设计——客户端/服务器模型使权限管理复杂化了至少两个数量级；也有人推荐更合理的无 root 方案 Podman，并类比了「大约 100 行 bash 实现 Docker」的 bocker 项目，以及 Liz Rice 的经典演讲「Containers From Scratch」。其中一条评论印证了早期 Go 线程切换带来的问题：goroutine 会在线程间跳转，继承的是线程的名字空间/cgroup 配置，曾导致网络命名空间偶尔无法正确清理，进而影响 Docker 拉取镜像。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50202681</guid>
-      <pubDate>Thu, 22 Oct 2026 23:45:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ NVIDIA 发布 OpenShell：面向自主 AI 智能体的安全私有运行时</title>
-      <link>https://news.ycombinator.com/item?id=50198675</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] NVIDIA 发布面向自主 AI 智能体的开源运行时新工具，属于编程工具发布及 AI 软件技术进展，符合高兴趣。</small></p><p>NVIDIA 发布了 <a href="https://github.com/NVIDIA/OpenShell">OpenShell</a>，一个为自主 AI 智能体（autonomous AI agents）设计的"安全、私有"运行时。该项目旨在让智能体能够读取文件、安装软件包、调用 API 和使用凭据，同时通过策略（policy）限制其对数据、机密和网络的访问权限。</p>
-
-<p><strong>核心机制</strong>：OpenShell 通过两种方式治理智能体行为——内核级强制（kernel-level enforcement）和形式化验证（formal verification）。每个智能体运行在隔离的沙箱中，内核控制其可访问的文件和可执行的系统调用，所有网络连接在离开沙箱前都需通过策略检查。智能体永远不会看到真实凭据，OpenShell 仅在请求发往已批准端点时注入凭据。在策略变更获批前，系统会使用形式化验证标记新授予的风险访问（如连接新主机、调用新 API 方法），这些变更需等待人工审核。</p>
-
-<p><strong>功能与生态</strong>：项目提供 CLI、Python/TypeScript/Go/Rust 多种 SDK、Kubernetes Helm 部署支持，以及面向编码智能体的 Agent Skills。支持 Linux、Apple Silicon 上的 macOS 和 Windows WSL 2（实验性）。项目采用 Apache 2.0 许可证。</p>
-
-<p><strong>社区反馈</strong>：该发布在 Hacker News 上引发广泛讨论（366 分，187 条评论）。有用户表示在 GTC Europe 上看到大量演示使用该产品；也有用户认可其功能集成度。不过，默认开启的匿名遥测（telemetry）功能引发争议，多位用户质疑"匿名"的可靠性，尽管官方提供了通过环境变量或编译选项禁用的途径。另有评论指出，NVIDIA 作为 AI 硬件巨头推出此类安全运行时并不意外，并讨论了智能体行业正从 Kubernetes 部署平台向更能处理尖峰工作负载的调度器迁移的趋势。</p>
-
-<p><strong>你知道吗？</strong>：OpenShell 的"形式化验证"（formal verification）是一种通过数学方法证明系统行为符合规范的技术，与传统的运行时检测不同，它能在策略变更生效前静态分析其可能授予的权限，从而提前发现潜在的安全风险。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50198675</guid>
-      <pubDate>Thu, 22 Oct 2026 17:44:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
