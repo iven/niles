@@ -3,7 +3,77 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 01 Nov 2026 15:58:48 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Nov 2026 20:27:59 GMT</lastBuildDate>
+    <item>
+      <title>⭐ HackerBooks：像 HackerTube 汇总视频那样，汇总 HN 上被提及的书籍</title>
+      <link>https://news.ycombinator.com/item?id=50326821</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 一个汇总 HN 上被提及书籍的工具，属编程/开发者工具分享，用户感兴趣但不属于高优先级，故推荐。</small></p><p>一位用户（roansh）在 Hacker News 上发布了 Show HN 项目 <strong>HackerBooks</strong>，灵感来自 Karpathy 的 HackerTube——只不过它汇总的是 HN 评论中被提及的书籍，而非视频。该网站收录了从 2007 年至今约 1.65 万本被至少两位不同 HN 评论者提及过的书，每本书都会链接回提及它的评论，数据可在 About 页面下载。</p><p>值得注意的是，作者明确表示这个项目几乎全部由 Claude（Opus 5.5）编写，包括数据管道和网站本身，作者主要负责把控方向、做决策和购买域名等。该条目获得了约 492 分和 125 条评论，社区反响热烈，不少用户称赞 HN 是一座"金矿"。</p><p>在评论区的技术讨论中，作者透露技术栈为纯 JavaScript + 静态 JSON 文件，托管在 Cloudflare 上，封面图存放在 R2，数据管道使用 Python + DuckDB 处理 HN 数据转储。作者还根据用户反馈修复了若干问题，包括"提及时间筛选器"逻辑错误（改为按首次被提及的时间过滤）以及"显示更多评论"按钮失效等问题。</p><p>关于计数方式，有评论指出简单统计提及次数并不等于推荐——例如 Mein Kampf 被 651 名 HN 用户提及，这一"推荐"数字引发了质疑。作者已着手将措辞从"recommended"改为"mentioned by"（"被提及"），并考虑改进推荐逻辑。还有用户提议做类似项目但针对播客，作者也鼓励社区尝试。</p><p>「你知道吗？」：Karpathy 的 <a href="https://hackertube.net">HackerTube</a> 是一个从 HN 帖子中聚合 YouTube 视频的网站，由 OpenAI 联合创始人 Andrej Karpathy 创建，HackerBooks 正是借鉴了该想法。其数据来源于可公开下载的 <a href="https://huggingface.co/datasets/HuggingFaceH4/hacker_news">HN 评论数据转储</a>，借助这些公开数据集即可在本地重建类似的统计与分析。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50326821</guid>
+      <pubDate>Sun, 01 Nov 2026 15:58:28 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ JavaScript 框架的 AI 成本：一项基于编码代理的基准测试</title>
+      <link>https://news.ycombinator.com/item?id=50323088</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 针对 JavaScript 框架 AI 成本的编码代理基准测试，涉及 AI 软件技术与编程效率改进，用户感兴趣，推荐。</small></p><p>Nolan Lawson 在博客中发布了一项基准测试，旨在量化使用 AI 编码代理（coding agents）构建前端应用时，不同 JavaScript 框架/元框架的成本差异。作者指出，前端社区长期依赖"感觉"而非证据做技术选型，在代理编程（agentic）时代，这种倾向依然存在——开发者声称某个框架"更适合代理"，却很少提供数据支撑。</p>
+
+<h3>实验设计</h3>
+<p>作者使用 PokéAPI 设计了一个小型但非平凡的 Pokémon 应用（包含列表、搜索、筛选等功能），让 Opus 5.5 代理分别使用 12 种框架/元框架构建同一应用，每种框架运行 5 次取中位数。测试维度包括：开发成本（美元）、耗时、token 消耗、Lighthouse 性能与可访问性评分。各框架尽量使用官方 MCP 或 skills，且代理不知道会被 Lighthouse 测试。</p>
+
+<img src="/_astro/pokemon-app.DUO5bAVN_34jQQ.webp" alt="Screenshot of a Pokémon web app with various monsters listed, their types, etc." width="1140" height="1001" />
+
+<h3>成本结果</h3>
+<p>在单次构建成本（美元）方面，Hono+htmx 最便宜（约 $2.67），其次是 Astro（$2.76）、Nuxt（$2.82）和 Vanilla（$2.98）。最贵的是 Angular（$4.97）、Gracile+Lit（$4.65）和 SvelteKit（$4.28）。SvelteKit 成本偏高可能因为代理每次都会阅读 v3 迁移指南（该版本太新，不在训练数据中）；Angular 则与总代码量较大有关。</p>
+
+<p>在耗时上，Astro 最快（8.2 分钟），Angular 最慢（17.2 分钟）。token 消耗方面，Nuxt 最少（3.85M），Angular 最多（9.76M）。</p>
+
+<h3>质量结果</h3>
+<p>Lighthouse 的性能和可访问性评分几乎全部饱和（97-100 分），差异不大。更有区分度的指标是 JavaScript 字节数：Astro 传输 0 KiB（纯静态），Vanilla 7 KiB，而 Next.js 高达 142 KiB。总阻塞时间（TBT）方面，MPA 框架普遍优于 SPA 框架。最大内容绘制（LCP）也总体偏向 MPA——Astro 约 810ms，而 Next.js 约 2090ms。</p>
+
+<h3>关键发现与局限</h3>
+<p>作者强调实验结果具有高度随机性（LLM 本质是随机词生成器），且该应用属于内容型站点，接近 Wikipedia 而非 Gmail 这类高交互应用，不能代表复杂的真实世界项目。此外，Lighthouse 和 Core Web Vitals 本身对 SPA 存在偏见。值得注意的是，"Vanilla"（纯 Vite + 无 UI 框架）反而比多个框架表现更差，说明有一定框架可能优于完全没有。</p>
+
+<h3>社区反馈</h3>
+<p>HN 评论区讨论热烈。有用户表示 Astro 表现优异且零客户端 JS，值得在下一个项目中使用；也有用户质疑基准过于简化，框架选型还应考虑长期可维护性、团队熟悉度和安全记录等因素。关于 Angular 的差评引发争论，有人支持"Angular 对代理也不友好"的结论，也有人认为小应用不能代表 Angular 擅长的复杂场景。还有评论指出，在 AI 编码时代，服务端页面生成加少量 JS 可能比重型框架更合适。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50323088</guid>
+      <pubDate>Sun, 01 Nov 2026 06:06:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI 将合并 ChatGPT 与 Codex 的共享使用额度</title>
+      <link>https://news.ycombinator.com/item?id=50320588</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenAI 合并 ChatGPT 与 Codex 共享额度，属于 AI 软件技术进展类新闻，用户感兴趣，推荐。</small></p><p>OpenAI 宣布将其旗下 ChatGPT（聊天/工作）与 Codex（编码代理）的使用额度合并为一项共享额度。根据官方帮助文档，公司正将「Chat 与 Work」整合为同一体验，并推出面向 ChatGPT 与 Codex 的共享额度和用量。这一举措意味着用户在 Codex 中消耗的 token 将与日常聊天查询共享同一个配额池。</p>
+
+<p>此举在<a href="https://news.ycombinator.com/item?id=50320588">Hacker News</a>上引发热烈讨论（208 分，155 条评论），不少用户表达了担忧与不满：</p>
+<ul>
+<li>多位用户指出，这正是此前促使他们留在 ChatGPT 而非转向 Anthropic Claude 的决定性因素——Claude 早已采用类似的合并额度模式。现在他们更愿考虑更换供应商。</li>
+<li>有用户担心「跑完 Codex（编码代理）用量后，连日常网页查询和搜索也会被切断」，认为 ChatGPT/Codex 的一大优势即将消失。</li>
+<li>研究人员反馈，Pro 套餐中聊天与 Codex 分开计费对数学推理长任务非常有用，合并后将降低其价值。</li>
+<li>也有用户指出 OpenAI 刚为 Pro 用户推出每月 200 美元的免费 API 额度，认为这不像是单纯削减成本，更可能是平台锁定策略。</li>
+<li>部分人将之与 Anthropic 的调整相提并论（如 Claude Max 20x 变为 10x），感叹「试用期正在结束」，并庆幸已有开放模型可选。</li>
+</ul>
+
+<p>评论区也出现了一定辩护声音：有观点认为普通聊天占用的 token 仅为代理式编程用量的千分之一，实际影响有限；真正的问题在于用户会因此产生「心理抵触」，反而损害 OpenAI 声誉。另有用户猜测，有人利用 MCP Tunnel 等漏洞滥用额度，迫使 OpenAI 收紧限制——但两家大模型公司复杂且不一致的套餐规则，恰恰是此类漏洞与滥用频发的根源。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50320588</guid>
+      <pubDate>Sat, 31 Oct 2026 21:49:07 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Prospero：一款轻量级 AI 编程 Agent 工具（Coding Harness）</title>
+      <link>https://news.ycombinator.com/item?id=50315226</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 一款轻量级 AI 编程 Agent 工具发布，属于编程工具发布/分享的高兴趣类别，必看。</small></p><p>作者 Skeeto 推出了自研的编程工具（coding harness）Prospero。所谓编程工具，是让 AI 作为 agent 自主调用读写文件、执行 shell 命令等工具并循环处理结果的界面。作者认为现有同类工具大多基于 Web 技术栈构建、内存占用巨大，而其核心本质不过是「curl 粘连 popen」，不应消耗数 GB 内存。因此他用自己风格的 C++ 和 Dear ImGui 界面重写，资源消耗较其他工具低约两个数量级。</p>
+<p>Prospero 的特性包括：内置无模型提供商，需自行接入 llama.cpp、OpenRouter、Anthropic 或 OpenAI API 等；支持子代理（subagent）并行协作；可通过 SSH 或 WSL 向其他主机部署无头版本；专业版内置 macOS、Windows、Linux 各平台引擎，且支持桌面控制能力（模型可「看见」并操作桌面）。</p>
+<p>该工具秉持「永不无限等待」的核心设计原则——所有操作都有截止时限，超时的 shell 命令会转为异步后台任务；同时保证整个进程树同生共死，避免遗留游离进程。配置存放在 ~/.config/prospero/prospero.ini，支持按 URL 引入外部配置。它还内置自我帮助技能、支持 Git worktree、Model Context Protocol（MCP）、网页搜索，并在 Windows 上优先适配 w64devkit 的 shell。</p>
+<p>项目为开源，但分为两档：社区版（Community Edition）免费，无内置无头引擎且带提示文字；专业版（Professional Edition）需付费，内置所有无头引擎，支持一键远程部署。作者还提示：无法使用 Claude 订阅套餐接入 API。</p>
+<div><h4>你知道吗？</h4><p>「编程工具」（coding harness）与普通聊天界面的区别在于：普通聊天中人与 AI 轮流发言，而 harness 让 AI 自主调用工具并依据工具返回的结果循环推进任务，直到完成或需要用户介入。文中的「agent」即指这种可自主调用工具的 AI。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50315226</guid>
+      <pubDate>Sat, 31 Oct 2026 11:54:59 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Memdoor 团队协作工作流：5 个 Qwen3.8-27B 小模型在 LiveCodeBench Hard 上追平 Fable 5</title>
       <link>https://news.ycombinator.com/item?id=50320995</link>
@@ -1017,71 +1087,6 @@ width="760" height="469" /></p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50218430</guid>
       <pubDate>Sat, 24 Oct 2026 04:49:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 纯函数式编程能多接近C的性能？Roc实现DEFLATE压缩逼近libdeflate</title>
-      <link>https://news.ycombinator.com/item?id=50218195</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 探讨纯函数式编程性能逼近C语言，属于编程效率改进经验，用户很感兴趣</small></p><p>本文探讨了纯函数式编程（FP）语言在运行性能上能多接近C语言编写的极致优化实现。文章起因于一篇题为《为什么Lean比Rust更快》的报道：一个用Lean 4（函数式语言兼定理证明器）编写的DEFLATE压缩库lean-zip，超越了下载量超10亿的Rust包miniz_oxide，但在与C语言编写、经架构特定SIMD深度调优的libdeflate对比时仍被大幅拉开差距。</p><p>作者因此转向Roc——一门以运行性能为核心目标、口号为"快速、友好、功能"的函数式语言（非定理证明器）。作者对Roc包<strong>roc-deflate</strong>做了大量性能优化，并采用经典的西里西亚（Silesia）语料库，用M1 MacBook Pro和AMD Ryzen 9 3900X两台机器分别进行基准测试，并验证输出结果完全一致。</p><p><strong>结果亮点：</strong>在144项基准测试中，roc-deflate平均慢于libdeflate，中位数上Ryzen 3900X慢8.9%，M1 MacBook Pro慢2.6%。换言之，一个尚未发布首个正式版本（0.1.0）、包生态几乎未做优化的函数式语言，其非流式API（尚未实现流式处理）已做到比C语言金牌实现仅慢不足10%。</p><p>作者表示，虽未能在所有维度超越libdeflate，但这一结果展示了纯函数式语言在性能上向C看齐的可行性。</p><p><strong>社区讨论</strong>也相当热烈，主要围绕几个话题：</p><ul><li><strong>复制省略（copy elision）</strong>：多位评论者指出，C/C++可直接原地修改远端状态、实现极致复制省略，这是其可优化性优势的关键，而内存带宽往往是性能主要瓶颈；但这也通常以可维护性和安全性为代价。有人也提到"计算机本质上是面向位置的（place-oriented）"，而FP的闭包、惰性求值等抽象会带来间接性，损害空间/时间局部性。</li><li><strong>对比基准的选择</strong>：有评论认为miniz_oxide是刻意简单的实现，更公平的对手是新出的zlib-rs（下载约2亿次，速度远超zlib-ng）。也有人质疑"下载量"作为衡量指标的合理性。</li><li><strong>Roc的语言现状</strong>：Roc尚未达0.1.0，熟悉者称其自7月以来已可用于编写真实软件，目前大约有6名重度使用者。</li><li><strong>JS性能对照经验</strong>：有开发者分享，通过"折磨"V8（Node 25.8.1 + clang 21），JS代码有时也能逼近优化C代码约10%以内，并讨论了JIT逃逸分析/内联的优势。</li><li><strong>关于Haskell与Rust的争论</strong>：讨论涉及Haskell尾递归与循环实现，以及Rust能否在高性能计算领域取代C/C++等话题，观点分歧较大。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50218195</guid>
-      <pubDate>Sat, 24 Oct 2026 03:43:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Block 发布 Dessa：仅用人类语音训练的全双工对话模型</title>
-      <link>https://news.ycombinator.com/item?id=50213925</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 文章介绍新AI语音对话模型发布，属于新AI模型发布公告（很感兴趣），且涉及AI软件技术进展（感兴趣），应评为critical。</small></p><p>Block 旗下小型 AI 研究实验室发布研究预览 <strong>Dessa</strong>，号称"世界上第一个仅从人类语音训练、不依赖任何文本或预训练模型的全双工语音模型"。创始人 Ragavan Thurairatnam 表示，团队希望验证"婴儿无需看见文字就能学会说话"这一过程是否也能被机器复现。</p><p>Dessa 的核心特点包括：</p><ul><li><strong>真正的语音到语音（speech-to-speech）模型</strong>：所有知识均来自原始人类语音，而非文本。</li><li><strong>全双工</strong>：可同时听与说，能自然插话、发出"yeah!""got it!""ooh"等呼应词。</li><li><strong>原生感知情绪</strong>：能识别并表达讽刺、大笑、叹息、哽咽等语音中的细微情感信息，而这些信息在转为文本时会丢失。</li><li><strong>低算力训练</strong>：仅使用一块 NVIDIA GB200 NVL72 完成训练；推理速度快于实时，可本地运行于 MacBook Pro M4 Max 及以上机型。</li></ul><p>团队给出三大研发动机：好奇心、改善人类与 AI 之间的理解，以及安全考量。他们特别指出，若用户在痛苦中而语音 AI 却毫无察觉、继续对话，这是严重的安全隐患，Dessa 是修复这一问题的一步。实验室还向一批 AI 安全研究人员开放早期访问，以寻找未被预料到的风险。</p><p>项目页面提供了多段真实对话试听（含两人同时说话的同步音轨），涵盖生日惊喜、电影回忆、人生建议、与第三方模型 GPT-Live-1 的对话等场景，展示了模型的即兴反应、音量和语调调节能力。</p><p>在 Hacker News 的 116 条评论中，意见两极分化。部分用户认为 Dessa 在对话流畅性上明显优于现有语音 AI，训练效率惊人；但也有不少用户认为演示音频显得牵强、不自然，甚至"细思极恐"。有人质疑其"史上最真实的全双工语音模型"的说法，批评模型过度打断人说话、语句如"How's the winter stuff?"不符合真人表达习惯，并担忧它被用于客服或 AI 伴侣场景时的"恐怖谷"效应。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50213925</guid>
-      <pubDate>Fri, 23 Oct 2026 19:09:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 月之暗面发布 Kimi K3.1 Pro：3T 级开源权重模型，主打编码、3D 与金融能力</title>
-      <link>https://news.ycombinator.com/item?id=50212065</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是新AI模型Kimi K3.1 Pro发布公告，属于新AI模型发布和开源项目主题，覆盖了用户很感兴趣的两个领域，且主打编码能力属于编程工具范畴，用户会强烈感兴趣。</small></p><p>月之暗面（Moonshot AI）正式发布 <strong>Kimi K3.1 Pro</strong>，这是其 K3.1 系列的首款模型，也是目前最强的 3T 级开源权重模型，配备 100 万 token 的上下文窗口。同时发布的还有 <strong>K3.1 Pro Highspeed</strong>，速度提升 2-3 倍。两款模型即日起在 Kimi.ai、Kimi Work、Kimi Code 及 Kimi API 上线，完整模型权重将于 11 月 4 日开放。</p>
-
-<h3>核心能力提升</h3>
-<p>K3.1 Pro 是 Kimi K3 的后训练版本，投入了大幅增加的强化学习（RL）算力，并在编码、3D 建模、金融研究等智能体能力上取得显著进步。在 <a href="https://www.tbench.ai/">Terminal-Bench 4.0</a> 编码智能体评测中，K3.1 Pro 得分 65.7%，超过 GPT-6 Astra（58.2%），略低于 Claude Opus 5.5（66.4%）。在内部基准 Kimi Code Bench 3.0 Long-horizon 上得分 61.2%，高于 K3 的 55.95%。</p>
-
-<p>在 3D 建模方面，K3.1 Pro 在 BenchCAD 评测（通过 CAD 代码生成进行 3D 重建）中带工具得分 92.7%，接近 Claude Opus 5.5（96.2%）和 GPT-6 Astra（95.9%）。模型能够从文本描述、草图或参考图推断形状与空间关系，生成可用的 3D 模型，并擅长参数化建模。配套的「3D Make」功能已在 kimi.ai 和 Kimi 应用上线。</p>
-
-<p>金融领域，K3.1 Pro 在 OfficeQA Pro v2 上取得 64.4 分（SOTA），内部金融建模、金融研究、业务运营等基准均较 K3 大幅提升。其事实准确性也有显著改进：在内部 Kimi Hallu Bench Hard 压力测试中，声明级幻觉率从 K3 的 23.4% 降至 8.3%。</p>
-
-<h3>网络安全能力控制</h3>
-<p>值得注意的是，K3.1 Pro 在训练过程中主动移除了网络安全相关数据，以降低开源权重模型的潜在滥用风险。在内部 xdev-bench-hard 评测中，未采取风险控制措施的版本可解决 90.5% 的问题，而最终发布的 K3.1 Pro 为 81.0%。公司表示，其网络攻击能力仍落后于已公开至少三个月的领先专有模型，并计划逐步提升开源权重中的网络安全能力。</p>
-
-<h3>社区反响</h3>
-<p>Hacker News 社区讨论热烈（556 分、337 条评论）。多数评论者认可 K3.1 Pro 达到前沿水平，尤其赞赏幻觉率的大幅下降。关于网络安全能力限制，社区观点分歧明显：部分人支持放缓网络攻击能力扩散，认为世界需要时间准备；也有评论者反驳称，缺乏开源安全工具将导致软件安全审计无法跟上 AI 生成代码的速度，「以火攻火」才是唯一出路。另有评论调侃中国模型并未参与所谓「前沿节奏」的放缓协议。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50212065</guid>
-      <pubDate>Fri, 23 Oct 2026 16:59:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>Ask HN：如果前沿模型如此强大，OpenAI 为何不自己创办 100 家公司？</title>
-      <link>https://news.ycombinator.com/item?id=50200997</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讨论AI前沿模型能力与OpenAI商业策略的思辨性问题，涉及AI技术但更多是行业/商业话题，兴趣不明确</small></p><p>一位用户在 Hacker News 上提出了一个问题：如果前沿 AI 模型如此强大，为什么 OpenAI 或 Anthropic 不直接利用自己的模型创办公司、打造自己的产品，从而赚取更多钱，而是把出售 token（令牌）当作主要收入来源？随着商品化和价格下降，"卖铲子"式的工具层生意是否真的比应用层更能赚钱？该帖获得了大量讨论（445 分、493 条评论）。</p>
-
-<p><strong>社区的主要观点集中在以下几点：</strong></p>
-
-<p><strong>"卖铲子"与业务风险的博弈。</strong>多位用户引用淘金热中"卖铲子"的逻辑：当商业本身具有高风险、投机性甚至"纯属扯淡"时，出售工具（shovels）才是最聪明的做法。一家公司运营一个业务已经很难，运营 100 个业务更难——成功需要"胳膊、腿和关系"，而 AI 只是"大脑"。有评论指出员工大多并非创业者，这与咨询公司类似。</p>
-
-<p><strong>麦肯锡（McKinsey）类比。</strong>有用户认为，麦肯锡没有因掌握大量公司运作知识而接管《财富》500 强，是因为企业需要的远不止"脑力"。不过也有不少人对麦肯锡的价值提出质疑，认为大型咨询公司更多是高管用来分担决策责任、展示"尽职调查"的挡箭牌，而非真正提供战略建议。</p>
-
-<p><strong>苹果 App Store 类比与"Sherlocking"。</strong>有评论用苹果不会为 App Store 创造每一款应用来说明：没有任何公司能在所有细分领域专业化，出售 token 是"无风险的钱"，既能从每款应用中获得分成又不承担业务风险。苹果只会复制（Sherlock）广泛的消费者级功能，而把专业化的 B2B 软件留给第三方——AI 提供商也在做同样的事。</p>
-
-<p><strong>关于"他们其实已经在做"。</strong>多位用户指出，OpenAI 已经向应用层扩张，例如收购咨询公司、推出自己的应用。但也有观点认为，他们需要尽快获得收入——由于借贷利率上升，获取资本不再像过去那么容易，其资金跑道可能比想象中更短，因此出售 token 是唯一被证实能带来收入增长的方式。</p>
-
-<p><strong>杰文斯悖论（Jevons Paradox）。</strong>一些用户认为这些公司的决策者相信：AI 价格下降会诱发更多需求。有分析称人类对"智能"的需求没有上限，只是受供应制约（人力昂贵），智能越便宜使用量就越多，这与现有数据并不矛盾。</p>
-
-<p><strong>关于"模型到底有多好"的质疑。</strong>有用户反驳称，前沿模型仍受 AI 局限性制约，并不能胜任所有事情。讨论中还提到了"vibe coding"无法消除企业级软件许可成本、以及亚马逊部署大量机器人后仍持续招聘仓库工人（需站立、搬运、上下楼梯、理解指令等）等例子，说明距离完全替代人类劳动仍很遥远。</p>
-
-<p>总体来看，社区的主流共识是：尽管 AI 让"构建"变得廉价，但"决定该构建什么"、建立护城河与关系仍是最难的瓶颈，因此大型实验室专注于打造"世界上最有价值的铲子"、把经营风险留给他人，是符合逻辑的选择。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50200997</guid>
-      <pubDate>Thu, 22 Oct 2026 21:03:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
