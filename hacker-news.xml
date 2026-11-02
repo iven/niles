@@ -3,7 +3,46 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 02 Nov 2026 00:37:40 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2026 07:38:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ OmniDiff：开源、超快、内容感知的 Git 差异对比工具（Rust 编写）</title>
+      <link>https://news.ycombinator.com/item?id=50325253</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍一款开源、超快的Git差异对比工具（Rust编写），属于编程工具发布/分享及开源项目，符合用户高兴趣配置</small></p><p>开发者 Marko Ivankovic 在 Hacker News 上发布了 <strong>OmniDiff</strong>（v0.3.0），一个用 Rust 编写的开源 Git 差异对比（diff）工具，采用 AGPLv3 许可证。与传统的基于文本行的 diff 工具不同，OmniDiff 是"内容感知"的，能够根据文件类型使用专门的算法进行对比。</p>
+
+<h3>核心能力</h3>
+<p>OmniDiff 支持对比多种内容类型：<strong>代码</strong>（25 种语言，通过 tree-sitter 语法进行结构化对比）、<strong>配置</strong>、<strong>图片</strong>（逐像素对比，动画逐帧对比）、<strong>PDF</strong>（逐页绘制对比）、<strong>压缩包</strong>（逐文件对比，支持嵌套）、<strong>字体</strong>（逐字形对比）、<strong>光标文件</strong>、<strong>消息目录</strong>（gettext .mo、Qt .qm）等。对于未知扩展名的文件，则按纯文本逐行对比。</p>
+
+<p>在性能方面，作者声称在 2023 款 ThinkPad T14s 上，对比数万行的 C++ 文件可在 100ms 内完成。根据其基准测试，中位数 diff 耗时 4.2ms，p99 为 177ms。在 442,530 个代码对比对中，99.95% 成功完成。</p>
+
+<p>OmniDiff 的开发基于对真实 diff 的研究：作者分析了 Gentoo 软件包中列出的 7,400 个仓库，手动解决了 2,000 个 diff 样例，以此构建各内容类型的 diff 流水线。</p>
+
+<h3>功能特性</h3>
+<ul>
+<li><strong>交互式 TUI</strong>：支持 24 位真彩色，可在终端中直接显示图片（支持 kitty、sixel、iTerm2 协议）</li>
+<li><strong>无头/批处理模式</strong>：可输出纯文本或 JSON 格式，适合脚本和 CI</li>
+<li><strong>Git 集成</strong>：可作为 git difftool 后端，也支持 GIT_EXTERNAL_DIFF</li>
+<li><strong>Jujutsu (jj) 集成</strong>：提供独立的配置向导</li>
+<li><strong>浏览器查看</strong>：提供 codereview 功能（v0.0.0，处于早期阶段）</li>
+<li><strong>变更分类</strong>：将变更标记为不可见、不可察觉、伪影、编辑、重绘或替换</li>
+</ul>
+
+<p>安装方式包括 cargo、预编译二进制（Linux/macOS/Windows）、Homebrew、Debian/Ubuntu apt 仓库、Nix 以及 Arch/Gentoo 打包。</p>
+
+<h3>社区反馈</h3>
+<p>该项目在 Hacker News 上获得了 214 分和 51 条评论。讨论焦点包括：</p>
+<ul>
+<li><strong>与 Delta 和 Difftastic 的对比</strong>：作者回应称 OmniDiff 在移动代码的识别上显著优于 Delta（约三分之一的 diff 明显更好）；与 Difftastic 相比，OmniDiff 在 Difftastic 支持的代码 diff 上"完美"率更高（90% vs 64%），速度更快（p50 4ms vs 35ms）。</li>
+<li><strong>许可证争议</strong>：有评论者认为 AGPL 许可证会阻碍项目普及，建议改用宽松许可证。作者明确表示选择 AGPL 是出于对 copyleft 的政治立场，并指出已有至少 3 个同类项目（如 Difftastic、Diffsitter）采用 MIT 许可证但性能和准确性较差。</li>
+<li><strong>三方合并（3-way merge）</strong>：作者表示当前算法（APTED 树对比）不适用于三方合并，这是长期目标但也是最难的挑战。</li>
+<li><strong>打包问题</strong>：有用户指出 Arch 的 AUR 因垃圾信息暂时关闭，作者表示愿意为 Linux 添加 brew 支持。</li>
+</ul>
+
+<p>作者透露，代码 diff 算法采用 APTED（一种树编辑距离算法）的高效实现，并承认使用 AI 辅助开发，但强调并非"vibecode"。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50325253</guid>
+      <pubDate>Sun, 01 Nov 2026 13:02:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ HackerBooks：像 HackerTube 汇总视频那样，汇总 HN 上被提及的书籍</title>
       <link>https://news.ycombinator.com/item?id=50326821</link>
@@ -1059,34 +1098,6 @@ width="760" height="469" /></p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50222622</guid>
       <pubDate>Sat, 24 Oct 2026 16:06:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OBS Studio 33.0 发布：更新 CEF 框架、重构插件加载机制、支持 Arm64 平台 NVENC</title>
-      <link>https://news.ycombinator.com/item?id=50218430</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源软件 OBS Studio 发布新版本，涉及软件新功能和编程工具更新，符合用户兴趣</small></p><p>开源直播与录屏软件 <strong>OBS Studio</strong> 发布了 33.0.0 版本，带来多项重要更新。该版本在 Hacker News 上获得 360 分，引发 121 条讨论。</p>
-
-<h3>主要新特性</h3>
-<ul>
-<li><strong>CEF 框架大幅升级</strong>：将浏览器源（browser sources）和面板（docks）所依赖的底层框架从 2024 年 7 月的版本更新至 2026 年 9 月的版本（127/6533 → 150/7871）。此更新为纯后端改动，对用户透明，但开发者提醒用户留意浏览器源可能出现的新问题。</li>
-<li><strong>插件加载机制全面重构</strong>：第一方插件移至新的 <code>core</code> 文件夹，第三方插件采用新的安装位置和目录结构。旧位置插件仍可加载，直到 34.0 版本为止。</li>
-<li><strong>预览中的源对齐（snapping）改进</strong>：新增视觉指示器，源现在可沿整个轴对齐而非仅直接接触时，且不再对齐隐藏源。</li>
-<li><strong>数字输入框（spinbox）行为优化</strong>：修复了输入被意外阻止、数字被截断等问题，数值仅在按 Enter 后更新。</li>
-<li><strong>Arm64 平台启用 NVENC 硬件编码</strong>。</li>
-</ul>
-
-<h3>其他变化与修复</h3>
-<p>新增了对最新 NVIDIA Broadcast SDK 的支持、源音频监听的快捷键、Safe Mode 下不再启动 WebSocket 服务器等。修复了 Studio Mode 中分组源移动时的闪烁问题、macOS 27.2 启动崩溃、Linux 上 USB 麦克风拔出导致的潜在崩溃、AMF 编码中 B 帧偏移计算错误导致的断流等多项缺陷。同时移除了对 Ubuntu 24.04 的支持。</p>
-
-<h3>开发者相关</h3>
-<p>构建工具链要求提升：Windows 构建改用 Visual Studio 2026 和 SDK 26100，clang-format 版本更新至 22.1.3，移除了对 FFmpeg 6.x/7.x 和 Qt 6.4-6.9 的支持，并新增了若干前端事件和 API。</p>
-
-<h3>社区反馈</h3>
-<p>讨论中，多位用户对 CEF 升级表示欢迎——此前 OBS 使用的 CEF 版本已过时两年，且曾因浏览器源漏洞导致远程代码执行（RCE）风险被媒体关注。OBS 开发者 WizardCM 回应称该漏洞需要用户使用未正确过滤输入的网页聊天覆盖层才会触发，并解释了升级耗时较长的原因。</p>
-<p>部分用户反映录制时遇到存储空间不足导致录制意外中断的问题，开发者建议提供日志并提交 bug 报告。也有用户提到外接显示器切换时需手动更新 OBS 配置的痛点，以及 macOS 上 Metal 着色器支持不足的困扰。整体而言，社区对插件加载重构和源对齐改进表示认可。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50218430</guid>
-      <pubDate>Sat, 24 Oct 2026 04:49:58 GMT</pubDate>
     </item>
   </channel>
 </rss>
