@@ -3,7 +3,64 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 03 Nov 2026 00:56:47 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 07:52:17 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.317 发布：增强 /schedule 与 SDK 钩子，并修复多项会话与工具问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.317</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.317，这是以修复为主的版本，同时带来几项面向用户体验的新增功能。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><a href="https://github.com/anthropics/claude-code">/schedule</a> 新增警告：当新建的云端定时任务带入了你未请求的连接器（connector）时给出提示，并说明如何移除。</li>
+<li>Agent SDK 钩子回调新增 <code>onFailure: "block"</code> 选项：回调失败时阻止对应操作执行，而非放行。</li>
+<li>新增环境变量 <code>CLAUDE_CODE_DISABLE_NESTED_SESSION_ID</code>：在自托管 runner 上设为 <code>1</code> 后，会话内运行的 <code>claude -p</code> 将使用所在会话的 ID 与记录（恢复旧版行为）。</li>
+<li>Claude Desktop 的 Code 标签页新增通知：会话期间组织远程托管设置未加载成功，加载完成后还会再提示一次。</li>
+<li>auto 模式下子代理工具调用检查若无答案时新增提示（此前主视图不会留下任何内容）。</li>
+<li>OpenTelemetry 指标新增 <code>anthropic.plan</code>、<code>anthropic.seat_type</code>、<code>anthropic.provider</code>、<code>anthropic.custom_base_url</code> 等字段。</li>
+</ul>
+
+<h3>其他修复（摘要）</h3>
+<ul>
+<li>修复部分 Claude Desktop 会话中项目与本地 MCP 服务器在首轮后断开的问题。</li>
+<li>修复当作为基础 URL 的 LLM 网关对其服务端安全检查返回 403/422 时，auto 模式每轮失败的问题（带 apiKeyHelper 的 403 保持不变）。</li>
+<li>修复 <code>claude auth status</code> 在慢速令牌刷新保存完成前退出，可能导致下次运行被登出的问题。</li>
+<li>修复应用提前启动、再在项目中打开的会话（如桌面端 Code 标签页新建会话）忽略项目 <code>effortLevel</code> 设置的问题。</li>
+<li>修复会话较多时 <code>claude --from-pr</code> 报告 "No conversations found" 的问题。</li>
+<li>修复生成标题时收到新消息或 Stop 导致云端与 SDK 会话标题丢失的问题。</li>
+<li>修复云端会话中 Artifact 工具上传、写数据库或经 outputs 文件夹保存文件时，auto 模式会停下等待审批的问题。</li>
+<li>修复来自 claude.ai 的技能（skills）无法写入磁盘时每十分钟丢失或重新下载的问题。</li>
+<li>修复屏幕阅读器模式下运行中的子代理耗时与令牌计数每次变化都被播报的问题。</li>
+<li>修复区域/网络封锁（HTTP 403）被显示为登录失败，现错误信息会说明是封锁所致。</li>
+<li>修复区域/网络封锁或磁盘写满时 <code>claude -p</code> 仍以 0 退出的问题，现会打印错误并以 1 退出。</li>
+<li>修复启动后最初一秒内对设置文件的编辑不生效的问题。</li>
+<li>修复 Ctrl+C 清空提示符输入时同时停止所有运行中后台代理的问题。</li>
+<li>修复 /feedback 在报告发送期间显示 "Enter to confirm" 的问题。</li>
+<li>修复 stopped shell 命令的子进程有时收到两次 SIGTERM 的问题。</li>
+<li>修复 <code>DISABLE_PROMPT_CACHING_OPUS</code> 与 <code>DISABLE_PROMPT_CACHING_SONNET</code> 对默认模型的另类拼写无效的问题。</li>
+<li>修复 Grep/Glob 搜索达到时间限制时被当作完整结果的问题。</li>
+<li>修复 OpenTelemetry 经永不响应的代理导出时无限挂起的问题（现在超时为 10 秒，可经 <code>OTEL_EXPORTER_OTLP_TIMEOUT</code> 调至 30 秒）；并修复向被封锁代理反复发起连接导致的请求泛滥。</li>
+<li>修复 /remote-control 在禁用 Remote Control 时错误回答 "Unknown command" 的问题。</li>
+<li>修复 tmux/iTerm2 分栏中的团队成员在领导会话处于手动模式时仍以 auto 模式启动的问题。</li>
+<li>提升自托管 runner 及会话从服务器错误、心跳无响应中恢复的健壮性（改用新连接而非复用失败连接）。</li>
+<li>SendMessage 现在的消息能更早送达运行中的后台代理：其运行命令转为后台执行而不会被停止。</li>
+<li>移除了 Read 工具 "文件自上次阅读以来未变化" 的提示桩，重复读取未变文件会直接返回其内容。</li>
+</ul>
+
+<h3>VSCode 与云端会话</h3>
+<ul>
+<li>[VSCode] 修复分叉会话丢失消息：并行工具调用只保留一个、压缩后最后消息丢失等。</li>
+<li>[VSCode] 修复 Claude 未及时启动完成时丢失消息的问题。</li>
+<li>[VSCode] 修复请求被区域/网络封锁时误打开登录界面、Account 面板计划名第二词被小写、文件链接叠在聊天上方等问题。</li>
+<li>[VSCode] 修复 telemetry 关闭时 <code>ultrathink</code> 不提升 effort 或不显示彩虹效果的问题。</li>
+<li>[Cloud sessions] 新增链接卡片，可打开或拒绝 MCP 服务器要求访问的链接。</li>
+<li>[Cloud sessions] 修复向已有网络密钥的主机添加密钥时被静默覆盖的问题。</li>
+<li>[Cloud sessions] 修复新建定时任务忽略组织默认环境的问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.317</guid>
+      <pubDate>Tue, 03 Nov 2026 01:25:46 GMT</pubDate>
+    </item>
     <item>
       <title>hapi v0.34.0 发布：新增远程 Claude 会话中途转向、移动端附件选择器等多项功能</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.34.0</link>
@@ -1566,15 +1623,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/antonmedv/fx/releases/tag/40.0.0</guid>
       <pubDate>Mon, 05 Oct 2026 16:01:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>delta 0.20.1 补丁发布，修复 issue #2270</title>
-      <link>https://github.com/dandavison/delta/releases/tag/0.20.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>delta 发布了 0.20.1 补丁版本，主要修复了 <a href="https://github.com/dandavison/delta/issues/2270">issue #2270</a> 中报告的问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/dandavison/delta/releases/tag/0.20.1</guid>
-      <pubDate>Sun, 04 Oct 2026 19:38:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
