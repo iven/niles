@@ -3,7 +3,21 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 03 Nov 2026 16:09:35 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 21:43:52 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Qwen 3.8 27B 在笔记本上也能读懂模型权重</title>
+      <link>https://news.ycombinator.com/item?id=50355251</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及新AI模型（Qwen 3.8 27B）及AI软件技术进展、神经网络权重读取的新论文，属于高兴趣的新AI模型发布与AI技术进展主题</small></p><p>Simon Willison 在其博客中测试了名为「Sparks of Weight-Space Programming」（权重空间编程的火花）的研究成果，并验证这一能力不仅限于前沿模型，开源的 Qwen 3.8 27B 在本地笔记本上也能做到。</p>
+<p>该研究由 Rikiya Takehi、Jayden Teoh、Alex Zhang 和 Omar Khattab 发布（作者自称是「博文」，但形式接近论文），提出「权重空间编程」（Weight-Space Programming）这一概念：大型语言模型（LLM）仅通过阅读原始权重（一长串浮点数）就能判断一个机器学习模型被训练用来做什么，甚至可以在没有环境反馈、不运行代码的情况下直接修改权重。论文称，前沿模型 GPT-6 Astra 能从零写出能胜过经 1 亿步 PPO 训练的博弈网络，还能通过原生编辑 0.016% 的权重，将 Qwen3.5-0.8B 的 MATH-500 成绩从 7.9% 提升至 48.1%。</p>
+<p>Willison 将论文主题拆分为两个问题：一是模型在不借助工具的情况下能从权重中理解什么；二是模型配备代码后能如何更新和改进其他模型。他聚焦于前者，并复现了论文中的实验——请模型仅凭权重判断四个 10x10 网格简化版经典游戏（打砖块 Breakout、乒乓 Pong、吃豆人 Pac-Man、Freeway）中的某个策略网络是训练来玩哪个游戏的。</p>
+<p>他在笔记本上运行 Qwen 3.8 27B（仅 17GB），使用 LM Studio 和 llm 工具，从 <a href="https://github.com/RikiyaT/lm_understand-logs">GitHub 仓库</a> 提取提示词进行测试。结果令人印象深刻：Qwen 用约 46 分钟、43506 个推理 token 正确识别出 Pac-Man（置信度 72%）；用 1 小时 4 分钟识别出 Pong（置信度 75%）；用 52 分钟识别出 Breakout（置信度 88%）。它仅在 Freeway 上失败（该游戏较为冷门）。</p>
+<p>不过 Willison 也保持谨慎态度，指出该领域存在争议：spaCy 作者 Matthew Honnibal 认为论文将「无工具解读」和「用代码改进模型」混为一谈具有误导性，Sean Goedecke 则指出论文中的权重更新示例与人类机器学习研究者的做法相同。Willison 本人表示，虽然论文很酷，但他「并不准备宣布源代码时代已经结束」。</p>
+<p>在 Hacker News 的讨论中，有评论者质疑将这类博文称为「论文」是否恰当（它未经同行评审），作者自己的 BibTeX 引注也标注为「blog post」。还有用户分享了用 Qwen 3.8 27B 解析并改进自己小型上采样网络的实践，也有人展望用提示直接「生成权重」而非训练的未来。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50355251</guid>
+      <pubDate>Tue, 03 Nov 2026 17:40:00 GMT</pubDate>
+    </item>
     <item>
       <title>指出「Astra 读写权重改进 Qwen」帖子存在误导：实为两套不同技术</title>
       <link>https://news.ycombinator.com/item?id=50351111</link>
@@ -1075,39 +1089,6 @@ width="760" height="469" /></p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50233294</guid>
       <pubDate>Sun, 25 Oct 2026 16:27:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI 与 Anthropic 数月内大幅下调大模型价格，最高降幅达 80%，原因何在？</title>
-      <link>https://news.ycombinator.com/item?id=50236102</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及大模型价格下调与成本分析，属于AI软件技术进展范畴，与用户对新AI模型和AI技术进展的兴趣相关，推荐阅读。</small></p><p>这篇文章以<b>2026 年 6 月至 9 月 OpenAI 与 Anthropic 主要模型发布的时间线</b>为主线，探讨了这两家公司为何在短短数月内将模型价格大幅下调（最高达 80%），并分析了背后的经济逻辑。</p>
-
-<h3>价格战时间线</h3>
-<p>作者 Max Woolf 梳理了关键节点：6 月底 OpenAI 发布 GPT-5.6 Sol 与 Luna，Anthropic 则推出 Claude Sonnet 5；7 月底 OpenAI 将 GPT-5.6 Luna 降价 80%（至每百万输入 token $0.20），8 月将 Sonnet 5 的临时降价转正、对 Sol 降价约 20%；9 月双方竞相降价并推出 Opus 5.5、GPT-6 Sol、GPT-6.1 Sol 等新模型。尤其值得注意的是一次性大幅下调了<b>缓存读取（cache read）成本</b>——这对使用 agent 进行编码的开发者影响最大，因为缓存读取在总 token 消耗中占比高达 96%–99%，因此缓存成本下降 75% 可使模型整体使用成本下降 70%–75%。</p>
-
-<img src="costpertask.png" alt="GPT-5.6 Luna 大幅降价后的模型质量与每任务成本对比" width="1414" height="1246" />
-
-<h3>降价原因分析</h3>
-<p>作者认为这场竞争并非简单的「针锋相对」，而是有外部压力在起作用：</p>
-<ul>
-<li><b>开源权重模型的竞争</b>：以 DeepSeek 为代表的开放权重模型在 OpenRouter 上已有 29 家不同的推理提供商托管；极低的缓存读取成本使实际有效成本更低，对 OpenAI/Anthropic 的价格形成强大挤压。</li>
-<li><b>模型商品化</b>：借助 OpenCode、Zed Agent 等 harness 只需切换开关即可试用新模型，客户转换成本几乎为零，护城河薄弱。</li>
-<li><b>IPO 冲刺（"IPO Pumping"）</b>：两家公司都传闻即将上市（OpenAI 预计 2027 年，Anthropic 数个月内），但在大幅亏损下反而下调主要收入来源看似反常。作者猜测推理本身的利润率或许仍然可观。</li>
-<li><b>基础设施效率提升</b>：Anthropic 明确表示「Opus 5.5 所需的推理算力低于 Opus 5，定价亦反映这一点」，作者认为推理基础设施的改进也是重要因素。</li>
-</ul>
-
-<img src="vercel.png" alt="Vercel 网关数据显示每 token 成本降至 2026 年 4 月的 43.3%，但总支出仍在上升" width="1475" height="867" />
-
-<h3>对「token 真实成本」论的批驳</h3>
-<p>针对「AI 反对者认为 token 价格被人为压低，此后会回升到『token 的真实成本』」的说法，作者指出：OpenAI/Anthropic 并非当年 Uber/Lyft 那样的双头垄断，推理行业进入门槛不高，只要众多提供商能以相似价格和相似质量提供服务、转换成本可忽略，价格就可能继续走低，最终价格会趋近边际成本。</p>
-
-<h3>社区反馈</h3>
-<p>评论区的讨论呈现出多种观点：多数人认同这是「价格战」与「竞争无护城河」导致的「向下竞速」；部分人认为 DeepSeek 已证明推理可盈利，中国开源模型也构成重要竞争压力；也有人将 token 供应商类比为移动数据提供商——效率不断提升却难以分享技术带来的巨大经济收益。还有读者分享了自己在 Claude Code、Zed Agent 等工具上的实际体验，以及在遭遇「网络安全」限制后转向 Kimi、GLM 等更便宜的中国模型。另有评论者提醒，模型可能通过更高效的缓存与更小的模型实现降价，不必过度解读。</p>
-
-<p>作者在文末总结：「虽然这轮降价很反常，但作为用户我当然不抱怨」，并指出开放权重模型与次级推理提供商将持续充当对大型实验室定价的「经济制衡」。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50236102</guid>
-      <pubDate>Sun, 25 Oct 2026 21:11:31 GMT</pubDate>
     </item>
   </channel>
 </rss>
