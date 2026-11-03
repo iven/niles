@@ -3,7 +3,67 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 02 Nov 2026 18:14:52 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 00:57:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 前沿LLM可直接读写神经网络权重：Astra实现&quot;权重空间编程&quot;</title>
+      <link>https://news.ycombinator.com/item?id=50341174</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 前沿AI研究，LLM直接读写神经网络权重属于新AI模型能力与AI技术进展，用户对此很感兴趣，必看内容</small></p><p>MIT CSAIL 团队发布的一项研究显示，前沿大语言模型（LLM）已经能够原生地读取和写入神经网络权重，其能力远超人类或传统算法的预期。研究者将这一范式称为"权重空间编程"（Weight-Space Programming）。</p>
+
+<h3>核心发现</h3>
+<p>研究团队使用 GPT-6 Astra 进行了一系列实验，验证了 LLM 在权重层面的三种能力：</p>
+
+<p><strong>读取权重</strong>：Astra 仅凭原始权重就能判断网络被训练用来做什么。在实验中，它正确识别出四个 PPO 训练的游戏网络分别对应 Breakout、Pong、Pac-Man 和 Freeway；能分辨扩散模型（DDPM）生成的是圆形、三角形还是正方形；还能仅凭中间层权重判断小型语言模型训练于 Python 代码、日语罗马字还是英语，并准确找出所有"复制头"（induction head）。</p>
+
+<p><strong>修复权重</strong>：在一个 Kinetix 物理控制任务中，PPO 网络陷入局部最优（汽车无法冲上斜坡）。Astra 通过修改 3.5% 的权重，一次修复就让汽车在全部 1,024 个测试回合中成功通过。<img src="assets/carjump_scene.svg" alt="The car level: after Astra's edit the car backs up and jumps over the red strip to the blue box, while PPO's car, faded, stays stuck on the ramp." /></p>
+
+<p><strong>从零编写权重</strong>：在三个 MinAtar 游戏（Breakout、Seaquest、Asterix）中，Astra 仅凭游戏规则和网络结构描述，一次性生成的网络就击败了 PPO 训练 1 亿步的成果。</p>
+
+<h3>最引人注目的案例：改进 Qwen</h3>
+<p>研究者要求 Astra 在不使用梯度的情况下提升 Qwen3.5-0.8B 的数学能力。Astra 识别出权重中导致推理循环的问题（该问题在 Qwen 官方模型卡中也有警告），并通过原生编辑 0.016% 的权重进行修复。在相同采样设置下，这一修正将 MATH-500 得分从 7.9% 提升至 48.1%，并泛化到指令遵循任务，使 IFEval 提升 3 倍。</p>
+
+<h3>社区反响</h3>
+<p>该结果在 Hacker News 上引发热烈讨论（1,713 分，550 条评论）。许多评论者表示震惊，认为这可能是"自 Attention Is All You Need 以来最重要的发现"。有观点认为这种能力可能是从其他 ML 任务训练中涌现的，而非专门训练；也有人将其与递归自我改进（RSI）联系起来，同时表达了对对齐（alignment）问题的担忧。部分评论者指出，这一能力若属实，将颠覆许多关于神经网络可解释性的理论假设。</p>
+
+<h3>研究意义</h3>
+<p>研究者指出，深度学习的整个历史中，人类一直将简单的归纳偏置编码进 Adam 或 Muon 等小型符号优化器中。而这一发现意味着，未来神经网络权重可能将由能够对其权重进行刻意推理的 LLM 直接优化，这将对模型优化和可解释性产生深远影响。</p>
+
+<p>论文作者包括 Rikiya Takehi、Jayden Teoh、Alex Zhang 和 Omar Khattab，均来自 MIT CSAIL。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50341174</guid>
+      <pubDate>Mon, 02 Nov 2026 18:21:28 GMT</pubDate>
+    </item>
+    <item>
+      <title>Show HN：Subvocal 智能眼镜——无声&quot;说话&quot;即可与电脑交流</title>
+      <link>https://news.ycombinator.com/item?id=50340088</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 无声语音交互智能眼镜属新型人机交互设备，与配置中各明确类别匹配不强，兴趣不明确，故可选</small></p><p>YC F26 孵化公司 The Subvocal Company 的 Aarush 和 Arnav 展示了他们研发的智能眼镜 Subvocal，让用户无需出声就能与电脑交流。这副眼镜通过发射射频（RF）无线电波穿过面部，当舌头、嘴唇和软腭因无声口型运动而产生扰动时，眼镜捕捉这些调制信号，再训练基础模型将其解码为文本，速度接近语音。据团队介绍，用户甚至不需要动嘴唇或张嘴——系统可通过"内部语音"（类似闭唇默念）进行微调。</p>
+
+<p>两位创始人起初在佐治亚理工学院学习计算机科学，从斯坦福 TreeHacks 黑客松上用 EMG（肌电）电极搭建原型起步，随后因汗液干扰、电气干扰、贴片位置变化等问题放弃 EMG，转而采用射频方案。他们经历了反复迭代：最早在眼镜上布置天线失败，转而贴片于面部，最终通过大量仿真设计出将天线嵌入镜框的产品形态。为攻克跨用户泛化难题，他们在办公室设置体验舱付费请人佩戴眼镜朗读提示词，以此扩充预训练数据，并获得了令人满意的规模化曲线（误差随数据量快速下降）。团队计划在 2027 年第一季度正式发货，目前首批 500 副已开放预订。</p>
+
+<p>Hacker News 评论区反响热烈（525 分、288 条评论），主要围绕以下几点：</p>
+<ul>
+<li><strong>眼镜形态争议</strong>：多位读者希望推出可附着于现有近视眼镜的配件，或担心镜框设计与个人风格冲突；创始人回应称一体式设计更便于稳定放置天线与电子元件，并承诺保留可调节鼻托。</li>
+<li><strong>隐私与延迟</strong>：有评论者担心原始数据上传云端，创始人强调已建立严格的数据安全机制，并计划未来推出本地推理模型；也有读者指出当前约 500ms 的延迟偏慢，团队表示这是开发中的未优化速度。</li>
+<li><strong>触发方式</strong>：初期计划采用连接设备上的触发键（如按住 Alt），而非唤醒词，后续可能通过软件更新加入低功耗的静默语音活动检测。</li>
+<li><strong>文化联想</strong>：许多读者联想到科幻作品，如《安德的游戏》系列中的"subvocal"交流、Cory Doctorow 小说《Down and Out in the Magic Kingdom》等。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50340088</guid>
+      <pubDate>Mon, 02 Nov 2026 17:16:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>展示HN：华沙体素化——市中心互动式3D地图</title>
+      <link>https://news.ycombinator.com/item?id=50339221</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 基于OSM和LiDAR的互动式3D地图可视化项目，属于创意类内容，与用户明确兴趣类别匹配较弱，故可选</small></p><p>一位开发者（stared）在 Hacker News 上展示了名为「Warsaw in voxels」的开源项目，这是一个基于真实数据的华沙市中心互动式 3D 体素地图。项目以 1 米体素为单位重建了华沙市中心，用户可以通过网页探索城市，并可自由切换日期、时刻和天气，还能点击行人进行操控（灵感部分来自《地下城守护者》）。项目受到《我的世界》（Minecraft）和 MagicaVoxel 的启发。</p>
+<p>该项目基于多个开放数据集构建：包括 <a href="https://www.openstreetmap.org/#map=6/52.02/19.14">OpenStreetMap</a>（建筑物、街道、人行道、电车轨道等）、<a href="https://www.geoportal.gov.pl/">GUGiK / Geoportal</a>（用于建筑物高度和树木的 LiDAR 数据、用于配色的航空影像），以及 <a href="https://mapa.um.warszawa.pl/">华沙市树木数据库</a>（用于按树种实现季节性树叶效果）。代码已在 <a href="https://github.com/stared/warsaw-vibe-voxel">GitHub</a> 上开源，供任何人复用。</p>
+<p>该项目在桌面端体验最佳，但也尽力适配移动端，首次加载可能较慢。</p>
+<p><b>社区反馈</b>：该项目获得了大量好评，有用户称其「令人惊叹」（incredible）。许多用户建议加入实时公共交通和汽车交通数据。有用户指出降水天气是动态真实效果，可在页面左上角切换天气。也有用户遗憾地图未覆盖老城（Old Town）和皇家城堡区域——作者回应称已根据大众需求扩展了地图范围，并提到打磨细节（如街道断连、悬浮的树冠、被「轰炸」过的桥梁等）是最耗时的部分。移动端（尤其是 Safari）加载较重，作者表示已针对手机做了灰度 8 米体素块的减负优化。还有用户对比了华沙老城在二战后的重建史，引发对历史建筑美学的讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50339221</guid>
+      <pubDate>Mon, 02 Nov 2026 16:25:26 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Show HN：Wikihack——把 HN 上提及的维基百科文章变成可滚动的信息流</title>
       <link>https://news.ycombinator.com/item?id=50333339</link>
@@ -1023,60 +1083,6 @@ width="760" height="469" /></p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50223647</guid>
       <pubDate>Sat, 24 Oct 2026 18:04:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Dan Luu：有了 AI 辅助，我们对构建的软件应当更有野心</title>
-      <link>https://news.ycombinator.com/item?id=50225695</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论AI辅助下软件开发与编程效率的改进，属于用户很感兴趣的编程效率改进与AI进展话题</small></p><p>Dan Luu 在博客文章中提出，随着 AI 能力的提升，开发者应当对构建的软件更有野心。他以友人的 <a href="https://danluu.com/ambitious/">pgrust 项目</a>（用 Rust 重写 PostgreSQL）为例，说明这类曾经规模过大、几乎不可行的项目现在已经成为可能。pgrust 不仅在测试中发现了多个 Postgres 的真实 bug（包括数值计算、格式缓存、pgcrypto、内存安全等问题），而且其核心卖点是性能优化。</p>
-
-<p>作者指出，虽然大多数这类"重写项目"都是低质量的「vibeslop」作品，但作为软件构建者，不应因此放弃尝试——只要做好测试和基准测试，东西就能达到可用的质量。他用自己的多个「玩票」项目佐证 AI 带来的效率提升：一个可调优的正则引擎、一个使用原生代码编译器的 ripgrep 分支、一个能大幅加速编译的 Rust 解释器（冷编译提升 50 倍），以及一个在固定时限下达到超人类水平的 Azul 棋类 AI。这些项目在过去可能需要一年以上，如今只花了他个位数小时。</p>
-
-<p>Dan Luu 认为，人们之所以觉得这些问题难以解决，是因为仍隐性地沿用「前智能体时代」的成本模型。他强调，模型越强，他反而能在更高层面推进更宏大的工作，尽管与「开箱即用」的距离也在拉大。他引用 GPT-6 Astra 用约 1 美元成本、99% 的通过率实现 zstd 的例子，说明先进模型（如 Fable 5.1、Opus 5.5）已能阅读论文并实现技术。</p>
-
-<p>文章附有 Yossi Kreinin 的回应，主张对大多数人而言「应当对 AI 构建的软件少一些野心」，因为很多问题缺乏清晰的通过/失败标准，且 AI 生成的代码易过度拟合、难以维护。</p>
-
-<p><b>HN 社区讨论</b>呈现出明显分歧。多位用户认同「更野心勃勃」的理念，但也有人强烈质疑 pgrust：有评论指出 pgrust 日前因三种「作弊」方式（针对特定查询手写代码、缓存、无法执行基准测试之外查询）被从 ClickBench 移除，认为文章对其信任显得「手软」且缺乏说服力。关于 AI 编码能力的讨论中，有用户报告 Claude（Opus 5.5、Haiku 5.5）已能优质完成复杂实现，但也有评论警告 AI 容易生成脆弱、过度拟合的代码，需要严格审查。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50225695</guid>
-      <pubDate>Sat, 24 Oct 2026 21:47:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 丹麦政府悄然放弃用开源方案替代微软 Office 的试点项目</title>
-      <link>https://news.ycombinator.com/item?id=50223844</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是开源方案替代微软Office的试点项目，符合用户感兴趣的开源项目话题</small></p><p>丹麦数字化部（Digitaliseringsministeriet）已悄然放弃其广受关注的开源替代微软 Office 的试点项目。据丹麦媒体 Version2 报道，该项目在 2025 年夏季启动，当时该部约 40 名员工开始测试由丹麦公司 cBrain 承接的开源办公系统 Collabora，作为微软 Office（Word、PowerPoint、Excel）的替代方案。</p><p>项目启动时，时任数字化部长 Caroline Stage（M）称该试点是"朝着摆脱对微软依赖的正确方向的受欢迎一步"，并希望该部能成为摆脱对美国技术依赖的先锋。试点项目将 Collabora 集成进该部核心的政务处理系统 F2（由 cBrain 提供），38 名测试员工计划从第一天起就用它制作文档、演示文稿和表格。</p><p>然而，2026 年 2 月底宣布举行大选后，项目被搁置，整个试点仅运行了约半年。发言人称目前没有恢复该项目的计划，且未按原计划对项目进行评估。测试期间曾传出一些员工对排版格式、段落格式、空白页以及"追踪修订"（track changes）功能感到沮丧的消息。</p><p>哥本哈根商学院（CBS）教授 Mikkel Flyverbom 对此表示惋惜，认为试点是尝试替代方案的好主意，但希望该部能借此机会总结经验并与公共部门的其他机构分享。如今该部门已与多个部门合并，更名为研究与教育及数字化部（Forsknings-, Uddannelses-, og Digitaliseringsminister），由 Christina Egelund 出任部长。</p><h3>你知道吗？</h3><p>Collabora Online 是 LibreOffice 的云端协作版本，由英国公司 Collabora 开发，支持文档、电子表格和演示文稿的在线编辑与多人协作。该项目被搁置的原因之一是丹麦政府试图减少对美国大型科技公司的依赖，这与近年来欧洲多国推动"数字主权"（digital sovereignty）的趋势一致。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50223844</guid>
-      <pubDate>Sat, 24 Oct 2026 18:31:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Goose 编程语言：无堆分配器、无 GC、无生命周期注解的内存安全系统语言</title>
-      <link>https://news.ycombinator.com/item?id=50224100</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新发布的 Goose 系统编程语言，属于编程工具发布/分享，符合用户很感兴趣类别</small></p><p>由 John Carmack 在 Twitter 上推荐的 <a href="https://github.com/aardappel/goose">Goose 编程语言</a>（作者 Wouter van Oortmerssen，由 Aardappel 发布）引发热议。这是一门面向系统编程的内存安全语言，其核心特点是<b>没有堆分配器、没有垃圾回收器（GC）、没有引用计数、没有析构函数，也没有生命周期注解</b>。</p>
-<p>Goose 将所有动态值内联存放在由编译器管理的数据栈上，内存通过推进指针（bump pointer）分配，作用域结束时内存即被释放，语言自身的类型与生命周期规则保证了这一内存模型的安全性。作者宣称在超过 16 项基准测试中，Goose 的运行速度是惯用 C++ 的 3.3 倍、手工优化 C++ 的 1.16 倍、最优安全 Rust 的 1.12 倍，同时分别减少 1.9 倍、1.3 倍和 1.2 倍的内存占用。</p>
-<p>主要特性包括：</p>
-<ul>
-<li><b>单一内存模型</b>：程序由原生调用栈、静态数据及编译器确定的若干数据栈组成，作用域退出即释放（一次 store 即可释放百万元素结构）。</li>
-<li><b>稳定引用</b>：引用在数组增长时依然有效，这是相比 C++/Rust 取得性能优势的关键之一。</li>
-<li><b>零注解的安全引用</b>：编译器推断每个引用的根（root），拒绝可能比其所有者存活更久的引用，无别名或排他性规则。</li>
-<li><b>嵌套数据内联</b>：字符串、记录、数组等保持连续内存块，无内部指针；一个在 C++ 中需 160 字节和 1 次分配的记录，在 Goose 中仅需 29 字节且零分配。</li>
-<li><b>双尺寸枚举</b>：变长模式（ADT）让每个值按自身变体大小存储，比 Rust 枚举节省 4 倍内存并快 2 倍。</li>
-<li><b>比指针更窄的链接</b>：相对引用可存储为 1/2/4 字节偏移，数据结构位置无关，可直接作为文件格式存取，加载时进行校验以抵御恶意字节。</li>
-<li><b>就地构建</b>：值始终在其最终位置构建，跨多层调用传播，返回可增长数组零成本。</li>
-<li><b>跨调用返回</b>：<code>return err from load</code> 可跨任意多层帧返回，静态检查，无需 unwinder 或 Result 类型。</li>
-<li><b>线程零共享</b>：worker 作为独立程序编译，平面值经类型化队列以 memcpy 方式传递，语言中不存在数据竞争、锁、原子操作与内存序。</li>
-<li><b>零开销泛型与高阶函数</b>：一切皆单态化，函数值作为编译期实体传递，可内联。</li>
-<li><b>纯 C 进出</b>：编译为单个 C 文件，可通过 <code>extern fn</code> 直接调用 C，自带 TinyCC 后端可进程内编译运行。</li>
-</ul>
-<p>作者 Aardappel 在评论中回应了多项提问：编译器会自动将当前作用域内可增长数组最优分配到若干"栈"上；若无序释放不可避免，可将数组用作池（pool）；Goose 没有 unsafe 特性、没有未定义行为（UB），完全内存安全，虽然可能不如 Rust 的借用检查器提供那种层面的保障，但对需要索引算法的场景体验更友好。其另一门语言 <a href="https://news.ycombinator.com/item?id=47239955">Lobster</a> 也曾被 HN 讨论。</p>
-<p>评论中不乏质疑声音，有人称"看不出使用它而非 C++ 的理由"，也有人建议封面页应提供更清晰的用途概述（TL;DR）。Carmack 特别赞赏其自动分析多数据栈与可变字段的能力、相对引用及内建二进制结构校验，指出这能让数据结构直接内存映射、直接使用网络数据，避免"解析"文件与网络数据时常见的 100 倍减速。</p>
-<h3>你知道吗？</h3>
-<p>Goose 的作者 Wouter van Oortmerssen 还发明了 <a href="https://flatbuffers.dev/">FlatBuffers</a>（Google 开源的高效序列化库）以及 Amiga 平台的编程语言 <b>Amiga E</b>，是一名经验丰富的语言与工具链设计者。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50224100</guid>
-      <pubDate>Sat, 24 Oct 2026 19:06:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
