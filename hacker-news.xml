@@ -3,7 +3,100 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 03 Nov 2026 07:52:11 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 16:09:35 GMT</lastBuildDate>
+    <item>
+      <title>指出「Astra 读写权重改进 Qwen」帖子存在误导：实为两套不同技术</title>
+      <link>https://news.ycombinator.com/item?id=50351111</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讨论AI模型技术帖的准确性问题，涉及Qwen/AI技术，但主要是技术讨论澄清，兴趣程度一般</small></p><p>本文针对此前广受关注的一篇博文《Astra can read and write weights to improve Qwen》提出批评，认为该帖将两类完全不同的实验混为一谈，存在误导性。作者马修·霍尼巴尔（Matthew Honnibal）用魔术师同一种把戏变出多种花样来类比这篇文章：观者在看表演时总以为只有一种手法，但其实每次用的技术各不相同。</p>
+<p>分析指出，原帖实际上包含多组实验，其中真正「仅凭读取原始权重」（将浮点数直接放入上下文、不使用工具、不运行网络）的只有实验 1、2、4，且仅适用于 1.7 万至 17.2 万个权重的小型网络。而所有涉及真实语言模型的实验（包括作为标题成果的 Qwen 数学改进）都使用了 Python 工具，且 Qwen 实验还允许运行模型最多 50 批练习题。</p>
+<p>作者认为，Qwen 的结果真正展示的是 Astra 能够「编写并执行人类 ML 工程师会做的任务」，即用代码分析甚至直接修改网络权重——这是一种常见的工程师做法。虽然这算不上毫无价值，且一两年前的 AI 模型也无法完成这些任务，但「从零写出小游戏的权重」与「改进大模型在样本任务上的表现」不能被包装成同一种单一技术的成果。若两者出自同一技术，才能体现对权重的深层理解（「格式塔」式把握）；而事实上并非单一技术，因此不应放在同一篇论文或同一篇文章里。</p>
+<p>Hacker News 社区对此讨论热烈。多名用户认为原帖本身已清楚说明做法，误导主要源于标题和摘要的措辞；也有人反驳称摘要确实「将 Qwen 实验描述成直接读取原始权重」，属学术不端。还有评论指出，LLM 其实是「编写能够读写权重的程序」，这与直接操作权重是不同的能力层面，可参考《Thinking Like Transformers》（Weiss 等，ICML 2021）与 Tracr 等编译逻辑到 transformer 权重的相关工作。另有评论认为「仅凭权重解读小网络」本身就是一项令人意外的涌现能力，不应因上下文窗口的技术限制而被轻视。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50351111</guid>
+      <pubDate>Tue, 03 Nov 2026 12:21:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ NVIDIA 发布开源 Auto Ontology：为 LLM 与智能体构建语义推理层</title>
+      <link>https://news.ycombinator.com/item?id=50348962</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] NVIDIA发布开源AI框架，涉及开源项目、AI软件技术进展，符合兴趣</small></p><p>NVIDIA 在 GitHub 上开源了 <strong>Auto Ontology</strong>，一个面向企业数据的 Python 框架，用于构建语义化、基于图的推理层，目标是提升大语言模型（LLM）和智能体（Agent）工作流中的查询可靠性、上下文检索效果与可解释性。</p>
+
+<p>该工具的核心思路是：智能体虽能检索文档、查询数据库，但可靠性是代理式分析（agentic analytics）的瓶颈——如果数字是错的，回答得再快也毫无价值。Auto Ontology 能从企业元数据中自动生成本体（ontology）、跨系统协调定义，并通过 MCP、CLI 和 API 三种方式暴露给任何智能体框架，提供五大能力：<strong>发现</strong>（从元数据生成企业本体、构建 AI 就绪的知识图谱）、<strong>锚定</strong>（为指标、实体和关系赋予可信的业务含义）、<strong>验证</strong>（对照认证定义与血缘（lineage）校验生成查询并返回溯源）、<strong>暴露</strong>（通过多种接口把上下文提供给智能体）以及<strong>学习</strong>（将认证更正反馈回本体，让共享上下文随每次提问不断改进）。</p>
+
+<p>技术架构方面，Auto Ontology 采用前后端分离设计：前端基于 Next.js 16（React 19、TypeScript、Tailwind CSS 4、Better Auth、Prisma），后端为 FastAPI（Python 3.12+）配合 LangChain，另有专门的摄取（ingestion）工作进程，数据存储使用 Postgres + pgvector 向量库，可选集成 HashiCorp Vault 保管连接凭据。推理默认调用 NVIDIA NIM 端点（可在托管的 NVIDIA API 目录与自托管 NIM 之间选择），默认 LLM、嵌入和重排序模型分别对应 nemotron 系列。部署支持 Kubernetes（Helm chart）与 Docker Compose 本地栈；身份认证支持 SSO，并为脚本和定时任务提供 API 令牌方式。</p>
+
+<p>项目以 Apache License 2.0 分发，但目前<strong>不接受外部贡献</strong>。<img src="/NVIDIA/auto-ontology/raw/main/docs/assets/arch.png" alt="Auto Ontology Architecture" width="800" /></p>
+
+<p>Hacker News 上的讨论（223 分、81 条评论）态度分歧明显。不少用户对 LLM 的可靠性本身提出质疑，例如评论者 grey-area 认为这是「用更多不可靠的智能体来修复不可靠的智能体」，并指出 LLM 无法明确区分世界知识、指令与待分析数据，容易产生幻觉（confabulation）。也有人反驳称，通过组合不完美系统可以降低而非放大错误率，目标是「在可能出现问题的情况下依然有用」。还有用户询问该工具与 RDF/OWL/SPARQL 等传统语义技术的关系，ANTONVS 澄清软件领域中的 ontology 指的是系统实体的机器可读定义，与哲学上的本体论无关；IanCal 则解释其价值在于让「客户」等业务口径在不同系统中保持一致。此外，部分评论批评该项目 README 的写作风格带有明显的「Claudish」（Claude 式）腔调，用词生僻、对非母语读者不友好，也有用户质疑其「开源」程度——既然 NVIDIA 仍保留 libcuda 等用户态库的闭源，开源一个本体工具的意义何在。</p>
+
+<p>【你知道吗？】<strong>Ontology（本体）</strong>在计算机科学中并非哲学意义上的本体论，而是一种对系统中实体（如「客户」「订单」）、它们的属性与相互关系进行机器可读的形式化定义。它常被用于数据治理和语义互操作，让不同系统对同一概念形成一致理解——这正是 Auto Ontology 试图从企业元数据中自动提取并维护的对象。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50348962</guid>
+      <pubDate>Tue, 03 Nov 2026 07:04:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>Show HN：Hacker Times——仿《纽约时报》版式的 Hacker News 报纸</title>
+      <link>https://news.ycombinator.com/item?id=50346981</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Hacker News自制报纸类项目，属于小众工具分享，兴趣不明确</small></p><p>一位开发者发布了「Hacker Times」，一个将 Hacker News 内容以报纸形式呈现的网站。这个站点每小时刷新一次，把 HN 上的头条文章按报纸的版式排版，让读者像翻阅报纸一样浏览科技新闻。据 Meta 描述，它提供「来自 Hacker News 的报纸」，包含独立的标题与原始来源链接。</p><p>页面上展示了一篇示例文章：MIT CSAIL 团队报告称，通过使用 Python 和练习反馈直接编辑权重，提升了 Qwen 的数学成绩——在允许 50 次前向传播的测试中，MATH-500 得分从 7.9% 提升至 48.1%。这些初步结果与该团队在更小网络上仅基于原始权重的实验相互独立。<img src="https://rikiyat.github.io/images/blog/weight-space-programming.png" alt="作者关于读取、修复和改进神经网络权重的实验示意图" /></p><p>社区反馈总体积极，但也提出了若干改进意见。多位用户称赞这种浏览方式「更易读」，能把冗长的链接列表拆分开来，也有人觉得比 HN 原有的「一堵文字墙」更好用。不过，不少评论聚焦于排版问题：有人指出标题字体（Georgia Bold 以 55px 显示）并不适合报纸头版风格，移动端的可读性也有待提升。</p><p>此外，有用户对这类「转载」是否合规提出疑问，担心存储内容与实时转换展示是否触及版权问题；还有人提到该网站（与所有 ChatGPT 类网站一样）在部分被屏蔽的国家无法访问，且因使用自定义域名而无法自动代理。也有用户回忆起早期 iPad 上的同类应用「Early Edition」，它以报纸风格呈现整理后的 RSS 订阅源，可惜如今已不复存在。</p><h3>你知道吗？</h3><p>文章提到的「直接编辑神经网络权重」属于「权重空间编程」（weight-space programming）方向——传统上改进模型靠训练或微调，而这一思路尝试直接修改网络参数（权重），用编程手段修复或增强模型能力。这类研究处于早期阶段，MIT CSAIL 的上述结果也被作者标注为初步成果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50346981</guid>
+      <pubDate>Tue, 03 Nov 2026 01:53:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>DiscImageStudio：将图片直接烧录到 CD、DVD 和蓝光光盘盘面的开源工具</title>
+      <link>https://news.ycombinator.com/item?id=50346849</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 图片烧录光盘的开源工具，领域小众，与用户兴趣配置无明显交集</small></p><p><a href="https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio">DiscImageStudio</a> 是一个多平台的光盘盘面图像生成与刻录工具，能够把一张图片转换成符合 CD、DVD 与单层 BD-R 光盘物理层约束的数据，刻录后使光盘盘面呈现出肉眼可见的图案。该项目在 Hacker News 上获得了 314 分和 68 条评论，引发了广泛讨论。</p>
+
+<h3>核心功能</h3>
+<p>该工具支持三类介质：CD、任意 DVD 以及单层 25GB 的 BD-R 蓝光光盘。用户可通过 GUI 新建工程、导入图片、用图层排版并调整抖动、伽马、亮度等「影调」参数，最终导出 ISO / RAW / WAV+CUE 镜像，或使用实验性的「即时刻录」功能直接写入空白盘片。</p>
+
+<img src="/JiaFeiMiao-K-Cat/DiscImageStudio/raw/main/docs/images/case1.jpg" alt="效果预览案例 1" />
+
+<p>值得关注的是其<span style="font-weight:bold;">辅助标定</span>功能：相较人工肉眼识别标定，算法将盘面物理数据的精度从 10⁻⁶ 提升到了 10⁻¹⁴。校准前采用恒定轨距时径向十字线明显弯曲，校准后使用三次轨距参数生成的线条更接近径向直线。</p>
+
+<img src="/JiaFeiMiao-K-Cat/DiscImageStudio/raw/main/docs/images/verbatim-dvd-calibration-before.jpg" alt="校准前的 DVD 实拍：径向十字线明显弯曲" />
+
+<h3>混合数据盘支持</h3>
+<p>项目不仅能在盘面绘制图案，还支持将数据文件一并写入：CD、DVD、蓝光均可在设计页选择随盘保存的文件夹及内圈／外圈位置。也就是说，光盘可以同时包含数据和图案，只是某个特定区域不能既是图像又是数据。评论中多位用户确认，这类「混合盘」既可正常播放读取，也能呈现盘面图案。</p>
+
+<h3>技术实现与参考标准</h3>
+<p>实现主要参考 ECMA-394（CD-R）、ECMA-267／359（DVD）、ISO/IEC 30190（BD-R）等规范，涵盖 CD 的 0D/AA 灰度方案、DVD 的 A5/92 扰码域灰度方案，以及 CD-DA 音轨的 EFM／交织编码。项目采用 C# 与 .NET 10 开发，提供 Windows、Linux 和 macOS 多平台支持，并附带详细的架构、物理模型审计与标定文档。代码采用 GNU GPL v3.0 or later 许可，其中 CD 交织实现移植自 arduinocelentano 的 <a href="https://github.com/arduinocelentano/CDImage">CDImage</a> 项目并加以修改。</p>
+
+<h3>社区反馈</h3>
+<p>评论区的讨论主要集中在几个方向：许多用户将其与早已停产的 <a href="https://en.wikipedia.org/wiki/LightScribe">LightScribe</a> 技术进行对比，勾起怀旧情绪（有用户指出 LightScribe 每张盘需刻 20–30 分钟且效果偏淡）；也有用户讨论「盘中图像与数据可否并存」以及光学驱动市场现状（索尼已宣布停产蓝光播放器，但光驱在医疗影像等领域仍有不可替代的用途）。另有评论质疑其 repo 的 Star 增长曲线「看起来不自然」，被回应为「项目因被翻译转发而突然走红」所致。</p>
+
+<p>需要说明的是，即时刻录功能为实验性，官方明确提示须使用可报废的测试介质，且刻录中断、断电或生成速度不足仍可能导致盘片报废。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50346849</guid>
+      <pubDate>Tue, 03 Nov 2026 01:33:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI 如何扩展 Git：用 Codex 在 10 周内构建 Pando 系统</title>
+      <link>https://news.ycombinator.com/item?id=50345924</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] OpenAI用Codex构建系统的工程实践，涉及编程效率改进经验和AI应用，符合兴趣</small></p><p>OpenAI 发表了一篇题为「Scaling Git at OpenAI」的文章，介绍其在代码版本控制领域所做的基础设施扩展。文章披露，OpenAI 构建了一个名为 <strong>Pando</strong> 的 Git 扩展系统，从启动到上线生产环境仅用了 10 周。Pando 的核<a href="https://openai.com/index/scaling-git-at-openai/">心由一名工程师设计</a>，由「代理团队」（agent teams）实现，最后由少数几名工程师部署，并于今年 4 月开始承载生产流量，是 OpenAI 更大规模源代码管理工具体系的一部分。</p>
+
+<p>该文章在 Hacker News 上引发热烈讨论（252 分、172 条评论）。社区反应褒贬不一：</p>
+<ul>
+<li>不少评论认为，本文明显是对 <a href="https://www.anthropic.com/research/redesigning-source-control">Anthropic「Redesigning source control」</a>一文的回应，两家 AI 巨头几乎同时在展示自己的代码管理规模化方案。</li>
+<li>部分评论者赞叹 AI 编码确实正在催生全新的真实软件，「过去一个月里，我做到了多年来一直想做的系统，而且比我自己仓促赶工要优秀得多」。</li>
+<li>也有不少质疑声音：有人称这种指数级增长的代码量是「AI slop」（AI 垃圾代码）——AI 编码代理会产生更庞杂的代码、更多的测试，以及大量反复修补产生的提交；还有人质疑如此庞大的代码量究竟在做什么，以及为何 OpenAI 的产品在外观上变化不大。</li>
+<li>有人指出文章缺乏基准数据，例如每秒能处理多少次 push、支持多少并发推送者等，认为技术叙述不够完整。</li>
+<li>也有技术讨论涉及 Git 去重与缓存方案，例如 <a href="https://git-dedup.ben3d.ca">git-dedup</a>，以及借鉴 pnpm 集中式包缓存的思想。</li>
+<li>还有人将此事与历史类比：Google、Facebook 都曾「成长出 Git」并自研替代方案，如今 Anthropic 和 OpenAI 也加入了这一行列，而微软则借助 <a href="https://en.wikipedia.org/wiki/Virtual_File_System_for_Git">VFS for Git</a> 等方案继续使用 Git。</li>
+</ul>
+
+<p>值得注意的是，许多参与者认可这篇文章的文风——没有到处充斥 AI 营销话术，而是工程师们用数据、图表和细节在认真讨论一个技术主题，这也被视为该文的一大亮点。</p>
+
+<h3>你知道吗？</h3>
+<p>「成长出 Git」并不罕见。当单一单体仓库（monorepo）的规模超出原生 Git 的能力时，大型科技公司常走向两条路：一是自研分布式版本控制系统（如 Google 的 Piper 与 Facebook 的 Sapling），二是像微软那样通过虚拟文件系统（VFS for Git）将仓库按需按需拉取到本地，以规避完整克隆下载的压力。OpenAI 用 AI 编码代理在极短时间内完成此类基础设施的构建，本身也是本文最具争议也最受关注的看点之一。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50345924</guid>
+      <pubDate>Mon, 02 Nov 2026 23:47:56 GMT</pubDate>
+    </item>
     <item>
       <title>Ask HN：2026 年 11 月招聘专帖（Who is hiring?）</title>
       <link>https://news.ycombinator.com/item?id=50338728</link>
@@ -1015,84 +1108,6 @@ width="760" height="469" /></p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50236102</guid>
       <pubDate>Sun, 25 Oct 2026 21:11:31 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI 时代下，UC 伯克利数学教授放弃批改作业</title>
-      <link>https://news.ycombinator.com/item?id=50233304</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题聚焦AI对教育/教授评阅作业的影响，与用户兴趣配置的主题关联不够明确，属于可选内容。</small></p><p>加州大学伯克利分校数学教授、菲尔兹奖（Fields Medal）得主 Richard Borcherds 表示，由于学生大量使用 AI 且总能稳定获得高分，他不再批改学生的作业，因为已「没有意义」再付费雇人批改作业的正确性。</p><p>在接受采访时，Borcherds 提到 OpenAI 宣布其 AI 智能体似乎解决了数学界最困难的未解问题之一——纳维-斯托克斯（Navier-Stokes）存在性与光滑性问题。他认为：「如果 AI 以目前的速度继续进步，那么几年之内，人类数学家能做的任何事情 AI 都能做得更好。」Borcherds 表示目前他只在学生提交作业时按「完成度」评分，并承认这不是一个很好的体系，但他暂时没有其他选择。</p><p>Borcherds 坦言不知道自己是否还应鼓励学生进入数学系，因为五年前似乎还是数学家是 AI 浪潮中最安全职业之一的景象。他甚至向 ChatGPT 提出过这一疑问，而 ChatGPT 也不知道未来会发生什么。他形容学术体系存在大量的「惯性」，即使 AI 快速发展，数学系在几年内维持现状他也不会感到惊讶，并用纸质期刊已「毫无意义」却仍在出版作类比。他也指出数学界历史上第一次遭遇这类技术冲击，尽管此前像手工织布被织机取代、马被汽车取代等突破都曾发生过。</p><p>据副校长助理教务长 Anne Marie Richard 透露，伯克利分校学术评议会要求教师在课程大纲中说明包括 AI 工具使用在内的课程期望，但具体政策因课程级别和方向差异很大。学校曾尝试过 Turnitin 和 Rumi 等 AI 检测工具，但认为这些工具不够完善，无法在全校标准化推行。</p><img src="https://bloximages.chicago2.vip.townnews.com/dailycal.org/content/tncms/assets/v3/editorial/9/44/944d84f9-b521-443c-ae42-3811a39ea788/6adac8999d0f1.image.jpg?resize=400%2C258" alt="AI 评分" width="1793" height="1155" /><p>该报道在 Hacker News 获得大量讨论（210 分、307 条评论）。评论区围绕考试与作业的替代方案展开，许多网友主张只批改课堂内完成的测验或考试，以此作为作业的代理评估；也有人强调作业作为「强制机制」对激励中等自律性学生的重要性，认为取消作业评分可能让部分学生失去学习动力，但也有人怀念西班牙公立大学只凭期末考试评分的传统。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50233304</guid>
-      <pubDate>Sun, 25 Oct 2026 16:28:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>FOSDEM「数字异见者」开发者房间发起倡议：共建抵抗审查的自由软件工具链</title>
-      <link>https://news.ycombinator.com/item?id=50233929</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题涉及自由软件和抵抗审查工具链，可归属于开源项目和编程相关，但标题核心更偏向政治性倡议而非技术内容本身，兴趣程度不够明确。</small></p><p>作为 FOSDEM「数字异见者（Digital Dissident）开发者房间」的管理者之一，作者发出公开邀请，呼吁开发者、研究员、活动人士共同参与一场关于数字自由的对话。文章指出，世界各地的人们正被噤声、监视并剥夺获取信息的权利，而自由软件可以帮助改变这一切——前提是大家共同构建值得信任和掌控、能安全通信、揭露真相并抵抗审查的工具。</p><p>该开发者房间的核心定位是：关注「身处威胁之下的人」以及保护他们的端到端工具链，而非单一技术。因为在俄罗斯、伊朗、中国、白俄罗斯、缅甸等威权环境下，用户的日常安全依赖于一环扣一环的整条工具链——包括突破封锁（censorship circumvention）、不泄露元数据的通信、安全取证与存证、匿名发布或泄露，以及自身同样构成风险的设备与基础设施。「最薄弱的环节决定了最终结果」，而目前没有任何环节完整拥有这个跨项目视角。</p><p>文章强调为何现在提出这一倡议：上述国家的审查手段已变得高度复杂，包括国家级白名单、仅白名单的断网、TLS 与 QUIC 指纹识别、带主动探测的深度包检测（DPI）、协议限速、移动网络断网、应用商店下架规避工具、强制使用国有即时通讯以及「主权互联网」路由。反审查开发者已用可插拔传输、域名前置替代方案、混合网络（mixnet）、去中心化和基于电邮的通信、新型混淆协议等作为回应，「进展很快但碎片化」。一个专门房间能让相关受众和演讲者在同一地点相遇。</p><p>该房间与现有的「去中心化互联网与隐私」开发者房间互补：后者广泛覆盖去中心化技术，而「数字异见者」的出发点是「处于威胁中的用户」及其端到端保护链。两者将协调安排时间避免重叠。主要议题包括：审查规避与传输（混淆、反指纹、主动探测防御、桥接分发）、抗元数据通信（mixnet、洋葱路由、去中心化/联合式即时通讯、离线优先与网状网络）、安全报道与发布（吹哨人平台、来源保护、文档净化）、设备与操作安全（加固系统、断网/边防场景）、面向风险用户的可用性与威胁建模，以及审查测量与对手分析。</p><p>提交演讲需通过 FOSDEM 官方 CFP 门户，选择「Digital Dissident」轨道，同时需遵守 FOSDEM 行为准则。重要日期：征集 2026 年 10 月 24 日开启，11 月 30 日截止，12 月通知演讲者并发布日程。FOSDEM 第 26 届将于 2027 年 1 月 30 日至 31 日在布鲁塞尔 ULB Solbosch 校区举行。</p><p>在 Hacker News 上，该倡议引发激烈讨论。有评论者认为「审查互联网」相比 AI 内容爆炸与垃圾信息泛滥并不是最大问题；也有人质疑软件能否解决所有问题，因为互联网本质上依赖基础设施传输，企业可付费让基础设施提供商服从其意愿。多位评论者从不同角度讨论「审查」与「内容审核」的边界，以及自由与安全之间的张力，还有人指出多数人其实更偏好与自己政治立场一致的「被审查」网络。不过，对 FOSDEM 本身，多位与会者给予高度评价，称其为内容质量高、无销售气息且氛围放松的优秀会议。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50233929</guid>
-      <pubDate>Sun, 25 Oct 2026 17:30:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GVS5H框架：五个Qwen 3.8-27B模型协作在LiveCodeBench上匹敌Claude Fable 5</title>
-      <link>https://news.ycombinator.com/item?id=50228167</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章主要讲五个Qwen模型协作在编程基准测试上匹敌Claude模型，涉及AI软件技术进展和新AI模型相关，用户对AI软件技术进展感兴趣，故推荐阅读。</small></p><p>一个名为 <a href="https://github.com/slee-persis/GVS5H">GVS5H</a> 的开源项目声称，通过一种无需训练的方法，可以让五个开源的 Qwen 3.8-27B 模型实例协作编程，在 LiveCodeBench Hard 基准上的表现匹敌甚至略超闭源的旗舰模型 Claude Fable 5，而成本仅为后者的约九分之一，且可在单张 GPU 上本地运行。</p>
-
-<p><img src="/slee-persis/GVS5H/raw/master/assets/gvs5h-mark-humans.png" alt="五个男孩叠肩而立，与旁边一只大猩猩一般高" width="300" /></p>
-
-<p>该方法名为「基于账本的零样本自我编排」（ledger-based zero-shot self-orchestration）：同一个模型被反复以全新上下文调用，扮演管理者（manager）和工作者（worker）角色，通过共享文件系统协调——包括问题陈述（task.md）、总体计划（plan.md）、任务列表（tasks.json）、笔记（notes.md）和当前解决方案（solution.py），实现问题的分解与持续上下文管理。</p>
-
-<p>项目方给出的主要结果：在 100 道最新的 LiveCodeBench 难题上，跨 11 个开放与闭源模型测试，该方法在固定后端上最高带来 25.6 个百分点的提升；编排后的 Qwen3.8 Flash Next 达到 93.0% pass@1，对比如 Fable 5 的 90.4%，成本仅为后者的 9%；本地运行的开放权重 Qwen3.8-27B 则从 66.8% 提升至 92.4%。文章也坦承收益并非普遍存在，部分模型无变化甚至变差。</p>
-
-<p><img src="/slee-persis/GVS5H/raw/master/assets/benchmark_livecodebench.png" alt="LiveCodeBench 上单次调用与管理器协作的准确率对比" /></p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 讨论区（177 分、64 条评论）对此反应分化。不少人对成本与本地部署价值表示认可，但也有大量质疑：有评论指出该基准源自 2025 年初、已过时且存在数据污染风险，并批评未与其他前沿模型（如 Astra、Fable 5.1、Opus 5.5）的编排版本对比；还有人认为规则是「先忽略基准规则、增加代理循环再取胜」，并非规范的基准测试方式。部分用户则分享了在 Strix Halo、RX 7900 XTX 等本地硬件上运行 Qwen 3.8 系列模型的实际经验。</p>
-
-<p><img src="/slee-persis/GVS5H/raw/master/assets/price_and_performance.png" alt="单任务平均成本与准确率对比" /></p>
-
-<h3>你知道吗？</h3>
-<p>「上下文压缩」（context compaction）是此类协作式代理（agentic）工作流的关键——在长对话中将旧消息总结以腾出空间，这让模型无需频繁重置上下文也能持续工作。此外，LiveCodeBench 是一个专注于代码生成与执行验证的基准，其「Hard」子集专选难题，常被用于衡量推理与编程能力，但也因发布时间较早而容易被后来的模型「数据泄露」污染，影响评测可信度。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50228167</guid>
-      <pubDate>Sun, 25 Oct 2026 03:56:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Cerebras 详解如何在晶圆级芯片上部署万亿参数级 AI 模型</title>
-      <link>https://news.ycombinator.com/item?id=50227356</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI模型部署与芯片技术，同时涵盖AI软件技术进展（interest）和芯片技术（uninterested），综合判断为推荐阅读</small></p><p>Cerebras 近日发布技术博客，详细解释了如何将参数规模高达万亿级的前沿大模型部署在其晶圆级芯片（WSE-3T）上，并以开源模型 Kimi K3（约 3 万亿参数）为例进行拆解。</p>
-
-<p><strong>核心挑战</strong>：单块 WSE-3T 晶圆只有 44GB 的片上存储，而万亿参数模型的权重本身就需要数 TB 空间。Cerebras 的思路是把模型切分并跨多块晶圆部署，以流水线方式运行，从而实现每秒 1000–2000+ token 的推理速度。</p>
-
-<p><strong>部署要点</strong>：
-<ul>
-<li><strong>逐层计算</strong>：Kimi K3 拥有 69 个线性注意力层（linear-attention layers）和 24 个稠密层（dense layers），共 93 层。按 4-bit 权重量化，每层约占 16GB。</li>
-<li><strong>晶圆分配</strong>：稠密层需要额外空间存放键值缓存（KV cache），因此每块晶放一层稠密层；线性注意力层只需每请求维护固定大小状态，每块晶圆可放两层。合计需要 59 块晶圆（35 + 24）。</li>
-<li><strong>晶圆互联</strong>：各晶圆通过以太网上的 RDMA 相连，每个跳步约 2 微秒。由于每层仅 16GB、可整层放在晶圆上，权重通常无需移动，只有激活值（activations）在晶圆间流动。</li>
-<li><strong>并发处理</strong>：模型被切成流水线各阶段后，每块晶圆可同时处理不同请求（微批次），而非串行等待，从而避免"批大小为 1"的低效局面。</li>
-<li><strong>请求上限</strong>：并发请求上限由分配给稠密层 KV cache 的片上内存决定。</li>
-</ul></p>
-
-<p>作者强调，评估推理效率时更有意义的指标是单位功耗下的总 token 吞吐（如每秒每兆瓦的 token 数），而非单纯的并发数或批大小。这一方案也能进一步扩展到超过 3T 参数的更大模型。</p>
-
-<p><strong>社区反馈</strong>：Hacker News 评论区对部署方案的讨论颇为热烈。有用户关注 59 块晶圆流水线的故障域问题——模型整体作为一"机架"运行，一块晶圆故障可能拖垮整个系统，也不便于滚动升级；有用户据此估算了功耗成本（约 1.18MW，约 4.1 焦耳/token）；还有用户探讨了 Cerebras 芯片的 2D 核心网格布局与流水线并行原理，并引用相关视频作为参考。此外，讨论也延伸至超高速推理对"超级智能"形态的潜在影响。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50227356</guid>
-      <pubDate>Sun, 25 Oct 2026 01:33:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ SpeedCrunch 1.1 发布：开源高精度科学计算器时隔十年迎来更新</title>
-      <link>https://news.ycombinator.com/item?id=50224210</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源软件新版本发布，属于开源项目和软件新功能（均interest），虽有十年间隔但主要讲软件更新，推荐阅读</small></p><p>SpeedCrunch 1.1 正式发布。这是一款免费、开源的<a href="https://www.speedcrunch.org/" rel="nofollow">高精度科学计算器</a>，支持 Windows、macOS 和 Linux 平台，面向 STEM 专业人士、学生和教师设计。新版提供最高 50 位有效数字精度、复数计算支持、140+ 函数以及大量单位和常量；支持用户自定义变量、函数和单位，提供向量与矩阵支持、历史重写及每项结果设置、键盘预设与可自定义布局、多会话标签页/分栏/窗口模式、超过 40 种语言翻译以及 40 多种配色方案。</p>
-<p>本次 1.0 与 1.1 版本是该项目时隔约十年的首次更新。据评论区指出，新版本（可能也包括更早的版本）修复了一个长期未发布的小型运算优先级（order of operations）缺陷：例如 <code>1/2(-9.8)</code> 现在正确等于 -4.9，而非之前的 -0.05102040816326530612，且表达式会以乘法符号（1 / 2 × (−9.8)）清晰渲染以明确含义。不过也有用户认为此类表达式本身就存在歧义，甚至应被视为错误。</p>
-<p>社区反馈整体积极。多位用户表示多年来一直将 SpeedCrunch 固定在任务栏作为日常数学草稿本使用（<a href="https://news.ycombinator.com/item?id=29661485">此前相关讨论见 2021 年 12 月议题</a>）。有用户指出位操作与进制换算功能非常实用。但也有用户对 UI 改动持保留态度（如输入框尺寸和输入延迟问题），甚至选择回退到旧版本；另有人提到项目在响应 GitHub issue 时使用了疑似 AI 辅助的回复，还有人分享了用 AI 生成科学计算器的经验，不过有评论强调科学计算器其实很难做对，SpeedCrunch 自身就修复了多处计算错误。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50224210</guid>
-      <pubDate>Sat, 24 Oct 2026 19:19:43 GMT</pubDate>
     </item>
   </channel>
 </rss>

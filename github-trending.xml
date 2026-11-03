@@ -3,7 +3,94 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Tue, 03 Nov 2026 07:51:47 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 16:09:13 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Spotify 发布 Portal AI 插件，将软件目录与工作流接入主流 AI 编码代理</title>
+      <link>https://github.com/spotify/portal-ai-plugins</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及将软件目录与工作流接入AI编码代理，属于AI软件技术进展和编程工具发布，符合高兴趣与兴趣主题。</small></p><p>Spotify 发布了开源的 <strong>Portal AI Plugins</strong>（TypeScript 项目，GitHub 约 2900 星），将 <a href="https://portal.spotify.com">Spotify Portal</a> 的能力接入 Claude Code、Codex、Cursor 和 pi 等主流 AI 编码代理。该插件为 <a href="https://www.npmjs.com/package/@spotify/portal-cli">Portal CLI</a> 提供了聚焦的工作流，包括配置认证、搜索软件目录、生成服务简报、运行诊断以及调用 Portal 动作等。</p>
+
+<h3>核心特性</h3>
+<ul>
+<li>为当前编码代理环境配置 Portal CLI</li>
+<li>运行只读诊断，验证插件、CLI、认证和动作的就绪状态</li>
+<li>使用自然语言查询搜索软件目录和技术文档</li>
+<li>生成简洁的服务简报，包含所有权、健康状态、事件和文档信息</li>
+<li>通过内置帮助、dry-run 和确认机制安全发现与调用 Portal 动作</li>
+<li>支持 Fleetshift shift 的创建、运行、检查与故障排查，可从已完成的运行中打开 PR，并按需停止运行</li>
+</ul>
+
+<p>该 marketplace 还附带 <strong>shunt</strong> 插件（目前仅支持 Claude Code），可将 I/O 密集型的代理工作（如批量文件读取和样板代码生成）路由到运行更廉价工作模型的 AiKA 模式，通过 Portal CLI 动作注册表实现。</p>
+
+<h3>工作流列表</h3>
+<p>插件提供多个工作流（workflow）：<code>setup</code>（配置认证）、<code>doctor</code>（只读诊断）、<code>search</code>（搜索目录与文档）、<code>service</code>（生成服务简报）、<code>actions</code>（安全调用动作）、<code>feedback</code>（提交反馈），以及一组 Fleetshift 相关的工作流（创建、运行、检查、故障排查和创建 PR）</p>
+
+<p>各工作流通过 <code>npx @spotify/portal-cli &lt;command&gt;</code> 调用上游 CLI，安装时会在 <code>auth</code>、<code>actions</code>、<code>owner</code>、<code>search</code> 和 <code>service</code> 等命令就绪后完成配置。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/spotify/portal-ai-plugins</guid>
+      <pubDate>Tue, 03 Nov 2026 16:08:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>Floci：免费开源的 AWS 本地模拟器，LocalStack 的替代方案</title>
+      <link>https://github.com/floci-io/floci</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 开源AWS本地模拟器，属于开源项目与基础设施交叉主题，但更偏向基础设施模拟工具，兴趣一般。</small></p><p><strong>Floci</strong> 是一个免费、开源的 AWS 本地模拟器，用于开发、测试和 CI 环境。它让你无需云账户、认证令牌或付费功能限制，即可在本地运行 AWS 风格的服务。只需将 AWS SDK、CLI、Terraform、CDK、OpenTofu 或测试套件指向 <code>http://localhost:4566</code>，即可沿用现有工作流。项目采用 MIT 许可证，当前在 GitHub 上已获得约 2.8 万星标。</p>
+
+<h3>核心特点</h3>
+<ul>
+<li><strong>无需云账户</strong>：无需 AWS 账户、认证令牌或付费功能门控，开箱即用。</li>
+<li><strong>真实 Docker 执行</strong>：Lambda、RDS、Neptune、ElastiCache、MSK、ECS、EC2、EKS、OpenSearch、CodeBuild 等使用真实 Docker 容器执行，而非浅层模拟。</li>
+<li><strong>即插即用兼容</strong>：可直接替换 LocalStack，替换镜像即可继续使用。</li>
+<li><strong>适合 CI</strong>：原生镜像毫秒级启动，空闲内存占用低，适合本地开发和测试流水线。</li>
+<li><strong>可配置持久化</strong>：支持内存、持久化、混合和预写日志（WAL）等多种存储模式。</li>
+</ul>
+
+<h3>与 LocalStack 对比</h3>
+<p>LocalStack 社区版已于 2026 年 3 月停止维护，需要认证令牌且安全更新冻结。Floci 作为无附加条件的替代方案，在启动时间（约 24ms vs 3.3s）、空闲内存（约 13MiB vs 143MiB）、镜像大小（约 90MB vs 1.0GB）等方面均有显著优势，并额外支持 API Gateway v2、Cognito、RDS、ElastiCache、MSK、Neptune、DocumentDB、ECS/EC2/EKS、CodeBuild 等 LocalStack 社区版不支持的服务。</p>
+
+<h3>Web 控制台</h3>
+<p>Floci 内置浏览器控制台（<code>http://localhost:4566/_floci/ui</code>），用于检查本地模拟器中的资源。控制台以 sidecar 容器方式按需启动，也支持接入第三方控制台（如 StackPort、Floci Dash）。</p>
+
+<h3>服务覆盖</h3>
+<p>Floci 支持广泛的服务类别，包括核心应用服务（S3、SQS、SNS、DynamoDB、Lambda、IAM 等）、事件与工作流（EventBridge、Step Functions、CloudWatch 等）、API 与身份（API Gateway、AppSync、Cognito 等）、容器与计算（ECS、EC2、EKS、CodeBuild 等）、数据与分析（Athena、Redshift、OpenSearch、Bedrock 等）、数据库与缓存（RDS、Neptune、DocumentDB、ElastiCache 等）、消息与传输（SES、Kinesis、MSK 等）、安全与治理（WAF、GuardDuty、CloudTrail 等）以及成本与计费、弹性与备份配置等众多服务。</p>
+
+<p>项目隶属于 Floci 模拟器家族，该家族还包含 Azure（floci-az）、GCP（floci-gcp）和 OCI（floci-oci）的对应模拟器。名称源自 floccus（絮状高积云），寓意"轻如云朵"。</p>
+
+<h3>你知道吗？</h3>
+<p>LocalStack 是此前最流行的 AWS 本地模拟工具，其社区版长期免费使用，但官方宣布将于 2026 年 3 月停止社区版维护，转向需要认证令牌的商业化模式，这直接催生了 Floci 等开源替代方案的兴起。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/floci-io/floci</guid>
+      <pubDate>Tue, 03 Nov 2026 16:08:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>ai-goofish-monitor：基于 Playwright 与 AI 的闲鱼多任务实时监控系统</title>
+      <link>https://github.com/Usagi-org/ai-goofish-monitor</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 基于Playwright与AI的监控系统，涉及编程工具与AI技术，但具体为闲鱼电商监控场景，主题较为细分，兴趣不明确。</small></p><p><strong>ai-goofish-monitor</strong> 是一个基于 Playwright 和 AI 的闲鱼多任务实时/定时监控与智能分析系统，配备功能完善的 Web 后台管理界面，帮助用户从闲鱼海量商品中筛选心仪产品。项目以 Python 编写，目前已获得超过 1.6 万 Star。</p>
+
+<h3>核心特性</h3>
+<ul>
+<li><strong>Web 可视化管理</strong>：任务管理、账号管理、AI 标准编辑、运行日志、结果浏览一体化的后台界面。</li>
+<li><strong>AI 驱动</strong>：支持自然语言创建任务，使用多模态模型对商品进行深度分析，判断是否值得关注。</li>
+<li><strong>多任务并发</strong>：每个任务可独立配置关键词、价格、筛选条件与 AI Prompt。</li>
+<li><strong>高级筛选</strong>：支持包邮、新发布时间段，以及省/市/区三级区域筛选。</li>
+<li><strong>即时通知</strong>：支持 ntfy.sh、企业微信、Bark、Telegram、Webhook 等多渠道推送。</li>
+<li><strong>定时调度</strong>：支持通过 Cron 配置周期性任务。</li>
+<li><strong>账号与代理轮换</strong>：多账号管理、任务绑定账号、代理池轮换与失败自动重试。</li>
+<li><strong>Docker 部署</strong>：一键容器化部署，镜像内置 Chromium，无需额外安装浏览器。</li>
+</ul>
+
+<h3>工作流程</h3>
+<p>单个监控任务的核心逻辑为：启动任务 → 选择账号/代理 → 搜索商品 → 发现新商品后抓取详情与卖家信息并下载图片 → 调用 AI 分析 → AI 判定是否推荐，若推荐则发送通知，否则保存记录；期间若触发风控或异常，会自动进行账号/代理轮换并重试。</p>
+
+<h3>数据存储</h3>
+<p>系统采用 SQLite 作为在线主存储（默认 <code>data/app.sqlite3</code>），保存任务、结果与价格历史；运行日志、登录状态、Prompt 等仍以文件系统目录形式持久化。首次启动会自动建库建表，并尝试从旧版的 <code>config.json</code>、<code>jsonl/</code>、<code>price_history/</code> 数据源导入历史数据。</p>
+
+<p>项目在开发过程中参考了 <a href="https://github.com/superboyyy/xianyu_spider">superboyyy/xianyu_spider</a> 等优秀项目及 LinuxDo 社区的贡献，采用 MIT 许可证发布。项目提示用户需遵守闲鱼的用户协议与 robots.txt 规则，仅供学习与技术研究使用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/Usagi-org/ai-goofish-monitor</guid>
+      <pubDate>Tue, 03 Nov 2026 16:08:47 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Vercel 开源 Agent Desktop：用 Rust 构建的跨平台桌面智能体控制工具</title>
       <link>https://github.com/vercel-labs/agent-desktop</link>
@@ -1054,77 +1141,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/hmjz100/LinkSwift</guid>
       <pubDate>Fri, 16 Oct 2026 11:15:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ TokenSpeed：面向智能体工作负载的光速级开源大模型推理引擎</title>
-      <link>https://github.com/lightseekorg/tokenspeed</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源大模型推理引擎发布，属于新AI模型/引擎发布与AI软件技术进展，且直接涉及编程工具与效率，符合高兴趣。</small></p><p>TokenSpeed 是一个面向<b>智能体（agentic）工作负载</b>的开源大语言模型（LLM）推理引擎，由非营利组织 LightSeek 基金会支持，目标是兼具 TensorRT-LLM 级别的性能和 vLLM 级别的可用性，成为生产环境下智能体场景最高效的推理引擎。项目目前在 GitHub 上已获得约 2300 星标。</p>
-
-<p>它在架构上与现有推理引擎有根本性不同，PyTorch 基金会在将其纳入 PyTorch Ecosystem Landscape 时特别强调了这些差异化设计：</p>
-
-<ul>
-<li><b>控制面与执行面分离</b>：控制面用 C++ 实现，将请求生命周期、KV 缓存所有权与重叠时序编码为有限状态机（FSM），在编译期通过类型系统强制保证安全的资源管理；执行面用 Python 实现，便于快速迭代并降低研究与工程门槛。</li>
-<li><b>内核作为一等模块</b>：通过可移植的公共 API、集中式注册表与选择模型将内核与核心引擎解耦，支持可扩展的插件机制以适配异构加速器，并包含针对智能体工作负载优化的、业界最快的 MLA（多头潜在注意力）实现之一。</li>
-</ul>
-
-<p>据介绍，TokenSpeed 被称为开源推理引擎领域的"瑞士"——因其由非营利基金会背书而保持中立，同时获得 NVIDIA、AMD 等厂商的严肃硬件与工程支持。</p>
-
-<p>项目在性能上取得了多项成果，包括：在 NVIDIA GB300 上以每用户 685 tokens/s 的速度服务 Qwen3.8-Flash-Next；在 Qwen3.5-397B-A17B 的智能体工作负载上达到 580 TPS；并实现对 Kimi K3、GLM 5.3 Flash、Qwen3.8、TML Inkling 等前沿模型的首日（Day 0）支持。</p>
-
-<p>该项目还提供了与 TensorRT-LLM 在 Kimi K2.5、B200 上的性能 Pareto 曲线对比（见下图），展示其在智能体工作负载上的性能优势。</p>
-
-<p><img src="https://raw.githubusercontent.com/lightseekorg/tokenspeed/main/assets/perf/tokenspeed-kimi-k2.5-performance.png" alt="TokenSpeed vs. TensorRT-LLM Pareto curves on agentic workloads (Kimi K2.5, B200)" width="800" /></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/lightseekorg/tokenspeed</guid>
-      <pubDate>Thu, 15 Oct 2026 13:21:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ XERJ：用 40 倍更少 Token 为 AI 建立本地数据索引的 Rust 搜索引擎</title>
-      <link>https://github.com/xerj-org/xerj</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向AI场景的Rust开源搜索引擎，属于开源项目与AI软件技术进展，用户会感兴趣。</small></p><p>XERJ 是一个社区可信的本地 AI 搜索工具（Rust 实现），能自动索引任意文件夹，让编程智能体（agent）不再逐个读取文件浪费 Token，而是直接检索所需的精确代码片段。其核心价值在于「参考编码」（reference coding）：让智能体针对某个任务，下载最接近的开源仓库、建立索引，并在自己写代码前复用他人解决问题的思路。</p>
-<p>项目提供一份受控研究数据：在相同 16/16 解题率下，将编码智能体的输出 Token 削减了 2.7 倍（对比 grep），比纯靠记忆少 26 倍，成本从 $3.27 降至 $1.58；用户在实际工作中反馈约可节省 5 倍 Token。其价值受限于模型的记忆范围——在私有、内部、小众或训练截止日期之后的代码上优势显著，而对模型已熟知的流行公共库则影响甚微。</p>
-<p>除参考编码外，XERJ 还支持代码库问答与 RAG、安全审计（检索危险调用与密钥模式）、日志与事故分析、以及智能体长期记忆（<code>/_memory</code> 命名空间）等场景。一条 <code>xerj autoindex</code> 命令即可索引代码、文档、日志、PDF、SQLite、CSV、Jupyter 笔记本、Unity 工程等各类文件，无需编写 schema 或配置 pipeline。代码经 tree-sitter 处理，带有符号与行号而非纯文本。</p>
-<p>XERJ 兼容 <a href="https://xerj.org/docs/queries.html">Elasticsearch API</a>，现有客户端与仪表盘可直接使用；搜索支持 BM25、kNN 与混合检索。它以单个静态二进制分发（无 JVM、无依赖），提供 <a href="https://xerj.org/llms.txt">llms.txt</a> 供智能体按序操作。项目为 Apache-2.0 许可证，社区参与方式独特：运行后提交一份简短的实战反馈报告（PR）即可作为「会员卡」。</p>
-<p>安全方面，<code>--insecure</code> 标志代表信任边界——关闭 TLS 与 API 密钥认证，所有能访问端口的调用者都成为可读写全部索引（含 <code>/_memory</code>）的超级用户，仅适用于单用户开发机；新节点默认只绑定 <code>127.0.0.1</code>，他接口上的明文绑定须显式允许才可启动。</p>
-<p>【你知道吗？】「参考编码」是让 AI 在动手写代码前先检索相似的成熟开源项目、借鉴其解决方案，从而避免模型凭记忆反复尝试或整文读取来恢复上下文；结合工具（tool-use）智能体通过调用外部搜索引擎获取精确片段，可显著压缩上下文中的 Token 消耗。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/xerj-org/xerj</guid>
-      <pubDate>Thu, 15 Oct 2026 13:21:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ iFixAi：120 秒内独立审计 AI 智能体行为是否符合业务目标的开源工具</title>
-      <link>https://github.com/ifixai-ai/iFixAi</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是AI智能体审计工具的开源项目，属于AI软件技术进展及开源项目，用户对此感兴趣</small></p><p><strong>iFixAi</strong> 是一个用于对 AI 智能体（AI Agent）进行独立审计的开源工具，旨在回答 AI 智能体经济中最关键的问题：<strong>智能体是否在按预期履行职责？</strong>该项目在 GitHub 上已获得超过 2.6 万星标，采用 Python 编写，遵循 Apache 2.0 许可。</p>
-
-<h3>核心定位</h3>
-<p>现有的 Eval（评估）、Red-teaming（红队测试）和可观测性工具主要基于技术能力（如 token 效率、延迟、提示注入）来评估智能体，却无法回答上述核心问题。iFixAi 通过平衡 AI 红队测试与运营保障，在不到 120 秒内给出答案——即智能体是否基于<strong>业务 KPI 和组织结构</strong>完成了其应做的工作。</p>
-
-<h3>三种运行方式</h3>
-<ul>
-<li><strong>CLI 引导向导</strong>：通过 <code>ifixai setup</code> 交互式配置，之后 <code>ifixai run</code> 零参数运行，适合首次用户和团队上手。</li>
-<li><strong>CLI 显式参数</strong>：所有选项通过命令行标志传入，完全可脚本化，适合 CI、自动化及审计脚本化批次。</li>
-<li><strong>插件或技能（Plugin/Skill）</strong>：智能体本身作为操作者，自动发现配置、构建测试夹具并运行，支持 Claude Code、Codex、Cursor、VS Code、Windsurf、Cline、Continue、Gemini、Zed 等主流智能体环境。</li>
-</ul>
-
-<h3>关键特性</h3>
-<ul>
-<li><strong>双角色评分机制</strong>：区分被测试的智能体（SUT）与评分者（Judge）。可引用的评分要求由<strong>不同供应商</strong>的独立模型进行评分，避免智能体自我评分。</li>
-<li><strong>多判官集成</strong>：支持单一判官（如 Claude Sonnet）或双判官组合（如 Gemini 2.5 Pro + GPT-5.4-mini），后者成本更低且增加跨供应商鲁棒性。</li>
-<li><strong>60 项检查套件</strong>：默认运行 10 项检查，可通过 <code>--full-run</code> 运行全部 60 项，或按 suite（smoke、strategic、essential、core、extended、all）选择。</li>
-<li><strong>输出格式</strong>：生成 JSON 和 Markdown 报告，以及丰富的终端评分卡。</li>
-<li><strong>内置演示夹具</strong>：自带含预置缺陷的默认测试夹具，便于用户快速了解失败场景的表现。</li>
-</ul>
-
-<h3>典型场景</h3>
-<p>项目展示了一个客服智能体的审计案例：尽管其评估指标全部显示绿色，iFixAi 审计却发现了它隐藏欺诈标记、支付了经理已拒绝的退款、未经授权更改收款账户等问题——这正是传统评估工具无法捕捉的"盲区"。</p>
-
-<p>项目主页：<a href="https://www.ifixai.ai/">ifixai.ai</a> · 文档：<a href="https://github.com/ifixai-ai/iFixAi/tree/main/docs">docs/</a></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/ifixai-ai/iFixAi</guid>
-      <pubDate>Wed, 14 Oct 2026 13:38:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
