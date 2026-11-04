@@ -3,7 +3,126 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Wed, 04 Nov 2026 09:11:32 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 04 Nov 2026 17:11:32 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ NVIDIA 开源 Auto-Ontology：为 LLM 与智能体构建语义数据层</title>
+      <link>https://github.com/NVIDIA/auto-ontology</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] NVIDIA 开源的 LLM/智能体语义数据层工具，属于编程工具发布分享，也是 AI 软件技术进展，用户会强烈感兴趣</small></p><p>NVIDIA 开源了 <strong>Auto-Ontology</strong>，一个用 Python 编写的框架，旨在为 LLM（大型语言模型）和智能体（agent）工作流构建基于语义图和推理的数据层。该项目当前在 GitHub 上已获得约 4353 星标。</p>
+
+<p>其核心定位是解决企业数据分析中的可靠性问题：智能体可以从文档和数据库中检索并查询，但"更快拿到数字，如果是错的就毫无价值"。Auto-Ontology 作为与数据库并排运行的服务，将数据库元数据编译为<strong>本体（ontology）</strong>——将业务术语映射到数据列、收录经过审核的 SQL 度量表达式，并梳理表间关系。智能体通过该本体来查询，而用户则通过 Web UI 审查这些定义。</p>
+
+<p>开发者可借助它实现五大能力：<strong>发现</strong>（从数据库元数据生成本体或导入现有语义模型）、<strong>落地</strong>（为每个业务概念提供统一定义并跨表映射）、<strong>认证</strong>（在 UI 或 API 中审查、编辑和认证定义）、<strong>验证</strong>（查询前先检查问题能否回答，并返回 SQL 与智能体推理步骤）、<strong>暴露</strong>（通过 MCP、agent skills 和 REST API 向任意智能体框架提供上下文）。</p>
+
+<p>项目与 Apache <a href="https://ossie.apache.org/">Ossie</a> 语义模型开放标准兼容，可导入导出 Ossie YAML 格式的模型定义。配套的 <a href="https://github.com/NVIDIA/auto-ontology-eval">auto-ontology-eval</a> 仓库用于在 BIRD、BEAVER、FDABench-Lite、Wide World Importers 等基准上评测本体性能，通过控制组（schema 直接放入提示词）与处理组（基于编译后本体的问答智能体）对比，由确定性验证器按执行结果匹配打分。</p>
+
+<p>技术架构主要包括：Next.js 前端（端口 3000）、基于 FastAPI 与 LangChain 的后端文本转 SQL 智能体（3001）、摄取与语义编译服务（3002）、基于 FastMCP 的只读 MCP 服务器（3003），以及带 pgvector 的 PostgreSQL 17 用于存储与向量检索。摄取服务生成本体草稿后，由人工在 Web UI 中验证、精炼并认证，智能体随后依据本体完成意图分类、实体提取、候选检索、SQL 生成、数据校验与修复直至执行。当问题无法被数据覆盖时，智能体可先检查可回答性并主动向用户澄清。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/NVIDIA/auto-ontology</guid>
+      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ PR-Agent：Qodo 捐赠给社区的开源 AI 代码审查代理</title>
+      <link>https://github.com/The-PR-Agent/pr-agent</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源 AI 代码审查代理，直接提升编程效率，属于编程效率改进经验与编程工具分享，必看内容</small></p><p>PR-Agent 是一款开源的、由 AI 驱动的代码审查代理，也是 Qodo（原 CodiumAI）维护的社区项目。Qodo 已将该工具捐赠给开源社区，项目现托管于 GitHub 的 PR-Agent 组织下，完全由社区所有，并开放贡献与维护者招募。该项目与 Qodo 主打的 AI 代码审查平台（Qodo 2.0）相互独立，后者为开源项目提供免费版本，并支持 GitHub、GitLab、Bitbucket 和 Azure DevOps 等平台。</p>
+
+<p><strong>核心功能</strong>：PR-Agent 提供多种以 PR 评论或 CLI 方式运行的命令，包括 <code>/describe</code>（描述 PR 内容）、<code>/review</code>（代码审查）、<code>/improve</code>（改进建议）、<code>/ask</code>（针对 PR 的自由问答）以及 <code>/similar_issue</code>（查找相似 issue）等，完整工具列表见<a href="https://docs.pr-agent.ai/tools/">官方文档</a>。</p>
+
+<p><strong>主要特点</strong>：每个工具仅需一次 LLM 调用（约 30 秒，成本低）；通过 <a href="https://docs.pr-agent.ai/core-abilities/compression_strategy/">PR 压缩策略</a>可高效处理任意规模的 PR；支持基于 JSON 的提示词定制；平台无关，支持 GitHub、GitLab、Bitbucket、Azure DevOps、Gitea 等 Git 提供商，可通过 CLI、GitHub Actions、Docker、自托管或 Webhook 部署；AI 模型方面支持 OpenAI GPT、Anthropic Claude、Google Gemini、DeepSeek、Mistral 以及通过 LiteLLM 接入的任意模型（Azure OpenAI、AWS Bedrock、Vertex AI、Ollama 等）。</p>
+
+<p><strong>开源优势</strong>：用户可完全掌控数据与基础设施，自定义提示词与行为，无厂商锁定，由社区驱动开发。自托管时使用自己的 API 密钥，数据仅在用户与模型提供商之间传输。</p>
+
+<p><strong>社区动态</strong>：项目已迎来首位外部维护者 Naor（<a href="https://github.com/naorpeled">@naorpeled</a>），目前正推进捐赠给开源基金会。另需注意，自 v0.36.1 起 <code>/help_docs</code> 命令因凭据泄露问题暂时停用，修复中（见 <a href="https://github.com/the-pr-agent/pr-agent/issues/2445">issue #2445</a>）。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/The-PR-Agent/pr-agent</guid>
+      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ kimi-k3-in-c：用纯 C99 在单 CPU 上运行 2.78 万亿参数模型</title>
+      <link>https://github.com/FareedKhan-dev/kimi-k3-in-c</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及新 AI 模型 Kimi K3 在单 CPU 上的运行实现，属于新 AI 模型与 AI 软件技术进展，强烈相关</small></p><p>GitHub 热门项目 <a href="https://github.com/FareedKhan-dev/kimi-k3-in-c">kimi-k3-in-c</a> 展示了如何用可移植的 C99 代码，在单颗 CPU、仅 8.24 GB 内存的环境下运行拥有 2.78 万亿参数的 Kimi K3 大模型推理。该项目不依赖 BLAS、不依赖任何框架、也不需要 GPU，整个推理引擎仅 176 KB。</p>
+
+<h3>核心亮点</h3>
+<ul>
+<li><b>极低内存门槛</b>：官方 Kimi K3 检查点（checkpoint）在磁盘上占用 1.56 TB，但该项目通过流式读取和 4-bit 打包，将峰值内存占用压至 8.24 GB。</li>
+<li><b>输出与预算无关</b>：无论机器内存是 8 GB 还是 224 GB，模型输出逐字节一致，更多内存只影响速度，不改变结果。</li>
+<li><b>性能表现</b>：在 8 GB 内存的普通笔记本上约 26.5 秒/词元；128 GB+ 内存的工作站上约 5.6 秒/词元。</li>
+<li><b>跨平台</b>：支持 Linux（x86-64）、macOS（arm64）和 Windows（x86-64），要求 AVX2+FMA 或 NEON 指令集。</li>
+</ul>
+
+<h3>工作原理</h3>
+<p>项目通过四项关键优化将模型从服务器集群"压缩"到笔记本上运行：</p>
+<ul>
+<li><b>专家（experts）以半字节打包</b>：1.45 TB 的路由专家（routed experts）以 4-bit 打包形式存储，从不常驻内存，直接从打包形式计算。</li>
+<li><b>KDA 注意力机制</b>：注意力内存永不增长。</li>
+<li><b>MLA（Multi-head Latent Attention）</b>：用一个潜在向量替代 96 个注意力头。</li>
+<li><b>流式主干（streaming trunk）</b>：密集主干按需流式读取，将内存需求从"地板"变成可调节的"旋钮"。</li>
+</ul>
+
+<h3>验证与测试</h3>
+<p>项目内置完整的无权重测试套件，可在约一分钟内完成构建和验证，通过教师强制（teacher forcing）、贪心解码和增量推理三道关卡，确保引擎与参考实现完全一致。此外还提供基于真实 93 层运行轨迹的缓存模拟工具。</p>
+
+<h3>社区贡献</h3>
+<p>项目已获得超过 1 万颗星，macOS、Windows 和 NEON 移植、聊天模式、ultra 预设、更快的 MXFP4 内核及大量解析器修复均来自社区贡献者。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/FareedKhan-dev/kimi-k3-in-c</guid>
+      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ DiscImageStudio：在 CD/DVD/蓝光盘面上刻蚀可见图像的多平台工具</title>
+      <link>https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源多平台光盘刻图工具，属于开源项目与软件新功能，用户感兴趣，推荐阅读</small></p><p><a href="https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio">Disc Image Studio</a> 是一款用 C# 编写的多平台开源工具（.NET 10，支持 Windows、Linux 与 macOS，采用 GPL-3.0-or-later 许可），它能把任意图片转换为符合 CD、DVD 及单层 BD-R 光盘物理层约束的数据，刻录后使盘面呈现出肉眼可见的图案，在 GitHub 上已获得超过 6200 星。</p>
+
+<h3>核心功能</h3>
+<ul>
+<li><strong>光盘数据生成</strong>：支持各类 CD（可导出带格式头的 WAV 音轨及配套 CUE，兼容 cdrecord、ImgBurn 等，也可导出 RAW 音轨）、任意 DVD（导出 ISO 镜像）以及单层 BD-R 25GB（支持纯绘图与 UDF 2.01 文件系统）。</li>
+<li><strong>随盘文件</strong>：可在设计页直接选择要一并保存的文件夹及内圈/外圈位置，混合盘投影以黄色标出文件区。</li>
+<li><strong>灰度方案</strong>：CD 与 DVD 均采用黑白二阶灰度（CD 用 0D/AA，DVD 扰码域用 A5/92），并提供独立的灰度抖动小工具。</li>
+<li><strong>辅助标定</strong>：提供粗标定、边界标定和精细标定流程，通过盘面照片估计内外半径与轨距分布，可显著改善径向线条的弯曲（官方提供 Verbatim AZO DVD-R 实操教程）。</li>
+<li><strong>刻录</strong>：可导出完整 ISO/RAW 镜像交由外部软件刻录，也可通过 Windows 自带 IMAPI2 进行「即时刻录」（实验性，边生成边写盘）。</li>
+<li><strong>盘片预设与 CLI</strong>：内置多种品牌光盘参数，并提供面向 Linux/macOS 的离线命令行工具。</li>
+</ul>
+
+<h3>技术特点</h3>
+<p>项目严格遵循相关规范实现：CD-R 参考 ECMA-394、DVD 参考 ECMA-267/359、蓝光参考 ISO/IEC 30190:2021，物理模型均有复核文档。整个代码库按介质模块化组织（CD、DVD、BluRay、ISO 写入器等），不联网、不上传文件、不收集遥测。项目致谢了 <a href="https://github.com/arduinocelentano/cdimage">arduinocelentano 的 CDImage 项目</a>——后者率先展示了通过生成 CD 音轨在盘面形成可见图像的方法，本项目的 CD 交织实现即由其移植修改而来。</p>
+
+<p>需要注意的是，「即时刻录」为实验性功能，实测可见效果取决于盘片、刻录机、固件与写入策略，官方建议只使用可报废的测试介质。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio</guid>
+      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 90DaysOfDevOps：社区驱动的 DevOps 系统学习路线图</title>
+      <link>https://github.com/MichaelCade/90DaysOfDevOps</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 社区驱动的 DevOps 学习路线图，属于开源项目，虽涉及基础设施领域但以学习资源为主，推荐阅读</small></p><p><strong>90DaysOfDevOps</strong> 是一个由 Michael Cade 发起的开源学习项目，最初是作者在 2022 年 1 月 1 日至 3 月 31 日期间记录自己 DevOps 学习历程的个人项目，如今已发展成为社区广泛使用的结构化 DevOps 学习地图，覆盖原则、流程、工具和使用案例等多个方面。</p>
+
+<p>该项目目前包含三个主要部分：</p>
+<ul>
+  <li><strong>DevOps（2022）</strong>：核心入门内容，包含 90 天学习计划，累计约 11 万字的原创内容，由社区翻译、修正和增强。</li>
+  <li><strong>DevSecOps（2023）</strong>：聚焦安全领域，补充了 2022 年未覆盖的主题，由社区领域专家提供视角。</li>
+  <li><strong>Community Edition（2024）</strong>：社区版本，包含 91 场在 YouTube 上分享的社区会话，以多种媒体形式构建学习资源。</li>
+</ul>
+
+<p>项目强调开放与免费：不依赖任何厂商赞助，所有内容均可通过免费、社区和开源软件获取。项目鼓励学习者阅读和观看内容、保持好奇心、提供反馈，并在社区中讨论发现。作者欢迎社区贡献有用的学习资源。</p>
+
+<p>该项目在 GitHub 上已获得超过 3 万颗星，采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 知识共享许可协议（非商业性使用-相同方式共享）。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/MichaelCade/90DaysOfDevOps</guid>
+      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Horizon：AI 驱动的新闻雷达，自动生成中英双语每日简报</title>
+      <link>https://github.com/Thysrael/Horizon</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI 驱动的开源新闻简报工具，属于 AI 软件技术进展与开源项目，自动生成中英双语简报有新意，推荐阅读</small></p><p>Horizon 是一个开源的 AI 新闻雷达项目（Python，MIT 协议），针对优质内容分散在各类信息流、论坛和时间线中、而注意力有限的问题，自动从 RSS、Hacker News、Reddit、Telegram、X（Twitter）、GitHub 及财经新闻等来源收集内容，经 AI 筛选与去重后，生成中英双语的每日简报，并附上背景与社区讨论。</p><p>项目的核心机制是「Profile（配置文件）」：一套可复用的编辑规则，决定「什么内容值得收录、什么值得保留、如何撰写」。内置了 tech-news（科技新闻）、tech-blog（工程深度文章）、ai-creator（AI 创作者素材）等示例配置，每种内容类型都有独立的评分标准与输出格式。用户可为每个来源指定 profile，或交由 AI 自动匹配；简报长度与各类目占比均可设上限，避免单一热门话题挤占其他内容。</p><p>处理流程上，每个条目先路由到对应 profile，依次完成分析、过滤、去重，再通过联网检索补充背景与社区讨论，最终按 profile 分组生成简报。整个流程可通过 CLI 运行，也可通过 MCP（Model Context Protocol）让 AI 助手调用各阶段；项目还提供 Agent Skill，可用一条 npx 命令让 AI 助手完成安装、配置与运行。</p><p>简报支持 Markdown 输出，可发布到 GitHub Pages，也可通过邮件、Webhook、飞书、微信等方式推送。项目提供交互式配置向导（horizon-wizard），支持 OpenAI、Claude、Gemini、DeepSeek、豆包、MiniMax 等多种模型，ChatGPT 订阅用户还可直接通过「Sign in with ChatGPT」使用，无需 API Key。可查看<a href="https://thysrael.github.io/Horizon/">在线演示</a>与<a href="https://thysrael.github.io/Horizon/configuration">配置指南</a>。</p><p>该项目目前在 GitHub 上已获得超过 1.2 万 Star，欢迎提交 PR 与新增内容源。</p><h3>你知道吗？</h3><p>MCP（Model Context Protocol）是 Anthropic 于 2024 年提出的开放协议，用于统一 AI 助手与外部工具、数据源之间的连接方式，让模型可以标准化地调用外部能力，Horizon 借此让 AI 助手直接驱动其新闻处理流水线。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/Thysrael/Horizon</guid>
+      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Spotify 发布 Portal AI 插件，将软件目录与工作流接入主流 AI 编码代理</title>
       <link>https://github.com/spotify/portal-ai-plugins</link>
@@ -1028,119 +1147,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/sickn33/agentic-awesome-skills</guid>
       <pubDate>Tue, 20 Oct 2026 15:00:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ vLLM：面向大语言模型的高吞吐量推理与部署引擎</title>
-      <link>https://github.com/vllm-project/vllm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 大语言模型高吞吐量推理与部署引擎，是 AI 软件技术进展与开源项目的核心代表，用户会强烈关注</small></p><p><strong>vLLM</strong> 是一个快速且易用的大语言模型（LLM）推理与部署库，最初由加州大学伯克利分校的 <a href="https://sky.cs.berkeley.edu">Sky Computing Lab</a> 开发，现已成长为最活跃的开源 AI 项目之一，拥有来自 70 多家学术机构和公司的 2000 多名贡献者。</p><h3>核心优势</h3><p>vLLM 以<strong>高吞吐量</strong>著称，其关键技术包括：</p><ul><li><a href="https://blog.vllm.ai/2023/06/20/vllm.html">PagedAttention</a>：高效管理注意力机制的键值（key/value）内存</li><li>连续批处理（continuous batching）、分块预填充（chunked prefill）与前缀缓存（prefix caching）</li><li>支持 FP8、INT8、GPTQ/AWQ、GGUF 等多种量化方案</li><li>优化的注意力内核（FlashAttention、FlashInfer 等）及 GEMM/MoE 内核</li><li>投机解码（speculative decoding）包括 n-gram、EAGLE 等</li><li>基于 torch.compile 的自动内核生成与图级优化</li><li>支持 prefill、decode、encode 的解耦式推理</li></ul><h3>灵活性与易用性</h3><ul><li>无缝集成 Hugging Face 主流模型，支持 200+ 模型架构（Llama、Qwen、Gemma、Mixtral、DeepSeek-V3、Mamba、LLaVA、Qwen-VL 等）</li><li>支持多种解码算法（并行采样、beam search）、流式输出与结构化输出生成</li><li>提供 OpenAI 兼容 API 服务器，以及 Anthropic Messages API 和 gRPC 支持</li><li>支持张量、流水线、数据、专家、上下文等多种并行方式用于分布式推理</li><li>支持 NVIDIA、AMD、Intel GPU 以及 x86/ARM/PowerPC CPU，并兼容 Google TPU、Intel Gaudi、Huawei Ascend 等硬件插件</li></ul><p>该项目为部署大模型服务提供了「简单、快速、低成本」的解决方案，可通过 <code>uv pip install vllm</code> 快速安装使用。其核心论文《Efficient Memory Management for Large Language Model Serving with PagedAttention》发表于 ACM SIGOPS SOSP 2023。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/vllm-project/vllm</guid>
-      <pubDate>Tue, 20 Oct 2026 15:00:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Headroom：面向 AI 智能体的上下文压缩层，平均节省数十个百分点 token</title>
-      <link>https://github.com/headroomlabs-ai/headroom</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 属于 AI 软件技术进展和编程工具类项目，面向 AI 智能体做上下文压缩以节省 token，符合用户兴趣，推荐阅读</small></p><p><strong>Headroom</strong> 是一个为 AI 智能体设计的「上下文压缩层」，在内容到达大语言模型（LLM）之前，对工具输出、日志、RAG 检索块、文件以及对话历史进行压缩，声称在保持相同答案质量的同时大幅减少 token 消耗。</p>
-<p>该项目由 <a href="https://pypi.org/project/headroom-ai/">PyPI</a>、<a href="https://www.npmjs.com/package/headroom-ai">npm</a> 与 Hugging Face 分发，核心基准数据来自官方宣称的离线可复现评测（<code>benchmarks/index_proof_table.py</code>）。据其介绍，四个真实场景的 token 节省分别为：SRE 事故调试 57%、代码库探索 42%、GitHub issue 分类 30%、代码搜索 21%；重复性较高的 JSON 数组与日志行可节省超过 90%。在准确率方面，GSM8K、TruthfulQA 等基准测试显示压缩前后无显著差异，SQuAD v2 在 19% 压缩率下仍保持 97% 的问答水平，BFCL 工具调用在 32% 压缩率下仍达 97%。压缩延迟极低，10K token 的 JSON 结果 p50 仅 0.21 毫秒。</p>
-<p><strong>工作原理</strong>：压缩完全在本机运行，任何提示词或文件内容都不会被发送出去压缩。核心链路由 CacheAligner、ContentRouter 和 CCR 组成，其中 <strong>ContentRouter</strong> 按内容类型分派压缩器——<strong>SmartCrusher</strong>（JSON）、<strong>CodeCompressor</strong>（基于 AST 的源代码）和 <strong>Kompress-v2-base</strong>（自然语言）。<strong>CCR</strong> 将原始内容缓存在本地，供模型按需调用 <code>headroom_retrieve</code> 取回完整文本，因此压缩是可逆的。</p>
-<p><strong>交付形态</strong>：提供库（Python/TypeScript 的 <code>compress()</code>）、零代码改动的代理（<code>headroom proxy</code>）、MCP 服务器以及一条命令即可包裹/解除包裹的智能体封装（<code>headroom wrap</code>，支持 Claude Code、Codex、Grok、Copilot、Cursor、Aider、Cline、OpenHands 等十余种工具）。此外还提供跨智能体共享记忆、<code>headroom learn</code>（从失败会话中提取经验写入本地指南文件）等功能。</p>
-<p><strong>输出 token 缩减</strong>：除压缩发送给模型的提示词外，Headroom 还通过<strong>冗长程度引导</strong>（在系统提示词末尾追加简洁指令）和<strong>思考力度路由</strong>（在简单恢复性回合降低模型推理开销）来削减模型「写回」的输出 token，当前默认关闭，需通过 <code>HEADROOM_OUTPUT_SHAPER=1</code> 启用。</p><p>该项目近期登上 GitHub Trending（今日排名第 7，约 7.6 万星标），社区关注度很高，其「本地压缩、数据不出本机」的设计也切合当前 AI 应用对成本和隐私的关注。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/headroomlabs-ai/headroom</guid>
-      <pubDate>Mon, 19 Oct 2026 13:00:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ LLM Course：通往大语言模型世界的免费学习路线图与实战笔记本</title>
-      <link>https://github.com/mlabonne/llm-course</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是一个大语言模型（LLM）学习路线图与实战笔记本，涉及新AI模型技术及AI软件技术进展，用户对此类AI技术内容非常感兴趣，属必看内容。</small></p><p><strong>LLM Course</strong> 是由机器学习工程师 Maxime Labonne 维护的开源学习项目，旨在帮助开发者系统性地进入大语言模型（LLM）领域。该项目在 GitHub 上已获得超过 8.3 万星标，是目前最受欢迎的 LLM 学习资源之一。</p>
-
-<p>课程分为三个部分：</p>
-<ul>
-  <li><strong>🧩 LLM 基础（LLM Fundamentals）</strong>：可选部分，涵盖数学、Python 和神经网络的基础知识，包括线性代数、微积分、概率统计、数据科学库（NumPy、Pandas 等）以及神经网络的结构与训练原理。</li>
-  <li><strong>🧑‍🔬 LLM 科学家（The LLM Scientist）</strong>：聚焦如何使用最新技术构建最优的 LLM，涉及微调、量化、模型合并等高级主题。</li>
-  <li><strong>👷 LLM 工程师（The LLM Engineer）</strong>：专注于创建基于 LLM 的应用并进行部署。</li>
-</ul>
-
-<p>项目提供了大量可直接在 Google Colab 中运行的实战笔记本（Notebook），覆盖多个关键领域：</p>
-<ul>
-  <li><strong>微调（Fine-tuning）</strong>：包括使用 Unsloth 微调 Llama 3.1、使用 ORPO 微调 Llama 3、使用 DPO 和 QLoRA 微调 Mistral-7b 等教程。</li>
-  <li><strong>量化（Quantization）</strong>：涵盖 8-bit 量化入门、GPTQ 4-bit 量化、GGUF/llama.cpp 量化以及 ExLlamaV2 等主流量化方案。</li>
-  <li><strong>工具（Tools）</strong>：包括 LLM 自动评估（AutoEval）、模型合并（MergeKit）、模型去审查（abliteration）、数据集去重等实用工具。</li>
-  <li><strong>其他</strong>：包括使用 MergeKit 合并模型、创建混合专家模型（MoE）、用知识图谱增强 ChatGPT 回答、解码策略指南等。</li>
-</ul>
-
-<p>作者还基于该课程与人合著了《<a href="https://packt.link/a/9781836200079">LLM Engineer's Handbook</a>》一书，覆盖从设计到部署的端到端 LLM 应用开发。课程本身始终保持免费，购买书籍可支持作者工作。此外，项目还提供了更全面的 <a href="https://deepwiki.com/mlabonne/llm-course/">DeepWiki 版本</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/mlabonne/llm-course</guid>
-      <pubDate>Sun, 18 Oct 2026 13:58:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>Jasna：开源视频/图片马赛克修复工具，支持 GPU 加速</title>
-      <link>https://github.com/Kruk2/jasna</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 这是一个视频/图片马赛克修复开源工具，属于开源项目范畴，用户对其感兴趣，但主题与用户配置的高兴趣领域（AI模型、编程工具）关联较弱，兴趣程度不十分明确。</small></p><p><strong>Jasna</strong> 是一款免费开源的视频和图片马赛克修复工具，可在 GPU 上运行，提供图形界面和命令行两种使用方式。项目在 GitHub 上已获得 2254 星标，使用 Python 编写。</p>
-
-<h3>核心功能</h3>
-<ul>
-<li><strong>精准修复</strong>：自动检测视频中的马赛克区域并仅修复该部分，画面其余部分不受影响。</li>
-<li><strong>两种修复模型</strong>：免费的 <strong>BasicVSR++</strong>（速度快）和面向支持者的 <strong>LTX</strong>（速度慢但细节更丰富，仅支持 NVIDIA）。</li>
-<li><strong>Segment Editor</strong>：可选择只修复视频的特定部分，并支持预览。</li>
-<li><strong>VR180 支持</strong>：可处理 VR180 格式视频，以及静态图片（SD 1.5 模型，面向支持者）。</li>
-<li><strong>实时预览</strong>：Video Player 可实时观看修复效果，无需生成文件。</li>
-</ul>
-
-<h3>工作原理</h3>
-<p>Jasna 的整个处理流程几乎全部在 GPU 上完成：GPU 解码视频 → 检测每帧的马赛克（默认模型 <code>rfdetr-v6</code>）→ 跨帧追踪马赛克并分组为片段 → 使用 BasicVSR++ 以 256x256 分辨率修复每个片段 → 可选二次修复（UNet 4x 等）提升清晰度 → 将修复结果混合回原始帧 → GPU 编码输出。片段在场景切换处自动分割，避免不同镜头被混合处理。</p>
-
-<h3>硬件要求</h3>
-<ul>
-<li><strong>NVIDIA</strong>：GTX 16 系列 / RTX 20 系列或更新（计算能力 7.5+），Windows 驱动 610+、Linux 驱动 580+。</li>
-<li><strong>AMD</strong>：Radeon RX 7000/9000（实验性支持）。</li>
-<li>LTX 模型需要 NVIDIA RTX GPU、至少 8GB 显存和 16GB 内存。</li>
-</ul>
-
-<h3>性能表现</h3>
-<p>根据基准测试，在 RTX 5090 上修复一段 3 分 22 秒的视频，Jasna 相比同类工具 <a href="https://codeberg.org/ladaapp/lada">Lada</a> 快 3.4–4.7 倍（720p 仅需 32 秒，1080p 34 秒，2160p 1 分 03 秒），且显存占用更低。</p>
-
-<h3>商业模式</h3>
-<p>Jasna 本身免费，通过支持者计划获取额外模型。支持 $15 美元可获得 UNet 4x 和 SD 1.5 模型，$25 美元可额外获得 LTX 模型。许可证码仅通过 <a href="https://buymeacoffee.com/kruk2">Buy Me a Coffee</a>、<a href="https://app.unifans.io/c/kruk2">Unifans</a> 及中国闲鱼渠道发售，项目方明确警告其他渠道均为诈骗。一个许可证码可在 3 台 PC 或云工作区使用。</p>
-
-<h3>许可与致谢</h3>
-<p>应用源码采用 AGPL-3.0 许可。项目受 <a href="https://codeberg.org/ladaapp/lada">Lada</a> 启发并在部分代码基础上开发，其使用的 <code>mosaic_restoration_1.2</code> 模型由 Lada 作者训练。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/Kruk2/jasna</guid>
-      <pubDate>Sun, 18 Oct 2026 13:58:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ android/skills：面向 AI 代理的 Android 开发技能库</title>
-      <link>https://github.com/android/skills</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 面向 AI 代理的 Android 开发技能库，属于编程工具发布/分享，用户很感兴趣。</small></p><p><strong>android/skills</strong> 是 Google 官方推出的一个专门为 AI 代理（agent）优化的模块化指令与资源仓库，旨在帮助 AI 代理更好地理解和执行遵循 Android 最佳实践的开发任务。该项目基于 <a href="https://agentskills.io/home">open-standard agent skills</a> 标准，以 Markdown 文件（SKILL.md）形式提供任务的技术规范，为大型语言模型（LLM）提供专业领域和工作流程的"接地"信息。</p>
-
-<p>该项目的核心定位是聚焦于<strong>评估显示 LLM 表现不佳的用例和工作流程</strong>，而非优先覆盖 LLM 已经较为擅长的领域（如基础的 Jetpack Compose 最佳实践）。这意味着它专门针对 AI 在 Android 开发中的薄弱环节进行补强。</p>
-
-<p>项目支持通过 <strong>Android CLI</strong> 安装技能（如 <code>android skills add r8-analyzer</code>），也支持作为插件安装到 <strong>Claude Code</strong> 和 <strong>Codex</strong> 等主流 AI 编码工具中。安装后，代理会自动识别与任务相关的技能并激活使用，例如提示"让我的应用 UI 实现 edge-to-edge"即可触发相应技能。</p>
-
-<p>官方文档提供了更多参考：<a href="https://developer.android.com/tools/agents/android-skills">Android skills</a>、<a href="https://developer.android.com/tools/agents/android-cli">Android CLI</a> 和 <a href="https://developer.android.com/studio/gemini/skills">Android Studio</a>。项目采用 Apache License 2.0 许可，目前不接受公开贡献，但欢迎通过 GitHub Issue 提交反馈和技能请求。</p>
-
-<div class="know-more"><h3>你知道吗？</h3><p><strong>Agent Skills</strong> 是一种开放标准，通过结构化的 Markdown 文件（SKILL.md）为 AI 代理提供特定任务的"技能"定义。与传统的提示词（prompt）不同，技能文件包含更完整的技术规范，使代理能够在需要时按需加载，从而减少上下文窗口的占用并提高任务执行的准确性。这一概念正逐渐成为 AI 编程工具生态中的通用标准。</p></div>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/android/skills</guid>
-      <pubDate>Fri, 16 Oct 2026 11:15:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ LinkSwift：支持九大网盘直链获取的油猴脚本，GitHub 近 2.3 万星标</title>
-      <link>https://github.com/hmjz100/LinkSwift</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 支持九大网盘的油猴脚本开源工具，近 2.3 万星标，属于编程工具发布/分享与开源项目，用户很感兴趣。</small></p><p><strong>LinkSwift</strong> 是一个基于 JavaScript 的油猴（Tampermonkey）脚本，用于获取网盘文件的直链下载地址。该项目由知名脚本【网盘直链下载助手】（原作者油小猴，原仓库 <a href="https://github.com/syhyz1990/baiduyun">syhyz1990/baiduyun</a>）修改而来，在 GitHub 上已获得约 2.3 万星标，目前在 Trending 榜单位居前列。</p>
-<p>该脚本支持<strong>九大网盘</strong>：百度网盘、阿里云盘、中国移动云盘、天翼云盘、迅雷云盘、光鸭云盘、夸克网盘、UC 网盘及 123 云盘，并提供直链获取、界面美化、以及推送至多种下载器（IDM、Aria2、比特彗星、AB Download Manager 等）的功能。相比原脚本新增了链接缓存、增强下载多块多线程支持、主题色自定义、深色模式适配、Cookie/参数优化等大量增强特性，并持续跟进各大网盘页面与策略的变动（如 123 云盘、夸克/UC 分享页的反复改版）及时修复失效问题。</p>
-<p>值得注意的是，项目明确声明其获取的下载链接均基于各网盘服务商公开的 API 接口，<strong>并未破解或绕过网盘限速机制</strong>。若实际下载速度较快，通常源于服务商接口策略、本地网络环境或带宽调整，项目本身坚持技术中立、合规克制，并对第三方夸大宣传（如"加速下载""限速破解"等表述）予以澄清免责。脚本可在 GitHub、OpenUserJS 与脚本猫等渠道安装，并提供稳定的正式版与功能更前沿的金丝雀（dev）版。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/hmjz100/LinkSwift</guid>
-      <pubDate>Fri, 16 Oct 2026 11:15:23 GMT</pubDate>
     </item>
   </channel>
 </rss>

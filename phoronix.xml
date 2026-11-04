@@ -3,7 +3,72 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 04 Nov 2026 09:11:30 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 04 Nov 2026 17:11:15 GMT</lastBuildDate>
+    <item>
+      <title>⭐ NVIDIA 620.70.06 Linux 驱动发布：改进 Wayland 显式同步性能并修复多项问题</title>
+      <link>https://www.phoronix.com/news/NVIDIA-620.70.06-Linux-Driver</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux驱动软件新版本发布，涉及Wayland桌面修复，属于软件新功能和Linux桌面技术</small></p><p>NVIDIA 于今日发布了 R620 分支的首个 Linux 驱动版本 620.70.06。该版本功能变化不大，主要包含一些错误修复、Wayland 下显式同步（explicit sync）的性能改进以及其他优化。</p><p>最值得关注的变化是，在 Wayland 上运行高帧率基准测试时，显式同步的性能得到了提升。Wayland 方面还修复了在多 GPU 系统上启用 <code>__VK_ENABLE_DEVICE_GROUPS</code> 时，Vulkan 应用在 Wayland 下出现的画面损坏和闪烁问题。此外，通过 <code>__GL_SHOW_GRAPHICS_OSD</code> 激活的 OpenGL 视觉指示器现已适用于所有 Vulkan 后端，包括 Wayland 和直接显示（direct-to-display）模式。</p><p>该 R620 驱动还修复了自 R595 以来影响《刺客信条：影》（Assassin's Creed Shadows）的回归问题，以及《最终幻想 VII 重生》（Final Fantasy VII Rebirth）在使用 VKD3D-Proton 描述符堆时出现的间歇性崩溃，并包含其他一些错误修复。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=nvidia_620_linux" alt="NVIDIA 620 Linux driver release" /><p>该驱动现已可从 NVIDIA.com 下载。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-620.70.06-Linux-Driver</guid>
+      <pubDate>Wed, 04 Nov 2026 14:29:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Debian APT 包管理器曝中间人攻击漏洞，可导致以 root 权限执行任意代码</title>
+      <link>https://www.phoronix.com/news/Debian-APT-MITM-RCE</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 重要的安全漏洞新闻，属于必读新闻范畴</small></p><p>今日披露了一个影响 Debian APT 包管理器的新漏洞：中间人（MITM）攻击者可以利用该漏洞以 root 权限执行任意代码。APT 安全公告指出，不当的文件处理可能导致中间人攻击者以 root 身份执行任意代码。</p><img src="//www.phoronix.net/image.php?id=2026&image=apt_update_med" alt="sudo apt dist-upgrade" /><p>该漏洞编号为 <strong>CVE-2026-109518</strong>，截至发稿时完整报告尚未公开。Debian 安全公告 <a href="https://www.debian.org/security/">DSA 6607-1</a> 将其概述为：安全研究员 Max Justicz 发现 APT 包管理器存在漏洞——当 HTTP 重定向使两次不同的软件包下载指向同一 URI 时，APT 可能合并这两个下载；在恢复 HTTP 下载时的不当文件处理，允许中间人攻击者在软件包校验通过后将其替换，从而导致以 root 权限执行任意代码。对于稳定发行版（trixie），该问题已在 <strong>3.0.4</strong> 版本中修复，同时该更新还解决了若干越界访问（out-of-bounds access）问题。公告建议用户尽快升级 apt 软件包。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Debian-APT-MITM-RCE</guid>
+      <pubDate>Wed, 04 Nov 2026 13:10:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ systemd 合并对 Rust 的初步支持，仅限叶子组件</title>
+      <link>https://www.phoronix.com/news/systemd-Loves-Rust</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Rust语言支持的新软件功能，符合用户对Rust的兴趣</small></p><p>systemd 项目近期合并了对 Rust 程序的支持。这一初步支持目前仅限用于叶子组件（leaf components）和独立二进制文件，而最终目标是能够在 systemd 的根组件中支持 Rust。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=systemd_loves_rust" alt="systemd loves Rust" />
+<p>systemd 首席开发者 Christian Brauner 与 Lennart Poettering 近日共同创办了致力于为 Linux 工作负载提供可验证完整性的公司 Amutable，并于本周二撰写了一篇博客文章，概述了 systemd 中这项初步 Rust 支持计划。</p>
+<p>目前由于 Rust 尚缺乏一流的共享库（shared library）支持，他们还无法在 systemd 核心组件中采用 Rust 代码。但现阶段 project 可以允许 Rust 用于 systemd 二进制文件中的叶子组件，因为共享代码仍保持为纯 C。</p>
+<p>systemd 允许使用 Rust 的关键设计决策包括：对核心 API 的统一访问、统一行为、统一构建系统、no-std Rust、Rust 保持可选，以及类似的设计要求。</p>
+<p>Lennart 和 Christian 在博客结尾表示：「systemd 也希望看到 Rust 被采纳到核心组件中，并愿意与 Rust 社区合作使其成为现实。希望即使目前仅在叶子二进制中采用 Rust，也能向 Rust 社区发出又一个强烈信号，表明 Linux 栈的核心组件正在采用 Rust。若能解决诸如缺乏一流的共享库支持，或主要能通过文件描述符与文件系统交互等根本性障碍，将非常有益。」</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/systemd-Loves-Rust</guid>
+      <pubDate>Wed, 04 Nov 2026 12:44:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>Synaptics 疑似通过法律威胁迫使开源 DisplayLink 驱动 Vino 下架</title>
+      <link>https://www.phoronix.com/news/Synaptics-Blocks-Vino-Driver</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及开源驱动的法律纠纷，主题偏向公司行为而非技术内容，兴趣不明确</small></p><p>今年早些时候，曾有一个针对现代 DisplayLink 硬件的新型实验性开源 Linux 驱动受到关注。这款名为「Vino」的 DisplayLink 驱动，是一款通过净室逆向工程开发的驱动，部分由 AI 参与开发，并以 Rust 语言编写。</p><p>然而，遗憾的是，这款开源驱动在遭遇 Synaptics 的法律威胁后已经消失。据本周 LKML（Linux 内核邮件列表）上的帖子和相关附件显示，Synaptics 似乎动用了其法务团队，以涉嫌侵犯其专利为由阻止这款由社区独立开发的驱动，并向 Vino 驱动的开发者发出了停止侵权（cease and desist）通知。</p><p>目前，Vino 驱动的 GitHub 仓库已不再公开可见。这意味着短期内不大可能看到上游的开源 DisplayLink Linux 驱动出现。早期的 USB2 时代 DisplayLink 硬件在 Linux 上运行良好，甚至有官方开源驱动的支持，但如今看来，Synaptics 将确保其最新的 USB 图形相关知识产权不会再有对应的开源驱动。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Synaptics-Blocks-Vino-Driver</guid>
+      <pubDate>Wed, 04 Nov 2026 11:03:08 GMT</pubDate>
+    </item>
+    <item>
+      <title>AMD 表达对 Omarchy Linux 的青睐，双方合作前景可期</title>
+      <link>https://www.phoronix.com/news/AMD-Loves-Omarchy</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] AMD与Linux协作的公告，主题较为模糊，与用户兴趣匹配度不高</small></p><p>AMD 正表达对基于 Hyprland 合成器的 Omarchy Linux 发行版的浓厚兴趣，预计未来将有更多合作展开。此前，包括阿里巴巴、SpaceXSI、DigitalOcean、Meta SuperIntelligence Labs 等组织已向该发行版的开发投入数百万美元资金。</p><img src="//www.phoronix.net/image.php?id=2026&image=omarchy_45_3_med" alt="Omarchy Linux" /><p>AMD 人工智能软件副总裁 Anush Elangovan 近期在 X 平台多次称赞 Omarchy。他长期以来领导 ROCm 相关开发工作，其创办的 Nod.ai 公司被 AMD 收购后一直担任此职。值得一提的是，Anush 还保持着 Omarchy 的最快安装时间纪录——正是使用 AMD 硬件完成的。</p><p>昨日在 Fireworks Forge 活动中，Elangovan 与 Omarchy 主创 David Heinemeier Hansson 会面，并向对方提供了一台搭载 AMD Ryzen AI Max 495+「Gorgon Halo」处理器的 HP ZBook 笔记本电脑。Elangovan 在 X 上评论道：「AMD ❤️ Omarchy。美好的事物就在前方。」</p><img src="//www.phoronix.net/image.php?id=2026&image=amd_omarchy" alt="AMD loves Omarchy on X" /><p>AMD 与 Omarchy 之间的合作将带来怎样的成果值得期待。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-Loves-Omarchy</guid>
+      <pubDate>Wed, 04 Nov 2026 10:50:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ AMD 发布 ZenDNN 6.1，新增内核与多项优化</title>
+      <link>https://www.phoronix.com/news/AMD-ZenDNN-6.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AMD深度学习推理库新版本发布，属于AI软件技术进展和软件新功能</small></p><p>AMD 今日发布了深度学习加速库 ZenDNN 6.1。上个月，Intel 与 AMD 联合宣布将在 PyTorch/oneDNN 软件优化上展开合作，UXL 基金会随后也发布了带有初步 AMD Zen 优化的 oneDNN 3.14。不过从现状来看，AMD 仍会继续独立推进 ZenDNN 库的开发，并非完全绑定于 oneDNN。</p>
+
+<p>ZenDNN 6.0 于今年 7 月发布，带来了面向深度学习软件的多种增强（该库与 oneDNN API 兼容）。ZenDNN 6.1 在此基础上进一步扩展，主要包括：在 LowOHA 推理栈上的更多工作，包括更快的分组矩阵乘法（MATMUL，MATrix MULtiplication）自定义内核、FP16 与 DA8W4 内核、面向 DA8W4 / DA8W8 / INT8 / BF16 的 MATMUL 自定义内核、对称 INT8 预打包（prepacking）等改进。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=zendnn_61" alt="ZenDNN 6.1 changes" />
+
+<p>有关 AMD ZenDNN 6.1 的更多详情，可通过 <a href="https://github.com/amd/ZenDNN">GitHub</a> 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-ZenDNN-6.1</guid>
+      <pubDate>Wed, 04 Nov 2026 10:19:15 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Domicile：用 Web 技术构建 Wayland 桌面的新型合成器</title>
       <link>https://www.phoronix.com/news/Domicile-Desktop-Wayland</link>
@@ -580,91 +645,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/NTFS-Linux-7.4-Improvements</guid>
       <pubDate>Tue, 27 Oct 2026 10:11:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Firefox 159 发布：修复 AMD Linux 显卡内存占用过高问题</title>
-      <link>https://www.phoronix.com/news/Firefox-159-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Firefox 版本更新，属来源级高兴趣，必看</small></p><p>Mozilla 于 2026 年 10 月 27 日发布了 Firefox 159，这是其最新一期双周功能更新版本。</p><p>对于在 Linux 上使用 AMD 显卡的用户，此次更新修复了一个重要 bug：此前在查看 ChatGPT 等网站的搜索结果或地图位置时,Firefox 可能出现过高的内存占用。在 AMD 显卡的 Linux 系统上遇到 Firefox 内存飙升问题的用户，可升级到 Firefox 159 以获取该项重要修复。另一个重要的 Linux 相关改动是修复了 Wayland 下的标签页问题。</p><p>此外，Firefox 159 还改进了自身的 AI 集成功能，默认在侧边栏提供已保存密码，并包含多项 bug 修复。面向 Web 开发者，Firefox 159 默认启用了滚动驱动动画（scroll-driven animations）等变更。Firefox 159 现已可从 ftp.mozilla.org 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Firefox-159-Released</guid>
-      <pubDate>Tue, 27 Oct 2026 09:35:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>Nouveau-DKMS 项目旨在改善旧款 NVIDIA Fermi 显卡的开源驱动体验</title>
-      <link>https://www.phoronix.com/news/Nouveau-DKMS</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于NVIDIA旧GPU的开源驱动(Nouveau)改进，虽涉及Linux开源体验但与旧硬件相关，兴趣不明确</small></p><p>开源 NVIDIA「Nouveau」驱动的树外分支 Nouveau-DKMS 正在开发中，专注于为 NVIDIA GeForce 400/500「Fermi」系列显卡提供更好的支持，未来也可能覆盖 Turing 之前的其他显卡世代。</p>
-
-<p>目前，使用约 16 年前的 Fermi 显卡配合上游 Linux 内核运行 Nouveau 驱动的用户体验较差，主要原因是重时钟（re-clocking）问题，且开源开发者大多将精力集中在更新的 NVIDIA GPU 世代上。Nouveau 目前主要支持 GTX 1600 / RTX 20 Turing 及更新显卡，这些显卡借助 GPU 系统处理器（GSP）使驱动支持更为容易；同样，NVIDIA 正在开发的 Nova Rust 驱动也仅聚焦于 Turing 及更新世代。官方 NVIDIA Linux 驱动也早已将 Fermi 归入「legacy」分支，让仍在使用这些老显卡的用户处境尴尬。</p>
-
-<img src="//www.phoronix.net/image.php?id=nvidia_gtx_550ti&image=nvidia_550ti_box_med" alt="GeForce GTX 550 Ti Fermi" />
-
-<p>Nouveau-DKMS 树外驱动致力于改进 Fermi 支持，包括完整的 Core、Shader、Voltage、PCIe Gen1/Gen2 以及双向 DDR3 内存重时钟功能。此外，该驱动还在支持上游 Nouveau 驱动所不具备的各种新特性。</p>
-
-<img src="//www.phoronix.net/image.php?id=nvidia_geforce_gt520&image=nvidia_gt520_card1_med" alt="" />
-
-<p>相关开发活动可通过 <a href="https://github.com">GitHub 仓库</a>查看，同时还有配套的用户空间工具用于管理动态重时钟。</p>
-
-<img src="//www.phoronix.net/image.php?id=nvidia_geforce_gtx460&image=nvidia_gtx460_pkg_med" alt="GeForce GTX 460 Fermi" />
-
-<p>虽然 Fermi 目前是主要关注点，但项目路线图也规划了改进 Kepler、Maxwell 和 Pascal 显卡支持的愿景，以覆盖 Turing 之前的全部世代。不过这些工作目前都在树外进行，尚不清楚其中部分内核驱动工作能否最终进入主线的 Nouveau 驱动。这一工作部分动机似乎与 AliveOS 的开发相关——这是一个基于 Arch 的极简新 Linux 发行版，预计于 2027 年初发布，将配备自定义 Cinnamon 桌面、XLibre 显示服务器、Btrfs 快照等现代桌面特性。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Nouveau-DKMS</guid>
-      <pubDate>Mon, 26 Oct 2026 12:24:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.4 开始采用新的 &quot;Core MM&quot; 内核内存管理树</title>
-      <link>https://www.phoronix.com/news/Linux-Core-MM-Tree</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux 7.4内核采用新的Core MM内存管理树，属于Linux技术进展，推荐阅读</small></p><p>Linux 内核的内存管理（MM）补丁传统上通过 Andrew Morton 的 "MM" 分支合入主线，该分支同时承载了包括 DAMON/DAMOS 在内的各类广泛内存管理相关补丁。内核维护者现已同意设立一个新的 "Core MM" 树，作为未来所有核心内存管理变更的归属地。</p>
-
-<p>在今年的 Linux 维护者峰会上，与会者同意推进新的 Core MM 树，以减轻 Andrew Morton 的 MM 树负担。来自 Arm 的 David Hildenbrand 发出了 Linux 7.4 的 Core MM 代码首次拉取请求（pull request）。</p>
-
-<p>Hildenbrand 在拉取请求中解释：<em>"正如维护者峰会上讨论的，这是来自新 Core MM 树的第一个拉取请求。由于旅行原因我稍微迟了一些。这个周期主要用于建立 Core MM 树、将一些较小的 MM 组件移入其中，并建立 linux-next 的 MM 集成工作流程。对于 7.4，MM 更新将通过 slab、memblock、Andrew 的 MM 以及我的 Core MM 树到达您手中。对于下一个周期（7.5），我们计划减少通过 Andrew 树路由的补丁数量，并开始将 MM 组件树（memblock、slab、core）合并到新的 MM 集成树中以供上游合并。在后续周期中，我们将逐步将更多组件从 Andrew 的 MM 树移入现有或新的 MM 组件树，最终目标是建立一个单一的 MM 集成树供您拉取。"</em></p>
-
-<p>该拉取请求开始布局新的 Core MM 工作流程，同时带来了一些围绕 Get User-Pages 和内存热插拔（Memory Hotplug）代码的初始补丁。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Core-MM-Tree</guid>
-      <pubDate>Mon, 26 Oct 2026 11:42:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Moxnox 1.0：一款基于 Btrfs 的类 NT、兼容 POSIX 的自托管业余操作系统</title>
-      <link>https://www.phoronix.com/news/Moxnox-OS</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍一个轻量级hobby OS新软件项目，符合新软件项目兴趣，推荐阅读</small></p><p>开源开发者 Mark Harmstone（以开发 Windows 版 Btrfs 文件系统驱动而闻名）经过数年开发，正式发布了其业余操作系统 Moxnox 1.0。这是一款类 NT、兼容 POSIX 的操作系统，运行在 Btrfs 文件系统之上——考虑到其作者与 Btrfs 的深厚渊源，这并不令人意外。</p><img src="//www.phoronix.net/image.php?id=2026&image=moxnox" alt="Moxnox" /><p>Moxnox 1.0 已具备自托管能力，其系统调用借鉴了 Windows NT 的设计，同时也能运行面向类 Unix 系统编写的软件。整个项目约有 13 万行 C++ 代码，目标硬件平台为 AMD64 与 AArch64。目前 Moxnox 针对 x86_64-v3 架构，由于硬件与驱动支持有限，现阶段在 QEMU 虚拟机内测试最为方便。</p><p>已移植到 Moxnox 的软件包括 Bash 及其他常见 GNU 工具、GCC 编译器、CMake、Zstd、Git 以及多种库。此次 v1.0 版本尚不支持图形界面（GUI），尽管系统调用仿照 Windows NT 设计，但目前也还无法运行 Windows 的 EXE 程序。</p><p>针对 2026 年人工智能生成代码的流行趋势，Harmstone 特别澄清：Moxnox 中没有任何"实质性代码"由 AI 编写，AI 仅用于辅助部分机械性工作（如移植和翻译）。感兴趣的读者可通过项目的 <a href="https://github.com/">GitHub</a> 仓库了解更多信息。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Moxnox-OS</guid>
-      <pubDate>Mon, 26 Oct 2026 10:04:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.4 的 EXT4 引入可选的缓冲 IOmap 支持，大幅提升大文件写入性能</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-EXT4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] EXT4引入可选buffered IOmap带来大写入性能提升，属软件新功能与性能改进，推荐阅读</small></p><p>在 Linux 7.4 合并窗口期间，EXT4 文件系统的变更已于周日晚合并。该新内核版本的一大亮点特性是引入了对缓冲 IOmap（buffered IOmap）的可选支持，可为大文件写入带来"显著"的性能提升。</p>
-<p>此前就有报道提到 EXT4 的缓冲 IOmap 支持即将到来，其通过用 IOmap 框架取代文件系统驱动中的 buffer head 机制，具备相当大的性能潜力。对于大文件写入，性能提升非常可观；而读取性能的提升则相对有限。</p>
-<p>EXT4 维护者 Ted Ts'o 在拉取请求中写道：「在 ext4 中加入缓冲 iomap 支持。该功能默认未启用，需要通过挂载选项 buffered_iomap 开启，因为此模式不支持在线碎片整理、inline data、fsverify、fscrypt、非 extent inode 以及 data=journal 模式。若启用 buffered_iomap，ext4 会在必要时自动回退到原有的 I/O 代码路径。启用缓冲 iomap 后，大文件写入显示出显著的性能提升。此外还有多项杂项错误修复与改进，包括 fast commit，以及处理损坏文件系统边界情况时避免死锁和越界读取。」</p>
-<p>这项缓冲 IOmap 支持由华为的张毅（Zhang Yi）主导开发，并展示了其带来的巨大性能收益：</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=ext4_buf_iomap" alt="EXT4 缓冲 IOmap 基准测试结果" />
-<p>因此，当升级到 Linux 7.4 时，可以留意 EXT4 的 "buffered_iomap" 挂载选项。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-EXT4</guid>
-      <pubDate>Mon, 26 Oct 2026 09:53:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Redox OS 九月迎来多项性能优化：IPC 延迟大幅降低</title>
-      <link>https://www.phoronix.com/news/Redox-OS-September-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Redox OS（基于 Rust 的开源操作系统）的性能改进更新，属于 Rust 和开源项目范畴，符合感兴趣级别</small></p><p>基于 Rust 的开源操作系统 Redox OS 在 2026 年 9 月取得了多项重要进展，其中一系列性能优化尤为引人注目。</p>
-
-<p>Redox OS 现在支持<strong>直接上下文切换</strong>（direct context switching），允许应用程序在调用系统服务时绕过调度器。此前调度器使用开销较大的 BTreeMap 数据结构进行上下文切换，避免这一用法后，IPC 延迟降低了约 24%，小缓冲区 I/O 性能提升了约 5%。此外，内核 TLB 使用量的减少带来了多方面收益，TLB 未命中率降低了 75%。避免不必要的 AVX 寄存器保存/恢复操作，使 IPC 延迟再降低 14%。SDL2 性能也得到了改善。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=redoxos_qemu_med" alt="Redox OS" />
-
-<p>其他近期工作包括：Intel Tiger Lake GPU 的外部显示器热插拔支持、启动修复、升级至 Rust uutils 0.11，以及在 Redox 构建系统中加入 LLVM Clang 支持以实现交叉编译。此外还有多项内核和驱动程序改进。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Redox-OS-September-2026</guid>
-      <pubDate>Mon, 26 Oct 2026 00:24:45 GMT</pubDate>
     </item>
   </channel>
 </rss>
