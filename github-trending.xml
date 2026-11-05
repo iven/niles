@@ -3,7 +3,92 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Thu, 05 Nov 2026 03:27:33 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 05 Nov 2026 12:17:38 GMT</lastBuildDate>
+    <item>
+      <title>⭐ LZ4：极速无损压缩算法，单核压缩速度超 500 MB/s</title>
+      <link>https://github.com/lz4/lz4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为高速无损压缩算法库，属于编程工具与开源项目，符合用户对开源项目和软件新功能的兴趣，但并非最新发布热点，故推荐阅读。</small></p><p>LZ4 是一款极速的无损压缩算法，以压缩速度为核心卖点：单核压缩速度超过 500 MB/s，且可随多核 CPU 扩展；其解压速度更是达到每核数 GB/s，在多核系统上通常能触及内存带宽上限。</p>
+
+<p>LZ4 支持通过「加速因子」（acceleration factor）动态调节压缩速度，以压缩率换取更快的速度。同时提供高压缩率变体 <strong>LZ4_HC</strong>，用更多 CPU 时间换取更好的压缩比，但所有版本解压速度一致。</p>
+
+<p>LZ4 还兼容<a href="https://github.com/facebook/zstd#the-case-for-small-data-compression">字典压缩</a>，支持 API 和命令行（<code>-D</code>）两种方式，可将任意输入文件作为字典（仅使用最后 64 KB），并可结合 <a href="https://github.com/facebook/zstd/blob/dev/programs/zstd.1.md#dictionary-builder">Zstandard 字典构建器</a>大幅提升小文件的压缩性能。</p>
+
+<p>根据官方基准测试（lzbench v2.4.1，Core i7-9700K 单线程，Silesia Corpus 数据集），LZ4 默认配置（v1.11.0）压缩比 2.112，压缩速度 770 MB/s，解压速度 4950 MB/s，在同类快速压缩算法中表现突出；LZ4 HC -9 压缩比提升至 2.717，解压速度仍达 4800 MB/s。</p>
+
+<p>LZ4 库以 BSD 2-Clause 许可证开源，命令行工具采用 GPL-2.0-or-later 许可证。除 C 参考实现外，社区还维护了 Java、C#、Python、Perl、Ruby 等多种语言的移植版本，多数发行版可通过包管理器直接安装。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/lz4/lz4</guid>
+      <pubDate>Thu, 05 Nov 2026 12:12:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Vercel Labs 发布 agent-browser：为 AI 智能体打造的 Rust 浏览器自动化 CLI</title>
+      <link>https://github.com/vercel-labs/agent-browser</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为面向AI智能体发布的 Rust 浏览器自动化 CLI 工具，属于编程工具发布与AI软件技术进展，用户会很感兴趣，必看。</small></p><p>Vercel Labs 推出的 <strong>agent-browser</strong> 是一个用 Rust 编写的原生 CLI 工具，旨在让 AI 智能体（AI agent）通过一条条命令驱动浏览器完成网页操作。项目发布后迅速登上 GitHub Trending，目前已获得超过 4.5 万星标。</p>
+
+<h3>核心机制：快照 + 引用（ref）循环</h3>
+<p>agent-browser 的核心工作方式是「快照—操作—复查」循环：<code>snapshot</code> 命令将页面以紧凑文本形式输出，并为每个元素生成类似 <code>@e1</code> 的引用（ref）；智能体基于引用执行 <code>click</code>、<code>fill</code> 等操作，再重新读取页面确认结果。浏览器在命令之间保持打开状态，因此每一步都只是一次简短的 shell 调用，非常适合智能体逐步决策的场景。</p>
+<p>除了引用，还支持 CSS 选择器、文本、XPath 和语义定位器（如 <code>find role button click --name "Submit"</code>）。点击目标被遮挡、隐藏或不可用时命令会明确失败，而不是虚假报告成功，这有助于智能体感知并处理弹窗、同意横幅等干扰元素。</p>
+
+<h3>工作原理与生态</h3>
+<p>CLI 将每条命令发送给后台守护进程（daemon），后者通过 Chrome DevTools Protocol（CDP）控制浏览器；每个 <code>--session</code> 拥有独立的守护进程和浏览器。默认使用 Chrome for Testing，也可通过 <code>--cdp</code> 附加到已运行的 Chrome，或切换 Lightpanda、Obscura 等引擎，驱动 iOS 模拟器中的 Mobile Safari，以及接入 Browserbase、Browserless、Browser Use、Kernel、AgentCore 等云端浏览器服务。</p>
+
+<h3>面向智能体的集成能力</h3>
+<p>项目内置与版本匹配的 skills（技能包），可通过 <code>agent-browser skills get core</code> 获取核心循环、引用、等待等指令，并支持从 skills.sh 安装发现技能到智能体框架；同时提供 <code>agent-browser mcp</code> 启动基于 stdio 的 MCP 服务器，方便 MCP 客户端接入。</p>
+
+<h3>命令与平台</h3>
+<p>命令覆盖导航与读取、交互、等待、截图/录制/对比、页面与网络状态、标签页/框架/对话框、调试与性能（含 React 与无障碍 a11y 检查）、会话与认证、智能体集成、流式观察与仪表盘等十余个分组。原生二进制支持 macOS（ARM64/x64）、Linux（ARM64/x64，glibc 与 musl）和 Windows（x64），npm 包会自动选择对应平台版本。项目采用 Apache-2.0 许可。</p>
+
+<h3>你知道吗？</h3>
+<p>agent-browser 的 <code>snapshot</code> 将页面读取为「无障碍树」（accessibility tree），而非直接抓取 DOM 或截图。无障碍树是浏览器为屏幕阅读器等辅助技术生成的语义化结构，只保留对用户有意义的信息（如按钮、链接、输入框及其可访问名称）。对 AI 智能体而言，这种结构比原始 HTML 更简洁、更贴近人类理解页面的方式，也更容易生成稳定的元素引用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/vercel-labs/agent-browser</guid>
+      <pubDate>Thu, 05 Nov 2026 12:12:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Scenario Agent Skills：让 AI 编程代理直接产出生产级图像、视频与 3D 内容</title>
+      <link>https://github.com/scenario-labs/skills</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为让 AI 编程代理产出生产级图像、视频与3D内容的新工具，属于编程工具发布和AI软件技术进展，用户会很感兴趣。</small></p><p>Scenario 开源了一套「Agent Skills」技能包（Python 实现，GitHub 上已获 2750 星），用于教会 Claude Code、Cursor、Codex、Copilot 等 70 多种 AI 编程代理，通过 <a href="https://mcp.scenario.com">Scenario MCP 服务器</a>直接生成可用于生产的图像、视频、音频、纹理、天空盒、3D 资产以及自定义训练模型，面向游戏、娱乐及各类创意行业。</p>
+<p>这套技能遵循 <a href="https://agentskills.io">Agent Skills</a> 格式，核心能力包括：自动挑选合适的生成模型、在花费前预估价格、并通过 Scenario 保持角色与品牌形象的一致性。技能按用途分组，例如：</p>
+<ul>
+<li><strong>图像</strong>：文生图与编辑、多参考图合成、产品摄影、品牌视觉套件（SVG 标志、调色板）、文字叠加卡片、故事板、缩略图等；</li>
+<li><strong>游戏美术与 3D</strong>：精灵图与动画帧、横版游戏素材包、无缝纹理与 PBR 材质、360° 天空盒、文/图转 3D 网格、视频动作捕捉（自动绑定角色）、Blender 2D 动画等；</li>
+<li><strong>视频与音频</strong>：视频生成与剪辑、调色、音乐视频、广告变体、UGC 内容、音频生成等；</li>
+<li><strong>一致性</strong>：身份库、模型训练、资产分析、质量门禁、精修循环、模型对比等。</li>
+</ul>
+<p>仓库还包含一组「专家工具」：由专家教程、会议演讲和官方文档提炼而成的技能团队，可直接驱动本机安装的数字内容创作（DCC）软件与游戏引擎——ZBrush、Blender、Maya、Unreal Engine、Unity、Godot、Roblox Studio，这类工具不依赖 Scenario MCP，而是需要目标应用本身。</p>
+<p>安装方式为通过 <code>npx skills add scenario-labs/skills</code> 一键安装全部技能，或按角色/目标（如 2D 美术师、制作人）分组安装；技能更新通过 GitHub Release 发布，可用 <code>npx skills update</code> 拉取。使用前需将 Scenario MCP 服务器（<code>https://mcp.scenario.com/mcp</code>）接入 MCP 客户端并登录 Scenario 账号。</p>
+<h3>你知道吗？</h3>
+<p><strong>MCP（Model Context Protocol）</strong> 是 Anthropic 提出的开放协议，用于统一 AI 模型与外部工具、数据源的连接方式，让代理无需为每个工具单独适配即可调用服务。<strong>Agent Skills</strong> 则是把「技能」打包成标准格式（含 SKILL.md 说明与脚本）的规范，使同一套技能可被多种 AI 编码代理复用，本项目正是这一生态的典型实践。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/scenario-labs/skills</guid>
+      <pubDate>Thu, 05 Nov 2026 12:12:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 微软开源 VibeVoice：面向长语音的语音 AI 模型家族（ASR + TTS）</title>
+      <link>https://github.com/microsoft/VibeVoice</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题为微软开源的长语音AI模型家族（ASR+TTS），属于新AI模型发布公告和AI软件技术进展，用户会很感兴趣，必看。</small></p><p>微软开源了 <strong>VibeVoice</strong>，一个集文本转语音（TTS）与自动语音识别（ASR）于一体的前沿语音 AI 模型家族，目前已在 GitHub 上获得超过 5.5 万星标。其核心创新在于使用工作在 <strong>7.5 Hz 超低帧率</strong>的连续语音分词器（声学与语义），在保留音频保真度的同时大幅提升长序列处理的计算效率；模型采用 <a href="https://arxiv.org/abs/2412.08635">next-token diffusion</a> 框架，由大语言模型（LLM）理解文本上下文与对话流，再由扩散头生成高保真声学细节。</p>
+
+<h3>主要模型</h3>
+<ul>
+<li><strong>VibeVoice-ASR（7B）</strong>：统一语音转文本模型，可在单次前向中处理长达 <strong>60 分钟</strong>的音频（64K token 窗口），输出包含「谁（说话人）、何时（时间戳）、说了什么（内容）」的结构化转写，原生支持 50 多种语言，并支持自定义热词（如人名、专业术语）以提升领域准确率。另有流式识别变体，可在音频到达过程中逐块输出文本，并已集成到 <a href="https://huggingface.co/microsoft/VibeVoice-ASR-HF">Hugging Face Transformers</a> 与 <a href="https://labs.ai.azure.com/innovations/vibevoice-asr/">Azure AI Foundry Labs</a>。</li>
+<li><strong>VibeVoice-TTS（1.5B）</strong>：长文本多说话人语音合成模型，单次可生成最长 <strong>90 分钟</strong>的语音，支持最多 <strong>4 个不同说话人</strong>的对话，具备自然轮换、情感表达与多语言（英、中等）能力，论文被 ICLR 2026 接收为 Oral。需要留意的是，由于发布后出现与项目初衷不符的滥用情况，微软已于 2025 年 9 月将 TTS 代码从仓库中移除，仅保留模型权重供研究使用。</li>
+<li><strong>VibeVoice-Realtime（0.5B）</strong>：轻量级实时 TTS 模型，支持流式文本输入，首字延迟约 <strong>300 毫秒</strong>，可稳健生成长约 10 分钟的语音，适合部署；近期还加入了九种语言的多语种声音与 11 种英语风格声音的实验性音色。</li>
+<li><strong>VibeVoice-ASR-BitNet</strong>：面向边缘 CPU 的推理引擎（VibeASR.cpp），通过异构量化（I8_S + I2_S）将模型从 4.62 GB 压缩至 1.58 GB，无需 GPU 即可在 3 个以上 CPU 线程上实现实时推理（RTF &lt; 1）。</li>
+</ul>
+
+<h3>风险与限制</h3>
+<p>项目方明确提示，高质量合成语音可能被用于伪造音频、冒充身份或传播虚假信息（Deepfake 风险），模型也可能继承基础模型（Qwen2.5 1.5B）的偏差与错误。VibeVoice 目前仅面向研究与开发用途，不建议未经充分测试直接用于商业或现实场景，使用 AI 生成内容时应主动披露。</p>
+
+<h3>你知道吗？</h3>
+<p>传统语音模型通常以 25–50 Hz 的帧率处理音频，长音频会带来巨大的 token 开销。VibeVoice 将帧率降至 7.5 Hz，大幅缩短序列长度；而「next-token diffusion」则是一种混合生成范式——由 LLM 预测下一个语义 token，再由扩散模型负责还原细腻的声学波形，兼顾了语义连贯性与音频质量。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/microsoft/VibeVoice</guid>
+      <pubDate>Thu, 05 Nov 2026 12:12:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ NVIDIA 开源 Auto-Ontology：为 LLM 与智能体构建语义数据层</title>
       <link>https://github.com/NVIDIA/auto-ontology</link>
@@ -1060,93 +1145,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/strelov1/freehire</guid>
       <pubDate>Wed, 21 Oct 2026 11:40:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ wshobson/agents：跨多款 AI 编程工具的统一插件市场</title>
-      <link>https://github.com/wshobson/agents</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍跨多款AI编程工具的统一插件市场，属于编程工具发布与分享，且是AI软件技术进展，符合用户高兴趣主题</small></p><p><strong>wshobson/agents</strong> 是一个多工具（multi-harness）的智能体插件市场，支持在 Claude Code、OpenAI Codex CLI、Cursor、OpenCode、Antigravity CLI、GitHub Copilot 和 Pi 等主流 AI 编程工具中统一使用同一套插件、智能体（agents）、技能（skills）和命令（commands）。该项目在 GitHub 上已获得超过 4.1 万星标。</p>
-
-<h3>核心内容</h3>
-<p>仓库目录包含 <strong>94 个插件</strong>（其中 92 个本地插件、2 个外部条目），本地源码包含 <strong>202 个智能体、185 个技能和 105 条命令</strong>。插件覆盖 Python 和 JavaScript 开发、代码审查、测试、基础设施、安全等领域。所有组件共享一份 Markdown 源码，安装方式和能力会根据不同工具自动适配。</p>
-
-<h3>多工具支持</h3>
-<p>项目针对不同 AI 编程工具提供差异化的安装路径：Claude Code 和 Cursor 通过插件市场安装；Codex CLI 支持原生市场或生成产物；OpenCode、Antigravity CLI、GitHub Copilot 和 Pi 则通过克隆仓库后运行 <code>make install-*</code> 命令安装。各工具在组件支持上有所差异，例如 Pi 的智能体需要额外的 subagent 扩展。</p>
-
-<h3>工作原理</h3>
-<p>贡献者以 Claude Code 插件格式维护一份 Markdown 源码，原生注册表直接指向该源码（在支持的情况下），适配器（adapters）则为各工具生成所需格式。命令可能被转换为技能或提示模板，智能体格式、模型选择和工具权限因工具而异。源码中的模型别名（如 <code>opus</code>、<code>sonnet</code>、<code>haiku</code>）会被映射到各工具对应的模型设置。</p>
-
-<h3>质量评估</h3>
-<p>仓库内置了结构验证、产物生成和文档检查工具，并提供 <code>plugin-eval</code> 插件进行静态技能评分。其中 LLM 评判和蒙特卡洛模拟层仍处于实验阶段，评分反映模型评估结果而非真实任务成功率。</p>
-
-<p>项目采用 MIT 许可证，外部插件遵循各自许可证。此外，Pensyve 作为可选的外部 Claude Code 市场条目，其云服务已于 2026 年 10 月关闭，现仅支持自托管运行。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/wshobson/agents</guid>
-      <pubDate>Wed, 21 Oct 2026 00:37:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Graphify：将代码库转化为可查询的知识图谱，降低 AI 智能体成本</title>
-      <link>https://github.com/Graphify-Labs/graphify</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 编程工具发布，将代码库转化为知识图谱以降低 AI 智能体成本，符合编程工具发布/分享与 AI 软件技术进展的高度兴趣</small></p><p><strong>Graphify</strong>（Graphify-Labs/graphify）是一个将整个代码库（包括代码、文档、SQL 模式、配置文件、PDF 乃至图片和视频）转化为可查询<strong>知识图谱</strong>的开源工具。它提供了一个 <code>/graphify</code> 技能，可安装到 Claude Code、Cursor、Codex、Gemini CLI 等 20 多种 AI 编程助手中，让开发者"查询"而非"搜索"（grep）整个项目。</p>
-<h3>核心特性</h3>
-<ul>
-<li><strong>本地优先、代码免费解析</strong>：代码通过 tree-sitter 生成 AST 进行确定性解析，无需 LLM，数据不会离开你的机器；文档、PDF、图片和视频等才使用助手模型或配置的 API Key 进行语义处理。</li>
-<li><strong>每条边都有解释</strong>：图谱中每个连接都被标记为 <code>EXTRACTED</code>（源码中显式存在）或 <code>INFERRED</code>（由 graphify 推导），方便区分直接读取与推断结果。</li>
-<li><strong>非向量索引</strong>：不依赖 embedding 或向量存储，而是真正的可遍历图谱。你可以提问、追踪两个概念之间的路径，或解释单个概念。</li>
-<li><strong>跨文件链接</strong>：通过 tree-sitter AST 解析约 40 种语言的 <code>calls</code>、<code>imports</code>、<code>inherits</code> 等关系。</li>
-<li><strong>社区与"神节点"检测</strong>：使用 Leiden 算法将图谱划分为子系统，并识别连接最多的核心概念。</li>
-<li><strong>注释与文档引用</strong>：<code># NOTE:</code>/<code># WHY:</code> 注释以及 ADR/RFC 引用都会成为与代码相连的一等节点。</li>
-</ul>
-<h3>使用方式</h3>
-<p>使用 <code>uv tool install graphifyy</code>（或 <code>pipx install graphifyy</code>）安装 CLI，运行 <code>graphify install</code> 自动检测并注册助手技能后，在 AI 助手中输入 <code>/graphify .</code> 即可。输出三个文件：可为浏览器中点击交互的 <code>graph.html</code>、关键要点报告 <code>GRAPH_REPORT.md</code>、以及可随时查询的完整图谱 <code>graph.json</code>。命令行还提供 <code>graphify query</code>、<code>graphify path A B</code>、<code>graphify explain</code> 等查询方式。</p>
-<h3>性能基准</h3>
-<p>在 LOCOMO 基准上 recall@10 达到 <strong>0.497</strong>（远超 mem0 的 0.048 与 supermemory 的 0.149）；LongMemEval-S 的 QA 准确率 76%，与 dense RAG 持平；ERPNext 跨工具测试关键事实覆盖率 82%。图谱构建的 LLM 耗用为 <strong>0</strong>。评估采用相同测试框架与模型、盲审评分（与第二位评审的一致性 90.6%，Cohen's kappa 0.81）。</p>
-<p>项目还提供商业化的 <strong>Graphify Cloud</strong>，可在整个软件开发生命周期（SDLC）中保持图谱持续在线，声称可将智能体 token 开销降低 80%，支持跨仓库链接、形式化验证与 SDLC 全景代码审查，并提供 Sentry、Jira 连接器。</p>
-<h3>你知道吗？</h3>
-<p><strong>知识图谱（Knowledge Graph）</strong>是一种以节点（实体/概念）和边（关系）组织信息的图结构，相比传统向量数据库，它更适合精确、可解释地表达代码间的复杂依赖关系，便于逐跳（hop）推理问题路径。Leiden 算法是常用的图社区检测算法，用于将图谱自动划分为语义相关的子系统。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/Graphify-Labs/graphify</guid>
-      <pubDate>Tue, 20 Oct 2026 15:00:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ dsh-purge：DeepSeek Harness 的&quot;破甲&quot;Red Team 评测插件，作者宣布闭源并改商业许可</title>
-      <link>https://github.com/YuJunZhiXue/dsh-purge</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及 DeepSeek 的 Red Team 评测插件，属 AI 软件工具进展，作者闭源改商业许可虽属行业动态但主题仍以 AI 工具为主</small></p><p><strong>dsh-purge</strong>（DeepSeek Harness 破甲）是一个安装在官方 <a href="https://www.deepseek.com/harness/">DeepSeek Harness</a> 上的 JavaScript 插件，定位于网络安全红队（Red Team）评测工具。其核心能力是让各类大语言模型"破甲"（即绕过安全护栏），并支持为不同模型切换不同提示词，默认提示词面向国产模型「小码酱」。截至榜单发布，项目已获 1.08 万 Star。</p>
-
-<h3>核心功能</h3>
-<p>插件通过会话标题旁的侧栏提供两个主要页面：</p>
-<ul>
-  <li><strong>清洗</strong>：分组查看补丁，支持应用、还原、卸载；可编辑提示词和多套规则集。</li>
-  <li><strong>演练台</strong>：授权后查看资产、技能与本机环境，仅用于使用者有权管理的本机、离线靶标或已获书面授权的演练。</li>
-</ul>
-<p>此外还提供宿主策略调整、启动时自动应用补丁、自有服务器白名单登记（写入 <code>net-scope-allow.txt</code>）等功能。项目号称支持官方 Web（<code>dsh web</code>）与官方桌面端，但社区桌面端不再维护。作者强调工具只作用于使用者本机已安装的官方 Harness，不是公网扫描器或针对第三方系统的攻击载荷。</p>
-
-<h3>重要事件与立场声明</h3>
-<p>README 开篇有作者的个人声明：因被裁员、无稳定收入，作者宣布自发布日起征集七天（至 2026 年 10 月 26 日），到期后<strong>关闭 GitHub 仓库、停止开源更新</strong>，新版本仅通过 <a href="https://t.me/LLM_PoJia/271">Telegram 频道</a>发布。许可证也自该版本起从 MIT 变更为作者自写的商业软件许可，强调"这不是开源协议"。</p>
-<p>仓库还包含大量合规免责声明：严禁用于违法犯罪、未授权攻击、数据窃取等用途；禁止对中国大陆、香港、澳门网段及解析进这些网段的服务器进行任何操作；使用者须自行承担全部法律责任。项目同时公示了一桩<strong>违规商用事件</strong>：抖音直播账号「老张的ai」被指将其当作收费商品销售、不署名并自称作者，作者声明将追究。</p>
-
-<h3>适配与兼容性</h3>
-<p>最新版本仅支持 dsh 0.2（官方桌面 0.2.0-rc.2 / 0.2.1-rc.2 及官方 <code>dsh web</code>）；更早的 dsh 0.1.x 需使用对应旧版本。插件可从 GitHub 归档安装，npm 上并无同名包。使用时需先退出并重启宿主，再在「清洗」页点击「应用」。安装配置保存在 profile 的 <code>package.json</code> 中，通过 <code>file:</code> 路径引用本地插件目录。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/YuJunZhiXue/dsh-purge</guid>
-      <pubDate>Tue, 20 Oct 2026 15:00:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Agentic Awesome Skills（AAS Core）：2700+ 个可复用的 Agent 技能库，本地优先的控制平面</title>
-      <link>https://github.com/sickn33/agentic-awesome-skills</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 Agent 技能库，符合开源项目与 AI 软件技术进展的兴趣</small></p><p><a href="https://github.com/sickn33/agentic-awesome-skills">Agentic Awesome Skills（AAS）</a> 是一个收录了 2,715+ 个可安装 <code>SKILL.md</code> 操作手册（playbook）的开源技能库。其核心组件 <strong>AAS Core</strong> 定位为"本地优先、Agent 优先"的控制平面，为 Codex 或 Claude 提供完整的目录发现、Agent 自主选择、技术栈校验与规划预览能力，当前版本为 V19.11.0。</p>
-
-<p>项目在 GitHub 上已获得超过 48,000 颗星，热度极高。它支持本地目录检索、让 Agent 记录所选技能、以及在实际改动目标前可视化预览执行计划。值得注意的是，Core 本身 <strong>不负责对技能进行排序或推荐</strong>，而是让 Agent 根据项目情况自行挑选合适的技能组合，并生成可审查的 <code>aas-stack.json</code> 清单与不可变的预览计划。Apply（应用）与恢复（recovery）功能仍处于实验阶段，默认不启用。</p>
-
-<p>项目兼容性广泛，适配 <a href="https://claude.ai">Claude Code</a>、<a href="https://github.com/openai/codex">Codex CLI</a>、Cursor、Gemini CLI、Kiro、GitHub Copilot、OpenCode 等主流 AI 开发工具，可通过 `npx agentic-awesome-skills` 进行安装。除核心技能库外，还提供 13 个专项插件，覆盖 Web 应用构建、产品设计、安全工程师、数据分析和 DevOps 等领域，并配套 Bundles（技能分组）与 Workflows（执行顺序工作流）以辅助选型和编排。</p>
-
-<p>该项目为独立的社区项目，与 Google、Anthropic、OpenAI 等公司无隶属关系，名称仅用于描述兼容性与安装目标。配套的<a href="https://aaskills.tech/">托管目录</a>与浏览器本地运行的 Workbench 提供了发现与审查的辅助界面。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/sickn33/agentic-awesome-skills</guid>
-      <pubDate>Tue, 20 Oct 2026 15:00:27 GMT</pubDate>
     </item>
   </channel>
 </rss>

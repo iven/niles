@@ -3,7 +3,104 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 05 Nov 2026 03:29:20 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 05 Nov 2026 12:14:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ OpenAI 发布图像生成模型 Images 2.6：支持 SVG 输出，生成提速 50%</title>
+      <link>https://news.ycombinator.com/item?id=50372945</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] OpenAI 发布新图像生成模型 Images 2.6，属于新AI模型发布公告，用户很感兴趣，必看</small></p><p>本文是 Hacker News 上关于 OpenAI 新发布图像生成模型 <strong>Images 2.6</strong> 的讨论帖，源文章链接为 <a href="https://openai.com/index/introducing-images-2-6/">OpenAI 官方介绍页</a>。</p>
+<p>据讨论，OpenAI 声称每周生成 40 亿张图片，且新模型生成速度比上一代快 50%，但价格与 Images 2.5 相同。有评论指出，实际上 2.6 在低质量和中质量图像上消耗更多 token，最终成本略高。</p>
+<p>本次版本最引人注目的功能是<strong>原生 SVG 输出</strong>。据开发者文档确认，模型先创建一个参考位图（raster image），再通过栅格转矢量（raster-to-vector）管线自动转换为 SVG，质量设置控制参考图；API 返回 base64 编码的 UTF-8 XML 字节。有开发者表示该方案可能绕开 SynthID 水印，并指出自己早已搭建过类似流程。</p>
+<p>此外，新模型利用网格（sprite/grid）技巧生成动画帧以保证角色一致性，评论者称这是老方法但官方首次将其显式化，帧间仍存在一定的噪声。</p>
+<p>讨论中存在较大分歧。一位运行提示词转设计平台的开发者认为 2.5 优于 2.6：2.6 的 "flare" 变体输出过于简单或存在结构性缺陷，并引用 arena.ai 排行榜印证 2.5 得分更高。另有信息显示 2.6 经过后训练以减少输出文字，这可能是 UI 设计细节和文字元素减少的原因——不少用户对此表示欢迎。但也有用户在所有示例中都更偏好 2.6。</p>
+<p>评论还围绕"AI 外观"（AI look）展开争论：有人认为图像仍带有明显的人工痕迹和 SynthID 水印（相比 Google 的 Nano Banana 几乎不可见），另有人指出普通用户其实偏爱这种更"美观"的 AI 风格，RLHF 不断朝该方向收敛。此外，2.6 的像素画（pixel art）能力取决于对"像素画"的定义，通常仍需后处理。</p>
+<div><h3>你知道吗？</h3><p>「栅格转矢量」（raster-to-vector）是指将逐像素的位图（如 PNG、JPG）自动转换为由数学曲线和路径描述的矢量图（如 SVG）。矢量图可无限缩放而不失真，且体积小、便于编辑，常用于图标和插画。本次 Images 2.6 的 SVG 输出即采用该技术，而并非由模型直接生成矢量数据结构。</p></div>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50372945</guid>
+      <pubDate>Wed, 04 Nov 2026 23:35:44 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Ripple-65B 预览版发布：以 3200 万美元成本登顶美国开源权重智能体编码榜</title>
+      <link>https://news.ycombinator.com/item?id=50369925</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要主题是开源权重智能体编码模型 Ripple-65B 的预览发布，属于新AI模型发布与开源项目，用户感兴趣；摘要虽提及芯片开发背景，但主题以模型发布为主</small></p><p>AI 实验室 Ricursive Intelligence 发布 <a href="https://www.ricursive.com/ripple">Ripple-65B Preview</a>，一个从零训练的开源权重通用模型，宣称在智能体编码（agentic coding）基准 TerminalBench 2.1 上取得 80.52 分，成为美国开源权重模型中的新 SOTA。该模型基于 12 万亿 token 预训练，支持最长 100 万 token 上下文，性能超过了参数规模大得多的 Reflection Beam 501B（80.1）、Meta Muse Spark Open 816B（76.4）、Thinking Machines Inkling 975B（63.8）和 NVIDIA Nemotron 3 Ultra 550B（56.4）等美国开源模型。</p><p>文章称，包括预训练阶梯开发、数据混合、评测、调试、合成数据生成、后训练配方以及最终正式训练在内的全部研发成本仅为 3200 万美元，约为此前开源权重 SOTA 训练成本的十分之一。团队没有购买任何后训练数据，而是自建合成数据管线与质量过滤、覆盖率指标，并采用截断重要性采样、分数居中、线性长度惩罚等混合强化学习配方，仅用 140 万次 rollout 就达到 80.5 分，比此前 SOTA 少约 70 倍。</p><p>架构上，Ripple-65B 选择了稠密（dense）Transformer 而非混合专家（MoE）架构，采用"细而深"的比例（d_model 5120、80 层），并加入 FFN 激活裁剪、门控注意力、全局 NoPE 与值残差等设计，在预训练和后训练中保持约 40% 的 MFU（硬件算力利用率）。模型可在 NVIDIA DGX Spark 等本地设备上高效运行。Ripple-65B Preview 已上线 Hugging Face、Together AI、GMI Cloud 和 OpenRouter，Fireworks 稍后上线。该模型是 Ricursive 用于 AI 芯片设计平台的专有模型的通用版本，公司希望通过"模型—硬件"协同优化加速芯片开发。</p><h3>社区反馈</h3><p>HN 用户普遍质疑其"美国开源权重 SOTA"的限定表述，指出对比中刻意回避了中国模型：Qwen 3.8 Flash Next 在 TerminalBench 2.1 上得分 84.3，Qwen 3.8-27B 为 73.0。有评论认为"SOTA"一词因不断收窄类别而被稀释；也有人指出 65B 稠密模型在消费级硬件上推理较慢，其目标客户可能是需要在气隙（air-gapped）环境中保护知识产权的美国芯片设计公司。另有用户提醒该公司与另一家名为 Recursive 的实验室容易混淆。</p><h3>你知道吗？</h3><ul><li><b>TerminalBench 2.1</b>：衡量模型在真实终端环境中完成多步骤编码任务（智能体编码）能力的基准，比传统代码生成评测更接近实际工程场景。</li><li><b>MoE 与稠密架构</b>：混合专家（MoE）通过路由只激活部分参数以降低推理成本；稠密（dense）模型每个 token 使用全部参数，推理延迟更稳定，训练基础设施也更简单。</li><li><b>MFU（Model FLOPs Utilization）</b>：衡量训练时硬件算力实际利用率的指标，在无自定义内核、无量化的简单分片条件下达到 40% 属于不错水平。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50369925</guid>
+      <pubDate>Wed, 04 Nov 2026 18:53:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Go 1.27 正式发布新的 JSON API：encoding/json/v2 与 jsontext 包</title>
+      <link>https://news.ycombinator.com/item?id=50369106</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Go 1.27 发布新 JSON API 包，属于编程工具发布与软件新功能，用户很感兴趣</small></p><p>Go 团队在官方博客宣布，经过一年多的实验和反馈迭代，新的 <code>encoding/json/v2</code> 和 <code>encoding/json/jsontext</code> 包已在 Go 1.27 中稳定并正式可用。这是对标准库中已有 15 年历史的 <code>encoding/json</code>（v1）的一次重大升级。</p>
+
+<h3>v1 存在的问题</h3>
+<p>文章详细列举了旧 API 的多方面缺陷：</p>
+<ul>
+<li><strong>行为缺陷</strong>：接受无效 UTF-8（违反 RFC 8259 标准）；接受重复的 JSON 对象键名（可能被安全攻击利用，如 CVE-2017-12635）；nil 切片和 map 被序列化为 <code>null</code> 而非空数组/对象；反序列化时大小写不敏感的字段匹配存在安全隐患；指针接收者的 <code>MarshalJSON</code> 方法调用不一致。</li>
+<li><strong>API 缺陷</strong>：从 <code>io.Reader</code> 正确反序列化困难；选项无法在 <code>Marshal</code>/<code>Unmarshal</code> 函数和自定义接口实现中使用；<code>Compact</code>、<code>Indent</code> 等函数只能写入 <code>bytes.Buffer</code>。</li>
+<li><strong>性能限制</strong>：<code>MarshalJSON</code> 强制分配返回的 <code>[]byte</code> 并需重新验证和格式化；<code>UnmarshalJSON</code> 需要先完整解析 JSON 值再二次解析；缺乏真正的流式处理支持。</li>
+</ul>
+
+<h3>新架构：jsontext 与 json/v2 分离</h3>
+<p>新方案将 JSON 处理拆分为两个层次：<code>encoding/json/jsontext</code> 包负责纯语法层面的编码/解码（不依赖反射，支持真正的流式处理），而 <code>encoding/json/v2</code> 包在语法层之上定义 JSON 值与 Go 值之间的语义映射。</p>
+
+<img src="jsonv2/api.png" alt="jsontext 与 json/v2 架构示意图" width="100%" />
+
+<h3>v2 的主要改进</h3>
+<ul>
+<li><strong>新接口</strong>：引入 <code>MarshalJSONTo</code> 和 <code>UnmarshalJSONFrom</code> 接口，允许以纯流式方式处理 JSON，解决性能瓶颈。</li>
+<li><strong>选项作为一等公民</strong>：<code>Marshal</code>/<code>Unmarshal</code> 函数直接接受选项参数，并新增 <code>MarshalWrite</code>/<code>UnmarshalRead</code> 直接操作 <code>io.Writer</code>/<code>io.Reader</code>。</li>
+<li><strong>调用方自定义</strong>：通过 <code>WithMarshalers</code>/<code>WithUnmarshalers</code> 选项，调用方可为任意类型指定自定义序列化逻辑，优先级高于类型自身定义的方法。</li>
+<li><strong>行为变更</strong>：拒绝无效 UTF-8 和重复键名；nil 切片/map 序列化为空数组/对象；字段匹配改为大小写敏感；<code>omitempty</code> 语义重新定义；序列化 <code>time.Duration</code> 默认报错。</li>
+<li><strong>性能</strong>：Marshal 性能与 v1 基本持平，Unmarshal 性能显著提升，基准测试显示最高可达 10 倍加速。</li>
+</ul>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论（332 分，167 条评论）整体持积极态度。有用户对 <code>MarshalIndent</code> 的移除表示不便，但其他用户指出缩进功能已迁移至 <code>jsontext.Value.Indent()</code> 和 <code>jsontext.WithIndent</code> 选项。部分用户对 nil 切片/map 默认序列化为空数组/对象的变更表示担忧，认为这可能导致往返序列化不一致，未来可能需要 v3 修复。也有评论者讨论了 Go 标准库的演进速度，以及 Go 作为 LLM 辅助编程语言的适用性。</p>
+
+<h3>你知道吗？</h3>
+<p><strong>CVE-2017-12635</strong> 是 Apache CouchDB 的一个著名漏洞，攻击者利用 JSON 对象中重复键名的解析歧义绕过了管理员认证检查。不同 JSON 实现（如 Python 的 <code>json</code> 和 CouchDB 使用的 Erlang 解析器）对重复键的处理方式不同，导致安全策略被绕过。这正是 Go v2 默认拒绝重复键名的重要原因之一。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50369106</guid>
+      <pubDate>Wed, 04 Nov 2026 17:52:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Ask HN：晒出你的 AI 智能体工作流配置</title>
+      <link>https://news.ycombinator.com/item?id=50366117</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 社区征集分享 AI 智能体工作流配置，属于编程效率改进经验分享，用户很感兴趣</small></p><p>HN 用户 eggbrain 发起提问，想了解大家日常如何使用 AI，并列出 5 个具体问题：订阅了哪些 AI 服务（Claude、ChatGPT/Codex、Cursor 等）、是否使用订阅之外的模型（按量付费 API、OpenRouter、本地模型）、使用哪些编码工具和接口（CLI、IDE 集成或 OpenCode、Pi、Aider 等替代方案）、是否使用智能体编排或群组工具，以及是否使用 OpenClaw、Hermes、Grok bot 等更广泛的智能体平台。帖子获得 374 分和 416 条评论，评论区成为一份"当下 AI 工作流快照"。</p>
+
+<h3>订阅与模型选择</h3>
+<ul>
+<li>订阅模式多样：有人同时持有多个订阅（如 Claude Ultra 个人版 + Claude Max 工作版 + Codex $100/月），也有人持有两个 Anthropic 账号（有用户提醒：单个 $200 档不会提高周限额）；还有用户每月总花费控制在 €100 左右并频繁更换供应商。</li>
+<li>不少用户转向开源权重模型（DeepSeek、Qwen、GLM、Kimi、Mistral 等）以降低成本，同时保留少量闭源前沿模型（如 Claude Opus 5.5）用于关键任务；也有人通过 OpenRouter、AWS Bedrock 等第三方渠道访问 Claude 模型，规避直接订阅 Anthropic 的风险。</li>
+<li>少数用户选择本地自托管：有用户用 64GB Mac M1 Max 以 SSD 流式加载 125B A3B 模型，达到 30 tok/s，并自建了低延迟的智能体守护进程（Daemon）。</li>
+</ul>
+
+<h3>编码工具与接口</h3>
+<ul>
+<li>Claude Code（CLI、Desktop、Web）和 Codex 是主流选择，多位用户表示自 Opus 5.5 发布后从 Cursor 转向 Claude IDE/Desktop，理由是更强的能力与更少的用量限制。</li>
+<li>其他常用工具包括 Zed、Emacs + Editor Code Assistant（ECA）、Pi、OpenCode、Aider、OpenShell 等；有用户称赞 Claude Code 的远程控制（remote-control）和代码审查功能，认为它"淘汰了一大批 AI 代码审查创业公司"。</li>
+<li>有用户分享技巧：明确告诉智能体"完成"的样子、同时并行推进 5 个以上项目，让子代理自动分工；也有人提醒要对智能体输出做质量把关。</li>
+</ul>
+
+<h3>编排工具与平台</h3>
+<ul>
+<li>少数用户使用 OpenClaw、Dots、Duet、Paseo 等编排工具，或自建工具来管理多个智能体会话；但多数人认为开箱即用的 Claude Code / Codex 已足够，对"智能体群组"类工具持观望态度。</li>
+<li>有用户指出 OpenClaw 等工具"像给 AI 发邮件"，延迟高、管道配置繁琐，因此选择自建方案。</li>
+</ul>
+
+<h3>主要观点与担忧</h3>
+<ul>
+<li>多位用户对 Anthropic 的商业做法表示顾虑（随意封号、条款不佳、验证邮件系统问题），并因此转向第三方渠道或本地模型。</li>
+<li>有用户反思高强度使用智能体带来的"成瘾感"与精力消耗，也有人认为这是生产力提升的自然结果。</li>
+<li>对本地开源模型何时能媲美前沿闭源模型（如 Opus 5.5）的期待，是评论区反复出现的主题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50366117</guid>
+      <pubDate>Wed, 04 Nov 2026 14:37:22 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Kimi K3.1 Pro 开源权重发布：2.8T 参数的多模态智能体模型</title>
       <link>https://news.ycombinator.com/item?id=50366999</link>
@@ -949,111 +1046,6 @@ width="760" height="469" /></p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50264857</guid>
       <pubDate>Tue, 27 Oct 2026 19:55:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>为美国法典建立&quot;Git&quot;式版本历史：逐条回放每一次修法</title>
-      <link>https://news.ycombinator.com/item?id=50268380</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是为美国法典建立Git式版本历史、逐条回放修法过程，属于法律文本工程类项目，并非编程工具或AI相关，兴趣不明确。</small></p><p>一个名为 Lexifina 的项目试图把程序员熟悉的版本控制理念带到法律领域，为美国法典（US Code）的九个标题建立了完整的修改历史，让律师可以像程序员查询代码那样，查看任何日期生效的法条文本，并追溯每个短语由哪一部法律写入。这一技术博客文章在 Hacker News 上引发了广泛讨论（301 分，145 条评论）。</p>
-
-<h3>背景与动机</h3>
-<p>文章指出，程序员可以指向任意一行代码，查看其作者、编写时间以及任意历史版本的全文；但律师阅读联邦法规时通常做不到这一点，往往需要花大量时间翻查章节脚注中的注释。在当下大量法律检索经由大语言模型完成的情况下，这一缺陷尤为突出——模型往往无法利用法律正确的谱系（lineage），从而限制了其解释能力。</p>
-
-<h3>核心难点</h3>
-<p>美国法典中，除国会以"正面法律"（positive law）制定的标题外，其余部分对法律仅构成表面证据（prima facie evidence），当其与《国会法令汇编》（Statutes at Large）不一致时，以汇编为准。法律修订办公室（OLRC）以一系列"发布点"（release points）发布法典，每个发布点对应一部指定的公法；一部法条由哪部公法写入记录在修订注释（amendment notes）中，而生效日期往往记录在单独的生效日期注释中，若国会未作规定，默认法律在其制定当日生效。</p>
-<p>文章以 11 USC § 1182(1) 中"小企业债务人"的定义为例，展示这些时点的复杂性：该定义于 2019 年设立，2020 年《CARES 法案》把限额临时提高至 750 万美元并多次延期；该提高于 2022 年 3 月 27 日失效，国会又于 6 月恢复两年并追溯覆盖此前的空档……最终经 2025 年 4 月的三年期调整，现为 3,424,000 美元。对律师有用的历史必须同时携带文本、每处变更的生效日期，以及任何具有追溯力的法律的范围。</p>
-
-<h3>LLM 的法律时间性问题</h3>
-<p>文章引用了慕尼黑工业大学的一项研究：该研究发现模型在回答德国法规问题时存在两类失败——应用了训练截点之后已被取代的规则，以及在旧规则仍适用时偏好更新的条款。一个模型独立回答 24% 的截点后问题正确，检索到相关法定文本后升至 87%。作者认为时态有效性（temporal validity）必须作为硬约束处理。另一项研究则训练搜索代理尊重问题涉及的日期，一致性获得大幅提升。</p>
-<p>不过，仅让模型"产出旧文本"并不解决问题：同一研究团队让模型应用德国修法时，输出与官方文本表面相似度达 93–99%，但只有一半的单一修订和五分之一的修订链条完全一致，专家在近似结果中还发现了具有法律意义的错误。因此，历史必须是可核查的（checkable）。</p>
-
-<h3>项目实现</h3>
-<p>对 2017 年以来每对相邻发布点，该项目取出其间颁布的公法，按日期顺序对旧文本执行其修订指令，并与新版本对比。在九个标题的 365 处变更中，361 处精确复现了下一个发布点，其余 4 处以标签说明可确认程度。每处变更都附带法律及生效日期：其中 261 处默认在制定时生效，72 处通过生效日期注释，29 处通过修订本身的日期确定。</p>
-<p>借助这份记录，读者可以回答律师常问的问题：选定日期即可获得当日有效的文本，并以标记突出今日读来不同措辞的单词；每个短语按写入它的法案着色；对定义性术语的变更会列出所有使用它的条款；还能追踪某一条款自上次访问以来的变化。</p>
-
-<h3>已知局限</h3>
-<p>项目目前尚未展示较新法律对更早日期（其覆盖期间）的追溯力；生效日期注释通过模式识别读取，非常规措辞会回退到制定日期；每处变更均链接到法律原文，关键事项仍需阅读原始文本。作者表示仍在思考该项目应有的产品形态。</p>
-
-<div class="extended"><h3>你知道吗？</h3>
-<p>将法律版本化并非全新想法。评论者提到法国的 <a href="https://www.lafabriquedelaloi.fr/">The Law Factory</a> 项目（将法国法案以 Git 形式版本化并可视化）和波兰官方的 ISAP 系统——波兰法案本身就以类似补丁的形式写成（如"在第 X 条第 5 款中，将'如此这般'替换为'这般如此'"），通过后合并为统一版本发布。比利时等欧洲国家也有类似做法。</p>
-<p>这并非无偿劳动：诸如 LexisNexis 和 Thomson Reuters 等公司向律师收费提供类似服务，因为许多法律问题不仅需要知道法律现在如何规定，还要知道事件发生时法律如何规定；且各立法机构的发布格式差异巨大，往往依赖大量手工核对。在美国，法规文本通常可免费获取，但判例法往往需要付费订阅，这也引发了对 AI 时代法律信息应否免费开放的讨论。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50268380</guid>
-      <pubDate>Wed, 28 Oct 2026 01:47:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Survival LLM：完全离线运行的免费 AI 应急助手与求生知识库</title>
-      <link>https://news.ycombinator.com/item?id=50264853</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 属于开源、可离线运行的AI助手与知识库项目，符合开源项目与AI软件技术进展的兴趣。</small></p><p>开源项目 <strong>Survival LLM</strong> 是一款完全运行在本地电脑上的免费 AI 助手和应急知识库（急救、生存指南），即使在断网状态下也能正常工作。它的核心卖点是：AI 模型与资料库都存储在本地，用户的问题不会离开电脑；每次回答都会列出所依据的文章来源，点击即可查看原文并高亮对应段落；无需账号、无跟踪，设置完成后即可在断网环境下使用。</p>
-<p><img src="/survival-llm/screenshot.png" alt="Survival LLM 回答冰箱食品安全问题，旁边打开引用的 Ready.gov 文章" /></p>
-<p>该应用内置了约 93 万篇维基百科高阅读量文章，以及 WikiMed、MedlinePlus、英国药品 A 到 Z、WikEM、Ready.gov（美国联邦应急管理署 FEMA）、CDC 旅行健康、美军医学与生存手册、以及用于估算微死亡（micromort）的风险参考资料、wikiHow、iFixit 维修指南、Appropedia 和 Stack Exchange 问答等内容。用户还可以把自己的 PDF、Word、电子书和笔记（如发电机手册、家庭应急计划）加入其中让 AI 一并检索。</p>
-<p>应用会根据电脑内存自动选择匹配的 AI 模型：128 GB 以上内存使用 NVIDIA Nemotron 3.5 Super（测试中 22 题答对 21 题）；32–96 GB 使用 Qwen3.8 27B；32 GB 以上 Windows 使用 Nemotron 3.5 Lightning；16–31 GB 使用 IBM Granite 4.2 8B（22 题答对 14 题）。测试针对停电与急救问题盲评，小模型错误更多，因此应用始终显示来源供用户核对。完整资料库下载约 9 GB（安装后 19 GB），不含维基百科与 iFixit 时为 1.3 GB（安装后 3 GB）。设置过程约需 20 分钟到 2.5 小时，其中手动点击只需约 5 分钟。支持 Apple Silicon Mac（macOS 14 及以上）与 64 位 Windows 10/11。在 MacBook Pro 上回答问题时功耗约 100 W，满电电池可回答约 100 至 300 个问题，小型发电机或移动电源即可供电。</p>
-<p>该项目在 Hacker News 上获得约 384 分和 147 条评论。社区讨论中，多位用户认可"LLM+本地知识库"的检索与综合回答模式，但也质疑用小型 LLM 处理生死攸关的求生信息的可靠性——即便是小概率的幻觉也可能导致用户误食有毒蘑菇等严重后果。不少人提出更简单的替代方案，如用传统搜索引擎式界面或 <a href="https://github.com/tobi/qmd">qmd</a> 做语义检索，或直接离线搜索（如 <a href="https://github.com/mozilla-ia/llamafile">llamafile</a>、Kiwix），认为这样体量更小且更可靠。也有人指出，可在低 token 速率下从磁盘流式读取更大的模型（如 qwen 3.8-flash-next）而无需全部载入内存。有用户分享了类似经验：2018 年曾在树莓派上构建离线维基百科检索设备，如今可进一步加入小型 LLM 与语音模型，做成更小巧的自包含 AI 知识助手。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50264853</guid>
-      <pubDate>Tue, 27 Oct 2026 19:55:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Ghostty 1.4.0 发布：完整 Kitty 图形协议支持、大幅性能与内存优化</title>
-      <link>https://news.ycombinator.com/item?id=50261998</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 终端模拟器（编程工具）新版本发布，含性能与内存优化，符合「编程工具发布/分享」很感兴趣配置</small></p><p>Ghostty 1.4.0 于 2026 年 10 月 27 日发布，这是一个重大版本更新，历时 7 个月开发，汇集了 172 位贡献者的 2,889 次提交。本次更新带来了大规模的性能与内存改进、100% 完整的 Kitty 图形协议实现（包括动画和相对定位，是 Kitty 之外首个做到这一点的终端）、SSH 集成改进，以及跨平台的大量修复。</p>
-
-<h3>安全修复</h3>
-<p>本次发布修复了多项安全漏洞（GHSA 公告），涉及粘贴保护绕过、恶意 Kitty 图形命令、tmux 控制模式崩溃、滚动缓冲区内存损坏、zsh 集成转义序列注入、macOS 上的超链接与拖放安全问题等。</p>
-
-<h3>主要亮点</h3>
-<ul>
-<li><strong>macOS 27 支持</strong>：兼容 macOS 27（Golden Gate），修复了标题栏标签、原生标签栏渲染等问题，同时保持对 macOS 13 及更高版本的兼容。</li>
-<li><strong>Kitty 图形协议完整实现</strong>：支持动画和相对定位，这是此前缺失的最后两大功能。图像解析采用 SIMD 批量处理，大型图像传输解析速度提升约 16 倍。Ghostty（及 libghostty）成为 Kitty 之外首个 100% 覆盖该协议规范的终端。</li>
-<li><strong>滚动缓冲区压缩与更低内存占用</strong>：不可见的滚动缓冲区内容被透明压缩，物理内存占用降低 70%–90%，默认滚动缓冲区限制从 10 MB 提升至 50 MB。新建空终端的内存占用从 128 KiB 降至约 16 KiB。</li>
-<li><strong>性能大幅提升</strong>：macOS 上端到端 I/O 吞吐量提升 25%–55%；纯 ASCII 文本 VT 解析从 128 MB/s 提升至 725 MB/s（5.7 倍）；cat 150 MB 文本文件从 1.5 秒降至 566 毫秒。</li>
-<li><strong>新的 OpenGL 渲染器（Linux/FreeBSD）</strong>：GTK 应用改用 EGL 自有线程渲染，三缓冲消除撕裂，修复了分数缩放（125%、150%）下的文字模糊问题。</li>
-<li><strong>Kitty 剪贴板协议（OSC 5522）</strong>：macOS 和 GTK 均支持读写任意类型剪贴板数据（如图片、HTML），并支持粘贴事件。</li>
-<li><strong>SSH 集成（ghostty +ssh）</strong>：新的 CLI 包装器自动在远程主机安装 terminfo、转发环境变量，统一了各 shell 集成行为。</li>
-<li><strong>终端模拟精度提升</strong>：在 CI 中运行 esctest 一致性测试套件，修复了与 xterm 在多方面的差异，新增 DECSTR、DECXCPR、DECBKM 等序列支持。</li>
-</ul>
-
-<h3>社区反馈</h3>
-<p>HN 讨论中，创始人 Mitchell Hashimoto 特别强调了 <a href="https://libghostty.tip.ghostty.org/">libghostty</a> 的进展：该可移植终端模拟核心现已支持 Apple（macOS/iOS/visionOS）、Windows、Linux、FreeBSD、Android、WebAssembly 及 freestanding 平台，拥有几乎所有主流语言的绑定，并已为 <a href="https://blog.jetbrains.com/2026/10/jetbrains-terminal-now-uses-ghostty/">JetBrains IDE 终端</a>（超过 1250 万活跃用户）提供动力。他计划在未来几个月发布 libghostty 1.0 并宣布 ABI 稳定。</p>
-<p>部分用户对 Ghostty 在远程机器上自动安装 terminfo 的做法提出异议，认为这可能不礼貌；也有用户表示仍因 Windows 支持而继续使用 Wezterm。总体而言，社区对本次发布持积极态度，尤其是性能提升和 Kitty 图形协议的完整支持。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>Kitty 图形协议</strong>（Kitty graphics protocol）是 Kitty 终端首创的一套基于转义序列的图像显示规范，允许终端程序直接在终端内渲染图片、动画甚至视频，无需依赖 Sixel 等传统方案。它通过分块传输、放置（placement）和动画控制等机制，实现了终端内高性能的图形输出。</p>
-<p><strong>DMABUF</strong> 是 Linux 内核的直接内存访问缓冲区机制，允许图形渲染进程将帧数据直接共享给显示服务器，避免不必要的内存拷贝，是实现高效零拷贝渲染的关键技术。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50261998</guid>
-      <pubDate>Tue, 27 Oct 2026 16:51:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Google DeepMind 发布 Genie 4：新一代实时交互式世界模拟模型</title>
-      <link>https://news.ycombinator.com/item?id=50261319</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Google DeepMind 新AI模型发布公告，符合「新AI模型发布公告」很感兴趣配置</small></p><p>Google DeepMind 发布了 <a href="https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/">Genie 4</a>，这是其世界模拟模型的新一代版本。Genie 4 引入了实时交互式世界模拟能力，支持原生音频、高级物理模拟、自然的人类动作，并由 Gemini 模型驱动场景引导（steering）功能。</p>
-
-<img src="https://lh3.googleusercontent.com/1VZnw2Hpxqv0k9uWSq72tmUtTSi1MNcPdvcNYi67il-RLthbavo4wQ7r3IrKA9Cp8UAh2PPGR7lxrdPys8ZoURwlz3G4eKNpCKxh7S9JryHQzqBc=w2464-h2464-n-nu" alt="" width="2160" height="2160" />
-
-<p>该发布在 Hacker News 上引发了热烈讨论（397 分，228 条评论），社区观点呈现明显分歧。</p>
-
-<h3>主要讨论观点</h3>
-
-<p><strong>关于世界模型与游戏产业的未来：</strong>有评论者认为，世界模型将成为 AAA 游戏的模拟引擎，游戏不再以二进制文件形式发布，而是通过云端后端模拟并流式传输给玩家，这可能导致「Stadia + 世界模型 = 新一代游戏 DRM」。但也有反对声音指出，Stadia 的失败恰恰说明云游戏在输入延迟和画质方面存在根本性问题，且 AI 生成游戏缺乏「技巧、品味和用心打磨」。</p>
-
-<p><strong>关于物理模拟的质疑：</strong>多位用户指出 Genie 4 的物理模拟仍不完善。有评论者举例，在展示视频中大理石半身像被扔到西瓜上的片段，半身像本应倾倒，但物理模拟并未正确呈现。另有用户认为 Genie 4 在玩家控制方面甚至不如 Genie 3，看起来只是把 AI 生成的视频叠加了控件。</p>
-
-<p><strong>关于目标受众的讨论：</strong>有评论质疑这些体验究竟为谁而做，认为 Google 与其让不了解游戏的 PM 主导产品方向，不如直接雇佣顶级游戏开发者。也有观点认为，这类世界模拟的真正用途可能在于机器人训练——为强化学习提供比实验室环境更真实、比真实世界更便宜的可扩展训练场景。</p>
-
-<p><strong>关于文案质量的吐槽：</strong>多位用户注意到博客文章中出现了「audio-like music」（类似音频的音乐）这样明显的表述错误，以及 YouTube 自动字幕将「Genie 4 can simulate scenarios」错误识别为「Genie form can simulate scenarios」，讽刺的是这些错误来自同一家以 AI 技术著称的公司。</p>
-
-<p><strong>关于世界模型的深层局限：</strong>有评论者提出了一个根本性观点：机器学习模型反复在模拟环境中训练并期望其泛化到真实世界，这一思路「从未真正成功过」。因为最终能够真正学会处理模拟的模型，往往也能在内部完成模拟，甚至比外部模拟做得更好——模拟本身可能只是「绕远路」。</p>
-
-<h3>你知道吗？</h3>
-<p>「世界模型」（World Model）是 AI 领域的一个重要研究方向，其核心思想是让模型学习环境的内部表征和物理规律，从而能够预测环境对动作的响应。这一概念最早由 David Ha 和 Jürgen Schmidhuber 在 2018 年的论文 <em>World Models</em> 中系统提出，近年来随着生成式 AI 的发展，世界模型被视为通往通用人工智能（AGI）的关键路径之一，也被视为自动驾驶、机器人等领域的重要技术基础。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50261319</guid>
-      <pubDate>Tue, 27 Oct 2026 16:06:01 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,36 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 05 Nov 2026 03:27:30 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 05 Nov 2026 12:13:27 GMT</lastBuildDate>
+    <item>
+      <title>hapi v0.34.3 发布：会话列表加载优化，新增「仅未读」筛选选项</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.34.3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi v0.34.3 发布，本次更新包含两项 Web 端改动：</p>
+<ul>
+<li>性能修复：优化加载大型会话列表时的卡顿问题（<a href="https://github.com/tiann/hapi/pull/2290">#2290</a>）</li>
+<li>新功能：会话列表筛选器新增「仅未读（Unread-only）」选项，方便快速定位未读会话（<a href="https://github.com/tiann/hapi/pull/2294">#2294</a>）</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.3</guid>
+      <pubDate>Thu, 05 Nov 2026 10:52:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>HAPI v0.34.2 发布：修复深色模式、导出图片与异步状态问题</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.34.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>HAPI 发布 v0.34.2 版本，主要包含多项 bug 修复和测试/CI 改进：</p>
+<ul>
+<li><strong>深色模式修复</strong>：修复 Codex Fast 切换开关在深色模式下文字难以辨认的问题（<a href="https://github.com/tiann/hapi/pull/2286">#2286</a>）</li>
+<li><strong>导出优化</strong>：修复共享导出中基于 blob 的图片无法保留的问题（<a href="https://github.com/tiann/hapi/pull/2282">#2282</a>）</li>
+<li><strong>Android 修复</strong>：工具卡片异步状态改为在主线程发布，避免线程相关异常（<a href="https://github.com/tiann/hapi/pull/2289">#2289</a>）</li>
+<li><strong>测试/CI</strong>：改进 iOS 配对字段等待逻辑（<a href="https://github.com/tiann/hapi/pull/2288">#2288</a>），并为 Mac 回归测试设置超时以隔离挂起问题（<a href="https://github.com/tiann/hapi/pull/2287">#2287</a>）</li>
+</ul>
+<p>完整变更记录见 <a href="https://github.com/tiann/hapi/compare/v0.34.1...v0.34.2">v0.34.1...v0.34.2</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.2</guid>
+      <pubDate>Thu, 05 Nov 2026 03:41:11 GMT</pubDate>
+    </item>
     <item>
       <title>fd v10.5.1 发布：一组跨平台的 Bug 修复</title>
       <link>https://github.com/sharkdp/fd/releases/tag/v10.5.1</link>
@@ -1512,104 +1541,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.161.0</guid>
       <pubDate>Wed, 07 Oct 2026 15:58:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.293：新增 Claude Haiku 5.5 模型，修复多项核心功能问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.293</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.293 版本，主要新增了 Haiku 系列模型并修复了多项核心功能问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增 Claude Haiku 5.5</strong>（<code>claude-haiku-5-5</code>），现已作为 Anthropic API 上的默认 Haiku 模型：支持 1M 上下文，价格 $0.10/$0.50 每百万 token（超过 100K 上下文的提示词为 $0.50/$2.50）。</li>
-<li>为 mod（插件）新增 <code>isDeferred</code> 到 <code>$.tool.register</code>：设为 <code>false</code> 时，工具的 schema 从一开始就完整列在提示词中，而非藏在工具搜索之后。</li>
-<li><code>subagentStatusLine</code> 载荷新增 <code>agentType</code>，脚本可据此区分不同类型的自定义子代理。</li>
-<li>启动性能优化：Team 和 Enterprise 组织的策略与管理设置更早获取，停滞的请求会在 3 秒后重试。</li>
-<li>改进了 Claude in Chrome 体验：浏览器标签页报告缓慢时被拒绝的页面操作更少。</li>
-<li>claude.ai 技能同步检查间隔由每 10 分钟改为约每 40 分钟（在无会话使用时）。</li>
-</ul>
-
-<h3>核心 bug 修复</h3>
-<ul>
-<li>修复了上下文压缩（context compaction）后，Claude 有时将自己压缩前最后执行的动作误认为已完成，从而撤回或重做已完成工作的问题。</li>
-<li>修复了 HTTP MCP 连接在关闭前一直保留每个已发送请求导致的内存泄漏。</li>
-<li>修复了 Claude 工作时发送的消息因按 <code>←</code> 将会话切换到后台而丢失的问题。</li>
-<li>修复了 <code>/model</code> 中 effort 值 <code>←</code>/<code>→</code> 循环越过最高/最低等级，可能意外把 Low 保存为模型默认 effort 的问题。</li>
-<li>修复了 <code>/tui</code> 在 <code>--chrome</code> 启动的会话中导致 Claude 在 Chrome 中断开、以及忽略 <code>--no-chrome</code> 的问题。</li>
-<li>修复了登录过期时 <code>claude logs</code>、<code>stop</code>、<code>kill</code>、<code>rm</code> 及 <code>claude daemon</code> 相关命令有时会强制你退出登录的问题。</li>
-<li>修复了 claude.ai 同步技能编辑后的描述有时直到新会话或 <code>/clear</code> 才会到达模型的问题。</li>
-<li>修复了路径作用域规则和嵌套 CLAUDE.md 文件在 Bash 工具单文件 cat/head/tail/sed/grep 命令下未加载的问题。</li>
-<li>修复了 <code>←</code> 在提示词含未发送文本或等待回答时仍 10 秒后后台化会话的问题。</li>
-<li>修复了 vim 模式中全空格行 <code>&gt;&gt;</code>/<code>&lt;&lt;</code> 后光标越界、以及 Visual 模式删除整行后光标落点的问题。</li>
-<li>修复了 <code>claude purge</code> 在无法删除文件时静默停止（退出码 0 或终端挂起）的问题，现会继续删除其余部分并列出失败项。</li>
-<li>修复了超长 Remote Control 和云端会话中回复仍按块出现而非流式输出的问题。</li>
-<li>回退了 2.1.281 的自动模式拒绝消息改动以及 2.1.290 中云端会话容器重启后的修复。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li>Bash 编辑差异说明改为指出命令运行期间列出的文件已变化（可能包含其他进程的写入）。</li>
-<li>Artifacts 功能：Claude 现在将库锁定到两周或更早的精确版本。</li>
-<li>代理列表与 MCP 服务器向模型通告的顺序调整：含非 ASCII 字符的名称排在 ASCII 名称之后。</li>
-<li>OpenTelemetry <code>claude_code.at_mention</code> 日志每次读取提示词时最多发出 100 个代理和 100 个 MCP 资源事件。</li>
-<li>自托管 runner：编排器轮询间隔改为 4–6 秒随机值（原固定 5 秒），避免同一环境的多个副本同时轮询。</li>
-<li>聊天规则数量上限由 20 提升至 50。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.293</guid>
-      <pubDate>Wed, 07 Oct 2026 18:10:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.292：新增插件 marketplace、Agent effort 参数等多项功能与修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.292</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.292 版本，带来多项新功能与大量修复。</p>
-<h2>新功能</h2>
-<ul>
-<li><code>claude plugin install</code> 新增 <code>--marketplace &lt;source&gt;</code> 参数：可在必要时添加 marketplace（遵循与 <code>claude plugin marketplace add</code> 相同的策略检查），然后从中安装插件。</li>
-<li>Agent 工具新增 <code>effort</code> 参数，可按指定的努力程度让 Claude 运行子代理。</li>
-<li>新增环境变量 <code>CLAUDE_CODE_OVERLOADED_RETRY_BASE_DELAY_MS</code>，用于在重试 529（过载）请求时设置更长的退避基础延迟。</li>
-<li>新增 <code>prompt.autocomplete</code> 事件，mod 可挂钩以向提示框的自动补全列表添加自己的行。</li>
-<li>为 mod 的 <code>$.model.complete</code> 增加提示词缓存：<code>prompt</code> 和 <code>system</code> 接受文本块，块上的 <code>cache: true</code> 会缓存到该块的请求。</li>
-<li><code>agent.spawn</code> mod 钩子支持工作流代理（含其 run 和 index），mod 可拒绝它们。</li>
-</ul>
-<h2>主要修复与改进</h2>
-<ul>
-<li>修复子代理定义为 <code>permissionMode: auto</code> 时，在自动模式不可用（被设置禁用、熔断或模型不支持）仍进入自动模式的问题。</li>
-<li>修复 <code>NO_PROXY</code> 在设置了 <code>HTTPS_PROXY</code> 时被 Claude Code 自身 API 请求（登录、策略、反馈、artifact）忽略的问题。</li>
-<li>修复名称超过 128 字符的 MCP 工具导致所有请求失败的问题；该工具现在被排除并给出 MCP 错误。</li>
-<li>修复从 <code>--resume</code> 会话选择器或 <code>/resume</code> 恢复会话时计划模式（plan mode）未恢复的问题。</li>
-<li>修复 Grep 和 Glob 在无法读取目标文件/文件夹时误报"无匹配"，Claude 现在会重试一次或明确告知。</li>
-<li>修复 Read 工具从 PDF 的 <code>pages</code> 列表（如 "6,9,15"）只返回第一项的问题，现会返回错误提示逐页或分段读取。</li>
-<li>修复 @-提及超过 256KB 的文本文件被静默忽略的问题，Claude 现在会得知文件大小并按部分读取。</li>
-<li>修复输入法文本、分解重音等在提示脚注行被选中时丢失，以及 <code>!</code> 使行保持选中状态的问题。</li>
-<li>修复 vim 模式下光标停留在行末、j/k 在较短行丢失列位置、<code>f</code>/<code>t</code>/<code>F</code>/<code>T</code>/<code>;</code>/<code>,</code> 跳到或删到另一行匹配项的问题。</li>
-<li>修复全屏模式下每次窗口缩放及 Ctrl+L 发送全屏清除（可能是填充 iTerm2 回滚内容的元凶）。</li>
-<li>修复 Write、Edit、NotebookEdit 和 LSP 行，以及单个 Read、Grep、Glob 行隐藏 mod 拒绝调用原因的问题，现在会显示原因。</li>
-<li>修复占用 8.3 短文件名或 Windows 其他拼写的 <code>rm -rf</code> 未被当作删除操作的处理。</li>
-<li>修复插件钩子模块通过单个 const 进行大量 <code>$.state</code> 调用时加载/校验耗时数分钟的问题。</li>
-<li>修复 <code>/theme</code>、<code>/config</code> 主题菜单和首次运行主题步骤在询问插件 <code>config.set</code> 钩子之前保存主题的问题。</li>
-<li>修复插件 <code>tool.check</code> 钩子回答"允许"运行需要你答复的工具（提问、计划批准）却不显示对话框的问题。</li>
-<li>修复本地（stdio）MCP 服务器忽略新协议检查的启动问题：一次慢速连接后记住 7 天，并以旧方式连接而无需等待。</li>
-<li>本地（stdio）MCP 服务器连接默认在每个安装上协商协议版本 2026-07-28（包括 Bedrock、Vertex 和 Foundry）；<code>MCP_PROTOCOL_NEGOTIATION=legacy</code> 可选择旧协议。</li>
-<li>改进 <code>claude -p</code> 和 SDK 会话启动：第一轮不再等待 HTTP 和 SSE MCP 服务器应答 <code>resources/list</code>。</li>
-<li>改进长项目符号或编号回复的渲染速度，流式传输、调整大小和重新打开（ctrl+o）更快。</li>
-<li>改进行为：Grep 接受 <code>file_path</code> 作为 <code>path</code>，Write、WebFetch 和 Read 忽略部分杂散参数。</li>
-<li>改进沙箱自动允许：严格沙箱模式下，带环境变量前缀（如 <code>FOO=bar python3 app.py</code>）的解释器命令无需提示即可运行。</li>
-<li>Artifact 工具列出现在可一次列出多达 200 个已发布 artifact（之前为 50 个）。</li>
-<li><code>claude plugin test</code> 中钩子内失败的 <code>expect</code> 或被引擎拒绝的桩答案现在会使测试失败，而非静默通过。</li>
-<li>代理名称限长 256 字符，更长的会被拒绝。</li>
-</ul>
-<h2>云端会话 / Remote Control / Claude Tag / Code Review</h2>
-<ul>
-<li>[云端会话] 修复例行运行偶尔在完成后仍显示运行数小时；修复 SVG、HEIC、TIFF 等不常见图片无法附着，现可作为普通文件附着。</li>
-<li>[Remote Control] 修复从 claude.ai/code 启动的新 Remote Control 会话首条消息仅接受图片的问题，现可接受 PDF 和其他文件。</li>
-<li>[Claude Tag] 为频道 Configure 页的 Allowed domains 卡片新增 Edit 按钮；修复线程首请求未完成时回复被保持、以及 Slack 线程在管理员更改默认模型后停留在原模型的问题。</li>
-<li>[Code Review] 分析中 PRs reviewed 图表新增本期总数、与上期变化及按仓库的细分；修复 PR 切换基础分支且旧分支被删除时排队审查失败的问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.292</guid>
-      <pubDate>Tue, 06 Oct 2026 18:59:30 GMT</pubDate>
     </item>
   </channel>
 </rss>
