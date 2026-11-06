@@ -3,7 +3,47 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 06 Nov 2026 00:57:07 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 07:53:57 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.167.0 发布：新增代理命令中心、跨后端会话切换与本地图片预览</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.167.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex CLI 发布 0.167.0 版本，带来多项面向终端交互体验的新功能与修复。</p>
+
+<p><strong>新功能</strong></p>
+<ul>
+<li>新增代理命令中心：运行 <code>codex agents --no-daemon</code> 即可打开，命令中心与会话选择器会标记未读结果。</li>
+<li>会话选择器支持在已连接的后端之间切换，切换时保留草稿。</li>
+<li>在支持的终端上，撰写消息时可预览本地图片附件；转录中已查看的本地图片路径变为可点击，可直接打开。</li>
+<li>“Sign in another way” 子菜单汇集了 API 密钥与云服务商选项；启用 <code>gcp_setup_wizard</code> 可通过应用默认凭据（ADC）或凭据文件配置 Google Cloud Vertex AI。</li>
+<li>在 <code>/experimental</code> 中可选用 macOS 或 Windows 系统代理设置。</li>
+<li>审批提示打开时，可直接在转录中展开补丁详情进行查看。</li>
+</ul>
+
+<p><strong>Bug 修复</strong></p>
+<ul>
+<li>切换模型提供商后，已保存的聊天仍然可见；无法恢复的聊天可阅读其转录，并准备可编辑的提示以在新聊天中继续。</li>
+<li><code>Ctrl+L</code> 清屏后，早期消息仍可通过 <code>Ctrl+T</code> 访问。</li>
+<li>删除文本暴露前导 <code>!</code> 时，聊天模式仍保留普通草稿。</li>
+<li>网络审批提示会在对应请求结束时自动关闭；同一端点的并发请求改为逐个提示。</li>
+<li>长实时 V3 对话会将已完成的语音保存到聊天历史。</li>
+<li>自动上下文压缩现在会考虑失败响应及缺少 token 用量数据的响应所保留的输出。</li>
+</ul>
+
+<p><strong>文档与其他</strong></p>
+<ul>
+<li>app-server README 补充了 <code>[permissions.network]</code> 托管网络约束及 <code>prompt-user</code> 命令规则（需全新人工审批）的说明。</li>
+<li><code>openai-docs</code> skill 在迁移弃用模型时推荐文档化的替代方案。</li>
+<li>DotSlash 清单现在引用随版本发布的 Cargo 包；Linux musl 构建减少分配器 arena 数量，以降低对话卸载后的空闲内存占用。</li>
+</ul>
+
+<p>完整变更日志：<a href="https://github.com/openai/codex/compare/rust-v0.166.0...rust-v0.167.0">rust-v0.166.0...rust-v0.167.0</a></p>
+
+<p><strong>你知道吗？</strong>OSC 52 是终端与外部程序之间传输剪贴板内容的转义序列协议，允许终端应用在 SSH 等远程会话中读写本地剪贴板。本次更新让 Codex 在 GNU screen 会话中也能通过 OSC 52 转发剪贴板内容。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.167.0</guid>
+      <pubDate>Fri, 06 Nov 2026 01:40:00 GMT</pubDate>
+    </item>
     <item>
       <title>hapi v0.34.3 发布：会话列表加载优化，新增「仅未读」筛选选项</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.34.3</link>
@@ -1504,43 +1544,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.294</guid>
       <pubDate>Thu, 08 Oct 2026 05:03:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.161.0 发布：GPT-6.1 Sol 成为默认模型，新增 MCP 登录与语音设备选择</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.161.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex CLI 发布 0.161.0 版本，带来多项新功能与改进。</p>
-
-<h3>新功能</h3>
-<ul>
-<li><strong>GPT-6.1 Sol 成为默认模型</strong>：在捆绑目录和 Amazon Bedrock 目录中均设为默认模型。</li>
-<li><strong>Amazon Bedrock 增强</strong>：支持多智能体 V2 和 Ultra 推理，Bedrock Mantle 新增对 AWS GovCloud 区域的支持。</li>
-<li><strong>MCP 登录</strong>：可在活动终端会话中通过 <code>/mcp login &lt;name&gt;</code> 登录 MCP 服务器。</li>
-<li><strong>语音设备选择</strong>：可为语音对话选择麦克风、扬声器及麦克风输入通道，偏好设置保存在本地。</li>
-<li><strong>Daybreak 改为显式启用</strong>：需通过 <code>--enable cli_daybreak</code> 或 <code>features.cli_daybreak=true</code> 开启，单独设置 <code>daybreak=true</code> 不再生效。默认隐藏控件和指示器，<code>/daybreak</code> 命令不可用，自动 Cyber 路由被省略。</li>
-<li><strong>每轮 Cyber 访问程序选择</strong>：可通过 <code>codex exec --cyber-access-program</code> 或 TypeScript SDK 的 <code>cyberAccessProgram</code> 选项按轮次选择。</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-<li>已批准的文件系统升级现在可授予更广泛的写入权限，同时保留拒绝的读取和网络限制；后台任务保留其发起轮的权限。</li>
-<li>显式启动权限在终端重连和新会话中得以保留，隐式客户端设置不再覆盖服务器或已保存线程的网络搜索设置。</li>
-<li>Windows 提升权限终端会话可使用嵌入式服务器启动，沙箱化 PowerShell 保留受保护用户配置文件下的相对路径。</li>
-<li>粘贴检测过期后，Enter 键可正确提交缓冲输入（包括 Vim 插入模式）。</li>
-<li>线程恢复包含最新的已提交历史；启动时更早检测可恢复的 SQLite 损坏，并将损坏数据库作为备份保留。</li>
-<li>Responses 重试和 WebSocket 到 HTTP 的回退遵循服务器重试指导，减少过载期间的过早失败。</li>
-</ul>
-
-<h3>其他改进</h3>
-<ul>
-<li>认证文档更新，说明凭据可能存储在系统密钥环中，而非始终位于 <code>auth.json</code>。</li>
-<li>发布较旧的 alpha 或 hotfix 版本不再使 npm alpha 标签回退。</li>
-<li>TUI 新增 fork 快捷键、复制选中文件路径为纯文本、平台特定的修饰键标签等交互改进。</li>
-<li>新增账户安全设置提醒、实验性线程预测协议类型等。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.161.0</guid>
-      <pubDate>Wed, 07 Oct 2026 15:58:45 GMT</pubDate>
     </item>
   </channel>
 </rss>

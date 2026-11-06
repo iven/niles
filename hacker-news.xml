@@ -3,7 +3,45 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 06 Nov 2026 00:58:13 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 07:56:27 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Window Sweaters：给 macOS 窗口穿上针织毛衣的小应用</title>
+      <link>https://news.ycombinator.com/item?id=50381383</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是一个开源的 macOS 趣味小程序，属于软件新功能/开源项目分享，但并非编程工具或效率提升类，故推荐阅读</small></p><p>「Window Sweaters」是一个由产品设计师 saragordic 开发并开源的 macOS 菜单栏应用，功能是为系统窗口添加针织风格的彩色边框，让你的桌面更「温馨」。这一趣味项目在 Hacker News 上获得了 309 分和 96 条评论，引发了不少讨论。</p>
+
+<img src="/saragordic/window-sweaters/raw/main/docs/hero.jpg" alt="Four overlapping windows edged with knitted borders in green, blue and rust colourways" />
+
+<p><strong>功能与使用</strong>：用户可通过点击菜单栏中的毛线图标来调整毛衣的风格、图案、边框宽度和针脚大小，也能暂停或彻底关闭。应用支持「按应用（By App）」和「之字形（Zigzag）」两种风格，可为某个应用单独设置毛衣，或让所有窗口统一配色。若 macOS 提示辅助功能权限，需要在「系统设置 → 隐私与安全性 → 辅助功能」中启用该应用，以便跟踪当前聚焦的窗口。</p>
+
+<p><strong>定制毛衣</strong>：项目已为 37 款应用手工定制了近 40 种配色，涵盖 Finder、Safari、Messages、Notion、Slack、Zoom、VS Code、Cursor、Claude、ChatGPT、Figma、Word 等。其他应用则会从自身图标中采样颜色并将其「软化」成毛线色调。用户还可以通过编辑 <code>apps.conf</code> 和 <code>charts</code> 文件夹自定义配色与图案，或在启动时加载 <code>~/.sweatersrc</code> 脚本。</p>
+
+<p><strong>安装与局限</strong>：可通过 Homebrew 安装（<code>brew install --cask saragordic/tap/window-sweaters</code>），或从 Releases 下载 ZIP 拖入 Applications 文件夹，也可以让编码 AI 代理直接按仓库说明帮你安装。应用目前尚未通过 Apple 公证，且使用私有 macOS 窗口 API，系统更新可能影响其运行；官方仅针对 Apple Silicon 和 macOS 26 做过实测。项目基于 Felix Kratz 的 JankyBorders 构建，采用 GPL-3.0 许可。</p>
+
+<p style="margin-top:1em;"><strong>社区反馈</strong>：评论区氛围轻松。作者本人现身回应，表示这是自己的第一个开源项目，「纯粹是为了好玩」，并感谢大家的反馈。许多用户觉得这想法很可爱、颇具趣味。不过也有声音提出担忧：有人表示鉴于今年的供应链攻击事件，对来自陌生 GitHub 仓库且未经公证的二进制抱有戒心；也有人讨论「把代码仓库发给 LLM 代理去安装」这一做法是否真的更安全，涉及提示注入与源码—构建产物一致性问题。另有用户反映仓库缺少真实屏幕截图（作者随后补充了一段演示视频），以及建议标题注明这是 macOS 应用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50381383</guid>
+      <pubDate>Thu, 05 Nov 2026 16:50:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>为什么你应该下载并归档喜爱的 YouTube 视频：自托管媒体库实践分享</title>
+      <link>https://news.ycombinator.com/item?id=50378571</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲下载归档 YouTube 视频与自托管媒体库的实践，涉及自托管/基础设施方向，用户对此兴趣不高，也不属于明确感兴趣类别，故定为可选</small></p><p>这篇文章呼吁用户主动下载并归档自己喜爱的 YouTube 视频。作者指出，企业互联网对艺术并不友好，你喜爱的内容并不真正属于你，除非你亲自保存。一个直观的证据是：只要在 YouTube 的「点赞视频」播放列表设置中开启显示不可用视频，就会发现大量早期点赞的视频已经无法观看。</p>
+<p>对于大多数人，使用 <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> 或其包装工具，配合大容量硬盘或 NAS 即可满足需求。但作者有特殊需求：他习惯在入睡时播放 Many a True Nerd（MATN）频道的 Let's Play 视频，因此需要一套能接入现有 NAS、可在电视上播放、并能自动整理数百个视频和数十个播放列表的方案。</p>
+<p>作者的方案基于 <a href="https://jellyfin.org/">Jellyfin</a> 媒体库：将 YouTube 内容以「电视节目」模式建库，关闭元数据刮削器，并使用 ytdl-sub（一个基于 yaml 配置的 yt-dlp 包装器，自带 Docker 版 Web IDE）来维护播放列表结构并写入元数据。<img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/criminallyvulgar/ytdlp-sub-subs.webp" alt="ytdl-sub 中的播放列表与视频列表" /></p>
+<p>ytdl-sub 默认按年份将视频标记为「季」，同时按播放列表存放文件夹，导致 Jellyfin 中每个视频出现在两个位置（年份系列和播放列表系列）。<img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/criminallyvulgar/jellyfin_matn.webp" alt="Jellyfin 中 MATN 频道页面" /> 作者最近发现修复方法：在 ytdl-sub 配置中将播放列表标题直接设为季号，虽然看似会出错，但实际可行。<img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/criminallyvulgar/ytdlp-sub-channel.webp" alt="ytdl-sub 配置文件" /></p>
+<p>存储方面，作者使用 <a href="https://tdarr.io/">Tdarr</a> 将媒体库统一转码为 HEVC/H.265，在 2TB 库中节省了约 700GB。不过他并不推荐 Tdarr——界面复杂且容易出错，除非你确实需要压缩存储，否则默认工作流就够用了。</p>
+<p>社区讨论中，多位用户分享了各自的归档经验：有人通过 RSS 订阅频道并配合脚本自动下载；有人后悔没有及时保存已消失频道的视频（如 Myles Power 频道被整体删除后成为失传媒体）；也有评论者认为，个人下载并不能解决更大的问题——版权期限过长且不可靠，需要为档案工作者提供版权豁免，否则大量内容将在未来几十年内流失。</p>
+<h3>你知道吗？</h3>
+<ul>
+<li>YouTube 的「点赞视频」列表仅保留最近 5000 个视频，更早的会从列表开头消失，因此依赖该列表的用户应尽早备份。</li>
+<li>互联网档案馆（Internet Archive）会响应几乎任何人的删除请求，并非绝对永久的存档，上传敏感数据时需谨慎。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50378571</guid>
+      <pubDate>Thu, 05 Nov 2026 13:00:11 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Kagi 开放免注册搜索：无需账户即可体验 50 次搜索</title>
       <link>https://news.ycombinator.com/item?id=50383740</link>
@@ -953,51 +991,6 @@ width="760" height="469" /></p>
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50289418</guid>
       <pubDate>Thu, 29 Oct 2026 14:13:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Gemini 4 Carbon 登顶 Artificial Analysis 智能指数 v5 榜首</title>
-      <link>https://news.ycombinator.com/item?id=50288019</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍新AI模型 Gemini 4 Carbon 登顶智能指数，属于新AI模型及AI软件技术进展，用户很感兴趣</small></p><p>Google 最新发布的 Gemini 4 Carbon 在 <a href="https://artificialanalysis.ai/articles/gemini-4-carbon-new-number-1">Artificial Analysis Intelligence Index v5</a> 中以 59 分登顶榜首，在 9 项指数评估中的 4 项（HLE-Diamond、Terminal-Bench-Science、AA-Omniscience、AutomationBench-AA）获得第一名，尤其在复杂推理、知识和科学任务上表现突出。</p>
-
-<img src="https://cdn.sanity.io/images/6vfeftx9/articles/5262521fe496a1e56b4b16161f5809c320b5778d-2360x1848.png?w=1200&auto=format" alt="Gemini 4 Carbon 关键结果图表" />
-
-<h3>主要亮点</h3>
-<ul>
-<li><strong>编码智能体排名第二</strong>：在 Artificial Analysis Coding Agent Index 上，Gemini 4 Carbon（high）得分 59，仅落后于 Claude Code 搭配 Claude Opus 5.5（max，62 分）3 分。在 Terminal-Bench 4.0（64%）和 FrontierCode v1.1（51%）上均排名第二，Google 在编码领域的这一进步尤为显著。</li>
-<li><strong>智能体知识工作大幅提升</strong>：在 AA-Briefcase 上得分 1609 Elo，较 Gemini 4 Argon 提升 126 分，其中演示（Presentation）能力提升 293 Elo，分析质量提升 120 分，但仍落后于 Grok 4.7、Muse Wonder 和 Kimi K3.1 Pro 等模型。</li>
-<li><strong>成本优势</strong>：按标准定价，Gemini 4 Carbon 每项智能指数任务成本为 $7.76，比 Claude Opus 5.5（max，$10.04）低约 23%，但比 GPT-6 Astra（max，$6.25）贵约 1.2 倍。每任务使用 123k 输出 token，比 Claude Opus 5.5 少 29%。</li>
-<li><strong>低幻觉率</strong>：在 AA-Omniscience v1.1 上得分 54，领先 Claude Opus 5.5（48 分）6 分。准确率较 Argon 提升 10 个百分点至 58%，幻觉率从 4% 升至 11%，但仍为所有模型中第二低（仅次于 Argon），远低于 Claude Opus 5.5 和 GPT-6 Astra 的 50%。</li>
-</ul>
-
-<img src="https://cdn.sanity.io/images/6vfeftx9/articles/194109a1f9957a1bcf8515f44e924a234929e85b-2804x936.png?w=1200&auto=format" alt="编码智能体指数对比" />
-
-<h3>模型规格</h3>
-<p>Gemini 4 Carbon 拥有 1M token 上下文窗口，支持文本、图像、视频和语音输入及文本输出。定价为每 1M 输入/输出 token $4/$20，与 Argon 标准定价一致，并提供 50% 发布折扣（无确认截止日期），缓存输入 token 享受 95% 折扣。</p>
-
-<img src="https://cdn.sanity.io/images/6vfeftx9/articles/7175e9a6c775ce78fb3ec52f41772fc30e3df45e-2360x1176.png?w=1200&auto=format" alt="成本对比图表" />
-
-<h3>社区反应</h3>
-<p>Hacker News 上的讨论呈现两极分化。部分用户认可 Google 的进步，认为 Gemini 在知识整理和特定行业（如抵押贷款文档处理）中表现优异；但也有大量批评集中在模型"只发布不开放"的策略上——Gemini 4 Carbon 目前仅向选定用户开放，尚未公开可用。多位用户指出，Google 在财报日发布该消息更像是对投资者的公关行为（$GOOG 财报不及预期，股价下跌 13%），而非真正面向开发者的产品发布。有用户调侃道："一个没人能用的前沿模型"、"我昨天下午训练的秘密模型才是真正的第一名"。还有用户分享了使用 Argon 的体验，包括配额过低（中等设置 5 条消息即触发 4 小时冷却）、幻觉问题以及指令遵循不一致等困扰。</p>
-
-<h3>你知道吗？</h3>
-<p>Artificial Analysis 是一个独立的 AI 模型评测平台，其 Intelligence Index v5 于近期更新，新增了 2 个基准测试并升级了 3 个现有基准，且首次让指数的大部分评估基于私有数据集构建，旨在减少模型厂商针对公开基准"刷分"的影响。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50288019</guid>
-      <pubDate>Thu, 29 Oct 2026 12:41:56 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Claude Code 悄悄消耗约 15–20% 的 token 用于生成后台代理的三字状态摘要</title>
-      <link>https://news.ycombinator.com/item?id=50284255</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Claude Code 的 token 消耗优化问题，属于编程工具使用经验分享，符合 high_interest 的编程效率改进经验。</small></p><p>开发者 Flamerix AI 发布了一份技术分析，指出 <a href="https://gist.github.com/flamerix-ai/c3905705cc4205e5de3011fa2e74efce">Claude Code 存在一个显著的 token 浪费问题</a>：大约每 30 秒，每个后台代理都会将其完整对话记录发送给自身的模型（通常是 Opus），并要求其用 3–5 个词描述最近的动作。这个回答仅用于更新代理面板中的状态行，既不会进入对话，也不会影响模型输出。</p>
-<p>该问题由 DRIM 系统在 Claude Code 的 OpenTelemetry 导出中被发现。按 query_source 分组后发现，<code>agent_summary</code> 在一个测量周内占全部 token 支出的 16.4%（主对话本身为 15.7%），占所有 API 请求的 19.7%（约五分之一），其中 96% 消耗在 Opus 上，输入 token 与输出 token 之比约 9000:1。从 2.1.232 版本（2026 年 8 月）起该功能默认开启，且没有任何设置可以单独关闭它。另外还有 4 项独立测量得出 18–26% 的相似比例。</p>
-<p>作者提供了一个名为 <code>no-agent-summary.js</code> 的修复方案：一个约 80 行的 Bun preload 脚本，通过包装 <code>setTimeout</code>/<code>setInterval</code>，当回调源码包含摘要器锚点时返回一个「惰性句柄」而非真正启动计时器，从而抑制这些摘要请求，且不影响其他计时器和其他后台代理功能。安装方式包括设置全局 <code>BUN_OPTIONS</code> 环境变量或使用包装脚本。作者强调，该方案依赖实现细节，Claude Code 更新后可能需要重新验证；macOS 和 Windows 未测试。</p>
-<p>文章还解释了为何没有官方开关：文档中的开关只能开启该功能；间隔由服务器端按模型家族设定，被限制在 30–240 秒且默认即最小值；<code>DISABLE_NON_ESSENTIAL_MODEL_CALLS</code> 等环境变量并未生效。虽然约 98% 的请求命中提示缓存（Prompt Cache），但反复读取大型缓存对话仍有成本。</p>
-<p>在 Hacker News 的讨论中，评论者就此展开争论。有人质疑既然大多命中缓存成本应该不高，也有人指出即使命中缓存，反复读取完整上下文依然产生不小开销。有用户反馈其 5 小时窗口内使用率从 25% 降至 13%，疑似为 A/B 测试。还有人推测该行为与「压缩」（compaction）机制有关。有评论批评 Claude Code 臃肿（bloatware），也有人问及该问题是否影响 Claude Desktop 或企业订阅，并讨论 <code>disableAgentView</code> 设置能否阻止该调用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50284255</guid>
-      <pubDate>Thu, 29 Oct 2026 03:33:42 GMT</pubDate>
     </item>
   </channel>
 </rss>
