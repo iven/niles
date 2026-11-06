@@ -3,7 +3,16 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 06 Nov 2026 15:54:24 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 21:28:19 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.4-rc2 的 FAT32 优化带来最高 162 倍性能提升</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-rc2-FAT32</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为 Linux 内核开源项目对 FAT32 文件系统的性能改进（最高 162 倍提升），属于开源项目与软件新功能范畴，值得推荐阅读。</small></p><p>在 Linux 7.4 周期中已合并一项可带来高达 265 倍提升的 FAT32 优化，并预计在 Linux 7.5 中还有另一项大型 FAT32 改进之外，本周作为 Linux 7.4-rc2 的非 MM（非内存管理）修复的一部分，又合并了一项显著的 FAT32 性能优化。</p><p>开源开发者 Matheus Alves de Almeida 持续致力于改进 Linux FAT 驱动中 FAT32 的性能。本周合并的工作是在 <code>fat_cont_expand()</code> 函数中实现「先预分配空间再扩展」的策略。他在补丁中解释道：</p><blockquote>「<code>fat_cont_expand()</code> 的实现将新簇的分配交给 <code>generic_cont_expand_simple()</code>。该路径会进行许多小规模的簇分配，损害了性能。在 <code>fat_cont_expand()</code> 中预分配簇空间。将预分配移到新的 <code>fat_preallocate()</code> 辅助函数中，供 <code>fat_cont_expand()</code> 和 <code>fat_fallocate(FALLOC_FL_KEEP_SIZE)</code> 共同使用。使用 FAT 专用的 <code>fat_cont_expand_simple()</code> 替代通用的 <code>generic_cont_expand_simple()</code>，以避免在簇分配后重新检查新大小。」</blockquote><p>该补丁带来了非常可观的性能提升：</p><img src="//www.phoronix.net/image.php?id=2026&image=linux_74rc2_fat32" alt="FAT32 benchmark of code merged for Linux 7.4-rc2" /><p>此次优化对 FAT32 文件系统的影响最大，尤其是对于采用小簇大小且处于同步挂载（synchronous mounts）的场景。补丁注记中显示：「大部分为 OCFS2 修复，包括扩展属性损坏、缺失属性、内核 BUG，以及集群配置、锁迁移、恢复和卸载过程中的崩溃。区块移动也得到修复，以针对稳定的文件大小验证其范围。三项 FAT 更改避免写入失败/ FIBMAP 竞态条件使文件系统意外变为只读、修正重命名后的目录链接计数，并加速文件扩展。报告的 QEMU 基准测试显示，在同步挂载上提升尤为显著。一个 taint-string 修复防止了越界读取——该问题可能在内核日志中暴露 slab 内容。此外还有针对无硬件乘法指令的 CPU 上的 OpenRISC 模块以及 Clang 24 的构建修复。」</p><p>该工作已于周日在 Linux 7.4-rc2 之前通过 non-MM 热修复拉取请求合入。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-rc2-FAT32</guid>
+      <pubDate>Fri, 06 Nov 2026 16:21:38 GMT</pubDate>
+    </item>
     <item>
       <title>Arch Linux 对比 CachyOS 与 Omarchy 4.5：性能基准测试首测</title>
       <link>https://www.phoronix.com/review/cachyos-omarchy-benchmarks</link>
@@ -646,21 +655,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/PostgreSQL-19-Late</guid>
       <pubDate>Fri, 30 Oct 2026 18:06:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Ubuntu 27.04「Tenacious T-Rex」开启开发，预计明年4月发布</title>
-      <link>https://www.phoronix.com/news/Ubuntu-27.04-Opens-For-Dev</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 直接报道 Ubuntu 新发行版 27.04 开启开发，符合新发行版/新软件项目的高兴趣配置，属必看内容</small></p><p>继本月 Ubuntu 26.10 发布之后，Ubuntu 27.04 的开发工作于今日正式启动。该版本以「Tenacious T-Rex」为开发代号，T-Rex 软件仓库现已开放，与 Debian 的自动同步功能即将启用，届时将引入大量新软件包。</p>
-
-<p>根据 Ubuntu 27.04 的时间表，功能冻结（feature freeze）定于 2 月 25 日，UI 冻结定于 3 月 18 日，测试版冻结（beta freeze）定于 3 月 29 日。Ubuntu 27.04 测试版预计于 4 月 1 日发布，而正式版预计于 4 月 22 日发布。</p>
-
-<p>Ubuntu 27.04 预计将推进更多 Rust 系统/基础设施转型工作，计划默认采用 ntpd-rs（Rust 实现的 NTP 守护进程）；同时将重启 Ubuntu Core Desktop 的开发，面向不可变（immutable）版本；此外还将继续推进桌面端的人工智能相关工作。</p>
-
-<p>Ubuntu 27.04「Tenacious T-Rex」开放开发的消息已于今日在 ubuntu-devel 邮件列表中公布。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-27.04-Opens-For-Dev</guid>
-      <pubDate>Fri, 30 Oct 2026 17:32:48 GMT</pubDate>
     </item>
   </channel>
 </rss>

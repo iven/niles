@@ -3,7 +3,65 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 06 Nov 2026 15:53:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 21:29:09 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.319：自动模式服务端检查调整、MCP 任务后台化及多项修复</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.319</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><strong>重要改动</strong></p>
+<ul>
+<li>自动模式（auto mode）调整：关闭遥测或功能开关（包括经 LLM 网关使用时）后，服务器无法检查的调用会被询问或直接拒绝，不再回退到内置分类器；设置 <code>CLAUDE_CODE_AUTO_MODE_SERVER=0</code> 可继续使用旧行为（Bedrock、Vertex 和 Foundry 不受影响）。</li>
+<li>终端新增 MCP 任务支持：当 MCP 服务器以任务形式运行工具调用时，Claude Code 会立即将其移至后台，完成后把结果告知 Claude；新增 <code>CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND</code> 环境变量可改为在工具调用内等待。</li>
+<li>新增 <code>permissions.denyInsteadOfPrompting</code> 设置：本会等待权限提示的工具调用改为直接拒绝并继续当前回合，适用于终端会话、子代理和 teammates。</li>
+<li>新增 <code>/claude-api latency-optimize</code> 命令，用于定位 Claude API 代码中让用户等待的位置，并针对你的 eval 尝试更快的设置。</li>
+<li>新增 <code>CLAUDE_CODE_DISABLE_FEATURE_FLAGS</code> 环境变量：停止获取功能开关但不关闭遥测，所有开关使用内置默认值。</li>
+<li><code>/usage</code> 为 Claude apps gateway 用户新增今日、本周、本月支出显示。</li>
+<li><code>/tasks</code> 新增 "Earlier in this session" 行，列出已完成的子代理，可重新打开并继续对话。</li>
+<li>云会话中 <code>/loop</code> 确认信息新增说明：计时器会随容器停止，并提供可存活的循环选项。</li>
+</ul>
+<p><strong>其他修复与改进</strong></p>
+<ul>
+<li>修复旧握手协议下 MCP 服务器无法连接或返回空结果的问题。</li>
+<li>修复运行目录中存在名为 <code>HEAD</code> 的文件/文件夹时，会话 diff 无法加载、<code>/diff</code> 显示 "Diff unavailable" 的问题。</li>
+<li>修复前导空格、Tab 或换行后输入的斜杠命令被当作纯文本发送的问题。</li>
+<li>修复 <code>claude -p</code> 在自动模式下因无安全检查而拒绝操作时仍以 0 退出的问题，现文本和 JSON 输出均以 1 退出。</li>
+<li>修复 Linux 上网络文件系统（NFS、SMB、Lustre 等）项目启动时列出所有文件的问题。</li>
+<li>修复 <code>/context</code> 每轮都向 Claude 发送完整视觉网格的问题，现只发送表格。</li>
+<li>修复 <code>/rewind</code> 在 <code>/branch</code> 之前检查点恢复时报 "No files were restored" 的问题。</li>
+<li>修复 <code>/clear</code> 误杀后台代理、teammates 和工作流中仍在运行的命令的问题。</li>
+<li>修复 <code>claude remote-control</code> 首次运行问题无应答时静默以 0 退出的问题，以及忽略无换行符的管道 <code>y</code> 的问题。</li>
+<li>修复插件更新后未安装新增依赖的问题（后台自动更新与 <code>claude plugin update</code>），以及 <code>${CLAUDE_PLUGIN_ROOT}</code> 未在插件提供的 <code>subagentStatusLine</code> 命令中替换的问题。</li>
+<li>改进 <code>/model</code> 选择器：旧模型归入 "More models" 行；改进 <code>/context</code>：每个列表只保留最大的 10 行，按需加载的 MCP 工具在调用前每服务器共享一行。</li>
+<li>改进灰色次要文本的对比度（提示、<code>/stats</code>、<code>/model</code>、<code>/sandbox</code> 中的细节等）。</li>
+<li>修复 <code>claude -p --resume</code> 在 MCP 服务器缺失时丢失延迟工具调用的问题。</li>
+<li>修复设置文件在写入后几秒内被修改而被忽略的问题，以及磁盘写满时 <code>~/.claude.json</code>、设置和编辑文件被截断的问题。</li>
+<li>修复 <code>NotebookEdit</code> 在权限提示打开期间笔记本变化时改错单元格的问题。</li>
+<li>修复 <code>/login</code> 成功界面按回车后约 0.5 秒卡顿的问题，以及 <code>/rename</code> 新名称无法保存到会话记录时仍报告成功的问题。</li>
+<li>修复 <code>timeout DURATION</code> 包裹的只读命令产生不必要权限提示的问题；修复 WebFetch 将 claude.ai 共享聊天链接描述为空页面的问题。</li>
+<li>修复 OpenTelemetry <code>claude_code.session.count</code> 指标重复计数未认领的 Agent SDK <code>prewarm()</code> 进程的问题。</li>
+<li>修复 Chrome 中 Claude 扩展断连后误报未连接的问题，并改进断连后等待会话浏览器返回（最长 6 秒）；<code>javascript_tool</code> 结果超过 60,000 字符时现保留在对话中而非存入文件。</li>
+<li>修复云会话中会话级 deny/ask 权限规则在迁移到新 worker 时丢失的问题，以及 <code>/permissions</code> 在云会话中仅回复不可用的问题。</li>
+<li>修复自托管 runner 会话因服务器拒绝续期模型访问而失败且无说明的问题。</li>
+<li>修复 <code>claude plugin eval</code> 对不可调用工具建议 <code>max: 0</code> 的误导性警告；修复 Monitor 的 WebSocket 监视在代理后 "could not resolve" 的问题。</li>
+<li>修复 Ghostty over tmux 中 Cmd+click 无法打开链接的问题；修复 <code>/claude-api</code> 技能中关于 Console 设置与 Managed Agents 的说明及示例。</li>
+<li>修复 <code>/clear</code> 后仍在运行的后台任务从 Web 版任务列表消失的问题；修复移动端和 Web 云会话斜杠命令菜单中出现隐藏命令的问题。</li>
+<li>修复 TLS 检查代理后的证书错误在设置 <code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC</code> 时持续存在的问题；修复 <code>CLAUDE_CODE_AUTO_MODE_SERVER=1</code> 在托管设置中经 LLM 网关被忽略的问题。</li>
+<li>修改嵌套技能加载：启用 Bash 沙箱时，起始文件夹以下 <code>.claude/skills</code> 中的技能仅在从该处启动或 <code>/cd</code> 到该处时加载。</li>
+<li>修改 <code>/loop</code>：回合结束未重新调度时直接结束，<code>CLAUDE_CODE_LOOP_KEEPALIVE=1</code> 保持旧行为；修改 PostToolUse 钩子：新消息打断回合后完成的工具调用也会运行钩子（最多 10 秒）。</li>
+<li>移除内置 Claude in Chrome 工具中的 <code>shortcuts_list</code> 和 <code>shortcuts_execute</code>。</li>
+</ul>
+<p><strong>VSCode 扩展</strong></p>
+<ul>
+<li>修复超过 50,000 字符的提示被静默截断的问题，现保留在聊天框中并给出提示。</li>
+<li>修复点击调查或 "Report a problem" 按钮误发送未完成提示的问题。</li>
+<li>修复窗口重载后 Claude 执行未批准计划的问题：计划模式中断的步骤在会话以其他权限模式恢复时停止并给出提示。</li>
+<li>修复 <code>claude-vscode.toggleDictation</code> 在所有打开的 Claude 视图同时启动听写的问题。</li>
+<li>改进聊天面板诊断工具：跳过无问题的文件、返回紧凑 JSON、支持可选的最低严重级别。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.319</guid>
+      <pubDate>Fri, 06 Nov 2026 17:04:01 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.167.0 发布：新增代理命令中心、跨后端会话切换与本地图片预览</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.167.0</link>
@@ -1531,19 +1589,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.295</guid>
       <pubDate>Thu, 08 Oct 2026 19:48:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.294：修复指令式 prompt/agent hooks 判断问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.294</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.294 版本，主要修复了 hooks 相关的两个问题：</p>
-<ul>
-<li><strong>修复指令式 hooks 失效问题</strong>：修复了以指令形式（如"阻止某些命令…"）编写的 <code>prompt</code> 和 <code>agent</code> hooks 未能正确拦截其本应阻止的操作的问题。</li>
-<li><strong>改进 Stop/SubagentStop hooks 判断</strong>：优化了以指令形式（如"如果构建失败则继续"）编写的 <code>prompt</code> hooks 在 Stop 和 SubagentStop 事件上的判断逻辑，使 Claude 更不容易过早停止。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.294</guid>
-      <pubDate>Thu, 08 Oct 2026 05:03:54 GMT</pubDate>
     </item>
   </channel>
 </rss>
