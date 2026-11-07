@@ -3,7 +3,35 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sat, 07 Nov 2026 08:42:01 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Nov 2026 15:38:20 GMT</lastBuildDate>
+    <item>
+      <title>fzf v0.75.0 发布：新增 info-command 动作，改进 nth 变换与轮换行为</title>
+      <link>https://github.com/junegunn/fzf/releases/tag/v0.75.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fzf 发布 v0.75.0 版本，主要带来信息栏动态命令、nth 变换/轮换行为的改进，以及多项 bug 修复和 Windows 安装包更新。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增 info-command 动作</strong>：加入 <code>{change,transform,bg-transform}-info-command</code> 动作（#4951），可动态更改信息栏内容，例如通过按键在多种显示模式间切换。</li>
+<li><strong>transform-nth 不再按 <code>|</code> 分割输出</strong>：<code>transform-nth</code> 和 <code>transform-with-nth</code>（及其 <code>bg-</code> 变体）的输出不再在 <code>|</code> 处分割，只有 <code>change-nth</code> 和 <code>change-with-nth</code> 会在 <code>|</code> 分隔的值之间轮换；同时修复了绑定命令被输出替换的问题（此前 <code>transform-nth(echo '1|2')</code> 会把下一次按键执行成 shell 命令 <code>2|1</code>），<code>--with-nth</code> 模板中的 <code>|</code> 现在也能正常保留。</li>
+<li><strong>空值与无效值处理统一</strong>：<code>change-nth</code> 和 <code>transform-nth</code> 现在与 <code>change-with-nth</code>/<code>transform-with-nth</code> 一致——空值恢复默认 <code>--nth</code>，非空无效值被忽略（如需搜索全部字段请改用 <code>change-nth(..)</code>）。</li>
+<li><strong>change-nth 轮换逻辑改进</strong>：<code>change-nth</code> 和 <code>change-with-nth</code> 现在在当前值之后应用 <code>|</code> 分隔列表中的下一个值，跳过与当前值相同的项和无效项；轮换会跟随当前值（即使由其他绑定或 transform 改变），列表可按自然顺序从初始值开始书写，例如 <code>--with-nth ..</code> 时可直接写 <code>change-with-nth:..|1|2</code>。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>修复 filter 模式下与 <code>--sync</code>、<code>--tac</code> 或 <code>--bench</code> 组合时 <code>--no-sort</code> 被忽略的问题（#4940）。</li>
+<li>修复 <code>--walker=follow</code> 在符号链接目标为另一个 <code>--walker-root</code> 的祖先时跳过该链接的问题（#4944）。</li>
+<li>修复预览与搜索结果缓存中的数据竞争（#4947）。</li>
+<li>修复 <code>--listen</code> 中 O(n²) 的动作解析，单个约 1 MB 的请求此前可能阻塞服务器约 30 秒。</li>
+<li>Windows：修复 <code>--with-shell</code> 无法检测 cmd、PowerShell 和 pwsh、导致按 POSIX shell 方式引用命令和条目的问题（#4936）；新增 amd64 和 arm64 的 <code>.msi</code> 安装程序，并可通过 winget 获取（#4943），MSI 将 <code>fzf.exe</code> 安装到 Program Files 并加入系统 PATH。</li>
+<li>Vim 插件：修复 Neovim 设置 <code>set title</code> 且 fzf 命令包含 ANSI 转义序列时屏幕出现乱码的问题（#4941）。</li>
+<li>nushell：补全集成现在要求 nushell 0.116.1 及以上版本（#4934）。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.75.0</guid>
+      <pubDate>Sat, 07 Nov 2026 12:03:59 GMT</pubDate>
+    </item>
     <item>
       <title>fd v10.5.2 发布：修复 zsh 补全语法与管道输出编码问题</title>
       <link>https://github.com/sharkdp/fd/releases/tag/v10.5.2</link>
@@ -1509,47 +1537,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/neovim/neovim/releases/tag/v0.12.6</guid>
       <pubDate>Fri, 09 Oct 2026 15:43:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.162.0 发布：新增托管 Git worktree 工具、任务固定与可点击 URL 支持</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.162.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex 发布了 0.162.0 版本，带来多项新功能与改进。</p>
-
-<h3>新功能</h3>
-<ul>
-<li><strong>托管 Git worktree 工具</strong>：新增从受信任本地项目创建和列出托管 Git worktree 的工具（需启用 worktrees 功能）。</li>
-<li><strong>任务固定</strong>：在 Agent Command Center 中可通过 <code>p</code> 键固定任务，并在服务器支持时将其保留在共享的 Pinned 分组中，且分组状态可在启动间记忆。</li>
-<li><strong>转录块导航与复制</strong>：支持通过 <code>/copy</code> 导航和复制转录块，使用 <code>Ctrl+Insert</code> 复制选中内容，并可通过 <code>tui.mouse_scroll_speed</code> 调节鼠标滚轮滚动速度。</li>
-<li><strong>可点击 URL</strong>：审批标题、问题、MCP 提示、警告、横幅和验证提示中的 URL 现在可点击，包括跨行换行的链接。</li>
-<li><strong>自定义模型提供商配置</strong>：可为兼容 Responses 的自定义模型提供商配置实时网络访问和远程压缩能力。</li>
-<li><strong>JavaScript 辅助功能</strong>：新增流式 promise 结果辅助函数，以及 Code Mode 中可选的排序工具搜索。</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-<li>新 TUI 线程尊重服务器模型和推理摘要默认值，同时保留显式启动覆盖。</li>
-<li><code>apply_patch</code> 更新无条件保留现有 CRLF 行尾。</li>
-<li>修复 Linux 沙箱在多个被拒绝文件时的启动问题，拒绝可写的沙箱构造可执行文件，并防止 ripgrep 配置削弱 deny-glob 掩码。</li>
-<li>恢复 Windows 10 上普通盘符文件访问，并使 Windows 沙箱临时权限与子进程环境匹配。</li>
-<li>尊重服务器对可重试 Responses 和 WebSocket 失败的 <code>Retry-After</code> 建议。</li>
-<li>修复通过 Windows PowerShell 安装时（存在 PowerShell 7 模块路径）的归档校验和验证问题。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li>随 Windows 版本发布签名的 PowerShell 安装程序。</li>
-<li>防止旧稳定版和预发布版替换较新的稳定下载目标或安装程序别名。</li>
-<li>转录查找结果支持 Enter 接受、Escape 取消。</li>
-<li>任务详情顶部显示模型和推理努力程度。</li>
-<li>支持在回合进行中执行 <code>/archive</code>。</li>
-<li>GNU Screen 下使用可打印 ASCII 终端标题。</li>
-<li>解码 Windows Terminal 映射的 Shift+Enter 序列。</li>
-<li>多项 Guardian、MCP、沙箱和遥测相关的内部改进与依赖升级。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.162.0</guid>
-      <pubDate>Thu, 08 Oct 2026 18:55:59 GMT</pubDate>
     </item>
   </channel>
 </rss>
