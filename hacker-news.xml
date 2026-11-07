@@ -3,7 +3,83 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 06 Nov 2026 21:30:23 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Nov 2026 01:53:05 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 混合模型测试：Jev + Opus 以 4 倍更低成本达到前沿模型精度</title>
+      <link>https://news.ycombinator.com/item?id=50397429</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及混合AI模型测试与成本优化，属于AI技术进展和编程效率改进经验，用户会感兴趣</small></p><p>Hightouch 团队在一篇博客中测试了新型「决策模型」（decision model）在身份解析（identity resolution, IDR）评估任务中的表现。他们发现，将廉价决策模型 Jev 与前沿模型 Claude Opus 结合构建混合评估器，能以 4 倍以上的更低成本达到前沿模型的精度，而单独使用 GPT-6 Luna 或 Jev 虽然便宜，精度却明显落后。</p>
+
+<p><b>背景：身份解析的难题</b></p>
+
+<p>身份解析是将数据记录映射到真实个体的过程，是客户洞察、个性化与数据分析的基础。其最大问题是「过度合并」（over-merging），即一个身份错误地对应多个真人。由于真实数据没有答案可对照，评估 IDR 算法通常需要人工抽样审查（速度约 50 个身份/小时），且对罕见的过度合并率需要超过 1000 个样本才能得到 ±1% 内的精确估计。LLM 天然适合复制人工审查工作，从而并行规模化评估。</p>
+
+<p><b>测试方法</b></p>
+
+<p>团队使用华盛顿大学健康指标与评估研究所的 <a href="https://hightouch.com/blog/llm-judges-identity-resolution">pseudopeople 工具</a>模拟虚构美国小镇，生成 1000 个身份（一半为带噪声的单人记录，一半为过度合并），并加入打字错误、误读字符、昵称、字段留空等真实数据噪声。模型被提示判断每份档案描述的是一个人还是多个人。</p>
+
+<p><b>主要发现</b></p>
+
+<ul>
+<li>开箱即用表现：Luna 优于 Jev（97.3% vs 95.6%），但在更难的案例上两者差距消失。</li>
+<li><b>置信度校准是关键</b>：Jev 的错误大多伴随低置信度，而 Luna 的错误大多伴随高置信度（90–100% 区间），即 Luna 严重过度自信。这使 Jev 在混合模型中能更有效地把存疑案例转发给昂贵模型。</li>
+<li>前沿模型仍比决策模型更准确。决策模型开箱即快约 10 倍、便宜约 90 倍（每 1000 个身份 0.05–0.10 美元，约 0.15 秒），但在较难基准上比 Opus 落后约 6 个百分点。</li>
+<li>针对难案例，团队调整置信度阈值（Jev 60%、Luna 70%）以最大化精度。</li>
+</ul>
+
+<p><b>混合评估器结果</b></p>
+
+<p>团队构建了「Jev 先判、必要时转发 Opus」的混合模型。在较易测试中，将 30–90% 置信度区间（22% 的案例）转发给 Opus 后，精度达到 98.8%（接近 Opus 单独的 99.0%），成本仅 $0.88/1000 vs Opus 的 $3.86。在更难测试中表现更明显：Jev 的校准优势使其在更困难数据上自动转发更多案例（成本升至 $2.94，但仍低于 Opus 单独的 $5.39），精度达到 95.3%，超越 Luna 混合（91.6%）和 Opus 单独（95.1%）。</p>
+
+<p><b>结论</b></p>
+
+<p>校准能力至关重要。Luna 开箱表现更好，但其过度自信使其在混合模型中表现平庸；而混合 Jev 能自动随难度伸缩开销以维持精度，非常具有实用价值。团队认为这一混合范式不仅限于身份解析领域，计划后续探讨欠合并（under-merging）问题以及开放权重决策模型的性能退化。</p>
+
+<p>Hacker News 社区对文章反响热烈（312 分，68 条评论）。多位读者分享了类似实践经验：有人用同款混合方法做安全工程评估，有人用本地决策模型（如 Qwen3.8-27B）编排并委派给 Claude 以大幅降低成本，也有人认为「决策模型控制/优先级化的上下文管理」是未来方向。部分评论质疑此类测试仅适用于「沙盒场景」缺乏实际说服力，也有读者对「4x lower」这一说法提出数学表述上的异议（认为用 0.25x 更严谨）。</p>
+
+<p><b>你知道吗？</b></p>
+
+<p>「决策模型」（decision model）是新兴的一类语言模型，它们不生成自由文本，而是针对特定条件返回 0–1 置信度得分，因此比通用前沿模型更快更便宜。文章提及的 Jev 与 GPT-6 Luna（Decisions API 版本）即属此类；而「信心校准」（calibration）指模型输出的置信度与其实际正确率的匹配程度——校准良好的模型在低置信度时更易犯错，从而可作为「是否需要更昂贵模型复核」的可靠信号。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50397429</guid>
+      <pubDate>Fri, 06 Nov 2026 19:48:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 谷歌发布 Gemini Omni 1.2 Flash：原生15秒视频生成，价格下调30%</title>
+      <link>https://news.ycombinator.com/item?id=50392118</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 谷歌发布新AI模型Gemini Omni 1.2 Flash，属于新AI模型发布公告，用户很感兴趣，必看</small></p><p>谷歌近日发布并全面开放 Gemini Omni 1.2 Flash，这是其视频生成模型的一次重要升级。该模型原生支持最长15秒的视频创作（上一代 Omni 1.1 为10秒），并允许以1秒为增量指定时长（3至15秒），可一次性完成完整故事、产品说明或社交媒体广告片段。</p><p>新版本的核心改进包括：更强的参考遵循能力——可结合人物、产品或风格图片，以及最长3秒的运动片段和音频提示，在跨机位时保持脸部、服装、包装字体和品牌颜色的一致性；更好的跨帧一致性，减少视觉漂移与形变；以及新增的多轮对话式编辑，用户可逐轮替换产品或背景、更改光照或天气、切换宽高比，而无需从头重新生成。</p><p>此外，该模型还提升了对话语音的自然度、唇形同步与多说话人区分，支持更连贯的电影级镜头运动（如连续FPV航拍、缩放和环绕），并降低了约30%的成本——720p视频每秒钟定价0.07美元。用户可先在360p或720p快速草稿，通过后续编辑修正细节，最后将最佳成品升级至1080p或4K。</p><p>Gemini Omni 1.2 Flash 现已通过 Gemini API、Google Cloud、Google Vids、Gemini 应用（面向 Google AI Ultra 订阅用户逐步推出）及 Google Ads 提供，输出带有不可感知的 SynthID 水印，并支持 Provisioned Throughput。开发迭代仍在继续，未来将改进快速运动场景、快速脚本更改和复杂物理效果。</p><p>此次发布在 Hacker News 上引发讨论，虽然部分用户认可模型本身的能力，但更多评论集中在谷歌的产品命名混乱（如与 Gemini 4 混淆）、API 使用门槛高、AI Studio 体验不佳以及发布节奏不明的问题上。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50392118</guid>
+      <pubDate>Fri, 06 Nov 2026 13:35:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Thinking Machines 发布 Inkling 2 Small：594B 参数 MoE 模型，下周开源权重</title>
+      <link>https://news.ycombinator.com/item?id=50386338</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Thinking Machines发布新AI模型Inkling 2 Small并计划开源权重，属于新AI模型发布和开源项目，用户很感兴趣</small></p><p>Thinking Machines（前 OpenAI CTO Mira Murati 创立的公司）今日发布第二代模型 <strong>Inkling 2 Small</strong>。这是一款混合专家（MoE）模型，总参数 594B、激活参数 17B，支持图像输入与可调推理强度（variable effort）。在 Artificial Analysis Intelligence Index 上得分 31，大幅超越前代模型，在智能体编码、视觉、知识工作和推理方面均有显著提升。</p>
+<p>模型将首先通过 Tinker 平台以闭源权重形式提供，遵循公司此前公布的"通往开源权重的安全路径"（safe path to open weights）。公司计划在完成外部安全测试与红队演练后，于下周以 Apache 2.0 许可证发布完整权重，届时检查点也可下载。</p>
+<h3>能力亮点</h3>
+<p>Inkling 2 Small 在长时程自主工作（long-horizon autonomous work）方面提升尤为明显。其视觉与智能体能力可结合视觉反馈迭代构建网站、游戏和 3D 设计。官方演示包括：用 Three.js 从零构建的城市模拟器（无预制素材，程序化生成建筑、纹理与汽车，可管理电力、预算与突发事件）；用 Python 编写的 PC 模拟器，可启动真实 Linux 内核并在浏览器中运行；在 Blender 中生成的纸上手绘山谷与折纸鹤场景；以及由地图生成的户型图漫游。</p>
+<h3>智能体编码与自动研究</h3>
+<p>模型在数十万个长时程编码任务上进行了强化学习（RL）训练，覆盖多种智能体框架与上下文压缩策略。训练数据管线质量提升，且不再仅依赖单元测试奖励——许多任务包含智能体 RL 评分器，评估模型解决问题的方式而非仅看代码是否通过。早期检查点曾以 Fledge-Alpha 之名在 OpenCode 上测试。在编码基准上，Inkling 2 Small 在 DeepSWE v1.1（72.1%）、SWEBench Pro v2 Hard（86.3%）等多项测试中位居前列；在 GPU 内核优化基准 PMPP-Hard 上，10 小时内平均解决 54.25/69 个任务，仅次于 GPT-6 Astra、Kimi K3.1 Pro 与 Claude Opus 5.5。</p>
+<h3>端到端自动研究演示</h3>
+<p>Inkling 2 Small 在 Tinker 上自主训练 Qwen3.5-4B 进行时间序列预测（天气、电力需求、维基百科浏览量等）。它自行编写评估脚本、实验训练数据集与配方、尝试 SFT 与 RL 并不断调试流程，在 4 小时 17 分钟、花费 426 美元（预算 500 美元）后，将模型的预测得分提升一倍以上，在未见过的 8–9 月数据上比基线模型减少约 15% 误差。</p>
+<img src="https://thinkingmachines.ai/_astro/tinkerbench-replay-poster.DZeJZVkT.png" alt="The replay's last step: the agent's terminal reports its submitted model; the panel shows its forecasts and evaluation scores, and the base and trained models' scores on unseen data." width="1032" height="643" />
+<h3>视觉能力</h3>
+<p>模型使用基于 Perception Encoder 的 292M 参数视觉编码器，采用 20×20 像素 patch 与 2×2 空间池化，并将图像 patch 与文本 token 交错处理。在 OCR、grounding、信息图解读与视觉推理等类别上表现强劲。</p>
+<img src="https://thinkingmachines.ai/_astro/wine-tasting-three-glasses.aWBtNGl4_1ivKwy.webp" alt="Three glasses of red wine on a restaurant table, in the left-to-right order used in the model response." width="1000" height="750" />
+<h3>社区反馈</h3>
+<p>HN 讨论中，多数评论认可美国开源权重实验室的迭代速度，认为该模型在设计类任务上已接近 SOTA。价格方面，AA 显示其定价约 $0.30/$0.03，单任务成本 $1.18，约为 DeepSeek 的两倍；部分用户认为性价比不如 DeepSeek，但也有用户看重其指令遵循与沟通清晰度。另有评论提及公司融资传闻（拟以 400 亿美元估值融资 50 亿美元），以及对"Inkling"这一旧 AI 公司名称的争议。</p>
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>可调推理强度（variable effort）</strong>：模型可在推理时动态分配计算量，用户可根据任务难度在速度与质量之间取舍，类似"思考预算"（thinking budget）的概念。</li>
+<li><strong>通往开源权重的安全路径</strong>：Thinking Machines 采取分阶段开源策略——先以闭源形式发布并完成外部安全测试与红队演练，再逐步开放权重，以平衡开放性与安全性。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50386338</guid>
+      <pubDate>Fri, 06 Nov 2026 00:00:24 GMT</pubDate>
+    </item>
     <item>
       <title>从 Linux 到维基百科：志愿者如何构建互联网</title>
       <link>https://news.ycombinator.com/item?id=50388122</link>
@@ -887,85 +963,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50305637</guid>
       <pubDate>Fri, 30 Oct 2026 15:48:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Tangled：基于 AT Protocol 的首个真正去中心化（联邦式）代码托管平台</title>
-      <link>https://news.ycombinator.com/item?id=50305573</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及去中心化/联邦式代码托管平台，属于开源项目与编程工具相关，符合感兴趣范畴，评为recommended</small></p><p>Tangled 宣布推出其全新的、首个真正意义上联邦式（去中心化）代码托管平台，构建于 AT Protocol（AT 协议）之上。文章指出，过去二十年主导开源协作的集中式代码托管（forge）正在衰落——依赖第三方提供可用性、功能和对代码的妥善管理并未获得理想结果。经受了时间考验的反而是开放协议：Git 负责传输代码，电子邮件（开放协议）负责讨论，但这牺牲了用户体验。</p>
-
-<p>Tangled 的目标是兼取两者之长：开放协议带来的长期可维护性，以及正规代码托管平台的便捷与精致。其做法务实：用户可以仅自托管部分组件（如 Git 托管或 CI 运行器），也可以全部自托管（包括 API 服务器和 UI）。由于构建在 AT Protocol 之上，用户可以构建自己的扩展、订阅 firehose，甚至编写完全自定义的组件（如基于 Cloudflare Workers 的 knot）。</p>
-
-<p>本次发布的主要更新包括：</p>
-<ul>
-<li><b>全新 UI</b>：基于新架构用 Svelte 重建，配合开源的 Timeless Sans 字体。</li>
-<li><b>bobbin 索引器</b>：用 Rust 编写、完全驻留内存的无盘索引服务，已部署在全球 11+ 个区域，提升 API 和 UI 性能。</li>
-<li><b>knot2</b>：knot 服务器的第二次实现，用 Rust 重写，内置完全自定义的 Git 服务器和 SSH 服务器。</li>
-<li><b>新数据模型</b>：Issue、Pull Request、评论、反应和标签等协作对象（COB）现在存放在 knot 上、紧邻代码，作为仓库内的 Git 对象链保存，并像 PDS 一样通过标准 AT Protocol firehose 同步，使项目具备最大可移植性。系统还引入 <b>attestations</b>（认证）机制，实现双向验证。</li>
-<li><b>组织账号</b>：真实 AT Protocol 账号，带自有 DID（去中心化标识符）和 handle，密码化委派，支持邀请成员。</li>
-<li><b>堆叠式 PR（Stacked PRs）</b>：无论使用 Jujutsu 还是普通 Git，都可提交和审查堆叠式 PR，并支持版本间 interdiff 对比。</li>
-</ul>
-
-<p>文章还预告了后续几周将陆续推出的功能：私有仓库、CLI、多语言 SDK 和针对 Agent 的技能（skills）。</p>
-
-<h3>社区反馈</h3>
-<p>在 Hacker News 讨论中，Tangled 联合创始人 icy 回应了关于协作开放的提问：陌生人只需一个 AT Protocol 账号即可在仓库上开 issue 或提交 PR，该账号可自行托管 PDS 或从 Tangled、Bluesky 等提供商获取，且可移植。有人指出自托管 knot 默认使用 SHA256。</p>
-
-<p>一些用户对 AT Protocol 是否适合代码托管提出质疑，认为其 AppView 需消费全网内容而多数内容无意义，建议 ActivityPub 式的选择性关注机制或许更合适；也有用户反驳称 AT Protocol 允许独立索引数据、不遗漏消息，是不同权衡。此外有人反馈了 knot 宕机导致 Neovim 插件无法拉取的问题，开发者回应称已对全部 Git 仓库做了镜像缓存。还有评论指出新版代码审查 UI 的「评论」区缺少提交按钮。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50305573</guid>
-      <pubDate>Fri, 30 Oct 2026 15:44:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI 并未取代 SRE，而是在使其技能退化（Deskilling）</title>
-      <link>https://news.ycombinator.com/item?id=50305693</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讨论AI对SRE（站点可靠性工程）技能的影响，属于AI软件技术进展相关话题，用户对AI技术进展感兴趣，故推荐阅读。</small></p><p>SigNoz 的 Elizabeth 撰文探讨了一个核心问题：当 AI 处理了 95% 的事件响应工作时，人类工程师是否会在处理真正至关重要的 5% 时变得更差？文章指出，关于 SRE 的两个流行预言——「SRE 是软件工程的未来」和「AI 将吞噬所有技术岗位」——都不够贴近实际，更值得关注的是 AI 是否在悄悄削弱 SRE 的能力。</p>
-
-<p>文章的核心框架源自 1983 年认知心理学家 Lisanne Bainbridge 发表的论文《<em>Ironies of Automation</em>》：自动化程度越高，人类操作员在自动化失效的罕见时刻就越关键，但他们得到的实践越少，能力反而越差。Bainbridge 发现，自动化把人类留在了「漫长的被动监控 + 罕见的高风险危机」中最糟糕的位置上。作者认为 AI 正在对知识工作者重演这一模式：接管模式识别、分诊和已知问题的解决，而把罕见、复杂、模糊的问题留给人类——恰恰是需要深厚专业技能、却又因缺乏练习而逐渐萎缩的那类问题。</p>
-
-<p>文章梳理了 SRE 领域 AI 应用的现状：告警噪音降噪与智能分组、runbook 执行、日志模式检测、基于历史数据的根因建议、自动修复等已相当自动化；而多信号关联、自主根因分析、预测性检测、变更风险评估等正在推进。PagerDuty 提出分层模型：Tier 1（已知问题）全自动，Tier 2（部分理解的问题）由 AI 提供建议并人工验证，Tier 3（新颖复杂的级联故障）由人类主导。问题在于：如果人类只参与 Tier 3 事件，他们从何处建立应对这类事件的直觉？</p>
-
-<p>文章还引用了跨领域的「技能退化」研究来支持论点：医学领域使用 AI 辅助的内镜医生在无辅助情况下的息肉检出率从 28% 降至 22%；航空领域长期依赖自动驾驶的飞行员在态势感知和手动飞行能力上出现可测量的退化，以至于 FAA 强制要求更多手动飞行时间。作者还提出了「从未习得技能」（never-skilling）的概念：初级 SRE 在 AI 主导的环境下根本没有机会建立基础直觉，形成「越依赖 AI → 技能越退化 → 更依赖 AI」的恶性循环。</p>
-
-<p>作为对策，文章建议：<strong>刻意低效</strong>（效仿 FAA 强制手动飞行，指定部分事件作为人类实践机会）、以及构建「人在环中」（human-in-the-loop）而非「人在一侧」（human-on-the-side）的系统——前者容易导致警觉性衰减，后者能让工程师保持认知参与。文章最后指出，这一讨论适用于整个软件工程领域；SigNoz 作为开源可观测性平台，坐拥指标、追踪与日志等数据层，可以构建比通过 API 集成更深入的上下文感知 AI 能力。作者明确表示，目标不是用 AI 取代 SRE，而是设计出让人保持敏锐、准备好应对真正重要的 5% 的 AI。</p>
-
-<p>HN 上的讨论（371 分，287 条评论）反应热烈，众说纷纭。不少从业者分享了 AI 退化的亲身观察：有人看到同事花两小时用 Claude 调试本应一目了然的问题，也有人担忧「如果 Claude 宕机，我们就完了」，还有人指出企业可「通过拿走企业 LLM 访问权限来实质上解雇你」。也有人提出质疑，认为实际情况并非分层模型所描述的那样，SRE 日常工作仍会接触整个系统。多位评论者将讨论扩展到整个软件工程：资深工程师能识别 AI 输出中的错误，但培养初级工程师（Senior+ SWE）的管道已经断裂，若无人能核查 AI 输出将成大问题。也有声音认为，技能退化不一定是坏事——当所谓的「技能」是应被自动化的琐事时，真正的问题在于对 AI 决策的盲目信任与批判性思考的懈怠。</p>
-
-<p><img src="https://substackcdn.com/image/fetch/$s_!Hgvq!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F530d847f-26cb-4ddd-a6de-875cbbaf8fab_6233x4167.webp" alt="" width="708" height="473" /></p>
-
-<h3>你知道吗？</h3>
-<p>自动化悖论（Automation Paradox）是人为因素研究中的经典概念，由 Lisanne Bainbridge 在 1983 年提出：系统越自动化，越是要求人类在自动化失效时执行高难度干预，但人类却因自动化接管了日常操作而缺乏练习，导致关键干预能力反而衰退。这一现象在航空领域已得到充分印证——现代自动驾驶飞机让飞行员的手动驾驶技能退化，也因此 FAA 强制要求定期手动飞行。这也启发了「自动化惊奇」（automation surprise）的概念，指自动化系统做出出乎操作者意料的行为，而操作者因脱离环路而难以迅速理解并接管。这些研究为评估 AI 对各类专业技能的长期影响提供了重要框架。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50305693</guid>
-      <pubDate>Fri, 30 Oct 2026 15:52:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Herdr 发布原生桌面应用：面向终端与编程智能体的工作空间管理器</title>
-      <link>https://news.ycombinator.com/item?id=50298436</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 属于编程工具发布，正是用户很感兴趣的主题，面向终端与编程智能体的工作空间管理器</small></p><p>Herdr 在 GitHub 上发布了其原生桌面应用。这是一款专为终端和编程智能体（coding agents）设计的桌面应用，核心思路是把工作存放在「空间」（spaces）中，让用户随时查看哪些智能体需要自己处理，并在关闭窗口后让终端继续运行。</p>
-<p><strong>主要特性</strong></p>
-<ul>
-<li>空间与窗格：一个空间承载一台机器上的工作（通常对应一个仓库），内含标签页，可将标签页拆分为窗格，让终端或 mod 面板并排放置。</li>
-<li>智能体侧边栏：将各空间中的智能体汇总到一个列表，包括由其他智能体启动的 worker，并显示状态——Working（工作中）、Blocked（等待你）、Done（完成）、Idle（空闲）。</li>
-<li>远程工作：可通过 SSH 添加远程机器，在其上运行终端；本地窗口关闭或笔记本休眠时，远程工作仍会继续运行。</li>
-<li>高度可定制：命令面板（Ctrl+Shift+P）、内置布局（Herdr、Terminals、Herdr 98）、用 JavaScript 编写的 mod，以及可编辑的快捷键配置文件（keys.json）。</li>
-<li>更新与隐私：发布版默认开启使用遥测，可在设置中关闭；mod 属于可信代码而非沙箱扩展，安装需谨慎。</li>
-<li>智能体集成：提供 <code>herdr-core</code> 用于运行和协调程序，以及 <code>herdr-app</code> 命令行工具用于检查窗口状态。</li>
-<li>支持平台：Linux（x86-64 与 ARM64）、macOS（Apple Silicon 原生，Intel 用户需源码构建）、Windows（x64）。</li>
-</ul>
-<p><strong>社区反馈</strong>（Hacker News，300 分、195 条评论）</p>
-<p>应用获得大量好评。多位用户表示从 tmux 切换后「不再回头」，认为它非常稳定可靠；它底层使用 libghostty，避免了「终端模拟器套终端模拟器」的嵌套问题，界面打磨精致且支持鼠标操作。还有用户用语言模型把原有 tmux 按键绑定迁移到 Herdr，过渡十分顺利。</p>
-<p>也有用户对背后的风险投资资金和商业模式表示担忧，担心工具将来会「把用户当产品」；但也有观点认为其开源属性提供了对冲手段（可自行 fork）。评论区还讨论了手机端控制方案（如 herdr-gpui、moshi、cosyra mobile 等）、内置的 Windows 98 主题（含扫雷、纸牌与 Clippy），以及按不同项目/工作区切换不同 AI 账号的需求。另有用户一度报告 herdr.dev 的 SSL 证书异常，随后已恢复正常。</p>
-<p>你知道吗？</p>
-<ul>
-<li><strong>libghostty</strong>：这是终端模拟器 Ghostty 使用的底层渲染库。Herdr 借助它提供真正的终端渲染，因此不会出现「在终端内部再嵌套一个终端」的问题，这也是它被部分用户视为相较 tmux 更自然的体验的原因。</li>
-<li>评论中提到的「终端模拟器套终端模拟器」问题，是指 tmux 这类终端多路复用器运行在已有终端模拟器内部时，在按键绑定、剪贴板、缩放等方面带来的复杂性与局限。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50298436</guid>
-      <pubDate>Fri, 30 Oct 2026 00:42:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
