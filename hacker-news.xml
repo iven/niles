@@ -3,7 +3,59 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 07 Nov 2026 01:53:05 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Nov 2026 08:43:55 GMT</lastBuildDate>
+    <item>
+      <title>⭐ libghostty-vt 1.0 发布：终端模拟库 ABI 稳定，已被 JetBrains、Neovim 等广泛采用</title>
+      <link>https://news.ycombinator.com/item?id=50399933</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲终端模拟库 libghostty-vt 1.0 发布及 ABI 稳定，属于编程工具发布与开源项目，符合高兴趣和兴趣点，但偏库发布而非效率经验分享，故推荐</small></p><p>Mitchell Hashimoto 宣布 libghostty-vt 1.0 正式发布。libghostty 是从终端模拟器 Ghostty 核心提取出的可移植、高性能终端模拟库，1.0 版本意味着库本身及其 C ABI 均已稳定。一年前该库还只有 Zig 模块、没有 C API，如今其 C API 已构成完整的终端模拟器，运行在数百款免费与商业产品中，服务数百万用户，并拥有强制执行的 ABI 稳定性策略。</p>
+
+<h3>采用情况</h3>
+<p>JetBrains IDE（IntelliJ、PyCharm、GoLand 等）的终端已基于 libghostty，据 JetBrains 报告活跃用户超过 1250 万。Neovim 已批准用 libghostty-vt 替换 libvterm 的合并请求，解决了关于调整大小时滚动缓冲重排的十年老问题，正等待本次标记版本发布以便发行版单独打包依赖。KDE 开发者正在实验基于它构建 Konsole 替代品；Vercel 的 Turborepo 用它渲染 TUI 中的任务输出；devenv 用它驱动 shell；Antithesis 用它模糊测试 TUI 程序并发现了 btop 等软件的真实 bug；Ghostel 将其带到 Emacs；ghostty-web 是提供 Xterm.js 兼容 API 的 WASM 构建。OrbStack 等商业产品也内嵌了它。社区还为 Rust、Go、JavaScript、Swift、Python、.NET、Elixir、Dart、Java 等语言提供了绑定，awesome-libghostty 列表收录了上百个项目。作者指出，如今使用 libghostty 驱动终端的人数远超直接使用 Ghostty 应用本身的人数。</p>
+
+<h3>ABI 稳定性</h3>
+<p>1.0 遵循语义化版本并承诺严格的 ABI 兼容性。所有对象均为不透明句柄，读写通过少量枚举键控的 getter/setter 完成；较新头文件链接旧版库时会返回 GHOSTTY_UNSUPPORTED 而非崩溃或未定义行为；少数非不透明结构体携带自身大小以便日后追加字段。CI 使用 libabigail 在 Linux 上检查 ABI，在 macOS 和 WebAssembly 上检查黄金类型清单；ELF 平台上所有导出符号都带版本号，动态加载器会按名称拒绝不匹配的库。</p>
+
+<h3>打包、依赖与许可</h3>
+<p>libghostty 拥有独立于 Ghostty 应用的发布周期和 tarball，发布签名源码包及配套依赖包（含 Zig 缓存布局），支持完全离线构建。构建会安装带 SONAME 的共享/静态库、头文件、pkg-config 与 CMake 包配置，并支持 --prefix、DESTDIR、lib64。库采用 MIT 许可，运行时除 libc 外无其他依赖，也可完全 freestanding 构建。依赖仅有 simdutf、Google Highway、紧凑 Unicode 表和 Wuffs，均为宽松许可，依赖树中无 copyleft 代码，并提供机器可读的清单（版本、SPDX 许可、哈希）。</p>
+
+<h3>可移植性</h3>
+<p>CI 中完整构建并测试的平台包括 Linux（glibc/musl）、macOS 13+、iOS 13+、FreeBSD、Windows、Android 和 WebAssembly（wasm32 freestanding）；另有裸机 riscv32/thumb、WASI、Windows arm64、illumos、32 位 x86 等构建但不自动测试的平台。各平台获得相应产物：Linux/FreeBSD 共享库、macOS/iOS 的 XCFramework、Windows 的 DLL 与导入库、Android NDK 16KB 页支持、WASM 速度/体积两种版本（小体积版开启全部功能仍不足 1MB）。资源占用方面，库不创建线程、仅通过可定制分配器分配内存；作者在 4 核 8GB 内存的 Linux 服务器上运行了 10,000 个活跃终端。</p>
+
+<h3>未来计划</h3>
+<p>作者表示，现在用约 1,500 行 C 代码即可创建一个功能与性能超过 2025 年几乎所有终端的产品。未来将聚焦稳定性，同时尽可能实现各种终端协议（并提供开关选项），让嵌入方拥有选择余地。文档、示例和下载见 lib.ghostty.org。</p>
+
+<h3>社区反馈</h3>
+<p>HN 社区反应热烈。多位用户称赞在"永远 0.x"的时代看到知名项目达到 1.0；Emacs 用户对 Ghostel 评价很高，称其远超其他 Emacs 终端方案；也有用户指出文章称其为 "C library" 的表述令人困惑——实际上它是 Zig 编写的库，只是暴露 C ABI。有用户询问 Debian 打包是否会受 Zig 稳定性影响，还有用户讨论 Windows 移植（Noctty、GhosttyWin3、wintty 等第三方端口）。关于 Ghostty 与 iTerm2 的对比，有用户表示 Ghostty 更简洁，但 iTerm2 在某些场景下 bug 更少。</p>
+
+<h3>你知道吗？</h3>
+<p>尽管文章通篇称其为 "C library"，libghostty 实际上是用 Zig 编写、通过 C ABI 暴露接口的库——这一点在评论区也引发了一些困惑。所谓 ABI 稳定，意味着程序开发者可以放心地对库进行动态链接而不用担心升级破坏兼容性，发行版打包者也能确信库的二进制接口长期不变，这正是作者认为一款高质量、经久耐用的 C 库的标志。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50399933</guid>
+      <pubDate>Fri, 06 Nov 2026 23:30:52 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ AI 正在大幅加速 AI 研究：METR 报告称 Anthropic 能力进步速度已翻倍</title>
+      <link>https://news.ycombinator.com/item?id=50397994</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 AI 研究加速及 Anthropic 能力进步翻倍的报告，涉及新 AI 模型发布与 AI 技术进展前沿，符合高兴趣配置，属必看内容</small></p><p>本周早些时候，Anthropic 在其 S1 文件中表示，可能"即将达到"其<a href="https://www.anthropic.com/rsp">负责任扩展政策</a>（Responsible Scaling Policy, RSP）中定义的"AI 大幅加速进展"阈值：整体能力进步速度达到 AI 大量参与 AI 研发之前最快持续速度的两倍，且这种加速很可能归因于 AI 自动化 AI 研发，而非算力或其他投入的增长。</p>
+<p>文章作者 Ajeya Cotra 是 <a href="https://metr.org">METR</a>（模型评估与威胁研究）的研究员。她表示，METR 同事对 Anthropic 进行的一项深度调查显示，这一阈值实际上可能已被跨越：2025 年 10 月至 2026 年 10 月间，Anthropic 的能力进步速度约为此前 12 个月的两倍（以内部版 Epoch 能力指数 AECI 衡量）。报告作者认为，AI 自动化是当前能力仍以更快速度提升的主要原因，但大部分支撑证据在报告中遭到删节。</p>
+<img src="https://substackcdn.com/image/fetch/$s_!hcJn!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F40ef3251-b0ed-4ed8-bb5f-649bfccc7563_1880x1561.png" alt="" width="1456" height="1209" />
+<p>Cotra 认为这份报告是近两年关于 AI 风险最重要的更新，其含义远超表面：如果 AI 使整体能力进步速度翻倍，研究人员必须被加速得更多。她推算，考虑到实验算力等投入，研究人员需要约 4-9 倍的劳动力提升才能让整体能力进步翻倍；而由于"低垂的果实"被更快摘取、想法越来越难发现，当前所需的提升可能高达约 10 倍，这与 Anthropic 员工非正式自述的约 12 倍内部模型提升大致吻合。她强调，10 倍提升并非"一个研究员变成十人团队"，而更像是每位研究员处于时间膨胀气泡中，一天能完成外界十天的工作。</p>
+<img src="https://substackcdn.com/image/fetch/$s_!AN_L!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7fbd709e-dadd-451e-b6b1-1018da098568_2048x751.png" alt="" width="1456" height="534" />
+<p>这种加速可能迅速自我强化：随着 AI 能力提升，研究人员被加速得更多，进而推动能力进步以 4 倍、8 倍、16 倍的速度增长。报告作者未发现会阻碍复合加速的瓶颈或急剧边际收益递减的证据。若按字面理解，平滑的复合加速在朴素外推下意味着一年内达到极端超级智能。Cotra 预期，通过这一反馈回路产生的 AI 系统将能快速开发新型武器，若严重错位，可能导致人类文明被剥夺权力乃至灭绝。</p>
+<img src="https://substackcdn.com/image/fetch/$s_!1KlI!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2e1f8a00-b6d6-4060-8341-6e9c298ba4a3_1880x1175.png" alt="" width="1456" />
+<p>然而，行业尚未准备好安全地应对这一局面。她认为，在经历"智能爆炸"之前，至少需要足以抵御国家级对手窃取模型权重的安全措施，而目前 OpenAI 和 Anthropic 都刚遭遇过业余团体的重大安全漏洞。此外还需要全面的日志与监控、可靠的监控可测量性、对齐训练技术、治理基础设施等大量措施。遗憾的是，报告中的大部分关键证据被删节，外部科学家无法检验数据，只能依赖信任。</p>
+<p>社区反馈方面，Hacker News 评论呈现两极：一些开发者分享 AI 加速自身研究的亲身经历（如几分钟内实现并测试想法、快速验证"疯狂"点子）；另一些评论者质疑报告的独立性（"METR 总是说 BigAI 想听的话"）、指出报告同时发现 AI 只能在可验证奖励的狭窄领域部署、质疑 AECI 指标的实际意义，还有人认为加速主要来自资本投入而非模型智能本身，并担忧硬件与基础设施瓶颈。</p>
+<h2>你知道吗？</h2>
+<ul>
+<li><strong>负责任扩展政策（RSP）</strong>：Anthropic 制定的内部安全框架，为不同能力水平设定相应的安全阈值（如 AI 研发自动化等级），达到阈值前必须满足相应的安全要求。</li>
+<li><strong>计算乘数（compute multiplier）</strong>：指通过算法或架构改进（如对 Transformer 架构的调整、更高效的运行方式）使同等算力获得更高能力，是"有效计算"的重要组成部分。Anthropic CEO Dario Amodei 曾解释，前沿公司经常发现小型（约 1.2 倍）、中型（约 2 倍）乃至大型（约 10 倍）的计算乘数。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50397994</guid>
+      <pubDate>Fri, 06 Nov 2026 20:27:23 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 混合模型测试：Jev + Opus 以 4 倍更低成本达到前沿模型精度</title>
       <link>https://news.ycombinator.com/item?id=50397429</link>
@@ -908,61 +960,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50319510</guid>
       <pubDate>Sat, 31 Oct 2026 19:56:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 展示 HN：将 NES 红白机 CPU 编译进约 1GB 的 Qwen 权重中</title>
-      <link>https://news.ycombinator.com/item?id=50306442</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 将 NES CPU 编译进 Qwen 模型权重的技术实验，涉及 AI 软件技术、编程与开源项目，符合兴趣</small></p><p>开发者 dbreunig 发布了 <a href="https://github.com/dbreunig/nesformer">nesformer</a> 项目，将一个完整的 NES（任天堂红白机）系统编译进了标准的 Qwen3.5 语言模型权重中。这不是通过训练得到的——模型中的所有权重都由一个编译器计算得出，没有任何人训练过这些权重。运行游戏时，模型逐 token 预测 CPU 的执行日志，一个宿主机程序负责绘制画面、读取手柄输入并触发垂直空白（vblank）中断。</p>
-
-<p>nesformer 构建在 Divyansh Agrawal 的 Qwenputer 项目之上（后者曾将 CHIP-8 和 RISC-V CPU 编译进模型）。其核心技巧是：利用模型 Gated DeltaNet 的状态作为机器的内存。每个 DeltaNet 头维护一个 128×128 的状态矩阵，通过控制门和 one-hot 键值，每一行都能作为一个内存单元，于是卡带、RAM 和寄存器都存放在这些行中。</p>
-
-<p><img src="/dbreunig/nesformer/raw/main/examples/demo.gif" alt="Super Mario Bros., played by the weights" /></p>
-
-<p>权重中包含 6502 CPU 内核（全部 151 个官方操作码，所有寻址模式、标志、栈、BRK 和 NMI 入口）、2 KB 工作 RAM 和 32 KB 程序 ROM（存储两份：一份用于指令取指，一份用于数据读取）。宿主机一侧处理 PPU（逐扫描线渲染器和调色板）、控制器、APU 寄存器写入以及 NMI 时序。权重是普通的 Hugging Face checkpoint，可用标准 <code>Qwen3_5ForCausalLM.from_pretrained</code> 加载，无需自定义代码。模型参数 466.6M（bf16，约 933 MB），但其中仅 9.3M 为非零，因此权重可压缩到约 3.3 MB。</p>
-
-<p><img src="/dbreunig/nesformer/raw/main/examples/full_game.gif" alt="Full Game, played by the weights" /></p>
-
-<p>项目中捆绑了三个免费授权的测试 ROM（nestest、Thwaite 和 Full Game），用户也可以放入自己的 NROM（iNES mapper 0）卡带，如《超级马里奥兄弟》《大金刚》或《Excitebike》。主机每秒约 60 帧，实际运行速度比真机慢 150–290 倍（空闲循环跳过优化可减少约 2.6–4.2 倍的 token 数）。目前仅支持 NROM 卡带，不支持带换页芯片（mapper）的游戏，也不支持非官方操作码（遇到会触发 HALT）。</p>
-
-<p>验证方面：参考 CPU 与 nestest 的黄金日志（3,348 条指令）以及 py65 模拟器（570 万条指令）完全一致；电路在与 Qwenputer 评估器（带 bf16 精确度检查）中预测了所有参考 token，多个测试运行均与参考 CPU 的 trace 和画面完全匹配。</p>
-
-<p>Hacker News 评论区对这一项目的意义展开了讨论。有用户（jacquesm）欣赏这类 hack，但指出从效率角度看它令人震惊，并借此感慨确定性程序比 AI 高效得多。作者 dbreunig 回应了关于"如何确认它在工作"的疑问，指出模拟社区维护着超过 3000 条黄金指令的符合性测试。一些评论把项目比作"在 Minecraft 里做 Minecraft"式的炫技证明；armcat 则畅想可借此在 LLM 权重内编译一个小型 VM，从而直接在模型内部执行 Python 解释器、shell 和工具，而无需外部工具调用。</p>
-
-<div><h3>你知道吗？</h3>
-<p>NES 的 2A03 芯片核心是一颗 6502 微处理器，这是 20 世纪 70–80 年代广泛使用的经典 8 位 CPU 架构。NES 游戏卡带常见的"mapper"（如 MMC1、MMC3）是负责银行切换（bank switching）的芯片，它让 CPU 能访问超过自身寻址范围（32 KB 程序 ROM）的更大游戏内容；nesformer 目前只支持无需 mapper 的 NROM 电路板。</p>
-</div>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50306442</guid>
-      <pubDate>Fri, 30 Oct 2026 16:40:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>Florilegium：用 Lua 在 LaTeX 中程序化生成花卉页边装饰</title>
-      <link>https://news.ycombinator.com/item?id=50305637</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及编程工具（Lua/LaTeX实现）和开源项目，属于感兴趣范畴，但内容较为小众特定，属于LaTeX排版美化工具，兴趣不明确，评为optional</small></p><p>Florilegium 是一个为 LuaLaTeX 打造的开源项目，能够在页面边距中<strong>程序化生成代尔夫特蓝（Delft-blue）风格的花卉装饰</strong>。它完全不需要图像、外部路径或任何资源文件：每一片花瓣、叶子和茎都是页面排版时由 Lua 实时计算出的参数曲线，以水彩般的笔触直接写入 PDF。每个页面都会获得属于自己的"花园"，即使使用相同的代码，只要随机种子不同，生成的花园也各不相同。</p>
-
-<p><img src="/kevinraymond/florilegium/raw/main/gallery/seeds.gif" alt="six seeds" /></p>
-
-<p>项目提供了两种构图模式：<strong>手工编排</strong>（authoring，按手工设定的位置放置茎、叶和花）和<strong>生长</strong>（grown，通过贪心空间填充算法让植物自动适应页面留白）。后者借鉴了 1998 年一篇装饰艺术文献中的"填充未用空间"思路，植物会顺着文本剩余空间生长，甚至延伸到正文结束后的页尾空白处。</p>
-
-<p><img src="/kevinraymond/florilegium/raw/main/gallery/preview-grown-lastpage.png" alt="last page of the grown document" /></p>
-
-<p>项目还支持丰富的交互特性：用 <code>\florilegiuminitial</code> 让段落首字母以装饰字母呈现（从 OpenType 字体读取字母轮廓，藤蔓穿过其笔画）；用 <code>sections</code> 选项在标题旁放置花朵；用 <code>aging</code> 选项让花园随页面从春天到秋天"衰老"（改变生长的内容而非位置）；还会随机出现蝴蝶、蜜蜂、蜗牛甚至栖息的小鸟等"访客"。双面文档中，花园会自动在较宽的外侧页边生成，另一页则通过镜像得到对应的对称花园。</p>
-
-<p><img src="/kevinraymond/florilegium/raw/main/gallery/showcase.png" alt="the three pages of showcase.tex" /></p>
-
-<p>整个调色板由单一颜色 <code>ink</code> 派生，在 OKLCH 色彩空间中计算从最深笔触到最浅水彩的渐变，避免浅色端发灰。项目还支持可替换的<strong>主题</strong>：<code>theme=geometric</code> 将植物换成平面几何形状（菱形花、多边形叶、水晶晶体）；<code>theme=math</code> 则完全不是植物，而是在边距中铺展数学图形（科赫雪花、阿波罗垫片、欧拉公式等）。此外还有 <code>density</code> 和 <code>intensity</code> 选项用于控制边距的疏密与浓淡，以及可在正文中插入单个饰图的 <code>\florilegiumornament</code> 命令。</p>
-
-<p>项目还提供了一个<strong>纯 PostScript</strong> 移植版本，单个自包含文件即可在 Ghostscript 或打印机上实时计算并绘制整页花园，且每次打印都会因时钟取种而生长出不同的花园。</p>
-
-<p>该项目明确说明由 AI（Claude）协助完成，作者也分享了将想法实现的过程。该项目在 Hacker News 上获得 304 分、48 条评论，社区总体好评（"非常精美""这正是我需要的"），不过也有评论指出 README 及全部内容均由 AI 生成，并围绕"是否延续了 Knuth 时代的排版工艺传统"展开讨论。有读者注意到，即使 AI 生成，<em>florilegium</em>（源自拉丁语 flos"花"+ legere"采集"）这一名字既呼应了学术上的"选集/花卉集"典故，也恰好贴合其字面的"采花"之意，十分贴切。</p>
-
-<h3>你知道吗？</h3>
-<p>"Florilegium"（花卉集）源自拉丁语 <em>flos</em>（花）与 <em>legere</em>（采集），字面意为"采撷花朵"，在文献学中指从更大著作中辑录精华的选集，与希腊语的"anthology"（诗选/文选）意近。这个项目借用该词，既取其"花卉"字面义，也暗合"选集"的典故，一语双关。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50305637</guid>
-      <pubDate>Fri, 30 Oct 2026 15:48:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
