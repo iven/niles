@@ -3,7 +3,77 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 08 Nov 2026 13:16:37 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2026 18:50:13 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ llama-modchip：纯 CPU 64GB 内存运行 284B DeepSeek，社区热议 2-bit 量化质量</title>
+      <link>https://news.ycombinator.com/item?id=50411961</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要讲 llama-modchip 这一开源工具在纯 CPU 上运行 284B 大模型（DeepSeek），属于编程工具发布/分享并涉及新 AI 模型，命中高兴趣。</small></p><p>GitHub 项目 <a href="https://github.com/synchopate/llama-modchip">llama-modchip</a>（v2.4.0）宣称可以在完全不需要 GPU 的 64GB 内存机器上运行 284B 参数的 DeepSeek-V4-Flash 模型，以及 30B 规模的 MoE（混合专家）模型，在 Hacker News 引发热议（251 分、80 条评论）。</p><p><strong>核心成果</strong>：该项目通过一系列优化将 DeepSeek-V4-Flash 284B（13.17B 激活参数）从标准 76.87 GiB 压缩到磁盘 56.56 GiB，在 256K 上下文下峰值内存占用（VmRSS）为 57.61 GiB，可完整放入 64GB 内存。实测 prefill 速度 44.36 tok/s，纯 CPU 解码 9.06–10.74 tok/s，配合 Stockfish-PVS 草稿模型可达 11.5–14.7 tok/s。30B 的 NVIDIA Nemotron-3.5-30B-A3B 在 16 核 Zen 5 上可达 25–60.4 tok/s，在 Threadripper 上达 111.6 tok/s。</p><p><img src="https://github.com/synchopate/llama-modchip/raw/main/assets/launch_284b_64gb.gif" alt="llama-modchip v2.4.0 — 284.33B DeepSeek-V4-Flash in 57.61 GiB RAM &amp; 60.4 tok/s Nemotron-30B on Pure CPU" width="100%" /></p><p><strong>关键技术</strong>：包括 Fractal-64 量化（约 3.75 bpw，接近 2-bit 级别）、SwiGLU-H2 二阶 Hessian 压缩、MLA 转码、四级寄存器（AVX-512）平铺、L2 四象限 MoE 剪枝等。项目提供一键安装脚本和 Windows 混合 GPU+CPU 方案，支持 AMD、Intel、Apple Silicon、AWS Graviton 等多种平台，并附带可复现的 100 分质量门测试。</p><p><strong>社区反馈</strong>：讨论焦点集中在量化质量上。多位评论者指出该量化级别（约 2-bit）会显著降低输出质量，认为低于 4-bit 的量化"基本没用"；有评论引用研究称量化性能呈非线性，4-bit 通常是性价比峰值。另有不少评论批评 README 充满 AI 生成的夸张文案和 emoji，可读性差。但也有评论者认可这一优化方向的技术含量，称其为"令人印象深刻的成就"。</p><h3>你知道吗？</h3><p>量化（Quantization）是压缩大模型权重以降低内存占用的常用手段，常见级别包括 8-bit、4-bit 和 2-bit。慕尼黑工业大学的研究（<a href="https://arxiv.org/pdf/2607.10855">Reliability Scaling Laws for Quantized Large Language Models</a>）表明，量化对模型性能的影响呈非线性，通常在 4-bit 附近达到"尺寸-性能"比峰值，进一步降低量化位数会带来明显性能衰减。不过，量化感知训练（QAT）等方法可能改变这一规律，部分现代低比特量化模型通过 QAT 仍能保持较好质量。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50411961</guid>
+      <pubDate>Sun, 08 Nov 2026 10:22:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GitHub 推出全新 Pull Request 概览页（Overview）公开预览</title>
+      <link>https://news.ycombinator.com/item?id=50408931</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GitHub 推出的新 PR 概览页功能，属于软件新功能且能提升编程协作/审查效率，命中兴趣与高兴趣。</small></p><p>GitHub 于 2026 年 11 月 5 日宣布推出全新的 Pull Request（PR）概览页（Overview page）公开预览。该功能旨在解决长 PR 中常见的痛点：开发者为了查看合并状态，往往需要滚动经过大量评论和时间线事件才能到达合并框（merge box），而到达后仍需自行判断下一步该做什么。</p>
+
+<p><img src="https://github.com/user-attachments/assets/35becfa5-7fe4-4ab3-8c80-df8348fa41f7" alt="Pull request overview with merge readiness, checks, comments, approvals, and recent activity at the top of the page" /></p>
+
+<p>新概览页的核心改动是将合并状态和下一步可用操作以紧凑的「就绪摘要」（readiness summary）形式置于页面顶部。合并框被重新设计，在不到原来一半的空间内展示相同的信息，包括检查（checks）、评论和批准的紧凑视图，并支持直接执行推进 PR 的操作（如更新分支）、查看合并就绪状态并执行合并。</p>
+
+<p><img src="https://github.com/user-attachments/assets/f52c7ce3-3e0e-444d-abf5-49037440e799" alt="Comparison of the classic merge box and the compact readiness summary, highlighting checks and next available actions" /></p>
+
+<p>预览版还引入了多项聚焦与追赶进度的功能：可按「未解决」或「我写的」筛选评论对话；评论支持按最新到最旧排序；右上角的摘要可快速查看审查评论、审查请求等最新动态；还可从页头直接将草稿标记为就绪或关闭 PR（具体操作取决于权限）。</p>
+
+<p><img src="https://github.com/user-attachments/assets/955432ff-5cec-4987-8d8e-48a2dab0119c" alt="Pull request comments with All, Unresolved, and Mine filters, newest-first sorting, and a summary of recent activity" /></p>
+
+<p>用户可在页头点击「✨ Try the Overview page」按钮加入预览，并通过同一菜单随时返回经典概览视图。GitHub 表示这是重新设计 PR 体验的第一步，欢迎用户通过<a href="https://github.com/orgs/community/discussions/212186">预览反馈讨论</a>提供意见。</p>
+
+<p>该消息在 Hacker News 上引发热议（171 分、116 条评论）。部分用户认可 GitHub 近期的 UI 改进，例如无需打开加载缓慢的 diff 视图即可在主页面上看到批准按钮；但也有不少用户表达了不满：有人抱怨「Merge when ready」功能近期存在严重回归，实际进入合并队列的成功率仅约 60–70%，且缺乏可见性，甚至有团队因此改用外部合并队列服务（如 trunk.io）；还有人希望 GitHub 优先修复收件箱（inbox）的缓慢与错误提示问题，而非继续改造 UI。另有用户指出，PR 的第一轮评论在后续提交后会与代码实际版本脱节，难以判断评论是否已被处理。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50408931</guid>
+      <pubDate>Sat, 07 Nov 2026 23:09:40 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Anthropic 研究：智能体记忆的组成与「做梦」式离线整理机制</title>
+      <link>https://news.ycombinator.com/item?id=50402212</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲 Anthropic 关于智能体记忆组织的 AI 研究，属于 AI 软件技术进展与科学前沿，命中兴趣。</small></p><p>Anthropic 研究团队在<a href="https://www.anthropic.com/research/components-of-agent-memory">这篇研究文章</a>中系统阐述了如何为 AI 智能体（agent）设计记忆系统。文章借鉴人类大脑的记忆机制，提出了一套「记忆层级」架构，并重点介绍了被称为「做梦」（dreaming）的离线整理机制——让模型在两次交互之间的空闲时段反思日志、修正错误、构建新的记忆表征。</p>
+
+<h3>记忆层级与「做梦」</h3>
+<p>文章将智能体记忆定义为 Claude 从经验中获得、并在会话之间保留的知识，以稍后可读取的上下文形式保存。这一体系分为四层：会话转录（transcripts，可检索的事件日志）、Claude 写下的记忆笔记、记忆表征（如 wiki 页面）、以及注入到每个新会话的上下文。研究者类比人脑机制：海马体在睡眠和静息时重放近期经历，逐步将其巩固并整合到新皮层；智能体同样可以在空闲时「做梦」，利用日志反思并整理记忆。</p>
+
+<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fa0bcfa203214d817d2b4261b7188aba8be6db5b2-3840x1754.png&w=3840&q=75" alt="会话之间的记忆层级示意图" width="3840" height="1754" />
+
+<h3>记忆即预测</h3>
+<p>文章提出，记忆有时是一种预测：写下一条规则，等于预测该模式未来还会再次相关。在持续学习基准（CL-Bench 1.0）的数据库问答任务中，不同模型展现出不同的「学习循环」能力——从记录失败、提出理论、检验理论，到最终把验证过的结论固化为规则。Claude Opus 5 是首个「闭环」的模型，其记忆条目包含规则、验证依据和沿途发现的陷阱警告；Opus 5.5 与 Sonnet 5.5 也都能利用记忆捕获经过验证的规则。</p>
+
+<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fbb0d44c78cc431fb5e84fbf2cb17c4303bc6bd65-3840x2160.png&w=3840&q=75" alt="CL-Bench 数据库任务中记忆与无状态基线的对比" width="3840" height="2160" />
+
+<h3>判断什么值得记</h3>
+<p>在《宝可梦 红》游戏中，研究者测试了模型对「什么值得保存」的判断力。Claude Sonnet 3.7 无差别记录，写了 413 个文件、225 个文件夹，却只获得 1 枚徽章；而 Claude Fable 5 只写了 9 个文件加一个 global.md 总览，却获得 4 枚徽章。后者把记忆用于游戏未明确告知的信息（策略、计划、已验证的规则），而非屏幕上每回合都能读到的状态，因此记忆更精简、更不易过时。</p>
+
+<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F5e15e10f665773050d90fafc38ab8dd76ae5368b-3840x2545.png&w=3840&q=75" alt="Sonnet 3.7 与 Fable 5 在宝可梦中的记忆目录对比" width="3840" height="2545" />
+
+<h3>引导而非规定</h3>
+<p>研究发现，告诉 Claude 记忆的用途比规定具体用法更有效。当设定「只记录失败」的规则时，Opus 5 和 Opus 4.7 都失去了大部分记忆带来的性能提升；对较弱的模型（如 Sonnet 4.6），提示其先读取记忆再作答、并显式检验理论，几乎使基准分数翻倍。对前沿模型，Anthropic 通常只给出简单引导，把「什么值得记」的判断交给 Claude 自己。</p>
+
+<h3>「做梦」修正与构建记忆</h3>
+<p>「做梦」能让 Claude 对照原始转录检验记忆笔记。在宝可梦的月见山（Mt. Moon）关卡中，一条记错的地标位置笔记导致模型反复绕圈、始终无法抵达下一座城市；经「做梦」对照转录修正后，模型顺利穿过洞穴抵达华蓝市（Cerulean City）。此外，「做梦」还能构建 wiki 式记忆表征：在对 Stainless 公司约 35 万份内部文档（约 4.2 亿 token）的测试中，随着「做梦」从 2 个会话扩展到 128 个会话，25 道问题的得分从 13% 提升到 48%，wiki 与搜索工具配合时效果最佳。</p>
+
+<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fd906d6ed9ac92db36631a624ad517183b07a545d-3840x2101.png&w=3840&q=75" alt="被修正的记忆笔记改变了宝可梦中的行动结果" width="3840" height="2101" />
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论呈现两极分化。有读者赞赏文章对记忆系统设计的验证，也有人批评其「营销味」过重：认为 Claude 并非真正「记住」，只是把 markdown 文件注入上下文，且文章对「如何确保模型真正使用记忆」着墨甚少。多位实际使用 Claude Code 的用户分享了经验：有人关闭自动记忆创建并手动清理（认为自动生成的记忆大多只与当前任务相关），也有人定期让模型整理记忆、或把转录导入 duckdb 做数据分析。</p>
+
+<h3>你知道吗？</h3>
+<p>「做梦」一词在神经科学中颇具争议。主流假说认为，人类做梦的体验是睡眠期间记忆重激活与巩固过程的<em>副产品</em>，而非该过程本身，因此有评论者认为用「做梦」描述智能体离线整理记忆的机制类比并不严谨——它更接近记忆巩固（memory consolidation）本身。文章提到的「睡眠时间计算」（sleep-time compute）概念最早由 Letta 与 UC Berkeley 的研究者提出，指模型利用交互间隙重新组织既有上下文。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50402212</guid>
+      <pubDate>Sat, 07 Nov 2026 06:39:04 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 告别 Claude Code，转向开源编码代理 Pi</title>
       <link>https://news.ycombinator.com/item?id=50410107</link>
@@ -951,63 +1021,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50333339</guid>
       <pubDate>Mon, 02 Nov 2026 05:06:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OccupySaaS：被裁开发者发起&quot;代码抗议运动&quot;，用开源替代品挑战SaaS巨头</title>
-      <link>https://news.ycombinator.com/item?id=50331402</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开发者发起的开源替代品运动，核心是开源项目和编程工具分享，符合兴趣，虽涉及行业主体但重点在开源软件开发</small></p><p>一个名为 <strong>OccupySaaS</strong> 的项目在 Hacker News 上引发热议（459 分，285 条评论）。这是一个由被裁开发者发起的"代码抗议运动"，目标是构建"洁净室（clean-room）"的开源、可直接替换的替代品，用以对抗 SaaS 巨头。项目自称目标是挑战按人头收费的定价模式——"每一次招聘、实习、合同工，都是一笔开支，基础设施不应按人头收费。"</p><p>该计划的首批替代对象是 <strong>ZeroAuthy（Auth0 的替代品）</strong> 和 <strong>SalesCompel（Salesforce 的替代品）</strong>。</p><p><strong>社区反馈分歧较大。</strong>一些评论认为这是针对大科技公司裁员潮的合理反击；也有人指出其讽刺之处——"我们因为 AI 被大科技解雇，现在却自己掏钱资助 AI 来反击"，逻辑上说不通。有用户怀疑这可能是 Anthropic 的营销活动（随后被其他讨论反驳）。</p><p>多位开发者质疑项目可行性：一是 Auth0 和 Salesforce 被选为首个目标令人费解（Auth0 早有更好的替代品，Salesforce 本身质量一般）；二是这些项目看起来"并不完整"，被批评为"半成品项目"和"AI 发烧梦"。但也有支持者认为，当企业软件的支持正被 AI 代理侵蚀时，这类提供良好文档的开源替代方案会越来越有意义。</p><p>讨论中还提到相关项目 <strong>Remade Wiki</strong>（<a href="https://remade.wiki/">remade.wiki</a>）以及开源替代品 <strong>OpenShip</strong>（<a href="https://openship.org">openship.org</a>）。也有评论者类比"占领华尔街"（Occupy Wall Street），担忧这类运动难以让所有人保持一致方向。</p><p>总体而言，评论对新项目的现实可行性普遍存疑——如一位用户所言："一个成功的产品不仅仅是 GitHub 仓库里的代码"，迁移成本、可靠支持和长期愿景才是客户真正关心的。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50331402</guid>
-      <pubDate>Mon, 02 Nov 2026 00:17:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OmniDiff：开源、超快、内容感知的 Git 差异对比工具（Rust 编写）</title>
-      <link>https://news.ycombinator.com/item?id=50325253</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主要介绍一款开源、超快的Git差异对比工具（Rust编写），属于编程工具发布/分享及开源项目，符合用户高兴趣配置</small></p><p>开发者 Marko Ivankovic 在 Hacker News 上发布了 <strong>OmniDiff</strong>（v0.3.0），一个用 Rust 编写的开源 Git 差异对比（diff）工具，采用 AGPLv3 许可证。与传统的基于文本行的 diff 工具不同，OmniDiff 是"内容感知"的，能够根据文件类型使用专门的算法进行对比。</p>
-
-<h3>核心能力</h3>
-<p>OmniDiff 支持对比多种内容类型：<strong>代码</strong>（25 种语言，通过 tree-sitter 语法进行结构化对比）、<strong>配置</strong>、<strong>图片</strong>（逐像素对比，动画逐帧对比）、<strong>PDF</strong>（逐页绘制对比）、<strong>压缩包</strong>（逐文件对比，支持嵌套）、<strong>字体</strong>（逐字形对比）、<strong>光标文件</strong>、<strong>消息目录</strong>（gettext .mo、Qt .qm）等。对于未知扩展名的文件，则按纯文本逐行对比。</p>
-
-<p>在性能方面，作者声称在 2023 款 ThinkPad T14s 上，对比数万行的 C++ 文件可在 100ms 内完成。根据其基准测试，中位数 diff 耗时 4.2ms，p99 为 177ms。在 442,530 个代码对比对中，99.95% 成功完成。</p>
-
-<p>OmniDiff 的开发基于对真实 diff 的研究：作者分析了 Gentoo 软件包中列出的 7,400 个仓库，手动解决了 2,000 个 diff 样例，以此构建各内容类型的 diff 流水线。</p>
-
-<h3>功能特性</h3>
-<ul>
-<li><strong>交互式 TUI</strong>：支持 24 位真彩色，可在终端中直接显示图片（支持 kitty、sixel、iTerm2 协议）</li>
-<li><strong>无头/批处理模式</strong>：可输出纯文本或 JSON 格式，适合脚本和 CI</li>
-<li><strong>Git 集成</strong>：可作为 git difftool 后端，也支持 GIT_EXTERNAL_DIFF</li>
-<li><strong>Jujutsu (jj) 集成</strong>：提供独立的配置向导</li>
-<li><strong>浏览器查看</strong>：提供 codereview 功能（v0.0.0，处于早期阶段）</li>
-<li><strong>变更分类</strong>：将变更标记为不可见、不可察觉、伪影、编辑、重绘或替换</li>
-</ul>
-
-<p>安装方式包括 cargo、预编译二进制（Linux/macOS/Windows）、Homebrew、Debian/Ubuntu apt 仓库、Nix 以及 Arch/Gentoo 打包。</p>
-
-<h3>社区反馈</h3>
-<p>该项目在 Hacker News 上获得了 214 分和 51 条评论。讨论焦点包括：</p>
-<ul>
-<li><strong>与 Delta 和 Difftastic 的对比</strong>：作者回应称 OmniDiff 在移动代码的识别上显著优于 Delta（约三分之一的 diff 明显更好）；与 Difftastic 相比，OmniDiff 在 Difftastic 支持的代码 diff 上"完美"率更高（90% vs 64%），速度更快（p50 4ms vs 35ms）。</li>
-<li><strong>许可证争议</strong>：有评论者认为 AGPL 许可证会阻碍项目普及，建议改用宽松许可证。作者明确表示选择 AGPL 是出于对 copyleft 的政治立场，并指出已有至少 3 个同类项目（如 Difftastic、Diffsitter）采用 MIT 许可证但性能和准确性较差。</li>
-<li><strong>三方合并（3-way merge）</strong>：作者表示当前算法（APTED 树对比）不适用于三方合并，这是长期目标但也是最难的挑战。</li>
-<li><strong>打包问题</strong>：有用户指出 Arch 的 AUR 因垃圾信息暂时关闭，作者表示愿意为 Linux 添加 brew 支持。</li>
-</ul>
-
-<p>作者透露，代码 diff 算法采用 APTED（一种树编辑距离算法）的高效实现，并承认使用 AI 辅助开发，但强调并非"vibecode"。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50325253</guid>
-      <pubDate>Sun, 01 Nov 2026 13:02:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ HackerBooks：像 HackerTube 汇总视频那样，汇总 HN 上被提及的书籍</title>
-      <link>https://news.ycombinator.com/item?id=50326821</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 一个汇总 HN 上被提及书籍的工具，属编程/开发者工具分享，用户感兴趣但不属于高优先级，故推荐。</small></p><p>一位用户（roansh）在 Hacker News 上发布了 Show HN 项目 <strong>HackerBooks</strong>，灵感来自 Karpathy 的 HackerTube——只不过它汇总的是 HN 评论中被提及的书籍，而非视频。该网站收录了从 2007 年至今约 1.65 万本被至少两位不同 HN 评论者提及过的书，每本书都会链接回提及它的评论，数据可在 About 页面下载。</p><p>值得注意的是，作者明确表示这个项目几乎全部由 Claude（Opus 5.5）编写，包括数据管道和网站本身，作者主要负责把控方向、做决策和购买域名等。该条目获得了约 492 分和 125 条评论，社区反响热烈，不少用户称赞 HN 是一座"金矿"。</p><p>在评论区的技术讨论中，作者透露技术栈为纯 JavaScript + 静态 JSON 文件，托管在 Cloudflare 上，封面图存放在 R2，数据管道使用 Python + DuckDB 处理 HN 数据转储。作者还根据用户反馈修复了若干问题，包括"提及时间筛选器"逻辑错误（改为按首次被提及的时间过滤）以及"显示更多评论"按钮失效等问题。</p><p>关于计数方式，有评论指出简单统计提及次数并不等于推荐——例如 Mein Kampf 被 651 名 HN 用户提及，这一"推荐"数字引发了质疑。作者已着手将措辞从"recommended"改为"mentioned by"（"被提及"），并考虑改进推荐逻辑。还有用户提议做类似项目但针对播客，作者也鼓励社区尝试。</p><p>「你知道吗？」：Karpathy 的 <a href="https://hackertube.net">HackerTube</a> 是一个从 HN 帖子中聚合 YouTube 视频的网站，由 OpenAI 联合创始人 Andrej Karpathy 创建，HackerBooks 正是借鉴了该想法。其数据来源于可公开下载的 <a href="https://huggingface.co/datasets/HuggingFaceH4/hacker_news">HN 评论数据转储</a>，借助这些公开数据集即可在本地重建类似的统计与分析。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50326821</guid>
-      <pubDate>Sun, 01 Nov 2026 15:58:28 GMT</pubDate>
     </item>
   </channel>
 </rss>
