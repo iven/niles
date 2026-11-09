@@ -3,7 +3,33 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 09 Nov 2026 02:37:23 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2026 11:22:57 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.5 将通过 statx 属性向用户空间传达多粒度时间戳使用情况</title>
+      <link>https://www.phoronix.com/news/Linux-7.5-Statx-MG-TImestamp</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 介绍Linux内核文件系统多粒度时间戳功能，属内核底层细节，兴趣不明确，可选</small></p><p>Linux 7.5 将引入一个新的 statx 属性 <code>STATX_ATTR_MULTIGRAIN_TIMESTAMP</code>，让用户空间能够判断文件的时间戳是否为多粒度（multigrain）类型。这一改动由 Jeff Layton 开发完成，属于 VFS.git 代码树的一部分，预计将在 Linux 7.5 的下一个合并窗口提交。</p>
+
+<p>多粒度时间戳支持最早于 2024 年合入 Linux 6.13，它允许在单个文件基础上，在粗略与精细的变更/修改时间报告之间进行切换。这项功能适用于更看重时间精度而非每 jiffy 一次时间戳的场景，最初是作为解决 NFS 缓存问题的手段而设计的。然而，多粒度时间戳的一个局限在于，用户空间无法得知文件的时间戳是否使用了多粒度模式。Linux 7.5 的这次改动正好填补了这一空白。</p>
+
+<p>对于那些使用多粒度时间戳，或正在开发相关软件并希望了解其使用情况的开发者而言，这是一个虽小但很实用的补充。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=statx_multigrain" alt="statx multigrain timestamp" />]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.5-Statx-MG-TImestamp</guid>
+      <pubDate>Mon, 09 Nov 2026 11:08:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>Mesa ANV 驱动为 AV1 编码加入码率控制支持</title>
+      <link>https://www.phoronix.com/news/Intel-ANV-AV1-Bitrate-Control</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Mesa/Intel图形驱动新增AV1编码码率控制，属软件小改进，兴趣一般，可选</small></p>&lt;p&gt;Igalia 的 Hyunjun Ko 持续致力于增强 Mesa ANV 驱动中的 Vulkan Video 支持，以提升开源视频加速能力。最新为 Mesa 27.0 引入的功能是为 AV1 视频编码添加码率控制（bitrate control）支持。&lt;/p&gt;
+&lt;p&gt;目前该功能仅适用于 Gfx12.5 代硬件（对应 Intel DG2 / Alchemist 及 Meteor Lake 图形硬件），且要求系统加载了 HuC 微控制器固件。希望面向更新的 Xe2 与 Xe3 硬件的大规模 Vulkan Video AV1 视频编码支持能尽快到来。&lt;/p&gt;
+&lt;p&gt;&lt;img src="//www.phoronix.net/image.php?id=linux62-intel-radeon&amp;image=intel_arc_2_med" alt="Intel Alchemist GPUs" /&gt;&lt;/p&gt;
+&lt;p&gt;虽然 Intel 本身并未在 Vulkan Video 方面投入过多资源，而是更倾向于自家的 Video Acceleration（VA-API）媒体驱动搭配 oneVPL 使用，但得益于 Igalia 的努力，跨平台的 Vulkan Video API 支持仍在持续改善。有关码率控制支持的技术细节可见于对应的 Mesa 合并请求。&lt;/p&gt;]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-ANV-AV1-Bitrate-Control</guid>
+      <pubDate>Mon, 09 Nov 2026 10:30:24 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Linux 7.4-rc2 发布：FAT32 优化、AMDGPU HDMI 2.2 改进及内存管理修复</title>
       <link>https://www.phoronix.com/news/Linux-7.4-rc2-Released</link>
@@ -620,36 +646,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Massive-Window</guid>
       <pubDate>Sun, 01 Nov 2026 12:00:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.4 合并大量 OverlayFS 修复：AI 代码审查立功</title>
-      <link>https://www.phoronix.com/news/OverlayFS-Many-Fixes</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Linux内核OverlayFS文件系统的修复，属于开源项目和技术进展，用户感兴趣</small></p><p>本周六日，Linux 7.4 内核合并了大量针对 OverlayFS 联合挂载文件系统的修复补丁，这些修复同时被标记为回移植到当前的稳定内核版本。值得注意的是，这些修复源于 Btrfs 知名开发者 Chris Mason 近期主导的基于人工智能/大语言模型（AI/LLM）驱动内核代码审查工作。</p><p>OverlayFS 在 Linux 7.4 的改动全部是修复性质的，其中一些涉及安全问题。Amir Goldstein 在拉取请求中说明了这些修复的要点：</p><ul><li>修复了 Chris Mason 通过 AI 审查发现的多个 bug，其中一部分可被非特权用户利用，包括信息泄露（info leak）、释放后使用（use-after-free）和空指针解引用（NULL deref）错误、远程层上的 RCU 遍历停滞，以及与 nfs_export 相关的数据丢失问题。</li><li>修复了空 security.capability 扩展属性文件的复制问题（此前任何用户均可设置该属性以阻止复制）。</li><li>修复了 v6.16 引入的 override_creds 挂载选项回归问题。</li><li>两项大小写折叠（casefold）相关修复。</li></ul><p>过去一周，Chris Mason 在发现这些问题后提交了十余个补丁。由于信息泄露、释放后使用等 bug 可被非特权用户触发，这些修复具有明显安全意义。上述 OverlayFS 修复已在 Linux 7.4-rc1 之前完成合并，并将在未来数日内回移植到稳定分支。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/OverlayFS-Many-Fixes</guid>
-      <pubDate>Sun, 01 Nov 2026 11:37:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI 在 Linux 内核中的应用、微软 Defender 登陆 Linux 桌面：Phoronix 2026 年 10 月回顾</title>
-      <link>https://www.phoronix.com/news/October-2026-Highlights</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涵盖Linux内核AI使用等多项技术进展，属于开源与软件技术进展，用户感兴趣</small></p><p>Phoronix 发布了 2026 年 10 月的月度回顾，总结了过去一个月的开源领域重大动态。10 月迎来了 Linux 7.3、Ubuntu 26.10、KDE Plasma 6.8 桌面的发布，以及大量其他开源软件更新。本月共有 308 篇原创新闻和 16 篇 Linux 硬件评测/多页专题基准测试文章。</p>
-<p><strong>本月最热门新闻：</strong></p>
-<ul>
-<li><strong>内核漏洞意外泄露</strong>：若干 Linux 内核漏洞报告疑似意外被发布到公开的内核邮件列表，而非私有安全邮件列表，其中 CVSS 评分最高达 9.0。</li>
-<li><strong>AI 深度参与内核开发</strong>：Linus Torvalds 使用 Claude Code 编写补丁、提升代码可读性并发现更多长期存在的 bug；Meta 工程师 Kiryl Shutsemau 对相关代码进行改写后，取得了显著的性能提升（尤其针对小文件多线程读取场景）。Torvalds 还移除了不安全的 <code>__get_user()</code> 和 <code>__put_user()</code> 函数，并缩减了内核早期启动物理内存分配器的启动时间（从约 268 秒降至约 50 毫秒）。</li>
-<li><strong>微软（Microsoft）Defender 登陆 Linux 桌面</strong>：微软将 Defender 安全软件移植到 Linux 桌面，以应对越来越多开发者使用 Linux 桌面系统的趋势。</li>
-<li><strong>西门子（Siemens）关闭 OpenRadioss 开源项目</strong>：作为对开源社区的重大打击，西门子决定终止并关闭 Altair Engineering（已于去年被西门子收购）在 2022 年以 GNU AGPL 许可开源的前沿有限元求解器 OpenRadioss 项目。</li>
-<li><strong>Mesa/内核其他改进</strong>：Valve 的 Timur Kristóf 持续改进老款 AMD GPU（GCN 1.0/1.1 时代）在 Linux 上的表现；Meta 开发压缩内存方案 "CRAM"，优于 ZRAM 和 Zswap；Linux 7.4 为 FAT32 文件系统带来最高 265 倍的提速。</li>
-<li><strong>AI 驱动的项目</strong>：ArtCraft 项目用 Rust 实现了 Adobe Photoshop、Premier 和 Lightroom 的"开源、净室"重制版；Claude Code/AI 开始在硬件逆向工程中发挥作用；Linux 7.4 将引入 Apple M4 和 A18 Pro（MacBook Neo）的初始设备树（Device Tree）支持。</li>
-<li><strong>其他动态</strong>：Fedora 45 因阻塞性 bug 遭遇第二次 NO-GO，推迟至 11 月发布；Steam 测试版将 Linux 客户端改为 64 位应用；Wayland 社区提出新的 VNC/远程软件协议 <code>ext-transient-output</code>；内核开发者计划取消 AI 辅助补丁的 "Assisted-by:" 标签要求。</li>
-</ul>
-<p><strong>最热门硬件评测：</strong>包括 CachyOS vs. Fedora 45 vs. Ubuntu 26.10 在 AMD Ryzen 9 上的性能对比、Qualcomm Snapdragon X2 Elite 在 Linux 上的首次基准测试、NVIDIA Vera CPU 对比 AMD EPYC 与 Intel Xeon（含单/双路扩展）、Star Labs StarFighter Ultra（搭载 Coreboot 的高端 Linux 笔记本）、AMD ROCm vs. Vulkan 本地 AI 推理性能、Framework Laptop 12（Intel Core 3 Wildcat Lake）以及多档 LPDDR5 内存速度对比等。</p>
-<p>Phoronix 也借此回顾提醒读者支持该独立技术媒体，加入 Phoronix Premium 以帮助维持网站运营。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/October-2026-Highlights</guid>
-      <pubDate>Sun, 01 Nov 2026 10:54:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
