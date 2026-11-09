@@ -3,7 +3,21 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sun, 08 Nov 2026 22:49:41 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2026 02:37:23 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Linux 7.4-rc2 发布：FAT32 优化、AMDGPU HDMI 2.2 改进及内存管理修复</title>
+      <link>https://www.phoronix.com/news/Linux-7.4-rc2-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Linux 内核 7.4-rc2 候选版本发布，属软件发布/开源进展类新闻，虽涉及不太感兴趣的 AMDGPU 显卡改进，但内核发布仍是用户会关注的软件动态，故推荐阅读</small></p><p>Linus Torvalds 发布了 Linux 7.4 的第二个周度候选版本（7.4-rc2），其中包含多项值得注意的 bug 修复和合并窗口期后引入的改动。这是 AI 时代又一个规模庞大的版本。</p>
+<p>本周的主要改动包括：针对 AMD PerfOpt 特性进行调整以提升 Radeon iGPU 性能；修复某些内核配置下 BHI 缓解（mitigation）的错误选择；对 FAT32 文件系统进行了重大改进，尤其是在同步挂载场景下；AMDGPU 驱动针对 HDMI 2.2 FRL（Fixed Rate Link，固定速率链路）的修复；以及对核心内存管理（MM）代码中"顽固的长期 bug"的大量修复。此外还有常规的各类 bug 修复，以及似乎永无止境的 AI/LLM 生成的补丁和 bug 报告。</p>
+<p>Linus 在 7.4-rc2 发布公告中表示：这是一个紧跟史上最大规模 -rc1 的"大型 -rc2"，但 diffstat（变更统计）看起来相当温和，主要被一些自动化的 coccinelle 更新所占据（这些更新在合并窗口期收到，但被推迟到 rc2 处理）。这些脚本化的更新多为一行或两行的简单改动，虽然在分布上产生大量"噪音"，但实际内容并不复杂。去除这些噪音后，变更分布大致为：三分之一是驱动（GPU、网络和声卡占大部分），三分之一是网络和 BPF，最后三分之一是"其余部分"（主要是文件系统、内存管理和架构更新）。</p>
+<p>Linus 指出，其中很大一部分修复由各种 AI 生成的问题所驱动。他提到 BPF 方面维护者 Alexei 声称修复速度已开始超过新报告的涌现速度，这可能预示着"潮水开始转向"的迹象，但其他领域尚未达到这一水平。他建议大家继续积极测试。</p>
+<p>本次发布的 Linux 7.4 内核预计将在 12 月底左右稳定发布。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=linux_74_rc2" alt="Linux 7.4-rc2 Git tag" /></p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-rc2-Released</guid>
+      <pubDate>Mon, 09 Nov 2026 00:48:19 GMT</pubDate>
+    </item>
     <item>
       <title>AMD PerfOpt 性能优化代码在 Linux 7.4-rc2 中获得 IOMMU 相关调整</title>
       <link>https://www.phoronix.com/news/AMD-PerfOpt-Tweaks-Linux-7.4</link>
@@ -636,15 +650,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/October-2026-Highlights</guid>
       <pubDate>Sun, 01 Nov 2026 10:54:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.4 改进 perf 工具：Python 脚本更稳健更快速，ARM64 新增指令跟踪</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-Perf-Tools</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Linux内核性能工具的改进，属于开源项目和技术进展，用户感兴趣</small></p><p>本周末，Linux 7.4 Git 中合并了全部 perf 子系统工具更新。这些用于处理性能计数器等任务的更新中，最引人注目的是对 Python 代码的全面改进。</p><p>在 Linux 7.4 中，所有基于 Python 的 perf 脚本都已适配为使用 perf 的 Python 模块，并支持独立执行。该 Python 模块还获得了多项增强：延迟采样调用链（lazy sample callchains）与事件副本、GIL（全局解释器锁）处理、改进的会话/线程查找，以及新增的 treport、flamegraph（火焰图）和 sqlite/postgres 导出器。<img src="//www.phoronix.net/image.php?id=2026&amp;image=linux_perf_python_med" alt="Linux perf Python benchmark" /></p><p>此前 Phoronix 曾报道过 perf 脚本命令因改造成 Python 模块而大幅提速。Google 的 Ian Rogers 将 perf 模块构建为一个 Python C 扩展，性能较旧代码大幅提升。</p><p>此外，Linux 7.4 的 perf 工具更新还为 ARM64 新增了数据类型剖析（data type profiling）的指令跟踪，可解析栈、全局、per-CPU 及「current」变量访问，使 <code>perf annotate --data-type</code> 在 ARM64 上的行为与 Linux x86/x86_64 平台类似。同时还有一批其他修复与次要改进（详见合并请求）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-Perf-Tools</guid>
-      <pubDate>Sun, 01 Nov 2026 10:38:55 GMT</pubDate>
     </item>
   </channel>
 </rss>
