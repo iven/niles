@@ -6,7 +6,14 @@ import { z } from "zod";
 
 // LLM 配置
 export const llmConfigSchema = z.object({
-  provider: z.enum(["anthropic", "openai", "gemini", "openrouter", "grok"]),
+  provider: z.enum([
+    "anthropic",
+    "openai",
+    "gemini",
+    "openrouter",
+    "grok",
+    "opencode-go",
+  ]),
   baseUrl: z.string().optional(),
   models: z.object({
     fast: z.string(),

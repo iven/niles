@@ -4,87 +4,187 @@
 
 import type { chat } from "@tanstack/ai";
 import type { AnthropicChatModel } from "@tanstack/ai-anthropic";
-import { anthropicText } from "@tanstack/ai-anthropic";
+import { createAnthropicChat } from "@tanstack/ai-anthropic";
 import type { GeminiTextModel } from "@tanstack/ai-gemini";
-import { geminiText } from "@tanstack/ai-gemini";
+import { createGeminiChat } from "@tanstack/ai-gemini";
 import type { GrokChatModel } from "@tanstack/ai-grok";
-import { grokText } from "@tanstack/ai-grok";
+import { createGrokText } from "@tanstack/ai-grok";
 import type { OpenAIChatModel } from "@tanstack/ai-openai";
-import { openaiText } from "@tanstack/ai-openai";
-import { openRouterText } from "@tanstack/ai-openrouter";
-
-// @tanstack/ai-openrouter 没有导出 OpenRouterTextModels 类型，从函数参数提取
-type OpenRouterModel = Parameters<typeof openRouterText>[0];
-
+import { createOpenaiChat } from "@tanstack/ai-openai";
+import { createOpenRouterText } from "@tanstack/ai-openrouter";
 import type { ConsolaInstance } from "consola";
+import packageJson from "../../package.json";
 import type { LlmConfig } from "./config";
 import { logger as rootLogger } from "./logger";
 
+// @tanstack/ai-openrouter 没有导出 OpenRouterTextModels 类型，从函数参数提取
+type OpenRouterModel = Parameters<typeof createOpenRouterText>[0];
+
 export type TextAdapter = ReturnType<
-  | typeof anthropicText
-  | typeof openaiText
-  | typeof geminiText
-  | typeof openRouterText
-  | typeof grokText
+  | typeof createAnthropicChat
+  | typeof createOpenaiChat
+  | typeof createGeminiChat
+  | typeof createOpenRouterText
+  | typeof createGrokText
 >;
 
+/** 适配器客户端支持 defaultHeaders 的协议；其余协议不能声明请求头 */
+const HEADER_CAPABLE_PROTOCOLS = ["anthropic", "openai", "grok"] as const;
+type HeaderCapableProtocol = (typeof HEADER_CAPABLE_PROTOCOLS)[number];
+type Protocol = HeaderCapableProtocol | "gemini" | "openrouter";
+
+interface ProviderDefinitionBase {
+  /** 提供 API key 的环境变量名 */
+  apiKeyEnv: string;
+  /** provider 的默认端点，config.baseUrl 优先 */
+  defaultBaseUrl?: string;
+}
+
+interface HeaderCapableProviderDefinition extends ProviderDefinitionBase {
+  protocol: HeaderCapableProtocol;
+  /** 原样附加到每次请求的静态请求头 */
+  staticHeaders?: Record<string, string>;
+  /** 需要每会话唯一值的请求头名，值由调用方传入的 sessionId 填充 */
+  sessionHeader?: string;
+}
+
+interface PlainProviderDefinition extends ProviderDefinitionBase {
+  protocol: Exclude<Protocol, HeaderCapableProtocol>;
+}
+
+type ProviderDefinition =
+  | HeaderCapableProviderDefinition
+  | PlainProviderDefinition;
+
+/** 只有适配器客户端支持 defaultHeaders 的协议才能声明请求头 */
+function isHeaderCapable(
+  definition: ProviderDefinition,
+): definition is HeaderCapableProviderDefinition {
+  return (HEADER_CAPABLE_PROTOCOLS as readonly string[]).includes(
+    definition.protocol,
+  );
+}
+
+const PROVIDERS: Record<LlmConfig["provider"], ProviderDefinition> = {
+  anthropic: { protocol: "anthropic", apiKeyEnv: "ANTHROPIC_API_KEY" },
+  openai: { protocol: "openai", apiKeyEnv: "OPENAI_API_KEY" },
+  gemini: { protocol: "gemini", apiKeyEnv: "GEMINI_API_KEY" },
+  openrouter: { protocol: "openrouter", apiKeyEnv: "OPENROUTER_API_KEY" },
+  grok: { protocol: "grok", apiKeyEnv: "GROK_API_KEY" },
+  // OpenCode Go 订阅：OpenAI 兼容端点，Console 会把非原生 Responses 的模型翻译成 Responses 格式
+  "opencode-go": {
+    protocol: "openai",
+    apiKeyEnv: "OPENCODE_API_KEY",
+    defaultBaseUrl: "https://opencode.ai/inference/go/openai/v1",
+    staticHeaders: { "User-Agent": `niles/${packageJson.version}` },
+    sessionHeader: "x-opencode-session",
+  },
+} satisfies Record<LlmConfig["provider"], ProviderDefinition>;
+
+type ResolvedProvider =
+  | {
+      protocol: HeaderCapableProtocol;
+      apiKey: string;
+      baseURL: string | undefined;
+      defaultHeaders: Record<string, string> | undefined;
+    }
+  | {
+      protocol: "gemini" | "openrouter";
+      apiKey: string;
+      baseURL: string | undefined;
+      defaultHeaders: undefined;
+    };
+
+interface ResolveProviderOptions {
+  env: Record<string, string | undefined>;
+  /** 本次调用的会话标识，用于 OpenCode Go 的路由与提示缓存 */
+  sessionId: string;
+}
+
+/**
+ * 根据配置解析出适配器需要的接入参数，不读环境变量、不生成随机值，便于测试
+ */
+export function resolveProvider(
+  config: Pick<LlmConfig, "provider" | "baseUrl">,
+  options: ResolveProviderOptions,
+): ResolvedProvider {
+  const definition = PROVIDERS[config.provider];
+  if (!definition) {
+    throw new Error(`不支持的 LLM provider: ${config.provider}`);
+  }
+  const apiKey = options.env[definition.apiKeyEnv];
+  if (!apiKey) {
+    throw new Error(`环境变量 ${definition.apiKeyEnv} 未设置`);
+  }
+  const baseURL = config.baseUrl ?? definition.defaultBaseUrl;
+
+  if (!isHeaderCapable(definition)) {
+    return {
+      protocol: definition.protocol,
+      apiKey,
+      baseURL,
+      defaultHeaders: undefined,
+    };
+  }
+
+  const defaultHeaders: Record<string, string> = {
+    ...definition.staticHeaders,
+  };
+  if (definition.sessionHeader) {
+    defaultHeaders[definition.sessionHeader] = options.sessionId;
+  }
+
+  return {
+    protocol: definition.protocol,
+    apiKey,
+    baseURL,
+    defaultHeaders:
+      Object.keys(defaultHeaders).length > 0 ? defaultHeaders : undefined,
+  };
+}
+
 export function createLlmClient(config: LlmConfig, model: string): TextAdapter {
-  const { provider, baseUrl } = config;
+  const resolved = resolveProvider(config, {
+    env: process.env,
+    sessionId: crypto.randomUUID(),
+  });
+  const { apiKey, baseURL, defaultHeaders } = resolved;
 
-  switch (provider) {
-    case "anthropic": {
-      const apiKey = process.env.ANTHROPIC_API_KEY;
-      if (!apiKey) {
-        throw new Error("环境变量 ANTHROPIC_API_KEY 未设置");
-      }
-      return baseUrl
-        ? anthropicText(model as AnthropicChatModel, { baseURL: baseUrl })
-        : anthropicText(model as AnthropicChatModel);
-    }
+  switch (resolved.protocol) {
+    case "anthropic":
+      return createAnthropicChat(model as AnthropicChatModel, apiKey, {
+        ...(baseURL ? { baseURL } : {}),
+        ...(defaultHeaders ? { defaultHeaders } : {}),
+      });
 
-    case "openai": {
-      const apiKey = process.env.OPENAI_API_KEY;
-      if (!apiKey) {
-        throw new Error("环境变量 OPENAI_API_KEY 未设置");
-      }
-      return baseUrl
-        ? openaiText(model as OpenAIChatModel, { baseURL: baseUrl })
-        : openaiText(model as OpenAIChatModel);
-    }
+    case "openai":
+      return createOpenaiChat(model as OpenAIChatModel, apiKey, {
+        ...(baseURL ? { baseURL } : {}),
+        ...(defaultHeaders ? { defaultHeaders } : {}),
+      });
 
-    case "gemini": {
-      const apiKey = process.env.GEMINI_API_KEY;
-      if (!apiKey) {
-        throw new Error("环境变量 GEMINI_API_KEY 未设置");
-      }
-      return baseUrl
-        ? geminiText(model as GeminiTextModel, { baseURL: baseUrl })
-        : geminiText(model as GeminiTextModel);
-    }
+    case "gemini":
+      return createGeminiChat(
+        model as GeminiTextModel,
+        apiKey,
+        baseURL ? { baseURL } : undefined,
+      );
 
-    case "openrouter": {
-      const apiKey = process.env.OPENROUTER_API_KEY;
-      if (!apiKey) {
-        throw new Error("环境变量 OPENROUTER_API_KEY 未设置");
-      }
-      return baseUrl
-        ? // @ts-expect-error - OpenRouter SDK 类型定义使用 serverURL,但实际支持 baseURL
-          openRouterText(model as OpenRouterModel, { baseURL: baseUrl })
-        : openRouterText(model as OpenRouterModel);
-    }
+    case "openrouter":
+      return createOpenRouterText(
+        model as OpenRouterModel,
+        apiKey,
+        baseURL
+          ? // @ts-expect-error - OpenRouter SDK 类型定义使用 serverURL,但实际支持 baseURL
+            { baseURL }
+          : undefined,
+      );
 
-    case "grok": {
-      const apiKey = process.env.GROK_API_KEY;
-      if (!apiKey) {
-        throw new Error("环境变量 GROK_API_KEY 未设置");
-      }
-      return baseUrl
-        ? grokText(model as GrokChatModel, { baseURL: baseUrl })
-        : grokText(model as GrokChatModel);
-    }
-
-    default:
-      throw new Error(`不支持的 LLM provider: ${provider}`);
+    case "grok":
+      return createGrokText(model as GrokChatModel, apiKey, {
+        ...(baseURL ? { baseURL } : {}),
+        ...(defaultHeaders ? { defaultHeaders } : {}),
+      });
   }
 }
 

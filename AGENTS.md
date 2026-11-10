@@ -8,7 +8,7 @@ Niles 是一个智能 RSS 新闻聚合器，使用 AI 根据个人兴趣自动�
 - 插件化流水线：每个 source 通过 `plugins` 列表自由组合 collect / processItems / report 步骤。
 - 基于 4 级兴趣层次（`critical / recommended / optional / rejected`）自动过滤内容（`builtin/llm-grade`）。
 - 可选的深度分析模式：生成结构化总结后重新分级（`builtin/llm-summarize` + `builtin/llm-grade`）。
-- 多 AI provider 支持：使用 Tanstack AI 支持 Anthropic、OpenAI、Gemini、OpenRouter、Grok。
+- 多 AI provider 支持：使用 Tanstack AI 支持 Anthropic、OpenAI、Gemini、OpenRouter、Grok、OpenCode Go。
 - RSSHub 支持：使用 RSSHub npm 库在本地运行，不依赖官方网站。
 - 使用 GitHub Actions cron 自动调度执行，GitHub Pages 托管输出。
 
@@ -90,10 +90,11 @@ collect-rss → deduplicate → limit-items → clean-text
 
 - 单一配置源：`config.json`，使用 Zod schema 验证。
 - LLM 配置（`llm` 字段）：
-  - `provider`：AI provider 类型（anthropic、openai、gemini、openrouter、grok）。
-  - `baseUrl`：可选，自定义 API 端点。
+  - `provider`：AI provider 类型（anthropic、openai、gemini、openrouter、grok、opencode-go）。
+  - `baseUrl`：可选，自定义 API 端点；不填时使用 provider 的默认端点（如 `opencode-go` 默认 `https://opencode.ai/inference/go/openai/v1`）。
   - `models`：按能力等级配置模型名称，包含 `fast`、`balanced`、`powerful` 三个字段。
-  - API key 通过环境变量提供（如 `ANTHROPIC_API_KEY`、`OPENAI_API_KEY`）。
+  - API key 通过环境变量提供（如 `ANTHROPIC_API_KEY`、`OPENAI_API_KEY`、`OPENCODE_API_KEY`）。
+  - provider 定义集中在 `src/lib/llm.ts` 的 `PROVIDERS` 表：新增 provider 只需加一行数据，协议族在 `createLlmClient` 里按 `protocol` 构造。
 - 顶层 `plugins` 字段：为插件提供全局默认 options，source 内同名插件的 options 会覆盖（合并）全局值。
 - Source 配置字段：`name`、`title`、`context`、`plugins`。`context` 为 source 级别的背景说明，注入到 `PluginContext.sourceContext`，供所有插件共享；插件级别的 `options.context` 为额外补充，两者会合并传给 LLM。
 - 关键词列表使用紧凑格式，逗号分隔，中英文之间不加空格（如：`3A游戏,微软Copilot`）。

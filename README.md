@@ -5,7 +5,7 @@
 ## 功能特性
 
 - 🤖 **AI 智能筛选**：根据 4 级兴趣层次自动过滤内容。
-- 🎯 **多 AI 支持**：支持 Anthropic、OpenAI、Gemini、OpenRouter、Grok 等多个 provider。
+- 🎯 **多 AI 支持**：支持 Anthropic、OpenAI、Gemini、OpenRouter、Grok、OpenCode Go 等多个 provider。
 - ⭐ **兴趣分级显示**：强烈感兴趣（⭐⭐）、一般感兴趣（⭐）、其他内容。
 - 🌐 **深度分析模式**：可选的内容结构化总结（输出为首选语言）。
 - 🔌 **插件系统**：支持获取网页元信息、完整内容、Hacker News 评论等。
@@ -28,7 +28,7 @@ AI 根据配置中的兴趣主题，将条目分类为 4 种类型：
 ### 前置要求
 
 - GitHub 账户。
-- 至少一个 AI provider 的 API key（Anthropic、OpenAI、Gemini、OpenRouter 或 Grok）。
+- 至少一个 AI provider 的 API key（Anthropic、OpenAI、Gemini、OpenRouter、Grok 或 OpenCode Go）。
 
 ### 部署步骤
 
@@ -54,6 +54,7 @@ git checkout main
 - Gemini: `GEMINI_API_KEY`
 - OpenRouter: `OPENROUTER_API_KEY`
 - Grok: `GROK_API_KEY`
+- OpenCode Go: `OPENCODE_API_KEY`（需在 Console 的 Settings › Privacy 把 Regions 设为 Global，否则 GitHub Actions 的请求会被拒绝）
 
 #### 4. 启用 GitHub Pages
 
@@ -68,37 +69,62 @@ git checkout main
 ```json
 {
   "llm": {
-    "provider": "anthropic",
+    "provider": "opencode-go",
     "models": {
-      "grade": "claude-3-5-haiku-20241022",
-      "summarize": "claude-3-5-sonnet-20241022"
+      "fast": "deepseek-v4.1-flash",
+      "balanced": "deepseek-v4.1-flash",
+      "powerful": "deepseek-v4.1-flash"
     }
   },
-  "global": {
-    "high_interest": "重大国内国际新闻,编程工具,编程效率",
-    "interest": "重大市场动态,人工智能软件技术,编程语言,开源项目,科学前沿",
-    "uninterested": "行业人物,历史,基础设施,加密货币,芯片技术,iPhone,自动驾驶",
-    "avoid": "NFT,汽车,航空,游戏主机,开发板,人物传记",
-    "preferred_language": "zh",
-    "timeout": 5
+  "plugins": {
+    "builtin/collect-rss": { "maxItems": 20 },
+    "builtin/llm-grade": {
+      "globalHighInterest": "编程工具发布/分享,编程效率改进经验,新AI模型发布公告",
+      "globalInterest": "国内/国际必读新闻,AI软件技术进展,开源项目,软件新功能",
+      "globalUninterested": "行业公司/人物,历史/旧闻,基础设施,加密货币",
+      "globalAvoid": "NFT,汽车,航空,游戏主机"
+    },
+    "builtin/llm-summarize": { "preferredLanguage": "zh" }
   },
   "sources": [
     {
       "name": "cnbeta",
       "title": "cnBeta.com - 中文业界资讯站",
-      "url": "https://www.cnbeta.com.tw/backend.php",
-      "avoid": "健康贴士,娱乐明星日常",
-      "plugins": [],
-      "summarize": false
+      "plugins": [
+        {
+          "name": "builtin/collect-rss",
+          "options": { "url": "https://www.cnbeta.com.tw/backend.php" }
+        },
+        {
+          "name": "builtin/llm-grade",
+          "options": { "avoid": "健康贴士,娱乐明星日常" }
+        },
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/cnbeta.xml" }
+        }
+      ]
     },
     {
       "name": "hacker-news",
-      "url": "https://hnrss.org/best",
-      "uninterested": "安全,隐私",
-      "avoid": "政府政策,社会新闻,代码高尔夫",
-      "plugins": ["fetch_content", "hn_fetch_comments"],
-      "summarize": true,
-      "timeout": 20
+      "context": "Hacker News 首页精选",
+      "plugins": [
+        {
+          "name": "builtin/collect-rss",
+          "options": { "url": "https://hnrss.org/best" }
+        },
+        "builtin/fetch-meta",
+        "builtin/fetch-content",
+        {
+          "name": "builtin/llm-grade",
+          "options": { "uninterested": "安全,隐私" }
+        },
+        "builtin/llm-summarize",
+        {
+          "name": "builtin/reporter-rss",
+          "options": { "outputPath": "output/hacker-news.xml" }
+        }
+      ]
     }
   ]
 }
@@ -118,39 +144,33 @@ https://<username>.github.io/<repo-name>/hacker-news.xml
 
 ### LLM 配置
 
-- `provider`：AI provider 类型（anthropic、openai、gemini、openrouter、grok）。
-- `baseUrl`：可选，自定义 API 端点（仅 OpenAI 支持）。
-- `models`：各任务使用的模型名称。
-  - `grade`：用于分级的模型。
-  - `summarize`：用于总结的模型。
+- `provider`：AI provider 类型（anthropic、openai、gemini、openrouter、grok、opencode-go）。
+- `baseUrl`：可选，自定义 API 端点；不填时使用 provider 的默认端点。
+- `models`：按能力等级配置模型名称。
+  - `fast`：用于轻量任务的模型。
+  - `balanced`：用于一般任务的模型。
+  - `powerful`：用于复杂任务的模型。
 
-### 全局配置
+### 顶层 plugins 配置
 
-- `high_interest`：强烈感兴趣的主题（逗号分隔）。
-- `interest`：一般感兴趣的主题（逗号分隔）。
-- `uninterested`：不感兴趣的主题（逗号分隔）。
-- `avoid`：强烈排除的主题（逗号分隔）。
-- `preferred_language`：首选语言代码（如 zh, en）。
-- `timeout`：全局默认超时时间（分钟）。
+为所有源提供插件默认 options，source 内同名插件的 options 会覆盖（合并）全局值：
+
+- `builtin/collect-rss`：`maxItems` 每个 feed 最多抓取的条数。
+- `builtin/collect-rsshub`：`maxItems` 每个路由最多抓取的条数。
+- `builtin/llm-grade`：`globalHighInterest` / `globalInterest` / `globalUninterested` / `globalAvoid` 为全局兴趣关键词，逗号分隔。
+- `builtin/llm-summarize`：`preferredLanguage` 总结语言，`maxConcurrency` 逐条总结的并发数。
 
 ### RSS 源配置
 
-每个源可以补充全局配置：
-
-- `name`：源名称（必需）。
-- `title`：RSS 标题（可选，默认使用原 RSS 标题）。
-- `url`：RSS feed URL（必需）。支持 RSSHub 路由格式（如 `//telegram/channel/zaihuapd`）。
-- `high_interest`：补充全局配置的强烈感兴趣主题（优先级更高）。
-- `interest`：补充全局配置的一般感兴趣主题（优先级更高）。
-- `uninterested`：补充全局配置的不感兴趣主题（优先级更高）。
-- `avoid`：补充全局配置的强烈排除主题（优先级更高）。
-- `plugins`：启用的插件列表（可选）。
-  - `clean_text`：清理文本中的零宽字符和多余空白（内置，自动应用）。
-  - `fetch_content`：获取完整网页内容。
-  - `hn_fetch_comments`：获取 Hacker News 评论。
-  - `zaihuapd_clean_description`：清理在花频道 description 中的固定链接和图片。
-- `summarize`：是否启用深度分析模式（默认 false）。
-- `timeout`：源特定的超时时间（覆盖全局配置）。
+- `name`：源名称（必需），用于日志、插件上下文以及 feed 的标题和描述；输出文件名由 `builtin/reporter-rss` 的 `outputPath` 决定。
+- `title`：RSS 标题（可选，默认使用原 feed 标题）。
+- `context`：源级别的背景说明，注入到该源所有插件的 LLM 上下文。
+- `plugins`：插件列表。元素可以写插件名（使用全局 options），也可以写 `{ "name": ..., "options": {...} }`。`collect` 阶段所有插件并行执行、结果合并；`processItems` 和 `report` 阶段按列表顺序串行执行。
+  - `builtin/collect-rss`：`url` 为 RSS / Atom 地址。
+  - `builtin/collect-rsshub`：`route` 为 RSSHub 路由（如 `/zhihu/hot`）。
+  - `builtin/llm-grade`：可用 `highInterest` / `interest` / `uninterested` / `avoid` 补充兴趣关键词，优先级高于全局配置。
+  - `builtin/llm-summarize`：启用深度总结。
+  - `builtin/reporter-rss`：`outputPath` 为输出 RSS 文件路径。
 
 
 ## 成本估算

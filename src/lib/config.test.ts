@@ -43,6 +43,22 @@ describe("Config", () => {
     expect(config.sources).toBeArrayOfSize(2);
   });
 
+  it("should accept the opencode-go provider", () => {
+    const config = parseConfig({
+      ...validConfig,
+      llm: {
+        provider: "opencode-go",
+        models: {
+          fast: "deepseek-v4.1-flash",
+          balanced: "deepseek-v4.1-flash",
+          powerful: "deepseek-v4.1-flash",
+        },
+      },
+    });
+
+    expect(config.llm.provider).toBe("opencode-go");
+  });
+
   it("should reject invalid provider", () => {
     const invalidConfig = {
       ...validConfig,
