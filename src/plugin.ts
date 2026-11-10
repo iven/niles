@@ -1,6 +1,5 @@
 import type { ConsolaInstance } from "consola";
 import type { TextAdapter } from "./lib/llm";
-import { logger } from "./lib/logger";
 import type { FeedItem } from "./types";
 
 export interface PluginContext {
@@ -47,7 +46,13 @@ type LoadedPlugin = {
   name: string;
   plugin: Plugin;
   options: object;
+  /** 以插件名标记的上下文，插件的每个阶段都应使用它 */
+  contextFor(context: PluginContext): PluginContext;
 };
+
+function taggedContext(context: PluginContext, name: string): PluginContext {
+  return { ...context, logger: context.logger.withTag(name) };
+}
 
 async function loadPlugin(pluginName: string): Promise<Plugin> {
   try {
@@ -72,16 +77,24 @@ export async function loadPlugins(
       const options =
         typeof entry === "object" && entry.options ? entry.options : {};
       const plugin = await loadPlugin(name);
-      return { name, plugin, options };
+      return {
+        name,
+        plugin,
+        options,
+        contextFor: (context) => taggedContext(context, name),
+      };
     }),
   );
 }
 
 export async function applyProcessItems(
   items: FeedItem[],
-  { name, plugin, options }: LoadedPlugin,
+  loadedPlugin: LoadedPlugin,
   context: PluginContext,
 ): Promise<FeedItem[]> {
-  const pluginContext = { ...context, logger: logger.withTag(name) };
-  return plugin.processItems(items, options, pluginContext);
+  return loadedPlugin.plugin.processItems(
+    items,
+    loadedPlugin.options,
+    loadedPlugin.contextFor(context),
+  );
 }

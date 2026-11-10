@@ -49,22 +49,16 @@ export async function runWorkflow(params: WorkflowParams) {
 
   // beforeRun：并行检查所有插件，有一个返回 false 则跳过
   const beforeResults = await Promise.all(
-    plugins.map(({ name, plugin, options }) =>
-      plugin.beforeRun(options, {
-        ...context,
-        logger: context.logger.withTag(name),
-      }),
+    plugins.map((loaded) =>
+      loaded.plugin.beforeRun(loaded.options, loaded.contextFor(context)),
     ),
   );
   if (beforeResults.some((allowed) => !allowed)) return;
 
   // collect：并行执行所有 collect，合并结果
   const collectResults = await Promise.all(
-    plugins.map(({ name, plugin, options }) =>
-      plugin.collect(options, {
-        ...context,
-        logger: context.logger.withTag(name),
-      }),
+    plugins.map((loaded) =>
+      loaded.plugin.collect(loaded.options, loaded.contextFor(context)),
     ),
   );
 
@@ -89,21 +83,18 @@ export async function runWorkflow(params: WorkflowParams) {
     title: sourceConfig.title || collectedTitle,
   };
 
-  for (const { name, plugin, options } of plugins) {
-    await plugin.report(
+  for (const loaded of plugins) {
+    await loaded.plugin.report(
       items,
-      { ...reporterOptions, ...options },
-      { ...context, logger: context.logger.withTag(name) },
+      { ...reporterOptions, ...loaded.options },
+      loaded.contextFor(context),
     );
   }
 
   // afterRun：并行通知所有插件 workflow 已完成
   await Promise.all(
-    plugins.map(({ name, plugin, options }) =>
-      plugin.afterRun(options, {
-        ...context,
-        logger: context.logger.withTag(name),
-      }),
+    plugins.map((loaded) =>
+      loaded.plugin.afterRun(loaded.options, loaded.contextFor(context)),
     ),
   );
 }
