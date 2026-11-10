@@ -6,8 +6,13 @@ import schedulePlugin from "./schedule";
 
 let counter = 0;
 
-/** schedule 读取 output/<sourceName>-processed.json；每个用例用独立名字，避免读到别的用例留下的文件 */
-function makeContext(overrides: Partial<PluginContext> = {}): PluginContext {
+/**
+ * schedule 读写 output/<sourceName>-processed.json；名字由本函数拥有（overrides
+ * 不收 sourceName），每个用例用独立名字，避免读到别的用例留下的文件。
+ */
+function makeContext(
+  overrides: Partial<Omit<PluginContext, "sourceName">> = {},
+): PluginContext {
   counter++;
   return createTestContext({
     sourceName: `test-schedule-${Date.now()}-${counter}`,

@@ -9,10 +9,13 @@ const createdFiles: string[] = [];
 
 /**
  * deduplicate 会写 output/<sourceName>-processed.json；每个用例用独立名字，
- * 避免读到别的用例或上次运行留下的 GUID。名字和清理都成对管理：
- * 名字进 createdFiles，测试结束后删掉。
+ * 避免读到别的用例或上次运行留下的 GUID。名字由本函数拥有——overrides 里
+ * 不收 sourceName，否则真实写入的文件会和 createdFiles 记的路径不一致，
+ * 清理静默落空。
  */
-function makeContext(overrides: Partial<PluginContext> = {}): PluginContext {
+function makeContext(
+  overrides: Partial<Omit<PluginContext, "sourceName">> = {},
+): PluginContext {
   counter++;
   const sourceName = `test-deduplicate-${Date.now()}-${counter}`;
   createdFiles.push(`output/${sourceName}-processed.json`);
