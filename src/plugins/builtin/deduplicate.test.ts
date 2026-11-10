@@ -1,16 +1,35 @@
-import { describe, expect, it } from "bun:test";
+import { afterEach, describe, expect, it } from "bun:test";
+import { rmSync } from "node:fs";
+import type { PluginContext } from "../../plugin";
 import { createTestContext, createTestItem } from "../../test-fixtures";
 import deduplicatePlugin from "./deduplicate";
 
 let counter = 0;
+const createdFiles: string[] = [];
+
+/**
+ * deduplicate 会写 output/<sourceName>-processed.json；每个用例用独立名字，
+ * 避免读到别的用例或上次运行留下的 GUID。名字和清理都成对管理：
+ * 名字进 createdFiles，测试结束后删掉。
+ */
+function makeContext(overrides: Partial<PluginContext> = {}): PluginContext {
+  counter++;
+  const sourceName = `test-deduplicate-${Date.now()}-${counter}`;
+  createdFiles.push(`output/${sourceName}-processed.json`);
+  return createTestContext({ sourceName, ...overrides });
+}
+
+afterEach(() => {
+  for (const f of createdFiles.splice(0)) {
+    try {
+      rmSync(f);
+    } catch {}
+  }
+});
 
 describe("builtin/deduplicate plugin", () => {
   it("should return all items as non-rejected in dry run mode", async () => {
-    // deduplicate 会写 output/<sourceName>-processed.json；每个用例用独立名字，避免读到别的用例或上次运行留下的 GUID
-    const context = createTestContext({
-      isDryRun: true,
-      sourceName: `test-deduplicate-${Date.now()}-${counter++}`,
-    });
+    const context = makeContext({ isDryRun: true });
     const items = Array.from({ length: 10 }, (_, i) =>
       createTestItem({ guid: `guid-${i}`, title: `Item ${i}` }),
     );
@@ -20,9 +39,7 @@ describe("builtin/deduplicate plugin", () => {
   });
 
   it("should mark already-processed items as rejected", async () => {
-    const context = createTestContext({
-      sourceName: `test-deduplicate-${Date.now()}-${counter++}`,
-    });
+    const context = makeContext();
     const items = [
       createTestItem({ guid: "guid-1", title: "Item 1" }),
       createTestItem({ guid: "guid-2", title: "Item 2" }),
