@@ -81,6 +81,7 @@ async function processOne(
 
     if (!parseResult.success) {
       context.logger.warn(`HN API 响应格式错误: ${itemId}`);
+      item.extra.comments = [];
       return item;
     }
 
@@ -94,6 +95,10 @@ async function processOne(
   return item;
 }
 
+/**
+ * 提取评论，每个深度最多保留 limit 条带正文的评论。
+ * 已删除的评论没有正文，不占用名额；只要还没到上限，仍会继续遍历它的子评论。
+ */
 function extractComments(
   children: HNApiChild[],
   depth: number,
@@ -101,10 +106,10 @@ function extractComments(
 ): HNComment[] {
   const comments: HNComment[] = [];
   const limit = depth === 0 ? 10 : 2;
+  let kept = 0;
 
-  for (let i = 0; i < Math.min(children.length, limit); i++) {
-    const child = children[i];
-    if (!child) continue;
+  for (const child of children) {
+    if (kept >= limit) break;
 
     const text = child.text?.trim();
 
@@ -115,6 +120,7 @@ function extractComments(
         points: child.points || 0,
         depth,
       });
+      kept++;
     }
 
     if (depth < maxDepth && child.children) {

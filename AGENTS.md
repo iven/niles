@@ -109,7 +109,6 @@ unknown ──llm-grade──> critical / recommended / optional / rejected
 3. 附加数据放 `item.extra`，不改 `FeedItem` 结构。
 4. 日志只用 `context.logger`（已带插件名标签），不要直接 import `lib/logger`。
 5. LLM 调用通过 `context.llm(tier)`，tier 取 `llm.models` 里的同名档位（`fast` / `balanced` / `powerful`），按任务复杂度选；同一插件可多次调用不同 tier。
-6. 需要网络的地方 mock `src/lib/http`，不要依赖仓库外的样本文件。
 
 新增插件：在 `src/plugins/builtin/` 或 `src/plugins/<site>/` 下按约定放文件，默认导出插件对象，写测试，然后在 `config.json` 对应 source 的 `plugins` 里引用。
 
@@ -143,7 +142,7 @@ worktree 里没有 `node_modules`，`knip` 会误报未使用的 devDependencies
 
 ```bash
 bun run niles <source> --config config.json   # 跑单个 source（会调 LLM，见下）
-bun test            # 单元测试
+bun run test        # 单元测试（= bun test --isolate）
 bun run typecheck   # 类型检查
 bun run check       # 代码风格检查（--error-on-warnings）
 bun run check:write # 代码风格检查并自动修复
@@ -151,7 +150,7 @@ bun run knip        # 未使用的代码、依赖和导出
 prek run            # git add 之后对 staged 文件跑上述全部检查
 ```
 
-每个需要替换模块的测试文件自己 `mock.module`，不要依赖别的文件留下的 mock。
+单元测试不联网：需要网络的测试在自己文件里替换 `src/lib/http`，未登记的 URL 直接抛错，样本数据用仓库内的 fixture。`--isolate` 让每个测试文件拥有独立的 global 与 module registry，别的文件留下的 mock 不会延续过来——需要替换模块的测试，`mock.module` 必须写在用到它的那个文件里。
 
 ### Token 消耗
 

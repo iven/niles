@@ -1,4 +1,4 @@
-import { afterAll, describe, expect, it, mock } from "bun:test";
+import { describe, expect, it, mock } from "bun:test";
 import type { PluginContext } from "../../plugin";
 
 /** 与 github.com/trending 页面结构一致的最小样例，避免测试依赖外部文件 */
@@ -27,10 +27,6 @@ mock.module("../../lib/http", () => ({
 }));
 
 const { default: plugin } = await import("./index");
-
-afterAll(() => {
-  mock.restore();
-});
 
 function createContext(isDryRun = false): PluginContext {
   const noop = () => {};

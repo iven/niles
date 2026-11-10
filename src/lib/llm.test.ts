@@ -1,4 +1,4 @@
-import { afterAll, describe, expect, it, mock } from "bun:test";
+import { describe, expect, it, mock } from "bun:test";
 import packageJson from "../../package.json";
 import type { LlmConfig } from "./config";
 
@@ -24,10 +24,6 @@ mock.module("@tanstack/ai-openai", () => ({
 }));
 
 const { createLlmClient, resolveProvider } = await import("./llm");
-
-afterAll(() => {
-  mock.restore();
-});
 
 const models = {
   fast: "model-name",
