@@ -3,7 +3,70 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 10 Nov 2026 13:26:06 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2026 20:47:46 GMT</lastBuildDate>
+    <item>
+      <title>十年家居自动化经验：核心设备不该依赖厂商服务器</title>
+      <link>https://news.ycombinator.com/item?id=50441707</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 家居自动化与去厂商依赖的经验分享，偏个人实践记录，与编程工具、AI等兴趣点不直接相关，也未落入避开类</small></p><p>作者（Hacker News 用户 skittleson）总结了自己十年家居自动化的经验，第一条铁律是：家里任何核心功能都不能依赖厂商的服务器。断网之后房子照常运转——这条规则已经坚持了大约十年，其余规则都由此衍生。文中还收录了他前后相隔五年的两场演讲，逐页讲解。</p>
+
+<p><strong>本地优先的技术栈</strong>：关键系统跑在自己拥有的硬件上——ESP 板上的 Tasmota、MQTT broker（消息代理）、树莓派上的 Node-RED。他也用一些云服务，主要是 Alexa 和少数 AWS 服务，但 Alexa 只是"另一种开关灯的方式"，它挂了，墙上的物理开关和墙壁仪表盘依然可用。</p>
+
+<p><img src="/images/home-automation/t1-07.webp" alt="No Internet, No Problem: scissors cutting an ethernet cable" title="No internet, no problem" /></p>
+
+<p><strong>最初五条规则</strong>：没有互联网也不成问题；Alexa 可以是一种入口，但绝不能是唯一入口；在加新方式时不要拆掉旧方式（他违反过这条，代价是有人把墙壁开关用胶带粘在开启位置，好让智能灯泡持续供电）；保持灵活，房间用途和住户会变，方案必须低成本可改；定期检查自动化，他曾有四个定时触发器同时打向同一个花园水泵；例外必须真的例外，"我当时赶时间"不算理由。</p>
+
+<p><strong>第五年后追加的规则</strong>（家里从一人变成多人之后）：云设备必须提供带日志的 API，否则不装；配置集中在一处，而不是散在五个厂商 App 里；多种操作入口（App、Alexa、二维码、NFC 标签）；重复的操作步骤固化为日常流程；设备之间用 MQTT 的发布/订阅而非点对点通信；电池设备必须能撑一年以上，没人想在凌晨两点换门磁电池。</p>
+
+<p>被问得最多的自建项目是 <a href="https://docodethatmatters.com/home-automation-overnight-success/">Tasmota 喷淋控制器</a>，还有同样运行多年的车库门方案。车库降温流程会先确认门已关闭，再开门、等待、开风扇，已经在运行时只发通知；门磁和簧片开关的状态写入 Grafana，能画出真实几天里开了 21 次门的曲线，并在忘关门时提醒。</p>
+
+<p><img src="/images/home-automation/t1-16.webp" alt="Sprinkler controller wiring, a 3D PCB render, the Tasmota web UI, scheduled nodes, and a bare PCB layout" title="The sprinkler build end to end: enclosure wiring, PCB design, Tasmota UI, schedule flow, and the bare board" /></p>
+
+<p><strong>第二场演讲（五年后）</strong>：规则没怎么变，需要扛住的问题却更多了。人多了意味着更多走动、更多钥匙、更长的外出，以及无人察觉的故障；一次漏水惊吓让他认真做起漏水和存在检测。新增的自建项目包括室外照明的电机与 PVC 管装置、夹在绿植上的 UV 补光灯、橱柜下的 UV 消毒灯带、自己组装的 AirGradient 空气质量套件（CO₂ 传感器加颗粒物传感器加单片机），后者被认为是最让人安心的一个。最省事的成果是温控器旁边那台廉价平板：车库门、侧门解锁、前门锁、全屋灯开关与亮度、咖啡吧调色、客厅冷暖光都在一屏，不用在五个 App 之间翻找。硬件清单是 ESP32 D1 mini、现成智能插座、跑 Node-RED 和 Grafana 的树莓派 4，以及灯带、功率晶体管、继电器模块等。他认为下一场演讲会围绕"AI 代理来按开关"展开，同样的规则应当仍然成立。</p>
+
+<p><img src="/images/home-automation/t2-16.webp" alt="Wall-mounted tablet dashboard next to a Nest thermostat set to 80" title="The wall dashboard: garage, locks, lights, all on one screen next to the thermostat" /></p>
+
+<p><strong>读者反馈的荒谬联网依赖</strong>：作者在 LinkedIn 和 Hacker News 上征集"设备上最没意义的联网依赖"，收到大量例子——因厂商手机 App 的 bug 而无法调节温度的冰箱；断网后连切换输入源都做不到的电视，以及必须先登录才能当普通 HDMI 显示器用的电视；无法从局域网使用的供暖 App；即使通过 Home Assistant 控制也需要联网的厨房排风扇和洗碗机；无法在隔离网络上配对的智能插座；开机就无止境搜索蓝牙设备的降噪耳机；首次使用或升级固件必须登录云端的合成器和 MIDI 键盘；以及公司倒闭后就彻底失效的肉类温度计——"硬件活过了公司，却还是不能用了"。</p>
+
+<p><strong>读者补充的规则</strong>：离线优先，联网只是附加功能；把每一个第三方依赖当作风险，API 会变，要准备本地回退或明确的降级模式；明确哪些功能必须离线可用（作者的答案是开关、温度与安全控制、以及访客无需学 App 就能用的东西）；"核心功能在 Wi-Fi 或自动化服务器关闭时仍可用，智能功能绝不剥夺非智能功能"——按这个更严格的标准，他的喷淋控制器也不合格；丢弃设备前先清理账号，被遗弃的联网设备是攻击者的入口。</p>
+
+<p><strong>实用技巧</strong>：优先用 Zigbee 和 Z-Wave 等本地协议而非 Wi-Fi；买最便宜的够用硬件，忽略抱怨 App 的差评，到货后让 LLM 帮忙找本地优先的第三方固件（有人愿为开箱即本地化的硬件多付约 2.5 倍价钱）；Nest 第一、二代可用开源固件 <em>No Longer Evil</em> 抢救；智能电视重置后永不联网即可绕开输入源问题；远程访问用路由器上的 Tailscale，并让单个设备不加入 tailnet；也有人指出缺少开箱即用的"万物互通"树莓派镜像（MQTT 预装），以及像热水器、路由器那样随房交付的本地中枢，Home Assistant 的硬件最接近这一设想；更根本的战场是维修权运动与 FULU 基金会。反方观点也保留：联网确有真实用途，比如边看球边盯烤肉温度。</p>
+
+<p><strong>Hacker News 讨论</strong>：有评论者指出 Alexa 例程本身违反第一条规则，作者回应说只要核心系统仍能离线控制（例如墙上的平板，本地 Wi-Fi 在他看来仍属离线）规则就成立；有人质疑智能家电的价值，作者举例说冰箱唯一有用之处是故障报警，他用便宜的 BLE 温度计接入 Tasmota 设备、经 MQTT 送到 Grafana，已多次成功报警。也有人批评文章像 2018 年的入门级 IoT 观点，且行文明显经 AI 润色——作者承认初稿由自己写、AI 帮忙编辑，并表示会亲自清理；另有评论者反驳这类"AI 味"指责只是把不适感转嫁给别人。关于推动力，有人认为出于韧性考量，业界会减少设备连公网，但这需要国家层面的监管或税收；也有人认为更大的问题是安全——被远程控制的廉价设备是现实威胁。务实的做法被反复提及：买 Zigbee 版本、买便宜硬件后用 AI 辅助逆向出本地固件、给设备配静态 IP 以免路由器故障导致全屋失控。还有人怀念 Insteon 和 X10 那样"设备自身就有能力、可自己写软件"的时代，并建议普通人别过度定制，Home Assistant 加少量附加组件就够了。</p>
+
+<p><img src="/images/home-automation/t2-27.webp" alt="Close-up of the wall dashboard status screen, a sheet of NFC tags with a QR code, and an Echo Dot" title="Interaction methods: the wall dashboard up close, NFC tags and a QR code, and an Echo Dot" /></p>
+
+<h2>你知道吗？</h2>
+<ul>
+<li>Zigbee、Z-Wave 与 Matter 这类协议之所以被认为"更本地"，是因为它们的控制逻辑跑在家庭内的网关或中枢上，而典型 Wi-Fi 智能设备（尤其用厂商云做中转的）每次开灯都要穿一次公网。协议本身不保证离线可用，但架构上更容易做到。</li>
+<li>MQTT 的发布/订阅模型让传感器只负责"公布"消息，谁在听、有几个听众都与它无关。这正是作者强调"设备解耦"的原因：换掉一个订阅者（手机 App、后端、仪表盘）不会牵动传感器。</li>
+<li>Tasmota 是一套可刷入 ESP8266/ESP32 的开源固件，能让廉价 Wi-Fi 开关、插座、传感器改走本地 MQTT 与 HTTP，从而摆脱原厂 App。代价是需要自己拆机、接线和刷写，这也是文章反复强调"成本与隐私、灵活性三者只能取其二"的由来。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50441707</guid>
+      <pubDate>Tue, 10 Nov 2026 15:25:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ DeepMind 用 AlphaProof Code 为 Signal 加密实现写出 300 万行 Lean 形式化证明</title>
+      <link>https://news.ycombinator.com/item?id=50439193</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] DeepMind 的 AI 智能体完成大规模 Lean 形式化验证，属 AI 技术进展与科学前沿，符合感兴趣范围</small></p>&lt;p&gt;Google DeepMind 发布 &lt;a href="https://deepmind.google/blog/introducing-alphaproof-code/"&gt;AlphaProof Code&lt;/a&gt;，并展示了它迄今规模最大的一次应用：由 AI 智能体（agent）与人类专家协作，为 Signal 的核心加密保护在 Lean 中撰写了超过 &lt;b&gt;三百万行&lt;/b&gt;机器校验的证明，并且验证范围一直下探到机器指令层面，而不只是抽象的协议描述。据讨论中的说明，整个工作耗时约四周。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lh3.googleusercontent.com/39mmnrTBGBLnftfKvwK_oslUE1_bpS2hOrPkxdYy6C2bCp3B2dc1iBqLUgr-rZhyp1K0rcr-jifsh1cxWPpbg2tRigzqfp2cfuB13afrDvwD0YGg4g=w2464-h2464-n-nu" alt="AlphaProof Code" width="1206" height="1206" /&gt;&lt;/p&gt;
+&lt;p&gt;文章强调，形式化验证（formal verification）——用数学方式证明代码运行正确、无缺陷——是安全保证的最高标准，但传统上困难且极其耗费人力。此次的关键在于代码库规模和"编译后的实现"这一层的复杂度：单个专家团队几乎不可能在合理时间内覆盖，而 AI 辅助的迭代流程可以大幅提速。更多细节见 &lt;a href="https://google-deepmind.github.io/code-verification/"&gt;项目论文页&lt;/a&gt;。&lt;/p&gt;
+&lt;h3&gt;社区讨论的几个焦点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;对 Signal 工程质量的赞叹&lt;/b&gt;：不少人惊讶于 Signal 这样庞大的代码库不仅在实践意义上安全，甚至在严格形式化意义上也站得住脚，认为写它的人是顶级工程师。&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;"证明的是什么"的追问&lt;/b&gt;：有评论者指出，真正需要担心的是规格（spec）与实现之间的落差——Lean 中的处理器模型与真实芯片是否一致？依据规范写出的 Lean 规格是否忠实对应 Signal 实际的 Rust 实现？也没有人回答"停止问题"（halting problem）在此类工作中的影响，其他人补充说这在理论上有边界，实践中并非阻碍；Lean 本身只是把证明编码为代码由编译器检查，并不保证一切性质都可证。回应者还提到可以用 &lt;a href="https://github.com/conao3/lean-rs"&gt;lean-rs&lt;/a&gt; 之类的工具把 Lean 与 Rust 打通，或用 Verus 做自动映射。&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;AI 究竟做了多少&lt;/b&gt;：有评论澄清文章并未宣称 AI "凭空"完成证明——智能体是辅助人类专家在多个步骤间来回迭代，规格设计仍由专家负责。也有人好奇这套系统与普通编码智能体的区别，认为本质上仍是"读代码库、写 Lean/Rocq、跑编译"的循环。&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;安全边界的现实感&lt;/b&gt;：多人提醒加密本身很少是被攻破的一环，Pegasus 之类间谍软件并没有破解 WhatsApp 的加密；"crypto 安全"不等于"其余代码也安全"。顺带有人希望用同样手段给 Telegram 的加密做一次定论，随即被反驳称 Telegram 的问题不在"自创密码学"，而在于把 OTP 协议切错、放弃多设备支持、以及在加密包外暴露设备 ID 等设计缺陷。&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;对 AI 编程质量的整体看法&lt;/b&gt;：一位评论者分享了团队全面转向智能体编码六个月后事故与宕机率反而下降的经验——多出来的产能被投入测试、验证与自动审查流程；也有人担心未来每次 CI 都要为"确保没破坏巨大证明"付出高昂成本。另有评论期待形式化验证扩展到 CPU 层面（难度大得多，因为硬件闭源且涉及物理），并提到开源硬件项目 &lt;a href="https://www.crowdsupply.com/sutajio-kosagi/precursor"&gt;Precursor&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;关于 Google 的争论&lt;/b&gt;：有人认为 Google 在 DeepMind 的科研贡献上表现得最"干净"，但立刻有人反驳称 Gemini 系列模型因过度刷榜而出现严重失准（misalignment）与"胡说"，并因 AI Overview 等在校园场景的推广而颇有争议；被要求举证时，对方表示暂未提供具体例子。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总体而言，讨论普遍认可这是一次对 AI 辅助形式化验证能力的有力演示，同时也清楚地把结论限定在"加密核心的编译级实现"这一范围之内。&lt;/p&gt;]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50439193</guid>
+      <pubDate>Tue, 10 Nov 2026 12:11:12 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 亚马逊用 Strands Decider 替换 Claude Sonnet 4.6 给工单打标，成本降低 98%</title>
       <link>https://news.ycombinator.com/item?id=50436640</link>
@@ -1026,32 +1089,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50346755</guid>
       <pubDate>Tue, 03 Nov 2026 01:18:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qwen 3.8 27B 在笔记本上也能读懂模型权重</title>
-      <link>https://news.ycombinator.com/item?id=50355251</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及新AI模型（Qwen 3.8 27B）及AI软件技术进展、神经网络权重读取的新论文，属于高兴趣的新AI模型发布与AI技术进展主题</small></p><p>Simon Willison 在其博客中测试了名为「Sparks of Weight-Space Programming」（权重空间编程的火花）的研究成果，并验证这一能力不仅限于前沿模型，开源的 Qwen 3.8 27B 在本地笔记本上也能做到。</p>
-<p>该研究由 Rikiya Takehi、Jayden Teoh、Alex Zhang 和 Omar Khattab 发布（作者自称是「博文」，但形式接近论文），提出「权重空间编程」（Weight-Space Programming）这一概念：大型语言模型（LLM）仅通过阅读原始权重（一长串浮点数）就能判断一个机器学习模型被训练用来做什么，甚至可以在没有环境反馈、不运行代码的情况下直接修改权重。论文称，前沿模型 GPT-6 Astra 能从零写出能胜过经 1 亿步 PPO 训练的博弈网络，还能通过原生编辑 0.016% 的权重，将 Qwen3.5-0.8B 的 MATH-500 成绩从 7.9% 提升至 48.1%。</p>
-<p>Willison 将论文主题拆分为两个问题：一是模型在不借助工具的情况下能从权重中理解什么；二是模型配备代码后能如何更新和改进其他模型。他聚焦于前者，并复现了论文中的实验——请模型仅凭权重判断四个 10x10 网格简化版经典游戏（打砖块 Breakout、乒乓 Pong、吃豆人 Pac-Man、Freeway）中的某个策略网络是训练来玩哪个游戏的。</p>
-<p>他在笔记本上运行 Qwen 3.8 27B（仅 17GB），使用 LM Studio 和 llm 工具，从 <a href="https://github.com/RikiyaT/lm_understand-logs">GitHub 仓库</a> 提取提示词进行测试。结果令人印象深刻：Qwen 用约 46 分钟、43506 个推理 token 正确识别出 Pac-Man（置信度 72%）；用 1 小时 4 分钟识别出 Pong（置信度 75%）；用 52 分钟识别出 Breakout（置信度 88%）。它仅在 Freeway 上失败（该游戏较为冷门）。</p>
-<p>不过 Willison 也保持谨慎态度，指出该领域存在争议：spaCy 作者 Matthew Honnibal 认为论文将「无工具解读」和「用代码改进模型」混为一谈具有误导性，Sean Goedecke 则指出论文中的权重更新示例与人类机器学习研究者的做法相同。Willison 本人表示，虽然论文很酷，但他「并不准备宣布源代码时代已经结束」。</p>
-<p>在 Hacker News 的讨论中，有评论者质疑将这类博文称为「论文」是否恰当（它未经同行评审），作者自己的 BibTeX 引注也标注为「blog post」。还有用户分享了用 Qwen 3.8 27B 解析并改进自己小型上采样网络的实践，也有人展望用提示直接「生成权重」而非训练的未来。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50355251</guid>
-      <pubDate>Tue, 03 Nov 2026 17:40:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>指出「Astra 读写权重改进 Qwen」帖子存在误导：实为两套不同技术</title>
-      <link>https://news.ycombinator.com/item?id=50351111</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讨论AI模型技术帖的准确性问题，涉及Qwen/AI技术，但主要是技术讨论澄清，兴趣程度一般</small></p><p>本文针对此前广受关注的一篇博文《Astra can read and write weights to improve Qwen》提出批评，认为该帖将两类完全不同的实验混为一谈，存在误导性。作者马修·霍尼巴尔（Matthew Honnibal）用魔术师同一种把戏变出多种花样来类比这篇文章：观者在看表演时总以为只有一种手法，但其实每次用的技术各不相同。</p>
-<p>分析指出，原帖实际上包含多组实验，其中真正「仅凭读取原始权重」（将浮点数直接放入上下文、不使用工具、不运行网络）的只有实验 1、2、4，且仅适用于 1.7 万至 17.2 万个权重的小型网络。而所有涉及真实语言模型的实验（包括作为标题成果的 Qwen 数学改进）都使用了 Python 工具，且 Qwen 实验还允许运行模型最多 50 批练习题。</p>
-<p>作者认为，Qwen 的结果真正展示的是 Astra 能够「编写并执行人类 ML 工程师会做的任务」，即用代码分析甚至直接修改网络权重——这是一种常见的工程师做法。虽然这算不上毫无价值，且一两年前的 AI 模型也无法完成这些任务，但「从零写出小游戏的权重」与「改进大模型在样本任务上的表现」不能被包装成同一种单一技术的成果。若两者出自同一技术，才能体现对权重的深层理解（「格式塔」式把握）；而事实上并非单一技术，因此不应放在同一篇论文或同一篇文章里。</p>
-<p>Hacker News 社区对此讨论热烈。多名用户认为原帖本身已清楚说明做法，误导主要源于标题和摘要的措辞；也有人反驳称摘要确实「将 Qwen 实验描述成直接读取原始权重」，属学术不端。还有评论指出，LLM 其实是「编写能够读写权重的程序」，这与直接操作权重是不同的能力层面，可参考《Thinking Like Transformers》（Weiss 等，ICML 2021）与 Tracr 等编译逻辑到 transformer 权重的相关工作。另有评论认为「仅凭权重解读小网络」本身就是一项令人意外的涌现能力，不应因上下文窗口的技术限制而被轻视。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50351111</guid>
-      <pubDate>Tue, 03 Nov 2026 12:21:17 GMT</pubDate>
     </item>
   </channel>
 </rss>
