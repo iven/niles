@@ -1,190 +1,178 @@
 # Niles 开发指南
 
-## 项目简介
+## 这是什么
 
-Niles 是一个智能 RSS 新闻聚合器，使用 AI 根据个人兴趣自动筛选和聚合新闻内容。
+Niles 用 AI 把一批 RSS / 网站源按个人兴趣分级、总结，再输出成新的 RSS feed，托管在 GitHub Pages。Bun + TypeScript，由 GitHub Actions 每小时执行一次。
 
-**核心功能**：
-- 插件化流水线：每个 source 通过 `plugins` 列表自由组合 collect / processItems / report 步骤。
-- 基于 4 级兴趣层次（`critical / recommended / optional / rejected`）自动过滤内容（`builtin/llm-grade`）。
-- 可选的深度分析模式：生成结构化总结后重新分级（`builtin/llm-summarize` + `builtin/llm-grade`）。
-- 多 AI provider 支持：使用 Tanstack AI 支持 Anthropic、OpenAI、Gemini、OpenRouter、Grok、OpenCode Go。
-- RSSHub 支持：使用 RSSHub npm 库在本地运行，不依赖官方网站。
-- 使用 GitHub Actions cron 自动调度执行，GitHub Pages 托管输出。
-
-## 架构概览
-
-### 目录结构
+- 每个「源」（source）在 `config.json` 里由一条**插件链**描述：抓取 → 补全内容 → LLM 分级 / 总结 → 输出。
+- 入口：`bin/cli.ts` → `src/workflow.ts`；`bin/notify.ts` 只在 Actions 里做失败提醒。
+- LLM 走 Tanstack AI；RSSHub 用 npm 库在本进程内渲染，不访问官网。
 
 ```
-.
-├── bin/
-│   └── cli.ts                      # CLI 入口
-├── src/
-│   ├── workflow.ts                 # 主工作流逻辑
-│   ├── types.ts                    # 类型定义（FeedItem）
-│   ├── plugin.ts                   # 插件接口、加载器、PluginContext
-│   ├── lib/
-│   │   ├── llm.ts                  # LLM 客户端
-│   │   ├── config.ts               # 配置加载
-│   │   └── guid-tracker.ts         # GUID 跟踪
-│   └── plugins/
-│       ├── builtin/                # 内置通用插件
-│       │   ├── collect-rss.ts      # 获取 RSS/Atom feed
-│       │   ├── collect-rsshub.ts   # 获取 RSSHub 路由
-│       │   ├── deduplicate.ts      # GUID 去重（pipeline 前置）
-│       │   ├── limit-items.ts      # 数量控制（pipeline 前置）
-│       │   ├── clean-text.ts       # 清理零宽字符和空白（pipeline 前置）
-│       │   ├── fetch-content.ts    # 获取网页内容
-│       │   ├── fetch-meta.ts       # 获取 meta 描述
-│       │   ├── llm-grade.ts        # LLM 分级
-│       │   ├── llm-summarize.ts    # LLM 总结
-│       │   └── reporter-rss.ts     # 输出 RSS 文件
-│       ├── cnbeta/                 # cnBeta 网站插件
-│       ├── hacker-news/            # Hacker News 插件
-│       └── zaihuapd/               # 在花频道插件
-├── .github/workflows/
-│   └── fetch-rss.yml               # GitHub Actions workflow
-└── config.json                     # 配置文件
+bin/cli.ts ──> src/workflow.ts ──> src/plugin.ts（加载与调用插件）
+                                        └──> src/plugins/**（各阶段实现）
 ```
 
-### 工作流程
+## 目录结构
 
-`workflow.ts` 按以下顺序执行：
-
-1. **collect**：source `plugins` 列表中所有插件的 `collect()` 并行执行，合并结果得到原始条目列表。
-2. **processItems（前置）**：`deduplicate → limit-items → clean-text` 硬编码在 `workflow.ts` 中，对所有 source 统一前置执行。
-3. **processItems（source）**：source `plugins` 列表中所有插件的 `processItems()` 串行执行。
-4. **report**：source `plugins` 列表中所有插件的 `report()` 串行执行（仅非 dry-run 模式）。
-
-典型的插件执行顺序（以 hacker-news 为例）：
 ```
-collect-rss → deduplicate → limit-items → clean-text
-→ fetch-meta → fetch-content → hacker-news → llm-grade → llm-summarize → llm-grade → reporter-rss
+bin/
+  cli.ts                  # CLI 入口：--config / --dry-run，跑单个 source
+  notify.ts               # 记录 source 连续失败次数，达阈值时在 GitHub Issue 提醒
+src/
+  workflow.ts             # 五个阶段的编排、前置插件
+  plugin.ts               # Plugin / PluginContext 接口、加载器、dry-run 截断
+  types.ts                # FeedItem 定义
+  lib/                    # 配置、LLM 客户端、http、重试、日志、GUID 与失败计数
+  plugins/
+    builtin/              # 通用插件：collect-*、deduplicate、clean-text、fetch-*、
+                          #   llm-grade、llm-summarize、llm-digest、reporter-*、schedule
+    cnbeta/ hacker-news/ zaihuapd/ zhihu/ producthunt/ github-trending/   # 站点插件
+docs/plans/               # 历史设计文档
+.github/workflows/        # fetch-rss（定时抓取）、pr-check（PR 检查）
+config.json               # 唯一的运行时配置
+prek.toml                 # 提交前检查
 ```
+
+插件与文件的对应关系：`builtin/foo` → `src/plugins/builtin/foo.ts`；`foo` → `src/plugins/foo.ts`，再退到 `src/plugins/foo/index.ts`。新增插件按这个约定放。
+
+## 运行模型
+
+### 阶段
+
+`src/workflow.ts` 按固定顺序推进，每个阶段拿到的 logger 已打上插件名标签：
+
+| 阶段 | 并发 | 语义 |
+| --- | --- | --- |
+| `beforeRun` | 并行 | 任一插件返回 `false`，整个 source 本轮跳过 |
+| `collect` | 并行 | 各插件返回条目，按链顺序合并 |
+| `processItems` | 串行 | 先跑前置插件，再按链顺序跑 source 插件 |
+| `report` | 串行 | 每个插件都会被执行；是否写盘由插件自己判断 |
+| `afterRun` | 并行 | 收尾通知 |
+
+**前置插件**硬编码在 `workflow.ts`（`PIPELINE_PREFIX`），对所有 source 生效，只调用 `processItems`，且只读顶层 `plugins` 里的全局 options。
+
+### 插件链与 options
+
+`sources[].plugins` 的元素可以是插件名字符串，也可以是 `{ "name": ..., "options": {...} }`。顶层 `plugins` 给每个插件提供全局默认 options，source 内的同名插件 options 浅合并覆盖全局值。
+
+### dry-run
+
+`--dry-run` / workflow 的 `dry-run` 输入用于以极少 token 验证整条链：
+
+- collector 只保留少量样本。**collector 必须在返回前调用 `applyDryRunLimit`**（`src/plugin.ts`），否则不会被截断。
+- `deduplicate` 仍写入 GUID 历史，但返回原始条目，不把已处理过的标成 `rejected`——否则 dry-run 什么都看不出。
+- `report` 照常执行，但各 reporter 自己跳过写盘；workflow 也不做状态上报和 gh-pages 提交。
+
+dry-run 同样调用 LLM API 并消耗 token，不是免费测试。
 
 ### 输出文件
 
-推送到 gh-pages 分支：
-- `{source-name}.xml` — RSS 文件（由 `builtin/reporter-rss` 插件生成）
-- `{source-name}-processed.json` — GUID 历史记录（由 `builtin/deduplicate` 插件维护）
-- `{source-name}-failures.json` — 连续失败计数（由 workflow 的 `Report source status` 步骤维护，达到阈值时评论失败通知 Issue）
+Actions 把结果提交到 `gh-pages`：
 
-### 核心组件
+- `{source}.xml` — 最终 RSS（`reporter-rss`）
+- `{source}-processed.json` — 已处理 GUID 历史（`deduplicate`）
+- `{source}-pending.json` — 本轮未输出的条目（`reporter-pending`，配 `collect-pending` 下轮再处理）
+- `{source}-failures.json` — 连续失败次数（`bin/notify.ts`）
 
-**插件接口**（`src/plugin.ts`）：
-- 所有插件实现三个可选方法：`collect()`、`processItems()`、`report()`，未覆盖的方法使用 `basePlugin` 的空实现。
-- `PluginContext`：注入 `sourceName`、`sourceContext`（source 级别的上下文说明）、`isDryRun`、`llm(tier)` 工厂函数。
-- `llm(tier)` 接受 `"fast" | "balanced" | "powerful"` 三个等级，对应 `config.json` 中 `llm.models` 的同名字段，同一插件可多次调用不同 tier。
+数量上限、清理策略、失败阈值都以对应源码里的常量为准。
 
-**条目类型**（`src/types.ts`）：
-- `FeedItem`：统一类型，`level` 字段初始为 `"unknown"`，经 `deduplicate`、`limit-items`、`llm-grade` 等插件更新为 `critical / recommended / optional / rejected`。
+### workflow
 
-**GUID 跟踪**（`src/lib/guid-tracker.ts`）：
-- `builtin/deduplicate` 插件使用，记录已处理的 GUID，避免重复处理动态排名 RSS 中的旧条目。
-- 自动清理历史记录，保留最近 500 条（按处理时间排序）。
+`fetch-rss.yml` 先读 `config.json` 生成 source 矩阵，每个 source 一个并行 job，最后汇总提交 `gh-pages`。cron 定时 + `workflow_dispatch`（可带 `dry-run`）。单个 source 连续失败达到阈值时，会在固定标题的 Issue 里新建或追加评论。
 
-## 设计原则
+## 数据模型
 
-### 配置管理
+条目类型是 `src/types.ts` 的 `FeedItem`；字段定义以那里为准，这里只写不变量。
 
-- 单一配置源：`config.json`，使用 Zod schema 验证。
-- LLM 配置（`llm` 字段）：
-  - `provider`：AI provider 类型（anthropic、openai、gemini、openrouter、grok、opencode-go）。
-  - `baseUrl`：可选，自定义 API 端点；不填时使用 provider 的默认端点（如 `opencode-go` 默认 `https://opencode.ai/inference/go/openai/v1`）。
-  - `models`：按能力等级配置模型名称，包含 `fast`、`balanced`、`powerful` 三个字段。
-  - API key 通过环境变量提供（如 `ANTHROPIC_API_KEY`、`OPENAI_API_KEY`、`OPENCODE_API_KEY`）。
-  - provider 定义集中在 `src/lib/llm.ts` 的 `PROVIDERS` 表：新增 provider 只需加一行数据，协议族在 `createLlmClient` 里按 `protocol` 构造。
-- 顶层 `plugins` 字段：为插件提供全局默认 options，source 内同名插件的 options 会覆盖（合并）全局值。
-- Source 配置字段：`name`、`title`、`context`、`plugins`。`context` 为 source 级别的背景说明，注入到 `PluginContext.sourceContext`，供所有插件共享；插件级别的 `options.context` 为额外补充，两者会合并传给 LLM。
-- 关键词列表使用紧凑格式，逗号分隔，中英文之间不加空格（如：`3A游戏,微软Copilot`）。
-- `builtin/llm-grade` 的全局兴趣关键词使用 `global` 前缀（如 `globalHighInterest`），source 级别关键词不加前缀（如 `highInterest`），两者均可在同一 options 对象中共存，LLM 会综合权衡，source 级别权重更高。
-- RSSHub 支持：项目使用 RSSHub 的 npm 库在本地运行，不访问 RSSHub 官方网站。`builtin/collect-rsshub` 的 `route` 字段使用 RSSHub 路由格式（如 `/zhihu/hot`）。
-- GitHub Actions 每 1 小时执行所有源。
+`level` 的生命周期：
 
+```
+unknown ──llm-grade──> critical / recommended / optional / rejected
+   │                         │
+   │                         └── llm-summarize 也可能判为 rejected
+   └──deduplicate（历史里出现过）──> rejected
+```
+
+- `rejected` 的条目最终不输出；`critical` / `recommended` 在 RSS 标题上各有星标。
+- **已 `rejected` 的条目不再做重活**（抓网页、调 LLM）：插件遍历时原样返回。
+- `extra` 是插件间传递附加数据的唯一通道。**`llm-summarize` 会把 `item.extra` 的所有键值序列化进提示词**，增删 `extra` 字段等于改变提示词与 token 消耗。
+
+## 插件
+
+接口、`PluginContext` 的字段都在 `src/plugin.ts`；`basePlugin` 给空实现，插件用 `{ ...basePlugin, ... }` 只覆盖需要的阶段。各插件的 options 以其自身的类型定义为准，本文不重复。
+
+写插件时的不变量：
+
+1. 只对未 `rejected` 的条目做重活，`rejected` 条目原样返回。
+2. collector 返回前调用 `applyDryRunLimit`。
+3. 附加数据放 `item.extra`，不改 `FeedItem` 结构。
+4. 日志只用 `context.logger`（已带插件名标签），不要直接 import `lib/logger`。
+5. LLM 调用通过 `context.llm(tier)`，按任务复杂度选 tier。
+6. 需要网络的地方 mock `src/lib/http`，不要依赖仓库外的样本文件。
+
+新增插件：在 `src/plugins/builtin/` 或 `src/plugins/<site>/` 下按约定放文件，默认导出插件对象，写测试，然后在 `config.json` 对应 source 的 `plugins` 里引用。
+
+## 配置
+
+`config.json` 由 `src/lib/config.ts` 的 zod schema 校验，结构变化以那里为准。需要知道的约定：
+
+- `sources[].name` 同时用于日志、`output/` 下的文件名和 feed 描述。
+- `sources[].context` 是 source 级背景说明，注入该源所有插件的 LLM 提示词；插件 options 里的 `context` 会与之拼接。
+- LLM 的 provider、默认端点、API key 环境变量集中在 `src/lib/llm.ts` 的 `PROVIDERS` 表；新增 provider 加一行数据，协议族在 `createLlmClient` 里按 `protocol` 构造。
+- 兴趣关键词分四档（`highInterest` / `interest` / `uninterested` / `avoid`），分别倾向 `critical` / `recommended` / `optional` / `rejected`。全局关键词加 `global` 前缀（如 `globalHighInterest`），source 级不带前缀，两者可共存，source 级权重更高。
+- 关键词用逗号分隔的紧凑格式，中英文之间不加空格，如 `3A游戏,微软Copilot`。
+- 改配置结构：更新 `config.ts` 的 schema → 更新 `config.json` → 更新读取方 → `bun run typecheck`。
 
 ## 开发工作流
 
-### 本地测试
+### 工作位置
+
+新需求在 `.worktrees/` 下开 worktree 开发（该目录已在 `.gitignore` 里），不要在主仓库工作区改动：
 
 ```bash
-# 运行所有单元测试
-bun test
-
-# 测试单个 source（会调用 LLM API，需用户明确指示）
-bun run niles <source-name>
-
-# 使用自定义配置文件
-bun run niles <source-name> --config config.json
+git worktree add .worktrees/<topic> -b <type>/<topic> main
 ```
 
-### Token 消耗操作
+在 worktree 里改代码、跑检查、commit；完成后 cherry-pick 到 `main`，再删掉 worktree 与分支。其他时间不要动主仓库。
 
-**严格禁止主动执行消耗 Token 的操作**。
+worktree 里没有 `node_modules`，`knip` 会误报未使用的 devDependencies；需要时链一份主仓库的（不要提交）：`ln -s ../../node_modules node_modules`。
+
+### 本地测试与检查
+
+```bash
+bun test            # 单元测试
+bun run typecheck   # 类型检查
+bun run check       # 代码风格检查（--error-on-warnings）
+bun run check:write # 代码风格检查并自动修复
+bun run knip        # 未使用的代码、依赖和导出
+prek run            # git add 之后对 staged 文件跑上述全部检查
+```
+
+每个需要替换模块的测试文件自己 `mock.module`，不要依赖别的文件留下的 mock。
+
+### Token 消耗
+
+**严格禁止主动执行消耗 Token 的操作。**
 
 以下操作会调用 LLM API 并消耗 token，**必须**在用户明确指示后才能执行：
 
 1. 执行 `bun run niles <source-name>`（包括带 `--dry-run` 的命令）
 2. 触发 GitHub Actions workflow（`gh workflow run`）
 
-**重要**：
-- Dry-run 模式同样会调用 LLM API 并消耗 token，不是免费的测试。
+- dry-run 同样会调用 LLM API 并消耗 token，不是免费的测试。
 - 即使用户说「测试」「验证」，也必须先询问确认，不能自行执行。
 - 只有当用户明确说「执行」「运行」「run」等词时才能执行。
 
-### 代码检查
-
-完成改动并 `git add` 后，运行 `prek run` 对 staged 文件执行全量检查（biome、typecheck、knip 等）：
-
-```bash
-git add <files>
-prek run
-```
-
-也可以单独运行各项检查：
-
-```bash
-bun run typecheck   # 类型检查
-bun run check       # 代码风格检查和格式化
-bun run knip        # 检查未使用的代码、依赖和导出
-```
-
-### 手动触发 workflow
+### 触发 workflow
 
 **禁止自动触发 workflow**，除非用户明确说明（如「run workflow」「trigger workflow」）。触发时禁止自行添加 `--dry-run` 参数，除非用户明确要求。
 
-使用 `gh workflow run` 触发 workflow。
-
 ```bash
-# 正常执行（会推送到 gh-pages）
 gh workflow run fetch-rss.yml
-
-# Dry run 模式（不推送到 gh-pages，固定抓取 3 条用于测试）
-gh workflow run fetch-rss.yml -f dry-run=true
-
-# 在非默认分支测试（需要指定 --ref）
-gh workflow run fetch-rss.yml --ref your-branch-name -f dry-run=true
+gh workflow run fetch-rss.yml -f dry-run=true            # 不推 gh-pages，只验证流水线
+gh workflow run fetch-rss.yml --ref <branch> -f dry-run=true
 ```
-
-**参数说明**：
-- `-f dry-run=true`：启用 dry run 模式，不推送到 gh-pages，固定抓取 3 条
-- `--ref`：指定运行 workflow 的分支（默认使用当前分支或仓库默认分支）
-
-### 添加新插件
-
-1. 在 `src/plugins/` 下创建网站目录（如 `example/index.ts`），或在 `builtin/` 目录创建通用插件（如 `builtin/example.ts`）。
-2. 导出默认对象，继承 `basePlugin`，按需覆盖 `collect`、`processItems`、`report` 方法。
-   - `processItems(items: FeedItem[], options, context): Promise<FeedItem[]>`：接收完整条目列表，返回处理后的完整列表。
-   - 额外数据存储在 `item.extra` 字段中。
-3. 编写单元测试（`index.test.ts` 或 `plugin-name.test.ts`）。
-4. 在 `config.json` 中对应 source 的 `plugins` 列表里引用：网站插件用 `"example"`，内置插件用 `"builtin/plugin_name"`。
-
-### 修改配置结构
-
-1. 更新 `src/lib/config.ts` 中的 Zod schema。
-2. 更新 `config.json`。
-3. 运行类型检查：`bun run typecheck`。
-4. 更新所有使用该配置的代码。
 
 ## 代码规范
 
@@ -194,21 +182,21 @@ gh workflow run fetch-rss.yml --ref your-branch-name -f dry-run=true
 
 **关键原则**：更详细 ≠ 更有帮助。如果现有内容是简洁的，新增内容也必须简洁。
 
-### TypeScript 类型规范
+### TypeScript 类型
 
-**严格禁止使用 `any` 和 `unknown` 类型**。
+**严格禁止使用 `any` 和 `unknown` 类型。**
 
 - 必须为所有变量、函数参数、返回值提供明确的类型定义。
 - 如果不知道某个类型，应该先查阅官方文档，不到万不得已不要查看源代码。
 - 使用 `bun run typecheck` 确保类型检查通过。
 
-### Git 操作
+### Git
 
-**严格禁止主动提交和推送代码**。
+**严格禁止主动提交和推送代码。**
 
 `git commit`、`git commit --amend`、`git push` 均属于破坏性操作，只有用户明确说出对应指令时才能执行。完成代码修改后，必须停下来等待用户确认修改符合要求，不得因为用户之前说过「commit and push」，就认为主动执行 commit 是正确的。
 
-### Commit Message
+### Commit message
 
 所有 commit message 使用英文编写：
 
@@ -217,6 +205,7 @@ gh workflow run fetch-rss.yml --ref your-branch-name -f dry-run=true
 - 常用动词：`Add`、`Update`、`Fix`、`Remove`、`Refactor`、`Improve` 等。
 
 示例：
+
 ```
 Add documentation and refine filtering workflow
 Fix shell syntax error in Generate RSS step

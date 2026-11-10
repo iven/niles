@@ -14,14 +14,18 @@
 - 📰 **多源支持**：支持任意 RSS feed 和 RSSHub 路由。
 - 📡 **免费托管**：使用 GitHub Pages 托管 RSS 输出。
 
-## 分类规则
+## 分级规则
 
-AI 根据配置中的兴趣主题，将条目分类为 4 种类型：
+AI 按 `config.json` 里的兴趣关键词给每条内容定级，共四级：
 
-1. **强烈感兴趣** (`high_interest`) - 出现在 RSS 中，标题显示 ⭐⭐。
-2. **一般感兴趣** (`interest`) - 出现在 RSS 中，标题显示 ⭐。
-3. **其他** (`other`) - 标题模糊或不太感兴趣但也不排除，出现在 RSS 中但无星标。
-4. **明确不感兴趣** (`exclude`) - 不出现在 RSS 中。
+| 等级 | 含义 | RSS 中的显示 |
+| --- | --- | --- |
+| `critical` | 强烈感兴趣，必看 | 标题前缀 ⭐⭐ |
+| `recommended` | 感兴趣，推荐阅读 | 标题前缀 ⭐ |
+| `optional` | 标题含义模糊或兴趣不明确 | 无前缀 |
+| `rejected` | 不感兴趣 | 不出现在 RSS 中 |
+
+关键词分四档，分别把相关内容推向对应等级：`highInterest` → `critical`、`interest` → `recommended`、`uninterested` → `optional`、`avoid` → `rejected`。全局关键词（`globalHighInterest` 等）对所有源生效，源内可再补充不带前缀的关键词，两者叠加，源级权重更高。
 
 ## 快速开始
 
