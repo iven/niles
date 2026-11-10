@@ -1,5 +1,5 @@
 import { describe, expect, it, mock } from "bun:test";
-import type { PluginContext } from "../../plugin";
+import { createTestContext } from "../../test-fixtures";
 
 /** 与 github.com/trending 页面结构一致的最小样例，避免测试依赖外部文件 */
 const TRENDING_HTML = `<!doctype html>
@@ -28,23 +28,9 @@ mock.module("../../lib/http", () => ({
 
 const { default: plugin } = await import("./index");
 
-function createContext(isDryRun = false): PluginContext {
-  const noop = () => {};
-  return {
-    sourceName: "github-trending",
-    sourceContext: undefined,
-    isDryRun,
-    now: new Date("2026-01-01T00:00:00Z"),
-    llm: () => {
-      throw new Error("collect 不应调用 LLM");
-    },
-    logger: { start: noop, success: noop, warn: noop, log: noop, error: noop },
-  } as unknown as PluginContext;
-}
-
 describe("github-trending collect", () => {
   it("应从 HTML 解析出完整的仓库条目", async () => {
-    const context = createContext();
+    const context = createTestContext({ sourceName: "github-trending" });
     const result = await plugin.collect({}, context);
 
     expect(result.title).toBe("GitHub Trending");
@@ -73,7 +59,10 @@ describe("github-trending collect", () => {
   });
 
   it("dry-run 时只返回 3 条", async () => {
-    const result = await plugin.collect({}, createContext(true));
+    const result = await plugin.collect(
+      {},
+      createTestContext({ isDryRun: true, sourceName: "github-trending" }),
+    );
 
     expect(result.items).toHaveLength(3);
     expect(result.items.map((item) => item.title)).toEqual([

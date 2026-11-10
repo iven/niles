@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, mock } from "bun:test";
-import { logger } from "./lib/logger";
-import { applyProcessItems, loadPlugins, type PluginContext } from "./plugin";
-import type { FeedItem } from "./types";
+import { applyProcessItems, loadPlugins } from "./plugin";
+import { createTestContext, createTestItem } from "./test-fixtures";
 
 const HN_ITEM_GUID = "https://news.ycombinator.com/item?id=123";
 const HN_ITEM_URL = "https://hn.algolia.com/api/v1/items/123";
@@ -26,30 +25,6 @@ mock.module("./lib/http", () => ({
   },
 }));
 
-function createTestItem(title: string): FeedItem {
-  return {
-    title,
-    link: "https://example.com",
-    pubDate: "2024-01-01",
-    description: "Test description",
-    guid: "test-guid",
-    extra: {},
-    level: "unknown",
-    reason: "未分级",
-  };
-}
-
-const testContext: PluginContext = {
-  sourceName: "test",
-  sourceContext: undefined,
-  isDryRun: false,
-  now: new Date(),
-  llm: () => {
-    throw new Error("llm not available in test");
-  },
-  logger,
-};
-
 beforeEach(() => {
   responses.clear();
   calls.length = 0;
@@ -57,10 +32,14 @@ beforeEach(() => {
 
 describe("loadPlugins", () => {
   it("should load builtin plugins with file path format", async () => {
-    const items = [createTestItem("\u200b  Test  \u200b")];
+    const items = [createTestItem({ title: "\u200b  Test  \u200b" })];
     const [cleanText] = await loadPlugins(["builtin/clean-text"]);
     if (!cleanText) throw new Error("plugin not loaded");
-    const result = await applyProcessItems(items, cleanText, testContext);
+    const result = await applyProcessItems(
+      items,
+      cleanText,
+      createTestContext(),
+    );
 
     expect(result[0]?.title).toBe("Test");
   });
@@ -71,15 +50,16 @@ describe("loadPlugins", () => {
     }));
 
     const items = [
-      createTestItem("Test"),
-      {
-        ...createTestItem("Test 2"),
-        guid: HN_ITEM_GUID,
-      },
+      createTestItem({ title: "Test" }),
+      createTestItem({ title: "Test 2", guid: HN_ITEM_GUID }),
     ];
     const [hackerNews] = await loadPlugins(["hacker-news"]);
     if (!hackerNews) throw new Error("plugin not loaded");
-    const result = await applyProcessItems(items, hackerNews, testContext);
+    const result = await applyProcessItems(
+      items,
+      hackerNews,
+      createTestContext(),
+    );
 
     expect(calls).toEqual([HN_ITEM_URL]);
     expect(result).toHaveLength(2);
@@ -96,16 +76,16 @@ describe("loadPlugins", () => {
         '<html><head><meta name="description" content="页面描述"></head></html>',
     );
 
-    const items = [createTestItem("\u200b  Test  \u200b")];
+    const items = [createTestItem({ title: "\u200b  Test  \u200b" })];
     const [cleanText, fetchMeta] = await loadPlugins([
       "builtin/clean-text",
       "builtin/fetch-meta",
     ]);
     if (!cleanText || !fetchMeta) throw new Error("plugins not loaded");
     const result = await applyProcessItems(
-      await applyProcessItems(items, cleanText, testContext),
+      await applyProcessItems(items, cleanText, createTestContext()),
       fetchMeta,
-      testContext,
+      createTestContext(),
     );
 
     expect(calls).toEqual([META_PAGE_URL]);
@@ -123,7 +103,7 @@ describe("loadPlugins", () => {
   it("should return empty items from non-collector plugin", async () => {
     const [cleanText] = await loadPlugins(["builtin/clean-text"]);
     if (!cleanText) throw new Error("plugin not loaded");
-    const { items } = await cleanText.plugin.collect({}, testContext);
+    const { items } = await cleanText.plugin.collect({}, createTestContext());
     expect(items).toHaveLength(0);
   });
 });

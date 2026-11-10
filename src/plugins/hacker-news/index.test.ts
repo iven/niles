@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, mock } from "bun:test";
-import { logger } from "../../lib/logger";
-import type { PluginContext } from "../../plugin";
+import { createTestContext, createTestItem } from "../../test-fixtures";
 import type { FeedItem } from "../../types";
 
 const HN_ITEM_GUID = "https://news.ycombinator.com/item?id=123";
@@ -31,33 +30,6 @@ beforeEach(() => {
   responses.clear();
   calls.length = 0;
 });
-
-function createItem(overrides: Partial<FeedItem> = {}): FeedItem {
-  return {
-    title: "Test",
-    link: "https://example.com",
-    pubDate: "2024-01-01",
-    description: "",
-    guid: "test-guid",
-    extra: {},
-    level: "unknown",
-    reason: "未分级",
-    ...overrides,
-  };
-}
-
-function createContext(): PluginContext {
-  return {
-    sourceName: "hacker-news",
-    sourceContext: undefined,
-    isDryRun: false,
-    now: new Date("2026-01-01T00:00:00Z"),
-    llm: () => {
-      throw new Error("processItems 不应调用 LLM");
-    },
-    logger,
-  };
-}
 
 /** 把评论压成 `文本@深度`，方便断言完整顺序 */
 function summarize(items: FeedItem[]): string[] {
@@ -108,8 +80,8 @@ describe("hacker-news processItems", () => {
       ],
     }));
 
-    const items = [createItem({ guid: HN_ITEM_GUID })];
-    const result = await plugin.processItems(items, {}, createContext());
+    const items = [createTestItem({ guid: HN_ITEM_GUID })];
+    const result = await plugin.processItems(items, {}, createTestContext());
 
     expect(calls).toEqual([HN_ITEM_URL]);
     expect(summarize(result)).toEqual([
@@ -144,8 +116,8 @@ describe("hacker-news processItems", () => {
       ],
     }));
 
-    const items = [createItem({ guid: HN_ITEM_GUID })];
-    const result = await plugin.processItems(items, {}, createContext());
+    const items = [createTestItem({ guid: HN_ITEM_GUID })];
+    const result = await plugin.processItems(items, {}, createTestContext());
 
     const texts = summarize(result);
     expect(texts).toHaveLength(10);
@@ -163,8 +135,8 @@ describe("hacker-news processItems", () => {
       ],
     }));
 
-    const items = [createItem({ guid: HN_ITEM_GUID })];
-    const result = await plugin.processItems(items, {}, createContext());
+    const items = [createTestItem({ guid: HN_ITEM_GUID })];
+    const result = await plugin.processItems(items, {}, createTestContext());
 
     expect(summarize(result)).toEqual(["reply-under-ghost@1"]);
   });
@@ -178,8 +150,8 @@ describe("hacker-news processItems", () => {
       ],
     }));
 
-    const items = [createItem({ guid: HN_ITEM_GUID })];
-    const result = await plugin.processItems(items, {}, createContext());
+    const items = [createTestItem({ guid: HN_ITEM_GUID })];
+    const result = await plugin.processItems(items, {}, createTestContext());
 
     expect(result[0]?.extra.comments).toEqual([
       { author: "", text: "no-author", points: 0, depth: 0 },
@@ -189,8 +161,8 @@ describe("hacker-news processItems", () => {
   });
 
   it("rejected 条目直接短路，不发请求", async () => {
-    const items = [createItem({ guid: HN_ITEM_GUID, level: "rejected" })];
-    const result = await plugin.processItems(items, {}, createContext());
+    const items = [createTestItem({ guid: HN_ITEM_GUID, level: "rejected" })];
+    const result = await plugin.processItems(items, {}, createTestContext());
 
     expect(calls).toEqual([]);
     expect(result[0]?.level).toBe("rejected");
@@ -198,8 +170,8 @@ describe("hacker-news processItems", () => {
   });
 
   it("非 HN 条目原样返回", async () => {
-    const items = [createItem({ guid: "https://example.com/post" })];
-    const result = await plugin.processItems(items, {}, createContext());
+    const items = [createTestItem({ guid: "https://example.com/post" })];
+    const result = await plugin.processItems(items, {}, createTestContext());
 
     expect(calls).toEqual([]);
     expect(result[0]?.extra.comments).toBeUndefined();
@@ -207,8 +179,8 @@ describe("hacker-news processItems", () => {
 
   it("HN 链接缺少数字 id 时原样返回", async () => {
     const guid = "https://news.ycombinator.com/item?id=abc";
-    const items = [createItem({ guid })];
-    const result = await plugin.processItems(items, {}, createContext());
+    const items = [createTestItem({ guid })];
+    const result = await plugin.processItems(items, {}, createTestContext());
 
     expect(calls).toEqual([]);
     expect(result[0]?.extra.comments).toBeUndefined();
@@ -217,8 +189,8 @@ describe("hacker-news processItems", () => {
   it("API 响应格式错误时写入空数组", async () => {
     responses.set(HN_ITEM_URL, () => ({ children: "not-an-array" }));
 
-    const items = [createItem({ guid: HN_ITEM_GUID })];
-    const result = await plugin.processItems(items, {}, createContext());
+    const items = [createTestItem({ guid: HN_ITEM_GUID })];
+    const result = await plugin.processItems(items, {}, createTestContext());
 
     expect(calls).toEqual([HN_ITEM_URL]);
     expect(result[0]?.extra.comments).toEqual([]);
@@ -229,8 +201,8 @@ describe("hacker-news processItems", () => {
       throw new Error("network down");
     });
 
-    const items = [createItem({ guid: HN_ITEM_GUID })];
-    const result = await plugin.processItems(items, {}, createContext());
+    const items = [createTestItem({ guid: HN_ITEM_GUID })];
+    const result = await plugin.processItems(items, {}, createTestContext());
 
     expect(calls).toEqual([HN_ITEM_URL]);
     expect(result[0]?.extra.comments).toEqual([]);

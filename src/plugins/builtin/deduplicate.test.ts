@@ -1,43 +1,18 @@
 import { describe, expect, it } from "bun:test";
-import { logger } from "../../lib/logger";
-import type { PluginContext } from "../../plugin";
-import type { FeedItem } from "../../types";
+import { createTestContext, createTestItem } from "../../test-fixtures";
 import deduplicatePlugin from "./deduplicate";
 
 let counter = 0;
 
-function createItem(guid: string, title: string): FeedItem {
-  return {
-    title,
-    link: `http://example.com/${guid}`,
-    pubDate: "2024-02-24",
-    description: `Description for ${title}`,
-    guid,
-    extra: {},
-    level: "unknown",
-    reason: "未分级",
-  };
-}
-
-function makeContext(isDryRun = false): PluginContext {
-  counter++;
-  return {
-    sourceName: `test-deduplicate-${Date.now()}-${counter}`,
-    sourceContext: undefined,
-    isDryRun,
-    now: new Date(),
-    llm: () => {
-      throw new Error("llm not available in test");
-    },
-    logger,
-  };
-}
-
 describe("builtin/deduplicate plugin", () => {
   it("should return all items as non-rejected in dry run mode", async () => {
-    const context = makeContext(true);
+    // deduplicate 会写 output/<sourceName>-processed.json；每个用例用独立名字，避免读到别的用例或上次运行留下的 GUID
+    const context = createTestContext({
+      isDryRun: true,
+      sourceName: `test-deduplicate-${Date.now()}-${counter++}`,
+    });
     const items = Array.from({ length: 10 }, (_, i) =>
-      createItem(`guid-${i}`, `Item ${i}`),
+      createTestItem({ guid: `guid-${i}`, title: `Item ${i}` }),
     );
 
     const result = await deduplicatePlugin.processItems(items, {}, context);
@@ -45,11 +20,13 @@ describe("builtin/deduplicate plugin", () => {
   });
 
   it("should mark already-processed items as rejected", async () => {
-    const context = makeContext();
+    const context = createTestContext({
+      sourceName: `test-deduplicate-${Date.now()}-${counter++}`,
+    });
     const items = [
-      createItem("guid-1", "Item 1"),
-      createItem("guid-2", "Item 2"),
-      createItem("guid-3", "Item 3"),
+      createTestItem({ guid: "guid-1", title: "Item 1" }),
+      createTestItem({ guid: "guid-2", title: "Item 2" }),
+      createTestItem({ guid: "guid-3", title: "Item 3" }),
     ];
 
     const first = await deduplicatePlugin.processItems(items, {}, context);
