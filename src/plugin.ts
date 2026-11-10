@@ -40,6 +40,14 @@ export const basePlugin: Plugin = {
   async report() {},
 };
 
+/** dry-run 只为验证流水线，固定只保留少量样本，避免消耗 token */
+const DRY_RUN_ITEM_LIMIT = 3;
+
+/** collector 在返回条目之前调用：dry-run 时截断到固定条数 */
+export function applyDryRunLimit<T>(items: T[], context: PluginContext): T[] {
+  return context.isDryRun ? items.slice(0, DRY_RUN_ITEM_LIMIT) : items;
+}
+
 type PluginEntry = string | { name: string; options?: object };
 
 type LoadedPlugin = {

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { http } from "../../lib/http";
-import { basePlugin, type PluginContext } from "../../plugin";
+import { applyDryRunLimit, basePlugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
 const targetSchema = z.object({
@@ -48,7 +48,7 @@ const plugin = {
     const parsed = responseSchema.parse(json);
     const entries = parsed.data.slice(0, limit);
 
-    const items: FeedItem[] = entries.map((entry, index) => ({
+    const collected: FeedItem[] = entries.map((entry, index) => ({
       title: entry.target.title,
       link: toQuestionUrl(entry.target.url),
       pubDate: new Date(entry.target.created * 1000).toISOString(),
@@ -58,6 +58,7 @@ const plugin = {
       level: "unknown" as const,
       reason: "未分级",
     }));
+    const items = applyDryRunLimit(collected, context);
 
     context.logger.success(`获取到 ${items.length} 个条目`);
     return { title: "知乎热榜", items };

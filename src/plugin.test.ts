@@ -1,6 +1,11 @@
 import { describe, expect, it } from "bun:test";
 import { logger } from "./lib/logger";
-import { applyProcessItems, loadPlugins, type PluginContext } from "./plugin";
+import {
+  applyDryRunLimit,
+  applyProcessItems,
+  loadPlugins,
+  type PluginContext,
+} from "./plugin";
 import type { FeedItem } from "./types";
 
 function createTestItem(title: string): FeedItem {
@@ -81,5 +86,19 @@ describe("loadPlugins", () => {
     if (!cleanText) throw new Error("plugin not loaded");
     const { items } = await cleanText.plugin.collect({}, testContext);
     expect(items).toHaveLength(0);
+  });
+});
+
+describe("applyDryRunLimit", () => {
+  const items = ["A", "B", "C", "D"].map(createTestItem);
+
+  it("should return all items outside dry-run", () => {
+    expect(applyDryRunLimit(items, testContext)).toEqual(items);
+  });
+
+  it("should keep only the first three items in dry-run", () => {
+    const result = applyDryRunLimit(items, { ...testContext, isDryRun: true });
+
+    expect(result.map((item) => item.title)).toEqual(["A", "B", "C"]);
   });
 });

@@ -1,4 +1,9 @@
-import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
+import {
+  applyDryRunLimit,
+  basePlugin,
+  type Plugin,
+  type PluginContext,
+} from "../../plugin";
 import type { FeedItem } from "../../types";
 
 interface CollectPendingOptions {
@@ -20,13 +25,14 @@ const plugin: Plugin<CollectPendingOptions> = {
     }
 
     const data = await file.json();
-    const items: FeedItem[] = (data.items ?? []).map((item: FeedItem) => ({
+    const readItems: FeedItem[] = (data.items ?? []).map((item: FeedItem) => ({
       ...item,
       extra: {
         ...item.extra,
         _source: sourceName ?? pendingPath,
       },
     }));
+    const items = applyDryRunLimit(readItems, context);
 
     context.logger.success(`从 ${pendingPath} 读取到 ${items.length} 个条目`);
     return { items };

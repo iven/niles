@@ -1,7 +1,12 @@
 import { init as rsshubInit, request as rsshubRequest } from "rsshub";
 import { z } from "zod";
 import { withRetry } from "../../lib/retry";
-import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
+import {
+  applyDryRunLimit,
+  basePlugin,
+  type Plugin,
+  type PluginContext,
+} from "../../plugin";
 import type { FeedItem } from "../../types";
 
 const rssFeedItemSchema = z.object({
@@ -54,7 +59,7 @@ const plugin: Plugin<CollectRsshubOptions> = {
     }));
 
     const limited = maxItems ? items.slice(0, maxItems) : items;
-    const result = context.isDryRun ? limited.slice(0, 3) : limited;
+    const result = applyDryRunLimit(limited, context);
     context.logger.success(`获取到 ${result.length} 个条目`);
     return {
       title: parseResult.data.title,

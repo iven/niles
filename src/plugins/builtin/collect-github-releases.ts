@@ -1,6 +1,11 @@
 import { http } from "../../lib/http";
 import { withRetry } from "../../lib/retry";
-import { basePlugin, type Plugin, type PluginContext } from "../../plugin";
+import {
+  applyDryRunLimit,
+  basePlugin,
+  type Plugin,
+  type PluginContext,
+} from "../../plugin";
 import type { FeedItem } from "../../types";
 
 interface CollectGithubReleasesOptions {
@@ -60,7 +65,7 @@ const plugin: Plugin<CollectGithubReleasesOptions> = {
         reason: "未分级",
       }));
 
-    const result = context.isDryRun ? items.slice(0, 3) : items;
+    const result = applyDryRunLimit(items, context);
     context.logger.success(`获取到 ${result.length} 个条目`);
     return { items: result };
   },

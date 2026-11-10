@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { http } from "../../lib/http";
-import { basePlugin, type PluginContext } from "../../plugin";
+import { applyDryRunLimit, basePlugin, type PluginContext } from "../../plugin";
 import type { FeedItem } from "../../types";
 
 const postNodeSchema = z.object({
@@ -87,13 +87,13 @@ const plugin = {
       .json();
     const parsed = responseSchema.parse(json);
 
+    // dry-run 时先截断，避免为不会用到的条目逐个解析跳转链接
+    const edges = applyDryRunLimit(parsed.data.posts.edges, context);
     const resolvedLinks = await Promise.all(
-      parsed.data.posts.edges.map(({ node }) =>
-        resolveLink(node.website || node.url),
-      ),
+      edges.map(({ node }) => resolveLink(node.website || node.url)),
     );
 
-    const items: FeedItem[] = parsed.data.posts.edges.map(({ node }, index) => {
+    const items: FeedItem[] = edges.map(({ node }, index) => {
       const topics = node.topics.edges.map((e) => e.node.name).join(", ");
       const rank = index + 1;
       return {
