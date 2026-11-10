@@ -3,7 +3,77 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 10 Nov 2026 07:55:48 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2026 13:26:06 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 亚马逊用 Strands Decider 替换 Claude Sonnet 4.6 给工单打标，成本降低 98%</title>
+      <link>https://news.ycombinator.com/item?id=50436640</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 亚马逊内部工单系统用决策模型替代 Claude Sonnet 并大幅降本的工程实践，涉及 AI 模型选型与应用进展，属于感兴趣范围；但因偏公司内部降本案例而非模型发布，未到必看级别</small></p><p>两位负责亚马逊内部工单系统的工程师撰文介绍了他们的替换实践：把原本用 Claude Sonnet 4.6 完成的工单分类任务，换成一个月前发布的决策模型（decision model）Strands Decider，效果相当，成本下降约 98%，预计每年可省下数百万美元的 token 费用。<a href="https://strandsagents.com/blog/amazon-saves-millions-replacing-sonnet-with-strands-decider/">原文</a> / <a href="https://news.ycombinator.com/item?id=50436640">HN 讨论</a></p>
+
+<h3>为什么能用决策模型替代 LLM</h3>
+<p>这套系统要把客户升级、容量申请、自动告警、安全发现等各类工单，归入 20 个固定类别。原先的做法是每个工单都送入一段很长的系统提示词，让 Sonnet 输出 JSON 和推理过程。而决策模型不生成文本：给定状态（state）和一道带选项的问题，它只返回每个选项的概率和置信度。工单打标恰好是「状态 = 工单，选项 = 标签目录」的封闭选择问题，因此高度契合。团队先用 Strands Decider 2B，测试中基于 Gemma 的 E4B 版本效果明显更好，于是改用 E4B，并重新调整了贴标签所需的置信度阈值；在一批独立工单上，E4B 的表现优于线上的 Sonnet。</p>
+
+<h3>架构</h3>
+<p>工单事件进入 SQS 队列，触发 Lambda；Lambda 读取工单数据并调用部署在 SageMaker AI Endpoint 上的 Strands Decider（ml.g5.xlarge，单卡 A10G、24 GB，模型约占 19 GiB，单次请求约 640 ms）。端点随流量自动扩缩容，网络隔离、禁止出站访问，权重在启动前从 S3 拷入。除工单 API 外，整条链路上的组件都是标准 AWS 服务：AppConfig 保存开关配置，CloudWatch 负责日志、指标与告警，整套栈用 CDK 定义，分 Beta、Gamma、Prod 三个阶段部署。</p>
+
+<h3>三向灰度开关</h3>
+<p>团队没有直接一刀切，而是让打标 Lambda 对每条消息从 AppConfig 读取三种模式之一：<b>BEDROCK</b>（全部由 Sonnet 打标，不调用决策模型）、<b>DUAL</b>（两个模型并行调用，Sonnet 结果写入工单并与决策模型结果比对）、<b>DECIDER</b>（全部由决策模型打标，不再调用 Bedrock）。先在真实流量上并行跑、逐条审视分歧，比任何离线评测都更有说服力，而且回滚只是改一次配置，约 45 秒即可生效。</p>
+
+<h3>实测数据</h3>
+<p>单次调用平均耗时从 4,215 ms 降到 897 ms（降低 78%）；单工单输入 token 从 6,554 降到 2,009，输出 token 从 170 降到 1，总 token 降低 70%；Lambda 平均执行时长下降 74%。token 减少有两个原因：决策模型只输出一个选择而非 JSON 答案；提示词也短得多——生产环境原来的标签描述文本本身就已超过决策模型 4,096 token 的上下文窗口，团队把 20 个标签重写成各一两句话的判定标准，作为单选题的选项，并附上一个「none」选项；长工单则丢弃最旧的评论以适配窗口。</p>
+<p>按 us-east-1 按需公开价格计算：Sonnet 4.6（Bedrock 全球端点）每百万 token 输入 3 美元、输出 15 美元，折合每工单约 0.0222 美元，每百万工单约 22,200 美元；Strands Decider E4B 按实例计费每小时 1.408 美元，每百万工单约 500 美元（单实例每小时约可处理 5,600 张工单，满负荷理论成本约 250 美元，实际留有突发余量）。即便宜约 44 倍，降幅 98%。</p>
+
+<h3>踩坑与适用边界</h3>
+<p>一个意外发现是 JSON 键的顺序会改变答案：同样内容仅调换键顺序，输出概率最多偏移 0.19，因此现在所有请求都按键排序后发送。作者也明确了适用条件——任务是从已知目录里做封闭选择、量足够大、旧路径的延迟确实重要。如果标签需要解释性文本、目录每周变动，或有效上下文无法压进几千 token，决策模型大概率替代不了 LLM。</p>
+
+<h3>社区讨论</h3>
+<p>HN 上讨论热烈（418 分、142 条评论），主流声音是怀疑其性质：有人指出 Strands 是 AWS 自家开源模型，这篇文章更像是借内部落地做推广的软文；也有人质疑为何不直接升级到更新的 Sonnet 版本，回复猜测与 Bedrock 对较新 Anthropic 模型缺少批量 API 支持有关。</p>
+<p>另一条主线是「绕了一圈回到分类器」：多位评论者提到几年前用 SVM、BERT 做工单分类只需几毫秒、几 MB 内存，如今又被重新发明。回应的观点认为，LLM 的价值在于零标注数据也能起步、增删类别无需重训，能让原型在几天内对着真实流量跑起来，等系统稳定后再优化成专用小模型；而传统方案往往死在训练数据与问题定义上。也有人估算，按每百万工单省约 2.17 万美元计算，要省下数百万美元意味着每年至少 9,000 万张工单，考虑到告警、安全发现、容量申请都要开单，这个量级尚属可信。<a href="https://www.seldon-ai.com">Seldon AI</a> 创始人则补充了另一视角：LLM 让缺乏 ML 技能的开发者能快速做出原型，但上生产后成本与幻觉会集中爆发，而决策模型虽更进一步，表达能力和配套工具仍不足，已出现不少回滚到 LLM 的案例。</p>
+
+<h3>你知道吗？</h3>
+<p>文章评论中提到的「系统一模型」（system one model）一词借自认知科学中快速、直觉式的思考方式，与 LLM 那种慢速推理形成对照。而在 LLM 之前，学界已有成熟的日志／工单分类流水线，例如被 ICSE 2021 收录的 <a href="https://arxiv.org/abs/2103.06927">Linnaeus</a>，其 SVM 版本训练只需几分钟、单条分类仅几毫秒——这也是评论者对「回到分类器」感慨的来源。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50436640</guid>
+      <pubDate>Tue, 10 Nov 2026 06:01:08 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Meta 发布 Muse Ember：面向可重复 agent 任务的最小、最高效模型</title>
+      <link>https://news.ycombinator.com/item?id=50429024</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Meta 发布新模型 Muse Ember（最小最高效、面向可重复 agent 任务），属于新 AI 模型发布公告，为很感兴趣主题</small></p><p>Meta 发布 <strong>Muse Ember</strong>，定位为其体积最小、能效最高的模型，专门面向「agent 一整天反复做的活」：工具调用、编码子任务、路由、信息抽取、长文档解析。官方称其在任何推理档位下都提供比 Claude Haiku 5.5 或 GPT-6 Luna 更高的「每美元智能」——约三分之一成本即可追平 Haiku 的最佳分数，并全面超过 Luna 的各档设置，同时位于 Artificial Analysis 全榜单的效率前沿（没有模型以更低单任务成本拿到更高分）。</p>
+
+<h3>定价与规格</h3>
+<ul>
+<li>已在 Muse Code 与 Meta Model API 上线，模型名 <code>muse-ember-1.0</code>，支持 Responses API。</li>
+<li>输入 $0.10 / 百万 tokens，缓存输入 $0.004 / 百万 tokens，输出 $0.50 / 百万 tokens。</li>
+<li>1M tokens 上下文窗口，最多 512K 输出 tokens，可单次调用吞下整个代码库或整套文档。</li>
+<li>官方口径约 $0.14 / 每个 Artificial Analysis 任务，对比同门 Muse Spark 1.3 的 $2.39。</li>
+</ul>
+
+<h3>评测表现（最高推理档）</h3>
+<p>相对两个主要竞品：AutomationBench-AA 端到端业务流程 37.8（Luna 20.2、Haiku 13.9）；Agents' Last Exam 61.6（57.1 / 57.0）；内部个人与知识工作综合指数 46.8（37.0 / 36.1）；Terminal-Bench 4.0 40.9（39.2 / 16.4）；Coding Agent Index-AA 46（37 / 31）；OSWorld 2.1 电脑操作 69.5 / 68.9 / 50.5；PerceptionBench 80.6 / 78.6 / 62.8；GDP.pdf-AA 22.8，与 Luna 持平、略高于 Haiku 的 20.8；Artificial Analysis 智能指数 36，与 Haiku 并列。</p>
+<p>唯一落后的项目是 FrontierCode 2.0-AA（真实工程任务、以可合并性判定）：Claude Haiku 5.5 以 34.9% 领先，Muse Ember 为 27.2%，GPT-6 Luna 25.2%。官方建议遇到最难的问题时与 Muse Wonder 搭配使用——前者做规划，Ember 承担量大面广的部分。</p>
+
+<h3>多模态与安全</h3>
+<p>Muse Ember 原生理解文本、图像、音频与视频，可直接读截图、图表和扫描件，也能处理语音备忘、会议录音与视频，无需另配模型；还能从截图直接操作电脑并捕捉细节。发布前按 Meta Superintelligence Scaling Framework 做了化学与生物、网络安全、失控风险等评估，各项目均在「高风险」阈值以下，小模型也接受了同样的核心安全训练与测试；此外还评估了代理用户行事时的行为，包括尊重用户意图、处理敏感信息、抵御网页/文档/工具输出中的注入指令，以及在高影响操作前寻求人工确认。</p>
+
+<h3>合作伙伴反馈</h3>
+<p>Meta 表示 Muse Ember 是首个用 Muse Wonder Full 训练出的模型，用以补全产品线（Muse Wonder 攻难题、Muse Spark 管编码与 agent 工作流、Ember 做规模化重复任务），并同时上架 Google Cloud 与 Oracle Cloud。</p>
+<p><img src="/articles/muse-glint/partner-quotes/box-logo-light-v1.svg?dpl=dpl_DrfMMnK4aqhDpa2gWJFeehzvjjvT" alt="Box logo" width="400" height="216" /> Box AI 产品 VP Yashodha Bhavnani 称其在 Box AI Complex Work Eval 上准确率、速度和 token 效率都不错，能按谈判手册逐条评合同并给出整体风险评级，或按详细要求筛选候选人并标出仍合格的备选者。</p>
+<p><img src="/articles/muse-glint/partner-quotes/cline-logo-light-v1.svg?dpl=dpl_DrfMMnK4aqhDpa2gWJFeehzvjjvT" alt="Cline logo" width="480" height="118" /> Cline 创始人 Saoud Rizwan 认为这类轻量低成本模型适合作为 harness 里的子 agent 以压低成本。</p>
+<p><img src="/articles/muse-glint/partner-quotes/oracle-logo-v1.svg?dpl=dpl_DrfMMnK4aqhDpa2gWJFeehzvjjvT" alt="Oracle logo" width="162" height="34" /> Oracle 全球合作 SVP Konstantinos Papamiltiadis 称早期测试中对复杂工程任务表现令人鼓舞。</p>
+<p><img src="/articles/muse-glint/partner-quotes/cloudflare-logo-light-v2.svg?dpl=dpl_DrfMMnK4aqhDpa2gWJFeehzvjjvT" alt="Cloudflare logo" width="239" height="54" /> Cloudflare CTO Dane Knecht 强调速度：尾部延迟比所测同类模型快最多 30%，且能处理跨多仓库的宽泛调查任务。</p>
+<p><img src="/articles/muse-glint/partner-quotes/you-com-logo-light-v2.svg?dpl=dpl_DrfMMnK4aqhDpa2gWJFeehzvjjvT" alt="You.com logo" width="735" height="150" /> You.com 推理负责人 Chak Pothina 报告其完成全部编码任务，p95 延迟 2.2 秒，比主流开放权重模型快约 4–13 倍，输出 token 少 36–48%。</p>
+
+<h3>社区讨论</h3>
+<p>HN 上的讨论不少偏离官方口径：Simon Willison 用「画鹈鹕 SVG」测试了六个推理档位（minimal、low、medium、high、xhigh、max），发现推理 token 多少与图形质量之间的相关性首次不明显——他由手机上的 Codex 遥控 Mac 上的 Codex 调用自制的 <a href="https://github.com/simonw/llm-meta-ai#usage" rel="nofollow">llm-meta-ai</a> 插件完成；评论区对哪一档最好看法不一，有人偏爱 minimal，有人觉得 high 或 medium 更佳。</p>
+<p>有人推测 Muse Ember 就是 OpenRouter 上此前出现的隐身模型 <a href="https://openrouter.ai/stealth/crouton-alpha" rel="nofollow">crouton alpha</a>，依据是上下文长度、推理档位、最大输出、知识截止日期、受限国家列表等参数一致；也有用户反馈该模型短任务很强，但到十几、二十轮对话后质量急剧下降。</p>
+<p>关于竞品，有用户认为 Luna 6「已经两个月了」显得老态，且比 Luna 5.6 仅小幅进步；也有人吐槽 Luna 6 出奇地「懒」，不愿多做工作，并建议在原先用 Luna Max 的场合试 Terra 6.1 Low——后者贵但更聪明、单任务 token 少得多。</p>
+<p>对 Meta 本身的态度褒贬不一：有人说 Meta 在 LLM 竞赛中已近乎无关，另一些人反驳称重启 AI 工作约一年后，Spark 系列不错、Muse Wonder 已接近前沿。有人抱怨没有开放权重（随即有人指出 Meta 已发布 Muse Spark Open），也有人表示等不到 Muse Wonder Full 的试用资格。道德争议依旧存在，有用户直言「Never Meta」，也有人认为各家都有问题、至少开放模型能带来更符合伦理的服务。还有一条评测方法上的质疑：模型拒答不应记 0 分，应记负分，否则无法区分「没能力」和「不愿做」。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50429024</guid>
+      <pubDate>Mon, 09 Nov 2026 17:58:46 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Fable 5.2 一次成型：把外甥手绘的梦想游戏做成了 12 关清版动作游戏</title>
       <link>https://news.ycombinator.com/item?id=50433659</link>
@@ -982,34 +1052,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50351111</guid>
       <pubDate>Tue, 03 Nov 2026 12:21:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NVIDIA 发布开源 Auto Ontology：为 LLM 与智能体构建语义推理层</title>
-      <link>https://news.ycombinator.com/item?id=50348962</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] NVIDIA发布开源AI框架，涉及开源项目、AI软件技术进展，符合兴趣</small></p><p>NVIDIA 在 GitHub 上开源了 <strong>Auto Ontology</strong>，一个面向企业数据的 Python 框架，用于构建语义化、基于图的推理层，目标是提升大语言模型（LLM）和智能体（Agent）工作流中的查询可靠性、上下文检索效果与可解释性。</p>
-
-<p>该工具的核心思路是：智能体虽能检索文档、查询数据库，但可靠性是代理式分析（agentic analytics）的瓶颈——如果数字是错的，回答得再快也毫无价值。Auto Ontology 能从企业元数据中自动生成本体（ontology）、跨系统协调定义，并通过 MCP、CLI 和 API 三种方式暴露给任何智能体框架，提供五大能力：<strong>发现</strong>（从元数据生成企业本体、构建 AI 就绪的知识图谱）、<strong>锚定</strong>（为指标、实体和关系赋予可信的业务含义）、<strong>验证</strong>（对照认证定义与血缘（lineage）校验生成查询并返回溯源）、<strong>暴露</strong>（通过多种接口把上下文提供给智能体）以及<strong>学习</strong>（将认证更正反馈回本体，让共享上下文随每次提问不断改进）。</p>
-
-<p>技术架构方面，Auto Ontology 采用前后端分离设计：前端基于 Next.js 16（React 19、TypeScript、Tailwind CSS 4、Better Auth、Prisma），后端为 FastAPI（Python 3.12+）配合 LangChain，另有专门的摄取（ingestion）工作进程，数据存储使用 Postgres + pgvector 向量库，可选集成 HashiCorp Vault 保管连接凭据。推理默认调用 NVIDIA NIM 端点（可在托管的 NVIDIA API 目录与自托管 NIM 之间选择），默认 LLM、嵌入和重排序模型分别对应 nemotron 系列。部署支持 Kubernetes（Helm chart）与 Docker Compose 本地栈；身份认证支持 SSO，并为脚本和定时任务提供 API 令牌方式。</p>
-
-<p>项目以 Apache License 2.0 分发，但目前<strong>不接受外部贡献</strong>。<img src="/NVIDIA/auto-ontology/raw/main/docs/assets/arch.png" alt="Auto Ontology Architecture" width="800" /></p>
-
-<p>Hacker News 上的讨论（223 分、81 条评论）态度分歧明显。不少用户对 LLM 的可靠性本身提出质疑，例如评论者 grey-area 认为这是「用更多不可靠的智能体来修复不可靠的智能体」，并指出 LLM 无法明确区分世界知识、指令与待分析数据，容易产生幻觉（confabulation）。也有人反驳称，通过组合不完美系统可以降低而非放大错误率，目标是「在可能出现问题的情况下依然有用」。还有用户询问该工具与 RDF/OWL/SPARQL 等传统语义技术的关系，ANTONVS 澄清软件领域中的 ontology 指的是系统实体的机器可读定义，与哲学上的本体论无关；IanCal 则解释其价值在于让「客户」等业务口径在不同系统中保持一致。此外，部分评论批评该项目 README 的写作风格带有明显的「Claudish」（Claude 式）腔调，用词生僻、对非母语读者不友好，也有用户质疑其「开源」程度——既然 NVIDIA 仍保留 libcuda 等用户态库的闭源，开源一个本体工具的意义何在。</p>
-
-<p>【你知道吗？】<strong>Ontology（本体）</strong>在计算机科学中并非哲学意义上的本体论，而是一种对系统中实体（如「客户」「订单」）、它们的属性与相互关系进行机器可读的形式化定义。它常被用于数据治理和语义互操作，让不同系统对同一概念形成一致理解——这正是 Auto Ontology 试图从企业元数据中自动提取并维护的对象。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50348962</guid>
-      <pubDate>Tue, 03 Nov 2026 07:04:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>Show HN：Hacker Times——仿《纽约时报》版式的 Hacker News 报纸</title>
-      <link>https://news.ycombinator.com/item?id=50346981</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Hacker News自制报纸类项目，属于小众工具分享，兴趣不明确</small></p><p>一位开发者发布了「Hacker Times」，一个将 Hacker News 内容以报纸形式呈现的网站。这个站点每小时刷新一次，把 HN 上的头条文章按报纸的版式排版，让读者像翻阅报纸一样浏览科技新闻。据 Meta 描述，它提供「来自 Hacker News 的报纸」，包含独立的标题与原始来源链接。</p><p>页面上展示了一篇示例文章：MIT CSAIL 团队报告称，通过使用 Python 和练习反馈直接编辑权重，提升了 Qwen 的数学成绩——在允许 50 次前向传播的测试中，MATH-500 得分从 7.9% 提升至 48.1%。这些初步结果与该团队在更小网络上仅基于原始权重的实验相互独立。<img src="https://rikiyat.github.io/images/blog/weight-space-programming.png" alt="作者关于读取、修复和改进神经网络权重的实验示意图" /></p><p>社区反馈总体积极，但也提出了若干改进意见。多位用户称赞这种浏览方式「更易读」，能把冗长的链接列表拆分开来，也有人觉得比 HN 原有的「一堵文字墙」更好用。不过，不少评论聚焦于排版问题：有人指出标题字体（Georgia Bold 以 55px 显示）并不适合报纸头版风格，移动端的可读性也有待提升。</p><p>此外，有用户对这类「转载」是否合规提出疑问，担心存储内容与实时转换展示是否触及版权问题；还有人提到该网站（与所有 ChatGPT 类网站一样）在部分被屏蔽的国家无法访问，且因使用自定义域名而无法自动代理。也有用户回忆起早期 iPad 上的同类应用「Early Edition」，它以报纸风格呈现整理后的 RSS 订阅源，可惜如今已不复存在。</p><h3>你知道吗？</h3><p>文章提到的「直接编辑神经网络权重」属于「权重空间编程」（weight-space programming）方向——传统上改进模型靠训练或微调，而这一思路尝试直接修改网络参数（权重），用编程手段修复或增强模型能力。这类研究处于早期阶段，MIT CSAIL 的上述结果也被作者标注为初步成果。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50346981</guid>
-      <pubDate>Tue, 03 Nov 2026 01:53:34 GMT</pubDate>
     </item>
   </channel>
 </rss>

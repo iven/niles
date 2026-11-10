@@ -3,7 +3,72 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Tue, 10 Nov 2026 07:55:01 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2026 13:25:36 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Sure：接手 Maybe Finance 遗产的开源自托管个人理财应用</title>
+      <link>https://github.com/we-promise/sure</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源自托管个人理财应用，承接 Maybe Finance 遗产，属于用户感兴趣的开源项目范畴，与避开的主题无关，故推荐阅读</small></p><p><strong>Sure</strong> 是一个功能完整的个人财务与财富管理应用，由社区维护，是已停止开发的 Maybe Finance 项目的社区分支（fork）。项目采用 Ruby 编写，遵循 AGPLv3 协议，可自行托管，目前已获得约 1.1 万星标。</p>
+<h3>项目由来</h3>
+<p>原 Maybe Finance 团队在 2021–2022 年间几乎投入全部精力开发这款个人理财应用，功能相当齐全，甚至包含「Ask an Advisor」——由持证的理财规划师（CFP）/特许金融分析师（CFA）真人答疑，并作为订阅内容提供。但商业模式未能跑通，团队于 2023 年中停止开发。在累计投入近 100 万美元（人员、外包、数据供应商、基础设施等）后，他们选择将应用开源，初衷是让用户免费自托管，并推出低价托管版。托管版确实短暂上线过，但仍未成为可持续的 B2C 业务。如今该项目由社区以分支形式延续，力求让代码库继续活下去。</p>
+<h3>核心功能与使用方式</h3>
+<ul>
+<li><strong>完整可用的财务管理</strong>：仪表盘可同时查看现金流、净资产、支出与资金流出等关键指标。</li>
+<li><strong>内置 AI 助手</strong>：界面中可直接向助手提问，例如关于储蓄情况的分析。</li>
+<li><strong>多端访问</strong>：支持浏览器、macOS 桌面应用、移动应用、API 客户端，以及 LLM 智能体（agent）接入。</li>
+<li><strong>自托管部署</strong>：可通过 Docker 自行部署（另有 Render、PikaPods、Hostim 等一键托管方案，其中 AI 版本分为「无 AI」「OpenAI 简易接入」「外部 AI」三类）。</li>
+<li><strong>技术栈</strong>：Ruby + PostgreSQL（要求 9.3 以上）+ Redis（5.4 以上），后台任务使用 Sidekiq。</li>
+</ul>
+<h3>维护与协作</h3>
+<p>项目通过 Discord、官网和 GitHub Issues 组织社区协作。对于数据密集型应用常见的性能问题，团队使用 Skylight 搭建了公开的性能监控面板，展示演示站点上的高耗时请求及堆栈信息，方便定位与优化，并明确欢迎性能相关贡献。项目另有 Pipelock 安全扫描工作流。</p>
+<h3>授权与商标</h3>
+<p>Sure 与原 Maybe 代码均以 AGPLv3 发布。「Maybe」是 Maybe Finance, Inc. 的商标，因此分支项目不得使用该名称或标识；「Sure」则不属于原公司，专指这个社区分支。若再行分支，需保留原始 AGPLv3 许可，并在 README 中明确说明基于 Maybe Finance、但与原公司无隶属或背书关系。</p>
+<h3>你知道吗？</h3>
+<p>AGPLv3 在 GPLv3 基础上增加了「网络交互」条款：如果修改后的程序通过计算机网络向用户提供服务，就必须向这些用户提供对应的源代码。这也正是本项目强调自托管与分支合规声明的法理背景——任何把 Sure 改造后对外提供在线服务的部署者，都需要公开其修改内容。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/we-promise/sure</guid>
+      <pubDate>Tue, 10 Nov 2026 13:25:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Topcoat：tokio-rs 推出的「全家桶」式全栈 Rust Web 框架</title>
+      <link>https://github.com/tokio-rs/topcoat</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] tokio-rs 团队推出的全栈 Rust Web 框架发布，属于用户很感兴趣的编程工具发布/分享，故列为必看</small></p>Topcoat 是 tokio-rs 组织下的一款模块化、开箱即用（batteries-included）的 Rust 全栈 Web 框架，主打简单性与开发效率。项目自述处于早期实验阶段，会频繁出现破坏性变更。目前约 6.6k stars、236 forks。
+
+<h3>核心理念：服务端渲染 + 无需客户端构建</h3>
+<ul>
+<li>所有标记在服务端渲染，组件可以是 async 函数，直接查数据库，省去单独的 API 层样板代码。</li>
+<li><code>$(...)</code> 表达式是类型检查过的普通 Rust 代码：首次渲染在服务端求值，同时被翻译成 JavaScript 在浏览器即时重跑——没有 wasm 包，也没有客户端构建步骤。</li>
+<li><code>#[shard]</code> 标记需要服务端更新的组件：当其 <code>$(...)</code> 参数变化时在服务端重渲染，并把新 HTML 原位替换（如搜索框边输入边更新的结果列表）。</li>
+</ul>
+
+<h3>模板与路由</h3>
+<ul>
+<li><code>view!</code> 宏贴近原生 HTML 与 Rust：可在模板中使用 <code>for</code>、<code>if</code> 等 Rust 控制流，并可用 <code>topcoat fmt</code> 自动格式化宏体。</li>
+<li>支持基于模块结构的路由推导（无需构建步骤）：由 <code>app.rs</code>、目录层级、<code>_marketing.rs</code> 这类布局文件、<code>id.rs</code> 动态段自动生成路由树。</li>
+<li>其他渲染原语包括 <code>#[component]</code>、<code>attributes!</code>、<code>class!</code>、<code>suspense</code>、<code>error_boundary</code>、<code>live!</code>/<code>emit!</code>。</li>
+</ul>
+
+<h3>UI 与资源</h3>
+<ul>
+<li><strong>Topcoat UI</strong>：基于 <a href="https://tailwindcss.com/">Tailwind</a>、灵感来自 <a href="https://ui.shadcn.com/">shadcn/ui</a> 的组件库，通过 <code>topcoat ui</code> 命令把组件源码拷贝进项目，可自由改造设计与行为。</li>
+<li><strong>资源打包</strong>：打包器扫描编译产物中的 <code>asset!</code> 调用，把文件复制（甚至下载）到本地资源目录，并以带内容哈希的 URL 提供，便于激进缓存；内置 web 字体与图标工具，集成 <a href="https://fontsource.org/">Fontsource</a>（Google Fonts）和 <a href="https://icon-sets.iconify.design/">Iconify</a>。</li>
+<li>启用 <code>tailwind</code> feature 即可在无 Node 的情况下接入 Tailwind。</li>
+</ul>
+
+<h3>周边能力</h3>
+<ul>
+<li>请求上下文（<code>Cx</code>）按类型存取数据，<code>#[memoize]</code> 提供单请求级缓存与并发去重；支持 cookie（签名/加密/前缀）与自带存储的会话认证（登录登出、滑动过期、令牌轮换）。</li>
+<li>另有元数据（SEO 与社交预览）、本地化（Fluent 翻译文件）、邮件（SMTP/文件/内存传输）等模块。</li>
+<li>第三方集成：htmx、Alpine AJAX、Datastar（通过 SSE 推送元素与信号补丁）。</li>
+</ul>
+
+<h3>路线图</h3>
+<p>规划中但尚未实现的功能包括：静态导出、静态页预渲染、更多响应式能力、更丰富的 Topcoat UI 组件与完整区块（如登录表单）、与 <a href="https://github.com/tokio-rs/toasty">Toasty</a> 的更佳集成（表单直接安全地创建/更新记录而无需逐一列出字段）、校验、OpenAPI 端点、部署文档、WebTransport、图片优化/缩放、Markdown 支持、限流等易用中间件、认证、后台任务以及 Islands 架构。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tokio-rs/topcoat</guid>
+      <pubDate>Tue, 10 Nov 2026 13:25:18 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ GBrain：为 AI 智能体提供可控、可溯源记忆的开源「大脑」层</title>
       <link>https://github.com/garrytan/gbrain</link>
@@ -997,67 +1062,6 @@
 <p>OpenBot 是"本地优先"而非"纯离线"：Codex 连接 OpenAI、Claude 连接 Anthropic、Grok 连接 xAI 等，各提供商的服务仍需网络连接。项目采用 PolyForm 非商业 1.0.0 许可证，支持 macOS 13+、Windows 10+ 和 Linux（AppImage），也可通过 Docker、Nix 或自托管服务器方式部署。</p>]]>
       </description>
       <guid isPermaLink="false">https://github.com/nightly-labs/openbot</guid>
-      <pubDate>Mon, 26 Oct 2026 12:51:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Postiz：开源 AI 驱动的社交媒体管理与定时发布平台</title>
-      <link>https://github.com/gitroomhq/postiz-app</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 AI 社交媒体管理与定时发布平台，属于开源项目和软件新功能，符合兴趣配置</small></p><p><strong>Postiz</strong> 是一款开源的社交媒体管理平台，专注于内容的定时发布、自动化调度与数据分析。项目以 TypeScript 编写，采用 AGPL-3.0 许可证，目前在 GitHub 上已获得超过 3.7 万星标。</p>
-
-<h3>核心功能</h3>
-<ul>
-  <li><strong>多平台发布</strong>：支持 Instagram、YouTube、LinkedIn、TikTok、Facebook、Reddit、X（Twitter）、Pinterest、Threads、Slack、Discord、Mastodon、Bluesky 等主流社交平台。</li>
-  <li><strong>AI 集成</strong>：可与 ChatGPT、Claude、Codex、Cursor、Grok 等主流 AI 智能体（Agent）配合使用，提供 AI 文案生成、AI 图片/视频生成、AI 视频剪辑、智能助手（Smart Agent）等能力。</li>
-  <li><strong>团队协作</strong>：支持邀请团队成员共同协作、评论、交换或购买帖子。</li>
-  <li><strong>数据分析</strong>：提供内容表现分析功能，帮助衡量工作成果。</li>
-  <li><strong>自动化能力</strong>：提供公开 API 和 Webhooks，可无缝对接 N8N、Make.com、Zapier 等自动化平台，并支持 MCP（模型上下文协议）服务器、NodeJS SDK 等扩展方式。</li>
-  <li><strong>高级调度</strong>：包含日历视图、跨平台同步发布、重复帖子、评论与延迟、帖子签名等丰富功能。</li>
-</ul>
-
-<h3>技术栈</h3>
-<p>项目采用 Pnpm Monorepo 架构，基于 NextJS（React）前端、NestJS 后端、Prisma（默认 PostgreSQL）、Temporal 工作流引擎，并使用 Resend 发送邮件通知。</p>
-
-<h3>云服务与自托管</h3>
-<p>Postiz 提供两种使用方式：<strong>Postiz Cloud</strong>（全托管 SaaS 服务，提供 7 天免费试用）和<strong>开源自托管版本</strong>（免费，可通过 Docker、Coolify、Railway 或任意 VPS 部署）。两者核心功能一致，不设功能门槛。主要区别在于：云服务由官方预审批各平台应用、托管基础设施并自动更新；自托管则需自行在各社交平台创建开发者应用并通过审核（Meta、YouTube、TikTok 审核可能耗时数周），但数据完全掌握在自己手中，支持无限渠道和无限团队成员。</p>
-
-<h3>合规与隐私</h3>
-<p>Postiz 强调合规性：托管服务使用平台官方批准的 OAuth 流程，不自动抓取社交媒体内容，不收集或代理用户的 API 密钥，用户始终直接向社交平台进行身份验证。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/gitroomhq/postiz-app</guid>
-      <pubDate>Mon, 26 Oct 2026 12:51:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Huashu Design 3.0：一句话生成可交付设计的 AI 设计 Skill，已完全开源</title>
-      <link>https://github.com/alchaincyf/huashu-design</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 AI 设计工具，一句话生成可交付设计，属于开源项目、AI 软件技术进展及编程/设计工具发布，符合兴趣配置</small></p><p><strong>Huashu Design</strong> 是一个面向 AI 编程代理（Claude Code、Codex、Cursor 等）的 HTML-native 设计 skill，用户只需输入一句话需求，即可在 3 到 30 分钟内获得可交付的设计成果，包括网页、可点击的 App 原型、可编辑的 PPTX、产品发布动画和信息图。该项目已获得超过 2.6 万星标，并于 2026 年 5 月 14 日起改为 <strong>MIT 协议</strong>完全开源，个人和商用均免费。</p>
-
-<h3>核心能力</h3>
-<ul>
-<li><strong>交互原型</strong>：单文件 HTML，带真实 iPhone 机身、可点击、Playwright 验证，10–15 分钟完成</li>
-<li><strong>演讲幻灯片</strong>：HTML deck 浏览器演讲 + 可编辑 PPTX（保留真文本框），15–25 分钟</li>
-<li><strong>时间轴动画</strong>：MP4（25/60fps 插帧）+ GIF + BGM，8–12 分钟</li>
-<li><strong>信息图/可视化</strong>：印刷级排版，可导出 PDF/PNG/SVG</li>
-<li><strong>5 维度专家评审</strong>：雷达图 + Keep/Fix/Quick Wins 修复清单</li>
-</ul>
-
-<h3>3.0 版本亮点</h3>
-<p>3.0 对设计方向顾问流程做了重构：先输出六张缩略图，再由用户从中挑选三版做成完整稿；风格库从原有规模扩充至 <strong>84 种 HTML 原生风格</strong>（网页 20 + PPT 20 + 信息图 20 + App 12 + 中文与东亚 12），全部纯 CSS 实现、无需生图，每种风格均配有样张。新增的「外观账本」会记录每次交付的视觉特征，避免多个项目之间「长得像」；「设计体检」则只核查可量化的事实（图片是否裂开、对比度、控制台报错等），不做主观打分。</p>
-
-<h3>反 AI slop 机制</h3>
-<p>项目内置了避免「一眼 AI」的规则，规避紫渐变、emoji 图标、圆角加左 border accent 等视觉最大公约数，同时不编造数据、评价和 logo 墙。品牌资产协议采用 5 步硬流程（问→搜→下载→grep 色值→固化 spec），强调从已有设计上下文出发而非从白纸开始。</p>
-
-<h3>与 Claude Design 的关系</h3>
-<p>作者坦承品牌资产协议的哲学借鉴自 Claude Design 流传的提示词。定位差异在于：Claude Design 是网页图形工具（GUI 操作、订阅配额），而 huashu-design 是 skill（对话式、API 消耗、跨 agent 通用），目标是「让图形工具这层消失」。</p>
-
-<h3>安全与数据流</h3>
-<p>核心设计→渲染→导出链路 100% 本地运行，零网络零 key；云能力（TTS 配音、AI 评审）完全可选且需显式确认。品味经验与外观账本仅存于本机 <code>~/.huashu-design/</code>，不上传，删除文件夹即全部遗忘。</p>
-
-<h3>局限</h3>
-<p>不支持图层级可编辑的 PPTX 到 Figma；Framer Motion 级别的复杂动画（3D、物理模拟、粒子系统）超出边界；完全空白的品牌从零设计质量会降至 60–65 分。作者自评这是一个「80 分的 skill」，但对不愿打开图形界面的用户而言，比 100 分的产品更好用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/alchaincyf/huashu-design</guid>
       <pubDate>Mon, 26 Oct 2026 12:51:05 GMT</pubDate>
     </item>
   </channel>
