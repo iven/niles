@@ -108,7 +108,7 @@ unknown ──llm-grade──> critical / recommended / optional / rejected
 2. collector 返回前调用 `applyDryRunLimit`。
 3. 附加数据放 `item.extra`，不改 `FeedItem` 结构。
 4. 日志只用 `context.logger`（已带插件名标签），不要直接 import `lib/logger`。
-5. LLM 调用通过 `context.llm(tier)`，按任务复杂度选 tier。
+5. LLM 调用通过 `context.llm(tier)`，tier 取 `llm.models` 里的同名档位（`fast` / `balanced` / `powerful`），按任务复杂度选；同一插件可多次调用不同 tier。
 6. 需要网络的地方 mock `src/lib/http`，不要依赖仓库外的样本文件。
 
 新增插件：在 `src/plugins/builtin/` 或 `src/plugins/<site>/` 下按约定放文件，默认导出插件对象，写测试，然后在 `config.json` 对应 source 的 `plugins` 里引用。
@@ -118,6 +118,7 @@ unknown ──llm-grade──> critical / recommended / optional / rejected
 `config.json` 由 `src/lib/config.ts` 的 zod schema 校验，结构变化以那里为准。需要知道的约定：
 
 - `sources[].name` 同时用于日志、`output/` 下的文件名和 feed 描述。
+- `sources[].title` 是 feed 标题，缺省用 collector 返回的标题。
 - `sources[].context` 是 source 级背景说明，注入该源所有插件的 LLM 提示词；插件 options 里的 `context` 会与之拼接。
 - LLM 的 provider、默认端点、API key 环境变量集中在 `src/lib/llm.ts` 的 `PROVIDERS` 表；新增 provider 加一行数据，协议族在 `createLlmClient` 里按 `protocol` 构造。
 - 兴趣关键词分四档（`highInterest` / `interest` / `uninterested` / `avoid`），分别倾向 `critical` / `recommended` / `optional` / `rejected`。全局关键词加 `global` 前缀（如 `globalHighInterest`），source 级不带前缀，两者可共存，source 级权重更高。
@@ -141,6 +142,7 @@ worktree 里没有 `node_modules`，`knip` 会误报未使用的 devDependencies
 ### 本地测试与检查
 
 ```bash
+bun run niles <source> --config config.json   # 跑单个 source（会调 LLM，见下）
 bun test            # 单元测试
 bun run typecheck   # 类型检查
 bun run check       # 代码风格检查（--error-on-warnings）
