@@ -3,7 +3,84 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Wed, 11 Nov 2026 07:43:20 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 11 Nov 2026 16:06:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Modern Web Guidance 源码仓库：把现代 Web 平台知识注入编码代理</title>
+      <link>https://github.com/GoogleChrome/modern-web-guidance-src</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 面向编码代理的现代 Web 平台知识库工具，属于用户很感兴趣的编程工具发布/分享，也契合 AI 软件技术进展</small></p><p><strong>Modern Web Guidance</strong> 是一套面向编码代理（coding agents）的“技能”，用于把 Web 平台专业知识、最佳实践和浏览器兼容性数据直接嵌入代理的上下文。本仓库是 <a href="https://github.com/GoogleChrome/modern-web-guidance">GoogleChrome/modern-web-guidance</a> 的源码仓库，包含内容编写、校准与评估相关的代码和文档。</p>
+<p>项目要解决的问题是：编码代理受训练数据中大量遗留代码影响，常默认采用旧模式，为已有原生高性能 Web 方案的任务生成臃肿的 JavaScript；即使模型知道某个 API 存在，也往往缺乏生产级现代实现模式。Modern Web Guidance 通过命令行工具返回经过专家筛选的针对性指南，重点包括：正确使用现代浏览器 API、优先采用浏览器可优化且自带无障碍能力的平台级 API，以及使用轻量回退方案而非重型垫片（polyfill）或旧库。</p>
+<p>指南覆盖近数年 Web 平台新特性并延伸至前沿，设计上强调令牌（token）效率，并通过评估剔除模型已掌握的通用内容，目前列出 250 项现代 Web 特性。其命令行工具支持按关键词搜索指南、按 ID 获取指南，以及扫描代码库中的遗留模式以进行现代化改造。</p>
+<p>主要覆盖方向包括：</p>
+<ul>
+<li><strong>用户体验</strong>：视图过渡（View Transitions）、进入/退出动画、视差滚动、CSS <code>scrollbar-color</code> 等平滑视觉状态。</li>
+<li><strong>CSS 布局</strong>：容器查询（container queries）、<code>subgrid</code>、<code>oklch</code> 等现代色彩空间、文本换行调节与行高裁剪。</li>
+<li><strong>性能</strong>：即时预加载、交互到下一次绘制（Interaction to Next Paint，INP）诊断、通过 <code>scheduler.yield</code> 调度任务。</li>
+<li><strong>表单与 UI</strong>：用于提示框的锚点定位（Anchor Positioning）、弹出层 API（Popover API）、对话框、<code>:user-invalid</code> 校验、自动调整尺寸的输入框。</li>
+<li><strong>无障碍</strong>：屏幕阅读器与键盘可操作性、内容导航与可发现性。</li>
+<li><strong>内置 AI</strong>：本地客户端模型提供的原生翻译、摘要和语言检测 API。</li>
+</ul>
+<p>该项目由 Google Chrome、Microsoft Edge、Mozilla Firefox 和 MDN 团队与 Web 开发社区共同维护，并提供<a href="https://developer.chrome.com/docs/modern-web-guidance">官方文档</a>、<a href="https://googlechrome.github.io/modern-web-guidance-src/">评估仪表盘</a>以及<a href="https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/ui-components/navigation-drawer.md">示例指南（navigation-drawer）</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/GoogleChrome/modern-web-guidance-src</guid>
+      <pubDate>Wed, 11 Nov 2026 16:05:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ shadcn/improve：用最强模型审计代码库，为廉价模型撰写可执行实施计划</title>
+      <link>https://github.com/shadcn/improve</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 用大模型审计代码库并生成实施计划的开发效率工具，同时命中编程工具分享与编程效率改进经验两类高兴趣主题</small></p><p>由 shadcn 发布的 <a href="https://github.com/shadcn/improve">improve</a> 是一个「智能体技能（Agent Skill）」，用于审计任意代码库，并生成可供其他智能体执行的实施计划。它提出的核心思路是：把「智能复利」最高的环节——理解代码库、判断哪些事值得做、撰写规格说明——交给能力最强的模型；执行部分则交给更廉价的模型。该技能自身从不实现任何代码，<strong>计划本身就是产物</strong>。</p>
+
+<p>工作流被描述为三段：你用昂贵模型运行 <code>/improve</code> 获得建议；<code>plans/</code> 目录中生成自包含的规格文件；其他智能体用廉价模型完成实现、测试与发布。项目在 GitHub Trending 上榜时已获约 1.06 万星、433 个 fork，采用 MIT 协议。</p>
+
+<p>使用方式是一组斜杠命令：<code>/improve</code> 做全量审计并输出按优先级排列的问题清单；<code>quick</code> 只做低成本扫描（热点与高优先级问题）；<code>deep</code> 覆盖每一个包、每一类问题；也可指定 <code>security</code>、<code>perf</code>、<code>tests</code>、<code>bugs</code> 等专项；<code>branch</code> 只审计当前分支的改动；<code>next</code> 给出功能方向建议；<code>plan &lt;描述&gt;</code> 跳过审计直接为某件事写规格；<code>review-plan</code> 对已有计划做批判性打磨；<code>execute &lt;plan&gt;</code> 派发廉价执行者并审查其成果；<code>reconcile</code> 刷新积压清单；<code>--issues</code> 可把计划发布为 GitHub Issue。</p>
+
+<p>典型首次使用流程是：在仓库中打开智能体运行 <code>/improve</code>，得到一张问题表格后回复「给第 1、3、5 条写计划」；计划落入 <code>plans/</code>，每个问题一个文件，外加带推荐顺序的索引；随后把计划交给任意智能体实现，或直接 <code>/improve execute 001</code>，由技能在隔离工作树中派发更便宜的模型执行、对照计划审查 diff 并给出结论，合并仍由人决定。下次会话可用 <code>/improve reconcile</code> 清理积压。提交 PR 前可用 <code>/improve branch</code> 做限定范围的同类检查。</p>
+
+<p>作者以 <a href="https://github.com/shadcn-ui/ui">shadcn/ui</a> 为例展示效果：一次运行返回诸如「<code>shadow-config</code> 在 search.ts 与 view.ts 中重复，且副本已经漂移」「<code>migrate-icons.ts</code> 存在 O(n²) 的图标迁移」等问题，并标注类别、工作量与置信度；同时也驳回了若干误报，例如把 <code>https_proxy</code> 环境变量当作 SSRF 漏洞，理由记录在案以免下次重复出现。被选中的第一条最终生成了附带当前代码片段、精确步骤、仓库自身测试与 lint 命令作为验证关卡、以及「若现实不符则停止」条件的计划文档。</p>
+
+<p>其内部机制分为五步：<strong>侦察</strong>——梳理技术栈、约定以及确切的构建/测试/lint 命令，并读取 ADR（<code>docs/adr/</code>）、PRD、<code>CONTEXT.md</code>、<code>DESIGN.md</code> 等意图文档，避免把已决定的取舍重新当作问题，让方向建议基于已声明的产品意图，并使用仓库自身的术语；<strong>审计</strong>——并行分派子智能体覆盖正确性、安全、性能、测试覆盖、技术债、依赖与迁移、开发体验、文档与方向（功能建议必须引用仓库内证据）九类，每条问题都带 <code>file:line</code> 证据、影响、工作量与置信度；<strong>核查</strong>——顾问模型会亲自重读每个被引用的位置，剔除误报、纠正归因错误并记录驳回理由；<strong>排序</strong>——按「影响 ÷ 工作量」并叠加置信度权重排序；<strong>撰写计划</strong>——每个入选问题一个文件，附索引、优先级顺序和依赖关系图。</p>
+
+<p>计划之所以可执行，是因为它们面向「最弱但合理的执行者」——一个从未见过顾问会话、可能规模小得多的模型编写，靠三点保证：<strong>自包含</strong>（内联所有上下文：确切文件路径、当前代码片段、带示例文件的仓库约定、已验证的命令，不出现「如上所述」）；<strong>验证关卡</strong>（每一步都以命令和预期输出收尾，完成标准可机器校验，执行者无需自行判断是否成功）；<strong>硬边界</strong>（明确的范围外清单与「若遇 X 则停止并上报」的 STOP 条件，防止小模型在现实不符时自由发挥）。每份计划还会记录撰写时所基于的 git 提交，便于执行前做机械式的漂移检查。</p>
+
+<p>闭环方面，<code>execute</code> 会在隔离 git 工作树中派出更便宜的执行子智能体，随后像技术负责人那样审查：重跑全部完成标准、检查范围合规、对照意图阅读 diff，结论为批准（合并由你决定）、退回修改（最多两轮）或阻止并细化计划；<code>reconcile</code> 则处理此后发生的变化——确认已完成计划仍然成立、调查受阻计划并绕开障碍重写、刷新已漂移的计划、退役已被独立修复的问题。</p>
+
+<p>硬性规则包括：从不修改源码（唯一写入目标是 <code>plans/</code>，执行者只在一次性工作树中编辑，合并永远由你操作）；从不运行会改动工作区的命令，仅做读取、搜索与只读分析；从不复现密钥值，只报告位置与凭据类型并始终建议轮换；若被要求直接实现，它会拒绝并指向计划，或建议改用 <code>execute</code>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/shadcn/improve</guid>
+      <pubDate>Wed, 11 Nov 2026 16:05:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ OpenAI 开源 Codex Security：用 CLI 与 TypeScript SDK 发现并修复代码安全漏洞</title>
+      <link>https://github.com/openai/codex-security</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] OpenAI 开源的代码安全审计 CLI 与 SDK，属于编程工具发布分享且涉 AI 技术，属必看内容</small></p><p>OpenAI 开源了 <strong>Codex Security</strong>，一套用于在代码中发现、调查并修复漏洞的安全工具链，提供 Codex 内的工作流、命令行工具（CLI）和 TypeScript SDK，支持本地扫描与 CI 自动化。</p>
+
+<h3>核心功能</h3>
+<ul>
+<li><strong>扫描</strong>：可扫描整个仓库、指定路径或 Git 变更；「深度扫描（Deep scan）」会重复标准扫描并返回去重后的结果。</li>
+<li><strong>验证与修复</strong>：验证候选漏洞、生成补丁、并复核已有修复是否有效。</li>
+<li><strong>策略与威胁模型</strong>：起草 <code>SECURITY.md</code> 安全策略，保存威胁模型以便后续审阅。</li>
+<li><strong>发现项管理</strong>：浏览历史扫描与发现项、识别重复、按自定义标准评估严重程度，并依据源码与 Git 历史推荐负责人。</li>
+<li><strong>第三方扫描器集成</strong>：可预览并本地保存其他扫描器的结果，或将受支持的报告发布到 Codex Security Cloud。</li>
+<li><strong>协作与导出</strong>：在 Linear、Jira、GitHub 中跟踪发现项，导出 SARIF、JSON、CSV 格式，适用于 CI 场景。</li>
+<li><strong>批量与容器化</strong>：支持跨仓库/跨组件的自动化扫描，包括容器与 Docker Compose 批量场景。</li>
+</ul>
+
+<h3>使用方式</h3>
+<ul>
+<li><strong>Codex 内</strong>：在启用了 Codex Security 插件的会话中直接下达扫描指令，完成后生成报告与发现项，可进一步要求补丁或验证修复。</li>
+<li><strong>终端</strong>：安装 <code>@openai/codex-security</code> 后运行 <code>cs scan .</code> 即可首次扫描，也支持 <code>--path</code> 指定路径、<code>--diff</code> 只扫描提交区间、<code>--mode deep</code> 深度扫描，以及 <code>--max-time</code> 限制调查时长。CI 场景可通过环境变量（<code>OPENAI_API_KEY</code> 或 <code>CODEX_API_KEY</code>）鉴权。</li>
+<li><strong>SDK</strong>：在 TypeScript 项目中 <code>new CodexSecurity()</code> 后调用 <code>run()</code> 获取报告路径，支持深度扫描配置、严重程度分类、负责人建议等。</li>
+<li><strong>GitHub Actions</strong>：提供每周仓库扫描的示例工作流，默认每次扫描约 5 美元预算上限，仅报告问题而不使任务失败。</li>
+</ul>
+
+<h3>其他要点</h3>
+<p>扫描支持多家模型提供方，包括 OpenAI、Amazon Bedrock（使用 AWS 凭据，无需单独 OpenAI 登录）、OpenRouter、Fireworks AI 和 Cheaper Inference。部分网络安全请求与受保护发现项需要「Trusted Access for Cyber」权限。此外，本地 <code>serve</code> 命令与浏览器面板已被移除，但既有数据库与扫描产物仍可用；findings 服务支持本地存储、去重以及对接自建端点。项目当前在 GitHub Trending 上榜，约 1.15 万 star。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex-security</guid>
+      <pubDate>Wed, 11 Nov 2026 16:05:35 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Sure：接手 Maybe Finance 遗产的开源自托管个人理财应用</title>
       <link>https://github.com/we-promise/sure</link>
@@ -998,71 +1075,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/elayadesign/ai-design-skills</guid>
       <pubDate>Tue, 27 Oct 2026 23:44:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ to gg53192-cmd/jailbreaks：面向前沿与开源模型的系统提示词越狱合集</title>
-      <link>https://github.com/togg53192-cmd/jailbreaks</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及AI模型的系统提示词越狱合集，属于AI软件技术与编程工具相关话题，符合用户兴趣</small></p><p>GitHub 热榜项目 <a href="https://github.com/togg53192-cmd/jailbreaks">togg53192-cmd/jailbreaks</a> 是一个精选的「越狱」提示词合集，收录了面向前沿模型、开放权重模型及免费隐形模型（stealth models）的系统提示词、人格锁定（persona lock）、工作区策略、代理操作规范等文件，目前共包含 31 个提示词，覆盖 25+ 个模型。</p>
-<p>该仓库的文件均以「完整、可直接粘贴使用」为标准整理，不提供摘要或节选。完整文件包括系统提示词、人格定义、工作区策略、<code>AGENTS.md</code> 文件、配置块以及 Ollama Modelfile。覆盖范围包括：</p>
-<ul>
-<li><strong>OpenCode Zen 免费隐形模型</strong>：Big Pickle、Space Bunny、LongCat 2.5、MiMo V2.6、Step 5 Preview、Muse Spark 1.3 等。</li>
-<li><strong>开放权重模型家族</strong>：GLM（含 ZCode、Flash）、DeepSeek（V3/V4/4.1）、Kimi（K2/K3）、Qwen（3.7/3.8）、Gemma 及 GPT-OSS。</li>
-<li><strong>封闭前沿模型</strong>：Claude（Opus、Sonnet）、Gemini 4 Argon、Grok（Build、4.7、Config）、Mistral Large 4。</li>
-</ul>
-<p>文件按用途分类提供，例如系统提示词可复制到 API 的 <code>system</code> 消息或聊天机器人的自定义指令字段；<code>AGENTS.md</code> 文件可置于仓库根部作为项目级指令；工作区策略则适用于支持持久全局指令的环境（如 OpenCode 的 <code>~/.config/opencode/AGENTS.md</code>）；Ollama Modelfile 可直接通过 <code>ollama create</code> 使用。</p>
-<p>仓库维护者明确声明，所有内容<strong>仅用于研究与教育目的</strong>，用于记录指令层级、人格框架、提示冲突及策略覆盖如何影响模型行为，也可帮助开发者研究如何让 AI 系统更抵御提示注入（prompt injection）与指令操纵。使用者需自行遵守各平台或模型提供商的条款。</p>
-<p>项目欢迎以 Pull Request 形式贡献，规范包括：每个文件只放一个完整提示词、文件名使用小写连字符、版本变更需显式标注新版本等。由于模型不断更新、指令层级会变化，若发现文件失效，可提交 issue 报告模型、版本及受影响文件。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/togg53192-cmd/jailbreaks</guid>
-      <pubDate>Tue, 27 Oct 2026 14:23:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ NVIDIA 开源 SkillSpector：AI 智能体技能安全扫描器</title>
-      <link>https://github.com/NVIDIA/SkillSpector</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] NVIDIA 开源 AI 智能体安全扫描器，属于新AI模型/工具发布（编程工具、AI软件技术进展），符合多个高兴趣配置</small></p><p>NVIDIA 开源了 <strong>SkillSpector</strong>，一个面向 AI 智能体技能（agent skills）的安全扫描工具，用于在安装前检测漏洞、恶意模式和安全隐患，帮助回答「这个技能安装是否安全？」的问题。</p>
-
-<p>该项目源于一项令人警醒的研究发现：在分析过的 31,132 个技能子集中，<strong>26.1% 的技能含有漏洞</strong>，<strong>5.2% 显示存在可能的恶意意图</strong>。由于 Claude Code、Codex CLI、Gemini CLI 等工具使用的 AI 技能以「隐含信任」的方式执行且缺乏审查，风险尤为突出。SkillSpector 是 <a href="https://docs.nvidia.com/skills/">NVIDIA Verified Skills 流水线</a>的一部分，通过扫描的技能会发布到 <a href="https://github.com/NVIDIA/skills">NVIDIA skills 目录</a>。</p>
-
-<h3>核心功能</h3>
-<ul>
-<li><strong>多格式输入</strong>：可扫描 Git 仓库、URL、zip 文件、目录或单个文件</li>
-<li><strong>丰富的漏洞检测</strong>：覆盖 17 个类别的 71 种漏洞模式，包括提示注入（prompt injection）、数据外泄（data exfiltration）、权限提升、供应链风险、过度授权（excessive agency）、系统提示泄露、记忆投毒（memory poisoning）等</li>
-<li><strong>两阶段分析</strong>：快速静态分析 + 可选的大模型（LLM）语义评估</li>
-<li><strong>实时 CVE 查询</strong>：通过 OSV.dev 获取实时漏洞数据，并支持离线回退</li>
-<li><strong>风险评分</strong>：0–100 分，附带严重级别标签和明确建议</li>
-<li><strong>多种输出格式</strong>：终端、JSON、Markdown 和 SARIF（便于 CI/CD 集成）</li>
-<li><strong>误报抑制</strong>：通过基线（baseline）机制接受已知发现，使再次扫描只呈现新问题</li>
-</ul>
-
-<p>项目支持 Python 3.12+，可用 uv、pip 或 Docker 方式部署（Docker 无需安装 Python）。也可作为 Pi 工具或 OpenCode 扩展安装，以在智能体会话内部直接扫描技能，并支持批量扫描（含中文/日文/韩文等多语言检测）以及 MCP 注册表快照对比。</p>
-
-<p>在 LLM 分析方面，SkillSpector 支持 OpenAI、Anthropic、Bedrock、Gemini、Ollama、Azure OpenAI 等多种 OpenAI 兼容提供商，也可对接本地推理服务器。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/NVIDIA/SkillSpector</guid>
-      <pubDate>Mon, 26 Oct 2026 12:51:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenBot：本地优先的桌面 AI 智能体协作工作区</title>
-      <link>https://github.com/nightly-labs/openbot</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 AI 智能体协作工作区，属于开源项目和 AI 软件技术进展，符合兴趣配置</small></p><p>OpenBot 是一个本地优先（local-first）的桌面工作区，用于运行持久化的 AI 智能体（agent）团队。它支持本地 <a href="https://learn.chatgpt.com/docs/app-server">Codex App Server</a>、<a href="https://code.claude.com/docs/en/overview">Claude Code</a>、<a href="https://docs.x.ai/build/overview">Grok CLI</a>，并通过 ACP 协议支持 OpenCode、Gemini、<a href="https://cursor.com/cli">Cursor CLI</a> 和 <a href="https://cline.bot/cli">Cline CLI</a>。每个智能体拥有独立的工作区和对话，并提供本地队列、文件传输、嵌入式浏览器以及智能体间消息通信。</p>
-<p><strong>核心功能</strong>：</p>
-<ul>
-<li><strong>持久化智能体</strong>：由独立的 Codex、Claude、Grok、OpenCode、Gemini、Cursor 或 Cline 会话及本地工作区支撑，支持桌面和移动端创建与编辑智能体。</li>
-<li><strong>上下文管理</strong>：按智能体监控上下文，在长线程耗尽模型窗口前自动压缩。</li>
-<li><strong>任务队列</strong>：FIFO 消息队列，支持暂停、恢复、取消和崩溃安全持久化。</li>
-<li><strong>智能体协作</strong>：支持智能体间消息、回复、反应、图片及受管理的文件传输；共享桌面频道支持任务所有者、显式委派和共享历史。</li>
-<li><strong>嵌入式浏览器</strong>：智能体可打开、检查和控制的持久化浏览器。</li>
-<li><strong>Computer Use</strong>：通过 <code>cua-driver</code> 二进制在 macOS、Windows 和 Linux 上提供可选的计算机操作能力。</li>
-<li><strong>自定义端点</strong>：支持自定义 OpenAI 兼容端点和自定义 ACP 智能体，可自动检测本地模型服务器（Ollama、LM Studio）。</li>
-</ul>
-<p><strong>重要提示</strong>：OpenBot 目前为开发预览版，智能体以 <code>danger-full-access</code> 和 <code>approvalPolicy: never</code> 模式运行，首次启动同意后即可读写文件、执行命令、使用网络和控制浏览器，无需逐操作确认。官方建议只运行可信的智能体和任务，并做好备份。</p>
-<p>OpenBot 是"本地优先"而非"纯离线"：Codex 连接 OpenAI、Claude 连接 Anthropic、Grok 连接 xAI 等，各提供商的服务仍需网络连接。项目采用 PolyForm 非商业 1.0.0 许可证，支持 macOS 13+、Windows 10+ 和 Linux（AppImage），也可通过 Docker、Nix 或自托管服务器方式部署。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/nightly-labs/openbot</guid>
-      <pubDate>Mon, 26 Oct 2026 12:51:05 GMT</pubDate>
     </item>
   </channel>
 </rss>
