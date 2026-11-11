@@ -3,7 +3,32 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 11 Nov 2026 01:12:45 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 11 Nov 2026 07:43:42 GMT</lastBuildDate>
+    <item>
+      <title>hapi v0.34.6 发布：Claude 轮次显示生成速率、Codex 可基于上一完整轮次分叉会话</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.34.6</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>&lt;p&gt;hapi 发布 v0.34.6，本次更新以功能增强为主，同时修复了若干客户端与 hub 侧问题。&lt;/p&gt;
+
+&lt;h3&gt;重要改动&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;显示生成速率&lt;/strong&gt;：为 Claude 的各轮回复新增生成速率（tok/s）显示，便于直观判断输出快慢。&lt;a href="https://github.com/tiann/hapi/pull/2367"&gt;#2367&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Web 端会话列表视觉优化&lt;/strong&gt;：非驻留会话行（non-resident session）现在会与在线状态徽标（presence badge）一同淡出显示，会话状态区分更清晰。&lt;a href="https://github.com/tiann/hapi/pull/2362"&gt;#2362&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Codex 会话分叉&lt;/strong&gt;：运行中的 Codex 会话可以基于最近一个已完成的轮次（turn）进行分叉，便于从既有上下文派生新分支。&lt;a href="https://github.com/tiann/hapi/pull/2369"&gt;#2369&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;其他改动&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;依赖修复&lt;/strong&gt;：修补 WebSocket 与数学公式渲染相关依赖。&lt;a href="https://github.com/tiann/hapi/pull/2361"&gt;#2361&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CLI 图片投递偏好&lt;/strong&gt;：CLI 现在会遵循工作区配置的图片投递偏好。&lt;a href="https://github.com/tiann/hapi/pull/2368"&gt;#2368&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hub 工具调用去重&lt;/strong&gt;：同一 callId 的重复 ACP 工具调用更新会被折叠为一行，减少日志与界面中的冗余条目。&lt;a href="https://github.com/tiann/hapi/pull/2350"&gt;#2350&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;完整变更对比见 &lt;a href="https://github.com/tiann/hapi/compare/v0.34.5...v0.34.6"&gt;v0.34.5...v0.34.6&lt;/a&gt;。&lt;/p&gt;]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.6</guid>
+      <pubDate>Wed, 11 Nov 2026 05:18:27 GMT</pubDate>
+    </item>
     <item>
       <title>chezmoi v2.74.1 发布：修复 init --apply 未真正执行 apply 的问题</title>
       <link>https://github.com/twpayne/chezmoi/releases/tag/v2.74.1</link>
@@ -1530,31 +1555,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.73.1</guid>
       <pubDate>Sun, 11 Oct 2026 16:51:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>fzf v0.74.5 发布：修复 tmux popup 缩放、焦点事件及多项安全问题</title>
-      <link>https://github.com/junegunn/fzf/releases/tag/v0.74.5</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fzf 发布 v0.74.5 版本，主要包含以下几类修复：</p>
-
-<h3>核心功能修复</h3>
-<ul>
-<li><b>tmux popup 缩放</b>：修复在 tmux 3.8 及以上版本中，当 popup 窗口覆盖缩放后的窗格时，`--popup` 会取消窗口缩放的问题（#4927、junegunn/fzf.vim#1625，@jereviikari）。在 tmux 3.7 上窗口仍会取消缩放，因为在缩放窗口上创建浮动窗格会导致 tmux 3.7b 崩溃。</li>
-<li><b>grapheme 簇切割</b>：修复 `--gap-line` 在填充行末单元格时切断一个 graphene 簇的问题（#4920）。</li>
-<li><b>转义序列解析</b>：修复 fzf 无法识别的转义序列被部分消费后，剩余部分泄漏到查询中的问题（#4926）。</li>
-<li><b>按键丢失</b>：修复按键与转义序列在同一读取中到达时按键丢失的问题。</li>
-<li><b>焦点事件</b>：修复 `reload` 后新项目位于与之前相同位置时 `focus` 事件未触发的问题（#4930）。使用 `--id-nth` 时，若焦点直接从一项移动到具有相同键的另一项，事件不会触发；除非设置了 `--id-nth` 且键未变化，否则现在执行 `reload` 的 `focus` 绑定会在每次 reload 后再次触发自身。</li>
-</ul>
-
-<h3>安全修复</h3>
-<ul>
-<li>fzf-tmux 不再通过 bash 算术求值附加的布局尺寸（如 `-l50`），该问题可能执行命令或注入 tmux 标志（GHSA-w6x2-f5m4-xw82）。</li>
-<li>zsh 补全现在在私有的 `mktemp -d` 目录中创建其 FIFO，而非可预测的 `/tmp` 路径（GHSA-7rj6-7pqx-v7rm）。</li>
-<li>以上问题由 Innspark Solutions 的研究人员 Sai Sreewathsa Kovalluri、Shon Babu 和 Kannan K 报告。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.74.5</guid>
-      <pubDate>Sun, 11 Oct 2026 02:39:32 GMT</pubDate>
     </item>
   </channel>
 </rss>

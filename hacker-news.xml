@@ -3,7 +3,92 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Tue, 10 Nov 2026 20:47:46 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 11 Nov 2026 07:44:24 GMT</lastBuildDate>
+    <item>
+      <title>Synaptics 以专利侵权为由施压，开发者被迫搁置 Linux 版 DisplayLink 驱动</title>
+      <link>https://news.ycombinator.com/item?id=50443824</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要是 Linux 驱动与专利纠纷、硬件坞站芯片话题，虽涉及开源社区，但主题偏向硬件驱动与法律纠纷，兴趣不明确，故列为可选</small></p><p>苏格兰开发者 Mike Lothian 拥有一台采用 DisplayLink 芯片组的戴尔扩展坞，其在 Linux 下表现不佳、驱动频繁崩溃。Synaptics 于 2022 年收购 DisplayLink，仅以二进制形式提供面向 Ubuntu 的专有 DisplayLink Manager（DLM）软件（且仅支持 x86），其中附带的开源树外内核模块为 <a href="https://github.com/DisplayLink/evdi">EVDI</a>（Extensible Virtual Display Interface）。Lothian 借助 Claude 试图自己编写驱动，最终却收到 Synaptics 的专利侵权指控与停止侵权函——尽管他提交的代码是独立编写的。</p>
+
+<h3>起因：用 LLM 重写驱动</h3>
+<p>Lothian 于 6 月 17 日向内核 dri-devel 邮件列表提交了基于 Rust 的 DRM/KMS 驱动 <strong>Vino</strong> 的首个 RFC 补丁集，说明自己卡在无法理解扩展坞的 DL3 控制面（control plane）交互序列，希望了解该协议的人提供帮助。他同时在该驱动开发者也在 EVDI 仓库提了 issue、向 Synaptics 的 Łukasz Spintzyk 直接发邮件求助，并提交了修复 EVDI 缺陷的 pull request（数月无人评审）。邮件列表中他只得到关于改用 Rust KMS 绑定等一般性建议，没人能解答他的具体问题。</p>
+
+<h3>从「善意提醒」到停止侵权函</h3>
+<p>7 月 20 日，Synaptics 的 Michal Lukaszek 回复称 DisplayLink 并非开放标准，其协议、编解码器等技术受大量专利保护，并明确指出：即使独立编写或净室实现，只要落入了专利权利要求范围，仍可能构成侵权。</p>
+<p>8 月 17 日，Synaptics 知识产权助理总法律顾问 Andrew Bateman 发出停止侵权（cease-and-desist）通知，附上 125 项专利清单，声称这些专利「涵盖 DisplayLink 架构与运行的基础方面」，但<strong>并未指出他具体侵犯了哪几项</strong>。函件提出 8 项要求：立即停止开发任何侵权实现、撤回已提交给内核维护者/邮件列表/代码托管平台/发行版的所有材料、书面列出所有材料发布与分发的位置，并在 8 月 28 日前提供签署的合规确认。</p>
+<p>Lothian 未照办，反而在 8 月 26 日发布了 Vino 的第三版——此前的版本「从未点亮过屏幕」，新版本已能在无任何厂商软件的情况下驱动三代 DL3 扩展坞。次日他回信要求 Synaptics 提供权利要求对照表（claim chart），说明具体侵权点，并提出疑问：Synaptics 本身是开放发明网络（OIN, Open Invention Network）成员，而他也已成为 OIN 被许可方，双方的 OIN 承诺该如何协调？他请求延长回复期限，未获回应；9 月 18 日追问后，Bateman 次日回复称公司正在编制专利权利要求对照文档，并将就此「追讨大量金钱补偿」，还指责 Lothian 的行为是在「单枪匹马地瓦解 DisplayLink 在拥挤市场中的竞争优势」。</p>
+
+<h3>金额递增的最后通牒</h3>
+<p>10 月 5 日的后续函件附上了两项英国专利的对照表：GB2484736B（「显示控制设备」）与 GB2485613B（「图像生成」），均申请于 2010 年、2012 年公布。新期限为 10 月 11 日；若逾期，公司将索取 2.5 万美元以弥补制作文档的成本，且此后<strong>每周增加 2.5 万美元</strong>，直至其要求被满足。Lothian 当时正在休假，申请延至 10 月 13 日回家后阅读材料，最终获准推迟到 10 月 18 日。</p>
+
+<h3>OIN 未能提供保护</h3>
+<p>Lothian 曾向 OIN 求助。OIN 的结论是：其专利组合覆盖符合「Linux 系统定义」（Linux System Definition）的广泛软件，但该定义明确将编解码器（codec，即对视频、静态图像或音频数据流/信号进行变换的组件）排除在外，除非在组件清单中特别列出。由于编解码器被排除，OIN 的保护不延伸至 Lothian 试图提交的内核代码。OIN 首席执行官 Keith Bergelt 确认了这一结论，并建议他联系英国律师——但该推荐最终未能落实。</p>
+<p>结果：Lothian 已按 Synaptics 要求下架了 GitHub 仓库，Vino 不会再提交上游，只能「留在本地」；他仍可继续开发不受专利主张影响的组件。「我只是无力对抗 Synaptics 的诉讼。」颇具讽刺意味的是，Synaptics 的一位工程师在 10 月 7 日终于回复了他那个 pull request，而 Lothian 表示不打算跟进：「你不能一边威胁起诉我，一边问我能不能更新 pull request。」</p>
+
+<h3>社区反应</h3>
+<p>HN 讨论（约 214 条评论）普遍批评 Synaptics 的做法：</p>
+<ul>
+<li><strong>专利有效性存疑</strong>：有评论者查阅审查记录指出，GB2484736 的独立权利要求最初缺乏网络传输限定，被认定相对在先技术（如 1976 年的 Haar 变换压缩专利 US4224678A）不具专利性，DisplayLink 的代理人为获得授权才补入「通过通用数据网络传输显示数据」的限定；因此以「将通用传输层加到既有图像压缩方法上是显而易见的一步」提出无效挑战有相当胜算。</li>
+<li><strong>权利要求编号对不上</strong>：有人发现这两项专利的公开文本只到第 10 项权利要求，而函件称其侵犯「第 11 项」。</li>
+<li><strong>施压时限不合理</strong>：10 月 5 日的函件要求 10 月 11 日前答复，被认为是大公司对付个人开发者、逼其在评估主张有效性前就放弃的惯用手法。</li>
+<li><strong>逻辑矛盾</strong>：Synaptics 一边宣称 DisplayLink 不属于 OIN，一边其母公司确实是 OIN 成员；一边指控侵权，一边把技术细节描述为商业秘密，被指「两头都要」。</li>
+<li><strong>行动呼吁</strong>：有人提议众筹约 6775 美元发起单方复审（Ex Parte Reexamination）挑战专利；也有用户表示今后会避免采购 DisplayLink 扩展坞，并吐槽其在 Linux/macOS/Windows 上的兼容性都很差，只有 Plugable 等少数品牌体验较好。</li>
+</ul>
+<p>文章最后指出：当下开源社区的目光多聚焦于 LLM 驱动的开发，但软件专利依然是自由软件开发者与用户头上的现实威胁。</p>
+
+<h3>你知道吗？</h3>
+<p>专利与商业秘密的保护逻辑并不相同。专利以「公开技术方案」换取有限期的排他实施权，因此逆向工程本身并不违法，但独立重写（净室实现）并不能规避专利——只要能映射到权利要求即构成侵权，正如此次 Synaptics 所主张的。商业秘密恰恰相反：它保护的是未公开的信息，独立开发或正当的逆向工程通常可以作为抗辩。这也是为什么当厂商同时用专利和「你别泄露我们如何实现」来施压时，会被批评为自相矛盾。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50443824</guid>
+      <pubDate>Tue, 10 Nov 2026 18:02:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 谷歌联合 Mozilla、Edge 发布 Modern Web Guidance：让编程智能体不再写 2019 年的 JavaScript</title>
+      <link>https://news.ycombinator.com/item?id=50443812</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 面向编程智能体的 Web 开发规范工具发布，同时命中编程工具发布与 AI 软件技术进展两项高兴趣主题，必看</small></p><p><img src="https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/modern-web-guidance.svg" alt="Modern Web Guidance Logo" width="150" /></p>
+
+<p>作者（Paul Irish）发布了 <strong>Modern Web Guidance</strong> 的 1.0 版本，目标是解决一个具体痛点：编程智能体（coding agent）总是倾向于生成十几年前的老式写法——用几十行 JS 或额外依赖去实现浏览器早已原生支持的功能，比如用一堆 <code>&lt;span&gt;</code> 做文本高亮（现在可直接用 <code>CSS.highlights</code>）、自己实现模态框遮罩与焦点管理（现在用 <code>&lt;dialog&gt;</code> + <code>showModal()</code>）、监听输入事件手动调整 textarea 高度（现在用 <code>field-sizing</code>）。</p>
+
+<p>原因在于模型的训练数据里堆满了历史遗留代码。即使模型「知道」某个 API 存在，也缺少可直接用于生产的高密度实现范例，因此不会默认选用平台原生方案。该项目由 Chrome、Edge、Firefox 与 MDN 团队共同维护，通过给智能体注入这层领域知识来纠正默认行为。</p>
+
+<h3>内容与规模</h3>
+<p>目前包含 250 项现代 Web 特性说明与 203 个真实开发场景用例，累计 200 多篇、约 1.7MB 的人工精选最佳实践，标注了浏览器兼容性，并随 Web 演进持续更新。覆盖范围包括：</p>
+<ul>
+<li><strong>CSS 与布局（140 项）</strong>：容器查询、<code>:has()</code>、<code>@scope</code>、视图过渡（View Transitions）、锚点定位、<code>text-wrap: balance</code>、<code>oklch</code> 色彩空间等；</li>
+<li><strong>HTML 与 DOM（36 项）</strong>：<code>&lt;dialog closedby&gt;</code>、Popover、可定制 <code>&lt;select&gt;</code>、<code>moveBefore()</code>、声明式 Shadow DOM 等；</li>
+<li><strong>JavaScript 与 API（74 项）</strong>：Scheduler API、Navigation API、Speculation Rules、Sanitizer API、Temporal 等；</li>
+<li><strong>内置 AI</strong>：本地运行的 Translator、Summarizer、Language Detector 与 LanguageModel（Prompt API）；</li>
+<li><strong>可访问性与表单</strong>：屏幕阅读器与键盘可操作性、自动填充表单、输入法（IME）安全的回车提交等。</li>
+</ul>
+<p>所有指南均已开源，可阅读版本见<a href="https://developer.chrome.com/docs/modern-web-guidance/guides" rel="nofollow">文档站</a>。</p>
+
+<h3>工程实现</h3>
+<p>作者称过去 9 个月主要在做两件事：把内容做成「智能体技能（agent skill）」而不撑爆上下文窗口，以及避免把激活机制交给 MCP 的动态工具搜索。技能描述经过调优，以便在前端相关任务上被正确激活。检索部分是把原本约 500MB 的原生技术栈重写为约 7MB 的纯 JS 包，在 CPU 上搜索耗时约 10ms（Agentic RAG）。</p>
+<p>另一个组件是确定性的 <strong>legacy-scan</strong>：基于 3 万个 GitHub 仓库训练，用于识别可被现代化替换的旧式写法，在留出仓库上的平均精确率为 92%。</p>
+<p>为避免只凭感觉判断，团队还搭建了<a href="https://googlechrome.github.io/modern-web-guidance-src/" rel="nofollow">评测基础设施</a>：200 个任务、约 1700 条基于 Playwright 与 AST 的断言，用 Codex、Claude、Gemini（agy）分别在有/无技能两种情况下运行。智能体的通过率从无引导的 55% 提升到有引导的 92%。评测同时也用于反向裁剪——如果某项知识模型本来就会，就从指南里删掉以节省 token。</p>
+<p>可通过以下命令试用（已给出关闭遥测的环境变量）：</p>
+<pre><code>DISABLE_TELEMETRY=1 npx modern-web-guidance@latest install
+DISABLE_TELEMETRY=1 npx modern-web-guidance@latest search "animate dialog modal"
+DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre>
+<p>更完整的说明见<a href="https://developer.chrome.com/blog/modern-web-guidance-v1" rel="nofollow">官方博客文章</a>。</p>
+
+<h3>社区讨论</h3>
+<p>评论区总体正面，几位用户表示自己早就手工写过类似的提示词或脚本，只是不够完善。作者 Paul Irish 的几条回应颇有信息量：</p>
+<ul>
+<li><strong>「最佳实践」在 AI 时代是否已死？</strong> 有人认为以后没人会读 AI 生成的代码。Paul 回应说可维护性才是下一个前沿：如果放任智能体积累上千行的解法，代码库会迅速超出人类可理解的范围，所以他宁愿要 1 行 CSS 也不要 60 行 <code>ResizeObserver</code> + <code>setTimeout</code>；而且前端最佳实践不只是代码风格，还包括键盘可操作性、布局不抖动等用户体验质量。</li>
+<li><strong>分发方式的建议</strong>：Simon Willison 提议在 GitHub Pages 上发布一份 Markdown 索引，链接到所有文档的纯文本版本，让智能体直接抓取、用 grep 查找，从而完全不需要安装 npm 包或 MCP。作者认可了这个思路，团队成员则指出已有 <a href="https://developer.chrome.com/docs/modern-web-guidance/guides.md.txt" rel="nofollow">guides.md.txt</a> 可直接抓取（有人建议改名为 <code>llms.txt</code> 更易被发现）；Paul 也补充说索引的 token 成本较高，适合偶尔使用而非日常。</li>
+<li><strong>Chrome 权力过大的担忧</strong>：有评论认为让所有人的 LLM 都遵循 Chrome 团队的 Web 开发指引，最终会回到「请用某浏览器打开本站」的局面。回应指出这是 Mozilla 与 Edge 共同参与、有<a href="https://github.com/GoogleChrome/modern-web-guidance-src/blob/main/GOVERNANCE.md" rel="nofollow">治理文件</a>的跨浏览器项目，并且刻意跳过了 Chrome 独有 API，聚焦跨浏览器共识较大的部分。也有人悲观地认为其他浏览器只是「别无选择」。</li>
+<li><strong>legacy-scan 覆盖不足</strong>：有用户反馈自己的项目只扫出 2 个问题。Paul 解释说该工具刻意只覆盖能明确检测、且不易误报的模式，因此仅涉及全部文档的约 20%，一个月后有望提升到 50%，后续会加入 <code>Promise.withResolvers</code>、数组迭代器助手、<code>Object.groupBy</code>、<code>URLSearchParams</code> 等检测项。</li>
+<li>另外有人询问如何把它引入 Gemini 网页版聊天，Paul 建议改用更「智能体化」的 Tasks 模式，并在提示中直接给出 guides.md.txt 链接要求完整读取、不要在截断处停止。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>文章里提到的「技能（skill）」和 MCP 工具搜索是两种不同的上下文注入方式。MCP 方案在运行时由模型自行决定调用哪个工具，每次调用都要付出往返与协议开销；而「技能」更像一份随任务预加载的说明文档，靠一段精心撰写的描述来触发，内容直接进入上下文，因此作者特别强调技能描述的措辞需要针对激活率反复调优。类似地，<code>llms.txt</code> 是社区自发形成的一种约定——在站点根目录放置专供语言模型阅读的 Markdown 索引，与面向搜索引擎的 <code>robots.txt</code> 思路相仿。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50443812</guid>
+      <pubDate>Tue, 10 Nov 2026 18:01:15 GMT</pubDate>
+    </item>
     <item>
       <title>十年家居自动化经验：核心设备不该依赖厂商服务器</title>
       <link>https://news.ycombinator.com/item?id=50441707</link>
@@ -1065,30 +1150,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50358702</guid>
       <pubDate>Tue, 03 Nov 2026 21:51:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 《生成式AI基础小书》：一本直觉驱动的数学入门读物</title>
-      <link>https://news.ycombinator.com/item?id=50358582</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及生成式AI的数学基础，属于AI软件技术进展与科学前沿方向，用户会感兴趣</small></p><p>一篇题为《The Little Book of Generative AI Foundations: An Intuitive Mathematical Primer》的论文（arXiv:2605.29713）在 Hacker News 上引发热议，获得 329 分和 50 条评论。该书由 Tianhua Chen 撰写，是一份 195 页的修订预印本，旨在以紧凑、推导导向的方式介绍现代生成式人工智能的数学基础。</p>
-
-<p>与泛泛罗列最新架构不同，本书构建了一条连贯的路线，串联起生成模型的主要家族，包括：主成分分析（PCA）、概率 PCA、变分自编码器（VAE）、扩散模型、归一化流、自回归分解、生成对抗网络（GAN）、Wasserstein GAN 以及基于能量的模型。其目标是在不牺牲理解模型推导与关联所需的数学实质的前提下，让生成式建模的结构更易于理解。修订版还增加了贯穿全书的可视化解释。</p>
-
-<p>社区反馈总体积极。用户 p1esk 称赞"这本书出人意料地易读，我喜欢他从线性代数基础讲起的方式"。也有用户推荐了其他相关资源，包括 François Fleuret 的《The Little Book of Deep Learning》、Anil Ananthaswamy 的《Why Machines Learn》等。不过，用户 StilesCrisis 指出书中第一个公式中变量 ê1 未加解释，认为"这篇论文还需要再打磨一遍"，而其他用户则回应称这是单位基向量的标准记号。</p>
-
-<p>此外，评论区还延伸讨论了注意力机制的学习资源（如 3Blue1Brown 的视频和《Formal Algorithms for Transformers》论文），以及带有习题的深度学习教材推荐（包括 Prince 的《Understanding Deep Learning》、Bishop 的《Deep Learning: Foundations and Concepts》等）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50358582</guid>
-      <pubDate>Tue, 03 Nov 2026 21:40:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ HackerTV：把 HN 高频推荐的 YouTube 视频做成 24/7 电视频道</title>
-      <link>https://news.ycombinator.com/item?id=50346755</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 属于编程/软件工具分享项目，将HN推荐视频做成电视频道，符合编程工具分享及软件新功能兴趣</small></p><p>作者在看到 <a href="https://news.ycombinator.com/item?id=50319510">HackerTube</a>（从 19 年的评论中提取 Hacker News 反复推荐的 YouTube 视频）后，产生了"像换台一样翻阅这些视频"的念头，于是用 Claude Code 花了几个小时构建了 HackerTV——一个将 HN 社区最常推荐的视频以 24/7 电视节目形式播出的网站。</p><p>每个主题领域对应一个频道（如 DEVTV、SOLDER、RETRO、ORBIT 等），此外还有收录前 400 个热门视频的 "HN Prime" 频道、一个音乐频道，以及仅在本地区时间 23:00–5:00 播出的 "Late Night"（第 99 频道），其余时间显示彩条测试图。所有用户看到的是同一份节目表。操作上支持上下键换台、数字键调台，并带有节目指南（G）、静音（M）、字幕（C）、剧场模式（T）等功能。据作者说明，部分节目时长是估算值，在 YouTube 元数据获取到前可能偏短或被打断。</p><p>作者表示数据的功劳全部归于 HackerTube，并欢迎社区提出频道建议。该项目在 HN 上获得 303 分和 63 条评论，反响热烈。</p><p><strong>社区反馈：</strong>多位用户称赞了这个创意，尤其是其拟物化（skeuomorphism）界面设计；有人建议增加 "HackerGames"、纯直播频道，也有人提到同类的 HackerRadio（在第 24 频道）、HackerSentiment 等项目。但也有部分评论者持怀疑态度，认为这类"vibe coding"（AI 辅助快速搭建）网站几个月内就会被弃用荒废，沦为无意义的数字废墟。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50346755</guid>
-      <pubDate>Tue, 03 Nov 2026 01:18:09 GMT</pubDate>
     </item>
   </channel>
 </rss>
