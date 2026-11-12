@@ -3,7 +3,94 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 12 Nov 2026 12:35:53 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2026 20:46:27 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Rust 1.100 发布：「never」类型 ! 历经十年终于稳定</title>
+      <link>https://www.phoronix.com/news/Rust-1.100-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust 语言新版本发布并稳定 Never 类型，属于来源配置中感兴趣的 Rust 及全局的编程工具/语言更新</small></p><p>Rust 1.100 正式发布。本次更新最受关注的是「never 类型」（never type）<code>!</code> 终于进入稳定状态——这一特性历经十年、五次失败的稳定化尝试后才落地。此外，1.100 还稳定了 Allocator API 的核心部分，并带来多项 Cargo 改进。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=rust_never_med" alt="Rust never type example" />
+
+<p><strong>never 类型 <code>!</code></strong>：用于表示永远不会产生任何值的发散计算（diverging computation）。位于 <code>!</code> 类型之后的代码不可达，常用于 <code>panic!</code>、<code>process::exit</code>、无限循环以及 <code>match</code> 分支等场景。</p>
+
+<p><strong>Allocator API</strong>：Rust 1.100 稳定了该 API 的核心部分，为自定义内存分配器提供了更正式的接口基础。</p>
+
+<p><strong>Cargo 改进</strong>：</p>
+<ul>
+<li>支持在构建时报告未被使用的依赖（unused dependencies）。</li>
+<li>减少 Cargo 缓存冲突问题。</li>
+<li>新增 <code>min-publish-age</code> 选项，作为依赖的「冷却期」（cooldown period）：由于恶意 crate 通常在发布后数小时内就会被发现，可通过 <code>global-min-publish-age</code> 等设置，避免引入最近 3 天或 5 天内发布的 crate。</li>
+</ul>
+
+<p>其余稳定化的 API 与改进详见 Rust 官方博客。原文发布后已获得 11 条评论。</p>
+
+<h2>你知道吗？</h2>
+<p>never 类型之所以拖了十年才稳定，主要不在于语法本身，而在于类型系统层面的细节：早期实现依赖「<code>!</code> 回退」（fallback）机制，且 <code>!</code> 与 trait 实现、类型强制转换（coercion）之间的交互会带来一致性（coherence）与推断方面的边界问题，因此多次稳定化尝试均被撤回。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Rust-1.100-Released</guid>
+      <pubDate>Thu, 12 Nov 2026 18:51:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>PostgreSQL 集中发布更新：修复 52 个安全漏洞与 140+ 缺陷，15 系列正式终止支持</title>
+      <link>https://www.phoronix.com/news/PostgreSQL-52-CVEs</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] PostgreSQL 修复大量安全漏洞与缺陷，属软件开发维护动态，但用户兴趣配置未涉及数据库或安全修复主题</small></p><p>PostgreSQL 于 11 月 12 日同步发布多个版本更新：18.7、17.12、16.16、15.20、14.25 以及 19 RC2，用于修复 52 个新披露的安全漏洞（CVE），并附带超过 140 项已知缺陷修复。</p>
+
+<p><img src="//www.phoronix.net/image.php?id=2022&image=postgresql" alt="PostgreSQL logo" /></p>
+
+<h3>AI/LLM 驱动的漏洞报告压力</h3>
+<p>文章指出，与其他开源项目类似，PostgreSQL 开发者近期被大量由 AI/大语言模型（LLM）辅助产生的缺陷报告和安全发现所淹没。受此影响，PostgreSQL 19 的发布进度已落后计划数周，本次集中发版正是为了处理近期上报的漏洞。</p>
+
+<h3>漏洞严重程度</h3>
+<p>这 52 个 CVE 中有相当一部分的 CVSS 评分为 8.8，属于高危级别，多数描述为「执行任意代码」。按类型大致可分为几类：</p>
+<ul>
+  <li><strong>类型混淆（type confusion）</strong>：如 <code>ALTER ... SET DATA TYPE</code>、输出参数、最小/最大值聚合、交换器（commutator）/取反器（negator）结果类型、丢弃列、扩展统计伪类型、plpgsql 记录字段等场景，均可能导致任意代码执行。</li>
+  <li><strong>释放后使用（use-after-free）</strong>：包括并行 RECORD typmod、plperl 预处理查询与 <code>return_next()</code> 重入、plperl 数组与哈希转换、pltcl 结果转换、portal 建立、触发器转移表游标、dblink 重入断开、扩展记录域检查等。</li>
+  <li><strong>缓冲区/整数问题</strong>：如 <code>tsvector_delete()</code> 与 <code>ts_rank_cd()</code> 的堆缓冲区溢出、元组大小整数回绕、生成式内存上下文整数回绕、并行 B-tree 数组扫描越界读取。</li>
+  <li><strong>注入类</strong>：如 <code>pg_dump</code> 的非空约束名 SQL 注入、<code>reindexdb</code> 索引名引号处理导致 SQL 注入、扩展脚本中的对象名替换导致 SQL 注入、<code>pg_dump</code> tar 格式的 restore.sql 未能阻止 psql 命令注入。</li>
+  <li><strong>权限与策略绕过</strong>：如 <code>INSERT ... ON CONFLICT</code> 在自动可更新视图的 WHERE 条件或行级安全策略（row security policy）下仍能读写行、<code>DROP OWNED</code> 可移除非自有表的限制性行安全策略、外键与 JSON 转换绕过类型转换函数的 EXECUTE 权限、<code>REASSIGN OWNED</code> 绕过角色的 SET 与 CREATEDB 检查、逻辑复制可写入订阅端系统目录。</li>
+  <li><strong>信息泄露及其它</strong>：如未终止的 name 值泄露服务器内存、<code>pg_show_all_settings()</code> 释放后使用泄露内存、认证前的 cancel 请求可泄露自旋锁、<code>pg_temp</code> 中创建类型被后续查询命中、<code>vacuumdb --missing-stats-only</code> 允许数据库所有者以 vacuumdb 用户身份执行代码、<code>pg_restore</code> 因缺少非纯文本归档校验而执行任意代码、security_barrier 分析可通过间接表达式暴露隐藏值。</li>
+</ul>
+
+<h3>其它要点</h3>
+<p>本次更新也是 PostgreSQL 15 的最后一个版本，该系列正式到达生命周期终点（EOL）。19 RC2 除包含上述全部修复外，还带有一些临时的补充修复，PostgreSQL 19.0 正式版终于临近发布。下载与详细说明可在 PostgreSQL.org 获取。</p>
+
+<h3>你知道吗？</h3>
+<p>PostgreSQL 全球开发组通常遵循「5 年支持」策略：每个主版本从发布起获得约 5 年修复支持，此后不再提供安全补丁。这意味着本次 EOL 的 15 系列若继续使用，将无法获得针对新披露漏洞（哪怕只是低危信息泄露或本地提权）的官方修补，升级是唯一安全选项。此外，小版本更新（如 18.7、17.12）不引入新功能，仅做安全与缺陷修复，官方一般建议所有用户尽快升级到同一主版本的最新小版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/PostgreSQL-52-CVEs</guid>
+      <pubDate>Thu, 12 Nov 2026 15:56:44 GMT</pubDate>
+    </item>
+    <item>
+      <title>Khronos 成立探索小组，评估推出面向云端与边缘的高层远程卸载 API</title>
+      <link>https://www.phoronix.com/news/Khronos-Remote-Offloading-API</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Khronos 探索远程卸载的新高层 API，属图形/计算标准进展，与用户偏好主题关系不明确</small></p><p>负责 OpenGL、OpenCL、Vulkan 等业界标准 API 的行业联盟 Khronos Group 宣布成立一个探索性论坛（Exploratory Forum），评估是否需要一套<strong>高层、与协议无关的远程卸载（remote offloading）接口</strong>，用于把计算任务卸载到云端与边缘基础设施。这有可能成为 Khronos 的下一个新 API。</p>
+<p>Khronos 指出，如今从智能眼镜、VR 头显到无人机等设备都受功耗与性能制约，而当前的卸载方案各有局限：每种方案都把应用绑定在自家的连接层上，开发者必须为专有框架重写应用、管理多种实时网络协议、并掌握专门的网络知识，导致为某一网络或部署环境编写的应用难以迁移到另一环境。此外，许多卸载方案以"过顶"（over-the-top）服务的形式运行，即位于网络之上却不与网络协同，因而无法充分利用现代网络能力。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=khronos_remote_offload" alt="Khronos remote offloading working group" />
+<p>该探索论坛将评估对高层 API 的需求——这类 API 要把连接与传输的底层复杂性对应用隐藏起来。任何最终产出的 API 都将设计为独立于特定协议、硬件平台、物理层和部署模型，并与 Khronos 现有 API 生态及相关连接与网络标准形成互补。</p>
+<p>文章作者 Michael Larabel 表示，还需观察这个潜在的 Khronos API 最终会有何成果。（原文有 2 条评论）</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Khronos-Remote-Offloading-API</guid>
+      <pubDate>Thu, 12 Nov 2026 15:17:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>ReactOS 2026 年进展：软盘读写格式化、VMware 3D 加速与 SMP 内核推进</title>
+      <link>https://www.phoronix.com/news/ReactOS-Floppy-Disk-2026</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 开源系统 ReactOS 的开发进展（软驱支持、VMware 加速、SMP），开源项目算轻度加分，但涉及不感兴趣的虚拟化且项目较边缘</small></p><p>致力于兼容微软 Windows 驱动与应用程序的开源操作系统项目 ReactOS 在 2026 年取得了较为顺利的进展。在两场 hackfest 之后，大量新功能已合入主线，另有一些功能接近完成，相关成果由 <a href="https://reactos.org/">ReactOS.org</a> 公布。</p>
+<p>Phoronix 此前已报道的部分包括：初步的 USB 3.0 驱动支持、可借助自身 NTFS 驱动完成安装、DirectX 栈的更新，以及 ARM 平台方面的进展。得益于今年的 hackfest 活动，项目还实现了更多 Windows NT6+ 系统调用、新增内核 shim 引擎、支持软盘的读取/写入/格式化，并更新了所使用的 Wine 代码。此外，NVMe 存储支持的工作也即将完成。</p>
+<img src="https://www.phoronix.net/image.php?id=2026&image=reactos_2026_1" alt="ReactOS with VMware 3D acceleration" />
+<p>在最新一批修复之后，ReactOS 在 VMware 虚拟化环境中通过 VMware SVGA 驱动实现了可用的 3D 加速。</p>
+<p>项目同时在推进 64 位构建与 SMP（对称多处理，Symmetric Multiprocessing）内核支持，并希望在未来数月的每日构建（nightly builds）中启用 SMP 内核支持。</p>
+<img src="https://www.phoronix.net/image.php?id=2026&image=reactos_2026_2" alt="ReactOS" />
+<h3>你知道吗？</h3>
+<p>Windows NT6+ 系统调用指 Windows Vista 及之后版本内核新增或变更的 API 集合，ReactOS 长期以 NT 5.x（Windows XP/2003）为目标，补齐这些调用是实现对较新应用程序兼容的关键一步。而「内核 shim 引擎」则类似兼容性补丁层，用于在不改动应用的前提下，拦截并修正那些与真实 Windows 行为存在细微差异的调用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/ReactOS-Floppy-Disk-2026</guid>
+      <pubDate>Thu, 12 Nov 2026 14:41:16 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Polo 1.0 发布：为 MATE 桌面带来原生 Wayland 合成器</title>
       <link>https://www.phoronix.com/news/Polo-Wayland-Compositor-MATE</link>
@@ -653,48 +740,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Synaptics-Blocks-Vino-Driver</guid>
       <pubDate>Wed, 04 Nov 2026 11:03:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>AMD 表达对 Omarchy Linux 的青睐，双方合作前景可期</title>
-      <link>https://www.phoronix.com/news/AMD-Loves-Omarchy</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] AMD与Linux协作的公告，主题较为模糊，与用户兴趣匹配度不高</small></p><p>AMD 正表达对基于 Hyprland 合成器的 Omarchy Linux 发行版的浓厚兴趣，预计未来将有更多合作展开。此前，包括阿里巴巴、SpaceXSI、DigitalOcean、Meta SuperIntelligence Labs 等组织已向该发行版的开发投入数百万美元资金。</p><img src="//www.phoronix.net/image.php?id=2026&image=omarchy_45_3_med" alt="Omarchy Linux" /><p>AMD 人工智能软件副总裁 Anush Elangovan 近期在 X 平台多次称赞 Omarchy。他长期以来领导 ROCm 相关开发工作，其创办的 Nod.ai 公司被 AMD 收购后一直担任此职。值得一提的是，Anush 还保持着 Omarchy 的最快安装时间纪录——正是使用 AMD 硬件完成的。</p><p>昨日在 Fireworks Forge 活动中，Elangovan 与 Omarchy 主创 David Heinemeier Hansson 会面，并向对方提供了一台搭载 AMD Ryzen AI Max 495+「Gorgon Halo」处理器的 HP ZBook 笔记本电脑。Elangovan 在 X 上评论道：「AMD ❤️ Omarchy。美好的事物就在前方。」</p><img src="//www.phoronix.net/image.php?id=2026&image=amd_omarchy" alt="AMD loves Omarchy on X" /><p>AMD 与 Omarchy 之间的合作将带来怎样的成果值得期待。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-Loves-Omarchy</guid>
-      <pubDate>Wed, 04 Nov 2026 10:50:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AMD 发布 ZenDNN 6.1，新增内核与多项优化</title>
-      <link>https://www.phoronix.com/news/AMD-ZenDNN-6.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AMD深度学习推理库新版本发布，属于AI软件技术进展和软件新功能</small></p><p>AMD 今日发布了深度学习加速库 ZenDNN 6.1。上个月，Intel 与 AMD 联合宣布将在 PyTorch/oneDNN 软件优化上展开合作，UXL 基金会随后也发布了带有初步 AMD Zen 优化的 oneDNN 3.14。不过从现状来看，AMD 仍会继续独立推进 ZenDNN 库的开发，并非完全绑定于 oneDNN。</p>
-
-<p>ZenDNN 6.0 于今年 7 月发布，带来了面向深度学习软件的多种增强（该库与 oneDNN API 兼容）。ZenDNN 6.1 在此基础上进一步扩展，主要包括：在 LowOHA 推理栈上的更多工作，包括更快的分组矩阵乘法（MATMUL，MATrix MULtiplication）自定义内核、FP16 与 DA8W4 内核、面向 DA8W4 / DA8W8 / INT8 / BF16 的 MATMUL 自定义内核、对称 INT8 预打包（prepacking）等改进。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=zendnn_61" alt="ZenDNN 6.1 changes" />
-
-<p>有关 AMD ZenDNN 6.1 的更多详情，可通过 <a href="https://github.com/amd/ZenDNN">GitHub</a> 获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-ZenDNN-6.1</guid>
-      <pubDate>Wed, 04 Nov 2026 10:19:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Domicile：用 Web 技术构建 Wayland 桌面的新型合成器</title>
-      <link>https://www.phoronix.com/news/Domicile-Desktop-Wayland</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新软件项目，用Web技术构建Wayland桌面，契合来源高兴趣（新软件项目）与Linux桌面技术兴趣，必看</small></p><p>Domicile 是一款全新的 Wayland 合成器（compositor），它借助 Chromium 引擎，允许开发者使用 HTML、CSS 和 JavaScript/TypeScript 构建自定义的 Linux 桌面。这一新颖方案让 Web 开发者能够利用熟悉的 Web 技术对 Linux 桌面体验进行深度定制。</p><p><img src="//www.phoronix.net/image.php?id=2026&image=domicile_1" alt="Domicile Wayland compositor" /></p><p>经过修改的 Chromium 引擎可以将原生 Wayland 窗口表示为 DOM 元素，开发者因此能够像操作普通 HTML 网页那样，使用 CSS 对窗口进行样式化、变换、动画处理与布局管理。</p><p><img src="//www.phoronix.net/image.php?id=2026&image=domicile_2" alt="Domicile Wayland desktop" /></p><p>在 Wayland 合成器一侧，Domicile 采用了受 Sway 启发、基于 Rust 的 Maganese 平铺（tiling）代码。</p><p>对于是否应将 Web 技术引入桌面与合成器进行窗口管理和变换，业界势必存在不同看法，但 Domicile 无疑是一种有趣且新颖的技术尝试，让桌面窗口的定制变得更为平易近人。欢迎感兴趣的读者访问 <a href="https://Domicile-Desktop.com">Domicile-Desktop.com</a> 了解更多信息。值得一提的是，该项目是与 AI（Claude Code）协作开发完成的。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Domicile-Desktop-Wayland</guid>
-      <pubDate>Wed, 04 Nov 2026 01:32:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GIMP 3.2.8 发布：多项界面优化与大量安全修复</title>
-      <link>https://www.phoronix.com/news/GIMP-3.2.8-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源图像软件的维护版本更新，属于开源项目与软件新功能兴趣范围，推荐阅读</small></p><p>开源图像编辑软件 GIMP 今日发布 3.2.8 稳定版，带来多项 GUI 增强与安全修复。该版本改进了取色显示界面，让用户在编辑时能更直观地观察到颜色的细微变化；同时通过更新 HEIF 加载代码，现可加载更大的 HEIF 图像文件。</p><p>GIMP 3.2.8 还新增了一套 GUI 测试套件，可在开发过程中更好地检查应用回归问题；字体加载代码也得到优化，支持提前取消加载，有助于缩短程序关闭时间。此外，主题文件中加入了更多定义，使程序在各平台上的外观保持一致，并提升了 AppImage 兼容性。</p><p>安全方面，鉴于近期软件扫描和测试工具取得的进展，GIMP 收到了大量安全报告，3.2.8 因此进行了多项修复。官方公告安抚用户称：<i>"我们认真对待安全问题，但这并不像表面看起来那么可怕。由于我们不访问或存储个人信息，因此没有个人账户或银行信息可被利用！我们收到的最常见报告是：老旧的图像插件和传统滤镜过于信任图像文件提供的尺寸信息，如果故意篡改这些信息，可能导致插件（而非 GIMP 本身）崩溃。"</i></p><p>更多发布详情可参见 <a href="https://www.gimp.org">GIMP.org</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GIMP-3.2.8-Released</guid>
-      <pubDate>Tue, 03 Nov 2026 22:21:50 GMT</pubDate>
     </item>
   </channel>
 </rss>
