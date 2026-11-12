@@ -3,7 +3,86 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 11 Nov 2026 22:41:17 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2026 03:47:31 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 谷歌发布 Gemini Decisions API：单次前向传播完成上千个多模态判断</title>
+      <link>https://news.ycombinator.com/item?id=50456791</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 谷歌发布新的 Gemini Decisions API，属于新 AI 模型/能力发布公告，正对应用户很感兴趣的主题</small></p><p>谷歌于 11 月 11 日发布 <a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/">Gemini Decisions API</a>，由新模型 Gemini Decision 1（<code>gemini-decision-1</code>）驱动，通过 Google AI Studio 的 Gemini API 提供。它面向"封闭集合决策"（closed-set decisions）——如工具选择、策略检查、模型路由、上下文评分等有界选择场景，提供专门的调用原语，而不生成自由文本。</p>
+
+<h3>核心机制</h3>
+<p>用户可以一次性传入单个多模态输入（文本、图像、音频、视频、PDF，最多 256K token），并附带最多 1000 个独立问题。模型不做逐 token 解码，而是在<b>单次前向传播</b>中对候选选项打分，直接返回概率与置信度（0 到 1），端到端延迟 150–250 毫秒，价格 $0.10/百万输入 token，输出 token 不计费。</p>
+
+<img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/decisions-architecture_f0NFXU9.width-1200.format-webp.webp" alt="Comparison of Gemini Decision and other APIs against various benchmarks" />
+
+<h3>性能与成本</h3>
+<p>在涵盖智能体路由、推理、排序和多模态理解的基准测试中，Gemini Decision 1 全面领先，且校准误差（calibration error）最低。模型计算中位延迟为 50–100 毫秒（端到端 150–250 毫秒），在 16K token 以内的上下文下，从 1 个问题到 100 个问题的延迟几乎保持不变。由于输出 token 不计费，在共用基准套件上，它比使用 Interactions API 的 Gemini 3.5 Flash-Lite 便宜近 5 倍。</p>
+
+<img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini-decision__benchmarks__tab.width-1200.format-webp_3LrengT.webp" alt="Comparison of the Decisions API and other APIs to benchmark" />
+
+<h3>三种决策类型</h3>
+<p>基于 Gemini 原生多模态架构，模型可在单次前向传播中直接处理多种模态，并允许在图像、视频输入上调节分辨率以控制细节与 token 成本。同一请求内可混用三类问题：</p>
+<ul>
+<li><b>nool（是/否）</b>：估计某个条件成立的概率，可附带成立与不成立时的描述判据。</li>
+<li><b>choice（多选）</b>：从 2 至 255 个选项中选出胜者，并给出所有候选的归一化概率。</li>
+<li><b>score（有序评分）</b>：从 0 起按有序评分标准打分，返回连续加权分数与各档位概率。</li>
+</ul>
+<p>输入字段沿用与 Interactions API 相同的 Content block 格式。官方示例中，一张茶水间台面的照片加一段文字备注，一次请求即同时判断"是否有未清理的液体泼洒""应采取哪种清洁动作""严重程度如何"。</p>
+
+<img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/decisions-hero-hud_l8rnHOK.width-1200.format-webp.webp" alt="Gemini detected a spill with a next_action wipe_with_cloth" />
+
+<h3>谷歌内部的应用</h3>
+<p>谷歌内部多个团队已把它当作低延迟"控制平面"使用——只需定义选项，无需训练自定义分类器或等待生成式调用：</p>
+<ul>
+<li><b>Gemini Notebook</b>：作为实时路由器，在毫秒级内判断意图，把日常查询分流到合适的模型档位与思考深度，延迟最高降低 40%，同时把深度推理模型留给复杂任务。</li>
+<li><b>Stitch</b>：新的 rapid canvas 实验用它在数秒内生成可交互的产品流程线框图，并通过语音或点击近乎即时地应用修改，之后可一键交给完整的 Stitch 流程深加工。</li>
+<li><b>Google Labs 的 CC</b>：从 200 多个选项中挑选合适的 emoji 反应，几乎不增加延迟。</li>
+<li><b>Google 搜索的 MCP 工具安全层</b>：在延迟预算内以较高效率检测对抗性行为与内容。</li>
+</ul>
+
+<h3>定价与生态</h3>
+<p>除 $0.10/百万输入 token、输出免费外，AI Studio 提供免费额度用于原型开发。共享输入每个请求只计费一次，无论评估多少问题（每个问题只额外增加其指令与判据的 token），也没有思考 token 浮动账单或单独的音频转写、OCR 费用。生态集成正陆续覆盖 OpenRouter、LangChain、Vercel、LiteLLM、Pydantic AI、Pipecat、LiveKit、OpenCode 及 google-genai SDK，Google Cloud 中的 Gemini 支持"即将推出"。</p>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上的讨论（约 300 分、近百条评论）主要围绕几点：</p>
+<ul>
+<li><b>与 Jev 的关系</b>：多位评论者认为这是"谷歌版的 Jev"——一个灵感来自 Jev 的 API 与模型，有人指出类似话题两个月前就是热点，OpenAI 在 Jev 之后两周就推出了决策端点，而谷歌用了两个月。</li>
+<li><b>价格与适用场景</b>：有人认为比同赛道的其他决策模型贵，但支持音频与视频输入，在这些特定场景下非常有用。一位用户分享了自己的"手搓版"文件整理器：把图片缩放到 1K、用 Qwen 3 VL 蒸馏优化版每秒处理约 3 张图并提出若干打标问题，长文档交给另一个 GPU 上的模型摘要，再进向量检索——图像输入正是他不愿迁移的原因。</li>
+<li><b>是否只是"结构化输出"</b>：核心争论在于概率校准。有人指出可以用 LLM 对 "yes/Yes/YES" 与 "no" 的 logprobs 近似，但反驳意见认为，经过指令微调与 RLVR/RLHF 后，logprobs 会与真实标签脱钩，校准恰恰是这类产品的关键价值。</li>
+<li><b>谷歌"关停产品"的担忧</b>：有人以 Jules 被"枕头闷杀"、缺乏迁移路径为例，质疑六个月后这个 API 是否还在；反驳者认为这是企业级产品，有付费客户，与消费级产品逻辑不同。</li>
+<li><b>命名与替代方案</b>：多人好奇 "noul" 一词从何而来，有人称源自 Bernoulli（伯努利），也有人说是照搬 Jev 的 API 命名；此外还有人提到 MediaPipe 用 EmbeddingGemma 做决策的指南、Strands Decisions，以及 Vertex AI 上何时可用的疑问。</li>
+</ul>
+
+<h2>你知道吗？</h2>
+<p>用 logprobs 做"是/否"判断看似简单，但它衡量的是模型对某个 token 的偏好，而非对事实的把握程度。经过指令微调和人类反馈强化学习后，这种偏好的排序可能与准确率脱钩，因此需要专门训练并以校准误差（预测置信度与实际正确率的偏差）为优化目标的决策模型，才能让"0.9 的置信度"真正意味着约 90% 的正确率。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50456791</guid>
+      <pubDate>Wed, 11 Nov 2026 18:32:42 GMT</pubDate>
+    </item>
+    <item>
+      <title>用 WebGL2 在浏览器里模拟「超真实」沙子</title>
+      <link>https://news.ycombinator.com/item?id=50453288</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 用 WebGL2 和 JavaScript 实现的浏览器沙粒物理模拟演示，偏图形编程趣味项目，既非编程工具发布也非效率改进经验，兴趣不明确</small></p><p><a href="https://av.github.io/safe-sand/">safe-sand</a> 是一个直接在浏览器中运行的沙子模拟演示，用 WebGL2 和 JavaScript 实现，无需安装插件，手机、平板和桌面均可访问。它的核心卖点是把「玩沙」这件事搬到屏幕上：用手指推动沙粒，倾斜或摇晃手机让沙流动或散开，也可以一键倾倒、铺平或手绘沙形。页面提供音效与震动反馈（Haptics）开关。</p>
+
+<p>据 HN 评论区的体验反馈，细节是它被认可的主要原因：沙堆堆到一定量后会像真实的沙一样塌落；场景中的石块周围还有水面效果；不同类型的沙子有不同特性——例如红色沙漠沙比海滩沙更容易结块。</p>
+
+<p>讨论中也出现了不少批评与问题：</p>
+<ul>
+<li><b>设备兼容性</b>：有用户（iOS 上的最新版 Chrome）看到异常动画、画面内容全部消失，只剩「Pour」按钮，摇晃和移动设备都无效；而 iPhone 17 Pro 上的 Safari 则正常。也有人指出它响应的是<b>倾斜</b>而非摇晃。</li>
+<li><b>真实感打折</b>：有评论认为称不上「超真实」——部分沙粒会卡在原地不动（即便用手指按压）、石块不会旋转、某些视角下会出现明显的「恐怖谷」感；还有人感到沙堆会先「积压」再整体弹回，破坏沉浸感。性能方面，有用户在 iPhone 15 Pro 上只得到约 10fps。</li>
+<li><b>缩放彩蛋</b>：在桌面端缩放页面时，沙粒会变大但位置不变，整体看起来更「密实」。评论推测这是沙粒以屏幕边界的绝对坐标定位所致；虽然可能并非有意设计，但观感被认为很酷。</li>
+<li><b>音效</b>：多数意见相当一致——音效不好，有人建议干脆完全去掉。</li>
+</ul>
+
+<p>整体氛围仍是正面的：不少人形容玩起来很有趣、能「真的感觉到沙子」、沙的流动像定格动画一样好看；也有人调侃它和真沙子一样难清理、「颗粒又粗又到处都是」。另有评论联想到 Steam 上的同类游戏 <a href="https://store.steampowered.com/app/3216520/Sandcastle/">Sandcastle</a>。</p>
+
+<h2>你知道吗？</h2>
+<p>模拟沙子的难点不在于「落下」，而在于<b>安息角</b>（angle of repose，颗粒自然堆积时形成的稳定坡度）与结块性——它们受颗粒形状、湿度和摩擦影响，也正是区分「沙漠沙」与「海滩沙」手感的关键参数。常见的「落沙」类演示多用网格上的元胞自动机（cellular automaton）逐格更新，容易变形、成本低；而要做出可推挤、会塌方、能分层的体积感沙子，通常需要基于粒子的求解方式，代价就是文中被吐槽的性能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50453288</guid>
+      <pubDate>Wed, 11 Nov 2026 13:39:29 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AWS 推出 AWS Emulator：可本地模拟 AWS API 的开源模拟器，由自主 AI 代理编写</title>
       <link>https://news.ycombinator.com/item?id=50456631</link>
@@ -1172,79 +1251,6 @@ DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50369925</guid>
       <pubDate>Wed, 04 Nov 2026 18:53:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Go 1.27 正式发布新的 JSON API：encoding/json/v2 与 jsontext 包</title>
-      <link>https://news.ycombinator.com/item?id=50369106</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Go 1.27 发布新 JSON API 包，属于编程工具发布与软件新功能，用户很感兴趣</small></p><p>Go 团队在官方博客宣布，经过一年多的实验和反馈迭代，新的 <code>encoding/json/v2</code> 和 <code>encoding/json/jsontext</code> 包已在 Go 1.27 中稳定并正式可用。这是对标准库中已有 15 年历史的 <code>encoding/json</code>（v1）的一次重大升级。</p>
-
-<h3>v1 存在的问题</h3>
-<p>文章详细列举了旧 API 的多方面缺陷：</p>
-<ul>
-<li><strong>行为缺陷</strong>：接受无效 UTF-8（违反 RFC 8259 标准）；接受重复的 JSON 对象键名（可能被安全攻击利用，如 CVE-2017-12635）；nil 切片和 map 被序列化为 <code>null</code> 而非空数组/对象；反序列化时大小写不敏感的字段匹配存在安全隐患；指针接收者的 <code>MarshalJSON</code> 方法调用不一致。</li>
-<li><strong>API 缺陷</strong>：从 <code>io.Reader</code> 正确反序列化困难；选项无法在 <code>Marshal</code>/<code>Unmarshal</code> 函数和自定义接口实现中使用；<code>Compact</code>、<code>Indent</code> 等函数只能写入 <code>bytes.Buffer</code>。</li>
-<li><strong>性能限制</strong>：<code>MarshalJSON</code> 强制分配返回的 <code>[]byte</code> 并需重新验证和格式化；<code>UnmarshalJSON</code> 需要先完整解析 JSON 值再二次解析；缺乏真正的流式处理支持。</li>
-</ul>
-
-<h3>新架构：jsontext 与 json/v2 分离</h3>
-<p>新方案将 JSON 处理拆分为两个层次：<code>encoding/json/jsontext</code> 包负责纯语法层面的编码/解码（不依赖反射，支持真正的流式处理），而 <code>encoding/json/v2</code> 包在语法层之上定义 JSON 值与 Go 值之间的语义映射。</p>
-
-<img src="jsonv2/api.png" alt="jsontext 与 json/v2 架构示意图" width="100%" />
-
-<h3>v2 的主要改进</h3>
-<ul>
-<li><strong>新接口</strong>：引入 <code>MarshalJSONTo</code> 和 <code>UnmarshalJSONFrom</code> 接口，允许以纯流式方式处理 JSON，解决性能瓶颈。</li>
-<li><strong>选项作为一等公民</strong>：<code>Marshal</code>/<code>Unmarshal</code> 函数直接接受选项参数，并新增 <code>MarshalWrite</code>/<code>UnmarshalRead</code> 直接操作 <code>io.Writer</code>/<code>io.Reader</code>。</li>
-<li><strong>调用方自定义</strong>：通过 <code>WithMarshalers</code>/<code>WithUnmarshalers</code> 选项，调用方可为任意类型指定自定义序列化逻辑，优先级高于类型自身定义的方法。</li>
-<li><strong>行为变更</strong>：拒绝无效 UTF-8 和重复键名；nil 切片/map 序列化为空数组/对象；字段匹配改为大小写敏感；<code>omitempty</code> 语义重新定义；序列化 <code>time.Duration</code> 默认报错。</li>
-<li><strong>性能</strong>：Marshal 性能与 v1 基本持平，Unmarshal 性能显著提升，基准测试显示最高可达 10 倍加速。</li>
-</ul>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论（332 分，167 条评论）整体持积极态度。有用户对 <code>MarshalIndent</code> 的移除表示不便，但其他用户指出缩进功能已迁移至 <code>jsontext.Value.Indent()</code> 和 <code>jsontext.WithIndent</code> 选项。部分用户对 nil 切片/map 默认序列化为空数组/对象的变更表示担忧，认为这可能导致往返序列化不一致，未来可能需要 v3 修复。也有评论者讨论了 Go 标准库的演进速度，以及 Go 作为 LLM 辅助编程语言的适用性。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>CVE-2017-12635</strong> 是 Apache CouchDB 的一个著名漏洞，攻击者利用 JSON 对象中重复键名的解析歧义绕过了管理员认证检查。不同 JSON 实现（如 Python 的 <code>json</code> 和 CouchDB 使用的 Erlang 解析器）对重复键的处理方式不同，导致安全策略被绕过。这正是 Go v2 默认拒绝重复键名的重要原因之一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50369106</guid>
-      <pubDate>Wed, 04 Nov 2026 17:52:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ask HN：晒出你的 AI 智能体工作流配置</title>
-      <link>https://news.ycombinator.com/item?id=50366117</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 社区征集分享 AI 智能体工作流配置，属于编程效率改进经验分享，用户很感兴趣</small></p><p>HN 用户 eggbrain 发起提问，想了解大家日常如何使用 AI，并列出 5 个具体问题：订阅了哪些 AI 服务（Claude、ChatGPT/Codex、Cursor 等）、是否使用订阅之外的模型（按量付费 API、OpenRouter、本地模型）、使用哪些编码工具和接口（CLI、IDE 集成或 OpenCode、Pi、Aider 等替代方案）、是否使用智能体编排或群组工具，以及是否使用 OpenClaw、Hermes、Grok bot 等更广泛的智能体平台。帖子获得 374 分和 416 条评论，评论区成为一份"当下 AI 工作流快照"。</p>
-
-<h3>订阅与模型选择</h3>
-<ul>
-<li>订阅模式多样：有人同时持有多个订阅（如 Claude Ultra 个人版 + Claude Max 工作版 + Codex $100/月），也有人持有两个 Anthropic 账号（有用户提醒：单个 $200 档不会提高周限额）；还有用户每月总花费控制在 €100 左右并频繁更换供应商。</li>
-<li>不少用户转向开源权重模型（DeepSeek、Qwen、GLM、Kimi、Mistral 等）以降低成本，同时保留少量闭源前沿模型（如 Claude Opus 5.5）用于关键任务；也有人通过 OpenRouter、AWS Bedrock 等第三方渠道访问 Claude 模型，规避直接订阅 Anthropic 的风险。</li>
-<li>少数用户选择本地自托管：有用户用 64GB Mac M1 Max 以 SSD 流式加载 125B A3B 模型，达到 30 tok/s，并自建了低延迟的智能体守护进程（Daemon）。</li>
-</ul>
-
-<h3>编码工具与接口</h3>
-<ul>
-<li>Claude Code（CLI、Desktop、Web）和 Codex 是主流选择，多位用户表示自 Opus 5.5 发布后从 Cursor 转向 Claude IDE/Desktop，理由是更强的能力与更少的用量限制。</li>
-<li>其他常用工具包括 Zed、Emacs + Editor Code Assistant（ECA）、Pi、OpenCode、Aider、OpenShell 等；有用户称赞 Claude Code 的远程控制（remote-control）和代码审查功能，认为它"淘汰了一大批 AI 代码审查创业公司"。</li>
-<li>有用户分享技巧：明确告诉智能体"完成"的样子、同时并行推进 5 个以上项目，让子代理自动分工；也有人提醒要对智能体输出做质量把关。</li>
-</ul>
-
-<h3>编排工具与平台</h3>
-<ul>
-<li>少数用户使用 OpenClaw、Dots、Duet、Paseo 等编排工具，或自建工具来管理多个智能体会话；但多数人认为开箱即用的 Claude Code / Codex 已足够，对"智能体群组"类工具持观望态度。</li>
-<li>有用户指出 OpenClaw 等工具"像给 AI 发邮件"，延迟高、管道配置繁琐，因此选择自建方案。</li>
-</ul>
-
-<h3>主要观点与担忧</h3>
-<ul>
-<li>多位用户对 Anthropic 的商业做法表示顾虑（随意封号、条款不佳、验证邮件系统问题），并因此转向第三方渠道或本地模型。</li>
-<li>有用户反思高强度使用智能体带来的"成瘾感"与精力消耗，也有人认为这是生产力提升的自然结果。</li>
-<li>对本地开源模型何时能媲美前沿闭源模型（如 Opus 5.5）的期待，是评论区反复出现的主题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50366117</guid>
-      <pubDate>Wed, 04 Nov 2026 14:37:22 GMT</pubDate>
     </item>
   </channel>
 </rss>

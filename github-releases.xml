@@ -3,7 +3,61 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 11 Nov 2026 22:39:20 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2026 03:46:46 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.167.2：在 Google Cloud Vertex AI 上默认增量发送工具更新</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.167.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Codex 0.167.2</h3>
+
+<p><strong>重要改动</strong></p>
+<ul>
+<li>在 Google Cloud Vertex AI 上，Codex 现在默认以<strong>增量方式</strong>发送工具（tool）更新。若需恢复原有的一次性发送行为，可在 <code>config.toml</code> 的 <code>[features]</code> 下设置 <code>incremental_tools_legacy_gcp = false</code>（<a href="https://github.com/openai/codex/pull/60617">#60617</a>、<a href="https://github.com/openai/codex/pull/60848">#60848</a>）。</li>
+</ul>
+
+<p><strong>其他改动</strong></p>
+<ul>
+<li>本次发布未列出其他功能、性能或修复类条目。完整改动列表可查看 <a href="https://github.com/openai/codex/compare/rust-v0.167.1...rust-v0.167.2">版本对比（rust-v0.167.1...rust-v0.167.2）</a>。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>模型调用工具（函数调用）时，客户端需要把可用的工具定义随请求一起传上去。当工具集合较大时，一次性发送全部定义会增加请求体体积与首字节延迟；改为「增量」发送后，客户端可以分批推送工具更新，交由服务端（此处为 Vertex AI 通路）合并，从而更省流量、响应更快。代价是不同提供方对增量协议的支持程度不一致，因此 Codex 针对 GCP 这条通路保留了开关以便回退。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.167.2</guid>
+      <pubDate>Wed, 11 Nov 2026 22:44:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>hapi v0.35.0 发布：新增生成速率显示与用量配额面板，优化连接容错和 Web 交互</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.35.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi v0.35.0 是一次以功能新增与体验修复为主的版本更新，共包含 13 项改动，涵盖 CLI 连接稳定性、Codex 生成速率展示、用量与配额面板以及若干 Web 界面交互细节。</p>
+
+<h3>重要改动</h3>
+<ul>
+  <li><strong>显示 Codex 每轮生成速率</strong>：新增 tok/s 指标，可直观看到 Codex 每轮响应的生成速度（<a href="https://github.com/tiann/hapi/pull/2379">#2379</a>）。</li>
+  <li><strong>设置 → 用量页展示 CLI 账户配额与速率限制</strong>：可直接在界面中查看各 CLI 账户的配额与限流情况（<a href="https://github.com/tiann/hapi/pull/2389">#2389</a>）。</li>
+  <li><strong>CLI 连接失败后轮换 hub 节点</strong>：连续连接失败时会自动切换 hub 条目，提升连接可用性（<a href="https://github.com/tiann/hapi/pull/2383">#2383</a>）。</li>
+  <li><strong>Web 端合并会话活动与未读指示器</strong>：两种状态指示合并显示，界面信息更简洁（<a href="https://github.com/tiann/hapi/pull/2380">#2380</a>）。</li>
+  <li><strong>诊断 Bun 初始化前的致命崩溃</strong>：当 Bun 在预初始化阶段崩溃时，webhook 失败消息中会给出相应诊断信息，便于排查启动问题（<a href="https://github.com/tiann/hapi/pull/2365">#2365</a>）。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+  <li><strong>Claude 会话 ID 稳定化</strong>：为每个 Claude 会话保持唯一的稳定 HAPI session id（<a href="https://github.com/tiann/hapi/pull/2388">#2388</a>）。</li>
+  <li><strong>长标签下仍可见附加任务进度</strong>：修复 Web 端标签过长时进度显示被挤出的问题（<a href="https://github.com/tiann/hapi/pull/2392">#2392</a>）。</li>
+  <li><strong>待回答问题卡片视觉调整</strong>：使卡片明显表达「正在等待回复」的状态（<a href="https://github.com/tiann/hapi/pull/2390">#2390</a>）。</li>
+  <li><strong>统一工具卡片头部样式</strong>：所有工具卡片头部采用一致形状（<a href="https://github.com/tiann/hapi/pull/2394">#2394</a>）。</li>
+  <li><strong>语音设置对齐</strong>：运行时的后端与语音选择与设置页预览保持一致（<a href="https://github.com/tiann/hapi/pull/2378">#2378</a>）。</li>
+  <li><strong>压缩轮次标记修正</strong>：只标记 compaction 轮次的结果，不再误标待压缩轮次（<a href="https://github.com/tiann/hapi/pull/2374">#2374</a>）。</li>
+  <li><strong>Codex fork 可用性修复</strong>：在过期的刷新中保留已完成 fork 的可用状态（<a href="https://github.com/tiann/hapi/pull/2370">#2370</a>）。</li>
+  <li><strong>agy ACP 修复</strong>：唤醒会话并通过 agy ACP 流式传输响应式后台轮次（<a href="https://github.com/tiann/hapi/pull/2387">#2387</a>）。</li>
+</ul>
+
+<p>完整变更记录见 <a href="https://github.com/tiann/hapi/compare/v0.34.6...v0.35.0">v0.34.6...v0.35.0</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.35.0</guid>
+      <pubDate>Thu, 12 Nov 2026 02:30:15 GMT</pubDate>
+    </item>
     <item>
       <title>hapi v0.34.6 发布：Claude 轮次显示生成速率、Codex 可基于上一完整轮次分叉会话</title>
       <link>https://github.com/tiann/hapi/releases/tag/v0.34.6</link>
@@ -1498,63 +1552,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.300</guid>
       <pubDate>Wed, 14 Oct 2026 18:24:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.299：新增文件提及禁用、空闲压缩、安全模式提示等多项功能与大量修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.299</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.299 更新，包含一批新功能、交互改进以及数量庞大的 bug 修复。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><b>新增 <code>CLAUDE_CODE_DISABLE_FILE_MENTIONS</code> 环境变量</b>：开启后，Claude 通过其文件工具获取 <code>@</code> 提及文件的路径，而非文件内容。</li>
-<li><b>终端内新增空闲压缩（idle compaction）</b>：20 万 token 以上的对话闲置约 54 分钟后，会在其一小时提示缓存过期前被压缩，避免下次消息重复处理。可用 <code>CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS</code> 调整 20 万 token 下限，或用 <code>"idleCompaction": false</code> 关闭（需 v2.1.290 及以上）。</li>
-<li><b>模组（mod）能力增强</b>：新增 <code>$.prompt.media</code>（读取附带的图片/文档字节）、<code>$.session.identity()</code>（会话登录方式及组织/邮箱）、<code>Text</code> 新增 <code>size</code>/<code>weight</code>/<code>mono</code>/<code>tabular</code>、<code>Box</code> 新增命名间距步进（<code>xs</code> 至 <code>xl</code>），<code>bold</code> 弃用；<code>skill.prompt</code> 钩子现可接收技能 frontmatter、来源、插件名与文件路径。</li>
-<li><b>Agent 视图新增 <code>/effort</code> 与 <code>/fast</code></b> 用于设置新会话的起始配置，裸敲 <code>/model</code>、<code>/effort</code> 或 <code>/fast</code> 会打开选择器；后台会话的 peek 面板新增「安全模式」提示行。</li>
-<li><b>归因块（attribution block）可关闭</b>：通过 Claude apps gateway 的 <code>code</code> 策略 <code>env</code> 中设置 <code>CLAUDE_CODE_ATTRIBUTION_HEADER=0</code>。</li>
-<li><b><code>self-hosted-runner orchestrator</code> 新增 <code>--shutdown-drain-sec</code></b>。</li>
-<li><b>新增 <code>--disallow-tools</code></b> 及 <code>disallowed_tools</code> 判断字段，用于 <code>claude plugin eval</code> 将内置工具排除在 eval 运行之外。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li><b>终端与 UI</b>：修复全屏模式下双击展开行文字意外折叠、<code>/btw</code> 在滚动位置被跳至底部、CJK/emoji 与拉丁混排时的换行丢失或空白行问题、深色主题下 <code>dimColor</code> 文字不可区分、长粘贴因不可见控制字符丢失文本等。</li>
-<li><b>MCP</b>：修复名为 <code>constructor</code>/<code>prototype</code>/<code>toString</code> 的服务器无法连接或权限异常、HTTP 通知响应永不结束导致挂起 30 秒、默认协商 MCP 协议版本 2026-07-28、allow 规则仅作用于指定服务器等。</li>
-<li><b>云端/远程控制会话</b>：修复大事件批量无法上传导致界面冻结、内存尖峰崩溃、恢复后内存占用过高、子代理结果重复发送、文件（含 30–35 MiB）无法送达等。</li>
-<li><b>沙箱（sandbox）</b>：修复符号链接绕过拒绝路径、allowRead/allowWrite glob 校验不一致、WSL2 下 <code>bwrap</code> 报错等（注：Windows 相关改动按你的偏好已归入此处供参考）。</li>
-<li><b>模组/钩子</b>：修复热重载、深层嵌套值被整体拒绝（改为仅拒绝单个键）、<code>__proto__</code> 键被静默移除、<code>turn.start</code> 钩子现在也监听子代理回合等。</li>
-<li><b>性能与内存</b>：修复重度调试日志下的内存增长与退出挂起、PDF @提及不再在会话转录中保留字节、工件监控上限从 10 提升至 25 个。</li>
-<li><b>会话与恢复</b>：修复 2.1.296 回归的批准工具调用重复执行、计划模式被 <code>PreToolUse</code>/<code>tool.check</code> 放行后仍执行写入、resume 命令按 ID 而非名称打印等。</li>
-<li><b>其他</b>：<code>/config</code> 推送通知开关发送旧设置、调度任务报错分钟数、夏令时结束时段任务重复/提前触发、<code>plugin_loaded</code> 遥测误报等。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.299</guid>
-      <pubDate>Wed, 14 Oct 2026 02:49:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>chezmoi v2.73.1 发布：修复多个 panic 与 shellQuote 转义问题</title>
-      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.73.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>chezmoi 发布了 v2.73.1 补丁版本，主要修复了若干 bug 并更新文档。</p>
-
-<p><strong>修复内容：</strong></p>
-<ul>
-<li>修复 <code>shellQuote</code> 中反斜杠被重复转义的问题</li>
-<li>修复 <code>apply --interactive</code> 模式下，对缺失文件执行 diff 时未传入 <code>/dev/null</code> 的问题</li>
-<li>修复在 <code>external_</code> 显式目录中添加文件时触发的 panic</li>
-<li>修复使用 <code>exact_</code> 目录且存在隐式父目录时执行 <code>re-add</code> 触发的 panic</li>
-<li>修复使用隐式父目录的 externals 执行 <code>re-add</code> 时触发的 panic</li>
-<li>修复 <code>add</code> 命令报告发现的 secrets 时行号不准确的问题</li>
-</ul>
-
-<p><strong>文档更新：</strong></p>
-<ul>
-<li>明确说明 <code>re-add</code> 命令不覆盖 externals</li>
-<li>添加了一篇文章的链接</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.73.1</guid>
-      <pubDate>Sun, 11 Oct 2026 16:51:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
