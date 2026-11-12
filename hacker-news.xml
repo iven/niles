@@ -3,7 +3,63 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 12 Nov 2026 03:47:31 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2026 12:36:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 用线性规划复现「权重空间编程」：8 小时的试错搜索压缩为一分钟，权重改动少 8 倍</title>
+      <link>https://news.ycombinator.com/item?id=50452655</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是用线性规划方法高效复现权重空间编程实验的技术分享，属于AI软件技术进展/方法改进，符合「感兴趣」类别，但并非新模型发布公告，故为推荐而非必看</small></p><p>作者 Nathan Barry 拆解并复现了 MIT CSAIL 上周发布的「权重空间编程（weight-space programming）」实验。他发现 GPT-6 Astra 花约 8 小时、28 次前向传播完成的「改哪些权重、改多少」的搜索，本质上是在用试错法求解一个线性规划（LP）；用一个现成的 LP 求解器，每次约一分钟即可完成同样的事，而且只改动 1/8 的权重就能达到同等效果。</p>
+
+<h3>背景：Astra 做的事，以及「思考循环」</h3>
+<p>在 CSAIL 的实验中，Astra 只看一个小网络的原始权重就能判断它被训练玩哪个游戏；只给游戏规则，它就能从零写出小网络的权重，击败用 PPO 训练 1 亿步的网络；它还把 Qwen3.5-0.8B 的 MATH-500 准确率从 7.9% 提到 48.1%，只改动 0.016% 的权重。</p>
+<p>后者修的是一个小推理模型的常见毛病：<strong>思考循环</strong>——模型反复重复同样几行推理，永远给不出答案。Qwen3.5-0.8B 尤其严重，其在 MATH-500 上有 93% 的回答撞到 32,768 token 上限仍未作答。由于这种编辑消除的是「循环」这一障碍，它对指令遵循同样有效：IFEval 从 21% 升到 62%。</p>
+<ul>
+<li>MATH-500：7.9% → 48.1%</li>
+<li>GSM8K：13.8% → 67.1%</li>
+<li>IFEval：21.0% → 62.3%</li>
+<li>撞到 token 上限的比例：93.0% → 33.1%</li>
+</ul>
+<p>反过来，在很少陷入循环的 Gemma 3 270M 上，Astra 无法实质提升其数学能力。作者转述论文的说法：权重编辑可以移除遮蔽能力的障碍，但不能凭空添加模型本不具备的能力。</p>
+
+<h3>修复机制：一个「循环方向」加一个秩一编辑</h3>
+<p>Transformer 使用残差连接，每个 token 携带的残差流（residual stream，本模型为 1,024 维）会被每一层不断累加。模型陷入循环时，残差流会朝一个固定方向漂移。Astra 的做法是：写四对短文本（一段有效推理 + 同内容的循环版本），跑过模型后记录某一层的残差流向量的平均值，两者之差归一化后即为<strong>循环方向 u</strong>。</p>
+<p>每个 MLP 末尾的下投影矩阵 W（down_proj）把 3,584 维隐激活 h 映射成 1,024 维输出 Wh 加到残差流上，因此 MLP 的输出始终是 W 的 3,584 个列向量 w<sub>j</sub> 的加权和。每列都有沿 u 的分量 u<sup>⊤</sup>w<sub>j</sub>，它决定了该列在激活时把模型往循环方向推多少。Astra 的编辑就是减去这个分量的 α 倍：w<sub>j</sub> → w<sub>j</sub> − α(u<sup>⊤</sup>w<sub>j</sub>)u。α = 1 时沿 u 的分量被清零；α = 6 时分量被反向，列反而把模型推离循环。</p>
+<p>因为每一列沿的都是同一个方向 u，整个编辑可以写成秩一形式 ΔW = u v<sup>⊤</sup>：只需要选一个方向 u 和「每列改多少」的向量 v。剩下的问题就是如何确定 v。</p>
+
+<h3>把 8 小时搜索换成一个线性规划</h3>
+<p>Astra 是靠试错定 v 的：每改一次就在新的训练题上测一遍。原文日志显示，它总共跑了 158 轮、20.3 小时（其中 4.7 小时是故障停机），编辑在约 10 小时处冻结，最后 17 次前向传播只是复测。找 u 只花 15 分钟，找 v 花了约 8 小时。其试错结果大致是：全列 α = 1 → 33%，α = 2 → 43%，α = 3 → 48%，随机方向 12.5%，只改「写 u 最多」的 64 列且 α = 6 → 55%。</p>
+<p>作者指出，这是一个标准的线性规划问题：要求循环 token 被推离 u 至少 δ（v·h<sub>t</sub> ≤ −δ），同时正常 token 受到的影响不超过 ε（|v·h<sub>t</sub>| ≤ ε），二者对 v 都是线性不等式；目标是最小化 v 的 L1 范数（约束不可行时给每个约束加罚化松弛变量）。L1 会带来稀疏性——L1 球是菱形，扩张到接触可行域时通常先接触顶点，那里绝大多数坐标恰为零——因此 LP 会同时选出「改哪些列」和「改多少」。为得到每层恰好 8 列，作者取影响最大的 8 列，其余固定为零再解一次。现成求解器 HiGHS 在这些约束上要 20 多分钟，作者于是写了一个 GPU 版 PDHG 求解器，约一分钟即可达到最优值 0.2% 以内。</p>
+
+<h3>结果：更少的改动，同样的效果</h3>
+<p>作者测试了两种 LP 编辑，都沿用 Astra 选定的层（15 和 19）：一种用 Astra 的 u，另一种用启发式方向——用简单的重复检测器在模型自身轨迹上标注循环/正常 token，再取二者平均残差流之差，完全不涉及 LLM。超参数在单独的 128 题开发集上调整，报告中所有数字均来自未参与拟合或调参的数据。</p>
+<ul>
+<li><strong>Astra 的编辑</strong>：改动 130,188 个权重，GSM8K 68.2、MATH-500 50.9、IFEval 61.9</li>
+<li><strong>LP + Astra 方向</strong>：改动 16,291 个权重，GSM8K 69.6、MATH-500 51.7、IFEval 59.7</li>
+<li><strong>LP + 启发式方向</strong>：改动 16,271 个权重，GSM8K 65.4、MATH-500 47.8、IFEval 60.4（约为前者 93% 的水平）</li>
+</ul>
+<p>几个值得注意的发现：</p>
+<ul>
+<li><strong>搜索本身很关键，而 LP 可以替代它。</strong>在开发集上沿用 Astra 的配方（前 64 列、α = 6）但换成启发式方向且不重新搜索，只有 44.5 分；LP 则能到 54.7 分。</li>
+<li><strong>不同的列能实现同样的修复。</strong>LP 选出的 8 列与 Astra 的 64 列中，第 15 层只重合 3 个、第 19 层只重合 1 个——稀疏解很多，真正重要的是沿 u 的总体推力。</li>
+<li><strong>随机方向无效。</strong>同尺寸的随机 u 在开发集上只有 10.2 分（基座模型 10.9）。</li>
+</ul>
+
+<h3>一个引导向量就够了</h3>
+<p>权重编辑只能通过激活来区分循环 token 与正常 token，而循环在进行到一定程度之前很难从激活中辨认出来。因此在开发集上，让 LP 只对「像循环」的 token 施力，效果并不比对所有 token 施力更好。LP 在第 15 层选出的 8 列在 89% 的 token 上都活跃，且它们施加的推力在 token 间几乎不变——也就是说这个编辑近似于沿 u 的<strong>恒定推力</strong>。</p>
+<p>恒定推力不需要改权重，可以直接作为引导向量（steering vector）在每个 token 的残差流上加进去。测试显示：1× 强度（等于 LP 编辑的平均推力）在开发集得 57.8、MATH-500 得 50.8，基本复现了全部修复效果；窗口很窄——0.5× 时循环回归，2× 时循环消失但推理崩坏。两者的唯一区别在于交付方式：LP 编辑得到的是普通检查点，引导向量则需要在推理时加代码。</p>
+
+<h3>局限与后续</h3>
+<p>作者强调这只验证了一个模型：LP 仍依赖 Astra 选定的层，最佳结果也要用 Astra 的方向；启发式方向能走完大部分路，但不是全部。此外，既然循环可以用恒定推力修好，LP 的逐 token 约束其实没起太大作用；要检验这部分价值，需要找一个真正应当「只改某些 token」的行为。不用智能体也能选出层，是另一个待解问题。最后，本文只测了消除循环；拒绝（refusal）、谄媚（sycophancy）等许多行为也能靠残差流中的单一方向增减来引导，如果某行为可被单方向引导，那么「如何把它做进权重」应该就是同一个 LP，但这仍有待验证。代码、编辑结果与完整报告在 GitHub 上。</p>
+
+<h3>社区讨论</h3>
+<p>这条在 Hacker News 获得 285 分、41 条评论。有读者（dansitu）认为解法如此简单，说明这件事本应在训练时通过正则化自然发生；也有人补充说，方向 u 本身是任意的，它同样可以表示「更充分的推理」而不只是循环。围绕「Astra 到底有没有直接改权重」出现了争论：有人澄清这里是 1940 年代的线性优化算法在编辑一个数亿至数十亿参数的模型，并非前沿模型读懂并改写权重；也有评论认为从原理上模型给自己做这类编辑没有障碍，只是「直接操作权重」的说法容易变成 AGI 叙事的夸张——ultimatefan1 总结说，早期头条让人以为模型能直接阅读和操纵权重，这篇分析更接近「Astra 做了有趣的模型训练研究，顺便找到了一个不错的编辑」，而更快的方法确实很酷，但远不及标题那么惊人。jsw97 则认为 LP 求解器可以作为 Astra 表达意图（用线性约束写出「消除这个行为、保留那个行为」）的高效工具，替代其耗时的试错。还有人希望看到 LLM 在推理中原生地调用 LP/SAT/CLP 求解器，而非通过 JSON 工具调用；jmmcd 反驳说当前「翻译成 LP 代码 → 求解 → 解读结果」的范式已经理想，因为代码仍然可审计。</p>
+
+<h3>你知道吗？</h3>
+<p>「沿残差流中单一方向引导行为」并非新发现。2024 年前后的研究（如 Arditi 等人关于拒绝方向的工​​作）表明，模型的拒答行为由一个一维方向中介：从权重中消去该方向（或从激活中减去它）即可显著削弱拒答，而不会明显损伤其他能力。本文脚注正是指向这一类结果——这也是作者认为 LP 思路可推广到谄媚、拒答等行为的原因。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50452655</guid>
+      <pubDate>Wed, 11 Nov 2026 12:30:17 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ 谷歌发布 Gemini Decisions API：单次前向传播完成上千个多模态判断</title>
       <link>https://news.ycombinator.com/item?id=50456791</link>
@@ -1242,15 +1298,6 @@ DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50372945</guid>
       <pubDate>Wed, 04 Nov 2026 23:35:44 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ripple-65B 预览版发布：以 3200 万美元成本登顶美国开源权重智能体编码榜</title>
-      <link>https://news.ycombinator.com/item?id=50369925</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要主题是开源权重智能体编码模型 Ripple-65B 的预览发布，属于新AI模型发布与开源项目，用户感兴趣；摘要虽提及芯片开发背景，但主题以模型发布为主</small></p><p>AI 实验室 Ricursive Intelligence 发布 <a href="https://www.ricursive.com/ripple">Ripple-65B Preview</a>，一个从零训练的开源权重通用模型，宣称在智能体编码（agentic coding）基准 TerminalBench 2.1 上取得 80.52 分，成为美国开源权重模型中的新 SOTA。该模型基于 12 万亿 token 预训练，支持最长 100 万 token 上下文，性能超过了参数规模大得多的 Reflection Beam 501B（80.1）、Meta Muse Spark Open 816B（76.4）、Thinking Machines Inkling 975B（63.8）和 NVIDIA Nemotron 3 Ultra 550B（56.4）等美国开源模型。</p><p>文章称，包括预训练阶梯开发、数据混合、评测、调试、合成数据生成、后训练配方以及最终正式训练在内的全部研发成本仅为 3200 万美元，约为此前开源权重 SOTA 训练成本的十分之一。团队没有购买任何后训练数据，而是自建合成数据管线与质量过滤、覆盖率指标，并采用截断重要性采样、分数居中、线性长度惩罚等混合强化学习配方，仅用 140 万次 rollout 就达到 80.5 分，比此前 SOTA 少约 70 倍。</p><p>架构上，Ripple-65B 选择了稠密（dense）Transformer 而非混合专家（MoE）架构，采用"细而深"的比例（d_model 5120、80 层），并加入 FFN 激活裁剪、门控注意力、全局 NoPE 与值残差等设计，在预训练和后训练中保持约 40% 的 MFU（硬件算力利用率）。模型可在 NVIDIA DGX Spark 等本地设备上高效运行。Ripple-65B Preview 已上线 Hugging Face、Together AI、GMI Cloud 和 OpenRouter，Fireworks 稍后上线。该模型是 Ricursive 用于 AI 芯片设计平台的专有模型的通用版本，公司希望通过"模型—硬件"协同优化加速芯片开发。</p><h3>社区反馈</h3><p>HN 用户普遍质疑其"美国开源权重 SOTA"的限定表述，指出对比中刻意回避了中国模型：Qwen 3.8 Flash Next 在 TerminalBench 2.1 上得分 84.3，Qwen 3.8-27B 为 73.0。有评论认为"SOTA"一词因不断收窄类别而被稀释；也有人指出 65B 稠密模型在消费级硬件上推理较慢，其目标客户可能是需要在气隙（air-gapped）环境中保护知识产权的美国芯片设计公司。另有用户提醒该公司与另一家名为 Recursive 的实验室容易混淆。</p><h3>你知道吗？</h3><ul><li><b>TerminalBench 2.1</b>：衡量模型在真实终端环境中完成多步骤编码任务（智能体编码）能力的基准，比传统代码生成评测更接近实际工程场景。</li><li><b>MoE 与稠密架构</b>：混合专家（MoE）通过路由只激活部分参数以降低推理成本；稠密（dense）模型每个 token 使用全部参数，推理延迟更稳定，训练基础设施也更简单。</li><li><b>MFU（Model FLOPs Utilization）</b>：衡量训练时硬件算力实际利用率的指标，在无自定义内核、无量化的简单分片条件下达到 40% 属于不错水平。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50369925</guid>
-      <pubDate>Wed, 04 Nov 2026 18:53:29 GMT</pubDate>
     </item>
   </channel>
 </rss>
