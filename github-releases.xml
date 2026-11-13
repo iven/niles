@@ -3,7 +3,43 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 12 Nov 2026 20:46:02 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 01:47:26 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.323：新增实验性 Code Mode，插件可声明版本范围约束</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.323</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>主要更新</h3>
+<ul>
+<li><strong>实验性 Code Mode</strong>：可选择开启，开启后 Claude 通过编写 JavaScript 来调用它的各类工具。开关方式（及组织级关闭方式）见 <a href="https://code.claude.com/docs/en/code-mode">官方文档</a>。</li>
+<li><strong>插件版本约束</strong>：<code>plugin.json</code> 新增 <code>engines["claude-code"]</code>，超出所声明 Claude Code 版本范围的插件不会被安装、更新或加载；安装与更新会自动选择匹配的最新版本。</li>
+<li><strong>插件校验增强</strong>：<code>claude plugin validate</code> 现在会对插件 TypeScript 钩子模块做类型检查（结果以警告呈现，<code>--strict</code> 下则视为失败），并列出 mod 的 <code>engine.create</code> 钩子新增、抑制或替换的 <code>$</code> 名词。</li>
+<li><strong>用量额度选项菜单</strong>：当模型需要使用已被关闭或耗尽的用量额度（usage credits）时，会弹出菜单供选择停止、切换到用量额度或升级。</li>
+<li><strong>长时间钩子的心跳</strong>：在 <code>claude -p</code> 与 SDK 会话中，钩子长时间运行时每 30 秒发送一次进度心跳，避免 Claude Desktop 等宿主把该轮判定为卡死而中断。</li>
+<li><strong>Artifact 支持 .docx</strong>：Artifact 工具的素材上传新增 <code>.docx</code> 文件支持。</li>
+<li><strong>VS Code 扩展</strong>：首次在未信任文件夹中开启会话前会显示信任提示，拒绝则不会使用该文件夹的设置与 MCP 服务器；运行中的 Bash/PowerShell 命令实时输出会显示在命令卡片下方。</li>
+<li><strong>未知模型的上下文窗口默认值从 200K 改为 1M</strong>：可用 <code>/autocompact</code> 提前压缩，或设 <code>CLAUDE_CODE_DISABLE_1M_CONTEXT=1</code> 保持 200K。使用其他厂商较小窗口模型时，一旦写满可能每轮都失败，建议在填满前设置该变量。</li>
+<li><strong>同机会话间无需确认即可发送的消息数</strong>：从约 20 条提高到 100,000 条（Claude Desktop 的 Code 标签页会话同样如此）。</li>
+<li><strong>新增环境变量</strong>：<code>CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES</code>（设为 1 关闭子代理进度摘要及其请求，<a href="https://github.com/anthropics/claude-code/issues/86879">#86879</a>）、<code>CLAUDE_CODE_RESUME_HINT_COMMAND</code>（让退出提示显示宿主程序自己的恢复命令）。</li>
+<li><strong>界面细节</strong>：diff 面板新增「<code>/diff to close</code>」提示，聚焦与关闭面板的按键也补入 <code>?</code> 快捷键指南。</li>
+<li><strong>移除与弃用</strong>：移除 <code>subagentStatusLine</code> 设置（子代理行固定使用默认外观，仍含该键的设置文件照常加载）；插件 <code>agent</code> 设置被弃用，仍生效但在启动、<code>claude plugin list</code> 和 <code>claude plugin validate</code> 中给出警告。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li><strong>交互与渲染</strong>：修复重音符号及其他组合字符落到文字左侧、屏幕残留副本或换行时消失；修复按键组合的最后一个键（如 ctrl+x enter 的 Enter）在对话框输入框中误触发；修复长提示把多行状态行挤出全屏画面；修复全屏下 <code>/diff</code> 需等 Claude 完成才关闭面板；修复全屏显示某工具调用时未显示工具名、子代理消息中的终端控制序列被实际执行；修复权限/计划对话框下的名称标签遮挡部分代理名。</li>
+<li><strong>会话与恢复</strong>：修复再次执行 <code>/compact</code> 或在其后执行 <code>/context</code> 时，把尚未回答的消息一起压缩掉；修复恢复的会话把新消息拼接到未被恢复的旧中断消息；修复 Claude 修改超大文件后下一轮出现内存峰值；修复运行中保存设置会撤销此前手工编辑 <code>settings.json</code> 的改动（运行中删除的设置文件也不会复活）；修复 <code>/rewind</code> 有时改动权限模式；修复 <code>--teleport</code> 在服务端找不到历史时打开空会话。</li>
+<li><strong>MCP</strong>：修复服务器晚连接时恢复的会话缺少早期 MCP 调用、回滚缓冲区出现重复行；修复 <code>claude mcp add --help</code> 在窄终端把示例命令折行；<code>/mcp</code> 现在会说明有多少工具因 API 会拒绝其输入 schema 而被忽略及原因；需要认证但仍持有登录态的服务器页面改为提供并默认选中「重新连接」。</li>
+<li><strong>插件</strong>：修复 <code>defaultEnabled: false</code> 的插件在 claude.ai 云端会话中无法开启；修复 <code>renames</code> 映射中单个坏条目导致其余重命名被忽略；修复由托管设置启用的插件加载错误只写入调试日志，现会出现在 <code>init.plugin_errors</code>；安装命令输出到 stderr 时不再隐藏内容。</li>
+<li><strong>登录与凭据</strong>（非安全加固类体验问题）：修复 macOS 钥匙串响应慢时刚登录成功又提示「未登录」；改进 <code>/login</code> 与 <code>claude setup-token</code> 在请求被拒、无法连接或超时时的错误说明；TLS 检查代理后的证书错误现在直接失败并给出修复建议，而不再重试数分钟。</li>
+<li><strong>Remote Control（远程控制）</strong>：修复网络切换后会话长时间显示断开；重启后不再被当作新电脑（身份保持 30 天）；修复会话等待只能在终端回答的权限提示时仍显示为运行中；修复桌面式子代理仍在运行时手机端显示空闲。</li>
+<li><strong>云端会话与 Web 端</strong>：修复容器中途关机导致流式回复缺失中间文字、重启后消息丢失、连接丢失卡片把「重试」当成用户消息发送、Stop 按钮在长时间无输出时消失；删除对话框会提示将暂停在该会话中运行的定时任务；新增对上传失败原因的说明（如页数过多、加密、超时）。</li>
+<li><strong>模型与用量</strong>：修复 Fable 周限额在终端不显示重置时间和选项菜单；修复等待选项被拒后静默推迟到更晚的重置时间；<code>/usage</code> 对 setup token 与 <code>CLAUDE_CODE_OAUTH_TOKEN</code> 保留会话与周限额条并说明其余缺失原因。</li>
+<li><strong>性能与其他</strong>：大量子代理时更早释放已完成子代理的转录以降低内存占用；安装脚本不再重复下载最新版本；WebFetch 在深层嵌套页面上更快更省内存；OpenTelemetry 相关修复（默认协议、代理、超时上限调整为 25 秒、坏属性条目不再丢弃整组属性等）；Code Review 管理设置新增「下载 CSV」，可按月/周/日导出各仓库的评审成本。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.323</guid>
+      <pubDate>Thu, 12 Nov 2026 22:12:13 GMT</pubDate>
+    </item>
     <item>
       <title>Starship v1.24.2 发布：修复 macOS 26 上命令时长模块导致的通知冻结</title>
       <link>https://github.com/starship/starship/releases/tag/v1.24.2</link>
@@ -1502,37 +1538,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.163.0</guid>
       <pubDate>Thu, 15 Oct 2026 21:30:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.301 发布：新增 vim 括号跳转、多行输入、LaTeX 渲染等</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.301</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.301 版本，带来多项新功能与大量修复。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>vim 模式新动作</strong>：新增 <code>%</code> 动作，可跳转到匹配的括号，支持单独使用或配合 d/c/y 命令。</li>
-<li><strong>mod 输入新增多行字段</strong>：为 mod 的 <code>Input</code> 增加 <code>rows</code> 属性，可在终端提供多行文本输入框，Enter 提交，Shift+Enter 或反斜杠加 Enter 换行。</li>
-<li><strong>OpenTelemetry 增强</strong>：补充了 <code>claude-api</code> skill 的追踪配置指引（含使用 <code>ant</code> CLI 设置追踪目标）；为 <code>tool_decision</code> 事件新增 <code>classifier_verdict</code>、<code>permission_mode</code> 字段以区分自动模式判定与权限规则，并在 <code>OTEL_LOG_TOOL_DETAILS=1</code> 时新增 <code>classifier_category</code> 字段。</li>
-<li><strong>切换小上下文模型更智能</strong>：切换模型前会先用原模型总结过长对话；新增 <code>CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS</code> 环境变量，让无人值守重试模式在用量上限过远时直接结束请求而不再干等。</li>
-<li><strong>Fable 模型兼容</strong>：当最新 Fable 模型不可用时，自动回退重试上一个 Fable 模型。</li>
-<li><strong>[VSCode] LaTeX 数学渲染</strong>：在 Claude 回复中支持 <code>$$</code>、多行 <code>\[ … \]</code> 以及行内 <code>$…$</code>、<code>\(…\)</code> 数学公式渲染。</li>
-<li><strong>[VSCode] 用量超限提示</strong>：在 Pro/Max 套餐的用量提示条中新增 "Get more usage" 链接（VS Code 与 JetBrains 面板）。</li>
-</ul>
-
-<h3>其他改进与修复</h3>
-<ul>
-<li><strong>性能优化</strong>：长任务 subagent 运行时的进度轨迹改为增量更新，提升渲染性能；修复技能/命令/钩子在大参数时占用大量内存及调用卡顿的问题（现在仅填充前 64 个名称、每个最长 64 字符）；修复对话和自动压缩在重建转写时短暂卡住 UI。</li>
-<li><strong>vim 模式修复</strong>：修复慢速机器上 Escape 后仍停留在 INSERT、Escape 丢弃已输入的 AskUserQuestion 答案等问题（自由文本字段现支持 vim NORMAL 模式）。</li>
-<li><strong>工具与文件处理</strong>：修复 Read 工具将 .xlsm、.parquet、.epub、.heic 等二进制文件当作文本读取的问题；修复 Grep/Glob 在搜索程序意外失败时误报无匹配。</li>
-<li><strong>会话与模型</strong>：修复后台命令在令牌刷新中途退出导致登录刷新超时或意外登出；修复会话被 LLM 网关背后未选择的模型反复压缩。</li>
-<li><strong>终端与显示</strong>：修复旧版 VTE 终端（如 RHEL 8 的 MATE Terminal）中的乱码字符覆盖提示、iTerm2 启动时的乱码，以及暗色主题、16 色终端下的文字暗淡问题。</li>
-<li><strong>其他修复</strong>：修复退出时未询问即删除可能含未推送提交的 worktree、/rewind 后技能不再列入模型、插件/技能钩子权限提示不显示来源、冲突 cherry-pick 的 /diff 识别等问题；mod 的 <code>$.env.set</code> 现解析为 <code>{}</code> 或 <code>{ deny }</code>；mod 钩子 <code>.catch</code> 仅在钩子抛错或超时时执行。</li>
-<li><strong>[VSCode]</strong>：修复崩溃/冻结的面板在每次重载时被重新打开、长思考期间面板变慢、诊断中语言服务器显示 "[object Object]" 等问题，并修复在不提供听写功能的场景下加载原生听写音频模块检查麦克风权限的行为。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.301</guid>
-      <pubDate>Thu, 15 Oct 2026 19:22:06 GMT</pubDate>
     </item>
   </channel>
 </rss>

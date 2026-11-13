@@ -3,7 +3,109 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 12 Nov 2026 20:48:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 01:47:46 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Gemini 4 Hydrogen 登陆 Google Antigravity，并推出 Carbon + Hydrogen 协作的 Orchestrator 模式</title>
+      <link>https://news.ycombinator.com/item?id=50472260</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新 AI 模型发布并在编程 Agent 平台中上线的公告，同时命中「新AI模型发布公告」和「编程工具发布」两个高兴趣点，属必看内容</small></p><p>Google Antigravity 团队宣布，<strong>Gemini 4 Hydrogen</strong> 已在 Google Antigravity 中上线，同时模型下拉菜单新增 <strong>Orchestrator</strong> 选项——它会将 Hydrogen 与更强的模型（包括 Gemini 4 Carbon）搭配，在质量、效率与延迟之间取得平衡，用于长周期任务。</p>
+
+<img src="/assets/image/blog/4-Hydrogen---Wide.png" alt="Gemini 4 Hydrogen and Orchestrator" />
+
+<h3>Orchestrator：单条轨迹内的双向动态切换</h3>
+<p>本周早些时候 Google 发布了 Gemini 4 Carbon 与 <code>/swarm</code>，用于以并行 agent 团队处理大型、多 worktree 的工程任务，几天内已启动数万个 swarm。但对于单会话内的日常功能开发和调试，每一步都调用前沿推理模型加多并行 agent，会拖慢循环并消耗前沿配额。</p>
+<p>业界常见做法是静态「模型路由（model router）」：从首个 prompt 猜测任务难度，然后把整个任务交给「够用」的最便宜模型。但随着 agent 运行时间变长，不同阶段会需要不同复杂度，这种静态路由会失效。</p>
+<p>Orchestrator 采用在同一轨迹演化过程中 Carbon 与 Hydrogen 之间的动态双向交接：Carbon 可先进入只读阶段探索依赖、消除歧义并给出带明确重规划触发条件的计划；Hydrogen 接手写代码、更新依赖包、跑测试；一旦 Hydrogen 遇到阻力，就把控制权交回 Carbon 检查状态、修复计划并恢复执行。官方称在 <strong>Terminal-Bench 4.1</strong> 上，Orchestrator 达到接近 Carbon 的任务成功率，同时平均少消耗 <strong>24%</strong> 配额、完成速度快 <strong>19%</strong>。</p>
+
+<h3>用 Antigravity SDK 搭建显式多模型流水线</h3>
+<p>若希望以编程方式控制哪个模型负责哪种角色，可用 Antigravity SDK 直接把 Hydrogen 与 Carbon 串联。官方演示了一个开源 issue 分流系统：Hydrogen agent 负责分流与编码，以跟上 issue 涌入速度，包括搜索代码库、提出澄清问题、根据 PR 评论快速迭代 UI；Carbon agent 则负责较大规模重构、新功能和安全性检查。</p>
+
+<h3>Hydrogen 作为独立模型</h3>
+<p>Hydrogen 也可单独用于日常编码与 agent 任务，在 Artificial Analysis 智能指数上得 <strong>51</strong>（超过 Argon 的 50，最高档位可达 54），Terminal-Bench 4.1 得分 <strong>57%</strong>，而 3.8 Flash 仅为 18.2%。直接选择 Hydrogen 时可调节四档思考深度：low、medium、high（默认）以及新增的 <strong>xhigh</strong>。示例用途包括升级依赖、重构共享工具函数、生成无障碍图片 alt 文本。</p>
+
+<h3>可用范围</h3>
+<ul>
+  <li>Gemini 4 Hydrogen：面向付费的 Google AI Pro 与 Ultra 订阅用户逐步开放。</li>
+  <li>Orchestrator：Ultra 用户可使用 Orchestrator (Carbon) 与 Orchestrator (Argon)；Pro 用户可用 Orchestrator (Argon)；未来将支持更多模型与套餐。</li>
+  <li>企业用户可通过 Gemini for business 使用两者。</li>
+</ul>
+
+<h3>社区反馈（Hacker News，298 分 / 72 条评论）</h3>
+<ul>
+  <li><strong>命名争议最热</strong>：不少评论认为 Argon / Carbon / Hydrogen 的命名难以判断强弱；有人猜测按原子序数（碳 &gt; 氢），也有人以为是字母序，还有人开玩笑「下一步该出 Oxygen/Uranium-235 了」。</li>
+  <li><strong>是否多此一举</strong>：有用户质疑如果 Orchestrator 确实更好，为什么不直接默认启用，除非它明显劣于锁定 Carbon；也有人认为这种动态路由与 Anthropic 的 advisor 模式、GitHub 的 HydraFusion 多模型流水线类似。</li>
+  <li><strong>缓存与计费</strong>：多位评论者好奇跨模型交接时缓存如何生效，指出 advisor 类模式下主要只为输出 token 付费，因而比全程使用贵模型便宜。</li>
+  <li><strong>信任模型自行决策</strong>：有开发者习惯按自己对难度的判断为子 agent 指定模型，担心把权限交给「对自身能力过于乐观」的模型；也有人认为大量样板代码任务确实可交给轻量模型。</li>
+  <li><strong>配额与套餐</strong>：部分 Pro 用户确认能用 Hydrogen 但看不到 Orchestrator；有人抱怨 Antigravity 的性价比，表示宁愿用其他模型。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50472260</guid>
+      <pubDate>Thu, 12 Nov 2026 18:52:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Rust 1.100 发布：never 类型历经十年终于稳定，自定义分配器 API 落地</title>
+      <link>https://news.ycombinator.com/item?id=50472038</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 编程语言/工具链版本发布与语言特性、内存分配器 API 进展，属编程工具与开源项目兴趣范畴，无避开主题冲突，推荐阅读</small></p><p>Rust 团队发布 <a href="https://blog.rust-lang.org/2026/11/12/Rust-1.100.0/">Rust 1.100.0</a>，被社区称为"很长时间以来最大的版本之一"。可通过 <code>rustup update stable</code> 升级。主要变化如下。</p>
+
+<p><strong>never 类型（<code>!</code>）终于稳定</strong>：历经 10 年、5 次失败的稳定化尝试后，这个表示"永不返回"的计算（如 <code>return</code>、<code>break</code>、<code>std::process::exit</code>）的标准空类型（uninhabited type）正式稳定，也完成了一项项目目标。此前 <code>!</code> 只能用于函数返回类型，现在可在任意位置书写，例如 <code>Result&lt;T, !&gt;</code>；同时支持 never-to-any 强制转换，便于在 <code>match</code> 分支中省去返回值。另一项配套改动是 <code>Infallible</code> 变为 <code>!</code> 的别名。由于这一变更，2024 之前的版本（2015/2018/2021）中"never 类型回退"（never type fallback）由 <code>()</code> 改为 <code>!</code>，属于破坏性变更——团队提前发布了兼容性警告并修复了受影响的公开 crate，但少数情况下仍可能让编译器把更多代码判定为不可达。</p>
+
+<p><strong>分配器 API（Allocator API）核心稳定</strong>：稳定化了 <code>allocator_api</code> 的核心部分，库作者可定义与 <code>Vec</code> 和 <code>Box</code> 配合使用的自定义分配器，入口是新稳定的 <code>Allocator</code> trait。这是 "Allocators 1.0" 项目目标的基础，后续还将扩展到更多集合与指针类型。</p>
+
+<p><strong>DropGuard</strong>：新增 <code>core::mem::DropGuard</code>，封装一个变量和一个闭包，在被丢弃时执行闭包，省去为"函数退出时无条件执行某段代码"而实现 <code>Drop</code> 的麻烦。它实现 <code>Deref</code>/<code>DerefMut</code> 以正常访问变量，并提供 <code>dismiss</code> 方法在不执行析构的情况下取回变量，便于实现带回滚的"全有或全无"式 API（如示例中的批量解析失败即回滚）。</p>
+
+<p><strong>conjure_zst</strong>：新增 <code>std::mem::conjure_zst</code>，作为在确认安全时创建零尺寸类型（ZST）值的专设法，取代 <code>transmute</code>、<code>MaybeUninit::uninit().assume_init()</code> 等写法。由于一些 API 依赖"无法构造此类类型"来保证安全（如 PyO3 中代表持有 GIL 的零尺寸标记 <code>Python&lt;'py&gt;</code>），该函数被标记为 <code>unsafe</code>。</p>
+
+<p><strong>Cargo 报告未使用依赖</strong>：rustc 已有的 <code>unused_crate_dependencies</code> lint 在多构建目标共用依赖时存在误报，Cargo 现在自行上报未使用的依赖并给出删除建议。该警告仅在构建所有可能使用该依赖的目标时出现，且不会针对未使用的 dev-dependencies 提示。这也是 Cargo 新 lint 体系（<code>[lints.cargo]</code> 表）的一部分。</p>
+
+<p><strong>减少 Cargo 缓存冲突</strong>：此前 build-dir 中不同构建配置（如 <code>--features</code>）产生的库和二进制文件副本，其配置哈希因平台限制并非总是生效，导致重复重建、漏重建或混淆，跨 git worktree 共享 build-dir 时更严重。现在通过按构建步骤而非文件类型组织目录、并将哈希从文件名移到父目录，让哈希一致生效。这是 2025 年 build-dir 布局目标的延续，也为缓存垃圾回收、跨 workspace 缓存去重与细粒度锁铺路。</p>
+
+<p><strong>Cargo 最小发布时长（min-publish-age）</strong>：恶意版本通常在发布后数小时到数天内被自动化扫描或社区发现，该功能允许在解析依赖时跳过过新的版本，即所谓"依赖冷却期"。可在 <code>.cargo/config.toml</code> 中通过 <code>global-min-publish-age = "3 days"</code> 开启，Cargo 会提示被搁置的版本；单次更新可用 <code>CARGO_RESOLVER_INCOMPATIBLE_PUBLISH_AGE=allow</code> 覆盖。注意：索引中没有发布时间字段的版本不会被拦；<code>cargo install</code> 忽略此检查；冷却期只降低风险，不能替代对依赖更新的审查。后续还计划在 crates.io 供应链加固目标下加入隔离期与可疑发布自动检测。</p>
+
+<p>此外还稳定了一批 API，包括 <code>Box::new_in</code>、<code>Vec::new_in</code>、<code>Vec::from_fn</code>、<code>Box::take</code>、<code>Box::map</code>、<code>Rc::map</code>、<code>Arc::map</code>、<code>bool::toggle</code>、<code>UnsafeCell::replace</code>、<code>str::trim_prefix</code>/<code>trim_suffix</code>、<code>Path::trim_prefix</code>、<code>Child::main_thread_handle</code> 等。</p>
+
+<p><strong>社区反应</strong>：评论区氛围热烈，有人称这是"Rust 100 版"的里程碑式发布，感谢所有维护者与贡献者。never 类型引发大量调侃——有人说"never 终于发生了"、"在 GTA6 之前等到了 never"，还有人提到"该类型按稳定日期命名"的老玩笑可以落幕了。也有人抱怨最大的老毛病之一（未使用依赖警告）终于有了官方方案，并称 AI 助手在升级后顺手清理了大批未使用依赖，讨论 <code>cargo-machete</code>/<code>cargo-shear</code> 是否因此不再必要（Cargo 主维护者回应：<code>cargo-udeps</code> 作者做了主要的向上游移植工作，主要局限仍是 dev-dependencies 检测）。关于依赖冷却期，有人指出今年风向反复：先是因供应链攻击而普遍提倡，如今又担心会错过零日修复。分配器 API 稳定也让正被 arena 泄漏困扰的开发者感到时机恰好。仍有用户呼吁稳定的原生 ABI，反驳者认为 <code>unsafe extern "C"</code> 已够用，稳定的原生 Rust ABI 会是前向兼容噩梦，而支持者认为这是以非源码形式分发库的前提。另有人问 <code>Result::into_ok</code>/<code>into_err</code> 为何缺席，回答是它们在截止日期后才合并，将随 1.101 发布。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50472038</guid>
+      <pubDate>Thu, 12 Nov 2026 18:39:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Show HN：$300 的刺绣机被订阅制锁住，他干脆自己写了开源应用 ZigZag</title>
+      <link>https://news.ycombinator.com/item?id=50470488</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源软件项目分享（绕过订阅限制自研刺绣软件，并集成 AI Agent/MCP），符合开源项目与软件功能兴趣，推荐阅读</small></p><p>作者 simpsoka 在 Hacker News 上分享了自己开发的开源刺绣软件 <a href="https://github.com/simpsoka/zigzag">ZigZag</a>。起因是他花约 300 美元买了一台 Brother Skitch PP1 刺绣机，发现随机附带的软件不仅质量糟糕，还要额外付费订阅，于是决定自己动手做一个替代品。</p>
+
+<h3>ZigZag 是什么</h3>
+<p>ZigZag 是一个用 Rust 编写的可视化刺绣编辑器（Rust 负责性能），可将 SVG 矢量图转换为机器刺绣针迹，在编辑器中逐针查看和调整，并导出 PES、DST、EXP、JEF、VP3 等主流格式，兼容大多数刺绣机。对于 Brother Skitch（PP1），还能通过蓝牙直接推送设计图案。</p>
+
+<p>项目最有特色的地方是内置了 MCP（Model Context Protocol，模型上下文协议）支持：编辑器里有一个 Agent 面板，可以直接运行 Claude Code 或 Codex，让 AI 代理通过 MCP 服务器实时创建和修改设计——代理只能调用设计工具，无法执行 shell 或改文件；画布上会以动态描边和标签显示它正在「绘制」「放置」或「改样式」。命令行工具 <code>zigzag</code> 与图形界面共用同一套 Rust 引擎，因此也可以脱离界面批量转换，例如 <code>zigzag convert logo.png -o logo.pes</code>。</p>
+
+<p><img src="/simpsoka/zigzag/raw/main/packaging/media/skitch-pp1-demo.jpg" alt="ZigZag 在 Brother Skitch PP1 上缝制图案" width="320" /></p>
+
+<h3>功能要点</h3>
+<ul>
+<li><strong>多种针迹类型</strong>：榻榻米填充、缎面（含自动缎面、底线、短针补偿）、平针／三针锁边、轮廓针、毯边针（E 针）、抽褶、波纹、十字绣、格纹、贴布绣等，并针对宽于 7 mm 的缎面做自动拆分。</li>
+<li><strong>走针规划器</strong>：去除被后续对象遮挡的填充（保留 0.5 mm 重叠）、按颜色分层排布缝制顺序、让行程针迹藏在填充下方或内部，尽量减少剪线；剪线阈值上限 50 mm。</li>
+<li><strong>数字化前检查</strong>：过窄的填充、过宽／过窄的缎面、过小文字、完全被覆盖的对象、绣花框尺寸等。</li>
+<li><strong>Illustrator 风格编辑</strong>：钢笔工具、直接选择、智能参考线、圆角、路径查找器、简化、贴图转矢量（Image Trace）、按 Brother／Janome 线色匹配的线材面板与色板。</li>
+<li><strong>跨平台</strong>：提供已签名的 macOS（Apple Silicon 与 Intel）DMG 和 Windows 压缩包，无需安装 Rust 环境。</li>
+</ul>
+
+<p><img src="/simpsoka/zigzag/raw/main/examples/studio.png" alt="ZigZag 工作室界面" /></p>
+
+<h3>社区反应与讨论</h3>
+<p>帖子获得 300 多点、130 多条评论，整体评价积极。有人问入门推荐什么机器，作者表示就是这台约 300 美元的 Brother Skitch PP1——亚马逊上的差评大多来自软件与订阅费，而非硬件本身。也有用户<a href="https://news.ycombinator.com/item?id=50470488">质疑</a>项目 README 的「尚未在真实 Skitch 上运行」一行，作者回应说那行已过时，并贴出在机器上缝制补丁的视频。</p>
+
+<p>讨论很快扩展到硬件订阅制本身：有人表示，正因为发现了这类开源替代品，才开始考虑购入刺绣机；也有人呼吁用开源／LLM 工具逐个「消灭」订阅锁，让硬件真正独立可用。还有用户提到曾被售价超过 1000 美元的 Hatch 软件劝退，后来对方又加入硬件指纹识别、禁止在虚拟机中运行，只好放弃这项爱好，希望 ZigZag 能让他把机器重新从车库里搬出来。其他人则补充了同类先前项目 <a href="https://www.libembroidery.org/">Embroidermodder</a>，以及 William Osman 针对工业机的尝试、Linus Torvalds 曾写过 Linux 刺绣机驱动等趣闻；也有人希望有朝一日能出现 Cricut 和 Silhouette 刻字机软件的开源替代。</p>
+
+<p>关于作者如何完成这个项目，simpsoka 坦承主要是借助 AI（ChatGPT）完成的：他原本大概不会手工从零写起，但借助 AI 后可以完全按自己设想的规格来做——仿 Adobe 套件的交互，加上内置 MCP 支持。他由此感慨「个性化软件的时代已经来了」。</p>
+
+<h3>你知道吗？</h3>
+<p>刺绣机使用的 DST、PES 等格式以针位坐标记录缝制指令，本质上是「针迹列表」而非图形，所以从图像到可缝制的设计（digitizing，数字化打版）通常需要专业软件，且不同机器、面料与线材都需要调整密度与补偿参数。这正是付费打版软件长期昂贵、也让开源替代品格外受欢迎的原因。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50470488</guid>
+      <pubDate>Thu, 12 Nov 2026 17:02:42 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Rust 1.100.0 发布：稳定 never 类型与自定义分配器，Cargo 引入 lint 系统</title>
       <link>https://news.ycombinator.com/item?id=50471793</link>
@@ -1381,57 +1483,6 @@ DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50389333</guid>
       <pubDate>Fri, 06 Nov 2026 07:40:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ MCP Explained：交互式图解模型上下文协议（MCP）</title>
-      <link>https://news.ycombinator.com/item?id=50379249</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是关于模型上下文协议（MCP）的交互式图解指南，属于 AI 软件技术进展和开源项目领域，用户会感兴趣并推荐阅读。</small></p><p>这篇文章介绍了一个名为 <a href="https://mcp-explained.com/">MCP Explained</a> 的交互式指南网站，该网站旨在深入浅出地解释模型上下文协议（Model Context Protocol，MCP）——一个用于连接 AI 应用与其所用工具和数据源之间的开放标准。</p>
-
-<p>指南的核心概念包括：MCP 服务器声明自己能够做什么，AI 应用将这些能力展示给模型，当模型需要某项功能时，应用调用服务器并将结果返回给模型。MCP 并非 REST API，而是基于 JSON-RPC 协议，通过 stdin/stdout 或单个 HTTP 端点进行通信，服务器还可以主动向客户端发送消息。指南覆盖了传输层、OAuth 认证、工具、资源、采样、任务、工具搜索和代码模式等多个主题，并提供了逐步展示每条 JSON-RPC 消息在网络上流动的交互式教程。</p>
-
-<p>该文章在 Hacker News 上引发了热烈讨论（318 分，133 条评论），社区反馈呈现两极分化。一些评论者认为这种交互式格式有趣且富有教育意义，但也有人批评它过于密集、对新手不够友好，甚至被形容为"AI 生成的噪音内容"。有评论指出 MCP 本质上就是 JSON-RPC 的标准化封装，对于开发者而言可能并不比直接使用 CLI 工具更高效。另一些评论则强调 MCP 的价值在于为不具备 shell 访问权限的 AI 代理提供受限的工具访问方式，尤其是在安全敏感的场景中。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50379249</guid>
-      <pubDate>Thu, 05 Nov 2026 14:08:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Window Sweaters：给 macOS 窗口穿上针织毛衣的小应用</title>
-      <link>https://news.ycombinator.com/item?id=50381383</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 这是一个开源的 macOS 趣味小程序，属于软件新功能/开源项目分享，但并非编程工具或效率提升类，故推荐阅读</small></p><p>「Window Sweaters」是一个由产品设计师 saragordic 开发并开源的 macOS 菜单栏应用，功能是为系统窗口添加针织风格的彩色边框，让你的桌面更「温馨」。这一趣味项目在 Hacker News 上获得了 309 分和 96 条评论，引发了不少讨论。</p>
-
-<img src="/saragordic/window-sweaters/raw/main/docs/hero.jpg" alt="Four overlapping windows edged with knitted borders in green, blue and rust colourways" />
-
-<p><strong>功能与使用</strong>：用户可通过点击菜单栏中的毛线图标来调整毛衣的风格、图案、边框宽度和针脚大小，也能暂停或彻底关闭。应用支持「按应用（By App）」和「之字形（Zigzag）」两种风格，可为某个应用单独设置毛衣，或让所有窗口统一配色。若 macOS 提示辅助功能权限，需要在「系统设置 → 隐私与安全性 → 辅助功能」中启用该应用，以便跟踪当前聚焦的窗口。</p>
-
-<p><strong>定制毛衣</strong>：项目已为 37 款应用手工定制了近 40 种配色，涵盖 Finder、Safari、Messages、Notion、Slack、Zoom、VS Code、Cursor、Claude、ChatGPT、Figma、Word 等。其他应用则会从自身图标中采样颜色并将其「软化」成毛线色调。用户还可以通过编辑 <code>apps.conf</code> 和 <code>charts</code> 文件夹自定义配色与图案，或在启动时加载 <code>~/.sweatersrc</code> 脚本。</p>
-
-<p><strong>安装与局限</strong>：可通过 Homebrew 安装（<code>brew install --cask saragordic/tap/window-sweaters</code>），或从 Releases 下载 ZIP 拖入 Applications 文件夹，也可以让编码 AI 代理直接按仓库说明帮你安装。应用目前尚未通过 Apple 公证，且使用私有 macOS 窗口 API，系统更新可能影响其运行；官方仅针对 Apple Silicon 和 macOS 26 做过实测。项目基于 Felix Kratz 的 JankyBorders 构建，采用 GPL-3.0 许可。</p>
-
-<p style="margin-top:1em;"><strong>社区反馈</strong>：评论区氛围轻松。作者本人现身回应，表示这是自己的第一个开源项目，「纯粹是为了好玩」，并感谢大家的反馈。许多用户觉得这想法很可爱、颇具趣味。不过也有声音提出担忧：有人表示鉴于今年的供应链攻击事件，对来自陌生 GitHub 仓库且未经公证的二进制抱有戒心；也有人讨论「把代码仓库发给 LLM 代理去安装」这一做法是否真的更安全，涉及提示注入与源码—构建产物一致性问题。另有用户反映仓库缺少真实屏幕截图（作者随后补充了一段演示视频），以及建议标题注明这是 macOS 应用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50381383</guid>
-      <pubDate>Thu, 05 Nov 2026 16:50:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>为什么你应该下载并归档喜爱的 YouTube 视频：自托管媒体库实践分享</title>
-      <link>https://news.ycombinator.com/item?id=50378571</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲下载归档 YouTube 视频与自托管媒体库的实践，涉及自托管/基础设施方向，用户对此兴趣不高，也不属于明确感兴趣类别，故定为可选</small></p><p>这篇文章呼吁用户主动下载并归档自己喜爱的 YouTube 视频。作者指出，企业互联网对艺术并不友好，你喜爱的内容并不真正属于你，除非你亲自保存。一个直观的证据是：只要在 YouTube 的「点赞视频」播放列表设置中开启显示不可用视频，就会发现大量早期点赞的视频已经无法观看。</p>
-<p>对于大多数人，使用 <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> 或其包装工具，配合大容量硬盘或 NAS 即可满足需求。但作者有特殊需求：他习惯在入睡时播放 Many a True Nerd（MATN）频道的 Let's Play 视频，因此需要一套能接入现有 NAS、可在电视上播放、并能自动整理数百个视频和数十个播放列表的方案。</p>
-<p>作者的方案基于 <a href="https://jellyfin.org/">Jellyfin</a> 媒体库：将 YouTube 内容以「电视节目」模式建库，关闭元数据刮削器，并使用 ytdl-sub（一个基于 yaml 配置的 yt-dlp 包装器，自带 Docker 版 Web IDE）来维护播放列表结构并写入元数据。<img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/criminallyvulgar/ytdlp-sub-subs.webp" alt="ytdl-sub 中的播放列表与视频列表" /></p>
-<p>ytdl-sub 默认按年份将视频标记为「季」，同时按播放列表存放文件夹，导致 Jellyfin 中每个视频出现在两个位置（年份系列和播放列表系列）。<img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/criminallyvulgar/jellyfin_matn.webp" alt="Jellyfin 中 MATN 频道页面" /> 作者最近发现修复方法：在 ytdl-sub 配置中将播放列表标题直接设为季号，虽然看似会出错，但实际可行。<img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/criminallyvulgar/ytdlp-sub-channel.webp" alt="ytdl-sub 配置文件" /></p>
-<p>存储方面，作者使用 <a href="https://tdarr.io/">Tdarr</a> 将媒体库统一转码为 HEVC/H.265，在 2TB 库中节省了约 700GB。不过他并不推荐 Tdarr——界面复杂且容易出错，除非你确实需要压缩存储，否则默认工作流就够用了。</p>
-<p>社区讨论中，多位用户分享了各自的归档经验：有人通过 RSS 订阅频道并配合脚本自动下载；有人后悔没有及时保存已消失频道的视频（如 Myles Power 频道被整体删除后成为失传媒体）；也有评论者认为，个人下载并不能解决更大的问题——版权期限过长且不可靠，需要为档案工作者提供版权豁免，否则大量内容将在未来几十年内流失。</p>
-<h3>你知道吗？</h3>
-<ul>
-<li>YouTube 的「点赞视频」列表仅保留最近 5000 个视频，更早的会从列表开头消失，因此依赖该列表的用户应尽早备份。</li>
-<li>互联网档案馆（Internet Archive）会响应几乎任何人的删除请求，并非绝对永久的存档，上传敏感数据时需谨慎。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50378571</guid>
-      <pubDate>Thu, 05 Nov 2026 13:00:11 GMT</pubDate>
     </item>
   </channel>
 </rss>

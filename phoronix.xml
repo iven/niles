@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 12 Nov 2026 20:46:27 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 01:47:29 GMT</lastBuildDate>
+    <item>
+      <title>借助 OpenAI Codex，近 20 年历史的 Radeon 老显卡驱动缺陷被发现并修复</title>
+      <link>https://www.phoronix.com/news/Codex-R600-UVD-FIx-Linux-7.5</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主线是近 20 年前的 AMD Radeon Linux 驱动 bug 修复，AMD 显卡在来源配置中属不太感兴趣；OpenAI Codex 协助定位只是方法性亮点，涉及 AI 编程工具有一点兴趣，但占比小，整体兴趣不明确</small></p><p>AMD 面向 Linux 7.5 合并窗口的又一批内核图形/计算驱动补丁已发出。除了大量常规修复和面向未来 GPU 的新 IP 支持工作外，本批次最出人意料的是一项针对 <strong>R600 时代老硬件的修复</strong>——涉及 Radeon HD 2000/3000 系列，也就是诞生近二十年的显卡。</p>
+
+<p>具体而言，补丁修复的是 R6xx 时代 GPU 上的统一视频解码（UVD，Unified Video Decoding）IP 模块。AMD 早已不再官方维护 R600 系列，但一位开源贡献者 Ted Bullock 在使用中遇到视频解码问题后，借助 AI 完成了调查与修补。他在补丁说明中描述：在自己的老款 iMac7,1（RV610/M74，设备 ID 1002:94c8）上调查视频花屏问题，发现当解码器在 GPU 绘图的同时从系统内存读取压缩视频时会导致画面损坏；将输入移到显存（VRAM）后解码恢复正常，关闭图形绘制也能消除花屏。因此他提议让该系列芯片的 UVD 缓冲区常驻显存，与驱动对其他部分芯片的处理方式一致。</p>
+
+<p>由于 RV610、RV620、RV630、RV635、RV670 共享相同的 RV6xx 解码路径和旧版 R600 固件，作者推测它们有相同的硬件需求，但其他型号仍需有硬件的人验证。该补丁在 Debian 上测试，作者明确表示使用了 Codex 协助调查、测试和编写补丁。补丁最终被接受，并随本次拉取请求进入 Linux 7.5 内核。</p>
+
+<img src="//www.phoronix.net/image.php?id=944&image=asus_3870_card_med" alt="Radeon HD 3870" />
+
+<p>本次 AMD 拉取请求还包含众多其他修复与改动，涵盖 amdgpu（DCN 6 DML2、VCE、SMU 15、TLB fence 处理、JPEG type4 数据包支持、UALink、RAS、GPU 复位、GPUVM、HDMI 2.x、DSC、VRR/freesync、HDR、eDP/LVDS 等）、amdkfd（SVM、CRIU、陷阱处理、dma-buf、非连续与无 CPU NUMA 拓扑支持、profiler 相关修复）、drm 的 HDMI 2.2 FRL 速率 EDID 解析，以及 radeon 的 ATRM 边界检查与本次的 R6xx UVD 修复；UAPI 方面更新了 KFD profiler 版本号。</p>
+
+<p>本周拉取请求中并未包含新的 AMD GFX13（RDNA5）补丁，预计可能在下周提交。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Codex-R600-UVD-FIx-Linux-7.5</guid>
+      <pubDate>Fri, 13 Nov 2026 01:41:27 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Rust 1.100 发布：「never」类型 ! 历经十年终于稳定</title>
       <link>https://www.phoronix.com/news/Rust-1.100-Released</link>
@@ -731,15 +750,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/systemd-Loves-Rust</guid>
       <pubDate>Wed, 04 Nov 2026 12:44:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>Synaptics 疑似通过法律威胁迫使开源 DisplayLink 驱动 Vino 下架</title>
-      <link>https://www.phoronix.com/news/Synaptics-Blocks-Vino-Driver</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及开源驱动的法律纠纷，主题偏向公司行为而非技术内容，兴趣不明确</small></p><p>今年早些时候，曾有一个针对现代 DisplayLink 硬件的新型实验性开源 Linux 驱动受到关注。这款名为「Vino」的 DisplayLink 驱动，是一款通过净室逆向工程开发的驱动，部分由 AI 参与开发，并以 Rust 语言编写。</p><p>然而，遗憾的是，这款开源驱动在遭遇 Synaptics 的法律威胁后已经消失。据本周 LKML（Linux 内核邮件列表）上的帖子和相关附件显示，Synaptics 似乎动用了其法务团队，以涉嫌侵犯其专利为由阻止这款由社区独立开发的驱动，并向 Vino 驱动的开发者发出了停止侵权（cease and desist）通知。</p><p>目前，Vino 驱动的 GitHub 仓库已不再公开可见。这意味着短期内不大可能看到上游的开源 DisplayLink Linux 驱动出现。早期的 USB2 时代 DisplayLink 硬件在 Linux 上运行良好，甚至有官方开源驱动的支持，但如今看来，Synaptics 将确保其最新的 USB 图形相关知识产权不会再有对应的开源驱动。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Synaptics-Blocks-Vino-Driver</guid>
-      <pubDate>Wed, 04 Nov 2026 11:03:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
