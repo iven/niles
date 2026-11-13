@@ -3,7 +3,72 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 13 Nov 2026 17:41:42 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 23:30:06 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.325：沙箱 Bash 命令默认需授权，VS Code 新增提示建议与无 API key 登录</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.325</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.325，本次更新以权限与沙箱行为调整、VS Code 扩展增强、子代理与 MCP 任务体验改进为主，另有大量 bug 修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>沙箱 Bash 默认走权限流程</strong>：沙箱内的 Bash 命令不再自动放行，而是按正常权限流程确认；想保持免提示需设置 <code>sandbox.autoAllowBashIfSandboxed: true</code>。通过托管设置开启沙箱的场景，需要在最高优先级的托管源中设置该项。</li>
+<li><strong>只读 git 命令更谨慎</strong>：在非项目仓库或未受信任仓库中，只读 git 命令会先询问；要用 <code>--add-dir</code>（而非 <code>additionalDirectories</code> 设置）添加该仓库才能免提示。</li>
+<li><strong>定时任务与 /loop 的技能授权</strong>：运行声明了 <code>allowed-tools</code> 或 hooks 的技能前会先询问，需在 <code>permissions.allow</code> 中加入 <code>Skill(name)</code> 才能无人值守运行。</li>
+<li><strong>子代理输出被截断时重答</strong>：触及输出 token 上限的子代理，现在会被要求更简短地重给出完整答案，而不是只返回结尾部分。</li>
+<li><strong>VS Code 扩展</strong>：终端中提供提示建议（Tab 接受，设置 <code>promptSuggestionEnabled: false</code> 可关闭）；新增不创建 API key 的 Console 登录；在 SSH、WSL、容器窗口中登录 MCP 服务器时可粘贴重定向 URL；修复模型选择器勾选、effort 上限、登录选项、MCP 工具权限提示文案等问题。</li>
+<li><strong>策略拦截说明</strong>：组织策略阻止请求时，错误下方会提示如何继续——运行 <code>/rewind</code> 修改消息，或运行 <code>/clear</code>。</li>
+<li><strong>Notebook 提示</strong>：Claude 读过或编辑过 Jupyter notebook 后，VS Code 等集成终端会在 spinner 提示中建议重新运行 notebook 单元格（仅显示一次）。</li>
+<li><strong>/login 隐私确认</strong>：登录时会请求更改隐私设置的许可。</li>
+<li><strong>费用统计范围扩大</strong>：<code>/cost</code>、<code>$.session.usage()</code>、<code>--max-budget-usd</code> 及成本与 token 指标现在会统计 mod 的 <code>$.model.complete</code> 与 <code>$.model.classify</code> 调用。</li>
+<li><strong>MCP 任务交互</strong>：任务等待用户回答时 Claude 会被告知并可指向 <code>/tasks</code>；在 <code>/tasks</code> 中按 Enter 可重现问题；对后台任务的问题按 Esc 表示"稍后回答"，问题保留在 <code>/tasks</code>；问题不再打断正在输入的草稿。</li>
+<li><strong>远程控制</strong>：<code>/resume</code> 与 <code>/teleport</code> 在已连接会话存在分享链接（或无法确认）时先断开，需运行 <code>/remote-control</code> 重新连接；<code>claude remote-control</code> 自行停止时返回状态码 4、无法注册时返回 69，便于服务管理器重启。</li>
+<li><strong>插件与市场</strong>：插件 MCP 包（<code>.mcpb</code>、<code>.dxt</code>）改为解压到 plugins 目录，支持只读插件文件夹；托管设置声明、启用并列入 <code>prependPlugins</code>／<code>appendPlugins</code> 的远程市场插件视为组织插件，<code>pluginDigests</code> 弃用；市场 <code>ref</code> 可接受分支或标签上任意提交的完整 ID（旧版本客户端无法克隆此类固定版本）；安装确认与警告中明确说明插件可在本机运行代码、访问文件与 shell。</li>
+<li><strong>工作树隔离与沙箱收紧</strong>：隔离的工作树会话／代理被拒绝执行 <code>git bisect run</code>、<code>git maintenance register|start</code> 及 <code>scalar</code> 的初始化命令并被告知可用操作；EnterWorktree 拒绝经由项目内符号链接的 <code>WorktreeCreate</code> 路径；沙箱拒绝向新增目录中的 <code>.claude</code> 设置、技能、代理、命令与 hooks 写入；沙箱化的 <code>git checkout</code>／<code>git stash</code>／autostash pull 无法更新受保护文件时会向 Claude 说明原因。</li>
+<li><strong>其他行为调整</strong>：tmux、iTerm2 teammates 及 agents 视图中用 ← 打开的新会话改为在会话目录启动；<code>CLAUDE_CODE_MAX_CONTEXT_TOKENS</code> 也作用于以 <code>claude-</code> 开头的未识别模型 ID（如网关的 <code>claude-sonnet-latest</code>）；连续 8 轮后台或定时任务启动后，提示建议刷新频率降低以节省用量；Claude 被要求把需要保留的文件放在临时草稿目录之外。</li>
+</ul>
+
+<h3>其他改动（修复与优化）</h3>
+<ul>
+<li>修复 <code>/security-review</code> 与技能内联 git 命令在 bare 仓库工作树、<code>--separate-git-dir</code> 检出和 Android <code>repo</code> 检出中报错。</li>
+<li>修复子代理模型问题：<code>opusplan</code>／<code>haiku</code> 设置下自有模型的子代理被切到 plan 模式模型；不同模型子代理按主会话模型计算文件读取与 MCP 结果。</li>
+<li>修复多第三方网关与 Foundry 上会话每轮都报上下文长度错误而不压缩；修复 <code>sonnet[1m]</code> 设置在新安装时被改写为 API 拒绝的模型 ID。</li>
+<li>修复非正常退出后恢复会话丢失近期轮次；修复工作目录被删除后命令改在启动目录运行（现在直接报错并可重发）。</li>
+<li>修复 <code>plansDirectory</code> 无法写入时已批准的计划编辑丢失（现在回退到默认计划文件夹并提示原因）。</li>
+<li>修复焦点视图隐藏定时任务在你提问后的回复；修复关闭全屏时后台子代理视图偶尔缺少提示；修复长选项换行被部分覆盖、首次运行界面在窄终端丢行、欢迎标题含控制字符或换行时的显示问题。</li>
+<li>修复启动时的权限规则警告与"MCP 服务器需要认证"提示在滚出视野时被记为已读。</li>
+<li>修复 <code>/stats</code> 活跃天数多算一天；<code>/insights</code> 无合格会话却称报告就绪，且 HTML 报告中两个值未转义；<code>/voice</code>、<code>/fast</code>、<code>/model</code> 在受管设置或无法核查时给出误导性提示（现在说明是哪个设置限制）。</li>
+<li>修复 <code>claude purge</code> 无终端可读键时静默挂起、<code>claude plugin eval --output-dir ''</code> 误写当前目录；修复 <code>.oauth_refresh.lock.owner.tmp.*</code> 残留文件堆积；修复 <code>claude auth status</code> 等短命令残留锁导致下一会话卡约一分钟。</li>
+<li>修复后台会话误用启动 shell 的 API key／token 并计费；后台切换登录的更多场景现在直接拒绝并说明可行方式；修复退出对话框二次回车导致后台工作中断。</li>
+<li>修复 MCP 相关多处问题：token 短暂被拒后服务器长期显示"需要认证"、headless 模式下 elicitation 被静默取消、重连后返回"未连接"、任务卡住或停止更新、<code>/mcp</code> 列出已卸载插件、以及 Claude Desktop／SDK 会话在文件夹移动或预热启动后 MCP 服务器归类与 WebSocket 连接错误。</li>
+<li>修复权限规则缺口：<code>cd</code> 后相对路径 deny／ask 规则失效（现在也适用于新增目录）、<code>mcp__plugin_*_</code> 名称大小写不匹配、重启后到达的审批未应用 deny 规则、部分复合 Bash 命令未询问、Bash allow 规则可能执行到其他程序。</li>
+<li>修复 Artifact 相关：读取自有 artifact 仍需授权、云会话中 deny／ask 规则与 hooks 未生效、allow 规则下未经确认修改或上传外部可见内容、"不再询问"后跳过确认、自动模式仅评估首次变更。</li>
+<li>修复 Code Mode 忽略 <code>EnterWorktree</code> 进入的工作树、写入 <code>~</code> 路径、权限对话框中带"Yes"的输入未传给 Claude、恢复会话时自行开始工作等问题。</li>
+<li>修复 <code>/feedback</code> 与 <code>/bug</code> 上传非当前账号／组织记录的会话；修复会话在已完成 PR 只需本人审查时仍显示等待输入。</li>
+<li>修复 <code>CLAUDE_CODE_PLUGIN_SEED_DIR</code> 中新 home 目录首次运行跳过 <code>WorktreeCreate</code> hook；修复 <code>worktree.sparsePaths</code> 与稀疏插件克隆在旧版 git（如 2.34）遗漏根目录文件；修复自托管 runner 会话无法使用中途添加的仓库。</li>
+<li>修复 Linux 沙箱在工作目录位于 <code>denyRead</code> 内 <code>allowRead</code> 文件夹之下时出现 <code>bwrap: Can't create file</code>；修复 Claude Desktop 第三方部署卡在"Stopping"直到 token 续期完成。</li>
+<li>改进提示文案：私有插件市场的 <code>HTTPS authentication failed</code> 现在说明 git 终端提示与 askpass 被禁用并兼容新版 git；<code>claude --desktop</code> 登录错误会指明阻塞登录的 API key、provider 或设置；macOS／Windows 上 <code>/voice</code> 的"未检测到音频"会说明去哪选择麦克风。</li>
+<li>移除云会话与远程控制下花费上限和共享预算错误中的"联系管理员提高额度"。</li>
+<li>Claude Code on the web：云会话通过工具搜索加载的 MCP 工具描述上限从 4,096 字符提升至 16,384 字符。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.325</guid>
+      <pubDate>Fri, 13 Nov 2026 20:40:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>fd v10.4.2 发布：修复 --ignore-contain 引起的性能退化</title>
+      <link>https://github.com/sharkdp/fd/releases/tag/v10.4.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><code>fd</code> 发布 v10.4.2 版本，这是一个仅包含问题修复的小版本更新。</p>
+<h3>问题修复</h3>
+<ul>
+<li>修复了由 <code>--ignore-contain</code> 选项引入的性能退化问题，详情见 <a href="https://github.com/sharkdp/fd/issues/1913">#1913</a> 与 <a href="https://github.com/sharkdp/fd/pull/1914">#1914</a>。</li>
+</ul>
+<p>本次更新没有新增功能或其他改动，建议使用 <code>--ignore-contain</code> 的用户升级以获得正常的搜索性能。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.4.2</guid>
+      <pubDate>Tue, 10 Mar 2026 07:33:26 GMT</pubDate>
+    </item>
     <item>
       <title>Devbox 0.21.0 发布：安装与更新改为直接从 GitHub Releases 获取版本</title>
       <link>https://github.com/jetify-com/devbox/releases/tag/0.21.0</link>
@@ -1431,31 +1496,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.304</guid>
       <pubDate>Mon, 19 Oct 2026 21:34:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.303 发布：错误修复与可靠性改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.303</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.303 版本。该版本主要包含错误修复与可靠性改进，官方公告未披露具体的修复细节。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.303</guid>
-      <pubDate>Sun, 18 Oct 2026 22:26:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>chezmoi v2.73.2 发布：修复若干 bug</title>
-      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.73.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>chezmoi（一个用 Go 编写的 dotfile 管理工具）发布了 v2.73.2 版本，主要包含以下 bug 修复：</p>
-<ul>
-<li>修复缓存密码模式下 <code>keepassxcAttachment</code> 模板函数的问题</li>
-<li>忽略 tar 压缩包中解析到当前目录的条目</li>
-<li>修复在 <code>exact_</code> 目录下添加单个文件时 <code>re-add</code> 命令的问题</li>
-<li>不再读取 <code>external_</code> 目录中的 <code>.chezmoidata</code> 文件</li>
-</ul>
-<p><a href="https://github.com/twpayne/chezmoi">chezmoi</a> 是一款用于安全、可靠地管理多台机器上 dotfile 配置的工具。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.73.2</guid>
-      <pubDate>Sat, 17 Oct 2026 15:09:48 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,68 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 13 Nov 2026 17:42:57 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 23:30:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Edge0-145B：1450 亿参数开源模型跑在个人笔记本上，峰值内存仅 29GB</title>
+      <link>https://news.ycombinator.com/item?id=50475713</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源大模型发布公告，且面向本地编程/推理场景、可在笔记本上运行，同时命中新模型发布（很感兴趣）与开源项目（感兴趣），属必看内容</small></p><p>Edge0 团队开源了 <a href="https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer">Edge0-145B 与 Edge0-120B</a> 两款模型，以及统一的推理框架和部署工具。官方称 Edge0-145B 是"全球首个 1450 亿参数级的开源端侧模型"，在编码、推理与 Agent 任务上的表现可与部分前沿云端模型比肩，同时完全在本地运行，不产生云端 token 费用，数据不出本机，核心能力可离线使用。</p>
+
+<h3>本地运行的实测指标</h3>
+<ul>
+<li><strong>内存</strong>：峰值约 29GB，可在 48GB 内存的笔记本（如 MacBook Pro）上运行；</li>
+<li><strong>预填充</strong>：1100+ tokens/s，能快速吞下数十页代码；</li>
+<li><strong>生成</strong>：80+ tokens/s，快于人类阅读速度；</li>
+<li><strong>功耗</strong>：典型约 120W，在该配置下可持续运行而不降频；</li>
+<li><strong>上下文</strong>：128K–256K，长输入下速度基本不变。</li>
+</ul>
+<p>作为对照，此前发布的手机端模型 Edge0-35B 在 iPhone 18 Pro Max 上以约 2.5GB 内存实现 37+ tokens/s。官方同时给出一张端侧模型规模演进图，统计了 14 家实验室、67 个 1B 以上开源模型，用以说明此前端侧模型长期受限于内存（苹果端侧基础模型约 3B，Gemini Nano 为 1.8B/3.25B）。</p>
+<img src="https://cdn.hashnode.com/uploads/gql/6aea03219fa4aa99923b5acf/aeeae022-73c9-4d31-847a-d495a5af3200.png" alt="端侧模型参数规模随时间的变化" />
+
+<h3>四层设计：模型与推理引擎协同</h3>
+<ol>
+<li><strong>架构</strong>：在稀疏专家（MoE）之间共享大矩阵——每 64 个专家共享两个大矩阵，各专家仅保留少量差异参数，专家数量不变但需存储和搬运的权重显著减少。145B 总参数中，每步推理仅约 10B 参与计算。</li>
+<li><strong>训练</strong>：从第一天就按端侧架构训练，把部署约束写进设计，而非先训云端大模型再做压缩或剪枝。</li>
+<li><strong>加载</strong>：GPU 显存、系统内存、SSD 三级流水——常用"热专家"常驻显存，约 40GB 的专家库放在系统内存按需换入，约 48GB 词表数据放在 SSD 上按需读取，读取与计算重叠以避免串行等待。</li>
+<li><strong>调度</strong>：GPU 处理已缓存专家，CPU 并行处理剩余工作；辅以投机解码（speculative decoding）一次验证多个候选 token，把权重读取成本摊到更多输出上。</li>
+</ol>
+<img src="https://cdn.hashnode.com/uploads/gql/6aea03219fa4aa99923b5acf/ad8efc79-2b69-42a0-8ed2-cf582b7c0b58.png" alt="模型与推理引擎协同设计示意" />
+
+<h3>基准测试</h3>
+<p>官方给出的六项基准成绩为：DeepSWE 1.1 得 64.6（Qwen3.8-Flash-Next 58.7、DeepSeek-V4-Flash-0731 54.4）、Terminal-Bench 2.1 得 86.52、HLE 35.4、GPQA-Diamond 90.4、IFBench 80.6、AA-LCR 79.3。相对主流端侧基线 Qwen3.8-27B，提升最大的是 Agent 与编码类任务（Terminal-Bench +18.5%，DeepSWE +53.1%）。</p>
+<p>更关键的对比是内存：Edge0-145B 六项基准均值 72.8、实测峰值内存 29GB；Qwen3.8-Flash-Next 均值 71.7，但按标准 4-bit 部署估算需约 70GB。也就是在约 40% 的内存占用下取得相当或更好的能力，从而能塞进 48GB 笔记本。需要说明的是，基线模型的内存数字为估算值，尚未实测。</p>
+<img src="https://cdn.hashnode.com/uploads/gql/6aea03219fa4aa99923b5acf/6eef0e15-dc4b-4e23-ac01-3ab5daf5287e.png" alt="能力与峰值内存对比" />
+<img src="https://cdn.hashnode.com/uploads/gql/6aea03219fa4aa99923b5acf/72bc6257-5a9e-4eca-b73c-e4b9c274bf81.png" alt="质量与峰值内存关系图" />
+
+<h3>本地 Agent 演示</h3>
+<p>官方强调模型能"把活干完"：从一句自然语言需求出发，拆解需求、规划步骤、写代码、调用工具执行，出错后自行调试修复，再截图检查结果并迭代，往往需要数十轮规划与复核——而这一切都在本地完成，不产生云端 token 或 API 费用。展示的案例包括：</p>
+<ul>
+<li><strong>视频制作</strong>：一小时内完成一支讲解 Tesla Roadster 如何"飞行"的科普视频，涵盖资料研究、脚本、素材与剪辑；</li>
+<li><strong>3D 建模</strong>：在 Blender 中一小时内搭出曼哈顿城市场景，自行调整材质与灯光并迭代渲染（人工成本约 1.2–1.8 万美元、至少一个月）；</li>
+<li><strong>游戏开发</strong>：制作可玩的小游戏，并为奇幻 RPG 从零搭建中世纪都城——城墙、上千栋老城房屋、广场喷泉、哥特双塔立面、肋拱中殿与彩窗，并渲染 20 秒预告片级穿城动画，模型通过检查渲染画面自行修正穿模与比例错误；</li>
+<li><strong>硬件控制</strong>：仅凭"写一个穿越障碍找到红色背包的无人机程序"一句指令，生成飞控与视觉识别代码，驱动真机在室内穿杆飞行并自主找到目标；</li>
+<li><strong>PCB 设计</strong>：在 KiCad 中从零完成器件布局与双层板布线，再导入 Unreal Engine 5 设置相机与灯光渲染装配动画。</li>
+</ul>
+
+<h3>社区反馈</h3>
+<p>讨论区气氛"谨慎兴奋"，主要集中在几点：</p>
+<ul>
+<li><strong>血缘关系</strong>：多位用户指出 Hugging Face 页面把 Qwen3.8-Flash-Next 标为 base model，GitHub 也附有 <a href="https://github.com/Edge0-AI/Edge0/blob/main/licenses/edge0-model/upstream-reference.json">upstream-reference.json</a>，即这是在其基础上改架构的衍生模型（激活参数 10B vs 原版 6B、总参数 145B vs 180B，但沿用同样的 51B n-gram 表）；性能提升部分可能来自原生训练导致的抗量化损失更小。</li>
+<li><strong>"开源"的成色</strong>：有评论认为这只是开放权重（open weights），另有人进一步指出许可证限制过严，甚至不符合通常的开放权重定义（也有人反问 Apache 2.0 是否算过严）。</li>
+<li><strong>硬件与格式</strong>：发布以 NVFP4 为主、偏向 NVIDIA Blackwell + CUDA 13，官方虽在博客里谈 MacBook 并测了 M2 Ultra，但当天没有 Mac 运行时；配套 App 仅支持 Windows。文件形态是分散的目录而非单个 GGUF，用户期待社区补齐其他量化与推理引擎支持。</li>
+<li><strong>能力存疑与期待</strong>：有人希望第三方复现基准；对 Blender 类演示，老用户认为 Agent 产出"通常很乱、清理成本抵消收益"，但承认最近进步明显；也有做 PCB 的用户表示高密度布线下模型仍会卡在局部、不如人类那样"跳出来换思路"。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>NVFP4</strong>：NVIDIA 在 Blackwell 架构上引入的 4-bit 浮点量化格式，相比传统 INT4 在极小位宽下保留更好的动态范围，因此发布方首选该格式；代价是强绑定新硬件。</li>
+<li><strong>投机解码</strong>：先用小模型或启发式方法"猜"出若干候选 token，再由大模型一次性并行验证，从而在一次权重读取中产出多个 token——这是本次能把 80+ tokens/s 的关键之一。</li>
+<li><strong>MoE 的"共享矩阵"思路</strong>：本质是把专家的"共性与个性"拆开存储，在专家数不变的前提下大幅削减需要常驻显存/内存的权重体积，这也是端侧跑百亿级模型的常见突破口。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50475713</guid>
+      <pubDate>Thu, 12 Nov 2026 23:06:17 GMT</pubDate>
+    </item>
     <item>
       <title>Claude.ai、Claude Code 与 Claude Console 发生大面积登录故障（已恢复）</title>
       <link>https://news.ycombinator.com/item?id=50481187</link>
@@ -1529,46 +1590,6 @@ DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50397994</guid>
       <pubDate>Fri, 06 Nov 2026 20:27:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 混合模型测试：Jev + Opus 以 4 倍更低成本达到前沿模型精度</title>
-      <link>https://news.ycombinator.com/item?id=50397429</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及混合AI模型测试与成本优化，属于AI技术进展和编程效率改进经验，用户会感兴趣</small></p><p>Hightouch 团队在一篇博客中测试了新型「决策模型」（decision model）在身份解析（identity resolution, IDR）评估任务中的表现。他们发现，将廉价决策模型 Jev 与前沿模型 Claude Opus 结合构建混合评估器，能以 4 倍以上的更低成本达到前沿模型的精度，而单独使用 GPT-6 Luna 或 Jev 虽然便宜，精度却明显落后。</p>
-
-<p><b>背景：身份解析的难题</b></p>
-
-<p>身份解析是将数据记录映射到真实个体的过程，是客户洞察、个性化与数据分析的基础。其最大问题是「过度合并」（over-merging），即一个身份错误地对应多个真人。由于真实数据没有答案可对照，评估 IDR 算法通常需要人工抽样审查（速度约 50 个身份/小时），且对罕见的过度合并率需要超过 1000 个样本才能得到 ±1% 内的精确估计。LLM 天然适合复制人工审查工作，从而并行规模化评估。</p>
-
-<p><b>测试方法</b></p>
-
-<p>团队使用华盛顿大学健康指标与评估研究所的 <a href="https://hightouch.com/blog/llm-judges-identity-resolution">pseudopeople 工具</a>模拟虚构美国小镇，生成 1000 个身份（一半为带噪声的单人记录，一半为过度合并），并加入打字错误、误读字符、昵称、字段留空等真实数据噪声。模型被提示判断每份档案描述的是一个人还是多个人。</p>
-
-<p><b>主要发现</b></p>
-
-<ul>
-<li>开箱即用表现：Luna 优于 Jev（97.3% vs 95.6%），但在更难的案例上两者差距消失。</li>
-<li><b>置信度校准是关键</b>：Jev 的错误大多伴随低置信度，而 Luna 的错误大多伴随高置信度（90–100% 区间），即 Luna 严重过度自信。这使 Jev 在混合模型中能更有效地把存疑案例转发给昂贵模型。</li>
-<li>前沿模型仍比决策模型更准确。决策模型开箱即快约 10 倍、便宜约 90 倍（每 1000 个身份 0.05–0.10 美元，约 0.15 秒），但在较难基准上比 Opus 落后约 6 个百分点。</li>
-<li>针对难案例，团队调整置信度阈值（Jev 60%、Luna 70%）以最大化精度。</li>
-</ul>
-
-<p><b>混合评估器结果</b></p>
-
-<p>团队构建了「Jev 先判、必要时转发 Opus」的混合模型。在较易测试中，将 30–90% 置信度区间（22% 的案例）转发给 Opus 后，精度达到 98.8%（接近 Opus 单独的 99.0%），成本仅 $0.88/1000 vs Opus 的 $3.86。在更难测试中表现更明显：Jev 的校准优势使其在更困难数据上自动转发更多案例（成本升至 $2.94，但仍低于 Opus 单独的 $5.39），精度达到 95.3%，超越 Luna 混合（91.6%）和 Opus 单独（95.1%）。</p>
-
-<p><b>结论</b></p>
-
-<p>校准能力至关重要。Luna 开箱表现更好，但其过度自信使其在混合模型中表现平庸；而混合 Jev 能自动随难度伸缩开销以维持精度，非常具有实用价值。团队认为这一混合范式不仅限于身份解析领域，计划后续探讨欠合并（under-merging）问题以及开放权重决策模型的性能退化。</p>
-
-<p>Hacker News 社区对文章反响热烈（312 分，68 条评论）。多位读者分享了类似实践经验：有人用同款混合方法做安全工程评估，有人用本地决策模型（如 Qwen3.8-27B）编排并委派给 Claude 以大幅降低成本，也有人认为「决策模型控制/优先级化的上下文管理」是未来方向。部分评论质疑此类测试仅适用于「沙盒场景」缺乏实际说服力，也有读者对「4x lower」这一说法提出数学表述上的异议（认为用 0.25x 更严谨）。</p>
-
-<p><b>你知道吗？</b></p>
-
-<p>「决策模型」（decision model）是新兴的一类语言模型，它们不生成自由文本，而是针对特定条件返回 0–1 置信度得分，因此比通用前沿模型更快更便宜。文章提及的 Jev 与 GPT-6 Luna（Decisions API 版本）即属此类；而「信心校准」（calibration）指模型输出的置信度与其实际正确率的匹配程度——校准良好的模型在低置信度时更易犯错，从而可作为「是否需要更昂贵模型复核」的可靠信号。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50397429</guid>
-      <pubDate>Fri, 06 Nov 2026 19:48:51 GMT</pubDate>
     </item>
   </channel>
 </rss>
