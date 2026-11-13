@@ -3,7 +3,52 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 13 Nov 2026 01:47:46 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 09:27:29 GMT</lastBuildDate>
+    <item>
+      <title>⭐ smolmaxxing：在可用内存不到 1GB 的电视盒子和 2013 款 iPad 上跑 16B 大模型</title>
+      <link>https://news.ycombinator.com/item?id=50468888</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是在极端受限的低内存设备（电视盒子、旧 iPad）上运行 16B 大模型的推理优化技术，属于 AI 软件技术进展/开源实践，符合「感兴趣」；并非新模型发布或编程效率经验，故不列为 critical</small></p><p>一个名为 <a href="https://github.com/hyperionaidev/smolmaxxing/">smolmaxxing</a> 的开源项目，尝试在"最小的硬件上跑尽可能大的语言模型"：电视盒子、旧平板、单板计算机和路由器大多整天闲置着 CPU、一点内存和闪存，项目就在这些设备上找出真正能跑的模型上限，再用定制内核、精细的内存管理和从闪存流式读取权重把速度往前推。仓库中的每一个数字都是在设备本机实测的。</p>
+
+<p><img src="/hyperionaidev/smolmaxxing/raw/main/assets/banner.png" alt="smolmaxxing: run the biggest model you can on the smallest hardware you own. 260K to 16B parameters." width="100%" /></p>
+
+<h3>目前的两台设备与实测结果</h3>
+
+<table>
+<tr><th>设备</th><th>小米电视盒子 S（第 3 代）</th><th>iPad Air（2013）</th></tr>
+<tr><td>芯片</td><td>Amlogic S7D，4× Cortex-A55</td><td>Apple A7，双核</td></tr>
+<tr><td>内存</td><td>1.9 GB（约 1 GB 可用）</td><td>1 GB（约 700 MB 可用）</td></tr>
+<tr><td>系统</td><td>Android 14，无 root</td><td>iOS 12.5.7，已越狱</td></tr>
+<tr><td>日常可用模型</td><td>Qwen3.5-2B，7.7 tok/s</td><td>Bonsai-1.7B（1-bit），24–26 tok/s</td></tr>
+<tr><td>跑过的最大模型</td><td>Ling-mini-2.0（16B），5.1 tok/s</td><td>Ling-mini-2.0（16B），2.6–4.5 tok/s</td></tr>
+</table>
+
+<p>两台设备都能在约 1 GB 内存里运行 8B 与 16B 的混合专家（MoE）模型——办法是只把模型的一部分留在内存，其余按需从闪存读取。</p>
+
+<p><img src="/hyperionaidev/smolmaxxing/raw/main/assets/devices.svg" alt="两台 1 GB 设备的各尺寸档位最佳生成速度对比" width="760" /></p>
+
+<h3>技术手段</h3>
+<ul>
+<li><strong>为芯片定制内核</strong>：1-bit 查表内核；为 Cortex-A55 重新打包的 2-bit 与三值（ternary）格式；针对不支持点积指令的 A7 单独实现版本。</li>
+<li><strong>降低单模型内存占用</strong>：小模型的词表中大部分输出行很少被用到，直接裁掉；在电视盒子上还提供"无头"模式，运行模型时停掉桌面启动器和 Google 服务。</li>
+<li><strong>专家分页（expert paging）</strong>：MoE 模型每个 token 只用到少数专家，于是把热门专家常驻内存，其余从闪存按需读取并预取下一层——这正是 1 GB 内存跑 16B 模型的关键。</li>
+<li><strong>稠密模型的流式加载</strong>：比内存更大的稠密模型以闪存满速流式读取。</li>
+</ul>
+
+<p>整个项目是对 <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> 的打补丁改造，文档中逐项列出了每种技术带来的实测收益。仓库还包含电视盒子上的实时 token 流式聊天页面、iOS 12 越狱版的构建与部署脚本、全部基准测试原始日志，以及记录 160 次实验（含失败案例）的完整实验笔记。模型文件已发布在 <a href="https://huggingface.co/hyperionaidev">Hugging Face</a>，但需要加载打过补丁的 llama.cpp，原版无法读取。作者表示手机、单板计算机、路由器等更多设备正在加入，并欢迎提交自己设备的实测数据。</p>
+
+<p><img src="/hyperionaidev/smolmaxxing/raw/main/screenshots/llmui_05_stream.png" alt="电视盒子上由 llama-server 提供的实时 token 流页面" width="720" /></p>
+
+<h3>社区讨论</h3>
+<p>在 Hacker News 上（360 分、127 条评论），作者公开征集"更有挑战性的设备"，评论区随即给出带屏幕的电子烟、<a href="https://play.date/">Playdate</a>、ESP32 等方案，作者一概"接受挑战"。有人分享在 <a href="https://github.com/brysontang/iiama2.c">任天堂 Wii 上跑 TinyStories 模型</a>并利用 GPU 加速，以及 <a href="https://nortyspock.github.io/blog/running-a-language-model-on-an-AMD-Radeon-HD-8330E-iGPU/">Dell Wyse 7020 瘦客户机的核显上跑 Qwen3.5-0.8B（5 tok/s）</a>的经验；还有人推荐用逐层嵌入（Per-Layer Embeddings）把模型主体留在磁盘、只用几 KB 内存的 <a href="https://github.com/slvDev/esp32-ai">esp32-ai</a> 思路。</p>
+<p>质疑集中在两点：一是这么小的模型有什么实际用处——作者坦然承认目前"只是新奇和好玩"，小模型不经领域微调做不了正事，但他押注小模型会越来越强；二是"这不是你在做，是 Claude 在做"——作者并不讳言大量依赖 AI 代理，但强调真正的难点是在巨大的内核与优化搜索空间里靠约 150 多次实验摸索方向、缩小搜索范围，因此他把项目当作一个搜索方法学研究，目标也从 0.6B 这类"轻而易举"的小模型一路推到 16B 以上。</p>
+
+<h3>你知道吗？</h3>
+<p>这类"极限压榨硬件"的项目有清晰的谱系：Karpathy 的 llama2.c 用纯 C 复现小模型推理，Wii 移植版 iiama2.c 与 ESP32 上的实验都属于同一路探索；而瘦客户机、电视盒子等被淘汰的被动散热设备，也长期是家庭实验室爱好者眼中的宝藏硬件资源。作者本人的观点是：大公司没有动力让模型省资源，因此把推理压到旧设备上的工作，更可能来自社区。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50468888</guid>
+      <pubDate>Thu, 12 Nov 2026 15:23:10 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Gemini 4 Hydrogen 登陆 Google Antigravity，并推出 Carbon + Hydrogen 协作的 Orchestrator 模式</title>
       <link>https://news.ycombinator.com/item?id=50472260</link>
@@ -1453,36 +1498,6 @@ DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50387796</guid>
       <pubDate>Fri, 06 Nov 2026 03:27:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ BUI：将 Blender 的 UI 解耦为独立库，支持多语言且性能优于 GPUI</title>
-      <link>https://news.ycombinator.com/item?id=50389333</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 这是将 Blender UI 解耦为独立库的开源编程工具，支持多语言并有性能优势，属于编程工具发布/分享类，且是开源项目，用户会很感兴趣。</small></p><p>一个名为 <strong>BUI</strong>（Blender UI）的开源项目将 Blender 的用户界面从原始代码库中解耦，转化为一个独立的 UI 库，核心运行时以 C 语言编写，支持 Python、Rust、JavaScript（React、Svelte）、C、C++ 和 Dear ImGui 等多种语言和框架。</p>
-
-<img src="https://raw.githubusercontent.com/ppmpreetham/BUI/main/public/Logo.png" alt="BUI Logo" width="300" />
-
-<h3>核心特性</h3>
-<ul>
-<li><strong>Blender 的交互体验</strong>：包括可拖拽的数字字段（Shift 精确、Ctrl 吸附）、支持数学表达式（如 <code>2*pi</code>）、模糊菜单搜索（输入 "ad cu" 找到 "Add Cube"）、饼图菜单、HSV 颜色轮、节点编辑器等 45 个原生 Blender 组件。</li>
-<li><strong>高性能</strong>：采用损伤渲染（damage rendering），空闲时 CPU 占用为 0%，悬停时仅重绘所触及的控件。基准测试显示每帧 CPU 消耗比 GPUI 少 2–4 倍，内存占用更低，首帧约 5ms。</li>
-<li><strong>多语言支持</strong>：Python 提供 tkinter、Qt 语法、Blender 组件和 Dear ImGui 四种 API；Rust 支持 HTML+CSS、rsx!/view! 宏和 gpui 兼容语法；JavaScript 支持 React 19.3 和 Svelte 5。</li>
-<li><strong>GPU 渲染</strong>：可选 GPU 渲染器（Windows 上 Direct3D 11，Linux 上 OpenGL 3.3），与 CPU 光栅化输出相同像素。</li>
-<li><strong>图像与视频</strong>：内置 PNG、GIF、JPEG、WebP、SVG 等解码器，支持动画 GIF/WebP 和系统级视频解码。</li>
-<li><strong>小型独立应用</strong>：<code>bui build</code> 可生成 6.3–6.9 MB 的单文件可执行程序，首帧约 70ms，内存 19MB。</li>
-</ul>
-
-<h3>许可与争议</h3>
-<p>项目采用 GPL-2.0-or-later 许可（因源自 Blender 代码），这在 Hacker News 社区引发了讨论。多位评论者指出 GPL 许可对库类项目是采用障碍，作者回应称因代码源自 Blender 的 GPL 代码，无法改用 LGPL。</p>
-
-<h3>社区反馈</h3>
-<p>该项目在 Hacker News 获得 424 分和 177 条评论。支持者认为这是"值得的目标"，将经过数十年打磨的 Blender UI 提供给其他应用是绝佳想法；也有用户表示"绝对不想在 Blender 之外看到这个 UI"。另有评论指出，项目完全由 LLM 生成、无人类编写代码，引发了对版权和项目可持续性的讨论。</p>
-
-<h3>你知道吗？</h3>
-<p><strong>GPUI</strong> 是 Zed 编辑器团队开发的 Rust 原生 UI 框架，采用 Apache 许可。BUI 在基准测试中与之对比，声称在 CPU 消耗、内存占用和首帧时间上均优于 GPUI。此外，BUI 的 tkinter 兼容层声称支持 tkinter 和 ttk 的全部 7,846 个公共 API，让现有 tkinter 程序无需修改即可获得 Blender 风格的外观。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50389333</guid>
-      <pubDate>Fri, 06 Nov 2026 07:40:35 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,66 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 13 Nov 2026 01:47:26 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 09:26:57 GMT</lastBuildDate>
+    <item>
+      <title>Codex 0.169.0：终端工作区支持多侧聊标签、任务历史搜索与转录折叠</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.169.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>重要改动</h2>
+<ul>
+<li><strong>终端工作区（opt-in）支持多个侧聊（side chat）标签</strong>：可用键盘或鼠标在标签间切换；重启 Codex 后可恢复此前保存的本地侧聊，并新增了标签关闭控件与更顺滑的侧聊打开体验（打开已保存侧聊时终端不再卡顿）。</li>
+<li><strong>命令中心可搜索历史任务</strong>：在 agent command center 中按名称、提示词预览或工作目录检索较早的任务。</li>
+<li><strong>全屏转录支持「折叠回合细节」（Collapse turn details）</strong>：可将每个提示词下已完成的活动折叠起来，同时保持答案可见、工具输出仍可搜索；连续的多次工具调用会被归组展示。</li>
+<li><strong>终端内可新增/编辑自定义模型提供商</strong>：启用自定义网关引导后，可在登录过程中直接创建提供商；对通过 SSH 或无本地浏览器的场景，支持使用设备码（device code）授权。</li>
+<li><strong>诊断 ZIP 本地保存</strong>：在终端报告编辑器中按 <code>Ctrl+S</code> 即可将诊断包保存到本地，即使上传功能被禁用也可用。</li>
+<li><strong>Cloud 连接（macOS/Linux，opt-in）功能扩展</strong>：可在终端发送图片、选择模型与推理强度（reasoning effort），并对 Cloud 会话执行归档与恢复。</li>
+</ul>
+<h2>问题修复</h2>
+<ul>
+<li><code>codex exec</code> 在不受信任目录中即使加上 <code>--sandbox workspace-write</code> 也仍会禁用项目配置与 MCP 服务器；需用 <code>--trust</code>（配合 <code>codex exec</code> 或 <code>codex review</code>）显式保存项目信任。</li>
+<li>「Yes, clear context and implement」现在会把已批准的完整计划通过附件交给新会话；若交接失败，当前会话保持打开。</li>
+<li>macOS 上粘贴的图片会保持正确方向，并优先使用系统原生 PNG/JPEG 剪贴板数据。</li>
+<li>连接到共享 app server 时，终端不再因等待该服务器未上报的 MCP 服务器而一直处于忙碌状态。</li>
+<li>被中断的回合现在能干净地结束；延迟的 abort 或文件审批取消不会误伤之后的回合。</li>
+<li>此外还修复了 Windows 沙盒中带引号的 <code>cmd.exe</code> 路径、PowerShell 工作目录恢复等平台相关问题。</li>
+</ul>
+<h2>其他改动</h2>
+<ul>
+<li><strong>文档</strong>：更新了 <code>openai-docs</code> 技能，聚焦 Codex 与 ChatGPT Work 相关问题及首次 API 配置，并补充团队范围配置 Codex 的指导；记录了 app-server 客户端如何列出模型或为已配置提供商授权网关而不更改默认提供商。</li>
+<li><strong>底层与杂项</strong>：内置 SQLite 升级到 3.54 以获得 WAL 修复；插件市场升级时可复用磁盘上已有的 Git 对象，减少重复下载。</li>
+<li>其余大量改动集中在运行时认证、Guardian 审核器、MCP 缓存与延迟启动、UI 树的渲染重构、遥测与内部测试基础设施等方面。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.169.0</guid>
+      <pubDate>Fri, 13 Nov 2026 08:37:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>OpenAI Codex 0.168.0：新增模型提供商选择与 TUI 侧边对话面板</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.168.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 <a href="https://github.com/openai/codex/releases/tag/rust-v0.168.0">0.168.0</a>，重点改进终端界面的模型配置、并行对话和多媒体能力。</p>
+<h3>重要改动</h3>
+<ul>
+<li><strong>模型提供商浏览与默认选择：</strong>可在 Sessions → Model providers 中浏览模型提供商，并为新对话设置默认提供商；已打开或恢复的对话仍沿用各自保存的提供商，不会因默认值变化而被切换。</li>
+<li><strong>TUI 侧边对话面板：</strong>启用 <code>features.tui_workspace</code> 后，可在主对话旁查看侧边对话。支持拖动分隔条调整面板大小，或用 <code>leader z</code> 放大当前聚焦面板，并提供键盘控制来调整尺寸、缩放和隐藏侧边面板。</li>
+<li><strong>音频附件：</strong>使用支持音频的模型时可直接附加录音。Codex 会在后续轮次跳过已确认被拒绝的录音，并根据片段时长进行预算，让更多短录音保留在上下文中。</li>
+<li><strong>动画 GIF 生成：</strong>启用 <code>features.image_generation_animation</code> 后，可生成或编辑动画 GIF，并可选设置帧数和时序。</li>
+<li><strong>tmux 图像与宠物显示：</strong>在 Ghostty 和 Kitty 中配置 <code>allow-passthrough all</code> 后，全屏 Codex 可在 tmux 内显示图片预览和宠物。</li>
+<li><strong>终端通知：</strong>新增 <code>tui.notification_method = "osc777"</code> 选项；审批通知会显示更长的命令预览，并区分终端输入请求与网络访问请求。</li>
+</ul>
+<h3>其他改进</h3>
+<ul>
+<li>本地 TUI 历史和恢复选择器会按当前登录的 ChatGPT 账户过滤新建线程；恢复对话时会正确恢复推理摘要，被工具调用打断的回复会合并显示为一条 Markdown 消息。</li>
+<li>修复在最终记录保存期间或切回长时间运行对话后发送的引导消息无法送达的问题。</li>
+<li>模糊文件搜索提高文件名匹配权重，减少仅匹配父目录的结果挤占文件名结果。</li>
+<li>Windows 上空闲的本地 MCP 服务器不再阻塞其他文件系统 I/O。</li>
+<li>弃用 <code>features.multi_agent</code> 配置，并提示改用 <code>agents.enabled</code> 控制子代理工具；贡献者现可在没有 BuildBuddy 凭据的情况下本地运行 Bazel CI 任务。</li>
+<li>app-server 参考文档补充模型提供商列表、自定义网关创建，以及网关、Bedrock 和 GCP 设置更新说明。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.168.0</guid>
+      <pubDate>Fri, 13 Nov 2026 03:54:29 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.323：新增实验性 Code Mode，插件可声明版本范围约束</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.323</link>
@@ -1415,129 +1474,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/starship/starship/releases/tag/v1.27.0</guid>
       <pubDate>Sat, 17 Oct 2026 09:17:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.302 发布：新增自动模式模型选择、空闲压缩开关，修复多项问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.302</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.302 版本，带来多项新功能与大量修复。</p>
-
-<h3>新功能与核心改动</h3>
-<ul>
-<li>新增环境变量 <code>CLAUDE_CODE_AUTO_MODE_MODEL</code>，用于选择客户端自动模式分类器使用的模型（不影响服务端自动模式的模型）。</li>
-<li><code>/config</code> 中新增「Idle compaction」选项，可关闭或重新开启空闲压缩；空闲压缩后的提示现在会说明如何关闭它。</li>
-<li><code>/design-sync</code> 和 <code>/design-login</code> 新增提示：独立版 Claude Design（claude.ai/design）将于 2026 年 12 月 14 日关闭。</li>
-<li>fork 子代理（<code>subagent_type: "fork"</code>）现已在 <code>claude -p</code>、Agent SDK、桌面应用和 VS Code 中默认启用（终端此前已默认启用）；可通过 <code>CLAUDE_CODE_FORK_SUBAGENT=0</code> 关闭。</li>
-<li>桌面应用和 VS Code 现在始终在后台运行主对话的子代理（与终端行为一致）；子代理自身的 Agent 调用则默认在前台运行。</li>
-<li>无权限模式的 <code>claude -p</code> 和 Agent SDK 会话在第三方提供商上默认以 <code>default</code> 模式启动。</li>
-<li>提示词和代理钩子同一事件最多同时运行 12 个，其余排队等待。</li>
-<li>启用大量插件时启动速度提升：插件命令和代理文件的文件系统调用大幅减少，Windows 上效果最明显。</li>
-<li>服务端分类器的自动模式改进：对话过长无法通过安全检查时现在会先压缩，而不是拒绝每个被检查的工具调用。</li>
-</ul>
-
-<h3>其他修复与改进</h3>
-<ul>
-<li>修复停止回合时对话正在压缩导致的「Prompt is too long」错误。</li>
-<li>修复会话中途切换到 Vertex 或 Bedrock 后请求报「diagnostics: Extra inputs are not permitted」的问题。</li>
-<li>修复 Read 工具将任意大小的图片文件或类似图片的管道/设备完全加载到内存的问题；超过 128 MB 的图片来源现在会被拒绝。</li>
-<li>修复网关以前缀命名 Opus 4/4.1 时 <code>/autocompact</code> 和 <code>/effort</code> 保存到错误模型的问题。</li>
-<li>修复会话中途添加的工具通过 ToolSearch 或压缩后重新加载时提示缓存未命中的问题。</li>
-<li>修复 <code>claude plugin</code> 等子命令在排队的设置/配置写入完成前退出，导致更改丢失或遗留 <code>.tmp</code> 文件的问题。</li>
-<li>修复 git 默认使用 reftable 格式时插件市场每次刷新都重新克隆、新安装的 git 插件显示版本「unknown」的问题。</li>
-<li>修复 PowerShell 工具找不到插件 <code>bin/</code> 文件夹中的命令，以及搜索无结果（rg、grep、findstr、git grep）通过管道传给 <code>Select-Object</code> 等格式化 cmdlet 时报错的问题。</li>
-<li>修复桌面应用中 Claude 在不可用场景下引导用户到 claude.ai 设置或 <code>/mcp</code> 授权/重连 MCP 服务器的问题。</li>
-<li>修复 MCP 服务器协商协议版本 2026-07-28 但省略 <code>resultType</code>、<code>ttlMs</code> 或 <code>cacheScope</code> 时显示无工具或每次工具调用失败的问题。</li>
-<li>修复提示建议在按积分计费的模型上消耗使用额度的问题（按积分计费回复后跳过）。</li>
-<li>修复反引号中换行的 URL 只有第一行可点击的问题。</li>
-<li>修复 worktree 隔离在 git 2.56+ 下因指向不存在目录的 <code>.git</code> 文件而拒绝创建/恢复 worktree 的问题。</li>
-<li>修复云会话在新进程中恢复后成本和使用量从零重新开始的问题。</li>
-<li>修复 PowerShell 工具在 exFAT/FAT32 驱动器上（包括 <code>--plugin-dir</code> 会话）每次文件写入被拒绝或询问的问题。</li>
-<li>修复代理视图中长列表下移或折叠部分后行保持空白的问题。</li>
-<li>修复 <code>claude remote-control --help</code> 未登录时不打印用法并退出的问题。</li>
-<li>修复 <code>/design consent</code> 和 <code>/design revoke</code> 在云会话失败时建议不可用的 <code>/design-login</code> 的问题。</li>
-</ul>
-
-<h3>VS Code 扩展</h3>
-<ul>
-<li>修复流式回复期间列表中未闭合代码块后的文本显示为纯文本、结束后才变成代码的问题。</li>
-<li>修复 MCP 服务器 URL 含查询字符串时从面板登录打开损坏的授权页的问题。</li>
-<li>修复无法连接带 Claude 扩展的浏览器时 <code>@browser</code> 横幅仍显示「Browser connected」的问题。</li>
-</ul>
-
-<h3>云会话（Cloud sessions）</h3>
-<ul>
-<li>例行任务页面新增横幅，说明上次运行未启动的原因（如组织达到并发云会话上限）。</li>
-<li>修复云会话中除最新消息外「Rewind to here」全部失败的问题（自托管运行器需 Claude Code v2.1.246+）。</li>
-<li>修复 GitHub 重新检查时带合并冲突的 PR 状态栏被翻回 ready 的问题。</li>
-<li>修复例行任务在云会话意外停止后显示为 Completed、归档前显示为 Cancelled 而非失败的问题。</li>
-<li>修复仓库重命名或移动后云会话 diff 视图缺失更改或加载失败的问题。</li>
-<li>修复定时例行任务部分失败后一小时以上被从头重跑、可能重复工作（如重复发布报告）的问题。</li>
-<li>修复云会话启动失败时的错误提示，现显示「Connection lost」或「Server error」而非「Something went wrong」。</li>
-</ul>
-
-<h3>Remote Control 与 Claude Tag（Slack）</h3>
-<ul>
-<li>修复 Remote Control 会话中电脑离线后子代理面板无限旋转的问题，现显示已断开连接。</li>
-<li>修复 Slack 中 Claude 编辑早期消息后「is thinking…」仍停留在提及下的问题。</li>
-<li>修复 Slack 回复中编号/项目符号步骤下代码块内 URL 被尖括号包裹、破坏复制命令的问题。</li>
-<li>修复 Slack 中附加的 HEIC、SVG、TIFF 和 BMP 图片无法到达 Claude 的问题，现作为工作文件传入。</li>
-<li>修复按角色限制 Claude Tag 的组织中新增频道管理员失去 Claude 访问权限的问题。</li>
-<li>修复共享同一主机的自定义连接器的 MCP 服务器在管理设置中显示为单个连接器的问题。</li>
-<li>修复 Slack 查找停滞时 Claude 回复「DMs are temporarily unavailable」并丢弃消息的问题，现会先重试。</li>
-<li>修复 Slack Enterprise Grid 上直接消息忽略工作区下拉选择的问题。</li>
-<li>修复频道月度支出上限通知错误地称频道管理员可提高上限的问题，现指向组织所有者并链接使用页面。</li>
-<li>修复 Slack 回复中链接吸收紧随其后的闭合粗体/斜体标记或全角标点的问题。</li>
-<li>管理设置中仓库搜索现支持最多 100 个连接的 GitHub 账户，并可找到 GitHub App 安装前 5,000 个之后的私有仓库。</li>
-<li>管理设置中「Add place」现可立即列出输入/粘贴的频道，无需等待完整频道列表加载。</li>
-<li>管理设置中「Add &gt; Domain」现可在页面加载后立即使用。</li>
-<li>管理设置现按四个标签页组织 Claude 的访问权限：Bundles、Connectors、Skills 和 plugins、Channels。</li>
-<li>组织设置的 Roles 页面将 Claude Tag 频道管理员角色分组到折叠区域。</li>
-</ul>
-
-<h3>Code Review</h3>
-<ul>
-<li>修复离开连接 GitHub 后 Code Review 设置无法恢复的问题，返回管理设置时现会重新打开到仓库选择器。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.302</guid>
-      <pubDate>Fri, 16 Oct 2026 20:53:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.163.0：新增可搜索 /config 偏好面板、即时打断响应、并行只读工具等多项功能</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.163.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex 发布 0.163.0 版本，带来多项新功能与改进。</p>
-
-<h3>新功能</h3>
-<ul>
-<li><strong>可搜索的 /config 偏好面板</strong>：可在分类中搜索偏好设置，即时修改支持的设置，并查看哪些更改需要重启。</li>
-<li><strong>即时打断响应</strong>：在 Codex 响应过程中可发送后续指令以立即引导其转向；打断回合也会停止活动的 Code Mode 单元格及其嵌套工具调用。</li>
-<li><strong>可配置 Leader 键</strong>：在 /keymap 中配置，默认为 <code>Ctrl+X</code>；快捷键提示会保持显示直到选择或取消，语音静音移至 <code>F9</code>。</li>
-<li><strong>重启托管后台服务器</strong>：可从 /daemon 重启，Codex 会警告可能中断的工作并自动重连。</li>
-<li><strong>并行只读工具</strong>：Codex 可并行运行独立的只读工具，包括技能、记忆和对话历史查询。</li>
-<li><strong>Daybreak 默认启用</strong>：符合条件的账户默认启用；<code>codex exec</code> 也可在服务器提供访问时使用 OpenAI API 密钥选择该功能。</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-<li>恢复已保存线程时还原其权限和网络审批，同时尊重显式覆盖和当前托管策略。</li>
-<li>网络代理在 DNS 查询前检查权限，拒绝重复的 <code>Host</code> 头，并防止凭据别名绕过检查钩子。</li>
-<li>切换线程后可通过 /side 返回现有侧边对话；待处理提示的回复也会回到发起线程。</li>
-<li>Windows 上 <code>Ctrl+V</code> 和 <code>Shift+Insert</code> 可粘贴文本和图片；WSL 上重复粘贴复用剪贴板读取器，复制尝试超时而非挂起。</li>
-<li>本地命令在子进程保持输出管道打开时能及时完成；远程命令保留延迟到达的输出以便最终轮询收集。</li>
-<li><code>codex exec</code> 不再在无关命令后重复打印同一文件差异。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li>更新了内置 OpenAI Docs 指南，涵盖迁移至 GPT-6 系列的模型特定推理、工具使用和数据驻留考量。</li>
-<li>澄清 Linux 沙箱使用 bubblewrap 进行文件系统隔离、seccomp 进行系统调用过滤。</li>
-<li>Codex 改用标准 shell 执行器，不再捆绑修补版 <code>zsh</code>；使用已退役 shell 标志的配置会收到迁移提示。</li>
-<li>通过剥离打包二进制文件的符号减小 Linux 和 macOS 发布包体积（原始构建输出中仍保留符号）。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.163.0</guid>
-      <pubDate>Thu, 15 Oct 2026 21:30:38 GMT</pubDate>
     </item>
   </channel>
 </rss>
