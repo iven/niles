@@ -3,7 +3,95 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 13 Nov 2026 09:26:40 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 17:42:03 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ KDE Frameworks 6.32 发布：修复存在 15 年之久的 USB 文件传输通知不准问题</title>
+      <link>https://www.phoronix.com/news/KDE-Frameworks-6.32</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] KDE 相关版本发布，来源配置中 KDE 为很感兴趣，属必看内容</small></p><p>KDE Frameworks 6.32 于 11 月 13 日发布，是该套 KDE 组件例行的月度更新。本月亮点是修复了一个存在约 15 年的老问题：向可移动 USB 闪存盘复制文件时，弹出的「复制完成」通知并不准确。</p>
+<p>过去 15 年间，该通知只反映文件复制到本地缓存（local cache）的进度，而未等数据真正写入可移动存储设备，用户可能在未真正写入完成时就拔掉 U 盘。KDE Frameworks 6.32 通过调用 <code>sync_file_range</code> 系统调用确认数据已落盘，从而解决了这一问题。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&amp;image=kde_copy_2" alt="KDE copy dialog" /></p>
+<p>除该修复外，本次更新还包含大量 Baloo 修复、KArchive 修复、Kirigami 更新、语法高亮调整以及其他改动。</p>
+<p><img src="//www.phoronix.net/image.php?id=cachyos-omarchy-benchmarks&amp;image=omarchy_cachyos_arch_3_med" alt="CachyOS KDE Plasma desktop" /></p>
+<p>下载与更新详情可查看 <a href="https://kde.org">KDE.org</a>。原文暂无评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/KDE-Frameworks-6.32</guid>
+      <pubDate>Fri, 13 Nov 2026 17:02:33 GMT</pubDate>
+    </item>
+    <item>
+      <title>Linux 7.5 将加入 hwpoison-panic 工具：用于主动触发内核崩溃以测试内存故障处理</title>
+      <link>https://www.phoronix.com/news/Linux-7.5-hwpoison-panic</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 内核硬件错误注入/崩溃调试工具，偏内核基础设施与硬件调试，兴趣不明确</small></p>Linux 7.5 内核源码树预计将合并一个新工具 <code>hwpoison-panic</code>，用于测试内核的 <code>vm.panic_on_unrecoverable_memory_failure</code> 选项。该选项的作用是：当特定的、内核自有的不可恢复页面类型遭遇不可恢复的内存故障时，立即强制触发内核 panic（Kernel Panic）。<img src="//www.phoronix.net/image.php?id=2026&image=hwpoison_panic" alt="hwpoison-panic" />
+
+<p>借助这个工具，开发者无需等待内核页上出现多位 ECC 错误或其他硬件内存故障，就能直接验证内核的相关行为。</p>
+
+<p>工具的工作方式是向内核拥有的页注入硬件毒化（hwpoison）错误，并可选择目标页面类型：内核只读数据段（rodata）、slab 页或页表页。成功执行后系统会随之崩溃，因此使用时必须额外提供 <code>--yes-panic-my-kernel</code> 参数，以防误触发。</p>
+
+<p>该工具主要用于虚拟机环境测试，以便通过串口控制台捕获输出、确认内核 panic 与系统崩溃过程。相关补丁已进入 Andrew Morton 的 MM Git "for-next" 分支排队，等待 Linux 7.5 合并。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.5-hwpoison-panic</guid>
+      <pubDate>Fri, 13 Nov 2026 15:26:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ XRAID 公开亮相：集成在 XFS 文件系统内的新型 RAID 实现</title>
+      <link>https://www.phoronix.com/news/XRAID-XFS-RAID</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 面向 XFS 的全新 RAID 实现公开发布，属新软件项目/开源项目，符合高兴趣</small></p><p>资深 Linux 开发者 Christoph Hellwig 于 11 月 13 日宣布 <strong>XRAID</strong> 首次公开发布。XRAID 是一种集成在 <a href="https://www.phoronix.com/news/XRAID-XFS-RAID">XFS 文件系统</a>内部的去集群（declustered）奇偶校验 RAID 实现，主要面向采用分区（zoned）存储的 XFS 部署。</p>
+
+<p>据 Hellwig 介绍，XRAID 有两个主要目标：一是为叠瓦式（SMR）硬盘等分区设备提供奇偶校验 RAID 支持；二是提供一个没有固有数据完整性问题的快速 RAID 实现。与传统观念不同，XRAID 与分区版 XFS 一样也能运行在常规硬盘和 SSD 上——尽管它并未针对 SSD 性能做优化，写入速度仍可达 mdraid 的 20 倍。</p>
+
+<p>XRAID 建立在 XFS 的分区分配器之上。该分配器使用 RT 子卷（realtime subvolume）将文件数据与元数据分开存放：只有文件数据被放置在要求顺序写入的分区上，元数据则存放在常规设备或分区中。XRAID 利用这一结构，只为文件数据提供奇偶校验 RAID（这是奇偶校验最有效的场景）；元数据冗余则交给 MD RAID 镜像等现有 Linux 堆叠驱动处理，因为对于原地更新的小对象，镜像比奇偶校验更合适。</p>
+
+<p>在架构上，XRAID 位于 Zoned XFS 的 I/O 路径之下，类似一个堆叠块设备驱动，它把底层设备的物理分区聚合成逻辑分区，供 Zoned XFS 作为 realtime group 使用。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=xraid_1" alt="XRAID" />
+
+<p>所谓"去集群 RAID"，是指把每条条带中的 D+P 个数据块与校验块分散到由多于 D+P 块磁盘构成的存储池中，使所有磁盘都参与读、写和重建操作，并将备用容量分散到全部磁盘。相比传统 RAID，它的重建速度快得多，也更容易在单一存储池中使用大量磁盘。XRAID 可以向任何有空闲容量的设备重建，且重建顺序是动态的：先重建丢失了多份冗余的分区，并优先重建数据分区而非校验分区，以减少降级读取的开销。</p>
+
+<p>XRAID 已开发了一年半，目前的初始补丁尚不适合提交上游，但已进入可供更多人测试和反馈的阶段。内核补丁已在 kernel 邮件列表上公开评审；xfsprogs 用户态程序也有对应分支，提供 mkfs 支持和一个新的 <code>xraid</code> 工具。Hellwig 今年早些时候曾就其开发做过演讲，早期基准测试显示性能表现良好。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=xraid_2" alt="XRAID benchmarks" />
+
+<h3>你知道吗？</h3>
+<p>分区存储（zoned storage）设备要求写入必须按顺序追加到分区内，SMR 硬盘即是典型例子，这使得传统 RAID 的原地更新校验块难以实现。XFS 的 realtime 机制原本是为低延迟实时设备设计的一类独立数据子卷，XRAID 复用它把文件数据隔离到顺序写入分区上，从而绕开奇偶校验 RAID 在随机写入上的固有困难。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/XRAID-XFS-RAID</guid>
+      <pubDate>Fri, 13 Nov 2026 13:22:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>Intel 为 Razor Lake 与 Coral Rapids 提交首批 GCC 编译器支持补丁</title>
+      <link>https://www.phoronix.com/news/Intel-GCC-Coral-Rapids-Razor</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] GCC 编译器对新 Intel 处理器的初步支持，涉及编译器工具链但也偏最新款芯片，兴趣不明确</small></p><p>Intel 向 GCC 提交了针对 Coral Rapids 与 Razor Lake 两款处理器的初始编译器补丁，加入相应新 ISA 特性支持。Phoronix 作者 Michael Larabel 借此再次称赞 Intel 在开源编译器提前上游化方面的长期做法：GCC 按年度特性发布周期更新，且新版本要经过一段时间才会进入各 Linux 发行版，因此提前（有时是提前数年）把新 CPU 目标与指令集支持合入上游，能确保产品上市时编译器生态已经就绪。</p>
+
+<p>从时间线看，Diamond Rapids（计划 2027 年推出的至强处理器）自 2024 年底已有 GCC 支持；如今 Diamond Rapids 尚未出货，Coral Rapids 的初始支持已以补丁形式出现，预计会赶上 2027 年初发布的 GCC 17.1。Razor Lake 则是去年进入 GCC 16 的 Nova Lake 的继任者。Coral Rapids 与 Razor Lake 最早也要到 2028 年才会上市，但这一超前的 GCC 使能应会进入 GCC 17，并在此后一年左右成为各发行版的默认编译器，届时正好覆盖产品交付期。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=gcc_coral_razor_med" alt="Razor Lake and Coral Rapids GCC patches" />
+
+<p>就技术细节而言，Razor Lake 的补丁确认其 ISA 特性与 Nova Lake 完全一致，从指令集角度看没有太多新意。Coral Rapids 的补丁更有看点，确认了其支持的一长串指令集扩展，包括 AVX-512 系列、AMX 系列（AMX-BF16、AMX-TILE、AMX-INT8、AMX-FP16、AMX-COMPLEX，以及 AMX-AVX512、AMX-FP8、AMX-TF32、AMX-MOVRS）、AVX10.1/AVX10.2、APX_F、SHA512、SM3、SM4、AVX-IFMA、AVX-VNNI-INT8/INT16、CMPccXADD、MOVRS 等。相较 Diamond Rapids，Coral Rapids 的主要 ISA 差异之一是新增 <code>AVX10_VPMLDSABFLYDQ</code>，用于打包的 ML-DSA（Packed ML-DSA Butterfly Operations）运算；同日另有一份补丁为 GCC 添加了该指令的 intrinsics。</p>
+
+<p>值得注意的是，Coral Rapids 目前确认的是 AVX10.2，而非 AVX10.3。AVX10.3 规范近期才公布，推测 Coral Rapids 的设计在新规范定稿时已推进过深，因此 2028 年的 Coral Rapids 不会包含 AVX10.3，也不会有 ACEv2。同日还有一份更新的 GCC AVX10.3 支持补丁系列，并补上了初版遗漏的 AVX10_BMM 支持。</p>
+
+<p>原文附有一条评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-GCC-Coral-Rapids-Razor</guid>
+      <pubDate>Fri, 13 Nov 2026 11:29:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>NVIDIA 在 KVM Forum 2026 介绍基于 Nova 驱动的开源 vGPU 上游化进展</title>
+      <link>https://www.phoronix.com/news/NVIDIA-Upstream-vGPU-Nova</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 英伟达开源 vGPU 上游化，涉及虚拟化（不太感兴趣）与开源/Rust（感兴趣），喜恶相抵</small></p><p>在加拿大温哥华举行的 KVM Forum 2026 上，NVIDIA 工程师 Simon Song 介绍了公司为 Linux 内核引入虚拟 GPU（vGPU）支持的最新进展。这一支持建立在基于 Rust 编写的主线显卡驱动「Nova」之上，而 Nova 未来将在 NVIDIA 官方 Linux 驱动栈中承担重要角色。</p>
+<p>Nova 目前仍处于积极开发阶段，目标是先达到可用状态，随后逐步追平乃至超越现有的树外（out-of-tree）NVIDIA 私有驱动，以及功能不完整、主要由逆向工程实现的 Nouveau 驱动。过去一年间，NVIDIA 工程师一直在为 Nova 添加 vGPU 功能，以推动这一上游 Rust 内核驱动为数据中心与云部署做好准备——vGPU 能力是让一块 GPU 在多个虚拟机或容器之间切分和共享的前提。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=nvidia_vgpu_1_med" alt="NVIDIA vGPU upstreaming plans" />
+<p>从进度上看，这仍是一项循序渐进的工作。更多面向 Nova 的 vGPU 支持预计将在 Linux 7.5 中合入，而其余部分则要等到 Linux 7.6 及以后，内核侧的 vGPU 处理才能全部对齐完成。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=nvidia_vgpu_2_med" alt="NVIDIA vGPU upstreaming state" />
+<p>用户态方面，配套的 vgpu-tools 工具集正在开发中。更远期的规划还包括 vGPU 在线迁移（live migration）、异构 vGPU 支持等高级功能。感兴趣的读者可在议题页面查看演示视频与 PDF 幻灯片。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Upstream-vGPU-Nova</guid>
+      <pubDate>Fri, 13 Nov 2026 11:09:59 GMT</pubDate>
+    </item>
     <item>
       <title>借助 OpenAI Codex，近 20 年历史的 Radeon 老显卡驱动缺陷被发现并修复</title>
       <link>https://www.phoronix.com/news/Codex-R600-UVD-FIx-Linux-7.5</link>
@@ -696,60 +784,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/LXQt-2.5-Released</guid>
       <pubDate>Thu, 05 Nov 2026 01:21:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ LZ4 1.11 发布：liblz4 引入多线程压缩支持及多项性能改进</title>
-      <link>https://www.phoronix.com/news/LZ4-1.11-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] LZ4 压缩库发布新版本，引入多线程压缩并带来性能提升，属于编程工具发布与编程效率改进，用户很感兴趣</small></p><p>LZ4 1.11 于今日正式发布，为这款以极速著称的压缩算法库（liblz4）带来了多线程压缩支持。此前 LZ4 1.10 已在 lz4 命令行工具中引入了初步的多线程能力，而此次更新将多线程集成到 liblz4 库中，使依赖该库的应用程序也能充分利用现代多核 CPU 的性能优势。新版本新增了一个字段，用于控制使用 liblz4 时的 worker/线程数量。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=lz4_111_1" alt="LZ4 1.11 liblz4 multithreaded performance" />
-<p>项目团队在 AMD EPYC 服务器上的测试结果显示，多线程压缩带来了显著的性能提升。此外，lz4 命令行工具新增了 <code>--memory</code> 选项，可在内存预算内控制多线程压缩的资源占用。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=lz4_111_2" alt="LZ4 1.11 performance gains over 1.10" />
-<p>除了多线程支持外，LZ4 1.11 相比 1.10 版本还带来了一系列整体性能改进。感兴趣的开发者可前往 <a href="https://github.com/lz4/lz4">GitHub</a> 了解更多详情。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/LZ4-1.11-Released</guid>
-      <pubDate>Wed, 04 Nov 2026 21:53:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Intel One Mono 字体家族发布 1.5 版本：新增盲文与 Powerline 支持</title>
-      <link>https://www.phoronix.com/news/Intel-One-Mono-1.5</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Intel 开源等宽字体家族更新，属于开源项目与软件新功能，用户感兴趣</small></p><p>Intel 于 2023 年为开发者推出了 One Mono 字体。今年 9 月，Intel 曾宣布停止该项目，但数天后又将其复活。如今，该项目自那次风波以来发布了首次更新。</p><p>Intel One Mono 1.5 新增了盲文（Braille）支持、Powerline 支持，字体家族中增加了更多箭头和符号，并包含其他一些小规模 bug 修复与改进。One Mono 总计覆盖 1,385 个字形。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=one_mono_15" alt="One Mono 1.5" /><p>对该开源字体感兴趣的开发者可以在 <a href="https://github.com/intel/one-mono">GitHub</a> 上获取 One Mono v1.5。</p><h3>你知道吗？</h3><ul><li>Powerline 是一类用于终端状态栏（如 Vim、tmux 的增强状态栏）的字体补丁，提供箭头、分支符号等特殊字形，让状态栏显示更美观。One Mono 1.5 的 Powerline 支持意味着该字体可直接用于这类终端工具。</li><li>盲文字形支持（U+2800–U+28FF）让字体能够显示盲文点阵字符，便于在终端中呈现盲文内容或用于无障碍相关场景。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Intel-One-Mono-1.5</guid>
-      <pubDate>Wed, 04 Nov 2026 19:27:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ NVIDIA 620.70.06 Linux 驱动发布：改进 Wayland 显式同步性能并修复多项问题</title>
-      <link>https://www.phoronix.com/news/NVIDIA-620.70.06-Linux-Driver</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux驱动软件新版本发布，涉及Wayland桌面修复，属于软件新功能和Linux桌面技术</small></p><p>NVIDIA 于今日发布了 R620 分支的首个 Linux 驱动版本 620.70.06。该版本功能变化不大，主要包含一些错误修复、Wayland 下显式同步（explicit sync）的性能改进以及其他优化。</p><p>最值得关注的变化是，在 Wayland 上运行高帧率基准测试时，显式同步的性能得到了提升。Wayland 方面还修复了在多 GPU 系统上启用 <code>__VK_ENABLE_DEVICE_GROUPS</code> 时，Vulkan 应用在 Wayland 下出现的画面损坏和闪烁问题。此外，通过 <code>__GL_SHOW_GRAPHICS_OSD</code> 激活的 OpenGL 视觉指示器现已适用于所有 Vulkan 后端，包括 Wayland 和直接显示（direct-to-display）模式。</p><p>该 R620 驱动还修复了自 R595 以来影响《刺客信条：影》（Assassin's Creed Shadows）的回归问题，以及《最终幻想 VII 重生》（Final Fantasy VII Rebirth）在使用 VKD3D-Proton 描述符堆时出现的间歇性崩溃，并包含其他一些错误修复。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=nvidia_620_linux" alt="NVIDIA 620 Linux driver release" /><p>该驱动现已可从 NVIDIA.com 下载。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-620.70.06-Linux-Driver</guid>
-      <pubDate>Wed, 04 Nov 2026 14:29:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Debian APT 包管理器曝中间人攻击漏洞，可导致以 root 权限执行任意代码</title>
-      <link>https://www.phoronix.com/news/Debian-APT-MITM-RCE</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 重要的安全漏洞新闻，属于必读新闻范畴</small></p><p>今日披露了一个影响 Debian APT 包管理器的新漏洞：中间人（MITM）攻击者可以利用该漏洞以 root 权限执行任意代码。APT 安全公告指出，不当的文件处理可能导致中间人攻击者以 root 身份执行任意代码。</p><img src="//www.phoronix.net/image.php?id=2026&image=apt_update_med" alt="sudo apt dist-upgrade" /><p>该漏洞编号为 <strong>CVE-2026-109518</strong>，截至发稿时完整报告尚未公开。Debian 安全公告 <a href="https://www.debian.org/security/">DSA 6607-1</a> 将其概述为：安全研究员 Max Justicz 发现 APT 包管理器存在漏洞——当 HTTP 重定向使两次不同的软件包下载指向同一 URI 时，APT 可能合并这两个下载；在恢复 HTTP 下载时的不当文件处理，允许中间人攻击者在软件包校验通过后将其替换，从而导致以 root 权限执行任意代码。对于稳定发行版（trixie），该问题已在 <strong>3.0.4</strong> 版本中修复，同时该更新还解决了若干越界访问（out-of-bounds access）问题。公告建议用户尽快升级 apt 软件包。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Debian-APT-MITM-RCE</guid>
-      <pubDate>Wed, 04 Nov 2026 13:10:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ systemd 合并对 Rust 的初步支持，仅限叶子组件</title>
-      <link>https://www.phoronix.com/news/systemd-Loves-Rust</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及Rust语言支持的新软件功能，符合用户对Rust的兴趣</small></p><p>systemd 项目近期合并了对 Rust 程序的支持。这一初步支持目前仅限用于叶子组件（leaf components）和独立二进制文件，而最终目标是能够在 systemd 的根组件中支持 Rust。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=systemd_loves_rust" alt="systemd loves Rust" />
-<p>systemd 首席开发者 Christian Brauner 与 Lennart Poettering 近日共同创办了致力于为 Linux 工作负载提供可验证完整性的公司 Amutable，并于本周二撰写了一篇博客文章，概述了 systemd 中这项初步 Rust 支持计划。</p>
-<p>目前由于 Rust 尚缺乏一流的共享库（shared library）支持，他们还无法在 systemd 核心组件中采用 Rust 代码。但现阶段 project 可以允许 Rust 用于 systemd 二进制文件中的叶子组件，因为共享代码仍保持为纯 C。</p>
-<p>systemd 允许使用 Rust 的关键设计决策包括：对核心 API 的统一访问、统一行为、统一构建系统、no-std Rust、Rust 保持可选，以及类似的设计要求。</p>
-<p>Lennart 和 Christian 在博客结尾表示：「systemd 也希望看到 Rust 被采纳到核心组件中，并愿意与 Rust 社区合作使其成为现实。希望即使目前仅在叶子二进制中采用 Rust，也能向 Rust 社区发出又一个强烈信号，表明 Linux 栈的核心组件正在采用 Rust。若能解决诸如缺乏一流的共享库支持，或主要能通过文件描述符与文件系统交互等根本性障碍，将非常有益。」</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/systemd-Loves-Rust</guid>
-      <pubDate>Wed, 04 Nov 2026 12:44:36 GMT</pubDate>
     </item>
   </channel>
 </rss>

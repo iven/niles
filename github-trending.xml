@@ -3,7 +3,121 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Fri, 13 Nov 2026 09:26:41 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 17:42:12 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Plannotator：为 AI 编码代理加上人类审阅层，标注计划、审查代码、一键回传反馈</title>
+      <link>https://github.com/backnotprop/plannotator</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 面向 AI 编码代理的审阅与反馈工作流工具，属于编程工具发布与编程效率改进，正中高兴趣主题，必看</small></p><p>Plannotator 是一个<strong>本地运行、基于浏览器</strong>的审阅界面，用来填补人类与 AI 编码代理之间的沟通空白。它通过插件、钩子（hooks）和命令直接嵌入代理工作流：当代理提出决策、计划、HTML 产物或完成一项任务时，界面会在浏览器中打开，用户可在其中标注、评论，并把反馈直接发回给代理继续执行。</p>
+
+<p>支持的编码代理包括 Claude Code、Codex、Copilot CLI、Gemini CLI、OpenCode、Kiro、Droid、Amp、DeepSeek Harness 和 Pi。此外，新推出的 Inbox 功能也支持个人助理类工具（Grok Bot、Muse、Hermes、OpenClaw）。项目以 TypeScript 编写，目前获得约 1 万星标。</p>
+
+<h3>核心功能</h3>
+
+<p><strong>1. 文档、计划与消息标注</strong><br/>
+可对计划、规格说明、代理消息、Markdown、HTML 及各类交互式产物做行内标注并回传反馈。除了本地文件与文件夹，还支持直接拉取 URL 内容进行标注。</p>
+
+<p><strong>2. 代码审查</strong><br/>
+既可审查本地未提交改动，也可审查远程的 GitHub PR 与 GitLab MR。支持对 diff 评论、给出代码建议，评论会回传给代理。兼容 Git、GitButler、Jujutsu（<code>jj</code>）、Perforce（<code>p4</code>）。内置 AI 能力：可就正在审阅的内容向 AI 提问，或启动 AI 审查直接在 diff 上发布评论。</p>
+
+<p><strong>3. Plannotator Inbox</strong><br/>
+这是项目当前主推的新功能，定位为"人类与多代理协作之间缺失的审阅层"。代理在继续工作的同时，可以在这里留下消息、问题、文件和需要引导的审阅请求；用户随手点击回答问题、标注文件，稍后再按发送，回复会返回到发起提问的那个会话中，期间不会阻塞任何代理会话。Claude Code、Pi、OpenCode 通过插件接入，其他代理可通过 MCP（模型上下文协议）以 <code>plannotator inbox mcp</code> 接入。</p>
+
+<p><strong>4. Herdr Annotate（终端版本）</strong><br/>
+把同样的审阅体验搬到终端：在 <a href="https://herdr.dev">Herdr</a> 中标注终端文本、审阅整份 Markdown 文档以及代理的回复，并把反馈作为代理的下一条消息发回。标注统一保存在 Plannotator 数据目录中，因此终端审阅与应用内审阅的积累可以互通。另有可独立运行的 <a href="https://github.com/plannotator/plannotator-tui">Plannotator TUI</a>。</p>
+
+<p><strong>5. 计划模式（Plan Mode）</strong><br/>
+无需命令，通过各家的钩子自动接入——代理一旦生成计划，审阅界面即自动打开。</p>
+
+<h3>隐私与网络行为</h3>
+
+<p>项目不收集使用遥测或分析数据，计划、diff、标注、草稿、历史与配置默认保留在本地。各应用界面在加载时会向 GitHub 检查最新版本（不含任何审阅内容，且目前无关闭选项）；本地 Git 代码审查可能通过 <code>git ls-remote</code> 查询 <code>origin</code> 以判断默认分支和基线是否过期，该行为只在打开审查、切换 diff 类型或按 Fetch 时触发，空闲页面不会联网，并可通过 <code>--no-git-remote-check</code> 等选项彻底关闭。</p>
+
+<p>内容仅在网络功能需要时才会离开本地：URL 标注会经由 Jina Reader（默认）或直接访问目标站点；GitHub/GitLab 审查使用已认证的 CLI 与 Git 远程获取 PR/MR 数据；Ask AI 与 AI 审查会把选定问题及相关上下文发送给用户配置的模型提供商；分享功能则会把完整链接发给接收方。</p>
+
+<h3>链接分享</h3>
+
+<p>开源版的异步链接分享仍可用，但已进入"逐步弃用"状态，团队协作的主线方向是托管的 Workspaces 产品（尚未给出具体移除日期）。小型 Markdown 分享会压缩进 URL fragment（不参与服务器请求，但未加密）；较大的 Markdown 与原始 HTML 分享则使用短链接服务，负载以 AES-256-GCM 加密后上传，服务器仅存密文，密钥保留在 URL fragment 中，托管粘贴 7 天后过期——整体模型与 <a href="https://privatebin.info/">PrivateBin</a> 相同，粘贴服务可自托管。可通过 <code>PLANNOTATOR_SHARE=disabled</code> 完全禁用分享。</p>
+
+<h3>安装方式</h3>
+
+<p>一个安装脚本即可覆盖几乎全部代理：自动下载 <code>plannotator</code> 二进制、探测本机已安装的代理并配置钩子、技能与斜杠命令。若只需要二进制，可使用 <code>--minimal</code> 模式跳过所有集成交互。</p>
+
+<p>项目官网为 <a href="https://plannotator.ai/">plannotator.ai</a>，并提供<a href="https://plannotator.ai/code-review">代码审查</a>与<a href="https://plannotator.ai/inbox/">Inbox</a> 的详细介绍。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/backnotprop/plannotator</guid>
+      <pubDate>Fri, 13 Nov 2026 17:41:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>Uptime Kuma：高颜值自托管监控工具，支持 90+ 通知渠道</title>
+      <link>https://github.com/louislam/uptime-kuma</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 自托管可用性监控/运维工具，虽属开源项目，但主题偏基础设施运维，与用户关心的编程工具、AI 内容关联不大，故为可选</small></p><p><strong>Uptime Kuma</strong> 是一款易用、可自托管的开源监控工具，常被视作 “Uptime Robot” 的自建替代方案。项目由 louislam 开发，目前 GitHub 星标约 9.37 万、Fork 8715，在 Trending 榜单中排名第 7。</p>
+
+<img src="https://user-images.githubusercontent.com/1336778/212262296-e6205815-ad62-488c-83ec-a5b0d0689f7c.jpg" width="700" alt="Uptime Kuma 仪表盘截图" />
+
+<h3>核心功能</h3>
+<ul>
+<li>支持 HTTP(s)、TCP、HTTP(s) 关键词、HTTP(s) JSON 查询、WebSocket、Ping、DNS 记录、Push、Steam 游戏服务器、Docker 容器等多种监控类型。</li>
+<li>提供响应式、快速且美观的 Web 界面，默认监控间隔为 20 秒。</li>
+<li>可通过 Telegram、Discord、Gotify、Slack、Pushover、SMTP 邮件等 <a href="https://github.com/louislam/uptime-kuma/tree/master/src/components/notifications">90 多种通知服务</a>发送告警。</li>
+<li>支持多语言、多状态页，并可将状态页绑定到指定域名。</li>
+<li>提供 Ping 图表、证书信息、代理支持和双因素认证（2FA）。</li>
+<li>可通过 Docker 或非 Docker 方式部署，数据保存在本地。</li>
+</ul>
+
+<h3>项目背景</h3>
+<p>作者最初在寻找类似 Uptime Robot 的自托管监控工具，但当时较接近的 statping 已不稳定且停止维护，因此决定自行开发。项目也承载了作者学习 Vue 3、Vite.js、Bootstrap 5，以及尝试用 WebSocket 配合单页应用（SPA）替代 REST API 等目标。</p>
+
+<h3>社区与注意事项</h3>
+<p>项目提供 <a href="https://demo.kuma.pet/start-demo">在线 Demo</a>，数据会在 10 分钟后清除。官方特别提醒，Google 搜索结果中排名靠前的 uptimekuma.co 并非其官方网站，建议用户以 GitHub 仓库中的说明为准。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/louislam/uptime-kuma</guid>
+      <pubDate>Fri, 13 Nov 2026 17:41:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Trading Skills：辅助个人投资者搭建交易流程的开源技能库</title>
+      <link>https://github.com/tradermonty/claude-trading-skills</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要是面向个人投资者的交易流程/投资技能库，交易投资不在用户兴趣范围内，AI 只是载体，故为可选</small></p><p><strong>Claude Trading Skills</strong> 是一套基于 Claude Skills 的开源交易流程工具箱，面向时间有限的个人投资者。项目最初是作者用于改进自身交易流程的个人项目，目前已在 GitHub 上获得约 4,000 个 Star。</p><p>项目的设计对象是以长期投资、ETF 和股息股为核心，并在市场条件有利时进行纪律性波段交易的投资者。它并不试图让 AI 代替用户做出买卖决定，而是帮助建立市场回顾、风险管理、交易计划、交易日志和持续复盘的流程。作者明确表示，这不是信号服务，也不承诺盈利。</p><h3>推荐工作流</h3><ul><li><strong>每日市场状态检查</strong>：约 15 分钟完成市场宽度、上升趋势和仓位暴露分析，基础路径不需要付费数据 API。</li><li><strong>每周核心组合回顾</strong>：围绕长期组合、股息监控和交易记忆进行定期检查，可通过 Alpaca 接入数据，也支持手动 CSV 作为降级方案。</li><li><strong>波段机会筛选</strong>：仅在风险条件允许时寻找候选标的，流程包含 VCP（波动收缩形态）筛选、回撤熔断、技术分析、仓位计算和交易前纪律检查。</li><li><strong>交易记忆循环</strong>：记录每笔已平仓交易，并通过事后分析总结经验。</li><li><strong>月度绩效回顾</strong>：汇总绩效并据此调整交易规则。</li></ul><h3>技能覆盖范围</h3><p>仓库技能覆盖市场状态、核心组合、股息收入、波段机会、交易计划、交易记忆、策略研究和进阶卫星策略等方向，包括市场宽度分析、趋势分析、组合管理、股息筛选、CANSLIM 选股、回测、期权策略顾问等。项目通过机器可读的技能索引和工作流清单维护各技能之间的关系，并提供文档站点与技能导航器帮助用户选择入口。</p><p>没有 FMP、FINVIZ 或 Alpaca 等付费订阅的用户，也可以从五个基础技能开始，使用公开 CSV、图表截图和本地文件手动运行。项目还提供配套的 <a href="https://github.com/tradermonty/hermes-trading-research-agent-work-package">Hermes Trading Research Agent Work Package</a>，将技能组织成任务导向的代理式例程。</p><p>项目强调人类决策关口始终是核心：它不会自动下单、不提供交易信号，也不运行隐藏的定时任务。仓库仅供教育、研究和流程改进使用，不构成财务、投资、税务或法律建议；交易存在本金损失风险，历史表现、回测和 AI 生成分析均不能保证未来结果。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tradermonty/claude-trading-skills</guid>
+      <pubDate>Fri, 13 Nov 2026 17:41:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>Veyra：Windows 上的实时 GPU 视频增强播放器，超分、降噪、HDR 与插帧一体化</title>
+      <link>https://github.com/Likely7/Veyra-NRVideo</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] GPU 实时视频增强播放器，涉及超分、HDR、插帧等媒体处理与显卡相关能力，不属于用户明确感兴趣或明确排斥的主题，兴趣不明确故为可选</small></p><p>Veyra 是一款开源的 Windows 实时 GPU 视频增强与采集工具（C++ / DirectX 12，GPL-3.0），把本地视频、采集卡、PS5/Xbox 游戏串流和屏幕捕捉统一进同一条实时增强管线。项目在 GitHub Trending 上榜，拥有约 1500 星，累计便携包下载超过 7.9 万次（含源码与校验文件在内共 10.3 万次下载事件）。</p>
+
+<p><strong>核心能力</strong></p>
+<ul>
+<li><strong>增强效果</strong>：AI 超分辨率（SR）、降噪（NR）、HDR 重建、抗锯齿（FXAA/SMAA/MLAA）、人脸修复与美化，以及帧生成（Frame Generation）插帧。</li>
+<li><strong>模型后端</strong>：支持 RTX Video SR 系列（含 RTX50 原生模型与双路 SR）、AMD RedDuke/lmxxf NR（RX 7000/9000，实验性）、DLSS/XeSS/FSR 选项与 NVIDIA DLAA，并按 GPU 自动路由。</li>
+<li><strong>输入源</strong>：文件/图片、采集卡（含 AVerMedia 等厂商音频）、PS5、Xbox（非官方实验性）、PC 串流（兼容 Moonlight/Sunshine）与屏幕捕获。</li>
+</ul>
+
+<p><strong>界面与工作流</strong></p>
+<p>2.0 版本重做了界面，分为 Home、Cinema、Professional List、Nodes、Colour、Export 和 Settings，支持简繁中文、英文与日文。List 模式提供图片、帧生成、色彩、声音、显示等标签页，最多四个可独立设置分辨率、强度与参数的 NR 层，并支持全局保护区域以排除 HUD/字幕。Nodes 模式则是可执行的节点图编辑器：从输入到输出需保持有效连接，可拖拽连线、把节点拖到连线上插入、按 Alt 拖离断开，NR 与色彩节点有独立参数。</p>
+
+<p><strong>导出与近期更新</strong></p>
+<p>新的导出流程支持可编辑排序队列、裁剪、MP4/MKV 输出、多音轨与内嵌字幕轨、取消/重试与完成提示音；也能录下带播放音频的处理后画面，并支持 90° 旋转播放。最近几个版本（2.1.1–2.1.5）陆续加入处理后录制、逐层 NR 缩放比例、AMD HDR+NR 支持、双路 RTX Video SR 与 SR 后降采样、NVIDIA 低延迟模式、VB-CABLE 采集音频、1% Low FPS 统计，以及采集时间戳与帧间隔的修正。作者也给出了效果耗时示例：在 RTX 5070 上 4K FXAA 约 0.15ms、SMAA/MLAA 约 0.30ms，1080p 单面网格美化约 0.93ms、4K 约 1.42ms，并强调耗时随内容与硬件变化。</p>
+
+<p><strong>使用门槛</strong></p>
+<p>需要 Windows 11 x64 与 DirectX 12，按所用 GPU 下载对应便携包（NVIDIA 或 AMD）解压后运行 <code>veyra_qml_ui.exe</code>；高分辨率、多层 NR 和帧生成会显著增加显存占用。作者建议先关闭所有效果验证画面与声音，再逐项开启，并提醒升级时只迁移 <code>user-data-2.0.0</code> 与自定义 LUT 目录，避免混用旧版配置或 DLL。项目还提供了英文 Wiki 与中文飞书知识库，覆盖采集卡兼容性与排障。</p>
+
+<p>需要注意，仓库描述中「把 PS5 GTA6 跑上 120FPS、DLSS 5」属于夸张的营销说法，实际上它是对既有信号做实时增强与插帧的工具，并不能提升游戏本身的渲染性能。</p>
+
+<h2>你知道吗？</h2>
+<ul>
+<li>帧生成（Frame Generation）通过在两帧之间合成中间帧来抬高显示帧率，但提交的 FPS 既非物理显示帧率，也不等于端到端延迟，因此作者特别说明该数字不能当作流畅度或响应性的直接指标。</li>
+<li>降噪中的「增强增量外推到 5」之所以有风险，是因为模型只完成一次推理，再按比例外推残差；强度越高，伪影也越容易出现，所以需要额外的保护参数来抑制过度修正。</li>
+<li>视频导出时 NR 推理被限制在内部 1080p 上限再合成回原始尺寸，这意味着导出并非原生 4K 降噪，但图片导出仍按模型的原始像素预算处理。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/Likely7/Veyra-NRVideo</guid>
+      <pubDate>Fri, 13 Nov 2026 17:41:29 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Qwen Code：从终端延伸到多端的开源 AI 编程代理</title>
       <link>https://github.com/QwenLM/qwen-code</link>
@@ -1007,100 +1121,6 @@ llama serve -hf ggml-org/Qwen3.5-0.8B-GGUF # 启动 OpenAI 兼容 API 服务</co
       </description>
       <guid isPermaLink="false">https://github.com/patchy631/ai-engineering-hub</guid>
       <pubDate>Sun, 01 Nov 2026 15:58:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Orkas：开源本地优先的多智能体桌面 AI 团队，协调 16 个内置专家代理与主流编码代理</title>
-      <link>https://github.com/Orkas-AI/Orkas</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源的本地优先多智能体桌面AI团队，协调专家代理与编码代理，属于AI软件技术进展与编程工具分享，贴近用户很感兴趣的主题</small></p><p>Orkas 是一款开源（MIT 许可）、本地优先的多智能体桌面应用，将 AI 助手组织成一个协作团队。用户向「指挥官」（Commander）提出目标，它可自主完成许多任务，对于更复杂的工作则会规划步骤并协调 16 个内置专家代理，以及用户已有的编码和个人代理——包括 <strong>Claude Code、Codex、OpenCode、OpenClaw 和 Hermes-Agent</strong>——共同协作。</p>
-
-<h3>核心功能</h3>
-<ul>
-<li><strong>项目（Projects）</strong>：保存目标、规则、记忆和文件，让每次新对话都能接续上次进度，无需重复简报。</li>
-<li><strong>待办与自动推进（To-dos &amp; Auto-advance）</strong>：团队可自主接手下一个待办项，并将完成的工作交回用户审阅。</li>
-<li><strong>定时自动化（Scheduled automations）</strong>：支持按小时、日、周或月重复执行例行任务；从 v1.9 起，电脑唤醒或应用启动时可补跑最近 12 小时内错过的任务。</li>
-<li><strong>连接器（Connectors）</strong>：支持 Gmail、Google Calendar、Sheets、Drive、Notion、Slack、Shopify、Stripe 等，默认在发送、发布或删除前征求确认。</li>
-<li><strong>应用构建</strong>：描述一个工具，Orkas 可在桌面应用内将其构建为本地应用。</li>
-</ul>
-
-<h3>16 个内置专家代理</h3>
-<p>涵盖研究分析（DeepResearcher、SeoGeoAgent、StockAnalyser）、内容媒体（ContentWriter、PptMaker、ImageStudio、VideoStudio、VoiceStudio、UIDesigner）、构建办公（ProductDeveloper、OfficeWorker）以及电商（ECommerceResearcher、ECommerceWriter、ECommerceReviewer、ECommerceAnalyzer、ECommerceOperator）等领域。此外还有 30+ 代理可在<a href="https://orkas.ai/views/marketplace/gs/agents/">代理市场</a>浏览，或让指挥官按需构建自定义代理。</p>
-
-<h3>亮点：参考视频重建</h3>
-<p><strong>VideoStudio</strong> 可分析参考视频的叙事结构、视觉风格和剪辑节奏，使用用户自己的产品、脚本和素材重建类似的热门视频。适用于动态图形讲解、SaaS/应用演示和产品广告等场景。</p>
-
-<h3>模型与本地优先</h3>
-<p>指挥官和内置代理共享同一模型设置：可使用内置 Orkas 模型（免费赠送 500 积分）、自有 API 密钥（支持 Claude、OpenAI、Gemini、DeepSeek、Kimi、GLM、Qwen、MiniMax、Doubao）或本地 OpenAI 兼容端点。所有对话、文件、知识库和自定义代理默认保存在本地磁盘，外部 CLI 代理保留各自的模型设置。</p>
-
-<h3>定位与对比</h3>
-<p>Orkas 与 Claude Code、Codex 等编码工具并非二选一的关系——它将这些工具作为团队中的一员来运行，在其周围补充研究、内容、视频等非编码工作，并通过项目、待办和自动化持续推动工作。与 LangChain、CrewAI 等代码框架相比，Orkas 是可通过聊天直接指挥的桌面应用，无需编写编排代码。适合希望拥有「代理团队」而非单一助手、且重视数据和密钥本地保存的用户。</p>
-
-<p>应用免费提供 macOS 与 Windows 版本，开源构建支持 Linux（glibc 2.34+）。共享项目、云同步和 Web 应用发布等功能目前仅在打包版应用中提供。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/Orkas-AI/Orkas</guid>
-      <pubDate>Sat, 31 Oct 2026 13:35:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>devops-exercises：收录 2600+ 道 DevOps/SRE 面试题的开源练习仓库</title>
-      <link>https://github.com/bregman-arie/devops-exercises</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 收录DevOps/SRE面试题的开源练习仓库，虽属开源项目有兴趣，但主题偏向基础设施运维，兴趣不明确</small></p><p><a href="https://github.com/bregman-arie/devops-exercises">devops-exercises</a> 是一个在 GitHub 上广受欢迎的开源仓库（已获超 8.5 万颗星），收录了覆盖多个技术主题的面试问题和练习，共计 <strong>2624</strong> 道。仓库作者明确指出，这些题目可用于面试准备，但大部分内容并不代表真实面试场景，希望读者参考<a href="https://github.com/bregman-arie/devops-exercises/blob/master/faq.md">FAQ 页面</a>了解更多细节。</p>
-<p>该仓库内容覆盖面极广，主要涉及 DevOps 与 SRE（站点可靠性工程）相关领域，包括：<strong>DevOps 基础、Git、Linux、Shell 脚本、网络、操作系统、虚拟化、容器与 Kubernetes、Terraform、Ansible、Puppet、CI/CD（含 Circle CI、Argo）、OpenShift、云计算（AWS/Azure/GCP）、OpenStack、数据库（SQL/NoSQL/Mongo）、DNS、可观测性（Prometheus、Grafana、Datadog、Elastic）、Kafka、系统设计、软件测试、安全、大数</strong></p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/bregman-arie/devops-exercises</guid>
-      <pubDate>Sat, 31 Oct 2026 13:35:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>Vorssaint：一个菜单栏图标集成的 macOS 开源工具箱</title>
-      <link>https://github.com/vorssaint/vorssaint-utils</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] macOS平台的菜单栏工具箱，属一般开源项目，未明确贴合高兴趣主题，兴趣程度一般</small></p><p><strong>Vorssaint</strong> 是一个免费开源的 macOS 菜单栏工具集，声称"一个菜单栏图标就能取代十几个收费 Mac 应用"，采用只安装你用到的功能的模块化设计。项目以 Swift 编写，要求 macOS 14 及以上、Apple Silicon，采用 GPL-3.0-or-later 许可证，当前在 GitHub Trending 上已获得约 3.1 万星标。</p>
-
-<p>核心特色在于「Install only what you use」——用户可按需选择单个功能或预设组合安装，未安装的功能会停止加载并从界面消失，重装后设置得以保留；安装向导只请求所选功能需要的权限。应用还支持面板拖拽排序、紧凑布局、设置跨 Mac 导出，以及十余种语言。</p>
-
-<h3>主要功能模块</h3>
-<ul>
-<li><strong>声音</strong>：按应用独立音量调节（可提升至 100% 以上，无需音频驱动）、按应用选择输出设备、快捷键切换输出、麦克风输入优选与一键静音、防止误触播放键自动启动 Music 应用。</li>
-<li><strong>系统监测</strong>：CPU/GPU/内存/温度/电池健康度监控与历史曲线（含高耗能应用视图）、风扇控制（beta）、菜单栏常驻读数、网络实时流量与测速、负载/温度/内存/磁盘/电池告警。</li>
-<li><strong>窗口与 Dock</strong>：带实时预览的 App 切换器、窗口布局吸附与跨显示器移动、Dock 悬停预览、点击 Dock 图标最小化/隐藏/循环窗口、绿色按钮全屏（不新建 Space）、固定 Space 顺序、"关闭即退出"应用，以及可防止误按 ⌘Q/⌘W 的退出保护。</li>
-<li><strong>键盘与鼠标</strong>：文本片段展开、平滑滚动、禁用指针加速、线性滚动、焦点跟随鼠标、独立翻转滚轮方向、按键横向滚动、侧键绑定、鼠标按钮快捷键与手势、中指点击、按键防抖、用 Caps Lock 或右修饰键作为 Super 键、统一快捷键管理。</li>
-<li><strong>剪贴板、文件与链接</strong>：本地剪贴板历史（文字/图片/文件，可搜索）、定时自动清空、无格式粘贴、悬浮文件架（Shelf）、Finder 快捷键增强、清除 URL 追踪参数、DMG 一键安装并弹出。</li>
-<li><strong>日常工具</strong>：灵动岛（Dynamic Island，支持真实摄像头挖孔或模拟）、AI 代理动态岛卡片（Claude、Codex、OpenCode、GitHub Copilot 的额度/令牌/API 用量与任务进度）、命令栏（搜索应用/窗口/文件/剪贴板并计算、换算、找表情、跑脚本）、快捷面板、快捷开关、批量退出应用、径向菜单、自动保存笔记的便签本、"清洁模式"锁定输入。</li>
-<li><strong>截屏与创作</strong>：截图（区域/窗口/滚动页，标注、打码、水印、过期分享链接）、屏幕录制（独立系统音频与麦克风轨，自动缩放、模糊、导出视频/GIF）、离线屏幕文字识别与二维码读取、取色器、视频压缩编辑与图片批处理等全部本地完成。</li>
-<li><strong>应用管理</strong>：统一检查应用更新、垃圾清理（缓存/日志/残留）、消息下载整理、卸载器、Homebrew 管理器（免终端安装卸载 formula 和 cask）、端口监听进程管理。</li>
-<li><strong>能源与显示</strong>：定时保持唤醒（合盖、指定应用/外接显示器）、独立显示器亮度控制、MacBook Pro XDR 屏 HDR 亮度增强、睡眠时断开蓝牙并在唤醒时恢复。</li>
-</ul>
-
-<h3>隐私与分发</h3>
-<p>项目主打"默认私密"（Private by default）：本地优先、无账号、无遥测，网络仅在可见场景下被使用（更新检查、测速、Homebrew 操作、可选的联网歌词查询、临时截图/录制链接以及用户主动发送的反馈）。所有权限均为可选，应用会以通俗语言解释每项权限的用途并提示哪些功能实际在用。构建经过 Apple Developer ID 签名与公证，可通过 <a href="https://brew.sh">Homebrew</a>（<code>brew install --cask vorssaint</code>）或 releases 页下载安装。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/vorssaint/vorssaint-utils</guid>
-      <pubDate>Sat, 31 Oct 2026 13:35:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenMausBot：开源 Grok Bot 替代品，把 AI 智能体变成聊天应用里的&quot;联系人&quot;</title>
-      <link>https://github.com/milind-soni/OpenMausBot</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲开源 AI 智能体/编程工具替代品，属于编程工具发布和开源项目，用户较感兴趣</small></p><p><strong>OpenMausBot</strong> 是一个独立、开源的项目，灵感来自 xAI 的 <strong>Grok Bot</strong>，目标是在聊天应用中打造一支由真实 AI 智能体组成的团队。侧边栏里的每个"聊天"都是一位真正的智能体——在本地运行的 Claude 或 Codex 客户端，各自拥有独立的性格、模型、云端电脑和已连接的应用。用户可以像联系人或通讯录联系人一样与它们对话、观察它们工作，并对关键操作进行审批。</p>
-
-<p>该项目是 <strong>Meta Muse</strong>、<strong>OpenAI dots</strong>、<strong>Manus Cue</strong> 的开源替代方案，采用 Apache 2.0 许可证，本地优先运行。项目与 xAI、Meta、OpenAI 或 Manus 均无关联，也明确声明与任何加密货币无关、没有代币。</p>
-
-<h2>核心特性</h2>
-<ul>
-  <li><strong>自带智能体（Bring your own agents）</strong>：机器人运行在本机安装的 <code>claude</code>、<code>codex</code>、<code>grok</code> CLI 之上，复用已有账号与订阅，无需新账户或中间代理。</li>
-  <li><strong>本地优先</strong>：一个运行在 <code>127.0.0.1</code> 的小型服务进程管理所有智能体进程，对话记录、密钥和事件保存在本地 <code>~/.openmausbot</code>，而非云端。</li>
-  <li><strong>带"手"的智能体</strong>：每个机器人可使用云端 Linux 桌面、隔离的本地虚拟机，或（在平台安全边界已获认证的情况下）用户自己的电脑，并通过 Composio 连接 500+ 应用。</li>
-  <li><strong>行动前征求授权</strong>：shell 命令、文件编辑等问题以内联卡片形式呈现，由用户 Allow / Deny 决定是否放行。</li>
-  <li><strong>连接应用市场</strong>：一键接入 Gmail、Slack、GitHub、Notion、Linear 等数百款应用，OAuth 授权一次即可供所有机器人使用。</li>
-  <li><strong>语音与通话</strong>：可让机器人朗读回复，支持手机通话，接入 ElevenLabs、Fish Audio、Grok（xAI）及本地语音服务。</li>
-  <li><strong>团队导入与分享</strong>：支持从 Markdown 文件一键导入完整团队，也可将整个部门导出为可分享的文件（不包含凭证、对话记录等敏感信息）。</li>
-  <li><strong>智能路由（Jev）</strong>：可配置决策模型，在几毫秒内为每条未@的消息挑选最合适的机器人回复。</li>
-</ul>
-
-<p>项目基于 TypeScript（严格模式）、React 19 和 Electron 构建，支持 macOS（Apple silicon 与 Intel）、Windows 和 Ubuntu，当前在 GitHub 上约有 7200+ 星标。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/milind-soni/OpenMausBot</guid>
-      <pubDate>Thu, 29 Oct 2026 16:53:16 GMT</pubDate>
     </item>
   </channel>
 </rss>

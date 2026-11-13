@@ -3,7 +3,29 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 13 Nov 2026 09:26:57 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 17:41:42 GMT</lastBuildDate>
+    <item>
+      <title>Devbox 0.21.0 发布：安装与更新改为直接从 GitHub Releases 获取版本</title>
+      <link>https://github.com/jetify-com/devbox/releases/tag/0.21.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Devbox 0.21.0 发布，本次版本改动不多，核心变化在于安装与更新的分发渠道。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>安装与更新直接走 GitHub</strong>：安装脚本（installer）与启动器（launcher）不再从 Jetify 托管的域名查询版本，而是从 GitHub Releases 获取最新稳定版本，因此安装和升级 Devbox 不再依赖第三方主机。新的安装命令为 <code>curl -fsSL https://raw.githubusercontent.com/jetify-com/devbox/main/install.sh | bash</code>。为保持平滑过渡，0.20.0 及更早版本仍通过旧端点更新。（<a href="https://github.com/jetify-com/devbox/pull/3048">#3048</a>）</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li><strong>清理 Devbox Cloud 遗留代码</strong>：移除了 CLI 中已失效的 Devbox Cloud 相关代码路径（<a href="https://github.com/jetify-com/devbox/pull/3050">#3050</a>），以及 VS Code 扩展中 Devbox Cloud 的「在 VS Code 中打开」处理逻辑（<a href="https://github.com/jetify-com/devbox/pull/3048">#3048</a>）。由于 Devbox Cloud 服务已关停，这些清理对用户没有实际影响。</li>
+<li><strong>构建工具升级</strong>：VS Code 扩展改用 Yarn 4 构建（<a href="https://github.com/jetify-com/devbox/pull/3049">#3049</a>）。</li>
+</ul>
+
+<p>完整变更日志见 <a href="https://github.com/jetify-com/devbox/compare/0.20.0...0.21.0">0.20.0...0.21.0 对比</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.21.0</guid>
+      <pubDate>Fri, 13 Nov 2026 17:03:10 GMT</pubDate>
+    </item>
     <item>
       <title>Codex 0.169.0：终端工作区支持多侧聊标签、任务历史搜索与转录折叠</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.169.0</link>
@@ -1434,46 +1456,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.73.2</guid>
       <pubDate>Sat, 17 Oct 2026 15:09:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>Starship v1.27.0 发布：新增 Jujutsu 系列模块、修复多项安全漏洞</title>
-      <link>https://github.com/starship/starship/releases/tag/v1.27.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Starship 跨 Shell 提示符工具发布 v1.27.0 版本，主要新增了对版本控制系统 <a href="https://github.com/martinvonz/jj">Jujutsu（jj）</a> 的全面支持，并修复了两项安全漏洞。</p>
-
-<h3>新功能</h3>
-<ul>
-<li><strong>Jujutsu 支持</strong>：新增 <code>jj_bookmark</code>、<code>jj_change</code>、<code>jj_metrics</code>、<code>jj_status</code> 四个模块，并为 <code>vcs</code> 模块添加了 Jujutsu 支持；同时改进了 bookmark 发现机制和 jj 输出解析。</li>
-<li><strong>Bash 右提示符</strong>：通过 <a href="https://github.com/ryoppippi/flyline">Flyline</a> 支持 Bash 的右侧提示符（right prompt）。</li>
-<li><strong>claude_model 模块</strong>：新增 <code>effort</code> 变量。</li>
-<li><strong>git_branch 模块</strong>：新增 <code>ignore_remotes</code> 选项。</li>
-<li><strong>package 模块</strong>：支持从 <code>build.zig.zon</code> 检测 Zig 包版本。</li>
-<li><strong>terraform 模块</strong>：支持检测 OpenTofu 的 <code>.tofu</code> 文件。</li>
-</ul>
-
-<h3>安全修复</h3>
-<ul>
-<li>修复 <strong>GHSA-x486-6jjc-phfp</strong>：避免无界文件读取。</li>
-<li>修复 <strong>GHSA-679r-jwc5-r5m3</strong>：在不可信环境中避免运行敏感的 git 命令。</li>
-</ul>
-
-<h3>Bug 修复与优化</h3>
-<ul>
-<li>修复 Bash 中 PS0 preexec 钩子重复执行的问题。</li>
-<li>修复 <code>directory</code> 模块渲染指向仓库子目录的符号链接。</li>
-<li><code>hostname</code> 模块在检查 SSH 连接时补充了 <code>SSH_CLIENT</code> 和 <code>SSH_TTY</code> 环境变量。</li>
-<li>修复 <code>jj_status</code> 统计整个仓库文件变更数的问题。</li>
-<li><code>nim</code> 模块改用 <code>detect_folders</code> 进行文件夹检测。</li>
-<li><code>openstack</code> 模块从当前目录解析 <code>clouds.yaml</code>。</li>
-<li><code>package</code> 模块支持在 Gradle 版本检测中使用 <code>build.gradle.kts</code>。</li>
-<li><code>pulumi</code> 模块读取各后端（per-backend）的 stack 选择。</li>
-<li><code>sudo</code> 模块避免在每次调用失败时产生系统错误日志，不再污染 journalctl。</li>
-<li>修复 <code>humanize_int</code> 跨单位边界时的舍入问题。</li>
-<li><code>swift</code> 模块优先使用 <code>swift-frontend</code> 进行版本检测，提升性能。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/starship/starship/releases/tag/v1.27.0</guid>
-      <pubDate>Sat, 17 Oct 2026 09:17:43 GMT</pubDate>
     </item>
   </channel>
 </rss>
