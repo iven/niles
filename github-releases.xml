@@ -3,7 +3,61 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 13 Nov 2026 23:30:06 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2026 06:10:33 GMT</lastBuildDate>
+    <item>
+      <title>fd v10.4.1 发布：修复 10.4.0 发布问题后的重新发布版本</title>
+      <link>https://github.com/sharkdp/fd/releases/tag/v10.4.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>&lt;p&gt;&lt;strong&gt;fd&lt;/strong&gt;（命令行文件查找工具 &lt;code&gt;find&lt;/code&gt; 的现代替代品）发布 v10.4.1。这是一个纯维护性版本，官方说明称，由于 10.4.0 的发布过程存在一个问题，本次发布只是对 10.4.0 的重新发布（re-release），功能与 10.4.0 保持一致。&lt;/p&gt;
+&lt;h3&gt;重要改动&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;无新增功能或核心行为变更。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;其他改动&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;修复 10.4.0 版本发布环节的问题，以 v10.4.1 的形式重新打包发布，内容等同于 10.4.0。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;已经使用 10.4.0 的用户实际无需为此做特别处理；若在 10.4.0 的安装或获取过程中遇到问题，可直接改用 v10.4.1。&lt;/p&gt;]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.4.1</guid>
+      <pubDate>Sun, 08 Mar 2026 08:41:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>HAPI v0.35.1 发布：OpenCode 会话分叉/回退、Web 端 Markdown 图片全屏预览与 Alt+S 快捷发送</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.35.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>HAPI 发布 v0.35.1，主要补齐多代理（OpenCode、Cursor、agy、ACP 等）的会话能力，并对 Web 界面交互做了一批改进。</p>
+
+<h3>重要改动（新功能与核心特性）</h3>
+<ul>
+<li><strong>OpenCode 会话分叉与回退</strong>：新增对 OpenCode v2 会话的 fork（分叉）与 rewind（回退）支持（<a href="https://github.com/tiann/hapi/pull/2424">#2424</a>）。</li>
+<li><strong>Web 端 Markdown 图片全屏预览</strong>：可直接点开 Markdown 中的图片放大查看（<a href="https://github.com/tiann/hapi/pull/2395">#2395</a>）。</li>
+<li><strong>Alt+S 发送消息快捷键</strong>（<a href="https://github.com/tiann/hapi/pull/1658">#1658</a>）。</li>
+<li><strong>会话搜索支持 include/exclude 模式</strong>：搜索时可限定仅包含或排除某些条件，便于在大量会话中精确定位（<a href="https://github.com/tiann/hapi/pull/1801">#1801</a>）。</li>
+<li><strong>大附件分块流式上传</strong>：大体积会话附件改以 chunked uploads 流式传输，避免一次性上传失败（<a href="https://github.com/tiann/hapi/pull/2429">#2429</a>，新贡献者 @Overbaker）。</li>
+<li><strong>Cursor 内联模型错误处理</strong>：可检测模型返回的内联错误并展示、通知及桥接（<a href="https://github.com/tiann/hapi/pull/987">#987</a>）。</li>
+<li><strong>Agent 配额查询基础设施</strong>：新增安全的 agent quota 查询能力（<a href="https://github.com/tiann/hapi/pull/1787">#1787</a>）。</li>
+<li><strong>agy 轮次与后台命令展示</strong>：显示对话轮次计数与正在运行的后台命令（<a href="https://github.com/tiann/hapi/pull/2405">#2405</a>）。</li>
+</ul>
+
+<h3>其他改动（修复与优化）</h3>
+<ul>
+<li><strong>Hub</strong>：避免返回 502/504，使 Cloudflare Tunnel 能保留 JSON 错误响应体（<a href="https://github.com/tiann/hapi/pull/2423">#2423</a>）。</li>
+<li><strong>Web</strong>：输出未读时，仍在运行的会话不再显示为已完成（<a href="https://github.com/tiann/hapi/pull/2420">#2420</a>）；区分并可直接跳转待处理的请求（<a href="https://github.com/tiann/hapi/pull/2402">#2402</a>）并统一待处理会话指示器对齐（<a href="https://github.com/tiann/hapi/pull/2425">#2425</a>）；转录内容到达前创建的问题卡片也会正确累计等待时间（<a href="https://github.com/tiann/hapi/pull/2397">#2397</a>）；点击通知复用已有 PWA 窗口（<a href="https://github.com/tiann/hapi/pull/1616">#1616</a>）；单机固定行不再显示冗余机器名（<a href="https://github.com/tiann/hapi/pull/1414">#1414</a>）；读取状态操作 ID 不再依赖 <code>crypto.randomUUID</code>（<a href="https://github.com/tiann/hapi/pull/2333">#2333</a>）。</li>
+<li><strong>CLI</strong>：命令模块改为按需加载以提升启动性能（<a href="https://github.com/tiann/hapi/pull/2404">#2404</a>）；处理 ACP stdin 流错误（<a href="https://github.com/tiann/hapi/pull/2403">#2403</a>）；清除已失效请求遗留的权限提示（<a href="https://github.com/tiann/hapi/pull/2415">#2415</a>）；媒体指引移入工具并推断任务倒计时（<a href="https://github.com/tiann/hapi/pull/2416">#2416</a>）。</li>
+<li><strong>Claude 集成</strong>：进行 steering（干预/改向）时拒绝待处理的权限请求（<a href="https://github.com/tiann/hapi/pull/2432">#2432</a>）。</li>
+<li><strong>agy</strong>：ACP 文本块按增量拼接（<a href="https://github.com/tiann/hapi/pull/2332">#2332</a>）；保留空的 edit/write 字符串及问题卡片的自由文本长度限制（<a href="https://github.com/tiann/hapi/pull/2331">#2331</a>）；修复过期错误与缺失会话标题（<a href="https://github.com/tiann/hapi/pull/2401">#2401</a>）。</li>
+<li><strong>dsh</strong>：重启已死亡的 ACP 子进程、恢复已关闭会话，并修复沙箱模式、内联图片与 reasoning effort（<a href="https://github.com/tiann/hapi/pull/2386">#2386</a>）。</li>
+<li><strong>pi</strong>：在缺少 <code>registerMcpServer</code> 时直接注册 peer 工具（<a href="https://github.com/tiann/hapi/pull/2418">#2418</a>）。</li>
+<li><strong>Runner</strong>：verified exit 须确认停止，即使存在无关的受保护包装器（<a href="https://github.com/tiann/hapi/pull/2346">#2346</a>）。</li>
+<li><strong>其他</strong>：gap-recovery 行刷新失败后重试，并在合并的工具调用 tick 上推进 idle 进度（<a href="https://github.com/tiann/hapi/pull/2372">#2372</a>）；修复测试与文档若干项（<a href="https://github.com/tiann/hapi/pull/2426">#2426</a>、<a href="https://github.com/tiann/hapi/pull/2396">#2396</a>、<a href="https://github.com/tiann/hapi/pull/2375">#2375</a>、<a href="https://github.com/tiann/hapi/pull/2410">#2410</a>）。</li>
+</ul>
+
+<p>本次另迎来首位贡献者 @Overbaker，<a href="https://github.com/tiann/hapi/compare/v0.35.0...v0.35.1">完整变更记录</a>可查阅。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.35.1</guid>
+      <pubDate>Sat, 14 Nov 2026 00:16:42 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.325：沙箱 Bash 命令默认需授权，VS Code 新增提示建议与无 API key 登录</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.325</link>
@@ -1452,50 +1506,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.305</guid>
       <pubDate>Tue, 20 Oct 2026 20:46:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>chezmoi v2.73.3 发布：使用 Go 1.27.3 构建以修复重要安全问题</title>
-      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.73.3</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>chezmoi 发布了 v2.73.3 补丁版本。本次更新仅包含一项修复：改用 Go 1.27.3 进行构建，其中包含重要的安全修复。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.73.3</guid>
-      <pubDate>Tue, 20 Oct 2026 15:14:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.304：新增自动模式引导、权限决策扩展与多处修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.304</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.304 版本，主要围绕 mod（模块）系统的权限与钩子增强、自动模式（auto mode）改进、CLI 行为修复以及桌面端（VSCode）体验优化。</p>
-
-<h3>主要改进</h3>
-<ul>
-<li><strong>自动模式引导</strong>：新增 <code>/auto-mode-setup</code> 命令，一种引导式设置，通过读取项目和近期会话来教会自动模式了解你的环境；现已支持 Bedrock、Vertex、Foundry、Claude apps gateway 以及关闭遥测的会话。</li>
-<li><strong>权限决策扩展</strong>：为 mod 的 <code>tool.check</code> 新增 <code>decider: "person"</code>，仅允许权限对话框或主机回调批准请求；事件新增 <code>e.isReadOnly</code>，用于标记只读工具调用。</li>
-<li><strong>安全合规对比</strong>：新增 <code>/claude-api managed-agents-secure</code>，可将 Managed Agents 代理的设置与 Anthropic 发布的安全指南对比，且不进行任何更改。</li>
-<li><strong>用量提醒</strong>：在 Pro 和 Max 套餐中，当恢复非活跃对话将占用 5 小时用量限制的明显份额时给出警告。</li>
-<li><strong>VSCode 增强</strong>：在 Bedrock、Vertex AI、Foundry 及 LLM 网关、关闭遥测等会话中支持聊天面板里的 mod 绘制；后台子代理改为在 Agent 卡片下显示为一行状态，完整记录保留在 /tasks；修复了"Subprocess initialization did not complete within 60000ms"导致会话启动失败的问题。</li>
-<li><strong>代码评审（Code Review）</strong>：新增评审级别（Quick、Standard、Deep），组织可设置默认级别、单个仓库可单独设置；管理设置中可一键评审 GitHub 组织内所有仓库（包括后续新增的）；修复关闭开关后一两分钟内打开的 PR 被静默跳过的问题。</li>
-<li><strong>Claude Tag</strong>：修复线程中通道转为 Enterprise Grid 共享后 Claude 静默的问题，以及线程外 <code>@Claude !fork</code> 无可见回复的问题。</li>
-<li><strong>云会话</strong>：新会话的首轮不再等待从 claude.ai 同步插件的本地（stdio）MCP 服务器（除非服务器设置 <code>alwaysLoad: true</code>）。</li>
-</ul>
-
-<h3>其他修复与优化</h3>
-<ul>
-<li>修复 <code>rm -r</code> 删除挂载盘或顶层目录（如 /Volumes、/media、WSL 的 /mnt/c）缺少安全提示的问题。</li>
-<li>修复插件通过生成子代理或重跑已完成代理而绕过 <code>--max-turns</code>、Stop 或输入结束的情况。</li>
-<li>修复 <code>CLAUDE_CODE_TRANSCRIPT_LOCAL_GC</code> 在磁盘满时丢消息的问题；修复转录视图（Ctrl+O）中汇总中显示此前调用工具的名称。</li>
-<li>修复未沙箱化 Bash 命令在 macOS/Linux 上不识别 ~/.zshrc 等启动文件导出的环境变量的问题。</li>
-<li>修复 SDK 与桌面会话中模型切换、消息与中断被上下文用量检查阻塞的问题；修复网关后 <code>context_management: Extra inputs are not permitted</code> 错误（现会重发去掉该字段的请求）。</li>
-<li>修复 <code>claude --worktree</code> 在 HEAD 分离或位于其他分支时退出不询问即删除 worktree 与分支、可能丢失提交的问题。</li>
-<li>修复 Agent teams 中从主会话批准关闭请求不再退出整个 CLI；修复大量子代理同时运行时的响应性与吞吐量，以及长/恢复会话发送请求时的内存占用。</li>
-<li>改进 <code>/usage</code>，显示用量数据速率限制何时结束；<code>/artifacts</code> 删除确认改为编号选项；<code>/fast</code> 对话框移除 Opus 5.5 的"research preview"标签。</li>
-<li>改进 <code>claude -p</code> 的无效设置警告；Windows 下通过直接运行 git.exe 加快 git 命令启动。</li>
-<li>技能钩子调整：单一来源（repo、个人文件夹或插件）每会话最多注册 1,024 个钩子、16,384 个匹配符字符；压缩后会再次发送技能列表，<code>/reload-skills</code> 只发送新增或更改的技能。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.304</guid>
-      <pubDate>Mon, 19 Oct 2026 21:34:39 GMT</pubDate>
     </item>
   </channel>
 </rss>
