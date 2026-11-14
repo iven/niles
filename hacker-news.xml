@@ -3,7 +3,128 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 14 Nov 2026 13:26:14 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2026 19:07:21 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ ggml 发布 v1.0.0：清理弃用 API、支持 FP8，并为各后端带来大量提速</title>
+      <link>https://news.ycombinator.com/item?id=50493062</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 机器学习张量库 ggml 发布 v1.0.0，属编程工具/开源项目发布且带来 FP8 支持与后端提速，契合「编程工具发布」高兴趣与「开源项目/AI 技术进展」兴趣</small></p><p>面向机器学习的张量库 <a href="https://github.com/ggml-org/ggml">ggml</a> 于 11 月 13 日发布 <a href="https://github.com/ggml-org/ggml/releases/tag/v1.0.0">v1.0.0</a>，这是该项目首个 1.0 里程碑版本。发布说明称，此版本清理了已弃用的公共 API 与旧版 DIAG_MASK 算子，加入可配置的 YaRN 截断与 FP8 支持，并在几乎所有后端上做了大规模性能优化。该消息在 Hacker News 获得 383 分、65 条评论。</p>
+<h3>API 与核心变更</h3>
+<ul>
+<li>删除弃用 API 及遗留的 DIAG_MASK_INF/DIAG_MASK_ZERO 算子，同时升级 RPC 协议以拒绝不兼容的对端。</li>
+<li>新增 <code>ggml_rope_set_truncate</code>/<code>ggml_rope_get_truncate</code>，用于控制 YaRN 修正边界的取整行为；该配置已在 OpenVINO、SYCL、Vulkan、WebGPU、RPC 等后端生效。</li>
+<li>实现 TRI 的反向传播；为 <code>ggml_prec_set_acc</code> 增加 MUL_MAT src1 精度测试与门控。</li>
+<li>RPC 协议升至 v9，加载更快，并在端点不可达或握手失败时优雅失败而非崩溃。</li>
+<li>调度器会跳过上传未被读取的输入，并只预取由更早分割产生的输入；MoE 缓存可将部分未命中专家放到 CPU 计算再异步拷回；Meta 后端提高了张量较少时的 compute view 上限。</li>
+</ul>
+<h3>后端性能与功能</h3>
+<ul>
+<li><strong>CUDA</strong>：新增针对 batch size 2–24 的少行 MMQ、BF16 少行矩阵乘的 MMVF，OCP FP8 支持，NVFP4 gate/up 矩阵乘与 GLU 在 MMQ 中融合；FlashAttention 增加 sm70 头尺寸 256 配置与 40/72 的 MMA 头尺寸；MoE 相关优化包括跳过空 tile、线性化布局、修复 post-bias NaN。</li>
+<li><strong>Metal</strong>：融合 MoE 路由（DeepSeek-V4/V4.1、GLM），让可融合节点组留在同一 command buffer 内；radix Top-K 在并列时结果确定；并为 32≤K&lt;64 加入 mul_mm。</li>
+<li><strong>Vulkan</strong>：新增 Intel FlashAttention prefill 内核、批量张量拷贝、融合测试接口与 ReBAR 检测；支持 CM2 下的反量化 KV、RDNA3/4 大 tile split-K，并在新版 AMD 驱动上启用大 coopmat 矩阵乘。</li>
+<li><strong>SYCL</strong>：新增设备端 MoE 调度器，oneDNN FlashAttention 缓存线程安全，Alchemist 在 head_dim=64 时解除融合 SDPA 限制。</li>
+<li><strong>OpenCL</strong>：为 Adreno 加入分解式 FlashAttention 并提升 decode 性能，新增 q6_k tiled、q8_0、f32/q5_k 多列 GEMV 等内核。</li>
+<li><strong>WebGPU / Hexagon / CPU</strong>：WebGPU 支持批量张量 API 及 GROUP_NORM、MEAN、COUNT_EQUAL、PAD_REFLECT_1D 等内核；Hexagon 扩展 Q5_0/Q5_1 与 conv_3d 覆盖；CPU 侧 MUL_MAT 改用 F32 src1、FlashAttention 的 V 累加改用 F32，并加入 SpacemiT RVV 内核与 ARM NEON 的 4x4 simd_gemm tile。</li>
+<li>此外还修复了 Metal、Vulkan/MoltenVK、SYCL、Hexagon 等多个后端的内存越界与构建问题。</li>
+</ul>
+<h3>社区反馈</h3>
+<p>评论普遍给予高度评价，认为 ggml 与 llama.cpp 是「AI 世界的 Linux」，让本地推理在各类硬件上成为可能——有用户提到自己的旧 AMD 显卡仅支持 Vulkan，却仍能靠它正常使用。多位用户强调同一硬件上不断获得免费性能提升：有人实测升级后同一个 5 万 token 长提示的运行时间从 4:22 降到 3:59。</p>
+<p>也有观点指出，针对特定硬件定制的推理引擎仍然更快，但 llama.cpp 的价值在于「一次训练、到处运行」的通用性，在易用性、硬件覆盖面、模型覆盖面等综合指标上表现稳定。一位用户希望 1.0 附带公共 C API 的稳定性承诺，以便更放心地构建 Python 绑定等上层应用。另有评论提到 v1.0.0 的一个实用特性：当 MoE 模型略超显存预算时，可将不常用的专家缓存在主机内存中，而不是加载失败。还有人顺带调侃库名来自作者 Georgi Gerganov 的首字母，并指出 Linux 当年也并非 Linus 自己命名。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50493062</guid>
+      <pubDate>Sat, 14 Nov 2026 02:28:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 一种不占用单元格的终端边框协议：在单元格边缘画细线</title>
+      <link>https://news.ycombinator.com/item?id=50491423</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 终端细线边框协议的技术分享，附 Ghostty/Ratatui 示例，属于开发者工具与终端相关技术进展，与编程兴趣相关但非核心关注点</small></p><p>Ratatui 维护者 Joshka 提出了一套终端协议草案，让边框、圆角、网格线直接绘制在单元格（cell）的边缘上，而不是占用整行整列。他实现了 Ghostty 的补丁（此前也做过 Rio 的原型），并基于 Ratatui 写了一批演示应用，包括平铺面板、表单、标签页和 btop 风格的系统监视器。文中声明代码与文章在 AI 辅助下完成。</p>
+
+<h3>要解决的问题</h3>
+<p>如今终端里的边框基本靠 Unicode Box Drawing 区块的 128 个字符绘制，但边框本身是「文字」，必须占满一个单元格，于是产生一系列麻烦：</p>
+<ul>
+<li><b>浪费空间</b>。作者 16 寸笔记本上终端大约 200×50，列数尚可，行数吃紧；几层嵌套面板就能让 50 行里蒸发 6 到 8 行。</li>
+<li><b>无法紧贴内容</b>。不能在已有文字下方画下划线式边框，或给按钮描边，除非加内边距。</li>
+<li><b>圆角出问题</b>。圆角字符只有一个背景色，面板背景与周围不同时，四角会出现错色的小方块。</li>
+<li><b>线宽与位置由字体决定</b>，不可控。</li>
+<li><b>复制粘贴遭殃</b>。框选文字会连边框一起复制，谁没在 Slack 里手工清理过 <code>│</code>。</li>
+</ul>
+<img src="https://www.joshka.net/cell-borders/panes.png" alt="用单元格边框绘制的 Ratatui 平铺面板演示" />
+
+<h3>协议设计</h3>
+<p>核心思路是把边框当作和背景色一样的<b>单元格属性</b>：每个单元格最多携带 12 条线段——四条边各两半，加上从中心发出的四条臂；每段有自己的颜色、宽度、位置与样式，由终端在单元格网格之上绘制。边框存在单元格里，因此会随文字一起滚动、擦除、插入和重排。边被切成两半是为了对齐象限块字符（▖▗▘▝），便于在距网格半格处画形状。</p>
+<p>相邻两格在同一条共享边上都画线时会合并为一条，优先级高的胜出，其次更宽的，再其次靠右或靠下的——这样被聚焦的面板可以抬高优先级、完整保留自己的轮廓（作者最初写的「右下优先」规则就是因为焦点面板丢了一半轮廓而废弃）。样式支持实线、双线、虚线和点线，角落与中心可方形或圆角，半径可配、弧线抗锯齿，且圆角可以指定「外部颜色」以正确处理面板内外背景不同的情况。</p>
+<img src="https://www.joshka.net/cell-borders/styles.png" alt="样式图库：实线、双线、虚线、点线、圆角、分叉与汇合" />
+
+<h3>线格式与兼容性</h3>
+<p>所有命令封装在一条带命名空间的 DCS 字符串里：<code>ESC P 1 + b cell-border ; OP ; FIELDS… ESC \</code>。最常用的是一条「画笔（pen）」命令，像当前背景色一样挂在光标上——设置画笔、输出文字，被打印的单元格便带上边框。另有直接对已有单元格设置或清除边框的矩形命令，以及能力查询：应用发送查询后再发 DA1，若 DA1 回复到来前没有收到相关回复，就说明终端不支持，应用回退到 Box Drawing 字符并预留空间。不认识的终端会忽略未知 DCS；未知字段也被忽略，便于以后扩展。作者刻意把最小实现（画笔 + 矩形命令 + 实线）控制得很小，把线型、圆角、优先级、外部颜色等列为扩展字段，希望早期决策尽量是「双向门」。</p>
+
+<h3>与已有方案对比</h3>
+<p>DECterm 的 DEC 制表线（DA1 扩展 43）是独立图层，清屏后仍残留且固定一像素宽、使用正常文字色；SGR 51–65 的 framed/encircled 等是开关属性，没有颜色、宽度和接合，也没有下边缘；Win32 控制台和 PDCurses/X-Open curses（WA_TOP、WA_LEFT 等）最接近本协议，但缺下边缘、颜色、宽度和半格；IBM 3270 可为整个输入字段描边。它们都没有「每条边可有自己的颜色和宽度」。</p>
+<p>作者最初的原型在 Rio 里用 APC，反馈指出 APC 载荷不安全（Kermit 95 自 90 年代起会把 APC 内容当 Kermit 命令执行），于是改用结构化的 DCS。</p>
+<img src="https://www.joshka.net/cell-borders/zoom-form.png" alt="用单元格边框绘制的表单：下划线输入框、复选框、圆角按钮" />
+<img src="https://www.joshka.net/cell-borders/chart.png" alt="盲文 CPU 图表，网格线与平均线画在单元格边缘" />
+
+<h3>边界情况与开销</h3>
+<p>复用器（tmux 等）按自己的单元格网格重绘，所以不认识该协议的复用器应丢弃这些序列并自行回复 DA1，内部应用于是回退到 Box Drawing；认识协议的则可像其他属性一样存储和重绘。擦除、插入、删除的行为与背景色一致。回滚缓冲区、备用屏幕与重排基本「免费」。实现成本方面，Ghostty 的改动约 1650 行（很大一部分是测试）；每个单元格分配一个 16 位边框 ID，正好塞进原本已存在的填充位，因此单元格不再增大、没有边框的屏幕也无额外开销；ID 指向全终端共享的去重边框集表（每条约 100 字节），表不释放，最坏情况约 10–15 MB。渲染只为有边框的单元格做额外工作，且需查看四邻以解决共享边，所以改动一行会重建上下相邻行；圆角因抗锯齿弧线按边缘像素绘制的四边形代价更高。作者尚未做正式基准测试，最希望有人帮忙看这部分。</p>
+
+<h3>试用方式</h3>
+<p>规范与理由文档在作者的 Ghostty 分支（<code>joshka/cell-borders</code>），实现了 v1 全部内容，但只在 macOS 上构建过，GTK 与 OpenGL 构建未测试。分支内的 <code>scripts/cell-borders.py</code> 会先探测能力，也能用来快速检验其他终端的实现。Ratatui 分支上的平铺面板演示（<code>cargo run -p tiling-panes</code>）在终端不支持时回退到字符边框，正是对比截图的来源；同分支还有读取真实 CPU、内存、网络与进程的 btop 风格监视器 <code>cell-border-top</code>（因依赖 sysinfo 需要 Rust 1.95）。</p>
+
+<h3>社区反馈</h3>
+<p>Hacker News 上的讨论（约 390 分、167 条评论）呈现明显分歧：</p>
+<ul>
+<li><b>美学担忧</b>：多位评论者认为边框「需要呼吸空间」，这种紧贴处理反而不好看；也有人觉得「所有东西都要套一个圆角框」是典型的 LLM 生成风格，噪声过多——而作者本人恰好坦承大量使用 AI。</li>
+<li><b>复制粘贴</b>：不止一人认同把边框排除在复制内容之外很有价值。</li>
+<li><b>更激进的想法</b>：<a href="https://news.ycombinator.com/item?id=50491423">有人问</a>既然都要改协议和终端，为什么不做成面向 UI 的信息密集型框架，而非继续模仿哑终端；也有人提议干脆「通过 SSH 提供 HTML」。</li>
+<li><b>替代方案</b>：有人建议推广 DECSET 20 的 <a href="https://github.com/mintty/mintty/wiki/CtrlSeqs#overstrike">overstrike 模式</a>（目前似乎只有 mintty 支持），在已有文字的单元格上叠画边框字符即可；作者回应说该方案覆盖不到规范里的若干特性，另一种意见则认为「特性更多」可能是过度复杂。</li>
+<li><b>tmux 争议</b>：有评论者质疑「复用器不兼容」的说法，认为 CSI 类单元格属性照理能正常传递；作者回应 tmux 会丢弃未知 DCS，且存储、重绘这些状态约需上千行代码。</li>
+<li><b>内存</b>：作者答称占用极小，靠的是单元格已有的 16 位填充位，最坏情况约 25 MB。</li>
+<li><b>氛围</b>：作者提到在 Lobsters 上被「反 AI」群体围攻，而 Hacker News 的投稿疑似因正文披露 AI 使用而被标为垃圾，他对反对意见照常点赞，认为投票不该表达好恶。</li>
+<li><b>立场</b>：作者强调自己并不执着于具体规范细节，更在意「能力」本身，乐于改成别的实现方式；希望它不只属于某一种终端、也不只是一个周末的折腾。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50491423</guid>
+      <pubDate>Fri, 13 Nov 2026 23:06:40 GMT</pubDate>
+    </item>
+    <item>
+      <title>微软全球宕机：Outlook、Teams、Copilot 中断逾一天，生产力损失或达 70 亿美元</title>
+      <link>https://news.ycombinator.com/item?id=50479098</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主体是微软 Outlook/Teams 服务宕机的公司事件新闻，虽带一定必读新闻属性，但偏行业公司与微软产品相关内容，兴趣不明确</small></p><p>微软于美国东部时间周四中午前后开始的全球性服务中断持续到第二天，数百万用户无法访问 Outlook 邮箱、Teams 会议工具和 Copilot 等日常办公应用。微软随后表示已解决引发故障的「底层问题」（underlying issue），正逐步恢复服务，并为此次中断道歉，称故障源于技术问题，而非网络安全事件。</p>
+
+<h3>故障原因</h3>
+<p>微软解释称：「该事件由早前一次网络容量升级中的问题引入，并在最近一次网络变更后暴露出来。」微软高管 Charles Lamanna 表示，目前没有迹象显示故障源于恶意或网络攻击活动。公司称将在复盘后发布完整的「事故后报告」（post-incident report）。</p>
+
+<img src="https://media.cnn.com/api/v1/images/stellar/prod/ap26313845581210.jpg?c=original&q=w_1280,c_fill" alt="A person walks by a Microsoft logo and sign at the company's headquarters in Redmond, Washington on Monday." width="1600" height="1067" />
+
+<h3>受影响的功能</h3>
+<p>凡涉及邮件或 Exchange Online 服务的功能均受影响：用户可能无法收发新邮件；Copilot 无法加载对话或获取邮件、文件、日历数据；已排入日历、需要通过 Teams 连接的会议受影响，但单纯加入通话或收发即时消息仍可用。Word、Excel、PowerPoint 的基础功能正常，但云端打印、通过 SharePoint 共享文档等可能失效。微软还将「邮件超时窗口」延长至 48 小时，以保护恢复期间延迟投递的邮件。</p>
+
+<img src="https://media.cnn.com/api/v1/images/stellar/prod/ap26317306514634.jpg?c=original&q=w_1280,c_fill" alt="The Microsoft Outlook and Teams apps are visible on a computer screen on Friday." width="2000" height="1370" />
+
+<h3>全球经济影响</h3>
+<p>据密歇根智库 Anderson Economic Group 估算，此次中断造成的生产力损失可能接近 70 亿美元。该机构总裁 Patrick Anderson 表示，430 万之外的报告用户中，多数人可能只是遇到不便，但周四约 2600 万、周五约 5100 万用户的实际业务确实受阻并造成经济损失，且这一估算后续可能上调。他还估计微软每日可能需要向客户退还约 8 亿美元的订阅费用，若客户实际索赔，总成本将超过 70 亿美元。部分企业或可通过网络安全保险获得补偿，但这只是把成本转移给保险公司。</p>
+
+<img src="https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2304380698.jpg?c=original&q=w_1280,c_fill" alt="Error messages on pages for Microsoft Outlook and Microsoft Copilot on a laptop on Friday." width="2000" height="1333" />
+
+<h3>波及范围：政府、金融、医疗与交通</h3>
+<p>据 Downdetector 统计，故障报告「在一小时左右就覆盖了 74 个国家和地区」。美国众议院表示其用户受影响，工程师正与微软协作；多个城市政府（迈阿密海滩、奥斯汀、杰克逊维尔、帕萨迪纳、弗里蒙特、伯班克、圣巴巴拉、巴尔的摩县等）邮件服务中断，呼吁居民改用电话联系，并强调紧急服务仍然可用；科罗拉多州阿拉帕霍县警局称在线保释金支付受阻。英国多支警队（默西塞德、大曼彻斯特、贝德福德郡、东赫特福德郡、多塞特）建议公众改用电话 101 报案；部分英国人延迟拿到处方药。香港银行职员工作受扰，日本政府雇员不得不打印纸质文件，菲律宾法院办事受阻，澳大利亚学校、法院与政府服务以及部分铁路网络的客户邮件与调度同样受影响。底特律电动车厂商 Workhorse Group 因此将第三季度财报电话会推迟到周一。</p>
+
+<img src="https://media.cnn.com/api/v1/images/stellar/prod/ap26317357356857.jpg?c=original&q=w_1280,c_fill" alt="A woman trying to access her Microsoft Hotmail email inbox on a phone in London on Friday." width="2000" height="1410" />
+
+<h3>AI 公司连带受损</h3>
+<p>OpenAI 表示其 Microsoft 连接器出现问题，包括 ChatGPT 在内的部分工具无法正常运作；数千名 Claude 用户也报告故障，Anthropic 称已完成修复并监控恢复情况。值得注意的是，Azure 本身基本未受影响。</p>
+
+<h3>恢复进展</h3>
+<p>微软称「邮件投递性能在越来越多的 Microsoft 365 基础设施上改善」，待投递邮件队列「显著减少并接近正常水平」，但部分用户仍可能遇到间歇性访问问题或邮件延迟。恢复节奏并不均衡：北美快于欧洲和亚洲。美国多个城市陆续报告服务回归，佛罗里达州杰克逊维尔称「谨慎乐观」，北卡罗来纳州格林斯伯勒警局则自嘲「虽然这不是我们想要的结果，但至少邮箱又能用了」。</p>
+
+<h3>Hacker News 讨论</h3>
+<p>评论区关注点集中在集中化风险与厂商锁定上：有人质问「为什么这么大的公司要把服务集中到一出故障就影响全世界的程度」，并指出「没人会因为买 Oracle 和微软而被开除」；有自称自建邮件服务的用户调侃自己收发正常，只是收不到任何重要邮件。也有观点认为，只要大家都用微软，宕机时没人会单独责怪你，因此去微软化的动力有限，未来一年真正迁移的企业可能不到 2%；还有人拿 2024 年 CrowdStrike 事件后其股价翻四倍来佐证「几乎没人在乎宕机」。此外有人提到监控系统先「瞎」了一小时才发现问题出在上游，也有人猜测这是自动化黑客代理或「AI 写码」的后果，但立即被反驳：这类超大规模分布式系统的自然状态就是容易以奇怪方式崩坏，与恶意或低级失误无关。还有人对「观察到边际性成功（marginal success）」这类企业话术表示无奈，并以「Agentic 时代」作结。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50479098</guid>
+      <pubDate>Fri, 13 Nov 2026 06:18:23 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 乔纳森·布洛演讲：如果 AI 已经解决了编程问题，为什么我的软件还是老样子？</title>
       <link>https://news.ycombinator.com/item?id=50484658</link>
@@ -1527,56 +1648,6 @@ DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50403507</guid>
       <pubDate>Sat, 07 Nov 2026 11:11:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 运营一家完全基于自由软件的法律事务所（2026版）</title>
-      <link>https://news.ycombinator.com/item?id=50403066</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲完全基于自由软件运营法律事务所，属于开源/自由软件应用实践，用户对开源项目感兴趣，推荐阅读</small></p><p>英国小型法律事务所 decoded.legal 的创始人 Neil Brown 发布了他的自由软件（Free software）使用方案 2026 年更新版。该事务所专注于互联网、电信和科技法律，已在客户端和服务端全面部署自由软件约五年。</p><p><strong>客户端工具</strong>方面，他仍在使用运行 GNOME 的 Debian 系统，主力机为 ThinkPad X1 Yoga Gen 6（可折叠屏幕用于文档批注）。邮件客户端使用 Thunderbird（配以 Quick Folder Move 等快捷键插件）和 mutt；文档制作采用 LibreOffice Writer、pandoc 与 typst；演示文稿使用 reveal.js；PDF 处理使用 evince、Xournal++、PDFarranger 和 pdftk。此外还使用了 espanso（文本扩展）、Firefox/links（浏览器）、vimwiki（知识管理）、LUKS（磁盘加密）、Cryptomator（同步前加密）以及 Bitwarden/vaultwarden（密码管理）。</p><p><strong>服务端</strong>方面，除 Signal 外全部自托管，主要运行在 Intel NUC 上。其中较大的变化是从 Nextcloud 转向 Syncthing（文件同步）+ radicale（CalDAV/CardDAV）的组合；邮件服务使用 postfix/dovecot（考虑迁移到 Stalwart）；视频会议从 Jitsi 转向 Signal；发票使用 InvoicePlane，时间追踪使用 Kimai v2，案件管理使用 EspoCRM。其他还包括 WireGuard（VPN）、OpenVAS（漏洞扫描）、Uptime Kuma（监控）、Forgejo（Git 托管）、Wazuh（SIEM）、mkdocs 静态网站、基于 bash 的静态站点生成器 BSSG（博客）、glitch-soc Mastodon 分支（联邦宇宙）、dokuwiki（政策程序管理）、unbound + Pi-Hole（DNS）、restic/rsync（备份）、LiberaForms（表单，现已支持加密）等。</p><p>移动设备使用搭载 GrapheneOS 的 Pixel，主应用商店为 F-Droid。作者明确表示不使用任何 AI 工具，并强调与使用微软或苹果软件的客户协作时零问题。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50403066</guid>
-      <pubDate>Sat, 07 Nov 2026 09:39:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 钠离子电池接近与LFP成本平价，全球供应协议已超70 GWh</title>
-      <link>https://news.ycombinator.com/item?id=50399657</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 钠离子电池成本与技术进展、全球供应协议，属于科学前沿进展，用户感兴趣，推荐阅读</small></p><p>据《pv magazine》报道，钠离子电池技术正进入商业化生产阶段，成为锂离子电池的替代方案。Wood Mackenzie 的分析显示，全球钠离子电池供应协议总量已超过 70 GWh；该研究覆盖中国、美国、德国和印度市场，认为钠离子电池是固定式储能领域最有前景的锂基技术替代方案。</p>
-<img src="https://www.pv-magazine.com/wp-content/uploads/2025/03/Singeng-Sodium-ion-project-in-Hubei.jpg" alt="Singeng 湖北钠离子电池项目" width="935" height="612" />
-<p>头部制造商预计将在 2026 年底实现与磷酸铁锂（LFP）电池的电芯级成本平价，而模组和系统级平价预计要到 2030 年之后。中国正引领该技术的商业化：比亚迪（BYD）计划达到 30 GWh 的钠离子电池制造产能，宁德时代（CATL）目标是在 2026 年底前实现超过 1 GWh 的钠离子电池出货量。Wood Mackenzie 估计 2026–2035 年中国市场的学习率（learning rate）为 18%–20%，反映出其工业供应链的成熟度。目前规划产能已超过需求，但不断增加的供应协议表明该技术正逐步被市场接纳。</p>
-<p>在成本方面，钠离子电池目前的前期成本高于 LFP：全球均价约 229 美元/kWh，而 LFP 约为 200 美元/kWh。但 Wood Mackenzie 估算，在 20 年项目周期内，钠离子电池的总拥有成本（TCO）可低 21%，主要得益于无需容量扩展周期以及更低的运营成本。钠离子系统在 2 至 4 小时储能时长下的经济性保持相对稳定。原材料供应安全、使用寿命和更宽的工作温度范围被视为其关键技术优势，后者使其尤其适合寒冷气候应用，而锂离子电池在低温下可能需要额外的热管理系统。</p>
-<p>产业和贸易政策正在影响不同电池化学体系的竞争力。2026 年 7 月，中国恢复对锂离子电池征收消费税，同时对钠离子电池豁免至 2028 年底；LFP 电池于 2026 年 9 月起被征收 2% 的税，2027 年 9 月将升至 4%。美国对中国进口储能电池征收约 58% 的关税，并结合《通胀削减法案》（IRA）第 45X 条的生产税收抵免，鼓励本土钠离子电池制造。欧盟《电池法规》的碳足迹申报要求可能有利于供应链对关键原材料依赖较低的技术。印度则通过 12.5 亿美元的激励计划和部分制造设备关税豁免支持本土生产。Wood Mackenzie 预计 2030–2035 年将是钠离子电池实现经济竞争力的决定性时期；对于当前开发中的储能项目，LFP 仍是 2 至 4 小时储能时长下最成熟的商业选择。</p>
-<p><strong>社区反馈</strong>：HN 讨论中，有用户期待钠离子电池用于家庭储能，看重其安全性和低温工作能力；也有用户对文中 200 美元/kWh 的 LFP 价格提出质疑，认为实际电芯价格远低于此（车规级约 50 美元/kWh、储能级约 30 美元/kWh），怀疑数据有误或混淆了系统成本；另有评论指出多数钠离子电池并非水性体系，安全性未必优于磷酸铁锂。此外，有用户怀疑原文部分内容系 AI 生成，HN 管理员已将来源链接更换为更可靠的报道。</p>
-<h2>你知道吗？</h2>
-<p>钠离子电池与锂离子电池工作原理相似，均通过离子在正负极间的嵌入与脱出实现充放电，但使用储量丰富、分布广泛的钠盐替代锂盐，原材料成本更低、供应链更分散。其代价是能量密度较低，因此主要面向对体积和重量不敏感的固定式储能场景，而非电动汽车。此外，钠离子电池通常可在更宽的温度范围内工作，低温性能优于锂离子电池，适合寒冷气候地区的应用。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50399657</guid>
-      <pubDate>Fri, 06 Nov 2026 23:00:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GitHub 发布全新 Git 存储架构，支持数千代理同时推送单个仓库</title>
-      <link>https://news.ycombinator.com/item?id=50397099</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] GitHub 发布全新 Git 存储架构，属于编程工具发布/分享，用户很感兴趣，必看内容</small></p><p>GitHub 工程团队公布了其全新的 Git 存储架构设计，目标是让数千个 AI 代理（agents）能够同时向单个仓库推送代码。该架构由杰出工程师（Distinguished Engineer）Karthik Raman 主导设计。</p>
-
-<img src="https://github.blog/wp-content/uploads/2026/11/cropped-image-3-200x200.jpeg" alt="Karthik Raman" width="80" height="80" />
-
-<p>新架构主要解决的是"垂直扩展"（intra-repo scalability）问题，即在单个仓库内部支持更高的并发写入。文章详细介绍了 GitHub 如何通过水平扩展技术（沿用现有架构）与新的垂直扩展方案相结合，来应对日益增长的仓库规模和高频推送需求。</p>
-
-<p>社区对此反应热烈，讨论主要集中在以下几个方面：</p>
-
-<ul>
-<li><strong>对当前故障的质疑</strong>：有评论者指出，这项架构改进主要是面向未来的规划，可能无法立即解决近期 GitHub 频繁出现的服务中断问题。不过也有观点认为，新架构通过减少非活跃仓库的磁盘占用，也能间接缓解水平扩展的压力。</li>
-<li><strong>对"数千次推送/秒"的质疑</strong>：部分开发者认为，单个仓库每秒数千次推送意味着工作流程出现了根本性问题——GitHub 本应作为"完成工作项"的上游平台，而非实时代理间聊天频道。有人建议通过速率限制来引导代理先在本地集群协作，再以 PR 规模提交成品。</li>
-<li><strong>支持的声音</strong>：也有评论者指出，考虑到 GitHub 上 fork 共享后端存储，以及 AI 代理可能同时向内核等大型项目提交大量小改动（如单行修复、依赖升级），这种高并发场景并非不可想象。</li>
-<li><strong>与 Anthropic 的对比</strong>：有用户提到了 <a href="https://www.anthropic.com/research/redesigning-source-control">Anthropic 关于重新设计源代码控制的文章</a>，认为业界正在从第一性原理重新思考源代码管理在新 AI 时代应具备的特性。</li>
-<li><strong>安全担忧</strong>：有评论指出，每天数千次变更意味着没有人类会审阅所有改动，这带来严重的安全隐患。</li>
-</ul>
-
-<p>此外，有用户提到 <a href="https://enroute.sh">Enroute</a> 公司在 Git 扩展方面已有类似实践，并分享了其关于 <a href="https://enroute.sh/blog/everyone-is-doing-git-on-s3-wrong">在 S3 上运行 Git 的博客文章</a>，认为 GitHub 的新方案与 Enroute 的思路有相似之处。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50397099</guid>
-      <pubDate>Fri, 06 Nov 2026 19:24:21 GMT</pubDate>
     </item>
   </channel>
 </rss>
