@@ -3,7 +3,64 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 15 Nov 2026 02:36:44 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2026 10:45:16 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Unsloth 发布 Qwen3.8-27B 的 Dynamic V3.1 量化：同体积下基准准确率提升 5-10%</title>
+      <link>https://news.ycombinator.com/item?id=50491980</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] Unsloth 发布 Qwen3.8-27B 的 Dynamic V3.1 量化并给出本地运行指南，属于新 AI 模型/量化发布公告与 AI 技术进展，命中很感兴趣项</small></p><h3>核心更新</h3>
+<p>Unsloth 更新了 <a href="https://unsloth.ai/docs/models/qwen3.8">Qwen3.8 运行文档</a>，为 Qwen3.8-27B 发布基于新版 <strong>Unsloth Dynamic V3.1（预览版）</strong>算法的 GGUF 量化文件。官方称在体积基本不变的情况下，多数基准准确率提升 5-10%，在编码、Agent 类任务和通用对话上属于同类最佳。</p>
+<ul>
+<li>除 3bit（UD3）外，2bit 至 6bit 的量化均已更新；实测 UD3 与 UD3.1 表现相当，故 3bit 保持原样。</li>
+<li>测试覆盖 Terminal Bench 2.1、DeepSWE v1.1 等 Agent 基准，以及 LiveCodeBench v6、GPQA Diamond、MMLU-Pro、AIME25 等通用基准；Agent 基准用 256K 上下文，其余用 128K。</li>
+<li>V3.1 算法此前已用于 DeepSeek-V4.1-Flash 与 Qwen3.8-Flash-Next，官方表示正在开发更强的下一版量化，将用于 Qwen4 等后续模型。</li>
+<li>Unsloth 量化额外提供：面向 Codex 等 Agent 工具的 Developer 角色支持、加快推理的 MTP、以及改进嵌套对象解析的工具调用能力。</li>
+</ul>
+<img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FWf4zRxz4iskzXZcBUQYq%252Ffour%281%29.png%3Falt%3Dmedia%26token%3D0e7bc8b1-6a96-4978-bcbe-227d69705eb2&width=768&dpr=3&quality=100&sign=7ed088405d214652ffd92dfa31a55189&sv=3" alt="Dynamic V3.1 量化基准对比图" width="1470" height="1218" />
+
+<h3>与第三方量化评测的分歧</h3>
+<p>文档用相当篇幅反驳第三方（GSQ-RCO / ISTA）给出的「Unsloth UD3 量化更差」的结论：</p>
+<ul>
+<li>在 LiveCodeBench 上，Unsloth 称复现结果显示自己的 UD3 除最小尺寸外全面优于 ISTA，而 UD3.1 又有进一步提升；他们推测对方使用了约 96K 的上下文预算，而在 128K 下 UD3 明显更优。</li>
+<li>关于 AIME25，对方报告 100%/100%/100%/96.7% 的准确率恢复率，Unsloth 认为 ISTA 只做了 1 次试验，而自己做了 14 次，平均恢复率为 93%-96%，并指出 GPU 本身存在非确定性，贪心解码（temperature=0）也无法复现 100% 恢复，因此基准应多次运行。</li>
+<li>关于 Exllama-v3，因其 token embedding 层保留 BF16，比较时需从坐标轴中排除 embedding 尺寸；若按真实总内存/磁盘占用绘制，结论会不同（下图）。Unsloth 猜测其 lm_head 被重度量化，embedding 层可能「吸收」了大部分量化损失。</li>
+</ul>
+<img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FOAyvQGNinlCjqTfvInzE%252Fall_file_size%281%29.png%3Falt%3Dmedia%26token%3D71d6a14b-4dd5-4629-9011-c24145c16b41&width=768&dpr=3&quality=100&sign=3beec9c325f9b9b78a7ee83a00123276&sv=3" alt="各量化方案在真实文件体积下的准确率对比" width="2205" height="1826" />
+<p>此外，UD3.1 在多数量化档位与多数领域降低了 KLD（KL 散度），进一步印证质量改进。</p>
+<img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FKjLQfsZa7dpm50lm4487%252Fq27_kld_v3_vs_v31%281%29.png%3Falt%3Dmedia%26token%3D5bda64f6-c756-4709-8f8c-15b60761e7f2&width=768&dpr=3&quality=100&sign=705ad9e088f5ea35653cf034dc3cb18e&sv=3" alt="UD3 与 UD3.1 的 KLD 对比" width="2464" height="1155" />
+
+<h3>硬件需求与推荐参数</h3>
+<p>Qwen3.8-27B 是 27B 稠密模型，具备视觉与推理能力，256K 上下文（可用 YaRN 扩展到 1M）。4bit 量化可在 16-19GB 显存（RTX 5080 / 4090）或 24GB 统一内存的 Mac 上运行；全内存需求（RAM+VRAM）从 1bit 的 7-8GB 直到 BF16 的 56GB。若启用 MTP 加速，需额外预留 1-2GB。</p>
+<ul>
+<li>思考模式：temperature 1.0、top_p 0.95、top_k 20；非思考（Instruct）模式：temperature 0.7、top_p 0.80、presence_penalty 1.5。</li>
+<li>支持 <code>reasoning_effort</code>（默认 xhigh，另有 medium/low/none），可通过 <code>--chat-template-kwargs</code> 调整；支持「保留思考（Preserve Thinking）」以延续上一轮推理轨迹，代价是 token 消耗增加。</li>
+<li>可在 llama.cpp 与 Unsloth Desktop（macOS/Windows/Linux，自动卸载到内存、识别多 GPU）中运行；官方同时提供 GGUF 与 NVFP4 权重（Hugging Face / ModelScope）。</li>
+</ul>
+
+<h3>NVFP4 量化与更大模型</h3>
+<p>面向 NVIDIA Blackwell（RTX 50 系、DGX Spark、B200/B300）的 NVFP4 量化比 BF16 快约 1.5 倍，体积相近，并加入 FP8 KV cache 校准使上下文长度翻倍；Top-1 一致率对 BF16 保持 92%-97%。目前主要支持 vLLM（SGLang 需 v0.5.19 才能加载 FP8 lm_head）。此外文档还包含 2.4T 参数（95B 激活）的 Qwen3.8-2.4T-A95B：BF16 需 4.9TB 存储，1bit Dynamic GGUF 仅 397GB（缩小 91%）。</p>
+<img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252F8zM7cg0Xgo2pAlop1iPW%252F01_qwen36_combined_throughput.png%3Falt%3Dmedia%26token%3D23131a96-4c41-42d7-aa16-5bfb21bb44a3&width=768&dpr=3&quality=100&sign=9583bd271a17702a070557a0de23b576&sv=3" alt="NVFP4 与 BF16 吞吐量对比" width="2179" height="1086" />
+
+<h3>社区讨论</h3>
+<p>该帖在 Hacker News 获得约 250 分、82 条评论，讨论集中在以下几点：</p>
+<ul>
+<li><strong>与 Bonsai 2 的对比</strong>：多位用户认为 Bonsai 2（同样基于 Qwen3.8-27B）在小体积下表现不佳，甚至无法可靠完成多针检索；也有人指出 Bonsai 额外做了调优（如每 32 个参数一个 FP16 block 权重），因此能在几 GB 内塞进更多信息，而 Unsloth 的优势是可即取即用于各种现成开源模型。</li>
+<li><strong>替代量化方案</strong>：多名用户推荐 <a href="https://byteshape.com/blogs/Qwen3.8-27B/" rel="nofollow">ByteShape</a>，称其在 16-24GB 显存下让模型「真正好用」，并指出过度复杂的量化会把瓶颈从内存带宽推向算力。官方作者 Daniel Han 在评论区答疑，并提到 DeepSeek-V4.1-Flash 与 Qwen3.8-Flash-Next 的 UD3.1 量化也已更新。</li>
+<li><strong>弱 GPU 与 CPU 推理</strong>：有用户分享在纯 CPU + llama.cpp 上跑 Q4/Q5 处理 6000 词文本，启动约 10 分钟、隔夜出结果，适合「不适合 vibe coding 但可离线审阅内容」的用法；也有人用 Mac mini 夜间跑深度搜索报告。</li>
+<li><strong>本地 vs 云 API 成本</strong>：有人质疑按电价折算（约 25 美分/度）本地推理并不比商用 API 便宜，隐私是否是唯一理由；反驳者提出可租用独立服务器，成本远低于「云」。</li>
+<li><strong>框架支持</strong>：Daniel Han 透露 Unsloth 已支持 FSDP2（全参微调、LoRA、QLoRA）以及流水线并行和张量并行，但尚未正式公告；Mac 用户可期待 MLX 提速。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<ul>
+<li>量化「准确率恢复率」的定义通常是相对 BF16 全精度基线保留的分数比例，因此 100% 恢复并不等于满分，只是「不掉分」。</li>
+<li>GPU 推理（尤其批处理与浮点归约顺序）本身不确定，即便 temperature=0 也可能得到不同结果，这也是官方坚持多次试验、反对单次跑分的核心原因。</li>
+<li>Exllama-v3 保留 BF16 token embedding 的做法，会让「同体积比较」失真：embedding 表往往占总参数相当比例，排除或计入会显著改变量化曲线的排序。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50491980</guid>
+      <pubDate>Sat, 14 Nov 2026 00:06:04 GMT</pubDate>
+    </item>
     <item>
       <title>Show HN：把 1300 平方英里的旧金山湾区做成等距像素风地图</title>
       <link>https://news.ycombinator.com/item?id=50487228</link>
@@ -1584,44 +1641,6 @@ DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50408931</guid>
       <pubDate>Sat, 07 Nov 2026 23:09:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Anthropic 研究：智能体记忆的组成与「做梦」式离线整理机制</title>
-      <link>https://news.ycombinator.com/item?id=50402212</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲 Anthropic 关于智能体记忆组织的 AI 研究，属于 AI 软件技术进展与科学前沿，命中兴趣。</small></p><p>Anthropic 研究团队在<a href="https://www.anthropic.com/research/components-of-agent-memory">这篇研究文章</a>中系统阐述了如何为 AI 智能体（agent）设计记忆系统。文章借鉴人类大脑的记忆机制，提出了一套「记忆层级」架构，并重点介绍了被称为「做梦」（dreaming）的离线整理机制——让模型在两次交互之间的空闲时段反思日志、修正错误、构建新的记忆表征。</p>
-
-<h3>记忆层级与「做梦」</h3>
-<p>文章将智能体记忆定义为 Claude 从经验中获得、并在会话之间保留的知识，以稍后可读取的上下文形式保存。这一体系分为四层：会话转录（transcripts，可检索的事件日志）、Claude 写下的记忆笔记、记忆表征（如 wiki 页面）、以及注入到每个新会话的上下文。研究者类比人脑机制：海马体在睡眠和静息时重放近期经历，逐步将其巩固并整合到新皮层；智能体同样可以在空闲时「做梦」，利用日志反思并整理记忆。</p>
-
-<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fa0bcfa203214d817d2b4261b7188aba8be6db5b2-3840x1754.png&w=3840&q=75" alt="会话之间的记忆层级示意图" width="3840" height="1754" />
-
-<h3>记忆即预测</h3>
-<p>文章提出，记忆有时是一种预测：写下一条规则，等于预测该模式未来还会再次相关。在持续学习基准（CL-Bench 1.0）的数据库问答任务中，不同模型展现出不同的「学习循环」能力——从记录失败、提出理论、检验理论，到最终把验证过的结论固化为规则。Claude Opus 5 是首个「闭环」的模型，其记忆条目包含规则、验证依据和沿途发现的陷阱警告；Opus 5.5 与 Sonnet 5.5 也都能利用记忆捕获经过验证的规则。</p>
-
-<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fbb0d44c78cc431fb5e84fbf2cb17c4303bc6bd65-3840x2160.png&w=3840&q=75" alt="CL-Bench 数据库任务中记忆与无状态基线的对比" width="3840" height="2160" />
-
-<h3>判断什么值得记</h3>
-<p>在《宝可梦 红》游戏中，研究者测试了模型对「什么值得保存」的判断力。Claude Sonnet 3.7 无差别记录，写了 413 个文件、225 个文件夹，却只获得 1 枚徽章；而 Claude Fable 5 只写了 9 个文件加一个 global.md 总览，却获得 4 枚徽章。后者把记忆用于游戏未明确告知的信息（策略、计划、已验证的规则），而非屏幕上每回合都能读到的状态，因此记忆更精简、更不易过时。</p>
-
-<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F5e15e10f665773050d90fafc38ab8dd76ae5368b-3840x2545.png&w=3840&q=75" alt="Sonnet 3.7 与 Fable 5 在宝可梦中的记忆目录对比" width="3840" height="2545" />
-
-<h3>引导而非规定</h3>
-<p>研究发现，告诉 Claude 记忆的用途比规定具体用法更有效。当设定「只记录失败」的规则时，Opus 5 和 Opus 4.7 都失去了大部分记忆带来的性能提升；对较弱的模型（如 Sonnet 4.6），提示其先读取记忆再作答、并显式检验理论，几乎使基准分数翻倍。对前沿模型，Anthropic 通常只给出简单引导，把「什么值得记」的判断交给 Claude 自己。</p>
-
-<h3>「做梦」修正与构建记忆</h3>
-<p>「做梦」能让 Claude 对照原始转录检验记忆笔记。在宝可梦的月见山（Mt. Moon）关卡中，一条记错的地标位置笔记导致模型反复绕圈、始终无法抵达下一座城市；经「做梦」对照转录修正后，模型顺利穿过洞穴抵达华蓝市（Cerulean City）。此外，「做梦」还能构建 wiki 式记忆表征：在对 Stainless 公司约 35 万份内部文档（约 4.2 亿 token）的测试中，随着「做梦」从 2 个会话扩展到 128 个会话，25 道问题的得分从 13% 提升到 48%，wiki 与搜索工具配合时效果最佳。</p>
-
-<img src="/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fd906d6ed9ac92db36631a624ad517183b07a545d-3840x2101.png&w=3840&q=75" alt="被修正的记忆笔记改变了宝可梦中的行动结果" width="3840" height="2101" />
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论呈现两极分化。有读者赞赏文章对记忆系统设计的验证，也有人批评其「营销味」过重：认为 Claude 并非真正「记住」，只是把 markdown 文件注入上下文，且文章对「如何确保模型真正使用记忆」着墨甚少。多位实际使用 Claude Code 的用户分享了经验：有人关闭自动记忆创建并手动清理（认为自动生成的记忆大多只与当前任务相关），也有人定期让模型整理记忆、或把转录导入 duckdb 做数据分析。</p>
-
-<h3>你知道吗？</h3>
-<p>「做梦」一词在神经科学中颇具争议。主流假说认为，人类做梦的体验是睡眠期间记忆重激活与巩固过程的<em>副产品</em>，而非该过程本身，因此有评论者认为用「做梦」描述智能体离线整理记忆的机制类比并不严谨——它更接近记忆巩固（memory consolidation）本身。文章提到的「睡眠时间计算」（sleep-time compute）概念最早由 Letta 与 UC Berkeley 的研究者提出，指模型利用交互间隙重新组织既有上下文。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50402212</guid>
-      <pubDate>Sat, 07 Nov 2026 06:39:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
