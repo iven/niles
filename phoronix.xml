@@ -3,7 +3,84 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 16 Nov 2026 11:03:01 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2026 20:58:32 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Rust Nightly 开始默认启用并行前端，借助多核加快编译</title>
+      <link>https://www.phoronix.com/news/Rust-Nightly-Parallel-Frontend</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust编译器并行前端默认启用，属编程效率改进与Rust相关进展，与兴趣高度契合</small></p><p>Rust 的后端（back-end）早已采用多线程方式编译代码，而前端（front-end）此前默认仍是串行执行。如今 Rust Nightly 版本正着手<strong>默认启用并行前端</strong>，以便在最终稳定之前进行更充分的测试。</p>
+<p>前端并行化的能力其实已经具备相当一段时间，Rust 团队曾希望在 2024 年就将其稳定下来，但默认配置一直沿用单线程。启用多线程后，前端与后端进程都能利用多核 CPU，从而明显加快 Rust 程序的构建过程。Rust 项目公布的基准测试显示，使用 2 / 4 / 8 个线程时构建速度提升相当可观。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=rust_p_frontend" alt="Rust 前端并行化基准测试" />
+<p>其他要点：</p>
+<ul>
+<li>Rust 开发者计划后续投入更多精力，进一步提升前端并行化的性能。</li>
+<li>前端进程使用的线程数可通过 <code>--jobs-frontend=</code> 选项调整。</li>
+<li>Rust 官方博客的文章详细介绍了前端并行化的实现细节。</li>
+<li>未来数月内，团队将持续观察 Nightly 上的测试结果，之后才会把并行默认设置推广到 Rust 稳定版。</li>
+</ul>
+<p>该消息发布后获得 6 条评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Rust-Nightly-Parallel-Frontend</guid>
+      <pubDate>Mon, 16 Nov 2026 14:39:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ GNU Gawk 5.4.2 发布：正则匹配性能大幅提升</title>
+      <link>https://www.phoronix.com/news/GNU-Gawk-5.4.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 命令行编程工具Gawk新版发布并带来大幅性能提升，同时命中新软件项目与编程工具发布的高兴趣项</small></p><p>GNU 的 AWK 实现 <b>Gawk 5.4.2</b> 已正式发布，这一工具常用于数据提取、模式匹配与数据操作。本次更新中最值得关注的是性能改进。</p>
+<p>根据发布说明，<code>minrx.c</code> 中内存管理的优化会传导到 gawk 的实际运行效率上，<strong>在大量数据上匹配短模式时尤为明显</strong>；此外针对「是否匹配」这类只需判断而无需起始位置/长度的场景，还引入了额外的算法改动，进一步提升速度。回顾 Gawk 的 Git 提交记录，2026 年 8 月的工作被描述为「大幅性能提升」，但并未给出量化数字，另有独立提交完成了内存管理方面的改进。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=gawk_big_perf" alt="Gawk big performance improvement" /></p>
+<p>除性能外，5.4.2 还恢复了在不带 GNU GMP 与 MPFR 库的情况下编译时的正常支持，并改进了测试基础设施、更新了手册、新增语言翻译，以及若干小修复。</p>
+<p>完整细节可参见<a href="https://www.phoronix.com/news/GNU-Gawk-5.4.2">邮件列表公告</a>。</p>
+<h3>你知道吗？</h3>
+<ul>
+<li><b>GMP/MPFR</b>：GNU 多精度算术库与多精度浮点可靠运算库，Gawk 在需要更高精度数值计算时会依赖它们；此前的构建选项问题在 5.4.2 中得到修复。</li>
+<li><code>minrx.c</code> 是 Gawk 内部正则表达式引擎的实现文件，其效率直接影响 gawk 处理模式匹配任务的整体表现。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Gawk-5.4.2</guid>
+      <pubDate>Mon, 16 Nov 2026 13:41:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>LLVM 中老旧的 AMD R600 编译器后端预计将被移除</title>
+      <link>https://www.phoronix.com/news/LLVM-R600-Backend-To-Retire</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要内容是移除LLVM中老旧AMD显卡后端，更偏AMD显卡驱动清理（来源不感兴趣），仅编译器工具链角度略有价值</small></p><p>LLVM 代码库中老旧的 ATI/AMD Radeon R600 后端很可能被移除，原因是它已成为历史包袱，现代 Mesa 驱动栈中已没有实际使用者。</p>
+<p><img src="//www.phoronix.net/image.php?id=802&image=sapphire_2900xt_gpu" alt="Radeon HD 2900 XT R600 GPU" /></p>
+<p>该后端为 Radeon HD 2000 至 HD 6000 系列（R600/TeraScale 架构）GPU 提供代码生成支持，早期曾服务于 Mesa 的 R600 Gallium3D 驱动，也曾是 Clover OpenCL 支持的重要组成部分。但近年来 Mesa 的 R600g 驱动改用 NIR 路线后不再使用该 LLVM 后端，而 Clover 也已被主线的 Rust 版 OpenCL 实现 Rusticl 所取代，因此这些原始用途已不复存在。</p>
+<p>由于无人维护，且该后端在适配面向新 Radeon GPU 的现代 AMDGPU 后端时构成额外负担，AMD 上海编译器团队的 Harrison Hao 于周日发出征求意见稿（RFC），提议弃用并移除 R600 后端。他表示，残存的 R600 实现引入了在修改现代 AMDGPU 后端时必须考虑的遗留代码和条件，其 lit 测试即便在后端没有已知用户的情况下仍需持续维护和审查；移除相关代码与测试可简化 AMDGPU 后端并降低维护成本。</p>
+<p>该 RFC 仅针对 R600/TeraScale 时代硬件，不影响 GCN 及更新架构所使用的 AMDGPU 后端。目前尚未有人对其移除提出异议。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-R600-Backend-To-Retire</guid>
+      <pubDate>Mon, 16 Nov 2026 13:04:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GCC 17 有望合并原生 AArch64 Darwin/macOS 支持</title>
+      <link>https://www.phoronix.com/news/GCC-Native-AArch64-Darwin-Patch</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GCC编译器将原生支持AArch64 macOS，属编程工具与开源项目的新功能进展，符合兴趣方向</small></p><p>资深开源开发者 Iain Sandoe 发布了一组补丁，为 AArch64 Darwin（即 Apple Silicon 上的 macOS）提供原生支持，并希望这套代码能进入 <a href="https://www.phoronix.com/news/GCC-Native-AArch64-Darwin-Patch">GCC 17</a>。</p>
+<p>该移植工作自 GCC 10 时期（2020 年）起便开始开发，目前已长期用于 Homebrew 和 MacPorts 的 GCC 构建，并经过日常测试与实际使用验证。也就是说，下游发行渠道早已在使用打了补丁的 GCC，但上游主线此前一直没有合入。</p>
+<img src="//www.phoronix.net/image.php?id=apple-m4-intel-amd-linux&image=apple_mac_mini_m4_5_med" alt="Apple Silicon Mac Minis" />
+<p>时间点上存在一定紧迫性：GCC 17 的特性开发阶段已接近结束，不过由于这属于一个全新的移植端口（port），或许仍能争取到合入窗口。GCC 17.1 稳定版预计按惯例于明年 3 月至 4 月间发布。能否赶上 GCC 17 尚待观察。</p>
+<p>文章发布时仅有一条评论，未收录具体内容。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-Native-AArch64-Darwin-Patch</guid>
+      <pubDate>Mon, 16 Nov 2026 11:25:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Linux 7.5 的现代 NTFS 驱动将获得 O_TMPFILE 支持</title>
+      <link>https://www.phoronix.com/news/Linux-7.5-NTFS-TMPFILE</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Linux内核NTFS驱动新增O_TMPFILE支持，属软件新功能与Linux技术进展，感兴趣</small></p><p>在 Linux 7.2 中随「NTFS 复活」（NTFS Resurrection）一起引入的现代 NTFS 读写内核驱动，仍在持续补齐功能。据 Phoronix 报道，即将到来的 Linux 7.5 内核周期中，该驱动已排入 <code>O_TMPFILE</code> 支持。</p>
+<p>这一特性使 NTFS 与其他常见 Linux 文件系统驱动看齐：<code>O_TMPFILE</code> 允许创建匿名的、无名的常规临时文件，可用于暂存（scratch）等场景；若之后没有把它链接到可见的目录树中，文件在最后一次引用释放时即被回收。</p>
+<p>该临时文件支持由麒麟操作系统（Kylin OS）的 Baolin Liu 开发。据其说明，这组补丁让应用可以在通过 <code>linkat()</code> 正式发布之前，先准备好一个常规文件的数据与元数据；未被发布的文件在最后一个引用释放时会被回收，而 <code>O_EXCL</code> 则阻止已发布文件的再次发布。</p>
+<p>相关补丁在经历四轮代码评审与修订后，已进入 <code>ntfs-next</code> 分支，等待年底开启的 Linux 7.5 合并窗口。</p>
+<h2>你知道吗？</h2>
+<p><code>O_TMPFILE</code> 是 Linux 特有的 <code>open()</code> 标志（需配合 <code>O_WRONLY</code> 或 <code>O_RDWR</code> 使用），它返回一个没有目录项的 inode。相比「先写临时文件再重命名」的传统做法，这种机制可以避免临时文件残留、减少可预测的文件名带来的安全问题（如符号链接攻击），并让「要么完整发布、要么彻底消失」的语义更可靠。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.5-NTFS-TMPFILE</guid>
+      <pubDate>Mon, 16 Nov 2026 11:13:08 GMT</pubDate>
+    </item>
     <item>
       <title>Fwupd 2.1.10 发布：修复多项问题，新增 Synaptics 触控板支持</title>
       <link>https://www.phoronix.com/news/Fwupd-2.1.10-Released</link>
@@ -690,94 +767,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/FEX-2611-Released</guid>
       <pubDate>Fri, 06 Nov 2026 13:12:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>Ubuntu 推进拆分 linux-firmware 软件包并推出固件 HWE 选项</title>
-      <link>https://www.phoronix.com/news/Ubuntu-Going-With-Firmware-HWE</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Ubuntu发行版的固件和HWE选项计划，属于新发行版/软件项目管理范畴但具体内容偏基础设施和固件，兴趣不够明确</small></p><p>几个月前曾讨论为 Ubuntu 提供 Linux 固件 HWE 软件包，以便在硬件启用（HWE，Hardware Enablement）框架下携带更新的固件 blob，同时拆分庞大的 linux-firmware 软件包以简化固件更新流程。这些计划未能赶在 Ubuntu 26.10 正式版发布前落地，但如今正推进用于 Ubuntu 27.04，并可能在之后通过稳定版更新（SRU，Stable Release Update）回移植到 Ubuntu 26.10，甚至可能进入 Ubuntu 26.04 LTS。</p>
-<p>首先是针对 Ubuntu 27.04 “Tenacious T-Rex” 推出 linux-firmware-hwe 软件包，后续再通过 SRU 回移植。该软件包将为 AMD、Broadcom、Intel、Marvell、MediaTek、NVIDIA、Qualcomm 等众多硬件厂商带来更新的固件资源。linux-firmware 与 linux-firmware-hwe 拆分后的关键软件包包括：</p>
-<ul>
-<li>linux-firmware-amd-graphics、linux-firmware-amd-misc</li>
-<li>linux-firmware-broadcom-wireless</li>
-<li>linux-firmware-intel-graphics、linux-firmware-intel-misc、linux-firmware-intel-wireless</li>
-<li>linux-firmware-marvell-prestera、linux-firmware-marvell-wireless</li>
-<li>linux-firmware-mediatek、linux-firmware-mellanox-spectrum</li>
-<li>linux-firmware-misc、linux-firmware-netronome、linux-firmware-nonfree</li>
-<li>linux-firmware-nvidia-graphics</li>
-<li>linux-firmware-qlogic、linux-firmware-qualcomm-graphics、linux-firmware-qualcomm-misc、linux-firmware-qualcomm-wireless</li>
-<li>linux-firmware-realtek</li>
-</ul>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=firmware_hwe_x" alt="linux-firmware-hwe-* packages" /></p>
-<p>linux-firmware-hwe 体系的目标是在 Ubuntu LTS 版本搭配 HWE 内核时提供更好的用户体验，避免潜在的内核/固件不兼容问题；同时也可减轻开发者和打包人员的负担，无需再逐一甄别需要回移植的单个固件文件。这些 linux-firmware-hwe 计划正在推进，预计将先进入 Ubuntu 27.04 归档，随后 SRU 至 Ubuntu 26.10，并可能在 Ubuntu 26.10 的 HWE 体系被采纳后进入 Ubuntu 26.04 LTS。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-Going-With-Firmware-HWE</guid>
-      <pubDate>Fri, 06 Nov 2026 11:19:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 开发者拟移除 RT_GROUP_SCHED，称其&quot;损坏到无法修复&quot;</title>
-      <link>https://www.phoronix.com/news/Linux-Drop-RT_GROUP_SCHED</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及Linux内核调度器改动，主题偏技术底层内核开发，与Linux技术相关但非直接桌面技术或新软件发布，兴趣不明确</small></p><p>Linux 内核开发者正考虑移除 RT_GROUP_SCHED 功能，该功能用于通过 cgroups 对实时任务进行组调度。RT_GROUP_SCHED 是为 cgroups v1 而非更新的 v2 设计的，在提议的移除补丁中，该功能被描述为"损坏到无法修复"（broken beyond repair）。所有主流 Linux 发行版内核均已禁用该功能。</p><img src="//www.phoronix.net/image.php?id=2026&image=rt_group_sched" alt="RT_GROUP_SCHED Kconfig" /><p>Linutronix 工程师 Sebastian Andrzej Siewior 在提议移除 RT_GROUP_SCHED 时解释道：该功能已损坏到无法修复，编译时不应启用；若已启用，建议在启动时通过 <code>rt_group_sched=</code> 选项禁用它。启用后，无法将任务策略设置为 SCHED_{FIFO|RR}，因为其 cgroup 没有分配运行时（runtime），而运行时无法通过 cgroup v2 分配。根组拥有全部运行时，这意味着全局 sysctl 运行时参数（<code>sched_rt_runtime_us</code>）无法降低，因为新带宽将小于当前可用值。SCHED_DEADLINE 任务可以调度，但准入控制（admission control）会卡住，只能通过 -1（同一 sysctl 参数）禁用。因此，所有主流发行版（Debian、OpenSUSE、Fedora、Archlinux）都已禁用它。</p><p>Siewior 认为没有必要修复 RT_GROUP_SCHED：DL fair server 已经处理了 RT 节流机制，并且有关于分层恒定带宽服务器（Hierarchical constant bandwidth server，HCBS）的工作，旨在将多个实时任务分组到一个截止时间配置中。他建议移除 <code>CONFIG_RT_GROUP_SCHED</code>。</p><p>该补丁很可能会继续推进并最终进入主线，以移除这一损坏的功能。针对该补丁，有人提出似乎还有一些未指明的用户在使用该代码，也有人质疑是否应先在内核中弃用该选项一段时间再移除。从邮件列表来看，有不少人希望移除 RT_GROUP_SCHED。</p><h3>你知道吗？</h3><ul><li><b>cgroups v1 与 v2</b>：cgroups v2 是内核中新一代的控制组接口，统一了层级结构并移除了 v1 中许多不一致的控制器行为。RT_GROUP_SCHED 基于 v1 设计，无法在 v2 下正常分配运行时，这是其"无法修复"的重要原因之一。</li><li><b>RT 节流（RT throttling）</b>：为防止实时任务独占 CPU，内核通过 <code>sched_rt_runtime_us</code> 等参数限制实时任务在单位周期内可占用的 CPU 时间，DL fair server 是替代 RT_GROUP_SCHED 的节流实现。</li><li><b>SCHED_DEADLINE</b>：Linux 的实时调度策略之一，基于最早截止时间优先（EDF）算法，为任务提供明确的截止时间保证，其准入控制机制确保系统不会因过载而无法满足实时约束。</li></ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-Drop-RT_GROUP_SCHED</guid>
-      <pubDate>Fri, 06 Nov 2026 11:09:14 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux 7.4-rc2 音频子系统迎来大量修复与笔记本/设备适配补丁</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-rc2-Sound</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲Linux 7.4-rc2声音子系统的修复和笔记本/设备quirk，属于Linux内核技术进展但偏底层硬件相关，与配置中主要兴趣点匹配度不高</small></p><p>Linux 7.4-rc2 内核本周发布，音频子系统包含"数量多得毫不意外"的修复及设备适配补丁。SUSE 工程师兼音频子系统维护者 Takashi Iwai 提交了本周的音频修复批次，其中大量笔记本的 quirks（设备适配补丁）尤其引人注目。</p><p>本次修复中值得关注的改动包括：</p><ul>
-<li>为更多使用 AMD Audio Co-Processor 7.0（ACP 7.0）IP 并结合 TAS2783 编解码器的设备增加支持，全部为 HP 机型（型号编号 8EF5、8F6D、8FA4、8FA5、9056）。</li>
-<li>为 HP OmniBook 3 16-by0xxx 添加 DMI quirk，解决其内置麦克风在 AMD ACP6x 机器驱动下无法使用的问题。</li>
-<li>修复华硕 PRIME B650M-K 主板的音频爆音问题。</li>
-<li>为 HP OmniBook 7 Laptop 16-ay0xxx 提供音频支持。</li>
-<li>启用 HP ENVY 17-cr0xxx 的静音与麦克风静音 LED。</li>
-<li>修复 HP OmniBook 7 的静音及麦克风静音 LED。</li>
-<li>为 HP ZBook 17 G3 添加静音 LED quirk，为 HP ZBook 8 G2a 添加反相静音 LED quirk。</li>
-<li>启用 Alienware m17 R3 的低音扬声器。</li>
-<li>为华为 MateBook X Pro 2020 款添加 quirk，以处理耳机与麦克风组合插孔，并修复麦克风静音 LED。</li>
-<li>为华为 MateBook WRT-WX9 添加 quirk，修复耳机模式。</li>
-<li>为 Acer Predator PHN16-71 添加 quirk，解决其 Realtek ALC245 编解码器无法在 3.5mm 组合插孔上检测外部耳机麦克风的问题。</li>
-<li>为联想 V15 AMN G6（产品名 83VD 与 84CS）添加 quirk，使其 DMIC 采集设备在 Linux 下可用。</li>
-<li>为 TegraHDMI 驱动代码添加 Tegra268 HDMI/DP 编解码器 ID。</li>
-</ul><p>完整的 Linux 7.4-rc2 音频修复列表可通过对应的 pull request 查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-rc2-Sound</guid>
-      <pubDate>Fri, 06 Nov 2026 10:58:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenCV 5.1 发布：新增 AVX-512 优化、FP8 支持及多项改进</title>
-      <link>https://www.phoronix.com/news/OpenCV-5.1-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] OpenCV 5.1新版本发布涉及AVX-512优化，属于开源项目和软件新功能范畴，但具体性能优化内容不够突出，兴趣程度一般</small></p><p>OpenCV 5.1 于今日正式发布。作为广泛使用的计算机视觉（CV）库，OpenCV 5.0 于今年 6 月推出，带来了重写的 DNN 引擎等多项重大改进；本次 5.1 版本则包含大量修复和增量改进，进一步推动计算机视觉在 AI 时代的发展。</p><p>OpenCV 5.1 的主要亮点包括：</p><ul>
-<li>新增 AVX-512 优化及多种其他 SIMD 优化，并改进了 AVX-VNNI 支持；</li>
-<li>在多个领域扩展了 FP8 支持；</li>
-<li>移除了经典 DNN 引擎，仅保留 OpenCV 5.0 中引入的新引擎；</li>
-<li>对 DNN 模块及其他领域进行了 NVIDIA CUDA 和 cuDNN 改进；</li>
-<li>新增多个 RISC-V RVV 向量内核；</li>
-<li>新增基于 OpenGL 的 3D 可视化器，支持网格、点云、RGB-D 帧和相机轨迹；</li>
-<li>改进了 Java、JavaScript 和 Python 的绑定；</li>
-<li>修复了数百个 bug。</li>
-</ul><p><img src="//www.phoronix.net/image.php?id=2024&amp;image=opencv" alt="OpenCV logo" />OpenCV 5.1.0 已可在 GitHub 上获取。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/OpenCV-5.1-Released</guid>
-      <pubDate>Fri, 06 Nov 2026 10:36:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>Linux raid6check 工具通过批量 I/O 实现最高 3 倍性能提升</title>
-      <link>https://www.phoronix.com/news/Linux-3x-Faster-raid6check</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Linux内核RAID6检查工具性能优化，涉及基础设施和Linux技术，但主题较为小众技术性，兴趣不明确</small></p><p>Linux 的 <code>raid6check</code> 命令用于检查和修复 MD RAID6 软件 RAID 阵列设备上的错误，新合并的代码使其性能提升最高达 3 倍。该工具利用 RAID6 阵列的双重奇偶校验（double parity）功能，能够对 Linux 软件 RAID6 设备进行错误检查和修复。</p>
-
-<img src="//www.phoronix.net/image.php?id=freebsd-12-zfs&image=freebsd_zfs_1_med" alt="Large Linux RAID array" />
-
-<p>此前 <code>raid6check</code> 每次只处理每个磁盘上的一个条带（stripe），导致其并非 I/O 密集型操作。开发者 David Guillen Fandos 通过批量化处理提升了 I/O 效率。他在已合并到 mdadm Git 仓库的补丁中解释说：「raid6check 每次只处理一个条带（每磁盘），使其无法达到 I/O 瓶颈。通过批量 I/O 操作，我们以合理的额外内存开销（选择 512MB 作为合理数值，因为更大的数值提升有限，而这在现代 RAID 机器上是可预期的内存量）显著提升了性能。在配备普通机械硬盘、充足内存和现代内核的 RAID6 配置（6 块磁盘 × 4TB）上，性能提升了 3 倍。我推测类似配置下也能获得相近的速度提升。」</p>
-
-<p>这对 Linux 软件 RAID 的 RAID6 检查工具性能来说是一项非常不错的改进。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-3x-Faster-raid6check</guid>
-      <pubDate>Thu, 05 Nov 2026 17:09:10 GMT</pubDate>
     </item>
   </channel>
 </rss>

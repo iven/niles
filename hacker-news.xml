@@ -3,7 +3,106 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 16 Nov 2026 11:03:43 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2026 20:59:19 GMT</lastBuildDate>
+    <item>
+      <title>软件正在系统性崩溃：从微软宕机、PHP 漏洞到 AI 时代的「去相干」</title>
+      <link>https://news.ycombinator.com/item?id=50520866</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 属于行业观察与观点评论，围绕微软宕机、PHP 漏洞及 AI 时代软件可靠性泛论，既非具体编程工具分享也非效率经验或新模型发布，主题兴趣不明确，故列为可选</small></p><p>博主 Jimmy Breck-McKye 在 <a href="https://www.breck-mckye.com/blog/2026/11/software-is-breaking-down-at-a-systemic-level/">Developing Opinions</a> 撰文指出，2026 年接连发生的重大事故并非孤立事件，而是软件在<b>系统性层面</b>走向失灵的表征。文章在 Hacker News 获得 221 分、122 条评论，评论区则出现大量反对「时代堕落论」的声音。</p>
+
+<h2>一年之内的连环事故</h2>
+<ul>
+<li><b>微软全球故障</b>：持续两天，起因疑似网络配置错误导致数据中心之间无法通信，随后演变为级联故障，任何服务都难以恢复到可承载流量的状态。作者引用前微软工程师 Axel Rischin 今年 3 月的批评：Azure 在竞争压力下仓促上线、削减了可靠性与运维简化的基本原则，此后只靠自动化缓解脚本、扩编的 on-call 团队和人工抢修维持，形成「由低质量部件拼成的高度复杂系统，无人能看清全貌」。</li>
+<li><b>PHP2Shell 漏洞</b>：安全公司 Wiz 于 10 月 21 日披露的漏洞可在任意 PHP 网站上执行任意代码。PHP 支撑约 70% 的网站（尤其 WordPress 电商），其运行时隐藏了十余年的复杂内存记账缺陷，人类攻击者难以自行发现，AI 工具却大幅降低了利用门槛。</li>
+<li><b>eMudhra 证书事故</b>：数千张 SSL 证书因私钥过弱而被攻破。</li>
+<li><b>Shai Hulud 攻击（5 月）</b>：攻击者污染了 NPM 生态中的关键包，利用 GitHub Actions 的 CI 配置漏洞（分叉项目可把代码推回上游）与缓存机制，借包内的安装脚本窃取项目密钥。</li>
+</ul>
+
+<h2>问题出在建造方式，而非单个部件</h2>
+<p>作者认为这些事故的直接原因各异，却呈现出同一副面孔：系统过度复杂、由必须完美协作的部件组成，任何一处劣化都会拖垮整体。他回溯十年前的两次「静悄悄的革命」：</p>
+<ul>
+<li><b>云计算</b>：把硬件与运维外包给 AWS 一类的供应商，企业得以裁掉系统管理员，DevOps 运动进一步把开发与运维合并。</li>
+<li><b>开源依赖</b>：NPM（以及 PyPI、Maven）让「加一行依赖、装一个包」取代了亲手打磨每个齿轮，团队不必再自己解决已被别人解决的问题。</li>
+</ul>
+<p>代价是<b>所有人都停止了了解细节</b>，控制权被让渡出去。同时，专业分工被压缩为「通才」，工人对雇主的议价能力下降，也让最接近工作现场、最能第一时间拉响警报的人失去了影响力。作者提醒，这种权力结构变化早在 2016–17 年的 left-pad 事件就露出征兆，XZ Utils 后门则是一次险情。</p>
+
+<h2>AI 不是唯一原因，但放大了失序</h2>
+<p>作者不同意「AI 生成的代码不可靠」这一常见批评——他认为模型完成所要求任务的能力其实相当不错（尽管这可能得益于算力补贴）。真正的风险是<b>去相干（decoherence）</b>，他引用 Kristen Maevyn 的《The Decoherence Trap》：</p>
+<blockquote>去相干：系统中积累了局部有效但彼此不兼容或冗余的模型，使得变更成本主要被用于在模型之间翻译以及防止意外副作用。</blockquote>
+<p>去相干会随系统变更速率增长，而且系统越去相干增长越快，形成失控的指数级膨胀。软件工程师已把测试、函数、组件乃至设计与整体构思都交给 AI 代理完成；「把杂乱的人类意图蒸馏为计算机可执行的精确代码」这一核心活动正在消失。多数工程师并非无能，而是无法跟上 AI 生成的代码洪流，于是出现一种「习得性无助」与「虚假的自信」并存的状态——LLM 提供「做了工作」的幻觉，却不迫使人们思考细节。作者担忧技术工作者变成整天调校提示词、让 Claude 判断工作是否完成的「肉身代理（meat proxies）」。</p>
+
+<h2>从代码到组织：认知能力的流失</h2>
+<p>作者把这条链条延伸到整个组织：工程师的提示词来自用 Claude 写的工单，工单源于 Claude 撰写又摘要过的文档，文档里的数字也由 Claude 算出，而资本市场只关心短期趋势。这虽是漫画式夸张，但离现实不远。他警告科技公司可能丧失「组织认知（organisational cognition）」——作为一个连贯整体思考与响应的能力，最终形成「系统中没有任何事出于明确意图、也没有任何人拥有控制权」的局面。</p>
+<p>由于软件如今掌控航班、银行、加油站、电视、工资单、导航与社交，社会对技术系统投注了过多信任，而各国政府与机构并未准备好迎接 2026 年这类事故成为常态的世界：每一层依赖、每一个假设、每一环链条都是新的攻击面。作者最后写道，我们之所以认为 AI 革命正在成功，恰恰是因为我们制造复杂性的速度——但真正承重的东西已经不够清晰可读了。</p>
+
+<h2>社区反应</h2>
+<p>评论普遍不认同这种「今不如昔」的叙事：</p>
+<ul>
+<li><b>史实修正</b>：多人指出包管理器远早于 2014 年的 NPM（Maven、RubyGems、apt、yum），「把软件史从 JS 框架开始算」暴露了作者的阅历局限。</li>
+<li><b>过度归纳</b>：有评论认为作者把起因截然不同、只是碰巧集中在同一时段的事件拼在一起；FAA 停飞源于光缆更换，证书事故是纯粹的人为失误，「如果邮件中断就能伤到你的生意，那就该优先选择高可靠而非集成便利」；PHP2Shell 固然糟糕，但当年也有 Log4j。</li>
+<li><b>检测偏差</b>：有观点认为软件一直都是坏的，只是现在让其「显形」的成本极低——任何人都能廉价地进行渗透测试，于是所有东西都被「渗透」了。</li>
+<li><b>类比凯斯勒综合征</b>：随着算力基础设施的密度与复杂度上升，一次路由器更换就可能让全球航空业瘫痪数周，这类级联失败未必出于恶意。</li>
+<li><b>规模视角</b>：有老工程师回忆 2000 年代初装 Linux 上网五分钟即被入侵、桌面系统频繁崩溃、服务器需整机重装；若考虑今天计算机与软件规模是二十年前的数千倍，可靠性其实大幅提升，只是「更多东西」意味着「更多东西会坏」。</li>
+<li><b>批评文体</b>：也有人讥讽这类文章是「2026 年的 AI 泔水（slop）」——非 AI 所写，却靠蹭 AI 话题收割焦虑者的点赞，且总以「我也用 AI，我很懂」的自证开场。</li>
+</ul>
+<p>另有从业者补充了一个未被广泛报道的案例：Bitrise 的安全事件使部分团队的 CI 从周五瘫痪到周日晚，所有客户被迫轮换密钥，对移动端发布影响很大。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50520866</guid>
+      <pubDate>Mon, 16 Nov 2026 18:17:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Tor 项目紧急发布 0.4.9.17，修复中继 DoS 防御以应对持续 DDoS 攻击</title>
+      <link>https://news.ycombinator.com/item?id=50512441</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Tor 开源项目的安全版本发布，修补中继 DoS 防御以应对持续 DDoS，属开源项目与技术进展，符合感兴趣范畴</small></p><p>Tor 项目发布了稳定版 <a href="https://forum.torproject.org/t/security-release-0-4-9-17/22454">0.4.9.17</a>，包含一系列安全修复。其中一项针对中继 DoS（拒绝服务）防御的修复与 IPv6 处理相关，被认为尤为重要。官方表示，该版本是对当前针对 Tor 网络的持续 DDoS 攻击的「快速响应」——网络中大多数中继运营者都受到了影响：大量客户端电路（circuits）涌入，使中继不堪重负。</p>
+
+<p>Tor 团队承认这个问题并不容易解决，正在评估更多防御手段，预计近期还会有后续版本发布。公告特别感谢了协助应对攻击的中继运营者，称 tor-relays@ 邮件列表非常活跃。官方呼吁所有运行中继的人尽快升级，升级后无需额外操作。论坛上则有用户询问：如果用 Tor Browser 内置的 tor.exe 运行中继，该如何正确升级。</p>
+
+<p>在 Hacker News 的讨论（237 分、64 条评论）中，社区主要围绕攻击动机与缓解手段展开：</p>
+
+<ul>
+<li><strong>攻击目标是谁</strong>：有人指出，DoS 在 Tor 上始终是猫鼠游戏，通常攻击针对特定站点或竞争对手，但这次看起来是全网性的。有评论认为，攻击集中在持有隐藏服务目录（HSDir）标志的节点上，一旦节点失去该标志攻击就停止，因此攻击者很可能是在围绕这些节点做流量整形；由此推测，这可能不是国家行为体，而是想打掉某些隐藏服务或识别其访问者的自发团体。</li>
+<li><strong>是否为引导流量的前奏</strong>：有用户提出，攻击是否意在把流量驱赶到敌对中继上，以便实施监控；有人回应称，作为威胁建模的一种假设，这是合理的。</li>
+<li><strong>工作量证明（PoW）防御的副作用</strong>：一位运营者表示，为隐藏服务启用了 PoW 挑战后，新访客的首次连接会变慢，部分人可能误以为站点离线而离开，关闭后明显更快。他好奇究竟有多少人在使用 <code>HiddenServiceEnableIntroDoSDefense</code> 与 <code>HiddenServicePoWDefensesEnabled</code>。</li>
+<li><strong>中继运营者亲历</strong>：一位非出口中继运营者称，其节点成为 guard（入口守卫）节点后遭遇攻击，下载速度一度下降 99%，限制带宽无效，最终取消 guard 标志后恢复正常；不过也因「恶意 guard/出口节点曾是用户被攻破的途径」而表示短期不再运行 guard。该评论曾因反 AI 检测被误标记，随后被其他用户担保恢复。</li>
+<li><strong>访问自身的尴尬</strong>：有人通过 Tor 访问 torproject.org 的发布说明时收到 403（Tor 屏蔽了 Tor），其他用户则称用 Brave 访问正常，并给出了官方 onion 地址。</li>
+<li><strong>速度体验</strong>：普遍认为 Tor 比十年前快得多，可以流畅看 YouTube，但洋葱路由带来的延迟无法避免（好电路约 100–300ms，差的可能 800ms 以上）；此外中继与目录权威服务器集中在美国和欧洲，会带来网络视图偏差，而大量服务仍屏蔽 Tor 出口 IP。也有人提到 Nym mixnet 等替代方案，以及「先连可信 VPN 再连 Tor」的缓解思路。</li>
+</ul>
+
+<h2>你知道吗？</h2>
+<p>讨论中频繁出现的几个概念：<strong>guard（入口守卫）节点</strong>是客户端链路的第一跳，被长期固定使用以降低流量关联攻击的风险，因此其可信度尤为关键；<strong>HSDir（隐藏服务目录）节点</strong>负责存储隐藏服务的描述符，客户端通过它们找到 .onion 服务。攻击这两类节点比攻击普通中继收益更高，也解释了为什么攻击者会针对特定标志的节点发力。而 PoW 防御的思路是：让单个用户在访问时多花几秒算力，对僵尸网络来说则要付出天文数字的累计成本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50512441</guid>
+      <pubDate>Mon, 16 Nov 2026 00:21:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Emacs 就是我的浏览器：用 EWW 覆盖 85%–90% 的日常上网</title>
+      <link>https://news.ycombinator.com/item?id=50507553</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 分享用 Emacs 内置 EWW 浏览器承担绝大部分日常上网的工具使用经验，直接命中「编程工具分享」与「编程效率改进经验」的高兴趣主题</small></p><p>作者 Joshua Blais 一直希望把 Emacs 当作唯一的计算环境，于是开始认真地把网页浏览也搬进 Emacs。他原本以为内置的 <a href="https://www.gnu.org/software/emacs/manual/html_mono/eww.html">EWW（Emacs Web Wowser）</a>只是个聊胜于无的小玩意，但用几天后发现它能应付大约 85%–90% 的使用场景——即使是充斥着 JavaScript 的现代互联网。</p>
+<img src="https://cella.b-cdn.net/joshblais/eww.png" alt="eww inside emacs" width="700" />
+<h3>为什么要这么做</h3>
+<p>作者认为现代浏览器（Chromium/Firefox）太容易让人分心：无穷的推荐、数不清的「闪亮之物」把人从创造力和深度思考上拉走。改用 EWW 或任何终端浏览器（lynx、browsh）后，这种分心被大幅消除。此外他还有一个理念层面的动机：应该努力摆脱互联网的「第八层（Layer 8）」——即社交平台和封闭角落那些限制真实讨论的前端（他点名 Discord）。他认为人们向大科技平台让渡了太多却几乎一无所获，以致许多人觉得互联网正在死去；但互联网只是一个传输机制，在他眼中它从未如此活跃。他建议「像 1999 年那样使用互联网」，甚至在手机上（Termux 里）也用 EWW，只有 5%–10% 的场景退回 Fennec。</p>
+<img src="https://cella.b-cdn.net/joshblais/nobrowser.jpeg" alt="手机上使用 eww 的截图" />
+<h3>具体配置</h3>
+<p>EWW 支持图片和 GIF，配合一些快捷键即可顺手使用：<code>R</code> 调用 <code>eww-readable</code>（类似 Firefox 阅读模式，去掉页眉页脚、聚焦正文）；<code>&amp;</code> 把页面交给默认浏览器；<code>D</code> 下载图片到本地；<code>b</code> 后退；<code>a</code> 添加书签；<code>U</code> 复制当前位置的 URL。他还让 <code>.pdf</code> 在 Emacs 内用 pdf-tools 打开、<code>.mp4</code> 与 YouTube/视频链接交给 mpv、gopher/gemini 链接交给 elpher。搜索默认走自建的 Searx 实例（隐私友好的元搜索引擎）。文章给出了完整的 <code>browser.el</code>：通过 <code>browse-url-handlers</code> 按 URL 正则分发到各处理器，兜底是 <code>eww-browse-url</code>，备用浏览器为 Chromium；同时设置了 <code>shr-width</code> 100、<code>shr-max-width</code> 120、<code>shr-indentation</code> 4、关闭 <code>shr-use-fonts</code>、限制图片最大尺寸、允许 GIF 动画等渲染参数。由于 EWW 用 Shr 渲染 HTML，这些变量都指向 Shr。</p>
+<h3>局限</h3>
+<p>作者明确列出做不到的事：看不了 YouTube 视频、读不了 X（x.com 对非 JS 浏览器充满敌意）、无法使用社交媒体和登录各类平台、不能网上银行、填政府表单或访问客户门户。适用场景是快速搜索、查文档、读博客。遇到渲染不佳的页面，按 <code>&amp;</code> 转到现代浏览器继续。</p>
+<p>他现在把所有 URL 处理函数都默认指向 EWW，因此任何上网行为都必须先经过 EWW，这促使他在上网前先想清楚要做什么，只在必要时才退回现代浏览器。</p>
+<h3>社区讨论</h3>
+<p>HN 上的讨论（231 分、137 条评论）褒贬不一：</p>
+<ul>
+<li><strong>「便利性是卖点还是缺陷」之争</strong>：有评论者批评这类文章总是先许诺「非常规方式的好处」，读到最后却发现所谓好处就是「更难用、更不方便」。反驳者指出，终端界面的价值正在于按键始终在手边、无需摸鼠标找按钮，而「避免分心」和「不方便」并非一回事。用 qutebrowser 的 Emacs 用户则补充说，真正的收获应是工作流整合。</li>
+<li><strong>EWW 的实际好处</strong>：可把代码/笔记与网页并排放在不同 buffer，方便对照文档；配合 gptel 可选中段落问 LLM 或让它改写整页；可用宏做基础网页抓取自动化；整个 Emacs 的键位在此依然有效。</li>
+<li><strong>替代方案</strong>：<code>xwidget-webkit</code> 嵌入 WebKit 能获得接近浏览器的体验，有人每天用它看 PDF、与 Jupyter notebook 并排，但处理 Google Docs 之类仍得回到浏览器；也有观点认为商业站点只针对 Chrome 测试，为此硬扛不值得。</li>
+<li><strong>Emacs 的架构</strong>：有人认为 Emacs 单线程阻塞，做浏览器这类事终究会以奇怪 hack 或卡顿告终，更看好 <a href="https://github.com/lem-project/lem">Lem</a> 这类从零实现的新 Emacs；反驳者指出 Emacs 有异步 IO，缺的是单进程内的并行，而这未必需要，最近引入的 canvas API 也展示了灵活性，Lem 的生态远不能比。</li>
+<li><strong>安全性担忧</strong>：有评论认为在 2026 年不做重度沙箱就这样浏览会惹麻烦，Emacs 维护者恐怕跟不上新漏洞；反方则认为这属「网络安全表演」，浏览无 JS 页面的攻击面有限，且安全本应是风险管理而非风险消除。</li>
+<li><strong>其他</strong>：有人提到可以在 EWW 里登录 Hacker News（多行评论需 <code>C-q RET</code>），且 EWW 在老旧 32 位笔记本等资源受限设备上表现很好；小指劳损问题可用 Evil/Spacemacs 或 homerow mods 缓解；也有人回忆 RMS 与 Knuth 各自极端的「不用浏览器」工作方式。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50507553</guid>
+      <pubDate>Sun, 15 Nov 2026 15:21:21 GMT</pubDate>
+    </item>
     <item>
       <title>MIT「如何（几乎）造出任何东西」课程公开 2026 学期日程，引发&quot;广度还是深度&quot;之争</title>
       <link>https://news.ycombinator.com/item?id=50514470</link>
@@ -1635,101 +1734,6 @@ DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50443812</guid>
       <pubDate>Tue, 10 Nov 2026 18:01:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>十年家居自动化经验：核心设备不该依赖厂商服务器</title>
-      <link>https://news.ycombinator.com/item?id=50441707</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 家居自动化与去厂商依赖的经验分享，偏个人实践记录，与编程工具、AI等兴趣点不直接相关，也未落入避开类</small></p><p>作者（Hacker News 用户 skittleson）总结了自己十年家居自动化的经验，第一条铁律是：家里任何核心功能都不能依赖厂商的服务器。断网之后房子照常运转——这条规则已经坚持了大约十年，其余规则都由此衍生。文中还收录了他前后相隔五年的两场演讲，逐页讲解。</p>
-
-<p><strong>本地优先的技术栈</strong>：关键系统跑在自己拥有的硬件上——ESP 板上的 Tasmota、MQTT broker（消息代理）、树莓派上的 Node-RED。他也用一些云服务，主要是 Alexa 和少数 AWS 服务，但 Alexa 只是"另一种开关灯的方式"，它挂了，墙上的物理开关和墙壁仪表盘依然可用。</p>
-
-<p><img src="/images/home-automation/t1-07.webp" alt="No Internet, No Problem: scissors cutting an ethernet cable" title="No internet, no problem" /></p>
-
-<p><strong>最初五条规则</strong>：没有互联网也不成问题；Alexa 可以是一种入口，但绝不能是唯一入口；在加新方式时不要拆掉旧方式（他违反过这条，代价是有人把墙壁开关用胶带粘在开启位置，好让智能灯泡持续供电）；保持灵活，房间用途和住户会变，方案必须低成本可改；定期检查自动化，他曾有四个定时触发器同时打向同一个花园水泵；例外必须真的例外，"我当时赶时间"不算理由。</p>
-
-<p><strong>第五年后追加的规则</strong>（家里从一人变成多人之后）：云设备必须提供带日志的 API，否则不装；配置集中在一处，而不是散在五个厂商 App 里；多种操作入口（App、Alexa、二维码、NFC 标签）；重复的操作步骤固化为日常流程；设备之间用 MQTT 的发布/订阅而非点对点通信；电池设备必须能撑一年以上，没人想在凌晨两点换门磁电池。</p>
-
-<p>被问得最多的自建项目是 <a href="https://docodethatmatters.com/home-automation-overnight-success/">Tasmota 喷淋控制器</a>，还有同样运行多年的车库门方案。车库降温流程会先确认门已关闭，再开门、等待、开风扇，已经在运行时只发通知；门磁和簧片开关的状态写入 Grafana，能画出真实几天里开了 21 次门的曲线，并在忘关门时提醒。</p>
-
-<p><img src="/images/home-automation/t1-16.webp" alt="Sprinkler controller wiring, a 3D PCB render, the Tasmota web UI, scheduled nodes, and a bare PCB layout" title="The sprinkler build end to end: enclosure wiring, PCB design, Tasmota UI, schedule flow, and the bare board" /></p>
-
-<p><strong>第二场演讲（五年后）</strong>：规则没怎么变，需要扛住的问题却更多了。人多了意味着更多走动、更多钥匙、更长的外出，以及无人察觉的故障；一次漏水惊吓让他认真做起漏水和存在检测。新增的自建项目包括室外照明的电机与 PVC 管装置、夹在绿植上的 UV 补光灯、橱柜下的 UV 消毒灯带、自己组装的 AirGradient 空气质量套件（CO₂ 传感器加颗粒物传感器加单片机），后者被认为是最让人安心的一个。最省事的成果是温控器旁边那台廉价平板：车库门、侧门解锁、前门锁、全屋灯开关与亮度、咖啡吧调色、客厅冷暖光都在一屏，不用在五个 App 之间翻找。硬件清单是 ESP32 D1 mini、现成智能插座、跑 Node-RED 和 Grafana 的树莓派 4，以及灯带、功率晶体管、继电器模块等。他认为下一场演讲会围绕"AI 代理来按开关"展开，同样的规则应当仍然成立。</p>
-
-<p><img src="/images/home-automation/t2-16.webp" alt="Wall-mounted tablet dashboard next to a Nest thermostat set to 80" title="The wall dashboard: garage, locks, lights, all on one screen next to the thermostat" /></p>
-
-<p><strong>读者反馈的荒谬联网依赖</strong>：作者在 LinkedIn 和 Hacker News 上征集"设备上最没意义的联网依赖"，收到大量例子——因厂商手机 App 的 bug 而无法调节温度的冰箱；断网后连切换输入源都做不到的电视，以及必须先登录才能当普通 HDMI 显示器用的电视；无法从局域网使用的供暖 App；即使通过 Home Assistant 控制也需要联网的厨房排风扇和洗碗机；无法在隔离网络上配对的智能插座；开机就无止境搜索蓝牙设备的降噪耳机；首次使用或升级固件必须登录云端的合成器和 MIDI 键盘；以及公司倒闭后就彻底失效的肉类温度计——"硬件活过了公司，却还是不能用了"。</p>
-
-<p><strong>读者补充的规则</strong>：离线优先，联网只是附加功能；把每一个第三方依赖当作风险，API 会变，要准备本地回退或明确的降级模式；明确哪些功能必须离线可用（作者的答案是开关、温度与安全控制、以及访客无需学 App 就能用的东西）；"核心功能在 Wi-Fi 或自动化服务器关闭时仍可用，智能功能绝不剥夺非智能功能"——按这个更严格的标准，他的喷淋控制器也不合格；丢弃设备前先清理账号，被遗弃的联网设备是攻击者的入口。</p>
-
-<p><strong>实用技巧</strong>：优先用 Zigbee 和 Z-Wave 等本地协议而非 Wi-Fi；买最便宜的够用硬件，忽略抱怨 App 的差评，到货后让 LLM 帮忙找本地优先的第三方固件（有人愿为开箱即本地化的硬件多付约 2.5 倍价钱）；Nest 第一、二代可用开源固件 <em>No Longer Evil</em> 抢救；智能电视重置后永不联网即可绕开输入源问题；远程访问用路由器上的 Tailscale，并让单个设备不加入 tailnet；也有人指出缺少开箱即用的"万物互通"树莓派镜像（MQTT 预装），以及像热水器、路由器那样随房交付的本地中枢，Home Assistant 的硬件最接近这一设想；更根本的战场是维修权运动与 FULU 基金会。反方观点也保留：联网确有真实用途，比如边看球边盯烤肉温度。</p>
-
-<p><strong>Hacker News 讨论</strong>：有评论者指出 Alexa 例程本身违反第一条规则，作者回应说只要核心系统仍能离线控制（例如墙上的平板，本地 Wi-Fi 在他看来仍属离线）规则就成立；有人质疑智能家电的价值，作者举例说冰箱唯一有用之处是故障报警，他用便宜的 BLE 温度计接入 Tasmota 设备、经 MQTT 送到 Grafana，已多次成功报警。也有人批评文章像 2018 年的入门级 IoT 观点，且行文明显经 AI 润色——作者承认初稿由自己写、AI 帮忙编辑，并表示会亲自清理；另有评论者反驳这类"AI 味"指责只是把不适感转嫁给别人。关于推动力，有人认为出于韧性考量，业界会减少设备连公网，但这需要国家层面的监管或税收；也有人认为更大的问题是安全——被远程控制的廉价设备是现实威胁。务实的做法被反复提及：买 Zigbee 版本、买便宜硬件后用 AI 辅助逆向出本地固件、给设备配静态 IP 以免路由器故障导致全屋失控。还有人怀念 Insteon 和 X10 那样"设备自身就有能力、可自己写软件"的时代，并建议普通人别过度定制，Home Assistant 加少量附加组件就够了。</p>
-
-<p><img src="/images/home-automation/t2-27.webp" alt="Close-up of the wall dashboard status screen, a sheet of NFC tags with a QR code, and an Echo Dot" title="Interaction methods: the wall dashboard up close, NFC tags and a QR code, and an Echo Dot" /></p>
-
-<h2>你知道吗？</h2>
-<ul>
-<li>Zigbee、Z-Wave 与 Matter 这类协议之所以被认为"更本地"，是因为它们的控制逻辑跑在家庭内的网关或中枢上，而典型 Wi-Fi 智能设备（尤其用厂商云做中转的）每次开灯都要穿一次公网。协议本身不保证离线可用，但架构上更容易做到。</li>
-<li>MQTT 的发布/订阅模型让传感器只负责"公布"消息，谁在听、有几个听众都与它无关。这正是作者强调"设备解耦"的原因：换掉一个订阅者（手机 App、后端、仪表盘）不会牵动传感器。</li>
-<li>Tasmota 是一套可刷入 ESP8266/ESP32 的开源固件，能让廉价 Wi-Fi 开关、插座、传感器改走本地 MQTT 与 HTTP，从而摆脱原厂 App。代价是需要自己拆机、接线和刷写，这也是文章反复强调"成本与隐私、灵活性三者只能取其二"的由来。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50441707</guid>
-      <pubDate>Tue, 10 Nov 2026 15:25:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ DeepMind 用 AlphaProof Code 为 Signal 加密实现写出 300 万行 Lean 形式化证明</title>
-      <link>https://news.ycombinator.com/item?id=50439193</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] DeepMind 的 AI 智能体完成大规模 Lean 形式化验证，属 AI 技术进展与科学前沿，符合感兴趣范围</small></p>&lt;p&gt;Google DeepMind 发布 &lt;a href="https://deepmind.google/blog/introducing-alphaproof-code/"&gt;AlphaProof Code&lt;/a&gt;，并展示了它迄今规模最大的一次应用：由 AI 智能体（agent）与人类专家协作，为 Signal 的核心加密保护在 Lean 中撰写了超过 &lt;b&gt;三百万行&lt;/b&gt;机器校验的证明，并且验证范围一直下探到机器指令层面，而不只是抽象的协议描述。据讨论中的说明，整个工作耗时约四周。&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://lh3.googleusercontent.com/39mmnrTBGBLnftfKvwK_oslUE1_bpS2hOrPkxdYy6C2bCp3B2dc1iBqLUgr-rZhyp1K0rcr-jifsh1cxWPpbg2tRigzqfp2cfuB13afrDvwD0YGg4g=w2464-h2464-n-nu" alt="AlphaProof Code" width="1206" height="1206" /&gt;&lt;/p&gt;
-&lt;p&gt;文章强调，形式化验证（formal verification）——用数学方式证明代码运行正确、无缺陷——是安全保证的最高标准，但传统上困难且极其耗费人力。此次的关键在于代码库规模和"编译后的实现"这一层的复杂度：单个专家团队几乎不可能在合理时间内覆盖，而 AI 辅助的迭代流程可以大幅提速。更多细节见 &lt;a href="https://google-deepmind.github.io/code-verification/"&gt;项目论文页&lt;/a&gt;。&lt;/p&gt;
-&lt;h3&gt;社区讨论的几个焦点&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;b&gt;对 Signal 工程质量的赞叹&lt;/b&gt;：不少人惊讶于 Signal 这样庞大的代码库不仅在实践意义上安全，甚至在严格形式化意义上也站得住脚，认为写它的人是顶级工程师。&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;"证明的是什么"的追问&lt;/b&gt;：有评论者指出，真正需要担心的是规格（spec）与实现之间的落差——Lean 中的处理器模型与真实芯片是否一致？依据规范写出的 Lean 规格是否忠实对应 Signal 实际的 Rust 实现？也没有人回答"停止问题"（halting problem）在此类工作中的影响，其他人补充说这在理论上有边界，实践中并非阻碍；Lean 本身只是把证明编码为代码由编译器检查，并不保证一切性质都可证。回应者还提到可以用 &lt;a href="https://github.com/conao3/lean-rs"&gt;lean-rs&lt;/a&gt; 之类的工具把 Lean 与 Rust 打通，或用 Verus 做自动映射。&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;AI 究竟做了多少&lt;/b&gt;：有评论澄清文章并未宣称 AI "凭空"完成证明——智能体是辅助人类专家在多个步骤间来回迭代，规格设计仍由专家负责。也有人好奇这套系统与普通编码智能体的区别，认为本质上仍是"读代码库、写 Lean/Rocq、跑编译"的循环。&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;安全边界的现实感&lt;/b&gt;：多人提醒加密本身很少是被攻破的一环，Pegasus 之类间谍软件并没有破解 WhatsApp 的加密；"crypto 安全"不等于"其余代码也安全"。顺带有人希望用同样手段给 Telegram 的加密做一次定论，随即被反驳称 Telegram 的问题不在"自创密码学"，而在于把 OTP 协议切错、放弃多设备支持、以及在加密包外暴露设备 ID 等设计缺陷。&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;对 AI 编程质量的整体看法&lt;/b&gt;：一位评论者分享了团队全面转向智能体编码六个月后事故与宕机率反而下降的经验——多出来的产能被投入测试、验证与自动审查流程；也有人担心未来每次 CI 都要为"确保没破坏巨大证明"付出高昂成本。另有评论期待形式化验证扩展到 CPU 层面（难度大得多，因为硬件闭源且涉及物理），并提到开源硬件项目 &lt;a href="https://www.crowdsupply.com/sutajio-kosagi/precursor"&gt;Precursor&lt;/a&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;关于 Google 的争论&lt;/b&gt;：有人认为 Google 在 DeepMind 的科研贡献上表现得最"干净"，但立刻有人反驳称 Gemini 系列模型因过度刷榜而出现严重失准（misalignment）与"胡说"，并因 AI Overview 等在校园场景的推广而颇有争议；被要求举证时，对方表示暂未提供具体例子。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;总体而言，讨论普遍认可这是一次对 AI 辅助形式化验证能力的有力演示，同时也清楚地把结论限定在"加密核心的编译级实现"这一范围之内。&lt;/p&gt;]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50439193</guid>
-      <pubDate>Tue, 10 Nov 2026 12:11:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 亚马逊用 Strands Decider 替换 Claude Sonnet 4.6 给工单打标，成本降低 98%</title>
-      <link>https://news.ycombinator.com/item?id=50436640</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 亚马逊内部工单系统用决策模型替代 Claude Sonnet 并大幅降本的工程实践，涉及 AI 模型选型与应用进展，属于感兴趣范围；但因偏公司内部降本案例而非模型发布，未到必看级别</small></p><p>两位负责亚马逊内部工单系统的工程师撰文介绍了他们的替换实践：把原本用 Claude Sonnet 4.6 完成的工单分类任务，换成一个月前发布的决策模型（decision model）Strands Decider，效果相当，成本下降约 98%，预计每年可省下数百万美元的 token 费用。<a href="https://strandsagents.com/blog/amazon-saves-millions-replacing-sonnet-with-strands-decider/">原文</a> / <a href="https://news.ycombinator.com/item?id=50436640">HN 讨论</a></p>
-
-<h3>为什么能用决策模型替代 LLM</h3>
-<p>这套系统要把客户升级、容量申请、自动告警、安全发现等各类工单，归入 20 个固定类别。原先的做法是每个工单都送入一段很长的系统提示词，让 Sonnet 输出 JSON 和推理过程。而决策模型不生成文本：给定状态（state）和一道带选项的问题，它只返回每个选项的概率和置信度。工单打标恰好是「状态 = 工单，选项 = 标签目录」的封闭选择问题，因此高度契合。团队先用 Strands Decider 2B，测试中基于 Gemma 的 E4B 版本效果明显更好，于是改用 E4B，并重新调整了贴标签所需的置信度阈值；在一批独立工单上，E4B 的表现优于线上的 Sonnet。</p>
-
-<h3>架构</h3>
-<p>工单事件进入 SQS 队列，触发 Lambda；Lambda 读取工单数据并调用部署在 SageMaker AI Endpoint 上的 Strands Decider（ml.g5.xlarge，单卡 A10G、24 GB，模型约占 19 GiB，单次请求约 640 ms）。端点随流量自动扩缩容，网络隔离、禁止出站访问，权重在启动前从 S3 拷入。除工单 API 外，整条链路上的组件都是标准 AWS 服务：AppConfig 保存开关配置，CloudWatch 负责日志、指标与告警，整套栈用 CDK 定义，分 Beta、Gamma、Prod 三个阶段部署。</p>
-
-<h3>三向灰度开关</h3>
-<p>团队没有直接一刀切，而是让打标 Lambda 对每条消息从 AppConfig 读取三种模式之一：<b>BEDROCK</b>（全部由 Sonnet 打标，不调用决策模型）、<b>DUAL</b>（两个模型并行调用，Sonnet 结果写入工单并与决策模型结果比对）、<b>DECIDER</b>（全部由决策模型打标，不再调用 Bedrock）。先在真实流量上并行跑、逐条审视分歧，比任何离线评测都更有说服力，而且回滚只是改一次配置，约 45 秒即可生效。</p>
-
-<h3>实测数据</h3>
-<p>单次调用平均耗时从 4,215 ms 降到 897 ms（降低 78%）；单工单输入 token 从 6,554 降到 2,009，输出 token 从 170 降到 1，总 token 降低 70%；Lambda 平均执行时长下降 74%。token 减少有两个原因：决策模型只输出一个选择而非 JSON 答案；提示词也短得多——生产环境原来的标签描述文本本身就已超过决策模型 4,096 token 的上下文窗口，团队把 20 个标签重写成各一两句话的判定标准，作为单选题的选项，并附上一个「none」选项；长工单则丢弃最旧的评论以适配窗口。</p>
-<p>按 us-east-1 按需公开价格计算：Sonnet 4.6（Bedrock 全球端点）每百万 token 输入 3 美元、输出 15 美元，折合每工单约 0.0222 美元，每百万工单约 22,200 美元；Strands Decider E4B 按实例计费每小时 1.408 美元，每百万工单约 500 美元（单实例每小时约可处理 5,600 张工单，满负荷理论成本约 250 美元，实际留有突发余量）。即便宜约 44 倍，降幅 98%。</p>
-
-<h3>踩坑与适用边界</h3>
-<p>一个意外发现是 JSON 键的顺序会改变答案：同样内容仅调换键顺序，输出概率最多偏移 0.19，因此现在所有请求都按键排序后发送。作者也明确了适用条件——任务是从已知目录里做封闭选择、量足够大、旧路径的延迟确实重要。如果标签需要解释性文本、目录每周变动，或有效上下文无法压进几千 token，决策模型大概率替代不了 LLM。</p>
-
-<h3>社区讨论</h3>
-<p>HN 上讨论热烈（418 分、142 条评论），主流声音是怀疑其性质：有人指出 Strands 是 AWS 自家开源模型，这篇文章更像是借内部落地做推广的软文；也有人质疑为何不直接升级到更新的 Sonnet 版本，回复猜测与 Bedrock 对较新 Anthropic 模型缺少批量 API 支持有关。</p>
-<p>另一条主线是「绕了一圈回到分类器」：多位评论者提到几年前用 SVM、BERT 做工单分类只需几毫秒、几 MB 内存，如今又被重新发明。回应的观点认为，LLM 的价值在于零标注数据也能起步、增删类别无需重训，能让原型在几天内对着真实流量跑起来，等系统稳定后再优化成专用小模型；而传统方案往往死在训练数据与问题定义上。也有人估算，按每百万工单省约 2.17 万美元计算，要省下数百万美元意味着每年至少 9,000 万张工单，考虑到告警、安全发现、容量申请都要开单，这个量级尚属可信。<a href="https://www.seldon-ai.com">Seldon AI</a> 创始人则补充了另一视角：LLM 让缺乏 ML 技能的开发者能快速做出原型，但上生产后成本与幻觉会集中爆发，而决策模型虽更进一步，表达能力和配套工具仍不足，已出现不少回滚到 LLM 的案例。</p>
-
-<h3>你知道吗？</h3>
-<p>文章评论中提到的「系统一模型」（system one model）一词借自认知科学中快速、直觉式的思考方式，与 LLM 那种慢速推理形成对照。而在 LLM 之前，学界已有成熟的日志／工单分类流水线，例如被 ICSE 2021 收录的 <a href="https://arxiv.org/abs/2103.06927">Linnaeus</a>，其 SVM 版本训练只需几分钟、单条分类仅几毫秒——这也是评论者对「回到分类器」感慨的来源。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50436640</guid>
-      <pubDate>Tue, 10 Nov 2026 06:01:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
