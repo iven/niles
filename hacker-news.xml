@@ -3,7 +3,35 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 15 Nov 2026 22:46:33 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2026 02:42:40 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 深入理解现代 LLM 中的位置嵌入：从绝对位置编码到 RoPE</title>
+      <link>https://news.ycombinator.com/item?id=50506376</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲解 LLM 位置嵌入（绝对位置编码到 RoPE）的技术原理，属于 AI 软件技术进展，与用户兴趣中的该主题相符，但非新模型发布或编程工具，故为推荐而非必看</small></p><p>Sebastian Raschka 在其 Substack 杂志上发表了一篇系统性教程，讲解大语言模型（LLM）如何编码和处理 token 的位置信息。文章从经典方法讲到当代主流方案，配有图示、少量数学推导和一个小型 PyTorch 实现，并在最后梳理了 2026 年开放权重模型对位置编码的不同选择。作者表示，这是为后续「LLM 架构趋势」长文预留的基础性「积木」文章。</p>
+
+<h3>为什么需要位置信息</h3>
+<p>词序改变语义——「红狐狸跳过灰狐狸」与「灰狐狸跳过红狐狸」中执行跳跃的主体不同。但 token 嵌入层只按 token ID 查表，同一个词（如出现两次的 "fox"）无论在哪都得到相同向量，因此需要显式注入位置。GPT 类模型使用因果（自回归）掩码，限制每个 token 只能关注自身及之前的 token，这天然带来一定的隐式顺序信息（作者在此埋下「无位置编码（NoPE）」的伏笔）；但掩码无法区分「相隔 1 位」与「相隔 10 位」，所以显式位置信息仍被认为必要。</p>
+
+<h3>加性绝对位置编码</h3>
+<p>最直接的做法是为每个位置准备一个与 token 嵌入同维度的向量，逐元素相加后送入第一个 Transformer 块。</p>
+<ul>
+<li><strong>GPT-2 的可学习绝对位置嵌入</strong>：与 token 嵌入表形式相同，用 <code>nn.Embedding(context_length, emb_dim)</code> 实现，训练时一并学习。其 1024 个位置的上限决定了上下文窗口长度；若扩展到如今常见的 10 万级上下文，位置表会急剧膨胀（作者推算，GPT-2 Medium 在 1024 位置时位置嵌入仅占总参数 0.30%，扩到 10 万则超过 22%），代价高昂，且上下文长度必须在训练前确定。</li>
+<li><strong>原始 Transformer 的固定正弦编码</strong>：2017 年《Attention Is All You Need》用固定的 sin/cos 函数生成位置向量，并在相加前把 token 嵌入乘以 √d<sub>model</sub> 以平衡量级（论文未说明动机，作者认为是为了让两者数值尺度相当；GPT-2 因初始化标准差分别为 0.02 和 0.01 而无需缩放）。特征按对编号，第 i 对使用频率 10000<sup>-2i/d</sup>，位置 m 处得到 sin(mθ) 与 cos(mθ)。</li>
+</ul>
+
+<h3>相对位置与旋转位置编码（RoPE）</h3>
+<p>文章核心是 RoPE 的直觉推导：与其把位置向量「加」到嵌入上，不如把 query 和 key 向量按位置「旋转」一个角度。两个向量点积（注意力分数）只依赖于角度差，于是天然编码了<em>相对</em>距离——位置 (n, m) 与 (n+k, m+k) 的分数完全一致。作者用二维平面旋转矩阵、角度差公式 nθ − mθ = (n−m)θ，以及数值示例（如位置差 40° 时的点积计算）逐步演示，再推广到多维特征对分别旋转，并给出 PyTorch 实现。</p>
+
+<h3>现代架构中的位置选择</h3>
+<p>文章第 6 节按位置编码对 2026 年的开放权重模型进行分类，<a href="https://magazine.sebastianraschka.com/p/understanding-positional-embeddings">原文中的架构图集（LLM gallery）</a>展示了各类模型。涉及的做法包括：完全省略显式编码（NoPE）、部分层应用 RoPE（partial RoPE）、混合 NoPE 前缀、相对位置偏置，以及不同模型在注意力内注入位置信息的方式（如 GPT-2 在首层之前加、MiniMax-M3 在每个 Transformer 块的注意力内加）。</p>
+
+<h3>社区反馈</h3>
+<p>HN 讨论中，有读者认为文章侧重实现细节而非理论：从群表示论视角看，旋转位置嵌入（RoPE）是平移群 ℝⁿ 的表示，其不可约表示由动量向量 m 参数化，ρₘ(x) = exp(i⟨m,x⟩)，多个 m 即构成可学习参数；若还需保持旋转不变性，则应考虑特殊欧几里得群的表示（四维情形对应自旋等离散量子数）；在四叉树上做注意力则需引入仿射变换群及其不可约表示。另一位读者反驳称博客受众并非抽象代数研究生，并指出位置信息也可以是结构性的——如 NoPE 那样由架构自然「涌现」；原作者回应称「Understanding」类标题容易被理解为理论讲解，他补充理论是为了填补空白，并认为涉足数学的 ML 研究者至少应了解抽象代数的基本概念。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50506376</guid>
+      <pubDate>Sun, 15 Nov 2026 12:14:06 GMT</pubDate>
+    </item>
     <item>
       <title>MacBook Pro 的 OLED PWM 难题：更出色的屏幕，却未必更好用</title>
       <link>https://news.ycombinator.com/item?id=50506719</link>
@@ -1707,32 +1735,6 @@ DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50418182</guid>
       <pubDate>Sun, 08 Nov 2026 22:36:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>Ask HN：2026 年 11 月，大家在做什么？</title>
-      <link>https://news.ycombinator.com/item?id=50417407</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 社区讨论帖，标题含义模糊，兴趣不明确</small></p><p>这是 Hacker News 上一篇常见的月度问答帖（Ask HN），由用户 david927 发起，邀请社区分享自己正在进行的项目与近期好奇的领域。帖子获得 221 分与 700 余条评论，参与者展示了从商业软件、开源基础设施到个人自娱项目等多样化的工作。</p>
-
-<h3>为家人而建的商业 SaaS</h3>
-<p>用户 <strong>jzig</strong> 的故事获得较多关注：他在被裁员后得知父亲的地毯清洁公司经营吃力，于是自学 Google 本地服务广告（Google Local Service Ads），并在发现现有 CRM 无法与 Google Ads API 良好集成后，独立开发了 <a href="https://getcrewbird.com/">Crewbird</a>——一款面向服务类企业的现场服务管理与 CRM 工具，帮助父亲的公司在广告上接近 3 倍投资回报率（ROAS）。评论区中，有用户认为完全成熟的 ERP 与简单 Excel 追踪表之间存在巨大的软件空白（<em>tropicalhunter</em>），也有人分享了为家人开发类似工具的经验，并建议开发者应亲自入职使用自己的软件以获得真实反馈（<em>minierpthrowawa</em>）。同时，多名用户对项目在开发者找到新工作后的维护可持续性提出疑虑。</p>
-
-<h3>开源公共交通软件 OneBusAway</h3>
-<p>用户 <strong>aaronbrethorst</strong> 介绍了开源公共交通项目组 <a href="https://github.com/OneBusAway/">OneBusAway（OBA）</a>：其软件被纽约、西雅图、圣迭戈、华盛顿特区等地的数百万公交乘客使用；加州大学圣迭戈分校已为其 3.5 万余名学生部署了 Wayfinder 与 Waystation 网页应用。团队即将推出免费的车辆定位软件 Vehicle Positions，以低成本智能手机替代昂贵的专有定位系统，并正为下一代服务器 Maglev 增加 GTFS-Flex 等新兴公交数据格式支持。团队持续招募开发者、产品经理与 UX 设计师等志愿者。</p>
-
-<h3>其他值得关注的项目</h3>
-<ul>
-<li><strong>Papillon</strong>（<a href="https://papillon.so">papillon.so</a>）：由一位资深工程师独立开发约 18 个月的实时协作工作区，旨在将聊天、文档、白板、任务与通话整合到项目频道中，并支持在内以沙盒形式构建 AI 小应用。其面临的主要挑战是——团队试用后颇为满意，但管理层对「单人副业产品」的安全性持保留态度。</li>
-<li><strong>Orpheum</strong>（<a href="https://orpheum-app.com/">orpheum-app.com</a>）：一款自托管的媒体服务器（类似 Plex/Jellyfin），主打零登录、免端口转发、无需 VPN 的远程访问，并将安全作为核心：核心进程从不打开媒体文件，转码由无网络访问的独立节点完成，FFmpeg 在 Landlock/seccomp 下运行。</li>
-<li><strong>Bonsai</strong>：一个坚持开发约 10 年的体素（voxel）游戏引擎，作者 <em>jesse__</em> 详细介绍了基于有向距离场（SDF）的 GPU 地形生成与编辑管线，并在回应中谈到 AI 编码工具如何帮他加速「脑中已知的枯燥工作」，但指出其在架构决策与性能方面仍常出错。</li>
-<li><strong>Chartrow</strong>（<a href="https://chartrow.com/">chartrow.com</a>）：快速密集的股市可视化工具，如展示纳斯达克 100 成分股的回撤图、ETF 持仓视图与热力图，其响应速度获多位用户称赞。</li>
-<li><strong>Liitmik</strong>（<a href="https://www.liitmik.com/">liitmik.com</a>）：由一名有 10 年律师经验与 15 年开发经验的作者打造，面向律师等处理敏感数据的专业人士，允许在隔离虚拟机中快速启动 Claude Code、Codex 等 AI 代理会话。</li>
-<li><strong>Smashcut</strong>：一组电影主题的每日小游戏合集；作者自嘲选择了「完全饱和的市场」。</li>
-<li><strong>其他</strong>：基于 SDF 的数据存储可靠性讨论、律师业务预约平台设想、DevLens 代码库可视化工具、限制每日阅读一篇以激励阅读的 Android 应用、自研 JavaScript 框架 Signy 与 CSS 框架 IrisCSS、以及宣称「AI 代理需人类同意」的 AT1C 协议等。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50417407</guid>
-      <pubDate>Sun, 08 Nov 2026 21:20:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
