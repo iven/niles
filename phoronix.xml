@@ -3,7 +3,84 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 17 Nov 2026 03:46:14 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2026 13:14:41 GMT</lastBuildDate>
+    <item>
+      <title>Btrfs 拟出台补丁提交规范，约束 AI/LLM 与「缺乏常识的新手」的低质量贡献</title>
+      <link>https://www.phoronix.com/news/Btrfs-LLM-Newbies-Guidelines</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是 Btrfs 文件系统项目对 AI 生成补丁和新手贡献者的治理规范，偏基础设施与社区管理话题，与配置中高兴趣方向关联弱，兴趣不明确</small></p><p>Btrfs 文件系统可能很快在 Linux Git 中引入新的补丁提交指南。来自 SUSE 的 Btrfs 开发者 Qu Wenruo 向内核邮件列表提交了一个补丁，计划在 Linux 的 fs/btrfs 目录下新增一份 AGENTS Markdown 文件，为新手和 AI/LLM 代理列出补丁提交方面的规则。</p>
+
+<p>该文档重点关注代码注释与补丁说明的撰写方式，原因在于许多由 AI 生成的代码注释和补丁描述过于冗长、常常多余。文档还进一步说明了在内核社区提交补丁时对以下方面的期望：</p>
+<ul>
+<li>cover letter（补丁系列的说明信）的写法；</li>
+<li>可视化辅助手段与图表的规则；</li>
+<li>补丁的版本管理（versioning）；</li>
+<li>测试流程与测试结果的呈现。</li>
+</ul>
+
+<p>Qu Wenruo 在补丁说明中解释了动机：他认为 Btrfs 并非受冲击最严重的子系统，但「大量缺乏常识的新手帮的倒忙多于帮的忙」——例如把大量人工审查时间浪费在价值极低的修复上，补丁里塞满长篇大论以及无用的测试步骤和结果。他希望通过让这些代理「别再犯蠢」、遵循社区通行做法，帮助新手建立起基本常识。</p>
+
+<p>他同时表示，希望这份 AGENTS 文件足够清晰简短，不仅便于 LLM 阅读，也便于有志成为长期贡献者的人类阅读。目前该文档已在内核邮件列表上公开审查，尚无定论。</p>
+
+<h2>你知道吗？</h2>
+<p><code>AGENTS.md</code> 是近年逐渐流行的一种约定：在代码仓库或子目录中放置一份 Markdown 文件，用自然语言向 AI 编码代理（以及人类新贡献者）说明项目规范、构建与测试方法、提交要求等。它源自 AI 代理工具对仓库级指令文件的需求，如今已被多个开源项目采用，作为降低审查负担、统一贡献风格的轻量手段。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Btrfs-LLM-Newbies-Guidelines</guid>
+      <pubDate>Tue, 17 Nov 2026 12:55:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>NVIDIA 工程师提议为 Linux 增加用户空间可写的「首选 CPU 核心」sysfs 控制</title>
+      <link>https://www.phoronix.com/news/NVIDIA-Linux-Prefer-CPU-Cores</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲 NVIDIA 开发者提交的 Linux 用户态首选 CPU 核控制，偏驱动性能调优，既非明确的桌面技术也非编程效率类内容，兴趣不明确</small></p><p>NVIDIA 工程师 Yury Norov 向 Linux 内核邮件列表提交了一组征求意见（RFC）补丁，提议新增一个可写的 sysfs 接口，让用户空间能够直接表达「首选 CPU 核心」的偏好，把部分调度决策从内核交给用户态程序。</p>
+<p>该提案建立在 Linux 7.4 已合并的虚拟机「窃取调度器（steal governor）」基础之上——这一机制为降低物理核心争用时 vCPU 的算力需求而引入了首选 CPU 掩码（preferred CPU mask）。新补丁则把最终决定权进一步开放给用户空间。</p>
+<p>提议的接口位于 <code>/sys/devices/system/cpu/cpu[0-9]*/preferred</code>，同时可通过 <code>/sys/devices/system/cpu/preferred</code> 查看当前生效的全部首选核心列表。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=preferred" alt="preferred" />
+<p>补丁中给出的典型用例包括：</p>
+<ul>
+<li>与 <a href="https://www.phoronix.com/linux/thermald">Thermald</a> 等温控守护进程配合，在个别核心温度过高时引导其进入空闲状态，从而按核心温度或其他外部因素实现差异化负载分配；</li>
+<li>同一台服务器上同时运行 AI 训练与推理虚拟机时，为对延迟更敏感的推理负载设置核心偏好，使其在资源争用时保留更多首选 vCPU；</li>
+<li>由于接口通过 sysfs 暴露，其他任何用户空间方案也可基于自身策略灵活使用。</li>
+</ul>
+<p>Norov 在补丁说明中指出，首选 cpumask 是提示公平调度器在 vCPU 超售等情况下如何放置任务的有力工具；若有内核内的窃取调度器作为默认策略，对负载相近、彼此协作的同构虚拟机效果良好，但当虚拟机角色不对称时，最优的 vCPU 节流往往需要虚拟机之间共享更多信息或至少知晓各自角色，这类判断在用户空间层面处理最为自然。</p>
+<p>目前该补丁系列仍处于评审阶段，尚待社区反馈。</p>
+<h2>你知道吗？</h2>
+<p>虚拟机的 vCPU 并不总是能拿到物理核心的执行时间：当宿主机超售 CPU 时，被其他虚拟机占用的那部分时间会以「窃取时间（steal time）」的形式计入客户机。调度器据此判断哪些 vCPU 可以少给一些算力，就是窃取调度器（steal governor）的职责；而「首选 CPU 掩码」相当于告诉它哪些 vCPU 应当被优先保留。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/NVIDIA-Linux-Prefer-CPU-Cores</guid>
+      <pubDate>Tue, 17 Nov 2026 11:16:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Xfce 4.22 路线图更新：目标 2027 年初发布</title>
+      <link>https://www.phoronix.com/news/Xfce-4.22-Roadmap</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Xfce 桌面环境 4.22 版本路线图，属于 Linux 桌面环境与发行版相关动态，与来源配置中 KDE/新发行版的高兴趣方向接近</small></p><p>距离 Xfce 4.20 发布即将满两年，其继任版本 Xfce 4.22 的发布计划已逐渐清晰。Xfce 项目本周更新了 <a href="https://wiki.xfce.org/">Xfce Wiki</a> 上的 4.22 路线图，按当前安排，稳定版很可能在 2027 年第一季度问世。</p>
+<img src="//www.phoronix.net/image.php?id=cachyos-desktops-july-2026&image=cachyos_desktops_3_med" alt="Xfce desktop" />
+<p>根据路线图，各关键节点如下：</p>
+<ul>
+<li><strong>2026 年 12 月 15 日</strong>：发布 Xfce 4.22pre1，同时进入功能冻结（feature freeze）与字符串冻结（string freeze）；</li>
+<li><strong>2027 年 1 月 15 日</strong>：发布 Xfce 4.22pre2，并进入代码冻结（code freeze）；</li>
+<li><strong>尚未确定</strong>：Xfce 4.22pre3 里程碑及最终冻结的时间表；</li>
+<li><strong>日期待定</strong>：Xfce 4.22 正式版发布。</li>
+</ul>
+<p>通常各预发布里程碑与正式版之间只相隔数周，因此作者判断稳定版大概率落在 2027 年第一季度内。</p>
+<p>功能方面，Xfce 4.22 将继续推进 Wayland 支持，并带来面板（panel）与核心组件的改进、更好的 HiDPI（高像素密度）处理等变化。Wayland 适配仍是当前的重点工作，相关进展可参考项目单独的 Wayland 路线图页面。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Xfce-4.22-Roadmap</guid>
+      <pubDate>Tue, 17 Nov 2026 10:50:41 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ REAPER 数字音频工作站迎来原生 Wayland 支持</title>
+      <link>https://www.phoronix.com/news/REAPER-DAW-Wayland</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] REAPER 数字音频工作站推出原生 Wayland 支持，属于 Linux 桌面技术（来源配置为感兴趣）与软件新功能进展</small></p><p>广受欢迎的 REAPER 数字音频工作站（DAW）过去十余年面向 Linux 的移植一直基于 X11，如今已有待合并代码，可实现原生 Wayland 体验。</p>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=reaper_med" alt="REAPER 在 Ubuntu 上运行" /></p>
+<p>REAPER 因音频处理能力、丰富的插件和可定制性而在 Linux、Windows 和 macOS 用户中颇受欢迎。此次开放的合并请求（merge request）在提供 Wayland 支持的同时，仍保留加载 REAPER 的 X11 插件的能力。</p>
+<p>该移植工作由以 WireGuard 闻名的 Jason Donenfeld 完成，其中大量工作集中在作为 REAPER 基础的 WDL C++ 库上。相关合并请求包含 Wayland 支持及 REAPER 所需的修复；更多移植细节可参阅原文提到的论坛讨论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/REAPER-DAW-Wayland</guid>
+      <pubDate>Tue, 17 Nov 2026 10:42:54 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AlmaLinux 10.3 正式发布：恢复 ModSecurity，并带来多项工具链更新</title>
       <link>https://www.phoronix.com/news/AlmaLinux-10.3-Released</link>
@@ -710,67 +787,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Azure-Linux-3.0.2022</guid>
       <pubDate>Sat, 07 Nov 2026 10:37:42 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Asahi Linux 发布最新状态报告：游戏性能更近现实，更多 Apple Silicon 代码进入主线内核</title>
-      <link>https://www.phoronix.com/news/Asahi-Linux-7.3-Report</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 Asahi Linux 在 Apple Silicon 上的进展与上游化，命中苹果电脑 Linux 支持高兴趣，但涉及游戏支持等不感兴趣内容，综合推荐</small></p><p>随着近期 Linux 7.3 主线内核的发布，Asahi Linux 项目发布了一份新的状态报告，概述了他们已上游合并到主线内核的代码，以及在自研下游代码库中进行的其他工作。</p>
-<p>时值 2026 年第四季度中期，该项目总结了近期取得的成就以及正在进行的其他努力，目标是让现代 Apple Silicon 硬件能在 Linux 上良好运行：</p>
-<ul>
-<li>Asahi Linux 开发者持续将更多代码合并至 Linux 主线内核（Phoronix 有持续报道），近期围绕<a href="https://www.phoronix.com">音频</a>以及 Apple M4 Pro、M4 Max 和 M5 的初始设备树（Device Tree）在上游发生了合并工作。</li>
-<li>Apple M3 支持在下游 Asahi Linux 代码中已进入「普遍可用」（GA）状态。</li>
-<li>不过当前 M3 支持的一个显著短板是缺乏 GPU 加速。从事 Apple M3 驱动逆向工程与开发的团队已有一些进展，能够渲染出一个三角形，但前方仍有漫长的道路。</li>
-<li>Apple Silicon 在 Linux 上的 Thunderbolt（雷电接口）支持现已提交至内核邮件列表供评审。</li>
-<li>Asahi 平台的 Linux 游戏体验正越来越接近现实（主要在 Apple M1/M2 上），配合 EX 和 Wine 等工具可实现运行；此外在解决内核页大小差异方面，游戏运行也有了脱离 muvm 的进展。</li>
-</ul>
-<img src="//www.phoronix.net/image.php?id=2026&image=asahi_gaming_1" alt="Asahi gaming" />
-<img src="//www.phoronix.net/image.php?id=2026&image=asahi_gaming_2" alt="Asahi gaming Fallout" />
-<p>不过，在 Asahi Linux 上运行较新游戏的性能被描述为「参差不齐」（patchy）。有关此次进展的更多细节，可参阅 AsahiLinux.org 博客。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Asahi-Linux-7.3-Report</guid>
-      <pubDate>Sat, 07 Nov 2026 10:21:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ ReactOS 初步落地 USB 3.0 驱动栈支持</title>
-      <link>https://www.phoronix.com/news/ReactOS-Initial-USB-3.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲开源操作系统项目 ReactOS 的新功能进展，属于开源软件项目，全局配置感兴趣，推荐阅读</small></p><p>致力于实现 Windows 程序与驱动兼容性的"开源 Windows"操作系统 ReactOS，在多年努力后终于拥有了初步的 USB 3.0 驱动栈。继上个月 ReactOS 可通过 NTFS 驱动完成安装和使用之后，可用的 USB3 驱动栈成为该开源项目的下一个重大里程碑。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=reactos_usb3" alt="ReactOS USB 3" /><p>本次合并完成了 USB3 驱动代码的初步导入，并且已经着眼于未来在 ReactOS 中支持 USB4。开发者表示："这一天已经等了很久，这个驱动的起源可以追溯到几年前，但我经历了无数次迭代。首先，因为我们在做黑客松（hackfest）！我正通过一个巨型 PR 来完成这项工作。我已经在 Windows 11 上日常使用这个 USB 栈一段时间了，也把二进制版本交给了几个人！它相当稳定。在这之后还有第二个 PR，以及已合并的 DeviceProperty 支持，涉及 USB4 Host router 和 USB4 Device router。当然，它们都依赖这个 PR……"</p><p>社区对 ReactOS 团队持续推进该平台表示赞赏。</p><h3>你知道吗？</h3><p>USB4 基于 Thunderbolt 3 协议，将传输带宽提升至 40Gbps，并支持动态分配带宽、PCIe 隧道等功能。ReactOS 计划中的 USB4 支持需要 USB4 Host Router（主机端路由控制器）与 USB4 Device Router（设备端路由控制器）协同工作，这也是其后续开发的重点方向。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/ReactOS-Initial-USB-3.0</guid>
-      <pubDate>Fri, 06 Nov 2026 21:49:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Linux 7.4-rc2 的 FAT32 优化带来最高 162 倍性能提升</title>
-      <link>https://www.phoronix.com/news/Linux-7.4-rc2-FAT32</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为 Linux 内核开源项目对 FAT32 文件系统的性能改进（最高 162 倍提升），属于开源项目与软件新功能范畴，值得推荐阅读。</small></p><p>在 Linux 7.4 周期中已合并一项可带来高达 265 倍提升的 FAT32 优化，并预计在 Linux 7.5 中还有另一项大型 FAT32 改进之外，本周作为 Linux 7.4-rc2 的非 MM（非内存管理）修复的一部分，又合并了一项显著的 FAT32 性能优化。</p><p>开源开发者 Matheus Alves de Almeida 持续致力于改进 Linux FAT 驱动中 FAT32 的性能。本周合并的工作是在 <code>fat_cont_expand()</code> 函数中实现「先预分配空间再扩展」的策略。他在补丁中解释道：</p><blockquote>「<code>fat_cont_expand()</code> 的实现将新簇的分配交给 <code>generic_cont_expand_simple()</code>。该路径会进行许多小规模的簇分配，损害了性能。在 <code>fat_cont_expand()</code> 中预分配簇空间。将预分配移到新的 <code>fat_preallocate()</code> 辅助函数中，供 <code>fat_cont_expand()</code> 和 <code>fat_fallocate(FALLOC_FL_KEEP_SIZE)</code> 共同使用。使用 FAT 专用的 <code>fat_cont_expand_simple()</code> 替代通用的 <code>generic_cont_expand_simple()</code>，以避免在簇分配后重新检查新大小。」</blockquote><p>该补丁带来了非常可观的性能提升：</p><img src="//www.phoronix.net/image.php?id=2026&image=linux_74rc2_fat32" alt="FAT32 benchmark of code merged for Linux 7.4-rc2" /><p>此次优化对 FAT32 文件系统的影响最大，尤其是对于采用小簇大小且处于同步挂载（synchronous mounts）的场景。补丁注记中显示：「大部分为 OCFS2 修复，包括扩展属性损坏、缺失属性、内核 BUG，以及集群配置、锁迁移、恢复和卸载过程中的崩溃。区块移动也得到修复，以针对稳定的文件大小验证其范围。三项 FAT 更改避免写入失败/ FIBMAP 竞态条件使文件系统意外变为只读、修正重命名后的目录链接计数，并加速文件扩展。报告的 QEMU 基准测试显示，在同步挂载上提升尤为显著。一个 taint-string 修复防止了越界读取——该问题可能在内核日志中暴露 slab 内容。此外还有针对无硬件乘法指令的 CPU 上的 OpenRISC 模块以及 Clang 24 的构建修复。」</p><p>该工作已于周日在 Linux 7.4-rc2 之前通过 non-MM 热修复拉取请求合入。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-rc2-FAT32</guid>
-      <pubDate>Fri, 06 Nov 2026 16:21:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>Arch Linux 对比 CachyOS 与 Omarchy 4.5：性能基准测试首测</title>
-      <link>https://www.phoronix.com/review/cachyos-omarchy-benchmarks</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及新发行版CachyOS和Omarchy与Arch Linux的性能对比，虽然属于新发行版(high_interest)但性能评测属于avoid配置，标题含义较模糊，综合权衡为optional</small></p><p>Phoronix 近日对上游 Arch Linux、CachyOS 与本周刚发布的 Omarchy 4.5 进行了性能基准测试对比。CachyOS 近期推出了基于 Linux 7.3 的内核及多项改进，这也是 Omarchy 首次与 Arch Linux、CachyOS 同台竞技的性能测试。</p>
-
-<img src="//www.phoronix.net/image.php?id=cachyos-omarchy-benchmarks&image=omarchy_cachyos_arch_2_med" alt="Omarchy 4.5 desktop" />
-
-<p>测试平台为同一台 Framework Desktop 电脑，搭载 AMD Ryzen AI Max+ 395「Strix Halo」处理器、64GB 内存、集成 Radeon 8060S 显卡与 2TB WD_BLACK SN7100 NVMe SSD。Arch Linux 使用通用 archinstall 安装并搭配 KDE Plasma 桌面；CachyOS 使用默认配置安装并更新至最新；Omarchy 4.5 同样采用默认安装。</p>
-
-<img src="//www.phoronix.net/image.php?id=cachyos-omarchy-benchmarks&image=omarchy_cachyos_arch_1_med" alt="Omarchy 4.5 Linux" />
-
-<p>内核与工具链方面，CachyOS 已升级至 Linux 7.3 内核，而 Omarchy 与 Arch Linux 上游在测试时仍使用 Linux 7.2；三者均基于 GCC 16.2 构建。值得注意的是，Omarchy 默认启用性能（performance）电源配置，而 Arch Linux 与 CachyOS 默认使用平衡（balanced）配置；此外 CachyOS 还内置了大量开箱即用的优化，包括面向 Zen 4+ 架构的优化软件包等。</p>
-
-<img src="//phoronix.com/benchmark/result/arch-linux-vs-cachy-os-vs-omarchy/result.svgz" alt="Arch Linux vs. Cachy OS vs. Omarchy" width="100%" height="auto" />
-
-<p>本次测试覆盖了多个场景，包括 Radeon 显卡性能、Zstd 压缩、视频编码、7-Zip、NumPy、PyTorch、ClickHouse、PostgreSQL、GNU Octave、Blender、Python 与 PHP 脚本、Firefox 浏览器以及 Llama.cpp 等，完整结果分布在文章 7 个页面中。截至发稿，文章已收到 3 条评论。</p>
-
-<p><strong>你知道吗？</strong>CachyOS 与 Omarchy 都是基于 Arch Linux 的衍生发行版。CachyOS 以开箱即用的性能优化著称，例如针对现代 x86-64 CPU（如 Zen 4/5）提供优化软件包，并内置更激进的调度与内核调优；Omarchy 则主打开箱即用的 Arch 体验，默认启用性能电源配置以追求更高性能。这类「优化型」发行版通常通过调整编译参数、内核配置与电源策略，在基准测试中相对上游发行版获得一定性能优势。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/review/cachyos-omarchy-benchmarks</guid>
-      <pubDate>Fri, 06 Nov 2026 14:55:52 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,152 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 17 Nov 2026 03:47:02 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2026 13:14:29 GMT</lastBuildDate>
+    <item>
+      <title>exa v0.9.0 发布：新增图标显示、Git 忽略状态与 24 位真彩色支持</title>
+      <link>https://github.com/ogham/exa/releases/tag/v0.9.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Rust 编写的 <code>ls</code> 替代工具 exa 发布 v0.9.0。本次版本以功能补强为主，新增图标、目录过滤、排序列与 Git 状态显示等实用选项，同时修复了一批排序、递归和时区相关的缺陷。</p>
+<h3>重要改动</h3>
+<ul>
+<li><strong>图标支持</strong>：新增 <code>--icons</code> 选项，可在文件列表中显示对应图标（<a href="https://github.com/ogham/exa/commit/9497b30b3322c52e9c8117a97abd6d96001dac65">9497b30</a>）。</li>
+<li><strong>新的排序列</strong>：新增 <code>.name</code> 与 <code>.Name</code> 两种排序方式，排序时忽略文件名前导的点（<a href="https://github.com/ogham/exa/commit/a156d96768c5b53e32d7134b8e51a74a9374e0d6">a156d96</a>）。</li>
+<li><strong>仅显示目录</strong>：新增 <code>--only-dirs</code> 选项，过滤掉所有非目录条目（<a href="https://github.com/ogham/exa/commit/054cac6b824251eb9f28452160722a35315e619e">054cac6</a>）。</li>
+<li><strong>Git 忽略状态</strong>：现在会显示文件是否被 Git 忽略（<a href="https://github.com/ogham/exa/commit/80b0d9dd0d2e929175d2c8d24e0bf6c67e0d9df1">80b0d9d</a>）。</li>
+<li><strong>TIME_STYLE 环境变量</strong>：可通过 <code>TIME_STYLE</code> 环境变量设定时间显示格式（<a href="https://github.com/ogham/exa/commit/991781070ed378d588c887d2df014749d6cd6fda">9917810</a>）。</li>
+<li><strong>24 位颜色</strong>：支持 24 位真彩色输出（<a href="https://github.com/ogham/exa/commit/dc2009aef4d71ddb42dffb0fe5f6e62540b3f4cd">dc2009a</a>）。</li>
+</ul>
+<h3>其他改动</h3>
+<ul>
+<li>配色方案中用 <code>bO</code> 覆盖色（overlay colour）取代原来的 <code>mi</code> 颜色。</li>
+<li>预发布（pre-release）版本现在会显示其构建号。</li>
+<li>man page 中补充了 <code>--classify</code> 选项的说明。</li>
+<li>为更多文件类型增加高亮配色：<code>.zst</code>、Bazel 与 Ant 相关文件、<code>.ts</code>、<code>.m4v</code>、<code>.jpf</code>。</li>
+<li>性能优化：工作线程（worker thread）只创建一次，避免重复创建开销。</li>
+</ul>
+<h3>问题修复</h3>
+<ul>
+<li>允许 <code>$LS_COLORS</code> 中出现零填充的数字。</li>
+<li>非全大写的 <code>README</code> 文件现在也被归类为 immediate 文件；<code>README~</code> 则修正为按临时文件高亮，而非 immediate。</li>
+<li>使用更精确的时间戳，修复排序结果不一致的问题。</li>
+<li>修复 <code>-aaR</code> 组合下的无限循环问题。</li>
+<li>修复在某些时区下崩溃（panic）的问题，同时依赖上游 zoneinfo-compiled 的<a href="https://github.com/rust-datetime/zoneinfo-compiled/pull/8">相关修复</a>。</li>
+<li>修复按创建时间排序失效的问题。</li>
+<li>修复包含 <code>../</code> 的路径下 Git 状态无法正确显示的问题。</li>
+</ul>
+<p>本次发布共有数十位贡献者参与，作者也在发布说明中承诺今年将发布不止一个版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/ogham/exa/releases/tag/v0.9.0</guid>
+      <pubDate>Mon, 15 Jul 2019 03:25:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>bat v0.24.0 发布：新增 BAT_PAGING 环境变量与 LESSOPEN 可选支持</title>
+      <link>https://github.com/sharkdp/bat/releases/tag/v0.24.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><a href="https://github.com/sharkdp/bat/releases/tag/v0.24.0"><strong>bat v0.24.0</strong></a> 发布，主要新增分页相关配置能力，并补充多种语言的语法识别支持。</p>
+
+<h3>重要改动</h3>
+<ul>
+  <li>新增 <code>BAT_PAGING</code> 环境变量，可通过环境变量控制分页行为。</li>
+  <li>新增可选编译特性 <code>lessopen</code>，启用后支持 <code>LESSOPEN</code> 和 <code>LESSCLOSE</code>，便于与 less 的输入预处理机制集成。</li>
+</ul>
+
+<h3>其他改动</h3>
+<p><strong>修复与行为调整：</strong></p>
+<ul>
+  <li>修复 Windows 下通过 <code>BAT_PAGER</code> 指定 <code>more</code> 时找不到程序的问题。</li>
+  <li>修复当标准输出为交互式、标准输入不是交互式时分页未生效的问题。</li>
+  <li>修复 <code>LineRange::from</code> 与 <code>LineRange::parse_range</code> 中的算术溢出。</li>
+  <li><code>--map-syntax</code> 的默认行为改为大小写不敏感；<code>-pp</code> 与 <code>--paging</code> 同时传入时，以后出现的参数为准。</li>
+  <li>升级 <code>serde_yaml</code> 至 0.9。</li>
+</ul>
+
+<p><strong>语法与文件识别：</strong></p>
+<ul>
+  <li>新增 <a href="https://www.w3.org/TR/WGSL/">WebGPU Shader Language（WGSL）</a> 和 NSIS 语法支持。</li>
+  <li>将 <code>.jsonl</code> 映射到 JSON 语法；<code>os-release</code> 与 <code>ksh</code> 关联到 bash，<code>Containerfile</code> 关联到 Dockerfile，<code>sarif</code> 关联到 JSON，<code>ron</code> 关联到 Rust。</li>
+  <li>更新 Julia、<code>ssh-config</code> 等语法；忽略 <code>.dpkg-new</code> 和 <code>.dpkg-tmp</code> 后缀。</li>
+  <li>修正 fzf 集成示例脚本的引号写法，使其兼容 Windows 和 Linux。</li>
+</ul>
+
+<p><strong>构建与库接口：</strong></p>
+<ul>
+  <li>生成资产（补全、手册）的输出目录可自定义；最低支持的 Rust 版本（MSRV）提升至 1.70。</li>
+  <li>使用 <code>is-terminal</code> crate 替代 <code>atty</code>，并新增 Winget Releaser 工作流。</li>
+  <li>作为库使用时，<code>Controller::run()</code> 和 <code>Controller::run_with_error_handler()</code> 新增可选 <code>output_buffer</code> 参数。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/sharkdp/bat/releases/tag/v0.24.0</guid>
+      <pubDate>Wed, 11 Oct 2023 18:20:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>bat v0.23.0 发布：环境变量可覆盖配置文件、新增控制字符 caret 表示法与多种语法支持</title>
+      <link>https://github.com/sharkdp/bat/releases/tag/v0.23.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><code>bat</code>（带语法高亮的 <code>cat</code> 替代品）发布 v0.23.0。本次更新包含若干新命令行选项、一项优先级规则的破坏性变更，以及大批语法定义的新增与完善。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>环境变量可覆盖配置文件</strong>：这是一项<strong>破坏性变更</strong>。环境变量的优先级现在高于配置文件设置，但命令行参数仍具有最高优先级（<a href="https://github.com/sharkdp/bat/pull/2381">#2381</a> 等）。</li>
+<li><strong>新增 <code>-S</code> / <code>--chop-long-lines</code></strong>：作为 <code>--wrap=never</code> 的别名，方便截断过长行（<a href="https://github.com/sharkdp/bat/pull/2309">#2309</a>）。</li>
+<li><strong>新增 <code>--nonprintable-notation=caret</code></strong>：可用 caret（脱字符）表示法显示不可打印字符，此前仅支持 unicode 表示法（<a href="https://github.com/sharkdp/bat/pull/2429">#2429</a>）。</li>
+<li><strong>大量新增语法支持</strong>：Ada（<a href="https://github.com/sharkdp/bat/pull/2316">#2316</a>）、<code>todo.txt</code>（<a href="https://github.com/sharkdp/bat/pull/2375">#2375</a>）、<code>requirements.txt</code>（<a href="https://github.com/sharkdp/bat/pull/2361">#2361</a>）、VimHelp（<a href="https://github.com/sharkdp/bat/pull/2366">#2366</a>）、Crontab（<a href="https://github.com/sharkdp/bat/pull/2509">#2509</a>），并将 <code>pdm.lock</code> 关联到 TOML 语法（<a href="https://github.com/sharkdp/bat/pull/2410">#2410</a>）。</li>
+<li><strong>语法细节改进</strong>：重写 <code>cmd-help</code> 的作用域（scope）命名以改善主题配色兼容性（<a href="https://github.com/sharkdp/bat/pull/2419">#2419</a>）；修正 <code>done.txt</code> 开头处 context 与 project 的高亮；改进 Manpage 语法（<a href="https://github.com/sharkdp/bat/pull/2364">、</a><a href="https://github.com/sharkdp/bat/pull/2461">#2461</a>）。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li><strong>缺陷修复</strong>：修复指定 <code>--target</code> 目录时 <code>bat cache --clear</code> 未能清空该目录的问题（<a href="https://github.com/sharkdp/bat/pull/2393">#2393</a>）。</li>
+<li><strong>性能</strong>：显著提升 macOS 上的启动速度（<a href="https://github.com/sharkdp/bat/pull/2442">#2442</a>）。</li>
+<li><strong>Shell 补全</strong>：多项 bash 补全改进（<a href="https://github.com/sharkdp/bat/pull/2310">#2310</a>），并禁用 <code>cache</code> 子命令的补全（<a href="https://github.com/sharkdp/bat/pull/2399">#2399</a>）。</li>
+<li><strong>构建</strong>：最低支持的 Rust 版本（MSRV）提升至 1.62（<a href="https://github.com/sharkdp/bat/pull/2496">#2496</a>）。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/sharkdp/bat/releases/tag/v0.23.0</guid>
+      <pubDate>Sat, 25 Mar 2023 09:33:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>Devbox 0.22.0：移除隐藏命令 devbox log，install/update 与 shell 启动全面提速</title>
+      <link>https://github.com/jetify-com/devbox/releases/tag/0.22.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Devbox 0.22.0</h3>
+<p><strong>破坏性变更</strong>：隐藏命令 <code>devbox log</code> 被移除——该命令用于上报 shell 就绪与首次交互耗时（time-to-interactive）的遥测数据，且没有替代方案。同时移除过期的 <code>.envrc</code> 提醒及其退出开关 <code>DEVBOX_NO_ENVRC_UPDATE</code>，该提醒自 2024 年年中起已不再触发（<a href="https://github.com/jetify-com/devbox/pull/3059">#3059</a>）。</p>
+<p><strong>性能优化</strong>：</p>
+<ul>
+<li>锁文件中缺失的包现在并行解析（<a href="https://github.com/jetify-com/devbox/pull/3054">#3054</a>）；</li>
+<li><code>nix path-info</code> 调用改为批处理，且每次安装只预取一次 nixpkgs（<a href="https://github.com/jetify-com/devbox/pull/3053">#3053</a>）；</li>
+<li><code>devbox update</code> 并行解析，仅刷新发生变化的包，并在最后统一重算一次（<a href="https://github.com/jetify-com/devbox/pull/3055">#3055</a>）；</li>
+<li>每次环境计算跳过重复的 runx、脚本与状态哈希工作（<a href="https://github.com/jetify-com/devbox/pull/3056">#3056</a>）。</li>
+</ul>
+<p>总体效果是 <code>install</code>、<code>update</code> 与 shell 启动更快。</p>
+<p><strong>其他改动</strong>：</p>
+<ul>
+<li>修复自行设置的自定义 CA 证书包被覆盖的问题：在企业代理环境下常设的 <code>NIX_SSL_CERT_FILE</code> 或 <code>SSL_CERT_FILE</code>，不再因某个包引入 <code>nss-cacert</code> 而被覆盖（<a href="https://github.com/jetify-com/devbox/pull/2896">#2896</a>）。</li>
+<li>Devbox Docker 镜像恢复构建：此前在 0.21.0 中因 <code>chown</code> 权限错误而失败（<a href="https://github.com/jetify-com/devbox/pull/3052">#3052</a>）。</li>
+<li>发布归档文件附带构建来源证明（build provenance attestation）（<a href="https://github.com/jetify-com/devbox/pull/3081">#3081</a>），issue 模板改用 GitHub issue types 取代 bug/feature 标签（<a href="https://github.com/jetify-com/devbox/pull/3125">#3125</a>）。</li>
+</ul>
+<p>完整变更记录见 <a href="https://github.com/jetify-com/devbox/compare/0.21.0...0.22.0">0.21.0...0.22.0 对比</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.22.0</guid>
+      <pubDate>Tue, 17 Nov 2026 05:38:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>hapi v0.36.4：支持从指定用户消息处分叉对话，并可选择 harness 与模型</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.36.4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布 v0.36.4，本次为小型版本更新，仅包含一项功能改动。</p>
+<h3>重要改动</h3>
+<ul>
+<li><strong>对话分叉（branch）能力</strong>：新增支持在某一轮用户消息处对会话进行分叉。分叉时可以重新选择 harness（运行框架）与模型，便于从历史的某个节点出发，用不同的配置探索新的对话走向，而不影响原有会话。<a href="https://github.com/tiann/hapi/pull/2247">#2247</a></li>
+</ul>
+<h3>其他改动</h3>
+<ul>
+<li>无其他功能调整、性能优化或缺陷修复记录；完整变更可参见 <a href="https://github.com/tiann/hapi/compare/v0.36.3...v0.36.4">v0.36.3...v0.36.4 对比</a>。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.36.4</guid>
+      <pubDate>Tue, 17 Nov 2026 05:17:22 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.326：Code Mode 可与智能体团队同时启用，终端界面与输入体验大规模修复</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.326</link>
@@ -1423,172 +1568,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.312</guid>
       <pubDate>Tue, 27 Oct 2026 20:24:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>Devbox 0.18.5 发布：新增 devbox_version 版本锁定与自动切换功能</title>
-      <link>https://github.com/jetify-com/devbox/releases/tag/0.18.5</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>Devbox 0.18.5 发布</h2><p>Devbox 发布 0.18.5 版本，本次更新以 <strong>项目版本锁定</strong> 为核心新功能，并修复了大量影响日常使用的 bug。</p><h3>✨ 新功能</h3><ul><li><strong>新增 <code>devbox_version</code> 版本锁定</strong>：可在 <code>devbox.json</code> 中写入 <code>"devbox_version": "^0.18.0"</code>（支持 npm 风格约束），当他人以不匹配的版本运行项目时，devbox 会发出警告。也可使用对象形式 <code>{"version": "0.18.5", "on_mismatch": "error"}</code> 将警告升级为报错。可通过 <code>DEVBOX_VERSION_POLICY=off|warn|error</code> 环境变量在 CI 或紧急情况下覆盖该策略（<a href="https://github.com/jetify-com/devbox/pull/2990">#2990</a>）。</li><li><strong><code>on_mismatch: "auto"</code> 自动切换到锁定版本</strong>：锁定精确版本时，devbox 会自动通过启动器以正确版本重新执行命令，必要时自动下载；shell 内嵌套的 <code>devbox</code> 命令也会沿用该版本。未通过启动器（Nix、Homebrew）安装的用户将收到报错及安装说明（<a href="https://github.com/jetify-com/devbox/pull/2991">#2991</a>）。</li></ul><h3>🐛 Bug 修复</h3><ul><li><strong>lockfile 稳定性</strong>：<code>shell</code>、<code>run</code>、<code>install</code> 不再改写各包的 <code>plugin_version</code> 以匹配当前二进制，避免不同版本团队间因 lockfile 产生冲突；<code>add</code>、<code>rm</code>、<code>update</code> 仍会刷新（<a href="https://github.com/jetify-com/devbox/pull/2989">#2989</a>）。</li><li><strong>网络下载重试</strong>：因截断的 tarball、连接重置、curl 超时或 HTTP 5xx 失败的 Nix 命令，现会以短退避重试最多三次（<a href="https://github.com/jetify-com/devbox/pull/2995">#2995</a>）。</li><li><strong>shell 与 run 修复</strong>：<code>devbox run</code> 在 shell 内正确遵循 <code>-e</code>、<code>--env-file</code>、<code>--pure</code>；<code>TMPDIR</code> 含空格时 shell 正常工作；<code>.devbox/bin/devbox</code> 符号链接跟随版本升级；参数透传、相对 <code>--env-file</code> 解析、子命令后的 <code>--debug</code> 均已修正（<a href="https://github.com/jetify-com/devbox/pull/3013">#3013</a>、<a href="https://github.com/jetify-com/devbox/pull/3008">#3008</a>）。</li><li><strong>CLI 修复</strong>：<code>devbox log</code> 不再异常退出；<code>update --all-projects</code> 遵循 <code>--no-install</code>；<code>generate</code> 等子命令支持 <code>-c</code>/<code>--environment</code>；<code>--quiet</code> 适用于 <code>generate</code>、<code>services</code>、<code>global</code>（<a href="https://github.com/jetify-com/devbox/pull/3008">#3008</a>）。</li><li><strong>配置修复</strong>：<code>null</code> script 不再导致各命令崩溃；<code>devbox add --outputs</code> 立即生效且不写重复；<code>patch</code> 设为 <code>auto</code> 时移除遗留的 <code>patch_glibc</code> 键；Poetry 检测器不再将 Poetry 固定到项目自身版本（<a href="https://github.com/jetify-com/devbox/pull/3009">#3009</a>）。</li><li><strong>包与 lockfile 修复</strong>：<code>devbox list --outdated</code> 不再因未锁定包崩溃；<code>devbox update</code> 不再重复拉取已固定 rev 的 GitHub flakes，也不写入 1970 的 <code>last_modified</code>；<code>@</code> 作用域名称正确解析；损坏的 print-dev-env 缓存会重新计算而非破坏 shell；搜索网络错误不再误报为「package not found」（<a href="https://github.com/jetify-com/devbox/pull/3010">#3010</a>）。</li><li><strong>glibc 补丁修复</strong>：修复空 RPATH 条目、静态链接二进制构建中止、CUDA 库刷新、<code>runx:</code> 包破坏补丁 flake 等问题（<a href="https://github.com/jetify-com/devbox/pull/3012">#3012</a>）。</li><li><strong>服务、插件与模板</strong>：<code>services start</code> 不再因泄漏锁挂起；服务失败时正确返回非零状态；未知 <code>plugin:</code> 包含给出清晰报错；<code>devbox create</code> 复制 <code>.envrc</code>、<code>.gitignore</code> 等点文件并处理空格路径（<a href="https://github.com/jetify-com/devbox/pull/3011">#3011</a>、<a href="https://github.com/jetify-com/devbox/pull/3013">#3013</a>）。</li></ul><h3>🧹 维护</h3><ul><li>使用 Go 1.27 构建，更新了 Go 模块依赖、GitHub Actions、lint 工具、Nix 测试版本及 VS Code 扩展依赖。</li><li>更新了 JavaScript、Python、JVM、Ruby、PHP、.NET 等示例。</li><li>静默 CI 警告并新增性能优化机会规范。</li></ul><p>完整变更日志见 <a href="https://github.com/jetify-com/devbox/compare/0.18.4...0.18.5">官方 Changelog</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.18.5</guid>
-      <pubDate>Sun, 25 Oct 2026 21:45:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>btop++ v1.4.8 发布：修复原子性、死锁与 GPU 监控支持</title>
-      <link>https://github.com/aristocratos/btop/releases/tag/v1.4.8</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>btop++（v1.4.8）是面向 Linux/macOS/BSD 的资源监控终端工具，本次为 Bug 修复版本。</p>
-<p><strong>重要改动：</strong></p>
-<ul>
-<li>新增 AMD APU/iGPU 的 sysfs 后端，用于 GPU 监控（#1661）</li>
-<li>新主题按名称加载/保存（如果可能）（#1390），提升主题管理体验</li>
-<li>修复 btop 中的原子性与数据竞争问题（#1649）</li>
-<li>修复可能的线程死锁以及基于电源事件导致的错误“停滞”检测（#1662）</li>
-<li>修复 AMD GPU 在 ROCm 7（如 Ubuntu 26.04）下的运行问题（#1652）</li>
-</ul>
-<p><strong>其他改动：</strong></p>
-<ul>
-<li>修复 Apple Silicon GPU 支持，避免破坏 Intel Mac 构建（#1641）</li>
-<li>日志时间戳改用 ISO 8601 格式（#1663）</li>
-<li>延迟处理 SIGWINCH 窗口尺寸变化（#1674）</li>
-<li>修复 macOS 在 SMB 时间机器备份期间崩溃（SIGABRT）（#1658）</li>
-<li>避免 macOS 交换磁盘崩溃（#1690）</li>
-<li>修复 +/- 按键绑定（#1709）</li>
-<li>配置目录缺失但配置文件存在时忽略缺失目录（#1805）</li>
-<li>修正终端过小对话框的背景一致性（#1751）</li>
-</ul>
-<p>项目维护方面，#1805 等多项合并与审查得到了 @deckstose 的大力协助。</p>
-<p>说明：官方二进制均未包含 GPU 支持，如需 GPU 监控请自行编译或等待发行版打包。Linux 各架构二进制基于 musl 静态链接，可在 kernel 2.6.39 及以上运行；目前暂未提供 macOS 或 BSD 二进制。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/aristocratos/btop/releases/tag/v1.4.8</guid>
-      <pubDate>Sun, 25 Oct 2026 08:02:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.310 发布：新增 Monitor 工具拦截长前台睡眠，多项稳定性与云端会话改进</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.310</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.310，带来了若干新特性、稳定性修复以及面向云端会话（Cloud sessions）、Claude Tag 和代码审查（Code Review）的改进。</p>
-
-<p><strong>主要变更</strong></p>
-<ul>
-<li>新增 <strong>Monitor 工具</strong>及插件监控，现已支持 Bedrock、Vertex 和 Foundry，并在关闭遥测或非必要流量时同样生效；这些场景下长前台睡眠现也被阻止。</li>
-<li>修复了部分网关与兼容服务器因拒绝 <code>effort-2025-11-24</code> beta 值或会话中系统消息而导致的请求失败问题，Claude Code 现在会移除这些内容后重试。</li>
-<li>改进了自动模式（auto mode）在工作目录外首次读取前的提示，明确说明阻止这类读取会使 shell 命令请求权限。</li>
-<li>压缩（compaction）得到改进：在「Prompt is too long」错误后，不再于含密集文本（如 base64、SVG）的对话中保留过多内容，避免下一条请求再次失败。</li>
-<li>提升了非交互式会话（<code>-p</code>、Agent SDK）在转录文件很大时进行压缩的内存使用效率。</li>
-<li>修复了后台清理在 <code>cleanupPeriodDays</code> 设为极大值时误删近期文件（如粘贴的图片）的问题。</li>
-<li>修复了符号链接指向处的文件读取权限提示不显示的问题。</li>
-<li>修复了外部编辑器长时间编辑关闭后，某个问题的自动继续超时立即触发的问题。</li>
-<li>改进了 mod 的 <code>Image</code> 在 tmux（开启 <code>allow-passthrough</code> 和 <code>focus-events</code>）、kitty、Ghostty 及 iTerm2 3.5+ 全屏渲染下的绘制，此前这些环境只显示其 <code>alt</code> 文本。</li>
-<li>非交互式会话中 MCP 工具调用超时且服务器征询未回应时，错误提示现会告知 Claude 未收到回答，不要重复调用。</li>
-</ul>
-
-<p><strong>VSCode 扩展</strong></p>
-<ul>
-<li>修复了在计划审查卡片上按「Send feedback and keep planning」按钮的 Enter 键会批准计划而非发送评论的问题。</li>
-<li>修复了从会话历史的 Web 标签页打开云会话执行「Switch branch &amp; continue」后，面板显示「Something went wrong」的问题。</li>
-</ul>
-
-<p><strong>云端会话（Cloud sessions）</strong></p>
-<ul>
-<li>为 Enterprise 自定义角色新增了 Claude Code 云端会话与 Remote Control 权限，Owner 可按角色控制访问。</li>
-<li>新增「Choose file」按钮，可从文件加载云环境的设置脚本。</li>
-<li>修复了云环境编辑对话框中保存和归档失败时对话框内不显示错误的问题。</li>
-<li>修复了例行（routine）API 令牌操作失败仅显示 toast 的问题，错误现会显示在例行编辑对话框中。</li>
-<li>改进了会话开始检查清单，将云环境设置脚本输出显示在可滚动框中。</li>
-<li>管理设置中开启云端会话或 Remote Control 现会要求确认，并列出拥有该权限的自定义角色。</li>
-<li>云环境对话框改为从行中打开网络访问、设置脚本和环境变量，不再一次性列出所有编辑器。</li>
-</ul>
-
-<p><strong>Claude Tag 与代码审查</strong></p>
-<ul>
-<li>修复了 Claude Tag 将以粗体、斜体或删除线格式发送的 <code>!</code> 命令（如 <code>!restart</code>、<code>!help</code>）当作普通消息的问题。</li>
-<li>修复了 Claude Tag 管理频道和工作区页面在后台刷新包列表失败时被加载错误替换的问题；支出限制页面在频道名称仍加载时误报「无频道匹配过滤器」的问题。</li>
-<li>修复了代码审查管理区在仓库列表刷新失败后隐藏仓库和开关的问题；改进为首次加载失败自动重试，若仍失败则显示一个「Try again」横幅。</li>
-</ul>
-
-<p>此外还修复了 Linux 下沙盒启动警告以指出 Ubuntu 对用户命名空间的 AppArmor 限制及解除方法。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.310</guid>
-      <pubDate>Fri, 23 Oct 2026 23:39:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex v0.164.0：新增快捷指令预设、内联模型参数与图像预览</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.164.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex（rust-v0.164.0）发布新版本，带来一批面向终端用户的新功能与多项修复。</p>
-
-<h3>主要新功能</h3>
-<ul>
-<li><strong>快捷指令预设</strong>：可将常用提示词和斜杠命令保存到十个编号的 <code>/presets</code> 槽位，并提供键盘快捷键菜单快速调用。</li>
-<li><strong>内联参数设置</strong>：可直接通过 <code>/model</code> 和 <code>/permissions</code> 的内联参数指定模型、推理强度、速度及权限配置文件。</li>
-<li><strong>全屏图像预览</strong>：在支持 Kitty 或 Sixel 图形协议的终端上，可直接在全屏转录中预览查看和生成的图像。</li>
-<li><strong>企业级 MCP 认证</strong>：可使用符合条件的 Codex 账户授权或独立登录方式认证企业级 MCP 连接，包括需要密钥的 OAuth 客户端。</li>
-<li><strong>凭据脱敏</strong>：在支持的远程 Bash 命令和 Zsh 快照会话中隐藏凭据，包括来自自定义提供方的凭据。</li>
-<li><strong>Amazon Bedrock 向导默认启用</strong>：检测到凭据时，API 密钥输入与其他 AWS 登录方式并列展示。</li>
-</ul>
-
-<h3>其他改动与修复</h3>
-<ul>
-<li>失败的压缩不再在会话历史中留下部分摘要，后台压缩失败会安全回退不再恐慌崩溃。</li>
-<li>恢复会话时可找到压缩历史并恢复保存的线程设置，而非替换为全局默认值；CLI 配置覆盖在多个子命令层级下得以保留。</li>
-<li>Windows 上的 HTTPS 和 WebSocket 连接现可使用已登录用户的 Negotiate 或 NTLM 凭据处理代理认证。</li>
-<li>队列中的提示会等待待定的权限选择完成后才继续执行；加固了 macOS 大小写变体元数据路径及可替换符号链接的沙箱检查。</li>
-<li>通过清理未使用安装包、废弃的 marketplace checkout 及限制守护进程日志来减少磁盘占用；更新了内嵌 JavaScript 运行时，加入针对优化 <code>Array.sort</code> 操作的安全检查。</li>
-</ul>
-
-<p>完整变更日志见 <a href="https://github.com/openai/codex/compare/rust-v0.163.0...rust-v0.164.0">GitHub</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.164.0</guid>
-      <pubDate>Fri, 23 Oct 2026 04:48:10 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.309：大量沙箱、worktree 隔离与 VSCode 修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.309</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.309 版本，包含大量针对沙箱、worktree 隔离、权限检查、VSCode 扩展及 Claude Tag 等功能的修复与改进。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>沙箱修复</strong>：修复 macOS/Linux 上沙箱化 Bash 命令在每次执行前于沙箱外运行 shell 启动文件的问题；修复 macOS 沙箱 <code>denyWrite</code> 通配符在通过符号链接访问路径时未生效的问题；修复沙箱命令和自动接受的编辑可修改通过 <code>--mcp-config</code> 传入的 MCP 配置文件的问题。</li>
-<li><strong>worktree 隔离强化</strong>：修复隔离会话接受某些带 locale 前缀命令和 zsh 算术命令的问题；修复 Claude Code 创建的 worktree 和分支检出忽略 git replace refs 的问题。</li>
-<li><strong>权限检查修复</strong>：修复 Bash 权限检查信任由重定向可能失败的变量设置的问题；修复某些包含子 shell 的命令中 <code>Edit(path)</code> 拒绝规则未阻止 Bash 重定向的问题；修复 PowerShell 权限检查自动批准某些指向当前目录的 <code>Set-Location</code>/<code>cd</code> 命令的问题。</li>
-<li><strong>会话与消息修复</strong>：修复 ctrl+enter（立即发送）在响应开始前仅排队消息的问题；修复 ctrl+o 不显示其他代理和会话中等待投递消息的问题；修复长工具输出预览在 emoji 处被截断导致 <code>jq</code> 无法解析会话记录的问题。</li>
-<li><strong>VSCode 改进</strong>：修复 Claude 面板在编辑器缓存不完整副本后保持空白的问题；修复每次开始新会话时 Session 历史填充空 "Untitled" 会话的问题；修复长斜杠命令消息（如 <code>/goal</code>）填满聊天面板的问题，现折叠在 "Show more" 后；将聊天面板中 Edit 和 Write 的速度提升，等待新问题的时间从 1-1.5 秒降至 0.75 秒。</li>
-<li><strong>其他功能调整</strong>：<code>sed -i</code> 现在获得标准 Bash 提示并按原样运行，不再显示模拟的文件编辑预览；<code>claude ultrareview</code> 现在要求 workspace 信任；改进了磁盘满时的错误提示，明确指出需释放空间的文件夹。</li>
-</ul>
-
-<h3>其他修复</h3>
-<ul>
-<li>修复 <code>/rewind</code> 列表对通过 <code>/code-review --fix</code>、子代理或 shell 命令修改检查点文件的回合显示 "No code changes" 的问题。</li>
-<li>修复 <code>/privacy-settings</code> 显示过时的 "Help improve our AI models" 值的问题。</li>
-<li>修复 <code>--add-dir</code> 文件夹中的技能因名称冲突不可达的问题，现以 <code>&lt;folder&gt;:&lt;name&gt;</code> 形式提供。</li>
-<li>修复 <code>/verify</code> 和 <code>/code-review</code> 无法找到嵌套包自身技能的问题。</li>
-<li>修复插件和从 claude.ai 同步的技能在磁盘读取错误后被移除的问题。</li>
-<li>修复对话压缩后 Claude 在回合剩余时间内对每次 artifact 更新都请求权限的问题。</li>
-<li>修复 Claude 在 PR、issue 和评论中通过写入角色名和占位符作为提及来通知无关 GitHub 用户的问题。</li>
-<li>修复 macOS 上无 Xcode 或命令行工具时每次启动都弹出 "Install Command Line Developer Tools" 对话框的问题。</li>
-<li>修复 <code>--startup-timeout-min</code> 停止仍在子代理中工作的首个提示（如 <code>/code-review</code>）的会话的问题。</li>
-<li>改进 Windows 上 git 命令速度，且所有平台上的 git 错误现在以英文显示。</li>
-<li>修复 hooks 模块嵌套过深时的错误提示，现显示文件名而非裸的栈溢出消息。</li>
-<li>修复 Claude Desktop 托管会话在连接刷新时消息偶尔丢失的问题；修复终端登录不同账户/组织时桌面应用中功能缺失的问题。</li>
-<li>修复 <code>claude remote-control</code> 状态行对非 git 仓库文件夹显示 <code>HEAD</code> 作为分支的问题。</li>
-<li>修复 split-pane 代理队友未继承 leader 命令行上的工具拒绝和 <code>--tools</code> 规则的问题。</li>
-<li>修复 <code>/rename</code> 重命名的会话在 VS Code 窗口重载或非交互 <code>--resume</code> 后以生成名称显示的问题。</li>
-<li>修复 <code>/claude-api</code> 技能中多项文档描述不准确的问题（C# 追踪、AWS 平台追踪、OpenTelemetry 等）。</li>
-<li>修复 PowerShell 中 hooks 在程序以代码 2 退出时不阻塞的问题。</li>
-<li>修复按别名（如 <code>haiku</code>）命名模型的 <code>turn.step</code> hook 每次请求都报模型错误的问题。</li>
-<li>修复 Amazon Bedrock 上细粒度工具流在设置默认 <code>bedrock-runtime</code> 端点时保持关闭的问题。</li>
-<li>修复仅发送 keepalive ping 的网关后 "Waiting for API response" 提示闪烁的问题，现等待 45 秒。</li>
-<li>修复 Linux 上后台命令存活超过会话时沙箱写拒绝被解除的问题。</li>
-<li>修复 <code>/feedback</code> 报告过大时失败而非去除记录重发的问题。</li>
-<li>修复 Claude Tag（Slack 集成）中多项问题：误将批准的草稿发到 DM、会话停止后 Allow/Deny 无响应、工作区迁移后忽略未标记消息、线程回复顺序错误等。</li>
-<li>修复 Code Review 中已完成审查未显示检查标记、<code>@claude review stop</code> 后排队推送仍启动审查的问题。</li>
-<li>修复 Cloud sessions 中连接器列表加载、环境变量编辑、文档工具行显示转义 JSON 等问题。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.309</guid>
-      <pubDate>Thu, 22 Oct 2026 22:18:57 GMT</pubDate>
     </item>
   </channel>
 </rss>
