@@ -3,7 +3,104 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 16 Nov 2026 20:59:19 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2026 03:47:28 GMT</lastBuildDate>
+    <item>
+      <title>逆向发现：Windows 11 通过诊断组件记录你使用哪些编码智能体与开发工具</title>
+      <link>https://news.ycombinator.com/item?id=50524736</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要内容是逆向分析 Windows 11 遥测/隐私机制，虽与编码智能体相关，但主题偏操作系统隐私与逆向工程，与配置的编程工具主题不完全一致，兴趣不明确</small></p><p>作者借助 AI 辅助，在 Windows 二进制文件中搜寻未公开功能，发现 <code>MissionControlAggregator.dll</code> 内嵌了一份可执行文件名清单：编码智能体如 <code>codex.exe</code>、<code>claude.exe</code>、<code>copilot.exe</code>、<code>cursor.exe</code>、<code>antigravity.exe</code>、<code>agy.exe</code>、<code>github.exe</code>，以及 <code>node.exe</code>、<code>python.exe</code>、<code>dotnet.exe</code>、<code>gcc.exe</code>、<code>clang.exe</code>、<code>gdb.exe</code>、<code>javac.exe</code>、<code>devenv.exe</code>、<code>code.exe</code> 等常见开发工具。顺着引用追查，确认这是一个正在运行的 Windows 组件，会记录哪些智能体和开发工具被使用过、在本地保存，并上报给 Windows 诊断系统；除用户关闭「可选」诊断数据外（该选项默认开启），数据会被上传至微软。</p>
+<p>原文链接：<a href="https://xusheng.dev/posts/windows-coding-agent-telemetry/">xusheng.dev</a></p>
+
+<h3>清单与匹配逻辑</h3>
+<p>在 Binary Ninja 中打开该 DLL，可看到硬编码的可执行文件名：</p>
+<img src="/posts/windows-coding-agent-telemetry/agent-names.jpeg" alt="Binary Ninja 中显示 MissionControlAggregator.dll 内嵌的编码智能体可执行文件名" />
+<p>共 4 个命令行智能体槽位（<code>copilot.exe</code>、<code>claude.exe</code>、<code>codex.exe</code>、<code>agy.exe</code>，WSL 路径下还有无扩展名的等价形式），5 个桌面智能体槽位（<code>github.exe</code>、<code>claude.exe</code>、<code>codex.exe</code>、<code>cursor.exe</code>、<code>antigravity.exe</code>），以及 12 个更宽泛的开发工具类别。守卫这些检查的功能开关名为 <code>CLICodingAgentUsage</code>（功能 ID 62580080）。部分槽位还会校验发布者：Node.js 对应 Node.js Foundation，Python 对应 Python Software Foundation，.NET 与 Visual Studio 对应 Microsoft Corporation；编译器/调试器组（GCC、Clang）在这一路径上没有发布者校验。</p>
+
+<h3>数据从哪来</h3>
+<p>该组件并不主动扫描进程，而是订阅既有 Windows 事件：<code>KernelProcess.AppStateChangeSummary</code> 与 <code>Win32kTraceLogging.AppInteractivitySummary</code> 提供普通 Win32 程序的身份信息；WSL 侧则消费 <code>Microsoft.Windows.Lxss.Manager.Exec</code> 与 <code>ExecCritical</code> 的 <code>imageName</code> 字段。因此普通的 Windows <code>codex.exe</code> 也能经由应用状态摘要进入智能体检查，并非只针对 WSL 内程序。命中后组件在状态中置位；定时器触发 <code>ReportCohorts&lt;12,4,5&gt;</code>，把结果编译成名为 <code>Segments.SubCohorts</code> 的 ETW（Event Tracing for Windows，Windows 事件跟踪）自描述 TraceLogging 事件——三个数字分别对应 12 个类别、4 个 CLI 智能体、5 个桌面智能体。原始事件中的运行时长、焦点时间、交互计数、资源占用等细节被丢弃，只保留表示「观察到某工具」的位图。作者强调报告中不含提示词文本或源代码，但仅「你用什么工具」这一信息就已有明显隐私含义。</p>
+
+<h3>实际验证</h3>
+<p>作者在 Parallels 的 Windows 11 ARM64 虚拟机（内部版本 26200.9974，DLL 版本 10.0.26100.9818）上确认：<code>CLICodingAgentUsage</code> 已作为服务实验启用，且非手动开启；DiagTrack（Connected User Experiences and Telemetry 服务）以自动启动方式运行，并拉起子进程 <code>AggregatorHost.exe</code> 加载该 DLL。不过用公开 ISO 制作的全新虚拟机中该功能默认关闭，因此证据不足以断言它在所有 Windows 安装上都已生效。</p>
+<p>验证方法是把 <code>cmd.exe</code> 复制成 <code>codex.exe</code> 并运行——仅文件名就足以被识别为 Codex：聚合器保存状态中 CLI 槽位 2（Codex）被置为 2，且无需额外 ETW 跟踪即可生效。状态持久化于 <code>C:\ProgramData\Microsoft\Diagnosis\AggregatorStorage\MissionControlAggregator$</code>。作者把上报窗口起点临时改到 25 小时前并重启 DiagTrack，捕获到 <code>Segments.SubCohorts</code> 事件，其中 <code>CliAgentSubCohorts: 4</code>（即 <code>1 &lt;&lt; 2</code>，Codex CLI 位）。随后把 <code>cmd.exe</code> 复制成 <code>gcc.exe</code>，置位开发者工具槽位 3，上报值为 <code>SubCohorts: [8]</code>——对应共享的编译器/调试器类别，而非每个可执行文件单独一位。</p>
+<p>进一步检查 <code>Diagtrack-Listener</code> 会话的订阅，确认它同时监听 KernelProcess 与 <code>Microsoft.Windows.MissionControlAggregator</code> 提供者；再解压 DiagTrack 的 <code>EventStore.db</code> 中 <code>AsimovEvents</code> 表的 JSON 批次，在实际上传队列中找到了该事件，其 <code>privacy.isRequired</code> 为 <code>false</code>，即被归类为「可选」诊断数据。</p>
+
+<h3>默认设置与建议</h3>
+<p>作者用最新官方 ISO 在区域设为美国的情况下全新安装 Windows 11 家庭版 ARM64，未改动任何隐私设置前，诊断数据开关已启用并标注为「包含可选」，<code>AllowTelemetry</code> 为 3：</p>
+<img src="/posts/windows-coding-agent-telemetry/us-optional-diagnostics-default.png" alt="美国区域的 Windows 安装过程：诊断数据默认设置为包含可选数据" />
+<p>也就是说，若安装时未拒绝或事后未关闭可选诊断，编码智能体使用数据正处于上传状态。可在安装时选择拒绝，或在「设置 → 隐私和安全性 → 诊断和反馈」中关闭「发送可选诊断数据」。</p>
+
+<h3>社区反馈</h3>
+<p>HN 讨论（295 分、165 条评论）普遍不感意外，多数人认为这是 Windows 长久以来遥测策略的延续，言辞从「Windows 就是间谍软件」到引用恶意软件定义不等。也有不同的视角：有人反问为何只有 Windows 遭遇此类愤怒，Android、iOS、ChromeOS 和 macOS 同样有相当程度的收集行为，而 Google 在跨产品数据关联与变现上远胜微软；回应则认为这些平台本就被视为监视设备或云端服务，而 Windows 是从「不那么敌对用户」的时代一步步退化的。另有评论指出这类统计样本必然偏斜——只覆盖开着可选遥测的人群，随即被反驳为「这本身就是预筛选，关掉遥测的人不是他们的目标市场」。按惯例，评论区还出现了 Linux Mint、CachyOS 等替代方案的推荐。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+<li>检测逻辑只比较文件名（部分附带发布者校验），所以把任意程序重命名即可伪造数据。这意味着微软收集到的「智能体使用率」指标既可用于统计竞争格局，也很容易被干扰或污染。</li>
+<li>同一份诊断管道此前已有先例：PowerShell 也默认开启遥测，评论者认为这正是微软不愿把自家软件直接放进 Linux 发行版仓库的原因之一。</li>
+<li>「聚合器」这类组件把细粒度事件压缩成位图再上报，是遥测系统常见的降维手法——既降低带宽与存储成本，也让外部很难从上报数据反推具体使用时长或操作内容。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50524736</guid>
+      <pubDate>Mon, 16 Nov 2026 22:58:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>卡内基梅隆大学将计算机科学课程免费放上 YouTube</title>
+      <link>https://news.ycombinator.com/item?id=50522980</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是免费公开的计算机科学课程资源，属于学习教育资源，未直接命中编程工具、效率经验或 AI 进展等配置主题，可选</small></p><p>卡内基梅隆大学（Carnegie Mellon University）的 Kenneth C. Griffin 计算机科学学院推出 <a href="https://www.cs.cmu.edu/learn/">CS Learn</a> 平台，把校内正在开设的完整学期课程录像免费发布到 YouTube，涵盖多个方向。本周每天首播一门课程，明年一月还会上线更多课程，之后将推出自定进度的课程材料（self-paced courseware）。</p>
+<img src="https://www.cs.cmu.edu/learn/resources/robotic-arm-lab.jpg" alt="两人在实验室里观看机械臂" />
+<p>该项目负责人、Griffin 计算机科学学院教师 Phillip Compeau 在 Hacker News 上做了说明：与 MIT 早在 25 年前就开放课程不同，他认为这次的亮点在于生产方式——几名在校学生开发了可自动化大量制作环节的工具，使得小团队也能快速产出一门课程，同时仍保证每节课都有人工审核。他也在征求后续希望覆盖的主题。</p>
+<p>社区反馈总体积极，主要讨论集中在几点：</p>
+<ul>
+<li><strong>脱离单一平台</strong>：有用户建议把这些视频同时托管在 CMU 自建的 Peertube 实例上，Compeau 回应目前已有 Panopto 服务器供内部使用，会研究把 Peertube 作为另一个选项。</li>
+<li><strong>AI 能否取代讲授</strong>：有人认为在 LLM 与多模态模型时代，AI 已成为「最好的老师」，公开课的价值不如从前；随即被反驳称前沿模型在专业问题上仍会编造内容，基础概念不应通过 LLM 学习，并质疑「学得好不好」的判断依据。</li>
+<li><strong>历史的轮回</strong>：有用户回忆 2000 年代末至 2010 年代初大批高校曾把课程免费放上 YouTube，后来因部分地区要求无障碍（当时 YouTube 不自动生成字幕）而面临法律风险，多数学校撤下了课程；如今算是回归常态。</li>
+<li><strong>课程质量</strong>：老校友提到 CMU 的操作系统与编译器课程口碑很好；也有人由该项目回想起 2008 年前后课堂上播放的 Randy Pausch「最后一课」和 Alice 编程项目。有人指出材料偏入门，但免费公开内容对公共知识仍有增益。</li>
+<li><strong>衍生工具</strong>：有开发者借机介绍自己把公开课转成带日程、提醒与笔记的结构化学习路径的产品，另有人分享了为高中生定制的 AI 辅导工具。</li>
+<li><strong>覆盖范围</strong>：有用户询问 18- 开头的计算机工程（ECE）课程是否也会包含在内。</li>
+</ul>
+<p>此外有用户贴出了 CMU 官方的新闻稿，作为该消息的官方来源。</p>
+<h2>你知道吗？</h2>
+<p>美国高校公开课在 YouTube 上「集体下架」的往事，与字幕无障碍诉讼密切相关：美国《康复法案》第 508 条与《美国残疾人法》（ADA）要求公立及接受联邦资助的机构提供无障碍教学材料，而早期 YouTube 缺乏自动字幕与可编辑字幕轨道，导致不少学校为避免诉讼风险将课程转为受限访问。这也是「字幕自动化」成为现代公开课流水线必备环节的原因之一。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50522980</guid>
+      <pubDate>Mon, 16 Nov 2026 20:43:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Jiff 1.0 发布：Rust 的日期时间库（Andrew Gallant）</title>
+      <link>https://news.ycombinator.com/item?id=50519744</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust 日期时间库 1.0 发布，属于开源项目/开发库新版本发布，贴合编程工具与开源项目兴趣</small></p><p>Andrew Gallant（BurntSushi）在其博客上宣布 Rust 日期时间库 <a href="https://burntsushi.net/jiff/">Jiff 发布 1.0 版本</a>，并通过一次 API 巡览介绍了它的设计理念。Jiff 的目标是「自动把你推入成功之坑（pit of success）」：把时区处理前置到 API 的核心，从而自动化解夏令时等常见麻烦，让用户很难做出错误的操作。作者认为日期时间处理之所以困难，是因为很多库对领域建模不佳，把复杂度转嫁给了使用者，而 Jiff 试图把复杂度封装在内部。</p>
+<h3>1.0 承诺</h3>
+<p>Jiff 已在多个生产项目中广泛使用，包括 uv、Cargo、Starship、fd、Nushell、mise、Jujutsu、uutils/coreutils，以及 AWS LLRT 中 Temporal 实现的基础。由于 Jiff 意在成为被其他库公开依赖的生态基石，semver 不兼容的版本升级会给生态带来显著痛苦，作者承诺除非发现重大 API 缺陷，将长期维持 1.0 的稳定性。0.2 到 1.0 的破坏性变更见 CHANGELOG。</p>
+<h3>术语与「日期时间洋葱」</h3>
+<p>文章先厘清常见易混概念：民用时间（civil time，即钟表上所见的本地时间）、UTC（协调世界时）、TAI（国际原子时）、闰秒以及 Unix 时间（忽略闰秒的 UTC）。随后用「洋葱」比喻自内向外构建核心类型：</p>
+<ul>
+<li><code>civil::Date</code>：不依附任何地理位置的公历日期；</li>
+<li><code>civil::Time</code>：不依附任何地理位置的钟表时间，纳秒精度；</li>
+<li><code>civil::DateTime</code>：两者组合；</li>
+<li><code>Timestamp</code>：与地理位置无关的确定瞬间，以 Unix 纪元以来的纳秒数表示；</li>
+<li><code>TimeZone</code>：在特定地理区域内双向映射 Timestamp 与 civil::DateTime 的规则集合；</li>
+<li><code>ZonedDateTime</code>：Timestamp、civil::DateTime 与 TimeZone 三者合一。</li>
+</ul>
+<p>因此既可以用「钟表时间 + 时区」得到带时区的时间，也可以用「时间戳 + 时区」得到等价结果——前者模拟人看日历的场景，后者模拟从数据库或系统调用取得时刻的场景。</p>
+<h3>时区、折叠与空洞</h3>
+<p>时区标识使用 IANA 时区数据库（如 <code>America/New_York</code>）。偏移量（offset）是把 UTC 调整为民用时间所需的差值。文章给出更精确的定义：时区需要提供「瞬间 → 偏移」以及「民用时间 → 可能歧义的偏移」两种映射。歧义出现在两类转换处：</p>
+<ul>
+<li><strong>折叠（fold）</strong>：时钟回拨导致某一小时重复，如纽约 2026 年 11 月 1 日凌晨 2 点回拨后 1 点重复出现；</li>
+<li><strong>空洞（gap）</strong>：时钟前拨导致某些时刻被跳过，如 2026 年 3 月 8 日凌晨 2 点直接跳到 3 点。</li>
+</ul>
+<p>Jiff 默认采用「compatible」策略：折叠时选第一次出现，空洞时选较晚的时刻。用户也可以通过 <code>to_ambiguous_zoned_datetime</code> 选择 <code>earlier()</code>、<code>later()</code> 或 <code>unambiguous()</code>（有歧义直接报错）来改变解析方式。</p>
+<h3>时长、解析与格式化</h3>
+<p>Jiff 有两种时长类型：<code>Span</code> 是混合型时长，同时保留日历年月周与时分秒等物理单位的各个分量，是推荐优先使用的类型；<code>SignedDuration</code> 是带符号版 <code>std::time::Duration</code>，内部为 96 位纳秒整数，只能表示物理时间。二者在运算上基本一一对应，例如可以求两个日期之间的天数，或用 <code>29.days()</code> 这类语法做日期加减。</p>
+<p>文章还介绍了 <code>FromStr</code>/<code>Display</code> 集成、对人类友好的 Duration 格式、strptime/strftime 风格解析与格式化、<code>jiff::fmt</code> 模块，以及通过 ICU4X 集成实现的区域敏感（locale sensitive）格式化；此外还讨论了日期算术、日期舍入、其他历法、该选哪种 DateTime 类型以及 Span 的操作等主题。</p>
+<h3>社区反馈</h3>
+<p>HN 讨论（321 分、76 条评论）整体反响积极，多位开发者称 Jiff「和 burntsushi 的其他库一样优秀」，希望它逐步取代 chrono；也有人分享自己为 Jiff 提交贡献、与作者合作非常愉快的经历。有评论指出 chrono 已在自我「半废弃」（见其 issue #1768），从 chrono 迁移到 Jiff 相当容易，另有人补充了作者关于「为什么再造一个日期时间库」「为什么不直接贡献给 chrono 或 time」的文档链接。</p>
+<p>围绕「Rust 标准库为何不含日期时间库」也有争论：一方认为现代语言应内置，另一方指出 Rust 的标准库连异步运行时都没有，社区更倾向于用第三方 crate 换取演进自由，并对供应链风险、文档分散、依赖冲突等说法提出异议。另有趣味讨论集中在作者给出的读音说明——「Jiff 读作带软 g 的 gif，如 gem」——被调侃为「别搞得这么有争议」。</p>
+<p>一位从事太阳系天体轨道模拟的用户询问 Jiff 对 TAI、UT1 等其他时间尺度的支持，作者回复 Jiff 只支持 Unix 时间尺度，并推荐了为天文场景设计的 <a href="https://docs.rs/hifitime/">hifitime</a>；该用户表示 hifitime 的整数内部表示会让长时间模拟的数值噪声增大，因此仍在权衡。还有评论讨论了 jiff-tzdb 打包时区数据的选择（如 rearguard 数据），以及希望 Windows 上能复用系统维护的时区数据。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50519744</guid>
+      <pubDate>Mon, 16 Nov 2026 16:53:39 GMT</pubDate>
+    </item>
     <item>
       <title>软件正在系统性崩溃：从微软宕机、PHP 漏洞到 AI 时代的「去相干」</title>
       <link>https://news.ycombinator.com/item?id=50520866</link>
@@ -1608,132 +1705,6 @@ rclone copyurl "&lt;build-url&gt;" "bunnycdn:&lt;zone-name&gt;/&lt;filename&gt;.
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50446520</guid>
       <pubDate>Tue, 10 Nov 2026 21:25:03 GMT</pubDate>
-    </item>
-    <item>
-      <title>Ableton Live 13 公布：新增步进音序器、ARA 2 支持与一批混音工具，2027 年初发布</title>
-      <link>https://news.ycombinator.com/item?id=50439695</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 音乐制作软件 Ableton Live 的版本更新与新增音序、混音功能，虽属软件新功能发布，但领域为音乐创作而非编程/AI，兴趣不明确，故为可选。</small></p><p>Ableton 公布了 <a href="https://www.ableton.com/en/live/">Live 13</a> 的功能清单，这一代的重点是音频与 MIDI 工作流、声音设计工具和混音处理。正式版计划于 <strong>2027 年初</strong>发布，目前已开放预购：现有 Live 12 用户可享 8 折预购 Live 13，尚未购买者也能在发布前以 8 折购入/升级 Live 12，并在 Live 13 上市时免费获得对应版本。公开测试仅对 Live Standard 与 Suite 用户限量开放。</p>
-<p><img src="https://beta-ableton.imgix.net/media/03qdkapu/hero.jpg" alt="Ableton Live 13" width="1200" height="1800" /></p>
-<p>官方把更新分为三大板块：</p>
-<p><strong>1. 让创意持续流动</strong></p>
-<ul>
-<li><strong>步进音序器（Step Sequencer）</strong>：新增步进音序 clips，用于制作鼓点、旋律与复合节奏（polyrhythm）。<img src="https://beta-ableton.imgix.net/media/i5pe2wzj/1-l13-stepseq-2.jpg?width=1000" alt="Step Sequencer" /></li>
-<li><strong>ARA 2 支持</strong>：可在 Live 内使用 ARA 2 插件进行更深入的音频编辑；同一时间只能使用一个 ARA 插件，但可跨多个 clip 与轨道。大多数 ARA 2 插件均兼容，少数存在已知问题。</li>
-<li><strong>Drum Synth</strong>：内置 20 多种鼓引擎，从源头设计打击乐音色。</li>
-<li><strong>Capture Automation</strong>：在探索参数时随手调整旋钮，按 Capture 即可把这些动作转为自动化。</li>
-<li><strong>Contextual Browsing</strong>：在设备链或混音台中直接加载设备、切换预设。</li>
-</ul>
-<p><strong>2. 更深入地跟随声音</strong></p>
-<ul>
-<li><strong>Rack 更新</strong>：Macro 数量最多扩至 32 个，支持自定义映射曲线等。</li>
-<li><strong>Looplet</strong>：用四个播放头对单个采样的不同部分进行分层与循环。</li>
-<li><strong>Transient Shaper</strong>：分别塑形 attack 与 sustain，可让击打更结实、尾音更响或做出断续循环。</li>
-<li><strong>Clipper</strong>：可透明地压制峰值，也可故意进入软削波以获得谐波失真。</li>
-<li><strong>Envelope Clips</strong>：为 Return 轨道上的效果器和混音参数添加自动化或调制。</li>
-</ul>
-<p><strong>3. 让混音更聚焦</strong></p>
-<ul>
-<li><strong>新的 Rack 类型</strong>：Multiband 与 Mid-Side Rack，用于塑造音色与立体声宽度。<img src="https://beta-ableton.imgix.net/media/frifwssw/3-l13-newracktypes-2.jpg?width=1000" alt="New Rack Types" /></li>
-<li><strong>Device Slots</strong>：在混音台中直接查看每条轨道上的设备，一目了然。</li>
-<li><strong>Core Library 更新</strong>：面向人声、吉他、混音与母带处理的成品级效果预设与 Rack。</li>
-<li><strong>Softube Effects</strong>：五款以经典录音室硬件为原型的 Softube 效果器。</li>
-</ul>
-<p>其他改进包括：Ableton Link 的 Arrangement Sync、可导出速度自动化与拍号变化、导出 MIDI 的事件时序更精确；混音台新增 Send 推子、可常驻的 Mixer Configuration 菜单（选择显示哪些区块）、更顺滑的尺寸调整，以及 Main 轨道上的 Unsolo 按钮；Phaser-Flanger 界面也做了更新。</p>
-<p>版本划分仍为 Intro（限 16 条轨道与 Scene）、Standard（不限轨道与 Scene，含更多乐器与效果）与 Suite（在 Standard 基础上加入 Max for Live、完整乐器/效果集合与完整 Core Library，并附赠 Melodyne essential 用于 ARA 2 编辑，以及 Softube 的 Classic Dynamics &amp; EQ Pack 与 Looplet）。硬件方面，Push 3 获得 Custom Layouts、新的步进音序器布局、Performance Mixer 与 Device Mode 升级（滚轮导航、最多 32 个 Rack Macro）；Push 2 支持新的步进音序器与大部分 Device Mode 改进，但不支持 Custom Layouts、Performance Mixer 和表现力更强的步进编辑。</p>
-<h3>社区反馈</h3>
-<p>Hacker News 讨论（300 多条评论）情绪总体正面：日常使用者对 Capture Automation、步进音序器和 Multiband/Mid-Side Rack 最感兴趣，认为 Live 每个大版本都在进步；也有人指出设备列表终于常驻显示在通道条上（此前需靠 options.txt 开启）算是一大实用修复。对 Ableton 干净的界面风格，多数人给予肯定，并由此展开 FL Studio、Bitwig 与 Logic 的界面优劣之争，最终归于「熟悉感常被误认为易用性」。</p>
-<p>争议集中在两方面。其一是营销网页：多位用户抱怨页面过于花哨、体量过大，在 Android 版 Chrome、Firefox 和 Debian 上的 Chromium 中滚动即导致标签页崩溃。其二是 AI 功能缺位：有人遗憾没看到「代理式（agentic）编辑」，并把 Logic Pro 的 Intelligent Assistant、Splice Create 与之对比；也有用户明确表示庆幸 Ableton 没有加入 AI 生成功能。此外，一些新人问及入门版本选择，回答普遍指出 Lite 限制过多且无法单独购买，Intro 仅 16 轨（Garage Band 为 32 轨），教育优惠可达五折，原本用 Garage Band 的人也可考虑 Logic；同时有人认为实时音频极难做对，Ableton 这类 DAW 短期内不易被「克隆」或取代。</p>
-<h3>你知道吗？</h3>
-<p>ARA（Audio Random Access）是音频软件与插件之间的扩展协议，它让插件不必把音频「拷进去」再处理，而是能实时读取宿主中的音频数据与片段结构，从而像 Melodyne 这样的工具可以在宿主时间线上直接做音高、时值编辑并随工程同步。ARA 2 是支持多轨与更完整数据交换的升级版本，这也是 Live 13 被期待的原因之一——此前 Ableton 用户需要借助 Rewire 或其他替代路径完成这类编辑。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50439695</guid>
-      <pubDate>Tue, 10 Nov 2026 12:58:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>Synaptics 以专利侵权为由施压，开发者被迫搁置 Linux 版 DisplayLink 驱动</title>
-      <link>https://news.ycombinator.com/item?id=50443824</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要是 Linux 驱动与专利纠纷、硬件坞站芯片话题，虽涉及开源社区，但主题偏向硬件驱动与法律纠纷，兴趣不明确，故列为可选</small></p><p>苏格兰开发者 Mike Lothian 拥有一台采用 DisplayLink 芯片组的戴尔扩展坞，其在 Linux 下表现不佳、驱动频繁崩溃。Synaptics 于 2022 年收购 DisplayLink，仅以二进制形式提供面向 Ubuntu 的专有 DisplayLink Manager（DLM）软件（且仅支持 x86），其中附带的开源树外内核模块为 <a href="https://github.com/DisplayLink/evdi">EVDI</a>（Extensible Virtual Display Interface）。Lothian 借助 Claude 试图自己编写驱动，最终却收到 Synaptics 的专利侵权指控与停止侵权函——尽管他提交的代码是独立编写的。</p>
-
-<h3>起因：用 LLM 重写驱动</h3>
-<p>Lothian 于 6 月 17 日向内核 dri-devel 邮件列表提交了基于 Rust 的 DRM/KMS 驱动 <strong>Vino</strong> 的首个 RFC 补丁集，说明自己卡在无法理解扩展坞的 DL3 控制面（control plane）交互序列，希望了解该协议的人提供帮助。他同时在该驱动开发者也在 EVDI 仓库提了 issue、向 Synaptics 的 Łukasz Spintzyk 直接发邮件求助，并提交了修复 EVDI 缺陷的 pull request（数月无人评审）。邮件列表中他只得到关于改用 Rust KMS 绑定等一般性建议，没人能解答他的具体问题。</p>
-
-<h3>从「善意提醒」到停止侵权函</h3>
-<p>7 月 20 日，Synaptics 的 Michal Lukaszek 回复称 DisplayLink 并非开放标准，其协议、编解码器等技术受大量专利保护，并明确指出：即使独立编写或净室实现，只要落入了专利权利要求范围，仍可能构成侵权。</p>
-<p>8 月 17 日，Synaptics 知识产权助理总法律顾问 Andrew Bateman 发出停止侵权（cease-and-desist）通知，附上 125 项专利清单，声称这些专利「涵盖 DisplayLink 架构与运行的基础方面」，但<strong>并未指出他具体侵犯了哪几项</strong>。函件提出 8 项要求：立即停止开发任何侵权实现、撤回已提交给内核维护者/邮件列表/代码托管平台/发行版的所有材料、书面列出所有材料发布与分发的位置，并在 8 月 28 日前提供签署的合规确认。</p>
-<p>Lothian 未照办，反而在 8 月 26 日发布了 Vino 的第三版——此前的版本「从未点亮过屏幕」，新版本已能在无任何厂商软件的情况下驱动三代 DL3 扩展坞。次日他回信要求 Synaptics 提供权利要求对照表（claim chart），说明具体侵权点，并提出疑问：Synaptics 本身是开放发明网络（OIN, Open Invention Network）成员，而他也已成为 OIN 被许可方，双方的 OIN 承诺该如何协调？他请求延长回复期限，未获回应；9 月 18 日追问后，Bateman 次日回复称公司正在编制专利权利要求对照文档，并将就此「追讨大量金钱补偿」，还指责 Lothian 的行为是在「单枪匹马地瓦解 DisplayLink 在拥挤市场中的竞争优势」。</p>
-
-<h3>金额递增的最后通牒</h3>
-<p>10 月 5 日的后续函件附上了两项英国专利的对照表：GB2484736B（「显示控制设备」）与 GB2485613B（「图像生成」），均申请于 2010 年、2012 年公布。新期限为 10 月 11 日；若逾期，公司将索取 2.5 万美元以弥补制作文档的成本，且此后<strong>每周增加 2.5 万美元</strong>，直至其要求被满足。Lothian 当时正在休假，申请延至 10 月 13 日回家后阅读材料，最终获准推迟到 10 月 18 日。</p>
-
-<h3>OIN 未能提供保护</h3>
-<p>Lothian 曾向 OIN 求助。OIN 的结论是：其专利组合覆盖符合「Linux 系统定义」（Linux System Definition）的广泛软件，但该定义明确将编解码器（codec，即对视频、静态图像或音频数据流/信号进行变换的组件）排除在外，除非在组件清单中特别列出。由于编解码器被排除，OIN 的保护不延伸至 Lothian 试图提交的内核代码。OIN 首席执行官 Keith Bergelt 确认了这一结论，并建议他联系英国律师——但该推荐最终未能落实。</p>
-<p>结果：Lothian 已按 Synaptics 要求下架了 GitHub 仓库，Vino 不会再提交上游，只能「留在本地」；他仍可继续开发不受专利主张影响的组件。「我只是无力对抗 Synaptics 的诉讼。」颇具讽刺意味的是，Synaptics 的一位工程师在 10 月 7 日终于回复了他那个 pull request，而 Lothian 表示不打算跟进：「你不能一边威胁起诉我，一边问我能不能更新 pull request。」</p>
-
-<h3>社区反应</h3>
-<p>HN 讨论（约 214 条评论）普遍批评 Synaptics 的做法：</p>
-<ul>
-<li><strong>专利有效性存疑</strong>：有评论者查阅审查记录指出，GB2484736 的独立权利要求最初缺乏网络传输限定，被认定相对在先技术（如 1976 年的 Haar 变换压缩专利 US4224678A）不具专利性，DisplayLink 的代理人为获得授权才补入「通过通用数据网络传输显示数据」的限定；因此以「将通用传输层加到既有图像压缩方法上是显而易见的一步」提出无效挑战有相当胜算。</li>
-<li><strong>权利要求编号对不上</strong>：有人发现这两项专利的公开文本只到第 10 项权利要求，而函件称其侵犯「第 11 项」。</li>
-<li><strong>施压时限不合理</strong>：10 月 5 日的函件要求 10 月 11 日前答复，被认为是大公司对付个人开发者、逼其在评估主张有效性前就放弃的惯用手法。</li>
-<li><strong>逻辑矛盾</strong>：Synaptics 一边宣称 DisplayLink 不属于 OIN，一边其母公司确实是 OIN 成员；一边指控侵权，一边把技术细节描述为商业秘密，被指「两头都要」。</li>
-<li><strong>行动呼吁</strong>：有人提议众筹约 6775 美元发起单方复审（Ex Parte Reexamination）挑战专利；也有用户表示今后会避免采购 DisplayLink 扩展坞，并吐槽其在 Linux/macOS/Windows 上的兼容性都很差，只有 Plugable 等少数品牌体验较好。</li>
-</ul>
-<p>文章最后指出：当下开源社区的目光多聚焦于 LLM 驱动的开发，但软件专利依然是自由软件开发者与用户头上的现实威胁。</p>
-
-<h3>你知道吗？</h3>
-<p>专利与商业秘密的保护逻辑并不相同。专利以「公开技术方案」换取有限期的排他实施权，因此逆向工程本身并不违法，但独立重写（净室实现）并不能规避专利——只要能映射到权利要求即构成侵权，正如此次 Synaptics 所主张的。商业秘密恰恰相反：它保护的是未公开的信息，独立开发或正当的逆向工程通常可以作为抗辩。这也是为什么当厂商同时用专利和「你别泄露我们如何实现」来施压时，会被批评为自相矛盾。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50443824</guid>
-      <pubDate>Tue, 10 Nov 2026 18:02:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 谷歌联合 Mozilla、Edge 发布 Modern Web Guidance：让编程智能体不再写 2019 年的 JavaScript</title>
-      <link>https://news.ycombinator.com/item?id=50443812</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 面向编程智能体的 Web 开发规范工具发布，同时命中编程工具发布与 AI 软件技术进展两项高兴趣主题，必看</small></p><p><img src="https://github.com/GoogleChrome/modern-web-guidance/raw/main/.github/img/modern-web-guidance.svg" alt="Modern Web Guidance Logo" width="150" /></p>
-
-<p>作者（Paul Irish）发布了 <strong>Modern Web Guidance</strong> 的 1.0 版本，目标是解决一个具体痛点：编程智能体（coding agent）总是倾向于生成十几年前的老式写法——用几十行 JS 或额外依赖去实现浏览器早已原生支持的功能，比如用一堆 <code>&lt;span&gt;</code> 做文本高亮（现在可直接用 <code>CSS.highlights</code>）、自己实现模态框遮罩与焦点管理（现在用 <code>&lt;dialog&gt;</code> + <code>showModal()</code>）、监听输入事件手动调整 textarea 高度（现在用 <code>field-sizing</code>）。</p>
-
-<p>原因在于模型的训练数据里堆满了历史遗留代码。即使模型「知道」某个 API 存在，也缺少可直接用于生产的高密度实现范例，因此不会默认选用平台原生方案。该项目由 Chrome、Edge、Firefox 与 MDN 团队共同维护，通过给智能体注入这层领域知识来纠正默认行为。</p>
-
-<h3>内容与规模</h3>
-<p>目前包含 250 项现代 Web 特性说明与 203 个真实开发场景用例，累计 200 多篇、约 1.7MB 的人工精选最佳实践，标注了浏览器兼容性，并随 Web 演进持续更新。覆盖范围包括：</p>
-<ul>
-<li><strong>CSS 与布局（140 项）</strong>：容器查询、<code>:has()</code>、<code>@scope</code>、视图过渡（View Transitions）、锚点定位、<code>text-wrap: balance</code>、<code>oklch</code> 色彩空间等；</li>
-<li><strong>HTML 与 DOM（36 项）</strong>：<code>&lt;dialog closedby&gt;</code>、Popover、可定制 <code>&lt;select&gt;</code>、<code>moveBefore()</code>、声明式 Shadow DOM 等；</li>
-<li><strong>JavaScript 与 API（74 项）</strong>：Scheduler API、Navigation API、Speculation Rules、Sanitizer API、Temporal 等；</li>
-<li><strong>内置 AI</strong>：本地运行的 Translator、Summarizer、Language Detector 与 LanguageModel（Prompt API）；</li>
-<li><strong>可访问性与表单</strong>：屏幕阅读器与键盘可操作性、自动填充表单、输入法（IME）安全的回车提交等。</li>
-</ul>
-<p>所有指南均已开源，可阅读版本见<a href="https://developer.chrome.com/docs/modern-web-guidance/guides" rel="nofollow">文档站</a>。</p>
-
-<h3>工程实现</h3>
-<p>作者称过去 9 个月主要在做两件事：把内容做成「智能体技能（agent skill）」而不撑爆上下文窗口，以及避免把激活机制交给 MCP 的动态工具搜索。技能描述经过调优，以便在前端相关任务上被正确激活。检索部分是把原本约 500MB 的原生技术栈重写为约 7MB 的纯 JS 包，在 CPU 上搜索耗时约 10ms（Agentic RAG）。</p>
-<p>另一个组件是确定性的 <strong>legacy-scan</strong>：基于 3 万个 GitHub 仓库训练，用于识别可被现代化替换的旧式写法，在留出仓库上的平均精确率为 92%。</p>
-<p>为避免只凭感觉判断，团队还搭建了<a href="https://googlechrome.github.io/modern-web-guidance-src/" rel="nofollow">评测基础设施</a>：200 个任务、约 1700 条基于 Playwright 与 AST 的断言，用 Codex、Claude、Gemini（agy）分别在有/无技能两种情况下运行。智能体的通过率从无引导的 55% 提升到有引导的 92%。评测同时也用于反向裁剪——如果某项知识模型本来就会，就从指南里删掉以节省 token。</p>
-<p>可通过以下命令试用（已给出关闭遥测的环境变量）：</p>
-<pre><code>DISABLE_TELEMETRY=1 npx modern-web-guidance@latest install
-DISABLE_TELEMETRY=1 npx modern-web-guidance@latest search "animate dialog modal"
-DISABLE_TELEMETRY=1 npx modern-web-guidance@latest legacy-scan ./src</code></pre>
-<p>更完整的说明见<a href="https://developer.chrome.com/blog/modern-web-guidance-v1" rel="nofollow">官方博客文章</a>。</p>
-
-<h3>社区讨论</h3>
-<p>评论区总体正面，几位用户表示自己早就手工写过类似的提示词或脚本，只是不够完善。作者 Paul Irish 的几条回应颇有信息量：</p>
-<ul>
-<li><strong>「最佳实践」在 AI 时代是否已死？</strong> 有人认为以后没人会读 AI 生成的代码。Paul 回应说可维护性才是下一个前沿：如果放任智能体积累上千行的解法，代码库会迅速超出人类可理解的范围，所以他宁愿要 1 行 CSS 也不要 60 行 <code>ResizeObserver</code> + <code>setTimeout</code>；而且前端最佳实践不只是代码风格，还包括键盘可操作性、布局不抖动等用户体验质量。</li>
-<li><strong>分发方式的建议</strong>：Simon Willison 提议在 GitHub Pages 上发布一份 Markdown 索引，链接到所有文档的纯文本版本，让智能体直接抓取、用 grep 查找，从而完全不需要安装 npm 包或 MCP。作者认可了这个思路，团队成员则指出已有 <a href="https://developer.chrome.com/docs/modern-web-guidance/guides.md.txt" rel="nofollow">guides.md.txt</a> 可直接抓取（有人建议改名为 <code>llms.txt</code> 更易被发现）；Paul 也补充说索引的 token 成本较高，适合偶尔使用而非日常。</li>
-<li><strong>Chrome 权力过大的担忧</strong>：有评论认为让所有人的 LLM 都遵循 Chrome 团队的 Web 开发指引，最终会回到「请用某浏览器打开本站」的局面。回应指出这是 Mozilla 与 Edge 共同参与、有<a href="https://github.com/GoogleChrome/modern-web-guidance-src/blob/main/GOVERNANCE.md" rel="nofollow">治理文件</a>的跨浏览器项目，并且刻意跳过了 Chrome 独有 API，聚焦跨浏览器共识较大的部分。也有人悲观地认为其他浏览器只是「别无选择」。</li>
-<li><strong>legacy-scan 覆盖不足</strong>：有用户反馈自己的项目只扫出 2 个问题。Paul 解释说该工具刻意只覆盖能明确检测、且不易误报的模式，因此仅涉及全部文档的约 20%，一个月后有望提升到 50%，后续会加入 <code>Promise.withResolvers</code>、数组迭代器助手、<code>Object.groupBy</code>、<code>URLSearchParams</code> 等检测项。</li>
-<li>另外有人询问如何把它引入 Gemini 网页版聊天，Paul 建议改用更「智能体化」的 Tasks 模式，并在提示中直接给出 guides.md.txt 链接要求完整读取、不要在截断处停止。</li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p>文章里提到的「技能（skill）」和 MCP 工具搜索是两种不同的上下文注入方式。MCP 方案在运行时由模型自行决定调用哪个工具，每次调用都要付出往返与协议开销；而「技能」更像一份随任务预加载的说明文档，靠一段精心撰写的描述来触发，内容直接进入上下文，因此作者特别强调技能描述的措辞需要针对激活率反复调优。类似地，<code>llms.txt</code> 是社区自发形成的一种约定——在站点根目录放置专供语言模型阅读的 Markdown 索引，与面向搜索引擎的 <code>robots.txt</code> 思路相仿。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50443812</guid>
-      <pubDate>Tue, 10 Nov 2026 18:01:15 GMT</pubDate>
     </item>
   </channel>
 </rss>

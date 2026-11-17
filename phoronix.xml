@@ -3,7 +3,20 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Mon, 16 Nov 2026 20:58:32 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2026 03:46:14 GMT</lastBuildDate>
+    <item>
+      <title>⭐ AlmaLinux 10.3 正式发布：恢复 ModSecurity，并带来多项工具链更新</title>
+      <link>https://www.phoronix.com/news/AlmaLinux-10.3-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 AlmaLinux 发行版新版本发布及更新内容，符合来源配置中「新发行版」的高兴趣项，属推荐阅读</small></p><p>在 Red Hat Enterprise Linux（RHEL）10.3 发布之后，AlmaLinux 10.3 已进入生产可用状态，同时 AlmaLinux 9.9 也一并发布。</p>
+<p>AlmaLinux 10.3 更新的开发工具链包括：GCC Toolset 16、LLVM Toolset 22、Rust 1.97、Go 1.27、GDB 17.2 以及 Node.js 26，并附带大量安全更新。</p>
+<p>在安全方面，这一版本恢复了此前在 AlmaLinux 10.0 中被移除的 ModSecurity Web 应用防火墙与 OWASP 核心规则集（CRS）。此外，系统改用 Podman 6 容器工具，并包含其他多项改进。AlmaLinux 10.x 相较于 RHEL 10 的原有特性（如 Btrfs 支持）仍然保留。</p>
+<img src="//www.phoronix.net/image.php?id=almalinux-10-beta&image=almalinux_10beta_1_med" alt="AlmaLinux 10 installer" loading="lazy" />
+<p>下载镜像及关于 AlmaLinux 9.9 的更多信息可在 <a href="https://almalinux.org">AlmaLinux.org</a> 获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AlmaLinux-10.3-Released</guid>
+      <pubDate>Mon, 16 Nov 2026 22:35:41 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Rust Nightly 开始默认启用并行前端，借助多核加快编译</title>
       <link>https://www.phoronix.com/news/Rust-Nightly-Parallel-Frontend</link>
@@ -758,15 +771,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/review/cachyos-omarchy-benchmarks</guid>
       <pubDate>Fri, 06 Nov 2026 14:55:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>FEX 2611 发布：等待 Linux 内核在 ARM 寄存器用法上对齐 Windows 与 macOS</title>
-      <link>https://www.phoronix.com/news/FEX-2611-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] FEX是ARM模拟器，涉及ARM寄存器用法与Linux内核对齐问题，主题偏技术底层但兴趣不明确，介于感兴趣与不感兴趣之间</small></p><p>FEX 2611 已发布，这是一款用于在 AArch64 Linux 上运行 x86/x86_64 游戏和应用（包括 Wine）的模拟器。本次更新带来了多项 JIT（即时编译）改进，同时 FEX 开发者也在等待 Linux 内核在特定寄存器用法上与 Windows 和 macOS 对齐。</p><p>核心议题围绕 ARM 系统寄存器 <b>TPIDRRO_EL0</b> 展开。根据 Arm 文档，该寄存器用于存储 CPU 线程标识信息，供操作系统管理用途。Windows on ARM 和 macOS 均使用此寄存器保存当前 CPU 核心索引，使用户态软件能快速获知应用或游戏正在哪个 CPU 核心上执行。然而在 Linux 下，TPIDRRO_EL0 始终返回零——这是因为自 ARM64 引入以来的 15 年间，Linux 内核一直将该寄存器硬编码为零并保留给未来使用，部分原因是某些 ARM CPU 厂商曾弄乱过该寄存器。</p><p>Igalia 已于今年 8 月提交补丁，提议在 TPIDRRO_EL0 中报告原生任务的运行 CPU。但 ARM Linux 开发者 Will Deacon 表示，将该寄存器用于此目的会阻碍其未来其他用途，尽管这确实与 Windows 和 macOS 的行为一致。</p><img src="//www.phoronix.net/image.php?id=2026&amp;image=arm_register_debate" alt="Arm documentation" /><p>无论如何，FEX 开发者正在做好准备，一旦该补丁被合入 Linux 内核主线，FEX 即可使用 TPIDRRO_EL0。这将解决 FEX 在 Wine 下运行时的现代游戏兼容问题，同时提升性能：由于无法在 Wine 环境中可靠使用 Linux 系统调用，FEX 此前只能禁用 RDPID/RDTSC 指令，而如今越来越多的游戏开始强制要求这些指令，令开发者陷入困境。使用该寄存器既能保证正确性，又能带来性能提升，可谓双赢。</p><p>FEX 2611 的其他改动还包括围绕其 JIT 的大量持续工作，完整细节可在 FEX-Emu.com 博客上查看。</p><h3>你知道吗？</h3><p>TPIDRRO_EL0 是 ARM64 架构中的「只读线程 ID 寄存器」（Thread ID Register, Read-Only），属于 EL0（用户态）可访问的系统寄存器。在模拟器中，RDPID/RDTSC 是 x86 指令，用于读取处理器 ID 和时间戳计数器；模拟器需要获知当前 CPU 核心编号才能正确模拟这些指令，这正是该寄存器之争对 FEX 至关重要的原因。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/FEX-2611-Released</guid>
-      <pubDate>Fri, 06 Nov 2026 13:12:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
