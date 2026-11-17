@@ -3,7 +3,127 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 17 Nov 2026 13:14:29 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2026 21:45:38 GMT</lastBuildDate>
+    <item>
+      <title>exa v0.10.1 发布：首个补丁版本，修复文件大小千位分隔符等显示问题</title>
+      <link>https://github.com/ogham/exa/releases/tag/v0.10.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>exa v0.10.1</h3>
+<p>这是 <code>ls</code> 的现代替代品 exa 的<strong>首个补丁版本</strong>，用于修复若干问题，同时展示了项目加快发布节奏的意图。本版本没有新增功能。感谢贡献者 ariasuni。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>目录“被忽略”状态的判定方式调整</strong>：对于目录，“ignored”（被忽略）状态改为聚合判断，含有被忽略文件的目录不再显示为目录本身被忽略（<a href="https://github.com/ogham/exa/commit/bd4f1448846d1f49f537ad12e2946e0e5280f163">bd4f144</a>）。</li>
+<li><strong>符号链接目标的分类字符位置调整</strong>：目录的 <code>/</code> 等分类字符现在显示在符号链接目标的末尾（<a href="https://github.com/ogham/exa/commit/dbd11d38042284cc890fdd91760c2f93b65e8553">dbd11d3</a>）。</li>
+<li><strong>错误提示更友好</strong>：当命令行选项或环境变量中的数值解析失败时，会显示更有帮助的错误信息（<a href="https://github.com/ogham/exa/commit/550f2d29c2c4e7e1326df4cdcccb7d47d2e81cd5">550f2d2</a>）。</li>
+<li><strong>TeX 文件图标更换</strong>：TeX 文件的图标由原样式改为字母 “T”（<a href="https://github.com/ogham/exa/commit/e3e776a1fa6cb0949f4223e75f86ceff5b1ac075">e3e776a</a>）。</li>
+</ul>
+
+<h3>其他改动（问题修复）</h3>
+<ul>
+<li>修复文件大小中<strong>千位分隔符不显示</strong>的问题（<a href="https://github.com/ogham/exa/commit/7a4cde75ebeb166edf4f026ef485f1c54b7375b8">7a4cde7</a>）。</li>
+<li>修复在某些情况下 <code>$EXA_GRID_ROWS</code> 显示为错误尺寸表格的问题（<a href="https://github.com/ogham/exa/commit/c729e226da0a4696ccee47d62f6627a406d07f6f">c729e22</a>）。</li>
+<li>修复文件日期位于当前年份时、月份名称不遵循本地化设置（locale）的问题（<a href="https://github.com/ogham/exa/commit/3a8005c8404c28701f3c6cabf3883d2d946ff01f">3a8005c</a>）。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/ogham/exa/releases/tag/v0.10.1</guid>
+      <pubDate>Mon, 12 Apr 2021 21:42:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>exa v0.10.0 发布：可隐藏表格列、八进制权限显示与 UID/GID 数值模式</title>
+      <link>https://github.com/ogham/exa/releases/tag/v0.10.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><strong>exa</strong>（用 Rust 编写的 <code>ls</code> 替代工具）发布 v0.10.0。作者表示虽仍有延迟，但目标是跟随 Rust 项目本身的节奏，更频繁地发布小版本。此版本扩展了发布产物类型，并带来多项命令行选项与显示行为改进。官方还说明，这应是最后一个不支持 Windows 的版本。</p>
+
+<h3>重要改动</h3>
+<ul>
+  <li><strong>可隐藏表格列</strong>：新增选项，允许在使用表格视图时按需隐藏指定列（<a href="https://github.com/ogham/exa/commit/925f5173c123e99b308624fa805cc309afacc1b0">925f517</a>）。</li>
+  <li><strong><code>--time</code> 支持省略参数</strong>：不带参数时默认使用修改时间（modified），不再强制指定（<a href="https://github.com/ogham/exa/commit/36cf5df044cea9f89bb9569cb6a42f072c12fdea">36cf5df</a>）。</li>
+  <li><strong>自定义文件大小配色</strong>：可通过设置项调整按大小分级的颜色刻度（<a href="https://github.com/ogham/exa/commit/3ef6195ffd564a5513b4ca59be61cb1bc1755108">3ef6195</a>）。</li>
+  <li><strong>八进制权限显示</strong>：新增标志，以八进制形式输出权限（<a href="https://github.com/ogham/exa/commit/16046d57de460f6b5f22acc0e4148e5b7ea4d24a">16046d5</a>）。</li>
+  <li><strong><code>--numeric</code> 标志</strong>：直接显示 UID 和 GID 数值，而不解析为用户名与组名（<a href="https://github.com/ogham/exa/commit/4ea79ee11dad8962699f0538be4ba1ab0d5f5ec6">4ea79ee</a>）。</li>
+  <li><strong>图标间距环境变量</strong>：新增环境变量用于调整图标与文本之间的间距（<a href="https://github.com/ogham/exa/commit/51be9f4c43e61bbea61e70e1459e494207d1d979">51be9f4</a>）。</li>
+  <li><strong>新增四种发布产物</strong>：armv7 Linux 构建、musl Linux 构建、仅含 man 手册与补全脚本的归档，以及包含全部 vendor 依赖源码的归档。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+  <li>单数字的小时在时间戳中补零显示。</li>
+  <li>在「目录优先」分组时，指向目录的符号链接也归入目录组。</li>
+  <li>使用 <code>--sort=none</code> 时不再对命令行参数排序；同时修正了命令行参数排序的另一处问题。</li>
+  <li>在 Git 特性被禁用时尝试使用相关功能会给出警告。</li>
+  <li><code>$TZ</code> 环境变量支持绝对路径。</li>
+  <li>文件名中的删除字符（delete character）会被转义，避免污染终端输出。</li>
+  <li>指向目录的符号链接改用「目录」图标。</li>
+</ul>
+
+<h3>问题修复</h3>
+<ul>
+  <li>修复网格视图换行后图标不显示的问题。</li>
+  <li>修复使用了错误文件时间戳的问题。</li>
+  <li>修复在 Git 仓库中遇到失效符号链接时崩溃的问题。</li>
+  <li>修复长网格视图在管道输出时未切换为长格式的问题。</li>
+  <li>修复对可能不受支持的时间元数据的处理。</li>
+  <li>改用 libgit2 解析 <code>.gitignore</code>，取代自行实现的逻辑。</li>
+  <li>修复遇到 Unix 纪元之前的（负数）时间戳时崩溃的问题。</li>
+  <li>修复时间戳中「August」无法正确显示的问题。</li>
+  <li>修复选中图标时其空白区域颜色反转的问题。</li>
+  <li>修复长网格模式下多出一列的问题。</li>
+  <li>修复人类可读文件大小取整不准确的问题。</li>
+</ul>
+
+<p>本次发布由 0rvar、0x3333、BrennanMcDonald、de-vri-es、FliegendeWurst、j-tai、LarsHaalck、mqudsi、PatriotRossii 等众多贡献者参与，并特别致谢 ariasuni。</p>
+
+<h3>你知道吗？</h3>
+<p>exa 项目后来长期停止维护，社区在其基础上分叉出 <a href="https://github.com/eza-community/eza">eza</a>，继续提供活跃开发和更多功能（例如更完善的 Git 集成与超链接支持）。若你仍在使用 exa，迁移到 eza 通常只需替换命令名，绝大多数选项保持兼容。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/ogham/exa/releases/tag/v0.10.0</guid>
+      <pubDate>Sun, 04 Apr 2021 19:55:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>exa v0.8.0 发布：参数解析更友好，支持 LS_COLORS 与 git-ignore</title>
+      <link>https://github.com/ogham/exa/releases/tag/v0.8.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><code>exa</code> v0.8.0 发布，包含新功能与错误修复。作者在<a href="https://bsago.me/blog/exa/v0.8.0">发布说明</a>中介绍了本次更新，并谈及未来提高发布频率的计划。</p><h3>重要改动</h3><ul><li>采用全新、限制更少且更友好的选项解析器，并新增严格模式，便于检查传入的选项。</li><li>新增 <code>LS_COLORS</code> 解析与着色支持；<code>EXA_COLORS</code> 可覆盖前者的颜色配置。</li><li>新增 <code>EXA_GRID_ROWS</code>，让 <code>--long --grid</code> 的输出更易使用；新增 <code>EXA_DEBUG</code> 用于输出日志信息。</li><li>初步支持 <code>--git-ignore</code> 标志，可按 Git 忽略规则过滤文件。</li></ul><h3>其他改动</h3><ul><li>默认排序改为不区分大小写。</li><li>除非显式请求扩展属性（xattr），否则不再显示相关错误。</li><li>新增 <code>orf</code>、<code>nef</code> 和 <code>bk</code> 文件类型。</li><li>终端宽度只检查标准输出（stdout），不再受标准输入（stdin）和标准错误（stderr）影响。</li><li>按日期排序新增 <code>new</code> 和 <code>old</code> 便捷别名。</li><li>改用已验证的已发布 crate，使 exa 可以发布到 crates.io。</li></ul><h3>错误修复</h3><ul><li>使用修补过的 <code>libgit2</code>，避免 <code>libhttp_parser</code> 相关错误。</li><li>修复 <code>--tree --all</code> 无法正常工作的问题。</li><li>修复 ISO 日期长短格式颠倒的问题。</li><li>修复月份名称填充导致整个表格显示异常的问题。</li></ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/ogham/exa/releases/tag/v0.8.0</guid>
+      <pubDate>Sat, 30 Sep 2017 11:59:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>exa v0.7.0 发布：新增设备 ID 显示、权限特殊位与 --time-style 选项</title>
+      <link>https://github.com/ogham/exa/releases/tag/v0.7.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Rust 编写的 <code>ls</code> 替代工具 exa 发布 v0.7.0，主要补充了设备与权限相关的显示信息，新增两个实用选项，并修复了若干影响正确性的 bug。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>块设备/字符设备显示设备 ID</strong>：列出这类设备文件时会一并给出设备编号。</li>
+<li><strong>权限中显示特殊位</strong>：现在能正确展示 sticky、setuid、setgid 位。</li>
+<li><strong><code>--all --all</code> 显示 <code>.</code> 与 <code>..</code></strong>：重复两次 <code>--all</code> 即可包含这两个目录项（类似 <code>ls -a</code> 的行为，而单次 <code>--all</code> 相当于 <code>ls -A</code>）。</li>
+<li><strong><code>--sort=type</code></strong>：支持按文件类型排序，顺序为普通文件、目录、符号链接、管道、设备。</li>
+<li><strong><code>--time-style</code> 选项</strong>：可让时间戳以 ISO 格式输出。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li><strong>性能优化</strong>：当某列不显示时，不再去查询时区或本地化信息；非 grid-details 视图不再先缓冲整张表格再输出，因此输出更早开始；帮助文本显示速度约提升 1%。</li>
+<li><strong>Bug 修复</strong>：
+  <ul>
+  <li>树视图（tree view）递归进入目录失败时，现在会真正打印错误信息（此前错误被吞掉）。</li>
+  <li>修复传入无效 UTF-8 参数时的崩溃问题。</li>
+  <li>修复文件「访问时间」（atime）实际显示成「修改时间」（mtime）的错误。</li>
+  <li>修复存在 <code>COLUMNS</code> 环境变量时 exa 总是启用颜色输出的问题。</li>
+  </ul>
+</li>
+<li>本次发布由 kballard 与 gyscos 贡献。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>atime 的正确性问题在实际使用中常常被掩盖：许多系统默认以 <code>relatime</code>、<code>noatime</code> 等方式挂载文件系统，访问时间本身就不会随每次读取而更新，所以即便工具正确读取，它也可能与直觉不符。此外，权限字符串中的特殊位在历史上含义各异——sticky 位作用于目录时表示「仅所有者可删除他人文件」，作用于可执行文件时则曾用于常驻内存优化。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/ogham/exa/releases/tag/v0.7.0</guid>
+      <pubDate>Fri, 07 Jul 2017 17:40:36 GMT</pubDate>
+    </item>
     <item>
       <title>exa v0.9.0 发布：新增图标显示、Git 忽略状态与 24 位真彩色支持</title>
       <link>https://github.com/ogham/exa/releases/tag/v0.9.0</link>
@@ -1441,133 +1561,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.33.2</guid>
       <pubDate>Thu, 29 Oct 2026 05:37:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi 发布 v0.33.1 版本</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.33.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布了 v0.33.1 版本更新。该项目是一个桌面终端应用，用于同时运行多个 CLI 编码代理（如 Claude Code），每个任务在独立的 git worktree 中隔离运行，并提供内置 diff 查看器等功能。</p><p>本次版本为一次小版本更新，具体改动内容可在完整的变更日志中查看：<a href="https://github.com/tianh/hapi/compare/v0.33.0...v0.33.1">v0.33.0...v0.33.1</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.33.1</guid>
-      <pubDate>Thu, 29 Oct 2026 02:23:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.33.0 发布：新增语音输入持久化、会话独立窗口、标题锁定等多项功能</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.33.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布 v0.33.0 版本，包含多项新功能与大量修复改进。</p>
-
-<h3>新功能</h3>
-<ul>
-<li><strong>语音输入持久化</strong>：跨会话导航保留并发送语音输入消息（<a href="https://github.com/tiann/hapi/pull/1436">#1436</a>）</li>
-<li><strong>会话标题显示项目名</strong>：在会话头部展示所属项目（<a href="https://github.com/tiann/hapi/pull/1635">#1635</a>）</li>
-<li><strong>OpenCode 本地会话历史导入</strong>：支持导入本地会话历史（<a href="https://github.com/tiann/hapi/pull/1677">#1677</a>）</li>
-<li><strong>Claude 压缩摘要卡片</strong>：以摘要卡片形式展示压缩信息，并显示 token 变化量（<a href="https://github.com/tiann/hapi/pull/1691">#1691</a>）</li>
-<li><strong>会话标题锁定</strong>：新增按会话显式锁定标题的功能（<a href="https://github.com/tiann/hapi/pull/2072">#2072</a>）</li>
-<li><strong>自动生成回退标题</strong>：首个回合完成后自动生成回退标题（<a href="https://github.com/tiann/hapi/pull/2075">#2075</a>）</li>
-<li><strong>Codex 运行中允许历史分支</strong>：回合运行期间可进行历史 fork（<a href="https://github.com/tiann/hapi/pull/2185">#2185</a>）</li>
-<li><strong>会话独立窗口</strong>：支持在单独窗口中打开会话（<a href="https://github.com/tiann/hapi/pull/2192">#2192</a>）</li>
-<li><strong>Android 设置重构</strong>：设置改为带分类子页面的中心化结构（<a href="https://github.com/tiann/hapi/pull/2218">#2218</a>）</li>
-</ul>
-
-<h3>其他改进与修复</h3>
-<ul>
-<li><strong>Web 界面</strong>：文件预览支持相对 Markdown 链接和图片；未读计数排除进行中会话；共享回合布局与生成文件下载保留；工具卡片显示设置整合；单机布局保持机器健康状态可见；全屏图片预览工具栏改进；移动端代码行号保持清晰；文件预览内容与滚动条对齐；长文件错误可展开；Fork/Rewind 确认对话框对齐；Windows 通知提供精确 PWA 图标尺寸；右键不再触发会话导航；实时重排时避免会话误点；composer 会话提及胶囊支持省略号；会话搜索时允许目录折叠；Escape 中止回合前先关闭 composer 设置；无机器连接时不再误报 Agents 缺失；Codex 缓存输入百分比显示在响应元数据中</li>
-<li><strong>Claude</strong>：本地模式会话报告思考过程；远程会话标题使用原生 ai-title；不再将 Claude 会话锁定为三个硬编码模型别名；回合中权限模式切换生效并显示被拒绝的模式；从快照列出后台任务；自动压缩开始时进行提示</li>
-<li><strong>Codex</strong>：定向会话导入避免全量扫描；历史操作等待原生线程就绪；复用实时模型目录并扩展发现缓存；从权限模式中移除 safe-yolo</li>
-<li><strong>CLI</strong>：跟随迁移到 git worktree 的 Claude 转录；空闲间隔后刷新缓冲的 ACP 助手文本；从 DeepSeek Harness 主目录发现 DSH 技能；本地模式子进程接管终端前释放 stdin；会话关闭时减少 Windows 进程探测</li>
-<li><strong>Hub/Runner</strong>：常规 agent 状态更新不再触发会话 updatedAt 变更；非活动文件预览通过 runner 保持可用；通知原因摄取通过推进 resume watermark 保持有界；离线检测宽限期扩展至思考会话；会话列表未来调度查询建立索引（schema v27）；仅接受来自报告进程代的未跟踪 runner webhook</li>
-<li><strong>其他</strong>：归档清理进度显示与关闭等待有界化；peer 消息保留身份与消耗状态；防止重复 replay 扇出并限制停滞的 SSE 写入；CI 支持检查通过后自动合并所有者批准的 PR</li>
-</ul>
-
-<p>完整变更日志见 <a href="https://github.com/tiann/hapi/compare/v0.31.3...v0.33.0">v0.31.3...v0.33.0</a>。本次共有 9 位新贡献者参与。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.33.0</guid>
-      <pubDate>Thu, 29 Oct 2026 00:59:45 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.165.0：新增 Google Cloud Vertex AI 提供商与 GPT-6.1 Terra 模型支持</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.165.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex 发布 0.165.0 版本，带来多项新功能与 bug 修复。</p>
-
-<h3>新功能</h3>
-<ul>
-<li>新增内置 <strong>Google Cloud Vertex AI</strong> 提供商，可通过 <code>model_provider = "gcp"</code> 配置使用。</li>
-<li>模型目录新增 <strong>GPT-6.1 Terra</strong> 模型支持。</li>
-<li>会话选择器新增<strong>仓库过滤器</strong>，代理命令中心新增<strong>目录分组</strong>，便于在关联的 worktree 间导航会话。</li>
-<li>app-server API 新增实验性的<strong>附加线程分叉（attached thread forks）</strong>功能。</li>
-<li>默认启用对话过程中<strong>推理强度（reasoning effort）调整</strong>功能（针对支持的模型）。</li>
-<li>新配置文件默认启用 <strong>memory v2</strong>，并支持将外部代理的记忆导入其中。</li>
-</ul>
-
-<h3>Bug 修复</h3>
-<ul>
-<li>修复全新 TUI 会话未遵循服务器默认审批审查者的问题。</li>
-<li>执行设置无效时，TUI 偏好设置仍保持可编辑并即时生效。</li>
-<li>本地响应 future 被丢弃时，取消远程 MCP 工具请求。</li>
-<li>防止中断或切换到 Plan 模式后，排队中的代理消息重新启动工作。</li>
-<li>提供商报告模型不存在时停止重试，并保留其错误信息。</li>
-<li>修复 marketplace URL 校验漏洞，防止 Git 连接到与允许模式检查不一致的主机。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.165.0</guid>
-      <pubDate>Tue, 27 Oct 2026 20:09:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.312：新增点击发送、修复大文件覆盖与技能查找等问题</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.312</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.312 更新，带来几项新功能并修复多个问题。</p>
-
-<h3>新功能与核心改动</h3>
-<ul>
-<li><b>点击直接发送</b>：全屏界面下，点击排队消息下方的"立即发送"提示即可直接发出消息。</li>
-<li><b>大型文件编辑安全</b>：修复 Claude 在只看到大文件开头后就覆盖整个 CLAUDE.md、规则文件或 @-包含文件的问题；Write 现在会要求 Claude 先读取全文或就地编辑。</li>
-<li><b>简单系统提示调整</b>：Bedrock、Vertex、Foundry 和 Mantle 对 Claude Code 无法识别的模型名（如自定义部署名、推理配置 ARN 等）改用更短的系统提示，即使这些模型底层是 Sonnet 或 Haiku；可通过 <code>CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0</code> 恢复完整提示。</li>
-<li><b>自动模型切换扩展</b>：标记消息后的自动模型切换现在也覆盖无法识别的模型名（如自定义部署名），可用 <code>CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK=1</code> 关闭。</li>
-<li><b>术语调整</b>：将 5 小时窗口的用量限制提示由"会话限制（session limit）"改为"5 小时限制（5-hour limit）"。</li>
-</ul>
-
-<h3>其他修复与改进</h3>
-<ul>
-<li>修复从 VS Code 扩展登录后，本次会话其余时间无法获取托管设置和组织策略的问题。</li>
-<li>修复 Bash <code>cd</code> 深入 git 仓库后，按目录和 <code>paths:</code> 技能无法找到的问题。</li>
-<li>修复终端恢复会话后首条回复可能丢失的罕见问题。</li>
-<li>修复非法命令名导致所有命令无法加载、可能使 <code>claude -p</code> 无输出的问题。</li>
-<li>修复 Read 工具在清理旧会话文件与读取 PDF 页同时进行时偶尔报"pdftoppm failed"的问题。</li>
-<li>修复任务中 spinner、OpenTelemetry <code>effort</code> 值与 transcripts 在模型生效前就命名新选择的 effort 级别的问题，现改为显示当前生效级别。</li>
-<li>修复 <code>/model</code> 和 <code>/effort</code> 缓存警告及 vim 模式的若干小问题。</li>
-<li>改进提示中 effort 指示器在任务中途变化的显示。</li>
-<li>改进云会话中的 WebFetch 错误提示（无法解析的主机可能超出允许的网络域）。</li>
-<li>将提示和代理钩子的并发上限调整为每会话最多 24 个（含子代理），额外最多 12 个超过事件超时的钩子。</li>
-<li>修复子代理 <code>autoCompactWindow</code> 现在可降低 <code>CLAUDE_CODE_AUTO_COMPACT_WINDOW</code> 设定的窗口（之前无效）。</li>
-<li>OpenTelemetry 的 <code>mcp_server.name</code> 现在报告官方 Anthropic 市场插件声明固定 URL 远程 MCP 服务器的真实名称，而非 <code>custom</code>；并停止发送 <code>claude_code.safety_event</code> 事件。</li>
-</ul>
-
-<h3>VS Code 扩展</h3>
-<ul>
-<li>修复组织设置无法加载或被拒绝时会话以裸退出码结束的问题，标签页现在会说明原因并提供重试或重新登录。</li>
-<li>用量限制重置现显示时钟时间（如"Resets at 3:10 PM"）并使用"5-hour limit"表述。</li>
-</ul>
-
-<h3>云会话（Cloud sessions）</h3>
-<ul>
-<li>创建或编辑云端例行任务时，模型选择器新增 effort 级别选项。</li>
-<li>云环境设置脚本框新增带配色、行号和复制按钮的 Bash 编辑器。</li>
-<li>Claude 向云会话添加仓库时，打开步骤改为显示简明结果表而非原始 JSON。</li>
-<li>修复若干发送、环境创建报错及例行任务编辑对话框相关的问题。</li>
-</ul>
-
-<h3>远程控制 / Claude Tag / Code Review</h3>
-<ul>
-<li>远程控制（Remote Control）：修复取消归档的会话在电脑重连前一直显示"工作中"的问题，现显示为空闲。</li>
-<li>Claude Tag：改进 Slack 中的重试提示（可点名当前模型或说明触发速率限制），修复频道开关/代理设置回退、无网络访问环境的回复及回复错帖等问题。</li>
-<li>Code Review：修复 GitHub 推送事件延迟到达时审查过时提交的问题，现改为审查 PR 当前提交。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.312</guid>
-      <pubDate>Tue, 27 Oct 2026 20:24:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
