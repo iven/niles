@@ -3,7 +3,55 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 18 Nov 2026 13:00:04 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Nov 2026 21:23:11 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 微软 Ignite 2026 发布七款新模型，主打可扩展性价比并推出「MAI 授权权重」</title>
+      <link>https://news.ycombinator.com/item?id=50548021</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 主题是新AI模型批量发布及授权权重方案，命中「新AI模型发布公告」这一很感兴趣项；虽出自微软，但核心并非Copilot或特定平台，不受避开项影响。</small></p><p>微软在 Ignite 2026 大会上宣布推出七款新模型，主打可扩展的性价比（scalable price-performance），同时发布「MAI 授权权重（MAI Licensed Weights）」方案：企业可选用前沿 MAI 模型，用自有专有数据做定制，然后在自己可控的 Azure 环境中安全运行。官方对外的核心卖点是「前沿性能，由你掌控」。</p>
+
+<img src="https://microsoft.ai/wp-content/uploads/2026/11/Custom-Models-no-text.jpg" alt="微软自定义模型宣传图" />
+
+<p>从评论讨论中可以看出发布内容涉及的具体型号包括：面向编程场景的 MAI Code 2 Flash（有用户希望它不止用于编程，称其成本仅为 GPT-6 Luna 的 65%）、决策模型 Decision 1.1（号称比 GPT-6.1 Sol 快 50 倍、便宜 79 倍）。此外，部分用户留意到这些模型没有出现在 Artificial Analysis 评测榜单中，推测微软未将其提交第三方基准测试。</p>
+
+<p>在 <a href="https://news.ycombinator.com/item?id=50548021">Hacker News 的讨论</a>里，社区整体反应冷淡，主要质疑集中在几点：</p>
+
+<ul>
+<li><strong>对标口径缺乏意义</strong>：有用户直言「比 GPT-6.1 Sol 快 50 倍、便宜 79 倍」这类比较毫无用处；也有人抱怨「便宜 N 倍」的说法在数学上就站不住脚（「便宜 1 倍」等于免费），建议直接给出百分比。</li>
+<li><strong>面向高管而非开发者</strong>：多人认为这类发布是在向管理层销售，而不是赢取工程师；有观点称「由开发者挑选技术的时代可能已经结束」，微软擅长的是「卖给楼上的人」。</li>
+<li><strong>不开源权重</strong>：多条高赞评论要求微软开放权重，认为封闭权重的市场已经饱和，「除非开放权重，否则我根本不会碰」；也有人以「Windows Phone 重演」作比。反方则指出自己只想要更低价格和更高吞吐，并不在意是否开源。</li>
+<li><strong>技术信息缺失</strong>：评论概括为「模型弱、权重闭、无技术细节」，并怀疑整篇文章是 Anthropic IPO 当天的公关动作，或是看到对手动作后匆忙表态「我们也有模型」。</li>
+<li><strong>对微软整体战略的失望</strong>：有从业者认为 Ignite 主题演讲空泛且投机，工程人才流失，创新不足，甚至有人认为需要更换最高管理层。</li>
+</ul>
+
+<p>也有少数正面反馈：有人认为本次模型不再只通过 GitHub Copilot 提供，值得期待实测 Flash 版本；对已在使用 Azure 的企业客户来说，「在自己的 Azure 环境中运行」仍具吸引力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50548021</guid>
+      <pubDate>Wed, 18 Nov 2026 16:08:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Solid 2.0 稳定版发布：异步进入响应式图、服务器函数内建、诊断能力面向 AI Agent</title>
+      <link>https://news.ycombinator.com/item?id=50536387</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 前端框架Solid稳定版发布，涉及异步响应式图、服务器函数、精简API等开发者工具能力更新，属于编程工具发布与开源项目，兴趣很高。</small></p><p>Solid 2.0 在历经五年开发后正式发布稳定版（<a href="https://www.solidjs.com/blog/solid-2-0-the-long-hold/">原文</a>）。作者 Ryan Carniato 回顾说，从首次提交到 1.0 用了五年，而 1.0 至今又过了五年。当年「以细粒度响应式（signals）作为 UI 基础」还是个异类主张，如今 signals 已遍布 Angular、Svelte 的 runes、Vue Vapor，甚至进入 TC39 的语言提案，也影响了 React 编译器方向的讨论。</p>
+
+<p>本文将固化的核心能力归纳为四个方面：</p>
+
+<p><strong>1. 异步响应式图（Async Graph）</strong>：计算可以返回 Promise 或异步迭代器，下游自动理解其状态。这使竞态条件处理自动化，猜测性状态会在必要时自动回滚，服务器保持为事实来源，无需手写协调流程。作者用 <code>isPending()</code> 与 <code>&lt;Loading&gt;</code> 组件演示了加载骨架屏的写法。</p>
+
+<p><strong>2. 服务器函数回归核心</strong>：SolidStart 早在 2022 年推出服务器函数，如今它们进入 Solid 核心，既支持基于 Request/Response 的高能力 RPC，也支持通过 Server Sent Events 建立长连接；配合 <code>live()</code> 异步生成器，组件里只需一次 <code>createMemo</code> 即可订阅实时数据。作者预告未来数周还会公布反应式服务器组件（Reactive Server Components）等新特性。</p>
+
+<p><strong>3. 「为 Agent 编写而生」的 diagnostics</strong>：作者认为，各家都说「对 AI 友好」，但那只是训练数据量的问题；真正关键的是 Agent 写错时框架能否发现。多数框架中的响应式错误是静默的，而细粒度图精确知道什么被读取、在哪里读取、什么会更新。Solid 2.0 的开发构建会报出带稳定错误码、源码位置与修复建议的诊断，例如 <code>[STRICT_READ_UNTRACKED]</code>，并为 Agent 提供可机器读取的修复指南（如 <code>node_modules/solid-js/skills/reactivity-diagnostics/SKILL.md</code>）。借助图信息还能检测瀑布式请求、错误构造的 effect 循环，以及过宽的 fan-out/fan-in 图结构。该观测能力已接入 Chrome Performance Tracks 与更新版 Sentry 插件，可延伸至生产构建。此外还实验性支持 ReactiveScript 与 TSRX 语法。</p>
+
+<p><strong>4. 「一个框架应对一切」与更小的 API 面</strong>：Solid 2.0 退役了元框架 SolidStart，因为构建元框架所需的原语已由核心或框架无关的 Vite 插件提供；服务器函数支持任意路由与缓存方案，因此生态只需一个 Clerk 或 Sentry 插件。同时 API 大幅收缩，<code>createResource</code>、<code>batch</code>、<code>startTransition</code>、<code>on</code>、<code>produce</code>、<code>createComputed</code>、<code>createMutable</code> 均被移除，作者强调「以构造保证安全，而非靠穷举」。</p>
+
+<p>发布节奏方面，2.0 的实质工作始于 2024 年底，2025 年 2 月公布路线图，随后重写响应式核心；3 月进入 beta，8 月发布 API 冻结的 RC，之后 14 周内推出 23 个 RC，合并 971 个 PR、关闭 753 个 issue。稳定标准是「一周内普通应用代码零回归、无崩溃或挂起」。标题中的「The Long Hold」其实指 Solid 2.0 中的一条诊断警告：当加载占位（hold）已展示、但距上一次输入已过去足够长时间时触发——作者借此自嘲这次发布确实等得够久。</p>
+
+<p><strong>社区反响</strong>：HN 上总体祝贺声居多，许多人称其「感觉像 React 本该有的样子」。关于组件库稀缺的疑虑，有人列举了 Vercel UI SDK、Kobalte、Ark UI、Park UI、Shadcn Solid、Corvu、Material Design Solid 等项目回应。对「为 Agent 编写」的定位存在分歧：有评论认为既然 Agent 接手，框架抽象本身就可舍弃；也有人反驳称自己已几乎不手写代码，框架适配 Agent 并非缺点。更普遍的观察是：Agent 需要的良好错误信息与严格约束，本质上是人类也一直想要的最佳实践。技术层面，异步图被赞为对「染色函数」问题的优雅封装，并对比了 React hooks 只能在顶层调用的限制；也有用户抱怨官方文档中 <code>broadcast</code> 相关说明晦涩难懂。TanStack 适配被认为是当前主要阻碍，作者回复 Query、Router、Start 已有 2.0 预发布分支可安装，其余库均有待合并的 PR。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50536387</guid>
+      <pubDate>Tue, 17 Nov 2026 18:56:17 GMT</pubDate>
+    </item>
     <item>
       <title>Google AI 摘要夺走七成流量：运营 8 年的柏林生活指南网站濒临终结</title>
       <link>https://news.ycombinator.com/item?id=50542705</link>
@@ -1622,73 +1670,6 @@ rclone copyurl "&lt;build-url&gt;" "bunnycdn:&lt;zone-name&gt;/&lt;filename&gt;.
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50471431</guid>
       <pubDate>Thu, 12 Nov 2026 18:01:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>为什么写出正确的软件如此困难</title>
-      <link>https://news.ycombinator.com/item?id=50465352</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 从可计算性与复杂度理论探讨程序正确性，属编程理论思辨而非效率改进经验，兴趣不明确</small></p><p>这篇 2016 年的长文是作者在 Curry On 演讲的扩展版，核心论点是：软件正确性之所以困难，不只是工程工具不足，而是因为它与“对程序行为的完整理解”存在根本冲突。作者回应了“只要工具合适，正确性很容易实现”的流行说法：工具能提高可靠性，但无法消除正确性的代价。</p>
-
-<h3>从希尔伯特纲领到不可判定性</h3>
-<p>文章从希尔伯特（David Hilbert）的形式化纲领讲起——一致性、完备性与可判定性（Entscheidungsproblem）。1930 年希尔伯特仍宣称“我们必须知道，我们必将知道”，但哥德尔不完备定理（Gödel's incompleteness theorems）与 1936 年丘奇、图灵证明的停机定理（halting problem）先后摧毁了这一纲领。</p>
-<img src="/img/correctness-and-complexity/HilbertGrab.jpg" alt="希尔伯特的墓碑，刻着“Wir müssen wissen. Wir werden wissen”" width="200px" />
-<p>停机定理证明不存在判断任意程序是否终止的通用算法。由此可推出可达性不可判定、莱斯定理（Rice's theorem）——任何非平凡的程序语义性质都不可判定——以及“忙碌海狸函数”（Busy Beaver function）的不可计算性：n 状态图灵机的最大停机步数 f(n) 与最短终止证明长度 g(n)，都无法被任何可计算函数从上方界住。文章给出 f(6) &gt; 7.4×10<sup>36534</sup> 作为直观例子。</p>
-<p>更极端的是，某些具体小程序的行为在现有数学中不可判定。由哥德尔第二不完备定理可构造一个枚举 ZFC 定理直到发现矛盾的程序：它终止当且仅当 ZFC 不一致，而 ZFC 无法证明其不终止。Adam Yedidia 与 Scott Aaronson 给出了这类构造，Stefan O'Rear 随后将图灵机缩小到 1919 个控制状态，约相当于一两百行 Python 代码。也就是说，有些程序不是“分析太复杂”，而是数学本身不足以证明其行为。</p>
-
-<h3>程序是数学对象，但计算机科学不等于数学</h3>
-<p>作者强调，算法的概念绑定于物理过程：停机定理讨论的是现实中可执行的计算，而非纯数学对象；按丘奇-图灵论题（Church-Turing thesis），任何可实现的物理计算都可由通用计算模型模拟。</p>
-<img src="/img/correctness-and-complexity/vennct.png" alt="丘奇-图灵论题示意图" width="400px" />
-<p>因此，程序可以被形式化，却不能总被完整理解。数学作为学科关注的是可完全形式化、可证明的领域，而计算机科学大量处理的是这一领域之外、或原则上可证明但实际证明代价极高的程序。</p>
-
-<h3>复杂性、状态爆炸与验证代价</h3>
-<p>可判定性只回答“是否可能”，复杂性才回答“要花多大代价”。文章用交替位协议、CAN 总线协议和六层汉诺塔等例子展示状态空间爆炸，其中汉诺塔的状态空间呈现出谢尔宾斯基三角形结构。</p>
-<img src="/img/correctness-and-complexity/Hanoi6_sfdp.png" alt="六层汉诺塔的状态空间图，呈现谢尔宾斯基三角形结构" width="400px" />
-<p>面对这种困难，抽象解释（abstract interpretation）、类型系统、模型检验和形式化验证（formal verification）等方法是现实中的应对手段：它们通过近似、限制语言或投入大量证明工作来保证特定性质，但不能消除一般性的根本成本。CompCert 等经过验证的编译器说明大型正确性证明并非不可能，只是代价高昂。</p>
-<img src="/img/correctness-and-complexity/leroy.png" alt="形式化验证方法示意图" width="600px" />
-
-<h3>社区反馈</h3>
-<p>在 Hacker News 的讨论中，多数读者认同“正确性有代价”，但也提出若干修正：有人认为“编程不是数学”过于绝对，程序当然是数学对象，困难主要来自规模、复杂度和工程成本；有人强调形式化正确不等于真实世界可靠，因为规格本身和传感器假设可能出错；也有人指出莱斯定理只排除通用判定方法，并不妨碍对具体程序做一次性证明。还有评论讨论“halting”一词容易与现代软件“卡死”混淆，并为计算机科学术语辩护。关于 AI，有人认为 AI 能降低形式化门槛，但不会让正确性自动变简单；也有人担忧黑箱模型削弱软件的可诊断性。另有评论补充，文章 2016 年给出的 BB(6) 下界已被后续结果大幅刷新。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50465352</guid>
-      <pubDate>Thu, 12 Nov 2026 10:28:26 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 锁住你的 GitHub Actions：用工作流锁文件固定依赖</title>
-      <link>https://news.ycombinator.com/item?id=50459485</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 用工作流锁文件固定 GitHub Actions 依赖，属于编程效率与工程实践改进经验</small></p><p>GitHub Actions 现在支持工作流锁文件（workflow lockfile）。作者 Hugo van Kemenade 介绍了如何在自己的仓库中启用这一机制。</p>
-
-<h3>背景：为什么以前要钉 SHA</h3>
-<p>Actions 是从 Git 仓库获取的，而标签（tag）是可变的——攻击者可以把一个原本安全的标签重新指向恶意代码，这正是典型的供应链攻击手法。因此过去的安全建议是：在 <code>uses:</code> 中钉死完整的提交 SHA，再把版本号写在行尾注释里。</p>
-
-<h3>启用步骤</h3>
-<ol>
-<li>安装 gh CLI 扩展：<code>gh extension install github/gh-actions-lock</code></li>
-<li>在仓库中运行 <code>gh actions-lock</code>，它会把工作流里的 SHA 改回可读的 <code>vX.Y.Z</code> 标签，并生成 <code>.github/workflows/actions.lock</code></li>
-<li>锁文件中记录每个 action 的 ref、对应 commit SHA、owner_id 与 repo_id，声明「这是机器生成文件，请勿手改，用命令更新」</li>
-<li>提交修改后的工作流和锁文件</li>
-</ol>
-
-<h3>维护与校验</h3>
-<p>Renovate 和 Dependabot 都已支持锁文件，定期更新会同步更新锁文件；作者提醒要设置冷却期（cooldown）。GitHub 建议在 CI 中校验锁文件是否最新、是否损坏，作者把这一步放进了独立的并行 job：先 <code>gh extension install github/gh-actions-lock --pin v0.4.1</code>（钉死扩展自身版本），再运行 <code>gh actions-lock --verify</code>，并使用了轻量的 <code>ubuntu-slim</code> runner。注意新增工作流文件后需要重新运行 <code>gh actions-lock</code>，CI 会提示。</p>
-
-<h3>配合 zizmor</h3>
-<p><a href="https://github.com/zizmorcore/zizmor">zizmor</a> 是 GitHub Actions 的安全 linter，作者强烈推荐使用。v1.32.0 之前的版本只会建议钉 SHA，v1.32.0 起才支持锁文件。作者通过 prek / pre-commit 接入它。</p>
-
-<p>文中还列举了实际采用该方案的 PR：<a href="https://github.com/python-pillow/Pillow/pull/10428">Pillow#10428</a>、<a href="https://github.com/python/release-tools/pull/477">python/release-tools#477</a>、<a href="https://github.com/python/miss-islington/pull/758">python/miss-islington#758</a>、<a href="https://github.com/python/cpython/pull/161811">cpython#161811</a>。</p>
-
-<h3>社区讨论</h3>
-<p>讨论的核心是「锁文件相比钉 SHA 多得到了什么」。多数人指出关键收益是<b>传递依赖的固定</b>：你钉住了 action X，但 X 自己没钉住它依赖的 action Y，风险依然存在；锁文件把直接与间接依赖一并锁定。也有人指出，钉 SHA 意味着你信任「合并该提交的人检查过它是目标仓库的正式发布，而不是某个 fork 的提交」——GitHub 上任何 fork 的提交都能被钉住，而锁文件默认拒绝锁定冒充的提交。</p>
-
-<p>zizmor 维护者 woodruffw 补充了当前实现的几个缺口：锁文件只锁普通的 action 调用，可复用工作流（reusable workflow）仍需手工钉 SHA；复合 action（composite action）本身不被锁定，只能通过调用方被间接锁定，因此 <code>gh actions-lock</code> 默认移除复合 action 自身的 SHA 钉法，会让外部调用者失去传递固定；<code>uses:</code> 中的 Docker 镜像同样未被锁定；action 内部运行 <code>npx ...</code> 之类的「内部可变性」也无从约束。此外有人提到 <code>runs-on: ubuntu-latest</code> 本身也指向不断变化的镜像，且似乎无法按 digest 指定 runner 镜像版本。</p>
-
-<p>部分评论者认为这不过是「带额外步骤的 SHA 钉法」，多了一个需要校验的文件；也有人主张只使用能在一小时内读完源码的 action（如 5K 行以内），或干脆把 action.yml 复制进自己的仓库，完全不用第三方 action，甚至不用 GitHub Actions 而转向 Jenkins 等自托管方案。另有观点认为校验锁文件应当由 runner 平台原生完成，而不是靠额外工作流步骤。</p>
-
-<h3>你知道吗？</h3>
-<p>锁文件模式在其他生态中早已成熟：Node.js 的 <code>package-lock.json</code>、Python 的 <code>requirements.txt</code> 哈希钉法、Go 的 <code>go.sum</code> 都属于「把传递依赖的精确版本与校验值落盘」的思路。GitHub Actions 的独特难点在于，工作流里的每一步本质上都是任意代码执行，而不只是一个可验证的包引用——所以即便所有 <code>uses:</code> 都被锁定，也无法保证整套流程 100% 不可变。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50459485</guid>
-      <pubDate>Wed, 11 Nov 2026 22:16:41 GMT</pubDate>
     </item>
   </channel>
 </rss>
