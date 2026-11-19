@@ -3,7 +3,57 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 19 Nov 2026 03:19:31 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 12:56:33 GMT</lastBuildDate>
+    <item>
+      <title>AMD 为 Versal SoC 的 AI Engine 提交主线 Linux 驱动补丁，进入社区审查</title>
+      <link>https://www.phoronix.com/news/AMD-AI-Engine-Linux-Driver</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是 AMD AI Engine 加速器的内核驱动提交评审，偏底层硬件支持而非桌面Linux或AI软件技术，兴趣不明确</small></p><p>AMD 于周三在邮件列表中发布了一套新的「AMD AI Engine（AIE）」加速器驱动补丁，供主线 Linux 内核审查。该驱动与内核中现有的、面向 Ryzen AI NPU 的 AMDXDNA 驱动相互独立，专门用于支持 Versal 自适应 SoC 中的 AI Engine。</p>
+<p>Versal SoC 中的 AI Engine 是由超长指令字（VLIW）SIMD 向量处理器组成的二维阵列，面向数字信号处理（DSP）、机器学习等场景。单个系统或设备中可能集成「数十到数百」个 AI Engine。在此之前，主线 Linux 内核一直没有支持 Versal AI Engine 的驱动。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=aie" alt="AMD AI Engines" />
+<p>去年曾有过一版功能较为基础的 AI Engine 支持补丁系列；此次的驱动经过重写，且仅面向较新的 Versal Gen 2 SoC。</p>
+<img src="//www.phoronix.net/image.php?id=2024&image=versal2" alt="Versal Gen2" />
+<p>文章认为，AMD 持续推进为其 Versal SoC 提供上游开源驱动支持是积极进展，并且新驱动遵循标准的加速器「accel」内核框架，而非采用下游/树外驱动的方式。感兴趣的开发者可在 dri-devel 邮件列表中查看该补丁系列。</p>
+<p>目前该文尚无读者评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-AI-Engine-Linux-Driver</guid>
+      <pubDate>Thu, 19 Nov 2026 11:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Valkey 9.2 发布：性能进一步提升，引入 Zstd 压缩与更低内存开销</title>
+      <link>https://www.phoronix.com/news/Valkey-9.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源内存数据库 Valkey 新版本发布，带来性能、压缩与内存优化等软件新功能，属于感兴趣的开源项目与软件新功能</small></p><p>作为 Redis 内存键值数据库的主要分支，Valkey 于 11 月 19 日发布 9.2 版本。该版本延续了性能优化与内存开销削减的方向，核心变化包括：</p>
+<ul>
+<li><strong>B+ 树有序集合（sorted sets）</strong>：显著降低内存开销。</li>
+<li><strong>Zstd 压缩</strong>：用于 RDB 持久化和主从复制，相比现有的 LZ4 压缩可获得更高的压缩比，合并请求中给出的基准结果显示收益明显。</li>
+<li><strong>无 fork 快照与复制</strong>：支持向副本进行无 fork 的完整同步，避免 fork 带来的开销。</li>
+<li><strong>新命令 DELEX</strong>：当字符串键的值与给定值匹配或不匹配时，条件性地删除该键。</li>
+<li><strong>服务端热键检测</strong>及其他若干优化，另含数十项缺陷修复。</li>
+</ul>
+<p><img src="//www.phoronix.net/image.php?id=2026&image=valkey_zstd" alt="Valkey Zstd benchmarks" /></p>
+<p>下载与详细信息可参见 <a href="https://github.com/valkey-io/valkey">GitHub</a>。值得注意的是，此次发布恰在 Redict 项目因 Valkey 的成功而被弃用后数日——Redict 同样起源于 Redis 分支，目前已不再计划更新。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Valkey-9.2</guid>
+      <pubDate>Thu, 19 Nov 2026 10:41:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>Mesa 26.3.1 发布：修复 Intel Jay 着色器编译器与 RADV 驱动问题</title>
+      <link>https://www.phoronix.com/news/Mesa-26.3.1-Released</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Mesa 小版本修复发布，涉及 Intel 着色器编译器与 RADV（AMD显卡驱动）修复，偏显卡驱动细节，兴趣一般</small></p><p>在 Mesa 26.3 正式发布后不久，Mesa 26.3.1 作为该季度功能系列的首个点版本（point release）现已提供下载，适合那些习惯等到 x.1 里程碑才升级的用户。</p>
+<p>本次更新主要包含以下几方面修复：</p>
+<ul>
+<li><strong>Intel Jay 着色器编译器</strong>：修复了散布在代码各处的多个小缺陷，整体改动规模不大。</li>
+<li><strong>RADV（Radeon Vulkan 驱动）</strong>：改动相当活跃，涉及条件渲染（conditional rendering）的挂起处理；来自 Valve 的 Samuel Pitoiset 继续推进 memcpy 相关优化；修复了 RDNA2 GPU 上可变速率着色（VRS，Variable Rate Shading）的问题，以及其他若干修正。</li>
+<li><strong>D3D12 Dozen「Dzn」驱动</strong>：针对 Windows 平台的该驱动也获得一批修复。</li>
+<li><strong>Zink 驱动</strong>：现在将条件渲染的使用限制在 <code>VK_EXT_conditional_rendering</code> 扩展之后。由于某个未具名的专有驱动不支持该扩展，这一改动可避免潜在错误。</li>
+</ul>
+<p>完整的补丁列表可通过 Mesa 邮件列表的发布公告查阅。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Mesa-26.3.1-Released</guid>
+      <pubDate>Thu, 19 Nov 2026 10:32:08 GMT</pubDate>
+    </item>
     <item>
       <title>AMD 发布 ROCm 10.2：优化性能，扩展 Ryzen 笔记本支持</title>
       <link>https://www.phoronix.com/news/AMD-ROCm-10.2</link>
@@ -758,52 +808,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.4-rc2-Released</guid>
       <pubDate>Mon, 09 Nov 2026 00:48:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>AMD PerfOpt 性能优化代码在 Linux 7.4-rc2 中获得 IOMMU 相关调整</title>
-      <link>https://www.phoronix.com/news/AMD-PerfOpt-Tweaks-Linux-7.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 介绍Linux内核中AMD性能优化代码的调整，属于低层内核性能调优，与用户兴趣关联不明确，故为可选</small></p><p>在 Linux 7.4 的众多令人兴奋的改动中，AMD 为集成 Radeon 显卡的 SoC 带来的全新「PerfOpt」功能是一项开箱即用的性能改进。AMD PerfOpt 允许集成 GPU 在直接访问系统内存时绕过 IOMMU，从而为 iGPU 带来可观的性能提升，尤其是在 AI/LLM 工作负载方面。该功能默认对使用 iGPU 的 AMDGPU 驱动启用，且不仅限于最新最强的 Radeon 集成显卡，上一代硬件同样能获得性能增益。</p>
-
-<img src="//www.phoronix.net/image.php?id=amd-perfopt&image=amd_perfopt_3_med" alt="AMD PerfOpt in use on Linux" />
-
-<p>在 7.4-rc2 的 IOMMU 修复合并请求中，包含了对 PerfOpt 代码的若干调整。AMD Linux 工程师 Mario Limonciello 解释了这些改动：PerfOpt 现在由 IOMMU 驱动的域附着路径启用，而非依赖 amdgpu 的策略开关和导出的启用/禁用接口；受支持的集成 GPU 在选择默认身份域时会被标记为 PerfOpt 合格；这些身份附着会跳过 GCR3 设置及 ATS/PRI/PASID 启用，并在安装 DTE 后启用 PerfOpt；在将合格 GPU 附着到转换域或阻止域（包括 VFIO 使用的非托管域）之前会清除 PerfOpt；初始化期间会清除继承的 PerfOpt 状态（包括崩溃内核复用设备表的情况）；直接从硬件读取功能支持信息，因为缓存的特性信息可能尚不可用；每个 IOMMU 最多有一个 PerfOpt 合格的 GPU，因此使用 IOMMU 锁下的布尔值跟踪激活状态，并在挂起/关机清除硬件时保留该状态，仅在恢复时于原激活位置恢复该位；不再在早期 IOMMU 初始化期间无条件启用 PerfOpt。</p>
-
-<p>同时，amdgpu.iommu_perfopt= 模块参数已被移除，那些错过机会直接对比 PerfOpt 对硬件性能影响的用户将无法再使用该参数。Linux 7.4 预计将于 12 月底左右发布稳定版，包含此代码的 7.4-rc2 预计于今天晚些时候发布供测试。</p>
-
-<h3>你知道吗？</h3>
-<p>IOMMU（输入输出内存管理单元）负责管理设备对系统内存的访问，提供地址转换和隔离能力。PerfOpt 的「身份模式」（identity mode）意味着设备直接使用物理地址访问内存，跳过 IOMMU 的转换开销，从而降低延迟、提升带宽，但通常需要硬件支持相应的安全特性来弥补隔离能力的缺失。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-PerfOpt-Tweaks-Linux-7.4</guid>
-      <pubDate>Sun, 08 Nov 2026 11:37:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GCC 17 功能开发下周结束，将转入缺陷修复阶段</title>
-      <link>https://www.phoronix.com/news/GCC-17-Ends-Stage-1-Next-Week</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于GCC 17编译器功能开发阶段收尾，属于编程工具及开源项目进展，用户很感兴趣，故推荐</small></p><p>GNU 编译器套件（GCC）17 的功能开发阶段将于下周结束，项目将转入以缺陷修复为重点的开发阶段。按照惯例，GCC 会在 11 月从「第一阶段」（stage one）开发转入「第三阶段」（stage three）——第二阶段多年前已被取消——重点转向缺陷修复，以及不涉及编译器其他部分的新移植工作。到明年 1 月左右，项目将进入更严格的「第四阶段」（stage four），届时只针对回归缺陷进行修复。</p><p>SUSE 的 Richard Biener 宣布计划于 11 月 15 日下周退出第一阶段。GCC 17 包含大量变更，例如 AVX10V1AUX 支持、RISC-V 上的 -mtune=native/-mcpu=native、对 AI 计算扩展（ACE）的初步支持、更多 AMD Zen 调优、SpacemiT X100 核心支持、128 位原子内存操作、面向 AVX10.2 和 APX 的函数多版本化（FMV），以及 C++29 的初步基础设施。</p><p>如果一切顺利，GCC 17.1 稳定版预计将在明年 4 月左右的常规时间发布。Phoronix 后续将带来 GCC 17 的基准测试。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-17-Ends-Stage-1-Next-Week</guid>
-      <pubDate>Sun, 08 Nov 2026 11:12:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenIndiana 2026.10 发布：更新编译工具与新增应用</title>
-      <link>https://www.phoronix.com/news/OpenIndiana-2026.10</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 本文介绍 OpenIndiana 操作系统的新版本发布，属于新发行版/软件项目发布范畴，符合来源配置中的高兴趣类别，故推荐阅读</small></p><p>OpenIndiana Hipster 2026.10 今日发布，这是这款基于 Illumos、渊源可追溯至 Sun 时代 OpenSolaris 的操作系统的最新一次半年更新。本次版本为 OpenIndiana 实时镜像启用了「illumosfb」X.Org 驱动，以实现 UEFI 帧缓冲（frame-buffer）支持。</p>
-
-<p>同时带来了大量软件包更新，从 Firefox 和 Thunderbird 159 到 GCC 15.3、LLVM Clang 23.1.4、Perl 5.44、Python 3.15.2 等。虚拟化支持也得到更新，采用更新的 QEMU 和 VirtualBox 版本；此外还有全新的 TeX Live 2026、Foliate 电子书阅读器以及 zoxide shell 导航工具。总体来说，OpenIndiana 2026.10 主要侧重于更新这个由社区驱动、基于 Solaris 的生态环境中所捆绑的开源软件包。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=openindiana_1_med" alt="OpenIndiana 2026.10" />
-
-<p>由于距离上次测试 OpenIndiana（约十年前）已有一段时间，作者此次在搭载 Intel Panther Lake 处理器的 Framework Laptop 13 Pro 上尝试了 OpenIndiana 2026.10 实时版本。系统成功启动到 MATE 桌面，但多数设备驱动支持缺失，整体观感与多年前测试 OpenIndiana/OpenSolaris 时大致相同。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=openindiana_2_med" alt="OpenIndiana 2026.10 with MATE desktop" />
-
-<p>OpenIndiana 2026.10 的完整软件包更新列表可在 <a href="https://www.openindiana.org">OpenIndiana.org</a> 查看。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/OpenIndiana-2026.10</guid>
-      <pubDate>Sat, 07 Nov 2026 22:50:46 GMT</pubDate>
     </item>
   </channel>
 </rss>

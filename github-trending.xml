@@ -3,7 +3,131 @@
   <channel>
     <title>GitHub Trending</title>
     <description>基于个人兴趣筛选的 github-trending 内容</description>
-    <lastBuildDate>Thu, 19 Nov 2026 03:18:59 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 12:56:43 GMT</lastBuildDate>
+    <item>
+      <title>App Store / Google Play 合规手册：117 条拒审模式、95 项监管期限，外加提交前自动拦截脚本</title>
+      <link>https://github.com/mjmirza/app-store-compliance</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 内容是应用商店拒审模式清单与提交前拦截脚本，偏移动端上架合规与 iOS/App Store 生态，与编程效率工具仅部分相关，兴趣不明确，列为可选</small></p><p>一个面向 iOS 与 Android 开发者的开源合规手册（<a href="https://github.com/mjmirza/app-store-compliance">app-store-compliance</a>），目标是把「提交—等审—被拒—猜测修复—再提交」的循环，变成提交前就能跑的一次检查。作者的核心论点是：一次拒审大约浪费一周，而大部分拒审原因其实是可枚举、可预先排除的失败模式。</p>
+
+<h3>核心内容</h3>
+<ul>
+<li><strong>117 条有据可查的拒审模式</strong>：每条都对映到具体的 Apple / Google 政策条款和对应的修复方式，让「一行字的拒审邮件」变成已知问题加已知答案。作者强调所有条款编号与统计数据都可追溯到 Apple 或 Google 的线上来源，不作杜撰。</li>
+<li><strong>自动化扫描守卫（guard）</strong>：一个 Shell 脚本，对项目目录做静态检查，不需要安装任何东西、也不修改代码。小型项目约 1 秒，大型项目最多约 1 分钟。输出结论分三种：<code>BLOCKED</code>（发现严重拒审风险，逐条给出文件与行号及修复建议）、<code>CLEAR</code>（代码层面无严重风险，可继续做账号与商店信息检查）、<code>NOT CHECKED</code>（该目录没找到 iOS/Android 工程）。</li>
+<li><strong>优先处理最高频的两类拒审</strong>：可用的演示账号搭配真实后端，以及隐私声明（privacy manifest / Data safety）与实际运行时行为（含每一个 SDK）一致。纯 Expo 托管项目即使没有原生目录，也会读取 <code>app.json</code> / <code>app.config</code> 检查用途字符串、隐私清单与 Android 权限。</li>
+<li><strong>95 项监管截止日期跟踪</strong>：涵盖欧盟 AI 法案（EU AI Act）、数字服务法（DSA）、儿童在线隐私保护法（COPPA）、各地年龄相关法规等，可按发行地区查询。</li>
+<li><strong>面向非开发者的提交前清单</strong>：纯英文说明式要点，包括开发者账号是否激活、各项协议是否已接受、Play 账号与包名是否注册等——这些是代码扫描看不到、却可能让首发卡住数周的前置条件。</li>
+<li><strong>面向 AI 编码工具的集成</strong>：提供一条命令把守卫装成工具的 hook，让 Claude Code、Codex CLI、Gemini CLI、OpenCode、Cursor、GitHub Copilot（CLI / VS Code / 云端代理 / JetBrains）、Grok、Qwen Code、Kimi Code、Factory Droid、Auggie、Windsurf 在执行上传 App Store Connect、Google Play 等提交命令前先跑检查，遇到严重风险就阻断命令。安装脚本会把守卫、skill 与钩子条目写入工具各自的配置目录，并在真正用它自己的载荷格式阻断一次提交命令后才打印 <code>Install verified.</code>；支持 <code>doctor</code> 体检、<code>uninstall</code> 卸载和 <code>--dry-run</code> 预览，且不会碰用户的 GitHub 账号或凭据。对 Kiro、Cline、Amp、Goose、Crush、Roo Code、Continue、Aider 等无法确认钩子格式的工具，作者给出的是手动步骤而非猜测。</li>
+</ul>
+
+<h3>项目状态</h3>
+<p>Shell 编写，约 1500 stars、110+ forks，采用 OpenRoots ORA 2.3 许可，提供 GitHub Pages 网站版阅读。README 中反复出现的唯一请求是「如果它帮你省下一次拒审，就点个 star」——项目由个人维护、免费开源。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/mjmirza/app-store-compliance</guid>
+      <pubDate>Thu, 19 Nov 2026 12:55:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ OpenSRE：开源 CI/CD 可靠性智能体，自动定位构建失败原因并提交修复</title>
+      <link>https://github.com/Tracer-Cloud/opensre</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源 CI/CD 可靠性智能体，用 AI 自动定位构建失败并提交修复，直接对应编程工具/编程效率改进类高兴趣主题，属必看内容</small></p><p>当 CI 构建变红时，它只会告诉你"失败了"，却不会说明失败原因和修复方法。在交付压力下，团队往往选择直接重跑流水线，导致不稳定检查（flaky checks）不断堆积、主分支长期处于失败状态，真正的排查只能等某位资深工程师有空。OpenSRE 就是为接过这段排查工作而生的开源 CI/CD 可靠性智能体，可运行在自有基础设施上并接入自己的模型。</p>
+
+<h3>核心能力</h3>
+<ul>
+<li><strong>更快走出红色构建</strong>：流水线一失败即介入，阅读日志、验证假设，并把修复推送到分支供人工评审。</li>
+<li><strong>修复根因而非重跑</strong>：区分「CI 自身导致」与「代码导致」的失败，避免修错地方。</li>
+<li><strong>量化 CI 成本</strong>：统计失败率、因 CI 不可靠而损失的开发者工时，以及主分支保持红色的时长。</li>
+<li><strong>普及资深视角</strong>：让每位工程师都获得同等深度的分析。</li>
+</ul>
+
+<h3>工作流程</h3>
+<p>当 CI 运行失败、收到告警或用户直接提问时，智能体会：抓取失败检查项与 CI 日志、近期提交与部署、关联的日志/指标/链路数据；可选地对敏感标识符做脱敏后再调用外部大模型；通过工具调用循环在已接入的系统间推理并验证假设；给出带证据链接的回答；把修复推送到 PR 分支，或给出后续步骤乃至执行修复动作；最后将摘要直接发到 Slack、PagerDuty 或 Telegram，无需切换上下文。</p>
+
+<p><img src="https://github.com/user-attachments/assets/936ab1f2-9bda-438d-9897-e8e9cd98e335" width="1064" height="568" alt="OpenSRE 工作流程图" /></p>
+
+<h3>使用形态</h3>
+<ul>
+<li><strong>交互式 Shell</strong>：直接运行 <code>opensre</code> 进入 REPL，用自然语言描述故障，支持 <code>/status</code>、<code>/cost</code>、<code>/sessions</code>、<code>/integrations list</code> 等斜杠命令，Ctrl+C 可取消当前回合而不丢失会话状态。</li>
+<li><strong>无头 CLI</strong>：<code>opensre ask "why is checkout-api slow?"</code> 可在脚本或 CI 任务中执行单次分析，支持 JSON 输出与工具审批。</li>
+<li><strong>Python API</strong>：通过 <code>start_embedded_session()</code> 在自己的 Python 服务中进程内驱动智能体，便于把故障响应嵌入团队既有自动化流程。</li>
+</ul>
+
+<h3>部署与集成</h3>
+<p>提供三种部署方式：OpenSRE Cloud 托管网关（由组织管理员在 Web 应用中开通，用户无需在本地保管基础设施凭据）；基于 AMI + systemd 的网关镜像（Telegram 网关，无需 Docker）；以及通用自托管容器（Railway / ECS / Vercel，通过 <code>MODE</code> 与 <code>LLM_PROVIDER</code> 配置）。</p>
+<p>项目宣称可对接 60+ 工具与服务，覆盖 Anthropic、OpenAI、Ollama、Gemini、Bedrock 等模型提供方；Grafana、Datadog、Sentry、Elasticsearch、Splunk、New Relic 等可观测性平台；Kubernetes、AWS、Azure、ArgoCD 等基础设施；以及 PostgreSQL、ClickHouse、Snowflake、Redis 等数据库和数据平台。</p>
+
+<h3>项目状态</h3>
+<p>项目标注为 <strong>Public Alpha</strong>（公开测试阶段），核心工作流可用于早期探索但尚未完全稳定，API 与集成仍在演进。采用 Apache 2.0 许可证，主要语言为 Python，当前在 GitHub Trending 榜单上位列第 13，获得约 1.29 万颗星与 1890 次 fork，由 Greptile 赞助。</p>
+
+<h3>你知道吗？</h3>
+<p>项目名中的 SRE 指「站点可靠性工程（Site Reliability Engineering）」，而 OpenSRE 把这个角色从生产环境的运维延伸到了 CI/CD 流水线。README 还引用了 SWE-bench 论文的观点——智能体在真实任务与明确反馈下进步最快，因此项目坚持用云端真实场景做端到端测试，并把单元测试/端到端、本地/云端的边界通过语义化的测试目录命名保持清晰。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/Tracer-Cloud/opensre</guid>
+      <pubDate>Thu, 19 Nov 2026 12:55:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ AFFiNE：把 Notion 与 Miro 合二为一的开源本地优先知识库</title>
+      <link>https://github.com/toeverything/AFFiNE</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源本地优先知识库，融合笔记与白板协作，属开源项目与软件新功能方向，符合感兴趣主题，推荐阅读</small></p><p><img src="https://cdn.affine.pro/Github_hero_image2.png" alt="AFFiNE 宣传图：Write, Draw and Plan All at Once" /></p>
+<p><a href="https://affine.pro">AFFiNE</a>（发音 [ə'fain]）是一个开源的一体化工作空间，定位为 Notion 与 Miro 的替代方案，由 TypeScript 编写，目前在 GitHub 上已获得约 7.5 万星标、5500 余次 fork。项目的核心主张是「一次完成写作、绘图与规划」——把文档、白板和数据表融合在同一个平台里，正如单词 affine 所暗示的「紧密结合」。</p>
+
+<h3>核心功能</h3>
+<ul>
+<li><b>真正的无边画布</b>：与多数自称「生产力画布」的编辑器不同，AFFiNE 允许把任何积木块放到无边画布上——富文本、便签、嵌入网页、多视图数据库、关联页面、图形乃至幻灯片。文档与白板不再割裂，而是完全合并。</li>
+<li><b>多模态 AI 助手</b>：<a href="https://affine.pro/ai">AFFiNE AI</a> 可撰写工作报告、把大纲转成演示幻灯片、将文章总结成结构化思维导图、整理任务计划与待办，甚至用一句提示直接生成原型应用与网页。</li>
+<li><b>本地优先 + 实时协作</b>：数据默认保存在自己的磁盘上，不依赖云端；同时支持 Web 与跨平台客户端的实时同步与协同编辑。</li>
+<li><b>可自托管与可定制</b>：用户可以自行管理、自托管、fork 并构建自己的 AFFiNE，官方提供 Docker 部署方案，也支持一键部署到 Render、Sealos。插件社区与第三方积木块功能尚在规划中。</li>
+</ul>
+
+<h3>技术与生态</h3>
+<p>项目把「一切皆是积木块」的理念贯穿到底，并借鉴了 Quip/Notion 的块结构、Trello 的看板、Airtable/Miro 的无代码数据表、Miro/Whimsical 的无边白板以及 Remote/Capacities 的对象标签体系。其关键上游包括：协作编辑器框架 <a href="https://blocksuite.io">BlockSuite</a>、基于 Rust 的本地优先可协作数据库 <a href="https://github.com/toeverything/OctoBase">OctoBase</a>、高性能 YJS CRDT 实现 <a href="https://github.com/y-crdt/y-octo">y-octo</a>，以及 yjs、Electron、React、napi-rs、Jotai、Vite 等。前端侧还对外输出了 <code>@affine/component</code> 组件库与 <code>@toeverything/theme</code> 主题包。</p>
+
+<h3>版本与使用</h3>
+<p>目前可用的是社区版（CE），采用 MIT 许可，可免费自托管；企业版（EE）尚未发布，将提供白标、单点登录（SSO）等面向企业的进阶能力。官方还提供了一批预置模板（愿景板、一页纸简报、课程教案、数字手账、ADHD 计划表、阅读记录、康奈尔笔记等）以及在线 Demo 供直接体验。</p>
+
+<h3>你知道吗？</h3>
+<p>「本地优先（local-first）」能同时兼顾离线可用与多人协作，关键在于 <b>CRDT（无冲突复制数据类型，Conflict-free Replicated Data Type）</b>：它让每个副本独立修改数据后仍能自动合并出相同结果，无需中心服务器仲裁。AFFiNE 为此在底层做了相当深的投入——不仅使用 yjs 作为 Web 端状态管理与同步基础，还自研了 Rust 版 y-octo 与 OctoBase，后者既是数据库又是数据同步引擎。这也是它敢于宣称「数据在自己硬盘上，却依然能实时协作」的技术底气。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/toeverything/AFFiNE</guid>
+      <pubDate>Thu, 19 Nov 2026 12:55:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>Ghost Downloader 3：一个覆盖 HTTP/BT/M3U8/eD2k 的全能下载器，支持 Android 与 aria2 兼容 RPC</title>
+      <link>https://github.com/XiaoYouChR/Ghost-Downloader-3</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 多协议全能下载器这类通用桌面小工具，与用户关注的技术热点关联较弱，仅涉及开源项目与软件功能，列为可选</small></p><p><strong>Ghost Downloader 3</strong> 是一款基于 Python（PySide6/Qt）开发的开源跨平台下载器，采用 GPL v3.0 协议，目前在 GitHub 上获得约 1.2 万星标、778 个 fork。项目最初是为帮助一位 Bilibili 创作者管理资源而起的兴趣项目，如今已登陆四个平台，并支持几乎所有主流下载协议。</p>
+
+<h3>核心定位：一个应用取代五个</h3>
+<p>项目宣称「快，但要快在关键处」——在良好网络下任何下载器都很快，真正的考验是糟糕的网络。其做法包括：智能分块且无需文件合并、自动探测带宽，以及使用真实浏览器 TLS 指纹以避开反爬检测。协议方面覆盖 <code>HTTP</code>、<code>Magnet/BT</code>、<code>FTP</code>、<code>M3U8</code>、<code>MPEG-DASH</code> 与 <code>eD2k</code>。</p>
+
+<h3>站点与资源支持</h3>
+<ul>
+  <li><strong>YouTube 与 Bilibili</strong>：支持片段选择、任意画质与字幕、播放列表与分 P 剧集。</li>
+  <li><strong>GitHub 与 HuggingFace</strong>：提供镜像加速。</li>
+  <li><strong>浏览器扩展</strong>：下载按钮会跟随页面视频出现，扩展弹窗列出页面上的所有媒体资源；用户也可以照常点击下载，由桌面端无缝接管，无需复制链接，登录状态可自动继承（资源嗅探能力参考了 cat-catch）。</li>
+</ul>
+
+<h3>跨平台与移动端特性</h3>
+<p>支持 Windows 10+（x86_64/arm64）、macOS 13.0+（x86_64/arm64）、Linux（glibc 2.35+）与 Android 9.0+（arm64-v8a），并强调各平台均为「原生体验」。Android 端可录制实时 M3U8 直播流，并支持后台持续下载。</p>
+<p>注意：Qt 6.6+ 已不支持缺少 AVX 指令集的 CPU；Arch Linux 用户可使用社区维护的 <code>ghost-downloader-bin</code> 与 <code>ghost-downloader-git</code> 包。</p>
+
+<h3>可控性与自动化</h3>
+<ul>
+  <li>提供与 <a href="https://aria2.github.io/">aria2</a> 兼容的 RPC API，便于第三方工具对接。</li>
+  <li>下载过程中可随时修改 URL、请求头或代理，进度不会丢失。</li>
+  <li>内置命令行工具 <code>ghd</code>（在设置中安装），支持 <code>probe</code> 预览、<code>add</code> 添加任务（含 BT 种子内文件选择 <code>--select</code>）、<code>tasks</code>/<code>task</code> 查看、<code>pause</code>/<code>start</code>/<code>remove</code>/<code>wait</code> 等操作。</li>
+</ul>
+
+<h3>生态与路线图</h3>
+<p>项目已建立 Feature Packs 插件生态，但插件 API 尚未公开；后续计划还包括增强任务编辑能力（例如一个任务绑定多个 Session）。翻译通过 Crowdin 协作进行（源语言为简体中文），桌面端文本翻译度达到 60% 的新语言才会进入应用。</p>
+
+<h3>社区与致谢</h3>
+<p>项目依赖大量成熟开源组件：<a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a>、<a href="https://github.com/nilaoda/N_m3u8DL-RE">N_m3u8DL-RE</a>（M3U8 支持）、<a href="https://github.com/arvidn/libtorrent">libtorrent</a>、自研的 eD2k 引擎 <a href="https://github.com/XiaoYouChR/Kelpie">Kelpie</a>、<a href="https://github.com/0x676e67/wreq-python">wreq</a>（TLS 指纹模拟）、<a href="https://github.com/zhiyiYo/PyQt-Fluent-Widgets">PyQt-Fluent-Widgets</a>、FFmpeg、Nuitka 等。作者特别致谢 <a href="https://github.com/zhiyiYo/">@zhiyiYo</a> 的帮助，以及 @空糖_SuGar 设计的项目横幅。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/XiaoYouChR/Ghost-Downloader-3</guid>
+      <pubDate>Thu, 19 Nov 2026 12:55:55 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ uv：用 Rust 编写的极速 Python 包与项目管理器</title>
       <link>https://github.com/astral-sh/uv</link>
@@ -1100,96 +1224,6 @@ llama serve -hf ggml-org/Qwen3.5-0.8B-GGUF # 启动 OpenAI 兼容 API 服务</co
       </description>
       <guid isPermaLink="false">https://github.com/microsoft/VibeVoice</guid>
       <pubDate>Thu, 05 Nov 2026 12:12:55 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ NVIDIA 开源 Auto-Ontology：为 LLM 与智能体构建语义数据层</title>
-      <link>https://github.com/NVIDIA/auto-ontology</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] NVIDIA 开源的 LLM/智能体语义数据层工具，属于编程工具发布分享，也是 AI 软件技术进展，用户会强烈感兴趣</small></p><p>NVIDIA 开源了 <strong>Auto-Ontology</strong>，一个用 Python 编写的框架，旨在为 LLM（大型语言模型）和智能体（agent）工作流构建基于语义图和推理的数据层。该项目当前在 GitHub 上已获得约 4353 星标。</p>
-
-<p>其核心定位是解决企业数据分析中的可靠性问题：智能体可以从文档和数据库中检索并查询，但"更快拿到数字，如果是错的就毫无价值"。Auto-Ontology 作为与数据库并排运行的服务，将数据库元数据编译为<strong>本体（ontology）</strong>——将业务术语映射到数据列、收录经过审核的 SQL 度量表达式，并梳理表间关系。智能体通过该本体来查询，而用户则通过 Web UI 审查这些定义。</p>
-
-<p>开发者可借助它实现五大能力：<strong>发现</strong>（从数据库元数据生成本体或导入现有语义模型）、<strong>落地</strong>（为每个业务概念提供统一定义并跨表映射）、<strong>认证</strong>（在 UI 或 API 中审查、编辑和认证定义）、<strong>验证</strong>（查询前先检查问题能否回答，并返回 SQL 与智能体推理步骤）、<strong>暴露</strong>（通过 MCP、agent skills 和 REST API 向任意智能体框架提供上下文）。</p>
-
-<p>项目与 Apache <a href="https://ossie.apache.org/">Ossie</a> 语义模型开放标准兼容，可导入导出 Ossie YAML 格式的模型定义。配套的 <a href="https://github.com/NVIDIA/auto-ontology-eval">auto-ontology-eval</a> 仓库用于在 BIRD、BEAVER、FDABench-Lite、Wide World Importers 等基准上评测本体性能，通过控制组（schema 直接放入提示词）与处理组（基于编译后本体的问答智能体）对比，由确定性验证器按执行结果匹配打分。</p>
-
-<p>技术架构主要包括：Next.js 前端（端口 3000）、基于 FastAPI 与 LangChain 的后端文本转 SQL 智能体（3001）、摄取与语义编译服务（3002）、基于 FastMCP 的只读 MCP 服务器（3003），以及带 pgvector 的 PostgreSQL 17 用于存储与向量检索。摄取服务生成本体草稿后，由人工在 Web UI 中验证、精炼并认证，智能体随后依据本体完成意图分类、实体提取、候选检索、SQL 生成、数据校验与修复直至执行。当问题无法被数据覆盖时，智能体可先检查可回答性并主动向用户澄清。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/NVIDIA/auto-ontology</guid>
-      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ PR-Agent：Qodo 捐赠给社区的开源 AI 代码审查代理</title>
-      <link>https://github.com/The-PR-Agent/pr-agent</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源 AI 代码审查代理，直接提升编程效率，属于编程效率改进经验与编程工具分享，必看内容</small></p><p>PR-Agent 是一款开源的、由 AI 驱动的代码审查代理，也是 Qodo（原 CodiumAI）维护的社区项目。Qodo 已将该工具捐赠给开源社区，项目现托管于 GitHub 的 PR-Agent 组织下，完全由社区所有，并开放贡献与维护者招募。该项目与 Qodo 主打的 AI 代码审查平台（Qodo 2.0）相互独立，后者为开源项目提供免费版本，并支持 GitHub、GitLab、Bitbucket 和 Azure DevOps 等平台。</p>
-
-<p><strong>核心功能</strong>：PR-Agent 提供多种以 PR 评论或 CLI 方式运行的命令，包括 <code>/describe</code>（描述 PR 内容）、<code>/review</code>（代码审查）、<code>/improve</code>（改进建议）、<code>/ask</code>（针对 PR 的自由问答）以及 <code>/similar_issue</code>（查找相似 issue）等，完整工具列表见<a href="https://docs.pr-agent.ai/tools/">官方文档</a>。</p>
-
-<p><strong>主要特点</strong>：每个工具仅需一次 LLM 调用（约 30 秒，成本低）；通过 <a href="https://docs.pr-agent.ai/core-abilities/compression_strategy/">PR 压缩策略</a>可高效处理任意规模的 PR；支持基于 JSON 的提示词定制；平台无关，支持 GitHub、GitLab、Bitbucket、Azure DevOps、Gitea 等 Git 提供商，可通过 CLI、GitHub Actions、Docker、自托管或 Webhook 部署；AI 模型方面支持 OpenAI GPT、Anthropic Claude、Google Gemini、DeepSeek、Mistral 以及通过 LiteLLM 接入的任意模型（Azure OpenAI、AWS Bedrock、Vertex AI、Ollama 等）。</p>
-
-<p><strong>开源优势</strong>：用户可完全掌控数据与基础设施，自定义提示词与行为，无厂商锁定，由社区驱动开发。自托管时使用自己的 API 密钥，数据仅在用户与模型提供商之间传输。</p>
-
-<p><strong>社区动态</strong>：项目已迎来首位外部维护者 Naor（<a href="https://github.com/naorpeled">@naorpeled</a>），目前正推进捐赠给开源基金会。另需注意，自 v0.36.1 起 <code>/help_docs</code> 命令因凭据泄露问题暂时停用，修复中（见 <a href="https://github.com/the-pr-agent/pr-agent/issues/2445">issue #2445</a>）。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/The-PR-Agent/pr-agent</guid>
-      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ kimi-k3-in-c：用纯 C99 在单 CPU 上运行 2.78 万亿参数模型</title>
-      <link>https://github.com/FareedKhan-dev/kimi-k3-in-c</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 涉及新 AI 模型 Kimi K3 在单 CPU 上的运行实现，属于新 AI 模型与 AI 软件技术进展，强烈相关</small></p><p>GitHub 热门项目 <a href="https://github.com/FareedKhan-dev/kimi-k3-in-c">kimi-k3-in-c</a> 展示了如何用可移植的 C99 代码，在单颗 CPU、仅 8.24 GB 内存的环境下运行拥有 2.78 万亿参数的 Kimi K3 大模型推理。该项目不依赖 BLAS、不依赖任何框架、也不需要 GPU，整个推理引擎仅 176 KB。</p>
-
-<h3>核心亮点</h3>
-<ul>
-<li><b>极低内存门槛</b>：官方 Kimi K3 检查点（checkpoint）在磁盘上占用 1.56 TB，但该项目通过流式读取和 4-bit 打包，将峰值内存占用压至 8.24 GB。</li>
-<li><b>输出与预算无关</b>：无论机器内存是 8 GB 还是 224 GB，模型输出逐字节一致，更多内存只影响速度，不改变结果。</li>
-<li><b>性能表现</b>：在 8 GB 内存的普通笔记本上约 26.5 秒/词元；128 GB+ 内存的工作站上约 5.6 秒/词元。</li>
-<li><b>跨平台</b>：支持 Linux（x86-64）、macOS（arm64）和 Windows（x86-64），要求 AVX2+FMA 或 NEON 指令集。</li>
-</ul>
-
-<h3>工作原理</h3>
-<p>项目通过四项关键优化将模型从服务器集群"压缩"到笔记本上运行：</p>
-<ul>
-<li><b>专家（experts）以半字节打包</b>：1.45 TB 的路由专家（routed experts）以 4-bit 打包形式存储，从不常驻内存，直接从打包形式计算。</li>
-<li><b>KDA 注意力机制</b>：注意力内存永不增长。</li>
-<li><b>MLA（Multi-head Latent Attention）</b>：用一个潜在向量替代 96 个注意力头。</li>
-<li><b>流式主干（streaming trunk）</b>：密集主干按需流式读取，将内存需求从"地板"变成可调节的"旋钮"。</li>
-</ul>
-
-<h3>验证与测试</h3>
-<p>项目内置完整的无权重测试套件，可在约一分钟内完成构建和验证，通过教师强制（teacher forcing）、贪心解码和增量推理三道关卡，确保引擎与参考实现完全一致。此外还提供基于真实 93 层运行轨迹的缓存模拟工具。</p>
-
-<h3>社区贡献</h3>
-<p>项目已获得超过 1 万颗星，macOS、Windows 和 NEON 移植、聊天模式、ultra 预设、更快的 MXFP4 内核及大量解析器修复均来自社区贡献者。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/FareedKhan-dev/kimi-k3-in-c</guid>
-      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ DiscImageStudio：在 CD/DVD/蓝光盘面上刻蚀可见图像的多平台工具</title>
-      <link>https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源多平台光盘刻图工具，属于开源项目与软件新功能，用户感兴趣，推荐阅读</small></p><p><a href="https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio">Disc Image Studio</a> 是一款用 C# 编写的多平台开源工具（.NET 10，支持 Windows、Linux 与 macOS，采用 GPL-3.0-or-later 许可），它能把任意图片转换为符合 CD、DVD 及单层 BD-R 光盘物理层约束的数据，刻录后使盘面呈现出肉眼可见的图案，在 GitHub 上已获得超过 6200 星。</p>
-
-<h3>核心功能</h3>
-<ul>
-<li><strong>光盘数据生成</strong>：支持各类 CD（可导出带格式头的 WAV 音轨及配套 CUE，兼容 cdrecord、ImgBurn 等，也可导出 RAW 音轨）、任意 DVD（导出 ISO 镜像）以及单层 BD-R 25GB（支持纯绘图与 UDF 2.01 文件系统）。</li>
-<li><strong>随盘文件</strong>：可在设计页直接选择要一并保存的文件夹及内圈/外圈位置，混合盘投影以黄色标出文件区。</li>
-<li><strong>灰度方案</strong>：CD 与 DVD 均采用黑白二阶灰度（CD 用 0D/AA，DVD 扰码域用 A5/92），并提供独立的灰度抖动小工具。</li>
-<li><strong>辅助标定</strong>：提供粗标定、边界标定和精细标定流程，通过盘面照片估计内外半径与轨距分布，可显著改善径向线条的弯曲（官方提供 Verbatim AZO DVD-R 实操教程）。</li>
-<li><strong>刻录</strong>：可导出完整 ISO/RAW 镜像交由外部软件刻录，也可通过 Windows 自带 IMAPI2 进行「即时刻录」（实验性，边生成边写盘）。</li>
-<li><strong>盘片预设与 CLI</strong>：内置多种品牌光盘参数，并提供面向 Linux/macOS 的离线命令行工具。</li>
-</ul>
-
-<h3>技术特点</h3>
-<p>项目严格遵循相关规范实现：CD-R 参考 ECMA-394、DVD 参考 ECMA-267/359、蓝光参考 ISO/IEC 30190:2021，物理模型均有复核文档。整个代码库按介质模块化组织（CD、DVD、BluRay、ISO 写入器等），不联网、不上传文件、不收集遥测。项目致谢了 <a href="https://github.com/arduinocelentano/cdimage">arduinocelentano 的 CDImage 项目</a>——后者率先展示了通过生成 CD 音轨在盘面形成可见图像的方法，本项目的 CD 交织实现即由其移植修改而来。</p>
-
-<p>需要注意的是，「即时刻录」为实验性功能，实测可见效果取决于盘片、刻录机、固件与写入策略，官方建议只使用可报废的测试介质。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio</guid>
-      <pubDate>Wed, 04 Nov 2026 17:10:24 GMT</pubDate>
     </item>
   </channel>
 </rss>
