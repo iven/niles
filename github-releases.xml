@@ -3,7 +3,98 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 18 Nov 2026 21:22:20 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 03:19:41 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.328：Opus/Sonnet 4.6 支持自动模式，Code Mode 与 /code-review 大量改进</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.328</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>新功能与核心改动</h3>
+<ul>
+<li><strong>自动模式（auto mode）落地</strong>：Claude Opus 4.6 与 Sonnet 4.6 在 Amazon Bedrock、Google Cloud 的 Agent Platform、Microsoft Foundry 及 Claude apps gateway 上新增自动模式，没有设定权限模式的交互会话会直接以自动模式开始；第三方提供方上这两个模型在计划模式和 Bash 提示中也改为提供自动模式，<code>disableAutoMode</code> 可一并关闭。同时修复了网关拒绝 beta 功能时（设置 <code>CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS</code>）自动模式在 Claude Desktop 之外每一轮都失败的问题。</li>
+<li><strong><code>mcp_tool</code> 钩子支持失败即阻断</strong>：新增 <code>"onFailure": "block"</code>，与 command、HTTP 钩子保持一致——钩子调用失败时阻断该操作。</li>
+<li><strong>Code Mode 大幅打磨</strong>：
+  <ul>
+  <li>自动/绕过权限模式下移除多数脚本后 0.75 秒的等待，速度提升；短化工具描述以降低 token 消耗；对有 MCP 服务器的会话改进提示缓存，并在服务器仍在连接或服务器列表变化时告知 Claude。</li>
+  <li>运行中显示脚本正在执行的命令及其输出；脚本失败时告知 Claude 哪些工具调用仍在进行；开发服务器改为作为后台任务运行并可经 <code>/tasks</code> 查看。</li>
+  <li>编辑行为改进：不产生任何改动的编辑不再中断脚本，失败编辑会告知最接近的匹配位置。</li>
+  <li>修复多项脚本执行问题：长时间未响应的权限提示/计划批准/提问导致脚本被打断；上一脚本运行期间连上的 MCP 服务器无法调用；<code>--resume</code> 选择器选中的会话中脚本不能后台运行；以 <code>{</code> 块开头、同时使用顶层 <code>await</code> 与顶层 <code>return</code> 的合法脚本被拒；顶层变量被静默设为 <code>undefined</code>；失败命令的长输出被截断时未告知 Claude；只读子代理被提供 <code>write()</code>/<code>edit()</code>；Esc 后输入 <code>/model</code> 等命令导致 Claude 自行开始一轮等。</li>
+  </ul>
+</li>
+<li><strong><code>/code-review</code> 行为调整</strong>：在多数模型上只报告 bug 与 CLAUDE.md 违规，把复用、简化、效率类建议交给 <code>/simplify</code>；每条发现标注为 Important、Pre-existing 或 Nit，总结末尾给出建议修复，无问题时的列表显示为「Code review found no issues.」。</li>
+<li><strong>其他新增能力</strong>：
+  <ul>
+  <li>新增 <code>CLAUDE_CODE_DISABLE_DEFERRED_TOOL_RESUME</code>，宿主可阻止 <code>claude -p --resume</code> 与 <code>--continue</code> 执行被钩子延后的工具调用。</li>
+  <li><code>/status</code> 与 <code>claude doctor</code> 在 OpenTelemetry exporter 缺少 endpoint、数据可能丢失时给出提示；当消息来自跳过权限提示的会话时，警告它可能被云会话扣留或丢弃。</li>
+  <li>嵌入 Claude Code 的应用可开启策略插件的 <code>allowManagedModsOnly</code> 选项（管理员的托管设置仍优先）。</li>
+  <li><code>/bug</code> 发送前先询问 Yes/No，避免连按回车误发报告或打开 GitHub。</li>
+  <li>计算机使用（computer use）审批对话框现显示各应用的访问级别与更浅白的警告。</li>
+</ul>
+</li>
+<li><strong>自托管 runner</strong>：新增 <code>--repository-folder</code>（<code>--capacity 1</code> 时自定义仓库目录名）、<code>--hook-label</code>、<code>claude --environment</code> 的 <code>--metadata key=value</code>，以及按原因区分排队等待与放弃启动的两个 orchestrator 指标；修复代理/网页过滤返回 HTTP 200 空体导致所有运行中会话被停、临时磁盘错误导致克隆被删、时钟异常导致 token 提前失效、并发准备同一仓库时归档或重新排队不生效等一系列问题。</li>
+</ul>
+<h3>改进与调整</h3>
+<ul>
+<li>大会话的恢复速度提升；恢复含大量图片的会话时内存占用降低；长时间运行的 SDK 与桌面会话在执行慢命令/工具时内存与响应时间改善。</li>
+<li><code>claude -p</code> 与 SDK 会话会在后台预取托管设置中的插件（含自带 git 仓库的插件），新机器上从 git 市场加载托管插件更快（但短任务可能因此最多晚 30 秒退出）。</li>
+<li>跨会话消息：云会话或其他电脑未列出时会说明 Remote Control 处于关闭状态；<code>claude -p</code> 文本输出在 stderr 提示其他会话的消息被扣留或丢弃及放行方式；修复刚启动或标题含 @ 的云/Remote Control 会话在跨会话消息中不可达。</li>
+<li>并发启动多个进程内 teammate 时「Lock file is already being held」失败显著减少。</li>
+<li>托管 <code>PostToolUse</code> 钩子不再对执行前即被拒绝的调用触发；<code>PostToolBatch</code> 仍会收到大部分（不标记为已拒绝）。Code Mode 不再对脚本输出运行 UserPromptSubmit 钩子（如需脱敏改用带 <code>updatedToolOutput</code> 的 PostToolUse 钩子）。</li>
+<li>在 Anthropic API 的终端会话中，子代理进度摘要改由默认小模型从简短笔记生成，token 消耗大幅降低（关闭遥测时同样生效）。</li>
+<li>沙箱无法启动的上报方式调整；被 PermissionRequest 钩子改写为排除沙箱的命令会在沙箱外执行；<code>/list-agents</code> 只在本地显示列表。</li>
+<li>在 <code>CLAUDE_CODE_FORK_SUBAGENT=0</code> 时，<code>claude -p</code>、Agent SDK、桌面与 VS Code 的子代理默认等待自己的子代理，背景子代理与其等待对象共用一个 10 分钟等待上限（可用 <code>CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS</code> 延长）。</li>
+</ul>
+<h3>修复</h3>
+<ul>
+<li><strong>终端与输入</strong>：zsh 中以 <code>=</code> 开头的词（如 <code>echo ====</code>、<code>[ a == b ]</code>）不再报「not found」且 <code>=cmd</code> 不再展开为命令路径；修复权限提示或提问后紧接输入时 Esc 常被吞、慢连接把粘贴或终端回复切成两段后误输入到提示框、全屏模式下 Ctrl+click 重复打开链接、鼠标侧键被当点击、反向滚轮第一格被忽略、kitty 键盘协议终端的 Shift+Enter 与 Alt 快捷键、Cmd+字母被输入到提示框、GNU screen 中颜色错误、全屏下复制文本带入引用条/丢失换行空格等问题；Linux 上修复 Ctrl+V 粘贴旧图或卡住、Claude Code 被 Ctrl+Z 挂起时其他应用粘贴冻结。</li>
+<li><strong>渲染与界面</strong>：修复超长或畸形 markdown 导致渲染卡死、偶发画面冻结、全屏下大量后台通知侵入对话框顶部边框、插件 toast 显示其他插件文案。</li>
+<li><strong>会话与任务</strong>：自动压缩改为像 <code>/compact</code> 那样重建系统提示；修复定时任务文件不可读时保存会抹掉项目其他任务、拼写错误的任务在下次保存时被删除、恢复的云会话丢失压缩摘要或近期消息、用量积分耗尽时错误地显示为速率限制、spinner 与子代理 token 计数重复计重试回复等。</li>
+<li><strong>MCP 与工具</strong>：输入 schema 以 <code>anyOf</code>/<code>oneOf</code>/<code>allOf</code> 开头的 MCP 工具不再在第三方提供方或关闭遥测时消失；schema 非法的工具改为被排除并说明原因；修复 <code>CLAUDE_STREAM_IDLE_TIMEOUT_MS</code> 无法延长网关/自定义 base URL 的 5 分钟连接上限。</li>
+<li><strong>斜杠命令</strong>：修复 <code>/diff</code> 与 Remote Control 的 Changes 面板在命令切换仓库后漏掉已提交内容；<code>/plugin</code> 在慢速保存/卸载、搜索无结果、长按回车等场景下的错乱；<code>/usage</code> 在 1M 上下文模型上统计止步于 2,000 token；<code>/export</code> 空文件名生成 <code>.txt</code>；<code>/hooks</code> 返回时丢失位置；<code>/terminal-setup</code> 在 Zed 中覆盖符号链接的 keymap；<code>/install-github-app</code> 误加代码审查工作流；<code>/goal</code> 与相同措辞的其他钩子冲突；<code>/exit</code> 对已停止工作流的提示等。</li>
+<li><strong>VS Code</strong>：新增其他会话消息被扣留的提示（附设置文件链接）；修复权限提示面板较矮或内容较长时截断「No」按钮、回复框或标题，以及失败/被阻断的工具调用不显示原因、Glob 与 Grep 把错误当成结果。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.328</guid>
+      <pubDate>Thu, 19 Nov 2026 01:14:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>delta 0.21.1 发布：基于 gitu 分支引入 TUI 交互模式，支持在差异视图中暂存</title>
+      <link>https://github.com/dandavison/delta/releases/tag/0.21.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>git 差异高亮工具 delta 发布 0.21.1 版本，最大变化是新增了 TUI（终端交互界面）模式，使用户不必再只是「看 diff」，而可以直接在终端里浏览和操作仓库。</p>
+
+<h3>重要改动</h3>
+
+<ul>
+<li><strong>新增 TUI 模式</strong>：该功能基于 <a href="https://github.com/altsem/gitu">gitu</a> 的分支实现（<a href="https://github.com/dandavison/delta/pull/2323">PR #2323</a>）。支持大量用于浏览 <code>git diff</code>、<code>git show</code> 和 <code>git log</code> 视图的快捷键；可以直接在 delta 渲染的差异上暂存改动（包括并排视图）；可在原生日志视图中重排与 fixup 提交；支持差异折叠；并保留了 gitu 原有的提交、推送、拉取、rebase 等 git 操作。文档见<a href="https://dandavison.github.io/delta/tui.html">使用手册</a>与 <a href="https://github.com/dandavison/delta/blob/main/README.md#tui-mode">README</a>，其中包含演示视频。</li>
+<li><strong>并排（side-by-side）视图增强</strong>：
+  <ul>
+  <li>新增 <code>min-width</code> 参数，可根据终端宽度自动切换是否启用并排显示（<a href="https://github.com/dandavison/delta/pull/2084">PR #2084</a>）。</li>
+  <li>命令行参数 <code>--side-by-side</code> 现在可以覆盖 git config 中已启用的同名特性（<a href="https://github.com/dandavison/delta/pull/2319">PR #2319</a>）。</li>
+  <li>并排视图支持按 hunk（差异块）为单位（<a href="https://github.com/dandavison/delta/pull/2304">PR #2304</a>）；并保留用户自定义的行号格式（<a href="https://github.com/dandavison/delta/pull/2321">PR #2321</a>）；行号颜色可随所属行样式渲染（<a href="https://github.com/dandavison/delta/pull/2332">PR #2332</a>）。</li>
+  </ul>
+</li>
+<li><strong>内置 feature 与用户设置兼容性修复</strong>：使用内置 feature 时不再覆盖用户的个人设置（<a href="https://github.com/dandavison/delta/pull/2326">PR #2326</a>）；修复 feature 列表中样式类 feature 失效、以及特性切换相关的问题（<a href="https://github.com/dandavison/delta/pull/2330">PR #2330</a>、<a href="https://github.com/dandavison/delta/pull/2331">PR #2331</a>）。</li>
+<li><strong>主题更新</strong>：更新 colibri 主题并新增色盲友好的 colibri-colorblind 主题（<a href="https://github.com/dandavison/delta/pull/2329">PR #2329</a>）。</li>
+</ul>
+
+<h3>其他改动</h3>
+
+<ul>
+<li>修复：对被删除的文件在适当场景下仍进行语法高亮（<a href="https://github.com/dandavison/delta/pull/2322">PR #2322</a>）。</li>
+<li>修复：当跳过 hunk 头部行时仍正确输出 <code>h</code> 记录，以保证元数据完整（<a href="https://github.com/dandavison/delta/pull/2334">PR #2334</a>）。</li>
+<li>修正文档中关于 tmux 超链接支持的说明（<a href="https://github.com/dandavison/delta/pull/2324">PR #2324</a>），并修复安装文档中失效的 macOS 下载链接（<a href="https://github.com/dandavison/delta/pull/2342">PR #2342</a>）。</li>
+<li>修复在终端中运行时会失败的测试（<a href="https://github.com/dandavison/delta/pull/2343">PR #2343</a>）。</li>
+<li>本次共有 @axsaucedo、@nolith、@cosgroveb、@kaygaaf、@farisbasha 五位首次贡献者参与。</li>
+</ul>
+
+<p>完整对比见 <a href="https://github.com/dandavison/delta/compare/0.20.1...0.21.1">0.20.1...0.21.1</a>。</p>
+
+<h3>你知道吗？</h3>
+<p>TUI 之所以能「读懂」delta 的输出，依赖的是 <a href="https://github.com/stefanhaller/diff-line-metadata-spec">diff line metadata spec</a>（又称 OSC 1717 规范）：它用终端转义序列把每行的原始行号、变更类型等元数据附着在渲染后的文本上。这样即便 delta 把 diff 重新排版、加色、甚至改成并排两栏，程序仍能准确还原出「屏幕上这一行对应哪个文件的第几行」，从而支持在美化后的视图里直接暂存（stage）改动。上游 gitu 作者 @altsem 也对本次 fork 表示了支持。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/dandavison/delta/releases/tag/0.21.1</guid>
+      <pubDate>Thu, 19 Nov 2026 02:13:51 GMT</pubDate>
+    </item>
     <item>
       <title>kitty 终端模拟器发布 v0.51.0</title>
       <link>https://github.com/kovidgoyal/kitty/releases/tag/v0.51.0</link>
@@ -1477,91 +1568,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.33.6</guid>
       <pubDate>Sun, 01 Nov 2026 12:45:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.33.4 发布：多项界面改进与功能更新</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.33.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布 v0.33.4 版本，主要带来多项界面交互改进与新功能，同时修复若干问题。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>控件迁移与界面调整</strong>：将 hub 控件移入设置中，并可在搜索栏旁直接新建会话</li>
-<li><strong>未命名会话智能命名</strong>：以会话的首条提示词自动作为标题</li>
-<li><strong>聚合信息展示</strong>：在 codex 与 opencode 中显示压缩摘要和 token 计数</li>
-<li><strong>独立选择模型与 effort</strong>：拆分模型与 effort 的选择项，交互更清晰</li>
-<li><strong>模型版本显示</strong>：在挑选器中显示已解析的 Claude 模型版本</li>
-<li><strong>进程复用优化</strong>：重用持久的无头 stream 进程，减少重复启动开销</li>
-</ul>
-
-<h3>其他修复</h3>
-<ul>
-<li>修剪消息窗口时保留子代理（subagent）的父级关联</li>
-<li>关闭前释放 SQLite 语句，避免资源泄漏</li>
-<li>后续发送时保留任务完成状态摘要</li>
-<li>codex 分叉存档会话时不再重新打开源会话</li>
-<li>跨平台启动路径断言及 Android IME 测试相关改进</li>
-</ul>
-
-<p>完整变更记录见 <a href="https://github.com/tiann/hapi/compare/v0.33.3...v0.33.4">v0.33.3...v0.33.4</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.33.4</guid>
-      <pubDate>Sun, 01 Nov 2026 04:41:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.316 发布：新增多项环境变量与网关功能，修复大量 Bug</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.316</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.316 版本，新增多项环境变量和网关功能，并修复了大量问题。</p>
-
-<h3>新增功能</h3>
-<ul>
-<li>新增 <code>CLAUDE_CODE_DISABLE_ULTRATHINK</code> 环境变量，可关闭 <code>ultrathink</code> 关键字</li>
-<li>新增 <code>CLAUDE_CODE_SUBAGENT_EFFORT</code>，用于设置子代理（subagent）的运行努力级别，不再默认继承会话设置</li>
-<li>Claude apps 网关新增 <strong>池化组预算</strong>（pooled group budgets）：组成员共享一个月度预算，叠加在个人限额之上，通过 spend limits 管理 API 的 <code>pooled_budget</code> 设置</li>
-<li>网关新增 <code>managed.policy_mode: layered</code> 模式：匹配开发者的所有策略均生效，逐层合并，而非仅应用第一条</li>
-<li>网关 Bedrock 上游新增 <code>guardrail.input_tagging</code>，为 Amazon Bedrock 防护栏的提示攻击过滤器包装输入标签</li>
-<li>新增 <code>CLAUDE_CODE_DISABLE_LOOPED_CROSS_CERT_DROP</code>，保留相互认证的循环系统交叉证书，适用于需要私有 CA 的服务器</li>
-<li>[VSCode] 聊天面板新增 Claude apps 网关登录入口，无需终端</li>
-<li>[云端会话] 新增表单卡片，可填写或拒绝 MCP 服务器请求的表单，不再被静默取消</li>
-<li>[云端会话] 切换回云端或 Remote Control 会话时显示「Catching up…」加载提示</li>
-<li>[代码审查] 分析页面新增按严重程度分类的发现卡片，含每日堆叠图表</li>
-</ul>
-
-<h3>重要变更</h3>
-<ul>
-<li>Opus 4.8 的快速模式自 2026 年 10 月 30 日起弃用，2026 年 11 月 30 日移除；移除后快速模式请求将报错且不会回退到标准 Opus 4.8，建议迁移至 Opus 5.5</li>
-<li>Team 和 Enterprise 登录的服务器托管设置变更：从 Anthropic API 获取的设置直接生效，不再弹出审批提示；无法验证的本地副本将被拒绝</li>
-<li>[VSCode] <code>ultrathink</code> 现在以 <code>xhigh</code> 努力级别运行，并在聊天框中以彩虹色显示</li>
-<li>[Claude Tag] Slack 频道的「自动回复」开关改为「Claude 参与方式」选项</li>
-<li>[云端会话] 企业成员现在可以在自己的云端环境中添加和删除网络密钥（此前仅可查看）</li>
-</ul>
-
-<h3>Bug 修复与改进</h3>
-<ul>
-<li>修复 macOS 和 Linux 上 Claude Code 自行退出时（如凭据被拒或云端会话归档）shell 命令残留运行的问题</li>
-<li>修复 Bash 工具中带换行的别名和以破折号开头的函数名被破坏或丢失的问题</li>
-<li>修复 <code>SHELLOPTS</code> 导出时 Bash 脚本在第一条命令后停止的问题</li>
-<li>修复压缩响应被截断或损坏时部分网络请求挂起的问题</li>
-<li>修复 Vertex AI 和 Amazon Bedrock 上 <code>sonnet</code>、<code>opus</code>、<code>haiku</code> 在新模型不可用时显示错误而非自动切换到旧模型的问题</li>
-<li>修复包含不可见字符的提示需要按两次回车才能发送的问题</li>
-<li>修复 <code>claude auth login</code> 在需要 Claude apps 网关的托管设置下拒绝运行的问题</li>
-<li>修复 <code>--restricted</code> 会话在 Read 允许规则覆盖时上传工作目录外文件的问题</li>
-<li>修复 Grep 和 Glob 在 Windows 上搜索进程被终止但不退出时永不返回的问题</li>
-<li>修复恢复对话时未恢复计划（plan）的罕见情况</li>
-<li>修复 <code>/model &lt;id&gt;</code> 在模型不被识别时未警告且自动压缩假设 200K 上下文窗口的问题</li>
-<li>改进 <code>/diff</code> 在大型仓库上的性能：每次刷新通常少执行一次全仓库 git 命令</li>
-<li>改进 SSL 证书错误提示，指出可能原因（如服务器缺少中间证书）及对应修复方法</li>
-<li>改进 <code>/code-review</code> 在 Claude Desktop 或网页 Code 标签页中的显示：云端和 <code>claude remote-control</code> 会话现在显示发现卡片而非纯文本列表</li>
-<li>[VSCode] 修复模型设置带 <code>[1m]</code> 标签（如 <code>opus[1m]</code>）时缺少 Effort 滑块、Ultracode 开关和模型名的问题</li>
-<li>[VSCode] 修复设置文件有错误时保存的 <code>/btw</code> 侧问题历史被过早删除的问题</li>
-<li>[云端会话] 修复文件搜索在 Claude 切换目录后显示 <code>../..</code> 路径的问题</li>
-<li>[Claude Tag] 修复画布同时分享到其他频道或 DM 后 Claude 拒绝编辑或追加的问题</li>
-<li>[Claude Tag] 修复 Slack Connect 线程中未标记回复无人应答的问题</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.316</guid>
-      <pubDate>Sat, 31 Oct 2026 01:01:35 GMT</pubDate>
     </item>
   </channel>
 </rss>

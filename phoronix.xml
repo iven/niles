@@ -3,7 +3,26 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 18 Nov 2026 21:22:33 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 03:19:31 GMT</lastBuildDate>
+    <item>
+      <title>AMD 发布 ROCm 10.2：优化性能，扩展 Ryzen 笔记本支持</title>
+      <link>https://www.phoronix.com/news/AMD-ROCm-10.2</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] ROCm 作为开源软件栈发布可归入新软件项目，但其内容主要是 AMD 显卡驱动与笔记本支持优化，来源配置对 AMD 显卡为不太感兴趣，兴趣正负相抵，故为可选</small></p><p>AMD 发布了 ROCm 10.2，这是这套开源 Radeon/Instinct GPU 计算栈按六周节奏推出的最新功能版本，主要更新集中在框架支持升级、性能优化和更广的硬件与平台兼容性上。</p>
+<p>在软件栈方面，ROCm 10.2 提升了 <strong>SGLang</strong> 和 <strong>vLLM</strong> 的支持，继续推进 Hyperloom、ROCm 命令行工具（ROCm CLI）以及 AMD Skills 的相关工作。性能方面则引入了新的优化，其中包括针对 PCIe 互联 GPU 的 RCCL 改进。</p>
+<p>本次最受关注的变动是官方支持范围的扩大：18 款较旧型号的 Ryzen 处理器终于获得 ROCm 支持。这些芯片与现有 Radeon 700M 系列一样基于 gfx1103 架构，开发者可在 Windows 和 Linux 上直接使用，无需自行构建或特殊配置，并且 gfx1103 在 HIP、PyTorch 和 vLLM 上均已获得验证支持。新增支持的型号包括 Ryzen 7 PRO 253/249/217、Ryzen 5 PRO 225/224/216、Ryzen 3 PRO 205、Ryzen 7 253/249/217、Ryzen 5 225/224/216、Ryzen 3 205，以及 Ryzen 9 180、Ryzen 7 165、Ryzen 7 155 和 Ryzen 5 125。</p>
+<img src="//www.phoronix.net/image.php?id=2024&image=rocm" alt="ROCm logo" />
+<p>除此之外，ROCm 10.2 还扩展了 AMD Infinity Storage（AIS）与 hipFile 的平台兼容性，并正式支持 RHEL 10.3、RHEL 9.9 以及 SLES 16.1；在受支持的 Ryzen 笔记本产品线中另加入了 AMD Radeon PRO W7900D。更多细节可参阅 AMD 官方博客。</p>
+<h2>你知道吗？</h2>
+<ul>
+<li><strong>RCCL</strong>（ROCm Communication Collectives Library）是 AMD 版的集合通信库，功能上对标 NVIDIA 的 NCCL，负责多 GPU 之间梯度与张量的高效同步；针对 PCIe 链路的优化通常意味着在缺少高速互连（如 Infinity Fabric 直连）的消费级平台上获得更好的多卡扩展效率。</li>
+<li><strong>gfx1103</strong> 是 AMD GPU 的 LLVM 目标标识，对应 RDNA3 架构中的小尺寸集成显卡核心。ROCm 官方支持清单以这类架构标识为单位发布，因此同一架构的芯片往往会被批量纳入支持范围。</li>
+<li><strong>vLLM</strong> 与 <strong>SGLang</strong> 都是面向大语言模型推理的高吞吐服务框架，前者以 PagedAttention 内存管理著称，后者擅长结构化输出与复杂推理流程的调度优化。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-ROCm-10.2</guid>
+      <pubDate>Thu, 19 Nov 2026 02:06:39 GMT</pubDate>
+    </item>
     <item>
       <title>NVIDIA 发布 620.73.04 Linux 驱动，仅含小修复</title>
       <link>https://www.phoronix.com/news/NVIDIA-620.73.04-Linux</link>
@@ -785,15 +804,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/OpenIndiana-2026.10</guid>
       <pubDate>Sat, 07 Nov 2026 22:50:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GNU Automake 1.20 发布：新增 --enable-jobserver 选项，许可证升级至 GPLv3+</title>
-      <link>https://www.phoronix.com/news/GNU-Automake-1.20</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] GNU 构建工具 Automake 发布 1.20 新版本并带来新特性，属于编程工具发布，用户非常感兴趣</small></p><p>GNU Automake 1.20 于今日正式发布，带来多项新特性，其中最引人注目的是新增 <code>--enable-jobserver</code> 选项，允许编译器和链接器继承 GNU make 的管道 jobserver，例如用于 GCC 的 <code>-flto=jobserver</code> 链接时优化（LTO）模式。</p><p>本次发布还包含以下主要变化：</p><ul><li><strong>许可证升级</strong>：Automake 从 GPLv2 升级为 GPLv3 或更高版本（GPLv3+），与 Autoconf 及自由软件基金会（FSF）的建议保持一致。</li><li><strong>delete-on-error 选项</strong>：使用该选项会在生成的 Makefile.in 中发出 <code>.DELETE_ON_ERROR</code> 特殊目标，指示 GNU Make 在配方执行失败时删除目标文件。</li><li><strong>print-distfiles 目标</strong>：用于列出 <code>make dist</code> 将要分发的文件清单。</li><li><strong>distcheck 不再默认依赖 TeX</strong>，并修复了依赖跟踪、VPATH 构建中的 lex/yacc 输出、Vala 构建、分发压缩及卸载检查等长期存在的问题。</li></ul><p>在发布公告中，维护者 Kamila Szewczyk 表达了重新确立 GNU 构建系统（autotools）作为新软件项目首选构建系统的愿望，并计划继续解决旧有问题、添加新功能。不过考虑到 CMake 和 Meson 近年来的普及速度，这一目标被认为颇具挑战性。更多下载信息与细节可参阅 <a href="https://lists.gnu.org/archive/html/automake/2026-11/msg00000.html">GNU 邮件列表</a>。</p><h3>你知道吗？</h3><p>GNU make 的 jobserver 是一种并行构建协调机制：父进程维护一组并行任务槽，子进程（如编译器）通过管道共享这些槽位，从而避免嵌套并行导致的资源过度占用。GCC 的 <code>-flto=jobserver</code> 模式正是利用这一机制来协调链接时优化阶段的并行度。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Automake-1.20</guid>
-      <pubDate>Sat, 07 Nov 2026 15:22:00 GMT</pubDate>
     </item>
   </channel>
 </rss>
