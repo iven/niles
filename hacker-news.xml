@@ -3,7 +3,201 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 19 Nov 2026 12:56:36 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 21:28:28 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 「去你的 AI 安全护栏」：产品工程师吐槽修复自家服务的安全漏洞反被模型拒绝</title>
+      <link>https://news.ycombinator.com/item?id=50562262</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 AI 模型安全护栏干扰开发者修复自家代码漏洞，属于 AI 软件技术进展与编程工作流体验，符合感兴趣范围；但不是工具发布或效率改进方法，故为推荐而非必看</small></p><p>一位资深产品工程师（博主 ounapuu.ee，爱沙尼亚开发者）撰文吐槽：他用 Claude Code 检查自己正在开发的产品存在哪些「容易修复的安全隐患」，模型很快找到一个一行代码就能修掉的疏忽，他也顺手改好了。但随后 Claude 以「AI 安全护栏（safeguards）」为由拒绝继续配合安全相关的工作——哪怕他只是想在可证明由自己掌控的产品上修补漏洞、并满足当地法规合规要求。</p>
+
+<p><img src="/posts/2026/11/19/unsafeguards/media/cover_hu_7e982234f0cf4a71.webp" alt="Fuck your AI safeguards" width="951" height="378" /></p>
+
+<p>作者重点抨击了所谓的「豁免申请」流程：要先等上好几个工作日才能得到答复；一旦申请就必须放弃数据保留豁免（data retention exemptions），等于让自己的知识产权失去保护；还要提交身份证或护照（附带一张「WHAT.」的梗图表达震惊）。而且即便配合这一切，也未必能获批——为了恰当地保护自己的服务，居然需要官方批准。</p>
+
+<p><img src="/posts/2026/11/19/unsafeguards/media/bs_hu_47a293b0f82f003c.webp" alt="WHAT." width="1000" height="256" /></p>
+
+<p>这不是他第一次遇到问题。他平时会持续跟踪安全态势，对自家技术栈适用的热门漏洞，需要判断公开的 PoC 代码能否被改造成攻击手段；但 Claude 只让他「滚去找个旧模型」，而旧模型同样会阻挠他应用足够的防护。他认为这种限制在逻辑上站不住脚：<strong>不需要申请审批的是犯罪分子</strong>——他们直接使用没有护栏的「去审查（abliterated）」开源权重模型就能达成目的。菜刀既能切菜也能伤人，但买刀并不需要拿政府颁发的身份证去申请，凭什么这个工具如此特殊？</p>
+
+<p>最终，让自家服务真正更安全的唯一办法，是改用欧盟托管的开源权重模型（如 GLM 5.3）：它配合了作者的意图，先证实漏洞确实存在，再协助修复并验证问题已彻底解决。作者的结论是：Anthropic 让世界变得更不安全了；或者这正是其计划——促使监管出手，为自己在 IPO 前构筑护城河以阻挡竞争者。他还抱怨：大 AI 实验室自己无限制地用同样的工具把安全环境搞得一团糟，却又禁止别人用同样的工具来防御这些工具制造出的威胁。（文末作者自嘲今年份的脏话配额已用完。）</p>
+
+<h3>社区反馈</h3>
+<ul>
+<li>不少人产生共鸣：想修补自己的环境却被「护栏」挡住，等于放任别人来黑，却不允许你去修复或理解核心问题。</li>
+<li>有评论认为这些护栏「往好了说是无效，往坏了说削弱了全球安全态势」，并称之为近乎「保护费」的机制：先证明超级黑客工具可行，再要求你付费并「表现良好」才有资格用它来自卫。</li>
+<li>多条评论推荐可付费使用的顶级开源权重模型作为替代：Kimi 3.1、GLM（也有人补充 Mistral Large 4 和 Sakana Fugu-Cyber），并有人希望能有一份「哪些代理能处理 Claude 会拒绝的任务类别、各自强弱及提示词写法」的清单。</li>
+<li>有人举出真实案例：在此前的 HuggingFace 攻击事件中，闭源模型拒绝协助，最终是 GLM-5 被用来挫败攻击；这暴露了 Claude「宪法」约束力有限——它宣称重视用户自主与隐私，但一旦「护栏」介入这些承诺就变得毫无意义。</li>
+<li>也有反驳：人类社会对社工类信息的处理方式类似（比如不透露同事排班），所以护栏本身不可避免，问题在于<strong>谁</strong>掌握政策制定权。</li>
+<li>另有评论从文化与商业角度切入：旧金山 AI 公司带有「管别人怎么用」的文化底色，并与「AI 安全」末日叙事捆绑；过度的商业化会毁掉一切；也有人调侃「互联网本身是个错误」，以及对上市后季度财报压力下进一步「恶化（enshittification）」的担忧。</li>
+</ul>
+
+<p><img src="/cats/162_hu_cdfc778448b7c87d.webp" alt="Cat picture of the day" width="1065" height="800" /></p>
+
+<h3>你知道吗？</h3>
+<p>「去审查模型（abliterated model）」指通过定向消融（ablation）移除模型内部拒答方向的微调变体，它保留原模型能力但不再拒绝敏感请求；这类模型常以开源权重形式发布，因此无法被平台方「撤回」。这也是作者论点的基础：护栏只约束愿意守规矩的人，而对恶意使用者几乎无效。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50562262</guid>
+      <pubDate>Thu, 19 Nov 2026 16:30:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ LastBook：可离线运行的开源生存资料库，号称打包「重建社会所需的一切」</title>
+      <link>https://news.ycombinator.com/item?id=50560822</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主体是开源项目分享（离线本地 AI + 地图/教程资料库），契合对开源项目与软件新功能的兴趣；内容偏成品应用而非编程工具，故为推荐</small></p><h3>项目概况</h3>
+<p><a href="https://lastbook.org/">LastBook</a> 是一个免费的、开源的生存资料库，主打「生存与重建社会所需的一切」。它把本地运行的 AI 助手、地图和大量操作教学视频打包在一起，在 Mac、Windows 和 Linux 上完成初始设置后即可完全离线使用。项目目录覆盖急救与健康（外伤、疾病、紧急救护）等多个主题，定位明显偏向断网、断电、失去外部服务的极端场景。</p>
+<p>该条目在 Hacker News 获得 292 分、155 条评论，社区讨论主要围绕「数字设备在崩溃场景下是否靠得住」以及「重建社会靠的是知识还是社会关系」两条线索展开。</p>
+
+<h3>可行性之争：电从哪来</h3>
+<ul>
+<li>最集中的质疑是能源与硬件寿命：社会崩溃后电子基础设施长期停摆，笔记本和手机电池会先耗尽，一个「耗电的 AI」在末日里显得奢侈。有评论者提到同类项目 Project NOMAD，称自己改用简单的 Kiwix 服务器，明知大概率用不上，但心里踏实些。</li>
+<li>反方主张「最大化可选性」（portfolio theory）：未来耗电量和可用能源都不可预测，提前搭建的成本极低，用不上也不损失什么。有人指出配备太阳能板与电池就能长期给笔记本充电，并类比非洲乡村的手机充电摊位——掌握发电和电脑的人会变成当地不可或缺的「巫师」。</li>
+<li>关于是否需要打印成纸质：有人认为无法打印就只能被两三年的笔记本寿命锁死；有人反驳说二十年前的笔记本仍在运行，直接接 100W 小太阳能板即可，另一人则盘点自家四台设备只有一台可用，胜率不佳；也有人计算，两年手抄 3000 页不过是每天五页。</li>
+<li>其他小问题：是否该有手机版本、条目为重复投稿（<a href="https://news.ycombinator.com/item?id=50524880">前次讨论</a>），以及半开玩笑地抱怨「没找到从零构建大语言模型（LLM）的章节」。</li>
+</ul>
+
+<h3>「重建社会不只是技术」</h3>
+<p>讨论逐渐转向社会维度：比起保存食物的技巧，更值得学的是如何建立善意、协作与共识，尤其是在多元社会中——而这些品质的缺失本就是社会崩溃的原因之一。有人补充了一个反直觉的观察：在自然灾害、战争等外生冲击刚发生时，人们往往极其互助，出现短暂的凝聚力高峰；负面社会后果通常要数周至数月才显现，且大致沿既有条件本来的轨迹展开。评论者因此向阿米什人（Amish）与各类宗教修会致敬——他们在和平年代做了大量「社会凝聚力技术」的研发。</p>
+<p>相关项目被反复提及的是 <a href="https://www.opensourceecology.org">Open Source Ecology</a>：目标是让人人都能获得重建社会所需的工具（是房子和推土机，而非锤子），雄心可观；但有评论者批评创始人 Marcin 自我膨胀，项目如今形同弃置，网站与 wiki 结构混乱、CAD 文件难寻，并建议干脆 fork，或关注似乎走得更远的<a href="https://www.ose-germany.de/die-bewegung/">德国分支</a>。</p>
+
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>Kiwix</strong> 是一个把维基百科等大型站点打包成可离线浏览 ZIM 文件的阅读器，常被用作「断网时的知识备份」，也是 LastBook 类项目最常见的替代或补充方案。</li>
+<li><strong>灾难乌托邦（disaster utopia）</strong>：社会学文献中长期记录的现象——灾难初期往往出现利他主义与跨群体团结的爆发，而非人们预期的抢掠混乱；关键在于这股凝聚力能否在物资与社会矛盾重新固化之前被制度化。</li>
+<li>同类「文明备份」思路还包括把资料蚀刻在耐久介质（如镍片、石英玻璃）上长期存档，以及以纸质书形式保存的生存手册传统。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50560822</guid>
+      <pubDate>Thu, 19 Nov 2026 14:47:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>欧盟委员会如何在 4 万余名员工中部署 Matrix</title>
+      <link>https://news.ycombinator.com/item?id=50558533</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 虽涉及开源通信协议 Matrix，但文章核心是政府机构大规模 IT 部署与运维（基础设施类），兴趣不明确，可看可不看</small></p><p>Element 官方博客发布案例总结，介绍欧盟委员会（European Commission）基于 Matrix 开放协议、以自托管的 Element Pro 为核心，为超过 4 万名员工提供内部通信平台的过程与经验。该部署被定位为微软 Teams 之外的一条额外通道，用于承载更敏感、要求更高主权与安全性的沟通，而非全面替换现有办公套件。</p>
+<p><img src="/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/6adf604eb8cf3ef1eae9cb36_xCXaNIJQWk0.jpg" alt="Matrix Conference 2026 公共部门专场：欧盟委员会「主权与互操作性」演讲" /></p>
+<p>文章同时被放在 Matrix Conference 2026 的公共部门（Public Sector）专场背景下：与会的还有法国 DINUM、北约（NATO）、瑞典 Försäkringskassan、联合国国际计算中心（UNICC）、德国石勒苏益格-荷尔斯泰因州等机构，主题围绕「政府间如何在不强迫所有组织使用同一平台的前提下开展数字协作」，以及跨联邦（federation）互联、安全标签（Security Labels）、MatrixRTC 等具体技术议题。</p>
+<p>从正文与讨论中透露的运维细节看，这次大规模落地的难点主要在工程与可用性层面：</p>
+<ul>
+<li><strong>在线状态被关闭</strong>：用户规模上升后，实时「在线／离开」指示带来的负载开始拖累性能，团队最终停用了该功能。评论者对此颇感意外——有人回忆 ICQ／AIM 时代在更大规模上就已解决过类似问题，也有观点认为这是数据未做分片（sharding）导致的结果。</li>
+<li><strong>设备验证摩擦大</strong>：Hacker News 上最集中的抱怨是「验证设备」流程繁琐，尤其在浏览器临时会话中几乎无从下手；有人拿 Telegram 的简单登录与 WhatsApp 的扫码流程作对比，随即有回复指出 Telegram 除单设备私聊外并无端到端加密，密钥迁移到新设备本身就难以既简单又安全。</li>
+</ul>
+<p>社区讨论还呈现出明显的分歧：</p>
+<ul>
+<li><strong>批评方</strong>认为 Matrix 的端到端加密（E2EE）长期不稳，迁移到 MLS（Messaging Layer Security）的工作进展停滞（<a href="https://arewemlsyet.com/" rel="nofollow">arewemlsyet.com</a>），并引用 <a href="https://slashdot.org/story/26/10/02/1743247/eus-microsoft-teams-alternative-draws-bad-reviews-from-officials" rel="nofollow">Slashdot 报道</a>称部分欧盟官员对该工具评价极差；也有人担心此类项目最终被有商业动机的承包商推动迁回付费平台。</li>
+<li><strong>支持方</strong>强调这是摆脱美国云依赖与《CLOUD 法案》（CLOUD Act）风险的必要成本，并指出即使体验不如 Teams，也比明文直连美国服务器要好；也有自建小规模用户反馈 Element X 客户端体验良好、通知以外的功能「简单好用」，并推荐资源占用低得多的其他 homeserver 实现（如 <a href="https://continuwuity.org/" rel="nofollow">continuwuity</a>）。</li>
+<li><strong>商业与开源关系</strong>方面，读者指出本文出自 Element 之手（该公司由 Matrix 创建者创办），有推广动机，但也认可这是「开源协议＋企业级服务」可持续变现的一个范例（参见 <a href="https://element.io/en/matrix-relationship" rel="nofollow">Element 与 Matrix 的关系</a>）。</li>
+</ul>
+<h2>你知道吗？</h2>
+<p>Matrix 目前的加密基于自行设计的 Olm（一对一）与 Megolm（群组）双棘轮方案，其密钥分发与设备验证逻辑正是「验证设备」体验复杂的根源之一；而 MLS 是 IETF 标准化的新一代群组密钥协商协议，被广泛认为更适合大规模多方会话。Matrix 社区曾提出以 MLS 替换 Megolm 的方案并被接受，但推进节奏缓慢，这也是批评者最常引用的技术依据。相比之下，Telegram 的普通聊天仅使用客户端到服务器的加密，密钥由服务器掌管，登录流程因此简单得多，但安全模型与端到端加密并非同一回事。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50558533</guid>
+      <pubDate>Thu, 19 Nov 2026 10:58:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>在一台虚拟机上跑 1500 万个 Web 服务器：从 syscall 到内核旁路</title>
+      <link>https://news.ycombinator.com/item?id=50556533</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 偏内核旁路、用户态 TCP/IP 栈等底层系统与基础设施实现，未落在编程工具或效率改进范畴，兴趣模糊</small></p><p>作者以半开玩笑的动机开篇：既然每个人都在攻击暴露在公网的服务器，那不如给地球上每个人（约 80 亿）都配一台 Web 服务器，需求归零，网络安全问题自然解决。由于拉不到投资，只能自举，先定一个务实的小目标——在一台 <strong>10GB 内存、1 核 CPU</strong> 的虚拟机上跑 <strong>1500 万个 Web 服务器</strong>，走一遍从系统调用到内核旁路（kernel bypass）的完整技术栈。</p>
+
+<h3>从最简单的服务器开始</h3>
+<p>一个 Web 服务器本质上只用五个系统调用：<code>listen</code>、<code>accept</code>、<code>recv</code>、<code>send</code>、<code>close</code>。用 C 写出来不过十几行——监听端口、接受连接、读数据、回一句 <code>HTTP/1.0 200 OK</code>、关闭连接。这个实现能跑到约 6.5 万 RPS。</p>
+
+<h3>第一个障碍：端口不够用</h3>
+<p>直接用 shell 循环启动 1500 万个进程，跑到第 28232 个就失败了——<code>listen</code> 失败，端口耗尽。原因是 Linux 的 <code>ip_local_port_range</code> 默认为 32768–60999：1–1024 需要 root，32768 之前的区间被跳过以免动态端口与 MySQL（3306）等既有服务冲突，60999–65535 则是 IP Masquerading（IP 伪装）时代遗留的排除区。即使把范围改成 1–65535，也远不到 1500 万；TCP 与 UDP 可以共用端口，翻倍到约 128k；前置代理做虚拟主机（virtual hosting）也可以，但作者嫌这些是"上古技术"。</p>
+<p>端口上限的根源在于 TCP 标准里端口是 u16。每个监听服务器由（协议, IP, 端口）三元组标识，所以换 IP 也能扩展——最直接（也最贵）的办法是插 450 张网卡。</p>
+<img src="https://kapteko.com/15-million-webservers/network_card.png" alt="network card" />
+<p>作者随后补充了软件解法 <strong>AnyIP</strong>：<code>ip -6 route add local 2001:db8::/64 dev lo</code> 就能在整个子网上监听，拿到 1800 亿亿（quintillion）个地址；IPv4 的话，买下 1500 万个地址的网段大约要 2.5 亿美元。</p>
+
+<h3>第二个障碍：内存</h3>
+<p>即便地址不成问题，每个服务器进程约占 1.5MB 内存，1500 万个就是 20TB，远超 10GB 预算。解法是把所有"服务器"塞进同一个进程的自定义 runtime 里，用 LFI（Lightweight Fault Isolation）做沙箱，既提供内存隔离，又把系统调用替换为对宿主 handler 的调用；再配一个用户态调度器在 guest 之间切换（作者此前写过相关文章）。</p>
+<img src="https://kapteko.com/15-million-webservers/wolfram.png" alt="wolfram" />
+<p>10GB ÷ 1500 万 ≈ 每 guest 不到 700 字节。而在这个极简循环里，guest 的上下文只需要程序计数器加两个文件描述符，共 16 字节，1500 万个 guest 只需 220MB（位压缩后甚至能到 8 字节/guest）。空闲连接不耗内存，活跃连接约 5KB；假设任意时刻有 100 万活跃连接，即 5GB。加起来只占预算的一半。</p>
+
+<h3>实测：内核不答应</h3>
+<p>但真去跑 1400 万个"只 listen 不做事"的服务器，依然 OOM。原因是 <code>socket()</code> 系统调用本身就要分配约 3300 字节：<code>tcp_sock</code> 2240B、<code>socket_alloc</code> 768B、<code>file</code> 184B、<code>dentry</code> 192B——无论连接是否活跃。作者自嘲地用 LLM 学到的答案不经批判就接受，结果被现实打脸，也承认内核里没有 <code>[u8; 3300]</code> 这样的缓冲区可供简单优化，想省内存就得绕过内核。</p>
+
+<h3>向下走：自己实现 TCP/IP</h3>
+<img src="https://kapteko.com/15-million-webservers/osi_model.png" alt="osi_model" />
+<p>思路是"抽象层级错了就换一层"：HTTP 之下的 TCP/IP 是有状态的，而网络层、链路层、物理层是无状态的——没人阻止你自己构造 IP 包甚至以太网帧。嵌入式领域早有先例：Adam Dunkels 的 Miniweb 把自定义 TCP/IP 与 HTTP 服务器压到 <strong>28 字节</strong>；成熟方案还有 gVisor、Seastar、lwIP、F-Stack（基于 FreeBSD 协议栈）。作者选了 Rust 的 <strong>smoltcp</strong>——面向裸机、事件驱动、完全不需要堆分配，但它本身只是解析器，不做 I/O。</p>
+<img src="https://kapteko.com/15-million-webservers/electricity.png" alt="physical layer" />
+<p>smoltcp 与网卡的三种对接方式：TUN（IP 层，内核提供的虚拟接口）、TAP（以太网层）——这两种开箱即用，文中附了完整的 Rust 示例；以及 <strong>DPDK</strong>（直接以以太网帧与网卡通信，彻底绕过内核）。DPDK 的意义在于延迟：一次系统调用约 500ns，内核到用户态的数据拷贝约 1000ns，而高频交易公司跑满 400Gbps 时每包预算只有约 1.7ns。DPDK 用内存映射缓冲区实现零系统调用收发，还能避免大量收包导致的中断风暴（livelock）；代价是要占用一整个 CPU 核做忙轮询，并要求独占网卡。（原文抓取在此处截断，标题中提到的 AF_XDP 部分未包含在正文里。）</p>
+
+<h3>社区反馈</h3>
+<p>该文在 Hacker News 获得 347 点、40 条评论。多数读者称赞它"技术硬核但易读、幽默、不是 AI 写的"，尤其喜欢里面对物理层"electricity and shit（电和那啥）"的调侃，也有人说读到时"笑了一个早上"。讨论中有人建议标题去掉"web"，因为开头的 HTTP 解析段落容易让人误以为主题是 HTTP 层实现；有人提到 <code>HOST</code> 头（作者已用"虚拟主机"提及）；还有人把"一切搬到用户态"的趋势和 eBPF 联系起来，认为 Linux 正越来越像微内核／外核（exokernel），并引出 XOK 上的 Cheetah 服务器——它直接在磁盘上存好了预格式化的 TCP 包，是层级违规的经典案例。</p>
+<img src="webservers-benchmark.svg" alt="" />]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50556533</guid>
+      <pubDate>Thu, 19 Nov 2026 05:56:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ LLM 辅助逆向工程：20 年老手的工具链、工作流与「假设驱动调试」</title>
+      <link>https://news.ycombinator.com/item?id=50553225</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲 LLM 辅助逆向工程的工具链与工作流（假设驱动调试），正是编程效率改进经验与 AI 技术应用的高度重合，属于强烈感兴趣内容</small></p><p>一位自称在软硬件上「折腾」了 20 年的作者，在<a href="https://news.ycombinator.com/item?id=50553225">博客</a>中系统梳理了自己如何用大语言模型（LLM）辅助逆向工程（reverse engineering）。他的核心结论是：LLM 并没有取代经验，但把原本耗时数年的手工汇编分析压缩成了几小时到几周的工作。</p>
+
+<h3>工具选择</h3>
+<ul>
+<li><strong>模型</strong>：主用 DeepSeek（写作时的 v4.1 Flash），理由是快、便宜、性能好；偶尔用 Codex 搭配 Luna 或 Terra。</li>
+<li><strong>反汇编/反编译</strong>：Ghidra + MCP 桥接，作者认为这是市面上最好的免费方案，接上桥接后 agent 能很好驾驭它；另备 radare2 和 kuna 作为更快的命令行替代，虽然质量不如 Ghidra，但对 AI 更友好。</li>
+<li>作者还指出，即使只给纯 x86 或 ARM 反汇编指令（不给反编译结果），当前模型的表现也已相当不错。</li>
+</ul>
+
+<h3>工作流</h3>
+<ol>
+<li>识别二进制文件的类型、平台、构建方式，据此挑选合适的反编译器。分析对象不限于桌面可执行文件，也包括网站与固件镜像。</li>
+<li><strong>强制 agent 把过程中的所有发现写进 Markdown 文件</strong>。作者认为这一步至关重要：既是他本人的笔记，也让 agent 在上下文压缩（compaction）或转交给另一个 agent 之后不至于迷路，还能防止原地打转。</li>
+<li>让 agent 先分析基本结构——主函数、主要分支、导入函数等，形成全局概览，之后按需修改原程序、制作 mod 或单纯理解其机制。</li>
+</ol>
+
+<h3>卡住时的几种手段</h3>
+<ul>
+<li>让 agent 亲自调试，在关键位置下断点观察内部行为。</li>
+<li>做日志：在原程序中设法开启日志，或编写「探针」注入原程序，把所需信息写入文件。</li>
+<li>给 agent 外部访问能力，例如桌面应用的计算机操作（computer use），或可用 API 控制的模拟器来运行固件。</li>
+<li>明确要求换一种思路，比如在顺着交叉引用（xref）分析走入死胡同时，改为追踪字符串。</li>
+<li>通读 LLM 的完整会话与思考过程，凭自己的直觉发现它钻进了窄路，再给出提示——作者承认这仍然依赖人类自身的水平。</li>
+</ul>
+
+<h3>关键「技能」（agent skills）</h3>
+<ul>
+<li><strong>提问拦截</strong>：借用 Matt Pocock 的 <code>/grill-me</code> 技能，一次性只问一个、最多五个「对推进至关重要」的问题。</li>
+<li><strong>逆向工具说明技能</strong>：写清楚 radare2、kuna 或 Ghidra MCP 桥的用法与适用场景。缺少这类技能时，agent 往往过早放弃、不知道如何真正做反编译。</li>
+<li><strong>假设驱动调试</strong>：作者自制的技能，强制卡住的 agent 循环执行：提出关于机制的假设 → 写入磁盘上的 CSV 假设表 → 设计能明确证实或证伪的实验（探针、日志等）→ 记录结果 → 重复。这是科学方法的变体，可显著减少无休止的猜测与随机尝试。作者认为这一条最关键。</li>
+</ul>
+
+<h3>实现阶段</h3>
+<p>原型与探针用 Python + UV（便于快速建立隔离环境、写单文件内联依赖脚本）；正式实现用 Rust，除了作者本人喜欢这门语言外，更重要的是编译器极严格的反馈回路能立刻指出 agent 可能的内存或语法错误。缺点则是编译较慢。</p>
+
+<h3>半年内的成果</h3>
+<ul>
+<li>逆向并改造 AlphaSmart NEO 打字机；</li>
+<li>完整摸清多款设备的通信协议，如 EmWave 生物反馈仪、两台索尼 Alpha 无反相机，据此做出文件传输、无线控制的桌面与移动应用，甚至把 A7III 变成无线摄像头；</li>
+<li>为合成器编写自定义固件：Arturia MiniFreak、Teenage Engineering OP-Z、Akai MPC Sample；</li>
+<li>为 Xteink X4 电子书阅读器做自定义固件，修复老 HP 打印机在 macOS 上的驱动；</li>
+<li>破解大量童年时代的授权锁废弃软件（abandonware），自制轻量 Evernote 客户端，以及早于商业产品约一年、仅供自己使用的自制 Photoshop。</li>
+</ul>
+<p>作者强调逆向工程与软件开发之间的界限常常很薄：弄清一个付费丑软件的私有存档格式后，接下来就是正常的软件开发。他不怀念手工读汇编的日子，享受的是快速拿到结果，并坦言长期经验仍是把 agent 引向正确方向的关键，而这个过程本身也很有趣，一路还学到不少东西。文末他鼓励所有人都试着动手「黑」点自己的东西。</p>
+
+<h3>社区反馈</h3>
+<ul>
+<li><strong>零经验也能上手</strong>：一位主要做 DevOps/SRE、几乎不写代码的读者，成功逆向了一个停更的音频效果器插件和一台带 DSP 的停产硬件，用于建模参考，称这是生成式 AI「最酷的用途之一」。也有人提到近期大量 Claude 辅助项目让老旧 Intel Mac 上的 Linux 支持变得前所未有的好。</li>
+<li><strong>工具之争</strong>：数位评论者认为 IDA Pro 配合 LLM 比 Ghidra 更好用；「官方 Ghidra MCP 极其糟糕」，但用 headless 脚本驱动、或让 LLM 自己写一个更好的 MCP，效果可媲美 IDA，且 Ghidra 的模拟（emulation）能力更强。</li>
+<li><strong>审查护栏</strong>：不少人抱怨 Claude/ChatGPT 在逆向任务上频繁触发护栏（例如仅仅要求用 adb 导出 APK）；DeepSeek 相对宽松，不过有人发现它的「思考」里会提到中文语境下的限制。也有人采用「先用 DeepSeek 打底、再用 Codex/Sol 复核」的组合，因为后者常能指出前者的不准确之处。</li>
+<li><strong>方法与痛点</strong>：有资深逆向者认同「猜测循环」是最大困扰，需要不断提醒模型「别猜了」；他也强调，除纯黑盒场景外，信息通常足以确定性推导，更愿意把 Claude 当作「不知疲倦的逆向推土机」。他还推荐让 LLM 编写 Unicorn 仿真 harness，用来引导 bootrom/固件启动时逐步桩化 MMIO。</li>
+<li><strong>Android 很轻松</strong>：有人用 Codex 直接解锁订阅应用的付费功能并改为完全离线；评论解释 Android 应用本质是 zip 包中的 Dalvik 字节码，属最容易反编译的格式之一，通常只有符号混淆，而混淆对人类繁琐、对 LLM 影响不大。这段讨论也引发了关于盗版与「软件是否该收费」的争论。</li>
+<li><strong>过程与目的</strong>：有读者表示自己追求的是过程带来的技能与成就感，用 AI 两者皆失；反方则认为可以把 agent 的操作记录下来反过来学习（例如学会用 Unicorn 跑一段二进制以弄清密钥推导）。</li>
+<li><strong>法律与伦理提醒</strong>：有人指出苹果开发者协议等文件明确禁止某些逆向行为，也有人讨论 EULA 修改、软件专利、以及几乎无人审阅 AI 生成代码可能带来的侵权风险。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>MCP（Model Context Protocol）</strong>是一种让 LLM agent 以标准方式调用外部工具与数据源的协议；文中「Ghidra + MCP 桥接」就是把反编译器变成 agent 可调用的工具集，从而使「点一下二进制，剩下交给它」成为可能。</li>
+<li>Ghidra 由美国国家安全局（NSA）开源发布，这也是它在逆向社区被广泛采用、并成为 LLM 工具链默认选择的重要原因。</li>
+<li>作者所说的「假设驱动」循环与硬件逆向中常见的「黑盒建模」思路一脉相承：在没有源码时，唯一可用的推理手段就是提出假设并设计能一击证伪的实验。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50553225</guid>
+      <pubDate>Wed, 18 Nov 2026 22:29:13 GMT</pubDate>
+    </item>
     <item>
       <title>「世界靠既聪明又真正在乎的人撑着」：AI 时代复杂系统为何开始崩塌</title>
       <link>https://news.ycombinator.com/item?id=50554045</link>
@@ -1456,176 +1650,6 @@ rclone copyurl "&lt;build-url&gt;" "bunnycdn:&lt;zone-name&gt;/&lt;filename&gt;.
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50475713</guid>
       <pubDate>Thu, 12 Nov 2026 23:06:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude.ai、Claude Code 与 Claude Console 发生大面积登录故障（已恢复）</title>
-      <link>https://news.ycombinator.com/item?id=50481187</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 涉及编程/AI 工具（Claude Code）的服务状态，属关注的工具范围，但内容仅是一次已恢复的登录故障通报，既非工具发布也非效率经验，信息价值有限，故可选</small></p><p>Anthropic 的<a href="https://status.claude.com/incidents/nn11wk485zfn">状态页</a>记录了一次影响多项服务的故障：用户登录 claude.ai 与 Claude Code 时出现报错。故障波及 claude.ai、Claude Console（platform.claude.com）、Claude Code 以及 Claude Cowork。</p>
-<p>官方时间线（UTC）：</p>
-<ul>
-<li>09:58 开始调查，问题集中在用户身份认证环节；</li>
-<li>11:05 修复措施已部署，进入监控恢复阶段；</li>
-<li>11:58 标记为已解决。</li>
-</ul>
-<p>该事件在 Hacker News 上获得 431 点、352 条评论。来自法国图卢兹、意大利、迪拜和德国的用户报告无法连接，或实例看似崩溃却仍在“假装工作”，重新登录后又遇到「OAuth request failed / Temporarily unable to authenticate」错误；部分用户的会话被要求重新登录，SSO 登录同样失效。评论区不少人认为这次故障与同时期的微软（Microsoft）服务中断有关，并调侃“Microslop 变成了 micro availability”，同时对事后复盘（postmortem）表示期待。</p>
-<p>也有用户为 Anthropic 辩护，指出其 11 月以来的<a href="https://status.claude.com/uptime">在线率</a>表现相当稳定；另有人认为相较其他大模型服务商，Anthropic 的服务中断频率明显偏高。其余评论多为轻松调侃：提前开始周末、被迫“技术安息日”、回家陪家人，乃至打趣“把提示词复制到 Gemini 试试”、以及“毕竟今天是 13 号星期五”。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50481187</guid>
-      <pubDate>Fri, 13 Nov 2026 10:18:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>IceWM：追求速度与简洁的 X11 窗口管理器，引发老用户怀旧讨论</title>
-      <link>https://news.ycombinator.com/item?id=50478515</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是老牌 X11 窗口管理器及怀旧讨论，偏旧软件回顾，既非新功能发布也非效率改进或新项目，兴趣不明确</small></p><p>这是 <a href="https://ice-wm.org/">IceWM 官网</a>的条目在 Hacker News 上引发的讨论（318 分、174 条评论）。IceWM 是一个面向 X Window System 的窗口管理器，设计目标是快速、简单、不干扰用户操作。</p>
-
-<img src="images/logom.jpg" alt="IceWM website logo" title="ice-wm.org" />
-
-<h3>项目概况</h3>
-<p>IceWM 由 Marko Maček 于 1997 年用 C++ 创建，目前托管在 GitHub 上维护，最新发布版本为 4.1.0。它遵循相关规范，提供可选的带分页器（pager）的任务栏、全局及按窗口的快捷键绑定、动态菜单系统，并支持键盘与鼠标管理窗口。窗口可最小化到任务栏、系统托盘或桌面，也可隐藏，并通过快速切换窗口（Alt+Tab）和窗口列表控制。它提供多种可选焦点模型、RandR 与 Xinerama 多显示器支持，另有可选的带透明支持的壁纸管理器、简易会话管理器和系统托盘。</p>
-
-<p>主要特性包括：易于使用、资源占用低、完全可用键盘操作、多工作区、大量主题（box-look.org 上可下载 450 多个）、可与 GNOME 和 KDE 环境共存、配置变更时自动重新生成菜单、音效支持、手动窗口摆放、自动抬升窗口、提示条（tooltips）、DockApps 容器以及标签式窗口。界面已被翻译成三十多种语言，翻译工作通过 Weblate 协作。</p>
-
-<p>IceWM 广泛存在于 Debian、Ubuntu、Arch、openSUSE、Gentoo、Slackware、CentOS、antiX、NixOS 以及大多数 *BSD 的软件仓库中。官网提供了源码编译安装命令、依赖检查脚本，以及指向手册、FAQ、主题制作文档和 GitHub 缺陷追踪的链接。项目采用 GNU Library General Public License 授权。</p>
-
-<h3>社区讨论</h3>
-<p><b>怀旧与「轻量」的再发现。</b>不少评论者把它当作一段往事：有人回忆 2000 年代初在最低端硬件上依然流畅，自己最早提交的补丁就贡献给了 IceWM；也有人提到 2004–2005 年间某商业 Linux 发行版曾以 IceWM 作为默认桌面，再配合 Nautilus 提供桌面图标。但 <i>yjftsjthsd-h</i> 提醒说，自己今天仍把 IceWM 用作无头远程桌面系统的超低资源桌面，最大优点是「一体化、零配置」——面板、应用菜单和窗口管理器开箱即用。一位音频工作者也表示以它作为主要桌面。</p>
-
-<p><b>窗口管理器 vs. 折腾。</b>多条评论描述了一种共同轨迹：早年热衷于尝试和定制各种桌面环境、平铺式窗口管理器，最终固定在一个「不打扰工作」的方案上十几年。<i>inatreecrown2</i> 说试过多种平铺 WM（其中 MangoWM 体验最好），但最终仍觉得简单的浮动式 IceWM 最适合自己的工具链（终端、Thunar、Reaper、Wine 应用）。另一位用户则分享自己在所有机器上统一使用 IceWM 的 Win95 主题，理由是「可脚本化、不碍事、轻量、稳定」。</p>
-
-<p><b>硬件性能与图形效果。</b>讨论从软件实现的玻璃透明效果（如 Enlightenment）一路走到 GPU 时代：有人感叹如今靠堆显卡解决当年手工优化汇编的问题，也有人反驳说 CPU 与内存的进步速度远超分辨率与刷新率的增长，4K HDR 超宽屏的 CPU 渲染确实需要数十 GB/s 的内存带宽，交给 GPU 有其道理。</p>
-
-<p><b>X11 的现状与桌面生态之争。</b>有评论认为 X11 如今已彻底成为「遗留技术」，Wayland 与 PipeWire 通过干净地切断历史包袱带来了良好体验，并希望有人能同样干净地摆脱 GNOME/GTK 生态；但也有人追问 GNOME 究竟在哪方面阻碍了发展，回答集中在「不配合生态」（如服务端窗口装饰）与频繁改名、半途废弃组件（Evince→Papers、Totem→Showtime 等）。另有评论认为完全可以只清理 X11、废弃无用部分并支持可变 DPI，而不必另起新标准；反驳者指出可变 DPI 其实长期受支持，问题出在应用与工具包一侧，以及需要通过扩展 EWMH 让窗口管理器请求缩放。</p>
-
-<p><b>Windows XP 主题的执念。</b>有人表示至今仍在寻找一个「好的 Windows XP 桌面环境」，回复指出 IceWM 本身仍可套用 XP 主题，更「邪门」的方案是用 <a href="https://github.com/mikuta0407/win4wine">win4wine</a> 直接跑真正的 Windows XP 资源管理器。</p>
-
-<p><b>与 XFCE 的比较。</b>被问到日常使用体验时，回答是：IceWM 胜在速度与轻量；若想要更现代、功能更全的 X11 窗口管理器，XFCE 体验更好，否则 IceWM 仍是首选。</p>
-
-<h3>你知道吗？</h3>
-<p>IceWM 严格来说是「窗口管理器」而非完整「桌面环境」：它负责窗口边框、任务栏、菜单与快捷键，但不包含文件管理器、终端、文本编辑器等应用。这类程序通常通过扩展窗口管理器提示（EWMH，Extended Window Manager Hints）等约定与桌面组件协作，因此可以如官网所说「与 GNOME 和 KDE 环境共存」，也解释了为何一些发行版会用 Nautilus 之类的组件来补上桌面图标功能。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50478515</guid>
-      <pubDate>Fri, 13 Nov 2026 04:54:53 GMT</pubDate>
-    </item>
-    <item>
-      <title>逆向工程我的 Coway 空气净化器，让它彻底脱离云端</title>
-      <link>https://news.ycombinator.com/item?id=50474959</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是逆向工程家用空气净化器以脱离云端，属个人硬件/自制折腾项目，与配置中的编程工具、AI、开源项目等兴趣主题均不直接对应，兴趣不明确</small></p><p>作者讲述了自己如何通过中间人（MitM）抓包，彻底摸清 Coway Airmega IconS 空气净化器的联网逻辑，并最终用自己的服务器取代 Coway 云端，把风扇接入 Apple Home 与 Home Assistant 的过程。</p>
-
-<p><strong>背景</strong>：2017 年西海岸连年山火，湾区住宅普遍没有保温层也不做气密处理，Coway Airmega 空气净化器因此成为家家户户的标配——本质上是「一只装了 HEPA 滤网和空气质量传感器的溢价箱式风扇」。作者一家后来把它当白噪音机使用，已经离不开它。老款 Airmega 没有 Wi-Fi，无法接入智能家居；它坏掉后，作者买了已停产的 Wi-Fi 型号 IconS（仍在售的替代品有 Airmega 250S、MightyS）。</p>
-
-<p><img src="coway-mighty.jpg" alt="Coway 广告中的黑白两台 Airmega 净化器" /></p>
-
-<p><strong>问题所在</strong>：作者家里装了智能灯，晚上会按 Apple Home 里的「Good Night」一键关灯，他希望风扇能同时升到妻子喜欢的白噪音档位。</p>
-<p><img src="good-night.jpg" alt="Apple Home 中的 Good Night 场景按钮" /></p>
-<p>现有方案依赖社区开发的 Home Assistant 集成：它冒充手机 App，轮询 Coway 云端并在云端与服务之间转发指令。但这套方案每年都会坏上一两次——Coway 曾因集成请求过频封禁它（社区抗议后才放行）、把 App 从 IoCare 改名为 IoCare+ 导致集成重写、改动被爬取的 HTML 布局、服务器周期性离线，甚至封禁过作者本人的账号，导致数周无法远程控制。加之作者判断 Coway 迟早会收费或停服，彻底断云成了唯一出路。</p>
-
-<p><strong>突破口</strong>：两个变化降低了门槛。其一是 2026 年 10 月的安全事件：作为受信任证书颁发机构的 eMudhra 在一些私钥中使用了极弱的参数，于是任何人都能凭空获得一个被广泛信任的根 CA（<a href="https://en.wikipedia.org/wiki/Root_certificate">根证书</a>）。若设备未打补丁、硬编码根证书、又不做证书固定（pinning），就有了下手空间。其二是 LLM：它能替人搭好整个 MitM 环境，几分钟内完成过去极其繁琐的路由与防火墙配置。</p>
-
-<p><strong>搭建 MitM 环境</strong>：作者先让树莓派以 AP 模式搭建隔离 Wi-Fi，结果板载 PCB 天线的信号太弱，只好把派搬到净化器所在房间，用网线接笔记本、再以 Wi-Fi 桥回家庭网络；随后用 nftables 把 80/443 端口流量重定向到 mitmproxy（<code>mitmweb --mode transparent</code>）。有趣的是，mitmproxy 竟内置了 <code>--emudhra-old</code> 选项，可直接用 eMudhra 的根 CA 拦截流量。过程中 Claude 因「网络安全」类别拒绝配合（即便声称只是测试），ChatGPT 则照做。</p>
-
-<p><img src="/posts/2026-11-11-reverse-engineering-my-coway-air-purifier-to-ditch-the-cloud/convolution.jpg" alt="笔记本经 USB-C 网卡连接树莓派，再接 USB-C 电池" /></p>
-
-<p><strong>关键发现</strong>：用 iPhone App 配网时请求出现异常——净化器通过<strong>明文 HTTP</strong> 从 Amazon S3 下载 <code>AmazonRootCA1.pem</code>。作者的假设是：设备本身没有内置任何根证书，启动时下载一个公版证书用于校验后续 HTTPS。他用 mitmproxy 插件把该响应替换成自己生成的 CA 证书，果然设备顺利接入，之后所有 HTTPS 请求（向 Coway 证书服务器下载设备证书与私钥等）都被成功解密。</p>
-
-<p><img src="/posts/2026-11-11-reverse-engineering-my-coway-air-purifier-to-ditch-the-cloud/mitm2.jpg" alt="mitmweb 显示发往 Coway 证书服务器的 HTTPS 请求" /></p>
-
-<p>更关键的是一个注册类 API 的返回体，里面包含设备 MAC、certToken、AWS IoT 的 MQTT 主机与 8883 端口、证书/私钥下载地址、CA 地址等。控制这个响应，就控制了设备用哪套密钥、连哪台 MQTT 服务器。虽然 mitmproxy 不解码 MQTT，但原始流里能看到 <code>IoCare/MControl</code> 之类的主题，配合「按顺序点一遍 App 里所有按钮、再让 LLM 对照解码」的办法，很快得出了完整指令映射（定时器单位为分钟、滤网周期为周数乘以 56 等），并保存为 <code>coway-command-map.json</code>。</p>
-
-<p><img src="/posts/2026-11-11-reverse-engineering-my-coway-air-purifier-to-ditch-the-cloud/chat2.jpg" alt="AI 回复解码后的 MQTT 指令说明" /></p>
-
-<p><strong>收尾</strong>：至此已可自建下发证书与配置的 Web 服务器和 MQTT 服务器，正常运行时完全绕开 Coway 云；但配网仍要依赖官方 App 和那套麻烦的 MitM 环境。作者于是转而研究蓝牙配网流程（用 Android 的 HCI snoop log 抓取），做出了本地配网页面，最终在 Home Assistant 中出现了完整的风扇控制卡片，并成功挂进 Apple Home——按「Good Night」关灯的同时，净化器升到 67% 档位。</p>
-
-<p><img src="hass-fan.jpg" alt="Home Assistant 中的空气净化器控制界面，风扇转速 67%" /></p>
-
-<p>文章最后点明了一个略显荒诞的结论：根本不需要 eMudhra 的漏洞，因为根证书是明文 HTTP 下载的，这台设备从一开始就随时可被中间人接管。</p>
-
-<p><strong>社区讨论</strong>：不少评论者分享了类似的「自己动手断云」组合，例如用 Vornado 风扇 + Broadlink 红外遥控 + 智能插座（通过功率判断风扇是否真的在转）+ 青萍空气质量监测仪，让风扇在 CO₂ 升高时自动开启。许多人认为 AI 正在把过去枯燥耗时的逆向工作平民化，让大量「原本不值得买」的设备重新变得可玩；也有人担忧模型厂商正在收紧限制（如 Opus 5.5），主张使用本地不受限模型。关于「为什么要在云端取根证书」这一设计，评论者的解释颇具共识：硬件公司普遍把软件当作 BOM 里的一颗螺丝，交由最便宜的供应商，质量标准只有「别让用户退货」；也有人猜测动机是「万一证书过期怎么办」。另有评论质疑为何要买必须联网的空气净化器，并推荐完全本地的 Corsi-Rosenthal 箱式方案（箱式风扇 + 炉滤网）以及 Zigbee、Z-Wave、Matter 等本地协议；不过也有人指出 App 带来的空气质量曲线、远程调档、童锁等确有实用价值。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50474959</guid>
-      <pubDate>Thu, 12 Nov 2026 22:03:09 GMT</pubDate>
-    </item>
-    <item>
-      <title>中国前沿 AI 模型的权重中留有受出口管制的英伟达 Blackwell GPU 指纹</title>
-      <link>https://news.ycombinator.com/item?id=50474883</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲中国 AI 模型使用受出口管制的英伟达 GPU 的取证发现，核心是芯片与出口管制（不太感兴趣的芯片技术），虽涉及 AI 模型技术进展，但该部分比重次要，故仅为可选</small></p><p>Unemployment Labs 于 11 月 12 日发布的一份取证分析报告称，通过对公开模型权重的逆向分析，发现 DeepSeek、月之暗面（Moonshot AI）、MiniMax 与蚂蚁集团在 2026 年 4 月之后发布的六个模型中，存在与美国出口管制的英伟达 Blackwell 系列 GPU 相匹配的数值指纹，而这些公司更早的模型则与上一代 Hopper 架构一致。作者 Will DePue 强调，全部证据来自模型自身发布的权重，而非泄密或内部人士消息。</p>
-
-<h3>指纹是怎么读出来的</h3>
-<p>模型的权重（参数）在训练开始前需要一个初始值，这些值由 PyTorch 调用英伟达 cuRAND 库中的伪随机数算法 Philox 生成。给定相同的「种子」（seed）与配置，Philox 每次都会产出相同的数列。为了快速填满数十亿个权重，PyTorch 会把任务分配给 GPU 上的大量并行线程，而线程总数由芯片的流处理器（SM）数量决定——每个 SM 最多使用 2,048 个线程。因此不同的芯片会以不同的「步长」把同一串数字铺进权重矩阵中，布局本身就成了硬件型号的痕迹：Hopper 的 H100 SXM、H200、H800 有 132 个 SM（270,336 线程），Blackwell 的 B200/B300 有 148 个 SM（303,104 线程），GB200/GB300 有 152 个 SM（311,296 线程）。</p>
-
-<img src="https://unemploymentlabs.com/checkpoint-forensics/img/fig1.png" alt="简化的 GPU 权重填充示意：6 个处理单元 × 8 线程共 48 个线程，线程 0 填充每隔 48 个的位置" width="2048" height="1097" />
-
-<p>要复原权重，种子和线程数必须同时正确；只对一个，大部分数值就会错位。研究者一方面比对训练中几乎未被触及的保留权重（如未在训练数据中出现的词元对应的向量），另一方面利用「训练后的权重仍保留初始值相对大小的微弱痕迹」这一统计性质，在数十万个权重上检验初始值与最终值的相关性。</p>
-
-<img src="https://unemploymentlabs.com/checkpoint-forensics/img/fig4.png" alt="DeepSeek-V3 的保留权重与 Hopper 布局吻合，DeepSeek-V4-Flash 与 Blackwell 布局吻合" width="1860" height="1680" />
-
-<h3>主要结论</h3>
-<ul>
-<li><strong>六个模型被判定为在 Blackwell 上启动训练</strong>：DeepSeek-V4-Flash 与 MiniMax-M3 匹配 B200/B300；DeepSeek-V4-Pro、Kimi K3、Kimi K3.1-Pro 与 Ling-3.1-flash 匹配 GB200/GB300。对 DeepSeek-V4-Flash 和 Kimi K3，作者还在实体 Blackwell 芯片上复现了匹配。Kimi K3.1-Pro 与 K3 使用同一种子，可能是 K3 继续后训练的检查点。</li>
-<li><strong>切换时间点相对较近</strong>：DeepSeek 到 V3（2024 年 12 月）仍为 Hopper，从 2026 年 4 月的 V4 起转为 Blackwell；Moonshot 到 K2.5（2026 年 1 月）仍为 Hopper，从 7 月的 K3 起转为 Blackwell；MiniMax 到 M2.7 为 Hopper，从 M3 起为 Blackwell；蚂蚁 Ling-3.0-flash 为 Hopper，Ling-3.1-flash 为 Blackwell。介于两者之间的 Kimi K2.7-Code 基于 Hopper 权重，但含有一小块与 B200/B300 吻合的部分。</li>
-<li><strong>并非所有中国实验室都已换代</strong>：阿里（Qwen）、智谱（GLM）、腾讯、小米、阶跃星辰最新可读模型仍为 Hopper；美团称 LongCat-2.0 完全在「AI ASIC 超节点」上训练，其权重中未发现 NVIDIA 指纹。</li>
-<li><strong>方法经过已知答案校验</strong>：对 24 个官方公开过硬件的模型，方法结论与官方声明全部一致；英伟达自家的 Nemotron-3 Ultra 读出 152 个 SM，与 Kimi K3 相同。六款模型的最强证据强度在 49 至 1,385 sigma 之间，而在约 6 万亿种种子与布局组合中，纯随机最强者也只有约 8 sigma。</li>
-</ul>
-
-<h3>训练规模与成本估算</h3>
-<p>按模型规模与训练数据量推算，Kimi K3 与 DeepSeek-V4-Pro 两次最大训练各需数千块 Blackwell GPU 运行两到三个月：最佳估计约 4,500 块与 3,000 块（分别相当于约 11,500 与 7,500 块 H100），五次训练合计约 12,000 块 Blackwell。若按每块约 7 万美元计算（依据《华尔街日报》关于字节跳动在马来西亚部署约 36,000 块 Blackwell、耗资逾 25 亿美元的报道），最大的集群造价约 2 亿至 3 亿美元，五个集群合计超过 5 亿美元——而这只是最后一次训练，实验室在受管制 GPU 上的总投入很可能已达数十亿美元。作者明确表示对这些数字「没有信心」：其依赖 MFU（模型浮点利用率）、训练 token 数、训练时长等权重无法验证的假设，并把 GPU 利用率从英伟达基准水平下调到约 20% 后重新修订过首版结论。</p>
-
-<h3>结论的边界</h3>
-<p>作者反复强调：指纹只能说明权重是在什么硬件上创建的，支持但不证明训练也发生在同一硬件上；除 DeepSeek-V4-Flash 外，另一可能被排除的替代选项是同样受管制的特制 AMD 硬件。研究显示中国实验室获得了先进算力，但<strong>不能</strong>确定芯片位于何处、通过何种途径获得，也无法判定是否违反出口管制。Hopper 指纹本身无法区分 H800、H100 SXM 与 H200，报告中的 H800 归属来自实验室自述而非该方法结论。</p>
-
-<h3>社区讨论</h3>
-<p>Hacker News 上的讨论集中在两点。其一是出口管制的有效性：不少人认为管制只是抬高了成本、把贸易推入灰色市场，「更像出口摩擦而非出口禁令」，但也有人反驳称中国在未被管制的技术上已实现赶超，而落后的领域恰好都在管制之列。其二是管制的空间范围——多位评论者指出，中国公司完全可以合法地在境外（如新加坡、马来西亚的数据中心）租用英伟达芯片训练，文中引用的 Megaspeed 为阿里等企业提供境外算力的案例即是如此，因此「使用 Blackwell」与「违反出口管制」是两件事。此外也有人质疑作者的 OpenAI 工程师身份与「对华鹰派」立场，指出文章未附任何可复现代码；还有评论提到 DeepSeek 此前公开的推理引擎 DeepInfer 只提供 SM100（Blackwell）与华为昇腾 950 的内核，并公布了基于 Blackwell 的性能数据，所谓「秘密」其实早已公开。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50474883</guid>
-      <pubDate>Thu, 12 Nov 2026 21:56:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ smolmaxxing：在可用内存不到 1GB 的电视盒子和 2013 款 iPad 上跑 16B 大模型</title>
-      <link>https://news.ycombinator.com/item?id=50468888</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是在极端受限的低内存设备（电视盒子、旧 iPad）上运行 16B 大模型的推理优化技术，属于 AI 软件技术进展/开源实践，符合「感兴趣」；并非新模型发布或编程效率经验，故不列为 critical</small></p><p>一个名为 <a href="https://github.com/hyperionaidev/smolmaxxing/">smolmaxxing</a> 的开源项目，尝试在"最小的硬件上跑尽可能大的语言模型"：电视盒子、旧平板、单板计算机和路由器大多整天闲置着 CPU、一点内存和闪存，项目就在这些设备上找出真正能跑的模型上限，再用定制内核、精细的内存管理和从闪存流式读取权重把速度往前推。仓库中的每一个数字都是在设备本机实测的。</p>
-
-<p><img src="/hyperionaidev/smolmaxxing/raw/main/assets/banner.png" alt="smolmaxxing: run the biggest model you can on the smallest hardware you own. 260K to 16B parameters." width="100%" /></p>
-
-<h3>目前的两台设备与实测结果</h3>
-
-<table>
-<tr><th>设备</th><th>小米电视盒子 S（第 3 代）</th><th>iPad Air（2013）</th></tr>
-<tr><td>芯片</td><td>Amlogic S7D，4× Cortex-A55</td><td>Apple A7，双核</td></tr>
-<tr><td>内存</td><td>1.9 GB（约 1 GB 可用）</td><td>1 GB（约 700 MB 可用）</td></tr>
-<tr><td>系统</td><td>Android 14，无 root</td><td>iOS 12.5.7，已越狱</td></tr>
-<tr><td>日常可用模型</td><td>Qwen3.5-2B，7.7 tok/s</td><td>Bonsai-1.7B（1-bit），24–26 tok/s</td></tr>
-<tr><td>跑过的最大模型</td><td>Ling-mini-2.0（16B），5.1 tok/s</td><td>Ling-mini-2.0（16B），2.6–4.5 tok/s</td></tr>
-</table>
-
-<p>两台设备都能在约 1 GB 内存里运行 8B 与 16B 的混合专家（MoE）模型——办法是只把模型的一部分留在内存，其余按需从闪存读取。</p>
-
-<p><img src="/hyperionaidev/smolmaxxing/raw/main/assets/devices.svg" alt="两台 1 GB 设备的各尺寸档位最佳生成速度对比" width="760" /></p>
-
-<h3>技术手段</h3>
-<ul>
-<li><strong>为芯片定制内核</strong>：1-bit 查表内核；为 Cortex-A55 重新打包的 2-bit 与三值（ternary）格式；针对不支持点积指令的 A7 单独实现版本。</li>
-<li><strong>降低单模型内存占用</strong>：小模型的词表中大部分输出行很少被用到，直接裁掉；在电视盒子上还提供"无头"模式，运行模型时停掉桌面启动器和 Google 服务。</li>
-<li><strong>专家分页（expert paging）</strong>：MoE 模型每个 token 只用到少数专家，于是把热门专家常驻内存，其余从闪存按需读取并预取下一层——这正是 1 GB 内存跑 16B 模型的关键。</li>
-<li><strong>稠密模型的流式加载</strong>：比内存更大的稠密模型以闪存满速流式读取。</li>
-</ul>
-
-<p>整个项目是对 <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> 的打补丁改造，文档中逐项列出了每种技术带来的实测收益。仓库还包含电视盒子上的实时 token 流式聊天页面、iOS 12 越狱版的构建与部署脚本、全部基准测试原始日志，以及记录 160 次实验（含失败案例）的完整实验笔记。模型文件已发布在 <a href="https://huggingface.co/hyperionaidev">Hugging Face</a>，但需要加载打过补丁的 llama.cpp，原版无法读取。作者表示手机、单板计算机、路由器等更多设备正在加入，并欢迎提交自己设备的实测数据。</p>
-
-<p><img src="/hyperionaidev/smolmaxxing/raw/main/screenshots/llmui_05_stream.png" alt="电视盒子上由 llama-server 提供的实时 token 流页面" width="720" /></p>
-
-<h3>社区讨论</h3>
-<p>在 Hacker News 上（360 分、127 条评论），作者公开征集"更有挑战性的设备"，评论区随即给出带屏幕的电子烟、<a href="https://play.date/">Playdate</a>、ESP32 等方案，作者一概"接受挑战"。有人分享在 <a href="https://github.com/brysontang/iiama2.c">任天堂 Wii 上跑 TinyStories 模型</a>并利用 GPU 加速，以及 <a href="https://nortyspock.github.io/blog/running-a-language-model-on-an-AMD-Radeon-HD-8330E-iGPU/">Dell Wyse 7020 瘦客户机的核显上跑 Qwen3.5-0.8B（5 tok/s）</a>的经验；还有人推荐用逐层嵌入（Per-Layer Embeddings）把模型主体留在磁盘、只用几 KB 内存的 <a href="https://github.com/slvDev/esp32-ai">esp32-ai</a> 思路。</p>
-<p>质疑集中在两点：一是这么小的模型有什么实际用处——作者坦然承认目前"只是新奇和好玩"，小模型不经领域微调做不了正事，但他押注小模型会越来越强；二是"这不是你在做，是 Claude 在做"——作者并不讳言大量依赖 AI 代理，但强调真正的难点是在巨大的内核与优化搜索空间里靠约 150 多次实验摸索方向、缩小搜索范围，因此他把项目当作一个搜索方法学研究，目标也从 0.6B 这类"轻而易举"的小模型一路推到 16B 以上。</p>
-
-<h3>你知道吗？</h3>
-<p>这类"极限压榨硬件"的项目有清晰的谱系：Karpathy 的 llama2.c 用纯 C 复现小模型推理，Wii 移植版 iiama2.c 与 ESP32 上的实验都属于同一路探索；而瘦客户机、电视盒子等被淘汰的被动散热设备，也长期是家庭实验室爱好者眼中的宝藏硬件资源。作者本人的观点是：大公司没有动力让模型省资源，因此把推理压到旧设备上的工作，更可能来自社区。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50468888</guid>
-      <pubDate>Thu, 12 Nov 2026 15:23:10 GMT</pubDate>
     </item>
   </channel>
 </rss>
