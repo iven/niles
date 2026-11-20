@@ -3,7 +3,132 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Thu, 19 Nov 2026 21:27:16 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 03:06:19 GMT</lastBuildDate>
+    <item>
+      <title>Codex CLI 0.171.0：TUI 工作区默认启用，新增 GPT-6.2 Sol / Astra 模型</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.171.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>新功能与核心改动</h3>
+<ul>
+<li><strong>模型目录更新</strong>：新增 GPT-6.2 Sol 与 Astra 两个模型，其中 Sol 被设为目录中的默认选择。</li>
+<li><strong>TUI 工作区转为默认开启</strong>：终端界面侧边栏正式标记为稳定并默认启用，可在主对话旁并列显示可搜索的文档预览、图片预览和子代理（subagent）对话记录；侧边栏选择器中也会列出子代理及其状态，并可从活动链接直接打开子代理记录。</li>
+<li><strong>输入框撤销/重做</strong>：非 Vim 模式的提示词输入框新增可配置的撤销与重做快捷键，并能恢复此前的附件与大段粘贴内容。</li>
+<li><strong>远程会话</strong>：新增 <code>codex exec --remote &lt;ADDR&gt;</code>，可在已有的 app server 上启动或恢复非交互式会话；TUI 中新增 <code>/rc</code>、<code>/remote</code> 命令，用于管理本地远程控制并显示设备配对码。</li>
+<li><strong>自定义状态栏</strong>：当 <code>tui_extensions_statusline</code> 开启时，可通过 <code>/statusline</code> 选择并自撰 MCP 状态栏提供方，配套提供 TypeScript 契约和用于编写状态栏的内置技能（skill）；状态栏状态中新增令牌用量、上下文占用、线程成本与速率限制等字段。</li>
+<li><strong>云（Cloud）会话能力</strong>：支持重命名云线程、为云对话自动生成标题、归档线程保持只读并支持取消归档、为新对话提供云环境选择器并使用已保存环境，云线程在 TUI 中以云图标标记。</li>
+<li><strong>其它界面改进</strong>：转录表格支持单元格级鼠标选择与键盘表格选择；<code>/statusline</code> 与终端标题共用选择器；TUI 快捷键帮助中新增键盘图示；配置面板可设置鼠标滚动速度。</li>
+</ul>
+
+<h3>其它改动</h3>
+<ul>
+<li><strong>缺陷修复</strong>：切换或恢复会话时，草稿、排队中的后续输入和中断的输入会跟随原始线程保留；切换工作目录后权限配置不再丢失；上一轮迟到的完成事件不会取消新一轮的审批请求；在活动轮次中插入引导（steering）时，聚合 diff 会保留此前的编辑；修复滚动时误插入字符、输入光标跳动、以及重绘使用过期终端尺寸等问题；修复无法签发刷新令牌的身份提供商下的企业 MCP 登录问题。</li>
+<li><strong>终端与 shell 细节</strong>：修复宽字符（Unicode）下的状态信息截断、历史搜索中的字形（grapheme）高亮、外部编辑器返回后的原始模式恢复、交替滚动模式还原，以及 WSL 下的 Windows 路径与剪贴板处理。</li>
+<li><strong>性能与内部重构</strong>：线程列表改用定向索引、延迟构建 code-mode 工具目录并跨执行复用、历史与提示词处理拆分为独立 crate、rollout 追踪写入后台线程并限制存储上限、多个云目录与插件目录的缓存复用。</li>
+<li><strong>基础设施与依赖</strong>：Rust 工具链升级至 1.99.1；更新 XML 依赖并移除已过时的安全公告例外；Bazel 相关规则与 CI 缓存调整。</li>
+</ul>
+<p>完整变更列表见 <a href="https://github.com/openai/codex/compare/rust-v0.170.0...rust-v0.171.0">Changelog 对比</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.171.0</guid>
+      <pubDate>Fri, 20 Nov 2026 00:44:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.329：`/tasks` 汇总定时任务与循环唤醒，Code Mode 可与 OpenTelemetry 同时启用</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.329</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.329，以功能补全和大量稳定性修复为主：<code>/tasks</code> 与 <code>/status</code>、<code>/mcp</code> 等管理界面补充了更多信息行，Code Mode 的多处内存与超时问题得到修复，会话恢复、登录状态和 MCP 连接也更可靠。</p>
+
+<h3>新功能</h3>
+<ul>
+<li>信任对话框现在会说明该文件夹的 hooks 是在哪声明的。</li>
+<li>在 Claude Desktop 等非交互宿主中，托管设置（managed settings）里的 hooks 加载失败时会在对话内给出警告。</li>
+<li><code>/tasks</code> 现在汇总本次会话的定时任务、<code>/loop</code> 唤醒、目标（goal）以及本对话的分叉（fork）；按 <code>x</code> 会在询问后停止其中一个。</li>
+<li><code>/mcp</code> 的服务器页面新增「Server message」行，用于显示远程 HTTP MCP 服务器拒绝连接时的 JSON-RPC 错误信息。</li>
+<li><code>/status</code> 新增「Marketplace auto-update」行，列出不会自动更新的托管插件市场及其原因。</li>
+<li>Code Mode 现在可以在启用 OpenTelemetry 事件与指标的情况下开启，脚本发起的每次工具调用都会发送事件；但开启 tracing 时仍会保持关闭。</li>
+<li>[VSCode] 拒绝信任提示后，消息框上方会显示一行文字，并提供「Review trust」以便无需重载窗口即可重新唤起提示。</li>
+</ul>
+
+<h3>重要修复</h3>
+<ul>
+<li>修复 <code>~/.claude.json</code> 偶发被重置为默认值的问题（网络停顿或文件锁导致读取失败、并在保存时被清空）。</li>
+<li>修复 macOS 上 Claude Code 能读取 Keychain 却无法写入时反复掉登录的问题：该会话现在会在过期时停止并说明原因，其他会话保持登录。</li>
+<li>修复 <code>/terminal-setup</code> 在块注释附近破坏 VS Code 设置或 keybindings 文件、以及在 <code>keybindings.json</code> 存在未闭合字符串时丢掉 Shift+Enter 绑定却仍报告成功的问题。</li>
+<li>修复通过 IDE diff 接受的文件丢失末尾换行，以及在 VS Code 中通过保存 diff 接受编辑时丢失字节顺序标记（BOM）的问题。</li>
+<li>修复在 <code>/teleport</code> 中挑选云会话会替换当前打开的对话：现在会像 <code>/clear</code> 一样新建会话，旧会话可用 <code>/resume</code> 找回。</li>
+<li>修复状态栏脚本无限输出导致提示符卡死并占用数 GB 内存的问题。</li>
+<li>修复在批准托管设置时，若 <code>--resume</code> 选择器、信任对话框等界面正在等待，会出现空白冻结屏的问题。</li>
+<li>修复 MCP 服务器把 PDF、图片或 <code>.docx</code>/<code>.xlsx</code>/<code>.pptx</code> 以 <code>application/octet-stream</code> 发送时被存成 .bin、导致 Claude 无法读取的问题。</li>
+<li>修复 <code>/code-review &lt;pr number&gt;</code> 有时悄悄评审当前检出的分支而非该 PR：现在改用 <code>gh pr diff</code> 读取 PR，无法读取时会明确说明。</li>
+<li>修复 <code>/code-review</code> 在多数模型上因查找并不存在的 <code>~/.claude/CLAUDE.md</code> 而卡在权限提示处的问题。</li>
+<li>缓解长时间会话的内存占用：编辑大量文件、macOS/Linux 上含大量大型 MCP 工具结果的 Claude Desktop 会话，以及 <code>--resume</code>/<code>--continue</code> 含截图或大型工具结果时占用过高的问题。</li>
+<li>修复后台 shell 命令、后台代理在暂停/恢复过程中未按预期停止，以及 Remote Control 在压缩或 <code>/clear</code> 后继续占用旧对话内存的问题。</li>
+</ul>
+
+<h3>Code Mode</h3>
+<ul>
+<li>修复按 Esc 后脚本已完成的编辑与被停止的命令被隐藏、退出时丢失的问题。</li>
+<li>修复失控循环耗尽机器内存（现在会在阈值处停止），以及脚本越大内存持续增长的问题。</li>
+<li>修复脚本保留上一次脚本赋给变量的值、无参数调用需要零参数的工具时报缺少参数错误、以及工具数超过 4096 时 <code>tools</code> 失效等问题。</li>
+<li>调整行为：PreToolUse hook 报错不再拒绝脚本的工具调用（与普通模式一致），需要强制拒绝时应在 hook 上设置 <code>"onFailure": "block"</code>；超过 256 MiB 的行范围读取会被拒绝；脚本自行声明 <code>log</code>/<code>preview</code>/<code>sleep</code> 不再被拒。</li>
+<li>脚本执行成千上万次工具调用后，终端冻结时间大幅缩短。</li>
+</ul>
+
+<h3>用量、模型与登录</h3>
+<ul>
+<li>修复 <code>/usage-credits</code> 在 Pro/Max 用户打开浏览器后仍要求重新登录、以及浏览器未打开时链接 8 秒后消失的问题。</li>
+<li>修复 <code>/usage</code> 在用量额度耗尽或达到月度上限时仍显示「已关闭」，以及 <code>/model</code> 未告知该限制会阻止依赖用量额度的模型。</li>
+<li>修复花费上限菜单把已花费金额显示为月度上限、以及在窄窗口中行内容换行的问题。</li>
+<li>修复 <code>/model</code> 中选择 Default 会用组织默认值覆盖已保存模型的问题，修复 <code>/status</code> 未标出 opusplan/haiku 在计划模式下的模型。</li>
+<li><code>/tui</code> 等原地重启现在会短暂等待登录刷新，降低被登出的概率；macOS 的登录续期改用 <code>Claude Code-write-check</code> 项测试 Keychain。</li>
+</ul>
+
+<h3>MCP、插件与 Skills</h3>
+<ul>
+<li>慢速重连后停滞的后台 MCP 任务已修复：当 HTTP MCP 服务器停留在旧协议版本时，Claude Code 会自行重连。</li>
+<li>服务端客户端注册被作废（HTTP 410 Gone）时，<code>claude mcp login</code> 与 <code>/mcp</code> 不再误报「该服务不接受来自 Claude Code 的登录」。</li>
+<li>修复工具搜索会话中 Claude 未被告知已连接 MCP 服务器的工具加载失败、误以为该服务器没有工具的问题。</li>
+<li>修复被移除插件的 MCP 服务器在 <code>reload_plugins</code> 或账号插件列表更新后仍保持连接；修复 claude.ai 同步的插件 hooks 报「Plugin directory does not exist」。</li>
+<li>修复 <code>--add-dir</code> 指向工作目录或从主目录启动时漏掉新建的 skills/commands/agents 文件夹。</li>
+<li>修复 Claude Docs 连接器的工具因同地址插件或 MCP 服务器连接失败而消失，且错误信息误建议 <code>/login</code>。</li>
+</ul>
+
+<h3>评审、任务与定时任务</h3>
+<ul>
+<li>在多数模型上，不带目标的 <code>/code-review</code> 现在会评审整个分支相对默认分支的差异，并修复多提交分支丢失 diff 的问题。</li>
+<li><code>/code-review &lt;pr&gt; --fix</code> 以及传入 PR URL 时，若 <code>gh pr diff</code> 被拒绝或失败会直接停止而不评审。</li>
+<li>「Exit and stop tasks」现在会结束本会话的定时任务，避免恢复后再次运行（除非退出时 Claude 正在响应）。</li>
+<li>已保存的定时任务有变更：在新登录会话中，旧版本保存的多数任务需要重新调度，但其自身会话的 <code>--resume</code> 仍可运行。</li>
+<li>修复 <code>/auto-mode-setup</code> 忽略近期自动模式拒绝记录，以及 <code>/team-onboarding</code> 在服务器拒绝上传时仍报告已共享。</li>
+<li><code>/tasks</code> 标题与页脚的后台数量合并为一个数字，统一覆盖 shell、monitor、MCP 调用、代理、工作流与定时任务。</li>
+</ul>
+
+<h3>界面、输入与终端渲染</h3>
+<ul>
+<li>修复全屏、<code>/help</code>、历史搜索与后台任务列表在矮窗口中面板或行被截断，以及对话框中表格换行的问题。</li>
+<li>修复权限提示、问题卡片、<code>/model</code> 与 <code>/rewind</code> 中的按键提示忽略 <code>keybindings.json</code> 的问题；自定义取消键在 <code>/add-dir</code> 等处生效。</li>
+<li>修复自动滚动、PR 状态徽标、自动压缩警告与 ultracode 标签不跟随 <code>/config</code> 开关变化的问题。</li>
+<li>修复复制文本后滚动离开时「Jump to bottom」药丸按钮不显示、快速连按 PageUp 滚动过远、长代码块在回滚区丢失/重复空行、提示词建议出现 <code>_(no suggestion)_</code> 占位符等问题。</li>
+<li>修复恢复会话时被中断的编辑、提问与计划显示为「Rejected/Declined」；修复 <code>claude --help</code> 通过管道输出时被截断。</li>
+<li>修复 <code>/rename</code> 与 <code>UserPromptSubmit</code> hook 设置的标题在 claude.ai 与移动端不显示。</li>
+<li>调整自动模式减少 <code>git status</code> 调用频率，使大型仓库中多数请求等待更短；可能丢弃改动的 git 命令会先检查工作树。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>移除了 2.1.326 中针对 <code>max_tokens</code> 错误所报上限的自动重试；通过网关使用输出上限更低的模型时，请设置 <code>CLAUDE_CODE_MAX_OUTPUT_TOKENS</code>。</li>
+<li>改进对旧会话的自动清理（适用于配置了托管设置的机器）。</li>
+<li>改进云会话在启动时重试下载失败的插件，以及自动模式对简短回复（如「yes」）的处理。</li>
+<li>改进 macOS 上的应用启动超时（30 秒未完成即放弃）；部分 teammate 面板改为通过 <code>/bin/sh</code> 启动，可能不再读取 shell 启动文件。</li>
+<li>[VSCode] 修复输入法（IME）组合输入时的按键误触（移动焦点、拒绝权限提示、选中文件等），以及 <code>Up</code> 键覆盖 IME 正在组合的文本。</li>
+<li>[VSCode] 修复 Bash/Edit/Write 等内置工具的权限提示不显示安全校验原因；屏幕阅读器在 Account &amp; Usage 对话框打开期间不播报权限请求。</li>
+<li>[VSCode] 修复签名服务器响应 10–30 秒时所有窗口和终端被登出、提议编辑的 diff 标签页残留无效 Accept 按钮、短工具输入输出在面板边缘被截断。</li>
+<li>[VSCode] 修复 explorer 文件夹拖拽到聊天无效、文件链接在另一编辑器组打开（当 <code>claudeCode.lockEditorGroups</code> 关闭时），以及单波浪线范围（如 <code>3~5</code>）被错误渲染为删除线。</li>
+<li>[VSCode] 调整：权限提示中按 <code>Down</code> 在最后一项停止而不再回绕到 Yes；命令输出中的隐藏字符与控制序列以符号显示，因此波斯语、高棉语、老挝语、僧伽罗语和马拉雅拉姆语文本可能看起来异常。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.329</guid>
+      <pubDate>Thu, 19 Nov 2026 22:14:41 GMT</pubDate>
+    </item>
     <item>
       <title>delta 0.21.2 发布：修复 TUI 无法在 vim / emacs -nw 中启动的问题，改进子模块显示</title>
       <link>https://github.com/dandavison/delta/releases/tag/0.21.2</link>
@@ -1524,56 +1649,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.317</guid>
       <pubDate>Tue, 03 Nov 2026 01:25:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.34.0 发布：新增远程 Claude 会话中途转向、移动端附件选择器等多项功能</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.34.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布 v0.34.0 版本，带来多项新功能与改进，涵盖 CLI、Web、Android 等多个平台。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>远程 Claude 会话中途转向（mid-turn Steer）</strong>：支持在远程 Claude 会话进行中调整方向（feat(claude)）。</li>
-<li><strong>Android 全局连接与运行器版本偏差横幅</strong>：在 Android 端显示全局连接状态及运行器版本不一致的提示横幅（feat(android)）。</li>
-<li><strong>CLI 免重启切换 Claude effort</strong>：无需重启进程即可调整 Claude 的 effort 参数（feat(cli)）。</li>
-<li><strong>Web 端统一 effort 控制</strong>：为所有 harness 提供一致的 effort 控制能力（feat(web)）。</li>
-<li><strong>移动端附件来源选择器</strong>：Web 端新增移动设备上的附件来源选择功能（feat(web)）。</li>
-<li><strong>Android 生成媒体块泛化</strong>：将生成的媒体块扩展支持视频、音频和文件类型（feat(android)）。</li>
-<li><strong>Android 上下文剩余量指示器</strong>：在 composer 中显示上下文剩余量（feat(android)）。</li>
-<li><strong>Android 离线渲染 Mermaid 图表</strong>：支持将 Mermaid 代码块离线渲染为图表（feat(android)）。</li>
-<li><strong>Android 定时发送</strong>：composer 支持预设及指定时间的定时发送（feat(android)）。</li>
-<li><strong>Android 外观主题预设</strong>：在设置中提供与 Web 端一致的颜色主题预设（feat(android)）。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li>修复 Windows 上过早归档失败的问题（fix(cli,hub)）。</li>
-<li>允许重试失败的附件上传（fix(web)）。</li>
-<li>提交时立即折叠展开的 composer（fix(web)）。</li>
-<li>浏览器返回时关闭全屏图片预览（fix(web)）。</li>
-<li>优化精确路径与目录搜索（fix(files)）。</li>
-<li>HAPI 重启后恢复 DSH ACP 会话（fix(dsh)）。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.0</guid>
-      <pubDate>Mon, 02 Nov 2026 11:16:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>chezmoi v2.74.0 发布：多项功能标记为成熟，新增跳过冲突选项</title>
-      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.74.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>chezmoi 发布 v2.74.0 版本，主要包含以下更新：</p>
-<ul>
-<li><strong>移除废弃命令</strong>：正式移除了已废弃的 remove 命令。</li>
-<li><strong>新增跳过冲突选项</strong>：为 apply 命令的 choices 模式新增 skip conflicts 选项。</li>
-<li><strong>功能转正</strong>：多项内置功能被标记为不再处于实验阶段，包括 KeePassXC YubiKey 支持、gopass 支持、1Password Connect 支持、ssh 命令及 docker 命令。</li>
-<li><strong>权限检查</strong>：使用内置 age 时，会检查 age 身份文件的权限。</li>
-</ul>
-<p><strong>问题修复</strong>：修正了 keepassxc 内置模式下的 root 组条目（root group entries）。</p>
-<p><strong>文档更新</strong>：进行了多项文档清理，并补充了文章、视频及相关命令的链接。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.74.0</guid>
-      <pubDate>Sun, 01 Nov 2026 13:57:54 GMT</pubDate>
     </item>
   </channel>
 </rss>

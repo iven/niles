@@ -3,7 +3,21 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Thu, 19 Nov 2026 21:27:24 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 03:06:00 GMT</lastBuildDate>
+    <item>
+      <title>Linux 7.5 将支持在启动时可选禁用 /proc/kcore 访问以增强安全性</title>
+      <link>https://www.phoronix.com/news/Linux-7.5-Restrict-proc-kcore</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为 Linux 内核 7.5 新增可选的 /proc/kcore 访问限制安全特性，偏向内核底层安全机制/基础设施，不属于用户明确高兴趣的桌面技术、新发行版或编程工具，也不在避开的硬件安全范畴，故列为可选</small></p><p>一项已进入 VFS 子系统 7.5 分支的补丁，允许在启动时可选地禁用 <code>/proc/kcore</code>，以提升系统安全性；对于启用了常规 <code>CONFIG_PROC_KCORE</code> 的内核构建，该功能默认仍为开启。</p>
+<p><code>/proc/kcore</code> 是一个只读虚拟文件，以 ELF core dump 格式提供系统全部物理内存与内核虚拟地址空间的内容。它有正当用途，例如实时内核调试、内存取证、ELF 检查等；访问权限被限制为 root 或拥有 <code>CAP_SYS_RAWIO</code> 能力的进程，因为读取全部物理内存和内核虚拟地址空间影响重大。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=kcore" alt="kcore= option" />
+<p>该补丁由 Chris Down 编写，新增 <code>kcore=</code> 启动参数：<code>kcore=off</code> 可在启动时禁用（前提是内核构建已启用 <code>CONFIG_PROC_KCORE</code>），默认值为 <code>on</code>。Chris 在补丁说明中给出的理由是：<code>/proc/kcore</code> 让任何拥有 <code>CAP_SYS_RAWIO</code> 的进程读取全部内核内存，这是一项相当大的读取能力，并且会泄露 KASLR 内存布局。就读取能力而言，它并不比通过 BPF（配合 <code>CAP_BPF</code> 与 <code>CAP_PERFMON</code>）读取内核内存更令人担忧，区别在于拥有 <code>CAP_SYS_RAWIO</code> 的进程未必同时具备 <code>CAP_BPF</code> 和 <code>CAP_PERFMON</code>——为了硬件访问可能需要授予 <code>CAP_SYS_RAWIO</code>，但并不希望因此获得通用的内存读取能力。<code>CONFIG_STRICT_DEVMEM</code> 已经能为 <code>/dev/mem</code> 做到这一点，而 <code>/proc/kcore</code> 依然提供了同样的通用内存读取能力。</p>
+<p>此前，在使用 <code>CONFIG_PROC_KCORE=y</code> 的内核上，阻断该访问的途径只有 <code>lockdown=confidentiality</code>（但会连带禁用 kprobes、<code>bpf_probe_read_kernel()</code> 等许多不想禁用的功能）或使用 Linux 安全模块（LSM）。由于大多数主机希望为 drgn、crash 等工具保留该功能，运维方不得不构建两个不同的内核；新的启动参数让同一内核镜像即可兼顾两种需求。</p>
+<p>该补丁已于前一天被合入 vfs/vfs.git 的 <code>vfs-7.5.procfs</code> 分支，预计将在一个多月后的 Linux 7.5 合并窗口提交。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Linux-7.5-Restrict-proc-kcore</guid>
+      <pubDate>Thu, 19 Nov 2026 22:03:06 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ LLVM 历时近十年基本完成许可证重授权</title>
       <link>https://www.phoronix.com/news/LLVM-Re-Licensing-Complete</link>
@@ -799,20 +813,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Lorenzo-Stoakes-AI-Flood</guid>
       <pubDate>Tue, 10 Nov 2026 12:54:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ openSUSE Tumbleweed 将用 Agama 取代 YaST 安装器</title>
-      <link>https://www.phoronix.com/news/openSUSE-Tumbleweed-Goes-Agama</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主要讲 openSUSE Tumbleweed 切换到 Agama 安装器，属发行版重大变更，来源配置对新发行版很感兴趣</small></p><p>在 openSUSE Leap 已采用 SUSE 工程师开发的现代化 Agama 安装器之后，滚动发布版本 openSUSE Tumbleweed 也准备做出同样的转变，用 Agama 取代历史悠久的 YaST 安装器。</p>
-<p>目前 Agama 已被认为具备成为 openSUSE Tumbleweed 默认安装器的条件。openSUSE 项目希望用户在年底前正式切换之前先试用新的安装器，基于 Agama 的安装 ISO 详情可在 <a href="https://news.opensuse.org">news.opensuse.org</a> 查看。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=agama_19" alt="openSUSE Tumbleweed Agama installer" />
-<p>Tumbleweed 作为滚动发行版通常比 Leap 更早引入新技术，但在安装器上却刻意放缓了脚步。根据 openSUSE 的公告，Leap 16.0 从首个版本起就使用 Agama，而 Tumbleweed 一直在等待新安装器追平 YaST 的功能，或者项目有意放弃某些功能，之后才进行切换。</p>
-<p>项目表示，现在必须完成这一转变，因为 YaST 已不再处于活跃的功能开发阶段，只获得最低限度的维护。随着其依赖的软件持续变化，继续依赖 YaST 带来的风险正在增加。YaST 全称为「又一个安装工具（Yet another Setup Tool）」，最早于 1995 年 4 月发布。</p>
-<p>原文读者评论共 3 条。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/openSUSE-Tumbleweed-Goes-Agama</guid>
-      <pubDate>Tue, 10 Nov 2026 10:53:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
