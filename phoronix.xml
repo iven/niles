@@ -3,7 +3,40 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 20 Nov 2026 11:26:54 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 20:05:02 GMT</lastBuildDate>
+    <item>
+      <title>⭐ AMD 向 GNOME 贡献自适应背光调制（ABM）与内容自适应 API 集成</title>
+      <link>https://www.phoronix.com/news/GNOME-AMD-Content-Adaptive</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 GNOME 桌面新增内容自适应背光/自适应亮度调制功能，属 Linux 桌面技术范畴，符合兴趣</small></p><p>GNOME 的 Mutter 合成器近日合并了对自适应背光调制（Adaptive Backlight Modulation，ABM）DRM/KMS 连接器属性以及"内容自适应"（content-adaptive）API 的支持，该改进由 AMD 贡献，目标是配合支持 ABM 的新款 AMD Ryzen AI 笔记本。</p>
+<p>自适应背光调制又称内容自适应背光控制（Content Adaptive Backlight Control），是一种节能显示特性：根据屏幕上显示的内容（如暗色或低亮度场景）动态降低面板背光亮度，从而减少整机功耗，对笔记本电池续航帮助明显，但会牺牲一定的色彩准确度。</p>
+<p><img src="//www.phoronix.net/image.php?id=framework-16-ryzen-ai-300-series&image=framework_16_14_med" alt="搭载 AMD Ryzen AI 并运行 Ubuntu Linux 与 GNOME 的 Framework 笔记本" /></p>
+<p>AMDGPU Linux 驱动此前已为支持的 eDP 面板暴露 ABM 功能及相应连接器属性。按提交说明，这一系列改动只补齐合成器一侧：在 MetaBacklight 上新增内容自适应档位，并在下一帧应用到 KMS。Mutter 自身不决定档位，而是由 Shell 在进程内调用 C API（没有 D-Bus 接口）；档位是 0 到 max 之间的索引，默认 0 表示关闭。当连接器支持 ABM 时，首帧写入该属性即从驱动的 sysfs 接口接管控制权；关闭时不会归还，交由通用的 DRM 重置处理。</p>
+<p>相关细节可参见 <a href="https://www.phoronix.com/news/GNOME-AMD-Content-Adaptive">Mutter 合并请求</a>。原文评论数为 1 条。</p>
+<h3>你知道吗？</h3>
+<p>ABM 属于一类"面板自刷新式省电"技术：它靠降低背光并用图像补偿（提升像素值或调整 gamma）来维持主观观感，因此在纯黑场景增益最大，而在高饱和、高对比内容上容易出现色偏与暗部细节损失。Intel 的显示省电技术（Display Power Saving Technology，DPST）与旧称 Vari-Bright 的方案思路类似，但实现和调节接口各不相同；Mutter 此次引入的档位 API 让桌面 Shell 能统一按内容或电源状态选择强度，而不再依赖驱动只读的 sysfs 开关。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GNOME-AMD-Content-Adaptive</guid>
+      <pubDate>Fri, 20 Nov 2026 17:52:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>Fedora 起草事件响应政策，改进安全事件处理流程与信息披露</title>
+      <link>https://www.phoronix.com/news/Fedora-Incident-Response-Policy</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是 Fedora 安全事件响应与披露流程政策的起草，虽与发行版相关，但重点在社区安全流程治理而非新版本发布或桌面功能，兴趣不明确</small></p><p>Fedora 安全特别兴趣小组（Security SIG）为 Fedora 项目起草了一份《事件响应政策》（Incident Response Policy）。此举源于 XZ Utils 安全风波期间，Fedora 项目在对外沟通方面暴露出的不足。</p>
+<p>该政策草案采用「尽力而为」（best-effort）的处理流程，主要涵盖：</p>
+<ul>
+<li>何种情况可被认定为安全事件；</li>
+<li>如何声明一起事件；</li>
+<li>受禁信息披露（embargoed security information）的处理方式；</li>
+<li>相关的沟通与通报步骤。</li>
+</ul>
+<p>由于 Fedora 在很大程度上由志愿者驱动，该政策被定位为尽力而为性质的流程，而非强制性硬性规范。此外，制定该政策也是为了配合欧盟《网络弹性法案》（EU Cyber Resilience Act, CRA）的要求。</p>
+<p>感兴趣的读者可通过对应的 pull request 查看政策草案。Fedora 安全 SIG 目前正公开征集反馈意见，截止时间为下周。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Fedora-Incident-Response-Policy</guid>
+      <pubDate>Fri, 20 Nov 2026 14:47:51 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Rust Coreutils 0.13 发布：性能进一步提升，GNU 兼容性达 95.26%</title>
       <link>https://www.phoronix.com/news/Rust-Coreutils-0.13</link>
@@ -790,42 +823,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/AMD-AOCC-6.0-Released</guid>
       <pubDate>Wed, 11 Nov 2026 10:54:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Haiku OS 十月进展：新增 UFS 驱动，触控板支持两指与三指轻触手势</title>
-      <link>https://www.phoronix.com/news/Haiku-OS-October-2026</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源操作系统 Haiku 新增 UFS 驱动与触摸手势支持，属很感兴趣的新软件项目/发行版及开源系统进展。</small></p><p>受 BeOS 启发的开源操作系统 Haiku 项目发布了 2026 年 10 月的月度状态报告，重点集中在驱动与系统构建方面的改进。</p>
-<h3>驱动与硬件支持</h3>
-<ul>
-<li>新增对通用闪存存储（Universal Flash Storage，UFS）接口的驱动支持，可为采用该接口的闪存设备提供识别与访问能力。</li>
-<li>触控板处理代码新增两指与三指轻触（tap）手势识别，扩展了笔记本等设备上的输入操作方式。</li>
-<li>NTFS 文件系统支持得到改进，合并了来自上游 NTFS-3G 项目的部分改动，提升了读写实现的同步程度与可靠性。</li>
-</ul>
-<h3>应用与构建系统</h3>
-<ul>
-<li>应用层修复了多个缺陷，包括媒体播放器可能发生的崩溃问题，以及 Playground 中圆角绘制异常的问题。</li>
-<li>构建系统方面的工作是适配 GCC 15 编译器，以确保在新工具链下可正常编译。</li>
-</ul>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=haiku_r1_beta6" alt="Haiku" /></p>
-<p>报告全文可在 <a href="https://www.haiku-os.org/">Haiku-OS.org</a> 查看。文章发布于 Phoronix，仅有一条评论，未包含实质性社区讨论内容。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Haiku-OS-October-2026</guid>
-      <pubDate>Wed, 11 Nov 2026 10:26:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Ubuntu 26.10 开始为 curl 引入 upki 证书吊销支持，27.04 将扩展至 OpenSSL</title>
-      <link>https://www.phoronix.com/news/Ubuntu-26.10-Does-upki</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题为 Ubuntu 26.10 发行版开始支持 upki 证书撤销机制，属于用户很感兴趣的发行版更新；但内容偏证书/基础设施方向，故为推荐而非必看</small></p><p>Ubuntu 26.10（10 月发布）中有一项不太被讨论的变化：开始在系统中引入 upki 证书吊销支持。由于该改动直到 9 月才最终确定，初期范围被限制在 Ubuntu 26.10 的 curl 软件包中，后续还将逐步扩大。</p>
-<p>Canonical 正致力于在整个操作系统栈上实现浏览器级别的证书验证与必要时的吊销检查。其采用的是 Rustls 项目旗下的 <a href="https://www.phoronix.com/news/Ubuntu-26.10-Does-upki">upki 项目</a>，该项目用 Rust 提供浏览器级别的证书基础设施，基于 Mozilla 已有的基础工作，用于查询由公共信任的证书颁发机构（CA）签发的证书的吊销状态。upki 可对接 OpenSSL、Rustls，并提供 C-FFI 接口。</p>
-<img src="https://www.phoronix.net/image.php?id=2026&image=upki_sml" alt="upki logo" />
-<p>按计划，Ubuntu 27.04 将在 OpenSSL 软件包中启用 upki 进行证书验证。Canonical 推动这一能力的现实背景是 10 月曝出的 eMudhra 事件——研究人员发现其中间 CA 证书的私钥强度不足。借助 upki，可以更快速地在整个软件栈中吊销这些证书。更多细节可参见 Ubuntu Discourse 上的说明。</p>
-<h2>你知道吗？</h2>
-<p>传统上，Linux 发行版只负责分发受信任根证书列表，很少主动做吊销检查；而浏览器则早已建立自己的吊销机制（如 CRLite、OneCRL 等压缩式吊销列表），以避免对每个站点都发起 OCSP 在线查询。upki 的目标就是把这类浏览器级验证能力带给系统级的 TLS 组件。值得注意的是，中间 CA 私钥泄露意味着攻击者可能签发任意域名的"合法"证书，此时仅靠根证书信任列表无法防护，必须依赖吊销机制。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Ubuntu-26.10-Does-upki</guid>
-      <pubDate>Wed, 11 Nov 2026 01:43:13 GMT</pubDate>
     </item>
   </channel>
 </rss>

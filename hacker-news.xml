@@ -3,7 +3,120 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 20 Nov 2026 11:27:39 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 20:06:09 GMT</lastBuildDate>
+    <item>
+      <title>Frostbite：AI 端到端发现并验证的全新 CPU 架构，每瓦性能达现代核心 4.59 倍</title>
+      <link>https://news.ycombinator.com/item?id=50572503</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主体是CPU微架构/芯片设计（不感兴趣），但由AI端到端发现并验证属于AI技术进展与科学前沿（感兴趣），两者权衡后为可选</small></p><p>架构实验室（Architect Labs）发布 <a href="https://architectlabs.com/blog/frostbite">Frostbite</a>：一颗围绕「交互网（interaction nets）」从零构建指令集的通用 CPU，其发现、设计、验证到最终 GDS（版图交付数据）均由该公司的 AI 系统自动完成。在 25 个基准负载（其中 15 个直到最终评估才揭晓）上，其每瓦性能达到一颗现代、已在硅片上验证的超标量（双发射、顺序执行）CPU 核心的 4.59 倍。此前该团队的 Redwood 项目已证明 AI 能在给定架构的前提下快速实现并验证推理加速器，而这次的目标是让 AI 自己探索架构空间。</p>
+
+<p><strong>为什么押注交互网</strong>：主流语言编译到通用 CPU 后会把程序内部的依赖关系藏起来——任何代码都可能读写共享可变状态，于是硬件只能在运行时重新发现谁依赖谁，并付出乱序执行、深缓存层次与一致性协议的代价。单核性能自 2000 年代初基本停滞，业界转向多核，进一步加重了缓存一致性的负担。交互网则把程序表示为节点图，计算通过改写经端口相连的节点对完成：每次改写只触及图的局部，每个节点只有一个主端口，因此活跃对永不重叠，改写顺序任意、可全部并行；同时它是线性的——每个值恰好被使用一次，没有共享可变状态需要硬件看守。像 Vine 这样的语言能把普通写法的程序直接编译成交互网。作者以五皇后问题举例：顺序 C++ 程序一步步走搜索树，而同一搜索的交互网展开了 3,183 次交互、关键路径仅 262 步，平均每步约有 12 个交互可并行执行——并行性并非改写代码得来，而是依赖关系从未被丢弃。理论上这带来两个好处：免线程的并行（无需锁、竞态和乱序机制）以及数据可存放在使用点附近的小型本地存储器中，从而省掉大块缓存和一致性复杂度。</p>
+
+<img src="https://architectlabs.com/_next/static/media/multicore-floorplan.0u50uc-8yhajl.png" alt="对比图：左侧 TCPU 为八核、每核自带 L1/L2、共享一个大 L3；右侧 Frostbite 为 8x8 瓦片阵列，每块瓦片有自己的一小块存储器。" width="1600" height="950" />
+
+<p><strong>流程</strong>：Frostbite 的出发点被描述为「零架构先验」。团队先确定负载集，按程序暴露工作量的方式分为五类：大量独立任务、多轮并行、长串行链、数据相关分支、递归，每类都设搜索集与留出评估集，以防设计只对调优过的程序过拟合（FFT、基数排序、LU 等核取自 SPLASH-2 基准，尺寸缩小 64 倍；后期又加入卡尔曼滤波、PCA、有限元、LU 求解、LZ4 解压等五个实用负载）。代理群体（agent swarms）撰写调研、搭建 Python 模型比较高层方案，产出一份 141 页的架构提案——但在第一版 RTL 生成后被删除，因为许多数字与实际可行性相差甚远。</p>
+
+<img src="https://architectlabs.com/_next/static/media/workload-suite.0d2l3bzeh4gp9.png" alt="25 个负载的表格，按五类分组并各分搜索集与评估集。" width="1600" height="1401" />
+
+<img src="https://architectlabs.com/_next/static/media/process-timeline.35kiqsqt77ga9.png" alt="Frostbite 项目时间线：从首次提案到消融实验，标注关键事件、各阶段工作以及代理创建的各个工作树。" width="3040" height="3010" />
+
+<p><strong>形式化契约与系统模型</strong>：团队自研了规格语言 ASL，并用它写下芯片的系统模型「Arcmodel」。ASL 支持 RTL、系统模型、UVM、SVA 等之间的机器可检查翻译与精化，全部锚定在一份形式化规格上；其功耗与性能估计误差在 1–5% 内，运行速度约为 RTL 仿真的 200 倍，并可通过「契约」形式化验证。作者强调，自然语言写成的架构 PDF 无法无歧义地覆盖实现所需的所有细节，也无法保证在设计与验证过程中抓住每一个代理幻觉（hallucination），因此在 AI 撰写规格的时代改用机器可检查的形式化语言。ASL 既能描述乱序处理、CSR 编程、内存序与一致性等高层协议行为，也能描述流水线、仲裁、计算传递函数等底层细节，并可原生翻译到 Lean 用于定理证明。最终 Frostbite 的 ASL 下沉为 80 万行以上的 Lean 代码。</p>
+
+<img src="https://architectlabs.com/_next/static/media/lean-web.2cbgtumsblhy-.png" alt="31 个模块的 Lean 契约网络，模块间以共享信号相连；下方放大展示帧管理器（FRM）模块的契约。" width="3200" height="4404" />
+
+<p><strong>RTL 与物理对齐</strong>：由于有形式化规格支撑，从 ASL 推导 RTL 并验证反而是全流程最快的部分。但 Arcmodel 起初没有物理感知，其功耗/性能估计与经时序收敛、综合干净的 RTL 最大可差近 250%。于是系统运行一条全自动校准流水线：先定位 RTL 中的功耗热点并回溯到形式规格中的关键计数器（SRAM 读写、运算次数、flit 收发、信用返还、frame miss 等），再让模型在这些计数器上拟合任意标量 Python 函数来预测功耗，反复迭代直到误差进入 5% 以内。作者称这种「非梯度学习」极为有效，一旦完成首次物理对齐，后续迭代快得多。对齐后完整 Arcmodel 芯片仿真比 RTL 快 660 倍，代理因此能做跨栈优化——例如发现极细粒度的时钟门控技巧，并在数小时内相应调整软件运行时，这在传统 ASIC 流程中几乎不可能。</p>
+
+<img src="https://architectlabs.com/_next/static/media/model-alignment.1w2vgrexnx2a5.png" alt="模型能耗与 RTL 能耗预测误差随时间变化：Python 模型误差 40%–130%，Arcmodel 在首次功耗拟合后从最坏 250% 降到最坏 6% 以内、中位数约 1.5%。" width="3200" height="2083" />
+
+<p>此后 Python 模型与架构 PDF 均被删除，ASL 契约成为唯一规格。代理群体在并行工作树中提出架构修订，每项改动都需通过契约检查、在 Arcmodel 中建模、在 RTL 中实现并测量功耗，然后保留或丢弃。四轮搜索加最后一轮消融实验中，群体共尝试 58 个想法，保留 37 个——从运行中瓦片的时钟门控，到更小的 L3 表、单一共享扩展器。</p>
+
+<p><strong>架构新颖之处</strong>：程序用类 Rust 语法的 Vine 编写，编译为编码交互网结构的中介表示 Ivy；优化器尽量施加图归约规则，使最终 Ivy 网形状基本固定，由数据、计算节点、控制节点三种原语构成。但其运行时依然高度动态：与并行性内嵌于结构、按时间流水化的常规计算图不同，这里的并行性必须在运行时由状态推导、并在空间上流水化。生成的指令集中包含宽打包、硬件循环计数器和流等预期特性，更有意思的是动态特性——可对网络中其他并行部分的值执行 take / peek / copy 的操作，瓦片由此「活起来」并在空间中互相通信。</p>
+
+<p><strong>涌现特性：窃取工作</strong>：由于并行性在空间上铺开，系统没有中央调度器。代理设计出三条优雅的传播规则：瓦片先跑自己的活（输入端口上的工作）；若为空，则从有富余工作的邻居处取活；若找不到，就进入非活跃状态省电。文章称代理在实现这些行为时展现出相当的精细度。编译器把代码切成短段，输入就绪后不中断地执行。</p>
+
+<img src="https://architectlabs.com/_next/static/media/tile-blocks-plain.1gnqiesx7j0kk.png" alt="单个 Frostbite 瓦片的框图：前端、引擎、存储与系统模块，高亮运行时（帧管理器、调度器、工作队列、出口）与网络接口；瓦片外有路由器、静态交换、四分频器与配置总线。" width="1780" height="882" />
+
+<p><strong>结果</strong>：Frostbite 由 4×4 的相同瓦片阵列构成。按逐负载统计，Frostbite 四瓦片组的每瓦性能相对 TCPU 从 conv2d 的 23.12 倍到 fib 的 1.15 倍不等；几何平均为留出评估集 3.83 倍、全部 25 个负载 4.59 倍、搜索集 6.02 倍。能耗构成上，TCPU 有 57% 用于存储、27% 用于取指/译码/发射、13% 用于计算；Frostbite 四瓦片组则是 38% 存储、6% 取指/译码/发射、16% 计算、26% 片上网络与调度、14% 其他（4×4 整芯片数字相近）。作者认为，随着 AI 系统能力增强，从数据中心 CPU 到 AI 加速器、网络交换机和网卡，每一类芯片都将经历类似的根本性架构转变。</p>
+
+<img src="https://architectlabs.com/_next/static/media/die-shot-quad.2t9948bw50w5a.jpg" alt="Frostbite 芯片版图：4x4 相同瓦片阵列，粉色为存储器宏单元，左上 2x2 标注为 Frostbite quad，左侧边缘一块标注为 L3 节点。" width="2000" height="1593" />
+
+<img src="https://architectlabs.com/_next/static/media/perf-per-watt-heldout.26hhprjnn8kyi.png" alt="Frostbite 四瓦片组相对 TCPU 的每瓦性能柱状图，覆盖 25 个负载，从 conv2d 的 23.12 倍到 fib 的 1.15 倍，虚线标出几何平均：评估集 3.83 倍、全部 25 个负载 4.59 倍、搜索集 6.02 倍。" width="1600" height="1968" />
+
+<img src="https://architectlabs.com/_next/static/media/energy-breakdown.1vhkm_oxxzwwv.png" alt="能耗占比对比：TCPU 为存储 57%、取指译码发射 27%、计算 13%；Frostbite 四瓦片组为存储 38%、取指译码发射 6%、计算 16%、片上网络与调度 26%、其他 14%。" width="1600" height="686" />
+
+<p><strong>社区反馈</strong>：该帖在 Hacker News 获得 525 分、284 条评论，气氛明显偏怀疑。有人指出这类文章「惊人的断言极多，却几乎找不到人工努力与垃圾机器输出的分界线」，希望能有胜任的人类给出冷静综述，并提到历史上不乏听起来很美却无疾而终的架构（如 Mill）。也有人抱怨 LLM 时代难以区分「AI 撰写的突破」与「AI 撰写的妄想帖」，认为信息噪声比大幅恶化，业界需要「拿出代码」之外更多证据。有评论认为所选基准的规模偏小（如 4096 字符的 JSON 解析、1024 元素的归并排序、fib(20)），也有人质疑为何要留出评估集——随即被解释为类似机器学习中防止对 25 个负载过拟合，毕竟这是一个通用处理器项目。名字也被吐槽：Frostbite 是 EA 的寒霜引擎，有人第一反应是「他们用游戏引擎做了个 CPU」。另有评论预言 AI 时代最有价值的是模型、算力、制造商与材料，AI 缩短芯片设计周期将带来更多专用芯片和更大代工需求；但也有人认为当前 AI 增长已近 S 曲线末端，「两个月设计芯片、两年建晶圆厂」并不会那么快到来。还有不少人认为这支团队的真实目标是靠演示被大厂收购。</p>
+
+<h2>你知道吗？</h2>
+<p>交互网由 Yves Lafont 于 1990 年前后提出，其理论基础是线性逻辑（linear logic）——「每个值恰好使用一次」正是线性逻辑中的线性约束。这让交互网在理论上天然避开共享可变状态和竞态条件，也使它长期被视为「理论上优雅但工程上难用」的编程模型。历史上出现过多个试图用大量简单计算单元与片上网络取代复杂单体核心的方案，例如 1980 年代 Inmos 的 Transputer，以及本世纪初的 Cell 处理器与近年公布但未能量产的 Mill 架构；它们共同面对的难题正是编程模型与工具链，而这恰是本文声称由 AI 补齐的一环。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50572503</guid>
+      <pubDate>Fri, 20 Nov 2026 10:01:41 GMT</pubDate>
+    </item>
+    <item>
+      <title>「我能看出这是你自己写的」：一名工程系学生反思被AI包围的课堂</title>
+      <link>https://news.ycombinator.com/item?id=50571189</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 工程系学生对AI充斥课堂的个人反思与教育体验随笔，主题偏校园教育文化，兴趣不明确</small></p><p>博客作者 Em 是一名工程系荣誉项目（honours project）学生。她误把一份关于扑翼微型飞行器（flapping-wing micro aerial vehicles）控制的中期进度报告提前一周设为本应提交的日期，于是在 48 小时的压力下写出了 5000 字、带图表和引用的十页报告。与导师见面时，导师开口就说：「我能看出这是你自己写的（I can tell you wrote this yourself）」——随即补充说，他最近收到过很多由 AI 写的报告。</p>
+
+<p>这句话让作者陷入反思。她回顾过去一年的工程学业：作业说明一开始只是「强烈鼓励探索 AI 的使用」，很快就变成一种明确共识——不用 AI 就会吃亏。她最难的一门课，是整天待在无窗的砖墙机房里给 AI 写提示词（prompt），而她被告知的理由是「行业就是这个方向」「知道事情本身不如知道如何指挥机器」。作者感到这种「高级保姆」式的工作方式令人精神耗竭，她不希望把如此多的思考外包出去。</p>
+
+<p>她的核心担忧是一条滑坡：从被鼓励在作业里用 AI，到依赖它写一份自己本该了如指掌、并且最终还要当面答辩的报告，再到向它求建议、用它总结书本、把本该查资料或问朋友的事都交给它。在 AI 内容泛滥、真假难辨、观点高度极化的环境里，识别内容中的偏见与动机、独立思考的能力「或许从未如此重要」。她的呼吁很直接：读书、自己写论文、自己去搜索答案、去问朋友、去问妈妈（然后听她的建议喝杯水）；像七年级英语课那样，思考你所消费的内容的创作者想让你相信什么——别让 AI 替你想。</p>
+
+<p>文末她列了一串近来的好事：白天近距离见到一只茶色蟆口鸱（tawny frogmouth，就在工程学院附近的树上筑巢）、完成本学期最后一项考核、只剩一学期毕业、看了电影《You Can See Everything》、因想家而做妈妈的扇贝土豆、最近天气很好适合晨跑，以及在公园里遇到一位赤脚、背包里装着猫的人。</p>
+
+<p>Hacker News 上讨论热烈（380 分、377 条评论），观点明显分裂：</p>
+<ul>
+<li>有人认同报告的写作不该外包，但认为让 AI 检查语法拼写无伤大雅——并顺带指出原文把「write」误写成了「right」。</li>
+<li>也有人反过来说，在 AI 时代看到真正属于人的语法错误反而让人欣慰，并引用 Ernst Fischer 的话：「当机器越来越高效完美，人类的伟大之处就在于不完美。」另有人反驳：不完美也包括医疗失误和冤判，难道开自驾车之后还要怀念自己开车撞树？</li>
+<li>另一派把 LLM 类比为 CAD、有限元分析（FEA）：工具替代了手绘和手算，不熟练使用工具才会吃亏；关键是通过提供数据、审视和验证输出来保持理解。反对者强调，脱手算数不等于让 AI 从头写一份自己毫无理解的报告，没有一定付出就建立不了真正的理解。</li>
+<li>有评论认为愿意「独立思考」的人本来就是少数，多数人向来乐于把判断交给主播、网红，如今是 AI。</li>
+<li>也有人主张不必二选一，可以把 AI 当作一个善辩、偶尔要提防、但能提供智力挑战的「朋友」；立刻有人回：「那只是一堆矩阵数字，不是朋友。」</li>
+<li>关于「谁写的」这一问题存在更激烈的声音：有人宣称技术不会因为抱怨而停下，纠结是否由 AI 写作毫无意义，甚至设想针对「AI 味」检测进行对抗式训练；也有人认为这恰恰会导致人类责任感的消亡——「不是我的错，是 AI 让我这么做的」。</li>
+<li>少数评论怀疑这类技术争论帖下的许多回复本身就是机器人；也有人把话题拉回原文，推荐大家去看看茶色蟆口鸱长什么样。</li>
+</ul>
+
+<h2>你知道吗？</h2>
+<p>文中那只让作者兴奋的茶色蟆口鸱（tawny frogmouth）常被误认为猫头鹰，实际属于夜鹰目，靠静立不动、模仿树枝断裂的形态来伪装；它口中发出的低沉「嗡嗡」声也是它的特色之一。这个细节恰好呼应了文章的主旨——值得亲自去看、去分辨，而不是听别人转述。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50571189</guid>
+      <pubDate>Fri, 20 Nov 2026 07:13:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ PostgreSQL 19 发布：新增 REPACK 命令、序列逻辑复制与备库「读己之写」一致性</title>
+      <link>https://news.ycombinator.com/item?id=50569890</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] PostgreSQL 19 版本发布，介绍 REPACK 命令、序列逻辑复制等新功能，属开源项目与软件新功能，用户感兴趣</small></p><p>PostgreSQL 19 于 2026 年 11 月 19 日正式发布（<a href="https://www.postgresql.org/docs/release/19.0/">官方发布说明</a>）。这是一次功能密集的大版本更新，涵盖磁盘空间回收、逻辑复制补全、性能优化与大量可观测性增强。该条目在 Hacker News 获得 360 分、22 条评论。</p>
+
+<h3>核心新特性</h3>
+<ul>
+<li><strong>REPACK 命令</strong>：用于回收磁盘空间并重组表内容以提升查询性能；<code>REPACK (CONCURRENTLY)</code> 可在不阻塞表读写的情况下完成重组。</li>
+<li><strong>查询计划建议扩展</strong>：<code>pg_plan_advice</code> 可干预查询规划器的决策，<code>pg_stash_advice</code> 则按查询自动套用这些计划建议。</li>
+<li><strong>逻辑复制增强</strong>：当 <code>wal_level</code> 为 <code>replica</code> 时，无需重启服务器即可启用逻辑复制；同时支持对序列（sequence）取值的逻辑复制，补上了大版本升级流程中长期需要额外脚本处理的一环。</li>
+<li><strong>WAIT 命令</strong>：让备库（standby）实现「读己之写」（read-your-writes）一致性，解决写入主库后从随机副本读取可能读到旧数据的问题。</li>
+<li><strong>性能改进</strong>：I/O 工作进程数量可自动伸缩（新增 <code>io_min_workers</code> 等四个参数，取代原有 <code>io_workers</code>）；外键约束检查更快；查询表扫描即可将页面标记为 all-visible；TID Range Scan 支持并行；COPY FROM 处理文本与 CSV 输入时使用 SIMD 指令；NOTIFY 只唤醒真正监听相关通知的后端；排序引入基数排序（radix sort）；大量优化器改写（NOT IN 转 ANTI JOIN、聚合下推、常量折叠简化等）。</li>
+<li><strong>自动清理（autovacuum）</strong>：支持表索引的并行 autovacuum，并引入基于评分的优先级排序机制。</li>
+<li><strong>默认值调整</strong>：默认 TOAST 压缩从 pglz 改为 lz4；<code>wal_compression = on</code> 将选用当前最佳压缩算法；<code>max_locks_per_transaction</code> 默认值从 64 提升到 128；<code>log_lock_waits</code> 默认开启。</li>
+</ul>
+
+<h3>兼容性变更（升级需注意）</h3>
+<ul>
+<li>服务端强制 <code>standard_conforming_strings</code> 始终为开；旧版本 pg_dump 在关闭该选项时生成的转储将无法正确导入 19。</li>
+<li>移除 RADIUS 认证支持（仅支持不安全的 UDP 传输）与 MULE_INTERNAL 编码。</li>
+<li><code>inet</code>/<code>cidr</code> 的默认索引操作符类从 btree_gist 改为 GiST，因为旧实现可能漏掉本应返回的行；pg_upgrade 会拒绝含此类索引的集群。</li>
+<li>数据库、角色、表空间名称中禁止回车与换行符（安全考虑）。</li>
+<li>JIT 改为默认关闭——原先是依据优化器代价自动启用，但该代价估算被判定为不可靠，重度分析型负载需手动开启。</li>
+<li><code>json_array()</code> 无行返回时改为返回空 JSON 数组（原为 NULL）；READ ONLY / DEFERRABLE 状态会传递给 postgres_fdw 会话。</li>
+<li>并行 vacuum 的领导者与工作进程共享基于代价的延迟预算，启用并行与代价延迟的 VACUUM 可能比以往更慢。</li>
+<li>若干系统视图与等待事件重命名（如 <code>sync_error_count</code> → <code>sync_table_error_count</code>，等待事件类型 BUFFERPIN → BUFFER）；全文检索与 pg_trgm 改用数据库的 locale provider 进行字符分类，升级后建议重建相关索引并重算已存储的 tsvector。</li>
+</ul>
+
+<h3>社区讨论</h3>
+<p>评论普遍给予高度评价，多位用户特别点名 REPACK CONCURRENTLY、序列逻辑复制和 WAIT 命令三项最令人兴奋，认为这是近年最有看点的版本之一。关于 JIT 默认关闭，有评论称「早该如此」，认为其对已调优查询的性能影响很糟糕，并顺带讨论了 copy-and-patch 式 JIT 是否能取代基于 LLVM 的方案（有人认为生成的代码质量更差，Python 的 JIT 也不是成功案例）。</p>
+<p>另一条主线是升级策略与发布节奏：有人称这是「最无 bug 的 .0 版本」，但生产环境仍倾向等待 .1。有贡献者回应说，等待 .1 的意义在于正式发布后会有远多于 beta/RC 阶段的人实际安装；这次发布延迟的原因并非全是修 bug，还包括提交者忙于 18.7 的安全修复以及部分晚期功能被回滚。也有用户抱怨 PostgreSQL 18 才发布于 2025 年 9 月，如今 19 已出，很多公司连 17 都还没升，担心功能堆积与频繁大版本更新；反方则认为不想升级的人不升即可，社区积压的大量需求能得到交付是好事。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50569890</guid>
+      <pubDate>Fri, 20 Nov 2026 03:45:45 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ 独立榜单「模型工程能力指数」将 Gemini 4 Neon 列为第一，方法论遭社区质疑</title>
       <link>https://news.ycombinator.com/item?id=50568130</link>
@@ -1545,118 +1658,6 @@ rclone copyurl "&lt;build-url&gt;" "bunnycdn:&lt;zone-name&gt;/&lt;filename&gt;.
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50488325</guid>
       <pubDate>Fri, 13 Nov 2026 19:14:02 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 600 次实验之后：在不重训模型的前提下，把 JEPA 世界模型的规划成功率从 22% 提到 85%</title>
-      <link>https://news.ycombinator.com/item?id=50487185</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲 JEPA 世界模型的推理期规划改进实验（不重训模型把成功率从 22% 提升到 85%），属 AI 软件技术进展/模型研究，符合感兴趣范围，但非新模型发布公告，故为推荐而非必看</small></p><p>作者花了几个月时间，在 <a href="https://haddyalchaer.com/jepa">LeWM（LeWorldModel）</a> 上做了约 600 次实验。LeWM 是包含 Yann LeCun 在内的团队提出的联合嵌入预测架构（JEPA, joint-embedding predictive architecture）世界模型，主评测任务是 Push-T（机器人在桌面上推动灰色 T 形块，直到落到目标图像所示的绿色位置）。</p>
-
-<p>JEPA 由三部分组成：编码器把每帧观测压缩成嵌入向量，预测器接收「嵌入 + 动作」并预测下一帧的嵌入，规划器则在预测器内部试算大量动作序列，选出预测终点最接近目标嵌入的那条。整个循环都在嵌入空间中进行，因此模型只需学习对决策重要的场景信息，而不必生成像素级的未来画面——这正是 LeCun 等人主张生成式世界模型「浪费算力」的论据。</p>
-
-<p><img src="stories/jepa/jepa-slide-1.png" alt="感知：一堆积木被转成一列数字，即其嵌入" /></p>
-<p><img src="stories/jepa/jepa-slide-2.png" alt="预测：嵌入加上动作（机械手击打积木塔），得到积木塔倒塌的嵌入" /></p>
-<p><img src="stories/jepa/jepa-slide-3.png" alt="规划：从积木塔出发的多条动作序列分叉伸向未来，规划器选择终点为目标的那条" /></p>
-
-<p>核心结论是：<strong>预测精度并不是瓶颈，规划方式才是。</strong>作者把 LeWM 学习到的预测器换成模拟器的完美物理，成功率仅从 78% 变到 77%，说明在训练分布内的路径上，学到的预测已接近完美物理。于是他把精力放在不改动模型权重、只改规划器上，找到四种新方法。</p>
-
-<p><strong>1. 以 25 步为间隔用子目标分段规划。</strong>按原论文用法，目标距离 75 步时成功率只有 22%；把同样 75 步一次性规划换成每 25 步设一个子目标（子目标取自专家演示帧），成功率升到 80%，而换上完美物理只从 22% 升到 42%。也就是说，LeWM 的有效规划视界约为 25 步（25 步目标时成功率 89.7%，与完美物理的 90.5% 相当），长期任务的正确做法是把多个 25 步段落串起来——即分层规划。单纯增加搜索次数（跑四遍规划器取最优）花了四倍算力，收益不到一个百分点。</p>
-
-<p><strong>2. 带跳转代价的隐空间记忆图。</strong>作者把约 46 万个演示帧嵌入连成图：每个状态连向同一演示中的后继状态，以及在其他演示中嵌入距离很近的状态；规划器在图中找通往目标的路径，用路径上的状态作子目标。前提是嵌入距离具有物理意义——在一个 25 步内可达与不可达的子目标之间，嵌入距离有 87% 的概率把可达者判为更近。初版有个缺陷：跨演示的邻近状态「跳转」不花代价，于是搜索串出一堆积木根本无法遵循的路径（1015 条计划中有 318 条用了 6 次以上跳转）。给每次跳转加上代价后，同一批 250 个长时任务的成功率从 62% 升到 85%，与直接使用专家子目标的规划器持平。</p>
-
-<p><strong>3. 用变换后的记忆填补记忆空洞。</strong>作者指出标准 Push-T 测试偏容易：它从某个演示中途起步、沿同一演示取固定步数后的位置作目标，而所有演示最终都把积木推到同一地点，因此 84% 的测试目标在记忆图中都能找到几乎相同的状态；官方 50 回合的成功率是 68%，而重新采样 250 回合只有 44%，仅换规划器随机种子就有 250 条中的 38 条在成功与失败之间翻转。于是他构造了更难的测试：起点取自一个演示、目标取自另一个演示，且积木必须在最后 10 步保持就位。记忆图覆盖不足时后果严重——删掉目标附近的全部状态，成功率从 93% 跌到 32%；利用 Push-T 的平移、旋转、镜像对称性，把别处的演示片段变换后补进空洞，成功率回到 85%，也能让小记忆（仅 1% 演示 + 变换副本）达到 10% 演示的效果。在更难测试上，变换记忆把成功率从 45% 提到 56%，且目标方向与演示流向相反时收益最大（27% → 46%）。</p>
-
-<p><strong>4. 「代价」其实设错了。</strong>作者自建交互式 demo 后发现：目标必须是图像，而场景图像必然包含推杆，于是规划器会连推杆的位置一起匹配。有一次机器人已把积木推到距目标 14 像素（算作成功），随后却把积木推离目标、把推杆挪向目标图像中推杆所在处。用真实物理做对照实验：同一批 50 个任务，代价同时包含积木与推杆时成功 9/50，只包含积木时成功 39/50；30 个任务由失败变成功，反向为 0——这种分布随机出现的概率约为二十亿分之一。由于 LeWM 的目标嵌入没有「推杆」这个标签，无法直接告诉它忽略推杆，作者改为把目标图像复制 16 份、把推杆挪到不同位置后取最接近的一份来计分，在更难测试上把成功率从 11% 翻到 23%。他的结论是：目标应是一组可接受终态的集合，而非一张固定图像。</p>
-
-<p>作者强调，这四种方法都不改变模型权重，理论上可迁移到更大的 JEPA 世界模型。遗留的最大开放问题是泛化到没有完美演示的任务：更难测试上最优规划器只有 56%，失败多集中在「与数据流向相反」的目标上，需要能自行提出子目标的高层规划器，而现有学习式层级方法（如 H-JEPA）在 Push-T 上仅与扁平 LeWM 持平或略好。</p>
-
-<p>社区讨论中，作者本人（halcdev）在线答疑；多人称赞文中动画效果（使用原生 JS、Canvas 2D、SVG 和 WebGL 着色器实现），也有人反馈手机端背景动画影响可用性，作者随后降低了强度。有读者质疑文章标题的「dis Covered」措辞——分层规划、子目标、动作分块等已是成熟概念，这更像一篇个人学习历程记录而非新颖成果，建议改题为「在 Push-T 上用 600 次规划实验学到的东西」；亦有读者认为个人博客里的「我发现了」本就无妨。有人指出 <a href="https://github.com/olivkoch/gumbel-mcts">MCTS 也能在无训练下解决 Push-T</a>；还有评论批评文字有明显的 AI 生成痕迹、篇幅冗长。另有人质疑为何评测样本几乎都取自演示帧：如果演示集在统计上存在偏差，结果就难以证明对任意起止位姿的泛化，而真实机器人几乎不会遇到完全重复的场景。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50487185</guid>
-      <pubDate>Fri, 13 Nov 2026 17:55:28 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ ggml 发布 v1.0.0：清理弃用 API、支持 FP8，并为各后端带来大量提速</title>
-      <link>https://news.ycombinator.com/item?id=50493062</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 机器学习张量库 ggml 发布 v1.0.0，属编程工具/开源项目发布且带来 FP8 支持与后端提速，契合「编程工具发布」高兴趣与「开源项目/AI 技术进展」兴趣</small></p><p>面向机器学习的张量库 <a href="https://github.com/ggml-org/ggml">ggml</a> 于 11 月 13 日发布 <a href="https://github.com/ggml-org/ggml/releases/tag/v1.0.0">v1.0.0</a>，这是该项目首个 1.0 里程碑版本。发布说明称，此版本清理了已弃用的公共 API 与旧版 DIAG_MASK 算子，加入可配置的 YaRN 截断与 FP8 支持，并在几乎所有后端上做了大规模性能优化。该消息在 Hacker News 获得 383 分、65 条评论。</p>
-<h3>API 与核心变更</h3>
-<ul>
-<li>删除弃用 API 及遗留的 DIAG_MASK_INF/DIAG_MASK_ZERO 算子，同时升级 RPC 协议以拒绝不兼容的对端。</li>
-<li>新增 <code>ggml_rope_set_truncate</code>/<code>ggml_rope_get_truncate</code>，用于控制 YaRN 修正边界的取整行为；该配置已在 OpenVINO、SYCL、Vulkan、WebGPU、RPC 等后端生效。</li>
-<li>实现 TRI 的反向传播；为 <code>ggml_prec_set_acc</code> 增加 MUL_MAT src1 精度测试与门控。</li>
-<li>RPC 协议升至 v9，加载更快，并在端点不可达或握手失败时优雅失败而非崩溃。</li>
-<li>调度器会跳过上传未被读取的输入，并只预取由更早分割产生的输入；MoE 缓存可将部分未命中专家放到 CPU 计算再异步拷回；Meta 后端提高了张量较少时的 compute view 上限。</li>
-</ul>
-<h3>后端性能与功能</h3>
-<ul>
-<li><strong>CUDA</strong>：新增针对 batch size 2–24 的少行 MMQ、BF16 少行矩阵乘的 MMVF，OCP FP8 支持，NVFP4 gate/up 矩阵乘与 GLU 在 MMQ 中融合；FlashAttention 增加 sm70 头尺寸 256 配置与 40/72 的 MMA 头尺寸；MoE 相关优化包括跳过空 tile、线性化布局、修复 post-bias NaN。</li>
-<li><strong>Metal</strong>：融合 MoE 路由（DeepSeek-V4/V4.1、GLM），让可融合节点组留在同一 command buffer 内；radix Top-K 在并列时结果确定；并为 32≤K&lt;64 加入 mul_mm。</li>
-<li><strong>Vulkan</strong>：新增 Intel FlashAttention prefill 内核、批量张量拷贝、融合测试接口与 ReBAR 检测；支持 CM2 下的反量化 KV、RDNA3/4 大 tile split-K，并在新版 AMD 驱动上启用大 coopmat 矩阵乘。</li>
-<li><strong>SYCL</strong>：新增设备端 MoE 调度器，oneDNN FlashAttention 缓存线程安全，Alchemist 在 head_dim=64 时解除融合 SDPA 限制。</li>
-<li><strong>OpenCL</strong>：为 Adreno 加入分解式 FlashAttention 并提升 decode 性能，新增 q6_k tiled、q8_0、f32/q5_k 多列 GEMV 等内核。</li>
-<li><strong>WebGPU / Hexagon / CPU</strong>：WebGPU 支持批量张量 API 及 GROUP_NORM、MEAN、COUNT_EQUAL、PAD_REFLECT_1D 等内核；Hexagon 扩展 Q5_0/Q5_1 与 conv_3d 覆盖；CPU 侧 MUL_MAT 改用 F32 src1、FlashAttention 的 V 累加改用 F32，并加入 SpacemiT RVV 内核与 ARM NEON 的 4x4 simd_gemm tile。</li>
-<li>此外还修复了 Metal、Vulkan/MoltenVK、SYCL、Hexagon 等多个后端的内存越界与构建问题。</li>
-</ul>
-<h3>社区反馈</h3>
-<p>评论普遍给予高度评价，认为 ggml 与 llama.cpp 是「AI 世界的 Linux」，让本地推理在各类硬件上成为可能——有用户提到自己的旧 AMD 显卡仅支持 Vulkan，却仍能靠它正常使用。多位用户强调同一硬件上不断获得免费性能提升：有人实测升级后同一个 5 万 token 长提示的运行时间从 4:22 降到 3:59。</p>
-<p>也有观点指出，针对特定硬件定制的推理引擎仍然更快，但 llama.cpp 的价值在于「一次训练、到处运行」的通用性，在易用性、硬件覆盖面、模型覆盖面等综合指标上表现稳定。一位用户希望 1.0 附带公共 C API 的稳定性承诺，以便更放心地构建 Python 绑定等上层应用。另有评论提到 v1.0.0 的一个实用特性：当 MoE 模型略超显存预算时，可将不常用的专家缓存在主机内存中，而不是加载失败。还有人顺带调侃库名来自作者 Georgi Gerganov 的首字母，并指出 Linux 当年也并非 Linus 自己命名。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50493062</guid>
-      <pubDate>Sat, 14 Nov 2026 02:28:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 一种不占用单元格的终端边框协议：在单元格边缘画细线</title>
-      <link>https://news.ycombinator.com/item?id=50491423</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 终端细线边框协议的技术分享，附 Ghostty/Ratatui 示例，属于开发者工具与终端相关技术进展，与编程兴趣相关但非核心关注点</small></p><p>Ratatui 维护者 Joshka 提出了一套终端协议草案，让边框、圆角、网格线直接绘制在单元格（cell）的边缘上，而不是占用整行整列。他实现了 Ghostty 的补丁（此前也做过 Rio 的原型），并基于 Ratatui 写了一批演示应用，包括平铺面板、表单、标签页和 btop 风格的系统监视器。文中声明代码与文章在 AI 辅助下完成。</p>
-
-<h3>要解决的问题</h3>
-<p>如今终端里的边框基本靠 Unicode Box Drawing 区块的 128 个字符绘制，但边框本身是「文字」，必须占满一个单元格，于是产生一系列麻烦：</p>
-<ul>
-<li><b>浪费空间</b>。作者 16 寸笔记本上终端大约 200×50，列数尚可，行数吃紧；几层嵌套面板就能让 50 行里蒸发 6 到 8 行。</li>
-<li><b>无法紧贴内容</b>。不能在已有文字下方画下划线式边框，或给按钮描边，除非加内边距。</li>
-<li><b>圆角出问题</b>。圆角字符只有一个背景色，面板背景与周围不同时，四角会出现错色的小方块。</li>
-<li><b>线宽与位置由字体决定</b>，不可控。</li>
-<li><b>复制粘贴遭殃</b>。框选文字会连边框一起复制，谁没在 Slack 里手工清理过 <code>│</code>。</li>
-</ul>
-<img src="https://www.joshka.net/cell-borders/panes.png" alt="用单元格边框绘制的 Ratatui 平铺面板演示" />
-
-<h3>协议设计</h3>
-<p>核心思路是把边框当作和背景色一样的<b>单元格属性</b>：每个单元格最多携带 12 条线段——四条边各两半，加上从中心发出的四条臂；每段有自己的颜色、宽度、位置与样式，由终端在单元格网格之上绘制。边框存在单元格里，因此会随文字一起滚动、擦除、插入和重排。边被切成两半是为了对齐象限块字符（▖▗▘▝），便于在距网格半格处画形状。</p>
-<p>相邻两格在同一条共享边上都画线时会合并为一条，优先级高的胜出，其次更宽的，再其次靠右或靠下的——这样被聚焦的面板可以抬高优先级、完整保留自己的轮廓（作者最初写的「右下优先」规则就是因为焦点面板丢了一半轮廓而废弃）。样式支持实线、双线、虚线和点线，角落与中心可方形或圆角，半径可配、弧线抗锯齿，且圆角可以指定「外部颜色」以正确处理面板内外背景不同的情况。</p>
-<img src="https://www.joshka.net/cell-borders/styles.png" alt="样式图库：实线、双线、虚线、点线、圆角、分叉与汇合" />
-
-<h3>线格式与兼容性</h3>
-<p>所有命令封装在一条带命名空间的 DCS 字符串里：<code>ESC P 1 + b cell-border ; OP ; FIELDS… ESC \</code>。最常用的是一条「画笔（pen）」命令，像当前背景色一样挂在光标上——设置画笔、输出文字，被打印的单元格便带上边框。另有直接对已有单元格设置或清除边框的矩形命令，以及能力查询：应用发送查询后再发 DA1，若 DA1 回复到来前没有收到相关回复，就说明终端不支持，应用回退到 Box Drawing 字符并预留空间。不认识的终端会忽略未知 DCS；未知字段也被忽略，便于以后扩展。作者刻意把最小实现（画笔 + 矩形命令 + 实线）控制得很小，把线型、圆角、优先级、外部颜色等列为扩展字段，希望早期决策尽量是「双向门」。</p>
-
-<h3>与已有方案对比</h3>
-<p>DECterm 的 DEC 制表线（DA1 扩展 43）是独立图层，清屏后仍残留且固定一像素宽、使用正常文字色；SGR 51–65 的 framed/encircled 等是开关属性，没有颜色、宽度和接合，也没有下边缘；Win32 控制台和 PDCurses/X-Open curses（WA_TOP、WA_LEFT 等）最接近本协议，但缺下边缘、颜色、宽度和半格；IBM 3270 可为整个输入字段描边。它们都没有「每条边可有自己的颜色和宽度」。</p>
-<p>作者最初的原型在 Rio 里用 APC，反馈指出 APC 载荷不安全（Kermit 95 自 90 年代起会把 APC 内容当 Kermit 命令执行），于是改用结构化的 DCS。</p>
-<img src="https://www.joshka.net/cell-borders/zoom-form.png" alt="用单元格边框绘制的表单：下划线输入框、复选框、圆角按钮" />
-<img src="https://www.joshka.net/cell-borders/chart.png" alt="盲文 CPU 图表，网格线与平均线画在单元格边缘" />
-
-<h3>边界情况与开销</h3>
-<p>复用器（tmux 等）按自己的单元格网格重绘，所以不认识该协议的复用器应丢弃这些序列并自行回复 DA1，内部应用于是回退到 Box Drawing；认识协议的则可像其他属性一样存储和重绘。擦除、插入、删除的行为与背景色一致。回滚缓冲区、备用屏幕与重排基本「免费」。实现成本方面，Ghostty 的改动约 1650 行（很大一部分是测试）；每个单元格分配一个 16 位边框 ID，正好塞进原本已存在的填充位，因此单元格不再增大、没有边框的屏幕也无额外开销；ID 指向全终端共享的去重边框集表（每条约 100 字节），表不释放，最坏情况约 10–15 MB。渲染只为有边框的单元格做额外工作，且需查看四邻以解决共享边，所以改动一行会重建上下相邻行；圆角因抗锯齿弧线按边缘像素绘制的四边形代价更高。作者尚未做正式基准测试，最希望有人帮忙看这部分。</p>
-
-<h3>试用方式</h3>
-<p>规范与理由文档在作者的 Ghostty 分支（<code>joshka/cell-borders</code>），实现了 v1 全部内容，但只在 macOS 上构建过，GTK 与 OpenGL 构建未测试。分支内的 <code>scripts/cell-borders.py</code> 会先探测能力，也能用来快速检验其他终端的实现。Ratatui 分支上的平铺面板演示（<code>cargo run -p tiling-panes</code>）在终端不支持时回退到字符边框，正是对比截图的来源；同分支还有读取真实 CPU、内存、网络与进程的 btop 风格监视器 <code>cell-border-top</code>（因依赖 sysinfo 需要 Rust 1.95）。</p>
-
-<h3>社区反馈</h3>
-<p>Hacker News 上的讨论（约 390 分、167 条评论）呈现明显分歧：</p>
-<ul>
-<li><b>美学担忧</b>：多位评论者认为边框「需要呼吸空间」，这种紧贴处理反而不好看；也有人觉得「所有东西都要套一个圆角框」是典型的 LLM 生成风格，噪声过多——而作者本人恰好坦承大量使用 AI。</li>
-<li><b>复制粘贴</b>：不止一人认同把边框排除在复制内容之外很有价值。</li>
-<li><b>更激进的想法</b>：<a href="https://news.ycombinator.com/item?id=50491423">有人问</a>既然都要改协议和终端，为什么不做成面向 UI 的信息密集型框架，而非继续模仿哑终端；也有人提议干脆「通过 SSH 提供 HTML」。</li>
-<li><b>替代方案</b>：有人建议推广 DECSET 20 的 <a href="https://github.com/mintty/mintty/wiki/CtrlSeqs#overstrike">overstrike 模式</a>（目前似乎只有 mintty 支持），在已有文字的单元格上叠画边框字符即可；作者回应说该方案覆盖不到规范里的若干特性，另一种意见则认为「特性更多」可能是过度复杂。</li>
-<li><b>tmux 争议</b>：有评论者质疑「复用器不兼容」的说法，认为 CSI 类单元格属性照理能正常传递；作者回应 tmux 会丢弃未知 DCS，且存储、重绘这些状态约需上千行代码。</li>
-<li><b>内存</b>：作者答称占用极小，靠的是单元格已有的 16 位填充位，最坏情况约 25 MB。</li>
-<li><b>氛围</b>：作者提到在 Lobsters 上被「反 AI」群体围攻，而 Hacker News 的投稿疑似因正文披露 AI 使用而被标为垃圾，他对反对意见照常点赞，认为投票不该表达好恶。</li>
-<li><b>立场</b>：作者强调自己并不执着于具体规范细节，更在意「能力」本身，乐于改成别的实现方式；希望它不只属于某一种终端、也不只是一个周末的折腾。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50491423</guid>
-      <pubDate>Fri, 13 Nov 2026 23:06:40 GMT</pubDate>
     </item>
   </channel>
 </rss>
