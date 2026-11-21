@@ -3,7 +3,45 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Sat, 21 Nov 2026 17:25:37 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 23:08:07 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Sashiko AI 为 Linux 内核代码审查新增「性能专家」审查阶段</title>
+      <link>https://www.phoronix.com/news/Sashiko-AI-Performance-Review</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 内容为 Sashiko 这一面向 Linux 内核的 AI 代码审查工具新增性能专项审查阶段，属于 AI 开发工具/软件功能进展，契合全局对编程工具与 AI 技术进展的兴趣；虽涉及性能话题，但并非硬件性能评测，故不排除</small></p><p>由 Google 开发的智能体（agentic）AI 代码审查工具 Sashiko 最初聚焦于 Linux 内核，持续在新补丁进入内核邮件列表时帮助发现缺陷，也支持用户自行运行这套开源软件。继此前推出实验性的补丁系列设计评估功能后，Sashiko 又新增了一项能力：对内核改动进行性能与基准测试评估。</p>
+
+<p>正如众所周知的那样，Linux 内核的性能回退（performance regression）相当常见，因此这一方向被认为既有趣又重要。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=sashiko_performance_med" alt="Tux with CPU and GPU" />
+
+<p>在周五发布的 Sashiko 0.9.5 中新增的审查阶段名为「Linux 性能专家审查阶段与基准测试」（Linux Performance Specialist Review Stage and Benchmarking），主要包含：</p>
+<ul>
+<li>在 <code>linux_patch_review</code> 中加入可选的性能专家分析阶段，守护进程模式与本地 <code>sashiko review</code> 均可用（包括 <code>--stages performance</code> 与 <code>--cheap</code> 参数），并带有二阶副作用追踪与抗噪声护栏。</li>
+<li>支持 <code>expect_clean</code> 中性基准样本、按阶段统计误报，并提供一个平衡的 40 提交基准套件 <code>benchmark_performance.json</code>（20 个上游性能回退提交 + 20 个经浸泡验证的干净提交）。</li>
+</ul>
+
+<p>相关提交进一步说明了实现思路：该阶段被集成进 <code>linux_patch_review.rs</code> 的 <code>ANALYSIS_STAGES</code>，由 <code>projects/linux/prompts/performance.md</code> 提供提示词，并与 <code>false-positive-guide.md</code>、<code>severity.md</code> 中的规则保持一致。由于内核性能回退通常是普通缺陷修复、清理和结构体布局变化带来的意外副作用，具体策略包括：</p>
+<ul>
+<li>对任何非平凡的 C、Rust 或结构体/头文件改动都调度性能分析，而跳过纯文档、注释或 ID 表类改动。</li>
+<li>借助仓库工具向外追踪 1–2 层的调用者与嵌套结构体，禁止以「临界区很短」「冷路径销毁」等理由自我否定，也不得把已声明的正确性机制当作可接受的吞吐/延迟悬崖。</li>
+<li>排除投机式微优化、零变化的 <code>guard(mutex)</code> 清理，以及没有扇出的有界一次性控制路径。</li>
+</ul>
+
+<p>在 <code>benchmark_performance.json</code> 上使用 gemini-4-argon（高投入档）做的受控 A/B 基准结果：</p>
+<ul>
+<li><strong>正向检出率</strong>：基线 3/20（15.0%）提升至 14/20（70.0%），提高 55 个百分点；11 个净新增命中中有 9 个完全来自性能阶段。</li>
+<li><strong>中性干净率</strong>：基线 11/20（55.0%）提升至 12/20（60.0%），未新增误报中性提交；未匹配发现总数由 52 降至 51。</li>
+<li><strong>资源开销</strong>：输入 token 中位数增加 11.0%（其中 91.4% 命中缓存），单提交耗时中位数反而下降 3.1%。</li>
+</ul>
+
+<p>Sashiko 0.9.5 还包含其他多项改进。对于希望减少内核性能回退的开发者来说，这一能力的加入值得关注。原文评论区的讨论较为有限。</p>
+
+<h2>你知道吗？</h2>
+<p>Sashiko 得名于日本一种以连续针脚缝补、加固旧布料的手工刺绣技法，这一命名与它「在内核补丁上一针一线寻找问题」的定位相呼应。与通用的代码审查助手不同，Sashiko 的工作方式更接近审查者：它会追踪调用关系、核对上下文，并在邮件列表语境下输出可直接回应的意见，这也是它能逐步扩展到设计评估、性能分析等专项阶段的基础。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Sashiko-AI-Performance-Review</guid>
+      <pubDate>Sat, 21 Nov 2026 17:49:14 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Debian 13.8 发布：包含 150 余项安全更新与大量缺陷修复</title>
       <link>https://www.phoronix.com/news/Debian-13.8-Released</link>
@@ -778,33 +816,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Codex-R600-UVD-FIx-Linux-7.5</guid>
       <pubDate>Fri, 13 Nov 2026 01:41:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Rust 1.100 发布：「never」类型 ! 历经十年终于稳定</title>
-      <link>https://www.phoronix.com/news/Rust-1.100-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust 语言新版本发布并稳定 Never 类型，属于来源配置中感兴趣的 Rust 及全局的编程工具/语言更新</small></p><p>Rust 1.100 正式发布。本次更新最受关注的是「never 类型」（never type）<code>!</code> 终于进入稳定状态——这一特性历经十年、五次失败的稳定化尝试后才落地。此外，1.100 还稳定了 Allocator API 的核心部分，并带来多项 Cargo 改进。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=rust_never_med" alt="Rust never type example" />
-
-<p><strong>never 类型 <code>!</code></strong>：用于表示永远不会产生任何值的发散计算（diverging computation）。位于 <code>!</code> 类型之后的代码不可达，常用于 <code>panic!</code>、<code>process::exit</code>、无限循环以及 <code>match</code> 分支等场景。</p>
-
-<p><strong>Allocator API</strong>：Rust 1.100 稳定了该 API 的核心部分，为自定义内存分配器提供了更正式的接口基础。</p>
-
-<p><strong>Cargo 改进</strong>：</p>
-<ul>
-<li>支持在构建时报告未被使用的依赖（unused dependencies）。</li>
-<li>减少 Cargo 缓存冲突问题。</li>
-<li>新增 <code>min-publish-age</code> 选项，作为依赖的「冷却期」（cooldown period）：由于恶意 crate 通常在发布后数小时内就会被发现，可通过 <code>global-min-publish-age</code> 等设置，避免引入最近 3 天或 5 天内发布的 crate。</li>
-</ul>
-
-<p>其余稳定化的 API 与改进详见 Rust 官方博客。原文发布后已获得 11 条评论。</p>
-
-<h2>你知道吗？</h2>
-<p>never 类型之所以拖了十年才稳定，主要不在于语法本身，而在于类型系统层面的细节：早期实现依赖「<code>!</code> 回退」（fallback）机制，且 <code>!</code> 与 trait 实现、类型强制转换（coercion）之间的交互会带来一致性（coherence）与推断方面的边界问题，因此多次稳定化尝试均被撤回。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Rust-1.100-Released</guid>
-      <pubDate>Thu, 12 Nov 2026 18:51:12 GMT</pubDate>
     </item>
   </channel>
 </rss>
