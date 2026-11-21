@@ -3,7 +3,61 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 21 Nov 2026 01:27:12 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 09:41:55 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ 我们把开发者「提拔」成了架构师，却没通知他们</title>
+      <link>https://news.ycombinator.com/item?id=50579331</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论 AI 编程（vibe coding）下开发者角色转变为架构师的实践经验，属于编程效率改进经验，命中很感兴趣主题</small></p><p><img src="https://cdn.neartail.com/1FAIpQLScjbts-yMOruG0IK47bi0s9ciOCA6pyW7RlmwKwcFIRnw9HUQ/1795197373296/markdown/thumbnail.png" alt="文章配图" /></p>
+<p>作者 Mani Doraisamy 在<a href="https://manidoraisamy.com/developer-to-architect.html">原文</a>中讲述了一次真实的性能事故：他排查自家 Google Forms 插件的加载问题时发现，同事为了让市场团队每周监控新安装用户，用「氛围编程」（vibe coding）方式让 AI 写了一段日志代码。</p>
+<h3>事故是怎么发生的</h3>
+<p>由于 Google 自去年十二月起严格限制应用能获取的用户信息，AI 生成了一串 try/catch：先尝试读取用户在安装时授权共享的邮箱；失败则改取用户 ID；再失败就写一条「有人安装了，但我们不知道他是谁」的错误日志。三行代码看着简单，但每一次内部都要向 Google 服务器发起多次 API 调用，而日志恰好是安装后执行的第一行代码，结果静态的欢迎页要花 15 秒才显示出来。</p>
+<p>作者认为，真正懂底层调用成本的资深开发者或架构师会这样做：只记录安装时间戳，并明确告诉市场团队「无法基于安装行为发跟进邮件」；或者先渲染欢迎页，再在浏览器端异步补记邮箱或用户 ID——后者可能要求服务端接受未认证的 payload，需要你主动拍板。</p>
+<h3>AI 为什么不会回推需求</h3>
+<p>AI 擅长写代码，但它不知道你的应用是刚上线还是已有百万用户，而这恰恰决定了「记时间戳还是记邮箱」。它还有强烈的迎合倾向（sycophantic），会精确执行你提出的需求而不提出异议；同时对安全过度警惕，绝不肯写接受未认证 payload 的代码，甚至会把你手写的版本改回认证流程，从而拖垮性能或逼用户重新登录。</p>
+<p>结论是：如果你只描述需求而不描述架构，AI 就会替你做架构决策。</p>
+<h3>「你的新工作是做架构师」</h3>
+<p><img src="https://cdn.neartail.com/1FAIpQLScjbts-yMOruG0IK47bi0s9ciOCA6pyW7RlmwKwcFIRnw9HUQ/1795197544870/markdown/thumbnail.png" alt="AI 编码与架构权衡示意图" /></p>
+<p>AI 编码工具被调校为满足功能需求加两项非功能需求——安全与向后兼容（避免把应用弄坏）。这几乎必然导致两类后果：为安全牺牲性能的架构；以及多个版本的数据模型，冗余的表、列和代码。</p>
+<p>因此作者主张：先自己定义架构和数据模型，再让 AI 在该约束内写代码；每当需求会改变架构或设计时，要求工具先询问你；并由你决定何时需要向后兼容、何时该删除旧逻辑与旧表。作者指出，习惯「设计数据模型 → 交给开发者实现 → 审查代码是否合乎设计」的架构师，会自然适应这种工作方式。问题是，如今被推到架构师位置上的，恰恰是那些热爱写代码、却从未被告知新职责的开发者——他们眼看着自己喜爱的工作被 AI 全部接手，困惑与对 vibe coding 的反感由此而来。文末的呼吁很直白：写代码的工作在消失，但你的工作没消失；学会回推需求、设计数据模型、约束 AI 并审查代码——「你被提升了，只是没人告诉你，所以由我来告诉你」。</p>
+<h3>社区反馈</h3>
+<p>该文在 Hacker News 上获得 415 分、234 条评论，讨论相当分裂：</p>
+<ul>
+<li><strong>「架构师不是晋升」</strong>：有评论认为从开发转向架构算不上提拔，架构岗位同样不会对 AI 免疫，作者描述的只是一个把 AI 用得很糟的个案，对整体职业变迁缺乏把握。</li>
+<li><strong>「这话听着像实习生说的」</strong>：对「懂 API 调用次数的资深开发者会怎么做」的说法，有人直言这更像是初级开发者或实习生的口气。</li>
+<li><strong>架构岗位的稀缺性</strong>：有评论指出每个团队通常只需要一个架构师，所以「人人被提拔」并不成立，剩下的人何去何从才是真问题。</li>
+<li><strong>劳动力市场的悲观视角</strong>：多位评论者认为更可能的未来是薪水更低、乐趣更少，工程师沦为 LLM 决策的「责任兜底」（liability sink）；并批评开发者群体对劳工史过于天真——工作越被「理性化」，劳工处境越差，历史上从未例外。</li>
+<li><strong>「我也被提拔成 PM 和 DevOps 了」</strong>：不少人表示自己被迫承担需求收集、文档、干系人管理等产品经理职责，还要审查别人的 AI 代码、负责运维，工资却不变。</li>
+<li><strong>架构是权衡，不是爬山</strong>：作者本人在评论区强调架构即取舍，若不在 CAP 定理等性质上做出让步，AI 会「重新发明 Google Spanner」，却指望你有 Google 级数据中心。也有评论反驳「持续优化安全和性能」的乐观说法，认为局部最优堆不出好架构。</li>
+<li><strong>关于规格驱动开发</strong>：有读者问采用规格驱动开发（spec-driven development）是否能避免此类问题，评论者回答：如果规格仍停留在需求层面而非架构层面，就无济于事。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50579331</guid>
+      <pubDate>Fri, 20 Nov 2026 18:17:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 停止写代码，你的代码审查能力也会随之退化</title>
+      <link>https://news.ycombinator.com/item?id=50573886</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论停止手写代码后代码审查能力退化，涉及 AI 时代编程实践与效率，属于感兴趣的编程经验话题</small></p><p>作者（cekrem）提出一个在他看来本该毫无争议的观点：任何技能不练就会退化，软件工程也不例外。他列举了类比：读《Born to Run》不会让你跑完超级马拉松；如果爵士吉他手 John Scofield 宣布停止练琴，只靠"给别人上课、听学生弹奏并迭代"来保持甚至提升水平，那在其他任何领域都会被人嘲笑；再比如一个作家如果不再写作，只靠阅读、以及给别人的作品（更糟的是 AI 生成的散文）提反馈，其写作能力必然稳步下滑。<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/John_Scofield-8615.jpg" alt="John scofield playing at the Moers Festival in 2021" /></p>
+<p>作者承认"软件工程不只是写代码"这句话没错，开发与维护软件的其他环节同样重要；但代码毕竟是非平凡的一部分，因此工程师仍应努力理解代码如何运作、什么是好代码、该警惕什么，以及架构如何让代码「易于修改」。他认为单纯"审查 Claude 写出的所有代码"并不够——而且实际上你根本没有认真读完其中一半。</p>
+<p>第二个论点：所有工程师都需要擅长解决问题。手的参与程度可以讨论，但"我们仍在解决问题"是无可争议的；一旦停止练习解决问题，就不会再变得更擅长它。这就像当年你能分辨谁是用作弊码通关 Doom、谁是真本事打通关——如果目标是"通关"，作弊没问题；如果目标是"变强"，那就别作弊。有些课只能靠试错学到。频繁用大语言模型（LLM）解决问题，会把一个前提刻进大脑回路：<em>如果一件事很难、很棘手、需要付出努力，那就不该去尝试</em>——而学习、手艺和乐趣就随之消失了。</p>
+<p>作者还引用博客作者 Em 的感叹：在人们用 AI 总结书籍代替阅读、向 AI 寻求心理治疗的年代，识读和计算能力正在下滑，我们是否还在为自己思考？文章最后半开玩笑地恳求："John Scofield，请别停止弹吉他！"</p>
+<p>评论区反应热烈，主要观点包括：</p>
+<ul>
+<li><strong>数据退化的自噬循环</strong>：有评论认为 AI 会消灭产出高质量训练数据（即好代码）的人，用 AI 生成内容训练的模型只会越来越糟，被形容为"衔尾蛇（Ouroboros）"。也有人担心，注重可读性与可维护性的开发者最不愿把代码库交给模型，而最依赖 AI 的"大客户"恰恰是那些看不懂自己代码的人，公司有动机主动培养这种依赖。</li>
+<li><strong>"适度派"实践</strong>：多位工程师描述了自己的折中做法——把无聊的、无需学习的部分外包给智能体，但仍逐行审查；对不熟悉的领域先做规划并大量使用智能体预审，最后仍花时间弄懂看不懂的细节。他们声称自己的心智模型与手写代码时相差不大，但也承认这并没有带来 10 倍提速。</li>
+<li><strong>管理压力与滑坡</strong>：有人引用"vibe bobsled"的说法，警告缺乏清醒管理层的环境下，产出量和交付速度比"质量"更容易被衡量，工程师会被一步步推向连审查也一并外包，最终只剩"背锅"的职能。</li>
+<li><strong>审查的价值被重新定义</strong>：一位从业者指出，代码审查的意义除了抓 bug，还在于协作与主人翁意识；如今代码变便宜了，但架构依然是昂贵的错误，因此应把审查的抽象层级从代码上移到架构。</li>
+<li><strong>但审查不等于写码</strong>：有评论用飞行员必须保持一定手动飞行小时数作类比，主张谨慎；也有人反驳说优秀的教练未必是优秀选手，写码与审查是相关但不同的能力。另一些开发者则表示，正因为不用花时间把 React 前端接到后端做 CRUD，他们过去一年学到了比以往任何时候都多的东西（Ansible、Terraform、DevOps）。</li>
+</ul>
+<p>原文：<a href="https://cekrem.github.io/posts/if-you-stop-writing-code-you-also-get-worse-at-reviewing-it/">If you stop writing code, you also get worse at reviewing it</a></p>
+<h3>你知道吗？</h3>
+<p>评论中提到的「vibe bobsled（氛围雪橇）」出自 <a href="https://dustycloud.org/blog/faulty-towers-vibe-sickness-and-the-vibe-bobsled/">Dustycloud 的一篇博文</a>，用来描述团队在「凭感觉交给 AI 写代码」这条下坡路上的滑行深度——从偶尔外包、到全面外包、再到连理解都放弃，形成一条很难回头的滑坡路径。与之相关的还有「vibe coding」一词，指几乎不阅读代码、仅凭运行结果与提示词来开发的方式。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50573886</guid>
+      <pubDate>Fri, 20 Nov 2026 12:41:38 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Thinking Machines 发布 Inkling 2 Mini：20GB、可在笔记本上离线运行的循环 Transformer 开源权重模型</title>
       <link>https://news.ycombinator.com/item?id=50581260</link>
@@ -1559,111 +1613,6 @@ rclone copyurl "&lt;build-url&gt;" "bunnycdn:&lt;zone-name&gt;/&lt;filename&gt;.
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50497892</guid>
       <pubDate>Sat, 14 Nov 2026 15:40:52 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Show HN：用约 200 行纯 JAX 从零实现 DeepSeek V3 架构</title>
-      <link>https://news.ycombinator.com/item?id=50497589</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Show HN 分享用 200 行纯 JAX 从零实现 DeepSeek V3（MLA、MoE 等），兼具编程分享与 AI 模型技术内容，直接命中高兴趣主题，必看</small></p><p>作者 Vaibhaav Tiwari 在 <a href="https://github.com/Vaibhaav-Tiwari/deepseek-v3-jax">GitHub</a> 上发布了一个教学性质的项目：按照 DeepSeek-V3 技术报告，用 190 行纯 JAX（不含 Flax、Equinox 或 PyTorch）重新实现了该模型的核心架构，参数就是普通的数组字典，模型的每个部分都是可以自顶向下读完的函数。配套<a href="https://vaibhaav.in/writing/deepseek-v3-jax/">图文详解</a>逐段解释代码。</p>
-
-<p><img src="https://raw.githubusercontent.com/Vaibhaav-Tiwari/deepseek-v3-jax/main/post/diagrams/01-whole-model-clean.png" alt="整体模型结构：36.2M 参数，每 token 使用 13.6M" /></p>
-
-<h3>复现的四个关键设计</h3>
-<ul>
-<li><strong>多头潜在注意力（MLA, Multi-head Latent Attention）</strong>：每个 token 每层只缓存 144 个数值的潜在向量，而非完整的键值（相比 480 个数）。</li>
-<li><strong>解耦 RoPE</strong>：所有头共享一份旋转键，并保留在压缩潜在量之外。</li>
-<li><strong>DeepSeekMoE</strong>：1 个始终运行的共享专家 + 16 个路由专家，每个 token 取 top-4。</li>
-<li><strong>无辅助损失的负载均衡</strong>：通过调整每个专家的偏置项来引导路由走向空闲专家——只改变被选中的专家，不改变其权重；另加论文中 α=1e-4 的序列级均衡损失作为补充。</li>
-<li><strong>多 token 预测（MTP）</strong>：额外模块预测「再下一个」token，损失权重 λ=0.3。</li>
-</ul>
-
-<h3>训练结果</h3>
-<p>在一台 MacBook Air M5（24 GB 内存）上用 jax-metal 训练：36.2M 参数（每 token 激活 13.6M），语料为 207 本公有领域的侦探/犯罪小说（21.7M token，其中 Hammett 的作品重复 3 次），训练 12,000 步、约 9,800 万 token（约 4.5 个 epoch），耗时约 2.6 小时，速度中位数约 10.7k token/s，验证损失从 5.02 降到 3.51。</p>
-
-<p>最受关注的实验是均衡偏置的消融：开启偏置时，第 2000 步各专家负载落在 5.7%–6.9%（理想均值为 6.25%）；关闭偏置时则在 0.09%–18.6% 之间剧烈倾斜。而两者在此步的验证损失几乎相同（3.921 对 3.923），印证了论文的说法——偏置只是均匀了专家使用率，并不付出代价。</p>
-
-<p><img src="https://raw.githubusercontent.com/Vaibhaav-Tiwari/deepseek-v3-jax/main/post/figures/expert_load_final.png" alt="开启与关闭均衡偏置时的专家负载对比" /></p>
-
-<p>以「The fog came in off the」为提示生成的文本（「The fog came in off the bay, and the great trees were spreading and the stars were shining.」）表明这只是一个架构演示，而不是一个真正有能力的语言模型。</p>
-
-<h3>工作流程与可复现性</h3>
-<p>仓库提供完整流水线：<code>prepare_data.py</code> 下载并清洗 207 本书、训练 8,192 词表 BPE 分词器；<code>train.py</code> 用 AdamW（warmup + 余弦衰减）训练并记录指标与检查点；<code>sample.py</code> 带 MLA 缓存做预填充与解码；<code>tests.py</code> 包含 39 个测试（因果掩码、缓存与全量前向一致性、路由、均衡、MTP 目标、NaN 处理、bf16 主权重等）。v1.0 release 提供了与已发布实验完全一致的检查点（138 MB）和数据，可跳过训练直接生成文本。数据哈希不保证完全一致——Hammett 的书按 Standard Ebooks 提交锁定，但 Project Gutenberg 的 28 本书已被重新发布（主要是去掉重音符号），token 数不变因此训练行为应一致。</p>
-
-<p>除 Apple Silicon（需注意 jax-metal 0.1.1 仅兼容 jax==0.4.34）外，代码可无改动运行于 JAX 的 ROCm 后端；纯 CPU 也有 4 层、8 专家的 <code>small</code> 配置，面向 8–16 GB 内存的机器。</p>
-
-<h3>作者明确说明的简化</h3>
-<ul>
-<li>MoE 计算为稠密实现：所有专家都会计算，未被选中的结果置零，路由数学精确但没有稀疏调度或专家并行。</li>
-<li>MLA 不做权重吸收，潜在量被显式解压，更易读但在推理时更慢。</li>
-<li>未包含 FP8 训练、DualPipe、节点受限路由、YaRN 上下文扩展以及任何后训练。</li>
-<li>规模上 36.2M 参数对 671B、6 层对 61 层、256 token 上下文对 128K，差距巨大。</li>
-</ul>
-
-<h3>社区反馈</h3>
-<p>帖子获得 260 余分，评论普遍赞赏「从第一性原理重建模型」的学习价值，称其比读论文更直观。有人希望能有交互式动画版的架构图。关于数据集，有评论建议使用标准数据集以便横向比较结果，作者回应称侦探小说数据集「只是为了好玩」，未来若以对比为目标会改用标准数据集。</p>
-<p>最实用的反馈来自一位使用 RX 7600 XT（16 GB）的用户：这是首个在其 Fedora + ROCm 环境上端到端跑通的项目，但需要设置 <code>HSA_OVERRIDE_GFX_VERSION=11.0.0</code>（因为 JAX 插件拒绝 gfx1102）和 <code>XLA_FLAGS=--xla_gpu_enable_triton_gemm=false</code>（避免 GPU 挂起），他还提交了容器配置的 PR，已被作者合并。有人借此批评 AMD 对非数据中心硬件的软件支持依旧糟糕。另有人指出，只要把 zml 的 PJRT Metal 插件接上，JAX 应该可以直接用它。评论区也给出了一批入门路线图：3Blue1Brown 与 Welch Labs 的科普视频、Karpathy 的 zero-to-hero 与 nanochat、jaxformer 以及《Attention is All You Need》原文。</p>
-
-<p>代码以 MIT 许可发布；训练文本在美国境内属于公有领域，其他地区可能不同。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50497589</guid>
-      <pubDate>Sat, 14 Nov 2026 15:04:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Unsloth 发布 Qwen3.8-27B 的 Dynamic V3.1 量化：同体积下基准准确率提升 5-10%</title>
-      <link>https://news.ycombinator.com/item?id=50491980</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Unsloth 发布 Qwen3.8-27B 的 Dynamic V3.1 量化并给出本地运行指南，属于新 AI 模型/量化发布公告与 AI 技术进展，命中很感兴趣项</small></p><h3>核心更新</h3>
-<p>Unsloth 更新了 <a href="https://unsloth.ai/docs/models/qwen3.8">Qwen3.8 运行文档</a>，为 Qwen3.8-27B 发布基于新版 <strong>Unsloth Dynamic V3.1（预览版）</strong>算法的 GGUF 量化文件。官方称在体积基本不变的情况下，多数基准准确率提升 5-10%，在编码、Agent 类任务和通用对话上属于同类最佳。</p>
-<ul>
-<li>除 3bit（UD3）外，2bit 至 6bit 的量化均已更新；实测 UD3 与 UD3.1 表现相当，故 3bit 保持原样。</li>
-<li>测试覆盖 Terminal Bench 2.1、DeepSWE v1.1 等 Agent 基准，以及 LiveCodeBench v6、GPQA Diamond、MMLU-Pro、AIME25 等通用基准；Agent 基准用 256K 上下文，其余用 128K。</li>
-<li>V3.1 算法此前已用于 DeepSeek-V4.1-Flash 与 Qwen3.8-Flash-Next，官方表示正在开发更强的下一版量化，将用于 Qwen4 等后续模型。</li>
-<li>Unsloth 量化额外提供：面向 Codex 等 Agent 工具的 Developer 角色支持、加快推理的 MTP、以及改进嵌套对象解析的工具调用能力。</li>
-</ul>
-<img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FWf4zRxz4iskzXZcBUQYq%252Ffour%281%29.png%3Falt%3Dmedia%26token%3D0e7bc8b1-6a96-4978-bcbe-227d69705eb2&width=768&dpr=3&quality=100&sign=7ed088405d214652ffd92dfa31a55189&sv=3" alt="Dynamic V3.1 量化基准对比图" width="1470" height="1218" />
-
-<h3>与第三方量化评测的分歧</h3>
-<p>文档用相当篇幅反驳第三方（GSQ-RCO / ISTA）给出的「Unsloth UD3 量化更差」的结论：</p>
-<ul>
-<li>在 LiveCodeBench 上，Unsloth 称复现结果显示自己的 UD3 除最小尺寸外全面优于 ISTA，而 UD3.1 又有进一步提升；他们推测对方使用了约 96K 的上下文预算，而在 128K 下 UD3 明显更优。</li>
-<li>关于 AIME25，对方报告 100%/100%/100%/96.7% 的准确率恢复率，Unsloth 认为 ISTA 只做了 1 次试验，而自己做了 14 次，平均恢复率为 93%-96%，并指出 GPU 本身存在非确定性，贪心解码（temperature=0）也无法复现 100% 恢复，因此基准应多次运行。</li>
-<li>关于 Exllama-v3，因其 token embedding 层保留 BF16，比较时需从坐标轴中排除 embedding 尺寸；若按真实总内存/磁盘占用绘制，结论会不同（下图）。Unsloth 猜测其 lm_head 被重度量化，embedding 层可能「吸收」了大部分量化损失。</li>
-</ul>
-<img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FOAyvQGNinlCjqTfvInzE%252Fall_file_size%281%29.png%3Falt%3Dmedia%26token%3D71d6a14b-4dd5-4629-9011-c24145c16b41&width=768&dpr=3&quality=100&sign=3beec9c325f9b9b78a7ee83a00123276&sv=3" alt="各量化方案在真实文件体积下的准确率对比" width="2205" height="1826" />
-<p>此外，UD3.1 在多数量化档位与多数领域降低了 KLD（KL 散度），进一步印证质量改进。</p>
-<img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252FKjLQfsZa7dpm50lm4487%252Fq27_kld_v3_vs_v31%281%29.png%3Falt%3Dmedia%26token%3D5bda64f6-c756-4709-8f8c-15b60761e7f2&width=768&dpr=3&quality=100&sign=705ad9e088f5ea35653cf034dc3cb18e&sv=3" alt="UD3 与 UD3.1 的 KLD 对比" width="2464" height="1155" />
-
-<h3>硬件需求与推荐参数</h3>
-<p>Qwen3.8-27B 是 27B 稠密模型，具备视觉与推理能力，256K 上下文（可用 YaRN 扩展到 1M）。4bit 量化可在 16-19GB 显存（RTX 5080 / 4090）或 24GB 统一内存的 Mac 上运行；全内存需求（RAM+VRAM）从 1bit 的 7-8GB 直到 BF16 的 56GB。若启用 MTP 加速，需额外预留 1-2GB。</p>
-<ul>
-<li>思考模式：temperature 1.0、top_p 0.95、top_k 20；非思考（Instruct）模式：temperature 0.7、top_p 0.80、presence_penalty 1.5。</li>
-<li>支持 <code>reasoning_effort</code>（默认 xhigh，另有 medium/low/none），可通过 <code>--chat-template-kwargs</code> 调整；支持「保留思考（Preserve Thinking）」以延续上一轮推理轨迹，代价是 token 消耗增加。</li>
-<li>可在 llama.cpp 与 Unsloth Desktop（macOS/Windows/Linux，自动卸载到内存、识别多 GPU）中运行；官方同时提供 GGUF 与 NVFP4 权重（Hugging Face / ModelScope）。</li>
-</ul>
-
-<h3>NVFP4 量化与更大模型</h3>
-<p>面向 NVIDIA Blackwell（RTX 50 系、DGX Spark、B200/B300）的 NVFP4 量化比 BF16 快约 1.5 倍，体积相近，并加入 FP8 KV cache 校准使上下文长度翻倍；Top-1 一致率对 BF16 保持 92%-97%。目前主要支持 vLLM（SGLang 需 v0.5.19 才能加载 FP8 lm_head）。此外文档还包含 2.4T 参数（95B 激活）的 Qwen3.8-2.4T-A95B：BF16 需 4.9TB 存储，1bit Dynamic GGUF 仅 397GB（缩小 91%）。</p>
-<img src="https://unsloth.ai/docs/~gitbook/image?url=https%3A%2F%2F3215535692-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FxhOjnexMCB3dmuQFQ2Zq%252Fuploads%252F8zM7cg0Xgo2pAlop1iPW%252F01_qwen36_combined_throughput.png%3Falt%3Dmedia%26token%3D23131a96-4c41-42d7-aa16-5bfb21bb44a3&width=768&dpr=3&quality=100&sign=9583bd271a17702a070557a0de23b576&sv=3" alt="NVFP4 与 BF16 吞吐量对比" width="2179" height="1086" />
-
-<h3>社区讨论</h3>
-<p>该帖在 Hacker News 获得约 250 分、82 条评论，讨论集中在以下几点：</p>
-<ul>
-<li><strong>与 Bonsai 2 的对比</strong>：多位用户认为 Bonsai 2（同样基于 Qwen3.8-27B）在小体积下表现不佳，甚至无法可靠完成多针检索；也有人指出 Bonsai 额外做了调优（如每 32 个参数一个 FP16 block 权重），因此能在几 GB 内塞进更多信息，而 Unsloth 的优势是可即取即用于各种现成开源模型。</li>
-<li><strong>替代量化方案</strong>：多名用户推荐 <a href="https://byteshape.com/blogs/Qwen3.8-27B/" rel="nofollow">ByteShape</a>，称其在 16-24GB 显存下让模型「真正好用」，并指出过度复杂的量化会把瓶颈从内存带宽推向算力。官方作者 Daniel Han 在评论区答疑，并提到 DeepSeek-V4.1-Flash 与 Qwen3.8-Flash-Next 的 UD3.1 量化也已更新。</li>
-<li><strong>弱 GPU 与 CPU 推理</strong>：有用户分享在纯 CPU + llama.cpp 上跑 Q4/Q5 处理 6000 词文本，启动约 10 分钟、隔夜出结果，适合「不适合 vibe coding 但可离线审阅内容」的用法；也有人用 Mac mini 夜间跑深度搜索报告。</li>
-<li><strong>本地 vs 云 API 成本</strong>：有人质疑按电价折算（约 25 美分/度）本地推理并不比商用 API 便宜，隐私是否是唯一理由；反驳者提出可租用独立服务器，成本远低于「云」。</li>
-<li><strong>框架支持</strong>：Daniel Han 透露 Unsloth 已支持 FSDP2（全参微调、LoRA、QLoRA）以及流水线并行和张量并行，但尚未正式公告；Mac 用户可期待 MLX 提速。</li>
-</ul>
-
-<h3>你知道吗？</h3>
-<ul>
-<li>量化「准确率恢复率」的定义通常是相对 BF16 全精度基线保留的分数比例，因此 100% 恢复并不等于满分，只是「不掉分」。</li>
-<li>GPU 推理（尤其批处理与浮点归约顺序）本身不确定，即便 temperature=0 也可能得到不同结果，这也是官方坚持多次试验、反对单次跑分的核心原因。</li>
-<li>Exllama-v3 保留 BF16 token embedding 的做法，会让「同体积比较」失真：embedding 表往往占总参数相当比例，排除或计入会显著改变量化曲线的排序。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50491980</guid>
-      <pubDate>Sat, 14 Nov 2026 00:06:04 GMT</pubDate>
     </item>
   </channel>
 </rss>
