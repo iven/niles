@@ -3,7 +3,38 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 20 Nov 2026 20:05:02 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 01:26:47 GMT</lastBuildDate>
+    <item>
+      <title>Libreboot 发布仅一个月即撤销反 AI 贡献政策</title>
+      <link>https://www.phoronix.com/news/Libreboot-Drops-AI-Policy</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是开源固件项目 Libreboot 的 AI 政策反复，偏向社区政策讨论与非主流固件项目动态，与用户高兴趣的编程工具、AI 模型发布无关，兴趣不明确，故列为可选</small></p><p><a href="https://www.phoronix.com/news/Libreboot-Drops-AI-Policy">Libreboot</a> 是 Coreboot 的下游项目。上个月，该项目曾出台一项 AI 政策，禁止使用 AI/大语言模型（LLM）生成的贡献，措辞相当激烈，甚至带有脏话。随后，Libreboot 开发者 Leah Rowe 在三周前对该政策进行了细化，补充了更详细的理由，说明为何不接受 AI 生成的贡献。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=libreboot_ai_policy" alt="Libreboot drops AI policy" />
+<p>然而截至 2026 年 11 月 20 日，这项政策已被彻底删除。Leah 在删除 <code>AGENTS.md</code> 文件的提交中解释说：一方面，Libreboot 依赖 Coreboot 等上游代码，坚持反 AI 立场是一场「逆水行舟」；另一方面，随着 AI/LLM 的采用趋势推进，该政策根本无法执行。她表示自己「写政策时太激动了」，虽然依然相信其中每一条内容，但不愿承诺自己无法可靠兑现的事，也不想成为自己最讨厌的伪君子，「哪怕这让我被列入某个名单」。目前最新版 Libreboot Git 中已不再包含该 AI 政策，AI 辅助的提交重新被允许。</p>
+<p>文章发布时共有 9 条评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Libreboot-Drops-AI-Policy</guid>
+      <pubDate>Fri, 20 Nov 2026 22:23:41 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ GnuPG 的 GPGME 库曝出严重安全漏洞，波及多数邮件客户端、XMPP 客户端与 Flatpak</title>
+      <link>https://www.phoronix.com/news/GnuPG-GPGME-Critical</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GPGME 严重安全漏洞并波及邮件客户端与 Flatpak，属开源软件与 Linux 桌面生态的重要技术进展，契合开源项目/软件技术兴趣；但属漏洞通报而非工具发布，故为推荐而非必看</small></p><p>GnuPG 项目负责人 Werner Koch 在一个周五下午公开披露了 <a href="https://www.phoronix.com/news/GnuPG-GPGME-Critical">GPGME（GnuPG Made Easy）</a> 中的一处「严重安全漏洞」，影响 GPGME 所有已发布的版本，进而波及大量依赖该库的软件，包括绝大多数邮件客户端、绝大多数 XMPP 客户端，以及 Flatpak、Samba 等。</p>
+
+<h3>漏洞细节</h3>
+<p>攻击者只需构造一个带有超长 User ID（用户标识）的 OpenPGP 密钥，即可触发「双重释放」（double free）。利用该缺陷，可以通过发送例如带签名的数据等方式，从应用程序中窃取（exfiltrate）数据；Koch 表示目前还无法排除将其升级为远程代码执行（RCE）攻击的可能性，因此强烈建议立即更新。</p>
+
+<p>根本原因在于 GPGME 内部两个用于读取 gpg 状态行和密钥列表的函数：它们初始分配 1024 字节缓冲区，空间不足时会重新分配。问题出在重新分配后，新缓冲区指针只在该函数内部使用，直到函数末尾才写回上下文对象；如果函数因读取错误或其他事件提前返回，上下文便不会被更新，仍保留指向已释放内存的陈旧指针。最终上下文被释放时，同一块内存被第二次释放。由于中间还有其他内存分配操作，内存分配器常规的双重释放检测可能不会被触发。</p>
+
+<h3>影响范围与修复</h3>
+<p>所有使用现有 GPGME 版本的应用程序均受影响，无论是以共享库、DLL 还是静态链接方式集成。GPGME 2.3.1 是首个修复版本，用户应尽快升级。更多细节见邮件列表公告。</p>
+
+<p>值得注意的是，官方在周五傍晚才发布公告，意味着下游软件与发行版的修补多发生在周末空档期，留给用户和打包者的响应时间较为紧张。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/GnuPG-GPGME-Critical</guid>
+      <pubDate>Fri, 20 Nov 2026 20:46:51 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ AMD 向 GNOME 贡献自适应背光调制（ABM）与内容自适应 API 集成</title>
       <link>https://www.phoronix.com/news/GNOME-AMD-Content-Adaptive</link>
@@ -780,49 +811,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/ReactOS-Floppy-Disk-2026</guid>
       <pubDate>Thu, 12 Nov 2026 14:41:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Polo 1.0 发布：为 MATE 桌面带来原生 Wayland 合成器</title>
-      <link>https://www.phoronix.com/news/Polo-Wayland-Compositor-MATE</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 介绍面向 MATE 桌面的全新 Wayland 合成器项目，属于新软件项目与 Linux 桌面技术，正好命中来源配置的很感兴趣项</small></p><p>面向希望让 GNOME 2 分支桌面 MATE 走进原生 Wayland 环境的用户，<strong>Polo 1.0 于 2026 年 11 月 12 日正式发布</strong>，成为 MATE 在现代桌面环境下新的合成器选择。该项目由 MATE 用户 Kerem Söke 长期开发，目标是在迁移到 Wayland 的同时，尽量保留 X11 下的操作行为与观感。</p>
-
-<p>Polo 的设计参照了 MATE 在 X11 上使用的 Marco 窗口管理器（其本身源自 GNOME 2 的 Metacity）。技术上，它基于 Wayland 的 <strong>Weston</strong> 库构建，并复用 Marco 的窗口管理策略、设置与主题等，因此外观与交互风格延续原有体验。同时它支持 <strong>XWayland</strong>，可运行尚未适配 Wayland 的旧应用。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mate_polo_1" alt="MATE desktop cube" />
-
-<p>Polo 还重现了一些 GNOME 2 时代的经典特效，例如桌面立方体（desktop cube）和窗口晃动（wobbly windows），对怀旧用户颇具吸引力。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=mate_polo_2" alt="MATE desktop with Polo compositor" />
-
-<p>更多信息可在项目 GitHub 页面以及 Ubuntu Discourse 上的相关帖子中查阅。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Polo-Wayland-Compositor-MATE</guid>
-      <pubDate>Thu, 12 Nov 2026 10:56:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AMD 发布 AOCC 6.0：引入 Zen 6 优化、全新 aof Fortran 编译器，并改用 aoc / aoc++ 命名</title>
-      <link>https://www.phoronix.com/news/AMD-AOCC-6.0-Released</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是编译工具链 AOCC 6.0 新版本发布，含 Fortran 编译器与编译器命名调整，契合很感兴趣的编程工具发布；Zen 6 优化只是附带内容。</small></p><p>在 AMD EPYC 9006「Venice」SP7 系列处理器（包括 EPYC 9996 与 EPYC 9686F）正式开卖的次日，AMD 同时发布了自家基于 LLVM/Clang 的编译器套件 AOCC 6.0。</p>
-
-<p>AOCC 6.0 的主要变化：</p>
-<ul>
-<li><strong>Zen 6 初步优化</strong>：针对 EPYC Venice 处理器提供首轮 AMD Zen 6 调优，作为上游 LLVM/Clang 与 GCC 中已有「znver6」目标支持的替代方案。配套的 AOCL-LibM 6.0 也针对 Zen 6 进行了优化，整体 AOCC 代码面向 EPYC 9006 系列调优。</li>
-<li><strong>全新 Fortran 编译器 aof</strong>：AMD 将其定位为 AOCC Fortran 工作的未来方向，目前性能与上游 LLVM Clang 相当，但对最新 Fortran 与 OpenMP 标准的符合性更好。修改版 Flang 仍保留在 v6.0 代码库中。</li>
-<li><strong>编译器命名品牌化</strong>：以往 AOCC 直接以 clang / clang++ 提供二进制，现在改为 <code>aoc</code>（AMD C 编译器）与 <code>aoc++</code>（AMD C++ 编译器），clang / clang++ 则以符号链接指向新的二进制，以便区分 AOCC 编译器的用途。</li>
-</ul>
-
-<img src="//www.phoronix.net/image.php?id=amd-epyc-9686f&image=amd_epyc_9686f_7_med" alt="AMD EPYC Venice installed" />
-
-<p>基础版本方面，AOCC 6.0 基于上游 LLVM 21.1.8。作者 Michael Larabel 指出，LLVM 21 系列发布于去年年底，而当前最新稳定版已是 LLVM 23，AMD 未能以 LLVM 22 或 23 作为新版编译器的基底略感可惜。下载与更多细节见 <a href="https://www.amd.com/en/developer/aocc.html">AMD.com</a>。</p>
-
-<img src="//www.phoronix.net/image.php?id=2026&image=aocc_6_med" alt="AOCC 6.0 aoc++ compiler" />
-
-<p>作者表示将在时间允许时，于 EPYC 9006 SP7 测试服务器上对新版 AOCC 6.0 进行严格的基准测试，与上游 LLVM/Clang 和 GCC 对比。该文目前有 1 条评论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-AOCC-6.0-Released</guid>
-      <pubDate>Wed, 11 Nov 2026 10:54:19 GMT</pubDate>
     </item>
   </channel>
 </rss>

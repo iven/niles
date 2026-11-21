@@ -3,7 +3,65 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 20 Nov 2026 20:06:09 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 01:27:12 GMT</lastBuildDate>
+    <item>
+      <title>⭐⭐ Thinking Machines 发布 Inkling 2 Mini：20GB、可在笔记本上离线运行的循环 Transformer 开源权重模型</title>
+      <link>https://news.ycombinator.com/item?id=50581260</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型发布公告且为开源权重模型，同时命中「新AI模型发布公告」（很感兴趣）与「开源项目」（感兴趣），属于必看内容</small></p><p>Thinking Machines 发布了 <b>Inkling 2 Mini</b>，一个体量小到可以在笔记本上运行的开放权重模型。它采用<b>循环 Transformer（looped transformer）</b>架构：模型中间层会为每一个 token 重复执行三次，从而在不额外输出推理文本的前提下提升推理质量，用更少的 token 得到正确答案，尤其在依赖推理质量的 agentic 编程任务上效果明显。</p>
+
+<p>模型为混合专家（MoE）结构，总参数 26.4B、激活参数 3.4B，考虑循环后每 token 的权重激活量为 5.4B；总内存占用约 20GB。大部分权重以 NVFP4 训练并原生部署，最后四层为 MXFP8。发布即在 Tinker 平台上线，可用于推理与定制，并在 Hugging Face 提供权重。</p>
+
+<h3>基准表现</h3>
+<p>官方称其在所有总参数低于 100B 的开放权重模型中领先，例如 <b>DeepSWE v1.1 得 48.2%</b>、<b>Vals Index v2.2 得 46.5%</b>，解码速度也快于同等水平的模型。在 SWE-bench Pro v2（Hard）、Terminal Bench、SWE-bench Verified/Multilingual、Vibe Code Bench 等编程评测中多数取得同规模第一；在 BrowseComp、DeepSearchQA、MCP Atlas 等搜索与工具使用评测中也领先同规模开放模型，说明它能通过搜索和工具弥补知识储备的不足。</p>
+
+<h3>循环架构的动机与可监控性</h3>
+<p>模型共 24 层，分为四个 6 层的块：中间两个块循环三次，首尾两个块各执行一次。这种设计延续了此前关于循环 Transformer 的研究，直觉是中间层承载更抽象的推理，而首尾层主要负责嵌入与内部表示之间的转换。实验中，在 28 项评测里有 27 项显示「循环中间 12 层」的收益优于「循环最后 12 层」（相当于 1.51–1.91 倍算力增益 vs 1.24–1.36 倍）。</p>
+
+<p>作者强调循环的一个重要好处：模型可以「不写下推理过程」而思考更久，这与可监控性直接相关——人类依赖阅读思维链（CoT）来监督模型。他们同步发布了一个研究用的可变循环层数变体（varloop）用于对照实验：无 CoT 情形下的时间跨度从单次循环的 16 秒提升到三次循环的 37 秒；在一项串行推理基准上，性能一直提升到 10 次循环（是训练时的两倍），而思维链随循环增多而变短但始终可读；在 agentic sabotage 测试中，增加循环并未使分数升高。</p>
+
+<h3>能耗效率与本地演示</h3>
+<p>斯坦福 Hazy Research 与 Scaling Intelligence Lab 提前测试了「每焦耳智能」（intelligence per joule）指标：Inkling 2 Mini 在 NVIDIA DGX Spark 上得分 0.703，明显高于 Qwen3.6-35B-A3B 的 0.430、Gemma-4-26B-A4B 的 0.159 和 Qwen3.5-27B 的 0.036（各模型精度设定不同）。研究人员还在航班上用一台 MacBook Pro 离线运行该模型，几分钟内构建出可玩的飞行模拟器；另有一个「Thinkyville」像素小镇演示，由同一模型在一块离线 MacBook 上驱动 20 个居民。</p>
+
+<h3>局限</h3>
+<p>Inkling 2 Mini 并非最强的小模型：多轮对话的 MultiChallenge 得 50.0%、多约束指令的 ComplexConstraints v1.1 得 33.4%，均落后于 Qwen3.8-27B；在 CritPt v2、HLE-Diamond 等重推理基准上也逊于更大的模型。官方也指出，循环只能提升推理，不能让权重存储更多事实——知识量主要取决于总参数量。</p>
+
+<h3>社区反应</h3>
+<p>Hacker News 讨论（614 分、99 条评论）整体积极：有人表示 Inkling 2 Small 的实际使用体验好于基准数字，并对同步发布的 varloop 研究模型很感兴趣，认为此前没有类似的开源模型；Unsloth 已放出 GGUF 量化版，llama.cpp 也有 PR 增加循环架构支持（社区希望不要像某些实验性补丁一样长期停在 master 之外）。对「循环模型」这一概念，评论者以 NVIDIA 的 Dory 系列和 Universal Transformers 作为参照，也有人担心其对 KV 缓存的影响。</p>
+
+<p>实践层面，有用户在 AMD 7900XTX 上跑通，但初期只有约 28 tok/s 解码、约 481 tok/s 预填，且因 ROCm 下的 Flash Attention 尚不支持该模型，KV 缓存只能部分量化；也有人提到自家 128GB 的 Ryzen AI Max 小主机因这波模型变得更有价值。另一部分评论保持审慎：认为基准分数常受 Goodhart 定律影响，未必反映日常编程助手的真实体验，小模型「坚称某事物存在」的知识错误也很难靠工具调用完全弥补。</p>
+
+<h3>你知道吗？</h3>
+<p>「循环层」并非全新思路：Universal Transformers（Dehghani 等，2018）就提出让同一组权重在深度方向上反复执行，用「思考步数」代替堆叠更多层。近年 NVIDIA 的 Dory 系列把这个想法带到了可用的开源小模型上；据报道 OpenAI 也被传在新模型中采用类似结构，但未获确认。Inkling 2 Mini 的价值在于：它可能是首批真正达到日常可用水平、且开放权重的循环 Transformer 之一。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50581260</guid>
+      <pubDate>Fri, 20 Nov 2026 20:12:19 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 无需梯度也无需训练：语言模型可以改写自己的权重</title>
+      <link>https://news.ycombinator.com/item?id=50577265</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍语言模型无需训练改写自身权重的研究方法，属于AI软件技术/科学前沿进展，命中「感兴趣」但非模型发布类必看内容</small></p><p>arXiv 新论文《Language Models Can Rewrite Their Own Weights》提出一种被作者称为"自改写（self-rewriting）"的方法：模型扮演自己的优化器，在没有梯度、没有额外训练的情况下改写自身的权重并因此变得更聪明。作者称这是首次由模型仅凭自身推理完成权重改写。此前的相关工作中，前沿模型只是编辑一个远小于自己的模型；而这里是一个开放的 27B 模型，在拿到自己的权重、被评分的答案以及运行自身的能力后，自行诊断失败原因并重写背后的权重。</p>
+<p>论文给出的主要结果包括：改写后模型在从未见过的问题上准确率提升 6.6 个百分点；模型会在练习题上检验自己的改动，只提交有效的编辑，在连续八次会话中准确率持续上升；它还能"自我修复"——一个几乎解不出任何题目的损坏副本，在没有重新训练、也从未读取原始权重的前提下，被恢复到原始准确率的 80% 以上（且是在未见的图像任务上）。此外，这种能力随规模涌现：在同一模型家族中，较小的模型要么改不动自己，要么直接把自己改坏，只有最大的模型能自我改进与自我修复。</p>
+<p>作者强调其与已有范式的区别：与"测试时扩展（test-time scaling）"不同，自改写把收益写进权重，因此每次作答都不再额外付出成本；与训练不同，它只运行前向传播，和推理服务一样。作者由此认为，训练与推理之间的高墙是"工具的局限，而非智能的属性"，并把它视为通向<a href="https://en.wikipedia.org/wiki/Recursive_self-improvement">递归自我改进（recursive self-improvement）</a>的必要一步。</p>
+<p>Hacker News 讨论（<a href="https://news.ycombinator.com/item?id=50577265">106 条评论</a>，328 分）以怀疑与安全忧虑为主：</p>
+<ul>
+<li><strong>安全与对齐</strong>：有评论指出论文通篇未提"对齐"，并质疑机器人能如此自我修改而缺乏监督会发生什么；也有人提出更隐蔽的风险——模型可以宣称出于理由 X 修改权重，同时为未言明的目的 Y 悄悄注入新行为，其编辑能通过评测却难以被察觉。</li>
+<li><strong>"这不过是修了个 bug"</strong>：多位评论者认为提升主要来自模型缩短推理链以避免撞上 token 上限，即修复了一个明显的推理死循环缺陷。他们将其与近期另一篇<a href="https://rikiyat.github.io/blog/weight-space-programming/">权重空间编程</a>的文章相提并论（那篇文章中模型同样修好了 Qwen 的循环问题，却无法提升没有此类缺陷的 Gemma），因此怀疑该方法能否真正泛化扩展。</li>
+<li><strong>信息从哪来</strong>：有人追问保真度的增益必然来自某处，很可能来自模型自行运行的练习题、运行器输出乃至网络内容；反驳者则认为"测试材料"完全可以是对环境的交互，这本质上就是学习，关键仍在于"什么算有效"必须被定义。</li>
+<li><strong>是否只是过拟合/谄媚</strong>：有评论担心这是自对话式的过拟合，会重演"模型迎合自身"的问题；也有人反驳称基于推理的目标性编辑与梯度优化式的过拟合相距最远。</li>
+<li><strong>与前作的关系</strong>：有人把它和 Google 的<a href="https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/">"睡眠"框架（Sleep framework）</a>相比（离线阶段用自生成练习样本更新权重），也有人认为这篇的权重调整更进了一步，或认为它本质上只是"消融式"的改权重，几步就能被会写几百行 Python 的模型复现。另有评论澄清，它与作者不同的那篇"权重空间编程"文章并非同一工作。</li>
+</ul>
+<p>讨论区也夹杂着典型的 HN 式反应，从"这不是我们想要的 RSI，但是是我们应得的 RSI"到"很高兴认识各位"。</p>
+<h2>你知道吗？</h2>
+<ul>
+<li><strong>消融（abliteration）</strong>：评论中用来类比本工作的术语，指对模型权重做定向修改以移除某类拒答行为的技术，通常只需少量方向向量即可完成，因而被质疑者视作"模型自己动手改权重"的简单版本。</li>
+<li><strong>负熵（negentropy）</strong>：有评论在寻找"熵"的反义词时给出该词，随后有人反驳说"秩序（order）"更贴切，并指出熵本身并非"无序"，而是一种与无序相关的度量。这一插曲恰好反映讨论区对"信息增益究竟从何而来"的困惑。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50577265</guid>
+      <pubDate>Fri, 20 Nov 2026 16:29:06 GMT</pubDate>
+    </item>
     <item>
       <title>Frostbite：AI 端到端发现并验证的全新 CPU 架构，每瓦性能达现代核心 4.59 倍</title>
       <link>https://news.ycombinator.com/item?id=50572503</link>
@@ -1606,58 +1664,6 @@ rclone copyurl "&lt;build-url&gt;" "bunnycdn:&lt;zone-name&gt;/&lt;filename&gt;.
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50491980</guid>
       <pubDate>Sat, 14 Nov 2026 00:06:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>Show HN：把 1300 平方英里的旧金山湾区做成等距像素风地图</title>
-      <link>https://news.ycombinator.com/item?id=50487228</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] Show HN 创意型个人项目（等距像素风湾区地图，可搜索分享），既非编程工具发布也非 AI/开源技术进展，与各兴趣主题对应不明确，故定为可选</small></p><p>作者 Justin Chavez 发布了 <a href="https://isometricsf.com">isometricsf.com</a>：一张覆盖整个旧金山湾区（从金门大桥到圣何塞）的等距（isometric）像素风地图，支持缩放、搜索地点/地址并分享视角，可以一路逛到 Apple Park、艺术宫、加州大学伯克利分校等地标。</p>
-
-<p><b>做法</b>：底图来自 Google 的 <a href="https://developers.google.com/maps/documentation/tile/3d-tiles">Photorealistic 3D Tiles API</a>，作者用 three.js 按自选角度渲染并截取瓦片；随后用 Nano Banana 2 生成样本，训练 Qwen-Image-Edit 2511 的 LoRA 来试验风格与生成流程，最终改用 Qwen 训练 Klein 4B 的 LoRA，以约四分之一的成本复现同一风格。详细流程见<a href="https://www.justinchavez.com/blog/isometric-sf-how/">技术博客</a>，另有一篇<a href="https://www.justinchavez.com/blog/isometric-sf/">项目复盘</a>。他估计若全靠 Nano Banana 2 生成，费用约为 7000 美元；训练完成后实际约 0.09 美元/平方公里（对比另一位作者做<a href="https://www.tinyvalencia.com">瓦伦西亚地图</a>的 0.4 美元/平方公里）。创意来自 Isometric NYC。</p>
-
-<p><b>社区反馈</b>：多数人称赞观感出色、成本控制漂亮，作者手写的技术文档也受到肯定（他明确拒绝让模型代笔）。但评论区最集中的质疑是「这不算像素艺术」：生成模型产出的图缺少调色板归约（palette reduction）与方格对齐（square grid alignment）两步后处理，放大后能看到高频噪点和边缘杂色，直线与平面也不规整。有人给出 <a href="https://github.com/Hugo-Dz/spritefusion-pixel-snapper">Spritefusion Pixel Snapper</a> 之类的后处理工具，也有人认为逐瓦片手工干预的量太大，干脆用生成代码而非生成图像的方式重建场景更合适。此外，这已是同一波「等距城市」潮流中的一员：<a href="https://isometriccities.com/">isometriccities.com</a> 已收录 98 张类似地图（含纽约、里约、伦敦、瓦伦西亚乃至全球版），另有<a href="https://iso.sloptoronto.ca/#v=3&amp;x=102672&amp;y=64255&amp;z=0.262">多伦多版</a>。</p>
-
-<p><b>其他讨论</b>：有人提醒用 Google 地图数据再渲染、并自行托管结果很可能违反 Maps API 服务条款（Google 明确禁止由其地图数据生成 3D 模型），且重新渲染与直接再托管在条款上并无区别；也有人偏好地图朝北或朝西（朝海）而非作者选择的朝东。瓦片素材以 CC BY-NC 4.0 授权，可署名非商业复用，商业用途需联系作者。</p>
-
-<h2>你知道吗？</h2>
-<ul>
-<li>「等距」并非真正的等轴测投影，而是游戏美术中常用的 2:1 菱形斜视画法，SimCity 一类城市建造游戏让它成为经典视角。</li>
-<li>Google 的 Photorealistic 3D Tiles API 每月提供约 1000 次免费调用，这也是同类项目能在低成本下复刻整座城市的原因之一。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50487228</guid>
-      <pubDate>Fri, 13 Nov 2026 17:58:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>M-Vave FM-1 Workbench：50 美元 FM 合成器的网页工作台与野生固件生态</title>
-      <link>https://news.ycombinator.com/item?id=50488325</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题为廉价 FM 合成器硬件及其网页工作台与社区魔改固件生态，偏向嵌入式硬件玩机，与关注领域关联很弱；仅固件/工具属性略接近编程但占比小，故列为可选</small></p><p>文章是 M-Vave 官方 <a href="https://open.m-vave.com/fm1-workbench">FM-1 Workbench</a> 的三分钟上手指南：一个与 FM-1 硬件合成器配套的网页工具，操作逻辑与实机面板一一对应，用于试听预设、调整音色与节奏、混音以及保存工程。</p>
-
-<h3>硬件与工作台概况</h3>
-<p>FM-1 提供 8 条轨道、6 种音源（算法）、16 个内置工程，每轨可选 16、32、48 或 64 步。设计上把常用操作放在单键上，完整细调则收进长按菜单和网页界面。开关机动画约 1 秒，可按任意键或旋钮跳过，开机不会自动播放；网页端点击琴键或播放即出声，无需额外开关。</p>
-
-<h3>操作流程</h3>
-<ul>
-<li><b>试听预设</b>：在 HOME 总览转动 PRESETS 即可切换整套预设，按 PLAY 播放；也可按 HOME 打开列表用 PRESETS／SELECT 载入，白键 1–16 可直接选择对应预设。</li>
-<li><b>改声音</b>：SELECT 选轨后短按 EDIT 进入常用参数，在 EDIT 页转 PRESETS 更换当前轨音色；换音源则在总览转 ALGORITHM 或 K2 并按 SAVE 应用。</li>
-<li><b>改节奏</b>：按 SEQ，基础页用 K3 选择音符或鼓声部，白键开关每一步；PRESETS 选步，OCT−／OCT+ 翻页；ALGORITHM 翻到底部参数页直接调节细节。</li>
-<li><b>混音</b>：按 GLO 进入混音，白键 1–8 静音、9–16 独奏，SELECT 选轨后用 K1–K4 调四轨音量。</li>
-<li><b>保存</b>：实机 SAVE 写入设备槽位，覆盖已有槽会二次确认；网页端另有「保存到设备」「存到此浏览器」和「导出项目文件」三种方式，分别对应设备存储、浏览器本地和电脑备份。</li>
-</ul>
-
-<h3>社区讨论</h3>
-<p>该条目在 HN 获得 266 分、175 条评论，讨论几乎完全围绕这台约 50 美元小设备的「野生态」。不少已下单或已上手的用户表示，它能读取 DX7 音色，加上第三方固件后可以变成一台 groovebox（律动盒），认为这类硬件 meme／软件／AI 开发混合产物让人对行业前景感到乐观，也称赞中国消费电子在小价格段的表现。</p>
-<p>固件推荐是评论区的核心内容：有人喜欢 Jiant 的工作流（也有人提到 sloop、skiff），有人偏爱 sloop 的 groovebox 体验，还有人推荐 Obervave、Hortator、X0X、FMini-1 这类「范围有限但更深」的固件，以及 <a href="https://fartypants.github.io/fm1-nachtfahrt/emu/">NACHTFART</a>、<a href="https://sbegueria.github.io/fm1-dub/emu/">DUB-1</a> 等生成式固件——其中不少提供浏览器模拟器，方便先试后刷。固件汇总站 <a href="https://thefirmwarehub.com/">The Firmware Hub</a> 被多次提及。</p>
-<p>也有人持相反意见，认为这些固件大多是「让 Claude 给我写个酷炫 groovebox 合成器」然后直接丢上 GitHub 的 AI 产物（AI slop），听起来业余；不过同一批评论者认为，这种民间固件热潮会倒逼 Roland 等大厂正视用户需求。围绕价格与产地同样出现争论：一方认为低价背后是劳动条件与监管的差异，另一方则反问「贴欧美品牌的同款中国制造设备卖得贵」是否合理。</p>
-<p>硬件层面的批评集中在：缺少标准 DIN MIDI 接口、改用需转接的 1/8 英寸插孔，内置电池（而非 Volca 那样的 AA 电池），做工看起来廉价不结实。有用户误以为机器带风扇，被纠正那其实是内置扬声器。也有人认为 1/8 英寸 MIDI 在个人工作室里反而更常见，谈不上不公平。</p>
-<p>其他讨论包括：不懂乐理能否用它入门（多数人认为可以，但有人觉得 DAW 如 FL Studio 的上手价值更高）；FM 合成怎么学（推荐 Mixed Signals 的拆解视频和 <a href="https://csclub.uwaterloo.ca/~pbarfuss/FM_Synthesis_of_Real_Instruments.pdf">《FM Synthesis of Real Instruments》</a> 这篇实操文档，并建议配一个 MIDI CC 旋钮盒实时拧参数）；以及为何没有一台通用的「VST 运行盒」——有人举出 Muse Research Receptor、面向 CLAP 的 SNDstation、Mod Audio Dwarf 等先例。</p>
-
-<h3>技术细节</h3>
-<p>据社区逆向分析，FM-1 使用 Blackfin DSP 芯片，跑的是衍生自 FreeRTOS 的 SMP 内核，FM 合成引擎与开源 DX7 模拟器 Dexed 相同，因此可以直接吃 DX7 音色；详细资料见 <a href="https://github.com/AL-255/FM-1-RE">FM-1-RE 逆向仓库</a>，另有一份 <a href="https://www.reddit.com/r/synth/comments/1vgotkd/mvave_fm1_teardown_with_photos/">带照片的拆解帖</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50488325</guid>
-      <pubDate>Fri, 13 Nov 2026 19:14:02 GMT</pubDate>
     </item>
   </channel>
 </rss>

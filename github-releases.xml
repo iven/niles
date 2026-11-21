@@ -3,7 +3,136 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 20 Nov 2026 20:04:41 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 21 Nov 2026 01:27:06 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.330：支持 Anthropic 企业组织登录，新增内置图表工具 easel</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.330</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.330，新增企业组织登录支持与内置图表工具 easel，并修复了长对话压缩后卡顿、WebFetch 冻结、worktree 误删等一系列问题。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>支持企业组织登录</strong>：现在可登录在 Anthropic 企业管理控制台（Enterprise Admin Console）中管理的组织。执行 <code>claude auth login</code> 后，Claude Code 会应用该组织的设置，并使用组织指定的云服务商或网关。同时，<code>/login</code>、<code>claude auth login</code>、<code>claude setup-token</code> 显示的 claude.ai 登录链接大幅缩短；若短链接报错或有脚本需要解析链接内容，可用 <code>CLAUDE_CODE_FULL_SIGN_IN_LINK=1</code> 打印完整链接。</li>
+<li><strong>内置图表工具 easel</strong>：这是一个内置 mod，在被要求时以及 MCP 指标结果下方绘制图表。面向 Pro、Max，以及在支持地区可用的 Team 和 Enterprise 用户，支持 macOS 与 Linux。可在 <code>/config</code> 中关闭自动图表。</li>
+<li><strong>自托管 runner 支持指定起始目录</strong>：新增 <code>--start-dir</code> / <code>SELF_HOSTED_RUNNER_START_DIR</code>，让 Claude 在仓库的某个子文件夹中开始工作，而设置与 hooks 的加载方式保持不变。</li>
+<li><strong>MCP 服务器分类更清晰</strong>：<code>/mcp</code> 不再把插件自带的服务器列为内置服务器，而是归入「Plugin MCPs」，<code>--mcp-config</code> 与内置服务器归入「Other MCPs」，服务器详情页会标注所属插件。</li>
+<li><strong>循环任务最长期限延长</strong>：定期计划任务与 <code>/loop</code> 在其会话持续运行期间，可从运行 7 天延长至最多 30 天，并在结束时给出提示（此版本之前创建的任务仍为 7 天）。</li>
+<li><strong>危险的 <code>rm</code> 命令更多需要确认</strong>：针对根目录、用户主目录、顶层文件夹或当前工作目录的更多 <code>rm</code> 命令会请求批准；无人可应答的场景下则直接拒绝。</li>
+<li><strong>Claude Code 与插件相关命令行增强</strong>：<code>claude plugin install --json</code> 结果新增 <code>commandPrinted</code>（安装命令向 stderr 输出时为 true）与 <code>commandFailed</code>（命令报错、被杀或超时时为 true）。</li>
+<li><strong>自托管 runner 可观测性</strong>：<code>/metrics</code> 新增 <code>claude_code_self_hosted_runner_order_to_registered_seconds</code> 与 <code>claude_code_self_hosted_runner_order_to_first_session_seconds</code> 两个指标，分别衡量从工单下发到注册被接受、到首个会话交付的耗时。</li>
+<li><strong>VSCode 扩展新能力</strong>：新增 <code>/fork</code>（在上一条回复后分叉对话）与 <code>/workflows</code>（打开包含运行中 workflow 的 agent 地图）；新增 <code>claudeCode.escapeStopsClaude</code>、<code>claudeCode.pinPrompt</code>、<code>claudeCode.contextUsageThreshold</code> 三个设置项，「Open in Side Bar」命令支持 <code>prompt</code> 参数，会话组菜单支持上移/下移。</li>
+</ul>
+
+<h3>性能与体验改进</h3>
+<ul>
+<li>文件 diff 速度提升；<code>/config</code> 搜索更智能（名称以输入内容开头的设置优先，输入「effort」可找到 Model，输入「dark」或「light」可找到 Theme）。</li>
+<li><code>/resume</code> 不再列出只打开过 <code>/model</code> 等界面便退出的会话；全屏模式下 <code>/plugin</code> 中有错误的插件页会先展示错误信息。</li>
+<li><code>/mcp</code> 与 <code>/plugin</code> 的重连体验改进：服务器仍然失败或需要登录时，详情页保持打开并显示原因。</li>
+<li>Code Mode：Claude 现在知道如何查看图片与 PDF；按 Esc 后，被停止的命令下方显示「Interrupted」而非红色错误；子代理脚本发起数千次工具调用后，终端卡顿时间大幅缩短。</li>
+<li><code>/ultrareview</code> 在 Team 与 Enterprise 套餐下的费用确认会说明当月剩余额度（当剩余额度低于一次评审的通常费用时）；<code>/ultrareview</code> 在 shell 切换到其他仓库后会停止并指出两个文件夹，而不再评审错误代码。</li>
+<li><code>/stats</code> 改为按本地时区而非 UTC 统计新活动。</li>
+<li>自托管 runner：<code>spawn-runner</code> hooks 可并行启动（每个 orchestrator 最多 <code>--hook-concurrency</code> 个，默认 4）；Bash 命令在不需要时跳过文件 diff；checkout hook 以状态码 108 退出时立即停止会话启动；仓库设置检查的 warn 模式不再在首个问题处停止，单个会话最多报告 50 条；启动时磁盘已满的 runner 会先等待空间，一分钟内无会话则以状态码 1 退出。</li>
+<li>其他行为调整：prompt hooks 的 <code>model</code> 字段支持 <code>haiku</code>、<code>sonnet</code> 等别名；<code>deniedMcpServers</code> 中的名称条目仅隐藏指定的 claude.ai 连接器；未识别但含「sonnet」「haiku」的模型名也使用更精简的系统提示；子代理的模型回退会延续到其后启动的分叉与子代理。会话管理方面，<code>claude --teleport</code> 在部分环境下改为打印切换分支的 git 命令而非直接执行。</li>
+<li>回退：2.1.329 中移除的「当 max_tokens 超过模型或网关上限时自动重试」机制已恢复。</li>
+</ul>
+
+<h3>主要修复</h3>
+<ul>
+<li>修复超长对话压缩后 Claude Code 最长冻结数分钟的问题；修复 WebFetch 在部分页面卡死数分钟、在另一些页面返回空结果的问题。</li>
+<li>修复 <code>ExitWorktree</code> 与 worktree 退出对话框会删除另一个正在运行的 Claude Code 会话正在使用的工作树。</li>
+<li>修复多个 Claude Code 进程同时保存用户设置时丢失改动；修复并发执行多个 <code>claude plugin</code> 命令时插件从已安装列表消失、多个任务更新并发时依赖与元数据丢失。</li>
+<li>修复 <code>--continue</code> / <code>--resume</code> 在最后一条消息时间戳缺失或无效时打开空会话或失败。</li>
+<li>修复大量 MCP 工具带有 API 拒绝的输入 schema 时出现「JSON schema is invalid」错误、会话文件体积暴涨。</li>
+<li>修复 Linux 上大仓库（如含 <code>node_modules</code>）中 Bash 命令等待数秒且后续会话不再显示文件 diff 的问题。</li>
+<li>修复 <code>/rewind</code> 在连续执行多个排队提示或叠加技能时恢复错误文件版本；修复在权限提示中补充的文本与图片在命令失败后丢失。</li>
+<li>修复在终端提示框 @ 提及的 claude.ai 连接器与插件服务器的 MCP 资源未被附上。</li>
+<li>修复子代理声明的 MCP 服务器在其中一个子代理结束时被关闭的问题。</li>
+<li>修复完整模式下计划到达时正在输入的其余内容丢失；修复 Ctrl 相关快捷键、Mac 快捷键在 VSCode 各类输入框中失效等多处编辑器问题。</li>
+<li>修复 Claude in Chrome 在短暂连接故障后持续显示「未连接」。</li>
+<li>修复 <code>/context</code> 在 Code Mode 下首次回复前低估系统工具，以及 Code Mode 下多个与脚本、技能加载、文件恢复相关的缺陷。</li>
+<li>修复后台子代理停止后偶尔仍继续运行、后台会话在批准计划后仍沿用旧权限模式等问题。</li>
+<li>修复磁盘已满时留下不完整的 <code>~/.claude.json</code> 备份并挤掉正常备份；修复磁盘已满时 <code>claude -p</code> 输出重定向到文件时静默以 0 退出（现在会报错并以 1 退出）。</li>
+<li>修复若干工具细节：Grep 在模式含换行且未启用多行模式时改为报告被拒绝的模式；Read/NotebookEdit 可处理带 BOM 的 Jupyter notebook；带 HTML 注释的 CLAUDE.md 与记忆文件不再丢失链接引用定义；Mermaid 图表恢复换行；扫描版跨页 PDF 的 <code>Read</code> 分页显示正确。</li>
+<li>修复 <code>claude daemon logs</code> 在 git 仓库中无日志文件时无法退出；修复 <code>/config</code> 中「Project instructions」选择器在 24 行全屏窗口下只显示一个选项。</li>
+<li>修复 <code>claude mcp remove</code> 对 claude.ai 连接器给出无效指引；修复 <code>/install-github-app</code> 与 <code>/design-login</code> 对受限账号只显示通用错误而非暂停通知与申诉链接。</li>
+<li>自托管 runner 相关修复：失败报告丢失或会话被交回同一 runner 时忽略会话、重启后仓库列表变化导致提示缓存与思考内容丢失、磁盘满、缺少 git 凭据时给出更明确的提示、<code>last_poll_age_seconds</code> 在从未成功轮询时显示 0 等。</li>
+</ul>
+
+<h3>VSCode 扩展修复</h3>
+<ul>
+<li>修复副本对话在窗口重载后自行重跑旧提示、分叉对话重复执行原对话的 <code>/loop</code> 计划。</li>
+<li>修复按住 Enter 触发 <code>/rewind</code> 恢复文件、双击 Remove/Delete 未经确认即删除记忆、MCP 服务器或插件市场。</li>
+<li>修复问题卡片按 Enter 发送旧答案、方向键在「Other」答案后失效，以及长按 Enter 发送半截消息。</li>
+<li>修复 Accept/Reject 按钮出现在聊天、终端标签等所有位置（现仅显示在提议的 diff 上），以及移到新窗口后按钮失效。</li>
+<li>修复复制代码块时多加的换行导致粘贴即执行命令；修复整行选择多算一行、文件链接遗漏区间最后一行。</li>
+<li>修复含 <code>#</code>、<code>?</code>、<code>%20</code> 的路径（如 <code>C#</code> 文件夹）漏报未保存改动与新增问题。</li>
+<li>修复会话列表不显示侧边栏聊天会话状态、advisor 调用显示「Unsupported content type」、受限账号登录只给出通用错误等问题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.330</guid>
+      <pubDate>Fri, 20 Nov 2026 22:32:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>tig 2.5.11 发布：可从 diff 行直接打开对应 blob，引用类型可分别配色</title>
+      <link>https://github.com/jonas/tig/releases/tag/tig-2.5.11</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>文本界面 Git 仓库浏览器 tig 发布 2.5.11 版本，本次更新以交互体验改进和一批 bug 修复为主，同时包含一项需要注意的不兼容变更。主要贡献来自 Thomas Koutcher（22 个提交）与 Ivan Shapovalov（1 个提交）。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>打开 diff 行对应的 blob</strong>：在 diff 视图中可将光标所在行对应的文件内容（blob）直接打开查看。</li>
+<li><strong>引用（ref）类型可分别配色</strong>：此前不同种类的引用无法单独设置颜色，现在所有引用类型都支持独立配色。</li>
+<li><strong>支持在分节标题中搜索</strong>：搜索功能现在也能匹配并跳转到各视图的分节标题。</li>
+<li><strong>切换过滤器时保持光标位置</strong>：在主视图中切换文件过滤器（file-filter）或版本过滤器（rev-filter）时，包括从分栏 diff 视图触发的情况，光标不再被重置。</li>
+<li><strong>Git 输出视图中的错误可见</strong>：在展示 Git 命令输出的视图中，错误信息不再被隐藏，便于排查问题。</li>
+<li><strong>日期列默认显示提交者日期</strong>：日期列改为默认使用 committer date，并同步支持解析 <code>--pretty=raw</code> 输出中的提交者日期；切换 <code>date-use-author</code> 时会刷新视图。</li>
+<li><strong>utf8proc 升级到 v2.10.0</strong>：字符处理库更新，带来对 Unicode 16 的支持。</li>
+<li><strong>refs 视图内容收窄</strong>：只有在使用 <code>tig refs --all</code> 时，refs 视图才显示 stash、notes 与 prefetch 引用。</li>
+</ul>
+
+<h3>不兼容变更</h3>
+<ul>
+<li>更新了远程仓库相关变量（remote repo variables），依赖旧变量名的配置可能需要相应调整。</li>
+</ul>
+
+<h3>其他改动与修复</h3>
+<ul>
+<li>修复 <code>diff.noprefix</code> 与 <code>--no-prefix</code> 引发的多项问题，包括参数解析和在此配置下的暂存（staging）操作。</li>
+<li>修复 Readline 风格提示符中 <code>Ctrl-C</code> 的行为。</li>
+<li>修复在没有补丁内容时从 diffstat 进入编辑所显示的提示信息。</li>
+<li>修复 refs 视图中日期缺失的问题。</li>
+<li>当 diff-highlight 被有意终止时不再报告错误。</li>
+<li>修复时间戳格式下 reflog 标识符（reflog designator）的解析。</li>
+<li>版权年份更新至 2025，生成的文档日期亦同步调整。</li>
+</ul>
+<p>本次发布共改动 120 个文件，新增约 16000 行、删除约 15600 行，其中大部分来自 utf8proc 数据文件的更新。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jonas/tig/releases/tag/tig-2.5.11</guid>
+      <pubDate>Thu, 30 Jan 2025 19:35:52 GMT</pubDate>
+    </item>
+    <item>
+      <title>tig 2.5.10 发布：修复状态视图文件名着色、Ctrl-C 行为等多项问题</title>
+      <link>https://github.com/jonas/tig/releases/tag/tig-2.5.10</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>基于 ncurses 的 Git 文本界面客户端 tig 发布 2.5.10 版本。这是一个以问题修复为主的补丁版本，没有新增功能，共改动 13 个文件（+72/−29）。</p>
+<h3>主要修复</h3>
+<ul>
+<li><strong>状态视图着色修复</strong>：修复 <code>stat-*</code> 配置只给状态标记着色、而未作用于文件名的回归问题（2.5.9 引入）。由 xaizek 提交（<a href="https://github.com/jonas/tig/issues/1326">#1326</a>）。</li>
+<li><strong>键位绑定的视图刷新</strong>：修复使用 <code>+[cmd]</code>（连按多次的键序列）绑定命令时不会触发视图刷新的问题（<a href="https://github.com/jonas/tig/issues/1324">#1324</a>）。</li>
+<li><strong>无法从主视图重新打开 blame 视图</strong>：已修复。</li>
+<li><strong>stdin 重定向时的编辑操作</strong>：修复标准输入被重定向时编辑功能失效的问题（<a href="https://github.com/jonas/tig/issues/1330">#1330</a>）。</li>
+<li><strong><code>Ctrl-C</code> 的终止范围</strong>：<code>Ctrl-C</code> 现在只终止当前在前台运行的命令，不会连带影响其他进程（<a href="https://github.com/jonas/tig/issues/1331">#1331</a>）。</li>
+</ul>
+<h3>其他改动</h3>
+<ul>
+<li>修复使用 ncurses 6.5 编译时的警告。</li>
+<li>更新 <code>INSTALL.adoc</code> 与 <code>Makefile</code> 相关配置。</li>
+</ul>
+<p>本次发布主要由 Thomas Koutcher（6 个提交，含版本发布）与 xaizek（1 个提交）完成。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jonas/tig/releases/tag/tig-2.5.10</guid>
+      <pubDate>Fri, 10 May 2024 22:08:56 GMT</pubDate>
+    </item>
     <item>
       <title>tig 2.5.12 发布：修复 i586 平台上从 diff 视图打开 blame 视图为空的问题</title>
       <link>https://github.com/jonas/tig/releases/tag/tig-2.5.12</link>
@@ -1548,74 +1677,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.3</guid>
       <pubDate>Thu, 05 Nov 2026 10:52:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>HAPI v0.34.2 发布：修复深色模式、导出图片与异步状态问题</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.34.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>HAPI 发布 v0.34.2 版本，主要包含多项 bug 修复和测试/CI 改进：</p>
-<ul>
-<li><strong>深色模式修复</strong>：修复 Codex Fast 切换开关在深色模式下文字难以辨认的问题（<a href="https://github.com/tiann/hapi/pull/2286">#2286</a>）</li>
-<li><strong>导出优化</strong>：修复共享导出中基于 blob 的图片无法保留的问题（<a href="https://github.com/tiann/hapi/pull/2282">#2282</a>）</li>
-<li><strong>Android 修复</strong>：工具卡片异步状态改为在主线程发布，避免线程相关异常（<a href="https://github.com/tiann/hapi/pull/2289">#2289</a>）</li>
-<li><strong>测试/CI</strong>：改进 iOS 配对字段等待逻辑（<a href="https://github.com/tiann/hapi/pull/2288">#2288</a>），并为 Mac 回归测试设置超时以隔离挂起问题（<a href="https://github.com/tiann/hapi/pull/2287">#2287</a>）</li>
-</ul>
-<p>完整变更记录见 <a href="https://github.com/tiann/hapi/compare/v0.34.1...v0.34.2">v0.34.1...v0.34.2</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.2</guid>
-      <pubDate>Thu, 05 Nov 2026 03:41:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>fd v10.5.1 发布：一组跨平台的 Bug 修复</title>
-      <link>https://github.com/sharkdp/fd/releases/tag/v10.5.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fd（文件查找工具）发布了 v10.5.1 版本，这是一次以 Bug 修复为主的维护版本更新，涵盖 Windows 路径处理、命令行参数行为、正则匹配、崩溃修复等多个方面。</p>
-
-<h3>主要修复</h3>
-<ul>
-<li><b>Windows 路径处理</b>：修复 <code>--absolute-path</code> 将 verbatim（<code>\\?\</code>）搜索路径转为相对路径的问题。现在 <code>\\?\UNC\server\share</code> 会正确报告为 <code>\\server\share</code>，而 <code>\\?\Volume{...}</code> 路径则保持不变（issue #2207）。同时修复了 Windows 上使用 <code>--full-path</code> 时的 <code>--glob</code> 模式问题（issue #2067）。</li>
-<li><b>命令行参数交互</b>：<code>--ignore</code> 和 <code>--no-hidden</code> 现在放在 <code>-u</code> 之后时，只覆盖 <code>-u</code> 中对应的那一半，而不再整体抵消（issue #2192）。</li>
-<li><b>正则匹配</b>：修复内联的大小写不敏感正则标志（inline case-insensitive regex flags）错误地导致其他 <code>--and</code> 模式变为大小写敏感的问题（issue #2184）。</li>
-<li><b>格式模板</b>：当 <code>--format</code> 模板以 <code>-</code> 开头并作为独立参数传入时，现在能被正确接受（issue #2126）。</li>
-<li><b>错误消息</b>：不再错误地将换行符转义显示在错误消息中（issue #2104）。</li>
-<li><b>稳定性</b>：修复解析大小限制时的整数溢出，超出 <code>u64::MAX</code> 的值现在会被拒绝而不是导致 panic（issue #2196）。</li>
-</ul>
-
-<h3>其他调整</h3>
-<ul>
-<li>在受支持的平台上恢复 jemalloc 作为默认内存分配器。</li>
-<li>修复 <code>cargo binstall</code> 的发布 URL——此前误将 crate 名称（<code>fd-find</code>）用作二进制名（<code>fd</code>），导致回退到第三方镜像。</li>
-<li>zsh 补全的多项修复与更新。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.5.1</guid>
-      <pubDate>Wed, 04 Nov 2026 09:10:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>Hapi v0.34.1 发布：多项会话管理与编码代理功能改进</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.34.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Hapi 发布 v0.34.1 版本，主要围绕桌面应用的会话管理体验与编码代理功能进行改进。</p>
-<h3>重要改动</h3>
-<ul>
-<li><b>会话消息内容搜索</b>：新增可选的会话消息内容搜索功能（web/hub）。</li>
-<li><b>中途转向支持（mid-turn steering）</b>：为 opencode 编码代理新增会话中途转向能力。</li>
-<li><b>会话列表排序与过滤</b>：支持对会话列表进行排序和过滤。</li>
-<li><b>悬停归档会话</b>：可以在行上悬停时直接归档某个会话。</li>
-<li><b>Codex 快速模式记忆</b>：在 composer 中记住并可切换 Codex 快速模式。</li>
-<li><b>本地模型目录配置</b>：支持 codex 显式配置本地模型目录。</li>
-<li><b>非活跃会话提及分组</b>：支持分组和折叠非活跃的会话提及。</li>
-</ul>
-<h3>其他改动</h3>
-<ul>
-<li>修复 Mac Catalyst 构建被阻塞的问题（iOS）。</li>
-<li>调整 alive/steer 测试以匹配 #1981 之后的新元数据（hub）。</li>
-<li>静默 Cursor 完成后的 harness "Briefly inform" 提示（CLI）。</li>
-</ul>
-<p>完整变更日志见 <a href="https://github.com/tiann/hapi/compare/v0.34.0...v0.34.1">v0.34.0...v0.34.1</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.1</guid>
-      <pubDate>Wed, 04 Nov 2026 08:07:08 GMT</pubDate>
     </item>
   </channel>
 </rss>
