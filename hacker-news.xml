@@ -3,7 +3,38 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sat, 21 Nov 2026 23:08:26 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Nov 2026 03:03:41 GMT</lastBuildDate>
+    <item>
+      <title>⭐ LookAtMyQuant：量化编译器把 Inkling-2-Mini 压到 5.4 GB，社区质疑基准可比性</title>
+      <link>https://news.ycombinator.com/item?id=50591853</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源量化编译器降低模型体积与 KL 散度，属于 AI 软件技术进展与开源项目，符合兴趣；但非模型发布公告或编程效率改进，未达很感兴趣层级。</small></p><p>GitHub 项目 <a href="https://github.com/ShinMegamiBoson/lookatmyquant">LookAtMyQuant</a> 发布了一个「量化编译器」：它先逐块测量模型参数被压缩后对输出造成的伤害（KL 散度），再在给定体积预算下为每一块挑选编码方案，使总损伤最小。作者称在 Gemma 4 E2B 上，同体积的 GGUF 比 Q4_K_M 的 KL 低 12 倍。代码以 MIT 协议开源。</p>
+
+<h2>已完成的几个案例</h2>
+<ul>
+<li><strong>Qwen3.5-4B → 1.23 GB</strong>（2.3 bits/weight）：540 道精确答案数学题中解出 330 道，对比 Prism ML 的 Bonsai 2 Ternary 4B 为 328 道（1.20 GB），原始模型 359 道；在留出文本上的 KL 为 0.45 nats，Bonsai 为 0.59。配方为「训练后量化 + trellis 编码」，用模型自己解出的数学题做校准（digit token 权重 10×），按行用 Fisher 信息分配比特，随后做 4,000 步蒸馏，每层从原始权重重新量化一次。作者称 GPU 成本约 34 美元。</li>
+<li><strong>Qwen3.8-27B → 7.2 GB</strong>（2.1 bits/weight）：540 题数学解出 401 道，与原模型持平；同体积的 Unsloth UD-IQ2_XXS 为 348 道，HumanEval 73.8% vs 67.1%、MMLU 78.8% vs 75.0%、GSM8K 94.5% vs 92.7%。另配一个 4-bit DSpine drafter（1.02 GB），在 Apple Silicon 上可将数学与代码任务的解码速度大致翻倍。</li>
+<li><strong>Inkling-2-Mini（26.4B 物理参数 / 5.4B 激活的 3 次循环 MoE，128 专家 top-8）</strong>：从 18.89 GB 文本权重压出四个 Apple Silicon MLX 版本——5.38 GB（1.65 bpp）、8.87 GB（2.72 bpp）、11.18 GB（3.43 bpp）、12.76 GB（3.92 bpp）。手段包括 4 KB SRAM 哈希块向量 trellis 码（ht2/ht3）、行 trellis 码（rtr1/rtr4）、对尾部 lm_head 分桶施加 tr2 下限，以及在高敏感专家分桶上直接透传原生 NVFP4（11.2 GB 与 12.8 GB 版本分别保留 69/192、109/192 桶为 0 误差）。</li>
+</ul>
+
+<h2>评测结果</h2>
+<p>作者用同一 BF16 teacher，在 GSM8K（test[:200]）、全部 164 道可执行 HumanEval 题、4 项视觉 VQA（保留未改动的 637 MB BF16 视觉塔）以及覆盖 16+13 种语言的 TextMix 窗口上评测（greedy，max_new_tokens=1,536）：12.76 GB 版本在全部 349 项池化任务上与原模型 100% 持平，而文本权重内存少 32.5%；11.18 GB 与 8.87 GB 版本保留 99.2–99.3% 的三任务均值（池化 345/349）；其中 8.87 GB 版在英/聊天/代码上 KL 为 0.0208，13 种语言平均 0.0571，均优于 Unsloth 9.14 GB 的 UD-Q2_K_XL；5.38 GB 版本 GSM8K 88.0%、HumanEval 70.7%。</p>
+<p>在 Apple M5 Max 上，12.8 GB 版达 2,016 tok/s（T=512 prefill）、60.5 tok/s 串行、112.7 tok/s 无损投机解码中位数；5.4 GB 版为 1,807 tok/s prefill、75.3 tok/s 串行、124.4 tok/s 中位数。四个版本都通过统一的单次启动 Metal kernel 走 <code>lamq</code> 与 <code>runtime_mlx</code> 运行，并可选配 178.9 MB 的 4-bit DSpark drafter。</p>
+
+<h2>使用方式</h2>
+<p>可通过 <code>pip install git+https://github.com/ShinMegamiBoson/lookatmyquant.git</code> 安装（不依赖 PyTorch），随后用 <code>lamq generate</code> / <code>lamq chat</code> 调用本地目录或 Hugging Face 仓库；或在 Python 中 <code>from runtime_mlx import load</code> 后与 <code>mlx_lm.generate</code> 配合使用。仓库还提供了在 SmolLM2-360M 上用三条命令跑通编译流程（measure → allocate → quantize）的教程，以及用 Modal 复现 Qwen3.5-4B 配方的分步作业脚本。GGUF 路线也在仓库里（<code>gguf_compiler.py</code> 用 llama.cpp 自有张量类型生成方案），但已发布的 Inkling 量化文件目前仅支持 MLX/Apple Silicon。</p>
+
+<h2>社区反应</h2>
+<p>讨论热度很高（369 分、94 条评论），但质疑同样密集。有用户逐条核对后认为结果「与 README 的宣称对不上」：5.4 GB 版在英/聊天/代码上的 KL 为 0.0895，反而差于 Unsloth UD-IQ1_S 的 0.0808，13 语言平均 0.287 vs 0.124；并指出在样本输入上对量化模型做后训练会使对比失真，GSM8K/HumanEval 的差距落在噪声范围内。<a href="https://news.ycombinator.com/item?id=50591853">另有评论</a>提醒这类「乱糟糟 README、追着热门模型跑」的仓库几乎从不藏着主流量化方案遗漏的突破，且 12× 这个卖点本身并不适用于 Inkling-2-Mini；也有人抱怨表格里的「Text Size」等列含义不明，像是长上下文拼凑留下的残迹。</p>
+<p>技术层面的疑问包括：Inkling-2-Mini 本身就以 NVFP4/MXFP8 原生训练，再量化一遍意义何在？回复指出作者是先回到 BF16 再量化并微调到更小、不同格式，目的是让普通 8–16 GB 内存的 Mac 也能跑。多位用户确认目前只有 MLX 版本，llama.cpp 尚不支持。</p>
+<p>也有正面反馈：有用户表示在 RTX 3090 上试用后觉得该模型在代码任务上表现不错，只是存在拒答问题、期待社区做 abliteration。另有人吐槽 Inkling-2-Mini 在 llama.cpp 上只有 Qwen 27B 约三分之一的速度，与官方宣称的 5 倍加速不符。评论区还有人认出项目名是对经典 Flash 动画《Amazing Horse》的玩梗（「look at my horse」→「look at my quant」）。</p>
+
+<h2>你知道吗？</h2>
+<p>Trellis 量化（trellis-coded quantization, TCQ）源自通信领域的网格编码调制：它不独立量化每个数值，而是把一系列数值映射到网格图上的一条连续路径，用路径约束换取更高的有效分辨率——代价是解码需要按顺序回溯，对内存访问和并行性不友好，因此常配合小块向量、哈希表或专用的 SRAM 结构实现。这也解释了为何该项目需要自写 Metal kernel：通用推理引擎通常没有针对此类编码的解码路径。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50591853</guid>
+      <pubDate>Sat, 21 Nov 2026 18:02:19 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Lean 与 Mathlib 社区联合声明：黎曼猜想的 Lean 形式化证明已验证通过</title>
       <link>https://news.ycombinator.com/item?id=50589618</link>
@@ -1539,34 +1570,6 @@ rclone copyurl "&lt;build-url&gt;" "bunnycdn:&lt;zone-name&gt;/&lt;filename&gt;.
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50509837</guid>
       <pubDate>Sun, 15 Nov 2026 19:26:22 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 深入理解现代 LLM 中的位置嵌入：从绝对位置编码到 RoPE</title>
-      <link>https://news.ycombinator.com/item?id=50506376</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 文章讲解 LLM 位置嵌入（绝对位置编码到 RoPE）的技术原理，属于 AI 软件技术进展，与用户兴趣中的该主题相符，但非新模型发布或编程工具，故为推荐而非必看</small></p><p>Sebastian Raschka 在其 Substack 杂志上发表了一篇系统性教程，讲解大语言模型（LLM）如何编码和处理 token 的位置信息。文章从经典方法讲到当代主流方案，配有图示、少量数学推导和一个小型 PyTorch 实现，并在最后梳理了 2026 年开放权重模型对位置编码的不同选择。作者表示，这是为后续「LLM 架构趋势」长文预留的基础性「积木」文章。</p>
-
-<h3>为什么需要位置信息</h3>
-<p>词序改变语义——「红狐狸跳过灰狐狸」与「灰狐狸跳过红狐狸」中执行跳跃的主体不同。但 token 嵌入层只按 token ID 查表，同一个词（如出现两次的 "fox"）无论在哪都得到相同向量，因此需要显式注入位置。GPT 类模型使用因果（自回归）掩码，限制每个 token 只能关注自身及之前的 token，这天然带来一定的隐式顺序信息（作者在此埋下「无位置编码（NoPE）」的伏笔）；但掩码无法区分「相隔 1 位」与「相隔 10 位」，所以显式位置信息仍被认为必要。</p>
-
-<h3>加性绝对位置编码</h3>
-<p>最直接的做法是为每个位置准备一个与 token 嵌入同维度的向量，逐元素相加后送入第一个 Transformer 块。</p>
-<ul>
-<li><strong>GPT-2 的可学习绝对位置嵌入</strong>：与 token 嵌入表形式相同，用 <code>nn.Embedding(context_length, emb_dim)</code> 实现，训练时一并学习。其 1024 个位置的上限决定了上下文窗口长度；若扩展到如今常见的 10 万级上下文，位置表会急剧膨胀（作者推算，GPT-2 Medium 在 1024 位置时位置嵌入仅占总参数 0.30%，扩到 10 万则超过 22%），代价高昂，且上下文长度必须在训练前确定。</li>
-<li><strong>原始 Transformer 的固定正弦编码</strong>：2017 年《Attention Is All You Need》用固定的 sin/cos 函数生成位置向量，并在相加前把 token 嵌入乘以 √d<sub>model</sub> 以平衡量级（论文未说明动机，作者认为是为了让两者数值尺度相当；GPT-2 因初始化标准差分别为 0.02 和 0.01 而无需缩放）。特征按对编号，第 i 对使用频率 10000<sup>-2i/d</sup>，位置 m 处得到 sin(mθ) 与 cos(mθ)。</li>
-</ul>
-
-<h3>相对位置与旋转位置编码（RoPE）</h3>
-<p>文章核心是 RoPE 的直觉推导：与其把位置向量「加」到嵌入上，不如把 query 和 key 向量按位置「旋转」一个角度。两个向量点积（注意力分数）只依赖于角度差，于是天然编码了<em>相对</em>距离——位置 (n, m) 与 (n+k, m+k) 的分数完全一致。作者用二维平面旋转矩阵、角度差公式 nθ − mθ = (n−m)θ，以及数值示例（如位置差 40° 时的点积计算）逐步演示，再推广到多维特征对分别旋转，并给出 PyTorch 实现。</p>
-
-<h3>现代架构中的位置选择</h3>
-<p>文章第 6 节按位置编码对 2026 年的开放权重模型进行分类，<a href="https://magazine.sebastianraschka.com/p/understanding-positional-embeddings">原文中的架构图集（LLM gallery）</a>展示了各类模型。涉及的做法包括：完全省略显式编码（NoPE）、部分层应用 RoPE（partial RoPE）、混合 NoPE 前缀、相对位置偏置，以及不同模型在注意力内注入位置信息的方式（如 GPT-2 在首层之前加、MiniMax-M3 在每个 Transformer 块的注意力内加）。</p>
-
-<h3>社区反馈</h3>
-<p>HN 讨论中，有读者认为文章侧重实现细节而非理论：从群表示论视角看，旋转位置嵌入（RoPE）是平移群 ℝⁿ 的表示，其不可约表示由动量向量 m 参数化，ρₘ(x) = exp(i⟨m,x⟩)，多个 m 即构成可学习参数；若还需保持旋转不变性，则应考虑特殊欧几里得群的表示（四维情形对应自旋等离散量子数）；在四叉树上做注意力则需引入仿射变换群及其不可约表示。另一位读者反驳称博客受众并非抽象代数研究生，并指出位置信息也可以是结构性的——如 NoPE 那样由架构自然「涌现」；原作者回应称「Understanding」类标题容易被理解为理论讲解，他补充理论是为了填补空白，并认为涉足数学的 ML 研究者至少应了解抽象代数的基本概念。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50506376</guid>
-      <pubDate>Sun, 15 Nov 2026 12:14:06 GMT</pubDate>
     </item>
   </channel>
 </rss>
