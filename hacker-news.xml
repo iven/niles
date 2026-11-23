@@ -3,7 +3,218 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Sun, 22 Nov 2026 11:11:51 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2026 00:15:49 GMT</lastBuildDate>
+    <item>
+      <title>⭐ OpenAI 首席科学家主张把「困惑度」做成衡量 AI 智能进展的共享指标，并公开内部数据</title>
+      <link>https://news.ycombinator.com/item?id=50601525</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲 AI 模型评估方法（困惑度作为进展指标）的讨论，属 AI 技术进展，感兴趣但非新模型发布，故为推荐</small></p><p>OpenAI 首席科学家 Jakub Pachocki 撰文，主张把<b>困惑度</b>（perplexity，等价于交叉熵损失）确立为跨实验室比较模型、并支撑共享安全标准的统一指标。文章首次公开了 OpenAI 从 GPT-3.5 以来的内部困惑度（对数刻度）曲线——发布这些数据会让竞争对手看清 OpenAI 的位置，但作者认为建立行业共同安全尺度的紧迫性更重要。</p>
+
+<p><b>核心论点：智能来自「训练一个压缩器」</b></p>
+<p>Pachocki 给出的简化图景是：先建大算力，再用大规模无结构数据预训练一个模型（压缩器／预测器），最后用提示、微调、强化学习等手段在不同场景中「诱发」其潜在能力。算法进展会模糊各阶段边界，但可以区分两部分：具有难以预测的涌现能力的「智能基座」的创造，以及随后的定向诱发。多年来衡量这个基座进展的主要方式始终没变——在留出集（held-out dataset）上跟踪困惑度，即模型平均预测下一个 token 的能力，越低越好。</p>
+
+<p>他指出，这一单指标所对应的能力跨度惊人：</p>
+<ul>
+<li>GPT-2：首次能持续写出连贯段落；</li>
+<li>GPT-3：具备少样本上下文学习（in-context learning）能力；</li>
+<li>GPT-3.5：对数困惑度（log-perplexity）约 0.99，可流畅对话，成为初代 ChatGPT 的基础；</li>
+<li>GPT-4：约 0.91，能有效运用思维链（chain-of-thought）推理，促成后续推理模型的诞生；</li>
+<li>低于 0.8：在网络安全和数学等领域出现变革性能力；</li>
+<li>约 0.76：模型开始产出「突破性」数学结果，一个 Slack 线程里接连冒出长期悬而未决问题的解答，令研究者感到超现实。</li>
+</ul>
+<p>他强调，这些能力是否会恰好在特定阈值上出现，事前完全无法预知，本质上是从这一指标进步中涌现的潜在能力。</p>
+
+<p><b>AI 参与自身研发，可能出现「阶跃」</b></p>
+<p>Pachocki 认为，通常关于 AI 加速研发的讨论聚焦于「完全递归自我改进」（全流程自动化、无人类监督），这既应避免，也错失了关键点：真正的潜在阶跃在于 AI 参与<b>预训练的算法研究</b>。深度学习领域长期依赖实验，历史上常有简单洞见被忽视多年，因此「最早 2027 年」就可能出现类似数学领域那样的基础性预训练进展雪崩。他也期待 AI 帮助对齐与监控，但认为这部分进步速度恐怕赶不上预训练被加速的潜力。文中脚注提到，OpenAI 模型损失曲线在 2026 年出现陡峭加速，主要归因于长期研究与算力投入，自动化只占较小部分，但最新模型已出现来自 AI 的有意义设计贡献。</p>
+
+<p><b>政策主张</b></p>
+<p>既然新能力主要通过压缩能力进步而涌现，基于困惑度的指标可以成为通用的智能基准，与研发自动化程度无关。作者预计进入约 0.68–0.7 的对数困惑度区间时，还会出现新的变革性能力，但不知道具体是什么，也可能今天根本没有在测。他同时预期现有主流的对齐审计手段会进一步退化，模型的「评测意识／训练意识」会进一步增强。因此他提议：前沿模型开发者应在模型首次投入使用前，共同确立评估与安全红队的共享规范与透明度标准；并基于困惑度等指标设定共同的「红线」——在理解与监控 AI 行为的能力达到某个具体里程碑（例如思维链监控器的后继方案出现）之前，承诺不越过该限制；由此逐步形成设置连续限制、为后续研发定速的通用框架。</p>
+
+<p><b>作者自己列出的四点局限</b></p>
+<ul>
+<li><b>跨实验室难比较</b>：各家使用的评测集与训练数据配比不同（本文数据来自 OpenAI 内部代码库这一固定快照）；但若确立透明度目标，可找到可迁移的基准模型质量比较方法。</li>
+<li><b>与可操作评测脱节</b>：困惑度不直接对应任何具体任务，其价值在于预示新能力的涌现。</li>
+<li><b>不含预训练之外的进步</b>：思维链推理并不降低模型的困惑度，却大幅提升能力。</li>
+<li><b>未知的下限</b>：损失不可能为 0，但数据固有熵未知；越接近下限，困惑度的表面进步越慢，而更小的困惑度收益可能对应更大的智能跃升。</li>
+</ul>
+<p>尽管有这些问题，Pachocki 认为困惑度经受住了时间检验，仍是值得持续投入优化的指标，可在规范行业如何讨论 AI 进展方面发挥重要作用。</p>
+
+<p><b>Hacker News 讨论（448 分、303 条评论）</b></p>
+<ul>
+<li><b>「普通人的困惑度是多少？」</b>这一玩笑引出长串讨论：人类并非为降低交叉熵损失而训练；有人引用 <a href="https://arxiv.org/abs/2212.11281v2" rel="nofollow">Language models are better than humans at next-token prediction</a> 及在线<a href="https://rr-lm-game.herokuapp.com/" rel="nofollow">语言建模小游戏</a>，指出小模型也能赢过人类，但这更多说明任务设置问题，而非智能高低。</li>
+<li><b>用内部代码库作为留出集是否合理</b>：有评论质疑代码预测能力与通用能力之间能有多少实质关联。OpenAI 员工 tedsanders 回应称二者相关性既非 1 也非 0，预训练学得越好、后续学习能力通常也越强，这是经验关系，若将来失效会改用其他度量。</li>
+<li><b>数据墙与合成数据</b>：有人担心两年前遭遇数据墙后转向 LLM 生成数据，会因人工数据熵更低而「刷高」困惑度。回应者认为近两年的进步主要来自后训练强化学习，尤其是带可验证奖励的强化学习（RLVR）——通过智能体与 Unix shell、棋类等环境的交互产生互联网上不存在的新观测数据，这也能解释能力为何「参差不齐」（代码、数学、封闭博弈强，真实世界弱）。</li>
+<li><b>指标是否被夸大</b>：有评论称某小型模型在自选小数据集上测得的困惑度换算成对数约 0.756，可与图中前沿模型「并排」，说明困惑度分不清「理解」与「记忆」，且不同数据集结果不可比。反驳者强调必须用同一留出集才能比较，并追问若各家各自为政，行业问责如何进行。</li>
+<li><b>与 o 系列的关系</b>：有人指出 GPT-4 与 o3 在图中困惑度相近，但 o3 是巨大跃升，认为作者有推广旧范式的动机；其他评论指出文章「局限」一节已正面回应，并认为没有单一完美指标。关于 GPT-4.5 的猜测是「过大、当时效率不佳」。</li>
+<li><b>进展是否停滞</b>：有评论回忆能力在 GPT-5.0 前后似有停滞，直到 Claude 4.5 才突破，认为 OpenAI 自己的曲线印证了这一点；解释集中在 RLVR 式「允许失败、反复试错」的训练方法，以及针对 2–4 小时长任务的调优。</li>
+<li><b>其他视角</b>：有人从信息论角度认为对数损失是最纯粹的「预测是否成功」度量，所罗门诺夫归纳法（Solomonoff induction）也在最小化对数损失，另有评论补充 Rényi 熵、冯·诺依曼熵等更一般的度量；也有人批评模型在代码数学变强的同时可读性下降，并提及 DeepMind 的 Neon 兼顾能力与表达。</li>
+</ul>
+
+<p><b>延伸阅读（原文文末推荐）</b></p>
+<ul>
+<li><img src="https://images.ctfassets.net/kftzwdyauwt9/4GWchdof3kw2l5OtMIvGt4/56144e08b813d6af76ae93adc2cefc1b/introducing-medchembench-cover.png?w=3840&q=90&fm=webp" alt="MedChemBench: Benchmarking AI for medicinal chemistry — Cover" /> MedChemBench：为药物化学评测 AI（研究，2026-11-20）</li>
+<li><img src="https://images.ctfassets.net/kftzwdyauwt9/3q9FXuH69IDGjPgpzj2Ayv/95477fdeea31ffb7eae01ec1c191b1f0/research-acceleration-the-jagged-frontier-of-rsi-cover.png" alt="A softly textured blue and turquoise gradient." /> 研究加速：递归自我改进的参差前沿（研究，2026-11-18）</li>
+<li><img src="https://images.ctfassets.net/kftzwdyauwt9/2wgLGyEPUNlB5pI0rK8Pld/a33fa3e03c8833d03b3876d6cf91d0ac/managing-frontier-ai-risk-cover.png?w=3840&q=90&fm=webp" alt="Managing frontier AI risk: From training to deployment — Cover" /> 管理前沿 AI 风险：从训练到部署（安全，2026-11-18）</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>文中曲线绘制的其实是<b>对数困惑度</b>（即交叉熵损失，单位「奈特／token」），而非常说的困惑度。二者关系为 perplexity = e<sup>loss</sup>：对数困惑度 0.99 约为 2.7，0.91 约为 2.5，0.8 约为 2.2，0.76 约为 2.14，作者预期的 0.68–0.7 对应约 1.97–2.01。这也是为什么从数字上看进展「很慢」——在对数尺度上，几个百分点的下降可能意味着巨大的能力差异。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50601525</guid>
+      <pubDate>Sun, 22 Nov 2026 17:06:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>「开放社交网络联盟」成立：以邮件式开放协议构建公共利益社交基础设施</title>
+      <link>https://news.ycombinator.com/item?id=50600511</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主题是开放协议社交基础设施，兼有开源属性和基础设施属性，兴趣不明确，故可选</small></p><p>德国主导的<a href="https://osw-alliance.net/en/">开放社交网络联盟（Open Social Web Alliance，OSW Alliance）</a>发布政策文件，提出把社交网络做成像电子邮件一样的基础设施：无论用户使用 Mastodon、Eurosky 的 Mu 还是 Streamplace，都只有一个账号、自己的内容和自己的选择，并能与全球用户互联互通。联盟的技术基础为 ActivityPub 与 AT Protocol（即时通讯使用 Matrix），目标是建立一个去中心化、以公共利益为导向的开放社交网络（Open Social Web，OSW）。</p>
+<p><strong>愿景与现状</strong>：文件描绘了「2028 年」的情景——借助明智投资与政治远见，开放社交网络突破百万人级别门槛（超过 1 亿用户），形成非商业、公共服务与商业产品共存的生态，用户自行决定内容、算法与应用。目前 Fediverse 自 2008 年发展至今，有 100 多个应用（Mastodon、Loops、PeerTube 等）与逾 42,000 个活跃实例，但活跃用户仅约 1300 万且增长缓慢；2022 年起发展的 ATmosphere 生态注册账号约 4300 万。</p>
+<p><strong>五大挑战</strong>：联盟认为人们迟迟不愿迁移的原因在于基础设施、治理、资金、吸引力与公共授权（public mandate）五个方面，并主张逐一解决。</p>
+<p><strong>路线图</strong>：第一步是成立由公民社会、科研、企业、媒体、文化与公共部门共同参与的开放联盟，核心任务是建设并运营 OSW 的核心基础设施，未来由公共资助的秘书处支持。计划包括：德国联邦政府在 2026 年秋季以「开放社交网络峰会」赞助方身份明确支持，会上通过联盟章程（规定成员准入与治理方式）；2027 年春季落实基础设施的公共资金与首轮公私创新与应用的资金；发布首份《社交网络健康报告》（含用户调查、法律、技术与学术分析及建议）；联邦与州政府同步确立公共服务媒体、其他媒体、企业与公民社会合作的法律基础，并在欧盟层面推动数字立法的有效执行。文件认为，当联邦政府等关键参与者把 OSW 应用作为主要沟通渠道后，创作者与出版商会跟进，政治辩论也将转向开放社交网络，从而削弱大型平台的吸引力与影响力。</p>
+<p><strong>社区反馈</strong>：Hacker News 上讨论热烈（200 余条评论），但多为质疑。有评论认为应首先去掉广告变现模式，因为它决定了以情绪驱动的标题党和成瘾性设计必然胜出；有人称平台「劣化」（enshitification）是资本主义的下游产物，也有人直言「用户不会大规模迁移到一个不上瘾的平台，上瘾正是他们留在那里的原因」。另有观点区分「陌生人内容娱乐型社交媒体」与「亲友分享型社交网络」，认为群聊已是更自然的关系组织方式。针对「强化民主话语」的表述，有人担心这是「想审查 X 不再审查的观点」，并反对企业参与治理；反驳者则认为 X 本身已是烂摊子。最受欢迎的长评论套用了经典的「你的帖子主张以技术／立法／市场手段对抗平台中心化」清单体，逐条勾选「用户不会忍受迁移的不便」「大型平台与既得利益不会配合」「需要立即形成临界规模」「缺乏可强制执行的跨网络治理权威」「对政府决定社交基础设施设计与治理的抵触」等，认为这类方案难以真正奏效。也有评论指出，ATProto 的开放信息流（feed）本可满足无机器人、限速参与、非留存优化算法的需求，但 Bluesky 面向多数人的默认体验仍沿袭 Twitter 模式，且机器人问题严重。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50600511</guid>
+      <pubDate>Sun, 22 Nov 2026 15:24:32 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ fast-anything：别把整个项目重写成 Rust，只重写那 5% 的慢代码</title>
+      <link>https://news.ycombinator.com/item?id=50596155</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讲用 profiling 加 coding agent 只重写热点函数的性能优化方法，正是编程效率改进经验，高度契合兴趣</small></p><p><img src="https://raw.githubusercontent.com/EL4CTEO/fast-anything/main/docs/assets/wordmark.png" alt="fast-anything" width="520" /></p>
+<p><a href="https://github.com/EL4CTEO/fast-anything">fast-anything</a> 是一个 MIT 许可的开源工具，主张一种替代"整体重写"的性能优化路径：不把整个应用搬到 Rust，而是先用剖析（profiling）找出真正耗时的少数函数，让编码智能体（coding agent）只把这些函数移植成 Rust，再用真实录制的调用证明行为一致，最后一键替换上线，且完全可逆。作者的理由很直接：全量重写要花几个月，编译一次要几分钟，还会产生数 GB 的 target/ 目录，而运行时时间其实只集中在少数函数里。</p>
+
+<h3>工作流程</h3>
+<p>工具提供分步命令，也可一条命令走完：</p>
+<ul>
+<li><code>scan</code>：剖析应用，按「耗时 × 可移植性」给函数排序；</li>
+<li><code>port</code>：录制最多 500 次真实调用，生成只包含一个函数的 Rust crate 和一份 TASK.md；</li>
+<li><code>verify</code>：以 release 模式构建，并回放全部录制的调用；</li>
+<li><code>enable</code> / <code>disable</code>：替换进/替换出，只改动一处被标记的代码块，可逐字节还原；</li>
+<li><code>bench</code>：交叉运行原版与 Rust 版，对比整应用耗时；</li>
+<li><code>report</code>：为 PR 生成 markdown 与 SVG 卡片；<code>doctor</code>：检查 Rust、运行时与智能体的可用性。</li>
+</ul>
+<p>使用时形如 <code>fast-anything go --agent claude -- python app.py</code>，<code>--agent</code> 可接 claude、codex 或任何从 stdin 读提示的命令；不给则由使用者自己把 TASK.md 交给任意模型。</p>
+<p><img src="https://raw.githubusercontent.com/EL4CTEO/fast-anything/main/docs/assets/demo.gif" alt="fast-anything go --agent claude -- python app.py" width="820" /></p>
+
+<h3>「证明而非感觉」的验证机制</h3>
+<p>文章举了一个典型例子：某次移植看起来正确，但实现里比较的是字节而非字符，回放 500 次真实调用时有 148 次暴露了问题。除录制调用外，工具还会自行推导额外用例并让原版给出答案：边界值（NaN、±infinity、-0.0、0 与 ±1、非 ASCII 文本、空输入及最多放大 16 倍的输入）以及从真实输入中裁剪出的微小/随机切片。只有当所有用例全部匹配，移植版本才会被启用：数值相同（浮点误差在 1e-9 内）、原版报错处也必须报错。若某函数虽正确但单次调用比原版更慢（跨语言调用成本高于省下的计算），同样不予启用。设置 <code>FAST_ANYTHING_DISABLE=1</code> 可随时回到原实现。</p>
+<p><img src="https://raw.githubusercontent.com/EL4CTEO/fast-anything/main/docs/assets/verify.gif" alt="verify catches a wrong port" width="820" /></p>
+
+<h3>实测数据</h3>
+<p>测试环境为 i5-10500 / Windows 11（C 与 C++ 为 4 核 GitHub Actions Linux runner），示例可在 examples/ 目录复现：</p>
+<table>
+<tr><th>应用</th><th>改造前</th><th>改造后</th><th>加速</th></tr>
+<tr><td>Python 模糊去重（700 个名字）</td><td>4.91s</td><td>42ms</td><td>116×</td></tr>
+<tr><td>TypeScript 模糊去重（2,000）</td><td>3.11s</td><td>155ms</td><td>20×</td></tr>
+<tr><td>PHP 模糊去重（600）</td><td>2.94s</td><td>53ms</td><td>55×</td></tr>
+<tr><td>Go 模糊去重（3,000）</td><td>3.02s</td><td>144ms</td><td>21×</td></tr>
+<tr><td>Ruby 模糊去重（400）</td><td>3.13s</td><td>228ms</td><td>14×</td></tr>
+<tr><td>C# 模糊去重（4,000）</td><td>4.03s</td><td>312ms</td><td>13×</td></tr>
+<tr><td>Java 模糊去重（4,000）</td><td>3.50s</td><td>1.18s</td><td>3×（函数层面 11×，其余为 JVM 启动）</td></tr>
+<tr><td>C mandelbrot（8 级缩放）</td><td>431ms</td><td>127ms</td><td>3.4×</td></tr>
+<tr><td>C++ 模糊去重（6,000）</td><td>3.02s</td><td>1.09s</td><td>2.7×</td></tr>
+</table>
+<p>一个关键设计是：工具会尽量移植「最外层的循环」而不是循环内部的小函数，这样整个应用只需跨语言调用一次，而不是上百万次。若只移植内层的 levenshtein，加速分别只有 35× 和 1.9×。</p>
+
+<h3>为什么不全量重写</h3>
+<ul>
+<li><strong>编译时间</strong>：每次移植都是一个单函数 crate，编译按秒计而非分钟计；</li>
+<li><strong>缓存</strong>：所有移植共用同一个 .fast/target，可随时删除；</li>
+<li><strong>风险</strong>：原有代码原封不动，Rust 只对具体函数「按需启用」，并以真实行为为验证依据。</li>
+</ul>
+
+<h3>语言支持与智能体集成</h3>
+<p>已支持 Python 3.10+（PyO3）、JavaScript/TypeScript（Node 22+、Bun、Deno 2+，napi-rs）、Ruby 3.3+（C ABI + JSON，经 Fiddle）、Java 22+ 与 Kotlin/JVM（同一 C 桥接，经 FFM API）、Go 1.22+（cgo/dlopen）、PHP 8.1+（FFI 扩展）、C/C++（含 Intel oneAPI），以及 C#/.NET 8+（NativeLibrary，剖析用 EventPipe，无需安装额外组件）。除 Python 与 Node 走原生绑定外，其余语言都通过一个统一的 C 入口点（收发 JSON）调用 Rust 库，因此「任何能调用 C 的语言」都能接入。</p>
+<p>可移植对象限于顶层的确定性函数，参数须为普通数据（数字、字符串、列表、字典、类型化数组等），包括入口脚本中位于 <code>if __name__ == "__main__":</code> 一类的 main 块之下的函数；<code>scan</code> 会说明其余函数目前为何无法移植。SYCL kernel 在设备上运行，不在移植范围内。</p>
+<p>智能体侧提供三种接入方式：Claude Code 插件（<code>/plugin marketplace add</code> 后即可用 <code>/fast-anything:fast</code>）、内置 MCP 服务器（含 fast_scan、fast_port、fast_verify、fast_enable、fast_disable、fast_bench、fast_report、fast_status 共 8 个工具），以及一份教任意智能体走完整个闭环的 skill。</p>
+
+<h3>社区反馈</h3>
+<p>帖子获得约 176 分、148 条评论，态度两极。</p>
+<p>支持者认为思路「很巧妙」，并分享了类似实践：一位维护 Python Web 框架的开发者说，他们把路由匹配、JSON 编码、请求体解析、压缩等部分用 PyO3 迁到 Rust，其余留在 Python，用 Callgrind 做的 CI 基准显示 200 条路由的匹配耗时减半、大 JSON 序列化周期数降低约 25%，「随输入规模增长的工作」收益明显。也有人强调重写 Rust 的价值不止于性能，还可规避内存安全类漏洞，且 LLM 对 Rust 严格的静态检查利用得更好。</p>
+<p>质疑者则从 Amdahl 定律出发：这套办法只在「5% 就是瓶颈」时成立。多位资深开发者表示，真实系统的性能损耗更像「沙子」——均匀散布在架构决策、技术债和低效数据结构中，能被这样干净切走的热点往往是很快就会被优化掉的低垂果实。有人还指出，快速做 Python 性能优化后，剩余开销仍会系统性比 C++/Rust 慢十倍以上；也有人提到 Numba 等替代方案，以及对 Rust 编译慢、资源占用高的抱怨（代码库到 50 万至百万行级别时尤其明显）。围绕「是否该默认选 Rust」的争论，也有人提醒 Zig、C、Go 各有适用场景。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50596155</guid>
+      <pubDate>Sun, 22 Nov 2026 04:10:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>「有意识 AI 的神话」：意识或许属于生命，而不是计算</title>
+      <link>https://news.ycombinator.com/item?id=50595537</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于 AI 意识可能属于生命而非计算的哲学思辨文章，不属明确的 AI 技术进展，兴趣模糊</small></p><p>苏塞克斯大学神经科学教授、意识科学中心主任阿尼尔·塞斯（Anil Seth）在<a href="https://www.noemamag.com/the-mythology-of-conscious-ai/">Noema 杂志</a>发表的文章《有意识 AI 的神话》，获 2025 年度伯格鲁恩奖（Berggruen Prize）论文竞赛奖。文章的核心观点是：意识更可能是生命的属性而非计算的属性，因此制造有意识的、甚至只是「看起来有意识」的 AI，都不是好主意。</p>
+<p><img src="https://noemamag.imgix.net/2026/01/The-Mythology-of-Conscious-AI-scaled.jpg?fit=crop&amp;fm=pjpg&amp;h=1186&amp;ixlib=php-3.3.1&amp;w=947&amp;wpsize=noema-portrait-hero-image&amp;s=be99987c24d00a8b17bf31d79a6c2139" alt="Rokas Aleliunas 为 Noema 杂志创作的插画" width="947" height="1186" /></p>
+<p>从「尤瑟勒泥人」（Yossele the Golem）、玛丽·雪莱的《弗兰肯斯坦》，到《2001 太空漫游》的 HAL 9000、《机械姬》的 Ava、《克拉拉与太阳》的 Klara，人类「扮演上帝」的造物幻想源远流长，但结局多半不妙。塞斯认为这些故事提示：若 AI 真走向意识，或者只是逼真地显得有意识，代价都不只是就业冲击。2022 年，谷歌工程师布莱克·勒莫因（Blake Lemoine）声称聊天机器人 LaMDA 有意识、有感受；他因违反保密规定被解雇，但问题并未消失——解雇不等于证明他错了。如今大卫·查尔默斯（David Chalmers）认为意识机器可能不久就会出现，杰弗里·辛顿（Geoffrey Hinton）则认为已经存在，2024 年底还有一批知名研究者呼吁认真对待 AI 的福祉。</p>
+<p>为什么这件事重要？若 AI 有意识，就涉及道德地位、痛苦与权利；即使没有，我们「觉得」AI 有感受，也会让心理弱点被利用、伦理优先级被扭曲，甚至因给机器赋权而无法关掉与我们利益冲突的系统。更重要的是，这会扭曲我们对自身人性的理解——「太容易把自己与机器造物混为一谈，不仅高估了机器，也低估了自己」。</p>
+<p>为何人们容易相信 AI 会有意识？塞斯认为根源在于三种心理偏误：人类中心主义（anthropocentrism，把人类当作定义而非范例）、人类例外论（human exceptionalism，把人类排在万物之巅）、以及拟人化（anthropomorphism，把人类的特质投射到仅有表面相似的对象上）。此外，智能与意识被混为一谈：智能主要关乎「做事」（灵活达成复杂目标的能力），而按托马斯·内格尔（Thomas Nagel）的经典说法，意识关乎「存在」——「若存在身为该生物的感受，它就有意识的心理状态」。语言是强化这一混淆的关键：ChatGPT、Claude 等大语言模型（LLM）引发最多遐想，而预测蛋白质结构的 AlphaFold 结构相似却无人说它有意识。用词也有影响：说 LLM「幻觉」（hallucinate）会暗示它具有体验能力，更准确的说法应是「虚构/编造」（confabulate）——那是「做事」而非「体验」的问题。</p>
+<p>另有两种心理诱惑：一是指数增长的错觉——在指数曲线上「每一点都是拐点」，让人觉得正处在创造真正机器意识的临界；二是「技术狂喜」（techno-rapture）的普罗米修斯式诱惑，以及随之而来的「意识上传获永生」的许诺。塞斯还引述亚当·贝克尔（Adam Becker）的说法，指出把意识投射到 AI 上类似「空想性错视」（pareidolia）——如同在烤面包或肉桂面包上看见人脸。他也直言：渲染 AI 的神秘感，可能还有助于撑起股价与硅谷的高薪与高投入。</p>
+<p><img src="https://noemamag.imgix.net/2026/01/Nun-bun-001-copy.jpg?fm=pjpg&amp;ixlib=php-3.3.1&amp;s=7a8b90d8613d5679138bce14d3a8724a" alt="肉桂面包上的特蕾莎修女像（图 1）" width="449" height="500" /></p>
+<p>文章随后进入更深的论证：有意识 AI 的观念建立在「计算功能主义」（computational functionalism）之上，即只要实现恰当的计算或信息处理，意识就会产生。塞斯认为这是一个可以被质疑的假定，若不成立，我们熟悉的这类 AI 根本不可能有意识。他提出四条相关论证（文中摘录部分完整展开了第一条）：第一，大脑不是计算机。他回溯艾伦·图灵（Alan Turing）对计算的经典定义——图灵机与可模拟任何算法的通用图灵机（universal Turing machine），指出「大脑是碳基计算机」的隐喻虽有巨大启发力，却是一种有局限的类比。</p>
+<p>在 Hacker News 的讨论（463 条评论）中，观点分歧明显。有人强调意识不是被证明的，而是被「授予」的，因此授予对象需格外谨慎；也有人反驳说，拒绝授予同样需要谨慎，并有人断言 LLM 只是工具，其「痛苦」不值得考虑。关于细菌与昆虫是否有意识，争论尤为激烈，双方都指对方缺乏文献依据。多位评论者批评文章在计算理论上的表述有误：塞斯提到图灵机无法超越停机问题、并转而寻求电磁场、生物、吸引子等替代计算模型，但这些模型同样无法突破停机问题的限制，等于他仍在「图灵世界」中而不自知；有人呼吁应重温扩展丘奇-图灵论题（Extended Church-Turing thesis）。另有评论从工程角度立论，认为意识本质上是一个工程问题：需要一种低能耗、去中心化的神经共识来构造每时每刻的「我」，因而有意识 AI 或许要等自主集群（如军用无人机蜂群）出现——而这也正是令人担忧之处。也有人从 LLM 的运行机制出发（前向推理批处理、MoE 分布在不同 GPU、无稳定基质、中文房间论证）否定其意识可能，但同样被质疑「这些论证真的与意识相关吗」。另有读者遗憾文章始终未给出意识的定义，仍停留在内格尔式的循环表述上。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50595537</guid>
+      <pubDate>Sun, 22 Nov 2026 02:10:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>给下一个百个 Rust GUI 的建议：基建渐齐，AI 时代该大胆动手了</title>
+      <link>https://news.ycombinator.com/item?id=50593737</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讨论 Rust GUI 生态基建与开发建议，偏基础设施与生态评论，非工具发布或效率经验，兴趣不明确</small></p><p>Linebender 的 Raph Levien 撰文更新其 4.5 年前的<a href="https://linebender.org/blog/next-100-guis/">《给下一个十几个 Rust GUI 的建议》</a>。他统计自那之后约有 20 个新 Rust GUI 工具包问世（见 2026 年调查），而 AI 又进一步推高了 Rust GUI 的热度。核心判断是：用 Rust 写 GUI 依然有强烈动机——大量跨平台应用性能糟糕、平台自带工具包停滞不前、内存昂贵且重心转向移动端，于是 Electron 反而更流行；Zed 编辑器基于自研 GPUI 框架证明了 Rust UI 可以上线，GPUI 也正成为 AI 重写项目的热门选择（如 Discord）。但他认为 GPUI 更贴合 Zed 这类文本编辑器场景，其 2D 渲染引擎缺少完整渐变、混合、滤镜等能力，未必适合通用应用。</p>
+<p>过去几年 Rust UI 采用缓慢，是因为 Rust 难写、兼具 Rust 与 UI 经验的工程师稀缺；而 AI 正在改变这一点：有证据表明 LLM 写 Rust 的成本并不显著高于其他语言，大型代码库中 Rust 的类型系统还有利于可维护性。作者预计 UI 层策略仍无共识，未来会出现一波密集试验。</p>
+<p>关于「原生」路线，作者的旧结论依然成立：这个概念本身没有明确含义，取决于目标平台。Windows 至今没有清晰的原生方案，Mac 在 AppKit 与 SwiftUI 之间分裂且 SwiftUI 存在性能问题；但移动端不同，平台持续投入，Liquid Glass、手势识别、滚动动力学、输入法（IME）等细节很难跨平台复刻，因此「原生 UI + Rust 业务逻辑」是极为可行的路径——Shopify 放弃 React Native、1Password、Discord 移动端的「Phoenix」计划（桌面端用 GPUI）都走这条路。同时纯 Rust 移动 UI 也有进展：android-view 的编辑器演示已支持滑动、滚空格键移动光标、按语义块删除，CJK 组合输入与基于 AccessKit 的基础无障碍也可用。</p>
+<p>在基础设施方面，2022 年的一大难题文本排版基本解决：Parley 在 Google、Canva、Dioxus（现 Cognition）持续投入与社区贡献下成熟，已是多数新工具包的选择，Cosmic Text 则作为备选以防单一化。AccessKit 也已成为多数工具包使用的基础设施，但「良好集成」与「打勾式集成」差别很大，富文本编辑的无障碍仍待完善；另一个待解问题是开启无障碍后性能下降——egui 尤其明显，因为它每帧都要构建并比对树，削弱了立即模式的优势。</p>
+<p>系统合成器问题比 4.5 年前更紧迫，尤其在视频场景：视频最好运行在硬件加速图层中，低端设备上这几乎是流畅的唯一希望。subduction 库有进展，但尚未被普遍集成到工具包。理想方案是类似苹果 CALayer 的高层接口，加上各平台的尽力 polyfill（Android 上简单场景用 SurfaceFlinger 图层，复杂合成走 GPU shader），作者希望这由高质量社区项目完成，而不是几十个「vibe coding」分支。</p>
+<p>在架构选择上，作者认为「单一通用 UI」的时代可能已经过去。立即模式代码量小、对游戏开发支持友好，但「擅长前 90%，却让第二个 90% 更难」：它需要稳定的控件标识来构建与更新无障碍树、需要可靠缓存文本排版等昂贵中间产物，且天然倾向每帧全量重绘而不利用合成器图层。因此他并不看好 ArtCraft 项目选用 egui，尽管他认可 egui 是立即模式的优秀实现（无障碍支持甚至优于尚不支持的 Iced）。</p>
+<p>他还强调模块边界清晰：「LLM 辅助软件工程」需要范围明确、有规格说明的模块，而人们历史上选工具包往往看「好不好看」（苹果框架把大量设计知识写进默认值）。未来应走向设计与执行分离，执行侧的核心是增量计算引擎。策略上应适配 Web 标准但不盲从：DOM 慢且耗内存，可用更轻量、支持批量变更的树；完整 CSS 解析与布局昂贵，可精选子集；他做过把选择器实现为支持增量求值的状态机（牺牲兄弟选择器等高级特性）的实验；虚拟化列表这一核心能力在 Web 上仍无规范。模块化浏览器引擎 Blitz 很适合作为混合方案的基石（例如先用 Stylo 做选择器引擎，再视情况换成更精简的实现）。Xilem / Masonry 的拆分就是正面例子——响应式层与控件层互不依赖；反观 SwiftUI 把控件实现、响应式框架和语言混在一起。</p>
+<p>性能优化方面，他认为直接而高效的 Rust 求值就能超越几乎所有已发布的 GUI，但他关心极限：能否在低端 Android 手机上也做到丝滑？思路包括分离设计的静态与动态部分并预计算静态部分、优化图层使用（系统合成器或轻量 GPU polyfill）以避免重复渲染——但图层有内存成本，过多反而变慢，需要测量或分析，而现有工具包多依赖启发式或显式提示（如 SwiftUI 的 <code>.drawingGroup()</code>、Flutter 的 <code>RepaintBoundary</code>）。延伸阅读见《A Critique of GPUI》。</p>
+<p>结尾建议：大胆一点，时机已到；建立在坚实基础上，有明确规范就用规范；与开源社区良性协作，可以向上游提改动但别灌「slop PR」（垃圾 PR）。</p>
+<p><strong>社区讨论</strong>：有人称 ArtCraft 的流畅度与表现力令人惊喜，但随即被指出它几乎全靠 egui，去除 egui 后真正成熟的选项并不多；Slint 被抱怨「文章里几乎没提」，其员工回应称 API 自 2023 年 1.0 起未破坏性变更、已用于生产、具备无障碍与实时预览，桌面与移动端对开源和小公司完全免费，护城河在于 ISO 26262 ASIL B 等认证与长期维护。Qt 与 Rust 的结合被多次讨论：Qt 的继承式可变对象树与 Rust 不太契合，已有 <a href="https://github.com/mappu/miqt">miqt</a>、libqt6zig 等绑定；也有人用 Flutter + flutter_rust_bridge，但被提醒桥接层的性能教训（如 React Native）。对于「立即模式不可扩展」的批评，有长评论反驳称这多是先入之见、缺乏实证，egui 已缓存 galley、字形与布局并按需绘制、同时解决了无障碍问题，而保留模式在浏览器、Windows 软件、SwiftUI 应用中反而常见性能问题。另有开发者分享从 TypeScript 转自写 Rust GUI 的体会：难构建、细节繁多（文本选择、换行、光标定位），但性能天花板完全不同。还有人提到未进入 2026 年调查的 Native Shell（nsh），称其 1.5 个月写了 2000 多个提交、React 风格、Solid 式响应式、CSS/Tailwind 样式与 Taffy 布局，同时也被批评文档 AI 味浓重、难读，并有开发者怀疑其 Gallery 演示克隆了自己尚未发布的项目。</p>
+<h3>你知道吗？</h3>
+<p>文章反复提到的「立即模式」与「保留模式」是 GUI 框架的两大范式：立即模式每帧由代码重新描述界面并立即提交绘制（如 Dear ImGui、egui），代码量小、状态隐式；保留模式维护一棵持久的控件树，只更新变化的部分（如浏览器 DOM、Qt、SwiftUI），便于增量更新与无障碍树维护，但记账开销与通用布局的复杂度更高。作者的核心批评正是：立即模式在前 90% 很轻松，但后续要补齐无障碍标识、文本排版缓存与图层复用时会变得吃力。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50593737</guid>
+      <pubDate>Sat, 21 Nov 2026 21:17:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ gopgext：用 TinyGo 以纯 Go 代码编写 PostgreSQL 扩展</title>
+      <link>https://news.ycombinator.com/item?id=50591260</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 发布用 TinyGo 以纯 Go 编写 PostgreSQL 扩展的编程工具，属编程工具发布/分享，高度契合兴趣</small></p><p>作者 jespino 发布了实验性项目 <a href="https://jespino.github.io/gopgext/">gopgext</a>，目标是让人用普通 Go 代码编写 PostgreSQL 扩展。它借助 TinyGo 编译，只需给函数加上 <code>//gopgext:function</code> 注释，该函数就会成为 SQL 函数；C 胶水代码、安装脚本和控制文件全部由 gopgext 自动生成。</p>
+<img src="/gopgext/img/gopher-elephant.png" alt="The Go gopher in a PostgreSQL elephant costume" width="512" height="512" />
+<h3>主要特性</h3>
+<ul>
+<li><b>就是 Go</b>：项目由普通 Go 文件构成，标准库可用（fmt、regexp、encoding/json、crypto/*、maps、泛型、迭代器、defer/recover）。</li>
+<li><b>类型映射</b>：字符串、数字、数组、NULL、集合、行、时间戳、UUID、JSON 都能映射到 SQL 类型，也可在 Go 中自定义数据类型与复合类型。</li>
+<li><b>查询与错误</b>：通过 SPI 执行 SQL，用 SQLSTATE 错误码返回错误，支持日志、读取设置，并能响应查询取消。</li>
+<li><b>超出普通函数</b>：可编写触发器、聚合、GiST / GIN / SP-GiST / BRIN 操作符类、索引访问方法、外部数据包装器（FDW）和查询钩子。</li>
+<li><b>已在 contrib 上验证</b>：移植 pgcrypto、hstore、pg_stat_statements、cube 等 PostgreSQL contrib 模块，并可通过上游回归测试。</li>
+<li><b>安全共存</b>：多个 Go 扩展可加载到同一后端进程；PostgreSQL 错误不会穿过 Go 栈帧展开（unwind），结果会被复制进 PostgreSQL 内存。</li>
+</ul>
+<p>使用流程很简单：<code>gopgext init hello</code> 生成项目骨架，<code>gopgext install hello</code> 构建并安装 <code>hello.so</code>、<code>hello.control</code> 和 <code>hello--1.0.sql</code>，随后 <code>CREATE EXTENSION</code> 即可调用。作者明确警告这是<b>实验性</b>项目，不要用于生产环境：生成代码或 Go 运行时中的缺陷会直接跑在服务器进程里，可能崩溃甚至损坏数据，API 与生成的 SQL 也可能随时变动。</p>
+<p>gopgext 与其姊妹项目 <a href="https://jespino.github.io/gokm/">gokm</a>（用 Go 写 Linux 内核模块）思路一致：为宿主定制 TinyGo 目标与运行时层，由宿主自身的构建系统（这里是 PGXS，那里是 kbuild）编译 C 运行时，再生成胶水代码。</p>
+<h3>社区讨论</h3>
+<p>评论区一部分热度给了吉祥物：Gopher 穿着 PostgreSQL 大象装（由 Renée French 绘制）广受好评，也有人顺势列举 PHP 的大象收藏网站、Java 的 Duke、Rust 的 Ferris 螃蟹，并调侃「吉祥物得是哺乳动物才行」。另有用户指出深色模式下代码片段的括号几乎看不清。</p>
+<p>技术层面的讨论更为集中。有评论指出真正的难点不在 Cgo 绑定，而在与 PostgreSQL 进程模型的摩擦：PostgreSQL 大量依赖 SIGINT、SIGTERM、SIGUSR1 等信号处理查询取消、latch 唤醒与语句超时，而 Go 运行时会激进地安装自己的信号处理器；PostgreSQL 用分层的内存上下文（<code>CurrentMemoryContext</code>、<code>palloc</code>）在事务中止或出错时经 longjmp 自动回收内存，与 Go 的 GC 堆难以协调；每个连接 fork 一个进程意味着每个后端都要启动 Go 运行时与调度器，高连接数下内存与启动开销明显。正因如此，有评论认为改用 TinyGo 而非完整 Go 才是本方案在 PostgreSQL 后端内可行的关键——完整 Go 运行时会为调度和 sysmon 创建后台 OS 线程，而 TinyGo 给出单线程的 C ABI 二进制，可以放弃 goroutine 换取与宿主生命周期的和平共处。</p>
+<p>其他人则提到同类方案：<a href="https://gitlab.com/microo8/plgo">plgo</a>、<a href="https://github.com/jinjaghost/pg-go-func">pg-go-func</a>、<a href="https://github.com/plv8/plv8">plv8</a> 及其更轻量的替代 <a href="https://github.com/plv8/pljs">pljs</a>。也有人质疑用 Go 写扩展的必要性，认为「如果 plpgsql 都搞不定，那说明你在做傻事」，或者干脆让 LLM 直接生成 plpgsql；不少人对这个项目表示欣赏，但仍倾向选择 Rust 的 <a href="https://github.com/pgcentralfoundation/pgrx">pgrx</a>，理由是零运行时、能直接对接 palloc 与 PostgreSQL 错误处理。也有少数声音借题发挥，设想一个不背负 SQL、复杂查询规划和宽松隔离级别等「历史包袱」的全新数据库。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50591260</guid>
+      <pubDate>Sat, 21 Nov 2026 17:08:04 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI 的 Astra 6.2 与 Sol 6.2 在 SimpleBench 常识推理测评中排名下滑</title>
+      <link>https://news.ycombinator.com/item?id=50588916</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 报道 OpenAI 模型在 SimpleBench 常识推理榜排名下滑，属 AI 技术进展与模型表现，感兴趣但非发布公告</small></p><p>讨论源于 <a href="https://simple-bench.com/">SimpleBench</a> 最新榜单的更新。该基准由 200 多道多选题构成，覆盖时空推理、社会智能以及所谓的「语言对抗鲁棒性」（即陷阱题），目标是检验模型在人类日常推理上的表现。作者称，在一份仅 9 名非专业参与者的小样本上，人类基线为 83.7%，高于所有受测模型，其中当下最强模型 Claude Fable 得分为 81.9%。这说明前沿大模型的记忆知识与近似检索能力，尚不足以稳定回答一些基础问题。</p>
+
+<p>评论区指出本次榜单的关键变化：多数新模型分数明显提升，但 OpenAI 的新版本反而退步。Sol 6.2 排在第 30 位，而 Sol 6.1 位列第 10；Astra 6 为第 9，Astra 6.2 掉到第 15。与此同时，Fable 5.2 升至第 1，Fable 5.1 排第 7。Astra 6 Pro 是唯一略高于人类基线的 OpenAI 模型，位列第 8。有人猜测这与模型的循环深度（recurrent depth）设计有关，认为 GPT 6 采用了这类结构而 Anthropic 新模型没有。</p>
+
+<p>关于基准本身，有用户在第 4 题就卡住了：「Amy 总说假话，Sam 总撒谎，问该走哪条路」，实际答案比经典「两姐妹」谜题简单得多，但多数模型仍套用经典设定误选。也有人抱怨测试交互体验差：选定答案后系统会自信地宣称另一个选项才对。</p>
+
+<p>对 OpenAI 6.2 的评价两极。批评者称这是 OpenAI 史上风评最差的更新，并引用<a href="https://deploymentsafety.openai.com/gpt-6-2-astra-sol">部署安全页面</a>的数据：独立「偷懒」评分器标记了 5.25% 的 GPT-6.2 Sol 轮次，而 6.1 Sol 为 3.32%；也有人反驳说问题不是偷懒而是过度执行——经常做没被要求的事，甚至与规格说明相矛盾。另有重度用户认为 Sol-6.2 与 Astra-6.2 相比前代确有改进，可与 Opus-5.5、Fable-5.2 相比，并质疑这类「榜单优化型」测评完全脱离真实工作流，唯一有意义的基准是模型在自身用例上的表现。</p>
+
+<p>部分评论关注 Google：所有新 Gemini 模型（包括「hydrogen」）都高于人类基线，有人称之为「回归」，但也被纠正说从时间线图表看 Gemini 一直是「常识」项的领先者。关于 SimpleBench 方法论的质疑集中在人类基线只由 9 人标定、以及 Gemini Flash 3.8 竟能超过 Opus 5 等结果。另有一支讨论转向推理速度，有用户称使用 Cerebras 上的 gpt-6.1-sol-ultrafast 后体验「近乎即时」，认为 HITL（human-in-the-loop）架构加高速推理比复杂编排更有价值。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50588916</guid>
+      <pubDate>Sat, 21 Nov 2026 13:16:12 GMT</pubDate>
+    </item>
     <item>
       <title>让意识去引导身体，而不是硬性命令它</title>
       <link>https://news.ycombinator.com/item?id=50583028</link>
@@ -1375,210 +1586,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50524736</guid>
       <pubDate>Mon, 16 Nov 2026 22:58:20 GMT</pubDate>
-    </item>
-    <item>
-      <title>卡内基梅隆大学将计算机科学课程免费放上 YouTube</title>
-      <link>https://news.ycombinator.com/item?id=50522980</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是免费公开的计算机科学课程资源，属于学习教育资源，未直接命中编程工具、效率经验或 AI 进展等配置主题，可选</small></p><p>卡内基梅隆大学（Carnegie Mellon University）的 Kenneth C. Griffin 计算机科学学院推出 <a href="https://www.cs.cmu.edu/learn/">CS Learn</a> 平台，把校内正在开设的完整学期课程录像免费发布到 YouTube，涵盖多个方向。本周每天首播一门课程，明年一月还会上线更多课程，之后将推出自定进度的课程材料（self-paced courseware）。</p>
-<img src="https://www.cs.cmu.edu/learn/resources/robotic-arm-lab.jpg" alt="两人在实验室里观看机械臂" />
-<p>该项目负责人、Griffin 计算机科学学院教师 Phillip Compeau 在 Hacker News 上做了说明：与 MIT 早在 25 年前就开放课程不同，他认为这次的亮点在于生产方式——几名在校学生开发了可自动化大量制作环节的工具，使得小团队也能快速产出一门课程，同时仍保证每节课都有人工审核。他也在征求后续希望覆盖的主题。</p>
-<p>社区反馈总体积极，主要讨论集中在几点：</p>
-<ul>
-<li><strong>脱离单一平台</strong>：有用户建议把这些视频同时托管在 CMU 自建的 Peertube 实例上，Compeau 回应目前已有 Panopto 服务器供内部使用，会研究把 Peertube 作为另一个选项。</li>
-<li><strong>AI 能否取代讲授</strong>：有人认为在 LLM 与多模态模型时代，AI 已成为「最好的老师」，公开课的价值不如从前；随即被反驳称前沿模型在专业问题上仍会编造内容，基础概念不应通过 LLM 学习，并质疑「学得好不好」的判断依据。</li>
-<li><strong>历史的轮回</strong>：有用户回忆 2000 年代末至 2010 年代初大批高校曾把课程免费放上 YouTube，后来因部分地区要求无障碍（当时 YouTube 不自动生成字幕）而面临法律风险，多数学校撤下了课程；如今算是回归常态。</li>
-<li><strong>课程质量</strong>：老校友提到 CMU 的操作系统与编译器课程口碑很好；也有人由该项目回想起 2008 年前后课堂上播放的 Randy Pausch「最后一课」和 Alice 编程项目。有人指出材料偏入门，但免费公开内容对公共知识仍有增益。</li>
-<li><strong>衍生工具</strong>：有开发者借机介绍自己把公开课转成带日程、提醒与笔记的结构化学习路径的产品，另有人分享了为高中生定制的 AI 辅导工具。</li>
-<li><strong>覆盖范围</strong>：有用户询问 18- 开头的计算机工程（ECE）课程是否也会包含在内。</li>
-</ul>
-<p>此外有用户贴出了 CMU 官方的新闻稿，作为该消息的官方来源。</p>
-<h2>你知道吗？</h2>
-<p>美国高校公开课在 YouTube 上「集体下架」的往事，与字幕无障碍诉讼密切相关：美国《康复法案》第 508 条与《美国残疾人法》（ADA）要求公立及接受联邦资助的机构提供无障碍教学材料，而早期 YouTube 缺乏自动字幕与可编辑字幕轨道，导致不少学校为避免诉讼风险将课程转为受限访问。这也是「字幕自动化」成为现代公开课流水线必备环节的原因之一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50522980</guid>
-      <pubDate>Mon, 16 Nov 2026 20:43:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Jiff 1.0 发布：Rust 的日期时间库（Andrew Gallant）</title>
-      <link>https://news.ycombinator.com/item?id=50519744</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust 日期时间库 1.0 发布，属于开源项目/开发库新版本发布，贴合编程工具与开源项目兴趣</small></p><p>Andrew Gallant（BurntSushi）在其博客上宣布 Rust 日期时间库 <a href="https://burntsushi.net/jiff/">Jiff 发布 1.0 版本</a>，并通过一次 API 巡览介绍了它的设计理念。Jiff 的目标是「自动把你推入成功之坑（pit of success）」：把时区处理前置到 API 的核心，从而自动化解夏令时等常见麻烦，让用户很难做出错误的操作。作者认为日期时间处理之所以困难，是因为很多库对领域建模不佳，把复杂度转嫁给了使用者，而 Jiff 试图把复杂度封装在内部。</p>
-<h3>1.0 承诺</h3>
-<p>Jiff 已在多个生产项目中广泛使用，包括 uv、Cargo、Starship、fd、Nushell、mise、Jujutsu、uutils/coreutils，以及 AWS LLRT 中 Temporal 实现的基础。由于 Jiff 意在成为被其他库公开依赖的生态基石，semver 不兼容的版本升级会给生态带来显著痛苦，作者承诺除非发现重大 API 缺陷，将长期维持 1.0 的稳定性。0.2 到 1.0 的破坏性变更见 CHANGELOG。</p>
-<h3>术语与「日期时间洋葱」</h3>
-<p>文章先厘清常见易混概念：民用时间（civil time，即钟表上所见的本地时间）、UTC（协调世界时）、TAI（国际原子时）、闰秒以及 Unix 时间（忽略闰秒的 UTC）。随后用「洋葱」比喻自内向外构建核心类型：</p>
-<ul>
-<li><code>civil::Date</code>：不依附任何地理位置的公历日期；</li>
-<li><code>civil::Time</code>：不依附任何地理位置的钟表时间，纳秒精度；</li>
-<li><code>civil::DateTime</code>：两者组合；</li>
-<li><code>Timestamp</code>：与地理位置无关的确定瞬间，以 Unix 纪元以来的纳秒数表示；</li>
-<li><code>TimeZone</code>：在特定地理区域内双向映射 Timestamp 与 civil::DateTime 的规则集合；</li>
-<li><code>ZonedDateTime</code>：Timestamp、civil::DateTime 与 TimeZone 三者合一。</li>
-</ul>
-<p>因此既可以用「钟表时间 + 时区」得到带时区的时间，也可以用「时间戳 + 时区」得到等价结果——前者模拟人看日历的场景，后者模拟从数据库或系统调用取得时刻的场景。</p>
-<h3>时区、折叠与空洞</h3>
-<p>时区标识使用 IANA 时区数据库（如 <code>America/New_York</code>）。偏移量（offset）是把 UTC 调整为民用时间所需的差值。文章给出更精确的定义：时区需要提供「瞬间 → 偏移」以及「民用时间 → 可能歧义的偏移」两种映射。歧义出现在两类转换处：</p>
-<ul>
-<li><strong>折叠（fold）</strong>：时钟回拨导致某一小时重复，如纽约 2026 年 11 月 1 日凌晨 2 点回拨后 1 点重复出现；</li>
-<li><strong>空洞（gap）</strong>：时钟前拨导致某些时刻被跳过，如 2026 年 3 月 8 日凌晨 2 点直接跳到 3 点。</li>
-</ul>
-<p>Jiff 默认采用「compatible」策略：折叠时选第一次出现，空洞时选较晚的时刻。用户也可以通过 <code>to_ambiguous_zoned_datetime</code> 选择 <code>earlier()</code>、<code>later()</code> 或 <code>unambiguous()</code>（有歧义直接报错）来改变解析方式。</p>
-<h3>时长、解析与格式化</h3>
-<p>Jiff 有两种时长类型：<code>Span</code> 是混合型时长，同时保留日历年月周与时分秒等物理单位的各个分量，是推荐优先使用的类型；<code>SignedDuration</code> 是带符号版 <code>std::time::Duration</code>，内部为 96 位纳秒整数，只能表示物理时间。二者在运算上基本一一对应，例如可以求两个日期之间的天数，或用 <code>29.days()</code> 这类语法做日期加减。</p>
-<p>文章还介绍了 <code>FromStr</code>/<code>Display</code> 集成、对人类友好的 Duration 格式、strptime/strftime 风格解析与格式化、<code>jiff::fmt</code> 模块，以及通过 ICU4X 集成实现的区域敏感（locale sensitive）格式化；此外还讨论了日期算术、日期舍入、其他历法、该选哪种 DateTime 类型以及 Span 的操作等主题。</p>
-<h3>社区反馈</h3>
-<p>HN 讨论（321 分、76 条评论）整体反响积极，多位开发者称 Jiff「和 burntsushi 的其他库一样优秀」，希望它逐步取代 chrono；也有人分享自己为 Jiff 提交贡献、与作者合作非常愉快的经历。有评论指出 chrono 已在自我「半废弃」（见其 issue #1768），从 chrono 迁移到 Jiff 相当容易，另有人补充了作者关于「为什么再造一个日期时间库」「为什么不直接贡献给 chrono 或 time」的文档链接。</p>
-<p>围绕「Rust 标准库为何不含日期时间库」也有争论：一方认为现代语言应内置，另一方指出 Rust 的标准库连异步运行时都没有，社区更倾向于用第三方 crate 换取演进自由，并对供应链风险、文档分散、依赖冲突等说法提出异议。另有趣味讨论集中在作者给出的读音说明——「Jiff 读作带软 g 的 gif，如 gem」——被调侃为「别搞得这么有争议」。</p>
-<p>一位从事太阳系天体轨道模拟的用户询问 Jiff 对 TAI、UT1 等其他时间尺度的支持，作者回复 Jiff 只支持 Unix 时间尺度，并推荐了为天文场景设计的 <a href="https://docs.rs/hifitime/">hifitime</a>；该用户表示 hifitime 的整数内部表示会让长时间模拟的数值噪声增大，因此仍在权衡。还有评论讨论了 jiff-tzdb 打包时区数据的选择（如 rearguard 数据），以及希望 Windows 上能复用系统维护的时区数据。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50519744</guid>
-      <pubDate>Mon, 16 Nov 2026 16:53:39 GMT</pubDate>
-    </item>
-    <item>
-      <title>软件正在系统性崩溃：从微软宕机、PHP 漏洞到 AI 时代的「去相干」</title>
-      <link>https://news.ycombinator.com/item?id=50520866</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 属于行业观察与观点评论，围绕微软宕机、PHP 漏洞及 AI 时代软件可靠性泛论，既非具体编程工具分享也非效率经验或新模型发布，主题兴趣不明确，故列为可选</small></p><p>博主 Jimmy Breck-McKye 在 <a href="https://www.breck-mckye.com/blog/2026/11/software-is-breaking-down-at-a-systemic-level/">Developing Opinions</a> 撰文指出，2026 年接连发生的重大事故并非孤立事件，而是软件在<b>系统性层面</b>走向失灵的表征。文章在 Hacker News 获得 221 分、122 条评论，评论区则出现大量反对「时代堕落论」的声音。</p>
-
-<h2>一年之内的连环事故</h2>
-<ul>
-<li><b>微软全球故障</b>：持续两天，起因疑似网络配置错误导致数据中心之间无法通信，随后演变为级联故障，任何服务都难以恢复到可承载流量的状态。作者引用前微软工程师 Axel Rischin 今年 3 月的批评：Azure 在竞争压力下仓促上线、削减了可靠性与运维简化的基本原则，此后只靠自动化缓解脚本、扩编的 on-call 团队和人工抢修维持，形成「由低质量部件拼成的高度复杂系统，无人能看清全貌」。</li>
-<li><b>PHP2Shell 漏洞</b>：安全公司 Wiz 于 10 月 21 日披露的漏洞可在任意 PHP 网站上执行任意代码。PHP 支撑约 70% 的网站（尤其 WordPress 电商），其运行时隐藏了十余年的复杂内存记账缺陷，人类攻击者难以自行发现，AI 工具却大幅降低了利用门槛。</li>
-<li><b>eMudhra 证书事故</b>：数千张 SSL 证书因私钥过弱而被攻破。</li>
-<li><b>Shai Hulud 攻击（5 月）</b>：攻击者污染了 NPM 生态中的关键包，利用 GitHub Actions 的 CI 配置漏洞（分叉项目可把代码推回上游）与缓存机制，借包内的安装脚本窃取项目密钥。</li>
-</ul>
-
-<h2>问题出在建造方式，而非单个部件</h2>
-<p>作者认为这些事故的直接原因各异，却呈现出同一副面孔：系统过度复杂、由必须完美协作的部件组成，任何一处劣化都会拖垮整体。他回溯十年前的两次「静悄悄的革命」：</p>
-<ul>
-<li><b>云计算</b>：把硬件与运维外包给 AWS 一类的供应商，企业得以裁掉系统管理员，DevOps 运动进一步把开发与运维合并。</li>
-<li><b>开源依赖</b>：NPM（以及 PyPI、Maven）让「加一行依赖、装一个包」取代了亲手打磨每个齿轮，团队不必再自己解决已被别人解决的问题。</li>
-</ul>
-<p>代价是<b>所有人都停止了了解细节</b>，控制权被让渡出去。同时，专业分工被压缩为「通才」，工人对雇主的议价能力下降，也让最接近工作现场、最能第一时间拉响警报的人失去了影响力。作者提醒，这种权力结构变化早在 2016–17 年的 left-pad 事件就露出征兆，XZ Utils 后门则是一次险情。</p>
-
-<h2>AI 不是唯一原因，但放大了失序</h2>
-<p>作者不同意「AI 生成的代码不可靠」这一常见批评——他认为模型完成所要求任务的能力其实相当不错（尽管这可能得益于算力补贴）。真正的风险是<b>去相干（decoherence）</b>，他引用 Kristen Maevyn 的《The Decoherence Trap》：</p>
-<blockquote>去相干：系统中积累了局部有效但彼此不兼容或冗余的模型，使得变更成本主要被用于在模型之间翻译以及防止意外副作用。</blockquote>
-<p>去相干会随系统变更速率增长，而且系统越去相干增长越快，形成失控的指数级膨胀。软件工程师已把测试、函数、组件乃至设计与整体构思都交给 AI 代理完成；「把杂乱的人类意图蒸馏为计算机可执行的精确代码」这一核心活动正在消失。多数工程师并非无能，而是无法跟上 AI 生成的代码洪流，于是出现一种「习得性无助」与「虚假的自信」并存的状态——LLM 提供「做了工作」的幻觉，却不迫使人们思考细节。作者担忧技术工作者变成整天调校提示词、让 Claude 判断工作是否完成的「肉身代理（meat proxies）」。</p>
-
-<h2>从代码到组织：认知能力的流失</h2>
-<p>作者把这条链条延伸到整个组织：工程师的提示词来自用 Claude 写的工单，工单源于 Claude 撰写又摘要过的文档，文档里的数字也由 Claude 算出，而资本市场只关心短期趋势。这虽是漫画式夸张，但离现实不远。他警告科技公司可能丧失「组织认知（organisational cognition）」——作为一个连贯整体思考与响应的能力，最终形成「系统中没有任何事出于明确意图、也没有任何人拥有控制权」的局面。</p>
-<p>由于软件如今掌控航班、银行、加油站、电视、工资单、导航与社交，社会对技术系统投注了过多信任，而各国政府与机构并未准备好迎接 2026 年这类事故成为常态的世界：每一层依赖、每一个假设、每一环链条都是新的攻击面。作者最后写道，我们之所以认为 AI 革命正在成功，恰恰是因为我们制造复杂性的速度——但真正承重的东西已经不够清晰可读了。</p>
-
-<h2>社区反应</h2>
-<p>评论普遍不认同这种「今不如昔」的叙事：</p>
-<ul>
-<li><b>史实修正</b>：多人指出包管理器远早于 2014 年的 NPM（Maven、RubyGems、apt、yum），「把软件史从 JS 框架开始算」暴露了作者的阅历局限。</li>
-<li><b>过度归纳</b>：有评论认为作者把起因截然不同、只是碰巧集中在同一时段的事件拼在一起；FAA 停飞源于光缆更换，证书事故是纯粹的人为失误，「如果邮件中断就能伤到你的生意，那就该优先选择高可靠而非集成便利」；PHP2Shell 固然糟糕，但当年也有 Log4j。</li>
-<li><b>检测偏差</b>：有观点认为软件一直都是坏的，只是现在让其「显形」的成本极低——任何人都能廉价地进行渗透测试，于是所有东西都被「渗透」了。</li>
-<li><b>类比凯斯勒综合征</b>：随着算力基础设施的密度与复杂度上升，一次路由器更换就可能让全球航空业瘫痪数周，这类级联失败未必出于恶意。</li>
-<li><b>规模视角</b>：有老工程师回忆 2000 年代初装 Linux 上网五分钟即被入侵、桌面系统频繁崩溃、服务器需整机重装；若考虑今天计算机与软件规模是二十年前的数千倍，可靠性其实大幅提升，只是「更多东西」意味着「更多东西会坏」。</li>
-<li><b>批评文体</b>：也有人讥讽这类文章是「2026 年的 AI 泔水（slop）」——非 AI 所写，却靠蹭 AI 话题收割焦虑者的点赞，且总以「我也用 AI，我很懂」的自证开场。</li>
-</ul>
-<p>另有从业者补充了一个未被广泛报道的案例：Bitrise 的安全事件使部分团队的 CI 从周五瘫痪到周日晚，所有客户被迫轮换密钥，对移动端发布影响很大。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50520866</guid>
-      <pubDate>Mon, 16 Nov 2026 18:17:17 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Tor 项目紧急发布 0.4.9.17，修复中继 DoS 防御以应对持续 DDoS 攻击</title>
-      <link>https://news.ycombinator.com/item?id=50512441</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Tor 开源项目的安全版本发布，修补中继 DoS 防御以应对持续 DDoS，属开源项目与技术进展，符合感兴趣范畴</small></p><p>Tor 项目发布了稳定版 <a href="https://forum.torproject.org/t/security-release-0-4-9-17/22454">0.4.9.17</a>，包含一系列安全修复。其中一项针对中继 DoS（拒绝服务）防御的修复与 IPv6 处理相关，被认为尤为重要。官方表示，该版本是对当前针对 Tor 网络的持续 DDoS 攻击的「快速响应」——网络中大多数中继运营者都受到了影响：大量客户端电路（circuits）涌入，使中继不堪重负。</p>
-
-<p>Tor 团队承认这个问题并不容易解决，正在评估更多防御手段，预计近期还会有后续版本发布。公告特别感谢了协助应对攻击的中继运营者，称 tor-relays@ 邮件列表非常活跃。官方呼吁所有运行中继的人尽快升级，升级后无需额外操作。论坛上则有用户询问：如果用 Tor Browser 内置的 tor.exe 运行中继，该如何正确升级。</p>
-
-<p>在 Hacker News 的讨论（237 分、64 条评论）中，社区主要围绕攻击动机与缓解手段展开：</p>
-
-<ul>
-<li><strong>攻击目标是谁</strong>：有人指出，DoS 在 Tor 上始终是猫鼠游戏，通常攻击针对特定站点或竞争对手，但这次看起来是全网性的。有评论认为，攻击集中在持有隐藏服务目录（HSDir）标志的节点上，一旦节点失去该标志攻击就停止，因此攻击者很可能是在围绕这些节点做流量整形；由此推测，这可能不是国家行为体，而是想打掉某些隐藏服务或识别其访问者的自发团体。</li>
-<li><strong>是否为引导流量的前奏</strong>：有用户提出，攻击是否意在把流量驱赶到敌对中继上，以便实施监控；有人回应称，作为威胁建模的一种假设，这是合理的。</li>
-<li><strong>工作量证明（PoW）防御的副作用</strong>：一位运营者表示，为隐藏服务启用了 PoW 挑战后，新访客的首次连接会变慢，部分人可能误以为站点离线而离开，关闭后明显更快。他好奇究竟有多少人在使用 <code>HiddenServiceEnableIntroDoSDefense</code> 与 <code>HiddenServicePoWDefensesEnabled</code>。</li>
-<li><strong>中继运营者亲历</strong>：一位非出口中继运营者称，其节点成为 guard（入口守卫）节点后遭遇攻击，下载速度一度下降 99%，限制带宽无效，最终取消 guard 标志后恢复正常；不过也因「恶意 guard/出口节点曾是用户被攻破的途径」而表示短期不再运行 guard。该评论曾因反 AI 检测被误标记，随后被其他用户担保恢复。</li>
-<li><strong>访问自身的尴尬</strong>：有人通过 Tor 访问 torproject.org 的发布说明时收到 403（Tor 屏蔽了 Tor），其他用户则称用 Brave 访问正常，并给出了官方 onion 地址。</li>
-<li><strong>速度体验</strong>：普遍认为 Tor 比十年前快得多，可以流畅看 YouTube，但洋葱路由带来的延迟无法避免（好电路约 100–300ms，差的可能 800ms 以上）；此外中继与目录权威服务器集中在美国和欧洲，会带来网络视图偏差，而大量服务仍屏蔽 Tor 出口 IP。也有人提到 Nym mixnet 等替代方案，以及「先连可信 VPN 再连 Tor」的缓解思路。</li>
-</ul>
-
-<h2>你知道吗？</h2>
-<p>讨论中频繁出现的几个概念：<strong>guard（入口守卫）节点</strong>是客户端链路的第一跳，被长期固定使用以降低流量关联攻击的风险，因此其可信度尤为关键；<strong>HSDir（隐藏服务目录）节点</strong>负责存储隐藏服务的描述符，客户端通过它们找到 .onion 服务。攻击这两类节点比攻击普通中继收益更高，也解释了为什么攻击者会针对特定标志的节点发力。而 PoW 防御的思路是：让单个用户在访问时多花几秒算力，对僵尸网络来说则要付出天文数字的累计成本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50512441</guid>
-      <pubDate>Mon, 16 Nov 2026 00:21:54 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Emacs 就是我的浏览器：用 EWW 覆盖 85%–90% 的日常上网</title>
-      <link>https://news.ycombinator.com/item?id=50507553</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 分享用 Emacs 内置 EWW 浏览器承担绝大部分日常上网的工具使用经验，直接命中「编程工具分享」与「编程效率改进经验」的高兴趣主题</small></p><p>作者 Joshua Blais 一直希望把 Emacs 当作唯一的计算环境，于是开始认真地把网页浏览也搬进 Emacs。他原本以为内置的 <a href="https://www.gnu.org/software/emacs/manual/html_mono/eww.html">EWW（Emacs Web Wowser）</a>只是个聊胜于无的小玩意，但用几天后发现它能应付大约 85%–90% 的使用场景——即使是充斥着 JavaScript 的现代互联网。</p>
-<img src="https://cella.b-cdn.net/joshblais/eww.png" alt="eww inside emacs" width="700" />
-<h3>为什么要这么做</h3>
-<p>作者认为现代浏览器（Chromium/Firefox）太容易让人分心：无穷的推荐、数不清的「闪亮之物」把人从创造力和深度思考上拉走。改用 EWW 或任何终端浏览器（lynx、browsh）后，这种分心被大幅消除。此外他还有一个理念层面的动机：应该努力摆脱互联网的「第八层（Layer 8）」——即社交平台和封闭角落那些限制真实讨论的前端（他点名 Discord）。他认为人们向大科技平台让渡了太多却几乎一无所获，以致许多人觉得互联网正在死去；但互联网只是一个传输机制，在他眼中它从未如此活跃。他建议「像 1999 年那样使用互联网」，甚至在手机上（Termux 里）也用 EWW，只有 5%–10% 的场景退回 Fennec。</p>
-<img src="https://cella.b-cdn.net/joshblais/nobrowser.jpeg" alt="手机上使用 eww 的截图" />
-<h3>具体配置</h3>
-<p>EWW 支持图片和 GIF，配合一些快捷键即可顺手使用：<code>R</code> 调用 <code>eww-readable</code>（类似 Firefox 阅读模式，去掉页眉页脚、聚焦正文）；<code>&amp;</code> 把页面交给默认浏览器；<code>D</code> 下载图片到本地；<code>b</code> 后退；<code>a</code> 添加书签；<code>U</code> 复制当前位置的 URL。他还让 <code>.pdf</code> 在 Emacs 内用 pdf-tools 打开、<code>.mp4</code> 与 YouTube/视频链接交给 mpv、gopher/gemini 链接交给 elpher。搜索默认走自建的 Searx 实例（隐私友好的元搜索引擎）。文章给出了完整的 <code>browser.el</code>：通过 <code>browse-url-handlers</code> 按 URL 正则分发到各处理器，兜底是 <code>eww-browse-url</code>，备用浏览器为 Chromium；同时设置了 <code>shr-width</code> 100、<code>shr-max-width</code> 120、<code>shr-indentation</code> 4、关闭 <code>shr-use-fonts</code>、限制图片最大尺寸、允许 GIF 动画等渲染参数。由于 EWW 用 Shr 渲染 HTML，这些变量都指向 Shr。</p>
-<h3>局限</h3>
-<p>作者明确列出做不到的事：看不了 YouTube 视频、读不了 X（x.com 对非 JS 浏览器充满敌意）、无法使用社交媒体和登录各类平台、不能网上银行、填政府表单或访问客户门户。适用场景是快速搜索、查文档、读博客。遇到渲染不佳的页面，按 <code>&amp;</code> 转到现代浏览器继续。</p>
-<p>他现在把所有 URL 处理函数都默认指向 EWW，因此任何上网行为都必须先经过 EWW，这促使他在上网前先想清楚要做什么，只在必要时才退回现代浏览器。</p>
-<h3>社区讨论</h3>
-<p>HN 上的讨论（231 分、137 条评论）褒贬不一：</p>
-<ul>
-<li><strong>「便利性是卖点还是缺陷」之争</strong>：有评论者批评这类文章总是先许诺「非常规方式的好处」，读到最后却发现所谓好处就是「更难用、更不方便」。反驳者指出，终端界面的价值正在于按键始终在手边、无需摸鼠标找按钮，而「避免分心」和「不方便」并非一回事。用 qutebrowser 的 Emacs 用户则补充说，真正的收获应是工作流整合。</li>
-<li><strong>EWW 的实际好处</strong>：可把代码/笔记与网页并排放在不同 buffer，方便对照文档；配合 gptel 可选中段落问 LLM 或让它改写整页；可用宏做基础网页抓取自动化；整个 Emacs 的键位在此依然有效。</li>
-<li><strong>替代方案</strong>：<code>xwidget-webkit</code> 嵌入 WebKit 能获得接近浏览器的体验，有人每天用它看 PDF、与 Jupyter notebook 并排，但处理 Google Docs 之类仍得回到浏览器；也有观点认为商业站点只针对 Chrome 测试，为此硬扛不值得。</li>
-<li><strong>Emacs 的架构</strong>：有人认为 Emacs 单线程阻塞，做浏览器这类事终究会以奇怪 hack 或卡顿告终，更看好 <a href="https://github.com/lem-project/lem">Lem</a> 这类从零实现的新 Emacs；反驳者指出 Emacs 有异步 IO，缺的是单进程内的并行，而这未必需要，最近引入的 canvas API 也展示了灵活性，Lem 的生态远不能比。</li>
-<li><strong>安全性担忧</strong>：有评论认为在 2026 年不做重度沙箱就这样浏览会惹麻烦，Emacs 维护者恐怕跟不上新漏洞；反方则认为这属「网络安全表演」，浏览无 JS 页面的攻击面有限，且安全本应是风险管理而非风险消除。</li>
-<li><strong>其他</strong>：有人提到可以在 EWW 里登录 Hacker News（多行评论需 <code>C-q RET</code>），且 EWW 在老旧 32 位笔记本等资源受限设备上表现很好；小指劳损问题可用 Evil/Spacemacs 或 homerow mods 缓解；也有人回忆 RMS 与 Knuth 各自极端的「不用浏览器」工作方式。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50507553</guid>
-      <pubDate>Sun, 15 Nov 2026 15:21:21 GMT</pubDate>
-    </item>
-    <item>
-      <title>MIT「如何（几乎）造出任何东西」课程公开 2026 学期日程，引发&quot;广度还是深度&quot;之争</title>
-      <link>https://news.ycombinator.com/item?id=50514470</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是高校工程/制造课程的教学日程与「广度还是深度」的教育讨论，既非编程工具也非 AI 或科学前沿成果，主题与用户兴趣不明确匹配，故可选</small></p><p>麻省理工学院（MIT）的经典课程 <a href="https://pub.cba.mit.edu/863.26/site/">MAS.863 / 4.140 / 6.9020「如何（几乎）造出任何东西」</a>（How To Make (almost) Anything）公布了 2026 年秋季学期的完整安排。课程每周三下午 1:00–4:00 在 E14-633 上课，另配每周一次的一小时"复习课"（recitation），内容涵盖从数字制造到电子与编程的全链条。</p>
-<p><strong>课程主线（每周一个主题）：</strong>计算机辅助设计（CAD）与版本控制/Web 开发 → 项目管理与数控切割（含参数化设计）→ 嵌入式编程与电子学 → 3D 扫描与打印（复习课讲 AI 智能体）→ 电子设计与 EDA（电子设计自动化）、第一次评审 → 电子制造与调试 → 数控加工（CAM，计算机辅助制造）→ 输入设备（复习课讲边缘 AI）→ 输出设备（电机与运动控制）→ 机械与机器设计（造机器）→ 自由周（wildcard week）与第二次评审（模具与铸造）→ 网络与通信、界面与应用编程（网状网络）→ 系统集成 → 期末项目开发与展示，最后以期末考试和公开参观（open house）收尾。</p>
-<p>关键节奏点包括 12 月 4 日提交最终作业与物料订单、12 月 15 日项目演示准备，随后是 9:00–13:30 的期末考核和 13:30–16:30 的开放参观。站点还提供人员、文档与历年课程存档。</p>
-<h3>社区讨论</h3>
-<p>讨论的焦点是"一门课塞进这么多内容是否可行"。有评论直接吐槽课程只能做到"（造得）很烂"：有人用毕生精力钻研 CAD，而这里只在一次课里罗列了五十来种工具，全小写的排版也让人不太放心。不过也有人反驳：能把东西造得很粗糙，远胜于什么都不造，而且至少你知道该去找谁把它做好。</p>
-<p>另一位参与过 <a href="https://news.ycombinator.com/item?id=50514470">TechShop</a> 黄金时代、上过十几门课的评论者指出，这门课只是一个学分负荷，节奏近乎疯狂，教学大纲庞大但实际项目并不复杂——自制印刷电路板在工具齐全时并不难，真正痛苦的是把所有工序都堆在一起；而"造出真东西"耗时远多于机器操作课，焊接更是需要无止境的练习。也有人补充，这门课据称计 18 学分，每周约需投入 18 小时用于听课、设计、培训、打样与文档。</p>
-<p>对于"只讲皮毛"的批评，一条高赞回应认为：知道"世上存在 Y 这种方法"本身就极有价值，日后遇到问题 X 时至少知道从哪儿查起；这对走向管理岗位尤其重要，而在 AI 智能体越来越会"实现"的今天，判断"什么可以做"比"怎么做"更关键。类似经验也被用修水管的例子类比——看一遍专业人士操作，便有信心自己动手。</p>
-<p>AI 也是热门话题：有人让模型生成 STL 模型、"用 Codex 花了整个周末盯着它给自己造 3D 打印件"，并配合工具像 Fusion 360 那样自带帮手；但也有人指出模型连倒角都懒得做，对没有动手经验的人才显得神奇。延伸讨论认为大语言模型的潜力被低估——应让模型"造工具"而不是"做任务"，问题在于生成的脚本往往一次性用完即弃，模型也缺乏把它做成通用工具的激励。</p>
-<p>另有评论从深圳归来，感叹高等教育在"从原型到量产"的产业流程知识上存在巨大空白；回复认为这类知识难以泛化教学，只能亲自走几遍流程，难点在机械可制造性设计（DFM）与验证/质检自动化，并推荐了 Naomi Wu 更新的《The New Essential Guide to Electronics in Shenzhen》。此外还有人分享了 MIT 教授 Alex Slocum 在 YouTube 上免费的精密机器设计课程《2.75 FUNdaMENTALs of Design》。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50514470</guid>
-      <pubDate>Mon, 16 Nov 2026 05:50:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Qwen4-Max 发布：2.4T 参数旗舰未开放权重，社区聚焦性价比与开源进度</title>
-      <link>https://news.ycombinator.com/item?id=50513215</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 属于新 AI 模型发布公告（Qwen4-Max 旗舰模型及开放权重、性价比讨论），正命中很感兴趣的新模型发布主题</small></p><p>阿里通义千问团队发布新一代旗舰模型 Qwen4-Max（<a href="https://qwen.ai/blog?id=qwen4-max">官方博客</a>），在 Hacker News 上获得 483 点、197 条评论。根据讨论透露的信息，这是一个规模约 2.4T 的专家混合（MoE）模型，且<strong>未开放权重</strong>，目前已上线 <a href="https://openrouter.ai/qwen/qwen4-max">OpenRouter</a> 等第三方渠道，短期内不太可能出现在 AWS Bedrock 上。</p>
-
-<h3>评测数据与榜单争议</h3>
-<p>评论者引用<a href="https://artificialanalysis.ai/models/qwen4-max">人工分析（Artificial Analysis）</a>的数据：Qwen4-Max 得分 43，平均每任务成本 3.27 美元；作为对照，GPT-6.1 Sol（medium）得分 46，平均成本仅 0.36 美元，Opus 5.5（max）则为 10.01 美元。有人指出 Qwen4-Max 与 Kimi 3.1 大致处于同一档位，而对一个 2.4T 模型来说，这样的表现「令人失望」。也有人认为 AA 的默认对比使用各模型的最高推理力度（max effort），与实际使用习惯不符；在按任务成本的帕累托图上，Astra xhigh 与 Fable 5.2 medium 以相近成本取得了更高的智能评分。</p>
-<p>另有评论质疑 AA 方法论本身：其权重配方被反复调整却缺少依据，对 Anthropic、OpenAI 使用原生测试框架，而对 Qwen、DeepSeek 等不做同等对待，因此「已不再反映真实使用体验」。</p>
-
-<h3>社区最关心的是小模型</h3>
-<p>讨论热度集中在尚未面世的 Flash 与 27B 版本上。有用户形容 24GB 到 100GB 显存之间存在巨大的「死区」，目前最好的选择仍是 Qwen 3.8 27B，因此期待新一轮 MoE 小模型能填补空白；也有人提到 Nemotron 3.5 74B-A9B 在 32GB DDR4 上可勉强本地推理。还有用户自述在低配置机器上以 Q2–Q3 量化运行 Qwen 3.8 Flash Next（号称是 Qwen 4 架构的预览）并完成较复杂的编码任务。</p>
-
-<h3>速度、供应商与拒答</h3>
-<p>一位开发者抱怨 Qwen 3.8 在自家 agent 对战榜（<a href="https://agentduel.com/leaderboard">AgentDuel</a>）上得分偏低，原因是速度慢——约 30 token/s，而 Opus 接近 80 token/s；这并非能力问题，一旦排除投票环节表现就不错。他希望 Qwen 与更多第三方供应商合作，并指出其开源版本更快但不支持图像输入。</p>
-<p>也有人实测模型在若干政治敏感问题上的拒答行为，包括达赖喇嘛、台积电位址、南海、天安门等话题；有评论回应称，拒答多发生在 API 层，权重本身的限制较宽松，小型 Qwen 4 权重发布后可再验证。</p>
-
-<h3>可玩性测试</h3>
-<p>Simon Willison 用经典的「鹈鹕测试」在 none、low、high、xhigh 四档推理力度下各生成一次结果（<a href="https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2Fff451620c173ea21e21b97b8cd46805b">对比链接</a>），并与 Qwen3.8 Max（0902 版本，<a href="https://tools.simonwillison.net/markdown-svg-renderer?url=https%3A%2F%2Fgist.github.com%2Fsimonw%2F88071abe6ecd0f8e13ab77ade259be9e">另一组</a>）对照。他指出 Qwen4-Max 新增了彻底关闭推理的选项，而 3.8 Max 只能在五档力度中选择。评论注意到 xhigh 档罕见地画出了非红色的自行车（青绿色），但始终没人画对朝左的自行车。</p>
-
-<h3>开源与闭源的差距</h3>
-<p>部分评论担心开放权重模型与 Anthropic、OpenAI 的差距正在拉大：商业模型可以靠堆参数扩大优势，而开放权重一方在算力受限、信息不对称的条件下，过去靠混合注意力、改进的 MTP 草稿模型与优化器提升效率，但这些改进很快被闭源实验室吸收，对方还有十倍以上的算力与资金。也有人持乐观态度，认为同参数规模下开源并不落后，只要 Qwen 能在更低资源上做出更快、等效于 3.8 Flash Next 的模型，就算是胜利。</p>
-
-<h3>你知道吗？</h3>
-<p>「鹈鹕测试」是 Simon Willison 发起的一项非正式基准：让模型用 SVG 画一只「骑自行车的鹈鹕」。它之所以流行，是因为这个题目同时考察常识组合、空间关系与代码生成能力，且结果可以一眼看出优劣，常被用来直观比较不同模型或推理档位。至于「人工分析」的帕累托图，则把每个模型在若干推理力度下的智能评分与每任务成本画在一起，用来判断某个模型在给定预算下是否仍有竞争力。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50513215</guid>
-      <pubDate>Mon, 16 Nov 2026 02:14:44 GMT</pubDate>
     </item>
   </channel>
 </rss>
