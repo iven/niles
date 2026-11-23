@@ -3,7 +3,69 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 23 Nov 2026 00:14:20 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2026 07:34:30 GMT</lastBuildDate>
+    <item>
+      <title>kitty 终端模拟器发布 0.51.1 版本</title>
+      <link>https://github.com/kovidgoyal/kitty/releases/tag/v0.51.1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><strong>kitty</strong> 发布了 <strong>0.51.1</strong> 版本。该版本属于 0.51 系列的修订更新，具体的改动清单需参见官方<a href="https://sw.kovidgoyal.net/kitty/changelog/#detailed-list-of-changes">变更日志（changelog）</a>；本次发布说明本身未列出逐条改动内容。</p>
+<p>发布说明同时提到，用于签名源码压缩包（tarball）的 GPG 公钥可通过 <a href="https://calibre-ebook.com/signatures/kovid.gpg">此链接</a>获取，便于用户校验下载文件的完整性与来源真实性。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/kovidgoyal/kitty/releases/tag/v0.51.1</guid>
+      <pubDate>Mon, 23 Nov 2026 06:15:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>delta 0.22.0 发布：TUI 集成 difftastic，并引入 TUI 配置破坏性变更</title>
+      <link>https://github.com/dandavison/delta/releases/tag/0.22.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>delta 0.22.0</h3>
+<p>语法高亮分页工具 delta 发布 0.22.0 版本，为终端界面的 TUI（Text User Interface）新增了实验性的 <a href="https://github.com/Wilfred/difftastic">difftastic</a> 支持，同时对 TUI 配置做了<strong>破坏性变更</strong>，受影响的用户需执行 <code>delta --tui --migrate-old-config</code> 命令进行迁移。</p>
+<h4>重要改动</h4>
+<ul>
+<li><strong>difftastic TUI 集成</strong>（<a href="https://github.com/dandavison/delta/pull/2353">#2353</a>）：TUI 中可试用 difftastic 的结构化 diff 能力，目前标记为实验性。</li>
+<li><strong>💥 TUI 配置变更</strong>（<a href="https://github.com/dandavison/delta/pull/2360">#2360</a>）：配置文件格式调整，旧配置需通过迁移命令转换后才能继续使用。</li>
+</ul>
+<h4>其他改动</h4>
+<ul>
+<li>修复超链接中 <code>"(binary file)"</code> 后缀与文件名粘连的问题（<a href="https://github.com/dandavison/delta/pull/2075">#2075</a>，由首次贡献者 @abobov 提交）。</li>
+</ul>
+<p>完整变更日志见 <a href="https://github.com/dandavison/delta/compare/0.21.2...0.22.0">0.21.2...0.22.0 对比</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/dandavison/delta/releases/tag/0.22.0</guid>
+      <pubDate>Mon, 23 Nov 2026 04:11:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>hapi v0.36.6：会话可在任意消息处 fork/回退，会话列表新增组合筛选与状态视角</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.36.6</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi v0.36.6 发布，本次更新覆盖 CLI、Hub 服务端与 Web 前端三部分，重点是 Claude 会话的分支能力、会话列表的筛选与浏览体验，以及一批针对各类编码代理（Claude Code、Codex、Cursor、ACP 代理）的稳定性与性能优化。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>会话分支与回退</strong>：新增在任意一条消息处对 Claude 会话进行 fork（分叉）与 rewind（回退）的能力（<a href="https://github.com/tiann/hapi/pull/2417">#2417</a>），用户可从历史消息中派生新分支继续对话。</li>
+<li><strong>会话列表组合筛选</strong>：支持同时组合多个筛选条件（<a href="https://github.com/tiann/hapi/pull/1772">#1772</a>）；筛选菜单新增「Active（活跃）」与「Working（工作中）」两个视角（<a href="https://github.com/tiann/hapi/pull/2376">#2376</a>），便于快速定位正在运行或有待处理事项的会话。</li>
+<li><strong>打开会话的位置提示</strong>：会话列表滚动条上会显示当前打开会话的位置刻度（<a href="https://github.com/tiann/hapi/pull/1733">#1733</a>）。</li>
+<li><strong>Cursor 中断自动续跑</strong>：工具调用后发生中断时自动继续（Continue），仅在彻底放弃时才标记为 Blocked（<a href="https://github.com/tiann/hapi/pull/1725">#1725</a>）。</li>
+<li><strong>compact / clear 后保持 Claude 存活</strong>：解决了执行压缩上下文或清空后 Claude 进程退出的问题（<a href="https://github.com/tiann/hapi/pull/2551">#2551</a>，来自新贡献者 @wh1t3p1g）。</li>
+</ul>
+
+<h3>其他修复</h3>
+<ul>
+<li>Web 端：仅执行后台任务的会话显示为「运行中」而非「已结束」（<a href="https://github.com/tiann/hapi/pull/2490">#2490</a>）；列表操作后不再重渲染无关的会话行（<a href="https://github.com/tiann/hapi/pull/2491">#2491</a>）；可通过 HTTP 清除未读标记（<a href="https://github.com/tiann/hapi/pull/2334">#2334</a>）。</li>
+<li>CLI：runner 关闭时断开远程 ACP 代理（<a href="https://github.com/tiann/hapi/pull/2488">#2488</a>）；每次 ACP 工具调用使用独立生命周期 ID（<a href="https://github.com/tiann/hapi/pull/2487">#2487</a>）；避免重复注册被重放的后台命令（<a href="https://github.com/tiann/hapi/pull/2486">#2486</a>）；不再为整个会话保留全部 Claude 工具调用输入（<a href="https://github.com/tiann/hapi/pull/2545">#2545</a>）。</li>
+<li>Hub：会话移除事件携带命名空间，并在机器连接时发出合成的 machine-alive（<a href="https://github.com/tiann/hapi/pull/2464">#2464</a>）；文本实时快照与推理快照同样清理（<a href="https://github.com/tiann/hapi/pull/2468">#2468</a>）；限制 assets/fonts/ 下非哈希命名的 KaTeX 字体缓存（<a href="https://github.com/tiann/hapi/pull/2484">#2484</a>）；已停止的会话按最近停止时间排序（<a href="https://github.com/tiann/hapi/pull/2518">#2518</a>）。</li>
+<li>Codex：恢复会话时保留已忽略的异步提问（<a href="https://github.com/tiann/hapi/pull/2482">#2482</a>）；导入会话的标签持久化到 Hub（<a href="https://github.com/tiann/hapi/pull/2437">#2437</a>）。</li>
+</ul>
+
+<h3>性能与测试</h3>
+<ul>
+<li>CLI：headless 包装器按需加载 UI 与本地启动器（<a href="https://github.com/tiann/hapi/pull/2524">#2524</a>）；空闲扫描、文件监听与 agy 轮询退避（<a href="https://github.com/tiann/hapi/pull/2522">#2522</a>）；编译产物拆分/字节码化，并让 JSC 更早回收内存（<a href="https://github.com/tiann/hapi/pull/2546">#2546</a>）。Web：仅在搜索栏变化时测量其尺寸（<a href="https://github.com/tiann/hapi/pull/2552">#2552</a>）。</li>
+<li>测试：调整 ACP kill 辅助函数以匹配 transport 关闭结果（<a href="https://github.com/tiann/hapi/pull/2492">#2492</a>）、修复 routes/cli.test.ts 的顺序相关 ENOENT 失败（<a href="https://github.com/tiann/hapi/pull/2526">#2526</a>）、新增包装器一致性测试框架（模拟 hub、模拟 claude、录制基准输出，<a href="https://github.com/tiann/hapi/pull/2527">#2527</a>）。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.36.6</guid>
+      <pubDate>Mon, 23 Nov 2026 02:33:56 GMT</pubDate>
+    </item>
     <item>
       <title>chezmoi v2.74.2 发布：修复 push 命令、git 源目录创建与安装脚本兼容性</title>
       <link>https://github.com/twpayne/chezmoi/releases/tag/v2.74.2</link>
@@ -1576,117 +1638,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.75.0</guid>
       <pubDate>Sat, 07 Nov 2026 12:03:59 GMT</pubDate>
-    </item>
-    <item>
-      <title>fd v10.5.2 发布：修复 zsh 补全语法与管道输出编码问题</title>
-      <link>https://github.com/sharkdp/fd/releases/tag/v10.5.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fd（find 的现代替代品）发布 v10.5.2 版本，包含两项 bug 修复：</p>
-<ul>
-<li>修复 zsh 补全脚本中的无效语法（见 <a href="https://github.com/sharkdp/fd/issues/2216">#2216</a>）</li>
-<li>当 <code>--format</code> 输出重定向到管道时，改为写入原始字节而非用 U+FFFD（替换字符）替代无效 UTF-8 内容，确保非 UTF-8 编码的文件名能够原样传递给下游工具（见 <a href="https://github.com/sharkdp/fd/issues/2189">#2189</a>）</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/sharkdp/fd/releases/tag/v10.5.2</guid>
-      <pubDate>Sat, 07 Nov 2026 07:23:35 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.319：自动模式服务端检查调整、MCP 任务后台化及多项修复</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.319</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><strong>重要改动</strong></p>
-<ul>
-<li>自动模式（auto mode）调整：关闭遥测或功能开关（包括经 LLM 网关使用时）后，服务器无法检查的调用会被询问或直接拒绝，不再回退到内置分类器；设置 <code>CLAUDE_CODE_AUTO_MODE_SERVER=0</code> 可继续使用旧行为（Bedrock、Vertex 和 Foundry 不受影响）。</li>
-<li>终端新增 MCP 任务支持：当 MCP 服务器以任务形式运行工具调用时，Claude Code 会立即将其移至后台，完成后把结果告知 Claude；新增 <code>CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND</code> 环境变量可改为在工具调用内等待。</li>
-<li>新增 <code>permissions.denyInsteadOfPrompting</code> 设置：本会等待权限提示的工具调用改为直接拒绝并继续当前回合，适用于终端会话、子代理和 teammates。</li>
-<li>新增 <code>/claude-api latency-optimize</code> 命令，用于定位 Claude API 代码中让用户等待的位置，并针对你的 eval 尝试更快的设置。</li>
-<li>新增 <code>CLAUDE_CODE_DISABLE_FEATURE_FLAGS</code> 环境变量：停止获取功能开关但不关闭遥测，所有开关使用内置默认值。</li>
-<li><code>/usage</code> 为 Claude apps gateway 用户新增今日、本周、本月支出显示。</li>
-<li><code>/tasks</code> 新增 "Earlier in this session" 行，列出已完成的子代理，可重新打开并继续对话。</li>
-<li>云会话中 <code>/loop</code> 确认信息新增说明：计时器会随容器停止，并提供可存活的循环选项。</li>
-</ul>
-<p><strong>其他修复与改进</strong></p>
-<ul>
-<li>修复旧握手协议下 MCP 服务器无法连接或返回空结果的问题。</li>
-<li>修复运行目录中存在名为 <code>HEAD</code> 的文件/文件夹时，会话 diff 无法加载、<code>/diff</code> 显示 "Diff unavailable" 的问题。</li>
-<li>修复前导空格、Tab 或换行后输入的斜杠命令被当作纯文本发送的问题。</li>
-<li>修复 <code>claude -p</code> 在自动模式下因无安全检查而拒绝操作时仍以 0 退出的问题，现文本和 JSON 输出均以 1 退出。</li>
-<li>修复 Linux 上网络文件系统（NFS、SMB、Lustre 等）项目启动时列出所有文件的问题。</li>
-<li>修复 <code>/context</code> 每轮都向 Claude 发送完整视觉网格的问题，现只发送表格。</li>
-<li>修复 <code>/rewind</code> 在 <code>/branch</code> 之前检查点恢复时报 "No files were restored" 的问题。</li>
-<li>修复 <code>/clear</code> 误杀后台代理、teammates 和工作流中仍在运行的命令的问题。</li>
-<li>修复 <code>claude remote-control</code> 首次运行问题无应答时静默以 0 退出的问题，以及忽略无换行符的管道 <code>y</code> 的问题。</li>
-<li>修复插件更新后未安装新增依赖的问题（后台自动更新与 <code>claude plugin update</code>），以及 <code>${CLAUDE_PLUGIN_ROOT}</code> 未在插件提供的 <code>subagentStatusLine</code> 命令中替换的问题。</li>
-<li>改进 <code>/model</code> 选择器：旧模型归入 "More models" 行；改进 <code>/context</code>：每个列表只保留最大的 10 行，按需加载的 MCP 工具在调用前每服务器共享一行。</li>
-<li>改进灰色次要文本的对比度（提示、<code>/stats</code>、<code>/model</code>、<code>/sandbox</code> 中的细节等）。</li>
-<li>修复 <code>claude -p --resume</code> 在 MCP 服务器缺失时丢失延迟工具调用的问题。</li>
-<li>修复设置文件在写入后几秒内被修改而被忽略的问题，以及磁盘写满时 <code>~/.claude.json</code>、设置和编辑文件被截断的问题。</li>
-<li>修复 <code>NotebookEdit</code> 在权限提示打开期间笔记本变化时改错单元格的问题。</li>
-<li>修复 <code>/login</code> 成功界面按回车后约 0.5 秒卡顿的问题，以及 <code>/rename</code> 新名称无法保存到会话记录时仍报告成功的问题。</li>
-<li>修复 <code>timeout DURATION</code> 包裹的只读命令产生不必要权限提示的问题；修复 WebFetch 将 claude.ai 共享聊天链接描述为空页面的问题。</li>
-<li>修复 OpenTelemetry <code>claude_code.session.count</code> 指标重复计数未认领的 Agent SDK <code>prewarm()</code> 进程的问题。</li>
-<li>修复 Chrome 中 Claude 扩展断连后误报未连接的问题，并改进断连后等待会话浏览器返回（最长 6 秒）；<code>javascript_tool</code> 结果超过 60,000 字符时现保留在对话中而非存入文件。</li>
-<li>修复云会话中会话级 deny/ask 权限规则在迁移到新 worker 时丢失的问题，以及 <code>/permissions</code> 在云会话中仅回复不可用的问题。</li>
-<li>修复自托管 runner 会话因服务器拒绝续期模型访问而失败且无说明的问题。</li>
-<li>修复 <code>claude plugin eval</code> 对不可调用工具建议 <code>max: 0</code> 的误导性警告；修复 Monitor 的 WebSocket 监视在代理后 "could not resolve" 的问题。</li>
-<li>修复 Ghostty over tmux 中 Cmd+click 无法打开链接的问题；修复 <code>/claude-api</code> 技能中关于 Console 设置与 Managed Agents 的说明及示例。</li>
-<li>修复 <code>/clear</code> 后仍在运行的后台任务从 Web 版任务列表消失的问题；修复移动端和 Web 云会话斜杠命令菜单中出现隐藏命令的问题。</li>
-<li>修复 TLS 检查代理后的证书错误在设置 <code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC</code> 时持续存在的问题；修复 <code>CLAUDE_CODE_AUTO_MODE_SERVER=1</code> 在托管设置中经 LLM 网关被忽略的问题。</li>
-<li>修改嵌套技能加载：启用 Bash 沙箱时，起始文件夹以下 <code>.claude/skills</code> 中的技能仅在从该处启动或 <code>/cd</code> 到该处时加载。</li>
-<li>修改 <code>/loop</code>：回合结束未重新调度时直接结束，<code>CLAUDE_CODE_LOOP_KEEPALIVE=1</code> 保持旧行为；修改 PostToolUse 钩子：新消息打断回合后完成的工具调用也会运行钩子（最多 10 秒）。</li>
-<li>移除内置 Claude in Chrome 工具中的 <code>shortcuts_list</code> 和 <code>shortcuts_execute</code>。</li>
-</ul>
-<p><strong>VSCode 扩展</strong></p>
-<ul>
-<li>修复超过 50,000 字符的提示被静默截断的问题，现保留在聊天框中并给出提示。</li>
-<li>修复点击调查或 "Report a problem" 按钮误发送未完成提示的问题。</li>
-<li>修复窗口重载后 Claude 执行未批准计划的问题：计划模式中断的步骤在会话以其他权限模式恢复时停止并给出提示。</li>
-<li>修复 <code>claude-vscode.toggleDictation</code> 在所有打开的 Claude 视图同时启动听写的问题。</li>
-<li>改进聊天面板诊断工具：跳过无问题的文件、返回紧凑 JSON、支持可选的最低严重级别。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.319</guid>
-      <pubDate>Fri, 06 Nov 2026 17:04:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.167.0 发布：新增代理命令中心、跨后端会话切换与本地图片预览</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.167.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Codex CLI 发布 0.167.0 版本，带来多项面向终端交互体验的新功能与修复。</p>
-
-<p><strong>新功能</strong></p>
-<ul>
-<li>新增代理命令中心：运行 <code>codex agents --no-daemon</code> 即可打开，命令中心与会话选择器会标记未读结果。</li>
-<li>会话选择器支持在已连接的后端之间切换，切换时保留草稿。</li>
-<li>在支持的终端上，撰写消息时可预览本地图片附件；转录中已查看的本地图片路径变为可点击，可直接打开。</li>
-<li>“Sign in another way” 子菜单汇集了 API 密钥与云服务商选项；启用 <code>gcp_setup_wizard</code> 可通过应用默认凭据（ADC）或凭据文件配置 Google Cloud Vertex AI。</li>
-<li>在 <code>/experimental</code> 中可选用 macOS 或 Windows 系统代理设置。</li>
-<li>审批提示打开时，可直接在转录中展开补丁详情进行查看。</li>
-</ul>
-
-<p><strong>Bug 修复</strong></p>
-<ul>
-<li>切换模型提供商后，已保存的聊天仍然可见；无法恢复的聊天可阅读其转录，并准备可编辑的提示以在新聊天中继续。</li>
-<li><code>Ctrl+L</code> 清屏后，早期消息仍可通过 <code>Ctrl+T</code> 访问。</li>
-<li>删除文本暴露前导 <code>!</code> 时，聊天模式仍保留普通草稿。</li>
-<li>网络审批提示会在对应请求结束时自动关闭；同一端点的并发请求改为逐个提示。</li>
-<li>长实时 V3 对话会将已完成的语音保存到聊天历史。</li>
-<li>自动上下文压缩现在会考虑失败响应及缺少 token 用量数据的响应所保留的输出。</li>
-</ul>
-
-<p><strong>文档与其他</strong></p>
-<ul>
-<li>app-server README 补充了 <code>[permissions.network]</code> 托管网络约束及 <code>prompt-user</code> 命令规则（需全新人工审批）的说明。</li>
-<li><code>openai-docs</code> skill 在迁移弃用模型时推荐文档化的替代方案。</li>
-<li>DotSlash 清单现在引用随版本发布的 Cargo 包；Linux musl 构建减少分配器 arena 数量，以降低对话卸载后的空闲内存占用。</li>
-</ul>
-
-<p>完整变更日志：<a href="https://github.com/openai/codex/compare/rust-v0.166.0...rust-v0.167.0">rust-v0.166.0...rust-v0.167.0</a></p>
-
-<p><strong>你知道吗？</strong>OSC 52 是终端与外部程序之间传输剪贴板内容的转义序列协议，允许终端应用在 SSH 等远程会话中读写本地剪贴板。本次更新让 Codex 在 GNU screen 会话中也能通过 OSC 52 转发剪贴板内容。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.167.0</guid>
-      <pubDate>Fri, 06 Nov 2026 01:40:00 GMT</pubDate>
     </item>
   </channel>
 </rss>

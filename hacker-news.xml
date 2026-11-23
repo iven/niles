@@ -3,7 +3,130 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 23 Nov 2026 00:15:49 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2026 07:35:43 GMT</lastBuildDate>
+    <item>
+      <title>⭐ xnulinux：把 XNU 内核当作 Linux 可加载模块，在 Linux 里跑起完整的 macOS 桌面</title>
+      <link>https://news.ycombinator.com/item?id=50607261</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 硬核开源技术项目，把 XNU 内核做成 Linux 可加载模块以运行 macOS 桌面，属开源项目/技术进展类，对开发者有较强吸引力，但偏底层系统实验而非工具发布，故为推荐</small></p><p>GitHub 项目 <a href="https://github.com/AFK-surf/xnulinux">xnulinux</a>（作者 Heyang Zhou）演示了一种非常规做法：用 Apple 公开的源码构建 macOS 内核 XNU，并把它作为可加载内核模块 <code>xnu.ko</code> 加载进未修改的 arm64 Linux 内核中，从而在同一批 CPU 上让 macOS 用户态进程与 Linux 进程原生并行运行，中间不经过 hypervisor。</p>
+
+<h3>运行效果</h3>
+<p>在被托管的（hosted）XNU 中，用 Apple 官方安装器制作的 macOS 27 系统盘可以直接启动到桌面：loginwindow、WindowServer、Dock、Finder、Safari、Chrome 均可使用。实测在 Apple Silicon Mac 上以 arm64 Linux 虚拟机（krunkit，1–6 个托管 CPU）运行，自动登录进桌面耗时 31–48 秒（同机 Apple Virtualization 的 macOS 虚拟机为 49 秒）。应用可正常打开退出，Spotlight 与文件系统工作正常；30 分钟压力测试（40 轮 Safari、备忘录、计算器、TextEdit、系统设置、Spotlight 和磁盘遍历）结束时没有 panic，也没有崩溃报告。</p>
+<img src="/AFK-surf/xnulinux/raw/main/docs/images/macos-and-linux.jpg" alt="macOS 与 Linux 用户态并排运行" />
+<p>上图：左边是被托管 macOS 27.2.1 中的终端（sw_vers、Darwin 内核、launchd、WindowServer、Dock、Finder 在运行），右边是从该 macOS 里 SSH 进入它所寄宿的那个 Linux（Ubuntu、Linux 7.0、已加载 xnu 与 fki 模块）。</p>
+<img src="/AFK-surf/xnulinux/raw/main/docs/images/desktop.jpg" alt="托管 macOS 桌面" />
+<p>上图：30 分钟压力测试结束后的托管桌面，纯 CPU 渲染（未启用 GPU 桥）。</p>
+
+<h3>实现机制</h3>
+<ul>
+<li><strong>CPU</strong>：每个托管 CPU 是一个绑定到某个 Linux CPU 的内核线程；XNU 在其上运行，直到调用宿主（空闲、I/O、定时器）。Linux 保留自己的异常向量，<code>fki.ko</code> 把 XNU 代码的缺页与用户态异常转发给 XNU 的处理程序。</li>
+<li><strong>内存</strong>：XNU 从 Linux 的 CMA 获得一整块物理连续内存，用自己的 pmap 管理；XNU 与 Linux 共享地址空间布局中的用户半区（4K 页）。</li>
+<li><strong>设备</strong>：<code>kexts/</code> 中的驱动为 macOS 提供磁盘（Linux 侧的一个文件）、显示器（Linux 可读的帧缓冲）、键盘与指针、以太网链路、keystore 以及 GPU 桥。</li>
+<li><strong>GPU</strong>：托管 macOS 中的 Metal 跑在 <code>gpu/xnu-cpu-metal</code>（metal2vulkan over Vulkan）上，Vulkan 经 DRM 桥（XnuDrm → 宿主调用 → xnudrmd → Linux render node）到达宿主 GPU，使用 Mesa 的 Venus 驱动；无 GPU 时回落到 CPU 上的 lavapipe。</li>
+<li><strong>许可边界</strong>：Linux 侧（<code>fki-ko/</code>、<code>linux/</code>）为 GPL-2.0-only；XNU 侧（<code>xnu-ko/</code>、<code>xnu-patches/</code>、<code>kexts/</code>）为 APSL-2.0，<code>xnu.ko</code> 向 Linux 报告为非 GPL 模块（<code>MODULE_LICENSE("Proprietary")</code>，与 ZFS 一样会给内核打上 taint 标记），只允许通过 <code>fki_*</code> 接口调用 Linux。显示/以太网/输入 kext 为 BSD-2-Clause-Patent，GPU 相关组件为 GPL 或 MIT。</li>
+</ul>
+<img src="/AFK-surf/xnulinux/raw/main/docs/images/safari-xnu.jpg" alt="Safari 打开 XNU 的维基百科条目" />
+<p>上图：托管 macOS 中 Safari 通过 Linux 网络链路（GPU 桥开启）访问维基百科的 XNU 条目。</p>
+
+<h3>要求与限制</h3>
+<p>需要支持 PAC 的 arm64 Linux 宿主（Apple Silicon M1 及以上，在 krunkit 虚拟机中运行以获得 GPU，或使用 tart）、4K 页、16GB 内存（其中 8GB 预留给托管内核）；还需要一台装有 Xcode 的 Mac 来制作系统盘和构建 GPU 部分，以及使用者自己的一份 macOS 27 安装（Apple Virtualization 虚拟机磁盘）。仓库不包含也不分发任何 Apple 二进制文件。项目可通过 <code>install-service.sh</code> 以 systemd 服务方式运行，配置在 <code>/etc/xnulinux.conf</code>（CPU、内存、磁盘、GPU），启动日志保存在 <code>/var/log/xnulinux/</code>，托管内核 panic 后可自动重启。</p>
+<p>作者明确列出目前仍是权宜之计的部分（见 <code>docs/production.md</code>）：OS cryptex 被合并进系统卷、AMFI 被打补丁、SIP 被放宽，且内存访问比原生虚拟机慢（4K 页对 16K 页）。项目致谢 macOS-DroidVM 与 UniXNU（4K 页 XNU 基线、Linux 托管的 XNU 工具链、显示/以太网/输入 kext 的来源）、metal2vulkan、Mesa、virglrenderer 和 krunkit，并声明与 Apple 无关联。</p>
+
+<h3>社区反应</h3>
+<p><a href="https://news.ycombinator.com/item?id=50607261">Hacker News 讨论</a>（171 分、74 条评论）主要围绕三点：一是惊叹——有评论认为这类项目在几年前难以想象，如今已"正常化"；二是法律顾虑，担心 Apple 不满，但多数人指出项目只用 Apple 开源发布的 XNU 代码，其余是社区项目或用户自己的安装，且历史上 Apple 对购买其硬件的用户折腾系统并不追究，只针对转售者；三是对实用性的疑问——由于本项目本身就要求 Apple Silicon + PAC + 4K 页，所以并没能"省下买 Mac 的钱"，有人追问能否用它跑 Xcode 构建 iOS 应用，也有人希望支持 x86_64 或更老的 OS X 10.9 界面。关于 PAC 是否为 Apple 专属也有纠正：PAC 是 Armv8.3 标准扩展，多个非 Apple SoC 已实现，许多 AArch64 发行版的二进制包正是用 PAC 构建。另有评论探讨未来操作系统是否会走向"内核与可执行文件加密、密钥只存在硬件中"的极端方向（如 Windows 的 Pluton），以及有人打趣问能否同时运行两个以上的 macOS 虚拟机。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50607261</guid>
+      <pubDate>Mon, 23 Nov 2026 03:49:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 本地 AI 入门：用 Unsloth 在 Windows 上运行 Qwen 或 Inkling，并开放给全家使用</title>
+      <link>https://news.ycombinator.com/item?id=50603845</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是本地部署开源大模型的实践教程（Unsloth + Qwen），属 AI 软件技术进展与开源项目，符合兴趣；但非新模型发布或编程工具发布，故为推荐</small></p><p><strong>一句话总结：</strong>这是一篇面向新手的本地大模型部署指南：在 Windows 电脑上安装 Unsloth Desktop，按显存选择并量化 Qwen 或 Inkling 模型，设置上下文窗口，再通过局域网让家里其他人用浏览器访问，从而获得一个私有、免订阅的“家庭版 ChatGPT”。</p>
+
+<p>作者认为，云模型服务存在成本上涨、使用限制、隐私顾虑以及“最新版质量不一定更好”等问题，因此决定把耗 token 的研究、资料收集和编程任务迁到本地。他的目标是尽量简单：只用 Windows 图形界面，硬件到位后约 10–15 分钟即可完成部署（不含模型下载）。原文见 <a href="https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth">GPUPartner</a>。</p>
+
+<p><img src="https://cdn.gpupartner.com/prod/nvidia-geforce-rtx-5090-green-blueprint-hero-1440x600.jpg" alt="NVIDIA GeForce RTX 5090 Founders Edition, close on its two fans, against a green background of white blueprint line drawings." /></p>
+
+<h3>需要什么，能跑多大模型</h3>
+<p>基本配置只有三样：一台带 GPU 的 Windows 电脑、Unsloth Desktop，以及一个大小适合显存的模型。无需终端命令、Python 环境或订阅。文章以 32GB 显存的 RTX 5090 为例，但强调显存越大，能运行的模型越大、上下文也能更长。</p>
+
+<p>核心技术是量化（quantization）：通过降低权重精度来压缩模型，用少量精度换取可运行性和速度。作者提醒，这种取舍是否可接受取决于任务，有些工作几乎不受影响，另一些则可能明显退化。</p>
+
+<p><img src="https://cdn.gpupartner.com/prod/quantization-same-photo-8-bit-4-bit-2-bit-1600x417.png" alt="The same close-up of an RTX 5090 fan shown three times: at 8 bits per pixel with 256 shades of grey, at 4 bits with 16 shades and faint banding, and at 2 bits with 4 shades, where it turns blotchy." width="2400" height="626" /></p>
+
+<p>作者给出的粗略分档如下：</p>
+<table>
+<thead><tr><th>显存</th><th>可尝试模型</th><th>量化与上下文</th></tr></thead>
+<tbody>
+<tr><td>8–12GB</td><td>Qwen3.5-9B、Gemma 4 12B</td><td>UD-Q4_K_S 或 Q4_K_M；8K–16K</td></tr>
+<tr><td>16GB</td><td>Qwen3-14B、gpt-oss-20b（MoE）、Gemma 4 26B（MoE）、Qwen3-Coder-30B（MoE）、Qwen3.6-35B（MoE）、Inkling 2 Mini（MoE）</td><td>Q4_K_M 或 Q5_K_M；16K–32K</td></tr>
+<tr><td>24GB</td><td>Gemma 4 31B、Qwen3.8-27B、Inkling 2 Mini</td><td>UD-Q4_K_M 或 UD-Q4_K_S；16K–32K</td></tr>
+<tr><td>32GB+</td><td>Qwen3.8-27B、Inkling 2 Mini</td><td>UD-Q4_K_XL 或 Q6_K；64K–128K+</td></tr>
+</tbody>
+</table>
+
+<p>混合专家（MoE）模型每个 token 只激活少部分参数，其余权重可放在系统内存中，因此 35B 级 MoE 也能在 16GB 显卡上运行，只是速度会受影响。文章称，在 RTX 5060 Ti 16GB 上，Qwen3.6-35B 可达到约 47 tokens/s。</p>
+
+<p><img src="https://cdn.gpupartner.com/prod/qwen3-8-27b-memory-by-precision-128k-context-chart-1600x698.png" alt="Bar chart of Qwen3.8-27B memory with a 128K context: 16-bit 61.0 GB, 8-bit 36.7, 6-bit 30.4, 5-bit 27.6, 4-bit 24.9, 3-bit 21.9, 2-bit 18.9. A line marks a 32 GB card; 6-bit and below fit under it." width="2400" height="1047" /></p>
+
+<p>作者自己的选择是 Qwen3.8-27B 的 4-bit 量化版本，而非勉强塞入更大的模型，以便保留 128K 上下文。完整版约 56GB，不适合普通消费级显卡；Unsloth 的 UD-Q4_K_XL 文件约 18GB。文章还提到 Inkling 2 Mini：26.4B 参数、Apache 2.0 许可、支持视觉和 1M token 上下文，推荐 4-bit 文件约 17.6GB；2-bit 约 10–11GB，可放进 12GB 显卡。名字里的“Small”并不小——Inkling 2 Small 是 594B 参数，最小文件约 171.7GB，需要 256GB Mac Studio 或 DGX Station 这类统一内存设备。</p>
+
+<h3>三步完成部署</h3>
+<p>第一步，安装 Unsloth Desktop。作者在 LM Studio 与 Unsloth Desktop 之间选择了后者，原因是界面简单、没有订阅推销。安装后打开即可看到聊天主界面。</p>
+
+<p><img src="https://cdn.gpupartner.com/prod/unsloth-desktop-first-launch-home-screen-1600x870.png" alt="Unsloth Desktop home screen on first launch: sidebar with New chat, Model hub and Library, a Select model drop-down, and an empty chat box." /></p>
+
+<p>第二步，从模型下拉菜单中选择并下载量化模型。作者使用 Qwen3.8-27B 的 UD-Q4_K_XL 版本，认为它在行为上更接近完整模型，同时不会占满显存。</p>
+
+<p><img src="https://cdn.gpupartner.com/prod/unsloth-desktop-model-picker-recommended-list-1600x1058.png" alt="Unsloth Desktop model picker open on the Recommended tab, with Qwen3.8-27B-GGUF loaded at the top of the list." /></p>
+
+<p>第三步，点击模型旁的齿轮图标设置上下文大小。作者设为 128K，也可以先用 Auto。完成这些后，就可以直接在 Unsloth 内聊天。若想运行 Inkling 2 Mini，只需先更新 Unsloth Desktop，再在同一个模型选择器中搜索。</p>
+
+<p><img src="https://cdn.gpupartner.com/prod/unsloth-desktop-quantization-list-ud-q4-k-xl-1600x1081.png" alt="Qwen3.8-27B quantization list in Unsloth Desktop, UD-Q4_K_XL marked downloaded at 18 GB with a gear icon beside it." /></p>
+
+<h3>让全家通过局域网使用</h3>
+<p>Unsloth Desktop 内置局域网共享。进入设置中的“Remote &amp; LAN”，先设置 Remote 密码，再启动 LAN access，把生成的地址分享给同一家庭网络中的用户即可。家人用用户名“unsloth”和该密码登录浏览器界面。需要注意的是，主机必须保持开机且 Unsloth 持续运行。</p>
+
+<p><img src="https://cdn.gpupartner.com/prod/unsloth-desktop-remote-lan-access-settings-1600x1217.png" alt="Unsloth Desktop Remote & LAN settings, showing the Remote access and LAN access cards, each with a Start button." /></p>
+
+<p>这套方案目前只覆盖家庭局域网，不能直接通过互联网访问。作者表示后续会讨论性能优化、隧道穿透，以及只允许使用指定网页工具的本地代理，以便自动化编程和研究任务。</p>
+
+<h3>Hacker News 讨论：门槛、带宽与安全</h3>
+<ul>
+<li><strong>显存门槛存在争议。</strong>有评论者质疑“Qwen3.6-35B 4-bit 需要 32GB+”的说法，指出 MoE 模型在 3060 上也能跑；也有人认为 32GB 显存中还要留出约 10GB 给上下文和 KV 缓存，文章的数字并不离谱。多位评论者强调，本地推理更关键的往往是内存带宽，而不是 CPU 算力或功耗。</li>
+<li><strong>成本与安全是两大顾虑。</strong>有人调侃这套方案需要“1 万美元显卡”；也有人担心大量家庭电脑开放未加固的局域网访问后，可能被恶意代理利用，形成“住宅 AI 僵尸网络”，带来数据外泄、攻击他人网站和法律责任。文章只设置了密码，未涉及更细的权限隔离与沙箱。</li>
+<li><strong>本地模型仍难完全替代 Claude/ChatGPT。</strong>评论建议用 OpenWebUI、OpenTerminal、OpenClaw 等工具改善体验，但认为多数任务仍需更多调教。有用户分享在 AMD NPU 的 ThinkPad 上运行 Qwen3.5-9B，速度约 12 tokens/s，但结果基本不能完全信任；也有用户用 Qwen3.6-35B-A3B 和多种 TTS 搭建全角色有声书流水线，称 Unsloth 的 GGUF 文件非常关键，不过其演示效果遭到其他评论者批评。</li>
+<li><strong>对本地 AI 的前景看法分化。</strong>一方认为现在只是本地 AI 的“等离子电视阶段”，可能还需约 5 年才足够实用；另一方引用“苦涩的教训”认为本地能力会持续追上，而且已经有人在较老的 MacBook 上运行接近前沿水平的模型。也有人认为开源模型不必追平最强云端模型，只要对日常任务“够用”即可。</li>
+<li><strong>工具反馈。</strong>有用户建议 VRAM 计算器允许设置固定的显存基线，而不是统一按 1GB 开销计算；Unsloth 维护者 Daniel Han 在评论中回应了 NPU 支持与计算器改进建议。</li>
+</ul>
+
+<p>来源：<a href="https://www.gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth">GPUPartner 原文</a>；讨论：<a href="https://news.ycombinator.com/item?id=50603845">Hacker News</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50603845</guid>
+      <pubDate>Sun, 22 Nov 2026 21:01:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>手绘风格的可交互「迷你旧金山」地图：实时公交、航班与渡轮</title>
+      <link>https://news.ycombinator.com/item?id=50603589</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要是手绘风地图的可视化创意演示，涉及公交航班等城市交通数据，既非编程工具也非 AI 或科学进展，兴趣不明确，故为可选</small></p><p><a href="https://smallsf.com/">smallsf.com</a> 是一个可以拖动、缩放的旧金山等距（isometric）插画地图，把整座城市画成一张可漫游的手绘风格图。地图上叠加了实时动态元素：Muni 公交与列车、BART、海湾里的渡轮、头顶飞过的飞机，以及模拟的街道车流，并配有一层"真实天空"。页面提供图层开关（公交与列车 / 海湾船只 / 空中飞机 / 街道车流 / 标签）以及地点搜索。</p>
+<p>该条目在 Hacker News 获得约 237 分、88 条评论，讨论很快分成两派。</p>
+<p><strong>肯定的一方</strong>认为这是个做得相当漂亮的项目，有人特意感谢作者在自己所在街区"种上了树"，也有旧金山"前居民"表示从远方重访城市很有意思。作者（用户名 dutilh）在评论中积极回应，表示会很快加入海豹、潜艇、Yoda 雕像等细节，并接受把地图延伸到 SFO 机场的建议。</p>
+<p><strong>批评的一方</strong>则集中在两点。<em>其一是准确性</em>：有用户搜索 Hayes Valley 的 Patricia's Green 公园，发现整块绿地直接"消失"；有人查看 101／80 高速立交，发现下方是水、还有船，而 Division 与 Brannan 街上的车辆直接"开在水面上"；还有人发现 Bay Bridge 上层车辆的方向反了（现实是上层向西、下层向东）；更有居民放大到自己家门口，发现楼层数、轮廓和屋顶全都不对。作者对这些具体 bug 逐条回复"这就修"。</p>
+<p><em>其二是"AI 生成感"</em>。多位评论者指出，放大后看到的是杂乱无章的线条，缺乏可探索的细节，与 2000 年代那种充满用心小细节的大型像素画项目形成反差，被形容为"远看漂亮、近看空洞"的 AI 产物；有人觉得这类作品在 HN 仍能拿到大量分数，形成了不太健康的激励。也有人为其辩护，认为用 AI 做出有趣的东西本就无可厚非。</p>
+<p>此外还有体验层面的意见：模拟车流显得卡顿，车辆会穿过卡车和公交；地图被锁定在固定视角、无法自由旋转——有评论解释，这并非真 3D，而是从单一等距视角静态生成的图像，因此自由旋转是根本性的改动。有人调侃"就差一个 SimCity 的灾难按钮了"。</p>
+<p>技术层面，有评论好奇开发者如何在 GTFS-RT 公交数据与 ADS-B 飞机数据之间做插值，使运动在街道级缩放下保持平滑——是客户端推算（dead reckoning）还是固定节拍缓冲，但未见到公开答复。</p>
+<h2>你知道吗？</h2>
+<ul>
+<li><strong>GTFS-RT</strong>（GTFS Realtime）是公共交通机构发布车辆实时位置与延误的通用数据格式，更新往往间隔数十秒，因此客户端需要在两次更新之间"猜测"车辆位置才能画得平滑。</li>
+<li><strong>ADS-B</strong> 是飞机自动广播自身位置、高度与速度的监视技术，许多爱好者网站正是靠接收这些广播来绘制实时航班图。</li>
+<li>所谓<strong>等距视图（isometric）</strong>并非真正的三维渲染，而是把场景按固定角度"压平"成二维图像；这也是为什么这类地图通常只能平移缩放，不能自由旋转。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50603589</guid>
+      <pubDate>Sun, 22 Nov 2026 20:33:23 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ OpenAI 首席科学家主张把「困惑度」做成衡量 AI 智能进展的共享指标，并公开内部数据</title>
       <link>https://news.ycombinator.com/item?id=50601525</link>
@@ -1478,114 +1601,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50532086</guid>
       <pubDate>Tue, 17 Nov 2026 14:45:36 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenCode 推出 Browse：让 AI 代理接管你的真实浏览器</title>
-      <link>https://news.ycombinator.com/item?id=50523459</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 编程工具发布，AI 代理浏览器控制能力，直接命中「编程工具发布/分享」与「新 AI 能力进展」的高兴趣主题</small></p><p>Anomaly 旗下项目 OpenCode 发布 <a href="https://opencode.ai/product/browse">Browse</a>，由一套 MCP（Model Context Protocol，模型上下文协议）服务器和一个 Chromium 扩展组成，让 AI 代理直接使用你日常使用的真实浏览器——带着你已有的标签页、登录状态和插件，而不是另起一个隔离的自动化浏览器再喂 cookie。</p>
-
-<img src="/media/heroes/browse-landscape-light.1280.2e5a8cca.webp" alt="OpenCode Browse" width="1920" height="1200" />
-
-<p><strong>主要能力：</strong></p>
-<ul>
-<li><strong>不打扰当前工作</strong>：代理打开的标签页在后台运行，收进折叠的标签组里。</li>
-<li><strong>读写与记录</strong>：代理可读取页面、点击、输入文字、截图、录制标签页，并查看网络流量。</li>
-<li><strong>交接（Handoffs）</strong>：遇到登录、二次验证（2FA）或支付环节时，把标签页交还给用户；用户自己完成后点击 Continue，代理接着往下做。</li>
-<li><strong>出借标签页</strong>：点一下工具栏按钮，就能把自己已经打开的标签页交给代理。</li>
-<li><strong>站点白名单</strong>：可将代理的标签页限制在指定站点范围内。</li>
-<li><strong>客户端无关</strong>：任何 MCP 客户端都能接入，包括 OpenCode、Claude Code、Cursor、Codex、Zed 等；代理复用你已登录的站点，无需 API key 或额外配置。</li>
-</ul>
-
-<p><strong>支持的浏览器</strong>：Chrome、Edge、Brave、Arc、Helium、Vivaldi、Opera 以及 Chromium，均为 Chromium 内核，暂不含 Firefox。安装方式为先装 Chrome 扩展，由扩展引导完成后续步骤；也提供 curl、pwsh、npm、bun 直装 CLI 的方式（官方称一般不需要）。</p>
-
-<p><strong>社区讨论的主要观点：</strong></p>
-<ul>
-<li><strong>成本质疑</strong>：有用户指出托管版 OpenCode 的价格与闭源云模型相当，而大语言模型又无法在每台笔记本上本地跑，如何高效使用仍是问题；回复认为完全可以不用它的托管模型，也不必用它家的代理。</li>
-<li><strong>与现有方案重叠</strong>：多条评论提到功能与 <a href="https://playwright.dev/docs/getting-started-mcp">Playwright MCP</a>、Chrome 官方 <a href="https://github.com/ChromeDevTools/chrome-devtools-mcp">chrome-devtools-mcp</a> 以及 oh-my-pi 的 browser-relay 有重合。有人认为直接基于 CDP（Chrome DevTools Protocol）封装即可，用 go-rod 之类现成库几小时就能做出来，市面上面向代理的浏览器方案已经太多。</li>
-<li><strong>为何不支持 Firefox</strong>：扩展 API 与 Chromium 体系不同，并非只是「没列出来」这么简单；也有用户自己写了 Firefox 扩展实现类似效果，并称借此能进入 Outlook 这类安全上下文，这是 Playwright 难以安全做到的。</li>
-<li><strong>稳定性</strong>：有用户反馈连接会随机断开，需要重新执行 <code>browse pair</code>；并提及相关 <a href="https://github.com/anomalyco/opencode/pull/63002">PR</a>，希望 OpenCode 内置浏览器工具支持持久会话后，这个 MCP 就不再必要。</li>
-<li><strong>安全与产品节奏批评</strong>：一条高争议评论指责 OpenCode 每周连发多个项目、视软件为一次性产物，V2 版本削弱了安全设计，并对公司 CEO 在社交平台上的言论风格表示反感；另有数条评论附和这种「先做出来再说」的行业风气。同时有用户建议为代理单独使用一个浏览器配置档（profile），以规避「致命三要素」风险。</li>
-<li><strong>反思派</strong>：也有人认为更省心的做法是干脆给代理配一个属于它自己的浏览器，别和自己的主浏览器混用；还有人表示自己只是让代理自己想办法操作浏览器，并没觉得这是个问题。</li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p>评论中提到的「致命三要素」（lethal trifecta）是 Simon Willison 提出的提示注入（prompt injection）风险评估框架：当一个系统同时具备「访问私有数据」「接触不可信内容」「对外通信能力」三项时，攻击者就能通过注入指令把私有数据外带出去。让代理使用你已登录的真实浏览器，恰好把三者凑齐——会话 cookie 是私有数据，网页内容不可信，点击与输入则提供了外泄通道。这也是为什么实践中建议给代理单独配置浏览器 profile，并配合站点白名单缩小暴露面。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50523459</guid>
-      <pubDate>Mon, 16 Nov 2026 21:20:37 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Rust 如何改变了我作为开发者的思维方式</title>
-      <link>https://news.ycombinator.com/item?id=50522563</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于 Rust 语言对开发者思维方式影响的编程经验分享，属编程经验类内容，但偏个人感悟而非具体效率方法，故为推荐级</small></p><p>Martijn Faassen 在 <a href="https://blog.startifact.com/posts/how-rust-changed-me/">这篇博客</a>中回顾了自己六年多（其中四年多为职业开发）使用 Rust 的经历。他的核心论点是：一门编程语言会影响开发者思考问题的方式——与已有语言差异越大的语言，影响也越大。Rust 与他早年熟悉的 Python 差异足够大，因此真正改变了他。</p>
-
-<h3>枚举（和类型）补上了思维拼图</h3>
-<p>作者指出，大家对「积类型（product type）」习以为常却不知其名：结构体各字段可以独立变化，必须处理所有组合。而编程界长期忽视的「和类型（sum type）」表达的是「要么是这个，要么是那个」，例如一个 Person 要么是 Human，要么是 Cat，每个变体自带数据，处理时必须用 match 穷尽所有分支，编译器会强制检查。他用它来建模可空性（有值或无值）与错误（成功值或错误值），因此觉得任何没有和类型的语言都「显得贫乏」。</p>
-
-<h3>枚举与抽象、派发的取舍</h3>
-<p>面向对象语言通过接口与动态派发处理变体，好处是松耦合，代价是性能开销以及「必须先设计出合理的接口」的成本。作者认为，很多场景（单一领域内、已知变体集合、偶尔新增一个变体）其实用低仪式感、静态检查的 enum 就够了，而且 enum 同样可以挂方法，并不排斥抽象。在派发层面，他区分了动态派发、条件派发（if/else、对 enum 的 match）和编译期静态派发：用泛型 <code>Group&lt;Cat&gt;</code> 把类型在编译期装配好，运行时无需逐项判断，也消除了「混合群组」这种根本不存在的情况。这让他在写高性能代码时更清楚派发方式与性能的关系。</p>
-
-<h3>类型驱动开发</h3>
-<p>作者从 1990 年代 C++ 转向 Python 时曾为动态类型惊叹，此后又走回类型系统。他类比测试与文档：自动化测试的显性价值是验证行为，隐性价值是逼你想清架构与 API（测试驱动开发）；写文档亦然（文档驱动开发）；类型同样如此——显性价值是静态检查与高性能代码生成，隐性价值是建模领域、让类型引导架构与 API，并体现「解析而非校验（parse, don't validate）」的原则。他强调这不是大而全的前期设计，而是随理解不断回访的迭代过程。</p>
-
-<h3>最大的惊喜：编译期「魔法」由宏实现</h3>
-<p>他原以为 Python 那样依赖丰富运行时的能力（pickle、Pydantic 的序列化）只能靠运行时反射。Rust 没有常规反射，却能用宏在编译期生成代码：serde 只需 <code>#[derive(Serialize, Deserialize)]</code> 即可支持 JSON、TOML 等多种格式；clap 让你用一个带文档注释的类型声明 CLI，直接获得带帮助信息的参数解析，且解析后的数据已是强类型。作者提醒宏很「吓人」，不应随意混入应用代码，而应封装在框架里——这与 Python 中把魔法小心封装成声明式框架的思路一致。</p>
-
-<h3>所有权系统影响架构</h3>
-<p>Rust 无需 GC 即可避免内存泄漏，并禁止「同时读写」和循环引用，消除了大量未定义行为与并发问题，这也是学习 Rust 最难的部分。作者认为，拥抱这种摩擦反而改善架构：它强迫你把变更（多在构造阶段）与使用数据分离，减少不变量的复杂度；代码更少耦合，难以出现「隔空作用」的隐式通道。结果是局部代码可能稍难读懂，但整个代码库的数据流与职责更清晰。文章最后转向 arena 模式（分析 XML 树库 roxmltree 的经验），但内容在此处截断。</p>
-
-<h3>社区讨论</h3>
-<ul>
-<li><b>不是 Rust 特有，而是「差异」的功劳</b>：多位评论者认为，作者收获的部分来自接触了一门差别够大的语言。一条被广泛认同的建议是：每个开发者都应在每个主要语言家族（Lisp、面向对象、函数式、Prolog、VHDL/Verilog、Forth 等）各做一个大型项目。</li>
-<li><b>类型系统的谱系</b>：有人指出，许多被年轻开发者归功于 Rust 的类型特性在 ML 系语言中早已存在，更远处还有依赖类型、效应系统、能力、线性类型等形式化验证手段。</li>
-<li><b>对 enum 的批评</b>：有评论者不满 Rust 把「标签类型」和「联合类型」混为一体，认为像 Zig 的 <code>union(Tag)</code> 那样分开更合理，否则想表达纯标签集合时只能手工维护两份定义。</li>
-<li><b>2026 年的语境</b>：有人感叹 LLM 已重塑整个行业，这类「顿悟」是否还重要；也有多位回复反驳，认为手写推导、理解底层机制的价值不会因此消失。</li>
-<li><b>防御自己的大脑</b>：有读者认为 Rust 最独特也最有争议的一点是承认人会犯错——它强迫你对失败可能性做出显式决定（哪怕决定是 unwrap），newtype 模式还能防止不同种类的 ID 混用。</li>
-<li>话题还延伸到 Sapir–Whorf 语言相对性假说、null 与 Optional 的取舍（有评论举 Musl 上 SSH 漏洞源于「默认值表示加密失败」为例，说明默认值同样危险），以及 C 语言当年被推崇的正是「不做检查的强大」，与如今安全性取向形成对照。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50522563</guid>
-      <pubDate>Mon, 16 Nov 2026 20:16:50 GMT</pubDate>
-    </item>
-    <item>
-      <title>逆向发现：Windows 11 通过诊断组件记录你使用哪些编码智能体与开发工具</title>
-      <link>https://news.ycombinator.com/item?id=50524736</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要内容是逆向分析 Windows 11 遥测/隐私机制，虽与编码智能体相关，但主题偏操作系统隐私与逆向工程，与配置的编程工具主题不完全一致，兴趣不明确</small></p><p>作者借助 AI 辅助，在 Windows 二进制文件中搜寻未公开功能，发现 <code>MissionControlAggregator.dll</code> 内嵌了一份可执行文件名清单：编码智能体如 <code>codex.exe</code>、<code>claude.exe</code>、<code>copilot.exe</code>、<code>cursor.exe</code>、<code>antigravity.exe</code>、<code>agy.exe</code>、<code>github.exe</code>，以及 <code>node.exe</code>、<code>python.exe</code>、<code>dotnet.exe</code>、<code>gcc.exe</code>、<code>clang.exe</code>、<code>gdb.exe</code>、<code>javac.exe</code>、<code>devenv.exe</code>、<code>code.exe</code> 等常见开发工具。顺着引用追查，确认这是一个正在运行的 Windows 组件，会记录哪些智能体和开发工具被使用过、在本地保存，并上报给 Windows 诊断系统；除用户关闭「可选」诊断数据外（该选项默认开启），数据会被上传至微软。</p>
-<p>原文链接：<a href="https://xusheng.dev/posts/windows-coding-agent-telemetry/">xusheng.dev</a></p>
-
-<h3>清单与匹配逻辑</h3>
-<p>在 Binary Ninja 中打开该 DLL，可看到硬编码的可执行文件名：</p>
-<img src="/posts/windows-coding-agent-telemetry/agent-names.jpeg" alt="Binary Ninja 中显示 MissionControlAggregator.dll 内嵌的编码智能体可执行文件名" />
-<p>共 4 个命令行智能体槽位（<code>copilot.exe</code>、<code>claude.exe</code>、<code>codex.exe</code>、<code>agy.exe</code>，WSL 路径下还有无扩展名的等价形式），5 个桌面智能体槽位（<code>github.exe</code>、<code>claude.exe</code>、<code>codex.exe</code>、<code>cursor.exe</code>、<code>antigravity.exe</code>），以及 12 个更宽泛的开发工具类别。守卫这些检查的功能开关名为 <code>CLICodingAgentUsage</code>（功能 ID 62580080）。部分槽位还会校验发布者：Node.js 对应 Node.js Foundation，Python 对应 Python Software Foundation，.NET 与 Visual Studio 对应 Microsoft Corporation；编译器/调试器组（GCC、Clang）在这一路径上没有发布者校验。</p>
-
-<h3>数据从哪来</h3>
-<p>该组件并不主动扫描进程，而是订阅既有 Windows 事件：<code>KernelProcess.AppStateChangeSummary</code> 与 <code>Win32kTraceLogging.AppInteractivitySummary</code> 提供普通 Win32 程序的身份信息；WSL 侧则消费 <code>Microsoft.Windows.Lxss.Manager.Exec</code> 与 <code>ExecCritical</code> 的 <code>imageName</code> 字段。因此普通的 Windows <code>codex.exe</code> 也能经由应用状态摘要进入智能体检查，并非只针对 WSL 内程序。命中后组件在状态中置位；定时器触发 <code>ReportCohorts&lt;12,4,5&gt;</code>，把结果编译成名为 <code>Segments.SubCohorts</code> 的 ETW（Event Tracing for Windows，Windows 事件跟踪）自描述 TraceLogging 事件——三个数字分别对应 12 个类别、4 个 CLI 智能体、5 个桌面智能体。原始事件中的运行时长、焦点时间、交互计数、资源占用等细节被丢弃，只保留表示「观察到某工具」的位图。作者强调报告中不含提示词文本或源代码，但仅「你用什么工具」这一信息就已有明显隐私含义。</p>
-
-<h3>实际验证</h3>
-<p>作者在 Parallels 的 Windows 11 ARM64 虚拟机（内部版本 26200.9974，DLL 版本 10.0.26100.9818）上确认：<code>CLICodingAgentUsage</code> 已作为服务实验启用，且非手动开启；DiagTrack（Connected User Experiences and Telemetry 服务）以自动启动方式运行，并拉起子进程 <code>AggregatorHost.exe</code> 加载该 DLL。不过用公开 ISO 制作的全新虚拟机中该功能默认关闭，因此证据不足以断言它在所有 Windows 安装上都已生效。</p>
-<p>验证方法是把 <code>cmd.exe</code> 复制成 <code>codex.exe</code> 并运行——仅文件名就足以被识别为 Codex：聚合器保存状态中 CLI 槽位 2（Codex）被置为 2，且无需额外 ETW 跟踪即可生效。状态持久化于 <code>C:\ProgramData\Microsoft\Diagnosis\AggregatorStorage\MissionControlAggregator$</code>。作者把上报窗口起点临时改到 25 小时前并重启 DiagTrack，捕获到 <code>Segments.SubCohorts</code> 事件，其中 <code>CliAgentSubCohorts: 4</code>（即 <code>1 &lt;&lt; 2</code>，Codex CLI 位）。随后把 <code>cmd.exe</code> 复制成 <code>gcc.exe</code>，置位开发者工具槽位 3，上报值为 <code>SubCohorts: [8]</code>——对应共享的编译器/调试器类别，而非每个可执行文件单独一位。</p>
-<p>进一步检查 <code>Diagtrack-Listener</code> 会话的订阅，确认它同时监听 KernelProcess 与 <code>Microsoft.Windows.MissionControlAggregator</code> 提供者；再解压 DiagTrack 的 <code>EventStore.db</code> 中 <code>AsimovEvents</code> 表的 JSON 批次，在实际上传队列中找到了该事件，其 <code>privacy.isRequired</code> 为 <code>false</code>，即被归类为「可选」诊断数据。</p>
-
-<h3>默认设置与建议</h3>
-<p>作者用最新官方 ISO 在区域设为美国的情况下全新安装 Windows 11 家庭版 ARM64，未改动任何隐私设置前，诊断数据开关已启用并标注为「包含可选」，<code>AllowTelemetry</code> 为 3：</p>
-<img src="/posts/windows-coding-agent-telemetry/us-optional-diagnostics-default.png" alt="美国区域的 Windows 安装过程：诊断数据默认设置为包含可选数据" />
-<p>也就是说，若安装时未拒绝或事后未关闭可选诊断，编码智能体使用数据正处于上传状态。可在安装时选择拒绝，或在「设置 → 隐私和安全性 → 诊断和反馈」中关闭「发送可选诊断数据」。</p>
-
-<h3>社区反馈</h3>
-<p>HN 讨论（295 分、165 条评论）普遍不感意外，多数人认为这是 Windows 长久以来遥测策略的延续，言辞从「Windows 就是间谍软件」到引用恶意软件定义不等。也有不同的视角：有人反问为何只有 Windows 遭遇此类愤怒，Android、iOS、ChromeOS 和 macOS 同样有相当程度的收集行为，而 Google 在跨产品数据关联与变现上远胜微软；回应则认为这些平台本就被视为监视设备或云端服务，而 Windows 是从「不那么敌对用户」的时代一步步退化的。另有评论指出这类统计样本必然偏斜——只覆盖开着可选遥测的人群，随即被反驳为「这本身就是预筛选，关掉遥测的人不是他们的目标市场」。按惯例，评论区还出现了 Linux Mint、CachyOS 等替代方案的推荐。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li>检测逻辑只比较文件名（部分附带发布者校验），所以把任意程序重命名即可伪造数据。这意味着微软收集到的「智能体使用率」指标既可用于统计竞争格局，也很容易被干扰或污染。</li>
-<li>同一份诊断管道此前已有先例：PowerShell 也默认开启遥测，评论者认为这正是微软不愿把自家软件直接放进 Linux 发行版仓库的原因之一。</li>
-<li>「聚合器」这类组件把细粒度事件压缩成位图再上报，是遥测系统常见的降维手法——既降低带宽与存储成本，也让外部很难从上报数据反推具体使用时长或操作内容。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50524736</guid>
-      <pubDate>Mon, 16 Nov 2026 22:58:20 GMT</pubDate>
     </item>
   </channel>
 </rss>
