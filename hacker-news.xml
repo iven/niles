@@ -3,7 +3,83 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 23 Nov 2026 07:35:43 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2026 20:06:54 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Ladybird 浏览器进入 Alpha 阶段，自研引擎首次面向公众开放</title>
+      <link>https://news.ycombinator.com/item?id=50614249</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源浏览器项目首次开放自研引擎 Alpha 版，属于开源项目与软件新功能进展，命中感兴趣类别，但非编程工具或 AI 模型发布</small></p><p>Ladybird 浏览器已发布 <a href="https://ladybird.org/posts/alpha/">Alpha 版本</a>，目前提供 macOS 和 Linux 构建，面向不介意遇到 bug、并愿意帮助反馈问题的早期用户。官方强调，Ladybird 使用从零开始自研的浏览器引擎，而不是其他引擎的分支；浏览器外围功能较为朴素，但已经可用。</p><p>由于仍处于 Alpha 阶段，部分网站可能无法正常运行，浏览器有时也会崩溃。用户可以直接在浏览器内报告站点问题；发生崩溃后，可以查看崩溃报告并决定是否发送。开发团队明确表示现阶段不承诺安全性，并欢迎安全研究者尝试攻击 Ladybird，再将漏洞细节告知团队，以便加固浏览器。Alpha 版本采用滚动更新通道，会定期自动推送更新。</p><p>对 Web 开发者而言，Ladybird 支持 WebDriver 自动化测试以及 Firefox DevTools 协议；官方鼓励开发者用自己的网站进行测试并反馈兼容性问题。项目也向赞助者、捐赠者以及多年来参与测试、报告问题和编写代码的贡献者致谢。</p><p>在 Hacker News 的讨论中，不少用户对项目进展表示兴奋，有人直接用 Ladybird 发帖。社区也讨论了 Ladybird 从早期 SerenityOS 式“尽量自研一切”转向采用 SQLite、Skia 等成熟组件的变化：有人认为这显著提升了浏览器质量，也有人怀念原来的黑客精神。另有评论提到项目内置了支持自定义过滤列表的内容拦截功能，并讨论了 AI 在 LibJS 向 Rust 迁移过程中的使用。该帖获得约 805 分和 222 条评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50614249</guid>
+      <pubDate>Mon, 23 Nov 2026 16:13:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>Nospeaker：用触控板的触觉马达让 MacBook&quot;说话&quot;</title>
+      <link>https://news.ycombinator.com/item?id=50610318</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 利用 MacBook 触控板触觉马达发声的趣味实验项目，与用户关注的技术主题关联较弱，兴趣不明确</small></p><p>开发者 Cody Collier 发布了开源项目 <a href="https://github.com/os6/nospeaker">Nospeaker</a>（MIT 许可），它利用 MacBook 触控板下方的触觉马达（Taptic Engine）驱动玻璃面板振动，从而直接发出人耳可听见的声音——包括朗读、唱歌、说唱，甚至当作乐器演奏。整个演示约一分半钟，全程不使用任何扬声器。</p>
+
+<h3>原理</h3>
+<p>触控板本身没有扬声器，但马达以每秒数百到数千次的频率来回推动玻璃，使玻璃振动快到能产生声音。声音偏小，因为该马达是为短促的"点击"反馈设计的，而非为发声设计。作者通过 macOS 的私有框架 MultitouchSupport 实现控制：<code>MTActuationCreateFromDictionary</code> 接收一段振动描述（一组带有频率、强度和时长的正弦音），再由 <code>MTActuationActuate</code> 在马达上播放。相比之下，Apple 公开的触觉 API 只提供三种固定敲击。</p>
+
+<p>语音合成部分：先用 macOS 自带语音把文本念入内存，每 10 毫秒用线性预测（linear prediction）提取声音最强的两个共振峰（formant）、响度与音高，马达再把这两个共振峰作为音调播放，并在每个音高周期重新起振，于是发出"嗡嗡"的说话声而不是纯音哨声；s、f、t 之类的高频摩擦音则变成快速的高音爆发。作者称盲测中"两个共振峰优于三个"——更清晰也更响，因为马达的力度被分摊得更少。发音听起来机械，所以演示会逐行打字显示文字，方便边读边听。</p>
+
+<p>作者用 MacBook 自带麦克风测了 98 Hz 至 3951 Hz 之间的每一个半音：大约 100 Hz 到 4 kHz 都能听清，少数频段因玻璃共振而出现"死点"，最响、最干净的音在 1 kHz 附近——正好覆盖人声最重要的频段。</p>
+
+<h3>使用方式</h3>
+<ul>
+<li>一行命令：<code>curl -fsSL a90.com/nospeaker | sh</code>，下载最新版本到 <code>~/.local/bin/nospeaker</code> 并播放（该链接指向仓库中的 play.sh，可先审阅）。</li>
+<li>下载 <code>nospeaker.zip</code>（已用 Developer ID 签名并经过 Apple 公证），或从源码编译（<code>./build.sh</code>，需要 Xcode 或命令行工具，单一 Swift 文件、无依赖，同时支持 Apple Silicon 与 Intel）。</li>
+<li>参数：<code>nospeaker "hello there"</code> 朗读任意文本，<code>--voice Daniel</code> 换用其他 macOS 语音，<code>--sweep</code> 播放 100 Hz 到 4 kHz 的上扫频，<code>--dark</code> / <code>--plain</code> 控制界面样式。空格跳过段落，q 或 Ctrl-C 结束。</li>
+<li>建议先静音 Mac、把机器放在桌面上（放在腿上会明显变小声），并在被提示前不要触碰玻璃。</li>
+</ul>
+
+<h3>兼容性与风险</h3>
+<p>需要 Force Touch 触控板（2015 年后的 MacBook，或 Magic Trackpad 2 及更新型号）；Apple Silicon 需 macOS 12+，Intel 需 macOS 13+。作者在 MacBook Pro（Mac17,10）M5 Max、macOS 27.2.1 上测试通过，Intel Mac、Magic Trackpad 和老版本系统尚未验证——由于 MultitouchSupport 是私有框架，旧系统可能缺少所用函数，不同触控板的响度也有差异。作者强调不会把马达驱动到超过正常最大强度：超出虽能更响，但驱动器会开始失步，所以 Nospeaker 不这么做。私有框架也意味着 macOS 更新随时可能使其失效；函数名参考了开源项目 Tactile，其余参数均在 MacBook 上实测得出。</p>
+
+<h3>社区反馈</h3>
+<p>该帖在 Hacker News 获得约 208 分、115 条评论，被赞为"很久以来最好的黑客内容"。许多人立刻联想到同类的"驱动器音乐"传统：软驱演奏《帝国进行曲》、用软驱弹《耀西岛》运动主题曲、早年 PC 主板蜂鸣器通过 SAY.COM 播放音乐、惠普扫描仪的《欢乐颂》彩蛋，以及 Steam 控制器触控板的触觉马达官方就能播声音。也有人担心长期高频驱动会否在几周后烧坏马达，回复者认为不必过虑——Taptic Engine 本质上就是一个"用质量块代替纸盆的扬声器"，且已有产品长期用它发声。评论区还有人指出缺演示视频（随后补上作者推文链接），并打趣问送修时该如何向技师解释。另有评论反而更惊叹于另一件事：按压一块不会动的玻璃却感觉像按下按钮，这个错觉实在太完整了。</p>
+
+<h3>你知道吗？</h3>
+<p>Nospeaker 并不直接"播放音频"，而是做了一次极简的语音参数化：把声音压缩成两个共振峰 + 响度 + 音高，再用马达重放。这是早期语音合成（如 DECtalk 一类共振峰合成器）的思路，也正是它在嘈杂条件下仍可听懂、但听起来像机器人的原因。这类"用非扬声器发声"的实验由来已久——软驱步进电机、硬盘磁头、主板蜂鸣器、扫描仪马达都曾被当作乐器，关键限制从来不是能不能振动，而是能否精确控制频率与时长。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50610318</guid>
+      <pubDate>Mon, 23 Nov 2026 11:31:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 智谱发布 GLM-5.4：首次采用循环 Transformer（loop transformer）架构，主打通用编程能力</title>
+      <link>https://news.ycombinator.com/item?id=50609685</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新 AI 模型发布公告，且主打通用编程能力，同时命中新AI模型发布与编程相关的高兴趣主题，属必看内容</small></p><p>智谱（Z.ai）发布<a href="https://z.ai/blog/glm-5.4">博客文章</a>，宣布 GLM-5.4 模型，称其朝「通用编程（generalized coding）」方向迈进，并首次采用循环 Transformer（loop transformer）架构。该帖在 Hacker News 获得约 888 分、308 条评论，讨论焦点主要不在模型宣传本身，而在信息是否充分可信。</p>
+<p><strong>基准数据缺失是最大争议点。</strong>多位评论者指出博客没有给出与 GLM-5.3 等对比的完整跑分，怀疑是成绩不够亮眼才没有列出；也有人认为既然连订阅套餐额度都上调了，说明团队重点可能放在推理成本上，成绩留待后续单独发布以争取两个新闻周期。另有评论者提出不同角度：与其「刷榜（benchmaxxing）」，不如欣赏这种克制的做法，况且 GLM-5.3 本身在编程任务上表现已相当出色，有人表示日常使用中它与 Opus 5.5 的差距难以察觉。还有人猜测，针对模型蒸馏的防护措施让中国厂商越来越难以公布漂亮的基准数字。</p>
+<p><strong>博客唯一给出的性能数据来自一个 30B 同架构模型</strong>（尚未完成完整后训练），这被部分读者视为「模型到底有多聪明」的唯一线索，但显然不足以评估正式模型。</p>
+<p><strong>「循环」到底指什么，评论区有大量澄清。</strong>有人误以为这是把「思考」循环内嵌进架构、并疑惑为何只循环两次却会出现博客提到的「马拉松式思考」倾向；回复指出循环作用于隐状态矩阵（hidden state），与在单个 token 上反复迭代完全不同，且它本质是一种在<b>不增加参数</b>的前提下提高网络有效深度的做法，若把这称为「嵌入思考」，那么普通 Transformer 也早就在「思考」了。还有评论提到，隐空间循环思考正是 r/LocalLLaMA 社区长期认为缺失的一块拼图。</p>
+<p><strong>安全与开放性方面</strong>，博客称将在完成必要的「安全加固」后负责任地开源权重。评论据此推测开源版本可能与 API 版本存在差异（例如削减网络攻击相关能力、在接口层加输入输出过滤），也有人认为原文并未这样说，5.x 体量相对较小，原始权重未必构成此类风险。少量讨论延伸到「神经语（neuralese）」式不可解释表示的风险，以及对各家实验室在能力提升面前普遍放松谨慎态度的悲观评价。</p>
+<p><strong>你知道吗？</strong>循环 Transformer 的思路并不新：Universal Transformer、CoTFormer 以及近期多篇「looped transformer / 隐空间推理」工作都让同一组层被重复调用若干次，用迭代步数换取等效计算深度。相比堆叠更多层，它节省参数和显存，但也会带来训练不稳定、迭代次数难以决定以及「想太久」等问题——这正是博客中提到的长思考倾向的可能来源。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50609685</guid>
+      <pubDate>Mon, 23 Nov 2026 10:06:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>假设没人对你的博客文章感兴趣：写作要先替读者着想</title>
+      <link>https://news.ycombinator.com/item?id=50603143</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 面向写作者的博客写作方法建议，属通用写作经验，与技术、AI、新闻类兴趣均不直接相关，兴趣不明确</small></p><p>Daniel Sada 在<a href="https://danielsada.tech/blog/assume-people-are-not-interested-in-your-blog-post/">一篇短文</a>中提出一个朴素但常被忽视的写作原则：<strong>假设没人对你的文章感兴趣，并在开头就告诉读者这篇内容是为谁写的</strong>，让他们自己决定要不要继续读下去。该文在 <a href="https://news.ycombinator.com/item?id=50603143">Hacker News</a> 上获得 307 分、149 条评论。</p>
+<p>作者举了自己在 Snowflake 工作时的一个“礼仪”习惯：群发邮件的第一个句子往往是「如果你不开发这块代码，可以不用往下读了」或「如果你不属于财务团队，可以不用往下读」。他认为写东西本质上要“服务于读者”，同时也要在意自己占用了别人多少时间。</p>
+<p>在 Slack/Teams 这类群聊工具里，他主张先用三五行的引言说明主题，把细节留在串内。下图是他认可的正例——先说明适用人群（做 Java 代码库的人）、给出 TLDR，再指向串内细节：</p>
+<img src="/images/blog/assume-people/simple-thread_hu_2dc4fdfd6c2d1020.webp" alt="一条简短的 Slack 消息：说明适用于做 Java 代码库的人，并给出 TLDR" width="800" height="234" />
+<p>相比之下，他不满的是反例：动辄两千字、内容对大多数人都用不上的长篇通告，塞满代码块、配置项和迁移说明，把细节全铺在首页：</p>
+<img src="/images/blog/assume-people/big-compl-announcement_hu_739ff36a2dd2719e.webp" alt="一条冗长的 Slack 消息，堆满代码块、配置项和迁移说明" width="800" height="350" />
+<p>他的结论很简单：「请对你的读者好一点。」</p>
+<p><strong>社区反应：多数人认同原则，但不认同它适用于博客</strong></p>
+<p>不少评论者认为，这条建议在企业内部的邮件与群聊里非常对——读者时间有限、注意力被大量无关信息侵占，写清适用人群是最基本的礼貌。但把它套到公开博客上就未必成立：有评论指出，99% 的个人博客本来就没多少真实读者，既然如此，作者不如想怎么写就怎么写，至于“把事实整理得对人友好”这类工作，交给大语言模型（LLM）爬虫去做。也有人持相反思路：2026 年不愿意只为自己的乐趣写作，因为那等于替 OpenAI 打免费工。</p>
+<p>有评论者从“我为什么要在意这篇内容”的角度重新表述了这条建议，认为重点不是讨好读者，而是别浪费别人的时间。也有人提醒，博客真正的忌讳其实是把文章写成书的章节：读者多是第一次造访，也不记得上一篇讲什么，层层嵌套的引用会赶走大量人。</p>
+<p>另有一些人指出标题有些名不副实——作者在回复中也承认，他主要想说的是公司内部沟通要简洁，以及 LinkedIn 上那些不说明“为什么与你有关”的信息流废话，而非约束博客写作风格。个别评论还提到用 LLM 生成两句话摘要放在文首并写入 <code>og:description</code> 的做法，有人称赞这是“给一切内容写摘要”，也有人觉得让 AI 代写摘要是把写作最后一段路交给出租车。</p>
+<p>总体而言，文章的价值在于提醒写作者明确受众、别占用读者过多时间；而讨论则把它推向了一个更复杂的层次：私人博客的写作动机可以是自我表达，也可以是服务读者，选择哪一种都说得通，但至少要知道自己在为谁而写。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50603143</guid>
+      <pubDate>Sun, 22 Nov 2026 19:41:30 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ xnulinux：把 XNU 内核当作 Linux 可加载模块，在 Linux 里跑起完整的 macOS 桌面</title>
       <link>https://news.ycombinator.com/item?id=50607261</link>
@@ -1481,126 +1557,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50537156</guid>
       <pubDate>Tue, 17 Nov 2026 19:50:40 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 微软发布 MAI Code 2 与 Code 2 Flash 编程模型</title>
-      <link>https://news.ycombinator.com/item?id=50535885</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 微软发布新的编程专用 AI 模型，同时命中「新AI模型发布公告」和「编程工具发布」两个高兴趣主题，属于必看内容；虽涉及微软但并非 Copilot/.NET 等避开主题</small></p><p>微软发布两款面向编程的模型 <strong>MAI Code 2</strong> 与轻量版 <strong>MAI Code 2 Flash</strong>，并宣布两款模型已在 GitHub Copilot 中提供使用。官方给出的定位是性能与成本兼顾：基准测试直接对标当前最强的闭源模型（如 Opus 系列），价格则明显更低。</p>
-<img src="https://microsoft.ai/wp-content/uploads/2026/11/cyber2-ignite-header.webp" alt="MAI Cyber 2 Flash" />
-<p>发布页面上同时出现了另一款安全方向模型「MAI Cyber 2 Flash」（主打安全性领先、成本更低）的入口，但本次讨论主要集中在编程模型上。</p>
-
-<h3>社区讨论的焦点</h3>
-<ul>
-<li><strong>基准对比的可信度</strong>：多位评论者虽然持怀疑态度，但肯定了微软直接拿自家模型与顶级模型同台比较的做法。争议点在于对比条件——有人指出 MAI Code 2 展示的是 50% 促销折扣价，而对手（Opus 5.5、6.1 Sol）用的是最高推理强度（reasoning effort），属于「不对称比较」。</li>
-<li><strong>缺少中国模型对照</strong>：有用户希望看到与 DeepSeek、GLM、Qwen 等模型的性能与价格对比，认为这才是有意义的参照系。</li>
-<li><strong>企业市场的担忧</strong>：有评论担心这类「够用且便宜」的模型会说服企业停止采购 Anthropic 的正式模型；反对意见则认为真正用过的人不会被说服，微软的主要客户是「不了解细节的 CTO」。</li>
-<li><strong>模型来源</strong>：有人追问这些模型是微软自研还是对开源模型做强化学习，回答指向微软的<a href="https://microsoft.ai/news/frontier-pre-training-at-microsoft-ai/">前沿预训练（frontier pre-training）</a>工作，即自研底座。</li>
-<li><strong>成本与模型规模</strong>：从「价格为对手的 20%」推测，模型规模可能也只有约五分之一。有评论认为这挑战了「要让模型擅长写代码，就得先让它样样精通」的教条，并预计未来一年这一观念会松动；也有人提出替代解释：推理架构优化、推理侧优化，或微软直接补贴以抢占市场份额。另有评论补充，已有研究（如 <a href="https://arxiv.org/html/2610.18868v1">arXiv:2610.18868</a>）表明针对特定任务的后训练确实能带来可观提升。</li>
-<li><strong>竞争格局</strong>：有观点认为 OpenAI 与 Anthropic 的领先优势只剩几个月，护城河并不稳固，必须持续冲刺；关于「中国模型靠蒸馏前沿模型」的说法，也有人反驳称开源模型迭代速度、方法透明度与版本多样性都不支持「蒸馏为主要来源」的判断。</li>
-<li><strong>品牌与命名</strong>：有用户以为微软终于放弃了 Copilot 品牌，结果发布会原文仍写着模型「在 GitHub Copilot 中可用」。更合理的解释是 Copilot 已被收缩为指代特定的 agent 运行框架（harness），类似当年 .NET 从泛用品牌收敛为具体技术框架的过程。</li>
-<li><strong>页面设计插曲</strong>：评论区还岔出一段关于排版的小讨论——为何标题用衬线体、正文用无衬线体（以及常规做法是否应反过来），有人调侃微软是在「用 Claude 氛围编程出来的网站」上发布自家的编程模型。</li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p>讨论中反复出现的两个术语值得区分：<strong>推理强度（reasoning effort）</strong> 指模型在回答前允许消耗的「思考」预算，通常分档设置，档位越高越贵也越慢，因此「用促销价对比对手最高档」会让价格差被放大；<strong>运行框架（harness）</strong> 指包裹模型的工具调用、文件编辑、命令执行等外部脚手架，同一个模型在不同框架下的实际编程表现可能差别很大，这也是微软把 Copilot 重新定义为一个框架名而非泛 AI 品牌的原因。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50535885</guid>
-      <pubDate>Tue, 17 Nov 2026 18:25:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ OpenAI 发布 GPT-6.2「Astra」与「Sol」</title>
-      <link>https://news.ycombinator.com/item?id=50535230</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型发布公告，直接命中「新AI模型发布公告」高兴趣主题，必看</small></p><p>OpenAI 发布了新模型 GPT-6.2 系列，包含「Astra」与「Sol」两个版本，公告页为 <a href="https://openai.com/index/introducing-gpt-6-2-astra-sol/">openai.com 上的介绍页面</a>。该条目在 Hacker News 上获得 859 点、523 条评论，讨论热度极高。注意：抓取时公告正文未能获取，以下内容主要基于评论区对发布内容的反应与讨论。</p>
-
-<h3>讨论要点</h3>
-<ul>
-<li><strong>性能与成本被视为亮点</strong>：多位评论者表示，需要实际试用才能形成完整判断，但公布的成绩（benchmarks）配合其价格「看起来非常惊人」。</li>
-<li><strong>发布时机引发联想</strong>：有用户调侃，OpenAI 似乎特意把这次发布安排在 Anthropic 上市（IPO）前夕，甚至戏称是为了「整」竞争对手。随即有人反驳：Anthropic 的 IPO 成功其实符合 OpenAI 自身利益，因为一个健康、公开的竞争对手生态对整个行业估值有利。</li>
-<li><strong>官网表现受到集中吐槽</strong>：多人反馈页面卡顿，滚动或播放视频时尤其明显；有人称风扇狂转、GPU 占用飙到 100%，调侃「是不是在拿我们的机器挖矿」。图表在手机上难以辨认，幻灯片与 PDF 也无法正常翻页。不过也有用户表示 3D 效果在自己未开启硬件加速的 Linux + Brave 环境上运行得「出乎意料地流畅」，说明体验在不同设备上差异较大。</li>
-<li><strong>系统说明文件（system card）</strong>：发布初期有人指出链接的 <a href="https://deploymentsafety.openai.com/gpt-6-2-astra-sol">部署安全系统卡</a>尚未上线，随后被确认已可访问。</li>
-<li><strong>关注点转向「任务完成成本」</strong>：有评论者表示欣赏 OpenAI 不再单纯用堆算力碾压指标，而是把讨论焦点引向完成一项任务所需的花费。</li>
-<li>也有人追问这是否就是此前传闻中的「Bel」模型，得到否定回答；另有用户表示正在等「鹈鹕基准」的结果。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50535230</guid>
-      <pubDate>Tue, 17 Nov 2026 17:46:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Runta 大规模评测：22 种编码 Agent 框架 × 5 个模型，最佳框架随模型而变</title>
-      <link>https://news.ycombinator.com/item?id=50532191</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 大规模评测编码 Agent 框架与模型搭配，属编程工具/编程效率与AI技术进展的高兴趣交叉主题</small></p><p>Runta 与推理服务商 <a href="https://www.baseten.co/">Baseten</a> 合作发布 <a href="https://runta.com/blog/introducing-frontierharness-eval-v1-1/">FrontierHarness Eval v1.1</a>，用一个大规模实验回答两个问题：换模型时是否也该换 Agent 框架（harness）？每个模型的最佳框架分别是什么？实验规模为 22 种框架配置 × 5 个开源权重模型 × 62 个终端任务 × 4 次尝试，共 27,280 次运行、约 830 亿 tokens，是 v1.0（9 框架 × 1 模型）的 76 倍。</p>
-
-<img src="https://runta.com/blog/introducing-frontierharness-eval-v1-1/harness-scatter-all-models.png" alt="22 种框架的平均每任务成本与通过率散点图，OpenCode v2、Pi、Codex CLI 和 ZCode 构成前沿曲线" />
-
-<h2>结论：最佳性价比框架每个模型都不同</h2>
-<p>评测把"最佳性价比"定义为最低的"每次通过成本"（cost per pass），并允许成本高出 30% 以内、通过率高 5 个点以上的框架胜出。结果是每个模型各有赢家：Codex CLI 配 GLM-5.3、Pi 配 GLM-5.3 Flash、ZCode 配 DeepSeek V4.1 Flash 1017、Oh My Pi 配 Muse、Alma 配 Kimi-K3。总体前沿上只有四个框架：OpenCode v2（每任务成本最低，0.561 美元）、Pi、Codex CLI 与 ZCode（通过率最高，61.9%）。</p>
-<p>成本排名在不同模型间剧烈漂移：按每任务成本计，框架排名的中位移动幅度为 22 名中的 11 位。Codex CLI 配 GLM-5.3 时成本第一，配 Kimi-K3 时掉到第 16；DeepSeek Harness 的 Creator 配置从 Muse 下第 1 名变为 GLM Flash 下第 21 名。把同一模型的试验拆成两半重新排名，排名相关性为 0.71；换一个模型则只有 0.26，说明这不是重跑噪声造成的。</p>
-
-<h2>成本由模型主导，框架是第二杠杆</h2>
-<p>对数尺度上的双向方差分析显示：模型解释了每任务成本方差的 92.8%，框架本身占 2.3%，框架与模型的交互项占 4.9%（含噪声）。也就是说，在固定模型的情况下，框架之间的成本差异仍有相当部分来自"配对效应"。</p>
-<p>固定模型后，最贵与最便宜框架的每任务成本相差 1.8 至 5.0 倍（差异最大的是 DeepSeek：Cline CLI 的成本是 OpenCode v1 的 5.0 倍，通过率只高 2.0 个点）。但便宜不等于差：在五个模型中有四个，最贵的框架通过率反而低于最便宜的；每任务成本与通过率的排名相关性在 −0.39 到 +0.22 之间。</p>
-
-<img src="https://runta.com/blog/introducing-frontierharness-eval-v1-1/harbor-runta-trial-lifecycle.png" alt="Harbor 在每次试验中运行 agent 与验证器，试验结束后所在的 Runta 运行时即被删除" width="2048" height="1280" />
-
-<h2>成本到底来自哪里</h2>
-<ul>
-<li><strong>步数才是预测变量。</strong>起始提示长度、工具数量、缓存命中率都与每次通过成本几乎无关（排名相关性 −0.03 到 +0.02）；而"每次通过所需步数"的相关性为 +0.51。最小的 mini-SWE-agent 首次请求仅 882 tokens，却要 38 步才通过一次，成本排第 17/22。原因是每一步都要重发整个上下文，单次试验平均消耗 200 万至 480 万输入 tokens。</li>
-<li><strong>失败运行吃掉大部分预算。</strong>64.5% 的推理花费流向未通过的试验：52.7% 是失败，11.8% 是超时。按 tokens 计，缓存输入占成本 42%、输出 33%、其他输入 25%。</li>
-<li><strong>最佳框架的共性</strong>（属观察而非受控实验）：一个 shell 工具承担 61%–93% 的工具调用；上下文只追加不改写，让供应商持续命中缓存；极少使用子代理和摘要。</li>
-<li><strong>共同短板：</strong>五个性价比最优框架中，68%–82% 的失败试验是以"自信的最终答案"结束，而不是跑到时限——它们很少承认工作没做完。</li>
-</ul>
-<p>另有 216 次试验因奖励作弊（reward hacking）被判 0 分，其中 163 次是联网查答案。作者也承认局限：只测了开源权重模型、只用了 Baseten 一家的价格与缓存，换供应商可能改变成本排名；后续计划加入闭源模型（如 Claude Opus 5.5、GPT-6 Astra、Gemini 4 Carbon）与长周期云端自主工作场景。</p>
-
-<h2>社区讨论</h2>
-<p>作者 Guanlan 在 <a href="https://news.ycombinator.com/item?id=50532191">HN 帖子</a>里补充：单一模型内每次通过成本最多相差 4.4 倍。他同时被提醒，其发言因"AI 生成文本特征"被多次举报，这本身成了讨论的一部分。</p>
-<p>技术质疑集中在方法上：有评论认为"步数解释成本"近乎同义反复（tokens 与步数天然强相关），而且步数并不像系统提示和工具集那样由框架直接控制；也有人担心在失败运行占了大头、组间波动又大的情况下，很多结论未必能经得起第二次采样。另有用户核对任务清单后指出，62 个任务是 17 个 Terminal-Bench 4 任务加 45 个 TB 2.1 任务，选样逻辑文中未说明；还有人抱怨原帖标题（"64% 成本花在失败运行上"）与正文结论有出入，属标题党。</p>
-<p>一位评论者自建了 92.7 万次运行的数据集做对照，结论是框架与模型的交互效应并不明显，但 OpenAI 模型确实对自家框架有偏好。另有观点认为，开源模型正在出现"面向 harness 的后训练"，不可编辑的闭源框架是反模式，未来模型应当自己内化框架工程、按任务自动优化框架。</p>
-<p>更偏实践的讨论围绕"要不要放手让 Agent 自己跑"：有人认为短期、可丢弃的代码可以大胆放权；但若代码需要长期维护，就必须收紧控制、真正理解实现。也有人指出，AI 成本下降、能力上升意味着今天的代码很快会被替换，真正稳定的是需求本身。</p>
-
-<h2>你知道吗？</h2>
-<p>文中所说的"通过率 × 成本前沿"其实是一条斜率判据：从原点向某框架的点画线，斜率就是"每美元通过数"，其倒数即"每次通过成本"。因此最低每次通过成本等价于最陡的那条线——这解释了为什么作者用单一指标而不是两个指标来挑选最佳框架。</p></description>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50532191</guid>
-      <pubDate>Tue, 17 Nov 2026 14:53:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>我们不需要更多应用，我们需要更好的开源软件</title>
-      <link>https://news.ycombinator.com/item?id=50532086</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 关于开源软件生态的观点随笔，虽涉及开源（感兴趣），但无具体项目或工具信息，兴趣不明确</small></p><p>作者在周末刷到的都是「又有人用 AI 做了一个应用」：习惯追踪、待办清单、笔记工具。他并不反对这种热情，但认为这份精力应该更多投向他们本来就依赖的开源软件。他讨厌「vibecoding」这个名字，觉得它把一次真实的「谁能写软件」的转变说成了笑话，更愿意称之为「AI 辅助编程」（AI-assisted coding）。</p>
-
-<img src="/images/gallery/blog-better-open-source-not-more-apps.jpg" alt="暖色调扁平插画：四个人在工坊长凳上修理一台由齿轮、管道和小屏幕组成的旧机器，桌上有笔记本电脑、工具箱、咖啡杯和植物，背景里一排一模一样的新盒子无人问津" />
-
-<p>作者本身大量自托管（self-hosting）服务，并以此为生帮助进步派非营利组织做技术：为数千人社区跑 <a href="https://matrix.org/">Matrix</a> 服务器（Synapse、Element 加一个审核机器人），用 Coolify 和 Hetzner 部署应用，用 Paperless-ngx 管理文书。他的结论是：软件本身通常很好，难的是运行它——安装指南假设你还会用五个别的工具、升级经常搞坏东西、为几个人服务就吃掉 4GB 内存、报错信息毫无信息量。他的非营利客户想为了隐私、成本和数据所有权离开大厂，但开源方案通常需要一个他们没有的兼职系统管理员，于是只能买商业产品。</p>
-
-<p><strong>四个值得花一个周末的方向</strong></p>
-<ul>
-<li><strong>让它更快</strong>：参考 <a href="https://astral.sh/blog/uv">uv</a> 把 Python 日常的包安装做到比 pip 快 8 到 10 倍（热缓存下最高 115 倍）。找到大家已在用的东西里的慢点，测量，然后修复。</li>
-<li><strong>让它易于安装</strong>：太多应用在看到登录界面之前要先配数据库、缓存、后台 worker、反向代理和长长的配置文件。目标是一条命令、合理默认值、在廉价服务器上一次成功。</li>
-<li><strong>让它运行友好</strong>：安装只发生一次，运行是每天的事。提供简单的管理界面、安全的升级、内置备份、能告诉你下一步做什么的报错，以及管理账号与登录的简便安全方式。</li>
-<li><strong>让它更轻</strong>：能在 5 美元服务器、旧笔记本或树莓派上跑，用户面就大得多，运行成本与能耗也更低。</li>
-</ul>
-
-<p><strong>为什么重要</strong>：一个新的待办应用通常只帮到少数发现它的人；把一个数百万人已在用的工具减重 20%，则每天都帮到所有人。这类工作恰恰是维护者在疲惫时最容易拖延的，而很多人是无偿志愿者。2024 年的 xz 后门（<a href="https://tukaani.org/xz-backdoor/">XZ Utils backdoor</a>）就是警示：有人花数年赢得一位疲惫的独立维护者的信任，然后把后门塞进了几乎所有 Linux 系统都在用的压缩工具里。作者认为这类不体面的苦活很适合交给 AI——剖析慢代码、写让大改动变安全的测试、测试安装器、重写晦涩报错、补上缺失文档；这需要耐心多过聪明，还需要一个逐行检查的人。政治上同样重要：如果组织要真正拥有自己的数据而不是向少数巨头租用，开源必须是 20 人的非营利组织也能跑起来的。</p>
-
-<p><strong>不要给维护者添乱</strong>：curl 项目在 2026 年 1 月因大量伪造的 AI 生成安全报告而终止了漏洞赏金；到 4 月，其负责人 <a href="https://daniel.haxx.se/blog/2026/01/26/the-end-of-the-curl-bug-bounty/">Daniel Stenberg</a> 表示假报告基本消失，几乎所有报告都用了 AI 且大多质量很好，新问题是数量——再好的工作也能把维护者淹没。作者的守则：先用起来，找出真正难受的地方；动笔前先联系维护者，没人想要突然出现的 4000 行 PR；给出数据（「启动从 40 秒降到 4 秒，这是我的测量方法」胜过「更快」）；保持改动小而带测试；声明你用了 AI 并对结果负责；留下修后续问题；如果对方说不，就去下游帮忙写更好的安装器或安装指南并保持更新。最后他建议：挑一个你用的工具，找出安装或运行中最烦人的一点，和维护者一起花一个周末修掉它。</p>
-
-<p><strong>社区讨论</strong>（224 条评论）反应分歧明显。有人（ex1fm3ta）指出这些新应用大多只是开源项目的好看包装，呼吁用更强的许可证阻止「秃鹫」搭便车；随即遭到反驳（ericmay）：把免费给出的东西拿来加工出售正是开源的意义，抱怨别人「偷走」你无偿贡献的作品才是问题所在。多位评论者强调开源绕不开变现难题——「开源付不起账单」「你不会想吃 token」（rvz、gwt4life、mmorrell0）。也有人预测未来会看到更多专有软件：靠开源做营销再变现的时代过去了，剩下的只有社区主导的开源、某个人的周末项目和商业厂商三种选择（jarym）。</p>
-
-<p>关于「vibecoding」一词同样争论激烈。有评论认为这词本身就是贬义的，它并没有真的改变「谁能写软件」（Xirdus）；也有人反驳说如果这个词带贬义，问题出在产出的软件而不是用词（cheney_2004）。还有人对「AI 让更多人能造软件」提出质疑：vibecoding 已经等同于「作者完全不理解自己的代码」，而瓶颈在于领域知识——过去动手写软件会迫使开发者学习业务领域，现在这条链路断了（pietervdvn）。也有人提出更积极的设想：LLM 本质上是「知识产权洗白即服务」，那就把这份能力用来往开源与公地输送高质量内容（blamestross）；另有人分享自己用 AI 代理操作有源代码可查的软件时体验极好、面对专有软件则一片混乱（__MatrixMan__），并认为软件的理想未来不是产品也不是服务，而只是工具。此外还有一条务实建议：让一切都能在任何地方轻松安装——这也是我在做 Nix 的原因（Ericson2314）。</p>
-
-<h2>你知道吗？</h2>
-<ul>
-<li>uv 由 Astral 用 Rust 编写，作者在文中引用的 <a href="https://astral.sh/blog/uv">官方发布博客</a> 里明确给出「比 pip 快 8–10 倍」的基准测试，而「最高 115 倍」是在热缓存场景下的极端值——这也是他强调「带上测量方法」的原因之一。</li>
-<li>2024 年的 xz 后门（CVE-2024-3094）之所以能藏那么久，部分原因是它通过参与测试与构建系统逐步渗透，而非直接提交可疑代码。这恰好说明作者为何把「写测试、测安装器」视为最适合 AI 补位的工作：这类改动需要大量耐心和逐行复核。</li>
-<li>curl 终止漏洞赏金一事，Daniel Stenberg 后来在《High quality chaos》中总结的转折点是：报告质量反而变好了，但数量让单个维护者无法承受——「AI 让坏事变好，也让好事的成本变高」，这与文章主张的「不要给维护者添乱」形成补充视角。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50532086</guid>
-      <pubDate>Tue, 17 Nov 2026 14:45:36 GMT</pubDate>
     </item>
   </channel>
 </rss>
