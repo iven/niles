@@ -3,7 +3,64 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Tue, 24 Nov 2026 04:43:49 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2026 15:47:50 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Collabora Online 新优化将每文档服务器内存占用减半</title>
+      <link>https://www.phoronix.com/news/Collabora-Online-Half-Memory</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 办公套件服务端内存占用优化的软件改进，属软件技术进展范畴，不在避开列表，值得一读</small></p><p>基于 LibreOffice 的开源网页办公套件 <a href="https://www.phoronix.com/news/Collabora-Online-Half-Memory">Collabora Online</a> 通过改进其写时复制（copy-on-write，COW）内存处理方式，使每个文档的服务器内存占用减少约 50%。</p>
+<p>Collabora Office 会为每个文档启动独立的进程（称为 "kit"），并依赖写时复制机制，使得各 kit 只需为自身修改过的内存付出开销。然而复制以 4KB 内核页为粒度进行，容易造成大量浪费。开发者 Méven Car 在官方博客中解释了成因：forkit 在准备办公套件时会创建并丢弃大量小对象（文本片段、列表、设置等），留下的空隙散布在其内存中；正常情况下内存分配器会将这些空隙重新利用，但每个 kit 都会继承这些空隙，而空隙所在的页面与 forkit 共享，因此哪怕只写入几十个字节，也要复制整个 4KB 页。几十字节的新数据可能代价是 4KB 内存。</p>
+<p>他的解决方案颇具「反向思维」：forkit 在创建第一个 kit 之前先把自己的空隙填满并永久保留，使后续 kit 找不到可复用的空隙，从而把数据紧凑地放进少数新页，与 forkit 共享的页面则继续保持共享。forkit 为此多占的内存并未增加实际开销，因为这些空隙本就位于它已分配的页面中，而每个 kit 都省下了大量页面复制，也减少了复制页面所消耗的 CPU 时间。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=collabora_online_memory" alt="Collabora Online memory benchmark" />
+<p>在 10 个模拟用户的测试中，空白文本文档的每文档内存占用大致减半，Impress 演示文稿等场景也有显著节省。对于承载大量用户的服务器，这意味着可观的收益：在同时服务一千名并发用户的繁忙服务器上，可节省约 25GB 内存。作者认为这一思路同样适用于其他依赖 COW 来优化子进程性能的程序。</p>
+<h2>你知道吗？</h2>
+<p>写时复制（COW）是多进程架构节省内存的常用手段：父子进程初始共享同一批物理页，只有当某一方写入时，才按页粒度复制。也正因如此，优化的关键往往不在「少写数据」，而在于「避免触碰本可共享的页面」——哪怕只改一个字节，也会触发整页私有化。这一机制同样被 Linux 的 fork()、容器运行时以及各类预加载（preload）服务广泛使用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Collabora-Online-Half-Memory</guid>
+      <pubDate>Tue, 24 Nov 2026 14:50:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ zlib-rs 0.6.9 发布：CRC32 代码优化带来最高 9.8 倍提速</title>
+      <link>https://www.phoronix.com/news/zlib-rs-0.6.9</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Rust 实现 zlib 的库版本更新并提升性能，契合来源配置对 Rust 的兴趣</small></p><p>Trifecta Tech Foundation 发布了 <strong>zlib-rs 0.6.9</strong>，这是用 Rust 语言实现的 Zlib 兼容库，目标是提供一个更安全的 Zlib 替代实现。本次版本以缺陷修复和性能提升为主。</p>
+<h3>性能改进</h3>
+<ul>
+<li><strong>CRC32 代码</strong>：遍历字表（word table）的方式由按值遍历改为按引用遍历。这一简单改动带来了明显的加速效果——在大输入下最高可达 <strong>9.8 倍</strong>，即便在 16 字节的输入上也有 <strong>3.9 倍</strong>的提升。不过文章指出，这些提升在实际耗时上仍处于纳秒量级。</li>
+</ul>
+<img src="//www.phoronix.net/image.php?id=2026&image=zlib_rs_069" alt="Zlib benchmark" />
+<ul>
+<li><strong>运行时派发（runtime dispatch）函数</strong>现在被内联，以降低调用开销。据称在 AArch64 架构上效果「相当显著」，但并未给出具体数字。</li>
+</ul>
+<h3>其他变更</h3>
+<ul>
+<li>新增 PowerPC PPC64LE 测试运行器（test runner），并在 PowerPC 上启用 AltiVec；</li>
+<li>修复 AArch64 平台上的编译警告；</li>
+<li>包含其他修复与构建更新。</li>
+</ul>
+<p>下载地址与更多细节见 <a href="https://github.com/trifectatechfoundation/zlib-rs">GitHub</a>。原文有 1 条评论。</p>
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>运行时派发</strong>指的是在程序启动或首次调用时检测 CPU 支持的指令集（如 x86 的 AVX2、AArch64 的 NEON），再选择对应的优化实现；把这类派发路径内联可以省去每次调用跳转到函数指针的开销。</li>
+<li><strong>AltiVec</strong> 是 PowerPC 的 SIMD 指令集扩展（在 POWER 上对应 VSX），启用它是 PPC64LE 平台获得向量化加速的前提。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/zlib-rs-0.6.9</guid>
+      <pubDate>Tue, 24 Nov 2026 11:11:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ SUSE 为 Agama 安装器集成 MCP 服务器，号称「首个 AI 就绪的操作系统安装器」</title>
+      <link>https://www.phoronix.com/news/SUSE-Agama-Adding-AI-MCP</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] SUSE 新安装器加入 AI 能力，属 Linux 发行版/安装器演进与软件新功能，符合来源高兴趣方向</small></p><p>SUSE 宣布其现代操作系统安装器 Agama 集成模型上下文协议（MCP）服务器，称这是已知首个与操作系统安装器结合的 MCP 服务器实现。Agama 目前用于 SUSE Linux Enterprise，以及 openSUSE Tumbleweed 与 Leap。</p>
+<img src="//www.phoronix.net/image.php?id=2026&image=agama_19" alt="Agama installer" />
+<p>通过该 MCP 服务器，AI 智能体（AI agent）可以访问硬件信息、操作系统安装配置项等可调参数，从而协助编排、执行并监控系统安装过程。安装既可以实现完全自动化，也可以仅提供配置建议、保留人工介入（human-in-the-loop）。</p>
+<p>对于不支持或不希望使用 AI／大语言模型（LLM）的用户，该 MCP 服务器默认处于关闭状态，需手动启用。首个包含此集成的发行版本将是 Agama 26。想了解详情的读者可参阅 Agama 博客，以及 Agama MCP 的 read-me 文件，其中说明了启用方式与功能、限制。</p>
+<p>原文附有 6 条评论。该集成被外界视为 AI 能力开始进入 Linux 发行版安装流程的一个信号。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/SUSE-Agama-Adding-AI-MCP</guid>
+      <pubDate>Tue, 24 Nov 2026 10:58:14 GMT</pubDate>
+    </item>
     <item>
       <title>Mesa 的 NVK 驱动向 Vulkan 光线追踪支持再进一步：TTU 指令初步支持已合并</title>
       <link>https://www.phoronix.com/news/Mesa-NVK-TTU-Instructions</link>
@@ -786,50 +843,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Rust-Nightly-Parallel-Frontend</guid>
       <pubDate>Mon, 16 Nov 2026 14:39:24 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ GNU Gawk 5.4.2 发布：正则匹配性能大幅提升</title>
-      <link>https://www.phoronix.com/news/GNU-Gawk-5.4.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 命令行编程工具Gawk新版发布并带来大幅性能提升，同时命中新软件项目与编程工具发布的高兴趣项</small></p><p>GNU 的 AWK 实现 <b>Gawk 5.4.2</b> 已正式发布，这一工具常用于数据提取、模式匹配与数据操作。本次更新中最值得关注的是性能改进。</p>
-<p>根据发布说明，<code>minrx.c</code> 中内存管理的优化会传导到 gawk 的实际运行效率上，<strong>在大量数据上匹配短模式时尤为明显</strong>；此外针对「是否匹配」这类只需判断而无需起始位置/长度的场景，还引入了额外的算法改动，进一步提升速度。回顾 Gawk 的 Git 提交记录，2026 年 8 月的工作被描述为「大幅性能提升」，但并未给出量化数字，另有独立提交完成了内存管理方面的改进。</p>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=gawk_big_perf" alt="Gawk big performance improvement" /></p>
-<p>除性能外，5.4.2 还恢复了在不带 GNU GMP 与 MPFR 库的情况下编译时的正常支持，并改进了测试基础设施、更新了手册、新增语言翻译，以及若干小修复。</p>
-<p>完整细节可参见<a href="https://www.phoronix.com/news/GNU-Gawk-5.4.2">邮件列表公告</a>。</p>
-<h3>你知道吗？</h3>
-<ul>
-<li><b>GMP/MPFR</b>：GNU 多精度算术库与多精度浮点可靠运算库，Gawk 在需要更高精度数值计算时会依赖它们；此前的构建选项问题在 5.4.2 中得到修复。</li>
-<li><code>minrx.c</code> 是 Gawk 内部正则表达式引擎的实现文件，其效率直接影响 gawk 处理模式匹配任务的整体表现。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GNU-Gawk-5.4.2</guid>
-      <pubDate>Mon, 16 Nov 2026 13:41:16 GMT</pubDate>
-    </item>
-    <item>
-      <title>LLVM 中老旧的 AMD R600 编译器后端预计将被移除</title>
-      <link>https://www.phoronix.com/news/LLVM-R600-Backend-To-Retire</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要内容是移除LLVM中老旧AMD显卡后端，更偏AMD显卡驱动清理（来源不感兴趣），仅编译器工具链角度略有价值</small></p><p>LLVM 代码库中老旧的 ATI/AMD Radeon R600 后端很可能被移除，原因是它已成为历史包袱，现代 Mesa 驱动栈中已没有实际使用者。</p>
-<p><img src="//www.phoronix.net/image.php?id=802&image=sapphire_2900xt_gpu" alt="Radeon HD 2900 XT R600 GPU" /></p>
-<p>该后端为 Radeon HD 2000 至 HD 6000 系列（R600/TeraScale 架构）GPU 提供代码生成支持，早期曾服务于 Mesa 的 R600 Gallium3D 驱动，也曾是 Clover OpenCL 支持的重要组成部分。但近年来 Mesa 的 R600g 驱动改用 NIR 路线后不再使用该 LLVM 后端，而 Clover 也已被主线的 Rust 版 OpenCL 实现 Rusticl 所取代，因此这些原始用途已不复存在。</p>
-<p>由于无人维护，且该后端在适配面向新 Radeon GPU 的现代 AMDGPU 后端时构成额外负担，AMD 上海编译器团队的 Harrison Hao 于周日发出征求意见稿（RFC），提议弃用并移除 R600 后端。他表示，残存的 R600 实现引入了在修改现代 AMDGPU 后端时必须考虑的遗留代码和条件，其 lit 测试即便在后端没有已知用户的情况下仍需持续维护和审查；移除相关代码与测试可简化 AMDGPU 后端并降低维护成本。</p>
-<p>该 RFC 仅针对 R600/TeraScale 时代硬件，不影响 GCN 及更新架构所使用的 AMDGPU 后端。目前尚未有人对其移除提出异议。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/LLVM-R600-Backend-To-Retire</guid>
-      <pubDate>Mon, 16 Nov 2026 13:04:01 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ GCC 17 有望合并原生 AArch64 Darwin/macOS 支持</title>
-      <link>https://www.phoronix.com/news/GCC-Native-AArch64-Darwin-Patch</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] GCC编译器将原生支持AArch64 macOS，属编程工具与开源项目的新功能进展，符合兴趣方向</small></p><p>资深开源开发者 Iain Sandoe 发布了一组补丁，为 AArch64 Darwin（即 Apple Silicon 上的 macOS）提供原生支持，并希望这套代码能进入 <a href="https://www.phoronix.com/news/GCC-Native-AArch64-Darwin-Patch">GCC 17</a>。</p>
-<p>该移植工作自 GCC 10 时期（2020 年）起便开始开发，目前已长期用于 Homebrew 和 MacPorts 的 GCC 构建，并经过日常测试与实际使用验证。也就是说，下游发行渠道早已在使用打了补丁的 GCC，但上游主线此前一直没有合入。</p>
-<img src="//www.phoronix.net/image.php?id=apple-m4-intel-amd-linux&image=apple_mac_mini_m4_5_med" alt="Apple Silicon Mac Minis" />
-<p>时间点上存在一定紧迫性：GCC 17 的特性开发阶段已接近结束，不过由于这属于一个全新的移植端口（port），或许仍能争取到合入窗口。GCC 17.1 稳定版预计按惯例于明年 3 月至 4 月间发布。能否赶上 GCC 17 尚待观察。</p>
-<p>文章发布时仅有一条评论，未收录具体内容。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/GCC-Native-AArch64-Darwin-Patch</guid>
-      <pubDate>Mon, 16 Nov 2026 11:25:16 GMT</pubDate>
     </item>
   </channel>
 </rss>

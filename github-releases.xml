@@ -3,7 +3,45 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 24 Nov 2026 04:43:59 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2026 15:47:02 GMT</lastBuildDate>
+    <item>
+      <title>btop++ v1.4.6 发布：新增进程 renice、CPU 频率显示模式、进程树折叠等功能</title>
+      <link>https://github.com/aristocratos/btop/releases/tag/v1.4.6</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
+<ul>
+<li><strong>进程优先级调整（renice）</strong>：可直接在界面中修改运行中进程的 nice 值（#1268）。</li>
+<li><strong>CPU 频率显示模式</strong>：新增多种频率显示方式，便于按需查看各核心频率信息（#1277）。</li>
+<li><strong>进程树折叠/展开</strong>：支持对某个进程的子进程进行树形展开与折叠切换（#1274）。</li>
+<li><strong>进程列表暂停</strong>：可冻结进程列表刷新，方便在动态变化中查看和操作目标进程（#1306）。</li>
+<li><strong>GPU 厂商选择</strong>：新增配置项，可指定启用哪些 GPU 厂商的监控（#984）。</li>
+<li><strong>容器引擎显示</strong>：界面可展示当前进程所属的容器引擎信息（#1218）。</li>
+<li><strong>遵循 cgroup 有效 CPU 数</strong>：在容器/受限环境中按 cgroup 分配的实际 CPU 数量显示（#1220）。</li>
+<li><strong>滚动条鼠标拖动</strong>：支持用鼠标拖拽滚动条浏览列表（#1401）。</li>
+<li><strong>新增命令行与配置项</strong>：添加 <code>--themes-dir</code> 指定主题目录（#1357）、导出默认配置的命令行选项（#1399）、终端同步（terminal synchronization）开关，以及 <code>save_config_on_exit</code> 退出时保存配置选项。</li>
+<li><strong>新主题</strong>：新增 Gotham 配色主题（#1208）。</li>
+<li><strong>OpenBSD 电池支持扩展</strong>：增加对 watthour 与 watts 类型传感器的支持（#1251）。</li>
+<li><strong>构建升级</strong>：C++ 标准提升至 C++23，并引入基于 ctest 的测试框架（#1315、#1325）。</li>
+</ul>
+<h3>其他改动</h3>
+<ul>
+<li>修复 AMD CPU 名称裁剪时未跳过「H」「HX」后缀的问题（#1272），并修复 LoongArch CPU 的频率检测（#1282）。</li>
+<li>回滚「使用 <code>/sys/dev/block/MAJOR:MINOR</code> 替代 <code>/sys/block/NAME</code> 读取磁盘 I/O」的改动（#1285）。</li>
+<li>修复发送 <code>O</code> 而非 <code>[</code> 的终端方向键识别问题，以及 F1/F2 键码匹配错误（#1275、#1300）。</li>
+<li>修复 macOS 采集线程中的死锁与竞态条件（#1291），并在 SMC 不可用时优雅处理（#1305）。</li>
+<li>修复 ARM CPU 上的崩溃（#1296）以及 musl 系统上的段错误（#1362）。</li>
+<li>修复更改排序方式时进程列表不重绘（#1309），翻转名称、命令和用户的排序顺序（#1322）。</li>
+<li>修复负载均值与 GPU 功耗文本溢出边框、暂停提示条（banner）的 tty 主题、CPU 框底部与 GPU 框对齐等界面问题（#1304、#1334、#1367）。</li>
+<li>修复 GPU 渲染问题（#1377），并确保 <code>cpu_graph_lower = "Auto"</code> 时始终采集 GPU 数据（#1379）。</li>
+<li>修复 CPU 各线程占用率无法达到 100%（#1366）以及人类可读单位缩写不准确（#1393）的问题。</li>
+<li>修复命令行参数处理：跳过 argv 首个参数（#1339）、<code>--update</code> 参数解析的溢出与下溢（#1359）、<code>Config::apply_preset</code> 仅传入静态时长字符串（#1363）。</li>
+<li>NetBSD 平台的若干小修复与改进（#1372）。</li>
+</ul>
+<p>作者特别致谢 @deckstose 在项目维护、PR 审查与合并方面的协助。各架构 Linux 二进制以 musl 静态链接，支持 2.6.39 及以上内核；暂不提供 macOS 与 BSD 二进制，且所有官方二进制均不含 GPU 支持，需要 GPU 监控的用户需自行编译或等待发行版打包。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/aristocratos/btop/releases/tag/v1.4.6</guid>
+      <pubDate>Fri, 26 Dec 2025 15:53:34 GMT</pubDate>
+    </item>
     <item>
       <title>Codex CLI 0.172.0：终端内打开线程链接、斜杠命令参数补全</title>
       <link>https://github.com/openai/codex/releases/tag/rust-v0.172.0</link>
@@ -1616,31 +1654,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.35.0</guid>
       <pubDate>Thu, 12 Nov 2026 02:30:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.34.6 发布：Claude 轮次显示生成速率、Codex 可基于上一完整轮次分叉会话</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.34.6</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>&lt;p&gt;hapi 发布 v0.34.6，本次更新以功能增强为主，同时修复了若干客户端与 hub 侧问题。&lt;/p&gt;
-
-&lt;h3&gt;重要改动&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;显示生成速率&lt;/strong&gt;：为 Claude 的各轮回复新增生成速率（tok/s）显示，便于直观判断输出快慢。&lt;a href="https://github.com/tiann/hapi/pull/2367"&gt;#2367&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Web 端会话列表视觉优化&lt;/strong&gt;：非驻留会话行（non-resident session）现在会与在线状态徽标（presence badge）一同淡出显示，会话状态区分更清晰。&lt;a href="https://github.com/tiann/hapi/pull/2362"&gt;#2362&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Codex 会话分叉&lt;/strong&gt;：运行中的 Codex 会话可以基于最近一个已完成的轮次（turn）进行分叉，便于从既有上下文派生新分支。&lt;a href="https://github.com/tiann/hapi/pull/2369"&gt;#2369&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;其他改动&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;依赖修复&lt;/strong&gt;：修补 WebSocket 与数学公式渲染相关依赖。&lt;a href="https://github.com/tiann/hapi/pull/2361"&gt;#2361&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;CLI 图片投递偏好&lt;/strong&gt;：CLI 现在会遵循工作区配置的图片投递偏好。&lt;a href="https://github.com/tiann/hapi/pull/2368"&gt;#2368&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Hub 工具调用去重&lt;/strong&gt;：同一 callId 的重复 ACP 工具调用更新会被折叠为一行，减少日志与界面中的冗余条目。&lt;a href="https://github.com/tiann/hapi/pull/2350"&gt;#2350&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;完整变更对比见 &lt;a href="https://github.com/tiann/hapi/compare/v0.34.5...v0.34.6"&gt;v0.34.5...v0.34.6&lt;/a&gt;。&lt;/p&gt;]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.6</guid>
-      <pubDate>Wed, 11 Nov 2026 05:18:27 GMT</pubDate>
     </item>
   </channel>
 </rss>
