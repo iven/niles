@@ -3,7 +3,103 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Mon, 23 Nov 2026 20:06:54 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2026 04:44:48 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Stalwart 1.2.0 发布：可无缝替代 Microsoft Exchange 的开源邮件服务器</title>
+      <link>https://news.ycombinator.com/item?id=50620349</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源邮件服务器发布，重点是开源项目进展与新增功能（MAPI/EWS/ActiveSync 支持、邮件规则、CLI 2.0），契合「开源项目」「软件新功能」兴趣，未触及避开项，但不是编程工具或 AI 模型，因此为推荐而非必看。</small></p><p>开源邮件服务器 <a href="https://stalw.art/blog/microsoft-exchange-replacement/">Stalwart 发布 1.2.0 版本</a>，首次实现了 Exchange 客户端所使用的协议族——MAPI over HTTP、Exchange Web Services（EWS）、Exchange ActiveSync 与 Autodiscover——从而可以像 Exchange 服务器一样被 Outlook、Apple Mail 和手机邮件客户端直接连接。用户只需输入邮箱和密码，Autodiscover 自动完成配置，邮件、日历、联系人、任务和便笺都在同一个账户里。Exchange 兼容功能位于以 AGPL 授权的开源社区版中。</p>
+
+<h3>为什么要替代 Exchange</h3>
+<p>文章认为微软虽未宣布终止本地部署版 Exchange，但所有路线都指向 Exchange Online：Exchange 2016 与 2019 已于 2025 年 10 月 14 日结束支持，付费扩展安全更新（ESU）据报在 2026 年 10 月终止且不再延长，旧版本无法获得任何修复；Exchange Server Subscription Edition（SE）成为唯一受支持的本地版本，不会获得云端新功能，其首个累积更新也从 2025 年底推迟到 2026 年的不确定日期；新版 Outlook for Windows 明确表示「不支持本地 Exchange 账户」；Exchange Online 中的 EWS 已于 2026 年 10 月开始逐步关闭，并将于 2027 年 4 月彻底停用；新功能只在云端 API Microsoft Graph 上发布。</p>
+<p>对许多机构而言，把邮件迁入美国云服务商违背数据主权诉求——邮件是合同、谈判、法律意见、人事与客户数据的记录，受美国《CLOUD Act》管辖影响的公共部门、医疗机构、律所、国防承包商和欧洲企业难以接受。</p>
+
+<h3>真正的障碍是客户端</h3>
+<p>作者指出，离开 Exchange 的难点很少是服务器，而是 Outlook：用户多年积累的文件夹布局、规则、日历视图、共享邮箱和会议室预订习惯，以及围绕委派日历等建立的工作流。用标准 IMAP/CalDAV 服务器替换意味着所有人换客户端或退化为无法同步日历联系人的 IMAP 模式，迁移计划往往就此搁浅。Stalwart 的方案是：管理员迁移邮箱、改动 DNS 记录，用户继续用原来的 Outlook。</p>
+
+<h3>支持的协议与客户端</h3>
+<ul>
+<li><strong>MAPI over HTTP</strong>（EMSMDB、NSPI）：经典 Outlook for Windows 的原生协议，缓存与在线模式均支持，涵盖邮件、日历、联系人、任务、便笺、增量同步、全局地址列表与脱机地址簿、委派访问、共享邮箱、规则、垃圾邮件设置、提醒、搜索文件夹和已读回执。</li>
+<li><strong>EWS</strong>（Exchange 2010 SP2 至 2016 架构版本）：邮件、日历、联系人、任务、文件夹、共享与委派、忙闲状态、收件箱规则、外出答复、名称解析、通讯组、流式与拉取通知。</li>
+<li><strong>Exchange ActiveSync 14.1/16.1</strong>：邮件、日历、联系人、任务、便笺，支持基于 Ping 的推送、会议答复、搜索与外出设置。</li>
+<li><strong>Autodiscover</strong>（POX、SOAP、JSON 三种形式）。</li>
+</ul>
+<p>因此下列客户端可照常连接：经典 Outlook for Windows（2016 及以后，含 Microsoft 365 Apps）、Outlook for Mac、macOS 上的 Apple Mail/日历/通讯录、iPhone 与 iPad 原生应用、支持 Exchange 账户的 Android 邮件应用（Gmail、Samsung Email、Nine）、Thunderbird（内置 EWS 或 TbSync）、Evolution（evolution-ews）、eM Client，以及基于 EWS/ActiveSync 的库如 exchangelib。</p>
+
+<h3>共享数据与规则</h3>
+<p>Exchange 协议不是独立的数据孤岛，而是同一账户的另一扇门：在 Outlook 中归档的邮件对 IMAP/JMAP 客户端同样可见，手机上接受的会议出现在 CalDAV 日历里。Outlook 中创建的规则以邮件规则形式保存在服务器上，并在投递时作为 Sieve 脚本执行，因此在 Outlook 关闭时依然生效；委派与文件夹权限会变成 Stalwart 的常规共享，适用于所有协议；共享邮箱依据组成员身份自动在 Outlook 中打开。不支持的项包括公共文件夹、归档邮箱、移动设备管理、RPC over HTTP 以及 NTLM/Kerberos 登录（客户端使用密码、应用专用密码或 OAuth）。</p>
+
+<h3>对新版 Outlook 的警告</h3>
+<p>新版 Outlook for Windows 无法配合 Stalwart，也无法配合任何自建服务器（包括 Exchange），它被设计为通过微软云工作。虽然新版 Outlook 接受 IMAP 账户，但据 heise 与 c’t 2023 年 11 月的报道，连接由微软云代为建立，用户需把 IMAP 服务器名、用户名和密码交给微软——微软不仅能看到邮件，还持有邮箱密码，这与自建邮件服务器的初衷相悖。作者建议关闭经典 Outlook 标题栏中的「试用新版 Outlook」开关，手机端也应优先使用原生应用而非 Outlook for iOS/Android（后者需混合 Exchange Online 环境）。</p>
+
+<h3>为什么现在做这件事</h3>
+<p>作者承认 EWS 正被移除、经典 Outlook 据称支持到 2029 年，但运行 Exchange 的机构等不了几年。Exchange 支持是「过河的桥」：先把服务器换掉、用户无感，客户端可以按用户节奏逐步迁移到基于开放标准（尤其是 JMAP）的第三方客户端。文章明确表示，Exchange 支持不是 Stalwart 的目标，而是到达目标的路径。</p>
+
+<h3>体积与模块化</h3>
+<p>Exchange 兼容代码约 20 万行，被放在独立 crate 中，由单个 <code>exchange</code> Cargo feature 控制；不启用该 feature 编译时不包含任何相关代码，未来协议淘汰后可整体删除。即便是官方构建，Exchange 协议默认也是关闭的，未使用时不存储任何数据。Outlook 等客户端需要的扩展属性、提醒状态、客户端设置以 JMAP Object Metadata 扩展作为条目元数据存放，删除元数据即可清除全部痕迹而不影响条目本身。</p>
+
+<h3>迁移工具</h3>
+<p>配套的 Vandelay 导入导出工具可通过 EWS 导入器迁移本地 Exchange 的邮件、日历和联系人，通过 Microsoft Graph 导入器迁移 Microsoft 365 的邮件、日历、联系人和 OneDrive 文件；它通过 JMAP 将账户写入 Stalwart。域名在修改 MX 记录和客户端设置后完成切换。</p>
+
+<h3>1.2.0 的其他更新</h3>
+<ul>
+<li><strong>邮件规则</strong>：条件涵盖发件人、收件人、主题与正文、邮件头、大小、附件、重要性、邮件类型、邮件列表、垃圾评分、日期范围和每周时间表；动作包括移动/复制、标记已读或垃圾、转发、按模板回复和拒收；规则与假期自动回复一并编译为 Sieve。每个账户还提供阻止发件人、安全发件人和安全收件人列表。</li>
+<li><strong>已读回执</strong>：支持消息处置通知（MDN，RFC 8098）及对应 JMAP 方法（RFC 9007）。</li>
+<li><strong>工作时间</strong>：可按账户设置，非工作时间在忙闲查询中显示为不可用，并可让同机构成员互见忙闲信息。</li>
+<li>会议室与设备预订，以及带交互式控制台的 Stalwart CLI 2.0。</li>
+</ul>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上的讨论（276 分、138 条评论）反应两极。看好者表示早已在寻找摆脱本地 Exchange 的方案，尤其是在微软改为按年订阅授权之后，并认为会有更多企业回归自建邮件；也有人称赞 Stalwart 对 JMAP 的支持，认为这是 FOSS 生态中长期被低估的协议。</p>
+<p>主要质疑有几类：其一，20 万行代码的体量让人怀疑大量借助 AI 生成，有评论直接<a href="https://stalw.art/blog/how-we-use-ai/#writing-code-and-where-we-draw-the-line">引用官方关于 AI 用法的说明</a>，也有人认为用「没人读过」的代码替换企业最关键的基础设施风险过高；其二，AGPL 授权在很多依赖 Exchange 的大公司里直接被禁用，回应者指出可以购买商业授权（如欧洲许可版本），且 AGPL 意味着即便闭源也可分支；其三，有人担心「永久免费社区版」的历史先例（如 Communigate 的反向拉闸），也有人认为「无缝替代」低估了迁移和业务流程调整的工作量，一旦邮件投递出问题，负责人要承担职业风险；其四，有观点认为继续扩展微软协议栈只是延长锁定，长期不利于开放的邮件生态，反驳者则强调 Exchange 的价值从来不在纯邮件，而在日历、通讯组、目录集成和细粒度权限等「其他一切」。</p>
+
+<h3>你知道吗？</h3>
+<p>Exchange 客户端生态由几套协议分工构成：MAPI over HTTP 是经典 Outlook 的完整功能通道（含地址簿与委派）；EWS 是基于 SOAP 的通用接口，macOS/iOS 与大量第三方客户端和脚本库依赖它；ActiveSync 是面向移动设备的轻量同步协议，靠长轮询（Ping）实现推送；Autodiscover 则是让客户端只凭邮箱地址和密码自动发现服务器配置的引导协议——缺少任何一环，「不改客户端」的目标都无法实现。此外，Stalwart 的核心优势其实是 JMAP（JSON 化的现代邮件同步协议，取代 IMAP/CalDAV 的割裂组合），Exchange 协议支持只是为老客户端搭的过渡桥梁。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50620349</guid>
+      <pubDate>Mon, 23 Nov 2026 22:32:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>Kagi Mail 进入公测：$99/年的私密邮箱与日历，主打开放标准与无锁定</title>
+      <link>https://news.ycombinator.com/item?id=50615481</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Kagi 推出的付费私密邮箱与日历公测，属于公司产品发布/消费级订阅服务，虽提到开放标准，但与编程工具、开源项目、AI 等兴趣点关联不明确，偏中性可选。</small></p><p>Kagi 宣布旗下邮箱与日历服务 <a href="https://blog.kagi.com/kagi-mail-public-beta">Kagi Mail 进入公开测试</a>，提供 @kagimail.com 地址，也支持绑定自有域名。定价为年付 99 美元（另加销售税），前 60 天免费试用；已订阅 Kagi Ultimate 的用户直接包含在内，AI 功能消耗既有额度。</p>
+
+<img src="https://media.kagi.com/kagi-mail-announcement.jpg" alt="邮箱与狗送信的插画" />
+
+<p><strong>为什么自建邮箱</strong>：Kagi 承认市面上已有 Fastmail、Tuta 等优秀产品，但认为邮件应当「快、私密、安全」，并且帮用户聚焦真正需要处理、回复或确认的内容，其余静默处理。与 Kagi Search、Orion 浏览器一致，服务不含监控、不含广告、遵循开放标准、不锁定用户。</p>
+
+<p><strong>技术架构</strong>：Kagi 自建了完整栈——地址与域名托管，以及邮件和日历客户端，基于开源基础设施 Stalwart 服务器与 IMAP、JMAP、CalDAV 协议，用户既可用 Kagi 自家客户端，也可用任何兼容客户端。</p>
+
+<p><strong>基础能力</strong>：无限别名、无限域名、内置日历、50 GB 存储。</p>
+
+<p><strong>AI 与智能功能</strong>：可用自然语言描述规则来整理邮件（例如「把 beta 用户反馈都打上标签，可能来自 @kagimail.com，请自行判断」），每条规则可单独授予权限（读取正文、跳过收件箱）；「收件箱高亮」列出当天需要处理的事项，并从用户的忽略行为中学习；支持用自然语言向收件箱提问，答案附带来源邮件，包括扫描版 PDF 与图片中的文字；通讯订阅（Newsletter）以信息流方式独立展示，不干扰真正的邮件；所有 AI 能力可通过一个开关整体关闭，用户可控制 AI 能做什么、能推断什么。</p>
+
+<p><strong>隐私默认开启</strong>：跟踪像素与远程图片被拦截或代理加载，发件人无法得知打开时间与位置；新发件人需经用户批准才能进入收件箱；可疑发件人触发钓鱼警告，已验证发件人显示 BIMI 标志；不做用户画像、不出售或共享数据。</p>
+
+<p><strong>团队与家庭</strong>：可为自有域名创建共享地址（team@、info@、family@）并指定访问成员，支持社交登录或组织自有身份提供方（OIDC）；共享邮箱（Shared mailboxes）尚在开发中。</p>
+
+<p><strong>Kagi 生态整合</strong>：内置 Kagi Translate；写信时提供校对与翻译；向 assistant@kagimail.com 发邮件即可询问自己的邮件内容（后续将支持执行操作）。面向高级用户与开发者提供命令面板、快捷键、搜索运算符，基于 Sieve 的非 AI 规则过滤，以及带邮件读取权限的 MCP 服务器；对 Apple Mail、Thunderbird 等客户端支持自动配置。</p>
+
+<p><strong>尚未提供</strong>：联系人与通讯录（计划 2027 年 Q1）、完整的 Kagi Assistant 集成（2027 年 Q1）、原生移动应用（2027 年 Q3，此前可用移动网页版或 IMAP/JMAP 客户端）。</p>
+
+<p><strong>无锁定承诺</strong>：邮件、日历与工作流随时可通过标准协议或一键导出迁出；离开后仍保留六个月邮箱访问权限——前 60 天可正常收发，之后四个月可读取并一键导出。</p>
+
+<p><strong>社区反馈</strong>（375 分 / 281 条评论）：</p>
+<ul>
+<li><strong>域名争议</strong>：多位评论者认为 kagimail.com 不易记、易与 gmail 混淆，开玩笑建议用 gimail.com 或 kimail。</li>
+<li><strong>价格是最大分歧</strong>：有人指出 99 美元的套餐只含邮箱、不含搜索，想要捆绑需订阅约 270 美元/年的 Ultimate；对比 Fastmail 约 60 美元/年、Migadu 约 19 美元/年，认为性价比不足。也有观点认为集成 AI 意味着更高的单位成本，价格并非不合理，但「我完全不需要邮件里的 AI」。</li>
+<li><strong>加密疑虑</strong>：有评论者指出公告未提及端到端加密，认为把邮件明文托管等于必须信任服务方不会扫描、且管理层不会变卦；反驳者则强调付费模式至少消除了变现动机，但也承认业界并不缺「付了钱照样滥用数据」的案例。</li>
+<li><strong>长期风险</strong>：有人担心未来被私募股权收购；也有人批评在 Kagi 话题下反复出现「俄罗斯关联」的指责——实际只是 Kagi 索引了 Yandex 搜索结果。</li>
+<li><strong>正面声音</strong>：Fastmail 用户表示现有方案已很满意，迁移阻力主要来自别名和家人已建立的账户体系；也有人期待 Kagi 补齐文档与表格，好让公司彻底离开 Google。UI 截图（<a href="https://help.kagi.com/kagi/mail/">help.kagi.com/kagi/mail/</a>）获赞，底部快捷键栏被认为致敬 Pine/Alpine。另有少数用户抱怨 Kagi 搜索近期偶发 404，但多数人表示日常使用多年未遇故障。</li>
+</ul>
+
+<h2>你知道吗？</h2>
+<p><strong>JMAP</strong>（JSON Mail Access Protocol）是比 IMAP 更现代的邮件同步标准，由 Fastmail 主导制定并被 IETF 收录，优势在于单次请求可批量获取邮件列表与状态，移动端同步更省电省流量。<strong>Sieve</strong> 则是一种标准化的服务器端邮件过滤脚本语言，规则在服务器执行，与客户端无关——这也是 Kagi 强调「非 AI 规则过滤」的技术基础。<strong>MCP</strong>（Model Context Protocol）是让 AI 助手以受控权限访问外部数据的开放协议，此处用于让第三方 AI 客户端只读访问邮箱。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50615481</guid>
+      <pubDate>Mon, 23 Nov 2026 17:17:01 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Ladybird 浏览器进入 Alpha 阶段，自研引擎首次面向公众开放</title>
       <link>https://news.ycombinator.com/item?id=50614249</link>
@@ -1514,49 +1610,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50540178</guid>
       <pubDate>Wed, 18 Nov 2026 00:17:58 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 微软 ONNX Runtime 仓库从 GitHub 上消失，引发供应链安全担忧</title>
-      <link>https://news.ycombinator.com/item?id=50539610</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 涉及开源机器学习运行时仓库下架与供应链安全，属于开源项目/开发工具范畴，符合兴趣，但无摘要细节且偏安全事件，故为推荐</small></p><p>微软旗下的 <a href="https://github.com/microsoft/onnxruntime">ONNX Runtime</a>（ORT，用于在生产环境高效推理深度学习模型的运行时引擎）仓库在没有任何预警的情况下从 GitHub 上消失，在 Hacker News 上引发 350 点热度、74 条评论的讨论。</p>
-<p>有开发者在评论中表示，他们是当天早上流水线中的评估（evals）开始失败后才发现这一情况，四处查找也没有找到任何事前通知。22k star 的仓库突然"下线"，社区普遍表示困惑与警惕。</p>
-<h3>社区的主要猜测</h3>
-<ul>
-<li><strong>遭攻击/供应链问题</strong>：多位评论者猜测仓库因被用于供应链攻击而临时下架。有人提到约半年前 <code>azure-functions-host</code> 仓库也曾短暂消失，其 fork 收到 GitHub 关于违反服务条款（ToS）的警告邮件。也有人认为若是包本身被污染，那应称为直接的依赖漏洞，而非"供应链攻击"（后者指攻击分发机制以投递不同的恶意包）。</li>
-<li><strong>模型后门风险</strong>：一条评论引用了 Phrack 近期文章，讨论针对机器学习的后门攻击，并援引一段文字称 2026 年 3 月发现 ONNX 模型的解析器缺陷，可让 ORT 未经校验地读取任意文件路径或内存地址——而人们从 Hugging Face 等公开仓库下载模型并且不加审查地对外提供服务是常态。</li>
-<li><strong>与微软 AI 相关发布有关</strong>：有人猜测与近期 MAI 或微软 AI 模型的发布相关，也有指向某个 PyPI 包被入侵的报道。</li>
-</ul>
-<h3>替代与镜像</h3>
-<p>有人建议做软 fork；但被提到的 <a href="https://github.com/onnx/onnx">onnx/onnx</a> 只是规范本身，微软的 ONNX Runtime 是规范的一个实现，两者并不相同。目前可找到的最接近的 fork 是 <a href="https://github.com/intel/onnxruntime">intel/onnxruntime</a>（含 Intel OpenVINO 修改），另外 SourceForge 上有镜像存档——但有评论提醒下载这些归档有很高的恶意软件风险。</p>
-<h3>反思</h3>
-<p>讨论延伸到依赖管理实践：有人强调"这就是为什么我们要 vendor（把依赖复制进自己的仓库）一切"，也有人反驳说此刻更应警惕，不该轻信 vendor 下来的版本。还有人希望存在一个付费的包管理中间层，例如默认延迟两周才放行新版本，并提供更好的性能与"做正确的事"的默认行为，有人提到 JFrog Artifactory 之类的方案。另有开发者表示刚构建了依赖它的东西，只能寄望 NPM 上还有缓存版本。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50539610</guid>
-      <pubDate>Tue, 17 Nov 2026 23:18:49 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ jQuery 4.1.0 发布：修复选择器 ReDoS 漏洞，官方博客暗示维护权交接</title>
-      <link>https://news.ycombinator.com/item?id=50537156</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源 JavaScript 库新版发布并修复选择器 ReDoS 漏洞，属编程工具发布与开源项目，符合较高兴趣，但仅为小型库版本更新，故为推荐</small></p><p>jQuery 发布 <a href="https://github.com/jquery/jquery/releases/tag/4.1.0">4.1.0 版本</a>，由维护者 Timmy Willison（timmywil）于 11 月 17 日发布并完成 GPG 签名验证。<img src="https://avatars.githubusercontent.com/u/192451?s=64&v=4" alt="发布者 Timmy Willison 的 GitHub 头像，显示于发布标签的签名验证信息旁" />同时发布的还有 3.8.0，官方博客的标题为「jQuery 4.1.0 与 3.8.0 发布：传递火炬」（<a href="https://blog.jquery.com/2026/11/17/jquery-4-1-0-and-3-8-0-released-passing-the-torch/">passing the torch</a>），指向维护工作的交接。</p>
-<h3>主要变更</h3>
-<ul>
-<li><strong>Ajax</strong>：<code>jqXHR</code> 新增 <code>responseURL</code> 字段；传输层（transport）支持替代性的 <code>completeCallback</code> 接口。</li>
-<li><strong>核心（Core）</strong>：重构循环以避免越界访问数组；不再使用 <code>getElementsByTagName</code>／<code>getElementsByClassName</code>，统一改为 <code>querySelectorAll</code>；改用 <code>createElementNS</code> 以支持 XML 文档。</li>
-<li><strong>CSS</strong>：在探测表格可能被复用时清空 <code>computeTableStyleTests</code> 的测试表格。</li>
-<li><strong>选择器（Selector）</strong>：修复标识符匹配中的 ReDoS（正则表达式拒绝服务）问题；绕过 Safari 27 的正则解释器缺陷；将非法的转义码点解码为 U+FFFD；优化 <code>jQuery.uniqueSort</code> 的去重；收紧快速选择路径的判断；统一采用宽松的 document 比较。</li>
-<li><strong>序列化</strong>：支持与表单关联的自定义元素（form-associated custom elements）。</li>
-<li><strong>文档</strong>：新增商业支持厂商 TuxCare；新增机器生成贡献的规范指南；更新 README 中的 4.0 版本与 HeroDevs 链接。</li>
-<li><strong>测试</strong>：扩充 <code>.data()</code>（含 SVG 元素）、<code>jQuery.text</code>、序列化模块、<code>ajaxPrefilter</code>／<code>ajaxTransport</code> 等测试覆盖；在 Chrome 中将 <code>reliableTrDimensions</code> 预期为失败。</li>
-</ul>
-<h3>社区讨论</h3>
-<p>Hacker News 上的讨论（300 余点、170 余条评论）以怀旧和现状评估为主。多位用户惊讶于 jQuery 仍在活跃维护，并称它「支撑着半个互联网」：据 <a href="https://w3techs.com/technologies/details/js-jquery">W3Techs 统计</a>，约 63% 的网站仍在使用 jQuery，包括 Microsoft.com、Pinterest、Adobe、Yahoo、WordPress.org、Samsung、Archive.org 等大型站点。评论指出，WordPress 默认捆绑 jQuery，加上大量主题与页面构建器依赖它，是其长期存续的关键；cPanel/WHM 等管理面板也仍在使用。有人提到前端遗留系统（legacy monolith）重构成本极高，视觉回归与浏览器兼容验证困难，令迁移长期搁置。</p>
-<p>不少评论者回忆起 jQuery UI、MooTools、Prototype JS、script.aculo.us 等同时代库，并询问 jQuery UI 是否还在维护——回复指出它已处于维护模式，官方于 <a href="https://blog.jqueryui.com/2021/10/jquery-maintainers-update-and-transition-jquery-ui-as-part-of-overall-modernization-efforts/">2021 年宣布</a>将其纳入整体现代化计划。</p>
-<p>关于「原生 JavaScript（Vanilla JS）已足够好，为何还用 jQuery」，意见分成两派：一派认为 jQuery 代码在某些模式下更紧凑易读、选择器语法仍更简洁；另一派表示只在遗留项目中才用。另有一条技术性讨论：有开发者希望 jQuery 在空集合上调用 <code>.hide()</code> 等方法时抛出异常而非静默 no-op，以尽早暴露失效的选择器；回帖建议改用 <code>findOrThrow</code> 之类的自定义方法加 lint 规则来约束，讨论最终转向团队协作与规范落地难的问题。也有用户开玩笑说，在航班延误、微软 365 与 GitHub Actions 相继故障的当天，「jQuery 4.1.0 发布了 :）」。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50537156</guid>
-      <pubDate>Tue, 17 Nov 2026 19:50:40 GMT</pubDate>
     </item>
   </channel>
 </rss>

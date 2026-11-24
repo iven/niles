@@ -3,7 +3,126 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Mon, 23 Nov 2026 20:05:54 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2026 04:43:59 GMT</lastBuildDate>
+    <item>
+      <title>Codex CLI 0.172.0：终端内打开线程链接、斜杠命令参数补全</title>
+      <link>https://github.com/openai/codex/releases/tag/rust-v0.172.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex（编码代理 CLI）发布 0.172.0，本次更新以终端交互体验和 MCP / app-server 集成为主。</p>
+<h3>重要改动</h3>
+<ul>
+<li><strong>线程链接可直接在终端打开</strong>：从搜索结果和对话记录中点击线程链接，即可打开已保存的会话与嵌套 agent（#62332）。</li>
+<li><strong>斜杠命令参数补全</strong>：在输入框中按 <code>Tab</code> 可补全受支持命令的参数，例如输入 <code>/mcp lo</code> 会补全为 <code>/mcp login</code>（#62343）。</li>
+<li><strong>任务组快速跳转</strong>：在 agent 命令中心用 <code>Shift+Up</code> / <code>Shift+Down</code> 在任务组之间切换（#62200）。</li>
+<li><strong>MCP 服务器懒启动</strong>：带有缓存工具列表的可选 stdio MCP 服务器，默认改为在首次工具调用时才启动，减少启动开销（#62366）。</li>
+<li><strong>按工具设置审批审查者</strong>：可在 <code>config.toml</code> 中为单个已连接应用（Apps）工具指定审批审查者（#62360）。</li>
+<li><strong>支持 Amazon Bedrock Runtime</strong>：app-server 客户端可在初始化或登录阶段选择 Bedrock Runtime 作为提供方（#62222）。</li>
+<li><strong>Code Mode 统一走 gRPC</strong>：所有主机连接改用 gRPC，原有 <code>code_mode_host_grpc</code> 设置被弃用（#62476）。</li>
+<li>其他界面增强：<code>/experimental</code> 中可显示自定义状态栏（#62387）；全屏 TUI 中可点击链接与控件支持悬停高亮（#62390）；提供方报错界面可直接进入命令中心（#62335）。</li>
+</ul>
+<h3>其他改动</h3>
+<ul>
+<li><strong>恢复会话更完整</strong>：<code>codex exec resume</code> 在未被显式覆盖时，会恢复保存的沙箱权限、工作目录与工作区根目录（#62194）。</li>
+<li><strong>跨平台远程会话</strong>：客户端与服务端运行在不同操作系统时，远程会话仍会保留工作目录、工作区根目录和可写路径（#62375、#62376、#62377）。</li>
+<li><strong>错误上报更及时</strong>：响应流中的提供方错误会在到达时立即上报，并指明触达的是哪个 API 花费限额（#62329、#62356）。</li>
+<li><strong>中断行为修复</strong>：中断父 turn 时，子 agent 已排队的回复会保留到下一 turn（#62348）。</li>
+<li><strong>长选项可翻页</strong>：当答案选项高度超出终端答案区时，可用 <code>PageUp</code> / <code>PageDown</code> 翻阅并提交（#62209）。</li>
+<li><strong>Cloud 回复就地更新</strong>：在历史加载完成后才结束的 Cloud 回复会原位更新，保持终端记录的先后顺序（#62403）。</li>
+<li><strong>性能与内部整理</strong>：Git worktree 状态推迟到 turn 开始时才检查（#62437）；rollout 追踪中对大型工具输出字符串去重（#62407）；<code>thread/sample</code> 移除 4,000 字节提示限制并支持按样本覆盖模型（#62378、#62419）；沙箱准备逻辑下沉到平台后端、Linux 与 macOS 共用启动器等重构（#62317、#62353）。</li>
+<li><strong>文档</strong>：内置 <code>openai-docs</code> skill 更新，涵盖迁移到 GPT-6.2 Astra 与 Sol，包括端点选择与工具调用要求（#62447）。</li>
+<li>其余为 Bazel 构建、Python 依赖哈希校验、Guardian 策略刷新、遥测计数器等基础设施改动。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.172.0</guid>
+      <pubDate>Tue, 24 Nov 2026 00:03:55 GMT</pubDate>
+    </item>
+    <item>
+      <title>Claude Code v2.1.331：Code Mode 支持多家云平台，VSCode 扩展集中修复并大幅提速</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.331</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>Claude Code 发布 v2.1.331。这一版的重头戏是 Code Mode（让 Claude 编写并执行脚本、而非逐条调用工具的模式）在多家云平台上落地，以及 VSCode 扩展一次规模很大的稳定性与性能补丁。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>Code Mode 覆盖多云平台</strong>：终端会话中的 Code Mode 现可在 Amazon Bedrock、Google Cloud 的 Agent Platform、Microsoft Foundry 和 AWS 上的 Claude Platform 上使用。此外修复了 Code Mode 的若干关键问题：以 <code>--resume</code> / <code>--continue</code> 在另一权限模式下恢复会话会丢失 thinking 与 prompt cache（在会询问权限的模式下启动的会话仍保留该模式对脚本的限制）；脚本运行时输入 <code>!</code> 或斜杠命令会触发每秒一次的重复请求；长脚本输出的中间部分会丢失（现在 Claude 会拿到未截断文本的路径）；<code>--bare</code> 下不告知 Claude 脚本可调用哪些能力；工具搜索现在会展示更多 MCP 工具的描述与限制、格式、默认值。</li>
+<li><strong>诊断能力</strong>：<code>claude doctor</code> 新增 API 连通性小节，报告 API 是否可达、HTTP 状态码或具体错误，或说明为何未测试。</li>
+<li><strong>语音听写</strong>：tap 模式听写自动停止时会给出提示（15 秒未识别到语音或达到 2 分钟上限）；修复按住说话（hold-to-talk）模式在 Claude Code 繁忙时提前中断并丢词的问题。VSCode 端也区分了"连接断开 / 无法连接"与"未识别到语音"。</li>
+<li><strong>网关与身份认证</strong>：Claude apps 网关新增 <code>oidc.groups_jsonpath</code>，用 JSONPath（RFC 9535）的小子集从对象列表的匹配项读取用户组；新增 <code>CLAUDE_GATEWAY_IDP_CONNECT_BY_HOSTNAME=1</code>，配合 <code>oidc.use_proxy: true</code> 时即使设置了 <code>NO_PROXY</code> 也会把 https IdP 的主机名交给代理。</li>
+<li><strong>可观测性</strong>：<code>claude_code.llm_request</code> trace span 新增 <code>gen_ai.usage.*</code>、<code>gen_ai.response.model</code> 和 <code>gen_ai.operation.name</code>，其中 <code>gen_ai.usage.input_tokens</code> 包含 prompt cache token。</li>
+<li><strong>插件体系</strong>：插件清单支持 <code>optionalDependencies</code>，被依赖安装的可选插件可单独禁用或卸载；插件自动更新提示会区分"新装为依赖的插件"和"已更新的插件"。修复被中断或失败的插件更新会留下残缺插件目录、导致后续加载缺组件的问题（#102186）。</li>
+<li><strong>代理环境变量</strong>：新增 <code>CLAUDE_CODE_DISABLE_RESPONSE_COMPRESSION</code>，用于在会切断压缩响应的代理后方获取未压缩的模型响应（官方暂不建议在自托管 runner 或 Remote Control 中使用）。</li>
+<li><strong>VSCode 新功能</strong>：笔记本单元格菜单新增「Add Cell to Chat」（连同输出或错误一并附加）；错误、警告与失败测试新增「Fix with Claude Code」快速修复；源码管理视图变更文件右键新增「Add to Chat」；存在合并冲突的文件编辑器标题与源码管理「Merge Changes」组新增「Resolve Merge Conflicts」；发送超大选区或附件前给出提示，"Prompt is too long" 时指明是哪个部分过大及后续做法。</li>
+</ul>
+
+<h3>其他改进</h3>
+<ul>
+<li><strong>启动与响应速度</strong>：紧接上一次会话启动时不再等待模型列表，无 <code>.claude/settings.local.json</code> 的非 git 目录不再等待 git；屏幕阅读器模式打字更快（长会话中尤为明显）。</li>
+<li><strong>终端交互细节</strong>：窄窗口下单行工具结果被截断却没省略号的问题修复；<code>/permissions</code> 中 Auto 模式页签的 Markdown 星号显示修复；<code>/diff</code> 的按键提示、24～26 行窗口下的文件选择、无提交仓库中 <code>git add -N</code> 文件的缺失均已修复；首启主题列表在短窗口中条目过少、<code>/usage</code> 等高屏页面在短窗口中错乱也已修复；全屏 <code>/bug</code> 的 Yes/No 按钮不再被长报告遮挡；短终端中的文件夹信任提示更紧凑。</li>
+<li><strong>行为变更</strong>：停止自动连接（<code>/ide</code>）以及子代理视图中的 <code>/clear</code>、<code>/compact</code>、<code>/rewind</code> 询问改为 Yes 在前（默认仍停在 No，Down+Enter 选 No）；<code>PermissionDenied</code> 钩子的 <code>retry: true</code> 仅在用户确实要求该调用时才重发；自 2026 年 11 月 30 日起，受管 <code>extraKnownMarketplaces</code> 中的插件市场将默认自动更新，可用条目上的 <code>"autoUpdate": false</code> 退出；<code>/login</code> 与 <code>claude auth login --console</code> 显示的 Console 登录链接大幅缩短；Claude 的 artifact 列表会标注网页类产物，减少误用 Claude Docs 连接器打开；VSCode 中保存建议 diff 需先在右侧（建议）区域点击或输入才会接受，diff 菜单中无效入口已移除，终端会话产生的 diff 打开时不抢占键盘焦点。</li>
+<li><strong>会话与云端稳定性</strong>：云会话中的轮次与子代理失败、长回复超时（回复在 Claude 仍在思考时静默）时现在会重试一次；读取云端或网络文件内容卡住时，Esc / 停止不再等一分钟以上；<code>/compact</code> 与自动压缩在摘要引用某些 XML 标签时丢失部分内容的问题修复；Remote Control 消息不再显示在正在完成的回复上方；PushNotification 不再向无头（如定时）运行误报"终端处于活跃状态"；恢复失败后 <code>rewind</code> 不再删除文件；后台 shell 与 MCP 服务器在 Workflow 代理交回报告后被遗留运行的问题修复；<code>/loop</code> 的停止调用不再被自动模式拒绝。</li>
+<li><strong>其他修复</strong>：本地或 WebSocket 服务器返回畸形响应时 MCP 工具调用最多挂起 30 分钟的问题；<code>/install-github-app</code> 在未找到仓库且出现设置警告后跳过仓库步骤、以及 Esc 无法从工作流列表和登录步骤返回；<code>@file#10-12</code> 形式的提及此前会附加整个文件；贴入的 artifact 邀请链接被误读（现在会请你接受邀请并粘贴 artifact 自身链接）；含 null 输出或无数堆栈错误输出的笔记本读取失败；自定义 API 端点返回无工具名的工具调用时崩溃（现在该调用报错、会话继续）；CLI 在某些回复下卡死、引用文本丢失或重复显示；沙箱 Bash 命令在临时磁盘已满时启动失败；托管设置需批准却无法询问时 <code>claude plugin install</code> 等命令无输出挂起；<code>Skill(name:*)</code> 允许规则未保存到本地设置之外；团队共享组预算阻止时的"Ask your admin"提示文案错误。</li>
+<li><strong>VSCode 稳定性与体验</strong>：集中修复了大量交互问题——命令菜单高亮错位导致 Enter 执行错误行、快速 Tab/Enter 插入错误文件、Esc 在重命名会话后停止 Claude、各类确认框被快捷��误应答（甚至可能还原文件或切换分支）、权限提示上的 Esc 把半截指令发给 Claude、键入 @ 遗留辅助进程、长会话每次 fork/rewind 内存增长、面板缩放后不再跟随回复、上下文用量指示器消失、`files.encoding` 非 UTF-8 时 diff 乱码、RTL 文本被写成 <code>\u200F</code> 转义、会话列表一次性打开所有 transcript 导致扩展卡顿等。</li>
+<li><strong>VSCode 性能</strong>：长会话打开、恢复与切换更快（尤其在大量文件编辑或 git 较慢时）；长聊天中输入更流畅、流式回复时大文件写入与权限提示更及时；启动与内存占用改善，新聊天标签更快可用、首次回复更早；SSH / WSL / 容器等远程窗口下启动、回复与重开会话更快；低内存机器上闲置数分钟后的首条消息响应更快；慢速或带杀毒扫描的磁盘上聊天启动与历史恢复更快；重开会话中 diff 显示更快；@ 文件菜单优先列出已打开标签页的文件并按最近使用排序；在已装 Python 扩展但目录无 Python 时首次回复更快。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.331</guid>
+      <pubDate>Mon, 23 Nov 2026 21:34:41 GMT</pubDate>
+    </item>
+    <item>
+      <title>Devbox 0.23.0 发布：支持 ${VAR:-default} 环境变量默认值、无需 init 即可运行部分命令</title>
+      <link>https://github.com/jetify-com/devbox/releases/tag/0.23.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><strong>Devbox 0.23.0</strong> 发布，本次更新以功能增强与工程化改进为主，并附带若干安全依赖修复。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>支持 <code>${VAR:-default}</code> 语法</strong>：现在可以在 <code>devbox.json</code> 及插件环境变量中使用 Shell 风格的默认值展开，当变量未设置或为空时自动回退到默认值，简化了配置对环境的适配。（<a href="https://github.com/jetify-com/devbox/pull/3133">#3133</a>）</li>
+<li><strong>无需 <code>devbox init</code> 即可运行不依赖项目的命令</strong>：此前必须先初始化项目才能执行任何命令，现在那些不需要项目上下文的命令可以直接运行，降低了上手门槛。（<a href="https://github.com/jetify-com/devbox/pull/3138">#3138</a>）</li>
+<li><strong>修正 <code>/bin/sh</code> 的 POSIX Shell 识别</strong>：将 <code>/bin/sh</code> 正确识别为 POSIX shell，从而让 <code>devbox shell</code> 正确设置 <code>ENV</code> 变量。（<a href="https://github.com/jetify-com/devbox/pull/3126">#3126</a>）</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>配置文件写入修复：将字符串字段设置为空字符串时，不再顺带写入一个原本不存在的键。（<a href="https://github.com/jetify-com/devbox/pull/3127">#3127</a>）</li>
+<li>插件清理：移除已失效的 pip 内置映射，并增加对失效映射的校验防护。（<a href="https://github.com/jetify-com/devbox/pull/3141">#3141</a>）</li>
+<li>测试增强：补齐发布门禁的覆盖率缺口，并对实际发布的二进制文件做冒烟测试。（<a href="https://github.com/jetify-com/devbox/pull/3137">#3137</a>）</li>
+<li>发布流程工程化：改为完全自动的每周发布；任意 <code>feat</code> 提交会触发次版本号提升；自动发布 PR 跳过 claude-review；goreleaser 固定为 v2.20.2。（<a href="https://github.com/jetify-com/devbox/pull/3136">#3136</a>、<a href="https://github.com/jetify-com/devbox/pull/3142">#3142</a>、<a href="https://github.com/jetify-com/devbox/pull/3144">#3144</a>、<a href="https://github.com/jetify-com/devbox/pull/3140">#3140</a>）</li>
+<li>安全依赖升级：修复 Ruby 示例中的漏洞 gem、vscode 扩展的 glob 与 minimatch、jupyter 示例中的 tornado 与 soupsieve，以及 Go 侧的 brotli 与 klauspost/compress。（<a href="https://github.com/jetify-com/devbox/pull/3131">#3131</a>、<a href="https://github.com/jetify-com/devbox/pull/3130">#3130</a>、<a href="https://github.com/jetify-com/devbox/pull/3132">#3132</a>、<a href="https://github.com/jetify-com/devbox/pull/3129">#3129</a>）</li>
+<li>发布收尾：将 flake 的 lastTag 更新至 0.23.0。（<a href="https://github.com/jetify-com/devbox/pull/3143">#3143</a>）</li>
+</ul>
+
+<p>本次共有三位新贡献者参与：@Sanjays2402、@theluckystrike 以及发布机器人 @devbox-release-bot。完整变更见 <a href="https://github.com/jetify-com/devbox/compare/0.22.0...0.23.0">对比记录</a>。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/jetify-com/devbox/releases/tag/0.23.0</guid>
+      <pubDate>Mon, 23 Nov 2026 22:16:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>Hapi v0.36.7：Android 会话主页支持折叠项目文件夹，Web 端与 CLI 多项修复</title>
+      <link>https://github.com/tiann/hapi/releases/tag/v0.36.7</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>重要改动</h3>
+<ul>
+<li><strong>Android 新功能</strong>：会话主页（session home）现在支持折叠/展开项目文件夹（<a href="https://github.com/tiann/hapi/pull/2565">#2565</a>）；同时修复了 Activity 重建后当前聊天被丢失的问题（<a href="https://github.com/tiann/hapi/pull/2572">#2572</a>）。</li>
+<li><strong>Web 端</strong>：修复冷加载时项目折叠、任务活动状态以及归档/删除状态不正确的问题（<a href="https://github.com/tiann/hapi/pull/2564">#2564</a>）；已读回执在可见会话内容更新期间也能正确持久化（<a href="https://github.com/tiann/hapi/pull/2568">#2568</a>）；从缓存重新进入会话时，首帧即渲染在底部（尾部）位置，避免先跳到顶部再回弹（<a href="https://github.com/tiann/hapi/pull/2548">#2548</a>）；Branch 与复制按钮在纯 HTTP 环境下恢复可用（<a href="https://github.com/tiann/hapi/pull/2557">#2557</a>）；网络故障恢复流程不再额外请求访问令牌（<a href="https://github.com/tiann/hapi/pull/2519">#2519</a>）。</li>
+<li><strong>CLI</strong>：恢复（resume）选择器的标题显示与 Web 会话列表保持一致（<a href="https://github.com/tiann/hapi/pull/2559">#2559</a>）；Claude 现在会按轮次上报成本、token 用量与生成耗时（<a href="https://github.com/tiann/hapi/pull/2575">#2575</a>）；恢复 Codex 会话时不再重复发送模式（mode）更新（<a href="https://github.com/tiann/hapi/pull/2566">#2566</a>）。</li>
+<li><strong>代理协议与后端</strong>：agy 在派发（dispatch）时即确认 ACP prompt，而不再等待 user_message_chunk（<a href="https://github.com/tiann/hapi/pull/2513">#2513</a>）；agy 1.5.10+ 的唤醒事件改为从实时 ACP 流渲染一次，避免重复（<a href="https://github.com/tiann/hapi/pull/2555">#2555</a>）；修复 agy 会话 ID 在稀疏元数据写入时丢失的问题（<a href="https://github.com/tiann/hapi/pull/2580">#2580</a>）；opencode 在收到 ACP 错误响应时能正确结算（settle）prompt 写入方（<a href="https://github.com/tiann/hapi/pull/2501">#2501</a>）。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>修复：CLI 在循环内重试 prompt 前先排空软引导（soft-steer）等待队列（<a href="https://github.com/tiann/hapi/pull/2571">#2571</a>）；Bash 允许前缀为空时不再被解释为放行所有命令（<a href="https://github.com/tiann/hapi/pull/2538">#2538</a>）；Windows 系统工具改为以绝对路径启动（<a href="https://github.com/tiann/hapi/pull/2570">#2570</a>）；设置锁的父目录在获取锁之前创建（<a href="https://github.com/tiann/hapi/pull/2544">#2544</a>）。</li>
+<li>重构：合并 codex 家族的 flavor 归属判断（<a href="https://github.com/tiann/hapi/pull/2556">#2556</a>）；由各 flavor 自行声明权限特性（<a href="https://github.com/tiann/hapi/pull/2573">#2573</a>），并在统一的特性表中一次性声明每种代理类型（<a href="https://github.com/tiann/hapi/pull/2576">#2576</a>）。</li>
+<li>测试：隔离 hub 路由测试的主目录并在合并会话后停止引擎（<a href="https://github.com/tiann/hapi/pull/2506">#2506</a>）；e2e 中保持认证-网络恢复测试的 fixture 处于打开的项目分组内（<a href="https://github.com/tiann/hapi/pull/2579">#2579</a>）；隔离标题建议测试的环境变量（<a href="https://github.com/tiann/hapi/pull/2582">#2582</a>）。</li>
+</ul>
+
+<p>本版本迎来 4 位新贡献者（@b1ghawk119、@yJader、@MT3166、@aloneangel45）。完整变更见 <a href="https://github.com/tiann/hapi/compare/v0.36.6...v0.36.7">变更对比</a>。</p>
+
+<h3>你知道吗？</h3>
+<p>Hapi 通过 ACP（Agent Client Protocol，代理客户端协议）与各家编码代理通信：ACP 将代理产生的流式事件（消息块、工具调用、错误响应等）统一成一套接口，因此 Web、Android 和 CLI 三端可以用同一套渲染与状态逻辑对接 Claude、Codex、opencode、agy 等不同实现；发布说明中的「flavor」即指这些代理类型，本次多个重构就是把这些类型的差异收敛到一张声明式特性表里，减少分支判断。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.36.7</guid>
+      <pubDate>Tue, 24 Nov 2026 03:21:31 GMT</pubDate>
+    </item>
     <item>
       <title>kitty 终端模拟器发布 0.51.1 版本</title>
       <link>https://github.com/kovidgoyal/kitty/releases/tag/v0.51.1</link>
@@ -1522,122 +1641,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.6</guid>
       <pubDate>Wed, 11 Nov 2026 05:18:27 GMT</pubDate>
-    </item>
-    <item>
-      <title>chezmoi v2.74.1 发布：修复 init --apply 未真正执行 apply 的问题</title>
-      <link>https://github.com/twpayne/chezmoi/releases/tag/v2.74.1</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>chezmoi（一款跨平台的 dotfiles 管理工具）发布 v2.74.1 补丁版本，本次更新以缺陷修复和文档补充为主，没有新增功能。</p>
-<h3>重要修复</h3>
-<ul>
-<li><strong>修复 <code>chezmoi init --apply</code> 未真正执行 apply</strong>：这是本次最关键的修复，此前该命令存在并不会实际运行 <code>chezmoi apply</code> 的问题，现已改正，同时确保在 <code>init --apply</code> 过程中配置模板数据会被重新加载，避免使用过期的配置数据。</li>
-<li><strong>修复 Windows 升级命令中的 WinGet 配置读取</strong>：<code>chezmoi upgrade</code> 在 Windows 上读取 WinGet 配置时存在问题，现已修复。</li>
-</ul>
-<h3>文档更新</h3>
-<ul>
-<li>新增一个视频链接。</li>
-<li>新增指向第三方项目 <a href="https://github.com/dirichy/vimoi.nvim">vimoi.nvim</a> 的链接。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/twpayne/chezmoi/releases/tag/v2.74.1</guid>
-      <pubDate>Tue, 10 Nov 2026 21:42:48 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.34.5 发布：远程会话支持 Kimi 思考等级与 Copilot 推理强度选择</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.34.5</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>编码代理终端应用 hapi 发布 v0.34.5，本次更新以 Web 界面交互与各代理后端（Kimi、Copilot、Codex、Cursor）的能力对齐为主，同时包含若干会话生命周期与稳定性修复。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>远程会话可选思考等级（Kimi）</strong>：Kimi 远程会话新增 thinking level 选择，可在发起会话时指定推理深度（<a href="https://github.com/tiann/hapi/pull/2349">#2349</a>）。</li>
-<li><strong>远程会话可选推理强度（Copilot）</strong>：Copilot 远程会话同样支持 reasoning effort 选择（<a href="https://github.com/tiann/hapi/pull/2348">#2348</a>）。</li>
-<li><strong>长任务进度条</strong>：对于持续数小时的任务，会话界面会显示进度条，便于判断长跑作业的推进情况（<a href="https://github.com/tiann/hapi/pull/1424">#1424</a>）。</li>
-<li><strong>侧边栏项目分组支持右键/长按菜单</strong>：项目分组新增上下文菜单，触屏设备可用长按唤起，并补齐了键盘访问路径（<a href="https://github.com/tiann/hapi/pull/2347">#2347</a>、<a href="https://github.com/tiann/hapi/pull/2357">#2357</a>）。</li>
-<li><strong>会话状态专属在线标识</strong>：每种会话状态都拥有独立的 presence badge（在线状态徽标），状态呈现更精细（<a href="https://github.com/tiann/hapi/pull/2296">#2296</a>）。</li>
-<li><strong>Cursor 状态摘要通知</strong>：开启状态摘要开关后，Cursor 会发出 AGENT_NOTIFY_SUMMARY，便于外部感知代理进展（<a href="https://github.com/tiann/hapi/pull/2354">#2354</a>）。</li>
-<li><strong>仅图标控件的即时提示</strong>：为三个缺少标签的纯图标控件加入按需弹出的说明气泡，降低误操作与理解成本（<a href="https://github.com/tiann/hapi/pull/2339">#2339</a>）。</li>
-<li><strong>语法语法（syntax grammars）按需加载</strong>：Web 端语法高亮语法改为按需加载，减少初始加载体积并提升页面响应（<a href="https://github.com/tiann/hapi/pull/2359">#2359</a>）。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li>修复 hub 的会话结束清扫逻辑，将其限定在排队的用户提示上，避免误处理（<a href="https://github.com/tiann/hapi/pull/2352">#2352</a>）。</li>
-<li>修复 Web 端中日韩（CJK）文本中强调片段以标点结尾时无法正确闭合的问题（<a href="https://github.com/tiann/hapi/pull/2358">#2358</a>）。</li>
-<li>修复 Codex 在会话引导（bootstrap）完成后才解析开发者指令的问题（<a href="https://github.com/tiann/hapi/pull/2344">#2344</a>）。</li>
-<li>修复 Codex 在前一个目标完成后未能开启新目标的问题（<a href="https://github.com/tiann/hapi/pull/2338">#2338</a>）。</li>
-<li>CLI 的 ping_peer 错误信息现在会指明失败的阶段与投递状态，便于排查（<a href="https://github.com/tiann/hapi/pull/2345">#2345</a>）。</li>
-<li>被忽略的异步提问现在会显示取消状态，而非留白（<a href="https://github.com/tiann/hapi/pull/2341">#2341</a>）。</li>
-<li>会话运行器子进程一死亡即立刻将会话置为非活跃，避免残留“仍在运行”的假象（<a href="https://github.com/tiann/hapi/pull/2351">#2351</a>）。</li>
-<li>修复 Cursor 在 ACP 存储从未持久化的情况下恢复会话的异常，改为以全新线程启动（<a href="https://github.com/tiann/hapi/pull/2343">#2343</a>）。</li>
-<li>CI 侧新增按 Codex 评审结论为 PR 打标签（<a href="https://github.com/tiann/hapi/pull/2360">#2360</a>）。</li>
-</ul>
-
-<p>本次还迎来了首位贡献者 @Akiiia（<a href="https://github.com/tiann/hapi/pull/2338">#2338</a>）。完整变更见 <a href="https://github.com/tiann/hapi/compare/v0.34.4...v0.34.5">v0.34.4...v0.34.5</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.5</guid>
-      <pubDate>Tue, 10 Nov 2026 08:34:32 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.34.4 发布：Web 推送通知、OpenCode/Antigravity 支持增强</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.34.4</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi 发布了 v0.34.4 版本，主要围绕 Web 界面功能、OpenCode 与 Antigravity（agy）编码代理的支持，以及 ACP/CLI/Peer 等底层交互进行改进。</p>
-
-<h3>Web 界面</h3>
-<ul>
-<li>新增<strong>推送通知控制</strong>与未读圆点显示（<a href="https://github.com/tiann/hapi/pull/2303">PR #2303</a>）；新增设置项可<strong>保留未读会话可见</strong>（<a href="https://github.com/tiann/hapi/pull/2292">PR #2292</a>）。</li>
-<li>浏览历史时保持「跳到底部」按钮可见（<a href="https://github.com/tiann/hapi/pull/2304">PR #2304</a>）；对队列中的消息执行 steering 时即时给出反馈（<a href="https://github.com/tiann/hapi/pull/2306">PR #2306</a>）。</li>
-<li>启动恢复时保留通知退出选择（<a href="https://github.com/tiann/hapi/pull/2308">PR #2308</a>）；以规范形式渲染 OpenCode 工具名称与 shell 卡片（<a href="https://github.com/tiann/hapi/pull/2310">PR #2310</a>）；收集并关闭 composer 上方的可选异步问题（<a href="https://github.com/tiann/hapi/pull/2322">PR #2322</a>）。</li>
-</ul>
-
-<h3>OpenCode / Antigravity 支持</h3>
-<ul>
-<li>OpenCode：通过 Code Mode execute 描述显示工具（v2，<a href="https://github.com/tiann/hapi/pull/2307">PR #2307</a>）；在会话进度中显示 v2 计划重试（<a href="https://github.com/tiann/hapi/pull/2300">PR #2300</a>）；显示每轮用量与每秒 token（<a href="https://github.com/tiann/hapi/pull/1668">PR #1668</a>）。</li>
-<li>Agenty（agy）：通过 agy ACP 运行 Antigravity 并支持回合中 Steer（<a href="https://github.com/tiann/hapi/pull/2319">PR #2319</a>）；以规范工具卡片展示 Antigravity 的工具调用（<a href="https://github.com/tiann/hapi/pull/2330">PR #2330</a>）。</li>
-<li>ACP：在 HAPI 中显示 OpenCode 与 Antigravity 的问题并返回答案（<a href="https://github.com/tiann/hapi/pull/2309">PR #2309</a>）；重新启用 ACP 启动器的 change_title 并支持手动标题优先级（<a href="https://github.com/tiann/hapi/pull/1672">PR #1672</a>）；当 rawOutput 仅含元数据时以 content 作为工具输出（<a href="https://github.com/tiann/hapi/pull/2299">PR #2299</a>）。</li>
-</ul>
-
-<h3>CLI、Peer 与后端</h3>
-<ul>
-<li>CLI：自动将 ping-peer 消息转向活跃 peer 回合（<a href="https://github.com/tiann/hapi/pull/2298">PR #2298</a>）；macOS 上为超出 runner 生命周期的会话保留 LAN 访问（<a href="https://github.com/tiann/hapi/pull/2328">PR #2328</a>）。</li>
-<li>Peer/MCP：通过内置 Pi 扩展暴露 peer 会话 MCP 工具（<a href="https://github.com/tiann/hapi/pull/2312">PR #2312</a>）；以 waitForReply 将 peer 回复转发回调用者（<a href="https://github.com/tiann/hapi/pull/2167">PR #2167</a>）；缩小重复的 peer 身份提示字符串（<a href="https://github.com/tiann/hapi/pull/2326">PR #2326</a>）。</li>
-<li>Hub：对模型列表 RPC 采用 single-flight + stale-while-revalidate 缓存策略（<a href="https://github.com/tiann/hapi/pull/2301">PR #2301</a>）；修复 SSE 客户端断开时 gzip 缓冲导致崩溃的问题（<a href="https://github.com/tiann/hapi/pull/2314">PR #2314</a>）。</li>
-<li>测试：iOS 端采集间歇性 transcript 布局诊断（<a href="https://github.com/tiann/hapi/pull/2325">PR #2325</a>）。</li>
-</ul>
-
-<p>本版本迎来两位新贡献者：<a href="https://github.com/tiann/hapi/pull/2322">@peter-yy</a> 与 <a href="https://github.com/tiann/hapi/pull/2314">@anantheparty</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.34.4</guid>
-      <pubDate>Mon, 09 Nov 2026 04:41:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>fzf v0.75.0 发布：新增 info-command 动作，改进 nth 变换与轮换行为</title>
-      <link>https://github.com/junegunn/fzf/releases/tag/v0.75.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>fzf 发布 v0.75.0 版本，主要带来信息栏动态命令、nth 变换/轮换行为的改进，以及多项 bug 修复和 Windows 安装包更新。</p>
-
-<h3>重要改动</h3>
-<ul>
-<li><strong>新增 info-command 动作</strong>：加入 <code>{change,transform,bg-transform}-info-command</code> 动作（#4951），可动态更改信息栏内容，例如通过按键在多种显示模式间切换。</li>
-<li><strong>transform-nth 不再按 <code>|</code> 分割输出</strong>：<code>transform-nth</code> 和 <code>transform-with-nth</code>（及其 <code>bg-</code> 变体）的输出不再在 <code>|</code> 处分割，只有 <code>change-nth</code> 和 <code>change-with-nth</code> 会在 <code>|</code> 分隔的值之间轮换；同时修复了绑定命令被输出替换的问题（此前 <code>transform-nth(echo '1|2')</code> 会把下一次按键执行成 shell 命令 <code>2|1</code>），<code>--with-nth</code> 模板中的 <code>|</code> 现在也能正常保留。</li>
-<li><strong>空值与无效值处理统一</strong>：<code>change-nth</code> 和 <code>transform-nth</code> 现在与 <code>change-with-nth</code>/<code>transform-with-nth</code> 一致——空值恢复默认 <code>--nth</code>，非空无效值被忽略（如需搜索全部字段请改用 <code>change-nth(..)</code>）。</li>
-<li><strong>change-nth 轮换逻辑改进</strong>：<code>change-nth</code> 和 <code>change-with-nth</code> 现在在当前值之后应用 <code>|</code> 分隔列表中的下一个值，跳过与当前值相同的项和无效项；轮换会跟随当前值（即使由其他绑定或 transform 改变），列表可按自然顺序从初始值开始书写，例如 <code>--with-nth ..</code> 时可直接写 <code>change-with-nth:..|1|2</code>。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li>修复 filter 模式下与 <code>--sync</code>、<code>--tac</code> 或 <code>--bench</code> 组合时 <code>--no-sort</code> 被忽略的问题（#4940）。</li>
-<li>修复 <code>--walker=follow</code> 在符号链接目标为另一个 <code>--walker-root</code> 的祖先时跳过该链接的问题（#4944）。</li>
-<li>修复预览与搜索结果缓存中的数据竞争（#4947）。</li>
-<li>修复 <code>--listen</code> 中 O(n²) 的动作解析，单个约 1 MB 的请求此前可能阻塞服务器约 30 秒。</li>
-<li>Windows：修复 <code>--with-shell</code> 无法检测 cmd、PowerShell 和 pwsh、导致按 POSIX shell 方式引用命令和条目的问题（#4936）；新增 amd64 和 arm64 的 <code>.msi</code> 安装程序，并可通过 winget 获取（#4943），MSI 将 <code>fzf.exe</code> 安装到 Program Files 并加入系统 PATH。</li>
-<li>Vim 插件：修复 Neovim 设置 <code>set title</code> 且 fzf 命令包含 ANSI 转义序列时屏幕出现乱码的问题（#4941）。</li>
-<li>nushell：补全集成现在要求 nushell 0.116.1 及以上版本（#4934）。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/junegunn/fzf/releases/tag/v0.75.0</guid>
-      <pubDate>Sat, 07 Nov 2026 12:03:59 GMT</pubDate>
     </item>
   </channel>
 </rss>
