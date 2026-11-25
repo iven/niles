@@ -3,7 +3,37 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Tue, 24 Nov 2026 15:47:02 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2026 00:35:53 GMT</lastBuildDate>
+    <item>
+      <title>btop++ v1.4.5 发布：新增 CPU 功耗显示与 Nvidia GPU 编解码监控</title>
+      <link>https://github.com/aristocratos/btop/releases/tag/v1.4.5</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>系统资源监视器 btop++ 发布 v1.4.5 版本，以问题修复为主，同时带来若干监控能力上的新增内容。作者特别感谢 @deckstose 在项目维护、PR 审阅与合并上的协助。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>CPU 功耗显示，并修复信息被覆盖的问题</strong>：新增 CPU 功耗（power draw）展示；同时修复了 GPU 与平均负载（load average）数据会覆盖 CPU 各核心信息（core info）的显示缺陷。</li>
+<li><strong>Nvidia GPU 编解码监控</strong>：为 Nvidia 显卡新增编码（encode）与解码（decode）占用率仪表。</li>
+<li><strong>Linux 电池充满时间</strong>：在 Linux 上支持显示电池「距充满剩余时间」（Time-to-full），此前仅有放电方向的估算。</li>
+<li><strong>帮助菜单支持 vim 风格移动</strong>：可按 vim 习惯使用方向键位进行导航，提升键盘操作体验。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>磁盘 I/O 改用 <code>/sys/dev/block/MAJOR:MINOR</code> 替代 <code>/sys/block/NAME</code> 获取数据，提高设备识别的可靠性。</li>
+<li>内置 <code>fmt</code> 库升级至 12.0.0。</li>
+<li>移除树状视图（tree view）中多余的符号。</li>
+<li>修复本地化（locale）相关问题。</li>
+<li>读取 <code>statvfs</code> 前先转换挂载点名称中的 ASCII 转义序列，修复特殊字符挂载点的显示与统计。</li>
+<li>修复预设（presets）在包含 <code>gpu*</code> 用法时出错的问题。</li>
+<li>修复 <code>--tty</code> / <code>--no-tty</code> 参数不生效的问题。</li>
+</ul>
+
+<p>下载说明：额外构建可参见项目的 Continuous Builds；各架构的 Linux 二进制均以 musl 静态链接，可在 2.6.39 及以上内核运行；暂不提供 macOS 与 BSD 的二进制包。<strong>官方发布的二进制文件均不含 GPU 支持</strong>，若需 GPU 监控请自行编译或等待发行版打包。64 位 x86 系统请选用 x86_64，i486 与 i686 为 32 位版本。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/aristocratos/btop/releases/tag/v1.4.5</guid>
+      <pubDate>Fri, 19 Sep 2025 20:29:27 GMT</pubDate>
+    </item>
     <item>
       <title>btop++ v1.4.6 发布：新增进程 renice、CPU 频率显示模式、进程树折叠等功能</title>
       <link>https://github.com/aristocratos/btop/releases/tag/v1.4.6</link>
@@ -1622,38 +1652,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.167.2</guid>
       <pubDate>Wed, 11 Nov 2026 22:44:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>hapi v0.35.0 发布：新增生成速率显示与用量配额面板，优化连接容错和 Web 交互</title>
-      <link>https://github.com/tiann/hapi/releases/tag/v0.35.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>hapi v0.35.0 是一次以功能新增与体验修复为主的版本更新，共包含 13 项改动，涵盖 CLI 连接稳定性、Codex 生成速率展示、用量与配额面板以及若干 Web 界面交互细节。</p>
-
-<h3>重要改动</h3>
-<ul>
-  <li><strong>显示 Codex 每轮生成速率</strong>：新增 tok/s 指标，可直观看到 Codex 每轮响应的生成速度（<a href="https://github.com/tiann/hapi/pull/2379">#2379</a>）。</li>
-  <li><strong>设置 → 用量页展示 CLI 账户配额与速率限制</strong>：可直接在界面中查看各 CLI 账户的配额与限流情况（<a href="https://github.com/tiann/hapi/pull/2389">#2389</a>）。</li>
-  <li><strong>CLI 连接失败后轮换 hub 节点</strong>：连续连接失败时会自动切换 hub 条目，提升连接可用性（<a href="https://github.com/tiann/hapi/pull/2383">#2383</a>）。</li>
-  <li><strong>Web 端合并会话活动与未读指示器</strong>：两种状态指示合并显示，界面信息更简洁（<a href="https://github.com/tiann/hapi/pull/2380">#2380</a>）。</li>
-  <li><strong>诊断 Bun 初始化前的致命崩溃</strong>：当 Bun 在预初始化阶段崩溃时，webhook 失败消息中会给出相应诊断信息，便于排查启动问题（<a href="https://github.com/tiann/hapi/pull/2365">#2365</a>）。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-  <li><strong>Claude 会话 ID 稳定化</strong>：为每个 Claude 会话保持唯一的稳定 HAPI session id（<a href="https://github.com/tiann/hapi/pull/2388">#2388</a>）。</li>
-  <li><strong>长标签下仍可见附加任务进度</strong>：修复 Web 端标签过长时进度显示被挤出的问题（<a href="https://github.com/tiann/hapi/pull/2392">#2392</a>）。</li>
-  <li><strong>待回答问题卡片视觉调整</strong>：使卡片明显表达「正在等待回复」的状态（<a href="https://github.com/tiann/hapi/pull/2390">#2390</a>）。</li>
-  <li><strong>统一工具卡片头部样式</strong>：所有工具卡片头部采用一致形状（<a href="https://github.com/tiann/hapi/pull/2394">#2394</a>）。</li>
-  <li><strong>语音设置对齐</strong>：运行时的后端与语音选择与设置页预览保持一致（<a href="https://github.com/tiann/hapi/pull/2378">#2378</a>）。</li>
-  <li><strong>压缩轮次标记修正</strong>：只标记 compaction 轮次的结果，不再误标待压缩轮次（<a href="https://github.com/tiann/hapi/pull/2374">#2374</a>）。</li>
-  <li><strong>Codex fork 可用性修复</strong>：在过期的刷新中保留已完成 fork 的可用状态（<a href="https://github.com/tiann/hapi/pull/2370">#2370</a>）。</li>
-  <li><strong>agy ACP 修复</strong>：唤醒会话并通过 agy ACP 流式传输响应式后台轮次（<a href="https://github.com/tiann/hapi/pull/2387">#2387</a>）。</li>
-</ul>
-
-<p>完整变更记录见 <a href="https://github.com/tiann/hapi/compare/v0.34.6...v0.35.0">v0.34.6...v0.35.0</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/tiann/hapi/releases/tag/v0.35.0</guid>
-      <pubDate>Thu, 12 Nov 2026 02:30:15 GMT</pubDate>
     </item>
   </channel>
 </rss>
