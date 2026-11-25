@@ -3,7 +3,105 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Wed, 25 Nov 2026 00:35:53 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2026 09:47:13 GMT</lastBuildDate>
+    <item>
+      <title>Claude Code v2.1.332：支持 MCP 服务器技能（beta），集中修复大量卡死与内存问题</title>
+      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.332</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p>&lt;p&gt;Claude Code v2.1.332 发布。本次更新在引入 MCP 服务器技能（beta）等新能力的同时，重点修复了多类导致终端冻结、内存失控和会话状态错乱的问题，并调整了多家云平台的默认模型与别名。&lt;/p&gt;
+
+&lt;h3&gt;新功能与特性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;MCP 服务器技能（beta）&lt;/strong&gt;：来自 MCP（Model Context Protocol，模型上下文协议）服务器的技能会以 &lt;code&gt;server:skill&lt;/code&gt; 的形式出现在 &lt;code&gt;/&lt;/code&gt; 菜单中，其他技能保持原名称。&lt;/li&gt;
+&lt;li&gt;新增 &lt;code&gt;PreSkillShellCommand&lt;/code&gt; 钩子事件，可在技能或命令加载时拒绝其中的内联 shell 命令。&lt;/li&gt;
+&lt;li&gt;对其他会话投递的待处理消息新增「Always deliver」选项。&lt;/li&gt;
+&lt;li&gt;当被标记的消息使会话运行在另一模型上时，页脚会持续显示提示行，直到用 &lt;code&gt;/model&lt;/code&gt; 选定模型。&lt;/li&gt;
+&lt;li&gt;开启响应日志后，OpenTelemetry（可观测性框架）会为通过 SendUserMessage 或 Cowork 消息工具发送的文本新增 &lt;code&gt;assistant_response&lt;/code&gt; 事件。&lt;/li&gt;
+&lt;li&gt;VS Code 与桌面版 Code 标签页：会话有部分内容无法保存时会给出警告，并提示可用 &lt;code&gt;/compact&lt;/code&gt; 保存；恢复会话时若早期消息未加载，也会像终端一样给出提示。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;稳定性与卡死、内存问题修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Read、@ 提及与压缩在无写入的命名管道上（例如被锁定的密钥管理器挂载的 &lt;code&gt;.env&lt;/code&gt;）会挂起，现在读取在 20 秒后失败。&lt;/li&gt;
+&lt;li&gt;连续多次自动压缩失败后不再直接以「Prompt is too long」结束回合——若在上下文上限再压缩一次仍可继续，则会继续尝试；摘要持续超出输出上限时，第三次被截断后会要求更短的摘要。&lt;/li&gt;
+&lt;li&gt;包含多个通配符的权限规则或钩子条件匹配长命令时冻结；钩子无休止打印输出时冻结与内存暴涨（多数情况已修复）；钩子阻塞或失败、或在 &lt;code&gt;/compact&lt;/code&gt; 后产生超大日志时冻结并上下文溢出，超过约 5 万字符的文本现会被截短。&lt;/li&gt;
+&lt;li&gt;本地 MCP 服务器刷爆标准输出时终端冻结且忽略 Ctrl+C。&lt;/li>
+&lt;li&gt;提示词或管道输入中包含 &lt;code&gt;@&lt;/code&gt; 后接超长不间断字符串（如内嵌字体的压缩 CSS）时冻结；大型跟踪文件被重写后打开 rewind 点长时间冻结。&lt;/li>
+&lt;li&gt;SSE MCP 服务器的事件流中断并以新端点恢复（或不再恢复）后，会话卡住或拒绝所有工具调用，直到手动重连。&lt;/li>
+&lt;li&gt;Remote Control（远程控制）不再错误地把等待对话框或 MCP 提问的桌面应用、VS Code、Agent SDK 会话显示为运行中；用量上限已重置后也不再向这些客户端报告已达上限。&lt;/li>
+&lt;li&gt;会话通过 EnterWorktree 进入 &lt;code&gt;.claude/worktrees&lt;/code&gt; 下的 worktree 或在其中恢复后，CLAUDE.md 与规则文件在多数情况下不再被二次发送给模型。&lt;/li>
+&lt;li&gt;transcript 含大量损坏行时，恢复会话与 &lt;code&gt;/stats&lt;/code&gt; 不再卡顿数秒；&lt;code&gt;/stats&lt;/code&gt; 读取大型 transcript 期间按键延迟问题也已修复（包括对话框关闭后及语言服务器刷 stderr 时）。&lt;/li>
+&lt;li&gt;停掉的后台代理存在未读子代理报告时，Ctrl+C 不再启动新回合，双击 Ctrl+C 也能正常退出。&lt;/li>
+&lt;li&gt;PreToolUse 钩子给出的拒绝原因，现能在终端的 Read、Grep、Glob、Edit、Write 权限提示中显示（&lt;a href="https://github.com/anthropics/claude-code/issues/102892"&gt;#102892&lt;/a&gt;、&lt;a href="https://github.com/anthropics/claude-code/issues/105343"&gt;#105343&lt;/a&gt;）。&lt;/li>
+&lt;li&gt;其他修复：大型或缓慢的 git 仓库中 Bash 命令等待 diff 时 Esc 可中止；光标停留在大文件上时的冻结；Edit 模式 NotebookEdit 保存非法 notebook；MCP 任务 ID 超过 128 字符时的「malformed task handle」；任务被批量删除后复活或 ID 复用；以及若干会话状态与提示显示错误。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;模型与云平台配置调整&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;迁移到 Bedrock Mantle、Google Cloud Agent Platform 与 Microsoft Foundry 上 Sonnet 5 / 5.5 的终端与 VS Code 会话，若未设置模式将默认进入 auto 模式，可用 &lt;code&gt;disableAutoMode: "disable"&lt;/code&gt; 关闭。&lt;/li&gt;
+&lt;li&gt;Google Cloud Agent Platform 与 Microsoft Foundry 的 &lt;code&gt;sonnet&lt;/code&gt; 别名改为 Sonnet 5.5，Foundry 的 &lt;code&gt;opus&lt;/code&gt; 改为 Opus 5.5；Amazon Bedrock 的 &lt;code&gt;sonnet&lt;/code&gt; 仍为 Sonnet 4.5。&lt;/li&gt;
+&lt;li&gt;Microsoft Foundry 默认模型改为 Sonnet 5.5（需部署 &lt;code&gt;claude-sonnet-5-5&lt;/code&gt;，或用 &lt;code&gt;ANTHROPIC_DEFAULT_SONNET_MODEL&lt;/code&gt; 指定已部署模型）；Sonnet 4、Opus 4 与 Opus 4.1 计为已退役。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--model default&lt;/code&gt; 与「Default」选择在该模型不可用时改为回退到较旧模型而非报错（auto 模式下仅回退到 auto 可接受的模型）。&lt;/li>
+&lt;li&gt;修复网关拒绝模型时的 &lt;code&gt;opus&lt;/code&gt; / 强制下限模型列表的回退行为、Bedrock 子代理跨区域 profile 缺失、Bedrock Mantle 上 &lt;code&gt;sonnet&lt;/code&gt; 误指向 Haiku 4.5 等问题。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;VS Code 扩展&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;性能改进：打开 Claude 面板与长会话更快，长回复流式输出更流畅，超大工作区的诊断读取加速。&lt;/li&gt;
+&lt;li&gt;模型选择器打开时方向键起始行错误、屏幕阅读器不朗读高亮模型的修复；diff 视图「复制已删除行 / 已更改行」复制错行的问题修复。&lt;/li&gt;
+&lt;li&gt;关闭未应用的 diff 时更常在更多场景下给出通知；侧边栏用 &lt;code&gt;/rewind&lt;/code&gt; 恢复对话打断自定节奏 &lt;code&gt;/loop&lt;/code&gt; 时给出警告；插件管理行显示已安装版本。&lt;/li&gt;
+&lt;li&gt;修复压缩摘要被显示为用户自己的提示词、后台任务完成时聊天无提示、Web Fetch 失败却显示成功、队列消息与附件顺序颠倒、输入法组合词不显示下划线等问题。&lt;/li>
+&lt;li&gt;语音听写在 60 秒无识别语音或 10 分钟后自动停止（原先为 15 秒 / 2 分钟）；麦克风停止送音频或面板隐藏时会停止并说明原因。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;其他改进与修复&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Code Mode（编码模式）：会话恢复时明确告知此前的脚本变量已失效；丢弃 worktree 变更前会确认、发布前先读取 artifact 文件、优先更新已有 artifact；工具搜索完整显示较长的 MCP 工具描述；修复大量与后台脚本、Esc 中断、超时等待相关的异常。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/context&lt;/code&gt; 全屏输出更短，图例单位只标注一次；&lt;code&gt;/usage&lt;/code&gt; 在会话较多时降低内存占用并提速；&lt;code&gt;/permissions&lt;/code&gt; 会拒绝在下次启动时将被跳过的规则并说明原因。&lt;/li&gt;
+&lt;li&gt;语音听写点击模式：麦克风可保持开启至 60 秒无新词或 10 分钟，发送提示词后停止。&lt;/li&gt;
+&lt;li&gt;代理或网关有请求体大小限制时，长对话与 &lt;code&gt;/compact&lt;/code&gt; 的 413 错误恢复改进；压缩响应的错误信息改为通俗说明而非「ZlibError fetching」原文。&lt;/li>
+&lt;li&gt;&lt;code&gt;/schedule&lt;/code&gt;、权限提示与 &lt;code&gt;/loop&lt;/code&gt; 的云端选项统一改称「cloud scheduled task」。&lt;/li&gt;
+&lt;li&gt;MCP 服务器工具较多时的启动内存占用、恢复长会话时的内存占用、&lt;code&gt;claude -p&lt;/code&gt; 与 SDK 会话开头内存占用均获改善。&lt;/li&gt;
+&lt;li&gt;Grep 的空匹配、多行模式与非 UTF-8 文件行号问题修复；全屏 Ctrl+R 历史选择器中的重复陈旧行修复；&lt;code&gt;/rewind&lt;/code&gt;、&lt;code&gt;--effort&lt;/code&gt;、插件缓存目录残留等若干小问题修复。&lt;/li&gt;
+&lt;/ul&gt;]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.332</guid>
+      <pubDate>Wed, 25 Nov 2026 01:32:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>btop++ v1.4.4 发布：新增命令行初始过滤选项，修复多项问题</title>
+      <link>https://github.com/aristocratos/btop/releases/tag/v1.4.4</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>系统资源监视工具 btop++ 发布 v1.4.4，本次为以 bug 修复为主的维护版本，同时补充了一个小型命令行功能。</p>
+
+<h3>重要改动</h3>
+<ul>
+<li><strong>新增命令行参数：</strong>可通过命令行选项为界面设置初始过滤条件（<a href="https://github.com/aristocratos/btop/pull/1157">#1157</a>），启动后即只显示匹配的进程条目。</li>
+</ul>
+
+<h3>其他改动</h3>
+<ul>
+<li>修复 Ampere 平台上 CPU 温度自动检测失效的问题（<a href="https://github.com/aristocratos/btop/pull/1185">#1185</a>）。</li>
+<li>修正 <code>floating_humanizer()</code> 在数字分隔符不是小数点（如使用逗号作为小数点的区域设置）时的格式化错误。</li>
+<li>将最小刷新间隔限定为 100ms；命令行解析器中整数转换失败时改为正常退出，而不是异常表现（<a href="https://github.com/aristocratos/btop/pull/1172">#1172</a>）。</li>
+<li>为配置加锁／解锁处理，避免出现无限递归（<a href="https://github.com/aristocratos/btop/pull/1031">#1031</a>）。</li>
+<li>修复此前提交 2538d89 引入的第二个标题定位与起始符号错误（<a href="https://github.com/aristocratos/btop/pull/1156">#1156</a>）。</li>
+<li>修复 GCC 13 及更高版本下的悬空引用编译警告。</li>
+</ul>
+
+<h3>发行包说明</h3>
+<ul>
+<li>更多二进制文件见 <a href="https://github.com/aristocratos/btop/actions">Continuous Builds</a>。</li>
+<li>各架构的 Linux 二进制均以 musl 静态链接，可运行于 2.6.39 及以上内核；本版本暂不提供 macOS 与 BSD 二进制。</li>
+<li>所有提供的二进制文件均<strong>不含 GPU 支持</strong>，如需 GPU 监控请自行编译或等待发行版打包。</li>
+<li>64 位 x86 系统请选择 x86_64 版本，i486 与 i686 为 32 位。</li>
+</ul>
+
+<p>维护者特别感谢 @imwints 在项目维护、PR 评审与合并方面的协助。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/aristocratos/btop/releases/tag/v1.4.4</guid>
+      <pubDate>Thu, 03 Jul 2025 20:53:48 GMT</pubDate>
+    </item>
     <item>
       <title>btop++ v1.4.5 发布：新增 CPU 功耗显示与 Nvidia GPU 编解码监控</title>
       <link>https://github.com/aristocratos/btop/releases/tag/v1.4.5</link>
@@ -1607,51 +1705,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.323</guid>
       <pubDate>Thu, 12 Nov 2026 22:12:13 GMT</pubDate>
-    </item>
-    <item>
-      <title>Starship v1.24.2 发布：修复 macOS 26 上命令时长模块导致的通知冻结</title>
-      <link>https://github.com/starship/starship/releases/tag/v1.24.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>跨平台 shell 提示符工具 Starship 发布 v1.24.2 补丁版本（2025-12-30），本次更新全部为 Bug 修复，未引入新功能。</p>
-<h3>主要修复</h3>
-<ul>
-<li><strong>cmd_duration 在 macOS 26 上冻结</strong>：修复了命令时长（cmd_duration）模块在 macOS 26 上发送系统通知时可能导致终端卡死的问题（<a href="https://github.com/starship/starship/issues/7187">#7187</a>）。</li>
-<li><strong>Fish 原生瞬时提示符</strong>：当 Fish shell 支持原生瞬时提示符（transient prompt）时优先使用原生实现，取代此前的模拟方案（<a href="https://github.com/starship/starship/issues/7015">#7015</a>）。</li>
-<li><strong>Fish 作业计数兼容性</strong>：恢复了与旧版 Fish 的作业计数（job counting）兼容性（<a href="https://github.com/starship/starship/issues/7173">#7173</a>）。</li>
-<li><strong>Zsh 作业计数</strong>：修复了 Zsh 下作业计数错误的问题（<a href="https://github.com/starship/starship/issues/7124">#7124</a>）。</li>
-</ul>
-<h3>其他改动</h3>
-<ul>
-<li><strong>git</strong>：增加对 Reftable 存储格式的基础兼容性，并为未来变化做前瞻性处理（<a href="https://github.com/starship/starship/issues/7154">#7154</a>）。</li>
-<li><strong>mise</strong>：使文档与实际实现保持一致（<a href="https://github.com/starship/starship/issues/7131">#7131</a>）。</li>
-<li><strong>安装脚本</strong>：回滚了 install.sh 中「安装目录提示大小写不敏感」的改动（<a href="https://github.com/starship/starship/issues/7138">#7138</a>）。</li>
-</ul>
-<p>建议使用 Fish/Zsh、macOS 26 或使用 Reftable 格式 Git 仓库的用户升级。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/starship/starship/releases/tag/v1.24.2</guid>
-      <pubDate>Tue, 30 Dec 2025 19:11:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>Codex 0.167.2：在 Google Cloud Vertex AI 上默认增量发送工具更新</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.167.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>Codex 0.167.2</h3>
-
-<p><strong>重要改动</strong></p>
-<ul>
-<li>在 Google Cloud Vertex AI 上，Codex 现在默认以<strong>增量方式</strong>发送工具（tool）更新。若需恢复原有的一次性发送行为，可在 <code>config.toml</code> 的 <code>[features]</code> 下设置 <code>incremental_tools_legacy_gcp = false</code>（<a href="https://github.com/openai/codex/pull/60617">#60617</a>、<a href="https://github.com/openai/codex/pull/60848">#60848</a>）。</li>
-</ul>
-
-<p><strong>其他改动</strong></p>
-<ul>
-<li>本次发布未列出其他功能、性能或修复类条目。完整改动列表可查看 <a href="https://github.com/openai/codex/compare/rust-v0.167.1...rust-v0.167.2">版本对比（rust-v0.167.1...rust-v0.167.2）</a>。</li>
-</ul>
-
-<h3>你知道吗？</h3>
-<p>模型调用工具（函数调用）时，客户端需要把可用的工具定义随请求一起传上去。当工具集合较大时，一次性发送全部定义会增加请求体体积与首字节延迟；改为「增量」发送后，客户端可以分批推送工具更新，交由服务端（此处为 Vertex AI 通路）合并，从而更省流量、响应更快。代价是不同提供方对增量协议的支持程度不一致，因此 Codex 针对 GCP 这条通路保留了开关以便回退。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.167.2</guid>
-      <pubDate>Wed, 11 Nov 2026 22:44:46 GMT</pubDate>
     </item>
   </channel>
 </rss>

@@ -3,7 +3,103 @@
   <channel>
     <title>cnBeta.com - 中文业界资讯站</title>
     <description>基于个人兴趣筛选的 cnbeta 内容</description>
-    <lastBuildDate>Wed, 25 Nov 2026 00:36:02 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2026 09:47:08 GMT</lastBuildDate>
+    <item>
+      <title>⭐ 微软工程师承认开发Windows 11原生应用曾经非常困难 不少开发者转向跨平台框架</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1587920.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论Windows原生应用开发难度与开发者转向跨平台框架，属软件开发技术选型与效率经验</small></p>
+                                                
+                                                <p>微软工程师罕见地承认，开发 Windows 11 原生应用曾经非常困难，以至于不少开发者转向跨平台框架，甚至干脆放弃为 Windows 开发应用。在 Ignite 2026 大会上，微软展示了新的 WinApp CLI 与 AI 代理工具，同时坦承 WinUI 仍存在大量缺陷和性能问题。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/014cf4495f5ce07.jpg"></p><p>微软在一场约 45 分钟的 WinUI 演示中，将 WinUI 称为 Windows 应用的“未来平台路径”。但来自 Windows 开发者平台团队的工程师 Jaylyn Barbee 与 Beth Pan 也承认，过去开发者启动一个 Windows 应用项目本身就是一大痛点。Barbee 表示，这种情况促使开发者选择其他跨平台框架，或者完全不再开发 Windows 应用。</p><p>微软没有公布具体有多少开发者因此离开，但这一表态显示出公司已经意识到，开发者对 Windows 原生开发生态的信任正在流失。Windows 的应用开发技术经历了从 Win32、WPF、Silverlight、UWP 到 WinUI 的多次更替，许多开发者投入大量精力后，却看到微软转向新的技术路线。这种反复变化让 Electron、WebView2 等网页封装方案成为更稳妥的选择，也解释了为什么 Windows 11 上仍有大量网页版应用。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/716589521d701dc.jpg"></p><p>在 Ignite 2026 的演示中，微软工程师使用一条“winapp new”命令创建了名为 Hangar 的示例应用。WinApp CLI 是 Windows App Development CLI 的缩写，自 1 月起进入公开预览，能够在终端中创建、运行、检查、测试、分析和打包 Windows 应用。由于它本质上是命令行工具，AI 编程代理也可以直接调用它完成开发流程。</p><p>“winapp new”使用官方 .NET 模板，并从一开始就为应用赋予包标识，因此通知等功能可以立即使用。在没有 WinApp CLI 的情况下，打包一个 Windows 应用通常需要准备清单文件、资源文件，以及主题与发布者匹配并在本机受信任的签名证书；微软工程师承认，除了 Visual Studio 向导之外，每一步都可能相当繁琐。现在，开发者只需三条命令即可生成证书、安装证书并构建 MSIX 安装包。</p><p>微软表示，Visual Studio 并不会被取代，CLI 及其 VS Code 扩展中测试的功能，包括 XAML IntelliSense，最终也会进入 Visual Studio。WinApp CLI 的适用范围也不限于 WinUI。微软文档显示，它支持 .NET、C++、Electron、Rust、Tauri 和 Flutter，因此 Electron 应用也能获得包标识和 MSIX 打包能力。11 月 9 日发布的 0.8 版本还加入了实验性 WinUI DevTools、性能分析以及 C++ 支持。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/44183be4e59d875.jpg"></p><p>现场演示还展示了 AI 代理如何修复应用性能问题。在 Hangar 应用中，机械师反馈工单页面运行缓慢。AI 代理加载了 WinApp 性能技能，运行“winapp perf”后，发现列表视图一次加载了远超屏幕显示范围的行数。工程师随后在 DevTools 的列表中留言，要求不要一次加载 1200 行数据，AI 代理读取该评论后修改了代码。</p><p>微软工程师 Barbee 表示，AI 通常能够完成大约 80% 的工作，但她个人仍倾向于进行大量人工验证。在另一个演示中，机械师希望获得一个可以排序和调整列宽的表格。AI 代理通过“find UI”搜索 WinUI Gallery 示例，找到了 TableView。随后，工程师尝试使用从 WPF 记忆中得来的属性手动冻结列，但操作失败；“find API”工具扫描 Windows API 后，找到了正确的属性 FrozenEdge。微软表示，AI 代理在迁移旧应用时也会犯类似错误。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/aff3b713ced3346.jpg"></p><p>微软公布的内部基准测试显示，使用 WinApp 工具后，关于 WinApp 命令的正确回答率从 37% 提升至 90%，通过应用质量检查的比例也从 68% 提升至 87%。此外，一段 PowerShell 脚本会执行“winapp ui”命令，逐项点击界面变更，并将截图和视频保存到证据文件夹；该流程可在沙盒中运行，以便开发者继续工作。Replit 的产品负责人还利用 WinUI 技能，在大约 15 分钟内将约 600 个本地 CSV 文件转换为一个带有交互式地图的销售应用。</p><p>不过，微软也坦承 WinUI 仍远未成熟。Beth Pan 表示：“有很多 bug，有很多我们需要修复的问题，而且我们大概从 20 年前开始就在做这件事。”WinUI 3 于 2021 年达到 1.0 版本，这里的“20 年”可能也涵盖了其继承的 XAML 技术栈。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/e6634b2eae40416.jpg"></p><p>微软的迁移指南指出，截至 Windows App SDK 2.0，WinUI 应用的启动速度更慢、内存占用更高、存储占用也大于 UWP 应用。Visual Studio 的 XAML 设计器目前不支持 WinUI 3 项目。今年 5 月，微软还承认 WinUI 3 应用的窗口缩放体验不如被其取代的 UWP 应用，并承诺在夏季修复。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/a2a25ddd59cbb17.jpg"></p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/c5afef39a26f30b.jpg"></p><p>好消息是，部分性能问题正在改善。Beth Pan 表示，文件资源管理器启动过程中，WinUI 代码所花费的时间已减少 25%，内存分配减少了 41%。微软还在 Ignite 上指出，窗口管理 API 仍存在缺失，而 TableView、图表和 InkCanvas 控件目前仍处于实验阶段。<br></p><p>微软正在测试热重载、XAML 预览器，以及允许开发者不使用 XAML、直接以纯 C# 编写 WinUI 应用的 Reactor。据工程师介绍，Rust 支持是 WinUI 团队收到的头号需求。WinUI 及其 XAML 编译器目前也已开放开发。</p><p>微软承认多年来开发者的抱怨，值得肯定，但 AI 代理只是让构建 WinUI 应用更快，并不能自动解决性能、稳定性和生态信任问题。如果新的 WinUI 应用启动速度仍慢于旧版 UWP 应用，像 Meta 这样坚持使用网页封装方案的公司，是否会把 WhatsApp 重新做成原生 Windows 应用，仍然是未知数。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587920.htm</guid>
+      <pubDate>Wed, 25 Nov 2026 06:30:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>美国财政部金融犯罪执法网络披露网络安全事件 部分系统已临时下线</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1587918.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 财政部机构网络安全事件通报，属一般新闻，与关注的技术主题关联较弱</small></p>
+                                                
+                                                <p>美国财政部下属的金融犯罪执法网络（FinCEN）于周二表示，正在调查一起“网络安全事件”。该机构称，此次事件导致其“一小部分系统遭到未经授权访问”，但尚未说明事件的整体范围、入侵来源或是否涉及敏感数据。作为预防措施，FinCEN已将部分系统暂时下线。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/3bda115b2933313.webp"></p><p>FinCEN是美国负责打击洗钱、恐怖主义融资等非法金融活动的核心机构。该局维护金融交易数据，并将其提供给执法部门使用；同时，它还保存金融机构依据《银行保密法》提交的可疑活动报告。因此，此次事件引发外界对金融监管数据和执法信息安全的关注。</p><p>FinCEN在警报中表示，银行等机构仍可通过线上系统提交可疑活动报告，但部分服务可能暂时无法使用。需要在短期内加快提交报告的机构，仍可拨打金融机构热线；该机构称热线服务未受到此次中断影响。</p><p>此次披露发生在美国情报系统疑似遭入侵的消息曝光数小时之后。《纽约时报》此前报道，美国中央情报局（CIA）和国家情报总监办公室发现其一个开源情报系统遭到入侵，导致部分非机密信息外泄。据报道，国防部下属的国家地理空间情报局也受到该事件影响，但国防部拒绝置评；CIA和国家情报总监办公室则尚未立即回应置评请求。</p><p>目前尚不清楚FinCEN遭遇的事件是否与上述情报系统入侵有关。此前，美国在本月接连出现多起看似互不相关的服务中断，令公众对网络安全事件保持高度警惕。FinCEN表示，调查仍在进行中，相关系统和服务何时完全恢复尚未公布。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587918.htm</guid>
+      <pubDate>Wed, 25 Nov 2026 06:28:42 GMT</pubDate>
+    </item>
+    <item>
+      <title>微软承认Windows 11电脑此前被自家应用和后台服务占用了近900MB内存</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1587914.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Windows 11系统内存占用问题偏操作系统运维细节，兴趣指向不明确</small></p>
+                                                
+                                                <p>微软承认，Windows 11 电脑此前被自家应用和后台服务悄悄占用了近900MB内存；经过优化后，这部分内存已被释放，对8GB或16GB内存的设备尤其具有实际意义。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/3722d4be75001c6.jpg"></p><p>微软在Ignite 2026大会上披露了相关优化成果。负责Windows核心操作系统工程团队的Ian LeGrow表示，公司自今年1月以来一直在改进Windows及微软自家应用在各类设备上的内存使用效率，重点针对8GB和16GB内存的电脑。他称，内存价格上涨显著推高了设备成本，因此减少系统内存占用，可以让用户在既有设备上获得更好的体验。</p><p>此次优化涉及多个微软组件。其中，Microsoft 365办公套件的内存占用减少了360MB；Defender、Purview和OneDrive等后台服务合计节省了超过半GB内存。将上述改善相加，释放出的内存超过860MB，接近900MB。微软没有公布Defender、Purview和OneDrive各自的具体节省量，但表示这一总体降幅对低配置电脑而言意义重大。</p><p>微软称，其优化思路包括避免加载过去可能默认载入的不必要组件，以及让使用相似或相同框架的组件共享内存。这些做法降低了Windows自身的内存消耗，从而为用户的应用和体验留出更多可用内存。LeGrow强调，微软希望在不牺牲功能的前提下减少RAM占用。</p><p>在性能层面，微软表示，8GB内存电脑上的Office应用速度提升了10%。该公司展示了一项测试：设备运行2026年1月的系统版本，同时进行模拟Teams通话、播放4K背景视频、打开20个Edge标签页，并使用Outlook和多个Microsoft 365应用处理大文件。结果显示，2026年10月的系统版本完成该工作负载的速度比1月版本快约21%。微软同时提醒，这只是30秒片段的抽样测试，公司还会在更长时间内运行测试，以评估现实使用中的收益。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/5a853a92e91d696.jpg"></p><p>微软还表示，这些优化并非只针对8GB内存电脑。负责Windows商业合作团队的Robin Seiler称，为8GB设备所做的改进同样适用于内存更大的设备。</p><p>此前，Windows Latest曾在2026年10月测试Windows 11 26H2。在一台安装了AutoCAD和VS Code的旧款8GB笔记本上，Windows 11 25H2重启后占用约5GB内存；升级到26H2并重启后，内存占用降至3.3GB。在尚未打开Chrome的情况下，可用内存从2.9GB提升至4.6GB。</p><p>该媒体还在一台干净的8GB虚拟机上进行测试：25H2重启后内存占用约为4.1GB，而26H2则降至2.8GB至3.2GB之间。打开“发现”信息流后，小组件功能会使内存占用有所回升。在一台三年前的16GB笔记本上，重启后内存占用最多减少2GB；即使同时运行Edge、WhatsApp、Teams、Outlook，并播放4K 60fps的YouTube视频，内存占用仍维持在约87%。随后再打开Spotify、画图等更多应用，占用也只升至89%。</p><p>微软此前曾表示，将让8GB内存电脑上的Windows体验更快。2026年10月更新已推出部分相关改进，微软称更新后系统响应速度最高可提升20%。此次披露的近900MB内存节省，进一步说明微软正把低内存设备的性能和可用性作为Windows优化的重点。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587914.htm</guid>
+      <pubDate>Wed, 25 Nov 2026 06:17:05 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 木星和白矮星或成帮助观察暗物质的“天然陷阱”</title>
+      <link>https://www.cnbeta.com.tw/articles/science/1587910.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 利用木星与白矮星探测暗物质，属科学前沿进展</small></p>
+                                                
+                                                <p>科学家正尝试借助行星和死亡恒星，寻找宇宙中最神秘物质——暗物质的踪迹。尽管暗物质被认为约占宇宙全部物质的85%，人类至今仍未直接观测到它，其本质也仍是未解之谜。研究人员目前主要依据其引力效应推断暗物质的存在，但对其构成仍知之甚少。</p>                
+                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/1125/d3188c85ff196a2.jpg"></p><p>数十年来，科学家一直在寻找能够解释暗物质的粒子，却始终没有直接探测到任何候选粒子。一种可能是，某些暗物质粒子运动速度极慢，以至于在地球实验室中几乎难以留下可测信号。然而，这些粒子或许更容易在比任何地面探测器都庞大的天体中被发现，例如行星和恒星。</p><p>研究人员阿莱杭德罗·伊瓦拉、梅林·赖夏德和高拉夫·托马尔研究了这些天体能否充当暗物质的“天然陷阱”。这项发表于《宇宙学与天体粒子物理学杂志》的研究虽然没有发现暗物质的直接证据，却帮助排除了暗物质某些可能具备的性质。</p><p>暗物质已知通过引力发生作用，但科学家怀疑它可能还带有极其微弱的电磁性质。一些粒子或许携带极小的电荷，或表现得像微型磁体，从而以难以察觉的方式与普通物质相互作用。</p><p>粒子的速度可能使这些相互作用更难被观测。当一颗缓慢移动的粒子撞击探测器内的物质时，它转移的能量可能不足以产生可测信号。但在行星或恒星内部，即使能量损失很小，也可能足以让粒子无法摆脱该天体的引力束缚。</p><p>经过数十亿年，这些被捕获的粒子可能在行星或恒星中心附近不断积累。如果其性质允许，它们最终可能相互碰撞并发生“湮灭”，转化为其他粒子。部分产物可能逃逸到太空中，另一些则会释放能量，使周围物质升温。</p><p><img src="https://static.cnbetacdn.com/article/2026/1125/1889bde473336e9.jpg"></p><p>研究团队考察了地球、太阳、木星和白矮星四类天体。韩国西江大学量子时空中心研究员、该研究通讯作者高拉夫·托马尔表示，南极的冰立方中微子天文台等专门实验，一直在寻找来自太阳和地球的中微子；对于木星和白矮星，研究团队则重点考察其可能存在的额外加热效应。</p><p>研究人员采用两种方法寻找暗物质迹象。针对地球和太阳，他们分析了已有的中微子搜索结果。中微子是一种能够穿透巨量物质而不被阻挡的微小粒子；如果暗物质粒子在这些天体深处湮灭，其中一些产生的中微子可能抵达探测器，从而提供相关线索。</p><p>对于木星和白矮星——后者是恒星死亡后留下的致密残骸——研究团队则将目光转向热量。与太阳不同，这些天体并不依靠持续的核聚变供能，因此它们可能是检验是否存在其他能量来源的理想对象。</p><p>研究人员计算了不同类型暗物质若被这些天体捕获后可能产生的热量，并将其与天体实际释放的能量进行比较。如果某种暗物质模型预计产生的热量超过天体实际辐射出的能量，该模型便可能被排除。</p><p>通过将这些计算与已有观测结合，研究团队排除了此前实验尚未排除的若干暗物质粒子质量与电磁性质组合。地球尤其适合研究带有极小电荷的粒子，而白矮星则有助于约束其他可能的电磁相互作用。</p><p>不过，研究结果也存在一项重要不确定性。一个天体能够捕获多少暗物质，部分取决于其周围暗物质的密度。尤其对于白矮星而言，研究人员只能依靠估算，因为当地暗物质密度并不总是已知。</p><p>托马尔指出，研究团队并不清楚相关区域的暗物质密度，只能使用估算值；如果这些数值发生变化，研究所设定的限制也可能随之变弱或变强。他指的是M4星团，该研究中考察的白矮星便位于此处。该区域的暗物质数量尚未被直接测量，只能通过模型估算。</p><p>展望未来，托马尔建议在被认为暗物质更密集的区域寻找更冷的白矮星。由于这类恒星释放的热量相对较少，被捕获暗物质粒子带来的额外升温可能更容易被识别。围绕太阳系外恒星运行的行星，也可能为研究暗物质是否正在天体内部悄然积累提供新的机会。</p><p>这项研究题为“暗物质电磁相互作用的天体探测”，由阿莱杭德罗·伊瓦拉、梅林·赖夏德和高拉夫·托马尔完成，于2026年8月27日发布。研究虽未宣告发现暗物质，却表明木星、地球、太阳乃至遥远的白矮星，都可能成为人类理解宇宙暗物质的重要窗口。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1587910.htm</guid>
+      <pubDate>Wed, 25 Nov 2026 06:11:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 宇宙辐射会大脑免疫细胞中引发细微且存在性别差异的分子变化</title>
+      <link>https://www.cnbeta.com.tw/articles/science/1587908.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 宇宙辐射对大脑免疫细胞分子影响的研究，属科学前沿发现而非健康贴士</small></p>
+                                                
+                                                <p>NASA资助的一项新研究显示，模拟的银河系宇宙辐射会在小鼠大脑免疫细胞中引发细微且存在性别差异的分子变化，即使实验小鼠在测试时并未表现出明显的记忆或行为障碍。这项研究为理解长期深空任务中辐射对宇航员大脑健康的潜在影响提供了新的线索。</p>                
+                        <div class="article-global"></div>                            <p>地球的大气和磁场能够屏蔽太空中大量高能粒子，也就是通常所说的宇宙射线。这些辐射可能损伤航天器电子设备，也可能影响生物组织。随着人类计划前往月球、火星及更远深空，宇宙辐射如何作用于大脑，成为航天医学研究的重要课题。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/4f2fba50dd25090.jpg"></p><p>由罗切斯特大学神经科学研究生Mark Osabutey领导的研究团队，在布鲁克海文国家实验室的NASA太空辐射实验室，让雄性和雌性小鼠暴露于模拟银河系宇宙辐射环境。研究人员随后利用单细胞RNA测序技术，分析了近1.6万个大脑常驻免疫细胞，即小胶质细胞，以观察辐射如何改变单个细胞中的基因活动。</p><p>研究结果显示，雄性和雌性小鼠的小胶质细胞对辐射产生了不同的分子反应。雄性小鼠的细胞变化主要涉及细胞应激适应和代谢过程；雌性小鼠则表现出更广泛的免疫信号通路活性下降。不过，两组小鼠均未出现广泛的炎症激活，研究人员在测试时也没有检测到与辐射相关的认知或行为损伤。</p><p>Osabutey表示，尽管细胞层面已经出现明确的分子变化，但研究并未发现广泛的炎症反应，也没有观察到可测量的行为损害。这说明辐射引发的细胞反应，未必会立即转化为可检测的功能问题，但其长期影响仍然未知。</p><p>尽管存在性别差异，研究也发现了一个雌雄小鼠共同出现的反应：与调节细胞应激反应有关的蛋白质FKBP5，在雄性和雌性小鼠大脑皮层及齿状回中的水平均有所上升。这些脑区与认知、学习和记忆等功能密切相关。研究人员认为，FKBP5究竟发挥保护作用还是有害作用，以及不同辐射剂量和其他太空飞行压力因素会如何影响长期脑健康，仍需进一步研究。</p><p>罗切斯特大学神经科学教授M. Kerry O'Banion长期研究太空辐射对神经系统的影响。他指出，太空辐射导致认知变化的风险是真实存在的，理解脑细胞如何被改变、哪些机制受到影响，有助于开发保护宇航员或降低其辐射暴露风险的对策。</p><p>这项研究并未证明观察到的免疫细胞变化是有害、具有保护性，还是暂时的。研究人员也尚未确定这些变化是否会在长期暴露后导致神经系统问题。O'Banion表示，未来还需要在不同时间点、不同实验体系中开展更多研究，才能进一步理解其影响。</p><p>该研究由NASA资助，并得到NASA人类研究计划资助增强奖的支持。研究团队由罗切斯特大学与布鲁克海文国家实验室人员共同组成。布鲁克海文国家实验室的粒子加速器能够生成与太空飞行条件相关的辐射环境，为实验提供了重要支持。研究论文于2026年11月20日发表在《科学报告》上。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1587908.htm</guid>
+      <pubDate>Wed, 25 Nov 2026 06:09:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 天文学家在仅28光年外发现了一个罕见的红矮星 - 双白矮星三星系统</title>
+      <link>https://www.cnbeta.com.tw/articles/science/1587906.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 近距离发现红矮星与双白矮星三星系统，属天文科学前沿进展</small></p>
+                                                
+                                                <p>一颗本应被膨胀恒星吞噬的红矮星，竟与两颗已耗尽燃料的白矮星共同构成一个罕见的三星系统。国际天文学家团队在距地球仅28光年处发现这一奇特结构，并将其命名为“Welopōʻai”。研究团队表示，该系统的存在仍缺乏令人信服的形成解释，相关成果已发表于《天文学与天体物理学》。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/694f2b7481e1c85.jpg"></p><p>这项发现最初源于一次搜寻系外行星的观测。蒙特利尔大学特罗蒂耶系外行星研究所（IREx）的研究人员原本希望寻找一颗围绕暗淡红矮星运行的行星。行星本身通常过于微弱而难以直接看见，但其引力会使其母星出现细微“晃动”，天文学家可据此间接发现它们。</p><p>然而，研究团队在夏威夷莫纳克亚山的加拿大—法国—夏威夷望远镜上，利用名为SPIRou的红外偏振光谱仪，探测到该红矮星速度出现接近每秒16公里的变化。经过数年后续观测，他们确认，牵引这颗红矮星的天体质量超过太阳质量的一半。</p><p>如此高的质量，却伴随着极低的亮度，令研究人员意识到，这个“看不见的伙伴”很可能不是行星，而是一颗死亡恒星的残骸。研究合著者、拉瓦尔大学本科生夏尔—安托万·帕朗表示，最可能的解释是一颗白矮星，但中子星甚至黑洞也无法完全排除。</p><p>白矮星是恒星燃料耗尽后留下的极其致密的核心。包括太阳在内的大多数恒星，最终都会以这种方式结束生命。研究团队随后借助同样位于莫纳克亚山的双子座北望远镜，利用其“Alopeke”高分辨率成像设备，首次直接观测到这颗围绕红矮星运行的白矮星。</p><p>更令人惊讶的是，天文学家早已知道该系统中还存在另一颗白矮星，它位于更远处，并围绕红矮星与其新发现的伴星共同运行。也就是说，Welopōʻai是一个由一颗红矮星和两颗白矮星组成的三星系统。研究团队指出，在地球100光年范围内，尚未发现其他类似结构。</p><p>这个系统之所以令研究者困惑，是因为它似乎“不该存在”。在成为白矮星之前，红矮星的近距伴星质量约为太阳的1.4倍。随着演化，它膨胀成一颗体积可达原先数百倍的巨星。按照现有理解，红矮星当时距离这颗巨星很近，可能受到其剧烈膨胀的强烈影响。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/4027cd99aa6868d.jpg"></p><p>在类似的双星系统中，膨胀的巨星往往会吞噬伴星，两颗恒星甚至可能合并。但Welopōʻai中的红矮星似乎幸存下来，并围绕这颗恒星残骸维持着稳定轨道。更反常的是，这条轨道比天文学家根据两星曾经极为接近的历史所预期的要宽得多。</p><p>蒙特利尔大学白矮星研究专家、论文合著者帕特里克·迪富尔表示：“这个系统不应该存在。我们尚没有清晰的理论解释它如何形成，这正是推动我们下一步观测的问题。”研究团队希望弄清，三颗恒星彼此之间的引力作用，是否能够解释内侧双星的异常轨道。</p><p>研究团队还以不到1%的不确定度，精确测得内侧白矮星的质量。对白矮星而言，如此高的测量精度十分罕见。这一数据将帮助科学家检验有关恒星演化，以及物质在极端致密状态下如何表现的理论预测。</p><p style="text-align: center;"><iframe width="864" height="486" src="//www.youtube.com/embed/3hQDGOAaU0A" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p><p>Welopōʻai这一名称由夏威夷伊米洛阿天文中心的“A Hua He Inoa”（意为“唤起一个名字”）项目确定。该名称结合了“welo”，意为遗传或家族特征，以及“pōʻai”，意为轨道或环形路径，整体寓意“家族特征的路径”。</p><p>领衔研究的IREx研究员艾蒂安·阿蒂戈表示，这类发现提醒人们，即使是在太阳系附近的宇宙区域，仍可能隐藏着惊人的意外。他说：“即使我们原本是在寻找行星，宇宙也常常会给我们带来完全出乎意料的东西。”</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1587906.htm</guid>
+      <pubDate>Wed, 25 Nov 2026 06:07:42 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Windows 11将新增“人脉”小组件 微软的二十余年执念</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1587900.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Windows 11新增人脉小组件属软件新功能，符合感兴趣范围</small></p>
+                                                
+                                                <p>微软正在重新尝试将个人联系人深度整合进 Windows 操作系统。在最新的 Windows 11 实验性版本 26340.10032 中，该公司推出了名为 People（人脉）的小组件，将来自受支持通讯应用的联系人集中呈现在小组件面板中。用户点击某个联系人后，可以直接跳转至对应应用中的聊天界面。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/3402d19b51c77ed.webp"></p><p>这一功能目前仅支持 WhatsApp 和 Phone Link。由于该版本仍属实验性构建，微软未来可能会进一步扩展支持的通讯服务。外界认为，若微软希望让这一小组件获得更多用户关注，增加更多整合对象将是一个合理方向。</p><p>事实上，将联系人功能嵌入 Windows 并不是微软的新想法。早在 2003 年，Windows Longhorn 的早期版本便曾在侧边栏中测试过 People 磁贴。随后，Windows Vista 推出了联系人桌面小工具，但该功能在 Windows 7 的内置桌面小工具列表中被移除。</p><p>到了 Windows 8 时代，微软推出了 People 应用，试图将其打造为整合多个社交网络联系人的中心。2017 年，微软又在 Windows 10 秋季创意者更新中推出 My People 功能，允许用户将常用联系人固定在任务栏，并通过受支持的应用进行互动。不过，这项功能在推出约两年后便被微软弃用。</p><p>Windows 11 最初沿用了旧版 People 应用，但微软已于 2024 年 12 月终止对其支持。同年曾有报道称，微软正在开发一款新的 People 应用，但此后并未有实质性进展。如今，随着 People 小组件出现在实验性版本中，微软显然再次重启了这一长期构想。</p><p>从 Vista 中的桌面小工具，到 Windows 8 中的应用，再到 Windows 10 的任务栏功能，以及如今 Windows 11 的小组件，微软多年来不断以不同形式尝试将 People 功能纳入系统。分析认为，微软似乎一直希望构建一个围绕联系人的 Windows 子生态，但这一目标尚未真正获得广泛成功。</p><p>目前尚不清楚这一新 People 小组件的最终命运，以及微软能否最终打造出一个能够长期留存、真正被用户接受的联系人中心。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587900.htm</guid>
+      <pubDate>Wed, 25 Nov 2026 05:49:48 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Anthropic Claude Artifacts现可转换为Mac和Windows桌面应用</title>
+      <link>https://www.cnbeta.com.tw/articles/tech/1587896.htm</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Claude Artifacts可转为桌面应用，属AI软件技术进展与工具能力更新</small></p>
+                                                
+                                                <p>Anthropic宣布，其Claude平台的Artifacts功能迎来重要升级，用户现在可以将自己创建的Artifacts转换为可在Mac和Windows上运行的桌面应用。这项功能目前以测试版形式向所有Claude套餐的Mac和Windows用户逐步推出，旨在让用户创建的设计、演示文稿、文档、数据仪表盘及交互工具，能够以独立应用的形式在电脑上运行和分享。</p>                
+                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1125/b223bd8f621b7d6.webp"></p><p>Artifacts是Claude平台中的一项内容创建功能，用户可以借助它生成设计作品、演示文稿、文档、数据仪表盘，甚至可交互的工具，并随时进行查看、编辑和分享。Anthropic此前已将Artifacts的能力扩展至电子表格、白板和动画内容。此次新功能则进一步突破了浏览器内的使用场景，让这些内容能够成为真正意义上的桌面应用。</p><p>当用户将一个Artifact安装为Windows或Mac应用后，该应用将获得独立的图标，并在单独的窗口中打开，而不再嵌入Claude桌面应用内。用户还可以将这些应用分享给其他Claude用户，无需进行打包或签名等传统应用发布流程。</p><p>这些应用并不仅限于展示信息。在获得相应权限后，它们可以发送桌面通知、注册全局键盘快捷键，并将图标添加到Windows系统托盘或Mac菜单栏。此外，应用还可以与本地文件交互，甚至在电脑上运行其他程序，从而实现更丰富的桌面功能。</p><p style="text-align: center;"><iframe width="864" height="486" src="//www.youtube.com/embed/vBDP--QD_Og" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p><p>由于这类应用可能访问用户电脑上的敏感信息，Anthropic为权限管理设置了三个层级。默认权限下，应用只能使用通常可在网页浏览器中实现的功能；应用权限允许其请求桌面特有能力，包括通知、全局快捷键和始终置顶窗口；完全电脑访问权限则允许应用执行程序，以及读取、修改或删除本地文件，且无需对每一项操作逐一批准。</p><p>Anthropic表示，公司不会在安装前对这些应用进行审核。因此，用户只能向自己创建的应用授予完全电脑访问权限；对于Team和Enterprise客户而言，则只能向其组织内部成员创建的应用授予该权限。这一安排旨在降低第三方应用滥用系统权限的风险。</p><p>新的Artifact应用还可以在支持的情况下利用Claude及现有的连接器功能。当底层Artifact被编辑后，已安装的应用会自动更新，但Claude会在每次更新后要求用户重新确认相关权限。需要注意的是，应用向Claude发出的请求将计入用户现有套餐的使用额度。</p><p>要使用Claude Artifact应用，用户需要保持网络连接并登录Claude账号。并非所有类型的Artifact都支持安装为应用，例如Claude Docs、Slides和Sheets等文档类Artifact暂时无法转换。对于Claude Team用户，该功能默认开启；Enterprise用户则需要由管理员启用。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587896.htm</guid>
+      <pubDate>Wed, 25 Nov 2026 05:47:58 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Google研究人员展示量子芯片在逻辑游戏中胜过经典计算机的案例</title>
       <link>https://www.cnbeta.com.tw/articles/tech/1587874.htm</link>
@@ -507,102 +603,6 @@
       </description>
       <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1587454.htm</guid>
       <pubDate>Sun, 22 Nov 2026 07:46:23 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ AI辅助证明黎曼猜想震动数学界 丘成桐：一个伟大的贡献</title>
-      <link>https://www.cnbeta.com.tw/articles/science/1587450.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI辅助数学证明的科学突破与学界评价，属科学前沿与AI进展</small></p>
-                                                
-                                                <p>近日，数学界迎来一项可能具有历史意义的重大突破，困扰人类167年的世界级数学难题——黎曼猜想，有望在人工智能的辅助下被攻克。11月20日，AI公司Anthropic的数学家莱文特·阿尔珀格在个人网站发布声明，<strong>称自己在AI大模型Claude的协助下，找到了黎曼猜想及其推广形式——广义黎曼猜想的证明方法。</strong></p>                
-                        <div class="article-global"></div>                            <p>这一消息迅速引发全球数学界关注。</p><p><img src="https://static.cnbetacdn.com/article/2026/1122/7f74364e6c5b002.png"><br></p><p>据新京报报道，著名数学家、清华大学求真书院院长、菲尔兹奖得主丘成桐对此作出回应。</p><p>丘成桐表示：<strong>“这是一个伟大的贡献，也可以讲震动了全世界，表示数学进入了一个新的纪元。”</strong></p><p>在丘成桐看来，人工智能未来将成为科学研究不可缺少的一部分，但如何确定有价值的研究方向、提出重要问题，依然需要人类的创造力。</p><p>他希望年轻学者，尤其是中国年轻数学家，能够在此基础上发展出自己的理论，这也是中国数学研究迎来进一步发展的重要机会。</p><p>据了解，阿尔珀格此次并未发表传统形式的完整数学论文，而是公布了约1700万行Lean形式化证明代码。</p><p>据他透露，Claude在研究过程中生成的自然语言证明草稿超过25万页。</p><p>11月21日，<strong>Lean与Mathlib社区发布联合声明，确认此次黎曼猜想的命题表述及形式化证明均正确。</strong></p><p><img src="https://static.cnbetacdn.com/article/2026/1122/1e24a294e2cf1ff.png"><br></p><p>不过，数学界仍需进一步理解和研究其证明过程。</p><p><img src="https://static.cnbetacdn.com/article/2026/1122/d69d20da568feba.png"><br></p><p>截至目前，克雷数学研究所官网仍将黎曼猜想列为未解决的数学难题。</p><p>那么，黎曼猜想究竟是什么，为何受到全球数学界如此高度的关注？</p><p>黎曼猜想由德国数学家伯恩哈德·黎曼于1859年提出，是现代数论领域最重要的数学难题之一，其核心涉及素数的分布规律。</p><p>所谓素数，是指大于1且只有1和自身两个正因数的自然数，例如2、3、5、7、11等。</p><p><strong>素数是构成整数的基本元素，但其分布看似杂乱无章，如何准确描述素数的分布规律，一直是数学界的重要研究课题。</strong></p><p>黎曼通过研究黎曼ζ（Zeta）函数，发现其与素数分布存在深刻联系，并提出该函数所有非平凡零点的实部均为1/2。</p><p>如果黎曼猜想得到证明，人类将能够更加精确地描述素数的分布规律，并推动数论及相关数学领域的发展。</p><p>2000年，美国克雷数学研究所将黎曼猜想列入七大千禧年数学难题，并为其设立了高达100万美元的悬赏奖金。</p><p>如果此次在AI辅助下完成的证明最终获得数学界公认，不仅将成为数学史上的里程碑，也将为人工智能参与基础科学研究开辟新的道路。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1587450.htm</guid>
-      <pubDate>Sun, 22 Nov 2026 07:36:43 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 数学界百年难题被AI攻克？马斯克称成果令人震撼</title>
-      <link>https://www.cnbeta.com.tw/articles/science/1587446.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI攻克数学难题的进展报道，属AI技术进展与科学前沿，用户感兴趣</small></p>
-                                                
-                                                <p>11月22日，特斯拉CEO埃隆·马斯克（Elon Musk）在社交平台X发文，谈及人工智能证明数学界著名难题“黎曼猜想”的意义，并将这一成果称为超级智能取得的又一项令人震撼的成就。</p>                
-                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/1122/5766b646cae0a66.png"><br></p><p>马斯克表示，对黎曼猜想证明的实用价值，一个简单的解释是，它可以消除其他依赖该猜想的数学定理所附带的条件性限制。</p><p>“当然，这也是超级智能取得的又一项令人震撼的成就。”马斯克写道，并附上了一则Grok对相关证明意义的解释链接。</p><p><strong>黎曼猜想由德国数学家伯恩哈德·黎曼于1859年提出，是数学领域最著名的未解难题之一，也是克雷数学研究所公布的七大“千禧年大奖难题”之一</strong>。该猜想与素数分布密切相关，许多数学研究成果都建立在假设黎曼猜想成立的基础之上。</p><p>如果黎曼猜想得到严格证明，将使一系列以该猜想成立为前提的条件性数学结论获得更坚实的理论基础。</p><p>需要指出的是，马斯克此次发文并未提供可供独立评估的完整数学证明。仅凭其表态，尚不能认定黎曼猜想已被正式攻克，也无法确认相关成果是否通过数学界的严格验证。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1587446.htm</guid>
-      <pubDate>Sun, 22 Nov 2026 07:36:08 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 联合国“杀手机器人”监管谈判未达预期</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1587422.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 国际军控与自主武器监管谈判，属国际必读新闻类，符合感兴趣范围</small></p>
-                                                
-                                                <p>在联合国日内瓦总部举行的一场关键谈判中，各国代表围绕致命自主武器系统，也被称为“杀手机器人”的监管问题展开激烈讨论。经过持续一周、直至周六凌晨才结束的磋商后，与会国家最终同意启动关于未来监管框架的进一步讨论，但未能就外界期待的具有法律约束力的国际规则达成一致。</p>                
-                        <div class="article-global"></div>                            <p style="white-space: normal;"><a href="https://static.cnbetacdn.com/article/2022/1124/10bb1f7f771182c.webp" target="_blank"><img src="https://static.cnbetacdn.com/article/2022/1124/10bb1f7f771182c.webp"></a></p><p style="white-space: normal;">根据会议达成的妥协方案，各国将在未来两年内研究针对自主武器系统的监管选项。这些方案未来既可能发展成为具有法律效力的国际规则，也可能仅作为自愿遵守的指导原则存在。虽然部分外交官认为能够达成这一结果已属不易，但不少国家和人道主义组织认为，这距离真正有效的国际监管仍有相当大差距。</p><p style="white-space: normal;">在谈判开始前，国际红十字委员会曾公开呼吁各国在一年内制定具有法律约束力的相关规范，以应对人工智能军事化发展带来的风险。联合国秘书长和罗马教皇也对这一倡议表示支持。他们认为，随着人工智能技术快速融入武器系统，国际社会已经没有太多时间可以浪费。</p><p style="white-space: normal;">支持严格监管的一方指出，当前乌克兰、苏丹以及加沙等冲突地区已经广泛出现具备部分自主能力的无人机和武器平台。这些系统虽然仍由人类进行最终控制，但自主决策能力正持续增强。人道主义组织担忧，未来武器系统可能具备完全独立识别、选择并攻击目标的能力，从而让机器直接掌握生杀大权。</p><p style="white-space: normal;">国际红十字委员会法律顾问乔治娅·海因兹表示，让算法和软件程序自行决定人类生死，涉及无法回避的伦理问题。她认为，这并非单纯依靠技术改进就能解决的挑战，而是一条不应被跨越的道德红线。</p><p style="white-space: normal;">本次谈判从一开始就面临巨大阻力。美国、俄罗斯和以色列等国家此前已经表达了对强制性国际规则的谨慎态度。谈判期间，俄罗斯曾对会议议程提出异议，导致会议进程受阻。美国则提出以更长时间研究非强制性指导原则的方案，而非立即推动具备法律效力的国际条约。</p><p style="white-space: normal;">随着会议接近结束，各方经过长时间拉锯最终达成折中结果。根据协议，未来讨论将继续进行，但既没有确定在短期内达成国际条约，也未承诺最终监管框架必须具有法律约束力。对于希望迅速建立全球规则的人士而言，这一结果显然未达到预期。</p><p style="white-space: normal;">谈判结束后，多个人道主义组织表达失望情绪，并再次敦促各国尽快展开正式条约谈判。他们警告称，人工智能驱动的自主武器技术正在以远快于国际规则制定的速度发展。如果监管继续滞后，未来战场上由机器独立决定攻击与杀伤目标的情况或将从理论风险逐渐演变为现实问题。</p><p style="white-space: normal;">尽管本轮谈判未能实现突破性进展，但致命自主武器的监管议题已经成为国际社会关注的焦点。随着越来越多国家加大人工智能军事应用投入，如何在技术发展、国家安全和人道主义原则之间取得平衡，预计将继续成为未来全球安全治理领域最具争议的话题之一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587422.htm</guid>
-      <pubDate>Sat, 21 Nov 2026 20:22:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>群联展示内置NPU与64GB内存的智能SSD方案 可直接运行AI模型</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1587420.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主体是SSD控制器与NPU的芯片/存储硬件方案，属不感兴趣的芯片技术，但涉及本地运行AI模型的技术进展，兴趣不明确</small></p>
-                                                
-                                                <p>在芝加哥举行的2026年国际超级计算大会（SC26）上，存储控制器厂商群联电子（Phison）展示了一项面向人工智能服务器的新型SSD设计方案。该方案在固态硬盘内部集成神经网络处理器（NPU）以及64GB内存，能够直接在硬盘上运行PyTorch和llama.cpp等AI框架和模型，从而让部分数据处理工作在数据离开存储设备之前完成。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1122/2998473d19429a7.webp"></p><p>当前许多AI服务器的大量时间都用于从SSD读取数据，再交由CPU或GPU进行处理。群联希望改变这种模式，通过在存储设备内部完成部分计算任务，让硬盘不仅负责存储数据，还能参与数据分析和推理工作。</p><p>根据群联介绍，新设计能够在数据存储位置直接对数据进行并行扫描和处理，而无需将完整数据集传输到主机系统。硬盘处理完成后，只需将关键结果返回给服务器即可。对于适合的应用场景，这种方式有望将数据传输量减少10倍至100倍，同时降低CPU负载，为主机处理器释放更多资源。</p><p>在硬件规格方面，该SSD搭载的64GB内存可提供约130GB/s的带宽。相比之下，群联即将推出的PCIe 6.0 SSD控制器与主机之间的数据传输速度约为28GB/s。这意味着硬盘内部读取自身存储数据的速度远快于向外传输数据的速度，从而进一步凸显在存储端进行计算的价值。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1122/e9ea50a832b9f83.webp"></p><p>群联还表示，开发人员无需学习全新的专用开发工具。该设计支持vLLM、OpenVINO等主流AI软件框架，因此现有人工智能软件生态有望较容易地适配这一架构。</p><p>不过，关于这款SSD最核心的AI计算性能指标，群联公布的信息仍然有限。公司目前仅给出了36，800 DMIPS这一计算指标。DMIPS属于诞生已久的CPU整数运算基准测试标准。业内分析认为，这一数字更可能代表硬盘内部配套CPU核心的性能，而非NPU本身的人工智能算力。值得注意的是，群联并未公布业界常用的TOPS（每秒万亿次运算）指标，因此外界暂时难以准确评估其真实AI性能水平。</p><p>此外，该产品目前尚未公布正式型号、上市时间或样品出货计划。群联也没有说明采用何种类型的存储器技术。公司表示，本次展示的许多产品和功能仍处于研发阶段。因此，这项技术目前更接近一种未来架构方案，而非数据中心能够立即采购部署的成熟产品。</p><p>实际上，“可计算存储”并非全新概念。早在2018年，三星就曾推出搭载FPGA的SmartSSD，并于2022年发布第二代产品。然而，这类产品后来逐渐淡出市场视野。有分析认为，生成式人工智能热潮推动了市场对大容量存储的巨大需求，相较之下，具备存储端计算能力的产品并未获得同等关注。</p><p>与三星早期方案相比，群联此次提出的设计存在一个明显差异。此前的SmartSSD需要客户自行开发相关软件和知识产权模块，而群联则承诺兼容开发者已经广泛使用的AI工具链。如果这一兼容性能够顺利实现，同时其NPU性能达到官方预期，那么存储设备直接承担AI计算任务的理念或许有机会再次获得产业界的关注。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587420.htm</guid>
-      <pubDate>Sat, 21 Nov 2026 19:34:47 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Google Gemini推出AI生成GIF功能 部分国家免费用户也可使用</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1587410.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] Google Gemini新增AI生成GIF功能，属AI软件技术进展与产品新功能，符合兴趣</small></p>
-                                                
-                                                <p>Google宣布，其人工智能助手Gemini现已支持用户生成自定义动画GIF。用户只需输入简单的文字提示，或上传照片、视频作为参考，即可创建专属动态图像，无需再在Giphy或Tenor等既有GIF库中反复搜索合适的表情或反应图。</p>                
-                        <div class="article-global"></div>                            <p><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" title="X Post" src="https://platform.twitter.com/embed/Tweet.html?creatorScreenName=pradeepviswav&dnt=true&embedId=twitter-widget-1&features=eyJ0ZndfdGltZWxpbmVfbGlzdCI6eyJidWNrZXQiOltdLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X2ZvbGxvd2VyX2NvdW50X3N1bnNldCI6eyJidWNrZXQiOnRydWUsInZlcnNpb24iOm51bGx9LCJ0ZndfdHdlZXRfZWRpdF9iYWNrZW5kIjp7ImJ1Y2tldCI6Im9uIiwidmVyc2lvbiI6bnVsbH0sInRmd19yZWZzcmNfc2Vzc2lvbiI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfZm9zbnJfc29mdF9pbnRlcnZlbnRpb25zX2VuYWJsZWQiOnsiYnVja2V0Ijoib24iLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X21peGVkX21lZGlhXzE1ODk3Ijp7ImJ1Y2tldCI6InRyZWF0bWVudCIsInZlcnNpb24iOm51bGx9LCJ0ZndfZXhwZXJpbWVudHNfY29va2llX2V4cGlyYXRpb24iOnsiYnVja2V0IjoxMjA5NjAwLCJ2ZXJzaW9uIjpudWxsfSwidGZ3X3Nob3dfYmlyZHdhdGNoX3Bpdm90c19lbmFibGVkIjp7ImJ1Y2tldCI6Im9uIiwidmVyc2lvbiI6bnVsbH0sInRmd19kdXBsaWNhdGVfc2NyaWJlc190b19zZXR0aW5ncyI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfdXNlX3Byb2ZpbGVfaW1hZ2Vfc2hhcGVfZW5hYmxlZCI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9LCJ0ZndfdmlkZW9faGxzX2R5bmFtaWNfbWFuaWZlc3RzXzE1MDgyIjp7ImJ1Y2tldCI6InRydWVfYml0cmF0ZSIsInZlcnNpb24iOm51bGx9LCJ0ZndfbGVnYWN5X3RpbWVsaW5lX3N1bnNldCI6eyJidWNrZXQiOnRydWUsInZlcnNpb24iOm51bGx9LCJ0ZndfdHdlZXRfZWRpdF9mcm9udGVuZCI6eyJidWNrZXQiOiJvbiIsInZlcnNpb24iOm51bGx9fQ%3D%3D&frame=false&hideCard=false&hideThread=false&id=2123813017855103449&lang=en&origin=https%3A%2F%2Fwww.neowin.net%2Fnews%2Fgoogle-follows-chatgpt-with-ai-generated-gifs-in-gemini-available-even-to-free-users%2F&sessionId=df178f3dc7ba82f3fc903304c71e4bb9b1915f6d&siteScreenName=NeowinFeed&theme=light&widgetsVersion=6a3ad42b224df%3A1778106238597&width=550px" data-tweet-id="2123813017855103449" style="box-sizing: border-box;outline: none;padding: 0px;vertical-align: baseline;font-style: inherit;font-variant: inherit;font-weight: inherit;font-stretch: inherit;line-height: inherit;font-family: inherit;font-optical-sizing: inherit;font-size-adjust: inherit;font-kerning: inherit;font-feature-settings: inherit;font-variation-settings: inherit;font-language-override: inherit;border-width: 0px;border-style: none;position: static;visibility: visible;width: 550px;height: 964px;display: block;flex-grow: 1"></iframe></p><p>这项功能由Google近期发布的Gemini Omni 1.2 Flash视频生成模型驱动。该模型于本月早些时候推出，可生成最长15秒的视频片段，并具备更强的跨帧一致性和对话式编辑能力。Google表示，新模型能够在保持画面主体及视觉细节连贯的前提下，呈现更流畅的动画效果。</p><p>根据Google支持文档，Gemini生成的GIF长度约为3秒，并会以循环方式持续播放。用户可以直接在Gemini主聊天界面描述想要的GIF内容，也可以打开图片或视频创作工具，在格式选择器中选择GIF后输入提示词。此外，Gemini还提供现成的GIF模板，帮助用户快速制作表情包或反应图，而无需从零开始设计。用户也可上传自己的图片或视频，用以定制生成结果。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1122/e17aeb68b773b10.webp"></p><p>生成完成后，GIF可以直接复制并粘贴到支持该格式的聊天应用、电子邮件、文档及其他服务中，用户也能将其下载为标准的.gif文件，用于其他场景。</p><p>Google表示，GIF生成功能正在向全球Gemini付费订阅用户逐步推出。不过，在美国、日本、韩国、澳大利亚、加拿大、英国、德国和法国，该功能同时向Google AI订阅用户和免费用户开放。</p><p>此次更新被视为Google对OpenAI的跟进。本月早些时候，OpenAI通过新的Images 2.6模型在ChatGPT中引入了动画GIF生成功能，用户可将简单草图转化为动画、制作反应GIF和表情包，或为产品图片添加动态效果。Google此次将类似能力带入Gemini，进一步加剧了主流AI产品在图像与视频创作领域的竞争。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587410.htm</guid>
-      <pubDate>Sat, 21 Nov 2026 16:47:30 GMT</pubDate>
-    </item>
-    <item>
-      <title>这张夜空照片展示了划过夜空的14000条卫星轨迹</title>
-      <link>https://www.cnbeta.com.tw/articles/science/1587408.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 以星空照片呈现卫星轨迹，偏航天天文类的图文趣闻，科学价值与兴趣指向均不明确</small></p>
-                                                
-                                                <p>一张新西兰摄影师拍摄的夜空照片近日在网络上引发热议。照片中密布的卫星轨迹令许多人误以为是人工智能生成的作品，但作者表示，这幅画面完全由真实拍摄和人工后期合成完成。</p>                
-                        <div class="article-global"></div>                            <p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1122/4c65c23a89b0039.jpg"></p><p>新西兰天文摄影师布伦丹·拉森于9月9日晚，在塔拉纳基山前拍摄夜空。他使用佳能EOS R相机和适马Art 50毫米f/1.4镜头，以8秒曝光拍摄，在两个多小时内共采集了578张单独照片。随后，他花费约45小时，将这些照片在Photoshop中逐层叠加，并仔细移除星星，只保留卫星划过夜空时留下的光迹。</p><p>最终完成的合成照片中，共呈现约1.4万条卫星轨迹，对应约1400颗不同卫星。这些卫星包括用于气象观测、互联网通信和导航服务的设备，在短短两个小时内接连掠过同一片天空。拉森说，随着照片不断叠加，他开始看到一种图案逐渐显现，并意识到继续拍摄会让画面更加震撼，也能更直观地展现卫星数量之庞大。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1122/4c684334dcb31e6.jpg"></p><p>这张照片发布后迅速传播，触达全球数百万人，也引来国际媒体关注。由于画面过于密集、视觉冲击力极强，不少网友质疑其由人工智能制作。拉森随后上传了一段展示照片制作过程的视频，以回应相关质疑。他强调，照片记录的是真实的天空、真实的地点和真实发生的一刻。</p><p style="text-align: center;"><img src="https://static.cnbetacdn.com/article/2026/1122/925f37d45be8cbe.jpg"></p><p>拉森表示，制作这幅作品的部分目的，是提醒公众关注近地空间日益拥挤的问题。随着卫星数量不断增加，夜空正在被越来越多的光迹改变，光污染和太空垃圾也成为亟需重视的环境议题。他希望通过这张照片，让更多人意识到保护夜空和近地轨道环境的必要性。</p><p>照片中还有一个容易被误认为卫星轨迹的细节：塔拉纳基山中心附近的一道蜿蜒光痕，实际上是两名登山者从山顶下撤时留下的移动轨迹。他们的身影与头顶的卫星一样，被长时间曝光和照片叠加的方式记录下来。这幅作品既展示了现代航天活动对夜空的影响，也以极具冲击力的方式呈现了人类活动如何改变我们头顶的天空。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/science/1587408.htm</guid>
-      <pubDate>Sat, 21 Nov 2026 16:45:57 GMT</pubDate>
-    </item>
-    <item>
-      <title>英伟达发布显卡热修复驱动 修复SSD过度写入问题</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1587396.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 显卡驱动热修复，属硬件配套修复小更新，技术含金量低且兴趣不明确</small></p>
-                                                
-                                                <p>英伟达发布GeForce Hotfix 621.35驱动程序，其基于最新的GeForce Game Ready 621.24 WHQL驱动程序基础上。自从基于Blackwell架构的GeForce RTX 50系列显卡发布后，英伟达频繁地发布Hotfix驱动程序，先后发布了13次，其中有7次是在今年。</p>                
-                        <div class="article-global"></div>                            <p><img src="https://img.3dmgame.com/uploads/images/news/20261121/1795254975_373869_jpg_r.jpg" alt="英伟达发布显卡热修复驱动 修复SSD过度写入问题"></p><p>英伟达会定期发布显卡驱动程序，一般是有新显卡或者新游戏发售的时候，不过偶尔会针对某款游戏或者之后发现的新漏洞发布Hotfix驱动程序，旨在解决其工程师已经发现并修复的重要问题。通常这些都是针对特定问题的小修复，不涉及任何重大问题。这次的GeForce Hotfix 621.12驱动程序主要解决了以下问题：</p><p>已修复的问题，包括：</p><p>后台可能会对文件 nvlog.nvlgstg 进行过度写入。[7116722]</p><p>英伟达重申，GeForce Hotfix驱动程序被视为测试版本，质量保证流程比起一般的WHQL驱动程序要少得多。这次的621.12驱动程序不会有其他任何修复或者功能增强，如果并非使用对应型号显卡遇到相关问题的用户不需要下载更新，等待下一个WHQL或Game Ready版本即可。</p><p>NVIDIA GeForce Hotfix 621.35驱动程序（Windows 10/11 64位），地址：<a href="https://www.nvidia.com/en-us/geforce/forums/game-ready-drivers/13/593169/announcing-geforce-hotfix-driver-62135-released-11/3634898/" target="_blank">点此前往&gt;&gt;&gt;</a></p><p>数天前有报道称，部分英伟达GeForce显卡驱动被曝存在严重漏洞，会在系统空闲时持续向SSD写入大量数据。与AMD Radeon显卡驱动的情况类似，这些漏洞可能会加速SSD损耗。</p><p>问题指向“NVDisplay.Container.exe”进程或者“NVIDIA Display Container LS”服，疑似与一个日志文档被反复地覆盖写入有关。这些是NVIDIA控制面板和应用所必须的后台服务，负责管理控制面板、驱动设置和部分后台功能，不过并非所有用户都会受到影响。焦点文档位于“C:ProgramDataNVIDIA Corporationnvtoppsnctnvlog.nvlgstg”，该服务没有选择追加新内容，但是反复地覆盖同一文档会造成大量无谓的写入操作。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587396.htm</guid>
-      <pubDate>Sat, 21 Nov 2026 11:19:33 GMT</pubDate>
-    </item>
-    <item>
-      <title>AI造芯真能成 一年的活5个月干完：AMD已经拿去送厂流片</title>
-      <link>https://www.cnbeta.com.tw/articles/tech/1587388.htm</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲AI辅助芯片设计流片，主线是芯片技术（不感兴趣），仅AI提效部分略相关</small></p>
-                                                
-                                                <p>OpenAI在11月18日发布了最新的技术报告，里面披露了一个相当有意思的进展：他们的大模型已经深度参与到AMD的芯片设计流程中，在这家芯片厂旗舰GPU的电路设计上拿到了最高14%的PPA提升。<strong>而且部分AI生成的优化，已经进了近期送厂制造的芯片设计。按照OpenAI的说法，这次合作相当于把大约一年的工程优化工作压缩到了不到5个月。</strong></p>                
-                        <div class="article-global"></div>                            <p><img src="https://static.cnbetacdn.com/article/2026/1121/9539fd821799114.jpg"><br></p><p>和常见的AI写软件代码不同，这次的优化对象是硬件描述语言，OpenAI的模型直接重写了AMD的部分SystemVerilog RTL代码。</p><p>也就是定义电路如何完成计算、控制和数据传输的那一层，改完之后再用Synopsys的EDA工具做功能验证，确保电路行为没有变化。</p><p><strong>比较难得的是，这些优化是在AMD工程师已经打磨了多年的设计基础上抠出来的，对标的是高度优化过的基准，依然挖出了最高14%的PPA空间。</strong></p><p>落地进度方面，AMD已经把一部分改动整合进近期送厂制造的芯片设计，其余优化也进了面向未来产品的量产设计文件，而且范围不止GPU——AMD还用模型产出的设计，在其下一代旗舰CPU的关键模块上验证了个位数百分比的PPA提升。</p><p><strong>不过要强调的是，14%指的是PPA层面的收益，不等于GPU实际性能直接提升14%，功耗、性能、面积各自的贡献占比，OpenAI没有拆开讲，具体哪些产品会用上这些优化，AMD也没有确认。</strong></p><p>考虑到RDNA5、CDNA5和Zen6都是AMD手上待发的下一代架构，外界难免往它们身上联想，但目前没有任何官方说法。</p><p>整件事更大的看点在于闭环：AI模型正在参与设计用来运行它们自己的硬件。这些优化最终能给AMD的商用GPU和CPU带来多少实际收益，还要看后续的产品表现。</p><p>但AI生成的电路改动已经从实验室基准测试走到了送厂制造的设计文件里，这一步是有标志性意义的。</p><p><img src="https://static.cnbetacdn.com/article/2026/1121/9758c9f3ef28e3a.jpg"><br></p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.cnbeta.com.tw/articles/tech/1587388.htm</guid>
-      <pubDate>Sat, 21 Nov 2026 10:00:48 GMT</pubDate>
     </item>
   </channel>
 </rss>

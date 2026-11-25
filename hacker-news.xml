@@ -3,7 +3,50 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 25 Nov 2026 00:36:31 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2026 09:49:09 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Button Sounds：50 多款专业录制的按钮点击音效，免费开放并通过 NPM 分发</title>
+      <link>https://news.ycombinator.com/item?id=50638032</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源音效资源包，通过 NPM 分发，属于开源项目/开发者资源分享，符合兴趣但非编程工具或效率改进类核心主题</small></p><p>前端开发者 Josh Comeau 发布了一个名为 <a href="https://buttons.joshwcomeau.com/">Button Sounds</a> 的音效站：收录 50 多款专业录制的按钮点击与开关（toggle）音效，可免费使用，并通过 NPM 分发给开发者直接接入项目。</p>
+<p>据页面说明，这些音效在同一个经过声学处理的房间内用 Zoom H4 录音笔录制，之后在 Adobe Audition 中做降噪等后期处理；唯一例外是 synth-on 与 synth-off，二者是使用 Current VST 合成器以数字方式生成的。所有音效均为立体声。该站点演示了不同「按下」「抬起」采样的细节差异，社区普遍认为正是这种上下行程音色的变化让手感变得真实。</p>
+<p>讨论中的主要话题：</p>
+<ul>
+<li><strong>质量与细节</strong>：多位评论者称赞音质出色、制作考究（"制作精良"、"极其解压，玩起来很享受"），并认为这是关注点击音效者的重要资源。有人希望后续能补充更多拨动开关类音效。</li>
+<li><strong>授权问题</strong>：有评论者询问音效本身是否以 MIT 许可证发布，但作者未在讨论中给出明确答复。</li>
+<li><strong>iOS Safari 的音频限制</strong>：页面提示浏览器可能阻止网站播放声音，iOS Safari 尤其严格，建议在桌面端体验。评论补充说，只需关闭硬件静音开关（静音模式）即可在 iPhone 上听到声音；作者本意是用户首次点击后再播放音频，这通常是可以绕过自动播放限制的。</li>
+<li><strong>更彻底的解法</strong>：有开发者指出，把 <code>navigator.audioSession.type</code> 设为 <code>"playback"</code>（默认值为 <code>"ambient"</code>）即可在静音模式下照常播放；iOS 16.4 以下版本不够可靠，可用 <a href="https://github.com/feross/unmute-ios-audio">unmute-ios-audio</a> 之类的 AudioContext 技巧替代。</li>
+<li><strong>性能小插曲</strong>：一位使用 M4 Pro Mac mini 的 Firefox Developer Edition 用户反馈，浏览该站会让风扇狂转，怀疑元凶是页面上的「Whimsical Animations」广告横幅。</li>
+</ul>
+<p>此外还有评论贴出一段工业电木（Bakelite）旋转弹簧开关的「咔哒」声视频，以及阿姆斯特丹电木收藏馆的藏品页面，作为复古开关手感的参照。</p>
+<h2>你知道吗？</h2>
+<p>这类音效库依赖「多采样（multi-sampling）」：同一个动作录制多次，播放时随机或轮换不同采样，避免机械重复带来的「电子感」。这也是为什么该站强调按下与抬起各有多个版本——游戏与 UI 音效设计中，同样的思路被用来让脚步声、按键声听起来不呆板。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50638032</guid>
+      <pubDate>Wed, 25 Nov 2026 03:23:07 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ OpenAI 预印本宣称矩阵乘法指数恰为 9/4：ω = 2.25 的上下界已闭合</title>
+      <link>https://news.ycombinator.com/item?id=50637220</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 关于矩阵乘法指数上界的数学研究成果预印本，属于科学前沿进展与 AI 相关技术进展，非新模型发布，故为感兴趣而非必看</small></p><p>OpenAI 的 <a href="https://github.com/openai/math">math 仓库</a>发布预印本《The matrix multiplication exponent is nine fourths》（2026 年 11 月 24 日），声称矩阵乘法的指数（ω）<strong>恰好等于 9/4 = 2.25</strong>，而不只是给出某个方向上的界。提交到 Hacker News 后获得 600 余点、300 多条评论。</p>
+
+<p><strong>这是一篇下界结果。</strong>此前 10 月 2 日的预印本已经给出上界——存在复杂度为 O(n<sup>2.25+ε</sup>) 的算法，并<a href="https://eccc.weizmann.ac.il/report/2026/281/">被整理为具体算法</a>（对任意 ε 成立，等价于多出一个 log n 因子）。本次论文补上的是另一半：证明不存在更快的算法，即 Ω(n<sup>2.25</sup>) 的下界。两者结合，意味着 2.25（此前最好的上界约为 2.371）就是矩阵乘法的真实指数，二次时间（n²）的梦想被正式否定。</p>
+
+<p><strong>证明思路是非构造性的。</strong>摘要指出，如果指数能更小，那么张量网络就会被压缩到足以违反某个问题的下界——即判断多个彼此独立的列表中，各自元素是否互不相同（多重列表互异性检验）这类问题的时间下界。换言之，更快的矩阵乘法会推出「不看完全部元素就能判定列表相等」的荒谬结论。因此该证明无法直接转化为新的乘法算法；有评论专门询问证明是否可构造、能否为不同尺寸矩阵构造最优算法，回答是依据摘要看应该不能。有人追问矩形矩阵是否也适用，论文的 Corollary 1.3 覆盖了这一点。</p>
+
+<p><strong>社区讨论的几个要点：</strong></p>
+<ul>
+<li><strong>标题笔误：</strong>提交标题写作 O(n<sup>2.25</sup>)，多位评论者指出这与论文结论不符——应是 Θ(n<sup>2.25</sup>)，或直接用原标题「指数是 9/4」；否则会被误解为此前已知的上界。</li>
+<li><strong>实用意义有限：</strong>有人指出已知算法的常数极大，即使找到实用的 n<sup>2.25</sup> 算法，十亿行规模的矩阵相对 n² 也只慢约 200 倍，短期内不会有工程差别；把该技术转成 GPU kernel 的可能性被认为很低。</li>
+<li><strong>数字上的遗憾：</strong>不少人感慨「要是 2 就好了」，并把它与正方形装箱等问题相提并论。</li>
+<li><strong>背景对照：</strong>有评论希望有人整理 OpenAI 这批结果的清单，标注哪些与学界共识相悖；有人给出 <a href="https://mathoverflow.net/questions/515849/which-of-the-results-released-by-openai-went-against-the-conventional-mathematic">MathOverflow 上的相关讨论</a>作为起点，另有人吐槽维基百科连 10 月那批改进的上界都还没收录。</li>
+<li>评论中亦提及该证明针对的是「无除法电路」计算多项式的情形。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50637220</guid>
+      <pubDate>Wed, 25 Nov 2026 01:19:26 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ PrismML 发布 Ternary Bonsai 2.5 27B：5.9 GB 三值模型大幅强化智能体编程</title>
       <link>https://news.ycombinator.com/item?id=50633922</link>
@@ -1512,79 +1555,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50552424</guid>
       <pubDate>Wed, 18 Nov 2026 21:34:07 GMT</pubDate>
-    </item>
-    <item>
-      <title>KPMG 试验：AI 智能体在审计中提出的问题比人类团队更深入</title>
-      <link>https://news.ycombinator.com/item?id=50547777</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 内容是咨询公司在审计业务中试用 AI 智能体的行业应用动态，偏行业公司消息，技术信息有限，兴趣不明确</small></p><p>毕马威英国（KPMG UK）披露了一项代号为「指数项目」（Project Exponential）的试验：由 100 多个 AI 智能体对一家未具名的富时 250（FTSE 250）指数成分股公司的财务报表进行审查。结果显示，这些智能体在某些情形下比常规审计团队挖得更深，指出了需要进一步调查的领域，并提出了人类审计师未必想到的问题。据《金融时报》报道，该消息被视为人工智能进入金融服务中最劳动密集型环节的重要一步。</p>
-
-<img src="https://europeanbusinessmagazine.com/wp-content/uploads/2026/06/ai5555-scaled.jpg" alt="" width="1280" height="848" />
-
-<p>与以往把 AI 当作辅助工具不同，这次智能体覆盖了整个审计流程：收集信息、分析与记录数据、形成初步结论和观察意见、提出后续步骤，彼此之间还能分工协作。相关技术研发约耗时四个月。KPMG 英国审计主管凯斯·伯内特（Cath Burnet）表示，该技术在若干问题上比常规团队走得更远。</p>
-
-<p><strong>仍非正式审计</strong>。KPMG 明确将该试验与正式批准的法定审计区分开来：尽管有审计合伙人签字确认，试验结论并未用于正式批准该公司账目。人工监督依然不可或缺——试验中曾有一名 AI 智能体未能正确匹配监管要求与公司文件，需由审计师介入纠正，这既显示了当前系统的能力，也暴露了其局限。KPMG 计划将试点扩大到最多 20 项规模更大的审计，但承认技术尚未成熟到可应用于数千个项目；数据质量也是障碍，部分企业缺乏 AI 智能体有效运行所需的干净、结构化信息。</p>
-
-<p><strong>对「四大」商业模式的冲击</strong>。传统审计依赖大批初级会计师从事重复的细节工作，由经验丰富的经理和合伙人监督。AI 智能体则可能带来不同的运营模式：自动化信息收集、分析与文档化的相当部分，让资深人员专注于复杂判断和例外事项。对 KPMG、德勤（Deloitte）、普华永道（PwC）和安永（EY）而言，吸引力在于更快的审计、可能更低的运营成本，以及处理海量财务信息的能力。不过，节省的时间是否会转化为更低的审计收费，KPMG 并未确认。英国财务报告委员会（FRC）则警告，使用 AI 不得损害审计师的独立性、诚信和专业怀疑态度，并存在数据安全、过度依赖自动化结论以及 AI 生成不准确或捏造信息等担忧。审计意见的最终责任始终由人类审计师承担。</p>
-
-<p><strong>社区反馈</strong>。Hacker News 上最热门的评论带点调侃：「这恐怕更多说明了毕马威会计师的水平，而不是 AI 的水平。」随即有人回应，类似的判断几乎可以套用到任何职业，尤其是在大公司里，最好的生存技能恰恰是不去提令人为难的问题。有评论认为 Big Four 的审计长期存在「廉价背书」问题——审计师对可疑会计处理睁一只眼闭一只眼，以换取利润丰厚的咨询合同，安然（Enron）事件即为著名案例，因此讨论「AI 提问更好」究竟算收益还是错位的产品市场匹配并无意义。也有人指出，咨询公司大量派出资历平平的初级顾问反而更赚钱。关于 AI 的优势来源，有观点认为它在「有明确规则与先例、搜索空间已定义」的领域天然更强；也有人反驳称 LLM 实际偏好钻冷门边缘情形、爱做跳跃式推理，而非像人一样先排查常见原因。另有讨论警示「单一 AI」的文化同质性风险：一旦某个版本的模型存在可被普遍利用的盲点，影响可能同时在所有场景爆发，并以多供应商投票、硬编码安全边界等方式作为缓解思路。还有评论指出审计师常被压榨到精疲力竭，而 AI 没有这种惰性倾向（尽管 token 预算限制也会让它「偷懒」）。最后一种视角是：审计可能从抽样检查转向全面核查，这是近乎零成本的大规模算力才能做到的，但也意味着企业再也无法容忍「偶尔的小错」。</p>
-
-<p>原文链接：<a href="https://europeanbusinessmagazine.com/ai-agents-better-questions-kpmg/">European Business Magazine</a>；讨论来源：<a href="https://news.ycombinator.com/item?id=50547777">Hacker News</a>；评论中提到的原始报道：<a href="https://www.ft.com/content/5168b3e9-75d0-4be0-9ccd-d327d6b16c05">Financial Times</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50547777</guid>
-      <pubDate>Wed, 18 Nov 2026 15:49:34 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 能量基推理器（EBR）：把循环推理变成能量梯度下降，Sudoku-Extreme 上推理算力少 345 倍</title>
-      <link>https://news.ycombinator.com/item?id=50543989</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 新型推理方法的技术进展，涉及 AI 算法与算力效率，属感兴趣主题</small></p><p>研究者提出「能量基推理器（Energy-Based Reasoners, EBR）」，把循环式推理模型（looped/recurrent reasoner）的隐状态更新重新表述为对一个学习到的能量函数的梯度下降。论文称，该方法在多个算法推理基准上与现有循环推理模型持平或更好，在 Sudoku-Extreme 上把推理算力需求降低到次优模型的 1/345（HN 标题写作 385 倍），而训练算力相当。</p>
-
-<h3>问题：循环模型缺乏「进度感」</h3>
-<p>循环模型通过在隐空间中反复迭代同一个 recurrent block 来扩展有效深度，从而实现多步推理。但这类模型没有显式的进度度量，因此很难判断何时停止循环，也难以知道如何改进当前状态。</p>
-
-<h3>方法：打分、改进、停止、选择</h3>
-<p>EBR 学习一个能量函数 E<sub>θ</sub>(z; x)，对「推理状态 z 与初始题面 x 的相容程度」给出标量评分，能量越低越好。围绕这个能量，四个环节被统一起来：</p>
-<ul>
-<li><strong>评分（Score）</strong>：能量衡量状态与题面的相容度。</li>
-<li><strong>改进（Refine）</strong>：把梯度方向作为状态更新方向，即 z<sub>t+1</sub> = Π<sub>M</sub>(z<sub>t</sub> − α∇<sub>z</sub>E<sub>θ</sub>(z<sub>t</sub>; x))。</li>
-<li><strong>停止（Stop）</strong>：当梯度范数小于阈值 τ 时状态趋于平稳，梯度因此天然成为停机判据。</li>
-<li><strong>选择（Select）</strong>：在多个候选解中取能量最低的那个。</li>
-</ul>
-<p>为了把能量地形塑造得更合理，作者还引入了「基于探索的训练」，以便发现更多模式（modes），在更大范围的状态上刻画能量景观。下图展示了 Sudoku-Extreme 上下降过程中能量、梯度范数与步长的变化：正确解会收敛到低能量的平稳状态，错误轨迹则持续移动。</p>
-
-<img src="static/images/descent_curves.png" alt="能量、梯度范数与残差在下降过程中的变化，正确解与错误解对比" width="2201" height="602" />
-
-<h3>实验结果</h3>
-<p><strong>单样本准确率。</strong>EBR 仅 1.8M 参数，在 Sudoku-Extreme 上取得 99.4%（TRM 87.4%、GRAM 86.6%、EqR 93.0%、FPRM 94.2%、Looped flows 97.9%），Maze-Hard 上 87.4%。</p>
-<p><strong>多样本与测试时扩展。</strong>增加下降步数可以进一步精修答案，增加轨迹数量则给能量更多候选项可供挑选。EBR 只用 5 次采样就达到 99.9%（Sudoku-Extreme）与 88.3%（Maze-Hard），超过需要 100–128 次采样的方法。</p>
-
-<img src="static/images/sudoku_ttc_frontier_web.png" alt="Sudoku-Extreme 准确率随迭代次数（左）与采样数量（右）的变化" width="2198" height="782" />
-
-<p><strong>自适应停止。</strong>每条轨迹在能量梯度低于阈值时即停止，因此简单题几步收敛、难题继续计算。相比固定深度的 EBR，自适应停止在保持 99.9% 准确率的同时省下 10.9 倍 FLOPs，最终以 1/345 的推理 FLOPs 超越 EqR。</p>
-
-<img src="static/images/sudoku_tau_flops_web.png" alt="Sudoku-Extreme 精确准确率与每题推理 FLOPs 的关系" width="2199" height="1307" />
-
-<p><strong>多解问题。</strong>EBR 的行为类似随机梯度下降，能够捕获多种不同的有效解。在 N-Queens 与图着色任务上，单样本 Pass@1 达 100%（N-Queens），20 次采样的解覆盖率（Cov@20）为 98.1%（N-Queens，GRAM 为 89.7%），图着色 8×8、10×10、8 顶点、10 顶点分别为 92.0%、88.6%、54.5% 等，均为当前最优。</p>
-
-<h3>社区讨论</h3>
-<p>HN 讨论整体认可方法本身，但对「推理」的定义与适用边界有不少质疑：</p>
-<ul>
-<li><strong>标题里的倍数被调侃。</strong>有评论调侃「385 倍是新手数字」，并链接另一篇宣称经典能量方法学推理快 1000 倍的预印本；随即有人指出这些工作里的「推理」只是「多次前向、分步得出答案」，与当下大众语境中的推理几乎无关，且这些都是解谜模型而非语言模型。</li>
-<li><strong>适用范围窄。</strong>多位评论者指出方法只在数独和规则受约束的简单游戏上验证过，适合解唯一或少量解的问题；有人希望看到它在国际象棋、围棋这类博弈上的表现。</li>
-<li><strong>「能量」到底指什么。</strong>有读者指出论文没有真正定义 Energy-Based 的含义，只说是「给候选预测赋一个标量」；也有人追问为何没有引用自由能原理（FEP）。有从事 FEP 研究的评论者解释：能量基模型用神经网络参数化 E(x) = −log p(x)，FEP 与主动推断是这一范式在隐变量模型上的特例。</li>
-<li><strong>一种直观解释。</strong>有评论以数独为例说明：能量可理解为「冲突程度」——同一行出现两个 7 就抬高能量，空格能量略高、无冲突已填格能量为 0，于是搜索退化为按能量加权采样的「波函数坍缩」式随机搜索。</li>
-<li><strong>更严厉的批评。</strong>一位评论者认为这本质上是离散、固定规模问题上的能量搜索：规则须先验给定，搜索算法高度定制，难以处理连续/模糊表示，且训练需要强标注的正解与反例；即便能把任意推理归约为图着色，直接用动态规划也会快得多——1.8M 参数的模型跑数独，CPU 上的传统解法可能快 10–100 倍。</li>
-<li><strong>EBM 训练难。</strong>有实践者表示做了一年 EBM，认为它们是出色的验证器，但训练极其困难且高度领域专用；LLM 虽不总是正确，但最终能帮人完成任务。也有人反驳称 LLM 的可用性来自数十年「全栈」优化，EBM 尚未获得同等投入。</li>
-<li><strong>生态小插曲。</strong>有评论指出相关网站（Logical Intelligence 的数独演示）已变成需要登录的失效页面。</li>
-</ul>
-<p>论文作者为 William Xingxu Chen、Alexi Gladstone、Zeyu Michael Li、Heng Ji、Yilun Du，预印本编号 arXiv:2611.08977。</p>
-
-<h3>你知道吗？</h3>
-<p>「能量」一词借自统计物理：低能量对应稳定、高概率的状态，高能量对应不稳定、罕见的状态。在机器学习里，能量基模型（EBM）通常把能量定义为负对数概率，E(x) = −log p(x)，这样归一化常数被吸收进配分函数，模型只需学习一个未归一化的标量函数，而不必像自回归模型那样逐项建模概率分布。代价是采样与训练必须依赖梯度下降、MCMC 等手段，这也是评论中所说「EBM 难训练」的根源。EBR 的巧妙之处在于把推理过程本身直接定义为在这个能量面上的下降，从而使「改进」和「何时停止」由同一个函数给出。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50543989</guid>
-      <pubDate>Wed, 18 Nov 2026 09:29:32 GMT</pubDate>
     </item>
   </channel>
 </rss>
