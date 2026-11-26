@@ -3,7 +3,121 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Wed, 25 Nov 2026 19:54:27 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2026 02:47:47 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Anthropic 推出大幅精简版 GRH Lean 4 证明：规模从约 1700 万行压缩至 7.6 万行</title>
+      <link>https://news.ycombinator.com/item?id=50648050</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] AI 与形式化验证/Lean 4 结合的科学前沿成果，同时属于编程工具与开源项目范畴，符合兴趣；但偏数学证明本身，故为推荐而非必看</small></p><p>GitHub 仓库 <a href="https://github.com/lsernau/grh-lean">lsernau/grh-lean</a> 发布了一个大幅缩短的黎曼猜想（Riemann Hypothesis）与 Dirichlet L 函数广义黎曼猜想（Generalized Riemann Hypothesis, GRH）Lean 4 形式化证明。该证明建立在 Mathlib 之上，据称只依赖 <code>propext</code>、<code>Classical.choice</code> 和 <code>Quot.sound</code> 三条公理。原始证明来自 Levent Alpöge 与 Claude 的合作成果，而本仓库是在 Anthropic 同事与 Claude 协作下产出的精简版本。</p>
+
+<h3>仓库内容</h3>
+<ul>
+<li><code>grh/</code>：可读版，约 30 万行，入口为 <code>grh/GUIDE.md</code>；</li>
+<li><code>grh-compact/</code>：同一组五个定理的精简版，约 7.6 万行；</li>
+<li>两个目录各自是独立的 Lake 项目；构建需 Lean v4.35.0 及特定提交的 Mathlib，在 12 核、24 GB 内存下约需 1～2 小时（若缺少 Mathlib 缓存则再多约 85 分钟）。</li>
+</ul>
+
+<p>作者明确说明：证明目前<strong>仅通过机器检查</strong>，没有任何数学家通读全文，也没有配套论文。许可为 Apache 2.0，版权归 Anthropic, PBC（2026）。</p>
+
+<h3>社区讨论要点</h3>
+<p><strong>来源与身份质疑</strong>：有用户质疑「来自 Anthropic」的项目却托管在个人 GitHub 账号下。回复指出 Anthropic 官方尚未正式认可该黎曼证明，Levent Alpöge 是在获得 Dario 许可后发布在自己网站上的。也有人核查了仓库所有者身份（用户名对应 Luke Sernau，LinkedIn 显示就职于 Anthropic），并用工具扫描仓库以排查恶意代码，结果未发现问题；但评论者提醒，Lean 本身带有元编程能力，本质上可执行任意代码，这类审计仍存在风险。</p>
+
+<p><strong>压缩幅度对比</strong>：从约 1700 万行降至 7.6 万行，缩减约 99.56%。有人指出，社区上百名贡献者、数千个 PR 的努力仅实现约 33% 的缩减，并对这种悬殊差距感到惊讶。另有评论提到精简版中真正的核心证明只有约 3.5 万行，剩余部分主要用于形式化已有的数学内容。</p>
+
+<p><strong>平行工作</strong>：用户 jychang 表示自己曾以「从零开始形式化」的思路独立推进，已完成约 70%、约 3.5 万行，使用 ChatGPT 付费计划与 GPT-6.2 Sol 单智能体完成，并公开了进度仓库 <a href="https://github.com/jamesyc/riemann-hypothesis">jamesyc/riemann-hypothesis</a>；他认为亲自「把关」AI 可避免常见陷阱，并有信心最终规模更小。他也批评社区仓库仅对原始 1700 万行证明做「缩减」的策略，主张重新形式化。另有评论称内部模型的更强能力是大厂能快速完成压缩的原因。</p>
+
+<p><strong>关于「巨型证明无洞见」的争论</strong>：有人提出这是否回应了陶哲轩此前「缺乏洞见的庞大证明是个问题」的观点。反驳意见认为并没有真正解决该问题——精简只是让洞见更可能出现；也有人认为 LLM 本就擅长把任何难度内容解释给任何水平读者，只是大厂优先追求「抢先完成」。</p>
+
+<p><strong>可读性与验证</strong>：评论普遍认为 <code>grh-compact/</code> 刻意最小化、可读性差，应阅读 30 万行的 <code>grh/</code> 版本，后者清楚区分了「已知数学」与「新数学」，并配有较完整的人类可读文档。关于人工审核 Lean 代码的可行性，有用户指出难点不在语法而在术语密度（如「Scaled Hecke operators repair divisibility at inert primes pairing tops」中每个词都有精确定义）。另有 <a href="https://riemann-at-home.github.io/riemann-at-home">Riemann@Home</a> 项目效仿 SETI@home，让普通用户在自己机器上验证证明，已有 18 位独立验证者，并已支持新的 30 万行版本。</p>
+
+<h3>你知道吗？</h3>
+<p>Lean 4 中对「公理使用」的检查是通过 <code>#print axioms</code> 类命令完成的，本仓库提供了 <code>scripts/PrintAxioms.lean</code> 供复现。这里提到的三条公理——命题外延性（propext）、经典选择公理（Classical.choice）与商类型的相等性（Quot.sound）——都属于 Lean 数学库的常规基础，因此在检查结果中看到它们并不代表证明引入了额外的可疑假设。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50648050</guid>
+      <pubDate>Wed, 25 Nov 2026 21:48:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Scott Aaronson 惊叹 AI 数学突破连连：ω=9/4、VP≠VNP、黎曼猜想相继被「证明」</title>
+      <link>https://news.ycombinator.com/item?id=50646108</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 聚焦 AI 在数学领域的重大能力突破（VP≠VNP、黎曼猜想等），同时命中 AI 技术进展与科学前沿，属高度关注内容</small></p><p>计算复杂性理论学者 Scott Aaronson 在其博客 Shtetl-Optimized 发文（标题连喊四遍"HOLY SHIT"），记录他认为此前几篇文章、播客和演讲都没能充分传达的一件事：AI 正在以惊人的速度攻下数学与理论计算机科学中长期悬而未决的难题。</p>
+
+<p><strong>文章列举的核心事件（均为文中转述的 AI 实验室声明）：</strong></p>
+<ul>
+<li><strong>VP ≠ VNP</strong>：文中称 OpenAI 与 Anthropic 分别给出了证明；在此之前，Alpöge 与 Anthropic 已经「解决」了黎曼猜想（RH），而那件事如今感觉像上周的旧闻。</li>
+<li><strong>矩阵乘法指数 ω = 9/4</strong>：OpenAI 声称证明了 ω 恰好等于 9/4——这是一个<em>下界</em>，与它在 10 月 6 日「数学末日（Mathocalypse）」那一波中给出的上界吻合。Aaronson 指出这里有双重震撼：其一是自 1960 年代末 Volker Strassen 证明 ω&lt;3（ω≤log₂7）以来，这个算法领域的核心谜题终于有了确定答案，而且答案竟是有理数；其二是 AI 竟然能证明任何形如 ω&gt;2 的下界——他原以为这比 P ≠ NP 简单不了多少。他还提到，多年来不少同行坚信 ω=2，而自己一直对此表示怀疑（不是因为有 ω&gt;2 的论据，而是因为 ω=2 同样缺乏论据），如今算是被证明怀疑有理。</li>
+<li><strong>快速傅里叶变换（FFT）的下界</strong>：OpenAI 另一篇发布证明计算傅里叶变换所需的线性门数真值为 N(log N)^{1/2+o(1)}，既优于 1960 年代以来保持的 O(N log N)，也优于 10 月那波给出的 O(N log^{0.9999999999999} N)，并且同样配上了匹配的下界。真正令人震惊的是「下界」本身的存在。</li>
+</ul>
+
+<p><strong>结果的「日常化」</strong>：Aaronson 用 Yupan Liu 在 arXiv 上挂出 QIP(2) = PSPACE 预印本（借助 AI 完成）作为标尺——放在 2025 年，这会是年度最顶级的复杂性成果之一；而现在他自己都要提醒才想起来发生过，AI 的参与更是毫不稀奇。他把当下的处境比作列文虎克第一次把显微镜对准池水、伽利略第一次把望远镜对准星空：我们面对的将不是零散难题的一次性解答，而是一整块此前只在雾中隐约可见的「数学真理新大陆」。他写道，自己第一次从骨子里感到 P ≠ NP 的证明已经不远。</p>
+
+<p><strong>对怀疑论者的回应</strong>：他注意到这些公司如今已不再发新闻稿，而是直接往 GitHub 仓库扔论文（当晚他和朋友们一边吃晚饭一边刷手机和笔记本，等着下一只靴子落地）。既然各家已反复证明能用 Lean 证书支撑其声明，就不该抓着细枝末节（如 Lean 证明与文字证明之间的小出入、未被使用的证明段落）来假装这些公开问题没有被解决。他引用了朋友的一句话：「在被民科『解决』了多年千禧年难题之后，如今真解出现了，我们又有了民科式的『反驳』，宣称难题并未被解决。」他也承认，这些下界之路上必然还会出现令人震惊的上界——也就是所谓的「算法」，其中一些会打破当前部署的密码体系。</p>
+
+<p><strong>关于密码学的谨慎表态</strong>：他称从多个可靠消息源几乎可以确定 AI 实验室手上握有一到多个该领域的重磅结果，但在看到细节或直接听到实验室人士说明之前，他对具体内容信心不足，不愿散布未经证实的传闻，也担心信息在「传话游戏」中被扭曲。他特别强调：不要让密码学那部分盖过这次智力事件本身的巨大意义；如果你此刻最担心的是自己的比特币钱包，那请去别处打听 ECDSA 是否已被攻破。</p>
+
+<p><strong>结尾的私人语气</strong>：他建议读者（如果过感恩节）好好陪孩子、父母、兄弟姐妹和老友；此刻的感觉非常接近他想象中的「AI 奇点」开端，只希望这份运气只是局限于硬数学问题的局部奇点。文中提到晚餐时妻子 Dana 打了个喷嚏，他开玩笑说希望那不是来感染我们的纳米机器人蜂群，如果是，但愿是友善的那种。最后他写道：又一个早晨到来，我们还在这里；愿我们能为孩子找到一个乐于生活的世界，并为之努力。</p>
+
+<p><strong>评论区的反应</strong>：
+评论区讨论相当热烈且意见分裂。支持与共鸣一方认为，能在这样一个时代读到智力严谨者的真实反应令人安心；也有人指出最新一批论文正变得「可读」，不再是早期那种混乱的 AI 生成物（Aaronson 回应称最近论文的引言确实通顺，但他还没读进去）。技术层面，评论者补充了：Google 的 Cogentic 系列论文（含确定性次指数整数分解、3SUM/APSP/element distinctness 等新的超线性电路下界）据称经人工专家审阅但无 Lean 形式化；OpenAI 论文给人的印象仍是「proofslop」，但据说证明了向日葵猜想与强多项式时间线性规划；"Euclidean geometry in the asymptotic spectrum of tensors" 这一框架同时被用于 ω=9/4、permanent 的超多项式算术电路下界与 Erdős–Rado 向日葵猜想。也有人提醒 Lean 近期曝出不少安全漏洞，形式化证明的供应链信任是传递性的。有研究生申请者询问现在是否还该读理论计算机科学的博士（回应多为：领域会变得陌生但依然值得）。</p>
+
+<p>质疑一方则更为冷淡：有人表示「一台机器解出一道数学题，然后呢？现实世界会因此改变什么？如果答案是不知道，那我不关心」；有人调侃文章标题与「我不愿传播未经证实的传闻」之间的张力；也有人认为整件事仍像「看机器人解开一个简单的金属益智玩具」，需要十年才能分清哪些是精巧的把戏、哪些能产出真实应用。关于密码学的讨论中，多数人认为「破解」更多意味着某些原语不再安全、迁移到后量子方案势在必行，而当前抗量子算法仍显笨重；能做出与椭圆曲线同等轻量的后量子方案才是密码学的圣杯。</p>
+
+<h2>你知道吗？</h2>
+<p><strong>矩阵乘法指数 ω</strong>：指用 n×n 矩阵相乘所需的最少算术运算量的渐近指数，即 O(n^{ω+ε}) 中最小的可行 ω。平凡的算法给出 ω=3；Strassen 在 1969 年用分块递归把上界压到 log₂7≈2.81，此后数十年间被缓慢改进到 2.37 左右。所有人都知道 ω≥2，但从未有人证明 ω 严格大于 2——这正是为什么「ω&gt;2 的下界」在复杂性理论中份量极重，而文中「ω 恰为 9/4」意味着答案是一个有理数，且上下界首次闭合。</p>
+<p><strong>VP ≠ VNP</strong>：代数复杂性理论中的核心猜想，可视为 P ≠ NP 的代数版本，粗略地说「VNP 中存在难以用多项式规模算术电路计算的多项式」（永久式 permanent 是典型候选）。<strong>QIP(2) = PSPACE</strong> 则是量子交互证明系统的一个等式，说明只需两条消息的量子交互协议已具备任意多项式条消息的完整威力。</p>
+<p><strong>Lean 与 Curry–Howard 对应</strong>：Lean 是交互式定理证明器，「Lean 证书」意味着证明被机器逐行校验通过。评论者指出，正是 Curry–Howard 对应（命题即类型、证明即程序）让数学这类可被形式化的领域特别适合 AI 大规模推进，这也是为何数学/逻辑先于需要实验验证的医学、生物学爆发；有评论还半开玩笑地说，遗传学、化学乃至植物学（花的记谱法）都有类似「语言化」的可形式化结构。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50646108</guid>
+      <pubDate>Wed, 25 Nov 2026 19:11:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>Windows「响度均衡」被逆向工程，移植为 PipeWire 模块</title>
+      <link>https://news.ycombinator.com/item?id=50641171</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] Windows 响度均衡的逆向工程与 PipeWire 移植，属音频底层工程与开源移植，主题较垂直，兴趣不明确</small></p><p>开发者发布了 <a href="https://github.com/xoxorwr/pw-loudness-eq">pw-loudness-eq</a>，把 Windows 的「响度均衡（Loudness Equalization）」从 <code>WMALFXGFXDSP.dll</code> 中逆向还原，并实现了 PipeWire 版本。它的作用是拉平各个应用播放音量的差异，让小声和大声的片段听起来处于相近的水平。</p>
+
+<img src="https://github.com/xoxorwr/pw-loudness-eq/raw/master/docs/screenshot.png" alt="Loudness Equalization 窗口" />
+
+<h3>项目结构</h3>
+<ul>
+<li><code>modules/loudness/</code>：PipeWire 模块与 DSP 插件，作用于每个应用的播放流。</li>
+<li><code>modules/limiter/</code>：移植自 Windows 音频引擎（<code>AudioEng.dll</code>）的输出限幅器，作用于每个播放设备，防止增益提升造成削波。</li>
+<li><code>app/</code>：可选的 GTK3 窗口，用于全局或按应用开关功能、调整释放时间。</li>
+</ul>
+<p>安装要求 PipeWire ≥ 1.4（窗口另需 GTK 3），提供 Arch/Debian 的依赖命令，通过 <code>make install</code> 安装并重启 <code>pipewire</code>、<code>pipewire-pulse</code>、<code>wireplumber</code> 生效，也可单独编译某个模块。所有设置保存在一个 PipeWire metadata 对象中，因此可以用 <code>pw-metadata -n loudness-eq …</code> 脚本化控制开关、释放时间、排除应用列表等，改动立即生效并在重启后保留；运行时修改的值写入 <code>~/.local/state/pw-loudness-eq/state.conf</code>，优先级高于配置文件。</p>
+
+<h3>实现原理</h3>
+<p>响度模块通过设置 <code>audioconvert.filter-graph.90</code>，让插件运行在每个应用播放流内部——位于其音量控制之前、混音之前，与 Windows 的「流效果」位置一致。限幅器模块则模拟 Windows 音频引擎在每台播放设备上的行为：在混音与软件音量之后过一遍前瞻限幅器，且与响度均衡无关、始终开启（与 Windows 相同）。JACK 客户端、超过 8 声道的流、以及直接使用 PipeWire 的 Flatpak 应用不会被处理（走 PulseAudio 的 Flatpak 应用会被处理）。</p>
+<p>算法上它是一个<b>宽带自动增益控制（AGC）</b>：尽管名叫「均衡」，它并不做频谱均衡。帧长 N = 2^⌈log2(fs/100)⌉（44.1/48 kHz 下为 512），50% 重叠，加窗后做实时 FFT 得到功率谱，汇总为边缘位于 100 Hz 到 24 kHz 的 25 个频带并合并各声道；再按 <code>L = 1.72 · Σ max(E_b − T_b, 1e-32)^0.25</code> 计算响度，目标增益为 <code>min((1300/L)^1.6, 10)</code>，即最多 +20 dB。目标低于当前增益时立即跳变，否则按每块一定系数缓慢靠拢（Windows 默认释放档位 r=4 时时间常数约 4.6 秒），增益在每个半帧内线性交叉淡化，延迟为 N 个采样。纯音（如口哨）可能被推过满刻度，由限幅器兜住。</p>
+<p>限幅器移植自 <code>AudioEng.dll</code> 中的 <code>CAudioLimiter</code>（<code>audiodg.exe</code> 会在每个渲染设备的效果之后、设备之前调用它）：输出延迟 L 帧（48 kHz 下为 64）用于前瞻，当进入延迟线的帧峰值超过跟踪峰值（初始 0.985）时，增益在 L 帧内线性压低到 <code>0.985 / peak</code>，各声道共用一个增益；只有当信号峰值不超过跟踪峰值的一半时才以约 19 dB/s 恢复。由于 PipeWire 中设备软件音量的位置与 Windows 不同，插件会先取得各声道音量、按音量后的信号测峰值，只施加自身增益，使最终结果与 Windows 等价。</p>
+
+<h3>社区反馈</h3>
+<p>该条目在 Hacker News 获得 300 余点、170 多条讨论。不少用户表示这是他们从 Windows 转到 Linux 后唯一想念的功能——夜里看片时不用一直拨音量旋钮；也有人指出 <a href="https://github.com/wwmm/easyeffects">EasyEffects</a> 及其预设、<a href="https://calf-studio-gear.org/">Calf Studio Gear</a> 的压缩器可以达到类似效果。有音频工程师则担忧隐藏的、系统级的均衡/压缩器「始终开启」，认为对专业音频工作有害，并希望它不要被 PipeWire 上游吸收或默认启用；也有人强调音乐作品本身的动态范围不应被抹平，而支持者反驳说在多应用混播场景下让通知音与背景音乐「音量协调」正是想要的。评论中还有大量关于合法性与伦理的争论：有人质疑这只是让 AI「照抄」DLL 行为的剽窃、讨论 MIT 许可与算法专利问题，另一些人则对「用 LLM 做洁净室重写」的可行性与前景展开联想。</p>
+
+<h3>你知道吗？</h3>
+<p>「洁净室设计（clean room design）」是软件兼容性开发中的经典做法：一组人分析原产品并写出规格说明，另一组从未接触原实现的人据规格独立编码，以此降低被认定为复制的风险。本次移植由作者直接以反编译的 DLL 为参照实现，评论区围绕它是否还能算「洁净室」、以及把流程交给 LLM 后这一区分是否仍有意义产生了分歧。另外，真正的「响度均衡」在 Windows 中也常被误解为频谱均衡器，实际上它是一层宽带增益控制，会让安静的对白和爆炸声趋于同一响度——这也是反对者认为它破坏作品动态范围的原因。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50641171</guid>
+      <pubDate>Wed, 25 Nov 2026 11:34:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ AI 是放大器而非腐蚀剂：反驳「用 LLM 的工程师不再在乎代码」</title>
+      <link>https://news.ycombinator.com/item?id=50639698</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论工程师使用 LLM 对编码态度与产出的影响，属编程效率改进经验类内容，符合高兴趣方向</small></p><p>本文是对 Justin Michael 一篇流行文章的回应。作者同意其中一半：在支付清算或老旧分布式系统里，真正让系统不倒的是那些「聪明且在乎（give a shit）」的工程师——他们知道为什么周二绝对不能重启四号机。但 Michael 的文章后半部分把矛头转向了工具本身，认为每一次向模型输入提示词，都让工程师离自己曾经了如指掌的系统更远一步，暗示「用了 AI 就等于放弃了在乎」。作者对此表示反对。</p>
+<p>作者的核心论点是：<strong>LLM 放大的只是你本来就有的样子</strong>。好奇而负责的工程师会借助模型去做以前没时间做的事——终于把那个恶心的竞态条件写进 TLA+ 规约、追踪那个遗留函数在巨型 monorepo 里的每一个调用方、为从来没被正确 mock 过的第三方 API 写一个真正的模拟器、补上穷尽式边界测试并跑变异测试。过去只有写航电软件或贝尔实验室的人才有条件享受的严谨，如今在一个普通的周四就能做到。而偷懒的人则可以暂时充当「人肉代理（meat proxy）」，把工单塞进对话框、然后点合并。</p>
+<p>作者指出，2024 年之前，「在乎」的瓶颈从来不是意愿，而是一个人阅读和敲键盘的速度。「提示—粘贴—祈祷」确实存在，也确实产出糟糕软件；对职业早期的工程师来说，不亲手读堆栈跟踪、不亲自跟诡异 bug 搏斗，就长不出「哪里闻起来不对」的直觉伤疤——而模型以流畅自信的散文式错误失败，让懒惰格外诱人。但问题的本质在于「没人验证、没人建立心智模型、出事后没人觉得自己有责任」，而这种工程师在 ChatGPT 之前就存在：抄 Stack Overflow 高票答案不看评论、为省二十分钟思考引入臃肿依赖、三十秒就敲下 LGTM。</p>
+<p>文章还指出，靠 ACH 这类银行清算系统吃饭的人并不是靠手写 NACHA 文件来保持「贴近机器」的，他们的责任心体现在对账脚本、监控、静态检查、运维手册和自制工具上。从编译器、垃圾回收到搜索引擎、高级框架，每一次抽象层级的跃升都伴随同样的警告，而系统规模却增长了好几个数量级——没有更强的杠杆，得到的不是人人掌握全代码库的手工艺黄金时代，而是更多早已超出单人脑容量、根本没人真正理解的关键系统。</p>
+<p>至于近期微软 365、美联航、多家银行和苹果的连环故障，作者认为这笔账要追溯到 LLM 出现之前：几十年的工程严谨度欠账，用内存不安全的语言写关键基础设施、拼接规格不全的协议、跳过形式化验证、把边界情况只留在某个人脑子里，再靠英雄主义和口头传承硬撑。只不过现在有了不知疲倦的自动化漏洞挖掘、累积的耦合和复杂到人力无法覆盖的系统，问题被逼到台面上。把这一切归咎于「AI 垃圾」是个让人舒服的故事，因为它暗示只要回到旧的工作方式就能稳下来。</p>
+<p>作者真正认同 Michael 的地方在企业高层：领导层看着 LLM，心想终于可以把那些爱唱反调、难搞的资深工程师换成每月 200 美元的订阅——这是一场慢动作的火车事故。但这种「工程师是可互换的产出工厂」的幻想比生成式 AI 老几十年，从「炒掉昂贵的内部团队、把核心平台外包给最低报价者」，到「砍掉 QA，让开发自己测」，再到「裁掉 20% 工程师但路线图不变」，都是同一套剧本，AI 只是提供了更光鲜便宜的借口。因此把使用 AI 的工程师和高管混为一谈，实际上是在替糟糕的管理层提供不在场证明，同时嘲讽那些在前线用一切杠杆撑住荒诞系统的工程师。判断一个人是否在乎，该问的不是他用不用 LLM，而是他合并的代码凌晨两点炸了会怎样、「模型写的」能否在评审中当作免责理由、他是否有时间与后盾去告诉 VP 这个截止日期是不负责任的。</p>
+<h3>社区讨论</h3>
+<p>评论区最尖锐的一条批评指向<a href="https://en.wikipedia.org/wiki/Third-person_effect">第三人称效应（third-person effect）</a>：这篇文章读起来像「大多数人用 AI 用错了，但我用对了」。有人用计算器类比（「用计算器就不用脑」），立刻被反驳「计算器是确定性的」；也有人援引「我们塑造工具，然后工具塑造我们」以及麦克卢汉的<a href="https://en.wikipedia.org/wiki/Tetrad_of_media_effects">媒介四元论</a>、海德格尔<a href="https://en.wikipedia.org/wiki/The_Question_Concerning_Technology">《技术的追问》</a>，指出这种忧虑从苏格拉底反对书写就开始了。</p>
+<p>另一类讨论聚焦「谁跑得更快」：有读者提出原文没说透的结论——AI 让「在乎的人」和「不在乎的人」都加速，但偷懒者提交垃圾的速度可能反超认真验证者，而管理层的判断标准恰恰是被不在乎的人拉高的。有人反驳说「做对」的绝对成本其实下降了，所以问题没那么严重；也有人用「最低努力=5、做对=10」对比「最低努力=1、做对=4」，指出绝对成本降低但相对成本升高，管理层会按新基准期待。还有人类比狩猎采集者被农耕者取代：生活质量更高但终究输在数量上。</p>
+<p>此外有评论把根源追溯到养老金被 401(k) 和股市取代、任期缩短导致的归属感丧失，也有人推荐微软的 <a href="https://github.com/microsoft/skillopt">SkillOpt</a> 工具来系统化地优化 LLM 技能，还有人引用 <a href="https://leadership.garden/not-just-a-tool/">「LLM 不只是工具」</a> 一文，认为这类工具会反过来重塑使用者。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50639698</guid>
+      <pubDate>Wed, 25 Nov 2026 07:46:43 GMT</pubDate>
+    </item>
     <item>
       <title>绕过 iOS Safari 的 60 FPS 限制：把 Web 应用做到原生手感</title>
       <link>https://news.ycombinator.com/item?id=50637890</link>
@@ -1443,132 +1557,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50557870</guid>
       <pubDate>Thu, 19 Nov 2026 09:27:15 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Genie 4 正式上线：Google AI Ultra 订阅者可实时改写世界并加入原生音频</title>
-      <link>https://news.ycombinator.com/item?id=50550415</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] Google Genie 4 新模型上线公告（实时生成可交互世界、原生音频），属新 AI 模型发布公告，符合很感兴趣；虽涉及交互世界生成，但主旨仍是 AI 模型发布。</small></p><p>Google DeepMind 与 Google Labs 宣布，<a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/genie-4-now-available-project-genie/">Project Genie</a> 迎来更新，符合资格的 Google AI Ultra 订阅者可以首次使用 Genie 4 世界模型，并体验新的创作代理（agent）与社区画廊。Google AI Pro 用户则可加入等待名单。</p>
-<p><strong>Genie 4 的新能力</strong></p>
-<ul>
-<li><strong>会话中实时编辑</strong>：在探索世界的过程中直接输入新提示，即可实时改变环境——切换天气、放入角色、改变剧情走向。</li>
-<li><strong>原生音频</strong>：首次将视觉生成与实时音频结合，声音会随场景变化调整，包括环境音景和角色对话。</li>
-<li>官方称其为目前最逼真、交互性最强的世界模型，在保真度、物理表现与音频上均优于 Genie 3。</li>
-</ul>
-<p><strong>Genie 3 同步升级</strong>（在模型选择器中保留，适合长时段或全景图初始化的场景）</p>
-<ul>
-<li>单次生成时长从 60 秒延长至 3 分钟，并支持将多个世界「串联」成更长的旅程。</li>
-<li>支持以 360 度全景图作为世界初始化的种子，并保持视角旋转时的场景一致性。</li>
-<li>支持实时可提示的世界内事件（real-time promptable events），例如在飞行途中改变环境、召唤一条龙。</li>
-</ul>
-<p><strong>Project Genie 代理与画廊</strong></p>
-<ul>
-<li>新的 Genie 代理让创作从「一句文本或图片提示」变成「对话」：用户用自然语言描述构想，代理会调度 Google 的多模态模型生成初始视觉风格，并配上契合情绪的背景音乐。</li>
-<li>探索时还能调用 Gemini 模型：它观察屏幕内容，给出情境相关的下一步建议，或自动触发世界内事件。</li>
-<li>新的社区画廊汇总官方精选作品与用户创作，可浏览、进入、改创（remix）并发布自己的世界。官方示例包括《Living Memory》（把个人照片变成可探索空间）、《Dino Field Guide》（基于全景图史前栖息地）、《Rock Paper Scissors》（由 Gemini 充当实时裁判），以及与创作者 Will（BLVCKL!GHT）合作的哥特庄园悬疑《Villa Giallo》、与导演 Anand Gandhi 合作的蚂蚁视角作品《The Life of Ants》。</li>
-</ul>
-<p><strong>负责任开发与当前局限</strong></p>
-<p>Project Genie 生成的所有视频与音频均带有 SynthID 水印，模型输入输出都经过安全筛查。官方承认 Genie 3/4 仍属前沿研究阶段，正在攻关镜头延迟、复杂物理交互、实时音频精度与场景长期一致性等问题。</p>
-<p><strong>社区反应</strong></p>
-<p>Hacker News 讨论（287 分、182 条评论）整体态度审慎乃至怀疑：</p>
-<ul>
-<li><strong>获取门槛</strong>：多条评论指出，从发布到「有限开放」间隔 22 天已如「一个纪元」，而仅限 Ultra 订阅（约每月 200 美元）可用门槛过高；有人抱怨 Workspace 企业账号根本无法购买 Ultra，官方页面说明也含糊，难以判断自己是否「符合资格」。</li>
-<li><strong>定位与用途</strong>：有用户质疑其实际用例，认为若不能接入 Unity/Unreal/Godot 等引擎，就只是个技术演示；也有人畅想它未来成为「加强版 Roblox」式的游戏引擎，但立刻被反驳——如果神经网络本身能写引擎，为何还要用神经网络当引擎。</li>
-<li><strong>投入产出</strong>：有人认为为「看个盐沼 3D 漫游」消耗大量算力是浪费，随即被类比反驳（电影、游戏同样是「浪费」）。</li>
-<li><strong>产品策略</strong>：批评 Google 同时运营上千条产品线却少有长期支持，常把项目当儿戏般开开关关；也有人认为广告收入太丰厚，使其缺乏把其他业务做好的动力。</li>
-<li><strong>创作与「世界」的定义</strong>：讨论延伸到什么才算「世界」——能 360 度环顾而细节不变（无限一致性），甚至可以是「与世界自身规则保持一致」；也担心 AI 学会设计后人类想象力与建筑师的空间被压缩，但有人认为文化是反应式的，审美趋势会反向演化，创造力不会消失。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50550415</guid>
-      <pubDate>Wed, 18 Nov 2026 18:49:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 「去你的 AI 安全护栏」：产品工程师吐槽修复自家服务的安全漏洞反被模型拒绝</title>
-      <link>https://news.ycombinator.com/item?id=50562262</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是 AI 模型安全护栏干扰开发者修复自家代码漏洞，属于 AI 软件技术进展与编程工作流体验，符合感兴趣范围；但不是工具发布或效率改进方法，故为推荐而非必看</small></p><p>一位资深产品工程师（博主 ounapuu.ee，爱沙尼亚开发者）撰文吐槽：他用 Claude Code 检查自己正在开发的产品存在哪些「容易修复的安全隐患」，模型很快找到一个一行代码就能修掉的疏忽，他也顺手改好了。但随后 Claude 以「AI 安全护栏（safeguards）」为由拒绝继续配合安全相关的工作——哪怕他只是想在可证明由自己掌控的产品上修补漏洞、并满足当地法规合规要求。</p>
-
-<p><img src="/posts/2026/11/19/unsafeguards/media/cover_hu_7e982234f0cf4a71.webp" alt="Fuck your AI safeguards" width="951" height="378" /></p>
-
-<p>作者重点抨击了所谓的「豁免申请」流程：要先等上好几个工作日才能得到答复；一旦申请就必须放弃数据保留豁免（data retention exemptions），等于让自己的知识产权失去保护；还要提交身份证或护照（附带一张「WHAT.」的梗图表达震惊）。而且即便配合这一切，也未必能获批——为了恰当地保护自己的服务，居然需要官方批准。</p>
-
-<p><img src="/posts/2026/11/19/unsafeguards/media/bs_hu_47a293b0f82f003c.webp" alt="WHAT." width="1000" height="256" /></p>
-
-<p>这不是他第一次遇到问题。他平时会持续跟踪安全态势，对自家技术栈适用的热门漏洞，需要判断公开的 PoC 代码能否被改造成攻击手段；但 Claude 只让他「滚去找个旧模型」，而旧模型同样会阻挠他应用足够的防护。他认为这种限制在逻辑上站不住脚：<strong>不需要申请审批的是犯罪分子</strong>——他们直接使用没有护栏的「去审查（abliterated）」开源权重模型就能达成目的。菜刀既能切菜也能伤人，但买刀并不需要拿政府颁发的身份证去申请，凭什么这个工具如此特殊？</p>
-
-<p>最终，让自家服务真正更安全的唯一办法，是改用欧盟托管的开源权重模型（如 GLM 5.3）：它配合了作者的意图，先证实漏洞确实存在，再协助修复并验证问题已彻底解决。作者的结论是：Anthropic 让世界变得更不安全了；或者这正是其计划——促使监管出手，为自己在 IPO 前构筑护城河以阻挡竞争者。他还抱怨：大 AI 实验室自己无限制地用同样的工具把安全环境搞得一团糟，却又禁止别人用同样的工具来防御这些工具制造出的威胁。（文末作者自嘲今年份的脏话配额已用完。）</p>
-
-<h3>社区反馈</h3>
-<ul>
-<li>不少人产生共鸣：想修补自己的环境却被「护栏」挡住，等于放任别人来黑，却不允许你去修复或理解核心问题。</li>
-<li>有评论认为这些护栏「往好了说是无效，往坏了说削弱了全球安全态势」，并称之为近乎「保护费」的机制：先证明超级黑客工具可行，再要求你付费并「表现良好」才有资格用它来自卫。</li>
-<li>多条评论推荐可付费使用的顶级开源权重模型作为替代：Kimi 3.1、GLM（也有人补充 Mistral Large 4 和 Sakana Fugu-Cyber），并有人希望能有一份「哪些代理能处理 Claude 会拒绝的任务类别、各自强弱及提示词写法」的清单。</li>
-<li>有人举出真实案例：在此前的 HuggingFace 攻击事件中，闭源模型拒绝协助，最终是 GLM-5 被用来挫败攻击；这暴露了 Claude「宪法」约束力有限——它宣称重视用户自主与隐私，但一旦「护栏」介入这些承诺就变得毫无意义。</li>
-<li>也有反驳：人类社会对社工类信息的处理方式类似（比如不透露同事排班），所以护栏本身不可避免，问题在于<strong>谁</strong>掌握政策制定权。</li>
-<li>另有评论从文化与商业角度切入：旧金山 AI 公司带有「管别人怎么用」的文化底色，并与「AI 安全」末日叙事捆绑；过度的商业化会毁掉一切；也有人调侃「互联网本身是个错误」，以及对上市后季度财报压力下进一步「恶化（enshittification）」的担忧。</li>
-</ul>
-
-<p><img src="/cats/162_hu_cdfc778448b7c87d.webp" alt="Cat picture of the day" width="1065" height="800" /></p>
-
-<h3>你知道吗？</h3>
-<p>「去审查模型（abliterated model）」指通过定向消融（ablation）移除模型内部拒答方向的微调变体，它保留原模型能力但不再拒绝敏感请求；这类模型常以开源权重形式发布，因此无法被平台方「撤回」。这也是作者论点的基础：护栏只约束愿意守规矩的人，而对恶意使用者几乎无效。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50562262</guid>
-      <pubDate>Thu, 19 Nov 2026 16:30:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ LastBook：可离线运行的开源生存资料库，号称打包「重建社会所需的一切」</title>
-      <link>https://news.ycombinator.com/item?id=50560822</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主体是开源项目分享（离线本地 AI + 地图/教程资料库），契合对开源项目与软件新功能的兴趣；内容偏成品应用而非编程工具，故为推荐</small></p><h3>项目概况</h3>
-<p><a href="https://lastbook.org/">LastBook</a> 是一个免费的、开源的生存资料库，主打「生存与重建社会所需的一切」。它把本地运行的 AI 助手、地图和大量操作教学视频打包在一起，在 Mac、Windows 和 Linux 上完成初始设置后即可完全离线使用。项目目录覆盖急救与健康（外伤、疾病、紧急救护）等多个主题，定位明显偏向断网、断电、失去外部服务的极端场景。</p>
-<p>该条目在 Hacker News 获得 292 分、155 条评论，社区讨论主要围绕「数字设备在崩溃场景下是否靠得住」以及「重建社会靠的是知识还是社会关系」两条线索展开。</p>
-
-<h3>可行性之争：电从哪来</h3>
-<ul>
-<li>最集中的质疑是能源与硬件寿命：社会崩溃后电子基础设施长期停摆，笔记本和手机电池会先耗尽，一个「耗电的 AI」在末日里显得奢侈。有评论者提到同类项目 Project NOMAD，称自己改用简单的 Kiwix 服务器，明知大概率用不上，但心里踏实些。</li>
-<li>反方主张「最大化可选性」（portfolio theory）：未来耗电量和可用能源都不可预测，提前搭建的成本极低，用不上也不损失什么。有人指出配备太阳能板与电池就能长期给笔记本充电，并类比非洲乡村的手机充电摊位——掌握发电和电脑的人会变成当地不可或缺的「巫师」。</li>
-<li>关于是否需要打印成纸质：有人认为无法打印就只能被两三年的笔记本寿命锁死；有人反驳说二十年前的笔记本仍在运行，直接接 100W 小太阳能板即可，另一人则盘点自家四台设备只有一台可用，胜率不佳；也有人计算，两年手抄 3000 页不过是每天五页。</li>
-<li>其他小问题：是否该有手机版本、条目为重复投稿（<a href="https://news.ycombinator.com/item?id=50524880">前次讨论</a>），以及半开玩笑地抱怨「没找到从零构建大语言模型（LLM）的章节」。</li>
-</ul>
-
-<h3>「重建社会不只是技术」</h3>
-<p>讨论逐渐转向社会维度：比起保存食物的技巧，更值得学的是如何建立善意、协作与共识，尤其是在多元社会中——而这些品质的缺失本就是社会崩溃的原因之一。有人补充了一个反直觉的观察：在自然灾害、战争等外生冲击刚发生时，人们往往极其互助，出现短暂的凝聚力高峰；负面社会后果通常要数周至数月才显现，且大致沿既有条件本来的轨迹展开。评论者因此向阿米什人（Amish）与各类宗教修会致敬——他们在和平年代做了大量「社会凝聚力技术」的研发。</p>
-<p>相关项目被反复提及的是 <a href="https://www.opensourceecology.org">Open Source Ecology</a>：目标是让人人都能获得重建社会所需的工具（是房子和推土机，而非锤子），雄心可观；但有评论者批评创始人 Marcin 自我膨胀，项目如今形同弃置，网站与 wiki 结构混乱、CAD 文件难寻，并建议干脆 fork，或关注似乎走得更远的<a href="https://www.ose-germany.de/die-bewegung/">德国分支</a>。</p>
-
-<h3>你知道吗？</h3>
-<ul>
-<li><strong>Kiwix</strong> 是一个把维基百科等大型站点打包成可离线浏览 ZIM 文件的阅读器，常被用作「断网时的知识备份」，也是 LastBook 类项目最常见的替代或补充方案。</li>
-<li><strong>灾难乌托邦（disaster utopia）</strong>：社会学文献中长期记录的现象——灾难初期往往出现利他主义与跨群体团结的爆发，而非人们预期的抢掠混乱；关键在于这股凝聚力能否在物资与社会矛盾重新固化之前被制度化。</li>
-<li>同类「文明备份」思路还包括把资料蚀刻在耐久介质（如镍片、石英玻璃）上长期存档，以及以纸质书形式保存的生存手册传统。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50560822</guid>
-      <pubDate>Thu, 19 Nov 2026 14:47:18 GMT</pubDate>
-    </item>
-    <item>
-      <title>欧盟委员会如何在 4 万余名员工中部署 Matrix</title>
-      <link>https://news.ycombinator.com/item?id=50558533</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 虽涉及开源通信协议 Matrix，但文章核心是政府机构大规模 IT 部署与运维（基础设施类），兴趣不明确，可看可不看</small></p><p>Element 官方博客发布案例总结，介绍欧盟委员会（European Commission）基于 Matrix 开放协议、以自托管的 Element Pro 为核心，为超过 4 万名员工提供内部通信平台的过程与经验。该部署被定位为微软 Teams 之外的一条额外通道，用于承载更敏感、要求更高主权与安全性的沟通，而非全面替换现有办公套件。</p>
-<p><img src="/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/6adf604eb8cf3ef1eae9cb36_xCXaNIJQWk0.jpg" alt="Matrix Conference 2026 公共部门专场：欧盟委员会「主权与互操作性」演讲" /></p>
-<p>文章同时被放在 Matrix Conference 2026 的公共部门（Public Sector）专场背景下：与会的还有法国 DINUM、北约（NATO）、瑞典 Försäkringskassan、联合国国际计算中心（UNICC）、德国石勒苏益格-荷尔斯泰因州等机构，主题围绕「政府间如何在不强迫所有组织使用同一平台的前提下开展数字协作」，以及跨联邦（federation）互联、安全标签（Security Labels）、MatrixRTC 等具体技术议题。</p>
-<p>从正文与讨论中透露的运维细节看，这次大规模落地的难点主要在工程与可用性层面：</p>
-<ul>
-<li><strong>在线状态被关闭</strong>：用户规模上升后，实时「在线／离开」指示带来的负载开始拖累性能，团队最终停用了该功能。评论者对此颇感意外——有人回忆 ICQ／AIM 时代在更大规模上就已解决过类似问题，也有观点认为这是数据未做分片（sharding）导致的结果。</li>
-<li><strong>设备验证摩擦大</strong>：Hacker News 上最集中的抱怨是「验证设备」流程繁琐，尤其在浏览器临时会话中几乎无从下手；有人拿 Telegram 的简单登录与 WhatsApp 的扫码流程作对比，随即有回复指出 Telegram 除单设备私聊外并无端到端加密，密钥迁移到新设备本身就难以既简单又安全。</li>
-</ul>
-<p>社区讨论还呈现出明显的分歧：</p>
-<ul>
-<li><strong>批评方</strong>认为 Matrix 的端到端加密（E2EE）长期不稳，迁移到 MLS（Messaging Layer Security）的工作进展停滞（<a href="https://arewemlsyet.com/" rel="nofollow">arewemlsyet.com</a>），并引用 <a href="https://slashdot.org/story/26/10/02/1743247/eus-microsoft-teams-alternative-draws-bad-reviews-from-officials" rel="nofollow">Slashdot 报道</a>称部分欧盟官员对该工具评价极差；也有人担心此类项目最终被有商业动机的承包商推动迁回付费平台。</li>
-<li><strong>支持方</strong>强调这是摆脱美国云依赖与《CLOUD 法案》（CLOUD Act）风险的必要成本，并指出即使体验不如 Teams，也比明文直连美国服务器要好；也有自建小规模用户反馈 Element X 客户端体验良好、通知以外的功能「简单好用」，并推荐资源占用低得多的其他 homeserver 实现（如 <a href="https://continuwuity.org/" rel="nofollow">continuwuity</a>）。</li>
-<li><strong>商业与开源关系</strong>方面，读者指出本文出自 Element 之手（该公司由 Matrix 创建者创办），有推广动机，但也认可这是「开源协议＋企业级服务」可持续变现的一个范例（参见 <a href="https://element.io/en/matrix-relationship" rel="nofollow">Element 与 Matrix 的关系</a>）。</li>
-</ul>
-<h2>你知道吗？</h2>
-<p>Matrix 目前的加密基于自行设计的 Olm（一对一）与 Megolm（群组）双棘轮方案，其密钥分发与设备验证逻辑正是「验证设备」体验复杂的根源之一；而 MLS 是 IETF 标准化的新一代群组密钥协商协议，被广泛认为更适合大规模多方会话。Matrix 社区曾提出以 MLS 替换 Megolm 的方案并被接受，但推进节奏缓慢，这也是批评者最常引用的技术依据。相比之下，Telegram 的普通聊天仅使用客户端到服务器的加密，密钥由服务器掌管，登录流程因此简单得多，但安全模型与端到端加密并非同一回事。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50558533</guid>
-      <pubDate>Thu, 19 Nov 2026 10:58:29 GMT</pubDate>
     </item>
   </channel>
 </rss>

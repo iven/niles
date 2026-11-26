@@ -3,7 +3,28 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Wed, 25 Nov 2026 19:53:43 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2026 02:46:44 GMT</lastBuildDate>
+    <item>
+      <title>⭐ KosmicKrisp 取代 MoltenVK，成为 Mac 上运行 Vulkan 的首选方案</title>
+      <link>https://www.phoronix.com/news/Vulkan-Macs-Go-KosmicKrisp</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 主题是新的开源 Vulkan-on-Mac 驱动（Mesa 系）取代 MoltenVK，属于新软件项目/开源项目，契合来源 high_interest 与全局 interest；但偏向 macOS 图形与游戏运行支持，与 Linux 桌面主线略有距离，未达必看程度。</small></p><p>Khronos Group 宣布，Vulkan 可移植性计划（Vulkan Portability Initiative）及其核心成果 MoltenVK 已「完成使命」，正式进入弃用（deprecated）状态。接替它的是由 LunarG 主导、内建于 Mesa 的 KosmicKrisp——后者已在 Apple Silicon 上通过 Vulkan 1.4 一致性（conformance）认证，成为现代 Apple 设备上运行 Vulkan 的首选方案。</p>
+
+<img src="//www.phoronix.net/image.php?id=2026&image=moltenvk_kosmickrisp" alt="Khronos graphic for MoltenVK and KosmicKrisp" />
+
+<p>要点如下：</p>
+<ul>
+<li><strong>MoltenVK 的历史定位</strong>：它最早把 Vulkan API 层叠在 Apple 的 Metal 之上，是 Apple 平台上 Vulkan 的开创者，也是唯一依赖 Vulkan 可移植性扩展的层叠式实现。</li>
+<li><strong>KosmicKrisp 的优势</strong>：它是直接集成在 Mesa 中的更健壮的 Vulkan 实现，同样是构建于 Metal 之上的完全符合规范的 Vulkan 实现。由于实现更为完整，Vulkan 规范中为可移植性而设的临时性扩展（provisional extensions）也不再需要。</li>
+<li><strong>MoltenVK 并未立即消失</strong>：已发布并依赖 MoltenVK 的应用程序可继续正常工作；在 KosmicKrisp 无意支持的老款 Intel 架构 Mac 以及较旧版本的 macOS 上，MoltenVK 仍是可用选择。</li>
+<li><strong>平台限制</strong>：KosmicKrisp 目前仅支持 macOS，尚不支持 iOS。</li>
+</ul>
+
+<p>关于 LunarG 与 Khronos 对 Mesa 中 KosmicKrisp 代码的正式背书以及 MoltenVK 的实际退场安排，可参阅 Khronos 官方博客的说明。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/Vulkan-Macs-Go-KosmicKrisp</guid>
+      <pubDate>Thu, 26 Nov 2026 01:39:26 GMT</pubDate>
+    </item>
     <item>
       <title>Pop!_OS 26.04 LTS 与 24.04 LTS 性能基准测试对比</title>
       <link>https://www.phoronix.com/review/pop-os-2604-benchmarks</link>
@@ -857,18 +878,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/Sashiko-0.9.4-Released</guid>
       <pubDate>Wed, 18 Nov 2026 11:13:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ RBRD：用 Rust 编写的内存块设备驱动，安全性更高但写入性能下降约两成</title>
-      <link>https://www.phoronix.com/news/RBRD-Rust-Linux-RAM-Driver</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍用 Rust 编写的新型内存后端 Linux 块设备驱动，属于新软件项目且涉及 Rust 与 Linux 内核技术，契合来源配置中 Rust 与 Linux 相关兴趣；但属于底层基础设施，故不列 critical</small></p><p>Linux 内核邮件列表上出现了一组补丁，提议引入 <strong>RBRD</strong>——一个用 Rust 语言编写的、基于内存（RAM）的块设备驱动。它的对标对象是内核现有的 C 语言实现 <code>brd</code>（BRD Driver），后者提供一块放在内存中的虚拟块设备。</p>
-<p>与 C 版本的关键差异在于并发语义：RBRD 保证对同一页面的读取拷贝与写入拷贝绝不同时发生，从而避免 Rust 语境下的未定义行为（undefined behavior）。代价是性能损失——据补丁作者给出的数据，写入在单线程下约慢 19%，8 线程下约慢 22%；读取则因同样的安全保证慢 2%~10%。</p>
-<p>开发者认为这点代价值得：「对页面完整性来说这算是很小的代价：内存盘仍然远快于任何真实设备，而块设备不应该返回从未写入过的数据。」他们也坦言性能差距尚未做过剖析，因此未必全部来自锁；如果整个设备只使用一把锁而非每页一把锁，8 线程读取会比 brd 慢 20%~28%。</p>
-<p>文章同时指出，在当前内存价格与供应状况下，基于内存的块设备用途相对有限，但仍适用于模拟与快速测试场景。补丁系列目前正在<a href="https://www.phoronix.com/news/RBRD-Rust-Linux-RAM-Driver">内核邮件列表上征求意见</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/RBRD-Rust-Linux-RAM-Driver</guid>
-      <pubDate>Wed, 18 Nov 2026 02:04:05 GMT</pubDate>
     </item>
   </channel>
 </rss>
