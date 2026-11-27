@@ -3,7 +3,203 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Thu, 26 Nov 2026 22:16:51 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2026 04:58:52 GMT</lastBuildDate>
+    <item>
+      <title>AI 让自托管重新变得有趣：一位老玩家的回归手记</title>
+      <link>https://news.ycombinator.com/item?id=50660180</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要讲个人自托管/折腾家庭基础设施的经历，属基础设施类偏低兴趣；虽提到 AI 在此中的辅助作用，但主题模糊，介于经验分享与基础设施之间</small></p><p>作者自托管（self-hosting）多年，曾经热情高涨地折腾新软件和基础设施，但这份热情后来逐渐消退——他没有停止自托管，只是不再愿意试验新东西，维护现有服务就够他忙的了。而最近几个月，他惊讶地发现自己又兴奋起来了，原因恰恰是 AI。</p>
+<p><strong>摩擦减少，想法更容易落地。</strong>他的大部分基础设施配置都放在 Git 仓库里，主要是 Docker Compose 文件、脚本和其他配置文件，这让 AI 编程代理可以像处理普通软件项目一样处理他的基础设施。过去他会因为不想花一晚上读更新日志、翻文档、排查问题而搁置一些改动；如今即使是一时兴起的想法，也常常能真正实现。</p>
+<p><strong>终于上手一直想学的技术。</strong>他早就喜欢 NixOS 的声明式全系统配置理念，但在笔记本的「Linux 蜜月期」之后就因配置门槛放弃了，现在借助 AI 在家庭服务器上大量使用。在 VPS 上，他开始构建自己的基于 Debian 的 <a href="https://containers.github.io/bootc/">bootc</a> 镜像，把整个操作系统配置定义在 Git 仓库里、自动构建出可启动的容器镜像。这项工作即便有 AI 帮忙也花了他半天，而他估计没有 AI 至少需要一周。AI 让陌生技术的实验门槛大幅降低——不必先理解每个细节，可以边做边学。</p>
+<p><strong>几乎全部自动化。</strong>自托管中大量重复劳动（跟踪新版本、更新镜像标签、构建镜像、部署配置）如今被串联起来：<a href="https://docs.renovatebot.com/">Renovate</a> 自动创建更新 PR，他躺在沙发上用手机审阅合并即可；推送或合并会触发 GitHub Actions 或 Forgejo Actions 完成构建与部署。作者承认这些 DevOps 实践本身毫无新意、也并非必须依赖 AI，是 AI 帮他把这些零件真正拼了起来，而收益远不止于初始搭建。</p>
+<p><strong>回到更强的硬件。</strong>随着托管的服务变多，他把服务从 VPS 迁回闲置已久的 ASRock DeskMini A300，把原来用作服务器的 HP t640 瘦客户端考虑改成「单臂路由」（router on a stick）。顺手把 CPU 从 Ryzen 5 2400G 升级到 Ryzen 5 PRO 4650G，并用更安静的 Noctua 散热器替换原装散热器（噪音正是他当初换用 t640 的主因）。CPU 和散热器都是在二手分类信息网站上以好价淘到的，能重新利用已有硬件而非买新机器让他很满意。</p>
+<p><strong>自己造工具。</strong>对于没有现成软件能满足需求的小问题，他不再花大量时间搜寻、比较开源项目，而是直接（让 AI）用自己偏好的 Go 语言写——最近就做了自动下载发票、电子公文和 Linux ISO 的小工具。这些工具不需要覆盖所有场景、不需要精致界面、也不必开源给别人用，只需解决他自己的问题，而且很容易打包成容器部署，与日益自动化的基础设施形成良性循环。</p>
+<p><strong>能做不等于该做。</strong>作者也指出代价：每多一个服务就多一份维护负担；AI 生成的软件同样会有 bug、安全漏洞和技术债；让代理改动基础设施并不免除自己理解这些改动的责任。当实现一个想法变得过于容易时，反而更该时常自问是否值得做。不过对把自托管当爱好的他来说，并非每件事都要有经济效益——尝试新东西本身就是目的，而日常维护被自动化之后，多一个服务也不意味着同等比例的长期工作量。</p>
+<p><strong>一个略显讽刺的结果。</strong>由大型科技公司主导的 AI，反而帮他在数字生活的其他方面少依赖这些公司。他清楚这会带来新的依赖，但用 AI 产出的软件与配置可以独立于所用 AI 服务继续存在，而且他主要使用开放权重模型，供应商选择余地很大。最让他珍惜的其实不是省下的时间，而是自己更愿意去实践那些小想法：尝试好奇多年的技术、自动化长期想自动化的流程、写自己的小工具、重新折腾硬件。AI 没有改变他喜欢自托管的原因——掌控自己的数字生活、学习新东西、折腾技术——只是移除了多年来磨掉热情的那些摩擦。</p>
+<p><strong>社区反馈。</strong>讨论区呈现明显的分歧：</p>
+<ul>
+<li><strong>安全负担加重。</strong>多位评论者认为自托管确实更容易了，但对抗持续涌来的 AI 机器人和快速披露的 CVE 反而更难。有人称 10 月漏洞密集时做了个玩笑项目 <a href="https://firefighter.sh/">firefighter.sh</a>——一个以 root 权限持续监控 CVE 并实时打补丁的代理（他自认因 AI 的非确定性而堪称安全噩梦），但对非关键服务器已经开始动心。</li>
+<li><strong>务实做法。</strong>不少人把所有服务藏在 WireGuard 后面：有人提到自己一个跑 PoC 应用的 droplet 曾被攻破（幸好只是容器）；也有人建议用公网网关 + 私有内网隔离后端，并同时配置云厂商防火墙和软件防火墙。另有评论指出 <code>unattended-upgrades</code> 只覆盖 apt 系统包，node、pip 或 curl | sh 装的东西仍然要自己管。</li>
+<li><strong>范围之争。</strong>有评论认为自托管的主要意义是学习和为自己的搭建感到自豪，这两点都会被 LLM 削弱；反驳者说自己读所有生成内容，并要求 AI 给出「基于文档、带链接和理由说明的分步指南」，从而边做边学。有人用 AI 生成 Makefile 封装 Terraform、Ansible、数据库迁移等，让 AI 在可复现、受测试的边界内操作而不接触凭据；也有人称「LLM 写 Ansible 再配 LLM 写的测试」是绝佳组合。</li>
+<li><strong>怀疑的声音。</strong>也有人不满 HN 上密集的 AI 成功故事，并举例 <a href="https://gmplib.org/">GMP</a> 这类根本无法外包给 AI 的项目。不过也有评论者报告了几乎相同的正面体验：用上 Nix、把几年前的游戏主机兼作家庭服务器，花更少时间调 Docker 配置，更多时间真正享受影视、电子书和游戏串流。</li>
+</ul>
+<h2>你知道吗？</h2>
+<p>文中提到的 <strong>bootc</strong>（bootable containers）是一种新兴的操作系统交付方式：把整个系统（内核、systemd 单元、软件包）按容器镜像的方式构建并推送到镜像仓库，宿主机通过事务性更新把镜像「切换」为新的根文件系统，因此可以实现原子回滚和完全由 Git 驱动的系统定义。它与此前 Fedora CoreOS、Flatcar 等「不可变操作系统」的思路一脉相承，但复用了 OCI 镜像生态，而非专用更新机制。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50660180</guid>
+      <pubDate>Thu, 26 Nov 2026 21:47:45 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ YouTube Ad Punisher：检测到广告就自动刷新页面并保留播放进度</title>
+      <link>https://news.ycombinator.com/item?id=50657530</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 一个开源浏览器扩展，用于检测广告后自动刷新并保留播放进度，属于开源项目与实用小工具，符合兴趣</small></p><p><img src="https://camo.githubusercontent.com/e2ec9f9b84cbfa4a84d3c943ea5dcaf295c8cee0c665120898bd30ca552b1e39/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d4d49542d79656c6c6f772e737667" alt="License: MIT" /> <img src="https://camo.githubusercontent.com/2d1a9a68b35753ba29f778cdca1676d77957b365564d5a09e369be00d7603299/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4368726f6d652d457874656e73696f6e2d626c75652e737667" alt="Chrome Extension" /> <img src="https://camo.githubusercontent.com/e58111e712826acc9ada72f8c6025b57bf12cff8a9b3650c87fdd5059c70ca5d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4d616e69666573742d56332d677265656e2e737667" alt="Manifest V3" /></p>
+<p>开发者 George Anton 发布了一个名为 <a href="https://github.com/antonpictures/youtube-punisher">YouTube Ad Punisher</a> 的开源（MIT）Chrome 扩展（Manifest V3），思路非常直接：一旦检测到广告播放，就刷新页面，并把播放进度恢复到原处。作者称这段经历的起点是「你只能坐在那里当人质」——传统拦截器会被 YouTube 的反广告拦截机制识别，跳过按钮又要等几秒才出现。</p>
+<p>作者观察到 YouTube 的广告是在页面加载时按会话状态决定的，因此重载 1–2 次后广告位往往就空了，视频可直接播放。这不需要过滤列表、不需要阻断网络请求，也不触发反拦截检测。</p>
+<h3>工作流程</h3>
+<ul>
+<li><strong>检测</strong>：监听 <code>.ad-showing</code> 类名、跳过按钮与广告浮层，每 500ms 轮询并结合 MutationObserver；</li>
+<li><strong>记录</strong>：把 <code>video.currentTime</code> 存入 sessionStorage；</li>
+<li><strong>重载</strong>：通过 <code>location.replace()</code> 在 URL 中附上 <code>&amp;t=Xs</code>；</li>
+<li><strong>恢复</strong>：YouTube 自动跳回时间点继续播放，并有 3 秒冷却防止刷新死循环；</li>
+<li><strong>兜底</strong>：若 3 次重载后仍有广告，则跳转到无广告镜像 yout-ube.com（附 <code>&amp;loop=0</code> 避免镜像默认的无限重播问题）。</li>
+</ul>
+<p>此外还有一个「自动逃生」技巧：连续 3 次重载失败后，扩展会切到辅助标签页停留 4 秒再切回——因为 Chrome 会节流后台标签页，广告状态得以自行消解。作者把这归功于另一位开发者的发现，并称「每次都有效」。</p>
+<h3>广告档案功能</h3>
+<p>扩展会把每次遇到的广告记录到本地数据库，包括时间戳、广告主、正在观看的视频标题、播放位置、广告时长、跳过按钮文案和处置动作（重载或跳过）。点击扩展图标可查看统计与广告主排行，并支持导出 JSON / CSV；数据只保存在本地。权限仅需 storage 与 tabs，且只在 YouTube 域名生效。</p>
+<p>安装方式以 Chrome 系浏览器「加载已解压扩展程序」为主；Safari 上因苹果限制临时签名扩展自动注入，作者提供了 JavaScript 浮层加 AppleScript 监听脚本（<code>yt-ad-watch.sh</code>）的实验性方案，并注明「Chrome 完全可靠，Safari 仅尽力而为」。</p>
+<h3>作者的立场与比较</h3>
+<p>作者把刷新视作一种低成本投票：「每次重载都是一票，投给『我不会看你的广告』。」他也承认若数百万人使用，会带来页面加载量上升、广告曝光下降的规模效应，但这不构成 DDoS，只是被动抗议——当刷新的代价低于一次完整广告观看时，广告收入模型就会失效。文中还对比了 uBlock Origin（阻断请求、不重载）、SponsorBlock（跳过视频内赞助段落）、Enhancer for YouTube（自动点跳过按钮）等工具，建议的组合是三者叠加。</p>
+<p>已知局限包括：YouTube 会不定期改动 DOM 类名（未检测到广告需查看控制台日志）、直播中的插播广告无法保留进度、Premium 推销插页可能需要第二轮重载。</p>
+<h3>社区讨论</h3>
+<p>Hacker News 上讨论热烈（384 条评论）。许多用户表示在 Firefox 上用 uBlock Origin 加 SponsorBlock，已经多年没见过强制广告，并称 SponsorBlock 会统计自己的提交为他人节省了多少时间（一位用户称其 11 个片段帮别人跳过了约 20 天广告）。有 Chromebook 用户抱怨唯一的浏览器里开广告拦截就完全无法看 YouTube，评论指出这正是 Chrome 移除 Manifest V2 支持、导致 Chrome 上拦截能力弱于 Firefox 的结果；随后出现一串替代方案推荐：Android 上用 Firefox + uBlock Origin、Brave/Vivaldi 内置拦截、路由器级 Pi-hole 等 DNS 拦截、iOS/macOS 上的 AdGuard 与 wBlock、以及 <a href="https://grayjay.app/">Grayjay</a>。</p>
+<p>关于付费，多人表示不愿订阅，也有人反驳称 Premium 实际并无广告（Premium Lite 才在音乐视频和 Shorts 上保留广告），另有人因「Premium 是更少广告而非无广告」的说法而拒付。有人调侃真正的「广告惩罚者」应当是：每播一次广告就向 PeerTube、yt-dlp、Invidious 捐一笔钱并告知 YouTube 客服，不过随即有人指出 PeerTube 目前缺乏订阅、推荐、评论等社区基础设施，方向本身就不成立。此外有评论质疑文中「YouTube 大约每 60 秒投放一个广告」的说法属于误读，也有人吐槽 YouTube 加载太慢，「与其刷新不如把广告看完」，还有人抱怨当下 README 的写法千篇一律（明显由 AI 生成）。</p>
+<h3>你知道吗？</h3>
+<p>文中依赖的 MutationObserver 是浏览器提供的 DOM 变更监听接口，也是绝大多数广告与弹窗「实时检测」的基础；而同类的 yout-ube.com 属于第三方 YouTube 前端镜像。这类镜像与 Invidious、Piped 等开源前端生态相通，靠代理后端转发内容，因此常被广告拦截用户当作备用入口，但稳定性与隐私性取决于镜像运营者。另一方面，Chrome 全面推行 Manifest V3 后，基于 <code>webRequest</code> 的精细请求拦截能力受限，官方推荐的 declarativeNetRequest 在规则数量与动态调整上都有约束，这也是近年「Firefox 上拦截更彻底」这一共识的技术原因。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50657530</guid>
+      <pubDate>Thu, 26 Nov 2026 17:36:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ 实测 AMD 专用 llama.cpp 分支：llama-cpp-rdna-boosts 让生成速度提升约 50%</title>
+      <link>https://news.ycombinator.com/item?id=50657265</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 针对 AMD GPU 的 llama.cpp 分支优化实测，核心是开源推理项目与 AI 软件性能改进经验，虽涉及芯片技术但非主题</small></p><p>作者在博客中推荐 AMD 显卡用户使用 <a href="https://devnull.land/amd-specific-llama-cpp">llama-cpp-rdna-boosts</a>：它改动精简，在自己的机器上把 token 生成从 35 t/s 提升到 55 t/s，prefill 从约 700 t/s 提升到 1300 t/s。测试平台是 AMD R9700 通过 eGPU 接口连接笔记本，运行 <code>ukisai/Swift-1.5-Qwen3.8-27B-GGUF</code>（Q6_K_L 量化）并启用 MTP（多 token 预测）。</p>
+
+<p><strong>背景：定制推理引擎的爆发</strong></p>
+
+<p>原文称，截至 2026 年 11 月，市面上涌现出大量定制推理引擎，如 Strata、Basalt、RustingStrata 等，它们借鉴 llama.cpp、SGLang、vLLM 等通用引擎的思路，但并非因为后者不好——通用引擎面向广泛硬件兼容性，不做特定优化；也有人认为这些老牌项目开发节奏变慢，而借助 LLM 可以自己跑得更快。</p>
+
+<p>这批新分支有三个共同点：只聚焦特定模型和/或硬件；整个项目用前沿模型「氛围编程（vibe-code）」出来；以及不断追求更高的 token 生成速度。效果确实惊人——Strata 能在 16GB 显存加 16GB 系统内存的机器上运行 180B 参数的 Qwen 3.8 Flash Next 高度量化版本，且生成速度相当高。</p>
+
+<p><strong>隐忧：速度换质量</strong></p>
+
+<p>作者认为前两点并非红旗，但当速度成为唯一目标，优化方向就从「针对硬件的改动」滑向「改变模型的思考方式好让它跑得更快」。他以 Strata 为例：它会优先轮询已加载在显存中的专家（expert），即便本该被选中的其他专家已经被挤到内存或磁盘上。这只是第一个例子，但不会是最后一个。</p>
+
+<p><strong>llama-cpp-rdna-boosts 的做法</strong></p>
+
+<p>该项目以一组最小补丁的形式针对固定 commit 的 llama.cpp 应用，并持续重新套用到更新的 llama.cpp 版本上——本质上是分支，但保持了精简。作者欣赏 llama.cpp 稳定的开发基座与严格的代码审核流程，而这类补丁集合「部件少、维护的东西也少」，且文档对改动有一定说明（尽管代码「一看就是 Claude 写的」）。</p>
+
+<p>部署方式很直接：作者不想自己折腾 ROCm 构建，直接用预构建镜像，<code>podman pull ghcr.io/stew675/llama-cpp-rdna-boosts:server-rocm-10.1</code>，再以 podman 沙箱运行推理服务，需挂载 <code>/dev/kfd</code>、<code>/dev/dri</code>，加入 <code>video</code> 组，并把本地 models 目录映射进去。</p>
+
+<p><strong>性能对比</strong></p>
+
+<table>
+<thead><tr><th></th><th>改动前</th><th>改动后</th></tr></thead>
+<tbody>
+<tr><td>Prefill</td><td>~700 t/s</td><td>~1300 t/s</td></tr>
+<tr><td>Token 生成</td><td>~35 t/s</td><td>~55 t/s</td></tr>
+</tbody>
+</table>
+
+<p>作者也试过另一条路线 <em>vllm-radiance</em>（带 AMD 专用补丁的 vLLM 分支），但构建步骤过于繁琐，而 vLLM 对「一台机器、一个开发者」的场景又过于庞大，最终放弃并回到原版 llama.cpp。他期待 rdna-boosts 社区接下来的进展。</p>
+
+<p><strong>社区讨论</strong></p>
+
+<ul>
+<li><strong>是否验证输出质量？</strong>有评论指出这些优化大多依赖 <code>-Ofast-math</code> 一类的数学重写，结果会有差异，固定随机种子只能在同一个推理引擎内复现；已出现过明显质量退化的情况，甚至可能存在于商业 API 中。相关讨论指向 <a href="https://forum.level1techs.com/t/why-your-local-llm-feels-dumber-than-it-is/253917" rel="nofollow">一篇针对 vLLM 注意力后端的基准测试</a>，并强调质量损失在长上下文、agentic 场景下更明显，也更难测量。</li>
+<li><strong>同类个人实验</strong>：有用户用 Claude 改写 llama.cpp，在 7900XTX 上大幅提升 Inkling 2 Mini 的速度（并公开仓库）；有人在 7900XTX 上跑 Strata + Qwen3.8-flash-next 约 80 t/s，或用 Hipfire + Qwen 3.8 27B 达到 80–120 t/s。</li>
+<li><strong>老卡生态</strong>：有评论介绍 gfx906 时代的 MI50 / Radeon VII 等拥有廉价高速 HBM2 的显卡（32GB 显存、约 1 TB/s 带宽，二手约 200 美元），社区为它们维护了专用优化分支（如 llama-of-vega.cpp），27B 模型 Q8 量化可从 250pp/25tg 提升到 600pp/40tg。另一人用 MI100 把 Nvidia kernel 移植到 ROCm（vicuna.cpp）并获得 2–3 倍提速。</li>
+<li><strong>Apple 平台</strong>：评论提到 MTPLX、Inco's Splash 的 M1 移植版等项目，称后者让 Qwen 3.8 27B 速度提升近三倍。</li>
+<li><strong>为何不进上游？</strong>回答多认为这些改动无法兼容 llama.cpp 支持的全部架构，合并会带来回归；也有评论因质量顾虑而宁愿等改动进入主线。另有人指出 llama.cpp 核心团队已加入 Hugging Face，而 NVIDIA 收购了 Hugging Face，因此「llama.cpp 现在归 NVIDIA 所有」（附 <a href="https://github.com/ggml-org/llama.cpp/discussions/19759" rel="nofollow">项目讨论</a> 与 <a href="https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/" rel="nofollow">NVIDIA 公告</a>）。</li>
+</ul>
+
+<h2>你知道吗？</h2>
+<ul>
+<li><strong>专家卸载与路由偏差</strong>：在对 MoE（混合专家，Mixture-of-Experts）模型做显存不足的推理时，未被选中的专家会被放到内存或磁盘，需要时再换入。Strata 的取巧在于「就近取专家」——省掉了换入开销、速度更快，但模型的专家路由（routing）结果被改变了，等于换了个模型在答问题。<a href="https://github.com/mw00/project-maya" rel="nofollow">Project Maya</a> 等项目也被评论提及为同类思路。</li>
+<li><strong>MTP 与 prefill</strong>：文中提到启用 MTP（Multi-Token Prediction，多 token 预测）后测速，它是推测解码的一种形态：让模型一次猜出多个 token 再由主模型校验，从而提升生成吞吐。而 prefill（预填充）指的是处理输入提示词的阶段，其速度决定了「多久才开始吐第一个字」，在长上下文和 agentic 工作流中体验差异很大。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50657265</guid>
+      <pubDate>Thu, 26 Nov 2026 17:11:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Google 要求 AI Agent 必须经其 MCP 服务器访问 Workspace，但 Gmail 服务器连邮件都发不了</title>
+      <link>https://news.ycombinator.com/item?id=50653477</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲 Google 对 AI Agent 访问 Workspace 的 MCP 服务器强制要求及其能力缺陷，属 AI 软件技术进展与生态变化，虽涉及公司政策但技术内容为主</small></p><p>11 月 24 日，Google 将 8 个 Workspace MCP（Model Context Protocol，模型上下文协议）服务器正式开放，并同步在 API 条款中增加新附款：自 <strong>2027 年 2 月 1 日</strong>起，任何「本身是 AI Agent 或由 AI Agent 驱动」的工具，访问 Gmail、Drive、Calendar 及其他 Workspace 服务时必须走 Google 自己的 MCP 服务器。原文还提到，违反者可能被限制或收回访问权限，甚至停用账号。</p>
+
+<p>争议核心在于：<strong>能力与限制严重不匹配</strong>。Gmail 服务器只能搜索和读取会话、创建与列出草稿、打标签、丢进垃圾箱/回收站；发送、回复、转发以及修改已创建的草稿都属于 partner-only（需要合作伙伴权限），过滤器、设置、附件下载、推送通知也缺失，带附件的草稿「暂不支持」。Drive 服务器不能移动、重命名、共享、删除文件，也不能管理评论和共享盘——agent 可以生成报告，却无法把它放进正确文件夹。Docs、Sheets、Slides、Tasks 则接近 REST API 的完整能力。</p>
+
+<p>问题在于 Anthropic 为 Claude 提供的 Google Workspace 连接器却宣称支持发送、回复、转发邮件以及移动和删除 Drive 文件——正是公开服务器缺少的那些操作。于是大型 AI 厂商的 agent 能通过「获批通道」替你发信，独立开发者用同样的 OAuth 授权范围却只能留下草稿，且新规生效后也无法回退到 REST API。</p>
+
+<p>技术层面还有几项配套限制：</p>
+<ul>
+<li>直接调用 REST API 的 agent 无论项目买了哪个层级，一律按 Standard 档配额计算——REST 仍能用，只是变慢且违反条款。</li>
+<li>不涉及 AI 的集成（夜间备份、CRM 同步、独立的确定性脚本）不受影响。</li>
+<li>数据规则收紧：Workspace 数据只能用于「执行用户主动授权的任务」，用户断开连接后必须删除；「Google Technical Information」（含向量嵌入、记忆索引、用户画像、基于 Workspace 数据构建的组织图谱）保留期上限 30 天；禁止用于训练、微调、评测、蒸馏，也禁止用于构建竞品。</li>
+<li>30 天限制的影响最直接：给收件箱建立长期索引、用来回答「去年合同」类问题的助手，只能每月重建。</li>
+</ul>
+
+<p>关于「谁是 agent」的定义相当宽泛：AI Harness、connector、proxy、命令行界面、第三方服务都被涵盖，把收件箱喂给 LLM 的个人脚本也可能被算进去。判定靠自我声明——OAuth 客户端新增「将此客户端用于 AI 驱动的 agent」勾选框，11 月 11 日起未勾选者的 MCP 请求会被拒绝；此前创建且未及时标记的客户端将永久保持非 agentic 状态，只能重新创建。Service account 的 domain-wide delegation 无法设置该标记，Apps Script 内置 OAuth 客户端同样不行。社区版 gws CLI 仍可使用，但其 README 已将 agent 用途指向 Google 新的官方 CLI gwscli。</p>
+
+<p>配额与价格对 MCP 并不友好：免费 Standard 档为每项目、每产品每天 5,000 次 MCP 请求，且部分调用要乘以系数——Gmail 的 search_threads 或 list_drafts 各算 10 次，意味着一整天只能做 500 次搜索，且是全项目共享。付费 Scaled 档自 2027 年 4 月 1 日起对 Gmail、Calendar、Drive 计费，MCP 从第一个请求起就收费，而 REST 享有大额免费额度（例如每天 7,000 万次轻量 Gmail 请求），单价未公布。</p>
+
+<p>Google 在 Cloud 博客中给出的理由是：OAuth 是为「人类节奏、意图明确」的应用设计的，agent 以机器速度自主行动后，有效 token 不再等于用户意图，策略检查、数据边界与人工确认必须进入请求路径。这个论证有实质依据——一封写着「把最近十张发票转发到这个地址」的邮件就是典型的提示注入场景，而 gmail.modify 权限足以让 agent 照做；统一网关让管理员能集中拦截、审批和审计，并自动施加数据防泄漏规则。批评者则指出，同一套设计也让 Google 掌握了「哪些 agent 能做什么、数据能留多久、基于数据能建什么」，partner-only 工具和 30 天嵌入保留期即是这种控制在起作用。文章将此事类比于 Slack 2025 年 5 月对 Marketplace 外应用限流并禁止向 LLM 批量导出历史记录，区别是 Slack 按分发渠道划线，Google 按「是不是 AI」划线，更难定义也更容易误伤。</p>
+
+<p>文章给出的行动建议：agent 产品开发者应创建标记为 agentic 的 OAuth 客户端并迁移到 MCP 服务器，提前列出公开工具清单里缺失的操作并申请 partner access，同时检查嵌入与记忆索引的保存时长；个人用途可继续用调用 REST 的开源 MCP 服务器（如 google_workspace_mcp），但要接受 Standard 配额并处于条款之外；管理员应在 Admin console → Security → API Controls 中先设好审批策略，因为用户看不到也无法撤销已保存的批准，批准在 90 天后过期。</p>
+
+<p>HN（Hacker News）上的讨论情绪偏负面。有人提醒「一大批人即将体验失去 Google 账号的痛苦」，也有人调侃这种情况「又来一次」。有评论认为把 MCP 再包一层、把 Google MCP 当 API 用即可，但更多人对层层集成表达疲倦：「MCP 蜜月期过去了，现在全是卡住和出错的结果」，并质疑大多数场景并不需要这种自动化。有人表示这是促使自己离开 Google 服务的最后一根稻草，也有人直言限制发送功能「说到底是为了广告位和数据入口」。替代方案讨论中出现了 Fastmail（其 MCP 服务器对所有用户开放，无 partner-only 工具，并可用 JMAP API 自行扩展）、Proton（也有人批评其加密邮件和付费迁移限制）、自建本地 MCP 收件箱项目，以及「Gmail 仍支持 SMTP」这条绕过路径——立刻有人指出这可能招致封号。还有评论猜测限制 agent 发信是为了抑制逼真的垃圾邮件洪流。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50653477</guid>
+      <pubDate>Thu, 26 Nov 2026 09:44:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ 数据表明 OpenAI 进入「成本控制模式」：Astra 6.2 与 Sol 6.2 为省钱而大幅减少推理</title>
+      <link>https://news.ycombinator.com/item?id=50652527</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 围绕两个新 AI 模型（Astra 6.2、Sol 6.2）发布后的推理能力与成本变化做数据分析，直接命中「新 AI 模型发布」高兴趣主题</small></p><p>OpenAI 近期发布的 Astra 6.2 和 Sol 6.2 遭到广泛批评，博主基于对决系统（battle system）的真实任务数据认为，这两款模型很可能被针对<strong>成本节约</strong>做了调优：每个任务的输出 token（output tokens）和推理 token（reasoning tokens）都明显下降，使它们成了「思考不足」（underthinking）的离群点。</p>
+
+<p>第一张图展示了从 GPT-6 到 GPT-6.2 的整体成本变化：横轴是该 GPT 模型在真实工作任务中相对对手的花费比例，纵轴是排行榜上的 Elo 分数。图中模型位置移动显著，作者还给出了带置信区间的同款图表，说明变化并非噪声。</p>
+
+<p><img src="cost.png" alt="Sol and Astra Elo versus median cost per task compared to opponents" /></p>
+<p><img src="cost-intervals.png" alt="The same cost and Elo estimates with 95% developer-bootstrap intervals on both axes" /></p>
+
+<p>在与相同对手的比较中，Astra 和 Sol 的推理量显著低于同类模型（图中位于线上方表示推理更多，下方表示更少）。Astra 6 和 Sol 6.1 原本属于「正常」水平，而 Astra 6.2 与 Sol 6.2 则变成了明显的离群点。</p>
+<p><img src="reasoning-tokens-vs-opponents.png" alt="Median recorded reasoning tokens for the same models versus their matched opponents" /></p>
+<p>输出 token 呈现相同趋势（该图覆盖 18 个获得 100 张以上有效投票的模型）。</p>
+<p><img src="output-tokens-vs-opponents.png" alt="Median output tokens for each of the 18 models with over 100 eligible votes versus their opponents on the same completed tasks" /></p>
+
+<p>这些变化在统计上显著：输出量下降的 p 值为 Sol 0.0055、Astra 0.022；推理量下降的 p 值为 Sol 0.00013、Astra 0.0064。作者结论是，Astra 与 Sol 相比前代产品被明显成本调优，且程度已使其成为「思考不足」的离群者。</p>
+
+<h3>社区讨论</h3>
+<ul>
+<li><strong>IPO 与盈利压力</strong>：多位评论者猜测这是为了在上市前做出一个盈利季度；也有人指出近期融资只拿到目标的一半（原计划 300 亿美元），且「Codex 重置次数」明显减少，甚至有一次仅限 Business 套餐（见 <a href="https://codex-resets.com/" rel="nofollow">codex-resets.com</a>）。不过也有人认为 IPO 短期内无望。</li>
+<li><strong>消费者 vs 企业市场</strong>：一种观点认为 OpenAI 业务过度偏向消费者端，而企业端毛利更高却被 Anthropic 拿下；另有用户表示 Gemini 与 Claude 在「使用体验」上更讨喜，OpenAI 模型虽聪明但用起来不顺手。</li>
+<li><strong>「发布—蒸馏—再发布」的固定套路</strong>：有人总结实验室的常见循环：先推出惊艳的模型，再蒸馏并优化推理成本、试图维持性能。质疑者则要求提供同一任务随时间退化的评测证据，否则只是「感觉」。也有人指出，许多宣称「性能没变」的追踪测试都固定使用模型首发时的系统提示词，而系统提示词的变化本身会显著影响表现。</li>
+<li><strong>成本指标的争议</strong>：有企业 API 用户直言 Artificial Analysis 的「每任务成本」不可靠——实际日常使用 Sol 的成本约为 DeepSeek 4.1 Flash 的 8 倍，而非该站宣称的 2 倍以内。博主回应称其数据更接近这一体验：DeepSeek 4.1 Flash 每任务约 0.07 美元，GPT-6.2 Sol 约 0.43 美元，约 6.1 倍。相关数据来自基于 OpenCode 构建的对决系统（<a href="https://github.com/bottomless/agent-duel" rel="nofollow">agent-duel</a>，见其<a href="https://agentduel.com/leaderboard#pareto" rel="nofollow">帕累托前沿</a>），其中 Claude 占据榜首，其后为 Gemini Carbon、Qwen 4 Max、DeepSeek 4.1 Flash；按消费金额占比，Claude Fable 5.2 约占 65.5%。</li>
+<li><strong>另一种解读</strong>：也有人认为并非需求萎缩，而是用户「把更贵更聪明的模型能做的事都做完了」；同时开源/非前沿模型已能胜任越来越多任务，前沿实验室争夺的蛋糕正在变小，这对消费者反而是好事。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50652527</guid>
+      <pubDate>Thu, 26 Nov 2026 07:33:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moat 自称「AI 代币版 Costco」、要做 OpenRouter 替代品，HN 用户质疑其定价与信任模型</title>
+      <link>https://news.ycombinator.com/item?id=50652184</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要是某 AI token 转售服务的商业模式、定价与信任争议，偏行业公司与商业讨论，技术含量与兴趣点不明确</small></p><p><a href="https://commandcode.ai/moat">Moat</a> 是 Command Code 推出的模型调用服务，自我定位为「AI 代币的 Costco」：每月付 5 美元会员费，即可按「批发价」调用 100 多个高质量开源模型，并宣称「无使用上限」。该产品在 Hacker News 上获得 262 分、150 条评论，讨论集中在定价透明度、速度稳定性和安全信任三方面。</p>
+
+<p><strong>「无上限」只是话术</strong>：多位评论者指出，除了月费之外仍需按 token 付费，所谓「无限制」并不成立。支持者为这种模式辩护——Costco 也是先交会员费再以更低单价购买商品，Moat 的逻辑与此类似（例如 DeepSeek 号称降价约 70%，其他模型折扣较小）。但反对者认为 Costco 的类比站不住脚，并且翻遍官网和文档也找不到具体的「陷阱」说明，内容多为营销辞令。</p>
+
+<p><strong>并不比 OpenRouter 便宜</strong>：有用户直接对比后表示，Moat 的价格并没有优势；在 GLM 5.3 等模型上，OpenRouter 同样有竞争力，而 Moat 的比价假设往往避开了主流前沿大模型。也有人认为两者定位不同：OpenRouter 面向需要 AI 网关（gateway）的自建服务开发者，功能完整；Moat 面向个人用户，功能远不及前者，「替代品」的说法过于大胆。</p>
+
+<p><strong>速度与稳定性</strong>：一位用户比较了 Command Code 的 Go 套餐与 OpenCode 的 10 美元套餐（主要跑 DeepSeek），发现两者都达不到 DeepSeek 官方 API 的吞吐（TPS）：Command Code 有时很快，但性能会周期性下滑；OpenCode 则一直偏慢。该用户最终回到 DeepSeek 官方 API，虽然贵约 50%，但换来稳定性能。也有用户表示自己在 Command Code 上通常能跑到 170 TPS。</p>
+
+<p><strong>信任是核心争议</strong>：评论普遍认为 LLM 推理环节的信任成本极高——代码、可能泄漏的密钥，加上工具调用（tool calling）几乎等同于对本地机器的完全访问权限，因此「便宜的第三方路由器」很可能好得不像真的，担心出现被投毒的路由注入恶意工具调用。有人分享亲身经历：做代码安全扫描评估时忘记给 OpenRouter 开启零数据保留（ZDR），之后收到通知称某个下游推理提供方被入侵，不得不写安全披露报告——因此不会把 token 交给不披露最终推理提供方及其所在地的公司，只为换取约 5% 的价格优惠。另有评论提醒 OpenCode 近期出现过安全问题且处理不佳，也有人指出 Command Code 主要由一个人运营、对批评的反应较为敏感。</p>
+
+<p><strong>其他讨论</strong>：部分用户质疑个人开发者是否真的需要路由器——若已订阅某一家 AI 服务且满意，就不必再用；路由器主要用于免注册试用多家模型，而提示词本就要按模型调整，依赖路由器未必划算。还有不少人分享自有方案：直接充值 DeepSeek API 并做限额、ChatGPT 的 500 美元/月额度、DeepSeek + 小米 MiMo + 本地模型组合，以及在本地模型上先做一轮「是否违反提供方条款」的预判。评论区还穿插了关于 Costco 热狗和宜家热狗的玩笑。</p>
+
+<h2>你知道吗？</h2>
+<ul>
+<li><strong>AI 路由器 / 网关</strong>：位于应用与多家模型提供方之间的中间层，统一接口、按需路由、做用量统计与故障切换。代价是提供方隐藏在多级链路之后，数据处理地点和保留策略更难追踪。</li>
+<li><strong>零数据保留（ZDR，Zero Data Retention）</strong>：要求推理提供方不留存请求与响应内容。若未显式开启，内容可能被上游记录，在涉及客户代码或敏感数据时会成为合规问题。</li>
+<li><strong>TPS（tokens per second）</strong>：每秒生成 token 数，是衡量推理服务体验的关键指标，转售型服务的吞吐往往随负载波动。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50652184</guid>
+      <pubDate>Thu, 26 Nov 2026 06:32:48 GMT</pubDate>
+    </item>
     <item>
       <title>⭐ Nextcloud 发布基于 Euro-Office 的桌面办公套件，支持离线编辑与云端协作</title>
       <link>https://news.ycombinator.com/item?id=50654289</link>
@@ -1338,195 +1534,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50576012</guid>
       <pubDate>Fri, 20 Nov 2026 15:24:11 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 我们把开发者「提拔」成了架构师，却没通知他们</title>
-      <link>https://news.ycombinator.com/item?id=50579331</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 讨论 AI 编程（vibe coding）下开发者角色转变为架构师的实践经验，属于编程效率改进经验，命中很感兴趣主题</small></p><p><img src="https://cdn.neartail.com/1FAIpQLScjbts-yMOruG0IK47bi0s9ciOCA6pyW7RlmwKwcFIRnw9HUQ/1795197373296/markdown/thumbnail.png" alt="文章配图" /></p>
-<p>作者 Mani Doraisamy 在<a href="https://manidoraisamy.com/developer-to-architect.html">原文</a>中讲述了一次真实的性能事故：他排查自家 Google Forms 插件的加载问题时发现，同事为了让市场团队每周监控新安装用户，用「氛围编程」（vibe coding）方式让 AI 写了一段日志代码。</p>
-<h3>事故是怎么发生的</h3>
-<p>由于 Google 自去年十二月起严格限制应用能获取的用户信息，AI 生成了一串 try/catch：先尝试读取用户在安装时授权共享的邮箱；失败则改取用户 ID；再失败就写一条「有人安装了，但我们不知道他是谁」的错误日志。三行代码看着简单，但每一次内部都要向 Google 服务器发起多次 API 调用，而日志恰好是安装后执行的第一行代码，结果静态的欢迎页要花 15 秒才显示出来。</p>
-<p>作者认为，真正懂底层调用成本的资深开发者或架构师会这样做：只记录安装时间戳，并明确告诉市场团队「无法基于安装行为发跟进邮件」；或者先渲染欢迎页，再在浏览器端异步补记邮箱或用户 ID——后者可能要求服务端接受未认证的 payload，需要你主动拍板。</p>
-<h3>AI 为什么不会回推需求</h3>
-<p>AI 擅长写代码，但它不知道你的应用是刚上线还是已有百万用户，而这恰恰决定了「记时间戳还是记邮箱」。它还有强烈的迎合倾向（sycophantic），会精确执行你提出的需求而不提出异议；同时对安全过度警惕，绝不肯写接受未认证 payload 的代码，甚至会把你手写的版本改回认证流程，从而拖垮性能或逼用户重新登录。</p>
-<p>结论是：如果你只描述需求而不描述架构，AI 就会替你做架构决策。</p>
-<h3>「你的新工作是做架构师」</h3>
-<p><img src="https://cdn.neartail.com/1FAIpQLScjbts-yMOruG0IK47bi0s9ciOCA6pyW7RlmwKwcFIRnw9HUQ/1795197544870/markdown/thumbnail.png" alt="AI 编码与架构权衡示意图" /></p>
-<p>AI 编码工具被调校为满足功能需求加两项非功能需求——安全与向后兼容（避免把应用弄坏）。这几乎必然导致两类后果：为安全牺牲性能的架构；以及多个版本的数据模型，冗余的表、列和代码。</p>
-<p>因此作者主张：先自己定义架构和数据模型，再让 AI 在该约束内写代码；每当需求会改变架构或设计时，要求工具先询问你；并由你决定何时需要向后兼容、何时该删除旧逻辑与旧表。作者指出，习惯「设计数据模型 → 交给开发者实现 → 审查代码是否合乎设计」的架构师，会自然适应这种工作方式。问题是，如今被推到架构师位置上的，恰恰是那些热爱写代码、却从未被告知新职责的开发者——他们眼看着自己喜爱的工作被 AI 全部接手，困惑与对 vibe coding 的反感由此而来。文末的呼吁很直白：写代码的工作在消失，但你的工作没消失；学会回推需求、设计数据模型、约束 AI 并审查代码——「你被提升了，只是没人告诉你，所以由我来告诉你」。</p>
-<h3>社区反馈</h3>
-<p>该文在 Hacker News 上获得 415 分、234 条评论，讨论相当分裂：</p>
-<ul>
-<li><strong>「架构师不是晋升」</strong>：有评论认为从开发转向架构算不上提拔，架构岗位同样不会对 AI 免疫，作者描述的只是一个把 AI 用得很糟的个案，对整体职业变迁缺乏把握。</li>
-<li><strong>「这话听着像实习生说的」</strong>：对「懂 API 调用次数的资深开发者会怎么做」的说法，有人直言这更像是初级开发者或实习生的口气。</li>
-<li><strong>架构岗位的稀缺性</strong>：有评论指出每个团队通常只需要一个架构师，所以「人人被提拔」并不成立，剩下的人何去何从才是真问题。</li>
-<li><strong>劳动力市场的悲观视角</strong>：多位评论者认为更可能的未来是薪水更低、乐趣更少，工程师沦为 LLM 决策的「责任兜底」（liability sink）；并批评开发者群体对劳工史过于天真——工作越被「理性化」，劳工处境越差，历史上从未例外。</li>
-<li><strong>「我也被提拔成 PM 和 DevOps 了」</strong>：不少人表示自己被迫承担需求收集、文档、干系人管理等产品经理职责，还要审查别人的 AI 代码、负责运维，工资却不变。</li>
-<li><strong>架构是权衡，不是爬山</strong>：作者本人在评论区强调架构即取舍，若不在 CAP 定理等性质上做出让步，AI 会「重新发明 Google Spanner」，却指望你有 Google 级数据中心。也有评论反驳「持续优化安全和性能」的乐观说法，认为局部最优堆不出好架构。</li>
-<li><strong>关于规格驱动开发</strong>：有读者问采用规格驱动开发（spec-driven development）是否能避免此类问题，评论者回答：如果规格仍停留在需求层面而非架构层面，就无济于事。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50579331</guid>
-      <pubDate>Fri, 20 Nov 2026 18:17:51 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 停止写代码，你的代码审查能力也会随之退化</title>
-      <link>https://news.ycombinator.com/item?id=50573886</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讨论停止手写代码后代码审查能力退化，涉及 AI 时代编程实践与效率，属于感兴趣的编程经验话题</small></p><p>作者（cekrem）提出一个在他看来本该毫无争议的观点：任何技能不练就会退化，软件工程也不例外。他列举了类比：读《Born to Run》不会让你跑完超级马拉松；如果爵士吉他手 John Scofield 宣布停止练琴，只靠"给别人上课、听学生弹奏并迭代"来保持甚至提升水平，那在其他任何领域都会被人嘲笑；再比如一个作家如果不再写作，只靠阅读、以及给别人的作品（更糟的是 AI 生成的散文）提反馈，其写作能力必然稳步下滑。<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/John_Scofield-8615.jpg" alt="John scofield playing at the Moers Festival in 2021" /></p>
-<p>作者承认"软件工程不只是写代码"这句话没错，开发与维护软件的其他环节同样重要；但代码毕竟是非平凡的一部分，因此工程师仍应努力理解代码如何运作、什么是好代码、该警惕什么，以及架构如何让代码「易于修改」。他认为单纯"审查 Claude 写出的所有代码"并不够——而且实际上你根本没有认真读完其中一半。</p>
-<p>第二个论点：所有工程师都需要擅长解决问题。手的参与程度可以讨论，但"我们仍在解决问题"是无可争议的；一旦停止练习解决问题，就不会再变得更擅长它。这就像当年你能分辨谁是用作弊码通关 Doom、谁是真本事打通关——如果目标是"通关"，作弊没问题；如果目标是"变强"，那就别作弊。有些课只能靠试错学到。频繁用大语言模型（LLM）解决问题，会把一个前提刻进大脑回路：<em>如果一件事很难、很棘手、需要付出努力，那就不该去尝试</em>——而学习、手艺和乐趣就随之消失了。</p>
-<p>作者还引用博客作者 Em 的感叹：在人们用 AI 总结书籍代替阅读、向 AI 寻求心理治疗的年代，识读和计算能力正在下滑，我们是否还在为自己思考？文章最后半开玩笑地恳求："John Scofield，请别停止弹吉他！"</p>
-<p>评论区反应热烈，主要观点包括：</p>
-<ul>
-<li><strong>数据退化的自噬循环</strong>：有评论认为 AI 会消灭产出高质量训练数据（即好代码）的人，用 AI 生成内容训练的模型只会越来越糟，被形容为"衔尾蛇（Ouroboros）"。也有人担心，注重可读性与可维护性的开发者最不愿把代码库交给模型，而最依赖 AI 的"大客户"恰恰是那些看不懂自己代码的人，公司有动机主动培养这种依赖。</li>
-<li><strong>"适度派"实践</strong>：多位工程师描述了自己的折中做法——把无聊的、无需学习的部分外包给智能体，但仍逐行审查；对不熟悉的领域先做规划并大量使用智能体预审，最后仍花时间弄懂看不懂的细节。他们声称自己的心智模型与手写代码时相差不大，但也承认这并没有带来 10 倍提速。</li>
-<li><strong>管理压力与滑坡</strong>：有人引用"vibe bobsled"的说法，警告缺乏清醒管理层的环境下，产出量和交付速度比"质量"更容易被衡量，工程师会被一步步推向连审查也一并外包，最终只剩"背锅"的职能。</li>
-<li><strong>审查的价值被重新定义</strong>：一位从业者指出，代码审查的意义除了抓 bug，还在于协作与主人翁意识；如今代码变便宜了，但架构依然是昂贵的错误，因此应把审查的抽象层级从代码上移到架构。</li>
-<li><strong>但审查不等于写码</strong>：有评论用飞行员必须保持一定手动飞行小时数作类比，主张谨慎；也有人反驳说优秀的教练未必是优秀选手，写码与审查是相关但不同的能力。另一些开发者则表示，正因为不用花时间把 React 前端接到后端做 CRUD，他们过去一年学到了比以往任何时候都多的东西（Ansible、Terraform、DevOps）。</li>
-</ul>
-<p>原文：<a href="https://cekrem.github.io/posts/if-you-stop-writing-code-you-also-get-worse-at-reviewing-it/">If you stop writing code, you also get worse at reviewing it</a></p>
-<h3>你知道吗？</h3>
-<p>评论中提到的「vibe bobsled（氛围雪橇）」出自 <a href="https://dustycloud.org/blog/faulty-towers-vibe-sickness-and-the-vibe-bobsled/">Dustycloud 的一篇博文</a>，用来描述团队在「凭感觉交给 AI 写代码」这条下坡路上的滑行深度——从偶尔外包、到全面外包、再到连理解都放弃，形成一条很难回头的滑坡路径。与之相关的还有「vibe coding」一词，指几乎不阅读代码、仅凭运行结果与提示词来开发的方式。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50573886</guid>
-      <pubDate>Fri, 20 Nov 2026 12:41:38 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ Thinking Machines 发布 Inkling 2 Mini：20GB、可在笔记本上离线运行的循环 Transformer 开源权重模型</title>
-      <link>https://news.ycombinator.com/item?id=50581260</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 新AI模型发布公告且为开源权重模型，同时命中「新AI模型发布公告」（很感兴趣）与「开源项目」（感兴趣），属于必看内容</small></p><p>Thinking Machines 发布了 <b>Inkling 2 Mini</b>，一个体量小到可以在笔记本上运行的开放权重模型。它采用<b>循环 Transformer（looped transformer）</b>架构：模型中间层会为每一个 token 重复执行三次，从而在不额外输出推理文本的前提下提升推理质量，用更少的 token 得到正确答案，尤其在依赖推理质量的 agentic 编程任务上效果明显。</p>
-
-<p>模型为混合专家（MoE）结构，总参数 26.4B、激活参数 3.4B，考虑循环后每 token 的权重激活量为 5.4B；总内存占用约 20GB。大部分权重以 NVFP4 训练并原生部署，最后四层为 MXFP8。发布即在 Tinker 平台上线，可用于推理与定制，并在 Hugging Face 提供权重。</p>
-
-<h3>基准表现</h3>
-<p>官方称其在所有总参数低于 100B 的开放权重模型中领先，例如 <b>DeepSWE v1.1 得 48.2%</b>、<b>Vals Index v2.2 得 46.5%</b>，解码速度也快于同等水平的模型。在 SWE-bench Pro v2（Hard）、Terminal Bench、SWE-bench Verified/Multilingual、Vibe Code Bench 等编程评测中多数取得同规模第一；在 BrowseComp、DeepSearchQA、MCP Atlas 等搜索与工具使用评测中也领先同规模开放模型，说明它能通过搜索和工具弥补知识储备的不足。</p>
-
-<h3>循环架构的动机与可监控性</h3>
-<p>模型共 24 层，分为四个 6 层的块：中间两个块循环三次，首尾两个块各执行一次。这种设计延续了此前关于循环 Transformer 的研究，直觉是中间层承载更抽象的推理，而首尾层主要负责嵌入与内部表示之间的转换。实验中，在 28 项评测里有 27 项显示「循环中间 12 层」的收益优于「循环最后 12 层」（相当于 1.51–1.91 倍算力增益 vs 1.24–1.36 倍）。</p>
-
-<p>作者强调循环的一个重要好处：模型可以「不写下推理过程」而思考更久，这与可监控性直接相关——人类依赖阅读思维链（CoT）来监督模型。他们同步发布了一个研究用的可变循环层数变体（varloop）用于对照实验：无 CoT 情形下的时间跨度从单次循环的 16 秒提升到三次循环的 37 秒；在一项串行推理基准上，性能一直提升到 10 次循环（是训练时的两倍），而思维链随循环增多而变短但始终可读；在 agentic sabotage 测试中，增加循环并未使分数升高。</p>
-
-<h3>能耗效率与本地演示</h3>
-<p>斯坦福 Hazy Research 与 Scaling Intelligence Lab 提前测试了「每焦耳智能」（intelligence per joule）指标：Inkling 2 Mini 在 NVIDIA DGX Spark 上得分 0.703，明显高于 Qwen3.6-35B-A3B 的 0.430、Gemma-4-26B-A4B 的 0.159 和 Qwen3.5-27B 的 0.036（各模型精度设定不同）。研究人员还在航班上用一台 MacBook Pro 离线运行该模型，几分钟内构建出可玩的飞行模拟器；另有一个「Thinkyville」像素小镇演示，由同一模型在一块离线 MacBook 上驱动 20 个居民。</p>
-
-<h3>局限</h3>
-<p>Inkling 2 Mini 并非最强的小模型：多轮对话的 MultiChallenge 得 50.0%、多约束指令的 ComplexConstraints v1.1 得 33.4%，均落后于 Qwen3.8-27B；在 CritPt v2、HLE-Diamond 等重推理基准上也逊于更大的模型。官方也指出，循环只能提升推理，不能让权重存储更多事实——知识量主要取决于总参数量。</p>
-
-<h3>社区反应</h3>
-<p>Hacker News 讨论（614 分、99 条评论）整体积极：有人表示 Inkling 2 Small 的实际使用体验好于基准数字，并对同步发布的 varloop 研究模型很感兴趣，认为此前没有类似的开源模型；Unsloth 已放出 GGUF 量化版，llama.cpp 也有 PR 增加循环架构支持（社区希望不要像某些实验性补丁一样长期停在 master 之外）。对「循环模型」这一概念，评论者以 NVIDIA 的 Dory 系列和 Universal Transformers 作为参照，也有人担心其对 KV 缓存的影响。</p>
-
-<p>实践层面，有用户在 AMD 7900XTX 上跑通，但初期只有约 28 tok/s 解码、约 481 tok/s 预填，且因 ROCm 下的 Flash Attention 尚不支持该模型，KV 缓存只能部分量化；也有人提到自家 128GB 的 Ryzen AI Max 小主机因这波模型变得更有价值。另一部分评论保持审慎：认为基准分数常受 Goodhart 定律影响，未必反映日常编程助手的真实体验，小模型「坚称某事物存在」的知识错误也很难靠工具调用完全弥补。</p>
-
-<h3>你知道吗？</h3>
-<p>「循环层」并非全新思路：Universal Transformers（Dehghani 等，2018）就提出让同一组权重在深度方向上反复执行，用「思考步数」代替堆叠更多层。近年 NVIDIA 的 Dory 系列把这个想法带到了可用的开源小模型上；据报道 OpenAI 也被传在新模型中采用类似结构，但未获确认。Inkling 2 Mini 的价值在于：它可能是首批真正达到日常可用水平、且开放权重的循环 Transformer 之一。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50581260</guid>
-      <pubDate>Fri, 20 Nov 2026 20:12:19 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ 无需梯度也无需训练：语言模型可以改写自己的权重</title>
-      <link>https://news.ycombinator.com/item?id=50577265</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍语言模型无需训练改写自身权重的研究方法，属于AI软件技术/科学前沿进展，命中「感兴趣」但非模型发布类必看内容</small></p><p>arXiv 新论文《Language Models Can Rewrite Their Own Weights》提出一种被作者称为"自改写（self-rewriting）"的方法：模型扮演自己的优化器，在没有梯度、没有额外训练的情况下改写自身的权重并因此变得更聪明。作者称这是首次由模型仅凭自身推理完成权重改写。此前的相关工作中，前沿模型只是编辑一个远小于自己的模型；而这里是一个开放的 27B 模型，在拿到自己的权重、被评分的答案以及运行自身的能力后，自行诊断失败原因并重写背后的权重。</p>
-<p>论文给出的主要结果包括：改写后模型在从未见过的问题上准确率提升 6.6 个百分点；模型会在练习题上检验自己的改动，只提交有效的编辑，在连续八次会话中准确率持续上升；它还能"自我修复"——一个几乎解不出任何题目的损坏副本，在没有重新训练、也从未读取原始权重的前提下，被恢复到原始准确率的 80% 以上（且是在未见的图像任务上）。此外，这种能力随规模涌现：在同一模型家族中，较小的模型要么改不动自己，要么直接把自己改坏，只有最大的模型能自我改进与自我修复。</p>
-<p>作者强调其与已有范式的区别：与"测试时扩展（test-time scaling）"不同，自改写把收益写进权重，因此每次作答都不再额外付出成本；与训练不同，它只运行前向传播，和推理服务一样。作者由此认为，训练与推理之间的高墙是"工具的局限，而非智能的属性"，并把它视为通向<a href="https://en.wikipedia.org/wiki/Recursive_self-improvement">递归自我改进（recursive self-improvement）</a>的必要一步。</p>
-<p>Hacker News 讨论（<a href="https://news.ycombinator.com/item?id=50577265">106 条评论</a>，328 分）以怀疑与安全忧虑为主：</p>
-<ul>
-<li><strong>安全与对齐</strong>：有评论指出论文通篇未提"对齐"，并质疑机器人能如此自我修改而缺乏监督会发生什么；也有人提出更隐蔽的风险——模型可以宣称出于理由 X 修改权重，同时为未言明的目的 Y 悄悄注入新行为，其编辑能通过评测却难以被察觉。</li>
-<li><strong>"这不过是修了个 bug"</strong>：多位评论者认为提升主要来自模型缩短推理链以避免撞上 token 上限，即修复了一个明显的推理死循环缺陷。他们将其与近期另一篇<a href="https://rikiyat.github.io/blog/weight-space-programming/">权重空间编程</a>的文章相提并论（那篇文章中模型同样修好了 Qwen 的循环问题，却无法提升没有此类缺陷的 Gemma），因此怀疑该方法能否真正泛化扩展。</li>
-<li><strong>信息从哪来</strong>：有人追问保真度的增益必然来自某处，很可能来自模型自行运行的练习题、运行器输出乃至网络内容；反驳者则认为"测试材料"完全可以是对环境的交互，这本质上就是学习，关键仍在于"什么算有效"必须被定义。</li>
-<li><strong>是否只是过拟合/谄媚</strong>：有评论担心这是自对话式的过拟合，会重演"模型迎合自身"的问题；也有人反驳称基于推理的目标性编辑与梯度优化式的过拟合相距最远。</li>
-<li><strong>与前作的关系</strong>：有人把它和 Google 的<a href="https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/">"睡眠"框架（Sleep framework）</a>相比（离线阶段用自生成练习样本更新权重），也有人认为这篇的权重调整更进了一步，或认为它本质上只是"消融式"的改权重，几步就能被会写几百行 Python 的模型复现。另有评论澄清，它与作者不同的那篇"权重空间编程"文章并非同一工作。</li>
-</ul>
-<p>讨论区也夹杂着典型的 HN 式反应，从"这不是我们想要的 RSI，但是是我们应得的 RSI"到"很高兴认识各位"。</p>
-<h2>你知道吗？</h2>
-<ul>
-<li><strong>消融（abliteration）</strong>：评论中用来类比本工作的术语，指对模型权重做定向修改以移除某类拒答行为的技术，通常只需少量方向向量即可完成，因而被质疑者视作"模型自己动手改权重"的简单版本。</li>
-<li><strong>负熵（negentropy）</strong>：有评论在寻找"熵"的反义词时给出该词，随后有人反驳说"秩序（order）"更贴切，并指出熵本身并非"无序"，而是一种与无序相关的度量。这一插曲恰好反映讨论区对"信息增益究竟从何而来"的困惑。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50577265</guid>
-      <pubDate>Fri, 20 Nov 2026 16:29:06 GMT</pubDate>
-    </item>
-    <item>
-      <title>Frostbite：AI 端到端发现并验证的全新 CPU 架构，每瓦性能达现代核心 4.59 倍</title>
-      <link>https://news.ycombinator.com/item?id=50572503</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主体是CPU微架构/芯片设计（不感兴趣），但由AI端到端发现并验证属于AI技术进展与科学前沿（感兴趣），两者权衡后为可选</small></p><p>架构实验室（Architect Labs）发布 <a href="https://architectlabs.com/blog/frostbite">Frostbite</a>：一颗围绕「交互网（interaction nets）」从零构建指令集的通用 CPU，其发现、设计、验证到最终 GDS（版图交付数据）均由该公司的 AI 系统自动完成。在 25 个基准负载（其中 15 个直到最终评估才揭晓）上，其每瓦性能达到一颗现代、已在硅片上验证的超标量（双发射、顺序执行）CPU 核心的 4.59 倍。此前该团队的 Redwood 项目已证明 AI 能在给定架构的前提下快速实现并验证推理加速器，而这次的目标是让 AI 自己探索架构空间。</p>
-
-<p><strong>为什么押注交互网</strong>：主流语言编译到通用 CPU 后会把程序内部的依赖关系藏起来——任何代码都可能读写共享可变状态，于是硬件只能在运行时重新发现谁依赖谁，并付出乱序执行、深缓存层次与一致性协议的代价。单核性能自 2000 年代初基本停滞，业界转向多核，进一步加重了缓存一致性的负担。交互网则把程序表示为节点图，计算通过改写经端口相连的节点对完成：每次改写只触及图的局部，每个节点只有一个主端口，因此活跃对永不重叠，改写顺序任意、可全部并行；同时它是线性的——每个值恰好被使用一次，没有共享可变状态需要硬件看守。像 Vine 这样的语言能把普通写法的程序直接编译成交互网。作者以五皇后问题举例：顺序 C++ 程序一步步走搜索树，而同一搜索的交互网展开了 3,183 次交互、关键路径仅 262 步，平均每步约有 12 个交互可并行执行——并行性并非改写代码得来，而是依赖关系从未被丢弃。理论上这带来两个好处：免线程的并行（无需锁、竞态和乱序机制）以及数据可存放在使用点附近的小型本地存储器中，从而省掉大块缓存和一致性复杂度。</p>
-
-<img src="https://architectlabs.com/_next/static/media/multicore-floorplan.0u50uc-8yhajl.png" alt="对比图：左侧 TCPU 为八核、每核自带 L1/L2、共享一个大 L3；右侧 Frostbite 为 8x8 瓦片阵列，每块瓦片有自己的一小块存储器。" width="1600" height="950" />
-
-<p><strong>流程</strong>：Frostbite 的出发点被描述为「零架构先验」。团队先确定负载集，按程序暴露工作量的方式分为五类：大量独立任务、多轮并行、长串行链、数据相关分支、递归，每类都设搜索集与留出评估集，以防设计只对调优过的程序过拟合（FFT、基数排序、LU 等核取自 SPLASH-2 基准，尺寸缩小 64 倍；后期又加入卡尔曼滤波、PCA、有限元、LU 求解、LZ4 解压等五个实用负载）。代理群体（agent swarms）撰写调研、搭建 Python 模型比较高层方案，产出一份 141 页的架构提案——但在第一版 RTL 生成后被删除，因为许多数字与实际可行性相差甚远。</p>
-
-<img src="https://architectlabs.com/_next/static/media/workload-suite.0d2l3bzeh4gp9.png" alt="25 个负载的表格，按五类分组并各分搜索集与评估集。" width="1600" height="1401" />
-
-<img src="https://architectlabs.com/_next/static/media/process-timeline.35kiqsqt77ga9.png" alt="Frostbite 项目时间线：从首次提案到消融实验，标注关键事件、各阶段工作以及代理创建的各个工作树。" width="3040" height="3010" />
-
-<p><strong>形式化契约与系统模型</strong>：团队自研了规格语言 ASL，并用它写下芯片的系统模型「Arcmodel」。ASL 支持 RTL、系统模型、UVM、SVA 等之间的机器可检查翻译与精化，全部锚定在一份形式化规格上；其功耗与性能估计误差在 1–5% 内，运行速度约为 RTL 仿真的 200 倍，并可通过「契约」形式化验证。作者强调，自然语言写成的架构 PDF 无法无歧义地覆盖实现所需的所有细节，也无法保证在设计与验证过程中抓住每一个代理幻觉（hallucination），因此在 AI 撰写规格的时代改用机器可检查的形式化语言。ASL 既能描述乱序处理、CSR 编程、内存序与一致性等高层协议行为，也能描述流水线、仲裁、计算传递函数等底层细节，并可原生翻译到 Lean 用于定理证明。最终 Frostbite 的 ASL 下沉为 80 万行以上的 Lean 代码。</p>
-
-<img src="https://architectlabs.com/_next/static/media/lean-web.2cbgtumsblhy-.png" alt="31 个模块的 Lean 契约网络，模块间以共享信号相连；下方放大展示帧管理器（FRM）模块的契约。" width="3200" height="4404" />
-
-<p><strong>RTL 与物理对齐</strong>：由于有形式化规格支撑，从 ASL 推导 RTL 并验证反而是全流程最快的部分。但 Arcmodel 起初没有物理感知，其功耗/性能估计与经时序收敛、综合干净的 RTL 最大可差近 250%。于是系统运行一条全自动校准流水线：先定位 RTL 中的功耗热点并回溯到形式规格中的关键计数器（SRAM 读写、运算次数、flit 收发、信用返还、frame miss 等），再让模型在这些计数器上拟合任意标量 Python 函数来预测功耗，反复迭代直到误差进入 5% 以内。作者称这种「非梯度学习」极为有效，一旦完成首次物理对齐，后续迭代快得多。对齐后完整 Arcmodel 芯片仿真比 RTL 快 660 倍，代理因此能做跨栈优化——例如发现极细粒度的时钟门控技巧，并在数小时内相应调整软件运行时，这在传统 ASIC 流程中几乎不可能。</p>
-
-<img src="https://architectlabs.com/_next/static/media/model-alignment.1w2vgrexnx2a5.png" alt="模型能耗与 RTL 能耗预测误差随时间变化：Python 模型误差 40%–130%，Arcmodel 在首次功耗拟合后从最坏 250% 降到最坏 6% 以内、中位数约 1.5%。" width="3200" height="2083" />
-
-<p>此后 Python 模型与架构 PDF 均被删除，ASL 契约成为唯一规格。代理群体在并行工作树中提出架构修订，每项改动都需通过契约检查、在 Arcmodel 中建模、在 RTL 中实现并测量功耗，然后保留或丢弃。四轮搜索加最后一轮消融实验中，群体共尝试 58 个想法，保留 37 个——从运行中瓦片的时钟门控，到更小的 L3 表、单一共享扩展器。</p>
-
-<p><strong>架构新颖之处</strong>：程序用类 Rust 语法的 Vine 编写，编译为编码交互网结构的中介表示 Ivy；优化器尽量施加图归约规则，使最终 Ivy 网形状基本固定，由数据、计算节点、控制节点三种原语构成。但其运行时依然高度动态：与并行性内嵌于结构、按时间流水化的常规计算图不同，这里的并行性必须在运行时由状态推导、并在空间上流水化。生成的指令集中包含宽打包、硬件循环计数器和流等预期特性，更有意思的是动态特性——可对网络中其他并行部分的值执行 take / peek / copy 的操作，瓦片由此「活起来」并在空间中互相通信。</p>
-
-<p><strong>涌现特性：窃取工作</strong>：由于并行性在空间上铺开，系统没有中央调度器。代理设计出三条优雅的传播规则：瓦片先跑自己的活（输入端口上的工作）；若为空，则从有富余工作的邻居处取活；若找不到，就进入非活跃状态省电。文章称代理在实现这些行为时展现出相当的精细度。编译器把代码切成短段，输入就绪后不中断地执行。</p>
-
-<img src="https://architectlabs.com/_next/static/media/tile-blocks-plain.1gnqiesx7j0kk.png" alt="单个 Frostbite 瓦片的框图：前端、引擎、存储与系统模块，高亮运行时（帧管理器、调度器、工作队列、出口）与网络接口；瓦片外有路由器、静态交换、四分频器与配置总线。" width="1780" height="882" />
-
-<p><strong>结果</strong>：Frostbite 由 4×4 的相同瓦片阵列构成。按逐负载统计，Frostbite 四瓦片组的每瓦性能相对 TCPU 从 conv2d 的 23.12 倍到 fib 的 1.15 倍不等；几何平均为留出评估集 3.83 倍、全部 25 个负载 4.59 倍、搜索集 6.02 倍。能耗构成上，TCPU 有 57% 用于存储、27% 用于取指/译码/发射、13% 用于计算；Frostbite 四瓦片组则是 38% 存储、6% 取指/译码/发射、16% 计算、26% 片上网络与调度、14% 其他（4×4 整芯片数字相近）。作者认为，随着 AI 系统能力增强，从数据中心 CPU 到 AI 加速器、网络交换机和网卡，每一类芯片都将经历类似的根本性架构转变。</p>
-
-<img src="https://architectlabs.com/_next/static/media/die-shot-quad.2t9948bw50w5a.jpg" alt="Frostbite 芯片版图：4x4 相同瓦片阵列，粉色为存储器宏单元，左上 2x2 标注为 Frostbite quad，左侧边缘一块标注为 L3 节点。" width="2000" height="1593" />
-
-<img src="https://architectlabs.com/_next/static/media/perf-per-watt-heldout.26hhprjnn8kyi.png" alt="Frostbite 四瓦片组相对 TCPU 的每瓦性能柱状图，覆盖 25 个负载，从 conv2d 的 23.12 倍到 fib 的 1.15 倍，虚线标出几何平均：评估集 3.83 倍、全部 25 个负载 4.59 倍、搜索集 6.02 倍。" width="1600" height="1968" />
-
-<img src="https://architectlabs.com/_next/static/media/energy-breakdown.1vhkm_oxxzwwv.png" alt="能耗占比对比：TCPU 为存储 57%、取指译码发射 27%、计算 13%；Frostbite 四瓦片组为存储 38%、取指译码发射 6%、计算 16%、片上网络与调度 26%、其他 14%。" width="1600" height="686" />
-
-<p><strong>社区反馈</strong>：该帖在 Hacker News 获得 525 分、284 条评论，气氛明显偏怀疑。有人指出这类文章「惊人的断言极多，却几乎找不到人工努力与垃圾机器输出的分界线」，希望能有胜任的人类给出冷静综述，并提到历史上不乏听起来很美却无疾而终的架构（如 Mill）。也有人抱怨 LLM 时代难以区分「AI 撰写的突破」与「AI 撰写的妄想帖」，认为信息噪声比大幅恶化，业界需要「拿出代码」之外更多证据。有评论认为所选基准的规模偏小（如 4096 字符的 JSON 解析、1024 元素的归并排序、fib(20)），也有人质疑为何要留出评估集——随即被解释为类似机器学习中防止对 25 个负载过拟合，毕竟这是一个通用处理器项目。名字也被吐槽：Frostbite 是 EA 的寒霜引擎，有人第一反应是「他们用游戏引擎做了个 CPU」。另有评论预言 AI 时代最有价值的是模型、算力、制造商与材料，AI 缩短芯片设计周期将带来更多专用芯片和更大代工需求；但也有人认为当前 AI 增长已近 S 曲线末端，「两个月设计芯片、两年建晶圆厂」并不会那么快到来。还有不少人认为这支团队的真实目标是靠演示被大厂收购。</p>
-
-<h2>你知道吗？</h2>
-<p>交互网由 Yves Lafont 于 1990 年前后提出，其理论基础是线性逻辑（linear logic）——「每个值恰好使用一次」正是线性逻辑中的线性约束。这让交互网在理论上天然避开共享可变状态和竞态条件，也使它长期被视为「理论上优雅但工程上难用」的编程模型。历史上出现过多个试图用大量简单计算单元与片上网络取代复杂单体核心的方案，例如 1980 年代 Inmos 的 Transputer，以及本世纪初的 Cell 处理器与近年公布但未能量产的 Mill 架构；它们共同面对的难题正是编程模型与工具链，而这恰是本文声称由 AI 补齐的一环。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50572503</guid>
-      <pubDate>Fri, 20 Nov 2026 10:01:41 GMT</pubDate>
-    </item>
-    <item>
-      <title>「我能看出这是你自己写的」：一名工程系学生反思被AI包围的课堂</title>
-      <link>https://news.ycombinator.com/item?id=50571189</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 工程系学生对AI充斥课堂的个人反思与教育体验随笔，主题偏校园教育文化，兴趣不明确</small></p><p>博客作者 Em 是一名工程系荣誉项目（honours project）学生。她误把一份关于扑翼微型飞行器（flapping-wing micro aerial vehicles）控制的中期进度报告提前一周设为本应提交的日期，于是在 48 小时的压力下写出了 5000 字、带图表和引用的十页报告。与导师见面时，导师开口就说：「我能看出这是你自己写的（I can tell you wrote this yourself）」——随即补充说，他最近收到过很多由 AI 写的报告。</p>
-
-<p>这句话让作者陷入反思。她回顾过去一年的工程学业：作业说明一开始只是「强烈鼓励探索 AI 的使用」，很快就变成一种明确共识——不用 AI 就会吃亏。她最难的一门课，是整天待在无窗的砖墙机房里给 AI 写提示词（prompt），而她被告知的理由是「行业就是这个方向」「知道事情本身不如知道如何指挥机器」。作者感到这种「高级保姆」式的工作方式令人精神耗竭，她不希望把如此多的思考外包出去。</p>
-
-<p>她的核心担忧是一条滑坡：从被鼓励在作业里用 AI，到依赖它写一份自己本该了如指掌、并且最终还要当面答辩的报告，再到向它求建议、用它总结书本、把本该查资料或问朋友的事都交给它。在 AI 内容泛滥、真假难辨、观点高度极化的环境里，识别内容中的偏见与动机、独立思考的能力「或许从未如此重要」。她的呼吁很直接：读书、自己写论文、自己去搜索答案、去问朋友、去问妈妈（然后听她的建议喝杯水）；像七年级英语课那样，思考你所消费的内容的创作者想让你相信什么——别让 AI 替你想。</p>
-
-<p>文末她列了一串近来的好事：白天近距离见到一只茶色蟆口鸱（tawny frogmouth，就在工程学院附近的树上筑巢）、完成本学期最后一项考核、只剩一学期毕业、看了电影《You Can See Everything》、因想家而做妈妈的扇贝土豆、最近天气很好适合晨跑，以及在公园里遇到一位赤脚、背包里装着猫的人。</p>
-
-<p>Hacker News 上讨论热烈（380 分、377 条评论），观点明显分裂：</p>
-<ul>
-<li>有人认同报告的写作不该外包，但认为让 AI 检查语法拼写无伤大雅——并顺带指出原文把「write」误写成了「right」。</li>
-<li>也有人反过来说，在 AI 时代看到真正属于人的语法错误反而让人欣慰，并引用 Ernst Fischer 的话：「当机器越来越高效完美，人类的伟大之处就在于不完美。」另有人反驳：不完美也包括医疗失误和冤判，难道开自驾车之后还要怀念自己开车撞树？</li>
-<li>另一派把 LLM 类比为 CAD、有限元分析（FEA）：工具替代了手绘和手算，不熟练使用工具才会吃亏；关键是通过提供数据、审视和验证输出来保持理解。反对者强调，脱手算数不等于让 AI 从头写一份自己毫无理解的报告，没有一定付出就建立不了真正的理解。</li>
-<li>有评论认为愿意「独立思考」的人本来就是少数，多数人向来乐于把判断交给主播、网红，如今是 AI。</li>
-<li>也有人主张不必二选一，可以把 AI 当作一个善辩、偶尔要提防、但能提供智力挑战的「朋友」；立刻有人回：「那只是一堆矩阵数字，不是朋友。」</li>
-<li>关于「谁写的」这一问题存在更激烈的声音：有人宣称技术不会因为抱怨而停下，纠结是否由 AI 写作毫无意义，甚至设想针对「AI 味」检测进行对抗式训练；也有人认为这恰恰会导致人类责任感的消亡——「不是我的错，是 AI 让我这么做的」。</li>
-<li>少数评论怀疑这类技术争论帖下的许多回复本身就是机器人；也有人把话题拉回原文，推荐大家去看看茶色蟆口鸱长什么样。</li>
-</ul>
-
-<h2>你知道吗？</h2>
-<p>文中那只让作者兴奋的茶色蟆口鸱（tawny frogmouth）常被误认为猫头鹰，实际属于夜鹰目，靠静立不动、模仿树枝断裂的形态来伪装；它口中发出的低沉「嗡嗡」声也是它的特色之一。这个细节恰好呼应了文章的主旨——值得亲自去看、去分辨，而不是听别人转述。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50571189</guid>
-      <pubDate>Fri, 20 Nov 2026 07:13:21 GMT</pubDate>
     </item>
   </channel>
 </rss>
