@@ -3,7 +3,48 @@
   <channel>
     <title>Phoronix</title>
     <description>基于个人兴趣筛选的 phoronix 内容</description>
-    <lastBuildDate>Fri, 27 Nov 2026 04:58:11 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2026 14:58:23 GMT</lastBuildDate>
+    <item>
+      <title>systemd 263-rc1 发布：初步引入 Rust 代码，新增实验性伪终端代理与清单工具</title>
+      <link>https://www.phoronix.com/news/systemd-263-rc1</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[optional] 主要是systemd这一基础设施的版本更新（含Rust代码试点），基础组件类全局标记为不太感兴趣，Rust相关内容仅占次要地位，兴趣不明确，故列为可选</small></p><p>systemd 263 的首个候选版本 263-rc1 已打上标签，为这一下一个大版本做准备。据 <a href="https://www.phoronix.com/news/systemd-263-rc1">Phoronix</a> 报道，该版本首次引入对 Rust 编程语言的支持，并带来实验性的伪终端代理服务（pseudo TTY broker）、清单工具、新的密钥环服务等多项改动。</p>
+<h3>主要亮点</h3>
+<ul>
+<li><strong>Rust 支持</strong>：systemd 现在可以编写 Rust 程序。Rust 代码目前仅位于 systemd 的「叶子」代码（leaf code）中，尚未进入核心库代码。官方意图是让 Rust 用于新的开发工作，而不是为了改而改、把现有 C 代码重写为 Rust。</li>
+<li><strong>实验性伪终端代理</strong>：新增 <code>systemd-ptybrokerd</code> 服务，可创建伪终端并使其独立于请求它的客户端保持打开状态。例如可以从容器控制台断开后再重新连接，而无需停止容器。</li>
+<li><strong>systemd-manifest</strong>：新工具，用于为目录树生成并校验文件清单，默认格式为 UAPI.16 File Manifest。</li>
+<li><strong>systemd-keyring-setup.service</strong>：在启动早期把 X.509 证书注册进内核的 dm-verity、fs-verity 与 BPF 密钥环，随后对这些密钥环进行封闭（sealing）。</li>
+<li><strong>日志读取提速</strong>：大型 journal 的读取与校验更快，默认 <code>journalctl</code> 输出场景约提升 1.7 倍。</li>
+<li><strong>体积缩减</strong>：<code>systemd-networkd</code> 与 <code>networkctl</code> 合并为单个多调用二进制（multi-call binary），以减小安装体积。</li>
+<li><strong>后量子 DNSSEC</strong>：<code>systemd-resolved</code> 现在可以校验 ML-DSA-44 签名的 DNSSEC 记录。</li>
+<li><strong>新配置项</strong>：为 <code>system.conf</code> 与 <code>user.conf</code> 新增 <code>SecureBits=</code> 设置，用于为服务管理器本身设定 secure bits；单元新增 <code>IOuringFilter=</code> 设置，可为 IO_uring 操作配置允许或拒绝列表。</li>
+<li><strong>硬件指标</strong>：<code>systemd-report</code> 新增指标提供者，可报告硬件温度、可写文件系统剩余空间、SMART 信息以及 NVMe 磁盘健康详情。</li>
+</ul>
+<p>更多改动细节可参阅 263-rc1 的发布公告。该文发布后已有 4 条评论。</p>
+<h3>你知道吗？</h3>
+<ul>
+<li><strong>伪终端代理的用途</strong>：传统 PTY 在客户端断开时往往一并消失或导致会话终止。<code>systemd-ptybrokerd</code> 把 PTY 的生命周期托管给独立的守护进程，从而支持「断开—重连」式的工作流，这对容器控制台、串口调试等场景尤其有用。</li>
+<li><strong>ML-DSA-44</strong>：即 FIPS 204 标准化的 Dilithium 数字签名算法的一个参数集（NIST 后量子密码标准化项目成果），systemd-resolved 支持它意味着 DNSSEC 校验可以应对未来的量子计算威胁。</li>
+<li><strong>密钥环封闭</strong>：向内核密钥环注册证书后执行 sealing，可防止其后再被修改，常用于构建完整性校验链（dm-verity / fs-verity）与 BPF 程序签名校验的可信根。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/systemd-263-rc1</guid>
+      <pubDate>Fri, 27 Nov 2026 11:42:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ ZenSMU：为 AMD Ryzen 提供 Rust 编写的 TUI 与桌面图形界面监控调优工具</title>
+      <link>https://www.phoronix.com/news/ZenSMU-Linux-TUI-GUI</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 介绍一个Rust编写的新开源软件项目（AMD Ryzen监控调优的CLI/TUI与GUI工具），契合来源配置中新软件项目与Rust的兴趣，故推荐</small></p><p>由于 AMD 官方并未为 Linux 提供类似 Ryzen Master 的处理器监控与超频调优工具，社区中已出现若干非官方开源替代方案。Phoronix 介绍的 ZenSMU 是其中较新的一款，同时提供命令行/终端界面（TUI）和完整的 Linux 桌面图形界面（GUI）。</p>
+<p>ZenSMU 基于 Rust 编写，用于控制和监控 AMD Ryzen 的 SMU（System Management Unit，系统管理单元）。工具支持设置功耗与温度限制、曲线优化器（Curve Optimizer）、遥测数据导出以及其他调节项，并已在 Zen 1 至 Zen 5 的处理器上完成测试。</p>
+<img src="https://www.phoronix.net/image.php?id=2026&image=zensmu_1" alt="ZenSMU TUI" />
+<p>该工具依赖独立的树外（out-of-tree）内核驱动 <code>ryzen_smu</code>，正是这一驱动负责向用户空间暴露 Ryzen 系统管理单元的全部能力。文章指出，该树外驱动已三年未更新，但即便在较新的 Ryzen CPU 上似乎仍可正常工作。</p>
+<p>作者也对主线 Linux 内核至今仍无同类驱动表示遗憾，不过这一状况可能很快改变——上月已有报道称 AMD 正在着手开发官方的 Linux Ryzen 超频驱动。ZenSMU 的代码以 MIT 许可证发布于 GitHub，感兴趣的读者可以自行获取。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://www.phoronix.com/news/ZenSMU-Linux-TUI-GUI</guid>
+      <pubDate>Fri, 27 Nov 2026 11:05:00 GMT</pubDate>
+    </item>
     <item>
       <title>⭐⭐ Omarchy 4.6-RC1 发布：增强本地 AI 集成并推出自有文件管理器</title>
       <link>https://www.phoronix.com/news/Omarchy-4.6-Released</link>
@@ -863,39 +904,6 @@
       </description>
       <guid isPermaLink="false">https://www.phoronix.com/news/LiberNT</guid>
       <pubDate>Thu, 19 Nov 2026 12:56:46 GMT</pubDate>
-    </item>
-    <item>
-      <title>AMD 为 Versal SoC 的 AI Engine 提交主线 Linux 驱动补丁，进入社区审查</title>
-      <link>https://www.phoronix.com/news/AMD-AI-Engine-Linux-Driver</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 讲的是 AMD AI Engine 加速器的内核驱动提交评审，偏底层硬件支持而非桌面Linux或AI软件技术，兴趣不明确</small></p><p>AMD 于周三在邮件列表中发布了一套新的「AMD AI Engine（AIE）」加速器驱动补丁，供主线 Linux 内核审查。该驱动与内核中现有的、面向 Ryzen AI NPU 的 AMDXDNA 驱动相互独立，专门用于支持 Versal 自适应 SoC 中的 AI Engine。</p>
-<p>Versal SoC 中的 AI Engine 是由超长指令字（VLIW）SIMD 向量处理器组成的二维阵列，面向数字信号处理（DSP）、机器学习等场景。单个系统或设备中可能集成「数十到数百」个 AI Engine。在此之前，主线 Linux 内核一直没有支持 Versal AI Engine 的驱动。</p>
-<img src="//www.phoronix.net/image.php?id=2026&image=aie" alt="AMD AI Engines" />
-<p>去年曾有过一版功能较为基础的 AI Engine 支持补丁系列；此次的驱动经过重写，且仅面向较新的 Versal Gen 2 SoC。</p>
-<img src="//www.phoronix.net/image.php?id=2024&image=versal2" alt="Versal Gen2" />
-<p>文章认为，AMD 持续推进为其 Versal SoC 提供上游开源驱动支持是积极进展，并且新驱动遵循标准的加速器「accel」内核框架，而非采用下游/树外驱动的方式。感兴趣的开发者可在 dri-devel 邮件列表中查看该补丁系列。</p>
-<p>目前该文尚无读者评论。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/AMD-AI-Engine-Linux-Driver</guid>
-      <pubDate>Thu, 19 Nov 2026 11:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ Valkey 9.2 发布：性能进一步提升，引入 Zstd 压缩与更低内存开销</title>
-      <link>https://www.phoronix.com/news/Valkey-9.2</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 开源内存数据库 Valkey 新版本发布，带来性能、压缩与内存优化等软件新功能，属于感兴趣的开源项目与软件新功能</small></p><p>作为 Redis 内存键值数据库的主要分支，Valkey 于 11 月 19 日发布 9.2 版本。该版本延续了性能优化与内存开销削减的方向，核心变化包括：</p>
-<ul>
-<li><strong>B+ 树有序集合（sorted sets）</strong>：显著降低内存开销。</li>
-<li><strong>Zstd 压缩</strong>：用于 RDB 持久化和主从复制，相比现有的 LZ4 压缩可获得更高的压缩比，合并请求中给出的基准结果显示收益明显。</li>
-<li><strong>无 fork 快照与复制</strong>：支持向副本进行无 fork 的完整同步，避免 fork 带来的开销。</li>
-<li><strong>新命令 DELEX</strong>：当字符串键的值与给定值匹配或不匹配时，条件性地删除该键。</li>
-<li><strong>服务端热键检测</strong>及其他若干优化，另含数十项缺陷修复。</li>
-</ul>
-<p><img src="//www.phoronix.net/image.php?id=2026&image=valkey_zstd" alt="Valkey Zstd benchmarks" /></p>
-<p>下载与详细信息可参见 <a href="https://github.com/valkey-io/valkey">GitHub</a>。值得注意的是，此次发布恰在 Redict 项目因 Valkey 的成功而被弃用后数日——Redict 同样起源于 Redis 分支，目前已不再计划更新。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://www.phoronix.com/news/Valkey-9.2</guid>
-      <pubDate>Thu, 19 Nov 2026 10:41:47 GMT</pubDate>
     </item>
   </channel>
 </rss>
