@@ -3,7 +3,44 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Fri, 27 Nov 2026 23:24:06 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2026 07:38:43 GMT</lastBuildDate>
+    <item>
+      <title>bat v0.27.0 发布：新增 --sanitize 防欺骗显示、--unbuffered 流式输出与首次运行自动构建缓存</title>
+      <link>https://github.com/sharkdp/bat/releases/tag/v0.27.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h2>重要改动</h2>
+<ul>
+<li><strong>新增 <code>--sanitize=&lt;auto|always|never&gt;</code> 安全显示模式</strong>：用于展示不可信输入时，把终端控制字节（转义、光标移动、字符集切换、响铃等）以及 Unicode 双向（bidi）/零宽格式化字符替换为替换字符（U+FFFD），以缓解 Trojan-Source 式的源码欺骗（CVE-2021-42574）。其中 <code>always</code> 也会作用于管道输出，<code>auto</code> 则对全部文件类型生效但仅限输出到终端时。</li>
+<li><strong>新增 <code>--unbuffered</code>（<code>-u</code>）流式模式</strong>：输入未形成完整行时也可立即显示，便于 <code>tail -f | bat -u</code> 之类的实时监控场景。</li>
+<li><strong>首次运行自动构建自定义资源缓存</strong>：当存在自定义主题或语法但尚无缓存时，自动生成 syntax/theme 缓存（含子目录中的资源），不再需要手动执行 <code>bat cache --build</code>；可用 <code>--no-custom-assets</code> 关闭该行为。</li>
+<li><strong>新增 <code>-b</code> / <code>--number-nonblank</code></strong>：只对非空行编号，兼容 <code>cat -b</code>。</li>
+<li><strong>新增 <code>--wrap=word</code> 按词换行模式</strong>，并在换行时避免把单词从中间截断、避免在 ANSI 转义序列中间断开，同时保持 emoji 序列的完整性与正确的显示宽度。</li>
+<li><strong>新增 <code>--quiet-empty</code>（<code>-E</code>）</strong>：输入为空时不输出任何内容。</li>
+<li><strong>新增 <code>--fallback-syntax</code> / <code>--fallback-language</code></strong>：仅在自动检测失败时应用指定的语法高亮。</li>
+<li><strong>支持通过 <code>BAT_WIDTH</code> 环境变量配置 <code>--terminal-width</code></strong>。</li>
+<li><strong><code>--plain</code> 与 <code>--diff</code> 组合改善</strong>：设置 <code>--plain</code> 时保留 diff 变更标记与片段分隔符。</li>
+<li><strong>语法映射扩充</strong>：<code>.yamllint</code>、<code>.prettierrc</code>、<code>.eslintrc</code>、<code>.clang-tidy</code>、<code>.kube/config</code> 映射到 YAML；<code>justfile</code>、<code>Justfile</code>、<code>.justfile</code>、<code>*.justfile</code> 映射到 Makefile；<code>BUILD</code>（区分大小写）映射到 Python/Starlark 以支持 Bazel；识别以 uv 作为脚本运行器的 shebang；支持 <code>.sublime-syntax</code> 中的 <code>hidden_file_extensions</code>。</li>
+<li><strong>帮助与 man page 高亮改进</strong>：通过剥离 overstriking（叠打字符）提升原生 man page 与命令帮助的语法高亮效果。</li>
+</ul>
+<h2>其他改动</h2>
+<ul>
+<li><strong>安全加固</strong>：文件名中的控制字符在文件头、错误信息和终端标题中会被清理，防止 ANSI 转义注入；放入 <code>$LESSOPEN</code> / <code>$LESSCLOSE</code> 模板前对文件名加引号以防 shell 注入；不再执行所显示文件所在 Git 仓库配置中的 filter 命令；<code>--strip-ansi</code> 额外剥离 8-bit C1 控制序列介绍符及 DCS/SOS/PM/APC 序列体；<code>--sanitize</code> 不再错误地删除转义序列（会导致文本被隐藏），并修复 U+200E、U+200F、U+061C 等 bidi 控制字符漏过的问题。</li>
+<li><strong>ANSI 输入处理</strong>：跟踪反向视频（SGR 7/27）与删除线（SGR 9/29），使其在换行或后续 token 后仍能正确重现；识别 OSC 8 超链接结束，避免后续文本被多余的超链接闭合序列包裹。</li>
+<li><strong>编码与二进制探测</strong>：修复 UTF-16 拆分未对齐换行字节导致内容损坏、行号与 <code>--line-range</code> 错位，以及 UTF-16BE 首行吞掉第二行的问题；二进制探测扩展到首行之外，避免含早换行的加密文件被当作文本；按魔数把 ZIP 归档识别为二进制。</li>
+<li><strong>diff 模式</strong>：支持使用 SHA-256 对象格式的 Git 仓库（<code>git init --object-format=sha256</code>）；未跟踪文件与仓库外文件会被跳过，不再输出空框。</li>
+<li><strong>内置分页器（minus）</strong>：修复搜索（<code>/</code>、<code>?</code>、<code>n</code>、<code>N</code>）与导航（PgUp/PgDn、方向键、<code>g</code>、<code>G</code>）按键失效的问题，并支持 Home/End。</li>
+<li><strong>崩溃与挂起修复</strong>：修复 JavaScript/Svelte 代码中「表达式后跟块注释」（如 <code>a /* x */</code>）导致 bat 永久挂起；修复 <code>--ignored-suffix</code> 为空值时的栈溢出；修复 <code>--terminal-width=1</code> 且多行范围时片段分隔符的容量溢出 panic；修复 <code>--list-languages</code> 在宽度小于最长语言名时的 usize 下溢；管道提前关闭（broken pipe）时在补全、诊断、缓存构建等辅助输出路径上以状态 0 静默退出而非 panic。</li>
+<li><strong>参数与配置行为</strong>：布尔标志与带值选项（如 <code>--binary</code>、<code>--italic-text</code>、<code>--fallback-syntax</code>、<code>--squeeze-limit</code>）可重复指定，便于命令行覆盖配置文件中的值；忽略配置文件开头的 UTF-8 BOM；<code>--decorations=auto</code> 仅在 stdout 为交互式终端时显示装饰，管道加 <code>--color=always</code> 不再附带文件头、网格与行号；<code>--color=never</code> 时不再输出 <code>--highlight-line</code> 的转义序列；<code>NO_COLOR</code> 同样作用于 <code>[bat error]</code> / <code>[bat warning]</code> 前缀。</li>
+<li><strong>性能</strong>：修复 Log 语法对超长行的重复扫描。</li>
+<li><strong>平台相关</strong>：修复 Windows 上 mintty/MSYS2 与 Cygwin 终端缺少颜色、分页器与装饰的问题；全路径 <code>--map-syntax</code> 及内置 <code>$HOME</code>、<code>$XDG_CONFIG_HOME</code> 映射在 Windows 上可用；保留 Windows 分页器命令中的反斜杠（<code>BAT_PAGER=C:\tools\less.exe</code>）；修复 BusyBox <code>less</code> 在 Windows 上崩溃。</li>
+<li><strong>打包与依赖</strong>：MSRV 提升到 1.88，更新 <code>time</code> crate 至 0.3.47 以修复 RUSTSEC-2026-0009；用纯 Rust 实现的 <code>gitoxide</code> 取代 <code>libgit2</code>；修正 i686 <code>.deb</code> 的架构名（<code>i386</code>）与 MUSL 包命名；MSVC 构建静态链接 CRT。</li>
+<li><strong>语法</strong>：新增 COBOL、CUE、Caddyfile 高亮；Kotlin 语法改进；Rust <code>async</code>/<code>await</code> 标记为关键字；CSV 中字符串不再着色以便区分列；为 Tcl 与 Expect 增加基于 shebang 的检测；新增 SSH Config 子目录、Ghostty、Google Cloud CLI 配置、DNF 仓库配置、Podman <code>.quadlets</code>、<code>.code-workspace</code> 等映射；所有 ignore 点文件映射到 Git Ignore；Zig 子模块从 GitHub 迁至 Codeberg。</li>
+<li><strong>主题</strong>：移除 Visual Studio Dark+ 主题。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/sharkdp/bat/releases/tag/v0.27.0</guid>
+      <pubDate>Sat, 28 Nov 2026 07:21:06 GMT</pubDate>
+    </item>
     <item>
       <title>Claude Code v2.1.332：支持 MCP 服务器技能（beta），集中修复大量卡死与内存问题</title>
       <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.332</link>
@@ -1669,42 +1706,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.168.0</guid>
       <pubDate>Fri, 13 Nov 2026 03:54:29 GMT</pubDate>
-    </item>
-    <item>
-      <title>Claude Code v2.1.323：新增实验性 Code Mode，插件可声明版本范围约束</title>
-      <link>https://github.com/anthropics/claude-code/releases/tag/v2.1.323</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><h3>主要更新</h3>
-<ul>
-<li><strong>实验性 Code Mode</strong>：可选择开启，开启后 Claude 通过编写 JavaScript 来调用它的各类工具。开关方式（及组织级关闭方式）见 <a href="https://code.claude.com/docs/en/code-mode">官方文档</a>。</li>
-<li><strong>插件版本约束</strong>：<code>plugin.json</code> 新增 <code>engines["claude-code"]</code>，超出所声明 Claude Code 版本范围的插件不会被安装、更新或加载；安装与更新会自动选择匹配的最新版本。</li>
-<li><strong>插件校验增强</strong>：<code>claude plugin validate</code> 现在会对插件 TypeScript 钩子模块做类型检查（结果以警告呈现，<code>--strict</code> 下则视为失败），并列出 mod 的 <code>engine.create</code> 钩子新增、抑制或替换的 <code>$</code> 名词。</li>
-<li><strong>用量额度选项菜单</strong>：当模型需要使用已被关闭或耗尽的用量额度（usage credits）时，会弹出菜单供选择停止、切换到用量额度或升级。</li>
-<li><strong>长时间钩子的心跳</strong>：在 <code>claude -p</code> 与 SDK 会话中，钩子长时间运行时每 30 秒发送一次进度心跳，避免 Claude Desktop 等宿主把该轮判定为卡死而中断。</li>
-<li><strong>Artifact 支持 .docx</strong>：Artifact 工具的素材上传新增 <code>.docx</code> 文件支持。</li>
-<li><strong>VS Code 扩展</strong>：首次在未信任文件夹中开启会话前会显示信任提示，拒绝则不会使用该文件夹的设置与 MCP 服务器；运行中的 Bash/PowerShell 命令实时输出会显示在命令卡片下方。</li>
-<li><strong>未知模型的上下文窗口默认值从 200K 改为 1M</strong>：可用 <code>/autocompact</code> 提前压缩，或设 <code>CLAUDE_CODE_DISABLE_1M_CONTEXT=1</code> 保持 200K。使用其他厂商较小窗口模型时，一旦写满可能每轮都失败，建议在填满前设置该变量。</li>
-<li><strong>同机会话间无需确认即可发送的消息数</strong>：从约 20 条提高到 100,000 条（Claude Desktop 的 Code 标签页会话同样如此）。</li>
-<li><strong>新增环境变量</strong>：<code>CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES</code>（设为 1 关闭子代理进度摘要及其请求，<a href="https://github.com/anthropics/claude-code/issues/86879">#86879</a>）、<code>CLAUDE_CODE_RESUME_HINT_COMMAND</code>（让退出提示显示宿主程序自己的恢复命令）。</li>
-<li><strong>界面细节</strong>：diff 面板新增「<code>/diff to close</code>」提示，聚焦与关闭面板的按键也补入 <code>?</code> 快捷键指南。</li>
-<li><strong>移除与弃用</strong>：移除 <code>subagentStatusLine</code> 设置（子代理行固定使用默认外观，仍含该键的设置文件照常加载）；插件 <code>agent</code> 设置被弃用，仍生效但在启动、<code>claude plugin list</code> 和 <code>claude plugin validate</code> 中给出警告。</li>
-</ul>
-
-<h3>其他改动</h3>
-<ul>
-<li><strong>交互与渲染</strong>：修复重音符号及其他组合字符落到文字左侧、屏幕残留副本或换行时消失；修复按键组合的最后一个键（如 ctrl+x enter 的 Enter）在对话框输入框中误触发；修复长提示把多行状态行挤出全屏画面；修复全屏下 <code>/diff</code> 需等 Claude 完成才关闭面板；修复全屏显示某工具调用时未显示工具名、子代理消息中的终端控制序列被实际执行；修复权限/计划对话框下的名称标签遮挡部分代理名。</li>
-<li><strong>会话与恢复</strong>：修复再次执行 <code>/compact</code> 或在其后执行 <code>/context</code> 时，把尚未回答的消息一起压缩掉；修复恢复的会话把新消息拼接到未被恢复的旧中断消息；修复 Claude 修改超大文件后下一轮出现内存峰值；修复运行中保存设置会撤销此前手工编辑 <code>settings.json</code> 的改动（运行中删除的设置文件也不会复活）；修复 <code>/rewind</code> 有时改动权限模式；修复 <code>--teleport</code> 在服务端找不到历史时打开空会话。</li>
-<li><strong>MCP</strong>：修复服务器晚连接时恢复的会话缺少早期 MCP 调用、回滚缓冲区出现重复行；修复 <code>claude mcp add --help</code> 在窄终端把示例命令折行；<code>/mcp</code> 现在会说明有多少工具因 API 会拒绝其输入 schema 而被忽略及原因；需要认证但仍持有登录态的服务器页面改为提供并默认选中「重新连接」。</li>
-<li><strong>插件</strong>：修复 <code>defaultEnabled: false</code> 的插件在 claude.ai 云端会话中无法开启；修复 <code>renames</code> 映射中单个坏条目导致其余重命名被忽略；修复由托管设置启用的插件加载错误只写入调试日志，现会出现在 <code>init.plugin_errors</code>；安装命令输出到 stderr 时不再隐藏内容。</li>
-<li><strong>登录与凭据</strong>（非安全加固类体验问题）：修复 macOS 钥匙串响应慢时刚登录成功又提示「未登录」；改进 <code>/login</code> 与 <code>claude setup-token</code> 在请求被拒、无法连接或超时时的错误说明；TLS 检查代理后的证书错误现在直接失败并给出修复建议，而不再重试数分钟。</li>
-<li><strong>Remote Control（远程控制）</strong>：修复网络切换后会话长时间显示断开；重启后不再被当作新电脑（身份保持 30 天）；修复会话等待只能在终端回答的权限提示时仍显示为运行中；修复桌面式子代理仍在运行时手机端显示空闲。</li>
-<li><strong>云端会话与 Web 端</strong>：修复容器中途关机导致流式回复缺失中间文字、重启后消息丢失、连接丢失卡片把「重试」当成用户消息发送、Stop 按钮在长时间无输出时消失；删除对话框会提示将暂停在该会话中运行的定时任务；新增对上传失败原因的说明（如页数过多、加密、超时）。</li>
-<li><strong>模型与用量</strong>：修复 Fable 周限额在终端不显示重置时间和选项菜单；修复等待选项被拒后静默推迟到更晚的重置时间；<code>/usage</code> 对 setup token 与 <code>CLAUDE_CODE_OAUTH_TOKEN</code> 保留会话与周限额条并说明其余缺失原因。</li>
-<li><strong>性能与其他</strong>：大量子代理时更早释放已完成子代理的转录以降低内存占用；安装脚本不再重复下载最新版本；WebFetch 在深层嵌套页面上更快更省内存；OpenTelemetry 相关修复（默认协议、代理、超时上限调整为 25 秒、坏属性条目不再丢弃整组属性等）；Code Review 管理设置新增「下载 CSV」，可按月/周/日导出各仓库的评审成本。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/anthropics/claude-code/releases/tag/v2.1.323</guid>
-      <pubDate>Thu, 12 Nov 2026 22:12:13 GMT</pubDate>
     </item>
   </channel>
 </rss>

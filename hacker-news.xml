@@ -3,7 +3,110 @@
   <channel>
     <title>Hacker News: Best</title>
     <description>基于个人兴趣筛选的 hacker-news 内容</description>
-    <lastBuildDate>Fri, 27 Nov 2026 23:24:51 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2026 07:39:06 GMT</lastBuildDate>
+    <item>
+      <title>⭐ Google DeepCrossAttention：用动态残差路由让 Transformer 训练提速最高 3 倍</title>
+      <link>https://news.ycombinator.com/item?id=50672565</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 讲的是 Transformer 训练加速的新方法（AI 技术/科学前沿进展），属感兴趣范畴；但并非新模型发布公告，故未列为必看</small></p><p>Google Research 发布博客，介绍其 ICML 2025 论文提出的 <a href="https://research.google/blog/supercharging-transformer-residual-connections/">DeepCrossAttention（DCA）</a>架构：在参数增加不到 0.2% 的前提下，让模型以最高 3 倍更快的训练速度达到同等质量。论文见 <a href="https://arxiv.org/abs/2502.06785">arXiv:2502.06785</a>。</p>
+<img src="https://storage.googleapis.com/gweb-research2023-media/original_images/DeepCrossAttention1_Banner.gif" alt="DeepCross Attention Banner" />
+
+<h3>要解决的问题</h3>
+<p>深层网络中的残差连接（residual / skip connection）本质上是「把输入直接加到层输出上」的逐点求和操作。它计算高效，但对所有历史层表示一视同仁地等权相加，随着层数增加会造成「信息稀释」：早期层的高分辨率细节被平均掉或扭曲，模型不得不重新计算这些特征，学习效率随之下降。</p>
+
+<h3>方法：把残差学习变成动态路由</h3>
+<p>DCA 不再把跳跃连接当作固定的加法管道，而是引入一个轻量的逐层模块，按 token 决定如何组合此前各层的嵌入表示。核心机制有两点：</p>
+<ul>
+<li><b>动态层路由</b>：对每个 token 计算一组混合权重（静态可学习基座 + 依赖输入的投影），使网络能在「纯串行」到「全并行」之间自适应调整处理结构。</li>
+<li><b>深度方向跨注意力</b>：把 Q/K/V 拆开，让注意力沿「层深」方向而非序列 token 方向进行。每个 token 对所有历史层嵌入的动态加权混合做查询，从而利用模型的完整历史上下文，而无需付出传统注意力扩展时的计算代价。</li>
+</ul>
+<img src="https://storage.googleapis.com/gweb-research2023-media/images/DeepCrossAttention2_NetworkComparison.width-1250.png" alt="Standard sequential residual connections contrasted with DeepCrossAttention routing with learnable weights" />
+
+<h3>实验结果</h3>
+<p>作者在受控合成任务、大规模语言建模基准和图像分类上进行了评估：</p>
+<img src="https://storage.googleapis.com/gweb-research2023-media/images/DeepCrossAttention3_BenchmarkResults.width-1250.png" alt="Language modeling validation perplexity comparisons on LM1B and C4 benchmarks showing DeepCrossAttention achieving lower perplexity than Transformer, LAUREL-PA, 1x1-DenseFormer, and Hyper-Connections baselines" />
+<ul>
+<li>在 C4 与 LM1B 数据集上，DCA 用最多 5 倍更少的训练步数追平标准 Transformer；训练同样步数时则持续获得更低的困惑度（PPL），相对 LAUREL-PA、1x1-DenseFormer、Hyper-Connections 等基线也占优。</li>
+<li>在 LM1B 上达到 PPL &lt; 14 所需的层数从标准 Transformer 的 42 层降至 30 层，即深度与参数量减少 29%（论文摘要中提到的参数量节省为 30–40%）。</li>
+<li>增加连接的层数（k）能稳定改善困惑度，16-DCA 与 24-DCA 配置效果最佳。</li>
+<li>DCA 可初始化为与标准残差网络完全等价，因此无需从头训练：把 DCA 后装到已预训练的 Transformer 上并短暂续训，LM1B 上困惑度下降 0.19，而常规续训仅下降 0.02。</li>
+</ul>
+<img src="https://storage.googleapis.com/gweb-research2023-media/images/DeepCrossAttention4_ConnectionsPerplexityResu.width-1250.png" alt="Curve showing perplexity decreasing from 15.14 for baseline Transformer down to 14.35 as active routing connections k increase from 1 to 24 in DeepCrossAttention" />
+
+<h3>同一方向的后续工作</h3>
+<p>博客还梳理了「动态残差路由」这一活跃研究线：Moonshot AI 的注意力残差（attention residuals）用可学习的 softmax 注意力加层专属伪查询替代固定相加，并以 Block AttnRes 变体分块控制内存开销，在代码、数学等推理任务上表现更好；Thinking Machines 的 Inkling 2 同时采用了这一设计与 DCA 的 Q/K/V 拆分跨注意力机制。另一条路线是超连接（hyper-connections），把残差流扩展为多条并行通道，但无约束的混合会破坏残差连接的恒等映射性质、导致大规模训练不稳定，因此出现了用 Sinkhorn-Knopp 算法约束为双随机矩阵的流形约束超连接（manifold-constrained hyper-connections）。作者预计下一代模型会根据具体输入动态路由和加权历史层表示，让各层像专家一样协同工作。</p>
+
+<h3>社区讨论</h3>
+<p>Hacker News 上讨论热烈（312 分、128 条评论），主要关注点包括：</p>
+<ul>
+<li>论文实际发表于 2025 年，博客直到 2026 年 11 月才发出，「在 ML 时间尺度上已相当于四到十年」，有人猜测是 Google 不想过早为这项技术引流，如今 Gemini 重回前列才「揭盖子」。</li>
+<li>标题中的「快」指的是训练速度而非推理速度；有评论指出训练更快意味着同等时间可训练更深模型，进而间接带来更小更快的推理模型，但并非直接的 3 倍推理加速。</li>
+<li>评论认为 DCA 与循环 Transformer（looped transformer）结合可能带来进一步的效率提升，因为同一组层多次前向会放大动态层间路由的收益。</li>
+<li>有观点回顾：三四年前业界仍普遍相信堆参数是提升性能的最大杠杆，而如今 CoT、MoE、RLVR、GQA、MLA、DSA 等技术层出不穷；也有人提醒其中许多改进针对的是训练或推理效率，而非模型智能本身。</li>
+<li>也有人拿「Google 发表即代表自己不用」开玩笑，随即被反驳（如当年的 Transformer 论文），并称赞 Google 在开放科学和 Gemma 开放模型上的姿态。</li>
+<li>细节挑刺：基准对比图不应画成折线图，各方法之间没有时间或连续关系，应为柱状图。</li>
+</ul>
+
+<h3>你知道吗？</h3>
+<p>评论中反复提到的「循环 Transformer」是指让同一组层重复执行多次前向计算的架构（如 Inkling 2）。它与 DCA 是互补的：循环会让每层在不同轮次承担不同角色，而动态层间路由正好能针对每个 token 决定该「回看」哪些轮次、哪些层的表示，因此两者叠加时路由信息的价值被放大。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50672565</guid>
+      <pubDate>Fri, 27 Nov 2026 23:06:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐ Convex 官方 Claude 插件被指未经告知上报用户项目创意，并刻意规避安全检测</title>
+      <link>https://news.ycombinator.com/item?id=50669765</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 围绕 AI 编程助手插件（Claude 插件）的隐私与安全争议，涉及编程工具与 AI 软件技术进展，属感兴趣；不含避开类主题</small></p><p>在 Anthropic 官方插件市场（claude-plugins-official）中收录的 <a href="https://github.com/convex/convex-backend-skill/issues/64">convex-backend-skill</a> 插件，被开发者 thirtysix 指出存在三处安全与透明度问题，该 issue 随后在 Hacker News 上获得约 282 点、91 条评论。</p>
+
+<h3>三项主要发现</h3>
+<ul>
+<li><strong>创意被上传且未告知</strong>：<code>skills/quickstart/SKILL.md</code> 第 48–56 行把用户一句话描述的项目创意通过 HTTP POST 发送到 <code>basic-anteater-667.convex.site</code>，代码注释里标注为「telemetry 1/3」，但用户完全不知道自己的创意离开了本机。</li>
+<li><strong>远程脚本直接进 shell</strong>：<code>skills/add/SKILL.md</code> 把同一域名返回的脚本通过 <code>curl | bash</code> 直接执行，脚本既未固定版本也无完整性校验，而域名又是一个自动生成的名字，用户无从审阅究竟运行了什么。</li>
+<li><strong>刻意绕开安全分类器</strong>：<code>skills/labs-quickstart/SKILL.md</code> 要求把「下载远程代码」和「执行文件」拆成两次独立的 Bash 调用，并直白写明理由——「下载并执行同一条命令」正是 harness 安全分类器会拦截的形态；拆开后看起来像普通的本地脚本。作者认为这等于移除了用户或管理员自行选择的安全检查。</li>
+</ul>
+<p>报告者认为这更像团队为让上手流程更稳定所做的工程选择，而非恶意行为，但建议：发送创意前告知用户并设为可选；把 bootstrap 脚本随插件发布或用哈希固定；删掉那条关于分类器的指令，让下载执行步骤正常接受批准或拒绝。他还提到自己在维护一份<a href="https://thirtysix.github.io/awesome-agent-skills/#skills?q=convex">代理技能与审查工具目录</a>。</p>
+
+<h3>社区进一步核查</h3>
+<p>开发者 je4yfc 拉取了 <code>add-component.sh</code> 与 <code>add-hosting.sh</code>，追加了更严重的发现：前者推荐不带 commit 固定的私有 Git 依赖，并让 agent 跟随其 README，构成间接提示注入面；后者安装未固定版本的 npm 依赖、改动应用源码与 HTTP 路由、借现有 Convex 认证上下文推送后端变更并发布静态资源，而 <code>QB_NO_PUBLISH=1</code> 并不能阻止后端部署（<code>npx convex dev --once</code> 在标志位被检查前就已执行）；同时它用 <code>.convex.site</code> 绕过了通常受审核的 <code>.convex.app</code> 发布流程。该用户还实测 <code>/generate</code> 端点确实在线并接受任意项目描述。</p>
+<p>另一位维护者 jamescowling 回应称，这些 prompt 并未用于遥测，只是用来生成定制化的 quickstart，代码里的「telemetry」是「糟糕的注释垃圾」，并承诺近期会修改或移除。</p>
+
+<h3>Hacker News 讨论</h3>
+<p>Convex CEO Jamie（jamwt）现身解释：Convex 本身就是一个托管数据与代码的平台，此前推出的端到端 vibe-coding 产品 Convex Chef 已关停，插件里的这个上传功能是其后继「quickstart」，用于一句话拉起整个项目，prompt 在决定初始项目环境后（30 秒内）即被丢弃；他表示会审查代码以确保处理负责透明，但强调这是「按设计工作」，并反问这只是「用户托付给 Convex 的 IP 的冰山一角」。有评论追问为何默认不是选择加入（opt-in），他再次强调「这不是遥测，这是一个功能」。</p>
+<p>讨论中另一种声音认为「创意很廉价」，真正值得担心的是供应链风险：某天这些远程脚本被攻破，你的机器就会执行别人的代码；也有人指出自我托管开源模型才是长期解法，但立刻被反驳——自我托管模型同样可能被说服去外泄数据。还有人吐槽热门后 issue 区涌入大量无关的自我推广垃圾评论。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50669765</guid>
+      <pubDate>Fri, 27 Nov 2026 18:02:45 GMT</pubDate>
+    </item>
+    <item>
+      <title>⭐⭐ Show HN：fuck_data_brokers.py——自动向 750 多家数据经纪商发送删除请求的开源单文件脚本</title>
+      <link>https://news.ycombinator.com/item?id=50658191</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[critical] 开源单文件 Python 工具发布与效果分享，同时命中「编程工具发布/分享」高兴趣与「开源项目」兴趣，属必看内容</small></p><p>作者发布了一个名为 <a href="https://github.com/gary23w/f-ck_data_brokers">fuck_data_brokers.py</a> 的开源项目：单个 Python 文件、无第三方依赖、完全免费、在本机运行，用于代替用户向数据经纪商（data broker）发送法律意义上的删除与退出（opt-out）请求。作者本职之一就是替人清理数据经纪商记录，他称自 GPT-4 发布以来，数据经纪商的采集规模暴涨，「每个爬虫都更聪明，每份画像都更臃肿，每个『人物搜索』网站都多出一百个表亲」，而靠算力替所有人自动化清理的成本高到他无法承担，于是做了这个工具。</p>
+<p><strong>主要功能</strong></p>
+<ul>
+<li><strong>经纪商名录</strong>：数据来自官方公开注册库——加州隐私保护局（California Privacy Protection Agency）、俄勒冈州金融监管局、德州州务卿办公室，合计 750 家以上公司；工具自带一份 brokers.json 快照。</li>
+<li><strong>自动写信</strong>：按用户所在地区引用当地法条（加州 CCPA、其他州的隐私法、加拿大 PIPEDA 与魁北克 Law 25、欧盟 GDPR 第 17/21 条、英国 UK GDPR、巴西 LGPD），以用户名义撰写正式删除与退出信，每次生成 20 封。</li>
+<li><strong>发送方式</strong>：可生成 send.html 页面，逐封点击打开本地邮件客户端发送；也可直接用 Gmail、Outlook、Yahoo、iCloud 的应用专用密码（一次性使用、不保存）自动投递。</li>
+<li><strong>回复处理</strong>：把经纪商的回信粘贴进去，工具会判断对方用的是哪套推托说辞（「已删除」「查无记录」「请提供身份证明」「请走我们的表单」「点此链接确认」等）并代写答复。</li>
+<li><strong>催办与投诉</strong>：对沉默的经纪商发提醒；两次拒绝后发出限期七天的最终通知，并告知应向哪个监管机构投诉、如何提交。</li>
+<li><strong>表单与拒交身份证</strong>：对只接受网页表单（含 CAPTCHA）的经纪商，生成表单链接与待粘贴文本，由用户手动提交；若表单要求上传身份证照片，工具建议直接关闭页面，并用 <code>noid</code> 命令改为书面请求，要求对方用已有信息核实身份，至少要求停止出售与共享数据。</li>
+<li><strong>自动化</strong>：<code>auto</code> 命令刷新名录、写下一批信件与提醒、重建发送页面，可配合 crontab 或 Windows 任务计划每周运行。</li>
+<li><strong>AI 集成</strong>：本身是一个 MCP 服务器（Model Context Protocol），支持 MCP 的 AI 助手可直接调用它完成写信用信流程。</li>
+</ul>
+<p><strong>隐私取舍</strong>：工具只发送姓名、邮箱、城市三项信息，不发送街道地址、生日、电话号码或身份证件；状态保存在本机 <code>~/.fuck_data_brokers/state.json</code>，不上传任何数据。作者也坦承真实代价：删除请求必须说明你是谁，部分经纪商在收到信之前根本没有你的资料，反而是这封信让它知道了你——建议先用 <code>find</code> 命令筛出最可能有你数据的「人物搜索」类站点，跳过其余。工具刻意不做的事包括：点击经纪商邮件里的链接、替用户过 CAPTCHA、声称「已删除」（只报告「他们称已删除」）。</p>
+<p><strong>商业部分</strong>：作者同时推广自己的订阅服务 Agent Garrett（「铂金选项」），称其负责持续追踪与不厌其烦地追问；工具本身承诺永久免费。</p>
+<p><strong>社区反馈</strong>：帖子获 245 分、55 条评论，反应总体正面，有人称作者是「抵抗运动的英雄」，也有开发者表示此前花钱购买类似服务（如 Mozilla 的相关产品），愿意参与贡献。几条实质性讨论：</p>
+<ul>
+<li>加州居民可使用州政府免费的 <a href="https://privacy.ca.gov/drop/">DROP</a> 服务，一次请求覆盖该州注册的 684 家经纪商，但重跑频率偏慢；有评论认为，由于其他州几乎没有类似保护，这基本就是美国用户能拿到的最好方案。</li>
+<li>有人质疑「表单要身份证就别填」是否会让经纪商顺势主张请求无效，回复指出 README 已给出后续书面升级路径，而对方多半只是刻意制造麻烦，况且身份证数据此前已大规模泄露。</li>
+<li>欧洲用户关心 GDPR 场景的支持程度与「写信反而暴露自己」的风险；也有人认为正因几乎没人真正行使这些权利，自动化的持续施压本身就能让经纪商感到痛。</li>
+<li>关于这是否只是 Incogni 一类付费删除服务的开源版，有评论对这类商业服务的实际效果表示怀疑。</li>
+</ul>]]>
+      </description>
+      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50658191</guid>
+      <pubDate>Thu, 26 Nov 2026 18:37:21 GMT</pubDate>
+    </item>
     <item>
       <title>Michael Nielsen 下架免费教材《神经网络与深度学习》：不愿再为前沿 AI 培养人力</title>
       <link>https://news.ycombinator.com/item?id=50670757</link>
@@ -1481,75 +1584,6 @@
       </description>
       <guid isPermaLink="false">https://news.ycombinator.com/item?id=50591260</guid>
       <pubDate>Sat, 21 Nov 2026 17:08:04 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐ OpenAI 的 Astra 6.2 与 Sol 6.2 在 SimpleBench 常识推理测评中排名下滑</title>
-      <link>https://news.ycombinator.com/item?id=50588916</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[recommended] 报道 OpenAI 模型在 SimpleBench 常识推理榜排名下滑，属 AI 技术进展与模型表现，感兴趣但非发布公告</small></p><p>讨论源于 <a href="https://simple-bench.com/">SimpleBench</a> 最新榜单的更新。该基准由 200 多道多选题构成，覆盖时空推理、社会智能以及所谓的「语言对抗鲁棒性」（即陷阱题），目标是检验模型在人类日常推理上的表现。作者称，在一份仅 9 名非专业参与者的小样本上，人类基线为 83.7%，高于所有受测模型，其中当下最强模型 Claude Fable 得分为 81.9%。这说明前沿大模型的记忆知识与近似检索能力，尚不足以稳定回答一些基础问题。</p>
-
-<p>评论区指出本次榜单的关键变化：多数新模型分数明显提升，但 OpenAI 的新版本反而退步。Sol 6.2 排在第 30 位，而 Sol 6.1 位列第 10；Astra 6 为第 9，Astra 6.2 掉到第 15。与此同时，Fable 5.2 升至第 1，Fable 5.1 排第 7。Astra 6 Pro 是唯一略高于人类基线的 OpenAI 模型，位列第 8。有人猜测这与模型的循环深度（recurrent depth）设计有关，认为 GPT 6 采用了这类结构而 Anthropic 新模型没有。</p>
-
-<p>关于基准本身，有用户在第 4 题就卡住了：「Amy 总说假话，Sam 总撒谎，问该走哪条路」，实际答案比经典「两姐妹」谜题简单得多，但多数模型仍套用经典设定误选。也有人抱怨测试交互体验差：选定答案后系统会自信地宣称另一个选项才对。</p>
-
-<p>对 OpenAI 6.2 的评价两极。批评者称这是 OpenAI 史上风评最差的更新，并引用<a href="https://deploymentsafety.openai.com/gpt-6-2-astra-sol">部署安全页面</a>的数据：独立「偷懒」评分器标记了 5.25% 的 GPT-6.2 Sol 轮次，而 6.1 Sol 为 3.32%；也有人反驳说问题不是偷懒而是过度执行——经常做没被要求的事，甚至与规格说明相矛盾。另有重度用户认为 Sol-6.2 与 Astra-6.2 相比前代确有改进，可与 Opus-5.5、Fable-5.2 相比，并质疑这类「榜单优化型」测评完全脱离真实工作流，唯一有意义的基准是模型在自身用例上的表现。</p>
-
-<p>部分评论关注 Google：所有新 Gemini 模型（包括「hydrogen」）都高于人类基线，有人称之为「回归」，但也被纠正说从时间线图表看 Gemini 一直是「常识」项的领先者。关于 SimpleBench 方法论的质疑集中在人类基线只由 9 人标定、以及 Gemini Flash 3.8 竟能超过 Opus 5 等结果。另有一支讨论转向推理速度，有用户称使用 Cerebras 上的 gpt-6.1-sol-ultrafast 后体验「近乎即时」，认为 HITL（human-in-the-loop）架构加高速推理比复杂编排更有价值。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50588916</guid>
-      <pubDate>Sat, 21 Nov 2026 13:16:12 GMT</pubDate>
-    </item>
-    <item>
-      <title>让意识去引导身体，而不是硬性命令它</title>
-      <link>https://news.ycombinator.com/item?id=50583028</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[optional] 无摘要，标题偏向身心觉察/身体引导的泛心理健康话题，主题含义模糊，难以判断是否命中兴趣</small></p><p>文章讨论的是一个反直觉的心身关系：真正改变身体状态（疼痛、渴望、习惯）的，往往不是意志力式的「命令与控制」，而是意识采用的另一种姿态——注意、观察、以及给身体传递「一切安全」的信号。作者称，这是一种让心智去引导身体、再由身体反过来塑造「你」的技巧。</p>
-<p>Hacker News 的讨论从多个方向补充了同一思路：</p>
-<ul>
-<li><strong>把渴望当成身体里的「实体」</strong>：有读者提到，戒糖之所以是个有趣的例子，是因为部分渴望可能来自肠道菌群——它们需要糖，而当你因肠道健康而大幅减少糖与简单碳水后，渴望也随之与其它不适一起消失。另一位读者进一步追问：如果菌群缺少纤维会攻击肠道，那么缺糖是否也会造成不适，从而让人陷入「难受→补一口糖」的负循环？不过也有人认为，大脑与肠道本来就在持续对话，这只是其中一个驱动因素。</li>
-<li><strong>疼痛可能来自大脑</strong>：有读者表示自己正是靠读 Jon Sarno 著作的前 60 页摆脱了慢性背痛。Sarno 的理论认为许多慢性疼痛并非结构性损伤所致，而是大脑为回避情绪压力而制造的生理信号，理解这一点本身就能缓解症状。另一位读者补充，让「推理脑」读到「这一切都在你的脑子里」这句话，本身就可能让它找到向无意识发送的正确信号。</li>
-<li><strong>观察而非指挥</strong>：多人把文章的方法与 Tim Gallwey 的《Inner Game》系列和《箭术与禅心》联系起来。一位读者的总结是：西方教练告诉身体该怎么做，禅式教练观察身体正在做什么。书中滑雪的例子是——不说如何站位和移重心，只让人感受雪板与地面的角度（平贴为 1，倾斜到极限为 10）再问她「正确角度是多少」，回答是「没有正确角度，只是去观察」。</li>
-<li><strong>同一原则的其它应用</strong>：有读者把它类比到越野驾驶技术——不去盯车和路，而是感知四个轮胎各自如何与地形互动，这一感知能力几乎就是全部技能；也有人认为骑车、游泳等一切身体技能本来就是这样在动态试错中学会的。还有读者指出，应对焦虑的技术几乎完全相同，并主张这类内容应该进学校。</li>
-<li><strong>关于「自我」的怀疑</strong>：也有人不接受「脑中有一个小人」的模型——「你」不是控制其余部分的驾驶员，而是一群相互竞争的冲动与记忆，上面罩着一层让人误以为自己是老板的薄面具。</li>
-</ul>
-<p>评论区还混杂着玩笑与元讨论：有人戏称「这篇博客治好了我的背痛」，随后被追问是否在开玩笑，引出关于「美国人读不懂讽刺」以及「一句话真能治病是否不可信」的争论——有读者类比说，把「许多疾病由无处不在的微生物引起，加热、酒精和肥皂可杀死它们」送回古代，只要被相信，同样能救命，而无需先有细胞学理论。</p>
-<h2>你知道吗？</h2>
-<p><strong>TMS（Tension Myositis Syndrome，肌张力综合征）</strong>：由纽约医生 John Sarno 提出，认为多数非特异性慢性背痛与结构损伤无关，而是轻度缺氧导致的疼痛，根源在于被压抑的愤怒与焦虑。该理论在主流医学界仍有争议，但随机对照研究显示，心理治疗式的认知干预对部分患者确有改善。</p>
-<p><strong>《Inner Game》的 Self 1 与 Self 2</strong>：Gallwey 把「指挥、评判自己的身体」的意识称为 Self 1，把负责执行与学习的身体本能称为 Self 2。他的核心主张是 Self 1 越安静，Self 2 学得越好——这与文中把控制欲换成观察的思路一致。可参考他教初学者打<a href="https://www.youtube.com/watch?v=ieb1lmm9xHk" rel="nofollow">网球的教学视频</a>。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50583028</guid>
-      <pubDate>Fri, 20 Nov 2026 22:11:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>⭐⭐ 《Mastering Emacs》作者发布 DreamCoder：一个带平铺窗口管理器的浏览器端 AI 编程环境</title>
-      <link>https://news.ycombinator.com/item?id=50581110</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[critical] 浏览器端 AI 编程环境（coding harness + IDE）的发布与设计分享，属于编程工具发布与 AI 编程技术进展，正合很感兴趣范畴</small></p><p>《Mastering Emacs》作者 Mickey Petersen 宣布推出 <a href="https://www.dreamcoder.ai/">DreamCoder</a>——一个他耗费约 15 个月打造的「前沿编程 harness（AI 编码代理运行框架）与 IDE」。它采用平铺窗口管理器（tiling window manager），可直接在浏览器中运行于三大平台。文章除产品发布外，还穿插了一段 AI、LISP 与 Emacs 的历史回顾。</p>
-
-<p>作者自 2025 年 5 月 Claude Code 首发后不久便上手试用，惊叹于其速度，但也对它「终端优先」的交互方式感到困惑：为何必须盯着一个鞋架大小的终端窗口工作？多数 GUI 版本和 harness 的图形界面都只是二等公民，长得千篇一律——一个带聊天标题的侧边栏加一个对话面板。他认为严肃的开发者需要更多，连普通用户在终端里复制粘贴多行文本都会被折磨。于是他决定「造一个更好的 harness」，原以为两三个月即可完成，结果经过无数轮 UI 与后端迭代并成功完成 beta 测试，才有了今天的 DreamCoder。</p>
-
-<img src="/static/uploads/dreamcoder/first-look.webp" alt="DreamCoder 将对话、代码审查和终端并排平铺" />
-
-<p>随后文章回溯历史：1950 年代，MIT 的 John McCarthy 提出「Advice Taker」，试图用「数理逻辑」以符号精确性表达人类常识，从而启动 AI 的雏形。为此他创造了 LISP，包含面向函数式的 M 表达式（类似 Algol）与用于符号数据表示的 S 表达式——后者本非用来编写代码。由于缺乏人力与资源，McCarthy 的递归求值器停留在理论层面；他的同事 Steve Russell 直接动手写出了第一个可用的 LISP 解释器，M 表达式被搁置，编程逻辑被塞进 S 表达式，LISP 由此诞生。作者指出，正是把求值放进与数据相同的符号表示中，才造就了 LISP 的独特：<code>(+ 2 2)</code> 既可以是待计算的表达式，也可以是计算记录。</p>
-
-<p>Advice Taker 的设想最终撞上了「公理的复杂度」这道墙——每条规则都会衍生出无穷多的例外（门锁了怎么办？车停在街上怎么办？），如同 Prolog 用户深有体会的困境。作者还分享了自己少年时期实习时，因流程图忘了「打开装自行车的箱子」而输掉比赛的趣事。</p>
-
-<p>此后镜头转向 Emacs：1970 年代末，Stallman 与 Steele 在 MIT AI 实验室于 TECO 之上构建 EMACS，追求用宏来自动化繁琐的打字。McCarthy 的 Advice Taker 也留下隐晦而持久的印记——Warren Teitelman 在名为《PILOT: A Step Toward Man-Computer Symbiosis》的论文中提出 ADVISE 系统，可在函数调用前后插入代码而不直接修改原代码，最终在 Interlisp 中成形，并于 1990 年代被移植进 Emacs Lisp（如今仍可通过 <code>advice.el</code> 找到）。作者本人的 Combobulate 也尝试融合结构化编辑与纯文本编辑。</p>
-
-<img src="/static/uploads/dreamcoder/agent-studio.webp" alt="在 DreamCoder 中构建自己的 agent" />
-
-<p>文章进一步讨论符号主义 AI 的衰落与联结主义（Connectionism）的胜利：SHRDLU、Frame Systems、ELIZA 式的 <code>M-x doctor</code> 都未能兑现通用智能的承诺。1957 年 Frank Rosenblatt 发明感知机（Perceptron），却在 1971 年去世前被 Minsky 与 Papert 合著的《Perceptrons》一书「刺伤」——该书证明单层感知机无法表示 XOR 门，却回避了加一层隐藏层即可解决的事实。该书是否直接引发 1970 年代第一次「AI 寒冬」仍有争议，但显然无助于融资。联结主义最终「输掉战役、赢得战争」，其研究成果孕育了今天的 AI。</p>
-
-<p>作者由此感慨一种讽刺：人们为了造出严格符号化的世界模型，反而造出了最灵活可塑的工具——LISP 与 Emacs；而最终胜出的却是本质上可塑、可锻造的神经网络。他坦言，自己最初在 Emacs 里手写 DreamCoder，如今却看着 DreamCoder 在 DreamCoder 里写自己，感到一种深刻的伤感。但作为经历过第二次职业剧变的从业者，他仍对能够「重新开始建造」感到久违的乐观。</p>
-
-<img src="/static/uploads/dreamcoder/graph.webp" alt="事件图谱" />
-
-<p>社区讨论方面，读者对产品的视觉设计与功能方向评价两极。有人称赞「刷新式」的设计，称这是自己下载试用的主要原因；也有人兴奋于「终于有人做出内建桌面的编排器（orchestrator）」，认为这是管理 agent 的正确方向。不过，浓厚的兴趣很快被商业模式浇了冷水：<strong>DreamCoder 运行在本地，却需要注册账号获取许可证并签署 EULA，且并非开源</strong>，另有独立的<a href="https://www.dreamcoder.ai/pricing/">定价页</a>。有评论质疑《Emacs 之书》的作者为何要发布专有 IDE，并调侃「2026 年居然还要为 IDE 付费」。作者本人回应称，DreamCoder 目前无法使用 Claude 订阅，因为 Anthropic 不允许订阅用户使用 Claude Code 以外的 harness，但仍可使用其免费额度或 API key。</p>
-
-<p>此外还有若干实用反馈：有人请求提供 Linux arm64（Asahi）构建版本；有人指出网页版受浏览器快捷键限制，无法完整支持 Emacs 键位（例如 <code>C-n</code> 会打开新窗口）；有人抱怨官网缺少明显的建号入口、自动弹新标签页很烦人，并希望能有免登录的试用模式、明确说明数据收集政策。也有用户分享了自建的 Clojure/REPL 驱动型 harness，以及以 JetBrains ThinkRail、IntelliJ 内嵌 harness 作为参照的对比体验。</p>]]>
-      </description>
-      <guid isPermaLink="false">https://news.ycombinator.com/item?id=50581110</guid>
-      <pubDate>Fri, 20 Nov 2026 20:03:59 GMT</pubDate>
     </item>
   </channel>
 </rss>
