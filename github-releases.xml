@@ -3,7 +3,27 @@
   <channel>
     <title>GitHub 软件版本更新</title>
     <description>基于个人兴趣筛选的 github-releases 内容</description>
-    <lastBuildDate>Sat, 28 Nov 2026 07:38:43 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 28 Nov 2026 16:49:08 GMT</lastBuildDate>
+    <item>
+      <title>fx 39.2.0 发布：流式模式支持比较过滤与 map 函数</title>
+      <link>https://github.com/antonmedv/fx/releases/tag/39.2.0</link>
+      <description>
+        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p><a href="https://fx.wtf">fx</a> 是一款终端 JSON 查看与处理工具，本次发布 39.2.0 版本，重点改进了<strong>流式模式（streaming mode）</strong>下的处理能力。</p>
+<h3>重要改动</h3>
+<ul>
+<li><strong>流式模式下的过滤能力增强</strong>：现在可以在流式模式中使用带比较运算的过滤表达式，例如 <code>?.value &gt;= 42</code>。此前这类比较过滤在逐条流式处理时不可用。</li>
+<li><strong>map 函数支持流式模式</strong>：<code>map</code> 函数经过改进，同样可用于流式模式，便于对流中的每个 JSON 条目进行批量变换。</li>
+</ul>
+<h3>其他改动</h3>
+<ul>
+<li>本次发布说明未提及其他调整、性能优化或缺陷修复。</li>
+</ul>
+<h3>你知道吗？</h3>
+<p>fx 的流式模式主要用于处理以换行分隔的 JSON 流（JSON Lines / NDJSON）或体量很大的 JSON 数据：它不把整个文档一次性载入为单一 JSON 对象，而是逐条读取、逐条处理并输出。因此像过滤、映射这类操作需要针对"每条记录"的语义重新实现，这也是本次两个改动都围绕流式模式展开的原因。</p>]]>
+      </description>
+      <guid isPermaLink="false">https://github.com/antonmedv/fx/releases/tag/39.2.0</guid>
+      <pubDate>Wed, 12 Nov 2025 09:45:39 GMT</pubDate>
+    </item>
     <item>
       <title>bat v0.27.0 发布：新增 --sanitize 防欺骗显示、--unbuffered 流式输出与首次运行自动构建缓存</title>
       <link>https://github.com/sharkdp/bat/releases/tag/v0.27.0</link>
@@ -1679,33 +1699,6 @@
       </description>
       <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.169.0</guid>
       <pubDate>Fri, 13 Nov 2026 08:37:05 GMT</pubDate>
-    </item>
-    <item>
-      <title>OpenAI Codex 0.168.0：新增模型提供商选择与 TUI 侧边对话面板</title>
-      <link>https://github.com/openai/codex/releases/tag/rust-v0.168.0</link>
-      <description>
-        <![CDATA[<p><small style="opacity: 0.7;">[unknown] 未分级</small></p><p>OpenAI Codex 发布 <a href="https://github.com/openai/codex/releases/tag/rust-v0.168.0">0.168.0</a>，重点改进终端界面的模型配置、并行对话和多媒体能力。</p>
-<h3>重要改动</h3>
-<ul>
-<li><strong>模型提供商浏览与默认选择：</strong>可在 Sessions → Model providers 中浏览模型提供商，并为新对话设置默认提供商；已打开或恢复的对话仍沿用各自保存的提供商，不会因默认值变化而被切换。</li>
-<li><strong>TUI 侧边对话面板：</strong>启用 <code>features.tui_workspace</code> 后，可在主对话旁查看侧边对话。支持拖动分隔条调整面板大小，或用 <code>leader z</code> 放大当前聚焦面板，并提供键盘控制来调整尺寸、缩放和隐藏侧边面板。</li>
-<li><strong>音频附件：</strong>使用支持音频的模型时可直接附加录音。Codex 会在后续轮次跳过已确认被拒绝的录音，并根据片段时长进行预算，让更多短录音保留在上下文中。</li>
-<li><strong>动画 GIF 生成：</strong>启用 <code>features.image_generation_animation</code> 后，可生成或编辑动画 GIF，并可选设置帧数和时序。</li>
-<li><strong>tmux 图像与宠物显示：</strong>在 Ghostty 和 Kitty 中配置 <code>allow-passthrough all</code> 后，全屏 Codex 可在 tmux 内显示图片预览和宠物。</li>
-<li><strong>终端通知：</strong>新增 <code>tui.notification_method = "osc777"</code> 选项；审批通知会显示更长的命令预览，并区分终端输入请求与网络访问请求。</li>
-</ul>
-<h3>其他改进</h3>
-<ul>
-<li>本地 TUI 历史和恢复选择器会按当前登录的 ChatGPT 账户过滤新建线程；恢复对话时会正确恢复推理摘要，被工具调用打断的回复会合并显示为一条 Markdown 消息。</li>
-<li>修复在最终记录保存期间或切回长时间运行对话后发送的引导消息无法送达的问题。</li>
-<li>模糊文件搜索提高文件名匹配权重，减少仅匹配父目录的结果挤占文件名结果。</li>
-<li>Windows 上空闲的本地 MCP 服务器不再阻塞其他文件系统 I/O。</li>
-<li>弃用 <code>features.multi_agent</code> 配置，并提示改用 <code>agents.enabled</code> 控制子代理工具；贡献者现可在没有 BuildBuddy 凭据的情况下本地运行 Bazel CI 任务。</li>
-<li>app-server 参考文档补充模型提供商列表、自定义网关创建，以及网关、Bedrock 和 GCP 设置更新说明。</li>
-</ul>]]>
-      </description>
-      <guid isPermaLink="false">https://github.com/openai/codex/releases/tag/rust-v0.168.0</guid>
-      <pubDate>Fri, 13 Nov 2026 03:54:29 GMT</pubDate>
     </item>
   </channel>
 </rss>
